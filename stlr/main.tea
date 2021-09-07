@@ -1,0 +1,457 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.3',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 分类碳排放量
+model EmissionsCategoryStatistics {
+  // 排放类型编码
+  emissionDategoryNo: string(name='emission_dategory_no', example='000001'),
+  // 排放类型名称
+  emissionCategoryName: string(name='emission_category_name', example='间接排放'),
+  // 排放量
+  emissions: long(name='emissions', example='11.22'),
+}
+
+// 减排情况统计
+model EmissionsReductionStatistics {
+  // 减排措施类型，可选值：EnergySubstitution-能源替代，SelfDefining-自定义
+  reductionType: string(name='reduction_type', example='EnergySubstitution'),
+  // 减排措施名称
+  reductionMeasureName: string(name='reduction_measure_name', example='使用绿电'),
+  // 减排方案编码
+  reductionProposalNo: string(name='reduction_proposal_no', example='202109111231231231232'),
+  // 减排量
+  reductionEmissions: long(name='reduction_emissions', example='123123.11'),
+  // 减排量单位
+  unit: string(name='unit', example='tCO2e'),
+}
+
+// 每日碳排放量
+model DailyEmissions {
+  // 日期
+  date: string(name='date', example='2021-07-21'),
+  // 排放量值
+  value: long(name='value', example='11.22'),
+}
+
+// 排放范围排放数据统计
+model EmissionsScopeStatistics {
+  // 盘查范围编码
+  inventoryScopeNo: string(name='inventory_scope_no', example='002'),
+  // 盘查范围名称
+  inventoryScopeName: string(name='inventory_scope_name', example='范围一'),
+  // 碳排放量
+  emissions: long(name='emissions', example='222.33'),
+  // 排放占比
+  percentage: long(name='percentage', example='0.11'),
+  // 范围下各分类排放数据
+  categoryEmissionsList: [ EmissionsCategoryStatistics ](name='category_emissions_list', example=''),
+}
+
+model DescribeAcarActivityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model DescribeAcarActivityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 活动主办方名称
+  sponsor?: string(name='sponsor'),
+  // 大型活动名称
+  activityName?: string(name='activity_name'),
+  // 当前开展的活动主体名称
+  enterpriseName?: string(name='enterprise_name'),
+  // 当前活动主体编码
+  enterpriseNo?: string(name='enterprise_no'),
+  // 当前主体活动开始日期
+  enterpriseStartDate?: string(name='enterprise_start_date'),
+  // 当前主体活动结束日期
+  enterpriseEndDate?: string(name='enterprise_end_date'),
+  // 当前活动是否已经经过碳排放认证
+  authed?: boolean(name='authed'),
+}
+
+/**
+ * Description: 查询活动资料描述信息，包括大型会展信息及当前开展的活动日期等等
+ * Summary: 查询当前活动资料信息
+ */
+async function describeAcarActivity(request: DescribeAcarActivityRequest): DescribeAcarActivityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return describeAcarActivityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询活动资料描述信息，包括大型会展信息及当前开展的活动日期等等
+ * Summary: 查询当前活动资料信息
+ */
+async function describeAcarActivityEx(request: DescribeAcarActivityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DescribeAcarActivityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.acar.activity.describe', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DescribeAcarDailyemissionsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model DescribeAcarDailyemissionsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 净排放量
+  netEmissions?: long(name='net_emissions'),
+  // 累计到当前时间的总碳排放量
+  totalEmissions?: long(name='total_emissions'),
+  // 排放量单位
+  unit?: string(name='unit'),
+  //  当前计算完成时间
+  finishTimestamp?: string(name='finish_timestamp'),
+  // 活动期间每日累计的总碳排放量
+  dailyEmissionsList?: [ DailyEmissions ](name='daily_emissions_list'),
+}
+
+/**
+ * Description: 返回当前活动累计的碳排放量，以及每日累计的总排放量。
+ * Summary: 查询当前活动的每日碳排放量
+ */
+async function describeAcarDailyemissions(request: DescribeAcarDailyemissionsRequest): DescribeAcarDailyemissionsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return describeAcarDailyemissionsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 返回当前活动累计的碳排放量，以及每日累计的总排放量。
+ * Summary: 查询当前活动的每日碳排放量
+ */
+async function describeAcarDailyemissionsEx(request: DescribeAcarDailyemissionsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DescribeAcarDailyemissionsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.acar.dailyemissions.describe', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DescribeAcarScopemissionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model DescribeAcarScopemissionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总排放量
+  totalEmissions?: long(name='total_emissions'),
+  // 单位
+  unit?: string(name='unit'),
+  // 各范围的排放情况列表
+  scopeEmissionsList?: [ EmissionsScopeStatistics ](name='scope_emissions_list'),
+}
+
+/**
+ * Description: 查询当前活动各范围的碳排放量，返回各范围的排放占比，以及范围下各分类的碳排放量。
+ * Summary: 查询当前活动各范围的碳排放量
+ */
+async function describeAcarScopemission(request: DescribeAcarScopemissionRequest): DescribeAcarScopemissionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return describeAcarScopemissionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询当前活动各范围的碳排放量，返回各范围的排放占比，以及范围下各分类的碳排放量。
+ * Summary: 查询当前活动各范围的碳排放量
+ */
+async function describeAcarScopemissionEx(request: DescribeAcarScopemissionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DescribeAcarScopemissionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.acar.scopemission.describe', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DescribeAcarReductionemissionsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model DescribeAcarReductionemissionsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 减排情况列表
+  list?: [ EmissionsReductionStatistics ](name='list'),
+}
+
+/**
+ * Description: 获取减排情况，返回多项减排方案实施下相关的减排情况
+ * Summary: 获取减排情况
+ */
+async function describeAcarReductionemissions(request: DescribeAcarReductionemissionsRequest): DescribeAcarReductionemissionsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return describeAcarReductionemissionsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取减排情况，返回多项减排方案实施下相关的减排情况
+ * Summary: 获取减排情况
+ */
+async function describeAcarReductionemissionsEx(request: DescribeAcarReductionemissionsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DescribeAcarReductionemissionsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.acar.reductionemissions.describe', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DescribeAcarLastemissiondataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model DescribeAcarLastemissiondataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 主体活动编码
+  enterpriseNo?: string(name='enterprise_no'),
+  // 盘查范围编码
+  inventoryScopeNo?: string(name='inventory_scope_no'),
+  // 盘查范围名称
+  inventoryScopeName?: string(name='inventory_scope_name'),
+  // 排放类型编码
+  emissionCategoryNo?: string(name='emission_category_no'),
+  // 排放类型名称
+  emissionCategoryName?: string(name='emission_category_name'),
+  // 排放源编码
+  emissionSourceNo?: string(name='emission_source_no'),
+  // 排放源名称
+  emissionSourceName?: string(name='emission_source_name'),
+  // 活动场馆编码
+  enterpriseWorkspaceNo?: string(name='enterprise_workspace_no'),
+  // 活动场馆名称
+  enterpriseWorkspaceName?: string(name='enterprise_workspace_name'),
+  // 排放量计算要素编码
+  emissionsAnalysisFactorNo?: string(name='emissions_analysis_factor_no'),
+  // 排放量计算要素值
+  emissionsAnalysisFactorValue?: string(name='emissions_analysis_factor_value'),
+  // 发生日期
+  occurrenceDate?: string(name='occurrence_date'),
+  // 排放数据录入明细编码
+  emissionDataEntryItemNo?: string(name='emission_data_entry_item_no'),
+  // 排放源用量
+  emissionDourceDosage?: long(name='emission_dource_dosage'),
+  // 用量单位：
+  // WNm3("万Nm3","天然气消耗用量单位"),
+  // GJ("GJ","燃烧产生的热量单位或外购热力单位"),
+  // t("t","制冷剂、灭火器填充剂、化石燃料消耗的质量单位，或者化粪池BOD产生量单位"),
+  // MWh("MWh","外购电力或数据中心用电量单位"),
+  // km("km","公里，通勤用车或员工差旅旅程单位"),
+  // tCO2e("tCO2e","吨二氧化碳当量，排放气体产生的二氧化碳当量"),
+  // PCT("%","百分比，如碳氧化率，或者气体逸散率");
+  dosageUnit?: string(name='dosage_unit'),
+  // 数据录入人账号
+  submitterNo?: string(name='submitter_no'),
+  // 提交人姓名
+  submitterName?: string(name='submitter_name'),
+  // 数据录入时间
+  submissionTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='submission_time'),
+  // 盘查排放类型的数据录入方式：
+  // ManualEntry("手动录入方式"),
+  // FileUpload("文件导入方式"),
+  // AutoGeneration("自动产生");
+  dataEntryType?: string(name='data_entry_type'),
+}
+
+/**
+ * Description: 查询最近排放数据，返回最近排放数据信息
+ * Summary: 查询最近排放数据
+ */
+async function describeAcarLastemissiondata(request: DescribeAcarLastemissiondataRequest): DescribeAcarLastemissiondataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return describeAcarLastemissiondataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询最近排放数据，返回最近排放数据信息
+ * Summary: 查询最近排放数据
+ */
+async function describeAcarLastemissiondataEx(request: DescribeAcarLastemissiondataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DescribeAcarLastemissiondataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.acar.lastemissiondata.describe', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
