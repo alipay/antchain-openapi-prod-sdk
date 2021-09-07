@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.19'
+                    'sdk_version': '1.5.26'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.19'
+                    'sdk_version': '1.5.26'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -4167,58 +4167,328 @@ class Client:
             await self.do_request_async('1.0', 'twc.notary.contract.merchant.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_contract_merchant(
+    def confirm_contract_merchant(
         self,
-        request: twc_models.QueryContractMerchantRequest,
-    ) -> twc_models.QueryContractMerchantResponse:
+        request: twc_models.ConfirmContractMerchantRequest,
+    ) -> twc_models.ConfirmContractMerchantResponse:
         """
-        Description: 直付通商户入驻信息查询（成功则确认入驻）
-        Summary: 直付通商户入驻信息查询新接口
+        Description: 直付通商户入驻确认（确认成功则表明入驻成功）
+        Summary: 直付通商户入驻确认
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_contract_merchant_ex(request, headers, runtime)
+        return self.confirm_contract_merchant_ex(request, headers, runtime)
 
-    async def query_contract_merchant_async(
+    async def confirm_contract_merchant_async(
         self,
-        request: twc_models.QueryContractMerchantRequest,
-    ) -> twc_models.QueryContractMerchantResponse:
+        request: twc_models.ConfirmContractMerchantRequest,
+    ) -> twc_models.ConfirmContractMerchantResponse:
         """
-        Description: 直付通商户入驻信息查询（成功则确认入驻）
-        Summary: 直付通商户入驻信息查询新接口
+        Description: 直付通商户入驻确认（确认成功则表明入驻成功）
+        Summary: 直付通商户入驻确认
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_contract_merchant_ex_async(request, headers, runtime)
+        return await self.confirm_contract_merchant_ex_async(request, headers, runtime)
 
-    def query_contract_merchant_ex(
+    def confirm_contract_merchant_ex(
         self,
-        request: twc_models.QueryContractMerchantRequest,
+        request: twc_models.ConfirmContractMerchantRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> twc_models.QueryContractMerchantResponse:
+    ) -> twc_models.ConfirmContractMerchantResponse:
         """
-        Description: 直付通商户入驻信息查询（成功则确认入驻）
-        Summary: 直付通商户入驻信息查询新接口
+        Description: 直付通商户入驻确认（确认成功则表明入驻成功）
+        Summary: 直付通商户入驻确认
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractMerchantResponse().from_map(
-            self.do_request('1.0', 'twc.notary.contract.merchant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return twc_models.ConfirmContractMerchantResponse().from_map(
+            self.do_request('1.0', 'twc.notary.contract.merchant.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_contract_merchant_ex_async(
+    async def confirm_contract_merchant_ex_async(
         self,
-        request: twc_models.QueryContractMerchantRequest,
+        request: twc_models.ConfirmContractMerchantRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> twc_models.QueryContractMerchantResponse:
+    ) -> twc_models.ConfirmContractMerchantResponse:
         """
-        Description: 直付通商户入驻信息查询（成功则确认入驻）
-        Summary: 直付通商户入驻信息查询新接口
+        Description: 直付通商户入驻确认（确认成功则表明入驻成功）
+        Summary: 直付通商户入驻确认
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractMerchantResponse().from_map(
-            await self.do_request_async('1.0', 'twc.notary.contract.merchant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return twc_models.ConfirmContractMerchantResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.contract.merchant.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_inner_trans(
+        self,
+        request: twc_models.SyncInnerTransRequest,
+    ) -> twc_models.SyncInnerTransResponse:
+        """
+        Description: baas-notary向notarycore同步生成的事务数据，仅做数据同步使用
+        Summary: 向notarycore同步事务数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_inner_trans_ex(request, headers, runtime)
+
+    async def sync_inner_trans_async(
+        self,
+        request: twc_models.SyncInnerTransRequest,
+    ) -> twc_models.SyncInnerTransResponse:
+        """
+        Description: baas-notary向notarycore同步生成的事务数据，仅做数据同步使用
+        Summary: 向notarycore同步事务数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_inner_trans_ex_async(request, headers, runtime)
+
+    def sync_inner_trans_ex(
+        self,
+        request: twc_models.SyncInnerTransRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SyncInnerTransResponse:
+        """
+        Description: baas-notary向notarycore同步生成的事务数据，仅做数据同步使用
+        Summary: 向notarycore同步事务数据
+        """
+        UtilClient.validate_model(request)
+        return twc_models.SyncInnerTransResponse().from_map(
+            self.do_request('1.0', 'twc.notary.inner.trans.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_inner_trans_ex_async(
+        self,
+        request: twc_models.SyncInnerTransRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SyncInnerTransResponse:
+        """
+        Description: baas-notary向notarycore同步生成的事务数据，仅做数据同步使用
+        Summary: 向notarycore同步事务数据
+        """
+        UtilClient.validate_model(request)
+        return twc_models.SyncInnerTransResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.inner.trans.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_inner_notary(
+        self,
+        request: twc_models.SyncInnerNotaryRequest,
+    ) -> twc_models.SyncInnerNotaryResponse:
+        """
+        Description: 从baas-notary向notarycore同步存证数据
+        Summary: 向notarycore同步存证数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_inner_notary_ex(request, headers, runtime)
+
+    async def sync_inner_notary_async(
+        self,
+        request: twc_models.SyncInnerNotaryRequest,
+    ) -> twc_models.SyncInnerNotaryResponse:
+        """
+        Description: 从baas-notary向notarycore同步存证数据
+        Summary: 向notarycore同步存证数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_inner_notary_ex_async(request, headers, runtime)
+
+    def sync_inner_notary_ex(
+        self,
+        request: twc_models.SyncInnerNotaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SyncInnerNotaryResponse:
+        """
+        Description: 从baas-notary向notarycore同步存证数据
+        Summary: 向notarycore同步存证数据
+        """
+        UtilClient.validate_model(request)
+        return twc_models.SyncInnerNotaryResponse().from_map(
+            self.do_request('1.0', 'twc.notary.inner.notary.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_inner_notary_ex_async(
+        self,
+        request: twc_models.SyncInnerNotaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SyncInnerNotaryResponse:
+        """
+        Description: 从baas-notary向notarycore同步存证数据
+        Summary: 向notarycore同步存证数据
+        """
+        UtilClient.validate_model(request)
+        return twc_models.SyncInnerNotaryResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.inner.notary.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_inner_twcopen(
+        self,
+        request: twc_models.SyncInnerTwcopenRequest,
+    ) -> twc_models.SyncInnerTwcopenResponse:
+        """
+        Description: 从baas-notary向notarycore同步自租户信息
+        Summary: 向notarycore同步子租户数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_inner_twcopen_ex(request, headers, runtime)
+
+    async def sync_inner_twcopen_async(
+        self,
+        request: twc_models.SyncInnerTwcopenRequest,
+    ) -> twc_models.SyncInnerTwcopenResponse:
+        """
+        Description: 从baas-notary向notarycore同步自租户信息
+        Summary: 向notarycore同步子租户数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_inner_twcopen_ex_async(request, headers, runtime)
+
+    def sync_inner_twcopen_ex(
+        self,
+        request: twc_models.SyncInnerTwcopenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SyncInnerTwcopenResponse:
+        """
+        Description: 从baas-notary向notarycore同步自租户信息
+        Summary: 向notarycore同步子租户数据
+        """
+        UtilClient.validate_model(request)
+        return twc_models.SyncInnerTwcopenResponse().from_map(
+            self.do_request('1.0', 'twc.notary.inner.twcopen.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_inner_twcopen_ex_async(
+        self,
+        request: twc_models.SyncInnerTwcopenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SyncInnerTwcopenResponse:
+        """
+        Description: 从baas-notary向notarycore同步自租户信息
+        Summary: 向notarycore同步子租户数据
+        """
+        UtilClient.validate_model(request)
+        return twc_models.SyncInnerTwcopenResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.inner.twcopen.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_inner_provision(
+        self,
+        request: twc_models.SyncInnerProvisionRequest,
+    ) -> twc_models.SyncInnerProvisionResponse:
+        """
+        Description: 从baas-notary向notarycore同步租户权限数据
+        Summary: 向notarycore同步租户数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_inner_provision_ex(request, headers, runtime)
+
+    async def sync_inner_provision_async(
+        self,
+        request: twc_models.SyncInnerProvisionRequest,
+    ) -> twc_models.SyncInnerProvisionResponse:
+        """
+        Description: 从baas-notary向notarycore同步租户权限数据
+        Summary: 向notarycore同步租户数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_inner_provision_ex_async(request, headers, runtime)
+
+    def sync_inner_provision_ex(
+        self,
+        request: twc_models.SyncInnerProvisionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SyncInnerProvisionResponse:
+        """
+        Description: 从baas-notary向notarycore同步租户权限数据
+        Summary: 向notarycore同步租户数据
+        """
+        UtilClient.validate_model(request)
+        return twc_models.SyncInnerProvisionResponse().from_map(
+            self.do_request('1.0', 'twc.notary.inner.provision.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_inner_provision_ex_async(
+        self,
+        request: twc_models.SyncInnerProvisionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SyncInnerProvisionResponse:
+        """
+        Description: 从baas-notary向notarycore同步租户权限数据
+        Summary: 向notarycore同步租户数据
+        """
+        UtilClient.validate_model(request)
+        return twc_models.SyncInnerProvisionResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.inner.provision.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_inner_tsr(
+        self,
+        request: twc_models.SyncInnerTsrRequest,
+    ) -> twc_models.SyncInnerTsrResponse:
+        """
+        Description: 从baas-notary向notarycore同步tsr数据
+        Summary: 向notarycore同步tsr数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_inner_tsr_ex(request, headers, runtime)
+
+    async def sync_inner_tsr_async(
+        self,
+        request: twc_models.SyncInnerTsrRequest,
+    ) -> twc_models.SyncInnerTsrResponse:
+        """
+        Description: 从baas-notary向notarycore同步tsr数据
+        Summary: 向notarycore同步tsr数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_inner_tsr_ex_async(request, headers, runtime)
+
+    def sync_inner_tsr_ex(
+        self,
+        request: twc_models.SyncInnerTsrRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SyncInnerTsrResponse:
+        """
+        Description: 从baas-notary向notarycore同步tsr数据
+        Summary: 向notarycore同步tsr数据
+        """
+        UtilClient.validate_model(request)
+        return twc_models.SyncInnerTsrResponse().from_map(
+            self.do_request('1.0', 'twc.notary.inner.tsr.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_inner_tsr_ex_async(
+        self,
+        request: twc_models.SyncInnerTsrRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SyncInnerTsrResponse:
+        """
+        Description: 从baas-notary向notarycore同步tsr数据
+        Summary: 向notarycore同步tsr数据
+        """
+        UtilClient.validate_model(request)
+        return twc_models.SyncInnerTsrResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.inner.tsr.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def check_epidentity_twometa(
@@ -5569,6 +5839,60 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.CreateJusticeCasewritebackResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.justice.casewriteback.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_lease_contract(
+        self,
+        request: twc_models.UpdateLeaseContractRequest,
+    ) -> twc_models.UpdateLeaseContractResponse:
+        """
+        Description: 升级融资租赁合约
+        Summary: 升级融资租赁合约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_lease_contract_ex(request, headers, runtime)
+
+    async def update_lease_contract_async(
+        self,
+        request: twc_models.UpdateLeaseContractRequest,
+    ) -> twc_models.UpdateLeaseContractResponse:
+        """
+        Description: 升级融资租赁合约
+        Summary: 升级融资租赁合约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_lease_contract_ex_async(request, headers, runtime)
+
+    def update_lease_contract_ex(
+        self,
+        request: twc_models.UpdateLeaseContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdateLeaseContractResponse:
+        """
+        Description: 升级融资租赁合约
+        Summary: 升级融资租赁合约
+        """
+        UtilClient.validate_model(request)
+        return twc_models.UpdateLeaseContractResponse().from_map(
+            self.do_request('1.0', 'twc.notary.lease.contract.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_lease_contract_ex_async(
+        self,
+        request: twc_models.UpdateLeaseContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdateLeaseContractResponse:
+        """
+        Description: 升级融资租赁合约
+        Summary: 升级融资租赁合约
+        """
+        UtilClient.validate_model(request)
+        return twc_models.UpdateLeaseContractResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.lease.contract.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_lease_assetagentregister(
@@ -7243,60 +7567,6 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.CheckIndustryNotaryResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.industry.notary.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def update_lease_contract(
-        self,
-        request: twc_models.UpdateLeaseContractRequest,
-    ) -> twc_models.UpdateLeaseContractResponse:
-        """
-        Description: 升级融资租赁合约
-        Summary: 升级融资租赁合约
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.update_lease_contract_ex(request, headers, runtime)
-
-    async def update_lease_contract_async(
-        self,
-        request: twc_models.UpdateLeaseContractRequest,
-    ) -> twc_models.UpdateLeaseContractResponse:
-        """
-        Description: 升级融资租赁合约
-        Summary: 升级融资租赁合约
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.update_lease_contract_ex_async(request, headers, runtime)
-
-    def update_lease_contract_ex(
-        self,
-        request: twc_models.UpdateLeaseContractRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> twc_models.UpdateLeaseContractResponse:
-        """
-        Description: 升级融资租赁合约
-        Summary: 升级融资租赁合约
-        """
-        UtilClient.validate_model(request)
-        return twc_models.UpdateLeaseContractResponse().from_map(
-            self.do_request('1.0', 'twc.notary.lease.contract.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def update_lease_contract_ex_async(
-        self,
-        request: twc_models.UpdateLeaseContractRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> twc_models.UpdateLeaseContractResponse:
-        """
-        Description: 升级融资租赁合约
-        Summary: 升级融资租赁合约
-        """
-        UtilClient.validate_model(request)
-        return twc_models.UpdateLeaseContractResponse().from_map(
-            await self.do_request_async('1.0', 'twc.notary.lease.contract.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_sue_breakpromiseinfo(
