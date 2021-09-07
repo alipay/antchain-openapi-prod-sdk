@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.19"},
+                        {"sdk_version", "1.5.26"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.19"},
+                        {"sdk_version", "1.5.26"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -3350,45 +3350,255 @@ namespace AntChain.SDK.TWC
         }
 
         /**
-         * Description: 直付通商户入驻信息查询（成功则确认入驻）
-         * Summary: 直付通商户入驻信息查询新接口
+         * Description: 直付通商户入驻确认（确认成功则表明入驻成功）
+         * Summary: 直付通商户入驻确认
          */
-        public QueryContractMerchantResponse QueryContractMerchant(QueryContractMerchantRequest request)
+        public ConfirmContractMerchantResponse ConfirmContractMerchant(ConfirmContractMerchantRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryContractMerchantEx(request, headers, runtime);
+            return ConfirmContractMerchantEx(request, headers, runtime);
         }
 
         /**
-         * Description: 直付通商户入驻信息查询（成功则确认入驻）
-         * Summary: 直付通商户入驻信息查询新接口
+         * Description: 直付通商户入驻确认（确认成功则表明入驻成功）
+         * Summary: 直付通商户入驻确认
          */
-        public async Task<QueryContractMerchantResponse> QueryContractMerchantAsync(QueryContractMerchantRequest request)
+        public async Task<ConfirmContractMerchantResponse> ConfirmContractMerchantAsync(ConfirmContractMerchantRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryContractMerchantExAsync(request, headers, runtime);
+            return await ConfirmContractMerchantExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: 直付通商户入驻信息查询（成功则确认入驻）
-         * Summary: 直付通商户入驻信息查询新接口
+         * Description: 直付通商户入驻确认（确认成功则表明入驻成功）
+         * Summary: 直付通商户入驻确认
          */
-        public QueryContractMerchantResponse QueryContractMerchantEx(QueryContractMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public ConfirmContractMerchantResponse ConfirmContractMerchantEx(ConfirmContractMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryContractMerchantResponse>(DoRequest("1.0", "twc.notary.contract.merchant.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ConfirmContractMerchantResponse>(DoRequest("1.0", "twc.notary.contract.merchant.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 直付通商户入驻信息查询（成功则确认入驻）
-         * Summary: 直付通商户入驻信息查询新接口
+         * Description: 直付通商户入驻确认（确认成功则表明入驻成功）
+         * Summary: 直付通商户入驻确认
          */
-        public async Task<QueryContractMerchantResponse> QueryContractMerchantExAsync(QueryContractMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<ConfirmContractMerchantResponse> ConfirmContractMerchantExAsync(ConfirmContractMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryContractMerchantResponse>(await DoRequestAsync("1.0", "twc.notary.contract.merchant.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ConfirmContractMerchantResponse>(await DoRequestAsync("1.0", "twc.notary.contract.merchant.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: baas-notary向notarycore同步生成的事务数据，仅做数据同步使用
+         * Summary: 向notarycore同步事务数据
+         */
+        public SyncInnerTransResponse SyncInnerTrans(SyncInnerTransRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncInnerTransEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: baas-notary向notarycore同步生成的事务数据，仅做数据同步使用
+         * Summary: 向notarycore同步事务数据
+         */
+        public async Task<SyncInnerTransResponse> SyncInnerTransAsync(SyncInnerTransRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncInnerTransExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: baas-notary向notarycore同步生成的事务数据，仅做数据同步使用
+         * Summary: 向notarycore同步事务数据
+         */
+        public SyncInnerTransResponse SyncInnerTransEx(SyncInnerTransRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncInnerTransResponse>(DoRequest("1.0", "twc.notary.inner.trans.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: baas-notary向notarycore同步生成的事务数据，仅做数据同步使用
+         * Summary: 向notarycore同步事务数据
+         */
+        public async Task<SyncInnerTransResponse> SyncInnerTransExAsync(SyncInnerTransRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncInnerTransResponse>(await DoRequestAsync("1.0", "twc.notary.inner.trans.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 从baas-notary向notarycore同步存证数据
+         * Summary: 向notarycore同步存证数据
+         */
+        public SyncInnerNotaryResponse SyncInnerNotary(SyncInnerNotaryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncInnerNotaryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 从baas-notary向notarycore同步存证数据
+         * Summary: 向notarycore同步存证数据
+         */
+        public async Task<SyncInnerNotaryResponse> SyncInnerNotaryAsync(SyncInnerNotaryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncInnerNotaryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 从baas-notary向notarycore同步存证数据
+         * Summary: 向notarycore同步存证数据
+         */
+        public SyncInnerNotaryResponse SyncInnerNotaryEx(SyncInnerNotaryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncInnerNotaryResponse>(DoRequest("1.0", "twc.notary.inner.notary.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 从baas-notary向notarycore同步存证数据
+         * Summary: 向notarycore同步存证数据
+         */
+        public async Task<SyncInnerNotaryResponse> SyncInnerNotaryExAsync(SyncInnerNotaryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncInnerNotaryResponse>(await DoRequestAsync("1.0", "twc.notary.inner.notary.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 从baas-notary向notarycore同步自租户信息
+         * Summary: 向notarycore同步子租户数据
+         */
+        public SyncInnerTwcopenResponse SyncInnerTwcopen(SyncInnerTwcopenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncInnerTwcopenEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 从baas-notary向notarycore同步自租户信息
+         * Summary: 向notarycore同步子租户数据
+         */
+        public async Task<SyncInnerTwcopenResponse> SyncInnerTwcopenAsync(SyncInnerTwcopenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncInnerTwcopenExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 从baas-notary向notarycore同步自租户信息
+         * Summary: 向notarycore同步子租户数据
+         */
+        public SyncInnerTwcopenResponse SyncInnerTwcopenEx(SyncInnerTwcopenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncInnerTwcopenResponse>(DoRequest("1.0", "twc.notary.inner.twcopen.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 从baas-notary向notarycore同步自租户信息
+         * Summary: 向notarycore同步子租户数据
+         */
+        public async Task<SyncInnerTwcopenResponse> SyncInnerTwcopenExAsync(SyncInnerTwcopenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncInnerTwcopenResponse>(await DoRequestAsync("1.0", "twc.notary.inner.twcopen.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 从baas-notary向notarycore同步租户权限数据
+         * Summary: 向notarycore同步租户数据
+         */
+        public SyncInnerProvisionResponse SyncInnerProvision(SyncInnerProvisionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncInnerProvisionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 从baas-notary向notarycore同步租户权限数据
+         * Summary: 向notarycore同步租户数据
+         */
+        public async Task<SyncInnerProvisionResponse> SyncInnerProvisionAsync(SyncInnerProvisionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncInnerProvisionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 从baas-notary向notarycore同步租户权限数据
+         * Summary: 向notarycore同步租户数据
+         */
+        public SyncInnerProvisionResponse SyncInnerProvisionEx(SyncInnerProvisionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncInnerProvisionResponse>(DoRequest("1.0", "twc.notary.inner.provision.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 从baas-notary向notarycore同步租户权限数据
+         * Summary: 向notarycore同步租户数据
+         */
+        public async Task<SyncInnerProvisionResponse> SyncInnerProvisionExAsync(SyncInnerProvisionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncInnerProvisionResponse>(await DoRequestAsync("1.0", "twc.notary.inner.provision.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 从baas-notary向notarycore同步tsr数据
+         * Summary: 向notarycore同步tsr数据
+         */
+        public SyncInnerTsrResponse SyncInnerTsr(SyncInnerTsrRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncInnerTsrEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 从baas-notary向notarycore同步tsr数据
+         * Summary: 向notarycore同步tsr数据
+         */
+        public async Task<SyncInnerTsrResponse> SyncInnerTsrAsync(SyncInnerTsrRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncInnerTsrExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 从baas-notary向notarycore同步tsr数据
+         * Summary: 向notarycore同步tsr数据
+         */
+        public SyncInnerTsrResponse SyncInnerTsrEx(SyncInnerTsrRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncInnerTsrResponse>(DoRequest("1.0", "twc.notary.inner.tsr.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 从baas-notary向notarycore同步tsr数据
+         * Summary: 向notarycore同步tsr数据
+         */
+        public async Task<SyncInnerTsrResponse> SyncInnerTsrExAsync(SyncInnerTsrRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncInnerTsrResponse>(await DoRequestAsync("1.0", "twc.notary.inner.tsr.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -4439,6 +4649,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateJusticeCasewritebackResponse>(await DoRequestAsync("1.0", "twc.notary.justice.casewriteback.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 升级融资租赁合约
+         * Summary: 升级融资租赁合约
+         */
+        public UpdateLeaseContractResponse UpdateLeaseContract(UpdateLeaseContractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateLeaseContractEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 升级融资租赁合约
+         * Summary: 升级融资租赁合约
+         */
+        public async Task<UpdateLeaseContractResponse> UpdateLeaseContractAsync(UpdateLeaseContractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateLeaseContractExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 升级融资租赁合约
+         * Summary: 升级融资租赁合约
+         */
+        public UpdateLeaseContractResponse UpdateLeaseContractEx(UpdateLeaseContractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateLeaseContractResponse>(DoRequest("1.0", "twc.notary.lease.contract.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 升级融资租赁合约
+         * Summary: 升级融资租赁合约
+         */
+        public async Task<UpdateLeaseContractResponse> UpdateLeaseContractExAsync(UpdateLeaseContractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateLeaseContractResponse>(await DoRequestAsync("1.0", "twc.notary.lease.contract.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -5741,48 +5993,6 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CheckIndustryNotaryResponse>(await DoRequestAsync("1.0", "twc.notary.industry.notary.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 升级融资租赁合约
-         * Summary: 升级融资租赁合约
-         */
-        public UpdateLeaseContractResponse UpdateLeaseContract(UpdateLeaseContractRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return UpdateLeaseContractEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 升级融资租赁合约
-         * Summary: 升级融资租赁合约
-         */
-        public async Task<UpdateLeaseContractResponse> UpdateLeaseContractAsync(UpdateLeaseContractRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await UpdateLeaseContractExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 升级融资租赁合约
-         * Summary: 升级融资租赁合约
-         */
-        public UpdateLeaseContractResponse UpdateLeaseContractEx(UpdateLeaseContractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<UpdateLeaseContractResponse>(DoRequest("1.0", "twc.notary.lease.contract.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 升级融资租赁合约
-         * Summary: 升级融资租赁合约
-         */
-        public async Task<UpdateLeaseContractResponse> UpdateLeaseContractExAsync(UpdateLeaseContractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<UpdateLeaseContractResponse>(await DoRequestAsync("1.0", "twc.notary.lease.contract.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
