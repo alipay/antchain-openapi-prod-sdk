@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.19',
+    sdk_version = '1.5.26',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -505,6 +505,22 @@ model Location {
   macAddr?: string(name='mac_addr', example='00-01-6C-06-A6-29'),
   // 扩展属性
   properties?: string(name='properties', example='{"key":"value"}'),
+}
+
+// 电子合同存证代扣计划执行操作信息
+model ContractNotaryDeductExecutionInfo {
+  // 付款方的区块链合同签署账号
+  payerId: string(name='payer_id', example='someId'),
+  // 扣款金额，单位分
+  amount: long(name='amount', example='100'),
+  // 扣款渠道
+  channel: string(name='channel', example='channel'),
+  // 扣款操作是否成功
+  result: boolean(name='result', example='true, false'),
+  // 扣款操作发起时间
+  timestamp: string(name='timestamp', example='1589198173000'),
+  // 代扣订单号
+  order: string(name='order', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269_1'),
 }
 
 // 创建电子合同签署盖章区时的申请信息
@@ -1171,6 +1187,18 @@ model ContractDoc {
   fileName?: string(name='file_name', example='第一份合同.pdf'),
   // 电子合同文档密码, 如果encryption值为1, 文档密码不能为空，默认没有密码
   filePassword?: string(name='file_password', example='mypassword'),
+}
+
+// 电子合同代扣计划取消操作信息
+model ContractNotaryDeductCancelInfo {
+  // 付款方的区块链合同签署账号
+  payerId: string(name='payer_id', example='someId'),
+  // 是否取消成功
+  cancelStatus: boolean(name='cancel_status', example='true, false'),
+  // 取消操作发起时间
+  timestamp: string(name='timestamp', example='1589198173000'),
+  // 代扣订单号，多个订单号之间以‘,’隔开
+  orders: string(name='orders', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269_1'),
 }
 
 // 电子合同签署流程的配置信息
@@ -4987,7 +5015,7 @@ async function applyContractMerchantEx(request: ApplyContractMerchantRequest, he
   return doRequest('1.0' ,'twc.notary.contract.merchant.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryContractMerchantRequest = {
+model ConfirmContractMerchantRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -4997,7 +5025,7 @@ model QueryContractMerchantRequest = {
   agentAccountId?: string(name='agent_account_id'),
 }
 
-model QueryContractMerchantResponse = {
+model ConfirmContractMerchantResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -5017,22 +5045,280 @@ model QueryContractMerchantResponse = {
 }
 
 /**
- * Description: 直付通商户入驻信息查询（成功则确认入驻）
- * Summary: 直付通商户入驻信息查询新接口
+ * Description: 直付通商户入驻确认（确认成功则表明入驻成功）
+ * Summary: 直付通商户入驻确认
  */
-async function queryContractMerchant(request: QueryContractMerchantRequest): QueryContractMerchantResponse {
+async function confirmContractMerchant(request: ConfirmContractMerchantRequest): ConfirmContractMerchantResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return queryContractMerchantEx(request, headers, runtime);
+  return confirmContractMerchantEx(request, headers, runtime);
 }
 
 /**
- * Description: 直付通商户入驻信息查询（成功则确认入驻）
- * Summary: 直付通商户入驻信息查询新接口
+ * Description: 直付通商户入驻确认（确认成功则表明入驻成功）
+ * Summary: 直付通商户入驻确认
  */
-async function queryContractMerchantEx(request: QueryContractMerchantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractMerchantResponse {
+async function confirmContractMerchantEx(request: ConfirmContractMerchantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmContractMerchantResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'twc.notary.contract.merchant.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'twc.notary.contract.merchant.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncInnerTransRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 事务id
+  id: long(name='id'),
+  // 存证事务id
+  transactionId: string(name='transaction_id'),
+  // 存证的用户id
+  accountId: string(name='account_id'),
+  // 业务id
+  bizId: long(name='biz_id'),
+  // 子业务id
+  subBizId?: string(name='sub_biz_id'),
+  // 存证主体的json字符串
+  customer?: string(name='customer'),
+  // 存证初始化时间
+  registerTime: long(name='register_time'),
+  // 到期时间
+  expireTime?: long(name='expire_time'),
+  // 扩展属性
+  properties?: string(name='properties'),
+  // 是否有效
+  active?: boolean(name='active'),
+  // 交易hash
+  txHash?: string(name='tx_hash'),
+}
+
+model SyncInnerTransResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: baas-notary向notarycore同步生成的事务数据，仅做数据同步使用
+ * Summary: 向notarycore同步事务数据
+ */
+async function syncInnerTrans(request: SyncInnerTransRequest): SyncInnerTransResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncInnerTransEx(request, headers, runtime);
+}
+
+/**
+ * Description: baas-notary向notarycore同步生成的事务数据，仅做数据同步使用
+ * Summary: 向notarycore同步事务数据
+ */
+async function syncInnerTransEx(request: SyncInnerTransRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncInnerTransResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.inner.trans.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncInnerNotaryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // DB的存证id
+  id: long(name='id'),
+  // 事务id
+  transactionId: string(name='transaction_id'),
+  // 交易hash
+  txHash?: string(name='tx_hash'),
+  // 阶段
+  phase: string(name='phase'),
+  // 内容hash
+  contentHash: string(name='content_hash'),
+  // 创建时间
+  createTime?: long(name='create_time'),
+  // 存证类型
+  notaryType: string(name='notary_type'),
+  // 大小
+  notarySize?: long(name='notary_size'),
+  // 用户id
+  accountId: string(name='account_id'),
+  // 业务id
+  bizId: long(name='biz_id'),
+  // 子业务id
+  subBizId?: string(name='sub_biz_id'),
+  // 是否需要可信时间
+  tsr?: boolean(name='tsr'),
+}
+
+model SyncInnerNotaryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 从baas-notary向notarycore同步存证数据
+ * Summary: 向notarycore同步存证数据
+ */
+async function syncInnerNotary(request: SyncInnerNotaryRequest): SyncInnerNotaryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncInnerNotaryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 从baas-notary向notarycore同步存证数据
+ * Summary: 向notarycore同步存证数据
+ */
+async function syncInnerNotaryEx(request: SyncInnerNotaryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncInnerNotaryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.inner.notary.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncInnerTwcopenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // id
+  id: long(name='id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 产品code
+  productCode: string(name='product_code'),
+  // 状态
+  status: string(name='status'),
+  // 业务id
+  bizId: long(name='biz_id'),
+  // 开通渠道
+  orderChannel: long(name='order_channel'),
+  // 创建时间
+  gmtCreate: long(name='gmt_create'),
+  // 修改时间
+  gmtModified: long(name='gmt_modified'),
+}
+
+model SyncInnerTwcopenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 从baas-notary向notarycore同步自租户信息
+ * Summary: 向notarycore同步子租户数据
+ */
+async function syncInnerTwcopen(request: SyncInnerTwcopenRequest): SyncInnerTwcopenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncInnerTwcopenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 从baas-notary向notarycore同步自租户信息
+ * Summary: 向notarycore同步子租户数据
+ */
+async function syncInnerTwcopenEx(request: SyncInnerTwcopenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncInnerTwcopenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.inner.twcopen.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncInnerProvisionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 自增id
+  id: long(name='id'),
+  // 创建时间
+  gmtCreate: long(name='gmt_create'),
+  // 修改时间
+  gmtModified?: long(name='gmt_modified'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 租户名称
+  tenantName?: string(name='tenant_name'),
+  // 产品码
+  productCode: string(name='product_code'),
+  // 是否正式账号
+  isOfficial?: boolean(name='is_official'),
+  // 业务分类
+  bizId: long(name='biz_id'),
+  // 是否法院节点
+  legalAccount?: boolean(name='legal_account'),
+  // 服务状态
+  status: long(name='status'),
+  // 商品开通实例id
+  instanceId?: string(name='instance_id'),
+  // 订单渠道
+  orderChannel?: long(name='order_channel'),
+}
+
+model SyncInnerProvisionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 从baas-notary向notarycore同步租户权限数据
+ * Summary: 向notarycore同步租户数据
+ */
+async function syncInnerProvision(request: SyncInnerProvisionRequest): SyncInnerProvisionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncInnerProvisionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 从baas-notary向notarycore同步租户权限数据
+ * Summary: 向notarycore同步租户数据
+ */
+async function syncInnerProvisionEx(request: SyncInnerProvisionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncInnerProvisionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.inner.provision.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncInnerTsrRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // tsr的token信息
+  token: string(name='token'),
+}
+
+model SyncInnerTsrResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 从baas-notary向notarycore同步tsr数据
+ * Summary: 向notarycore同步tsr数据
+ */
+async function syncInnerTsr(request: SyncInnerTsrRequest): SyncInnerTsrResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncInnerTsrEx(request, headers, runtime);
+}
+
+/**
+ * Description: 从baas-notary向notarycore同步tsr数据
+ * Summary: 向notarycore同步tsr数据
+ */
+async function syncInnerTsrEx(request: SyncInnerTsrRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncInnerTsrResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.inner.tsr.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CheckEpidentityTwometaRequest = {
@@ -6335,6 +6621,51 @@ async function createJusticeCasewriteback(request: CreateJusticeCasewritebackReq
 async function createJusticeCasewritebackEx(request: CreateJusticeCasewritebackRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateJusticeCasewritebackResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.justice.casewriteback.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateLeaseContractRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 被升级的合约名称
+  contractId: string(name='contract_id'),
+  // 合约业务层id
+  applicationId?: string(name='application_id'),
+}
+
+model UpdateLeaseContractResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码 0表示成功
+  code?: long(name='code'),
+  // 错误信息
+  // 
+  errMessage?: string(name='err_message'),
+  // 升级合约所在的区块链交易哈希
+  responseData?: string(name='response_data'),
+}
+
+/**
+ * Description: 升级融资租赁合约
+ * Summary: 升级融资租赁合约
+ */
+async function updateLeaseContract(request: UpdateLeaseContractRequest): UpdateLeaseContractResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateLeaseContractEx(request, headers, runtime);
+}
+
+/**
+ * Description: 升级融资租赁合约
+ * Summary: 升级融资租赁合约
+ */
+async function updateLeaseContractEx(request: UpdateLeaseContractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateLeaseContractResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.contract.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateLeaseAssetagentregisterRequest = {
@@ -8228,51 +8559,6 @@ async function checkIndustryNotaryEx(request: CheckIndustryNotaryRequest, header
   return doRequest('1.0' ,'twc.notary.industry.notary.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model UpdateLeaseContractRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 被升级的合约名称
-  contractId: string(name='contract_id'),
-  // 合约业务层id
-  applicationId?: string(name='application_id'),
-}
-
-model UpdateLeaseContractResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 状态码 0表示成功
-  code?: long(name='code'),
-  // 错误信息
-  // 
-  errMessage?: string(name='err_message'),
-  // 升级合约所在的区块链交易哈希
-  responseData?: string(name='response_data'),
-}
-
-/**
- * Description: 升级融资租赁合约
- * Summary: 升级融资租赁合约
- */
-async function updateLeaseContract(request: UpdateLeaseContractRequest): UpdateLeaseContractResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return updateLeaseContractEx(request, headers, runtime);
-}
-
-/**
- * Description: 升级融资租赁合约
- * Summary: 升级融资租赁合约
- */
-async function updateLeaseContractEx(request: UpdateLeaseContractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateLeaseContractResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'twc.notary.lease.contract.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
 model CreateSueBreakpromiseinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -10040,6 +10326,8 @@ model CreateLeaseBizRequest = {
   bizContent: string(name='biz_content'),
   // 租赁订单所属阶段
   type: string(name='type'),
+  // 租赁订单操作类型
+  operationType?: string(name='operation_type'),
 }
 
 model CreateLeaseBizResponse = {
