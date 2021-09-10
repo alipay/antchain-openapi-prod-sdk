@@ -1,0 +1,466 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.3.0',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+model GetAccountBalanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 渠道来源： DEFAULT 官网 ANT_OPEN_SERVICE_MARKET 开放平-服务市场台 
+  fromChannel: string(name='from_channel'),
+  // 租户id,外部用户唯一id，如蚂蚁通行证id
+  tenant: string(name='tenant'),
+}
+
+model GetAccountBalanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 账户余额
+  accountBalance?: string(name='account_balance'),
+  // 可用余额
+  availableBalance?: string(name='available_balance'),
+  // 币种
+  currencyValue?: string(name='currency_value'),
+}
+
+/**
+ * Description: 提供金融云账户余额、可用余额查询接口
+ * Summary: 金融云账户余额查询
+ */
+async function getAccountBalance(request: GetAccountBalanceRequest): GetAccountBalanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAccountBalanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提供金融云账户余额、可用余额查询接口
+ * Summary: 金融云账户余额查询
+ */
+async function getAccountBalanceEx(request: GetAccountBalanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAccountBalanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.billing.account.balance.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ChargeAccountBalanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // "10.11"代表10.11元,最小粒度到分，小数点后2位
+  chargeAmt: string(name='charge_amt'),
+  // 币种,支付宝体系内一般存储币种值（156/840/...），156代表人民币
+  currencyValue: string(name='currency_value'),
+  // 渠道来源： ANTCLOUD_OFFICIAL 官网 ANT_OPEN_SERVICE_MARKET 开放平-服务市场台
+  fromChannel: string(name='from_channel'),
+  // 唤起收银台后，充值后回调url链接
+  returnUrl: string(name='return_url'),
+}
+
+model ChargeAccountBalanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付宝网关
+  alipayGateway?: string(name='alipay_gateway'),
+  // 字符编码格式   _input_charset
+  inputCharset?: string(name='input_charset'),
+  // 服务器异步通知页面路径
+  notifyUrl?: string(name='notify_url'),
+  // 商户网站唯一订单号
+  outTradeNo?: string(name='out_trade_no'),
+  // 收款方PID
+  partner?: string(name='partner'),
+  // 支付类型
+  paymentType?: string(name='payment_type'),
+  // 收银台发起页面跳转同步通知页面路径
+  returnUrl?: string(name='return_url'),
+  // 收款方ID
+  sellerId?: string(name='seller_id'),
+  // 调用的接口名
+  service?: string(name='service'),
+  // 签名
+  sign?: string(name='sign'),
+  // 签名类型
+  signType?: string(name='sign_type'),
+  // 商品名称
+  subject?: string(name='subject'),
+  // 交易金额
+  totalFee?: string(name='total_fee'),
+}
+
+/**
+ * Description: 智能科技资金帐号充值参数，返回唤起收银台充值参数
+ * Summary: 智能科技资金帐号充值参数组装
+ */
+async function chargeAccountBalance(request: ChargeAccountBalanceRequest): ChargeAccountBalanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return chargeAccountBalanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 智能科技资金帐号充值参数，返回唤起收银台充值参数
+ * Summary: 智能科技资金帐号充值参数组装
+ */
+async function chargeAccountBalanceEx(request: ChargeAccountBalanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ChargeAccountBalanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.billing.account.balance.charge', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAccountUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // alipay托管子户ID
+  alipayUserId: string(name='alipay_user_id'),
+}
+
+model GetAccountUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 智能科技user_id
+  tenantId?: string(name='tenant_id'),
+  // 登录名
+  loginName?: string(name='login_name'),
+  // 用户的真实姓名
+  realName?: string(name='real_name'),
+  // 手机号
+  mobileNum?: string(name='mobile_num'),
+  // 公司名称
+  firmName?: string(name='firm_name'),
+  // 帐号类型，企业或者是个人
+  //  ENTERPRISE("1","企业类型账号"),
+  //  INDIVIDUAL("2","个人类型账号")
+  userType?: string(name='user_type'),
+}
+
+/**
+ * Description: 根据托管子户ID查询租户信息
+ * Summary: 根据托管子户ID查询租户信息
+ */
+async function getAccountUser(request: GetAccountUserRequest): GetAccountUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAccountUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据托管子户ID查询租户信息
+ * Summary: 根据托管子户ID查询租户信息
+ */
+async function getAccountUserEx(request: GetAccountUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAccountUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.billing.account.user.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAcfeewebInstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 出账验证主键id
+  id: string(name='id'),
+  // 计量域code
+  domainCode: string(name='domain_code'),
+  // 计量域名称
+  domainName: string(name='domain_name'),
+  // 计量域版本
+  domainVersion: string(name='domain_version'),
+  // 业务产品code
+  productCode: string(name='product_code'),
+  // 业务产品名称
+  productName: string(name='product_name'),
+  // 渠道产品code
+  serviceCode: string(name='service_code'),
+  // 渠道产品名称
+  serviceName: string(name='service_name'),
+  // 商品code
+  offerCode: string(name='offer_code'),
+  // 商品名称
+  offerName: string(name='offer_name'),
+  // 验证的计量数据
+  omsData: string(name='oms_data'),
+  // 计量数据业务幂等号
+  omsBizNo: string(name='oms_biz_no'),
+  // 缓存报文
+  verificationCache: string(name='verification_cache'),
+  // 缓存链接
+  verificationUrl: string(name='verification_url'),
+  // 审批流id
+  bpmsId: string(name='bpms_id'),
+  // 配置报文
+  configData: string(name='config_data'),
+  // 状态
+  status: string(name='status'),
+  // 创建人
+  creator: string(name='creator'),
+  // 修改人
+  modifor: string(name='modifor'),
+}
+
+model CreateAcfeewebInstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 审批流实例id
+  processInstanceId?: string(name='process_instance_id'),
+}
+
+/**
+ * Description: 线下环境调用线上环境发起审批流
+ * Summary: 创建审批流
+ */
+async function createAcfeewebInstance(request: CreateAcfeewebInstanceRequest): CreateAcfeewebInstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAcfeewebInstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 线下环境调用线上环境发起审批流
+ * Summary: 创建审批流
+ */
+async function createAcfeewebInstanceEx(request: CreateAcfeewebInstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAcfeewebInstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.billing.acfeeweb.instance.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateAcfeewebStateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 出账验证主键id
+  id: string(name='id'),
+  // 计量域code
+  domainCode: string(name='domain_code'),
+  // 计量域名称
+  domainName: string(name='domain_name'),
+  // 计量域版本
+  domainVersion: string(name='domain_version'),
+  // 业务产品code
+  productCode: string(name='product_code'),
+  // 业务产品名称
+  productName: string(name='product_name'),
+  // 渠道产品code
+  serviceCode: string(name='service_code'),
+  // 渠道产品名称
+  serviceName: string(name='service_name'),
+  // 商品code
+  offerCode: string(name='offer_code'),
+  // 商品名称
+  offerName: string(name='offer_name'),
+  // 验证的计量数据
+  omsData: string(name='oms_data'),
+  // 计量数据业务幂等号
+  omsBizNo: string(name='oms_biz_no'),
+  // 缓存报文
+  verificationCache: string(name='verification_cache'),
+  // 缓存链接
+  verificationUrl: string(name='verification_url'),
+  // 审批流id
+  bpmsId: string(name='bpms_id'),
+  // 配置报文
+  configData: string(name='config_data'),
+  // 状态
+  status: string(name='status'),
+  // 创建人
+  creator: string(name='creator'),
+  // 修改人
+  modifor: string(name='modifor'),
+}
+
+model UpdateAcfeewebStateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 成功、失败
+  syncResult?: boolean(name='sync_result'),
+}
+
+/**
+ * Description: 同步线下接口(出账验证状态)
+ * Summary: 同步出账验证状态
+ */
+async function updateAcfeewebState(request: UpdateAcfeewebStateRequest): UpdateAcfeewebStateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateAcfeewebStateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 同步线下接口(出账验证状态)
+ * Summary: 同步出账验证状态
+ */
+async function updateAcfeewebStateEx(request: UpdateAcfeewebStateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateAcfeewebStateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.billing.acfeeweb.state.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
