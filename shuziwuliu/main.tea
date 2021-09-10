@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.119',
+    sdk_version = '1.3.125',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -305,6 +305,20 @@ model CustomsOrderBookingParam {
   bookingNo: string(name='booking_no', example='暂无'),
 }
 
+// 支付信息
+model PaymentInfo {
+  // 收款账户名称
+  receiverAccountName: string(maxLength=200, name='receiver_account_name', example='王大力'),
+  // 收款账户，支付宝账号
+  receiverAccount: string(maxLength=50, name='receiver_account', example='xxx@sina.com'),
+  // 收款账户类型 ,1-个人账号，0-公司账号
+  receiverAccountType: string(maxLength=2, name='receiver_account_type', example='1'),
+  // 收款人证件号码 ，账户类型为个人时，非空
+  receiverCertificateNo?: string(maxLength=50, name='receiver_certificate_no', example='39991000299910029'),
+  // 收款人证件类型，01-身份证，02-护照，03-军官证，04-港澳通行证，05-驾驶证，06-港澳回乡证或台胞证，07-临时身份证，99-其他
+  receiverCertificateType: string(maxLength=2, name='receiver_certificate_type', example='01'),
+}
+
 // 航运集装箱类型信息
 model ContainerTypeInfo {
   // 箱型
@@ -378,6 +392,14 @@ model SoNotifyBookingParam {
   voyage?: string(name='voyage', example='暂无'),
 }
 
+// 文档信息
+model Document {
+  // 文档url
+  documentUrl: string(maxLength=500, name='document_url', example='https://www.baidu.com/s?wd=图片&rsv_spt=1&rsv_iqid=0xb'),
+  // 文档名称 
+  documentName: string(maxLength=200, name='document_name', example='客诉材料'),
+}
+
 // 凭证返回值
 model VoucherResp {
   // 消息
@@ -434,6 +456,20 @@ model ContainerIdInfo {
   containerId?: string(name='container_id', example='暂无'),
   // 箱号
   containerNo?: string(name='container_no', example='暂无'),
+}
+
+// 货物损失详情
+model CargoLoss {
+  // 物品类型
+  cargoType?: string(maxLength=200, name='cargo_type', example='电子/3C'),
+  // 物品名称
+  cargoName: string(maxLength=500, name='cargo_name', example='诺基亚nokiai103'),
+  // 物品所有人
+  cargoOwner?: string(maxLength=200, name='cargo_owner', example='福建省漳州市漳浦县201站点'),
+  // 物品损失描述 
+  cargoLossDesc?: string(maxLength=500, name='cargo_loss_desc', example='外包装破损'),
+  // 损失预估，单位（元），最多支持2位小数
+  cargoLossEstimateAmount: string(name='cargo_loss_estimate_amount', example='20.00'),
 }
 
 // 货物信息
@@ -619,6 +655,16 @@ model EblDetail {
   eblCopyPdfFileId: string(name='ebl_copy_pdf_file_id', example='暂无'),
   // 电子提单编号
   eblNo: string(name='ebl_no', example='暂无'),
+}
+
+// 人员伤残情况
+model PersonLoss {
+  // 伤情，HOSPITALIZE-住院，CLINIC-门诊，DEATH-死亡，ALLOWANCE-津贴
+  personInjuredCondition: string(maxLength=50, name='person_injured_condition', example='CLINIC'),
+  // 伤者姓名
+  personInjuredName: string(maxLength=200, name='person_injured_name', example='王大毛'),
+  // 损失预估，单位（元），最多支持2位小数
+  personLossEstimateAmount?: string(name='person_loss_estimate_amount', example='68.00'),
 }
 
 // 历史数据
@@ -839,6 +885,20 @@ model ContainerGoodsParam {
   volume?: string(name='volume', example='1'),
   // 毛重 业务必填
   weight?: string(name='weight', example='1'),
+}
+
+// 车辆损失详情 
+model CarLoss {
+  // 车牌号，车牌号和车架号至少填一个
+  carMark?: string(maxLength=20, name='car_mark', example='皖C54322'),
+  // 车主姓名 
+  carOwnerName?: string(maxLength=200, name='car_owner_name', example='王大毛'),
+  // 车主联系方式
+  carOwnerContact?: string(maxLength=20, name='car_owner_contact', example='17029990909'),
+  // 车架号，车牌号和车架号至少填一个
+  carVinNo?: string(maxLength=100, name='car_vin_no', example='DMQJ928881992'),
+  // 损失预估，单位（元），最多支持2位小数
+  carLossEstimateAmount: string(name='car_loss_estimate_amount', example='1002.00'),
 }
 
 // 电子提单变更状态明细
@@ -2986,7 +3046,7 @@ model CreateCargowaybillBillRequest = {
   billCode: string(name='bill_code'),
   // 账单生成时间(毫秒)
   billCreateTime: long(name='bill_create_time'),
-  // 账单期限
+  // 账单期限，单位（天），需填写1到360之间的整数
   billDeadline: string(name='bill_deadline'),
   // 付款方did
   billPayerDid: string(name='bill_payer_did'),
@@ -3182,7 +3242,7 @@ model UpdateCargowaybillBillRequest = {
   billCode: string(name='bill_code'),
   // 账单生成时间(毫秒)
   billCreateTime: long(name='bill_create_time'),
-  // 账单期限
+  // 账单期限，单位（天），需填写1到360之间的整数
   billDeadline: string(name='bill_deadline'),
   // 付款方did
   billPayerDid: string(name='bill_payer_did'),
@@ -3652,7 +3712,7 @@ model CreateBillReceivablebillRequest = {
   billAmount: string(name='bill_amount'),
   // 账单生成时间，13位毫秒级时间戳
   billCreateTime: long(name='bill_create_time'),
-  // 账单期限，单位（天），合同约定的结算周期
+  // 账单期限，单位（天），合同约定的结算周期，需填写1到360的整数
   billDeadline: long(name='bill_deadline'),
   // 账单id，客户生成的账单唯一编号
   billId: string(name='bill_id'),
@@ -3755,7 +3815,7 @@ model UpdateBillReceivablebillRequest = {
   billAmount?: string(name='bill_amount'),
   // 账单生成时间，13位毫秒级时间戳
   billCreateTime?: long(name='bill_create_time'),
-  // 账单期限，单位（天），合同约定的结算周期
+  // 账单期限，单位（天），合同约定的结算周期，需填写1到360的整数
   billDeadline?: long(name='bill_deadline'),
   // 账单id，客户生成的账单唯一编号
   billId: string(name='bill_id'),
@@ -3903,6 +3963,60 @@ async function queryWaybillInfo(request: QueryWaybillInfoRequest): QueryWaybillI
 async function queryWaybillInfoEx(request: QueryWaybillInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryWaybillInfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'digital.logistic.waybill.info.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBillReceivablebillnodetailRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 账单总金额，单位（元），周期内应向发货方收取的运费总金额，不超过2位小数的数字
+  billAmount: string(name='bill_amount'),
+  // 账单生成时间，13位毫秒级时间戳
+  billCreateTime: long(name='bill_create_time'),
+  // 账单期限，单位（天），合同约定的结算周期
+  billDeadline: long(name='bill_deadline'),
+  // 账单id，客户生成的账单唯一编号
+  billId: string(name='bill_id'),
+  // 收款方did，账单的收款方数字身份
+  billPayeeDid: string(name='bill_payee_did'),
+  // 付款方did，账单的付款方数字身份
+  billPayerDid: string(name='bill_payer_did'),
+  // 账单起始日期，13位毫秒级时间戳
+  billStartTime: long(name='bill_start_time'),
+  // 关联合同编号，账单关联的合同编号，如为合同物流请填写
+  contractCode?: string(name='contract_code'),
+  // 账单到期日期，13位毫秒级时间戳
+  deadline: long(name='deadline'),
+}
+
+model CreateBillReceivablebillnodetailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 链上凭证
+  txCode?: string(name='tx_code'),
+}
+
+/**
+ * Description: 应收账单创建无明细版
+ * Summary: 应收账单创建无明细版
+ */
+async function createBillReceivablebillnodetail(request: CreateBillReceivablebillnodetailRequest): CreateBillReceivablebillnodetailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBillReceivablebillnodetailEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应收账单创建无明细版
+ * Summary: 应收账单创建无明细版
+ */
+async function createBillReceivablebillnodetailEx(request: CreateBillReceivablebillnodetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBillReceivablebillnodetailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.bill.receivablebillnodetail.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryBusinessInstancestatusRequest = {
@@ -6971,9 +7085,11 @@ model ApplyInsuranceCbecRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 投保交易号，调用方生成的唯一编码；
-  // 格式为 yyyyMMdd_身份标识_其他编码。
-  // 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果
+  // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+  // yyyyMMdd请传递当前时间。 
+  // 身份标识可自定义。
+  // 其他编码建议为随机值。
+  // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string(maxLength=50, name='trade_no'),
   // 保司编码，CPIC---太保
   externalChannelCode: string(maxLength=64, name='external_channel_code'),
@@ -7135,7 +7251,7 @@ model ApplyInsuranceInventoryRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 库存申报交易号，调用方生成的唯一编码；
-  // 格式为 yyyyMMdd_身份标识_其他编码。
+  // 格式为 yyyyMMdd_身份标识_其他编码，yyyyMMdd请传递当前时间。
   // 系统会根据该流水号做防重、幂等判断逻辑。
   // 当极端场景中（接口超时），客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
   tradeNo: string(maxLength=50, name='trade_no'),
@@ -7187,11 +7303,16 @@ model ApplyInsuranceOspiRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码。 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+  // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+  // yyyyMMdd请传递当前时间。 
+  // 身份标识可自定义。
+  // 其他编码建议为随机值。
+  // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string(maxLength=50, name='trade_no'),
   // 保司编码.，PAIC---平安
   externalChannelCode: string(maxLength=10, name='external_channel_code'),
-  // 险种编码，04--海外邮包险
+  // 险种编码，06--跨境邮包险
+  // 
   externalProductCode: string(maxLength=2, name='external_product_code'),
   // 投保人姓名，保险协议中的投保人全称
   tbrName: string(maxLength=100, name='tbr_name'),
@@ -7293,11 +7414,17 @@ model ApplyInsuranceOspireportRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码。 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+  // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+  // yyyyMMdd请传递当前时间。 
+  // 身份标识可自定义。
+  // 其他编码建议为随机值。
+  // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string(maxLength=50, name='trade_no'),
   // 保司编码，PAIC---平安
   externalChannelCode: string(maxLength=10, name='external_channel_code'),
-  // 险种编码，04--海外邮包险
+  // 险种编码
+  // 04--海外邮包险
+  // 06--跨境邮包险
   externalProductCode: string(maxLength=2, name='external_product_code'),
   // 保单号，申请理赔的保单号
   policyNo: string(maxLength=200, name='policy_no'),
@@ -7324,10 +7451,10 @@ model ApplyInsuranceOspireportRequest = {
   // 卖家ID，卖家的脱敏唯一标识 
   sellId: string(maxLength=100, name='sell_id'),
   // 站点/仓储ID，站点/仓储的脱敏唯一标识
-  siteId: string(maxLength=100, name='site_id'),
+  siteId?: string(maxLength=100, name='site_id'),
   // 货物名称，实际的货物名称
   cargoName: string(maxLength=200, name='cargo_name'),
-  // 货物的重量
+  // 货物的重量，单位(kg)，最多支持6位小数
   cargoWeight: string(maxLength=20, name='cargo_weight'),
   // 出发地地址，货物的出发地地址
   startPlace: string(maxLength=500, name='start_place'),
@@ -7361,8 +7488,8 @@ model ApplyInsuranceOspireportResponse = {
 }
 
 /**
- * Description: 海外邮包险报案理赔
- * Summary: 海外邮包险报案理赔
+ * Description: 海外、跨境邮包险理赔报案
+ * Summary: 海外邮包险报案
  */
 async function applyInsuranceOspireport(request: ApplyInsuranceOspireportRequest): ApplyInsuranceOspireportResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -7371,8 +7498,8 @@ async function applyInsuranceOspireport(request: ApplyInsuranceOspireportRequest
 }
 
 /**
- * Description: 海外邮包险报案理赔
- * Summary: 海外邮包险报案理赔
+ * Description: 海外、跨境邮包险理赔报案
+ * Summary: 海外邮包险报案
  */
 async function applyInsuranceOspireportEx(request: ApplyInsuranceOspireportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyInsuranceOspireportResponse {
   Util.validateModel(request);
@@ -7383,7 +7510,8 @@ model NotifyInsuranceOspireportRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 案件同步唯一码，调用方生成的唯一编码； 格式为 yyyyMMdd_身份标识_其他编码；系统会根据该流水号做防重、幂等判断逻辑。
+  // 案件同步唯一码，调用方生成的唯一编码； 格式为 yyyyMMdd_身份标识_其他编码，yyyyMMdd请传递当前时间。
+  // 系统会根据该流水号做防重、幂等判断逻辑。
   tradeNo: string(maxLength=50, name='trade_no'),
   // 报案号，关联的报案案件号
   reportNo: string(maxLength=100, name='report_no'),
@@ -7411,8 +7539,8 @@ model NotifyInsuranceOspireportResponse = {
 }
 
 /**
- * Description: 海外邮包险报案理赔结果通知
- * Summary: 海外邮包险报案理赔结果通知
+ * Description: 海外、跨境邮包险案件结果通知
+ * Summary: 海外邮包险案件结果通知
  */
 async function notifyInsuranceOspireport(request: NotifyInsuranceOspireportRequest): NotifyInsuranceOspireportResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -7421,8 +7549,8 @@ async function notifyInsuranceOspireport(request: NotifyInsuranceOspireportReque
 }
 
 /**
- * Description: 海外邮包险报案理赔结果通知
- * Summary: 海外邮包险报案理赔结果通知
+ * Description: 海外、跨境邮包险案件结果通知
+ * Summary: 海外邮包险案件结果通知
  */
 async function notifyInsuranceOspireportEx(request: NotifyInsuranceOspireportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyInsuranceOspireportResponse {
   Util.validateModel(request);
@@ -7433,7 +7561,11 @@ model ApplyInsuranceYzbRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码。 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+  // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+  // yyyyMMdd请传递当前时间。 
+  // 身份标识可自定义。
+  // 其他编码建议为随机值。
+  // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string(maxLength=50, name='trade_no'),
   // 保司编码，PAIC---平安
   externalChannelCode: string(maxLength=10, name='external_channel_code'),
@@ -7461,7 +7593,7 @@ model ApplyInsuranceYzbRequest = {
   beneficiaryNo: string(maxLength=30, name='beneficiary_no'),
   // 保险起期，格式：yyyy-MM-dd HH:mm:ss
   insureStart: string(name='insure_start'),
-  // 套餐编码，PK00033303、PK00033459、PK00033460
+  // 套餐编码，PK00053022、PK00053025、PK00053026
   productPackageType: string(maxLength=20, name='product_package_type'),
   // 站点ID，站点的唯一标识
   siteId: string(maxLength=30, name='site_id'),
@@ -7479,12 +7611,14 @@ model ApplyInsuranceYzbRequest = {
   districtCode: string(maxLength=10, name='district_code'),
   // 完整地址，站点的详细地址
   wholeAddress: string(maxLength=300, name='whole_address'),
-  // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟站点宝
+  // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟公共服务站保障
   schemeName: string(maxLength=100, name='scheme_name'),
   // 意健险被保人姓名
   acplBbrName: string(maxLength=100, name='acpl_bbr_name'),
   // 意健险被保人身份证号
   acplBbrIdNo: string(maxLength=30, name='acpl_bbr_id_no'),
+  // 产品市场编码，一般指保司端险种编码
+  pdtMktCode?: string(maxLength=16, name='pdt_mkt_code'),
 }
 
 model ApplyInsuranceYzbResponse = {
@@ -7498,6 +7632,8 @@ model ApplyInsuranceYzbResponse = {
   tradeNo?: string(name='trade_no'),
   // 保单号
   policyNo?: string(name='policy_no'),
+  // 电子保单链接
+  policyUrl?: string(name='policy_url'),
   // 保费
   premium?: string(name='premium'),
   // 保额
@@ -7525,6 +7661,377 @@ async function applyInsuranceYzb(request: ApplyInsuranceYzbRequest): ApplyInsura
 async function applyInsuranceYzbEx(request: ApplyInsuranceYzbRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyInsuranceYzbResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'digital.logistic.insurance.yzb.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyInsuranceCbpiRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+  // yyyyMMdd请传递当前时间。 
+  // 身份标识可自定义。
+  // 其他编码建议为随机值。
+  // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
+  tradeNo: string(maxLength=50, name='trade_no'),
+  // 保司编码.，PAIC---平安
+  externalChannelCode: string(maxLength=10, name='external_channel_code'),
+  // 险种编码，06--跨境邮包险
+  externalProductCode: string(maxLength=2, name='external_product_code'),
+  // 保险协议中的投保人全称
+  tbrName: string(maxLength=100, name='tbr_name'),
+  // 投保人证件类型，03--营业执照
+  // 
+  tbrIdType: string(maxLength=2, name='tbr_id_type'),
+  // 投保人证件号码
+  tbrIdNo: string(maxLength=30, name='tbr_id_no'),
+  // 被保人姓名，实际的保险被保人名称
+  bbrName: string(maxLength=100, name='bbr_name'),
+  // 被保人证件类型，01--居民身份证、03--营业执照
+  bbrIdType: string(maxLength=2, name='bbr_id_type'),
+  // 被保人证件号码
+  // 
+  bbrIdNo: string(maxLength=30, name='bbr_id_no'),
+  // 受益人名称，实际的保险受益人名称
+  // 
+  beneficiaryName: string(maxLength=100, name='beneficiary_name'),
+  // 受益人证件类型，01--居民身份证、03--营业执照
+  beneficiaryIdType: string(maxLength=2, name='beneficiary_id_type'),
+  // 受益人证件号码
+  beneficiaryNo: string(maxLength=30, name='beneficiary_no'),
+  // 保险起期，日期格式yyyy-MM-dd HH:mm:ss
+  // 
+  insureStart: string(name='insure_start'),
+  // 保险金额，单位（元），最多支持2位小数，超过2位拒绝；
+  // 
+  insuredAmount: string(name='insured_amount'),
+  // 方案名，XBDP—跨境邮包险
+  schemeName: string(maxLength=100, name='scheme_name'),
+  // 项目名称，命名规范“方案种类+物流业务种类+国别”
+  projectName: string(maxLength=500, name='project_name'),
+  // 订单号,物流平台用以区分业务的唯一码
+  relatedOrderNo: string(maxLength=100, name='related_order_no'),
+  // 寄件时间，日期格式yyyy-MM-dd HH:mm:ss
+  pickUpTime: string(name='pick_up_time'),
+  // 快递公司名称，实际的派送公司全称
+  courierCompany: string(maxLength=200, name='courier_company'),
+  // 快递单号，实际的派送快递单号
+  // 
+  courierNumber: string(maxLength=100, name='courier_number'),
+  // 货物类型,货物类型的大类
+  cargoType: string(maxLength=100, name='cargo_type'),
+  // 货物名称,实际的货物名称
+  cargoName: string(maxLength=200, name='cargo_name'),
+  // 货物数量
+  cargoQuantity: string(name='cargo_quantity'),
+  // 买家ID,买家的脱敏唯一标识
+  buyId: string(maxLength=100, name='buy_id'),
+  // 卖家ID,卖家的脱敏唯一标识
+  sellId: string(maxLength=100, name='sell_id'),
+  // 出发地地址,包裹的实际发件地地址
+  startPlace: string(maxLength=500, name='start_place'),
+  // 目的地地址,包裹的实际收件地地址
+  destination: string(maxLength=500, name='destination'),
+  // ISO到达国别,包裹业务实际发生的国家
+  isoCountry: string(maxLength=10, name='iso_country'),
+  // 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
+  cargoWorth: string(name='cargo_worth'),
+}
+
+model ApplyInsuranceCbpiResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 投保唯一码
+  // 
+  tradeNo?: string(name='trade_no'),
+  // 保单号
+  // 
+  policyNo?: string(name='policy_no'),
+  // 保费
+  // 
+  premium?: string(name='premium'),
+  // 保额
+  // 
+  insuredAmount?: string(name='insured_amount'),
+  // 保险起期
+  // 
+  insureStart?: string(name='insure_start'),
+  // 保险止期
+  // 
+  insureEnd?: string(name='insure_end'),
+}
+
+/**
+ * Description: 跨境邮包险投保
+ * Summary: 跨境邮包险投保
+ */
+async function applyInsuranceCbpi(request: ApplyInsuranceCbpiRequest): ApplyInsuranceCbpiResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyInsuranceCbpiEx(request, headers, runtime);
+}
+
+/**
+ * Description: 跨境邮包险投保
+ * Summary: 跨境邮包险投保
+ */
+async function applyInsuranceCbpiEx(request: ApplyInsuranceCbpiRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyInsuranceCbpiResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.insurance.cbpi.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyInsuranceYzbreportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+  // yyyyMMdd请传递当前时间。 
+  // 身份标识可自定义。
+  // 其他编码建议为随机值。
+  // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
+  tradeNo: string(maxLength=50, name='trade_no'),
+  // 保司编码，PAIC---平安
+  externalChannelCode: string(maxLength=10, name='external_channel_code'),
+  // 险种编码，05-驿站宝
+  externalProductCode: string(maxLength=2, name='external_product_code'),
+  // 保单号，申请理赔的保单号
+  policyNo: string(maxLength=200, name='policy_no'),
+  // 报案唯一标识，申请理赔所关联的订单号，如一个订单会存在多次理赔，请用唯一标识
+  reportUniqueKey: string(maxLength=200, name='report_unique_key'),
+  // 理赔申请人
+  claimApplyPerson: string(maxLength=100, name='claim_apply_person'),
+  // 报案人名称
+  reporterName: string(maxLength=100, name='reporter_name'),
+  // 报案人联系方式
+  reporterContact: string(maxLength=20, name='reporter_contact'),
+  // 出险时间，发生损失的时间 yyyy-mm-dd hh:mm:ss
+  accidentTime: string(name='accident_time'),
+  // 出险城市编码，国家地理位置编码6位城市编码
+  accidentCityCode: string(maxLength=10, name='accident_city_code'),
+  // 出险区县编码，国家地理位置编码6位城市编码
+  accidentDistrictCode: string(maxLength=10, name='accident_district_code'),
+  // 出险详细地址，事发出险地的详细地址
+  accidentAddress: string(maxLength=500, name='accident_address'),
+  // 出险详细经过
+  accidentDetail: string(maxLength=500, name='accident_detail'),
+  // 出险原因代码，包裹破损丢失-R3028，火灾-R3025，爆炸-R3026，水湿-R3036，自燃-R3038，其他意外-R3039
+  accidentCauseCode: string(maxLength=10, name='accident_cause_code'),
+  // 损失类型，1-人伤，2-车损,，3-物损，6-其它损失，多种损失以英文逗号分隔
+  lossType: string(maxLength=50, name='loss_type'),
+  // 损失预估总金额，单位（元），最多支持2位小数
+  lossEstimateTotalAmount: string(name='loss_estimate_total_amount'),
+  // 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
+  complaintJobNo?: string(maxLength=100, name='complaint_job_no'),
+  // 快递公司，申请理赔所关联的快递公司名称，包裹出险可填
+  courierCompany?: string(maxLength=200, name='courier_company'),
+  // 运单号，申请理赔所关联的运单号，包裹出险可填
+  wayBillNo?: string(maxLength=100, name='way_bill_no'),
+  // 支付信息
+  paymentInfo?: PaymentInfo(name='payment_info'),
+  // 人员伤残情况
+  personLoss?: PersonLoss(name='person_loss'),
+  // 车辆损失详情
+  carLoss?: CarLoss(name='car_loss'),
+  // 货物损失详情
+  cargoLoss?: CargoLoss(name='cargo_loss'),
+  // 文档信息
+  documents?: [ Document ](name='documents'),
+}
+
+model ApplyInsuranceYzbreportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 报案唯一码
+  tradeNo?: string(name='trade_no'),
+  // 报案号
+  reportNo?: string(name='report_no'),
+}
+
+/**
+ * Description: 驿站宝报案
+ * Summary: 驿站宝报案
+ */
+async function applyInsuranceYzbreport(request: ApplyInsuranceYzbreportRequest): ApplyInsuranceYzbreportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyInsuranceYzbreportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 驿站宝报案
+ * Summary: 驿站宝报案
+ */
+async function applyInsuranceYzbreportEx(request: ApplyInsuranceYzbreportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyInsuranceYzbreportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.insurance.yzbreport.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryInsuranceYzbreportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 保司编码，PAIC---平安
+  // 
+  externalChannelCode: string(maxLength=10, name='external_channel_code'),
+  // 保单号
+  policyNo: string(maxLength=200, name='policy_no'),
+  // 报案号
+  reportNo: string(maxLength=100, name='report_no'),
+}
+
+model QueryInsuranceYzbreportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 报案号
+  reportNo?: string(name='report_no'),
+  // 保单号
+  policyNo?: string(name='policy_no'),
+  // 赔案号
+  claimNo?: string(name='claim_no'),
+  // 报案时间，格式yyyy-mm-dd hh:mm:ss
+  reportReqTime?: string(name='report_req_time'),
+  // 案件状态，已报案，已结案，已赔付
+  reportStatus?: string(name='report_status'),
+  // 案件赔付金额，单位元，两位小数;
+  reportPaidAmount?: string(name='report_paid_amount'),
+  // 险种名称
+  externalProductName?: string(name='external_product_name'),
+  // 结案时间，格式yyyy-mm-dd hh:mm:ss
+  reportEndTime?: string(name='report_end_time'),
+  // 案件赔付结论，1-赔付 2-零结 3-商业险拒赔 4-整案拒赔 5-注销
+  reportPaidDesc?: string(name='report_paid_desc'),
+  // 案件赔付时间，格式yyyy-mm-dd hh:mm:ss
+  // 
+  reportPaidTime?: string(name='report_paid_time'),
+}
+
+/**
+ * Description: 驿站宝案件进度查询
+ * Summary: 驿站宝案件进度查询
+ */
+async function queryInsuranceYzbreport(request: QueryInsuranceYzbreportRequest): QueryInsuranceYzbreportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInsuranceYzbreportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 驿站宝案件进度查询
+ * Summary: 驿站宝案件进度查询
+ */
+async function queryInsuranceYzbreportEx(request: QueryInsuranceYzbreportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInsuranceYzbreportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.insurance.yzbreport.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SaveInsuranceWaybillRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+  // yyyyMMdd请传递当前时间。 
+  // 身份标识可自定义。
+  // 其他编码建议为随机值。
+  // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
+  // 
+  tradeNo: string(maxLength=50, name='trade_no'),
+  // 运单号，客户侧系统的运单唯一识别号
+  waybillNo: string(maxLength=200, name='waybill_no'),
+  // 发货单位，客户唯一识别码或脱敏标识
+  deliveryCompany?: string(maxLength=200, name='delivery_company'),
+  // 发货人，客户唯一识别码或脱敏标识
+  consignor: string(maxLength=200, name='consignor'),
+  // 发货地址，地址可脱敏，不需要精确到门牌号
+  deliveryAddress?: string(maxLength=500, name='delivery_address'),
+  // 货物名称
+  cargoName: string(maxLength=500, name='cargo_name'),
+  // 货物数量，单位（件）
+  cargoQuantity: string(maxLength=20, name='cargo_quantity'),
+  // 货物重量，单位（kg）
+  cargoWeight?: string(maxLength=20, name='cargo_weight'),
+  // 货物体积，单位（方）
+  cargoDimensions?: string(maxLength=20, name='cargo_dimensions'),
+  // 揽件网点，货物出发地的揽件网点
+  pickupOutlets?: string(maxLength=200, name='pickup_outlets'),
+  // 出发站，专线出发站点
+  departureStation: string(maxLength=200, name='departure_station'),
+  // 到达站，专线到达站点
+  destinationStation: string(maxLength=200, name='destination_station'),
+  // 派件网点，货物目的地的派件网点
+  dispatchOutlets?: string(maxLength=200, name='dispatch_outlets'),
+  // 收货人，客户唯一识别码或脱敏标识
+  consignee?: string(maxLength=200, name='consignee'),
+  // 收货地址，地址可脱敏，不需要精确到门牌号
+  receivingAddress?: string(maxLength=500, name='receiving_address'),
+  // 干线承运商
+  trunkLineCarrier?: string(maxLength=200, name='trunk_line_carrier'),
+  // 干线车牌号
+  trunkLineCarNumber?: string(maxLength=20, name='trunk_line_car_number'),
+  // 司机姓名
+  driverName?: string(maxLength=200, name='driver_name'),
+  // 司机联系方式
+  driverContact?: string(maxLength=20, name='driver_contact'),
+  // 运单创建时间，格式：yyyy-mm-dd hh:mm:ss
+  waybillCreateTime: string(name='waybill_create_time'),
+  // 干线运输发车时间，格式要求：yyyy-mm-dd hh:mm:ss
+  trunkLineDepartureTime?: string(name='trunk_line_departure_time'),
+  // 干线运输到达时间，格式要求：yyyy-mm-dd hh:mm:ss
+  trunkLineArrivalTime?: string(name='trunk_line_arrival_time'),
+  // 运费总金额，单位（元），最多2位小数
+  freight: string(name='freight'),
+  // 运单状态，客户系统中实际的当前运单状态
+  waybillStatus: string(maxLength=200, name='waybill_status'),
+  // 提货车牌号
+  takeCargoCarNumber?: string(maxLength=20, name='take_cargo_car_number'),
+  // 短驳车牌号
+  shortBargeCarNumber?: string(maxLength=20, name='short_barge_car_number'),
+  // 送货车牌号
+  deliveryCarNumber?: string(maxLength=20, name='delivery_car_number'),
+  // 运单操作类型，CREATE -创建，UPDATE-更新
+  waybillActionType: string(maxLength=20, name='waybill_action_type'),
+}
+
+model SaveInsuranceWaybillResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 运单操作类型，与请求参数中一致
+  waybillActionType?: string(name='waybill_action_type'),
+  // 交易流水号，与请求参数中一致
+  tradeNo?: string(name='trade_no'),
+}
+
+/**
+ * Description: 零担快运运单上链存证接口
+ * Summary: 零担快运运单上链存证接口
+ */
+async function saveInsuranceWaybill(request: SaveInsuranceWaybillRequest): SaveInsuranceWaybillResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveInsuranceWaybillEx(request, headers, runtime);
+}
+
+/**
+ * Description: 零担快运运单上链存证接口
+ * Summary: 零担快运运单上链存证接口
+ */
+async function saveInsuranceWaybillEx(request: SaveInsuranceWaybillRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveInsuranceWaybillResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.insurance.waybill.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PushAuthSigninfoRequest = {
@@ -7668,11 +8175,11 @@ model QueryPfIouRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 项目id
-  projectId: string(maxLength=20, name='project_id'),
+  projectId: string(name='project_id'),
   // 融资主体Did
-  financingSubjectDid: string(maxLength=16, name='financing_subject_did'),
+  financingSubjectDid: string(name='financing_subject_did'),
   // 支用Id
-  financingId: string(maxLength=32, name='financing_id'),
+  financingId: string(name='financing_id'),
 }
 
 model QueryPfIouResponse = {
