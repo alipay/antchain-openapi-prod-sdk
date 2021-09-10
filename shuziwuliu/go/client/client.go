@@ -635,6 +635,53 @@ func (s *CustomsOrderBookingParam) SetBookingNo(v string) *CustomsOrderBookingPa
 	return s
 }
 
+// 支付信息
+type PaymentInfo struct {
+	// 收款账户名称
+	ReceiverAccountName *string `json:"receiver_account_name,omitempty" xml:"receiver_account_name,omitempty" require:"true" maxLength:"200"`
+	// 收款账户，支付宝账号
+	ReceiverAccount *string `json:"receiver_account,omitempty" xml:"receiver_account,omitempty" require:"true" maxLength:"50"`
+	// 收款账户类型 ,1-个人账号，0-公司账号
+	ReceiverAccountType *string `json:"receiver_account_type,omitempty" xml:"receiver_account_type,omitempty" require:"true" maxLength:"2"`
+	// 收款人证件号码 ，账户类型为个人时，非空
+	ReceiverCertificateNo *string `json:"receiver_certificate_no,omitempty" xml:"receiver_certificate_no,omitempty" maxLength:"50"`
+	// 收款人证件类型，01-身份证，02-护照，03-军官证，04-港澳通行证，05-驾驶证，06-港澳回乡证或台胞证，07-临时身份证，99-其他
+	ReceiverCertificateType *string `json:"receiver_certificate_type,omitempty" xml:"receiver_certificate_type,omitempty" require:"true" maxLength:"2"`
+}
+
+func (s PaymentInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PaymentInfo) GoString() string {
+	return s.String()
+}
+
+func (s *PaymentInfo) SetReceiverAccountName(v string) *PaymentInfo {
+	s.ReceiverAccountName = &v
+	return s
+}
+
+func (s *PaymentInfo) SetReceiverAccount(v string) *PaymentInfo {
+	s.ReceiverAccount = &v
+	return s
+}
+
+func (s *PaymentInfo) SetReceiverAccountType(v string) *PaymentInfo {
+	s.ReceiverAccountType = &v
+	return s
+}
+
+func (s *PaymentInfo) SetReceiverCertificateNo(v string) *PaymentInfo {
+	s.ReceiverCertificateNo = &v
+	return s
+}
+
+func (s *PaymentInfo) SetReceiverCertificateType(v string) *PaymentInfo {
+	s.ReceiverCertificateType = &v
+	return s
+}
+
 // 航运集装箱类型信息
 type ContainerTypeInfo struct {
 	// 箱型
@@ -875,6 +922,32 @@ func (s *SoNotifyBookingParam) SetVoyage(v string) *SoNotifyBookingParam {
 	return s
 }
 
+// 文档信息
+type Document struct {
+	// 文档url
+	DocumentUrl *string `json:"document_url,omitempty" xml:"document_url,omitempty" require:"true" maxLength:"500"`
+	// 文档名称
+	DocumentName *string `json:"document_name,omitempty" xml:"document_name,omitempty" require:"true" maxLength:"200"`
+}
+
+func (s Document) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Document) GoString() string {
+	return s.String()
+}
+
+func (s *Document) SetDocumentUrl(v string) *Document {
+	s.DocumentUrl = &v
+	return s
+}
+
+func (s *Document) SetDocumentName(v string) *Document {
+	s.DocumentName = &v
+	return s
+}
+
 // 凭证返回值
 type VoucherResp struct {
 	// 消息
@@ -1067,6 +1140,53 @@ func (s *ContainerIdInfo) SetContainerId(v string) *ContainerIdInfo {
 
 func (s *ContainerIdInfo) SetContainerNo(v string) *ContainerIdInfo {
 	s.ContainerNo = &v
+	return s
+}
+
+// 货物损失详情
+type CargoLoss struct {
+	// 物品类型
+	CargoType *string `json:"cargo_type,omitempty" xml:"cargo_type,omitempty" maxLength:"200"`
+	// 物品名称
+	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" require:"true" maxLength:"500"`
+	// 物品所有人
+	CargoOwner *string `json:"cargo_owner,omitempty" xml:"cargo_owner,omitempty" maxLength:"200"`
+	// 物品损失描述
+	CargoLossDesc *string `json:"cargo_loss_desc,omitempty" xml:"cargo_loss_desc,omitempty" maxLength:"500"`
+	// 损失预估，单位（元），最多支持2位小数
+	CargoLossEstimateAmount *string `json:"cargo_loss_estimate_amount,omitempty" xml:"cargo_loss_estimate_amount,omitempty" require:"true"`
+}
+
+func (s CargoLoss) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CargoLoss) GoString() string {
+	return s.String()
+}
+
+func (s *CargoLoss) SetCargoType(v string) *CargoLoss {
+	s.CargoType = &v
+	return s
+}
+
+func (s *CargoLoss) SetCargoName(v string) *CargoLoss {
+	s.CargoName = &v
+	return s
+}
+
+func (s *CargoLoss) SetCargoOwner(v string) *CargoLoss {
+	s.CargoOwner = &v
+	return s
+}
+
+func (s *CargoLoss) SetCargoLossDesc(v string) *CargoLoss {
+	s.CargoLossDesc = &v
+	return s
+}
+
+func (s *CargoLoss) SetCargoLossEstimateAmount(v string) *CargoLoss {
+	s.CargoLossEstimateAmount = &v
 	return s
 }
 
@@ -1684,6 +1804,39 @@ func (s *EblDetail) SetEblCopyPdfFileId(v string) *EblDetail {
 
 func (s *EblDetail) SetEblNo(v string) *EblDetail {
 	s.EblNo = &v
+	return s
+}
+
+// 人员伤残情况
+type PersonLoss struct {
+	// 伤情，HOSPITALIZE-住院，CLINIC-门诊，DEATH-死亡，ALLOWANCE-津贴
+	PersonInjuredCondition *string `json:"person_injured_condition,omitempty" xml:"person_injured_condition,omitempty" require:"true" maxLength:"50"`
+	// 伤者姓名
+	PersonInjuredName *string `json:"person_injured_name,omitempty" xml:"person_injured_name,omitempty" require:"true" maxLength:"200"`
+	// 损失预估，单位（元），最多支持2位小数
+	PersonLossEstimateAmount *string `json:"person_loss_estimate_amount,omitempty" xml:"person_loss_estimate_amount,omitempty"`
+}
+
+func (s PersonLoss) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PersonLoss) GoString() string {
+	return s.String()
+}
+
+func (s *PersonLoss) SetPersonInjuredCondition(v string) *PersonLoss {
+	s.PersonInjuredCondition = &v
+	return s
+}
+
+func (s *PersonLoss) SetPersonInjuredName(v string) *PersonLoss {
+	s.PersonInjuredName = &v
+	return s
+}
+
+func (s *PersonLoss) SetPersonLossEstimateAmount(v string) *PersonLoss {
+	s.PersonLossEstimateAmount = &v
 	return s
 }
 
@@ -2416,6 +2569,53 @@ func (s *ContainerGoodsParam) SetVolume(v string) *ContainerGoodsParam {
 
 func (s *ContainerGoodsParam) SetWeight(v string) *ContainerGoodsParam {
 	s.Weight = &v
+	return s
+}
+
+// 车辆损失详情
+type CarLoss struct {
+	// 车牌号，车牌号和车架号至少填一个
+	CarMark *string `json:"car_mark,omitempty" xml:"car_mark,omitempty" maxLength:"20"`
+	// 车主姓名
+	CarOwnerName *string `json:"car_owner_name,omitempty" xml:"car_owner_name,omitempty" maxLength:"200"`
+	// 车主联系方式
+	CarOwnerContact *string `json:"car_owner_contact,omitempty" xml:"car_owner_contact,omitempty" maxLength:"20"`
+	// 车架号，车牌号和车架号至少填一个
+	CarVinNo *string `json:"car_vin_no,omitempty" xml:"car_vin_no,omitempty" maxLength:"100"`
+	// 损失预估，单位（元），最多支持2位小数
+	CarLossEstimateAmount *string `json:"car_loss_estimate_amount,omitempty" xml:"car_loss_estimate_amount,omitempty" require:"true"`
+}
+
+func (s CarLoss) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarLoss) GoString() string {
+	return s.String()
+}
+
+func (s *CarLoss) SetCarMark(v string) *CarLoss {
+	s.CarMark = &v
+	return s
+}
+
+func (s *CarLoss) SetCarOwnerName(v string) *CarLoss {
+	s.CarOwnerName = &v
+	return s
+}
+
+func (s *CarLoss) SetCarOwnerContact(v string) *CarLoss {
+	s.CarOwnerContact = &v
+	return s
+}
+
+func (s *CarLoss) SetCarVinNo(v string) *CarLoss {
+	s.CarVinNo = &v
+	return s
+}
+
+func (s *CarLoss) SetCarLossEstimateAmount(v string) *CarLoss {
+	s.CarLossEstimateAmount = &v
 	return s
 }
 
@@ -7962,7 +8162,7 @@ type CreateCargowaybillBillRequest struct {
 	BillCode *string `json:"bill_code,omitempty" xml:"bill_code,omitempty" require:"true"`
 	// 账单生成时间(毫秒)
 	BillCreateTime *int64 `json:"bill_create_time,omitempty" xml:"bill_create_time,omitempty" require:"true"`
-	// 账单期限
+	// 账单期限，单位（天），需填写1到360之间的整数
 	BillDeadline *string `json:"bill_deadline,omitempty" xml:"bill_deadline,omitempty" require:"true"`
 	// 付款方did
 	BillPayerDid *string `json:"bill_payer_did,omitempty" xml:"bill_payer_did,omitempty" require:"true"`
@@ -8396,7 +8596,7 @@ type UpdateCargowaybillBillRequest struct {
 	BillCode *string `json:"bill_code,omitempty" xml:"bill_code,omitempty" require:"true"`
 	// 账单生成时间(毫秒)
 	BillCreateTime *int64 `json:"bill_create_time,omitempty" xml:"bill_create_time,omitempty" require:"true"`
-	// 账单期限
+	// 账单期限，单位（天），需填写1到360之间的整数
 	BillDeadline *string `json:"bill_deadline,omitempty" xml:"bill_deadline,omitempty" require:"true"`
 	// 付款方did
 	BillPayerDid *string `json:"bill_payer_did,omitempty" xml:"bill_payer_did,omitempty" require:"true"`
@@ -9537,7 +9737,7 @@ type CreateBillReceivablebillRequest struct {
 	BillAmount *string `json:"bill_amount,omitempty" xml:"bill_amount,omitempty" require:"true"`
 	// 账单生成时间，13位毫秒级时间戳
 	BillCreateTime *int64 `json:"bill_create_time,omitempty" xml:"bill_create_time,omitempty" require:"true"`
-	// 账单期限，单位（天），合同约定的结算周期
+	// 账单期限，单位（天），合同约定的结算周期，需填写1到360的整数
 	BillDeadline *int64 `json:"bill_deadline,omitempty" xml:"bill_deadline,omitempty" require:"true"`
 	// 账单id，客户生成的账单唯一编号
 	BillId *string `json:"bill_id,omitempty" xml:"bill_id,omitempty" require:"true"`
@@ -9764,7 +9964,7 @@ type UpdateBillReceivablebillRequest struct {
 	BillAmount *string `json:"bill_amount,omitempty" xml:"bill_amount,omitempty"`
 	// 账单生成时间，13位毫秒级时间戳
 	BillCreateTime *int64 `json:"bill_create_time,omitempty" xml:"bill_create_time,omitempty"`
-	// 账单期限，单位（天），合同约定的结算周期
+	// 账单期限，单位（天），合同约定的结算周期，需填写1到360的整数
 	BillDeadline *int64 `json:"bill_deadline,omitempty" xml:"bill_deadline,omitempty"`
 	// 账单id，客户生成的账单唯一编号
 	BillId *string `json:"bill_id,omitempty" xml:"bill_id,omitempty" require:"true"`
@@ -10117,6 +10317,132 @@ func (s *QueryWaybillInfoResponse) SetResultMsg(v string) *QueryWaybillInfoRespo
 
 func (s *QueryWaybillInfoResponse) SetWaybill(v string) *QueryWaybillInfoResponse {
 	s.Waybill = &v
+	return s
+}
+
+type CreateBillReceivablebillnodetailRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 账单总金额，单位（元），周期内应向发货方收取的运费总金额，不超过2位小数的数字
+	BillAmount *string `json:"bill_amount,omitempty" xml:"bill_amount,omitempty" require:"true"`
+	// 账单生成时间，13位毫秒级时间戳
+	BillCreateTime *int64 `json:"bill_create_time,omitempty" xml:"bill_create_time,omitempty" require:"true"`
+	// 账单期限，单位（天），合同约定的结算周期
+	BillDeadline *int64 `json:"bill_deadline,omitempty" xml:"bill_deadline,omitempty" require:"true"`
+	// 账单id，客户生成的账单唯一编号
+	BillId *string `json:"bill_id,omitempty" xml:"bill_id,omitempty" require:"true"`
+	// 收款方did，账单的收款方数字身份
+	BillPayeeDid *string `json:"bill_payee_did,omitempty" xml:"bill_payee_did,omitempty" require:"true"`
+	// 付款方did，账单的付款方数字身份
+	BillPayerDid *string `json:"bill_payer_did,omitempty" xml:"bill_payer_did,omitempty" require:"true"`
+	// 账单起始日期，13位毫秒级时间戳
+	BillStartTime *int64 `json:"bill_start_time,omitempty" xml:"bill_start_time,omitempty" require:"true"`
+	// 关联合同编号，账单关联的合同编号，如为合同物流请填写
+	ContractCode *string `json:"contract_code,omitempty" xml:"contract_code,omitempty"`
+	// 账单到期日期，13位毫秒级时间戳
+	Deadline *int64 `json:"deadline,omitempty" xml:"deadline,omitempty" require:"true"`
+}
+
+func (s CreateBillReceivablebillnodetailRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBillReceivablebillnodetailRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBillReceivablebillnodetailRequest) SetAuthToken(v string) *CreateBillReceivablebillnodetailRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateBillReceivablebillnodetailRequest) SetProductInstanceId(v string) *CreateBillReceivablebillnodetailRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateBillReceivablebillnodetailRequest) SetBillAmount(v string) *CreateBillReceivablebillnodetailRequest {
+	s.BillAmount = &v
+	return s
+}
+
+func (s *CreateBillReceivablebillnodetailRequest) SetBillCreateTime(v int64) *CreateBillReceivablebillnodetailRequest {
+	s.BillCreateTime = &v
+	return s
+}
+
+func (s *CreateBillReceivablebillnodetailRequest) SetBillDeadline(v int64) *CreateBillReceivablebillnodetailRequest {
+	s.BillDeadline = &v
+	return s
+}
+
+func (s *CreateBillReceivablebillnodetailRequest) SetBillId(v string) *CreateBillReceivablebillnodetailRequest {
+	s.BillId = &v
+	return s
+}
+
+func (s *CreateBillReceivablebillnodetailRequest) SetBillPayeeDid(v string) *CreateBillReceivablebillnodetailRequest {
+	s.BillPayeeDid = &v
+	return s
+}
+
+func (s *CreateBillReceivablebillnodetailRequest) SetBillPayerDid(v string) *CreateBillReceivablebillnodetailRequest {
+	s.BillPayerDid = &v
+	return s
+}
+
+func (s *CreateBillReceivablebillnodetailRequest) SetBillStartTime(v int64) *CreateBillReceivablebillnodetailRequest {
+	s.BillStartTime = &v
+	return s
+}
+
+func (s *CreateBillReceivablebillnodetailRequest) SetContractCode(v string) *CreateBillReceivablebillnodetailRequest {
+	s.ContractCode = &v
+	return s
+}
+
+func (s *CreateBillReceivablebillnodetailRequest) SetDeadline(v int64) *CreateBillReceivablebillnodetailRequest {
+	s.Deadline = &v
+	return s
+}
+
+type CreateBillReceivablebillnodetailResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 链上凭证
+	TxCode *string `json:"tx_code,omitempty" xml:"tx_code,omitempty"`
+}
+
+func (s CreateBillReceivablebillnodetailResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBillReceivablebillnodetailResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBillReceivablebillnodetailResponse) SetReqMsgId(v string) *CreateBillReceivablebillnodetailResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateBillReceivablebillnodetailResponse) SetResultCode(v string) *CreateBillReceivablebillnodetailResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateBillReceivablebillnodetailResponse) SetResultMsg(v string) *CreateBillReceivablebillnodetailResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateBillReceivablebillnodetailResponse) SetTxCode(v string) *CreateBillReceivablebillnodetailResponse {
+	s.TxCode = &v
 	return s
 }
 
@@ -17391,9 +17717,11 @@ type ApplyInsuranceCbecRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 投保交易号，调用方生成的唯一编码；
-	// 格式为 yyyyMMdd_身份标识_其他编码。
-	// 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果
+	// 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+	// yyyyMMdd请传递当前时间。
+	// 身份标识可自定义。
+	// 其他编码建议为随机值。
+	// 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
 	// 保司编码，CPIC---太保
 	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"64"`
@@ -17819,7 +18147,7 @@ type ApplyInsuranceInventoryRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 库存申报交易号，调用方生成的唯一编码；
-	// 格式为 yyyyMMdd_身份标识_其他编码。
+	// 格式为 yyyyMMdd_身份标识_其他编码，yyyyMMdd请传递当前时间。
 	// 系统会根据该流水号做防重、幂等判断逻辑。
 	// 当极端场景中（接口超时），客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
@@ -17928,11 +18256,16 @@ type ApplyInsuranceOspiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码。 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+	// 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+	// yyyyMMdd请传递当前时间。
+	// 身份标识可自定义。
+	// 其他编码建议为随机值。
+	// 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
 	// 保司编码.，PAIC---平安
 	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"10"`
-	// 险种编码，04--海外邮包险
+	// 险种编码，06--跨境邮包险
+	//
 	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"2"`
 	// 投保人姓名，保险协议中的投保人全称
 	TbrName *string `json:"tbr_name,omitempty" xml:"tbr_name,omitempty" require:"true" maxLength:"100"`
@@ -18236,11 +18569,17 @@ type ApplyInsuranceOspireportRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码。 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+	// 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+	// yyyyMMdd请传递当前时间。
+	// 身份标识可自定义。
+	// 其他编码建议为随机值。
+	// 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
 	// 保司编码，PAIC---平安
 	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"10"`
-	// 险种编码，04--海外邮包险
+	// 险种编码
+	// 04--海外邮包险
+	// 06--跨境邮包险
 	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"2"`
 	// 保单号，申请理赔的保单号
 	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty" require:"true" maxLength:"200"`
@@ -18267,10 +18606,10 @@ type ApplyInsuranceOspireportRequest struct {
 	// 卖家ID，卖家的脱敏唯一标识
 	SellId *string `json:"sell_id,omitempty" xml:"sell_id,omitempty" require:"true" maxLength:"100"`
 	// 站点/仓储ID，站点/仓储的脱敏唯一标识
-	SiteId *string `json:"site_id,omitempty" xml:"site_id,omitempty" require:"true" maxLength:"100"`
+	SiteId *string `json:"site_id,omitempty" xml:"site_id,omitempty" maxLength:"100"`
 	// 货物名称，实际的货物名称
 	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" require:"true" maxLength:"200"`
-	// 货物的重量
+	// 货物的重量，单位(kg)，最多支持6位小数
 	CargoWeight *string `json:"cargo_weight,omitempty" xml:"cargo_weight,omitempty" require:"true" maxLength:"20"`
 	// 出发地地址，货物的出发地地址
 	StartPlace *string `json:"start_place,omitempty" xml:"start_place,omitempty" require:"true" maxLength:"500"`
@@ -18488,7 +18827,8 @@ type NotifyInsuranceOspireportRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 案件同步唯一码，调用方生成的唯一编码； 格式为 yyyyMMdd_身份标识_其他编码；系统会根据该流水号做防重、幂等判断逻辑。
+	// 案件同步唯一码，调用方生成的唯一编码； 格式为 yyyyMMdd_身份标识_其他编码，yyyyMMdd请传递当前时间。
+	// 系统会根据该流水号做防重、幂等判断逻辑。
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
 	// 报案号，关联的报案案件号
 	ReportNo *string `json:"report_no,omitempty" xml:"report_no,omitempty" require:"true" maxLength:"100"`
@@ -18600,7 +18940,11 @@ type ApplyInsuranceYzbRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码。 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+	// 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+	// yyyyMMdd请传递当前时间。
+	// 身份标识可自定义。
+	// 其他编码建议为随机值。
+	// 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
 	// 保司编码，PAIC---平安
 	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"10"`
@@ -18628,7 +18972,7 @@ type ApplyInsuranceYzbRequest struct {
 	BeneficiaryNo *string `json:"beneficiary_no,omitempty" xml:"beneficiary_no,omitempty" require:"true" maxLength:"30"`
 	// 保险起期，格式：yyyy-MM-dd HH:mm:ss
 	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty" require:"true"`
-	// 套餐编码，PK00033303、PK00033459、PK00033460
+	// 套餐编码，PK00053022、PK00053025、PK00053026
 	ProductPackageType *string `json:"product_package_type,omitempty" xml:"product_package_type,omitempty" require:"true" maxLength:"20"`
 	// 站点ID，站点的唯一标识
 	SiteId *string `json:"site_id,omitempty" xml:"site_id,omitempty" require:"true" maxLength:"30"`
@@ -18646,12 +18990,14 @@ type ApplyInsuranceYzbRequest struct {
 	DistrictCode *string `json:"district_code,omitempty" xml:"district_code,omitempty" require:"true" maxLength:"10"`
 	// 完整地址，站点的详细地址
 	WholeAddress *string `json:"whole_address,omitempty" xml:"whole_address,omitempty" require:"true" maxLength:"300"`
-	// 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟站点宝
+	// 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟公共服务站保障
 	SchemeName *string `json:"scheme_name,omitempty" xml:"scheme_name,omitempty" require:"true" maxLength:"100"`
 	// 意健险被保人姓名
 	AcplBbrName *string `json:"acpl_bbr_name,omitempty" xml:"acpl_bbr_name,omitempty" require:"true" maxLength:"100"`
 	// 意健险被保人身份证号
 	AcplBbrIdNo *string `json:"acpl_bbr_id_no,omitempty" xml:"acpl_bbr_id_no,omitempty" require:"true" maxLength:"30"`
+	// 产品市场编码，一般指保司端险种编码
+	PdtMktCode *string `json:"pdt_mkt_code,omitempty" xml:"pdt_mkt_code,omitempty" maxLength:"16"`
 }
 
 func (s ApplyInsuranceYzbRequest) String() string {
@@ -18802,6 +19148,11 @@ func (s *ApplyInsuranceYzbRequest) SetAcplBbrIdNo(v string) *ApplyInsuranceYzbRe
 	return s
 }
 
+func (s *ApplyInsuranceYzbRequest) SetPdtMktCode(v string) *ApplyInsuranceYzbRequest {
+	s.PdtMktCode = &v
+	return s
+}
+
 type ApplyInsuranceYzbResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -18813,6 +19164,8 @@ type ApplyInsuranceYzbResponse struct {
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
 	// 保单号
 	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty"`
+	// 电子保单链接
+	PolicyUrl *string `json:"policy_url,omitempty" xml:"policy_url,omitempty"`
 	// 保费
 	Premium *string `json:"premium,omitempty" xml:"premium,omitempty"`
 	// 保额
@@ -18856,6 +19209,11 @@ func (s *ApplyInsuranceYzbResponse) SetPolicyNo(v string) *ApplyInsuranceYzbResp
 	return s
 }
 
+func (s *ApplyInsuranceYzbResponse) SetPolicyUrl(v string) *ApplyInsuranceYzbResponse {
+	s.PolicyUrl = &v
+	return s
+}
+
 func (s *ApplyInsuranceYzbResponse) SetPremium(v string) *ApplyInsuranceYzbResponse {
 	s.Premium = &v
 	return s
@@ -18873,6 +19231,985 @@ func (s *ApplyInsuranceYzbResponse) SetInsureStart(v string) *ApplyInsuranceYzbR
 
 func (s *ApplyInsuranceYzbResponse) SetInsureEnd(v string) *ApplyInsuranceYzbResponse {
 	s.InsureEnd = &v
+	return s
+}
+
+type ApplyInsuranceCbpiRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+	// yyyyMMdd请传递当前时间。
+	// 身份标识可自定义。
+	// 其他编码建议为随机值。
+	// 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
+	// 保司编码.，PAIC---平安
+	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"10"`
+	// 险种编码，06--跨境邮包险
+	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"2"`
+	// 保险协议中的投保人全称
+	TbrName *string `json:"tbr_name,omitempty" xml:"tbr_name,omitempty" require:"true" maxLength:"100"`
+	// 投保人证件类型，03--营业执照
+	//
+	TbrIdType *string `json:"tbr_id_type,omitempty" xml:"tbr_id_type,omitempty" require:"true" maxLength:"2"`
+	// 投保人证件号码
+	TbrIdNo *string `json:"tbr_id_no,omitempty" xml:"tbr_id_no,omitempty" require:"true" maxLength:"30"`
+	// 被保人姓名，实际的保险被保人名称
+	BbrName *string `json:"bbr_name,omitempty" xml:"bbr_name,omitempty" require:"true" maxLength:"100"`
+	// 被保人证件类型，01--居民身份证、03--营业执照
+	BbrIdType *string `json:"bbr_id_type,omitempty" xml:"bbr_id_type,omitempty" require:"true" maxLength:"2"`
+	// 被保人证件号码
+	//
+	BbrIdNo *string `json:"bbr_id_no,omitempty" xml:"bbr_id_no,omitempty" require:"true" maxLength:"30"`
+	// 受益人名称，实际的保险受益人名称
+	//
+	BeneficiaryName *string `json:"beneficiary_name,omitempty" xml:"beneficiary_name,omitempty" require:"true" maxLength:"100"`
+	// 受益人证件类型，01--居民身份证、03--营业执照
+	BeneficiaryIdType *string `json:"beneficiary_id_type,omitempty" xml:"beneficiary_id_type,omitempty" require:"true" maxLength:"2"`
+	// 受益人证件号码
+	BeneficiaryNo *string `json:"beneficiary_no,omitempty" xml:"beneficiary_no,omitempty" require:"true" maxLength:"30"`
+	// 保险起期，日期格式yyyy-MM-dd HH:mm:ss
+	//
+	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty" require:"true"`
+	// 保险金额，单位（元），最多支持2位小数，超过2位拒绝；
+	//
+	InsuredAmount *string `json:"insured_amount,omitempty" xml:"insured_amount,omitempty" require:"true"`
+	// 方案名，XBDP—跨境邮包险
+	SchemeName *string `json:"scheme_name,omitempty" xml:"scheme_name,omitempty" require:"true" maxLength:"100"`
+	// 项目名称，命名规范“方案种类+物流业务种类+国别”
+	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty" require:"true" maxLength:"500"`
+	// 订单号,物流平台用以区分业务的唯一码
+	RelatedOrderNo *string `json:"related_order_no,omitempty" xml:"related_order_no,omitempty" require:"true" maxLength:"100"`
+	// 寄件时间，日期格式yyyy-MM-dd HH:mm:ss
+	PickUpTime *string `json:"pick_up_time,omitempty" xml:"pick_up_time,omitempty" require:"true"`
+	// 快递公司名称，实际的派送公司全称
+	CourierCompany *string `json:"courier_company,omitempty" xml:"courier_company,omitempty" require:"true" maxLength:"200"`
+	// 快递单号，实际的派送快递单号
+	//
+	CourierNumber *string `json:"courier_number,omitempty" xml:"courier_number,omitempty" require:"true" maxLength:"100"`
+	// 货物类型,货物类型的大类
+	CargoType *string `json:"cargo_type,omitempty" xml:"cargo_type,omitempty" require:"true" maxLength:"100"`
+	// 货物名称,实际的货物名称
+	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" require:"true" maxLength:"200"`
+	// 货物数量
+	CargoQuantity *string `json:"cargo_quantity,omitempty" xml:"cargo_quantity,omitempty" require:"true"`
+	// 买家ID,买家的脱敏唯一标识
+	BuyId *string `json:"buy_id,omitempty" xml:"buy_id,omitempty" require:"true" maxLength:"100"`
+	// 卖家ID,卖家的脱敏唯一标识
+	SellId *string `json:"sell_id,omitempty" xml:"sell_id,omitempty" require:"true" maxLength:"100"`
+	// 出发地地址,包裹的实际发件地地址
+	StartPlace *string `json:"start_place,omitempty" xml:"start_place,omitempty" require:"true" maxLength:"500"`
+	// 目的地地址,包裹的实际收件地地址
+	Destination *string `json:"destination,omitempty" xml:"destination,omitempty" require:"true" maxLength:"500"`
+	// ISO到达国别,包裹业务实际发生的国家
+	IsoCountry *string `json:"iso_country,omitempty" xml:"iso_country,omitempty" require:"true" maxLength:"10"`
+	// 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
+	CargoWorth *string `json:"cargo_worth,omitempty" xml:"cargo_worth,omitempty" require:"true"`
+}
+
+func (s ApplyInsuranceCbpiRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyInsuranceCbpiRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetAuthToken(v string) *ApplyInsuranceCbpiRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetProductInstanceId(v string) *ApplyInsuranceCbpiRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetTradeNo(v string) *ApplyInsuranceCbpiRequest {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetExternalChannelCode(v string) *ApplyInsuranceCbpiRequest {
+	s.ExternalChannelCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetExternalProductCode(v string) *ApplyInsuranceCbpiRequest {
+	s.ExternalProductCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetTbrName(v string) *ApplyInsuranceCbpiRequest {
+	s.TbrName = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetTbrIdType(v string) *ApplyInsuranceCbpiRequest {
+	s.TbrIdType = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetTbrIdNo(v string) *ApplyInsuranceCbpiRequest {
+	s.TbrIdNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetBbrName(v string) *ApplyInsuranceCbpiRequest {
+	s.BbrName = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetBbrIdType(v string) *ApplyInsuranceCbpiRequest {
+	s.BbrIdType = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetBbrIdNo(v string) *ApplyInsuranceCbpiRequest {
+	s.BbrIdNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetBeneficiaryName(v string) *ApplyInsuranceCbpiRequest {
+	s.BeneficiaryName = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetBeneficiaryIdType(v string) *ApplyInsuranceCbpiRequest {
+	s.BeneficiaryIdType = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetBeneficiaryNo(v string) *ApplyInsuranceCbpiRequest {
+	s.BeneficiaryNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetInsureStart(v string) *ApplyInsuranceCbpiRequest {
+	s.InsureStart = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetInsuredAmount(v string) *ApplyInsuranceCbpiRequest {
+	s.InsuredAmount = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetSchemeName(v string) *ApplyInsuranceCbpiRequest {
+	s.SchemeName = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetProjectName(v string) *ApplyInsuranceCbpiRequest {
+	s.ProjectName = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetRelatedOrderNo(v string) *ApplyInsuranceCbpiRequest {
+	s.RelatedOrderNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetPickUpTime(v string) *ApplyInsuranceCbpiRequest {
+	s.PickUpTime = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetCourierCompany(v string) *ApplyInsuranceCbpiRequest {
+	s.CourierCompany = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetCourierNumber(v string) *ApplyInsuranceCbpiRequest {
+	s.CourierNumber = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetCargoType(v string) *ApplyInsuranceCbpiRequest {
+	s.CargoType = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetCargoName(v string) *ApplyInsuranceCbpiRequest {
+	s.CargoName = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetCargoQuantity(v string) *ApplyInsuranceCbpiRequest {
+	s.CargoQuantity = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetBuyId(v string) *ApplyInsuranceCbpiRequest {
+	s.BuyId = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetSellId(v string) *ApplyInsuranceCbpiRequest {
+	s.SellId = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetStartPlace(v string) *ApplyInsuranceCbpiRequest {
+	s.StartPlace = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetDestination(v string) *ApplyInsuranceCbpiRequest {
+	s.Destination = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetIsoCountry(v string) *ApplyInsuranceCbpiRequest {
+	s.IsoCountry = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetCargoWorth(v string) *ApplyInsuranceCbpiRequest {
+	s.CargoWorth = &v
+	return s
+}
+
+type ApplyInsuranceCbpiResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 投保唯一码
+	//
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+	// 保单号
+	//
+	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty"`
+	// 保费
+	//
+	Premium *string `json:"premium,omitempty" xml:"premium,omitempty"`
+	// 保额
+	//
+	InsuredAmount *string `json:"insured_amount,omitempty" xml:"insured_amount,omitempty"`
+	// 保险起期
+	//
+	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty"`
+	// 保险止期
+	//
+	InsureEnd *string `json:"insure_end,omitempty" xml:"insure_end,omitempty"`
+}
+
+func (s ApplyInsuranceCbpiResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyInsuranceCbpiResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyInsuranceCbpiResponse) SetReqMsgId(v string) *ApplyInsuranceCbpiResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiResponse) SetResultCode(v string) *ApplyInsuranceCbpiResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiResponse) SetResultMsg(v string) *ApplyInsuranceCbpiResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiResponse) SetTradeNo(v string) *ApplyInsuranceCbpiResponse {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiResponse) SetPolicyNo(v string) *ApplyInsuranceCbpiResponse {
+	s.PolicyNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiResponse) SetPremium(v string) *ApplyInsuranceCbpiResponse {
+	s.Premium = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiResponse) SetInsuredAmount(v string) *ApplyInsuranceCbpiResponse {
+	s.InsuredAmount = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiResponse) SetInsureStart(v string) *ApplyInsuranceCbpiResponse {
+	s.InsureStart = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiResponse) SetInsureEnd(v string) *ApplyInsuranceCbpiResponse {
+	s.InsureEnd = &v
+	return s
+}
+
+type ApplyInsuranceYzbreportRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+	// yyyyMMdd请传递当前时间。
+	// 身份标识可自定义。
+	// 其他编码建议为随机值。
+	// 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
+	// 保司编码，PAIC---平安
+	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"10"`
+	// 险种编码，05-驿站宝
+	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"2"`
+	// 保单号，申请理赔的保单号
+	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty" require:"true" maxLength:"200"`
+	// 报案唯一标识，申请理赔所关联的订单号，如一个订单会存在多次理赔，请用唯一标识
+	ReportUniqueKey *string `json:"report_unique_key,omitempty" xml:"report_unique_key,omitempty" require:"true" maxLength:"200"`
+	// 理赔申请人
+	ClaimApplyPerson *string `json:"claim_apply_person,omitempty" xml:"claim_apply_person,omitempty" require:"true" maxLength:"100"`
+	// 报案人名称
+	ReporterName *string `json:"reporter_name,omitempty" xml:"reporter_name,omitempty" require:"true" maxLength:"100"`
+	// 报案人联系方式
+	ReporterContact *string `json:"reporter_contact,omitempty" xml:"reporter_contact,omitempty" require:"true" maxLength:"20"`
+	// 出险时间，发生损失的时间 yyyy-mm-dd hh:mm:ss
+	AccidentTime *string `json:"accident_time,omitempty" xml:"accident_time,omitempty" require:"true"`
+	// 出险城市编码，国家地理位置编码6位城市编码
+	AccidentCityCode *string `json:"accident_city_code,omitempty" xml:"accident_city_code,omitempty" require:"true" maxLength:"10"`
+	// 出险区县编码，国家地理位置编码6位城市编码
+	AccidentDistrictCode *string `json:"accident_district_code,omitempty" xml:"accident_district_code,omitempty" require:"true" maxLength:"10"`
+	// 出险详细地址，事发出险地的详细地址
+	AccidentAddress *string `json:"accident_address,omitempty" xml:"accident_address,omitempty" require:"true" maxLength:"500"`
+	// 出险详细经过
+	AccidentDetail *string `json:"accident_detail,omitempty" xml:"accident_detail,omitempty" require:"true" maxLength:"500"`
+	// 出险原因代码，包裹破损丢失-R3028，火灾-R3025，爆炸-R3026，水湿-R3036，自燃-R3038，其他意外-R3039
+	AccidentCauseCode *string `json:"accident_cause_code,omitempty" xml:"accident_cause_code,omitempty" require:"true" maxLength:"10"`
+	// 损失类型，1-人伤，2-车损,，3-物损，6-其它损失，多种损失以英文逗号分隔
+	LossType *string `json:"loss_type,omitempty" xml:"loss_type,omitempty" require:"true" maxLength:"50"`
+	// 损失预估总金额，单位（元），最多支持2位小数
+	LossEstimateTotalAmount *string `json:"loss_estimate_total_amount,omitempty" xml:"loss_estimate_total_amount,omitempty" require:"true"`
+	// 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
+	ComplaintJobNo *string `json:"complaint_job_no,omitempty" xml:"complaint_job_no,omitempty" maxLength:"100"`
+	// 快递公司，申请理赔所关联的快递公司名称，包裹出险可填
+	CourierCompany *string `json:"courier_company,omitempty" xml:"courier_company,omitempty" maxLength:"200"`
+	// 运单号，申请理赔所关联的运单号，包裹出险可填
+	WayBillNo *string `json:"way_bill_no,omitempty" xml:"way_bill_no,omitempty" maxLength:"100"`
+	// 支付信息
+	PaymentInfo *PaymentInfo `json:"payment_info,omitempty" xml:"payment_info,omitempty"`
+	// 人员伤残情况
+	PersonLoss *PersonLoss `json:"person_loss,omitempty" xml:"person_loss,omitempty"`
+	// 车辆损失详情
+	CarLoss *CarLoss `json:"car_loss,omitempty" xml:"car_loss,omitempty"`
+	// 货物损失详情
+	CargoLoss *CargoLoss `json:"cargo_loss,omitempty" xml:"cargo_loss,omitempty"`
+	// 文档信息
+	Documents []*Document `json:"documents,omitempty" xml:"documents,omitempty" type:"Repeated"`
+}
+
+func (s ApplyInsuranceYzbreportRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyInsuranceYzbreportRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetAuthToken(v string) *ApplyInsuranceYzbreportRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetProductInstanceId(v string) *ApplyInsuranceYzbreportRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetTradeNo(v string) *ApplyInsuranceYzbreportRequest {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetExternalChannelCode(v string) *ApplyInsuranceYzbreportRequest {
+	s.ExternalChannelCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetExternalProductCode(v string) *ApplyInsuranceYzbreportRequest {
+	s.ExternalProductCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetPolicyNo(v string) *ApplyInsuranceYzbreportRequest {
+	s.PolicyNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetReportUniqueKey(v string) *ApplyInsuranceYzbreportRequest {
+	s.ReportUniqueKey = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetClaimApplyPerson(v string) *ApplyInsuranceYzbreportRequest {
+	s.ClaimApplyPerson = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetReporterName(v string) *ApplyInsuranceYzbreportRequest {
+	s.ReporterName = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetReporterContact(v string) *ApplyInsuranceYzbreportRequest {
+	s.ReporterContact = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetAccidentTime(v string) *ApplyInsuranceYzbreportRequest {
+	s.AccidentTime = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetAccidentCityCode(v string) *ApplyInsuranceYzbreportRequest {
+	s.AccidentCityCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetAccidentDistrictCode(v string) *ApplyInsuranceYzbreportRequest {
+	s.AccidentDistrictCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetAccidentAddress(v string) *ApplyInsuranceYzbreportRequest {
+	s.AccidentAddress = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetAccidentDetail(v string) *ApplyInsuranceYzbreportRequest {
+	s.AccidentDetail = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetAccidentCauseCode(v string) *ApplyInsuranceYzbreportRequest {
+	s.AccidentCauseCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetLossType(v string) *ApplyInsuranceYzbreportRequest {
+	s.LossType = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetLossEstimateTotalAmount(v string) *ApplyInsuranceYzbreportRequest {
+	s.LossEstimateTotalAmount = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetComplaintJobNo(v string) *ApplyInsuranceYzbreportRequest {
+	s.ComplaintJobNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetCourierCompany(v string) *ApplyInsuranceYzbreportRequest {
+	s.CourierCompany = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetWayBillNo(v string) *ApplyInsuranceYzbreportRequest {
+	s.WayBillNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetPaymentInfo(v *PaymentInfo) *ApplyInsuranceYzbreportRequest {
+	s.PaymentInfo = v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetPersonLoss(v *PersonLoss) *ApplyInsuranceYzbreportRequest {
+	s.PersonLoss = v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetCarLoss(v *CarLoss) *ApplyInsuranceYzbreportRequest {
+	s.CarLoss = v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetCargoLoss(v *CargoLoss) *ApplyInsuranceYzbreportRequest {
+	s.CargoLoss = v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetDocuments(v []*Document) *ApplyInsuranceYzbreportRequest {
+	s.Documents = v
+	return s
+}
+
+type ApplyInsuranceYzbreportResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 报案唯一码
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+	// 报案号
+	ReportNo *string `json:"report_no,omitempty" xml:"report_no,omitempty"`
+}
+
+func (s ApplyInsuranceYzbreportResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyInsuranceYzbreportResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyInsuranceYzbreportResponse) SetReqMsgId(v string) *ApplyInsuranceYzbreportResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportResponse) SetResultCode(v string) *ApplyInsuranceYzbreportResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportResponse) SetResultMsg(v string) *ApplyInsuranceYzbreportResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportResponse) SetTradeNo(v string) *ApplyInsuranceYzbreportResponse {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportResponse) SetReportNo(v string) *ApplyInsuranceYzbreportResponse {
+	s.ReportNo = &v
+	return s
+}
+
+type QueryInsuranceYzbreportRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 保司编码，PAIC---平安
+	//
+	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"10"`
+	// 保单号
+	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty" require:"true" maxLength:"200"`
+	// 报案号
+	ReportNo *string `json:"report_no,omitempty" xml:"report_no,omitempty" require:"true" maxLength:"100"`
+}
+
+func (s QueryInsuranceYzbreportRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInsuranceYzbreportRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInsuranceYzbreportRequest) SetAuthToken(v string) *QueryInsuranceYzbreportRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportRequest) SetProductInstanceId(v string) *QueryInsuranceYzbreportRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportRequest) SetExternalChannelCode(v string) *QueryInsuranceYzbreportRequest {
+	s.ExternalChannelCode = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportRequest) SetPolicyNo(v string) *QueryInsuranceYzbreportRequest {
+	s.PolicyNo = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportRequest) SetReportNo(v string) *QueryInsuranceYzbreportRequest {
+	s.ReportNo = &v
+	return s
+}
+
+type QueryInsuranceYzbreportResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 报案号
+	ReportNo *string `json:"report_no,omitempty" xml:"report_no,omitempty"`
+	// 保单号
+	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty"`
+	// 赔案号
+	ClaimNo *string `json:"claim_no,omitempty" xml:"claim_no,omitempty"`
+	// 报案时间，格式yyyy-mm-dd hh:mm:ss
+	ReportReqTime *string `json:"report_req_time,omitempty" xml:"report_req_time,omitempty"`
+	// 案件状态，已报案，已结案，已赔付
+	ReportStatus *string `json:"report_status,omitempty" xml:"report_status,omitempty"`
+	// 案件赔付金额，单位元，两位小数;
+	ReportPaidAmount *string `json:"report_paid_amount,omitempty" xml:"report_paid_amount,omitempty"`
+	// 险种名称
+	ExternalProductName *string `json:"external_product_name,omitempty" xml:"external_product_name,omitempty"`
+	// 结案时间，格式yyyy-mm-dd hh:mm:ss
+	ReportEndTime *string `json:"report_end_time,omitempty" xml:"report_end_time,omitempty"`
+	// 案件赔付结论，1-赔付 2-零结 3-商业险拒赔 4-整案拒赔 5-注销
+	ReportPaidDesc *string `json:"report_paid_desc,omitempty" xml:"report_paid_desc,omitempty"`
+	// 案件赔付时间，格式yyyy-mm-dd hh:mm:ss
+	//
+	ReportPaidTime *string `json:"report_paid_time,omitempty" xml:"report_paid_time,omitempty"`
+}
+
+func (s QueryInsuranceYzbreportResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInsuranceYzbreportResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInsuranceYzbreportResponse) SetReqMsgId(v string) *QueryInsuranceYzbreportResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportResponse) SetResultCode(v string) *QueryInsuranceYzbreportResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportResponse) SetResultMsg(v string) *QueryInsuranceYzbreportResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportResponse) SetReportNo(v string) *QueryInsuranceYzbreportResponse {
+	s.ReportNo = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportResponse) SetPolicyNo(v string) *QueryInsuranceYzbreportResponse {
+	s.PolicyNo = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportResponse) SetClaimNo(v string) *QueryInsuranceYzbreportResponse {
+	s.ClaimNo = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportResponse) SetReportReqTime(v string) *QueryInsuranceYzbreportResponse {
+	s.ReportReqTime = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportResponse) SetReportStatus(v string) *QueryInsuranceYzbreportResponse {
+	s.ReportStatus = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportResponse) SetReportPaidAmount(v string) *QueryInsuranceYzbreportResponse {
+	s.ReportPaidAmount = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportResponse) SetExternalProductName(v string) *QueryInsuranceYzbreportResponse {
+	s.ExternalProductName = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportResponse) SetReportEndTime(v string) *QueryInsuranceYzbreportResponse {
+	s.ReportEndTime = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportResponse) SetReportPaidDesc(v string) *QueryInsuranceYzbreportResponse {
+	s.ReportPaidDesc = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportResponse) SetReportPaidTime(v string) *QueryInsuranceYzbreportResponse {
+	s.ReportPaidTime = &v
+	return s
+}
+
+type SaveInsuranceWaybillRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+	// yyyyMMdd请传递当前时间。
+	// 身份标识可自定义。
+	// 其他编码建议为随机值。
+	// 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+	//
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
+	// 运单号，客户侧系统的运单唯一识别号
+	WaybillNo *string `json:"waybill_no,omitempty" xml:"waybill_no,omitempty" require:"true" maxLength:"200"`
+	// 发货单位，客户唯一识别码或脱敏标识
+	DeliveryCompany *string `json:"delivery_company,omitempty" xml:"delivery_company,omitempty" maxLength:"200"`
+	// 发货人，客户唯一识别码或脱敏标识
+	Consignor *string `json:"consignor,omitempty" xml:"consignor,omitempty" require:"true" maxLength:"200"`
+	// 发货地址，地址可脱敏，不需要精确到门牌号
+	DeliveryAddress *string `json:"delivery_address,omitempty" xml:"delivery_address,omitempty" maxLength:"500"`
+	// 货物名称
+	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" require:"true" maxLength:"500"`
+	// 货物数量，单位（件）
+	CargoQuantity *string `json:"cargo_quantity,omitempty" xml:"cargo_quantity,omitempty" require:"true" maxLength:"20"`
+	// 货物重量，单位（kg）
+	CargoWeight *string `json:"cargo_weight,omitempty" xml:"cargo_weight,omitempty" maxLength:"20"`
+	// 货物体积，单位（方）
+	CargoDimensions *string `json:"cargo_dimensions,omitempty" xml:"cargo_dimensions,omitempty" maxLength:"20"`
+	// 揽件网点，货物出发地的揽件网点
+	PickupOutlets *string `json:"pickup_outlets,omitempty" xml:"pickup_outlets,omitempty" maxLength:"200"`
+	// 出发站，专线出发站点
+	DepartureStation *string `json:"departure_station,omitempty" xml:"departure_station,omitempty" require:"true" maxLength:"200"`
+	// 到达站，专线到达站点
+	DestinationStation *string `json:"destination_station,omitempty" xml:"destination_station,omitempty" require:"true" maxLength:"200"`
+	// 派件网点，货物目的地的派件网点
+	DispatchOutlets *string `json:"dispatch_outlets,omitempty" xml:"dispatch_outlets,omitempty" maxLength:"200"`
+	// 收货人，客户唯一识别码或脱敏标识
+	Consignee *string `json:"consignee,omitempty" xml:"consignee,omitempty" maxLength:"200"`
+	// 收货地址，地址可脱敏，不需要精确到门牌号
+	ReceivingAddress *string `json:"receiving_address,omitempty" xml:"receiving_address,omitempty" maxLength:"500"`
+	// 干线承运商
+	TrunkLineCarrier *string `json:"trunk_line_carrier,omitempty" xml:"trunk_line_carrier,omitempty" maxLength:"200"`
+	// 干线车牌号
+	TrunkLineCarNumber *string `json:"trunk_line_car_number,omitempty" xml:"trunk_line_car_number,omitempty" maxLength:"20"`
+	// 司机姓名
+	DriverName *string `json:"driver_name,omitempty" xml:"driver_name,omitempty" maxLength:"200"`
+	// 司机联系方式
+	DriverContact *string `json:"driver_contact,omitempty" xml:"driver_contact,omitempty" maxLength:"20"`
+	// 运单创建时间，格式：yyyy-mm-dd hh:mm:ss
+	WaybillCreateTime *string `json:"waybill_create_time,omitempty" xml:"waybill_create_time,omitempty" require:"true"`
+	// 干线运输发车时间，格式要求：yyyy-mm-dd hh:mm:ss
+	TrunkLineDepartureTime *string `json:"trunk_line_departure_time,omitempty" xml:"trunk_line_departure_time,omitempty"`
+	// 干线运输到达时间，格式要求：yyyy-mm-dd hh:mm:ss
+	TrunkLineArrivalTime *string `json:"trunk_line_arrival_time,omitempty" xml:"trunk_line_arrival_time,omitempty"`
+	// 运费总金额，单位（元），最多2位小数
+	Freight *string `json:"freight,omitempty" xml:"freight,omitempty" require:"true"`
+	// 运单状态，客户系统中实际的当前运单状态
+	WaybillStatus *string `json:"waybill_status,omitempty" xml:"waybill_status,omitempty" require:"true" maxLength:"200"`
+	// 提货车牌号
+	TakeCargoCarNumber *string `json:"take_cargo_car_number,omitempty" xml:"take_cargo_car_number,omitempty" maxLength:"20"`
+	// 短驳车牌号
+	ShortBargeCarNumber *string `json:"short_barge_car_number,omitempty" xml:"short_barge_car_number,omitempty" maxLength:"20"`
+	// 送货车牌号
+	DeliveryCarNumber *string `json:"delivery_car_number,omitempty" xml:"delivery_car_number,omitempty" maxLength:"20"`
+	// 运单操作类型，CREATE -创建，UPDATE-更新
+	WaybillActionType *string `json:"waybill_action_type,omitempty" xml:"waybill_action_type,omitempty" require:"true" maxLength:"20"`
+}
+
+func (s SaveInsuranceWaybillRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveInsuranceWaybillRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SaveInsuranceWaybillRequest) SetAuthToken(v string) *SaveInsuranceWaybillRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetProductInstanceId(v string) *SaveInsuranceWaybillRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetTradeNo(v string) *SaveInsuranceWaybillRequest {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetWaybillNo(v string) *SaveInsuranceWaybillRequest {
+	s.WaybillNo = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetDeliveryCompany(v string) *SaveInsuranceWaybillRequest {
+	s.DeliveryCompany = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetConsignor(v string) *SaveInsuranceWaybillRequest {
+	s.Consignor = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetDeliveryAddress(v string) *SaveInsuranceWaybillRequest {
+	s.DeliveryAddress = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetCargoName(v string) *SaveInsuranceWaybillRequest {
+	s.CargoName = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetCargoQuantity(v string) *SaveInsuranceWaybillRequest {
+	s.CargoQuantity = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetCargoWeight(v string) *SaveInsuranceWaybillRequest {
+	s.CargoWeight = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetCargoDimensions(v string) *SaveInsuranceWaybillRequest {
+	s.CargoDimensions = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetPickupOutlets(v string) *SaveInsuranceWaybillRequest {
+	s.PickupOutlets = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetDepartureStation(v string) *SaveInsuranceWaybillRequest {
+	s.DepartureStation = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetDestinationStation(v string) *SaveInsuranceWaybillRequest {
+	s.DestinationStation = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetDispatchOutlets(v string) *SaveInsuranceWaybillRequest {
+	s.DispatchOutlets = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetConsignee(v string) *SaveInsuranceWaybillRequest {
+	s.Consignee = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetReceivingAddress(v string) *SaveInsuranceWaybillRequest {
+	s.ReceivingAddress = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetTrunkLineCarrier(v string) *SaveInsuranceWaybillRequest {
+	s.TrunkLineCarrier = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetTrunkLineCarNumber(v string) *SaveInsuranceWaybillRequest {
+	s.TrunkLineCarNumber = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetDriverName(v string) *SaveInsuranceWaybillRequest {
+	s.DriverName = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetDriverContact(v string) *SaveInsuranceWaybillRequest {
+	s.DriverContact = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetWaybillCreateTime(v string) *SaveInsuranceWaybillRequest {
+	s.WaybillCreateTime = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetTrunkLineDepartureTime(v string) *SaveInsuranceWaybillRequest {
+	s.TrunkLineDepartureTime = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetTrunkLineArrivalTime(v string) *SaveInsuranceWaybillRequest {
+	s.TrunkLineArrivalTime = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetFreight(v string) *SaveInsuranceWaybillRequest {
+	s.Freight = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetWaybillStatus(v string) *SaveInsuranceWaybillRequest {
+	s.WaybillStatus = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetTakeCargoCarNumber(v string) *SaveInsuranceWaybillRequest {
+	s.TakeCargoCarNumber = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetShortBargeCarNumber(v string) *SaveInsuranceWaybillRequest {
+	s.ShortBargeCarNumber = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetDeliveryCarNumber(v string) *SaveInsuranceWaybillRequest {
+	s.DeliveryCarNumber = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillRequest) SetWaybillActionType(v string) *SaveInsuranceWaybillRequest {
+	s.WaybillActionType = &v
+	return s
+}
+
+type SaveInsuranceWaybillResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 运单操作类型，与请求参数中一致
+	WaybillActionType *string `json:"waybill_action_type,omitempty" xml:"waybill_action_type,omitempty"`
+	// 交易流水号，与请求参数中一致
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+}
+
+func (s SaveInsuranceWaybillResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveInsuranceWaybillResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SaveInsuranceWaybillResponse) SetReqMsgId(v string) *SaveInsuranceWaybillResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillResponse) SetResultCode(v string) *SaveInsuranceWaybillResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillResponse) SetResultMsg(v string) *SaveInsuranceWaybillResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillResponse) SetWaybillActionType(v string) *SaveInsuranceWaybillResponse {
+	s.WaybillActionType = &v
+	return s
+}
+
+func (s *SaveInsuranceWaybillResponse) SetTradeNo(v string) *SaveInsuranceWaybillResponse {
+	s.TradeNo = &v
 	return s
 }
 
@@ -19231,11 +20568,11 @@ type QueryPfIouRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 项目id
-	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true" maxLength:"20"`
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
 	// 融资主体Did
-	FinancingSubjectDid *string `json:"financing_subject_did,omitempty" xml:"financing_subject_did,omitempty" require:"true" maxLength:"16"`
+	FinancingSubjectDid *string `json:"financing_subject_did,omitempty" xml:"financing_subject_did,omitempty" require:"true"`
 	// 支用Id
-	FinancingId *string `json:"financing_id,omitempty" xml:"financing_id,omitempty" require:"true" maxLength:"32"`
+	FinancingId *string `json:"financing_id,omitempty" xml:"financing_id,omitempty" require:"true"`
 }
 
 func (s QueryPfIouRequest) String() string {
@@ -27332,7 +28669,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.119"),
+				"sdk_version":      tea.String("1.3.125"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -28701,6 +30038,40 @@ func (client *Client) QueryWaybillInfoEx(request *QueryWaybillInfoRequest, heade
 	}
 	_result = &QueryWaybillInfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.waybill.info.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 应收账单创建无明细版
+ * Summary: 应收账单创建无明细版
+ */
+func (client *Client) CreateBillReceivablebillnodetail(request *CreateBillReceivablebillnodetailRequest) (_result *CreateBillReceivablebillnodetailResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateBillReceivablebillnodetailResponse{}
+	_body, _err := client.CreateBillReceivablebillnodetailEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 应收账单创建无明细版
+ * Summary: 应收账单创建无明细版
+ */
+func (client *Client) CreateBillReceivablebillnodetailEx(request *CreateBillReceivablebillnodetailRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateBillReceivablebillnodetailResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateBillReceivablebillnodetailResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.bill.receivablebillnodetail.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -30581,8 +31952,8 @@ func (client *Client) ApplyInsuranceOspiEx(request *ApplyInsuranceOspiRequest, h
 }
 
 /**
- * Description: 海外邮包险报案理赔
- * Summary: 海外邮包险报案理赔
+ * Description: 海外、跨境邮包险理赔报案
+ * Summary: 海外邮包险报案
  */
 func (client *Client) ApplyInsuranceOspireport(request *ApplyInsuranceOspireportRequest) (_result *ApplyInsuranceOspireportResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -30597,8 +31968,8 @@ func (client *Client) ApplyInsuranceOspireport(request *ApplyInsuranceOspireport
 }
 
 /**
- * Description: 海外邮包险报案理赔
- * Summary: 海外邮包险报案理赔
+ * Description: 海外、跨境邮包险理赔报案
+ * Summary: 海外邮包险报案
  */
 func (client *Client) ApplyInsuranceOspireportEx(request *ApplyInsuranceOspireportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyInsuranceOspireportResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -30615,8 +31986,8 @@ func (client *Client) ApplyInsuranceOspireportEx(request *ApplyInsuranceOspirepo
 }
 
 /**
- * Description: 海外邮包险报案理赔结果通知
- * Summary: 海外邮包险报案理赔结果通知
+ * Description: 海外、跨境邮包险案件结果通知
+ * Summary: 海外邮包险案件结果通知
  */
 func (client *Client) NotifyInsuranceOspireport(request *NotifyInsuranceOspireportRequest) (_result *NotifyInsuranceOspireportResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -30631,8 +32002,8 @@ func (client *Client) NotifyInsuranceOspireport(request *NotifyInsuranceOspirepo
 }
 
 /**
- * Description: 海外邮包险报案理赔结果通知
- * Summary: 海外邮包险报案理赔结果通知
+ * Description: 海外、跨境邮包险案件结果通知
+ * Summary: 海外邮包险案件结果通知
  */
 func (client *Client) NotifyInsuranceOspireportEx(request *NotifyInsuranceOspireportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyInsuranceOspireportResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -30675,6 +32046,142 @@ func (client *Client) ApplyInsuranceYzbEx(request *ApplyInsuranceYzbRequest, hea
 	}
 	_result = &ApplyInsuranceYzbResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.insurance.yzb.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 跨境邮包险投保
+ * Summary: 跨境邮包险投保
+ */
+func (client *Client) ApplyInsuranceCbpi(request *ApplyInsuranceCbpiRequest) (_result *ApplyInsuranceCbpiResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyInsuranceCbpiResponse{}
+	_body, _err := client.ApplyInsuranceCbpiEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 跨境邮包险投保
+ * Summary: 跨境邮包险投保
+ */
+func (client *Client) ApplyInsuranceCbpiEx(request *ApplyInsuranceCbpiRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyInsuranceCbpiResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyInsuranceCbpiResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.insurance.cbpi.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 驿站宝报案
+ * Summary: 驿站宝报案
+ */
+func (client *Client) ApplyInsuranceYzbreport(request *ApplyInsuranceYzbreportRequest) (_result *ApplyInsuranceYzbreportResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyInsuranceYzbreportResponse{}
+	_body, _err := client.ApplyInsuranceYzbreportEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 驿站宝报案
+ * Summary: 驿站宝报案
+ */
+func (client *Client) ApplyInsuranceYzbreportEx(request *ApplyInsuranceYzbreportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyInsuranceYzbreportResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyInsuranceYzbreportResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.insurance.yzbreport.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 驿站宝案件进度查询
+ * Summary: 驿站宝案件进度查询
+ */
+func (client *Client) QueryInsuranceYzbreport(request *QueryInsuranceYzbreportRequest) (_result *QueryInsuranceYzbreportResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryInsuranceYzbreportResponse{}
+	_body, _err := client.QueryInsuranceYzbreportEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 驿站宝案件进度查询
+ * Summary: 驿站宝案件进度查询
+ */
+func (client *Client) QueryInsuranceYzbreportEx(request *QueryInsuranceYzbreportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryInsuranceYzbreportResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryInsuranceYzbreportResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.insurance.yzbreport.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 零担快运运单上链存证接口
+ * Summary: 零担快运运单上链存证接口
+ */
+func (client *Client) SaveInsuranceWaybill(request *SaveInsuranceWaybillRequest) (_result *SaveInsuranceWaybillResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SaveInsuranceWaybillResponse{}
+	_body, _err := client.SaveInsuranceWaybillEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 零担快运运单上链存证接口
+ * Summary: 零担快运运单上链存证接口
+ */
+func (client *Client) SaveInsuranceWaybillEx(request *SaveInsuranceWaybillRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SaveInsuranceWaybillResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SaveInsuranceWaybillResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.insurance.waybill.save"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
