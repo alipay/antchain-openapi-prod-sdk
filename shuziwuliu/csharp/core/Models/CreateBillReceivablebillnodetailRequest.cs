@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.SHUZIWULIU.Models
 {
-    public class CreateBillReceivablebillRequest : TeaModel {
+    public class CreateBillReceivablebillnodetailRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -28,7 +28,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true)]
         public long? BillCreateTime { get; set; }
 
-        // 账单期限，单位（天），合同约定的结算周期，需填写1到360的整数
+        // 账单期限，单位（天），合同约定的结算周期
         [NameInMap("bill_deadline")]
         [Validation(Required=true)]
         public long? BillDeadline { get; set; }
@@ -54,7 +54,6 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         public long? BillStartTime { get; set; }
 
         // 关联合同编号，账单关联的合同编号，如为合同物流请填写
-        // 
         [NameInMap("contract_code")]
         [Validation(Required=false)]
         public string ContractCode { get; set; }
@@ -63,11 +62,6 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [NameInMap("deadline")]
         [Validation(Required=true)]
         public long? Deadline { get; set; }
-
-        // 账单关联运单号数组，元素个数不能超过1000个
-        [NameInMap("waybill_ids")]
-        [Validation(Required=true)]
-        public List<string> WaybillIds { get; set; }
 
     }
 

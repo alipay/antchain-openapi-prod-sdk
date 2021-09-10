@@ -18,7 +18,8 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 案件同步唯一码，调用方生成的唯一编码； 格式为 yyyyMMdd_身份标识_其他编码；系统会根据该流水号做防重、幂等判断逻辑。
+        // 案件同步唯一码，调用方生成的唯一编码； 格式为 yyyyMMdd_身份标识_其他编码，yyyyMMdd请传递当前时间。
+        // 系统会根据该流水号做防重、幂等判断逻辑。
         [NameInMap("trade_no")]
         [Validation(Required=true, MaxLength=50)]
         public string TradeNo { get; set; }

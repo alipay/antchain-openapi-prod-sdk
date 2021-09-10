@@ -28,7 +28,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public long? BillCreateTime { get; set; }
 
-        // 账单期限，单位（天），合同约定的结算周期
+        // 账单期限，单位（天），合同约定的结算周期，需填写1到360的整数
         [NameInMap("bill_deadline")]
         [Validation(Required=false)]
         public long? BillDeadline { get; set; }

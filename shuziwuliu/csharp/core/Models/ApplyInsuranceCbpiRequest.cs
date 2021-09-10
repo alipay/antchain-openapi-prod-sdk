@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.SHUZIWULIU.Models
 {
-    public class ApplyInsuranceYzbRequest : TeaModel {
+    public class ApplyInsuranceCbpiRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -27,22 +27,23 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=50)]
         public string TradeNo { get; set; }
 
-        // 保司编码，PAIC---平安
+        // 保司编码.，PAIC---平安
         [NameInMap("external_channel_code")]
         [Validation(Required=true, MaxLength=10)]
         public string ExternalChannelCode { get; set; }
 
-        // 险种编码，05-驿站宝
+        // 险种编码，06--跨境邮包险
         [NameInMap("external_product_code")]
         [Validation(Required=true, MaxLength=2)]
         public string ExternalProductCode { get; set; }
 
-        // 投保人姓名，保险协议中的投保人全称
+        // 保险协议中的投保人全称
         [NameInMap("tbr_name")]
         [Validation(Required=true, MaxLength=100)]
         public string TbrName { get; set; }
 
         // 投保人证件类型，03--营业执照
+        // 
         [NameInMap("tbr_id_type")]
         [Validation(Required=true, MaxLength=2)]
         public string TbrIdType { get; set; }
@@ -63,16 +64,13 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         public string BbrIdType { get; set; }
 
         // 被保人证件号码
+        // 
         [NameInMap("bbr_id_no")]
         [Validation(Required=true, MaxLength=30)]
         public string BbrIdNo { get; set; }
 
-        // 被保人联系方式
-        [NameInMap("bbr_contact")]
-        [Validation(Required=true, MaxLength=30)]
-        public string BbrContact { get; set; }
-
         // 受益人名称，实际的保险受益人名称
+        // 
         [NameInMap("beneficiary_name")]
         [Validation(Required=true, MaxLength=100)]
         public string BeneficiaryName { get; set; }
@@ -87,75 +85,93 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=30)]
         public string BeneficiaryNo { get; set; }
 
-        // 保险起期，格式：yyyy-MM-dd HH:mm:ss
+        // 保险起期，日期格式yyyy-MM-dd HH:mm:ss
+        // 
         [NameInMap("insure_start")]
         [Validation(Required=true)]
         public string InsureStart { get; set; }
 
-        // 套餐编码，PK00053022、PK00053025、PK00053026
-        [NameInMap("product_package_type")]
-        [Validation(Required=true, MaxLength=20)]
-        public string ProductPackageType { get; set; }
-
-        // 站点ID，站点的唯一标识
-        [NameInMap("site_id")]
-        [Validation(Required=true, MaxLength=30)]
-        public string SiteId { get; set; }
-
-        // 站点名称
-        [NameInMap("site_name")]
-        [Validation(Required=true, MaxLength=100)]
-        public string SiteName { get; set; }
-
-        // 总资产，单位（元），最多2位小数，超过拒绝请求
-        [NameInMap("total_assets")]
+        // 保险金额，单位（元），最多支持2位小数，超过2位拒绝；
+        // 
+        [NameInMap("insured_amount")]
         [Validation(Required=true)]
-        public string TotalAssets { get; set; }
+        public string InsuredAmount { get; set; }
 
-        // 雇员人数，站点的雇佣人员数
-        [NameInMap("employee_num")]
-        [Validation(Required=true)]
-        public string EmployeeNum { get; set; }
-
-        // 省编码，站点位于的省份编码
-        [NameInMap("province_code")]
-        [Validation(Required=true, MaxLength=10)]
-        public string ProvinceCode { get; set; }
-
-        // 市编码，站点位于的市区编码
-        [NameInMap("city_code")]
-        [Validation(Required=true, MaxLength=10)]
-        public string CityCode { get; set; }
-
-        // 区编码,站点位于的区县编码
-        [NameInMap("district_code")]
-        [Validation(Required=true, MaxLength=10)]
-        public string DistrictCode { get; set; }
-
-        // 完整地址，站点的详细地址
-        [NameInMap("whole_address")]
-        [Validation(Required=true, MaxLength=300)]
-        public string WholeAddress { get; set; }
-
-        // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟公共服务站保障
+        // 方案名，XBDP—跨境邮包险
         [NameInMap("scheme_name")]
         [Validation(Required=true, MaxLength=100)]
         public string SchemeName { get; set; }
 
-        // 意健险被保人姓名
-        [NameInMap("acpl_bbr_name")]
+        // 项目名称，命名规范“方案种类+物流业务种类+国别”
+        [NameInMap("project_name")]
+        [Validation(Required=true, MaxLength=500)]
+        public string ProjectName { get; set; }
+
+        // 订单号,物流平台用以区分业务的唯一码
+        [NameInMap("related_order_no")]
         [Validation(Required=true, MaxLength=100)]
-        public string AcplBbrName { get; set; }
+        public string RelatedOrderNo { get; set; }
 
-        // 意健险被保人身份证号
-        [NameInMap("acpl_bbr_id_no")]
-        [Validation(Required=true, MaxLength=30)]
-        public string AcplBbrIdNo { get; set; }
+        // 寄件时间，日期格式yyyy-MM-dd HH:mm:ss
+        [NameInMap("pick_up_time")]
+        [Validation(Required=true)]
+        public string PickUpTime { get; set; }
 
-        // 产品市场编码，一般指保司端险种编码
-        [NameInMap("pdt_mkt_code")]
-        [Validation(Required=false, MaxLength=16)]
-        public string PdtMktCode { get; set; }
+        // 快递公司名称，实际的派送公司全称
+        [NameInMap("courier_company")]
+        [Validation(Required=true, MaxLength=200)]
+        public string CourierCompany { get; set; }
+
+        // 快递单号，实际的派送快递单号
+        // 
+        [NameInMap("courier_number")]
+        [Validation(Required=true, MaxLength=100)]
+        public string CourierNumber { get; set; }
+
+        // 货物类型,货物类型的大类
+        [NameInMap("cargo_type")]
+        [Validation(Required=true, MaxLength=100)]
+        public string CargoType { get; set; }
+
+        // 货物名称,实际的货物名称
+        [NameInMap("cargo_name")]
+        [Validation(Required=true, MaxLength=200)]
+        public string CargoName { get; set; }
+
+        // 货物数量
+        [NameInMap("cargo_quantity")]
+        [Validation(Required=true)]
+        public string CargoQuantity { get; set; }
+
+        // 买家ID,买家的脱敏唯一标识
+        [NameInMap("buy_id")]
+        [Validation(Required=true, MaxLength=100)]
+        public string BuyId { get; set; }
+
+        // 卖家ID,卖家的脱敏唯一标识
+        [NameInMap("sell_id")]
+        [Validation(Required=true, MaxLength=100)]
+        public string SellId { get; set; }
+
+        // 出发地地址,包裹的实际发件地地址
+        [NameInMap("start_place")]
+        [Validation(Required=true, MaxLength=500)]
+        public string StartPlace { get; set; }
+
+        // 目的地地址,包裹的实际收件地地址
+        [NameInMap("destination")]
+        [Validation(Required=true, MaxLength=500)]
+        public string Destination { get; set; }
+
+        // ISO到达国别,包裹业务实际发生的国家
+        [NameInMap("iso_country")]
+        [Validation(Required=true, MaxLength=10)]
+        public string IsoCountry { get; set; }
+
+        // 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
+        [NameInMap("cargo_worth")]
+        [Validation(Required=true)]
+        public string CargoWorth { get; set; }
 
     }
 

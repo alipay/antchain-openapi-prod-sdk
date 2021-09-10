@@ -18,7 +18,11 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码。 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+        // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+        // yyyyMMdd请传递当前时间。 
+        // 身份标识可自定义。
+        // 其他编码建议为随机值。
+        // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
         [NameInMap("trade_no")]
         [Validation(Required=true, MaxLength=50)]
         public string TradeNo { get; set; }
@@ -28,7 +32,8 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=10)]
         public string ExternalChannelCode { get; set; }
 
-        // 险种编码，04--海外邮包险
+        // 险种编码，06--跨境邮包险
+        // 
         [NameInMap("external_product_code")]
         [Validation(Required=true, MaxLength=2)]
         public string ExternalProductCode { get; set; }

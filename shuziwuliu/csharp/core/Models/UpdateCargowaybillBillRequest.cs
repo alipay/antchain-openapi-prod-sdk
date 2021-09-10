@@ -33,7 +33,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true)]
         public long? BillCreateTime { get; set; }
 
-        // 账单期限
+        // 账单期限，单位（天），需填写1到360之间的整数
         [NameInMap("bill_deadline")]
         [Validation(Required=true)]
         public string BillDeadline { get; set; }

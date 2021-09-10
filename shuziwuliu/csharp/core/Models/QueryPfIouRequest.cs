@@ -20,17 +20,17 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 项目id
         [NameInMap("project_id")]
-        [Validation(Required=true, MaxLength=20)]
+        [Validation(Required=true)]
         public string ProjectId { get; set; }
 
         // 融资主体Did
         [NameInMap("financing_subject_did")]
-        [Validation(Required=true, MaxLength=16)]
+        [Validation(Required=true)]
         public string FinancingSubjectDid { get; set; }
 
         // 支用Id
         [NameInMap("financing_id")]
-        [Validation(Required=true, MaxLength=32)]
+        [Validation(Required=true)]
         public string FinancingId { get; set; }
 
     }
