@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.shuziwuliu.models;
 
 import com.aliyun.tea.*;
 
-public class ApplyInsuranceOspiRequest extends TeaModel {
+public class ApplyInsuranceCbpiRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -26,17 +26,17 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
     public String externalChannelCode;
 
     // 险种编码，06--跨境邮包险
-    // 
     @NameInMap("external_product_code")
     @Validation(required = true, maxLength = 2)
     public String externalProductCode;
 
-    // 投保人姓名，保险协议中的投保人全称
+    // 保险协议中的投保人全称
     @NameInMap("tbr_name")
     @Validation(required = true, maxLength = 100)
     public String tbrName;
 
     // 投保人证件类型，03--营业执照
+    // 
     @NameInMap("tbr_id_type")
     @Validation(required = true, maxLength = 2)
     public String tbrIdType;
@@ -57,11 +57,13 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
     public String bbrIdType;
 
     // 被保人证件号码
+    // 
     @NameInMap("bbr_id_no")
     @Validation(required = true, maxLength = 30)
     public String bbrIdNo;
 
     // 受益人名称，实际的保险受益人名称
+    // 
     @NameInMap("beneficiary_name")
     @Validation(required = true, maxLength = 100)
     public String beneficiaryName;
@@ -77,29 +79,31 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
     public String beneficiaryNo;
 
     // 保险起期，日期格式yyyy-MM-dd HH:mm:ss
+    // 
     @NameInMap("insure_start")
     @Validation(required = true)
     public String insureStart;
 
     // 保险金额，单位（元），最多支持2位小数，超过2位拒绝；
+    // 
     @NameInMap("insured_amount")
     @Validation(required = true)
     public String insuredAmount;
 
-    // 方案名，海外邮包险--OWFP
+    // 方案名，XBDP—跨境邮包险
     @NameInMap("scheme_name")
     @Validation(required = true, maxLength = 100)
     public String schemeName;
 
-    // 项目名称,海外邮包险：OWFP-对应国别，例OWFP-RU
+    // 项目名称，命名规范“方案种类+物流业务种类+国别”
     @NameInMap("project_name")
     @Validation(required = true, maxLength = 500)
     public String projectName;
 
     // 订单号,物流平台用以区分业务的唯一码
-    @NameInMap("rela_order_no")
-    @Validation(required = true, maxLength = 200)
-    public String relaOrderNo;
+    @NameInMap("related_order_no")
+    @Validation(required = true, maxLength = 100)
+    public String relatedOrderNo;
 
     // 寄件时间，日期格式yyyy-MM-dd HH:mm:ss
     @NameInMap("pick_up_time")
@@ -112,16 +116,17 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
     public String courierCompany;
 
     // 快递单号，实际的派送快递单号
+    // 
     @NameInMap("courier_number")
     @Validation(required = true, maxLength = 100)
     public String courierNumber;
 
-    // 货物类型，货物类型的大类
+    // 货物类型,货物类型的大类
     @NameInMap("cargo_type")
     @Validation(required = true, maxLength = 100)
     public String cargoType;
 
-    // 货物名称，实际的货物名称
+    // 货物名称,实际的货物名称
     @NameInMap("cargo_name")
     @Validation(required = true, maxLength = 200)
     public String cargoName;
@@ -131,32 +136,27 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
     @Validation(required = true)
     public String cargoQuantity;
 
-    // 买家ID，买家的脱敏唯一标识
+    // 买家ID,买家的脱敏唯一标识
     @NameInMap("buy_id")
     @Validation(required = true, maxLength = 100)
     public String buyId;
 
-    // 卖家ID，卖家的脱敏唯一标识
+    // 卖家ID,卖家的脱敏唯一标识
     @NameInMap("sell_id")
     @Validation(required = true, maxLength = 100)
     public String sellId;
 
-    // 站点/仓储ID，站点/仓储的脱敏唯一标识
-    @NameInMap("site_id")
-    @Validation(required = true, maxLength = 100)
-    public String siteId;
-
-    // 出发地地址，包裹的实际发件地地址
+    // 出发地地址,包裹的实际发件地地址
     @NameInMap("start_place")
     @Validation(required = true, maxLength = 500)
     public String startPlace;
 
-    // 目的地地址，包裹的实际收件地地址
+    // 目的地地址,包裹的实际收件地地址
     @NameInMap("destination")
     @Validation(required = true, maxLength = 500)
     public String destination;
 
-    // ISO到达国别，包裹业务实际发生的国家
+    // ISO到达国别,包裹业务实际发生的国家
     @NameInMap("iso_country")
     @Validation(required = true, maxLength = 10)
     public String isoCountry;
@@ -166,12 +166,12 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
     @Validation(required = true)
     public String cargoWorth;
 
-    public static ApplyInsuranceOspiRequest build(java.util.Map<String, ?> map) throws Exception {
-        ApplyInsuranceOspiRequest self = new ApplyInsuranceOspiRequest();
+    public static ApplyInsuranceCbpiRequest build(java.util.Map<String, ?> map) throws Exception {
+        ApplyInsuranceCbpiRequest self = new ApplyInsuranceCbpiRequest();
         return TeaModel.build(map, self);
     }
 
-    public ApplyInsuranceOspiRequest setAuthToken(String authToken) {
+    public ApplyInsuranceCbpiRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -179,7 +179,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ApplyInsuranceOspiRequest setProductInstanceId(String productInstanceId) {
+    public ApplyInsuranceCbpiRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -187,7 +187,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public ApplyInsuranceOspiRequest setTradeNo(String tradeNo) {
+    public ApplyInsuranceCbpiRequest setTradeNo(String tradeNo) {
         this.tradeNo = tradeNo;
         return this;
     }
@@ -195,7 +195,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.tradeNo;
     }
 
-    public ApplyInsuranceOspiRequest setExternalChannelCode(String externalChannelCode) {
+    public ApplyInsuranceCbpiRequest setExternalChannelCode(String externalChannelCode) {
         this.externalChannelCode = externalChannelCode;
         return this;
     }
@@ -203,7 +203,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.externalChannelCode;
     }
 
-    public ApplyInsuranceOspiRequest setExternalProductCode(String externalProductCode) {
+    public ApplyInsuranceCbpiRequest setExternalProductCode(String externalProductCode) {
         this.externalProductCode = externalProductCode;
         return this;
     }
@@ -211,7 +211,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.externalProductCode;
     }
 
-    public ApplyInsuranceOspiRequest setTbrName(String tbrName) {
+    public ApplyInsuranceCbpiRequest setTbrName(String tbrName) {
         this.tbrName = tbrName;
         return this;
     }
@@ -219,7 +219,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.tbrName;
     }
 
-    public ApplyInsuranceOspiRequest setTbrIdType(String tbrIdType) {
+    public ApplyInsuranceCbpiRequest setTbrIdType(String tbrIdType) {
         this.tbrIdType = tbrIdType;
         return this;
     }
@@ -227,7 +227,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.tbrIdType;
     }
 
-    public ApplyInsuranceOspiRequest setTbrIdNo(String tbrIdNo) {
+    public ApplyInsuranceCbpiRequest setTbrIdNo(String tbrIdNo) {
         this.tbrIdNo = tbrIdNo;
         return this;
     }
@@ -235,7 +235,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.tbrIdNo;
     }
 
-    public ApplyInsuranceOspiRequest setBbrName(String bbrName) {
+    public ApplyInsuranceCbpiRequest setBbrName(String bbrName) {
         this.bbrName = bbrName;
         return this;
     }
@@ -243,7 +243,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.bbrName;
     }
 
-    public ApplyInsuranceOspiRequest setBbrIdType(String bbrIdType) {
+    public ApplyInsuranceCbpiRequest setBbrIdType(String bbrIdType) {
         this.bbrIdType = bbrIdType;
         return this;
     }
@@ -251,7 +251,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.bbrIdType;
     }
 
-    public ApplyInsuranceOspiRequest setBbrIdNo(String bbrIdNo) {
+    public ApplyInsuranceCbpiRequest setBbrIdNo(String bbrIdNo) {
         this.bbrIdNo = bbrIdNo;
         return this;
     }
@@ -259,7 +259,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.bbrIdNo;
     }
 
-    public ApplyInsuranceOspiRequest setBeneficiaryName(String beneficiaryName) {
+    public ApplyInsuranceCbpiRequest setBeneficiaryName(String beneficiaryName) {
         this.beneficiaryName = beneficiaryName;
         return this;
     }
@@ -267,7 +267,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.beneficiaryName;
     }
 
-    public ApplyInsuranceOspiRequest setBeneficiaryIdType(String beneficiaryIdType) {
+    public ApplyInsuranceCbpiRequest setBeneficiaryIdType(String beneficiaryIdType) {
         this.beneficiaryIdType = beneficiaryIdType;
         return this;
     }
@@ -275,7 +275,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.beneficiaryIdType;
     }
 
-    public ApplyInsuranceOspiRequest setBeneficiaryNo(String beneficiaryNo) {
+    public ApplyInsuranceCbpiRequest setBeneficiaryNo(String beneficiaryNo) {
         this.beneficiaryNo = beneficiaryNo;
         return this;
     }
@@ -283,7 +283,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.beneficiaryNo;
     }
 
-    public ApplyInsuranceOspiRequest setInsureStart(String insureStart) {
+    public ApplyInsuranceCbpiRequest setInsureStart(String insureStart) {
         this.insureStart = insureStart;
         return this;
     }
@@ -291,7 +291,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.insureStart;
     }
 
-    public ApplyInsuranceOspiRequest setInsuredAmount(String insuredAmount) {
+    public ApplyInsuranceCbpiRequest setInsuredAmount(String insuredAmount) {
         this.insuredAmount = insuredAmount;
         return this;
     }
@@ -299,7 +299,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.insuredAmount;
     }
 
-    public ApplyInsuranceOspiRequest setSchemeName(String schemeName) {
+    public ApplyInsuranceCbpiRequest setSchemeName(String schemeName) {
         this.schemeName = schemeName;
         return this;
     }
@@ -307,7 +307,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.schemeName;
     }
 
-    public ApplyInsuranceOspiRequest setProjectName(String projectName) {
+    public ApplyInsuranceCbpiRequest setProjectName(String projectName) {
         this.projectName = projectName;
         return this;
     }
@@ -315,15 +315,15 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.projectName;
     }
 
-    public ApplyInsuranceOspiRequest setRelaOrderNo(String relaOrderNo) {
-        this.relaOrderNo = relaOrderNo;
+    public ApplyInsuranceCbpiRequest setRelatedOrderNo(String relatedOrderNo) {
+        this.relatedOrderNo = relatedOrderNo;
         return this;
     }
-    public String getRelaOrderNo() {
-        return this.relaOrderNo;
+    public String getRelatedOrderNo() {
+        return this.relatedOrderNo;
     }
 
-    public ApplyInsuranceOspiRequest setPickUpTime(String pickUpTime) {
+    public ApplyInsuranceCbpiRequest setPickUpTime(String pickUpTime) {
         this.pickUpTime = pickUpTime;
         return this;
     }
@@ -331,7 +331,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.pickUpTime;
     }
 
-    public ApplyInsuranceOspiRequest setCourierCompany(String courierCompany) {
+    public ApplyInsuranceCbpiRequest setCourierCompany(String courierCompany) {
         this.courierCompany = courierCompany;
         return this;
     }
@@ -339,7 +339,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.courierCompany;
     }
 
-    public ApplyInsuranceOspiRequest setCourierNumber(String courierNumber) {
+    public ApplyInsuranceCbpiRequest setCourierNumber(String courierNumber) {
         this.courierNumber = courierNumber;
         return this;
     }
@@ -347,7 +347,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.courierNumber;
     }
 
-    public ApplyInsuranceOspiRequest setCargoType(String cargoType) {
+    public ApplyInsuranceCbpiRequest setCargoType(String cargoType) {
         this.cargoType = cargoType;
         return this;
     }
@@ -355,7 +355,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.cargoType;
     }
 
-    public ApplyInsuranceOspiRequest setCargoName(String cargoName) {
+    public ApplyInsuranceCbpiRequest setCargoName(String cargoName) {
         this.cargoName = cargoName;
         return this;
     }
@@ -363,7 +363,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.cargoName;
     }
 
-    public ApplyInsuranceOspiRequest setCargoQuantity(String cargoQuantity) {
+    public ApplyInsuranceCbpiRequest setCargoQuantity(String cargoQuantity) {
         this.cargoQuantity = cargoQuantity;
         return this;
     }
@@ -371,7 +371,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.cargoQuantity;
     }
 
-    public ApplyInsuranceOspiRequest setBuyId(String buyId) {
+    public ApplyInsuranceCbpiRequest setBuyId(String buyId) {
         this.buyId = buyId;
         return this;
     }
@@ -379,7 +379,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.buyId;
     }
 
-    public ApplyInsuranceOspiRequest setSellId(String sellId) {
+    public ApplyInsuranceCbpiRequest setSellId(String sellId) {
         this.sellId = sellId;
         return this;
     }
@@ -387,15 +387,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.sellId;
     }
 
-    public ApplyInsuranceOspiRequest setSiteId(String siteId) {
-        this.siteId = siteId;
-        return this;
-    }
-    public String getSiteId() {
-        return this.siteId;
-    }
-
-    public ApplyInsuranceOspiRequest setStartPlace(String startPlace) {
+    public ApplyInsuranceCbpiRequest setStartPlace(String startPlace) {
         this.startPlace = startPlace;
         return this;
     }
@@ -403,7 +395,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.startPlace;
     }
 
-    public ApplyInsuranceOspiRequest setDestination(String destination) {
+    public ApplyInsuranceCbpiRequest setDestination(String destination) {
         this.destination = destination;
         return this;
     }
@@ -411,7 +403,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.destination;
     }
 
-    public ApplyInsuranceOspiRequest setIsoCountry(String isoCountry) {
+    public ApplyInsuranceCbpiRequest setIsoCountry(String isoCountry) {
         this.isoCountry = isoCountry;
         return this;
     }
@@ -419,7 +411,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.isoCountry;
     }
 
-    public ApplyInsuranceOspiRequest setCargoWorth(String cargoWorth) {
+    public ApplyInsuranceCbpiRequest setCargoWorth(String cargoWorth) {
         this.cargoWorth = cargoWorth;
         return this;
     }

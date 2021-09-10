@@ -19,7 +19,7 @@ public class UpdateBillReceivablebillRequest extends TeaModel {
     @NameInMap("bill_create_time")
     public Long billCreateTime;
 
-    // 账单期限，单位（天），合同约定的结算周期
+    // 账单期限，单位（天），合同约定的结算周期，需填写1到360的整数
     @NameInMap("bill_deadline")
     public Long billDeadline;
 

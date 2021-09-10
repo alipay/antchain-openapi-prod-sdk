@@ -13,17 +13,17 @@ public class QueryPfIouRequest extends TeaModel {
 
     // 项目id
     @NameInMap("project_id")
-    @Validation(required = true, maxLength = 20)
+    @Validation(required = true)
     public String projectId;
 
     // 融资主体Did
     @NameInMap("financing_subject_did")
-    @Validation(required = true, maxLength = 16)
+    @Validation(required = true)
     public String financingSubjectDid;
 
     // 支用Id
     @NameInMap("financing_id")
-    @Validation(required = true, maxLength = 32)
+    @Validation(required = true)
     public String financingId;
 
     public static QueryPfIouRequest build(java.util.Map<String, ?> map) throws Exception {

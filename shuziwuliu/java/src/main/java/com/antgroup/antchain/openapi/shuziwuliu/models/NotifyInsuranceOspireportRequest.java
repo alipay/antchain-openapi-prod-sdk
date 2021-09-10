@@ -11,7 +11,8 @@ public class NotifyInsuranceOspireportRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 案件同步唯一码，调用方生成的唯一编码； 格式为 yyyyMMdd_身份标识_其他编码；系统会根据该流水号做防重、幂等判断逻辑。
+    // 案件同步唯一码，调用方生成的唯一编码； 格式为 yyyyMMdd_身份标识_其他编码，yyyyMMdd请传递当前时间。
+    // 系统会根据该流水号做防重、幂等判断逻辑。
     @NameInMap("trade_no")
     @Validation(required = true, maxLength = 50)
     public String tradeNo;

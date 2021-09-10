@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.shuziwuliu.models;
 
 import com.aliyun.tea.*;
 
-public class CreateBillReceivablebillRequest extends TeaModel {
+public class CreateBillReceivablebillnodetailRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -21,7 +21,7 @@ public class CreateBillReceivablebillRequest extends TeaModel {
     @Validation(required = true)
     public Long billCreateTime;
 
-    // 账单期限，单位（天），合同约定的结算周期，需填写1到360的整数
+    // 账单期限，单位（天），合同约定的结算周期
     @NameInMap("bill_deadline")
     @Validation(required = true)
     public Long billDeadline;
@@ -47,7 +47,6 @@ public class CreateBillReceivablebillRequest extends TeaModel {
     public Long billStartTime;
 
     // 关联合同编号，账单关联的合同编号，如为合同物流请填写
-    // 
     @NameInMap("contract_code")
     public String contractCode;
 
@@ -56,17 +55,12 @@ public class CreateBillReceivablebillRequest extends TeaModel {
     @Validation(required = true)
     public Long deadline;
 
-    // 账单关联运单号数组，元素个数不能超过1000个
-    @NameInMap("waybill_ids")
-    @Validation(required = true)
-    public java.util.List<String> waybillIds;
-
-    public static CreateBillReceivablebillRequest build(java.util.Map<String, ?> map) throws Exception {
-        CreateBillReceivablebillRequest self = new CreateBillReceivablebillRequest();
+    public static CreateBillReceivablebillnodetailRequest build(java.util.Map<String, ?> map) throws Exception {
+        CreateBillReceivablebillnodetailRequest self = new CreateBillReceivablebillnodetailRequest();
         return TeaModel.build(map, self);
     }
 
-    public CreateBillReceivablebillRequest setAuthToken(String authToken) {
+    public CreateBillReceivablebillnodetailRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -74,7 +68,7 @@ public class CreateBillReceivablebillRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CreateBillReceivablebillRequest setProductInstanceId(String productInstanceId) {
+    public CreateBillReceivablebillnodetailRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -82,7 +76,7 @@ public class CreateBillReceivablebillRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CreateBillReceivablebillRequest setBillAmount(String billAmount) {
+    public CreateBillReceivablebillnodetailRequest setBillAmount(String billAmount) {
         this.billAmount = billAmount;
         return this;
     }
@@ -90,7 +84,7 @@ public class CreateBillReceivablebillRequest extends TeaModel {
         return this.billAmount;
     }
 
-    public CreateBillReceivablebillRequest setBillCreateTime(Long billCreateTime) {
+    public CreateBillReceivablebillnodetailRequest setBillCreateTime(Long billCreateTime) {
         this.billCreateTime = billCreateTime;
         return this;
     }
@@ -98,7 +92,7 @@ public class CreateBillReceivablebillRequest extends TeaModel {
         return this.billCreateTime;
     }
 
-    public CreateBillReceivablebillRequest setBillDeadline(Long billDeadline) {
+    public CreateBillReceivablebillnodetailRequest setBillDeadline(Long billDeadline) {
         this.billDeadline = billDeadline;
         return this;
     }
@@ -106,7 +100,7 @@ public class CreateBillReceivablebillRequest extends TeaModel {
         return this.billDeadline;
     }
 
-    public CreateBillReceivablebillRequest setBillId(String billId) {
+    public CreateBillReceivablebillnodetailRequest setBillId(String billId) {
         this.billId = billId;
         return this;
     }
@@ -114,7 +108,7 @@ public class CreateBillReceivablebillRequest extends TeaModel {
         return this.billId;
     }
 
-    public CreateBillReceivablebillRequest setBillPayeeDid(String billPayeeDid) {
+    public CreateBillReceivablebillnodetailRequest setBillPayeeDid(String billPayeeDid) {
         this.billPayeeDid = billPayeeDid;
         return this;
     }
@@ -122,7 +116,7 @@ public class CreateBillReceivablebillRequest extends TeaModel {
         return this.billPayeeDid;
     }
 
-    public CreateBillReceivablebillRequest setBillPayerDid(String billPayerDid) {
+    public CreateBillReceivablebillnodetailRequest setBillPayerDid(String billPayerDid) {
         this.billPayerDid = billPayerDid;
         return this;
     }
@@ -130,7 +124,7 @@ public class CreateBillReceivablebillRequest extends TeaModel {
         return this.billPayerDid;
     }
 
-    public CreateBillReceivablebillRequest setBillStartTime(Long billStartTime) {
+    public CreateBillReceivablebillnodetailRequest setBillStartTime(Long billStartTime) {
         this.billStartTime = billStartTime;
         return this;
     }
@@ -138,7 +132,7 @@ public class CreateBillReceivablebillRequest extends TeaModel {
         return this.billStartTime;
     }
 
-    public CreateBillReceivablebillRequest setContractCode(String contractCode) {
+    public CreateBillReceivablebillnodetailRequest setContractCode(String contractCode) {
         this.contractCode = contractCode;
         return this;
     }
@@ -146,20 +140,12 @@ public class CreateBillReceivablebillRequest extends TeaModel {
         return this.contractCode;
     }
 
-    public CreateBillReceivablebillRequest setDeadline(Long deadline) {
+    public CreateBillReceivablebillnodetailRequest setDeadline(Long deadline) {
         this.deadline = deadline;
         return this;
     }
     public Long getDeadline() {
         return this.deadline;
-    }
-
-    public CreateBillReceivablebillRequest setWaybillIds(java.util.List<String> waybillIds) {
-        this.waybillIds = waybillIds;
-        return this;
-    }
-    public java.util.List<String> getWaybillIds() {
-        return this.waybillIds;
     }
 
 }

@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.119")
+                    new TeaPair("sdk_version", "1.3.125")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -900,6 +900,25 @@ public class Client {
     public QueryWaybillInfoResponse queryWaybillInfoEx(QueryWaybillInfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.waybill.info.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryWaybillInfoResponse());
+    }
+
+    /**
+     * Description: 应收账单创建无明细版
+     * Summary: 应收账单创建无明细版
+     */
+    public CreateBillReceivablebillnodetailResponse createBillReceivablebillnodetail(CreateBillReceivablebillnodetailRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createBillReceivablebillnodetailEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应收账单创建无明细版
+     * Summary: 应收账单创建无明细版
+     */
+    public CreateBillReceivablebillnodetailResponse createBillReceivablebillnodetailEx(CreateBillReceivablebillnodetailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.bill.receivablebillnodetail.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBillReceivablebillnodetailResponse());
     }
 
     /**
@@ -1950,8 +1969,8 @@ public class Client {
     }
 
     /**
-     * Description: 海外邮包险报案理赔
-     * Summary: 海外邮包险报案理赔
+     * Description: 海外、跨境邮包险理赔报案
+     * Summary: 海外邮包险报案
      */
     public ApplyInsuranceOspireportResponse applyInsuranceOspireport(ApplyInsuranceOspireportRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -1960,8 +1979,8 @@ public class Client {
     }
 
     /**
-     * Description: 海外邮包险报案理赔
-     * Summary: 海外邮包险报案理赔
+     * Description: 海外、跨境邮包险理赔报案
+     * Summary: 海外邮包险报案
      */
     public ApplyInsuranceOspireportResponse applyInsuranceOspireportEx(ApplyInsuranceOspireportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1969,8 +1988,8 @@ public class Client {
     }
 
     /**
-     * Description: 海外邮包险报案理赔结果通知
-     * Summary: 海外邮包险报案理赔结果通知
+     * Description: 海外、跨境邮包险案件结果通知
+     * Summary: 海外邮包险案件结果通知
      */
     public NotifyInsuranceOspireportResponse notifyInsuranceOspireport(NotifyInsuranceOspireportRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -1979,8 +1998,8 @@ public class Client {
     }
 
     /**
-     * Description: 海外邮包险报案理赔结果通知
-     * Summary: 海外邮包险报案理赔结果通知
+     * Description: 海外、跨境邮包险案件结果通知
+     * Summary: 海外邮包险案件结果通知
      */
     public NotifyInsuranceOspireportResponse notifyInsuranceOspireportEx(NotifyInsuranceOspireportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -2004,6 +2023,82 @@ public class Client {
     public ApplyInsuranceYzbResponse applyInsuranceYzbEx(ApplyInsuranceYzbRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.insurance.yzb.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyInsuranceYzbResponse());
+    }
+
+    /**
+     * Description: 跨境邮包险投保
+     * Summary: 跨境邮包险投保
+     */
+    public ApplyInsuranceCbpiResponse applyInsuranceCbpi(ApplyInsuranceCbpiRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyInsuranceCbpiEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 跨境邮包险投保
+     * Summary: 跨境邮包险投保
+     */
+    public ApplyInsuranceCbpiResponse applyInsuranceCbpiEx(ApplyInsuranceCbpiRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.insurance.cbpi.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyInsuranceCbpiResponse());
+    }
+
+    /**
+     * Description: 驿站宝报案
+     * Summary: 驿站宝报案
+     */
+    public ApplyInsuranceYzbreportResponse applyInsuranceYzbreport(ApplyInsuranceYzbreportRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyInsuranceYzbreportEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 驿站宝报案
+     * Summary: 驿站宝报案
+     */
+    public ApplyInsuranceYzbreportResponse applyInsuranceYzbreportEx(ApplyInsuranceYzbreportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.insurance.yzbreport.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyInsuranceYzbreportResponse());
+    }
+
+    /**
+     * Description: 驿站宝案件进度查询
+     * Summary: 驿站宝案件进度查询
+     */
+    public QueryInsuranceYzbreportResponse queryInsuranceYzbreport(QueryInsuranceYzbreportRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInsuranceYzbreportEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 驿站宝案件进度查询
+     * Summary: 驿站宝案件进度查询
+     */
+    public QueryInsuranceYzbreportResponse queryInsuranceYzbreportEx(QueryInsuranceYzbreportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.insurance.yzbreport.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInsuranceYzbreportResponse());
+    }
+
+    /**
+     * Description: 零担快运运单上链存证接口
+     * Summary: 零担快运运单上链存证接口
+     */
+    public SaveInsuranceWaybillResponse saveInsuranceWaybill(SaveInsuranceWaybillRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.saveInsuranceWaybillEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 零担快运运单上链存证接口
+     * Summary: 零担快运运单上链存证接口
+     */
+    public SaveInsuranceWaybillResponse saveInsuranceWaybillEx(SaveInsuranceWaybillRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.insurance.waybill.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveInsuranceWaybillResponse());
     }
 
     /**

@@ -11,7 +11,11 @@ public class ApplyInsuranceYzbRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码。 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+    // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+    // yyyyMMdd请传递当前时间。 
+    // 身份标识可自定义。
+    // 其他编码建议为随机值。
+    // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
     @NameInMap("trade_no")
     @Validation(required = true, maxLength = 50)
     public String tradeNo;
@@ -81,7 +85,7 @@ public class ApplyInsuranceYzbRequest extends TeaModel {
     @Validation(required = true)
     public String insureStart;
 
-    // 套餐编码，PK00033303、PK00033459、PK00033460
+    // 套餐编码，PK00053022、PK00053025、PK00053026
     @NameInMap("product_package_type")
     @Validation(required = true, maxLength = 20)
     public String productPackageType;
@@ -126,7 +130,7 @@ public class ApplyInsuranceYzbRequest extends TeaModel {
     @Validation(required = true, maxLength = 300)
     public String wholeAddress;
 
-    // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟站点宝
+    // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟公共服务站保障
     @NameInMap("scheme_name")
     @Validation(required = true, maxLength = 100)
     public String schemeName;
@@ -140,6 +144,11 @@ public class ApplyInsuranceYzbRequest extends TeaModel {
     @NameInMap("acpl_bbr_id_no")
     @Validation(required = true, maxLength = 30)
     public String acplBbrIdNo;
+
+    // 产品市场编码，一般指保司端险种编码
+    @NameInMap("pdt_mkt_code")
+    @Validation(maxLength = 16)
+    public String pdtMktCode;
 
     public static ApplyInsuranceYzbRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyInsuranceYzbRequest self = new ApplyInsuranceYzbRequest();
@@ -368,6 +377,14 @@ public class ApplyInsuranceYzbRequest extends TeaModel {
     }
     public String getAcplBbrIdNo() {
         return this.acplBbrIdNo;
+    }
+
+    public ApplyInsuranceYzbRequest setPdtMktCode(String pdtMktCode) {
+        this.pdtMktCode = pdtMktCode;
+        return this;
+    }
+    public String getPdtMktCode() {
+        return this.pdtMktCode;
     }
 
 }

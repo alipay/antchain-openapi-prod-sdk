@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.shuziwuliu.models;
 
 import com.aliyun.tea.*;
 
-public class ApplyInsuranceYzbResponse extends TeaModel {
+public class ApplyInsuranceCbpiResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -17,39 +17,41 @@ public class ApplyInsuranceYzbResponse extends TeaModel {
     public String resultMsg;
 
     // 投保唯一码
+    // 
     @NameInMap("trade_no")
     public String tradeNo;
 
     // 保单号
+    // 
     @NameInMap("policy_no")
     public String policyNo;
 
-    // 电子保单链接
-    @NameInMap("policy_url")
-    public String policyUrl;
-
     // 保费
+    // 
     @NameInMap("premium")
     public String premium;
 
     // 保额
+    // 
     @NameInMap("insured_amount")
     public String insuredAmount;
 
     // 保险起期
+    // 
     @NameInMap("insure_start")
     public String insureStart;
 
     // 保险止期
+    // 
     @NameInMap("insure_end")
     public String insureEnd;
 
-    public static ApplyInsuranceYzbResponse build(java.util.Map<String, ?> map) throws Exception {
-        ApplyInsuranceYzbResponse self = new ApplyInsuranceYzbResponse();
+    public static ApplyInsuranceCbpiResponse build(java.util.Map<String, ?> map) throws Exception {
+        ApplyInsuranceCbpiResponse self = new ApplyInsuranceCbpiResponse();
         return TeaModel.build(map, self);
     }
 
-    public ApplyInsuranceYzbResponse setReqMsgId(String reqMsgId) {
+    public ApplyInsuranceCbpiResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -57,7 +59,7 @@ public class ApplyInsuranceYzbResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ApplyInsuranceYzbResponse setResultCode(String resultCode) {
+    public ApplyInsuranceCbpiResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -65,7 +67,7 @@ public class ApplyInsuranceYzbResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ApplyInsuranceYzbResponse setResultMsg(String resultMsg) {
+    public ApplyInsuranceCbpiResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -73,7 +75,7 @@ public class ApplyInsuranceYzbResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ApplyInsuranceYzbResponse setTradeNo(String tradeNo) {
+    public ApplyInsuranceCbpiResponse setTradeNo(String tradeNo) {
         this.tradeNo = tradeNo;
         return this;
     }
@@ -81,7 +83,7 @@ public class ApplyInsuranceYzbResponse extends TeaModel {
         return this.tradeNo;
     }
 
-    public ApplyInsuranceYzbResponse setPolicyNo(String policyNo) {
+    public ApplyInsuranceCbpiResponse setPolicyNo(String policyNo) {
         this.policyNo = policyNo;
         return this;
     }
@@ -89,15 +91,7 @@ public class ApplyInsuranceYzbResponse extends TeaModel {
         return this.policyNo;
     }
 
-    public ApplyInsuranceYzbResponse setPolicyUrl(String policyUrl) {
-        this.policyUrl = policyUrl;
-        return this;
-    }
-    public String getPolicyUrl() {
-        return this.policyUrl;
-    }
-
-    public ApplyInsuranceYzbResponse setPremium(String premium) {
+    public ApplyInsuranceCbpiResponse setPremium(String premium) {
         this.premium = premium;
         return this;
     }
@@ -105,7 +99,7 @@ public class ApplyInsuranceYzbResponse extends TeaModel {
         return this.premium;
     }
 
-    public ApplyInsuranceYzbResponse setInsuredAmount(String insuredAmount) {
+    public ApplyInsuranceCbpiResponse setInsuredAmount(String insuredAmount) {
         this.insuredAmount = insuredAmount;
         return this;
     }
@@ -113,7 +107,7 @@ public class ApplyInsuranceYzbResponse extends TeaModel {
         return this.insuredAmount;
     }
 
-    public ApplyInsuranceYzbResponse setInsureStart(String insureStart) {
+    public ApplyInsuranceCbpiResponse setInsureStart(String insureStart) {
         this.insureStart = insureStart;
         return this;
     }
@@ -121,7 +115,7 @@ public class ApplyInsuranceYzbResponse extends TeaModel {
         return this.insureStart;
     }
 
-    public ApplyInsuranceYzbResponse setInsureEnd(String insureEnd) {
+    public ApplyInsuranceCbpiResponse setInsureEnd(String insureEnd) {
         this.insureEnd = insureEnd;
         return this;
     }
