@@ -37,7 +37,7 @@ class CreateCargowaybillBillRequest extends Model
      */
     public $billCreateTime;
 
-    // 账单期限
+    // 账单期限，单位（天），需填写1到360之间的整数
     /**
      * @var string
      */

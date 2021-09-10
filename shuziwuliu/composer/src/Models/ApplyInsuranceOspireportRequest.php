@@ -19,7 +19,11 @@ class ApplyInsuranceOspireportRequest extends Model
      */
     public $productInstanceId;
 
-    // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码。 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+    // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+    // yyyyMMdd请传递当前时间。
+    // 身份标识可自定义。
+    // 其他编码建议为随机值。
+    // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
     /**
      * @var string
      */
@@ -31,7 +35,9 @@ class ApplyInsuranceOspireportRequest extends Model
      */
     public $externalChannelCode;
 
-    // 险种编码，04--海外邮包险
+    // 险种编码
+    // 04--海外邮包险
+    // 06--跨境邮包险
     /**
      * @var string
      */
@@ -121,7 +127,7 @@ class ApplyInsuranceOspireportRequest extends Model
      */
     public $cargoName;
 
-    // 货物的重量
+    // 货物的重量，单位(kg)，最多支持6位小数
     /**
      * @var string
      */
@@ -222,7 +228,6 @@ class ApplyInsuranceOspireportRequest extends Model
         Model::validateRequired('courierNumber', $this->courierNumber, true);
         Model::validateRequired('buyId', $this->buyId, true);
         Model::validateRequired('sellId', $this->sellId, true);
-        Model::validateRequired('siteId', $this->siteId, true);
         Model::validateRequired('cargoName', $this->cargoName, true);
         Model::validateRequired('cargoWeight', $this->cargoWeight, true);
         Model::validateRequired('startPlace', $this->startPlace, true);

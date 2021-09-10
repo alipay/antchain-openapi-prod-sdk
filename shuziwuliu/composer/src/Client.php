@@ -17,6 +17,8 @@ use AntChain\SHUZIWULIU\Models\ApplyCreditmodeIssueclearRequest;
 use AntChain\SHUZIWULIU\Models\ApplyCreditmodeIssueclearResponse;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceCbecRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceCbecResponse;
+use AntChain\SHUZIWULIU\Models\ApplyInsuranceCbpiRequest;
+use AntChain\SHUZIWULIU\Models\ApplyInsuranceCbpiResponse;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceCbrfRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceCbrfResponse;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceFileurlRequest;
@@ -33,6 +35,8 @@ use AntChain\SHUZIWULIU\Models\ApplyInsurancepolicyZhonghuacaixianRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsurancepolicyZhonghuacaixianResponse;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceStockinRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceStockinResponse;
+use AntChain\SHUZIWULIU\Models\ApplyInsuranceYzbreportRequest;
+use AntChain\SHUZIWULIU\Models\ApplyInsuranceYzbreportResponse;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceYzbRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceYzbResponse;
 use AntChain\SHUZIWULIU\Models\ApplyPfConfirmationRequest;
@@ -73,6 +77,8 @@ use AntChain\SHUZIWULIU\Models\CreateBillPaybillorderRequest;
 use AntChain\SHUZIWULIU\Models\CreateBillPaybillorderResponse;
 use AntChain\SHUZIWULIU\Models\CreateBillReceiptbillorderRequest;
 use AntChain\SHUZIWULIU\Models\CreateBillReceiptbillorderResponse;
+use AntChain\SHUZIWULIU\Models\CreateBillReceivablebillnodetailRequest;
+use AntChain\SHUZIWULIU\Models\CreateBillReceivablebillnodetailResponse;
 use AntChain\SHUZIWULIU\Models\CreateBillReceivablebillRequest;
 use AntChain\SHUZIWULIU\Models\CreateBillReceivablebillResponse;
 use AntChain\SHUZIWULIU\Models\CreateCaptainDisRequest;
@@ -189,6 +195,8 @@ use AntChain\SHUZIWULIU\Models\QueryCreditStatementRequest;
 use AntChain\SHUZIWULIU\Models\QueryCreditStatementResponse;
 use AntChain\SHUZIWULIU\Models\QueryCreditUserissueRequest;
 use AntChain\SHUZIWULIU\Models\QueryCreditUserissueResponse;
+use AntChain\SHUZIWULIU\Models\QueryInsuranceYzbreportRequest;
+use AntChain\SHUZIWULIU\Models\QueryInsuranceYzbreportResponse;
 use AntChain\SHUZIWULIU\Models\QueryPfFinancingqualificationRequest;
 use AntChain\SHUZIWULIU\Models\QueryPfFinancingqualificationResponse;
 use AntChain\SHUZIWULIU\Models\QueryPfFinancingRequest;
@@ -255,6 +263,8 @@ use AntChain\SHUZIWULIU\Models\SaveBizSonotifyRequest;
 use AntChain\SHUZIWULIU\Models\SaveBizSonotifyResponse;
 use AntChain\SHUZIWULIU\Models\SaveBizVehicleRequest;
 use AntChain\SHUZIWULIU\Models\SaveBizVehicleResponse;
+use AntChain\SHUZIWULIU\Models\SaveInsuranceWaybillRequest;
+use AntChain\SHUZIWULIU\Models\SaveInsuranceWaybillResponse;
 use AntChain\SHUZIWULIU\Models\SaveWaybillOrderRequest;
 use AntChain\SHUZIWULIU\Models\SaveWaybillOrderResponse;
 use AntChain\SHUZIWULIU\Models\SendCreditProxyRequest;
@@ -460,7 +470,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.119',
+                    'sdk_version'      => '1.3.125',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1793,6 +1803,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryWaybillInfoResponse::fromMap($this->doRequest('1.0', 'digital.logistic.waybill.info.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应收账单创建无明细版
+     * Summary: 应收账单创建无明细版.
+     *
+     * @param CreateBillReceivablebillnodetailRequest $request
+     *
+     * @return CreateBillReceivablebillnodetailResponse
+     */
+    public function createBillReceivablebillnodetail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBillReceivablebillnodetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应收账单创建无明细版
+     * Summary: 应收账单创建无明细版.
+     *
+     * @param CreateBillReceivablebillnodetailRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateBillReceivablebillnodetailResponse
+     */
+    public function createBillReceivablebillnodetailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBillReceivablebillnodetailResponse::fromMap($this->doRequest('1.0', 'digital.logistic.bill.receivablebillnodetail.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -3613,8 +3656,8 @@ class Client
     }
 
     /**
-     * Description: 海外邮包险报案理赔
-     * Summary: 海外邮包险报案理赔.
+     * Description: 海外、跨境邮包险理赔报案
+     * Summary: 海外邮包险报案.
      *
      * @param ApplyInsuranceOspireportRequest $request
      *
@@ -3629,8 +3672,8 @@ class Client
     }
 
     /**
-     * Description: 海外邮包险报案理赔
-     * Summary: 海外邮包险报案理赔.
+     * Description: 海外、跨境邮包险理赔报案
+     * Summary: 海外邮包险报案.
      *
      * @param ApplyInsuranceOspireportRequest $request
      * @param string[]                        $headers
@@ -3646,8 +3689,8 @@ class Client
     }
 
     /**
-     * Description: 海外邮包险报案理赔结果通知
-     * Summary: 海外邮包险报案理赔结果通知.
+     * Description: 海外、跨境邮包险案件结果通知
+     * Summary: 海外邮包险案件结果通知.
      *
      * @param NotifyInsuranceOspireportRequest $request
      *
@@ -3662,8 +3705,8 @@ class Client
     }
 
     /**
-     * Description: 海外邮包险报案理赔结果通知
-     * Summary: 海外邮包险报案理赔结果通知.
+     * Description: 海外、跨境邮包险案件结果通知
+     * Summary: 海外邮包险案件结果通知.
      *
      * @param NotifyInsuranceOspireportRequest $request
      * @param string[]                         $headers
@@ -3709,6 +3752,138 @@ class Client
         Utils::validateModel($request);
 
         return ApplyInsuranceYzbResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.yzb.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 跨境邮包险投保
+     * Summary: 跨境邮包险投保.
+     *
+     * @param ApplyInsuranceCbpiRequest $request
+     *
+     * @return ApplyInsuranceCbpiResponse
+     */
+    public function applyInsuranceCbpi($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyInsuranceCbpiEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 跨境邮包险投保
+     * Summary: 跨境邮包险投保.
+     *
+     * @param ApplyInsuranceCbpiRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ApplyInsuranceCbpiResponse
+     */
+    public function applyInsuranceCbpiEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyInsuranceCbpiResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.cbpi.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 驿站宝报案
+     * Summary: 驿站宝报案.
+     *
+     * @param ApplyInsuranceYzbreportRequest $request
+     *
+     * @return ApplyInsuranceYzbreportResponse
+     */
+    public function applyInsuranceYzbreport($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyInsuranceYzbreportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 驿站宝报案
+     * Summary: 驿站宝报案.
+     *
+     * @param ApplyInsuranceYzbreportRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ApplyInsuranceYzbreportResponse
+     */
+    public function applyInsuranceYzbreportEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyInsuranceYzbreportResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.yzbreport.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 驿站宝案件进度查询
+     * Summary: 驿站宝案件进度查询.
+     *
+     * @param QueryInsuranceYzbreportRequest $request
+     *
+     * @return QueryInsuranceYzbreportResponse
+     */
+    public function queryInsuranceYzbreport($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInsuranceYzbreportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 驿站宝案件进度查询
+     * Summary: 驿站宝案件进度查询.
+     *
+     * @param QueryInsuranceYzbreportRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryInsuranceYzbreportResponse
+     */
+    public function queryInsuranceYzbreportEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInsuranceYzbreportResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.yzbreport.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 零担快运运单上链存证接口
+     * Summary: 零担快运运单上链存证接口.
+     *
+     * @param SaveInsuranceWaybillRequest $request
+     *
+     * @return SaveInsuranceWaybillResponse
+     */
+    public function saveInsuranceWaybill($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveInsuranceWaybillEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 零担快运运单上链存证接口
+     * Summary: 零担快运运单上链存证接口.
+     *
+     * @param SaveInsuranceWaybillRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return SaveInsuranceWaybillResponse
+     */
+    public function saveInsuranceWaybillEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveInsuranceWaybillResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.waybill.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

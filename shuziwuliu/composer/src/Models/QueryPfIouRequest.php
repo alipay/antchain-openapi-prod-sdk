@@ -49,9 +49,6 @@ class QueryPfIouRequest extends Model
         Model::validateRequired('projectId', $this->projectId, true);
         Model::validateRequired('financingSubjectDid', $this->financingSubjectDid, true);
         Model::validateRequired('financingId', $this->financingId, true);
-        Model::validateMaxLength('projectId', $this->projectId, 20);
-        Model::validateMaxLength('financingSubjectDid', $this->financingSubjectDid, 16);
-        Model::validateMaxLength('financingId', $this->financingId, 32);
     }
 
     public function toMap()

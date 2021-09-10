@@ -6,7 +6,7 @@ namespace AntChain\SHUZIWULIU\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UpdateBillReceivablebillRequest extends Model
+class CreateBillReceivablebillnodetailRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -31,7 +31,7 @@ class UpdateBillReceivablebillRequest extends Model
      */
     public $billCreateTime;
 
-    // 账单期限，单位（天），合同约定的结算周期，需填写1到360的整数
+    // 账单期限，单位（天），合同约定的结算周期
     /**
      * @var int
      */
@@ -72,12 +72,6 @@ class UpdateBillReceivablebillRequest extends Model
      * @var int
      */
     public $deadline;
-
-    // 账单关联运单号数组，元素个数不能超过1000个
-    /**
-     * @var string[]
-     */
-    public $waybillIds;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -90,13 +84,18 @@ class UpdateBillReceivablebillRequest extends Model
         'billStartTime'     => 'bill_start_time',
         'contractCode'      => 'contract_code',
         'deadline'          => 'deadline',
-        'waybillIds'        => 'waybill_ids',
     ];
 
     public function validate()
     {
+        Model::validateRequired('billAmount', $this->billAmount, true);
+        Model::validateRequired('billCreateTime', $this->billCreateTime, true);
+        Model::validateRequired('billDeadline', $this->billDeadline, true);
         Model::validateRequired('billId', $this->billId, true);
         Model::validateRequired('billPayeeDid', $this->billPayeeDid, true);
+        Model::validateRequired('billPayerDid', $this->billPayerDid, true);
+        Model::validateRequired('billStartTime', $this->billStartTime, true);
+        Model::validateRequired('deadline', $this->deadline, true);
     }
 
     public function toMap()
@@ -135,9 +134,6 @@ class UpdateBillReceivablebillRequest extends Model
         if (null !== $this->deadline) {
             $res['deadline'] = $this->deadline;
         }
-        if (null !== $this->waybillIds) {
-            $res['waybill_ids'] = $this->waybillIds;
-        }
 
         return $res;
     }
@@ -145,7 +141,7 @@ class UpdateBillReceivablebillRequest extends Model
     /**
      * @param array $map
      *
-     * @return UpdateBillReceivablebillRequest
+     * @return CreateBillReceivablebillnodetailRequest
      */
     public static function fromMap($map = [])
     {
@@ -182,11 +178,6 @@ class UpdateBillReceivablebillRequest extends Model
         }
         if (isset($map['deadline'])) {
             $model->deadline = $map['deadline'];
-        }
-        if (isset($map['waybill_ids'])) {
-            if (!empty($map['waybill_ids'])) {
-                $model->waybillIds = $map['waybill_ids'];
-            }
         }
 
         return $model;

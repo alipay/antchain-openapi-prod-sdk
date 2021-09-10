@@ -6,7 +6,7 @@ namespace AntChain\SHUZIWULIU\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyInsuranceOspiRequest extends Model
+class ApplyInsuranceCbpiRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -36,19 +36,19 @@ class ApplyInsuranceOspiRequest extends Model
     public $externalChannelCode;
 
     // 险种编码，06--跨境邮包险
-    //
     /**
      * @var string
      */
     public $externalProductCode;
 
-    // 投保人姓名，保险协议中的投保人全称
+    // 保险协议中的投保人全称
     /**
      * @var string
      */
     public $tbrName;
 
     // 投保人证件类型，03--营业执照
+    //
     /**
      * @var string
      */
@@ -73,12 +73,14 @@ class ApplyInsuranceOspiRequest extends Model
     public $bbrIdType;
 
     // 被保人证件号码
+    //
     /**
      * @var string
      */
     public $bbrIdNo;
 
     // 受益人名称，实际的保险受益人名称
+    //
     /**
      * @var string
      */
@@ -97,24 +99,26 @@ class ApplyInsuranceOspiRequest extends Model
     public $beneficiaryNo;
 
     // 保险起期，日期格式yyyy-MM-dd HH:mm:ss
+    //
     /**
      * @var string
      */
     public $insureStart;
 
     // 保险金额，单位（元），最多支持2位小数，超过2位拒绝；
+    //
     /**
      * @var string
      */
     public $insuredAmount;
 
-    // 方案名，海外邮包险--OWFP
+    // 方案名，XBDP—跨境邮包险
     /**
      * @var string
      */
     public $schemeName;
 
-    // 项目名称,海外邮包险：OWFP-对应国别，例OWFP-RU
+    // 项目名称，命名规范“方案种类+物流业务种类+国别”
     /**
      * @var string
      */
@@ -124,7 +128,7 @@ class ApplyInsuranceOspiRequest extends Model
     /**
      * @var string
      */
-    public $relaOrderNo;
+    public $relatedOrderNo;
 
     // 寄件时间，日期格式yyyy-MM-dd HH:mm:ss
     /**
@@ -139,18 +143,19 @@ class ApplyInsuranceOspiRequest extends Model
     public $courierCompany;
 
     // 快递单号，实际的派送快递单号
+    //
     /**
      * @var string
      */
     public $courierNumber;
 
-    // 货物类型，货物类型的大类
+    // 货物类型,货物类型的大类
     /**
      * @var string
      */
     public $cargoType;
 
-    // 货物名称，实际的货物名称
+    // 货物名称,实际的货物名称
     /**
      * @var string
      */
@@ -162,37 +167,31 @@ class ApplyInsuranceOspiRequest extends Model
      */
     public $cargoQuantity;
 
-    // 买家ID，买家的脱敏唯一标识
+    // 买家ID,买家的脱敏唯一标识
     /**
      * @var string
      */
     public $buyId;
 
-    // 卖家ID，卖家的脱敏唯一标识
+    // 卖家ID,卖家的脱敏唯一标识
     /**
      * @var string
      */
     public $sellId;
 
-    // 站点/仓储ID，站点/仓储的脱敏唯一标识
-    /**
-     * @var string
-     */
-    public $siteId;
-
-    // 出发地地址，包裹的实际发件地地址
+    // 出发地地址,包裹的实际发件地地址
     /**
      * @var string
      */
     public $startPlace;
 
-    // 目的地地址，包裹的实际收件地地址
+    // 目的地地址,包裹的实际收件地地址
     /**
      * @var string
      */
     public $destination;
 
-    // ISO到达国别，包裹业务实际发生的国家
+    // ISO到达国别,包裹业务实际发生的国家
     /**
      * @var string
      */
@@ -222,7 +221,7 @@ class ApplyInsuranceOspiRequest extends Model
         'insuredAmount'       => 'insured_amount',
         'schemeName'          => 'scheme_name',
         'projectName'         => 'project_name',
-        'relaOrderNo'         => 'rela_order_no',
+        'relatedOrderNo'      => 'related_order_no',
         'pickUpTime'          => 'pick_up_time',
         'courierCompany'      => 'courier_company',
         'courierNumber'       => 'courier_number',
@@ -231,7 +230,6 @@ class ApplyInsuranceOspiRequest extends Model
         'cargoQuantity'       => 'cargo_quantity',
         'buyId'               => 'buy_id',
         'sellId'              => 'sell_id',
-        'siteId'              => 'site_id',
         'startPlace'          => 'start_place',
         'destination'         => 'destination',
         'isoCountry'          => 'iso_country',
@@ -256,7 +254,7 @@ class ApplyInsuranceOspiRequest extends Model
         Model::validateRequired('insuredAmount', $this->insuredAmount, true);
         Model::validateRequired('schemeName', $this->schemeName, true);
         Model::validateRequired('projectName', $this->projectName, true);
-        Model::validateRequired('relaOrderNo', $this->relaOrderNo, true);
+        Model::validateRequired('relatedOrderNo', $this->relatedOrderNo, true);
         Model::validateRequired('pickUpTime', $this->pickUpTime, true);
         Model::validateRequired('courierCompany', $this->courierCompany, true);
         Model::validateRequired('courierNumber', $this->courierNumber, true);
@@ -265,7 +263,6 @@ class ApplyInsuranceOspiRequest extends Model
         Model::validateRequired('cargoQuantity', $this->cargoQuantity, true);
         Model::validateRequired('buyId', $this->buyId, true);
         Model::validateRequired('sellId', $this->sellId, true);
-        Model::validateRequired('siteId', $this->siteId, true);
         Model::validateRequired('startPlace', $this->startPlace, true);
         Model::validateRequired('destination', $this->destination, true);
         Model::validateRequired('isoCountry', $this->isoCountry, true);
@@ -284,14 +281,13 @@ class ApplyInsuranceOspiRequest extends Model
         Model::validateMaxLength('beneficiaryNo', $this->beneficiaryNo, 30);
         Model::validateMaxLength('schemeName', $this->schemeName, 100);
         Model::validateMaxLength('projectName', $this->projectName, 500);
-        Model::validateMaxLength('relaOrderNo', $this->relaOrderNo, 200);
+        Model::validateMaxLength('relatedOrderNo', $this->relatedOrderNo, 100);
         Model::validateMaxLength('courierCompany', $this->courierCompany, 200);
         Model::validateMaxLength('courierNumber', $this->courierNumber, 100);
         Model::validateMaxLength('cargoType', $this->cargoType, 100);
         Model::validateMaxLength('cargoName', $this->cargoName, 200);
         Model::validateMaxLength('buyId', $this->buyId, 100);
         Model::validateMaxLength('sellId', $this->sellId, 100);
-        Model::validateMaxLength('siteId', $this->siteId, 100);
         Model::validateMaxLength('startPlace', $this->startPlace, 500);
         Model::validateMaxLength('destination', $this->destination, 500);
         Model::validateMaxLength('isoCountry', $this->isoCountry, 10);
@@ -354,8 +350,8 @@ class ApplyInsuranceOspiRequest extends Model
         if (null !== $this->projectName) {
             $res['project_name'] = $this->projectName;
         }
-        if (null !== $this->relaOrderNo) {
-            $res['rela_order_no'] = $this->relaOrderNo;
+        if (null !== $this->relatedOrderNo) {
+            $res['related_order_no'] = $this->relatedOrderNo;
         }
         if (null !== $this->pickUpTime) {
             $res['pick_up_time'] = $this->pickUpTime;
@@ -381,9 +377,6 @@ class ApplyInsuranceOspiRequest extends Model
         if (null !== $this->sellId) {
             $res['sell_id'] = $this->sellId;
         }
-        if (null !== $this->siteId) {
-            $res['site_id'] = $this->siteId;
-        }
         if (null !== $this->startPlace) {
             $res['start_place'] = $this->startPlace;
         }
@@ -403,7 +396,7 @@ class ApplyInsuranceOspiRequest extends Model
     /**
      * @param array $map
      *
-     * @return ApplyInsuranceOspiRequest
+     * @return ApplyInsuranceCbpiRequest
      */
     public static function fromMap($map = [])
     {
@@ -462,8 +455,8 @@ class ApplyInsuranceOspiRequest extends Model
         if (isset($map['project_name'])) {
             $model->projectName = $map['project_name'];
         }
-        if (isset($map['rela_order_no'])) {
-            $model->relaOrderNo = $map['rela_order_no'];
+        if (isset($map['related_order_no'])) {
+            $model->relatedOrderNo = $map['related_order_no'];
         }
         if (isset($map['pick_up_time'])) {
             $model->pickUpTime = $map['pick_up_time'];
@@ -488,9 +481,6 @@ class ApplyInsuranceOspiRequest extends Model
         }
         if (isset($map['sell_id'])) {
             $model->sellId = $map['sell_id'];
-        }
-        if (isset($map['site_id'])) {
-            $model->siteId = $map['site_id'];
         }
         if (isset($map['start_place'])) {
             $model->startPlace = $map['start_place'];

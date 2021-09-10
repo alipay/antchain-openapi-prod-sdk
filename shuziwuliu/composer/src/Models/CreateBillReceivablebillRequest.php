@@ -31,7 +31,7 @@ class CreateBillReceivablebillRequest extends Model
      */
     public $billCreateTime;
 
-    // 账单期限，单位（天），合同约定的结算周期
+    // 账单期限，单位（天），合同约定的结算周期，需填写1到360的整数
     /**
      * @var int
      */

@@ -6,7 +6,7 @@ namespace AntChain\SHUZIWULIU\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyInsuranceYzbResponse extends Model
+class ApplyInsuranceCbpiResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -27,42 +27,42 @@ class ApplyInsuranceYzbResponse extends Model
     public $resultMsg;
 
     // 投保唯一码
+    //
     /**
      * @var string
      */
     public $tradeNo;
 
     // 保单号
+    //
     /**
      * @var string
      */
     public $policyNo;
 
-    // 电子保单链接
-    /**
-     * @var string
-     */
-    public $policyUrl;
-
     // 保费
+    //
     /**
      * @var string
      */
     public $premium;
 
     // 保额
+    //
     /**
      * @var string
      */
     public $insuredAmount;
 
     // 保险起期
+    //
     /**
      * @var string
      */
     public $insureStart;
 
     // 保险止期
+    //
     /**
      * @var string
      */
@@ -73,7 +73,6 @@ class ApplyInsuranceYzbResponse extends Model
         'resultMsg'     => 'result_msg',
         'tradeNo'       => 'trade_no',
         'policyNo'      => 'policy_no',
-        'policyUrl'     => 'policy_url',
         'premium'       => 'premium',
         'insuredAmount' => 'insured_amount',
         'insureStart'   => 'insure_start',
@@ -102,9 +101,6 @@ class ApplyInsuranceYzbResponse extends Model
         if (null !== $this->policyNo) {
             $res['policy_no'] = $this->policyNo;
         }
-        if (null !== $this->policyUrl) {
-            $res['policy_url'] = $this->policyUrl;
-        }
         if (null !== $this->premium) {
             $res['premium'] = $this->premium;
         }
@@ -124,7 +120,7 @@ class ApplyInsuranceYzbResponse extends Model
     /**
      * @param array $map
      *
-     * @return ApplyInsuranceYzbResponse
+     * @return ApplyInsuranceCbpiResponse
      */
     public static function fromMap($map = [])
     {
@@ -143,9 +139,6 @@ class ApplyInsuranceYzbResponse extends Model
         }
         if (isset($map['policy_no'])) {
             $model->policyNo = $map['policy_no'];
-        }
-        if (isset($map['policy_url'])) {
-            $model->policyUrl = $map['policy_url'];
         }
         if (isset($map['premium'])) {
             $model->premium = $map['premium'];

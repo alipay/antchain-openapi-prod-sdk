@@ -19,7 +19,11 @@ class ApplyInsuranceYzbRequest extends Model
      */
     public $productInstanceId;
 
-    // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码。 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+    // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+    // yyyyMMdd请传递当前时间。
+    // 身份标识可自定义。
+    // 其他编码建议为随机值。
+    // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
     /**
      * @var string
      */
@@ -103,7 +107,7 @@ class ApplyInsuranceYzbRequest extends Model
      */
     public $insureStart;
 
-    // 套餐编码，PK00033303、PK00033459、PK00033460
+    // 套餐编码，PK00053022、PK00053025、PK00053026
     /**
      * @var string
      */
@@ -157,7 +161,7 @@ class ApplyInsuranceYzbRequest extends Model
      */
     public $wholeAddress;
 
-    // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟站点宝
+    // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟公共服务站保障
     /**
      * @var string
      */
@@ -174,6 +178,12 @@ class ApplyInsuranceYzbRequest extends Model
      * @var string
      */
     public $acplBbrIdNo;
+
+    // 产品市场编码，一般指保司端险种编码
+    /**
+     * @var string
+     */
+    public $pdtMktCode;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -203,6 +213,7 @@ class ApplyInsuranceYzbRequest extends Model
         'schemeName'          => 'scheme_name',
         'acplBbrName'         => 'acpl_bbr_name',
         'acplBbrIdNo'         => 'acpl_bbr_id_no',
+        'pdtMktCode'          => 'pdt_mkt_code',
     ];
 
     public function validate()
@@ -256,6 +267,7 @@ class ApplyInsuranceYzbRequest extends Model
         Model::validateMaxLength('schemeName', $this->schemeName, 100);
         Model::validateMaxLength('acplBbrName', $this->acplBbrName, 100);
         Model::validateMaxLength('acplBbrIdNo', $this->acplBbrIdNo, 30);
+        Model::validateMaxLength('pdtMktCode', $this->pdtMktCode, 16);
     }
 
     public function toMap()
@@ -344,6 +356,9 @@ class ApplyInsuranceYzbRequest extends Model
         }
         if (null !== $this->acplBbrIdNo) {
             $res['acpl_bbr_id_no'] = $this->acplBbrIdNo;
+        }
+        if (null !== $this->pdtMktCode) {
+            $res['pdt_mkt_code'] = $this->pdtMktCode;
         }
 
         return $res;
@@ -440,6 +455,9 @@ class ApplyInsuranceYzbRequest extends Model
         }
         if (isset($map['acpl_bbr_id_no'])) {
             $model->acplBbrIdNo = $map['acpl_bbr_id_no'];
+        }
+        if (isset($map['pdt_mkt_code'])) {
+            $model->pdtMktCode = $map['pdt_mkt_code'];
         }
 
         return $model;
