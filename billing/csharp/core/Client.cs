@@ -137,7 +137,7 @@ namespace AntChain.SDK.BILLING
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.0"},
+                        {"sdk_version", "1.3.1"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BILLING
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.0"},
+                        {"sdk_version", "1.3.1"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -486,8 +486,8 @@ namespace AntChain.SDK.BILLING
         }
 
         /**
-         * Description: 同步线下接口(出账验证状态)
-         * Summary: 同步出账验证状态
+         * Description: 同步线下接口(同步出账验证审批流状态)
+         * Summary: 同步线下接口(同步出账验证审批流状态)
          */
         public UpdateAcfeewebStateResponse UpdateAcfeewebState(UpdateAcfeewebStateRequest request)
         {
@@ -497,8 +497,8 @@ namespace AntChain.SDK.BILLING
         }
 
         /**
-         * Description: 同步线下接口(出账验证状态)
-         * Summary: 同步出账验证状态
+         * Description: 同步线下接口(同步出账验证审批流状态)
+         * Summary: 同步线下接口(同步出账验证审批流状态)
          */
         public async Task<UpdateAcfeewebStateResponse> UpdateAcfeewebStateAsync(UpdateAcfeewebStateRequest request)
         {
@@ -508,8 +508,8 @@ namespace AntChain.SDK.BILLING
         }
 
         /**
-         * Description: 同步线下接口(出账验证状态)
-         * Summary: 同步出账验证状态
+         * Description: 同步线下接口(同步出账验证审批流状态)
+         * Summary: 同步线下接口(同步出账验证审批流状态)
          */
         public UpdateAcfeewebStateResponse UpdateAcfeewebStateEx(UpdateAcfeewebStateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -518,13 +518,97 @@ namespace AntChain.SDK.BILLING
         }
 
         /**
-         * Description: 同步线下接口(出账验证状态)
-         * Summary: 同步出账验证状态
+         * Description: 同步线下接口(同步出账验证审批流状态)
+         * Summary: 同步线下接口(同步出账验证审批流状态)
          */
         public async Task<UpdateAcfeewebStateResponse> UpdateAcfeewebStateExAsync(UpdateAcfeewebStateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UpdateAcfeewebStateResponse>(await DoRequestAsync("1.0", "antcloud.billing.acfeeweb.state.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 确认账单，线上环境使用(同步数据、创建审批流)
+         * Summary: 确认账单线上使用(同步数据、创建审批流)
+         */
+        public CreateAccountVerificationResponse CreateAccountVerification(CreateAccountVerificationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateAccountVerificationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 确认账单，线上环境使用(同步数据、创建审批流)
+         * Summary: 确认账单线上使用(同步数据、创建审批流)
+         */
+        public async Task<CreateAccountVerificationResponse> CreateAccountVerificationAsync(CreateAccountVerificationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateAccountVerificationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 确认账单，线上环境使用(同步数据、创建审批流)
+         * Summary: 确认账单线上使用(同步数据、创建审批流)
+         */
+        public CreateAccountVerificationResponse CreateAccountVerificationEx(CreateAccountVerificationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAccountVerificationResponse>(DoRequest("1.0", "antcloud.billing.account.verification.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 确认账单，线上环境使用(同步数据、创建审批流)
+         * Summary: 确认账单线上使用(同步数据、创建审批流)
+         */
+        public async Task<CreateAccountVerificationResponse> CreateAccountVerificationExAsync(CreateAccountVerificationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAccountVerificationResponse>(await DoRequestAsync("1.0", "antcloud.billing.account.verification.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 同步线下接口(同步出账验证审批流状态)
+         * Summary: 同步线下接口(同步出账验证审批流状态)
+         */
+        public SyncAccountVerificationResponse SyncAccountVerification(SyncAccountVerificationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncAccountVerificationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 同步线下接口(同步出账验证审批流状态)
+         * Summary: 同步线下接口(同步出账验证审批流状态)
+         */
+        public async Task<SyncAccountVerificationResponse> SyncAccountVerificationAsync(SyncAccountVerificationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncAccountVerificationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 同步线下接口(同步出账验证审批流状态)
+         * Summary: 同步线下接口(同步出账验证审批流状态)
+         */
+        public SyncAccountVerificationResponse SyncAccountVerificationEx(SyncAccountVerificationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncAccountVerificationResponse>(DoRequest("1.0", "antcloud.billing.account.verification.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 同步线下接口(同步出账验证审批流状态)
+         * Summary: 同步线下接口(同步出账验证审批流状态)
+         */
+        public async Task<SyncAccountVerificationResponse> SyncAccountVerificationExAsync(SyncAccountVerificationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncAccountVerificationResponse>(await DoRequestAsync("1.0", "antcloud.billing.account.verification.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
