@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.0'
+                    'sdk_version': '1.3.1'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -235,7 +235,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.0'
+                    'sdk_version': '1.3.1'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -490,8 +490,8 @@ class Client:
         request: billing_models.UpdateAcfeewebStateRequest,
     ) -> billing_models.UpdateAcfeewebStateResponse:
         """
-        Description: 同步线下接口(出账验证状态)
-        Summary: 同步出账验证状态
+        Description: 同步线下接口(同步出账验证审批流状态)
+        Summary: 同步线下接口(同步出账验证审批流状态)
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -502,8 +502,8 @@ class Client:
         request: billing_models.UpdateAcfeewebStateRequest,
     ) -> billing_models.UpdateAcfeewebStateResponse:
         """
-        Description: 同步线下接口(出账验证状态)
-        Summary: 同步出账验证状态
+        Description: 同步线下接口(同步出账验证审批流状态)
+        Summary: 同步线下接口(同步出账验证审批流状态)
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -516,8 +516,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> billing_models.UpdateAcfeewebStateResponse:
         """
-        Description: 同步线下接口(出账验证状态)
-        Summary: 同步出账验证状态
+        Description: 同步线下接口(同步出账验证审批流状态)
+        Summary: 同步线下接口(同步出账验证审批流状态)
         """
         UtilClient.validate_model(request)
         return billing_models.UpdateAcfeewebStateResponse().from_map(
@@ -531,10 +531,118 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> billing_models.UpdateAcfeewebStateResponse:
         """
-        Description: 同步线下接口(出账验证状态)
-        Summary: 同步出账验证状态
+        Description: 同步线下接口(同步出账验证审批流状态)
+        Summary: 同步线下接口(同步出账验证审批流状态)
         """
         UtilClient.validate_model(request)
         return billing_models.UpdateAcfeewebStateResponse().from_map(
             await self.do_request_async('1.0', 'antcloud.billing.acfeeweb.state.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_account_verification(
+        self,
+        request: billing_models.CreateAccountVerificationRequest,
+    ) -> billing_models.CreateAccountVerificationResponse:
+        """
+        Description: 确认账单，线上环境使用(同步数据、创建审批流)
+        Summary: 确认账单线上使用(同步数据、创建审批流)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_account_verification_ex(request, headers, runtime)
+
+    async def create_account_verification_async(
+        self,
+        request: billing_models.CreateAccountVerificationRequest,
+    ) -> billing_models.CreateAccountVerificationResponse:
+        """
+        Description: 确认账单，线上环境使用(同步数据、创建审批流)
+        Summary: 确认账单线上使用(同步数据、创建审批流)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_account_verification_ex_async(request, headers, runtime)
+
+    def create_account_verification_ex(
+        self,
+        request: billing_models.CreateAccountVerificationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> billing_models.CreateAccountVerificationResponse:
+        """
+        Description: 确认账单，线上环境使用(同步数据、创建审批流)
+        Summary: 确认账单线上使用(同步数据、创建审批流)
+        """
+        UtilClient.validate_model(request)
+        return billing_models.CreateAccountVerificationResponse().from_map(
+            self.do_request('1.0', 'antcloud.billing.account.verification.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_account_verification_ex_async(
+        self,
+        request: billing_models.CreateAccountVerificationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> billing_models.CreateAccountVerificationResponse:
+        """
+        Description: 确认账单，线上环境使用(同步数据、创建审批流)
+        Summary: 确认账单线上使用(同步数据、创建审批流)
+        """
+        UtilClient.validate_model(request)
+        return billing_models.CreateAccountVerificationResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.billing.account.verification.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_account_verification(
+        self,
+        request: billing_models.SyncAccountVerificationRequest,
+    ) -> billing_models.SyncAccountVerificationResponse:
+        """
+        Description: 同步线下接口(同步出账验证审批流状态)
+        Summary: 同步线下接口(同步出账验证审批流状态)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_account_verification_ex(request, headers, runtime)
+
+    async def sync_account_verification_async(
+        self,
+        request: billing_models.SyncAccountVerificationRequest,
+    ) -> billing_models.SyncAccountVerificationResponse:
+        """
+        Description: 同步线下接口(同步出账验证审批流状态)
+        Summary: 同步线下接口(同步出账验证审批流状态)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_account_verification_ex_async(request, headers, runtime)
+
+    def sync_account_verification_ex(
+        self,
+        request: billing_models.SyncAccountVerificationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> billing_models.SyncAccountVerificationResponse:
+        """
+        Description: 同步线下接口(同步出账验证审批流状态)
+        Summary: 同步线下接口(同步出账验证审批流状态)
+        """
+        UtilClient.validate_model(request)
+        return billing_models.SyncAccountVerificationResponse().from_map(
+            self.do_request('1.0', 'antcloud.billing.account.verification.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_account_verification_ex_async(
+        self,
+        request: billing_models.SyncAccountVerificationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> billing_models.SyncAccountVerificationResponse:
+        """
+        Description: 同步线下接口(同步出账验证审批流状态)
+        Summary: 同步线下接口(同步出账验证审批流状态)
+        """
+        UtilClient.validate_model(request)
+        return billing_models.SyncAccountVerificationResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.billing.account.verification.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

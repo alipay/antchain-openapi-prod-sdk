@@ -984,3 +984,443 @@ class UpdateAcfeewebStateResponse(TeaModel):
         return self
 
 
+class CreateAccountVerificationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        id: int = None,
+        domain_code: str = None,
+        domain_name: str = None,
+        domain_version: str = None,
+        product_code: str = None,
+        product_name: str = None,
+        service_code: str = None,
+        service_name: str = None,
+        offer_code: str = None,
+        offer_name: str = None,
+        oms_data: str = None,
+        oms_biz_no: str = None,
+        verification_cache: str = None,
+        verification_url: str = None,
+        bpms_id: str = None,
+        config_data: str = None,
+        status: str = None,
+        creator: str = None,
+        modifor: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 出账验证主键id
+        self.id = id
+        # 计量域code
+        self.domain_code = domain_code
+        # 计量域名称
+        self.domain_name = domain_name
+        # 计量域版本
+        self.domain_version = domain_version
+        # 业务产品code
+        self.product_code = product_code
+        # 业务产品名称
+        self.product_name = product_name
+        # 渠道产品code
+        self.service_code = service_code
+        # 渠道产品名称
+        self.service_name = service_name
+        # 商品code
+        self.offer_code = offer_code
+        # 商品名称
+        self.offer_name = offer_name
+        # 验证的计量数据
+        self.oms_data = oms_data
+        # 计量数据业务幂等号
+        self.oms_biz_no = oms_biz_no
+        # 缓存报文
+        self.verification_cache = verification_cache
+        # 缓存链接
+        self.verification_url = verification_url
+        # 审批流id
+        self.bpms_id = bpms_id
+        # 配置报文
+        self.config_data = config_data
+        # 状态
+        self.status = status
+        # 创建人
+        self.creator = creator
+        # 修改人
+        self.modifor = modifor
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.domain_code, 'domain_code')
+        self.validate_required(self.domain_name, 'domain_name')
+        self.validate_required(self.domain_version, 'domain_version')
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.product_name, 'product_name')
+        self.validate_required(self.service_code, 'service_code')
+        self.validate_required(self.service_name, 'service_name')
+        self.validate_required(self.offer_code, 'offer_code')
+        self.validate_required(self.offer_name, 'offer_name')
+        self.validate_required(self.oms_data, 'oms_data')
+        self.validate_required(self.oms_biz_no, 'oms_biz_no')
+        self.validate_required(self.verification_cache, 'verification_cache')
+        self.validate_required(self.verification_url, 'verification_url')
+        self.validate_required(self.bpms_id, 'bpms_id')
+        self.validate_required(self.config_data, 'config_data')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.creator, 'creator')
+        self.validate_required(self.modifor, 'modifor')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.id is not None:
+            result['id'] = self.id
+        if self.domain_code is not None:
+            result['domain_code'] = self.domain_code
+        if self.domain_name is not None:
+            result['domain_name'] = self.domain_name
+        if self.domain_version is not None:
+            result['domain_version'] = self.domain_version
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        if self.service_code is not None:
+            result['service_code'] = self.service_code
+        if self.service_name is not None:
+            result['service_name'] = self.service_name
+        if self.offer_code is not None:
+            result['offer_code'] = self.offer_code
+        if self.offer_name is not None:
+            result['offer_name'] = self.offer_name
+        if self.oms_data is not None:
+            result['oms_data'] = self.oms_data
+        if self.oms_biz_no is not None:
+            result['oms_biz_no'] = self.oms_biz_no
+        if self.verification_cache is not None:
+            result['verification_cache'] = self.verification_cache
+        if self.verification_url is not None:
+            result['verification_url'] = self.verification_url
+        if self.bpms_id is not None:
+            result['bpms_id'] = self.bpms_id
+        if self.config_data is not None:
+            result['config_data'] = self.config_data
+        if self.status is not None:
+            result['status'] = self.status
+        if self.creator is not None:
+            result['creator'] = self.creator
+        if self.modifor is not None:
+            result['modifor'] = self.modifor
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('domain_code') is not None:
+            self.domain_code = m.get('domain_code')
+        if m.get('domain_name') is not None:
+            self.domain_name = m.get('domain_name')
+        if m.get('domain_version') is not None:
+            self.domain_version = m.get('domain_version')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        if m.get('service_code') is not None:
+            self.service_code = m.get('service_code')
+        if m.get('service_name') is not None:
+            self.service_name = m.get('service_name')
+        if m.get('offer_code') is not None:
+            self.offer_code = m.get('offer_code')
+        if m.get('offer_name') is not None:
+            self.offer_name = m.get('offer_name')
+        if m.get('oms_data') is not None:
+            self.oms_data = m.get('oms_data')
+        if m.get('oms_biz_no') is not None:
+            self.oms_biz_no = m.get('oms_biz_no')
+        if m.get('verification_cache') is not None:
+            self.verification_cache = m.get('verification_cache')
+        if m.get('verification_url') is not None:
+            self.verification_url = m.get('verification_url')
+        if m.get('bpms_id') is not None:
+            self.bpms_id = m.get('bpms_id')
+        if m.get('config_data') is not None:
+            self.config_data = m.get('config_data')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('creator') is not None:
+            self.creator = m.get('creator')
+        if m.get('modifor') is not None:
+            self.modifor = m.get('modifor')
+        return self
+
+
+class CreateAccountVerificationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        process_instance_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 审批流实例id
+        self.process_instance_id = process_instance_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.process_instance_id is not None:
+            result['process_instance_id'] = self.process_instance_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('process_instance_id') is not None:
+            self.process_instance_id = m.get('process_instance_id')
+        return self
+
+
+class SyncAccountVerificationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        id: int = None,
+        domain_code: str = None,
+        domain_name: str = None,
+        domain_version: str = None,
+        product_code: str = None,
+        product_name: str = None,
+        service_code: str = None,
+        service_name: str = None,
+        offer_code: str = None,
+        offer_name: str = None,
+        oms_data: str = None,
+        oms_biz_no: str = None,
+        verification_cache: str = None,
+        verification_url: str = None,
+        bpms_id: str = None,
+        config_data: str = None,
+        status: str = None,
+        creator: str = None,
+        modifor: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 出账验证主键id
+        self.id = id
+        # 计量域code
+        self.domain_code = domain_code
+        # 计量域名称
+        self.domain_name = domain_name
+        # 计量域版本
+        self.domain_version = domain_version
+        # 业务产品code
+        self.product_code = product_code
+        # 业务产品名称
+        self.product_name = product_name
+        # 渠道产品code
+        self.service_code = service_code
+        # 渠道产品名称
+        self.service_name = service_name
+        # 商品code
+        self.offer_code = offer_code
+        # 商品名称
+        self.offer_name = offer_name
+        # 验证的计量数据
+        self.oms_data = oms_data
+        # 计量数据业务幂等号
+        self.oms_biz_no = oms_biz_no
+        # 缓存报文
+        self.verification_cache = verification_cache
+        # 缓存链接
+        self.verification_url = verification_url
+        # 审批流id
+        self.bpms_id = bpms_id
+        # 配置报文
+        self.config_data = config_data
+        # 状态
+        self.status = status
+        # 创建人
+        self.creator = creator
+        # 修改人
+        self.modifor = modifor
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.domain_code, 'domain_code')
+        self.validate_required(self.domain_name, 'domain_name')
+        self.validate_required(self.domain_version, 'domain_version')
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.product_name, 'product_name')
+        self.validate_required(self.service_code, 'service_code')
+        self.validate_required(self.service_name, 'service_name')
+        self.validate_required(self.offer_code, 'offer_code')
+        self.validate_required(self.offer_name, 'offer_name')
+        self.validate_required(self.oms_data, 'oms_data')
+        self.validate_required(self.oms_biz_no, 'oms_biz_no')
+        self.validate_required(self.verification_cache, 'verification_cache')
+        self.validate_required(self.verification_url, 'verification_url')
+        self.validate_required(self.bpms_id, 'bpms_id')
+        self.validate_required(self.config_data, 'config_data')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.creator, 'creator')
+        self.validate_required(self.modifor, 'modifor')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.id is not None:
+            result['id'] = self.id
+        if self.domain_code is not None:
+            result['domain_code'] = self.domain_code
+        if self.domain_name is not None:
+            result['domain_name'] = self.domain_name
+        if self.domain_version is not None:
+            result['domain_version'] = self.domain_version
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        if self.service_code is not None:
+            result['service_code'] = self.service_code
+        if self.service_name is not None:
+            result['service_name'] = self.service_name
+        if self.offer_code is not None:
+            result['offer_code'] = self.offer_code
+        if self.offer_name is not None:
+            result['offer_name'] = self.offer_name
+        if self.oms_data is not None:
+            result['oms_data'] = self.oms_data
+        if self.oms_biz_no is not None:
+            result['oms_biz_no'] = self.oms_biz_no
+        if self.verification_cache is not None:
+            result['verification_cache'] = self.verification_cache
+        if self.verification_url is not None:
+            result['verification_url'] = self.verification_url
+        if self.bpms_id is not None:
+            result['bpms_id'] = self.bpms_id
+        if self.config_data is not None:
+            result['config_data'] = self.config_data
+        if self.status is not None:
+            result['status'] = self.status
+        if self.creator is not None:
+            result['creator'] = self.creator
+        if self.modifor is not None:
+            result['modifor'] = self.modifor
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('domain_code') is not None:
+            self.domain_code = m.get('domain_code')
+        if m.get('domain_name') is not None:
+            self.domain_name = m.get('domain_name')
+        if m.get('domain_version') is not None:
+            self.domain_version = m.get('domain_version')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        if m.get('service_code') is not None:
+            self.service_code = m.get('service_code')
+        if m.get('service_name') is not None:
+            self.service_name = m.get('service_name')
+        if m.get('offer_code') is not None:
+            self.offer_code = m.get('offer_code')
+        if m.get('offer_name') is not None:
+            self.offer_name = m.get('offer_name')
+        if m.get('oms_data') is not None:
+            self.oms_data = m.get('oms_data')
+        if m.get('oms_biz_no') is not None:
+            self.oms_biz_no = m.get('oms_biz_no')
+        if m.get('verification_cache') is not None:
+            self.verification_cache = m.get('verification_cache')
+        if m.get('verification_url') is not None:
+            self.verification_url = m.get('verification_url')
+        if m.get('bpms_id') is not None:
+            self.bpms_id = m.get('bpms_id')
+        if m.get('config_data') is not None:
+            self.config_data = m.get('config_data')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('creator') is not None:
+            self.creator = m.get('creator')
+        if m.get('modifor') is not None:
+            self.modifor = m.get('modifor')
+        return self
+
+
+class SyncAccountVerificationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        sync_result: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 成功、失败
+        self.sync_result = sync_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.sync_result is not None:
+            result['sync_result'] = self.sync_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('sync_result') is not None:
+            self.sync_result = m.get('sync_result')
+        return self
+
+
