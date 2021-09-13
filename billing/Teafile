@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "BILLING",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-billing:1.3.0",
-    "go": "github.com/antchain-openapi-sdk-go/billing/client:v1.3.0",
-    "csharp": "AntChain.SDK.BILLING:1.3.0",
-    "ts": "@antchain/billing:1.3.0",
-    "php": "antchain/billing:1.3.0",
-    "python": "antchain_sdk_billing:1.3.0"
+    "java": "com.antgroup.antchain.openapi:openapi-billing:1.3.1",
+    "go": "github.com/antchain-openapi-sdk-go/billing/client:v1.3.1",
+    "csharp": "AntChain.SDK.BILLING:1.3.1",
+    "ts": "@antchain/billing:1.3.1",
+    "php": "antchain/billing:1.3.1",
+    "python": "antchain_sdk_billing:1.3.1"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
