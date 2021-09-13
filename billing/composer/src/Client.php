@@ -13,12 +13,16 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\BILLING\Models\ChargeAccountBalanceRequest;
 use AntChain\BILLING\Models\ChargeAccountBalanceResponse;
+use AntChain\BILLING\Models\CreateAccountVerificationRequest;
+use AntChain\BILLING\Models\CreateAccountVerificationResponse;
 use AntChain\BILLING\Models\CreateAcfeewebInstanceRequest;
 use AntChain\BILLING\Models\CreateAcfeewebInstanceResponse;
 use AntChain\BILLING\Models\GetAccountBalanceRequest;
 use AntChain\BILLING\Models\GetAccountBalanceResponse;
 use AntChain\BILLING\Models\GetAccountUserRequest;
 use AntChain\BILLING\Models\GetAccountUserResponse;
+use AntChain\BILLING\Models\SyncAccountVerificationRequest;
+use AntChain\BILLING\Models\SyncAccountVerificationResponse;
 use AntChain\BILLING\Models\UpdateAcfeewebStateRequest;
 use AntChain\BILLING\Models\UpdateAcfeewebStateResponse;
 use AntChain\Util\UtilClient;
@@ -167,7 +171,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.0',
+                    'sdk_version'      => '1.3.1',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -346,8 +350,8 @@ class Client
     }
 
     /**
-     * Description: 同步线下接口(出账验证状态)
-     * Summary: 同步出账验证状态
+     * Description: 同步线下接口(同步出账验证审批流状态)
+     * Summary: 同步线下接口(同步出账验证审批流状态).
      *
      * @param UpdateAcfeewebStateRequest $request
      *
@@ -362,8 +366,8 @@ class Client
     }
 
     /**
-     * Description: 同步线下接口(出账验证状态)
-     * Summary: 同步出账验证状态
+     * Description: 同步线下接口(同步出账验证审批流状态)
+     * Summary: 同步线下接口(同步出账验证审批流状态).
      *
      * @param UpdateAcfeewebStateRequest $request
      * @param string[]                   $headers
@@ -376,5 +380,71 @@ class Client
         Utils::validateModel($request);
 
         return UpdateAcfeewebStateResponse::fromMap($this->doRequest('1.0', 'antcloud.billing.acfeeweb.state.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 确认账单，线上环境使用(同步数据、创建审批流)
+     * Summary: 确认账单线上使用(同步数据、创建审批流).
+     *
+     * @param CreateAccountVerificationRequest $request
+     *
+     * @return CreateAccountVerificationResponse
+     */
+    public function createAccountVerification($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAccountVerificationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 确认账单，线上环境使用(同步数据、创建审批流)
+     * Summary: 确认账单线上使用(同步数据、创建审批流).
+     *
+     * @param CreateAccountVerificationRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CreateAccountVerificationResponse
+     */
+    public function createAccountVerificationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAccountVerificationResponse::fromMap($this->doRequest('1.0', 'antcloud.billing.account.verification.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 同步线下接口(同步出账验证审批流状态)
+     * Summary: 同步线下接口(同步出账验证审批流状态).
+     *
+     * @param SyncAccountVerificationRequest $request
+     *
+     * @return SyncAccountVerificationResponse
+     */
+    public function syncAccountVerification($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAccountVerificationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 同步线下接口(同步出账验证审批流状态)
+     * Summary: 同步线下接口(同步出账验证审批流状态).
+     *
+     * @param SyncAccountVerificationRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return SyncAccountVerificationResponse
+     */
+    public function syncAccountVerificationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAccountVerificationResponse::fromMap($this->doRequest('1.0', 'antcloud.billing.account.verification.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
