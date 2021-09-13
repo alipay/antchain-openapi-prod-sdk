@@ -883,6 +883,386 @@ func (s *UpdateAcfeewebStateResponse) SetSyncResult(v bool) *UpdateAcfeewebState
 	return s
 }
 
+type CreateAccountVerificationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 出账验证主键id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 计量域code
+	DomainCode *string `json:"domain_code,omitempty" xml:"domain_code,omitempty" require:"true"`
+	// 计量域名称
+	DomainName *string `json:"domain_name,omitempty" xml:"domain_name,omitempty" require:"true"`
+	// 计量域版本
+	DomainVersion *string `json:"domain_version,omitempty" xml:"domain_version,omitempty" require:"true"`
+	// 业务产品code
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 业务产品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
+	// 渠道产品code
+	ServiceCode *string `json:"service_code,omitempty" xml:"service_code,omitempty" require:"true"`
+	// 渠道产品名称
+	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty" require:"true"`
+	// 商品code
+	OfferCode *string `json:"offer_code,omitempty" xml:"offer_code,omitempty" require:"true"`
+	// 商品名称
+	OfferName *string `json:"offer_name,omitempty" xml:"offer_name,omitempty" require:"true"`
+	// 验证的计量数据
+	OmsData *string `json:"oms_data,omitempty" xml:"oms_data,omitempty" require:"true"`
+	// 计量数据业务幂等号
+	OmsBizNo *string `json:"oms_biz_no,omitempty" xml:"oms_biz_no,omitempty" require:"true"`
+	// 缓存报文
+	VerificationCache *string `json:"verification_cache,omitempty" xml:"verification_cache,omitempty" require:"true"`
+	// 缓存链接
+	VerificationUrl *string `json:"verification_url,omitempty" xml:"verification_url,omitempty" require:"true"`
+	// 审批流id
+	BpmsId *string `json:"bpms_id,omitempty" xml:"bpms_id,omitempty" require:"true"`
+	// 配置报文
+	ConfigData *string `json:"config_data,omitempty" xml:"config_data,omitempty" require:"true"`
+	// 状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 创建人
+	Creator *string `json:"creator,omitempty" xml:"creator,omitempty" require:"true"`
+	// 修改人
+	Modifor *string `json:"modifor,omitempty" xml:"modifor,omitempty" require:"true"`
+}
+
+func (s CreateAccountVerificationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAccountVerificationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAccountVerificationRequest) SetAuthToken(v string) *CreateAccountVerificationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAccountVerificationRequest) SetId(v int64) *CreateAccountVerificationRequest {
+	s.Id = &v
+	return s
+}
+
+func (s *CreateAccountVerificationRequest) SetDomainCode(v string) *CreateAccountVerificationRequest {
+	s.DomainCode = &v
+	return s
+}
+
+func (s *CreateAccountVerificationRequest) SetDomainName(v string) *CreateAccountVerificationRequest {
+	s.DomainName = &v
+	return s
+}
+
+func (s *CreateAccountVerificationRequest) SetDomainVersion(v string) *CreateAccountVerificationRequest {
+	s.DomainVersion = &v
+	return s
+}
+
+func (s *CreateAccountVerificationRequest) SetProductCode(v string) *CreateAccountVerificationRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *CreateAccountVerificationRequest) SetProductName(v string) *CreateAccountVerificationRequest {
+	s.ProductName = &v
+	return s
+}
+
+func (s *CreateAccountVerificationRequest) SetServiceCode(v string) *CreateAccountVerificationRequest {
+	s.ServiceCode = &v
+	return s
+}
+
+func (s *CreateAccountVerificationRequest) SetServiceName(v string) *CreateAccountVerificationRequest {
+	s.ServiceName = &v
+	return s
+}
+
+func (s *CreateAccountVerificationRequest) SetOfferCode(v string) *CreateAccountVerificationRequest {
+	s.OfferCode = &v
+	return s
+}
+
+func (s *CreateAccountVerificationRequest) SetOfferName(v string) *CreateAccountVerificationRequest {
+	s.OfferName = &v
+	return s
+}
+
+func (s *CreateAccountVerificationRequest) SetOmsData(v string) *CreateAccountVerificationRequest {
+	s.OmsData = &v
+	return s
+}
+
+func (s *CreateAccountVerificationRequest) SetOmsBizNo(v string) *CreateAccountVerificationRequest {
+	s.OmsBizNo = &v
+	return s
+}
+
+func (s *CreateAccountVerificationRequest) SetVerificationCache(v string) *CreateAccountVerificationRequest {
+	s.VerificationCache = &v
+	return s
+}
+
+func (s *CreateAccountVerificationRequest) SetVerificationUrl(v string) *CreateAccountVerificationRequest {
+	s.VerificationUrl = &v
+	return s
+}
+
+func (s *CreateAccountVerificationRequest) SetBpmsId(v string) *CreateAccountVerificationRequest {
+	s.BpmsId = &v
+	return s
+}
+
+func (s *CreateAccountVerificationRequest) SetConfigData(v string) *CreateAccountVerificationRequest {
+	s.ConfigData = &v
+	return s
+}
+
+func (s *CreateAccountVerificationRequest) SetStatus(v string) *CreateAccountVerificationRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *CreateAccountVerificationRequest) SetCreator(v string) *CreateAccountVerificationRequest {
+	s.Creator = &v
+	return s
+}
+
+func (s *CreateAccountVerificationRequest) SetModifor(v string) *CreateAccountVerificationRequest {
+	s.Modifor = &v
+	return s
+}
+
+type CreateAccountVerificationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 审批流实例id
+	ProcessInstanceId *string `json:"process_instance_id,omitempty" xml:"process_instance_id,omitempty"`
+}
+
+func (s CreateAccountVerificationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAccountVerificationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAccountVerificationResponse) SetReqMsgId(v string) *CreateAccountVerificationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAccountVerificationResponse) SetResultCode(v string) *CreateAccountVerificationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAccountVerificationResponse) SetResultMsg(v string) *CreateAccountVerificationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAccountVerificationResponse) SetProcessInstanceId(v string) *CreateAccountVerificationResponse {
+	s.ProcessInstanceId = &v
+	return s
+}
+
+type SyncAccountVerificationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 出账验证主键id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 计量域code
+	DomainCode *string `json:"domain_code,omitempty" xml:"domain_code,omitempty" require:"true"`
+	// 计量域名称
+	DomainName *string `json:"domain_name,omitempty" xml:"domain_name,omitempty" require:"true"`
+	// 计量域版本
+	DomainVersion *string `json:"domain_version,omitempty" xml:"domain_version,omitempty" require:"true"`
+	// 业务产品code
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 业务产品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
+	// 渠道产品code
+	ServiceCode *string `json:"service_code,omitempty" xml:"service_code,omitempty" require:"true"`
+	// 渠道产品名称
+	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty" require:"true"`
+	// 商品code
+	OfferCode *string `json:"offer_code,omitempty" xml:"offer_code,omitempty" require:"true"`
+	// 商品名称
+	OfferName *string `json:"offer_name,omitempty" xml:"offer_name,omitempty" require:"true"`
+	// 验证的计量数据
+	OmsData *string `json:"oms_data,omitempty" xml:"oms_data,omitempty" require:"true"`
+	// 计量数据业务幂等号
+	OmsBizNo *string `json:"oms_biz_no,omitempty" xml:"oms_biz_no,omitempty" require:"true"`
+	// 缓存报文
+	VerificationCache *string `json:"verification_cache,omitempty" xml:"verification_cache,omitempty" require:"true"`
+	// 缓存链接
+	VerificationUrl *string `json:"verification_url,omitempty" xml:"verification_url,omitempty" require:"true"`
+	// 审批流id
+	BpmsId *string `json:"bpms_id,omitempty" xml:"bpms_id,omitempty" require:"true"`
+	// 配置报文
+	ConfigData *string `json:"config_data,omitempty" xml:"config_data,omitempty" require:"true"`
+	// 状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 创建人
+	Creator *string `json:"creator,omitempty" xml:"creator,omitempty" require:"true"`
+	// 修改人
+	Modifor *string `json:"modifor,omitempty" xml:"modifor,omitempty" require:"true"`
+}
+
+func (s SyncAccountVerificationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncAccountVerificationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncAccountVerificationRequest) SetAuthToken(v string) *SyncAccountVerificationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncAccountVerificationRequest) SetId(v int64) *SyncAccountVerificationRequest {
+	s.Id = &v
+	return s
+}
+
+func (s *SyncAccountVerificationRequest) SetDomainCode(v string) *SyncAccountVerificationRequest {
+	s.DomainCode = &v
+	return s
+}
+
+func (s *SyncAccountVerificationRequest) SetDomainName(v string) *SyncAccountVerificationRequest {
+	s.DomainName = &v
+	return s
+}
+
+func (s *SyncAccountVerificationRequest) SetDomainVersion(v string) *SyncAccountVerificationRequest {
+	s.DomainVersion = &v
+	return s
+}
+
+func (s *SyncAccountVerificationRequest) SetProductCode(v string) *SyncAccountVerificationRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *SyncAccountVerificationRequest) SetProductName(v string) *SyncAccountVerificationRequest {
+	s.ProductName = &v
+	return s
+}
+
+func (s *SyncAccountVerificationRequest) SetServiceCode(v string) *SyncAccountVerificationRequest {
+	s.ServiceCode = &v
+	return s
+}
+
+func (s *SyncAccountVerificationRequest) SetServiceName(v string) *SyncAccountVerificationRequest {
+	s.ServiceName = &v
+	return s
+}
+
+func (s *SyncAccountVerificationRequest) SetOfferCode(v string) *SyncAccountVerificationRequest {
+	s.OfferCode = &v
+	return s
+}
+
+func (s *SyncAccountVerificationRequest) SetOfferName(v string) *SyncAccountVerificationRequest {
+	s.OfferName = &v
+	return s
+}
+
+func (s *SyncAccountVerificationRequest) SetOmsData(v string) *SyncAccountVerificationRequest {
+	s.OmsData = &v
+	return s
+}
+
+func (s *SyncAccountVerificationRequest) SetOmsBizNo(v string) *SyncAccountVerificationRequest {
+	s.OmsBizNo = &v
+	return s
+}
+
+func (s *SyncAccountVerificationRequest) SetVerificationCache(v string) *SyncAccountVerificationRequest {
+	s.VerificationCache = &v
+	return s
+}
+
+func (s *SyncAccountVerificationRequest) SetVerificationUrl(v string) *SyncAccountVerificationRequest {
+	s.VerificationUrl = &v
+	return s
+}
+
+func (s *SyncAccountVerificationRequest) SetBpmsId(v string) *SyncAccountVerificationRequest {
+	s.BpmsId = &v
+	return s
+}
+
+func (s *SyncAccountVerificationRequest) SetConfigData(v string) *SyncAccountVerificationRequest {
+	s.ConfigData = &v
+	return s
+}
+
+func (s *SyncAccountVerificationRequest) SetStatus(v string) *SyncAccountVerificationRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *SyncAccountVerificationRequest) SetCreator(v string) *SyncAccountVerificationRequest {
+	s.Creator = &v
+	return s
+}
+
+func (s *SyncAccountVerificationRequest) SetModifor(v string) *SyncAccountVerificationRequest {
+	s.Modifor = &v
+	return s
+}
+
+type SyncAccountVerificationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 成功、失败
+	SyncResult *bool `json:"sync_result,omitempty" xml:"sync_result,omitempty"`
+}
+
+func (s SyncAccountVerificationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncAccountVerificationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncAccountVerificationResponse) SetReqMsgId(v string) *SyncAccountVerificationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncAccountVerificationResponse) SetResultCode(v string) *SyncAccountVerificationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncAccountVerificationResponse) SetResultMsg(v string) *SyncAccountVerificationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SyncAccountVerificationResponse) SetSyncResult(v bool) *SyncAccountVerificationResponse {
+	s.SyncResult = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1005,7 +1385,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.0"),
+				"sdk_version":      tea.String("1.3.1"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1190,8 +1570,8 @@ func (client *Client) CreateAcfeewebInstanceEx(request *CreateAcfeewebInstanceRe
 }
 
 /**
- * Description: 同步线下接口(出账验证状态)
- * Summary: 同步出账验证状态
+ * Description: 同步线下接口(同步出账验证审批流状态)
+ * Summary: 同步线下接口(同步出账验证审批流状态)
  */
 func (client *Client) UpdateAcfeewebState(request *UpdateAcfeewebStateRequest) (_result *UpdateAcfeewebStateResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -1206,8 +1586,8 @@ func (client *Client) UpdateAcfeewebState(request *UpdateAcfeewebStateRequest) (
 }
 
 /**
- * Description: 同步线下接口(出账验证状态)
- * Summary: 同步出账验证状态
+ * Description: 同步线下接口(同步出账验证审批流状态)
+ * Summary: 同步线下接口(同步出账验证审批流状态)
  */
 func (client *Client) UpdateAcfeewebStateEx(request *UpdateAcfeewebStateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateAcfeewebStateResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -1216,6 +1596,74 @@ func (client *Client) UpdateAcfeewebStateEx(request *UpdateAcfeewebStateRequest,
 	}
 	_result = &UpdateAcfeewebStateResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.billing.acfeeweb.state.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 确认账单，线上环境使用(同步数据、创建审批流)
+ * Summary: 确认账单线上使用(同步数据、创建审批流)
+ */
+func (client *Client) CreateAccountVerification(request *CreateAccountVerificationRequest) (_result *CreateAccountVerificationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAccountVerificationResponse{}
+	_body, _err := client.CreateAccountVerificationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 确认账单，线上环境使用(同步数据、创建审批流)
+ * Summary: 确认账单线上使用(同步数据、创建审批流)
+ */
+func (client *Client) CreateAccountVerificationEx(request *CreateAccountVerificationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAccountVerificationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAccountVerificationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.billing.account.verification.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 同步线下接口(同步出账验证审批流状态)
+ * Summary: 同步线下接口(同步出账验证审批流状态)
+ */
+func (client *Client) SyncAccountVerification(request *SyncAccountVerificationRequest) (_result *SyncAccountVerificationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncAccountVerificationResponse{}
+	_body, _err := client.SyncAccountVerificationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 同步线下接口(同步出账验证审批流状态)
+ * Summary: 同步线下接口(同步出账验证审批流状态)
+ */
+func (client *Client) SyncAccountVerificationEx(request *SyncAccountVerificationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncAccountVerificationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncAccountVerificationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.billing.account.verification.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
