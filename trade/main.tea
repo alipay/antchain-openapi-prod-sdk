@@ -1,0 +1,1152 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '3.6.3',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 商品属性结构
+model CommodityAttribute {
+  // 属性编码
+  code: string(name='code', example='CAPACITY'),
+  // 属性名
+  name: string(name='name', example='资源包容量'),
+  // 默认值
+  defaultValue: string(name='default_value', example='100'),
+  // 属性值类型，离散值：DISCRETE，数值：NUMBER
+  valueType: string(name='value_type', example='DISCRETE'),
+  // 当是离散值类型时，为多个离散值逗号分隔
+  // 当是数值类型时，为JSON，结构为{"rangeType":"open", "min":1, "max": 100, "step:1}
+  valueRange: string(name='value_range', example='100,200'),
+  // 展示类型
+  displayType: string(name='display_type', example='RadioGroup'),
+  // 提示文案
+  tips: string(name='tips', example='这是一个属性'),
+  // 单位
+  unit: string(name='unit', example='次、分钟'),
+}
+
+// 套餐内商品订单结构
+model ComboCommodityOrder {
+  // 商品编码
+  commodityCode: string(name='commodity_code', example='KXSFFM00264687'),
+  // 状态
+  status: string(name='status', example='COMPLETE'),
+  // 实例ID列表
+  instanceIds: [ string ](name='instance_ids', example='A0BLOCKCHAINAXAXVZSE1ZXEMO6HM2S'),
+}
+
+// 套餐内商品结构
+model ComboCommodity {
+  // 商品名称
+  name: string(name='name', example='测试商品'),
+  // 商品在套餐中的唯一编码，当一个套餐中存在两个一样的商品时，编码会不一样
+  uniqueCode: string(name='unique_code', example='ZWZJFM00167122ABCDEF'),
+  // 商品主数据编码
+  innerCode: string(name='inner_code', example='ZWZJFM00167122'),
+  // 商品类型，资源包：attach
+  type: string(name='type', example='attach'),
+  // 付费方式，预付：PREPAY，按量付费：POSTPAY
+  chargeType: string(name='charge_type', example='PREPAY'),
+  // 销售属性列表
+  attrs: [ CommodityAttribute ](name='attrs', example='[]'),
+  // 商品数量
+  quantity: long(name='quantity', example='1'),
+  // 扩展信息，JSON结构，包含标签、个性化配置等数据
+  extendsConfig: string(name='extends_config', example='{"key":"name"}'),
+}
+
+// 套餐结构
+model Combo {
+  // 套餐名称
+  code: string(name='code', example='测试套餐'),
+  // 套餐编码
+  name: string(name='name', example='KKAASP00001001'),
+  // 套餐版本号
+  vid: string(name='vid', example='SPV202105192651'),
+  // 套餐描述
+  description: string(name='description', example='这是一个套餐'),
+  // 扩展信息，JSON结构，包含标签、个性化配置等数据
+  extendsConfig: string(name='extends_config', example='{"key":"name"}'),
+  // 状态
+  status: string(name='status', example='ONLINE'),
+  // 套餐内商品列表
+  commodities: [ ComboCommodity ](name='commodities', example='[] '),
+}
+
+// 资源包结构
+model InstanceCapacity {
+  // 实例ID
+  instanceId: string(name='instance_id', example='A0KMMSFM00190219BMZNESCN1ZXEMO6IGIE'),
+  // 当前剩余容量
+  currentCapacity: string(name='current_capacity', example='1000'),
+  // 初始容量
+  initialCapacity: string(name='initial_capacity', example='1000'),
+  // 起始时间
+  startTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time', example='2018-10-10T10:10:00Z'),
+  // 截止时间
+  endTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time', example='2018-10-10T10:10:00Z'),
+  // Valid：有效；Closed：已用完；Expired:已到期
+  status: string(name='status', example='状态'),
+  // 资源包对应商品码
+  commodityCode: string(name='commodity_code', example='KXSFFM00264687'),
+  // 关联按量商品码
+  relPostpayCommodity: string(name='rel_postpay_commodity', example='KKAASP00000001'),
+}
+
+// 商品定价结构
+model CommodityPricing {
+}
+
+// 优惠券模型
+model Coupon {
+  // 优惠券ID	
+  // 
+  id: long(name='id', example='1231313'),
+  // 优惠券名称,前端展示	
+  // 
+  displayName: string(name='display_name', example='XX优惠券 '),
+  // 优惠券模板名称	
+  // 
+  name: string(name='name', example='XXXX'),
+  // 优惠券类型，VOUCHER：抵用券;CERTAIN：满减券；DISCOUNT：折扣券	
+  // 
+  type: string(name='type', example='VOUCHER'),
+  // 优惠券金额，单位（分）
+  // 
+  amountInCent?: string(name='amount_in_cent', example='10000 '),
+  // 已使用金额，单位(分）
+  // 
+  usedAmountInCent?: string(name='used_amount_in_cent', example='10000 '),
+  // 状态，AVAILABLE-有效/EXPIRED-已过期/EXHAUSTED-已用完/ABANDONED-已作废	
+  // 
+  status: string(name='status', example='AVAILABLE'),
+  // 有效期开始时间	
+  // 
+  startTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time', example='2018-10-10T10:10:00Z'),
+  // 有效期结束时间	
+  // 
+  endTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time', example='2018-10-10T10:10:00Z'),
+  // 模板id	
+  // 
+  youhuiTemplateId: long(name='youhui_template_id', example='1111'),
+  // 优惠券=折扣券时使用，如0.75	
+  // 
+  discountRate?: string(name='discount_rate', example='0.75'),
+  // 优惠券类型=满减券时使用，如满200000分
+  // 
+  fullAmountInCent?: string(name='full_amount_in_cent', example='200000'),
+  // 可以使用的总次数	
+  // 
+  usageCount: long(name='usage_count', example='5'),
+  // 已使用次数（冻结次数）	
+  // 
+  usedCount: long(name='used_count', example='5'),
+  // 适用产品：通用/ECS/RDS
+  productList: string(name='product_list', example='通用'),
+  // 适用订单类型	
+  // 
+  orderTypeList: string(name='order_type_list', example='BUY'),
+}
+
+// 商品询价结构
+model CommodityEnquiryPrice {
+  // 商品主数据编码
+  commodityCode: string(name='commodity_code', example='KXSFFM00264687'),
+  // 商品名称
+  commodityName: string(name='commodity_name', example='测试商品'),
+  // 预付-支付金额
+  payAmount: string(name='pay_amount', example='100.00'),
+  // 预付费-原始金额
+  originalAmount: string(name='original_amount', example='200.00'),
+  // 预付费-折扣金额
+  discountAmount: string(name='discount_amount', example='100.00'),
+  // 命中的活动编码
+  activityCode: string(name='activity_code', example='a05d8efc-b1c8-42a0-9666-98f419d4e2eb'),
+  // 命中的活动名称
+  activityName: string(name='activity_name', example='测试折扣活动'),
+  // 命中的定价计划ID
+  pricePlanId: long(name='price_plan_id', example='1000'),
+  // 命中的定价约束ID
+  priceConstraintId: long(name='price_constraint_id', example='2000'),
+  // 币种，元：CNY
+  currency: string(name='currency', example='CNY'),
+}
+
+// 支付选项
+model PayOptions {
+  // 系统自动会根据账号类型、当前OU进行付费渠道判定；如果传入的付款渠道不满足，则报错
+  payChannel?: string(name='pay_channel', example='CUSTOMER_FUND'),
+}
+
+// 下单返回接口
+model CreateOrderResult {
+  // 下单时指定的业务流水号。二级订单号
+  bsnNo: string(name='bsn_no', example='2088****'),
+  // 一级订单号
+  orderId: string(name='order_id', example='2088*****'),
+  // 二级订单号
+  normalOrderLineId: string(name='normal_order_line_id', example='2088*****'),
+  // 订单状态
+  orderStatus: string(name='order_status', example='ORDER_INIT'),
+  // 实例列表
+  instanceIds: string(name='instance_ids', example='A0****'),
+  // 订购错误码
+  orderErrorCode: string(name='order_error_code', example='订购错误码'),
+  // 订购错误描述
+  orderErrorDescription: string(name='order_error_description', example='订购错误描述'),
+}
+
+// 订单周期结构
+model OrderDuration {
+  // 周期类型，YEAR：年；MONTH：月；DAY：日
+  durationType: string(name='duration_type', example='YEAR'),
+  // 订购周期值
+  durationValue: long(name='duration_value', example='1'),
+}
+
+// 标签对象
+model InstanceLabel {
+  // 标签名。
+  // 传递isvId
+  instanceKey: string(name='instance_key', example='isvId'),
+  // 标签值
+  instanceValue: string(name='instance_value', example='邀请码'),
+}
+
+// 商品订购属性结构
+model CommodityOrderAttribute {
+  // 属性编码
+  code: string(name='code', example='SYS_USAGE_AMOUNT'),
+  // 属性值
+  value: string(name='value', example='abc'),
+  // 属性值单位，部分数值型属性有多种单位，需要填入；其他情况不需要填
+  valueUnit: string(name='value_unit', example='MB'),
+}
+
+// 履约选项
+model FulfillmentOptions {
+  // 是否延迟履约，默认false
+  deplay?: boolean(name='deplay', example='true, false'),
+  // 实际履约开始时间，默认支付完成时间；只有deplay=true时，start_time才生效
+  startTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time', example='2018-10-10T10:10:00Z'),
+  // 跳过SPI回调，默认false，优先级高于商品上默认的接入属性
+  spiSkip?: boolean(name='spi_skip', example='true,false'),
+}
+
+// 套餐订单结构
+model ComboOrder {
+  // 租户ID
+  tenantId: string(name='tenant_id', example='2088xxx'),
+  // 业务流水号
+  bizNo: string(name='biz_no', example='2088123412341234'),
+  // 套餐订单号
+  orderId: string(name='order_id', example='2088123412341234'),
+  // 套餐编码
+  comboCode: string(name='combo_code', example='KKAASP00001001'),
+  // 套餐名称，下单时的套餐名称
+  comboName: string(name='combo_name', example='测试套餐'),
+  // 订单状态，CREATED：创建；CANCEL：取消；PAYING：支付中；PAID：支付完成
+  status: string(name='status', example='CREATED'),
+  // 履约生产状态，INCOMPLETE:未完成、COMPLETED:完成
+  provisionStatus: string(name='provision_status', example='COMPLETED'),
+  // 订单原始金额
+  originalAmount: string(name='original_amount', example='200.00'),
+  // 折扣金额
+  discountAmount: string(name='discount_amount', example='100.00'),
+  // 优惠金额
+  couponAmount: string(name='coupon_amount', example='100.00'),
+  // 实付金额
+  payAmount: string(name='pay_amount', example='0.00'),
+  // 下单时间
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 套餐内商品订单列表
+  commodityOrders: [ ComboCommodityOrder ](name='commodity_orders', example='[]'),
+  // 支付完成时间
+  payTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='pay_time', example='2018-10-10T10:10:00Z'),
+  // 支付渠道
+  payChannel: string(name='pay_channel', example='CUSTOMER_FUND'),
+}
+
+// 实例
+model Instance {
+  // 租户id
+  tenantId: string(name='tenant_id', example='2088*****'),
+  // 实例id
+  instanceId: string(name='instance_id', example='实例id'),
+  // 商品code
+  productName: string(name='product_name', example='ECS'),
+  // 付费类型 PREPAY_BY_MONTH 预付 AFTER_PAY_BY_HOUR 后付 MIX_PAY 混合付
+  chargeType: string(name='charge_type', example='PREPAY_BY_MONTH'),
+  // 状态 CREATING 创建中 FAILED 创建失败  STARTED 运行中 STOPPED 已停服  RELEASED 已释放
+  status: string(name='status', example='STARTED'),
+}
+
+model QueryInstanceCapacityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户ID，和租户名称二选一必填	
+  tenantId?: string(name='tenant_id'),
+  // 8位租户名，和租户ID二选一必填	
+  tenantName?: string(name='tenant_name'),
+  // 资源包状态，不传则默认查询有效；Valid：有效；Closed：已用完；Expired：已到期	
+  // 
+  status?: string(name='status'),
+  // 资源包商品码
+  commodityCode?: string(name='commodity_code'),
+}
+
+model QueryInstanceCapacityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 实例容量列表
+  instanceCapacitys?: [ InstanceCapacity ](name='instance_capacitys'),
+}
+
+/**
+ * Description: 查询租户实例容量信息
+ * Summary: 查询租户实例容量信息
+ */
+async function queryInstanceCapacity(request: QueryInstanceCapacityRequest): QueryInstanceCapacityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInstanceCapacityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询租户实例容量信息
+ * Summary: 查询租户实例容量信息
+ */
+async function queryInstanceCapacityEx(request: QueryInstanceCapacityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInstanceCapacityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.instance.capacity.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMarketingCouponRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户ID
+  tenantId: string(name='tenant_id'),
+  // 商品code
+  productCodes: [ string ](name='product_codes'),
+  // 优惠券类型:VOUCHER 抵用券, CERTAIN 满减券,DISCOUNT 折扣券
+  couponType?: string(name='coupon_type'),
+  // 业务发生时间
+  bizTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='biz_time'),
+}
+
+model QueryMarketingCouponResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 优惠券列表
+  couponList?: [ Coupon ](name='coupon_list'),
+}
+
+/**
+ * Description: 优惠券列表查询接口
+ * Summary: 优惠券列表查询接口
+ */
+async function queryMarketingCoupon(request: QueryMarketingCouponRequest): QueryMarketingCouponResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMarketingCouponEx(request, headers, runtime);
+}
+
+/**
+ * Description: 优惠券列表查询接口
+ * Summary: 优惠券列表查询接口
+ */
+async function queryMarketingCouponEx(request: QueryMarketingCouponRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMarketingCouponResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.marketing.coupon.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendMarketingCouponRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 外部业务流水号，用于幂等判断
+  // 
+  bizNo: string(name='biz_no'),
+  // 租户ID
+  // 
+  tenantId: string(name='tenant_id'),
+  // 优惠券模板ID，营销后台申请获取
+  // 
+  templateId: string(name='template_id'),
+}
+
+model SendMarketingCouponResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 优惠券id
+  // 
+  couponId?: long(name='coupon_id'),
+}
+
+/**
+ * Description: 优惠券发放接口，基于模板ID发送优惠券
+ * Summary: 优惠券发放接口
+ */
+async function sendMarketingCoupon(request: SendMarketingCouponRequest): SendMarketingCouponResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendMarketingCouponEx(request, headers, runtime);
+}
+
+/**
+ * Description: 优惠券发放接口，基于模板ID发送优惠券
+ * Summary: 优惠券发放接口
+ */
+async function sendMarketingCouponEx(request: SendMarketingCouponRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendMarketingCouponResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.marketing.coupon.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateOrderAfterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 待开通类商品列表
+  productList: [ string ](name='product_list'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 下单交易流水号，唯一
+  bizNo: string(name='biz_no'),
+  // 标签对象
+  instanceLabels?: [ InstanceLabel ](name='instance_labels'),
+}
+
+model CreateOrderAfterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务流水号
+  bizNo?: string(name='biz_no'),
+  // 下单返回值。里面有实例id和二级订单号等关键字段。
+  createOrderResponseList?: [ CreateOrderResult ](name='create_order_response_list'),
+}
+
+/**
+ * Description: 开通类商品自动下单接口，仅仅针对其下后付开通类商品。预付等涉及金额暂不支持。
+ * Summary: 开通类商品自动下单接口
+ */
+async function createOrderAfter(request: CreateOrderAfterRequest): CreateOrderAfterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createOrderAfterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 开通类商品自动下单接口，仅仅针对其下后付开通类商品。预付等涉及金额暂不支持。
+ * Summary: 开通类商品自动下单接口
+ */
+async function createOrderAfterEx(request: CreateOrderAfterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateOrderAfterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.order.after.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateOrderWorkflowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 待开通类商品列表
+  productList: [ string ](name='product_list'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 下单交易流水号，唯一
+  bizNo: string(name='biz_no'),
+  // 标签对象
+  instanceLabels: [ InstanceLabel ](name='instance_labels'),
+}
+
+model CreateOrderWorkflowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 下单返回值。里面有实例id和二级订单号等关键字段。
+  createOrderResponseList?: [ CreateOrderResult ](name='create_order_response_list'),
+  // 下单流水号
+  bizNo?: string(name='biz_no'),
+}
+
+/**
+ * Description: 流程编排，创建商品开通接口
+ * Summary: 能力编排-商品开通
+ */
+async function createOrderWorkflow(request: CreateOrderWorkflowRequest): CreateOrderWorkflowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createOrderWorkflowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 流程编排，创建商品开通接口
+ * Summary: 能力编排-商品开通
+ */
+async function createOrderWorkflowEx(request: CreateOrderWorkflowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateOrderWorkflowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.order.workflow.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetComboRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 套餐编码
+  comboCode: string(name='combo_code'),
+}
+
+model GetComboResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 套餐结构
+  combo?: Combo(name='combo'),
+}
+
+/**
+ * Description: 获取套餐详情接口
+ * Summary: 获取套餐详情
+ */
+async function getCombo(request: GetComboRequest): GetComboResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getComboEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取套餐详情接口
+ * Summary: 获取套餐详情
+ */
+async function getComboEx(request: GetComboRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetComboResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.combo.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryComboPriceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 套餐编码
+  comboCode: string(name='combo_code'),
+  // 租户ID，和租户名二选一必填
+  tenantId?: string(name='tenant_id'),
+  // 8位租户名，和租户ID二选一必填
+  tenantName?: string(name='tenant_name'),
+  // 订单类型，新购：NEW，不填则默认NEW
+  orderType?: string(name='order_type'),
+  // 优惠券ID
+  couponId?: string(name='coupon_id'),
+}
+
+model QueryComboPriceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 套餐付款金额
+  comboPayAmount?: string(name='combo_pay_amount'),
+  // 套餐优惠金额
+  comboCouponAmount?: string(name='combo_coupon_amount'),
+  // 套餐折扣金额
+  comboDiscountAmount?: string(name='combo_discount_amount'),
+  // 套餐原始金额
+  comboOriginalAmount?: string(name='combo_original_amount'),
+  // 币种，元：CNY
+  currency?: string(name='currency'),
+  // 商品询价明细
+  commodityEnquiryPrices?: [ CommodityEnquiryPrice ](name='commodity_enquiry_prices'),
+}
+
+/**
+ * Description: 套餐询价接口
+ * Summary: 套餐询价接口
+ */
+async function queryComboPrice(request: QueryComboPriceRequest): QueryComboPriceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryComboPriceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 套餐询价接口
+ * Summary: 套餐询价接口
+ */
+async function queryComboPriceEx(request: QueryComboPriceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryComboPriceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.combo.price.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateComboOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 场景接入码，中台分配
+  sceneCode: string(name='scene_code'),
+  // 业务流水号，用于幂等
+  bizNo: string(name='biz_no'),
+  // 套餐编码
+  comboCode: string(name='combo_code'),
+  // 租户ID，和租户名二选一必填
+  // 
+  tenantId?: string(name='tenant_id'),
+  // 8位租户名，和租户ID二选一必填
+  // 
+  tenantName?: string(name='tenant_name'),
+  // 操作人ID，为空则等于当前租户ID
+  operatorId?: string(name='operator_id'),
+  // 订购周期，当套餐中包含包周期型的商品，必填
+  duration?: OrderDuration(name='duration'),
+  // 优惠券ID
+  couponId?: string(name='coupon_id'),
+  // [{"instance_key":"isvId","instance_value":"邀请码},{"instance_key":"policyId","instance_value":"政策id}]
+  instanceLabels?: [ InstanceLabel ](name='instance_labels'),
+}
+
+model CreateComboOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 套餐下单订单号
+  comboOrderId?: string(name='combo_order_id'),
+}
+
+/**
+ * Description: 套餐下单接口，支持部分渠道的自动支付
+ * Summary: 套餐下单接口
+ */
+async function createComboOrder(request: CreateComboOrderRequest): CreateComboOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createComboOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 套餐下单接口，支持部分渠道的自动支付
+ * Summary: 套餐下单接口
+ */
+async function createComboOrderEx(request: CreateComboOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateComboOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.combo.order.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryComboOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户ID，租户ID和租户名称二选一必填
+  tenantId?: string(name='tenant_id'),
+  // 租户名称，租户ID和租户名称二选一必填
+  tenantName?: string(name='tenant_name'),
+  // 订单状态
+  status?: string(name='status'),
+  // 套餐编码
+  comboCode?: string(name='combo_code'),
+  // 下单开始时间
+  beginTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='begin_time'),
+  // 下单结束时间
+  endTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time'),
+  // 每页数量，不传默认20
+  pageSize?: long(name='page_size'),
+  // 当前页数，不传则默认1
+  pageNo?: long(name='page_no'),
+}
+
+model QueryComboOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 套餐订单列表
+  orders?: [ ComboOrder ](name='orders'),
+  // 总数
+  totalCount?: long(name='total_count'),
+  // 当前页数
+  pageNo?: long(name='page_no'),
+  // 每页数量
+  pageSize?: long(name='page_size'),
+}
+
+/**
+ * Description: 套餐订单列表分页查询接口
+ * Summary: 套餐订单列表分页查询接口
+ */
+async function queryComboOrder(request: QueryComboOrderRequest): QueryComboOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryComboOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 套餐订单列表分页查询接口
+ * Summary: 套餐订单列表分页查询接口
+ */
+async function queryComboOrderEx(request: QueryComboOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryComboOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.combo.order.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryComboRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 类目编码
+  categoryCode: string(name='category_code'),
+}
+
+model QueryComboResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 套餐列表
+  combos?: [ Combo ](name='combos'),
+}
+
+/**
+ * Description: 查询套餐列表，支持分页查询
+ * Summary: 查询套餐列表
+ */
+async function queryCombo(request: QueryComboRequest): QueryComboResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryComboEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询套餐列表，支持分页查询
+ * Summary: 查询套餐列表
+ */
+async function queryComboEx(request: QueryComboRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryComboResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.combo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PayComboOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 套餐订单号
+  comboOrderId: string(name='combo_order_id'),
+  // 支付渠道，客资：FINANCIAL_FUND；财资：CUSTOMER_FUND；支付通：ALIPAY
+  payChannel: string(name='pay_channel'),
+  // 支付模式，PAGE：页面确认支付；AUTO：系统自动扣款
+  // 支付通模式只支持PAGE
+  payMode: string(name='pay_mode'),
+  // 支付回跳地址，当pay_mode=PAGE时，必传
+  payReturnUrl?: string(name='pay_return_url'),
+}
+
+model PayComboOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 页面支付地址
+  payUrl?: string(name='pay_url'),
+  // 支付订单号
+  payOrderId?: string(name='pay_order_id'),
+  // 支付状态，
+  // SUCCESS：已支付;
+  // INIT：未支付;
+  // PROCESS：支付中;
+  // CANCEL：取消支付;
+  payStatus?: string(name='pay_status'),
+}
+
+/**
+ * Description: 套餐订单支付接口
+ * Summary: 套餐订单支付接口
+ */
+async function payComboOrder(request: PayComboOrderRequest): PayComboOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return payComboOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 套餐订单支付接口
+ * Summary: 套餐订单支付接口
+ */
+async function payComboOrderEx(request: PayComboOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PayComboOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.combo.order.pay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 业务流水号，调用方指定，幂等号
+  bizNo: string(name='biz_no'),
+  // 租户ID，和租户名称二选一必填
+  tenantId?: string(name='tenant_id'),
+  // 租户名称，和租户ID二选一必填
+  tenantName?: string(name='tenant_name'),
+  // 操作人ID，不填则默认和租户ID一致
+  operatorId?: string(name='operator_id'),
+  // 商品编码
+  commodityCode: string(name='commodity_code'),
+  // 订单类型，NEW：新购；RENEW：续费
+  // 不填默认新购
+  orderType?: string(name='order_type'),
+  // 订购周期对象，当商品是周期订阅类型时，必填
+  duration?: OrderDuration(name='duration'),
+  // 优惠券ID
+  couponId?: string(name='coupon_id'),
+  // 数量，不填默认1
+  quantity?: long(name='quantity'),
+  // 商品订购属性，开通型商品部需要填写
+  commodityAttrs?: [ CommodityOrderAttribute ](name='commodity_attrs'),
+  // 履约选项
+  fulfillmentOptions?: FulfillmentOptions(name='fulfillment_options'),
+  // 支付选项
+  payOptions?: PayOptions(name='pay_options'),
+}
+
+model CreateOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单号
+  orderId?: string(name='order_id'),
+  // 实例ID列表
+  instanceIds?: [ string ](name='instance_ids'),
+  // 支付状态
+  payStatus?: string(name='pay_status'),
+}
+
+/**
+ * Description: 通用下单接口，支持单商品下单，支持0元订单自动支付
+ * Summary: 通用下单接口
+ */
+async function createOrder(request: CreateOrderRequest): CreateOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通用下单接口，支持单商品下单，支持0元订单自动支付
+ * Summary: 通用下单接口
+ */
+async function createOrderEx(request: CreateOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.order.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExistPricePersonalizedRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户ID
+  tenantId: string(name='tenant_id'),
+  // 商品code
+  productCode: string(name='product_code'),
+  // 收费项编码，只有当商品存在多收费项的时候需要传入
+  priceObjectCode?: string(name='price_object_code'),
+}
+
+model ExistPricePersonalizedResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否存在
+  exist?: boolean(name='exist'),
+}
+
+/**
+ * Description: 仅支持查询租户在后付费商品下，是否存在个性化定价
+ * Summary: 判断租户是否存在个性化定价
+ */
+async function existPricePersonalized(request: ExistPricePersonalizedRequest): ExistPricePersonalizedResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return existPricePersonalizedEx(request, headers, runtime);
+}
+
+/**
+ * Description: 仅支持查询租户在后付费商品下，是否存在个性化定价
+ * Summary: 判断租户是否存在个性化定价
+ */
+async function existPricePersonalizedEx(request: ExistPricePersonalizedRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExistPricePersonalizedResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.price.personalized.exist', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPriceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商品主数据编码
+  commodityCode: string(name='commodity_code'),
+  // 租户ID，和租户名称二选一必填
+  tenantId?: string(name='tenant_id'),
+  // 8位租户名，和租户ID二选一必选
+  tenantName?: string(name='tenant_name'),
+  // 商品数量，不传则默认1
+  quantity?: long(name='quantity'),
+  // 业务发生时间，不传则默认当前时间
+  bizTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='biz_time'),
+  // 订购周期，周期型商品必填，如资源包/包年包月商品
+  orderDuration?: OrderDuration(name='order_duration'),
+  // 商品规格列表
+  // 针对量价型商品，统一使用SYS_USAGE_AMOUNT
+  // 针对资源包商品，统一使用CAPACITY
+  commodityOrderAttrs?: [ CommodityOrderAttribute ](name='commodity_order_attrs'),
+  // 币种，元：CNY，不传默认CNY
+  currency?: string(name='currency'),
+  // 优惠券ID
+  couponId?: string(name='coupon_id'),
+}
+
+model QueryPriceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商品询价结果
+  commodityEnquiryPrice?: CommodityEnquiryPrice(name='commodity_enquiry_price'),
+}
+
+/**
+ * Description: 单商品询价接口，支持抵扣优惠券和命中优惠券
+ * Summary: 商品询价接口
+ */
+async function queryPrice(request: QueryPriceRequest): QueryPriceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPriceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 单商品询价接口，支持抵扣优惠券和命中优惠券
+ * Summary: 商品询价接口
+ */
+async function queryPriceEx(request: QueryPriceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPriceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.price.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryWareslifeInstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 商品code
+  productCodes: [ string ](name='product_codes'),
+}
+
+model QueryWareslifeInstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 实例列表
+  instances?: [ Instance ](name='instances'),
+}
+
+/**
+ * Description: 实例接口查询
+ * Summary: 实例接口查询
+ */
+async function queryWareslifeInstance(request: QueryWareslifeInstanceRequest): QueryWareslifeInstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryWareslifeInstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 实例接口查询
+ * Summary: 实例接口查询
+ */
+async function queryWareslifeInstanceEx(request: QueryWareslifeInstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryWareslifeInstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.wareslife.instance.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
