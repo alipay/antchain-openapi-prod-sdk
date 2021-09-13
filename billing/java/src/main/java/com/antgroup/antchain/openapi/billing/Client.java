@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.0")
+                    new TeaPair("sdk_version", "1.3.1")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -236,8 +236,8 @@ public class Client {
     }
 
     /**
-     * Description: 同步线下接口(出账验证状态)
-     * Summary: 同步出账验证状态
+     * Description: 同步线下接口(同步出账验证审批流状态)
+     * Summary: 同步线下接口(同步出账验证审批流状态)
      */
     public UpdateAcfeewebStateResponse updateAcfeewebState(UpdateAcfeewebStateRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -246,11 +246,49 @@ public class Client {
     }
 
     /**
-     * Description: 同步线下接口(出账验证状态)
-     * Summary: 同步出账验证状态
+     * Description: 同步线下接口(同步出账验证审批流状态)
+     * Summary: 同步线下接口(同步出账验证审批流状态)
      */
     public UpdateAcfeewebStateResponse updateAcfeewebStateEx(UpdateAcfeewebStateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.billing.acfeeweb.state.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateAcfeewebStateResponse());
+    }
+
+    /**
+     * Description: 确认账单，线上环境使用(同步数据、创建审批流)
+     * Summary: 确认账单线上使用(同步数据、创建审批流)
+     */
+    public CreateAccountVerificationResponse createAccountVerification(CreateAccountVerificationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAccountVerificationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 确认账单，线上环境使用(同步数据、创建审批流)
+     * Summary: 确认账单线上使用(同步数据、创建审批流)
+     */
+    public CreateAccountVerificationResponse createAccountVerificationEx(CreateAccountVerificationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.billing.account.verification.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAccountVerificationResponse());
+    }
+
+    /**
+     * Description: 同步线下接口(同步出账验证审批流状态)
+     * Summary: 同步线下接口(同步出账验证审批流状态)
+     */
+    public SyncAccountVerificationResponse syncAccountVerification(SyncAccountVerificationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncAccountVerificationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 同步线下接口(同步出账验证审批流状态)
+     * Summary: 同步线下接口(同步出账验证审批流状态)
+     */
+    public SyncAccountVerificationResponse syncAccountVerificationEx(SyncAccountVerificationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.billing.account.verification.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAccountVerificationResponse());
     }
 }
