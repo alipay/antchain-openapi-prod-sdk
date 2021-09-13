@@ -595,6 +595,262 @@ export class UpdateAcfeewebStateResponse extends $tea.Model {
   }
 }
 
+export class CreateAccountVerificationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 出账验证主键id
+  id: number;
+  // 计量域code
+  domainCode: string;
+  // 计量域名称
+  domainName: string;
+  // 计量域版本
+  domainVersion: string;
+  // 业务产品code
+  productCode: string;
+  // 业务产品名称
+  productName: string;
+  // 渠道产品code
+  serviceCode: string;
+  // 渠道产品名称
+  serviceName: string;
+  // 商品code
+  offerCode: string;
+  // 商品名称
+  offerName: string;
+  // 验证的计量数据
+  omsData: string;
+  // 计量数据业务幂等号
+  omsBizNo: string;
+  // 缓存报文
+  verificationCache: string;
+  // 缓存链接
+  verificationUrl: string;
+  // 审批流id
+  bpmsId: string;
+  // 配置报文
+  configData: string;
+  // 状态
+  status: string;
+  // 创建人
+  creator: string;
+  // 修改人
+  modifor: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      id: 'id',
+      domainCode: 'domain_code',
+      domainName: 'domain_name',
+      domainVersion: 'domain_version',
+      productCode: 'product_code',
+      productName: 'product_name',
+      serviceCode: 'service_code',
+      serviceName: 'service_name',
+      offerCode: 'offer_code',
+      offerName: 'offer_name',
+      omsData: 'oms_data',
+      omsBizNo: 'oms_biz_no',
+      verificationCache: 'verification_cache',
+      verificationUrl: 'verification_url',
+      bpmsId: 'bpms_id',
+      configData: 'config_data',
+      status: 'status',
+      creator: 'creator',
+      modifor: 'modifor',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      id: 'number',
+      domainCode: 'string',
+      domainName: 'string',
+      domainVersion: 'string',
+      productCode: 'string',
+      productName: 'string',
+      serviceCode: 'string',
+      serviceName: 'string',
+      offerCode: 'string',
+      offerName: 'string',
+      omsData: 'string',
+      omsBizNo: 'string',
+      verificationCache: 'string',
+      verificationUrl: 'string',
+      bpmsId: 'string',
+      configData: 'string',
+      status: 'string',
+      creator: 'string',
+      modifor: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAccountVerificationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 审批流实例id
+  processInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      processInstanceId: 'process_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      processInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncAccountVerificationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 出账验证主键id
+  id: number;
+  // 计量域code
+  domainCode: string;
+  // 计量域名称
+  domainName: string;
+  // 计量域版本
+  domainVersion: string;
+  // 业务产品code
+  productCode: string;
+  // 业务产品名称
+  productName: string;
+  // 渠道产品code
+  serviceCode: string;
+  // 渠道产品名称
+  serviceName: string;
+  // 商品code
+  offerCode: string;
+  // 商品名称
+  offerName: string;
+  // 验证的计量数据
+  omsData: string;
+  // 计量数据业务幂等号
+  omsBizNo: string;
+  // 缓存报文
+  verificationCache: string;
+  // 缓存链接
+  verificationUrl: string;
+  // 审批流id
+  bpmsId: string;
+  // 配置报文
+  configData: string;
+  // 状态
+  status: string;
+  // 创建人
+  creator: string;
+  // 修改人
+  modifor: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      id: 'id',
+      domainCode: 'domain_code',
+      domainName: 'domain_name',
+      domainVersion: 'domain_version',
+      productCode: 'product_code',
+      productName: 'product_name',
+      serviceCode: 'service_code',
+      serviceName: 'service_name',
+      offerCode: 'offer_code',
+      offerName: 'offer_name',
+      omsData: 'oms_data',
+      omsBizNo: 'oms_biz_no',
+      verificationCache: 'verification_cache',
+      verificationUrl: 'verification_url',
+      bpmsId: 'bpms_id',
+      configData: 'config_data',
+      status: 'status',
+      creator: 'creator',
+      modifor: 'modifor',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      id: 'number',
+      domainCode: 'string',
+      domainName: 'string',
+      domainVersion: 'string',
+      productCode: 'string',
+      productName: 'string',
+      serviceCode: 'string',
+      serviceName: 'string',
+      offerCode: 'string',
+      offerName: 'string',
+      omsData: 'string',
+      omsBizNo: 'string',
+      verificationCache: 'string',
+      verificationUrl: 'string',
+      bpmsId: 'string',
+      configData: 'string',
+      status: 'string',
+      creator: 'string',
+      modifor: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncAccountVerificationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 成功、失败
+  syncResult?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      syncResult: 'sync_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      syncResult: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -708,7 +964,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.0",
+          sdk_version: "1.3.1",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -831,8 +1087,8 @@ export default class Client {
   }
 
   /**
-   * Description: 同步线下接口(出账验证状态)
-   * Summary: 同步出账验证状态
+   * Description: 同步线下接口(同步出账验证审批流状态)
+   * Summary: 同步线下接口(同步出账验证审批流状态)
    */
   async updateAcfeewebState(request: UpdateAcfeewebStateRequest): Promise<UpdateAcfeewebStateResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -841,12 +1097,50 @@ export default class Client {
   }
 
   /**
-   * Description: 同步线下接口(出账验证状态)
-   * Summary: 同步出账验证状态
+   * Description: 同步线下接口(同步出账验证审批流状态)
+   * Summary: 同步线下接口(同步出账验证审批流状态)
    */
   async updateAcfeewebStateEx(request: UpdateAcfeewebStateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateAcfeewebStateResponse> {
     Util.validateModel(request);
     return $tea.cast<UpdateAcfeewebStateResponse>(await this.doRequest("1.0", "antcloud.billing.acfeeweb.state.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateAcfeewebStateResponse({}));
+  }
+
+  /**
+   * Description: 确认账单，线上环境使用(同步数据、创建审批流)
+   * Summary: 确认账单线上使用(同步数据、创建审批流)
+   */
+  async createAccountVerification(request: CreateAccountVerificationRequest): Promise<CreateAccountVerificationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAccountVerificationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 确认账单，线上环境使用(同步数据、创建审批流)
+   * Summary: 确认账单线上使用(同步数据、创建审批流)
+   */
+  async createAccountVerificationEx(request: CreateAccountVerificationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAccountVerificationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAccountVerificationResponse>(await this.doRequest("1.0", "antcloud.billing.account.verification.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAccountVerificationResponse({}));
+  }
+
+  /**
+   * Description: 同步线下接口(同步出账验证审批流状态)
+   * Summary: 同步线下接口(同步出账验证审批流状态)
+   */
+  async syncAccountVerification(request: SyncAccountVerificationRequest): Promise<SyncAccountVerificationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncAccountVerificationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 同步线下接口(同步出账验证审批流状态)
+   * Summary: 同步线下接口(同步出账验证审批流状态)
+   */
+  async syncAccountVerificationEx(request: SyncAccountVerificationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncAccountVerificationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncAccountVerificationResponse>(await this.doRequest("1.0", "antcloud.billing.account.verification.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncAccountVerificationResponse({}));
   }
 
 }
