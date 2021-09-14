@@ -19,20 +19,20 @@ class GetDasLinkRequest extends Model
      */
     public $productInstanceId;
 
-    // 被授权人接入应用id
+    // 被授权人接入应用biz_uuid
     /**
      * @var string
      */
-    public $beAuthedPersonAppId;
+    public $beAuthedPersonAppBizUuid;
     protected $_name = [
-        'authToken'           => 'auth_token',
-        'productInstanceId'   => 'product_instance_id',
-        'beAuthedPersonAppId' => 'be_authed_person_app_id',
+        'authToken'                => 'auth_token',
+        'productInstanceId'        => 'product_instance_id',
+        'beAuthedPersonAppBizUuid' => 'be_authed_person_app_biz_uuid',
     ];
 
     public function validate()
     {
-        Model::validateRequired('beAuthedPersonAppId', $this->beAuthedPersonAppId, true);
+        Model::validateRequired('beAuthedPersonAppBizUuid', $this->beAuthedPersonAppBizUuid, true);
     }
 
     public function toMap()
@@ -44,8 +44,8 @@ class GetDasLinkRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->beAuthedPersonAppId) {
-            $res['be_authed_person_app_id'] = $this->beAuthedPersonAppId;
+        if (null !== $this->beAuthedPersonAppBizUuid) {
+            $res['be_authed_person_app_biz_uuid'] = $this->beAuthedPersonAppBizUuid;
         }
 
         return $res;
@@ -65,8 +65,8 @@ class GetDasLinkRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['be_authed_person_app_id'])) {
-            $model->beAuthedPersonAppId = $map['be_authed_person_app_id'];
+        if (isset($map['be_authed_person_app_biz_uuid'])) {
+            $model->beAuthedPersonAppBizUuid = $map['be_authed_person_app_biz_uuid'];
         }
 
         return $model;

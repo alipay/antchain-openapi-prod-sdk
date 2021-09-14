@@ -25,17 +25,11 @@ class AuthDasSmsRequest extends Model
      */
     public $verificationCode;
 
-    // 授权实例ID
+    // 授权实例biz_uuid
     /**
      * @var string
      */
-    public $authInstanceId;
-
-    // 被授权企业接入应用ID
-    /**
-     * @var string
-     */
-    public $beAuthedPersonAppId;
+    public $authInstanceBizUuid;
 
     // 授权企业信息
     /**
@@ -52,8 +46,7 @@ class AuthDasSmsRequest extends Model
         'authToken'                => 'auth_token',
         'productInstanceId'        => 'product_instance_id',
         'verificationCode'         => 'verification_code',
-        'authInstanceId'           => 'auth_instance_id',
-        'beAuthedPersonAppId'      => 'be_authed_person_app_id',
+        'authInstanceBizUuid'      => 'auth_instance_biz_uuid',
         'authPersonEnterpriseInfo' => 'auth_person_enterprise_info',
         'authPersonIndividualInfo' => 'auth_person_individual_info',
     ];
@@ -61,8 +54,7 @@ class AuthDasSmsRequest extends Model
     public function validate()
     {
         Model::validateRequired('verificationCode', $this->verificationCode, true);
-        Model::validateRequired('authInstanceId', $this->authInstanceId, true);
-        Model::validateRequired('beAuthedPersonAppId', $this->beAuthedPersonAppId, true);
+        Model::validateRequired('authInstanceBizUuid', $this->authInstanceBizUuid, true);
     }
 
     public function toMap()
@@ -77,11 +69,8 @@ class AuthDasSmsRequest extends Model
         if (null !== $this->verificationCode) {
             $res['verification_code'] = $this->verificationCode;
         }
-        if (null !== $this->authInstanceId) {
-            $res['auth_instance_id'] = $this->authInstanceId;
-        }
-        if (null !== $this->beAuthedPersonAppId) {
-            $res['be_authed_person_app_id'] = $this->beAuthedPersonAppId;
+        if (null !== $this->authInstanceBizUuid) {
+            $res['auth_instance_biz_uuid'] = $this->authInstanceBizUuid;
         }
         if (null !== $this->authPersonEnterpriseInfo) {
             $res['auth_person_enterprise_info'] = null !== $this->authPersonEnterpriseInfo ? $this->authPersonEnterpriseInfo->toMap() : null;
@@ -110,11 +99,8 @@ class AuthDasSmsRequest extends Model
         if (isset($map['verification_code'])) {
             $model->verificationCode = $map['verification_code'];
         }
-        if (isset($map['auth_instance_id'])) {
-            $model->authInstanceId = $map['auth_instance_id'];
-        }
-        if (isset($map['be_authed_person_app_id'])) {
-            $model->beAuthedPersonAppId = $map['be_authed_person_app_id'];
+        if (isset($map['auth_instance_biz_uuid'])) {
+            $model->authInstanceBizUuid = $map['auth_instance_biz_uuid'];
         }
         if (isset($map['auth_person_enterprise_info'])) {
             $model->authPersonEnterpriseInfo = AuthPersonEnterpriseInfo::fromMap($map['auth_person_enterprise_info']);

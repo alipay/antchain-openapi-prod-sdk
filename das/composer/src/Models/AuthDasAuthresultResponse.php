@@ -26,29 +26,17 @@ class AuthDasAuthresultResponse extends Model
      */
     public $resultMsg;
 
-    // 被授权企业ID
+    // 授权实例biz_uuid
     /**
      * @var string
      */
-    public $beAuthedPersonId;
+    public $authInstanceBizUuid;
 
-    // 被授权企业接入应用ID
+    // 授权详情biz_uuid
     /**
      * @var string
      */
-    public $beAuthedPersonAppId;
-
-    // 授权实例ID
-    /**
-     * @var string
-     */
-    public $authInstanceId;
-
-    // 授权详情ID
-    /**
-     * @var string
-     */
-    public $authResultId;
+    public $authResultBizUuid;
 
     // VC 完整信息
     /**
@@ -59,10 +47,8 @@ class AuthDasAuthresultResponse extends Model
         'reqMsgId'            => 'req_msg_id',
         'resultCode'          => 'result_code',
         'resultMsg'           => 'result_msg',
-        'beAuthedPersonId'    => 'be_authed_person_id',
-        'beAuthedPersonAppId' => 'be_authed_person_app_id',
-        'authInstanceId'      => 'auth_instance_id',
-        'authResultId'        => 'auth_result_id',
+        'authInstanceBizUuid' => 'auth_instance_biz_uuid',
+        'authResultBizUuid'   => 'auth_result_biz_uuid',
         'vc'                  => 'vc',
     ];
 
@@ -82,17 +68,11 @@ class AuthDasAuthresultResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->beAuthedPersonId) {
-            $res['be_authed_person_id'] = $this->beAuthedPersonId;
+        if (null !== $this->authInstanceBizUuid) {
+            $res['auth_instance_biz_uuid'] = $this->authInstanceBizUuid;
         }
-        if (null !== $this->beAuthedPersonAppId) {
-            $res['be_authed_person_app_id'] = $this->beAuthedPersonAppId;
-        }
-        if (null !== $this->authInstanceId) {
-            $res['auth_instance_id'] = $this->authInstanceId;
-        }
-        if (null !== $this->authResultId) {
-            $res['auth_result_id'] = $this->authResultId;
+        if (null !== $this->authResultBizUuid) {
+            $res['auth_result_biz_uuid'] = $this->authResultBizUuid;
         }
         if (null !== $this->vc) {
             $res['vc'] = $this->vc;
@@ -118,17 +98,11 @@ class AuthDasAuthresultResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['be_authed_person_id'])) {
-            $model->beAuthedPersonId = $map['be_authed_person_id'];
+        if (isset($map['auth_instance_biz_uuid'])) {
+            $model->authInstanceBizUuid = $map['auth_instance_biz_uuid'];
         }
-        if (isset($map['be_authed_person_app_id'])) {
-            $model->beAuthedPersonAppId = $map['be_authed_person_app_id'];
-        }
-        if (isset($map['auth_instance_id'])) {
-            $model->authInstanceId = $map['auth_instance_id'];
-        }
-        if (isset($map['auth_result_id'])) {
-            $model->authResultId = $map['auth_result_id'];
+        if (isset($map['auth_result_biz_uuid'])) {
+            $model->authResultBizUuid = $map['auth_result_biz_uuid'];
         }
         if (isset($map['vc'])) {
             $model->vc = $map['vc'];

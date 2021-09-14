@@ -19,11 +19,11 @@ class GetDasEnterprisevcRequest extends Model
      */
     public $productInstanceId;
 
-    // 授权实例ID
+    // 授权实例biz_uuid
     /**
      * @var string
      */
-    public $authInstanceId;
+    public $authInstanceBizUuid;
 
     // 授权企业信息
     /**
@@ -33,13 +33,13 @@ class GetDasEnterprisevcRequest extends Model
     protected $_name = [
         'authToken'                => 'auth_token',
         'productInstanceId'        => 'product_instance_id',
-        'authInstanceId'           => 'auth_instance_id',
+        'authInstanceBizUuid'      => 'auth_instance_biz_uuid',
         'authPersonEnterpriseInfo' => 'auth_person_enterprise_info',
     ];
 
     public function validate()
     {
-        Model::validateRequired('authInstanceId', $this->authInstanceId, true);
+        Model::validateRequired('authInstanceBizUuid', $this->authInstanceBizUuid, true);
         Model::validateRequired('authPersonEnterpriseInfo', $this->authPersonEnterpriseInfo, true);
     }
 
@@ -52,8 +52,8 @@ class GetDasEnterprisevcRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->authInstanceId) {
-            $res['auth_instance_id'] = $this->authInstanceId;
+        if (null !== $this->authInstanceBizUuid) {
+            $res['auth_instance_biz_uuid'] = $this->authInstanceBizUuid;
         }
         if (null !== $this->authPersonEnterpriseInfo) {
             $res['auth_person_enterprise_info'] = null !== $this->authPersonEnterpriseInfo ? $this->authPersonEnterpriseInfo->toMap() : null;
@@ -76,8 +76,8 @@ class GetDasEnterprisevcRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['auth_instance_id'])) {
-            $model->authInstanceId = $map['auth_instance_id'];
+        if (isset($map['auth_instance_biz_uuid'])) {
+            $model->authInstanceBizUuid = $map['auth_instance_biz_uuid'];
         }
         if (isset($map['auth_person_enterprise_info'])) {
             $model->authPersonEnterpriseInfo = AuthPersonEnterpriseInfo::fromMap($map['auth_person_enterprise_info']);

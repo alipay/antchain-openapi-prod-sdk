@@ -19,11 +19,11 @@ class UpdateDasDatasourceRequest extends Model
      */
     public $productInstanceId;
 
-    // 要修改的数据源ID
+    // 要修改的数据源biz_uuid
     /**
      * @var string
      */
-    public $id;
+    public $bizUuid;
 
     // 数据源名称
     /**
@@ -51,7 +51,7 @@ class UpdateDasDatasourceRequest extends Model
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
-        'id'                  => 'id',
+        'bizUuid'             => 'biz_uuid',
         'name'                => 'name',
         'provider'            => 'provider',
         'dataOwnerType'       => 'data_owner_type',
@@ -60,7 +60,7 @@ class UpdateDasDatasourceRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('bizUuid', $this->bizUuid, true);
         Model::validateRequired('name', $this->name, true);
         Model::validateRequired('provider', $this->provider, true);
         Model::validateRequired('dataOwnerType', $this->dataOwnerType, true);
@@ -78,8 +78,8 @@ class UpdateDasDatasourceRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->id) {
-            $res['id'] = $this->id;
+        if (null !== $this->bizUuid) {
+            $res['biz_uuid'] = $this->bizUuid;
         }
         if (null !== $this->name) {
             $res['name'] = $this->name;
@@ -111,8 +111,8 @@ class UpdateDasDatasourceRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['id'])) {
-            $model->id = $map['id'];
+        if (isset($map['biz_uuid'])) {
+            $model->bizUuid = $map['biz_uuid'];
         }
         if (isset($map['name'])) {
             $model->name = $map['name'];

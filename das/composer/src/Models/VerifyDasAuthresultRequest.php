@@ -19,11 +19,11 @@ class VerifyDasAuthresultRequest extends Model
      */
     public $productInstanceId;
 
-    // 数据源ID列表
+    // 数据源biz_uuid列表
     /**
      * @var string[]
      */
-    public $dataSourceIds;
+    public $dataSourceBizUuids;
 
     // 被授权企业接入应用名称
     /**
@@ -39,14 +39,14 @@ class VerifyDasAuthresultRequest extends Model
     protected $_name = [
         'authToken'                     => 'auth_token',
         'productInstanceId'             => 'product_instance_id',
-        'dataSourceIds'                 => 'data_source_ids',
+        'dataSourceBizUuids'            => 'data_source_biz_uuids',
         'beAuthedPersonAppName'         => 'be_authed_person_app_name',
         'authPersonEnterpriseCreditNum' => 'auth_person_enterprise_credit_num',
     ];
 
     public function validate()
     {
-        Model::validateRequired('dataSourceIds', $this->dataSourceIds, true);
+        Model::validateRequired('dataSourceBizUuids', $this->dataSourceBizUuids, true);
         Model::validateRequired('beAuthedPersonAppName', $this->beAuthedPersonAppName, true);
         Model::validateRequired('authPersonEnterpriseCreditNum', $this->authPersonEnterpriseCreditNum, true);
     }
@@ -60,8 +60,8 @@ class VerifyDasAuthresultRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->dataSourceIds) {
-            $res['data_source_ids'] = $this->dataSourceIds;
+        if (null !== $this->dataSourceBizUuids) {
+            $res['data_source_biz_uuids'] = $this->dataSourceBizUuids;
         }
         if (null !== $this->beAuthedPersonAppName) {
             $res['be_authed_person_app_name'] = $this->beAuthedPersonAppName;
@@ -87,9 +87,9 @@ class VerifyDasAuthresultRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['data_source_ids'])) {
-            if (!empty($map['data_source_ids'])) {
-                $model->dataSourceIds = $map['data_source_ids'];
+        if (isset($map['data_source_biz_uuids'])) {
+            if (!empty($map['data_source_biz_uuids'])) {
+                $model->dataSourceBizUuids = $map['data_source_biz_uuids'];
             }
         }
         if (isset($map['be_authed_person_app_name'])) {

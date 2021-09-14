@@ -23,7 +23,7 @@ class VerifyDasEnterpriseRequest extends Model
     /**
      * @var string
      */
-    public $authInstanceId;
+    public $authInstanceBizUuid;
 
     // VC完整内容
     /**
@@ -51,7 +51,7 @@ class VerifyDasEnterpriseRequest extends Model
     protected $_name = [
         'authToken'                => 'auth_token',
         'productInstanceId'        => 'product_instance_id',
-        'authInstanceId'           => 'auth_instance_id',
+        'authInstanceBizUuid'      => 'auth_instance_biz_uuid',
         'vc'                       => 'vc',
         'beAuthedPersonInfo'       => 'be_authed_person_info',
         'authPersonEnterpriseInfo' => 'auth_person_enterprise_info',
@@ -60,7 +60,7 @@ class VerifyDasEnterpriseRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('authInstanceId', $this->authInstanceId, true);
+        Model::validateRequired('authInstanceBizUuid', $this->authInstanceBizUuid, true);
         Model::validateRequired('vc', $this->vc, true);
         Model::validateRequired('beAuthedPersonInfo', $this->beAuthedPersonInfo, true);
         Model::validateRequired('authPersonEnterpriseInfo', $this->authPersonEnterpriseInfo, true);
@@ -76,8 +76,8 @@ class VerifyDasEnterpriseRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->authInstanceId) {
-            $res['auth_instance_id'] = $this->authInstanceId;
+        if (null !== $this->authInstanceBizUuid) {
+            $res['auth_instance_biz_uuid'] = $this->authInstanceBizUuid;
         }
         if (null !== $this->vc) {
             $res['vc'] = $this->vc;
@@ -115,8 +115,8 @@ class VerifyDasEnterpriseRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['auth_instance_id'])) {
-            $model->authInstanceId = $map['auth_instance_id'];
+        if (isset($map['auth_instance_biz_uuid'])) {
+            $model->authInstanceBizUuid = $map['auth_instance_biz_uuid'];
         }
         if (isset($map['vc'])) {
             $model->vc = $map['vc'];

@@ -26,16 +26,16 @@ class CreateDasDatasourceResponse extends Model
      */
     public $resultMsg;
 
-    // 数据源ID
+    // 数据源 biz_uuid
     /**
      * @var string
      */
-    public $id;
+    public $bizUuid;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'id'         => 'id',
+        'bizUuid'    => 'biz_uuid',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class CreateDasDatasourceResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->id) {
-            $res['id'] = $this->id;
+        if (null !== $this->bizUuid) {
+            $res['biz_uuid'] = $this->bizUuid;
         }
 
         return $res;
@@ -78,8 +78,8 @@ class CreateDasDatasourceResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['id'])) {
-            $model->id = $map['id'];
+        if (isset($map['biz_uuid'])) {
+            $model->bizUuid = $map['biz_uuid'];
         }
 
         return $model;

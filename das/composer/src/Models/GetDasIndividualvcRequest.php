@@ -19,11 +19,11 @@ class GetDasIndividualvcRequest extends Model
      */
     public $productInstanceId;
 
-    // 授权实例ID
+    // 授权实例biz_uuid
     /**
      * @var string
      */
-    public $authInstanceId;
+    public $authInstanceBizUuid;
 
     // 授权人个人信息
     /**
@@ -33,13 +33,13 @@ class GetDasIndividualvcRequest extends Model
     protected $_name = [
         'authToken'                  => 'auth_token',
         'productInstanceId'          => 'product_instance_id',
-        'authInstanceId'             => 'auth_instance_id',
+        'authInstanceBizUuid'        => 'auth_instance_biz_uuid',
         'authedPersonIndividualInfo' => 'authed_person_individual_info',
     ];
 
     public function validate()
     {
-        Model::validateRequired('authInstanceId', $this->authInstanceId, true);
+        Model::validateRequired('authInstanceBizUuid', $this->authInstanceBizUuid, true);
         Model::validateRequired('authedPersonIndividualInfo', $this->authedPersonIndividualInfo, true);
     }
 
@@ -52,8 +52,8 @@ class GetDasIndividualvcRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->authInstanceId) {
-            $res['auth_instance_id'] = $this->authInstanceId;
+        if (null !== $this->authInstanceBizUuid) {
+            $res['auth_instance_biz_uuid'] = $this->authInstanceBizUuid;
         }
         if (null !== $this->authedPersonIndividualInfo) {
             $res['authed_person_individual_info'] = null !== $this->authedPersonIndividualInfo ? $this->authedPersonIndividualInfo->toMap() : null;
@@ -76,8 +76,8 @@ class GetDasIndividualvcRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['auth_instance_id'])) {
-            $model->authInstanceId = $map['auth_instance_id'];
+        if (isset($map['auth_instance_biz_uuid'])) {
+            $model->authInstanceBizUuid = $map['auth_instance_biz_uuid'];
         }
         if (isset($map['authed_person_individual_info'])) {
             $model->authedPersonIndividualInfo = AuthPersonIndividualInfo::fromMap($map['authed_person_individual_info']);

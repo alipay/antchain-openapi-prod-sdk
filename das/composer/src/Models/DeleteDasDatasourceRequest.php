@@ -19,20 +19,20 @@ class DeleteDasDatasourceRequest extends Model
      */
     public $productInstanceId;
 
-    // 要删除的数据源ID
+    // 要删除的数据源biz_uuid
     /**
      * @var string
      */
-    public $id;
+    public $bizUuid;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'id'                => 'id',
+        'bizUuid'           => 'biz_uuid',
     ];
 
     public function validate()
     {
-        Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('bizUuid', $this->bizUuid, true);
     }
 
     public function toMap()
@@ -44,8 +44,8 @@ class DeleteDasDatasourceRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->id) {
-            $res['id'] = $this->id;
+        if (null !== $this->bizUuid) {
+            $res['biz_uuid'] = $this->bizUuid;
         }
 
         return $res;
@@ -65,8 +65,8 @@ class DeleteDasDatasourceRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['id'])) {
-            $model->id = $map['id'];
+        if (isset($map['biz_uuid'])) {
+            $model->bizUuid = $map['biz_uuid'];
         }
 
         return $model;

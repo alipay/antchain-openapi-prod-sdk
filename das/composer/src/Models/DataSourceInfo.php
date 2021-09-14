@@ -8,13 +8,13 @@ use AlibabaCloud\Tea\Model;
 
 class DataSourceInfo extends Model
 {
-    // 数据源ID
+    // 数据源biz_uuid
     /**
      * @example 1
      *
      * @var string
      */
-    public $id;
+    public $bizUuid;
 
     // 数据源名称
     /**
@@ -48,7 +48,7 @@ class DataSourceInfo extends Model
      */
     public $dataSourceInterfaceInfo;
     protected $_name = [
-        'id'                      => 'id',
+        'bizUuid'                 => 'biz_uuid',
         'name'                    => 'name',
         'provider'                => 'provider',
         'dataOwnerType'           => 'data_owner_type',
@@ -57,7 +57,7 @@ class DataSourceInfo extends Model
 
     public function validate()
     {
-        Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('bizUuid', $this->bizUuid, true);
         Model::validateRequired('name', $this->name, true);
         Model::validateRequired('provider', $this->provider, true);
         Model::validateRequired('dataOwnerType', $this->dataOwnerType, true);
@@ -69,8 +69,8 @@ class DataSourceInfo extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->id) {
-            $res['id'] = $this->id;
+        if (null !== $this->bizUuid) {
+            $res['biz_uuid'] = $this->bizUuid;
         }
         if (null !== $this->name) {
             $res['name'] = $this->name;
@@ -96,8 +96,8 @@ class DataSourceInfo extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['id'])) {
-            $model->id = $map['id'];
+        if (isset($map['biz_uuid'])) {
+            $model->bizUuid = $map['biz_uuid'];
         }
         if (isset($map['name'])) {
             $model->name = $map['name'];

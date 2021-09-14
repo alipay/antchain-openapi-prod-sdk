@@ -25,22 +25,22 @@ class SendDasSmsRequest extends Model
      */
     public $receivePhoneNum;
 
-    // 授权实例ID
+    // 授权实例biz_uuid
     /**
      * @var string
      */
-    public $authInstanceId;
+    public $authInstanceBizUuid;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'receivePhoneNum'   => 'receive_phone_num',
-        'authInstanceId'    => 'auth_instance_id',
+        'authToken'           => 'auth_token',
+        'productInstanceId'   => 'product_instance_id',
+        'receivePhoneNum'     => 'receive_phone_num',
+        'authInstanceBizUuid' => 'auth_instance_biz_uuid',
     ];
 
     public function validate()
     {
         Model::validateRequired('receivePhoneNum', $this->receivePhoneNum, true);
-        Model::validateRequired('authInstanceId', $this->authInstanceId, true);
+        Model::validateRequired('authInstanceBizUuid', $this->authInstanceBizUuid, true);
     }
 
     public function toMap()
@@ -55,8 +55,8 @@ class SendDasSmsRequest extends Model
         if (null !== $this->receivePhoneNum) {
             $res['receive_phone_num'] = $this->receivePhoneNum;
         }
-        if (null !== $this->authInstanceId) {
-            $res['auth_instance_id'] = $this->authInstanceId;
+        if (null !== $this->authInstanceBizUuid) {
+            $res['auth_instance_biz_uuid'] = $this->authInstanceBizUuid;
         }
 
         return $res;
@@ -79,8 +79,8 @@ class SendDasSmsRequest extends Model
         if (isset($map['receive_phone_num'])) {
             $model->receivePhoneNum = $map['receive_phone_num'];
         }
-        if (isset($map['auth_instance_id'])) {
-            $model->authInstanceId = $map['auth_instance_id'];
+        if (isset($map['auth_instance_biz_uuid'])) {
+            $model->authInstanceBizUuid = $map['auth_instance_biz_uuid'];
         }
 
         return $model;
