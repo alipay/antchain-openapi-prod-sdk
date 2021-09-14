@@ -296,8 +296,8 @@ func (s *AuthPersonIndividualInfo) SetIndividualPhoneNum(v int64) *AuthPersonInd
 
 // 数据源详细信息
 type DataSourceInfo struct {
-	// 数据源ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 数据源biz_uuid
+	BizUuid *string `json:"biz_uuid,omitempty" xml:"biz_uuid,omitempty" require:"true"`
 	// 数据源名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true" maxLength:"20"`
 	// 数据提供方
@@ -316,8 +316,8 @@ func (s DataSourceInfo) GoString() string {
 	return s.String()
 }
 
-func (s *DataSourceInfo) SetId(v string) *DataSourceInfo {
-	s.Id = &v
+func (s *DataSourceInfo) SetBizUuid(v string) *DataSourceInfo {
+	s.BizUuid = &v
 	return s
 }
 
@@ -458,8 +458,8 @@ type GetDasLinkRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 被授权人接入应用id
-	BeAuthedPersonAppId *string `json:"be_authed_person_app_id,omitempty" xml:"be_authed_person_app_id,omitempty" require:"true"`
+	// 被授权人接入应用biz_uuid
+	BeAuthedPersonAppBizUuid *string `json:"be_authed_person_app_biz_uuid,omitempty" xml:"be_authed_person_app_biz_uuid,omitempty" require:"true"`
 }
 
 func (s GetDasLinkRequest) String() string {
@@ -480,8 +480,8 @@ func (s *GetDasLinkRequest) SetProductInstanceId(v string) *GetDasLinkRequest {
 	return s
 }
 
-func (s *GetDasLinkRequest) SetBeAuthedPersonAppId(v string) *GetDasLinkRequest {
-	s.BeAuthedPersonAppId = &v
+func (s *GetDasLinkRequest) SetBeAuthedPersonAppBizUuid(v string) *GetDasLinkRequest {
+	s.BeAuthedPersonAppBizUuid = &v
 	return s
 }
 
@@ -535,8 +535,8 @@ type GetDasEnterprisevcRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 授权实例ID
-	AuthInstanceId *string `json:"auth_instance_id,omitempty" xml:"auth_instance_id,omitempty" require:"true"`
+	// 授权实例biz_uuid
+	AuthInstanceBizUuid *string `json:"auth_instance_biz_uuid,omitempty" xml:"auth_instance_biz_uuid,omitempty" require:"true"`
 	// 授权企业信息
 	AuthPersonEnterpriseInfo *AuthPersonEnterpriseInfo `json:"auth_person_enterprise_info,omitempty" xml:"auth_person_enterprise_info,omitempty" require:"true"`
 }
@@ -559,8 +559,8 @@ func (s *GetDasEnterprisevcRequest) SetProductInstanceId(v string) *GetDasEnterp
 	return s
 }
 
-func (s *GetDasEnterprisevcRequest) SetAuthInstanceId(v string) *GetDasEnterprisevcRequest {
-	s.AuthInstanceId = &v
+func (s *GetDasEnterprisevcRequest) SetAuthInstanceBizUuid(v string) *GetDasEnterprisevcRequest {
+	s.AuthInstanceBizUuid = &v
 	return s
 }
 
@@ -612,8 +612,8 @@ type GetDasIndividualvcRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 授权实例ID
-	AuthInstanceId *string `json:"auth_instance_id,omitempty" xml:"auth_instance_id,omitempty" require:"true"`
+	// 授权实例biz_uuid
+	AuthInstanceBizUuid *string `json:"auth_instance_biz_uuid,omitempty" xml:"auth_instance_biz_uuid,omitempty" require:"true"`
 	// 授权人个人信息
 	AuthedPersonIndividualInfo *AuthPersonIndividualInfo `json:"authed_person_individual_info,omitempty" xml:"authed_person_individual_info,omitempty" require:"true"`
 }
@@ -636,8 +636,8 @@ func (s *GetDasIndividualvcRequest) SetProductInstanceId(v string) *GetDasIndivi
 	return s
 }
 
-func (s *GetDasIndividualvcRequest) SetAuthInstanceId(v string) *GetDasIndividualvcRequest {
-	s.AuthInstanceId = &v
+func (s *GetDasIndividualvcRequest) SetAuthInstanceBizUuid(v string) *GetDasIndividualvcRequest {
+	s.AuthInstanceBizUuid = &v
 	return s
 }
 
@@ -691,8 +691,8 @@ type SendDasSmsRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 接收方电话号码
 	ReceivePhoneNum *int64 `json:"receive_phone_num,omitempty" xml:"receive_phone_num,omitempty" require:"true"`
-	// 授权实例ID
-	AuthInstanceId *string `json:"auth_instance_id,omitempty" xml:"auth_instance_id,omitempty" require:"true"`
+	// 授权实例biz_uuid
+	AuthInstanceBizUuid *string `json:"auth_instance_biz_uuid,omitempty" xml:"auth_instance_biz_uuid,omitempty" require:"true"`
 }
 
 func (s SendDasSmsRequest) String() string {
@@ -718,8 +718,8 @@ func (s *SendDasSmsRequest) SetReceivePhoneNum(v int64) *SendDasSmsRequest {
 	return s
 }
 
-func (s *SendDasSmsRequest) SetAuthInstanceId(v string) *SendDasSmsRequest {
-	s.AuthInstanceId = &v
+func (s *SendDasSmsRequest) SetAuthInstanceBizUuid(v string) *SendDasSmsRequest {
+	s.AuthInstanceBizUuid = &v
 	return s
 }
 
@@ -761,10 +761,8 @@ type AuthDasSmsRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 手机验证码
 	VerificationCode *string `json:"verification_code,omitempty" xml:"verification_code,omitempty" require:"true"`
-	// 授权实例ID
-	AuthInstanceId *string `json:"auth_instance_id,omitempty" xml:"auth_instance_id,omitempty" require:"true"`
-	// 被授权企业接入应用ID
-	BeAuthedPersonAppId *string `json:"be_authed_person_app_id,omitempty" xml:"be_authed_person_app_id,omitempty" require:"true"`
+	// 授权实例biz_uuid
+	AuthInstanceBizUuid *string `json:"auth_instance_biz_uuid,omitempty" xml:"auth_instance_biz_uuid,omitempty" require:"true"`
 	// 授权企业信息
 	AuthPersonEnterpriseInfo *AuthPersonEnterpriseInfo `json:"auth_person_enterprise_info,omitempty" xml:"auth_person_enterprise_info,omitempty"`
 	// 授权人个人信息
@@ -794,13 +792,8 @@ func (s *AuthDasSmsRequest) SetVerificationCode(v string) *AuthDasSmsRequest {
 	return s
 }
 
-func (s *AuthDasSmsRequest) SetAuthInstanceId(v string) *AuthDasSmsRequest {
-	s.AuthInstanceId = &v
-	return s
-}
-
-func (s *AuthDasSmsRequest) SetBeAuthedPersonAppId(v string) *AuthDasSmsRequest {
-	s.BeAuthedPersonAppId = &v
+func (s *AuthDasSmsRequest) SetAuthInstanceBizUuid(v string) *AuthDasSmsRequest {
+	s.AuthInstanceBizUuid = &v
 	return s
 }
 
@@ -865,7 +858,7 @@ type VerifyDasEnterpriseRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 被授权企业接入应用ID
-	AuthInstanceId *string `json:"auth_instance_id,omitempty" xml:"auth_instance_id,omitempty" require:"true"`
+	AuthInstanceBizUuid *string `json:"auth_instance_biz_uuid,omitempty" xml:"auth_instance_biz_uuid,omitempty" require:"true"`
 	// VC完整内容
 	Vc *string `json:"vc,omitempty" xml:"vc,omitempty" require:"true"`
 	// 被授权企业信息
@@ -894,8 +887,8 @@ func (s *VerifyDasEnterpriseRequest) SetProductInstanceId(v string) *VerifyDasEn
 	return s
 }
 
-func (s *VerifyDasEnterpriseRequest) SetAuthInstanceId(v string) *VerifyDasEnterpriseRequest {
-	s.AuthInstanceId = &v
+func (s *VerifyDasEnterpriseRequest) SetAuthInstanceBizUuid(v string) *VerifyDasEnterpriseRequest {
+	s.AuthInstanceBizUuid = &v
 	return s
 }
 
@@ -969,8 +962,8 @@ type VerifyDasIndividualRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 被授权企业接入应用ID
-	AuthInstanceId *string `json:"auth_instance_id,omitempty" xml:"auth_instance_id,omitempty" require:"true"`
+	// 授权实例biz_uuid
+	AuthInstanceBizUuid *string `json:"auth_instance_biz_uuid,omitempty" xml:"auth_instance_biz_uuid,omitempty" require:"true"`
 	// VC完整内容
 	Vc *string `json:"vc,omitempty" xml:"vc,omitempty" require:"true"`
 	// 被授权企业信息
@@ -999,8 +992,8 @@ func (s *VerifyDasIndividualRequest) SetProductInstanceId(v string) *VerifyDasIn
 	return s
 }
 
-func (s *VerifyDasIndividualRequest) SetAuthInstanceId(v string) *VerifyDasIndividualRequest {
-	s.AuthInstanceId = &v
+func (s *VerifyDasIndividualRequest) SetAuthInstanceBizUuid(v string) *VerifyDasIndividualRequest {
+	s.AuthInstanceBizUuid = &v
 	return s
 }
 
@@ -1129,8 +1122,8 @@ type CreateDasDatasourceResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 数据源ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 数据源 biz_uuid
+	BizUuid *string `json:"biz_uuid,omitempty" xml:"biz_uuid,omitempty"`
 }
 
 func (s CreateDasDatasourceResponse) String() string {
@@ -1156,8 +1149,8 @@ func (s *CreateDasDatasourceResponse) SetResultMsg(v string) *CreateDasDatasourc
 	return s
 }
 
-func (s *CreateDasDatasourceResponse) SetId(v string) *CreateDasDatasourceResponse {
-	s.Id = &v
+func (s *CreateDasDatasourceResponse) SetBizUuid(v string) *CreateDasDatasourceResponse {
+	s.BizUuid = &v
 	return s
 }
 
@@ -1165,8 +1158,8 @@ type UpdateDasDatasourceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 要修改的数据源ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 要修改的数据源biz_uuid
+	BizUuid *string `json:"biz_uuid,omitempty" xml:"biz_uuid,omitempty" require:"true"`
 	// 数据源名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true" maxLength:"20"`
 	// 数据源提供方
@@ -1195,8 +1188,8 @@ func (s *UpdateDasDatasourceRequest) SetProductInstanceId(v string) *UpdateDasDa
 	return s
 }
 
-func (s *UpdateDasDatasourceRequest) SetId(v string) *UpdateDasDatasourceRequest {
-	s.Id = &v
+func (s *UpdateDasDatasourceRequest) SetBizUuid(v string) *UpdateDasDatasourceRequest {
+	s.BizUuid = &v
 	return s
 }
 
@@ -1256,8 +1249,8 @@ type DeleteDasDatasourceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 要删除的数据源ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 要删除的数据源biz_uuid
+	BizUuid *string `json:"biz_uuid,omitempty" xml:"biz_uuid,omitempty" require:"true"`
 }
 
 func (s DeleteDasDatasourceRequest) String() string {
@@ -1278,8 +1271,8 @@ func (s *DeleteDasDatasourceRequest) SetProductInstanceId(v string) *DeleteDasDa
 	return s
 }
 
-func (s *DeleteDasDatasourceRequest) SetId(v string) *DeleteDasDatasourceRequest {
-	s.Id = &v
+func (s *DeleteDasDatasourceRequest) SetBizUuid(v string) *DeleteDasDatasourceRequest {
+	s.BizUuid = &v
 	return s
 }
 
@@ -1410,8 +1403,8 @@ type VerifyDasAuthresultRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 数据源ID列表
-	DataSourceIds []*string `json:"data_source_ids,omitempty" xml:"data_source_ids,omitempty" require:"true" type:"Repeated"`
+	// 数据源biz_uuid列表
+	DataSourceBizUuids []*string `json:"data_source_biz_uuids,omitempty" xml:"data_source_biz_uuids,omitempty" require:"true" type:"Repeated"`
 	// 被授权企业接入应用名称
 	BeAuthedPersonAppName *string `json:"be_authed_person_app_name,omitempty" xml:"be_authed_person_app_name,omitempty" require:"true"`
 	// 授权企业统一社会信用码
@@ -1436,8 +1429,8 @@ func (s *VerifyDasAuthresultRequest) SetProductInstanceId(v string) *VerifyDasAu
 	return s
 }
 
-func (s *VerifyDasAuthresultRequest) SetDataSourceIds(v []*string) *VerifyDasAuthresultRequest {
-	s.DataSourceIds = v
+func (s *VerifyDasAuthresultRequest) SetDataSourceBizUuids(v []*string) *VerifyDasAuthresultRequest {
+	s.DataSourceBizUuids = v
 	return s
 }
 
@@ -1494,8 +1487,8 @@ type AuthDasAuthresultRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 数据源ID列表
-	DataSourceIds []*string `json:"data_source_ids,omitempty" xml:"data_source_ids,omitempty" require:"true" type:"Repeated"`
+	// 数据源biz_uuid列表
+	DataSourceBizUuids []*string `json:"data_source_biz_uuids,omitempty" xml:"data_source_biz_uuids,omitempty" require:"true" type:"Repeated"`
 	// 被授权企业接入应用名称
 	BeAuthedPersonAppName *string `json:"be_authed_person_app_name,omitempty" xml:"be_authed_person_app_name,omitempty" require:"true"`
 	// 授权企业信息
@@ -1522,8 +1515,8 @@ func (s *AuthDasAuthresultRequest) SetProductInstanceId(v string) *AuthDasAuthre
 	return s
 }
 
-func (s *AuthDasAuthresultRequest) SetDataSourceIds(v []*string) *AuthDasAuthresultRequest {
-	s.DataSourceIds = v
+func (s *AuthDasAuthresultRequest) SetDataSourceBizUuids(v []*string) *AuthDasAuthresultRequest {
+	s.DataSourceBizUuids = v
 	return s
 }
 
@@ -1549,14 +1542,10 @@ type AuthDasAuthresultResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 被授权企业ID
-	BeAuthedPersonId *string `json:"be_authed_person_id,omitempty" xml:"be_authed_person_id,omitempty"`
-	// 被授权企业接入应用ID
-	BeAuthedPersonAppId *string `json:"be_authed_person_app_id,omitempty" xml:"be_authed_person_app_id,omitempty"`
-	// 授权实例ID
-	AuthInstanceId *string `json:"auth_instance_id,omitempty" xml:"auth_instance_id,omitempty"`
-	// 授权详情ID
-	AuthResultId *string `json:"auth_result_id,omitempty" xml:"auth_result_id,omitempty"`
+	// 授权实例biz_uuid
+	AuthInstanceBizUuid *string `json:"auth_instance_biz_uuid,omitempty" xml:"auth_instance_biz_uuid,omitempty"`
+	// 授权详情biz_uuid
+	AuthResultBizUuid *string `json:"auth_result_biz_uuid,omitempty" xml:"auth_result_biz_uuid,omitempty"`
 	// VC 完整信息
 	Vc *string `json:"vc,omitempty" xml:"vc,omitempty"`
 }
@@ -1584,23 +1573,13 @@ func (s *AuthDasAuthresultResponse) SetResultMsg(v string) *AuthDasAuthresultRes
 	return s
 }
 
-func (s *AuthDasAuthresultResponse) SetBeAuthedPersonId(v string) *AuthDasAuthresultResponse {
-	s.BeAuthedPersonId = &v
+func (s *AuthDasAuthresultResponse) SetAuthInstanceBizUuid(v string) *AuthDasAuthresultResponse {
+	s.AuthInstanceBizUuid = &v
 	return s
 }
 
-func (s *AuthDasAuthresultResponse) SetBeAuthedPersonAppId(v string) *AuthDasAuthresultResponse {
-	s.BeAuthedPersonAppId = &v
-	return s
-}
-
-func (s *AuthDasAuthresultResponse) SetAuthInstanceId(v string) *AuthDasAuthresultResponse {
-	s.AuthInstanceId = &v
-	return s
-}
-
-func (s *AuthDasAuthresultResponse) SetAuthResultId(v string) *AuthDasAuthresultResponse {
-	s.AuthResultId = &v
+func (s *AuthDasAuthresultResponse) SetAuthResultBizUuid(v string) *AuthDasAuthresultResponse {
+	s.AuthResultBizUuid = &v
 	return s
 }
 
@@ -1731,7 +1710,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.5"),
+				"sdk_version":      tea.String("1.1.6"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
