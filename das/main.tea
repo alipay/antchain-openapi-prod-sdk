@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.5',
+    sdk_version = '1.1.6',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -205,8 +205,8 @@ model AuthPersonIndividualInfo {
 
 // 数据源详细信息
 model DataSourceInfo {
-  // 数据源ID
-  id: string(name='id', example='1'),
+  // 数据源biz_uuid
+  bizUuid: string(name='biz_uuid', example='1'),
   // 数据源名称
   name: string(maxLength=20, name='name', example='**数据'),
   // 数据提供方
@@ -255,8 +255,8 @@ model GetDasLinkRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 被授权人接入应用id
-  beAuthedPersonAppId: string(name='be_authed_person_app_id'),
+  // 被授权人接入应用biz_uuid
+  beAuthedPersonAppBizUuid: string(name='be_authed_person_app_biz_uuid'),
 }
 
 model GetDasLinkResponse = {
@@ -295,8 +295,8 @@ model GetDasEnterprisevcRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 授权实例ID
-  authInstanceId: string(name='auth_instance_id'),
+  // 授权实例biz_uuid
+  authInstanceBizUuid: string(name='auth_instance_biz_uuid'),
   // 授权企业信息
   authPersonEnterpriseInfo: AuthPersonEnterpriseInfo(name='auth_person_enterprise_info'),
 }
@@ -335,8 +335,8 @@ model GetDasIndividualvcRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 授权实例ID
-  authInstanceId: string(name='auth_instance_id'),
+  // 授权实例biz_uuid
+  authInstanceBizUuid: string(name='auth_instance_biz_uuid'),
   // 授权人个人信息
   authedPersonIndividualInfo: AuthPersonIndividualInfo(name='authed_person_individual_info'),
 }
@@ -377,8 +377,8 @@ model SendDasSmsRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 接收方电话号码
   receivePhoneNum: long(name='receive_phone_num'),
-  // 授权实例ID
-  authInstanceId: string(name='auth_instance_id'),
+  // 授权实例biz_uuid
+  authInstanceBizUuid: string(name='auth_instance_biz_uuid'),
 }
 
 model SendDasSmsResponse = {
@@ -415,10 +415,8 @@ model AuthDasSmsRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 手机验证码
   verificationCode: string(name='verification_code'),
-  // 授权实例ID
-  authInstanceId: string(name='auth_instance_id'),
-  // 被授权企业接入应用ID
-  beAuthedPersonAppId: string(name='be_authed_person_app_id'),
+  // 授权实例biz_uuid
+  authInstanceBizUuid: string(name='auth_instance_biz_uuid'),
   // 授权企业信息
   authPersonEnterpriseInfo?: AuthPersonEnterpriseInfo(name='auth_person_enterprise_info'),
   // 授权人个人信息
@@ -462,7 +460,7 @@ model VerifyDasEnterpriseRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 被授权企业接入应用ID
-  authInstanceId: string(name='auth_instance_id'),
+  authInstanceBizUuid: string(name='auth_instance_biz_uuid'),
   // VC完整内容
   vc: string(name='vc'),
   // 被授权企业信息
@@ -509,8 +507,8 @@ model VerifyDasIndividualRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 被授权企业接入应用ID
-  authInstanceId: string(name='auth_instance_id'),
+  // 授权实例biz_uuid
+  authInstanceBizUuid: string(name='auth_instance_biz_uuid'),
   // VC完整内容
   vc: string(name='vc'),
   // 被授权企业信息
@@ -574,8 +572,8 @@ model CreateDasDatasourceResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 数据源ID
-  id?: string(name='id'),
+  // 数据源 biz_uuid
+  bizUuid?: string(name='biz_uuid'),
 }
 
 /**
@@ -601,8 +599,8 @@ model UpdateDasDatasourceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 要修改的数据源ID
-  id: string(name='id'),
+  // 要修改的数据源biz_uuid
+  bizUuid: string(name='biz_uuid'),
   // 数据源名称
   name: string(maxLength=20, name='name'),
   // 数据源提供方
@@ -645,8 +643,8 @@ model DeleteDasDatasourceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 要删除的数据源ID
-  id: string(name='id'),
+  // 要删除的数据源biz_uuid
+  bizUuid: string(name='biz_uuid'),
 }
 
 model DeleteDasDatasourceResponse = {
@@ -725,8 +723,8 @@ model VerifyDasAuthresultRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 数据源ID列表
-  dataSourceIds: [ string ](name='data_source_ids'),
+  // 数据源biz_uuid列表
+  dataSourceBizUuids: [ string ](name='data_source_biz_uuids'),
   // 被授权企业接入应用名称
   beAuthedPersonAppName: string(name='be_authed_person_app_name'),
   // 授权企业统一社会信用码
@@ -767,8 +765,8 @@ model AuthDasAuthresultRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 数据源ID列表
-  dataSourceIds: [ string ](name='data_source_ids'),
+  // 数据源biz_uuid列表
+  dataSourceBizUuids: [ string ](name='data_source_biz_uuids'),
   // 被授权企业接入应用名称
   beAuthedPersonAppName: string(name='be_authed_person_app_name'),
   // 授权企业信息
@@ -784,14 +782,10 @@ model AuthDasAuthresultResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 被授权企业ID
-  beAuthedPersonId?: string(name='be_authed_person_id'),
-  // 被授权企业接入应用ID
-  beAuthedPersonAppId?: string(name='be_authed_person_app_id'),
-  // 授权实例ID
-  authInstanceId?: string(name='auth_instance_id'),
-  // 授权详情ID
-  authResultId?: string(name='auth_result_id'),
+  // 授权实例biz_uuid
+  authInstanceBizUuid?: string(name='auth_instance_biz_uuid'),
+  // 授权详情biz_uuid
+  authResultBizUuid?: string(name='auth_result_biz_uuid'),
   // VC 完整信息
   vc?: string(name='vc'),
 }
