@@ -203,8 +203,8 @@ export class AuthPersonIndividualInfo extends $tea.Model {
 
 // 数据源详细信息
 export class DataSourceInfo extends $tea.Model {
-  // 数据源ID
-  id: string;
+  // 数据源biz_uuid
+  bizUuid: string;
   // 数据源名称
   name: string;
   // 数据提供方
@@ -215,7 +215,7 @@ export class DataSourceInfo extends $tea.Model {
   dataSourceInterfaceInfo: DataSourceInterface;
   static names(): { [key: string]: string } {
     return {
-      id: 'id',
+      bizUuid: 'biz_uuid',
       name: 'name',
       provider: 'provider',
       dataOwnerType: 'data_owner_type',
@@ -225,7 +225,7 @@ export class DataSourceInfo extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
-      id: 'string',
+      bizUuid: 'string',
       name: 'string',
       provider: 'string',
       dataOwnerType: 'string',
@@ -337,13 +337,13 @@ export class GetDasLinkRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 被授权人接入应用id
-  beAuthedPersonAppId: string;
+  // 被授权人接入应用biz_uuid
+  beAuthedPersonAppBizUuid: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      beAuthedPersonAppId: 'be_authed_person_app_id',
+      beAuthedPersonAppBizUuid: 'be_authed_person_app_biz_uuid',
     };
   }
 
@@ -351,7 +351,7 @@ export class GetDasLinkRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      beAuthedPersonAppId: 'string',
+      beAuthedPersonAppBizUuid: 'string',
     };
   }
 
@@ -400,15 +400,15 @@ export class GetDasEnterprisevcRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 授权实例ID
-  authInstanceId: string;
+  // 授权实例biz_uuid
+  authInstanceBizUuid: string;
   // 授权企业信息
   authPersonEnterpriseInfo: AuthPersonEnterpriseInfo;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      authInstanceId: 'auth_instance_id',
+      authInstanceBizUuid: 'auth_instance_biz_uuid',
       authPersonEnterpriseInfo: 'auth_person_enterprise_info',
     };
   }
@@ -417,7 +417,7 @@ export class GetDasEnterprisevcRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      authInstanceId: 'string',
+      authInstanceBizUuid: 'string',
       authPersonEnterpriseInfo: AuthPersonEnterpriseInfo,
     };
   }
@@ -463,15 +463,15 @@ export class GetDasIndividualvcRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 授权实例ID
-  authInstanceId: string;
+  // 授权实例biz_uuid
+  authInstanceBizUuid: string;
   // 授权人个人信息
   authedPersonIndividualInfo: AuthPersonIndividualInfo;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      authInstanceId: 'auth_instance_id',
+      authInstanceBizUuid: 'auth_instance_biz_uuid',
       authedPersonIndividualInfo: 'authed_person_individual_info',
     };
   }
@@ -480,7 +480,7 @@ export class GetDasIndividualvcRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      authInstanceId: 'string',
+      authInstanceBizUuid: 'string',
       authedPersonIndividualInfo: AuthPersonIndividualInfo,
     };
   }
@@ -528,14 +528,14 @@ export class SendDasSmsRequest extends $tea.Model {
   productInstanceId?: string;
   // 接收方电话号码
   receivePhoneNum: number;
-  // 授权实例ID
-  authInstanceId: string;
+  // 授权实例biz_uuid
+  authInstanceBizUuid: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       receivePhoneNum: 'receive_phone_num',
-      authInstanceId: 'auth_instance_id',
+      authInstanceBizUuid: 'auth_instance_biz_uuid',
     };
   }
 
@@ -544,7 +544,7 @@ export class SendDasSmsRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       receivePhoneNum: 'number',
-      authInstanceId: 'string',
+      authInstanceBizUuid: 'string',
     };
   }
 
@@ -587,10 +587,8 @@ export class AuthDasSmsRequest extends $tea.Model {
   productInstanceId?: string;
   // 手机验证码
   verificationCode: string;
-  // 授权实例ID
-  authInstanceId: string;
-  // 被授权企业接入应用ID
-  beAuthedPersonAppId: string;
+  // 授权实例biz_uuid
+  authInstanceBizUuid: string;
   // 授权企业信息
   authPersonEnterpriseInfo?: AuthPersonEnterpriseInfo;
   // 授权人个人信息
@@ -600,8 +598,7 @@ export class AuthDasSmsRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       verificationCode: 'verification_code',
-      authInstanceId: 'auth_instance_id',
-      beAuthedPersonAppId: 'be_authed_person_app_id',
+      authInstanceBizUuid: 'auth_instance_biz_uuid',
       authPersonEnterpriseInfo: 'auth_person_enterprise_info',
       authPersonIndividualInfo: 'auth_person_individual_info',
     };
@@ -612,8 +609,7 @@ export class AuthDasSmsRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       verificationCode: 'string',
-      authInstanceId: 'string',
-      beAuthedPersonAppId: 'string',
+      authInstanceBizUuid: 'string',
       authPersonEnterpriseInfo: AuthPersonEnterpriseInfo,
       authPersonIndividualInfo: AuthPersonIndividualInfo,
     };
@@ -665,7 +661,7 @@ export class VerifyDasEnterpriseRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 被授权企业接入应用ID
-  authInstanceId: string;
+  authInstanceBizUuid: string;
   // VC完整内容
   vc: string;
   // 被授权企业信息
@@ -678,7 +674,7 @@ export class VerifyDasEnterpriseRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      authInstanceId: 'auth_instance_id',
+      authInstanceBizUuid: 'auth_instance_biz_uuid',
       vc: 'vc',
       beAuthedPersonInfo: 'be_authed_person_info',
       authPersonEnterpriseInfo: 'auth_person_enterprise_info',
@@ -690,7 +686,7 @@ export class VerifyDasEnterpriseRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      authInstanceId: 'string',
+      authInstanceBizUuid: 'string',
       vc: 'string',
       beAuthedPersonInfo: BeAuthedPersonInfo,
       authPersonEnterpriseInfo: AuthPersonEnterpriseInfo,
@@ -743,8 +739,8 @@ export class VerifyDasIndividualRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 被授权企业接入应用ID
-  authInstanceId: string;
+  // 授权实例biz_uuid
+  authInstanceBizUuid: string;
   // VC完整内容
   vc: string;
   // 被授权企业信息
@@ -757,7 +753,7 @@ export class VerifyDasIndividualRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      authInstanceId: 'auth_instance_id',
+      authInstanceBizUuid: 'auth_instance_biz_uuid',
       vc: 'vc',
       beAuthedPersonInfo: 'be_authed_person_info',
       authPersonIndividualInfo: 'auth_person_individual_info',
@@ -769,7 +765,7 @@ export class VerifyDasIndividualRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      authInstanceId: 'string',
+      authInstanceBizUuid: 'string',
       vc: 'string',
       beAuthedPersonInfo: BeAuthedPersonInfo,
       authPersonIndividualInfo: AuthPersonIndividualInfo,
@@ -864,14 +860,14 @@ export class CreateDasDatasourceResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 数据源ID
-  id?: string;
+  // 数据源 biz_uuid
+  bizUuid?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      id: 'id',
+      bizUuid: 'biz_uuid',
     };
   }
 
@@ -880,7 +876,7 @@ export class CreateDasDatasourceResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      id: 'string',
+      bizUuid: 'string',
     };
   }
 
@@ -893,8 +889,8 @@ export class UpdateDasDatasourceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 要修改的数据源ID
-  id: string;
+  // 要修改的数据源biz_uuid
+  bizUuid: string;
   // 数据源名称
   name: string;
   // 数据源提供方
@@ -907,7 +903,7 @@ export class UpdateDasDatasourceRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      id: 'id',
+      bizUuid: 'biz_uuid',
       name: 'name',
       provider: 'provider',
       dataOwnerType: 'data_owner_type',
@@ -919,7 +915,7 @@ export class UpdateDasDatasourceRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      id: 'string',
+      bizUuid: 'string',
       name: 'string',
       provider: 'string',
       dataOwnerType: 'string',
@@ -964,13 +960,13 @@ export class DeleteDasDatasourceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 要删除的数据源ID
-  id: string;
+  // 要删除的数据源biz_uuid
+  bizUuid: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      id: 'id',
+      bizUuid: 'biz_uuid',
     };
   }
 
@@ -978,7 +974,7 @@ export class DeleteDasDatasourceRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      id: 'string',
+      bizUuid: 'string',
     };
   }
 
@@ -1090,8 +1086,8 @@ export class VerifyDasAuthresultRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 数据源ID列表
-  dataSourceIds: string[];
+  // 数据源biz_uuid列表
+  dataSourceBizUuids: string[];
   // 被授权企业接入应用名称
   beAuthedPersonAppName: string;
   // 授权企业统一社会信用码
@@ -1100,7 +1096,7 @@ export class VerifyDasAuthresultRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      dataSourceIds: 'data_source_ids',
+      dataSourceBizUuids: 'data_source_biz_uuids',
       beAuthedPersonAppName: 'be_authed_person_app_name',
       authPersonEnterpriseCreditNum: 'auth_person_enterprise_credit_num',
     };
@@ -1110,7 +1106,7 @@ export class VerifyDasAuthresultRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      dataSourceIds: { 'type': 'array', 'itemType': 'string' },
+      dataSourceBizUuids: { 'type': 'array', 'itemType': 'string' },
       beAuthedPersonAppName: 'string',
       authPersonEnterpriseCreditNum: 'string',
     };
@@ -1157,8 +1153,8 @@ export class AuthDasAuthresultRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 数据源ID列表
-  dataSourceIds: string[];
+  // 数据源biz_uuid列表
+  dataSourceBizUuids: string[];
   // 被授权企业接入应用名称
   beAuthedPersonAppName: string;
   // 授权企业信息
@@ -1169,7 +1165,7 @@ export class AuthDasAuthresultRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      dataSourceIds: 'data_source_ids',
+      dataSourceBizUuids: 'data_source_biz_uuids',
       beAuthedPersonAppName: 'be_authed_person_app_name',
       authPersonEnterpriseInfo: 'auth_person_enterprise_info',
       authPersonIndividualInfo: 'auth_person_individual_info',
@@ -1180,7 +1176,7 @@ export class AuthDasAuthresultRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      dataSourceIds: { 'type': 'array', 'itemType': 'string' },
+      dataSourceBizUuids: { 'type': 'array', 'itemType': 'string' },
       beAuthedPersonAppName: 'string',
       authPersonEnterpriseInfo: AuthPersonEnterpriseInfo,
       authPersonIndividualInfo: AuthPersonIndividualInfo,
@@ -1199,14 +1195,10 @@ export class AuthDasAuthresultResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 被授权企业ID
-  beAuthedPersonId?: string;
-  // 被授权企业接入应用ID
-  beAuthedPersonAppId?: string;
-  // 授权实例ID
-  authInstanceId?: string;
-  // 授权详情ID
-  authResultId?: string;
+  // 授权实例biz_uuid
+  authInstanceBizUuid?: string;
+  // 授权详情biz_uuid
+  authResultBizUuid?: string;
   // VC 完整信息
   vc?: string;
   static names(): { [key: string]: string } {
@@ -1214,10 +1206,8 @@ export class AuthDasAuthresultResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      beAuthedPersonId: 'be_authed_person_id',
-      beAuthedPersonAppId: 'be_authed_person_app_id',
-      authInstanceId: 'auth_instance_id',
-      authResultId: 'auth_result_id',
+      authInstanceBizUuid: 'auth_instance_biz_uuid',
+      authResultBizUuid: 'auth_result_biz_uuid',
       vc: 'vc',
     };
   }
@@ -1227,10 +1217,8 @@ export class AuthDasAuthresultResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      beAuthedPersonId: 'string',
-      beAuthedPersonAppId: 'string',
-      authInstanceId: 'string',
-      authResultId: 'string',
+      authInstanceBizUuid: 'string',
+      authResultBizUuid: 'string',
       vc: 'string',
     };
   }
@@ -1353,7 +1341,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.5",
+          sdk_version: "1.1.6",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
