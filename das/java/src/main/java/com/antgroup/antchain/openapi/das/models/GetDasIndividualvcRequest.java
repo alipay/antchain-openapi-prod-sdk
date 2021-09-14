@@ -11,10 +11,10 @@ public class GetDasIndividualvcRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 授权实例ID
-    @NameInMap("auth_instance_id")
+    // 授权实例biz_uuid
+    @NameInMap("auth_instance_biz_uuid")
     @Validation(required = true)
-    public String authInstanceId;
+    public String authInstanceBizUuid;
 
     // 授权人个人信息
     @NameInMap("authed_person_individual_info")
@@ -42,12 +42,12 @@ public class GetDasIndividualvcRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public GetDasIndividualvcRequest setAuthInstanceId(String authInstanceId) {
-        this.authInstanceId = authInstanceId;
+    public GetDasIndividualvcRequest setAuthInstanceBizUuid(String authInstanceBizUuid) {
+        this.authInstanceBizUuid = authInstanceBizUuid;
         return this;
     }
-    public String getAuthInstanceId() {
-        return this.authInstanceId;
+    public String getAuthInstanceBizUuid() {
+        return this.authInstanceBizUuid;
     }
 
     public GetDasIndividualvcRequest setAuthedPersonIndividualInfo(AuthPersonIndividualInfo authedPersonIndividualInfo) {

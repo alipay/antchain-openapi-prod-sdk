@@ -16,10 +16,10 @@ public class SendDasSmsRequest extends TeaModel {
     @Validation(required = true)
     public Long receivePhoneNum;
 
-    // 授权实例ID
-    @NameInMap("auth_instance_id")
+    // 授权实例biz_uuid
+    @NameInMap("auth_instance_biz_uuid")
     @Validation(required = true)
-    public String authInstanceId;
+    public String authInstanceBizUuid;
 
     public static SendDasSmsRequest build(java.util.Map<String, ?> map) throws Exception {
         SendDasSmsRequest self = new SendDasSmsRequest();
@@ -50,12 +50,12 @@ public class SendDasSmsRequest extends TeaModel {
         return this.receivePhoneNum;
     }
 
-    public SendDasSmsRequest setAuthInstanceId(String authInstanceId) {
-        this.authInstanceId = authInstanceId;
+    public SendDasSmsRequest setAuthInstanceBizUuid(String authInstanceBizUuid) {
+        this.authInstanceBizUuid = authInstanceBizUuid;
         return this;
     }
-    public String getAuthInstanceId() {
-        return this.authInstanceId;
+    public String getAuthInstanceBizUuid() {
+        return this.authInstanceBizUuid;
     }
 
 }

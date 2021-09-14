@@ -16,15 +16,10 @@ public class AuthDasSmsRequest extends TeaModel {
     @Validation(required = true)
     public String verificationCode;
 
-    // 授权实例ID
-    @NameInMap("auth_instance_id")
+    // 授权实例biz_uuid
+    @NameInMap("auth_instance_biz_uuid")
     @Validation(required = true)
-    public String authInstanceId;
-
-    // 被授权企业接入应用ID
-    @NameInMap("be_authed_person_app_id")
-    @Validation(required = true)
-    public String beAuthedPersonAppId;
+    public String authInstanceBizUuid;
 
     // 授权企业信息
     @NameInMap("auth_person_enterprise_info")
@@ -63,20 +58,12 @@ public class AuthDasSmsRequest extends TeaModel {
         return this.verificationCode;
     }
 
-    public AuthDasSmsRequest setAuthInstanceId(String authInstanceId) {
-        this.authInstanceId = authInstanceId;
+    public AuthDasSmsRequest setAuthInstanceBizUuid(String authInstanceBizUuid) {
+        this.authInstanceBizUuid = authInstanceBizUuid;
         return this;
     }
-    public String getAuthInstanceId() {
-        return this.authInstanceId;
-    }
-
-    public AuthDasSmsRequest setBeAuthedPersonAppId(String beAuthedPersonAppId) {
-        this.beAuthedPersonAppId = beAuthedPersonAppId;
-        return this;
-    }
-    public String getBeAuthedPersonAppId() {
-        return this.beAuthedPersonAppId;
+    public String getAuthInstanceBizUuid() {
+        return this.authInstanceBizUuid;
     }
 
     public AuthDasSmsRequest setAuthPersonEnterpriseInfo(AuthPersonEnterpriseInfo authPersonEnterpriseInfo) {

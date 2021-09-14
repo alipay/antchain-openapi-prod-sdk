@@ -11,10 +11,10 @@ public class GetDasLinkRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 被授权人接入应用id
-    @NameInMap("be_authed_person_app_id")
+    // 被授权人接入应用biz_uuid
+    @NameInMap("be_authed_person_app_biz_uuid")
     @Validation(required = true)
-    public String beAuthedPersonAppId;
+    public String beAuthedPersonAppBizUuid;
 
     public static GetDasLinkRequest build(java.util.Map<String, ?> map) throws Exception {
         GetDasLinkRequest self = new GetDasLinkRequest();
@@ -37,12 +37,12 @@ public class GetDasLinkRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public GetDasLinkRequest setBeAuthedPersonAppId(String beAuthedPersonAppId) {
-        this.beAuthedPersonAppId = beAuthedPersonAppId;
+    public GetDasLinkRequest setBeAuthedPersonAppBizUuid(String beAuthedPersonAppBizUuid) {
+        this.beAuthedPersonAppBizUuid = beAuthedPersonAppBizUuid;
         return this;
     }
-    public String getBeAuthedPersonAppId() {
-        return this.beAuthedPersonAppId;
+    public String getBeAuthedPersonAppBizUuid() {
+        return this.beAuthedPersonAppBizUuid;
     }
 
 }

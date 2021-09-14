@@ -11,10 +11,10 @@ public class AuthDasAuthresultRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 数据源ID列表
-    @NameInMap("data_source_ids")
+    // 数据源biz_uuid列表
+    @NameInMap("data_source_biz_uuids")
     @Validation(required = true)
-    public java.util.List<String> dataSourceIds;
+    public java.util.List<String> dataSourceBizUuids;
 
     // 被授权企业接入应用名称
     @NameInMap("be_authed_person_app_name")
@@ -50,12 +50,12 @@ public class AuthDasAuthresultRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public AuthDasAuthresultRequest setDataSourceIds(java.util.List<String> dataSourceIds) {
-        this.dataSourceIds = dataSourceIds;
+    public AuthDasAuthresultRequest setDataSourceBizUuids(java.util.List<String> dataSourceBizUuids) {
+        this.dataSourceBizUuids = dataSourceBizUuids;
         return this;
     }
-    public java.util.List<String> getDataSourceIds() {
-        return this.dataSourceIds;
+    public java.util.List<String> getDataSourceBizUuids() {
+        return this.dataSourceBizUuids;
     }
 
     public AuthDasAuthresultRequest setBeAuthedPersonAppName(String beAuthedPersonAppName) {

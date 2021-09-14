@@ -16,21 +16,13 @@ public class AuthDasAuthresultResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 被授权企业ID
-    @NameInMap("be_authed_person_id")
-    public String beAuthedPersonId;
+    // 授权实例biz_uuid
+    @NameInMap("auth_instance_biz_uuid")
+    public String authInstanceBizUuid;
 
-    // 被授权企业接入应用ID
-    @NameInMap("be_authed_person_app_id")
-    public String beAuthedPersonAppId;
-
-    // 授权实例ID
-    @NameInMap("auth_instance_id")
-    public String authInstanceId;
-
-    // 授权详情ID
-    @NameInMap("auth_result_id")
-    public String authResultId;
+    // 授权详情biz_uuid
+    @NameInMap("auth_result_biz_uuid")
+    public String authResultBizUuid;
 
     // VC 完整信息
     @NameInMap("vc")
@@ -65,36 +57,20 @@ public class AuthDasAuthresultResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public AuthDasAuthresultResponse setBeAuthedPersonId(String beAuthedPersonId) {
-        this.beAuthedPersonId = beAuthedPersonId;
+    public AuthDasAuthresultResponse setAuthInstanceBizUuid(String authInstanceBizUuid) {
+        this.authInstanceBizUuid = authInstanceBizUuid;
         return this;
     }
-    public String getBeAuthedPersonId() {
-        return this.beAuthedPersonId;
+    public String getAuthInstanceBizUuid() {
+        return this.authInstanceBizUuid;
     }
 
-    public AuthDasAuthresultResponse setBeAuthedPersonAppId(String beAuthedPersonAppId) {
-        this.beAuthedPersonAppId = beAuthedPersonAppId;
+    public AuthDasAuthresultResponse setAuthResultBizUuid(String authResultBizUuid) {
+        this.authResultBizUuid = authResultBizUuid;
         return this;
     }
-    public String getBeAuthedPersonAppId() {
-        return this.beAuthedPersonAppId;
-    }
-
-    public AuthDasAuthresultResponse setAuthInstanceId(String authInstanceId) {
-        this.authInstanceId = authInstanceId;
-        return this;
-    }
-    public String getAuthInstanceId() {
-        return this.authInstanceId;
-    }
-
-    public AuthDasAuthresultResponse setAuthResultId(String authResultId) {
-        this.authResultId = authResultId;
-        return this;
-    }
-    public String getAuthResultId() {
-        return this.authResultId;
+    public String getAuthResultBizUuid() {
+        return this.authResultBizUuid;
     }
 
     public AuthDasAuthresultResponse setVc(String vc) {

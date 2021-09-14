@@ -11,10 +11,10 @@ public class DeleteDasDatasourceRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 要删除的数据源ID
-    @NameInMap("id")
+    // 要删除的数据源biz_uuid
+    @NameInMap("biz_uuid")
     @Validation(required = true)
-    public String id;
+    public String bizUuid;
 
     public static DeleteDasDatasourceRequest build(java.util.Map<String, ?> map) throws Exception {
         DeleteDasDatasourceRequest self = new DeleteDasDatasourceRequest();
@@ -37,12 +37,12 @@ public class DeleteDasDatasourceRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public DeleteDasDatasourceRequest setId(String id) {
-        this.id = id;
+    public DeleteDasDatasourceRequest setBizUuid(String bizUuid) {
+        this.bizUuid = bizUuid;
         return this;
     }
-    public String getId() {
-        return this.id;
+    public String getBizUuid() {
+        return this.bizUuid;
     }
 
 }

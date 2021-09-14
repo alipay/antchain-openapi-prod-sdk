@@ -4,10 +4,10 @@ package com.antgroup.antchain.openapi.das.models;
 import com.aliyun.tea.*;
 
 public class DataSourceInfo extends TeaModel {
-    // 数据源ID
-    @NameInMap("id")
+    // 数据源biz_uuid
+    @NameInMap("biz_uuid")
     @Validation(required = true)
-    public String id;
+    public String bizUuid;
 
     // 数据源名称
     @NameInMap("name")
@@ -34,12 +34,12 @@ public class DataSourceInfo extends TeaModel {
         return TeaModel.build(map, self);
     }
 
-    public DataSourceInfo setId(String id) {
-        this.id = id;
+    public DataSourceInfo setBizUuid(String bizUuid) {
+        this.bizUuid = bizUuid;
         return this;
     }
-    public String getId() {
-        return this.id;
+    public String getBizUuid() {
+        return this.bizUuid;
     }
 
     public DataSourceInfo setName(String name) {

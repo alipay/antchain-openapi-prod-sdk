@@ -16,9 +16,9 @@ public class CreateDasDatasourceResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 数据源ID
-    @NameInMap("id")
-    public String id;
+    // 数据源 biz_uuid
+    @NameInMap("biz_uuid")
+    public String bizUuid;
 
     public static CreateDasDatasourceResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateDasDatasourceResponse self = new CreateDasDatasourceResponse();
@@ -49,12 +49,12 @@ public class CreateDasDatasourceResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CreateDasDatasourceResponse setId(String id) {
-        this.id = id;
+    public CreateDasDatasourceResponse setBizUuid(String bizUuid) {
+        this.bizUuid = bizUuid;
         return this;
     }
-    public String getId() {
-        return this.id;
+    public String getBizUuid() {
+        return this.bizUuid;
     }
 
 }

@@ -11,10 +11,10 @@ public class UpdateDasDatasourceRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 要修改的数据源ID
-    @NameInMap("id")
+    // 要修改的数据源biz_uuid
+    @NameInMap("biz_uuid")
     @Validation(required = true)
-    public String id;
+    public String bizUuid;
 
     // 数据源名称
     @NameInMap("name")
@@ -57,12 +57,12 @@ public class UpdateDasDatasourceRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public UpdateDasDatasourceRequest setId(String id) {
-        this.id = id;
+    public UpdateDasDatasourceRequest setBizUuid(String bizUuid) {
+        this.bizUuid = bizUuid;
         return this;
     }
-    public String getId() {
-        return this.id;
+    public String getBizUuid() {
+        return this.bizUuid;
     }
 
     public UpdateDasDatasourceRequest setName(String name) {

@@ -12,9 +12,9 @@ public class VerifyDasEnterpriseRequest extends TeaModel {
     public String productInstanceId;
 
     // 被授权企业接入应用ID
-    @NameInMap("auth_instance_id")
+    @NameInMap("auth_instance_biz_uuid")
     @Validation(required = true)
-    public String authInstanceId;
+    public String authInstanceBizUuid;
 
     // VC完整内容
     @NameInMap("vc")
@@ -57,12 +57,12 @@ public class VerifyDasEnterpriseRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public VerifyDasEnterpriseRequest setAuthInstanceId(String authInstanceId) {
-        this.authInstanceId = authInstanceId;
+    public VerifyDasEnterpriseRequest setAuthInstanceBizUuid(String authInstanceBizUuid) {
+        this.authInstanceBizUuid = authInstanceBizUuid;
         return this;
     }
-    public String getAuthInstanceId() {
-        return this.authInstanceId;
+    public String getAuthInstanceBizUuid() {
+        return this.authInstanceBizUuid;
     }
 
     public VerifyDasEnterpriseRequest setVc(String vc) {
