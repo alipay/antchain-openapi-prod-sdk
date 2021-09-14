@@ -24,25 +24,15 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 被授权企业ID
-        [NameInMap("be_authed_person_id")]
+        // 授权实例biz_uuid
+        [NameInMap("auth_instance_biz_uuid")]
         [Validation(Required=false)]
-        public string BeAuthedPersonId { get; set; }
+        public string AuthInstanceBizUuid { get; set; }
 
-        // 被授权企业接入应用ID
-        [NameInMap("be_authed_person_app_id")]
+        // 授权详情biz_uuid
+        [NameInMap("auth_result_biz_uuid")]
         [Validation(Required=false)]
-        public string BeAuthedPersonAppId { get; set; }
-
-        // 授权实例ID
-        [NameInMap("auth_instance_id")]
-        [Validation(Required=false)]
-        public string AuthInstanceId { get; set; }
-
-        // 授权详情ID
-        [NameInMap("auth_result_id")]
-        [Validation(Required=false)]
-        public string AuthResultId { get; set; }
+        public string AuthResultBizUuid { get; set; }
 
         // VC 完整信息
         [NameInMap("vc")]

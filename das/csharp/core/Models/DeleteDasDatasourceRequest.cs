@@ -18,10 +18,10 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 要删除的数据源ID
-        [NameInMap("id")]
+        // 要删除的数据源biz_uuid
+        [NameInMap("biz_uuid")]
         [Validation(Required=true)]
-        public string Id { get; set; }
+        public string BizUuid { get; set; }
 
     }
 

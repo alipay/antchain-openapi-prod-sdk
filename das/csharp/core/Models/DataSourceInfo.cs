@@ -10,10 +10,10 @@ namespace AntChain.SDK.DAS.Models
 {
     // 数据源详细信息
     public class DataSourceInfo : TeaModel {
-        // 数据源ID
-        [NameInMap("id")]
+        // 数据源biz_uuid
+        [NameInMap("biz_uuid")]
         [Validation(Required=true)]
-        public string Id { get; set; }
+        public string BizUuid { get; set; }
 
         // 数据源名称
         [NameInMap("name")]

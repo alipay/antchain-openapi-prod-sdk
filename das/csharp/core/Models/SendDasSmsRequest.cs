@@ -23,10 +23,10 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=true)]
         public long? ReceivePhoneNum { get; set; }
 
-        // 授权实例ID
-        [NameInMap("auth_instance_id")]
+        // 授权实例biz_uuid
+        [NameInMap("auth_instance_biz_uuid")]
         [Validation(Required=true)]
-        public string AuthInstanceId { get; set; }
+        public string AuthInstanceBizUuid { get; set; }
 
     }
 

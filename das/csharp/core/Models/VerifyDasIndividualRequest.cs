@@ -18,10 +18,10 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 被授权企业接入应用ID
-        [NameInMap("auth_instance_id")]
+        // 授权实例biz_uuid
+        [NameInMap("auth_instance_biz_uuid")]
         [Validation(Required=true)]
-        public string AuthInstanceId { get; set; }
+        public string AuthInstanceBizUuid { get; set; }
 
         // VC完整内容
         [NameInMap("vc")]

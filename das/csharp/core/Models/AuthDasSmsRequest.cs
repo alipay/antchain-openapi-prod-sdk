@@ -23,15 +23,10 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=true)]
         public string VerificationCode { get; set; }
 
-        // 授权实例ID
-        [NameInMap("auth_instance_id")]
+        // 授权实例biz_uuid
+        [NameInMap("auth_instance_biz_uuid")]
         [Validation(Required=true)]
-        public string AuthInstanceId { get; set; }
-
-        // 被授权企业接入应用ID
-        [NameInMap("be_authed_person_app_id")]
-        [Validation(Required=true)]
-        public string BeAuthedPersonAppId { get; set; }
+        public string AuthInstanceBizUuid { get; set; }
 
         // 授权企业信息
         [NameInMap("auth_person_enterprise_info")]

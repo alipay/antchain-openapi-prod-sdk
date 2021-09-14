@@ -24,10 +24,10 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 数据源ID
-        [NameInMap("id")]
+        // 数据源 biz_uuid
+        [NameInMap("biz_uuid")]
         [Validation(Required=false)]
-        public string Id { get; set; }
+        public string BizUuid { get; set; }
 
     }
 
