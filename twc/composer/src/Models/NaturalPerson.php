@@ -79,7 +79,6 @@ class NaturalPerson extends Model
         Model::validateRequired('name', $this->name, true);
         Model::validateRequired('mobileNumber', $this->mobileNumber, true);
         Model::validateRequired('idNumber', $this->idNumber, true);
-        Model::validateRequired('idNumberFile', $this->idNumberFile, true);
     }
 
     public function toMap()

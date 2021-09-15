@@ -40,7 +40,6 @@ class LeasePerformanceInfo extends Model
     public function validate()
     {
         Model::validateRequired('rentPayTotal', $this->rentPayTotal, true);
-        Model::validateRequired('rentalInstallmentPerformance', $this->rentalInstallmentPerformance, true);
     }
 
     public function toMap()

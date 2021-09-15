@@ -41,7 +41,6 @@ class PerformanceInfo extends Model
     {
         Model::validateRequired('rentPayTotal', $this->rentPayTotal, true);
         Model::validateRequired('buyoutAmount', $this->buyoutAmount, true);
-        Model::validateRequired('rentalInstallmentPerformance', $this->rentalInstallmentPerformance, true);
     }
 
     public function toMap()

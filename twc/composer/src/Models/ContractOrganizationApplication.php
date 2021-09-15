@@ -55,6 +55,14 @@ class ContractOrganizationApplication extends Model
      * @var string
      */
     public $organizationId;
+
+    // 机构子类型：ENTERPRISE（企业）、SELF-EMPLOYED（个体工商户）、SUBSIDIARY（分公司）、OTHERORG（其他机构）。若填入这些类型，将会进行相应参数校验，例如：企业类型要求进行企业四要素校验，企业证件号必须是91开头，并且企业类型在签署时会需要授权后才可进行签署；个体工商户要求证件号必须是92开头，其余类型无其他校验。不填入此参数不会进行校验。
+    /**
+     * @example ENTERPRISE
+     *
+     * @var string
+     */
+    public $orgType;
     protected $_name = [
         'idNumber'       => 'id_number',
         'idType'         => 'id_type',
@@ -62,6 +70,7 @@ class ContractOrganizationApplication extends Model
         'legalPersonId'  => 'legal_person_id',
         'name'           => 'name',
         'organizationId' => 'organization_id',
+        'orgType'        => 'org_type',
     ];
 
     public function validate()
@@ -92,6 +101,9 @@ class ContractOrganizationApplication extends Model
         if (null !== $this->organizationId) {
             $res['organization_id'] = $this->organizationId;
         }
+        if (null !== $this->orgType) {
+            $res['org_type'] = $this->orgType;
+        }
 
         return $res;
     }
@@ -121,6 +133,9 @@ class ContractOrganizationApplication extends Model
         }
         if (isset($map['organization_id'])) {
             $model->organizationId = $map['organization_id'];
+        }
+        if (isset($map['org_type'])) {
+            $model->orgType = $map['org_type'];
         }
 
         return $model;
