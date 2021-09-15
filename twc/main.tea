@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.26',
+    sdk_version = '1.5.29',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -233,7 +233,7 @@ model NaturalPerson {
   email?: string(name='email', example='323232321@alibba-inc.com'),
   // 自然人身份证正反面照片
   // 文件信息 列表（先调用接口获取上传url和fileKey）
-  idNumberFile: [ FileInfo ](name='id_number_file', example=''),
+  idNumberFile?: [ FileInfo ](name='id_number_file', example=''),
 }
 
 // 当被申请人为法人
@@ -292,7 +292,7 @@ model PerformanceInfo {
   // 买断金额
   buyoutAmount: string(name='buyout_amount', example='10000.00'),
   // 租赁分期履约信息
-  rentalInstallmentPerformance: [ RentalInstallmentPerformance ](name='rental_installment_performance', example=''),
+  rentalInstallmentPerformance?: [ RentalInstallmentPerformance ](name='rental_installment_performance', example=''),
 }
 
 // 物流信息
@@ -314,7 +314,7 @@ model LeasePerformanceInfo {
   // 买断金额
   buyoutAmount?: string(name='buyout_amount', example='123.00'),
   // 租赁分期履约信息
-  rentalInstallmentPerformance: [ RentalInstallmentPerformance ](name='rental_installment_performance', example=''),
+  rentalInstallmentPerformance?: [ RentalInstallmentPerformance ](name='rental_installment_performance', example=''),
 }
 
 // 自动进件订单信息
@@ -1031,6 +1031,8 @@ model ContractOrganizationApplication {
   name: string(name='name', example='测试企业'),
   // 机构唯一标识，可传入第三方平台的机构用户id等
   organizationId?: string(name='organization_id', example='B002'),
+  // 机构子类型：ENTERPRISE（企业）、SELF-EMPLOYED（个体工商户）、SUBSIDIARY（分公司）、OTHERORG（其他机构）。若填入这些类型，将会进行相应参数校验，例如：企业类型要求进行企业四要素校验，企业证件号必须是91开头，并且企业类型在签署时会需要授权后才可进行签署；个体工商户要求证件号必须是92开头，其余类型无其他校验。不填入此参数不会进行校验。
+  orgType?: string(name='org_type', example='ENTERPRISE'),
 }
 
 // 证据要素
