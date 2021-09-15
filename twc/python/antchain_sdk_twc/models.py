@@ -420,7 +420,6 @@ class NaturalPerson(TeaModel):
         self.validate_required(self.name, 'name')
         self.validate_required(self.mobile_number, 'mobile_number')
         self.validate_required(self.id_number, 'id_number')
-        self.validate_required(self.id_number_file, 'id_number_file')
         if self.id_number_file:
             for k in self.id_number_file:
                 if k:
@@ -691,7 +690,6 @@ class PerformanceInfo(TeaModel):
     def validate(self):
         self.validate_required(self.rent_pay_total, 'rent_pay_total')
         self.validate_required(self.buyout_amount, 'buyout_amount')
-        self.validate_required(self.rental_installment_performance, 'rental_installment_performance')
         if self.rental_installment_performance:
             for k in self.rental_installment_performance:
                 if k:
@@ -787,7 +785,6 @@ class LeasePerformanceInfo(TeaModel):
 
     def validate(self):
         self.validate_required(self.rent_pay_total, 'rent_pay_total')
-        self.validate_required(self.rental_installment_performance, 'rental_installment_performance')
         if self.rental_installment_performance:
             for k in self.rental_installment_performance:
                 if k:
@@ -3513,6 +3510,7 @@ class ContractOrganizationApplication(TeaModel):
         legal_person_id: str = None,
         name: str = None,
         organization_id: str = None,
+        org_type: str = None,
     ):
         # 证件号
         self.id_number = id_number
@@ -3526,6 +3524,8 @@ class ContractOrganizationApplication(TeaModel):
         self.name = name
         # 机构唯一标识，可传入第三方平台的机构用户id等
         self.organization_id = organization_id
+        # 机构子类型：ENTERPRISE（企业）、SELF-EMPLOYED（个体工商户）、SUBSIDIARY（分公司）、OTHERORG（其他机构）。若填入这些类型，将会进行相应参数校验，例如：企业类型要求进行企业四要素校验，企业证件号必须是91开头，并且企业类型在签署时会需要授权后才可进行签署；个体工商户要求证件号必须是92开头，其余类型无其他校验。不填入此参数不会进行校验。
+        self.org_type = org_type
 
     def validate(self):
         self.validate_required(self.id_number, 'id_number')
@@ -3546,6 +3546,8 @@ class ContractOrganizationApplication(TeaModel):
             result['name'] = self.name
         if self.organization_id is not None:
             result['organization_id'] = self.organization_id
+        if self.org_type is not None:
+            result['org_type'] = self.org_type
         return result
 
     def from_map(self, m: dict = None):
@@ -3562,6 +3564,8 @@ class ContractOrganizationApplication(TeaModel):
             self.name = m.get('name')
         if m.get('organization_id') is not None:
             self.organization_id = m.get('organization_id')
+        if m.get('org_type') is not None:
+            self.org_type = m.get('org_type')
         return self
 
 
