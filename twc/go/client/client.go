@@ -357,7 +357,7 @@ type NaturalPerson struct {
 	Email *string `json:"email,omitempty" xml:"email,omitempty"`
 	// 自然人身份证正反面照片
 	// 文件信息 列表（先调用接口获取上传url和fileKey）
-	IdNumberFile []*FileInfo `json:"id_number_file,omitempty" xml:"id_number_file,omitempty" require:"true" type:"Repeated"`
+	IdNumberFile []*FileInfo `json:"id_number_file,omitempty" xml:"id_number_file,omitempty" type:"Repeated"`
 }
 
 func (s NaturalPerson) String() string {
@@ -575,7 +575,7 @@ type PerformanceInfo struct {
 	// 买断金额
 	BuyoutAmount *string `json:"buyout_amount,omitempty" xml:"buyout_amount,omitempty" require:"true"`
 	// 租赁分期履约信息
-	RentalInstallmentPerformance []*RentalInstallmentPerformance `json:"rental_installment_performance,omitempty" xml:"rental_installment_performance,omitempty" require:"true" type:"Repeated"`
+	RentalInstallmentPerformance []*RentalInstallmentPerformance `json:"rental_installment_performance,omitempty" xml:"rental_installment_performance,omitempty" type:"Repeated"`
 }
 
 func (s PerformanceInfo) String() string {
@@ -648,7 +648,7 @@ type LeasePerformanceInfo struct {
 	// 买断金额
 	BuyoutAmount *string `json:"buyout_amount,omitempty" xml:"buyout_amount,omitempty"`
 	// 租赁分期履约信息
-	RentalInstallmentPerformance []*RentalInstallmentPerformance `json:"rental_installment_performance,omitempty" xml:"rental_installment_performance,omitempty" require:"true" type:"Repeated"`
+	RentalInstallmentPerformance []*RentalInstallmentPerformance `json:"rental_installment_performance,omitempty" xml:"rental_installment_performance,omitempty" type:"Repeated"`
 }
 
 func (s LeasePerformanceInfo) String() string {
@@ -3040,6 +3040,8 @@ type ContractOrganizationApplication struct {
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 机构唯一标识，可传入第三方平台的机构用户id等
 	OrganizationId *string `json:"organization_id,omitempty" xml:"organization_id,omitempty"`
+	// 机构子类型：ENTERPRISE（企业）、SELF-EMPLOYED（个体工商户）、SUBSIDIARY（分公司）、OTHERORG（其他机构）。若填入这些类型，将会进行相应参数校验，例如：企业类型要求进行企业四要素校验，企业证件号必须是91开头，并且企业类型在签署时会需要授权后才可进行签署；个体工商户要求证件号必须是92开头，其余类型无其他校验。不填入此参数不会进行校验。
+	OrgType *string `json:"org_type,omitempty" xml:"org_type,omitempty"`
 }
 
 func (s ContractOrganizationApplication) String() string {
@@ -3077,6 +3079,11 @@ func (s *ContractOrganizationApplication) SetName(v string) *ContractOrganizatio
 
 func (s *ContractOrganizationApplication) SetOrganizationId(v string) *ContractOrganizationApplication {
 	s.OrganizationId = &v
+	return s
+}
+
+func (s *ContractOrganizationApplication) SetOrgType(v string) *ContractOrganizationApplication {
+	s.OrgType = &v
 	return s
 }
 
@@ -25899,7 +25906,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.26"),
+				"sdk_version":      tea.String("1.5.29"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
