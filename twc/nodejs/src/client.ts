@@ -254,7 +254,7 @@ export class NaturalPerson extends $tea.Model {
   email?: string;
   // 自然人身份证正反面照片
   // 文件信息 列表（先调用接口获取上传url和fileKey）
-  idNumberFile: FileInfo[];
+  idNumberFile?: FileInfo[];
   static names(): { [key: string]: string } {
     return {
       name: 'name',
@@ -406,7 +406,7 @@ export class PerformanceInfo extends $tea.Model {
   // 买断金额
   buyoutAmount: string;
   // 租赁分期履约信息
-  rentalInstallmentPerformance: RentalInstallmentPerformance[];
+  rentalInstallmentPerformance?: RentalInstallmentPerformance[];
   static names(): { [key: string]: string } {
     return {
       rentPayTotal: 'rent_pay_total',
@@ -468,7 +468,7 @@ export class LeasePerformanceInfo extends $tea.Model {
   // 买断金额
   buyoutAmount?: string;
   // 租赁分期履约信息
-  rentalInstallmentPerformance: RentalInstallmentPerformance[];
+  rentalInstallmentPerformance?: RentalInstallmentPerformance[];
   static names(): { [key: string]: string } {
     return {
       rentPayTotal: 'rent_pay_total',
@@ -2247,6 +2247,8 @@ export class ContractOrganizationApplication extends $tea.Model {
   name: string;
   // 机构唯一标识，可传入第三方平台的机构用户id等
   organizationId?: string;
+  // 机构子类型：ENTERPRISE（企业）、SELF-EMPLOYED（个体工商户）、SUBSIDIARY（分公司）、OTHERORG（其他机构）。若填入这些类型，将会进行相应参数校验，例如：企业类型要求进行企业四要素校验，企业证件号必须是91开头，并且企业类型在签署时会需要授权后才可进行签署；个体工商户要求证件号必须是92开头，其余类型无其他校验。不填入此参数不会进行校验。
+  orgType?: string;
   static names(): { [key: string]: string } {
     return {
       idNumber: 'id_number',
@@ -2255,6 +2257,7 @@ export class ContractOrganizationApplication extends $tea.Model {
       legalPersonId: 'legal_person_id',
       name: 'name',
       organizationId: 'organization_id',
+      orgType: 'org_type',
     };
   }
 
@@ -2266,6 +2269,7 @@ export class ContractOrganizationApplication extends $tea.Model {
       legalPersonId: 'string',
       name: 'string',
       organizationId: 'string',
+      orgType: 'string',
     };
   }
 
@@ -19010,7 +19014,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.26",
+          sdk_version: "1.5.29",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
