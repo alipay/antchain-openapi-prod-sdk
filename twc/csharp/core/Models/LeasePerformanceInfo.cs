@@ -22,7 +22,7 @@ namespace AntChain.SDK.TWC.Models
 
         // 租赁分期履约信息
         [NameInMap("rental_installment_performance")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public List<RentalInstallmentPerformance> RentalInstallmentPerformance { get; set; }
 
     }

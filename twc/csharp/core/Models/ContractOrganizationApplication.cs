@@ -40,6 +40,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string OrganizationId { get; set; }
 
+        // 机构子类型：ENTERPRISE（企业）、SELF-EMPLOYED（个体工商户）、SUBSIDIARY（分公司）、OTHERORG（其他机构）。若填入这些类型，将会进行相应参数校验，例如：企业类型要求进行企业四要素校验，企业证件号必须是91开头，并且企业类型在签署时会需要授权后才可进行签署；个体工商户要求证件号必须是92开头，其余类型无其他校验。不填入此参数不会进行校验。
+        [NameInMap("org_type")]
+        [Validation(Required=false)]
+        public string OrgType { get; set; }
+
     }
 
 }

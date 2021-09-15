@@ -43,7 +43,7 @@ namespace AntChain.SDK.TWC.Models
         // 自然人身份证正反面照片
         // 文件信息 列表（先调用接口获取上传url和fileKey）
         [NameInMap("id_number_file")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public List<FileInfo> IdNumberFile { get; set; }
 
     }
