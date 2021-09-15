@@ -15,7 +15,6 @@ public class LeasePerformanceInfo extends TeaModel {
 
     // 租赁分期履约信息
     @NameInMap("rental_installment_performance")
-    @Validation(required = true)
     public java.util.List<RentalInstallmentPerformance> rentalInstallmentPerformance;
 
     public static LeasePerformanceInfo build(java.util.Map<String, ?> map) throws Exception {
