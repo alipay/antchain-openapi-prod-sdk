@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.5.26")
+                    new TeaPair("sdk_version", "1.6.13")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -157,6 +157,44 @@ public class Client {
         }
 
         throw new TeaUnretryableException(_lastRequest, _lastException);
+    }
+
+    /**
+     * Description: biot 私有化 设备注册接口
+     * Summary: biot 私有化 设备注册接口
+     */
+    public CreateAcsDeviceResponse createAcsDevice(CreateAcsDeviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAcsDeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: biot 私有化 设备注册接口
+     * Summary: biot 私有化 设备注册接口
+     */
+    public CreateAcsDeviceResponse createAcsDeviceEx(CreateAcsDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.acs.device.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAcsDeviceResponse());
+    }
+
+    /**
+     * Description: biot 私有化 业务数据上报
+     * Summary: biot 私有化 业务数据上报
+     */
+    public SendAcsCollectorResponse sendAcsCollector(SendAcsCollectorRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.sendAcsCollectorEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: biot 私有化 业务数据上报
+     * Summary: biot 私有化 业务数据上报
+     */
+    public SendAcsCollectorResponse sendAcsCollectorEx(SendAcsCollectorRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.acs.collector.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendAcsCollectorResponse());
     }
 
     /**
@@ -214,6 +252,25 @@ public class Client {
     public ImportIotplatformMeshidResponse importIotplatformMeshidEx(ImportIotplatformMeshidRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotplatform.meshid.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportIotplatformMeshidResponse());
+    }
+
+    /**
+     * Description: 与租赁宝对接采购订单导入的接口
+     * Summary: 与租赁宝对接采购订单导入的接口
+     */
+    public ImportPurchaseorderThirdpartyResponse importPurchaseorderThirdparty(ImportPurchaseorderThirdpartyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importPurchaseorderThirdpartyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 与租赁宝对接采购订单导入的接口
+     * Summary: 与租赁宝对接采购订单导入的接口
+     */
+    public ImportPurchaseorderThirdpartyResponse importPurchaseorderThirdpartyEx(ImportPurchaseorderThirdpartyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.purchaseorder.thirdparty.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportPurchaseorderThirdpartyResponse());
     }
 
     /**
@@ -1126,6 +1183,291 @@ public class Client {
     public AddCertificateResponse addCertificateEx(AddCertificateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.certificate.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddCertificateResponse());
+    }
+
+    /**
+     * Description: 新增租户
+     * Summary: 新增租户
+     */
+    public AddTenantResponse addTenant(AddTenantRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addTenantEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 新增租户
+     * Summary: 新增租户
+     */
+    public AddTenantResponse addTenantEx(AddTenantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.tenant.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddTenantResponse());
+    }
+
+    /**
+     * Description: 新增场景码
+     * Summary: 新增场景码
+     */
+    public AddSceneResponse addScene(AddSceneRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addSceneEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 新增场景码
+     * Summary: 新增场景码
+     */
+    public AddSceneResponse addSceneEx(AddSceneRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.scene.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddSceneResponse());
+    }
+
+    /**
+     * Description: 部署场景合同
+     * Summary: 部署场景合同
+     */
+    public DeploySceneResponse deployScene(DeploySceneRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deploySceneEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 部署场景合同
+     * Summary: 部署场景合同
+     */
+    public DeploySceneResponse deploySceneEx(DeploySceneRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.scene.deploy", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeploySceneResponse());
+    }
+
+    /**
+     * Description: 新增sdk
+     * Summary: 新增sdk
+     */
+    public AddSdkResponse addSdk(AddSdkRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addSdkEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 新增sdk
+     * Summary: 新增sdk
+     */
+    public AddSdkResponse addSdkEx(AddSdkRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.sdk.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddSdkResponse());
+    }
+
+    /**
+     * Description: 更新sdk
+     * Summary: 更新sdk
+     */
+    public UpdateSdkResponse updateSdk(UpdateSdkRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateSdkEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新sdk
+     * Summary: 更新sdk
+     */
+    public UpdateSdkResponse updateSdkEx(UpdateSdkRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.sdk.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateSdkResponse());
+    }
+
+    /**
+     * Description: 新增productKey
+     * Summary: 新增productKey
+     */
+    public AddProductkeyResponse addProductkey(AddProductkeyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addProductkeyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 新增productKey
+     * Summary: 新增productKey
+     */
+    public AddProductkeyResponse addProductkeyEx(AddProductkeyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.productkey.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddProductkeyResponse());
+    }
+
+    /**
+     * Description: 更新productKey
+     * Summary: 更新productKey
+     */
+    public UpdateProductkeyResponse updateProductkey(UpdateProductkeyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateProductkeyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新productKey
+     * Summary: 更新productKey
+     */
+    public UpdateProductkeyResponse updateProductkeyEx(UpdateProductkeyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.productkey.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateProductkeyResponse());
+    }
+
+    /**
+     * Description: 更新租户
+     * Summary: 更新租户
+     */
+    public UpdateTenantResponse updateTenant(UpdateTenantRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateTenantEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新租户
+     * Summary: 更新租户
+     */
+    public UpdateTenantResponse updateTenantEx(UpdateTenantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.tenant.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateTenantResponse());
+    }
+
+    /**
+     * Description: 更新场景码
+     * Summary: 更新场景码
+     */
+    public UpdateSceneResponse updateScene(UpdateSceneRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateSceneEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新场景码
+     * Summary: 更新场景码
+     */
+    public UpdateSceneResponse updateSceneEx(UpdateSceneRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.scene.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateSceneResponse());
+    }
+
+    /**
+     * Description: 上报标签流转的异步接口，是 blockchain.bot.label.transfer.sync的异步接口版本
+     * Summary: 上报标签流转的异步接口
+     */
+    public SendLabelTransferonasyncResponse sendLabelTransferonasync(SendLabelTransferonasyncRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.sendLabelTransferonasyncEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 上报标签流转的异步接口，是 blockchain.bot.label.transfer.sync的异步接口版本
+     * Summary: 上报标签流转的异步接口
+     */
+    public SendLabelTransferonasyncResponse sendLabelTransferonasyncEx(SendLabelTransferonasyncRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.label.transferonasync.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendLabelTransferonasyncResponse());
+    }
+
+    /**
+     * Description: 调用异步接口后，在reponsePeriod 天内，可调用此接口查询异步接口的执行结果 
+     * Summary: 异步接口结果查询
+     */
+    public QueryAsyncRequestResponse queryAsyncRequest(QueryAsyncRequestRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAsyncRequestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 调用异步接口后，在reponsePeriod 天内，可调用此接口查询异步接口的执行结果 
+     * Summary: 异步接口结果查询
+     */
+    public QueryAsyncRequestResponse queryAsyncRequestEx(QueryAsyncRequestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.async.request.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAsyncRequestResponse());
+    }
+
+    /**
+     * Description: 分页查询租户
+     * Summary: 分页查询租户
+     */
+    public PagequeryTenantResponse pagequeryTenant(PagequeryTenantRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryTenantEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询租户
+     * Summary: 分页查询租户
+     */
+    public PagequeryTenantResponse pagequeryTenantEx(PagequeryTenantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.tenant.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryTenantResponse());
+    }
+
+    /**
+     * Description: 分页查询场景码
+     * Summary: 分页查询场景码
+     */
+    public PagequerySceneResponse pagequeryScene(PagequerySceneRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequerySceneEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询场景码
+     * Summary: 分页查询场景码
+     */
+    public PagequerySceneResponse pagequerySceneEx(PagequerySceneRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.scene.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequerySceneResponse());
+    }
+
+    /**
+     * Description: 分页查询sdk
+     * Summary: 分页查询sdk
+     */
+    public PagequerySdkResponse pagequerySdk(PagequerySdkRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequerySdkEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询sdk
+     * Summary: 分页查询sdk
+     */
+    public PagequerySdkResponse pagequerySdkEx(PagequerySdkRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.sdk.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequerySdkResponse());
+    }
+
+    /**
+     * Description: 分页查询productKey
+     * Summary: 分页查询productKey
+     */
+    public PagequeryProductkeyResponse pagequeryProductkey(PagequeryProductkeyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryProductkeyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询productKey
+     * Summary: 分页查询productKey
+     */
+    public PagequeryProductkeyResponse pagequeryProductkeyEx(PagequeryProductkeyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.productkey.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryProductkeyResponse());
     }
 
     /**
