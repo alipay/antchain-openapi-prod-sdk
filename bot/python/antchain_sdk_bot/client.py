@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 原始数据包
+            # 场景码信息
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.26'
+                    'sdk_version': '1.6.13'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 原始数据包
+            # 场景码信息
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.26'
+                    'sdk_version': '1.6.13'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -270,6 +270,114 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def create_acs_device(
+        self,
+        request: bot_models.CreateAcsDeviceRequest,
+    ) -> bot_models.CreateAcsDeviceResponse:
+        """
+        Description: biot 私有化 设备注册接口
+        Summary: biot 私有化 设备注册接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_acs_device_ex(request, headers, runtime)
+
+    async def create_acs_device_async(
+        self,
+        request: bot_models.CreateAcsDeviceRequest,
+    ) -> bot_models.CreateAcsDeviceResponse:
+        """
+        Description: biot 私有化 设备注册接口
+        Summary: biot 私有化 设备注册接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_acs_device_ex_async(request, headers, runtime)
+
+    def create_acs_device_ex(
+        self,
+        request: bot_models.CreateAcsDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateAcsDeviceResponse:
+        """
+        Description: biot 私有化 设备注册接口
+        Summary: biot 私有化 设备注册接口
+        """
+        UtilClient.validate_model(request)
+        return bot_models.CreateAcsDeviceResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.acs.device.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_acs_device_ex_async(
+        self,
+        request: bot_models.CreateAcsDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateAcsDeviceResponse:
+        """
+        Description: biot 私有化 设备注册接口
+        Summary: biot 私有化 设备注册接口
+        """
+        UtilClient.validate_model(request)
+        return bot_models.CreateAcsDeviceResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.acs.device.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def send_acs_collector(
+        self,
+        request: bot_models.SendAcsCollectorRequest,
+    ) -> bot_models.SendAcsCollectorResponse:
+        """
+        Description: biot 私有化 业务数据上报
+        Summary: biot 私有化 业务数据上报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.send_acs_collector_ex(request, headers, runtime)
+
+    async def send_acs_collector_async(
+        self,
+        request: bot_models.SendAcsCollectorRequest,
+    ) -> bot_models.SendAcsCollectorResponse:
+        """
+        Description: biot 私有化 业务数据上报
+        Summary: biot 私有化 业务数据上报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.send_acs_collector_ex_async(request, headers, runtime)
+
+    def send_acs_collector_ex(
+        self,
+        request: bot_models.SendAcsCollectorRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SendAcsCollectorResponse:
+        """
+        Description: biot 私有化 业务数据上报
+        Summary: biot 私有化 业务数据上报
+        """
+        UtilClient.validate_model(request)
+        return bot_models.SendAcsCollectorResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.acs.collector.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def send_acs_collector_ex_async(
+        self,
+        request: bot_models.SendAcsCollectorRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SendAcsCollectorResponse:
+        """
+        Description: biot 私有化 业务数据上报
+        Summary: biot 私有化 业务数据上报
+        """
+        UtilClient.validate_model(request)
+        return bot_models.SendAcsCollectorResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.acs.collector.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def query_bai_ocr(
         self,
@@ -431,6 +539,60 @@ class Client:
         UtilClient.validate_model(request)
         return bot_models.ImportIotplatformMeshidResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.iotplatform.meshid.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_purchaseorder_thirdparty(
+        self,
+        request: bot_models.ImportPurchaseorderThirdpartyRequest,
+    ) -> bot_models.ImportPurchaseorderThirdpartyResponse:
+        """
+        Description: 与租赁宝对接采购订单导入的接口
+        Summary: 与租赁宝对接采购订单导入的接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_purchaseorder_thirdparty_ex(request, headers, runtime)
+
+    async def import_purchaseorder_thirdparty_async(
+        self,
+        request: bot_models.ImportPurchaseorderThirdpartyRequest,
+    ) -> bot_models.ImportPurchaseorderThirdpartyResponse:
+        """
+        Description: 与租赁宝对接采购订单导入的接口
+        Summary: 与租赁宝对接采购订单导入的接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_purchaseorder_thirdparty_ex_async(request, headers, runtime)
+
+    def import_purchaseorder_thirdparty_ex(
+        self,
+        request: bot_models.ImportPurchaseorderThirdpartyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ImportPurchaseorderThirdpartyResponse:
+        """
+        Description: 与租赁宝对接采购订单导入的接口
+        Summary: 与租赁宝对接采购订单导入的接口
+        """
+        UtilClient.validate_model(request)
+        return bot_models.ImportPurchaseorderThirdpartyResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.purchaseorder.thirdparty.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_purchaseorder_thirdparty_ex_async(
+        self,
+        request: bot_models.ImportPurchaseorderThirdpartyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ImportPurchaseorderThirdpartyResponse:
+        """
+        Description: 与租赁宝对接采购订单导入的接口
+        Summary: 与租赁宝对接采购订单导入的接口
+        """
+        UtilClient.validate_model(request)
+        return bot_models.ImportPurchaseorderThirdpartyResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.purchaseorder.thirdparty.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_device_datamodel(
@@ -3023,6 +3185,816 @@ class Client:
         UtilClient.validate_model(request)
         return bot_models.AddCertificateResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.certificate.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_tenant(
+        self,
+        request: bot_models.AddTenantRequest,
+    ) -> bot_models.AddTenantResponse:
+        """
+        Description: 新增租户
+        Summary: 新增租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_tenant_ex(request, headers, runtime)
+
+    async def add_tenant_async(
+        self,
+        request: bot_models.AddTenantRequest,
+    ) -> bot_models.AddTenantResponse:
+        """
+        Description: 新增租户
+        Summary: 新增租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_tenant_ex_async(request, headers, runtime)
+
+    def add_tenant_ex(
+        self,
+        request: bot_models.AddTenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddTenantResponse:
+        """
+        Description: 新增租户
+        Summary: 新增租户
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddTenantResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.tenant.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_tenant_ex_async(
+        self,
+        request: bot_models.AddTenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddTenantResponse:
+        """
+        Description: 新增租户
+        Summary: 新增租户
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddTenantResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.tenant.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_scene(
+        self,
+        request: bot_models.AddSceneRequest,
+    ) -> bot_models.AddSceneResponse:
+        """
+        Description: 新增场景码
+        Summary: 新增场景码
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_scene_ex(request, headers, runtime)
+
+    async def add_scene_async(
+        self,
+        request: bot_models.AddSceneRequest,
+    ) -> bot_models.AddSceneResponse:
+        """
+        Description: 新增场景码
+        Summary: 新增场景码
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_scene_ex_async(request, headers, runtime)
+
+    def add_scene_ex(
+        self,
+        request: bot_models.AddSceneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddSceneResponse:
+        """
+        Description: 新增场景码
+        Summary: 新增场景码
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddSceneResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.scene.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_scene_ex_async(
+        self,
+        request: bot_models.AddSceneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddSceneResponse:
+        """
+        Description: 新增场景码
+        Summary: 新增场景码
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddSceneResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.scene.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def deploy_scene(
+        self,
+        request: bot_models.DeploySceneRequest,
+    ) -> bot_models.DeploySceneResponse:
+        """
+        Description: 部署场景合同
+        Summary: 部署场景合同
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.deploy_scene_ex(request, headers, runtime)
+
+    async def deploy_scene_async(
+        self,
+        request: bot_models.DeploySceneRequest,
+    ) -> bot_models.DeploySceneResponse:
+        """
+        Description: 部署场景合同
+        Summary: 部署场景合同
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.deploy_scene_ex_async(request, headers, runtime)
+
+    def deploy_scene_ex(
+        self,
+        request: bot_models.DeploySceneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DeploySceneResponse:
+        """
+        Description: 部署场景合同
+        Summary: 部署场景合同
+        """
+        UtilClient.validate_model(request)
+        return bot_models.DeploySceneResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.scene.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def deploy_scene_ex_async(
+        self,
+        request: bot_models.DeploySceneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DeploySceneResponse:
+        """
+        Description: 部署场景合同
+        Summary: 部署场景合同
+        """
+        UtilClient.validate_model(request)
+        return bot_models.DeploySceneResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.scene.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_sdk(
+        self,
+        request: bot_models.AddSdkRequest,
+    ) -> bot_models.AddSdkResponse:
+        """
+        Description: 新增sdk
+        Summary: 新增sdk
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_sdk_ex(request, headers, runtime)
+
+    async def add_sdk_async(
+        self,
+        request: bot_models.AddSdkRequest,
+    ) -> bot_models.AddSdkResponse:
+        """
+        Description: 新增sdk
+        Summary: 新增sdk
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_sdk_ex_async(request, headers, runtime)
+
+    def add_sdk_ex(
+        self,
+        request: bot_models.AddSdkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddSdkResponse:
+        """
+        Description: 新增sdk
+        Summary: 新增sdk
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddSdkResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.sdk.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_sdk_ex_async(
+        self,
+        request: bot_models.AddSdkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddSdkResponse:
+        """
+        Description: 新增sdk
+        Summary: 新增sdk
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddSdkResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.sdk.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_sdk(
+        self,
+        request: bot_models.UpdateSdkRequest,
+    ) -> bot_models.UpdateSdkResponse:
+        """
+        Description: 更新sdk
+        Summary: 更新sdk
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_sdk_ex(request, headers, runtime)
+
+    async def update_sdk_async(
+        self,
+        request: bot_models.UpdateSdkRequest,
+    ) -> bot_models.UpdateSdkResponse:
+        """
+        Description: 更新sdk
+        Summary: 更新sdk
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_sdk_ex_async(request, headers, runtime)
+
+    def update_sdk_ex(
+        self,
+        request: bot_models.UpdateSdkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateSdkResponse:
+        """
+        Description: 更新sdk
+        Summary: 更新sdk
+        """
+        UtilClient.validate_model(request)
+        return bot_models.UpdateSdkResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.sdk.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_sdk_ex_async(
+        self,
+        request: bot_models.UpdateSdkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateSdkResponse:
+        """
+        Description: 更新sdk
+        Summary: 更新sdk
+        """
+        UtilClient.validate_model(request)
+        return bot_models.UpdateSdkResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.sdk.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_productkey(
+        self,
+        request: bot_models.AddProductkeyRequest,
+    ) -> bot_models.AddProductkeyResponse:
+        """
+        Description: 新增productKey
+        Summary: 新增productKey
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_productkey_ex(request, headers, runtime)
+
+    async def add_productkey_async(
+        self,
+        request: bot_models.AddProductkeyRequest,
+    ) -> bot_models.AddProductkeyResponse:
+        """
+        Description: 新增productKey
+        Summary: 新增productKey
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_productkey_ex_async(request, headers, runtime)
+
+    def add_productkey_ex(
+        self,
+        request: bot_models.AddProductkeyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddProductkeyResponse:
+        """
+        Description: 新增productKey
+        Summary: 新增productKey
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddProductkeyResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.productkey.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_productkey_ex_async(
+        self,
+        request: bot_models.AddProductkeyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddProductkeyResponse:
+        """
+        Description: 新增productKey
+        Summary: 新增productKey
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddProductkeyResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.productkey.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_productkey(
+        self,
+        request: bot_models.UpdateProductkeyRequest,
+    ) -> bot_models.UpdateProductkeyResponse:
+        """
+        Description: 更新productKey
+        Summary: 更新productKey
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_productkey_ex(request, headers, runtime)
+
+    async def update_productkey_async(
+        self,
+        request: bot_models.UpdateProductkeyRequest,
+    ) -> bot_models.UpdateProductkeyResponse:
+        """
+        Description: 更新productKey
+        Summary: 更新productKey
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_productkey_ex_async(request, headers, runtime)
+
+    def update_productkey_ex(
+        self,
+        request: bot_models.UpdateProductkeyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateProductkeyResponse:
+        """
+        Description: 更新productKey
+        Summary: 更新productKey
+        """
+        UtilClient.validate_model(request)
+        return bot_models.UpdateProductkeyResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.productkey.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_productkey_ex_async(
+        self,
+        request: bot_models.UpdateProductkeyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateProductkeyResponse:
+        """
+        Description: 更新productKey
+        Summary: 更新productKey
+        """
+        UtilClient.validate_model(request)
+        return bot_models.UpdateProductkeyResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.productkey.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_tenant(
+        self,
+        request: bot_models.UpdateTenantRequest,
+    ) -> bot_models.UpdateTenantResponse:
+        """
+        Description: 更新租户
+        Summary: 更新租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_tenant_ex(request, headers, runtime)
+
+    async def update_tenant_async(
+        self,
+        request: bot_models.UpdateTenantRequest,
+    ) -> bot_models.UpdateTenantResponse:
+        """
+        Description: 更新租户
+        Summary: 更新租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_tenant_ex_async(request, headers, runtime)
+
+    def update_tenant_ex(
+        self,
+        request: bot_models.UpdateTenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateTenantResponse:
+        """
+        Description: 更新租户
+        Summary: 更新租户
+        """
+        UtilClient.validate_model(request)
+        return bot_models.UpdateTenantResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.tenant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_tenant_ex_async(
+        self,
+        request: bot_models.UpdateTenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateTenantResponse:
+        """
+        Description: 更新租户
+        Summary: 更新租户
+        """
+        UtilClient.validate_model(request)
+        return bot_models.UpdateTenantResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.tenant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_scene(
+        self,
+        request: bot_models.UpdateSceneRequest,
+    ) -> bot_models.UpdateSceneResponse:
+        """
+        Description: 更新场景码
+        Summary: 更新场景码
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_scene_ex(request, headers, runtime)
+
+    async def update_scene_async(
+        self,
+        request: bot_models.UpdateSceneRequest,
+    ) -> bot_models.UpdateSceneResponse:
+        """
+        Description: 更新场景码
+        Summary: 更新场景码
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_scene_ex_async(request, headers, runtime)
+
+    def update_scene_ex(
+        self,
+        request: bot_models.UpdateSceneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateSceneResponse:
+        """
+        Description: 更新场景码
+        Summary: 更新场景码
+        """
+        UtilClient.validate_model(request)
+        return bot_models.UpdateSceneResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.scene.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_scene_ex_async(
+        self,
+        request: bot_models.UpdateSceneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateSceneResponse:
+        """
+        Description: 更新场景码
+        Summary: 更新场景码
+        """
+        UtilClient.validate_model(request)
+        return bot_models.UpdateSceneResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.scene.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def send_label_transferonasync(
+        self,
+        request: bot_models.SendLabelTransferonasyncRequest,
+    ) -> bot_models.SendLabelTransferonasyncResponse:
+        """
+        Description: 上报标签流转的异步接口，是 blockchain.bot.label.transfer.sync的异步接口版本
+        Summary: 上报标签流转的异步接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.send_label_transferonasync_ex(request, headers, runtime)
+
+    async def send_label_transferonasync_async(
+        self,
+        request: bot_models.SendLabelTransferonasyncRequest,
+    ) -> bot_models.SendLabelTransferonasyncResponse:
+        """
+        Description: 上报标签流转的异步接口，是 blockchain.bot.label.transfer.sync的异步接口版本
+        Summary: 上报标签流转的异步接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.send_label_transferonasync_ex_async(request, headers, runtime)
+
+    def send_label_transferonasync_ex(
+        self,
+        request: bot_models.SendLabelTransferonasyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SendLabelTransferonasyncResponse:
+        """
+        Description: 上报标签流转的异步接口，是 blockchain.bot.label.transfer.sync的异步接口版本
+        Summary: 上报标签流转的异步接口
+        """
+        UtilClient.validate_model(request)
+        return bot_models.SendLabelTransferonasyncResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.label.transferonasync.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def send_label_transferonasync_ex_async(
+        self,
+        request: bot_models.SendLabelTransferonasyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SendLabelTransferonasyncResponse:
+        """
+        Description: 上报标签流转的异步接口，是 blockchain.bot.label.transfer.sync的异步接口版本
+        Summary: 上报标签流转的异步接口
+        """
+        UtilClient.validate_model(request)
+        return bot_models.SendLabelTransferonasyncResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.label.transferonasync.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_async_request(
+        self,
+        request: bot_models.QueryAsyncRequestRequest,
+    ) -> bot_models.QueryAsyncRequestResponse:
+        """
+        Description: 调用异步接口后，在reponsePeriod 天内，可调用此接口查询异步接口的执行结果
+        Summary: 异步接口结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_async_request_ex(request, headers, runtime)
+
+    async def query_async_request_async(
+        self,
+        request: bot_models.QueryAsyncRequestRequest,
+    ) -> bot_models.QueryAsyncRequestResponse:
+        """
+        Description: 调用异步接口后，在reponsePeriod 天内，可调用此接口查询异步接口的执行结果
+        Summary: 异步接口结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_async_request_ex_async(request, headers, runtime)
+
+    def query_async_request_ex(
+        self,
+        request: bot_models.QueryAsyncRequestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryAsyncRequestResponse:
+        """
+        Description: 调用异步接口后，在reponsePeriod 天内，可调用此接口查询异步接口的执行结果
+        Summary: 异步接口结果查询
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryAsyncRequestResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.async.request.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_async_request_ex_async(
+        self,
+        request: bot_models.QueryAsyncRequestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryAsyncRequestResponse:
+        """
+        Description: 调用异步接口后，在reponsePeriod 天内，可调用此接口查询异步接口的执行结果
+        Summary: 异步接口结果查询
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryAsyncRequestResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.async.request.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_tenant(
+        self,
+        request: bot_models.PagequeryTenantRequest,
+    ) -> bot_models.PagequeryTenantResponse:
+        """
+        Description: 分页查询租户
+        Summary: 分页查询租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_tenant_ex(request, headers, runtime)
+
+    async def pagequery_tenant_async(
+        self,
+        request: bot_models.PagequeryTenantRequest,
+    ) -> bot_models.PagequeryTenantResponse:
+        """
+        Description: 分页查询租户
+        Summary: 分页查询租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_tenant_ex_async(request, headers, runtime)
+
+    def pagequery_tenant_ex(
+        self,
+        request: bot_models.PagequeryTenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryTenantResponse:
+        """
+        Description: 分页查询租户
+        Summary: 分页查询租户
+        """
+        UtilClient.validate_model(request)
+        return bot_models.PagequeryTenantResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.tenant.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_tenant_ex_async(
+        self,
+        request: bot_models.PagequeryTenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryTenantResponse:
+        """
+        Description: 分页查询租户
+        Summary: 分页查询租户
+        """
+        UtilClient.validate_model(request)
+        return bot_models.PagequeryTenantResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.tenant.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_scene(
+        self,
+        request: bot_models.PagequerySceneRequest,
+    ) -> bot_models.PagequerySceneResponse:
+        """
+        Description: 分页查询场景码
+        Summary: 分页查询场景码
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_scene_ex(request, headers, runtime)
+
+    async def pagequery_scene_async(
+        self,
+        request: bot_models.PagequerySceneRequest,
+    ) -> bot_models.PagequerySceneResponse:
+        """
+        Description: 分页查询场景码
+        Summary: 分页查询场景码
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_scene_ex_async(request, headers, runtime)
+
+    def pagequery_scene_ex(
+        self,
+        request: bot_models.PagequerySceneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequerySceneResponse:
+        """
+        Description: 分页查询场景码
+        Summary: 分页查询场景码
+        """
+        UtilClient.validate_model(request)
+        return bot_models.PagequerySceneResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.scene.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_scene_ex_async(
+        self,
+        request: bot_models.PagequerySceneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequerySceneResponse:
+        """
+        Description: 分页查询场景码
+        Summary: 分页查询场景码
+        """
+        UtilClient.validate_model(request)
+        return bot_models.PagequerySceneResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.scene.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_sdk(
+        self,
+        request: bot_models.PagequerySdkRequest,
+    ) -> bot_models.PagequerySdkResponse:
+        """
+        Description: 分页查询sdk
+        Summary: 分页查询sdk
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_sdk_ex(request, headers, runtime)
+
+    async def pagequery_sdk_async(
+        self,
+        request: bot_models.PagequerySdkRequest,
+    ) -> bot_models.PagequerySdkResponse:
+        """
+        Description: 分页查询sdk
+        Summary: 分页查询sdk
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_sdk_ex_async(request, headers, runtime)
+
+    def pagequery_sdk_ex(
+        self,
+        request: bot_models.PagequerySdkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequerySdkResponse:
+        """
+        Description: 分页查询sdk
+        Summary: 分页查询sdk
+        """
+        UtilClient.validate_model(request)
+        return bot_models.PagequerySdkResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.sdk.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_sdk_ex_async(
+        self,
+        request: bot_models.PagequerySdkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequerySdkResponse:
+        """
+        Description: 分页查询sdk
+        Summary: 分页查询sdk
+        """
+        UtilClient.validate_model(request)
+        return bot_models.PagequerySdkResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.sdk.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_productkey(
+        self,
+        request: bot_models.PagequeryProductkeyRequest,
+    ) -> bot_models.PagequeryProductkeyResponse:
+        """
+        Description: 分页查询productKey
+        Summary: 分页查询productKey
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_productkey_ex(request, headers, runtime)
+
+    async def pagequery_productkey_async(
+        self,
+        request: bot_models.PagequeryProductkeyRequest,
+    ) -> bot_models.PagequeryProductkeyResponse:
+        """
+        Description: 分页查询productKey
+        Summary: 分页查询productKey
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_productkey_ex_async(request, headers, runtime)
+
+    def pagequery_productkey_ex(
+        self,
+        request: bot_models.PagequeryProductkeyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryProductkeyResponse:
+        """
+        Description: 分页查询productKey
+        Summary: 分页查询productKey
+        """
+        UtilClient.validate_model(request)
+        return bot_models.PagequeryProductkeyResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.productkey.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_productkey_ex_async(
+        self,
+        request: bot_models.PagequeryProductkeyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryProductkeyResponse:
+        """
+        Description: 分页查询productKey
+        Summary: 分页查询productKey
+        """
+        UtilClient.validate_model(request)
+        return bot_models.PagequeryProductkeyResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.productkey.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
