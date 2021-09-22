@@ -17,8 +17,18 @@ use AntChain\BOT\Models\AddCertificateRequest;
 use AntChain\BOT\Models\AddCertificateResponse;
 use AntChain\BOT\Models\AddLabelAssetRequest;
 use AntChain\BOT\Models\AddLabelAssetResponse;
+use AntChain\BOT\Models\AddProductkeyRequest;
+use AntChain\BOT\Models\AddProductkeyResponse;
+use AntChain\BOT\Models\AddSceneRequest;
+use AntChain\BOT\Models\AddSceneResponse;
+use AntChain\BOT\Models\AddSdkRequest;
+use AntChain\BOT\Models\AddSdkResponse;
+use AntChain\BOT\Models\AddTenantRequest;
+use AntChain\BOT\Models\AddTenantResponse;
 use AntChain\BOT\Models\ApplyMqtokenRequest;
 use AntChain\BOT\Models\ApplyMqtokenResponse;
+use AntChain\BOT\Models\CreateAcsDeviceRequest;
+use AntChain\BOT\Models\CreateAcsDeviceResponse;
 use AntChain\BOT\Models\CreateConsumerRequest;
 use AntChain\BOT\Models\CreateConsumerResponse;
 use AntChain\BOT\Models\CreateDeviceDatamodelRequest;
@@ -37,6 +47,8 @@ use AntChain\BOT\Models\CreateTaskRequest;
 use AntChain\BOT\Models\CreateTaskResponse;
 use AntChain\BOT\Models\CreateTenantProjectRequest;
 use AntChain\BOT\Models\CreateTenantProjectResponse;
+use AntChain\BOT\Models\DeploySceneRequest;
+use AntChain\BOT\Models\DeploySceneResponse;
 use AntChain\BOT\Models\ExecThingsdidOneapiRequest;
 use AntChain\BOT\Models\ExecThingsdidOneapiResponse;
 use AntChain\BOT\Models\ExecUnprocessedTaskRequest;
@@ -65,6 +77,8 @@ use AntChain\BOT\Models\ImportIotplatformMeshidRequest;
 use AntChain\BOT\Models\ImportIotplatformMeshidResponse;
 use AntChain\BOT\Models\ImportPeripheralRequest;
 use AntChain\BOT\Models\ImportPeripheralResponse;
+use AntChain\BOT\Models\ImportPurchaseorderThirdpartyRequest;
+use AntChain\BOT\Models\ImportPurchaseorderThirdpartyResponse;
 use AntChain\BOT\Models\ListDeviceBysceneRequest;
 use AntChain\BOT\Models\ListDeviceBysceneResponse;
 use AntChain\BOT\Models\ListDistributedeviceByperipheralsceneRequest;
@@ -83,10 +97,20 @@ use AntChain\BOT\Models\OfflineDeviceRequest;
 use AntChain\BOT\Models\OfflineDeviceResponse;
 use AntChain\BOT\Models\OnlineDeviceRequest;
 use AntChain\BOT\Models\OnlineDeviceResponse;
+use AntChain\BOT\Models\PagequeryProductkeyRequest;
+use AntChain\BOT\Models\PagequeryProductkeyResponse;
+use AntChain\BOT\Models\PagequerySceneRequest;
+use AntChain\BOT\Models\PagequerySceneResponse;
+use AntChain\BOT\Models\PagequerySdkRequest;
+use AntChain\BOT\Models\PagequerySdkResponse;
+use AntChain\BOT\Models\PagequeryTenantRequest;
+use AntChain\BOT\Models\PagequeryTenantResponse;
 use AntChain\BOT\Models\PullConsumerDatasourceRequest;
 use AntChain\BOT\Models\PullConsumerDatasourceResponse;
 use AntChain\BOT\Models\QueryAnalysisRequest;
 use AntChain\BOT\Models\QueryAnalysisResponse;
+use AntChain\BOT\Models\QueryAsyncRequestRequest;
+use AntChain\BOT\Models\QueryAsyncRequestResponse;
 use AntChain\BOT\Models\QueryBaiOcrRequest;
 use AntChain\BOT\Models\QueryBaiOcrResponse;
 use AntChain\BOT\Models\QueryDataBytxhashRequest;
@@ -107,6 +131,8 @@ use AntChain\BOT\Models\ReplaceDistributedeviceBychainidRequest;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainidResponse;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainperipheralidRequest;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainperipheralidResponse;
+use AntChain\BOT\Models\SendAcsCollectorRequest;
+use AntChain\BOT\Models\SendAcsCollectorResponse;
 use AntChain\BOT\Models\SendCollectorBychainidmulRequest;
 use AntChain\BOT\Models\SendCollectorBychainidmulResponse;
 use AntChain\BOT\Models\SendCollectorBychainidRequest;
@@ -115,6 +141,8 @@ use AntChain\BOT\Models\SendCollectorDevicebizdataRequest;
 use AntChain\BOT\Models\SendCollectorDevicebizdataResponse;
 use AntChain\BOT\Models\SendCollectorSummarydataRequest;
 use AntChain\BOT\Models\SendCollectorSummarydataResponse;
+use AntChain\BOT\Models\SendLabelTransferonasyncRequest;
+use AntChain\BOT\Models\SendLabelTransferonasyncResponse;
 use AntChain\BOT\Models\SetConsumerSubscribeRequest;
 use AntChain\BOT\Models\SetConsumerSubscribeResponse;
 use AntChain\BOT\Models\SetConsumerUnsubscribeRequest;
@@ -133,6 +161,14 @@ use AntChain\BOT\Models\UpdateDeviceInfobydeviceRequest;
 use AntChain\BOT\Models\UpdateDeviceInfobydeviceResponse;
 use AntChain\BOT\Models\UpdateDeviceInfoRequest;
 use AntChain\BOT\Models\UpdateDeviceInfoResponse;
+use AntChain\BOT\Models\UpdateProductkeyRequest;
+use AntChain\BOT\Models\UpdateProductkeyResponse;
+use AntChain\BOT\Models\UpdateSceneRequest;
+use AntChain\BOT\Models\UpdateSceneResponse;
+use AntChain\BOT\Models\UpdateSdkRequest;
+use AntChain\BOT\Models\UpdateSdkResponse;
+use AntChain\BOT\Models\UpdateTenantRequest;
+use AntChain\BOT\Models\UpdateTenantResponse;
 use AntChain\BOT\Models\UpdateThingsdidDevicespaceRequest;
 use AntChain\BOT\Models\UpdateThingsdidDevicespaceResponse;
 use AntChain\BOT\Models\UpdateThingsdidDidRequest;
@@ -260,7 +296,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 原始数据包
+            // 场景码信息
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -288,7 +324,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.26',
+                    'sdk_version'      => '1.6.13',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -332,6 +368,72 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: biot 私有化 设备注册接口
+     * Summary: biot 私有化 设备注册接口.
+     *
+     * @param CreateAcsDeviceRequest $request
+     *
+     * @return CreateAcsDeviceResponse
+     */
+    public function createAcsDevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAcsDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: biot 私有化 设备注册接口
+     * Summary: biot 私有化 设备注册接口.
+     *
+     * @param CreateAcsDeviceRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return CreateAcsDeviceResponse
+     */
+    public function createAcsDeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAcsDeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.acs.device.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: biot 私有化 业务数据上报
+     * Summary: biot 私有化 业务数据上报.
+     *
+     * @param SendAcsCollectorRequest $request
+     *
+     * @return SendAcsCollectorResponse
+     */
+    public function sendAcsCollector($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendAcsCollectorEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: biot 私有化 业务数据上报
+     * Summary: biot 私有化 业务数据上报.
+     *
+     * @param SendAcsCollectorRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return SendAcsCollectorResponse
+     */
+    public function sendAcsCollectorEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendAcsCollectorResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.acs.collector.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -431,6 +533,39 @@ class Client
         Utils::validateModel($request);
 
         return ImportIotplatformMeshidResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotplatform.meshid.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 与租赁宝对接采购订单导入的接口
+     * Summary: 与租赁宝对接采购订单导入的接口.
+     *
+     * @param ImportPurchaseorderThirdpartyRequest $request
+     *
+     * @return ImportPurchaseorderThirdpartyResponse
+     */
+    public function importPurchaseorderThirdparty($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importPurchaseorderThirdpartyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 与租赁宝对接采购订单导入的接口
+     * Summary: 与租赁宝对接采购订单导入的接口.
+     *
+     * @param ImportPurchaseorderThirdpartyRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return ImportPurchaseorderThirdpartyResponse
+     */
+    public function importPurchaseorderThirdpartyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportPurchaseorderThirdpartyResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.purchaseorder.thirdparty.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -2015,6 +2150,501 @@ class Client
         Utils::validateModel($request);
 
         return AddCertificateResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.certificate.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新增租户
+     * Summary: 新增租户.
+     *
+     * @param AddTenantRequest $request
+     *
+     * @return AddTenantResponse
+     */
+    public function addTenant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addTenantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新增租户
+     * Summary: 新增租户.
+     *
+     * @param AddTenantRequest $request
+     * @param string[]         $headers
+     * @param RuntimeOptions   $runtime
+     *
+     * @return AddTenantResponse
+     */
+    public function addTenantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddTenantResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.tenant.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新增场景码
+     * Summary: 新增场景码
+     *
+     * @param AddSceneRequest $request
+     *
+     * @return AddSceneResponse
+     */
+    public function addScene($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addSceneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新增场景码
+     * Summary: 新增场景码
+     *
+     * @param AddSceneRequest $request
+     * @param string[]        $headers
+     * @param RuntimeOptions  $runtime
+     *
+     * @return AddSceneResponse
+     */
+    public function addSceneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddSceneResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.scene.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 部署场景合同
+     * Summary: 部署场景合同.
+     *
+     * @param DeploySceneRequest $request
+     *
+     * @return DeploySceneResponse
+     */
+    public function deployScene($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deploySceneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 部署场景合同
+     * Summary: 部署场景合同.
+     *
+     * @param DeploySceneRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return DeploySceneResponse
+     */
+    public function deploySceneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeploySceneResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.scene.deploy', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新增sdk
+     * Summary: 新增sdk.
+     *
+     * @param AddSdkRequest $request
+     *
+     * @return AddSdkResponse
+     */
+    public function addSdk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addSdkEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新增sdk
+     * Summary: 新增sdk.
+     *
+     * @param AddSdkRequest  $request
+     * @param string[]       $headers
+     * @param RuntimeOptions $runtime
+     *
+     * @return AddSdkResponse
+     */
+    public function addSdkEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddSdkResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.sdk.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新sdk
+     * Summary: 更新sdk.
+     *
+     * @param UpdateSdkRequest $request
+     *
+     * @return UpdateSdkResponse
+     */
+    public function updateSdk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateSdkEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新sdk
+     * Summary: 更新sdk.
+     *
+     * @param UpdateSdkRequest $request
+     * @param string[]         $headers
+     * @param RuntimeOptions   $runtime
+     *
+     * @return UpdateSdkResponse
+     */
+    public function updateSdkEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateSdkResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.sdk.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新增productKey
+     * Summary: 新增productKey.
+     *
+     * @param AddProductkeyRequest $request
+     *
+     * @return AddProductkeyResponse
+     */
+    public function addProductkey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addProductkeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新增productKey
+     * Summary: 新增productKey.
+     *
+     * @param AddProductkeyRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return AddProductkeyResponse
+     */
+    public function addProductkeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddProductkeyResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.productkey.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新productKey
+     * Summary: 更新productKey.
+     *
+     * @param UpdateProductkeyRequest $request
+     *
+     * @return UpdateProductkeyResponse
+     */
+    public function updateProductkey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateProductkeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新productKey
+     * Summary: 更新productKey.
+     *
+     * @param UpdateProductkeyRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return UpdateProductkeyResponse
+     */
+    public function updateProductkeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateProductkeyResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.productkey.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新租户
+     * Summary: 更新租户.
+     *
+     * @param UpdateTenantRequest $request
+     *
+     * @return UpdateTenantResponse
+     */
+    public function updateTenant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateTenantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新租户
+     * Summary: 更新租户.
+     *
+     * @param UpdateTenantRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return UpdateTenantResponse
+     */
+    public function updateTenantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateTenantResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.tenant.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新场景码
+     * Summary: 更新场景码
+     *
+     * @param UpdateSceneRequest $request
+     *
+     * @return UpdateSceneResponse
+     */
+    public function updateScene($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateSceneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新场景码
+     * Summary: 更新场景码
+     *
+     * @param UpdateSceneRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return UpdateSceneResponse
+     */
+    public function updateSceneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateSceneResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.scene.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 上报标签流转的异步接口，是 blockchain.bot.label.transfer.sync的异步接口版本
+     * Summary: 上报标签流转的异步接口.
+     *
+     * @param SendLabelTransferonasyncRequest $request
+     *
+     * @return SendLabelTransferonasyncResponse
+     */
+    public function sendLabelTransferonasync($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendLabelTransferonasyncEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 上报标签流转的异步接口，是 blockchain.bot.label.transfer.sync的异步接口版本
+     * Summary: 上报标签流转的异步接口.
+     *
+     * @param SendLabelTransferonasyncRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return SendLabelTransferonasyncResponse
+     */
+    public function sendLabelTransferonasyncEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendLabelTransferonasyncResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.label.transferonasync.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用异步接口后，在reponsePeriod 天内，可调用此接口查询异步接口的执行结果
+     * Summary: 异步接口结果查询.
+     *
+     * @param QueryAsyncRequestRequest $request
+     *
+     * @return QueryAsyncRequestResponse
+     */
+    public function queryAsyncRequest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAsyncRequestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用异步接口后，在reponsePeriod 天内，可调用此接口查询异步接口的执行结果
+     * Summary: 异步接口结果查询.
+     *
+     * @param QueryAsyncRequestRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryAsyncRequestResponse
+     */
+    public function queryAsyncRequestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAsyncRequestResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.async.request.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询租户
+     * Summary: 分页查询租户.
+     *
+     * @param PagequeryTenantRequest $request
+     *
+     * @return PagequeryTenantResponse
+     */
+    public function pagequeryTenant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryTenantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询租户
+     * Summary: 分页查询租户.
+     *
+     * @param PagequeryTenantRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return PagequeryTenantResponse
+     */
+    public function pagequeryTenantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryTenantResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.tenant.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询场景码
+     * Summary: 分页查询场景码
+     *
+     * @param PagequerySceneRequest $request
+     *
+     * @return PagequerySceneResponse
+     */
+    public function pagequeryScene($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequerySceneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询场景码
+     * Summary: 分页查询场景码
+     *
+     * @param PagequerySceneRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return PagequerySceneResponse
+     */
+    public function pagequerySceneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequerySceneResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.scene.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询sdk
+     * Summary: 分页查询sdk.
+     *
+     * @param PagequerySdkRequest $request
+     *
+     * @return PagequerySdkResponse
+     */
+    public function pagequerySdk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequerySdkEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询sdk
+     * Summary: 分页查询sdk.
+     *
+     * @param PagequerySdkRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return PagequerySdkResponse
+     */
+    public function pagequerySdkEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequerySdkResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.sdk.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询productKey
+     * Summary: 分页查询productKey.
+     *
+     * @param PagequeryProductkeyRequest $request
+     *
+     * @return PagequeryProductkeyResponse
+     */
+    public function pagequeryProductkey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryProductkeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询productKey
+     * Summary: 分页查询productKey.
+     *
+     * @param PagequeryProductkeyRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return PagequeryProductkeyResponse
+     */
+    public function pagequeryProductkeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryProductkeyResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.productkey.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
