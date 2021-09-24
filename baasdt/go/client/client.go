@@ -6,6 +6,7 @@ import (
 	util "github.com/alibabacloud-go/tea-utils/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
+	"io"
 )
 
 /**
@@ -686,6 +687,163 @@ func (s *IPCardInfo) SetAccountBranchName(v string) *IPCardInfo {
 	return s
 }
 
+// 正版码配置的商品信息
+type IPCodeGoodsInfo struct {
+	// 商品名称
+	GoodsName *string `json:"goods_name,omitempty" xml:"goods_name,omitempty"`
+	// 商品链接
+	GoodsUrl *string `json:"goods_url,omitempty" xml:"goods_url,omitempty"`
+	// 商品图片
+	GoodsImage *string `json:"goods_image,omitempty" xml:"goods_image,omitempty"`
+	// 商品店铺名称/商品出品方
+	GoodsStore *string `json:"goods_store,omitempty" xml:"goods_store,omitempty"`
+	// 店铺logo图片链接
+	GoodsStoreLogo *string `json:"goods_store_logo,omitempty" xml:"goods_store_logo,omitempty"`
+	// 商品描述
+	GoodsDescription *string `json:"goods_description,omitempty" xml:"goods_description,omitempty"`
+	// 商品品牌
+	GoodsBrand *string `json:"goods_brand,omitempty" xml:"goods_brand,omitempty"`
+	// 授权过期类型，0：长久有效，1：有效日期内有效
+	AuthorizationExpiratedType *string `json:"authorization_expirated_type,omitempty" xml:"authorization_expirated_type,omitempty"`
+	// 授权截止日期
+	AuthorizationEndTime *string `json:"authorization_end_time,omitempty" xml:"authorization_end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s IPCodeGoodsInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPCodeGoodsInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IPCodeGoodsInfo) SetGoodsName(v string) *IPCodeGoodsInfo {
+	s.GoodsName = &v
+	return s
+}
+
+func (s *IPCodeGoodsInfo) SetGoodsUrl(v string) *IPCodeGoodsInfo {
+	s.GoodsUrl = &v
+	return s
+}
+
+func (s *IPCodeGoodsInfo) SetGoodsImage(v string) *IPCodeGoodsInfo {
+	s.GoodsImage = &v
+	return s
+}
+
+func (s *IPCodeGoodsInfo) SetGoodsStore(v string) *IPCodeGoodsInfo {
+	s.GoodsStore = &v
+	return s
+}
+
+func (s *IPCodeGoodsInfo) SetGoodsStoreLogo(v string) *IPCodeGoodsInfo {
+	s.GoodsStoreLogo = &v
+	return s
+}
+
+func (s *IPCodeGoodsInfo) SetGoodsDescription(v string) *IPCodeGoodsInfo {
+	s.GoodsDescription = &v
+	return s
+}
+
+func (s *IPCodeGoodsInfo) SetGoodsBrand(v string) *IPCodeGoodsInfo {
+	s.GoodsBrand = &v
+	return s
+}
+
+func (s *IPCodeGoodsInfo) SetAuthorizationExpiratedType(v string) *IPCodeGoodsInfo {
+	s.AuthorizationExpiratedType = &v
+	return s
+}
+
+func (s *IPCodeGoodsInfo) SetAuthorizationEndTime(v string) *IPCodeGoodsInfo {
+	s.AuthorizationEndTime = &v
+	return s
+}
+
+// 增值服务信息
+type ValueAddedServiceInfo struct {
+	// 增值服务归属账户id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 增值服务id
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
+	// 增值服务名字
+	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty" require:"true"`
+	// 主图 链接地址
+	Images *string `json:"images,omitempty" xml:"images,omitempty" require:"true"`
+	// 详情图
+	ImagesDetail *string `json:"images_detail,omitempty" xml:"images_detail,omitempty" require:"true"`
+	// 增值服务描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 联系人列表
+	DockingPeople []*DockingPeopleInfo `json:"docking_people,omitempty" xml:"docking_people,omitempty" require:"true" type:"Repeated"`
+	// 资质证明
+	CopyRight *string `json:"copy_right,omitempty" xml:"copy_right,omitempty"`
+	// 备注
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
+	// 服务状态（0:待审核 1:审核拒绝 2:上线【审核通过】 3: 下线）
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s ValueAddedServiceInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ValueAddedServiceInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ValueAddedServiceInfo) SetAccountId(v string) *ValueAddedServiceInfo {
+	s.AccountId = &v
+	return s
+}
+
+func (s *ValueAddedServiceInfo) SetServiceId(v string) *ValueAddedServiceInfo {
+	s.ServiceId = &v
+	return s
+}
+
+func (s *ValueAddedServiceInfo) SetServiceName(v string) *ValueAddedServiceInfo {
+	s.ServiceName = &v
+	return s
+}
+
+func (s *ValueAddedServiceInfo) SetImages(v string) *ValueAddedServiceInfo {
+	s.Images = &v
+	return s
+}
+
+func (s *ValueAddedServiceInfo) SetImagesDetail(v string) *ValueAddedServiceInfo {
+	s.ImagesDetail = &v
+	return s
+}
+
+func (s *ValueAddedServiceInfo) SetDescription(v string) *ValueAddedServiceInfo {
+	s.Description = &v
+	return s
+}
+
+func (s *ValueAddedServiceInfo) SetDockingPeople(v []*DockingPeopleInfo) *ValueAddedServiceInfo {
+	s.DockingPeople = v
+	return s
+}
+
+func (s *ValueAddedServiceInfo) SetCopyRight(v string) *ValueAddedServiceInfo {
+	s.CopyRight = &v
+	return s
+}
+
+func (s *ValueAddedServiceInfo) SetMemo(v string) *ValueAddedServiceInfo {
+	s.Memo = &v
+	return s
+}
+
+func (s *ValueAddedServiceInfo) SetStatus(v int64) *ValueAddedServiceInfo {
+	s.Status = &v
+	return s
+}
+
 // 权益附属信息
 type EquityExtInfo struct {
 	// 指定兑换日限制已使用
@@ -751,6 +909,39 @@ func (s *EquityExtInfo) SetTenantPriceWithCommission(v string) *EquityExtInfo {
 
 func (s *EquityExtInfo) SetCommission(v string) *EquityExtInfo {
 	s.Commission = &v
+	return s
+}
+
+// 正版码版权方信息
+type IPCodeIpOwnerInfo struct {
+	// 版权所有者名称
+	IpOwnerName *string `json:"ip_owner_name,omitempty" xml:"ip_owner_name,omitempty"`
+	// 版权方头像oss地址
+	IpOwnerImage *string `json:"ip_owner_image,omitempty" xml:"ip_owner_image,omitempty"`
+	// ip描述
+	IpDescription *string `json:"ip_description,omitempty" xml:"ip_description,omitempty"`
+}
+
+func (s IPCodeIpOwnerInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPCodeIpOwnerInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IPCodeIpOwnerInfo) SetIpOwnerName(v string) *IPCodeIpOwnerInfo {
+	s.IpOwnerName = &v
+	return s
+}
+
+func (s *IPCodeIpOwnerInfo) SetIpOwnerImage(v string) *IPCodeIpOwnerInfo {
+	s.IpOwnerImage = &v
+	return s
+}
+
+func (s *IPCodeIpOwnerInfo) SetIpDescription(v string) *IPCodeIpOwnerInfo {
+	s.IpDescription = &v
 	return s
 }
 
@@ -965,6 +1156,39 @@ func (s *DebitWallet) SetTrusteeId(v string) *DebitWallet {
 
 func (s *DebitWallet) SetWalletType(v int64) *DebitWallet {
 	s.WalletType = &v
+	return s
+}
+
+// sku的基础信息
+type IpSkuEmphasisInfo struct {
+	// 价格区间，不做校验
+	PriceRange *string `json:"price_range,omitempty" xml:"price_range,omitempty" require:"true"`
+	// 单价
+	PurchasePrice *string `json:"purchase_price,omitempty" xml:"purchase_price,omitempty" require:"true"`
+	// 套餐数量
+	SaleNum *string `json:"sale_num,omitempty" xml:"sale_num,omitempty" require:"true"`
+}
+
+func (s IpSkuEmphasisInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IpSkuEmphasisInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IpSkuEmphasisInfo) SetPriceRange(v string) *IpSkuEmphasisInfo {
+	s.PriceRange = &v
+	return s
+}
+
+func (s *IpSkuEmphasisInfo) SetPurchasePrice(v string) *IpSkuEmphasisInfo {
+	s.PurchasePrice = &v
+	return s
+}
+
+func (s *IpSkuEmphasisInfo) SetSaleNum(v string) *IpSkuEmphasisInfo {
+	s.SaleNum = &v
 	return s
 }
 
@@ -1264,8 +1488,10 @@ type IpBasicInfo struct {
 	// "position":"aaa"// 联系人职务,必填
 	// }]
 	DockingPeopleInfo []*DockingPeopleInfo `json:"docking_people_info,omitempty" xml:"docking_people_info,omitempty" require:"true" type:"Repeated"`
+	// 资质证书类型，0为自己上传的资质证书，1为区块链版权证书
+	CopyRightType *string `json:"copy_right_type,omitempty" xml:"copy_right_type,omitempty" require:"true"`
 	// 资质信息
-	CopyRight *string `json:"copy_right,omitempty" xml:"copy_right,omitempty" require:"true"`
+	CopyRight *string `json:"copy_right,omitempty" xml:"copy_right,omitempty"`
 	// 合作案例，图片存放oss链接，多张用,隔开
 	CooperationCase *string `json:"cooperation_case,omitempty" xml:"cooperation_case,omitempty"`
 	// 合作事项
@@ -1343,6 +1569,11 @@ func (s *IpBasicInfo) SetDescription(v string) *IpBasicInfo {
 
 func (s *IpBasicInfo) SetDockingPeopleInfo(v []*DockingPeopleInfo) *IpBasicInfo {
 	s.DockingPeopleInfo = v
+	return s
+}
+
+func (s *IpBasicInfo) SetCopyRightType(v string) *IpBasicInfo {
+	s.CopyRightType = &v
 	return s
 }
 
@@ -1436,6 +1667,8 @@ type IPContactInfo struct {
 	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
 	// 联系人类型, 1-法人；2-实际控制人；3-代理人；4-其他
 	Type *int64 `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 联系人身份证号
+	Certno *string `json:"certno,omitempty" xml:"certno,omitempty"`
 }
 
 func (s IPContactInfo) String() string {
@@ -1463,6 +1696,44 @@ func (s *IPContactInfo) SetPhone(v string) *IPContactInfo {
 
 func (s *IPContactInfo) SetType(v int64) *IPContactInfo {
 	s.Type = &v
+	return s
+}
+
+func (s *IPContactInfo) SetCertno(v string) *IPContactInfo {
+	s.Certno = &v
+	return s
+}
+
+// 正版码配置资源位信息
+type IPCodeAdvertisingInfo struct {
+	// 资源位头图
+	AdImage *string `json:"ad_image,omitempty" xml:"ad_image,omitempty"`
+	// 资源位链接
+	AdUrl *string `json:"ad_url,omitempty" xml:"ad_url,omitempty"`
+	// 资源商品名称
+	AdName *string `json:"ad_name,omitempty" xml:"ad_name,omitempty"`
+}
+
+func (s IPCodeAdvertisingInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPCodeAdvertisingInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IPCodeAdvertisingInfo) SetAdImage(v string) *IPCodeAdvertisingInfo {
+	s.AdImage = &v
+	return s
+}
+
+func (s *IPCodeAdvertisingInfo) SetAdUrl(v string) *IPCodeAdvertisingInfo {
+	s.AdUrl = &v
+	return s
+}
+
+func (s *IPCodeAdvertisingInfo) SetAdName(v string) *IPCodeAdvertisingInfo {
+	s.AdName = &v
 	return s
 }
 
@@ -1597,6 +1868,10 @@ type IpChannelWithSku struct {
 	SkuInfo []*IpSkuInfo `json:"sku_info,omitempty" xml:"sku_info,omitempty" require:"true" type:"Repeated"`
 	// 商品状态（0:待上架，1:上架，2:下架）
 	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 交易是否需要确认
+	TradeNeedConfirm *bool `json:"trade_need_confirm,omitempty" xml:"trade_need_confirm,omitempty"`
+	// 授权类型
+	AuthorizationType []*string `json:"authorization_type,omitempty" xml:"authorization_type,omitempty" type:"Repeated"`
 }
 
 func (s IpChannelWithSku) String() string {
@@ -1634,6 +1909,16 @@ func (s *IpChannelWithSku) SetSkuInfo(v []*IpSkuInfo) *IpChannelWithSku {
 
 func (s *IpChannelWithSku) SetStatus(v int64) *IpChannelWithSku {
 	s.Status = &v
+	return s
+}
+
+func (s *IpChannelWithSku) SetTradeNeedConfirm(v bool) *IpChannelWithSku {
+	s.TradeNeedConfirm = &v
+	return s
+}
+
+func (s *IpChannelWithSku) SetAuthorizationType(v []*string) *IpChannelWithSku {
+	s.AuthorizationType = v
 	return s
 }
 
@@ -1888,6 +2173,39 @@ func (s *IPMCC) SetCategoryLevel3(v string) *IPMCC {
 	return s
 }
 
+// 账户入驻的渠道表
+type AccountInChannels struct {
+	// 天猫渠道
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
+	// 是否入驻
+	IsSettled *bool `json:"is_settled,omitempty" xml:"is_settled,omitempty" require:"true"`
+	// WAIT_CHECK:渠道已申请开通但未审核，SUCCESS:渠道开通审核成功，渠道开通
+	SettledStatus *string `json:"settled_status,omitempty" xml:"settled_status,omitempty"`
+}
+
+func (s AccountInChannels) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AccountInChannels) GoString() string {
+	return s.String()
+}
+
+func (s *AccountInChannels) SetChannelName(v string) *AccountInChannels {
+	s.ChannelName = &v
+	return s
+}
+
+func (s *AccountInChannels) SetIsSettled(v bool) *AccountInChannels {
+	s.IsSettled = &v
+	return s
+}
+
+func (s *AccountInChannels) SetSettledStatus(v string) *AccountInChannels {
+	s.SettledStatus = &v
+	return s
+}
+
 // 手续费信息
 type Commission struct {
 	// 要更新的手续费状态
@@ -1996,6 +2314,46 @@ func (s *BlockConsumeCardInfo) SetAssetMap(v string) *BlockConsumeCardInfo {
 	return s
 }
 
+// sku配置加上ip等级
+type IpSkuConfigWithLevel struct {
+	// 价格区间
+	PriceRange *string `json:"price_range,omitempty" xml:"price_range,omitempty" require:"true"`
+	// 单价
+	PurchasePrice *string `json:"purchase_price,omitempty" xml:"purchase_price,omitempty" require:"true"`
+	// 销售数量
+	SaleNum *int64 `json:"sale_num,omitempty" xml:"sale_num,omitempty" require:"true"`
+	// ip等级
+	IpLevel *int64 `json:"ip_level,omitempty" xml:"ip_level,omitempty" require:"true"`
+}
+
+func (s IpSkuConfigWithLevel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IpSkuConfigWithLevel) GoString() string {
+	return s.String()
+}
+
+func (s *IpSkuConfigWithLevel) SetPriceRange(v string) *IpSkuConfigWithLevel {
+	s.PriceRange = &v
+	return s
+}
+
+func (s *IpSkuConfigWithLevel) SetPurchasePrice(v string) *IpSkuConfigWithLevel {
+	s.PurchasePrice = &v
+	return s
+}
+
+func (s *IpSkuConfigWithLevel) SetSaleNum(v int64) *IpSkuConfigWithLevel {
+	s.SaleNum = &v
+	return s
+}
+
+func (s *IpSkuConfigWithLevel) SetIpLevel(v int64) *IpSkuConfigWithLevel {
+	s.IpLevel = &v
+	return s
+}
+
 // 图片OSS URL，包含四个不同大小的图片
 type MultiURL struct {
 	// 上传的图片正常大小
@@ -2081,6 +2439,32 @@ func (s *BaseRequest) SetMemo(v string) *BaseRequest {
 
 func (s *BaseRequest) SetProductCode(v string) *BaseRequest {
 	s.ProductCode = &v
+	return s
+}
+
+// 增值服务加sku信息
+type ValueAddedServiceInfoWithSku struct {
+	// 增值服务信息
+	AddValueInfo *ValueAddedServiceInfo `json:"add_value_info,omitempty" xml:"add_value_info,omitempty" require:"true"`
+	// sku信息
+	Skus []*IpSkuEmphasisInfo `json:"skus,omitempty" xml:"skus,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ValueAddedServiceInfoWithSku) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ValueAddedServiceInfoWithSku) GoString() string {
+	return s.String()
+}
+
+func (s *ValueAddedServiceInfoWithSku) SetAddValueInfo(v *ValueAddedServiceInfo) *ValueAddedServiceInfoWithSku {
+	s.AddValueInfo = v
+	return s
+}
+
+func (s *ValueAddedServiceInfoWithSku) SetSkus(v []*IpSkuEmphasisInfo) *ValueAddedServiceInfoWithSku {
+	s.Skus = v
 	return s
 }
 
@@ -2225,6 +2609,74 @@ func (s *BaseResponseData) SetTxHash(v string) *BaseResponseData {
 	return s
 }
 
+// IP图库记录
+type IPGalleryInstruction struct {
+	// 下载时间
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+	// 授权订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
+	// IP链上ID
+	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
+	// 图库链接
+	IpGalleryUrl *string `json:"ip_gallery_url,omitempty" xml:"ip_gallery_url,omitempty" require:"true"`
+	// 图库下载链接，默认过期时间2小时
+	IpGalleryTemporaryUrl *string `json:"ip_gallery_temporary_url,omitempty" xml:"ip_gallery_temporary_url,omitempty" require:"true"`
+	// 图库版本
+	IpGalleryVersion *int64 `json:"ip_gallery_version,omitempty" xml:"ip_gallery_version,omitempty" require:"true"`
+	// IP当前图库状态：0 生效中，1 已失效
+	IpGalleryStatus *int64 `json:"ip_gallery_status,omitempty" xml:"ip_gallery_status,omitempty" require:"true"`
+	// 备注信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s IPGalleryInstruction) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPGalleryInstruction) GoString() string {
+	return s.String()
+}
+
+func (s *IPGalleryInstruction) SetTimestamp(v int64) *IPGalleryInstruction {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *IPGalleryInstruction) SetIpOrderId(v string) *IPGalleryInstruction {
+	s.IpOrderId = &v
+	return s
+}
+
+func (s *IPGalleryInstruction) SetIpId(v string) *IPGalleryInstruction {
+	s.IpId = &v
+	return s
+}
+
+func (s *IPGalleryInstruction) SetIpGalleryUrl(v string) *IPGalleryInstruction {
+	s.IpGalleryUrl = &v
+	return s
+}
+
+func (s *IPGalleryInstruction) SetIpGalleryTemporaryUrl(v string) *IPGalleryInstruction {
+	s.IpGalleryTemporaryUrl = &v
+	return s
+}
+
+func (s *IPGalleryInstruction) SetIpGalleryVersion(v int64) *IPGalleryInstruction {
+	s.IpGalleryVersion = &v
+	return s
+}
+
+func (s *IPGalleryInstruction) SetIpGalleryStatus(v int64) *IPGalleryInstruction {
+	s.IpGalleryStatus = &v
+	return s
+}
+
+func (s *IPGalleryInstruction) SetExtInfo(v string) *IPGalleryInstruction {
+	s.ExtInfo = &v
+	return s
+}
+
 // 区块
 type Block struct {
 	// 区块头
@@ -2248,6 +2700,44 @@ func (s *Block) SetHeader(v *BlockHeader) *Block {
 
 func (s *Block) SetBody(v *BlockBody) *Block {
 	s.Body = v
+	return s
+}
+
+// 用于sku config的查询
+type SkuWithLevel struct {
+}
+
+func (s SkuWithLevel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SkuWithLevel) GoString() string {
+	return s.String()
+}
+
+// ip 基础信息带上是否更新，只在渠道查询审批中用到
+type IpBasicInfoWithUpdate struct {
+	// 基础信息
+	IpBasicInfo *IpBasicInfo `json:"ip_basic_info,omitempty" xml:"ip_basic_info,omitempty" require:"true"`
+	// 是否有更新
+	IsUpdate *bool `json:"is_update,omitempty" xml:"is_update,omitempty" require:"true"`
+}
+
+func (s IpBasicInfoWithUpdate) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IpBasicInfoWithUpdate) GoString() string {
+	return s.String()
+}
+
+func (s *IpBasicInfoWithUpdate) SetIpBasicInfo(v *IpBasicInfo) *IpBasicInfoWithUpdate {
+	s.IpBasicInfo = v
+	return s
+}
+
+func (s *IpBasicInfoWithUpdate) SetIsUpdate(v bool) *IpBasicInfoWithUpdate {
+	s.IsUpdate = &v
 	return s
 }
 
@@ -2281,6 +2771,67 @@ func (s *BaseRequestInfo) SetChainId(v string) *BaseRequestInfo {
 
 func (s *BaseRequestInfo) SetProductCode(v string) *BaseRequestInfo {
 	s.ProductCode = &v
+	return s
+}
+
+// 渠道对应的账户信息
+type AccountSettlementInfo struct {
+	// 账户id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 版权方名字
+	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty" require:"true"`
+	// WAIT_CHECK:渠道已申请开通但未审核，SUCCESS，审核成功
+	SettledStatus *string `json:"settled_status,omitempty" xml:"settled_status,omitempty" require:"true"`
+	// 版权方联系人名字
+	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty"`
+	// 版权方联系人手机
+	ContactMobile *string `json:"contact_mobile,omitempty" xml:"contact_mobile,omitempty"`
+	// 版权方联系人手机号
+	ContactPhone *string `json:"contact_phone,omitempty" xml:"contact_phone,omitempty" require:"true"`
+	// 申请入驻时间
+	ApplyTime *int64 `json:"apply_time,omitempty" xml:"apply_time,omitempty" require:"true"`
+}
+
+func (s AccountSettlementInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AccountSettlementInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AccountSettlementInfo) SetAccountId(v string) *AccountSettlementInfo {
+	s.AccountId = &v
+	return s
+}
+
+func (s *AccountSettlementInfo) SetAccountName(v string) *AccountSettlementInfo {
+	s.AccountName = &v
+	return s
+}
+
+func (s *AccountSettlementInfo) SetSettledStatus(v string) *AccountSettlementInfo {
+	s.SettledStatus = &v
+	return s
+}
+
+func (s *AccountSettlementInfo) SetContactName(v string) *AccountSettlementInfo {
+	s.ContactName = &v
+	return s
+}
+
+func (s *AccountSettlementInfo) SetContactMobile(v string) *AccountSettlementInfo {
+	s.ContactMobile = &v
+	return s
+}
+
+func (s *AccountSettlementInfo) SetContactPhone(v string) *AccountSettlementInfo {
+	s.ContactPhone = &v
+	return s
+}
+
+func (s *AccountSettlementInfo) SetApplyTime(v int64) *AccountSettlementInfo {
+	s.ApplyTime = &v
 	return s
 }
 
@@ -2412,6 +2963,46 @@ func (s *ExchangeableEquityList) SetStartRow(v int64) *ExchangeableEquityList {
 
 func (s *ExchangeableEquityList) SetTotal(v int64) *ExchangeableEquityList {
 	s.Total = &v
+	return s
+}
+
+// 渠道统计结果
+type ChannelCounter struct {
+	// 渠道名字
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
+	// 统计值
+	Counter *int64 `json:"counter,omitempty" xml:"counter,omitempty" require:"true"`
+	// 月份。如果月份有具体值则数据为该月份数据，月份为空则为全部统计数据。
+	Month *string `json:"month,omitempty" xml:"month,omitempty"`
+	// 渠道交易金额
+	TotalPrice *string `json:"total_price,omitempty" xml:"total_price,omitempty"`
+}
+
+func (s ChannelCounter) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChannelCounter) GoString() string {
+	return s.String()
+}
+
+func (s *ChannelCounter) SetChannelName(v string) *ChannelCounter {
+	s.ChannelName = &v
+	return s
+}
+
+func (s *ChannelCounter) SetCounter(v int64) *ChannelCounter {
+	s.Counter = &v
+	return s
+}
+
+func (s *ChannelCounter) SetMonth(v string) *ChannelCounter {
+	s.Month = &v
+	return s
+}
+
+func (s *ChannelCounter) SetTotalPrice(v string) *ChannelCounter {
+	s.TotalPrice = &v
 	return s
 }
 
@@ -2957,6 +3548,32 @@ func (s *IPBill) SetCycleEndTime(v int64) *IPBill {
 	return s
 }
 
+// 联系人信息
+type SimpleContactInfo struct {
+	// 联系人名称
+	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty" require:"true"`
+	// 联系电话
+	ContactPhone *string `json:"contact_phone,omitempty" xml:"contact_phone,omitempty" require:"true"`
+}
+
+func (s SimpleContactInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SimpleContactInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SimpleContactInfo) SetContactName(v string) *SimpleContactInfo {
+	s.ContactName = &v
+	return s
+}
+
+func (s *SimpleContactInfo) SetContactPhone(v string) *SimpleContactInfo {
+	s.ContactPhone = &v
+	return s
+}
+
 // 电子券批次信息
 type CouponCollection struct {
 	// 批次ID
@@ -3110,6 +3727,29 @@ type IPOrder struct {
 	AuthAreaScope *string `json:"auth_area_scope,omitempty" xml:"auth_area_scope,omitempty" require:"true"`
 	// 商品销售渠道
 	SalesChannel *string `json:"sales_channel,omitempty" xml:"sales_channel,omitempty" require:"true"`
+	// 0 IP交易，1 增值服务交易
+	GoodsType *int64 `json:"goods_type,omitempty" xml:"goods_type,omitempty" require:"true"`
+	// 增值服务交易绑定的ip授权交易订单
+	RelatedOrderId *string `json:"related_order_id,omitempty" xml:"related_order_id,omitempty" require:"true"`
+	// 是否已监修报审
+	SuperviseApprove *bool `json:"supervise_approve,omitempty" xml:"supervise_approve,omitempty" require:"true"`
+	// 订单图库信息，未确认则为空
+	IpGalleryUrl *string `json:"ip_gallery_url,omitempty" xml:"ip_gallery_url,omitempty"`
+	// 图库版本
+	IpGalleryVersion *int64 `json:"ip_gallery_version,omitempty" xml:"ip_gallery_version,omitempty"`
+	// 商家是否已下载过本订单的图库
+	DownloadIpGallery *bool `json:"download_ip_gallery,omitempty" xml:"download_ip_gallery,omitempty"`
+	// 备注信息
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
+	// 附加条款
+	AdditionalClause *string `json:"additional_clause,omitempty" xml:"additional_clause,omitempty"`
+	// 合同文件列表
+	ContractFiles []*string `json:"contract_files,omitempty" xml:"contract_files,omitempty" type:"Repeated"`
+	// 授权类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty"`
+	// 绑定的商品ID列表
+	//
+	GoodsIdList []*string `json:"goods_id_list,omitempty" xml:"goods_id_list,omitempty" type:"Repeated"`
 }
 
 func (s IPOrder) String() string {
@@ -3290,36 +3930,58 @@ func (s *IPOrder) SetSalesChannel(v string) *IPOrder {
 	return s
 }
 
-// sku的基础信息
-type IpSkuEmphasisInfo struct {
-	// 价格区间，不做校验
-	PriceRange *string `json:"price_range,omitempty" xml:"price_range,omitempty" require:"true"`
-	// 单价
-	PurchasePrice *string `json:"purchase_price,omitempty" xml:"purchase_price,omitempty" require:"true"`
-	// 套餐数量
-	SaleNum *string `json:"sale_num,omitempty" xml:"sale_num,omitempty" require:"true"`
-}
-
-func (s IpSkuEmphasisInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IpSkuEmphasisInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IpSkuEmphasisInfo) SetPriceRange(v string) *IpSkuEmphasisInfo {
-	s.PriceRange = &v
+func (s *IPOrder) SetGoodsType(v int64) *IPOrder {
+	s.GoodsType = &v
 	return s
 }
 
-func (s *IpSkuEmphasisInfo) SetPurchasePrice(v string) *IpSkuEmphasisInfo {
-	s.PurchasePrice = &v
+func (s *IPOrder) SetRelatedOrderId(v string) *IPOrder {
+	s.RelatedOrderId = &v
 	return s
 }
 
-func (s *IpSkuEmphasisInfo) SetSaleNum(v string) *IpSkuEmphasisInfo {
-	s.SaleNum = &v
+func (s *IPOrder) SetSuperviseApprove(v bool) *IPOrder {
+	s.SuperviseApprove = &v
+	return s
+}
+
+func (s *IPOrder) SetIpGalleryUrl(v string) *IPOrder {
+	s.IpGalleryUrl = &v
+	return s
+}
+
+func (s *IPOrder) SetIpGalleryVersion(v int64) *IPOrder {
+	s.IpGalleryVersion = &v
+	return s
+}
+
+func (s *IPOrder) SetDownloadIpGallery(v bool) *IPOrder {
+	s.DownloadIpGallery = &v
+	return s
+}
+
+func (s *IPOrder) SetMemo(v string) *IPOrder {
+	s.Memo = &v
+	return s
+}
+
+func (s *IPOrder) SetAdditionalClause(v string) *IPOrder {
+	s.AdditionalClause = &v
+	return s
+}
+
+func (s *IPOrder) SetContractFiles(v []*string) *IPOrder {
+	s.ContractFiles = v
+	return s
+}
+
+func (s *IPOrder) SetAuthType(v string) *IPOrder {
+	s.AuthType = &v
+	return s
+}
+
+func (s *IPOrder) SetGoodsIdList(v []*string) *IPOrder {
+	s.GoodsIdList = v
 	return s
 }
 
@@ -3613,6 +4275,16 @@ type IPSalesInfo struct {
 	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
 	// 销售数据上传操作时间（毫秒时间戳）
 	OperateTime *int64 `json:"operate_time,omitempty" xml:"operate_time,omitempty" require:"true"`
+	// 商品信息
+	GoodsInfo *string `json:"goods_info,omitempty" xml:"goods_info,omitempty"`
+	// 商品ID
+	GoodsId *string `json:"goods_id,omitempty" xml:"goods_id,omitempty"`
+	// 退款的销售金额，有退款时填写，默认0
+	RefundSales *string `json:"refund_sales,omitempty" xml:"refund_sales,omitempty"`
+	// 订单信息json string: 用户ID/订单状态/订单创建时间戳ms/订单支付时间戳ms等
+	SalesExtInfo *string `json:"sales_ext_info,omitempty" xml:"sales_ext_info,omitempty"`
+	// 用户信息json string: 姓名/手机号/地址等结构化数据
+	SalesUserInfo *string `json:"sales_user_info,omitempty" xml:"sales_user_info,omitempty"`
 }
 
 func (s IPSalesInfo) String() string {
@@ -3688,6 +4360,31 @@ func (s *IPSalesInfo) SetOperateTime(v int64) *IPSalesInfo {
 	return s
 }
 
+func (s *IPSalesInfo) SetGoodsInfo(v string) *IPSalesInfo {
+	s.GoodsInfo = &v
+	return s
+}
+
+func (s *IPSalesInfo) SetGoodsId(v string) *IPSalesInfo {
+	s.GoodsId = &v
+	return s
+}
+
+func (s *IPSalesInfo) SetRefundSales(v string) *IPSalesInfo {
+	s.RefundSales = &v
+	return s
+}
+
+func (s *IPSalesInfo) SetSalesExtInfo(v string) *IPSalesInfo {
+	s.SalesExtInfo = &v
+	return s
+}
+
+func (s *IPSalesInfo) SetSalesUserInfo(v string) *IPSalesInfo {
+	s.SalesUserInfo = &v
+	return s
+}
+
 // token信息
 type TokenData struct {
 	// 拥有的token数量
@@ -3740,6 +4437,8 @@ type IpChannelInfo struct {
 	IpLevel *int64 `json:"ip_level,omitempty" xml:"ip_level,omitempty" require:"true"`
 	// 商品状态（0:待上架，1:上架，2:下架）
 	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 交易是否需要确认
+	TradeNeedConfirm *bool `json:"trade_need_confirm,omitempty" xml:"trade_need_confirm,omitempty"`
 }
 
 func (s IpChannelInfo) String() string {
@@ -3775,6 +4474,93 @@ func (s *IpChannelInfo) SetStatus(v int64) *IpChannelInfo {
 	return s
 }
 
+func (s *IpChannelInfo) SetTradeNeedConfirm(v bool) *IpChannelInfo {
+	s.TradeNeedConfirm = &v
+	return s
+}
+
+// 监修报审表单内容
+type SuperviseApprove struct {
+	// 关联的订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 当前的阶段
+	Stage *int64 `json:"stage,omitempty" xml:"stage,omitempty" require:"true"`
+	// json组织，用于存储监修报审的具体信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
+	// 当前阶段的审批状态   0:待审批，1:审批通过 2:审批拒绝
+	ApprovalStatus *int64 `json:"approval_status,omitempty" xml:"approval_status,omitempty" require:"true"`
+	// 审批备注
+	ApprovalComments *string `json:"approval_comments,omitempty" xml:"approval_comments,omitempty"`
+	// 上链的交易hash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 关联的订单交易的ip id
+	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
+	// 关联交易的卖家id
+	SellerAccountId *string `json:"seller_account_id,omitempty" xml:"seller_account_id,omitempty" require:"true"`
+	// 关联交易的买家id
+	BuyerAccountId *string `json:"buyer_account_id,omitempty" xml:"buyer_account_id,omitempty" require:"true"`
+	// 审批额外信息
+	ApprovalExtInfo *string `json:"approval_ext_info,omitempty" xml:"approval_ext_info,omitempty"`
+}
+
+func (s SuperviseApprove) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SuperviseApprove) GoString() string {
+	return s.String()
+}
+
+func (s *SuperviseApprove) SetOrderId(v string) *SuperviseApprove {
+	s.OrderId = &v
+	return s
+}
+
+func (s *SuperviseApprove) SetStage(v int64) *SuperviseApprove {
+	s.Stage = &v
+	return s
+}
+
+func (s *SuperviseApprove) SetExtInfo(v string) *SuperviseApprove {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *SuperviseApprove) SetApprovalStatus(v int64) *SuperviseApprove {
+	s.ApprovalStatus = &v
+	return s
+}
+
+func (s *SuperviseApprove) SetApprovalComments(v string) *SuperviseApprove {
+	s.ApprovalComments = &v
+	return s
+}
+
+func (s *SuperviseApprove) SetTxHash(v string) *SuperviseApprove {
+	s.TxHash = &v
+	return s
+}
+
+func (s *SuperviseApprove) SetIpId(v string) *SuperviseApprove {
+	s.IpId = &v
+	return s
+}
+
+func (s *SuperviseApprove) SetSellerAccountId(v string) *SuperviseApprove {
+	s.SellerAccountId = &v
+	return s
+}
+
+func (s *SuperviseApprove) SetBuyerAccountId(v string) *SuperviseApprove {
+	s.BuyerAccountId = &v
+	return s
+}
+
+func (s *SuperviseApprove) SetApprovalExtInfo(v string) *SuperviseApprove {
+	s.ApprovalExtInfo = &v
+	return s
+}
+
 // ip的重点信息
 type IpEmphasisInfo struct {
 	// ip的链上id
@@ -3797,6 +4583,12 @@ type IpEmphasisInfo struct {
 	IpName *string `json:"ip_name,omitempty" xml:"ip_name,omitempty" require:"true"`
 	// 商户名称
 	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty"`
+	// 浏览量
+	Pv *int64 `json:"pv,omitempty" xml:"pv,omitempty"`
+	// 最近一次上下架时间
+	LastStateChangeTime *int64 `json:"last_state_change_time,omitempty" xml:"last_state_change_time,omitempty"`
+	// ip的创建渠道，按照查询参数返回
+	CreaterChannel *string `json:"creater_channel,omitempty" xml:"creater_channel,omitempty"`
 }
 
 func (s IpEmphasisInfo) String() string {
@@ -3854,6 +4646,21 @@ func (s *IpEmphasisInfo) SetIpName(v string) *IpEmphasisInfo {
 
 func (s *IpEmphasisInfo) SetAccountName(v string) *IpEmphasisInfo {
 	s.AccountName = &v
+	return s
+}
+
+func (s *IpEmphasisInfo) SetPv(v int64) *IpEmphasisInfo {
+	s.Pv = &v
+	return s
+}
+
+func (s *IpEmphasisInfo) SetLastStateChangeTime(v int64) *IpEmphasisInfo {
+	s.LastStateChangeTime = &v
+	return s
+}
+
+func (s *IpEmphasisInfo) SetCreaterChannel(v string) *IpEmphasisInfo {
+	s.CreaterChannel = &v
 	return s
 }
 
@@ -5544,6 +6351,102 @@ func (s *WalletInfo) SetStatisticalInfo(v *StatisticalInfo) *WalletInfo {
 	return s
 }
 
+// T+1日销售数据汇总
+type SalesByDay struct {
+	// 订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
+	// 版权方ID
+	SellerId *string `json:"seller_id,omitempty" xml:"seller_id,omitempty" require:"true"`
+	// 商家ID
+	BuyerId *string `json:"buyer_id,omitempty" xml:"buyer_id,omitempty" require:"true"`
+	// 版权方名称
+	SellerName *string `json:"seller_name,omitempty" xml:"seller_name,omitempty" require:"true"`
+	// 商家名称
+	BuyerName *string `json:"buyer_name,omitempty" xml:"buyer_name,omitempty" require:"true"`
+	// 日期
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+	// 统计周期-开始时间
+	StatisticBeginPeriod *int64 `json:"statistic_begin_period,omitempty" xml:"statistic_begin_period,omitempty" require:"true"`
+	// 统计周期-结束时间
+	StatisticEndPeriod *int64 `json:"statistic_end_period,omitempty" xml:"statistic_end_period,omitempty" require:"true"`
+	// 商品销售数量
+	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 商品总销售额
+	Sales *string `json:"sales,omitempty" xml:"sales,omitempty" require:"true"`
+	// 总回退销售额
+	RefundSales *string `json:"refund_sales,omitempty" xml:"refund_sales,omitempty" require:"true"`
+	// 需支付给版权方的总费用
+	Payment *string `json:"payment,omitempty" xml:"payment,omitempty" require:"true"`
+}
+
+func (s SalesByDay) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SalesByDay) GoString() string {
+	return s.String()
+}
+
+func (s *SalesByDay) SetIpOrderId(v string) *SalesByDay {
+	s.IpOrderId = &v
+	return s
+}
+
+func (s *SalesByDay) SetSellerId(v string) *SalesByDay {
+	s.SellerId = &v
+	return s
+}
+
+func (s *SalesByDay) SetBuyerId(v string) *SalesByDay {
+	s.BuyerId = &v
+	return s
+}
+
+func (s *SalesByDay) SetSellerName(v string) *SalesByDay {
+	s.SellerName = &v
+	return s
+}
+
+func (s *SalesByDay) SetBuyerName(v string) *SalesByDay {
+	s.BuyerName = &v
+	return s
+}
+
+func (s *SalesByDay) SetDate(v string) *SalesByDay {
+	s.Date = &v
+	return s
+}
+
+func (s *SalesByDay) SetStatisticBeginPeriod(v int64) *SalesByDay {
+	s.StatisticBeginPeriod = &v
+	return s
+}
+
+func (s *SalesByDay) SetStatisticEndPeriod(v int64) *SalesByDay {
+	s.StatisticEndPeriod = &v
+	return s
+}
+
+func (s *SalesByDay) SetAmount(v int64) *SalesByDay {
+	s.Amount = &v
+	return s
+}
+
+func (s *SalesByDay) SetSales(v string) *SalesByDay {
+	s.Sales = &v
+	return s
+}
+
+func (s *SalesByDay) SetRefundSales(v string) *SalesByDay {
+	s.RefundSales = &v
+	return s
+}
+
+func (s *SalesByDay) SetPayment(v string) *SalesByDay {
+	s.Payment = &v
+	return s
+}
+
 // 商户
 type Merchant struct {
 	// 商户管理员ID
@@ -5633,18 +6536,38 @@ func (s *Merchant) SetProfitLossBalance(v string) *Merchant {
 	return s
 }
 
-// 正版码被扫描的信息
+// 正版码被扫描或领取的信息
 type IPCodeScannedInfo struct {
-	// 扫码用户的ID
+	// 正版码ID
+	IpCode *string `json:"ip_code,omitempty" xml:"ip_code,omitempty" require:"true"`
+	// 正版码所在批次已申请的正版码总数
+	BatchUsedCount *int64 `json:"batch_used_count,omitempty" xml:"batch_used_count,omitempty"`
+	// 用户的ID
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
-	// 扫码用户的名称
-	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
-	// 扫码用户的手机号
+	// 用户的名称
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+	// 用户头像地址
+	Avatar *string `json:"avatar,omitempty" xml:"avatar,omitempty" require:"true"`
+	// 用户的手机号
 	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty"`
-	// 扫码用户的位置信息
+	// 用户的位置信息
 	Gps *string `json:"gps,omitempty" xml:"gps,omitempty"`
-	// 扫码的时间(毫秒时间戳)
+	// 领取正版码的交易哈希
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
+	// 处理时间(毫秒时间戳)
 	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+	// IP ID
+	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
+	// 订单ID
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 正版码商品信息配置列表
+	GoodsInfoList []*IPCodeGoodsInfo `json:"goods_info_list,omitempty" xml:"goods_info_list,omitempty" type:"Repeated"`
+	// 正版码资源位配置信息列表
+	AdInfoList []*IPCodeAdvertisingInfo `json:"ad_info_list,omitempty" xml:"ad_info_list,omitempty" type:"Repeated"`
+	// ip版权方信息
+	IpownerInfo *IPCodeIpOwnerInfo `json:"ipowner_info,omitempty" xml:"ipowner_info,omitempty"`
+	// 0:未配置，1:配置成功可展示，9:下架【本期不实现】
+	IpCodeStatus *int64 `json:"ip_code_status,omitempty" xml:"ip_code_status,omitempty"`
 }
 
 func (s IPCodeScannedInfo) String() string {
@@ -5655,6 +6578,16 @@ func (s IPCodeScannedInfo) GoString() string {
 	return s.String()
 }
 
+func (s *IPCodeScannedInfo) SetIpCode(v string) *IPCodeScannedInfo {
+	s.IpCode = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetBatchUsedCount(v int64) *IPCodeScannedInfo {
+	s.BatchUsedCount = &v
+	return s
+}
+
 func (s *IPCodeScannedInfo) SetUserId(v string) *IPCodeScannedInfo {
 	s.UserId = &v
 	return s
@@ -5662,6 +6595,11 @@ func (s *IPCodeScannedInfo) SetUserId(v string) *IPCodeScannedInfo {
 
 func (s *IPCodeScannedInfo) SetUserName(v string) *IPCodeScannedInfo {
 	s.UserName = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetAvatar(v string) *IPCodeScannedInfo {
+	s.Avatar = &v
 	return s
 }
 
@@ -5675,8 +6613,43 @@ func (s *IPCodeScannedInfo) SetGps(v string) *IPCodeScannedInfo {
 	return s
 }
 
+func (s *IPCodeScannedInfo) SetHash(v string) *IPCodeScannedInfo {
+	s.Hash = &v
+	return s
+}
+
 func (s *IPCodeScannedInfo) SetTimestamp(v int64) *IPCodeScannedInfo {
 	s.Timestamp = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetIpId(v string) *IPCodeScannedInfo {
+	s.IpId = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetOrderId(v string) *IPCodeScannedInfo {
+	s.OrderId = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetGoodsInfoList(v []*IPCodeGoodsInfo) *IPCodeScannedInfo {
+	s.GoodsInfoList = v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetAdInfoList(v []*IPCodeAdvertisingInfo) *IPCodeScannedInfo {
+	s.AdInfoList = v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetIpownerInfo(v *IPCodeIpOwnerInfo) *IPCodeScannedInfo {
+	s.IpownerInfo = v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetIpCodeStatus(v int64) *IPCodeScannedInfo {
+	s.IpCodeStatus = &v
 	return s
 }
 
@@ -5731,6 +6704,32 @@ func (s *User) SetUserId(v string) *User {
 
 func (s *User) SetVc(v string) *User {
 	s.Vc = &v
+	return s
+}
+
+// 键值对
+type XNameValuePair struct {
+	// 键名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 键值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s XNameValuePair) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XNameValuePair) GoString() string {
+	return s.String()
+}
+
+func (s *XNameValuePair) SetName(v string) *XNameValuePair {
+	s.Name = &v
+	return s
+}
+
+func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
+	s.Value = &v
 	return s
 }
 
@@ -12790,6 +13789,111 @@ func (s *QueryConsumecardGoodsimageResponse) SetResultMsg(v string) *QueryConsum
 
 func (s *QueryConsumecardGoodsimageResponse) SetTemporaryUrls(v []*string) *QueryConsumecardGoodsimageResponse {
 	s.TemporaryUrls = v
+	return s
+}
+
+type UploadConsumecardFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
+	// 场景码(入驻时申请)
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// file_id
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s UploadConsumecardFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadConsumecardFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadConsumecardFileRequest) SetAuthToken(v string) *UploadConsumecardFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadConsumecardFileRequest) SetProductInstanceId(v string) *UploadConsumecardFileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadConsumecardFileRequest) SetChainId(v string) *UploadConsumecardFileRequest {
+	s.ChainId = &v
+	return s
+}
+
+func (s *UploadConsumecardFileRequest) SetProductCode(v string) *UploadConsumecardFileRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *UploadConsumecardFileRequest) SetFileObject(v io.Reader) *UploadConsumecardFileRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadConsumecardFileRequest) SetFileObjectName(v string) *UploadConsumecardFileRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadConsumecardFileRequest) SetFileId(v string) *UploadConsumecardFileRequest {
+	s.FileId = &v
+	return s
+}
+
+type UploadConsumecardFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 图片的不可访问url，发布商品时使用
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// 临时可访问的url，过期时间2小时
+	TemporaryUrl *string `json:"temporary_url,omitempty" xml:"temporary_url,omitempty"`
+}
+
+func (s UploadConsumecardFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadConsumecardFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadConsumecardFileResponse) SetReqMsgId(v string) *UploadConsumecardFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadConsumecardFileResponse) SetResultCode(v string) *UploadConsumecardFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadConsumecardFileResponse) SetResultMsg(v string) *UploadConsumecardFileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadConsumecardFileResponse) SetUrl(v string) *UploadConsumecardFileResponse {
+	s.Url = &v
+	return s
+}
+
+func (s *UploadConsumecardFileResponse) SetTemporaryUrl(v string) *UploadConsumecardFileResponse {
+	s.TemporaryUrl = &v
 	return s
 }
 
@@ -20910,7 +22014,7 @@ type StartIpPackagetradeRequest struct {
 	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
 	// 买方的链上账户Id
 	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-	// IP ID
+	// IP授权交易时传入IP ID；增值服务交易时传入服务ID
 	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
 	// true 只上链不走真实支付，false 上链并链下真实支付账单
 	OnlyCallBlockchain *bool `json:"only_call_blockchain,omitempty" xml:"only_call_blockchain,omitempty" require:"true"`
@@ -20926,12 +22030,22 @@ type StartIpPackagetradeRequest struct {
 	AuthEndTime *int64 `json:"auth_end_time,omitempty" xml:"auth_end_time,omitempty" require:"true"`
 	// 备注信息
 	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
+	// 附加条款
+	AdditionalClause *string `json:"additional_clause,omitempty" xml:"additional_clause,omitempty"`
 	// 授权产品范围
 	AuthProductScope *string `json:"auth_product_scope,omitempty" xml:"auth_product_scope,omitempty"`
 	// 授权地域范围
 	AuthAreaScope *string `json:"auth_area_scope,omitempty" xml:"auth_area_scope,omitempty"`
 	// 商品销售渠道
 	SalesChannel *string `json:"sales_channel,omitempty" xml:"sales_channel,omitempty"`
+	// 0 IP交易，1 增值服务交易
+	GoodsType *int64 `json:"goods_type,omitempty" xml:"goods_type,omitempty"`
+	// 增值服务交易绑定的ip授权交易订单，增值服务交易必填
+	RelatedOrderId *string `json:"related_order_id,omitempty" xml:"related_order_id,omitempty"`
+	// 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+	PayReturnUrl *string `json:"pay_return_url,omitempty" xml:"pay_return_url,omitempty"`
+	// 授权类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty"`
 }
 
 func (s StartIpPackagetradeRequest) String() string {
@@ -21002,6 +22116,11 @@ func (s *StartIpPackagetradeRequest) SetMemo(v string) *StartIpPackagetradeReque
 	return s
 }
 
+func (s *StartIpPackagetradeRequest) SetAdditionalClause(v string) *StartIpPackagetradeRequest {
+	s.AdditionalClause = &v
+	return s
+}
+
 func (s *StartIpPackagetradeRequest) SetAuthProductScope(v string) *StartIpPackagetradeRequest {
 	s.AuthProductScope = &v
 	return s
@@ -21014,6 +22133,26 @@ func (s *StartIpPackagetradeRequest) SetAuthAreaScope(v string) *StartIpPackaget
 
 func (s *StartIpPackagetradeRequest) SetSalesChannel(v string) *StartIpPackagetradeRequest {
 	s.SalesChannel = &v
+	return s
+}
+
+func (s *StartIpPackagetradeRequest) SetGoodsType(v int64) *StartIpPackagetradeRequest {
+	s.GoodsType = &v
+	return s
+}
+
+func (s *StartIpPackagetradeRequest) SetRelatedOrderId(v string) *StartIpPackagetradeRequest {
+	s.RelatedOrderId = &v
+	return s
+}
+
+func (s *StartIpPackagetradeRequest) SetPayReturnUrl(v string) *StartIpPackagetradeRequest {
+	s.PayReturnUrl = &v
+	return s
+}
+
+func (s *StartIpPackagetradeRequest) SetAuthType(v string) *StartIpPackagetradeRequest {
+	s.AuthType = &v
 	return s
 }
 
@@ -21078,7 +22217,7 @@ type CancelIpPackagetradeRequest struct {
 	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
 	// 订单ID
 	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
-	// IP套餐交易买方的链上账户ID
+	// IP交易发起方的链上账户ID
 	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
 	// 备注信息
 	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
@@ -21246,7 +22385,7 @@ type StartIpAuthtradeRequest struct {
 	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
 	// 采购者的链上账户Id
 	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-	// IP ID
+	// IP授权交易时传入IP ID；增值服务交易时传入服务ID
 	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
 	// 收费模式：0 销售抽佣, 1 按量付费
 	ChargeType *int64 `json:"charge_type,omitempty" xml:"charge_type,omitempty"`
@@ -21259,7 +22398,7 @@ type StartIpAuthtradeRequest struct {
 	// 授权合作结束期限（毫秒时间戳）
 	AuthEndTime *int64 `json:"auth_end_time,omitempty" xml:"auth_end_time,omitempty" require:"true"`
 	// 合同（文件URL）
-	Contract *string `json:"contract,omitempty" xml:"contract,omitempty" require:"true"`
+	Contract *string `json:"contract,omitempty" xml:"contract,omitempty"`
 	// 设计稿（文件URL）
 	DesignDraft *string `json:"design_draft,omitempty" xml:"design_draft,omitempty"`
 	// 授权产品范围
@@ -21270,6 +22409,8 @@ type StartIpAuthtradeRequest struct {
 	SalesChannel *string `json:"sales_channel,omitempty" xml:"sales_channel,omitempty"`
 	// 备注消息(不超过256个字符)
 	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
+	// 附加条款
+	AdditionalClause *string `json:"additional_clause,omitempty" xml:"additional_clause,omitempty"`
 	// 是否有保底金
 	Guaranteed *bool `json:"guaranteed,omitempty" xml:"guaranteed,omitempty" require:"true"`
 	// 支付的保底金金额
@@ -21278,6 +22419,14 @@ type StartIpAuthtradeRequest struct {
 	GuaranteedGoodsAmount *int64 `json:"guaranteed_goods_amount,omitempty" xml:"guaranteed_goods_amount,omitempty"`
 	// 保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
 	GuaranteedSales *string `json:"guaranteed_sales,omitempty" xml:"guaranteed_sales,omitempty"`
+	// 0 IP交易，1 增值服务交易
+	GoodsType *int64 `json:"goods_type,omitempty" xml:"goods_type,omitempty"`
+	// 增值服务交易绑定的ip授权交易订单，增值服务交易必填
+	RelatedOrderId *string `json:"related_order_id,omitempty" xml:"related_order_id,omitempty"`
+	// 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+	PayReturnUrl *string `json:"pay_return_url,omitempty" xml:"pay_return_url,omitempty"`
+	// 授权类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty"`
 }
 
 func (s StartIpAuthtradeRequest) String() string {
@@ -21368,6 +22517,11 @@ func (s *StartIpAuthtradeRequest) SetMemo(v string) *StartIpAuthtradeRequest {
 	return s
 }
 
+func (s *StartIpAuthtradeRequest) SetAdditionalClause(v string) *StartIpAuthtradeRequest {
+	s.AdditionalClause = &v
+	return s
+}
+
 func (s *StartIpAuthtradeRequest) SetGuaranteed(v bool) *StartIpAuthtradeRequest {
 	s.Guaranteed = &v
 	return s
@@ -21385,6 +22539,26 @@ func (s *StartIpAuthtradeRequest) SetGuaranteedGoodsAmount(v int64) *StartIpAuth
 
 func (s *StartIpAuthtradeRequest) SetGuaranteedSales(v string) *StartIpAuthtradeRequest {
 	s.GuaranteedSales = &v
+	return s
+}
+
+func (s *StartIpAuthtradeRequest) SetGoodsType(v int64) *StartIpAuthtradeRequest {
+	s.GoodsType = &v
+	return s
+}
+
+func (s *StartIpAuthtradeRequest) SetRelatedOrderId(v string) *StartIpAuthtradeRequest {
+	s.RelatedOrderId = &v
+	return s
+}
+
+func (s *StartIpAuthtradeRequest) SetPayReturnUrl(v string) *StartIpAuthtradeRequest {
+	s.PayReturnUrl = &v
+	return s
+}
+
+func (s *StartIpAuthtradeRequest) SetAuthType(v string) *StartIpAuthtradeRequest {
+	s.AuthType = &v
 	return s
 }
 
@@ -21453,6 +22627,8 @@ type UploadIpAuthtradesalesRequest struct {
 	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
 	// true 只上链不走真实支付，false 上链并链下真实支付账单
 	OnlyCallBlockchain *bool `json:"only_call_blockchain,omitempty" xml:"only_call_blockchain,omitempty" require:"true"`
+	// 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+	PayReturnUrl *string `json:"pay_return_url,omitempty" xml:"pay_return_url,omitempty"`
 	// 授权佣金比例
 	AuthRate *string `json:"auth_rate,omitempty" xml:"auth_rate,omitempty"`
 	// 定向授权按量付费单价
@@ -21483,6 +22659,16 @@ type UploadIpAuthtradesalesRequest struct {
 	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
 	// 备注信息
 	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
+	// 账单结算类型：即时计费0、按周计费1、按月计费2、按季度计费3。默认0
+	BillingType *int64 `json:"billing_type,omitempty" xml:"billing_type,omitempty"`
+	// 商品ID
+	GoodsId *string `json:"goods_id,omitempty" xml:"goods_id,omitempty"`
+	// 退款的销售金额，有退款时填写，默认0
+	RefundSales *string `json:"refund_sales,omitempty" xml:"refund_sales,omitempty"`
+	// 订单信息json string: 用户ID/订单状态/订单创建时间戳ms/订单支付时间戳ms等
+	SalesExtInfo *string `json:"sales_ext_info,omitempty" xml:"sales_ext_info,omitempty"`
+	// 用户信息json string: 姓名/手机号/地址等结构化数据
+	SalesUserInfo *string `json:"sales_user_info,omitempty" xml:"sales_user_info,omitempty"`
 }
 
 func (s UploadIpAuthtradesalesRequest) String() string {
@@ -21520,6 +22706,11 @@ func (s *UploadIpAuthtradesalesRequest) SetIpOrderId(v string) *UploadIpAuthtrad
 
 func (s *UploadIpAuthtradesalesRequest) SetOnlyCallBlockchain(v bool) *UploadIpAuthtradesalesRequest {
 	s.OnlyCallBlockchain = &v
+	return s
+}
+
+func (s *UploadIpAuthtradesalesRequest) SetPayReturnUrl(v string) *UploadIpAuthtradesalesRequest {
+	s.PayReturnUrl = &v
 	return s
 }
 
@@ -21595,6 +22786,31 @@ func (s *UploadIpAuthtradesalesRequest) SetOperator(v string) *UploadIpAuthtrade
 
 func (s *UploadIpAuthtradesalesRequest) SetMemo(v string) *UploadIpAuthtradesalesRequest {
 	s.Memo = &v
+	return s
+}
+
+func (s *UploadIpAuthtradesalesRequest) SetBillingType(v int64) *UploadIpAuthtradesalesRequest {
+	s.BillingType = &v
+	return s
+}
+
+func (s *UploadIpAuthtradesalesRequest) SetGoodsId(v string) *UploadIpAuthtradesalesRequest {
+	s.GoodsId = &v
+	return s
+}
+
+func (s *UploadIpAuthtradesalesRequest) SetRefundSales(v string) *UploadIpAuthtradesalesRequest {
+	s.RefundSales = &v
+	return s
+}
+
+func (s *UploadIpAuthtradesalesRequest) SetSalesExtInfo(v string) *UploadIpAuthtradesalesRequest {
+	s.SalesExtInfo = &v
+	return s
+}
+
+func (s *UploadIpAuthtradesalesRequest) SetSalesUserInfo(v string) *UploadIpAuthtradesalesRequest {
+	s.SalesUserInfo = &v
 	return s
 }
 
@@ -21830,6 +23046,8 @@ type QueryIpOrderlistRequest struct {
 	SellerName *string `json:"seller_name,omitempty" xml:"seller_name,omitempty"`
 	// 交易类型：1 套餐交易， 2 定向授权
 	TradeType *int64 `json:"trade_type,omitempty" xml:"trade_type,omitempty"`
+	// 0 IP交易，1 增值服务交易
+	GoodsType *int64 `json:"goods_type,omitempty" xml:"goods_type,omitempty"`
 	// 收费模式：0 销售抽拥，1 按量计费
 	ChargeType *int64 `json:"charge_type,omitempty" xml:"charge_type,omitempty"`
 	// 查询订单授权开始时间
@@ -21844,6 +23062,8 @@ type QueryIpOrderlistRequest struct {
 	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty" require:"true"`
 	// 每页数据量大小
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 渠道名称
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty"`
 }
 
 func (s QueryIpOrderlistRequest) String() string {
@@ -21909,6 +23129,11 @@ func (s *QueryIpOrderlistRequest) SetTradeType(v int64) *QueryIpOrderlistRequest
 	return s
 }
 
+func (s *QueryIpOrderlistRequest) SetGoodsType(v int64) *QueryIpOrderlistRequest {
+	s.GoodsType = &v
+	return s
+}
+
 func (s *QueryIpOrderlistRequest) SetChargeType(v int64) *QueryIpOrderlistRequest {
 	s.ChargeType = &v
 	return s
@@ -21941,6 +23166,11 @@ func (s *QueryIpOrderlistRequest) SetPageNumber(v int64) *QueryIpOrderlistReques
 
 func (s *QueryIpOrderlistRequest) SetPageSize(v int64) *QueryIpOrderlistRequest {
 	s.PageSize = &v
+	return s
+}
+
+func (s *QueryIpOrderlistRequest) SetChannelName(v string) *QueryIpOrderlistRequest {
+	s.ChannelName = &v
 	return s
 }
 
@@ -22055,8 +23285,10 @@ type CreateIpGoodsRequest struct {
 	// "position":"aaa"// 联系人职务,必填
 	// }]
 	DockingPeopleInfo []*DockingPeopleInfo `json:"docking_people_info,omitempty" xml:"docking_people_info,omitempty" require:"true" type:"Repeated"`
-	// 资质
-	CopyRight *string `json:"copy_right,omitempty" xml:"copy_right,omitempty" require:"true"`
+	// 资质证书类型，0为用户上传，1申请
+	CopyRightType *string `json:"copy_right_type,omitempty" xml:"copy_right_type,omitempty"`
+	// 资质，copy_right_type为0的时候，copy_right不能为空，copy_right_type为1的时候，copy_right可以为空
+	CopyRight *string `json:"copy_right,omitempty" xml:"copy_right,omitempty"`
 	// 合作事项
 	CooperationNote *string `json:"cooperation_note,omitempty" xml:"cooperation_note,omitempty"`
 	// 传入的渠道信息
@@ -22077,6 +23309,8 @@ type CreateIpGoodsRequest struct {
 	CopyRightBeginTime *int64 `json:"copy_right_begin_time,omitempty" xml:"copy_right_begin_time,omitempty" require:"true"`
 	// 资质生效的结束时间
 	CopyRightEndTime *int64 `json:"copy_right_end_time,omitempty" xml:"copy_right_end_time,omitempty" require:"true"`
+	// IP图库链接
+	IpGalleryUrl *string `json:"ip_gallery_url,omitempty" xml:"ip_gallery_url,omitempty"`
 }
 
 func (s CreateIpGoodsRequest) String() string {
@@ -22142,6 +23376,11 @@ func (s *CreateIpGoodsRequest) SetDockingPeopleInfo(v []*DockingPeopleInfo) *Cre
 	return s
 }
 
+func (s *CreateIpGoodsRequest) SetCopyRightType(v string) *CreateIpGoodsRequest {
+	s.CopyRightType = &v
+	return s
+}
+
 func (s *CreateIpGoodsRequest) SetCopyRight(v string) *CreateIpGoodsRequest {
 	s.CopyRight = &v
 	return s
@@ -22197,6 +23436,11 @@ func (s *CreateIpGoodsRequest) SetCopyRightEndTime(v int64) *CreateIpGoodsReques
 	return s
 }
 
+func (s *CreateIpGoodsRequest) SetIpGalleryUrl(v string) *CreateIpGoodsRequest {
+	s.IpGalleryUrl = &v
+	return s
+}
+
 type CreateIpGoodsResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -22248,10 +23492,14 @@ type AddIpChannelRequest struct {
 	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
 	// 商品授权 0普通授权/1独家授权,本期只支持0
 	AuthorizationModel *int64 `json:"authorization_model,omitempty" xml:"authorization_model,omitempty" require:"true"`
+	// 授权类型，衍生品授权；营销授权；商标授权；数字虚拟授权；其他
+	AuthorizationType []*string `json:"authorization_type,omitempty" xml:"authorization_type,omitempty" type:"Repeated"`
 	// 计费模式 0:按量 1:按金额
 	PayMode *int64 `json:"pay_mode,omitempty" xml:"pay_mode,omitempty" require:"true"`
 	// ip等级  0:经典IP/1:流量IP/3:设计IP
 	IpLevel *int64 `json:"ip_level,omitempty" xml:"ip_level,omitempty" require:"true"`
+	// 交易是否需要确认，默认不需要确认
+	TradeNeedConfirm *bool `json:"trade_need_confirm,omitempty" xml:"trade_need_confirm,omitempty"`
 }
 
 func (s AddIpChannelRequest) String() string {
@@ -22292,6 +23540,11 @@ func (s *AddIpChannelRequest) SetAuthorizationModel(v int64) *AddIpChannelReques
 	return s
 }
 
+func (s *AddIpChannelRequest) SetAuthorizationType(v []*string) *AddIpChannelRequest {
+	s.AuthorizationType = v
+	return s
+}
+
 func (s *AddIpChannelRequest) SetPayMode(v int64) *AddIpChannelRequest {
 	s.PayMode = &v
 	return s
@@ -22299,6 +23552,11 @@ func (s *AddIpChannelRequest) SetPayMode(v int64) *AddIpChannelRequest {
 
 func (s *AddIpChannelRequest) SetIpLevel(v int64) *AddIpChannelRequest {
 	s.IpLevel = &v
+	return s
+}
+
+func (s *AddIpChannelRequest) SetTradeNeedConfirm(v bool) *AddIpChannelRequest {
+	s.TradeNeedConfirm = &v
 	return s
 }
 
@@ -22424,6 +23682,8 @@ type BatchqueryIpGoodsRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 基础信息
 	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 商品id
+	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty"`
 	// ip名称，支持模糊匹配
 	IpName *string `json:"ip_name,omitempty" xml:"ip_name,omitempty"`
 	// 商品状态（0:待上架，1:上架，2:下架）
@@ -22446,6 +23706,12 @@ type BatchqueryIpGoodsRequest struct {
 	CreateEndTime *string `json:"create_end_time,omitempty" xml:"create_end_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 是否需要按照创建时间倒序排序
 	IsCreateTimeSortDesc *bool `json:"is_create_time_sort_desc,omitempty" xml:"is_create_time_sort_desc,omitempty" require:"true"`
+	// 是否需要按照pv排序（0:不需要，1:正序，2:倒序），默认按照pv倒序
+	IsSortByPv *int64 `json:"is_sort_by_pv,omitempty" xml:"is_sort_by_pv,omitempty"`
+	// 是否需要按照最近上下架时间排序（0:不需要，1:正序，2:倒序），默认按照倒序
+	IsSortByStatusChange *int64 `json:"is_sort_by_status_change,omitempty" xml:"is_sort_by_status_change,omitempty"`
+	// 是否需要返回创建渠道，为空默认不返回
+	QueryCreaterChannel *bool `json:"query_creater_channel,omitempty" xml:"query_creater_channel,omitempty"`
 }
 
 func (s BatchqueryIpGoodsRequest) String() string {
@@ -22468,6 +23734,11 @@ func (s *BatchqueryIpGoodsRequest) SetProductInstanceId(v string) *BatchqueryIpG
 
 func (s *BatchqueryIpGoodsRequest) SetBaseRequest(v *BaseRequestInfo) *BatchqueryIpGoodsRequest {
 	s.BaseRequest = v
+	return s
+}
+
+func (s *BatchqueryIpGoodsRequest) SetIpId(v string) *BatchqueryIpGoodsRequest {
+	s.IpId = &v
 	return s
 }
 
@@ -22523,6 +23794,21 @@ func (s *BatchqueryIpGoodsRequest) SetCreateEndTime(v string) *BatchqueryIpGoods
 
 func (s *BatchqueryIpGoodsRequest) SetIsCreateTimeSortDesc(v bool) *BatchqueryIpGoodsRequest {
 	s.IsCreateTimeSortDesc = &v
+	return s
+}
+
+func (s *BatchqueryIpGoodsRequest) SetIsSortByPv(v int64) *BatchqueryIpGoodsRequest {
+	s.IsSortByPv = &v
+	return s
+}
+
+func (s *BatchqueryIpGoodsRequest) SetIsSortByStatusChange(v int64) *BatchqueryIpGoodsRequest {
+	s.IsSortByStatusChange = &v
+	return s
+}
+
+func (s *BatchqueryIpGoodsRequest) SetQueryCreaterChannel(v bool) *BatchqueryIpGoodsRequest {
+	s.QueryCreaterChannel = &v
 	return s
 }
 
@@ -22582,6 +23868,8 @@ type QueryIpGoodsdetailwithchannelRequest struct {
 	IpIds []*string `json:"ip_ids,omitempty" xml:"ip_ids,omitempty" require:"true" type:"Repeated"`
 	// 查询的渠道名字
 	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
+	// 是否要增加pv，默认不增加
+	UpdatePv *bool `json:"update_pv,omitempty" xml:"update_pv,omitempty"`
 }
 
 func (s QueryIpGoodsdetailwithchannelRequest) String() string {
@@ -22614,6 +23902,11 @@ func (s *QueryIpGoodsdetailwithchannelRequest) SetIpIds(v []*string) *QueryIpGoo
 
 func (s *QueryIpGoodsdetailwithchannelRequest) SetChannelName(v string) *QueryIpGoodsdetailwithchannelRequest {
 	s.ChannelName = &v
+	return s
+}
+
+func (s *QueryIpGoodsdetailwithchannelRequest) SetUpdatePv(v bool) *QueryIpGoodsdetailwithchannelRequest {
+	s.UpdatePv = &v
 	return s
 }
 
@@ -22664,6 +23957,8 @@ type QueryIpDetailRequest struct {
 	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
 	// ip的链上id列表
 	IpIds []*string `json:"ip_ids,omitempty" xml:"ip_ids,omitempty" require:"true" type:"Repeated"`
+	// 查找不到的ip是否报错，默认false，会报错
+	SkipNotFoundIp *bool `json:"skip_not_found_ip,omitempty" xml:"skip_not_found_ip,omitempty"`
 }
 
 func (s QueryIpDetailRequest) String() string {
@@ -22691,6 +23986,11 @@ func (s *QueryIpDetailRequest) SetBaseRequest(v *BaseRequestInfo) *QueryIpDetail
 
 func (s *QueryIpDetailRequest) SetIpIds(v []*string) *QueryIpDetailRequest {
 	s.IpIds = v
+	return s
+}
+
+func (s *QueryIpDetailRequest) SetSkipNotFoundIp(v bool) *QueryIpDetailRequest {
+	s.SkipNotFoundIp = &v
 	return s
 }
 
@@ -22763,8 +24063,10 @@ type UpdateIpGoodsRequest struct {
 	// "position":"aaa"// 联系人职务,必填
 	// }]
 	DockingPeopleInfo []*DockingPeopleInfo `json:"docking_people_info,omitempty" xml:"docking_people_info,omitempty" require:"true" type:"Repeated"`
+	// 资质证书类型，0为用户上传，1申请
+	CopyRightType *string `json:"copy_right_type,omitempty" xml:"copy_right_type,omitempty"`
 	// 资质
-	CopyRight *string `json:"copy_right,omitempty" xml:"copy_right,omitempty" require:"true"`
+	CopyRight *string `json:"copy_right,omitempty" xml:"copy_right,omitempty"`
 	// 合作事项
 	CooperationNote *string `json:"cooperation_note,omitempty" xml:"cooperation_note,omitempty"`
 	// 传入的渠道信息，不是更新项
@@ -22849,6 +24151,11 @@ func (s *UpdateIpGoodsRequest) SetDescription(v string) *UpdateIpGoodsRequest {
 
 func (s *UpdateIpGoodsRequest) SetDockingPeopleInfo(v []*DockingPeopleInfo) *UpdateIpGoodsRequest {
 	s.DockingPeopleInfo = v
+	return s
+}
+
+func (s *UpdateIpGoodsRequest) SetCopyRightType(v string) *UpdateIpGoodsRequest {
+	s.CopyRightType = &v
 	return s
 }
 
@@ -22956,10 +24263,14 @@ type UpdateIpChannelRequest struct {
 	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
 	// 商品授权 0普通授权/1独家授权,本期只支持0
 	AuthorizationModel *int64 `json:"authorization_model,omitempty" xml:"authorization_model,omitempty" require:"true"`
+	// 授权类型，衍生品授权；营销授权；商标授权；数字虚拟授权；其他
+	AuthorizationType []*string `json:"authorization_type,omitempty" xml:"authorization_type,omitempty" type:"Repeated"`
 	// 计费模式 0:按量 1:按金额
 	PayMode *int64 `json:"pay_mode,omitempty" xml:"pay_mode,omitempty" require:"true"`
 	// ip等级  0:经典IP/1:流量IP/3:设计IP
 	IpLevel *int64 `json:"ip_level,omitempty" xml:"ip_level,omitempty" require:"true"`
+	// 交易是否需要确认，为空则不更新
+	TradeNeedConfirm *bool `json:"trade_need_confirm,omitempty" xml:"trade_need_confirm,omitempty"`
 }
 
 func (s UpdateIpChannelRequest) String() string {
@@ -23000,6 +24311,11 @@ func (s *UpdateIpChannelRequest) SetAuthorizationModel(v int64) *UpdateIpChannel
 	return s
 }
 
+func (s *UpdateIpChannelRequest) SetAuthorizationType(v []*string) *UpdateIpChannelRequest {
+	s.AuthorizationType = v
+	return s
+}
+
 func (s *UpdateIpChannelRequest) SetPayMode(v int64) *UpdateIpChannelRequest {
 	s.PayMode = &v
 	return s
@@ -23007,6 +24323,11 @@ func (s *UpdateIpChannelRequest) SetPayMode(v int64) *UpdateIpChannelRequest {
 
 func (s *UpdateIpChannelRequest) SetIpLevel(v int64) *UpdateIpChannelRequest {
 	s.IpLevel = &v
+	return s
+}
+
+func (s *UpdateIpChannelRequest) SetTradeNeedConfirm(v bool) *UpdateIpChannelRequest {
+	s.TradeNeedConfirm = &v
 	return s
 }
 
@@ -23208,6 +24529,10 @@ type CreateIpAccountRequest struct {
 	ExternalUserName *string `json:"external_user_name,omitempty" xml:"external_user_name,omitempty" require:"true"`
 	// 角色:  1:版权方 2: 版权采购商
 	Role *int64 `json:"role,omitempty" xml:"role,omitempty" require:"true"`
+	// 商户合作伙伴id，邀请商户入驻
+	InviterId *string `json:"inviter_id,omitempty" xml:"inviter_id,omitempty"`
+	// 商户合作伙伴返佣政策id
+	PolicyId *string `json:"policy_id,omitempty" xml:"policy_id,omitempty"`
 }
 
 func (s CreateIpAccountRequest) String() string {
@@ -23245,6 +24570,16 @@ func (s *CreateIpAccountRequest) SetExternalUserName(v string) *CreateIpAccountR
 
 func (s *CreateIpAccountRequest) SetRole(v int64) *CreateIpAccountRequest {
 	s.Role = &v
+	return s
+}
+
+func (s *CreateIpAccountRequest) SetInviterId(v string) *CreateIpAccountRequest {
+	s.InviterId = &v
+	return s
+}
+
+func (s *CreateIpAccountRequest) SetPolicyId(v string) *CreateIpAccountRequest {
+	s.PolicyId = &v
 	return s
 }
 
@@ -23906,6 +25241,8 @@ type BatchqueryIpApprovalRequest struct {
 	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
 	// 是否需要按照创建时间倒序排序
 	IsCreateTimeSortDesc *bool `json:"is_create_time_sort_desc,omitempty" xml:"is_create_time_sort_desc,omitempty" require:"true"`
+	// 渠道名称
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty"`
 }
 
 func (s BatchqueryIpApprovalRequest) String() string {
@@ -23983,6 +25320,11 @@ func (s *BatchqueryIpApprovalRequest) SetAccountId(v string) *BatchqueryIpApprov
 
 func (s *BatchqueryIpApprovalRequest) SetIsCreateTimeSortDesc(v bool) *BatchqueryIpApprovalRequest {
 	s.IsCreateTimeSortDesc = &v
+	return s
+}
+
+func (s *BatchqueryIpApprovalRequest) SetChannelName(v string) *BatchqueryIpApprovalRequest {
+	s.ChannelName = &v
 	return s
 }
 
@@ -24252,6 +25594,12 @@ type PullIpAccountResponse struct {
 	ContactInfo *IPContactInfo `json:"contact_info,omitempty" xml:"contact_info,omitempty"`
 	// 银行卡结算信息, 结算到银行卡时必填, 当前仅支持填入一张卡
 	CardInfo *IPCardInfo `json:"card_info,omitempty" xml:"card_info,omitempty"`
+	// 店铺名称
+	ShopName *string `json:"shop_name,omitempty" xml:"shop_name,omitempty"`
+	// 更多联系方式，用于运营联系商家
+	AdditionalContactInfo []*SimpleContactInfo `json:"additional_contact_info,omitempty" xml:"additional_contact_info,omitempty" type:"Repeated"`
+	// 创建账户时间
+	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
 }
 
 func (s PullIpAccountResponse) String() string {
@@ -24344,6 +25692,21 @@ func (s *PullIpAccountResponse) SetContactInfo(v *IPContactInfo) *PullIpAccountR
 
 func (s *PullIpAccountResponse) SetCardInfo(v *IPCardInfo) *PullIpAccountResponse {
 	s.CardInfo = v
+	return s
+}
+
+func (s *PullIpAccountResponse) SetShopName(v string) *PullIpAccountResponse {
+	s.ShopName = &v
+	return s
+}
+
+func (s *PullIpAccountResponse) SetAdditionalContactInfo(v []*SimpleContactInfo) *PullIpAccountResponse {
+	s.AdditionalContactInfo = v
+	return s
+}
+
+func (s *PullIpAccountResponse) SetCreateTime(v int64) *PullIpAccountResponse {
+	s.CreateTime = &v
 	return s
 }
 
@@ -24537,6 +25900,8 @@ type BatchqueryIpApprovalandchannelRequest struct {
 	CreateBeginTime *string `json:"create_begin_time,omitempty" xml:"create_begin_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 结束时间
 	CreateEndTime *string `json:"create_end_time,omitempty" xml:"create_end_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 渠道名称
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty"`
 }
 
 func (s BatchqueryIpApprovalandchannelRequest) String() string {
@@ -24617,6 +25982,11 @@ func (s *BatchqueryIpApprovalandchannelRequest) SetCreateEndTime(v string) *Batc
 	return s
 }
 
+func (s *BatchqueryIpApprovalandchannelRequest) SetChannelName(v string) *BatchqueryIpApprovalandchannelRequest {
+	s.ChannelName = &v
+	return s
+}
+
 type BatchqueryIpApprovalandchannelResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -24672,6 +26042,8 @@ type BatchqueryIpAccountRequest struct {
 	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
 	// 账户Id列表(单次不能超过50个)
 	AccountIds []*string `json:"account_ids,omitempty" xml:"account_ids,omitempty" require:"true" type:"Repeated"`
+	// 渠道名称
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty"`
 }
 
 func (s BatchqueryIpAccountRequest) String() string {
@@ -24699,6 +26071,11 @@ func (s *BatchqueryIpAccountRequest) SetBaseRequest(v *BaseRequestInfo) *Batchqu
 
 func (s *BatchqueryIpAccountRequest) SetAccountIds(v []*string) *BatchqueryIpAccountRequest {
 	s.AccountIds = v
+	return s
+}
+
+func (s *BatchqueryIpAccountRequest) SetChannelName(v string) *BatchqueryIpAccountRequest {
+	s.ChannelName = &v
 	return s
 }
 
@@ -24753,6 +26130,22 @@ type BatchqueryIpSellerRequest struct {
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 分页索引
 	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// 账户链上ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+	// 1 版权方，2 商户
+	Role *int64 `json:"role,omitempty" xml:"role,omitempty"`
+	// 联系人名称
+	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty"`
+	// 联系人电话
+	ContactMobile *string `json:"contact_mobile,omitempty" xml:"contact_mobile,omitempty"`
+	// 账户状态列表
+	StatusList []*int64 `json:"status_list,omitempty" xml:"status_list,omitempty" type:"Repeated"`
+	// 排序
+	SortOrder *string `json:"sort_order,omitempty" xml:"sort_order,omitempty"`
+	// 筛选更新时间范围，开始区间
+	CreateStartTime *int64 `json:"create_start_time,omitempty" xml:"create_start_time,omitempty"`
+	// 筛选更新时间范围，结束区间
+	CreateEndTime *int64 `json:"create_end_time,omitempty" xml:"create_end_time,omitempty"`
 }
 
 func (s BatchqueryIpSellerRequest) String() string {
@@ -24790,6 +26183,46 @@ func (s *BatchqueryIpSellerRequest) SetPageSize(v int64) *BatchqueryIpSellerRequ
 
 func (s *BatchqueryIpSellerRequest) SetPageIndex(v int64) *BatchqueryIpSellerRequest {
 	s.PageIndex = &v
+	return s
+}
+
+func (s *BatchqueryIpSellerRequest) SetAccountId(v string) *BatchqueryIpSellerRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *BatchqueryIpSellerRequest) SetRole(v int64) *BatchqueryIpSellerRequest {
+	s.Role = &v
+	return s
+}
+
+func (s *BatchqueryIpSellerRequest) SetContactName(v string) *BatchqueryIpSellerRequest {
+	s.ContactName = &v
+	return s
+}
+
+func (s *BatchqueryIpSellerRequest) SetContactMobile(v string) *BatchqueryIpSellerRequest {
+	s.ContactMobile = &v
+	return s
+}
+
+func (s *BatchqueryIpSellerRequest) SetStatusList(v []*int64) *BatchqueryIpSellerRequest {
+	s.StatusList = v
+	return s
+}
+
+func (s *BatchqueryIpSellerRequest) SetSortOrder(v string) *BatchqueryIpSellerRequest {
+	s.SortOrder = &v
+	return s
+}
+
+func (s *BatchqueryIpSellerRequest) SetCreateStartTime(v int64) *BatchqueryIpSellerRequest {
+	s.CreateStartTime = &v
+	return s
+}
+
+func (s *BatchqueryIpSellerRequest) SetCreateEndTime(v int64) *BatchqueryIpSellerRequest {
+	s.CreateEndTime = &v
 	return s
 }
 
@@ -24941,7 +26374,7 @@ type PagequeryIpCodeRequest struct {
 	CodeBatchId *string `json:"code_batch_id,omitempty" xml:"code_batch_id,omitempty" require:"true"`
 	// 分页参数:页码
 	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
-	// 分页参数:每页条目数
+	// 分页参数:每页条目数(请小于等于100)
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 }
 
@@ -24990,8 +26423,11 @@ type PagequeryIpCodeResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 正版码列表
+	// 正版码列表(小程序扫描不可跳转的码)
+	// 注意: 这个接口查到的码为原始编码, 小程序扫描无法跳转, IPMart不适用!!!
 	CodeList []*string `json:"code_list,omitempty" xml:"code_list,omitempty" type:"Repeated"`
+	// 展示码列表(和code_list一一对应)
+	ShowCodeList []*string `json:"show_code_list,omitempty" xml:"show_code_list,omitempty" type:"Repeated"`
 	// 交易订单ID
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
 	// IP商家的链上账户ID
@@ -25008,7 +26444,7 @@ type PagequeryIpCodeResponse struct {
 	IpDesc *string `json:"ip_desc,omitempty" xml:"ip_desc,omitempty"`
 	// 该批次正版码的过期时间戳(毫秒)
 	ExpiredDate *int64 `json:"expired_date,omitempty" xml:"expired_date,omitempty"`
-	// 总数量
+	// 已经申请的总数量
 	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
 }
 
@@ -25037,6 +26473,11 @@ func (s *PagequeryIpCodeResponse) SetResultMsg(v string) *PagequeryIpCodeRespons
 
 func (s *PagequeryIpCodeResponse) SetCodeList(v []*string) *PagequeryIpCodeResponse {
 	s.CodeList = v
+	return s
+}
+
+func (s *PagequeryIpCodeResponse) SetShowCodeList(v []*string) *PagequeryIpCodeResponse {
+	s.ShowCodeList = v
 	return s
 }
 
@@ -25096,11 +26537,13 @@ type CheckIpCodeRequest struct {
 	// 扫码用户的ID
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
 	// 扫码用户的名称
-	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
 	// 扫码用户的手机号
 	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty"`
 	// 扫码用户的位置信息
 	Gps *string `json:"gps,omitempty" xml:"gps,omitempty"`
+	// 用户头像地址
+	Avatar *string `json:"avatar,omitempty" xml:"avatar,omitempty" require:"true"`
 }
 
 func (s CheckIpCodeRequest) String() string {
@@ -25148,6 +26591,11 @@ func (s *CheckIpCodeRequest) SetPhoneNumber(v string) *CheckIpCodeRequest {
 
 func (s *CheckIpCodeRequest) SetGps(v string) *CheckIpCodeRequest {
 	s.Gps = &v
+	return s
+}
+
+func (s *CheckIpCodeRequest) SetAvatar(v string) *CheckIpCodeRequest {
+	s.Avatar = &v
 	return s
 }
 
@@ -25621,7 +27069,7 @@ type QueryIpSkuconfigResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// sku信息
-	Skus []*IpSkuEmphasisInfo `json:"skus,omitempty" xml:"skus,omitempty" type:"Repeated"`
+	Skus []*IpSkuConfigWithLevel `json:"skus,omitempty" xml:"skus,omitempty" type:"Repeated"`
 }
 
 func (s QueryIpSkuconfigResponse) String() string {
@@ -25647,7 +27095,7 @@ func (s *QueryIpSkuconfigResponse) SetResultMsg(v string) *QueryIpSkuconfigRespo
 	return s
 }
 
-func (s *QueryIpSkuconfigResponse) SetSkus(v []*IpSkuEmphasisInfo) *QueryIpSkuconfigResponse {
+func (s *QueryIpSkuconfigResponse) SetSkus(v []*IpSkuConfigWithLevel) *QueryIpSkuconfigResponse {
 	s.Skus = v
 	return s
 }
@@ -25838,6 +27286,5056 @@ func (s *RemoveIpSkuResponse) SetResultCode(v string) *RemoveIpSkuResponse {
 
 func (s *RemoveIpSkuResponse) SetResultMsg(v string) *RemoveIpSkuResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type CreateIpSuperviseapproveRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础字段
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 监修报审内容，业务相关字段自行组织成json，统一存储
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
+}
+
+func (s CreateIpSuperviseapproveRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateIpSuperviseapproveRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateIpSuperviseapproveRequest) SetAuthToken(v string) *CreateIpSuperviseapproveRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateIpSuperviseapproveRequest) SetProductInstanceId(v string) *CreateIpSuperviseapproveRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateIpSuperviseapproveRequest) SetBaseRequest(v *BaseRequestInfo) *CreateIpSuperviseapproveRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *CreateIpSuperviseapproveRequest) SetOrderId(v string) *CreateIpSuperviseapproveRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *CreateIpSuperviseapproveRequest) SetExtInfo(v string) *CreateIpSuperviseapproveRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type CreateIpSuperviseapproveResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CreateIpSuperviseapproveResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateIpSuperviseapproveResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateIpSuperviseapproveResponse) SetReqMsgId(v string) *CreateIpSuperviseapproveResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateIpSuperviseapproveResponse) SetResultCode(v string) *CreateIpSuperviseapproveResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateIpSuperviseapproveResponse) SetResultMsg(v string) *CreateIpSuperviseapproveResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ConfirmIpSuperviseapproveRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础字段
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 监修报审关联的订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 当前期望的审批阶段（用于校验）
+	Stage *int64 `json:"stage,omitempty" xml:"stage,omitempty" require:"true"`
+	// 是否审批通过
+	IsApproval *bool `json:"is_approval,omitempty" xml:"is_approval,omitempty" require:"true"`
+	// 审批备注
+	ApprovalComments *string `json:"approval_comments,omitempty" xml:"approval_comments,omitempty"`
+	// 审批额外信息
+	ApprovalExtInfo *string `json:"approval_ext_info,omitempty" xml:"approval_ext_info,omitempty"`
+}
+
+func (s ConfirmIpSuperviseapproveRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmIpSuperviseapproveRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmIpSuperviseapproveRequest) SetAuthToken(v string) *ConfirmIpSuperviseapproveRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmIpSuperviseapproveRequest) SetProductInstanceId(v string) *ConfirmIpSuperviseapproveRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ConfirmIpSuperviseapproveRequest) SetBaseRequest(v *BaseRequestInfo) *ConfirmIpSuperviseapproveRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *ConfirmIpSuperviseapproveRequest) SetOrderId(v string) *ConfirmIpSuperviseapproveRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *ConfirmIpSuperviseapproveRequest) SetStage(v int64) *ConfirmIpSuperviseapproveRequest {
+	s.Stage = &v
+	return s
+}
+
+func (s *ConfirmIpSuperviseapproveRequest) SetIsApproval(v bool) *ConfirmIpSuperviseapproveRequest {
+	s.IsApproval = &v
+	return s
+}
+
+func (s *ConfirmIpSuperviseapproveRequest) SetApprovalComments(v string) *ConfirmIpSuperviseapproveRequest {
+	s.ApprovalComments = &v
+	return s
+}
+
+func (s *ConfirmIpSuperviseapproveRequest) SetApprovalExtInfo(v string) *ConfirmIpSuperviseapproveRequest {
+	s.ApprovalExtInfo = &v
+	return s
+}
+
+type ConfirmIpSuperviseapproveResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ConfirmIpSuperviseapproveResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmIpSuperviseapproveResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmIpSuperviseapproveResponse) SetReqMsgId(v string) *ConfirmIpSuperviseapproveResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ConfirmIpSuperviseapproveResponse) SetResultCode(v string) *ConfirmIpSuperviseapproveResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ConfirmIpSuperviseapproveResponse) SetResultMsg(v string) *ConfirmIpSuperviseapproveResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PushIpSuperviseapproveRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础字段
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 关联的订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 当前期望的阶段（用于校验，若是重新提交，则阶段值相等，若推进下一阶段，则阶段值+1）
+	Stage *int64 `json:"stage,omitempty" xml:"stage,omitempty" require:"true"`
+	// 监修报审的阶段具体内容，组织成json保存
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
+}
+
+func (s PushIpSuperviseapproveRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushIpSuperviseapproveRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushIpSuperviseapproveRequest) SetAuthToken(v string) *PushIpSuperviseapproveRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushIpSuperviseapproveRequest) SetProductInstanceId(v string) *PushIpSuperviseapproveRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushIpSuperviseapproveRequest) SetBaseRequest(v *BaseRequestInfo) *PushIpSuperviseapproveRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *PushIpSuperviseapproveRequest) SetOrderId(v string) *PushIpSuperviseapproveRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *PushIpSuperviseapproveRequest) SetStage(v int64) *PushIpSuperviseapproveRequest {
+	s.Stage = &v
+	return s
+}
+
+func (s *PushIpSuperviseapproveRequest) SetExtInfo(v string) *PushIpSuperviseapproveRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type PushIpSuperviseapproveResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PushIpSuperviseapproveResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushIpSuperviseapproveResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushIpSuperviseapproveResponse) SetReqMsgId(v string) *PushIpSuperviseapproveResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushIpSuperviseapproveResponse) SetResultCode(v string) *PushIpSuperviseapproveResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushIpSuperviseapproveResponse) SetResultMsg(v string) *PushIpSuperviseapproveResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryIpSuperviseapproveRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础字段
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 关联的订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+}
+
+func (s QueryIpSuperviseapproveRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpSuperviseapproveRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpSuperviseapproveRequest) SetAuthToken(v string) *QueryIpSuperviseapproveRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIpSuperviseapproveRequest) SetProductInstanceId(v string) *QueryIpSuperviseapproveRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIpSuperviseapproveRequest) SetBaseRequest(v *BaseRequestInfo) *QueryIpSuperviseapproveRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *QueryIpSuperviseapproveRequest) SetOrderId(v string) *QueryIpSuperviseapproveRequest {
+	s.OrderId = &v
+	return s
+}
+
+type QueryIpSuperviseapproveResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 监修报审最新阶段的详情
+	SuperviseApprove *SuperviseApprove `json:"supervise_approve,omitempty" xml:"supervise_approve,omitempty"`
+}
+
+func (s QueryIpSuperviseapproveResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpSuperviseapproveResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpSuperviseapproveResponse) SetReqMsgId(v string) *QueryIpSuperviseapproveResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIpSuperviseapproveResponse) SetResultCode(v string) *QueryIpSuperviseapproveResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIpSuperviseapproveResponse) SetResultMsg(v string) *QueryIpSuperviseapproveResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIpSuperviseapproveResponse) SetSuperviseApprove(v *SuperviseApprove) *QueryIpSuperviseapproveResponse {
+	s.SuperviseApprove = v
+	return s
+}
+
+type ReceiveIpCodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 正版码的编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 领取用户的ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 领取用户的名称
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+	// 领取用户的手机号
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty"`
+	// 领取用户的位置信息
+	Gps *string `json:"gps,omitempty" xml:"gps,omitempty"`
+	// 用户头像地址
+	Avatar *string `json:"avatar,omitempty" xml:"avatar,omitempty" require:"true"`
+}
+
+func (s ReceiveIpCodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiveIpCodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiveIpCodeRequest) SetAuthToken(v string) *ReceiveIpCodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ReceiveIpCodeRequest) SetProductInstanceId(v string) *ReceiveIpCodeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ReceiveIpCodeRequest) SetBaseRequest(v *BaseRequestInfo) *ReceiveIpCodeRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *ReceiveIpCodeRequest) SetCode(v string) *ReceiveIpCodeRequest {
+	s.Code = &v
+	return s
+}
+
+func (s *ReceiveIpCodeRequest) SetUserId(v string) *ReceiveIpCodeRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *ReceiveIpCodeRequest) SetUserName(v string) *ReceiveIpCodeRequest {
+	s.UserName = &v
+	return s
+}
+
+func (s *ReceiveIpCodeRequest) SetPhoneNumber(v string) *ReceiveIpCodeRequest {
+	s.PhoneNumber = &v
+	return s
+}
+
+func (s *ReceiveIpCodeRequest) SetGps(v string) *ReceiveIpCodeRequest {
+	s.Gps = &v
+	return s
+}
+
+func (s *ReceiveIpCodeRequest) SetAvatar(v string) *ReceiveIpCodeRequest {
+	s.Avatar = &v
+	return s
+}
+
+type ReceiveIpCodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ReceiveIpCodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiveIpCodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiveIpCodeResponse) SetReqMsgId(v string) *ReceiveIpCodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ReceiveIpCodeResponse) SetResultCode(v string) *ReceiveIpCodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ReceiveIpCodeResponse) SetResultMsg(v string) *ReceiveIpCodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PagequeryIpCodeinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 页码
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty" require:"true"`
+	// 每页数据量大小(请小于等于100)
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 0 扫描过的正版码，1 领取过的正版码
+	Type *int64 `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+}
+
+func (s PagequeryIpCodeinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryIpCodeinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryIpCodeinfoRequest) SetAuthToken(v string) *PagequeryIpCodeinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryIpCodeinfoRequest) SetProductInstanceId(v string) *PagequeryIpCodeinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryIpCodeinfoRequest) SetBaseRequest(v *BaseRequestInfo) *PagequeryIpCodeinfoRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *PagequeryIpCodeinfoRequest) SetUserId(v string) *PagequeryIpCodeinfoRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *PagequeryIpCodeinfoRequest) SetPageNumber(v int64) *PagequeryIpCodeinfoRequest {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *PagequeryIpCodeinfoRequest) SetPageSize(v int64) *PagequeryIpCodeinfoRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryIpCodeinfoRequest) SetType(v int64) *PagequeryIpCodeinfoRequest {
+	s.Type = &v
+	return s
+}
+
+type PagequeryIpCodeinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 页码
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 页面数据量大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 领取到的正版码总数
+	CodeCount *int64 `json:"code_count,omitempty" xml:"code_count,omitempty"`
+	// 正版码列表信息
+	CodeList []*IPCodeScannedInfo `json:"code_list,omitempty" xml:"code_list,omitempty" type:"Repeated"`
+}
+
+func (s PagequeryIpCodeinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryIpCodeinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryIpCodeinfoResponse) SetReqMsgId(v string) *PagequeryIpCodeinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryIpCodeinfoResponse) SetResultCode(v string) *PagequeryIpCodeinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryIpCodeinfoResponse) SetResultMsg(v string) *PagequeryIpCodeinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryIpCodeinfoResponse) SetPageNumber(v int64) *PagequeryIpCodeinfoResponse {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *PagequeryIpCodeinfoResponse) SetPageSize(v int64) *PagequeryIpCodeinfoResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryIpCodeinfoResponse) SetCodeCount(v int64) *PagequeryIpCodeinfoResponse {
+	s.CodeCount = &v
+	return s
+}
+
+func (s *PagequeryIpCodeinfoResponse) SetCodeList(v []*IPCodeScannedInfo) *PagequeryIpCodeinfoResponse {
+	s.CodeList = v
+	return s
+}
+
+type CreateIpValueaddRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础字段
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 创建增值服务的账户id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 服务名字
+	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty" require:"true"`
+	// 商品主图，存放OSS图片链接,多张用;隔开
+	Images *string `json:"images,omitempty" xml:"images,omitempty" require:"true"`
+	// 商品详情图  存放OSS图片链接,多张用;隔开
+	ImagesDetail *string `json:"images_detail,omitempty" xml:"images_detail,omitempty" require:"true"`
+	// 商品描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 联系人
+	DockingPeople []*DockingPeopleInfo `json:"docking_people,omitempty" xml:"docking_people,omitempty" require:"true" type:"Repeated"`
+	// 资质证明
+	CopyRight *string `json:"copy_right,omitempty" xml:"copy_right,omitempty"`
+	// 备注
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
+}
+
+func (s CreateIpValueaddRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateIpValueaddRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateIpValueaddRequest) SetAuthToken(v string) *CreateIpValueaddRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateIpValueaddRequest) SetProductInstanceId(v string) *CreateIpValueaddRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateIpValueaddRequest) SetBaseRequest(v *BaseRequestInfo) *CreateIpValueaddRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *CreateIpValueaddRequest) SetAccountId(v string) *CreateIpValueaddRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *CreateIpValueaddRequest) SetServiceName(v string) *CreateIpValueaddRequest {
+	s.ServiceName = &v
+	return s
+}
+
+func (s *CreateIpValueaddRequest) SetImages(v string) *CreateIpValueaddRequest {
+	s.Images = &v
+	return s
+}
+
+func (s *CreateIpValueaddRequest) SetImagesDetail(v string) *CreateIpValueaddRequest {
+	s.ImagesDetail = &v
+	return s
+}
+
+func (s *CreateIpValueaddRequest) SetDescription(v string) *CreateIpValueaddRequest {
+	s.Description = &v
+	return s
+}
+
+func (s *CreateIpValueaddRequest) SetDockingPeople(v []*DockingPeopleInfo) *CreateIpValueaddRequest {
+	s.DockingPeople = v
+	return s
+}
+
+func (s *CreateIpValueaddRequest) SetCopyRight(v string) *CreateIpValueaddRequest {
+	s.CopyRight = &v
+	return s
+}
+
+func (s *CreateIpValueaddRequest) SetMemo(v string) *CreateIpValueaddRequest {
+	s.Memo = &v
+	return s
+}
+
+type CreateIpValueaddResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 服务id
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+}
+
+func (s CreateIpValueaddResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateIpValueaddResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateIpValueaddResponse) SetReqMsgId(v string) *CreateIpValueaddResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateIpValueaddResponse) SetResultCode(v string) *CreateIpValueaddResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateIpValueaddResponse) SetResultMsg(v string) *CreateIpValueaddResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateIpValueaddResponse) SetServiceId(v string) *CreateIpValueaddResponse {
+	s.ServiceId = &v
+	return s
+}
+
+type UpdateIpValueaddRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础字段
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 服务id
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
+	// 增值服务名字
+	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty" require:"true"`
+	// 主图。存放OSS图片链接,多张用;隔开
+	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
+	// 商品详情图  存放OSS图片链接.多张用;隔开
+	ImageDetail *string `json:"image_detail,omitempty" xml:"image_detail,omitempty" require:"true"`
+	// 描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 联系人
+	DockingPeople []*DockingPeopleInfo `json:"docking_people,omitempty" xml:"docking_people,omitempty" require:"true" type:"Repeated"`
+	// 资质证明
+	CopyRight *string `json:"copy_right,omitempty" xml:"copy_right,omitempty"`
+	// 备注
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
+}
+
+func (s UpdateIpValueaddRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateIpValueaddRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateIpValueaddRequest) SetAuthToken(v string) *UpdateIpValueaddRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateIpValueaddRequest) SetProductInstanceId(v string) *UpdateIpValueaddRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateIpValueaddRequest) SetBaseRequest(v *BaseRequestInfo) *UpdateIpValueaddRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *UpdateIpValueaddRequest) SetServiceId(v string) *UpdateIpValueaddRequest {
+	s.ServiceId = &v
+	return s
+}
+
+func (s *UpdateIpValueaddRequest) SetServiceName(v string) *UpdateIpValueaddRequest {
+	s.ServiceName = &v
+	return s
+}
+
+func (s *UpdateIpValueaddRequest) SetImage(v string) *UpdateIpValueaddRequest {
+	s.Image = &v
+	return s
+}
+
+func (s *UpdateIpValueaddRequest) SetImageDetail(v string) *UpdateIpValueaddRequest {
+	s.ImageDetail = &v
+	return s
+}
+
+func (s *UpdateIpValueaddRequest) SetDescription(v string) *UpdateIpValueaddRequest {
+	s.Description = &v
+	return s
+}
+
+func (s *UpdateIpValueaddRequest) SetDockingPeople(v []*DockingPeopleInfo) *UpdateIpValueaddRequest {
+	s.DockingPeople = v
+	return s
+}
+
+func (s *UpdateIpValueaddRequest) SetCopyRight(v string) *UpdateIpValueaddRequest {
+	s.CopyRight = &v
+	return s
+}
+
+func (s *UpdateIpValueaddRequest) SetMemo(v string) *UpdateIpValueaddRequest {
+	s.Memo = &v
+	return s
+}
+
+type UpdateIpValueaddResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateIpValueaddResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateIpValueaddResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateIpValueaddResponse) SetReqMsgId(v string) *UpdateIpValueaddResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateIpValueaddResponse) SetResultCode(v string) *UpdateIpValueaddResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateIpValueaddResponse) SetResultMsg(v string) *UpdateIpValueaddResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type SetIpValueaddskuRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础字段
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 服务id
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
+	// sku
+	Skus []*IpSkuEmphasisInfo `json:"skus,omitempty" xml:"skus,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SetIpValueaddskuRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SetIpValueaddskuRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SetIpValueaddskuRequest) SetAuthToken(v string) *SetIpValueaddskuRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SetIpValueaddskuRequest) SetProductInstanceId(v string) *SetIpValueaddskuRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SetIpValueaddskuRequest) SetBaseRequest(v *BaseRequestInfo) *SetIpValueaddskuRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *SetIpValueaddskuRequest) SetServiceId(v string) *SetIpValueaddskuRequest {
+	s.ServiceId = &v
+	return s
+}
+
+func (s *SetIpValueaddskuRequest) SetSkus(v []*IpSkuEmphasisInfo) *SetIpValueaddskuRequest {
+	s.Skus = v
+	return s
+}
+
+type SetIpValueaddskuResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SetIpValueaddskuResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SetIpValueaddskuResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SetIpValueaddskuResponse) SetReqMsgId(v string) *SetIpValueaddskuResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SetIpValueaddskuResponse) SetResultCode(v string) *SetIpValueaddskuResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SetIpValueaddskuResponse) SetResultMsg(v string) *SetIpValueaddskuResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type OnlineIpValueaddRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础字段
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 服务id
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
+	// 是否上线，否为下线
+	IsOnline *bool `json:"is_online,omitempty" xml:"is_online,omitempty" require:"true"`
+}
+
+func (s OnlineIpValueaddRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OnlineIpValueaddRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OnlineIpValueaddRequest) SetAuthToken(v string) *OnlineIpValueaddRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OnlineIpValueaddRequest) SetProductInstanceId(v string) *OnlineIpValueaddRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OnlineIpValueaddRequest) SetBaseRequest(v *BaseRequestInfo) *OnlineIpValueaddRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *OnlineIpValueaddRequest) SetServiceId(v string) *OnlineIpValueaddRequest {
+	s.ServiceId = &v
+	return s
+}
+
+func (s *OnlineIpValueaddRequest) SetIsOnline(v bool) *OnlineIpValueaddRequest {
+	s.IsOnline = &v
+	return s
+}
+
+type OnlineIpValueaddResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s OnlineIpValueaddResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OnlineIpValueaddResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OnlineIpValueaddResponse) SetReqMsgId(v string) *OnlineIpValueaddResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OnlineIpValueaddResponse) SetResultCode(v string) *OnlineIpValueaddResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OnlineIpValueaddResponse) SetResultMsg(v string) *OnlineIpValueaddResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryIpValueaddRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础字段
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 查询服务id
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
+}
+
+func (s QueryIpValueaddRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpValueaddRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpValueaddRequest) SetAuthToken(v string) *QueryIpValueaddRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIpValueaddRequest) SetProductInstanceId(v string) *QueryIpValueaddRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIpValueaddRequest) SetBaseRequest(v *BaseRequestInfo) *QueryIpValueaddRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *QueryIpValueaddRequest) SetServiceId(v string) *QueryIpValueaddRequest {
+	s.ServiceId = &v
+	return s
+}
+
+type QueryIpValueaddResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 增值服务详情
+	ValueAddedInfo *ValueAddedServiceInfoWithSku `json:"value_added_info,omitempty" xml:"value_added_info,omitempty"`
+}
+
+func (s QueryIpValueaddResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpValueaddResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpValueaddResponse) SetReqMsgId(v string) *QueryIpValueaddResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIpValueaddResponse) SetResultCode(v string) *QueryIpValueaddResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIpValueaddResponse) SetResultMsg(v string) *QueryIpValueaddResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIpValueaddResponse) SetValueAddedInfo(v *ValueAddedServiceInfoWithSku) *QueryIpValueaddResponse {
+	s.ValueAddedInfo = v
+	return s
+}
+
+type PagequeryIpValueaddRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础字段
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 归属账户id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+	// 服务名字，模糊匹配
+	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty"`
+	// 服务状态（0:待审核 1:审核拒绝 2:上线【审核通过】 3: 下线）
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+	// 第几页
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// 每页长度
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 开始时间
+	BeginCreateTime *string `json:"begin_create_time,omitempty" xml:"begin_create_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 结束时间
+	EngCreateTime *string `json:"eng_create_time,omitempty" xml:"eng_create_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s PagequeryIpValueaddRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryIpValueaddRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryIpValueaddRequest) SetAuthToken(v string) *PagequeryIpValueaddRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryIpValueaddRequest) SetProductInstanceId(v string) *PagequeryIpValueaddRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryIpValueaddRequest) SetBaseRequest(v *BaseRequestInfo) *PagequeryIpValueaddRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *PagequeryIpValueaddRequest) SetAccountId(v string) *PagequeryIpValueaddRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *PagequeryIpValueaddRequest) SetServiceName(v string) *PagequeryIpValueaddRequest {
+	s.ServiceName = &v
+	return s
+}
+
+func (s *PagequeryIpValueaddRequest) SetStatus(v int64) *PagequeryIpValueaddRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *PagequeryIpValueaddRequest) SetPageIndex(v int64) *PagequeryIpValueaddRequest {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *PagequeryIpValueaddRequest) SetPageSize(v int64) *PagequeryIpValueaddRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryIpValueaddRequest) SetBeginCreateTime(v string) *PagequeryIpValueaddRequest {
+	s.BeginCreateTime = &v
+	return s
+}
+
+func (s *PagequeryIpValueaddRequest) SetEngCreateTime(v string) *PagequeryIpValueaddRequest {
+	s.EngCreateTime = &v
+	return s
+}
+
+type PagequeryIpValueaddResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 增值服务列表
+	Data []*ValueAddedServiceInfo `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// 总数
+	AllCount *int64 `json:"all_count,omitempty" xml:"all_count,omitempty"`
+}
+
+func (s PagequeryIpValueaddResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryIpValueaddResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryIpValueaddResponse) SetReqMsgId(v string) *PagequeryIpValueaddResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryIpValueaddResponse) SetResultCode(v string) *PagequeryIpValueaddResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryIpValueaddResponse) SetResultMsg(v string) *PagequeryIpValueaddResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryIpValueaddResponse) SetData(v []*ValueAddedServiceInfo) *PagequeryIpValueaddResponse {
+	s.Data = v
+	return s
+}
+
+func (s *PagequeryIpValueaddResponse) SetAllCount(v int64) *PagequeryIpValueaddResponse {
+	s.AllCount = &v
+	return s
+}
+
+type UploadIpTradesalesRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 上传记录的用户的链上账户Id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
+	// true 只上链不走真实支付，false 上链并链下真实支付账单
+	OnlyCallBlockchain *bool `json:"only_call_blockchain,omitempty" xml:"only_call_blockchain,omitempty" require:"true"`
+	// 账单结算类型：即时计费0、按周计费1、按月计费2、按季度计费3。默认0
+	BillingType *int64 `json:"billing_type,omitempty" xml:"billing_type,omitempty"`
+	// 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+	PayReturnUrl *string `json:"pay_return_url,omitempty" xml:"pay_return_url,omitempty"`
+	// 授权佣金比例
+	AuthRate *string `json:"auth_rate,omitempty" xml:"auth_rate,omitempty"`
+	// 定向授权按量付费单价
+	AuthPrice *string `json:"auth_price,omitempty" xml:"auth_price,omitempty"`
+	// 商品销售数量
+	TotalAmount *int64 `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
+	// 销售金额
+	TotalSales *string `json:"total_sales,omitempty" xml:"total_sales,omitempty" require:"true"`
+	// 总的退款金额。不填默认为0
+	TotalRefundSales *string `json:"total_refund_sales,omitempty" xml:"total_refund_sales,omitempty"`
+	// 实付金额（授权交易）
+	TotalPayment *string `json:"total_payment,omitempty" xml:"total_payment,omitempty" require:"true"`
+	// 销售数据列表
+	IpSalesInfoList []*IPSalesInfo `json:"ip_sales_info_list,omitempty" xml:"ip_sales_info_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s UploadIpTradesalesRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadIpTradesalesRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadIpTradesalesRequest) SetAuthToken(v string) *UploadIpTradesalesRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadIpTradesalesRequest) SetProductInstanceId(v string) *UploadIpTradesalesRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadIpTradesalesRequest) SetBaseRequest(v *BaseRequestInfo) *UploadIpTradesalesRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *UploadIpTradesalesRequest) SetAccountId(v string) *UploadIpTradesalesRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *UploadIpTradesalesRequest) SetIpOrderId(v string) *UploadIpTradesalesRequest {
+	s.IpOrderId = &v
+	return s
+}
+
+func (s *UploadIpTradesalesRequest) SetOnlyCallBlockchain(v bool) *UploadIpTradesalesRequest {
+	s.OnlyCallBlockchain = &v
+	return s
+}
+
+func (s *UploadIpTradesalesRequest) SetBillingType(v int64) *UploadIpTradesalesRequest {
+	s.BillingType = &v
+	return s
+}
+
+func (s *UploadIpTradesalesRequest) SetPayReturnUrl(v string) *UploadIpTradesalesRequest {
+	s.PayReturnUrl = &v
+	return s
+}
+
+func (s *UploadIpTradesalesRequest) SetAuthRate(v string) *UploadIpTradesalesRequest {
+	s.AuthRate = &v
+	return s
+}
+
+func (s *UploadIpTradesalesRequest) SetAuthPrice(v string) *UploadIpTradesalesRequest {
+	s.AuthPrice = &v
+	return s
+}
+
+func (s *UploadIpTradesalesRequest) SetTotalAmount(v int64) *UploadIpTradesalesRequest {
+	s.TotalAmount = &v
+	return s
+}
+
+func (s *UploadIpTradesalesRequest) SetTotalSales(v string) *UploadIpTradesalesRequest {
+	s.TotalSales = &v
+	return s
+}
+
+func (s *UploadIpTradesalesRequest) SetTotalRefundSales(v string) *UploadIpTradesalesRequest {
+	s.TotalRefundSales = &v
+	return s
+}
+
+func (s *UploadIpTradesalesRequest) SetTotalPayment(v string) *UploadIpTradesalesRequest {
+	s.TotalPayment = &v
+	return s
+}
+
+func (s *UploadIpTradesalesRequest) SetIpSalesInfoList(v []*IPSalesInfo) *UploadIpTradesalesRequest {
+	s.IpSalesInfoList = v
+	return s
+}
+
+type UploadIpTradesalesResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 支付链接
+	PayUrl *string `json:"pay_url,omitempty" xml:"pay_url,omitempty"`
+	// 账单ID
+	IpBillId *string `json:"ip_bill_id,omitempty" xml:"ip_bill_id,omitempty"`
+}
+
+func (s UploadIpTradesalesResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadIpTradesalesResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadIpTradesalesResponse) SetReqMsgId(v string) *UploadIpTradesalesResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadIpTradesalesResponse) SetResultCode(v string) *UploadIpTradesalesResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadIpTradesalesResponse) SetResultMsg(v string) *UploadIpTradesalesResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadIpTradesalesResponse) SetPayUrl(v string) *UploadIpTradesalesResponse {
+	s.PayUrl = &v
+	return s
+}
+
+func (s *UploadIpTradesalesResponse) SetIpBillId(v string) *UploadIpTradesalesResponse {
+	s.IpBillId = &v
+	return s
+}
+
+type AuthIpUserRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 用户授权code
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty" require:"true"`
+}
+
+func (s AuthIpUserRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthIpUserRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AuthIpUserRequest) SetAuthToken(v string) *AuthIpUserRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AuthIpUserRequest) SetProductInstanceId(v string) *AuthIpUserRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AuthIpUserRequest) SetBaseRequest(v *BaseRequestInfo) *AuthIpUserRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *AuthIpUserRequest) SetAuthCode(v string) *AuthIpUserRequest {
+	s.AuthCode = &v
+	return s
+}
+
+type AuthIpUserResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+}
+
+func (s AuthIpUserResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthIpUserResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AuthIpUserResponse) SetReqMsgId(v string) *AuthIpUserResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AuthIpUserResponse) SetResultCode(v string) *AuthIpUserResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AuthIpUserResponse) SetResultMsg(v string) *AuthIpUserResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AuthIpUserResponse) SetUserId(v string) *AuthIpUserResponse {
+	s.UserId = &v
+	return s
+}
+
+type RemoveIpGoodsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础字段
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// ip id
+	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
+}
+
+func (s RemoveIpGoodsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RemoveIpGoodsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RemoveIpGoodsRequest) SetAuthToken(v string) *RemoveIpGoodsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RemoveIpGoodsRequest) SetProductInstanceId(v string) *RemoveIpGoodsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RemoveIpGoodsRequest) SetBaseRequest(v *BaseRequestInfo) *RemoveIpGoodsRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *RemoveIpGoodsRequest) SetIpId(v string) *RemoveIpGoodsRequest {
+	s.IpId = &v
+	return s
+}
+
+type RemoveIpGoodsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s RemoveIpGoodsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RemoveIpGoodsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RemoveIpGoodsResponse) SetReqMsgId(v string) *RemoveIpGoodsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RemoveIpGoodsResponse) SetResultCode(v string) *RemoveIpGoodsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RemoveIpGoodsResponse) SetResultMsg(v string) *RemoveIpGoodsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CountIpNumRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础字段
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 账户id，为空则查全局
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+	// 渠道名称
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty"`
+}
+
+func (s CountIpNumRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CountIpNumRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CountIpNumRequest) SetAuthToken(v string) *CountIpNumRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CountIpNumRequest) SetProductInstanceId(v string) *CountIpNumRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CountIpNumRequest) SetBaseRequest(v *BaseRequestInfo) *CountIpNumRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *CountIpNumRequest) SetAccountId(v string) *CountIpNumRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *CountIpNumRequest) SetChannelName(v string) *CountIpNumRequest {
+	s.ChannelName = &v
+	return s
+}
+
+type CountIpNumResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 各个渠道的统计
+	CounterDetail []*ChannelCounter `json:"counter_detail,omitempty" xml:"counter_detail,omitempty" type:"Repeated"`
+	// 总计值
+	AllCount *int64 `json:"all_count,omitempty" xml:"all_count,omitempty"`
+}
+
+func (s CountIpNumResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CountIpNumResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CountIpNumResponse) SetReqMsgId(v string) *CountIpNumResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CountIpNumResponse) SetResultCode(v string) *CountIpNumResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CountIpNumResponse) SetResultMsg(v string) *CountIpNumResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CountIpNumResponse) SetCounterDetail(v []*ChannelCounter) *CountIpNumResponse {
+	s.CounterDetail = v
+	return s
+}
+
+func (s *CountIpNumResponse) SetAllCount(v int64) *CountIpNumResponse {
+	s.AllCount = &v
+	return s
+}
+
+type CountIpPvRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础字段
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 账户id，为空则统计全局
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+	// 渠道名称
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty"`
+}
+
+func (s CountIpPvRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CountIpPvRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CountIpPvRequest) SetAuthToken(v string) *CountIpPvRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CountIpPvRequest) SetProductInstanceId(v string) *CountIpPvRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CountIpPvRequest) SetBaseRequest(v *BaseRequestInfo) *CountIpPvRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *CountIpPvRequest) SetAccountId(v string) *CountIpPvRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *CountIpPvRequest) SetChannelName(v string) *CountIpPvRequest {
+	s.ChannelName = &v
+	return s
+}
+
+type CountIpPvResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总计
+	AllCount *int64 `json:"all_count,omitempty" xml:"all_count,omitempty"`
+	// 渠道统计值
+	CounterDetails []*ChannelCounter `json:"counter_details,omitempty" xml:"counter_details,omitempty" type:"Repeated"`
+}
+
+func (s CountIpPvResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CountIpPvResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CountIpPvResponse) SetReqMsgId(v string) *CountIpPvResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CountIpPvResponse) SetResultCode(v string) *CountIpPvResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CountIpPvResponse) SetResultMsg(v string) *CountIpPvResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CountIpPvResponse) SetAllCount(v int64) *CountIpPvResponse {
+	s.AllCount = &v
+	return s
+}
+
+func (s *CountIpPvResponse) SetCounterDetails(v []*ChannelCounter) *CountIpPvResponse {
+	s.CounterDetails = v
+	return s
+}
+
+type QueryIpCodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 正版码的编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+}
+
+func (s QueryIpCodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpCodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpCodeRequest) SetAuthToken(v string) *QueryIpCodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIpCodeRequest) SetProductInstanceId(v string) *QueryIpCodeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIpCodeRequest) SetBaseRequest(v *BaseRequestInfo) *QueryIpCodeRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *QueryIpCodeRequest) SetCode(v string) *QueryIpCodeRequest {
+	s.Code = &v
+	return s
+}
+
+type QueryIpCodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 正版码信息
+	CodeInfo *IPCodeScannedInfo `json:"code_info,omitempty" xml:"code_info,omitempty"`
+}
+
+func (s QueryIpCodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpCodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpCodeResponse) SetReqMsgId(v string) *QueryIpCodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIpCodeResponse) SetResultCode(v string) *QueryIpCodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIpCodeResponse) SetResultMsg(v string) *QueryIpCodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIpCodeResponse) SetCodeInfo(v *IPCodeScannedInfo) *QueryIpCodeResponse {
+	s.CodeInfo = v
+	return s
+}
+
+type CountIpAccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty"`
+	// 场景码(入驻时申请)(长度不超过50个字符)
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
+	// null返回所有数据，非空返回对应渠道的数据
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty"`
+}
+
+func (s CountIpAccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CountIpAccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CountIpAccountRequest) SetAuthToken(v string) *CountIpAccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CountIpAccountRequest) SetProductInstanceId(v string) *CountIpAccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CountIpAccountRequest) SetBaseRequest(v *BaseRequestInfo) *CountIpAccountRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *CountIpAccountRequest) SetChainId(v string) *CountIpAccountRequest {
+	s.ChainId = &v
+	return s
+}
+
+func (s *CountIpAccountRequest) SetProductCode(v string) *CountIpAccountRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *CountIpAccountRequest) SetChannelName(v string) *CountIpAccountRequest {
+	s.ChannelName = &v
+	return s
+}
+
+type CountIpAccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户数量
+	UserCount *int64 `json:"user_count,omitempty" xml:"user_count,omitempty"`
+	// 版权方数量
+	SellerCount *int64 `json:"seller_count,omitempty" xml:"seller_count,omitempty"`
+	// 版权方数量
+	BuyerCount *int64 `json:"buyer_count,omitempty" xml:"buyer_count,omitempty"`
+}
+
+func (s CountIpAccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CountIpAccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CountIpAccountResponse) SetReqMsgId(v string) *CountIpAccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CountIpAccountResponse) SetResultCode(v string) *CountIpAccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CountIpAccountResponse) SetResultMsg(v string) *CountIpAccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CountIpAccountResponse) SetUserCount(v int64) *CountIpAccountResponse {
+	s.UserCount = &v
+	return s
+}
+
+func (s *CountIpAccountResponse) SetSellerCount(v int64) *CountIpAccountResponse {
+	s.SellerCount = &v
+	return s
+}
+
+func (s *CountIpAccountResponse) SetBuyerCount(v int64) *CountIpAccountResponse {
+	s.BuyerCount = &v
+	return s
+}
+
+type QueryIpOrderstatisticRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 卖方ID
+	SellerId *string `json:"seller_id,omitempty" xml:"seller_id,omitempty"`
+	// IP id
+	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty"`
+	// 渠道名称
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty"`
+}
+
+func (s QueryIpOrderstatisticRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpOrderstatisticRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpOrderstatisticRequest) SetAuthToken(v string) *QueryIpOrderstatisticRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIpOrderstatisticRequest) SetProductInstanceId(v string) *QueryIpOrderstatisticRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIpOrderstatisticRequest) SetBaseRequest(v *BaseRequestInfo) *QueryIpOrderstatisticRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *QueryIpOrderstatisticRequest) SetSellerId(v string) *QueryIpOrderstatisticRequest {
+	s.SellerId = &v
+	return s
+}
+
+func (s *QueryIpOrderstatisticRequest) SetIpId(v string) *QueryIpOrderstatisticRequest {
+	s.IpId = &v
+	return s
+}
+
+func (s *QueryIpOrderstatisticRequest) SetChannelName(v string) *QueryIpOrderstatisticRequest {
+	s.ChannelName = &v
+	return s
+}
+
+type QueryIpOrderstatisticResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单总数
+	TotalOrderCount *int64 `json:"total_order_count,omitempty" xml:"total_order_count,omitempty"`
+	// 总金额
+	TotalPaymentAmount *string `json:"total_payment_amount,omitempty" xml:"total_payment_amount,omitempty"`
+	// 总客户数
+	TotalBuyerCount *int64 `json:"total_buyer_count,omitempty" xml:"total_buyer_count,omitempty"`
+	// 统计数据
+	OrderStaList []*ChannelCounter `json:"order_sta_list,omitempty" xml:"order_sta_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryIpOrderstatisticResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpOrderstatisticResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpOrderstatisticResponse) SetReqMsgId(v string) *QueryIpOrderstatisticResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIpOrderstatisticResponse) SetResultCode(v string) *QueryIpOrderstatisticResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIpOrderstatisticResponse) SetResultMsg(v string) *QueryIpOrderstatisticResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIpOrderstatisticResponse) SetTotalOrderCount(v int64) *QueryIpOrderstatisticResponse {
+	s.TotalOrderCount = &v
+	return s
+}
+
+func (s *QueryIpOrderstatisticResponse) SetTotalPaymentAmount(v string) *QueryIpOrderstatisticResponse {
+	s.TotalPaymentAmount = &v
+	return s
+}
+
+func (s *QueryIpOrderstatisticResponse) SetTotalBuyerCount(v int64) *QueryIpOrderstatisticResponse {
+	s.TotalBuyerCount = &v
+	return s
+}
+
+func (s *QueryIpOrderstatisticResponse) SetOrderStaList(v []*ChannelCounter) *QueryIpOrderstatisticResponse {
+	s.OrderStaList = v
+	return s
+}
+
+type UpdateIpGoodsgalleryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 版权方链上账户ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// ip链上id
+	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
+	// IP图库链接，一个压缩包
+	IpGalleryUrl *string `json:"ip_gallery_url,omitempty" xml:"ip_gallery_url,omitempty" require:"true"`
+}
+
+func (s UpdateIpGoodsgalleryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateIpGoodsgalleryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateIpGoodsgalleryRequest) SetAuthToken(v string) *UpdateIpGoodsgalleryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateIpGoodsgalleryRequest) SetProductInstanceId(v string) *UpdateIpGoodsgalleryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateIpGoodsgalleryRequest) SetBaseRequest(v *BaseRequestInfo) *UpdateIpGoodsgalleryRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *UpdateIpGoodsgalleryRequest) SetAccountId(v string) *UpdateIpGoodsgalleryRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *UpdateIpGoodsgalleryRequest) SetIpId(v string) *UpdateIpGoodsgalleryRequest {
+	s.IpId = &v
+	return s
+}
+
+func (s *UpdateIpGoodsgalleryRequest) SetIpGalleryUrl(v string) *UpdateIpGoodsgalleryRequest {
+	s.IpGalleryUrl = &v
+	return s
+}
+
+type UpdateIpGoodsgalleryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateIpGoodsgalleryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateIpGoodsgalleryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateIpGoodsgalleryResponse) SetReqMsgId(v string) *UpdateIpGoodsgalleryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateIpGoodsgalleryResponse) SetResultCode(v string) *UpdateIpGoodsgalleryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateIpGoodsgalleryResponse) SetResultMsg(v string) *UpdateIpGoodsgalleryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryIpGoodsgalleryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 账户链上ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// IP链上ID，只有版权方可以根据IPID查询图库信息。如果传入IPID，优先根据IPID查询图库信息。
+	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty"`
+	// IP授权订单ID，版权方和商家均可根据订单ID查询图库信息
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty"`
+}
+
+func (s QueryIpGoodsgalleryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpGoodsgalleryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpGoodsgalleryRequest) SetAuthToken(v string) *QueryIpGoodsgalleryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIpGoodsgalleryRequest) SetProductInstanceId(v string) *QueryIpGoodsgalleryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIpGoodsgalleryRequest) SetBaseRequest(v *BaseRequestInfo) *QueryIpGoodsgalleryRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *QueryIpGoodsgalleryRequest) SetAccountId(v string) *QueryIpGoodsgalleryRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *QueryIpGoodsgalleryRequest) SetIpId(v string) *QueryIpGoodsgalleryRequest {
+	s.IpId = &v
+	return s
+}
+
+func (s *QueryIpGoodsgalleryRequest) SetIpOrderId(v string) *QueryIpGoodsgalleryRequest {
+	s.IpOrderId = &v
+	return s
+}
+
+type QueryIpGoodsgalleryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 图库链接
+	IpGalleryUrl *string `json:"ip_gallery_url,omitempty" xml:"ip_gallery_url,omitempty"`
+	// 图库临时下载链接，过期时间2小时
+	IpGalleryTemporaryUrl *string `json:"ip_gallery_temporary_url,omitempty" xml:"ip_gallery_temporary_url,omitempty"`
+}
+
+func (s QueryIpGoodsgalleryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpGoodsgalleryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpGoodsgalleryResponse) SetReqMsgId(v string) *QueryIpGoodsgalleryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIpGoodsgalleryResponse) SetResultCode(v string) *QueryIpGoodsgalleryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIpGoodsgalleryResponse) SetResultMsg(v string) *QueryIpGoodsgalleryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIpGoodsgalleryResponse) SetIpGalleryUrl(v string) *QueryIpGoodsgalleryResponse {
+	s.IpGalleryUrl = &v
+	return s
+}
+
+func (s *QueryIpGoodsgalleryResponse) SetIpGalleryTemporaryUrl(v string) *QueryIpGoodsgalleryResponse {
+	s.IpGalleryTemporaryUrl = &v
+	return s
+}
+
+type SetIpCodeinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 正版码对应的订单上版权方的账户链上ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 订单ID
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 正版码商品信息配置列表
+	GoodsInfoList []*IPCodeGoodsInfo `json:"goods_info_list,omitempty" xml:"goods_info_list,omitempty" type:"Repeated"`
+	// 正版码资源位配置信息列表
+	AdInfoList []*IPCodeAdvertisingInfo `json:"ad_info_list,omitempty" xml:"ad_info_list,omitempty" type:"Repeated"`
+	// ip版权方信息
+	IpownerInfo *IPCodeIpOwnerInfo `json:"ipowner_info,omitempty" xml:"ipowner_info,omitempty"`
+}
+
+func (s SetIpCodeinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SetIpCodeinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SetIpCodeinfoRequest) SetAuthToken(v string) *SetIpCodeinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SetIpCodeinfoRequest) SetProductInstanceId(v string) *SetIpCodeinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SetIpCodeinfoRequest) SetBaseRequest(v *BaseRequestInfo) *SetIpCodeinfoRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *SetIpCodeinfoRequest) SetAccountId(v string) *SetIpCodeinfoRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *SetIpCodeinfoRequest) SetOrderId(v string) *SetIpCodeinfoRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *SetIpCodeinfoRequest) SetGoodsInfoList(v []*IPCodeGoodsInfo) *SetIpCodeinfoRequest {
+	s.GoodsInfoList = v
+	return s
+}
+
+func (s *SetIpCodeinfoRequest) SetAdInfoList(v []*IPCodeAdvertisingInfo) *SetIpCodeinfoRequest {
+	s.AdInfoList = v
+	return s
+}
+
+func (s *SetIpCodeinfoRequest) SetIpownerInfo(v *IPCodeIpOwnerInfo) *SetIpCodeinfoRequest {
+	s.IpownerInfo = v
+	return s
+}
+
+type SetIpCodeinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SetIpCodeinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SetIpCodeinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SetIpCodeinfoResponse) SetReqMsgId(v string) *SetIpCodeinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SetIpCodeinfoResponse) SetResultCode(v string) *SetIpCodeinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SetIpCodeinfoResponse) SetResultMsg(v string) *SetIpCodeinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PagequeryIpGalleryinstructionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 账户链上ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 授权订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
+	// 页码
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty" require:"true"`
+	// 每页数据量大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 数据排序顺序：正序还是倒序。默认按照下载时间排序。
+	Order *string `json:"order,omitempty" xml:"order,omitempty" require:"true"`
+}
+
+func (s PagequeryIpGalleryinstructionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryIpGalleryinstructionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryIpGalleryinstructionRequest) SetAuthToken(v string) *PagequeryIpGalleryinstructionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryIpGalleryinstructionRequest) SetProductInstanceId(v string) *PagequeryIpGalleryinstructionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryIpGalleryinstructionRequest) SetBaseRequest(v *BaseRequestInfo) *PagequeryIpGalleryinstructionRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *PagequeryIpGalleryinstructionRequest) SetAccountId(v string) *PagequeryIpGalleryinstructionRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *PagequeryIpGalleryinstructionRequest) SetIpOrderId(v string) *PagequeryIpGalleryinstructionRequest {
+	s.IpOrderId = &v
+	return s
+}
+
+func (s *PagequeryIpGalleryinstructionRequest) SetPageNumber(v int64) *PagequeryIpGalleryinstructionRequest {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *PagequeryIpGalleryinstructionRequest) SetPageSize(v int64) *PagequeryIpGalleryinstructionRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryIpGalleryinstructionRequest) SetOrder(v string) *PagequeryIpGalleryinstructionRequest {
+	s.Order = &v
+	return s
+}
+
+type PagequeryIpGalleryinstructionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 页码
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 每页数据量大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 符合条件的数据总数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 图库系在记录信息
+	GalleryInstructionList []*IPGalleryInstruction `json:"gallery_instruction_list,omitempty" xml:"gallery_instruction_list,omitempty" type:"Repeated"`
+}
+
+func (s PagequeryIpGalleryinstructionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryIpGalleryinstructionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryIpGalleryinstructionResponse) SetReqMsgId(v string) *PagequeryIpGalleryinstructionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryIpGalleryinstructionResponse) SetResultCode(v string) *PagequeryIpGalleryinstructionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryIpGalleryinstructionResponse) SetResultMsg(v string) *PagequeryIpGalleryinstructionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryIpGalleryinstructionResponse) SetPageNumber(v int64) *PagequeryIpGalleryinstructionResponse {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *PagequeryIpGalleryinstructionResponse) SetPageSize(v int64) *PagequeryIpGalleryinstructionResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryIpGalleryinstructionResponse) SetTotalCount(v int64) *PagequeryIpGalleryinstructionResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *PagequeryIpGalleryinstructionResponse) SetGalleryInstructionList(v []*IPGalleryInstruction) *PagequeryIpGalleryinstructionResponse {
+	s.GalleryInstructionList = v
+	return s
+}
+
+type ConfirmIpOrdergalleryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 必须传入：IP 版权方账户链上ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 授权订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
+}
+
+func (s ConfirmIpOrdergalleryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmIpOrdergalleryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmIpOrdergalleryRequest) SetAuthToken(v string) *ConfirmIpOrdergalleryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmIpOrdergalleryRequest) SetProductInstanceId(v string) *ConfirmIpOrdergalleryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ConfirmIpOrdergalleryRequest) SetBaseRequest(v *BaseRequestInfo) *ConfirmIpOrdergalleryRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *ConfirmIpOrdergalleryRequest) SetAccountId(v string) *ConfirmIpOrdergalleryRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *ConfirmIpOrdergalleryRequest) SetIpOrderId(v string) *ConfirmIpOrdergalleryRequest {
+	s.IpOrderId = &v
+	return s
+}
+
+type ConfirmIpOrdergalleryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ConfirmIpOrdergalleryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmIpOrdergalleryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmIpOrdergalleryResponse) SetReqMsgId(v string) *ConfirmIpOrdergalleryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ConfirmIpOrdergalleryResponse) SetResultCode(v string) *ConfirmIpOrdergalleryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ConfirmIpOrdergalleryResponse) SetResultMsg(v string) *ConfirmIpOrdergalleryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ConfirmIpAuthtradeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础请求参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 审核账户ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 授权订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
+	// 是否同意授权
+	ConfirmResult *bool `json:"confirm_result,omitempty" xml:"confirm_result,omitempty" require:"true"`
+}
+
+func (s ConfirmIpAuthtradeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmIpAuthtradeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmIpAuthtradeRequest) SetAuthToken(v string) *ConfirmIpAuthtradeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmIpAuthtradeRequest) SetProductInstanceId(v string) *ConfirmIpAuthtradeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ConfirmIpAuthtradeRequest) SetBaseRequest(v *BaseRequestInfo) *ConfirmIpAuthtradeRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *ConfirmIpAuthtradeRequest) SetAccountId(v string) *ConfirmIpAuthtradeRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *ConfirmIpAuthtradeRequest) SetIpOrderId(v string) *ConfirmIpAuthtradeRequest {
+	s.IpOrderId = &v
+	return s
+}
+
+func (s *ConfirmIpAuthtradeRequest) SetConfirmResult(v bool) *ConfirmIpAuthtradeRequest {
+	s.ConfirmResult = &v
+	return s
+}
+
+type ConfirmIpAuthtradeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty"`
+	// 保底金支付链接
+	PayUrl *string `json:"pay_url,omitempty" xml:"pay_url,omitempty"`
+	// 保底金账单ID
+	IpBillId *string `json:"ip_bill_id,omitempty" xml:"ip_bill_id,omitempty"`
+}
+
+func (s ConfirmIpAuthtradeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmIpAuthtradeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmIpAuthtradeResponse) SetReqMsgId(v string) *ConfirmIpAuthtradeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ConfirmIpAuthtradeResponse) SetResultCode(v string) *ConfirmIpAuthtradeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ConfirmIpAuthtradeResponse) SetResultMsg(v string) *ConfirmIpAuthtradeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ConfirmIpAuthtradeResponse) SetIpOrderId(v string) *ConfirmIpAuthtradeResponse {
+	s.IpOrderId = &v
+	return s
+}
+
+func (s *ConfirmIpAuthtradeResponse) SetPayUrl(v string) *ConfirmIpAuthtradeResponse {
+	s.PayUrl = &v
+	return s
+}
+
+func (s *ConfirmIpAuthtradeResponse) SetIpBillId(v string) *ConfirmIpAuthtradeResponse {
+	s.IpBillId = &v
+	return s
+}
+
+type ConfirmIpPackagetradeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础请求参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 审核账户ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 授权订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
+	// 是否同意授权
+	//
+	ConfirmResult *bool `json:"confirm_result,omitempty" xml:"confirm_result,omitempty" require:"true"`
+}
+
+func (s ConfirmIpPackagetradeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmIpPackagetradeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmIpPackagetradeRequest) SetAuthToken(v string) *ConfirmIpPackagetradeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmIpPackagetradeRequest) SetProductInstanceId(v string) *ConfirmIpPackagetradeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ConfirmIpPackagetradeRequest) SetBaseRequest(v *BaseRequestInfo) *ConfirmIpPackagetradeRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *ConfirmIpPackagetradeRequest) SetAccountId(v string) *ConfirmIpPackagetradeRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *ConfirmIpPackagetradeRequest) SetIpOrderId(v string) *ConfirmIpPackagetradeRequest {
+	s.IpOrderId = &v
+	return s
+}
+
+func (s *ConfirmIpPackagetradeRequest) SetConfirmResult(v bool) *ConfirmIpPackagetradeRequest {
+	s.ConfirmResult = &v
+	return s
+}
+
+type ConfirmIpPackagetradeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty"`
+	// 保底金支付链接
+	PayUrl *string `json:"pay_url,omitempty" xml:"pay_url,omitempty"`
+	// 保底金账单ID
+	IpBillId *string `json:"ip_bill_id,omitempty" xml:"ip_bill_id,omitempty"`
+}
+
+func (s ConfirmIpPackagetradeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmIpPackagetradeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmIpPackagetradeResponse) SetReqMsgId(v string) *ConfirmIpPackagetradeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ConfirmIpPackagetradeResponse) SetResultCode(v string) *ConfirmIpPackagetradeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ConfirmIpPackagetradeResponse) SetResultMsg(v string) *ConfirmIpPackagetradeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ConfirmIpPackagetradeResponse) SetIpOrderId(v string) *ConfirmIpPackagetradeResponse {
+	s.IpOrderId = &v
+	return s
+}
+
+func (s *ConfirmIpPackagetradeResponse) SetPayUrl(v string) *ConfirmIpPackagetradeResponse {
+	s.PayUrl = &v
+	return s
+}
+
+func (s *ConfirmIpPackagetradeResponse) SetIpBillId(v string) *ConfirmIpPackagetradeResponse {
+	s.IpBillId = &v
+	return s
+}
+
+type ApplyIpPackagetradeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 买方的链上账户Id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// IP授权交易时传入IP ID；增值服务交易时传入服务ID
+	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
+	// true 只上链不走真实支付，false 上链并链下真实支付账单
+	OnlyCallBlockchain *bool `json:"only_call_blockchain,omitempty" xml:"only_call_blockchain,omitempty" require:"true"`
+	// 终端商品价格区间
+	PriceRange *string `json:"price_range,omitempty" xml:"price_range,omitempty" require:"true"`
+	// 套餐中包含终端商品数量
+	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 套餐交易应付金额，单位元，保留两位小数
+	ExpectedTotalPrice *string `json:"expected_total_price,omitempty" xml:"expected_total_price,omitempty" require:"true"`
+	// 授权合作开始期限（毫秒时间戳）
+	AuthBeginTime *int64 `json:"auth_begin_time,omitempty" xml:"auth_begin_time,omitempty" require:"true"`
+	// 授权合作结束期限（毫秒时间戳）
+	AuthEndTime *int64 `json:"auth_end_time,omitempty" xml:"auth_end_time,omitempty" require:"true"`
+	// 备注信息
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
+	// 附加条款
+	AdditionalClause *string `json:"additional_clause,omitempty" xml:"additional_clause,omitempty"`
+	// 授权产品范围
+	AuthProductScope *string `json:"auth_product_scope,omitempty" xml:"auth_product_scope,omitempty"`
+	// 授权地域范围
+	AuthAreaScope *string `json:"auth_area_scope,omitempty" xml:"auth_area_scope,omitempty"`
+	// 商品销售渠道
+	SalesChannel *string `json:"sales_channel,omitempty" xml:"sales_channel,omitempty"`
+	// 0 IP交易，1 增值服务交易
+	GoodsType *int64 `json:"goods_type,omitempty" xml:"goods_type,omitempty"`
+	// 增值服务交易绑定的ip授权交易订单，增值服务交易必填
+	RelatedOrderId *string `json:"related_order_id,omitempty" xml:"related_order_id,omitempty"`
+	// 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+	PayReturnUrl *string `json:"pay_return_url,omitempty" xml:"pay_return_url,omitempty"`
+	// 授权类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty"`
+}
+
+func (s ApplyIpPackagetradeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyIpPackagetradeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyIpPackagetradeRequest) SetAuthToken(v string) *ApplyIpPackagetradeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeRequest) SetProductInstanceId(v string) *ApplyIpPackagetradeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeRequest) SetBaseRequest(v *BaseRequestInfo) *ApplyIpPackagetradeRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *ApplyIpPackagetradeRequest) SetAccountId(v string) *ApplyIpPackagetradeRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeRequest) SetIpId(v string) *ApplyIpPackagetradeRequest {
+	s.IpId = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeRequest) SetOnlyCallBlockchain(v bool) *ApplyIpPackagetradeRequest {
+	s.OnlyCallBlockchain = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeRequest) SetPriceRange(v string) *ApplyIpPackagetradeRequest {
+	s.PriceRange = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeRequest) SetAmount(v int64) *ApplyIpPackagetradeRequest {
+	s.Amount = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeRequest) SetExpectedTotalPrice(v string) *ApplyIpPackagetradeRequest {
+	s.ExpectedTotalPrice = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeRequest) SetAuthBeginTime(v int64) *ApplyIpPackagetradeRequest {
+	s.AuthBeginTime = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeRequest) SetAuthEndTime(v int64) *ApplyIpPackagetradeRequest {
+	s.AuthEndTime = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeRequest) SetMemo(v string) *ApplyIpPackagetradeRequest {
+	s.Memo = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeRequest) SetAdditionalClause(v string) *ApplyIpPackagetradeRequest {
+	s.AdditionalClause = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeRequest) SetAuthProductScope(v string) *ApplyIpPackagetradeRequest {
+	s.AuthProductScope = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeRequest) SetAuthAreaScope(v string) *ApplyIpPackagetradeRequest {
+	s.AuthAreaScope = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeRequest) SetSalesChannel(v string) *ApplyIpPackagetradeRequest {
+	s.SalesChannel = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeRequest) SetGoodsType(v int64) *ApplyIpPackagetradeRequest {
+	s.GoodsType = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeRequest) SetRelatedOrderId(v string) *ApplyIpPackagetradeRequest {
+	s.RelatedOrderId = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeRequest) SetPayReturnUrl(v string) *ApplyIpPackagetradeRequest {
+	s.PayReturnUrl = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeRequest) SetAuthType(v string) *ApplyIpPackagetradeRequest {
+	s.AuthType = &v
+	return s
+}
+
+type ApplyIpPackagetradeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty"`
+	// 支付信息
+	PayUrl *string `json:"pay_url,omitempty" xml:"pay_url,omitempty"`
+	// 账单ID
+	//
+	IpBillId *string `json:"ip_bill_id,omitempty" xml:"ip_bill_id,omitempty"`
+}
+
+func (s ApplyIpPackagetradeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyIpPackagetradeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyIpPackagetradeResponse) SetReqMsgId(v string) *ApplyIpPackagetradeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeResponse) SetResultCode(v string) *ApplyIpPackagetradeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeResponse) SetResultMsg(v string) *ApplyIpPackagetradeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeResponse) SetIpOrderId(v string) *ApplyIpPackagetradeResponse {
+	s.IpOrderId = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeResponse) SetPayUrl(v string) *ApplyIpPackagetradeResponse {
+	s.PayUrl = &v
+	return s
+}
+
+func (s *ApplyIpPackagetradeResponse) SetIpBillId(v string) *ApplyIpPackagetradeResponse {
+	s.IpBillId = &v
+	return s
+}
+
+type ApplyIpAuthtradeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础请求参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 采购者的链上账户Id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// IP授权交易时传入IP ID；增值服务交易时传入服务ID
+	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
+	// 收费模式：0 销售抽佣, 1 按量付费
+	ChargeType *int64 `json:"charge_type,omitempty" xml:"charge_type,omitempty"`
+	// 授权计费比例
+	AuthRate *string `json:"auth_rate,omitempty" xml:"auth_rate,omitempty"`
+	// 按量付费的收费单价（按量付费模式必填）
+	AuthPrice *string `json:"auth_price,omitempty" xml:"auth_price,omitempty"`
+	// 授权合作开始期限（毫秒时间戳）
+	AuthBeginTime *int64 `json:"auth_begin_time,omitempty" xml:"auth_begin_time,omitempty" require:"true"`
+	// 授权合作结束期限（毫秒时间戳）
+	AuthEndTime *int64 `json:"auth_end_time,omitempty" xml:"auth_end_time,omitempty" require:"true"`
+	// 合同（文件URL）
+	Contract *string `json:"contract,omitempty" xml:"contract,omitempty"`
+	// 设计稿（文件URL）
+	DesignDraft *string `json:"design_draft,omitempty" xml:"design_draft,omitempty"`
+	// 授权产品范围
+	AuthProductScope *string `json:"auth_product_scope,omitempty" xml:"auth_product_scope,omitempty"`
+	// 授权地域范围
+	AuthAreaScope *string `json:"auth_area_scope,omitempty" xml:"auth_area_scope,omitempty"`
+	// 商品销售渠道
+	SalesChannel *string `json:"sales_channel,omitempty" xml:"sales_channel,omitempty"`
+	// 备注消息(不超过256个字符)
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
+	// 附加条款
+	AdditionalClause *string `json:"additional_clause,omitempty" xml:"additional_clause,omitempty"`
+	// 是否有保底金
+	Guaranteed *bool `json:"guaranteed,omitempty" xml:"guaranteed,omitempty" require:"true"`
+	// 支付的保底金金额
+	GuaranteedFund *string `json:"guaranteed_fund,omitempty" xml:"guaranteed_fund,omitempty"`
+	// 保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
+	GuaranteedGoodsAmount *int64 `json:"guaranteed_goods_amount,omitempty" xml:"guaranteed_goods_amount,omitempty"`
+	// 保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
+	GuaranteedSales *string `json:"guaranteed_sales,omitempty" xml:"guaranteed_sales,omitempty"`
+	// 0 IP交易，1 增值服务交易
+	GoodsType *int64 `json:"goods_type,omitempty" xml:"goods_type,omitempty"`
+	// 增值服务交易绑定的ip授权交易订单，增值服务交易必填
+	RelatedOrderId *string `json:"related_order_id,omitempty" xml:"related_order_id,omitempty"`
+	// 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+	PayReturnUrl *string `json:"pay_return_url,omitempty" xml:"pay_return_url,omitempty"`
+	// 授权类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty"`
+}
+
+func (s ApplyIpAuthtradeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyIpAuthtradeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyIpAuthtradeRequest) SetAuthToken(v string) *ApplyIpAuthtradeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetProductInstanceId(v string) *ApplyIpAuthtradeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetBaseRequest(v *BaseRequestInfo) *ApplyIpAuthtradeRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetAccountId(v string) *ApplyIpAuthtradeRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetIpId(v string) *ApplyIpAuthtradeRequest {
+	s.IpId = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetChargeType(v int64) *ApplyIpAuthtradeRequest {
+	s.ChargeType = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetAuthRate(v string) *ApplyIpAuthtradeRequest {
+	s.AuthRate = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetAuthPrice(v string) *ApplyIpAuthtradeRequest {
+	s.AuthPrice = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetAuthBeginTime(v int64) *ApplyIpAuthtradeRequest {
+	s.AuthBeginTime = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetAuthEndTime(v int64) *ApplyIpAuthtradeRequest {
+	s.AuthEndTime = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetContract(v string) *ApplyIpAuthtradeRequest {
+	s.Contract = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetDesignDraft(v string) *ApplyIpAuthtradeRequest {
+	s.DesignDraft = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetAuthProductScope(v string) *ApplyIpAuthtradeRequest {
+	s.AuthProductScope = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetAuthAreaScope(v string) *ApplyIpAuthtradeRequest {
+	s.AuthAreaScope = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetSalesChannel(v string) *ApplyIpAuthtradeRequest {
+	s.SalesChannel = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetMemo(v string) *ApplyIpAuthtradeRequest {
+	s.Memo = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetAdditionalClause(v string) *ApplyIpAuthtradeRequest {
+	s.AdditionalClause = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetGuaranteed(v bool) *ApplyIpAuthtradeRequest {
+	s.Guaranteed = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetGuaranteedFund(v string) *ApplyIpAuthtradeRequest {
+	s.GuaranteedFund = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetGuaranteedGoodsAmount(v int64) *ApplyIpAuthtradeRequest {
+	s.GuaranteedGoodsAmount = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetGuaranteedSales(v string) *ApplyIpAuthtradeRequest {
+	s.GuaranteedSales = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetGoodsType(v int64) *ApplyIpAuthtradeRequest {
+	s.GoodsType = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetRelatedOrderId(v string) *ApplyIpAuthtradeRequest {
+	s.RelatedOrderId = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetPayReturnUrl(v string) *ApplyIpAuthtradeRequest {
+	s.PayReturnUrl = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeRequest) SetAuthType(v string) *ApplyIpAuthtradeRequest {
+	s.AuthType = &v
+	return s
+}
+
+type ApplyIpAuthtradeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty"`
+}
+
+func (s ApplyIpAuthtradeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyIpAuthtradeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyIpAuthtradeResponse) SetReqMsgId(v string) *ApplyIpAuthtradeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeResponse) SetResultCode(v string) *ApplyIpAuthtradeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeResponse) SetResultMsg(v string) *ApplyIpAuthtradeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyIpAuthtradeResponse) SetIpOrderId(v string) *ApplyIpAuthtradeResponse {
+	s.IpOrderId = &v
+	return s
+}
+
+type QueryIpCodeinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础请求参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 账户链上ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 订单ID
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+}
+
+func (s QueryIpCodeinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpCodeinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpCodeinfoRequest) SetAuthToken(v string) *QueryIpCodeinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIpCodeinfoRequest) SetProductInstanceId(v string) *QueryIpCodeinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIpCodeinfoRequest) SetBaseRequest(v *BaseRequestInfo) *QueryIpCodeinfoRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *QueryIpCodeinfoRequest) SetAccountId(v string) *QueryIpCodeinfoRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *QueryIpCodeinfoRequest) SetOrderId(v string) *QueryIpCodeinfoRequest {
+	s.OrderId = &v
+	return s
+}
+
+type QueryIpCodeinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单ID
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 正版码商品信息配置列表
+	GoodsInfoList []*IPCodeGoodsInfo `json:"goods_info_list,omitempty" xml:"goods_info_list,omitempty" type:"Repeated"`
+	// 正版码资源位配置信息列表
+	AdInfoList []*IPCodeAdvertisingInfo `json:"ad_info_list,omitempty" xml:"ad_info_list,omitempty" type:"Repeated"`
+	// ip版权方信息
+	IpownerInfo *IPCodeIpOwnerInfo `json:"ipowner_info,omitempty" xml:"ipowner_info,omitempty"`
+	// 0:未配置，1:配置成功可展示，9:下架【本期不实现】
+	IpCodeStatus *int64 `json:"ip_code_status,omitempty" xml:"ip_code_status,omitempty"`
+}
+
+func (s QueryIpCodeinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpCodeinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpCodeinfoResponse) SetReqMsgId(v string) *QueryIpCodeinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIpCodeinfoResponse) SetResultCode(v string) *QueryIpCodeinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIpCodeinfoResponse) SetResultMsg(v string) *QueryIpCodeinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIpCodeinfoResponse) SetOrderId(v string) *QueryIpCodeinfoResponse {
+	s.OrderId = &v
+	return s
+}
+
+func (s *QueryIpCodeinfoResponse) SetGoodsInfoList(v []*IPCodeGoodsInfo) *QueryIpCodeinfoResponse {
+	s.GoodsInfoList = v
+	return s
+}
+
+func (s *QueryIpCodeinfoResponse) SetAdInfoList(v []*IPCodeAdvertisingInfo) *QueryIpCodeinfoResponse {
+	s.AdInfoList = v
+	return s
+}
+
+func (s *QueryIpCodeinfoResponse) SetIpownerInfo(v *IPCodeIpOwnerInfo) *QueryIpCodeinfoResponse {
+	s.IpownerInfo = v
+	return s
+}
+
+func (s *QueryIpCodeinfoResponse) SetIpCodeStatus(v int64) *QueryIpCodeinfoResponse {
+	s.IpCodeStatus = &v
+	return s
+}
+
+type BatchqueryIpApprovalwithupdateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础字段
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// ip名称
+	IpName *string `json:"ip_name,omitempty" xml:"ip_name,omitempty"`
+	// ip的id
+	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty"`
+	// ip审批状态 0待审批，1 审批通过，2 审批拒绝
+	ApprovalStatus *int64 `json:"approval_status,omitempty" xml:"approval_status,omitempty"`
+	// 分页
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 分页
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// ip类型
+	IpType *string `json:"ip_type,omitempty" xml:"ip_type,omitempty"`
+	// 受众人群
+	AudienceGroup *string `json:"audience_group,omitempty" xml:"audience_group,omitempty"`
+	// 开始时间
+	CreateBeginTime *string `json:"create_begin_time,omitempty" xml:"create_begin_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 结束时间
+	CreateEndTime *string `json:"create_end_time,omitempty" xml:"create_end_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 商品的链上租户id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+	// 是否需要按照创建时间倒序排序
+	//
+	IsCreateTimeSortDesc *bool `json:"is_create_time_sort_desc,omitempty" xml:"is_create_time_sort_desc,omitempty" require:"true"`
+	// 渠道名称
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty"`
+}
+
+func (s BatchqueryIpApprovalwithupdateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryIpApprovalwithupdateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryIpApprovalwithupdateRequest) SetAuthToken(v string) *BatchqueryIpApprovalwithupdateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchqueryIpApprovalwithupdateRequest) SetProductInstanceId(v string) *BatchqueryIpApprovalwithupdateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchqueryIpApprovalwithupdateRequest) SetBaseRequest(v *BaseRequestInfo) *BatchqueryIpApprovalwithupdateRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *BatchqueryIpApprovalwithupdateRequest) SetIpName(v string) *BatchqueryIpApprovalwithupdateRequest {
+	s.IpName = &v
+	return s
+}
+
+func (s *BatchqueryIpApprovalwithupdateRequest) SetIpId(v string) *BatchqueryIpApprovalwithupdateRequest {
+	s.IpId = &v
+	return s
+}
+
+func (s *BatchqueryIpApprovalwithupdateRequest) SetApprovalStatus(v int64) *BatchqueryIpApprovalwithupdateRequest {
+	s.ApprovalStatus = &v
+	return s
+}
+
+func (s *BatchqueryIpApprovalwithupdateRequest) SetPageSize(v int64) *BatchqueryIpApprovalwithupdateRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *BatchqueryIpApprovalwithupdateRequest) SetPageIndex(v int64) *BatchqueryIpApprovalwithupdateRequest {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *BatchqueryIpApprovalwithupdateRequest) SetIpType(v string) *BatchqueryIpApprovalwithupdateRequest {
+	s.IpType = &v
+	return s
+}
+
+func (s *BatchqueryIpApprovalwithupdateRequest) SetAudienceGroup(v string) *BatchqueryIpApprovalwithupdateRequest {
+	s.AudienceGroup = &v
+	return s
+}
+
+func (s *BatchqueryIpApprovalwithupdateRequest) SetCreateBeginTime(v string) *BatchqueryIpApprovalwithupdateRequest {
+	s.CreateBeginTime = &v
+	return s
+}
+
+func (s *BatchqueryIpApprovalwithupdateRequest) SetCreateEndTime(v string) *BatchqueryIpApprovalwithupdateRequest {
+	s.CreateEndTime = &v
+	return s
+}
+
+func (s *BatchqueryIpApprovalwithupdateRequest) SetAccountId(v string) *BatchqueryIpApprovalwithupdateRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *BatchqueryIpApprovalwithupdateRequest) SetIsCreateTimeSortDesc(v bool) *BatchqueryIpApprovalwithupdateRequest {
+	s.IsCreateTimeSortDesc = &v
+	return s
+}
+
+func (s *BatchqueryIpApprovalwithupdateRequest) SetChannelName(v string) *BatchqueryIpApprovalwithupdateRequest {
+	s.ChannelName = &v
+	return s
+}
+
+type BatchqueryIpApprovalwithupdateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 带上更新信息
+	IpList []*IpBasicInfoWithUpdate `json:"ip_list,omitempty" xml:"ip_list,omitempty" type:"Repeated"`
+	// 总数
+	AllCount *int64 `json:"all_count,omitempty" xml:"all_count,omitempty"`
+}
+
+func (s BatchqueryIpApprovalwithupdateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryIpApprovalwithupdateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryIpApprovalwithupdateResponse) SetReqMsgId(v string) *BatchqueryIpApprovalwithupdateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchqueryIpApprovalwithupdateResponse) SetResultCode(v string) *BatchqueryIpApprovalwithupdateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchqueryIpApprovalwithupdateResponse) SetResultMsg(v string) *BatchqueryIpApprovalwithupdateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchqueryIpApprovalwithupdateResponse) SetIpList(v []*IpBasicInfoWithUpdate) *BatchqueryIpApprovalwithupdateResponse {
+	s.IpList = v
+	return s
+}
+
+func (s *BatchqueryIpApprovalwithupdateResponse) SetAllCount(v int64) *BatchqueryIpApprovalwithupdateResponse {
+	s.AllCount = &v
+	return s
+}
+
+type UpdateIpAccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 链上账户id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 商户账户名称
+	MerchantAliasName *string `json:"merchant_alias_name,omitempty" xml:"merchant_alias_name,omitempty" require:"true"`
+	// 商户类型(本期仅支持: 1:企业, 6:个人商户)
+	MerchantType *int64 `json:"merchant_type,omitempty" xml:"merchant_type,omitempty"`
+	// 商户证件类型，201--统一社会信用证--营业执照号；
+	MerchantCertType *int64 `json:"merchant_cert_type,omitempty" xml:"merchant_cert_type,omitempty"`
+	// 本期支持统一社会信用证代码
+	MerchantCertNumber *string `json:"merchant_cert_number,omitempty" xml:"merchant_cert_number,omitempty"`
+	// 联系人信息
+	ContactInfo *IPContactInfo `json:"contact_info,omitempty" xml:"contact_info,omitempty"`
+	// 商户经营地址
+	ContactAddress *IPAddressInfo `json:"contact_address,omitempty" xml:"contact_address,omitempty"`
+	// 备注信息
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
+	// 店铺名称
+	ShopName *string `json:"shop_name,omitempty" xml:"shop_name,omitempty"`
+	// 更多联系信息，用于运营联系商家
+	AdditionalContactInfo []*SimpleContactInfo `json:"additional_contact_info,omitempty" xml:"additional_contact_info,omitempty" type:"Repeated"`
+}
+
+func (s UpdateIpAccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateIpAccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateIpAccountRequest) SetAuthToken(v string) *UpdateIpAccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateIpAccountRequest) SetProductInstanceId(v string) *UpdateIpAccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateIpAccountRequest) SetBaseRequest(v *BaseRequestInfo) *UpdateIpAccountRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *UpdateIpAccountRequest) SetAccountId(v string) *UpdateIpAccountRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *UpdateIpAccountRequest) SetMerchantAliasName(v string) *UpdateIpAccountRequest {
+	s.MerchantAliasName = &v
+	return s
+}
+
+func (s *UpdateIpAccountRequest) SetMerchantType(v int64) *UpdateIpAccountRequest {
+	s.MerchantType = &v
+	return s
+}
+
+func (s *UpdateIpAccountRequest) SetMerchantCertType(v int64) *UpdateIpAccountRequest {
+	s.MerchantCertType = &v
+	return s
+}
+
+func (s *UpdateIpAccountRequest) SetMerchantCertNumber(v string) *UpdateIpAccountRequest {
+	s.MerchantCertNumber = &v
+	return s
+}
+
+func (s *UpdateIpAccountRequest) SetContactInfo(v *IPContactInfo) *UpdateIpAccountRequest {
+	s.ContactInfo = v
+	return s
+}
+
+func (s *UpdateIpAccountRequest) SetContactAddress(v *IPAddressInfo) *UpdateIpAccountRequest {
+	s.ContactAddress = v
+	return s
+}
+
+func (s *UpdateIpAccountRequest) SetMemo(v string) *UpdateIpAccountRequest {
+	s.Memo = &v
+	return s
+}
+
+func (s *UpdateIpAccountRequest) SetShopName(v string) *UpdateIpAccountRequest {
+	s.ShopName = &v
+	return s
+}
+
+func (s *UpdateIpAccountRequest) SetAdditionalContactInfo(v []*SimpleContactInfo) *UpdateIpAccountRequest {
+	s.AdditionalContactInfo = v
+	return s
+}
+
+type UpdateIpAccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateIpAccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateIpAccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateIpAccountResponse) SetReqMsgId(v string) *UpdateIpAccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateIpAccountResponse) SetResultCode(v string) *UpdateIpAccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateIpAccountResponse) SetResultMsg(v string) *UpdateIpAccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryIpAccountsettlementRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 版权方的链上id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 为空，返回所有数据，true，返回入驻数据，false，返回未入驻数据
+	IsFiltered *bool `json:"is_filtered,omitempty" xml:"is_filtered,omitempty"`
+}
+
+func (s QueryIpAccountsettlementRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpAccountsettlementRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpAccountsettlementRequest) SetAuthToken(v string) *QueryIpAccountsettlementRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIpAccountsettlementRequest) SetProductInstanceId(v string) *QueryIpAccountsettlementRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIpAccountsettlementRequest) SetBaseRequest(v *BaseRequestInfo) *QueryIpAccountsettlementRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *QueryIpAccountsettlementRequest) SetAccountId(v string) *QueryIpAccountsettlementRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *QueryIpAccountsettlementRequest) SetIsFiltered(v bool) *QueryIpAccountsettlementRequest {
+	s.IsFiltered = &v
+	return s
+}
+
+type QueryIpAccountsettlementResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 账号id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+	// 入驻的渠道列表
+	ChannelList []*AccountInChannels `json:"channel_list,omitempty" xml:"channel_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryIpAccountsettlementResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpAccountsettlementResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpAccountsettlementResponse) SetReqMsgId(v string) *QueryIpAccountsettlementResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIpAccountsettlementResponse) SetResultCode(v string) *QueryIpAccountsettlementResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIpAccountsettlementResponse) SetResultMsg(v string) *QueryIpAccountsettlementResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIpAccountsettlementResponse) SetAccountId(v string) *QueryIpAccountsettlementResponse {
+	s.AccountId = &v
+	return s
+}
+
+func (s *QueryIpAccountsettlementResponse) SetChannelList(v []*AccountInChannels) *QueryIpAccountsettlementResponse {
+	s.ChannelList = v
+	return s
+}
+
+type AddIpAccountsettlementRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 版权方id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 要开通的渠道
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
+}
+
+func (s AddIpAccountsettlementRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddIpAccountsettlementRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddIpAccountsettlementRequest) SetAuthToken(v string) *AddIpAccountsettlementRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddIpAccountsettlementRequest) SetProductInstanceId(v string) *AddIpAccountsettlementRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddIpAccountsettlementRequest) SetBaseRequest(v *BaseRequestInfo) *AddIpAccountsettlementRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *AddIpAccountsettlementRequest) SetAccountId(v string) *AddIpAccountsettlementRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *AddIpAccountsettlementRequest) SetChannelName(v string) *AddIpAccountsettlementRequest {
+	s.ChannelName = &v
+	return s
+}
+
+type AddIpAccountsettlementResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s AddIpAccountsettlementResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddIpAccountsettlementResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddIpAccountsettlementResponse) SetReqMsgId(v string) *AddIpAccountsettlementResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddIpAccountsettlementResponse) SetResultCode(v string) *AddIpAccountsettlementResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddIpAccountsettlementResponse) SetResultMsg(v string) *AddIpAccountsettlementResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type SignIpOrdercontractRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础请求参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
+	// 订单合同文件OSS文件key
+	ContractFileUrl *string `json:"contract_file_url,omitempty" xml:"contract_file_url,omitempty"`
+	// 备注信息
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
+}
+
+func (s SignIpOrdercontractRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SignIpOrdercontractRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SignIpOrdercontractRequest) SetAuthToken(v string) *SignIpOrdercontractRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SignIpOrdercontractRequest) SetProductInstanceId(v string) *SignIpOrdercontractRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SignIpOrdercontractRequest) SetBaseRequest(v *BaseRequestInfo) *SignIpOrdercontractRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *SignIpOrdercontractRequest) SetIpOrderId(v string) *SignIpOrdercontractRequest {
+	s.IpOrderId = &v
+	return s
+}
+
+func (s *SignIpOrdercontractRequest) SetContractFileUrl(v string) *SignIpOrdercontractRequest {
+	s.ContractFileUrl = &v
+	return s
+}
+
+func (s *SignIpOrdercontractRequest) SetMemo(v string) *SignIpOrdercontractRequest {
+	s.Memo = &v
+	return s
+}
+
+type SignIpOrdercontractResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 签署完成的文件OSS key。只有在签署流程全部完成后才会返回该数据。
+	SignedContractFile *string `json:"signed_contract_file,omitempty" xml:"signed_contract_file,omitempty"`
+	// 签署完成的文件下载链接。只有在签署流程全部完成后才会返回该数据。
+	SignedContractFileUrl *string `json:"signed_contract_file_url,omitempty" xml:"signed_contract_file_url,omitempty"`
+}
+
+func (s SignIpOrdercontractResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SignIpOrdercontractResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SignIpOrdercontractResponse) SetReqMsgId(v string) *SignIpOrdercontractResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SignIpOrdercontractResponse) SetResultCode(v string) *SignIpOrdercontractResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SignIpOrdercontractResponse) SetResultMsg(v string) *SignIpOrdercontractResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SignIpOrdercontractResponse) SetSignedContractFile(v string) *SignIpOrdercontractResponse {
+	s.SignedContractFile = &v
+	return s
+}
+
+func (s *SignIpOrdercontractResponse) SetSignedContractFileUrl(v string) *SignIpOrdercontractResponse {
+	s.SignedContractFileUrl = &v
+	return s
+}
+
+type SetIpOrdergoodsidsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础请求参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
+	// 商品ID列表
+	GoodsIdList []*string `json:"goods_id_list,omitempty" xml:"goods_id_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SetIpOrdergoodsidsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SetIpOrdergoodsidsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SetIpOrdergoodsidsRequest) SetAuthToken(v string) *SetIpOrdergoodsidsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SetIpOrdergoodsidsRequest) SetProductInstanceId(v string) *SetIpOrdergoodsidsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SetIpOrdergoodsidsRequest) SetBaseRequest(v *BaseRequestInfo) *SetIpOrdergoodsidsRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *SetIpOrdergoodsidsRequest) SetIpOrderId(v string) *SetIpOrdergoodsidsRequest {
+	s.IpOrderId = &v
+	return s
+}
+
+func (s *SetIpOrdergoodsidsRequest) SetGoodsIdList(v []*string) *SetIpOrdergoodsidsRequest {
+	s.GoodsIdList = v
+	return s
+}
+
+type SetIpOrdergoodsidsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SetIpOrdergoodsidsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SetIpOrdergoodsidsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SetIpOrdergoodsidsResponse) SetReqMsgId(v string) *SetIpOrdergoodsidsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SetIpOrdergoodsidsResponse) SetResultCode(v string) *SetIpOrdergoodsidsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SetIpOrdergoodsidsResponse) SetResultMsg(v string) *SetIpOrdergoodsidsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PagequeryIpSalesbydayRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础请求参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 页码
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty" require:"true"`
+	// 每页数据量大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 订单ID筛选条件
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty"`
+	// 日期
+	Date *string `json:"date,omitempty" xml:"date,omitempty"`
+}
+
+func (s PagequeryIpSalesbydayRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryIpSalesbydayRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryIpSalesbydayRequest) SetAuthToken(v string) *PagequeryIpSalesbydayRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryIpSalesbydayRequest) SetProductInstanceId(v string) *PagequeryIpSalesbydayRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryIpSalesbydayRequest) SetBaseRequest(v *BaseRequestInfo) *PagequeryIpSalesbydayRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *PagequeryIpSalesbydayRequest) SetPageNumber(v int64) *PagequeryIpSalesbydayRequest {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *PagequeryIpSalesbydayRequest) SetPageSize(v int64) *PagequeryIpSalesbydayRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryIpSalesbydayRequest) SetIpOrderId(v string) *PagequeryIpSalesbydayRequest {
+	s.IpOrderId = &v
+	return s
+}
+
+func (s *PagequeryIpSalesbydayRequest) SetDate(v string) *PagequeryIpSalesbydayRequest {
+	s.Date = &v
+	return s
+}
+
+type PagequeryIpSalesbydayResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 页码
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 页面数据量大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 数据总数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// T+1日的销售数据统计数据列表
+	SalesBDayList []*SalesByDay `json:"sales_b_day_list,omitempty" xml:"sales_b_day_list,omitempty" type:"Repeated"`
+}
+
+func (s PagequeryIpSalesbydayResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryIpSalesbydayResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryIpSalesbydayResponse) SetReqMsgId(v string) *PagequeryIpSalesbydayResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryIpSalesbydayResponse) SetResultCode(v string) *PagequeryIpSalesbydayResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryIpSalesbydayResponse) SetResultMsg(v string) *PagequeryIpSalesbydayResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryIpSalesbydayResponse) SetPageNumber(v int64) *PagequeryIpSalesbydayResponse {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *PagequeryIpSalesbydayResponse) SetPageSize(v int64) *PagequeryIpSalesbydayResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryIpSalesbydayResponse) SetTotalCount(v int64) *PagequeryIpSalesbydayResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *PagequeryIpSalesbydayResponse) SetSalesBDayList(v []*SalesByDay) *PagequeryIpSalesbydayResponse {
+	s.SalesBDayList = v
+	return s
+}
+
+type CreateIpCopyrightRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 【暂不支持中文】文件名称
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+	// 文件oss地址
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+	// 文件类型，IMAGE：图片文件；TEXT：文本文件；VIDEO：视屏；AUDIO：音频；ZIP：压缩包；FILE：其他文件
+	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
+	// 【需要真实的】版权方法人证件名称
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 证件类型
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
+	// 【需要真实的】版权方法人证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 是否创建证书，此时默认选true
+	CreateCertificate *bool `json:"create_certificate,omitempty" xml:"create_certificate,omitempty" require:"true"`
+	// 证书类型，公证处证书，值为NotaryOffice
+	CertificateType *string `json:"certificate_type,omitempty" xml:"certificate_type,omitempty"`
+	// 是否创建证据包，默认选否，如果没有创建公证书，不支持证据包
+	CertificatePackage *bool `json:"certificate_package,omitempty" xml:"certificate_package,omitempty"`
+	// 公证处ID，默认为LUJIANG，鹭江公证处
+	OrgId *string `json:"org_id,omitempty" xml:"org_id,omitempty"`
+	// 电话号码，生成公证处证书需要，格式范例，(86-573)2651630或(86)13738258505
+	PhoneNum *string `json:"phone_num,omitempty" xml:"phone_num,omitempty"`
+	// 备注，最长不超过512字符
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
+}
+
+func (s CreateIpCopyrightRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateIpCopyrightRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateIpCopyrightRequest) SetAuthToken(v string) *CreateIpCopyrightRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateIpCopyrightRequest) SetProductInstanceId(v string) *CreateIpCopyrightRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateIpCopyrightRequest) SetBaseRequest(v *BaseRequestInfo) *CreateIpCopyrightRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *CreateIpCopyrightRequest) SetFileName(v string) *CreateIpCopyrightRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *CreateIpCopyrightRequest) SetFileUrl(v string) *CreateIpCopyrightRequest {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *CreateIpCopyrightRequest) SetFileType(v string) *CreateIpCopyrightRequest {
+	s.FileType = &v
+	return s
+}
+
+func (s *CreateIpCopyrightRequest) SetCertName(v string) *CreateIpCopyrightRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CreateIpCopyrightRequest) SetCertType(v string) *CreateIpCopyrightRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *CreateIpCopyrightRequest) SetCertNo(v string) *CreateIpCopyrightRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CreateIpCopyrightRequest) SetCreateCertificate(v bool) *CreateIpCopyrightRequest {
+	s.CreateCertificate = &v
+	return s
+}
+
+func (s *CreateIpCopyrightRequest) SetCertificateType(v string) *CreateIpCopyrightRequest {
+	s.CertificateType = &v
+	return s
+}
+
+func (s *CreateIpCopyrightRequest) SetCertificatePackage(v bool) *CreateIpCopyrightRequest {
+	s.CertificatePackage = &v
+	return s
+}
+
+func (s *CreateIpCopyrightRequest) SetOrgId(v string) *CreateIpCopyrightRequest {
+	s.OrgId = &v
+	return s
+}
+
+func (s *CreateIpCopyrightRequest) SetPhoneNum(v string) *CreateIpCopyrightRequest {
+	s.PhoneNum = &v
+	return s
+}
+
+func (s *CreateIpCopyrightRequest) SetMemo(v string) *CreateIpCopyrightRequest {
+	s.Memo = &v
+	return s
+}
+
+type CreateIpCopyrightResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 版权登记id
+	CopyrightRegisterId *string `json:"copyright_register_id,omitempty" xml:"copyright_register_id,omitempty"`
+}
+
+func (s CreateIpCopyrightResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateIpCopyrightResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateIpCopyrightResponse) SetReqMsgId(v string) *CreateIpCopyrightResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateIpCopyrightResponse) SetResultCode(v string) *CreateIpCopyrightResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateIpCopyrightResponse) SetResultMsg(v string) *CreateIpCopyrightResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateIpCopyrightResponse) SetCopyrightRegisterId(v string) *CreateIpCopyrightResponse {
+	s.CopyrightRegisterId = &v
+	return s
+}
+
+type QueryIpCopyrightRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 版权登记id
+	CopyrightRegisterId *string `json:"copyright_register_id,omitempty" xml:"copyright_register_id,omitempty" require:"true"`
+}
+
+func (s QueryIpCopyrightRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpCopyrightRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpCopyrightRequest) SetAuthToken(v string) *QueryIpCopyrightRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIpCopyrightRequest) SetProductInstanceId(v string) *QueryIpCopyrightRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIpCopyrightRequest) SetBaseRequest(v *BaseRequestInfo) *QueryIpCopyrightRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *QueryIpCopyrightRequest) SetCopyrightRegisterId(v string) *QueryIpCopyrightRequest {
+	s.CopyrightRegisterId = &v
+	return s
+}
+
+type QueryIpCopyrightResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 存证状态，PROCESSING：存证中；SUCCESS：存证成功；FAIL：存证失败
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 文件hash
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
+	// 存证交易hash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+	// 存证块高
+	BlockHeight *int64 `json:"block_height,omitempty" xml:"block_height,omitempty"`
+	// 存证时间
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
+	// 证书oss地址
+	CertificateOss *string `json:"certificate_oss,omitempty" xml:"certificate_oss,omitempty"`
+	// 证书下载链接
+	CertificateDownurl *string `json:"certificate_downurl,omitempty" xml:"certificate_downurl,omitempty"`
+	// 公证处证书编号
+	CertificateNo *string `json:"certificate_no,omitempty" xml:"certificate_no,omitempty"`
+}
+
+func (s QueryIpCopyrightResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpCopyrightResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpCopyrightResponse) SetReqMsgId(v string) *QueryIpCopyrightResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIpCopyrightResponse) SetResultCode(v string) *QueryIpCopyrightResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIpCopyrightResponse) SetResultMsg(v string) *QueryIpCopyrightResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIpCopyrightResponse) SetStatus(v string) *QueryIpCopyrightResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryIpCopyrightResponse) SetHash(v string) *QueryIpCopyrightResponse {
+	s.Hash = &v
+	return s
+}
+
+func (s *QueryIpCopyrightResponse) SetTxHash(v string) *QueryIpCopyrightResponse {
+	s.TxHash = &v
+	return s
+}
+
+func (s *QueryIpCopyrightResponse) SetBlockHeight(v int64) *QueryIpCopyrightResponse {
+	s.BlockHeight = &v
+	return s
+}
+
+func (s *QueryIpCopyrightResponse) SetTimestamp(v int64) *QueryIpCopyrightResponse {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *QueryIpCopyrightResponse) SetCertificateOss(v string) *QueryIpCopyrightResponse {
+	s.CertificateOss = &v
+	return s
+}
+
+func (s *QueryIpCopyrightResponse) SetCertificateDownurl(v string) *QueryIpCopyrightResponse {
+	s.CertificateDownurl = &v
+	return s
+}
+
+func (s *QueryIpCopyrightResponse) SetCertificateNo(v string) *QueryIpCopyrightResponse {
+	s.CertificateNo = &v
+	return s
+}
+
+type SetIpOrdermemoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础请求参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
+	// 备注信息
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
+}
+
+func (s SetIpOrdermemoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SetIpOrdermemoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SetIpOrdermemoRequest) SetAuthToken(v string) *SetIpOrdermemoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SetIpOrdermemoRequest) SetProductInstanceId(v string) *SetIpOrdermemoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SetIpOrdermemoRequest) SetBaseRequest(v *BaseRequestInfo) *SetIpOrdermemoRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *SetIpOrdermemoRequest) SetIpOrderId(v string) *SetIpOrdermemoRequest {
+	s.IpOrderId = &v
+	return s
+}
+
+func (s *SetIpOrdermemoRequest) SetMemo(v string) *SetIpOrdermemoRequest {
+	s.Memo = &v
+	return s
+}
+
+type SetIpOrdermemoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SetIpOrdermemoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SetIpOrdermemoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SetIpOrdermemoResponse) SetReqMsgId(v string) *SetIpOrdermemoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SetIpOrdermemoResponse) SetResultCode(v string) *SetIpOrdermemoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SetIpOrdermemoResponse) SetResultMsg(v string) *SetIpOrdermemoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ConfirmIpAccountsettlementRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 版权方的链上id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 开通的渠道名称
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
+	// 审批意见，refuse,不同意开通，agree，同意开通，默认为agree，本期暂不支持不同意开通
+	ApproveComment *string `json:"approve_comment,omitempty" xml:"approve_comment,omitempty" require:"true"`
+	// 备注信息
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
+}
+
+func (s ConfirmIpAccountsettlementRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmIpAccountsettlementRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmIpAccountsettlementRequest) SetAuthToken(v string) *ConfirmIpAccountsettlementRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmIpAccountsettlementRequest) SetProductInstanceId(v string) *ConfirmIpAccountsettlementRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ConfirmIpAccountsettlementRequest) SetBaseRequest(v *BaseRequestInfo) *ConfirmIpAccountsettlementRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *ConfirmIpAccountsettlementRequest) SetAccountId(v string) *ConfirmIpAccountsettlementRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *ConfirmIpAccountsettlementRequest) SetChannelName(v string) *ConfirmIpAccountsettlementRequest {
+	s.ChannelName = &v
+	return s
+}
+
+func (s *ConfirmIpAccountsettlementRequest) SetApproveComment(v string) *ConfirmIpAccountsettlementRequest {
+	s.ApproveComment = &v
+	return s
+}
+
+func (s *ConfirmIpAccountsettlementRequest) SetMemo(v string) *ConfirmIpAccountsettlementRequest {
+	s.Memo = &v
+	return s
+}
+
+type ConfirmIpAccountsettlementResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ConfirmIpAccountsettlementResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmIpAccountsettlementResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmIpAccountsettlementResponse) SetReqMsgId(v string) *ConfirmIpAccountsettlementResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ConfirmIpAccountsettlementResponse) SetResultCode(v string) *ConfirmIpAccountsettlementResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ConfirmIpAccountsettlementResponse) SetResultMsg(v string) *ConfirmIpAccountsettlementResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PagequeryIpSalesRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础请求参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 订单ID。和账单ID 两个字段只能选填一个
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty"`
+	// 账单ID。和订单ID 两个字段只能选填一个
+	IpBillId *string `json:"ip_bill_id,omitempty" xml:"ip_bill_id,omitempty"`
+	// 排序字段
+	OrderBy *string `json:"order_by,omitempty" xml:"order_by,omitempty" require:"true"`
+	// 排序顺序：正序还是倒序
+	Order *string `json:"order,omitempty" xml:"order,omitempty" require:"true"`
+	// 页码
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty" require:"true"`
+	// 每页数据量大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s PagequeryIpSalesRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryIpSalesRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryIpSalesRequest) SetAuthToken(v string) *PagequeryIpSalesRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryIpSalesRequest) SetProductInstanceId(v string) *PagequeryIpSalesRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryIpSalesRequest) SetBaseRequest(v *BaseRequestInfo) *PagequeryIpSalesRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *PagequeryIpSalesRequest) SetIpOrderId(v string) *PagequeryIpSalesRequest {
+	s.IpOrderId = &v
+	return s
+}
+
+func (s *PagequeryIpSalesRequest) SetIpBillId(v string) *PagequeryIpSalesRequest {
+	s.IpBillId = &v
+	return s
+}
+
+func (s *PagequeryIpSalesRequest) SetOrderBy(v string) *PagequeryIpSalesRequest {
+	s.OrderBy = &v
+	return s
+}
+
+func (s *PagequeryIpSalesRequest) SetOrder(v string) *PagequeryIpSalesRequest {
+	s.Order = &v
+	return s
+}
+
+func (s *PagequeryIpSalesRequest) SetPageNumber(v int64) *PagequeryIpSalesRequest {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *PagequeryIpSalesRequest) SetPageSize(v int64) *PagequeryIpSalesRequest {
+	s.PageSize = &v
+	return s
+}
+
+type PagequeryIpSalesResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty"`
+	// 账单ID
+	IpBillId *string `json:"ip_bill_id,omitempty" xml:"ip_bill_id,omitempty"`
+	// IP授权销售数据
+	IpSalesInfoList []*IPSalesInfo `json:"ip_sales_info_list,omitempty" xml:"ip_sales_info_list,omitempty" type:"Repeated"`
+	// 页码
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 销售数据总数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+}
+
+func (s PagequeryIpSalesResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryIpSalesResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryIpSalesResponse) SetReqMsgId(v string) *PagequeryIpSalesResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryIpSalesResponse) SetResultCode(v string) *PagequeryIpSalesResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryIpSalesResponse) SetResultMsg(v string) *PagequeryIpSalesResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryIpSalesResponse) SetIpOrderId(v string) *PagequeryIpSalesResponse {
+	s.IpOrderId = &v
+	return s
+}
+
+func (s *PagequeryIpSalesResponse) SetIpBillId(v string) *PagequeryIpSalesResponse {
+	s.IpBillId = &v
+	return s
+}
+
+func (s *PagequeryIpSalesResponse) SetIpSalesInfoList(v []*IPSalesInfo) *PagequeryIpSalesResponse {
+	s.IpSalesInfoList = v
+	return s
+}
+
+func (s *PagequeryIpSalesResponse) SetPageNumber(v int64) *PagequeryIpSalesResponse {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *PagequeryIpSalesResponse) SetPageSize(v int64) *PagequeryIpSalesResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryIpSalesResponse) SetTotalCount(v int64) *PagequeryIpSalesResponse {
+	s.TotalCount = &v
+	return s
+}
+
+type BatchqueryIpAccountsettlementRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 渠道名称
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
+	// 申请状态，0为全部，1为待审核，2为已审核
+	ApplyStatus *string `json:"apply_status,omitempty" xml:"apply_status,omitempty" require:"true"`
+	// 分页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 分页索引
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// 备注信息
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
+}
+
+func (s BatchqueryIpAccountsettlementRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryIpAccountsettlementRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryIpAccountsettlementRequest) SetAuthToken(v string) *BatchqueryIpAccountsettlementRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchqueryIpAccountsettlementRequest) SetProductInstanceId(v string) *BatchqueryIpAccountsettlementRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchqueryIpAccountsettlementRequest) SetBaseRequest(v *BaseRequestInfo) *BatchqueryIpAccountsettlementRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *BatchqueryIpAccountsettlementRequest) SetChannelName(v string) *BatchqueryIpAccountsettlementRequest {
+	s.ChannelName = &v
+	return s
+}
+
+func (s *BatchqueryIpAccountsettlementRequest) SetApplyStatus(v string) *BatchqueryIpAccountsettlementRequest {
+	s.ApplyStatus = &v
+	return s
+}
+
+func (s *BatchqueryIpAccountsettlementRequest) SetPageSize(v int64) *BatchqueryIpAccountsettlementRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *BatchqueryIpAccountsettlementRequest) SetPageIndex(v int64) *BatchqueryIpAccountsettlementRequest {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *BatchqueryIpAccountsettlementRequest) SetMemo(v string) *BatchqueryIpAccountsettlementRequest {
+	s.Memo = &v
+	return s
+}
+
+type BatchqueryIpAccountsettlementResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 渠道对应的版权方信息
+	AccountInfo []*AccountSettlementInfo `json:"account_info,omitempty" xml:"account_info,omitempty" type:"Repeated"`
+	// 结果总数，不是列表值，用于分页
+	AllCount *int64 `json:"all_count,omitempty" xml:"all_count,omitempty"`
+}
+
+func (s BatchqueryIpAccountsettlementResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryIpAccountsettlementResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryIpAccountsettlementResponse) SetReqMsgId(v string) *BatchqueryIpAccountsettlementResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchqueryIpAccountsettlementResponse) SetResultCode(v string) *BatchqueryIpAccountsettlementResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchqueryIpAccountsettlementResponse) SetResultMsg(v string) *BatchqueryIpAccountsettlementResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchqueryIpAccountsettlementResponse) SetAccountInfo(v []*AccountSettlementInfo) *BatchqueryIpAccountsettlementResponse {
+	s.AccountInfo = v
+	return s
+}
+
+func (s *BatchqueryIpAccountsettlementResponse) SetAllCount(v int64) *BatchqueryIpAccountsettlementResponse {
+	s.AllCount = &v
+	return s
+}
+
+type PullIpCodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 正版码批次编码
+	CodeBatchId *string `json:"code_batch_id,omitempty" xml:"code_batch_id,omitempty" require:"true"`
+	// 分页参数:页码
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// 分页参数:每页条目数(请小于等于100)
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s PullIpCodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PullIpCodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PullIpCodeRequest) SetAuthToken(v string) *PullIpCodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PullIpCodeRequest) SetProductInstanceId(v string) *PullIpCodeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PullIpCodeRequest) SetBaseRequest(v *BaseRequestInfo) *PullIpCodeRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *PullIpCodeRequest) SetCodeBatchId(v string) *PullIpCodeRequest {
+	s.CodeBatchId = &v
+	return s
+}
+
+func (s *PullIpCodeRequest) SetPageIndex(v int64) *PullIpCodeRequest {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *PullIpCodeRequest) SetPageSize(v int64) *PullIpCodeRequest {
+	s.PageSize = &v
+	return s
+}
+
+type PullIpCodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 正版码列表(小程序扫描可跳转)
+	CodeList []*string `json:"code_list,omitempty" xml:"code_list,omitempty" type:"Repeated"`
+	// 展示码列表(和code_list一一对应)
+	ShowCodeList []*string `json:"show_code_list,omitempty" xml:"show_code_list,omitempty" type:"Repeated"`
+	// 交易订单ID
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// IP商家的链上账户ID
+	BuyerAccountId *string `json:"buyer_account_id,omitempty" xml:"buyer_account_id,omitempty"`
+	// IP版权方的链上账户ID
+	SellerAccountId *string `json:"seller_account_id,omitempty" xml:"seller_account_id,omitempty"`
+	// IPID
+	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty"`
+	// IP名称
+	IpName *string `json:"ip_name,omitempty" xml:"ip_name,omitempty"`
+	// IP主图的OSS地址
+	IpImage *string `json:"ip_image,omitempty" xml:"ip_image,omitempty"`
+	// IP描述
+	IpDesc *string `json:"ip_desc,omitempty" xml:"ip_desc,omitempty"`
+	// 该批次正版码的过期时间戳(毫秒)
+	ExpiredDate *int64 `json:"expired_date,omitempty" xml:"expired_date,omitempty"`
+	// 已经申请的总数量
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+}
+
+func (s PullIpCodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PullIpCodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PullIpCodeResponse) SetReqMsgId(v string) *PullIpCodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PullIpCodeResponse) SetResultCode(v string) *PullIpCodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PullIpCodeResponse) SetResultMsg(v string) *PullIpCodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PullIpCodeResponse) SetCodeList(v []*string) *PullIpCodeResponse {
+	s.CodeList = v
+	return s
+}
+
+func (s *PullIpCodeResponse) SetShowCodeList(v []*string) *PullIpCodeResponse {
+	s.ShowCodeList = v
+	return s
+}
+
+func (s *PullIpCodeResponse) SetOrderId(v string) *PullIpCodeResponse {
+	s.OrderId = &v
+	return s
+}
+
+func (s *PullIpCodeResponse) SetBuyerAccountId(v string) *PullIpCodeResponse {
+	s.BuyerAccountId = &v
+	return s
+}
+
+func (s *PullIpCodeResponse) SetSellerAccountId(v string) *PullIpCodeResponse {
+	s.SellerAccountId = &v
+	return s
+}
+
+func (s *PullIpCodeResponse) SetIpId(v string) *PullIpCodeResponse {
+	s.IpId = &v
+	return s
+}
+
+func (s *PullIpCodeResponse) SetIpName(v string) *PullIpCodeResponse {
+	s.IpName = &v
+	return s
+}
+
+func (s *PullIpCodeResponse) SetIpImage(v string) *PullIpCodeResponse {
+	s.IpImage = &v
+	return s
+}
+
+func (s *PullIpCodeResponse) SetIpDesc(v string) *PullIpCodeResponse {
+	s.IpDesc = &v
+	return s
+}
+
+func (s *PullIpCodeResponse) SetExpiredDate(v int64) *PullIpCodeResponse {
+	s.ExpiredDate = &v
+	return s
+}
+
+func (s *PullIpCodeResponse) SetTotalCount(v int64) *PullIpCodeResponse {
+	s.TotalCount = &v
+	return s
+}
+
+type BatchqueryIpGoodsinterestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 商品id
+	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty"`
+	// ip名称，支持模糊匹配
+	IpName *string `json:"ip_name,omitempty" xml:"ip_name,omitempty"`
+	// ip的上架渠道
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
+	// 分页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 分页索引
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// ip等级
+	IpLevel []*int64 `json:"ip_level,omitempty" xml:"ip_level,omitempty" require:"true" type:"Repeated"`
+	// ip类型
+	IpType []*string `json:"ip_type,omitempty" xml:"ip_type,omitempty" require:"true" type:"Repeated"`
+	// 受众人群
+	AudienceGroup []*string `json:"audience_group,omitempty" xml:"audience_group,omitempty" require:"true" type:"Repeated"`
+	// 是否需要按照创建时间倒序排序
+	IsCreateTimeSortDesc *bool `json:"is_create_time_sort_desc,omitempty" xml:"is_create_time_sort_desc,omitempty" require:"true"`
+	// 是否需要按照pv排序（0:不需要，1:正序，2:倒序），默认选1
+	IsSortByPv *int64 `json:"is_sort_by_pv,omitempty" xml:"is_sort_by_pv,omitempty" require:"true"`
+}
+
+func (s BatchqueryIpGoodsinterestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryIpGoodsinterestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryIpGoodsinterestRequest) SetAuthToken(v string) *BatchqueryIpGoodsinterestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchqueryIpGoodsinterestRequest) SetProductInstanceId(v string) *BatchqueryIpGoodsinterestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchqueryIpGoodsinterestRequest) SetBaseRequest(v *BaseRequestInfo) *BatchqueryIpGoodsinterestRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *BatchqueryIpGoodsinterestRequest) SetIpId(v string) *BatchqueryIpGoodsinterestRequest {
+	s.IpId = &v
+	return s
+}
+
+func (s *BatchqueryIpGoodsinterestRequest) SetIpName(v string) *BatchqueryIpGoodsinterestRequest {
+	s.IpName = &v
+	return s
+}
+
+func (s *BatchqueryIpGoodsinterestRequest) SetChannelName(v string) *BatchqueryIpGoodsinterestRequest {
+	s.ChannelName = &v
+	return s
+}
+
+func (s *BatchqueryIpGoodsinterestRequest) SetPageSize(v int64) *BatchqueryIpGoodsinterestRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *BatchqueryIpGoodsinterestRequest) SetPageIndex(v int64) *BatchqueryIpGoodsinterestRequest {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *BatchqueryIpGoodsinterestRequest) SetIpLevel(v []*int64) *BatchqueryIpGoodsinterestRequest {
+	s.IpLevel = v
+	return s
+}
+
+func (s *BatchqueryIpGoodsinterestRequest) SetIpType(v []*string) *BatchqueryIpGoodsinterestRequest {
+	s.IpType = v
+	return s
+}
+
+func (s *BatchqueryIpGoodsinterestRequest) SetAudienceGroup(v []*string) *BatchqueryIpGoodsinterestRequest {
+	s.AudienceGroup = v
+	return s
+}
+
+func (s *BatchqueryIpGoodsinterestRequest) SetIsCreateTimeSortDesc(v bool) *BatchqueryIpGoodsinterestRequest {
+	s.IsCreateTimeSortDesc = &v
+	return s
+}
+
+func (s *BatchqueryIpGoodsinterestRequest) SetIsSortByPv(v int64) *BatchqueryIpGoodsinterestRequest {
+	s.IsSortByPv = &v
+	return s
+}
+
+type BatchqueryIpGoodsinterestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// ip重要信息
+	IpList []*IpEmphasisInfo `json:"ip_list,omitempty" xml:"ip_list,omitempty" type:"Repeated"`
+	// 结果总数，不是列表值，用于分页
+	AllCount *int64 `json:"all_count,omitempty" xml:"all_count,omitempty"`
+}
+
+func (s BatchqueryIpGoodsinterestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryIpGoodsinterestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryIpGoodsinterestResponse) SetReqMsgId(v string) *BatchqueryIpGoodsinterestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchqueryIpGoodsinterestResponse) SetResultCode(v string) *BatchqueryIpGoodsinterestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchqueryIpGoodsinterestResponse) SetResultMsg(v string) *BatchqueryIpGoodsinterestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchqueryIpGoodsinterestResponse) SetIpList(v []*IpEmphasisInfo) *BatchqueryIpGoodsinterestResponse {
+	s.IpList = v
+	return s
+}
+
+func (s *BatchqueryIpGoodsinterestResponse) SetAllCount(v int64) *BatchqueryIpGoodsinterestResponse {
+	s.AllCount = &v
+	return s
+}
+
+type QueryIpTwcaccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础请求参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 用户的链上账户Id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+}
+
+func (s QueryIpTwcaccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpTwcaccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpTwcaccountRequest) SetAuthToken(v string) *QueryIpTwcaccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIpTwcaccountRequest) SetProductInstanceId(v string) *QueryIpTwcaccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIpTwcaccountRequest) SetBaseRequest(v *BaseRequestInfo) *QueryIpTwcaccountRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *QueryIpTwcaccountRequest) SetAccountId(v string) *QueryIpTwcaccountRequest {
+	s.AccountId = &v
+	return s
+}
+
+type QueryIpTwcaccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 机构账号
+	OrganizationId *string `json:"organization_id,omitempty" xml:"organization_id,omitempty"`
+	// 用户类型为个人时返回用户账号；用户类型为机构时返回经办人账号
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 是否签署了静默授权
+	SilentlySign *bool `json:"silently_sign,omitempty" xml:"silently_sign,omitempty"`
+	// 账户链上ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+}
+
+func (s QueryIpTwcaccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpTwcaccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpTwcaccountResponse) SetReqMsgId(v string) *QueryIpTwcaccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIpTwcaccountResponse) SetResultCode(v string) *QueryIpTwcaccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIpTwcaccountResponse) SetResultMsg(v string) *QueryIpTwcaccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIpTwcaccountResponse) SetOrganizationId(v string) *QueryIpTwcaccountResponse {
+	s.OrganizationId = &v
+	return s
+}
+
+func (s *QueryIpTwcaccountResponse) SetUserId(v string) *QueryIpTwcaccountResponse {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryIpTwcaccountResponse) SetSilentlySign(v bool) *QueryIpTwcaccountResponse {
+	s.SilentlySign = &v
+	return s
+}
+
+func (s *QueryIpTwcaccountResponse) SetAccountId(v string) *QueryIpTwcaccountResponse {
+	s.AccountId = &v
 	return s
 }
 
@@ -27920,6 +34418,126 @@ func (s *QueryMypointsOrderinstructionResponse) SetTenantId(v string) *QueryMypo
 	return s
 }
 
+type CreateAntcloudGatewayxFileUploadRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 上传文件作用的openapi method
+	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
+	// 文件标签，多个标签;分割
+	FileLabel *string `json:"file_label,omitempty" xml:"file_label,omitempty" maxLength:"100"`
+	// 自定义的文件元数据
+	FileMetadata *string `json:"file_metadata,omitempty" xml:"file_metadata,omitempty" maxLength:"1000"`
+	// 文件名，不传则随机生成文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
+	// 文件的多媒体类型
+	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
+	// 产品方的api归属集群，即productInstanceId
+	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCode(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileLabel(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileLabel = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileMetadata(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileMetadata = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileName(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.MimeType = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCluster = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传有效期
+	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 32位文件唯一id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 放入http请求头里
+	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
+	// 文件上传地址
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetReqMsgId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultCode(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultMsg(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetExpiredTime(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ExpiredTime = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.FileId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadHeaders = v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadUrl(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadUrl = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -28042,7 +34660,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.20"),
+				"sdk_version":      tea.String("1.3.7"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -30735,6 +37353,69 @@ func (client *Client) QueryConsumecardGoodsimageEx(request *QueryConsumecardGood
 	}
 	_result = &QueryConsumecardGoodsimageResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.consumecard.goodsimage.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 文件API，上传文件
+ * Summary: 数字商品服务-文件服务-上传文件
+ */
+func (client *Client) UploadConsumecardFile(request *UploadConsumecardFileRequest) (_result *UploadConsumecardFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadConsumecardFileResponse{}
+	_body, _err := client.UploadConsumecardFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 文件API，上传文件
+ * Summary: 数字商品服务-文件服务-上传文件
+ */
+func (client *Client) UploadConsumecardFileEx(request *UploadConsumecardFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadConsumecardFileResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("baas.antdao.consumecard.file.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadConsumecardFileResponse := &UploadConsumecardFileResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadConsumecardFileResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadConsumecardFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.consumecard.file.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -33613,8 +40294,8 @@ func (client *Client) StartIpPackagetradeEx(request *StartIpPackagetradeRequest,
 }
 
 /**
- * Description: 买家取消套餐交易
- * Summary: 数字商品服务-IP授权服务-取消套餐交易
+ * Description: 交易发起方取消交易，包括套餐交易和定向授权
+ * Summary: 数字商品服务-IP授权服务-取消交易
  */
 func (client *Client) CancelIpPackagetrade(request *CancelIpPackagetradeRequest) (_result *CancelIpPackagetradeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -33629,8 +40310,8 @@ func (client *Client) CancelIpPackagetrade(request *CancelIpPackagetradeRequest)
 }
 
 /**
- * Description: 买家取消套餐交易
- * Summary: 数字商品服务-IP授权服务-取消套餐交易
+ * Description: 交易发起方取消交易，包括套餐交易和定向授权
+ * Summary: 数字商品服务-IP授权服务-取消交易
  */
 func (client *Client) CancelIpPackagetradeEx(request *CancelIpPackagetradeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CancelIpPackagetradeResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34022,7 +40703,7 @@ func (client *Client) QueryIpGoodsdetailwithchannelEx(request *QueryIpGoodsdetai
 
 /**
  * Description: ip的所有信息 包括渠道和sku
- * Summary: 数字商品服务-IP授权服务-查询所有信息
+ * Summary: 数字商品服务-IP授权服务-IP详情查询
  */
 func (client *Client) QueryIpDetail(request *QueryIpDetailRequest) (_result *QueryIpDetailResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34038,7 +40719,7 @@ func (client *Client) QueryIpDetail(request *QueryIpDetailRequest) (_result *Que
 
 /**
  * Description: ip的所有信息 包括渠道和sku
- * Summary: 数字商品服务-IP授权服务-查询所有信息
+ * Summary: 数字商品服务-IP授权服务-IP详情查询
  */
 func (client *Client) QueryIpDetailEx(request *QueryIpDetailRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpDetailResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34124,7 +40805,7 @@ func (client *Client) UpdateIpChannelEx(request *UpdateIpChannelRequest, headers
 
 /**
  * Description: ip上线
- * Summary: 数字商品服务-IP授权服务-ip上线
+ * Summary: 数字商品服务-IP授权服务-上架
  */
 func (client *Client) OnlineIp(request *OnlineIpRequest) (_result *OnlineIpResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34140,7 +40821,7 @@ func (client *Client) OnlineIp(request *OnlineIpRequest) (_result *OnlineIpRespo
 
 /**
  * Description: ip上线
- * Summary: 数字商品服务-IP授权服务-ip上线
+ * Summary: 数字商品服务-IP授权服务-上架
  */
 func (client *Client) OnlineIpEx(request *OnlineIpRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OnlineIpResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34158,7 +40839,7 @@ func (client *Client) OnlineIpEx(request *OnlineIpRequest, headers map[string]*s
 
 /**
  * Description: ip下线
- * Summary: 数字商品服务-IP授权服务-下线
+ * Summary: 数字商品服务-IP授权服务-下架
  */
 func (client *Client) OfflineIp(request *OfflineIpRequest) (_result *OfflineIpResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34174,7 +40855,7 @@ func (client *Client) OfflineIp(request *OfflineIpRequest) (_result *OfflineIpRe
 
 /**
  * Description: ip下线
- * Summary: 数字商品服务-IP授权服务-下线
+ * Summary: 数字商品服务-IP授权服务-下架
  */
 func (client *Client) OfflineIpEx(request *OfflineIpRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OfflineIpResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34192,7 +40873,7 @@ func (client *Client) OfflineIpEx(request *OfflineIpRequest, headers map[string]
 
 /**
  * Description: IP授权交易服务: IP采购商和版权方的账户注册, 采购商注册账户完成即可以参与IP授权交易服务, 版权方需要根据具体需要完成二级商户创建操作后再参与IP授权交易服务。
- * Summary: 数字商品服务-IP授权交易服务-账户创建
+ * Summary: 数字商品服务-IP授权服务-账户创建
  */
 func (client *Client) CreateIpAccount(request *CreateIpAccountRequest) (_result *CreateIpAccountResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34208,7 +40889,7 @@ func (client *Client) CreateIpAccount(request *CreateIpAccountRequest) (_result 
 
 /**
  * Description: IP授权交易服务: IP采购商和版权方的账户注册, 采购商注册账户完成即可以参与IP授权交易服务, 版权方需要根据具体需要完成二级商户创建操作后再参与IP授权交易服务。
- * Summary: 数字商品服务-IP授权交易服务-账户创建
+ * Summary: 数字商品服务-IP授权服务-账户创建
  */
 func (client *Client) CreateIpAccountEx(request *CreateIpAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateIpAccountResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34226,7 +40907,7 @@ func (client *Client) CreateIpAccountEx(request *CreateIpAccountRequest, headers
 
 /**
  * Description: IP授权交易服务: IP采购商和版权方的账户冻结, 账户冻结后无法参与IP授权交易活动。
- * Summary: 数字商品服务-IP授权交易服务-账户冻结
+ * Summary: 数字商品服务-IP授权服务-账户冻结
  */
 func (client *Client) FreezeIpAccount(request *FreezeIpAccountRequest) (_result *FreezeIpAccountResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34242,7 +40923,7 @@ func (client *Client) FreezeIpAccount(request *FreezeIpAccountRequest) (_result 
 
 /**
  * Description: IP授权交易服务: IP采购商和版权方的账户冻结, 账户冻结后无法参与IP授权交易活动。
- * Summary: 数字商品服务-IP授权交易服务-账户冻结
+ * Summary: 数字商品服务-IP授权服务-账户冻结
  */
 func (client *Client) FreezeIpAccountEx(request *FreezeIpAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *FreezeIpAccountResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34260,7 +40941,7 @@ func (client *Client) FreezeIpAccountEx(request *FreezeIpAccountRequest, headers
 
 /**
  * Description: IP授权交易服务: IP采购商和版权方的账户解冻, 对于已经被冻结的账户, 账户解冻后才可以参与IP授权交易活动。
- * Summary: 数字商品服务-IP授权交易服务-账户解冻
+ * Summary: 数字商品服务-IP授权服务-账户解冻
  */
 func (client *Client) UnfreezeIpAccount(request *UnfreezeIpAccountRequest) (_result *UnfreezeIpAccountResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34276,7 +40957,7 @@ func (client *Client) UnfreezeIpAccount(request *UnfreezeIpAccountRequest) (_res
 
 /**
  * Description: IP授权交易服务: IP采购商和版权方的账户解冻, 对于已经被冻结的账户, 账户解冻后才可以参与IP授权交易活动。
- * Summary: 数字商品服务-IP授权交易服务-账户解冻
+ * Summary: 数字商品服务-IP授权服务-账户解冻
  */
 func (client *Client) UnfreezeIpAccountEx(request *UnfreezeIpAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UnfreezeIpAccountResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34294,7 +40975,7 @@ func (client *Client) UnfreezeIpAccountEx(request *UnfreezeIpAccountRequest, hea
 
 /**
  * Description: IP授权交易服务: IP采购商和版权方的账户查询。
- * Summary: 数字商品服务-IP授权交易服务-账户查询
+ * Summary: 数字商品服务-IP授权服务-账户查询
  */
 func (client *Client) QueryIpAccount(request *QueryIpAccountRequest) (_result *QueryIpAccountResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34310,7 +40991,7 @@ func (client *Client) QueryIpAccount(request *QueryIpAccountRequest) (_result *Q
 
 /**
  * Description: IP授权交易服务: IP采购商和版权方的账户查询。
- * Summary: 数字商品服务-IP授权交易服务-账户查询
+ * Summary: 数字商品服务-IP授权服务-账户查询
  */
 func (client *Client) QueryIpAccountEx(request *QueryIpAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpAccountResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34328,7 +41009,7 @@ func (client *Client) QueryIpAccountEx(request *QueryIpAccountRequest, headers m
 
 /**
  * Description: 数字商品-IP授权交易服务-版权方申请: 版权方完成账户注册后需要完成版权方申请,异步流程需要查询申请结果。
- * Summary: 数字商品-IP授权交易服务-版权方申请
+ * Summary: 数字商品服务-IP授权服务-版权方申请
  */
 func (client *Client) ApplyIpAccount(request *ApplyIpAccountRequest) (_result *ApplyIpAccountResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34344,7 +41025,7 @@ func (client *Client) ApplyIpAccount(request *ApplyIpAccountRequest) (_result *A
 
 /**
  * Description: 数字商品-IP授权交易服务-版权方申请: 版权方完成账户注册后需要完成版权方申请,异步流程需要查询申请结果。
- * Summary: 数字商品-IP授权交易服务-版权方申请
+ * Summary: 数字商品服务-IP授权服务-版权方申请
  */
 func (client *Client) ApplyIpAccountEx(request *ApplyIpAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyIpAccountResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34362,7 +41043,7 @@ func (client *Client) ApplyIpAccountEx(request *ApplyIpAccountRequest, headers m
 
 /**
  * Description: 数字商品-IP授权交易-版权方申请进度查询: 版权方申请流程需要人工审核和支付宝审核。
- * Summary: 数字商品-IP授权交易-申请进度查询
+ * Summary: 数字商品服务-IP授权服务-查申请进度
  */
 func (client *Client) CheckIpAccount(request *CheckIpAccountRequest) (_result *CheckIpAccountResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34378,7 +41059,7 @@ func (client *Client) CheckIpAccount(request *CheckIpAccountRequest) (_result *C
 
 /**
  * Description: 数字商品-IP授权交易-版权方申请进度查询: 版权方申请流程需要人工审核和支付宝审核。
- * Summary: 数字商品-IP授权交易-申请进度查询
+ * Summary: 数字商品服务-IP授权服务-查申请进度
  */
 func (client *Client) CheckIpAccountEx(request *CheckIpAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckIpAccountResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34396,7 +41077,7 @@ func (client *Client) CheckIpAccountEx(request *CheckIpAccountRequest, headers m
 
 /**
  * Description: ip商品审批
- * Summary: ip商品审批
+ * Summary: 数字商品服务-IP授权服务-ip创建审批
  */
 func (client *Client) ConfirmIpGoods(request *ConfirmIpGoodsRequest) (_result *ConfirmIpGoodsResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34412,7 +41093,7 @@ func (client *Client) ConfirmIpGoods(request *ConfirmIpGoodsRequest) (_result *C
 
 /**
  * Description: ip商品审批
- * Summary: ip商品审批
+ * Summary: 数字商品服务-IP授权服务-ip创建审批
  */
 func (client *Client) ConfirmIpGoodsEx(request *ConfirmIpGoodsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmIpGoodsResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34431,7 +41112,7 @@ func (client *Client) ConfirmIpGoodsEx(request *ConfirmIpGoodsRequest, headers m
 /**
  * Description: ip信息批量查询--给运营使用
 查询审批信息
- * Summary: ip审批信息批量查询--给运营使用
+ * Summary: 数字商品服务-IP授权服务-审批信息查询
 */
 func (client *Client) BatchqueryIpApproval(request *BatchqueryIpApprovalRequest) (_result *BatchqueryIpApprovalResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34448,7 +41129,7 @@ func (client *Client) BatchqueryIpApproval(request *BatchqueryIpApprovalRequest)
 /**
  * Description: ip信息批量查询--给运营使用
 查询审批信息
- * Summary: ip审批信息批量查询--给运营使用
+ * Summary: 数字商品服务-IP授权服务-审批信息查询
 */
 func (client *Client) BatchqueryIpApprovalEx(request *BatchqueryIpApprovalRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryIpApprovalResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34465,8 +41146,8 @@ func (client *Client) BatchqueryIpApprovalEx(request *BatchqueryIpApprovalReques
 }
 
 /**
- * Description: 数字商品-IP授权交易-运营审核确认
- * Summary: 数字商品-IP授权交易-运营审核确认
+ * Description: 数字商品服务-IP授权服务-运营审核确认
+ * Summary: 数字商品服务-IP授权服务-运营审核确认
  */
 func (client *Client) ConfirmIpAccount(request *ConfirmIpAccountRequest) (_result *ConfirmIpAccountResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34481,8 +41162,8 @@ func (client *Client) ConfirmIpAccount(request *ConfirmIpAccountRequest) (_resul
 }
 
 /**
- * Description: 数字商品-IP授权交易-运营审核确认
- * Summary: 数字商品-IP授权交易-运营审核确认
+ * Description: 数字商品服务-IP授权服务-运营审核确认
+ * Summary: 数字商品服务-IP授权服务-运营审核确认
  */
 func (client *Client) ConfirmIpAccountEx(request *ConfirmIpAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmIpAccountResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34499,8 +41180,8 @@ func (client *Client) ConfirmIpAccountEx(request *ConfirmIpAccountRequest, heade
 }
 
 /**
- * Description: 数字商品-IP授权交易-运营审核拒绝
- * Summary: 数字商品-IP授权交易-运营审核拒绝
+ * Description: 数字商品服务-IP授权服务-运营审核拒绝
+ * Summary: 数字商品服务-IP授权服务-运营审核拒绝
  */
 func (client *Client) RefuseIpAccount(request *RefuseIpAccountRequest) (_result *RefuseIpAccountResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34515,8 +41196,8 @@ func (client *Client) RefuseIpAccount(request *RefuseIpAccountRequest) (_result 
 }
 
 /**
- * Description: 数字商品-IP授权交易-运营审核拒绝
- * Summary: 数字商品-IP授权交易-运营审核拒绝
+ * Description: 数字商品服务-IP授权服务-运营审核拒绝
+ * Summary: 数字商品服务-IP授权服务-运营审核拒绝
  */
 func (client *Client) RefuseIpAccountEx(request *RefuseIpAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RefuseIpAccountResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34534,7 +41215,7 @@ func (client *Client) RefuseIpAccountEx(request *RefuseIpAccountRequest, headers
 
 /**
  * Description: 版权方进件信息的单个查询
- * Summary: 数字商品-IP授权交易服务-申请信息查询
+ * Summary: 数字商品服务-IP授权服务-申请信息查询
  */
 func (client *Client) PullIpAccount(request *PullIpAccountRequest) (_result *PullIpAccountResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34550,7 +41231,7 @@ func (client *Client) PullIpAccount(request *PullIpAccountRequest) (_result *Pul
 
 /**
  * Description: 版权方进件信息的单个查询
- * Summary: 数字商品-IP授权交易服务-申请信息查询
+ * Summary: 数字商品服务-IP授权服务-申请信息查询
  */
 func (client *Client) PullIpAccountEx(request *PullIpAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PullIpAccountResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34567,8 +41248,8 @@ func (client *Client) PullIpAccountEx(request *PullIpAccountRequest, headers map
 }
 
 /**
- * Description: 数字商品-IP授权交易服务-MCC列表查询
- * Summary: 数字商品-IP授权交易服务-MCC查询
+ * Description: 数字商品服务-IP授权服务-MCC列表查询
+ * Summary: 数字商品服务-IP授权服务-MCC查询
  */
 func (client *Client) QueryIpMcc(request *QueryIpMccRequest) (_result *QueryIpMccResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34583,8 +41264,8 @@ func (client *Client) QueryIpMcc(request *QueryIpMccRequest) (_result *QueryIpMc
 }
 
 /**
- * Description: 数字商品-IP授权交易服务-MCC列表查询
- * Summary: 数字商品-IP授权交易服务-MCC查询
+ * Description: 数字商品服务-IP授权服务-MCC列表查询
+ * Summary: 数字商品服务-IP授权服务-MCC查询
  */
 func (client *Client) QueryIpMccEx(request *QueryIpMccRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpMccResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34602,7 +41283,7 @@ func (client *Client) QueryIpMccEx(request *QueryIpMccRequest, headers map[strin
 
 /**
  * Description: 查询ip type和受众人群
- * Summary: 查询ip type和受众人群
+ * Summary: 数字商品服务-IP授权服务-IP标签查询
  */
 func (client *Client) QueryIpType(request *QueryIpTypeRequest) (_result *QueryIpTypeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34618,7 +41299,7 @@ func (client *Client) QueryIpType(request *QueryIpTypeRequest) (_result *QueryIp
 
 /**
  * Description: 查询ip type和受众人群
- * Summary: 查询ip type和受众人群
+ * Summary: 数字商品服务-IP授权服务-IP标签查询
  */
 func (client *Client) QueryIpTypeEx(request *QueryIpTypeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpTypeResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34636,7 +41317,7 @@ func (client *Client) QueryIpTypeEx(request *QueryIpTypeRequest, headers map[str
 
 /**
  * Description: ip审批信息批量查询（带上渠道信息）
- * Summary: ip审批信息批量查询（带上渠道信息）
+ * Summary: 数字商品服务-IP授权服务-审批批量查询
  */
 func (client *Client) BatchqueryIpApprovalandchannel(request *BatchqueryIpApprovalandchannelRequest) (_result *BatchqueryIpApprovalandchannelResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34652,7 +41333,7 @@ func (client *Client) BatchqueryIpApprovalandchannel(request *BatchqueryIpApprov
 
 /**
  * Description: ip审批信息批量查询（带上渠道信息）
- * Summary: ip审批信息批量查询（带上渠道信息）
+ * Summary: 数字商品服务-IP授权服务-审批批量查询
  */
 func (client *Client) BatchqueryIpApprovalandchannelEx(request *BatchqueryIpApprovalandchannelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryIpApprovalandchannelResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34670,7 +41351,7 @@ func (client *Client) BatchqueryIpApprovalandchannelEx(request *BatchqueryIpAppr
 
 /**
  * Description: 版权方进件信息的批量查询
- * Summary: 数字商品-IP授权服务-批量查询商家信息
+ * Summary: 数字商品服务-IP授权服务-查询商家信息
  */
 func (client *Client) BatchqueryIpAccount(request *BatchqueryIpAccountRequest) (_result *BatchqueryIpAccountResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34686,7 +41367,7 @@ func (client *Client) BatchqueryIpAccount(request *BatchqueryIpAccountRequest) (
 
 /**
  * Description: 版权方进件信息的批量查询
- * Summary: 数字商品-IP授权服务-批量查询商家信息
+ * Summary: 数字商品服务-IP授权服务-查询商家信息
  */
 func (client *Client) BatchqueryIpAccountEx(request *BatchqueryIpAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryIpAccountResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34703,8 +41384,8 @@ func (client *Client) BatchqueryIpAccountEx(request *BatchqueryIpAccountRequest,
 }
 
 /**
- * Description: 版权方待审批的批量查询
- * Summary: 数字商品-IP授权-版权方申请批量查询
+ * Description: 账户列表查询
+ * Summary: 数字商品服务-IP授权服务-查账户列表
  */
 func (client *Client) BatchqueryIpSeller(request *BatchqueryIpSellerRequest) (_result *BatchqueryIpSellerResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34719,8 +41400,8 @@ func (client *Client) BatchqueryIpSeller(request *BatchqueryIpSellerRequest) (_r
 }
 
 /**
- * Description: 版权方待审批的批量查询
- * Summary: 数字商品-IP授权-版权方申请批量查询
+ * Description: 账户列表查询
+ * Summary: 数字商品服务-IP授权服务-查账户列表
  */
 func (client *Client) BatchqueryIpSellerEx(request *BatchqueryIpSellerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryIpSellerResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34737,8 +41418,8 @@ func (client *Client) BatchqueryIpSellerEx(request *BatchqueryIpSellerRequest, h
 }
 
 /**
- * Description: 数字商品服务-IP授权交易-正版码申请
- * Summary: 数字商品服务-IP授权交易-正版码申请
+ * Description: 数字商品服务-IP授权服务-正版码申请
+ * Summary: 数字商品服务-IP授权服务-正版码申请
  */
 func (client *Client) ApplyIpCode(request *ApplyIpCodeRequest) (_result *ApplyIpCodeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34753,8 +41434,8 @@ func (client *Client) ApplyIpCode(request *ApplyIpCodeRequest) (_result *ApplyIp
 }
 
 /**
- * Description: 数字商品服务-IP授权交易-正版码申请
- * Summary: 数字商品服务-IP授权交易-正版码申请
+ * Description: 数字商品服务-IP授权服务-正版码申请
+ * Summary: 数字商品服务-IP授权服务-正版码申请
  */
 func (client *Client) ApplyIpCodeEx(request *ApplyIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyIpCodeResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34771,9 +41452,10 @@ func (client *Client) ApplyIpCodeEx(request *ApplyIpCodeRequest, headers map[str
 }
 
 /**
- * Description: 数字商品服务-IP授权交易-正版码分页查询
- * Summary: 数字商品服务-IP授权交易-正版码查询
- */
+ * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
+ * Summary: 数字商品服务-IP授权服务-正版码查询
+*/
 func (client *Client) PagequeryIpCode(request *PagequeryIpCodeRequest) (_result *PagequeryIpCodeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -34787,9 +41469,10 @@ func (client *Client) PagequeryIpCode(request *PagequeryIpCodeRequest) (_result 
 }
 
 /**
- * Description: 数字商品服务-IP授权交易-正版码分页查询
- * Summary: 数字商品服务-IP授权交易-正版码查询
- */
+ * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
+ * Summary: 数字商品服务-IP授权服务-正版码查询
+*/
 func (client *Client) PagequeryIpCodeEx(request *PagequeryIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryIpCodeResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -34805,8 +41488,8 @@ func (client *Client) PagequeryIpCodeEx(request *PagequeryIpCodeRequest, headers
 }
 
 /**
- * Description: 数字商品服务-IP授权交易-正版码校验
- * Summary: 数字商品服务-IP授权交易-正版码校验
+ * Description: 数字商品服务-IP授权服务-正版码校验
+ * Summary: 数字商品服务-IP授权服务-正版码校验
  */
 func (client *Client) CheckIpCode(request *CheckIpCodeRequest) (_result *CheckIpCodeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34821,8 +41504,8 @@ func (client *Client) CheckIpCode(request *CheckIpCodeRequest) (_result *CheckIp
 }
 
 /**
- * Description: 数字商品服务-IP授权交易-正版码校验
- * Summary: 数字商品服务-IP授权交易-正版码校验
+ * Description: 数字商品服务-IP授权服务-正版码校验
+ * Summary: 数字商品服务-IP授权服务-正版码校验
  */
 func (client *Client) CheckIpCodeEx(request *CheckIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckIpCodeResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34840,7 +41523,7 @@ func (client *Client) CheckIpCodeEx(request *CheckIpCodeRequest, headers map[str
 
 /**
  * Description: 对商品的更新进行审核
- * Summary: 数字商品-IP授权交易-商品更新审核
+ * Summary: 数字商品服务-IP授权服务-IP更新审核
  */
 func (client *Client) ConfirmIpUpdateapproval(request *ConfirmIpUpdateapprovalRequest) (_result *ConfirmIpUpdateapprovalResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34856,7 +41539,7 @@ func (client *Client) ConfirmIpUpdateapproval(request *ConfirmIpUpdateapprovalRe
 
 /**
  * Description: 对商品的更新进行审核
- * Summary: 数字商品-IP授权交易-商品更新审核
+ * Summary: 数字商品服务-IP授权服务-IP更新审核
  */
 func (client *Client) ConfirmIpUpdateapprovalEx(request *ConfirmIpUpdateapprovalRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmIpUpdateapprovalResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34874,7 +41557,7 @@ func (client *Client) ConfirmIpUpdateapprovalEx(request *ConfirmIpUpdateapproval
 
 /**
  * Description: ip商品sku信息设置
- * Summary: 数字商品-IP授权交易-sku信息设置
+ * Summary: 数字商品服务-IP授权服务-sku设置
  */
 func (client *Client) SetIpSku(request *SetIpSkuRequest) (_result *SetIpSkuResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34890,7 +41573,7 @@ func (client *Client) SetIpSku(request *SetIpSkuRequest) (_result *SetIpSkuRespo
 
 /**
  * Description: ip商品sku信息设置
- * Summary: 数字商品-IP授权交易-sku信息设置
+ * Summary: 数字商品服务-IP授权服务-sku设置
  */
 func (client *Client) SetIpSkuEx(request *SetIpSkuRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SetIpSkuResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34908,7 +41591,7 @@ func (client *Client) SetIpSkuEx(request *SetIpSkuRequest, headers map[string]*s
 
 /**
  * Description: 查询商品基础信息的更新数据
- * Summary: 数字商品-IP授权交易-查询更新数据
+ * Summary: 数字商品服务-IP授权服务-查询更新数据
  */
 func (client *Client) QueryIpGoodsupdate(request *QueryIpGoodsupdateRequest) (_result *QueryIpGoodsupdateResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34924,7 +41607,7 @@ func (client *Client) QueryIpGoodsupdate(request *QueryIpGoodsupdateRequest) (_r
 
 /**
  * Description: 查询商品基础信息的更新数据
- * Summary: 数字商品-IP授权交易-查询更新数据
+ * Summary: 数字商品服务-IP授权服务-查询更新数据
  */
 func (client *Client) QueryIpGoodsupdateEx(request *QueryIpGoodsupdateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpGoodsupdateResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -34976,7 +41659,7 @@ func (client *Client) PagequeryIpBillEx(request *PagequeryIpBillRequest, headers
 
 /**
  * Description: ip商品某个渠道默认sku查询
- * Summary: 数字商品-IP授权交易-默认sku查询
+ * Summary: 数字商品服务-IP授权服务-sku查询
  */
 func (client *Client) QueryIpSkuconfig(request *QueryIpSkuconfigRequest) (_result *QueryIpSkuconfigResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34992,7 +41675,7 @@ func (client *Client) QueryIpSkuconfig(request *QueryIpSkuconfigRequest) (_resul
 
 /**
  * Description: ip商品某个渠道默认sku查询
- * Summary: 数字商品-IP授权交易-默认sku查询
+ * Summary: 数字商品服务-IP授权服务-sku查询
  */
 func (client *Client) QueryIpSkuconfigEx(request *QueryIpSkuconfigRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpSkuconfigResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -35010,7 +41693,7 @@ func (client *Client) QueryIpSkuconfigEx(request *QueryIpSkuconfigRequest, heade
 
 /**
  * Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
- * Summary: 数字商品服务-IP授权交易-版权方导入
+ * Summary: 数字商品服务-IP授权服务-版权方导入
  */
 func (client *Client) ImportIpAccount(request *ImportIpAccountRequest) (_result *ImportIpAccountResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -35026,7 +41709,7 @@ func (client *Client) ImportIpAccount(request *ImportIpAccountRequest) (_result 
 
 /**
  * Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
- * Summary: 数字商品服务-IP授权交易-版权方导入
+ * Summary: 数字商品服务-IP授权服务-版权方导入
  */
 func (client *Client) ImportIpAccountEx(request *ImportIpAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportIpAccountResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -35044,7 +41727,7 @@ func (client *Client) ImportIpAccountEx(request *ImportIpAccountRequest, headers
 
 /**
  * Description: 商品特定渠道的sku信息清空
- * Summary: 数字商品-IP授权交易-sku信息清空
+ * Summary: 数字商品服务-IP授权服务-sku清空
  */
 func (client *Client) RemoveIpSku(request *RemoveIpSkuRequest) (_result *RemoveIpSkuResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -35060,7 +41743,7 @@ func (client *Client) RemoveIpSku(request *RemoveIpSkuRequest) (_result *RemoveI
 
 /**
  * Description: 商品特定渠道的sku信息清空
- * Summary: 数字商品-IP授权交易-sku信息清空
+ * Summary: 数字商品服务-IP授权服务-sku清空
  */
 func (client *Client) RemoveIpSkuEx(request *RemoveIpSkuRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RemoveIpSkuResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -35069,6 +41752,1570 @@ func (client *Client) RemoveIpSkuEx(request *RemoveIpSkuRequest, headers map[str
 	}
 	_result = &RemoveIpSkuResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.sku.remove"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建监修报审
+ * Summary: 数字商品服务-IP授权服务-创建监修报审
+ */
+func (client *Client) CreateIpSuperviseapprove(request *CreateIpSuperviseapproveRequest) (_result *CreateIpSuperviseapproveResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateIpSuperviseapproveResponse{}
+	_body, _err := client.CreateIpSuperviseapproveEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建监修报审
+ * Summary: 数字商品服务-IP授权服务-创建监修报审
+ */
+func (client *Client) CreateIpSuperviseapproveEx(request *CreateIpSuperviseapproveRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateIpSuperviseapproveResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateIpSuperviseapproveResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.superviseapprove.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 监修报审审批
+ * Summary: 数字商品服务-IP授权服务-监修报审审批
+ */
+func (client *Client) ConfirmIpSuperviseapprove(request *ConfirmIpSuperviseapproveRequest) (_result *ConfirmIpSuperviseapproveResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ConfirmIpSuperviseapproveResponse{}
+	_body, _err := client.ConfirmIpSuperviseapproveEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 监修报审审批
+ * Summary: 数字商品服务-IP授权服务-监修报审审批
+ */
+func (client *Client) ConfirmIpSuperviseapproveEx(request *ConfirmIpSuperviseapproveRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmIpSuperviseapproveResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ConfirmIpSuperviseapproveResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.superviseapprove.confirm"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 监修报审进度推进/重置
+ * Summary: 数字商品服务-IP授权服务-推进监修报审
+ */
+func (client *Client) PushIpSuperviseapprove(request *PushIpSuperviseapproveRequest) (_result *PushIpSuperviseapproveResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushIpSuperviseapproveResponse{}
+	_body, _err := client.PushIpSuperviseapproveEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 监修报审进度推进/重置
+ * Summary: 数字商品服务-IP授权服务-推进监修报审
+ */
+func (client *Client) PushIpSuperviseapproveEx(request *PushIpSuperviseapproveRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushIpSuperviseapproveResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushIpSuperviseapproveResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.superviseapprove.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品-IP授权交易-查询监修报审详情
+ * Summary: 数字商品服务-IP授权服务-查询监修报审
+ */
+func (client *Client) QueryIpSuperviseapprove(request *QueryIpSuperviseapproveRequest) (_result *QueryIpSuperviseapproveResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIpSuperviseapproveResponse{}
+	_body, _err := client.QueryIpSuperviseapproveEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品-IP授权交易-查询监修报审详情
+ * Summary: 数字商品服务-IP授权服务-查询监修报审
+ */
+func (client *Client) QueryIpSuperviseapproveEx(request *QueryIpSuperviseapproveRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpSuperviseapproveResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIpSuperviseapproveResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.superviseapprove.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 领取正版码，如已被领取则返回被领取人昵称信息
+ * Summary: 数字商品服务-IP授权服务-正版码领取
+ */
+func (client *Client) ReceiveIpCode(request *ReceiveIpCodeRequest) (_result *ReceiveIpCodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ReceiveIpCodeResponse{}
+	_body, _err := client.ReceiveIpCodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 领取正版码，如已被领取则返回被领取人昵称信息
+ * Summary: 数字商品服务-IP授权服务-正版码领取
+ */
+func (client *Client) ReceiveIpCodeEx(request *ReceiveIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ReceiveIpCodeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ReceiveIpCodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.code.receive"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 已领取或以扫描过的正版码列表，分页查询
+ * Summary: 数字商品服务-IP授权服务-正版码列表
+ */
+func (client *Client) PagequeryIpCodeinfo(request *PagequeryIpCodeinfoRequest) (_result *PagequeryIpCodeinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryIpCodeinfoResponse{}
+	_body, _err := client.PagequeryIpCodeinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 已领取或以扫描过的正版码列表，分页查询
+ * Summary: 数字商品服务-IP授权服务-正版码列表
+ */
+func (client *Client) PagequeryIpCodeinfoEx(request *PagequeryIpCodeinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryIpCodeinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryIpCodeinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.codeinfo.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建增值服务
+ * Summary: 数字商品服务-IP授权服务-创建增值服务
+ */
+func (client *Client) CreateIpValueadd(request *CreateIpValueaddRequest) (_result *CreateIpValueaddResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateIpValueaddResponse{}
+	_body, _err := client.CreateIpValueaddEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建增值服务
+ * Summary: 数字商品服务-IP授权服务-创建增值服务
+ */
+func (client *Client) CreateIpValueaddEx(request *CreateIpValueaddRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateIpValueaddResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateIpValueaddResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.valueadd.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-更新增值服务
+ * Summary: 数字商品服务-IP授权服务-更新增值服务
+ */
+func (client *Client) UpdateIpValueadd(request *UpdateIpValueaddRequest) (_result *UpdateIpValueaddResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateIpValueaddResponse{}
+	_body, _err := client.UpdateIpValueaddEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-更新增值服务
+ * Summary: 数字商品服务-IP授权服务-更新增值服务
+ */
+func (client *Client) UpdateIpValueaddEx(request *UpdateIpValueaddRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateIpValueaddResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateIpValueaddResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.valueadd.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品-IP授权-设置增值服务sku
+ * Summary: 数字商品服务-IP授权服务-设置增值服务
+ */
+func (client *Client) SetIpValueaddsku(request *SetIpValueaddskuRequest) (_result *SetIpValueaddskuResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SetIpValueaddskuResponse{}
+	_body, _err := client.SetIpValueaddskuEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品-IP授权-设置增值服务sku
+ * Summary: 数字商品服务-IP授权服务-设置增值服务
+ */
+func (client *Client) SetIpValueaddskuEx(request *SetIpValueaddskuRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SetIpValueaddskuResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SetIpValueaddskuResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.valueaddsku.set"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-增值服务上下架操作
+ * Summary: 数字商品服务-IP授权服务-服务上下架
+ */
+func (client *Client) OnlineIpValueadd(request *OnlineIpValueaddRequest) (_result *OnlineIpValueaddResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OnlineIpValueaddResponse{}
+	_body, _err := client.OnlineIpValueaddEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-增值服务上下架操作
+ * Summary: 数字商品服务-IP授权服务-服务上下架
+ */
+func (client *Client) OnlineIpValueaddEx(request *OnlineIpValueaddRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OnlineIpValueaddResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OnlineIpValueaddResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.valueadd.online"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品-IP授权交易-增值服务查询
+ * Summary: 数字商品服务-IP授权服务-增值服务查询
+ */
+func (client *Client) QueryIpValueadd(request *QueryIpValueaddRequest) (_result *QueryIpValueaddResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIpValueaddResponse{}
+	_body, _err := client.QueryIpValueaddEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品-IP授权交易-增值服务查询
+ * Summary: 数字商品服务-IP授权服务-增值服务查询
+ */
+func (client *Client) QueryIpValueaddEx(request *QueryIpValueaddRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpValueaddResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIpValueaddResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.valueadd.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 增值服务批量查询
+ * Summary: 数字商品服务-IP授权服务-增值服务查询
+ */
+func (client *Client) PagequeryIpValueadd(request *PagequeryIpValueaddRequest) (_result *PagequeryIpValueaddResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryIpValueaddResponse{}
+	_body, _err := client.PagequeryIpValueaddEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 增值服务批量查询
+ * Summary: 数字商品服务-IP授权服务-增值服务查询
+ */
+func (client *Client) PagequeryIpValueaddEx(request *PagequeryIpValueaddRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryIpValueaddResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryIpValueaddResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.valueadd.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 批量上传授权交易的销售数据
+ * Summary: 数字商品服务-IP授权服务-上传销售数据
+ */
+func (client *Client) UploadIpTradesales(request *UploadIpTradesalesRequest) (_result *UploadIpTradesalesResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadIpTradesalesResponse{}
+	_body, _err := client.UploadIpTradesalesEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 批量上传授权交易的销售数据
+ * Summary: 数字商品服务-IP授权服务-上传销售数据
+ */
+func (client *Client) UploadIpTradesalesEx(request *UploadIpTradesalesRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadIpTradesalesResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadIpTradesalesResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.tradesales.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: C端用户授权信息
+ * Summary: 数字商品服务-IP授权服务-C用户授权
+ */
+func (client *Client) AuthIpUser(request *AuthIpUserRequest) (_result *AuthIpUserResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AuthIpUserResponse{}
+	_body, _err := client.AuthIpUserEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: C端用户授权信息
+ * Summary: 数字商品服务-IP授权服务-C用户授权
+ */
+func (client *Client) AuthIpUserEx(request *AuthIpUserRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AuthIpUserResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AuthIpUserResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.user.auth"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-删除ip商品
+ * Summary: 数字商品服务-IP授权服务-IP删除
+ */
+func (client *Client) RemoveIpGoods(request *RemoveIpGoodsRequest) (_result *RemoveIpGoodsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RemoveIpGoodsResponse{}
+	_body, _err := client.RemoveIpGoodsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-删除ip商品
+ * Summary: 数字商品服务-IP授权服务-IP删除
+ */
+func (client *Client) RemoveIpGoodsEx(request *RemoveIpGoodsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RemoveIpGoodsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RemoveIpGoodsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.goods.remove"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-ip数量统计
+ * Summary: 数字商品服务-IP授权服务-ip数量统计
+ */
+func (client *Client) CountIpNum(request *CountIpNumRequest) (_result *CountIpNumResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CountIpNumResponse{}
+	_body, _err := client.CountIpNumEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-ip数量统计
+ * Summary: 数字商品服务-IP授权服务-ip数量统计
+ */
+func (client *Client) CountIpNumEx(request *CountIpNumRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CountIpNumResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CountIpNumResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.num.count"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-pv统计
+ * Summary: 数字商品服务-IP授权服务-pv统计
+ */
+func (client *Client) CountIpPv(request *CountIpPvRequest) (_result *CountIpPvResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CountIpPvResponse{}
+	_body, _err := client.CountIpPvEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-pv统计
+ * Summary: 数字商品服务-IP授权服务-pv统计
+ */
+func (client *Client) CountIpPvEx(request *CountIpPvRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CountIpPvResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CountIpPvResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.pv.count"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询正版码信息
+ * Summary: 数字商品服务-IP授权服务-正版码查询
+ */
+func (client *Client) QueryIpCode(request *QueryIpCodeRequest) (_result *QueryIpCodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIpCodeResponse{}
+	_body, _err := client.QueryIpCodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询正版码信息
+ * Summary: 数字商品服务-IP授权服务-正版码查询
+ */
+func (client *Client) QueryIpCodeEx(request *QueryIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpCodeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIpCodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.code.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-账户统计
+ * Summary: 数字商品服务-IP授权服务-账户统计
+ */
+func (client *Client) CountIpAccount(request *CountIpAccountRequest) (_result *CountIpAccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CountIpAccountResponse{}
+	_body, _err := client.CountIpAccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-账户统计
+ * Summary: 数字商品服务-IP授权服务-账户统计
+ */
+func (client *Client) CountIpAccountEx(request *CountIpAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CountIpAccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CountIpAccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.account.count"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询渠道订单统计值
+ * Summary: 数字商品服务-IP授权服务-查询订单统计
+ */
+func (client *Client) QueryIpOrderstatistic(request *QueryIpOrderstatisticRequest) (_result *QueryIpOrderstatisticResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIpOrderstatisticResponse{}
+	_body, _err := client.QueryIpOrderstatisticEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询渠道订单统计值
+ * Summary: 数字商品服务-IP授权服务-查询订单统计
+ */
+func (client *Client) QueryIpOrderstatisticEx(request *QueryIpOrderstatisticRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpOrderstatisticResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIpOrderstatisticResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.orderstatistic.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 版权方更新IP图库
+ * Summary: 数字商品服务-IP授权服务-ip更新图库
+ */
+func (client *Client) UpdateIpGoodsgallery(request *UpdateIpGoodsgalleryRequest) (_result *UpdateIpGoodsgalleryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateIpGoodsgalleryResponse{}
+	_body, _err := client.UpdateIpGoodsgalleryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 版权方更新IP图库
+ * Summary: 数字商品服务-IP授权服务-ip更新图库
+ */
+func (client *Client) UpdateIpGoodsgalleryEx(request *UpdateIpGoodsgalleryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateIpGoodsgalleryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateIpGoodsgalleryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.goodsgallery.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 版权方根据IPID查询图库，商家根据订单ID查询图库
+ * Summary: 数字商品服务-IP授权服务-查询ip图库
+ */
+func (client *Client) QueryIpGoodsgallery(request *QueryIpGoodsgalleryRequest) (_result *QueryIpGoodsgalleryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIpGoodsgalleryResponse{}
+	_body, _err := client.QueryIpGoodsgalleryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 版权方根据IPID查询图库，商家根据订单ID查询图库
+ * Summary: 数字商品服务-IP授权服务-查询ip图库
+ */
+func (client *Client) QueryIpGoodsgalleryEx(request *QueryIpGoodsgalleryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpGoodsgalleryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIpGoodsgalleryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.goodsgallery.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 配置正版码的商品信息和资源位信息
+ * Summary: 数字商品服务-IP授权服务-正版码配置
+ */
+func (client *Client) SetIpCodeinfo(request *SetIpCodeinfoRequest) (_result *SetIpCodeinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SetIpCodeinfoResponse{}
+	_body, _err := client.SetIpCodeinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 配置正版码的商品信息和资源位信息
+ * Summary: 数字商品服务-IP授权服务-正版码配置
+ */
+func (client *Client) SetIpCodeinfoEx(request *SetIpCodeinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SetIpCodeinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SetIpCodeinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.codeinfo.set"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询订单的图库下载记录
+ * Summary: 数字商品服务-IP授权服务-查询图库记录
+ */
+func (client *Client) PagequeryIpGalleryinstruction(request *PagequeryIpGalleryinstructionRequest) (_result *PagequeryIpGalleryinstructionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryIpGalleryinstructionResponse{}
+	_body, _err := client.PagequeryIpGalleryinstructionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询订单的图库下载记录
+ * Summary: 数字商品服务-IP授权服务-查询图库记录
+ */
+func (client *Client) PagequeryIpGalleryinstructionEx(request *PagequeryIpGalleryinstructionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryIpGalleryinstructionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryIpGalleryinstructionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.galleryinstruction.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 版权方确认订单图库信息
+ * Summary: 数字商品服务-IP授权服务-订单图库确认
+ */
+func (client *Client) ConfirmIpOrdergallery(request *ConfirmIpOrdergalleryRequest) (_result *ConfirmIpOrdergalleryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ConfirmIpOrdergalleryResponse{}
+	_body, _err := client.ConfirmIpOrdergalleryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 版权方确认订单图库信息
+ * Summary: 数字商品服务-IP授权服务-订单图库确认
+ */
+func (client *Client) ConfirmIpOrdergalleryEx(request *ConfirmIpOrdergalleryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmIpOrdergalleryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ConfirmIpOrdergalleryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.ordergallery.confirm"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 审批IP定向授权交易
+ * Summary: 数字商品服务-IP授权服务-审批定向授权
+ */
+func (client *Client) ConfirmIpAuthtrade(request *ConfirmIpAuthtradeRequest) (_result *ConfirmIpAuthtradeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ConfirmIpAuthtradeResponse{}
+	_body, _err := client.ConfirmIpAuthtradeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 审批IP定向授权交易
+ * Summary: 数字商品服务-IP授权服务-审批定向授权
+ */
+func (client *Client) ConfirmIpAuthtradeEx(request *ConfirmIpAuthtradeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmIpAuthtradeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ConfirmIpAuthtradeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.authtrade.confirm"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 审核套餐授权申请
+ * Summary: 数字商品服务-IP授权服务-审批套餐授权
+ */
+func (client *Client) ConfirmIpPackagetrade(request *ConfirmIpPackagetradeRequest) (_result *ConfirmIpPackagetradeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ConfirmIpPackagetradeResponse{}
+	_body, _err := client.ConfirmIpPackagetradeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 审核套餐授权申请
+ * Summary: 数字商品服务-IP授权服务-审批套餐授权
+ */
+func (client *Client) ConfirmIpPackagetradeEx(request *ConfirmIpPackagetradeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmIpPackagetradeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ConfirmIpPackagetradeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.packagetrade.confirm"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商家申请套餐交易
+ * Summary: 数字商品服务-IP授权服务-申请套餐交易
+ */
+func (client *Client) ApplyIpPackagetrade(request *ApplyIpPackagetradeRequest) (_result *ApplyIpPackagetradeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyIpPackagetradeResponse{}
+	_body, _err := client.ApplyIpPackagetradeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商家申请套餐交易
+ * Summary: 数字商品服务-IP授权服务-申请套餐交易
+ */
+func (client *Client) ApplyIpPackagetradeEx(request *ApplyIpPackagetradeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyIpPackagetradeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyIpPackagetradeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.packagetrade.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 版权方申请授权交易
+ * Summary: 数字商品服务-IP授权服务-申请授权交易
+ */
+func (client *Client) ApplyIpAuthtrade(request *ApplyIpAuthtradeRequest) (_result *ApplyIpAuthtradeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyIpAuthtradeResponse{}
+	_body, _err := client.ApplyIpAuthtradeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 版权方申请授权交易
+ * Summary: 数字商品服务-IP授权服务-申请授权交易
+ */
+func (client *Client) ApplyIpAuthtradeEx(request *ApplyIpAuthtradeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyIpAuthtradeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyIpAuthtradeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.authtrade.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询正版码的配置信息
+ * Summary: 数字商品服务-IP授权服务-查正版码配置
+ */
+func (client *Client) QueryIpCodeinfo(request *QueryIpCodeinfoRequest) (_result *QueryIpCodeinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIpCodeinfoResponse{}
+	_body, _err := client.QueryIpCodeinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询正版码的配置信息
+ * Summary: 数字商品服务-IP授权服务-查正版码配置
+ */
+func (client *Client) QueryIpCodeinfoEx(request *QueryIpCodeinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpCodeinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIpCodeinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.codeinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: ip审批信息批量查询（带上更新信息，供天猫测使用）
+ * Summary: ip审批信息批量查询（带上更新信息）
+ */
+func (client *Client) BatchqueryIpApprovalwithupdate(request *BatchqueryIpApprovalwithupdateRequest) (_result *BatchqueryIpApprovalwithupdateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchqueryIpApprovalwithupdateResponse{}
+	_body, _err := client.BatchqueryIpApprovalwithupdateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: ip审批信息批量查询（带上更新信息，供天猫测使用）
+ * Summary: ip审批信息批量查询（带上更新信息）
+ */
+func (client *Client) BatchqueryIpApprovalwithupdateEx(request *BatchqueryIpApprovalwithupdateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryIpApprovalwithupdateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchqueryIpApprovalwithupdateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.approvalwithupdate.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品-IP授权交易服务-账户信息补充（商家）
+ * Summary: 数字商品服务-IP授权服务-账户信息补充
+ */
+func (client *Client) UpdateIpAccount(request *UpdateIpAccountRequest) (_result *UpdateIpAccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateIpAccountResponse{}
+	_body, _err := client.UpdateIpAccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品-IP授权交易服务-账户信息补充（商家）
+ * Summary: 数字商品服务-IP授权服务-账户信息补充
+ */
+func (client *Client) UpdateIpAccountEx(request *UpdateIpAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateIpAccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateIpAccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.account.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP-查询账户已经入驻的渠道列表
+ * Summary: 数字商品服务-IP-查询账户渠道列表
+ */
+func (client *Client) QueryIpAccountsettlement(request *QueryIpAccountsettlementRequest) (_result *QueryIpAccountsettlementResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIpAccountsettlementResponse{}
+	_body, _err := client.QueryIpAccountsettlementEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP-查询账户已经入驻的渠道列表
+ * Summary: 数字商品服务-IP-查询账户渠道列表
+ */
+func (client *Client) QueryIpAccountsettlementEx(request *QueryIpAccountsettlementRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpAccountsettlementResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIpAccountsettlementResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.accountsettlement.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品-IP授权服务-版权方用户申请开通新渠道
+ * Summary: 数字商品-IP授权服务-申请开通新渠道
+ */
+func (client *Client) AddIpAccountsettlement(request *AddIpAccountsettlementRequest) (_result *AddIpAccountsettlementResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddIpAccountsettlementResponse{}
+	_body, _err := client.AddIpAccountsettlementEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品-IP授权服务-版权方用户申请开通新渠道
+ * Summary: 数字商品-IP授权服务-申请开通新渠道
+ */
+func (client *Client) AddIpAccountsettlementEx(request *AddIpAccountsettlementRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddIpAccountsettlementResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddIpAccountsettlementResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.accountsettlement.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 签署交易订单的区块链合同
+ * Summary: 数字商品服务-IP授权服务-签署订单合同
+ */
+func (client *Client) SignIpOrdercontract(request *SignIpOrdercontractRequest) (_result *SignIpOrdercontractResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SignIpOrdercontractResponse{}
+	_body, _err := client.SignIpOrdercontractEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 签署交易订单的区块链合同
+ * Summary: 数字商品服务-IP授权服务-签署订单合同
+ */
+func (client *Client) SignIpOrdercontractEx(request *SignIpOrdercontractRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SignIpOrdercontractResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SignIpOrdercontractResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.ordercontract.sign"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 授权订单绑定商品ID，后续上传的销售数据需满足已绑定的商品ID
+ * Summary: 数字商品服务-IP授权服务-绑定商品ID
+ */
+func (client *Client) SetIpOrdergoodsids(request *SetIpOrdergoodsidsRequest) (_result *SetIpOrdergoodsidsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SetIpOrdergoodsidsResponse{}
+	_body, _err := client.SetIpOrdergoodsidsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 授权订单绑定商品ID，后续上传的销售数据需满足已绑定的商品ID
+ * Summary: 数字商品服务-IP授权服务-绑定商品ID
+ */
+func (client *Client) SetIpOrdergoodsidsEx(request *SetIpOrdergoodsidsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SetIpOrdergoodsidsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SetIpOrdergoodsidsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.ordergoodsids.set"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询商户和订单的T+1日销售数据汇总数据
+ * Summary: 数字商品服务-IP授权服务-查日销售数据
+ */
+func (client *Client) PagequeryIpSalesbyday(request *PagequeryIpSalesbydayRequest) (_result *PagequeryIpSalesbydayResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryIpSalesbydayResponse{}
+	_body, _err := client.PagequeryIpSalesbydayEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询商户和订单的T+1日销售数据汇总数据
+ * Summary: 数字商品服务-IP授权服务-查日销售数据
+ */
+func (client *Client) PagequeryIpSalesbydayEx(request *PagequeryIpSalesbydayRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryIpSalesbydayResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryIpSalesbydayResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.salesbyday.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 联动雀凿，为文件生成区块链证书，实现文件的版权保护
+ * Summary: 数字商品服务-IP授权服务-文件版权保护
+ */
+func (client *Client) CreateIpCopyright(request *CreateIpCopyrightRequest) (_result *CreateIpCopyrightResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateIpCopyrightResponse{}
+	_body, _err := client.CreateIpCopyrightEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 联动雀凿，为文件生成区块链证书，实现文件的版权保护
+ * Summary: 数字商品服务-IP授权服务-文件版权保护
+ */
+func (client *Client) CreateIpCopyrightEx(request *CreateIpCopyrightRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateIpCopyrightResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateIpCopyrightResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.copyright.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品-IP授权服务-文件版权状态查询
+ * Summary: 数字商品-IP授权服务-文件版权状态查询
+ */
+func (client *Client) QueryIpCopyright(request *QueryIpCopyrightRequest) (_result *QueryIpCopyrightResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIpCopyrightResponse{}
+	_body, _err := client.QueryIpCopyrightEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品-IP授权服务-文件版权状态查询
+ * Summary: 数字商品-IP授权服务-文件版权状态查询
+ */
+func (client *Client) QueryIpCopyrightEx(request *QueryIpCopyrightRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpCopyrightResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIpCopyrightResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.copyright.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 编辑订单备注
+ * Summary: 数字商品服务-IP授权服务-编辑订单备注
+ */
+func (client *Client) SetIpOrdermemo(request *SetIpOrdermemoRequest) (_result *SetIpOrdermemoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SetIpOrdermemoResponse{}
+	_body, _err := client.SetIpOrdermemoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 编辑订单备注
+ * Summary: 数字商品服务-IP授权服务-编辑订单备注
+ */
+func (client *Client) SetIpOrdermemoEx(request *SetIpOrdermemoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SetIpOrdermemoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SetIpOrdermemoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.ordermemo.set"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP-确认开通版权方渠道
+ * Summary: 数字商品服务-IP-开通版权方渠道
+ */
+func (client *Client) ConfirmIpAccountsettlement(request *ConfirmIpAccountsettlementRequest) (_result *ConfirmIpAccountsettlementResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ConfirmIpAccountsettlementResponse{}
+	_body, _err := client.ConfirmIpAccountsettlementEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP-确认开通版权方渠道
+ * Summary: 数字商品服务-IP-开通版权方渠道
+ */
+func (client *Client) ConfirmIpAccountsettlementEx(request *ConfirmIpAccountsettlementRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmIpAccountsettlementResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ConfirmIpAccountsettlementResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.accountsettlement.confirm"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询订单/账单的销售数据列表
+ * Summary: 数字商品服务-IP授权服务-查询销售数据
+ */
+func (client *Client) PagequeryIpSales(request *PagequeryIpSalesRequest) (_result *PagequeryIpSalesResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryIpSalesResponse{}
+	_body, _err := client.PagequeryIpSalesEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询订单/账单的销售数据列表
+ * Summary: 数字商品服务-IP授权服务-查询销售数据
+ */
+func (client *Client) PagequeryIpSalesEx(request *PagequeryIpSalesRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryIpSalesResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryIpSalesResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.sales.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品-IP授权服务-查询申请入驻该渠道的所有版权方列表
+ * Summary: 数字商品-IP授权服务-查询版权方列表
+ */
+func (client *Client) BatchqueryIpAccountsettlement(request *BatchqueryIpAccountsettlementRequest) (_result *BatchqueryIpAccountsettlementResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchqueryIpAccountsettlementResponse{}
+	_body, _err := client.BatchqueryIpAccountsettlementEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品-IP授权服务-查询申请入驻该渠道的所有版权方列表
+ * Summary: 数字商品-IP授权服务-查询版权方列表
+ */
+func (client *Client) BatchqueryIpAccountsettlementEx(request *BatchqueryIpAccountsettlementRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryIpAccountsettlementResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchqueryIpAccountsettlementResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.accountsettlement.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
+ * Summary: 数字商品服务-IP授权服务-天猫查正版码
+ */
+func (client *Client) PullIpCode(request *PullIpCodeRequest) (_result *PullIpCodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PullIpCodeResponse{}
+	_body, _err := client.PullIpCodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
+ * Summary: 数字商品服务-IP授权服务-天猫查正版码
+ */
+func (client *Client) PullIpCodeEx(request *PullIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PullIpCodeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PullIpCodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.code.pull"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP-猜你喜欢的商品
+ * Summary: 数字商品服务-IP-查询用户感兴趣的商品
+ */
+func (client *Client) BatchqueryIpGoodsinterest(request *BatchqueryIpGoodsinterestRequest) (_result *BatchqueryIpGoodsinterestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchqueryIpGoodsinterestResponse{}
+	_body, _err := client.BatchqueryIpGoodsinterestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP-猜你喜欢的商品
+ * Summary: 数字商品服务-IP-查询用户感兴趣的商品
+ */
+func (client *Client) BatchqueryIpGoodsinterestEx(request *BatchqueryIpGoodsinterestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryIpGoodsinterestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchqueryIpGoodsinterestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.goodsinterest.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询区块链合同账号信息
+ * Summary: 数字商品服务-IP授权服务-合同账户查询
+ */
+func (client *Client) QueryIpTwcaccount(request *QueryIpTwcaccountRequest) (_result *QueryIpTwcaccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIpTwcaccountResponse{}
+	_body, _err := client.QueryIpTwcaccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询区块链合同账号信息
+ * Summary: 数字商品服务-IP授权服务-合同账户查询
+ */
+func (client *Client) QueryIpTwcaccountEx(request *QueryIpTwcaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpTwcaccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIpTwcaccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.twcaccount.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -35715,6 +43962,40 @@ func (client *Client) QueryMypointsOrderinstructionEx(request *QueryMypointsOrde
 	}
 	_result = &QueryMypointsOrderinstructionResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.mypoints.orderinstruction.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUpload(request *CreateAntcloudGatewayxFileUploadRequest) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.CreateAntcloudGatewayxFileUploadEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUploadEx(request *CreateAntcloudGatewayxFileUploadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.gatewayx.file.upload.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
