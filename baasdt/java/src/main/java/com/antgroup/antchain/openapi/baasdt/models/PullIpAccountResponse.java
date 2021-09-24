@@ -72,6 +72,14 @@ public class PullIpAccountResponse extends TeaModel {
     @NameInMap("card_info")
     public IPCardInfo cardInfo;
 
+    // 店铺名称
+    @NameInMap("shop_name")
+    public String shopName;
+
+    // 更多联系方式，用于运营联系商家
+    @NameInMap("additional_contact_info")
+    public java.util.List<SimpleContactInfo> additionalContactInfo;
+
     // 创建账户时间
     @NameInMap("create_time")
     public Long createTime;
@@ -215,6 +223,22 @@ public class PullIpAccountResponse extends TeaModel {
     }
     public IPCardInfo getCardInfo() {
         return this.cardInfo;
+    }
+
+    public PullIpAccountResponse setShopName(String shopName) {
+        this.shopName = shopName;
+        return this;
+    }
+    public String getShopName() {
+        return this.shopName;
+    }
+
+    public PullIpAccountResponse setAdditionalContactInfo(java.util.List<SimpleContactInfo> additionalContactInfo) {
+        this.additionalContactInfo = additionalContactInfo;
+        return this;
+    }
+    public java.util.List<SimpleContactInfo> getAdditionalContactInfo() {
+        return this.additionalContactInfo;
     }
 
     public PullIpAccountResponse setCreateTime(Long createTime) {

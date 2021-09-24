@@ -26,7 +26,7 @@ public class PullIpCodeRequest extends TeaModel {
     @Validation(required = true)
     public Long pageIndex;
 
-    // 分页参数:每页条目数(请小于2000)
+    // 分页参数:每页条目数(请小于等于100)
     @NameInMap("page_size")
     @Validation(required = true)
     public Long pageSize;

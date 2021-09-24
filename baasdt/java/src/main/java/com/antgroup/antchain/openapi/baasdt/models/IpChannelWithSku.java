@@ -40,6 +40,10 @@ public class IpChannelWithSku extends TeaModel {
     @NameInMap("trade_need_confirm")
     public Boolean tradeNeedConfirm;
 
+    // 授权类型
+    @NameInMap("authorization_type")
+    public java.util.List<String> authorizationType;
+
     public static IpChannelWithSku build(java.util.Map<String, ?> map) throws Exception {
         IpChannelWithSku self = new IpChannelWithSku();
         return TeaModel.build(map, self);
@@ -99,6 +103,14 @@ public class IpChannelWithSku extends TeaModel {
     }
     public Boolean getTradeNeedConfirm() {
         return this.tradeNeedConfirm;
+    }
+
+    public IpChannelWithSku setAuthorizationType(java.util.List<String> authorizationType) {
+        this.authorizationType = authorizationType;
+        return this;
+    }
+    public java.util.List<String> getAuthorizationType() {
+        return this.authorizationType;
     }
 
 }

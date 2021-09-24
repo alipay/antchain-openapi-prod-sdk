@@ -89,6 +89,10 @@ public class StartIpPackagetradeRequest extends TeaModel {
     @NameInMap("pay_return_url")
     public String payReturnUrl;
 
+    // 授权类型
+    @NameInMap("auth_type")
+    public String authType;
+
     public static StartIpPackagetradeRequest build(java.util.Map<String, ?> map) throws Exception {
         StartIpPackagetradeRequest self = new StartIpPackagetradeRequest();
         return TeaModel.build(map, self);
@@ -244,6 +248,14 @@ public class StartIpPackagetradeRequest extends TeaModel {
     }
     public String getPayReturnUrl() {
         return this.payReturnUrl;
+    }
+
+    public StartIpPackagetradeRequest setAuthType(String authType) {
+        this.authType = authType;
+        return this;
+    }
+    public String getAuthType() {
+        return this.authType;
     }
 
 }

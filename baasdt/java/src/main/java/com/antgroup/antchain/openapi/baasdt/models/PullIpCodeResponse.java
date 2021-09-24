@@ -20,6 +20,10 @@ public class PullIpCodeResponse extends TeaModel {
     @NameInMap("code_list")
     public java.util.List<String> codeList;
 
+    // 展示码列表(和code_list一一对应)
+    @NameInMap("show_code_list")
+    public java.util.List<String> showCodeList;
+
     // 交易订单ID
     @NameInMap("order_id")
     public String orderId;
@@ -52,7 +56,7 @@ public class PullIpCodeResponse extends TeaModel {
     @NameInMap("expired_date")
     public Long expiredDate;
 
-    // 总数量
+    // 已经申请的总数量
     @NameInMap("total_count")
     public Long totalCount;
 
@@ -91,6 +95,14 @@ public class PullIpCodeResponse extends TeaModel {
     }
     public java.util.List<String> getCodeList() {
         return this.codeList;
+    }
+
+    public PullIpCodeResponse setShowCodeList(java.util.List<String> showCodeList) {
+        this.showCodeList = showCodeList;
+        return this;
+    }
+    public java.util.List<String> getShowCodeList() {
+        return this.showCodeList;
     }
 
     public PullIpCodeResponse setOrderId(String orderId) {

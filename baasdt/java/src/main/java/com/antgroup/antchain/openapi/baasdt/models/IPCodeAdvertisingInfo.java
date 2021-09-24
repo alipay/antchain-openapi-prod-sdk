@@ -12,6 +12,10 @@ public class IPCodeAdvertisingInfo extends TeaModel {
     @NameInMap("ad_url")
     public String adUrl;
 
+    // 资源商品名称
+    @NameInMap("ad_name")
+    public String adName;
+
     public static IPCodeAdvertisingInfo build(java.util.Map<String, ?> map) throws Exception {
         IPCodeAdvertisingInfo self = new IPCodeAdvertisingInfo();
         return TeaModel.build(map, self);
@@ -31,6 +35,14 @@ public class IPCodeAdvertisingInfo extends TeaModel {
     }
     public String getAdUrl() {
         return this.adUrl;
+    }
+
+    public IPCodeAdvertisingInfo setAdName(String adName) {
+        this.adName = adName;
+        return this;
+    }
+    public String getAdName() {
+        return this.adName;
     }
 
 }

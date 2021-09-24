@@ -215,6 +215,15 @@ public class IPOrder extends TeaModel {
     @NameInMap("contract_files")
     public java.util.List<String> contractFiles;
 
+    // 授权类型
+    @NameInMap("auth_type")
+    public String authType;
+
+    // 绑定的商品ID列表
+    // 
+    @NameInMap("goods_id_list")
+    public java.util.List<String> goodsIdList;
+
     public static IPOrder build(java.util.Map<String, ?> map) throws Exception {
         IPOrder self = new IPOrder();
         return TeaModel.build(map, self);
@@ -562,6 +571,22 @@ public class IPOrder extends TeaModel {
     }
     public java.util.List<String> getContractFiles() {
         return this.contractFiles;
+    }
+
+    public IPOrder setAuthType(String authType) {
+        this.authType = authType;
+        return this;
+    }
+    public String getAuthType() {
+        return this.authType;
+    }
+
+    public IPOrder setGoodsIdList(java.util.List<String> goodsIdList) {
+        this.goodsIdList = goodsIdList;
+        return this;
+    }
+    public java.util.List<String> getGoodsIdList() {
+        return this.goodsIdList;
     }
 
 }

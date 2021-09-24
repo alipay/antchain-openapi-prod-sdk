@@ -26,7 +26,7 @@ public class PagequeryIpCodeinfoRequest extends TeaModel {
     @Validation(required = true)
     public Long pageNumber;
 
-    // 每页数据量大小
+    // 每页数据量大小(请小于等于100)
     @NameInMap("page_size")
     @Validation(required = true)
     public Long pageSize;

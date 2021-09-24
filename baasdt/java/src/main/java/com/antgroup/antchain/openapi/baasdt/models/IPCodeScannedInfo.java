@@ -9,6 +9,10 @@ public class IPCodeScannedInfo extends TeaModel {
     @Validation(required = true)
     public String ipCode;
 
+    // 正版码所在批次已申请的正版码总数
+    @NameInMap("batch_used_count")
+    public Long batchUsedCount;
+
     // 用户的ID
     @NameInMap("user_id")
     @Validation(required = true)
@@ -31,6 +35,10 @@ public class IPCodeScannedInfo extends TeaModel {
     // 用户的位置信息
     @NameInMap("gps")
     public String gps;
+
+    // 领取正版码的交易哈希
+    @NameInMap("hash")
+    public String hash;
 
     // 处理时间(毫秒时间戳)
     @NameInMap("timestamp")
@@ -55,6 +63,14 @@ public class IPCodeScannedInfo extends TeaModel {
     @NameInMap("ad_info_list")
     public java.util.List<IPCodeAdvertisingInfo> adInfoList;
 
+    // ip版权方信息
+    @NameInMap("ipowner_info")
+    public IPCodeIpOwnerInfo ipownerInfo;
+
+    // 0:未配置，1:配置成功可展示，9:下架【本期不实现】
+    @NameInMap("ip_code_status")
+    public Long ipCodeStatus;
+
     public static IPCodeScannedInfo build(java.util.Map<String, ?> map) throws Exception {
         IPCodeScannedInfo self = new IPCodeScannedInfo();
         return TeaModel.build(map, self);
@@ -66,6 +82,14 @@ public class IPCodeScannedInfo extends TeaModel {
     }
     public String getIpCode() {
         return this.ipCode;
+    }
+
+    public IPCodeScannedInfo setBatchUsedCount(Long batchUsedCount) {
+        this.batchUsedCount = batchUsedCount;
+        return this;
+    }
+    public Long getBatchUsedCount() {
+        return this.batchUsedCount;
     }
 
     public IPCodeScannedInfo setUserId(String userId) {
@@ -108,6 +132,14 @@ public class IPCodeScannedInfo extends TeaModel {
         return this.gps;
     }
 
+    public IPCodeScannedInfo setHash(String hash) {
+        this.hash = hash;
+        return this;
+    }
+    public String getHash() {
+        return this.hash;
+    }
+
     public IPCodeScannedInfo setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
         return this;
@@ -146,6 +178,22 @@ public class IPCodeScannedInfo extends TeaModel {
     }
     public java.util.List<IPCodeAdvertisingInfo> getAdInfoList() {
         return this.adInfoList;
+    }
+
+    public IPCodeScannedInfo setIpownerInfo(IPCodeIpOwnerInfo ipownerInfo) {
+        this.ipownerInfo = ipownerInfo;
+        return this;
+    }
+    public IPCodeIpOwnerInfo getIpownerInfo() {
+        return this.ipownerInfo;
+    }
+
+    public IPCodeScannedInfo setIpCodeStatus(Long ipCodeStatus) {
+        this.ipCodeStatus = ipCodeStatus;
+        return this;
+    }
+    public Long getIpCodeStatus() {
+        return this.ipCodeStatus;
     }
 
 }

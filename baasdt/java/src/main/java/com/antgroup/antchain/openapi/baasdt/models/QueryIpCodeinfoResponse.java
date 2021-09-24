@@ -28,6 +28,14 @@ public class QueryIpCodeinfoResponse extends TeaModel {
     @NameInMap("ad_info_list")
     public java.util.List<IPCodeAdvertisingInfo> adInfoList;
 
+    // ip版权方信息
+    @NameInMap("ipowner_info")
+    public IPCodeIpOwnerInfo ipownerInfo;
+
+    // 0:未配置，1:配置成功可展示，9:下架【本期不实现】
+    @NameInMap("ip_code_status")
+    public Long ipCodeStatus;
+
     public static QueryIpCodeinfoResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryIpCodeinfoResponse self = new QueryIpCodeinfoResponse();
         return TeaModel.build(map, self);
@@ -79,6 +87,22 @@ public class QueryIpCodeinfoResponse extends TeaModel {
     }
     public java.util.List<IPCodeAdvertisingInfo> getAdInfoList() {
         return this.adInfoList;
+    }
+
+    public QueryIpCodeinfoResponse setIpownerInfo(IPCodeIpOwnerInfo ipownerInfo) {
+        this.ipownerInfo = ipownerInfo;
+        return this;
+    }
+    public IPCodeIpOwnerInfo getIpownerInfo() {
+        return this.ipownerInfo;
+    }
+
+    public QueryIpCodeinfoResponse setIpCodeStatus(Long ipCodeStatus) {
+        this.ipCodeStatus = ipCodeStatus;
+        return this;
+    }
+    public Long getIpCodeStatus() {
+        return this.ipCodeStatus;
     }
 
 }

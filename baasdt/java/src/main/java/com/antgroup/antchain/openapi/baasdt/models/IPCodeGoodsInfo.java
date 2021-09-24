@@ -16,13 +16,30 @@ public class IPCodeGoodsInfo extends TeaModel {
     @NameInMap("goods_image")
     public String goodsImage;
 
-    // 商品店铺名称
+    // 商品店铺名称/商品出品方
     @NameInMap("goods_store")
     public String goodsStore;
 
     // 店铺logo图片链接
     @NameInMap("goods_store_logo")
     public String goodsStoreLogo;
+
+    // 商品描述
+    @NameInMap("goods_description")
+    public String goodsDescription;
+
+    // 商品品牌
+    @NameInMap("goods_brand")
+    public String goodsBrand;
+
+    // 授权过期类型，0：长久有效，1：有效日期内有效
+    @NameInMap("authorization_expirated_type")
+    public String authorizationExpiratedType;
+
+    // 授权截止日期
+    @NameInMap("authorization_end_time")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String authorizationEndTime;
 
     public static IPCodeGoodsInfo build(java.util.Map<String, ?> map) throws Exception {
         IPCodeGoodsInfo self = new IPCodeGoodsInfo();
@@ -67,6 +84,38 @@ public class IPCodeGoodsInfo extends TeaModel {
     }
     public String getGoodsStoreLogo() {
         return this.goodsStoreLogo;
+    }
+
+    public IPCodeGoodsInfo setGoodsDescription(String goodsDescription) {
+        this.goodsDescription = goodsDescription;
+        return this;
+    }
+    public String getGoodsDescription() {
+        return this.goodsDescription;
+    }
+
+    public IPCodeGoodsInfo setGoodsBrand(String goodsBrand) {
+        this.goodsBrand = goodsBrand;
+        return this;
+    }
+    public String getGoodsBrand() {
+        return this.goodsBrand;
+    }
+
+    public IPCodeGoodsInfo setAuthorizationExpiratedType(String authorizationExpiratedType) {
+        this.authorizationExpiratedType = authorizationExpiratedType;
+        return this;
+    }
+    public String getAuthorizationExpiratedType() {
+        return this.authorizationExpiratedType;
+    }
+
+    public IPCodeGoodsInfo setAuthorizationEndTime(String authorizationEndTime) {
+        this.authorizationEndTime = authorizationEndTime;
+        return this;
+    }
+    public String getAuthorizationEndTime() {
+        return this.authorizationEndTime;
     }
 
 }

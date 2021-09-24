@@ -34,6 +34,10 @@ public class SetIpCodeinfoRequest extends TeaModel {
     @NameInMap("ad_info_list")
     public java.util.List<IPCodeAdvertisingInfo> adInfoList;
 
+    // ip版权方信息
+    @NameInMap("ipowner_info")
+    public IPCodeIpOwnerInfo ipownerInfo;
+
     public static SetIpCodeinfoRequest build(java.util.Map<String, ?> map) throws Exception {
         SetIpCodeinfoRequest self = new SetIpCodeinfoRequest();
         return TeaModel.build(map, self);
@@ -93,6 +97,14 @@ public class SetIpCodeinfoRequest extends TeaModel {
     }
     public java.util.List<IPCodeAdvertisingInfo> getAdInfoList() {
         return this.adInfoList;
+    }
+
+    public SetIpCodeinfoRequest setIpownerInfo(IPCodeIpOwnerInfo ipownerInfo) {
+        this.ipownerInfo = ipownerInfo;
+        return this;
+    }
+    public IPCodeIpOwnerInfo getIpownerInfo() {
+        return this.ipownerInfo;
     }
 
 }

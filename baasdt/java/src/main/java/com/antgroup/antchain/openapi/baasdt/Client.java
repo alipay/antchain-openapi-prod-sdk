@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.84")
+                    new TeaPair("sdk_version", "1.3.7")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -4931,7 +4931,7 @@ public class Client {
 
     /**
      * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
-     * Summary: 数字商品服务-IP授权服务-可跳转码查询
+     * Summary: 数字商品服务-IP授权服务-天猫查正版码
      */
     public PullIpCodeResponse pullIpCode(PullIpCodeRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4941,11 +4941,49 @@ public class Client {
 
     /**
      * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
-     * Summary: 数字商品服务-IP授权服务-可跳转码查询
+     * Summary: 数字商品服务-IP授权服务-天猫查正版码
      */
     public PullIpCodeResponse pullIpCodeEx(PullIpCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.code.pull", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PullIpCodeResponse());
+    }
+
+    /**
+     * Description: 数字商品服务-IP-猜你喜欢的商品
+     * Summary: 数字商品服务-IP-查询用户感兴趣的商品
+     */
+    public BatchqueryIpGoodsinterestResponse batchqueryIpGoodsinterest(BatchqueryIpGoodsinterestRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryIpGoodsinterestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字商品服务-IP-猜你喜欢的商品
+     * Summary: 数字商品服务-IP-查询用户感兴趣的商品
+     */
+    public BatchqueryIpGoodsinterestResponse batchqueryIpGoodsinterestEx(BatchqueryIpGoodsinterestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.goodsinterest.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryIpGoodsinterestResponse());
+    }
+
+    /**
+     * Description: 查询区块链合同账号信息
+     * Summary: 数字商品服务-IP授权服务-合同账户查询
+     */
+    public QueryIpTwcaccountResponse queryIpTwcaccount(QueryIpTwcaccountRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIpTwcaccountEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询区块链合同账号信息
+     * Summary: 数字商品服务-IP授权服务-合同账户查询
+     */
+    public QueryIpTwcaccountResponse queryIpTwcaccountEx(QueryIpTwcaccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.twcaccount.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIpTwcaccountResponse());
     }
 
     /**

@@ -28,12 +28,10 @@ public class UpdateIpAccountRequest extends TeaModel {
 
     // 商户类型(本期仅支持: 1:企业, 6:个人商户)
     @NameInMap("merchant_type")
-    @Validation(required = true)
     public Long merchantType;
 
     // 商户证件类型，201--统一社会信用证--营业执照号；
     @NameInMap("merchant_cert_type")
-    @Validation(required = true)
     public Long merchantCertType;
 
     // 本期支持统一社会信用证代码
@@ -51,6 +49,14 @@ public class UpdateIpAccountRequest extends TeaModel {
     // 备注信息
     @NameInMap("memo")
     public String memo;
+
+    // 店铺名称
+    @NameInMap("shop_name")
+    public String shopName;
+
+    // 更多联系信息，用于运营联系商家
+    @NameInMap("additional_contact_info")
+    public java.util.List<SimpleContactInfo> additionalContactInfo;
 
     public static UpdateIpAccountRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateIpAccountRequest self = new UpdateIpAccountRequest();
@@ -143,6 +149,22 @@ public class UpdateIpAccountRequest extends TeaModel {
     }
     public String getMemo() {
         return this.memo;
+    }
+
+    public UpdateIpAccountRequest setShopName(String shopName) {
+        this.shopName = shopName;
+        return this;
+    }
+    public String getShopName() {
+        return this.shopName;
+    }
+
+    public UpdateIpAccountRequest setAdditionalContactInfo(java.util.List<SimpleContactInfo> additionalContactInfo) {
+        this.additionalContactInfo = additionalContactInfo;
+        return this;
+    }
+    public java.util.List<SimpleContactInfo> getAdditionalContactInfo() {
+        return this.additionalContactInfo;
     }
 
 }
