@@ -72,18 +72,32 @@ class UpdateIpAccountRequest extends Model
      * @var string
      */
     public $memo;
+
+    // 店铺名称
+    /**
+     * @var string
+     */
+    public $shopName;
+
+    // 更多联系信息，用于运营联系商家
+    /**
+     * @var SimpleContactInfo[]
+     */
+    public $additionalContactInfo;
     protected $_name = [
-        'authToken'          => 'auth_token',
-        'productInstanceId'  => 'product_instance_id',
-        'baseRequest'        => 'base_request',
-        'accountId'          => 'account_id',
-        'merchantAliasName'  => 'merchant_alias_name',
-        'merchantType'       => 'merchant_type',
-        'merchantCertType'   => 'merchant_cert_type',
-        'merchantCertNumber' => 'merchant_cert_number',
-        'contactInfo'        => 'contact_info',
-        'contactAddress'     => 'contact_address',
-        'memo'               => 'memo',
+        'authToken'             => 'auth_token',
+        'productInstanceId'     => 'product_instance_id',
+        'baseRequest'           => 'base_request',
+        'accountId'             => 'account_id',
+        'merchantAliasName'     => 'merchant_alias_name',
+        'merchantType'          => 'merchant_type',
+        'merchantCertType'      => 'merchant_cert_type',
+        'merchantCertNumber'    => 'merchant_cert_number',
+        'contactInfo'           => 'contact_info',
+        'contactAddress'        => 'contact_address',
+        'memo'                  => 'memo',
+        'shopName'              => 'shop_name',
+        'additionalContactInfo' => 'additional_contact_info',
     ];
 
     public function validate()
@@ -91,8 +105,6 @@ class UpdateIpAccountRequest extends Model
         Model::validateRequired('baseRequest', $this->baseRequest, true);
         Model::validateRequired('accountId', $this->accountId, true);
         Model::validateRequired('merchantAliasName', $this->merchantAliasName, true);
-        Model::validateRequired('merchantType', $this->merchantType, true);
-        Model::validateRequired('merchantCertType', $this->merchantCertType, true);
     }
 
     public function toMap()
@@ -130,6 +142,18 @@ class UpdateIpAccountRequest extends Model
         }
         if (null !== $this->memo) {
             $res['memo'] = $this->memo;
+        }
+        if (null !== $this->shopName) {
+            $res['shop_name'] = $this->shopName;
+        }
+        if (null !== $this->additionalContactInfo) {
+            $res['additional_contact_info'] = [];
+            if (null !== $this->additionalContactInfo && \is_array($this->additionalContactInfo)) {
+                $n = 0;
+                foreach ($this->additionalContactInfo as $item) {
+                    $res['additional_contact_info'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -175,6 +199,18 @@ class UpdateIpAccountRequest extends Model
         }
         if (isset($map['memo'])) {
             $model->memo = $map['memo'];
+        }
+        if (isset($map['shop_name'])) {
+            $model->shopName = $map['shop_name'];
+        }
+        if (isset($map['additional_contact_info'])) {
+            if (!empty($map['additional_contact_info'])) {
+                $model->additionalContactInfo = [];
+                $n                            = 0;
+                foreach ($map['additional_contact_info'] as $item) {
+                    $model->additionalContactInfo[$n++] = null !== $item ? SimpleContactInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

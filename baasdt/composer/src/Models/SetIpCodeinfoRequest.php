@@ -48,6 +48,12 @@ class SetIpCodeinfoRequest extends Model
      * @var IPCodeAdvertisingInfo[]
      */
     public $adInfoList;
+
+    // ip版权方信息
+    /**
+     * @var IPCodeIpOwnerInfo
+     */
+    public $ipownerInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class SetIpCodeinfoRequest extends Model
         'orderId'           => 'order_id',
         'goodsInfoList'     => 'goods_info_list',
         'adInfoList'        => 'ad_info_list',
+        'ipownerInfo'       => 'ipowner_info',
     ];
 
     public function validate()
@@ -101,6 +108,9 @@ class SetIpCodeinfoRequest extends Model
                 }
             }
         }
+        if (null !== $this->ipownerInfo) {
+            $res['ipowner_info'] = null !== $this->ipownerInfo ? $this->ipownerInfo->toMap() : null;
+        }
 
         return $res;
     }
@@ -145,6 +155,9 @@ class SetIpCodeinfoRequest extends Model
                     $model->adInfoList[$n++] = null !== $item ? IPCodeAdvertisingInfo::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['ipowner_info'])) {
+            $model->ipownerInfo = IPCodeIpOwnerInfo::fromMap($map['ipowner_info']);
         }
 
         return $model;

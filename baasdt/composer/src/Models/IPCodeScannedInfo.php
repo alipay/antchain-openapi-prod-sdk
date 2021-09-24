@@ -16,6 +16,14 @@ class IPCodeScannedInfo extends Model
      */
     public $ipCode;
 
+    // 正版码所在批次已申请的正版码总数
+    /**
+     * @example 1000
+     *
+     * @var int
+     */
+    public $batchUsedCount;
+
     // 用户的ID
     /**
      * @example 2d96fAB65b3a49cAc8b878184Cb16
@@ -56,6 +64,14 @@ class IPCodeScannedInfo extends Model
      */
     public $gps;
 
+    // 领取正版码的交易哈希
+    /**
+     * @example 交易哈希
+     *
+     * @var string
+     */
+    public $hash;
+
     // 处理时间(毫秒时间戳)
     /**
      * @example 713471745
@@ -95,18 +111,38 @@ class IPCodeScannedInfo extends Model
      * @var IPCodeAdvertisingInfo[]
      */
     public $adInfoList;
+
+    // ip版权方信息
+    /**
+     * @example
+     *
+     * @var IPCodeIpOwnerInfo
+     */
+    public $ipownerInfo;
+
+    // 0:未配置，1:配置成功可展示，9:下架【本期不实现】
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $ipCodeStatus;
     protected $_name = [
-        'ipCode'        => 'ip_code',
-        'userId'        => 'user_id',
-        'userName'      => 'user_name',
-        'avatar'        => 'avatar',
-        'phoneNumber'   => 'phone_number',
-        'gps'           => 'gps',
-        'timestamp'     => 'timestamp',
-        'ipId'          => 'ip_id',
-        'orderId'       => 'order_id',
-        'goodsInfoList' => 'goods_info_list',
-        'adInfoList'    => 'ad_info_list',
+        'ipCode'         => 'ip_code',
+        'batchUsedCount' => 'batch_used_count',
+        'userId'         => 'user_id',
+        'userName'       => 'user_name',
+        'avatar'         => 'avatar',
+        'phoneNumber'    => 'phone_number',
+        'gps'            => 'gps',
+        'hash'           => 'hash',
+        'timestamp'      => 'timestamp',
+        'ipId'           => 'ip_id',
+        'orderId'        => 'order_id',
+        'goodsInfoList'  => 'goods_info_list',
+        'adInfoList'     => 'ad_info_list',
+        'ipownerInfo'    => 'ipowner_info',
+        'ipCodeStatus'   => 'ip_code_status',
     ];
 
     public function validate()
@@ -126,6 +162,9 @@ class IPCodeScannedInfo extends Model
         if (null !== $this->ipCode) {
             $res['ip_code'] = $this->ipCode;
         }
+        if (null !== $this->batchUsedCount) {
+            $res['batch_used_count'] = $this->batchUsedCount;
+        }
         if (null !== $this->userId) {
             $res['user_id'] = $this->userId;
         }
@@ -140,6 +179,9 @@ class IPCodeScannedInfo extends Model
         }
         if (null !== $this->gps) {
             $res['gps'] = $this->gps;
+        }
+        if (null !== $this->hash) {
+            $res['hash'] = $this->hash;
         }
         if (null !== $this->timestamp) {
             $res['timestamp'] = $this->timestamp;
@@ -168,6 +210,12 @@ class IPCodeScannedInfo extends Model
                 }
             }
         }
+        if (null !== $this->ipownerInfo) {
+            $res['ipowner_info'] = null !== $this->ipownerInfo ? $this->ipownerInfo->toMap() : null;
+        }
+        if (null !== $this->ipCodeStatus) {
+            $res['ip_code_status'] = $this->ipCodeStatus;
+        }
 
         return $res;
     }
@@ -183,6 +231,9 @@ class IPCodeScannedInfo extends Model
         if (isset($map['ip_code'])) {
             $model->ipCode = $map['ip_code'];
         }
+        if (isset($map['batch_used_count'])) {
+            $model->batchUsedCount = $map['batch_used_count'];
+        }
         if (isset($map['user_id'])) {
             $model->userId = $map['user_id'];
         }
@@ -197,6 +248,9 @@ class IPCodeScannedInfo extends Model
         }
         if (isset($map['gps'])) {
             $model->gps = $map['gps'];
+        }
+        if (isset($map['hash'])) {
+            $model->hash = $map['hash'];
         }
         if (isset($map['timestamp'])) {
             $model->timestamp = $map['timestamp'];
@@ -224,6 +278,12 @@ class IPCodeScannedInfo extends Model
                     $model->adInfoList[$n++] = null !== $item ? IPCodeAdvertisingInfo::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['ipowner_info'])) {
+            $model->ipownerInfo = IPCodeIpOwnerInfo::fromMap($map['ipowner_info']);
+        }
+        if (isset($map['ip_code_status'])) {
+            $model->ipCodeStatus = $map['ip_code_status'];
         }
 
         return $model;

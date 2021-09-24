@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryIpCodeRequest extends Model
+class QueryIpTwcaccountRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,44 +19,28 @@ class PagequeryIpCodeRequest extends Model
      */
     public $productInstanceId;
 
-    // 基础参数
+    // 基础请求参数
     /**
      * @var BaseRequestInfo
      */
     public $baseRequest;
 
-    // 正版码批次编码
+    // 用户的链上账户Id
     /**
      * @var string
      */
-    public $codeBatchId;
-
-    // 分页参数:页码
-    /**
-     * @var int
-     */
-    public $pageIndex;
-
-    // 分页参数:每页条目数(请小于等于100)
-    /**
-     * @var int
-     */
-    public $pageSize;
+    public $accountId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
-        'codeBatchId'       => 'code_batch_id',
-        'pageIndex'         => 'page_index',
-        'pageSize'          => 'page_size',
+        'accountId'         => 'account_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
-        Model::validateRequired('codeBatchId', $this->codeBatchId, true);
-        Model::validateRequired('pageIndex', $this->pageIndex, true);
-        Model::validateRequired('pageSize', $this->pageSize, true);
+        Model::validateRequired('accountId', $this->accountId, true);
     }
 
     public function toMap()
@@ -71,14 +55,8 @@ class PagequeryIpCodeRequest extends Model
         if (null !== $this->baseRequest) {
             $res['base_request'] = null !== $this->baseRequest ? $this->baseRequest->toMap() : null;
         }
-        if (null !== $this->codeBatchId) {
-            $res['code_batch_id'] = $this->codeBatchId;
-        }
-        if (null !== $this->pageIndex) {
-            $res['page_index'] = $this->pageIndex;
-        }
-        if (null !== $this->pageSize) {
-            $res['page_size'] = $this->pageSize;
+        if (null !== $this->accountId) {
+            $res['account_id'] = $this->accountId;
         }
 
         return $res;
@@ -87,7 +65,7 @@ class PagequeryIpCodeRequest extends Model
     /**
      * @param array $map
      *
-     * @return PagequeryIpCodeRequest
+     * @return QueryIpTwcaccountRequest
      */
     public static function fromMap($map = [])
     {
@@ -101,14 +79,8 @@ class PagequeryIpCodeRequest extends Model
         if (isset($map['base_request'])) {
             $model->baseRequest = BaseRequestInfo::fromMap($map['base_request']);
         }
-        if (isset($map['code_batch_id'])) {
-            $model->codeBatchId = $map['code_batch_id'];
-        }
-        if (isset($map['page_index'])) {
-            $model->pageIndex = $map['page_index'];
-        }
-        if (isset($map['page_size'])) {
-            $model->pageSize = $map['page_size'];
+        if (isset($map['account_id'])) {
+            $model->accountId = $map['account_id'];
         }
 
         return $model;

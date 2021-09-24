@@ -23,9 +23,18 @@ class IPCodeAdvertisingInfo extends Model
      * @var string
      */
     public $adUrl;
+
+    // 资源商品名称
+    /**
+     * @example 小龙坎火锅
+     *
+     * @var string
+     */
+    public $adName;
     protected $_name = [
         'adImage' => 'ad_image',
         'adUrl'   => 'ad_url',
+        'adName'  => 'ad_name',
     ];
 
     public function validate()
@@ -40,6 +49,9 @@ class IPCodeAdvertisingInfo extends Model
         }
         if (null !== $this->adUrl) {
             $res['ad_url'] = $this->adUrl;
+        }
+        if (null !== $this->adName) {
+            $res['ad_name'] = $this->adName;
         }
 
         return $res;
@@ -58,6 +70,9 @@ class IPCodeAdvertisingInfo extends Model
         }
         if (isset($map['ad_url'])) {
             $model->adUrl = $map['ad_url'];
+        }
+        if (isset($map['ad_name'])) {
+            $model->adName = $map['ad_name'];
         }
 
         return $model;

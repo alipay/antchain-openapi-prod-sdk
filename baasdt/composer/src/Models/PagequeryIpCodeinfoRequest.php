@@ -37,7 +37,7 @@ class PagequeryIpCodeinfoRequest extends Model
      */
     public $pageNumber;
 
-    // 每页数据量大小
+    // 每页数据量大小(请小于等于100)
     /**
      * @var int
      */

@@ -32,7 +32,7 @@ class IPCodeGoodsInfo extends Model
      */
     public $goodsImage;
 
-    // 商品店铺名称
+    // 商品店铺名称/商品出品方
     /**
      * @example 商品店铺名称
      *
@@ -47,16 +47,53 @@ class IPCodeGoodsInfo extends Model
      * @var string
      */
     public $goodsStoreLogo;
+
+    // 商品描述
+    /**
+     * @example 这是一段商品描述
+     *
+     * @var string
+     */
+    public $goodsDescription;
+
+    // 商品品牌
+    /**
+     * @example 小龙坎
+     *
+     * @var string
+     */
+    public $goodsBrand;
+
+    // 授权过期类型，0：长久有效，1：有效日期内有效
+    /**
+     * @example 0
+     *
+     * @var string
+     */
+    public $authorizationExpiratedType;
+
+    // 授权截止日期
+    /**
+     * @example 2018-10-10T10:10:00Z
+     *
+     * @var string
+     */
+    public $authorizationEndTime;
     protected $_name = [
-        'goodsName'      => 'goods_name',
-        'goodsUrl'       => 'goods_url',
-        'goodsImage'     => 'goods_image',
-        'goodsStore'     => 'goods_store',
-        'goodsStoreLogo' => 'goods_store_logo',
+        'goodsName'                  => 'goods_name',
+        'goodsUrl'                   => 'goods_url',
+        'goodsImage'                 => 'goods_image',
+        'goodsStore'                 => 'goods_store',
+        'goodsStoreLogo'             => 'goods_store_logo',
+        'goodsDescription'           => 'goods_description',
+        'goodsBrand'                 => 'goods_brand',
+        'authorizationExpiratedType' => 'authorization_expirated_type',
+        'authorizationEndTime'       => 'authorization_end_time',
     ];
 
     public function validate()
     {
+        Model::validatePattern('authorizationEndTime', $this->authorizationEndTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -76,6 +113,18 @@ class IPCodeGoodsInfo extends Model
         }
         if (null !== $this->goodsStoreLogo) {
             $res['goods_store_logo'] = $this->goodsStoreLogo;
+        }
+        if (null !== $this->goodsDescription) {
+            $res['goods_description'] = $this->goodsDescription;
+        }
+        if (null !== $this->goodsBrand) {
+            $res['goods_brand'] = $this->goodsBrand;
+        }
+        if (null !== $this->authorizationExpiratedType) {
+            $res['authorization_expirated_type'] = $this->authorizationExpiratedType;
+        }
+        if (null !== $this->authorizationEndTime) {
+            $res['authorization_end_time'] = $this->authorizationEndTime;
         }
 
         return $res;
@@ -103,6 +152,18 @@ class IPCodeGoodsInfo extends Model
         }
         if (isset($map['goods_store_logo'])) {
             $model->goodsStoreLogo = $map['goods_store_logo'];
+        }
+        if (isset($map['goods_description'])) {
+            $model->goodsDescription = $map['goods_description'];
+        }
+        if (isset($map['goods_brand'])) {
+            $model->goodsBrand = $map['goods_brand'];
+        }
+        if (isset($map['authorization_expirated_type'])) {
+            $model->authorizationExpiratedType = $map['authorization_expirated_type'];
+        }
+        if (isset($map['authorization_end_time'])) {
+            $model->authorizationEndTime = $map['authorization_end_time'];
         }
 
         return $model;

@@ -33,6 +33,12 @@ class PagequeryIpCodeResponse extends Model
      */
     public $codeList;
 
+    // 展示码列表(和code_list一一对应)
+    /**
+     * @var string[]
+     */
+    public $showCodeList;
+
     // 交易订单ID
     /**
      * @var string
@@ -81,7 +87,7 @@ class PagequeryIpCodeResponse extends Model
      */
     public $expiredDate;
 
-    // 总数量
+    // 已经申请的总数量
     /**
      * @var int
      */
@@ -91,6 +97,7 @@ class PagequeryIpCodeResponse extends Model
         'resultCode'      => 'result_code',
         'resultMsg'       => 'result_msg',
         'codeList'        => 'code_list',
+        'showCodeList'    => 'show_code_list',
         'orderId'         => 'order_id',
         'buyerAccountId'  => 'buyer_account_id',
         'sellerAccountId' => 'seller_account_id',
@@ -120,6 +127,9 @@ class PagequeryIpCodeResponse extends Model
         }
         if (null !== $this->codeList) {
             $res['code_list'] = $this->codeList;
+        }
+        if (null !== $this->showCodeList) {
+            $res['show_code_list'] = $this->showCodeList;
         }
         if (null !== $this->orderId) {
             $res['order_id'] = $this->orderId;
@@ -172,6 +182,11 @@ class PagequeryIpCodeResponse extends Model
         if (isset($map['code_list'])) {
             if (!empty($map['code_list'])) {
                 $model->codeList = $map['code_list'];
+            }
+        }
+        if (isset($map['show_code_list'])) {
+            if (!empty($map['show_code_list'])) {
+                $model->showCodeList = $map['show_code_list'];
             }
         }
         if (isset($map['order_id'])) {

@@ -53,6 +53,8 @@ use AntChain\BAASDT\Models\BatchqueryIpApprovalRequest;
 use AntChain\BAASDT\Models\BatchqueryIpApprovalResponse;
 use AntChain\BAASDT\Models\BatchqueryIpApprovalwithupdateRequest;
 use AntChain\BAASDT\Models\BatchqueryIpApprovalwithupdateResponse;
+use AntChain\BAASDT\Models\BatchqueryIpGoodsinterestRequest;
+use AntChain\BAASDT\Models\BatchqueryIpGoodsinterestResponse;
 use AntChain\BAASDT\Models\BatchqueryIpGoodsRequest;
 use AntChain\BAASDT\Models\BatchqueryIpGoodsResponse;
 use AntChain\BAASDT\Models\BatchqueryIpSellerRequest;
@@ -397,6 +399,8 @@ use AntChain\BAASDT\Models\QueryIpSkuconfigRequest;
 use AntChain\BAASDT\Models\QueryIpSkuconfigResponse;
 use AntChain\BAASDT\Models\QueryIpSuperviseapproveRequest;
 use AntChain\BAASDT\Models\QueryIpSuperviseapproveResponse;
+use AntChain\BAASDT\Models\QueryIpTwcaccountRequest;
+use AntChain\BAASDT\Models\QueryIpTwcaccountResponse;
 use AntChain\BAASDT\Models\QueryIpTypeRequest;
 use AntChain\BAASDT\Models\QueryIpTypeResponse;
 use AntChain\BAASDT\Models\QueryIpValueaddRequest;
@@ -698,7 +702,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.84',
+                    'sdk_version'      => '1.3.7',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -8999,7 +9003,7 @@ class Client
 
     /**
      * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
-     * Summary: 数字商品服务-IP授权服务-可跳转码查询.
+     * Summary: 数字商品服务-IP授权服务-天猫查正版码
      *
      * @param PullIpCodeRequest $request
      *
@@ -9015,7 +9019,7 @@ class Client
 
     /**
      * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
-     * Summary: 数字商品服务-IP授权服务-可跳转码查询.
+     * Summary: 数字商品服务-IP授权服务-天猫查正版码
      *
      * @param PullIpCodeRequest $request
      * @param string[]          $headers
@@ -9028,6 +9032,72 @@ class Client
         Utils::validateModel($request);
 
         return PullIpCodeResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.code.pull', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字商品服务-IP-猜你喜欢的商品
+     * Summary: 数字商品服务-IP-查询用户感兴趣的商品
+     *
+     * @param BatchqueryIpGoodsinterestRequest $request
+     *
+     * @return BatchqueryIpGoodsinterestResponse
+     */
+    public function batchqueryIpGoodsinterest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryIpGoodsinterestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字商品服务-IP-猜你喜欢的商品
+     * Summary: 数字商品服务-IP-查询用户感兴趣的商品
+     *
+     * @param BatchqueryIpGoodsinterestRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return BatchqueryIpGoodsinterestResponse
+     */
+    public function batchqueryIpGoodsinterestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryIpGoodsinterestResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.goodsinterest.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询区块链合同账号信息
+     * Summary: 数字商品服务-IP授权服务-合同账户查询.
+     *
+     * @param QueryIpTwcaccountRequest $request
+     *
+     * @return QueryIpTwcaccountResponse
+     */
+    public function queryIpTwcaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIpTwcaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询区块链合同账号信息
+     * Summary: 数字商品服务-IP授权服务-合同账户查询.
+     *
+     * @param QueryIpTwcaccountRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryIpTwcaccountResponse
+     */
+    public function queryIpTwcaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIpTwcaccountResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.twcaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

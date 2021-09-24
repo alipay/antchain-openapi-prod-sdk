@@ -43,6 +43,18 @@ class QueryIpCodeinfoResponse extends Model
      * @var IPCodeAdvertisingInfo[]
      */
     public $adInfoList;
+
+    // ip版权方信息
+    /**
+     * @var IPCodeIpOwnerInfo
+     */
+    public $ipownerInfo;
+
+    // 0:未配置，1:配置成功可展示，9:下架【本期不实现】
+    /**
+     * @var int
+     */
+    public $ipCodeStatus;
     protected $_name = [
         'reqMsgId'      => 'req_msg_id',
         'resultCode'    => 'result_code',
@@ -50,6 +62,8 @@ class QueryIpCodeinfoResponse extends Model
         'orderId'       => 'order_id',
         'goodsInfoList' => 'goods_info_list',
         'adInfoList'    => 'ad_info_list',
+        'ipownerInfo'   => 'ipowner_info',
+        'ipCodeStatus'  => 'ip_code_status',
     ];
 
     public function validate()
@@ -88,6 +102,12 @@ class QueryIpCodeinfoResponse extends Model
                     $res['ad_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->ipownerInfo) {
+            $res['ipowner_info'] = null !== $this->ipownerInfo ? $this->ipownerInfo->toMap() : null;
+        }
+        if (null !== $this->ipCodeStatus) {
+            $res['ip_code_status'] = $this->ipCodeStatus;
         }
 
         return $res;
@@ -130,6 +150,12 @@ class QueryIpCodeinfoResponse extends Model
                     $model->adInfoList[$n++] = null !== $item ? IPCodeAdvertisingInfo::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['ipowner_info'])) {
+            $model->ipownerInfo = IPCodeIpOwnerInfo::fromMap($map['ipowner_info']);
+        }
+        if (isset($map['ip_code_status'])) {
+            $model->ipCodeStatus = $map['ip_code_status'];
         }
 
         return $model;

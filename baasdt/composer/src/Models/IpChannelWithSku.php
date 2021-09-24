@@ -65,6 +65,14 @@ class IpChannelWithSku extends Model
      * @var bool
      */
     public $tradeNeedConfirm;
+
+    // 授权类型
+    /**
+     * @example 衍生品授权
+     *
+     * @var string[]
+     */
+    public $authorizationType;
     protected $_name = [
         'channelName'       => 'channel_name',
         'authorizationMode' => 'authorization_mode',
@@ -73,6 +81,7 @@ class IpChannelWithSku extends Model
         'skuInfo'           => 'sku_info',
         'status'            => 'status',
         'tradeNeedConfirm'  => 'trade_need_confirm',
+        'authorizationType' => 'authorization_type',
     ];
 
     public function validate()
@@ -115,6 +124,9 @@ class IpChannelWithSku extends Model
         if (null !== $this->tradeNeedConfirm) {
             $res['trade_need_confirm'] = $this->tradeNeedConfirm;
         }
+        if (null !== $this->authorizationType) {
+            $res['authorization_type'] = $this->authorizationType;
+        }
 
         return $res;
     }
@@ -153,6 +165,11 @@ class IpChannelWithSku extends Model
         }
         if (isset($map['trade_need_confirm'])) {
             $model->tradeNeedConfirm = $map['trade_need_confirm'];
+        }
+        if (isset($map['authorization_type'])) {
+            if (!empty($map['authorization_type'])) {
+                $model->authorizationType = $map['authorization_type'];
+            }
         }
 
         return $model;

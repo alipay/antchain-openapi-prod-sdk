@@ -120,6 +120,12 @@ class StartIpPackagetradeRequest extends Model
      * @var string
      */
     public $payReturnUrl;
+
+    // 授权类型
+    /**
+     * @var string
+     */
+    public $authType;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
@@ -140,6 +146,7 @@ class StartIpPackagetradeRequest extends Model
         'goodsType'          => 'goods_type',
         'relatedOrderId'     => 'related_order_id',
         'payReturnUrl'       => 'pay_return_url',
+        'authType'           => 'auth_type',
     ];
 
     public function validate()
@@ -216,6 +223,9 @@ class StartIpPackagetradeRequest extends Model
         if (null !== $this->payReturnUrl) {
             $res['pay_return_url'] = $this->payReturnUrl;
         }
+        if (null !== $this->authType) {
+            $res['auth_type'] = $this->authType;
+        }
 
         return $res;
     }
@@ -284,6 +294,9 @@ class StartIpPackagetradeRequest extends Model
         }
         if (isset($map['pay_return_url'])) {
             $model->payReturnUrl = $map['pay_return_url'];
+        }
+        if (isset($map['auth_type'])) {
+            $model->authType = $map['auth_type'];
         }
 
         return $model;

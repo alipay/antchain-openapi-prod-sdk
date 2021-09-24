@@ -352,6 +352,23 @@ class IPOrder extends Model
      * @var string[]
      */
     public $contractFiles;
+
+    // 授权类型
+    /**
+     * @example 衍生品授权
+     *
+     * @var string
+     */
+    public $authType;
+
+    // 绑定的商品ID列表
+    //
+    /**
+     * @example
+     *
+     * @var string[]
+     */
+    public $goodsIdList;
     protected $_name = [
         'ipOrderId'                 => 'ip_order_id',
         'sellerId'                  => 'seller_id',
@@ -396,6 +413,8 @@ class IPOrder extends Model
         'memo'                      => 'memo',
         'additionalClause'          => 'additional_clause',
         'contractFiles'             => 'contract_files',
+        'authType'                  => 'auth_type',
+        'goodsIdList'               => 'goods_id_list',
     ];
 
     public function validate()
@@ -572,6 +591,12 @@ class IPOrder extends Model
         if (null !== $this->contractFiles) {
             $res['contract_files'] = $this->contractFiles;
         }
+        if (null !== $this->authType) {
+            $res['auth_type'] = $this->authType;
+        }
+        if (null !== $this->goodsIdList) {
+            $res['goods_id_list'] = $this->goodsIdList;
+        }
 
         return $res;
     }
@@ -713,6 +738,14 @@ class IPOrder extends Model
         if (isset($map['contract_files'])) {
             if (!empty($map['contract_files'])) {
                 $model->contractFiles = $map['contract_files'];
+            }
+        }
+        if (isset($map['auth_type'])) {
+            $model->authType = $map['auth_type'];
+        }
+        if (isset($map['goods_id_list'])) {
+            if (!empty($map['goods_id_list'])) {
+                $model->goodsIdList = $map['goods_id_list'];
             }
         }
 

@@ -43,6 +43,12 @@ class AddIpChannelRequest extends Model
      */
     public $authorizationModel;
 
+    // 授权类型，衍生品授权；营销授权；商标授权；数字虚拟授权；其他
+    /**
+     * @var string[]
+     */
+    public $authorizationType;
+
     // 计费模式 0:按量 1:按金额
     /**
      * @var int
@@ -67,6 +73,7 @@ class AddIpChannelRequest extends Model
         'ipId'               => 'ip_id',
         'channelName'        => 'channel_name',
         'authorizationModel' => 'authorization_model',
+        'authorizationType'  => 'authorization_type',
         'payMode'            => 'pay_mode',
         'ipLevel'            => 'ip_level',
         'tradeNeedConfirm'   => 'trade_need_confirm',
@@ -102,6 +109,9 @@ class AddIpChannelRequest extends Model
         }
         if (null !== $this->authorizationModel) {
             $res['authorization_model'] = $this->authorizationModel;
+        }
+        if (null !== $this->authorizationType) {
+            $res['authorization_type'] = $this->authorizationType;
         }
         if (null !== $this->payMode) {
             $res['pay_mode'] = $this->payMode;
@@ -141,6 +151,11 @@ class AddIpChannelRequest extends Model
         }
         if (isset($map['authorization_model'])) {
             $model->authorizationModel = $map['authorization_model'];
+        }
+        if (isset($map['authorization_type'])) {
+            if (!empty($map['authorization_type'])) {
+                $model->authorizationType = $map['authorization_type'];
+            }
         }
         if (isset($map['pay_mode'])) {
             $model->payMode = $map['pay_mode'];

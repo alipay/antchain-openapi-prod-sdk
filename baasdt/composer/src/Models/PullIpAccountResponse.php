@@ -110,30 +110,44 @@ class PullIpAccountResponse extends Model
      */
     public $cardInfo;
 
+    // 店铺名称
+    /**
+     * @var string
+     */
+    public $shopName;
+
+    // 更多联系方式，用于运营联系商家
+    /**
+     * @var SimpleContactInfo[]
+     */
+    public $additionalContactInfo;
+
     // 创建账户时间
     /**
      * @var int
      */
     public $createTime;
     protected $_name = [
-        'reqMsgId'           => 'req_msg_id',
-        'resultCode'         => 'result_code',
-        'resultMsg'          => 'result_msg',
-        'alipayLoginName'    => 'alipay_login_name',
-        'merchantAliasName'  => 'merchant_alias_name',
-        'merchantType'       => 'merchant_type',
-        'merchantCertType'   => 'merchant_cert_type',
-        'merchantCertNumber' => 'merchant_cert_number',
-        'merchantCertImage'  => 'merchant_cert_image',
-        'merchantSignImage'  => 'merchant_sign_image',
-        'mcc'                => 'mcc',
-        'legalName'          => 'legal_name',
-        'legalCertNo'        => 'legal_cert_no',
-        'addressInfo'        => 'address_info',
-        'settleRule'         => 'settle_rule',
-        'contactInfo'        => 'contact_info',
-        'cardInfo'           => 'card_info',
-        'createTime'         => 'create_time',
+        'reqMsgId'              => 'req_msg_id',
+        'resultCode'            => 'result_code',
+        'resultMsg'             => 'result_msg',
+        'alipayLoginName'       => 'alipay_login_name',
+        'merchantAliasName'     => 'merchant_alias_name',
+        'merchantType'          => 'merchant_type',
+        'merchantCertType'      => 'merchant_cert_type',
+        'merchantCertNumber'    => 'merchant_cert_number',
+        'merchantCertImage'     => 'merchant_cert_image',
+        'merchantSignImage'     => 'merchant_sign_image',
+        'mcc'                   => 'mcc',
+        'legalName'             => 'legal_name',
+        'legalCertNo'           => 'legal_cert_no',
+        'addressInfo'           => 'address_info',
+        'settleRule'            => 'settle_rule',
+        'contactInfo'           => 'contact_info',
+        'cardInfo'              => 'card_info',
+        'shopName'              => 'shop_name',
+        'additionalContactInfo' => 'additional_contact_info',
+        'createTime'            => 'create_time',
     ];
 
     public function validate()
@@ -193,6 +207,18 @@ class PullIpAccountResponse extends Model
         }
         if (null !== $this->cardInfo) {
             $res['card_info'] = null !== $this->cardInfo ? $this->cardInfo->toMap() : null;
+        }
+        if (null !== $this->shopName) {
+            $res['shop_name'] = $this->shopName;
+        }
+        if (null !== $this->additionalContactInfo) {
+            $res['additional_contact_info'] = [];
+            if (null !== $this->additionalContactInfo && \is_array($this->additionalContactInfo)) {
+                $n = 0;
+                foreach ($this->additionalContactInfo as $item) {
+                    $res['additional_contact_info'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->createTime) {
             $res['create_time'] = $this->createTime;
@@ -259,6 +285,18 @@ class PullIpAccountResponse extends Model
         }
         if (isset($map['card_info'])) {
             $model->cardInfo = IPCardInfo::fromMap($map['card_info']);
+        }
+        if (isset($map['shop_name'])) {
+            $model->shopName = $map['shop_name'];
+        }
+        if (isset($map['additional_contact_info'])) {
+            if (!empty($map['additional_contact_info'])) {
+                $model->additionalContactInfo = [];
+                $n                            = 0;
+                foreach ($map['additional_contact_info'] as $item) {
+                    $model->additionalContactInfo[$n++] = null !== $item ? SimpleContactInfo::fromMap($item) : $item;
+                }
+            }
         }
         if (isset($map['create_time'])) {
             $model->createTime = $map['create_time'];
