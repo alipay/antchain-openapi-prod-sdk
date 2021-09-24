@@ -33,7 +33,7 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public long? PageIndex { get; set; }
 
-        // 分页参数:每页条目数(请小于2000)
+        // 分页参数:每页条目数(请小于等于100)
         [NameInMap("page_size")]
         [Validation(Required=true)]
         public long? PageSize { get; set; }

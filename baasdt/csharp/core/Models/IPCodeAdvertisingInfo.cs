@@ -20,6 +20,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string AdUrl { get; set; }
 
+        // 资源商品名称
+        [NameInMap("ad_name")]
+        [Validation(Required=false)]
+        public string AdName { get; set; }
+
     }
 
 }

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class QueryIpCodeinfoResponse : TeaModel {
+    public class QueryIpTwcaccountResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,30 +24,25 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 订单ID
-        [NameInMap("order_id")]
+        // 机构账号
+        [NameInMap("organization_id")]
         [Validation(Required=false)]
-        public string OrderId { get; set; }
+        public string OrganizationId { get; set; }
 
-        // 正版码商品信息配置列表
-        [NameInMap("goods_info_list")]
+        // 用户类型为个人时返回用户账号；用户类型为机构时返回经办人账号
+        [NameInMap("user_id")]
         [Validation(Required=false)]
-        public List<IPCodeGoodsInfo> GoodsInfoList { get; set; }
+        public string UserId { get; set; }
 
-        // 正版码资源位配置信息列表
-        [NameInMap("ad_info_list")]
+        // 是否签署了静默授权
+        [NameInMap("silently_sign")]
         [Validation(Required=false)]
-        public List<IPCodeAdvertisingInfo> AdInfoList { get; set; }
+        public bool? SilentlySign { get; set; }
 
-        // ip版权方信息
-        [NameInMap("ipowner_info")]
+        // 账户链上ID
+        [NameInMap("account_id")]
         [Validation(Required=false)]
-        public IPCodeIpOwnerInfo IpownerInfo { get; set; }
-
-        // 0:未配置，1:配置成功可展示，9:下架【本期不实现】
-        [NameInMap("ip_code_status")]
-        [Validation(Required=false)]
-        public long? IpCodeStatus { get; set; }
+        public string AccountId { get; set; }
 
     }
 

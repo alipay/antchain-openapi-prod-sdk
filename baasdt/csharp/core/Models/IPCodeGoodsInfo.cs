@@ -25,7 +25,7 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string GoodsImage { get; set; }
 
-        // 商品店铺名称
+        // 商品店铺名称/商品出品方
         [NameInMap("goods_store")]
         [Validation(Required=false)]
         public string GoodsStore { get; set; }
@@ -34,6 +34,26 @@ namespace AntChain.SDK.BAASDT.Models
         [NameInMap("goods_store_logo")]
         [Validation(Required=false)]
         public string GoodsStoreLogo { get; set; }
+
+        // 商品描述
+        [NameInMap("goods_description")]
+        [Validation(Required=false)]
+        public string GoodsDescription { get; set; }
+
+        // 商品品牌
+        [NameInMap("goods_brand")]
+        [Validation(Required=false)]
+        public string GoodsBrand { get; set; }
+
+        // 授权过期类型，0：长久有效，1：有效日期内有效
+        [NameInMap("authorization_expirated_type")]
+        [Validation(Required=false)]
+        public string AuthorizationExpiratedType { get; set; }
+
+        // 授权截止日期
+        [NameInMap("authorization_end_time")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string AuthorizationEndTime { get; set; }
 
     }
 

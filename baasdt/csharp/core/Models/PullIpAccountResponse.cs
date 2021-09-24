@@ -94,6 +94,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public IPCardInfo CardInfo { get; set; }
 
+        // 店铺名称
+        [NameInMap("shop_name")]
+        [Validation(Required=false)]
+        public string ShopName { get; set; }
+
+        // 更多联系方式，用于运营联系商家
+        [NameInMap("additional_contact_info")]
+        [Validation(Required=false)]
+        public List<SimpleContactInfo> AdditionalContactInfo { get; set; }
+
         // 创建账户时间
         [NameInMap("create_time")]
         [Validation(Required=false)]

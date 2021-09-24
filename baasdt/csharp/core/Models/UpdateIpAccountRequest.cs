@@ -35,12 +35,12 @@ namespace AntChain.SDK.BAASDT.Models
 
         // 商户类型(本期仅支持: 1:企业, 6:个人商户)
         [NameInMap("merchant_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? MerchantType { get; set; }
 
         // 商户证件类型，201--统一社会信用证--营业执照号；
         [NameInMap("merchant_cert_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? MerchantCertType { get; set; }
 
         // 本期支持统一社会信用证代码
@@ -62,6 +62,16 @@ namespace AntChain.SDK.BAASDT.Models
         [NameInMap("memo")]
         [Validation(Required=false)]
         public string Memo { get; set; }
+
+        // 店铺名称
+        [NameInMap("shop_name")]
+        [Validation(Required=false)]
+        public string ShopName { get; set; }
+
+        // 更多联系信息，用于运营联系商家
+        [NameInMap("additional_contact_info")]
+        [Validation(Required=false)]
+        public List<SimpleContactInfo> AdditionalContactInfo { get; set; }
 
     }
 

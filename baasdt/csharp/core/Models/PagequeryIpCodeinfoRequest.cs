@@ -33,7 +33,7 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public long? PageNumber { get; set; }
 
-        // 每页数据量大小
+        // 每页数据量大小(请小于等于100)
         [NameInMap("page_size")]
         [Validation(Required=true)]
         public long? PageSize { get; set; }

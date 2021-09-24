@@ -47,6 +47,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public bool? TradeNeedConfirm { get; set; }
 
+        // 授权类型
+        [NameInMap("authorization_type")]
+        [Validation(Required=false)]
+        public List<string> AuthorizationType { get; set; }
+
     }
 
 }

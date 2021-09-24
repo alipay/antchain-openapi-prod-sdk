@@ -38,6 +38,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public long? AuthorizationModel { get; set; }
 
+        // 授权类型，衍生品授权；营销授权；商标授权；数字虚拟授权；其他
+        [NameInMap("authorization_type")]
+        [Validation(Required=false)]
+        public List<string> AuthorizationType { get; set; }
+
         // 计费模式 0:按量 1:按金额
         [NameInMap("pay_mode")]
         [Validation(Required=true)]

@@ -226,6 +226,17 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public List<string> ContractFiles { get; set; }
 
+        // 授权类型
+        [NameInMap("auth_type")]
+        [Validation(Required=false)]
+        public string AuthType { get; set; }
+
+        // 绑定的商品ID列表
+        // 
+        [NameInMap("goods_id_list")]
+        [Validation(Required=false)]
+        public List<string> GoodsIdList { get; set; }
+
     }
 
 }

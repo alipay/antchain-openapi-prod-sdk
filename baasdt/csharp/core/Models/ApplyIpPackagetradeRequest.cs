@@ -103,6 +103,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string PayReturnUrl { get; set; }
 
+        // 授权类型
+        [NameInMap("auth_type")]
+        [Validation(Required=false)]
+        public string AuthType { get; set; }
+
     }
 
 }

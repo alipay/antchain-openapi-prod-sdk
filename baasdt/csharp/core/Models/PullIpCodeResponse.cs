@@ -29,6 +29,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public List<string> CodeList { get; set; }
 
+        // 展示码列表(和code_list一一对应)
+        [NameInMap("show_code_list")]
+        [Validation(Required=false)]
+        public List<string> ShowCodeList { get; set; }
+
         // 交易订单ID
         [NameInMap("order_id")]
         [Validation(Required=false)]
@@ -69,7 +74,7 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public long? ExpiredDate { get; set; }
 
-        // 总数量
+        // 已经申请的总数量
         [NameInMap("total_count")]
         [Validation(Required=false)]
         public long? TotalCount { get; set; }

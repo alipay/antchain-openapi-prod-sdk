@@ -43,6 +43,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public List<IPCodeAdvertisingInfo> AdInfoList { get; set; }
 
+        // ip版权方信息
+        [NameInMap("ipowner_info")]
+        [Validation(Required=false)]
+        public IPCodeIpOwnerInfo IpownerInfo { get; set; }
+
     }
 
 }

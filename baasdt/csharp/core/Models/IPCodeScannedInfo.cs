@@ -15,6 +15,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public string IpCode { get; set; }
 
+        // 正版码所在批次已申请的正版码总数
+        [NameInMap("batch_used_count")]
+        [Validation(Required=false)]
+        public long? BatchUsedCount { get; set; }
+
         // 用户的ID
         [NameInMap("user_id")]
         [Validation(Required=true)]
@@ -40,6 +45,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string Gps { get; set; }
 
+        // 领取正版码的交易哈希
+        [NameInMap("hash")]
+        [Validation(Required=false)]
+        public string Hash { get; set; }
+
         // 处理时间(毫秒时间戳)
         [NameInMap("timestamp")]
         [Validation(Required=true)]
@@ -64,6 +74,16 @@ namespace AntChain.SDK.BAASDT.Models
         [NameInMap("ad_info_list")]
         [Validation(Required=false)]
         public List<IPCodeAdvertisingInfo> AdInfoList { get; set; }
+
+        // ip版权方信息
+        [NameInMap("ipowner_info")]
+        [Validation(Required=false)]
+        public IPCodeIpOwnerInfo IpownerInfo { get; set; }
+
+        // 0:未配置，1:配置成功可展示，9:下架【本期不实现】
+        [NameInMap("ip_code_status")]
+        [Validation(Required=false)]
+        public long? IpCodeStatus { get; set; }
 
     }
 
