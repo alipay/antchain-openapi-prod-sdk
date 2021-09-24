@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.84'
+                    'sdk_version': '1.3.7'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.84'
+                    'sdk_version': '1.3.7'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -13793,7 +13793,7 @@ class Client:
     ) -> baasdt_models.PullIpCodeResponse:
         """
         Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
-        Summary: 数字商品服务-IP授权服务-可跳转码查询
+        Summary: 数字商品服务-IP授权服务-天猫查正版码
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -13805,7 +13805,7 @@ class Client:
     ) -> baasdt_models.PullIpCodeResponse:
         """
         Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
-        Summary: 数字商品服务-IP授权服务-可跳转码查询
+        Summary: 数字商品服务-IP授权服务-天猫查正版码
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -13819,7 +13819,7 @@ class Client:
     ) -> baasdt_models.PullIpCodeResponse:
         """
         Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
-        Summary: 数字商品服务-IP授权服务-可跳转码查询
+        Summary: 数字商品服务-IP授权服务-天猫查正版码
         """
         UtilClient.validate_model(request)
         return baasdt_models.PullIpCodeResponse().from_map(
@@ -13834,11 +13834,119 @@ class Client:
     ) -> baasdt_models.PullIpCodeResponse:
         """
         Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
-        Summary: 数字商品服务-IP授权服务-可跳转码查询
+        Summary: 数字商品服务-IP授权服务-天猫查正版码
         """
         UtilClient.validate_model(request)
         return baasdt_models.PullIpCodeResponse().from_map(
             await self.do_request_async('1.0', 'baas.antdao.ip.code.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_ip_goodsinterest(
+        self,
+        request: baasdt_models.BatchqueryIpGoodsinterestRequest,
+    ) -> baasdt_models.BatchqueryIpGoodsinterestResponse:
+        """
+        Description: 数字商品服务-IP-猜你喜欢的商品
+        Summary: 数字商品服务-IP-查询用户感兴趣的商品
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_ip_goodsinterest_ex(request, headers, runtime)
+
+    async def batchquery_ip_goodsinterest_async(
+        self,
+        request: baasdt_models.BatchqueryIpGoodsinterestRequest,
+    ) -> baasdt_models.BatchqueryIpGoodsinterestResponse:
+        """
+        Description: 数字商品服务-IP-猜你喜欢的商品
+        Summary: 数字商品服务-IP-查询用户感兴趣的商品
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_ip_goodsinterest_ex_async(request, headers, runtime)
+
+    def batchquery_ip_goodsinterest_ex(
+        self,
+        request: baasdt_models.BatchqueryIpGoodsinterestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.BatchqueryIpGoodsinterestResponse:
+        """
+        Description: 数字商品服务-IP-猜你喜欢的商品
+        Summary: 数字商品服务-IP-查询用户感兴趣的商品
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.BatchqueryIpGoodsinterestResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.goodsinterest.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_ip_goodsinterest_ex_async(
+        self,
+        request: baasdt_models.BatchqueryIpGoodsinterestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.BatchqueryIpGoodsinterestResponse:
+        """
+        Description: 数字商品服务-IP-猜你喜欢的商品
+        Summary: 数字商品服务-IP-查询用户感兴趣的商品
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.BatchqueryIpGoodsinterestResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.goodsinterest.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_ip_twcaccount(
+        self,
+        request: baasdt_models.QueryIpTwcaccountRequest,
+    ) -> baasdt_models.QueryIpTwcaccountResponse:
+        """
+        Description: 查询区块链合同账号信息
+        Summary: 数字商品服务-IP授权服务-合同账户查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ip_twcaccount_ex(request, headers, runtime)
+
+    async def query_ip_twcaccount_async(
+        self,
+        request: baasdt_models.QueryIpTwcaccountRequest,
+    ) -> baasdt_models.QueryIpTwcaccountResponse:
+        """
+        Description: 查询区块链合同账号信息
+        Summary: 数字商品服务-IP授权服务-合同账户查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ip_twcaccount_ex_async(request, headers, runtime)
+
+    def query_ip_twcaccount_ex(
+        self,
+        request: baasdt_models.QueryIpTwcaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.QueryIpTwcaccountResponse:
+        """
+        Description: 查询区块链合同账号信息
+        Summary: 数字商品服务-IP授权服务-合同账户查询
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.QueryIpTwcaccountResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.twcaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ip_twcaccount_ex_async(
+        self,
+        request: baasdt_models.QueryIpTwcaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.QueryIpTwcaccountResponse:
+        """
+        Description: 查询区块链合同账号信息
+        Summary: 数字商品服务-IP授权服务-合同账户查询
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.QueryIpTwcaccountResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.twcaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_blockanalysis_block(
