@@ -495,6 +495,32 @@ func (s *SdkModel) SetCorpName(v string) *SdkModel {
 	return s
 }
 
+// GoodsIdAndCount
+type GoodsIdAndCount struct {
+	// 商品id
+	GoodsSkuId *int64 `json:"goods_sku_id,omitempty" xml:"goods_sku_id,omitempty" require:"true"`
+	// 商品采购数量
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+}
+
+func (s GoodsIdAndCount) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GoodsIdAndCount) GoString() string {
+	return s.String()
+}
+
+func (s *GoodsIdAndCount) SetGoodsSkuId(v int64) *GoodsIdAndCount {
+	s.GoodsSkuId = &v
+	return s
+}
+
+func (s *GoodsIdAndCount) SetCount(v int64) *GoodsIdAndCount {
+	s.Count = &v
+	return s
+}
+
 // 收集信息
 type CollectContent struct {
 	// 链上设备Id
@@ -549,6 +575,8 @@ type DistributeDevice struct {
 	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty" require:"true"`
 	// 链上外围设备Id（deviceType=PERIPHERAL 时有值)
 	ChainPeripheralId *string `json:"chain_peripheral_id,omitempty" xml:"chain_peripheral_id,omitempty"`
+	// 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
+	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty"`
 }
 
 func (s DistributeDevice) String() string {
@@ -586,6 +614,11 @@ func (s *DistributeDevice) SetDeviceType(v string) *DistributeDevice {
 
 func (s *DistributeDevice) SetChainPeripheralId(v string) *DistributeDevice {
 	s.ChainPeripheralId = &v
+	return s
+}
+
+func (s *DistributeDevice) SetDeviceStatus(v string) *DistributeDevice {
+	s.DeviceStatus = &v
 	return s
 }
 
@@ -1081,6 +1114,81 @@ func (s *InsertPurchaseOrderFailInfo) SetOrderId(v string) *InsertPurchaseOrderF
 
 func (s *InsertPurchaseOrderFailInfo) SetFailReason(v string) *InsertPurchaseOrderFailInfo {
 	s.FailReason = &v
+	return s
+}
+
+// 电脑型号信息
+type ComputerInfo struct {
+	// 颜色
+	Colour *string `json:"colour,omitempty" xml:"colour,omitempty"`
+	// 色值
+	ColourNumber *string `json:"colour_number,omitempty" xml:"colour_number,omitempty"`
+	// 电脑型号
+	ComputerModel *string `json:"computer_model,omitempty" xml:"computer_model,omitempty"`
+	// 配置参数
+	ConfigParam *string `json:"config_param,omitempty" xml:"config_param,omitempty"`
+	// 显卡
+	VideoCard *string `json:"video_card,omitempty" xml:"video_card,omitempty"`
+	// 屏幕
+	ScreenSize *string `json:"screen_size,omitempty" xml:"screen_size,omitempty"`
+	// 电脑CPU
+	Cpu *string `json:"cpu,omitempty" xml:"cpu,omitempty" require:"true"`
+	// 电脑内存
+	Memory *string `json:"memory,omitempty" xml:"memory,omitempty" require:"true"`
+	// 电脑硬盘
+	DiskSize *string `json:"disk_size,omitempty" xml:"disk_size,omitempty" require:"true"`
+}
+
+func (s ComputerInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ComputerInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ComputerInfo) SetColour(v string) *ComputerInfo {
+	s.Colour = &v
+	return s
+}
+
+func (s *ComputerInfo) SetColourNumber(v string) *ComputerInfo {
+	s.ColourNumber = &v
+	return s
+}
+
+func (s *ComputerInfo) SetComputerModel(v string) *ComputerInfo {
+	s.ComputerModel = &v
+	return s
+}
+
+func (s *ComputerInfo) SetConfigParam(v string) *ComputerInfo {
+	s.ConfigParam = &v
+	return s
+}
+
+func (s *ComputerInfo) SetVideoCard(v string) *ComputerInfo {
+	s.VideoCard = &v
+	return s
+}
+
+func (s *ComputerInfo) SetScreenSize(v string) *ComputerInfo {
+	s.ScreenSize = &v
+	return s
+}
+
+func (s *ComputerInfo) SetCpu(v string) *ComputerInfo {
+	s.Cpu = &v
+	return s
+}
+
+func (s *ComputerInfo) SetMemory(v string) *ComputerInfo {
+	s.Memory = &v
+	return s
+}
+
+func (s *ComputerInfo) SetDiskSize(v string) *ComputerInfo {
+	s.DiskSize = &v
 	return s
 }
 
@@ -1928,32 +2036,6 @@ func (s *WarehouseReqModel) SetType(v string) *WarehouseReqModel {
 	return s
 }
 
-// GoodsIdAndCount
-type GoodsIdAndCount struct {
-	// 商品id
-	GoodsSkuId *int64 `json:"goods_sku_id,omitempty" xml:"goods_sku_id,omitempty" require:"true"`
-	// 商品采购数量
-	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
-}
-
-func (s GoodsIdAndCount) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GoodsIdAndCount) GoString() string {
-	return s.String()
-}
-
-func (s *GoodsIdAndCount) SetGoodsSkuId(v int64) *GoodsIdAndCount {
-	s.GoodsSkuId = &v
-	return s
-}
-
-func (s *GoodsIdAndCount) SetCount(v int64) *GoodsIdAndCount {
-	s.Count = &v
-	return s
-}
-
 // PurchaseOrderInfoDetail
 type PurchaseOrderInfoDetail struct {
 	// 租赁订单号
@@ -1978,11 +2060,8 @@ type PurchaseOrderInfoDetail struct {
 	// 采购商id
 	//
 	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true"`
-	// 商品id
-	//
-	GoodsSkuId *int64 `json:"goods_sku_id,omitempty" xml:"goods_sku_id,omitempty" require:"true"`
-	// 商品采购数量
-	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+	// 商品信息列表
+	GoodsIdAndCount []*GoodsIdAndCount `json:"goods_id_and_count,omitempty" xml:"goods_id_and_count,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s PurchaseOrderInfoDetail) String() string {
@@ -2033,13 +2112,8 @@ func (s *PurchaseOrderInfoDetail) SetLeaseId(v string) *PurchaseOrderInfoDetail 
 	return s
 }
 
-func (s *PurchaseOrderInfoDetail) SetGoodsSkuId(v int64) *PurchaseOrderInfoDetail {
-	s.GoodsSkuId = &v
-	return s
-}
-
-func (s *PurchaseOrderInfoDetail) SetCount(v int64) *PurchaseOrderInfoDetail {
-	s.Count = &v
+func (s *PurchaseOrderInfoDetail) SetGoodsIdAndCount(v []*GoodsIdAndCount) *PurchaseOrderInfoDetail {
+	s.GoodsIdAndCount = v
 	return s
 }
 
@@ -2176,6 +2250,39 @@ func (s SendCollectorResult) GoString() string {
 
 func (s *SendCollectorResult) SetTxHash(v string) *SendCollectorResult {
 	s.TxHash = &v
+	return s
+}
+
+// 手机型号信息
+type PhoneInfo struct {
+	// 颜色
+	Colour *string `json:"colour,omitempty" xml:"colour,omitempty" require:"true"`
+	// 色值
+	ColourNumber *string `json:"colour_number,omitempty" xml:"colour_number,omitempty" require:"true"`
+	// 内存大小
+	Memory *string `json:"memory,omitempty" xml:"memory,omitempty" require:"true"`
+}
+
+func (s PhoneInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PhoneInfo) GoString() string {
+	return s.String()
+}
+
+func (s *PhoneInfo) SetColour(v string) *PhoneInfo {
+	s.Colour = &v
+	return s
+}
+
+func (s *PhoneInfo) SetColourNumber(v string) *PhoneInfo {
+	s.ColourNumber = &v
+	return s
+}
+
+func (s *PhoneInfo) SetMemory(v string) *PhoneInfo {
+	s.Memory = &v
 	return s
 }
 
@@ -2399,6 +2506,8 @@ type Device struct {
 	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 出厂时间
 	FactoryTime *string `json:"factory_time,omitempty" xml:"factory_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
+	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty"`
 }
 
 func (s Device) String() string {
@@ -2481,6 +2590,11 @@ func (s *Device) SetReleaseTime(v string) *Device {
 
 func (s *Device) SetFactoryTime(v string) *Device {
 	s.FactoryTime = &v
+	return s
+}
+
+func (s *Device) SetDeviceStatus(v string) *Device {
+	s.DeviceStatus = &v
 	return s
 }
 
@@ -2999,6 +3113,8 @@ type ImportIotplatformMeshidRequest struct {
 	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
 	// 设备类型字段
 	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 代理商名称，用于二级代理模式
+	AgentName *string `json:"agent_name,omitempty" xml:"agent_name,omitempty"`
 }
 
 func (s ImportIotplatformMeshidRequest) String() string {
@@ -3041,6 +3157,11 @@ func (s *ImportIotplatformMeshidRequest) SetDeviceSn(v string) *ImportIotplatfor
 
 func (s *ImportIotplatformMeshidRequest) SetType(v string) *ImportIotplatformMeshidRequest {
 	s.Type = &v
+	return s
+}
+
+func (s *ImportIotplatformMeshidRequest) SetAgentName(v string) *ImportIotplatformMeshidRequest {
+	s.AgentName = &v
 	return s
 }
 
@@ -3248,6 +3369,220 @@ func (s *ImportPurchaseorderThirdpartyResponse) SetPurchaseOrderInfoDetail(v *Pu
 
 func (s *ImportPurchaseorderThirdpartyResponse) SetIdempotId(v string) *ImportPurchaseorderThirdpartyResponse {
 	s.IdempotId = &v
+	return s
+}
+
+type AddUserRoleRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 账号标识，蚂蚁金融科技租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 租户名称
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty" require:"true"`
+	// 权限标识
+	//     LEASER(0),
+	//     BUYERS(1),
+	//     OWNER(2),
+	//     ADMIN(9);
+	Role *string `json:"role,omitempty" xml:"role,omitempty" require:"true"`
+	// 是否支持abm远程
+	SupportAbm *bool `json:"support_abm,omitempty" xml:"support_abm,omitempty" require:"true"`
+	// 是否含税
+	IncludTax *bool `json:"includ_tax,omitempty" xml:"includ_tax,omitempty" require:"true"`
+}
+
+func (s AddUserRoleRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddUserRoleRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddUserRoleRequest) SetAuthToken(v string) *AddUserRoleRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddUserRoleRequest) SetProductInstanceId(v string) *AddUserRoleRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddUserRoleRequest) SetTenantId(v string) *AddUserRoleRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *AddUserRoleRequest) SetTenantName(v string) *AddUserRoleRequest {
+	s.TenantName = &v
+	return s
+}
+
+func (s *AddUserRoleRequest) SetRole(v string) *AddUserRoleRequest {
+	s.Role = &v
+	return s
+}
+
+func (s *AddUserRoleRequest) SetSupportAbm(v bool) *AddUserRoleRequest {
+	s.SupportAbm = &v
+	return s
+}
+
+func (s *AddUserRoleRequest) SetIncludTax(v bool) *AddUserRoleRequest {
+	s.IncludTax = &v
+	return s
+}
+
+type AddUserRoleResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 新增的用户id
+	UserId *int64 `json:"user_id,omitempty" xml:"user_id,omitempty"`
+}
+
+func (s AddUserRoleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddUserRoleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddUserRoleResponse) SetReqMsgId(v string) *AddUserRoleResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddUserRoleResponse) SetResultCode(v string) *AddUserRoleResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddUserRoleResponse) SetResultMsg(v string) *AddUserRoleResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AddUserRoleResponse) SetUserId(v int64) *AddUserRoleResponse {
+	s.UserId = &v
+	return s
+}
+
+type AddGoodsSkuRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// GoodsTypeEnum,商品一级类目
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 商品二级类目
+	SecondType *string `json:"second_type,omitempty" xml:"second_type,omitempty" require:"true"`
+	// 商品品牌
+	Brand *string `json:"brand,omitempty" xml:"brand,omitempty" require:"true"`
+	// 商品名称，型号
+	Model *string `json:"model,omitempty" xml:"model,omitempty" require:"true"`
+	// 市场价
+	MarketPrice *int64 `json:"market_price,omitempty" xml:"market_price,omitempty" require:"true"`
+	// 手机型号信息
+	PhoneInfo *PhoneInfo `json:"phone_info,omitempty" xml:"phone_info,omitempty"`
+	// 电脑型号信息
+	ComputerInfo *ComputerInfo `json:"computer_info,omitempty" xml:"computer_info,omitempty"`
+}
+
+func (s AddGoodsSkuRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddGoodsSkuRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddGoodsSkuRequest) SetAuthToken(v string) *AddGoodsSkuRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddGoodsSkuRequest) SetProductInstanceId(v string) *AddGoodsSkuRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddGoodsSkuRequest) SetType(v string) *AddGoodsSkuRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *AddGoodsSkuRequest) SetSecondType(v string) *AddGoodsSkuRequest {
+	s.SecondType = &v
+	return s
+}
+
+func (s *AddGoodsSkuRequest) SetBrand(v string) *AddGoodsSkuRequest {
+	s.Brand = &v
+	return s
+}
+
+func (s *AddGoodsSkuRequest) SetModel(v string) *AddGoodsSkuRequest {
+	s.Model = &v
+	return s
+}
+
+func (s *AddGoodsSkuRequest) SetMarketPrice(v int64) *AddGoodsSkuRequest {
+	s.MarketPrice = &v
+	return s
+}
+
+func (s *AddGoodsSkuRequest) SetPhoneInfo(v *PhoneInfo) *AddGoodsSkuRequest {
+	s.PhoneInfo = v
+	return s
+}
+
+func (s *AddGoodsSkuRequest) SetComputerInfo(v *ComputerInfo) *AddGoodsSkuRequest {
+	s.ComputerInfo = v
+	return s
+}
+
+type AddGoodsSkuResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// SKU id
+	SkuId *int64 `json:"sku_id,omitempty" xml:"sku_id,omitempty"`
+}
+
+func (s AddGoodsSkuResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddGoodsSkuResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddGoodsSkuResponse) SetReqMsgId(v string) *AddGoodsSkuResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddGoodsSkuResponse) SetResultCode(v string) *AddGoodsSkuResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddGoodsSkuResponse) SetResultMsg(v string) *AddGoodsSkuResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AddGoodsSkuResponse) SetSkuId(v int64) *AddGoodsSkuResponse {
+	s.SkuId = &v
 	return s
 }
 
@@ -10602,7 +10937,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.13"),
+				"sdk_version":      tea.String("1.6.20"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -10847,6 +11182,74 @@ func (client *Client) ImportPurchaseorderThirdpartyEx(request *ImportPurchaseord
 	}
 	_result = &ImportPurchaseorderThirdpartyResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.purchaseorder.thirdparty.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 采购平台新增供应商角色
+ * Summary: 采购平台新增供应商角色
+ */
+func (client *Client) AddUserRole(request *AddUserRoleRequest) (_result *AddUserRoleResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddUserRoleResponse{}
+	_body, _err := client.AddUserRoleEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 采购平台新增供应商角色
+ * Summary: 采购平台新增供应商角色
+ */
+func (client *Client) AddUserRoleEx(request *AddUserRoleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddUserRoleResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddUserRoleResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.user.role.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 采购平台新增SKU
+ * Summary: 采购平台新增SKU
+ */
+func (client *Client) AddGoodsSku(request *AddGoodsSkuRequest) (_result *AddGoodsSkuResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddGoodsSkuResponse{}
+	_body, _err := client.AddGoodsSkuEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 采购平台新增SKU
+ * Summary: 采购平台新增SKU
+ */
+func (client *Client) AddGoodsSkuEx(request *AddGoodsSkuRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddGoodsSkuResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddGoodsSkuResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.goods.sku.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
