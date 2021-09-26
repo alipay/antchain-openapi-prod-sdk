@@ -326,6 +326,31 @@ export class SdkModel extends $tea.Model {
   }
 }
 
+// GoodsIdAndCount
+export class GoodsIdAndCount extends $tea.Model {
+  // 商品id
+  goodsSkuId: number;
+  // 商品采购数量
+  count: number;
+  static names(): { [key: string]: string } {
+    return {
+      goodsSkuId: 'goods_sku_id',
+      count: 'count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      goodsSkuId: 'number',
+      count: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 收集信息
 export class CollectContent extends $tea.Model {
   // 链上设备Id
@@ -373,6 +398,8 @@ export class DistributeDevice extends $tea.Model {
   deviceType: string;
   // 链上外围设备Id（deviceType=PERIPHERAL 时有值)
   chainPeripheralId?: string;
+  // 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
+  deviceStatus?: string;
   static names(): { [key: string]: string } {
     return {
       chainDeviceId: 'chain_device_id',
@@ -381,6 +408,7 @@ export class DistributeDevice extends $tea.Model {
       scene: 'scene',
       deviceType: 'device_type',
       chainPeripheralId: 'chain_peripheral_id',
+      deviceStatus: 'device_status',
     };
   }
 
@@ -392,6 +420,7 @@ export class DistributeDevice extends $tea.Model {
       scene: 'string',
       deviceType: 'string',
       chainPeripheralId: 'string',
+      deviceStatus: 'string',
     };
   }
 
@@ -781,6 +810,59 @@ export class InsertPurchaseOrderFailInfo extends $tea.Model {
     return {
       orderId: 'string',
       failReason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 电脑型号信息
+export class ComputerInfo extends $tea.Model {
+  // 颜色
+  colour?: string;
+  // 色值
+  colourNumber?: string;
+  // 电脑型号
+  computerModel?: string;
+  // 配置参数
+  configParam?: string;
+  // 显卡
+  videoCard?: string;
+  // 屏幕
+  screenSize?: string;
+  // 电脑CPU
+  cpu: string;
+  // 电脑内存
+  memory: string;
+  // 电脑硬盘
+  diskSize: string;
+  static names(): { [key: string]: string } {
+    return {
+      colour: 'colour',
+      colourNumber: 'colour_number',
+      computerModel: 'computer_model',
+      configParam: 'config_param',
+      videoCard: 'video_card',
+      screenSize: 'screen_size',
+      cpu: 'cpu',
+      memory: 'memory',
+      diskSize: 'disk_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      colour: 'string',
+      colourNumber: 'string',
+      computerModel: 'string',
+      configParam: 'string',
+      videoCard: 'string',
+      screenSize: 'string',
+      cpu: 'string',
+      memory: 'string',
+      diskSize: 'string',
     };
   }
 
@@ -1443,31 +1525,6 @@ export class WarehouseReqModel extends $tea.Model {
   }
 }
 
-// GoodsIdAndCount
-export class GoodsIdAndCount extends $tea.Model {
-  // 商品id
-  goodsSkuId: number;
-  // 商品采购数量
-  count: number;
-  static names(): { [key: string]: string } {
-    return {
-      goodsSkuId: 'goods_sku_id',
-      count: 'count',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      goodsSkuId: 'number',
-      count: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // PurchaseOrderInfoDetail 
 export class PurchaseOrderInfoDetail extends $tea.Model {
   // 租赁订单号
@@ -1492,11 +1549,8 @@ export class PurchaseOrderInfoDetail extends $tea.Model {
   // 采购商id
   // 
   leaseId: string;
-  // 商品id
-  // 
-  goodsSkuId: number;
-  // 商品采购数量 
-  count: number;
+  // 商品信息列表
+  goodsIdAndCount: GoodsIdAndCount[];
   static names(): { [key: string]: string } {
     return {
       orderNumber: 'order_number',
@@ -1507,8 +1561,7 @@ export class PurchaseOrderInfoDetail extends $tea.Model {
       supplierName: 'supplier_name',
       supplierId: 'supplier_id',
       leaseId: 'lease_id',
-      goodsSkuId: 'goods_sku_id',
-      count: 'count',
+      goodsIdAndCount: 'goods_id_and_count',
     };
   }
 
@@ -1522,8 +1575,7 @@ export class PurchaseOrderInfoDetail extends $tea.Model {
       supplierName: 'string',
       supplierId: 'string',
       leaseId: 'string',
-      goodsSkuId: 'number',
-      count: 'number',
+      goodsIdAndCount: { 'type': 'array', 'itemType': GoodsIdAndCount },
     };
   }
 
@@ -1633,6 +1685,35 @@ export class SendCollectorResult extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       txHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 手机型号信息
+export class PhoneInfo extends $tea.Model {
+  // 颜色
+  colour: string;
+  // 色值
+  colourNumber: string;
+  // 内存大小
+  memory: string;
+  static names(): { [key: string]: string } {
+    return {
+      colour: 'colour',
+      colourNumber: 'colour_number',
+      memory: 'memory',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      colour: 'string',
+      colourNumber: 'string',
+      memory: 'string',
     };
   }
 
@@ -1828,6 +1909,8 @@ export class Device extends $tea.Model {
   releaseTime: string;
   // 出厂时间
   factoryTime: string;
+  // 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
+  deviceStatus?: string;
   static names(): { [key: string]: string } {
     return {
       deviceId: 'device_id',
@@ -1845,6 +1928,7 @@ export class Device extends $tea.Model {
       initialPrice: 'initial_price',
       releaseTime: 'release_time',
       factoryTime: 'factory_time',
+      deviceStatus: 'device_status',
     };
   }
 
@@ -1865,6 +1949,7 @@ export class Device extends $tea.Model {
       initialPrice: 'number',
       releaseTime: 'string',
       factoryTime: 'string',
+      deviceStatus: 'string',
     };
   }
 
@@ -2276,6 +2361,8 @@ export class ImportIotplatformMeshidRequest extends $tea.Model {
   deviceSn: string;
   // 设备类型字段
   type?: string;
+  // 代理商名称，用于二级代理模式
+  agentName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2285,6 +2372,7 @@ export class ImportIotplatformMeshidRequest extends $tea.Model {
       meshId: 'mesh_id',
       deviceSn: 'device_sn',
       type: 'type',
+      agentName: 'agent_name',
     };
   }
 
@@ -2297,6 +2385,7 @@ export class ImportIotplatformMeshidRequest extends $tea.Model {
       meshId: 'string',
       deviceSn: 'string',
       type: 'string',
+      agentName: 'string',
     };
   }
 
@@ -2447,6 +2536,168 @@ export class ImportPurchaseorderThirdpartyResponse extends $tea.Model {
       failMap: InsertPurchaseOrderFailInfo,
       purchaseOrderInfoDetail: PurchaseOrderInfoDetail,
       idempotId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddUserRoleRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 账号标识，蚂蚁金融科技租户ID
+  tenantId: string;
+  // 租户名称
+  tenantName: string;
+  // 权限标识
+  //     LEASER(0),
+  //     BUYERS(1),
+  //     OWNER(2),
+  //     ADMIN(9);
+  role: string;
+  // 是否支持abm远程
+  supportAbm: boolean;
+  // 是否含税
+  includTax: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+      role: 'role',
+      supportAbm: 'support_abm',
+      includTax: 'includ_tax',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      tenantName: 'string',
+      role: 'string',
+      supportAbm: 'boolean',
+      includTax: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddUserRoleResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 新增的用户id
+  userId?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      userId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddGoodsSkuRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // GoodsTypeEnum,商品一级类目
+  type: string;
+  // 商品二级类目
+  secondType: string;
+  // 商品品牌
+  brand: string;
+  // 商品名称，型号
+  model: string;
+  // 市场价
+  marketPrice: number;
+  // 手机型号信息
+  phoneInfo?: PhoneInfo;
+  // 电脑型号信息
+  computerInfo?: ComputerInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      type: 'type',
+      secondType: 'second_type',
+      brand: 'brand',
+      model: 'model',
+      marketPrice: 'market_price',
+      phoneInfo: 'phone_info',
+      computerInfo: 'computer_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      type: 'string',
+      secondType: 'string',
+      brand: 'string',
+      model: 'string',
+      marketPrice: 'number',
+      phoneInfo: PhoneInfo,
+      computerInfo: ComputerInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddGoodsSkuResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // SKU id
+  skuId?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      skuId: 'sku_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      skuId: 'number',
     };
   }
 
@@ -8275,7 +8526,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.13",
+          sdk_version: "1.6.20",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -8433,6 +8684,44 @@ export default class Client {
   async importPurchaseorderThirdpartyEx(request: ImportPurchaseorderThirdpartyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportPurchaseorderThirdpartyResponse> {
     Util.validateModel(request);
     return $tea.cast<ImportPurchaseorderThirdpartyResponse>(await this.doRequest("1.0", "blockchain.bot.purchaseorder.thirdparty.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportPurchaseorderThirdpartyResponse({}));
+  }
+
+  /**
+   * Description: 采购平台新增供应商角色
+   * Summary: 采购平台新增供应商角色
+   */
+  async addUserRole(request: AddUserRoleRequest): Promise<AddUserRoleResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addUserRoleEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 采购平台新增供应商角色
+   * Summary: 采购平台新增供应商角色
+   */
+  async addUserRoleEx(request: AddUserRoleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddUserRoleResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddUserRoleResponse>(await this.doRequest("1.0", "blockchain.bot.user.role.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddUserRoleResponse({}));
+  }
+
+  /**
+   * Description: 采购平台新增SKU
+   * Summary: 采购平台新增SKU
+   */
+  async addGoodsSku(request: AddGoodsSkuRequest): Promise<AddGoodsSkuResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addGoodsSkuEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 采购平台新增SKU
+   * Summary: 采购平台新增SKU
+   */
+  async addGoodsSkuEx(request: AddGoodsSkuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddGoodsSkuResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddGoodsSkuResponse>(await this.doRequest("1.0", "blockchain.bot.goods.sku.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddGoodsSkuResponse({}));
   }
 
   /**
