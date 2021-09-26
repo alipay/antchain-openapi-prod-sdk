@@ -32,6 +32,10 @@ public class DistributeDevice extends TeaModel {
     @NameInMap("chain_peripheral_id")
     public String chainPeripheralId;
 
+    // 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
+    @NameInMap("device_status")
+    public String deviceStatus;
+
     public static DistributeDevice build(java.util.Map<String, ?> map) throws Exception {
         DistributeDevice self = new DistributeDevice();
         return TeaModel.build(map, self);
@@ -83,6 +87,14 @@ public class DistributeDevice extends TeaModel {
     }
     public String getChainPeripheralId() {
         return this.chainPeripheralId;
+    }
+
+    public DistributeDevice setDeviceStatus(String deviceStatus) {
+        this.deviceStatus = deviceStatus;
+        return this;
+    }
+    public String getDeviceStatus() {
+        return this.deviceStatus;
     }
 
 }

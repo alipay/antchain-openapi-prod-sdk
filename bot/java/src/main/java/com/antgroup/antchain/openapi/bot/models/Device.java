@@ -101,6 +101,10 @@ public class Device extends TeaModel {
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String factoryTime;
 
+    // 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
+    @NameInMap("device_status")
+    public String deviceStatus;
+
     public static Device build(java.util.Map<String, ?> map) throws Exception {
         Device self = new Device();
         return TeaModel.build(map, self);
@@ -224,6 +228,14 @@ public class Device extends TeaModel {
     }
     public String getFactoryTime() {
         return this.factoryTime;
+    }
+
+    public Device setDeviceStatus(String deviceStatus) {
+        this.deviceStatus = deviceStatus;
+        return this;
+    }
+    public String getDeviceStatus() {
+        return this.deviceStatus;
     }
 
 }

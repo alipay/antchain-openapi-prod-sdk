@@ -50,16 +50,10 @@ public class PurchaseOrderInfoDetail extends TeaModel {
     @Validation(required = true)
     public String leaseId;
 
-    // 商品id
-    // 
-    @NameInMap("goods_sku_id")
+    // 商品信息列表
+    @NameInMap("goods_id_and_count")
     @Validation(required = true)
-    public Long goodsSkuId;
-
-    // 商品采购数量 
-    @NameInMap("count")
-    @Validation(required = true)
-    public Long count;
+    public java.util.List<GoodsIdAndCount> goodsIdAndCount;
 
     public static PurchaseOrderInfoDetail build(java.util.Map<String, ?> map) throws Exception {
         PurchaseOrderInfoDetail self = new PurchaseOrderInfoDetail();
@@ -130,20 +124,12 @@ public class PurchaseOrderInfoDetail extends TeaModel {
         return this.leaseId;
     }
 
-    public PurchaseOrderInfoDetail setGoodsSkuId(Long goodsSkuId) {
-        this.goodsSkuId = goodsSkuId;
+    public PurchaseOrderInfoDetail setGoodsIdAndCount(java.util.List<GoodsIdAndCount> goodsIdAndCount) {
+        this.goodsIdAndCount = goodsIdAndCount;
         return this;
     }
-    public Long getGoodsSkuId() {
-        return this.goodsSkuId;
-    }
-
-    public PurchaseOrderInfoDetail setCount(Long count) {
-        this.count = count;
-        return this;
-    }
-    public Long getCount() {
-        return this.count;
+    public java.util.List<GoodsIdAndCount> getGoodsIdAndCount() {
+        return this.goodsIdAndCount;
     }
 
 }

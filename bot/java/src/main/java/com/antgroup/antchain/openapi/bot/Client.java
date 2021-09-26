@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.13")
+                    new TeaPair("sdk_version", "1.6.20")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -271,6 +271,44 @@ public class Client {
     public ImportPurchaseorderThirdpartyResponse importPurchaseorderThirdpartyEx(ImportPurchaseorderThirdpartyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.purchaseorder.thirdparty.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportPurchaseorderThirdpartyResponse());
+    }
+
+    /**
+     * Description: 采购平台新增供应商角色
+     * Summary: 采购平台新增供应商角色
+     */
+    public AddUserRoleResponse addUserRole(AddUserRoleRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addUserRoleEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 采购平台新增供应商角色
+     * Summary: 采购平台新增供应商角色
+     */
+    public AddUserRoleResponse addUserRoleEx(AddUserRoleRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.user.role.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddUserRoleResponse());
+    }
+
+    /**
+     * Description: 采购平台新增SKU
+     * Summary: 采购平台新增SKU
+     */
+    public AddGoodsSkuResponse addGoodsSku(AddGoodsSkuRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addGoodsSkuEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 采购平台新增SKU
+     * Summary: 采购平台新增SKU
+     */
+    public AddGoodsSkuResponse addGoodsSkuEx(AddGoodsSkuRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.goods.sku.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddGoodsSkuResponse());
     }
 
     /**

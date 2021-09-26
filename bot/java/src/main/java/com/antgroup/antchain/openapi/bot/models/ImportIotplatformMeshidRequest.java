@@ -35,6 +35,10 @@ public class ImportIotplatformMeshidRequest extends TeaModel {
     @NameInMap("type")
     public String type;
 
+    // 代理商名称，用于二级代理模式
+    @NameInMap("agent_name")
+    public String agentName;
+
     public static ImportIotplatformMeshidRequest build(java.util.Map<String, ?> map) throws Exception {
         ImportIotplatformMeshidRequest self = new ImportIotplatformMeshidRequest();
         return TeaModel.build(map, self);
@@ -94,6 +98,14 @@ public class ImportIotplatformMeshidRequest extends TeaModel {
     }
     public String getType() {
         return this.type;
+    }
+
+    public ImportIotplatformMeshidRequest setAgentName(String agentName) {
+        this.agentName = agentName;
+        return this;
+    }
+    public String getAgentName() {
+        return this.agentName;
     }
 
 }
