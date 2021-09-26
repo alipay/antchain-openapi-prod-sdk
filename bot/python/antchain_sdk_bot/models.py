@@ -557,6 +557,38 @@ class SdkModel(TeaModel):
         return self
 
 
+class GoodsIdAndCount(TeaModel):
+    def __init__(
+        self,
+        goods_sku_id: int = None,
+        count: int = None,
+    ):
+        # 商品id
+        self.goods_sku_id = goods_sku_id
+        # 商品采购数量
+        self.count = count
+
+    def validate(self):
+        self.validate_required(self.goods_sku_id, 'goods_sku_id')
+        self.validate_required(self.count, 'count')
+
+    def to_map(self):
+        result = dict()
+        if self.goods_sku_id is not None:
+            result['goods_sku_id'] = self.goods_sku_id
+        if self.count is not None:
+            result['count'] = self.count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('goods_sku_id') is not None:
+            self.goods_sku_id = m.get('goods_sku_id')
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        return self
+
+
 class CollectContent(TeaModel):
     def __init__(
         self,
@@ -613,6 +645,7 @@ class DistributeDevice(TeaModel):
         scene: str = None,
         device_type: str = None,
         chain_peripheral_id: str = None,
+        device_status: str = None,
     ):
         # 链上设备Id  （deviceType=DEVICE 时有值)
         self.chain_device_id = chain_device_id
@@ -626,6 +659,8 @@ class DistributeDevice(TeaModel):
         self.device_type = device_type
         # 链上外围设备Id（deviceType=PERIPHERAL 时有值)
         self.chain_peripheral_id = chain_peripheral_id
+        # 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
+        self.device_status = device_status
 
     def validate(self):
         self.validate_required(self.device_id, 'device_id')
@@ -647,6 +682,8 @@ class DistributeDevice(TeaModel):
             result['device_type'] = self.device_type
         if self.chain_peripheral_id is not None:
             result['chain_peripheral_id'] = self.chain_peripheral_id
+        if self.device_status is not None:
+            result['device_status'] = self.device_status
         return result
 
     def from_map(self, m: dict = None):
@@ -663,6 +700,8 @@ class DistributeDevice(TeaModel):
             self.device_type = m.get('device_type')
         if m.get('chain_peripheral_id') is not None:
             self.chain_peripheral_id = m.get('chain_peripheral_id')
+        if m.get('device_status') is not None:
+            self.device_status = m.get('device_status')
         return self
 
 
@@ -1258,6 +1297,88 @@ class InsertPurchaseOrderFailInfo(TeaModel):
             self.order_id = m.get('order_id')
         if m.get('fail_reason') is not None:
             self.fail_reason = m.get('fail_reason')
+        return self
+
+
+class ComputerInfo(TeaModel):
+    def __init__(
+        self,
+        colour: str = None,
+        colour_number: str = None,
+        computer_model: str = None,
+        config_param: str = None,
+        video_card: str = None,
+        screen_size: str = None,
+        cpu: str = None,
+        memory: str = None,
+        disk_size: str = None,
+    ):
+        # 颜色
+        self.colour = colour
+        # 色值
+        self.colour_number = colour_number
+        # 电脑型号
+        self.computer_model = computer_model
+        # 配置参数
+        self.config_param = config_param
+        # 显卡
+        self.video_card = video_card
+        # 屏幕
+        self.screen_size = screen_size
+        # 电脑CPU
+        self.cpu = cpu
+        # 电脑内存
+        self.memory = memory
+        # 电脑硬盘
+        self.disk_size = disk_size
+
+    def validate(self):
+        self.validate_required(self.cpu, 'cpu')
+        self.validate_required(self.memory, 'memory')
+        self.validate_required(self.disk_size, 'disk_size')
+
+    def to_map(self):
+        result = dict()
+        if self.colour is not None:
+            result['colour'] = self.colour
+        if self.colour_number is not None:
+            result['colour_number'] = self.colour_number
+        if self.computer_model is not None:
+            result['computer_model'] = self.computer_model
+        if self.config_param is not None:
+            result['config_param'] = self.config_param
+        if self.video_card is not None:
+            result['video_card'] = self.video_card
+        if self.screen_size is not None:
+            result['screen_size'] = self.screen_size
+        if self.cpu is not None:
+            result['cpu'] = self.cpu
+        if self.memory is not None:
+            result['memory'] = self.memory
+        if self.disk_size is not None:
+            result['disk_size'] = self.disk_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('colour') is not None:
+            self.colour = m.get('colour')
+        if m.get('colour_number') is not None:
+            self.colour_number = m.get('colour_number')
+        if m.get('computer_model') is not None:
+            self.computer_model = m.get('computer_model')
+        if m.get('config_param') is not None:
+            self.config_param = m.get('config_param')
+        if m.get('video_card') is not None:
+            self.video_card = m.get('video_card')
+        if m.get('screen_size') is not None:
+            self.screen_size = m.get('screen_size')
+        if m.get('cpu') is not None:
+            self.cpu = m.get('cpu')
+        if m.get('memory') is not None:
+            self.memory = m.get('memory')
+        if m.get('disk_size') is not None:
+            self.disk_size = m.get('disk_size')
         return self
 
 
@@ -2209,38 +2330,6 @@ class WarehouseReqModel(TeaModel):
         return self
 
 
-class GoodsIdAndCount(TeaModel):
-    def __init__(
-        self,
-        goods_sku_id: int = None,
-        count: int = None,
-    ):
-        # 商品id
-        self.goods_sku_id = goods_sku_id
-        # 商品采购数量
-        self.count = count
-
-    def validate(self):
-        self.validate_required(self.goods_sku_id, 'goods_sku_id')
-        self.validate_required(self.count, 'count')
-
-    def to_map(self):
-        result = dict()
-        if self.goods_sku_id is not None:
-            result['goods_sku_id'] = self.goods_sku_id
-        if self.count is not None:
-            result['count'] = self.count
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('goods_sku_id') is not None:
-            self.goods_sku_id = m.get('goods_sku_id')
-        if m.get('count') is not None:
-            self.count = m.get('count')
-        return self
-
-
 class PurchaseOrderInfoDetail(TeaModel):
     def __init__(
         self,
@@ -2252,8 +2341,7 @@ class PurchaseOrderInfoDetail(TeaModel):
         supplier_name: str = None,
         supplier_id: str = None,
         lease_id: str = None,
-        goods_sku_id: int = None,
-        count: int = None,
+        goods_id_and_count: List[GoodsIdAndCount] = None,
     ):
         # 租赁订单号
         # 
@@ -2277,11 +2365,8 @@ class PurchaseOrderInfoDetail(TeaModel):
         # 采购商id
         # 
         self.lease_id = lease_id
-        # 商品id
-        # 
-        self.goods_sku_id = goods_sku_id
-        # 商品采购数量
-        self.count = count
+        # 商品信息列表
+        self.goods_id_and_count = goods_id_and_count
 
     def validate(self):
         self.validate_required(self.order_number, 'order_number')
@@ -2292,8 +2377,11 @@ class PurchaseOrderInfoDetail(TeaModel):
         self.validate_required(self.supplier_name, 'supplier_name')
         self.validate_required(self.supplier_id, 'supplier_id')
         self.validate_required(self.lease_id, 'lease_id')
-        self.validate_required(self.goods_sku_id, 'goods_sku_id')
-        self.validate_required(self.count, 'count')
+        self.validate_required(self.goods_id_and_count, 'goods_id_and_count')
+        if self.goods_id_and_count:
+            for k in self.goods_id_and_count:
+                if k:
+                    k.validate()
 
     def to_map(self):
         result = dict()
@@ -2313,10 +2401,10 @@ class PurchaseOrderInfoDetail(TeaModel):
             result['supplier_id'] = self.supplier_id
         if self.lease_id is not None:
             result['lease_id'] = self.lease_id
-        if self.goods_sku_id is not None:
-            result['goods_sku_id'] = self.goods_sku_id
-        if self.count is not None:
-            result['count'] = self.count
+        result['goods_id_and_count'] = []
+        if self.goods_id_and_count is not None:
+            for k in self.goods_id_and_count:
+                result['goods_id_and_count'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -2337,10 +2425,11 @@ class PurchaseOrderInfoDetail(TeaModel):
             self.supplier_id = m.get('supplier_id')
         if m.get('lease_id') is not None:
             self.lease_id = m.get('lease_id')
-        if m.get('goods_sku_id') is not None:
-            self.goods_sku_id = m.get('goods_sku_id')
-        if m.get('count') is not None:
-            self.count = m.get('count')
+        self.goods_id_and_count = []
+        if m.get('goods_id_and_count') is not None:
+            for k in m.get('goods_id_and_count'):
+                temp_model = GoodsIdAndCount()
+                self.goods_id_and_count.append(temp_model.from_map(k))
         return self
 
 
@@ -2492,6 +2581,46 @@ class SendCollectorResult(TeaModel):
         m = m or dict()
         if m.get('tx_hash') is not None:
             self.tx_hash = m.get('tx_hash')
+        return self
+
+
+class PhoneInfo(TeaModel):
+    def __init__(
+        self,
+        colour: str = None,
+        colour_number: str = None,
+        memory: str = None,
+    ):
+        # 颜色
+        self.colour = colour
+        # 色值
+        self.colour_number = colour_number
+        # 内存大小
+        self.memory = memory
+
+    def validate(self):
+        self.validate_required(self.colour, 'colour')
+        self.validate_required(self.colour_number, 'colour_number')
+        self.validate_required(self.memory, 'memory')
+
+    def to_map(self):
+        result = dict()
+        if self.colour is not None:
+            result['colour'] = self.colour
+        if self.colour_number is not None:
+            result['colour_number'] = self.colour_number
+        if self.memory is not None:
+            result['memory'] = self.memory
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('colour') is not None:
+            self.colour = m.get('colour')
+        if m.get('colour_number') is not None:
+            self.colour_number = m.get('colour_number')
+        if m.get('memory') is not None:
+            self.memory = m.get('memory')
         return self
 
 
@@ -2706,6 +2835,7 @@ class Device(TeaModel):
         initial_price: int = None,
         release_time: str = None,
         factory_time: str = None,
+        device_status: str = None,
     ):
         # 设备实体唯一Id
         self.device_id = device_id
@@ -2763,6 +2893,8 @@ class Device(TeaModel):
         self.release_time = release_time
         # 出厂时间
         self.factory_time = factory_time
+        # 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
+        self.device_status = device_status
 
     def validate(self):
         self.validate_required(self.device_id, 'device_id')
@@ -2813,6 +2945,8 @@ class Device(TeaModel):
             result['release_time'] = self.release_time
         if self.factory_time is not None:
             result['factory_time'] = self.factory_time
+        if self.device_status is not None:
+            result['device_status'] = self.device_status
         return result
 
     def from_map(self, m: dict = None):
@@ -2847,6 +2981,8 @@ class Device(TeaModel):
             self.release_time = m.get('release_time')
         if m.get('factory_time') is not None:
             self.factory_time = m.get('factory_time')
+        if m.get('device_status') is not None:
+            self.device_status = m.get('device_status')
         return self
 
 
@@ -3454,6 +3590,7 @@ class ImportIotplatformMeshidRequest(TeaModel):
         mesh_id: str = None,
         device_sn: str = None,
         type: str = None,
+        agent_name: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -3468,6 +3605,8 @@ class ImportIotplatformMeshidRequest(TeaModel):
         self.device_sn = device_sn
         # 设备类型字段
         self.type = type
+        # 代理商名称，用于二级代理模式
+        self.agent_name = agent_name
 
     def validate(self):
         self.validate_required(self.tenant_id, 'tenant_id')
@@ -3491,6 +3630,8 @@ class ImportIotplatformMeshidRequest(TeaModel):
             result['device_sn'] = self.device_sn
         if self.type is not None:
             result['type'] = self.type
+        if self.agent_name is not None:
+            result['agent_name'] = self.agent_name
         return result
 
     def from_map(self, m: dict = None):
@@ -3509,6 +3650,8 @@ class ImportIotplatformMeshidRequest(TeaModel):
             self.device_sn = m.get('device_sn')
         if m.get('type') is not None:
             self.type = m.get('type')
+        if m.get('agent_name') is not None:
+            self.agent_name = m.get('agent_name')
         return self
 
 
@@ -3757,6 +3900,258 @@ class ImportPurchaseorderThirdpartyResponse(TeaModel):
             self.purchase_order_info_detail = temp_model.from_map(m['purchase_order_info_detail'])
         if m.get('idempot_id') is not None:
             self.idempot_id = m.get('idempot_id')
+        return self
+
+
+class AddUserRoleRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        tenant_name: str = None,
+        role: str = None,
+        support_abm: bool = None,
+        includ_tax: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 账号标识，蚂蚁金融科技租户ID
+        self.tenant_id = tenant_id
+        # 租户名称
+        self.tenant_name = tenant_name
+        # 权限标识
+        # LEASER(0),
+        # BUYERS(1),
+        # OWNER(2),
+        # ADMIN(9);
+        self.role = role
+        # 是否支持abm远程
+        self.support_abm = support_abm
+        # 是否含税
+        self.includ_tax = includ_tax
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.tenant_name, 'tenant_name')
+        self.validate_required(self.role, 'role')
+        self.validate_required(self.support_abm, 'support_abm')
+        self.validate_required(self.includ_tax, 'includ_tax')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        if self.role is not None:
+            result['role'] = self.role
+        if self.support_abm is not None:
+            result['support_abm'] = self.support_abm
+        if self.includ_tax is not None:
+            result['includ_tax'] = self.includ_tax
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        if m.get('role') is not None:
+            self.role = m.get('role')
+        if m.get('support_abm') is not None:
+            self.support_abm = m.get('support_abm')
+        if m.get('includ_tax') is not None:
+            self.includ_tax = m.get('includ_tax')
+        return self
+
+
+class AddUserRoleResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        user_id: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 新增的用户id
+        self.user_id = user_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        return self
+
+
+class AddGoodsSkuRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        type: str = None,
+        second_type: str = None,
+        brand: str = None,
+        model: str = None,
+        market_price: int = None,
+        phone_info: PhoneInfo = None,
+        computer_info: ComputerInfo = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # GoodsTypeEnum,商品一级类目
+        self.type = type
+        # 商品二级类目
+        self.second_type = second_type
+        # 商品品牌
+        self.brand = brand
+        # 商品名称，型号
+        self.model = model
+        # 市场价
+        self.market_price = market_price
+        # 手机型号信息
+        self.phone_info = phone_info
+        # 电脑型号信息
+        self.computer_info = computer_info
+
+    def validate(self):
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.second_type, 'second_type')
+        self.validate_required(self.brand, 'brand')
+        self.validate_required(self.model, 'model')
+        self.validate_required(self.market_price, 'market_price')
+        if self.phone_info:
+            self.phone_info.validate()
+        if self.computer_info:
+            self.computer_info.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.type is not None:
+            result['type'] = self.type
+        if self.second_type is not None:
+            result['second_type'] = self.second_type
+        if self.brand is not None:
+            result['brand'] = self.brand
+        if self.model is not None:
+            result['model'] = self.model
+        if self.market_price is not None:
+            result['market_price'] = self.market_price
+        if self.phone_info is not None:
+            result['phone_info'] = self.phone_info.to_map()
+        if self.computer_info is not None:
+            result['computer_info'] = self.computer_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('second_type') is not None:
+            self.second_type = m.get('second_type')
+        if m.get('brand') is not None:
+            self.brand = m.get('brand')
+        if m.get('model') is not None:
+            self.model = m.get('model')
+        if m.get('market_price') is not None:
+            self.market_price = m.get('market_price')
+        if m.get('phone_info') is not None:
+            temp_model = PhoneInfo()
+            self.phone_info = temp_model.from_map(m['phone_info'])
+        if m.get('computer_info') is not None:
+            temp_model = ComputerInfo()
+            self.computer_info = temp_model.from_map(m['computer_info'])
+        return self
+
+
+class AddGoodsSkuResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        sku_id: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # SKU id
+        self.sku_id = sku_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.sku_id is not None:
+            result['sku_id'] = self.sku_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('sku_id') is not None:
+            self.sku_id = m.get('sku_id')
         return self
 
 

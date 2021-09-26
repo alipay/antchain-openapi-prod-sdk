@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.13'
+                    'sdk_version': '1.6.20'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.13'
+                    'sdk_version': '1.6.20'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -593,6 +593,114 @@ class Client:
         UtilClient.validate_model(request)
         return bot_models.ImportPurchaseorderThirdpartyResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.purchaseorder.thirdparty.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_user_role(
+        self,
+        request: bot_models.AddUserRoleRequest,
+    ) -> bot_models.AddUserRoleResponse:
+        """
+        Description: 采购平台新增供应商角色
+        Summary: 采购平台新增供应商角色
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_user_role_ex(request, headers, runtime)
+
+    async def add_user_role_async(
+        self,
+        request: bot_models.AddUserRoleRequest,
+    ) -> bot_models.AddUserRoleResponse:
+        """
+        Description: 采购平台新增供应商角色
+        Summary: 采购平台新增供应商角色
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_user_role_ex_async(request, headers, runtime)
+
+    def add_user_role_ex(
+        self,
+        request: bot_models.AddUserRoleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddUserRoleResponse:
+        """
+        Description: 采购平台新增供应商角色
+        Summary: 采购平台新增供应商角色
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddUserRoleResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.user.role.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_user_role_ex_async(
+        self,
+        request: bot_models.AddUserRoleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddUserRoleResponse:
+        """
+        Description: 采购平台新增供应商角色
+        Summary: 采购平台新增供应商角色
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddUserRoleResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.user.role.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_goods_sku(
+        self,
+        request: bot_models.AddGoodsSkuRequest,
+    ) -> bot_models.AddGoodsSkuResponse:
+        """
+        Description: 采购平台新增SKU
+        Summary: 采购平台新增SKU
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_goods_sku_ex(request, headers, runtime)
+
+    async def add_goods_sku_async(
+        self,
+        request: bot_models.AddGoodsSkuRequest,
+    ) -> bot_models.AddGoodsSkuResponse:
+        """
+        Description: 采购平台新增SKU
+        Summary: 采购平台新增SKU
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_goods_sku_ex_async(request, headers, runtime)
+
+    def add_goods_sku_ex(
+        self,
+        request: bot_models.AddGoodsSkuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddGoodsSkuResponse:
+        """
+        Description: 采购平台新增SKU
+        Summary: 采购平台新增SKU
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddGoodsSkuResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.goods.sku.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_goods_sku_ex_async(
+        self,
+        request: bot_models.AddGoodsSkuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddGoodsSkuResponse:
+        """
+        Description: 采购平台新增SKU
+        Summary: 采购平台新增SKU
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddGoodsSkuResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.goods.sku.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_device_datamodel(
