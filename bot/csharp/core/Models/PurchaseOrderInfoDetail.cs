@@ -56,16 +56,10 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string LeaseId { get; set; }
 
-        // 商品id
-        // 
-        [NameInMap("goods_sku_id")]
+        // 商品信息列表
+        [NameInMap("goods_id_and_count")]
         [Validation(Required=true)]
-        public long? GoodsSkuId { get; set; }
-
-        // 商品采购数量 
-        [NameInMap("count")]
-        [Validation(Required=true)]
-        public long? Count { get; set; }
+        public List<GoodsIdAndCount> GoodsIdAndCount { get; set; }
 
     }
 

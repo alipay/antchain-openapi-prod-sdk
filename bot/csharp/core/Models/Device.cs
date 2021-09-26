@@ -111,6 +111,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string FactoryTime { get; set; }
 
+        // 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
+        [NameInMap("device_status")]
+        [Validation(Required=false)]
+        public string DeviceStatus { get; set; }
+
     }
 
 }

@@ -43,6 +43,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string Type { get; set; }
 
+        // 代理商名称，用于二级代理模式
+        [NameInMap("agent_name")]
+        [Validation(Required=false)]
+        public string AgentName { get; set; }
+
     }
 
 }

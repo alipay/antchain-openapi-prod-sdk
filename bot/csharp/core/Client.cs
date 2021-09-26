@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.13"},
+                        {"sdk_version", "1.6.20"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.13"},
+                        {"sdk_version", "1.6.20"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -567,6 +567,90 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ImportPurchaseorderThirdpartyResponse>(await DoRequestAsync("1.0", "blockchain.bot.purchaseorder.thirdparty.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 采购平台新增供应商角色
+         * Summary: 采购平台新增供应商角色
+         */
+        public AddUserRoleResponse AddUserRole(AddUserRoleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddUserRoleEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 采购平台新增供应商角色
+         * Summary: 采购平台新增供应商角色
+         */
+        public async Task<AddUserRoleResponse> AddUserRoleAsync(AddUserRoleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddUserRoleExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 采购平台新增供应商角色
+         * Summary: 采购平台新增供应商角色
+         */
+        public AddUserRoleResponse AddUserRoleEx(AddUserRoleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddUserRoleResponse>(DoRequest("1.0", "blockchain.bot.user.role.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 采购平台新增供应商角色
+         * Summary: 采购平台新增供应商角色
+         */
+        public async Task<AddUserRoleResponse> AddUserRoleExAsync(AddUserRoleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddUserRoleResponse>(await DoRequestAsync("1.0", "blockchain.bot.user.role.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 采购平台新增SKU
+         * Summary: 采购平台新增SKU
+         */
+        public AddGoodsSkuResponse AddGoodsSku(AddGoodsSkuRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddGoodsSkuEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 采购平台新增SKU
+         * Summary: 采购平台新增SKU
+         */
+        public async Task<AddGoodsSkuResponse> AddGoodsSkuAsync(AddGoodsSkuRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddGoodsSkuExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 采购平台新增SKU
+         * Summary: 采购平台新增SKU
+         */
+        public AddGoodsSkuResponse AddGoodsSkuEx(AddGoodsSkuRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddGoodsSkuResponse>(DoRequest("1.0", "blockchain.bot.goods.sku.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 采购平台新增SKU
+         * Summary: 采购平台新增SKU
+         */
+        public async Task<AddGoodsSkuResponse> AddGoodsSkuExAsync(AddGoodsSkuRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddGoodsSkuResponse>(await DoRequestAsync("1.0", "blockchain.bot.goods.sku.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

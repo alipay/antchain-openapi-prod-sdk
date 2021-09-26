@@ -40,6 +40,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ChainPeripheralId { get; set; }
 
+        // 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
+        [NameInMap("device_status")]
+        [Validation(Required=false)]
+        public string DeviceStatus { get; set; }
+
     }
 
 }
