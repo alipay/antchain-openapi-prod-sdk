@@ -48,6 +48,12 @@ class ImportIotplatformMeshidRequest extends Model
      * @var string
      */
     public $type;
+
+    // 代理商名称，用于二级代理模式
+    /**
+     * @var string
+     */
+    public $agentName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class ImportIotplatformMeshidRequest extends Model
         'meshId'            => 'mesh_id',
         'deviceSn'          => 'device_sn',
         'type'              => 'type',
+        'agentName'         => 'agent_name',
     ];
 
     public function validate()
@@ -90,6 +97,9 @@ class ImportIotplatformMeshidRequest extends Model
         if (null !== $this->type) {
             $res['type'] = $this->type;
         }
+        if (null !== $this->agentName) {
+            $res['agent_name'] = $this->agentName;
+        }
 
         return $res;
     }
@@ -122,6 +132,9 @@ class ImportIotplatformMeshidRequest extends Model
         }
         if (isset($map['type'])) {
             $model->type = $map['type'];
+        }
+        if (isset($map['agent_name'])) {
+            $model->agentName = $map['agent_name'];
         }
 
         return $model;

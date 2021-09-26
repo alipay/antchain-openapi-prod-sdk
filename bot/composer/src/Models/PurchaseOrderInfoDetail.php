@@ -78,22 +78,13 @@ class PurchaseOrderInfoDetail extends Model
      */
     public $leaseId;
 
-    // 商品id
-    //
+    // 商品信息列表
     /**
-     * @example 1231312431
+     * @example
      *
-     * @var int
+     * @var GoodsIdAndCount[]
      */
-    public $goodsSkuId;
-
-    // 商品采购数量
-    /**
-     * @example 123
-     *
-     * @var int
-     */
-    public $count;
+    public $goodsIdAndCount;
     protected $_name = [
         'orderNumber'       => 'order_number',
         'consigneeName'     => 'consignee_name',
@@ -103,8 +94,7 @@ class PurchaseOrderInfoDetail extends Model
         'supplierName'      => 'supplier_name',
         'supplierId'        => 'supplier_id',
         'leaseId'           => 'lease_id',
-        'goodsSkuId'        => 'goods_sku_id',
-        'count'             => 'count',
+        'goodsIdAndCount'   => 'goods_id_and_count',
     ];
 
     public function validate()
@@ -117,8 +107,7 @@ class PurchaseOrderInfoDetail extends Model
         Model::validateRequired('supplierName', $this->supplierName, true);
         Model::validateRequired('supplierId', $this->supplierId, true);
         Model::validateRequired('leaseId', $this->leaseId, true);
-        Model::validateRequired('goodsSkuId', $this->goodsSkuId, true);
-        Model::validateRequired('count', $this->count, true);
+        Model::validateRequired('goodsIdAndCount', $this->goodsIdAndCount, true);
     }
 
     public function toMap()
@@ -148,11 +137,14 @@ class PurchaseOrderInfoDetail extends Model
         if (null !== $this->leaseId) {
             $res['lease_id'] = $this->leaseId;
         }
-        if (null !== $this->goodsSkuId) {
-            $res['goods_sku_id'] = $this->goodsSkuId;
-        }
-        if (null !== $this->count) {
-            $res['count'] = $this->count;
+        if (null !== $this->goodsIdAndCount) {
+            $res['goods_id_and_count'] = [];
+            if (null !== $this->goodsIdAndCount && \is_array($this->goodsIdAndCount)) {
+                $n = 0;
+                foreach ($this->goodsIdAndCount as $item) {
+                    $res['goods_id_and_count'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -190,11 +182,14 @@ class PurchaseOrderInfoDetail extends Model
         if (isset($map['lease_id'])) {
             $model->leaseId = $map['lease_id'];
         }
-        if (isset($map['goods_sku_id'])) {
-            $model->goodsSkuId = $map['goods_sku_id'];
-        }
-        if (isset($map['count'])) {
-            $model->count = $map['count'];
+        if (isset($map['goods_id_and_count'])) {
+            if (!empty($map['goods_id_and_count'])) {
+                $model->goodsIdAndCount = [];
+                $n                      = 0;
+                foreach ($map['goods_id_and_count'] as $item) {
+                    $model->goodsIdAndCount[$n++] = null !== $item ? GoodsIdAndCount::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

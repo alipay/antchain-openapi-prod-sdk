@@ -55,6 +55,14 @@ class DistributeDevice extends Model
      * @var string
      */
     public $chainPeripheralId;
+
+    // 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
+    /**
+     * @example NORMAL
+     *
+     * @var string
+     */
+    public $deviceStatus;
     protected $_name = [
         'chainDeviceId'      => 'chain_device_id',
         'deviceId'           => 'device_id',
@@ -62,6 +70,7 @@ class DistributeDevice extends Model
         'scene'              => 'scene',
         'deviceType'         => 'device_type',
         'chainPeripheralId'  => 'chain_peripheral_id',
+        'deviceStatus'       => 'device_status',
     ];
 
     public function validate()
@@ -93,6 +102,9 @@ class DistributeDevice extends Model
         if (null !== $this->chainPeripheralId) {
             $res['chain_peripheral_id'] = $this->chainPeripheralId;
         }
+        if (null !== $this->deviceStatus) {
+            $res['device_status'] = $this->deviceStatus;
+        }
 
         return $res;
     }
@@ -122,6 +134,9 @@ class DistributeDevice extends Model
         }
         if (isset($map['chain_peripheral_id'])) {
             $model->chainPeripheralId = $map['chain_peripheral_id'];
+        }
+        if (isset($map['device_status'])) {
+            $model->deviceStatus = $map['device_status'];
         }
 
         return $model;

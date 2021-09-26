@@ -153,6 +153,14 @@ class Device extends Model
      * @var string
      */
     public $factoryTime;
+
+    // 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
+    /**
+     * @example NORMAL
+     *
+     * @var string
+     */
+    public $deviceStatus;
     protected $_name = [
         'deviceId'          => 'device_id',
         'deviceDataModelId' => 'device_data_model_id',
@@ -169,6 +177,7 @@ class Device extends Model
         'initialPrice'      => 'initial_price',
         'releaseTime'       => 'release_time',
         'factoryTime'       => 'factory_time',
+        'deviceStatus'      => 'device_status',
     ];
 
     public function validate()
@@ -236,6 +245,9 @@ class Device extends Model
         if (null !== $this->factoryTime) {
             $res['factory_time'] = $this->factoryTime;
         }
+        if (null !== $this->deviceStatus) {
+            $res['device_status'] = $this->deviceStatus;
+        }
 
         return $res;
     }
@@ -292,6 +304,9 @@ class Device extends Model
         }
         if (isset($map['factory_time'])) {
             $model->factoryTime = $map['factory_time'];
+        }
+        if (isset($map['device_status'])) {
+            $model->deviceStatus = $map['device_status'];
         }
 
         return $model;

@@ -15,6 +15,8 @@ use AntChain\BOT\Models\AddAbnormalRequest;
 use AntChain\BOT\Models\AddAbnormalResponse;
 use AntChain\BOT\Models\AddCertificateRequest;
 use AntChain\BOT\Models\AddCertificateResponse;
+use AntChain\BOT\Models\AddGoodsSkuRequest;
+use AntChain\BOT\Models\AddGoodsSkuResponse;
 use AntChain\BOT\Models\AddLabelAssetRequest;
 use AntChain\BOT\Models\AddLabelAssetResponse;
 use AntChain\BOT\Models\AddProductkeyRequest;
@@ -25,6 +27,8 @@ use AntChain\BOT\Models\AddSdkRequest;
 use AntChain\BOT\Models\AddSdkResponse;
 use AntChain\BOT\Models\AddTenantRequest;
 use AntChain\BOT\Models\AddTenantResponse;
+use AntChain\BOT\Models\AddUserRoleRequest;
+use AntChain\BOT\Models\AddUserRoleResponse;
 use AntChain\BOT\Models\ApplyMqtokenRequest;
 use AntChain\BOT\Models\ApplyMqtokenResponse;
 use AntChain\BOT\Models\CreateAcsDeviceRequest;
@@ -324,7 +328,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.13',
+                    'sdk_version'      => '1.6.20',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -566,6 +570,72 @@ class Client
         Utils::validateModel($request);
 
         return ImportPurchaseorderThirdpartyResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.purchaseorder.thirdparty.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 采购平台新增供应商角色
+     * Summary: 采购平台新增供应商角色.
+     *
+     * @param AddUserRoleRequest $request
+     *
+     * @return AddUserRoleResponse
+     */
+    public function addUserRole($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addUserRoleEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 采购平台新增供应商角色
+     * Summary: 采购平台新增供应商角色.
+     *
+     * @param AddUserRoleRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return AddUserRoleResponse
+     */
+    public function addUserRoleEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddUserRoleResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.user.role.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 采购平台新增SKU
+     * Summary: 采购平台新增SKU.
+     *
+     * @param AddGoodsSkuRequest $request
+     *
+     * @return AddGoodsSkuResponse
+     */
+    public function addGoodsSku($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addGoodsSkuEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 采购平台新增SKU
+     * Summary: 采购平台新增SKU.
+     *
+     * @param AddGoodsSkuRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return AddGoodsSkuResponse
+     */
+    public function addGoodsSkuEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddGoodsSkuResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.goods.sku.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
