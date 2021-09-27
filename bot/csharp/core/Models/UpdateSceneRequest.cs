@@ -29,17 +29,6 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string SceneName { get; set; }
 
-        // 是否托管,取值范围为：NON_ESCROWED、ESCROWED
-        [NameInMap("escrowed")]
-        [Validation(Required=false)]
-        public string Escrowed { get; set; }
-
-        // 私钥密码
-        // 
-        [NameInMap("private_key_password")]
-        [Validation(Required=false)]
-        public string PrivateKeyPassword { get; set; }
-
         // 租户
         // 
         [NameInMap("tenant_name")]
