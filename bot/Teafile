@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-bot:1.6.13",
-    "go": "github.com/antchain-openapi-sdk-go/bot/client:v1.6.13",
-    "csharp": "AntChain.SDK.BOT:1.6.13",
-    "ts": "@antchain/bot:1.6.13",
-    "php": "antchain/bot:1.6.13",
-    "python": "antchain_sdk_bot:1.6.13"
+    "java": "com.antgroup.antchain.openapi:openapi-bot:1.6.20",
+    "go": "github.com/antchain-openapi-sdk-go/bot/client:v1.6.20",
+    "csharp": "AntChain.SDK.BOT:1.6.20",
+    "ts": "@antchain/bot:1.6.20",
+    "php": "antchain/bot:1.6.20",
+    "python": "antchain_sdk_bot:1.6.20"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
