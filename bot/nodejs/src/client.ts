@@ -6890,11 +6890,6 @@ export class UpdateSceneRequest extends $tea.Model {
   // 场景名称
   // 
   sceneName?: string;
-  // 是否托管,取值范围为：NON_ESCROWED、ESCROWED
-  escrowed?: string;
-  // 私钥密码
-  // 
-  privateKeyPassword?: string;
   // 租户
   // 
   tenantName?: string;
@@ -6907,8 +6902,6 @@ export class UpdateSceneRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       id: 'id',
       sceneName: 'scene_name',
-      escrowed: 'escrowed',
-      privateKeyPassword: 'private_key_password',
       tenantName: 'tenant_name',
       sceneType: 'scene_type',
     };
@@ -6920,8 +6913,6 @@ export class UpdateSceneRequest extends $tea.Model {
       productInstanceId: 'string',
       id: 'number',
       sceneName: 'string',
-      escrowed: 'string',
-      privateKeyPassword: 'string',
       tenantName: 'string',
       sceneType: 'string',
     };
@@ -8526,7 +8517,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.20",
+          sdk_version: "1.6.21",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
