@@ -10361,8 +10361,6 @@ class UpdateSceneRequest(TeaModel):
         product_instance_id: str = None,
         id: int = None,
         scene_name: str = None,
-        escrowed: str = None,
-        private_key_password: str = None,
         tenant_name: str = None,
         scene_type: str = None,
     ):
@@ -10374,11 +10372,6 @@ class UpdateSceneRequest(TeaModel):
         # 场景名称
         # 
         self.scene_name = scene_name
-        # 是否托管,取值范围为：NON_ESCROWED、ESCROWED
-        self.escrowed = escrowed
-        # 私钥密码
-        # 
-        self.private_key_password = private_key_password
         # 租户
         # 
         self.tenant_name = tenant_name
@@ -10399,10 +10392,6 @@ class UpdateSceneRequest(TeaModel):
             result['id'] = self.id
         if self.scene_name is not None:
             result['scene_name'] = self.scene_name
-        if self.escrowed is not None:
-            result['escrowed'] = self.escrowed
-        if self.private_key_password is not None:
-            result['private_key_password'] = self.private_key_password
         if self.tenant_name is not None:
             result['tenant_name'] = self.tenant_name
         if self.scene_type is not None:
@@ -10419,10 +10408,6 @@ class UpdateSceneRequest(TeaModel):
             self.id = m.get('id')
         if m.get('scene_name') is not None:
             self.scene_name = m.get('scene_name')
-        if m.get('escrowed') is not None:
-            self.escrowed = m.get('escrowed')
-        if m.get('private_key_password') is not None:
-            self.private_key_password = m.get('private_key_password')
         if m.get('tenant_name') is not None:
             self.tenant_name = m.get('tenant_name')
         if m.get('scene_type') is not None:
