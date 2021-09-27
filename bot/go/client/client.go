@@ -8857,11 +8857,6 @@ type UpdateSceneRequest struct {
 	// 场景名称
 	//
 	SceneName *string `json:"scene_name,omitempty" xml:"scene_name,omitempty"`
-	// 是否托管,取值范围为：NON_ESCROWED、ESCROWED
-	Escrowed *string `json:"escrowed,omitempty" xml:"escrowed,omitempty"`
-	// 私钥密码
-	//
-	PrivateKeyPassword *string `json:"private_key_password,omitempty" xml:"private_key_password,omitempty"`
 	// 租户
 	//
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
@@ -8895,16 +8890,6 @@ func (s *UpdateSceneRequest) SetId(v int64) *UpdateSceneRequest {
 
 func (s *UpdateSceneRequest) SetSceneName(v string) *UpdateSceneRequest {
 	s.SceneName = &v
-	return s
-}
-
-func (s *UpdateSceneRequest) SetEscrowed(v string) *UpdateSceneRequest {
-	s.Escrowed = &v
-	return s
-}
-
-func (s *UpdateSceneRequest) SetPrivateKeyPassword(v string) *UpdateSceneRequest {
-	s.PrivateKeyPassword = &v
 	return s
 }
 
@@ -10937,7 +10922,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.20"),
+				"sdk_version":      tea.String("1.6.21"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
