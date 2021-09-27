@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.20',
+    sdk_version = '1.6.21',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -4131,11 +4131,6 @@ model UpdateSceneRequest = {
   // 场景名称
   // 
   sceneName?: string(name='scene_name'),
-  // 是否托管,取值范围为：NON_ESCROWED、ESCROWED
-  escrowed?: string(name='escrowed'),
-  // 私钥密码
-  // 
-  privateKeyPassword?: string(name='private_key_password'),
   // 租户
   // 
   tenantName?: string(name='tenant_name'),
