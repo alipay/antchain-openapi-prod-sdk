@@ -32,19 +32,6 @@ class UpdateSceneRequest extends Model
      */
     public $sceneName;
 
-    // 是否托管,取值范围为：NON_ESCROWED、ESCROWED
-    /**
-     * @var string
-     */
-    public $escrowed;
-
-    // 私钥密码
-    //
-    /**
-     * @var string
-     */
-    public $privateKeyPassword;
-
     // 租户
     //
     /**
@@ -59,14 +46,12 @@ class UpdateSceneRequest extends Model
      */
     public $sceneType;
     protected $_name = [
-        'authToken'          => 'auth_token',
-        'productInstanceId'  => 'product_instance_id',
-        'id'                 => 'id',
-        'sceneName'          => 'scene_name',
-        'escrowed'           => 'escrowed',
-        'privateKeyPassword' => 'private_key_password',
-        'tenantName'         => 'tenant_name',
-        'sceneType'          => 'scene_type',
+        'authToken'         => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'id'                => 'id',
+        'sceneName'         => 'scene_name',
+        'tenantName'        => 'tenant_name',
+        'sceneType'         => 'scene_type',
     ];
 
     public function validate()
@@ -88,12 +73,6 @@ class UpdateSceneRequest extends Model
         }
         if (null !== $this->sceneName) {
             $res['scene_name'] = $this->sceneName;
-        }
-        if (null !== $this->escrowed) {
-            $res['escrowed'] = $this->escrowed;
-        }
-        if (null !== $this->privateKeyPassword) {
-            $res['private_key_password'] = $this->privateKeyPassword;
         }
         if (null !== $this->tenantName) {
             $res['tenant_name'] = $this->tenantName;
@@ -124,12 +103,6 @@ class UpdateSceneRequest extends Model
         }
         if (isset($map['scene_name'])) {
             $model->sceneName = $map['scene_name'];
-        }
-        if (isset($map['escrowed'])) {
-            $model->escrowed = $map['escrowed'];
-        }
-        if (isset($map['private_key_password'])) {
-            $model->privateKeyPassword = $map['private_key_password'];
         }
         if (isset($map['tenant_name'])) {
             $model->tenantName = $map['tenant_name'];
