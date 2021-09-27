@@ -21,15 +21,6 @@ public class UpdateSceneRequest extends TeaModel {
     @NameInMap("scene_name")
     public String sceneName;
 
-    // 是否托管,取值范围为：NON_ESCROWED、ESCROWED
-    @NameInMap("escrowed")
-    public String escrowed;
-
-    // 私钥密码
-    // 
-    @NameInMap("private_key_password")
-    public String privateKeyPassword;
-
     // 租户
     // 
     @NameInMap("tenant_name")
@@ -75,22 +66,6 @@ public class UpdateSceneRequest extends TeaModel {
     }
     public String getSceneName() {
         return this.sceneName;
-    }
-
-    public UpdateSceneRequest setEscrowed(String escrowed) {
-        this.escrowed = escrowed;
-        return this;
-    }
-    public String getEscrowed() {
-        return this.escrowed;
-    }
-
-    public UpdateSceneRequest setPrivateKeyPassword(String privateKeyPassword) {
-        this.privateKeyPassword = privateKeyPassword;
-        return this;
-    }
-    public String getPrivateKeyPassword() {
-        return this.privateKeyPassword;
     }
 
     public UpdateSceneRequest setTenantName(String tenantName) {
