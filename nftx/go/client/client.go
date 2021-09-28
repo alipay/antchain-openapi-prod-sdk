@@ -384,6 +384,14 @@ type QueryNftCreateResponse struct {
 	// FINISH("FINISH", "资产初始化完毕"),
 	// ;
 	SkuStatus *string `json:"sku_status,omitempty" xml:"sku_status,omitempty"`
+	// NFT商品的名称
+	SkuName *string `json:"sku_name,omitempty" xml:"sku_name,omitempty"`
+	// 作者的名称
+	AuthorName *string `json:"author_name,omitempty" xml:"author_name,omitempty"`
+	// 发行方的名称
+	IssuerName *string `json:"issuer_name,omitempty" xml:"issuer_name,omitempty"`
+	// 缩略图展示路径
+	MiniImagePath *string `json:"mini_image_path,omitempty" xml:"mini_image_path,omitempty"`
 }
 
 func (s QueryNftCreateResponse) String() string {
@@ -416,6 +424,26 @@ func (s *QueryNftCreateResponse) SetSkuId(v int64) *QueryNftCreateResponse {
 
 func (s *QueryNftCreateResponse) SetSkuStatus(v string) *QueryNftCreateResponse {
 	s.SkuStatus = &v
+	return s
+}
+
+func (s *QueryNftCreateResponse) SetSkuName(v string) *QueryNftCreateResponse {
+	s.SkuName = &v
+	return s
+}
+
+func (s *QueryNftCreateResponse) SetAuthorName(v string) *QueryNftCreateResponse {
+	s.AuthorName = &v
+	return s
+}
+
+func (s *QueryNftCreateResponse) SetIssuerName(v string) *QueryNftCreateResponse {
+	s.IssuerName = &v
+	return s
+}
+
+func (s *QueryNftCreateResponse) SetMiniImagePath(v string) *QueryNftCreateResponse {
+	s.MiniImagePath = &v
 	return s
 }
 
@@ -528,6 +556,468 @@ func (s *ExecNftTransferResponse) SetSkuId(v int64) *ExecNftTransferResponse {
 
 func (s *ExecNftTransferResponse) SetNftId(v string) *ExecNftTransferResponse {
 	s.NftId = &v
+	return s
+}
+
+type SendNftTransferRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// NFT租户下唯一的项目编号
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 支付宝2088开头账号
+	ToldNo *string `json:"told_no,omitempty" xml:"told_no,omitempty" require:"true"`
+	// 账号类型，当前只支持支付宝账号
+	ToldType *string `json:"told_type,omitempty" xml:"told_type,omitempty" require:"true"`
+	// 购买NFT的金额，单位分
+	PriceCent *int64 `json:"price_cent,omitempty" xml:"price_cent,omitempty" require:"true"`
+	// 交易NFT时租户的唯一订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 用户购买订单时间
+	OrderTime *string `json:"order_time,omitempty" xml:"order_time,omitempty" require:"true"`
+}
+
+func (s SendNftTransferRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendNftTransferRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SendNftTransferRequest) SetAuthToken(v string) *SendNftTransferRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SendNftTransferRequest) SetProductInstanceId(v string) *SendNftTransferRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SendNftTransferRequest) SetProjectId(v string) *SendNftTransferRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *SendNftTransferRequest) SetToldNo(v string) *SendNftTransferRequest {
+	s.ToldNo = &v
+	return s
+}
+
+func (s *SendNftTransferRequest) SetToldType(v string) *SendNftTransferRequest {
+	s.ToldType = &v
+	return s
+}
+
+func (s *SendNftTransferRequest) SetPriceCent(v int64) *SendNftTransferRequest {
+	s.PriceCent = &v
+	return s
+}
+
+func (s *SendNftTransferRequest) SetOrderNo(v string) *SendNftTransferRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *SendNftTransferRequest) SetOrderTime(v string) *SendNftTransferRequest {
+	s.OrderTime = &v
+	return s
+}
+
+type SendNftTransferResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// NFT商品编码
+	SkuId *string `json:"sku_id,omitempty" xml:"sku_id,omitempty"`
+	// 发放的NFT编码
+	NftId *string `json:"nft_id,omitempty" xml:"nft_id,omitempty"`
+}
+
+func (s SendNftTransferResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendNftTransferResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SendNftTransferResponse) SetReqMsgId(v string) *SendNftTransferResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SendNftTransferResponse) SetResultCode(v string) *SendNftTransferResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SendNftTransferResponse) SetResultMsg(v string) *SendNftTransferResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SendNftTransferResponse) SetSkuId(v string) *SendNftTransferResponse {
+	s.SkuId = &v
+	return s
+}
+
+func (s *SendNftTransferResponse) SetNftId(v string) *SendNftTransferResponse {
+	s.NftId = &v
+	return s
+}
+
+type QueryNftCustomerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户支付宝2088账号编码，16位
+	IdNo *string `json:"id_no,omitempty" xml:"id_no,omitempty" require:"true"`
+	// 用户的账户类型
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty" require:"true"`
+	// NFT资产唯一编码
+	NftId *string `json:"nft_id,omitempty" xml:"nft_id,omitempty" require:"true"`
+}
+
+func (s QueryNftCustomerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryNftCustomerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryNftCustomerRequest) SetAuthToken(v string) *QueryNftCustomerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryNftCustomerRequest) SetProductInstanceId(v string) *QueryNftCustomerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryNftCustomerRequest) SetIdNo(v string) *QueryNftCustomerRequest {
+	s.IdNo = &v
+	return s
+}
+
+func (s *QueryNftCustomerRequest) SetIdType(v string) *QueryNftCustomerRequest {
+	s.IdType = &v
+	return s
+}
+
+func (s *QueryNftCustomerRequest) SetNftId(v string) *QueryNftCustomerRequest {
+	s.NftId = &v
+	return s
+}
+
+type QueryNftCustomerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// NFT商品的商品编码
+	SkuId *int64 `json:"sku_id,omitempty" xml:"sku_id,omitempty"`
+	// NFT资产的唯一编码
+	NftId *string `json:"nft_id,omitempty" xml:"nft_id,omitempty"`
+	// NFT商品的名称
+	SkuName *string `json:"sku_name,omitempty" xml:"sku_name,omitempty"`
+	// NFT的创作者名称
+	AuthorName *string `json:"author_name,omitempty" xml:"author_name,omitempty"`
+	// NFT的发行方名称
+	IssuerName *string `json:"issuer_name,omitempty" xml:"issuer_name,omitempty"`
+	// 缩略图url，带5分钟鉴权
+	MiniImagePath *string `json:"mini_image_path,omitempty" xml:"mini_image_path,omitempty"`
+}
+
+func (s QueryNftCustomerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryNftCustomerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryNftCustomerResponse) SetReqMsgId(v string) *QueryNftCustomerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryNftCustomerResponse) SetResultCode(v string) *QueryNftCustomerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryNftCustomerResponse) SetResultMsg(v string) *QueryNftCustomerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryNftCustomerResponse) SetSkuId(v int64) *QueryNftCustomerResponse {
+	s.SkuId = &v
+	return s
+}
+
+func (s *QueryNftCustomerResponse) SetNftId(v string) *QueryNftCustomerResponse {
+	s.NftId = &v
+	return s
+}
+
+func (s *QueryNftCustomerResponse) SetSkuName(v string) *QueryNftCustomerResponse {
+	s.SkuName = &v
+	return s
+}
+
+func (s *QueryNftCustomerResponse) SetAuthorName(v string) *QueryNftCustomerResponse {
+	s.AuthorName = &v
+	return s
+}
+
+func (s *QueryNftCustomerResponse) SetIssuerName(v string) *QueryNftCustomerResponse {
+	s.IssuerName = &v
+	return s
+}
+
+func (s *QueryNftCustomerResponse) SetMiniImagePath(v string) *QueryNftCustomerResponse {
+	s.MiniImagePath = &v
+	return s
+}
+
+type QueryNftOrderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 支付宝的2088账号
+	IdNo *string `json:"id_no,omitempty" xml:"id_no,omitempty" require:"true"`
+	// 支付账号类型，该版本仅支持支付宝账号
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty" require:"true"`
+	// 租户的唯一映射订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+}
+
+func (s QueryNftOrderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryNftOrderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryNftOrderRequest) SetAuthToken(v string) *QueryNftOrderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryNftOrderRequest) SetProductInstanceId(v string) *QueryNftOrderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryNftOrderRequest) SetIdNo(v string) *QueryNftOrderRequest {
+	s.IdNo = &v
+	return s
+}
+
+func (s *QueryNftOrderRequest) SetIdType(v string) *QueryNftOrderRequest {
+	s.IdType = &v
+	return s
+}
+
+func (s *QueryNftOrderRequest) SetOrderNo(v string) *QueryNftOrderRequest {
+	s.OrderNo = &v
+	return s
+}
+
+type QueryNftOrderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// NFT商品编码
+	SkuId *int64 `json:"sku_id,omitempty" xml:"sku_id,omitempty"`
+	// NFT资产的唯一id
+	NftId *string `json:"nft_id,omitempty" xml:"nft_id,omitempty"`
+}
+
+func (s QueryNftOrderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryNftOrderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryNftOrderResponse) SetReqMsgId(v string) *QueryNftOrderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryNftOrderResponse) SetResultCode(v string) *QueryNftOrderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryNftOrderResponse) SetResultMsg(v string) *QueryNftOrderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryNftOrderResponse) SetSkuId(v int64) *QueryNftOrderResponse {
+	s.SkuId = &v
+	return s
+}
+
+func (s *QueryNftOrderResponse) SetNftId(v string) *QueryNftOrderResponse {
+	s.NftId = &v
+	return s
+}
+
+type CreateNftIssuerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户发行NFT的唯一编号
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// NFT商品的名称
+	SkuName *string `json:"sku_name,omitempty" xml:"sku_name,omitempty" require:"true"`
+	// NFT资产类型, 含IMAGE、VIDEO、FILE、AUDIO、THREE_DIMENSIONS等
+	SkuType *string `json:"sku_type,omitempty" xml:"sku_type,omitempty" require:"true"`
+	// 铸造数量，100起
+	Quantity *int64 `json:"quantity,omitempty" xml:"quantity,omitempty" require:"true"`
+	// NFT创作者
+	Author *string `json:"author,omitempty" xml:"author,omitempty" require:"true"`
+	// 发行方名称
+	IssuerName *string `json:"issuer_name,omitempty" xml:"issuer_name,omitempty" require:"true"`
+	// NFT商品的描述
+	SkuDescrption *string `json:"sku_descrption,omitempty" xml:"sku_descrption,omitempty" require:"true"`
+	// 跳转链接
+	JumpUrl *string `json:"jump_url,omitempty" xml:"jump_url,omitempty"`
+	// 业务类型：PAY_CODE，DEFAULT，EUROPEAN_CUP，TAOBAO_AUCTION，NFT_CUSTOMIZE（NFT定制）
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
+	// 素材文件结构
+	Files []*File `json:"files,omitempty" xml:"files,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s CreateNftIssuerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateNftIssuerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateNftIssuerRequest) SetAuthToken(v string) *CreateNftIssuerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateNftIssuerRequest) SetProductInstanceId(v string) *CreateNftIssuerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateNftIssuerRequest) SetProjectId(v string) *CreateNftIssuerRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *CreateNftIssuerRequest) SetSkuName(v string) *CreateNftIssuerRequest {
+	s.SkuName = &v
+	return s
+}
+
+func (s *CreateNftIssuerRequest) SetSkuType(v string) *CreateNftIssuerRequest {
+	s.SkuType = &v
+	return s
+}
+
+func (s *CreateNftIssuerRequest) SetQuantity(v int64) *CreateNftIssuerRequest {
+	s.Quantity = &v
+	return s
+}
+
+func (s *CreateNftIssuerRequest) SetAuthor(v string) *CreateNftIssuerRequest {
+	s.Author = &v
+	return s
+}
+
+func (s *CreateNftIssuerRequest) SetIssuerName(v string) *CreateNftIssuerRequest {
+	s.IssuerName = &v
+	return s
+}
+
+func (s *CreateNftIssuerRequest) SetSkuDescrption(v string) *CreateNftIssuerRequest {
+	s.SkuDescrption = &v
+	return s
+}
+
+func (s *CreateNftIssuerRequest) SetJumpUrl(v string) *CreateNftIssuerRequest {
+	s.JumpUrl = &v
+	return s
+}
+
+func (s *CreateNftIssuerRequest) SetBizType(v string) *CreateNftIssuerRequest {
+	s.BizType = &v
+	return s
+}
+
+func (s *CreateNftIssuerRequest) SetFiles(v []*File) *CreateNftIssuerRequest {
+	s.Files = v
+	return s
+}
+
+type CreateNftIssuerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 发行任务编号
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 业务方发行NFT对应的唯一项目编号
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty"`
+}
+
+func (s CreateNftIssuerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateNftIssuerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateNftIssuerResponse) SetReqMsgId(v string) *CreateNftIssuerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateNftIssuerResponse) SetResultCode(v string) *CreateNftIssuerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateNftIssuerResponse) SetResultMsg(v string) *CreateNftIssuerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateNftIssuerResponse) SetTaskId(v string) *CreateNftIssuerResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *CreateNftIssuerResponse) SetProjectId(v string) *CreateNftIssuerResponse {
+	s.ProjectId = &v
 	return s
 }
 
@@ -653,7 +1143,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.9"),
+				"sdk_version":      tea.String("1.1.1"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -702,8 +1192,8 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 }
 
 /**
- * Description: B端商户的NFT发行
- * Summary: B端商户的NFT发行
+ * Description: B端商户的NFT发行以及铸造
+ * Summary: B端商户的NFT铸造
  */
 func (client *Client) ImportNftCreate(request *ImportNftCreateRequest) (_result *ImportNftCreateResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -718,8 +1208,8 @@ func (client *Client) ImportNftCreate(request *ImportNftCreateRequest) (_result 
 }
 
 /**
- * Description: B端商户的NFT发行
- * Summary: B端商户的NFT发行
+ * Description: B端商户的NFT发行以及铸造
+ * Summary: B端商户的NFT铸造
  */
 func (client *Client) ImportNftCreateEx(request *ImportNftCreateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportNftCreateResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -736,8 +1226,8 @@ func (client *Client) ImportNftCreateEx(request *ImportNftCreateRequest, headers
 }
 
 /**
- * Description: B端商户的NFT发行后查询
- * Summary: B端商户的NFT发行后查询
+ * Description: B端商户的NFT发行后查询，包含状态、NFT商品的概要信息
+ * Summary: B端商户的NFT发行铸造后查询
  */
 func (client *Client) QueryNftCreate(request *QueryNftCreateRequest) (_result *QueryNftCreateResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -752,8 +1242,8 @@ func (client *Client) QueryNftCreate(request *QueryNftCreateRequest) (_result *Q
 }
 
 /**
- * Description: B端商户的NFT发行后查询
- * Summary: B端商户的NFT发行后查询
+ * Description: B端商户的NFT发行后查询，包含状态、NFT商品的概要信息
+ * Summary: B端商户的NFT发行铸造后查询
  */
 func (client *Client) QueryNftCreateEx(request *QueryNftCreateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryNftCreateResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -770,8 +1260,8 @@ func (client *Client) QueryNftCreateEx(request *QueryNftCreateRequest, headers m
 }
 
 /**
- * Description: 单个token由B端商户转C端用户
- * Summary: 单个token由B端商户转C端用户
+ * Description: 按商品编码（skuid）B2C发放NFT
+ * Summary: 按商品编码B2C发放NFT
  */
 func (client *Client) ExecNftTransfer(request *ExecNftTransferRequest) (_result *ExecNftTransferResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -786,8 +1276,8 @@ func (client *Client) ExecNftTransfer(request *ExecNftTransferRequest) (_result 
 }
 
 /**
- * Description: 单个token由B端商户转C端用户
- * Summary: 单个token由B端商户转C端用户
+ * Description: 按商品编码（skuid）B2C发放NFT
+ * Summary: 按商品编码B2C发放NFT
  */
 func (client *Client) ExecNftTransferEx(request *ExecNftTransferRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecNftTransferResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -796,6 +1286,142 @@ func (client *Client) ExecNftTransferEx(request *ExecNftTransferRequest, headers
 	}
 	_result = &ExecNftTransferResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.nft.transfer.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 按项目表编码B2C发放NFT
+ * Summary: 按项目表编码B2C发放NFT
+ */
+func (client *Client) SendNftTransfer(request *SendNftTransferRequest) (_result *SendNftTransferResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SendNftTransferResponse{}
+	_body, _err := client.SendNftTransferEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 按项目表编码B2C发放NFT
+ * Summary: 按项目表编码B2C发放NFT
+ */
+func (client *Client) SendNftTransferEx(request *SendNftTransferRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendNftTransferResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SendNftTransferResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.nft.transfer.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据nftId查询客户NFT资产
+ * Summary: 根据nftId查询客户NFT资产
+ */
+func (client *Client) QueryNftCustomer(request *QueryNftCustomerRequest) (_result *QueryNftCustomerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryNftCustomerResponse{}
+	_body, _err := client.QueryNftCustomerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据nftId查询客户NFT资产
+ * Summary: 根据nftId查询客户NFT资产
+ */
+func (client *Client) QueryNftCustomerEx(request *QueryNftCustomerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryNftCustomerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryNftCustomerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.nft.customer.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据外部订单号查询该订单的NFT流水记录
+ * Summary: 根据外部订单号查询该订单的NFT流水记录
+ */
+func (client *Client) QueryNftOrder(request *QueryNftOrderRequest) (_result *QueryNftOrderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryNftOrderResponse{}
+	_body, _err := client.QueryNftOrderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据外部订单号查询该订单的NFT流水记录
+ * Summary: 根据外部订单号查询该订单的NFT流水记录
+ */
+func (client *Client) QueryNftOrderEx(request *QueryNftOrderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryNftOrderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryNftOrderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.nft.order.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: NFT发行审核&铸造
+ * Summary: NFT发行审核&铸造
+ */
+func (client *Client) CreateNftIssuer(request *CreateNftIssuerRequest) (_result *CreateNftIssuerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateNftIssuerResponse{}
+	_body, _err := client.CreateNftIssuerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: NFT发行审核&铸造
+ * Summary: NFT发行审核&铸造
+ */
+func (client *Client) CreateNftIssuerEx(request *CreateNftIssuerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateNftIssuerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateNftIssuerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.nft.issuer.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
