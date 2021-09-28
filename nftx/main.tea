@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.9',
+    sdk_version = '1.1.1',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -215,8 +215,8 @@ model ImportNftCreateResponse = {
 }
 
 /**
- * Description: B端商户的NFT发行
- * Summary: B端商户的NFT发行
+ * Description: B端商户的NFT发行以及铸造
+ * Summary: B端商户的NFT铸造
  */
 async function importNftCreate(request: ImportNftCreateRequest): ImportNftCreateResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -225,8 +225,8 @@ async function importNftCreate(request: ImportNftCreateRequest): ImportNftCreate
 }
 
 /**
- * Description: B端商户的NFT发行
- * Summary: B端商户的NFT发行
+ * Description: B端商户的NFT发行以及铸造
+ * Summary: B端商户的NFT铸造
  */
 async function importNftCreateEx(request: ImportNftCreateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportNftCreateResponse {
   Util.validateModel(request);
@@ -257,11 +257,19 @@ model QueryNftCreateResponse = {
   // FINISH("FINISH", "资产初始化完毕"),
   // ;
   skuStatus?: string(name='sku_status'),
+  // NFT商品的名称
+  skuName?: string(name='sku_name'),
+  // 作者的名称
+  authorName?: string(name='author_name'),
+  // 发行方的名称
+  issuerName?: string(name='issuer_name'),
+  // 缩略图展示路径
+  miniImagePath?: string(name='mini_image_path'),
 }
 
 /**
- * Description: B端商户的NFT发行后查询
- * Summary: B端商户的NFT发行后查询
+ * Description: B端商户的NFT发行后查询，包含状态、NFT商品的概要信息
+ * Summary: B端商户的NFT发行铸造后查询
  */
 async function queryNftCreate(request: QueryNftCreateRequest): QueryNftCreateResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -270,8 +278,8 @@ async function queryNftCreate(request: QueryNftCreateRequest): QueryNftCreateRes
 }
 
 /**
- * Description: B端商户的NFT发行后查询
- * Summary: B端商户的NFT发行后查询
+ * Description: B端商户的NFT发行后查询，包含状态、NFT商品的概要信息
+ * Summary: B端商户的NFT发行铸造后查询
  */
 async function queryNftCreateEx(request: QueryNftCreateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryNftCreateResponse {
   Util.validateModel(request);
@@ -310,8 +318,8 @@ model ExecNftTransferResponse = {
 }
 
 /**
- * Description: 单个token由B端商户转C端用户
- * Summary: 单个token由B端商户转C端用户
+ * Description: 按商品编码（skuid）B2C发放NFT
+ * Summary: 按商品编码B2C发放NFT
  */
 async function execNftTransfer(request: ExecNftTransferRequest): ExecNftTransferResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -320,11 +328,215 @@ async function execNftTransfer(request: ExecNftTransferRequest): ExecNftTransfer
 }
 
 /**
- * Description: 单个token由B端商户转C端用户
- * Summary: 单个token由B端商户转C端用户
+ * Description: 按商品编码（skuid）B2C发放NFT
+ * Summary: 按商品编码B2C发放NFT
  */
 async function execNftTransferEx(request: ExecNftTransferRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecNftTransferResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.nftx.nft.transfer.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendNftTransferRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // NFT租户下唯一的项目编号
+  projectId: string(name='project_id'),
+  // 支付宝2088开头账号
+  toldNo: string(name='told_no'),
+  // 账号类型，当前只支持支付宝账号
+  toldType: string(name='told_type'),
+  // 购买NFT的金额，单位分
+  priceCent: long(name='price_cent'),
+  // 交易NFT时租户的唯一订单号
+  orderNo: string(name='order_no'),
+  // 用户购买订单时间
+  orderTime: string(name='order_time'),
+}
+
+model SendNftTransferResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // NFT商品编码
+  skuId?: string(name='sku_id'),
+  // 发放的NFT编码
+  nftId?: string(name='nft_id'),
+}
+
+/**
+ * Description: 按项目表编码B2C发放NFT
+ * Summary: 按项目表编码B2C发放NFT
+ */
+async function sendNftTransfer(request: SendNftTransferRequest): SendNftTransferResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendNftTransferEx(request, headers, runtime);
+}
+
+/**
+ * Description: 按项目表编码B2C发放NFT
+ * Summary: 按项目表编码B2C发放NFT
+ */
+async function sendNftTransferEx(request: SendNftTransferRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendNftTransferResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftx.nft.transfer.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryNftCustomerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户支付宝2088账号编码，16位
+  idNo: string(name='id_no'),
+  // 用户的账户类型
+  idType: string(name='id_type'),
+  // NFT资产唯一编码
+  nftId: string(name='nft_id'),
+}
+
+model QueryNftCustomerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // NFT商品的商品编码
+  skuId?: long(name='sku_id'),
+  // NFT资产的唯一编码
+  nftId?: string(name='nft_id'),
+  // NFT商品的名称
+  skuName?: string(name='sku_name'),
+  // NFT的创作者名称
+  authorName?: string(name='author_name'),
+  // NFT的发行方名称
+  issuerName?: string(name='issuer_name'),
+  // 缩略图url，带5分钟鉴权
+  miniImagePath?: string(name='mini_image_path'),
+}
+
+/**
+ * Description: 根据nftId查询客户NFT资产
+ * Summary: 根据nftId查询客户NFT资产
+ */
+async function queryNftCustomer(request: QueryNftCustomerRequest): QueryNftCustomerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryNftCustomerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据nftId查询客户NFT资产
+ * Summary: 根据nftId查询客户NFT资产
+ */
+async function queryNftCustomerEx(request: QueryNftCustomerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryNftCustomerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftx.nft.customer.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryNftOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝的2088账号
+  idNo: string(name='id_no'),
+  // 支付账号类型，该版本仅支持支付宝账号
+  idType: string(name='id_type'),
+  // 租户的唯一映射订单号
+  orderNo: string(name='order_no'),
+}
+
+model QueryNftOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // NFT商品编码
+  skuId?: long(name='sku_id'),
+  // NFT资产的唯一id
+  nftId?: string(name='nft_id'),
+}
+
+/**
+ * Description: 根据外部订单号查询该订单的NFT流水记录
+ * Summary: 根据外部订单号查询该订单的NFT流水记录
+ */
+async function queryNftOrder(request: QueryNftOrderRequest): QueryNftOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryNftOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据外部订单号查询该订单的NFT流水记录
+ * Summary: 根据外部订单号查询该订单的NFT流水记录
+ */
+async function queryNftOrderEx(request: QueryNftOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryNftOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftx.nft.order.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateNftIssuerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户发行NFT的唯一编号
+  projectId: string(name='project_id'),
+  // NFT商品的名称
+  skuName: string(name='sku_name'),
+  // NFT资产类型, 含IMAGE、VIDEO、FILE、AUDIO、THREE_DIMENSIONS等
+  skuType: string(name='sku_type'),
+  // 铸造数量，100起
+  quantity: long(name='quantity'),
+  // NFT创作者
+  author: string(name='author'),
+  // 发行方名称
+  issuerName: string(name='issuer_name'),
+  // NFT商品的描述
+  skuDescrption: string(name='sku_descrption'),
+  // 跳转链接
+  jumpUrl?: string(name='jump_url'),
+  // 业务类型：PAY_CODE，DEFAULT，EUROPEAN_CUP，TAOBAO_AUCTION，NFT_CUSTOMIZE（NFT定制）
+  bizType?: string(name='biz_type'),
+  // 素材文件结构
+  files: [ File ](name='files'),
+}
+
+model CreateNftIssuerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 发行任务编号
+  taskId?: string(name='task_id'),
+  // 业务方发行NFT对应的唯一项目编号
+  projectId?: string(name='project_id'),
+}
+
+/**
+ * Description: NFT发行审核&铸造
+ * Summary: NFT发行审核&铸造
+ */
+async function createNftIssuer(request: CreateNftIssuerRequest): CreateNftIssuerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createNftIssuerEx(request, headers, runtime);
+}
+
+/**
+ * Description: NFT发行审核&铸造
+ * Summary: NFT发行审核&铸造
+ */
+async function createNftIssuerEx(request: CreateNftIssuerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateNftIssuerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftx.nft.issuer.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
