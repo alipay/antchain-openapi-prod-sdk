@@ -11,12 +11,20 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\NFTX\Models\CreateNftIssuerRequest;
+use AntChain\NFTX\Models\CreateNftIssuerResponse;
 use AntChain\NFTX\Models\ExecNftTransferRequest;
 use AntChain\NFTX\Models\ExecNftTransferResponse;
 use AntChain\NFTX\Models\ImportNftCreateRequest;
 use AntChain\NFTX\Models\ImportNftCreateResponse;
 use AntChain\NFTX\Models\QueryNftCreateRequest;
 use AntChain\NFTX\Models\QueryNftCreateResponse;
+use AntChain\NFTX\Models\QueryNftCustomerRequest;
+use AntChain\NFTX\Models\QueryNftCustomerResponse;
+use AntChain\NFTX\Models\QueryNftOrderRequest;
+use AntChain\NFTX\Models\QueryNftOrderResponse;
+use AntChain\NFTX\Models\SendNftTransferRequest;
+use AntChain\NFTX\Models\SendNftTransferResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -164,7 +172,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.9',
+                    'sdk_version'      => '1.1.1',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -211,8 +219,8 @@ class Client
     }
 
     /**
-     * Description: B端商户的NFT发行
-     * Summary: B端商户的NFT发行.
+     * Description: B端商户的NFT发行以及铸造
+     * Summary: B端商户的NFT铸造.
      *
      * @param ImportNftCreateRequest $request
      *
@@ -227,8 +235,8 @@ class Client
     }
 
     /**
-     * Description: B端商户的NFT发行
-     * Summary: B端商户的NFT发行.
+     * Description: B端商户的NFT发行以及铸造
+     * Summary: B端商户的NFT铸造.
      *
      * @param ImportNftCreateRequest $request
      * @param string[]               $headers
@@ -244,8 +252,8 @@ class Client
     }
 
     /**
-     * Description: B端商户的NFT发行后查询
-     * Summary: B端商户的NFT发行后查询.
+     * Description: B端商户的NFT发行后查询，包含状态、NFT商品的概要信息
+     * Summary: B端商户的NFT发行铸造后查询.
      *
      * @param QueryNftCreateRequest $request
      *
@@ -260,8 +268,8 @@ class Client
     }
 
     /**
-     * Description: B端商户的NFT发行后查询
-     * Summary: B端商户的NFT发行后查询.
+     * Description: B端商户的NFT发行后查询，包含状态、NFT商品的概要信息
+     * Summary: B端商户的NFT发行铸造后查询.
      *
      * @param QueryNftCreateRequest $request
      * @param string[]              $headers
@@ -277,8 +285,8 @@ class Client
     }
 
     /**
-     * Description: 单个token由B端商户转C端用户
-     * Summary: 单个token由B端商户转C端用户.
+     * Description: 按商品编码（skuid）B2C发放NFT
+     * Summary: 按商品编码B2C发放NFT.
      *
      * @param ExecNftTransferRequest $request
      *
@@ -293,8 +301,8 @@ class Client
     }
 
     /**
-     * Description: 单个token由B端商户转C端用户
-     * Summary: 单个token由B端商户转C端用户.
+     * Description: 按商品编码（skuid）B2C发放NFT
+     * Summary: 按商品编码B2C发放NFT.
      *
      * @param ExecNftTransferRequest $request
      * @param string[]               $headers
@@ -307,5 +315,137 @@ class Client
         Utils::validateModel($request);
 
         return ExecNftTransferResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.transfer.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 按项目表编码B2C发放NFT
+     * Summary: 按项目表编码B2C发放NFT.
+     *
+     * @param SendNftTransferRequest $request
+     *
+     * @return SendNftTransferResponse
+     */
+    public function sendNftTransfer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendNftTransferEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 按项目表编码B2C发放NFT
+     * Summary: 按项目表编码B2C发放NFT.
+     *
+     * @param SendNftTransferRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return SendNftTransferResponse
+     */
+    public function sendNftTransferEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendNftTransferResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.transfer.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据nftId查询客户NFT资产
+     * Summary: 根据nftId查询客户NFT资产.
+     *
+     * @param QueryNftCustomerRequest $request
+     *
+     * @return QueryNftCustomerResponse
+     */
+    public function queryNftCustomer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryNftCustomerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据nftId查询客户NFT资产
+     * Summary: 根据nftId查询客户NFT资产.
+     *
+     * @param QueryNftCustomerRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryNftCustomerResponse
+     */
+    public function queryNftCustomerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryNftCustomerResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.customer.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据外部订单号查询该订单的NFT流水记录
+     * Summary: 根据外部订单号查询该订单的NFT流水记录.
+     *
+     * @param QueryNftOrderRequest $request
+     *
+     * @return QueryNftOrderResponse
+     */
+    public function queryNftOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryNftOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据外部订单号查询该订单的NFT流水记录
+     * Summary: 根据外部订单号查询该订单的NFT流水记录.
+     *
+     * @param QueryNftOrderRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryNftOrderResponse
+     */
+    public function queryNftOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryNftOrderResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.order.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: NFT发行审核&铸造
+     * Summary: NFT发行审核&铸造.
+     *
+     * @param CreateNftIssuerRequest $request
+     *
+     * @return CreateNftIssuerResponse
+     */
+    public function createNftIssuer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createNftIssuerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: NFT发行审核&铸造
+     * Summary: NFT发行审核&铸造.
+     *
+     * @param CreateNftIssuerRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return CreateNftIssuerResponse
+     */
+    public function createNftIssuerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateNftIssuerResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.issuer.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

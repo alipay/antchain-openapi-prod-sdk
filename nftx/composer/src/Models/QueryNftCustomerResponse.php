@@ -6,7 +6,7 @@ namespace AntChain\NFTX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryNftCreateResponse extends Model
+class QueryNftCustomerResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,20 +26,17 @@ class QueryNftCreateResponse extends Model
      */
     public $resultMsg;
 
-    // NFT发行成功的商品id
+    // NFT商品的商品编码
     /**
      * @var int
      */
     public $skuId;
 
-    // INIT("INIT", "初始化"),
-    // PROCESSING("PROCESSING", "资产创建中"),
-    // FINISH("FINISH", "资产初始化完毕"),
-    // ;
+    // NFT资产的唯一编码
     /**
      * @var string
      */
-    public $skuStatus;
+    public $nftId;
 
     // NFT商品的名称
     /**
@@ -47,19 +44,19 @@ class QueryNftCreateResponse extends Model
      */
     public $skuName;
 
-    // 作者的名称
+    // NFT的创作者名称
     /**
      * @var string
      */
     public $authorName;
 
-    // 发行方的名称
+    // NFT的发行方名称
     /**
      * @var string
      */
     public $issuerName;
 
-    // 缩略图展示路径
+    // 缩略图url，带5分钟鉴权
     /**
      * @var string
      */
@@ -69,7 +66,7 @@ class QueryNftCreateResponse extends Model
         'resultCode'    => 'result_code',
         'resultMsg'     => 'result_msg',
         'skuId'         => 'sku_id',
-        'skuStatus'     => 'sku_status',
+        'nftId'         => 'nft_id',
         'skuName'       => 'sku_name',
         'authorName'    => 'author_name',
         'issuerName'    => 'issuer_name',
@@ -95,8 +92,8 @@ class QueryNftCreateResponse extends Model
         if (null !== $this->skuId) {
             $res['sku_id'] = $this->skuId;
         }
-        if (null !== $this->skuStatus) {
-            $res['sku_status'] = $this->skuStatus;
+        if (null !== $this->nftId) {
+            $res['nft_id'] = $this->nftId;
         }
         if (null !== $this->skuName) {
             $res['sku_name'] = $this->skuName;
@@ -117,7 +114,7 @@ class QueryNftCreateResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryNftCreateResponse
+     * @return QueryNftCustomerResponse
      */
     public static function fromMap($map = [])
     {
@@ -134,8 +131,8 @@ class QueryNftCreateResponse extends Model
         if (isset($map['sku_id'])) {
             $model->skuId = $map['sku_id'];
         }
-        if (isset($map['sku_status'])) {
-            $model->skuStatus = $map['sku_status'];
+        if (isset($map['nft_id'])) {
+            $model->nftId = $map['nft_id'];
         }
         if (isset($map['sku_name'])) {
             $model->skuName = $map['sku_name'];
