@@ -258,6 +258,14 @@ export class QueryNftCreateResponse extends $tea.Model {
   // FINISH("FINISH", "资产初始化完毕"),
   // ;
   skuStatus?: string;
+  // NFT商品的名称
+  skuName?: string;
+  // 作者的名称
+  authorName?: string;
+  // 发行方的名称
+  issuerName?: string;
+  // 缩略图展示路径
+  miniImagePath?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -265,6 +273,10 @@ export class QueryNftCreateResponse extends $tea.Model {
       resultMsg: 'result_msg',
       skuId: 'sku_id',
       skuStatus: 'sku_status',
+      skuName: 'sku_name',
+      authorName: 'author_name',
+      issuerName: 'issuer_name',
+      miniImagePath: 'mini_image_path',
     };
   }
 
@@ -275,6 +287,10 @@ export class QueryNftCreateResponse extends $tea.Model {
       resultMsg: 'string',
       skuId: 'number',
       skuStatus: 'string',
+      skuName: 'string',
+      authorName: 'string',
+      issuerName: 'string',
+      miniImagePath: 'string',
     };
   }
 
@@ -358,6 +374,346 @@ export class ExecNftTransferResponse extends $tea.Model {
       resultMsg: 'string',
       skuId: 'number',
       nftId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendNftTransferRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // NFT租户下唯一的项目编号
+  projectId: string;
+  // 支付宝2088开头账号
+  toldNo: string;
+  // 账号类型，当前只支持支付宝账号
+  toldType: string;
+  // 购买NFT的金额，单位分
+  priceCent: number;
+  // 交易NFT时租户的唯一订单号
+  orderNo: string;
+  // 用户购买订单时间
+  orderTime: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      projectId: 'project_id',
+      toldNo: 'told_no',
+      toldType: 'told_type',
+      priceCent: 'price_cent',
+      orderNo: 'order_no',
+      orderTime: 'order_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      projectId: 'string',
+      toldNo: 'string',
+      toldType: 'string',
+      priceCent: 'number',
+      orderNo: 'string',
+      orderTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendNftTransferResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // NFT商品编码
+  skuId?: string;
+  // 发放的NFT编码
+  nftId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      skuId: 'sku_id',
+      nftId: 'nft_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      skuId: 'string',
+      nftId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryNftCustomerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户支付宝2088账号编码，16位
+  idNo: string;
+  // 用户的账户类型
+  idType: string;
+  // NFT资产唯一编码
+  nftId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      idNo: 'id_no',
+      idType: 'id_type',
+      nftId: 'nft_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      idNo: 'string',
+      idType: 'string',
+      nftId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryNftCustomerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // NFT商品的商品编码
+  skuId?: number;
+  // NFT资产的唯一编码
+  nftId?: string;
+  // NFT商品的名称
+  skuName?: string;
+  // NFT的创作者名称
+  authorName?: string;
+  // NFT的发行方名称
+  issuerName?: string;
+  // 缩略图url，带5分钟鉴权
+  miniImagePath?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      skuId: 'sku_id',
+      nftId: 'nft_id',
+      skuName: 'sku_name',
+      authorName: 'author_name',
+      issuerName: 'issuer_name',
+      miniImagePath: 'mini_image_path',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      skuId: 'number',
+      nftId: 'string',
+      skuName: 'string',
+      authorName: 'string',
+      issuerName: 'string',
+      miniImagePath: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryNftOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 支付宝的2088账号
+  idNo: string;
+  // 支付账号类型，该版本仅支持支付宝账号
+  idType: string;
+  // 租户的唯一映射订单号
+  orderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      idNo: 'id_no',
+      idType: 'id_type',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      idNo: 'string',
+      idType: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryNftOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // NFT商品编码
+  skuId?: number;
+  // NFT资产的唯一id
+  nftId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      skuId: 'sku_id',
+      nftId: 'nft_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      skuId: 'number',
+      nftId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateNftIssuerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户发行NFT的唯一编号
+  projectId: string;
+  // NFT商品的名称
+  skuName: string;
+  // NFT资产类型, 含IMAGE、VIDEO、FILE、AUDIO、THREE_DIMENSIONS等
+  skuType: string;
+  // 铸造数量，100起
+  quantity: number;
+  // NFT创作者
+  author: string;
+  // 发行方名称
+  issuerName: string;
+  // NFT商品的描述
+  skuDescrption: string;
+  // 跳转链接
+  jumpUrl?: string;
+  // 业务类型：PAY_CODE，DEFAULT，EUROPEAN_CUP，TAOBAO_AUCTION，NFT_CUSTOMIZE（NFT定制）
+  bizType?: string;
+  // 素材文件结构
+  files: File[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      projectId: 'project_id',
+      skuName: 'sku_name',
+      skuType: 'sku_type',
+      quantity: 'quantity',
+      author: 'author',
+      issuerName: 'issuer_name',
+      skuDescrption: 'sku_descrption',
+      jumpUrl: 'jump_url',
+      bizType: 'biz_type',
+      files: 'files',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      projectId: 'string',
+      skuName: 'string',
+      skuType: 'string',
+      quantity: 'number',
+      author: 'string',
+      issuerName: 'string',
+      skuDescrption: 'string',
+      jumpUrl: 'string',
+      bizType: 'string',
+      files: { 'type': 'array', 'itemType': File },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateNftIssuerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 发行任务编号
+  taskId?: string;
+  // 业务方发行NFT对应的唯一项目编号
+  projectId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      projectId: 'project_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      projectId: 'string',
     };
   }
 
@@ -479,7 +835,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.9",
+          sdk_version: "1.1.1",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -526,8 +882,8 @@ export default class Client {
   }
 
   /**
-   * Description: B端商户的NFT发行
-   * Summary: B端商户的NFT发行
+   * Description: B端商户的NFT发行以及铸造
+   * Summary: B端商户的NFT铸造
    */
   async importNftCreate(request: ImportNftCreateRequest): Promise<ImportNftCreateResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -536,8 +892,8 @@ export default class Client {
   }
 
   /**
-   * Description: B端商户的NFT发行
-   * Summary: B端商户的NFT发行
+   * Description: B端商户的NFT发行以及铸造
+   * Summary: B端商户的NFT铸造
    */
   async importNftCreateEx(request: ImportNftCreateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportNftCreateResponse> {
     Util.validateModel(request);
@@ -545,8 +901,8 @@ export default class Client {
   }
 
   /**
-   * Description: B端商户的NFT发行后查询
-   * Summary: B端商户的NFT发行后查询
+   * Description: B端商户的NFT发行后查询，包含状态、NFT商品的概要信息
+   * Summary: B端商户的NFT发行铸造后查询
    */
   async queryNftCreate(request: QueryNftCreateRequest): Promise<QueryNftCreateResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -555,8 +911,8 @@ export default class Client {
   }
 
   /**
-   * Description: B端商户的NFT发行后查询
-   * Summary: B端商户的NFT发行后查询
+   * Description: B端商户的NFT发行后查询，包含状态、NFT商品的概要信息
+   * Summary: B端商户的NFT发行铸造后查询
    */
   async queryNftCreateEx(request: QueryNftCreateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryNftCreateResponse> {
     Util.validateModel(request);
@@ -564,8 +920,8 @@ export default class Client {
   }
 
   /**
-   * Description: 单个token由B端商户转C端用户
-   * Summary: 单个token由B端商户转C端用户
+   * Description: 按商品编码（skuid）B2C发放NFT
+   * Summary: 按商品编码B2C发放NFT
    */
   async execNftTransfer(request: ExecNftTransferRequest): Promise<ExecNftTransferResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -574,12 +930,88 @@ export default class Client {
   }
 
   /**
-   * Description: 单个token由B端商户转C端用户
-   * Summary: 单个token由B端商户转C端用户
+   * Description: 按商品编码（skuid）B2C发放NFT
+   * Summary: 按商品编码B2C发放NFT
    */
   async execNftTransferEx(request: ExecNftTransferRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecNftTransferResponse> {
     Util.validateModel(request);
     return $tea.cast<ExecNftTransferResponse>(await this.doRequest("1.0", "antchain.nftx.nft.transfer.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecNftTransferResponse({}));
+  }
+
+  /**
+   * Description: 按项目表编码B2C发放NFT
+   * Summary: 按项目表编码B2C发放NFT
+   */
+  async sendNftTransfer(request: SendNftTransferRequest): Promise<SendNftTransferResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.sendNftTransferEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 按项目表编码B2C发放NFT
+   * Summary: 按项目表编码B2C发放NFT
+   */
+  async sendNftTransferEx(request: SendNftTransferRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendNftTransferResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SendNftTransferResponse>(await this.doRequest("1.0", "antchain.nftx.nft.transfer.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendNftTransferResponse({}));
+  }
+
+  /**
+   * Description: 根据nftId查询客户NFT资产
+   * Summary: 根据nftId查询客户NFT资产
+   */
+  async queryNftCustomer(request: QueryNftCustomerRequest): Promise<QueryNftCustomerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryNftCustomerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据nftId查询客户NFT资产
+   * Summary: 根据nftId查询客户NFT资产
+   */
+  async queryNftCustomerEx(request: QueryNftCustomerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryNftCustomerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryNftCustomerResponse>(await this.doRequest("1.0", "antchain.nftx.nft.customer.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryNftCustomerResponse({}));
+  }
+
+  /**
+   * Description: 根据外部订单号查询该订单的NFT流水记录
+   * Summary: 根据外部订单号查询该订单的NFT流水记录
+   */
+  async queryNftOrder(request: QueryNftOrderRequest): Promise<QueryNftOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryNftOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据外部订单号查询该订单的NFT流水记录
+   * Summary: 根据外部订单号查询该订单的NFT流水记录
+   */
+  async queryNftOrderEx(request: QueryNftOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryNftOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryNftOrderResponse>(await this.doRequest("1.0", "antchain.nftx.nft.order.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryNftOrderResponse({}));
+  }
+
+  /**
+   * Description: NFT发行审核&铸造
+   * Summary: NFT发行审核&铸造
+   */
+  async createNftIssuer(request: CreateNftIssuerRequest): Promise<CreateNftIssuerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createNftIssuerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: NFT发行审核&铸造
+   * Summary: NFT发行审核&铸造
+   */
+  async createNftIssuerEx(request: CreateNftIssuerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateNftIssuerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateNftIssuerResponse>(await this.doRequest("1.0", "antchain.nftx.nft.issuer.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateNftIssuerResponse({}));
   }
 
 }
