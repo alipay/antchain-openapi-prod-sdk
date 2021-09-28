@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.NFTX.Models
 {
-    public class QueryNftCreateResponse : TeaModel {
+    public class QueryNftCustomerResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,35 +24,32 @@ namespace AntChain.SDK.NFTX.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // NFT发行成功的商品id
+        // NFT商品的商品编码
         [NameInMap("sku_id")]
         [Validation(Required=false)]
         public long? SkuId { get; set; }
 
-        // INIT("INIT", "初始化"),
-        // PROCESSING("PROCESSING", "资产创建中"),
-        // FINISH("FINISH", "资产初始化完毕"),
-        // ;
-        [NameInMap("sku_status")]
+        // NFT资产的唯一编码
+        [NameInMap("nft_id")]
         [Validation(Required=false)]
-        public string SkuStatus { get; set; }
+        public string NftId { get; set; }
 
         // NFT商品的名称
         [NameInMap("sku_name")]
         [Validation(Required=false)]
         public string SkuName { get; set; }
 
-        // 作者的名称
+        // NFT的创作者名称
         [NameInMap("author_name")]
         [Validation(Required=false)]
         public string AuthorName { get; set; }
 
-        // 发行方的名称
+        // NFT的发行方名称
         [NameInMap("issuer_name")]
         [Validation(Required=false)]
         public string IssuerName { get; set; }
 
-        // 缩略图展示路径
+        // 缩略图url，带5分钟鉴权
         [NameInMap("mini_image_path")]
         [Validation(Required=false)]
         public string MiniImagePath { get; set; }
