@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.nftx.models;
 
 import com.aliyun.tea.*;
 
-public class QueryNftCreateResponse extends TeaModel {
+public class QueryNftCustomerResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,39 +16,36 @@ public class QueryNftCreateResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // NFT发行成功的商品id
+    // NFT商品的商品编码
     @NameInMap("sku_id")
     public Long skuId;
 
-    // INIT("INIT", "初始化"),
-    // PROCESSING("PROCESSING", "资产创建中"),
-    // FINISH("FINISH", "资产初始化完毕"),
-    // ;
-    @NameInMap("sku_status")
-    public String skuStatus;
+    // NFT资产的唯一编码
+    @NameInMap("nft_id")
+    public String nftId;
 
     // NFT商品的名称
     @NameInMap("sku_name")
     public String skuName;
 
-    // 作者的名称
+    // NFT的创作者名称
     @NameInMap("author_name")
     public String authorName;
 
-    // 发行方的名称
+    // NFT的发行方名称
     @NameInMap("issuer_name")
     public String issuerName;
 
-    // 缩略图展示路径
+    // 缩略图url，带5分钟鉴权
     @NameInMap("mini_image_path")
     public String miniImagePath;
 
-    public static QueryNftCreateResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryNftCreateResponse self = new QueryNftCreateResponse();
+    public static QueryNftCustomerResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryNftCustomerResponse self = new QueryNftCustomerResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryNftCreateResponse setReqMsgId(String reqMsgId) {
+    public QueryNftCustomerResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -56,7 +53,7 @@ public class QueryNftCreateResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryNftCreateResponse setResultCode(String resultCode) {
+    public QueryNftCustomerResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -64,7 +61,7 @@ public class QueryNftCreateResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryNftCreateResponse setResultMsg(String resultMsg) {
+    public QueryNftCustomerResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -72,7 +69,7 @@ public class QueryNftCreateResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryNftCreateResponse setSkuId(Long skuId) {
+    public QueryNftCustomerResponse setSkuId(Long skuId) {
         this.skuId = skuId;
         return this;
     }
@@ -80,15 +77,15 @@ public class QueryNftCreateResponse extends TeaModel {
         return this.skuId;
     }
 
-    public QueryNftCreateResponse setSkuStatus(String skuStatus) {
-        this.skuStatus = skuStatus;
+    public QueryNftCustomerResponse setNftId(String nftId) {
+        this.nftId = nftId;
         return this;
     }
-    public String getSkuStatus() {
-        return this.skuStatus;
+    public String getNftId() {
+        return this.nftId;
     }
 
-    public QueryNftCreateResponse setSkuName(String skuName) {
+    public QueryNftCustomerResponse setSkuName(String skuName) {
         this.skuName = skuName;
         return this;
     }
@@ -96,7 +93,7 @@ public class QueryNftCreateResponse extends TeaModel {
         return this.skuName;
     }
 
-    public QueryNftCreateResponse setAuthorName(String authorName) {
+    public QueryNftCustomerResponse setAuthorName(String authorName) {
         this.authorName = authorName;
         return this;
     }
@@ -104,7 +101,7 @@ public class QueryNftCreateResponse extends TeaModel {
         return this.authorName;
     }
 
-    public QueryNftCreateResponse setIssuerName(String issuerName) {
+    public QueryNftCustomerResponse setIssuerName(String issuerName) {
         this.issuerName = issuerName;
         return this;
     }
@@ -112,7 +109,7 @@ public class QueryNftCreateResponse extends TeaModel {
         return this.issuerName;
     }
 
-    public QueryNftCreateResponse setMiniImagePath(String miniImagePath) {
+    public QueryNftCustomerResponse setMiniImagePath(String miniImagePath) {
         this.miniImagePath = miniImagePath;
         return this;
     }

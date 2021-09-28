@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.9")
+                    new TeaPair("sdk_version", "1.1.1")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -160,8 +160,8 @@ public class Client {
     }
 
     /**
-     * Description: B端商户的NFT发行
-     * Summary: B端商户的NFT发行
+     * Description: B端商户的NFT发行以及铸造
+     * Summary: B端商户的NFT铸造
      */
     public ImportNftCreateResponse importNftCreate(ImportNftCreateRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -170,8 +170,8 @@ public class Client {
     }
 
     /**
-     * Description: B端商户的NFT发行
-     * Summary: B端商户的NFT发行
+     * Description: B端商户的NFT发行以及铸造
+     * Summary: B端商户的NFT铸造
      */
     public ImportNftCreateResponse importNftCreateEx(ImportNftCreateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -179,8 +179,8 @@ public class Client {
     }
 
     /**
-     * Description: B端商户的NFT发行后查询
-     * Summary: B端商户的NFT发行后查询
+     * Description: B端商户的NFT发行后查询，包含状态、NFT商品的概要信息
+     * Summary: B端商户的NFT发行铸造后查询
      */
     public QueryNftCreateResponse queryNftCreate(QueryNftCreateRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -189,8 +189,8 @@ public class Client {
     }
 
     /**
-     * Description: B端商户的NFT发行后查询
-     * Summary: B端商户的NFT发行后查询
+     * Description: B端商户的NFT发行后查询，包含状态、NFT商品的概要信息
+     * Summary: B端商户的NFT发行铸造后查询
      */
     public QueryNftCreateResponse queryNftCreateEx(QueryNftCreateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -198,8 +198,8 @@ public class Client {
     }
 
     /**
-     * Description: 单个token由B端商户转C端用户
-     * Summary: 单个token由B端商户转C端用户
+     * Description: 按商品编码（skuid）B2C发放NFT
+     * Summary: 按商品编码B2C发放NFT
      */
     public ExecNftTransferResponse execNftTransfer(ExecNftTransferRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -208,11 +208,87 @@ public class Client {
     }
 
     /**
-     * Description: 单个token由B端商户转C端用户
-     * Summary: 单个token由B端商户转C端用户
+     * Description: 按商品编码（skuid）B2C发放NFT
+     * Summary: 按商品编码B2C发放NFT
      */
     public ExecNftTransferResponse execNftTransferEx(ExecNftTransferRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.nftx.nft.transfer.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecNftTransferResponse());
+    }
+
+    /**
+     * Description: 按项目表编码B2C发放NFT
+     * Summary: 按项目表编码B2C发放NFT
+     */
+    public SendNftTransferResponse sendNftTransfer(SendNftTransferRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.sendNftTransferEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 按项目表编码B2C发放NFT
+     * Summary: 按项目表编码B2C发放NFT
+     */
+    public SendNftTransferResponse sendNftTransferEx(SendNftTransferRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftx.nft.transfer.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendNftTransferResponse());
+    }
+
+    /**
+     * Description: 根据nftId查询客户NFT资产
+     * Summary: 根据nftId查询客户NFT资产
+     */
+    public QueryNftCustomerResponse queryNftCustomer(QueryNftCustomerRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryNftCustomerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据nftId查询客户NFT资产
+     * Summary: 根据nftId查询客户NFT资产
+     */
+    public QueryNftCustomerResponse queryNftCustomerEx(QueryNftCustomerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftx.nft.customer.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryNftCustomerResponse());
+    }
+
+    /**
+     * Description: 根据外部订单号查询该订单的NFT流水记录
+     * Summary: 根据外部订单号查询该订单的NFT流水记录
+     */
+    public QueryNftOrderResponse queryNftOrder(QueryNftOrderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryNftOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据外部订单号查询该订单的NFT流水记录
+     * Summary: 根据外部订单号查询该订单的NFT流水记录
+     */
+    public QueryNftOrderResponse queryNftOrderEx(QueryNftOrderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftx.nft.order.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryNftOrderResponse());
+    }
+
+    /**
+     * Description: NFT发行审核&铸造
+     * Summary: NFT发行审核&铸造
+     */
+    public CreateNftIssuerResponse createNftIssuer(CreateNftIssuerRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createNftIssuerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: NFT发行审核&铸造
+     * Summary: NFT发行审核&铸造
+     */
+    public CreateNftIssuerResponse createNftIssuerEx(CreateNftIssuerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftx.nft.issuer.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateNftIssuerResponse());
     }
 }
