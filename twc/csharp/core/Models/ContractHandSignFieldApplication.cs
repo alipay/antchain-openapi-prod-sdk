@@ -25,7 +25,7 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public long? Order { get; set; }
 
-        // 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字。不指定xy坐标签署区可不填写，其他情况需填写。
+        // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字。不指定xy坐标签署区可不填写，其他情况需填写。
         [NameInMap("pos_page")]
         [Validation(Required=false)]
         public string PosPage { get; set; }

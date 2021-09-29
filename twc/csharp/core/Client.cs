@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.29"},
+                        {"sdk_version", "1.5.37"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.29"},
+                        {"sdk_version", "1.5.37"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -4775,6 +4775,216 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryLeaseProductinfoResponse>(await DoRequestAsync("1.0", "twc.notary.lease.productinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 同步采购平台订单状态
+         * Summary: 同步采购平台订单状态
+         */
+        public SyncLeaseSupplierorderstatusResponse SyncLeaseSupplierorderstatus(SyncLeaseSupplierorderstatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncLeaseSupplierorderstatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 同步采购平台订单状态
+         * Summary: 同步采购平台订单状态
+         */
+        public async Task<SyncLeaseSupplierorderstatusResponse> SyncLeaseSupplierorderstatusAsync(SyncLeaseSupplierorderstatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncLeaseSupplierorderstatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 同步采购平台订单状态
+         * Summary: 同步采购平台订单状态
+         */
+        public SyncLeaseSupplierorderstatusResponse SyncLeaseSupplierorderstatusEx(SyncLeaseSupplierorderstatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncLeaseSupplierorderstatusResponse>(DoRequest("1.0", "twc.notary.lease.supplierorderstatus.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 同步采购平台订单状态
+         * Summary: 同步采购平台订单状态
+         */
+        public async Task<SyncLeaseSupplierorderstatusResponse> SyncLeaseSupplierorderstatusExAsync(SyncLeaseSupplierorderstatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncLeaseSupplierorderstatusResponse>(await DoRequestAsync("1.0", "twc.notary.lease.supplierorderstatus.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 采购供应商初始化 
+         * Summary: 采购供应商初始化 
+         */
+        public InitLeaseSupplierResponse InitLeaseSupplier(InitLeaseSupplierRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitLeaseSupplierEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 采购供应商初始化 
+         * Summary: 采购供应商初始化 
+         */
+        public async Task<InitLeaseSupplierResponse> InitLeaseSupplierAsync(InitLeaseSupplierRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitLeaseSupplierExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 采购供应商初始化 
+         * Summary: 采购供应商初始化 
+         */
+        public InitLeaseSupplierResponse InitLeaseSupplierEx(InitLeaseSupplierRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitLeaseSupplierResponse>(DoRequest("1.0", "twc.notary.lease.supplier.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 采购供应商初始化 
+         * Summary: 采购供应商初始化 
+         */
+        public async Task<InitLeaseSupplierResponse> InitLeaseSupplierExAsync(InitLeaseSupplierRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitLeaseSupplierResponse>(await DoRequestAsync("1.0", "twc.notary.lease.supplier.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
+         * Summary: 租赁订单接收采购状态信息，完成采购流程
+         */
+        public FinishLeaseSupplierstatusResponse FinishLeaseSupplierstatus(FinishLeaseSupplierstatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return FinishLeaseSupplierstatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
+         * Summary: 租赁订单接收采购状态信息，完成采购流程
+         */
+        public async Task<FinishLeaseSupplierstatusResponse> FinishLeaseSupplierstatusAsync(FinishLeaseSupplierstatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await FinishLeaseSupplierstatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
+         * Summary: 租赁订单接收采购状态信息，完成采购流程
+         */
+        public FinishLeaseSupplierstatusResponse FinishLeaseSupplierstatusEx(FinishLeaseSupplierstatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FinishLeaseSupplierstatusResponse>(DoRequest("1.0", "twc.notary.lease.supplierstatus.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
+         * Summary: 租赁订单接收采购状态信息，完成采购流程
+         */
+        public async Task<FinishLeaseSupplierstatusResponse> FinishLeaseSupplierstatusExAsync(FinishLeaseSupplierstatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FinishLeaseSupplierstatusResponse>(await DoRequestAsync("1.0", "twc.notary.lease.supplierstatus.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 采购商品初始化 
+         * Summary: 采购商品初始化 
+         */
+        public CreateLeaseSupplierproductResponse CreateLeaseSupplierproduct(CreateLeaseSupplierproductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateLeaseSupplierproductEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 采购商品初始化 
+         * Summary: 采购商品初始化 
+         */
+        public async Task<CreateLeaseSupplierproductResponse> CreateLeaseSupplierproductAsync(CreateLeaseSupplierproductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateLeaseSupplierproductExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 采购商品初始化 
+         * Summary: 采购商品初始化 
+         */
+        public CreateLeaseSupplierproductResponse CreateLeaseSupplierproductEx(CreateLeaseSupplierproductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseSupplierproductResponse>(DoRequest("1.0", "twc.notary.lease.supplierproduct.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 采购商品初始化 
+         * Summary: 采购商品初始化 
+         */
+        public async Task<CreateLeaseSupplierproductResponse> CreateLeaseSupplierproductExAsync(CreateLeaseSupplierproductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseSupplierproductResponse>(await DoRequestAsync("1.0", "twc.notary.lease.supplierproduct.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 链上采购申请
+         * Summary: 链上采购申请
+         */
+        public ApplyLeaseSupplierorderResponse ApplyLeaseSupplierorder(ApplyLeaseSupplierorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyLeaseSupplierorderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 链上采购申请
+         * Summary: 链上采购申请
+         */
+        public async Task<ApplyLeaseSupplierorderResponse> ApplyLeaseSupplierorderAsync(ApplyLeaseSupplierorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyLeaseSupplierorderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 链上采购申请
+         * Summary: 链上采购申请
+         */
+        public ApplyLeaseSupplierorderResponse ApplyLeaseSupplierorderEx(ApplyLeaseSupplierorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyLeaseSupplierorderResponse>(DoRequest("1.0", "twc.notary.lease.supplierorder.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 链上采购申请
+         * Summary: 链上采购申请
+         */
+        public async Task<ApplyLeaseSupplierorderResponse> ApplyLeaseSupplierorderExAsync(ApplyLeaseSupplierorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyLeaseSupplierorderResponse>(await DoRequestAsync("1.0", "twc.notary.lease.supplierorder.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

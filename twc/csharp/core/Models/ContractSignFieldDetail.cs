@@ -60,7 +60,7 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public long? Order { get; set; }
 
-        // 页码信息，可以','或'-'分割
+        // 页码信息，可以_,_或_-_分割
         [NameInMap("pos_page")]
         [Validation(Required=false)]
         public string PosPage { get; set; }
