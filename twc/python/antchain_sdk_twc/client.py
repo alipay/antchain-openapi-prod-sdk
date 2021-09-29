@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.29'
+                    'sdk_version': '1.5.37'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.29'
+                    'sdk_version': '1.5.37'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -6001,6 +6001,276 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.QueryLeaseProductinfoResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.lease.productinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_lease_supplierorderstatus(
+        self,
+        request: twc_models.SyncLeaseSupplierorderstatusRequest,
+    ) -> twc_models.SyncLeaseSupplierorderstatusResponse:
+        """
+        Description: 同步采购平台订单状态
+        Summary: 同步采购平台订单状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_lease_supplierorderstatus_ex(request, headers, runtime)
+
+    async def sync_lease_supplierorderstatus_async(
+        self,
+        request: twc_models.SyncLeaseSupplierorderstatusRequest,
+    ) -> twc_models.SyncLeaseSupplierorderstatusResponse:
+        """
+        Description: 同步采购平台订单状态
+        Summary: 同步采购平台订单状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_lease_supplierorderstatus_ex_async(request, headers, runtime)
+
+    def sync_lease_supplierorderstatus_ex(
+        self,
+        request: twc_models.SyncLeaseSupplierorderstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SyncLeaseSupplierorderstatusResponse:
+        """
+        Description: 同步采购平台订单状态
+        Summary: 同步采购平台订单状态
+        """
+        UtilClient.validate_model(request)
+        return twc_models.SyncLeaseSupplierorderstatusResponse().from_map(
+            self.do_request('1.0', 'twc.notary.lease.supplierorderstatus.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_lease_supplierorderstatus_ex_async(
+        self,
+        request: twc_models.SyncLeaseSupplierorderstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SyncLeaseSupplierorderstatusResponse:
+        """
+        Description: 同步采购平台订单状态
+        Summary: 同步采购平台订单状态
+        """
+        UtilClient.validate_model(request)
+        return twc_models.SyncLeaseSupplierorderstatusResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.lease.supplierorderstatus.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_lease_supplier(
+        self,
+        request: twc_models.InitLeaseSupplierRequest,
+    ) -> twc_models.InitLeaseSupplierResponse:
+        """
+        Description: 采购供应商初始化
+        Summary: 采购供应商初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_lease_supplier_ex(request, headers, runtime)
+
+    async def init_lease_supplier_async(
+        self,
+        request: twc_models.InitLeaseSupplierRequest,
+    ) -> twc_models.InitLeaseSupplierResponse:
+        """
+        Description: 采购供应商初始化
+        Summary: 采购供应商初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_lease_supplier_ex_async(request, headers, runtime)
+
+    def init_lease_supplier_ex(
+        self,
+        request: twc_models.InitLeaseSupplierRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.InitLeaseSupplierResponse:
+        """
+        Description: 采购供应商初始化
+        Summary: 采购供应商初始化
+        """
+        UtilClient.validate_model(request)
+        return twc_models.InitLeaseSupplierResponse().from_map(
+            self.do_request('1.0', 'twc.notary.lease.supplier.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_lease_supplier_ex_async(
+        self,
+        request: twc_models.InitLeaseSupplierRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.InitLeaseSupplierResponse:
+        """
+        Description: 采购供应商初始化
+        Summary: 采购供应商初始化
+        """
+        UtilClient.validate_model(request)
+        return twc_models.InitLeaseSupplierResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.lease.supplier.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def finish_lease_supplierstatus(
+        self,
+        request: twc_models.FinishLeaseSupplierstatusRequest,
+    ) -> twc_models.FinishLeaseSupplierstatusResponse:
+        """
+        Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
+        Summary: 租赁订单接收采购状态信息，完成采购流程
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.finish_lease_supplierstatus_ex(request, headers, runtime)
+
+    async def finish_lease_supplierstatus_async(
+        self,
+        request: twc_models.FinishLeaseSupplierstatusRequest,
+    ) -> twc_models.FinishLeaseSupplierstatusResponse:
+        """
+        Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
+        Summary: 租赁订单接收采购状态信息，完成采购流程
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.finish_lease_supplierstatus_ex_async(request, headers, runtime)
+
+    def finish_lease_supplierstatus_ex(
+        self,
+        request: twc_models.FinishLeaseSupplierstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.FinishLeaseSupplierstatusResponse:
+        """
+        Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
+        Summary: 租赁订单接收采购状态信息，完成采购流程
+        """
+        UtilClient.validate_model(request)
+        return twc_models.FinishLeaseSupplierstatusResponse().from_map(
+            self.do_request('1.0', 'twc.notary.lease.supplierstatus.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def finish_lease_supplierstatus_ex_async(
+        self,
+        request: twc_models.FinishLeaseSupplierstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.FinishLeaseSupplierstatusResponse:
+        """
+        Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
+        Summary: 租赁订单接收采购状态信息，完成采购流程
+        """
+        UtilClient.validate_model(request)
+        return twc_models.FinishLeaseSupplierstatusResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.lease.supplierstatus.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_lease_supplierproduct(
+        self,
+        request: twc_models.CreateLeaseSupplierproductRequest,
+    ) -> twc_models.CreateLeaseSupplierproductResponse:
+        """
+        Description: 采购商品初始化
+        Summary: 采购商品初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_lease_supplierproduct_ex(request, headers, runtime)
+
+    async def create_lease_supplierproduct_async(
+        self,
+        request: twc_models.CreateLeaseSupplierproductRequest,
+    ) -> twc_models.CreateLeaseSupplierproductResponse:
+        """
+        Description: 采购商品初始化
+        Summary: 采购商品初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_lease_supplierproduct_ex_async(request, headers, runtime)
+
+    def create_lease_supplierproduct_ex(
+        self,
+        request: twc_models.CreateLeaseSupplierproductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseSupplierproductResponse:
+        """
+        Description: 采购商品初始化
+        Summary: 采购商品初始化
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateLeaseSupplierproductResponse().from_map(
+            self.do_request('1.0', 'twc.notary.lease.supplierproduct.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_lease_supplierproduct_ex_async(
+        self,
+        request: twc_models.CreateLeaseSupplierproductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseSupplierproductResponse:
+        """
+        Description: 采购商品初始化
+        Summary: 采购商品初始化
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateLeaseSupplierproductResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.lease.supplierproduct.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_lease_supplierorder(
+        self,
+        request: twc_models.ApplyLeaseSupplierorderRequest,
+    ) -> twc_models.ApplyLeaseSupplierorderResponse:
+        """
+        Description: 链上采购申请
+        Summary: 链上采购申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_lease_supplierorder_ex(request, headers, runtime)
+
+    async def apply_lease_supplierorder_async(
+        self,
+        request: twc_models.ApplyLeaseSupplierorderRequest,
+    ) -> twc_models.ApplyLeaseSupplierorderResponse:
+        """
+        Description: 链上采购申请
+        Summary: 链上采购申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_lease_supplierorder_ex_async(request, headers, runtime)
+
+    def apply_lease_supplierorder_ex(
+        self,
+        request: twc_models.ApplyLeaseSupplierorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyLeaseSupplierorderResponse:
+        """
+        Description: 链上采购申请
+        Summary: 链上采购申请
+        """
+        UtilClient.validate_model(request)
+        return twc_models.ApplyLeaseSupplierorderResponse().from_map(
+            self.do_request('1.0', 'twc.notary.lease.supplierorder.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_lease_supplierorder_ex_async(
+        self,
+        request: twc_models.ApplyLeaseSupplierorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyLeaseSupplierorderResponse:
+        """
+        Description: 链上采购申请
+        Summary: 链上采购申请
+        """
+        UtilClient.validate_model(request)
+        return twc_models.ApplyLeaseSupplierorderResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.lease.supplierorder.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_witness_flow(

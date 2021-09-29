@@ -1022,6 +1022,46 @@ class ContractFlowSigner(TeaModel):
         return self
 
 
+class SupplierOrderProductInfo(TeaModel):
+    def __init__(
+        self,
+        product_id: str = None,
+        product_price: int = None,
+        sn_list: List[str] = None,
+    ):
+        # 商品id
+        self.product_id = product_id
+        # 商品采购单价，单位：毫厘
+        self.product_price = product_price
+        # 商品的sn信息
+        self.sn_list = sn_list
+
+    def validate(self):
+        self.validate_required(self.product_id, 'product_id')
+        self.validate_required(self.product_price, 'product_price')
+        self.validate_required(self.sn_list, 'sn_list')
+
+    def to_map(self):
+        result = dict()
+        if self.product_id is not None:
+            result['product_id'] = self.product_id
+        if self.product_price is not None:
+            result['product_price'] = self.product_price
+        if self.sn_list is not None:
+            result['sn_list'] = self.sn_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('product_id') is not None:
+            self.product_id = m.get('product_id')
+        if m.get('product_price') is not None:
+            self.product_price = m.get('product_price')
+        if m.get('sn_list') is not None:
+            self.sn_list = m.get('sn_list')
+        return self
+
+
 class PleaderObject(TeaModel):
     def __init__(
         self,
@@ -1292,7 +1332,7 @@ class ContractPlatformSignField(TeaModel):
         self.add_sign_time = add_sign_time
         # 签署区顺序，默认1,且不小于1，顺序越小越先处理
         self.order = order
-        # 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字
+        # 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
         self.pos_page = pos_page
         # x坐标转为字符串的值，默认空
         self.pos_x = pos_x
@@ -2077,6 +2117,30 @@ class ProductInfo(TeaModel):
         return self
 
 
+class SupplierLogisticInfo(TeaModel):
+    def __init__(
+        self,
+        logistic_order_id: str = None,
+    ):
+        # 采购平台的物流单号
+        self.logistic_order_id = logistic_order_id
+
+    def validate(self):
+        self.validate_required(self.logistic_order_id, 'logistic_order_id')
+
+    def to_map(self):
+        result = dict()
+        if self.logistic_order_id is not None:
+            result['logistic_order_id'] = self.logistic_order_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('logistic_order_id') is not None:
+            self.logistic_order_id = m.get('logistic_order_id')
+        return self
+
+
 class ContractSignFieldDetail(TeaModel):
     def __init__(
         self,
@@ -2123,7 +2187,7 @@ class ContractSignFieldDetail(TeaModel):
         self.flow_id = flow_id
         # 签署区顺序，默认1,且不小于1，顺序越小越先处理
         self.order = order
-        # 页码信息，可以','或'-'分割
+        # 页码信息，可以_,_或_-_分割
         self.pos_page = pos_page
         # x坐标
         self.pos_x = pos_x
@@ -2406,6 +2470,158 @@ class LeaseIotItemInfo(TeaModel):
         return self
 
 
+class SupplierProductItem(TeaModel):
+    def __init__(
+        self,
+        supplier_name: str = None,
+        product_model: str = None,
+        supplier_id: str = None,
+        product_id: str = None,
+        main_class: str = None,
+        estimated_shipment: int = None,
+        sub_class: str = None,
+        product_detail_info: str = None,
+        product_brand: str = None,
+        product_origin: int = None,
+        product_name: str = None,
+        product_version: int = None,
+        install_price: int = None,
+        real_stock: int = None,
+        deposit_price: int = None,
+        product_url: str = None,
+        product_price: int = None,
+        extra_info: str = None,
+    ):
+        # 供应商名称
+        self.supplier_name = supplier_name
+        # 商品型号
+        self.product_model = product_model
+        # 供应商id
+        self.supplier_id = supplier_id
+        # 商品唯一id
+        self.product_id = product_id
+        # 3C
+        self.main_class = main_class
+        # 预计发货量
+        self.estimated_shipment = estimated_shipment
+        # 二级类目
+        self.sub_class = sub_class
+        # 商品详情
+        self.product_detail_info = product_detail_info
+        # 商品品牌
+        self.product_brand = product_brand
+        # 商品来源
+        self.product_origin = product_origin
+        # 商品名称
+        self.product_name = product_name
+        # 商品版本
+        self.product_version = product_version
+        # 商品安装费用
+        self.install_price = install_price
+        # 实际库存
+        self.real_stock = real_stock
+        # 保证金
+        self.deposit_price = deposit_price
+        # 商品url
+        self.product_url = product_url
+        # 官网价
+        self.product_price = product_price
+        # 商品预留字段
+        self.extra_info = extra_info
+
+    def validate(self):
+        self.validate_required(self.product_model, 'product_model')
+        self.validate_required(self.product_id, 'product_id')
+        self.validate_required(self.main_class, 'main_class')
+        self.validate_required(self.sub_class, 'sub_class')
+        self.validate_required(self.product_detail_info, 'product_detail_info')
+        self.validate_required(self.product_brand, 'product_brand')
+        self.validate_required(self.product_origin, 'product_origin')
+        self.validate_required(self.product_name, 'product_name')
+        self.validate_required(self.product_version, 'product_version')
+        self.validate_required(self.product_price, 'product_price')
+
+    def to_map(self):
+        result = dict()
+        if self.supplier_name is not None:
+            result['supplier_name'] = self.supplier_name
+        if self.product_model is not None:
+            result['product_model'] = self.product_model
+        if self.supplier_id is not None:
+            result['supplier_id'] = self.supplier_id
+        if self.product_id is not None:
+            result['product_id'] = self.product_id
+        if self.main_class is not None:
+            result['main_class'] = self.main_class
+        if self.estimated_shipment is not None:
+            result['estimated_shipment'] = self.estimated_shipment
+        if self.sub_class is not None:
+            result['sub_class'] = self.sub_class
+        if self.product_detail_info is not None:
+            result['product_detail_info'] = self.product_detail_info
+        if self.product_brand is not None:
+            result['product_brand'] = self.product_brand
+        if self.product_origin is not None:
+            result['product_origin'] = self.product_origin
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        if self.product_version is not None:
+            result['product_version'] = self.product_version
+        if self.install_price is not None:
+            result['install_price'] = self.install_price
+        if self.real_stock is not None:
+            result['real_stock'] = self.real_stock
+        if self.deposit_price is not None:
+            result['deposit_price'] = self.deposit_price
+        if self.product_url is not None:
+            result['product_url'] = self.product_url
+        if self.product_price is not None:
+            result['product_price'] = self.product_price
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('supplier_name') is not None:
+            self.supplier_name = m.get('supplier_name')
+        if m.get('product_model') is not None:
+            self.product_model = m.get('product_model')
+        if m.get('supplier_id') is not None:
+            self.supplier_id = m.get('supplier_id')
+        if m.get('product_id') is not None:
+            self.product_id = m.get('product_id')
+        if m.get('main_class') is not None:
+            self.main_class = m.get('main_class')
+        if m.get('estimated_shipment') is not None:
+            self.estimated_shipment = m.get('estimated_shipment')
+        if m.get('sub_class') is not None:
+            self.sub_class = m.get('sub_class')
+        if m.get('product_detail_info') is not None:
+            self.product_detail_info = m.get('product_detail_info')
+        if m.get('product_brand') is not None:
+            self.product_brand = m.get('product_brand')
+        if m.get('product_origin') is not None:
+            self.product_origin = m.get('product_origin')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        if m.get('product_version') is not None:
+            self.product_version = m.get('product_version')
+        if m.get('install_price') is not None:
+            self.install_price = m.get('install_price')
+        if m.get('real_stock') is not None:
+            self.real_stock = m.get('real_stock')
+        if m.get('deposit_price') is not None:
+            self.deposit_price = m.get('deposit_price')
+        if m.get('product_url') is not None:
+            self.product_url = m.get('product_url')
+        if m.get('product_price') is not None:
+            self.product_price = m.get('product_price')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
+        return self
+
+
 class MediationCaseDetailInfo(TeaModel):
     def __init__(
         self,
@@ -2572,6 +2788,57 @@ class WitnessSignResult(TeaModel):
         return self
 
 
+class ApplySupplierOrderProductOutput(TeaModel):
+    def __init__(
+        self,
+        order_id: str = None,
+        pur_order_id: str = None,
+        pur_order_status: str = None,
+        supplier_id: str = None,
+    ):
+        # 订单id
+        self.order_id = order_id
+        # 链上采购单id
+        self.pur_order_id = pur_order_id
+        # 待采购：READY_DELIVER
+        # 已采购：DELIVERED
+        # 已拒发：REJECTED
+        # 已退货：RETURNED
+        # 已取消：CANCELED
+        self.pur_order_status = pur_order_status
+        # 供应商id
+        self.supplier_id = supplier_id
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.pur_order_id, 'pur_order_id')
+        self.validate_required(self.pur_order_status, 'pur_order_status')
+
+    def to_map(self):
+        result = dict()
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.pur_order_id is not None:
+            result['pur_order_id'] = self.pur_order_id
+        if self.pur_order_status is not None:
+            result['pur_order_status'] = self.pur_order_status
+        if self.supplier_id is not None:
+            result['supplier_id'] = self.supplier_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('pur_order_id') is not None:
+            self.pur_order_id = m.get('pur_order_id')
+        if m.get('pur_order_status') is not None:
+            self.pur_order_status = m.get('pur_order_status')
+        if m.get('supplier_id') is not None:
+            self.supplier_id = m.get('supplier_id')
+        return self
+
+
 class ContractSeal(TeaModel):
     def __init__(
         self,
@@ -2708,6 +2975,38 @@ class WitnessSignData(TeaModel):
             self.sign_pos_data = m.get('sign_pos_data')
         if m.get('third_doc_id') is not None:
             self.third_doc_id = m.get('third_doc_id')
+        return self
+
+
+class ApplySupplierOrderProductInput(TeaModel):
+    def __init__(
+        self,
+        product_id: str = None,
+        product_num: int = None,
+    ):
+        # 采购商品id
+        self.product_id = product_id
+        # 采购商品数量
+        self.product_num = product_num
+
+    def validate(self):
+        self.validate_required(self.product_id, 'product_id')
+        self.validate_required(self.product_num, 'product_num')
+
+    def to_map(self):
+        result = dict()
+        if self.product_id is not None:
+            result['product_id'] = self.product_id
+        if self.product_num is not None:
+            result['product_num'] = self.product_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('product_id') is not None:
+            self.product_id = m.get('product_id')
+        if m.get('product_num') is not None:
+            self.product_num = m.get('product_num')
         return self
 
 
@@ -3021,6 +3320,45 @@ class TsrResponse(TeaModel):
             self.ctsr = m.get('ctsr')
         if m.get('sn') is not None:
             self.sn = m.get('sn')
+        return self
+
+
+class SupplierInfo(TeaModel):
+    def __init__(
+        self,
+        agent_supplier_id: str = None,
+        agent_supplier_name: str = None,
+        extra_info: str = None,
+    ):
+        # 供应商id
+        self.agent_supplier_id = agent_supplier_id
+        # 被代理供应商名称
+        self.agent_supplier_name = agent_supplier_name
+        # 额外信息
+        self.extra_info = extra_info
+
+    def validate(self):
+        self.validate_required(self.agent_supplier_id, 'agent_supplier_id')
+        self.validate_required(self.agent_supplier_name, 'agent_supplier_name')
+
+    def to_map(self):
+        result = dict()
+        if self.agent_supplier_id is not None:
+            result['agent_supplier_id'] = self.agent_supplier_id
+        if self.agent_supplier_name is not None:
+            result['agent_supplier_name'] = self.agent_supplier_name
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('agent_supplier_id') is not None:
+            self.agent_supplier_id = m.get('agent_supplier_id')
+        if m.get('agent_supplier_name') is not None:
+            self.agent_supplier_name = m.get('agent_supplier_name')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
         return self
 
 
@@ -3657,7 +3995,7 @@ class ContractHandSignFieldApplication(TeaModel):
         self.file_id = file_id
         # 签署区顺序，默认1,且不小于1，顺序越小越先处理
         self.order = order
-        # 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字。不指定xy坐标签署区可不填写，其他情况需填写。
+        # 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字。不指定xy坐标签署区可不填写，其他情况需填写。
         self.pos_page = pos_page
         # x坐标，页面签章必填，骑缝签章不填写
         self.pos_x = pos_x
@@ -4402,7 +4740,7 @@ class OneStepSignField(TeaModel):
         self.file_id = file_id
         # 签署区顺序，默认1,且不小于1，顺序越小越先处理
         self.order = order
-        # 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字
+        # 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
         self.pos_page = pos_page
         # x坐标
         self.pos_x = pos_x
@@ -4821,7 +5159,7 @@ class ContractPlatformSignFieldApplication(TeaModel):
         self.seal_id = seal_id
         # 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
         self.third_order_no = third_order_no
-        # 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字
+        # 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
         self.pos_page = pos_page
         # x坐标，默认空
         self.pos_x = pos_x
@@ -18604,6 +18942,627 @@ class QueryLeaseProductinfoResponse(TeaModel):
             self.err_message = m.get('err_message')
         if m.get('response_data') is not None:
             self.response_data = m.get('response_data')
+        return self
+
+
+class SyncLeaseSupplierorderstatusRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        supplier_status: str = None,
+        lease_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单id
+        self.order_id = order_id
+        # 订单采购状态，已取消[CANCEL，已拒收REFUSE_DELIVER，待发货TOBE_DELIVER，已退货RETURN_BACK]
+        self.supplier_status = supplier_status
+        # 租赁商家金融科技租户id
+        self.lease_id = lease_id
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.supplier_status, 'supplier_status')
+        self.validate_required(self.lease_id, 'lease_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.supplier_status is not None:
+            result['supplier_status'] = self.supplier_status
+        if self.lease_id is not None:
+            result['lease_id'] = self.lease_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('supplier_status') is not None:
+            self.supplier_status = m.get('supplier_status')
+        if m.get('lease_id') is not None:
+            self.lease_id = m.get('lease_id')
+        return self
+
+
+class SyncLeaseSupplierorderstatusResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code: int = None,
+        err_message: str = None,
+        status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 状态码,0表示正常
+        self.code = code
+        # 错误信息描述
+        self.err_message = err_message
+        # CANCEL：可以取消  REFUSE：不能取消
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.err_message is not None:
+            result['err_message'] = self.err_message
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('err_message') is not None:
+            self.err_message = m.get('err_message')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class InitLeaseSupplierRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        origin: str = None,
+        supplier: SupplierInfo = None,
+        extra_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 供应商来源
+        self.origin = origin
+        # 供应商信息
+        self.supplier = supplier
+        # 额外信息
+        self.extra_info = extra_info
+
+    def validate(self):
+        self.validate_required(self.origin, 'origin')
+        self.validate_required(self.supplier, 'supplier')
+        if self.supplier:
+            self.supplier.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.origin is not None:
+            result['origin'] = self.origin
+        if self.supplier is not None:
+            result['supplier'] = self.supplier.to_map()
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('origin') is not None:
+            self.origin = m.get('origin')
+        if m.get('supplier') is not None:
+            temp_model = SupplierInfo()
+            self.supplier = temp_model.from_map(m['supplier'])
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
+        return self
+
+
+class InitLeaseSupplierResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code: int = None,
+        err_message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 状态码 0表示成功
+        self.code = code
+        # 错误信息描述
+        self.err_message = err_message
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.err_message is not None:
+            result['err_message'] = self.err_message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('err_message') is not None:
+            self.err_message = m.get('err_message')
+        return self
+
+
+class FinishLeaseSupplierstatusRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        supplier_order_no: str = None,
+        order_id: str = None,
+        lease_id: str = None,
+        supplier_order_status: str = None,
+        supplier_logistic_info: SupplierLogisticInfo = None,
+        supplier_order_product_infos: List[SupplierOrderProductInfo] = None,
+        supplier_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 采购订单id，由采购平台生成
+        self.supplier_order_no = supplier_order_no
+        # 租赁订单id
+        self.order_id = order_id
+        # 租赁方id，非采购平台
+        self.lease_id = lease_id
+        # 当前的采购状态
+        self.supplier_order_status = supplier_order_status
+        # 物流订单id
+        self.supplier_logistic_info = supplier_logistic_info
+        # 采购平台回传的商品订单信息
+        self.supplier_order_product_infos = supplier_order_product_infos
+        # 供应商id
+        self.supplier_id = supplier_id
+
+    def validate(self):
+        self.validate_required(self.supplier_order_no, 'supplier_order_no')
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.lease_id, 'lease_id')
+        self.validate_required(self.supplier_order_status, 'supplier_order_status')
+        self.validate_required(self.supplier_logistic_info, 'supplier_logistic_info')
+        if self.supplier_logistic_info:
+            self.supplier_logistic_info.validate()
+        self.validate_required(self.supplier_order_product_infos, 'supplier_order_product_infos')
+        if self.supplier_order_product_infos:
+            for k in self.supplier_order_product_infos:
+                if k:
+                    k.validate()
+        self.validate_required(self.supplier_id, 'supplier_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.supplier_order_no is not None:
+            result['supplier_order_no'] = self.supplier_order_no
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.lease_id is not None:
+            result['lease_id'] = self.lease_id
+        if self.supplier_order_status is not None:
+            result['supplier_order_status'] = self.supplier_order_status
+        if self.supplier_logistic_info is not None:
+            result['supplier_logistic_info'] = self.supplier_logistic_info.to_map()
+        result['supplier_order_product_infos'] = []
+        if self.supplier_order_product_infos is not None:
+            for k in self.supplier_order_product_infos:
+                result['supplier_order_product_infos'].append(k.to_map() if k else None)
+        if self.supplier_id is not None:
+            result['supplier_id'] = self.supplier_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('supplier_order_no') is not None:
+            self.supplier_order_no = m.get('supplier_order_no')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('lease_id') is not None:
+            self.lease_id = m.get('lease_id')
+        if m.get('supplier_order_status') is not None:
+            self.supplier_order_status = m.get('supplier_order_status')
+        if m.get('supplier_logistic_info') is not None:
+            temp_model = SupplierLogisticInfo()
+            self.supplier_logistic_info = temp_model.from_map(m['supplier_logistic_info'])
+        self.supplier_order_product_infos = []
+        if m.get('supplier_order_product_infos') is not None:
+            for k in m.get('supplier_order_product_infos'):
+                temp_model = SupplierOrderProductInfo()
+                self.supplier_order_product_infos.append(temp_model.from_map(k))
+        if m.get('supplier_id') is not None:
+            self.supplier_id = m.get('supplier_id')
+        return self
+
+
+class FinishLeaseSupplierstatusResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        response_data: str = None,
+        code: str = None,
+        err_message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 租赁信息上链后，链上对应的txHash
+        self.response_data = response_data
+        # 错误码
+        self.code = code
+        # 错误信息描述
+        self.err_message = err_message
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.response_data is not None:
+            result['response_data'] = self.response_data
+        if self.code is not None:
+            result['code'] = self.code
+        if self.err_message is not None:
+            result['err_message'] = self.err_message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('response_data') is not None:
+            self.response_data = m.get('response_data')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('err_message') is not None:
+            self.err_message = m.get('err_message')
+        return self
+
+
+class CreateLeaseSupplierproductRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        origin: str = None,
+        product_info: SupplierProductItem = None,
+        extra_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 系统来源
+        self.origin = origin
+        # 采购商品信息
+        self.product_info = product_info
+        # 本阶段额外信息
+        self.extra_info = extra_info
+
+    def validate(self):
+        self.validate_required(self.origin, 'origin')
+        self.validate_required(self.product_info, 'product_info')
+        if self.product_info:
+            self.product_info.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.origin is not None:
+            result['origin'] = self.origin
+        if self.product_info is not None:
+            result['product_info'] = self.product_info.to_map()
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('origin') is not None:
+            self.origin = m.get('origin')
+        if m.get('product_info') is not None:
+            temp_model = SupplierProductItem()
+            self.product_info = temp_model.from_map(m['product_info'])
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
+        return self
+
+
+class CreateLeaseSupplierproductResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code: int = None,
+        err_message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 状态码 0为成功
+        self.code = code
+        # 状态错误信息
+        self.err_message = err_message
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.err_message is not None:
+            result['err_message'] = self.err_message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('err_message') is not None:
+            self.err_message = m.get('err_message')
+        return self
+
+
+class ApplyLeaseSupplierorderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        supplier_id: str = None,
+        product_infos: List[ApplySupplierOrderProductInput] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单id
+        self.order_id = order_id
+        # 供应商id
+        self.supplier_id = supplier_id
+        # 商品信息
+        self.product_infos = product_infos
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.supplier_id, 'supplier_id')
+        self.validate_required(self.product_infos, 'product_infos')
+        if self.product_infos:
+            for k in self.product_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.supplier_id is not None:
+            result['supplier_id'] = self.supplier_id
+        result['product_infos'] = []
+        if self.product_infos is not None:
+            for k in self.product_infos:
+                result['product_infos'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('supplier_id') is not None:
+            self.supplier_id = m.get('supplier_id')
+        self.product_infos = []
+        if m.get('product_infos') is not None:
+            for k in m.get('product_infos'):
+                temp_model = ApplySupplierOrderProductInput()
+                self.product_infos.append(temp_model.from_map(k))
+        return self
+
+
+class ApplyLeaseSupplierorderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        order_info: ApplySupplierOrderProductOutput = None,
+        code: int = None,
+        err_message: str = None,
+        product_infos: List[ApplySupplierOrderProductInput] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 订单信息
+        self.order_info = order_info
+        # 错误码，0表示成功
+        self.code = code
+        # 错误信息描述
+        self.err_message = err_message
+        # 商户本次采购的所有商品信息
+        self.product_infos = product_infos
+
+    def validate(self):
+        if self.order_info:
+            self.order_info.validate()
+        if self.product_infos:
+            for k in self.product_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.order_info is not None:
+            result['order_info'] = self.order_info.to_map()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.err_message is not None:
+            result['err_message'] = self.err_message
+        result['product_infos'] = []
+        if self.product_infos is not None:
+            for k in self.product_infos:
+                result['product_infos'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('order_info') is not None:
+            temp_model = ApplySupplierOrderProductOutput()
+            self.order_info = temp_model.from_map(m['order_info'])
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('err_message') is not None:
+            self.err_message = m.get('err_message')
+        self.product_infos = []
+        if m.get('product_infos') is not None:
+            for k in m.get('product_infos'):
+                temp_model = ApplySupplierOrderProductInput()
+                self.product_infos.append(temp_model.from_map(k))
         return self
 
 
