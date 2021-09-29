@@ -859,6 +859,39 @@ func (s *ContractFlowSigner) SetThirdOrderNo(v string) *ContractFlowSigner {
 	return s
 }
 
+// 共享项目，资产端的采购平台回传的订单商品信息
+type SupplierOrderProductInfo struct {
+	// 商品id
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty" require:"true"`
+	// 商品采购单价，单位：毫厘
+	ProductPrice *int64 `json:"product_price,omitempty" xml:"product_price,omitempty" require:"true"`
+	// 商品的sn信息
+	SnList []*string `json:"sn_list,omitempty" xml:"sn_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SupplierOrderProductInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SupplierOrderProductInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SupplierOrderProductInfo) SetProductId(v string) *SupplierOrderProductInfo {
+	s.ProductId = &v
+	return s
+}
+
+func (s *SupplierOrderProductInfo) SetProductPrice(v int64) *SupplierOrderProductInfo {
+	s.ProductPrice = &v
+	return s
+}
+
+func (s *SupplierOrderProductInfo) SetSnList(v []*string) *SupplierOrderProductInfo {
+	s.SnList = v
+	return s
+}
+
 // 答辩人对象
 type PleaderObject struct {
 	// 法人或自然人标识，法人为1，自然人为0
@@ -1083,7 +1116,7 @@ type ContractPlatformSignField struct {
 	AddSignTime *bool `json:"add_sign_time,omitempty" xml:"add_sign_time,omitempty"`
 	// 签署区顺序，默认1,且不小于1，顺序越小越先处理
 	Order *int64 `json:"order,omitempty" xml:"order,omitempty"`
-	// 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字
+	// 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
 	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty" require:"true"`
 	// x坐标转为字符串的值，默认空
 	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty"`
@@ -1773,6 +1806,25 @@ func (s *ProductInfo) SetExtraInfo(v string) *ProductInfo {
 	return s
 }
 
+// 共享项目，资产端的采购平台回传的物流信息
+type SupplierLogisticInfo struct {
+	// 采购平台的物流单号
+	LogisticOrderId *string `json:"logistic_order_id,omitempty" xml:"logistic_order_id,omitempty" require:"true"`
+}
+
+func (s SupplierLogisticInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SupplierLogisticInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SupplierLogisticInfo) SetLogisticOrderId(v string) *SupplierLogisticInfo {
+	s.LogisticOrderId = &v
+	return s
+}
+
 // 签署区详情
 type ContractSignFieldDetail struct {
 	// 签约主体类别，0-个人，1-机构，默认0,2 是不限
@@ -1795,7 +1847,7 @@ type ContractSignFieldDetail struct {
 	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty"`
 	// 签署区顺序，默认1,且不小于1，顺序越小越先处理
 	Order *int64 `json:"order,omitempty" xml:"order,omitempty"`
-	// 页码信息，可以','或'-'分割
+	// 页码信息，可以_,_或_-_分割
 	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty"`
 	// x坐标
 	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty"`
@@ -2073,6 +2125,144 @@ func (s *LeaseIotItemInfo) SetRawData(v string) *LeaseIotItemInfo {
 	return s
 }
 
+// 供应商商品信息
+type SupplierProductItem struct {
+	// 供应商名称
+	SupplierName *string `json:"supplier_name,omitempty" xml:"supplier_name,omitempty"`
+	// 商品型号
+	ProductModel *string `json:"product_model,omitempty" xml:"product_model,omitempty" require:"true"`
+	// 供应商id
+	SupplierId *string `json:"supplier_id,omitempty" xml:"supplier_id,omitempty"`
+	// 商品唯一id
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty" require:"true"`
+	// 3C
+	MainClass *string `json:"main_class,omitempty" xml:"main_class,omitempty" require:"true"`
+	// 预计发货量
+	EstimatedShipment *int64 `json:"estimated_shipment,omitempty" xml:"estimated_shipment,omitempty"`
+	// 二级类目
+	SubClass *string `json:"sub_class,omitempty" xml:"sub_class,omitempty" require:"true"`
+	// 商品详情
+	ProductDetailInfo *string `json:"product_detail_info,omitempty" xml:"product_detail_info,omitempty" require:"true"`
+	// 商品品牌
+	ProductBrand *string `json:"product_brand,omitempty" xml:"product_brand,omitempty" require:"true"`
+	// 商品来源
+	ProductOrigin *int64 `json:"product_origin,omitempty" xml:"product_origin,omitempty" require:"true"`
+	// 商品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
+	// 商品版本
+	ProductVersion *int64 `json:"product_version,omitempty" xml:"product_version,omitempty" require:"true"`
+	// 商品安装费用
+	InstallPrice *int64 `json:"install_price,omitempty" xml:"install_price,omitempty"`
+	// 实际库存
+	RealStock *int64 `json:"real_stock,omitempty" xml:"real_stock,omitempty"`
+	// 保证金
+	DepositPrice *int64 `json:"deposit_price,omitempty" xml:"deposit_price,omitempty"`
+	// 商品url
+	ProductUrl *string `json:"product_url,omitempty" xml:"product_url,omitempty"`
+	// 官网价
+	ProductPrice *int64 `json:"product_price,omitempty" xml:"product_price,omitempty" require:"true"`
+	// 商品预留字段
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s SupplierProductItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SupplierProductItem) GoString() string {
+	return s.String()
+}
+
+func (s *SupplierProductItem) SetSupplierName(v string) *SupplierProductItem {
+	s.SupplierName = &v
+	return s
+}
+
+func (s *SupplierProductItem) SetProductModel(v string) *SupplierProductItem {
+	s.ProductModel = &v
+	return s
+}
+
+func (s *SupplierProductItem) SetSupplierId(v string) *SupplierProductItem {
+	s.SupplierId = &v
+	return s
+}
+
+func (s *SupplierProductItem) SetProductId(v string) *SupplierProductItem {
+	s.ProductId = &v
+	return s
+}
+
+func (s *SupplierProductItem) SetMainClass(v string) *SupplierProductItem {
+	s.MainClass = &v
+	return s
+}
+
+func (s *SupplierProductItem) SetEstimatedShipment(v int64) *SupplierProductItem {
+	s.EstimatedShipment = &v
+	return s
+}
+
+func (s *SupplierProductItem) SetSubClass(v string) *SupplierProductItem {
+	s.SubClass = &v
+	return s
+}
+
+func (s *SupplierProductItem) SetProductDetailInfo(v string) *SupplierProductItem {
+	s.ProductDetailInfo = &v
+	return s
+}
+
+func (s *SupplierProductItem) SetProductBrand(v string) *SupplierProductItem {
+	s.ProductBrand = &v
+	return s
+}
+
+func (s *SupplierProductItem) SetProductOrigin(v int64) *SupplierProductItem {
+	s.ProductOrigin = &v
+	return s
+}
+
+func (s *SupplierProductItem) SetProductName(v string) *SupplierProductItem {
+	s.ProductName = &v
+	return s
+}
+
+func (s *SupplierProductItem) SetProductVersion(v int64) *SupplierProductItem {
+	s.ProductVersion = &v
+	return s
+}
+
+func (s *SupplierProductItem) SetInstallPrice(v int64) *SupplierProductItem {
+	s.InstallPrice = &v
+	return s
+}
+
+func (s *SupplierProductItem) SetRealStock(v int64) *SupplierProductItem {
+	s.RealStock = &v
+	return s
+}
+
+func (s *SupplierProductItem) SetDepositPrice(v int64) *SupplierProductItem {
+	s.DepositPrice = &v
+	return s
+}
+
+func (s *SupplierProductItem) SetProductUrl(v string) *SupplierProductItem {
+	s.ProductUrl = &v
+	return s
+}
+
+func (s *SupplierProductItem) SetProductPrice(v int64) *SupplierProductItem {
+	s.ProductPrice = &v
+	return s
+}
+
+func (s *SupplierProductItem) SetExtraInfo(v string) *SupplierProductItem {
+	s.ExtraInfo = &v
+	return s
+}
+
 // 案件进度查询返回结果
 type MediationCaseDetailInfo struct {
 	// 案件编码
@@ -2216,6 +2406,50 @@ func (s *WitnessSignResult) SetThirdDocId(v string) *WitnessSignResult {
 	return s
 }
 
+// 采购订单信息
+type ApplySupplierOrderProductOutput struct {
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 链上采购单id
+	PurOrderId *string `json:"pur_order_id,omitempty" xml:"pur_order_id,omitempty" require:"true"`
+	// 待采购：READY_DELIVER
+	// 已采购：DELIVERED
+	// 已拒发：REJECTED
+	// 已退货：RETURNED
+	// 已取消：CANCELED
+	PurOrderStatus *string `json:"pur_order_status,omitempty" xml:"pur_order_status,omitempty" require:"true"`
+	// 供应商id
+	SupplierId *string `json:"supplier_id,omitempty" xml:"supplier_id,omitempty"`
+}
+
+func (s ApplySupplierOrderProductOutput) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplySupplierOrderProductOutput) GoString() string {
+	return s.String()
+}
+
+func (s *ApplySupplierOrderProductOutput) SetOrderId(v string) *ApplySupplierOrderProductOutput {
+	s.OrderId = &v
+	return s
+}
+
+func (s *ApplySupplierOrderProductOutput) SetPurOrderId(v string) *ApplySupplierOrderProductOutput {
+	s.PurOrderId = &v
+	return s
+}
+
+func (s *ApplySupplierOrderProductOutput) SetPurOrderStatus(v string) *ApplySupplierOrderProductOutput {
+	s.PurOrderStatus = &v
+	return s
+}
+
+func (s *ApplySupplierOrderProductOutput) SetSupplierId(v string) *ApplySupplierOrderProductOutput {
+	s.SupplierId = &v
+	return s
+}
+
 // 合同印章
 type ContractSeal struct {
 	// 印章别名
@@ -2342,6 +2576,32 @@ func (s *WitnessSignData) SetSignPosData(v string) *WitnessSignData {
 
 func (s *WitnessSignData) SetThirdDocId(v string) *WitnessSignData {
 	s.ThirdDocId = &v
+	return s
+}
+
+// 采购商品信息
+type ApplySupplierOrderProductInput struct {
+	// 采购商品id
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty" require:"true"`
+	// 采购商品数量
+	ProductNum *int64 `json:"product_num,omitempty" xml:"product_num,omitempty" require:"true"`
+}
+
+func (s ApplySupplierOrderProductInput) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplySupplierOrderProductInput) GoString() string {
+	return s.String()
+}
+
+func (s *ApplySupplierOrderProductInput) SetProductId(v string) *ApplySupplierOrderProductInput {
+	s.ProductId = &v
+	return s
+}
+
+func (s *ApplySupplierOrderProductInput) SetProductNum(v int64) *ApplySupplierOrderProductInput {
+	s.ProductNum = &v
 	return s
 }
 
@@ -2612,6 +2872,39 @@ func (s *TsrResponse) SetCtsr(v string) *TsrResponse {
 
 func (s *TsrResponse) SetSn(v string) *TsrResponse {
 	s.Sn = &v
+	return s
+}
+
+// 采购供应商初始化
+type SupplierInfo struct {
+	// 供应商id
+	AgentSupplierId *string `json:"agent_supplier_id,omitempty" xml:"agent_supplier_id,omitempty" require:"true"`
+	// 被代理供应商名称
+	AgentSupplierName *string `json:"agent_supplier_name,omitempty" xml:"agent_supplier_name,omitempty" require:"true"`
+	// 额外信息
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s SupplierInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SupplierInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SupplierInfo) SetAgentSupplierId(v string) *SupplierInfo {
+	s.AgentSupplierId = &v
+	return s
+}
+
+func (s *SupplierInfo) SetAgentSupplierName(v string) *SupplierInfo {
+	s.AgentSupplierName = &v
+	return s
+}
+
+func (s *SupplierInfo) SetExtraInfo(v string) *SupplierInfo {
+	s.ExtraInfo = &v
 	return s
 }
 
@@ -3135,7 +3428,7 @@ type ContractHandSignFieldApplication struct {
 	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
 	// 签署区顺序，默认1,且不小于1，顺序越小越先处理
 	Order *int64 `json:"order,omitempty" xml:"order,omitempty"`
-	// 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字。不指定xy坐标签署区可不填写，其他情况需填写。
+	// 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字。不指定xy坐标签署区可不填写，其他情况需填写。
 	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty"`
 	// x坐标，页面签章必填，骑缝签章不填写
 	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty"`
@@ -3789,7 +4082,7 @@ type OneStepSignField struct {
 	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
 	// 签署区顺序，默认1,且不小于1，顺序越小越先处理
 	Order *int64 `json:"order,omitempty" xml:"order,omitempty"`
-	// 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字
+	// 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
 	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty" require:"true"`
 	// x坐标
 	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty" require:"true"`
@@ -4180,7 +4473,7 @@ type ContractPlatformSignFieldApplication struct {
 	SealId *string `json:"seal_id,omitempty" xml:"seal_id,omitempty"`
 	// 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
 	ThirdOrderNo *string `json:"third_order_no,omitempty" xml:"third_order_no,omitempty"`
-	// 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字
+	// 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
 	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty" require:"true"`
 	// x坐标，默认空
 	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty"`
@@ -16184,6 +16477,517 @@ func (s *QueryLeaseProductinfoResponse) SetResponseData(v string) *QueryLeasePro
 	return s
 }
 
+type SyncLeaseSupplierorderstatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 订单采购状态，已取消[CANCEL，已拒收REFUSE_DELIVER，待发货TOBE_DELIVER，已退货RETURN_BACK]
+	SupplierStatus *string `json:"supplier_status,omitempty" xml:"supplier_status,omitempty" require:"true"`
+	// 租赁商家金融科技租户id
+	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true"`
+}
+
+func (s SyncLeaseSupplierorderstatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncLeaseSupplierorderstatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncLeaseSupplierorderstatusRequest) SetAuthToken(v string) *SyncLeaseSupplierorderstatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncLeaseSupplierorderstatusRequest) SetProductInstanceId(v string) *SyncLeaseSupplierorderstatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncLeaseSupplierorderstatusRequest) SetOrderId(v string) *SyncLeaseSupplierorderstatusRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *SyncLeaseSupplierorderstatusRequest) SetSupplierStatus(v string) *SyncLeaseSupplierorderstatusRequest {
+	s.SupplierStatus = &v
+	return s
+}
+
+func (s *SyncLeaseSupplierorderstatusRequest) SetLeaseId(v string) *SyncLeaseSupplierorderstatusRequest {
+	s.LeaseId = &v
+	return s
+}
+
+type SyncLeaseSupplierorderstatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态码,0表示正常
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 错误信息描述
+	ErrMessage *string `json:"err_message,omitempty" xml:"err_message,omitempty"`
+	// CANCEL：可以取消  REFUSE：不能取消
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s SyncLeaseSupplierorderstatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncLeaseSupplierorderstatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncLeaseSupplierorderstatusResponse) SetReqMsgId(v string) *SyncLeaseSupplierorderstatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncLeaseSupplierorderstatusResponse) SetResultCode(v string) *SyncLeaseSupplierorderstatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncLeaseSupplierorderstatusResponse) SetResultMsg(v string) *SyncLeaseSupplierorderstatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SyncLeaseSupplierorderstatusResponse) SetCode(v int64) *SyncLeaseSupplierorderstatusResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *SyncLeaseSupplierorderstatusResponse) SetErrMessage(v string) *SyncLeaseSupplierorderstatusResponse {
+	s.ErrMessage = &v
+	return s
+}
+
+func (s *SyncLeaseSupplierorderstatusResponse) SetStatus(v string) *SyncLeaseSupplierorderstatusResponse {
+	s.Status = &v
+	return s
+}
+
+type InitLeaseSupplierRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 供应商来源
+	Origin *string `json:"origin,omitempty" xml:"origin,omitempty" require:"true"`
+	// 供应商信息
+	Supplier *SupplierInfo `json:"supplier,omitempty" xml:"supplier,omitempty" require:"true"`
+	// 额外信息
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s InitLeaseSupplierRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitLeaseSupplierRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitLeaseSupplierRequest) SetAuthToken(v string) *InitLeaseSupplierRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitLeaseSupplierRequest) SetProductInstanceId(v string) *InitLeaseSupplierRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitLeaseSupplierRequest) SetOrigin(v string) *InitLeaseSupplierRequest {
+	s.Origin = &v
+	return s
+}
+
+func (s *InitLeaseSupplierRequest) SetSupplier(v *SupplierInfo) *InitLeaseSupplierRequest {
+	s.Supplier = v
+	return s
+}
+
+func (s *InitLeaseSupplierRequest) SetExtraInfo(v string) *InitLeaseSupplierRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+type InitLeaseSupplierResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态码 0表示成功
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 错误信息描述
+	ErrMessage *string `json:"err_message,omitempty" xml:"err_message,omitempty"`
+}
+
+func (s InitLeaseSupplierResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitLeaseSupplierResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitLeaseSupplierResponse) SetReqMsgId(v string) *InitLeaseSupplierResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitLeaseSupplierResponse) SetResultCode(v string) *InitLeaseSupplierResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitLeaseSupplierResponse) SetResultMsg(v string) *InitLeaseSupplierResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitLeaseSupplierResponse) SetCode(v int64) *InitLeaseSupplierResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *InitLeaseSupplierResponse) SetErrMessage(v string) *InitLeaseSupplierResponse {
+	s.ErrMessage = &v
+	return s
+}
+
+type FinishLeaseSupplierstatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 采购订单id，由采购平台生成
+	SupplierOrderNo *string `json:"supplier_order_no,omitempty" xml:"supplier_order_no,omitempty" require:"true"`
+	// 租赁订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 租赁方id，非采购平台
+	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true"`
+	// 当前的采购状态
+	SupplierOrderStatus *string `json:"supplier_order_status,omitempty" xml:"supplier_order_status,omitempty" require:"true"`
+	// 物流订单id
+	SupplierLogisticInfo *SupplierLogisticInfo `json:"supplier_logistic_info,omitempty" xml:"supplier_logistic_info,omitempty" require:"true"`
+	// 采购平台回传的商品订单信息
+	SupplierOrderProductInfos []*SupplierOrderProductInfo `json:"supplier_order_product_infos,omitempty" xml:"supplier_order_product_infos,omitempty" require:"true" type:"Repeated"`
+	// 供应商id
+	SupplierId *string `json:"supplier_id,omitempty" xml:"supplier_id,omitempty" require:"true"`
+}
+
+func (s FinishLeaseSupplierstatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinishLeaseSupplierstatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *FinishLeaseSupplierstatusRequest) SetAuthToken(v string) *FinishLeaseSupplierstatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *FinishLeaseSupplierstatusRequest) SetProductInstanceId(v string) *FinishLeaseSupplierstatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *FinishLeaseSupplierstatusRequest) SetSupplierOrderNo(v string) *FinishLeaseSupplierstatusRequest {
+	s.SupplierOrderNo = &v
+	return s
+}
+
+func (s *FinishLeaseSupplierstatusRequest) SetOrderId(v string) *FinishLeaseSupplierstatusRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *FinishLeaseSupplierstatusRequest) SetLeaseId(v string) *FinishLeaseSupplierstatusRequest {
+	s.LeaseId = &v
+	return s
+}
+
+func (s *FinishLeaseSupplierstatusRequest) SetSupplierOrderStatus(v string) *FinishLeaseSupplierstatusRequest {
+	s.SupplierOrderStatus = &v
+	return s
+}
+
+func (s *FinishLeaseSupplierstatusRequest) SetSupplierLogisticInfo(v *SupplierLogisticInfo) *FinishLeaseSupplierstatusRequest {
+	s.SupplierLogisticInfo = v
+	return s
+}
+
+func (s *FinishLeaseSupplierstatusRequest) SetSupplierOrderProductInfos(v []*SupplierOrderProductInfo) *FinishLeaseSupplierstatusRequest {
+	s.SupplierOrderProductInfos = v
+	return s
+}
+
+func (s *FinishLeaseSupplierstatusRequest) SetSupplierId(v string) *FinishLeaseSupplierstatusRequest {
+	s.SupplierId = &v
+	return s
+}
+
+type FinishLeaseSupplierstatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 租赁信息上链后，链上对应的txHash
+	ResponseData *string `json:"response_data,omitempty" xml:"response_data,omitempty"`
+	// 错误码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 错误信息描述
+	ErrMessage *string `json:"err_message,omitempty" xml:"err_message,omitempty"`
+}
+
+func (s FinishLeaseSupplierstatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinishLeaseSupplierstatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *FinishLeaseSupplierstatusResponse) SetReqMsgId(v string) *FinishLeaseSupplierstatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *FinishLeaseSupplierstatusResponse) SetResultCode(v string) *FinishLeaseSupplierstatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *FinishLeaseSupplierstatusResponse) SetResultMsg(v string) *FinishLeaseSupplierstatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *FinishLeaseSupplierstatusResponse) SetResponseData(v string) *FinishLeaseSupplierstatusResponse {
+	s.ResponseData = &v
+	return s
+}
+
+func (s *FinishLeaseSupplierstatusResponse) SetCode(v string) *FinishLeaseSupplierstatusResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *FinishLeaseSupplierstatusResponse) SetErrMessage(v string) *FinishLeaseSupplierstatusResponse {
+	s.ErrMessage = &v
+	return s
+}
+
+type CreateLeaseSupplierproductRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 系统来源
+	Origin *string `json:"origin,omitempty" xml:"origin,omitempty" require:"true"`
+	// 采购商品信息
+	ProductInfo *SupplierProductItem `json:"product_info,omitempty" xml:"product_info,omitempty" require:"true"`
+	// 本阶段额外信息
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s CreateLeaseSupplierproductRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateLeaseSupplierproductRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateLeaseSupplierproductRequest) SetAuthToken(v string) *CreateLeaseSupplierproductRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateLeaseSupplierproductRequest) SetProductInstanceId(v string) *CreateLeaseSupplierproductRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateLeaseSupplierproductRequest) SetOrigin(v string) *CreateLeaseSupplierproductRequest {
+	s.Origin = &v
+	return s
+}
+
+func (s *CreateLeaseSupplierproductRequest) SetProductInfo(v *SupplierProductItem) *CreateLeaseSupplierproductRequest {
+	s.ProductInfo = v
+	return s
+}
+
+func (s *CreateLeaseSupplierproductRequest) SetExtraInfo(v string) *CreateLeaseSupplierproductRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+type CreateLeaseSupplierproductResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态码 0为成功
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 状态错误信息
+	ErrMessage *string `json:"err_message,omitempty" xml:"err_message,omitempty"`
+}
+
+func (s CreateLeaseSupplierproductResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateLeaseSupplierproductResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateLeaseSupplierproductResponse) SetReqMsgId(v string) *CreateLeaseSupplierproductResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateLeaseSupplierproductResponse) SetResultCode(v string) *CreateLeaseSupplierproductResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateLeaseSupplierproductResponse) SetResultMsg(v string) *CreateLeaseSupplierproductResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateLeaseSupplierproductResponse) SetCode(v int64) *CreateLeaseSupplierproductResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *CreateLeaseSupplierproductResponse) SetErrMessage(v string) *CreateLeaseSupplierproductResponse {
+	s.ErrMessage = &v
+	return s
+}
+
+type ApplyLeaseSupplierorderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 供应商id
+	SupplierId *string `json:"supplier_id,omitempty" xml:"supplier_id,omitempty" require:"true"`
+	// 商品信息
+	ProductInfos []*ApplySupplierOrderProductInput `json:"product_infos,omitempty" xml:"product_infos,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ApplyLeaseSupplierorderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyLeaseSupplierorderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyLeaseSupplierorderRequest) SetAuthToken(v string) *ApplyLeaseSupplierorderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyLeaseSupplierorderRequest) SetProductInstanceId(v string) *ApplyLeaseSupplierorderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyLeaseSupplierorderRequest) SetOrderId(v string) *ApplyLeaseSupplierorderRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *ApplyLeaseSupplierorderRequest) SetSupplierId(v string) *ApplyLeaseSupplierorderRequest {
+	s.SupplierId = &v
+	return s
+}
+
+func (s *ApplyLeaseSupplierorderRequest) SetProductInfos(v []*ApplySupplierOrderProductInput) *ApplyLeaseSupplierorderRequest {
+	s.ProductInfos = v
+	return s
+}
+
+type ApplyLeaseSupplierorderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单信息
+	OrderInfo *ApplySupplierOrderProductOutput `json:"order_info,omitempty" xml:"order_info,omitempty"`
+	// 错误码，0表示成功
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 错误信息描述
+	ErrMessage *string `json:"err_message,omitempty" xml:"err_message,omitempty"`
+	// 商户本次采购的所有商品信息
+	ProductInfos []*ApplySupplierOrderProductInput `json:"product_infos,omitempty" xml:"product_infos,omitempty" type:"Repeated"`
+}
+
+func (s ApplyLeaseSupplierorderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyLeaseSupplierorderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyLeaseSupplierorderResponse) SetReqMsgId(v string) *ApplyLeaseSupplierorderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyLeaseSupplierorderResponse) SetResultCode(v string) *ApplyLeaseSupplierorderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyLeaseSupplierorderResponse) SetResultMsg(v string) *ApplyLeaseSupplierorderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyLeaseSupplierorderResponse) SetOrderInfo(v *ApplySupplierOrderProductOutput) *ApplyLeaseSupplierorderResponse {
+	s.OrderInfo = v
+	return s
+}
+
+func (s *ApplyLeaseSupplierorderResponse) SetCode(v int64) *ApplyLeaseSupplierorderResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *ApplyLeaseSupplierorderResponse) SetErrMessage(v string) *ApplyLeaseSupplierorderResponse {
+	s.ErrMessage = &v
+	return s
+}
+
+func (s *ApplyLeaseSupplierorderResponse) SetProductInfos(v []*ApplySupplierOrderProductInput) *ApplyLeaseSupplierorderResponse {
+	s.ProductInfos = v
+	return s
+}
+
 type CreateWitnessFlowRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -25906,7 +26710,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.29"),
+				"sdk_version":      tea.String("1.5.37"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -29555,6 +30359,176 @@ func (client *Client) QueryLeaseProductinfoEx(request *QueryLeaseProductinfoRequ
 	}
 	_result = &QueryLeaseProductinfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.productinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 同步采购平台订单状态
+ * Summary: 同步采购平台订单状态
+ */
+func (client *Client) SyncLeaseSupplierorderstatus(request *SyncLeaseSupplierorderstatusRequest) (_result *SyncLeaseSupplierorderstatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncLeaseSupplierorderstatusResponse{}
+	_body, _err := client.SyncLeaseSupplierorderstatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 同步采购平台订单状态
+ * Summary: 同步采购平台订单状态
+ */
+func (client *Client) SyncLeaseSupplierorderstatusEx(request *SyncLeaseSupplierorderstatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncLeaseSupplierorderstatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncLeaseSupplierorderstatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.supplierorderstatus.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 采购供应商初始化
+ * Summary: 采购供应商初始化
+ */
+func (client *Client) InitLeaseSupplier(request *InitLeaseSupplierRequest) (_result *InitLeaseSupplierResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitLeaseSupplierResponse{}
+	_body, _err := client.InitLeaseSupplierEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 采购供应商初始化
+ * Summary: 采购供应商初始化
+ */
+func (client *Client) InitLeaseSupplierEx(request *InitLeaseSupplierRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitLeaseSupplierResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitLeaseSupplierResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.supplier.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
+ * Summary: 租赁订单接收采购状态信息，完成采购流程
+ */
+func (client *Client) FinishLeaseSupplierstatus(request *FinishLeaseSupplierstatusRequest) (_result *FinishLeaseSupplierstatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &FinishLeaseSupplierstatusResponse{}
+	_body, _err := client.FinishLeaseSupplierstatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
+ * Summary: 租赁订单接收采购状态信息，完成采购流程
+ */
+func (client *Client) FinishLeaseSupplierstatusEx(request *FinishLeaseSupplierstatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *FinishLeaseSupplierstatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &FinishLeaseSupplierstatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.supplierstatus.finish"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 采购商品初始化
+ * Summary: 采购商品初始化
+ */
+func (client *Client) CreateLeaseSupplierproduct(request *CreateLeaseSupplierproductRequest) (_result *CreateLeaseSupplierproductResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateLeaseSupplierproductResponse{}
+	_body, _err := client.CreateLeaseSupplierproductEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 采购商品初始化
+ * Summary: 采购商品初始化
+ */
+func (client *Client) CreateLeaseSupplierproductEx(request *CreateLeaseSupplierproductRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateLeaseSupplierproductResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateLeaseSupplierproductResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.supplierproduct.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 链上采购申请
+ * Summary: 链上采购申请
+ */
+func (client *Client) ApplyLeaseSupplierorder(request *ApplyLeaseSupplierorderRequest) (_result *ApplyLeaseSupplierorderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyLeaseSupplierorderResponse{}
+	_body, _err := client.ApplyLeaseSupplierorderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 链上采购申请
+ * Summary: 链上采购申请
+ */
+func (client *Client) ApplyLeaseSupplierorderEx(request *ApplyLeaseSupplierorderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyLeaseSupplierorderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyLeaseSupplierorderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.supplierorder.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
