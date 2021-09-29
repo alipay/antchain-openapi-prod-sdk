@@ -44,7 +44,7 @@ public class ContractSignFieldDetail extends TeaModel {
     @NameInMap("order")
     public Long order;
 
-    // 页码信息，可以','或'-'分割
+    // 页码信息，可以_,_或_-_分割
     @NameInMap("pos_page")
     public String posPage;
 

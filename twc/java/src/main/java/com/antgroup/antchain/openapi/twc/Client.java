@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.5.29")
+                    new TeaPair("sdk_version", "1.5.37")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -2175,6 +2175,101 @@ public class Client {
     public QueryLeaseProductinfoResponse queryLeaseProductinfoEx(QueryLeaseProductinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.productinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLeaseProductinfoResponse());
+    }
+
+    /**
+     * Description: 同步采购平台订单状态
+     * Summary: 同步采购平台订单状态
+     */
+    public SyncLeaseSupplierorderstatusResponse syncLeaseSupplierorderstatus(SyncLeaseSupplierorderstatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncLeaseSupplierorderstatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 同步采购平台订单状态
+     * Summary: 同步采购平台订单状态
+     */
+    public SyncLeaseSupplierorderstatusResponse syncLeaseSupplierorderstatusEx(SyncLeaseSupplierorderstatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.supplierorderstatus.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncLeaseSupplierorderstatusResponse());
+    }
+
+    /**
+     * Description: 采购供应商初始化 
+     * Summary: 采购供应商初始化 
+     */
+    public InitLeaseSupplierResponse initLeaseSupplier(InitLeaseSupplierRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initLeaseSupplierEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 采购供应商初始化 
+     * Summary: 采购供应商初始化 
+     */
+    public InitLeaseSupplierResponse initLeaseSupplierEx(InitLeaseSupplierRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.supplier.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitLeaseSupplierResponse());
+    }
+
+    /**
+     * Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
+     * Summary: 租赁订单接收采购状态信息，完成采购流程
+     */
+    public FinishLeaseSupplierstatusResponse finishLeaseSupplierstatus(FinishLeaseSupplierstatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.finishLeaseSupplierstatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
+     * Summary: 租赁订单接收采购状态信息，完成采购流程
+     */
+    public FinishLeaseSupplierstatusResponse finishLeaseSupplierstatusEx(FinishLeaseSupplierstatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.supplierstatus.finish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FinishLeaseSupplierstatusResponse());
+    }
+
+    /**
+     * Description: 采购商品初始化 
+     * Summary: 采购商品初始化 
+     */
+    public CreateLeaseSupplierproductResponse createLeaseSupplierproduct(CreateLeaseSupplierproductRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createLeaseSupplierproductEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 采购商品初始化 
+     * Summary: 采购商品初始化 
+     */
+    public CreateLeaseSupplierproductResponse createLeaseSupplierproductEx(CreateLeaseSupplierproductRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.supplierproduct.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateLeaseSupplierproductResponse());
+    }
+
+    /**
+     * Description: 链上采购申请
+     * Summary: 链上采购申请
+     */
+    public ApplyLeaseSupplierorderResponse applyLeaseSupplierorder(ApplyLeaseSupplierorderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyLeaseSupplierorderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 链上采购申请
+     * Summary: 链上采购申请
+     */
+    public ApplyLeaseSupplierorderResponse applyLeaseSupplierorderEx(ApplyLeaseSupplierorderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.supplierorder.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyLeaseSupplierorderResponse());
     }
 
     /**
