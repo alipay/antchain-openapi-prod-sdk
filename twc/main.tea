@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.29',
+    sdk_version = '1.5.37',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -371,6 +371,16 @@ model ContractFlowSigner {
   thirdOrderNo?: string(name='third_order_no', example=' '),
 }
 
+// 共享项目，资产端的采购平台回传的订单商品信息
+model SupplierOrderProductInfo {
+  // 商品id
+  productId: string(name='product_id', example='product_id_123'),
+  // 商品采购单价，单位：毫厘
+  productPrice: long(name='product_price', example='10000'),
+  // 商品的sn信息
+  snList: [ string ](name='sn_list', example='["sn1","sn2"]'),
+}
+
 // 答辩人对象
 model PleaderObject {
   // 法人或自然人标识，法人为1，自然人为0
@@ -443,7 +453,7 @@ model ContractPlatformSignField {
   addSignTime?: boolean(name='add_sign_time', example='true, false'),
   // 签署区顺序，默认1,且不小于1，顺序越小越先处理
   order?: long(name='order', example='1'),
-  // 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字
+  // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
   posPage: string(name='pos_page', example='1'),
   // x坐标转为字符串的值，默认空
   posX?: string(name='pos_x', example='158.72531'),
@@ -645,6 +655,12 @@ model ProductInfo {
   extraInfo?: string(name='extra_info', example='{}'),
 }
 
+// 共享项目，资产端的采购平台回传的物流信息
+model SupplierLogisticInfo {
+  // 采购平台的物流单号
+  logisticOrderId: string(name='logistic_order_id', example='SF1234567890'),
+}
+
 // 签署区详情
 model ContractSignFieldDetail {
   // 签约主体类别，0-个人，1-机构，默认0,2 是不限
@@ -667,7 +683,7 @@ model ContractSignFieldDetail {
   flowId?: string(name='flow_id', example='b2cb74258a634179b0df3cc54791c8b6'),
   // 签署区顺序，默认1,且不小于1，顺序越小越先处理
   order?: long(name='order', example='1'),
-  // 页码信息，可以','或'-'分割
+  // 页码信息，可以_,_或_-_分割
   posPage?: string(name='pos_page', example='1'),
   // x坐标
   posX?: string(name='pos_x', example='158.72531'),
@@ -733,6 +749,46 @@ model LeaseIotItemInfo {
   rawData: string(name='raw_data', example='""'),
 }
 
+// 供应商商品信息
+model SupplierProductItem {
+  // 供应商名称
+  supplierName?: string(name='supplier_name', example='戴尔'),
+  // 商品型号
+  productModel: string(name='product_model', example='商品型号'),
+  // 供应商id
+  supplierId?: string(name='supplier_id', example='供应商id'),
+  // 商品唯一id
+  productId: string(name='product_id', example='2023423424'),
+  // 3C
+  mainClass: string(name='main_class', example='一级类目'),
+  // 预计发货量
+  estimatedShipment?: long(name='estimated_shipment', example='100'),
+  // 二级类目
+  subClass: string(name='sub_class', example='3C_pc'),
+  // 商品详情
+  productDetailInfo: string(name='product_detail_info', example='商品详情'),
+  // 商品品牌
+  productBrand: string(name='product_brand', example='商品品牌'),
+  // 商品来源
+  productOrigin: long(name='product_origin', example='1'),
+  // 商品名称
+  productName: string(name='product_name', example='商品名称'),
+  // 商品版本
+  productVersion: long(name='product_version', example='0'),
+  // 商品安装费用
+  installPrice?: long(name='install_price', example='100'),
+  // 实际库存
+  realStock?: long(name='real_stock', example='0'),
+  // 保证金
+  depositPrice?: long(name='deposit_price', example='0'),
+  // 商品url
+  productUrl?: string(name='product_url', example='http://www.product.url'),
+  // 官网价
+  productPrice: long(name='product_price', example='1000'),
+  // 商品预留字段
+  extraInfo?: string(name='extra_info', example='{}'),
+}
+
 // 案件进度查询返回结果
 model MediationCaseDetailInfo {
   // 案件编码
@@ -775,6 +831,22 @@ model WitnessSignResult {
   thirdDocId?: string(name='third_doc_id', example=' '),
 }
 
+// 采购订单信息
+model ApplySupplierOrderProductOutput {
+  // 订单id
+  orderId: string(name='order_id', example='2020223123'),
+  // 链上采购单id
+  purOrderId: string(name='pur_order_id', example='23042340234234'),
+  // 待采购：READY_DELIVER
+  // 已采购：DELIVERED
+  // 已拒发：REJECTED
+  // 已退货：RETURNED
+  // 已取消：CANCELED
+  purOrderStatus: string(name='pur_order_status', example='链上采购状态'),
+  // 供应商id
+  supplierId?: string(name='supplier_id', example='ABCDEFGH'),
+}
+
 // 合同印章
 model ContractSeal {
   // 印章别名
@@ -811,6 +883,14 @@ model WitnessSignData {
   signPosData?: string(name='sign_pos_data', example=' '),
   // 第三方文档id，批量签时必传
   thirdDocId?: string(name='third_doc_id', example=' '),
+}
+
+// 采购商品信息
+model ApplySupplierOrderProductInput {
+  // 采购商品id
+  productId: string(name='product_id', example='202024234234'),
+  // 采购商品数量
+  productNum: long(name='product_num', example='100'),
 }
 
 // 关键字位置列表
@@ -893,6 +973,16 @@ model TsrResponse {
   // 凭证序列号 （在校验的时需要先填写凭证编号）
   // 
   sn: string(name='sn', example=' '),
+}
+
+// 采购供应商初始化 
+model SupplierInfo {
+  // 供应商id
+  agentSupplierId: string(name='agent_supplier_id', example='ABCDEFGH'),
+  // 被代理供应商名称
+  agentSupplierName: string(name='agent_supplier_name', example='戴尔'),
+  // 额外信息
+  extraInfo?: string(name='extra_info', example='{}'),
 }
 
 // 核验请求时对应的存证元数据
@@ -1055,7 +1145,7 @@ model ContractHandSignFieldApplication {
   fileId: string(name='file_id', example='fe7df2f477d649c18ebcfdfffeba253d'),
   // 签署区顺序，默认1,且不小于1，顺序越小越先处理
   order?: long(name='order', example=''),
-  // 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字。不指定xy坐标签署区可不填写，其他情况需填写。
+  // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字。不指定xy坐标签署区可不填写，其他情况需填写。
   posPage?: string(name='pos_page', example='1'),
   // x坐标，页面签章必填，骑缝签章不填写
   posX?: string(name='pos_x', example='1.1'),
@@ -1253,7 +1343,7 @@ model OneStepSignField {
   fileId: string(name='file_id', example='fe7df2f477d649c18ebcfdfffeba253d'),
   // 签署区顺序，默认1,且不小于1，顺序越小越先处理
   order?: long(name='order', example=''),
-  // 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字
+  // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
   posPage: string(name='pos_page', example='1'),
   // x坐标
   posX: string(name='pos_x', example='1.1'),
@@ -1369,7 +1459,7 @@ model ContractPlatformSignFieldApplication {
   sealId?: string(name='seal_id', example='bcd7ffd9-5caf-4342-bd1c-02257229ccd5'),
   // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
   thirdOrderNo?: string(name='third_order_no', example=' '),
-  // 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字
+  // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
   posPage: string(name='pos_page', example='1'),
   // x坐标，默认空
   posX?: string(name='pos_x', example='158.72531'),
@@ -6770,6 +6860,242 @@ async function queryLeaseProductinfo(request: QueryLeaseProductinfoRequest): Que
 async function queryLeaseProductinfoEx(request: QueryLeaseProductinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLeaseProductinfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.lease.productinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncLeaseSupplierorderstatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id
+  orderId: string(name='order_id'),
+  // 订单采购状态，已取消[CANCEL，已拒收REFUSE_DELIVER，待发货TOBE_DELIVER，已退货RETURN_BACK]
+  supplierStatus: string(name='supplier_status'),
+  // 租赁商家金融科技租户id
+  leaseId: string(name='lease_id'),
+}
+
+model SyncLeaseSupplierorderstatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码,0表示正常
+  code?: long(name='code'),
+  // 错误信息描述
+  errMessage?: string(name='err_message'),
+  // CANCEL：可以取消  REFUSE：不能取消
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 同步采购平台订单状态
+ * Summary: 同步采购平台订单状态
+ */
+async function syncLeaseSupplierorderstatus(request: SyncLeaseSupplierorderstatusRequest): SyncLeaseSupplierorderstatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncLeaseSupplierorderstatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 同步采购平台订单状态
+ * Summary: 同步采购平台订单状态
+ */
+async function syncLeaseSupplierorderstatusEx(request: SyncLeaseSupplierorderstatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncLeaseSupplierorderstatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.supplierorderstatus.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitLeaseSupplierRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 供应商来源
+  origin: string(name='origin'),
+  // 供应商信息
+  supplier: SupplierInfo(name='supplier'),
+  // 额外信息
+  extraInfo?: string(name='extra_info'),
+}
+
+model InitLeaseSupplierResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码 0表示成功
+  code?: long(name='code'),
+  // 错误信息描述
+  errMessage?: string(name='err_message'),
+}
+
+/**
+ * Description: 采购供应商初始化 
+ * Summary: 采购供应商初始化 
+ */
+async function initLeaseSupplier(request: InitLeaseSupplierRequest): InitLeaseSupplierResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initLeaseSupplierEx(request, headers, runtime);
+}
+
+/**
+ * Description: 采购供应商初始化 
+ * Summary: 采购供应商初始化 
+ */
+async function initLeaseSupplierEx(request: InitLeaseSupplierRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitLeaseSupplierResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.supplier.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model FinishLeaseSupplierstatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 采购订单id，由采购平台生成
+  supplierOrderNo: string(name='supplier_order_no'),
+  // 租赁订单id
+  orderId: string(name='order_id'),
+  // 租赁方id，非采购平台
+  leaseId: string(name='lease_id'),
+  // 当前的采购状态
+  supplierOrderStatus: string(name='supplier_order_status'),
+  // 物流订单id
+  supplierLogisticInfo: SupplierLogisticInfo(name='supplier_logistic_info'),
+  // 采购平台回传的商品订单信息
+  supplierOrderProductInfos: [ SupplierOrderProductInfo ](name='supplier_order_product_infos'),
+  // 供应商id
+  supplierId: string(name='supplier_id'),
+}
+
+model FinishLeaseSupplierstatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 租赁信息上链后，链上对应的txHash
+  responseData?: string(name='response_data'),
+  // 错误码
+  code?: string(name='code'),
+  // 错误信息描述
+  errMessage?: string(name='err_message'),
+}
+
+/**
+ * Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
+ * Summary: 租赁订单接收采购状态信息，完成采购流程
+ */
+async function finishLeaseSupplierstatus(request: FinishLeaseSupplierstatusRequest): FinishLeaseSupplierstatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return finishLeaseSupplierstatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
+ * Summary: 租赁订单接收采购状态信息，完成采购流程
+ */
+async function finishLeaseSupplierstatusEx(request: FinishLeaseSupplierstatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FinishLeaseSupplierstatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.supplierstatus.finish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateLeaseSupplierproductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 系统来源
+  origin: string(name='origin'),
+  // 采购商品信息
+  productInfo: SupplierProductItem(name='product_info'),
+  // 本阶段额外信息
+  extraInfo?: string(name='extra_info'),
+}
+
+model CreateLeaseSupplierproductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码 0为成功
+  code?: long(name='code'),
+  // 状态错误信息
+  errMessage?: string(name='err_message'),
+}
+
+/**
+ * Description: 采购商品初始化 
+ * Summary: 采购商品初始化 
+ */
+async function createLeaseSupplierproduct(request: CreateLeaseSupplierproductRequest): CreateLeaseSupplierproductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createLeaseSupplierproductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 采购商品初始化 
+ * Summary: 采购商品初始化 
+ */
+async function createLeaseSupplierproductEx(request: CreateLeaseSupplierproductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateLeaseSupplierproductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.supplierproduct.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyLeaseSupplierorderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id
+  orderId: string(name='order_id'),
+  // 供应商id
+  supplierId: string(name='supplier_id'),
+  // 商品信息
+  productInfos: [ ApplySupplierOrderProductInput ](name='product_infos'),
+}
+
+model ApplyLeaseSupplierorderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单信息
+  orderInfo?: ApplySupplierOrderProductOutput(name='order_info'),
+  // 错误码，0表示成功
+  code?: long(name='code'),
+  // 错误信息描述
+  errMessage?: string(name='err_message'),
+  // 商户本次采购的所有商品信息
+  productInfos?: [ ApplySupplierOrderProductInput ](name='product_infos'),
+}
+
+/**
+ * Description: 链上采购申请
+ * Summary: 链上采购申请
+ */
+async function applyLeaseSupplierorder(request: ApplyLeaseSupplierorderRequest): ApplyLeaseSupplierorderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyLeaseSupplierorderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链上采购申请
+ * Summary: 链上采购申请
+ */
+async function applyLeaseSupplierorderEx(request: ApplyLeaseSupplierorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyLeaseSupplierorderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.supplierorder.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateWitnessFlowRequest = {
