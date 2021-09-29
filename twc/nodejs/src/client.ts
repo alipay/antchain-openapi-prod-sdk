@@ -616,6 +616,35 @@ export class ContractFlowSigner extends $tea.Model {
   }
 }
 
+// 共享项目，资产端的采购平台回传的订单商品信息
+export class SupplierOrderProductInfo extends $tea.Model {
+  // 商品id
+  productId: string;
+  // 商品采购单价，单位：毫厘
+  productPrice: number;
+  // 商品的sn信息
+  snList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      productId: 'product_id',
+      productPrice: 'product_price',
+      snList: 'sn_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productId: 'string',
+      productPrice: 'number',
+      snList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 答辩人对象
 export class PleaderObject extends $tea.Model {
   // 法人或自然人标识，法人为1，自然人为0
@@ -788,7 +817,7 @@ export class ContractPlatformSignField extends $tea.Model {
   addSignTime?: boolean;
   // 签署区顺序，默认1,且不小于1，顺序越小越先处理
   order?: number;
-  // 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字
+  // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
   posPage: string;
   // x坐标转为字符串的值，默认空
   posX?: string;
@@ -1293,6 +1322,27 @@ export class ProductInfo extends $tea.Model {
   }
 }
 
+// 共享项目，资产端的采购平台回传的物流信息
+export class SupplierLogisticInfo extends $tea.Model {
+  // 采购平台的物流单号
+  logisticOrderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      logisticOrderId: 'logistic_order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      logisticOrderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 签署区详情
 export class ContractSignFieldDetail extends $tea.Model {
   // 签约主体类别，0-个人，1-机构，默认0,2 是不限
@@ -1315,7 +1365,7 @@ export class ContractSignFieldDetail extends $tea.Model {
   flowId?: string;
   // 签署区顺序，默认1,且不小于1，顺序越小越先处理
   order?: number;
-  // 页码信息，可以','或'-'分割
+  // 页码信息，可以_,_或_-_分割
   posPage?: string;
   // x坐标
   posX?: string;
@@ -1505,6 +1555,95 @@ export class LeaseIotItemInfo extends $tea.Model {
   }
 }
 
+// 供应商商品信息
+export class SupplierProductItem extends $tea.Model {
+  // 供应商名称
+  supplierName?: string;
+  // 商品型号
+  productModel: string;
+  // 供应商id
+  supplierId?: string;
+  // 商品唯一id
+  productId: string;
+  // 3C
+  mainClass: string;
+  // 预计发货量
+  estimatedShipment?: number;
+  // 二级类目
+  subClass: string;
+  // 商品详情
+  productDetailInfo: string;
+  // 商品品牌
+  productBrand: string;
+  // 商品来源
+  productOrigin: number;
+  // 商品名称
+  productName: string;
+  // 商品版本
+  productVersion: number;
+  // 商品安装费用
+  installPrice?: number;
+  // 实际库存
+  realStock?: number;
+  // 保证金
+  depositPrice?: number;
+  // 商品url
+  productUrl?: string;
+  // 官网价
+  productPrice: number;
+  // 商品预留字段
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      supplierName: 'supplier_name',
+      productModel: 'product_model',
+      supplierId: 'supplier_id',
+      productId: 'product_id',
+      mainClass: 'main_class',
+      estimatedShipment: 'estimated_shipment',
+      subClass: 'sub_class',
+      productDetailInfo: 'product_detail_info',
+      productBrand: 'product_brand',
+      productOrigin: 'product_origin',
+      productName: 'product_name',
+      productVersion: 'product_version',
+      installPrice: 'install_price',
+      realStock: 'real_stock',
+      depositPrice: 'deposit_price',
+      productUrl: 'product_url',
+      productPrice: 'product_price',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      supplierName: 'string',
+      productModel: 'string',
+      supplierId: 'string',
+      productId: 'string',
+      mainClass: 'string',
+      estimatedShipment: 'number',
+      subClass: 'string',
+      productDetailInfo: 'string',
+      productBrand: 'string',
+      productOrigin: 'number',
+      productName: 'string',
+      productVersion: 'number',
+      installPrice: 'number',
+      realStock: 'number',
+      depositPrice: 'number',
+      productUrl: 'string',
+      productPrice: 'number',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 案件进度查询返回结果
 export class MediationCaseDetailInfo extends $tea.Model {
   // 案件编码
@@ -1607,6 +1746,43 @@ export class WitnessSignResult extends $tea.Model {
   }
 }
 
+// 采购订单信息
+export class ApplySupplierOrderProductOutput extends $tea.Model {
+  // 订单id
+  orderId: string;
+  // 链上采购单id
+  purOrderId: string;
+  // 待采购：READY_DELIVER
+  // 已采购：DELIVERED
+  // 已拒发：REJECTED
+  // 已退货：RETURNED
+  // 已取消：CANCELED
+  purOrderStatus: string;
+  // 供应商id
+  supplierId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      orderId: 'order_id',
+      purOrderId: 'pur_order_id',
+      purOrderStatus: 'pur_order_status',
+      supplierId: 'supplier_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderId: 'string',
+      purOrderId: 'string',
+      purOrderStatus: 'string',
+      supplierId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 合同印章
 export class ContractSeal extends $tea.Model {
   // 印章别名
@@ -1693,6 +1869,31 @@ export class WitnessSignData extends $tea.Model {
       signHash: 'string',
       signPosData: 'string',
       thirdDocId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 采购商品信息
+export class ApplySupplierOrderProductInput extends $tea.Model {
+  // 采购商品id
+  productId: string;
+  // 采购商品数量
+  productNum: number;
+  static names(): { [key: string]: string } {
+    return {
+      productId: 'product_id',
+      productNum: 'product_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productId: 'string',
+      productNum: 'number',
     };
   }
 
@@ -1909,6 +2110,35 @@ export class TsrResponse extends $tea.Model {
       ts: 'string',
       ctsr: 'string',
       sn: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 采购供应商初始化 
+export class SupplierInfo extends $tea.Model {
+  // 供应商id
+  agentSupplierId: string;
+  // 被代理供应商名称
+  agentSupplierName: string;
+  // 额外信息
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      agentSupplierId: 'agent_supplier_id',
+      agentSupplierName: 'agent_supplier_name',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      agentSupplierId: 'string',
+      agentSupplierName: 'string',
+      extraInfo: 'string',
     };
   }
 
@@ -2319,7 +2549,7 @@ export class ContractHandSignFieldApplication extends $tea.Model {
   fileId: string;
   // 签署区顺序，默认1,且不小于1，顺序越小越先处理
   order?: number;
-  // 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字。不指定xy坐标签署区可不填写，其他情况需填写。
+  // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字。不指定xy坐标签署区可不填写，其他情况需填写。
   posPage?: string;
   // x坐标，页面签章必填，骑缝签章不填写
   posX?: string;
@@ -2817,7 +3047,7 @@ export class OneStepSignField extends $tea.Model {
   fileId: string;
   // 签署区顺序，默认1,且不小于1，顺序越小越先处理
   order?: number;
-  // 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字
+  // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
   posPage: string;
   // x坐标
   posX: string;
@@ -3092,7 +3322,7 @@ export class ContractPlatformSignFieldApplication extends $tea.Model {
   sealId?: string;
   // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
   thirdOrderNo?: string;
-  // 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字
+  // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
   posPage: string;
   // x坐标，默认空
   posX?: string;
@@ -12012,6 +12242,393 @@ export class QueryLeaseProductinfoResponse extends $tea.Model {
   }
 }
 
+export class SyncLeaseSupplierorderstatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id
+  orderId: string;
+  // 订单采购状态，已取消[CANCEL，已拒收REFUSE_DELIVER，待发货TOBE_DELIVER，已退货RETURN_BACK]
+  supplierStatus: string;
+  // 租赁商家金融科技租户id
+  leaseId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      supplierStatus: 'supplier_status',
+      leaseId: 'lease_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      supplierStatus: 'string',
+      leaseId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncLeaseSupplierorderstatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 状态码,0表示正常
+  code?: number;
+  // 错误信息描述
+  errMessage?: string;
+  // CANCEL：可以取消  REFUSE：不能取消
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      errMessage: 'err_message',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'number',
+      errMessage: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitLeaseSupplierRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 供应商来源
+  origin: string;
+  // 供应商信息
+  supplier: SupplierInfo;
+  // 额外信息
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      origin: 'origin',
+      supplier: 'supplier',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      origin: 'string',
+      supplier: SupplierInfo,
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitLeaseSupplierResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 状态码 0表示成功
+  code?: number;
+  // 错误信息描述
+  errMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      errMessage: 'err_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'number',
+      errMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class FinishLeaseSupplierstatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 采购订单id，由采购平台生成
+  supplierOrderNo: string;
+  // 租赁订单id
+  orderId: string;
+  // 租赁方id，非采购平台
+  leaseId: string;
+  // 当前的采购状态
+  supplierOrderStatus: string;
+  // 物流订单id
+  supplierLogisticInfo: SupplierLogisticInfo;
+  // 采购平台回传的商品订单信息
+  supplierOrderProductInfos: SupplierOrderProductInfo[];
+  // 供应商id
+  supplierId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      supplierOrderNo: 'supplier_order_no',
+      orderId: 'order_id',
+      leaseId: 'lease_id',
+      supplierOrderStatus: 'supplier_order_status',
+      supplierLogisticInfo: 'supplier_logistic_info',
+      supplierOrderProductInfos: 'supplier_order_product_infos',
+      supplierId: 'supplier_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      supplierOrderNo: 'string',
+      orderId: 'string',
+      leaseId: 'string',
+      supplierOrderStatus: 'string',
+      supplierLogisticInfo: SupplierLogisticInfo,
+      supplierOrderProductInfos: { 'type': 'array', 'itemType': SupplierOrderProductInfo },
+      supplierId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class FinishLeaseSupplierstatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 租赁信息上链后，链上对应的txHash
+  responseData?: string;
+  // 错误码
+  code?: string;
+  // 错误信息描述
+  errMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseData: 'response_data',
+      code: 'code',
+      errMessage: 'err_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseData: 'string',
+      code: 'string',
+      errMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLeaseSupplierproductRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 系统来源
+  origin: string;
+  // 采购商品信息
+  productInfo: SupplierProductItem;
+  // 本阶段额外信息
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      origin: 'origin',
+      productInfo: 'product_info',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      origin: 'string',
+      productInfo: SupplierProductItem,
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLeaseSupplierproductResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 状态码 0为成功
+  code?: number;
+  // 状态错误信息
+  errMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      errMessage: 'err_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'number',
+      errMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyLeaseSupplierorderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id
+  orderId: string;
+  // 供应商id
+  supplierId: string;
+  // 商品信息
+  productInfos: ApplySupplierOrderProductInput[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      supplierId: 'supplier_id',
+      productInfos: 'product_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      supplierId: 'string',
+      productInfos: { 'type': 'array', 'itemType': ApplySupplierOrderProductInput },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyLeaseSupplierorderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单信息
+  orderInfo?: ApplySupplierOrderProductOutput;
+  // 错误码，0表示成功
+  code?: number;
+  // 错误信息描述
+  errMessage?: string;
+  // 商户本次采购的所有商品信息
+  productInfos?: ApplySupplierOrderProductInput[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderInfo: 'order_info',
+      code: 'code',
+      errMessage: 'err_message',
+      productInfos: 'product_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderInfo: ApplySupplierOrderProductOutput,
+      code: 'number',
+      errMessage: 'string',
+      productInfos: { 'type': 'array', 'itemType': ApplySupplierOrderProductInput },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateWitnessFlowRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -19014,7 +19631,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.29",
+          sdk_version: "1.5.37",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -21076,6 +21693,101 @@ export default class Client {
   async queryLeaseProductinfoEx(request: QueryLeaseProductinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryLeaseProductinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryLeaseProductinfoResponse>(await this.doRequest("1.0", "twc.notary.lease.productinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryLeaseProductinfoResponse({}));
+  }
+
+  /**
+   * Description: 同步采购平台订单状态
+   * Summary: 同步采购平台订单状态
+   */
+  async syncLeaseSupplierorderstatus(request: SyncLeaseSupplierorderstatusRequest): Promise<SyncLeaseSupplierorderstatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncLeaseSupplierorderstatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 同步采购平台订单状态
+   * Summary: 同步采购平台订单状态
+   */
+  async syncLeaseSupplierorderstatusEx(request: SyncLeaseSupplierorderstatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncLeaseSupplierorderstatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncLeaseSupplierorderstatusResponse>(await this.doRequest("1.0", "twc.notary.lease.supplierorderstatus.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncLeaseSupplierorderstatusResponse({}));
+  }
+
+  /**
+   * Description: 采购供应商初始化 
+   * Summary: 采购供应商初始化 
+   */
+  async initLeaseSupplier(request: InitLeaseSupplierRequest): Promise<InitLeaseSupplierResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initLeaseSupplierEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 采购供应商初始化 
+   * Summary: 采购供应商初始化 
+   */
+  async initLeaseSupplierEx(request: InitLeaseSupplierRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitLeaseSupplierResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitLeaseSupplierResponse>(await this.doRequest("1.0", "twc.notary.lease.supplier.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitLeaseSupplierResponse({}));
+  }
+
+  /**
+   * Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
+   * Summary: 租赁订单接收采购状态信息，完成采购流程
+   */
+  async finishLeaseSupplierstatus(request: FinishLeaseSupplierstatusRequest): Promise<FinishLeaseSupplierstatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.finishLeaseSupplierstatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
+   * Summary: 租赁订单接收采购状态信息，完成采购流程
+   */
+  async finishLeaseSupplierstatusEx(request: FinishLeaseSupplierstatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<FinishLeaseSupplierstatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<FinishLeaseSupplierstatusResponse>(await this.doRequest("1.0", "twc.notary.lease.supplierstatus.finish", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new FinishLeaseSupplierstatusResponse({}));
+  }
+
+  /**
+   * Description: 采购商品初始化 
+   * Summary: 采购商品初始化 
+   */
+  async createLeaseSupplierproduct(request: CreateLeaseSupplierproductRequest): Promise<CreateLeaseSupplierproductResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createLeaseSupplierproductEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 采购商品初始化 
+   * Summary: 采购商品初始化 
+   */
+  async createLeaseSupplierproductEx(request: CreateLeaseSupplierproductRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateLeaseSupplierproductResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateLeaseSupplierproductResponse>(await this.doRequest("1.0", "twc.notary.lease.supplierproduct.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateLeaseSupplierproductResponse({}));
+  }
+
+  /**
+   * Description: 链上采购申请
+   * Summary: 链上采购申请
+   */
+  async applyLeaseSupplierorder(request: ApplyLeaseSupplierorderRequest): Promise<ApplyLeaseSupplierorderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyLeaseSupplierorderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 链上采购申请
+   * Summary: 链上采购申请
+   */
+  async applyLeaseSupplierorderEx(request: ApplyLeaseSupplierorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyLeaseSupplierorderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyLeaseSupplierorderResponse>(await this.doRequest("1.0", "twc.notary.lease.supplierorder.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyLeaseSupplierorderResponse({}));
   }
 
   /**
