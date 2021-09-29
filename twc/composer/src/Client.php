@@ -27,6 +27,8 @@ use AntChain\TWC\Models\ApplyContractReportRequest;
 use AntChain\TWC\Models\ApplyContractReportResponse;
 use AntChain\TWC\Models\ApplyJusticeMediationRequest;
 use AntChain\TWC\Models\ApplyJusticeMediationResponse;
+use AntChain\TWC\Models\ApplyLeaseSupplierorderRequest;
+use AntChain\TWC\Models\ApplyLeaseSupplierorderResponse;
 use AntChain\TWC\Models\AuthContractSignRequest;
 use AntChain\TWC\Models\AuthContractSignResponse;
 use AntChain\TWC\Models\AuthLeaseContractRequest;
@@ -165,6 +167,8 @@ use AntChain\TWC\Models\CreateLeaseSupplierdynamicinfoRequest;
 use AntChain\TWC\Models\CreateLeaseSupplierdynamicinfoResponse;
 use AntChain\TWC\Models\CreateLeaseSupplierinfoRequest;
 use AntChain\TWC\Models\CreateLeaseSupplierinfoResponse;
+use AntChain\TWC\Models\CreateLeaseSupplierproductRequest;
+use AntChain\TWC\Models\CreateLeaseSupplierproductResponse;
 use AntChain\TWC\Models\CreateLeaseTextRequest;
 use AntChain\TWC\Models\CreateLeaseTextResponse;
 use AntChain\TWC\Models\CreateLeaseUserinfoRequest;
@@ -205,6 +209,8 @@ use AntChain\TWC\Models\DeployMytfTappRequest;
 use AntChain\TWC\Models\DeployMytfTappResponse;
 use AntChain\TWC\Models\DownloadContractDocumentRequest;
 use AntChain\TWC\Models\DownloadContractDocumentResponse;
+use AntChain\TWC\Models\FinishLeaseSupplierstatusRequest;
+use AntChain\TWC\Models\FinishLeaseSupplierstatusResponse;
 use AntChain\TWC\Models\GetCertificateDetailRequest;
 use AntChain\TWC\Models\GetCertificateDetailResponse;
 use AntChain\TWC\Models\GetContractCertificateRequest;
@@ -245,6 +251,8 @@ use AntChain\TWC\Models\InitEnterpriseFaceauthRequest;
 use AntChain\TWC\Models\InitEnterpriseFaceauthResponse;
 use AntChain\TWC\Models\InitIdentificationFaceauthRequest;
 use AntChain\TWC\Models\InitIdentificationFaceauthResponse;
+use AntChain\TWC\Models\InitLeaseSupplierRequest;
+use AntChain\TWC\Models\InitLeaseSupplierResponse;
 use AntChain\TWC\Models\ListContractOuttradeidRequest;
 use AntChain\TWC\Models\ListContractOuttradeidResponse;
 use AntChain\TWC\Models\ListContractPayruleRequest;
@@ -353,6 +361,8 @@ use AntChain\TWC\Models\SyncInnerTsrRequest;
 use AntChain\TWC\Models\SyncInnerTsrResponse;
 use AntChain\TWC\Models\SyncInnerTwcopenRequest;
 use AntChain\TWC\Models\SyncInnerTwcopenResponse;
+use AntChain\TWC\Models\SyncLeaseSupplierorderstatusRequest;
+use AntChain\TWC\Models\SyncLeaseSupplierorderstatusResponse;
 use AntChain\TWC\Models\UpdateContractOrganizationRequest;
 use AntChain\TWC\Models\UpdateContractOrganizationResponse;
 use AntChain\TWC\Models\UpdateContractPlatformRequest;
@@ -516,7 +526,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.29',
+                    'sdk_version'      => '1.5.37',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -4062,6 +4072,171 @@ class Client
         Utils::validateModel($request);
 
         return QueryLeaseProductinfoResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.productinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 同步采购平台订单状态
+     * Summary: 同步采购平台订单状态
+     *
+     * @param SyncLeaseSupplierorderstatusRequest $request
+     *
+     * @return SyncLeaseSupplierorderstatusResponse
+     */
+    public function syncLeaseSupplierorderstatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncLeaseSupplierorderstatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 同步采购平台订单状态
+     * Summary: 同步采购平台订单状态
+     *
+     * @param SyncLeaseSupplierorderstatusRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return SyncLeaseSupplierorderstatusResponse
+     */
+    public function syncLeaseSupplierorderstatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncLeaseSupplierorderstatusResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.supplierorderstatus.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 采购供应商初始化
+     * Summary: 采购供应商初始化.
+     *
+     * @param InitLeaseSupplierRequest $request
+     *
+     * @return InitLeaseSupplierResponse
+     */
+    public function initLeaseSupplier($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initLeaseSupplierEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 采购供应商初始化
+     * Summary: 采购供应商初始化.
+     *
+     * @param InitLeaseSupplierRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return InitLeaseSupplierResponse
+     */
+    public function initLeaseSupplierEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitLeaseSupplierResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.supplier.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
+     * Summary: 租赁订单接收采购状态信息，完成采购流程.
+     *
+     * @param FinishLeaseSupplierstatusRequest $request
+     *
+     * @return FinishLeaseSupplierstatusResponse
+     */
+    public function finishLeaseSupplierstatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->finishLeaseSupplierstatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
+     * Summary: 租赁订单接收采购状态信息，完成采购流程.
+     *
+     * @param FinishLeaseSupplierstatusRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return FinishLeaseSupplierstatusResponse
+     */
+    public function finishLeaseSupplierstatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FinishLeaseSupplierstatusResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.supplierstatus.finish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 采购商品初始化
+     * Summary: 采购商品初始化.
+     *
+     * @param CreateLeaseSupplierproductRequest $request
+     *
+     * @return CreateLeaseSupplierproductResponse
+     */
+    public function createLeaseSupplierproduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLeaseSupplierproductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 采购商品初始化
+     * Summary: 采购商品初始化.
+     *
+     * @param CreateLeaseSupplierproductRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CreateLeaseSupplierproductResponse
+     */
+    public function createLeaseSupplierproductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLeaseSupplierproductResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.supplierproduct.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 链上采购申请
+     * Summary: 链上采购申请.
+     *
+     * @param ApplyLeaseSupplierorderRequest $request
+     *
+     * @return ApplyLeaseSupplierorderResponse
+     */
+    public function applyLeaseSupplierorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyLeaseSupplierorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 链上采购申请
+     * Summary: 链上采购申请.
+     *
+     * @param ApplyLeaseSupplierorderRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ApplyLeaseSupplierorderResponse
+     */
+    public function applyLeaseSupplierorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyLeaseSupplierorderResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.supplierorder.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -88,7 +88,7 @@ class ContractSignFieldDetail extends Model
      */
     public $order;
 
-    // 页码信息，可以','或'-'分割
+    // 页码信息，可以_,_或_-_分割
     /**
      * @example 1
      *

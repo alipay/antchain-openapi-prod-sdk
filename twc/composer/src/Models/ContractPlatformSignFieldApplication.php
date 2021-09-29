@@ -40,7 +40,7 @@ class ContractPlatformSignFieldApplication extends Model
      */
     public $thirdOrderNo;
 
-    // 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字
+    // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
     /**
      * @example 1
      *
