@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4'
+                    'sdk_version': '1.0.11'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4'
+                    'sdk_version': '1.0.11'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -270,6 +270,60 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def query_predict(
+        self,
+        request: donpa_models.QueryPredictRequest,
+    ) -> donpa_models.QueryPredictResponse:
+        """
+        Description: 资产定价/处置预测
+        Summary: 资产定价/处置预测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_predict_ex(request, headers, runtime)
+
+    async def query_predict_async(
+        self,
+        request: donpa_models.QueryPredictRequest,
+    ) -> donpa_models.QueryPredictResponse:
+        """
+        Description: 资产定价/处置预测
+        Summary: 资产定价/处置预测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_predict_ex_async(request, headers, runtime)
+
+    def query_predict_ex(
+        self,
+        request: donpa_models.QueryPredictRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> donpa_models.QueryPredictResponse:
+        """
+        Description: 资产定价/处置预测
+        Summary: 资产定价/处置预测
+        """
+        UtilClient.validate_model(request)
+        return donpa_models.QueryPredictResponse().from_map(
+            self.do_request('1.0', 'antchain.donpa.predict.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_predict_ex_async(
+        self,
+        request: donpa_models.QueryPredictRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> donpa_models.QueryPredictResponse:
+        """
+        Description: 资产定价/处置预测
+        Summary: 资产定价/处置预测
+        """
+        UtilClient.validate_model(request)
+        return donpa_models.QueryPredictResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.donpa.predict.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def start_slxf(
         self,

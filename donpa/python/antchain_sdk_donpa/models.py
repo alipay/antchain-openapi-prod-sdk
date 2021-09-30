@@ -205,6 +205,124 @@ class RepairData(TeaModel):
         return self
 
 
+class PredictRequest(TeaModel):
+    def __init__(
+        self,
+        asset_detail_id: str = None,
+        cert_no_md_5: str = None,
+        payback_amount: int = None,
+        payback_num: int = None,
+        overdue_month: int = None,
+        prediction_score: str = None,
+    ):
+        # 资产明细ID
+        self.asset_detail_id = asset_detail_id
+        # 身份证号码MD5
+        self.cert_no_md_5 = cert_no_md_5
+        # 已还总额,默认0
+        self.payback_amount = payback_amount
+        # 已还期数，默认0
+        self.payback_num = payback_num
+        # 逾期月数
+        self.overdue_month = overdue_month
+        # 债务人信用分数，由系统计算得出，无须传入。
+        self.prediction_score = prediction_score
+
+    def validate(self):
+        self.validate_required(self.cert_no_md_5, 'cert_no_md_5')
+
+    def to_map(self):
+        result = dict()
+        if self.asset_detail_id is not None:
+            result['asset_detail_id'] = self.asset_detail_id
+        if self.cert_no_md_5 is not None:
+            result['cert_no_md5'] = self.cert_no_md_5
+        if self.payback_amount is not None:
+            result['payback_amount'] = self.payback_amount
+        if self.payback_num is not None:
+            result['payback_num'] = self.payback_num
+        if self.overdue_month is not None:
+            result['overdue_month'] = self.overdue_month
+        if self.prediction_score is not None:
+            result['prediction_score'] = self.prediction_score
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('asset_detail_id') is not None:
+            self.asset_detail_id = m.get('asset_detail_id')
+        if m.get('cert_no_md5') is not None:
+            self.cert_no_md_5 = m.get('cert_no_md5')
+        if m.get('payback_amount') is not None:
+            self.payback_amount = m.get('payback_amount')
+        if m.get('payback_num') is not None:
+            self.payback_num = m.get('payback_num')
+        if m.get('overdue_month') is not None:
+            self.overdue_month = m.get('overdue_month')
+        if m.get('prediction_score') is not None:
+            self.prediction_score = m.get('prediction_score')
+        return self
+
+
+class PredictResponse(TeaModel):
+    def __init__(
+        self,
+        asset_detail_id: str = None,
+        probability_0: str = None,
+        probability_1: str = None,
+        cert_no_md_5: str = None,
+        mobile_md_5: str = None,
+        level: str = None,
+    ):
+        # 资产明细ID
+        self.asset_detail_id = asset_detail_id
+        # 反向指标
+        self.probability_0 = probability_0
+        # 正向指标
+        self.probability_1 = probability_1
+        # 身份证号码MD5
+        self.cert_no_md_5 = cert_no_md_5
+        # 身份证号码MD5
+        self.mobile_md_5 = mobile_md_5
+        # 可选值，A,B,C
+        self.level = level
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.asset_detail_id is not None:
+            result['asset_detail_id'] = self.asset_detail_id
+        if self.probability_0 is not None:
+            result['probability0'] = self.probability_0
+        if self.probability_1 is not None:
+            result['probability1'] = self.probability_1
+        if self.cert_no_md_5 is not None:
+            result['cert_no_md5'] = self.cert_no_md_5
+        if self.mobile_md_5 is not None:
+            result['mobile_md5'] = self.mobile_md_5
+        if self.level is not None:
+            result['level'] = self.level
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('asset_detail_id') is not None:
+            self.asset_detail_id = m.get('asset_detail_id')
+        if m.get('probability0') is not None:
+            self.probability_0 = m.get('probability0')
+        if m.get('probability1') is not None:
+            self.probability_1 = m.get('probability1')
+        if m.get('cert_no_md5') is not None:
+            self.cert_no_md_5 = m.get('cert_no_md5')
+        if m.get('mobile_md5') is not None:
+            self.mobile_md_5 = m.get('mobile_md5')
+        if m.get('level') is not None:
+            self.level = m.get('level')
+        return self
+
+
 class BatchRepairData(TeaModel):
     def __init__(
         self,
@@ -348,6 +466,112 @@ class PersonData(TeaModel):
             self.id_card = m.get('id_card')
         if m.get('phone') is not None:
             self.phone = m.get('phone')
+        return self
+
+
+class QueryPredictRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        data: List[PredictRequest] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 待预测请求体列表
+        self.data = data
+
+    def validate(self):
+        self.validate_required(self.data, 'data')
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = PredictRequest()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class QueryPredictResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[PredictResponse] = None,
+        return_rate: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 预测结果返回列表
+        self.data = data
+        # 资产包的回款率
+        self.return_rate = return_rate
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        if self.return_rate is not None:
+            result['return_rate'] = self.return_rate
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = PredictResponse()
+                self.data.append(temp_model.from_map(k))
+        if m.get('return_rate') is not None:
+            self.return_rate = m.get('return_rate')
         return self
 
 
