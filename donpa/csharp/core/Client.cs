@@ -137,7 +137,7 @@ namespace AntChain.SDK.DONPA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.4"},
+                        {"sdk_version", "1.0.11"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.DONPA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.4"},
+                        {"sdk_version", "1.0.11"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -315,6 +315,48 @@ namespace AntChain.SDK.DONPA
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 资产定价/处置预测
+         * Summary: 资产定价/处置预测
+         */
+        public QueryPredictResponse QueryPredict(QueryPredictRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryPredictEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资产定价/处置预测
+         * Summary: 资产定价/处置预测
+         */
+        public async Task<QueryPredictResponse> QueryPredictAsync(QueryPredictRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryPredictExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资产定价/处置预测
+         * Summary: 资产定价/处置预测
+         */
+        public QueryPredictResponse QueryPredictEx(QueryPredictRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPredictResponse>(DoRequest("1.0", "antchain.donpa.predict.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资产定价/处置预测
+         * Summary: 资产定价/处置预测
+         */
+        public async Task<QueryPredictResponse> QueryPredictExAsync(QueryPredictRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPredictResponse>(await DoRequestAsync("1.0", "antchain.donpa.predict.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
