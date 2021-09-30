@@ -195,6 +195,114 @@ func (s *RepairData) SetResultListNumber(v int64) *RepairData {
 	return s
 }
 
+// 预测请求结构体
+type PredictRequest struct {
+	// 资产明细ID
+	AssetDetailId *string `json:"asset_detail_id,omitempty" xml:"asset_detail_id,omitempty"`
+	// 身份证号码MD5
+	CertNoMd5 *string `json:"cert_no_md5,omitempty" xml:"cert_no_md5,omitempty" require:"true"`
+	// 已还总额,默认0
+	PaybackAmount *int64 `json:"payback_amount,omitempty" xml:"payback_amount,omitempty"`
+	// 已还期数，默认0
+	PaybackNum *int64 `json:"payback_num,omitempty" xml:"payback_num,omitempty"`
+	// 逾期月数
+	OverdueMonth *int64 `json:"overdue_month,omitempty" xml:"overdue_month,omitempty"`
+	// 债务人信用分数，由系统计算得出，无须传入。
+	PredictionScore *string `json:"prediction_score,omitempty" xml:"prediction_score,omitempty"`
+}
+
+func (s PredictRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PredictRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PredictRequest) SetAssetDetailId(v string) *PredictRequest {
+	s.AssetDetailId = &v
+	return s
+}
+
+func (s *PredictRequest) SetCertNoMd5(v string) *PredictRequest {
+	s.CertNoMd5 = &v
+	return s
+}
+
+func (s *PredictRequest) SetPaybackAmount(v int64) *PredictRequest {
+	s.PaybackAmount = &v
+	return s
+}
+
+func (s *PredictRequest) SetPaybackNum(v int64) *PredictRequest {
+	s.PaybackNum = &v
+	return s
+}
+
+func (s *PredictRequest) SetOverdueMonth(v int64) *PredictRequest {
+	s.OverdueMonth = &v
+	return s
+}
+
+func (s *PredictRequest) SetPredictionScore(v string) *PredictRequest {
+	s.PredictionScore = &v
+	return s
+}
+
+// 预测结果响应体
+type PredictResponse struct {
+	// 资产明细ID
+	AssetDetailId *string `json:"asset_detail_id,omitempty" xml:"asset_detail_id,omitempty"`
+	// 反向指标
+	Probability0 *string `json:"probability0,omitempty" xml:"probability0,omitempty"`
+	// 正向指标
+	Probability1 *string `json:"probability1,omitempty" xml:"probability1,omitempty"`
+	// 身份证号码MD5
+	CertNoMd5 *string `json:"cert_no_md5,omitempty" xml:"cert_no_md5,omitempty"`
+	// 身份证号码MD5
+	MobileMd5 *string `json:"mobile_md5,omitempty" xml:"mobile_md5,omitempty"`
+	// 可选值，A,B,C
+	Level *string `json:"level,omitempty" xml:"level,omitempty"`
+}
+
+func (s PredictResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PredictResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PredictResponse) SetAssetDetailId(v string) *PredictResponse {
+	s.AssetDetailId = &v
+	return s
+}
+
+func (s *PredictResponse) SetProbability0(v string) *PredictResponse {
+	s.Probability0 = &v
+	return s
+}
+
+func (s *PredictResponse) SetProbability1(v string) *PredictResponse {
+	s.Probability1 = &v
+	return s
+}
+
+func (s *PredictResponse) SetCertNoMd5(v string) *PredictResponse {
+	s.CertNoMd5 = &v
+	return s
+}
+
+func (s *PredictResponse) SetMobileMd5(v string) *PredictResponse {
+	s.MobileMd5 = &v
+	return s
+}
+
+func (s *PredictResponse) SetLevel(v string) *PredictResponse {
+	s.Level = &v
+	return s
+}
+
 // 修复批次状态
 type BatchRepairData struct {
 	// "RPBS001":待修复,"RPBS002": 修 复 中 "RPBS003": 已 修 复,"RPBS004":修复失败
@@ -303,6 +411,83 @@ func (s *PersonData) SetIdCard(v string) *PersonData {
 
 func (s *PersonData) SetPhone(v string) *PersonData {
 	s.Phone = &v
+	return s
+}
+
+type QueryPredictRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 待预测请求体列表
+	Data []*PredictRequest `json:"data,omitempty" xml:"data,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s QueryPredictRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPredictRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPredictRequest) SetAuthToken(v string) *QueryPredictRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryPredictRequest) SetProductInstanceId(v string) *QueryPredictRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryPredictRequest) SetData(v []*PredictRequest) *QueryPredictRequest {
+	s.Data = v
+	return s
+}
+
+type QueryPredictResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 预测结果返回列表
+	Data []*PredictResponse `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// 资产包的回款率
+	ReturnRate *string `json:"return_rate,omitempty" xml:"return_rate,omitempty"`
+}
+
+func (s QueryPredictResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPredictResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPredictResponse) SetReqMsgId(v string) *QueryPredictResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryPredictResponse) SetResultCode(v string) *QueryPredictResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryPredictResponse) SetResultMsg(v string) *QueryPredictResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryPredictResponse) SetData(v []*PredictResponse) *QueryPredictResponse {
+	s.Data = v
+	return s
+}
+
+func (s *QueryPredictResponse) SetReturnRate(v string) *QueryPredictResponse {
+	s.ReturnRate = &v
 	return s
 }
 
@@ -813,7 +998,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.4"),
+				"sdk_version":      tea.String("1.0.11"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -859,6 +1044,40 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 资产定价/处置预测
+ * Summary: 资产定价/处置预测
+ */
+func (client *Client) QueryPredict(request *QueryPredictRequest) (_result *QueryPredictResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryPredictResponse{}
+	_body, _err := client.QueryPredictEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 资产定价/处置预测
+ * Summary: 资产定价/处置预测
+ */
+func (client *Client) QueryPredictEx(request *QueryPredictRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPredictResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryPredictResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.donpa.predict.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
