@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.4',
+    sdk_version = '1.0.11',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -173,6 +173,38 @@ model RepairData {
   resultListNumber: long(name='result_list_number', example='2'),
 }
 
+// 预测请求结构体
+model PredictRequest {
+  // 资产明细ID
+  assetDetailId?: string(name='asset_detail_id', example='111'),
+  // 身份证号码MD5
+  certNoMd5: string(name='cert_no_md5', example='5a0a52d01fa9304e8dba7170'),
+  // 已还总额,默认0
+  paybackAmount?: long(name='payback_amount', example='100.00'),
+  // 已还期数，默认0
+  paybackNum?: long(name='payback_num', example='2'),
+  // 逾期月数
+  overdueMonth?: long(name='overdue_month', example='2'),
+  // 债务人信用分数，由系统计算得出，无须传入。
+  predictionScore?: string(name='prediction_score', example='0.012345'),
+}
+
+// 预测结果响应体
+model PredictResponse {
+  // 资产明细ID
+  assetDetailId?: string(name='asset_detail_id', example='112'),
+  // 反向指标
+  probability0?: string(name='probability0', example='0.9123'),
+  // 正向指标
+  probability1?: string(name='probability1', example='0.123'),
+  // 身份证号码MD5
+  certNoMd5?: string(name='cert_no_md5', example='5a0a52d01fa9304e8dba7170'),
+  // 身份证号码MD5
+  mobileMd5?: string(name='mobile_md5', example='5a0a52d01fa9304e8dba7170'),
+  // 可选值，A,B,C
+  level?: string(name='level', example='分类类型'),
+}
+
 // 修复批次状态
 model BatchRepairData {
   // "RPBS001":待修复,"RPBS002": 修 复 中 "RPBS003": 已 修 复,"RPBS004":修复失败
@@ -205,6 +237,46 @@ model PersonData {
   idCard: string(name='id_card', example='384a3bdc4347348b9cfd74eb33a3daa43054f461a0e5ad01a97f912eaa6799ef'),
   // 手机号
   phone?: string(name='phone', example='13718750000'),
+}
+
+model QueryPredictRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待预测请求体列表
+  data: [ PredictRequest ](name='data'),
+}
+
+model QueryPredictResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 预测结果返回列表
+  data?: [ PredictResponse ](name='data'),
+  // 资产包的回款率
+  returnRate?: string(name='return_rate'),
+}
+
+/**
+ * Description: 资产定价/处置预测
+ * Summary: 资产定价/处置预测
+ */
+async function queryPredict(request: QueryPredictRequest): QueryPredictResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPredictEx(request, headers, runtime);
+}
+
+/**
+ * Description: 资产定价/处置预测
+ * Summary: 资产定价/处置预测
+ */
+async function queryPredictEx(request: QueryPredictRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPredictResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.donpa.predict.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartSlxfRequest = {
