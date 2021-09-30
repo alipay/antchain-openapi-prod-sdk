@@ -15,6 +15,8 @@ use AntChain\DONPA\Models\BindSlxfRequest;
 use AntChain\DONPA\Models\BindSlxfResponse;
 use AntChain\DONPA\Models\PullSlxfRequest;
 use AntChain\DONPA\Models\PullSlxfResponse;
+use AntChain\DONPA\Models\QueryPredictRequest;
+use AntChain\DONPA\Models\QueryPredictResponse;
 use AntChain\DONPA\Models\QuerySlxfRequest;
 use AntChain\DONPA\Models\QuerySlxfResponse;
 use AntChain\DONPA\Models\StartSlxfRequest;
@@ -168,7 +170,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.4',
+                    'sdk_version'      => '1.0.11',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -212,6 +214,39 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 资产定价/处置预测
+     * Summary: 资产定价/处置预测.
+     *
+     * @param QueryPredictRequest $request
+     *
+     * @return QueryPredictResponse
+     */
+    public function queryPredict($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPredictEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资产定价/处置预测
+     * Summary: 资产定价/处置预测.
+     *
+     * @param QueryPredictRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QueryPredictResponse
+     */
+    public function queryPredictEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPredictResponse::fromMap($this->doRequest('1.0', 'antchain.donpa.predict.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
