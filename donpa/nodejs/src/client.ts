@@ -114,6 +114,88 @@ export class RepairData extends $tea.Model {
   }
 }
 
+// 预测请求结构体
+export class PredictRequest extends $tea.Model {
+  // 资产明细ID
+  assetDetailId?: string;
+  // 身份证号码MD5
+  certNoMd5: string;
+  // 已还总额,默认0
+  paybackAmount?: number;
+  // 已还期数，默认0
+  paybackNum?: number;
+  // 逾期月数
+  overdueMonth?: number;
+  // 债务人信用分数，由系统计算得出，无须传入。
+  predictionScore?: string;
+  static names(): { [key: string]: string } {
+    return {
+      assetDetailId: 'asset_detail_id',
+      certNoMd5: 'cert_no_md5',
+      paybackAmount: 'payback_amount',
+      paybackNum: 'payback_num',
+      overdueMonth: 'overdue_month',
+      predictionScore: 'prediction_score',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      assetDetailId: 'string',
+      certNoMd5: 'string',
+      paybackAmount: 'number',
+      paybackNum: 'number',
+      overdueMonth: 'number',
+      predictionScore: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 预测结果响应体
+export class PredictResponse extends $tea.Model {
+  // 资产明细ID
+  assetDetailId?: string;
+  // 反向指标
+  probability0?: string;
+  // 正向指标
+  probability1?: string;
+  // 身份证号码MD5
+  certNoMd5?: string;
+  // 身份证号码MD5
+  mobileMd5?: string;
+  // 可选值，A,B,C
+  level?: string;
+  static names(): { [key: string]: string } {
+    return {
+      assetDetailId: 'asset_detail_id',
+      probability0: 'probability0',
+      probability1: 'probability1',
+      certNoMd5: 'cert_no_md5',
+      mobileMd5: 'mobile_md5',
+      level: 'level',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      assetDetailId: 'string',
+      probability0: 'string',
+      probability1: 'string',
+      certNoMd5: 'string',
+      mobileMd5: 'string',
+      level: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 修复批次状态
 export class BatchRepairData extends $tea.Model {
   // "RPBS001":待修复,"RPBS002": 修 复 中 "RPBS003": 已 修 复,"RPBS004":修复失败
@@ -210,6 +292,69 @@ export class PersonData extends $tea.Model {
       userName: 'string',
       idCard: 'string',
       phone: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryPredictRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 待预测请求体列表
+  data: PredictRequest[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      data: { 'type': 'array', 'itemType': PredictRequest },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryPredictResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 预测结果返回列表
+  data?: PredictResponse[];
+  // 资产包的回款率
+  returnRate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+      returnRate: 'return_rate',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': PredictResponse },
+      returnRate: 'string',
     };
   }
 
@@ -646,7 +791,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.4",
+          sdk_version: "1.0.11",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -690,6 +835,25 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 资产定价/处置预测
+   * Summary: 资产定价/处置预测
+   */
+  async queryPredict(request: QueryPredictRequest): Promise<QueryPredictResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryPredictEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 资产定价/处置预测
+   * Summary: 资产定价/处置预测
+   */
+  async queryPredictEx(request: QueryPredictRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryPredictResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryPredictResponse>(await this.doRequest("1.0", "antchain.donpa.predict.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryPredictResponse({}));
   }
 
   /**
