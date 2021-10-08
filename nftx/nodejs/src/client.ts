@@ -389,9 +389,9 @@ export class SendNftTransferRequest extends $tea.Model {
   // NFT租户下唯一的项目编号
   projectId: string;
   // 支付宝2088开头账号
-  toldNo: string;
+  toIdNo: string;
   // 账号类型，当前只支持支付宝账号
-  toldType: string;
+  toIdType: string;
   // 交易NFT时租户的唯一订单号
   orderNo: string;
   // 用户购买订单时间
@@ -403,8 +403,8 @@ export class SendNftTransferRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       projectId: 'project_id',
-      toldNo: 'told_no',
-      toldType: 'told_type',
+      toIdNo: 'to_id_no',
+      toIdType: 'to_id_type',
       orderNo: 'order_no',
       orderTime: 'order_time',
       priceCent: 'price_cent',
@@ -416,8 +416,8 @@ export class SendNftTransferRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       projectId: 'string',
-      toldNo: 'string',
-      toldType: 'string',
+      toIdNo: 'string',
+      toIdType: 'string',
       orderNo: 'string',
       orderTime: 'string',
       priceCent: 'number',
@@ -835,7 +835,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.2",
+          sdk_version: "1.1.3",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
