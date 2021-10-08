@@ -17,14 +17,14 @@ public class SendNftTransferRequest extends TeaModel {
     public String projectId;
 
     // 支付宝2088开头账号
-    @NameInMap("told_no")
+    @NameInMap("to_id_no")
     @Validation(required = true)
-    public String toldNo;
+    public String toIdNo;
 
     // 账号类型，当前只支持支付宝账号
-    @NameInMap("told_type")
+    @NameInMap("to_id_type")
     @Validation(required = true)
-    public String toldType;
+    public String toIdType;
 
     // 交易NFT时租户的唯一订单号
     @NameInMap("order_no")
@@ -69,20 +69,20 @@ public class SendNftTransferRequest extends TeaModel {
         return this.projectId;
     }
 
-    public SendNftTransferRequest setToldNo(String toldNo) {
-        this.toldNo = toldNo;
+    public SendNftTransferRequest setToIdNo(String toIdNo) {
+        this.toIdNo = toIdNo;
         return this;
     }
-    public String getToldNo() {
-        return this.toldNo;
+    public String getToIdNo() {
+        return this.toIdNo;
     }
 
-    public SendNftTransferRequest setToldType(String toldType) {
-        this.toldType = toldType;
+    public SendNftTransferRequest setToIdType(String toIdType) {
+        this.toIdType = toIdType;
         return this;
     }
-    public String getToldType() {
-        return this.toldType;
+    public String getToIdType() {
+        return this.toIdType;
     }
 
     public SendNftTransferRequest setOrderNo(String orderNo) {
