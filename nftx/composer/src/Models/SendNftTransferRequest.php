@@ -29,13 +29,13 @@ class SendNftTransferRequest extends Model
     /**
      * @var string
      */
-    public $toldNo;
+    public $toIdNo;
 
     // 账号类型，当前只支持支付宝账号
     /**
      * @var string
      */
-    public $toldType;
+    public $toIdType;
 
     // 交易NFT时租户的唯一订单号
     /**
@@ -58,8 +58,8 @@ class SendNftTransferRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'projectId'         => 'project_id',
-        'toldNo'            => 'told_no',
-        'toldType'          => 'told_type',
+        'toIdNo'            => 'to_id_no',
+        'toIdType'          => 'to_id_type',
         'orderNo'           => 'order_no',
         'orderTime'         => 'order_time',
         'priceCent'         => 'price_cent',
@@ -68,8 +68,8 @@ class SendNftTransferRequest extends Model
     public function validate()
     {
         Model::validateRequired('projectId', $this->projectId, true);
-        Model::validateRequired('toldNo', $this->toldNo, true);
-        Model::validateRequired('toldType', $this->toldType, true);
+        Model::validateRequired('toIdNo', $this->toIdNo, true);
+        Model::validateRequired('toIdType', $this->toIdType, true);
         Model::validateRequired('orderNo', $this->orderNo, true);
         Model::validateRequired('orderTime', $this->orderTime, true);
         Model::validatePattern('orderTime', $this->orderTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
@@ -87,11 +87,11 @@ class SendNftTransferRequest extends Model
         if (null !== $this->projectId) {
             $res['project_id'] = $this->projectId;
         }
-        if (null !== $this->toldNo) {
-            $res['told_no'] = $this->toldNo;
+        if (null !== $this->toIdNo) {
+            $res['to_id_no'] = $this->toIdNo;
         }
-        if (null !== $this->toldType) {
-            $res['told_type'] = $this->toldType;
+        if (null !== $this->toIdType) {
+            $res['to_id_type'] = $this->toIdType;
         }
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
@@ -123,11 +123,11 @@ class SendNftTransferRequest extends Model
         if (isset($map['project_id'])) {
             $model->projectId = $map['project_id'];
         }
-        if (isset($map['told_no'])) {
-            $model->toldNo = $map['told_no'];
+        if (isset($map['to_id_no'])) {
+            $model->toIdNo = $map['to_id_no'];
         }
-        if (isset($map['told_type'])) {
-            $model->toldType = $map['told_type'];
+        if (isset($map['to_id_type'])) {
+            $model->toIdType = $map['to_id_type'];
         }
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
