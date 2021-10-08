@@ -33,11 +33,6 @@ namespace AntChain.SDK.NFTX.Models
         [Validation(Required=true)]
         public string ToldType { get; set; }
 
-        // 购买NFT的金额，单位分
-        [NameInMap("price_cent")]
-        [Validation(Required=true)]
-        public long? PriceCent { get; set; }
-
         // 交易NFT时租户的唯一订单号
         [NameInMap("order_no")]
         [Validation(Required=true)]
@@ -45,8 +40,13 @@ namespace AntChain.SDK.NFTX.Models
 
         // 用户购买订单时间
         [NameInMap("order_time")]
-        [Validation(Required=true)]
+        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string OrderTime { get; set; }
+
+        // 购买NFT的金额，单位分
+        [NameInMap("price_cent")]
+        [Validation(Required=false)]
+        public long? PriceCent { get; set; }
 
     }
 
