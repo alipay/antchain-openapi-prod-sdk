@@ -638,9 +638,9 @@ class SendNftTransferRequest(TeaModel):
         project_id: str = None,
         told_no: str = None,
         told_type: str = None,
-        price_cent: int = None,
         order_no: str = None,
         order_time: str = None,
+        price_cent: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -651,20 +651,21 @@ class SendNftTransferRequest(TeaModel):
         self.told_no = told_no
         # 账号类型，当前只支持支付宝账号
         self.told_type = told_type
-        # 购买NFT的金额，单位分
-        self.price_cent = price_cent
         # 交易NFT时租户的唯一订单号
         self.order_no = order_no
         # 用户购买订单时间
         self.order_time = order_time
+        # 购买NFT的金额，单位分
+        self.price_cent = price_cent
 
     def validate(self):
         self.validate_required(self.project_id, 'project_id')
         self.validate_required(self.told_no, 'told_no')
         self.validate_required(self.told_type, 'told_type')
-        self.validate_required(self.price_cent, 'price_cent')
         self.validate_required(self.order_no, 'order_no')
         self.validate_required(self.order_time, 'order_time')
+        if self.order_time is not None:
+            self.validate_pattern(self.order_time, 'order_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -678,12 +679,12 @@ class SendNftTransferRequest(TeaModel):
             result['told_no'] = self.told_no
         if self.told_type is not None:
             result['told_type'] = self.told_type
-        if self.price_cent is not None:
-            result['price_cent'] = self.price_cent
         if self.order_no is not None:
             result['order_no'] = self.order_no
         if self.order_time is not None:
             result['order_time'] = self.order_time
+        if self.price_cent is not None:
+            result['price_cent'] = self.price_cent
         return result
 
     def from_map(self, m: dict = None):
@@ -698,12 +699,12 @@ class SendNftTransferRequest(TeaModel):
             self.told_no = m.get('told_no')
         if m.get('told_type') is not None:
             self.told_type = m.get('told_type')
-        if m.get('price_cent') is not None:
-            self.price_cent = m.get('price_cent')
         if m.get('order_no') is not None:
             self.order_no = m.get('order_no')
         if m.get('order_time') is not None:
             self.order_time = m.get('order_time')
+        if m.get('price_cent') is not None:
+            self.price_cent = m.get('price_cent')
         return self
 
 
