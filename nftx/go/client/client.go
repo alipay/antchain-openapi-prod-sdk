@@ -569,12 +569,12 @@ type SendNftTransferRequest struct {
 	ToldNo *string `json:"told_no,omitempty" xml:"told_no,omitempty" require:"true"`
 	// 账号类型，当前只支持支付宝账号
 	ToldType *string `json:"told_type,omitempty" xml:"told_type,omitempty" require:"true"`
-	// 购买NFT的金额，单位分
-	PriceCent *int64 `json:"price_cent,omitempty" xml:"price_cent,omitempty" require:"true"`
 	// 交易NFT时租户的唯一订单号
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
 	// 用户购买订单时间
-	OrderTime *string `json:"order_time,omitempty" xml:"order_time,omitempty" require:"true"`
+	OrderTime *string `json:"order_time,omitempty" xml:"order_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 购买NFT的金额，单位分
+	PriceCent *int64 `json:"price_cent,omitempty" xml:"price_cent,omitempty"`
 }
 
 func (s SendNftTransferRequest) String() string {
@@ -610,11 +610,6 @@ func (s *SendNftTransferRequest) SetToldType(v string) *SendNftTransferRequest {
 	return s
 }
 
-func (s *SendNftTransferRequest) SetPriceCent(v int64) *SendNftTransferRequest {
-	s.PriceCent = &v
-	return s
-}
-
 func (s *SendNftTransferRequest) SetOrderNo(v string) *SendNftTransferRequest {
 	s.OrderNo = &v
 	return s
@@ -622,6 +617,11 @@ func (s *SendNftTransferRequest) SetOrderNo(v string) *SendNftTransferRequest {
 
 func (s *SendNftTransferRequest) SetOrderTime(v string) *SendNftTransferRequest {
 	s.OrderTime = &v
+	return s
+}
+
+func (s *SendNftTransferRequest) SetPriceCent(v int64) *SendNftTransferRequest {
+	s.PriceCent = &v
 	return s
 }
 
@@ -1143,7 +1143,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.1"),
+				"sdk_version":      tea.String("1.1.2"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
