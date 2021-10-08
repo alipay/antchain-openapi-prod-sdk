@@ -26,11 +26,6 @@ public class SendNftTransferRequest extends TeaModel {
     @Validation(required = true)
     public String toldType;
 
-    // 购买NFT的金额，单位分
-    @NameInMap("price_cent")
-    @Validation(required = true)
-    public Long priceCent;
-
     // 交易NFT时租户的唯一订单号
     @NameInMap("order_no")
     @Validation(required = true)
@@ -38,8 +33,12 @@ public class SendNftTransferRequest extends TeaModel {
 
     // 用户购买订单时间
     @NameInMap("order_time")
-    @Validation(required = true)
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String orderTime;
+
+    // 购买NFT的金额，单位分
+    @NameInMap("price_cent")
+    public Long priceCent;
 
     public static SendNftTransferRequest build(java.util.Map<String, ?> map) throws Exception {
         SendNftTransferRequest self = new SendNftTransferRequest();
@@ -86,14 +85,6 @@ public class SendNftTransferRequest extends TeaModel {
         return this.toldType;
     }
 
-    public SendNftTransferRequest setPriceCent(Long priceCent) {
-        this.priceCent = priceCent;
-        return this;
-    }
-    public Long getPriceCent() {
-        return this.priceCent;
-    }
-
     public SendNftTransferRequest setOrderNo(String orderNo) {
         this.orderNo = orderNo;
         return this;
@@ -108,6 +99,14 @@ public class SendNftTransferRequest extends TeaModel {
     }
     public String getOrderTime() {
         return this.orderTime;
+    }
+
+    public SendNftTransferRequest setPriceCent(Long priceCent) {
+        this.priceCent = priceCent;
+        return this;
+    }
+    public Long getPriceCent() {
+        return this.priceCent;
     }
 
 }
