@@ -37,12 +37,6 @@ class SendNftTransferRequest extends Model
      */
     public $toldType;
 
-    // 购买NFT的金额，单位分
-    /**
-     * @var int
-     */
-    public $priceCent;
-
     // 交易NFT时租户的唯一订单号
     /**
      * @var string
@@ -54,15 +48,21 @@ class SendNftTransferRequest extends Model
      * @var string
      */
     public $orderTime;
+
+    // 购买NFT的金额，单位分
+    /**
+     * @var int
+     */
+    public $priceCent;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'projectId'         => 'project_id',
         'toldNo'            => 'told_no',
         'toldType'          => 'told_type',
-        'priceCent'         => 'price_cent',
         'orderNo'           => 'order_no',
         'orderTime'         => 'order_time',
+        'priceCent'         => 'price_cent',
     ];
 
     public function validate()
@@ -70,9 +70,9 @@ class SendNftTransferRequest extends Model
         Model::validateRequired('projectId', $this->projectId, true);
         Model::validateRequired('toldNo', $this->toldNo, true);
         Model::validateRequired('toldType', $this->toldType, true);
-        Model::validateRequired('priceCent', $this->priceCent, true);
         Model::validateRequired('orderNo', $this->orderNo, true);
         Model::validateRequired('orderTime', $this->orderTime, true);
+        Model::validatePattern('orderTime', $this->orderTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -93,14 +93,14 @@ class SendNftTransferRequest extends Model
         if (null !== $this->toldType) {
             $res['told_type'] = $this->toldType;
         }
-        if (null !== $this->priceCent) {
-            $res['price_cent'] = $this->priceCent;
-        }
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
         }
         if (null !== $this->orderTime) {
             $res['order_time'] = $this->orderTime;
+        }
+        if (null !== $this->priceCent) {
+            $res['price_cent'] = $this->priceCent;
         }
 
         return $res;
@@ -129,14 +129,14 @@ class SendNftTransferRequest extends Model
         if (isset($map['told_type'])) {
             $model->toldType = $map['told_type'];
         }
-        if (isset($map['price_cent'])) {
-            $model->priceCent = $map['price_cent'];
-        }
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
         }
         if (isset($map['order_time'])) {
             $model->orderTime = $map['order_time'];
+        }
+        if (isset($map['price_cent'])) {
+            $model->priceCent = $map['price_cent'];
         }
 
         return $model;
