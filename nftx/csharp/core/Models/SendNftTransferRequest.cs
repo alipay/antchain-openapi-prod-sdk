@@ -24,14 +24,14 @@ namespace AntChain.SDK.NFTX.Models
         public string ProjectId { get; set; }
 
         // 支付宝2088开头账号
-        [NameInMap("told_no")]
+        [NameInMap("to_id_no")]
         [Validation(Required=true)]
-        public string ToldNo { get; set; }
+        public string ToIdNo { get; set; }
 
         // 账号类型，当前只支持支付宝账号
-        [NameInMap("told_type")]
+        [NameInMap("to_id_type")]
         [Validation(Required=true)]
-        public string ToldType { get; set; }
+        public string ToIdType { get; set; }
 
         // 交易NFT时租户的唯一订单号
         [NameInMap("order_no")]
