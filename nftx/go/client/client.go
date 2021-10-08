@@ -566,9 +566,9 @@ type SendNftTransferRequest struct {
 	// NFT租户下唯一的项目编号
 	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
 	// 支付宝2088开头账号
-	ToldNo *string `json:"told_no,omitempty" xml:"told_no,omitempty" require:"true"`
+	ToIdNo *string `json:"to_id_no,omitempty" xml:"to_id_no,omitempty" require:"true"`
 	// 账号类型，当前只支持支付宝账号
-	ToldType *string `json:"told_type,omitempty" xml:"told_type,omitempty" require:"true"`
+	ToIdType *string `json:"to_id_type,omitempty" xml:"to_id_type,omitempty" require:"true"`
 	// 交易NFT时租户的唯一订单号
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
 	// 用户购买订单时间
@@ -600,13 +600,13 @@ func (s *SendNftTransferRequest) SetProjectId(v string) *SendNftTransferRequest 
 	return s
 }
 
-func (s *SendNftTransferRequest) SetToldNo(v string) *SendNftTransferRequest {
-	s.ToldNo = &v
+func (s *SendNftTransferRequest) SetToIdNo(v string) *SendNftTransferRequest {
+	s.ToIdNo = &v
 	return s
 }
 
-func (s *SendNftTransferRequest) SetToldType(v string) *SendNftTransferRequest {
-	s.ToldType = &v
+func (s *SendNftTransferRequest) SetToIdType(v string) *SendNftTransferRequest {
+	s.ToIdType = &v
 	return s
 }
 
@@ -1143,7 +1143,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.2"),
+				"sdk_version":      tea.String("1.1.3"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
