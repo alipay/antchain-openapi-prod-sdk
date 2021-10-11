@@ -1357,7 +1357,7 @@ type ContractNotaryDeductExecutionInfo struct {
 	Result *bool `json:"result,omitempty" xml:"result,omitempty" require:"true"`
 	// 扣款操作发起时间
 	Timestamp *string `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
-	// 代扣订单号
+	// 代扣计划ID
 	Order *string `json:"order,omitempty" xml:"order,omitempty" require:"true"`
 }
 
@@ -2260,6 +2260,46 @@ func (s *SupplierProductItem) SetProductPrice(v int64) *SupplierProductItem {
 
 func (s *SupplierProductItem) SetExtraInfo(v string) *SupplierProductItem {
 	s.ExtraInfo = &v
+	return s
+}
+
+// 电子合同存证代扣计划退款信息
+type ContractNotaryDeductRefundInfo struct {
+	// PAYERIDNUMBER
+	PayerId *string `json:"payer_id,omitempty" xml:"payer_id,omitempty" require:"true"`
+	// 退款金额，单位分
+	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 代扣计划ID
+	Order *string `json:"order,omitempty" xml:"order,omitempty" require:"true"`
+	// 退款操作发起时间
+	Timestamp *string `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+}
+
+func (s ContractNotaryDeductRefundInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractNotaryDeductRefundInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ContractNotaryDeductRefundInfo) SetPayerId(v string) *ContractNotaryDeductRefundInfo {
+	s.PayerId = &v
+	return s
+}
+
+func (s *ContractNotaryDeductRefundInfo) SetAmount(v int64) *ContractNotaryDeductRefundInfo {
+	s.Amount = &v
+	return s
+}
+
+func (s *ContractNotaryDeductRefundInfo) SetOrder(v string) *ContractNotaryDeductRefundInfo {
+	s.Order = &v
+	return s
+}
+
+func (s *ContractNotaryDeductRefundInfo) SetTimestamp(v string) *ContractNotaryDeductRefundInfo {
+	s.Timestamp = &v
 	return s
 }
 
@@ -3930,6 +3970,46 @@ func (s *ContractNotaryDeductCancelInfo) SetTimestamp(v string) *ContractNotaryD
 
 func (s *ContractNotaryDeductCancelInfo) SetOrders(v string) *ContractNotaryDeductCancelInfo {
 	s.Orders = &v
+	return s
+}
+
+// 电子合同存证代扣计划信息
+type ContractNotaryDeductPlanInfo struct {
+	// PAYERIDNUMBER
+	PayerId *string `json:"payer_id,omitempty" xml:"payer_id,omitempty" require:"true"`
+	// “总金额：”+总金额“+”“总期数：”+总期数，“+”每期金额时间（X期金额，时间）
+	DeductPlanInfo *string `json:"deduct_plan_info,omitempty" xml:"deduct_plan_info,omitempty" require:"true"`
+	// AGREEMEND_ID_NUMBER
+	AgreementNo *string `json:"agreement_no,omitempty" xml:"agreement_no,omitempty" require:"true"`
+	// 代扣计划发起时间
+	Timestamp *string `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+}
+
+func (s ContractNotaryDeductPlanInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractNotaryDeductPlanInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ContractNotaryDeductPlanInfo) SetPayerId(v string) *ContractNotaryDeductPlanInfo {
+	s.PayerId = &v
+	return s
+}
+
+func (s *ContractNotaryDeductPlanInfo) SetDeductPlanInfo(v string) *ContractNotaryDeductPlanInfo {
+	s.DeductPlanInfo = &v
+	return s
+}
+
+func (s *ContractNotaryDeductPlanInfo) SetAgreementNo(v string) *ContractNotaryDeductPlanInfo {
+	s.AgreementNo = &v
+	return s
+}
+
+func (s *ContractNotaryDeductPlanInfo) SetTimestamp(v string) *ContractNotaryDeductPlanInfo {
+	s.Timestamp = &v
 	return s
 }
 
@@ -25898,7 +25978,7 @@ type CreateInternalContractRequest struct {
 	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty" require:"true"`
 	// 签署发起信息，phase为INIT时必选
 	InitInfo *ContractNotaryInitInfo `json:"init_info,omitempty" xml:"init_info,omitempty"`
-	// 存证阶段，分为INIT(发起)，SIGN(签署)，FINISH(结束)
+	// 存证阶段，分为INIT(发起)，SIGN(签署)，FINISH(结束)，DOCUMENT(正式合同文件)，DEDUCT_CANCEL(代扣计划取消)，DEDUCT_EXECUTION(代扣计划执行)，DEDUCT_PLAN(代扣计划保存)，DEDUCT_REFUND(代扣计划退款)
 	Phase *string `json:"phase,omitempty" xml:"phase,omitempty" require:"true"`
 	// 签署过程信息，phase为SIGN时必选
 	SignInfo *ContractNotarySignInfo `json:"sign_info,omitempty" xml:"sign_info,omitempty"`
@@ -25906,6 +25986,14 @@ type CreateInternalContractRequest struct {
 	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty" require:"true"`
 	// 签署文件存档阶段存证核验信息
 	DocumentInfo *ContractNotaryDocumentInfo `json:"document_info,omitempty" xml:"document_info,omitempty"`
+	// 电子合同代扣计划取消操作信息
+	CancelInfo *ContractNotaryDeductCancelInfo `json:"cancel_info,omitempty" xml:"cancel_info,omitempty"`
+	// 电子合同存证代扣计划执行操作信息
+	ExecutionInfo *ContractNotaryDeductExecutionInfo `json:"execution_info,omitempty" xml:"execution_info,omitempty"`
+	// 电子合同存证代扣计划信息
+	PlanInfo *ContractNotaryDeductPlanInfo `json:"plan_info,omitempty" xml:"plan_info,omitempty"`
+	// 电子合同存证代扣计划退款信息
+	RefundInfo *ContractNotaryDeductRefundInfo `json:"refund_info,omitempty" xml:"refund_info,omitempty"`
 }
 
 func (s CreateInternalContractRequest) String() string {
@@ -25958,6 +26046,26 @@ func (s *CreateInternalContractRequest) SetTransactionId(v string) *CreateIntern
 
 func (s *CreateInternalContractRequest) SetDocumentInfo(v *ContractNotaryDocumentInfo) *CreateInternalContractRequest {
 	s.DocumentInfo = v
+	return s
+}
+
+func (s *CreateInternalContractRequest) SetCancelInfo(v *ContractNotaryDeductCancelInfo) *CreateInternalContractRequest {
+	s.CancelInfo = v
+	return s
+}
+
+func (s *CreateInternalContractRequest) SetExecutionInfo(v *ContractNotaryDeductExecutionInfo) *CreateInternalContractRequest {
+	s.ExecutionInfo = v
+	return s
+}
+
+func (s *CreateInternalContractRequest) SetPlanInfo(v *ContractNotaryDeductPlanInfo) *CreateInternalContractRequest {
+	s.PlanInfo = v
+	return s
+}
+
+func (s *CreateInternalContractRequest) SetRefundInfo(v *ContractNotaryDeductRefundInfo) *CreateInternalContractRequest {
+	s.RefundInfo = v
 	return s
 }
 
@@ -26710,7 +26818,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.37"),
+				"sdk_version":      tea.String("1.5.39"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
