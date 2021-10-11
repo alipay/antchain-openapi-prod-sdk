@@ -24,7 +24,7 @@ public class CreateInternalContractRequest extends TeaModel {
     @NameInMap("init_info")
     public ContractNotaryInitInfo initInfo;
 
-    // 存证阶段，分为INIT(发起)，SIGN(签署)，FINISH(结束)
+    // 存证阶段，分为INIT(发起)，SIGN(签署)，FINISH(结束)，DOCUMENT(正式合同文件)，DEDUCT_CANCEL(代扣计划取消)，DEDUCT_EXECUTION(代扣计划执行)，DEDUCT_PLAN(代扣计划保存)，DEDUCT_REFUND(代扣计划退款)
     @NameInMap("phase")
     @Validation(required = true)
     public String phase;
@@ -41,6 +41,22 @@ public class CreateInternalContractRequest extends TeaModel {
     // 签署文件存档阶段存证核验信息
     @NameInMap("document_info")
     public ContractNotaryDocumentInfo documentInfo;
+
+    // 电子合同代扣计划取消操作信息
+    @NameInMap("cancel_info")
+    public ContractNotaryDeductCancelInfo cancelInfo;
+
+    // 电子合同存证代扣计划执行操作信息
+    @NameInMap("execution_info")
+    public ContractNotaryDeductExecutionInfo executionInfo;
+
+    // 电子合同存证代扣计划信息
+    @NameInMap("plan_info")
+    public ContractNotaryDeductPlanInfo planInfo;
+
+    // 电子合同存证代扣计划退款信息
+    @NameInMap("refund_info")
+    public ContractNotaryDeductRefundInfo refundInfo;
 
     public static CreateInternalContractRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateInternalContractRequest self = new CreateInternalContractRequest();
@@ -117,6 +133,38 @@ public class CreateInternalContractRequest extends TeaModel {
     }
     public ContractNotaryDocumentInfo getDocumentInfo() {
         return this.documentInfo;
+    }
+
+    public CreateInternalContractRequest setCancelInfo(ContractNotaryDeductCancelInfo cancelInfo) {
+        this.cancelInfo = cancelInfo;
+        return this;
+    }
+    public ContractNotaryDeductCancelInfo getCancelInfo() {
+        return this.cancelInfo;
+    }
+
+    public CreateInternalContractRequest setExecutionInfo(ContractNotaryDeductExecutionInfo executionInfo) {
+        this.executionInfo = executionInfo;
+        return this;
+    }
+    public ContractNotaryDeductExecutionInfo getExecutionInfo() {
+        return this.executionInfo;
+    }
+
+    public CreateInternalContractRequest setPlanInfo(ContractNotaryDeductPlanInfo planInfo) {
+        this.planInfo = planInfo;
+        return this;
+    }
+    public ContractNotaryDeductPlanInfo getPlanInfo() {
+        return this.planInfo;
+    }
+
+    public CreateInternalContractRequest setRefundInfo(ContractNotaryDeductRefundInfo refundInfo) {
+        this.refundInfo = refundInfo;
+        return this;
+    }
+    public ContractNotaryDeductRefundInfo getRefundInfo() {
+        return this.refundInfo;
     }
 
 }

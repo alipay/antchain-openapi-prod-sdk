@@ -29,7 +29,7 @@ public class ContractNotaryDeductExecutionInfo extends TeaModel {
     @Validation(required = true)
     public String timestamp;
 
-    // 代扣订单号
+    // 代扣计划ID
     @NameInMap("order")
     @Validation(required = true)
     public String order;
