@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.37',
+    sdk_version = '1.5.39',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -529,7 +529,7 @@ model ContractNotaryDeductExecutionInfo {
   result: boolean(name='result', example='true, false'),
   // 扣款操作发起时间
   timestamp: string(name='timestamp', example='1589198173000'),
-  // 代扣订单号
+  // 代扣计划ID
   order: string(name='order', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269_1'),
 }
 
@@ -787,6 +787,18 @@ model SupplierProductItem {
   productPrice: long(name='product_price', example='1000'),
   // 商品预留字段
   extraInfo?: string(name='extra_info', example='{}'),
+}
+
+// 电子合同存证代扣计划退款信息
+model ContractNotaryDeductRefundInfo {
+  // PAYERIDNUMBER
+  payerId: string(name='payer_id', example='付款方ID'),
+  // 退款金额，单位分
+  amount: long(name='amount', example='100'),
+  // 代扣计划ID
+  order: string(name='order', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269_1'),
+  // 退款操作发起时间
+  timestamp: string(name='timestamp', example='1589198173000'),
 }
 
 // 案件进度查询返回结果
@@ -1291,6 +1303,18 @@ model ContractNotaryDeductCancelInfo {
   timestamp: string(name='timestamp', example='1589198173000'),
   // 代扣订单号，多个订单号之间以‘,’隔开
   orders: string(name='orders', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269_1'),
+}
+
+// 电子合同存证代扣计划信息
+model ContractNotaryDeductPlanInfo {
+  // PAYERIDNUMBER
+  payerId: string(name='payer_id', example='付款方ID'),
+  // “总金额：”+总金额“+”“总期数：”+总期数，“+”每期金额时间（X期金额，时间）
+  deductPlanInfo: string(name='deduct_plan_info', example='代扣计划说明'),
+  // AGREEMEND_ID_NUMBER
+  agreementNo: string(name='agreement_no', example='代扣协议ID'),
+  // 代扣计划发起时间
+  timestamp: string(name='timestamp', example='1589198173000'),
 }
 
 // 电子合同签署流程的配置信息
@@ -10884,7 +10908,7 @@ model CreateInternalContractRequest = {
   flowId: string(name='flow_id'),
   // 签署发起信息，phase为INIT时必选
   initInfo?: ContractNotaryInitInfo(name='init_info'),
-  // 存证阶段，分为INIT(发起)，SIGN(签署)，FINISH(结束)
+  // 存证阶段，分为INIT(发起)，SIGN(签署)，FINISH(结束)，DOCUMENT(正式合同文件)，DEDUCT_CANCEL(代扣计划取消)，DEDUCT_EXECUTION(代扣计划执行)，DEDUCT_PLAN(代扣计划保存)，DEDUCT_REFUND(代扣计划退款)
   phase: string(name='phase'),
   // 签署过程信息，phase为SIGN时必选
   signInfo?: ContractNotarySignInfo(name='sign_info'),
@@ -10892,6 +10916,14 @@ model CreateInternalContractRequest = {
   transactionId: string(name='transaction_id'),
   // 签署文件存档阶段存证核验信息
   documentInfo?: ContractNotaryDocumentInfo(name='document_info'),
+  // 电子合同代扣计划取消操作信息
+  cancelInfo?: ContractNotaryDeductCancelInfo(name='cancel_info'),
+  // 电子合同存证代扣计划执行操作信息
+  executionInfo?: ContractNotaryDeductExecutionInfo(name='execution_info'),
+  // 电子合同存证代扣计划信息
+  planInfo?: ContractNotaryDeductPlanInfo(name='plan_info'),
+  // 电子合同存证代扣计划退款信息
+  refundInfo?: ContractNotaryDeductRefundInfo(name='refund_info'),
 }
 
 model CreateInternalContractResponse = {
