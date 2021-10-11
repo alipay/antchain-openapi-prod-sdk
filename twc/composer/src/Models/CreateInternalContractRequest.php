@@ -37,7 +37,7 @@ class CreateInternalContractRequest extends Model
      */
     public $initInfo;
 
-    // 存证阶段，分为INIT(发起)，SIGN(签署)，FINISH(结束)
+    // 存证阶段，分为INIT(发起)，SIGN(签署)，FINISH(结束)，DOCUMENT(正式合同文件)，DEDUCT_CANCEL(代扣计划取消)，DEDUCT_EXECUTION(代扣计划执行)，DEDUCT_PLAN(代扣计划保存)，DEDUCT_REFUND(代扣计划退款)
     /**
      * @var string
      */
@@ -60,6 +60,30 @@ class CreateInternalContractRequest extends Model
      * @var ContractNotaryDocumentInfo
      */
     public $documentInfo;
+
+    // 电子合同代扣计划取消操作信息
+    /**
+     * @var ContractNotaryDeductCancelInfo
+     */
+    public $cancelInfo;
+
+    // 电子合同存证代扣计划执行操作信息
+    /**
+     * @var ContractNotaryDeductExecutionInfo
+     */
+    public $executionInfo;
+
+    // 电子合同存证代扣计划信息
+    /**
+     * @var ContractNotaryDeductPlanInfo
+     */
+    public $planInfo;
+
+    // 电子合同存证代扣计划退款信息
+    /**
+     * @var ContractNotaryDeductRefundInfo
+     */
+    public $refundInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,6 +94,10 @@ class CreateInternalContractRequest extends Model
         'signInfo'          => 'sign_info',
         'transactionId'     => 'transaction_id',
         'documentInfo'      => 'document_info',
+        'cancelInfo'        => 'cancel_info',
+        'executionInfo'     => 'execution_info',
+        'planInfo'          => 'plan_info',
+        'refundInfo'        => 'refund_info',
     ];
 
     public function validate()
@@ -109,6 +137,18 @@ class CreateInternalContractRequest extends Model
         if (null !== $this->documentInfo) {
             $res['document_info'] = null !== $this->documentInfo ? $this->documentInfo->toMap() : null;
         }
+        if (null !== $this->cancelInfo) {
+            $res['cancel_info'] = null !== $this->cancelInfo ? $this->cancelInfo->toMap() : null;
+        }
+        if (null !== $this->executionInfo) {
+            $res['execution_info'] = null !== $this->executionInfo ? $this->executionInfo->toMap() : null;
+        }
+        if (null !== $this->planInfo) {
+            $res['plan_info'] = null !== $this->planInfo ? $this->planInfo->toMap() : null;
+        }
+        if (null !== $this->refundInfo) {
+            $res['refund_info'] = null !== $this->refundInfo ? $this->refundInfo->toMap() : null;
+        }
 
         return $res;
     }
@@ -147,6 +187,18 @@ class CreateInternalContractRequest extends Model
         }
         if (isset($map['document_info'])) {
             $model->documentInfo = ContractNotaryDocumentInfo::fromMap($map['document_info']);
+        }
+        if (isset($map['cancel_info'])) {
+            $model->cancelInfo = ContractNotaryDeductCancelInfo::fromMap($map['cancel_info']);
+        }
+        if (isset($map['execution_info'])) {
+            $model->executionInfo = ContractNotaryDeductExecutionInfo::fromMap($map['execution_info']);
+        }
+        if (isset($map['plan_info'])) {
+            $model->planInfo = ContractNotaryDeductPlanInfo::fromMap($map['plan_info']);
+        }
+        if (isset($map['refund_info'])) {
+            $model->refundInfo = ContractNotaryDeductRefundInfo::fromMap($map['refund_info']);
         }
 
         return $model;

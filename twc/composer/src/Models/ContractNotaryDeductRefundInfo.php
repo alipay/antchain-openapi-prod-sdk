@@ -6,47 +6,23 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ContractNotaryDeductExecutionInfo extends Model
+class ContractNotaryDeductRefundInfo extends Model
 {
-    // 付款方的区块链合同签署账号
+    // PAYERIDNUMBER
     /**
-     * @example someId
+     * @example 付款方ID
      *
      * @var string
      */
     public $payerId;
 
-    // 扣款金额，单位分
+    // 退款金额，单位分
     /**
      * @example 100
      *
      * @var int
      */
     public $amount;
-
-    // 扣款渠道
-    /**
-     * @example channel
-     *
-     * @var string
-     */
-    public $channel;
-
-    // 扣款操作是否成功
-    /**
-     * @example true, false
-     *
-     * @var bool
-     */
-    public $result;
-
-    // 扣款操作发起时间
-    /**
-     * @example 1589198173000
-     *
-     * @var string
-     */
-    public $timestamp;
 
     // 代扣计划ID
     /**
@@ -55,23 +31,27 @@ class ContractNotaryDeductExecutionInfo extends Model
      * @var string
      */
     public $order;
+
+    // 退款操作发起时间
+    /**
+     * @example 1589198173000
+     *
+     * @var string
+     */
+    public $timestamp;
     protected $_name = [
         'payerId'   => 'payer_id',
         'amount'    => 'amount',
-        'channel'   => 'channel',
-        'result'    => 'result',
-        'timestamp' => 'timestamp',
         'order'     => 'order',
+        'timestamp' => 'timestamp',
     ];
 
     public function validate()
     {
         Model::validateRequired('payerId', $this->payerId, true);
         Model::validateRequired('amount', $this->amount, true);
-        Model::validateRequired('channel', $this->channel, true);
-        Model::validateRequired('result', $this->result, true);
-        Model::validateRequired('timestamp', $this->timestamp, true);
         Model::validateRequired('order', $this->order, true);
+        Model::validateRequired('timestamp', $this->timestamp, true);
     }
 
     public function toMap()
@@ -83,17 +63,11 @@ class ContractNotaryDeductExecutionInfo extends Model
         if (null !== $this->amount) {
             $res['amount'] = $this->amount;
         }
-        if (null !== $this->channel) {
-            $res['channel'] = $this->channel;
-        }
-        if (null !== $this->result) {
-            $res['result'] = $this->result;
+        if (null !== $this->order) {
+            $res['order'] = $this->order;
         }
         if (null !== $this->timestamp) {
             $res['timestamp'] = $this->timestamp;
-        }
-        if (null !== $this->order) {
-            $res['order'] = $this->order;
         }
 
         return $res;
@@ -102,7 +76,7 @@ class ContractNotaryDeductExecutionInfo extends Model
     /**
      * @param array $map
      *
-     * @return ContractNotaryDeductExecutionInfo
+     * @return ContractNotaryDeductRefundInfo
      */
     public static function fromMap($map = [])
     {
@@ -113,17 +87,11 @@ class ContractNotaryDeductExecutionInfo extends Model
         if (isset($map['amount'])) {
             $model->amount = $map['amount'];
         }
-        if (isset($map['channel'])) {
-            $model->channel = $map['channel'];
-        }
-        if (isset($map['result'])) {
-            $model->result = $map['result'];
+        if (isset($map['order'])) {
+            $model->order = $map['order'];
         }
         if (isset($map['timestamp'])) {
             $model->timestamp = $map['timestamp'];
-        }
-        if (isset($map['order'])) {
-            $model->order = $map['order'];
         }
 
         return $model;
