@@ -35,7 +35,7 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string Timestamp { get; set; }
 
-        // 代扣订单号
+        // 代扣计划ID
         [NameInMap("order")]
         [Validation(Required=true)]
         public string Order { get; set; }
