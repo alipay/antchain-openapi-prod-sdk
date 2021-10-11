@@ -1601,7 +1601,7 @@ class ContractNotaryDeductExecutionInfo(TeaModel):
         self.result = result
         # 扣款操作发起时间
         self.timestamp = timestamp
-        # 代扣订单号
+        # 代扣计划ID
         self.order = order
 
     def validate(self):
@@ -2619,6 +2619,54 @@ class SupplierProductItem(TeaModel):
             self.product_price = m.get('product_price')
         if m.get('extra_info') is not None:
             self.extra_info = m.get('extra_info')
+        return self
+
+
+class ContractNotaryDeductRefundInfo(TeaModel):
+    def __init__(
+        self,
+        payer_id: str = None,
+        amount: int = None,
+        order: str = None,
+        timestamp: str = None,
+    ):
+        # PAYERIDNUMBER
+        self.payer_id = payer_id
+        # 退款金额，单位分
+        self.amount = amount
+        # 代扣计划ID
+        self.order = order
+        # 退款操作发起时间
+        self.timestamp = timestamp
+
+    def validate(self):
+        self.validate_required(self.payer_id, 'payer_id')
+        self.validate_required(self.amount, 'amount')
+        self.validate_required(self.order, 'order')
+        self.validate_required(self.timestamp, 'timestamp')
+
+    def to_map(self):
+        result = dict()
+        if self.payer_id is not None:
+            result['payer_id'] = self.payer_id
+        if self.amount is not None:
+            result['amount'] = self.amount
+        if self.order is not None:
+            result['order'] = self.order
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('payer_id') is not None:
+            self.payer_id = m.get('payer_id')
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        if m.get('order') is not None:
+            self.order = m.get('order')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
         return self
 
 
@@ -4549,6 +4597,54 @@ class ContractNotaryDeductCancelInfo(TeaModel):
             self.timestamp = m.get('timestamp')
         if m.get('orders') is not None:
             self.orders = m.get('orders')
+        return self
+
+
+class ContractNotaryDeductPlanInfo(TeaModel):
+    def __init__(
+        self,
+        payer_id: str = None,
+        deduct_plan_info: str = None,
+        agreement_no: str = None,
+        timestamp: str = None,
+    ):
+        # PAYERIDNUMBER
+        self.payer_id = payer_id
+        # “总金额：”+总金额“+”“总期数：”+总期数，“+”每期金额时间（X期金额，时间）
+        self.deduct_plan_info = deduct_plan_info
+        # AGREEMEND_ID_NUMBER
+        self.agreement_no = agreement_no
+        # 代扣计划发起时间
+        self.timestamp = timestamp
+
+    def validate(self):
+        self.validate_required(self.payer_id, 'payer_id')
+        self.validate_required(self.deduct_plan_info, 'deduct_plan_info')
+        self.validate_required(self.agreement_no, 'agreement_no')
+        self.validate_required(self.timestamp, 'timestamp')
+
+    def to_map(self):
+        result = dict()
+        if self.payer_id is not None:
+            result['payer_id'] = self.payer_id
+        if self.deduct_plan_info is not None:
+            result['deduct_plan_info'] = self.deduct_plan_info
+        if self.agreement_no is not None:
+            result['agreement_no'] = self.agreement_no
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('payer_id') is not None:
+            self.payer_id = m.get('payer_id')
+        if m.get('deduct_plan_info') is not None:
+            self.deduct_plan_info = m.get('deduct_plan_info')
+        if m.get('agreement_no') is not None:
+            self.agreement_no = m.get('agreement_no')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
         return self
 
 
@@ -29744,6 +29840,10 @@ class CreateInternalContractRequest(TeaModel):
         sign_info: ContractNotarySignInfo = None,
         transaction_id: str = None,
         document_info: ContractNotaryDocumentInfo = None,
+        cancel_info: ContractNotaryDeductCancelInfo = None,
+        execution_info: ContractNotaryDeductExecutionInfo = None,
+        plan_info: ContractNotaryDeductPlanInfo = None,
+        refund_info: ContractNotaryDeductRefundInfo = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -29754,7 +29854,7 @@ class CreateInternalContractRequest(TeaModel):
         self.flow_id = flow_id
         # 签署发起信息，phase为INIT时必选
         self.init_info = init_info
-        # 存证阶段，分为INIT(发起)，SIGN(签署)，FINISH(结束)
+        # 存证阶段，分为INIT(发起)，SIGN(签署)，FINISH(结束)，DOCUMENT(正式合同文件)，DEDUCT_CANCEL(代扣计划取消)，DEDUCT_EXECUTION(代扣计划执行)，DEDUCT_PLAN(代扣计划保存)，DEDUCT_REFUND(代扣计划退款)
         self.phase = phase
         # 签署过程信息，phase为SIGN时必选
         self.sign_info = sign_info
@@ -29762,6 +29862,14 @@ class CreateInternalContractRequest(TeaModel):
         self.transaction_id = transaction_id
         # 签署文件存档阶段存证核验信息
         self.document_info = document_info
+        # 电子合同代扣计划取消操作信息
+        self.cancel_info = cancel_info
+        # 电子合同存证代扣计划执行操作信息
+        self.execution_info = execution_info
+        # 电子合同存证代扣计划信息
+        self.plan_info = plan_info
+        # 电子合同存证代扣计划退款信息
+        self.refund_info = refund_info
 
     def validate(self):
         if self.finish_info:
@@ -29775,6 +29883,14 @@ class CreateInternalContractRequest(TeaModel):
         self.validate_required(self.transaction_id, 'transaction_id')
         if self.document_info:
             self.document_info.validate()
+        if self.cancel_info:
+            self.cancel_info.validate()
+        if self.execution_info:
+            self.execution_info.validate()
+        if self.plan_info:
+            self.plan_info.validate()
+        if self.refund_info:
+            self.refund_info.validate()
 
     def to_map(self):
         result = dict()
@@ -29796,6 +29912,14 @@ class CreateInternalContractRequest(TeaModel):
             result['transaction_id'] = self.transaction_id
         if self.document_info is not None:
             result['document_info'] = self.document_info.to_map()
+        if self.cancel_info is not None:
+            result['cancel_info'] = self.cancel_info.to_map()
+        if self.execution_info is not None:
+            result['execution_info'] = self.execution_info.to_map()
+        if self.plan_info is not None:
+            result['plan_info'] = self.plan_info.to_map()
+        if self.refund_info is not None:
+            result['refund_info'] = self.refund_info.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -29822,6 +29946,18 @@ class CreateInternalContractRequest(TeaModel):
         if m.get('document_info') is not None:
             temp_model = ContractNotaryDocumentInfo()
             self.document_info = temp_model.from_map(m['document_info'])
+        if m.get('cancel_info') is not None:
+            temp_model = ContractNotaryDeductCancelInfo()
+            self.cancel_info = temp_model.from_map(m['cancel_info'])
+        if m.get('execution_info') is not None:
+            temp_model = ContractNotaryDeductExecutionInfo()
+            self.execution_info = temp_model.from_map(m['execution_info'])
+        if m.get('plan_info') is not None:
+            temp_model = ContractNotaryDeductPlanInfo()
+            self.plan_info = temp_model.from_map(m['plan_info'])
+        if m.get('refund_info') is not None:
+            temp_model = ContractNotaryDeductRefundInfo()
+            self.refund_info = temp_model.from_map(m['refund_info'])
         return self
 
 
