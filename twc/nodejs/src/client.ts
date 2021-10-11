@@ -1008,7 +1008,7 @@ export class ContractNotaryDeductExecutionInfo extends $tea.Model {
   result: boolean;
   // 扣款操作发起时间
   timestamp: string;
-  // 代扣订单号
+  // 代扣计划ID
   order: string;
   static names(): { [key: string]: string } {
     return {
@@ -1636,6 +1636,39 @@ export class SupplierProductItem extends $tea.Model {
       productUrl: 'string',
       productPrice: 'number',
       extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 电子合同存证代扣计划退款信息
+export class ContractNotaryDeductRefundInfo extends $tea.Model {
+  // PAYERIDNUMBER
+  payerId: string;
+  // 退款金额，单位分
+  amount: number;
+  // 代扣计划ID
+  order: string;
+  // 退款操作发起时间
+  timestamp: string;
+  static names(): { [key: string]: string } {
+    return {
+      payerId: 'payer_id',
+      amount: 'amount',
+      order: 'order',
+      timestamp: 'timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      payerId: 'string',
+      amount: 'number',
+      order: 'string',
+      timestamp: 'string',
     };
   }
 
@@ -2920,6 +2953,39 @@ export class ContractNotaryDeductCancelInfo extends $tea.Model {
       cancelStatus: 'boolean',
       timestamp: 'string',
       orders: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 电子合同存证代扣计划信息
+export class ContractNotaryDeductPlanInfo extends $tea.Model {
+  // PAYERIDNUMBER
+  payerId: string;
+  // “总金额：”+总金额“+”“总期数：”+总期数，“+”每期金额时间（X期金额，时间）
+  deductPlanInfo: string;
+  // AGREEMEND_ID_NUMBER
+  agreementNo: string;
+  // 代扣计划发起时间
+  timestamp: string;
+  static names(): { [key: string]: string } {
+    return {
+      payerId: 'payer_id',
+      deductPlanInfo: 'deduct_plan_info',
+      agreementNo: 'agreement_no',
+      timestamp: 'timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      payerId: 'string',
+      deductPlanInfo: 'string',
+      agreementNo: 'string',
+      timestamp: 'string',
     };
   }
 
@@ -19014,7 +19080,7 @@ export class CreateInternalContractRequest extends $tea.Model {
   flowId: string;
   // 签署发起信息，phase为INIT时必选
   initInfo?: ContractNotaryInitInfo;
-  // 存证阶段，分为INIT(发起)，SIGN(签署)，FINISH(结束)
+  // 存证阶段，分为INIT(发起)，SIGN(签署)，FINISH(结束)，DOCUMENT(正式合同文件)，DEDUCT_CANCEL(代扣计划取消)，DEDUCT_EXECUTION(代扣计划执行)，DEDUCT_PLAN(代扣计划保存)，DEDUCT_REFUND(代扣计划退款)
   phase: string;
   // 签署过程信息，phase为SIGN时必选
   signInfo?: ContractNotarySignInfo;
@@ -19022,6 +19088,14 @@ export class CreateInternalContractRequest extends $tea.Model {
   transactionId: string;
   // 签署文件存档阶段存证核验信息
   documentInfo?: ContractNotaryDocumentInfo;
+  // 电子合同代扣计划取消操作信息
+  cancelInfo?: ContractNotaryDeductCancelInfo;
+  // 电子合同存证代扣计划执行操作信息
+  executionInfo?: ContractNotaryDeductExecutionInfo;
+  // 电子合同存证代扣计划信息
+  planInfo?: ContractNotaryDeductPlanInfo;
+  // 电子合同存证代扣计划退款信息
+  refundInfo?: ContractNotaryDeductRefundInfo;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -19033,6 +19107,10 @@ export class CreateInternalContractRequest extends $tea.Model {
       signInfo: 'sign_info',
       transactionId: 'transaction_id',
       documentInfo: 'document_info',
+      cancelInfo: 'cancel_info',
+      executionInfo: 'execution_info',
+      planInfo: 'plan_info',
+      refundInfo: 'refund_info',
     };
   }
 
@@ -19047,6 +19125,10 @@ export class CreateInternalContractRequest extends $tea.Model {
       signInfo: ContractNotarySignInfo,
       transactionId: 'string',
       documentInfo: ContractNotaryDocumentInfo,
+      cancelInfo: ContractNotaryDeductCancelInfo,
+      executionInfo: ContractNotaryDeductExecutionInfo,
+      planInfo: ContractNotaryDeductPlanInfo,
+      refundInfo: ContractNotaryDeductRefundInfo,
     };
   }
 
@@ -19631,7 +19713,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.37",
+          sdk_version: "1.5.39",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
