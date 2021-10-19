@@ -55,6 +55,14 @@ class PredictRequest extends Model
      * @var string
      */
     public $predictionScore;
+
+    // 手机号码MD5
+    /**
+     * @example 5a0a52d01fa9304e8dba7170
+     *
+     * @var string
+     */
+    public $mobileMd5;
     protected $_name = [
         'assetDetailId'   => 'asset_detail_id',
         'certNoMd5'       => 'cert_no_md5',
@@ -62,6 +70,7 @@ class PredictRequest extends Model
         'paybackNum'      => 'payback_num',
         'overdueMonth'    => 'overdue_month',
         'predictionScore' => 'prediction_score',
+        'mobileMd5'       => 'mobile_md5',
     ];
 
     public function validate()
@@ -89,6 +98,9 @@ class PredictRequest extends Model
         }
         if (null !== $this->predictionScore) {
             $res['prediction_score'] = $this->predictionScore;
+        }
+        if (null !== $this->mobileMd5) {
+            $res['mobile_md5'] = $this->mobileMd5;
         }
 
         return $res;
@@ -119,6 +131,9 @@ class PredictRequest extends Model
         }
         if (isset($map['prediction_score'])) {
             $model->predictionScore = $map['prediction_score'];
+        }
+        if (isset($map['mobile_md5'])) {
+            $model->mobileMd5 = $map['mobile_md5'];
         }
 
         return $model;
