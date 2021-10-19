@@ -128,6 +128,8 @@ export class PredictRequest extends $tea.Model {
   overdueMonth?: number;
   // 债务人信用分数，由系统计算得出，无须传入。
   predictionScore?: string;
+  // 手机号码MD5
+  mobileMd5?: string;
   static names(): { [key: string]: string } {
     return {
       assetDetailId: 'asset_detail_id',
@@ -136,6 +138,7 @@ export class PredictRequest extends $tea.Model {
       paybackNum: 'payback_num',
       overdueMonth: 'overdue_month',
       predictionScore: 'prediction_score',
+      mobileMd5: 'mobile_md5',
     };
   }
 
@@ -147,6 +150,7 @@ export class PredictRequest extends $tea.Model {
       paybackNum: 'number',
       overdueMonth: 'number',
       predictionScore: 'string',
+      mobileMd5: 'string',
     };
   }
 
@@ -791,7 +795,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.11",
+          sdk_version: "1.0.12",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -838,8 +842,8 @@ export default class Client {
   }
 
   /**
-   * Description: 资产定价/处置预测
-   * Summary: 资产定价/处置预测
+   * Description: 资产定价处置预测 
+   * Summary: 资产定价处置预测
    */
   async queryPredict(request: QueryPredictRequest): Promise<QueryPredictResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -848,8 +852,8 @@ export default class Client {
   }
 
   /**
-   * Description: 资产定价/处置预测
-   * Summary: 资产定价/处置预测
+   * Description: 资产定价处置预测 
+   * Summary: 资产定价处置预测
    */
   async queryPredictEx(request: QueryPredictRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryPredictResponse> {
     Util.validateModel(request);
