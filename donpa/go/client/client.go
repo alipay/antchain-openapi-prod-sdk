@@ -202,15 +202,13 @@ type PredictRequest struct {
 	// 身份证号码MD5
 	CertNoMd5 *string `json:"cert_no_md5,omitempty" xml:"cert_no_md5,omitempty" require:"true"`
 	// 已还总额,默认0
-	PaybackAmount *int64 `json:"payback_amount,omitempty" xml:"payback_amount,omitempty"`
+	PaybackAmount *string `json:"payback_amount,omitempty" xml:"payback_amount,omitempty"`
 	// 已还期数，默认0
-	PaybackNum *int64 `json:"payback_num,omitempty" xml:"payback_num,omitempty"`
+	PaybackNum *string `json:"payback_num,omitempty" xml:"payback_num,omitempty"`
 	// 逾期月数
-	OverdueMonth *int64 `json:"overdue_month,omitempty" xml:"overdue_month,omitempty"`
-	// 债务人信用分数，由系统计算得出，无须传入。
-	PredictionScore *string `json:"prediction_score,omitempty" xml:"prediction_score,omitempty"`
-	// 手机号码MD5
-	MobileMd5 *string `json:"mobile_md5,omitempty" xml:"mobile_md5,omitempty"`
+	OverdueMonth *string `json:"overdue_month,omitempty" xml:"overdue_month,omitempty"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
 }
 
 func (s PredictRequest) String() string {
@@ -231,28 +229,23 @@ func (s *PredictRequest) SetCertNoMd5(v string) *PredictRequest {
 	return s
 }
 
-func (s *PredictRequest) SetPaybackAmount(v int64) *PredictRequest {
+func (s *PredictRequest) SetPaybackAmount(v string) *PredictRequest {
 	s.PaybackAmount = &v
 	return s
 }
 
-func (s *PredictRequest) SetPaybackNum(v int64) *PredictRequest {
+func (s *PredictRequest) SetPaybackNum(v string) *PredictRequest {
 	s.PaybackNum = &v
 	return s
 }
 
-func (s *PredictRequest) SetOverdueMonth(v int64) *PredictRequest {
+func (s *PredictRequest) SetOverdueMonth(v string) *PredictRequest {
 	s.OverdueMonth = &v
 	return s
 }
 
-func (s *PredictRequest) SetPredictionScore(v string) *PredictRequest {
-	s.PredictionScore = &v
-	return s
-}
-
-func (s *PredictRequest) SetMobileMd5(v string) *PredictRequest {
-	s.MobileMd5 = &v
+func (s *PredictRequest) SetCertNo(v string) *PredictRequest {
+	s.CertNo = &v
 	return s
 }
 
@@ -270,6 +263,10 @@ type PredictResponse struct {
 	MobileMd5 *string `json:"mobile_md5,omitempty" xml:"mobile_md5,omitempty"`
 	// 可选值，A,B,C
 	Level *string `json:"level,omitempty" xml:"level,omitempty"`
+	// 内部特征预测分数
+	PredictionScore *string `json:"prediction_score,omitempty" xml:"prediction_score,omitempty"`
+	// 身份证号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
 }
 
 func (s PredictResponse) String() string {
@@ -307,6 +304,16 @@ func (s *PredictResponse) SetMobileMd5(v string) *PredictResponse {
 
 func (s *PredictResponse) SetLevel(v string) *PredictResponse {
 	s.Level = &v
+	return s
+}
+
+func (s *PredictResponse) SetPredictionScore(v string) *PredictResponse {
+	s.PredictionScore = &v
+	return s
+}
+
+func (s *PredictResponse) SetCertNo(v string) *PredictResponse {
+	s.CertNo = &v
 	return s
 }
 
@@ -1005,7 +1012,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.12"),
+				"sdk_version":      tea.String("1.0.14"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
