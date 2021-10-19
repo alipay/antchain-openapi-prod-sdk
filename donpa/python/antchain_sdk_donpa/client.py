@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.11'
+                    'sdk_version': '1.0.12'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.11'
+                    'sdk_version': '1.0.12'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -276,8 +276,8 @@ class Client:
         request: donpa_models.QueryPredictRequest,
     ) -> donpa_models.QueryPredictResponse:
         """
-        Description: 资产定价/处置预测
-        Summary: 资产定价/处置预测
+        Description: 资产定价处置预测
+        Summary: 资产定价处置预测
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -288,8 +288,8 @@ class Client:
         request: donpa_models.QueryPredictRequest,
     ) -> donpa_models.QueryPredictResponse:
         """
-        Description: 资产定价/处置预测
-        Summary: 资产定价/处置预测
+        Description: 资产定价处置预测
+        Summary: 资产定价处置预测
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -302,8 +302,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> donpa_models.QueryPredictResponse:
         """
-        Description: 资产定价/处置预测
-        Summary: 资产定价/处置预测
+        Description: 资产定价处置预测
+        Summary: 资产定价处置预测
         """
         UtilClient.validate_model(request)
         return donpa_models.QueryPredictResponse().from_map(
@@ -317,8 +317,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> donpa_models.QueryPredictResponse:
         """
-        Description: 资产定价/处置预测
-        Summary: 资产定价/处置预测
+        Description: 资产定价处置预测
+        Summary: 资产定价处置预测
         """
         UtilClient.validate_model(request)
         return donpa_models.QueryPredictResponse().from_map(

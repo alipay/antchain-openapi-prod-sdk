@@ -214,6 +214,7 @@ class PredictRequest(TeaModel):
         payback_num: int = None,
         overdue_month: int = None,
         prediction_score: str = None,
+        mobile_md_5: str = None,
     ):
         # 资产明细ID
         self.asset_detail_id = asset_detail_id
@@ -227,6 +228,8 @@ class PredictRequest(TeaModel):
         self.overdue_month = overdue_month
         # 债务人信用分数，由系统计算得出，无须传入。
         self.prediction_score = prediction_score
+        # 手机号码MD5
+        self.mobile_md_5 = mobile_md_5
 
     def validate(self):
         self.validate_required(self.cert_no_md_5, 'cert_no_md_5')
@@ -245,6 +248,8 @@ class PredictRequest(TeaModel):
             result['overdue_month'] = self.overdue_month
         if self.prediction_score is not None:
             result['prediction_score'] = self.prediction_score
+        if self.mobile_md_5 is not None:
+            result['mobile_md5'] = self.mobile_md_5
         return result
 
     def from_map(self, m: dict = None):
@@ -261,6 +266,8 @@ class PredictRequest(TeaModel):
             self.overdue_month = m.get('overdue_month')
         if m.get('prediction_score') is not None:
             self.prediction_score = m.get('prediction_score')
+        if m.get('mobile_md5') is not None:
+            self.mobile_md_5 = m.get('mobile_md5')
         return self
 
 
