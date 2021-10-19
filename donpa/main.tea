@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.12',
+    sdk_version = '1.0.14',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -180,15 +180,13 @@ model PredictRequest {
   // 身份证号码MD5
   certNoMd5: string(name='cert_no_md5', example='5a0a52d01fa9304e8dba7170'),
   // 已还总额,默认0
-  paybackAmount?: long(name='payback_amount', example='100.00'),
+  paybackAmount?: string(name='payback_amount', example='100.00'),
   // 已还期数，默认0
-  paybackNum?: long(name='payback_num', example='2'),
+  paybackNum?: string(name='payback_num', example='2'),
   // 逾期月数
-  overdueMonth?: long(name='overdue_month', example='2'),
-  // 债务人信用分数，由系统计算得出，无须传入。
-  predictionScore?: string(name='prediction_score', example='0.012345'),
-  // 手机号码MD5
-  mobileMd5?: string(name='mobile_md5', example='5a0a52d01fa9304e8dba7170'),
+  overdueMonth?: string(name='overdue_month', example='2'),
+  // 身份证号
+  certNo?: string(name='cert_no', example='131124111111110111'),
 }
 
 // 预测结果响应体
@@ -205,6 +203,10 @@ model PredictResponse {
   mobileMd5?: string(name='mobile_md5', example='5a0a52d01fa9304e8dba7170'),
   // 可选值，A,B,C
   level?: string(name='level', example='分类类型'),
+  // 内部特征预测分数
+  predictionScore?: string(name='prediction_score', example='0.99'),
+  // 身份证号码
+  certNo?: string(name='cert_no', example='131124111111110111'),
 }
 
 // 修复批次状态
