@@ -209,6 +209,8 @@ type PredictRequest struct {
 	OverdueMonth *int64 `json:"overdue_month,omitempty" xml:"overdue_month,omitempty"`
 	// 债务人信用分数，由系统计算得出，无须传入。
 	PredictionScore *string `json:"prediction_score,omitempty" xml:"prediction_score,omitempty"`
+	// 手机号码MD5
+	MobileMd5 *string `json:"mobile_md5,omitempty" xml:"mobile_md5,omitempty"`
 }
 
 func (s PredictRequest) String() string {
@@ -246,6 +248,11 @@ func (s *PredictRequest) SetOverdueMonth(v int64) *PredictRequest {
 
 func (s *PredictRequest) SetPredictionScore(v string) *PredictRequest {
 	s.PredictionScore = &v
+	return s
+}
+
+func (s *PredictRequest) SetMobileMd5(v string) *PredictRequest {
+	s.MobileMd5 = &v
 	return s
 }
 
@@ -998,7 +1005,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.11"),
+				"sdk_version":      tea.String("1.0.12"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1047,8 +1054,8 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 }
 
 /**
- * Description: 资产定价/处置预测
- * Summary: 资产定价/处置预测
+ * Description: 资产定价处置预测
+ * Summary: 资产定价处置预测
  */
 func (client *Client) QueryPredict(request *QueryPredictRequest) (_result *QueryPredictResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -1063,8 +1070,8 @@ func (client *Client) QueryPredict(request *QueryPredictRequest) (_result *Query
 }
 
 /**
- * Description: 资产定价/处置预测
- * Summary: 资产定价/处置预测
+ * Description: 资产定价处置预测
+ * Summary: 资产定价处置预测
  */
 func (client *Client) QueryPredictEx(request *QueryPredictRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPredictResponse, _err error) {
 	_err = util.ValidateModel(request)
