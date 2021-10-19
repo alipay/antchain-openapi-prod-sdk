@@ -55,13 +55,31 @@ class PredictResponse extends Model
      * @var string
      */
     public $level;
+
+    // 内部特征预测分数
+    /**
+     * @example 0.99
+     *
+     * @var string
+     */
+    public $predictionScore;
+
+    // 身份证号码
+    /**
+     * @example 131124111111110111
+     *
+     * @var string
+     */
+    public $certNo;
     protected $_name = [
-        'assetDetailId' => 'asset_detail_id',
-        'probability0'  => 'probability0',
-        'probability1'  => 'probability1',
-        'certNoMd5'     => 'cert_no_md5',
-        'mobileMd5'     => 'mobile_md5',
-        'level'         => 'level',
+        'assetDetailId'   => 'asset_detail_id',
+        'probability0'    => 'probability0',
+        'probability1'    => 'probability1',
+        'certNoMd5'       => 'cert_no_md5',
+        'mobileMd5'       => 'mobile_md5',
+        'level'           => 'level',
+        'predictionScore' => 'prediction_score',
+        'certNo'          => 'cert_no',
     ];
 
     public function validate()
@@ -88,6 +106,12 @@ class PredictResponse extends Model
         }
         if (null !== $this->level) {
             $res['level'] = $this->level;
+        }
+        if (null !== $this->predictionScore) {
+            $res['prediction_score'] = $this->predictionScore;
+        }
+        if (null !== $this->certNo) {
+            $res['cert_no'] = $this->certNo;
         }
 
         return $res;
@@ -118,6 +142,12 @@ class PredictResponse extends Model
         }
         if (isset($map['level'])) {
             $model->level = $map['level'];
+        }
+        if (isset($map['prediction_score'])) {
+            $model->predictionScore = $map['prediction_score'];
+        }
+        if (isset($map['cert_no'])) {
+            $model->certNo = $map['cert_no'];
         }
 
         return $model;

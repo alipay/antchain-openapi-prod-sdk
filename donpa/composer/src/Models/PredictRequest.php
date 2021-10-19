@@ -28,7 +28,7 @@ class PredictRequest extends Model
     /**
      * @example 100.00
      *
-     * @var int
+     * @var string
      */
     public $paybackAmount;
 
@@ -36,7 +36,7 @@ class PredictRequest extends Model
     /**
      * @example 2
      *
-     * @var int
+     * @var string
      */
     public $paybackNum;
 
@@ -44,33 +44,24 @@ class PredictRequest extends Model
     /**
      * @example 2
      *
-     * @var int
+     * @var string
      */
     public $overdueMonth;
 
-    // 债务人信用分数，由系统计算得出，无须传入。
+    // 身份证号
     /**
-     * @example 0.012345
+     * @example 131124111111110111
      *
      * @var string
      */
-    public $predictionScore;
-
-    // 手机号码MD5
-    /**
-     * @example 5a0a52d01fa9304e8dba7170
-     *
-     * @var string
-     */
-    public $mobileMd5;
+    public $certNo;
     protected $_name = [
-        'assetDetailId'   => 'asset_detail_id',
-        'certNoMd5'       => 'cert_no_md5',
-        'paybackAmount'   => 'payback_amount',
-        'paybackNum'      => 'payback_num',
-        'overdueMonth'    => 'overdue_month',
-        'predictionScore' => 'prediction_score',
-        'mobileMd5'       => 'mobile_md5',
+        'assetDetailId' => 'asset_detail_id',
+        'certNoMd5'     => 'cert_no_md5',
+        'paybackAmount' => 'payback_amount',
+        'paybackNum'    => 'payback_num',
+        'overdueMonth'  => 'overdue_month',
+        'certNo'        => 'cert_no',
     ];
 
     public function validate()
@@ -96,11 +87,8 @@ class PredictRequest extends Model
         if (null !== $this->overdueMonth) {
             $res['overdue_month'] = $this->overdueMonth;
         }
-        if (null !== $this->predictionScore) {
-            $res['prediction_score'] = $this->predictionScore;
-        }
-        if (null !== $this->mobileMd5) {
-            $res['mobile_md5'] = $this->mobileMd5;
+        if (null !== $this->certNo) {
+            $res['cert_no'] = $this->certNo;
         }
 
         return $res;
@@ -129,11 +117,8 @@ class PredictRequest extends Model
         if (isset($map['overdue_month'])) {
             $model->overdueMonth = $map['overdue_month'];
         }
-        if (isset($map['prediction_score'])) {
-            $model->predictionScore = $map['prediction_score'];
-        }
-        if (isset($map['mobile_md5'])) {
-            $model->mobileMd5 = $map['mobile_md5'];
+        if (isset($map['cert_no'])) {
+            $model->certNo = $map['cert_no'];
         }
 
         return $model;
