@@ -15,23 +15,19 @@ public class PredictRequest extends TeaModel {
 
     // 已还总额,默认0
     @NameInMap("payback_amount")
-    public Long paybackAmount;
+    public String paybackAmount;
 
     // 已还期数，默认0
     @NameInMap("payback_num")
-    public Long paybackNum;
+    public String paybackNum;
 
     // 逾期月数
     @NameInMap("overdue_month")
-    public Long overdueMonth;
+    public String overdueMonth;
 
-    // 债务人信用分数，由系统计算得出，无须传入。
-    @NameInMap("prediction_score")
-    public String predictionScore;
-
-    // 手机号码MD5
-    @NameInMap("mobile_md5")
-    public String mobileMd5;
+    // 身份证号
+    @NameInMap("cert_no")
+    public String certNo;
 
     public static PredictRequest build(java.util.Map<String, ?> map) throws Exception {
         PredictRequest self = new PredictRequest();
@@ -54,44 +50,36 @@ public class PredictRequest extends TeaModel {
         return this.certNoMd5;
     }
 
-    public PredictRequest setPaybackAmount(Long paybackAmount) {
+    public PredictRequest setPaybackAmount(String paybackAmount) {
         this.paybackAmount = paybackAmount;
         return this;
     }
-    public Long getPaybackAmount() {
+    public String getPaybackAmount() {
         return this.paybackAmount;
     }
 
-    public PredictRequest setPaybackNum(Long paybackNum) {
+    public PredictRequest setPaybackNum(String paybackNum) {
         this.paybackNum = paybackNum;
         return this;
     }
-    public Long getPaybackNum() {
+    public String getPaybackNum() {
         return this.paybackNum;
     }
 
-    public PredictRequest setOverdueMonth(Long overdueMonth) {
+    public PredictRequest setOverdueMonth(String overdueMonth) {
         this.overdueMonth = overdueMonth;
         return this;
     }
-    public Long getOverdueMonth() {
+    public String getOverdueMonth() {
         return this.overdueMonth;
     }
 
-    public PredictRequest setPredictionScore(String predictionScore) {
-        this.predictionScore = predictionScore;
+    public PredictRequest setCertNo(String certNo) {
+        this.certNo = certNo;
         return this;
     }
-    public String getPredictionScore() {
-        return this.predictionScore;
-    }
-
-    public PredictRequest setMobileMd5(String mobileMd5) {
-        this.mobileMd5 = mobileMd5;
-        return this;
-    }
-    public String getMobileMd5() {
-        return this.mobileMd5;
+    public String getCertNo() {
+        return this.certNo;
     }
 
 }

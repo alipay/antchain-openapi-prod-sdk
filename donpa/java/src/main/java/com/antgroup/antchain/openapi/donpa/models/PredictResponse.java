@@ -28,6 +28,14 @@ public class PredictResponse extends TeaModel {
     @NameInMap("level")
     public String level;
 
+    // 内部特征预测分数
+    @NameInMap("prediction_score")
+    public String predictionScore;
+
+    // 身份证号码
+    @NameInMap("cert_no")
+    public String certNo;
+
     public static PredictResponse build(java.util.Map<String, ?> map) throws Exception {
         PredictResponse self = new PredictResponse();
         return TeaModel.build(map, self);
@@ -79,6 +87,22 @@ public class PredictResponse extends TeaModel {
     }
     public String getLevel() {
         return this.level;
+    }
+
+    public PredictResponse setPredictionScore(String predictionScore) {
+        this.predictionScore = predictionScore;
+        return this;
+    }
+    public String getPredictionScore() {
+        return this.predictionScore;
+    }
+
+    public PredictResponse setCertNo(String certNo) {
+        this.certNo = certNo;
+        return this;
+    }
+    public String getCertNo() {
+        return this.certNo;
     }
 
 }
