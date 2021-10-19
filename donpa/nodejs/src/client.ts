@@ -121,15 +121,13 @@ export class PredictRequest extends $tea.Model {
   // 身份证号码MD5
   certNoMd5: string;
   // 已还总额,默认0
-  paybackAmount?: number;
+  paybackAmount?: string;
   // 已还期数，默认0
-  paybackNum?: number;
+  paybackNum?: string;
   // 逾期月数
-  overdueMonth?: number;
-  // 债务人信用分数，由系统计算得出，无须传入。
-  predictionScore?: string;
-  // 手机号码MD5
-  mobileMd5?: string;
+  overdueMonth?: string;
+  // 身份证号
+  certNo?: string;
   static names(): { [key: string]: string } {
     return {
       assetDetailId: 'asset_detail_id',
@@ -137,8 +135,7 @@ export class PredictRequest extends $tea.Model {
       paybackAmount: 'payback_amount',
       paybackNum: 'payback_num',
       overdueMonth: 'overdue_month',
-      predictionScore: 'prediction_score',
-      mobileMd5: 'mobile_md5',
+      certNo: 'cert_no',
     };
   }
 
@@ -146,11 +143,10 @@ export class PredictRequest extends $tea.Model {
     return {
       assetDetailId: 'string',
       certNoMd5: 'string',
-      paybackAmount: 'number',
-      paybackNum: 'number',
-      overdueMonth: 'number',
-      predictionScore: 'string',
-      mobileMd5: 'string',
+      paybackAmount: 'string',
+      paybackNum: 'string',
+      overdueMonth: 'string',
+      certNo: 'string',
     };
   }
 
@@ -173,6 +169,10 @@ export class PredictResponse extends $tea.Model {
   mobileMd5?: string;
   // 可选值，A,B,C
   level?: string;
+  // 内部特征预测分数
+  predictionScore?: string;
+  // 身份证号码
+  certNo?: string;
   static names(): { [key: string]: string } {
     return {
       assetDetailId: 'asset_detail_id',
@@ -181,6 +181,8 @@ export class PredictResponse extends $tea.Model {
       certNoMd5: 'cert_no_md5',
       mobileMd5: 'mobile_md5',
       level: 'level',
+      predictionScore: 'prediction_score',
+      certNo: 'cert_no',
     };
   }
 
@@ -192,6 +194,8 @@ export class PredictResponse extends $tea.Model {
       certNoMd5: 'string',
       mobileMd5: 'string',
       level: 'string',
+      predictionScore: 'string',
+      certNo: 'string',
     };
   }
 
@@ -795,7 +799,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.12",
+          sdk_version: "1.0.14",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
