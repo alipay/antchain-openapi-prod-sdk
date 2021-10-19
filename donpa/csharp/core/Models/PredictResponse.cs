@@ -40,6 +40,16 @@ namespace AntChain.SDK.DONPA.Models
         [Validation(Required=false)]
         public string Level { get; set; }
 
+        // 内部特征预测分数
+        [NameInMap("prediction_score")]
+        [Validation(Required=false)]
+        public string PredictionScore { get; set; }
+
+        // 身份证号码
+        [NameInMap("cert_no")]
+        [Validation(Required=false)]
+        public string CertNo { get; set; }
+
     }
 
 }
