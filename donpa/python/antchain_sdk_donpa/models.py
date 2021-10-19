@@ -210,11 +210,10 @@ class PredictRequest(TeaModel):
         self,
         asset_detail_id: str = None,
         cert_no_md_5: str = None,
-        payback_amount: int = None,
-        payback_num: int = None,
-        overdue_month: int = None,
-        prediction_score: str = None,
-        mobile_md_5: str = None,
+        payback_amount: str = None,
+        payback_num: str = None,
+        overdue_month: str = None,
+        cert_no: str = None,
     ):
         # 资产明细ID
         self.asset_detail_id = asset_detail_id
@@ -226,10 +225,8 @@ class PredictRequest(TeaModel):
         self.payback_num = payback_num
         # 逾期月数
         self.overdue_month = overdue_month
-        # 债务人信用分数，由系统计算得出，无须传入。
-        self.prediction_score = prediction_score
-        # 手机号码MD5
-        self.mobile_md_5 = mobile_md_5
+        # 身份证号
+        self.cert_no = cert_no
 
     def validate(self):
         self.validate_required(self.cert_no_md_5, 'cert_no_md_5')
@@ -246,10 +243,8 @@ class PredictRequest(TeaModel):
             result['payback_num'] = self.payback_num
         if self.overdue_month is not None:
             result['overdue_month'] = self.overdue_month
-        if self.prediction_score is not None:
-            result['prediction_score'] = self.prediction_score
-        if self.mobile_md_5 is not None:
-            result['mobile_md5'] = self.mobile_md_5
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
         return result
 
     def from_map(self, m: dict = None):
@@ -264,10 +259,8 @@ class PredictRequest(TeaModel):
             self.payback_num = m.get('payback_num')
         if m.get('overdue_month') is not None:
             self.overdue_month = m.get('overdue_month')
-        if m.get('prediction_score') is not None:
-            self.prediction_score = m.get('prediction_score')
-        if m.get('mobile_md5') is not None:
-            self.mobile_md_5 = m.get('mobile_md5')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
         return self
 
 
@@ -280,6 +273,8 @@ class PredictResponse(TeaModel):
         cert_no_md_5: str = None,
         mobile_md_5: str = None,
         level: str = None,
+        prediction_score: str = None,
+        cert_no: str = None,
     ):
         # 资产明细ID
         self.asset_detail_id = asset_detail_id
@@ -293,6 +288,10 @@ class PredictResponse(TeaModel):
         self.mobile_md_5 = mobile_md_5
         # 可选值，A,B,C
         self.level = level
+        # 内部特征预测分数
+        self.prediction_score = prediction_score
+        # 身份证号码
+        self.cert_no = cert_no
 
     def validate(self):
         pass
@@ -311,6 +310,10 @@ class PredictResponse(TeaModel):
             result['mobile_md5'] = self.mobile_md_5
         if self.level is not None:
             result['level'] = self.level
+        if self.prediction_score is not None:
+            result['prediction_score'] = self.prediction_score
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
         return result
 
     def from_map(self, m: dict = None):
@@ -327,6 +330,10 @@ class PredictResponse(TeaModel):
             self.mobile_md_5 = m.get('mobile_md5')
         if m.get('level') is not None:
             self.level = m.get('level')
+        if m.get('prediction_score') is not None:
+            self.prediction_score = m.get('prediction_score')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
         return self
 
 
