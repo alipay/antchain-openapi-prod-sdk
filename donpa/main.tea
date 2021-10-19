@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.11',
+    sdk_version = '1.0.12',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -187,6 +187,8 @@ model PredictRequest {
   overdueMonth?: long(name='overdue_month', example='2'),
   // 债务人信用分数，由系统计算得出，无须传入。
   predictionScore?: string(name='prediction_score', example='0.012345'),
+  // 手机号码MD5
+  mobileMd5?: string(name='mobile_md5', example='5a0a52d01fa9304e8dba7170'),
 }
 
 // 预测结果响应体
@@ -261,8 +263,8 @@ model QueryPredictResponse = {
 }
 
 /**
- * Description: 资产定价/处置预测
- * Summary: 资产定价/处置预测
+ * Description: 资产定价处置预测 
+ * Summary: 资产定价处置预测
  */
 async function queryPredict(request: QueryPredictRequest): QueryPredictResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -271,8 +273,8 @@ async function queryPredict(request: QueryPredictRequest): QueryPredictResponse 
 }
 
 /**
- * Description: 资产定价/处置预测
- * Summary: 资产定价/处置预测
+ * Description: 资产定价处置预测 
+ * Summary: 资产定价处置预测
  */
 async function queryPredictEx(request: QueryPredictRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPredictResponse {
   Util.validateModel(request);
