@@ -40,6 +40,11 @@ namespace AntChain.SDK.DONPA.Models
         [Validation(Required=false)]
         public string PredictionScore { get; set; }
 
+        // 手机号码MD5
+        [NameInMap("mobile_md5")]
+        [Validation(Required=false)]
+        public string MobileMd5 { get; set; }
+
     }
 
 }

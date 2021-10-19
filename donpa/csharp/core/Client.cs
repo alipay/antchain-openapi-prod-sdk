@@ -137,7 +137,7 @@ namespace AntChain.SDK.DONPA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.11"},
+                        {"sdk_version", "1.0.12"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.DONPA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.11"},
+                        {"sdk_version", "1.0.12"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -318,8 +318,8 @@ namespace AntChain.SDK.DONPA
         }
 
         /**
-         * Description: 资产定价/处置预测
-         * Summary: 资产定价/处置预测
+         * Description: 资产定价处置预测 
+         * Summary: 资产定价处置预测
          */
         public QueryPredictResponse QueryPredict(QueryPredictRequest request)
         {
@@ -329,8 +329,8 @@ namespace AntChain.SDK.DONPA
         }
 
         /**
-         * Description: 资产定价/处置预测
-         * Summary: 资产定价/处置预测
+         * Description: 资产定价处置预测 
+         * Summary: 资产定价处置预测
          */
         public async Task<QueryPredictResponse> QueryPredictAsync(QueryPredictRequest request)
         {
@@ -340,8 +340,8 @@ namespace AntChain.SDK.DONPA
         }
 
         /**
-         * Description: 资产定价/处置预测
-         * Summary: 资产定价/处置预测
+         * Description: 资产定价处置预测 
+         * Summary: 资产定价处置预测
          */
         public QueryPredictResponse QueryPredictEx(QueryPredictRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -350,8 +350,8 @@ namespace AntChain.SDK.DONPA
         }
 
         /**
-         * Description: 资产定价/处置预测
-         * Summary: 资产定价/处置预测
+         * Description: 资产定价处置预测 
+         * Summary: 资产定价处置预测
          */
         public async Task<QueryPredictResponse> QueryPredictExAsync(QueryPredictRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
