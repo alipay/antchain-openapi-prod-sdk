@@ -29,6 +29,10 @@ public class PredictRequest extends TeaModel {
     @NameInMap("prediction_score")
     public String predictionScore;
 
+    // 手机号码MD5
+    @NameInMap("mobile_md5")
+    public String mobileMd5;
+
     public static PredictRequest build(java.util.Map<String, ?> map) throws Exception {
         PredictRequest self = new PredictRequest();
         return TeaModel.build(map, self);
@@ -80,6 +84,14 @@ public class PredictRequest extends TeaModel {
     }
     public String getPredictionScore() {
         return this.predictionScore;
+    }
+
+    public PredictRequest setMobileMd5(String mobileMd5) {
+        this.mobileMd5 = mobileMd5;
+        return this;
+    }
+    public String getMobileMd5() {
+        return this.mobileMd5;
     }
 
 }

@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.11")
+                    new TeaPair("sdk_version", "1.0.12")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -160,8 +160,8 @@ public class Client {
     }
 
     /**
-     * Description: 资产定价/处置预测
-     * Summary: 资产定价/处置预测
+     * Description: 资产定价处置预测 
+     * Summary: 资产定价处置预测
      */
     public QueryPredictResponse queryPredict(QueryPredictRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -170,8 +170,8 @@ public class Client {
     }
 
     /**
-     * Description: 资产定价/处置预测
-     * Summary: 资产定价/处置预测
+     * Description: 资产定价处置预测 
+     * Summary: 资产定价处置预测
      */
     public QueryPredictResponse queryPredictEx(QueryPredictRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
