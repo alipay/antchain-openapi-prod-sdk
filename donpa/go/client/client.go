@@ -209,6 +209,8 @@ type PredictRequest struct {
 	OverdueMonth *string `json:"overdue_month,omitempty" xml:"overdue_month,omitempty"`
 	// 身份证号
 	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 支付宝内部预测分数
+	PredictionScore *string `json:"prediction_score,omitempty" xml:"prediction_score,omitempty"`
 }
 
 func (s PredictRequest) String() string {
@@ -246,6 +248,11 @@ func (s *PredictRequest) SetOverdueMonth(v string) *PredictRequest {
 
 func (s *PredictRequest) SetCertNo(v string) *PredictRequest {
 	s.CertNo = &v
+	return s
+}
+
+func (s *PredictRequest) SetPredictionScore(v string) *PredictRequest {
+	s.PredictionScore = &v
 	return s
 }
 
@@ -1012,7 +1019,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.14"),
+				"sdk_version":      tea.String("1.0.15"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
