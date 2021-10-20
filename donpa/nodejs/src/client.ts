@@ -128,6 +128,8 @@ export class PredictRequest extends $tea.Model {
   overdueMonth?: string;
   // 身份证号
   certNo?: string;
+  // 支付宝内部预测分数
+  predictionScore?: string;
   static names(): { [key: string]: string } {
     return {
       assetDetailId: 'asset_detail_id',
@@ -136,6 +138,7 @@ export class PredictRequest extends $tea.Model {
       paybackNum: 'payback_num',
       overdueMonth: 'overdue_month',
       certNo: 'cert_no',
+      predictionScore: 'prediction_score',
     };
   }
 
@@ -147,6 +150,7 @@ export class PredictRequest extends $tea.Model {
       paybackNum: 'string',
       overdueMonth: 'string',
       certNo: 'string',
+      predictionScore: 'string',
     };
   }
 
@@ -799,7 +803,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.14",
+          sdk_version: "1.0.15",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
