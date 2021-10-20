@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "DONPA",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-donpa:1.0.14",
-    "go": "github.com/antchain-openapi-sdk-go/donpa/client:v1.0.14",
-    "csharp": "AntChain.SDK.DONPA:1.0.14",
-    "ts": "@antchain/donpa:1.0.14",
-    "php": "antchain/donpa:1.0.14",
-    "python": "antchain_sdk_donpa:1.0.14"
+    "java": "com.antgroup.antchain.openapi:openapi-donpa:1.0.15",
+    "go": "github.com/antchain-openapi-sdk-go/donpa/client:v1.0.15",
+    "csharp": "AntChain.SDK.DONPA:1.0.15",
+    "ts": "@antchain/donpa:1.0.15",
+    "php": "antchain/donpa:1.0.15",
+    "python": "antchain_sdk_donpa:1.0.15"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
