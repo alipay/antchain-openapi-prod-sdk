@@ -40,6 +40,11 @@ namespace AntChain.SDK.DONPA.Models
         [Validation(Required=false)]
         public string CertNo { get; set; }
 
+        // 支付宝内部预测分数
+        [NameInMap("prediction_score")]
+        [Validation(Required=false)]
+        public string PredictionScore { get; set; }
+
     }
 
 }
