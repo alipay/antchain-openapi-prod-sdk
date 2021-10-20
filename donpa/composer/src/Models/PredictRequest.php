@@ -55,13 +55,22 @@ class PredictRequest extends Model
      * @var string
      */
     public $certNo;
+
+    // 支付宝内部预测分数
+    /**
+     * @example 0.333
+     *
+     * @var string
+     */
+    public $predictionScore;
     protected $_name = [
-        'assetDetailId' => 'asset_detail_id',
-        'certNoMd5'     => 'cert_no_md5',
-        'paybackAmount' => 'payback_amount',
-        'paybackNum'    => 'payback_num',
-        'overdueMonth'  => 'overdue_month',
-        'certNo'        => 'cert_no',
+        'assetDetailId'   => 'asset_detail_id',
+        'certNoMd5'       => 'cert_no_md5',
+        'paybackAmount'   => 'payback_amount',
+        'paybackNum'      => 'payback_num',
+        'overdueMonth'    => 'overdue_month',
+        'certNo'          => 'cert_no',
+        'predictionScore' => 'prediction_score',
     ];
 
     public function validate()
@@ -89,6 +98,9 @@ class PredictRequest extends Model
         }
         if (null !== $this->certNo) {
             $res['cert_no'] = $this->certNo;
+        }
+        if (null !== $this->predictionScore) {
+            $res['prediction_score'] = $this->predictionScore;
         }
 
         return $res;
@@ -119,6 +131,9 @@ class PredictRequest extends Model
         }
         if (isset($map['cert_no'])) {
             $model->certNo = $map['cert_no'];
+        }
+        if (isset($map['prediction_score'])) {
+            $model->predictionScore = $map['prediction_score'];
         }
 
         return $model;
