@@ -29,6 +29,10 @@ public class PredictRequest extends TeaModel {
     @NameInMap("cert_no")
     public String certNo;
 
+    // 支付宝内部预测分数
+    @NameInMap("prediction_score")
+    public String predictionScore;
+
     public static PredictRequest build(java.util.Map<String, ?> map) throws Exception {
         PredictRequest self = new PredictRequest();
         return TeaModel.build(map, self);
@@ -80,6 +84,14 @@ public class PredictRequest extends TeaModel {
     }
     public String getCertNo() {
         return this.certNo;
+    }
+
+    public PredictRequest setPredictionScore(String predictionScore) {
+        this.predictionScore = predictionScore;
+        return this;
+    }
+    public String getPredictionScore() {
+        return this.predictionScore;
     }
 
 }
