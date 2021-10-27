@@ -32,6 +32,18 @@ public class ContractNotaryInitInfo extends TeaModel {
     @NameInMap("tx_hash")
     public String txHash;
 
+    // 发起人名称
+    @NameInMap("intiator_name")
+    public String intiatorName;
+
+    // 签署人名称,多个逗号隔开
+    @NameInMap("signator_names")
+    public String signatorNames;
+
+    // 详细文件哈希
+    @NameInMap("detail_info_file_hash")
+    public String detailInfoFileHash;
+
     public static ContractNotaryInitInfo build(java.util.Map<String, ?> map) throws Exception {
         ContractNotaryInitInfo self = new ContractNotaryInitInfo();
         return TeaModel.build(map, self);
@@ -83,6 +95,30 @@ public class ContractNotaryInitInfo extends TeaModel {
     }
     public String getTxHash() {
         return this.txHash;
+    }
+
+    public ContractNotaryInitInfo setIntiatorName(String intiatorName) {
+        this.intiatorName = intiatorName;
+        return this;
+    }
+    public String getIntiatorName() {
+        return this.intiatorName;
+    }
+
+    public ContractNotaryInitInfo setSignatorNames(String signatorNames) {
+        this.signatorNames = signatorNames;
+        return this;
+    }
+    public String getSignatorNames() {
+        return this.signatorNames;
+    }
+
+    public ContractNotaryInitInfo setDetailInfoFileHash(String detailInfoFileHash) {
+        this.detailInfoFileHash = detailInfoFileHash;
+        return this;
+    }
+    public String getDetailInfoFileHash() {
+        return this.detailInfoFileHash;
     }
 
 }

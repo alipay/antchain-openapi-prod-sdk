@@ -45,6 +45,22 @@ public class ContractNotaryFinishInfo extends TeaModel {
     @NameInMap("amounts")
     public String amounts;
 
+    // 签署方数量
+    @NameInMap("sign_party_count")
+    public Long signPartyCount;
+
+    // 发起人名称
+    @NameInMap("intiator_name")
+    public String intiatorName;
+
+    // 签署人名称,多个逗号隔开
+    @NameInMap("signator_names")
+    public String signatorNames;
+
+    // 详细文件哈希
+    @NameInMap("detail_info_file_hash")
+    public String detailInfoFileHash;
+
     public static ContractNotaryFinishInfo build(java.util.Map<String, ?> map) throws Exception {
         ContractNotaryFinishInfo self = new ContractNotaryFinishInfo();
         return TeaModel.build(map, self);
@@ -120,6 +136,38 @@ public class ContractNotaryFinishInfo extends TeaModel {
     }
     public String getAmounts() {
         return this.amounts;
+    }
+
+    public ContractNotaryFinishInfo setSignPartyCount(Long signPartyCount) {
+        this.signPartyCount = signPartyCount;
+        return this;
+    }
+    public Long getSignPartyCount() {
+        return this.signPartyCount;
+    }
+
+    public ContractNotaryFinishInfo setIntiatorName(String intiatorName) {
+        this.intiatorName = intiatorName;
+        return this;
+    }
+    public String getIntiatorName() {
+        return this.intiatorName;
+    }
+
+    public ContractNotaryFinishInfo setSignatorNames(String signatorNames) {
+        this.signatorNames = signatorNames;
+        return this;
+    }
+    public String getSignatorNames() {
+        return this.signatorNames;
+    }
+
+    public ContractNotaryFinishInfo setDetailInfoFileHash(String detailInfoFileHash) {
+        this.detailInfoFileHash = detailInfoFileHash;
+        return this;
+    }
+    public String getDetailInfoFileHash() {
+        return this.detailInfoFileHash;
     }
 
 }

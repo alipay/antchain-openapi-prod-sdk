@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.5.39")
+                    new TeaPair("sdk_version", "1.6.7")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1548,6 +1548,177 @@ public class Client {
     public ConfirmContractMerchantResponse confirmContractMerchantEx(ConfirmContractMerchantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.merchant.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmContractMerchantResponse());
+    }
+
+    /**
+     * Description: 创建合同存证事务ID。私有云使用。
+     * Summary: 创建合同存证事务ID。私有云使用。
+     */
+    public CreatePrivatecontractTransResponse createPrivatecontractTrans(CreatePrivatecontractTransRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createPrivatecontractTransEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建合同存证事务ID。私有云使用。
+     * Summary: 创建合同存证事务ID。私有云使用。
+     */
+    public CreatePrivatecontractTransResponse createPrivatecontractTransEx(CreatePrivatecontractTransRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.privatecontract.trans.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreatePrivatecontractTransResponse());
+    }
+
+    /**
+     * Description: 合同文本存证。私有云使用。
+     * Summary: 合同文本存证。私有云使用。
+     */
+    public CreatePrivatecontractTextResponse createPrivatecontractText(CreatePrivatecontractTextRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createPrivatecontractTextEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 合同文本存证。私有云使用。
+     * Summary: 合同文本存证。私有云使用。
+     */
+    public CreatePrivatecontractTextResponse createPrivatecontractTextEx(CreatePrivatecontractTextRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.privatecontract.text.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreatePrivatecontractTextResponse());
+    }
+
+    /**
+     * Description: 个人二要素校验
+     * Summary: 个人二要素校验
+     */
+    public VerifyPrivatepersonTwometaResponse verifyPrivatepersonTwometa(VerifyPrivatepersonTwometaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyPrivatepersonTwometaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人二要素校验
+     * Summary: 个人二要素校验
+     */
+    public VerifyPrivatepersonTwometaResponse verifyPrivatepersonTwometaEx(VerifyPrivatepersonTwometaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.privateperson.twometa.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyPrivatepersonTwometaResponse());
+    }
+
+    /**
+     * Description: 企业二要素校验
+     * Summary: 企业二要素校验
+     */
+    public VerifyPrivatecompanyTwometaResponse verifyPrivatecompanyTwometa(VerifyPrivatecompanyTwometaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyPrivatecompanyTwometaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企业二要素校验
+     * Summary: 企业二要素校验
+     */
+    public VerifyPrivatecompanyTwometaResponse verifyPrivatecompanyTwometaEx(VerifyPrivatecompanyTwometaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.privatecompany.twometa.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyPrivatecompanyTwometaResponse());
+    }
+
+    /**
+     * Description: 企业四要素校验
+     * Summary: 企业四要素校验
+     */
+    public VerifyPrivatecompanyFourmetaResponse verifyPrivatecompanyFourmeta(VerifyPrivatecompanyFourmetaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyPrivatecompanyFourmetaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企业四要素校验
+     * Summary: 企业四要素校验
+     */
+    public VerifyPrivatecompanyFourmetaResponse verifyPrivatecompanyFourmetaEx(VerifyPrivatecompanyFourmetaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.privatecompany.fourmeta.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyPrivatecompanyFourmetaResponse());
+    }
+
+    /**
+     * Description: 开放给私有云用户证书申请接口.
+     * Summary: 私有云用户证书申请接口.
+     */
+    public ApplyPrivatecontractUsercertResponse applyPrivatecontractUsercert(ApplyPrivatecontractUsercertRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyPrivatecontractUsercertEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 开放给私有云用户证书申请接口.
+     * Summary: 私有云用户证书申请接口.
+     */
+    public ApplyPrivatecontractUsercertResponse applyPrivatecontractUsercertEx(ApplyPrivatecontractUsercertRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.privatecontract.usercert.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyPrivatecontractUsercertResponse());
+    }
+
+    /**
+     * Description: 提供给私有云系统的用户更新接口.
+     * Summary: 私有云用户更新接口.
+     */
+    public UpdatePrivatecontractUserResponse updatePrivatecontractUser(UpdatePrivatecontractUserRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updatePrivatecontractUserEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 提供给私有云系统的用户更新接口.
+     * Summary: 私有云用户更新接口.
+     */
+    public UpdatePrivatecontractUserResponse updatePrivatecontractUserEx(UpdatePrivatecontractUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.privatecontract.user.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdatePrivatecontractUserResponse());
+    }
+
+    /**
+     * Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+     * Summary: 代扣计划状态查询
+     */
+    public QueryContractTradestatusResponse queryContractTradestatus(QueryContractTradestatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryContractTradestatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+     * Summary: 代扣计划状态查询
+     */
+    public QueryContractTradestatusResponse queryContractTradestatusEx(QueryContractTradestatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.tradestatus.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContractTradestatusResponse());
+    }
+
+    /**
+     * Description: 代扣退款查询
+     * Summary: 代扣退款查询
+     */
+    public QueryContractRefundResponse queryContractRefund(QueryContractRefundRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryContractRefundEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代扣退款查询
+     * Summary: 代扣退款查询
+     */
+    public QueryContractRefundResponse queryContractRefundEx(QueryContractRefundRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.refund.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContractRefundResponse());
     }
 
     /**

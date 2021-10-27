@@ -26,6 +26,14 @@ public class ApplyLeaseSupplierorderRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<ApplySupplierOrderProductInput> productInfos;
 
+    // isv代理模式
+    @NameInMap("mode")
+    public String mode;
+
+    // 被代理的租户id
+    @NameInMap("agent_lease_id")
+    public String agentLeaseId;
+
     public static ApplyLeaseSupplierorderRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyLeaseSupplierorderRequest self = new ApplyLeaseSupplierorderRequest();
         return TeaModel.build(map, self);
@@ -69,6 +77,22 @@ public class ApplyLeaseSupplierorderRequest extends TeaModel {
     }
     public java.util.List<ApplySupplierOrderProductInput> getProductInfos() {
         return this.productInfos;
+    }
+
+    public ApplyLeaseSupplierorderRequest setMode(String mode) {
+        this.mode = mode;
+        return this;
+    }
+    public String getMode() {
+        return this.mode;
+    }
+
+    public ApplyLeaseSupplierorderRequest setAgentLeaseId(String agentLeaseId) {
+        this.agentLeaseId = agentLeaseId;
+        return this;
+    }
+    public String getAgentLeaseId() {
+        return this.agentLeaseId;
     }
 
 }
