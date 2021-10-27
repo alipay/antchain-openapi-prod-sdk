@@ -1442,8 +1442,8 @@ type ContractSignFieldApplication struct {
 	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
 	// 签署区顺序，默认1,且不小于1，顺序越小越先处理
 	Order *int64 `json:"order,omitempty" xml:"order,omitempty"`
-	// 页码信息
-	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty"`
+	// 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字
+	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty" require:"true"`
 	// x坐标转为字符串的值，默认空，页面签章必填，骑缝签章不填写
 	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty"`
 	// y坐标转为字符串的值
@@ -1454,7 +1454,7 @@ type ContractSignFieldApplication struct {
 	ThirdOrderNo *string `json:"third_order_no,omitempty" xml:"third_order_no,omitempty"`
 	// 签署区宽，默认印章宽度
 	Width *string `json:"width,omitempty" xml:"width,omitempty"`
-	// 签署类型，0-不限，1-单页签署，2-骑缝签署，默认1
+	// 签署类型，1-单页签署，2-骑缝签署，默认1
 	SignType *int64 `json:"sign_type,omitempty" xml:"sign_type,omitempty"`
 }
 
@@ -3631,13 +3631,13 @@ func (s *EvidentialElement) SetPerformanceInfo(v *PerformanceInfo) *EvidentialEl
 
 // 创建电子合同手动签署盖章区时的申请信息
 type ContractHandSignFieldApplication struct {
-	// 签署操作人个人账号标识，即操作本次签署的个人，如需通知用户签署，则系统向该账号下绑定的手机、邮箱发送签署链接
+	// 签署操作人个人账号标识，即操作本次签署的个人
 	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
 	// 电子合同文件ID
 	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
 	// 签署区顺序，默认1,且不小于1，顺序越小越先处理
 	Order *int64 `json:"order,omitempty" xml:"order,omitempty"`
-	// 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字。不指定xy坐标签署区可不填写，其他情况需填写。
+	// 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字；不指定xy坐标签署区可不填写
 	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty"`
 	// x坐标，页面签章必填，骑缝签章不填写
 	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty"`
@@ -3657,7 +3657,7 @@ type ContractHandSignFieldApplication struct {
 	SignDatePosX *string `json:"sign_date_pos_x,omitempty" xml:"sign_date_pos_x,omitempty"`
 	// 签章日期y坐标，默认0
 	SignDatePosY *string `json:"sign_date_pos_y,omitempty" xml:"sign_date_pos_y,omitempty"`
-	// 签署类型，0-不限，1-单页签署，2-骑缝签署，默认1
+	// 签署类型，1-单页签署，2-骑缝签署，默认1
 	SignType *int64 `json:"sign_type,omitempty" xml:"sign_type,omitempty"`
 	// 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
 	ThirdOrderNo *string `json:"third_order_no,omitempty" xml:"third_order_no,omitempty"`
@@ -4064,7 +4064,7 @@ func (s *LeaseNotaryRecord) SetTxHash(v string) *LeaseNotaryRecord {
 
 // 电子合同文档
 type ContractDoc struct {
-	// 是否加密，0-不加密，1-加，默认0
+	// 上传的电子合同文档是否被加密过，0-未被加密，1-被加密过，默认0
 	Encryption *int64 `json:"encryption,omitempty" xml:"encryption,omitempty"`
 	// 电子合同文档的ID
 	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
@@ -4186,7 +4186,7 @@ func (s *ContractNotaryDeductPlanInfo) SetTimestamp(v string) *ContractNotaryDed
 type ContractSignFlowConfig struct {
 	// 回调通知地址 ,默认取项目配置通知地址
 	NoticeDeveloperUrl *string `json:"notice_developer_url,omitempty" xml:"notice_developer_url,omitempty"`
-	// 通知方式，逗号分割，1-短信，2-邮件 。默认值1，请务必请选择一个通知方式，否则客户将接收不到流程的签署通知和审批通知，如果流程需要审批，将导致审批无法完成；如果客户需要不通知，可以设置notice_type为""
+	// 签署通知和审批通知的通知方式，传 "" 表示不需要通知，传"1"表示短信通知。短信功能需要联系售后开白名单才会生效。
 	NoticeType *string `json:"notice_type,omitempty" xml:"notice_type,omitempty" require:"true"`
 	// 签署成功或者流程结束后的默认重定向地址，默认签署完成停在当前页面
 	RedirectUrl *string `json:"redirect_url,omitempty" xml:"redirect_url,omitempty"`
@@ -4331,12 +4331,12 @@ type OneStepSignField struct {
 	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
 	// 签署区顺序，默认1,且不小于1，顺序越小越先处理
 	Order *int64 `json:"order,omitempty" xml:"order,omitempty"`
-	// 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
-	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty" require:"true"`
+	// 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字；不指定xy坐标签署区可不填写
+	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty"`
 	// x坐标
-	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty" require:"true"`
+	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty"`
 	// y坐标
-	PosY *string `json:"pos_y,omitempty" xml:"pos_y,omitempty" require:"true"`
+	PosY *string `json:"pos_y,omitempty" xml:"pos_y,omitempty"`
 	// 印章id
 	SealId *string `json:"seal_id,omitempty" xml:"seal_id,omitempty"`
 	// 是否需要添加签署日期，0-禁止 1-必须 2-不限制，默认0
@@ -4351,7 +4351,7 @@ type OneStepSignField struct {
 	SignDatePosX *string `json:"sign_date_pos_x,omitempty" xml:"sign_date_pos_x,omitempty"`
 	// 签章日期y坐标，默认0
 	SignDatePosY *string `json:"sign_date_pos_y,omitempty" xml:"sign_date_pos_y,omitempty"`
-	// 签署类型，0-不限，1-单页签署，2-骑缝签署，默认1
+	// 签署类型，1-单页签署，2-骑缝签署，默认1
 	SignType *int64 `json:"sign_type,omitempty" xml:"sign_type,omitempty"`
 	// 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
 	ThirdOrderNo *string `json:"third_order_no,omitempty" xml:"third_order_no,omitempty"`
@@ -8303,7 +8303,7 @@ type CreateContractRegisterzftRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 地址。商户详细经营地址或人员所在地点
 	Address *string `json:"address,omitempty" xml:"address,omitempty" require:"true"`
-	// 代理商户的账户
+	// 代理商户的账户。如为isv商家入驻，需要传agent_account_id字段，agent_account_id是isv为商家用户注册返回的机构id
 	AgentAccountId *string `json:"agent_account_id,omitempty" xml:"agent_account_id,omitempty"`
 	// 商户别名
 	AliasName *string `json:"alias_name,omitempty" xml:"alias_name,omitempty" require:"true"`
@@ -9091,11 +9091,11 @@ type CreateContractMerchantrefundRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 合同id
 	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty" require:"true"`
-	// 退款请求对应的码
+	// 退款请求对应的第三方ID（也叫退款ID），需保证同一平台方下唯一
 	OutRequestNo *string `json:"out_request_no,omitempty" xml:"out_request_no,omitempty" require:"true"`
 	// 订单id
 	OutTradeNo *string `json:"out_trade_no,omitempty" xml:"out_trade_no,omitempty" require:"true"`
-	// 退款金额
+	// 退款金额（单位：分）
 	RefundAmount *int64 `json:"refund_amount,omitempty" xml:"refund_amount,omitempty" require:"true"`
 }
 
@@ -9798,7 +9798,7 @@ type CreateContractMerchantimageRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 图片内容，base64
 	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
-	// 图片名称
+	// 图片名称，必须带标准图片后缀
 	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
 }
 
@@ -27979,7 +27979,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.8"),
+				"sdk_version":      tea.String("1.6.9"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
