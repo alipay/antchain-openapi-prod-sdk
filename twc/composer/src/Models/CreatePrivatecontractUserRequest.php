@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyPrivatecontractUsercertRequest extends Model
+class CreatePrivatecontractUserRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -110,7 +110,7 @@ class ApplyPrivatecontractUsercertRequest extends Model
     /**
      * @param array $map
      *
-     * @return ApplyPrivatecontractUsercertRequest
+     * @return CreatePrivatecontractUserRequest
      */
     public static function fromMap($map = [])
     {

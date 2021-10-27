@@ -29,8 +29,6 @@ use AntChain\TWC\Models\ApplyJusticeMediationRequest;
 use AntChain\TWC\Models\ApplyJusticeMediationResponse;
 use AntChain\TWC\Models\ApplyLeaseSupplierorderRequest;
 use AntChain\TWC\Models\ApplyLeaseSupplierorderResponse;
-use AntChain\TWC\Models\ApplyPrivatecontractUsercertRequest;
-use AntChain\TWC\Models\ApplyPrivatecontractUsercertResponse;
 use AntChain\TWC\Models\AuthContractSignRequest;
 use AntChain\TWC\Models\AuthContractSignResponse;
 use AntChain\TWC\Models\AuthLeaseContractRequest;
@@ -187,6 +185,8 @@ use AntChain\TWC\Models\CreatePrivatecontractTextRequest;
 use AntChain\TWC\Models\CreatePrivatecontractTextResponse;
 use AntChain\TWC\Models\CreatePrivatecontractTransRequest;
 use AntChain\TWC\Models\CreatePrivatecontractTransResponse;
+use AntChain\TWC\Models\CreatePrivatecontractUserRequest;
+use AntChain\TWC\Models\CreatePrivatecontractUserResponse;
 use AntChain\TWC\Models\CreateSourceRequest;
 use AntChain\TWC\Models\CreateSourceResponse;
 use AntChain\TWC\Models\CreateSueBreakpromiseinfoRequest;
@@ -544,7 +544,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.7',
+                    'sdk_version'      => '1.6.8',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -3169,36 +3169,36 @@ class Client
     }
 
     /**
-     * Description: 开放给私有云用户证书申请接口.
-     * Summary: 私有云用户证书申请接口.
+     * Description: 开放给私有云的外部用户的注册接口.
+     * Summary: 私有云的外部用户注册接口.
      *
-     * @param ApplyPrivatecontractUsercertRequest $request
+     * @param CreatePrivatecontractUserRequest $request
      *
-     * @return ApplyPrivatecontractUsercertResponse
+     * @return CreatePrivatecontractUserResponse
      */
-    public function applyPrivatecontractUsercert($request)
+    public function createPrivatecontractUser($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->applyPrivatecontractUsercertEx($request, $headers, $runtime);
+        return $this->createPrivatecontractUserEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 开放给私有云用户证书申请接口.
-     * Summary: 私有云用户证书申请接口.
+     * Description: 开放给私有云的外部用户的注册接口.
+     * Summary: 私有云的外部用户注册接口.
      *
-     * @param ApplyPrivatecontractUsercertRequest $request
-     * @param string[]                            $headers
-     * @param RuntimeOptions                      $runtime
+     * @param CreatePrivatecontractUserRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
      *
-     * @return ApplyPrivatecontractUsercertResponse
+     * @return CreatePrivatecontractUserResponse
      */
-    public function applyPrivatecontractUsercertEx($request, $headers, $runtime)
+    public function createPrivatecontractUserEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return ApplyPrivatecontractUsercertResponse::fromMap($this->doRequest('1.0', 'twc.notary.privatecontract.usercert.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return CreatePrivatecontractUserResponse::fromMap($this->doRequest('1.0', 'twc.notary.privatecontract.user.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

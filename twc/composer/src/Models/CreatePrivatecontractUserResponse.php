@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyPrivatecontractUsercertResponse extends Model
+class CreatePrivatecontractUserResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -114,7 +114,7 @@ class ApplyPrivatecontractUsercertResponse extends Model
     /**
      * @param array $map
      *
-     * @return ApplyPrivatecontractUsercertResponse
+     * @return CreatePrivatecontractUserResponse
      */
     public static function fromMap($map = [])
     {
