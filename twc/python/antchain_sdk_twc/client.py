@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.39'
+                    'sdk_version': '1.6.7'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.39'
+                    'sdk_version': '1.6.7'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -4219,6 +4219,492 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.ConfirmContractMerchantResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.contract.merchant.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_privatecontract_trans(
+        self,
+        request: twc_models.CreatePrivatecontractTransRequest,
+    ) -> twc_models.CreatePrivatecontractTransResponse:
+        """
+        Description: 创建合同存证事务ID。私有云使用。
+        Summary: 创建合同存证事务ID。私有云使用。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_privatecontract_trans_ex(request, headers, runtime)
+
+    async def create_privatecontract_trans_async(
+        self,
+        request: twc_models.CreatePrivatecontractTransRequest,
+    ) -> twc_models.CreatePrivatecontractTransResponse:
+        """
+        Description: 创建合同存证事务ID。私有云使用。
+        Summary: 创建合同存证事务ID。私有云使用。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_privatecontract_trans_ex_async(request, headers, runtime)
+
+    def create_privatecontract_trans_ex(
+        self,
+        request: twc_models.CreatePrivatecontractTransRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreatePrivatecontractTransResponse:
+        """
+        Description: 创建合同存证事务ID。私有云使用。
+        Summary: 创建合同存证事务ID。私有云使用。
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreatePrivatecontractTransResponse().from_map(
+            self.do_request('1.0', 'twc.notary.privatecontract.trans.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_privatecontract_trans_ex_async(
+        self,
+        request: twc_models.CreatePrivatecontractTransRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreatePrivatecontractTransResponse:
+        """
+        Description: 创建合同存证事务ID。私有云使用。
+        Summary: 创建合同存证事务ID。私有云使用。
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreatePrivatecontractTransResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.privatecontract.trans.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_privatecontract_text(
+        self,
+        request: twc_models.CreatePrivatecontractTextRequest,
+    ) -> twc_models.CreatePrivatecontractTextResponse:
+        """
+        Description: 合同文本存证。私有云使用。
+        Summary: 合同文本存证。私有云使用。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_privatecontract_text_ex(request, headers, runtime)
+
+    async def create_privatecontract_text_async(
+        self,
+        request: twc_models.CreatePrivatecontractTextRequest,
+    ) -> twc_models.CreatePrivatecontractTextResponse:
+        """
+        Description: 合同文本存证。私有云使用。
+        Summary: 合同文本存证。私有云使用。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_privatecontract_text_ex_async(request, headers, runtime)
+
+    def create_privatecontract_text_ex(
+        self,
+        request: twc_models.CreatePrivatecontractTextRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreatePrivatecontractTextResponse:
+        """
+        Description: 合同文本存证。私有云使用。
+        Summary: 合同文本存证。私有云使用。
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreatePrivatecontractTextResponse().from_map(
+            self.do_request('1.0', 'twc.notary.privatecontract.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_privatecontract_text_ex_async(
+        self,
+        request: twc_models.CreatePrivatecontractTextRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreatePrivatecontractTextResponse:
+        """
+        Description: 合同文本存证。私有云使用。
+        Summary: 合同文本存证。私有云使用。
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreatePrivatecontractTextResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.privatecontract.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_privateperson_twometa(
+        self,
+        request: twc_models.VerifyPrivatepersonTwometaRequest,
+    ) -> twc_models.VerifyPrivatepersonTwometaResponse:
+        """
+        Description: 个人二要素校验
+        Summary: 个人二要素校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_privateperson_twometa_ex(request, headers, runtime)
+
+    async def verify_privateperson_twometa_async(
+        self,
+        request: twc_models.VerifyPrivatepersonTwometaRequest,
+    ) -> twc_models.VerifyPrivatepersonTwometaResponse:
+        """
+        Description: 个人二要素校验
+        Summary: 个人二要素校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_privateperson_twometa_ex_async(request, headers, runtime)
+
+    def verify_privateperson_twometa_ex(
+        self,
+        request: twc_models.VerifyPrivatepersonTwometaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.VerifyPrivatepersonTwometaResponse:
+        """
+        Description: 个人二要素校验
+        Summary: 个人二要素校验
+        """
+        UtilClient.validate_model(request)
+        return twc_models.VerifyPrivatepersonTwometaResponse().from_map(
+            self.do_request('1.0', 'twc.notary.privateperson.twometa.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_privateperson_twometa_ex_async(
+        self,
+        request: twc_models.VerifyPrivatepersonTwometaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.VerifyPrivatepersonTwometaResponse:
+        """
+        Description: 个人二要素校验
+        Summary: 个人二要素校验
+        """
+        UtilClient.validate_model(request)
+        return twc_models.VerifyPrivatepersonTwometaResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.privateperson.twometa.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_privatecompany_twometa(
+        self,
+        request: twc_models.VerifyPrivatecompanyTwometaRequest,
+    ) -> twc_models.VerifyPrivatecompanyTwometaResponse:
+        """
+        Description: 企业二要素校验
+        Summary: 企业二要素校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_privatecompany_twometa_ex(request, headers, runtime)
+
+    async def verify_privatecompany_twometa_async(
+        self,
+        request: twc_models.VerifyPrivatecompanyTwometaRequest,
+    ) -> twc_models.VerifyPrivatecompanyTwometaResponse:
+        """
+        Description: 企业二要素校验
+        Summary: 企业二要素校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_privatecompany_twometa_ex_async(request, headers, runtime)
+
+    def verify_privatecompany_twometa_ex(
+        self,
+        request: twc_models.VerifyPrivatecompanyTwometaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.VerifyPrivatecompanyTwometaResponse:
+        """
+        Description: 企业二要素校验
+        Summary: 企业二要素校验
+        """
+        UtilClient.validate_model(request)
+        return twc_models.VerifyPrivatecompanyTwometaResponse().from_map(
+            self.do_request('1.0', 'twc.notary.privatecompany.twometa.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_privatecompany_twometa_ex_async(
+        self,
+        request: twc_models.VerifyPrivatecompanyTwometaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.VerifyPrivatecompanyTwometaResponse:
+        """
+        Description: 企业二要素校验
+        Summary: 企业二要素校验
+        """
+        UtilClient.validate_model(request)
+        return twc_models.VerifyPrivatecompanyTwometaResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.privatecompany.twometa.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_privatecompany_fourmeta(
+        self,
+        request: twc_models.VerifyPrivatecompanyFourmetaRequest,
+    ) -> twc_models.VerifyPrivatecompanyFourmetaResponse:
+        """
+        Description: 企业四要素校验
+        Summary: 企业四要素校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_privatecompany_fourmeta_ex(request, headers, runtime)
+
+    async def verify_privatecompany_fourmeta_async(
+        self,
+        request: twc_models.VerifyPrivatecompanyFourmetaRequest,
+    ) -> twc_models.VerifyPrivatecompanyFourmetaResponse:
+        """
+        Description: 企业四要素校验
+        Summary: 企业四要素校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_privatecompany_fourmeta_ex_async(request, headers, runtime)
+
+    def verify_privatecompany_fourmeta_ex(
+        self,
+        request: twc_models.VerifyPrivatecompanyFourmetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.VerifyPrivatecompanyFourmetaResponse:
+        """
+        Description: 企业四要素校验
+        Summary: 企业四要素校验
+        """
+        UtilClient.validate_model(request)
+        return twc_models.VerifyPrivatecompanyFourmetaResponse().from_map(
+            self.do_request('1.0', 'twc.notary.privatecompany.fourmeta.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_privatecompany_fourmeta_ex_async(
+        self,
+        request: twc_models.VerifyPrivatecompanyFourmetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.VerifyPrivatecompanyFourmetaResponse:
+        """
+        Description: 企业四要素校验
+        Summary: 企业四要素校验
+        """
+        UtilClient.validate_model(request)
+        return twc_models.VerifyPrivatecompanyFourmetaResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.privatecompany.fourmeta.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_privatecontract_usercert(
+        self,
+        request: twc_models.ApplyPrivatecontractUsercertRequest,
+    ) -> twc_models.ApplyPrivatecontractUsercertResponse:
+        """
+        Description: 开放给私有云用户证书申请接口.
+        Summary: 私有云用户证书申请接口.
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_privatecontract_usercert_ex(request, headers, runtime)
+
+    async def apply_privatecontract_usercert_async(
+        self,
+        request: twc_models.ApplyPrivatecontractUsercertRequest,
+    ) -> twc_models.ApplyPrivatecontractUsercertResponse:
+        """
+        Description: 开放给私有云用户证书申请接口.
+        Summary: 私有云用户证书申请接口.
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_privatecontract_usercert_ex_async(request, headers, runtime)
+
+    def apply_privatecontract_usercert_ex(
+        self,
+        request: twc_models.ApplyPrivatecontractUsercertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyPrivatecontractUsercertResponse:
+        """
+        Description: 开放给私有云用户证书申请接口.
+        Summary: 私有云用户证书申请接口.
+        """
+        UtilClient.validate_model(request)
+        return twc_models.ApplyPrivatecontractUsercertResponse().from_map(
+            self.do_request('1.0', 'twc.notary.privatecontract.usercert.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_privatecontract_usercert_ex_async(
+        self,
+        request: twc_models.ApplyPrivatecontractUsercertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyPrivatecontractUsercertResponse:
+        """
+        Description: 开放给私有云用户证书申请接口.
+        Summary: 私有云用户证书申请接口.
+        """
+        UtilClient.validate_model(request)
+        return twc_models.ApplyPrivatecontractUsercertResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.privatecontract.usercert.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_privatecontract_user(
+        self,
+        request: twc_models.UpdatePrivatecontractUserRequest,
+    ) -> twc_models.UpdatePrivatecontractUserResponse:
+        """
+        Description: 提供给私有云系统的用户更新接口.
+        Summary: 私有云用户更新接口.
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_privatecontract_user_ex(request, headers, runtime)
+
+    async def update_privatecontract_user_async(
+        self,
+        request: twc_models.UpdatePrivatecontractUserRequest,
+    ) -> twc_models.UpdatePrivatecontractUserResponse:
+        """
+        Description: 提供给私有云系统的用户更新接口.
+        Summary: 私有云用户更新接口.
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_privatecontract_user_ex_async(request, headers, runtime)
+
+    def update_privatecontract_user_ex(
+        self,
+        request: twc_models.UpdatePrivatecontractUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdatePrivatecontractUserResponse:
+        """
+        Description: 提供给私有云系统的用户更新接口.
+        Summary: 私有云用户更新接口.
+        """
+        UtilClient.validate_model(request)
+        return twc_models.UpdatePrivatecontractUserResponse().from_map(
+            self.do_request('1.0', 'twc.notary.privatecontract.user.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_privatecontract_user_ex_async(
+        self,
+        request: twc_models.UpdatePrivatecontractUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdatePrivatecontractUserResponse:
+        """
+        Description: 提供给私有云系统的用户更新接口.
+        Summary: 私有云用户更新接口.
+        """
+        UtilClient.validate_model(request)
+        return twc_models.UpdatePrivatecontractUserResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.privatecontract.user.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_contract_tradestatus(
+        self,
+        request: twc_models.QueryContractTradestatusRequest,
+    ) -> twc_models.QueryContractTradestatusResponse:
+        """
+        Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+        Summary: 代扣计划状态查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_contract_tradestatus_ex(request, headers, runtime)
+
+    async def query_contract_tradestatus_async(
+        self,
+        request: twc_models.QueryContractTradestatusRequest,
+    ) -> twc_models.QueryContractTradestatusResponse:
+        """
+        Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+        Summary: 代扣计划状态查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_contract_tradestatus_ex_async(request, headers, runtime)
+
+    def query_contract_tradestatus_ex(
+        self,
+        request: twc_models.QueryContractTradestatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractTradestatusResponse:
+        """
+        Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+        Summary: 代扣计划状态查询
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryContractTradestatusResponse().from_map(
+            self.do_request('1.0', 'twc.notary.contract.tradestatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_contract_tradestatus_ex_async(
+        self,
+        request: twc_models.QueryContractTradestatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractTradestatusResponse:
+        """
+        Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+        Summary: 代扣计划状态查询
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryContractTradestatusResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.contract.tradestatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_contract_refund(
+        self,
+        request: twc_models.QueryContractRefundRequest,
+    ) -> twc_models.QueryContractRefundResponse:
+        """
+        Description: 代扣退款查询
+        Summary: 代扣退款查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_contract_refund_ex(request, headers, runtime)
+
+    async def query_contract_refund_async(
+        self,
+        request: twc_models.QueryContractRefundRequest,
+    ) -> twc_models.QueryContractRefundResponse:
+        """
+        Description: 代扣退款查询
+        Summary: 代扣退款查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_contract_refund_ex_async(request, headers, runtime)
+
+    def query_contract_refund_ex(
+        self,
+        request: twc_models.QueryContractRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractRefundResponse:
+        """
+        Description: 代扣退款查询
+        Summary: 代扣退款查询
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryContractRefundResponse().from_map(
+            self.do_request('1.0', 'twc.notary.contract.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_contract_refund_ex_async(
+        self,
+        request: twc_models.QueryContractRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractRefundResponse:
+        """
+        Description: 代扣退款查询
+        Summary: 代扣退款查询
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryContractRefundResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.contract.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def sync_inner_trans(
