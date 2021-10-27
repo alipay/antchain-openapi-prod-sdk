@@ -36,12 +36,26 @@ class ApplyLeaseSupplierorderRequest extends Model
      * @var ApplySupplierOrderProductInput[]
      */
     public $productInfos;
+
+    // isv代理模式
+    /**
+     * @var string
+     */
+    public $mode;
+
+    // 被代理的租户id
+    /**
+     * @var string
+     */
+    public $agentLeaseId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'orderId'           => 'order_id',
         'supplierId'        => 'supplier_id',
         'productInfos'      => 'product_infos',
+        'mode'              => 'mode',
+        'agentLeaseId'      => 'agent_lease_id',
     ];
 
     public function validate()
@@ -75,6 +89,12 @@ class ApplyLeaseSupplierorderRequest extends Model
                 }
             }
         }
+        if (null !== $this->mode) {
+            $res['mode'] = $this->mode;
+        }
+        if (null !== $this->agentLeaseId) {
+            $res['agent_lease_id'] = $this->agentLeaseId;
+        }
 
         return $res;
     }
@@ -107,6 +127,12 @@ class ApplyLeaseSupplierorderRequest extends Model
                     $model->productInfos[$n++] = null !== $item ? ApplySupplierOrderProductInput::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['mode'])) {
+            $model->mode = $map['mode'];
+        }
+        if (isset($map['agent_lease_id'])) {
+            $model->agentLeaseId = $map['agent_lease_id'];
         }
 
         return $model;

@@ -79,16 +79,52 @@ class ContractNotaryFinishInfo extends Model
      * @var string
      */
     public $amounts;
+
+    // 签署方数量
+    /**
+     * @example 2
+     *
+     * @var int
+     */
+    public $signPartyCount;
+
+    // 发起人名称
+    /**
+     * @example 张三
+     *
+     * @var string
+     */
+    public $intiatorName;
+
+    // 签署人名称,多个逗号隔开
+    /**
+     * @example 李四,王五
+     *
+     * @var string
+     */
+    public $signatorNames;
+
+    // 详细文件哈希
+    /**
+     * @example a91a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1cqa
+     *
+     * @var string
+     */
+    public $detailInfoFileHash;
     protected $_name = [
-        'content'      => 'content',
-        'fileNum'      => 'file_num',
-        'initiator'    => 'initiator',
-        'signatories'  => 'signatories',
-        'timestamp'    => 'timestamp',
-        'txHash'       => 'tx_hash',
-        'userTypes'    => 'user_types',
-        'businessType' => 'business_type',
-        'amounts'      => 'amounts',
+        'content'            => 'content',
+        'fileNum'            => 'file_num',
+        'initiator'          => 'initiator',
+        'signatories'        => 'signatories',
+        'timestamp'          => 'timestamp',
+        'txHash'             => 'tx_hash',
+        'userTypes'          => 'user_types',
+        'businessType'       => 'business_type',
+        'amounts'            => 'amounts',
+        'signPartyCount'     => 'sign_party_count',
+        'intiatorName'       => 'intiator_name',
+        'signatorNames'      => 'signator_names',
+        'detailInfoFileHash' => 'detail_info_file_hash',
     ];
 
     public function validate()
@@ -130,6 +166,18 @@ class ContractNotaryFinishInfo extends Model
         if (null !== $this->amounts) {
             $res['amounts'] = $this->amounts;
         }
+        if (null !== $this->signPartyCount) {
+            $res['sign_party_count'] = $this->signPartyCount;
+        }
+        if (null !== $this->intiatorName) {
+            $res['intiator_name'] = $this->intiatorName;
+        }
+        if (null !== $this->signatorNames) {
+            $res['signator_names'] = $this->signatorNames;
+        }
+        if (null !== $this->detailInfoFileHash) {
+            $res['detail_info_file_hash'] = $this->detailInfoFileHash;
+        }
 
         return $res;
     }
@@ -168,6 +216,18 @@ class ContractNotaryFinishInfo extends Model
         }
         if (isset($map['amounts'])) {
             $model->amounts = $map['amounts'];
+        }
+        if (isset($map['sign_party_count'])) {
+            $model->signPartyCount = $map['sign_party_count'];
+        }
+        if (isset($map['intiator_name'])) {
+            $model->intiatorName = $map['intiator_name'];
+        }
+        if (isset($map['signator_names'])) {
+            $model->signatorNames = $map['signator_names'];
+        }
+        if (isset($map['detail_info_file_hash'])) {
+            $model->detailInfoFileHash = $map['detail_info_file_hash'];
         }
 
         return $model;

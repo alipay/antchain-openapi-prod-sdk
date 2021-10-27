@@ -47,12 +47,39 @@ class ContractNotarySignInfo extends Model
      * @var string
      */
     public $txHash;
+
+    // 发起人名称
+    /**
+     * @example 张三
+     *
+     * @var string
+     */
+    public $intiatorName;
+
+    // 签署人名称,多个逗号隔开
+    /**
+     * @example 李四,王五
+     *
+     * @var string
+     */
+    public $signatorNames;
+
+    // 详细文件哈希
+    /**
+     * @example 91a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1cqa
+     *
+     * @var string
+     */
+    public $detailInfoFileHash;
     protected $_name = [
-        'content'      => 'content',
-        'contractHash' => 'contract_hash',
-        'signatory'    => 'signatory',
-        'timestamp'    => 'timestamp',
-        'txHash'       => 'tx_hash',
+        'content'            => 'content',
+        'contractHash'       => 'contract_hash',
+        'signatory'          => 'signatory',
+        'timestamp'          => 'timestamp',
+        'txHash'             => 'tx_hash',
+        'intiatorName'       => 'intiator_name',
+        'signatorNames'      => 'signator_names',
+        'detailInfoFileHash' => 'detail_info_file_hash',
     ];
 
     public function validate()
@@ -81,6 +108,15 @@ class ContractNotarySignInfo extends Model
         if (null !== $this->txHash) {
             $res['tx_hash'] = $this->txHash;
         }
+        if (null !== $this->intiatorName) {
+            $res['intiator_name'] = $this->intiatorName;
+        }
+        if (null !== $this->signatorNames) {
+            $res['signator_names'] = $this->signatorNames;
+        }
+        if (null !== $this->detailInfoFileHash) {
+            $res['detail_info_file_hash'] = $this->detailInfoFileHash;
+        }
 
         return $res;
     }
@@ -107,6 +143,15 @@ class ContractNotarySignInfo extends Model
         }
         if (isset($map['tx_hash'])) {
             $model->txHash = $map['tx_hash'];
+        }
+        if (isset($map['intiator_name'])) {
+            $model->intiatorName = $map['intiator_name'];
+        }
+        if (isset($map['signator_names'])) {
+            $model->signatorNames = $map['signator_names'];
+        }
+        if (isset($map['detail_info_file_hash'])) {
+            $model->detailInfoFileHash = $map['detail_info_file_hash'];
         }
 
         return $model;

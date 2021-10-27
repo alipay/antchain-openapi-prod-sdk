@@ -29,6 +29,8 @@ use AntChain\TWC\Models\ApplyJusticeMediationRequest;
 use AntChain\TWC\Models\ApplyJusticeMediationResponse;
 use AntChain\TWC\Models\ApplyLeaseSupplierorderRequest;
 use AntChain\TWC\Models\ApplyLeaseSupplierorderResponse;
+use AntChain\TWC\Models\ApplyPrivatecontractUsercertRequest;
+use AntChain\TWC\Models\ApplyPrivatecontractUsercertResponse;
 use AntChain\TWC\Models\AuthContractSignRequest;
 use AntChain\TWC\Models\AuthContractSignResponse;
 use AntChain\TWC\Models\AuthLeaseContractRequest;
@@ -181,6 +183,10 @@ use AntChain\TWC\Models\CreateLeaseZftagreementunsignRequest;
 use AntChain\TWC\Models\CreateLeaseZftagreementunsignResponse;
 use AntChain\TWC\Models\CreateNotarizationBillRequest;
 use AntChain\TWC\Models\CreateNotarizationBillResponse;
+use AntChain\TWC\Models\CreatePrivatecontractTextRequest;
+use AntChain\TWC\Models\CreatePrivatecontractTextResponse;
+use AntChain\TWC\Models\CreatePrivatecontractTransRequest;
+use AntChain\TWC\Models\CreatePrivatecontractTransResponse;
 use AntChain\TWC\Models\CreateSourceRequest;
 use AntChain\TWC\Models\CreateSourceResponse;
 use AntChain\TWC\Models\CreateSueBreakpromiseinfoRequest;
@@ -285,6 +291,8 @@ use AntChain\TWC\Models\QueryContractOrganizationRequest;
 use AntChain\TWC\Models\QueryContractOrganizationResponse;
 use AntChain\TWC\Models\QueryContractOrganizationsealsRequest;
 use AntChain\TWC\Models\QueryContractOrganizationsealsResponse;
+use AntChain\TWC\Models\QueryContractRefundRequest;
+use AntChain\TWC\Models\QueryContractRefundResponse;
 use AntChain\TWC\Models\QueryContractSignfieldsealidRequest;
 use AntChain\TWC\Models\QueryContractSignfieldsealidResponse;
 use AntChain\TWC\Models\QueryContractSignfieldsRequest;
@@ -293,6 +301,8 @@ use AntChain\TWC\Models\QueryContractTemplateRequest;
 use AntChain\TWC\Models\QueryContractTemplateResponse;
 use AntChain\TWC\Models\QueryContractTradedetailRequest;
 use AntChain\TWC\Models\QueryContractTradedetailResponse;
+use AntChain\TWC\Models\QueryContractTradestatusRequest;
+use AntChain\TWC\Models\QueryContractTradestatusResponse;
 use AntChain\TWC\Models\QueryContractWordspositionRequest;
 use AntChain\TWC\Models\QueryContractWordspositionResponse;
 use AntChain\TWC\Models\QueryEnterpriseFaceauthRequest;
@@ -373,12 +383,20 @@ use AntChain\TWC\Models\UpdateLeaseContractRequest;
 use AntChain\TWC\Models\UpdateLeaseContractResponse;
 use AntChain\TWC\Models\UpdateNotarizationOrderRequest;
 use AntChain\TWC\Models\UpdateNotarizationOrderResponse;
+use AntChain\TWC\Models\UpdatePrivatecontractUserRequest;
+use AntChain\TWC\Models\UpdatePrivatecontractUserResponse;
 use AntChain\TWC\Models\UpdateSueBreakpromiseinfoRequest;
 use AntChain\TWC\Models\UpdateSueBreakpromiseinfoResponse;
 use AntChain\TWC\Models\UpdateSueExemplaryrevertRequest;
 use AntChain\TWC\Models\UpdateSueExemplaryrevertResponse;
 use AntChain\TWC\Models\UpdateSueExeplarycontractRequest;
 use AntChain\TWC\Models\UpdateSueExeplarycontractResponse;
+use AntChain\TWC\Models\VerifyPrivatecompanyFourmetaRequest;
+use AntChain\TWC\Models\VerifyPrivatecompanyFourmetaResponse;
+use AntChain\TWC\Models\VerifyPrivatecompanyTwometaRequest;
+use AntChain\TWC\Models\VerifyPrivatecompanyTwometaResponse;
+use AntChain\TWC\Models\VerifyPrivatepersonTwometaRequest;
+use AntChain\TWC\Models\VerifyPrivatepersonTwometaResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -526,7 +544,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.39',
+                    'sdk_version'      => '1.6.7',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -2983,6 +3001,303 @@ class Client
         Utils::validateModel($request);
 
         return ConfirmContractMerchantResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.merchant.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建合同存证事务ID。私有云使用。
+     * Summary: 创建合同存证事务ID。私有云使用。
+     *
+     * @param CreatePrivatecontractTransRequest $request
+     *
+     * @return CreatePrivatecontractTransResponse
+     */
+    public function createPrivatecontractTrans($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createPrivatecontractTransEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建合同存证事务ID。私有云使用。
+     * Summary: 创建合同存证事务ID。私有云使用。
+     *
+     * @param CreatePrivatecontractTransRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CreatePrivatecontractTransResponse
+     */
+    public function createPrivatecontractTransEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreatePrivatecontractTransResponse::fromMap($this->doRequest('1.0', 'twc.notary.privatecontract.trans.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 合同文本存证。私有云使用。
+     * Summary: 合同文本存证。私有云使用。
+     *
+     * @param CreatePrivatecontractTextRequest $request
+     *
+     * @return CreatePrivatecontractTextResponse
+     */
+    public function createPrivatecontractText($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createPrivatecontractTextEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 合同文本存证。私有云使用。
+     * Summary: 合同文本存证。私有云使用。
+     *
+     * @param CreatePrivatecontractTextRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CreatePrivatecontractTextResponse
+     */
+    public function createPrivatecontractTextEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreatePrivatecontractTextResponse::fromMap($this->doRequest('1.0', 'twc.notary.privatecontract.text.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人二要素校验
+     * Summary: 个人二要素校验.
+     *
+     * @param VerifyPrivatepersonTwometaRequest $request
+     *
+     * @return VerifyPrivatepersonTwometaResponse
+     */
+    public function verifyPrivatepersonTwometa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyPrivatepersonTwometaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人二要素校验
+     * Summary: 个人二要素校验.
+     *
+     * @param VerifyPrivatepersonTwometaRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return VerifyPrivatepersonTwometaResponse
+     */
+    public function verifyPrivatepersonTwometaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyPrivatepersonTwometaResponse::fromMap($this->doRequest('1.0', 'twc.notary.privateperson.twometa.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业二要素校验
+     * Summary: 企业二要素校验.
+     *
+     * @param VerifyPrivatecompanyTwometaRequest $request
+     *
+     * @return VerifyPrivatecompanyTwometaResponse
+     */
+    public function verifyPrivatecompanyTwometa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyPrivatecompanyTwometaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业二要素校验
+     * Summary: 企业二要素校验.
+     *
+     * @param VerifyPrivatecompanyTwometaRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return VerifyPrivatecompanyTwometaResponse
+     */
+    public function verifyPrivatecompanyTwometaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyPrivatecompanyTwometaResponse::fromMap($this->doRequest('1.0', 'twc.notary.privatecompany.twometa.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业四要素校验
+     * Summary: 企业四要素校验.
+     *
+     * @param VerifyPrivatecompanyFourmetaRequest $request
+     *
+     * @return VerifyPrivatecompanyFourmetaResponse
+     */
+    public function verifyPrivatecompanyFourmeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyPrivatecompanyFourmetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业四要素校验
+     * Summary: 企业四要素校验.
+     *
+     * @param VerifyPrivatecompanyFourmetaRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return VerifyPrivatecompanyFourmetaResponse
+     */
+    public function verifyPrivatecompanyFourmetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyPrivatecompanyFourmetaResponse::fromMap($this->doRequest('1.0', 'twc.notary.privatecompany.fourmeta.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 开放给私有云用户证书申请接口.
+     * Summary: 私有云用户证书申请接口.
+     *
+     * @param ApplyPrivatecontractUsercertRequest $request
+     *
+     * @return ApplyPrivatecontractUsercertResponse
+     */
+    public function applyPrivatecontractUsercert($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyPrivatecontractUsercertEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 开放给私有云用户证书申请接口.
+     * Summary: 私有云用户证书申请接口.
+     *
+     * @param ApplyPrivatecontractUsercertRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return ApplyPrivatecontractUsercertResponse
+     */
+    public function applyPrivatecontractUsercertEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyPrivatecontractUsercertResponse::fromMap($this->doRequest('1.0', 'twc.notary.privatecontract.usercert.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提供给私有云系统的用户更新接口.
+     * Summary: 私有云用户更新接口.
+     *
+     * @param UpdatePrivatecontractUserRequest $request
+     *
+     * @return UpdatePrivatecontractUserResponse
+     */
+    public function updatePrivatecontractUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updatePrivatecontractUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提供给私有云系统的用户更新接口.
+     * Summary: 私有云用户更新接口.
+     *
+     * @param UpdatePrivatecontractUserRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return UpdatePrivatecontractUserResponse
+     */
+    public function updatePrivatecontractUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdatePrivatecontractUserResponse::fromMap($this->doRequest('1.0', 'twc.notary.privatecontract.user.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+     * Summary: 代扣计划状态查询.
+     *
+     * @param QueryContractTradestatusRequest $request
+     *
+     * @return QueryContractTradestatusResponse
+     */
+    public function queryContractTradestatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryContractTradestatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+     * Summary: 代扣计划状态查询.
+     *
+     * @param QueryContractTradestatusRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryContractTradestatusResponse
+     */
+    public function queryContractTradestatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryContractTradestatusResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.tradestatus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣退款查询
+     * Summary: 代扣退款查询.
+     *
+     * @param QueryContractRefundRequest $request
+     *
+     * @return QueryContractRefundResponse
+     */
+    public function queryContractRefund($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryContractRefundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣退款查询
+     * Summary: 代扣退款查询.
+     *
+     * @param QueryContractRefundRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryContractRefundResponse
+     */
+    public function queryContractRefundEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryContractRefundResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.refund.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
