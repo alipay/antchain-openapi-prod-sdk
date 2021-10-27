@@ -892,6 +892,39 @@ func (s *SupplierOrderProductInfo) SetSnList(v []*string) *SupplierOrderProductI
 	return s
 }
 
+// 个人信息
+type PersonInfo struct {
+	// 个人证件名称
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 个人证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 证件类型, 默认身份证 RESIDENT：居民身份证号，PASSPORT：护照，MILITARY：军官证
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+}
+
+func (s PersonInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PersonInfo) GoString() string {
+	return s.String()
+}
+
+func (s *PersonInfo) SetCertName(v string) *PersonInfo {
+	s.CertName = &v
+	return s
+}
+
+func (s *PersonInfo) SetCertNo(v string) *PersonInfo {
+	s.CertNo = &v
+	return s
+}
+
+func (s *PersonInfo) SetCertType(v string) *PersonInfo {
+	s.CertType = &v
+	return s
+}
+
 // 答辩人对象
 type PleaderObject struct {
 	// 法人或自然人标识，法人为1，自然人为0
@@ -2572,6 +2605,60 @@ func (s *ContractSeal) SetSealBizType(v string) *ContractSeal {
 	return s
 }
 
+// 企业四要素校验
+type CompanyFourMetaInfo struct {
+	// 企业证件名称
+	CompanyCertName *string `json:"company_cert_name,omitempty" xml:"company_cert_name,omitempty" require:"true"`
+	// 企业证件号码
+	CompanyCertNo *string `json:"company_cert_no,omitempty" xml:"company_cert_no,omitempty" require:"true"`
+	// 证件类型, 默认社会统一信用代码  NATIONAL_LEGAL_MERGE:统一社会信用代码，NATIONAL_LEGAL：营业执照号码
+	CompanyCertType *string `json:"company_cert_type,omitempty" xml:"company_cert_type,omitempty"`
+	// 法人证件名称
+	LegalPersonCertName *string `json:"legal_person_cert_name,omitempty" xml:"legal_person_cert_name,omitempty" require:"true"`
+	// 法人证件号码
+	LegalPersonCertNo *string `json:"legal_person_cert_no,omitempty" xml:"legal_person_cert_no,omitempty" require:"true"`
+	// 法人证件类型 RESIDENT：居民身份证号，PASSPORT：护照，MILITARY：军官证
+	LegalPersonCertType *string `json:"legal_person_cert_type,omitempty" xml:"legal_person_cert_type,omitempty"`
+}
+
+func (s CompanyFourMetaInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CompanyFourMetaInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CompanyFourMetaInfo) SetCompanyCertName(v string) *CompanyFourMetaInfo {
+	s.CompanyCertName = &v
+	return s
+}
+
+func (s *CompanyFourMetaInfo) SetCompanyCertNo(v string) *CompanyFourMetaInfo {
+	s.CompanyCertNo = &v
+	return s
+}
+
+func (s *CompanyFourMetaInfo) SetCompanyCertType(v string) *CompanyFourMetaInfo {
+	s.CompanyCertType = &v
+	return s
+}
+
+func (s *CompanyFourMetaInfo) SetLegalPersonCertName(v string) *CompanyFourMetaInfo {
+	s.LegalPersonCertName = &v
+	return s
+}
+
+func (s *CompanyFourMetaInfo) SetLegalPersonCertNo(v string) *CompanyFourMetaInfo {
+	s.LegalPersonCertNo = &v
+	return s
+}
+
+func (s *CompanyFourMetaInfo) SetLegalPersonCertType(v string) *CompanyFourMetaInfo {
+	s.LegalPersonCertType = &v
+	return s
+}
+
 // 见证流程签署数据
 type WitnessSignData struct {
 	// 印章图片fileKey列表
@@ -2995,6 +3082,39 @@ func (s *NotaryCheckMeta) SetApplicationCode(v string) *NotaryCheckMeta {
 	return s
 }
 
+// 企业信息
+type CompanyTwoMetaInfo struct {
+	// 企业证件名称
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 企业证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 证件类型, 默认社会统一信用代码  NATIONAL_LEGAL_MERGE:统一社会信用代码，NATIONAL_LEGAL：营业执照号码
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+}
+
+func (s CompanyTwoMetaInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CompanyTwoMetaInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CompanyTwoMetaInfo) SetCertName(v string) *CompanyTwoMetaInfo {
+	s.CertName = &v
+	return s
+}
+
+func (s *CompanyTwoMetaInfo) SetCertNo(v string) *CompanyTwoMetaInfo {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CompanyTwoMetaInfo) SetCertType(v string) *CompanyTwoMetaInfo {
+	s.CertType = &v
+	return s
+}
+
 // 电子合同文档的下载地址
 type ContractDocAddress struct {
 	// 电子合同文档ID
@@ -3209,6 +3329,12 @@ type ContractNotarySignInfo struct {
 	Timestamp *string `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
 	// 存证凭据，仅在批量核验时需要填写
 	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+	// 发起人名称
+	IntiatorName *string `json:"intiator_name,omitempty" xml:"intiator_name,omitempty"`
+	// 签署人名称,多个逗号隔开
+	SignatorNames *string `json:"signator_names,omitempty" xml:"signator_names,omitempty"`
+	// 详细文件哈希
+	DetailInfoFileHash *string `json:"detail_info_file_hash,omitempty" xml:"detail_info_file_hash,omitempty"`
 }
 
 func (s ContractNotarySignInfo) String() string {
@@ -3241,6 +3367,21 @@ func (s *ContractNotarySignInfo) SetTimestamp(v string) *ContractNotarySignInfo 
 
 func (s *ContractNotarySignInfo) SetTxHash(v string) *ContractNotarySignInfo {
 	s.TxHash = &v
+	return s
+}
+
+func (s *ContractNotarySignInfo) SetIntiatorName(v string) *ContractNotarySignInfo {
+	s.IntiatorName = &v
+	return s
+}
+
+func (s *ContractNotarySignInfo) SetSignatorNames(v string) *ContractNotarySignInfo {
+	s.SignatorNames = &v
+	return s
+}
+
+func (s *ContractNotarySignInfo) SetDetailInfoFileHash(v string) *ContractNotarySignInfo {
+	s.DetailInfoFileHash = &v
 	return s
 }
 
@@ -3304,6 +3445,14 @@ type ContractNotaryFinishInfo struct {
 	BusinessType *string `json:"business_type,omitempty" xml:"business_type,omitempty"`
 	// 合同对应的金额，如果不涉及金额，填充为0，个数与file_num对应
 	Amounts *string `json:"amounts,omitempty" xml:"amounts,omitempty"`
+	// 签署方数量
+	SignPartyCount *int64 `json:"sign_party_count,omitempty" xml:"sign_party_count,omitempty"`
+	// 发起人名称
+	IntiatorName *string `json:"intiator_name,omitempty" xml:"intiator_name,omitempty"`
+	// 签署人名称,多个逗号隔开
+	SignatorNames *string `json:"signator_names,omitempty" xml:"signator_names,omitempty"`
+	// 详细文件哈希
+	DetailInfoFileHash *string `json:"detail_info_file_hash,omitempty" xml:"detail_info_file_hash,omitempty"`
 }
 
 func (s ContractNotaryFinishInfo) String() string {
@@ -3356,6 +3505,26 @@ func (s *ContractNotaryFinishInfo) SetBusinessType(v string) *ContractNotaryFini
 
 func (s *ContractNotaryFinishInfo) SetAmounts(v string) *ContractNotaryFinishInfo {
 	s.Amounts = &v
+	return s
+}
+
+func (s *ContractNotaryFinishInfo) SetSignPartyCount(v int64) *ContractNotaryFinishInfo {
+	s.SignPartyCount = &v
+	return s
+}
+
+func (s *ContractNotaryFinishInfo) SetIntiatorName(v string) *ContractNotaryFinishInfo {
+	s.IntiatorName = &v
+	return s
+}
+
+func (s *ContractNotaryFinishInfo) SetSignatorNames(v string) *ContractNotaryFinishInfo {
+	s.SignatorNames = &v
+	return s
+}
+
+func (s *ContractNotaryFinishInfo) SetDetailInfoFileHash(v string) *ContractNotaryFinishInfo {
+	s.DetailInfoFileHash = &v
 	return s
 }
 
@@ -4299,6 +4468,12 @@ type ContractNotaryInitInfo struct {
 	Timestamp *string `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
 	// 存证凭据，仅在批量核验时需要填写
 	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+	// 发起人名称
+	IntiatorName *string `json:"intiator_name,omitempty" xml:"intiator_name,omitempty"`
+	// 签署人名称,多个逗号隔开
+	SignatorNames *string `json:"signator_names,omitempty" xml:"signator_names,omitempty"`
+	// 详细文件哈希
+	DetailInfoFileHash *string `json:"detail_info_file_hash,omitempty" xml:"detail_info_file_hash,omitempty"`
 }
 
 func (s ContractNotaryInitInfo) String() string {
@@ -4336,6 +4511,21 @@ func (s *ContractNotaryInitInfo) SetTimestamp(v string) *ContractNotaryInitInfo 
 
 func (s *ContractNotaryInitInfo) SetTxHash(v string) *ContractNotaryInitInfo {
 	s.TxHash = &v
+	return s
+}
+
+func (s *ContractNotaryInitInfo) SetIntiatorName(v string) *ContractNotaryInitInfo {
+	s.IntiatorName = &v
+	return s
+}
+
+func (s *ContractNotaryInitInfo) SetSignatorNames(v string) *ContractNotaryInitInfo {
+	s.SignatorNames = &v
+	return s
+}
+
+func (s *ContractNotaryInitInfo) SetDetailInfoFileHash(v string) *ContractNotaryInitInfo {
+	s.DetailInfoFileHash = &v
 	return s
 }
 
@@ -12854,6 +13044,963 @@ func (s *ConfirmContractMerchantResponse) SetStatus(v string) *ConfirmContractMe
 	return s
 }
 
+type CreatePrivatecontractTransRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 存证关联实体（个人/企业）的身份识别信息
+	Customer *Identity `json:"customer,omitempty" xml:"customer,omitempty" require:"true"`
+	// 扩展属性
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+	// 业务子类型标识
+	SubBizId *string `json:"sub_biz_id,omitempty" xml:"sub_biz_id,omitempty"`
+	// 是否使用可信时间戳，默认为false
+	Tsr *bool `json:"tsr,omitempty" xml:"tsr,omitempty"`
+}
+
+func (s CreatePrivatecontractTransRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreatePrivatecontractTransRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreatePrivatecontractTransRequest) SetAuthToken(v string) *CreatePrivatecontractTransRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreatePrivatecontractTransRequest) SetProductInstanceId(v string) *CreatePrivatecontractTransRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreatePrivatecontractTransRequest) SetCustomer(v *Identity) *CreatePrivatecontractTransRequest {
+	s.Customer = v
+	return s
+}
+
+func (s *CreatePrivatecontractTransRequest) SetProperties(v string) *CreatePrivatecontractTransRequest {
+	s.Properties = &v
+	return s
+}
+
+func (s *CreatePrivatecontractTransRequest) SetSubBizId(v string) *CreatePrivatecontractTransRequest {
+	s.SubBizId = &v
+	return s
+}
+
+func (s *CreatePrivatecontractTransRequest) SetTsr(v bool) *CreatePrivatecontractTransRequest {
+	s.Tsr = &v
+	return s
+}
+
+type CreatePrivatecontractTransResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回事务ID，全局唯一
+	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty"`
+	// 可信时间信息
+	Tsr *TsrResponse `json:"tsr,omitempty" xml:"tsr,omitempty"`
+}
+
+func (s CreatePrivatecontractTransResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreatePrivatecontractTransResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreatePrivatecontractTransResponse) SetReqMsgId(v string) *CreatePrivatecontractTransResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreatePrivatecontractTransResponse) SetResultCode(v string) *CreatePrivatecontractTransResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreatePrivatecontractTransResponse) SetResultMsg(v string) *CreatePrivatecontractTransResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreatePrivatecontractTransResponse) SetTransactionId(v string) *CreatePrivatecontractTransResponse {
+	s.TransactionId = &v
+	return s
+}
+
+func (s *CreatePrivatecontractTransResponse) SetTsr(v *TsrResponse) *CreatePrivatecontractTransResponse {
+	s.Tsr = v
+	return s
+}
+
+type CreatePrivatecontractTextRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 签署结束信息，phase为FINISH时必选
+	FinishInfo *ContractNotaryFinishInfo `json:"finish_info,omitempty" xml:"finish_info,omitempty"`
+	// 签署流程ID
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty" require:"true"`
+	// 	签署发起信息，phase为INIT时必选
+	InitInfo *ContractNotaryInitInfo `json:"init_info,omitempty" xml:"init_info,omitempty"`
+	// 存证阶段，分为INIT(发起)，SIGN(签署)，FINISH(结束)
+	Phase *string `json:"phase,omitempty" xml:"phase,omitempty" require:"true"`
+	// 签署过程信息，phase为SIGN时必选
+	SignInfo *ContractNotarySignInfo `json:"sign_info,omitempty" xml:"sign_info,omitempty"`
+	// 存证事务ID
+	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty" require:"true"`
+	// 签署文件存档阶段存证核验信息
+	DocumentInfo *ContractNotaryDocumentInfo `json:"document_info,omitempty" xml:"document_info,omitempty"`
+}
+
+func (s CreatePrivatecontractTextRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreatePrivatecontractTextRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreatePrivatecontractTextRequest) SetAuthToken(v string) *CreatePrivatecontractTextRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreatePrivatecontractTextRequest) SetProductInstanceId(v string) *CreatePrivatecontractTextRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreatePrivatecontractTextRequest) SetFinishInfo(v *ContractNotaryFinishInfo) *CreatePrivatecontractTextRequest {
+	s.FinishInfo = v
+	return s
+}
+
+func (s *CreatePrivatecontractTextRequest) SetFlowId(v string) *CreatePrivatecontractTextRequest {
+	s.FlowId = &v
+	return s
+}
+
+func (s *CreatePrivatecontractTextRequest) SetInitInfo(v *ContractNotaryInitInfo) *CreatePrivatecontractTextRequest {
+	s.InitInfo = v
+	return s
+}
+
+func (s *CreatePrivatecontractTextRequest) SetPhase(v string) *CreatePrivatecontractTextRequest {
+	s.Phase = &v
+	return s
+}
+
+func (s *CreatePrivatecontractTextRequest) SetSignInfo(v *ContractNotarySignInfo) *CreatePrivatecontractTextRequest {
+	s.SignInfo = v
+	return s
+}
+
+func (s *CreatePrivatecontractTextRequest) SetTransactionId(v string) *CreatePrivatecontractTextRequest {
+	s.TransactionId = &v
+	return s
+}
+
+func (s *CreatePrivatecontractTextRequest) SetDocumentInfo(v *ContractNotaryDocumentInfo) *CreatePrivatecontractTextRequest {
+	s.DocumentInfo = v
+	return s
+}
+
+type CreatePrivatecontractTextResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 存证凭据,
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+}
+
+func (s CreatePrivatecontractTextResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreatePrivatecontractTextResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreatePrivatecontractTextResponse) SetReqMsgId(v string) *CreatePrivatecontractTextResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreatePrivatecontractTextResponse) SetResultCode(v string) *CreatePrivatecontractTextResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreatePrivatecontractTextResponse) SetResultMsg(v string) *CreatePrivatecontractTextResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreatePrivatecontractTextResponse) SetTxHash(v string) *CreatePrivatecontractTextResponse {
+	s.TxHash = &v
+	return s
+}
+
+type VerifyPrivatepersonTwometaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 个人信息
+	PersonInfo *PersonInfo `json:"person_info,omitempty" xml:"person_info,omitempty" require:"true"`
+	// 私有云实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+}
+
+func (s VerifyPrivatepersonTwometaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyPrivatepersonTwometaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyPrivatepersonTwometaRequest) SetAuthToken(v string) *VerifyPrivatepersonTwometaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerifyPrivatepersonTwometaRequest) SetProductInstanceId(v string) *VerifyPrivatepersonTwometaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *VerifyPrivatepersonTwometaRequest) SetPersonInfo(v *PersonInfo) *VerifyPrivatepersonTwometaRequest {
+	s.PersonInfo = v
+	return s
+}
+
+func (s *VerifyPrivatepersonTwometaRequest) SetInstanceId(v string) *VerifyPrivatepersonTwometaRequest {
+	s.InstanceId = &v
+	return s
+}
+
+type VerifyPrivatepersonTwometaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 调用返回值。"0"为调用成功。
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 校验是否通过。
+	Pass *bool `json:"pass,omitempty" xml:"pass,omitempty"`
+	// 错误信息描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s VerifyPrivatepersonTwometaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyPrivatepersonTwometaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyPrivatepersonTwometaResponse) SetReqMsgId(v string) *VerifyPrivatepersonTwometaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerifyPrivatepersonTwometaResponse) SetResultCode(v string) *VerifyPrivatepersonTwometaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerifyPrivatepersonTwometaResponse) SetResultMsg(v string) *VerifyPrivatepersonTwometaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifyPrivatepersonTwometaResponse) SetCode(v string) *VerifyPrivatepersonTwometaResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *VerifyPrivatepersonTwometaResponse) SetPass(v bool) *VerifyPrivatepersonTwometaResponse {
+	s.Pass = &v
+	return s
+}
+
+func (s *VerifyPrivatepersonTwometaResponse) SetMessage(v string) *VerifyPrivatepersonTwometaResponse {
+	s.Message = &v
+	return s
+}
+
+type VerifyPrivatecompanyTwometaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 私有云实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 企业信息
+	CompanyTwoMetaInfo *CompanyTwoMetaInfo `json:"company_two_meta_info,omitempty" xml:"company_two_meta_info,omitempty" require:"true"`
+}
+
+func (s VerifyPrivatecompanyTwometaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyPrivatecompanyTwometaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyPrivatecompanyTwometaRequest) SetAuthToken(v string) *VerifyPrivatecompanyTwometaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerifyPrivatecompanyTwometaRequest) SetProductInstanceId(v string) *VerifyPrivatecompanyTwometaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *VerifyPrivatecompanyTwometaRequest) SetInstanceId(v string) *VerifyPrivatecompanyTwometaRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *VerifyPrivatecompanyTwometaRequest) SetCompanyTwoMetaInfo(v *CompanyTwoMetaInfo) *VerifyPrivatecompanyTwometaRequest {
+	s.CompanyTwoMetaInfo = v
+	return s
+}
+
+type VerifyPrivatecompanyTwometaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 调用返回值。"0"为调用成功。
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 校验是否通过。
+	Pass *bool `json:"pass,omitempty" xml:"pass,omitempty"`
+	// 错误信息描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s VerifyPrivatecompanyTwometaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyPrivatecompanyTwometaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyPrivatecompanyTwometaResponse) SetReqMsgId(v string) *VerifyPrivatecompanyTwometaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerifyPrivatecompanyTwometaResponse) SetResultCode(v string) *VerifyPrivatecompanyTwometaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerifyPrivatecompanyTwometaResponse) SetResultMsg(v string) *VerifyPrivatecompanyTwometaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifyPrivatecompanyTwometaResponse) SetCode(v string) *VerifyPrivatecompanyTwometaResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *VerifyPrivatecompanyTwometaResponse) SetPass(v bool) *VerifyPrivatecompanyTwometaResponse {
+	s.Pass = &v
+	return s
+}
+
+func (s *VerifyPrivatecompanyTwometaResponse) SetMessage(v string) *VerifyPrivatecompanyTwometaResponse {
+	s.Message = &v
+	return s
+}
+
+type VerifyPrivatecompanyFourmetaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 私有云实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 企业信息
+	CompanyFourMetaInfo *CompanyFourMetaInfo `json:"company_four_meta_info,omitempty" xml:"company_four_meta_info,omitempty" require:"true"`
+}
+
+func (s VerifyPrivatecompanyFourmetaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyPrivatecompanyFourmetaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyPrivatecompanyFourmetaRequest) SetAuthToken(v string) *VerifyPrivatecompanyFourmetaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerifyPrivatecompanyFourmetaRequest) SetProductInstanceId(v string) *VerifyPrivatecompanyFourmetaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *VerifyPrivatecompanyFourmetaRequest) SetInstanceId(v string) *VerifyPrivatecompanyFourmetaRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *VerifyPrivatecompanyFourmetaRequest) SetCompanyFourMetaInfo(v *CompanyFourMetaInfo) *VerifyPrivatecompanyFourmetaRequest {
+	s.CompanyFourMetaInfo = v
+	return s
+}
+
+type VerifyPrivatecompanyFourmetaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 调用返回值。"0"为调用成功。
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 校验是否通过。
+	Pass *bool `json:"pass,omitempty" xml:"pass,omitempty"`
+	// 错误信息描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s VerifyPrivatecompanyFourmetaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyPrivatecompanyFourmetaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyPrivatecompanyFourmetaResponse) SetReqMsgId(v string) *VerifyPrivatecompanyFourmetaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerifyPrivatecompanyFourmetaResponse) SetResultCode(v string) *VerifyPrivatecompanyFourmetaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerifyPrivatecompanyFourmetaResponse) SetResultMsg(v string) *VerifyPrivatecompanyFourmetaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifyPrivatecompanyFourmetaResponse) SetCode(v string) *VerifyPrivatecompanyFourmetaResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *VerifyPrivatecompanyFourmetaResponse) SetPass(v bool) *VerifyPrivatecompanyFourmetaResponse {
+	s.Pass = &v
+	return s
+}
+
+func (s *VerifyPrivatecompanyFourmetaResponse) SetMessage(v string) *VerifyPrivatecompanyFourmetaResponse {
+	s.Message = &v
+	return s
+}
+
+type ApplyPrivatecontractUsercertRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 私有云实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 私有云系统内部生成的id
+	UserInnerId *string `json:"user_inner_id,omitempty" xml:"user_inner_id,omitempty" require:"true"`
+	// 用户类型,个人PERSON，企业ORG
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty" require:"true"`
+	// 用户名称, 个人为个人名称，企业为企业名称
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+	// 用户证件类型，默认个人,身份证CRED_PSN_CH_IDCARD；
+	// 企业,统一社会信用代码,CRED_ORG_USCC
+	UserCertType *string `json:"user_cert_type,omitempty" xml:"user_cert_type,omitempty" require:"true"`
+	// 证件号码
+	UserCertNumber *string `json:"user_cert_number,omitempty" xml:"user_cert_number,omitempty" require:"true"`
+}
+
+func (s ApplyPrivatecontractUsercertRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyPrivatecontractUsercertRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyPrivatecontractUsercertRequest) SetAuthToken(v string) *ApplyPrivatecontractUsercertRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyPrivatecontractUsercertRequest) SetProductInstanceId(v string) *ApplyPrivatecontractUsercertRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyPrivatecontractUsercertRequest) SetInstanceId(v string) *ApplyPrivatecontractUsercertRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *ApplyPrivatecontractUsercertRequest) SetUserInnerId(v string) *ApplyPrivatecontractUsercertRequest {
+	s.UserInnerId = &v
+	return s
+}
+
+func (s *ApplyPrivatecontractUsercertRequest) SetUserType(v string) *ApplyPrivatecontractUsercertRequest {
+	s.UserType = &v
+	return s
+}
+
+func (s *ApplyPrivatecontractUsercertRequest) SetUserName(v string) *ApplyPrivatecontractUsercertRequest {
+	s.UserName = &v
+	return s
+}
+
+func (s *ApplyPrivatecontractUsercertRequest) SetUserCertType(v string) *ApplyPrivatecontractUsercertRequest {
+	s.UserCertType = &v
+	return s
+}
+
+func (s *ApplyPrivatecontractUsercertRequest) SetUserCertNumber(v string) *ApplyPrivatecontractUsercertRequest {
+	s.UserCertNumber = &v
+	return s
+}
+
+type ApplyPrivatecontractUsercertResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 注册是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 返回code,200成功，其他均为失败
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 返回信息，成功返回success，错误时会返回详细信息。
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 用户的CA证书办法机构
+	CertAuthOrg *string `json:"cert_auth_org,omitempty" xml:"cert_auth_org,omitempty"`
+	// 用户的CA证书序列号
+	CertSerialNumber *string `json:"cert_serial_number,omitempty" xml:"cert_serial_number,omitempty"`
+	// 用户证书过期时间
+	CertEndTime *int64 `json:"cert_end_time,omitempty" xml:"cert_end_time,omitempty"`
+}
+
+func (s ApplyPrivatecontractUsercertResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyPrivatecontractUsercertResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyPrivatecontractUsercertResponse) SetReqMsgId(v string) *ApplyPrivatecontractUsercertResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyPrivatecontractUsercertResponse) SetResultCode(v string) *ApplyPrivatecontractUsercertResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyPrivatecontractUsercertResponse) SetResultMsg(v string) *ApplyPrivatecontractUsercertResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyPrivatecontractUsercertResponse) SetSuccess(v bool) *ApplyPrivatecontractUsercertResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *ApplyPrivatecontractUsercertResponse) SetCode(v string) *ApplyPrivatecontractUsercertResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *ApplyPrivatecontractUsercertResponse) SetMessage(v string) *ApplyPrivatecontractUsercertResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *ApplyPrivatecontractUsercertResponse) SetCertAuthOrg(v string) *ApplyPrivatecontractUsercertResponse {
+	s.CertAuthOrg = &v
+	return s
+}
+
+func (s *ApplyPrivatecontractUsercertResponse) SetCertSerialNumber(v string) *ApplyPrivatecontractUsercertResponse {
+	s.CertSerialNumber = &v
+	return s
+}
+
+func (s *ApplyPrivatecontractUsercertResponse) SetCertEndTime(v int64) *ApplyPrivatecontractUsercertResponse {
+	s.CertEndTime = &v
+	return s
+}
+
+type UpdatePrivatecontractUserRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 私有云实例id
+	//
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 私有云生成的内部用户Id
+	//
+	UserInnerId *string `json:"user_inner_id,omitempty" xml:"user_inner_id,omitempty" require:"true"`
+	// 用户名称，个人用户为个人名称，企业为企业名称
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+	// 企业用户必填，企业法人名称
+	//
+	LegalName *string `json:"legal_name,omitempty" xml:"legal_name,omitempty"`
+	// 法人证件类型
+	//
+	LegalCertType *string `json:"legal_cert_type,omitempty" xml:"legal_cert_type,omitempty"`
+	// 法人证件对应的证件号码
+	//
+	LegalCertNumber *string `json:"legal_cert_number,omitempty" xml:"legal_cert_number,omitempty"`
+}
+
+func (s UpdatePrivatecontractUserRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdatePrivatecontractUserRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdatePrivatecontractUserRequest) SetAuthToken(v string) *UpdatePrivatecontractUserRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractUserRequest) SetProductInstanceId(v string) *UpdatePrivatecontractUserRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractUserRequest) SetInstanceId(v string) *UpdatePrivatecontractUserRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractUserRequest) SetUserInnerId(v string) *UpdatePrivatecontractUserRequest {
+	s.UserInnerId = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractUserRequest) SetUserName(v string) *UpdatePrivatecontractUserRequest {
+	s.UserName = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractUserRequest) SetLegalName(v string) *UpdatePrivatecontractUserRequest {
+	s.LegalName = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractUserRequest) SetLegalCertType(v string) *UpdatePrivatecontractUserRequest {
+	s.LegalCertType = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractUserRequest) SetLegalCertNumber(v string) *UpdatePrivatecontractUserRequest {
+	s.LegalCertNumber = &v
+	return s
+}
+
+type UpdatePrivatecontractUserResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 注册是否成功
+	//
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 返回code,200成功，其他均为失败
+	//
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 返回信息，成功返回success，错误时会返回详细信息。
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s UpdatePrivatecontractUserResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdatePrivatecontractUserResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdatePrivatecontractUserResponse) SetReqMsgId(v string) *UpdatePrivatecontractUserResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractUserResponse) SetResultCode(v string) *UpdatePrivatecontractUserResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractUserResponse) SetResultMsg(v string) *UpdatePrivatecontractUserResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractUserResponse) SetSuccess(v bool) *UpdatePrivatecontractUserResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractUserResponse) SetCode(v string) *UpdatePrivatecontractUserResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractUserResponse) SetMessage(v string) *UpdatePrivatecontractUserResponse {
+	s.Message = &v
+	return s
+}
+
+type QueryContractTradestatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 代扣计划外部订单号
+	OutTradeNo *string `json:"out_trade_no,omitempty" xml:"out_trade_no,omitempty" require:"true"`
+}
+
+func (s QueryContractTradestatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractTradestatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractTradestatusRequest) SetAuthToken(v string) *QueryContractTradestatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryContractTradestatusRequest) SetProductInstanceId(v string) *QueryContractTradestatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryContractTradestatusRequest) SetOutTradeNo(v string) *QueryContractTradestatusRequest {
+	s.OutTradeNo = &v
+	return s
+}
+
+type QueryContractTradestatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 代扣计划的外部订单号
+	OutTradeNo *string `json:"out_trade_no,omitempty" xml:"out_trade_no,omitempty"`
+	// 最近一次扣款触发时间戳（单位：ms）
+	DeductTime *string `json:"deduct_time,omitempty" xml:"deduct_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 创建代扣计划时设置的扣款时间戳（单位：ms）
+	PayDate *string `json:"pay_date,omitempty" xml:"pay_date,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 计划扣款金额（单位：分）
+	PayMoney *int64 `json:"pay_money,omitempty" xml:"pay_money,omitempty"`
+	// 扣款状态
+	// PAY_TOBE_TRIGGER 初始未扣款
+	// TRADE_IN_PROGRESS 扣款中
+	// TRADE_REFUNDED 已发生退款
+	// TRADE_END 交易终止（未成功）
+	// TRADE_SUCCESS 扣款成功
+	// TRADE_FAIL 扣款失败
+	// TRADE_FINISHED 交易终止（扣款成功，并且距离首次扣款超过180天）
+	// TRADE_CANCEL 代扣取消
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s QueryContractTradestatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractTradestatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractTradestatusResponse) SetReqMsgId(v string) *QueryContractTradestatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryContractTradestatusResponse) SetResultCode(v string) *QueryContractTradestatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryContractTradestatusResponse) SetResultMsg(v string) *QueryContractTradestatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryContractTradestatusResponse) SetOutTradeNo(v string) *QueryContractTradestatusResponse {
+	s.OutTradeNo = &v
+	return s
+}
+
+func (s *QueryContractTradestatusResponse) SetDeductTime(v string) *QueryContractTradestatusResponse {
+	s.DeductTime = &v
+	return s
+}
+
+func (s *QueryContractTradestatusResponse) SetPayDate(v string) *QueryContractTradestatusResponse {
+	s.PayDate = &v
+	return s
+}
+
+func (s *QueryContractTradestatusResponse) SetPayMoney(v int64) *QueryContractTradestatusResponse {
+	s.PayMoney = &v
+	return s
+}
+
+func (s *QueryContractTradestatusResponse) SetStatus(v string) *QueryContractTradestatusResponse {
+	s.Status = &v
+	return s
+}
+
+type QueryContractRefundRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 退款ID，用户调用退款接口时传入的自定义第三方id
+	RefundId *string `json:"refund_id,omitempty" xml:"refund_id,omitempty" require:"true"`
+}
+
+func (s QueryContractRefundRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractRefundRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractRefundRequest) SetAuthToken(v string) *QueryContractRefundRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryContractRefundRequest) SetProductInstanceId(v string) *QueryContractRefundRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryContractRefundRequest) SetRefundId(v string) *QueryContractRefundRequest {
+	s.RefundId = &v
+	return s
+}
+
+type QueryContractRefundResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 退款id
+	RefundId *string `json:"refund_id,omitempty" xml:"refund_id,omitempty"`
+	// 退款时间（时间戳，单位：ms）
+	RefundTime *string `json:"refund_time,omitempty" xml:"refund_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 本次退款请求的退款金额（单位：分）
+	RefundAmount *int64 `json:"refund_amount,omitempty" xml:"refund_amount,omitempty"`
+	// 退款状态
+	// REFUNDING 退款中
+	// SUCCESS 退款成功
+	// FAIL 退款失败
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 退款错误信息
+	ErrMsg *string `json:"err_msg,omitempty" xml:"err_msg,omitempty"`
+}
+
+func (s QueryContractRefundResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractRefundResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractRefundResponse) SetReqMsgId(v string) *QueryContractRefundResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryContractRefundResponse) SetResultCode(v string) *QueryContractRefundResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryContractRefundResponse) SetResultMsg(v string) *QueryContractRefundResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryContractRefundResponse) SetRefundId(v string) *QueryContractRefundResponse {
+	s.RefundId = &v
+	return s
+}
+
+func (s *QueryContractRefundResponse) SetRefundTime(v string) *QueryContractRefundResponse {
+	s.RefundTime = &v
+	return s
+}
+
+func (s *QueryContractRefundResponse) SetRefundAmount(v int64) *QueryContractRefundResponse {
+	s.RefundAmount = &v
+	return s
+}
+
+func (s *QueryContractRefundResponse) SetStatus(v string) *QueryContractRefundResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryContractRefundResponse) SetErrMsg(v string) *QueryContractRefundResponse {
+	s.ErrMsg = &v
+	return s
+}
+
 type SyncInnerTransRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -16973,6 +18120,10 @@ type ApplyLeaseSupplierorderRequest struct {
 	SupplierId *string `json:"supplier_id,omitempty" xml:"supplier_id,omitempty" require:"true"`
 	// 商品信息
 	ProductInfos []*ApplySupplierOrderProductInput `json:"product_infos,omitempty" xml:"product_infos,omitempty" require:"true" type:"Repeated"`
+	// isv代理模式
+	Mode *string `json:"mode,omitempty" xml:"mode,omitempty"`
+	// 被代理的租户id
+	AgentLeaseId *string `json:"agent_lease_id,omitempty" xml:"agent_lease_id,omitempty"`
 }
 
 func (s ApplyLeaseSupplierorderRequest) String() string {
@@ -17005,6 +18156,16 @@ func (s *ApplyLeaseSupplierorderRequest) SetSupplierId(v string) *ApplyLeaseSupp
 
 func (s *ApplyLeaseSupplierorderRequest) SetProductInfos(v []*ApplySupplierOrderProductInput) *ApplyLeaseSupplierorderRequest {
 	s.ProductInfos = v
+	return s
+}
+
+func (s *ApplyLeaseSupplierorderRequest) SetMode(v string) *ApplyLeaseSupplierorderRequest {
+	s.Mode = &v
+	return s
+}
+
+func (s *ApplyLeaseSupplierorderRequest) SetAgentLeaseId(v string) *ApplyLeaseSupplierorderRequest {
+	s.AgentLeaseId = &v
 	return s
 }
 
@@ -26818,7 +27979,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.39"),
+				"sdk_version":      tea.String("1.6.7"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -29345,6 +30506,312 @@ func (client *Client) ConfirmContractMerchantEx(request *ConfirmContractMerchant
 	}
 	_result = &ConfirmContractMerchantResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.merchant.confirm"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建合同存证事务ID。私有云使用。
+ * Summary: 创建合同存证事务ID。私有云使用。
+ */
+func (client *Client) CreatePrivatecontractTrans(request *CreatePrivatecontractTransRequest) (_result *CreatePrivatecontractTransResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreatePrivatecontractTransResponse{}
+	_body, _err := client.CreatePrivatecontractTransEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建合同存证事务ID。私有云使用。
+ * Summary: 创建合同存证事务ID。私有云使用。
+ */
+func (client *Client) CreatePrivatecontractTransEx(request *CreatePrivatecontractTransRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreatePrivatecontractTransResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreatePrivatecontractTransResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.privatecontract.trans.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 合同文本存证。私有云使用。
+ * Summary: 合同文本存证。私有云使用。
+ */
+func (client *Client) CreatePrivatecontractText(request *CreatePrivatecontractTextRequest) (_result *CreatePrivatecontractTextResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreatePrivatecontractTextResponse{}
+	_body, _err := client.CreatePrivatecontractTextEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 合同文本存证。私有云使用。
+ * Summary: 合同文本存证。私有云使用。
+ */
+func (client *Client) CreatePrivatecontractTextEx(request *CreatePrivatecontractTextRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreatePrivatecontractTextResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreatePrivatecontractTextResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.privatecontract.text.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人二要素校验
+ * Summary: 个人二要素校验
+ */
+func (client *Client) VerifyPrivatepersonTwometa(request *VerifyPrivatepersonTwometaRequest) (_result *VerifyPrivatepersonTwometaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerifyPrivatepersonTwometaResponse{}
+	_body, _err := client.VerifyPrivatepersonTwometaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人二要素校验
+ * Summary: 个人二要素校验
+ */
+func (client *Client) VerifyPrivatepersonTwometaEx(request *VerifyPrivatepersonTwometaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifyPrivatepersonTwometaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerifyPrivatepersonTwometaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.privateperson.twometa.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企业二要素校验
+ * Summary: 企业二要素校验
+ */
+func (client *Client) VerifyPrivatecompanyTwometa(request *VerifyPrivatecompanyTwometaRequest) (_result *VerifyPrivatecompanyTwometaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerifyPrivatecompanyTwometaResponse{}
+	_body, _err := client.VerifyPrivatecompanyTwometaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企业二要素校验
+ * Summary: 企业二要素校验
+ */
+func (client *Client) VerifyPrivatecompanyTwometaEx(request *VerifyPrivatecompanyTwometaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifyPrivatecompanyTwometaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerifyPrivatecompanyTwometaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.privatecompany.twometa.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企业四要素校验
+ * Summary: 企业四要素校验
+ */
+func (client *Client) VerifyPrivatecompanyFourmeta(request *VerifyPrivatecompanyFourmetaRequest) (_result *VerifyPrivatecompanyFourmetaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerifyPrivatecompanyFourmetaResponse{}
+	_body, _err := client.VerifyPrivatecompanyFourmetaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企业四要素校验
+ * Summary: 企业四要素校验
+ */
+func (client *Client) VerifyPrivatecompanyFourmetaEx(request *VerifyPrivatecompanyFourmetaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifyPrivatecompanyFourmetaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerifyPrivatecompanyFourmetaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.privatecompany.fourmeta.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 开放给私有云用户证书申请接口.
+ * Summary: 私有云用户证书申请接口.
+ */
+func (client *Client) ApplyPrivatecontractUsercert(request *ApplyPrivatecontractUsercertRequest) (_result *ApplyPrivatecontractUsercertResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyPrivatecontractUsercertResponse{}
+	_body, _err := client.ApplyPrivatecontractUsercertEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 开放给私有云用户证书申请接口.
+ * Summary: 私有云用户证书申请接口.
+ */
+func (client *Client) ApplyPrivatecontractUsercertEx(request *ApplyPrivatecontractUsercertRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyPrivatecontractUsercertResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyPrivatecontractUsercertResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.privatecontract.usercert.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 提供给私有云系统的用户更新接口.
+ * Summary: 私有云用户更新接口.
+ */
+func (client *Client) UpdatePrivatecontractUser(request *UpdatePrivatecontractUserRequest) (_result *UpdatePrivatecontractUserResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdatePrivatecontractUserResponse{}
+	_body, _err := client.UpdatePrivatecontractUserEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 提供给私有云系统的用户更新接口.
+ * Summary: 私有云用户更新接口.
+ */
+func (client *Client) UpdatePrivatecontractUserEx(request *UpdatePrivatecontractUserRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdatePrivatecontractUserResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdatePrivatecontractUserResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.privatecontract.user.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+ * Summary: 代扣计划状态查询
+ */
+func (client *Client) QueryContractTradestatus(request *QueryContractTradestatusRequest) (_result *QueryContractTradestatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryContractTradestatusResponse{}
+	_body, _err := client.QueryContractTradestatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+ * Summary: 代扣计划状态查询
+ */
+func (client *Client) QueryContractTradestatusEx(request *QueryContractTradestatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContractTradestatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryContractTradestatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.tradestatus.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 代扣退款查询
+ * Summary: 代扣退款查询
+ */
+func (client *Client) QueryContractRefund(request *QueryContractRefundRequest) (_result *QueryContractRefundResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryContractRefundResponse{}
+	_body, _err := client.QueryContractRefundEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 代扣退款查询
+ * Summary: 代扣退款查询
+ */
+func (client *Client) QueryContractRefundEx(request *QueryContractRefundRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContractRefundResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryContractRefundResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.refund.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
