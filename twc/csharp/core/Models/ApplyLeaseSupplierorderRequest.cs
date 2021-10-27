@@ -33,6 +33,16 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public List<ApplySupplierOrderProductInput> ProductInfos { get; set; }
 
+        // isv代理模式
+        [NameInMap("mode")]
+        [Validation(Required=false)]
+        public string Mode { get; set; }
+
+        // 被代理的租户id
+        [NameInMap("agent_lease_id")]
+        [Validation(Required=false)]
+        public string AgentLeaseId { get; set; }
+
     }
 
 }

@@ -40,6 +40,21 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string TxHash { get; set; }
 
+        // 发起人名称
+        [NameInMap("intiator_name")]
+        [Validation(Required=false)]
+        public string IntiatorName { get; set; }
+
+        // 签署人名称,多个逗号隔开
+        [NameInMap("signator_names")]
+        [Validation(Required=false)]
+        public string SignatorNames { get; set; }
+
+        // 详细文件哈希
+        [NameInMap("detail_info_file_hash")]
+        [Validation(Required=false)]
+        public string DetailInfoFileHash { get; set; }
+
     }
 
 }
