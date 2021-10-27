@@ -13527,7 +13527,7 @@ func (s *VerifyPrivatecompanyFourmetaResponse) SetMessage(v string) *VerifyPriva
 	return s
 }
 
-type ApplyPrivatecontractUsercertRequest struct {
+type CreatePrivatecontractUserRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -13546,55 +13546,55 @@ type ApplyPrivatecontractUsercertRequest struct {
 	UserCertNumber *string `json:"user_cert_number,omitempty" xml:"user_cert_number,omitempty" require:"true"`
 }
 
-func (s ApplyPrivatecontractUsercertRequest) String() string {
+func (s CreatePrivatecontractUserRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ApplyPrivatecontractUsercertRequest) GoString() string {
+func (s CreatePrivatecontractUserRequest) GoString() string {
 	return s.String()
 }
 
-func (s *ApplyPrivatecontractUsercertRequest) SetAuthToken(v string) *ApplyPrivatecontractUsercertRequest {
+func (s *CreatePrivatecontractUserRequest) SetAuthToken(v string) *CreatePrivatecontractUserRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *ApplyPrivatecontractUsercertRequest) SetProductInstanceId(v string) *ApplyPrivatecontractUsercertRequest {
+func (s *CreatePrivatecontractUserRequest) SetProductInstanceId(v string) *CreatePrivatecontractUserRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *ApplyPrivatecontractUsercertRequest) SetInstanceId(v string) *ApplyPrivatecontractUsercertRequest {
+func (s *CreatePrivatecontractUserRequest) SetInstanceId(v string) *CreatePrivatecontractUserRequest {
 	s.InstanceId = &v
 	return s
 }
 
-func (s *ApplyPrivatecontractUsercertRequest) SetUserInnerId(v string) *ApplyPrivatecontractUsercertRequest {
+func (s *CreatePrivatecontractUserRequest) SetUserInnerId(v string) *CreatePrivatecontractUserRequest {
 	s.UserInnerId = &v
 	return s
 }
 
-func (s *ApplyPrivatecontractUsercertRequest) SetUserType(v string) *ApplyPrivatecontractUsercertRequest {
+func (s *CreatePrivatecontractUserRequest) SetUserType(v string) *CreatePrivatecontractUserRequest {
 	s.UserType = &v
 	return s
 }
 
-func (s *ApplyPrivatecontractUsercertRequest) SetUserName(v string) *ApplyPrivatecontractUsercertRequest {
+func (s *CreatePrivatecontractUserRequest) SetUserName(v string) *CreatePrivatecontractUserRequest {
 	s.UserName = &v
 	return s
 }
 
-func (s *ApplyPrivatecontractUsercertRequest) SetUserCertType(v string) *ApplyPrivatecontractUsercertRequest {
+func (s *CreatePrivatecontractUserRequest) SetUserCertType(v string) *CreatePrivatecontractUserRequest {
 	s.UserCertType = &v
 	return s
 }
 
-func (s *ApplyPrivatecontractUsercertRequest) SetUserCertNumber(v string) *ApplyPrivatecontractUsercertRequest {
+func (s *CreatePrivatecontractUserRequest) SetUserCertNumber(v string) *CreatePrivatecontractUserRequest {
 	s.UserCertNumber = &v
 	return s
 }
 
-type ApplyPrivatecontractUsercertResponse struct {
+type CreatePrivatecontractUserResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -13615,55 +13615,55 @@ type ApplyPrivatecontractUsercertResponse struct {
 	CertEndTime *int64 `json:"cert_end_time,omitempty" xml:"cert_end_time,omitempty"`
 }
 
-func (s ApplyPrivatecontractUsercertResponse) String() string {
+func (s CreatePrivatecontractUserResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ApplyPrivatecontractUsercertResponse) GoString() string {
+func (s CreatePrivatecontractUserResponse) GoString() string {
 	return s.String()
 }
 
-func (s *ApplyPrivatecontractUsercertResponse) SetReqMsgId(v string) *ApplyPrivatecontractUsercertResponse {
+func (s *CreatePrivatecontractUserResponse) SetReqMsgId(v string) *CreatePrivatecontractUserResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *ApplyPrivatecontractUsercertResponse) SetResultCode(v string) *ApplyPrivatecontractUsercertResponse {
+func (s *CreatePrivatecontractUserResponse) SetResultCode(v string) *CreatePrivatecontractUserResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *ApplyPrivatecontractUsercertResponse) SetResultMsg(v string) *ApplyPrivatecontractUsercertResponse {
+func (s *CreatePrivatecontractUserResponse) SetResultMsg(v string) *CreatePrivatecontractUserResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *ApplyPrivatecontractUsercertResponse) SetSuccess(v bool) *ApplyPrivatecontractUsercertResponse {
+func (s *CreatePrivatecontractUserResponse) SetSuccess(v bool) *CreatePrivatecontractUserResponse {
 	s.Success = &v
 	return s
 }
 
-func (s *ApplyPrivatecontractUsercertResponse) SetCode(v string) *ApplyPrivatecontractUsercertResponse {
+func (s *CreatePrivatecontractUserResponse) SetCode(v string) *CreatePrivatecontractUserResponse {
 	s.Code = &v
 	return s
 }
 
-func (s *ApplyPrivatecontractUsercertResponse) SetMessage(v string) *ApplyPrivatecontractUsercertResponse {
+func (s *CreatePrivatecontractUserResponse) SetMessage(v string) *CreatePrivatecontractUserResponse {
 	s.Message = &v
 	return s
 }
 
-func (s *ApplyPrivatecontractUsercertResponse) SetCertAuthOrg(v string) *ApplyPrivatecontractUsercertResponse {
+func (s *CreatePrivatecontractUserResponse) SetCertAuthOrg(v string) *CreatePrivatecontractUserResponse {
 	s.CertAuthOrg = &v
 	return s
 }
 
-func (s *ApplyPrivatecontractUsercertResponse) SetCertSerialNumber(v string) *ApplyPrivatecontractUsercertResponse {
+func (s *CreatePrivatecontractUserResponse) SetCertSerialNumber(v string) *CreatePrivatecontractUserResponse {
 	s.CertSerialNumber = &v
 	return s
 }
 
-func (s *ApplyPrivatecontractUsercertResponse) SetCertEndTime(v int64) *ApplyPrivatecontractUsercertResponse {
+func (s *CreatePrivatecontractUserResponse) SetCertEndTime(v int64) *CreatePrivatecontractUserResponse {
 	s.CertEndTime = &v
 	return s
 }
@@ -27979,7 +27979,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.7"),
+				"sdk_version":      tea.String("1.6.8"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -30684,14 +30684,14 @@ func (client *Client) VerifyPrivatecompanyFourmetaEx(request *VerifyPrivatecompa
 }
 
 /**
- * Description: 开放给私有云用户证书申请接口.
- * Summary: 私有云用户证书申请接口.
+ * Description: 开放给私有云的外部用户的注册接口.
+ * Summary: 私有云的外部用户注册接口.
  */
-func (client *Client) ApplyPrivatecontractUsercert(request *ApplyPrivatecontractUsercertRequest) (_result *ApplyPrivatecontractUsercertResponse, _err error) {
+func (client *Client) CreatePrivatecontractUser(request *CreatePrivatecontractUserRequest) (_result *CreatePrivatecontractUserResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &ApplyPrivatecontractUsercertResponse{}
-	_body, _err := client.ApplyPrivatecontractUsercertEx(request, headers, runtime)
+	_result = &CreatePrivatecontractUserResponse{}
+	_body, _err := client.CreatePrivatecontractUserEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -30700,16 +30700,16 @@ func (client *Client) ApplyPrivatecontractUsercert(request *ApplyPrivatecontract
 }
 
 /**
- * Description: 开放给私有云用户证书申请接口.
- * Summary: 私有云用户证书申请接口.
+ * Description: 开放给私有云的外部用户的注册接口.
+ * Summary: 私有云的外部用户注册接口.
  */
-func (client *Client) ApplyPrivatecontractUsercertEx(request *ApplyPrivatecontractUsercertRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyPrivatecontractUsercertResponse, _err error) {
+func (client *Client) CreatePrivatecontractUserEx(request *CreatePrivatecontractUserRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreatePrivatecontractUserResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &ApplyPrivatecontractUsercertResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.privatecontract.usercert.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &CreatePrivatecontractUserResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.privatecontract.user.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
