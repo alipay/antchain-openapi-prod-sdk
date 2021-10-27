@@ -10042,7 +10042,7 @@ export class VerifyPrivatecompanyFourmetaResponse extends $tea.Model {
   }
 }
 
-export class ApplyPrivatecontractUsercertRequest extends $tea.Model {
+export class CreatePrivatecontractUserRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -10090,7 +10090,7 @@ export class ApplyPrivatecontractUsercertRequest extends $tea.Model {
   }
 }
 
-export class ApplyPrivatecontractUsercertResponse extends $tea.Model {
+export class CreatePrivatecontractUserResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -20586,7 +20586,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.7",
+          sdk_version: "1.6.8",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -22119,22 +22119,22 @@ export default class Client {
   }
 
   /**
-   * Description: 开放给私有云用户证书申请接口.
-   * Summary: 私有云用户证书申请接口.
+   * Description: 开放给私有云的外部用户的注册接口.
+   * Summary: 私有云的外部用户注册接口.
    */
-  async applyPrivatecontractUsercert(request: ApplyPrivatecontractUsercertRequest): Promise<ApplyPrivatecontractUsercertResponse> {
+  async createPrivatecontractUser(request: CreatePrivatecontractUserRequest): Promise<CreatePrivatecontractUserResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.applyPrivatecontractUsercertEx(request, headers, runtime);
+    return await this.createPrivatecontractUserEx(request, headers, runtime);
   }
 
   /**
-   * Description: 开放给私有云用户证书申请接口.
-   * Summary: 私有云用户证书申请接口.
+   * Description: 开放给私有云的外部用户的注册接口.
+   * Summary: 私有云的外部用户注册接口.
    */
-  async applyPrivatecontractUsercertEx(request: ApplyPrivatecontractUsercertRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyPrivatecontractUsercertResponse> {
+  async createPrivatecontractUserEx(request: CreatePrivatecontractUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreatePrivatecontractUserResponse> {
     Util.validateModel(request);
-    return $tea.cast<ApplyPrivatecontractUsercertResponse>(await this.doRequest("1.0", "twc.notary.privatecontract.usercert.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyPrivatecontractUsercertResponse({}));
+    return $tea.cast<CreatePrivatecontractUserResponse>(await this.doRequest("1.0", "twc.notary.privatecontract.user.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreatePrivatecontractUserResponse({}));
   }
 
   /**
