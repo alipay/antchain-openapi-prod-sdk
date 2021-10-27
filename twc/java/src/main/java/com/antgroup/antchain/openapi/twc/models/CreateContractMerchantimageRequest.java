@@ -16,7 +16,7 @@ public class CreateContractMerchantimageRequest extends TeaModel {
     @Validation(required = true)
     public String content;
 
-    // 图片名称
+    // 图片名称，必须带标准图片后缀
     @NameInMap("file_name")
     @Validation(required = true)
     public String fileName;

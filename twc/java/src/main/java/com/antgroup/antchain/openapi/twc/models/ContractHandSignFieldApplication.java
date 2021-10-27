@@ -4,7 +4,7 @@ package com.antgroup.antchain.openapi.twc.models;
 import com.aliyun.tea.*;
 
 public class ContractHandSignFieldApplication extends TeaModel {
-    // 签署操作人个人账号标识，即操作本次签署的个人，如需通知用户签署，则系统向该账号下绑定的手机、邮箱发送签署链接
+    // 签署操作人个人账号标识，即操作本次签署的个人
     @NameInMap("account_id")
     @Validation(required = true)
     public String accountId;
@@ -18,7 +18,7 @@ public class ContractHandSignFieldApplication extends TeaModel {
     @NameInMap("order")
     public Long order;
 
-    // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字。不指定xy坐标签署区可不填写，其他情况需填写。
+    // 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字；不指定xy坐标签署区可不填写
     @NameInMap("pos_page")
     public String posPage;
 
@@ -58,7 +58,7 @@ public class ContractHandSignFieldApplication extends TeaModel {
     @NameInMap("sign_date_pos_y")
     public String signDatePosY;
 
-    // 签署类型，0-不限，1-单页签署，2-骑缝签署，默认1
+    // 签署类型，1-单页签署，2-骑缝签署，默认1
     @NameInMap("sign_type")
     public Long signType;
 

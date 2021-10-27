@@ -16,7 +16,7 @@ public class CreateContractMerchantrefundRequest extends TeaModel {
     @Validation(required = true)
     public String flowId;
 
-    // 退款请求对应的码
+    // 退款请求对应的第三方ID（也叫退款ID），需保证同一平台方下唯一
     @NameInMap("out_request_no")
     @Validation(required = true)
     public String outRequestNo;
@@ -26,7 +26,7 @@ public class CreateContractMerchantrefundRequest extends TeaModel {
     @Validation(required = true)
     public String outTradeNo;
 
-    // 退款金额
+    // 退款金额（单位：分）
     @NameInMap("refund_amount")
     @Validation(required = true)
     public Long refundAmount;

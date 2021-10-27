@@ -18,19 +18,16 @@ public class OneStepSignField extends TeaModel {
     @NameInMap("order")
     public Long order;
 
-    // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
+    // 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字；不指定xy坐标签署区可不填写
     @NameInMap("pos_page")
-    @Validation(required = true)
     public String posPage;
 
     // x坐标
     @NameInMap("pos_x")
-    @Validation(required = true)
     public String posX;
 
     // y坐标
     @NameInMap("pos_y")
-    @Validation(required = true)
     public String posY;
 
     // 印章id
@@ -61,7 +58,7 @@ public class OneStepSignField extends TeaModel {
     @NameInMap("sign_date_pos_y")
     public String signDatePosY;
 
-    // 签署类型，0-不限，1-单页签署，2-骑缝签署，默认1
+    // 签署类型，1-单页签署，2-骑缝签署，默认1
     @NameInMap("sign_type")
     public Long signType;
 

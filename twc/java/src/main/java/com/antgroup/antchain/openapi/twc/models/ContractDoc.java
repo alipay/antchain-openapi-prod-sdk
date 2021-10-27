@@ -4,7 +4,7 @@ package com.antgroup.antchain.openapi.twc.models;
 import com.aliyun.tea.*;
 
 public class ContractDoc extends TeaModel {
-    // 是否加密，0-不加密，1-加，默认0
+    // 上传的电子合同文档是否被加密过，0-未被加密，1-被加密过，默认0
     @NameInMap("encryption")
     public Long encryption;
 
