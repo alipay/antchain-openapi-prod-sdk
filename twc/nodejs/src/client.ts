@@ -1076,8 +1076,8 @@ export class ContractSignFieldApplication extends $tea.Model {
   fileId: string;
   // 签署区顺序，默认1,且不小于1，顺序越小越先处理
   order?: number;
-  // 页码信息
-  posPage?: string;
+  // 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字
+  posPage: string;
   // x坐标转为字符串的值，默认空，页面签章必填，骑缝签章不填写
   posX?: string;
   // y坐标转为字符串的值
@@ -1088,7 +1088,7 @@ export class ContractSignFieldApplication extends $tea.Model {
   thirdOrderNo?: string;
   // 签署区宽，默认印章宽度	
   width?: string;
-  // 签署类型，0-不限，1-单页签署，2-骑缝签署，默认1
+  // 签署类型，1-单页签署，2-骑缝签署，默认1
   signType?: number;
   static names(): { [key: string]: string } {
     return {
@@ -2703,13 +2703,13 @@ export class EvidentialElement extends $tea.Model {
 
 // 创建电子合同手动签署盖章区时的申请信息
 export class ContractHandSignFieldApplication extends $tea.Model {
-  // 签署操作人个人账号标识，即操作本次签署的个人，如需通知用户签署，则系统向该账号下绑定的手机、邮箱发送签署链接
+  // 签署操作人个人账号标识，即操作本次签署的个人
   accountId: string;
   // 电子合同文件ID
   fileId: string;
   // 签署区顺序，默认1,且不小于1，顺序越小越先处理
   order?: number;
-  // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字。不指定xy坐标签署区可不填写，其他情况需填写。
+  // 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字；不指定xy坐标签署区可不填写
   posPage?: string;
   // x坐标，页面签章必填，骑缝签章不填写
   posX?: string;
@@ -2729,7 +2729,7 @@ export class ContractHandSignFieldApplication extends $tea.Model {
   signDatePosX?: string;
   // 签章日期y坐标，默认0
   signDatePosY?: string;
-  // 签署类型，0-不限，1-单页签署，2-骑缝签署，默认1
+  // 签署类型，1-单页签署，2-骑缝签署，默认1
   signType?: number;
   // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
   thirdOrderNo?: string;
@@ -3024,7 +3024,7 @@ export class LeaseNotaryRecord extends $tea.Model {
 
 // 电子合同文档
 export class ContractDoc extends $tea.Model {
-  // 是否加密，0-不加密，1-加，默认0
+  // 上传的电子合同文档是否被加密过，0-未被加密，1-被加密过，默认0
   encryption?: number;
   // 电子合同文档的ID
   fileId: string;
@@ -3125,7 +3125,7 @@ export class ContractNotaryDeductPlanInfo extends $tea.Model {
 export class ContractSignFlowConfig extends $tea.Model {
   // 回调通知地址 ,默认取项目配置通知地址
   noticeDeveloperUrl?: string;
-  // 通知方式，逗号分割，1-短信，2-邮件 。默认值1，请务必请选择一个通知方式，否则客户将接收不到流程的签署通知和审批通知，如果流程需要审批，将导致审批无法完成；如果客户需要不通知，可以设置notice_type为""
+  // 签署通知和审批通知的通知方式，传 "" 表示不需要通知，传"1"表示短信通知。短信功能需要联系售后开白名单才会生效。
   noticeType: string;
   // 签署成功或者流程结束后的默认重定向地址，默认签署完成停在当前页面
   redirectUrl?: string;
@@ -3240,12 +3240,12 @@ export class OneStepSignField extends $tea.Model {
   fileId: string;
   // 签署区顺序，默认1,且不小于1，顺序越小越先处理
   order?: number;
-  // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
-  posPage: string;
+  // 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字；不指定xy坐标签署区可不填写
+  posPage?: string;
   // x坐标
-  posX: string;
+  posX?: string;
   // y坐标
-  posY: string;
+  posY?: string;
   // 印章id
   sealId?: string;
   // 是否需要添加签署日期，0-禁止 1-必须 2-不限制，默认0
@@ -3260,7 +3260,7 @@ export class OneStepSignField extends $tea.Model {
   signDatePosX?: string;
   // 签章日期y坐标，默认0
   signDatePosY?: string;
-  // 签署类型，0-不限，1-单页签署，2-骑缝签署，默认1
+  // 签署类型，1-单页签署，2-骑缝签署，默认1
   signType?: number;
   // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
   thirdOrderNo?: string;
@@ -6141,7 +6141,7 @@ export class CreateContractRegisterzftRequest extends $tea.Model {
   productInstanceId?: string;
   // 地址。商户详细经营地址或人员所在地点
   address: string;
-  // 代理商户的账户
+  // 代理商户的账户。如为isv商家入驻，需要传agent_account_id字段，agent_account_id是isv为商家用户注册返回的机构id
   agentAccountId?: string;
   // 商户别名
   aliasName: string;
@@ -6691,11 +6691,11 @@ export class CreateContractMerchantrefundRequest extends $tea.Model {
   productInstanceId?: string;
   // 合同id
   flowId: string;
-  // 退款请求对应的码
+  // 退款请求对应的第三方ID（也叫退款ID），需保证同一平台方下唯一
   outRequestNo: string;
   // 订单id
   outTradeNo: string;
-  // 退款金额
+  // 退款金额（单位：分）
   refundAmount: number;
   static names(): { [key: string]: string } {
     return {
@@ -7228,7 +7228,7 @@ export class CreateContractMerchantimageRequest extends $tea.Model {
   productInstanceId?: string;
   // 图片内容，base64
   content: string;
-  // 图片名称
+  // 图片名称，必须带标准图片后缀
   fileName: string;
   static names(): { [key: string]: string } {
     return {
@@ -20586,7 +20586,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.8",
+          sdk_version: "1.6.9",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
