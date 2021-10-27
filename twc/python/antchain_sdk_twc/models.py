@@ -15568,7 +15568,7 @@ class VerifyPrivatecompanyFourmetaResponse(TeaModel):
         return self
 
 
-class ApplyPrivatecontractUsercertRequest(TeaModel):
+class CreatePrivatecontractUserRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -15646,7 +15646,7 @@ class ApplyPrivatecontractUsercertRequest(TeaModel):
         return self
 
 
-class ApplyPrivatecontractUsercertResponse(TeaModel):
+class CreatePrivatecontractUserResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
