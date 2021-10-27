@@ -10,7 +10,7 @@ namespace AntChain.SDK.TWC.Models
 {
     // 电子合同文档
     public class ContractDoc : TeaModel {
-        // 是否加密，0-不加密，1-加，默认0
+        // 上传的电子合同文档是否被加密过，0-未被加密，1-被加密过，默认0
         [NameInMap("encryption")]
         [Validation(Required=false)]
         public long? Encryption { get; set; }

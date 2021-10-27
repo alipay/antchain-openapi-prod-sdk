@@ -23,7 +23,7 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string Content { get; set; }
 
-        // 图片名称
+        // 图片名称，必须带标准图片后缀
         [NameInMap("file_name")]
         [Validation(Required=true)]
         public string FileName { get; set; }

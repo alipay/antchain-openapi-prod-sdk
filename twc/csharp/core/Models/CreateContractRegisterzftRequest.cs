@@ -23,7 +23,7 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string Address { get; set; }
 
-        // 代理商户的账户
+        // 代理商户的账户。如为isv商家入驻，需要传agent_account_id字段，agent_account_id是isv为商家用户注册返回的机构id
         [NameInMap("agent_account_id")]
         [Validation(Required=false)]
         public string AgentAccountId { get; set; }

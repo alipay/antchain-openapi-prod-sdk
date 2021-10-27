@@ -23,7 +23,7 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string FlowId { get; set; }
 
-        // 退款请求对应的码
+        // 退款请求对应的第三方ID（也叫退款ID），需保证同一平台方下唯一
         [NameInMap("out_request_no")]
         [Validation(Required=true)]
         public string OutRequestNo { get; set; }
@@ -33,7 +33,7 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string OutTradeNo { get; set; }
 
-        // 退款金额
+        // 退款金额（单位：分）
         [NameInMap("refund_amount")]
         [Validation(Required=true)]
         public long? RefundAmount { get; set; }

@@ -15,7 +15,7 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string NoticeDeveloperUrl { get; set; }
 
-        // 通知方式，逗号分割，1-短信，2-邮件 。默认值1，请务必请选择一个通知方式，否则客户将接收不到流程的签署通知和审批通知，如果流程需要审批，将导致审批无法完成；如果客户需要不通知，可以设置notice_type为""
+        // 签署通知和审批通知的通知方式，传 "" 表示不需要通知，传"1"表示短信通知。短信功能需要联系售后开白名单才会生效。
         [NameInMap("notice_type")]
         [Validation(Required=true)]
         public string NoticeType { get; set; }

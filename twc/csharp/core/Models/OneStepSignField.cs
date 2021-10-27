@@ -25,19 +25,19 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public long? Order { get; set; }
 
-        // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
+        // 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字；不指定xy坐标签署区可不填写
         [NameInMap("pos_page")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string PosPage { get; set; }
 
         // x坐标
         [NameInMap("pos_x")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string PosX { get; set; }
 
         // y坐标
         [NameInMap("pos_y")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string PosY { get; set; }
 
         // 印章id
@@ -75,7 +75,7 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string SignDatePosY { get; set; }
 
-        // 签署类型，0-不限，1-单页签署，2-骑缝签署，默认1
+        // 签署类型，1-单页签署，2-骑缝签署，默认1
         [NameInMap("sign_type")]
         [Validation(Required=false)]
         public long? SignType { get; set; }

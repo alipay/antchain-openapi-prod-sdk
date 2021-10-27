@@ -30,9 +30,9 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public long? Order { get; set; }
 
-        // 页码信息
+        // 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字
         [NameInMap("pos_page")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string PosPage { get; set; }
 
         // x坐标转为字符串的值，默认空，页面签章必填，骑缝签章不填写
@@ -60,7 +60,7 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string Width { get; set; }
 
-        // 签署类型，0-不限，1-单页签署，2-骑缝签署，默认1
+        // 签署类型，1-单页签署，2-骑缝签署，默认1
         [NameInMap("sign_type")]
         [Validation(Required=false)]
         public long? SignType { get; set; }
