@@ -8,7 +8,7 @@ use AlibabaCloud\Tea\Model;
 
 class ContractDoc extends Model
 {
-    // 是否加密，0-不加密，1-加，默认0
+    // 上传的电子合同文档是否被加密过，0-未被加密，1-被加密过，默认0
     /**
      * @example 1,0
      *

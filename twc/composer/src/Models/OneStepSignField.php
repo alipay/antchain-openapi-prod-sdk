@@ -32,7 +32,7 @@ class OneStepSignField extends Model
      */
     public $order;
 
-    // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
+    // 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字；不指定xy坐标签署区可不填写
     /**
      * @example 1
      *
@@ -112,7 +112,7 @@ class OneStepSignField extends Model
      */
     public $signDatePosY;
 
-    // 签署类型，0-不限，1-单页签署，2-骑缝签署，默认1
+    // 签署类型，1-单页签署，2-骑缝签署，默认1
     /**
      * @example 1
      *
@@ -167,9 +167,6 @@ class OneStepSignField extends Model
     {
         Model::validateRequired('accountId', $this->accountId, true);
         Model::validateRequired('fileId', $this->fileId, true);
-        Model::validateRequired('posPage', $this->posPage, true);
-        Model::validateRequired('posX', $this->posX, true);
-        Model::validateRequired('posY', $this->posY, true);
     }
 
     public function toMap()

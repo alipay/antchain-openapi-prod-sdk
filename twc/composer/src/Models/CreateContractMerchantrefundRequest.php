@@ -25,7 +25,7 @@ class CreateContractMerchantrefundRequest extends Model
      */
     public $flowId;
 
-    // 退款请求对应的码
+    // 退款请求对应的第三方ID（也叫退款ID），需保证同一平台方下唯一
     /**
      * @var string
      */
@@ -37,7 +37,7 @@ class CreateContractMerchantrefundRequest extends Model
      */
     public $outTradeNo;
 
-    // 退款金额
+    // 退款金额（单位：分）
     /**
      * @var int
      */
