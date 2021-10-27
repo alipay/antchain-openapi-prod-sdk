@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.39',
+    sdk_version = '1.6.7',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -379,6 +379,16 @@ model SupplierOrderProductInfo {
   productPrice: long(name='product_price', example='10000'),
   // 商品的sn信息
   snList: [ string ](name='sn_list', example='["sn1","sn2"]'),
+}
+
+// 个人信息
+model PersonInfo {
+  // 个人证件名称
+  certName: string(name='cert_name', example='张三'),
+  // 个人证件号码
+  certNo: string(name='cert_no', example='512223********1245'),
+  // 证件类型, 默认身份证 RESIDENT：居民身份证号，PASSPORT：护照，MILITARY：军官证
+  certType?: string(name='cert_type', example='RESIDENT'),
 }
 
 // 答辩人对象
@@ -883,6 +893,22 @@ model ContractSeal {
   sealBizType?: string(name='seal_biz_type', example='COMMON'),
 }
 
+// 企业四要素校验
+model CompanyFourMetaInfo {
+  // 企业证件名称
+  companyCertName: string(name='company_cert_name', example='XX公司'),
+  // 企业证件号码
+  companyCertNo: string(name='company_cert_no', example='9111011421316034XK'),
+  // 证件类型, 默认社会统一信用代码  NATIONAL_LEGAL_MERGE:统一社会信用代码，NATIONAL_LEGAL：营业执照号码
+  companyCertType?: string(name='company_cert_type', example='NATIONAL_LEGAL_MERGE'),
+  // 法人证件名称
+  legalPersonCertName: string(name='legal_person_cert_name', example='张三'),
+  // 法人证件号码
+  legalPersonCertNo: string(name='legal_person_cert_no', example='110103202110131593'),
+  // 法人证件类型 RESIDENT：居民身份证号，PASSPORT：护照，MILITARY：军官证
+  legalPersonCertType?: string(name='legal_person_cert_type', example='RESIDENT'),
+}
+
 // 见证流程签署数据
 model WitnessSignData {
   // 印章图片fileKey列表
@@ -1011,6 +1037,16 @@ model NotaryCheckMeta {
   applicationCode?: string(name='application_code', example='dstj'),
 }
 
+// 企业信息
+model CompanyTwoMetaInfo {
+  // 企业证件名称
+  certName: string(name='cert_name', example='XX公司'),
+  // 企业证件号码
+  certNo: string(name='cert_no', example='9111011421316034XK'),
+  // 证件类型, 默认社会统一信用代码  NATIONAL_LEGAL_MERGE:统一社会信用代码，NATIONAL_LEGAL：营业执照号码
+  certType?: string(name='cert_type', example='NATIONAL_LEGAL_MERGE'),
+}
+
 // 电子合同文档的下载地址
 model ContractDocAddress {
   // 电子合同文档ID
@@ -1083,6 +1119,12 @@ model ContractNotarySignInfo {
   timestamp: string(name='timestamp', example='1589198173000'),
   // 存证凭据，仅在批量核验时需要填写
   txHash?: string(name='tx_hash', example='95a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1c92'),
+  // 发起人名称
+  intiatorName?: string(name='intiator_name', example='张三'),
+  // 签署人名称,多个逗号隔开
+  signatorNames?: string(name='signator_names', example='李四,王五'),
+  // 详细文件哈希
+  detailInfoFileHash?: string(name='detail_info_file_hash', example='91a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1cqa '),
 }
 
 // 合同存证信息
@@ -1117,6 +1159,14 @@ model ContractNotaryFinishInfo {
   businessType?: string(name='business_type', example='finance'),
   // 合同对应的金额，如果不涉及金额，填充为0，个数与file_num对应
   amounts?: string(name='amounts', example='888,0,888'),
+  // 签署方数量
+  signPartyCount?: long(name='sign_party_count', example='2'),
+  // 发起人名称
+  intiatorName?: string(name='intiator_name', example='张三'),
+  // 签署人名称,多个逗号隔开
+  signatorNames?: string(name='signator_names', example='李四,王五'),
+  // 详细文件哈希
+  detailInfoFileHash?: string(name='detail_info_file_hash', example='a91a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1cqa'),
 }
 
 // 智能合同机构账户创建申请信息
@@ -1411,6 +1461,12 @@ model ContractNotaryInitInfo {
   timestamp: string(name='timestamp', example='1589198173000'),
   // 存证凭据，仅在批量核验时需要填写
   txHash?: string(name='tx_hash', example='95a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1c92'),
+  // 发起人名称
+  intiatorName?: string(name='intiator_name', example='张三'),
+  // 签署人名称,多个逗号隔开
+  signatorNames?: string(name='signator_names', example='李四,王五'),
+  // 详细文件哈希
+  detailInfoFileHash?: string(name='detail_info_file_hash', example='91a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1cqa'),
 }
 
 // 见证流程创建响应数据
@@ -5179,6 +5235,455 @@ async function confirmContractMerchantEx(request: ConfirmContractMerchantRequest
   return doRequest('1.0' ,'twc.notary.contract.merchant.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model CreatePrivatecontractTransRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 存证关联实体（个人/企业）的身份识别信息
+  customer: Identity(name='customer'),
+  // 扩展属性
+  properties?: string(name='properties'),
+  // 业务子类型标识
+  subBizId?: string(name='sub_biz_id'),
+  // 是否使用可信时间戳，默认为false
+  tsr?: boolean(name='tsr'),
+}
+
+model CreatePrivatecontractTransResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回事务ID，全局唯一
+  transactionId?: string(name='transaction_id'),
+  // 可信时间信息
+  tsr?: TsrResponse(name='tsr'),
+}
+
+/**
+ * Description: 创建合同存证事务ID。私有云使用。
+ * Summary: 创建合同存证事务ID。私有云使用。
+ */
+async function createPrivatecontractTrans(request: CreatePrivatecontractTransRequest): CreatePrivatecontractTransResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createPrivatecontractTransEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建合同存证事务ID。私有云使用。
+ * Summary: 创建合同存证事务ID。私有云使用。
+ */
+async function createPrivatecontractTransEx(request: CreatePrivatecontractTransRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreatePrivatecontractTransResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.privatecontract.trans.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreatePrivatecontractTextRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 签署结束信息，phase为FINISH时必选
+  finishInfo?: ContractNotaryFinishInfo(name='finish_info'),
+  // 签署流程ID
+  flowId: string(name='flow_id'),
+  // 	签署发起信息，phase为INIT时必选
+  initInfo?: ContractNotaryInitInfo(name='init_info'),
+  // 存证阶段，分为INIT(发起)，SIGN(签署)，FINISH(结束)
+  phase: string(name='phase'),
+  // 签署过程信息，phase为SIGN时必选
+  signInfo?: ContractNotarySignInfo(name='sign_info'),
+  // 存证事务ID
+  transactionId: string(name='transaction_id'),
+  // 签署文件存档阶段存证核验信息
+  documentInfo?: ContractNotaryDocumentInfo(name='document_info'),
+}
+
+model CreatePrivatecontractTextResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证凭据,
+  txHash?: string(name='tx_hash'),
+}
+
+/**
+ * Description: 合同文本存证。私有云使用。
+ * Summary: 合同文本存证。私有云使用。
+ */
+async function createPrivatecontractText(request: CreatePrivatecontractTextRequest): CreatePrivatecontractTextResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createPrivatecontractTextEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合同文本存证。私有云使用。
+ * Summary: 合同文本存证。私有云使用。
+ */
+async function createPrivatecontractTextEx(request: CreatePrivatecontractTextRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreatePrivatecontractTextResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.privatecontract.text.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyPrivatepersonTwometaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 个人信息
+  personInfo: PersonInfo(name='person_info'),
+  // 私有云实例id
+  instanceId: string(name='instance_id'),
+}
+
+model VerifyPrivatepersonTwometaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 调用返回值。"0"为调用成功。
+  code?: string(name='code'),
+  // 校验是否通过。
+  pass?: boolean(name='pass'),
+  // 错误信息描述
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 个人二要素校验
+ * Summary: 个人二要素校验
+ */
+async function verifyPrivatepersonTwometa(request: VerifyPrivatepersonTwometaRequest): VerifyPrivatepersonTwometaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyPrivatepersonTwometaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人二要素校验
+ * Summary: 个人二要素校验
+ */
+async function verifyPrivatepersonTwometaEx(request: VerifyPrivatepersonTwometaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyPrivatepersonTwometaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.privateperson.twometa.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyPrivatecompanyTwometaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 私有云实例id
+  instanceId: string(name='instance_id'),
+  // 企业信息
+  companyTwoMetaInfo: CompanyTwoMetaInfo(name='company_two_meta_info'),
+}
+
+model VerifyPrivatecompanyTwometaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 调用返回值。"0"为调用成功。
+  code?: string(name='code'),
+  // 校验是否通过。
+  pass?: boolean(name='pass'),
+  // 错误信息描述
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 企业二要素校验
+ * Summary: 企业二要素校验
+ */
+async function verifyPrivatecompanyTwometa(request: VerifyPrivatecompanyTwometaRequest): VerifyPrivatecompanyTwometaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyPrivatecompanyTwometaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业二要素校验
+ * Summary: 企业二要素校验
+ */
+async function verifyPrivatecompanyTwometaEx(request: VerifyPrivatecompanyTwometaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyPrivatecompanyTwometaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.privatecompany.twometa.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyPrivatecompanyFourmetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 私有云实例id
+  instanceId: string(name='instance_id'),
+  // 企业信息
+  companyFourMetaInfo: CompanyFourMetaInfo(name='company_four_meta_info'),
+}
+
+model VerifyPrivatecompanyFourmetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 调用返回值。"0"为调用成功。
+  code?: string(name='code'),
+  // 校验是否通过。
+  pass?: boolean(name='pass'),
+  // 错误信息描述
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 企业四要素校验
+ * Summary: 企业四要素校验
+ */
+async function verifyPrivatecompanyFourmeta(request: VerifyPrivatecompanyFourmetaRequest): VerifyPrivatecompanyFourmetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyPrivatecompanyFourmetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业四要素校验
+ * Summary: 企业四要素校验
+ */
+async function verifyPrivatecompanyFourmetaEx(request: VerifyPrivatecompanyFourmetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyPrivatecompanyFourmetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.privatecompany.fourmeta.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyPrivatecontractUsercertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 私有云实例id
+  instanceId: string(name='instance_id'),
+  // 私有云系统内部生成的id
+  userInnerId: string(name='user_inner_id'),
+  // 用户类型,个人PERSON，企业ORG
+  userType: string(name='user_type'),
+  // 用户名称, 个人为个人名称，企业为企业名称
+  userName: string(name='user_name'),
+  // 用户证件类型，默认个人,身份证CRED_PSN_CH_IDCARD；
+  // 企业,统一社会信用代码,CRED_ORG_USCC
+  userCertType: string(name='user_cert_type'),
+  // 证件号码
+  userCertNumber: string(name='user_cert_number'),
+}
+
+model ApplyPrivatecontractUsercertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 注册是否成功
+  success?: boolean(name='success'),
+  // 返回code,200成功，其他均为失败
+  code?: string(name='code'),
+  // 返回信息，成功返回success，错误时会返回详细信息。
+  message?: string(name='message'),
+  // 用户的CA证书办法机构
+  certAuthOrg?: string(name='cert_auth_org'),
+  // 用户的CA证书序列号
+  certSerialNumber?: string(name='cert_serial_number'),
+  // 用户证书过期时间
+  certEndTime?: long(name='cert_end_time'),
+}
+
+/**
+ * Description: 开放给私有云用户证书申请接口.
+ * Summary: 私有云用户证书申请接口.
+ */
+async function applyPrivatecontractUsercert(request: ApplyPrivatecontractUsercertRequest): ApplyPrivatecontractUsercertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyPrivatecontractUsercertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 开放给私有云用户证书申请接口.
+ * Summary: 私有云用户证书申请接口.
+ */
+async function applyPrivatecontractUsercertEx(request: ApplyPrivatecontractUsercertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyPrivatecontractUsercertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.privatecontract.usercert.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdatePrivatecontractUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 私有云实例id
+  // 
+  instanceId: string(name='instance_id'),
+  // 私有云生成的内部用户Id
+  // 
+  userInnerId: string(name='user_inner_id'),
+  // 用户名称，个人用户为个人名称，企业为企业名称
+  userName: string(name='user_name'),
+  // 企业用户必填，企业法人名称
+  // 
+  legalName?: string(name='legal_name'),
+  // 法人证件类型
+  // 
+  legalCertType?: string(name='legal_cert_type'),
+  // 法人证件对应的证件号码
+  // 
+  legalCertNumber?: string(name='legal_cert_number'),
+}
+
+model UpdatePrivatecontractUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 注册是否成功
+  // 
+  success?: boolean(name='success'),
+  // 返回code,200成功，其他均为失败
+  // 
+  code?: string(name='code'),
+  // 返回信息，成功返回success，错误时会返回详细信息。
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 提供给私有云系统的用户更新接口.
+ * Summary: 私有云用户更新接口.
+ */
+async function updatePrivatecontractUser(request: UpdatePrivatecontractUserRequest): UpdatePrivatecontractUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updatePrivatecontractUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提供给私有云系统的用户更新接口.
+ * Summary: 私有云用户更新接口.
+ */
+async function updatePrivatecontractUserEx(request: UpdatePrivatecontractUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdatePrivatecontractUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.privatecontract.user.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContractTradestatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 代扣计划外部订单号
+  outTradeNo: string(name='out_trade_no'),
+}
+
+model QueryContractTradestatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 代扣计划的外部订单号
+  outTradeNo?: string(name='out_trade_no'),
+  // 最近一次扣款触发时间戳（单位：ms）
+  deductTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='deduct_time'),
+  // 创建代扣计划时设置的扣款时间戳（单位：ms）
+  payDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='pay_date'),
+  // 计划扣款金额（单位：分）
+  payMoney?: long(name='pay_money'),
+  // 扣款状态
+  // PAY_TOBE_TRIGGER 初始未扣款
+  // TRADE_IN_PROGRESS 扣款中
+  // TRADE_REFUNDED 已发生退款
+  // TRADE_END 交易终止（未成功）
+  // TRADE_SUCCESS 扣款成功
+  // TRADE_FAIL 扣款失败
+  // TRADE_FINISHED 交易终止（扣款成功，并且距离首次扣款超过180天）
+  // TRADE_CANCEL 代扣取消
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+ * Summary: 代扣计划状态查询
+ */
+async function queryContractTradestatus(request: QueryContractTradestatusRequest): QueryContractTradestatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractTradestatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+ * Summary: 代扣计划状态查询
+ */
+async function queryContractTradestatusEx(request: QueryContractTradestatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractTradestatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.tradestatus.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContractRefundRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 退款ID，用户调用退款接口时传入的自定义第三方id
+  refundId: string(name='refund_id'),
+}
+
+model QueryContractRefundResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 退款id
+  refundId?: string(name='refund_id'),
+  // 退款时间（时间戳，单位：ms）
+  refundTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='refund_time'),
+  // 本次退款请求的退款金额（单位：分）
+  refundAmount?: long(name='refund_amount'),
+  // 退款状态
+  // REFUNDING 退款中
+  // SUCCESS 退款成功
+  // FAIL 退款失败
+  status?: string(name='status'),
+  // 退款错误信息
+  errMsg?: string(name='err_msg'),
+}
+
+/**
+ * Description: 代扣退款查询
+ * Summary: 代扣退款查询
+ */
+async function queryContractRefund(request: QueryContractRefundRequest): QueryContractRefundResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractRefundEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣退款查询
+ * Summary: 代扣退款查询
+ */
+async function queryContractRefundEx(request: QueryContractRefundRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractRefundResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.refund.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model SyncInnerTransRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -7084,6 +7589,10 @@ model ApplyLeaseSupplierorderRequest = {
   supplierId: string(name='supplier_id'),
   // 商品信息
   productInfos: [ ApplySupplierOrderProductInput ](name='product_infos'),
+  // isv代理模式
+  mode?: string(name='mode'),
+  // 被代理的租户id
+  agentLeaseId?: string(name='agent_lease_id'),
 }
 
 model ApplyLeaseSupplierorderResponse = {
