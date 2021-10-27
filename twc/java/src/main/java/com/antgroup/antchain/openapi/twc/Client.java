@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.7")
+                    new TeaPair("sdk_version", "1.6.8")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1646,22 +1646,22 @@ public class Client {
     }
 
     /**
-     * Description: 开放给私有云用户证书申请接口.
-     * Summary: 私有云用户证书申请接口.
+     * Description: 开放给私有云的外部用户的注册接口.
+     * Summary: 私有云的外部用户注册接口.
      */
-    public ApplyPrivatecontractUsercertResponse applyPrivatecontractUsercert(ApplyPrivatecontractUsercertRequest request) throws Exception {
+    public CreatePrivatecontractUserResponse createPrivatecontractUser(CreatePrivatecontractUserRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.applyPrivatecontractUsercertEx(request, headers, runtime);
+        return this.createPrivatecontractUserEx(request, headers, runtime);
     }
 
     /**
-     * Description: 开放给私有云用户证书申请接口.
-     * Summary: 私有云用户证书申请接口.
+     * Description: 开放给私有云的外部用户的注册接口.
+     * Summary: 私有云的外部用户注册接口.
      */
-    public ApplyPrivatecontractUsercertResponse applyPrivatecontractUsercertEx(ApplyPrivatecontractUsercertRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CreatePrivatecontractUserResponse createPrivatecontractUserEx(CreatePrivatecontractUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.privatecontract.usercert.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyPrivatecontractUsercertResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.privatecontract.user.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreatePrivatecontractUserResponse());
     }
 
     /**

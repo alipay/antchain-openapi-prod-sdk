@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class ApplyPrivatecontractUsercertRequest extends TeaModel {
+public class CreatePrivatecontractUserRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -42,12 +42,12 @@ public class ApplyPrivatecontractUsercertRequest extends TeaModel {
     @Validation(required = true)
     public String userCertNumber;
 
-    public static ApplyPrivatecontractUsercertRequest build(java.util.Map<String, ?> map) throws Exception {
-        ApplyPrivatecontractUsercertRequest self = new ApplyPrivatecontractUsercertRequest();
+    public static CreatePrivatecontractUserRequest build(java.util.Map<String, ?> map) throws Exception {
+        CreatePrivatecontractUserRequest self = new CreatePrivatecontractUserRequest();
         return TeaModel.build(map, self);
     }
 
-    public ApplyPrivatecontractUsercertRequest setAuthToken(String authToken) {
+    public CreatePrivatecontractUserRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -55,7 +55,7 @@ public class ApplyPrivatecontractUsercertRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ApplyPrivatecontractUsercertRequest setProductInstanceId(String productInstanceId) {
+    public CreatePrivatecontractUserRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -63,7 +63,7 @@ public class ApplyPrivatecontractUsercertRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public ApplyPrivatecontractUsercertRequest setInstanceId(String instanceId) {
+    public CreatePrivatecontractUserRequest setInstanceId(String instanceId) {
         this.instanceId = instanceId;
         return this;
     }
@@ -71,7 +71,7 @@ public class ApplyPrivatecontractUsercertRequest extends TeaModel {
         return this.instanceId;
     }
 
-    public ApplyPrivatecontractUsercertRequest setUserInnerId(String userInnerId) {
+    public CreatePrivatecontractUserRequest setUserInnerId(String userInnerId) {
         this.userInnerId = userInnerId;
         return this;
     }
@@ -79,7 +79,7 @@ public class ApplyPrivatecontractUsercertRequest extends TeaModel {
         return this.userInnerId;
     }
 
-    public ApplyPrivatecontractUsercertRequest setUserType(String userType) {
+    public CreatePrivatecontractUserRequest setUserType(String userType) {
         this.userType = userType;
         return this;
     }
@@ -87,7 +87,7 @@ public class ApplyPrivatecontractUsercertRequest extends TeaModel {
         return this.userType;
     }
 
-    public ApplyPrivatecontractUsercertRequest setUserName(String userName) {
+    public CreatePrivatecontractUserRequest setUserName(String userName) {
         this.userName = userName;
         return this;
     }
@@ -95,7 +95,7 @@ public class ApplyPrivatecontractUsercertRequest extends TeaModel {
         return this.userName;
     }
 
-    public ApplyPrivatecontractUsercertRequest setUserCertType(String userCertType) {
+    public CreatePrivatecontractUserRequest setUserCertType(String userCertType) {
         this.userCertType = userCertType;
         return this;
     }
@@ -103,7 +103,7 @@ public class ApplyPrivatecontractUsercertRequest extends TeaModel {
         return this.userCertType;
     }
 
-    public ApplyPrivatecontractUsercertRequest setUserCertNumber(String userCertNumber) {
+    public CreatePrivatecontractUserRequest setUserCertNumber(String userCertNumber) {
         this.userCertNumber = userCertNumber;
         return this;
     }
