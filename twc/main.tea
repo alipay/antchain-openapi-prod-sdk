@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.9',
+    sdk_version = '1.6.14',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -5463,7 +5463,7 @@ async function verifyPrivatecompanyFourmetaEx(request: VerifyPrivatecompanyFourm
   return doRequest('1.0' ,'twc.notary.privatecompany.fourmeta.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model CreatePrivatecontractUserRequest = {
+model ApplyPrivatecontractCertRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -5482,7 +5482,7 @@ model CreatePrivatecontractUserRequest = {
   userCertNumber: string(name='user_cert_number'),
 }
 
-model CreatePrivatecontractUserResponse = {
+model ApplyPrivatecontractCertResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -5507,78 +5507,19 @@ model CreatePrivatecontractUserResponse = {
  * Description: 开放给私有云的外部用户的注册接口.
  * Summary: 私有云的外部用户注册接口.
  */
-async function createPrivatecontractUser(request: CreatePrivatecontractUserRequest): CreatePrivatecontractUserResponse {
+async function applyPrivatecontractCert(request: ApplyPrivatecontractCertRequest): ApplyPrivatecontractCertResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return createPrivatecontractUserEx(request, headers, runtime);
+  return applyPrivatecontractCertEx(request, headers, runtime);
 }
 
 /**
  * Description: 开放给私有云的外部用户的注册接口.
  * Summary: 私有云的外部用户注册接口.
  */
-async function createPrivatecontractUserEx(request: CreatePrivatecontractUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreatePrivatecontractUserResponse {
+async function applyPrivatecontractCertEx(request: ApplyPrivatecontractCertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyPrivatecontractCertResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'twc.notary.privatecontract.user.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model UpdatePrivatecontractUserRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 私有云实例id
-  // 
-  instanceId: string(name='instance_id'),
-  // 私有云生成的内部用户Id
-  // 
-  userInnerId: string(name='user_inner_id'),
-  // 用户名称，个人用户为个人名称，企业为企业名称
-  userName: string(name='user_name'),
-  // 企业用户必填，企业法人名称
-  // 
-  legalName?: string(name='legal_name'),
-  // 法人证件类型
-  // 
-  legalCertType?: string(name='legal_cert_type'),
-  // 法人证件对应的证件号码
-  // 
-  legalCertNumber?: string(name='legal_cert_number'),
-}
-
-model UpdatePrivatecontractUserResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 注册是否成功
-  // 
-  success?: boolean(name='success'),
-  // 返回code,200成功，其他均为失败
-  // 
-  code?: string(name='code'),
-  // 返回信息，成功返回success，错误时会返回详细信息。
-  message?: string(name='message'),
-}
-
-/**
- * Description: 提供给私有云系统的用户更新接口.
- * Summary: 私有云用户更新接口.
- */
-async function updatePrivatecontractUser(request: UpdatePrivatecontractUserRequest): UpdatePrivatecontractUserResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return updatePrivatecontractUserEx(request, headers, runtime);
-}
-
-/**
- * Description: 提供给私有云系统的用户更新接口.
- * Summary: 私有云用户更新接口.
- */
-async function updatePrivatecontractUserEx(request: UpdatePrivatecontractUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdatePrivatecontractUserResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'twc.notary.privatecontract.user.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'twc.notary.privatecontract.cert.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryContractTradestatusRequest = {
@@ -5682,6 +5623,56 @@ async function queryContractRefund(request: QueryContractRefundRequest): QueryCo
 async function queryContractRefundEx(request: QueryContractRefundRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractRefundResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.contract.refund.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetPrivatecontractSignurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 私有云实例id
+  instanceId: string(name='instance_id'),
+  // 签署流程ID
+  flowId: string(name='flow_id'),
+  // 签署用户的内部ID
+  userInnerId: string(name='user_inner_id'),
+  // 签署平台，默认为H5页面，浏览器打开；也可填写ALIPAY，使用支付宝小程序打开
+  signPlatform?: string(name='sign_platform'),
+  // 签署流程过期时间
+  expirationTime: long(name='expiration_time'),
+}
+
+model GetPrivatecontractSignurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 流程签署地址
+  signUrl?: string(name='sign_url'),
+  // 返回code,200成功，其他均为失败
+  code?: string(name='code'),
+  // 返回信息，成功返回success，错误时会返回详细信息。
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 私有云合同服务通过调用公有云合同服务，获取可公网访问的外部客户的签署地址
+ * Summary: 私有云服务获取外部用户签署地址
+ */
+async function getPrivatecontractSignurl(request: GetPrivatecontractSignurlRequest): GetPrivatecontractSignurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getPrivatecontractSignurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 私有云合同服务通过调用公有云合同服务，获取可公网访问的外部客户的签署地址
+ * Summary: 私有云服务获取外部用户签署地址
+ */
+async function getPrivatecontractSignurlEx(request: GetPrivatecontractSignurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetPrivatecontractSignurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.privatecontract.signurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model SyncInnerTransRequest = {
