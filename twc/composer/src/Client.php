@@ -29,6 +29,8 @@ use AntChain\TWC\Models\ApplyJusticeMediationRequest;
 use AntChain\TWC\Models\ApplyJusticeMediationResponse;
 use AntChain\TWC\Models\ApplyLeaseSupplierorderRequest;
 use AntChain\TWC\Models\ApplyLeaseSupplierorderResponse;
+use AntChain\TWC\Models\ApplyPrivatecontractCertRequest;
+use AntChain\TWC\Models\ApplyPrivatecontractCertResponse;
 use AntChain\TWC\Models\AuthContractSignRequest;
 use AntChain\TWC\Models\AuthContractSignResponse;
 use AntChain\TWC\Models\AuthLeaseContractRequest;
@@ -185,8 +187,6 @@ use AntChain\TWC\Models\CreatePrivatecontractTextRequest;
 use AntChain\TWC\Models\CreatePrivatecontractTextResponse;
 use AntChain\TWC\Models\CreatePrivatecontractTransRequest;
 use AntChain\TWC\Models\CreatePrivatecontractTransResponse;
-use AntChain\TWC\Models\CreatePrivatecontractUserRequest;
-use AntChain\TWC\Models\CreatePrivatecontractUserResponse;
 use AntChain\TWC\Models\CreateSourceRequest;
 use AntChain\TWC\Models\CreateSourceResponse;
 use AntChain\TWC\Models\CreateSueBreakpromiseinfoRequest;
@@ -243,6 +243,8 @@ use AntChain\TWC\Models\GetInternalTextRequest;
 use AntChain\TWC\Models\GetInternalTextResponse;
 use AntChain\TWC\Models\GetJusticeUploadfilepathRequest;
 use AntChain\TWC\Models\GetJusticeUploadfilepathResponse;
+use AntChain\TWC\Models\GetPrivatecontractSignurlRequest;
+use AntChain\TWC\Models\GetPrivatecontractSignurlResponse;
 use AntChain\TWC\Models\GetSourceRequest;
 use AntChain\TWC\Models\GetSourceResponse;
 use AntChain\TWC\Models\GetTextRequest;
@@ -383,8 +385,6 @@ use AntChain\TWC\Models\UpdateLeaseContractRequest;
 use AntChain\TWC\Models\UpdateLeaseContractResponse;
 use AntChain\TWC\Models\UpdateNotarizationOrderRequest;
 use AntChain\TWC\Models\UpdateNotarizationOrderResponse;
-use AntChain\TWC\Models\UpdatePrivatecontractUserRequest;
-use AntChain\TWC\Models\UpdatePrivatecontractUserResponse;
 use AntChain\TWC\Models\UpdateSueBreakpromiseinfoRequest;
 use AntChain\TWC\Models\UpdateSueBreakpromiseinfoResponse;
 use AntChain\TWC\Models\UpdateSueExemplaryrevertRequest;
@@ -544,7 +544,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.9',
+                    'sdk_version'      => '1.6.14',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -3172,66 +3172,33 @@ class Client
      * Description: 开放给私有云的外部用户的注册接口.
      * Summary: 私有云的外部用户注册接口.
      *
-     * @param CreatePrivatecontractUserRequest $request
+     * @param ApplyPrivatecontractCertRequest $request
      *
-     * @return CreatePrivatecontractUserResponse
+     * @return ApplyPrivatecontractCertResponse
      */
-    public function createPrivatecontractUser($request)
+    public function applyPrivatecontractCert($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->createPrivatecontractUserEx($request, $headers, $runtime);
+        return $this->applyPrivatecontractCertEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 开放给私有云的外部用户的注册接口.
      * Summary: 私有云的外部用户注册接口.
      *
-     * @param CreatePrivatecontractUserRequest $request
-     * @param string[]                         $headers
-     * @param RuntimeOptions                   $runtime
+     * @param ApplyPrivatecontractCertRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
      *
-     * @return CreatePrivatecontractUserResponse
+     * @return ApplyPrivatecontractCertResponse
      */
-    public function createPrivatecontractUserEx($request, $headers, $runtime)
+    public function applyPrivatecontractCertEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return CreatePrivatecontractUserResponse::fromMap($this->doRequest('1.0', 'twc.notary.privatecontract.user.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 提供给私有云系统的用户更新接口.
-     * Summary: 私有云用户更新接口.
-     *
-     * @param UpdatePrivatecontractUserRequest $request
-     *
-     * @return UpdatePrivatecontractUserResponse
-     */
-    public function updatePrivatecontractUser($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->updatePrivatecontractUserEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 提供给私有云系统的用户更新接口.
-     * Summary: 私有云用户更新接口.
-     *
-     * @param UpdatePrivatecontractUserRequest $request
-     * @param string[]                         $headers
-     * @param RuntimeOptions                   $runtime
-     *
-     * @return UpdatePrivatecontractUserResponse
-     */
-    public function updatePrivatecontractUserEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return UpdatePrivatecontractUserResponse::fromMap($this->doRequest('1.0', 'twc.notary.privatecontract.user.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return ApplyPrivatecontractCertResponse::fromMap($this->doRequest('1.0', 'twc.notary.privatecontract.cert.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -3298,6 +3265,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryContractRefundResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.refund.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 私有云合同服务通过调用公有云合同服务，获取可公网访问的外部客户的签署地址
+     * Summary: 私有云服务获取外部用户签署地址
+     *
+     * @param GetPrivatecontractSignurlRequest $request
+     *
+     * @return GetPrivatecontractSignurlResponse
+     */
+    public function getPrivatecontractSignurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getPrivatecontractSignurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 私有云合同服务通过调用公有云合同服务，获取可公网访问的外部客户的签署地址
+     * Summary: 私有云服务获取外部用户签署地址
+     *
+     * @param GetPrivatecontractSignurlRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return GetPrivatecontractSignurlResponse
+     */
+    public function getPrivatecontractSignurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetPrivatecontractSignurlResponse::fromMap($this->doRequest('1.0', 'twc.notary.privatecontract.signurl.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

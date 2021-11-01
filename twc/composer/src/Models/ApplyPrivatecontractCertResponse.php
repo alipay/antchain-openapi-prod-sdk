@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UpdatePrivatecontractUserResponse extends Model
+class ApplyPrivatecontractCertResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -27,14 +27,12 @@ class UpdatePrivatecontractUserResponse extends Model
     public $resultMsg;
 
     // 注册是否成功
-    //
     /**
      * @var bool
      */
     public $success;
 
     // 返回code,200成功，其他均为失败
-    //
     /**
      * @var string
      */
@@ -45,13 +43,34 @@ class UpdatePrivatecontractUserResponse extends Model
      * @var string
      */
     public $message;
+
+    // 用户的CA证书办法机构
+    /**
+     * @var string
+     */
+    public $certAuthOrg;
+
+    // 用户的CA证书序列号
+    /**
+     * @var string
+     */
+    public $certSerialNumber;
+
+    // 用户证书过期时间
+    /**
+     * @var int
+     */
+    public $certEndTime;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'success'    => 'success',
-        'code'       => 'code',
-        'message'    => 'message',
+        'reqMsgId'         => 'req_msg_id',
+        'resultCode'       => 'result_code',
+        'resultMsg'        => 'result_msg',
+        'success'          => 'success',
+        'code'             => 'code',
+        'message'          => 'message',
+        'certAuthOrg'      => 'cert_auth_org',
+        'certSerialNumber' => 'cert_serial_number',
+        'certEndTime'      => 'cert_end_time',
     ];
 
     public function validate()
@@ -79,6 +98,15 @@ class UpdatePrivatecontractUserResponse extends Model
         if (null !== $this->message) {
             $res['message'] = $this->message;
         }
+        if (null !== $this->certAuthOrg) {
+            $res['cert_auth_org'] = $this->certAuthOrg;
+        }
+        if (null !== $this->certSerialNumber) {
+            $res['cert_serial_number'] = $this->certSerialNumber;
+        }
+        if (null !== $this->certEndTime) {
+            $res['cert_end_time'] = $this->certEndTime;
+        }
 
         return $res;
     }
@@ -86,7 +114,7 @@ class UpdatePrivatecontractUserResponse extends Model
     /**
      * @param array $map
      *
-     * @return UpdatePrivatecontractUserResponse
+     * @return ApplyPrivatecontractCertResponse
      */
     public static function fromMap($map = [])
     {
@@ -108,6 +136,15 @@ class UpdatePrivatecontractUserResponse extends Model
         }
         if (isset($map['message'])) {
             $model->message = $map['message'];
+        }
+        if (isset($map['cert_auth_org'])) {
+            $model->certAuthOrg = $map['cert_auth_org'];
+        }
+        if (isset($map['cert_serial_number'])) {
+            $model->certSerialNumber = $map['cert_serial_number'];
+        }
+        if (isset($map['cert_end_time'])) {
+            $model->certEndTime = $map['cert_end_time'];
         }
 
         return $model;

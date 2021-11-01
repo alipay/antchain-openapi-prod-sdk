@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UpdatePrivatecontractUserRequest extends Model
+class ApplyPrivatecontractCertRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -20,61 +20,60 @@ class UpdatePrivatecontractUserRequest extends Model
     public $productInstanceId;
 
     // 私有云实例id
-    //
     /**
      * @var string
      */
     public $instanceId;
 
-    // 私有云生成的内部用户Id
-    //
+    // 私有云系统内部生成的id
     /**
      * @var string
      */
     public $userInnerId;
 
-    // 用户名称，个人用户为个人名称，企业为企业名称
+    // 用户类型,个人PERSON，企业ORG
+    /**
+     * @var string
+     */
+    public $userType;
+
+    // 用户名称, 个人为个人名称，企业为企业名称
     /**
      * @var string
      */
     public $userName;
 
-    // 企业用户必填，企业法人名称
-    //
+    // 用户证件类型，默认个人,身份证CRED_PSN_CH_IDCARD；
+    // 企业,统一社会信用代码,CRED_ORG_USCC
     /**
      * @var string
      */
-    public $legalName;
+    public $userCertType;
 
-    // 法人证件类型
-    //
+    // 证件号码
     /**
      * @var string
      */
-    public $legalCertType;
-
-    // 法人证件对应的证件号码
-    //
-    /**
-     * @var string
-     */
-    public $legalCertNumber;
+    public $userCertNumber;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'instanceId'        => 'instance_id',
         'userInnerId'       => 'user_inner_id',
+        'userType'          => 'user_type',
         'userName'          => 'user_name',
-        'legalName'         => 'legal_name',
-        'legalCertType'     => 'legal_cert_type',
-        'legalCertNumber'   => 'legal_cert_number',
+        'userCertType'      => 'user_cert_type',
+        'userCertNumber'    => 'user_cert_number',
     ];
 
     public function validate()
     {
         Model::validateRequired('instanceId', $this->instanceId, true);
         Model::validateRequired('userInnerId', $this->userInnerId, true);
+        Model::validateRequired('userType', $this->userType, true);
         Model::validateRequired('userName', $this->userName, true);
+        Model::validateRequired('userCertType', $this->userCertType, true);
+        Model::validateRequired('userCertNumber', $this->userCertNumber, true);
     }
 
     public function toMap()
@@ -92,17 +91,17 @@ class UpdatePrivatecontractUserRequest extends Model
         if (null !== $this->userInnerId) {
             $res['user_inner_id'] = $this->userInnerId;
         }
+        if (null !== $this->userType) {
+            $res['user_type'] = $this->userType;
+        }
         if (null !== $this->userName) {
             $res['user_name'] = $this->userName;
         }
-        if (null !== $this->legalName) {
-            $res['legal_name'] = $this->legalName;
+        if (null !== $this->userCertType) {
+            $res['user_cert_type'] = $this->userCertType;
         }
-        if (null !== $this->legalCertType) {
-            $res['legal_cert_type'] = $this->legalCertType;
-        }
-        if (null !== $this->legalCertNumber) {
-            $res['legal_cert_number'] = $this->legalCertNumber;
+        if (null !== $this->userCertNumber) {
+            $res['user_cert_number'] = $this->userCertNumber;
         }
 
         return $res;
@@ -111,7 +110,7 @@ class UpdatePrivatecontractUserRequest extends Model
     /**
      * @param array $map
      *
-     * @return UpdatePrivatecontractUserRequest
+     * @return ApplyPrivatecontractCertRequest
      */
     public static function fromMap($map = [])
     {
@@ -128,17 +127,17 @@ class UpdatePrivatecontractUserRequest extends Model
         if (isset($map['user_inner_id'])) {
             $model->userInnerId = $map['user_inner_id'];
         }
+        if (isset($map['user_type'])) {
+            $model->userType = $map['user_type'];
+        }
         if (isset($map['user_name'])) {
             $model->userName = $map['user_name'];
         }
-        if (isset($map['legal_name'])) {
-            $model->legalName = $map['legal_name'];
+        if (isset($map['user_cert_type'])) {
+            $model->userCertType = $map['user_cert_type'];
         }
-        if (isset($map['legal_cert_type'])) {
-            $model->legalCertType = $map['legal_cert_type'];
-        }
-        if (isset($map['legal_cert_number'])) {
-            $model->legalCertNumber = $map['legal_cert_number'];
+        if (isset($map['user_cert_number'])) {
+            $model->userCertNumber = $map['user_cert_number'];
         }
 
         return $model;
