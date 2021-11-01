@@ -10042,7 +10042,7 @@ export class VerifyPrivatecompanyFourmetaResponse extends $tea.Model {
   }
 }
 
-export class CreatePrivatecontractUserRequest extends $tea.Model {
+export class ApplyPrivatecontractCertRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -10090,7 +10090,7 @@ export class CreatePrivatecontractUserRequest extends $tea.Model {
   }
 }
 
-export class CreatePrivatecontractUserResponse extends $tea.Model {
+export class ApplyPrivatecontractCertResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -10134,100 +10134,6 @@ export class CreatePrivatecontractUserResponse extends $tea.Model {
       certAuthOrg: 'string',
       certSerialNumber: 'string',
       certEndTime: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class UpdatePrivatecontractUserRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 私有云实例id
-  // 
-  instanceId: string;
-  // 私有云生成的内部用户Id
-  // 
-  userInnerId: string;
-  // 用户名称，个人用户为个人名称，企业为企业名称
-  userName: string;
-  // 企业用户必填，企业法人名称
-  // 
-  legalName?: string;
-  // 法人证件类型
-  // 
-  legalCertType?: string;
-  // 法人证件对应的证件号码
-  // 
-  legalCertNumber?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      instanceId: 'instance_id',
-      userInnerId: 'user_inner_id',
-      userName: 'user_name',
-      legalName: 'legal_name',
-      legalCertType: 'legal_cert_type',
-      legalCertNumber: 'legal_cert_number',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      instanceId: 'string',
-      userInnerId: 'string',
-      userName: 'string',
-      legalName: 'string',
-      legalCertType: 'string',
-      legalCertNumber: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class UpdatePrivatecontractUserResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 注册是否成功
-  // 
-  success?: boolean;
-  // 返回code,200成功，其他均为失败
-  // 
-  code?: string;
-  // 返回信息，成功返回success，错误时会返回详细信息。
-  message?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      success: 'success',
-      code: 'code',
-      message: 'message',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      success: 'boolean',
-      code: 'string',
-      message: 'string',
     };
   }
 
@@ -10389,6 +10295,89 @@ export class QueryContractRefundResponse extends $tea.Model {
       refundAmount: 'number',
       status: 'string',
       errMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetPrivatecontractSignurlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 私有云实例id
+  instanceId: string;
+  // 签署流程ID
+  flowId: string;
+  // 签署用户的内部ID
+  userInnerId: string;
+  // 签署平台，默认为H5页面，浏览器打开；也可填写ALIPAY，使用支付宝小程序打开
+  signPlatform?: string;
+  // 签署流程过期时间
+  expirationTime: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      instanceId: 'instance_id',
+      flowId: 'flow_id',
+      userInnerId: 'user_inner_id',
+      signPlatform: 'sign_platform',
+      expirationTime: 'expiration_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      instanceId: 'string',
+      flowId: 'string',
+      userInnerId: 'string',
+      signPlatform: 'string',
+      expirationTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetPrivatecontractSignurlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 流程签署地址
+  signUrl?: string;
+  // 返回code,200成功，其他均为失败
+  code?: string;
+  // 返回信息，成功返回success，错误时会返回详细信息。
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      signUrl: 'sign_url',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      signUrl: 'string',
+      code: 'string',
+      message: 'string',
     };
   }
 
@@ -20586,7 +20575,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.9",
+          sdk_version: "1.6.14",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -22122,38 +22111,19 @@ export default class Client {
    * Description: 开放给私有云的外部用户的注册接口.
    * Summary: 私有云的外部用户注册接口.
    */
-  async createPrivatecontractUser(request: CreatePrivatecontractUserRequest): Promise<CreatePrivatecontractUserResponse> {
+  async applyPrivatecontractCert(request: ApplyPrivatecontractCertRequest): Promise<ApplyPrivatecontractCertResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.createPrivatecontractUserEx(request, headers, runtime);
+    return await this.applyPrivatecontractCertEx(request, headers, runtime);
   }
 
   /**
    * Description: 开放给私有云的外部用户的注册接口.
    * Summary: 私有云的外部用户注册接口.
    */
-  async createPrivatecontractUserEx(request: CreatePrivatecontractUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreatePrivatecontractUserResponse> {
+  async applyPrivatecontractCertEx(request: ApplyPrivatecontractCertRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyPrivatecontractCertResponse> {
     Util.validateModel(request);
-    return $tea.cast<CreatePrivatecontractUserResponse>(await this.doRequest("1.0", "twc.notary.privatecontract.user.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreatePrivatecontractUserResponse({}));
-  }
-
-  /**
-   * Description: 提供给私有云系统的用户更新接口.
-   * Summary: 私有云用户更新接口.
-   */
-  async updatePrivatecontractUser(request: UpdatePrivatecontractUserRequest): Promise<UpdatePrivatecontractUserResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.updatePrivatecontractUserEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 提供给私有云系统的用户更新接口.
-   * Summary: 私有云用户更新接口.
-   */
-  async updatePrivatecontractUserEx(request: UpdatePrivatecontractUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdatePrivatecontractUserResponse> {
-    Util.validateModel(request);
-    return $tea.cast<UpdatePrivatecontractUserResponse>(await this.doRequest("1.0", "twc.notary.privatecontract.user.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdatePrivatecontractUserResponse({}));
+    return $tea.cast<ApplyPrivatecontractCertResponse>(await this.doRequest("1.0", "twc.notary.privatecontract.cert.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyPrivatecontractCertResponse({}));
   }
 
   /**
@@ -22192,6 +22162,25 @@ export default class Client {
   async queryContractRefundEx(request: QueryContractRefundRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractRefundResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryContractRefundResponse>(await this.doRequest("1.0", "twc.notary.contract.refund.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContractRefundResponse({}));
+  }
+
+  /**
+   * Description: 私有云合同服务通过调用公有云合同服务，获取可公网访问的外部客户的签署地址
+   * Summary: 私有云服务获取外部用户签署地址
+   */
+  async getPrivatecontractSignurl(request: GetPrivatecontractSignurlRequest): Promise<GetPrivatecontractSignurlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getPrivatecontractSignurlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 私有云合同服务通过调用公有云合同服务，获取可公网访问的外部客户的签署地址
+   * Summary: 私有云服务获取外部用户签署地址
+   */
+  async getPrivatecontractSignurlEx(request: GetPrivatecontractSignurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetPrivatecontractSignurlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetPrivatecontractSignurlResponse>(await this.doRequest("1.0", "twc.notary.privatecontract.signurl.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetPrivatecontractSignurlResponse({}));
   }
 
   /**
