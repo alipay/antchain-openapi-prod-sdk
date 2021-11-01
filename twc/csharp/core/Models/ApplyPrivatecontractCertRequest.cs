@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class UpdatePrivatecontractUserRequest : TeaModel {
+    public class ApplyPrivatecontractCertRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -19,39 +19,35 @@ namespace AntChain.SDK.TWC.Models
         public string ProductInstanceId { get; set; }
 
         // 私有云实例id
-        // 
         [NameInMap("instance_id")]
         [Validation(Required=true)]
         public string InstanceId { get; set; }
 
-        // 私有云生成的内部用户Id
-        // 
+        // 私有云系统内部生成的id
         [NameInMap("user_inner_id")]
         [Validation(Required=true)]
         public string UserInnerId { get; set; }
 
-        // 用户名称，个人用户为个人名称，企业为企业名称
+        // 用户类型,个人PERSON，企业ORG
+        [NameInMap("user_type")]
+        [Validation(Required=true)]
+        public string UserType { get; set; }
+
+        // 用户名称, 个人为个人名称，企业为企业名称
         [NameInMap("user_name")]
         [Validation(Required=true)]
         public string UserName { get; set; }
 
-        // 企业用户必填，企业法人名称
-        // 
-        [NameInMap("legal_name")]
-        [Validation(Required=false)]
-        public string LegalName { get; set; }
+        // 用户证件类型，默认个人,身份证CRED_PSN_CH_IDCARD；
+        // 企业,统一社会信用代码,CRED_ORG_USCC
+        [NameInMap("user_cert_type")]
+        [Validation(Required=true)]
+        public string UserCertType { get; set; }
 
-        // 法人证件类型
-        // 
-        [NameInMap("legal_cert_type")]
-        [Validation(Required=false)]
-        public string LegalCertType { get; set; }
-
-        // 法人证件对应的证件号码
-        // 
-        [NameInMap("legal_cert_number")]
-        [Validation(Required=false)]
-        public string LegalCertNumber { get; set; }
+        // 证件号码
+        [NameInMap("user_cert_number")]
+        [Validation(Required=true)]
+        public string UserCertNumber { get; set; }
 
     }
 

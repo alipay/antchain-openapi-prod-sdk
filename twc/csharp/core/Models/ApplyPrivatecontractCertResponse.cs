@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class UpdatePrivatecontractUserResponse : TeaModel {
+    public class ApplyPrivatecontractCertResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -25,13 +25,11 @@ namespace AntChain.SDK.TWC.Models
         public string ResultMsg { get; set; }
 
         // 注册是否成功
-        // 
         [NameInMap("success")]
         [Validation(Required=false)]
         public bool? Success { get; set; }
 
         // 返回code,200成功，其他均为失败
-        // 
         [NameInMap("code")]
         [Validation(Required=false)]
         public string Code { get; set; }
@@ -40,6 +38,21 @@ namespace AntChain.SDK.TWC.Models
         [NameInMap("message")]
         [Validation(Required=false)]
         public string Message { get; set; }
+
+        // 用户的CA证书办法机构
+        [NameInMap("cert_auth_org")]
+        [Validation(Required=false)]
+        public string CertAuthOrg { get; set; }
+
+        // 用户的CA证书序列号
+        [NameInMap("cert_serial_number")]
+        [Validation(Required=false)]
+        public string CertSerialNumber { get; set; }
+
+        // 用户证书过期时间
+        [NameInMap("cert_end_time")]
+        [Validation(Required=false)]
+        public long? CertEndTime { get; set; }
 
     }
 
