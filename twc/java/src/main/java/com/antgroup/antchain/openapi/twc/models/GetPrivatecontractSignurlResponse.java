@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class UpdatePrivatecontractUserResponse extends TeaModel {
+public class GetPrivatecontractSignurlResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,13 +16,11 @@ public class UpdatePrivatecontractUserResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 注册是否成功
-    // 
-    @NameInMap("success")
-    public Boolean success;
+    // 流程签署地址
+    @NameInMap("sign_url")
+    public String signUrl;
 
     // 返回code,200成功，其他均为失败
-    // 
     @NameInMap("code")
     public String code;
 
@@ -30,12 +28,12 @@ public class UpdatePrivatecontractUserResponse extends TeaModel {
     @NameInMap("message")
     public String message;
 
-    public static UpdatePrivatecontractUserResponse build(java.util.Map<String, ?> map) throws Exception {
-        UpdatePrivatecontractUserResponse self = new UpdatePrivatecontractUserResponse();
+    public static GetPrivatecontractSignurlResponse build(java.util.Map<String, ?> map) throws Exception {
+        GetPrivatecontractSignurlResponse self = new GetPrivatecontractSignurlResponse();
         return TeaModel.build(map, self);
     }
 
-    public UpdatePrivatecontractUserResponse setReqMsgId(String reqMsgId) {
+    public GetPrivatecontractSignurlResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -43,7 +41,7 @@ public class UpdatePrivatecontractUserResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public UpdatePrivatecontractUserResponse setResultCode(String resultCode) {
+    public GetPrivatecontractSignurlResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -51,7 +49,7 @@ public class UpdatePrivatecontractUserResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public UpdatePrivatecontractUserResponse setResultMsg(String resultMsg) {
+    public GetPrivatecontractSignurlResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -59,15 +57,15 @@ public class UpdatePrivatecontractUserResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public UpdatePrivatecontractUserResponse setSuccess(Boolean success) {
-        this.success = success;
+    public GetPrivatecontractSignurlResponse setSignUrl(String signUrl) {
+        this.signUrl = signUrl;
         return this;
     }
-    public Boolean getSuccess() {
-        return this.success;
+    public String getSignUrl() {
+        return this.signUrl;
     }
 
-    public UpdatePrivatecontractUserResponse setCode(String code) {
+    public GetPrivatecontractSignurlResponse setCode(String code) {
         this.code = code;
         return this;
     }
@@ -75,7 +73,7 @@ public class UpdatePrivatecontractUserResponse extends TeaModel {
         return this.code;
     }
 
-    public UpdatePrivatecontractUserResponse setMessage(String message) {
+    public GetPrivatecontractSignurlResponse setMessage(String message) {
         this.message = message;
         return this;
     }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class CreatePrivatecontractUserResponse extends TeaModel {
+public class ApplyPrivatecontractCertResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -40,12 +40,12 @@ public class CreatePrivatecontractUserResponse extends TeaModel {
     @NameInMap("cert_end_time")
     public Long certEndTime;
 
-    public static CreatePrivatecontractUserResponse build(java.util.Map<String, ?> map) throws Exception {
-        CreatePrivatecontractUserResponse self = new CreatePrivatecontractUserResponse();
+    public static ApplyPrivatecontractCertResponse build(java.util.Map<String, ?> map) throws Exception {
+        ApplyPrivatecontractCertResponse self = new ApplyPrivatecontractCertResponse();
         return TeaModel.build(map, self);
     }
 
-    public CreatePrivatecontractUserResponse setReqMsgId(String reqMsgId) {
+    public ApplyPrivatecontractCertResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -53,7 +53,7 @@ public class CreatePrivatecontractUserResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public CreatePrivatecontractUserResponse setResultCode(String resultCode) {
+    public ApplyPrivatecontractCertResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -61,7 +61,7 @@ public class CreatePrivatecontractUserResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public CreatePrivatecontractUserResponse setResultMsg(String resultMsg) {
+    public ApplyPrivatecontractCertResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -69,7 +69,7 @@ public class CreatePrivatecontractUserResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CreatePrivatecontractUserResponse setSuccess(Boolean success) {
+    public ApplyPrivatecontractCertResponse setSuccess(Boolean success) {
         this.success = success;
         return this;
     }
@@ -77,7 +77,7 @@ public class CreatePrivatecontractUserResponse extends TeaModel {
         return this.success;
     }
 
-    public CreatePrivatecontractUserResponse setCode(String code) {
+    public ApplyPrivatecontractCertResponse setCode(String code) {
         this.code = code;
         return this;
     }
@@ -85,7 +85,7 @@ public class CreatePrivatecontractUserResponse extends TeaModel {
         return this.code;
     }
 
-    public CreatePrivatecontractUserResponse setMessage(String message) {
+    public ApplyPrivatecontractCertResponse setMessage(String message) {
         this.message = message;
         return this;
     }
@@ -93,7 +93,7 @@ public class CreatePrivatecontractUserResponse extends TeaModel {
         return this.message;
     }
 
-    public CreatePrivatecontractUserResponse setCertAuthOrg(String certAuthOrg) {
+    public ApplyPrivatecontractCertResponse setCertAuthOrg(String certAuthOrg) {
         this.certAuthOrg = certAuthOrg;
         return this;
     }
@@ -101,7 +101,7 @@ public class CreatePrivatecontractUserResponse extends TeaModel {
         return this.certAuthOrg;
     }
 
-    public CreatePrivatecontractUserResponse setCertSerialNumber(String certSerialNumber) {
+    public ApplyPrivatecontractCertResponse setCertSerialNumber(String certSerialNumber) {
         this.certSerialNumber = certSerialNumber;
         return this;
     }
@@ -109,7 +109,7 @@ public class CreatePrivatecontractUserResponse extends TeaModel {
         return this.certSerialNumber;
     }
 
-    public CreatePrivatecontractUserResponse setCertEndTime(Long certEndTime) {
+    public ApplyPrivatecontractCertResponse setCertEndTime(Long certEndTime) {
         this.certEndTime = certEndTime;
         return this;
     }

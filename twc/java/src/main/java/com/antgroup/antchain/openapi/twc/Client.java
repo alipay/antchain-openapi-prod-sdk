@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.9")
+                    new TeaPair("sdk_version", "1.6.14")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1649,38 +1649,19 @@ public class Client {
      * Description: 开放给私有云的外部用户的注册接口.
      * Summary: 私有云的外部用户注册接口.
      */
-    public CreatePrivatecontractUserResponse createPrivatecontractUser(CreatePrivatecontractUserRequest request) throws Exception {
+    public ApplyPrivatecontractCertResponse applyPrivatecontractCert(ApplyPrivatecontractCertRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.createPrivatecontractUserEx(request, headers, runtime);
+        return this.applyPrivatecontractCertEx(request, headers, runtime);
     }
 
     /**
      * Description: 开放给私有云的外部用户的注册接口.
      * Summary: 私有云的外部用户注册接口.
      */
-    public CreatePrivatecontractUserResponse createPrivatecontractUserEx(CreatePrivatecontractUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public ApplyPrivatecontractCertResponse applyPrivatecontractCertEx(ApplyPrivatecontractCertRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.privatecontract.user.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreatePrivatecontractUserResponse());
-    }
-
-    /**
-     * Description: 提供给私有云系统的用户更新接口.
-     * Summary: 私有云用户更新接口.
-     */
-    public UpdatePrivatecontractUserResponse updatePrivatecontractUser(UpdatePrivatecontractUserRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.updatePrivatecontractUserEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 提供给私有云系统的用户更新接口.
-     * Summary: 私有云用户更新接口.
-     */
-    public UpdatePrivatecontractUserResponse updatePrivatecontractUserEx(UpdatePrivatecontractUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.privatecontract.user.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdatePrivatecontractUserResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.privatecontract.cert.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyPrivatecontractCertResponse());
     }
 
     /**
@@ -1719,6 +1700,25 @@ public class Client {
     public QueryContractRefundResponse queryContractRefundEx(QueryContractRefundRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.refund.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContractRefundResponse());
+    }
+
+    /**
+     * Description: 私有云合同服务通过调用公有云合同服务，获取可公网访问的外部客户的签署地址
+     * Summary: 私有云服务获取外部用户签署地址
+     */
+    public GetPrivatecontractSignurlResponse getPrivatecontractSignurl(GetPrivatecontractSignurlRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getPrivatecontractSignurlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 私有云合同服务通过调用公有云合同服务，获取可公网访问的外部客户的签署地址
+     * Summary: 私有云服务获取外部用户签署地址
+     */
+    public GetPrivatecontractSignurlResponse getPrivatecontractSignurlEx(GetPrivatecontractSignurlRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.privatecontract.signurl.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetPrivatecontractSignurlResponse());
     }
 
     /**
