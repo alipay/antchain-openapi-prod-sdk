@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.9'
+                    'sdk_version': '1.6.14'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.9'
+                    'sdk_version': '1.6.14'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -4491,112 +4491,58 @@ class Client:
             await self.do_request_async('1.0', 'twc.notary.privatecompany.fourmeta.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def create_privatecontract_user(
+    def apply_privatecontract_cert(
         self,
-        request: twc_models.CreatePrivatecontractUserRequest,
-    ) -> twc_models.CreatePrivatecontractUserResponse:
+        request: twc_models.ApplyPrivatecontractCertRequest,
+    ) -> twc_models.ApplyPrivatecontractCertResponse:
         """
         Description: 开放给私有云的外部用户的注册接口.
         Summary: 私有云的外部用户注册接口.
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_privatecontract_user_ex(request, headers, runtime)
+        return self.apply_privatecontract_cert_ex(request, headers, runtime)
 
-    async def create_privatecontract_user_async(
+    async def apply_privatecontract_cert_async(
         self,
-        request: twc_models.CreatePrivatecontractUserRequest,
-    ) -> twc_models.CreatePrivatecontractUserResponse:
+        request: twc_models.ApplyPrivatecontractCertRequest,
+    ) -> twc_models.ApplyPrivatecontractCertResponse:
         """
         Description: 开放给私有云的外部用户的注册接口.
         Summary: 私有云的外部用户注册接口.
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.create_privatecontract_user_ex_async(request, headers, runtime)
+        return await self.apply_privatecontract_cert_ex_async(request, headers, runtime)
 
-    def create_privatecontract_user_ex(
+    def apply_privatecontract_cert_ex(
         self,
-        request: twc_models.CreatePrivatecontractUserRequest,
+        request: twc_models.ApplyPrivatecontractCertRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> twc_models.CreatePrivatecontractUserResponse:
+    ) -> twc_models.ApplyPrivatecontractCertResponse:
         """
         Description: 开放给私有云的外部用户的注册接口.
         Summary: 私有云的外部用户注册接口.
         """
         UtilClient.validate_model(request)
-        return twc_models.CreatePrivatecontractUserResponse().from_map(
-            self.do_request('1.0', 'twc.notary.privatecontract.user.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return twc_models.ApplyPrivatecontractCertResponse().from_map(
+            self.do_request('1.0', 'twc.notary.privatecontract.cert.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def create_privatecontract_user_ex_async(
+    async def apply_privatecontract_cert_ex_async(
         self,
-        request: twc_models.CreatePrivatecontractUserRequest,
+        request: twc_models.ApplyPrivatecontractCertRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> twc_models.CreatePrivatecontractUserResponse:
+    ) -> twc_models.ApplyPrivatecontractCertResponse:
         """
         Description: 开放给私有云的外部用户的注册接口.
         Summary: 私有云的外部用户注册接口.
         """
         UtilClient.validate_model(request)
-        return twc_models.CreatePrivatecontractUserResponse().from_map(
-            await self.do_request_async('1.0', 'twc.notary.privatecontract.user.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def update_privatecontract_user(
-        self,
-        request: twc_models.UpdatePrivatecontractUserRequest,
-    ) -> twc_models.UpdatePrivatecontractUserResponse:
-        """
-        Description: 提供给私有云系统的用户更新接口.
-        Summary: 私有云用户更新接口.
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.update_privatecontract_user_ex(request, headers, runtime)
-
-    async def update_privatecontract_user_async(
-        self,
-        request: twc_models.UpdatePrivatecontractUserRequest,
-    ) -> twc_models.UpdatePrivatecontractUserResponse:
-        """
-        Description: 提供给私有云系统的用户更新接口.
-        Summary: 私有云用户更新接口.
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.update_privatecontract_user_ex_async(request, headers, runtime)
-
-    def update_privatecontract_user_ex(
-        self,
-        request: twc_models.UpdatePrivatecontractUserRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> twc_models.UpdatePrivatecontractUserResponse:
-        """
-        Description: 提供给私有云系统的用户更新接口.
-        Summary: 私有云用户更新接口.
-        """
-        UtilClient.validate_model(request)
-        return twc_models.UpdatePrivatecontractUserResponse().from_map(
-            self.do_request('1.0', 'twc.notary.privatecontract.user.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def update_privatecontract_user_ex_async(
-        self,
-        request: twc_models.UpdatePrivatecontractUserRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> twc_models.UpdatePrivatecontractUserResponse:
-        """
-        Description: 提供给私有云系统的用户更新接口.
-        Summary: 私有云用户更新接口.
-        """
-        UtilClient.validate_model(request)
-        return twc_models.UpdatePrivatecontractUserResponse().from_map(
-            await self.do_request_async('1.0', 'twc.notary.privatecontract.user.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return twc_models.ApplyPrivatecontractCertResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.privatecontract.cert.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_contract_tradestatus(
@@ -4705,6 +4651,60 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.QueryContractRefundResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.contract.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_privatecontract_signurl(
+        self,
+        request: twc_models.GetPrivatecontractSignurlRequest,
+    ) -> twc_models.GetPrivatecontractSignurlResponse:
+        """
+        Description: 私有云合同服务通过调用公有云合同服务，获取可公网访问的外部客户的签署地址
+        Summary: 私有云服务获取外部用户签署地址
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_privatecontract_signurl_ex(request, headers, runtime)
+
+    async def get_privatecontract_signurl_async(
+        self,
+        request: twc_models.GetPrivatecontractSignurlRequest,
+    ) -> twc_models.GetPrivatecontractSignurlResponse:
+        """
+        Description: 私有云合同服务通过调用公有云合同服务，获取可公网访问的外部客户的签署地址
+        Summary: 私有云服务获取外部用户签署地址
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_privatecontract_signurl_ex_async(request, headers, runtime)
+
+    def get_privatecontract_signurl_ex(
+        self,
+        request: twc_models.GetPrivatecontractSignurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetPrivatecontractSignurlResponse:
+        """
+        Description: 私有云合同服务通过调用公有云合同服务，获取可公网访问的外部客户的签署地址
+        Summary: 私有云服务获取外部用户签署地址
+        """
+        UtilClient.validate_model(request)
+        return twc_models.GetPrivatecontractSignurlResponse().from_map(
+            self.do_request('1.0', 'twc.notary.privatecontract.signurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_privatecontract_signurl_ex_async(
+        self,
+        request: twc_models.GetPrivatecontractSignurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetPrivatecontractSignurlResponse:
+        """
+        Description: 私有云合同服务通过调用公有云合同服务，获取可公网访问的外部客户的签署地址
+        Summary: 私有云服务获取外部用户签署地址
+        """
+        UtilClient.validate_model(request)
+        return twc_models.GetPrivatecontractSignurlResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.privatecontract.signurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def sync_inner_trans(

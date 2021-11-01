@@ -15566,7 +15566,7 @@ class VerifyPrivatecompanyFourmetaResponse(TeaModel):
         return self
 
 
-class CreatePrivatecontractUserRequest(TeaModel):
+class ApplyPrivatecontractCertRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -15644,7 +15644,7 @@ class CreatePrivatecontractUserRequest(TeaModel):
         return self
 
 
-class CreatePrivatecontractUserResponse(TeaModel):
+class ApplyPrivatecontractCertResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -15721,146 +15721,6 @@ class CreatePrivatecontractUserResponse(TeaModel):
             self.cert_serial_number = m.get('cert_serial_number')
         if m.get('cert_end_time') is not None:
             self.cert_end_time = m.get('cert_end_time')
-        return self
-
-
-class UpdatePrivatecontractUserRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        product_instance_id: str = None,
-        instance_id: str = None,
-        user_inner_id: str = None,
-        user_name: str = None,
-        legal_name: str = None,
-        legal_cert_type: str = None,
-        legal_cert_number: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        self.product_instance_id = product_instance_id
-        # 私有云实例id
-        # 
-        self.instance_id = instance_id
-        # 私有云生成的内部用户Id
-        # 
-        self.user_inner_id = user_inner_id
-        # 用户名称，个人用户为个人名称，企业为企业名称
-        self.user_name = user_name
-        # 企业用户必填，企业法人名称
-        # 
-        self.legal_name = legal_name
-        # 法人证件类型
-        # 
-        self.legal_cert_type = legal_cert_type
-        # 法人证件对应的证件号码
-        # 
-        self.legal_cert_number = legal_cert_number
-
-    def validate(self):
-        self.validate_required(self.instance_id, 'instance_id')
-        self.validate_required(self.user_inner_id, 'user_inner_id')
-        self.validate_required(self.user_name, 'user_name')
-
-    def to_map(self):
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.product_instance_id is not None:
-            result['product_instance_id'] = self.product_instance_id
-        if self.instance_id is not None:
-            result['instance_id'] = self.instance_id
-        if self.user_inner_id is not None:
-            result['user_inner_id'] = self.user_inner_id
-        if self.user_name is not None:
-            result['user_name'] = self.user_name
-        if self.legal_name is not None:
-            result['legal_name'] = self.legal_name
-        if self.legal_cert_type is not None:
-            result['legal_cert_type'] = self.legal_cert_type
-        if self.legal_cert_number is not None:
-            result['legal_cert_number'] = self.legal_cert_number
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('product_instance_id') is not None:
-            self.product_instance_id = m.get('product_instance_id')
-        if m.get('instance_id') is not None:
-            self.instance_id = m.get('instance_id')
-        if m.get('user_inner_id') is not None:
-            self.user_inner_id = m.get('user_inner_id')
-        if m.get('user_name') is not None:
-            self.user_name = m.get('user_name')
-        if m.get('legal_name') is not None:
-            self.legal_name = m.get('legal_name')
-        if m.get('legal_cert_type') is not None:
-            self.legal_cert_type = m.get('legal_cert_type')
-        if m.get('legal_cert_number') is not None:
-            self.legal_cert_number = m.get('legal_cert_number')
-        return self
-
-
-class UpdatePrivatecontractUserResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        success: bool = None,
-        code: str = None,
-        message: str = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 注册是否成功
-        # 
-        self.success = success
-        # 返回code,200成功，其他均为失败
-        # 
-        self.code = code
-        # 返回信息，成功返回success，错误时会返回详细信息。
-        self.message = message
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.success is not None:
-            result['success'] = self.success
-        if self.code is not None:
-            result['code'] = self.code
-        if self.message is not None:
-            result['message'] = self.message
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('success') is not None:
-            self.success = m.get('success')
-        if m.get('code') is not None:
-            self.code = m.get('code')
-        if m.get('message') is not None:
-            self.message = m.get('message')
         return self
 
 
@@ -16096,6 +15956,133 @@ class QueryContractRefundResponse(TeaModel):
             self.status = m.get('status')
         if m.get('err_msg') is not None:
             self.err_msg = m.get('err_msg')
+        return self
+
+
+class GetPrivatecontractSignurlRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        instance_id: str = None,
+        flow_id: str = None,
+        user_inner_id: str = None,
+        sign_platform: str = None,
+        expiration_time: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 私有云实例id
+        self.instance_id = instance_id
+        # 签署流程ID
+        self.flow_id = flow_id
+        # 签署用户的内部ID
+        self.user_inner_id = user_inner_id
+        # 签署平台，默认为H5页面，浏览器打开；也可填写ALIPAY，使用支付宝小程序打开
+        self.sign_platform = sign_platform
+        # 签署流程过期时间
+        self.expiration_time = expiration_time
+
+    def validate(self):
+        self.validate_required(self.instance_id, 'instance_id')
+        self.validate_required(self.flow_id, 'flow_id')
+        self.validate_required(self.user_inner_id, 'user_inner_id')
+        self.validate_required(self.expiration_time, 'expiration_time')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
+        if self.user_inner_id is not None:
+            result['user_inner_id'] = self.user_inner_id
+        if self.sign_platform is not None:
+            result['sign_platform'] = self.sign_platform
+        if self.expiration_time is not None:
+            result['expiration_time'] = self.expiration_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
+        if m.get('user_inner_id') is not None:
+            self.user_inner_id = m.get('user_inner_id')
+        if m.get('sign_platform') is not None:
+            self.sign_platform = m.get('sign_platform')
+        if m.get('expiration_time') is not None:
+            self.expiration_time = m.get('expiration_time')
+        return self
+
+
+class GetPrivatecontractSignurlResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        sign_url: str = None,
+        code: str = None,
+        message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 流程签署地址
+        self.sign_url = sign_url
+        # 返回code,200成功，其他均为失败
+        self.code = code
+        # 返回信息，成功返回success，错误时会返回详细信息。
+        self.message = message
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.sign_url is not None:
+            result['sign_url'] = self.sign_url
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('sign_url') is not None:
+            self.sign_url = m.get('sign_url')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         return self
 
 
