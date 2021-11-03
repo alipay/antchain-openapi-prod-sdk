@@ -22,7 +22,6 @@ public class CreateLeasePromiseRequest extends TeaModel {
 
     // 清分机构金融科技租户ID
     @NameInMap("clearing_org")
-    @Validation(required = true)
     public String clearingOrg;
 
     // 放款机构金融科技租户ID
