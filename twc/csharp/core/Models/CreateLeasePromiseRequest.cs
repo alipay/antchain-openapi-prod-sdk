@@ -30,7 +30,7 @@ namespace AntChain.SDK.TWC.Models
 
         // 清分机构金融科技租户ID
         [NameInMap("clearing_org")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ClearingOrg { get; set; }
 
         // 放款机构金融科技租户ID

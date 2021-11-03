@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.14"},
+                        {"sdk_version", "1.6.17"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.14"},
+                        {"sdk_version", "1.6.17"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -3767,6 +3767,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetPrivatecontractSignurlResponse>(await DoRequestAsync("1.0", "twc.notary.privatecontract.signurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户入驻直付通进度查询，替代twc.notary.contract.merchantindirectzft.query
+         * Summary: 商户入驻直付通进度查询
+         */
+        public QueryContractMerchantorderResponse QueryContractMerchantorder(QueryContractMerchantorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryContractMerchantorderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户入驻直付通进度查询，替代twc.notary.contract.merchantindirectzft.query
+         * Summary: 商户入驻直付通进度查询
+         */
+        public async Task<QueryContractMerchantorderResponse> QueryContractMerchantorderAsync(QueryContractMerchantorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryContractMerchantorderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户入驻直付通进度查询，替代twc.notary.contract.merchantindirectzft.query
+         * Summary: 商户入驻直付通进度查询
+         */
+        public QueryContractMerchantorderResponse QueryContractMerchantorderEx(QueryContractMerchantorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractMerchantorderResponse>(DoRequest("1.0", "twc.notary.contract.merchantorder.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户入驻直付通进度查询，替代twc.notary.contract.merchantindirectzft.query
+         * Summary: 商户入驻直付通进度查询
+         */
+        public async Task<QueryContractMerchantorderResponse> QueryContractMerchantorderExAsync(QueryContractMerchantorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractMerchantorderResponse>(await DoRequestAsync("1.0", "twc.notary.contract.merchantorder.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
