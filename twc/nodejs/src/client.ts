@@ -10386,6 +10386,117 @@ export class GetPrivatecontractSignurlResponse extends $tea.Model {
   }
 }
 
+export class QueryContractMerchantorderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 申请单id，通过twc.notary.contract.merchant.apply或者twc.notary.contract.merchantindirectzft.create接口返回的order_id
+  orderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractMerchantorderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 申请单id
+  orderId?: string;
+  // 外部商户id
+  externalId?: string;
+  // 进件时填写的商户名称
+  merchantName?: string;
+  // 申请总体状态。99:已完结;-1:失败;031:审核中
+  status?: string;
+  // 申请单创建时间
+  applyTime?: string;
+  // 风控审核状态。CREATE：已创建待审批、SKIP：跳过风控审批步骤、PASS：风控审核通过、REJECT：风控审批拒绝
+  fkAudit?: string;
+  // 风控审批备注，如有则返回
+  fkAuditMemo?: string;
+  // 客资审核状态。CREATE：已创建待审批、SKIP：跳过客资审批步骤、PASS：客资审核通过、REJECT：客资审批拒绝
+  kzAudit?: string;
+  // 客资审批备注，如有则返回
+  kzAuditMemo?: string;
+  // 二级商户确认状态。CREATE：已发起二级商户确认、SKIP：无需确认、FAIL：签约失败、NOT_CONFIRM：商户未确认、FINISH签约完成
+  subConfirm?: string;
+  // 进件生成的卡编号，在发起结算时可以作为结算账号
+  cardAliasNo?: string;
+  // 二级商户id。当总体申请状态status为99时，smid才算进件完成
+  smid?: string;
+  // 本申请单的请求类型。一般可选值包括ZHIFUTONG_CONSULT（直付通商户预校验）/ZHIFUTONG_CREATE（直付通商户创建）/ZHIFUTONG_MODIFY（直付通商户修改）
+  applyType?: string;
+  // 申请单处理失败时，通过此此段返回具体的失败理由；与kf_audit_memo和kz_audit_memo配合使用
+  reason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+      externalId: 'external_id',
+      merchantName: 'merchant_name',
+      status: 'status',
+      applyTime: 'apply_time',
+      fkAudit: 'fk_audit',
+      fkAuditMemo: 'fk_audit_memo',
+      kzAudit: 'kz_audit',
+      kzAuditMemo: 'kz_audit_memo',
+      subConfirm: 'sub_confirm',
+      cardAliasNo: 'card_alias_no',
+      smid: 'smid',
+      applyType: 'apply_type',
+      reason: 'reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+      externalId: 'string',
+      merchantName: 'string',
+      status: 'string',
+      applyTime: 'string',
+      fkAudit: 'string',
+      fkAuditMemo: 'string',
+      kzAudit: 'string',
+      kzAuditMemo: 'string',
+      subConfirm: 'string',
+      cardAliasNo: 'string',
+      smid: 'string',
+      applyType: 'string',
+      reason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class SyncInnerTransRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -15539,7 +15650,7 @@ export class CreateLeasePromiseRequest extends $tea.Model {
   // 审核方式,0为系统自动审核，1为人工审核
   auditMode: number;
   // 清分机构金融科技租户ID
-  clearingOrg: string;
+  clearingOrg?: string;
   // 放款机构金融科技租户ID
   creditOrg: string;
   // 第一次还款时的日期
@@ -20575,7 +20686,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.14",
+          sdk_version: "1.6.17",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -22181,6 +22292,25 @@ export default class Client {
   async getPrivatecontractSignurlEx(request: GetPrivatecontractSignurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetPrivatecontractSignurlResponse> {
     Util.validateModel(request);
     return $tea.cast<GetPrivatecontractSignurlResponse>(await this.doRequest("1.0", "twc.notary.privatecontract.signurl.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetPrivatecontractSignurlResponse({}));
+  }
+
+  /**
+   * Description: 商户入驻直付通进度查询，替代twc.notary.contract.merchantindirectzft.query
+   * Summary: 商户入驻直付通进度查询
+   */
+  async queryContractMerchantorder(request: QueryContractMerchantorderRequest): Promise<QueryContractMerchantorderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryContractMerchantorderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商户入驻直付通进度查询，替代twc.notary.contract.merchantindirectzft.query
+   * Summary: 商户入驻直付通进度查询
+   */
+  async queryContractMerchantorderEx(request: QueryContractMerchantorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractMerchantorderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryContractMerchantorderResponse>(await this.doRequest("1.0", "twc.notary.contract.merchantorder.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContractMerchantorderResponse({}));
   }
 
   /**
