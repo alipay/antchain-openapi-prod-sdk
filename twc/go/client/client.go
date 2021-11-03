@@ -13987,6 +13987,167 @@ func (s *GetPrivatecontractSignurlResponse) SetMessage(v string) *GetPrivatecont
 	return s
 }
 
+type QueryContractMerchantorderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 申请单id，通过twc.notary.contract.merchant.apply或者twc.notary.contract.merchantindirectzft.create接口返回的order_id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+}
+
+func (s QueryContractMerchantorderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractMerchantorderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractMerchantorderRequest) SetAuthToken(v string) *QueryContractMerchantorderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryContractMerchantorderRequest) SetProductInstanceId(v string) *QueryContractMerchantorderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryContractMerchantorderRequest) SetOrderId(v string) *QueryContractMerchantorderRequest {
+	s.OrderId = &v
+	return s
+}
+
+type QueryContractMerchantorderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 申请单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 外部商户id
+	ExternalId *string `json:"external_id,omitempty" xml:"external_id,omitempty"`
+	// 进件时填写的商户名称
+	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty"`
+	// 申请总体状态。99:已完结;-1:失败;031:审核中
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 申请单创建时间
+	ApplyTime *string `json:"apply_time,omitempty" xml:"apply_time,omitempty"`
+	// 风控审核状态。CREATE：已创建待审批、SKIP：跳过风控审批步骤、PASS：风控审核通过、REJECT：风控审批拒绝
+	FkAudit *string `json:"fk_audit,omitempty" xml:"fk_audit,omitempty"`
+	// 风控审批备注，如有则返回
+	FkAuditMemo *string `json:"fk_audit_memo,omitempty" xml:"fk_audit_memo,omitempty"`
+	// 客资审核状态。CREATE：已创建待审批、SKIP：跳过客资审批步骤、PASS：客资审核通过、REJECT：客资审批拒绝
+	KzAudit *string `json:"kz_audit,omitempty" xml:"kz_audit,omitempty"`
+	// 客资审批备注，如有则返回
+	KzAuditMemo *string `json:"kz_audit_memo,omitempty" xml:"kz_audit_memo,omitempty"`
+	// 二级商户确认状态。CREATE：已发起二级商户确认、SKIP：无需确认、FAIL：签约失败、NOT_CONFIRM：商户未确认、FINISH签约完成
+	SubConfirm *string `json:"sub_confirm,omitempty" xml:"sub_confirm,omitempty"`
+	// 进件生成的卡编号，在发起结算时可以作为结算账号
+	CardAliasNo *string `json:"card_alias_no,omitempty" xml:"card_alias_no,omitempty"`
+	// 二级商户id。当总体申请状态status为99时，smid才算进件完成
+	Smid *string `json:"smid,omitempty" xml:"smid,omitempty"`
+	// 本申请单的请求类型。一般可选值包括ZHIFUTONG_CONSULT（直付通商户预校验）/ZHIFUTONG_CREATE（直付通商户创建）/ZHIFUTONG_MODIFY（直付通商户修改）
+	ApplyType *string `json:"apply_type,omitempty" xml:"apply_type,omitempty"`
+	// 申请单处理失败时，通过此此段返回具体的失败理由；与kf_audit_memo和kz_audit_memo配合使用
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+}
+
+func (s QueryContractMerchantorderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractMerchantorderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractMerchantorderResponse) SetReqMsgId(v string) *QueryContractMerchantorderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryContractMerchantorderResponse) SetResultCode(v string) *QueryContractMerchantorderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryContractMerchantorderResponse) SetResultMsg(v string) *QueryContractMerchantorderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryContractMerchantorderResponse) SetOrderId(v string) *QueryContractMerchantorderResponse {
+	s.OrderId = &v
+	return s
+}
+
+func (s *QueryContractMerchantorderResponse) SetExternalId(v string) *QueryContractMerchantorderResponse {
+	s.ExternalId = &v
+	return s
+}
+
+func (s *QueryContractMerchantorderResponse) SetMerchantName(v string) *QueryContractMerchantorderResponse {
+	s.MerchantName = &v
+	return s
+}
+
+func (s *QueryContractMerchantorderResponse) SetStatus(v string) *QueryContractMerchantorderResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryContractMerchantorderResponse) SetApplyTime(v string) *QueryContractMerchantorderResponse {
+	s.ApplyTime = &v
+	return s
+}
+
+func (s *QueryContractMerchantorderResponse) SetFkAudit(v string) *QueryContractMerchantorderResponse {
+	s.FkAudit = &v
+	return s
+}
+
+func (s *QueryContractMerchantorderResponse) SetFkAuditMemo(v string) *QueryContractMerchantorderResponse {
+	s.FkAuditMemo = &v
+	return s
+}
+
+func (s *QueryContractMerchantorderResponse) SetKzAudit(v string) *QueryContractMerchantorderResponse {
+	s.KzAudit = &v
+	return s
+}
+
+func (s *QueryContractMerchantorderResponse) SetKzAuditMemo(v string) *QueryContractMerchantorderResponse {
+	s.KzAuditMemo = &v
+	return s
+}
+
+func (s *QueryContractMerchantorderResponse) SetSubConfirm(v string) *QueryContractMerchantorderResponse {
+	s.SubConfirm = &v
+	return s
+}
+
+func (s *QueryContractMerchantorderResponse) SetCardAliasNo(v string) *QueryContractMerchantorderResponse {
+	s.CardAliasNo = &v
+	return s
+}
+
+func (s *QueryContractMerchantorderResponse) SetSmid(v string) *QueryContractMerchantorderResponse {
+	s.Smid = &v
+	return s
+}
+
+func (s *QueryContractMerchantorderResponse) SetApplyType(v string) *QueryContractMerchantorderResponse {
+	s.ApplyType = &v
+	return s
+}
+
+func (s *QueryContractMerchantorderResponse) SetReason(v string) *QueryContractMerchantorderResponse {
+	s.Reason = &v
+	return s
+}
+
 type SyncInnerTransRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -21042,7 +21203,7 @@ type CreateLeasePromiseRequest struct {
 	// 审核方式,0为系统自动审核，1为人工审核
 	AuditMode *int64 `json:"audit_mode,omitempty" xml:"audit_mode,omitempty" require:"true"`
 	// 清分机构金融科技租户ID
-	ClearingOrg *string `json:"clearing_org,omitempty" xml:"clearing_org,omitempty" require:"true"`
+	ClearingOrg *string `json:"clearing_org,omitempty" xml:"clearing_org,omitempty"`
 	// 放款机构金融科技租户ID
 	CreditOrg *string `json:"credit_org,omitempty" xml:"credit_org,omitempty" require:"true"`
 	// 第一次还款时的日期
@@ -27965,7 +28126,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.14"),
+				"sdk_version":      tea.String("1.6.17"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -30798,6 +30959,40 @@ func (client *Client) GetPrivatecontractSignurlEx(request *GetPrivatecontractSig
 	}
 	_result = &GetPrivatecontractSignurlResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.privatecontract.signurl.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商户入驻直付通进度查询，替代twc.notary.contract.merchantindirectzft.query
+ * Summary: 商户入驻直付通进度查询
+ */
+func (client *Client) QueryContractMerchantorder(request *QueryContractMerchantorderRequest) (_result *QueryContractMerchantorderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryContractMerchantorderResponse{}
+	_body, _err := client.QueryContractMerchantorderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商户入驻直付通进度查询，替代twc.notary.contract.merchantindirectzft.query
+ * Summary: 商户入驻直付通进度查询
+ */
+func (client *Client) QueryContractMerchantorderEx(request *QueryContractMerchantorderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContractMerchantorderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryContractMerchantorderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.merchantorder.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
