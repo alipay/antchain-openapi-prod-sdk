@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.14',
+    sdk_version = '1.6.17',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -5675,6 +5675,70 @@ async function getPrivatecontractSignurlEx(request: GetPrivatecontractSignurlReq
   return doRequest('1.0' ,'twc.notary.privatecontract.signurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryContractMerchantorderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 申请单id，通过twc.notary.contract.merchant.apply或者twc.notary.contract.merchantindirectzft.create接口返回的order_id
+  orderId: string(name='order_id'),
+}
+
+model QueryContractMerchantorderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 申请单id
+  orderId?: string(name='order_id'),
+  // 外部商户id
+  externalId?: string(name='external_id'),
+  // 进件时填写的商户名称
+  merchantName?: string(name='merchant_name'),
+  // 申请总体状态。99:已完结;-1:失败;031:审核中
+  status?: string(name='status'),
+  // 申请单创建时间
+  applyTime?: string(name='apply_time'),
+  // 风控审核状态。CREATE：已创建待审批、SKIP：跳过风控审批步骤、PASS：风控审核通过、REJECT：风控审批拒绝
+  fkAudit?: string(name='fk_audit'),
+  // 风控审批备注，如有则返回
+  fkAuditMemo?: string(name='fk_audit_memo'),
+  // 客资审核状态。CREATE：已创建待审批、SKIP：跳过客资审批步骤、PASS：客资审核通过、REJECT：客资审批拒绝
+  kzAudit?: string(name='kz_audit'),
+  // 客资审批备注，如有则返回
+  kzAuditMemo?: string(name='kz_audit_memo'),
+  // 二级商户确认状态。CREATE：已发起二级商户确认、SKIP：无需确认、FAIL：签约失败、NOT_CONFIRM：商户未确认、FINISH签约完成
+  subConfirm?: string(name='sub_confirm'),
+  // 进件生成的卡编号，在发起结算时可以作为结算账号
+  cardAliasNo?: string(name='card_alias_no'),
+  // 二级商户id。当总体申请状态status为99时，smid才算进件完成
+  smid?: string(name='smid'),
+  // 本申请单的请求类型。一般可选值包括ZHIFUTONG_CONSULT（直付通商户预校验）/ZHIFUTONG_CREATE（直付通商户创建）/ZHIFUTONG_MODIFY（直付通商户修改）
+  applyType?: string(name='apply_type'),
+  // 申请单处理失败时，通过此此段返回具体的失败理由；与kf_audit_memo和kz_audit_memo配合使用
+  reason?: string(name='reason'),
+}
+
+/**
+ * Description: 商户入驻直付通进度查询，替代twc.notary.contract.merchantindirectzft.query
+ * Summary: 商户入驻直付通进度查询
+ */
+async function queryContractMerchantorder(request: QueryContractMerchantorderRequest): QueryContractMerchantorderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractMerchantorderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商户入驻直付通进度查询，替代twc.notary.contract.merchantindirectzft.query
+ * Summary: 商户入驻直付通进度查询
+ */
+async function queryContractMerchantorderEx(request: QueryContractMerchantorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractMerchantorderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.merchantorder.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model SyncInnerTransRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -8781,7 +8845,7 @@ model CreateLeasePromiseRequest = {
   // 审核方式,0为系统自动审核，1为人工审核
   auditMode: long(name='audit_mode'),
   // 清分机构金融科技租户ID
-  clearingOrg: string(name='clearing_org'),
+  clearingOrg?: string(name='clearing_org'),
   // 放款机构金融科技租户ID
   creditOrg: string(name='credit_org'),
   // 第一次还款时的日期
