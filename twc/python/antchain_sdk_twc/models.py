@@ -16086,6 +16086,179 @@ class GetPrivatecontractSignurlResponse(TeaModel):
         return self
 
 
+class QueryContractMerchantorderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 申请单id，通过twc.notary.contract.merchant.apply或者twc.notary.contract.merchantindirectzft.create接口返回的order_id
+        self.order_id = order_id
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        return self
+
+
+class QueryContractMerchantorderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        order_id: str = None,
+        external_id: str = None,
+        merchant_name: str = None,
+        status: str = None,
+        apply_time: str = None,
+        fk_audit: str = None,
+        fk_audit_memo: str = None,
+        kz_audit: str = None,
+        kz_audit_memo: str = None,
+        sub_confirm: str = None,
+        card_alias_no: str = None,
+        smid: str = None,
+        apply_type: str = None,
+        reason: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 申请单id
+        self.order_id = order_id
+        # 外部商户id
+        self.external_id = external_id
+        # 进件时填写的商户名称
+        self.merchant_name = merchant_name
+        # 申请总体状态。99:已完结;-1:失败;031:审核中
+        self.status = status
+        # 申请单创建时间
+        self.apply_time = apply_time
+        # 风控审核状态。CREATE：已创建待审批、SKIP：跳过风控审批步骤、PASS：风控审核通过、REJECT：风控审批拒绝
+        self.fk_audit = fk_audit
+        # 风控审批备注，如有则返回
+        self.fk_audit_memo = fk_audit_memo
+        # 客资审核状态。CREATE：已创建待审批、SKIP：跳过客资审批步骤、PASS：客资审核通过、REJECT：客资审批拒绝
+        self.kz_audit = kz_audit
+        # 客资审批备注，如有则返回
+        self.kz_audit_memo = kz_audit_memo
+        # 二级商户确认状态。CREATE：已发起二级商户确认、SKIP：无需确认、FAIL：签约失败、NOT_CONFIRM：商户未确认、FINISH签约完成
+        self.sub_confirm = sub_confirm
+        # 进件生成的卡编号，在发起结算时可以作为结算账号
+        self.card_alias_no = card_alias_no
+        # 二级商户id。当总体申请状态status为99时，smid才算进件完成
+        self.smid = smid
+        # 本申请单的请求类型。一般可选值包括ZHIFUTONG_CONSULT（直付通商户预校验）/ZHIFUTONG_CREATE（直付通商户创建）/ZHIFUTONG_MODIFY（直付通商户修改）
+        self.apply_type = apply_type
+        # 申请单处理失败时，通过此此段返回具体的失败理由；与kf_audit_memo和kz_audit_memo配合使用
+        self.reason = reason
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.external_id is not None:
+            result['external_id'] = self.external_id
+        if self.merchant_name is not None:
+            result['merchant_name'] = self.merchant_name
+        if self.status is not None:
+            result['status'] = self.status
+        if self.apply_time is not None:
+            result['apply_time'] = self.apply_time
+        if self.fk_audit is not None:
+            result['fk_audit'] = self.fk_audit
+        if self.fk_audit_memo is not None:
+            result['fk_audit_memo'] = self.fk_audit_memo
+        if self.kz_audit is not None:
+            result['kz_audit'] = self.kz_audit
+        if self.kz_audit_memo is not None:
+            result['kz_audit_memo'] = self.kz_audit_memo
+        if self.sub_confirm is not None:
+            result['sub_confirm'] = self.sub_confirm
+        if self.card_alias_no is not None:
+            result['card_alias_no'] = self.card_alias_no
+        if self.smid is not None:
+            result['smid'] = self.smid
+        if self.apply_type is not None:
+            result['apply_type'] = self.apply_type
+        if self.reason is not None:
+            result['reason'] = self.reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('external_id') is not None:
+            self.external_id = m.get('external_id')
+        if m.get('merchant_name') is not None:
+            self.merchant_name = m.get('merchant_name')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('apply_time') is not None:
+            self.apply_time = m.get('apply_time')
+        if m.get('fk_audit') is not None:
+            self.fk_audit = m.get('fk_audit')
+        if m.get('fk_audit_memo') is not None:
+            self.fk_audit_memo = m.get('fk_audit_memo')
+        if m.get('kz_audit') is not None:
+            self.kz_audit = m.get('kz_audit')
+        if m.get('kz_audit_memo') is not None:
+            self.kz_audit_memo = m.get('kz_audit_memo')
+        if m.get('sub_confirm') is not None:
+            self.sub_confirm = m.get('sub_confirm')
+        if m.get('card_alias_no') is not None:
+            self.card_alias_no = m.get('card_alias_no')
+        if m.get('smid') is not None:
+            self.smid = m.get('smid')
+        if m.get('apply_type') is not None:
+            self.apply_type = m.get('apply_type')
+        if m.get('reason') is not None:
+            self.reason = m.get('reason')
+        return self
+
+
 class SyncInnerTransRequest(TeaModel):
     def __init__(
         self,
@@ -24260,7 +24433,6 @@ class CreateLeasePromiseRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.audit_mode, 'audit_mode')
-        self.validate_required(self.clearing_org, 'clearing_org')
         self.validate_required(self.credit_org, 'credit_org')
         self.validate_required(self.lease_alipay_uid, 'lease_alipay_uid')
         self.validate_required(self.limit, 'limit')

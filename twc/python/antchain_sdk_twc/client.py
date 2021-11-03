@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.14'
+                    'sdk_version': '1.6.17'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.14'
+                    'sdk_version': '1.6.17'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -4705,6 +4705,60 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.GetPrivatecontractSignurlResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.privatecontract.signurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_contract_merchantorder(
+        self,
+        request: twc_models.QueryContractMerchantorderRequest,
+    ) -> twc_models.QueryContractMerchantorderResponse:
+        """
+        Description: 商户入驻直付通进度查询，替代twc.notary.contract.merchantindirectzft.query
+        Summary: 商户入驻直付通进度查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_contract_merchantorder_ex(request, headers, runtime)
+
+    async def query_contract_merchantorder_async(
+        self,
+        request: twc_models.QueryContractMerchantorderRequest,
+    ) -> twc_models.QueryContractMerchantorderResponse:
+        """
+        Description: 商户入驻直付通进度查询，替代twc.notary.contract.merchantindirectzft.query
+        Summary: 商户入驻直付通进度查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_contract_merchantorder_ex_async(request, headers, runtime)
+
+    def query_contract_merchantorder_ex(
+        self,
+        request: twc_models.QueryContractMerchantorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractMerchantorderResponse:
+        """
+        Description: 商户入驻直付通进度查询，替代twc.notary.contract.merchantindirectzft.query
+        Summary: 商户入驻直付通进度查询
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryContractMerchantorderResponse().from_map(
+            self.do_request('1.0', 'twc.notary.contract.merchantorder.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_contract_merchantorder_ex_async(
+        self,
+        request: twc_models.QueryContractMerchantorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractMerchantorderResponse:
+        """
+        Description: 商户入驻直付通进度查询，替代twc.notary.contract.merchantindirectzft.query
+        Summary: 商户入驻直付通进度查询
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryContractMerchantorderResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.contract.merchantorder.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def sync_inner_trans(
