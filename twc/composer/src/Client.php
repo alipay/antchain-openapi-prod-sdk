@@ -285,6 +285,8 @@ use AntChain\TWC\Models\QueryContractFlowsignerRequest;
 use AntChain\TWC\Models\QueryContractFlowsignerResponse;
 use AntChain\TWC\Models\QueryContractMerchantindirectzftRequest;
 use AntChain\TWC\Models\QueryContractMerchantindirectzftResponse;
+use AntChain\TWC\Models\QueryContractMerchantorderRequest;
+use AntChain\TWC\Models\QueryContractMerchantorderResponse;
 use AntChain\TWC\Models\QueryContractMerchantzftRequest;
 use AntChain\TWC\Models\QueryContractMerchantzftResponse;
 use AntChain\TWC\Models\QueryContractNotaryRequest;
@@ -544,7 +546,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.14',
+                    'sdk_version'      => '1.6.17',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -3298,6 +3300,39 @@ class Client
         Utils::validateModel($request);
 
         return GetPrivatecontractSignurlResponse::fromMap($this->doRequest('1.0', 'twc.notary.privatecontract.signurl.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户入驻直付通进度查询，替代twc.notary.contract.merchantindirectzft.query
+     * Summary: 商户入驻直付通进度查询.
+     *
+     * @param QueryContractMerchantorderRequest $request
+     *
+     * @return QueryContractMerchantorderResponse
+     */
+    public function queryContractMerchantorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryContractMerchantorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户入驻直付通进度查询，替代twc.notary.contract.merchantindirectzft.query
+     * Summary: 商户入驻直付通进度查询.
+     *
+     * @param QueryContractMerchantorderRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryContractMerchantorderResponse
+     */
+    public function queryContractMerchantorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryContractMerchantorderResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.merchantorder.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

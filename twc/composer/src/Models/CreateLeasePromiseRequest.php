@@ -132,7 +132,6 @@ class CreateLeasePromiseRequest extends Model
     public function validate()
     {
         Model::validateRequired('auditMode', $this->auditMode, true);
-        Model::validateRequired('clearingOrg', $this->clearingOrg, true);
         Model::validateRequired('creditOrg', $this->creditOrg, true);
         Model::validateRequired('leaseAlipayUid', $this->leaseAlipayUid, true);
         Model::validateRequired('limit', $this->limit, true);
