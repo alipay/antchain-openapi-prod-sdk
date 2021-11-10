@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_tftus.
 
-Created on 09/11/2021
+Created on 10/11/2021
 
 @author: Ant Chain SDK
 """
