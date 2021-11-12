@@ -212,7 +212,7 @@ class PredictRequest(TeaModel):
         cert_no_md_5: str = None,
         payback_amount: str = None,
         payback_num: str = None,
-        overdue_month: str = None,
+        overdue_day: int = None,
         cert_no: str = None,
         prediction_score: str = None,
     ):
@@ -225,7 +225,7 @@ class PredictRequest(TeaModel):
         # 已还期数，默认0
         self.payback_num = payback_num
         # 逾期月数
-        self.overdue_month = overdue_month
+        self.overdue_day = overdue_day
         # 身份证号
         self.cert_no = cert_no
         # 支付宝内部预测分数
@@ -244,8 +244,8 @@ class PredictRequest(TeaModel):
             result['payback_amount'] = self.payback_amount
         if self.payback_num is not None:
             result['payback_num'] = self.payback_num
-        if self.overdue_month is not None:
-            result['overdue_month'] = self.overdue_month
+        if self.overdue_day is not None:
+            result['overdue_day'] = self.overdue_day
         if self.cert_no is not None:
             result['cert_no'] = self.cert_no
         if self.prediction_score is not None:
@@ -262,8 +262,8 @@ class PredictRequest(TeaModel):
             self.payback_amount = m.get('payback_amount')
         if m.get('payback_num') is not None:
             self.payback_num = m.get('payback_num')
-        if m.get('overdue_month') is not None:
-            self.overdue_month = m.get('overdue_month')
+        if m.get('overdue_day') is not None:
+            self.overdue_day = m.get('overdue_day')
         if m.get('cert_no') is not None:
             self.cert_no = m.get('cert_no')
         if m.get('prediction_score') is not None:
