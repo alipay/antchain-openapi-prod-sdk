@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.15',
+    sdk_version = '1.0.17',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -184,7 +184,7 @@ model PredictRequest {
   // 已还期数，默认0
   paybackNum?: string(name='payback_num', example='2'),
   // 逾期月数
-  overdueMonth?: string(name='overdue_month', example='2'),
+  overdueDay?: long(name='overdue_day', example='200'),
   // 身份证号
   certNo?: string(name='cert_no', example='131124111111110111'),
   // 支付宝内部预测分数
