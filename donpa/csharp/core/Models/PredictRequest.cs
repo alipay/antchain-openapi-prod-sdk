@@ -31,9 +31,9 @@ namespace AntChain.SDK.DONPA.Models
         public string PaybackNum { get; set; }
 
         // 逾期月数
-        [NameInMap("overdue_month")]
+        [NameInMap("overdue_day")]
         [Validation(Required=false)]
-        public string OverdueMonth { get; set; }
+        public long? OverdueDay { get; set; }
 
         // 身份证号
         [NameInMap("cert_no")]
