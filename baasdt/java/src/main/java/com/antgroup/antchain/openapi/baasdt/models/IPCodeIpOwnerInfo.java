@@ -12,6 +12,10 @@ public class IPCodeIpOwnerInfo extends TeaModel {
     @NameInMap("ip_owner_image")
     public String ipOwnerImage;
 
+    // 版权方头像，临时访问地址，可直接访问
+    @NameInMap("ip_owner_image_tmp")
+    public String ipOwnerImageTmp;
+
     // ip描述
     @NameInMap("ip_description")
     public String ipDescription;
@@ -35,6 +39,14 @@ public class IPCodeIpOwnerInfo extends TeaModel {
     }
     public String getIpOwnerImage() {
         return this.ipOwnerImage;
+    }
+
+    public IPCodeIpOwnerInfo setIpOwnerImageTmp(String ipOwnerImageTmp) {
+        this.ipOwnerImageTmp = ipOwnerImageTmp;
+        return this;
+    }
+    public String getIpOwnerImageTmp() {
+        return this.ipOwnerImageTmp;
     }
 
     public IPCodeIpOwnerInfo setIpDescription(String ipDescription) {

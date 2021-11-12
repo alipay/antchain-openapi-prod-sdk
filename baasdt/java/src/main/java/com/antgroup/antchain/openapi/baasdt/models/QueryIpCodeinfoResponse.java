@@ -20,6 +20,10 @@ public class QueryIpCodeinfoResponse extends TeaModel {
     @NameInMap("order_id")
     public String orderId;
 
+    // 额外功能，包括基础功能，是否允许收藏等
+    @NameInMap("features")
+    public java.util.List<Long> features;
+
     // 正版码商品信息配置列表
     @NameInMap("goods_info_list")
     public java.util.List<IPCodeGoodsInfo> goodsInfoList;
@@ -71,6 +75,14 @@ public class QueryIpCodeinfoResponse extends TeaModel {
     }
     public String getOrderId() {
         return this.orderId;
+    }
+
+    public QueryIpCodeinfoResponse setFeatures(java.util.List<Long> features) {
+        this.features = features;
+        return this;
+    }
+    public java.util.List<Long> getFeatures() {
+        return this.features;
     }
 
     public QueryIpCodeinfoResponse setGoodsInfoList(java.util.List<IPCodeGoodsInfo> goodsInfoList) {

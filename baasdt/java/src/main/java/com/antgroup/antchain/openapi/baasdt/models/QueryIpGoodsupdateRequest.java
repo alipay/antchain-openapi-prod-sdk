@@ -18,8 +18,11 @@ public class QueryIpGoodsupdateRequest extends TeaModel {
 
     // ipid的列表，最多20个
     @NameInMap("ip_ids")
-    @Validation(required = true)
     public java.util.List<String> ipIds;
+
+    // 版权方账号id
+    @NameInMap("account_id")
+    public String accountId;
 
     public static QueryIpGoodsupdateRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryIpGoodsupdateRequest self = new QueryIpGoodsupdateRequest();
@@ -56,6 +59,14 @@ public class QueryIpGoodsupdateRequest extends TeaModel {
     }
     public java.util.List<String> getIpIds() {
         return this.ipIds;
+    }
+
+    public QueryIpGoodsupdateRequest setAccountId(String accountId) {
+        this.accountId = accountId;
+        return this;
+    }
+    public String getAccountId() {
+        return this.accountId;
     }
 
 }

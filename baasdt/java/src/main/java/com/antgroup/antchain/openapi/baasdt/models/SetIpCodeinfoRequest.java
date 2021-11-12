@@ -38,6 +38,11 @@ public class SetIpCodeinfoRequest extends TeaModel {
     @NameInMap("ipowner_info")
     public IPCodeIpOwnerInfo ipownerInfo;
 
+    // (商家)配置正版码时间
+    @NameInMap("code_set_time")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String codeSetTime;
+
     public static SetIpCodeinfoRequest build(java.util.Map<String, ?> map) throws Exception {
         SetIpCodeinfoRequest self = new SetIpCodeinfoRequest();
         return TeaModel.build(map, self);
@@ -105,6 +110,14 @@ public class SetIpCodeinfoRequest extends TeaModel {
     }
     public IPCodeIpOwnerInfo getIpownerInfo() {
         return this.ipownerInfo;
+    }
+
+    public SetIpCodeinfoRequest setCodeSetTime(String codeSetTime) {
+        this.codeSetTime = codeSetTime;
+        return this;
+    }
+    public String getCodeSetTime() {
+        return this.codeSetTime;
     }
 
 }

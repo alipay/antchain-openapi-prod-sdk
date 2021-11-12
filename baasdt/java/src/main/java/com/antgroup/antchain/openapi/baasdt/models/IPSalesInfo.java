@@ -11,22 +11,18 @@ public class IPSalesInfo extends TeaModel {
 
     // 终端商品图片
     @NameInMap("goods_image")
-    @Validation(required = true)
     public String goodsImage;
 
     // 终端销售渠道
     @NameInMap("sales_channel")
-    @Validation(required = true)
     public String salesChannel;
 
     // 终端商品链接
     @NameInMap("goods_url")
-    @Validation(required = true)
     public String goodsUrl;
 
     // 零售价
     @NameInMap("price")
-    @Validation(required = true)
     public String price;
 
     // 商品销售数量
@@ -41,7 +37,6 @@ public class IPSalesInfo extends TeaModel {
 
     // 实付金额（授权交易）
     @NameInMap("payment")
-    @Validation(required = true)
     public String payment;
 
     // 统计周期开始时间（毫秒时间戳）

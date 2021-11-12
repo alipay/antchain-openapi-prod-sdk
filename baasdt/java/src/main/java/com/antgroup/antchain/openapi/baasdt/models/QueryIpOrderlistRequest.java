@@ -64,6 +64,14 @@ public class QueryIpOrderlistRequest extends TeaModel {
     @NameInMap("auth_end_time")
     public Long authEndTime;
 
+    // 订单创建时间开始范围
+    @NameInMap("create_start_time")
+    public Long createStartTime;
+
+    // 订单创建时间结束范围
+    @NameInMap("create_end_time")
+    public Long createEndTime;
+
     // 排序字段
     @NameInMap("order_by")
     @Validation(required = true)
@@ -211,6 +219,22 @@ public class QueryIpOrderlistRequest extends TeaModel {
     }
     public Long getAuthEndTime() {
         return this.authEndTime;
+    }
+
+    public QueryIpOrderlistRequest setCreateStartTime(Long createStartTime) {
+        this.createStartTime = createStartTime;
+        return this;
+    }
+    public Long getCreateStartTime() {
+        return this.createStartTime;
+    }
+
+    public QueryIpOrderlistRequest setCreateEndTime(Long createEndTime) {
+        this.createEndTime = createEndTime;
+        return this;
+    }
+    public Long getCreateEndTime() {
+        return this.createEndTime;
     }
 
     public QueryIpOrderlistRequest setOrderBy(String orderBy) {

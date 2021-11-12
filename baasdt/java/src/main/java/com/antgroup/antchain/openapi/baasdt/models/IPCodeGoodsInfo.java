@@ -16,6 +16,10 @@ public class IPCodeGoodsInfo extends TeaModel {
     @NameInMap("goods_image")
     public String goodsImage;
 
+    // 商品图片临时访问地址，可直接访问
+    @NameInMap("goods_image_tmp")
+    public String goodsImageTmp;
+
     // 商品店铺名称/商品出品方
     @NameInMap("goods_store")
     public String goodsStore;
@@ -23,6 +27,10 @@ public class IPCodeGoodsInfo extends TeaModel {
     // 店铺logo图片链接
     @NameInMap("goods_store_logo")
     public String goodsStoreLogo;
+
+    // 店铺logo临时访问地址
+    @NameInMap("goods_store_logo_tmp")
+    public String goodsStoreLogoTmp;
 
     // 商品描述
     @NameInMap("goods_description")
@@ -40,6 +48,14 @@ public class IPCodeGoodsInfo extends TeaModel {
     @NameInMap("authorization_end_time")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String authorizationEndTime;
+
+    // 发售渠道
+    @NameInMap("goods_sale_channel")
+    public String goodsSaleChannel;
+
+    // 商品规格
+    @NameInMap("goods_specifications")
+    public java.util.List<ProductSpecification> goodsSpecifications;
 
     public static IPCodeGoodsInfo build(java.util.Map<String, ?> map) throws Exception {
         IPCodeGoodsInfo self = new IPCodeGoodsInfo();
@@ -70,6 +86,14 @@ public class IPCodeGoodsInfo extends TeaModel {
         return this.goodsImage;
     }
 
+    public IPCodeGoodsInfo setGoodsImageTmp(String goodsImageTmp) {
+        this.goodsImageTmp = goodsImageTmp;
+        return this;
+    }
+    public String getGoodsImageTmp() {
+        return this.goodsImageTmp;
+    }
+
     public IPCodeGoodsInfo setGoodsStore(String goodsStore) {
         this.goodsStore = goodsStore;
         return this;
@@ -84,6 +108,14 @@ public class IPCodeGoodsInfo extends TeaModel {
     }
     public String getGoodsStoreLogo() {
         return this.goodsStoreLogo;
+    }
+
+    public IPCodeGoodsInfo setGoodsStoreLogoTmp(String goodsStoreLogoTmp) {
+        this.goodsStoreLogoTmp = goodsStoreLogoTmp;
+        return this;
+    }
+    public String getGoodsStoreLogoTmp() {
+        return this.goodsStoreLogoTmp;
     }
 
     public IPCodeGoodsInfo setGoodsDescription(String goodsDescription) {
@@ -116,6 +148,22 @@ public class IPCodeGoodsInfo extends TeaModel {
     }
     public String getAuthorizationEndTime() {
         return this.authorizationEndTime;
+    }
+
+    public IPCodeGoodsInfo setGoodsSaleChannel(String goodsSaleChannel) {
+        this.goodsSaleChannel = goodsSaleChannel;
+        return this;
+    }
+    public String getGoodsSaleChannel() {
+        return this.goodsSaleChannel;
+    }
+
+    public IPCodeGoodsInfo setGoodsSpecifications(java.util.List<ProductSpecification> goodsSpecifications) {
+        this.goodsSpecifications = goodsSpecifications;
+        return this;
+    }
+    public java.util.List<ProductSpecification> getGoodsSpecifications() {
+        return this.goodsSpecifications;
     }
 
 }

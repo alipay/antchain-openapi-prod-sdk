@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.baasdt.models;
 
 import com.aliyun.tea.*;
 
-public class PagequeryIpSalesRequest extends TeaModel {
+public class PagequeryIpSalessummaryRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -16,15 +16,17 @@ public class PagequeryIpSalesRequest extends TeaModel {
     @Validation(required = true)
     public BaseRequestInfo baseRequest;
 
-    // 订单ID。和账单ID 两个字段只能选填一个
+    // 订单ID。订单ID和账单ID二选一传入。
     @NameInMap("ip_order_id")
-    @Validation(required = true)
     public String ipOrderId;
 
-    // 销售数据ID
-    @NameInMap("sales_biz_id")
-    @Validation(required = true)
-    public String salesBizId;
+    // 账单ID。订单ID和账单ID二选一传入。
+    @NameInMap("ip_bill_id")
+    public String ipBillId;
+
+    // 销售数据状态：1初始化，2商户确认，3版权方确认，4账单生成，5商户已校正，6版权方拒绝
+    @NameInMap("status")
+    public Long status;
 
     // 排序字段
     @NameInMap("order_by")
@@ -41,17 +43,17 @@ public class PagequeryIpSalesRequest extends TeaModel {
     @Validation(required = true)
     public Long pageNumber;
 
-    // 每页数据量大小
+    // 每页数据量大小。不大于100。
     @NameInMap("page_size")
     @Validation(required = true)
     public Long pageSize;
 
-    public static PagequeryIpSalesRequest build(java.util.Map<String, ?> map) throws Exception {
-        PagequeryIpSalesRequest self = new PagequeryIpSalesRequest();
+    public static PagequeryIpSalessummaryRequest build(java.util.Map<String, ?> map) throws Exception {
+        PagequeryIpSalessummaryRequest self = new PagequeryIpSalessummaryRequest();
         return TeaModel.build(map, self);
     }
 
-    public PagequeryIpSalesRequest setAuthToken(String authToken) {
+    public PagequeryIpSalessummaryRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -59,7 +61,7 @@ public class PagequeryIpSalesRequest extends TeaModel {
         return this.authToken;
     }
 
-    public PagequeryIpSalesRequest setProductInstanceId(String productInstanceId) {
+    public PagequeryIpSalessummaryRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -67,7 +69,7 @@ public class PagequeryIpSalesRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public PagequeryIpSalesRequest setBaseRequest(BaseRequestInfo baseRequest) {
+    public PagequeryIpSalessummaryRequest setBaseRequest(BaseRequestInfo baseRequest) {
         this.baseRequest = baseRequest;
         return this;
     }
@@ -75,7 +77,7 @@ public class PagequeryIpSalesRequest extends TeaModel {
         return this.baseRequest;
     }
 
-    public PagequeryIpSalesRequest setIpOrderId(String ipOrderId) {
+    public PagequeryIpSalessummaryRequest setIpOrderId(String ipOrderId) {
         this.ipOrderId = ipOrderId;
         return this;
     }
@@ -83,15 +85,23 @@ public class PagequeryIpSalesRequest extends TeaModel {
         return this.ipOrderId;
     }
 
-    public PagequeryIpSalesRequest setSalesBizId(String salesBizId) {
-        this.salesBizId = salesBizId;
+    public PagequeryIpSalessummaryRequest setIpBillId(String ipBillId) {
+        this.ipBillId = ipBillId;
         return this;
     }
-    public String getSalesBizId() {
-        return this.salesBizId;
+    public String getIpBillId() {
+        return this.ipBillId;
     }
 
-    public PagequeryIpSalesRequest setOrderBy(String orderBy) {
+    public PagequeryIpSalessummaryRequest setStatus(Long status) {
+        this.status = status;
+        return this;
+    }
+    public Long getStatus() {
+        return this.status;
+    }
+
+    public PagequeryIpSalessummaryRequest setOrderBy(String orderBy) {
         this.orderBy = orderBy;
         return this;
     }
@@ -99,7 +109,7 @@ public class PagequeryIpSalesRequest extends TeaModel {
         return this.orderBy;
     }
 
-    public PagequeryIpSalesRequest setOrder(String order) {
+    public PagequeryIpSalessummaryRequest setOrder(String order) {
         this.order = order;
         return this;
     }
@@ -107,7 +117,7 @@ public class PagequeryIpSalesRequest extends TeaModel {
         return this.order;
     }
 
-    public PagequeryIpSalesRequest setPageNumber(Long pageNumber) {
+    public PagequeryIpSalessummaryRequest setPageNumber(Long pageNumber) {
         this.pageNumber = pageNumber;
         return this;
     }
@@ -115,7 +125,7 @@ public class PagequeryIpSalesRequest extends TeaModel {
         return this.pageNumber;
     }
 
-    public PagequeryIpSalesRequest setPageSize(Long pageSize) {
+    public PagequeryIpSalessummaryRequest setPageSize(Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

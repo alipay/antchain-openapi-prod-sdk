@@ -31,6 +31,10 @@ public class UpdateIpChannelRequest extends TeaModel {
     @Validation(required = true)
     public Long authorizationModel;
 
+    // 新授权模式，0普通授权，1独家授权，支持多选
+    @NameInMap("new_authorization_model")
+    public java.util.List<Long> newAuthorizationModel;
+
     // 授权类型，衍生品授权；营销授权；商标授权；数字虚拟授权；其他
     @NameInMap("authorization_type")
     public java.util.List<String> authorizationType;
@@ -100,6 +104,14 @@ public class UpdateIpChannelRequest extends TeaModel {
     }
     public Long getAuthorizationModel() {
         return this.authorizationModel;
+    }
+
+    public UpdateIpChannelRequest setNewAuthorizationModel(java.util.List<Long> newAuthorizationModel) {
+        this.newAuthorizationModel = newAuthorizationModel;
+        return this;
+    }
+    public java.util.List<Long> getNewAuthorizationModel() {
+        return this.newAuthorizationModel;
     }
 
     public UpdateIpChannelRequest setAuthorizationType(java.util.List<String> authorizationType) {

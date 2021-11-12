@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.baasdt.models;
 
 import com.aliyun.tea.*;
 
-public class PagequeryIpSalesResponse extends TeaModel {
+public class PagequeryIpSalessummaryResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -21,12 +21,12 @@ public class PagequeryIpSalesResponse extends TeaModel {
     public String ipOrderId;
 
     // 账单ID
-    @NameInMap("sales_biz_id")
-    public String salesBizId;
+    @NameInMap("ip_bill_id")
+    public String ipBillId;
 
-    // IP授权销售数据
-    @NameInMap("ip_sales_info_list")
-    public java.util.List<IPSalesInfo> ipSalesInfoList;
+    // 销售数据汇总信息列表
+    @NameInMap("ip_sales_summary_list")
+    public java.util.List<IPSalesSummary> ipSalesSummaryList;
 
     // 页码
     @NameInMap("page_number")
@@ -40,12 +40,12 @@ public class PagequeryIpSalesResponse extends TeaModel {
     @NameInMap("total_count")
     public Long totalCount;
 
-    public static PagequeryIpSalesResponse build(java.util.Map<String, ?> map) throws Exception {
-        PagequeryIpSalesResponse self = new PagequeryIpSalesResponse();
+    public static PagequeryIpSalessummaryResponse build(java.util.Map<String, ?> map) throws Exception {
+        PagequeryIpSalessummaryResponse self = new PagequeryIpSalessummaryResponse();
         return TeaModel.build(map, self);
     }
 
-    public PagequeryIpSalesResponse setReqMsgId(String reqMsgId) {
+    public PagequeryIpSalessummaryResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -53,7 +53,7 @@ public class PagequeryIpSalesResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public PagequeryIpSalesResponse setResultCode(String resultCode) {
+    public PagequeryIpSalessummaryResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -61,7 +61,7 @@ public class PagequeryIpSalesResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public PagequeryIpSalesResponse setResultMsg(String resultMsg) {
+    public PagequeryIpSalessummaryResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -69,7 +69,7 @@ public class PagequeryIpSalesResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public PagequeryIpSalesResponse setIpOrderId(String ipOrderId) {
+    public PagequeryIpSalessummaryResponse setIpOrderId(String ipOrderId) {
         this.ipOrderId = ipOrderId;
         return this;
     }
@@ -77,23 +77,23 @@ public class PagequeryIpSalesResponse extends TeaModel {
         return this.ipOrderId;
     }
 
-    public PagequeryIpSalesResponse setSalesBizId(String salesBizId) {
-        this.salesBizId = salesBizId;
+    public PagequeryIpSalessummaryResponse setIpBillId(String ipBillId) {
+        this.ipBillId = ipBillId;
         return this;
     }
-    public String getSalesBizId() {
-        return this.salesBizId;
+    public String getIpBillId() {
+        return this.ipBillId;
     }
 
-    public PagequeryIpSalesResponse setIpSalesInfoList(java.util.List<IPSalesInfo> ipSalesInfoList) {
-        this.ipSalesInfoList = ipSalesInfoList;
+    public PagequeryIpSalessummaryResponse setIpSalesSummaryList(java.util.List<IPSalesSummary> ipSalesSummaryList) {
+        this.ipSalesSummaryList = ipSalesSummaryList;
         return this;
     }
-    public java.util.List<IPSalesInfo> getIpSalesInfoList() {
-        return this.ipSalesInfoList;
+    public java.util.List<IPSalesSummary> getIpSalesSummaryList() {
+        return this.ipSalesSummaryList;
     }
 
-    public PagequeryIpSalesResponse setPageNumber(Long pageNumber) {
+    public PagequeryIpSalessummaryResponse setPageNumber(Long pageNumber) {
         this.pageNumber = pageNumber;
         return this;
     }
@@ -101,7 +101,7 @@ public class PagequeryIpSalesResponse extends TeaModel {
         return this.pageNumber;
     }
 
-    public PagequeryIpSalesResponse setPageSize(Long pageSize) {
+    public PagequeryIpSalessummaryResponse setPageSize(Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -109,7 +109,7 @@ public class PagequeryIpSalesResponse extends TeaModel {
         return this.pageSize;
     }
 
-    public PagequeryIpSalesResponse setTotalCount(Long totalCount) {
+    public PagequeryIpSalessummaryResponse setTotalCount(Long totalCount) {
         this.totalCount = totalCount;
         return this;
     }

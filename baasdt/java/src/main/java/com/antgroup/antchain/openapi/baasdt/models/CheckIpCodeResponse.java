@@ -24,6 +24,10 @@ public class CheckIpCodeResponse extends TeaModel {
     @NameInMap("scanned_list")
     public java.util.List<IPCodeScannedInfo> scannedList;
 
+    // 正版码的详情，如果为空，则正版码未领取，如果不为空，则正版码已领取
+    @NameInMap("code_detail")
+    public IPCodeScannedInfo codeDetail;
+
     public static CheckIpCodeResponse build(java.util.Map<String, ?> map) throws Exception {
         CheckIpCodeResponse self = new CheckIpCodeResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class CheckIpCodeResponse extends TeaModel {
     }
     public java.util.List<IPCodeScannedInfo> getScannedList() {
         return this.scannedList;
+    }
+
+    public CheckIpCodeResponse setCodeDetail(IPCodeScannedInfo codeDetail) {
+        this.codeDetail = codeDetail;
+        return this;
+    }
+    public IPCodeScannedInfo getCodeDetail() {
+        return this.codeDetail;
     }
 
 }

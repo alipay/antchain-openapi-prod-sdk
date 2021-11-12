@@ -20,6 +20,14 @@ public class ApplyIpCodeResponse extends TeaModel {
     @NameInMap("code_batch_id")
     public String codeBatchId;
 
+    // 正版码左区间
+    @NameInMap("code_batch_start")
+    public Long codeBatchStart;
+
+    // 正版码右区间
+    @NameInMap("code_batch_end")
+    public Long codeBatchEnd;
+
     public static ApplyIpCodeResponse build(java.util.Map<String, ?> map) throws Exception {
         ApplyIpCodeResponse self = new ApplyIpCodeResponse();
         return TeaModel.build(map, self);
@@ -55,6 +63,22 @@ public class ApplyIpCodeResponse extends TeaModel {
     }
     public String getCodeBatchId() {
         return this.codeBatchId;
+    }
+
+    public ApplyIpCodeResponse setCodeBatchStart(Long codeBatchStart) {
+        this.codeBatchStart = codeBatchStart;
+        return this;
+    }
+    public Long getCodeBatchStart() {
+        return this.codeBatchStart;
+    }
+
+    public ApplyIpCodeResponse setCodeBatchEnd(Long codeBatchEnd) {
+        this.codeBatchEnd = codeBatchEnd;
+        return this;
+    }
+    public Long getCodeBatchEnd() {
+        return this.codeBatchEnd;
     }
 
 }

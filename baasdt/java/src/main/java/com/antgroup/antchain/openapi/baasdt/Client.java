@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.7")
+                    new TeaPair("sdk_version", "1.3.39")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -4892,7 +4892,7 @@ public class Client {
     }
 
     /**
-     * Description: 分页查询订单/账单的销售数据列表
+     * Description: 分页查询订单的销售数据详情列表
      * Summary: 数字商品服务-IP授权服务-查询销售数据
      */
     public PagequeryIpSalesResponse pagequeryIpSales(PagequeryIpSalesRequest request) throws Exception {
@@ -4902,7 +4902,7 @@ public class Client {
     }
 
     /**
-     * Description: 分页查询订单/账单的销售数据列表
+     * Description: 分页查询订单的销售数据详情列表
      * Summary: 数字商品服务-IP授权服务-查询销售数据
      */
     public PagequeryIpSalesResponse pagequeryIpSalesEx(PagequeryIpSalesRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
@@ -4984,6 +4984,215 @@ public class Client {
     public QueryIpTwcaccountResponse queryIpTwcaccountEx(QueryIpTwcaccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.twcaccount.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIpTwcaccountResponse());
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权服务-授权URI: 获取授权URI, 用于淘宝店铺授权数据给IPforce
+     * Summary: 数字商品服务-IP授权服务-授权URI
+     */
+    public BindIpShopResponse bindIpShop(BindIpShopRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindIpShopEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权服务-授权URI: 获取授权URI, 用于淘宝店铺授权数据给IPforce
+     * Summary: 数字商品服务-IP授权服务-授权URI
+     */
+    public BindIpShopResponse bindIpShopEx(BindIpShopRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.shop.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindIpShopResponse());
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权服务-店铺授权结果: 店铺登陆淘宝授权后的授权结果回调
+     * Summary: 数字商品服务-IP授权服务-店铺授权结果
+     */
+    public AuthIpShopResponse authIpShop(AuthIpShopRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.authIpShopEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权服务-店铺授权结果: 店铺登陆淘宝授权后的授权结果回调
+     * Summary: 数字商品服务-IP授权服务-店铺授权结果
+     */
+    public AuthIpShopResponse authIpShopEx(AuthIpShopRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.shop.auth", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AuthIpShopResponse());
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权服务-商户授权列表: 商户获取其店铺授权历史列表
+     * Summary: 数字商品服务-IP授权服务-商户授权列表
+     */
+    public ListIpShopResponse listIpShop(ListIpShopRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listIpShopEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权服务-商户授权列表: 商户获取其店铺授权历史列表
+     * Summary: 数字商品服务-IP授权服务-商户授权列表
+     */
+    public ListIpShopResponse listIpShopEx(ListIpShopRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.shop.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListIpShopResponse());
+    }
+
+    /**
+     * Description: 查询正版码收藏证书详情，主要包括该正版码对应的ip商品，流转信息，区块信息等
+     * Summary: 查询正版码收藏证书详情
+     */
+    public QueryIpCodecollectResponse queryIpCodecollect(QueryIpCodecollectRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIpCodecollectEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询正版码收藏证书详情，主要包括该正版码对应的ip商品，流转信息，区块信息等
+     * Summary: 查询正版码收藏证书详情
+     */
+    public QueryIpCodecollectResponse queryIpCodecollectEx(QueryIpCodecollectRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.codecollect.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIpCodecollectResponse());
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权服务-商品查询: 查询单个商品信息(淘宝开放平台数据)
+     * Summary: 数字商品服务-IP授权服务-商品查询
+     */
+    public GetIpShopResponse getIpShop(GetIpShopRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getIpShopEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权服务-商品查询: 查询单个商品信息(淘宝开放平台数据)
+     * Summary: 数字商品服务-IP授权服务-商品查询
+     */
+    public GetIpShopResponse getIpShopEx(GetIpShopRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.shop.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetIpShopResponse());
+    }
+
+    /**
+     * Description: 授权订单绑定商品ID，后续上传的销售数据需满足已绑定的商品ID
+     * Summary: 数字商品服务-IP授权服务-绑定商品ID
+     */
+    public SetIpOrdergoodsidResponse setIpOrdergoodsid(SetIpOrdergoodsidRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.setIpOrdergoodsidEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 授权订单绑定商品ID，后续上传的销售数据需满足已绑定的商品ID
+     * Summary: 数字商品服务-IP授权服务-绑定商品ID
+     */
+    public SetIpOrdergoodsidResponse setIpOrdergoodsidEx(SetIpOrdergoodsidRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.ordergoodsid.set", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SetIpOrdergoodsidResponse());
+    }
+
+    /**
+     * Description: 商家校正授权订单的销售数据
+     * Summary: 数字商品服务-IP授权服务-校正销售数据
+     */
+    public SetIpSalescorrectionResponse setIpSalescorrection(SetIpSalescorrectionRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.setIpSalescorrectionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商家校正授权订单的销售数据
+     * Summary: 数字商品服务-IP授权服务-校正销售数据
+     */
+    public SetIpSalescorrectionResponse setIpSalescorrectionEx(SetIpSalescorrectionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.salescorrection.set", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SetIpSalescorrectionResponse());
+    }
+
+    /**
+     * Description: 商户确认销售数据。版权方确认或者拒绝销售数据
+     * Summary: 数字商品服务-IP授权服务-确认销售数据
+     */
+    public ConfirmIpSalessummaryResponse confirmIpSalessummary(ConfirmIpSalessummaryRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.confirmIpSalessummaryEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商户确认销售数据。版权方确认或者拒绝销售数据
+     * Summary: 数字商品服务-IP授权服务-确认销售数据
+     */
+    public ConfirmIpSalessummaryResponse confirmIpSalessummaryEx(ConfirmIpSalessummaryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.salessummary.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmIpSalessummaryResponse());
+    }
+
+    /**
+     * Description: 上传授权订单的逐条销售数据
+     * Summary: 数字商品服务-IP授权服务-销售数据上传
+     */
+    public UploadIpSaleseverylistResponse uploadIpSaleseverylist(UploadIpSaleseverylistRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadIpSaleseverylistEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 上传授权订单的逐条销售数据
+     * Summary: 数字商品服务-IP授权服务-销售数据上传
+     */
+    public UploadIpSaleseverylistResponse uploadIpSaleseverylistEx(UploadIpSaleseverylistRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.saleseverylist.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadIpSaleseverylistResponse());
+    }
+
+    /**
+     * Description: 查询订单或者账单的销售数据汇总信息列表
+     * Summary: 数字商品服务-IP授权服务-查询销售数据
+     */
+    public PagequeryIpSalessummaryResponse pagequeryIpSalessummary(PagequeryIpSalessummaryRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryIpSalessummaryEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询订单或者账单的销售数据汇总信息列表
+     * Summary: 数字商品服务-IP授权服务-查询销售数据
+     */
+    public PagequeryIpSalessummaryResponse pagequeryIpSalessummaryEx(PagequeryIpSalessummaryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.salessummary.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryIpSalessummaryResponse());
+    }
+
+    /**
+     * Description: 账单超时关闭的情况下，重新生成支付链接，变为待支付状态
+     * Summary: 数字商品服务-IP授权服务-刷新账单状态
+     */
+    public ReopenIpBillResponse reopenIpBill(ReopenIpBillRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.reopenIpBillEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 账单超时关闭的情况下，重新生成支付链接，变为待支付状态
+     * Summary: 数字商品服务-IP授权服务-刷新账单状态
+     */
+    public ReopenIpBillResponse reopenIpBillEx(ReopenIpBillRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.bill.reopen", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReopenIpBillResponse());
     }
 
     /**

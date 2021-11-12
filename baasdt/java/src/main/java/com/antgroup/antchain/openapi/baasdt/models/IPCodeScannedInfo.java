@@ -71,6 +71,22 @@ public class IPCodeScannedInfo extends TeaModel {
     @NameInMap("ip_code_status")
     public Long ipCodeStatus;
 
+    // 额外功能，包括是否允许收藏等
+    @NameInMap("features")
+    public java.util.List<Long> features;
+
+    // 核验次数，配置生效后的核验次数统计
+    @NameInMap("check_counts")
+    public Long checkCounts;
+
+    // 正版码关联的I IP信息
+    @NameInMap("ip_info")
+    public IPCodeIpGoodInfo ipInfo;
+
+    // UNI码
+    @NameInMap("uni_code")
+    public String uniCode;
+
     public static IPCodeScannedInfo build(java.util.Map<String, ?> map) throws Exception {
         IPCodeScannedInfo self = new IPCodeScannedInfo();
         return TeaModel.build(map, self);
@@ -194,6 +210,38 @@ public class IPCodeScannedInfo extends TeaModel {
     }
     public Long getIpCodeStatus() {
         return this.ipCodeStatus;
+    }
+
+    public IPCodeScannedInfo setFeatures(java.util.List<Long> features) {
+        this.features = features;
+        return this;
+    }
+    public java.util.List<Long> getFeatures() {
+        return this.features;
+    }
+
+    public IPCodeScannedInfo setCheckCounts(Long checkCounts) {
+        this.checkCounts = checkCounts;
+        return this;
+    }
+    public Long getCheckCounts() {
+        return this.checkCounts;
+    }
+
+    public IPCodeScannedInfo setIpInfo(IPCodeIpGoodInfo ipInfo) {
+        this.ipInfo = ipInfo;
+        return this;
+    }
+    public IPCodeIpGoodInfo getIpInfo() {
+        return this.ipInfo;
+    }
+
+    public IPCodeScannedInfo setUniCode(String uniCode) {
+        this.uniCode = uniCode;
+        return this;
+    }
+    public String getUniCode() {
+        return this.uniCode;
     }
 
 }

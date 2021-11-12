@@ -219,10 +219,21 @@ public class IPOrder extends TeaModel {
     @NameInMap("auth_type")
     public String authType;
 
+    // 授权模式，0普通授权，1独家授权，
+    @NameInMap("authorization_model")
+    public java.util.List<Long> authorizationModel;
+
+    // 绑定的商品信息列表
+    @NameInMap("goods_info_list")
+    public java.util.List<IPOrderGoods> goodsInfoList;
+
     // 绑定的商品ID列表
-    // 
     @NameInMap("goods_id_list")
     public java.util.List<String> goodsIdList;
+
+    // 订单功能选择，0 基础功能，1 领用收藏
+    @NameInMap("features")
+    public java.util.List<Long> features;
 
     public static IPOrder build(java.util.Map<String, ?> map) throws Exception {
         IPOrder self = new IPOrder();
@@ -581,12 +592,36 @@ public class IPOrder extends TeaModel {
         return this.authType;
     }
 
+    public IPOrder setAuthorizationModel(java.util.List<Long> authorizationModel) {
+        this.authorizationModel = authorizationModel;
+        return this;
+    }
+    public java.util.List<Long> getAuthorizationModel() {
+        return this.authorizationModel;
+    }
+
+    public IPOrder setGoodsInfoList(java.util.List<IPOrderGoods> goodsInfoList) {
+        this.goodsInfoList = goodsInfoList;
+        return this;
+    }
+    public java.util.List<IPOrderGoods> getGoodsInfoList() {
+        return this.goodsInfoList;
+    }
+
     public IPOrder setGoodsIdList(java.util.List<String> goodsIdList) {
         this.goodsIdList = goodsIdList;
         return this;
     }
     public java.util.List<String> getGoodsIdList() {
         return this.goodsIdList;
+    }
+
+    public IPOrder setFeatures(java.util.List<Long> features) {
+        this.features = features;
+        return this;
+    }
+    public java.util.List<Long> getFeatures() {
+        return this.features;
     }
 
 }

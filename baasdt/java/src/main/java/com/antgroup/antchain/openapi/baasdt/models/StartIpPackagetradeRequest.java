@@ -93,6 +93,14 @@ public class StartIpPackagetradeRequest extends TeaModel {
     @NameInMap("auth_type")
     public String authType;
 
+    // 授权模式，0普通授权，1独家授权
+    @NameInMap("authorization_model")
+    public java.util.List<Long> authorizationModel;
+
+    // 订单功能选择，0 基础功能，1 领用收藏等
+    @NameInMap("features")
+    public java.util.List<Long> features;
+
     public static StartIpPackagetradeRequest build(java.util.Map<String, ?> map) throws Exception {
         StartIpPackagetradeRequest self = new StartIpPackagetradeRequest();
         return TeaModel.build(map, self);
@@ -256,6 +264,22 @@ public class StartIpPackagetradeRequest extends TeaModel {
     }
     public String getAuthType() {
         return this.authType;
+    }
+
+    public StartIpPackagetradeRequest setAuthorizationModel(java.util.List<Long> authorizationModel) {
+        this.authorizationModel = authorizationModel;
+        return this;
+    }
+    public java.util.List<Long> getAuthorizationModel() {
+        return this.authorizationModel;
+    }
+
+    public StartIpPackagetradeRequest setFeatures(java.util.List<Long> features) {
+        this.features = features;
+        return this;
+    }
+    public java.util.List<Long> getFeatures() {
+        return this.features;
     }
 
 }

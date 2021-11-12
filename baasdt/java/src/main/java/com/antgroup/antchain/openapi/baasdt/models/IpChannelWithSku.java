@@ -15,6 +15,10 @@ public class IpChannelWithSku extends TeaModel {
     @Validation(required = true)
     public Long authorizationMode;
 
+    // 新授权模式，0普通授权，1独家授权，支持多选
+    @NameInMap("new_authorization_model")
+    public java.util.List<Long> newAuthorizationModel;
+
     // 计费模式 0:按量 1:按金额
     // 
     @NameInMap("pay_mode")
@@ -63,6 +67,14 @@ public class IpChannelWithSku extends TeaModel {
     }
     public Long getAuthorizationMode() {
         return this.authorizationMode;
+    }
+
+    public IpChannelWithSku setNewAuthorizationModel(java.util.List<Long> newAuthorizationModel) {
+        this.newAuthorizationModel = newAuthorizationModel;
+        return this;
+    }
+    public java.util.List<Long> getNewAuthorizationModel() {
+        return this.newAuthorizationModel;
     }
 
     public IpChannelWithSku setPayMode(Long payMode) {

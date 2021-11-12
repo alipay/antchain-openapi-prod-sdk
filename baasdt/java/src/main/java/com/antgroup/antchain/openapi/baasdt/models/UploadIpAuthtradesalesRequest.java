@@ -55,7 +55,6 @@ public class UploadIpAuthtradesalesRequest extends TeaModel {
 
     // 零售价
     @NameInMap("price")
-    @Validation(required = true)
     public String price;
 
     // 终端商品销售数量
@@ -70,7 +69,6 @@ public class UploadIpAuthtradesalesRequest extends TeaModel {
 
     // 实付金额
     @NameInMap("payment")
-    @Validation(required = true)
     public String payment;
 
     // 终端商品名称
