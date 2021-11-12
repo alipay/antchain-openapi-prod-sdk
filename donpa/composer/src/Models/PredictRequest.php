@@ -42,11 +42,11 @@ class PredictRequest extends Model
 
     // 逾期月数
     /**
-     * @example 2
+     * @example 200
      *
-     * @var string
+     * @var int
      */
-    public $overdueMonth;
+    public $overdueDay;
 
     // 身份证号
     /**
@@ -68,7 +68,7 @@ class PredictRequest extends Model
         'certNoMd5'       => 'cert_no_md5',
         'paybackAmount'   => 'payback_amount',
         'paybackNum'      => 'payback_num',
-        'overdueMonth'    => 'overdue_month',
+        'overdueDay'      => 'overdue_day',
         'certNo'          => 'cert_no',
         'predictionScore' => 'prediction_score',
     ];
@@ -93,8 +93,8 @@ class PredictRequest extends Model
         if (null !== $this->paybackNum) {
             $res['payback_num'] = $this->paybackNum;
         }
-        if (null !== $this->overdueMonth) {
-            $res['overdue_month'] = $this->overdueMonth;
+        if (null !== $this->overdueDay) {
+            $res['overdue_day'] = $this->overdueDay;
         }
         if (null !== $this->certNo) {
             $res['cert_no'] = $this->certNo;
@@ -126,8 +126,8 @@ class PredictRequest extends Model
         if (isset($map['payback_num'])) {
             $model->paybackNum = $map['payback_num'];
         }
-        if (isset($map['overdue_month'])) {
-            $model->overdueMonth = $map['overdue_month'];
+        if (isset($map['overdue_day'])) {
+            $model->overdueDay = $map['overdue_day'];
         }
         if (isset($map['cert_no'])) {
             $model->certNo = $map['cert_no'];
