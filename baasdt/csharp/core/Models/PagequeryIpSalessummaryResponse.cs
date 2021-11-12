@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class PagequeryIpSalesResponse : TeaModel {
+    public class PagequeryIpSalessummaryResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -30,14 +30,14 @@ namespace AntChain.SDK.BAASDT.Models
         public string IpOrderId { get; set; }
 
         // 账单ID
-        [NameInMap("sales_biz_id")]
+        [NameInMap("ip_bill_id")]
         [Validation(Required=false)]
-        public string SalesBizId { get; set; }
+        public string IpBillId { get; set; }
 
-        // IP授权销售数据
-        [NameInMap("ip_sales_info_list")]
+        // 销售数据汇总信息列表
+        [NameInMap("ip_sales_summary_list")]
         [Validation(Required=false)]
-        public List<IPSalesInfo> IpSalesInfoList { get; set; }
+        public List<IPSalesSummary> IpSalesSummaryList { get; set; }
 
         // 页码
         [NameInMap("page_number")]

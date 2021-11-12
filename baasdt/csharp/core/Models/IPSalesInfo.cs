@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    // IP授权订单的销售数据
+    // IP授权订单已按照周期汇总的销售数据
     public class IPSalesInfo : TeaModel {
         // 终端商品名称
         [NameInMap("goods_name")]
@@ -17,22 +17,22 @@ namespace AntChain.SDK.BAASDT.Models
 
         // 终端商品图片
         [NameInMap("goods_image")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string GoodsImage { get; set; }
 
         // 终端销售渠道
         [NameInMap("sales_channel")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string SalesChannel { get; set; }
 
         // 终端商品链接
         [NameInMap("goods_url")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string GoodsUrl { get; set; }
 
         // 零售价
         [NameInMap("price")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Price { get; set; }
 
         // 商品销售数量
@@ -47,7 +47,7 @@ namespace AntChain.SDK.BAASDT.Models
 
         // 实付金额（授权交易）
         [NameInMap("payment")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Payment { get; set; }
 
         // 统计周期开始时间（毫秒时间戳）

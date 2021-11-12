@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class QueryIpGoodsupdateRequest : TeaModel {
+    public class ListIpShopRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,30 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 基础字段
+        // 基础参数
         [NameInMap("base_request")]
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // ipid的列表，最多20个
-        [NameInMap("ip_ids")]
-        [Validation(Required=false)]
-        public List<string> IpIds { get; set; }
-
-        // 版权方账号id
+        // IP商家的链上账户Id
         [NameInMap("account_id")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string AccountId { get; set; }
+
+        // 授权申请的内部编码
+        [NameInMap("item_code")]
+        [Validation(Required=false)]
+        public string ItemCode { get; set; }
+
+        // 分页下标(从1开始)
+        [NameInMap("page_index")]
+        [Validation(Required=true)]
+        public long? PageIndex { get; set; }
+
+        // 一页的分页大小
+        [NameInMap("page_size")]
+        [Validation(Required=true)]
+        public long? PageSize { get; set; }
 
     }
 

@@ -231,11 +231,25 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string AuthType { get; set; }
 
+        // 授权模式，0普通授权，1独家授权，
+        [NameInMap("authorization_model")]
+        [Validation(Required=false)]
+        public List<long?> AuthorizationModel { get; set; }
+
+        // 绑定的商品信息列表
+        [NameInMap("goods_info_list")]
+        [Validation(Required=false)]
+        public List<IPOrderGoods> GoodsInfoList { get; set; }
+
         // 绑定的商品ID列表
-        // 
         [NameInMap("goods_id_list")]
         [Validation(Required=false)]
         public List<string> GoodsIdList { get; set; }
+
+        // 订单功能选择，0 基础功能，1 领用收藏
+        [NameInMap("features")]
+        [Validation(Required=false)]
+        public List<long?> Features { get; set; }
 
     }
 

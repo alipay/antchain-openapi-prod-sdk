@@ -29,6 +29,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string CodeBatchId { get; set; }
 
+        // 正版码左区间
+        [NameInMap("code_batch_start")]
+        [Validation(Required=false)]
+        public long? CodeBatchStart { get; set; }
+
+        // 正版码右区间
+        [NameInMap("code_batch_end")]
+        [Validation(Required=false)]
+        public long? CodeBatchEnd { get; set; }
+
     }
 
 }

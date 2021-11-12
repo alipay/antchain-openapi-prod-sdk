@@ -85,6 +85,26 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public long? IpCodeStatus { get; set; }
 
+        // 额外功能，包括是否允许收藏等
+        [NameInMap("features")]
+        [Validation(Required=false)]
+        public List<long?> Features { get; set; }
+
+        // 核验次数，配置生效后的核验次数统计
+        [NameInMap("check_counts")]
+        [Validation(Required=false)]
+        public long? CheckCounts { get; set; }
+
+        // 正版码关联的I IP信息
+        [NameInMap("ip_info")]
+        [Validation(Required=false)]
+        public IPCodeIpGoodInfo IpInfo { get; set; }
+
+        // UNI码
+        [NameInMap("uni_code")]
+        [Validation(Required=false)]
+        public string UniCode { get; set; }
+
     }
 
 }

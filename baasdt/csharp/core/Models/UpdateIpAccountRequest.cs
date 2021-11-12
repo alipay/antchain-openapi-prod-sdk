@@ -69,6 +69,7 @@ namespace AntChain.SDK.BAASDT.Models
         public string ShopName { get; set; }
 
         // 更多联系信息，用于运营联系商家
+        // 注：更新时如果为空，则联系人信息被覆盖为空，更新时为空相当于删除功能
         [NameInMap("additional_contact_info")]
         [Validation(Required=false)]
         public List<SimpleContactInfo> AdditionalContactInfo { get; set; }

@@ -25,6 +25,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string GoodsImage { get; set; }
 
+        // 商品图片临时访问地址，可直接访问
+        [NameInMap("goods_image_tmp")]
+        [Validation(Required=false)]
+        public string GoodsImageTmp { get; set; }
+
         // 商品店铺名称/商品出品方
         [NameInMap("goods_store")]
         [Validation(Required=false)]
@@ -34,6 +39,11 @@ namespace AntChain.SDK.BAASDT.Models
         [NameInMap("goods_store_logo")]
         [Validation(Required=false)]
         public string GoodsStoreLogo { get; set; }
+
+        // 店铺logo临时访问地址
+        [NameInMap("goods_store_logo_tmp")]
+        [Validation(Required=false)]
+        public string GoodsStoreLogoTmp { get; set; }
 
         // 商品描述
         [NameInMap("goods_description")]
@@ -54,6 +64,16 @@ namespace AntChain.SDK.BAASDT.Models
         [NameInMap("authorization_end_time")]
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string AuthorizationEndTime { get; set; }
+
+        // 发售渠道
+        [NameInMap("goods_sale_channel")]
+        [Validation(Required=false)]
+        public string GoodsSaleChannel { get; set; }
+
+        // 商品规格
+        [NameInMap("goods_specifications")]
+        [Validation(Required=false)]
+        public List<ProductSpecification> GoodsSpecifications { get; set; }
 
     }
 

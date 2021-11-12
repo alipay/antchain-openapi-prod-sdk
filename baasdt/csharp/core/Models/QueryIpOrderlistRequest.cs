@@ -83,6 +83,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public long? AuthEndTime { get; set; }
 
+        // 订单创建时间开始范围
+        [NameInMap("create_start_time")]
+        [Validation(Required=false)]
+        public long? CreateStartTime { get; set; }
+
+        // 订单创建时间结束范围
+        [NameInMap("create_end_time")]
+        [Validation(Required=false)]
+        public long? CreateEndTime { get; set; }
+
         // 排序字段
         [NameInMap("order_by")]
         [Validation(Required=true)]

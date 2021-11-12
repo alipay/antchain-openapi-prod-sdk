@@ -29,6 +29,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string OrderId { get; set; }
 
+        // 额外功能，包括基础功能，是否允许收藏等
+        [NameInMap("features")]
+        [Validation(Required=false)]
+        public List<long?> Features { get; set; }
+
         // 正版码商品信息配置列表
         [NameInMap("goods_info_list")]
         [Validation(Required=false)]

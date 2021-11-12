@@ -65,7 +65,7 @@ namespace AntChain.SDK.BAASDT.Models
 
         // 零售价
         [NameInMap("price")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Price { get; set; }
 
         // 终端商品销售数量
@@ -80,7 +80,7 @@ namespace AntChain.SDK.BAASDT.Models
 
         // 实付金额
         [NameInMap("payment")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Payment { get; set; }
 
         // 终端商品名称

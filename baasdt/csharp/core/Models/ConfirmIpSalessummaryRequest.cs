@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class PagequeryIpSalesRequest : TeaModel {
+    public class ConfirmIpSalessummaryRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,40 +18,35 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 基础请求参数
+        // 基础请求信息
         [NameInMap("base_request")]
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // 订单ID。和账单ID 两个字段只能选填一个
+        // 订单ID
         [NameInMap("ip_order_id")]
         [Validation(Required=true)]
         public string IpOrderId { get; set; }
 
-        // 销售数据ID
+        // 订单的数据ID，订单中每个数据ID唯一
         [NameInMap("sales_biz_id")]
         [Validation(Required=true)]
         public string SalesBizId { get; set; }
 
-        // 排序字段
-        [NameInMap("order_by")]
+        // 商户确认则传商户的链上ID；版权方确认或者拒绝则传版权方的链上ID
+        [NameInMap("account_id")]
         [Validation(Required=true)]
-        public string OrderBy { get; set; }
+        public string AccountId { get; set; }
 
-        // 排序顺序：正序还是倒序
-        [NameInMap("order")]
+        // 确认或者拒绝，true确认，false拒绝
+        [NameInMap("accept")]
         [Validation(Required=true)]
-        public string Order { get; set; }
+        public bool? Accept { get; set; }
 
-        // 页码
-        [NameInMap("page_number")]
-        [Validation(Required=true)]
-        public long? PageNumber { get; set; }
-
-        // 每页数据量大小
-        [NameInMap("page_size")]
-        [Validation(Required=true)]
-        public long? PageSize { get; set; }
+        // 备注信息
+        [NameInMap("memo")]
+        [Validation(Required=false)]
+        public string Memo { get; set; }
 
     }
 

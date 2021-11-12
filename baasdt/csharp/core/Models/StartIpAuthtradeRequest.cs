@@ -133,6 +133,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string AuthType { get; set; }
 
+        // 授权模式，0普通授权，1独家授权
+        [NameInMap("authorization_model")]
+        [Validation(Required=false)]
+        public List<long?> AuthorizationModel { get; set; }
+
+        // 订单功能选择，0 基础功能，1 领用收藏等
+        [NameInMap("features")]
+        [Validation(Required=false)]
+        public List<long?> Features { get; set; }
+
     }
 
 }

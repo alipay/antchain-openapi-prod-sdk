@@ -38,6 +38,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public long? AuthorizationModel { get; set; }
 
+        // 新授权模式，0普通授权，1独家授权，支持多选
+        [NameInMap("new_authorization_model")]
+        [Validation(Required=false)]
+        public List<long?> NewAuthorizationModel { get; set; }
+
         // 授权类型，衍生品授权；营销授权；商标授权；数字虚拟授权；其他
         [NameInMap("authorization_type")]
         [Validation(Required=false)]

@@ -20,6 +20,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string IpOwnerImage { get; set; }
 
+        // 版权方头像，临时访问地址，可直接访问
+        [NameInMap("ip_owner_image_tmp")]
+        [Validation(Required=false)]
+        public string IpOwnerImageTmp { get; set; }
+
         // ip描述
         [NameInMap("ip_description")]
         [Validation(Required=false)]
