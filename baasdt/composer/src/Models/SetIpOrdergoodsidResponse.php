@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyIpCodeResponse extends Model
+class SetIpOrdergoodsidResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,31 +25,10 @@ class ApplyIpCodeResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 正版码的批次ID
-    /**
-     * @var string
-     */
-    public $codeBatchId;
-
-    // 正版码左区间
-    /**
-     * @var int
-     */
-    public $codeBatchStart;
-
-    // 正版码右区间
-    /**
-     * @var int
-     */
-    public $codeBatchEnd;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'codeBatchId'    => 'code_batch_id',
-        'codeBatchStart' => 'code_batch_start',
-        'codeBatchEnd'   => 'code_batch_end',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
     ];
 
     public function validate()
@@ -68,15 +47,6 @@ class ApplyIpCodeResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->codeBatchId) {
-            $res['code_batch_id'] = $this->codeBatchId;
-        }
-        if (null !== $this->codeBatchStart) {
-            $res['code_batch_start'] = $this->codeBatchStart;
-        }
-        if (null !== $this->codeBatchEnd) {
-            $res['code_batch_end'] = $this->codeBatchEnd;
-        }
 
         return $res;
     }
@@ -84,7 +54,7 @@ class ApplyIpCodeResponse extends Model
     /**
      * @param array $map
      *
-     * @return ApplyIpCodeResponse
+     * @return SetIpOrdergoodsidResponse
      */
     public static function fromMap($map = [])
     {
@@ -97,15 +67,6 @@ class ApplyIpCodeResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['code_batch_id'])) {
-            $model->codeBatchId = $map['code_batch_id'];
-        }
-        if (isset($map['code_batch_start'])) {
-            $model->codeBatchStart = $map['code_batch_start'];
-        }
-        if (isset($map['code_batch_end'])) {
-            $model->codeBatchEnd = $map['code_batch_end'];
         }
 
         return $model;

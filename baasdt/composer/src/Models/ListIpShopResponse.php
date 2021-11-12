@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyIpCodeResponse extends Model
+class ListIpShopResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,30 +26,23 @@ class ApplyIpCodeResponse extends Model
      */
     public $resultMsg;
 
-    // 正版码的批次ID
-    /**
-     * @var string
-     */
-    public $codeBatchId;
-
-    // 正版码左区间
+    // 总数量
     /**
      * @var int
      */
-    public $codeBatchStart;
+    public $totalCount;
 
-    // 正版码右区间
+    // 店铺详情列表
     /**
-     * @var int
+     * @var IPShopInfo[]
      */
-    public $codeBatchEnd;
+    public $shopList;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'codeBatchId'    => 'code_batch_id',
-        'codeBatchStart' => 'code_batch_start',
-        'codeBatchEnd'   => 'code_batch_end',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'totalCount' => 'total_count',
+        'shopList'   => 'shop_list',
     ];
 
     public function validate()
@@ -68,14 +61,17 @@ class ApplyIpCodeResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->codeBatchId) {
-            $res['code_batch_id'] = $this->codeBatchId;
+        if (null !== $this->totalCount) {
+            $res['total_count'] = $this->totalCount;
         }
-        if (null !== $this->codeBatchStart) {
-            $res['code_batch_start'] = $this->codeBatchStart;
-        }
-        if (null !== $this->codeBatchEnd) {
-            $res['code_batch_end'] = $this->codeBatchEnd;
+        if (null !== $this->shopList) {
+            $res['shop_list'] = [];
+            if (null !== $this->shopList && \is_array($this->shopList)) {
+                $n = 0;
+                foreach ($this->shopList as $item) {
+                    $res['shop_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -84,7 +80,7 @@ class ApplyIpCodeResponse extends Model
     /**
      * @param array $map
      *
-     * @return ApplyIpCodeResponse
+     * @return ListIpShopResponse
      */
     public static function fromMap($map = [])
     {
@@ -98,14 +94,17 @@ class ApplyIpCodeResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['code_batch_id'])) {
-            $model->codeBatchId = $map['code_batch_id'];
+        if (isset($map['total_count'])) {
+            $model->totalCount = $map['total_count'];
         }
-        if (isset($map['code_batch_start'])) {
-            $model->codeBatchStart = $map['code_batch_start'];
-        }
-        if (isset($map['code_batch_end'])) {
-            $model->codeBatchEnd = $map['code_batch_end'];
+        if (isset($map['shop_list'])) {
+            if (!empty($map['shop_list'])) {
+                $model->shopList = [];
+                $n               = 0;
+                foreach ($map['shop_list'] as $item) {
+                    $model->shopList[$n++] = null !== $item ? IPShopInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

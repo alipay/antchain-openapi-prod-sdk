@@ -361,14 +361,37 @@ class IPOrder extends Model
      */
     public $authType;
 
+    // 授权模式，0普通授权，1独家授权，
+    /**
+     * @example
+     *
+     * @var int[]
+     */
+    public $authorizationModel;
+
+    // 绑定的商品信息列表
+    /**
+     * @example
+     *
+     * @var IPOrderGoods[]
+     */
+    public $goodsInfoList;
+
     // 绑定的商品ID列表
-    //
     /**
      * @example
      *
      * @var string[]
      */
     public $goodsIdList;
+
+    // 订单功能选择，0 基础功能，1 领用收藏
+    /**
+     * @example
+     *
+     * @var int[]
+     */
+    public $features;
     protected $_name = [
         'ipOrderId'                 => 'ip_order_id',
         'sellerId'                  => 'seller_id',
@@ -414,7 +437,10 @@ class IPOrder extends Model
         'additionalClause'          => 'additional_clause',
         'contractFiles'             => 'contract_files',
         'authType'                  => 'auth_type',
+        'authorizationModel'        => 'authorization_model',
+        'goodsInfoList'             => 'goods_info_list',
         'goodsIdList'               => 'goods_id_list',
+        'features'                  => 'features',
     ];
 
     public function validate()
@@ -594,8 +620,23 @@ class IPOrder extends Model
         if (null !== $this->authType) {
             $res['auth_type'] = $this->authType;
         }
+        if (null !== $this->authorizationModel) {
+            $res['authorization_model'] = $this->authorizationModel;
+        }
+        if (null !== $this->goodsInfoList) {
+            $res['goods_info_list'] = [];
+            if (null !== $this->goodsInfoList && \is_array($this->goodsInfoList)) {
+                $n = 0;
+                foreach ($this->goodsInfoList as $item) {
+                    $res['goods_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
         if (null !== $this->goodsIdList) {
             $res['goods_id_list'] = $this->goodsIdList;
+        }
+        if (null !== $this->features) {
+            $res['features'] = $this->features;
         }
 
         return $res;
@@ -743,9 +784,28 @@ class IPOrder extends Model
         if (isset($map['auth_type'])) {
             $model->authType = $map['auth_type'];
         }
+        if (isset($map['authorization_model'])) {
+            if (!empty($map['authorization_model'])) {
+                $model->authorizationModel = $map['authorization_model'];
+            }
+        }
+        if (isset($map['goods_info_list'])) {
+            if (!empty($map['goods_info_list'])) {
+                $model->goodsInfoList = [];
+                $n                    = 0;
+                foreach ($map['goods_info_list'] as $item) {
+                    $model->goodsInfoList[$n++] = null !== $item ? IPOrderGoods::fromMap($item) : $item;
+                }
+            }
+        }
         if (isset($map['goods_id_list'])) {
             if (!empty($map['goods_id_list'])) {
                 $model->goodsIdList = $map['goods_id_list'];
+            }
+        }
+        if (isset($map['features'])) {
+            if (!empty($map['features'])) {
+                $model->features = $map['features'];
             }
         }
 

@@ -97,6 +97,18 @@ class QueryIpOrderlistRequest extends Model
      */
     public $authEndTime;
 
+    // 订单创建时间开始范围
+    /**
+     * @var int
+     */
+    public $createStartTime;
+
+    // 订单创建时间结束范围
+    /**
+     * @var int
+     */
+    public $createEndTime;
+
     // 排序字段
     /**
      * @var string
@@ -142,6 +154,8 @@ class QueryIpOrderlistRequest extends Model
         'chargeType'        => 'charge_type',
         'authStartTime'     => 'auth_start_time',
         'authEndTime'       => 'auth_end_time',
+        'createStartTime'   => 'create_start_time',
+        'createEndTime'     => 'create_end_time',
         'orderBy'           => 'order_by',
         'order'             => 'order',
         'pageNumber'        => 'page_number',
@@ -205,6 +219,12 @@ class QueryIpOrderlistRequest extends Model
         }
         if (null !== $this->authEndTime) {
             $res['auth_end_time'] = $this->authEndTime;
+        }
+        if (null !== $this->createStartTime) {
+            $res['create_start_time'] = $this->createStartTime;
+        }
+        if (null !== $this->createEndTime) {
+            $res['create_end_time'] = $this->createEndTime;
         }
         if (null !== $this->orderBy) {
             $res['order_by'] = $this->orderBy;
@@ -277,6 +297,12 @@ class QueryIpOrderlistRequest extends Model
         }
         if (isset($map['auth_end_time'])) {
             $model->authEndTime = $map['auth_end_time'];
+        }
+        if (isset($map['create_start_time'])) {
+            $model->createStartTime = $map['create_start_time'];
+        }
+        if (isset($map['create_end_time'])) {
+            $model->createEndTime = $map['create_end_time'];
         }
         if (isset($map['order_by'])) {
             $model->orderBy = $map['order_by'];

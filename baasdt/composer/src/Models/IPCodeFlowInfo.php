@@ -1,0 +1,80 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+
+namespace AntChain\BAASDT\Models;
+
+use AlibabaCloud\Tea\Model;
+
+class IPCodeFlowInfo extends Model
+{
+    // 拥有用户名称，收藏人
+    /**
+     * @example 小王
+     *
+     * @var string
+     */
+    public $codeOwnerName;
+
+    // 收藏时间
+    /**
+     * @example 56783872489327492
+     *
+     * @var int
+     */
+    public $codeCollectTime;
+
+    // 收藏交易哈希
+    /**
+     * @example dhjysgfhjdsgfhsjguyew7373yuetyudgysadg
+     *
+     * @var string
+     */
+    public $codeTransHash;
+    protected $_name = [
+        'codeOwnerName'   => 'code_owner_name',
+        'codeCollectTime' => 'code_collect_time',
+        'codeTransHash'   => 'code_trans_hash',
+    ];
+
+    public function validate()
+    {
+    }
+
+    public function toMap()
+    {
+        $res = [];
+        if (null !== $this->codeOwnerName) {
+            $res['code_owner_name'] = $this->codeOwnerName;
+        }
+        if (null !== $this->codeCollectTime) {
+            $res['code_collect_time'] = $this->codeCollectTime;
+        }
+        if (null !== $this->codeTransHash) {
+            $res['code_trans_hash'] = $this->codeTransHash;
+        }
+
+        return $res;
+    }
+
+    /**
+     * @param array $map
+     *
+     * @return IPCodeFlowInfo
+     */
+    public static function fromMap($map = [])
+    {
+        $model = new self();
+        if (isset($map['code_owner_name'])) {
+            $model->codeOwnerName = $map['code_owner_name'];
+        }
+        if (isset($map['code_collect_time'])) {
+            $model->codeCollectTime = $map['code_collect_time'];
+        }
+        if (isset($map['code_trans_hash'])) {
+            $model->codeTransHash = $map['code_trans_hash'];
+        }
+
+        return $model;
+    }
+}

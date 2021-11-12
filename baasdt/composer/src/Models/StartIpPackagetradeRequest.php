@@ -126,6 +126,18 @@ class StartIpPackagetradeRequest extends Model
      * @var string
      */
     public $authType;
+
+    // 授权模式，0普通授权，1独家授权
+    /**
+     * @var int[]
+     */
+    public $authorizationModel;
+
+    // 订单功能选择，0 基础功能，1 领用收藏等
+    /**
+     * @var int[]
+     */
+    public $features;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
@@ -147,6 +159,8 @@ class StartIpPackagetradeRequest extends Model
         'relatedOrderId'     => 'related_order_id',
         'payReturnUrl'       => 'pay_return_url',
         'authType'           => 'auth_type',
+        'authorizationModel' => 'authorization_model',
+        'features'           => 'features',
     ];
 
     public function validate()
@@ -226,6 +240,12 @@ class StartIpPackagetradeRequest extends Model
         if (null !== $this->authType) {
             $res['auth_type'] = $this->authType;
         }
+        if (null !== $this->authorizationModel) {
+            $res['authorization_model'] = $this->authorizationModel;
+        }
+        if (null !== $this->features) {
+            $res['features'] = $this->features;
+        }
 
         return $res;
     }
@@ -297,6 +317,16 @@ class StartIpPackagetradeRequest extends Model
         }
         if (isset($map['auth_type'])) {
             $model->authType = $map['auth_type'];
+        }
+        if (isset($map['authorization_model'])) {
+            if (!empty($map['authorization_model'])) {
+                $model->authorizationModel = $map['authorization_model'];
+            }
+        }
+        if (isset($map['features'])) {
+            if (!empty($map['features'])) {
+                $model->features = $map['features'];
+            }
         }
 
         return $model;

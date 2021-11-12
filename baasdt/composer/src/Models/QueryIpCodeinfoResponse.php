@@ -32,6 +32,12 @@ class QueryIpCodeinfoResponse extends Model
      */
     public $orderId;
 
+    // 额外功能，包括基础功能，是否允许收藏等
+    /**
+     * @var int[]
+     */
+    public $features;
+
     // 正版码商品信息配置列表
     /**
      * @var IPCodeGoodsInfo[]
@@ -60,6 +66,7 @@ class QueryIpCodeinfoResponse extends Model
         'resultCode'    => 'result_code',
         'resultMsg'     => 'result_msg',
         'orderId'       => 'order_id',
+        'features'      => 'features',
         'goodsInfoList' => 'goods_info_list',
         'adInfoList'    => 'ad_info_list',
         'ipownerInfo'   => 'ipowner_info',
@@ -84,6 +91,9 @@ class QueryIpCodeinfoResponse extends Model
         }
         if (null !== $this->orderId) {
             $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->features) {
+            $res['features'] = $this->features;
         }
         if (null !== $this->goodsInfoList) {
             $res['goods_info_list'] = [];
@@ -132,6 +142,11 @@ class QueryIpCodeinfoResponse extends Model
         }
         if (isset($map['order_id'])) {
             $model->orderId = $map['order_id'];
+        }
+        if (isset($map['features'])) {
+            if (!empty($map['features'])) {
+                $model->features = $map['features'];
+            }
         }
         if (isset($map['goods_info_list'])) {
             if (!empty($map['goods_info_list'])) {

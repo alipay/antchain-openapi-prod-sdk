@@ -37,12 +37,19 @@ class CheckIpCodeResponse extends Model
      * @var IPCodeScannedInfo[]
      */
     public $scannedList;
+
+    // 正版码的详情，如果为空，则正版码未领取，如果不为空，则正版码已领取
+    /**
+     * @var IPCodeScannedInfo
+     */
+    public $codeDetail;
     protected $_name = [
         'reqMsgId'     => 'req_msg_id',
         'resultCode'   => 'result_code',
         'resultMsg'    => 'result_msg',
         'scannedCount' => 'scanned_count',
         'scannedList'  => 'scanned_list',
+        'codeDetail'   => 'code_detail',
     ];
 
     public function validate()
@@ -72,6 +79,9 @@ class CheckIpCodeResponse extends Model
                     $res['scanned_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->codeDetail) {
+            $res['code_detail'] = null !== $this->codeDetail ? $this->codeDetail->toMap() : null;
         }
 
         return $res;
@@ -105,6 +115,9 @@ class CheckIpCodeResponse extends Model
                     $model->scannedList[$n++] = null !== $item ? IPCodeScannedInfo::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['code_detail'])) {
+            $model->codeDetail = IPCodeScannedInfo::fromMap($map['code_detail']);
         }
 
         return $model;

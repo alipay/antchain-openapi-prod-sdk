@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryIpSalesRequest extends Model
+class ListIpShopRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,43 +19,31 @@ class PagequeryIpSalesRequest extends Model
      */
     public $productInstanceId;
 
-    // 基础请求参数
+    // 基础参数
     /**
      * @var BaseRequestInfo
      */
     public $baseRequest;
 
-    // 订单ID。和账单ID 两个字段只能选填一个
+    // IP商家的链上账户Id
     /**
      * @var string
      */
-    public $ipOrderId;
+    public $accountId;
 
-    // 销售数据ID
+    // 授权申请的内部编码
     /**
      * @var string
      */
-    public $salesBizId;
+    public $itemCode;
 
-    // 排序字段
-    /**
-     * @var string
-     */
-    public $orderBy;
-
-    // 排序顺序：正序还是倒序
-    /**
-     * @var string
-     */
-    public $order;
-
-    // 页码
+    // 分页下标(从1开始)
     /**
      * @var int
      */
-    public $pageNumber;
+    public $pageIndex;
 
-    // 每页数据量大小
+    // 一页的分页大小
     /**
      * @var int
      */
@@ -64,22 +52,17 @@ class PagequeryIpSalesRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
-        'ipOrderId'         => 'ip_order_id',
-        'salesBizId'        => 'sales_biz_id',
-        'orderBy'           => 'order_by',
-        'order'             => 'order',
-        'pageNumber'        => 'page_number',
+        'accountId'         => 'account_id',
+        'itemCode'          => 'item_code',
+        'pageIndex'         => 'page_index',
         'pageSize'          => 'page_size',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
-        Model::validateRequired('ipOrderId', $this->ipOrderId, true);
-        Model::validateRequired('salesBizId', $this->salesBizId, true);
-        Model::validateRequired('orderBy', $this->orderBy, true);
-        Model::validateRequired('order', $this->order, true);
-        Model::validateRequired('pageNumber', $this->pageNumber, true);
+        Model::validateRequired('accountId', $this->accountId, true);
+        Model::validateRequired('pageIndex', $this->pageIndex, true);
         Model::validateRequired('pageSize', $this->pageSize, true);
     }
 
@@ -95,20 +78,14 @@ class PagequeryIpSalesRequest extends Model
         if (null !== $this->baseRequest) {
             $res['base_request'] = null !== $this->baseRequest ? $this->baseRequest->toMap() : null;
         }
-        if (null !== $this->ipOrderId) {
-            $res['ip_order_id'] = $this->ipOrderId;
+        if (null !== $this->accountId) {
+            $res['account_id'] = $this->accountId;
         }
-        if (null !== $this->salesBizId) {
-            $res['sales_biz_id'] = $this->salesBizId;
+        if (null !== $this->itemCode) {
+            $res['item_code'] = $this->itemCode;
         }
-        if (null !== $this->orderBy) {
-            $res['order_by'] = $this->orderBy;
-        }
-        if (null !== $this->order) {
-            $res['order'] = $this->order;
-        }
-        if (null !== $this->pageNumber) {
-            $res['page_number'] = $this->pageNumber;
+        if (null !== $this->pageIndex) {
+            $res['page_index'] = $this->pageIndex;
         }
         if (null !== $this->pageSize) {
             $res['page_size'] = $this->pageSize;
@@ -120,7 +97,7 @@ class PagequeryIpSalesRequest extends Model
     /**
      * @param array $map
      *
-     * @return PagequeryIpSalesRequest
+     * @return ListIpShopRequest
      */
     public static function fromMap($map = [])
     {
@@ -134,20 +111,14 @@ class PagequeryIpSalesRequest extends Model
         if (isset($map['base_request'])) {
             $model->baseRequest = BaseRequestInfo::fromMap($map['base_request']);
         }
-        if (isset($map['ip_order_id'])) {
-            $model->ipOrderId = $map['ip_order_id'];
+        if (isset($map['account_id'])) {
+            $model->accountId = $map['account_id'];
         }
-        if (isset($map['sales_biz_id'])) {
-            $model->salesBizId = $map['sales_biz_id'];
+        if (isset($map['item_code'])) {
+            $model->itemCode = $map['item_code'];
         }
-        if (isset($map['order_by'])) {
-            $model->orderBy = $map['order_by'];
-        }
-        if (isset($map['order'])) {
-            $model->order = $map['order'];
-        }
-        if (isset($map['page_number'])) {
-            $model->pageNumber = $map['page_number'];
+        if (isset($map['page_index'])) {
+            $model->pageIndex = $map['page_index'];
         }
         if (isset($map['page_size'])) {
             $model->pageSize = $map['page_size'];

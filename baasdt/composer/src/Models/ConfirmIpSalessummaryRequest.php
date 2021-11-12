@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryIpSalesRequest extends Model
+class ConfirmIpSalessummaryRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,57 +19,50 @@ class PagequeryIpSalesRequest extends Model
      */
     public $productInstanceId;
 
-    // 基础请求参数
+    // 基础请求信息
     /**
      * @var BaseRequestInfo
      */
     public $baseRequest;
 
-    // 订单ID。和账单ID 两个字段只能选填一个
+    // 订单ID
     /**
      * @var string
      */
     public $ipOrderId;
 
-    // 销售数据ID
+    // 订单的数据ID，订单中每个数据ID唯一
     /**
      * @var string
      */
     public $salesBizId;
 
-    // 排序字段
+    // 商户确认则传商户的链上ID；版权方确认或者拒绝则传版权方的链上ID
     /**
      * @var string
      */
-    public $orderBy;
+    public $accountId;
 
-    // 排序顺序：正序还是倒序
+    // 确认或者拒绝，true确认，false拒绝
+    /**
+     * @var bool
+     */
+    public $accept;
+
+    // 备注信息
     /**
      * @var string
      */
-    public $order;
-
-    // 页码
-    /**
-     * @var int
-     */
-    public $pageNumber;
-
-    // 每页数据量大小
-    /**
-     * @var int
-     */
-    public $pageSize;
+    public $memo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
         'ipOrderId'         => 'ip_order_id',
         'salesBizId'        => 'sales_biz_id',
-        'orderBy'           => 'order_by',
-        'order'             => 'order',
-        'pageNumber'        => 'page_number',
-        'pageSize'          => 'page_size',
+        'accountId'         => 'account_id',
+        'accept'            => 'accept',
+        'memo'              => 'memo',
     ];
 
     public function validate()
@@ -77,10 +70,8 @@ class PagequeryIpSalesRequest extends Model
         Model::validateRequired('baseRequest', $this->baseRequest, true);
         Model::validateRequired('ipOrderId', $this->ipOrderId, true);
         Model::validateRequired('salesBizId', $this->salesBizId, true);
-        Model::validateRequired('orderBy', $this->orderBy, true);
-        Model::validateRequired('order', $this->order, true);
-        Model::validateRequired('pageNumber', $this->pageNumber, true);
-        Model::validateRequired('pageSize', $this->pageSize, true);
+        Model::validateRequired('accountId', $this->accountId, true);
+        Model::validateRequired('accept', $this->accept, true);
     }
 
     public function toMap()
@@ -101,17 +92,14 @@ class PagequeryIpSalesRequest extends Model
         if (null !== $this->salesBizId) {
             $res['sales_biz_id'] = $this->salesBizId;
         }
-        if (null !== $this->orderBy) {
-            $res['order_by'] = $this->orderBy;
+        if (null !== $this->accountId) {
+            $res['account_id'] = $this->accountId;
         }
-        if (null !== $this->order) {
-            $res['order'] = $this->order;
+        if (null !== $this->accept) {
+            $res['accept'] = $this->accept;
         }
-        if (null !== $this->pageNumber) {
-            $res['page_number'] = $this->pageNumber;
-        }
-        if (null !== $this->pageSize) {
-            $res['page_size'] = $this->pageSize;
+        if (null !== $this->memo) {
+            $res['memo'] = $this->memo;
         }
 
         return $res;
@@ -120,7 +108,7 @@ class PagequeryIpSalesRequest extends Model
     /**
      * @param array $map
      *
-     * @return PagequeryIpSalesRequest
+     * @return ConfirmIpSalessummaryRequest
      */
     public static function fromMap($map = [])
     {
@@ -140,17 +128,14 @@ class PagequeryIpSalesRequest extends Model
         if (isset($map['sales_biz_id'])) {
             $model->salesBizId = $map['sales_biz_id'];
         }
-        if (isset($map['order_by'])) {
-            $model->orderBy = $map['order_by'];
+        if (isset($map['account_id'])) {
+            $model->accountId = $map['account_id'];
         }
-        if (isset($map['order'])) {
-            $model->order = $map['order'];
+        if (isset($map['accept'])) {
+            $model->accept = $map['accept'];
         }
-        if (isset($map['page_number'])) {
-            $model->pageNumber = $map['page_number'];
-        }
-        if (isset($map['page_size'])) {
-            $model->pageSize = $map['page_size'];
+        if (isset($map['memo'])) {
+            $model->memo = $map['memo'];
         }
 
         return $model;

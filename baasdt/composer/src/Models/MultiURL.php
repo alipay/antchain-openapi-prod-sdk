@@ -10,7 +10,7 @@ class MultiURL extends Model
 {
     // 上传的图片正常大小
     /**
-     * @example https://myexchange.oss-cn-hangzhou.aliyuncs.com/1259371fc8f77d3fa0.jpeg?Expires=1581625032&OSSAccessKeyId=LTAI4FooxCSL7w8Minh2oJqc&Signature=REH79oOsx5MK4%2BEGcFmaSXq6XsM%3D
+     * @example https://myexchange.oss-cn-hangzhou.aliyuncs.com/1259371fc8f77d3fa0.jpeg?Expires=1581625032&OSSAccessKeyId=&Signature=REH79oOsx5MK4%2BEGcFmaSXq6XsM%3D
      *
      * @var string
      */
@@ -18,7 +18,7 @@ class MultiURL extends Model
 
     // style200
     /**
-     * @example https://myexchange.oss-cn-hangzhou.aliyuncs.com/1259371fc8f77d3fa0.jpeg?Expires=1581625032&OSSAccessKeyId=LTAI4FooxCSL7w8Minh2oJqc&Signature=LoirSoaWnC5bhIP%2BWZT0OqLlSy4%3D&x-oss-process=style%2Fscale_image_200
+     * @example https://myexchange.oss-cn-hangzhou.aliyuncs.com/1259371fc8f77d3fa0.jpeg?Expires=1581625032&OSSAccessKeyId=&Signature=LoirSoaWnC5bhIP%2BWZT0OqLlSy4%3D&x-oss-process=style%2Fscale_image_200
      *
      * @var string
      */
@@ -26,7 +26,7 @@ class MultiURL extends Model
 
     // style150
     /**
-     * @example https://myexchange.oss-cn-hangzhou.aliyuncs.com/1259371fc8f77d3fa0.jpeg?Expires=1581625032&OSSAccessKeyId=LTAI4FooxCSL7w8Minh2oJqc&Signature=A1f%2FtKicryG8VOG%2BpAdSyUNLmCs%3D&x-oss-process=style%2Fscale_image_150
+     * @example https://myexchange.oss-cn-hangzhou.aliyuncs.com/1259371fc8f77d3fa0.jpeg?Expires=1581625032&OSSAccessKeyId=&Signature=A1f%2FtKicryG8VOG%2BpAdSyUNLmCs%3D&x-oss-process=style%2Fscale_image_150
      *
      * @var string
      */
@@ -34,7 +34,7 @@ class MultiURL extends Model
 
     // style70
     /**
-     * @example https://myexchange.oss-cn-hangzhou.aliyuncs.com/1259371fc8f77d3fa0.jpeg?Expires=1581625032&OSSAccessKeyId=LTAI4FooxCSL7w8Minh2oJqc&Signature=QxDxjfSFlpjxB7nKdYr%2BISoMPCI%3D&x-oss-process=style%2Fscale_image_70
+     * @example https://myexchange.oss-cn-hangzhou.aliyuncs.com/1259371fc8f77d3fa0.jpeg?Expires=1581625032&OSSAccessKeyId=&Signature=QxDxjfSFlpjxB7nKdYr%2BISoMPCI%3D&x-oss-process=style%2Fscale_image_70
      *
      * @var string
      */

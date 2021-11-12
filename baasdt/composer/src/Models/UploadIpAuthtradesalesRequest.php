@@ -206,10 +206,8 @@ class UploadIpAuthtradesalesRequest extends Model
         Model::validateRequired('onlyCallBlockchain', $this->onlyCallBlockchain, true);
         Model::validateRequired('settlementBeginTime', $this->settlementBeginTime, true);
         Model::validateRequired('settlementEndTime', $this->settlementEndTime, true);
-        Model::validateRequired('price', $this->price, true);
         Model::validateRequired('amount', $this->amount, true);
         Model::validateRequired('sales', $this->sales, true);
-        Model::validateRequired('payment', $this->payment, true);
         Model::validateRequired('goodsName', $this->goodsName, true);
         Model::validateRequired('goodsInfo', $this->goodsInfo, true);
         Model::validateRequired('operator', $this->operator, true);

@@ -175,13 +175,8 @@ class IPSalesInfo extends Model
     public function validate()
     {
         Model::validateRequired('goodsName', $this->goodsName, true);
-        Model::validateRequired('goodsImage', $this->goodsImage, true);
-        Model::validateRequired('salesChannel', $this->salesChannel, true);
-        Model::validateRequired('goodsUrl', $this->goodsUrl, true);
-        Model::validateRequired('price', $this->price, true);
         Model::validateRequired('amount', $this->amount, true);
         Model::validateRequired('sales', $this->sales, true);
-        Model::validateRequired('payment', $this->payment, true);
         Model::validateRequired('settlementBeginTime', $this->settlementBeginTime, true);
         Model::validateRequired('settlementEndTime', $this->settlementEndTime, true);
         Model::validateRequired('memo', $this->memo, true);

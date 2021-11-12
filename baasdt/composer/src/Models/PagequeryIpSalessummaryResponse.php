@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryIpSalesResponse extends Model
+class PagequeryIpSalessummaryResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -36,13 +36,13 @@ class PagequeryIpSalesResponse extends Model
     /**
      * @var string
      */
-    public $salesBizId;
+    public $ipBillId;
 
-    // IP授权销售数据
+    // 销售数据汇总信息列表
     /**
-     * @var IPSalesInfo[]
+     * @var IPSalesSummary[]
      */
-    public $ipSalesInfoList;
+    public $ipSalesSummaryList;
 
     // 页码
     /**
@@ -62,15 +62,15 @@ class PagequeryIpSalesResponse extends Model
      */
     public $totalCount;
     protected $_name = [
-        'reqMsgId'        => 'req_msg_id',
-        'resultCode'      => 'result_code',
-        'resultMsg'       => 'result_msg',
-        'ipOrderId'       => 'ip_order_id',
-        'salesBizId'      => 'sales_biz_id',
-        'ipSalesInfoList' => 'ip_sales_info_list',
-        'pageNumber'      => 'page_number',
-        'pageSize'        => 'page_size',
-        'totalCount'      => 'total_count',
+        'reqMsgId'           => 'req_msg_id',
+        'resultCode'         => 'result_code',
+        'resultMsg'          => 'result_msg',
+        'ipOrderId'          => 'ip_order_id',
+        'ipBillId'           => 'ip_bill_id',
+        'ipSalesSummaryList' => 'ip_sales_summary_list',
+        'pageNumber'         => 'page_number',
+        'pageSize'           => 'page_size',
+        'totalCount'         => 'total_count',
     ];
 
     public function validate()
@@ -92,15 +92,15 @@ class PagequeryIpSalesResponse extends Model
         if (null !== $this->ipOrderId) {
             $res['ip_order_id'] = $this->ipOrderId;
         }
-        if (null !== $this->salesBizId) {
-            $res['sales_biz_id'] = $this->salesBizId;
+        if (null !== $this->ipBillId) {
+            $res['ip_bill_id'] = $this->ipBillId;
         }
-        if (null !== $this->ipSalesInfoList) {
-            $res['ip_sales_info_list'] = [];
-            if (null !== $this->ipSalesInfoList && \is_array($this->ipSalesInfoList)) {
+        if (null !== $this->ipSalesSummaryList) {
+            $res['ip_sales_summary_list'] = [];
+            if (null !== $this->ipSalesSummaryList && \is_array($this->ipSalesSummaryList)) {
                 $n = 0;
-                foreach ($this->ipSalesInfoList as $item) {
-                    $res['ip_sales_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                foreach ($this->ipSalesSummaryList as $item) {
+                    $res['ip_sales_summary_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
         }
@@ -120,7 +120,7 @@ class PagequeryIpSalesResponse extends Model
     /**
      * @param array $map
      *
-     * @return PagequeryIpSalesResponse
+     * @return PagequeryIpSalessummaryResponse
      */
     public static function fromMap($map = [])
     {
@@ -137,15 +137,15 @@ class PagequeryIpSalesResponse extends Model
         if (isset($map['ip_order_id'])) {
             $model->ipOrderId = $map['ip_order_id'];
         }
-        if (isset($map['sales_biz_id'])) {
-            $model->salesBizId = $map['sales_biz_id'];
+        if (isset($map['ip_bill_id'])) {
+            $model->ipBillId = $map['ip_bill_id'];
         }
-        if (isset($map['ip_sales_info_list'])) {
-            if (!empty($map['ip_sales_info_list'])) {
-                $model->ipSalesInfoList = [];
-                $n                      = 0;
-                foreach ($map['ip_sales_info_list'] as $item) {
-                    $model->ipSalesInfoList[$n++] = null !== $item ? IPSalesInfo::fromMap($item) : $item;
+        if (isset($map['ip_sales_summary_list'])) {
+            if (!empty($map['ip_sales_summary_list'])) {
+                $model->ipSalesSummaryList = [];
+                $n                         = 0;
+                foreach ($map['ip_sales_summary_list'] as $item) {
+                    $model->ipSalesSummaryList[$n++] = null !== $item ? IPSalesSummary::fromMap($item) : $item;
                 }
             }
         }

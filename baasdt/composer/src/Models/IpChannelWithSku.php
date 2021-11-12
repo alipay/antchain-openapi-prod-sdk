@@ -25,6 +25,14 @@ class IpChannelWithSku extends Model
      */
     public $authorizationMode;
 
+    // 新授权模式，0普通授权，1独家授权，支持多选
+    /**
+     * @example 0
+     *
+     * @var int[]
+     */
+    public $newAuthorizationModel;
+
     // 计费模式 0:按量 1:按金额
     //
     /**
@@ -74,14 +82,15 @@ class IpChannelWithSku extends Model
      */
     public $authorizationType;
     protected $_name = [
-        'channelName'       => 'channel_name',
-        'authorizationMode' => 'authorization_mode',
-        'payMode'           => 'pay_mode',
-        'ipLevel'           => 'ip_level',
-        'skuInfo'           => 'sku_info',
-        'status'            => 'status',
-        'tradeNeedConfirm'  => 'trade_need_confirm',
-        'authorizationType' => 'authorization_type',
+        'channelName'           => 'channel_name',
+        'authorizationMode'     => 'authorization_mode',
+        'newAuthorizationModel' => 'new_authorization_model',
+        'payMode'               => 'pay_mode',
+        'ipLevel'               => 'ip_level',
+        'skuInfo'               => 'sku_info',
+        'status'                => 'status',
+        'tradeNeedConfirm'      => 'trade_need_confirm',
+        'authorizationType'     => 'authorization_type',
     ];
 
     public function validate()
@@ -102,6 +111,9 @@ class IpChannelWithSku extends Model
         }
         if (null !== $this->authorizationMode) {
             $res['authorization_mode'] = $this->authorizationMode;
+        }
+        if (null !== $this->newAuthorizationModel) {
+            $res['new_authorization_model'] = $this->newAuthorizationModel;
         }
         if (null !== $this->payMode) {
             $res['pay_mode'] = $this->payMode;
@@ -144,6 +156,11 @@ class IpChannelWithSku extends Model
         }
         if (isset($map['authorization_mode'])) {
             $model->authorizationMode = $map['authorization_mode'];
+        }
+        if (isset($map['new_authorization_model'])) {
+            if (!empty($map['new_authorization_model'])) {
+                $model->newAuthorizationModel = $map['new_authorization_model'];
+            }
         }
         if (isset($map['pay_mode'])) {
             $model->payMode = $map['pay_mode'];

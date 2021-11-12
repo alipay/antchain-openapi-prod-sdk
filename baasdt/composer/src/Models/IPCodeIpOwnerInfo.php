@@ -24,6 +24,14 @@ class IPCodeIpOwnerInfo extends Model
      */
     public $ipOwnerImage;
 
+    // 版权方头像，临时访问地址，可直接访问
+    /**
+     * @example http://xxx
+     *
+     * @var string
+     */
+    public $ipOwnerImageTmp;
+
     // ip描述
     /**
      * @example 这是一段ip描述
@@ -32,9 +40,10 @@ class IPCodeIpOwnerInfo extends Model
      */
     public $ipDescription;
     protected $_name = [
-        'ipOwnerName'   => 'ip_owner_name',
-        'ipOwnerImage'  => 'ip_owner_image',
-        'ipDescription' => 'ip_description',
+        'ipOwnerName'     => 'ip_owner_name',
+        'ipOwnerImage'    => 'ip_owner_image',
+        'ipOwnerImageTmp' => 'ip_owner_image_tmp',
+        'ipDescription'   => 'ip_description',
     ];
 
     public function validate()
@@ -49,6 +58,9 @@ class IPCodeIpOwnerInfo extends Model
         }
         if (null !== $this->ipOwnerImage) {
             $res['ip_owner_image'] = $this->ipOwnerImage;
+        }
+        if (null !== $this->ipOwnerImageTmp) {
+            $res['ip_owner_image_tmp'] = $this->ipOwnerImageTmp;
         }
         if (null !== $this->ipDescription) {
             $res['ip_description'] = $this->ipDescription;
@@ -70,6 +82,9 @@ class IPCodeIpOwnerInfo extends Model
         }
         if (isset($map['ip_owner_image'])) {
             $model->ipOwnerImage = $map['ip_owner_image'];
+        }
+        if (isset($map['ip_owner_image_tmp'])) {
+            $model->ipOwnerImageTmp = $map['ip_owner_image_tmp'];
         }
         if (isset($map['ip_description'])) {
             $model->ipDescription = $map['ip_description'];

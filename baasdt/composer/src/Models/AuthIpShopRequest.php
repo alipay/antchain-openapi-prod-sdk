@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryIpGoodsupdateRequest extends Model
+class AuthIpShopRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,34 +19,36 @@ class QueryIpGoodsupdateRequest extends Model
      */
     public $productInstanceId;
 
-    // 基础字段
+    // 基础参数
     /**
      * @var BaseRequestInfo
      */
     public $baseRequest;
 
-    // ipid的列表，最多20个
-    /**
-     * @var string[]
-     */
-    public $ipIds;
-
-    // 版权方账号id
+    // 授权申请的内部编码
     /**
      * @var string
      */
-    public $accountId;
+    public $itemCode;
+
+    // 淘宝开放平台回调的授权编码
+    /**
+     * @var string
+     */
+    public $authCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
-        'ipIds'             => 'ip_ids',
-        'accountId'         => 'account_id',
+        'itemCode'          => 'item_code',
+        'authCode'          => 'auth_code',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
+        Model::validateRequired('itemCode', $this->itemCode, true);
+        Model::validateRequired('authCode', $this->authCode, true);
     }
 
     public function toMap()
@@ -61,11 +63,11 @@ class QueryIpGoodsupdateRequest extends Model
         if (null !== $this->baseRequest) {
             $res['base_request'] = null !== $this->baseRequest ? $this->baseRequest->toMap() : null;
         }
-        if (null !== $this->ipIds) {
-            $res['ip_ids'] = $this->ipIds;
+        if (null !== $this->itemCode) {
+            $res['item_code'] = $this->itemCode;
         }
-        if (null !== $this->accountId) {
-            $res['account_id'] = $this->accountId;
+        if (null !== $this->authCode) {
+            $res['auth_code'] = $this->authCode;
         }
 
         return $res;
@@ -74,7 +76,7 @@ class QueryIpGoodsupdateRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryIpGoodsupdateRequest
+     * @return AuthIpShopRequest
      */
     public static function fromMap($map = [])
     {
@@ -88,13 +90,11 @@ class QueryIpGoodsupdateRequest extends Model
         if (isset($map['base_request'])) {
             $model->baseRequest = BaseRequestInfo::fromMap($map['base_request']);
         }
-        if (isset($map['ip_ids'])) {
-            if (!empty($map['ip_ids'])) {
-                $model->ipIds = $map['ip_ids'];
-            }
+        if (isset($map['item_code'])) {
+            $model->itemCode = $map['item_code'];
         }
-        if (isset($map['account_id'])) {
-            $model->accountId = $map['account_id'];
+        if (isset($map['auth_code'])) {
+            $model->authCode = $map['auth_code'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryIpSalesRequest extends Model
+class SetIpSalescorrectionRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,57 +19,43 @@ class PagequeryIpSalesRequest extends Model
      */
     public $productInstanceId;
 
-    // 基础请求参数
+    // 基础请求信息
     /**
      * @var BaseRequestInfo
      */
     public $baseRequest;
 
-    // 订单ID。和账单ID 两个字段只能选填一个
+    // 订单ID
     /**
      * @var string
      */
     public $ipOrderId;
 
-    // 销售数据ID
+    // 订单的数据ID，订单中每个数据ID唯一
     /**
      * @var string
      */
     public $salesBizId;
 
-    // 排序字段
-    /**
-     * @var string
-     */
-    public $orderBy;
-
-    // 排序顺序：正序还是倒序
-    /**
-     * @var string
-     */
-    public $order;
-
-    // 页码
+    // 数量校正，负数表示减少本次销售数量，但减少后宗销售数量不能小于0。不校正数量则填0.
     /**
      * @var int
      */
-    public $pageNumber;
+    public $correctAmount;
 
-    // 每页数据量大小
+    // 销售金额校正，单位元，负数表示减少本次销售金额，但减少后销售金额不能小于0。不校正数量则填0.00。
     /**
-     * @var int
+     * @var string
      */
-    public $pageSize;
+    public $correctSales;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
         'ipOrderId'         => 'ip_order_id',
         'salesBizId'        => 'sales_biz_id',
-        'orderBy'           => 'order_by',
-        'order'             => 'order',
-        'pageNumber'        => 'page_number',
-        'pageSize'          => 'page_size',
+        'correctAmount'     => 'correct_amount',
+        'correctSales'      => 'correct_sales',
     ];
 
     public function validate()
@@ -77,10 +63,8 @@ class PagequeryIpSalesRequest extends Model
         Model::validateRequired('baseRequest', $this->baseRequest, true);
         Model::validateRequired('ipOrderId', $this->ipOrderId, true);
         Model::validateRequired('salesBizId', $this->salesBizId, true);
-        Model::validateRequired('orderBy', $this->orderBy, true);
-        Model::validateRequired('order', $this->order, true);
-        Model::validateRequired('pageNumber', $this->pageNumber, true);
-        Model::validateRequired('pageSize', $this->pageSize, true);
+        Model::validateRequired('correctAmount', $this->correctAmount, true);
+        Model::validateRequired('correctSales', $this->correctSales, true);
     }
 
     public function toMap()
@@ -101,17 +85,11 @@ class PagequeryIpSalesRequest extends Model
         if (null !== $this->salesBizId) {
             $res['sales_biz_id'] = $this->salesBizId;
         }
-        if (null !== $this->orderBy) {
-            $res['order_by'] = $this->orderBy;
+        if (null !== $this->correctAmount) {
+            $res['correct_amount'] = $this->correctAmount;
         }
-        if (null !== $this->order) {
-            $res['order'] = $this->order;
-        }
-        if (null !== $this->pageNumber) {
-            $res['page_number'] = $this->pageNumber;
-        }
-        if (null !== $this->pageSize) {
-            $res['page_size'] = $this->pageSize;
+        if (null !== $this->correctSales) {
+            $res['correct_sales'] = $this->correctSales;
         }
 
         return $res;
@@ -120,7 +98,7 @@ class PagequeryIpSalesRequest extends Model
     /**
      * @param array $map
      *
-     * @return PagequeryIpSalesRequest
+     * @return SetIpSalescorrectionRequest
      */
     public static function fromMap($map = [])
     {
@@ -140,17 +118,11 @@ class PagequeryIpSalesRequest extends Model
         if (isset($map['sales_biz_id'])) {
             $model->salesBizId = $map['sales_biz_id'];
         }
-        if (isset($map['order_by'])) {
-            $model->orderBy = $map['order_by'];
+        if (isset($map['correct_amount'])) {
+            $model->correctAmount = $map['correct_amount'];
         }
-        if (isset($map['order'])) {
-            $model->order = $map['order'];
-        }
-        if (isset($map['page_number'])) {
-            $model->pageNumber = $map['page_number'];
-        }
-        if (isset($map['page_size'])) {
-            $model->pageSize = $map['page_size'];
+        if (isset($map['correct_sales'])) {
+            $model->correctSales = $map['correct_sales'];
         }
 
         return $model;

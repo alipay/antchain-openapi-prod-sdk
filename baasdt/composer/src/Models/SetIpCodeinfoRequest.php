@@ -54,6 +54,12 @@ class SetIpCodeinfoRequest extends Model
      * @var IPCodeIpOwnerInfo
      */
     public $ipownerInfo;
+
+    // (商家)配置正版码时间
+    /**
+     * @var string
+     */
+    public $codeSetTime;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,6 +69,7 @@ class SetIpCodeinfoRequest extends Model
         'goodsInfoList'     => 'goods_info_list',
         'adInfoList'        => 'ad_info_list',
         'ipownerInfo'       => 'ipowner_info',
+        'codeSetTime'       => 'code_set_time',
     ];
 
     public function validate()
@@ -70,6 +77,7 @@ class SetIpCodeinfoRequest extends Model
         Model::validateRequired('baseRequest', $this->baseRequest, true);
         Model::validateRequired('accountId', $this->accountId, true);
         Model::validateRequired('orderId', $this->orderId, true);
+        Model::validatePattern('codeSetTime', $this->codeSetTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -110,6 +118,9 @@ class SetIpCodeinfoRequest extends Model
         }
         if (null !== $this->ipownerInfo) {
             $res['ipowner_info'] = null !== $this->ipownerInfo ? $this->ipownerInfo->toMap() : null;
+        }
+        if (null !== $this->codeSetTime) {
+            $res['code_set_time'] = $this->codeSetTime;
         }
 
         return $res;
@@ -158,6 +169,9 @@ class SetIpCodeinfoRequest extends Model
         }
         if (isset($map['ipowner_info'])) {
             $model->ipownerInfo = IPCodeIpOwnerInfo::fromMap($map['ipowner_info']);
+        }
+        if (isset($map['code_set_time'])) {
+            $model->codeSetTime = $map['code_set_time'];
         }
 
         return $model;

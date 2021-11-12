@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryIpSalesRequest extends Model
+class SetIpOrdergoodsidRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,62 +25,30 @@ class PagequeryIpSalesRequest extends Model
      */
     public $baseRequest;
 
-    // 订单ID。和账单ID 两个字段只能选填一个
+    // 订单ID
     /**
      * @var string
      */
     public $ipOrderId;
 
-    // 销售数据ID
+    // 要绑定的商品信息
     /**
-     * @var string
+     * @var IPOrderGoods[]
      */
-    public $salesBizId;
-
-    // 排序字段
-    /**
-     * @var string
-     */
-    public $orderBy;
-
-    // 排序顺序：正序还是倒序
-    /**
-     * @var string
-     */
-    public $order;
-
-    // 页码
-    /**
-     * @var int
-     */
-    public $pageNumber;
-
-    // 每页数据量大小
-    /**
-     * @var int
-     */
-    public $pageSize;
+    public $goodsInfoList;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
         'ipOrderId'         => 'ip_order_id',
-        'salesBizId'        => 'sales_biz_id',
-        'orderBy'           => 'order_by',
-        'order'             => 'order',
-        'pageNumber'        => 'page_number',
-        'pageSize'          => 'page_size',
+        'goodsInfoList'     => 'goods_info_list',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
         Model::validateRequired('ipOrderId', $this->ipOrderId, true);
-        Model::validateRequired('salesBizId', $this->salesBizId, true);
-        Model::validateRequired('orderBy', $this->orderBy, true);
-        Model::validateRequired('order', $this->order, true);
-        Model::validateRequired('pageNumber', $this->pageNumber, true);
-        Model::validateRequired('pageSize', $this->pageSize, true);
+        Model::validateRequired('goodsInfoList', $this->goodsInfoList, true);
     }
 
     public function toMap()
@@ -98,20 +66,14 @@ class PagequeryIpSalesRequest extends Model
         if (null !== $this->ipOrderId) {
             $res['ip_order_id'] = $this->ipOrderId;
         }
-        if (null !== $this->salesBizId) {
-            $res['sales_biz_id'] = $this->salesBizId;
-        }
-        if (null !== $this->orderBy) {
-            $res['order_by'] = $this->orderBy;
-        }
-        if (null !== $this->order) {
-            $res['order'] = $this->order;
-        }
-        if (null !== $this->pageNumber) {
-            $res['page_number'] = $this->pageNumber;
-        }
-        if (null !== $this->pageSize) {
-            $res['page_size'] = $this->pageSize;
+        if (null !== $this->goodsInfoList) {
+            $res['goods_info_list'] = [];
+            if (null !== $this->goodsInfoList && \is_array($this->goodsInfoList)) {
+                $n = 0;
+                foreach ($this->goodsInfoList as $item) {
+                    $res['goods_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -120,7 +82,7 @@ class PagequeryIpSalesRequest extends Model
     /**
      * @param array $map
      *
-     * @return PagequeryIpSalesRequest
+     * @return SetIpOrdergoodsidRequest
      */
     public static function fromMap($map = [])
     {
@@ -137,20 +99,14 @@ class PagequeryIpSalesRequest extends Model
         if (isset($map['ip_order_id'])) {
             $model->ipOrderId = $map['ip_order_id'];
         }
-        if (isset($map['sales_biz_id'])) {
-            $model->salesBizId = $map['sales_biz_id'];
-        }
-        if (isset($map['order_by'])) {
-            $model->orderBy = $map['order_by'];
-        }
-        if (isset($map['order'])) {
-            $model->order = $map['order'];
-        }
-        if (isset($map['page_number'])) {
-            $model->pageNumber = $map['page_number'];
-        }
-        if (isset($map['page_size'])) {
-            $model->pageSize = $map['page_size'];
+        if (isset($map['goods_info_list'])) {
+            if (!empty($map['goods_info_list'])) {
+                $model->goodsInfoList = [];
+                $n                    = 0;
+                foreach ($map['goods_info_list'] as $item) {
+                    $model->goodsInfoList[$n++] = null !== $item ? IPOrderGoods::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

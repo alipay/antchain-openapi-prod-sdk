@@ -127,6 +127,38 @@ class IPCodeScannedInfo extends Model
      * @var int
      */
     public $ipCodeStatus;
+
+    // 额外功能，包括是否允许收藏等
+    /**
+     * @example
+     *
+     * @var int[]
+     */
+    public $features;
+
+    // 核验次数，配置生效后的核验次数统计
+    /**
+     * @example 15
+     *
+     * @var int
+     */
+    public $checkCounts;
+
+    // 正版码关联的I IP信息
+    /**
+     * @example
+     *
+     * @var IPCodeIpGoodInfo
+     */
+    public $ipInfo;
+
+    // UNI码
+    /**
+     * @example UNI23678678
+     *
+     * @var string
+     */
+    public $uniCode;
     protected $_name = [
         'ipCode'         => 'ip_code',
         'batchUsedCount' => 'batch_used_count',
@@ -143,6 +175,10 @@ class IPCodeScannedInfo extends Model
         'adInfoList'     => 'ad_info_list',
         'ipownerInfo'    => 'ipowner_info',
         'ipCodeStatus'   => 'ip_code_status',
+        'features'       => 'features',
+        'checkCounts'    => 'check_counts',
+        'ipInfo'         => 'ip_info',
+        'uniCode'        => 'uni_code',
     ];
 
     public function validate()
@@ -216,6 +252,18 @@ class IPCodeScannedInfo extends Model
         if (null !== $this->ipCodeStatus) {
             $res['ip_code_status'] = $this->ipCodeStatus;
         }
+        if (null !== $this->features) {
+            $res['features'] = $this->features;
+        }
+        if (null !== $this->checkCounts) {
+            $res['check_counts'] = $this->checkCounts;
+        }
+        if (null !== $this->ipInfo) {
+            $res['ip_info'] = null !== $this->ipInfo ? $this->ipInfo->toMap() : null;
+        }
+        if (null !== $this->uniCode) {
+            $res['uni_code'] = $this->uniCode;
+        }
 
         return $res;
     }
@@ -284,6 +332,20 @@ class IPCodeScannedInfo extends Model
         }
         if (isset($map['ip_code_status'])) {
             $model->ipCodeStatus = $map['ip_code_status'];
+        }
+        if (isset($map['features'])) {
+            if (!empty($map['features'])) {
+                $model->features = $map['features'];
+            }
+        }
+        if (isset($map['check_counts'])) {
+            $model->checkCounts = $map['check_counts'];
+        }
+        if (isset($map['ip_info'])) {
+            $model->ipInfo = IPCodeIpGoodInfo::fromMap($map['ip_info']);
+        }
+        if (isset($map['uni_code'])) {
+            $model->uniCode = $map['uni_code'];
         }
 
         return $model;

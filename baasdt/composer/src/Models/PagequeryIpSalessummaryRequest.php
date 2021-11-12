@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryIpSalesRequest extends Model
+class PagequeryIpSalessummaryRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,17 +25,23 @@ class PagequeryIpSalesRequest extends Model
      */
     public $baseRequest;
 
-    // 订单ID。和账单ID 两个字段只能选填一个
+    // 订单ID。订单ID和账单ID二选一传入。
     /**
      * @var string
      */
     public $ipOrderId;
 
-    // 销售数据ID
+    // 账单ID。订单ID和账单ID二选一传入。
     /**
      * @var string
      */
-    public $salesBizId;
+    public $ipBillId;
+
+    // 销售数据状态：1初始化，2商户确认，3版权方确认，4账单生成，5商户已校正，6版权方拒绝
+    /**
+     * @var int
+     */
+    public $status;
 
     // 排序字段
     /**
@@ -55,7 +61,7 @@ class PagequeryIpSalesRequest extends Model
      */
     public $pageNumber;
 
-    // 每页数据量大小
+    // 每页数据量大小。不大于100。
     /**
      * @var int
      */
@@ -65,7 +71,8 @@ class PagequeryIpSalesRequest extends Model
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
         'ipOrderId'         => 'ip_order_id',
-        'salesBizId'        => 'sales_biz_id',
+        'ipBillId'          => 'ip_bill_id',
+        'status'            => 'status',
         'orderBy'           => 'order_by',
         'order'             => 'order',
         'pageNumber'        => 'page_number',
@@ -75,8 +82,6 @@ class PagequeryIpSalesRequest extends Model
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
-        Model::validateRequired('ipOrderId', $this->ipOrderId, true);
-        Model::validateRequired('salesBizId', $this->salesBizId, true);
         Model::validateRequired('orderBy', $this->orderBy, true);
         Model::validateRequired('order', $this->order, true);
         Model::validateRequired('pageNumber', $this->pageNumber, true);
@@ -98,8 +103,11 @@ class PagequeryIpSalesRequest extends Model
         if (null !== $this->ipOrderId) {
             $res['ip_order_id'] = $this->ipOrderId;
         }
-        if (null !== $this->salesBizId) {
-            $res['sales_biz_id'] = $this->salesBizId;
+        if (null !== $this->ipBillId) {
+            $res['ip_bill_id'] = $this->ipBillId;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
         }
         if (null !== $this->orderBy) {
             $res['order_by'] = $this->orderBy;
@@ -120,7 +128,7 @@ class PagequeryIpSalesRequest extends Model
     /**
      * @param array $map
      *
-     * @return PagequeryIpSalesRequest
+     * @return PagequeryIpSalessummaryRequest
      */
     public static function fromMap($map = [])
     {
@@ -137,8 +145,11 @@ class PagequeryIpSalesRequest extends Model
         if (isset($map['ip_order_id'])) {
             $model->ipOrderId = $map['ip_order_id'];
         }
-        if (isset($map['sales_biz_id'])) {
-            $model->salesBizId = $map['sales_biz_id'];
+        if (isset($map['ip_bill_id'])) {
+            $model->ipBillId = $map['ip_bill_id'];
+        }
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
         }
         if (isset($map['order_by'])) {
             $model->orderBy = $map['order_by'];

@@ -32,6 +32,14 @@ class IPCodeGoodsInfo extends Model
      */
     public $goodsImage;
 
+    // 商品图片临时访问地址，可直接访问
+    /**
+     * @example http://xxx
+     *
+     * @var string
+     */
+    public $goodsImageTmp;
+
     // 商品店铺名称/商品出品方
     /**
      * @example 商品店铺名称
@@ -47,6 +55,14 @@ class IPCodeGoodsInfo extends Model
      * @var string
      */
     public $goodsStoreLogo;
+
+    // 店铺logo临时访问地址
+    /**
+     * @example http://xxx
+     *
+     * @var string
+     */
+    public $goodsStoreLogoTmp;
 
     // 商品描述
     /**
@@ -79,16 +95,36 @@ class IPCodeGoodsInfo extends Model
      * @var string
      */
     public $authorizationEndTime;
+
+    // 发售渠道
+    /**
+     * @example 拼多多;淘宝
+     *
+     * @var string
+     */
+    public $goodsSaleChannel;
+
+    // 商品规格
+    /**
+     * @example
+     *
+     * @var ProductSpecification[]
+     */
+    public $goodsSpecifications;
     protected $_name = [
         'goodsName'                  => 'goods_name',
         'goodsUrl'                   => 'goods_url',
         'goodsImage'                 => 'goods_image',
+        'goodsImageTmp'              => 'goods_image_tmp',
         'goodsStore'                 => 'goods_store',
         'goodsStoreLogo'             => 'goods_store_logo',
+        'goodsStoreLogoTmp'          => 'goods_store_logo_tmp',
         'goodsDescription'           => 'goods_description',
         'goodsBrand'                 => 'goods_brand',
         'authorizationExpiratedType' => 'authorization_expirated_type',
         'authorizationEndTime'       => 'authorization_end_time',
+        'goodsSaleChannel'           => 'goods_sale_channel',
+        'goodsSpecifications'        => 'goods_specifications',
     ];
 
     public function validate()
@@ -108,11 +144,17 @@ class IPCodeGoodsInfo extends Model
         if (null !== $this->goodsImage) {
             $res['goods_image'] = $this->goodsImage;
         }
+        if (null !== $this->goodsImageTmp) {
+            $res['goods_image_tmp'] = $this->goodsImageTmp;
+        }
         if (null !== $this->goodsStore) {
             $res['goods_store'] = $this->goodsStore;
         }
         if (null !== $this->goodsStoreLogo) {
             $res['goods_store_logo'] = $this->goodsStoreLogo;
+        }
+        if (null !== $this->goodsStoreLogoTmp) {
+            $res['goods_store_logo_tmp'] = $this->goodsStoreLogoTmp;
         }
         if (null !== $this->goodsDescription) {
             $res['goods_description'] = $this->goodsDescription;
@@ -125,6 +167,18 @@ class IPCodeGoodsInfo extends Model
         }
         if (null !== $this->authorizationEndTime) {
             $res['authorization_end_time'] = $this->authorizationEndTime;
+        }
+        if (null !== $this->goodsSaleChannel) {
+            $res['goods_sale_channel'] = $this->goodsSaleChannel;
+        }
+        if (null !== $this->goodsSpecifications) {
+            $res['goods_specifications'] = [];
+            if (null !== $this->goodsSpecifications && \is_array($this->goodsSpecifications)) {
+                $n = 0;
+                foreach ($this->goodsSpecifications as $item) {
+                    $res['goods_specifications'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -147,11 +201,17 @@ class IPCodeGoodsInfo extends Model
         if (isset($map['goods_image'])) {
             $model->goodsImage = $map['goods_image'];
         }
+        if (isset($map['goods_image_tmp'])) {
+            $model->goodsImageTmp = $map['goods_image_tmp'];
+        }
         if (isset($map['goods_store'])) {
             $model->goodsStore = $map['goods_store'];
         }
         if (isset($map['goods_store_logo'])) {
             $model->goodsStoreLogo = $map['goods_store_logo'];
+        }
+        if (isset($map['goods_store_logo_tmp'])) {
+            $model->goodsStoreLogoTmp = $map['goods_store_logo_tmp'];
         }
         if (isset($map['goods_description'])) {
             $model->goodsDescription = $map['goods_description'];
@@ -164,6 +224,18 @@ class IPCodeGoodsInfo extends Model
         }
         if (isset($map['authorization_end_time'])) {
             $model->authorizationEndTime = $map['authorization_end_time'];
+        }
+        if (isset($map['goods_sale_channel'])) {
+            $model->goodsSaleChannel = $map['goods_sale_channel'];
+        }
+        if (isset($map['goods_specifications'])) {
+            if (!empty($map['goods_specifications'])) {
+                $model->goodsSpecifications = [];
+                $n                          = 0;
+                foreach ($map['goods_specifications'] as $item) {
+                    $model->goodsSpecifications[$n++] = null !== $item ? ProductSpecification::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

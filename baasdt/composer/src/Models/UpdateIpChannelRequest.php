@@ -43,6 +43,12 @@ class UpdateIpChannelRequest extends Model
      */
     public $authorizationModel;
 
+    // 新授权模式，0普通授权，1独家授权，支持多选
+    /**
+     * @var int[]
+     */
+    public $newAuthorizationModel;
+
     // 授权类型，衍生品授权；营销授权；商标授权；数字虚拟授权；其他
     /**
      * @var string[]
@@ -67,16 +73,17 @@ class UpdateIpChannelRequest extends Model
      */
     public $tradeNeedConfirm;
     protected $_name = [
-        'authToken'          => 'auth_token',
-        'productInstanceId'  => 'product_instance_id',
-        'baseRequest'        => 'base_request',
-        'ipId'               => 'ip_id',
-        'channelName'        => 'channel_name',
-        'authorizationModel' => 'authorization_model',
-        'authorizationType'  => 'authorization_type',
-        'payMode'            => 'pay_mode',
-        'ipLevel'            => 'ip_level',
-        'tradeNeedConfirm'   => 'trade_need_confirm',
+        'authToken'             => 'auth_token',
+        'productInstanceId'     => 'product_instance_id',
+        'baseRequest'           => 'base_request',
+        'ipId'                  => 'ip_id',
+        'channelName'           => 'channel_name',
+        'authorizationModel'    => 'authorization_model',
+        'newAuthorizationModel' => 'new_authorization_model',
+        'authorizationType'     => 'authorization_type',
+        'payMode'               => 'pay_mode',
+        'ipLevel'               => 'ip_level',
+        'tradeNeedConfirm'      => 'trade_need_confirm',
     ];
 
     public function validate()
@@ -109,6 +116,9 @@ class UpdateIpChannelRequest extends Model
         }
         if (null !== $this->authorizationModel) {
             $res['authorization_model'] = $this->authorizationModel;
+        }
+        if (null !== $this->newAuthorizationModel) {
+            $res['new_authorization_model'] = $this->newAuthorizationModel;
         }
         if (null !== $this->authorizationType) {
             $res['authorization_type'] = $this->authorizationType;
@@ -151,6 +161,11 @@ class UpdateIpChannelRequest extends Model
         }
         if (isset($map['authorization_model'])) {
             $model->authorizationModel = $map['authorization_model'];
+        }
+        if (isset($map['new_authorization_model'])) {
+            if (!empty($map['new_authorization_model'])) {
+                $model->newAuthorizationModel = $map['new_authorization_model'];
+            }
         }
         if (isset($map['authorization_type'])) {
             if (!empty($map['authorization_type'])) {
