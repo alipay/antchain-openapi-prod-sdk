@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-donpa</artifactId>
-  <version>1.0.15</version>
+  <version>1.0.17</version>
   <packaging>jar</packaging>
   <name>openapi-donpa</name>
   <description>Ant Chain DONPA SDK for Java

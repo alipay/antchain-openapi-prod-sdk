@@ -22,8 +22,8 @@ public class PredictRequest extends TeaModel {
     public String paybackNum;
 
     // 逾期月数
-    @NameInMap("overdue_month")
-    public String overdueMonth;
+    @NameInMap("overdue_day")
+    public Long overdueDay;
 
     // 身份证号
     @NameInMap("cert_no")
@@ -70,12 +70,12 @@ public class PredictRequest extends TeaModel {
         return this.paybackNum;
     }
 
-    public PredictRequest setOverdueMonth(String overdueMonth) {
-        this.overdueMonth = overdueMonth;
+    public PredictRequest setOverdueDay(Long overdueDay) {
+        this.overdueDay = overdueDay;
         return this;
     }
-    public String getOverdueMonth() {
-        return this.overdueMonth;
+    public Long getOverdueDay() {
+        return this.overdueDay;
     }
 
     public PredictRequest setCertNo(String certNo) {
