@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.7',
+    sdk_version = '1.3.39',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -193,6 +193,16 @@ model UserPrice {
   userPriceWithCommission: string(name='user_price_with_commission', example='1.001'),
 }
 
+// 手续费分级
+model CommissionLayer {
+  // 阶梯起始值，无结束值
+  startNum: string(name='start_num', example='2'),
+  // 手续费费率
+  deductRatio: string(name='deduct_ratio', example='0.0001'),
+  // 固定的商品费率值
+  deductToken: string(name='deduct_token', example='10'),
+}
+
 // 交易
 model BlockTransaction {
   // 交易信息
@@ -225,16 +235,6 @@ model BlockTransaction {
   version: long(name='version', example='2'),
 }
 
-// 手续费分级
-model CommissionLayer {
-  // 阶梯起始值，无结束值
-  startNum: string(name='start_num', example='2'),
-  // 手续费费率
-  deductRatio: string(name='deduct_ratio', example='0.0001'),
-  // 固定的商品费率值
-  deductToken: string(name='deduct_token', example='10'),
-}
-
 // 联系人详情
 model DockingPeopleInfo {
   // 名字
@@ -263,6 +263,16 @@ model BlockReceipt {
   result: long(name='result', example='0'),
 }
 
+// 手续费子结构体
+model SubCommissionRule {
+  // deduct_token
+  deductToken: string(name='deduct_token', example='deduct_token'),
+  // deduct_ratio
+  deductRatio: string(name='deduct_ratio', example='deduct_ratio'),
+  // account_id
+  accountId: string(name='account_id', example='account_id'),
+}
+
 // ip的sku信息
 model IpSkuInfo {
   // ip的链上id
@@ -277,46 +287,12 @@ model IpSkuInfo {
   saleNum: string(name='sale_num', example='10000'),
 }
 
-// 手续费子结构体
-model SubCommissionRule {
-  // deduct_token
-  deductToken: string(name='deduct_token', example='deduct_token'),
-  // deduct_ratio
-  deductRatio: string(name='deduct_ratio', example='deduct_ratio'),
-  // account_id
-  accountId: string(name='account_id', example='account_id'),
-}
-
-// IP授权交易: AddressInfo
-model IPAddressInfo {
-  // 省份编码
-  provinceCode: string(name='province_code', example='370000'),
-  // 城市编码
-  cityCode: string(name='city_code', example='370001'),
-  // 区域编码
-  districtCode: string(name='district_code', example='370002'),
-  // 详细地址
-  address: string(name='address', example='万塘路18号黄龙时代广场B座'),
-}
-
-// IP授权服务: CardInfo
-model IPCardInfo {
-  // 卡户名
-  accountHolderName: string(name='account_holder_name', example='马老师'),
-  // 卡号
-  accountNo: string(name='account_no', example='6214855710610408'),
-  // 银行名称
-  accountInstName: string(name='account_inst_name', example='招商银行'),
-  // 银行缩写
-  accountInstId: string(name='account_inst_id', example='CMB'),
-  // 联行号
-  bankCode?: string(name='bank_code', example='103290003044'),
-  // 开户行所在省份
-  accountInstProvince: string(name='account_inst_province', example='浙江省'),
-  // 开户行所在城市
-  accountInstCity: string(name='account_inst_city', example='杭州市'),
-  // 开户行支行名称
-  accountBranchName: string(name='account_branch_name', example='招商银行杭州高新支行'),
+// 商品规格
+model ProductSpecification {
+  // 规格名称
+  specificationName: string(name='specification_name', example='尺寸'),
+  // 规格值
+  specificationValue: string(name='specification_value', example='400x400'),
 }
 
 // 正版码配置的商品信息
@@ -327,10 +303,14 @@ model IPCodeGoodsInfo {
   goodsUrl?: string(name='goods_url', example='商品链接'),
   // 商品图片
   goodsImage?: string(name='goods_image', example='商品图片'),
+  // 商品图片临时访问地址，可直接访问
+  goodsImageTmp?: string(name='goods_image_tmp', example='http://xxx'),
   // 商品店铺名称/商品出品方
   goodsStore?: string(name='goods_store', example='商品店铺名称'),
   // 店铺logo图片链接
   goodsStoreLogo?: string(name='goods_store_logo', example='oss://myexchange/12566587671fc8f77d37...5dfb67fa1.jpeg'),
+  // 店铺logo临时访问地址
+  goodsStoreLogoTmp?: string(name='goods_store_logo_tmp', example='http://xxx'),
   // 商品描述
   goodsDescription?: string(name='goods_description', example='这是一段商品描述'),
   // 商品品牌
@@ -339,30 +319,10 @@ model IPCodeGoodsInfo {
   authorizationExpiratedType?: string(name='authorization_expirated_type', example='0'),
   // 授权截止日期
   authorizationEndTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='authorization_end_time', example='2018-10-10T10:10:00Z'),
-}
-
-// 增值服务信息
-model ValueAddedServiceInfo {
-  // 增值服务归属账户id
-  accountId: string(name='account_id', example='x x x x x'),
-  // 增值服务id
-  serviceId: string(name='service_id', example='x x x x x'),
-  // 增值服务名字
-  serviceName: string(name='service_name', example='增值服务名字'),
-  // 主图 链接地址
-  images: string(name='images', example='oss://1;oss://2'),
-  // 详情图
-  imagesDetail: string(name='images_detail', example='oss://1;oss://2'),
-  // 增值服务描述
-  description?: string(name='description', example='描述'),
-  // 联系人列表
-  dockingPeople: [ DockingPeopleInfo ](name='docking_people', example=''),
-  // 资质证明
-  copyRight?: string(name='copy_right', example='x x x x x'),
-  // 备注
-  memo?: string(name='memo', example='备注'),
-  // 服务状态（0:待审核 1:审核拒绝 2:上线【审核通过】 3: 下线）
-  status: long(name='status', example=''),
+  // 发售渠道
+  goodsSaleChannel?: string(name='goods_sale_channel', example='拼多多;淘宝'),
+  // 商品规格
+  goodsSpecifications?: [ ProductSpecification ](name='goods_specifications', example=''),
 }
 
 // 权益附属信息
@@ -385,46 +345,32 @@ model EquityExtInfo {
   commission: string(name='commission', example='0.001'),
 }
 
-// 正版码版权方信息
-model IPCodeIpOwnerInfo {
-  // 版权所有者名称
-  ipOwnerName?: string(name='ip_owner_name', example='丹尼尔'),
-  // 版权方头像oss地址
-  ipOwnerImage?: string(name='ip_owner_image', example='OSS://BAASDT/YHNDSWOS/2021-07-16/kr6492x67fe68049/9ec4e7596f830ad9e1f297353e51ee0bf4b23a83c55126520a6b17b7ea95814e.jpg'),
-  // ip描述
-  ipDescription?: string(name='ip_description', example='这是一段ip描述'),
+// 实际售卖的商品信息
+model IPOrderGoods {
+  // 订单ID
+  ipOrderId?: string(name='ip_order_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
+  // 数据渠道类型：0 手动录入，1 淘宝开放平台
+  dataType: long(name='data_type', example='0'),
+  // ID类型
+  idType: long(name='id_type', example='0'),
+  // 商品ID
+  goodsId: string(name='goods_id', example='goodsId'),
+  // 商品名称
+  goodsName: string(name='goods_name', example='goodsName'),
+  // 商家昵称
+  nick?: string(name='nick', example='小浣熊官方旗舰店店主'),
 }
 
-// 资产附属信息
-model AssetExtInfo {
-  // 发放账户余额
-  dispenseBalance: string(name='dispense_balance', example='1000'),
-  // 发放账户归属租户ID
-  dispenseTenantId: string(name='dispense_tenant_id', example='tenantid'),
-  // 用户账户余额
-  userCreditBalance: string(name='user_credit_balance', example='100'),
-  // 用户ID
-  userId: string(name='user_id', example='user001'),
-}
-
-// 钱包的统计信息
-model StatisticalInfo {
-  // 可用于消费的信用Token等值金额(单位:元, 精确到小数点后12位)	
-  creditTokenBalance: string(name='credit_token_balance', example='100.22'),
-  // 可用于消费的Token等值金额(单位:元, 精确到小数点后12位)
-  debitTokenBalance: string(name='debit_token_balance', example='10.01'),
-  // 目前持有的他人Token的金额(单位:元, 精确到小数点后12位)
-  otherTokenBalance: string(name='other_token_balance', example='100.00'),
-  // 已消费的累积金额(单位:元, 精确到小数点后12位)
-  usedTokenBalance: string(name='used_token_balance', example='100.00'),
-}
-
-// IP授权服务: SettleRule
-model IPSettleRule {
-  // 结算类型， 1-表示结算到银行卡；2-表示结算到支付宝账号
-  settleType: long(name='settle_type', example='1'),
-  // 结算目标 如果settle_type = 1, 这里填写银行卡卡号; 如果settle_type = 2, 这里填写支付宝账号登录号, 且要求与商户名称name同名
-  settleTarget: string(name='settle_target', example='myalipay@alipay.com'),
+// Ip正版码信息中Ip相关信息
+model IPCodeIpGoodInfo {
+  // IP名称
+  ipName: string(name='ip_name', example='飞天小女警'),
+  // IP描述
+  ipDescription: string(name='ip_description', example='飞天小女警是深受90后喜欢的一款Ip。'),
+  // IP主图oss地址
+  ipImgUrl: string(name='ip_img_url', example='OSS://9ff608718f98f7c52746a6a1eda180ab55b1d5d008ba796f98b3cf484f275a36.jpeg;'),
+  // IP主图，非oss地址，可直接访问的图片地址
+  ipImgUrlTmp?: string(name='ip_img_url_tmp', example='http://xxx'),
 }
 
 // 消费卡交易信息附加数据
@@ -469,6 +415,192 @@ model IpSkuEmphasisInfo {
   saleNum: string(name='sale_num', example='1111'),
 }
 
+// 信用钱包信息
+model CreditWallet {
+  // 最大授信额度(单位:元,精确到小数点后4位)
+  maxBalance: string(name='max_balance', example='100.0000'),
+  // 已经使用的授信额度(单位:元,精确到小数点后4位)
+  usedBalance: string(name='used_balance', example='100.0000'),
+  // 钱包类型（0:debit,1:credit）
+  walletType: long(name='wallet_type', example='1'),
+  // 资金管理员
+  fundManagerId: string(name='fund_manager_id', example='53487152345234132'),
+  // 资金托管员
+  trusteeId: string(name='trustee_id', example='52345213423742'),
+  // 其他信息（例举：联行号）
+  extInfo: string(name='ext_info', example='扩展信息'),
+}
+
+// 权益详情
+model EquityDetail {
+  // 权益描述
+  description: string(name='description', example='description'),
+  // 权益描述图片OSS地址（分号;分隔）
+  descImages: string(name='desc_images', example='OSS1;OSS2'),
+  // 权益ID
+  equityId: string(name='equity_id', example='7f1be9108651f97513b5b59030f5b059e58a59d263ab426cbf26337f91642caa'),
+  // 权益名称
+  equityName: string(name='equity_name', example='权益1'),
+  // 权益类型
+  equityType: string(name='equity_type', example='0200050002'),
+  // 权益面值(元)
+  equityValue: string(name='equity_value', example='20.00'),
+  // 权益主图片OSS地址（分号;分隔）
+  images: string(name='images', example='OSS1;OSS2'),
+  // 对客价(元)
+  price: string(name='price', example='20.00'),
+  // 权益SKU
+  skuId: string(name='sku_id', example='20200407050700000000404'),
+}
+
+// IP授权服务: ContactInfo
+model IPContactInfo {
+  // 联系人姓名
+  name: string(name='name', example='张三'),
+  // 联系人手机号码
+  mobile?: string(name='mobile', example='1388888888'),
+  // 联系人电话号码
+  phone?: string(name='phone', example='0551-12345678'),
+  // 联系人类型, 1-法人；2-实际控制人；3-代理人；4-其他
+  type: long(name='type', example='1'),
+  // 联系人身份证号
+  certno?: string(name='certno', example='320000000000000000'),
+}
+
+// 区块头
+model BlockHeader {
+  // gas总消耗
+  gasUsed: long(name='gas_used', example='12743895'),
+  // 十六进制区块哈希值
+  hash: string(name='hash', example='1344a095ae43e0dbb82e1986a5ab1357a5108d7bf9066f8e52f4b8bf1260a06f'),
+  // log bloom
+  logBloom: string(name='log_bloom', example='000000000000000400000...'),
+  // 区块高度
+  number: long(name='number', example='1920810'),
+  // 十六进制区块父hash
+  parentHash: string(name='parent_hash', example='daf5181a24e6e712988751bd9f808636bd5f291ec7cbef6193198b629d6452b0'),
+  // 交易单据树根
+  receiptRoot: string(name='receipt_root', example='ac7ec491ed17d6995ce0a919b7be65e431ba4dc9072d485496207e1f83ed5779'),
+  // 状态树根
+  stateRoot: string(name='state_root', example='ff0326e45d179e03cd0a077b8cc886935c69b60dde5d7b3961a84bbd4ce4e6be'),
+  // 区块时间戳
+  timestamp: long(name='timestamp', example='1583202479879'),
+  // 十六进制交易merkle树根
+  transactionRoot: string(name='transaction_root', example='12c7314185b21e13cd5c873043214a8b51879a82698bc563aa97cb9a36705713'),
+  // 区块版本
+  version: long(name='version', example='1125904201810178'),
+}
+
+// 交易token来源信息
+model TokenInstructionDO {
+  // token类型
+  tokenType: long(name='token_type', example='1'),
+  // token价格
+  tokenPrice: string(name='token_price', example='1'),
+  // token来源账户ID
+  payAccountId: string(name='pay_account_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
+}
+
+// IP授权交易: AddressInfo
+model IPAddressInfo {
+  // 省份编码
+  provinceCode: string(name='province_code', example='370000'),
+  // 城市编码
+  cityCode: string(name='city_code', example='370001'),
+  // 区域编码
+  districtCode: string(name='district_code', example='370002'),
+  // 详细地址
+  address: string(name='address', example='万塘路18号黄龙时代广场B座'),
+}
+
+// IP授权服务: CardInfo
+model IPCardInfo {
+  // 卡户名
+  accountHolderName: string(name='account_holder_name', example='马老师'),
+  // 卡号
+  accountNo: string(name='account_no', example='6214855710610408'),
+  // 银行名称
+  accountInstName: string(name='account_inst_name', example='招商银行'),
+  // 银行缩写
+  accountInstId: string(name='account_inst_id', example='CMB'),
+  // 联行号
+  bankCode?: string(name='bank_code', example='103290003044'),
+  // 开户行所在省份
+  accountInstProvince: string(name='account_inst_province', example='浙江省'),
+  // 开户行所在城市
+  accountInstCity: string(name='account_inst_city', example='杭州市'),
+  // 开户行支行名称
+  accountBranchName: string(name='account_branch_name', example='招商银行杭州高新支行'),
+}
+
+// 增值服务信息
+model ValueAddedServiceInfo {
+  // 增值服务归属账户id
+  accountId: string(name='account_id', example='x x x x x'),
+  // 增值服务id
+  serviceId: string(name='service_id', example='x x x x x'),
+  // 增值服务名字
+  serviceName: string(name='service_name', example='增值服务名字'),
+  // 主图 链接地址
+  images: string(name='images', example='oss://1;oss://2'),
+  // 详情图
+  imagesDetail: string(name='images_detail', example='oss://1;oss://2'),
+  // 增值服务描述
+  description?: string(name='description', example='描述'),
+  // 联系人列表
+  dockingPeople: [ DockingPeopleInfo ](name='docking_people', example=''),
+  // 资质证明
+  copyRight?: string(name='copy_right', example='x x x x x'),
+  // 备注
+  memo?: string(name='memo', example='备注'),
+  // 服务状态（0:待审核 1:审核拒绝 2:上线【审核通过】 3: 下线）
+  status: long(name='status', example=''),
+}
+
+// 正版码版权方信息
+model IPCodeIpOwnerInfo {
+  // 版权所有者名称
+  ipOwnerName?: string(name='ip_owner_name', example='丹尼尔'),
+  // 版权方头像oss地址
+  ipOwnerImage?: string(name='ip_owner_image', example='OSS://BAASDT/YHNDSWOS/2021-07-16/kr6492x67fe68049/9ec4e7596f830ad9e1f297353e51ee0bf4b23a83c55126520a6b17b7ea95814e.jpg'),
+  // 版权方头像，临时访问地址，可直接访问
+  ipOwnerImageTmp?: string(name='ip_owner_image_tmp', example='http://xxx'),
+  // ip描述
+  ipDescription?: string(name='ip_description', example='这是一段ip描述'),
+}
+
+// 资产附属信息
+model AssetExtInfo {
+  // 发放账户余额
+  dispenseBalance: string(name='dispense_balance', example='1000'),
+  // 发放账户归属租户ID
+  dispenseTenantId: string(name='dispense_tenant_id', example='tenantid'),
+  // 用户账户余额
+  userCreditBalance: string(name='user_credit_balance', example='100'),
+  // 用户ID
+  userId: string(name='user_id', example='user001'),
+}
+
+// 钱包的统计信息
+model StatisticalInfo {
+  // 可用于消费的信用Token等值金额(单位:元, 精确到小数点后12位)	
+  creditTokenBalance: string(name='credit_token_balance', example='100.22'),
+  // 可用于消费的Token等值金额(单位:元, 精确到小数点后12位)
+  debitTokenBalance: string(name='debit_token_balance', example='10.01'),
+  // 目前持有的他人Token的金额(单位:元, 精确到小数点后12位)
+  otherTokenBalance: string(name='other_token_balance', example='100.00'),
+  // 已消费的累积金额(单位:元, 精确到小数点后12位)
+  usedTokenBalance: string(name='used_token_balance', example='100.00'),
+}
+
+// IP授权服务: SettleRule
+model IPSettleRule {
+  // 结算类型， 1-表示结算到银行卡；2-表示结算到支付宝账号
+  settleType: long(name='settle_type', example='1'),
+  // 结算目标 如果settle_type = 1, 这里填写银行卡卡号; 如果settle_type = 2, 这里填写支付宝账号登录号, 且要求与商户名称name同名
+  settleTarget: string(name='settle_target', example='myalipay@alipay.com'),
+}
+
 // 区块体
 model BlockBody {
   // 区块共识证明(HEX)
@@ -509,44 +641,6 @@ model Provision {
   currency: string(name='currency', example='CNY'),
   // 余额
   debit: string(name='debit', example='99999999.0000'),
-}
-
-// 信用钱包信息
-model CreditWallet {
-  // 最大授信额度(单位:元,精确到小数点后4位)
-  maxBalance: string(name='max_balance', example='100.0000'),
-  // 已经使用的授信额度(单位:元,精确到小数点后4位)
-  usedBalance: string(name='used_balance', example='100.0000'),
-  // 钱包类型（0:debit,1:credit）
-  walletType: long(name='wallet_type', example='1'),
-  // 资金管理员
-  fundManagerId: string(name='fund_manager_id', example='53487152345234132'),
-  // 资金托管员
-  trusteeId: string(name='trustee_id', example='52345213423742'),
-  // 其他信息（例举：联行号）
-  extInfo: string(name='ext_info', example='扩展信息'),
-}
-
-// 权益详情
-model EquityDetail {
-  // 权益描述
-  description: string(name='description', example='description'),
-  // 权益描述图片OSS地址（分号;分隔）
-  descImages: string(name='desc_images', example='OSS1;OSS2'),
-  // 权益ID
-  equityId: string(name='equity_id', example='7f1be9108651f97513b5b59030f5b059e58a59d263ab426cbf26337f91642caa'),
-  // 权益名称
-  equityName: string(name='equity_name', example='权益1'),
-  // 权益类型
-  equityType: string(name='equity_type', example='0200050002'),
-  // 权益面值(元)
-  equityValue: string(name='equity_value', example='20.00'),
-  // 权益主图片OSS地址（分号;分隔）
-  images: string(name='images', example='OSS1;OSS2'),
-  // 对客价(元)
-  price: string(name='price', example='20.00'),
-  // 权益SKU
-  skuId: string(name='sku_id', example='20200407050700000000404'),
 }
 
 // ip的基础信息字段
@@ -611,62 +705,18 @@ model IpBasicInfo {
   accountName?: string(name='account_name', example='xxxx'),
 }
 
-// IP授权服务: ContactInfo
-model IPContactInfo {
-  // 联系人姓名
-  name: string(name='name', example='张三'),
-  // 联系人手机号码
-  mobile?: string(name='mobile', example='1388888888'),
-  // 联系人电话号码
-  phone?: string(name='phone', example='0551-12345678'),
-  // 联系人类型, 1-法人；2-实际控制人；3-代理人；4-其他
-  type: long(name='type', example='1'),
-  // 联系人身份证号
-  certno?: string(name='certno', example='320000000000000000'),
-}
-
 // 正版码配置资源位信息
 model IPCodeAdvertisingInfo {
   // 资源位头图
   adImage?: string(name='ad_image', example='资源位头图'),
+  // 资源位头图可直接访问的临时链接
+  adImageTmp?: string(name='ad_image_tmp', example='http://xxx'),
   // 资源位链接
   adUrl?: string(name='ad_url', example='资源位链接'),
   // 资源商品名称
   adName?: string(name='ad_name', example='小龙坎火锅'),
-}
-
-// 区块头
-model BlockHeader {
-  // gas总消耗
-  gasUsed: long(name='gas_used', example='12743895'),
-  // 十六进制区块哈希值
-  hash: string(name='hash', example='1344a095ae43e0dbb82e1986a5ab1357a5108d7bf9066f8e52f4b8bf1260a06f'),
-  // log bloom
-  logBloom: string(name='log_bloom', example='000000000000000400000...'),
-  // 区块高度
-  number: long(name='number', example='1920810'),
-  // 十六进制区块父hash
-  parentHash: string(name='parent_hash', example='daf5181a24e6e712988751bd9f808636bd5f291ec7cbef6193198b629d6452b0'),
-  // 交易单据树根
-  receiptRoot: string(name='receipt_root', example='ac7ec491ed17d6995ce0a919b7be65e431ba4dc9072d485496207e1f83ed5779'),
-  // 状态树根
-  stateRoot: string(name='state_root', example='ff0326e45d179e03cd0a077b8cc886935c69b60dde5d7b3961a84bbd4ce4e6be'),
-  // 区块时间戳
-  timestamp: long(name='timestamp', example='1583202479879'),
-  // 十六进制交易merkle树根
-  transactionRoot: string(name='transaction_root', example='12c7314185b21e13cd5c873043214a8b51879a82698bc563aa97cb9a36705713'),
-  // 区块版本
-  version: long(name='version', example='1125904201810178'),
-}
-
-// 交易token来源信息
-model TokenInstructionDO {
-  // token类型
-  tokenType: long(name='token_type', example='1'),
-  // token价格
-  tokenPrice: string(name='token_price', example='1'),
-  // token来源账户ID
-  payAccountId: string(name='pay_account_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
+  // 广告位类型，为空时代表是商品广告位，Resource时代表是资源位
+  adType?: string(name='ad_type', example='Resource'),
 }
 
 // ip的渠道信息带上sku信息
@@ -676,6 +726,8 @@ model IpChannelWithSku {
   // 授权模式 商品授权 0普通授权/1独家授权 本期只有0
   // 
   authorizationMode: long(name='authorization_mode', example='0'),
+  // 新授权模式，0普通授权，1独家授权，支持多选
+  newAuthorizationModel?: [ long ](name='new_authorization_model', example='0'),
   // 计费模式 0:按量 1:按金额
   // 
   payMode: long(name='pay_mode', example='0'),
@@ -745,113 +797,16 @@ model SKUItem {
   status: long(name='status', example='0'),
 }
 
-// 手续费规则结果
-model CommissionRuleResponse {
-  // 手续费到账方
-  accountId: string(name='account_id', example='account_id'),
-  // 手续费周期列表
-  commissionPeriods: [ CommissionPeriod ](name='commission_periods', example=''),
-}
-
-// MCC信息(https://gw.alipayobjects.com/os/bmw-prod/05c9a32e-42d1-436b-ace7-13101d91f672.xlsx）
-model IPMCC {
-  // MCC编码
-  mccCode: string(name='mcc_code', example='6073'),
-  // 经营类目一级
-  categoryLevel1: string(name='category_level1', example='商业及生活服务'),
-  // 经营类目二级
-  categoryLevel2: string(name='category_level2', example='直销'),
-  // 经营类目三级
-  categoryLevel3: string(name='category_level3', example='目录直销平台'),
-}
-
-// 账户入驻的渠道表
-model AccountInChannels {
-  // 天猫渠道
-  channelName: string(name='channel_name', example='IPMart'),
-  // 是否入驻
-  isSettled: boolean(name='is_settled', example='true, false'),
-  // WAIT_CHECK:渠道已申请开通但未审核，SUCCESS:渠道开通审核成功，渠道开通
-  settledStatus?: string(name='settled_status', example='渠道开通状态'),
-}
-
-// 手续费信息
-model Commission {
-  // 要更新的手续费状态
-  status: long(name='status', example='0'),
-  // 手续费生效时间（时间戳 ms）
-  beginTime?: long(name='begin_time', example='1588867200000'),
-  // 手续费结束时间
-  endTime?: long(name='end_time', example='1598867200000'),
-  // 手续费
-  commission: string(name='commission', example='0.01'),
-}
-
-// 消费卡数据
-model BlockConsumeCardInfo {
-  // 外部系统对该个人/机构用户的内部编号,用于唯一识别该用户
-  userId: string(name='user_id', example='userId001'),
-  // 用户的链上账户Id
-  accountId: string(name='account_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
-  // 开户行名称
-  bankName: string(name='bank_name', example='招商银行杭州高新支行'),
-  // 消费卡开通绑定的银行卡卡号
-  bankCardId: string(name='bank_card_id', example='6259093871597124'),
-  // 开户名称
-  accountName: string(name='account_name', example='张三'),
-  // 账户余额(元)
-  debitAmount: string(name='debit_amount', example='15.76'),
-  // 信用余额(元)
-  creditAmount: string(name='credit_amount', example='54.14'),
-  // 资产的来源<来源账户ID_余额/信用额, 数量>, 例如: "accountId1_Debit": 11000表示这笔资产来源于accountId1,是accountId1这个账户通过Debit余额发行的资产。
-  assetMap: string(name='asset_map', example='{"accountId1_Debit": 11000, "accountId2_Credit": 10000}'),
-}
-
-// sku配置加上ip等级
-model IpSkuConfigWithLevel {
-  // 价格区间
-  priceRange: string(name='price_range', example='1-100'),
-  // 单价
-  purchasePrice: string(name='purchase_price', example='111'),
-  // 销售数量
-  saleNum: long(name='sale_num', example='1111'),
-  // ip等级
-  ipLevel: long(name='ip_level', example=''),
-}
-
 // 图片OSS URL，包含四个不同大小的图片
 model MultiURL {
   // 上传的图片正常大小
-  normal: string(name='normal', example='https://myexchange.oss-cn-hangzhou.aliyuncs.com/1259371fc8f77d3fa0.jpeg?Expires=1581625032&OSSAccessKeyId=LTAI4FooxCSL7w8Minh2oJqc&Signature=REH79oOsx5MK4%2BEGcFmaSXq6XsM%3D'),
+  normal: string(name='normal', example='https://myexchange.oss-cn-hangzhou.aliyuncs.com/1259371fc8f77d3fa0.jpeg?Expires=1581625032&OSSAccessKeyId=&Signature=REH79oOsx5MK4%2BEGcFmaSXq6XsM%3D'),
   // style200
-  style200: string(name='style_200', example='https://myexchange.oss-cn-hangzhou.aliyuncs.com/1259371fc8f77d3fa0.jpeg?Expires=1581625032&OSSAccessKeyId=LTAI4FooxCSL7w8Minh2oJqc&Signature=LoirSoaWnC5bhIP%2BWZT0OqLlSy4%3D&x-oss-process=style%2Fscale_image_200'),
+  style200: string(name='style_200', example='https://myexchange.oss-cn-hangzhou.aliyuncs.com/1259371fc8f77d3fa0.jpeg?Expires=1581625032&OSSAccessKeyId=&Signature=LoirSoaWnC5bhIP%2BWZT0OqLlSy4%3D&x-oss-process=style%2Fscale_image_200'),
   // style150
-  style150: string(name='style_150', example='https://myexchange.oss-cn-hangzhou.aliyuncs.com/1259371fc8f77d3fa0.jpeg?Expires=1581625032&OSSAccessKeyId=LTAI4FooxCSL7w8Minh2oJqc&Signature=A1f%2FtKicryG8VOG%2BpAdSyUNLmCs%3D&x-oss-process=style%2Fscale_image_150'),
+  style150: string(name='style_150', example='https://myexchange.oss-cn-hangzhou.aliyuncs.com/1259371fc8f77d3fa0.jpeg?Expires=1581625032&OSSAccessKeyId=&Signature=A1f%2FtKicryG8VOG%2BpAdSyUNLmCs%3D&x-oss-process=style%2Fscale_image_150'),
   // style70
-  style70: string(name='style_70', example='https://myexchange.oss-cn-hangzhou.aliyuncs.com/1259371fc8f77d3fa0.jpeg?Expires=1581625032&OSSAccessKeyId=LTAI4FooxCSL7w8Minh2oJqc&Signature=QxDxjfSFlpjxB7nKdYr%2BISoMPCI%3D&x-oss-process=style%2Fscale_image_70'),
-}
-
-// 消费卡服务基础请求信息
-model BaseRequest {
-  // 用户的链上账户Id(长度不超过256个字符)
-  accountId: string(name='account_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16...'),
-  // 业务幂等Id,防止同一笔交易重复发送(长度不超过256个字符)
-  bizId: string(name='biz_id', example='S20200707123456'),
-  // 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
-  chainId: string(name='chain_id', example='antdao'),
-  // 备注信息(不要超过500个字符)。
-  // 部分接口要求memo必填，以接口返回信息为准。
-  memo?: string(name='memo', example='备注信息'),
-  // 场景码(入驻时申请)(长度不超过50个字符)
-  productCode: string(name='product_code', example='CONSUMECARD'),
-}
-
-// 增值服务加sku信息
-model ValueAddedServiceInfoWithSku {
-  // 增值服务信息
-  addValueInfo: ValueAddedServiceInfo(name='add_value_info', example=''),
-  // sku信息
-  skus: [ IpSkuEmphasisInfo ](name='skus', example=''),
+  style70: string(name='style_70', example='https://myexchange.oss-cn-hangzhou.aliyuncs.com/1259371fc8f77d3fa0.jpeg?Expires=1581625032&OSSAccessKeyId=&Signature=QxDxjfSFlpjxB7nKdYr%2BISoMPCI%3D&x-oss-process=style%2Fscale_image_70'),
 }
 
 // 链上交易结构
@@ -886,44 +841,6 @@ model DiscreteValue {
   value: string(name='value', example='chainID1-CNY'),
 }
 
-// 消费卡服务OpenAPI基础返回值
-model BaseResponseData {
-  // 区块链交易执行的区块高度
-  blockNumber: long(name='block_number', example='10213'),
-  // 交易的业务幂等Id,与交易发起时外部传入的一致
-  outBizId: string(name='out_biz_id', example='bizId001'),
-  // 区块链交易执行的哈希
-  txHash: string(name='tx_hash', example='ae855Afc982d96fAB65b3a49cAc8b878184Cb16'),
-}
-
-// IP图库记录
-model IPGalleryInstruction {
-  // 下载时间
-  timestamp: long(name='timestamp', example='1694896477580'),
-  // 授权订单ID
-  ipOrderId: string(name='ip_order_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
-  // IP链上ID
-  ipId: string(name='ip_id', example='5387548364587381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
-  // 图库链接
-  ipGalleryUrl: string(name='ip_gallery_url', example='oss://myexchange/1259371fc8f77d37...5dfb6d130facf32dd6d4257fa0.zip'),
-  // 图库下载链接，默认过期时间2小时
-  ipGalleryTemporaryUrl: string(name='ip_gallery_temporary_url', example='https:xxx...'),
-  // 图库版本
-  ipGalleryVersion: long(name='ip_gallery_version', example='2'),
-  // IP当前图库状态：0 生效中，1 已失效
-  ipGalleryStatus: long(name='ip_gallery_status', example='0'),
-  // 备注信息
-  extInfo?: string(name='ext_info', example='备注信息'),
-}
-
-// 区块
-model Block {
-  // 区块头
-  header: BlockHeader(name='header', example=''),
-  // 区块体
-  body: BlockBody(name='body', example=''),
-}
-
 // 用于sku config的查询
 model SkuWithLevel {
 }
@@ -934,16 +851,6 @@ model IpBasicInfoWithUpdate {
   ipBasicInfo: IpBasicInfo(name='ip_basic_info', example=''),
   // 是否有更新
   isUpdate: boolean(name='is_update', example='true, false'),
-}
-
-// IP授权服务基础请求信息
-model BaseRequestInfo {
-  // 业务幂等Id,防止同一笔交易重复发送(长度不超过256个字符)
-  bizId: string(name='biz_id', example='S20200707123456'),
-  // 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
-  chainId: string(name='chain_id', example='antdao'),
-  // 场景码(入驻时申请)(长度不超过50个字符)
-  productCode: string(name='product_code', example='IPTRADE'),
 }
 
 // 渠道对应的账户信息
@@ -962,6 +869,16 @@ model AccountSettlementInfo {
   contactPhone: string(name='contact_phone', example='(0513)88888888'),
   // 申请入驻时间
   applyTime: long(name='apply_time', example=''),
+}
+
+// 正版码配置信息生命周期
+model IPCodeConfigTimeInfo {
+  // 正版码申请时间，商家申请正版码第一批数量的时间
+  codeApplyTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='code_apply_time', example='7238738297892'),
+  // 正版码配置时间
+  codeSetTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='code_set_time', example='3242342313242333'),
+  // 正版码生效时间
+  codeEffectTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='code_effect_time', example='323423432432432'),
 }
 
 // 可兑换商品列表
@@ -1000,38 +917,6 @@ model ExchangeableEquityList {
   startRow: long(name='start_row', example='1'),
   // 可兑换的权益总数
   total: long(name='total', example='15'),
-}
-
-// 渠道统计结果
-model ChannelCounter {
-  // 渠道名字
-  channelName: string(name='channel_name', example='x x x x x'),
-  // 统计值
-  counter: long(name='counter', example='1111'),
-  // 月份。如果月份有具体值则数据为该月份数据，月份为空则为全部统计数据。
-  month?: string(name='month', example='2021-04'),
-  // 渠道交易金额
-  totalPrice?: string(name='total_price', example='1000111.00'),
-}
-
-// 查询手续费结果信息
-model CommissionResult {
-  // 手续费生效时间
-  beginTime: long(name='begin_time', example='1588867200000'),
-  // 手续费
-  commission: string(name='commission', example='0.01'),
-  // 手续费信息ID
-  commissionId: string(name='commission_id', example='40000'),
-  // 手续费状态（0可用，1停用，2禁用）
-  commissionStatus: long(name='commission_status', example='0'),
-  // 手续费失效时间
-  endTime: long(name='end_time', example='1588867200000'),
-  // 商品类型
-  equityType: long(name='equity_type', example='100020001'),
-  // 租户ID
-  tenantId: string(name='tenant_id', example='JNIUYGTR'),
-  // 手续费信息ID
-  commissionSubId: string(name='commission_sub_id', example='40000#0'),
 }
 
 // 手续费规则
@@ -1104,46 +989,6 @@ model UserPriceEquity {
   value: string(name='value', example='1.21'),
 }
 
-// IP授权服务-商家进件信息
-model IPMerchantApplyInfo {
-  // 链上账户Id
-  accountId: string(name='account_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
-  // 支付宝的登陆用户名(必须实名制)
-  alipayLoginName: string(name='alipay_login_name', example='2088201963199815'),
-  // 商户别名, 会展示在账单以及支付结果页中
-  merchantAliasName: string(name='merchant_alias_name', example='支付宝中国'),
-  // 商户类型(本期仅支持: 1:企业, 6:个人商户)
-  merchantType: long(name='merchant_type', example='1'),
-  // 商户证件类型(本期仅支持: 201: 营业执照, 100: 个人商户身份证) 如果merchant_type为企业, 需要传入201; 如果merchant_type为个人, 需要传入100
-  merchantCertType: long(name='merchant_cert_type', example='201'),
-  // 商户证件编号(企业提供营业执照),本期人工审核
-  merchantCertNumber: string(name='merchant_cert_number', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
-  // 商户营业执照的图片地址,本期人工审核
-  merchantCertImage: string(name='merchant_cert_image', example='oss://381055Afc982d96fAB65.jpg'),
-  // 税务登记证明的图片,本期人工审核
-  merchantSignImage: string(name='merchant_sign_image', example='oss://381055Afc982d96fAB65,jpg'),
-  // 商户类别码mcc，参见https://gw.alipayobjects.com/os/bmw-prod/05c9a32e-42d1-436b-ace7-13101d91f672.xlsx
-  mcc: string(name='mcc', example='8351'),
-  // 商户法人名称, merchant_type = 01时必填
-  // 
-  legalName: string(name='legal_name', example='马老师 '),
-  // 商户法人身份证号码, merchant_type = 1时必填
-  // 
-  legalCertNo: string(name='legal_cert_no', example='100100198811110001'),
-  // 商户经营地址
-  // 
-  addressInfo: IPAddressInfo(name='address_info', example=''),
-  // 默认结算规则
-  // 
-  settleRule: IPSettleRule(name='settle_rule', example=''),
-  // 商户联系人信息
-  // 
-  contactInfo: IPContactInfo(name='contact_info', example=''),
-  // 银行卡结算信息, 结算到银行卡时必填, 当前仅支持填入一张卡
-  // 
-  cardInfo: IPCardInfo(name='card_info', example=''),
-}
-
 // IP授权交易的账单信息
 model IPBill {
   // 订单ID
@@ -1176,12 +1021,14 @@ model IPBill {
   cycleEndTime: long(name='cycle_end_time', example='1594896477580'),
 }
 
-// 联系人信息
-model SimpleContactInfo {
-  // 联系人名称
-  contactName: string(name='contact_name', example='小王'),
-  // 联系电话
-  contactPhone: string(name='contact_phone', example='18888888888'),
+// 正版码流转信息
+model IPCodeFlowInfo {
+  // 拥有用户名称，收藏人
+  codeOwnerName?: string(name='code_owner_name', example='小王'),
+  // 收藏时间
+  codeCollectTime?: long(name='code_collect_time', example='56783872489327492'),
+  // 收藏交易哈希
+  codeTransHash?: string(name='code_trans_hash', example='dhjysgfhjdsgfhsjguyew7373yuetyudgysadg'),
 }
 
 // 电子券批次信息
@@ -1206,120 +1053,6 @@ model CouponCollection {
   needRegistered: boolean(name='need_registered', example='true, false'),
   // 是否创建时记名
   needPreRegistered: boolean(name='need_pre_registered', example='true, false'),
-}
-
-// IP授权交易的订单信息
-model IPOrder {
-  // 订单ID
-  ipOrderId: string(name='ip_order_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
-  // 卖方
-  sellerId: string(name='seller_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb165345237549274'),
-  // 卖家名称
-  sellerName: string(name='seller_name', example='卖家名称'),
-  // 买方
-  buyerId: string(name='buyer_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb163472346869786987'),
-  // 买家名称
-  buyerName: string(name='buyer_name', example='买家名称'),
-  // 订单交易类型：0套餐交易，1授权交易
-  type: long(name='type', example='0'),
-  // ip id
-  ipId: string(name='ip_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
-  // IP名称
-  ipName: string(name='ip_name', example='IP名称'),
-  // 渠道信息
-  channelId: string(name='channel_id', example='channel'),
-  // 套餐总量
-  totalAmount: long(name='total_amount', example='10000'),
-  // 套餐已使用数量
-  usedAmount: long(name='used_amount', example='6000'),
-  // 终端商品价格范围
-  priceRange: string(name='price_range', example='0-50'),
-  // 套餐交易总费用
-  totalPrice: string(name='total_price', example='30000'),
-  // 授权佣金比例
-  authRate: string(name='auth_rate', example='0.006'),
-  // 授权合作开始时间（毫秒时间戳）
-  authStartTime: long(name='auth_start_time', example=''),
-  // 授权合作结束时间
-  authEndTime: long(name='auth_end_time', example=''),
-  // 合同信息
-  contract: string(name='contract', example='oss://myexchange/1259371fc8f77d37...5dfb6d130facf32dd6d4257fa0.jpeg'),
-  // 设计稿信息
-  designDraft: string(name='design_draft', example='oss://myexchange/1259371fc8f77d37...5dfb6d130facf32dd6d4257fa1.jpeg'),
-  // 操作人
-  operator: string(name='operator', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
-  // 操作者名称
-  operatorName: string(name='operator_name', example='操作者名称'),
-  // 订单状态。TODO 补充枚举信息
-  status: long(name='status', example='1'),
-  // 订单创建时间，时间戳（毫秒）
-  createTime: long(name='create_time', example='1684896477580'),
-  // 订单最近更新时间
-  updateTime: long(name='update_time', example='1604896477580'),
-  // 收费模式：0 销售抽佣, 1 按量付费
-  chargeType: long(name='charge_type', example='0'),
-  // 按量付费的收费单价（按量付费模式必填）
-  authPrice: string(name='auth_price', example='1.11'),
-  // 是否有保底金
-  guaranteed: boolean(name='guaranteed', example='true, false'),
-  // 保底金金额
-  guaranteedFund: string(name='guaranteed_fund', example='10000.00'),
-  // 保底商品个数（按量付费）
-  guaranteedGoodsAmount: long(name='guaranteed_goods_amount', example='1000'),
-  // 已使用的保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
-  usedGuaranteedGoodsAmount: long(name='used_guaranteed_goods_amount', example='5000'),
-  // 保底商品销售金额（销售抽佣）
-  guaranteedSales: string(name='guaranteed_sales', example='10000.00'),
-  // 已使用的保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
-  // 
-  usedGuaranteedSales: string(name='used_guaranteed_sales', example='5000.00'),
-  // 授权产品范围
-  authProductScope: string(name='auth_product_scope', example='食品 | 家居百货'),
-  // 授权地域范围
-  authAreaScope: string(name='auth_area_scope', example='中国大陆'),
-  // 商品销售渠道
-  salesChannel: string(name='sales_channel', example='电商平台、社交电商、直播、线下实体、代理商'),
-  // 0 IP交易，1 增值服务交易
-  goodsType: long(name='goods_type', example='1'),
-  // 增值服务交易绑定的ip授权交易订单
-  relatedOrderId: string(name='related_order_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
-  // 是否已监修报审
-  superviseApprove: boolean(name='supervise_approve', example='true, false'),
-  // 订单图库信息，未确认则为空
-  ipGalleryUrl?: string(name='ip_gallery_url', example='oss://myexchange/1259371fc8f77d37...5dfb6d130facf32dd6d4257fa0.zip'),
-  // 图库版本
-  ipGalleryVersion?: long(name='ip_gallery_version', example='1'),
-  // 商家是否已下载过本订单的图库
-  downloadIpGallery?: boolean(name='download_ip_gallery', example='true, false'),
-  // 备注信息
-  memo: string(name='memo', example='备注信息'),
-  // 附加条款
-  additionalClause?: string(name='additional_clause', example='附加条款'),
-  // 合同文件列表
-  contractFiles?: [ string ](name='contract_files', example=''),
-  // 授权类型
-  authType?: string(name='auth_type', example='衍生品授权'),
-  // 绑定的商品ID列表
-  // 
-  goodsIdList?: [ string ](name='goods_id_list', example=''),
-}
-
-// 商品授权信息（一客一价信息）
-model EquityAuthInfo {
-  // 链ID
-  chainId: string(name='chain_id', example='antdao'),
-  // 商品ID
-  equityId: string(name='equity_id', example='188d87015a17465e0d3f61b7afe9e66cd2c070ca7f3bca142f53a8c5238a848a'),
-  // 授权租户
-  openToTenantId: string(name='open_to_tenant_id', example='OREDKOCA'),
-  // 租户价格（自定义价格）
-  tenantPrice: string(name='tenant_price', example='10.09'),
-  // 区块高度
-  blockNumber: string(name='block_number', example='17337250'),
-  // 交易hash
-  txHash: string(name='tx_hash', example='cf4a96419ca8ed21c84b6ba428babb7b75009927f8225d44f2974453028812eb'),
-  // 区块时间戳
-  blockTime: long(name='block_time', example='1594896477580'),
 }
 
 // 电子券详细信息
@@ -1380,24 +1113,24 @@ model Coupon {
   holderUserAccount: string(name='holder_user_account', example='user001'),
 }
 
-// IP授权订单的销售数据
+// IP授权订单已按照周期汇总的销售数据
 model IPSalesInfo {
   // 终端商品名称
   goodsName: string(name='goods_name', example='XXX联名牙膏'),
   // 终端商品图片
-  goodsImage: string(name='goods_image', example='oss://myexchange/1259371fc8f77d37...5dfb6d130facf32dd6d4257fa0.jpeg '),
+  goodsImage?: string(name='goods_image', example='oss://myexchange/1259371fc8f77d37...5dfb6d130facf32dd6d4257fa0.jpeg '),
   // 终端销售渠道
-  salesChannel: string(name='sales_channel', example='天猫'),
+  salesChannel?: string(name='sales_channel', example='天猫'),
   // 终端商品链接
-  goodsUrl: string(name='goods_url', example='https://xxx.xxx.com'),
+  goodsUrl?: string(name='goods_url', example='https://xxx.xxx.com'),
   // 零售价
-  price: string(name='price', example='65'),
+  price?: string(name='price', example='65'),
   // 商品销售数量
   amount: long(name='amount', example='10000'),
   // 销售金额
   sales: string(name='sales', example='650000'),
   // 实付金额（授权交易）
-  payment: string(name='payment', example='65'),
+  payment?: string(name='payment', example='65'),
   // 统计周期开始时间（毫秒时间戳）
   settlementBeginTime: long(name='settlement_begin_time', example=''),
   // 统计周期结束时间（毫秒时间戳）
@@ -1432,22 +1165,6 @@ model TokenData {
   accountId: string(name='account_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
 }
 
-// ip的渠道信息
-model IpChannelInfo {
-  // 渠道名字
-  channelName: string(name='channel_name', example='tianmao'),
-  // 授权模式 商品授权 0普通授权/1独家授权  本期只有0
-  authorizationMode: long(name='authorization_mode', example='0'),
-  // 计费模式 0:按量 1:按金额
-  payMode: long(name='pay_mode', example='1'),
-  // ip等级 （5位数字） 对应a，0:经典IP/1:流量IP/2:设计IP
-  ipLevel: long(name='ip_level', example='1'),
-  // 商品状态（0:待上架，1:上架，2:下架）
-  status: long(name='status', example='0'),
-  // 交易是否需要确认
-  tradeNeedConfirm?: boolean(name='trade_need_confirm', example='true, false'),
-}
-
 // 监修报审表单内容
 model SuperviseApprove {
   // 关联的订单id
@@ -1470,36 +1187,6 @@ model SuperviseApprove {
   buyerAccountId: string(name='buyer_account_id', example='ccccc'),
   // 审批额外信息
   approvalExtInfo?: string(name='approval_ext_info', example='x x x x x'),
-}
-
-// ip的重点信息
-model IpEmphasisInfo {
-  // ip的链上id
-  ipId: string(name='ip_id', example='160'),
-  // ip的描述信息
-  description: string(name='description', example='aaaa'),
-  // ip类型
-  ipType: string(name='ip_type', example='111'),
-  // 受众群体（6位数字） 对应c
-  audienceGroup: string(name='audience_group', example='000001'),
-  // 主图
-  image: string(name='image', example='oss://1;oss:2'),
-  // 上架状态
-  status: long(name='status', example=''),
-  // 归属的账户id
-  accountId: string(name='account_id', example='归属的账户id'),
-  // 创建日期
-  createTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='create_time', example='2018-10-10T10:10:00Z'),
-  // ip名字
-  ipName: string(name='ip_name', example='aaaa'),
-  // 商户名称
-  accountName?: string(name='account_name', example='xxxx'),
-  // 浏览量
-  pv?: long(name='pv', example='x x x x x'),
-  // 最近一次上下架时间
-  lastStateChangeTime?: long(name='last_state_change_time', example=''),
-  // ip的创建渠道，按照查询参数返回
-  createrChannel?: string(name='creater_channel', example='IPMark'),
 }
 
 // 消费卡的单条交易记录数据
@@ -1562,94 +1249,42 @@ model BlockInstruction {
   originOrderId: string(name='origin_order_id', example='origin20200707123456'),
 }
 
-// 接口白名单信息
-model APIWhiteListInfo {
-  // 租户ID
-  tenantId: string(name='tenant_id', example='OKIJUHYG'),
-  // 链ID
-  chainId: string(name='chain_id', example='antdao'),
-  // 权限级别，暂时不用
-  level: long(name='level', example='0'),
-  // 更新时间
-  updateTime: string(name='update_time', example='20200425204555'),
-  // 扩展字段
-  extension: string(name='extension', example='extension'),
-}
-
-// 权益流水
-model EInstruction {
-  // 资产ID
-  assetId: string(name='asset_id', example='assetID'),
-  // 资产的汇率
-  assetRate: string(name='asset_rate', example='1'),
-  // 资产扣减数量(单位:个)
-  deductAssetAmount: string(name='deduct_asset_amount', example='100'),
-  // 扣减商户备付金授信额(单位:元)
-  deductCreditAmount: string(name='deduct_credit_amount', example='100.0000'),
-  // 扣减商户备付金余额(单位:元)
-  deductDebitAmount: string(name='deduct_debit_amount', example='10.0000'),
-  // 被扣减备付金的租户ID
-  deductTenantId: string(name='deduct_tenant_id', example='id'),
-  // 权益ID
-  equityId: string(name='equity_id', example='equity'),
-  // 权益名称
-  equityName: string(name='equity_name', example='card01'),
-  // 权益对用户价格(单位:元)
-  equityPrice: string(name='equity_price', example='10.0000'),
-  // 权益面值(单位:元)
-  equityValue: string(name='equity_value', example='10.0000'),
-  // 附言Deliver/Complete/OutOfStore/WriteOff)
-  memo: string(name='memo', example='memo'),
-  // 发起操作的租户ID
-  optTenantId: string(name='opt_tenant_id', example='JHG'),
-  // 业务交易ID
-  outTxId: string(name='out_tx_id', example='1246354'),
-  // 对换单流水状态：
-  // 0        // 权益兑换单创建
-  // 1        // 权益兑换单接单
-  // 2        // 权益兑换单发货
-  // 3        // 权益兑换单确认收货
-  // 4        // 权益兑换单缺货
-  // 5        // 权益兑换单核销
-  status: long(name='status', example='1'),
-  // 权益归属租户ID
-  tenantId: string(name='tenant_id', example='id'),
-  // 交易时间戳
-  timeStamp: long(name='time_stamp', example='123456'),
-  // 兑换类型(商户身份/用户身份)
-  type: long(name='type', example='0'),
-  // 用户身份兑换/商户兑换的受益用户
-  userId: string(name='user_id', example='userid'),
-  // 版本（之前版本为0，不收取手续费，之后版本为1，收取手续费）
-  instructionVersion: long(name='instruction_version', example='1'),
-  // 收取手续费的金融云租户ID
-  commissionTenantId: string(name='commission_tenant_id', example='OKIJUHYG'),
-  // 手续费(单位:元)
-  instructionCommission: string(name='instruction_commission', example='0.006'),
-  // 手续费扣减商户备付金余额(单位:元)
-  deductDebitCommission: string(name='deduct_debit_commission', example='0.006'),
-  // 手续费扣减商户备付金授信额(单位:元)
-  deductCreditCommission: string(name='deduct_credit_commission', example='0'),
-  // 资产手续费扣减数量(单位:个)
-  deductAssetCommission: string(name='deduct_asset_commission', example='0.6'),
-  // 手续费率
-  commissionRate: string(name='commission_rate', example='0.001'),
-  // 手续费id
-  commissionId: string(name='commission_id', example='10002'),
-  // 手续费子id
-  commissionSubId: string(name='commission_sub_id', example='10002#0'),
-  // 手续费状态（0:未提现，1:已提现）
-  commissionStatus: long(name='commission_status', example='1'),
-  // 是否收取手续费
-  commissionCharged: long(name='commission_charged', example='1'),
-}
-
 // ip的基础信息加上渠道信息
 model IpBasicInfoWithChannelInfo {
   // ip的基础信息
   ipBasicInfo: IpBasicInfo(name='ip_basic_info', example=''),
   // ip的渠道信息和sku信息
   ipChannalInfos: [ IpChannelWithSku ](name='ip_channal_infos', example=''),
+}
+
+// 授权订单的逐条销售数据
+model IPSalesEvery {
+  // 电商系统订单编号
+  outOrderId: string(name='out_order_id', example='outOrderId0001'),
+  // 数据渠道类型：0 手动录入，1 淘宝开放平台
+  dataType: long(name='data_type', example='0'),
+  // 实际销售渠道
+  salesChannel?: string(name='sales_channel', example='TM/TB'),
+  // 订单创建时间
+  orderCreateTime: long(name='order_create_time', example='1694896477580'),
+  // 订单完成时间
+  orderFinishTime: long(name='order_finish_time', example='1699896477580'),
+  // 本订单销售金额，单位元
+  sales: string(name='sales', example='10000.01'),
+  // 本订单退款金额，单位元
+  refundSales?: string(name='refund_sales', example='100.01'),
+  // 店铺名称
+  shopName: string(name='shop_name', example='XXX旗舰店'),
+  // 商品ID/SKUID/商品编码
+  goodsId: string(name='goods_id', example='goodsId001'),
+  // 商品名称
+  goodsName: string(name='goods_name', example='XXX联名牙刷'),
+  // 商品规格
+  goodsSpecification: string(name='goods_specification', example='商品规格信息'),
+  // 本订单卖出的商品数量
+  amount: long(name='amount', example='1'),
+  // 备注信息
+  memo?: string(name='memo', example='备注信息'),
 }
 
 // ip的所有信息，加上更新的flag信息
@@ -1756,62 +1391,6 @@ model ConsumeCardAccount {
   email: string(name='email', example='***@**.com'),
 }
 
-// 创建电子券的参数
-model CouponCreate {
-  // 电子券批次ID
-  collectionId: string(name='collection_id', example='COLLECTIONID'),
-  // 电子券价值
-  value: string(name='value', example='100.01'),
-  // 电子券名称
-  couponName: string(name='coupon_name', example='电子券'),
-  // 用户脱敏ID
-  desensitizedUid?: string(name='desensitized_uid', example='user***1'),
-  // 扩展信息
-  extInfo: string(name='ext_info', example='电子券附加信息'),
-  // 持有者ID
-  holderUserAccount?: string(name='holder_user_account', example='user0001'),
-  // 电子券公钥
-  publicKey: string(name='public_key', example='387bcb4db010c177742ab5bd257c9827f90bd74806a388b5bc849e4b3867cf0b1cd694'),
-  // 时区（暂时固定为GMT+8）
-  timeZone: string(name='time_zone', example='GMT+8'),
-  // 用户公钥
-  uidPublicKey?: string(name='uid_public_key', example='505148309a36375648765972645762365027465071fe009fcd694...'),
-  // 有效开始时间
-  validAfter: long(name='valid_after', example='1600000000000'),
-  // 有效结束时间
-  validBefore: long(name='valid_before', example='1604889934081'),
-}
-
-// 资产
-model Asset {
-  // 资产管理员ID
-  adminId: string(name='admin_id', example='f46857d8'),
-  // 资产附属信息
-  assetExtInfo: AssetExtInfo(name='asset_ext_info', example=''),
-  // 资产ID
-  assetId: string(name='asset_id', example='CT::Asset001'),
-  // 资产名称
-  assetName: string(name='asset_name', example='CTPoints'),
-  // 资产汇率
-  assetRate: string(name='asset_rate', example='1000.0000'),
-  // 币种
-  currency: string(name='currency', example='CNY'),
-  // 发行账户余额
-  issueAccountBalance: string(name='issue_account_balance', example='0.000'),
-  // 过期回收账户余额
-  overdueRecoveryAccountBalance: string(name='overdue_recovery_account_balance', example='0.000'),
-  // 支付收款账户余额
-  receivePaymentAccountBalance: string(name='receive_payment_account_balance', example='0.000'),
-  // 中继账户余额
-  relayAccountBalance: string(name='relay_account_balance', example='0.000'),
-  // 资产状态
-  status: long(name='status', example='0'),
-  // 租户ID
-  tenantId: string(name='tenant_id', example='ORE'),
-  // 资产总发行量
-  totalIssueBalance: string(name='total_issue_balance', example='11111111.0000'),
-}
-
 // 已授权给商户的权益信息
 model OpenedEquity {
   // 商户管理员ID
@@ -1868,56 +1447,60 @@ model OpenedEquity {
   value: string(name='value', example='21.21'),
 }
 
-// 代理授权关系信息
-model DelegateRelationInfo {
-  // 被授权的租户ID
-  tenantId: string(name='tenant_id', example='OKIJUHYG'),
-  // 被代理的租户ID
-  delegatedTenantId: string(name='delegated_tenant_id', example='WAESRDTF'),
-  // 更新时间
-  updateTime: string(name='update_time', example='20200327153541'),
-  // 状态
-  status: boolean(name='status', example='true'),
-  // 扩展字段
-  extension: string(name='extension', example='extension'),
+// 资产
+model Asset {
+  // 资产管理员ID
+  adminId: string(name='admin_id', example='f46857d8'),
+  // 资产附属信息
+  assetExtInfo: AssetExtInfo(name='asset_ext_info', example=''),
+  // 资产ID
+  assetId: string(name='asset_id', example='CT::Asset001'),
+  // 资产名称
+  assetName: string(name='asset_name', example='CTPoints'),
+  // 资产汇率
+  assetRate: string(name='asset_rate', example='1000.0000'),
+  // 币种
+  currency: string(name='currency', example='CNY'),
+  // 发行账户余额
+  issueAccountBalance: string(name='issue_account_balance', example='0.000'),
+  // 过期回收账户余额
+  overdueRecoveryAccountBalance: string(name='overdue_recovery_account_balance', example='0.000'),
+  // 支付收款账户余额
+  receivePaymentAccountBalance: string(name='receive_payment_account_balance', example='0.000'),
+  // 中继账户余额
+  relayAccountBalance: string(name='relay_account_balance', example='0.000'),
+  // 资产状态
+  status: long(name='status', example='0'),
+  // 租户ID
+  tenantId: string(name='tenant_id', example='ORE'),
+  // 资产总发行量
+  totalIssueBalance: string(name='total_issue_balance', example='11111111.0000'),
 }
 
-// 版权方申请
-model IPApplyInfo {
-  // 账户Id
-  accountId: string(name='account_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
-  // 用户名
-  loginName: string(name='login_name', example='wjy@alipay.com'),
-  // 支付宝账户
-  alipayLoginName: string(name='alipay_login_name', example='wjy@alipay.com'),
-  // 联系人
-  legalName: string(name='legal_name', example='马云'),
-  // 联系方式
-  phoneNumber: string(name='phone_number', example='13291887615'),
-  // 角色(1: 版权方 2:商家)
-  role: long(name='role', example='1'),
-  // 状态
-  status: long(name='status', example='1'),
-  // 用户的外系统识别Id
-  externalUserId: string(name='external_user_id', example='User001'),
-  // 外部系统用户名
-  externalUserName: string(name='external_user_name', example='用户名'),
-  // 申请时间(毫秒时间戳)
-  applyDate: long(name='apply_date', example='3810551857'),
-}
-
-// 商户积分库和与预算库信息
-model MerchantBudget {
-  // 积分库代码
-  pointLibCode: string(name='point_lib_code', example='1234546'),
-  // 预算库代码
-  budgetCode: string(name='budget_code', example='1234567'),
-  // 预算库描述
-  budgetDesc: string(name='budget_desc', example='budget'),
-  // 预算库启用时间
-  budgetStartTime: string(name='budget_start_time', example='2020-06-01-20:20:20'),
-  // 预算库截止时间
-  budgetEndTime: string(name='budget_end_time', example='2020-06-01-20:20:20'),
+// 创建电子券的参数
+model CouponCreate {
+  // 电子券批次ID
+  collectionId: string(name='collection_id', example='COLLECTIONID'),
+  // 电子券价值
+  value: string(name='value', example='100.01'),
+  // 电子券名称
+  couponName: string(name='coupon_name', example='电子券'),
+  // 用户脱敏ID
+  desensitizedUid?: string(name='desensitized_uid', example='user***1'),
+  // 扩展信息
+  extInfo: string(name='ext_info', example='电子券附加信息'),
+  // 持有者ID
+  holderUserAccount?: string(name='holder_user_account', example='user0001'),
+  // 电子券公钥
+  publicKey: string(name='public_key', example='387bcb4db010c177742ab5bd257c9827f90bd74806a388b5bc849e4b3867cf0b1cd694'),
+  // 时区（暂时固定为GMT+8）
+  timeZone: string(name='time_zone', example='GMT+8'),
+  // 用户公钥
+  uidPublicKey?: string(name='uid_public_key', example='505148309a36375648765972645762365027465071fe009fcd694...'),
+  // 有效开始时间
+  validAfter: long(name='valid_after', example='1600000000000'),
+  // 有效结束时间
+  validBefore: long(name='valid_before', example='1604889934081'),
 }
 
 // 统计数据
@@ -1972,32 +1555,6 @@ model GoodsResponse {
   goodsId: string(name='goods_id', example='1456483e1702bef7fd3cceb5e7154b9880ef637daa1fb651e95c20c9f0c929cc'),
 }
 
-// 租户场景码信息
-model ProductCodeInfo {
-  // 链ID
-  chainId: string(name='chain_id', example='chainId'),
-  // 租户ID
-  tenantId: string(name='tenant_id', example='OKIJUHYG'),
-  // 场景码
-  productCode: string(name='product_code', example='product_code'),
-  // 租户映射链上账户名称
-  accountName?: string(name='account_name', example='account_name'),
-  // 租户映射账户链上账户ID
-  accountId?: string(name='account_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
-  // 备注信息
-  memo?: string(name='memo', example='备注信息'),
-}
-
-// 钱包信息
-model WalletInfo {
-  // 授信钱包信息
-  creditWallet: CreditWallet(name='credit_wallet', example=''),
-  // 余额钱包信息
-  debitWallet: DebitWallet(name='debit_wallet', example=''),
-  // 钱包统计信息
-  statisticalInfo: StatisticalInfo(name='statistical_info', example=''),
-}
-
 // T+1日销售数据汇总
 model SalesByDay {
   // 订单ID
@@ -2026,30 +1583,14 @@ model SalesByDay {
   payment: string(name='payment', example='1000.00'),
 }
 
-// 商户
-model Merchant {
-  // 商户管理员ID
-  adminId: string(name='admin_id', example='ed7b3acb718eef475454e973b8b'),
-  // 商户描述
-  description: string(name='description', example='商户描述'),
-  // 商户分布式身份ID
-  did: string(name='did', example='did:mychain:ct'),
-  // 资金管理员ID
-  fundManagerId: string(name='fund_manager_id', example='b7ecd55bde0481bfc8c972b7ef'),
-  // 是否可以发行资产
-  isAssetIssuer: boolean(name='is_asset_issuer', example='true, false'),
-  // 是否可以采购权益
-  isEquityConsumer: boolean(name='is_equity_consumer', example='true, false'),
-  // 是否可以发行权益
-  isEquityProvider: boolean(name='is_equity_provider', example='true, false'),
-  // 备付金数据
-  provision: Provision(name='provision', example=''),
-  // 商户状态: 0可用, 1下线, 2冻结
-  status: long(name='status', example='0 | 1 | 2'),
-  // 租户ID
-  tenantId: string(name='tenant_id', example='DBYG'),
-  // 商户的损益账户
-  profitLossBalance: string(name='profit_loss_balance', example='0.0050000000000000'),
+// 钱包信息
+model WalletInfo {
+  // 授信钱包信息
+  creditWallet: CreditWallet(name='credit_wallet', example=''),
+  // 余额钱包信息
+  debitWallet: DebitWallet(name='debit_wallet', example=''),
+  // 钱包统计信息
+  statisticalInfo: StatisticalInfo(name='statistical_info', example=''),
 }
 
 // 正版码被扫描或领取的信息
@@ -2084,6 +1625,662 @@ model IPCodeScannedInfo {
   ipownerInfo?: IPCodeIpOwnerInfo(name='ipowner_info', example=''),
   // 0:未配置，1:配置成功可展示，9:下架【本期不实现】
   ipCodeStatus?: long(name='ip_code_status', example=''),
+  // 额外功能，包括是否允许收藏等
+  features?: [ long ](name='features', example=''),
+  // 核验次数，配置生效后的核验次数统计
+  checkCounts?: long(name='check_counts', example='15'),
+  // 正版码关联的I IP信息
+  ipInfo?: IPCodeIpGoodInfo(name='ip_info', example=''),
+  // UNI码
+  uniCode?: string(name='uni_code', example='UNI23678678'),
+}
+
+// IP淘宝店铺信息
+model IPShopInfo {
+  // 授权申请的内部编码
+  itemCode: string(name='item_code', example='381055Afc982'),
+  // 淘宝卖家的官方昵称
+  sellerNick: string(name='seller_nick', example='卖家昵称1'),
+  // 授权渠道名称
+  channelName: string(name='channel_name', example='淘宝网'),
+  // 数据授权方式
+  authType: string(name='auth_type', example='淘宝开放平台'),
+  // 授权启始时间戳(unix毫秒)
+  authStart: long(name='auth_start', example='100100198'),
+  // 授权终止时间戳(unix毫秒)
+  authEnd: long(name='auth_end', example='100100198816'),
+  // 授权状态(1: Init, 2: Success, 3: Expired)
+  authStatus: long(name='auth_status', example='1'),
+  // 授权链接
+  authUrl: string(name='auth_url', example='https://oauth.taobao.com/authorize?response_type=code&client_id=%s&redirect_uri=%s&state=%s&view=web'),
+}
+
+// 区块链信息
+model IPCodeChainInfo {
+  // 交易哈希
+  txHash?: string(name='tx_hash', example='dgdyuwegyuwy73huhuhjhj'),
+  // 交易区块
+  blockHeight?: long(name='block_height', example='23333333333'),
+  // 交易时间
+  txTime?: long(name='tx_time', example='63846728467826478264782'),
+}
+
+// 手续费规则结果
+model CommissionRuleResponse {
+  // 手续费到账方
+  accountId: string(name='account_id', example='account_id'),
+  // 手续费周期列表
+  commissionPeriods: [ CommissionPeriod ](name='commission_periods', example=''),
+}
+
+// MCC信息(https://gw.alipayobjects.com/os/bmw-prod/05c9a32e-42d1-436b-ace7-13101d91f672.xlsx）
+model IPMCC {
+  // MCC编码
+  mccCode: string(name='mcc_code', example='6073'),
+  // 经营类目一级
+  categoryLevel1: string(name='category_level1', example='商业及生活服务'),
+  // 经营类目二级
+  categoryLevel2: string(name='category_level2', example='直销'),
+  // 经营类目三级
+  categoryLevel3: string(name='category_level3', example='目录直销平台'),
+}
+
+// 账户入驻的渠道表
+model AccountInChannels {
+  // 天猫渠道
+  channelName: string(name='channel_name', example='IPMart'),
+  // 是否入驻
+  isSettled: boolean(name='is_settled', example='true, false'),
+  // WAIT_CHECK:渠道已申请开通但未审核，SUCCESS:渠道开通审核成功，渠道开通
+  settledStatus?: string(name='settled_status', example='渠道开通状态'),
+}
+
+// IP商家的店铺宝贝详细数据
+model IPShopItemInfo {
+  // 商品数字id
+  numId: long(name='num_id', example='1489161932'),
+  // 商品标题,不能超过60字节
+  title: string(name='title', example='Google test item'),
+  // 卖家昵称
+  nick: string(name='nick', example='tbtest561'),
+  // 价格
+  price: string(name='price', example='14.55'),
+  // 商品类型(fixed:一口价;auction:拍卖)注：取消团购
+  type?: string(name='type', example='fixed'),
+  // 商品属性 格式：pid:vid;pid:vid
+  props?: string(name='props', example='135255:344454'),
+  // 用户自行输入的子属性名和属性值，结构:"父属性值;一级子属性名;一级子属性值;二级子属性名;自定义输入值,....",如：“耐克;耐克系列;科比系列;科比系列;2K5”，input_str需要与input_pids一一对应，注：通常一个类目下用户可输入的关键属性不超过1个。所有属性别名加起来不能超过 3999字节。
+  inputStr?: string(name='input_str', example='耐克;耐克系列;科比系列;科比系列;2K5'),
+  // 商品描述, 字数要大于5个字节，小于25000个字节
+  desc?: string(name='desc', example='这是一个好商品'),
+}
+
+// 手续费信息
+model Commission {
+  // 要更新的手续费状态
+  status: long(name='status', example='0'),
+  // 手续费生效时间（时间戳 ms）
+  beginTime?: long(name='begin_time', example='1588867200000'),
+  // 手续费结束时间
+  endTime?: long(name='end_time', example='1598867200000'),
+  // 手续费
+  commission: string(name='commission', example='0.01'),
+}
+
+// sku配置加上ip等级
+model IpSkuConfigWithLevel {
+  // 价格区间
+  priceRange: string(name='price_range', example='1-100'),
+  // 单价
+  purchasePrice: string(name='purchase_price', example='111'),
+  // 销售数量
+  saleNum: long(name='sale_num', example='1111'),
+  // ip等级
+  ipLevel: long(name='ip_level', example=''),
+}
+
+// 消费卡数据
+model BlockConsumeCardInfo {
+  // 外部系统对该个人/机构用户的内部编号,用于唯一识别该用户
+  userId: string(name='user_id', example='userId001'),
+  // 用户的链上账户Id
+  accountId: string(name='account_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
+  // 开户行名称
+  bankName: string(name='bank_name', example='招商银行杭州高新支行'),
+  // 消费卡开通绑定的银行卡卡号
+  bankCardId: string(name='bank_card_id', example='6259093871597124'),
+  // 开户名称
+  accountName: string(name='account_name', example='张三'),
+  // 账户余额(元)
+  debitAmount: string(name='debit_amount', example='15.76'),
+  // 信用余额(元)
+  creditAmount: string(name='credit_amount', example='54.14'),
+  // 资产的来源<来源账户ID_余额/信用额, 数量>, 例如: "accountId1_Debit": 11000表示这笔资产来源于accountId1,是accountId1这个账户通过Debit余额发行的资产。
+  assetMap: string(name='asset_map', example='{"accountId1_Debit": 11000, "accountId2_Credit": 10000}'),
+}
+
+// 消费卡服务基础请求信息
+model BaseRequest {
+  // 用户的链上账户Id(长度不超过256个字符)
+  accountId: string(name='account_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16...'),
+  // 业务幂等Id,防止同一笔交易重复发送(长度不超过256个字符)
+  bizId: string(name='biz_id', example='S20200707123456'),
+  // 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
+  chainId: string(name='chain_id', example='antdao'),
+  // 备注信息(不要超过500个字符)。
+  // 部分接口要求memo必填，以接口返回信息为准。
+  memo?: string(name='memo', example='备注信息'),
+  // 场景码(入驻时申请)(长度不超过50个字符)
+  productCode: string(name='product_code', example='CONSUMECARD'),
+}
+
+// 增值服务加sku信息
+model ValueAddedServiceInfoWithSku {
+  // 增值服务信息
+  addValueInfo: ValueAddedServiceInfo(name='add_value_info', example=''),
+  // sku信息
+  skus: [ IpSkuEmphasisInfo ](name='skus', example=''),
+}
+
+// 消费卡服务OpenAPI基础返回值
+model BaseResponseData {
+  // 区块链交易执行的区块高度
+  blockNumber: long(name='block_number', example='10213'),
+  // 交易的业务幂等Id,与交易发起时外部传入的一致
+  outBizId: string(name='out_biz_id', example='bizId001'),
+  // 区块链交易执行的哈希
+  txHash: string(name='tx_hash', example='ae855Afc982d96fAB65b3a49cAc8b878184Cb16'),
+}
+
+// IP图库记录
+model IPGalleryInstruction {
+  // 下载时间
+  timestamp: long(name='timestamp', example='1694896477580'),
+  // 授权订单ID
+  ipOrderId: string(name='ip_order_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
+  // IP链上ID
+  ipId: string(name='ip_id', example='5387548364587381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
+  // 图库链接
+  ipGalleryUrl: string(name='ip_gallery_url', example='oss://myexchange/1259371fc8f77d37...5dfb6d130facf32dd6d4257fa0.zip'),
+  // 图库下载链接，默认过期时间2小时
+  ipGalleryTemporaryUrl: string(name='ip_gallery_temporary_url', example='https:xxx...'),
+  // 图库版本
+  ipGalleryVersion: long(name='ip_gallery_version', example='2'),
+  // IP当前图库状态：0 生效中，1 已失效
+  ipGalleryStatus: long(name='ip_gallery_status', example='0'),
+  // 备注信息
+  extInfo?: string(name='ext_info', example='备注信息'),
+}
+
+// 区块
+model Block {
+  // 区块头
+  header: BlockHeader(name='header', example=''),
+  // 区块体
+  body: BlockBody(name='body', example=''),
+}
+
+// IP授权服务基础请求信息
+model BaseRequestInfo {
+  // 业务幂等Id,防止同一笔交易重复发送(长度不超过256个字符)
+  bizId: string(name='biz_id', example='S20200707123456'),
+  // 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
+  chainId: string(name='chain_id', example='antdao'),
+  // 场景码(入驻时申请)(长度不超过50个字符)
+  productCode: string(name='product_code', example='IPTRADE'),
+}
+
+// 渠道统计结果
+model ChannelCounter {
+  // 渠道名字
+  channelName: string(name='channel_name', example='x x x x x'),
+  // 统计值
+  counter: long(name='counter', example='1111'),
+  // 月份。如果月份有具体值则数据为该月份数据，月份为空则为全部统计数据。
+  month?: string(name='month', example='2021-04'),
+  // 渠道交易金额
+  totalPrice?: string(name='total_price', example='1000111.00'),
+}
+
+// 查询手续费结果信息
+model CommissionResult {
+  // 手续费生效时间
+  beginTime: long(name='begin_time', example='1588867200000'),
+  // 手续费
+  commission: string(name='commission', example='0.01'),
+  // 手续费信息ID
+  commissionId: string(name='commission_id', example='40000'),
+  // 手续费状态（0可用，1停用，2禁用）
+  commissionStatus: long(name='commission_status', example='0'),
+  // 手续费失效时间
+  endTime: long(name='end_time', example='1588867200000'),
+  // 商品类型
+  equityType: long(name='equity_type', example='100020001'),
+  // 租户ID
+  tenantId: string(name='tenant_id', example='JNIUYGTR'),
+  // 手续费信息ID
+  commissionSubId: string(name='commission_sub_id', example='40000#0'),
+}
+
+// IP授权服务-商家进件信息
+model IPMerchantApplyInfo {
+  // 链上账户Id
+  accountId: string(name='account_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
+  // 支付宝的登陆用户名(必须实名制)
+  alipayLoginName: string(name='alipay_login_name', example='2088201963199815'),
+  // 商户别名, 会展示在账单以及支付结果页中
+  merchantAliasName: string(name='merchant_alias_name', example='支付宝中国'),
+  // 商户类型(本期仅支持: 1:企业, 6:个人商户)
+  merchantType: long(name='merchant_type', example='1'),
+  // 商户证件类型(本期仅支持: 201: 营业执照, 100: 个人商户身份证) 如果merchant_type为企业, 需要传入201; 如果merchant_type为个人, 需要传入100
+  merchantCertType: long(name='merchant_cert_type', example='201'),
+  // 商户证件编号(企业提供营业执照),本期人工审核
+  merchantCertNumber: string(name='merchant_cert_number', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
+  // 商户营业执照的图片地址,本期人工审核
+  merchantCertImage: string(name='merchant_cert_image', example='oss://381055Afc982d96fAB65.jpg'),
+  // 税务登记证明的图片,本期人工审核
+  merchantSignImage: string(name='merchant_sign_image', example='oss://381055Afc982d96fAB65,jpg'),
+  // 商户类别码mcc，参见https://gw.alipayobjects.com/os/bmw-prod/05c9a32e-42d1-436b-ace7-13101d91f672.xlsx
+  mcc: string(name='mcc', example='8351'),
+  // 商户法人名称, merchant_type = 01时必填
+  // 
+  legalName: string(name='legal_name', example='马老师 '),
+  // 商户法人身份证号码, merchant_type = 1时必填
+  // 
+  legalCertNo: string(name='legal_cert_no', example='100100198811110001'),
+  // 商户经营地址
+  // 
+  addressInfo: IPAddressInfo(name='address_info', example=''),
+  // 默认结算规则
+  // 
+  settleRule: IPSettleRule(name='settle_rule', example=''),
+  // 商户联系人信息
+  // 
+  contactInfo: IPContactInfo(name='contact_info', example=''),
+  // 银行卡结算信息, 结算到银行卡时必填, 当前仅支持填入一张卡
+  // 
+  cardInfo: IPCardInfo(name='card_info', example=''),
+}
+
+// 联系人信息
+model SimpleContactInfo {
+  // 联系人名称
+  contactName: string(name='contact_name', example='小王'),
+  // 联系电话
+  contactPhone: string(name='contact_phone', example='18888888888'),
+}
+
+// IP授权订单每次上传“已按照周期汇总的销售数据”的汇总信息
+model IPSalesSummary {
+  // 订单ID
+  ipOrderId: string(name='ip_order_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
+  // 销售数据ID
+  salesBizId: string(name='sales_biz_id', example='BizIdbcjvdshgcvashcxgvsdhcgvshdcg'),
+  // 总销售量
+  amount: long(name='amount', example='10000'),
+  // 数量校正
+  correctAmount: long(name='correct_amount', example='-100'),
+  // 实际总销售量
+  totalAmount: long(name='total_amount', example='9900'),
+  // 总销售额
+  sales: string(name='sales', example='100.00'),
+  // 金额校正
+  correctSales: string(name='correct_sales', example='-10.00'),
+  // 实际总销售金额
+  totalSales: string(name='total_sales', example='90.00'),
+  // 最后操作时间
+  operatorTime: long(name='operator_time', example='1694896477580'),
+  // 销售数据状态：1初始化，2商户确认，3版权方确认，4账单生成，5商户已校正，6版权方拒绝
+  status: long(name='status', example='1'),
+  // 销售数据最终是否需要生成支付账单
+  needToPay: boolean(name='need_to_pay', example='true, false'),
+  // 备注信息
+  memo: string(name='memo', example='备注信息'),
+  // 统计周期开始时间（毫秒时间戳）
+  settlementBeginTime: long(name='settlement_begin_time', example=''),
+  // 统计周期结束时间（毫秒时间戳）
+  settlementEndTime: long(name='settlement_end_time', example=''),
+}
+
+// IP授权交易的订单信息
+model IPOrder {
+  // 订单ID
+  ipOrderId: string(name='ip_order_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
+  // 卖方
+  sellerId: string(name='seller_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb165345237549274'),
+  // 卖家名称
+  sellerName: string(name='seller_name', example='卖家名称'),
+  // 买方
+  buyerId: string(name='buyer_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb163472346869786987'),
+  // 买家名称
+  buyerName: string(name='buyer_name', example='买家名称'),
+  // 订单交易类型：0套餐交易，1授权交易
+  type: long(name='type', example='0'),
+  // ip id
+  ipId: string(name='ip_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
+  // IP名称
+  ipName: string(name='ip_name', example='IP名称'),
+  // 渠道信息
+  channelId: string(name='channel_id', example='channel'),
+  // 套餐总量
+  totalAmount: long(name='total_amount', example='10000'),
+  // 套餐已使用数量
+  usedAmount: long(name='used_amount', example='6000'),
+  // 终端商品价格范围
+  priceRange: string(name='price_range', example='0-50'),
+  // 套餐交易总费用
+  totalPrice: string(name='total_price', example='30000'),
+  // 授权佣金比例
+  authRate: string(name='auth_rate', example='0.006'),
+  // 授权合作开始时间（毫秒时间戳）
+  authStartTime: long(name='auth_start_time', example=''),
+  // 授权合作结束时间
+  authEndTime: long(name='auth_end_time', example=''),
+  // 合同信息
+  contract: string(name='contract', example='oss://myexchange/1259371fc8f77d37...5dfb6d130facf32dd6d4257fa0.jpeg'),
+  // 设计稿信息
+  designDraft: string(name='design_draft', example='oss://myexchange/1259371fc8f77d37...5dfb6d130facf32dd6d4257fa1.jpeg'),
+  // 操作人
+  operator: string(name='operator', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
+  // 操作者名称
+  operatorName: string(name='operator_name', example='操作者名称'),
+  // 订单状态。TODO 补充枚举信息
+  status: long(name='status', example='1'),
+  // 订单创建时间，时间戳（毫秒）
+  createTime: long(name='create_time', example='1684896477580'),
+  // 订单最近更新时间
+  updateTime: long(name='update_time', example='1604896477580'),
+  // 收费模式：0 销售抽佣, 1 按量付费
+  chargeType: long(name='charge_type', example='0'),
+  // 按量付费的收费单价（按量付费模式必填）
+  authPrice: string(name='auth_price', example='1.11'),
+  // 是否有保底金
+  guaranteed: boolean(name='guaranteed', example='true, false'),
+  // 保底金金额
+  guaranteedFund: string(name='guaranteed_fund', example='10000.00'),
+  // 保底商品个数（按量付费）
+  guaranteedGoodsAmount: long(name='guaranteed_goods_amount', example='1000'),
+  // 已使用的保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
+  usedGuaranteedGoodsAmount: long(name='used_guaranteed_goods_amount', example='5000'),
+  // 保底商品销售金额（销售抽佣）
+  guaranteedSales: string(name='guaranteed_sales', example='10000.00'),
+  // 已使用的保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
+  // 
+  usedGuaranteedSales: string(name='used_guaranteed_sales', example='5000.00'),
+  // 授权产品范围
+  authProductScope: string(name='auth_product_scope', example='食品 | 家居百货'),
+  // 授权地域范围
+  authAreaScope: string(name='auth_area_scope', example='中国大陆'),
+  // 商品销售渠道
+  salesChannel: string(name='sales_channel', example='电商平台、社交电商、直播、线下实体、代理商'),
+  // 0 IP交易，1 增值服务交易
+  goodsType: long(name='goods_type', example='1'),
+  // 增值服务交易绑定的ip授权交易订单
+  relatedOrderId: string(name='related_order_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
+  // 是否已监修报审
+  superviseApprove: boolean(name='supervise_approve', example='true, false'),
+  // 订单图库信息，未确认则为空
+  ipGalleryUrl?: string(name='ip_gallery_url', example='oss://myexchange/1259371fc8f77d37...5dfb6d130facf32dd6d4257fa0.zip'),
+  // 图库版本
+  ipGalleryVersion?: long(name='ip_gallery_version', example='1'),
+  // 商家是否已下载过本订单的图库
+  downloadIpGallery?: boolean(name='download_ip_gallery', example='true, false'),
+  // 备注信息
+  memo: string(name='memo', example='备注信息'),
+  // 附加条款
+  additionalClause?: string(name='additional_clause', example='附加条款'),
+  // 合同文件列表
+  contractFiles?: [ string ](name='contract_files', example=''),
+  // 授权类型
+  authType?: string(name='auth_type', example='衍生品授权'),
+  // 授权模式，0普通授权，1独家授权，
+  authorizationModel?: [ long ](name='authorization_model', example=''),
+  // 绑定的商品信息列表
+  goodsInfoList?: [ IPOrderGoods ](name='goods_info_list', example=''),
+  // 绑定的商品ID列表
+  goodsIdList?: [ string ](name='goods_id_list', example=''),
+  // 订单功能选择，0 基础功能，1 领用收藏
+  features?: [ long ](name='features', example=''),
+}
+
+// 商品授权信息（一客一价信息）
+model EquityAuthInfo {
+  // 链ID
+  chainId: string(name='chain_id', example='antdao'),
+  // 商品ID
+  equityId: string(name='equity_id', example='188d87015a17465e0d3f61b7afe9e66cd2c070ca7f3bca142f53a8c5238a848a'),
+  // 授权租户
+  openToTenantId: string(name='open_to_tenant_id', example='OREDKOCA'),
+  // 租户价格（自定义价格）
+  tenantPrice: string(name='tenant_price', example='10.09'),
+  // 区块高度
+  blockNumber: string(name='block_number', example='17337250'),
+  // 交易hash
+  txHash: string(name='tx_hash', example='cf4a96419ca8ed21c84b6ba428babb7b75009927f8225d44f2974453028812eb'),
+  // 区块时间戳
+  blockTime: long(name='block_time', example='1594896477580'),
+}
+
+// ip的渠道信息
+model IpChannelInfo {
+  // 渠道名字
+  channelName: string(name='channel_name', example='tianmao'),
+  // 授权模式 商品授权 0普通授权/1独家授权  本期只有0
+  authorizationMode: long(name='authorization_mode', example='0'),
+  // 计费模式 0:按量 1:按金额
+  payMode: long(name='pay_mode', example='1'),
+  // ip等级 （5位数字） 对应a，0:经典IP/1:流量IP/2:设计IP
+  ipLevel: long(name='ip_level', example='1'),
+  // 商品状态（0:待上架，1:上架，2:下架）
+  status: long(name='status', example='0'),
+  // 交易是否需要确认
+  tradeNeedConfirm?: boolean(name='trade_need_confirm', example='true, false'),
+}
+
+// ip的重点信息
+model IpEmphasisInfo {
+  // ip的链上id
+  ipId: string(name='ip_id', example='160'),
+  // ip的描述信息
+  description: string(name='description', example='aaaa'),
+  // ip类型
+  ipType: string(name='ip_type', example='111'),
+  // 受众群体（6位数字） 对应c
+  audienceGroup: string(name='audience_group', example='000001'),
+  // 主图
+  image: string(name='image', example='oss://1;oss:2'),
+  // 上架状态
+  status: long(name='status', example=''),
+  // 归属的账户id
+  accountId: string(name='account_id', example='归属的账户id'),
+  // 创建日期
+  createTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='create_time', example='2018-10-10T10:10:00Z'),
+  // ip名字
+  ipName: string(name='ip_name', example='aaaa'),
+  // 商户名称
+  accountName?: string(name='account_name', example='xxxx'),
+  // 浏览量
+  pv?: long(name='pv', example='x x x x x'),
+  // 最近一次上下架时间
+  lastStateChangeTime?: long(name='last_state_change_time', example=''),
+  // ip的创建渠道，按照查询参数返回
+  createrChannel?: string(name='creater_channel', example='IPMark'),
+}
+
+// 权益流水
+model EInstruction {
+  // 资产ID
+  assetId: string(name='asset_id', example='assetID'),
+  // 资产的汇率
+  assetRate: string(name='asset_rate', example='1'),
+  // 资产扣减数量(单位:个)
+  deductAssetAmount: string(name='deduct_asset_amount', example='100'),
+  // 扣减商户备付金授信额(单位:元)
+  deductCreditAmount: string(name='deduct_credit_amount', example='100.0000'),
+  // 扣减商户备付金余额(单位:元)
+  deductDebitAmount: string(name='deduct_debit_amount', example='10.0000'),
+  // 被扣减备付金的租户ID
+  deductTenantId: string(name='deduct_tenant_id', example='id'),
+  // 权益ID
+  equityId: string(name='equity_id', example='equity'),
+  // 权益名称
+  equityName: string(name='equity_name', example='card01'),
+  // 权益对用户价格(单位:元)
+  equityPrice: string(name='equity_price', example='10.0000'),
+  // 权益面值(单位:元)
+  equityValue: string(name='equity_value', example='10.0000'),
+  // 附言Deliver/Complete/OutOfStore/WriteOff)
+  memo: string(name='memo', example='memo'),
+  // 发起操作的租户ID
+  optTenantId: string(name='opt_tenant_id', example='JHG'),
+  // 业务交易ID
+  outTxId: string(name='out_tx_id', example='1246354'),
+  // 对换单流水状态：
+  // 0        // 权益兑换单创建
+  // 1        // 权益兑换单接单
+  // 2        // 权益兑换单发货
+  // 3        // 权益兑换单确认收货
+  // 4        // 权益兑换单缺货
+  // 5        // 权益兑换单核销
+  status: long(name='status', example='1'),
+  // 权益归属租户ID
+  tenantId: string(name='tenant_id', example='id'),
+  // 交易时间戳
+  timeStamp: long(name='time_stamp', example='123456'),
+  // 兑换类型(商户身份/用户身份)
+  type: long(name='type', example='0'),
+  // 用户身份兑换/商户兑换的受益用户
+  userId: string(name='user_id', example='userid'),
+  // 版本（之前版本为0，不收取手续费，之后版本为1，收取手续费）
+  instructionVersion: long(name='instruction_version', example='1'),
+  // 收取手续费的金融云租户ID
+  commissionTenantId: string(name='commission_tenant_id', example='OKIJUHYG'),
+  // 手续费(单位:元)
+  instructionCommission: string(name='instruction_commission', example='0.006'),
+  // 手续费扣减商户备付金余额(单位:元)
+  deductDebitCommission: string(name='deduct_debit_commission', example='0.006'),
+  // 手续费扣减商户备付金授信额(单位:元)
+  deductCreditCommission: string(name='deduct_credit_commission', example='0'),
+  // 资产手续费扣减数量(单位:个)
+  deductAssetCommission: string(name='deduct_asset_commission', example='0.6'),
+  // 手续费率
+  commissionRate: string(name='commission_rate', example='0.001'),
+  // 手续费id
+  commissionId: string(name='commission_id', example='10002'),
+  // 手续费子id
+  commissionSubId: string(name='commission_sub_id', example='10002#0'),
+  // 手续费状态（0:未提现，1:已提现）
+  commissionStatus: long(name='commission_status', example='1'),
+  // 是否收取手续费
+  commissionCharged: long(name='commission_charged', example='1'),
+}
+
+// 接口白名单信息
+model APIWhiteListInfo {
+  // 租户ID
+  tenantId: string(name='tenant_id', example='OKIJUHYG'),
+  // 链ID
+  chainId: string(name='chain_id', example='antdao'),
+  // 权限级别，暂时不用
+  level: long(name='level', example='0'),
+  // 更新时间
+  updateTime: string(name='update_time', example='20200425204555'),
+  // 扩展字段
+  extension: string(name='extension', example='extension'),
+}
+
+// 版权方申请
+model IPApplyInfo {
+  // 账户Id
+  accountId: string(name='account_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
+  // 用户名
+  loginName: string(name='login_name', example='wjy@alipay.com'),
+  // 支付宝账户
+  alipayLoginName: string(name='alipay_login_name', example='wjy@alipay.com'),
+  // 联系人
+  legalName: string(name='legal_name', example='马云'),
+  // 联系方式
+  phoneNumber: string(name='phone_number', example='13291887615'),
+  // 角色(1: 版权方 2:商家)
+  role: long(name='role', example='1'),
+  // 状态
+  status: long(name='status', example='1'),
+  // 用户的外系统识别Id
+  externalUserId: string(name='external_user_id', example='User001'),
+  // 外部系统用户名
+  externalUserName: string(name='external_user_name', example='用户名'),
+  // 申请时间(毫秒时间戳)
+  applyDate: long(name='apply_date', example='3810551857'),
+}
+
+// 代理授权关系信息
+model DelegateRelationInfo {
+  // 被授权的租户ID
+  tenantId: string(name='tenant_id', example='OKIJUHYG'),
+  // 被代理的租户ID
+  delegatedTenantId: string(name='delegated_tenant_id', example='WAESRDTF'),
+  // 更新时间
+  updateTime: string(name='update_time', example='20200327153541'),
+  // 状态
+  status: boolean(name='status', example='true'),
+  // 扩展字段
+  extension: string(name='extension', example='extension'),
+}
+
+// 商户积分库和与预算库信息
+model MerchantBudget {
+  // 积分库代码
+  pointLibCode: string(name='point_lib_code', example='1234546'),
+  // 预算库代码
+  budgetCode: string(name='budget_code', example='1234567'),
+  // 预算库描述
+  budgetDesc: string(name='budget_desc', example='budget'),
+  // 预算库启用时间
+  budgetStartTime: string(name='budget_start_time', example='2020-06-01-20:20:20'),
+  // 预算库截止时间
+  budgetEndTime: string(name='budget_end_time', example='2020-06-01-20:20:20'),
+}
+
+// 租户场景码信息
+model ProductCodeInfo {
+  // 链ID
+  chainId: string(name='chain_id', example='chainId'),
+  // 租户ID
+  tenantId: string(name='tenant_id', example='OKIJUHYG'),
+  // 场景码
+  productCode: string(name='product_code', example='product_code'),
+  // 租户映射链上账户名称
+  accountName?: string(name='account_name', example='account_name'),
+  // 租户映射账户链上账户ID
+  accountId?: string(name='account_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
+  // 备注信息
+  memo?: string(name='memo', example='备注信息'),
+}
+
+// 商户
+model Merchant {
+  // 商户管理员ID
+  adminId: string(name='admin_id', example='ed7b3acb718eef475454e973b8b'),
+  // 商户描述
+  description: string(name='description', example='商户描述'),
+  // 商户分布式身份ID
+  did: string(name='did', example='did:mychain:ct'),
+  // 资金管理员ID
+  fundManagerId: string(name='fund_manager_id', example='b7ecd55bde0481bfc8c972b7ef'),
+  // 是否可以发行资产
+  isAssetIssuer: boolean(name='is_asset_issuer', example='true, false'),
+  // 是否可以采购权益
+  isEquityConsumer: boolean(name='is_equity_consumer', example='true, false'),
+  // 是否可以发行权益
+  isEquityProvider: boolean(name='is_equity_provider', example='true, false'),
+  // 备付金数据
+  provision: Provision(name='provision', example=''),
+  // 商户状态: 0可用, 1下线, 2冻结
+  status: long(name='status', example='0 | 1 | 2'),
+  // 租户ID
+  tenantId: string(name='tenant_id', example='DBYG'),
+  // 商户的损益账户
+  profitLossBalance: string(name='profit_loss_balance', example='0.0050000000000000'),
 }
 
 // 用户
@@ -9505,6 +9702,10 @@ model StartIpPackagetradeRequest = {
   payReturnUrl?: string(name='pay_return_url'),
   // 授权类型
   authType?: string(name='auth_type'),
+  // 授权模式，0普通授权，1独家授权
+  authorizationModel?: [ long ](name='authorization_model'),
+  // 订单功能选择，0 基础功能，1 领用收藏等
+  features?: [ long ](name='features'),
 }
 
 model StartIpPackagetradeResponse = {
@@ -9675,6 +9876,10 @@ model StartIpAuthtradeRequest = {
   payReturnUrl?: string(name='pay_return_url'),
   // 授权类型
   authType?: string(name='auth_type'),
+  // 授权模式，0普通授权，1独家授权
+  authorizationModel?: [ long ](name='authorization_model'),
+  // 订单功能选择，0 基础功能，1 领用收藏等
+  features?: [ long ](name='features'),
 }
 
 model StartIpAuthtradeResponse = {
@@ -9734,13 +9939,13 @@ model UploadIpAuthtradesalesRequest = {
   // 本次结算周期结束时间
   settlementEndTime: long(name='settlement_end_time'),
   // 零售价
-  price: string(name='price'),
+  price?: string(name='price'),
   // 终端商品销售数量
   amount: long(name='amount'),
   // 销售金额
   sales: string(name='sales'),
   // 实付金额
-  payment: string(name='payment'),
+  payment?: string(name='payment'),
   // 终端商品名称
   goodsName: string(name='goods_name'),
   // 终端商品图片
@@ -9914,6 +10119,10 @@ model QueryIpOrderlistRequest = {
   authStartTime?: long(name='auth_start_time'),
   // 查询订单授权结束时间
   authEndTime?: long(name='auth_end_time'),
+  // 订单创建时间开始范围
+  createStartTime?: long(name='create_start_time'),
+  // 订单创建时间结束范围
+  createEndTime?: long(name='create_end_time'),
   // 排序字段
   orderBy: string(name='order_by'),
   // 数据排序顺序：正序还是倒序
@@ -10068,6 +10277,8 @@ model AddIpChannelRequest = {
   channelName: string(name='channel_name'),
   // 商品授权 0普通授权/1独家授权,本期只支持0
   authorizationModel: long(name='authorization_model'),
+  // 新授权模式，0普通授权，1独家授权，支持多选
+  newAuthorizationModel?: [ long ](name='new_authorization_model'),
   // 授权类型，衍生品授权；营销授权；商标授权；数字虚拟授权；其他
   authorizationType?: [ string ](name='authorization_type'),
   // 计费模式 0:按量 1:按金额
@@ -10402,6 +10613,8 @@ model UpdateIpChannelRequest = {
   channelName: string(name='channel_name'),
   // 商品授权 0普通授权/1独家授权,本期只支持0
   authorizationModel: long(name='authorization_model'),
+  // 新授权模式，0普通授权，1独家授权，支持多选
+  newAuthorizationModel?: [ long ](name='new_authorization_model'),
   // 授权类型，衍生品授权；营销授权；商标授权；数字虚拟授权；其他
   authorizationType?: [ string ](name='authorization_type'),
   // 计费模式 0:按量 1:按金额
@@ -11339,6 +11552,10 @@ model ApplyIpCodeResponse = {
   resultMsg?: string(name='result_msg'),
   // 正版码的批次ID
   codeBatchId?: string(name='code_batch_id'),
+  // 正版码左区间
+  codeBatchStart?: long(name='code_batch_start'),
+  // 正版码右区间
+  codeBatchEnd?: long(name='code_batch_end'),
 }
 
 /**
@@ -11458,6 +11675,8 @@ model CheckIpCodeResponse = {
   scannedCount?: long(name='scanned_count'),
   // 扫描历史列表(仅展示最近扫描的50次信息)
   scannedList?: [ IPCodeScannedInfo ](name='scanned_list'),
+  // 正版码的详情，如果为空，则正版码未领取，如果不为空，则正版码已领取
+  codeDetail?: IPCodeScannedInfo(name='code_detail'),
 }
 
 /**
@@ -11570,7 +11789,9 @@ model QueryIpGoodsupdateRequest = {
   // 基础字段
   baseRequest: BaseRequestInfo(name='base_request'),
   // ipid的列表，最多20个
-  ipIds: [ string ](name='ip_ids'),
+  ipIds?: [ string ](name='ip_ids'),
+  // 版权方账号id
+  accountId?: string(name='account_id'),
 }
 
 model QueryIpGoodsupdateResponse = {
@@ -12809,6 +13030,8 @@ model SetIpCodeinfoRequest = {
   adInfoList?: [ IPCodeAdvertisingInfo ](name='ad_info_list'),
   // ip版权方信息
   ipownerInfo?: IPCodeIpOwnerInfo(name='ipowner_info'),
+  // (商家)配置正版码时间
+  codeSetTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='code_set_time'),
 }
 
 model SetIpCodeinfoResponse = {
@@ -13070,6 +13293,10 @@ model ApplyIpPackagetradeRequest = {
   payReturnUrl?: string(name='pay_return_url'),
   // 授权类型
   authType?: string(name='auth_type'),
+  // 授权模式，0普通授权，1独家授权
+  authorizationModel?: [ long ](name='authorization_model'),
+  // 订单功能选择，0 基础功能，1 领用收藏等
+  features?: [ long ](name='features'),
 }
 
 model ApplyIpPackagetradeResponse = {
@@ -13157,6 +13384,10 @@ model ApplyIpAuthtradeRequest = {
   payReturnUrl?: string(name='pay_return_url'),
   // 授权类型
   authType?: string(name='auth_type'),
+  // 授权模式，0普通授权，1独家授权
+  authorizationModel?: [ long ](name='authorization_model'),
+  // 订单功能选择，0 基础功能，1 领用收藏等
+  features?: [ long ](name='features'),
 }
 
 model ApplyIpAuthtradeResponse = {
@@ -13210,6 +13441,8 @@ model QueryIpCodeinfoResponse = {
   resultMsg?: string(name='result_msg'),
   // 订单ID
   orderId?: string(name='order_id'),
+  // 额外功能，包括基础功能，是否允许收藏等
+  features?: [ long ](name='features'),
   // 正版码商品信息配置列表
   goodsInfoList?: [ IPCodeGoodsInfo ](name='goods_info_list'),
   // 正版码资源位配置信息列表
@@ -13329,6 +13562,7 @@ model UpdateIpAccountRequest = {
   // 店铺名称
   shopName?: string(name='shop_name'),
   // 更多联系信息，用于运营联系商家
+  // 注：更新时如果为空，则联系人信息被覆盖为空，更新时为空相当于删除功能
   additionalContactInfo?: [ SimpleContactInfo ](name='additional_contact_info'),
 }
 
@@ -13789,9 +14023,9 @@ model PagequeryIpSalesRequest = {
   // 基础请求参数
   baseRequest: BaseRequestInfo(name='base_request'),
   // 订单ID。和账单ID 两个字段只能选填一个
-  ipOrderId?: string(name='ip_order_id'),
-  // 账单ID。和订单ID 两个字段只能选填一个
-  ipBillId?: string(name='ip_bill_id'),
+  ipOrderId: string(name='ip_order_id'),
+  // 销售数据ID
+  salesBizId: string(name='sales_biz_id'),
   // 排序字段
   orderBy: string(name='order_by'),
   // 排序顺序：正序还是倒序
@@ -13812,7 +14046,7 @@ model PagequeryIpSalesResponse = {
   // 订单ID
   ipOrderId?: string(name='ip_order_id'),
   // 账单ID
-  ipBillId?: string(name='ip_bill_id'),
+  salesBizId?: string(name='sales_biz_id'),
   // IP授权销售数据
   ipSalesInfoList?: [ IPSalesInfo ](name='ip_sales_info_list'),
   // 页码
@@ -13824,7 +14058,7 @@ model PagequeryIpSalesResponse = {
 }
 
 /**
- * Description: 分页查询订单/账单的销售数据列表
+ * Description: 分页查询订单的销售数据详情列表
  * Summary: 数字商品服务-IP授权服务-查询销售数据
  */
 async function pagequeryIpSales(request: PagequeryIpSalesRequest): PagequeryIpSalesResponse {
@@ -13834,7 +14068,7 @@ async function pagequeryIpSales(request: PagequeryIpSalesRequest): PagequeryIpSa
 }
 
 /**
- * Description: 分页查询订单/账单的销售数据列表
+ * Description: 分页查询订单的销售数据详情列表
  * Summary: 数字商品服务-IP授权服务-查询销售数据
  */
 async function pagequeryIpSalesEx(request: PagequeryIpSalesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIpSalesResponse {
@@ -14060,6 +14294,512 @@ async function queryIpTwcaccount(request: QueryIpTwcaccountRequest): QueryIpTwca
 async function queryIpTwcaccountEx(request: QueryIpTwcaccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIpTwcaccountResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.antdao.ip.twcaccount.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindIpShopRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // IP商家的链上账户Id
+  accountId: string(name='account_id'),
+  // 淘宝卖家官方昵称
+  sellerNick: string(name='seller_nick'),
+  // 授权渠道名称(1: 淘宝网)
+  channelType: long(name='channel_type'),
+  // 数据授权方式(1: 淘宝开放平台)
+  authType: long(name='auth_type'),
+}
+
+model BindIpShopResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 淘宝店铺数据授权跳转链接
+  authUri?: string(name='auth_uri'),
+  // 授权申请的内部编码
+  itemCode?: string(name='item_code'),
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-授权URI: 获取授权URI, 用于淘宝店铺授权数据给IPforce
+ * Summary: 数字商品服务-IP授权服务-授权URI
+ */
+async function bindIpShop(request: BindIpShopRequest): BindIpShopResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindIpShopEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-授权URI: 获取授权URI, 用于淘宝店铺授权数据给IPforce
+ * Summary: 数字商品服务-IP授权服务-授权URI
+ */
+async function bindIpShopEx(request: BindIpShopRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindIpShopResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.shop.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AuthIpShopRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 授权申请的内部编码
+  itemCode: string(name='item_code'),
+  // 淘宝开放平台回调的授权编码
+  authCode: string(name='auth_code'),
+}
+
+model AuthIpShopResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-店铺授权结果: 店铺登陆淘宝授权后的授权结果回调
+ * Summary: 数字商品服务-IP授权服务-店铺授权结果
+ */
+async function authIpShop(request: AuthIpShopRequest): AuthIpShopResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return authIpShopEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-店铺授权结果: 店铺登陆淘宝授权后的授权结果回调
+ * Summary: 数字商品服务-IP授权服务-店铺授权结果
+ */
+async function authIpShopEx(request: AuthIpShopRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthIpShopResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.shop.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListIpShopRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // IP商家的链上账户Id
+  accountId: string(name='account_id'),
+  // 授权申请的内部编码
+  itemCode?: string(name='item_code'),
+  // 分页下标(从1开始)
+  pageIndex: long(name='page_index'),
+  // 一页的分页大小
+  pageSize: long(name='page_size'),
+}
+
+model ListIpShopResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总数量
+  totalCount?: long(name='total_count'),
+  // 店铺详情列表
+  shopList?: [ IPShopInfo ](name='shop_list'),
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-商户授权列表: 商户获取其店铺授权历史列表
+ * Summary: 数字商品服务-IP授权服务-商户授权列表
+ */
+async function listIpShop(request: ListIpShopRequest): ListIpShopResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listIpShopEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-商户授权列表: 商户获取其店铺授权历史列表
+ * Summary: 数字商品服务-IP授权服务-商户授权列表
+ */
+async function listIpShopEx(request: ListIpShopRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListIpShopResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.shop.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIpCodecollectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础信息
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 正版码ID
+  ipCode: string(name='ip_code'),
+}
+
+model QueryIpCodecollectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 正版码商品信息配置列表,包含产品名和出品方
+  goodsInfoList?: [ IPCodeGoodsInfo ](name='goods_info_list'),
+  // 正版码流转信息
+  codeFlowList?: [ IPCodeFlowInfo ](name='code_flow_list'),
+  // 正版码生命周期
+  codeLifeCircle?: IPCodeConfigTimeInfo(name='code_life_circle'),
+  // 区块链信息
+  chainInfo?: IPCodeChainInfo(name='chain_info'),
+}
+
+/**
+ * Description: 查询正版码收藏证书详情，主要包括该正版码对应的ip商品，流转信息，区块信息等
+ * Summary: 查询正版码收藏证书详情
+ */
+async function queryIpCodecollect(request: QueryIpCodecollectRequest): QueryIpCodecollectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIpCodecollectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询正版码收藏证书详情，主要包括该正版码对应的ip商品，流转信息，区块信息等
+ * Summary: 查询正版码收藏证书详情
+ */
+async function queryIpCodecollectEx(request: QueryIpCodecollectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIpCodecollectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.codecollect.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetIpShopRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // IP商家的链上账户Id
+  accountId: string(name='account_id'),
+  // 宝贝Id(可以是ItemId, 也可以是SkuId或其他Id)
+  goodId: string(name='good_id'),
+  // 类型(1: ItemId)
+  idType: long(name='id_type'),
+  // 淘宝卖家的官方昵称
+  sellerNick: string(name='seller_nick'),
+}
+
+model GetIpShopResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 店铺商品详情
+  goodInfo?: IPShopItemInfo(name='good_info'),
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-商品查询: 查询单个商品信息(淘宝开放平台数据)
+ * Summary: 数字商品服务-IP授权服务-商品查询
+ */
+async function getIpShop(request: GetIpShopRequest): GetIpShopResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getIpShopEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-商品查询: 查询单个商品信息(淘宝开放平台数据)
+ * Summary: 数字商品服务-IP授权服务-商品查询
+ */
+async function getIpShopEx(request: GetIpShopRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetIpShopResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.shop.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SetIpOrdergoodsidRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础请求参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 订单ID
+  ipOrderId: string(name='ip_order_id'),
+  // 要绑定的商品信息
+  goodsInfoList: [ IPOrderGoods ](name='goods_info_list'),
+}
+
+model SetIpOrdergoodsidResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 授权订单绑定商品ID，后续上传的销售数据需满足已绑定的商品ID
+ * Summary: 数字商品服务-IP授权服务-绑定商品ID
+ */
+async function setIpOrdergoodsid(request: SetIpOrdergoodsidRequest): SetIpOrdergoodsidResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return setIpOrdergoodsidEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授权订单绑定商品ID，后续上传的销售数据需满足已绑定的商品ID
+ * Summary: 数字商品服务-IP授权服务-绑定商品ID
+ */
+async function setIpOrdergoodsidEx(request: SetIpOrdergoodsidRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SetIpOrdergoodsidResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.ordergoodsid.set', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SetIpSalescorrectionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础请求信息
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 订单ID
+  ipOrderId: string(name='ip_order_id'),
+  // 订单的数据ID，订单中每个数据ID唯一
+  salesBizId: string(name='sales_biz_id'),
+  // 数量校正，负数表示减少本次销售数量，但减少后宗销售数量不能小于0。不校正数量则填0.
+  correctAmount: long(name='correct_amount'),
+  // 销售金额校正，单位元，负数表示减少本次销售金额，但减少后销售金额不能小于0。不校正数量则填0.00。
+  correctSales: string(name='correct_sales'),
+}
+
+model SetIpSalescorrectionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 商家校正授权订单的销售数据
+ * Summary: 数字商品服务-IP授权服务-校正销售数据
+ */
+async function setIpSalescorrection(request: SetIpSalescorrectionRequest): SetIpSalescorrectionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return setIpSalescorrectionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商家校正授权订单的销售数据
+ * Summary: 数字商品服务-IP授权服务-校正销售数据
+ */
+async function setIpSalescorrectionEx(request: SetIpSalescorrectionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SetIpSalescorrectionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.salescorrection.set', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfirmIpSalessummaryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础请求信息
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 订单ID
+  ipOrderId: string(name='ip_order_id'),
+  // 订单的数据ID，订单中每个数据ID唯一
+  salesBizId: string(name='sales_biz_id'),
+  // 商户确认则传商户的链上ID；版权方确认或者拒绝则传版权方的链上ID
+  accountId: string(name='account_id'),
+  // 确认或者拒绝，true确认，false拒绝
+  accept: boolean(name='accept'),
+  // 备注信息
+  memo?: string(name='memo'),
+}
+
+model ConfirmIpSalessummaryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 账单支付链接
+  payUrl?: string(name='pay_url'),
+  // 账单ID
+  ipBillId?: string(name='ip_bill_id'),
+}
+
+/**
+ * Description: 商户确认销售数据。版权方确认或者拒绝销售数据
+ * Summary: 数字商品服务-IP授权服务-确认销售数据
+ */
+async function confirmIpSalessummary(request: ConfirmIpSalessummaryRequest): ConfirmIpSalessummaryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return confirmIpSalessummaryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商户确认销售数据。版权方确认或者拒绝销售数据
+ * Summary: 数字商品服务-IP授权服务-确认销售数据
+ */
+async function confirmIpSalessummaryEx(request: ConfirmIpSalessummaryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmIpSalessummaryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.salessummary.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadIpSaleseverylistRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础请求参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 授权订单ID
+  ipOrderId: string(name='ip_order_id'),
+  // 逐条销售数据信息列表
+  salesEveryList: [ IPSalesEvery ](name='sales_every_list'),
+}
+
+model UploadIpSaleseverylistResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 上传授权订单的逐条销售数据
+ * Summary: 数字商品服务-IP授权服务-销售数据上传
+ */
+async function uploadIpSaleseverylist(request: UploadIpSaleseverylistRequest): UploadIpSaleseverylistResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadIpSaleseverylistEx(request, headers, runtime);
+}
+
+/**
+ * Description: 上传授权订单的逐条销售数据
+ * Summary: 数字商品服务-IP授权服务-销售数据上传
+ */
+async function uploadIpSaleseverylistEx(request: UploadIpSaleseverylistRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadIpSaleseverylistResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.saleseverylist.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryIpSalessummaryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础请求参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 订单ID。订单ID和账单ID二选一传入。
+  ipOrderId?: string(name='ip_order_id'),
+  // 账单ID。订单ID和账单ID二选一传入。
+  ipBillId?: string(name='ip_bill_id'),
+  // 销售数据状态：1初始化，2商户确认，3版权方确认，4账单生成，5商户已校正，6版权方拒绝
+  status?: long(name='status'),
+  // 排序字段
+  orderBy: string(name='order_by'),
+  // 排序顺序：正序还是倒序
+  order: string(name='order'),
+  // 页码
+  pageNumber: long(name='page_number'),
+  // 每页数据量大小。不大于100。
+  pageSize: long(name='page_size'),
+}
+
+model PagequeryIpSalessummaryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单ID
+  ipOrderId?: string(name='ip_order_id'),
+  // 账单ID
+  ipBillId?: string(name='ip_bill_id'),
+  // 销售数据汇总信息列表
+  ipSalesSummaryList?: [ IPSalesSummary ](name='ip_sales_summary_list'),
+  // 页码
+  pageNumber?: long(name='page_number'),
+  // 页面大小
+  pageSize?: long(name='page_size'),
+  // 销售数据总数
+  totalCount?: long(name='total_count'),
+}
+
+/**
+ * Description: 查询订单或者账单的销售数据汇总信息列表
+ * Summary: 数字商品服务-IP授权服务-查询销售数据
+ */
+async function pagequeryIpSalessummary(request: PagequeryIpSalessummaryRequest): PagequeryIpSalessummaryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryIpSalessummaryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询订单或者账单的销售数据汇总信息列表
+ * Summary: 数字商品服务-IP授权服务-查询销售数据
+ */
+async function pagequeryIpSalessummaryEx(request: PagequeryIpSalessummaryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIpSalessummaryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.salessummary.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ReopenIpBillRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础请求参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 账单ID
+  ipBillId: string(name='ip_bill_id'),
+}
+
+model ReopenIpBillResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 账单ID
+  ipBillId?: string(name='ip_bill_id'),
+  // 新的支付链接
+  payUrl?: string(name='pay_url'),
+}
+
+/**
+ * Description: 账单超时关闭的情况下，重新生成支付链接，变为待支付状态
+ * Summary: 数字商品服务-IP授权服务-刷新账单状态
+ */
+async function reopenIpBill(request: ReopenIpBillRequest): ReopenIpBillResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return reopenIpBillEx(request, headers, runtime);
+}
+
+/**
+ * Description: 账单超时关闭的情况下，重新生成支付链接，变为待支付状态
+ * Summary: 数字商品服务-IP授权服务-刷新账单状态
+ */
+async function reopenIpBillEx(request: ReopenIpBillRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReopenIpBillResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.bill.reopen', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryBlockanalysisBlockRequest = {
