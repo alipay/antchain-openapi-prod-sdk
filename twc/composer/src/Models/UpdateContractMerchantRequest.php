@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyContractMerchantRequest extends Model
+class UpdateContractMerchantRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,22 +19,15 @@ class ApplyContractMerchantRequest extends Model
      */
     public $productInstanceId;
 
-    // 入驻材料
+    // 内容和商户进件信息类似，唯一区别在于此接口biz_content不要传external_id，改为传之前进件获取到的商户id信息smid，具体可见示例。
     /**
      * @var string
      */
     public $bizContent;
-
-    // 代理商户账户ID，此参数不填默认平台机构账户入驻
-    /**
-     * @var string
-     */
-    public $agentAccountId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'bizContent'        => 'biz_content',
-        'agentAccountId'    => 'agent_account_id',
     ];
 
     public function validate()
@@ -54,9 +47,6 @@ class ApplyContractMerchantRequest extends Model
         if (null !== $this->bizContent) {
             $res['biz_content'] = $this->bizContent;
         }
-        if (null !== $this->agentAccountId) {
-            $res['agent_account_id'] = $this->agentAccountId;
-        }
 
         return $res;
     }
@@ -64,7 +54,7 @@ class ApplyContractMerchantRequest extends Model
     /**
      * @param array $map
      *
-     * @return ApplyContractMerchantRequest
+     * @return UpdateContractMerchantRequest
      */
     public static function fromMap($map = [])
     {
@@ -77,9 +67,6 @@ class ApplyContractMerchantRequest extends Model
         }
         if (isset($map['biz_content'])) {
             $model->bizContent = $map['biz_content'];
-        }
-        if (isset($map['agent_account_id'])) {
-            $model->agentAccountId = $map['agent_account_id'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyContractMerchantRequest extends Model
+class QueryLeaseFinancecertifyincontractRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,27 +19,36 @@ class ApplyContractMerchantRequest extends Model
      */
     public $productInstanceId;
 
-    // 入驻材料
+    // 合约id
     /**
      * @var string
      */
-    public $bizContent;
+    public $applicationId;
 
-    // 代理商户账户ID，此参数不填默认平台机构账户入驻
+    // 订单id
     /**
      * @var string
      */
-    public $agentAccountId;
+    public $orderId;
+
+    // 核验id
+    /**
+     * @var string
+     */
+    public $leaseCertifyId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'bizContent'        => 'biz_content',
-        'agentAccountId'    => 'agent_account_id',
+        'applicationId'     => 'application_id',
+        'orderId'           => 'order_id',
+        'leaseCertifyId'    => 'lease_certify_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('bizContent', $this->bizContent, true);
+        Model::validateRequired('applicationId', $this->applicationId, true);
+        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('leaseCertifyId', $this->leaseCertifyId, true);
     }
 
     public function toMap()
@@ -51,11 +60,14 @@ class ApplyContractMerchantRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->bizContent) {
-            $res['biz_content'] = $this->bizContent;
+        if (null !== $this->applicationId) {
+            $res['application_id'] = $this->applicationId;
         }
-        if (null !== $this->agentAccountId) {
-            $res['agent_account_id'] = $this->agentAccountId;
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->leaseCertifyId) {
+            $res['lease_certify_id'] = $this->leaseCertifyId;
         }
 
         return $res;
@@ -64,7 +76,7 @@ class ApplyContractMerchantRequest extends Model
     /**
      * @param array $map
      *
-     * @return ApplyContractMerchantRequest
+     * @return QueryLeaseFinancecertifyincontractRequest
      */
     public static function fromMap($map = [])
     {
@@ -75,11 +87,14 @@ class ApplyContractMerchantRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['biz_content'])) {
-            $model->bizContent = $map['biz_content'];
+        if (isset($map['application_id'])) {
+            $model->applicationId = $map['application_id'];
         }
-        if (isset($map['agent_account_id'])) {
-            $model->agentAccountId = $map['agent_account_id'];
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
+        }
+        if (isset($map['lease_certify_id'])) {
+            $model->leaseCertifyId = $map['lease_certify_id'];
         }
 
         return $model;

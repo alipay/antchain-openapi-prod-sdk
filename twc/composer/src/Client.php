@@ -37,6 +37,8 @@ use AntChain\TWC\Models\AuthLeaseContractRequest;
 use AntChain\TWC\Models\AuthLeaseContractResponse;
 use AntChain\TWC\Models\AuthWitnessFlowRequest;
 use AntChain\TWC\Models\AuthWitnessFlowResponse;
+use AntChain\TWC\Models\BindContractMerchantRequest;
+use AntChain\TWC\Models\BindContractMerchantResponse;
 use AntChain\TWC\Models\CallbackArbitrationStatusRequest;
 use AntChain\TWC\Models\CallbackArbitrationStatusResponse;
 use AntChain\TWC\Models\CancelContractPaysingletradeRequest;
@@ -121,6 +123,8 @@ use AntChain\TWC\Models\CreateFinanceFilenotaryRequest;
 use AntChain\TWC\Models\CreateFinanceFilenotaryResponse;
 use AntChain\TWC\Models\CreateFinanceTextnotaryRequest;
 use AntChain\TWC\Models\CreateFinanceTextnotaryResponse;
+use AntChain\TWC\Models\CreateFlowInstanceRequest;
+use AntChain\TWC\Models\CreateFlowInstanceResponse;
 use AntChain\TWC\Models\CreateInternalContractRequest;
 use AntChain\TWC\Models\CreateInternalContractResponse;
 use AntChain\TWC\Models\CreateInternalTextRequest;
@@ -147,6 +151,8 @@ use AntChain\TWC\Models\CreateLeaseDisburseinfoRequest;
 use AntChain\TWC\Models\CreateLeaseDisburseinfoResponse;
 use AntChain\TWC\Models\CreateLeaseFileRequest;
 use AntChain\TWC\Models\CreateLeaseFileResponse;
+use AntChain\TWC\Models\CreateLeaseFinancecertifyRequest;
+use AntChain\TWC\Models\CreateLeaseFinancecertifyResponse;
 use AntChain\TWC\Models\CreateLeaseNotifyregisterRequest;
 use AntChain\TWC\Models\CreateLeaseNotifyregisterResponse;
 use AntChain\TWC\Models\CreateLeaseOrderinfoRequest;
@@ -215,6 +221,8 @@ use AntChain\TWC\Models\DeployMytfTappRequest;
 use AntChain\TWC\Models\DeployMytfTappResponse;
 use AntChain\TWC\Models\DownloadContractDocumentRequest;
 use AntChain\TWC\Models\DownloadContractDocumentResponse;
+use AntChain\TWC\Models\FinishFlowInstanceRequest;
+use AntChain\TWC\Models\FinishFlowInstanceResponse;
 use AntChain\TWC\Models\FinishLeaseSupplierstatusRequest;
 use AntChain\TWC\Models\FinishLeaseSupplierstatusResponse;
 use AntChain\TWC\Models\GetCertificateDetailRequest;
@@ -257,10 +265,14 @@ use AntChain\TWC\Models\InitCertificationRequest;
 use AntChain\TWC\Models\InitCertificationResponse;
 use AntChain\TWC\Models\InitEnterpriseFaceauthRequest;
 use AntChain\TWC\Models\InitEnterpriseFaceauthResponse;
+use AntChain\TWC\Models\InitFlowPhaseRequest;
+use AntChain\TWC\Models\InitFlowPhaseResponse;
 use AntChain\TWC\Models\InitIdentificationFaceauthRequest;
 use AntChain\TWC\Models\InitIdentificationFaceauthResponse;
 use AntChain\TWC\Models\InitLeaseSupplierRequest;
 use AntChain\TWC\Models\InitLeaseSupplierResponse;
+use AntChain\TWC\Models\InitPrivatecontractIntanceRequest;
+use AntChain\TWC\Models\InitPrivatecontractIntanceResponse;
 use AntChain\TWC\Models\ListContractOuttradeidRequest;
 use AntChain\TWC\Models\ListContractOuttradeidResponse;
 use AntChain\TWC\Models\ListContractPayruleRequest;
@@ -311,6 +323,8 @@ use AntChain\TWC\Models\QueryContractWordspositionRequest;
 use AntChain\TWC\Models\QueryContractWordspositionResponse;
 use AntChain\TWC\Models\QueryEnterpriseFaceauthRequest;
 use AntChain\TWC\Models\QueryEnterpriseFaceauthResponse;
+use AntChain\TWC\Models\QueryFlowPhaseRequest;
+use AntChain\TWC\Models\QueryFlowPhaseResponse;
 use AntChain\TWC\Models\QueryIdentificationFaceauthRequest;
 use AntChain\TWC\Models\QueryIdentificationFaceauthResponse;
 use AntChain\TWC\Models\QueryJointconstraintBreachrecordRequest;
@@ -327,6 +341,10 @@ use AntChain\TWC\Models\QueryLeaseBizRequest;
 use AntChain\TWC\Models\QueryLeaseBizResponse;
 use AntChain\TWC\Models\QueryLeaseEncryptedinfoRequest;
 use AntChain\TWC\Models\QueryLeaseEncryptedinfoResponse;
+use AntChain\TWC\Models\QueryLeaseFinancecertifyincontractRequest;
+use AntChain\TWC\Models\QueryLeaseFinancecertifyincontractResponse;
+use AntChain\TWC\Models\QueryLeaseFinancecertifyRequest;
+use AntChain\TWC\Models\QueryLeaseFinancecertifyResponse;
 use AntChain\TWC\Models\QueryLeaseIotinfoRequest;
 use AntChain\TWC\Models\QueryLeaseIotinfoResponse;
 use AntChain\TWC\Models\QueryLeaseOrderinfoRequest;
@@ -377,6 +395,8 @@ use AntChain\TWC\Models\SyncInnerTwcopenRequest;
 use AntChain\TWC\Models\SyncInnerTwcopenResponse;
 use AntChain\TWC\Models\SyncLeaseSupplierorderstatusRequest;
 use AntChain\TWC\Models\SyncLeaseSupplierorderstatusResponse;
+use AntChain\TWC\Models\UpdateContractMerchantRequest;
+use AntChain\TWC\Models\UpdateContractMerchantResponse;
 use AntChain\TWC\Models\UpdateContractOrganizationRequest;
 use AntChain\TWC\Models\UpdateContractOrganizationResponse;
 use AntChain\TWC\Models\UpdateContractPlatformRequest;
@@ -387,6 +407,8 @@ use AntChain\TWC\Models\UpdateLeaseContractRequest;
 use AntChain\TWC\Models\UpdateLeaseContractResponse;
 use AntChain\TWC\Models\UpdateNotarizationOrderRequest;
 use AntChain\TWC\Models\UpdateNotarizationOrderResponse;
+use AntChain\TWC\Models\UpdatePrivatecontractIntanceRequest;
+use AntChain\TWC\Models\UpdatePrivatecontractIntanceResponse;
 use AntChain\TWC\Models\UpdateSueBreakpromiseinfoRequest;
 use AntChain\TWC\Models\UpdateSueBreakpromiseinfoResponse;
 use AntChain\TWC\Models\UpdateSueExemplaryrevertRequest;
@@ -546,7 +568,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.17',
+                    'sdk_version'      => '1.7.9',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -2940,7 +2962,7 @@ class Client
     }
 
     /**
-     * Description: 商户入驻直付通新接口
+     * Description: 商户入驻直付通新接口，通过此接口创建的商户，签约模式默认走单独签约授权模式（即不同商户都需要进行单独的代扣签约授权）。
      * Summary: 商户入驻直付通新接口.
      *
      * @param ApplyContractMerchantRequest $request
@@ -2956,7 +2978,7 @@ class Client
     }
 
     /**
-     * Description: 商户入驻直付通新接口
+     * Description: 商户入驻直付通新接口，通过此接口创建的商户，签约模式默认走单独签约授权模式（即不同商户都需要进行单独的代扣签约授权）。
      * Summary: 商户入驻直付通新接口.
      *
      * @param ApplyContractMerchantRequest $request
@@ -3204,7 +3226,7 @@ class Client
     }
 
     /**
-     * Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+     * Description: 代扣计划状态查询接口，仅能查询到由新状态机执行的代扣计划，未切换到新状态机的老数据查询不到
      * Summary: 代扣计划状态查询.
      *
      * @param QueryContractTradestatusRequest $request
@@ -3220,7 +3242,7 @@ class Client
     }
 
     /**
-     * Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+     * Description: 代扣计划状态查询接口，仅能查询到由新状态机执行的代扣计划，未切换到新状态机的老数据查询不到
      * Summary: 代扣计划状态查询.
      *
      * @param QueryContractTradestatusRequest $request
@@ -3237,7 +3259,7 @@ class Client
     }
 
     /**
-     * Description: 代扣退款查询
+     * Description: 代扣退款查询，仅支持新代扣状态机处理过的数据，老状态机处理的数据无法查到。
      * Summary: 代扣退款查询.
      *
      * @param QueryContractRefundRequest $request
@@ -3253,7 +3275,7 @@ class Client
     }
 
     /**
-     * Description: 代扣退款查询
+     * Description: 代扣退款查询，仅支持新代扣状态机处理过的数据，老状态机处理的数据无法查到。
      * Summary: 代扣退款查询.
      *
      * @param QueryContractRefundRequest $request
@@ -3333,6 +3355,138 @@ class Client
         Utils::validateModel($request);
 
         return QueryContractMerchantorderResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.merchantorder.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 修改商户进件信息，单商户可能被多个用户代理，信息修改会生效到所有代理用户上。
+     * Summary: 商户进件信息修改.
+     *
+     * @param UpdateContractMerchantRequest $request
+     *
+     * @return UpdateContractMerchantResponse
+     */
+    public function updateContractMerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateContractMerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 修改商户进件信息，单商户可能被多个用户代理，信息修改会生效到所有代理用户上。
+     * Summary: 商户进件信息修改.
+     *
+     * @param UpdateContractMerchantRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return UpdateContractMerchantResponse
+     */
+    public function updateContractMerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateContractMerchantResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.merchant.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 一个二级商户可以挂接多个平台方用户，此接口可以对已进件的商户进行挂接操作。
+     * Summary: 二级商户代理挂接接口.
+     *
+     * @param BindContractMerchantRequest $request
+     *
+     * @return BindContractMerchantResponse
+     */
+    public function bindContractMerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindContractMerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 一个二级商户可以挂接多个平台方用户，此接口可以对已进件的商户进行挂接操作。
+     * Summary: 二级商户代理挂接接口.
+     *
+     * @param BindContractMerchantRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return BindContractMerchantResponse
+     */
+    public function bindContractMerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindContractMerchantResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.merchant.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 初始化私有化合同服务实例，生成服务验签的公/私钥，以及回调使用的公/私钥
+     * Summary: 初始化新的私有化合同服务实例.
+     *
+     * @param InitPrivatecontractIntanceRequest $request
+     *
+     * @return InitPrivatecontractIntanceResponse
+     */
+    public function initPrivatecontractIntance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initPrivatecontractIntanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 初始化私有化合同服务实例，生成服务验签的公/私钥，以及回调使用的公/私钥
+     * Summary: 初始化新的私有化合同服务实例.
+     *
+     * @param InitPrivatecontractIntanceRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return InitPrivatecontractIntanceResponse
+     */
+    public function initPrivatecontractIntanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitPrivatecontractIntanceResponse::fromMap($this->doRequest('1.0', 'twc.notary.privatecontract.intance.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新已有的私有化合同服务实例信息，如私有化服务地址
+     * Summary: 更新私有化合同服务实例信息.
+     *
+     * @param UpdatePrivatecontractIntanceRequest $request
+     *
+     * @return UpdatePrivatecontractIntanceResponse
+     */
+    public function updatePrivatecontractIntance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updatePrivatecontractIntanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新已有的私有化合同服务实例信息，如私有化服务地址
+     * Summary: 更新私有化合同服务实例信息.
+     *
+     * @param UpdatePrivatecontractIntanceRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return UpdatePrivatecontractIntanceResponse
+     */
+    public function updatePrivatecontractIntanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdatePrivatecontractIntanceResponse::fromMap($this->doRequest('1.0', 'twc.notary.privatecontract.intance.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -4587,6 +4741,105 @@ class Client
         Utils::validateModel($request);
 
         return ApplyLeaseSupplierorderResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.supplierorder.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建融资租赁提前还款人脸认证信息
+     * Summary: 创建融资租赁提前还款人脸认证信息.
+     *
+     * @param CreateLeaseFinancecertifyRequest $request
+     *
+     * @return CreateLeaseFinancecertifyResponse
+     */
+    public function createLeaseFinancecertify($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLeaseFinancecertifyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建融资租赁提前还款人脸认证信息
+     * Summary: 创建融资租赁提前还款人脸认证信息.
+     *
+     * @param CreateLeaseFinancecertifyRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CreateLeaseFinancecertifyResponse
+     */
+    public function createLeaseFinancecertifyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLeaseFinancecertifyResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.financecertify.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资租赁提前还款人脸识别核验
+     * Summary: 融资租赁提前还款人脸识别核验.
+     *
+     * @param QueryLeaseFinancecertifyRequest $request
+     *
+     * @return QueryLeaseFinancecertifyResponse
+     */
+    public function queryLeaseFinancecertify($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseFinancecertifyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资租赁提前还款人脸识别核验
+     * Summary: 融资租赁提前还款人脸识别核验.
+     *
+     * @param QueryLeaseFinancecertifyRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryLeaseFinancecertifyResponse
+     */
+    public function queryLeaseFinancecertifyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseFinancecertifyResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.financecertify.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询融资租赁合约内核验结果
+     * Summary: 查询融资租赁合约内核验结果.
+     *
+     * @param QueryLeaseFinancecertifyincontractRequest $request
+     *
+     * @return QueryLeaseFinancecertifyincontractResponse
+     */
+    public function queryLeaseFinancecertifyincontract($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseFinancecertifyincontractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询融资租赁合约内核验结果
+     * Summary: 查询融资租赁合约内核验结果.
+     *
+     * @param QueryLeaseFinancecertifyincontractRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return QueryLeaseFinancecertifyincontractResponse
+     */
+    public function queryLeaseFinancecertifyincontractEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseFinancecertifyincontractResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.financecertifyincontract.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -6996,5 +7249,137 @@ class Client
         Utils::validateModel($request);
 
         return OpenInternalTwcResponse::fromMap($this->doRequest('1.0', 'twc.notary.internal.twc.open', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建存证流程实例
+     * Summary: 创建存证流程实例.
+     *
+     * @param CreateFlowInstanceRequest $request
+     *
+     * @return CreateFlowInstanceResponse
+     */
+    public function createFlowInstance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createFlowInstanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建存证流程实例
+     * Summary: 创建存证流程实例.
+     *
+     * @param CreateFlowInstanceRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CreateFlowInstanceResponse
+     */
+    public function createFlowInstanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateFlowInstanceResponse::fromMap($this->doRequest('1.0', 'twc.notary.flow.instance.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 存证流程实例完结
+     * Summary: 存证流程实例完结.
+     *
+     * @param FinishFlowInstanceRequest $request
+     *
+     * @return FinishFlowInstanceResponse
+     */
+    public function finishFlowInstance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->finishFlowInstanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 存证流程实例完结
+     * Summary: 存证流程实例完结.
+     *
+     * @param FinishFlowInstanceRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return FinishFlowInstanceResponse
+     */
+    public function finishFlowInstanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FinishFlowInstanceResponse::fromMap($this->doRequest('1.0', 'twc.notary.flow.instance.finish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建阶段存证
+     * Summary: 创建阶段存证
+     *
+     * @param InitFlowPhaseRequest $request
+     *
+     * @return InitFlowPhaseResponse
+     */
+    public function initFlowPhase($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initFlowPhaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建阶段存证
+     * Summary: 创建阶段存证
+     *
+     * @param InitFlowPhaseRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return InitFlowPhaseResponse
+     */
+    public function initFlowPhaseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitFlowPhaseResponse::fromMap($this->doRequest('1.0', 'twc.notary.flow.phase.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询阶段存证结果
+     * Summary: 查询阶段存证结果.
+     *
+     * @param QueryFlowPhaseRequest $request
+     *
+     * @return QueryFlowPhaseResponse
+     */
+    public function queryFlowPhase($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFlowPhaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询阶段存证结果
+     * Summary: 查询阶段存证结果.
+     *
+     * @param QueryFlowPhaseRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryFlowPhaseResponse
+     */
+    public function queryFlowPhaseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFlowPhaseResponse::fromMap($this->doRequest('1.0', 'twc.notary.flow.phase.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

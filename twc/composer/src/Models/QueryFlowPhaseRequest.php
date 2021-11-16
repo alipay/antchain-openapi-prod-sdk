@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyContractMerchantRequest extends Model
+class QueryFlowPhaseRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,27 +19,28 @@ class ApplyContractMerchantRequest extends Model
      */
     public $productInstanceId;
 
-    // 入驻材料
+    // 流程id，通过twc.notary.instance.create(创建存证流程实例)获取
     /**
      * @var string
      */
-    public $bizContent;
+    public $flowId;
 
-    // 代理商户账户ID，此参数不填默认平台机构账户入驻
+    // 阶段id，通过twc.notary.flow.phase.init获取
     /**
      * @var string
      */
-    public $agentAccountId;
+    public $phaseId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'bizContent'        => 'biz_content',
-        'agentAccountId'    => 'agent_account_id',
+        'flowId'            => 'flow_id',
+        'phaseId'           => 'phase_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('bizContent', $this->bizContent, true);
+        Model::validateRequired('flowId', $this->flowId, true);
+        Model::validateRequired('phaseId', $this->phaseId, true);
     }
 
     public function toMap()
@@ -51,11 +52,11 @@ class ApplyContractMerchantRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->bizContent) {
-            $res['biz_content'] = $this->bizContent;
+        if (null !== $this->flowId) {
+            $res['flow_id'] = $this->flowId;
         }
-        if (null !== $this->agentAccountId) {
-            $res['agent_account_id'] = $this->agentAccountId;
+        if (null !== $this->phaseId) {
+            $res['phase_id'] = $this->phaseId;
         }
 
         return $res;
@@ -64,7 +65,7 @@ class ApplyContractMerchantRequest extends Model
     /**
      * @param array $map
      *
-     * @return ApplyContractMerchantRequest
+     * @return QueryFlowPhaseRequest
      */
     public static function fromMap($map = [])
     {
@@ -75,11 +76,11 @@ class ApplyContractMerchantRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['biz_content'])) {
-            $model->bizContent = $map['biz_content'];
+        if (isset($map['flow_id'])) {
+            $model->flowId = $map['flow_id'];
         }
-        if (isset($map['agent_account_id'])) {
-            $model->agentAccountId = $map['agent_account_id'];
+        if (isset($map['phase_id'])) {
+            $model->phaseId = $map['phase_id'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyContractMerchantRequest extends Model
+class BindContractMerchantRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,13 +19,19 @@ class ApplyContractMerchantRequest extends Model
      */
     public $productInstanceId;
 
-    // 入驻材料
+    // 商户ID
     /**
      * @var string
      */
-    public $bizContent;
+    public $smid;
 
-    // 代理商户账户ID，此参数不填默认平台机构账户入驻
+    // 商户证件号
+    /**
+     * @var string
+     */
+    public $certNo;
+
+    // 代理用户id，不填默认挂接平台方
     /**
      * @var string
      */
@@ -33,13 +39,15 @@ class ApplyContractMerchantRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'bizContent'        => 'biz_content',
+        'smid'              => 'smid',
+        'certNo'            => 'cert_no',
         'agentAccountId'    => 'agent_account_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('bizContent', $this->bizContent, true);
+        Model::validateRequired('smid', $this->smid, true);
+        Model::validateRequired('certNo', $this->certNo, true);
     }
 
     public function toMap()
@@ -51,8 +59,11 @@ class ApplyContractMerchantRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->bizContent) {
-            $res['biz_content'] = $this->bizContent;
+        if (null !== $this->smid) {
+            $res['smid'] = $this->smid;
+        }
+        if (null !== $this->certNo) {
+            $res['cert_no'] = $this->certNo;
         }
         if (null !== $this->agentAccountId) {
             $res['agent_account_id'] = $this->agentAccountId;
@@ -64,7 +75,7 @@ class ApplyContractMerchantRequest extends Model
     /**
      * @param array $map
      *
-     * @return ApplyContractMerchantRequest
+     * @return BindContractMerchantRequest
      */
     public static function fromMap($map = [])
     {
@@ -75,8 +86,11 @@ class ApplyContractMerchantRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['biz_content'])) {
-            $model->bizContent = $map['biz_content'];
+        if (isset($map['smid'])) {
+            $model->smid = $map['smid'];
+        }
+        if (isset($map['cert_no'])) {
+            $model->certNo = $map['cert_no'];
         }
         if (isset($map['agent_account_id'])) {
             $model->agentAccountId = $map['agent_account_id'];
