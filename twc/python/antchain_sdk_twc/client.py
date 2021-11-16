@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.17'
+                    'sdk_version': '1.7.9'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.17'
+                    'sdk_version': '1.7.9'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -4118,7 +4118,7 @@ class Client:
         request: twc_models.ApplyContractMerchantRequest,
     ) -> twc_models.ApplyContractMerchantResponse:
         """
-        Description: 商户入驻直付通新接口
+        Description: 商户入驻直付通新接口，通过此接口创建的商户，签约模式默认走单独签约授权模式（即不同商户都需要进行单独的代扣签约授权）。
         Summary: 商户入驻直付通新接口
         """
         runtime = util_models.RuntimeOptions()
@@ -4130,7 +4130,7 @@ class Client:
         request: twc_models.ApplyContractMerchantRequest,
     ) -> twc_models.ApplyContractMerchantResponse:
         """
-        Description: 商户入驻直付通新接口
+        Description: 商户入驻直付通新接口，通过此接口创建的商户，签约模式默认走单独签约授权模式（即不同商户都需要进行单独的代扣签约授权）。
         Summary: 商户入驻直付通新接口
         """
         runtime = util_models.RuntimeOptions()
@@ -4144,7 +4144,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> twc_models.ApplyContractMerchantResponse:
         """
-        Description: 商户入驻直付通新接口
+        Description: 商户入驻直付通新接口，通过此接口创建的商户，签约模式默认走单独签约授权模式（即不同商户都需要进行单独的代扣签约授权）。
         Summary: 商户入驻直付通新接口
         """
         UtilClient.validate_model(request)
@@ -4159,7 +4159,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> twc_models.ApplyContractMerchantResponse:
         """
-        Description: 商户入驻直付通新接口
+        Description: 商户入驻直付通新接口，通过此接口创建的商户，签约模式默认走单独签约授权模式（即不同商户都需要进行单独的代扣签约授权）。
         Summary: 商户入驻直付通新接口
         """
         UtilClient.validate_model(request)
@@ -4550,7 +4550,7 @@ class Client:
         request: twc_models.QueryContractTradestatusRequest,
     ) -> twc_models.QueryContractTradestatusResponse:
         """
-        Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+        Description: 代扣计划状态查询接口，仅能查询到由新状态机执行的代扣计划，未切换到新状态机的老数据查询不到
         Summary: 代扣计划状态查询
         """
         runtime = util_models.RuntimeOptions()
@@ -4562,7 +4562,7 @@ class Client:
         request: twc_models.QueryContractTradestatusRequest,
     ) -> twc_models.QueryContractTradestatusResponse:
         """
-        Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+        Description: 代扣计划状态查询接口，仅能查询到由新状态机执行的代扣计划，未切换到新状态机的老数据查询不到
         Summary: 代扣计划状态查询
         """
         runtime = util_models.RuntimeOptions()
@@ -4576,7 +4576,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> twc_models.QueryContractTradestatusResponse:
         """
-        Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+        Description: 代扣计划状态查询接口，仅能查询到由新状态机执行的代扣计划，未切换到新状态机的老数据查询不到
         Summary: 代扣计划状态查询
         """
         UtilClient.validate_model(request)
@@ -4591,7 +4591,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> twc_models.QueryContractTradestatusResponse:
         """
-        Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+        Description: 代扣计划状态查询接口，仅能查询到由新状态机执行的代扣计划，未切换到新状态机的老数据查询不到
         Summary: 代扣计划状态查询
         """
         UtilClient.validate_model(request)
@@ -4604,7 +4604,7 @@ class Client:
         request: twc_models.QueryContractRefundRequest,
     ) -> twc_models.QueryContractRefundResponse:
         """
-        Description: 代扣退款查询
+        Description: 代扣退款查询，仅支持新代扣状态机处理过的数据，老状态机处理的数据无法查到。
         Summary: 代扣退款查询
         """
         runtime = util_models.RuntimeOptions()
@@ -4616,7 +4616,7 @@ class Client:
         request: twc_models.QueryContractRefundRequest,
     ) -> twc_models.QueryContractRefundResponse:
         """
-        Description: 代扣退款查询
+        Description: 代扣退款查询，仅支持新代扣状态机处理过的数据，老状态机处理的数据无法查到。
         Summary: 代扣退款查询
         """
         runtime = util_models.RuntimeOptions()
@@ -4630,7 +4630,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> twc_models.QueryContractRefundResponse:
         """
-        Description: 代扣退款查询
+        Description: 代扣退款查询，仅支持新代扣状态机处理过的数据，老状态机处理的数据无法查到。
         Summary: 代扣退款查询
         """
         UtilClient.validate_model(request)
@@ -4645,7 +4645,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> twc_models.QueryContractRefundResponse:
         """
-        Description: 代扣退款查询
+        Description: 代扣退款查询，仅支持新代扣状态机处理过的数据，老状态机处理的数据无法查到。
         Summary: 代扣退款查询
         """
         UtilClient.validate_model(request)
@@ -4759,6 +4759,222 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.QueryContractMerchantorderResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.contract.merchantorder.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_contract_merchant(
+        self,
+        request: twc_models.UpdateContractMerchantRequest,
+    ) -> twc_models.UpdateContractMerchantResponse:
+        """
+        Description: 修改商户进件信息，单商户可能被多个用户代理，信息修改会生效到所有代理用户上。
+        Summary: 商户进件信息修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_contract_merchant_ex(request, headers, runtime)
+
+    async def update_contract_merchant_async(
+        self,
+        request: twc_models.UpdateContractMerchantRequest,
+    ) -> twc_models.UpdateContractMerchantResponse:
+        """
+        Description: 修改商户进件信息，单商户可能被多个用户代理，信息修改会生效到所有代理用户上。
+        Summary: 商户进件信息修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_contract_merchant_ex_async(request, headers, runtime)
+
+    def update_contract_merchant_ex(
+        self,
+        request: twc_models.UpdateContractMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdateContractMerchantResponse:
+        """
+        Description: 修改商户进件信息，单商户可能被多个用户代理，信息修改会生效到所有代理用户上。
+        Summary: 商户进件信息修改
+        """
+        UtilClient.validate_model(request)
+        return twc_models.UpdateContractMerchantResponse().from_map(
+            self.do_request('1.0', 'twc.notary.contract.merchant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_contract_merchant_ex_async(
+        self,
+        request: twc_models.UpdateContractMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdateContractMerchantResponse:
+        """
+        Description: 修改商户进件信息，单商户可能被多个用户代理，信息修改会生效到所有代理用户上。
+        Summary: 商户进件信息修改
+        """
+        UtilClient.validate_model(request)
+        return twc_models.UpdateContractMerchantResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.contract.merchant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_contract_merchant(
+        self,
+        request: twc_models.BindContractMerchantRequest,
+    ) -> twc_models.BindContractMerchantResponse:
+        """
+        Description: 一个二级商户可以挂接多个平台方用户，此接口可以对已进件的商户进行挂接操作。
+        Summary: 二级商户代理挂接接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_contract_merchant_ex(request, headers, runtime)
+
+    async def bind_contract_merchant_async(
+        self,
+        request: twc_models.BindContractMerchantRequest,
+    ) -> twc_models.BindContractMerchantResponse:
+        """
+        Description: 一个二级商户可以挂接多个平台方用户，此接口可以对已进件的商户进行挂接操作。
+        Summary: 二级商户代理挂接接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_contract_merchant_ex_async(request, headers, runtime)
+
+    def bind_contract_merchant_ex(
+        self,
+        request: twc_models.BindContractMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.BindContractMerchantResponse:
+        """
+        Description: 一个二级商户可以挂接多个平台方用户，此接口可以对已进件的商户进行挂接操作。
+        Summary: 二级商户代理挂接接口
+        """
+        UtilClient.validate_model(request)
+        return twc_models.BindContractMerchantResponse().from_map(
+            self.do_request('1.0', 'twc.notary.contract.merchant.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_contract_merchant_ex_async(
+        self,
+        request: twc_models.BindContractMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.BindContractMerchantResponse:
+        """
+        Description: 一个二级商户可以挂接多个平台方用户，此接口可以对已进件的商户进行挂接操作。
+        Summary: 二级商户代理挂接接口
+        """
+        UtilClient.validate_model(request)
+        return twc_models.BindContractMerchantResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.contract.merchant.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_privatecontract_intance(
+        self,
+        request: twc_models.InitPrivatecontractIntanceRequest,
+    ) -> twc_models.InitPrivatecontractIntanceResponse:
+        """
+        Description: 初始化私有化合同服务实例，生成服务验签的公/私钥，以及回调使用的公/私钥
+        Summary: 初始化新的私有化合同服务实例
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_privatecontract_intance_ex(request, headers, runtime)
+
+    async def init_privatecontract_intance_async(
+        self,
+        request: twc_models.InitPrivatecontractIntanceRequest,
+    ) -> twc_models.InitPrivatecontractIntanceResponse:
+        """
+        Description: 初始化私有化合同服务实例，生成服务验签的公/私钥，以及回调使用的公/私钥
+        Summary: 初始化新的私有化合同服务实例
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_privatecontract_intance_ex_async(request, headers, runtime)
+
+    def init_privatecontract_intance_ex(
+        self,
+        request: twc_models.InitPrivatecontractIntanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.InitPrivatecontractIntanceResponse:
+        """
+        Description: 初始化私有化合同服务实例，生成服务验签的公/私钥，以及回调使用的公/私钥
+        Summary: 初始化新的私有化合同服务实例
+        """
+        UtilClient.validate_model(request)
+        return twc_models.InitPrivatecontractIntanceResponse().from_map(
+            self.do_request('1.0', 'twc.notary.privatecontract.intance.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_privatecontract_intance_ex_async(
+        self,
+        request: twc_models.InitPrivatecontractIntanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.InitPrivatecontractIntanceResponse:
+        """
+        Description: 初始化私有化合同服务实例，生成服务验签的公/私钥，以及回调使用的公/私钥
+        Summary: 初始化新的私有化合同服务实例
+        """
+        UtilClient.validate_model(request)
+        return twc_models.InitPrivatecontractIntanceResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.privatecontract.intance.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_privatecontract_intance(
+        self,
+        request: twc_models.UpdatePrivatecontractIntanceRequest,
+    ) -> twc_models.UpdatePrivatecontractIntanceResponse:
+        """
+        Description: 更新已有的私有化合同服务实例信息，如私有化服务地址
+        Summary: 更新私有化合同服务实例信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_privatecontract_intance_ex(request, headers, runtime)
+
+    async def update_privatecontract_intance_async(
+        self,
+        request: twc_models.UpdatePrivatecontractIntanceRequest,
+    ) -> twc_models.UpdatePrivatecontractIntanceResponse:
+        """
+        Description: 更新已有的私有化合同服务实例信息，如私有化服务地址
+        Summary: 更新私有化合同服务实例信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_privatecontract_intance_ex_async(request, headers, runtime)
+
+    def update_privatecontract_intance_ex(
+        self,
+        request: twc_models.UpdatePrivatecontractIntanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdatePrivatecontractIntanceResponse:
+        """
+        Description: 更新已有的私有化合同服务实例信息，如私有化服务地址
+        Summary: 更新私有化合同服务实例信息
+        """
+        UtilClient.validate_model(request)
+        return twc_models.UpdatePrivatecontractIntanceResponse().from_map(
+            self.do_request('1.0', 'twc.notary.privatecontract.intance.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_privatecontract_intance_ex_async(
+        self,
+        request: twc_models.UpdatePrivatecontractIntanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdatePrivatecontractIntanceResponse:
+        """
+        Description: 更新已有的私有化合同服务实例信息，如私有化服务地址
+        Summary: 更新私有化合同服务实例信息
+        """
+        UtilClient.validate_model(request)
+        return twc_models.UpdatePrivatecontractIntanceResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.privatecontract.intance.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def sync_inner_trans(
@@ -6811,6 +7027,168 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.ApplyLeaseSupplierorderResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.lease.supplierorder.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_lease_financecertify(
+        self,
+        request: twc_models.CreateLeaseFinancecertifyRequest,
+    ) -> twc_models.CreateLeaseFinancecertifyResponse:
+        """
+        Description: 创建融资租赁提前还款人脸认证信息
+        Summary: 创建融资租赁提前还款人脸认证信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_lease_financecertify_ex(request, headers, runtime)
+
+    async def create_lease_financecertify_async(
+        self,
+        request: twc_models.CreateLeaseFinancecertifyRequest,
+    ) -> twc_models.CreateLeaseFinancecertifyResponse:
+        """
+        Description: 创建融资租赁提前还款人脸认证信息
+        Summary: 创建融资租赁提前还款人脸认证信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_lease_financecertify_ex_async(request, headers, runtime)
+
+    def create_lease_financecertify_ex(
+        self,
+        request: twc_models.CreateLeaseFinancecertifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseFinancecertifyResponse:
+        """
+        Description: 创建融资租赁提前还款人脸认证信息
+        Summary: 创建融资租赁提前还款人脸认证信息
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateLeaseFinancecertifyResponse().from_map(
+            self.do_request('1.0', 'twc.notary.lease.financecertify.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_lease_financecertify_ex_async(
+        self,
+        request: twc_models.CreateLeaseFinancecertifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseFinancecertifyResponse:
+        """
+        Description: 创建融资租赁提前还款人脸认证信息
+        Summary: 创建融资租赁提前还款人脸认证信息
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateLeaseFinancecertifyResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.lease.financecertify.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_lease_financecertify(
+        self,
+        request: twc_models.QueryLeaseFinancecertifyRequest,
+    ) -> twc_models.QueryLeaseFinancecertifyResponse:
+        """
+        Description: 融资租赁提前还款人脸识别核验
+        Summary: 融资租赁提前还款人脸识别核验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_lease_financecertify_ex(request, headers, runtime)
+
+    async def query_lease_financecertify_async(
+        self,
+        request: twc_models.QueryLeaseFinancecertifyRequest,
+    ) -> twc_models.QueryLeaseFinancecertifyResponse:
+        """
+        Description: 融资租赁提前还款人脸识别核验
+        Summary: 融资租赁提前还款人脸识别核验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_lease_financecertify_ex_async(request, headers, runtime)
+
+    def query_lease_financecertify_ex(
+        self,
+        request: twc_models.QueryLeaseFinancecertifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseFinancecertifyResponse:
+        """
+        Description: 融资租赁提前还款人脸识别核验
+        Summary: 融资租赁提前还款人脸识别核验
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryLeaseFinancecertifyResponse().from_map(
+            self.do_request('1.0', 'twc.notary.lease.financecertify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_lease_financecertify_ex_async(
+        self,
+        request: twc_models.QueryLeaseFinancecertifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseFinancecertifyResponse:
+        """
+        Description: 融资租赁提前还款人脸识别核验
+        Summary: 融资租赁提前还款人脸识别核验
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryLeaseFinancecertifyResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.lease.financecertify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_lease_financecertifyincontract(
+        self,
+        request: twc_models.QueryLeaseFinancecertifyincontractRequest,
+    ) -> twc_models.QueryLeaseFinancecertifyincontractResponse:
+        """
+        Description: 查询融资租赁合约内核验结果
+        Summary: 查询融资租赁合约内核验结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_lease_financecertifyincontract_ex(request, headers, runtime)
+
+    async def query_lease_financecertifyincontract_async(
+        self,
+        request: twc_models.QueryLeaseFinancecertifyincontractRequest,
+    ) -> twc_models.QueryLeaseFinancecertifyincontractResponse:
+        """
+        Description: 查询融资租赁合约内核验结果
+        Summary: 查询融资租赁合约内核验结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_lease_financecertifyincontract_ex_async(request, headers, runtime)
+
+    def query_lease_financecertifyincontract_ex(
+        self,
+        request: twc_models.QueryLeaseFinancecertifyincontractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseFinancecertifyincontractResponse:
+        """
+        Description: 查询融资租赁合约内核验结果
+        Summary: 查询融资租赁合约内核验结果
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryLeaseFinancecertifyincontractResponse().from_map(
+            self.do_request('1.0', 'twc.notary.lease.financecertifyincontract.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_lease_financecertifyincontract_ex_async(
+        self,
+        request: twc_models.QueryLeaseFinancecertifyincontractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseFinancecertifyincontractResponse:
+        """
+        Description: 查询融资租赁合约内核验结果
+        Summary: 查询融资租赁合约内核验结果
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryLeaseFinancecertifyincontractResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.lease.financecertifyincontract.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_witness_flow(
@@ -10753,4 +11131,220 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.OpenInternalTwcResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.internal.twc.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_flow_instance(
+        self,
+        request: twc_models.CreateFlowInstanceRequest,
+    ) -> twc_models.CreateFlowInstanceResponse:
+        """
+        Description: 创建存证流程实例
+        Summary: 创建存证流程实例
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_flow_instance_ex(request, headers, runtime)
+
+    async def create_flow_instance_async(
+        self,
+        request: twc_models.CreateFlowInstanceRequest,
+    ) -> twc_models.CreateFlowInstanceResponse:
+        """
+        Description: 创建存证流程实例
+        Summary: 创建存证流程实例
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_flow_instance_ex_async(request, headers, runtime)
+
+    def create_flow_instance_ex(
+        self,
+        request: twc_models.CreateFlowInstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateFlowInstanceResponse:
+        """
+        Description: 创建存证流程实例
+        Summary: 创建存证流程实例
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateFlowInstanceResponse().from_map(
+            self.do_request('1.0', 'twc.notary.flow.instance.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_flow_instance_ex_async(
+        self,
+        request: twc_models.CreateFlowInstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateFlowInstanceResponse:
+        """
+        Description: 创建存证流程实例
+        Summary: 创建存证流程实例
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateFlowInstanceResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.flow.instance.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def finish_flow_instance(
+        self,
+        request: twc_models.FinishFlowInstanceRequest,
+    ) -> twc_models.FinishFlowInstanceResponse:
+        """
+        Description: 存证流程实例完结
+        Summary: 存证流程实例完结
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.finish_flow_instance_ex(request, headers, runtime)
+
+    async def finish_flow_instance_async(
+        self,
+        request: twc_models.FinishFlowInstanceRequest,
+    ) -> twc_models.FinishFlowInstanceResponse:
+        """
+        Description: 存证流程实例完结
+        Summary: 存证流程实例完结
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.finish_flow_instance_ex_async(request, headers, runtime)
+
+    def finish_flow_instance_ex(
+        self,
+        request: twc_models.FinishFlowInstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.FinishFlowInstanceResponse:
+        """
+        Description: 存证流程实例完结
+        Summary: 存证流程实例完结
+        """
+        UtilClient.validate_model(request)
+        return twc_models.FinishFlowInstanceResponse().from_map(
+            self.do_request('1.0', 'twc.notary.flow.instance.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def finish_flow_instance_ex_async(
+        self,
+        request: twc_models.FinishFlowInstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.FinishFlowInstanceResponse:
+        """
+        Description: 存证流程实例完结
+        Summary: 存证流程实例完结
+        """
+        UtilClient.validate_model(request)
+        return twc_models.FinishFlowInstanceResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.flow.instance.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_flow_phase(
+        self,
+        request: twc_models.InitFlowPhaseRequest,
+    ) -> twc_models.InitFlowPhaseResponse:
+        """
+        Description: 创建阶段存证
+        Summary: 创建阶段存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_flow_phase_ex(request, headers, runtime)
+
+    async def init_flow_phase_async(
+        self,
+        request: twc_models.InitFlowPhaseRequest,
+    ) -> twc_models.InitFlowPhaseResponse:
+        """
+        Description: 创建阶段存证
+        Summary: 创建阶段存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_flow_phase_ex_async(request, headers, runtime)
+
+    def init_flow_phase_ex(
+        self,
+        request: twc_models.InitFlowPhaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.InitFlowPhaseResponse:
+        """
+        Description: 创建阶段存证
+        Summary: 创建阶段存证
+        """
+        UtilClient.validate_model(request)
+        return twc_models.InitFlowPhaseResponse().from_map(
+            self.do_request('1.0', 'twc.notary.flow.phase.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_flow_phase_ex_async(
+        self,
+        request: twc_models.InitFlowPhaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.InitFlowPhaseResponse:
+        """
+        Description: 创建阶段存证
+        Summary: 创建阶段存证
+        """
+        UtilClient.validate_model(request)
+        return twc_models.InitFlowPhaseResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.flow.phase.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_flow_phase(
+        self,
+        request: twc_models.QueryFlowPhaseRequest,
+    ) -> twc_models.QueryFlowPhaseResponse:
+        """
+        Description: 查询阶段存证结果
+        Summary: 查询阶段存证结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_flow_phase_ex(request, headers, runtime)
+
+    async def query_flow_phase_async(
+        self,
+        request: twc_models.QueryFlowPhaseRequest,
+    ) -> twc_models.QueryFlowPhaseResponse:
+        """
+        Description: 查询阶段存证结果
+        Summary: 查询阶段存证结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_flow_phase_ex_async(request, headers, runtime)
+
+    def query_flow_phase_ex(
+        self,
+        request: twc_models.QueryFlowPhaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryFlowPhaseResponse:
+        """
+        Description: 查询阶段存证结果
+        Summary: 查询阶段存证结果
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryFlowPhaseResponse().from_map(
+            self.do_request('1.0', 'twc.notary.flow.phase.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_flow_phase_ex_async(
+        self,
+        request: twc_models.QueryFlowPhaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryFlowPhaseResponse:
+        """
+        Description: 查询阶段存证结果
+        Summary: 查询阶段存证结果
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryFlowPhaseResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.flow.phase.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
