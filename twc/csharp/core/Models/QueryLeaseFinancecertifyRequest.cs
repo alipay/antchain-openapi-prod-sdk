@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class ApplyContractMerchantRequest : TeaModel {
+    public class QueryLeaseFinancecertifyRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,20 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 入驻材料
-        [NameInMap("biz_content")]
+        // 订单id
+        [NameInMap("order_id")]
         [Validation(Required=true)]
-        public string BizContent { get; set; }
+        public string OrderId { get; set; }
 
-        // 代理商户账户ID，此参数不填默认平台机构账户入驻
-        [NameInMap("agent_account_id")]
+        // 租赁商户金融科技租户id
+        [NameInMap("lease_id")]
         [Validation(Required=false)]
-        public string AgentAccountId { get; set; }
+        public string LeaseId { get; set; }
+
+        // 核验凭证
+        [NameInMap("lease_certify_id")]
+        [Validation(Required=true)]
+        public string LeaseCertifyId { get; set; }
 
     }
 

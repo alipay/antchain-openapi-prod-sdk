@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class ApplyContractMerchantRequest : TeaModel {
+    public class UpdatePrivatecontractIntanceRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,15 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 入驻材料
-        [NameInMap("biz_content")]
+        // 私有化服务地址
+        [NameInMap("service_url")]
         [Validation(Required=true)]
-        public string BizContent { get; set; }
+        public string ServiceUrl { get; set; }
 
-        // 代理商户账户ID，此参数不填默认平台机构账户入驻
-        [NameInMap("agent_account_id")]
-        [Validation(Required=false)]
-        public string AgentAccountId { get; set; }
+        // 实例ID
+        [NameInMap("instance_id")]
+        [Validation(Required=true)]
+        public string InstanceId { get; set; }
 
     }
 
