@@ -9,10 +9,25 @@ public class SupplierInfo extends TeaModel {
     @Validation(required = true)
     public String agentSupplierId;
 
+    // 被代理机构社会统一信用码
+    @NameInMap("agent_supplier_corp_id")
+    @Validation(required = true)
+    public String agentSupplierCorpId;
+
+    // 被代理机构名称
+    @NameInMap("agent_supplier_corp_name")
+    @Validation(required = true)
+    public String agentSupplierCorpName;
+
     // 被代理供应商名称
     @NameInMap("agent_supplier_name")
     @Validation(required = true)
     public String agentSupplierName;
+
+    // 被代理机构的法人名称
+    @NameInMap("agent_supplier_corp_owner_name")
+    @Validation(required = true)
+    public String agentSupplierCorpOwnerName;
 
     // 额外信息
     @NameInMap("extra_info")
@@ -31,12 +46,36 @@ public class SupplierInfo extends TeaModel {
         return this.agentSupplierId;
     }
 
+    public SupplierInfo setAgentSupplierCorpId(String agentSupplierCorpId) {
+        this.agentSupplierCorpId = agentSupplierCorpId;
+        return this;
+    }
+    public String getAgentSupplierCorpId() {
+        return this.agentSupplierCorpId;
+    }
+
+    public SupplierInfo setAgentSupplierCorpName(String agentSupplierCorpName) {
+        this.agentSupplierCorpName = agentSupplierCorpName;
+        return this;
+    }
+    public String getAgentSupplierCorpName() {
+        return this.agentSupplierCorpName;
+    }
+
     public SupplierInfo setAgentSupplierName(String agentSupplierName) {
         this.agentSupplierName = agentSupplierName;
         return this;
     }
     public String getAgentSupplierName() {
         return this.agentSupplierName;
+    }
+
+    public SupplierInfo setAgentSupplierCorpOwnerName(String agentSupplierCorpOwnerName) {
+        this.agentSupplierCorpOwnerName = agentSupplierCorpOwnerName;
+        return this;
+    }
+    public String getAgentSupplierCorpOwnerName() {
+        return this.agentSupplierCorpOwnerName;
     }
 
     public SupplierInfo setExtraInfo(String extraInfo) {

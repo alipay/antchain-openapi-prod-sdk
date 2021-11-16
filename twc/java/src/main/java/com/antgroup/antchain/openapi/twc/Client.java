@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.17")
+                    new TeaPair("sdk_version", "1.7.9")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1513,7 +1513,7 @@ public class Client {
     }
 
     /**
-     * Description: 商户入驻直付通新接口
+     * Description: 商户入驻直付通新接口，通过此接口创建的商户，签约模式默认走单独签约授权模式（即不同商户都需要进行单独的代扣签约授权）。
      * Summary: 商户入驻直付通新接口
      */
     public ApplyContractMerchantResponse applyContractMerchant(ApplyContractMerchantRequest request) throws Exception {
@@ -1523,7 +1523,7 @@ public class Client {
     }
 
     /**
-     * Description: 商户入驻直付通新接口
+     * Description: 商户入驻直付通新接口，通过此接口创建的商户，签约模式默认走单独签约授权模式（即不同商户都需要进行单独的代扣签约授权）。
      * Summary: 商户入驻直付通新接口
      */
     public ApplyContractMerchantResponse applyContractMerchantEx(ApplyContractMerchantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
@@ -1665,7 +1665,7 @@ public class Client {
     }
 
     /**
-     * Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+     * Description: 代扣计划状态查询接口，仅能查询到由新状态机执行的代扣计划，未切换到新状态机的老数据查询不到
      * Summary: 代扣计划状态查询
      */
     public QueryContractTradestatusResponse queryContractTradestatus(QueryContractTradestatusRequest request) throws Exception {
@@ -1675,7 +1675,7 @@ public class Client {
     }
 
     /**
-     * Description: 代扣计划状态查询接口，仅能查询到由心状态机执行的代扣计划，未切换到新状态机的老数据查询不到
+     * Description: 代扣计划状态查询接口，仅能查询到由新状态机执行的代扣计划，未切换到新状态机的老数据查询不到
      * Summary: 代扣计划状态查询
      */
     public QueryContractTradestatusResponse queryContractTradestatusEx(QueryContractTradestatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
@@ -1684,7 +1684,7 @@ public class Client {
     }
 
     /**
-     * Description: 代扣退款查询
+     * Description: 代扣退款查询，仅支持新代扣状态机处理过的数据，老状态机处理的数据无法查到。
      * Summary: 代扣退款查询
      */
     public QueryContractRefundResponse queryContractRefund(QueryContractRefundRequest request) throws Exception {
@@ -1694,7 +1694,7 @@ public class Client {
     }
 
     /**
-     * Description: 代扣退款查询
+     * Description: 代扣退款查询，仅支持新代扣状态机处理过的数据，老状态机处理的数据无法查到。
      * Summary: 代扣退款查询
      */
     public QueryContractRefundResponse queryContractRefundEx(QueryContractRefundRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
@@ -1738,6 +1738,82 @@ public class Client {
     public QueryContractMerchantorderResponse queryContractMerchantorderEx(QueryContractMerchantorderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.merchantorder.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContractMerchantorderResponse());
+    }
+
+    /**
+     * Description: 修改商户进件信息，单商户可能被多个用户代理，信息修改会生效到所有代理用户上。
+     * Summary: 商户进件信息修改
+     */
+    public UpdateContractMerchantResponse updateContractMerchant(UpdateContractMerchantRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateContractMerchantEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 修改商户进件信息，单商户可能被多个用户代理，信息修改会生效到所有代理用户上。
+     * Summary: 商户进件信息修改
+     */
+    public UpdateContractMerchantResponse updateContractMerchantEx(UpdateContractMerchantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.merchant.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateContractMerchantResponse());
+    }
+
+    /**
+     * Description: 一个二级商户可以挂接多个平台方用户，此接口可以对已进件的商户进行挂接操作。
+     * Summary: 二级商户代理挂接接口
+     */
+    public BindContractMerchantResponse bindContractMerchant(BindContractMerchantRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindContractMerchantEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 一个二级商户可以挂接多个平台方用户，此接口可以对已进件的商户进行挂接操作。
+     * Summary: 二级商户代理挂接接口
+     */
+    public BindContractMerchantResponse bindContractMerchantEx(BindContractMerchantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.merchant.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindContractMerchantResponse());
+    }
+
+    /**
+     * Description: 初始化私有化合同服务实例，生成服务验签的公/私钥，以及回调使用的公/私钥
+     * Summary: 初始化新的私有化合同服务实例
+     */
+    public InitPrivatecontractIntanceResponse initPrivatecontractIntance(InitPrivatecontractIntanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initPrivatecontractIntanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 初始化私有化合同服务实例，生成服务验签的公/私钥，以及回调使用的公/私钥
+     * Summary: 初始化新的私有化合同服务实例
+     */
+    public InitPrivatecontractIntanceResponse initPrivatecontractIntanceEx(InitPrivatecontractIntanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.privatecontract.intance.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitPrivatecontractIntanceResponse());
+    }
+
+    /**
+     * Description: 更新已有的私有化合同服务实例信息，如私有化服务地址
+     * Summary: 更新私有化合同服务实例信息
+     */
+    public UpdatePrivatecontractIntanceResponse updatePrivatecontractIntance(UpdatePrivatecontractIntanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updatePrivatecontractIntanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新已有的私有化合同服务实例信息，如私有化服务地址
+     * Summary: 更新私有化合同服务实例信息
+     */
+    public UpdatePrivatecontractIntanceResponse updatePrivatecontractIntanceEx(UpdatePrivatecontractIntanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.privatecontract.intance.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdatePrivatecontractIntanceResponse());
     }
 
     /**
@@ -2460,6 +2536,63 @@ public class Client {
     public ApplyLeaseSupplierorderResponse applyLeaseSupplierorderEx(ApplyLeaseSupplierorderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.supplierorder.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyLeaseSupplierorderResponse());
+    }
+
+    /**
+     * Description: 创建融资租赁提前还款人脸认证信息
+     * Summary: 创建融资租赁提前还款人脸认证信息
+     */
+    public CreateLeaseFinancecertifyResponse createLeaseFinancecertify(CreateLeaseFinancecertifyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createLeaseFinancecertifyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建融资租赁提前还款人脸认证信息
+     * Summary: 创建融资租赁提前还款人脸认证信息
+     */
+    public CreateLeaseFinancecertifyResponse createLeaseFinancecertifyEx(CreateLeaseFinancecertifyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.financecertify.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateLeaseFinancecertifyResponse());
+    }
+
+    /**
+     * Description: 融资租赁提前还款人脸识别核验
+     * Summary: 融资租赁提前还款人脸识别核验
+     */
+    public QueryLeaseFinancecertifyResponse queryLeaseFinancecertify(QueryLeaseFinancecertifyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryLeaseFinancecertifyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 融资租赁提前还款人脸识别核验
+     * Summary: 融资租赁提前还款人脸识别核验
+     */
+    public QueryLeaseFinancecertifyResponse queryLeaseFinancecertifyEx(QueryLeaseFinancecertifyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.financecertify.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLeaseFinancecertifyResponse());
+    }
+
+    /**
+     * Description: 查询融资租赁合约内核验结果
+     * Summary: 查询融资租赁合约内核验结果
+     */
+    public QueryLeaseFinancecertifyincontractResponse queryLeaseFinancecertifyincontract(QueryLeaseFinancecertifyincontractRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryLeaseFinancecertifyincontractEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询融资租赁合约内核验结果
+     * Summary: 查询融资租赁合约内核验结果
+     */
+    public QueryLeaseFinancecertifyincontractResponse queryLeaseFinancecertifyincontractEx(QueryLeaseFinancecertifyincontractRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.financecertifyincontract.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLeaseFinancecertifyincontractResponse());
     }
 
     /**
@@ -3847,5 +3980,81 @@ public class Client {
     public OpenInternalTwcResponse openInternalTwcEx(OpenInternalTwcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.internal.twc.open", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OpenInternalTwcResponse());
+    }
+
+    /**
+     * Description: 创建存证流程实例
+     * Summary: 创建存证流程实例
+     */
+    public CreateFlowInstanceResponse createFlowInstance(CreateFlowInstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createFlowInstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建存证流程实例
+     * Summary: 创建存证流程实例
+     */
+    public CreateFlowInstanceResponse createFlowInstanceEx(CreateFlowInstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.flow.instance.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateFlowInstanceResponse());
+    }
+
+    /**
+     * Description: 存证流程实例完结
+     * Summary: 存证流程实例完结
+     */
+    public FinishFlowInstanceResponse finishFlowInstance(FinishFlowInstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.finishFlowInstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 存证流程实例完结
+     * Summary: 存证流程实例完结
+     */
+    public FinishFlowInstanceResponse finishFlowInstanceEx(FinishFlowInstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.flow.instance.finish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FinishFlowInstanceResponse());
+    }
+
+    /**
+     * Description: 创建阶段存证
+     * Summary: 创建阶段存证
+     */
+    public InitFlowPhaseResponse initFlowPhase(InitFlowPhaseRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initFlowPhaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建阶段存证
+     * Summary: 创建阶段存证
+     */
+    public InitFlowPhaseResponse initFlowPhaseEx(InitFlowPhaseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.flow.phase.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitFlowPhaseResponse());
+    }
+
+    /**
+     * Description: 查询阶段存证结果
+     * Summary: 查询阶段存证结果
+     */
+    public QueryFlowPhaseResponse queryFlowPhase(QueryFlowPhaseRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryFlowPhaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询阶段存证结果
+     * Summary: 查询阶段存证结果
+     */
+    public QueryFlowPhaseResponse queryFlowPhaseEx(QueryFlowPhaseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.flow.phase.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFlowPhaseResponse());
     }
 }
