@@ -200,8 +200,6 @@ type UploadSpdbWtpResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 结果状态
-	ResultStatus *string `json:"result_status,omitempty" xml:"result_status,omitempty"`
 	// 结果信息
 	ResultMessage *string `json:"result_message,omitempty" xml:"result_message,omitempty"`
 }
@@ -226,11 +224,6 @@ func (s *UploadSpdbWtpResponse) SetResultCode(v string) *UploadSpdbWtpResponse {
 
 func (s *UploadSpdbWtpResponse) SetResultMsg(v string) *UploadSpdbWtpResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *UploadSpdbWtpResponse) SetResultStatus(v string) *UploadSpdbWtpResponse {
-	s.ResultStatus = &v
 	return s
 }
 
@@ -361,7 +354,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.0.2"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
