@@ -119,8 +119,6 @@ export class UploadSpdbWtpResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 结果状态
-  resultStatus?: string;
   // 结果信息
   resultMessage?: string;
   static names(): { [key: string]: string } {
@@ -128,7 +126,6 @@ export class UploadSpdbWtpResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      resultStatus: 'result_status',
       resultMessage: 'result_message',
     };
   }
@@ -138,7 +135,6 @@ export class UploadSpdbWtpResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      resultStatus: 'string',
       resultMessage: 'string',
     };
   }
@@ -261,7 +257,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.1",
+          sdk_version: "1.0.2",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
