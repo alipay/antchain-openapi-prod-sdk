@@ -24,11 +24,6 @@ namespace AntChain.SDK.TFTUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 结果状态
-        [NameInMap("result_status")]
-        [Validation(Required=false)]
-        public string ResultStatus { get; set; }
-
         // 结果信息
         [NameInMap("result_message")]
         [Validation(Required=false)]
