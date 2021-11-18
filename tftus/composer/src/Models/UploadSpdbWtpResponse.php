@@ -26,12 +26,6 @@ class UploadSpdbWtpResponse extends Model
      */
     public $resultMsg;
 
-    // 结果状态
-    /**
-     * @var string
-     */
-    public $resultStatus;
-
     // 结果信息
     /**
      * @var string
@@ -41,7 +35,6 @@ class UploadSpdbWtpResponse extends Model
         'reqMsgId'      => 'req_msg_id',
         'resultCode'    => 'result_code',
         'resultMsg'     => 'result_msg',
-        'resultStatus'  => 'result_status',
         'resultMessage' => 'result_message',
     ];
 
@@ -60,9 +53,6 @@ class UploadSpdbWtpResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->resultStatus) {
-            $res['result_status'] = $this->resultStatus;
         }
         if (null !== $this->resultMessage) {
             $res['result_message'] = $this->resultMessage;
@@ -87,9 +77,6 @@ class UploadSpdbWtpResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['result_status'])) {
-            $model->resultStatus = $map['result_status'];
         }
         if (isset($map['result_message'])) {
             $model->resultMessage = $map['result_message'];
