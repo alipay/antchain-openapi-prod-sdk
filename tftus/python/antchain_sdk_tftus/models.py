@@ -208,7 +208,6 @@ class UploadSpdbWtpResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        result_status: str = None,
         result_message: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -217,8 +216,6 @@ class UploadSpdbWtpResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 结果状态
-        self.result_status = result_status
         # 结果信息
         self.result_message = result_message
 
@@ -233,8 +230,6 @@ class UploadSpdbWtpResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.result_status is not None:
-            result['result_status'] = self.result_status
         if self.result_message is not None:
             result['result_message'] = self.result_message
         return result
@@ -247,8 +242,6 @@ class UploadSpdbWtpResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('result_status') is not None:
-            self.result_status = m.get('result_status')
         if m.get('result_message') is not None:
             self.result_message = m.get('result_message')
         return self
