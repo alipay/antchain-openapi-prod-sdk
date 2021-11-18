@@ -16,10 +16,6 @@ public class UploadSpdbWtpResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 结果状态
-    @NameInMap("result_status")
-    public String resultStatus;
-
     // 结果信息
     @NameInMap("result_message")
     public String resultMessage;
@@ -51,14 +47,6 @@ public class UploadSpdbWtpResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public UploadSpdbWtpResponse setResultStatus(String resultStatus) {
-        this.resultStatus = resultStatus;
-        return this;
-    }
-    public String getResultStatus() {
-        return this.resultStatus;
     }
 
     public UploadSpdbWtpResponse setResultMessage(String resultMessage) {
