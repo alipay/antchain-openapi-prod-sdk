@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.128")
+                    new TeaPair("sdk_version", "1.3.132")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -919,6 +919,44 @@ public class Client {
     public CreateBillReceivablebillnodetailResponse createBillReceivablebillnodetailEx(CreateBillReceivablebillnodetailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.bill.receivablebillnodetail.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBillReceivablebillnodetailResponse());
+    }
+
+    /**
+     * Description: 企业信息上传/更新
+     * Summary: 企业信息上传/更新
+     */
+    public SaveTrailerCorpResponse saveTrailerCorp(SaveTrailerCorpRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.saveTrailerCorpEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企业信息上传/更新
+     * Summary: 企业信息上传/更新
+     */
+    public SaveTrailerCorpResponse saveTrailerCorpEx(SaveTrailerCorpRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.trailer.corp.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveTrailerCorpResponse());
+    }
+
+    /**
+     * Description: 企业运营数据上传/更新
+     * Summary: 企业运营数据上传/更新
+     */
+    public SaveTrailerTransportResponse saveTrailerTransport(SaveTrailerTransportRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.saveTrailerTransportEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企业运营数据上传/更新
+     * Summary: 企业运营数据上传/更新
+     */
+    public SaveTrailerTransportResponse saveTrailerTransportEx(SaveTrailerTransportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.trailer.transport.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveTrailerTransportResponse());
     }
 
     /**
@@ -1970,7 +2008,7 @@ public class Client {
 
     /**
      * Description: 海外、跨境邮包险理赔报案
-     * Summary: 海外邮包险报案
+     * Summary: 海外、跨境邮包险报案
      */
     public ApplyInsuranceOspireportResponse applyInsuranceOspireport(ApplyInsuranceOspireportRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -1980,7 +2018,7 @@ public class Client {
 
     /**
      * Description: 海外、跨境邮包险理赔报案
-     * Summary: 海外邮包险报案
+     * Summary: 海外、跨境邮包险报案
      */
     public ApplyInsuranceOspireportResponse applyInsuranceOspireportEx(ApplyInsuranceOspireportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1989,7 +2027,7 @@ public class Client {
 
     /**
      * Description: 海外、跨境邮包险案件结果通知
-     * Summary: 海外邮包险案件结果通知
+     * Summary: 海外、跨境邮包险案件结果通知
      */
     public NotifyInsuranceOspireportResponse notifyInsuranceOspireport(NotifyInsuranceOspireportRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -1999,7 +2037,7 @@ public class Client {
 
     /**
      * Description: 海外、跨境邮包险案件结果通知
-     * Summary: 海外邮包险案件结果通知
+     * Summary: 海外、跨境邮包险案件结果通知
      */
     public NotifyInsuranceOspireportResponse notifyInsuranceOspireportEx(NotifyInsuranceOspireportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -2099,6 +2137,25 @@ public class Client {
     public SaveInsuranceWaybillResponse saveInsuranceWaybillEx(SaveInsuranceWaybillRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.insurance.waybill.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveInsuranceWaybillResponse());
+    }
+
+    /**
+     * Description: 产业保险电子保单查询
+     * Summary: 产业保险电子保单查询
+     */
+    public QueryInsuranceEpolicyResponse queryInsuranceEpolicy(QueryInsuranceEpolicyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInsuranceEpolicyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 产业保险电子保单查询
+     * Summary: 产业保险电子保单查询
+     */
+    public QueryInsuranceEpolicyResponse queryInsuranceEpolicyEx(QueryInsuranceEpolicyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.insurance.epolicy.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInsuranceEpolicyResponse());
     }
 
     /**
