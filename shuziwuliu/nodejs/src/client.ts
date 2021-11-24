@@ -7476,6 +7476,160 @@ export class CreateBillReceivablebillnodetailResponse extends $tea.Model {
   }
 }
 
+export class SaveTrailerCorpRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 企业名称
+  companyName: string;
+  // 企业统一社会信用代码
+  socialCreditCode: string;
+  // 渠道企业名称
+  channelCompanyName: string;
+  // 渠道企业信用代码
+  channelSocialCreditCode: string;
+  // 企业入驻渠道日期
+  entryDate: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      companyName: 'company_name',
+      socialCreditCode: 'social_credit_code',
+      channelCompanyName: 'channel_company_name',
+      channelSocialCreditCode: 'channel_social_credit_code',
+      entryDate: 'entry_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      companyName: 'string',
+      socialCreditCode: 'string',
+      channelCompanyName: 'string',
+      channelSocialCreditCode: 'string',
+      entryDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveTrailerCorpResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回结果
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveTrailerTransportRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 企业名称
+  companyName: string;
+  // 企业统一社会信用代码
+  socialCreditCode: string;
+  // 运营数据.月份
+  transportMonth: string;
+  // 运营数据.运输箱量
+  transportContainerQuantity?: number;
+  // 运营数据.运费总额
+  freightTotalAmount: string;
+  // 运营数据.运输司机量
+  transportDriverQuantity?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      companyName: 'company_name',
+      socialCreditCode: 'social_credit_code',
+      transportMonth: 'transport_month',
+      transportContainerQuantity: 'transport_container_quantity',
+      freightTotalAmount: 'freight_total_amount',
+      transportDriverQuantity: 'transport_driver_quantity',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      companyName: 'string',
+      socialCreditCode: 'string',
+      transportMonth: 'string',
+      transportContainerQuantity: 'number',
+      freightTotalAmount: 'string',
+      transportDriverQuantity: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveTrailerTransportResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上传结果 
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryBusinessInstancestatusRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -14299,6 +14453,73 @@ export class SaveInsuranceWaybillResponse extends $tea.Model {
   }
 }
 
+export class QueryInsuranceEpolicyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 投保返回的交易流水号
+  applyTradeNo: string;
+  // 保司编码
+  externalChannelCode: string;
+  // 保单号
+  policyNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applyTradeNo: 'apply_trade_no',
+      externalChannelCode: 'external_channel_code',
+      policyNo: 'policy_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applyTradeNo: 'string',
+      externalChannelCode: 'string',
+      policyNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInsuranceEpolicyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 电子保单url地址
+  policyUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      policyUrl: 'policy_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      policyUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class PushAuthSigninfoRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -20277,7 +20498,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.128",
+          sdk_version: "1.3.132",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -21083,6 +21304,44 @@ export default class Client {
   async createBillReceivablebillnodetailEx(request: CreateBillReceivablebillnodetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateBillReceivablebillnodetailResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateBillReceivablebillnodetailResponse>(await this.doRequest("1.0", "digital.logistic.bill.receivablebillnodetail.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateBillReceivablebillnodetailResponse({}));
+  }
+
+  /**
+   * Description: 企业信息上传/更新
+   * Summary: 企业信息上传/更新
+   */
+  async saveTrailerCorp(request: SaveTrailerCorpRequest): Promise<SaveTrailerCorpResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.saveTrailerCorpEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企业信息上传/更新
+   * Summary: 企业信息上传/更新
+   */
+  async saveTrailerCorpEx(request: SaveTrailerCorpRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SaveTrailerCorpResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SaveTrailerCorpResponse>(await this.doRequest("1.0", "digital.logistic.trailer.corp.save", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SaveTrailerCorpResponse({}));
+  }
+
+  /**
+   * Description: 企业运营数据上传/更新
+   * Summary: 企业运营数据上传/更新
+   */
+  async saveTrailerTransport(request: SaveTrailerTransportRequest): Promise<SaveTrailerTransportResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.saveTrailerTransportEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企业运营数据上传/更新
+   * Summary: 企业运营数据上传/更新
+   */
+  async saveTrailerTransportEx(request: SaveTrailerTransportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SaveTrailerTransportResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SaveTrailerTransportResponse>(await this.doRequest("1.0", "digital.logistic.trailer.transport.save", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SaveTrailerTransportResponse({}));
   }
 
   /**
@@ -22134,7 +22393,7 @@ export default class Client {
 
   /**
    * Description: 海外、跨境邮包险理赔报案
-   * Summary: 海外邮包险报案
+   * Summary: 海外、跨境邮包险报案
    */
   async applyInsuranceOspireport(request: ApplyInsuranceOspireportRequest): Promise<ApplyInsuranceOspireportResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -22144,7 +22403,7 @@ export default class Client {
 
   /**
    * Description: 海外、跨境邮包险理赔报案
-   * Summary: 海外邮包险报案
+   * Summary: 海外、跨境邮包险报案
    */
   async applyInsuranceOspireportEx(request: ApplyInsuranceOspireportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyInsuranceOspireportResponse> {
     Util.validateModel(request);
@@ -22153,7 +22412,7 @@ export default class Client {
 
   /**
    * Description: 海外、跨境邮包险案件结果通知
-   * Summary: 海外邮包险案件结果通知
+   * Summary: 海外、跨境邮包险案件结果通知
    */
   async notifyInsuranceOspireport(request: NotifyInsuranceOspireportRequest): Promise<NotifyInsuranceOspireportResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -22163,7 +22422,7 @@ export default class Client {
 
   /**
    * Description: 海外、跨境邮包险案件结果通知
-   * Summary: 海外邮包险案件结果通知
+   * Summary: 海外、跨境邮包险案件结果通知
    */
   async notifyInsuranceOspireportEx(request: NotifyInsuranceOspireportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyInsuranceOspireportResponse> {
     Util.validateModel(request);
@@ -22263,6 +22522,25 @@ export default class Client {
   async saveInsuranceWaybillEx(request: SaveInsuranceWaybillRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SaveInsuranceWaybillResponse> {
     Util.validateModel(request);
     return $tea.cast<SaveInsuranceWaybillResponse>(await this.doRequest("1.0", "digital.logistic.insurance.waybill.save", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SaveInsuranceWaybillResponse({}));
+  }
+
+  /**
+   * Description: 产业保险电子保单查询
+   * Summary: 产业保险电子保单查询
+   */
+  async queryInsuranceEpolicy(request: QueryInsuranceEpolicyRequest): Promise<QueryInsuranceEpolicyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryInsuranceEpolicyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 产业保险电子保单查询
+   * Summary: 产业保险电子保单查询
+   */
+  async queryInsuranceEpolicyEx(request: QueryInsuranceEpolicyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInsuranceEpolicyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryInsuranceEpolicyResponse>(await this.doRequest("1.0", "digital.logistic.insurance.epolicy.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInsuranceEpolicyResponse({}));
   }
 
   /**
