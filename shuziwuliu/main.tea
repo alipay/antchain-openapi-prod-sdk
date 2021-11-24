@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.128',
+    sdk_version = '1.3.132',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -4019,6 +4019,100 @@ async function createBillReceivablebillnodetailEx(request: CreateBillReceivableb
   return doRequest('1.0' ,'digital.logistic.bill.receivablebillnodetail.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model SaveTrailerCorpRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业名称
+  companyName: string(name='company_name'),
+  // 企业统一社会信用代码
+  socialCreditCode: string(name='social_credit_code'),
+  // 渠道企业名称
+  channelCompanyName: string(name='channel_company_name'),
+  // 渠道企业信用代码
+  channelSocialCreditCode: string(name='channel_social_credit_code'),
+  // 企业入驻渠道日期
+  entryDate: string(name='entry_date'),
+}
+
+model SaveTrailerCorpResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 企业信息上传/更新
+ * Summary: 企业信息上传/更新
+ */
+async function saveTrailerCorp(request: SaveTrailerCorpRequest): SaveTrailerCorpResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveTrailerCorpEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业信息上传/更新
+ * Summary: 企业信息上传/更新
+ */
+async function saveTrailerCorpEx(request: SaveTrailerCorpRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveTrailerCorpResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.trailer.corp.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SaveTrailerTransportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业名称
+  companyName: string(name='company_name'),
+  // 企业统一社会信用代码
+  socialCreditCode: string(name='social_credit_code'),
+  // 运营数据.月份
+  transportMonth: string(name='transport_month'),
+  // 运营数据.运输箱量
+  transportContainerQuantity?: long(name='transport_container_quantity'),
+  // 运营数据.运费总额
+  freightTotalAmount: string(name='freight_total_amount'),
+  // 运营数据.运输司机量
+  transportDriverQuantity?: long(name='transport_driver_quantity'),
+}
+
+model SaveTrailerTransportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传结果 
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 企业运营数据上传/更新
+ * Summary: 企业运营数据上传/更新
+ */
+async function saveTrailerTransport(request: SaveTrailerTransportRequest): SaveTrailerTransportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveTrailerTransportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业运营数据上传/更新
+ * Summary: 企业运营数据上传/更新
+ */
+async function saveTrailerTransportEx(request: SaveTrailerTransportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveTrailerTransportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.trailer.transport.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryBusinessInstancestatusRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -7489,7 +7583,7 @@ model ApplyInsuranceOspireportResponse = {
 
 /**
  * Description: 海外、跨境邮包险理赔报案
- * Summary: 海外邮包险报案
+ * Summary: 海外、跨境邮包险报案
  */
 async function applyInsuranceOspireport(request: ApplyInsuranceOspireportRequest): ApplyInsuranceOspireportResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -7499,7 +7593,7 @@ async function applyInsuranceOspireport(request: ApplyInsuranceOspireportRequest
 
 /**
  * Description: 海外、跨境邮包险理赔报案
- * Summary: 海外邮包险报案
+ * Summary: 海外、跨境邮包险报案
  */
 async function applyInsuranceOspireportEx(request: ApplyInsuranceOspireportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyInsuranceOspireportResponse {
   Util.validateModel(request);
@@ -7540,7 +7634,7 @@ model NotifyInsuranceOspireportResponse = {
 
 /**
  * Description: 海外、跨境邮包险案件结果通知
- * Summary: 海外邮包险案件结果通知
+ * Summary: 海外、跨境邮包险案件结果通知
  */
 async function notifyInsuranceOspireport(request: NotifyInsuranceOspireportRequest): NotifyInsuranceOspireportResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -7550,7 +7644,7 @@ async function notifyInsuranceOspireport(request: NotifyInsuranceOspireportReque
 
 /**
  * Description: 海外、跨境邮包险案件结果通知
- * Summary: 海外邮包险案件结果通知
+ * Summary: 海外、跨境邮包险案件结果通知
  */
 async function notifyInsuranceOspireportEx(request: NotifyInsuranceOspireportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyInsuranceOspireportResponse {
   Util.validateModel(request);
@@ -8032,6 +8126,48 @@ async function saveInsuranceWaybill(request: SaveInsuranceWaybillRequest): SaveI
 async function saveInsuranceWaybillEx(request: SaveInsuranceWaybillRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveInsuranceWaybillResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'digital.logistic.insurance.waybill.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryInsuranceEpolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 投保返回的交易流水号
+  applyTradeNo: string(maxLength=50, name='apply_trade_no'),
+  // 保司编码
+  externalChannelCode: string(maxLength=64, name='external_channel_code'),
+  // 保单号
+  policyNo: string(maxLength=64, name='policy_no'),
+}
+
+model QueryInsuranceEpolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 电子保单url地址
+  policyUrl?: string(name='policy_url'),
+}
+
+/**
+ * Description: 产业保险电子保单查询
+ * Summary: 产业保险电子保单查询
+ */
+async function queryInsuranceEpolicy(request: QueryInsuranceEpolicyRequest): QueryInsuranceEpolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInsuranceEpolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产业保险电子保单查询
+ * Summary: 产业保险电子保单查询
+ */
+async function queryInsuranceEpolicyEx(request: QueryInsuranceEpolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInsuranceEpolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.insurance.epolicy.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PushAuthSigninfoRequest = {
