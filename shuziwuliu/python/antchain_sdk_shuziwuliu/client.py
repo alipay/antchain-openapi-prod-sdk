@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.128'
+                    'sdk_version': '1.3.132'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.128'
+                    'sdk_version': '1.3.132'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -2433,6 +2433,114 @@ class Client:
         UtilClient.validate_model(request)
         return shuziwuliu_models.CreateBillReceivablebillnodetailResponse().from_map(
             await self.do_request_async('1.0', 'digital.logistic.bill.receivablebillnodetail.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_trailer_corp(
+        self,
+        request: shuziwuliu_models.SaveTrailerCorpRequest,
+    ) -> shuziwuliu_models.SaveTrailerCorpResponse:
+        """
+        Description: 企业信息上传/更新
+        Summary: 企业信息上传/更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_trailer_corp_ex(request, headers, runtime)
+
+    async def save_trailer_corp_async(
+        self,
+        request: shuziwuliu_models.SaveTrailerCorpRequest,
+    ) -> shuziwuliu_models.SaveTrailerCorpResponse:
+        """
+        Description: 企业信息上传/更新
+        Summary: 企业信息上传/更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_trailer_corp_ex_async(request, headers, runtime)
+
+    def save_trailer_corp_ex(
+        self,
+        request: shuziwuliu_models.SaveTrailerCorpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.SaveTrailerCorpResponse:
+        """
+        Description: 企业信息上传/更新
+        Summary: 企业信息上传/更新
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.SaveTrailerCorpResponse().from_map(
+            self.do_request('1.0', 'digital.logistic.trailer.corp.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_trailer_corp_ex_async(
+        self,
+        request: shuziwuliu_models.SaveTrailerCorpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.SaveTrailerCorpResponse:
+        """
+        Description: 企业信息上传/更新
+        Summary: 企业信息上传/更新
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.SaveTrailerCorpResponse().from_map(
+            await self.do_request_async('1.0', 'digital.logistic.trailer.corp.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_trailer_transport(
+        self,
+        request: shuziwuliu_models.SaveTrailerTransportRequest,
+    ) -> shuziwuliu_models.SaveTrailerTransportResponse:
+        """
+        Description: 企业运营数据上传/更新
+        Summary: 企业运营数据上传/更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_trailer_transport_ex(request, headers, runtime)
+
+    async def save_trailer_transport_async(
+        self,
+        request: shuziwuliu_models.SaveTrailerTransportRequest,
+    ) -> shuziwuliu_models.SaveTrailerTransportResponse:
+        """
+        Description: 企业运营数据上传/更新
+        Summary: 企业运营数据上传/更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_trailer_transport_ex_async(request, headers, runtime)
+
+    def save_trailer_transport_ex(
+        self,
+        request: shuziwuliu_models.SaveTrailerTransportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.SaveTrailerTransportResponse:
+        """
+        Description: 企业运营数据上传/更新
+        Summary: 企业运营数据上传/更新
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.SaveTrailerTransportResponse().from_map(
+            self.do_request('1.0', 'digital.logistic.trailer.transport.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_trailer_transport_ex_async(
+        self,
+        request: shuziwuliu_models.SaveTrailerTransportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.SaveTrailerTransportResponse:
+        """
+        Description: 企业运营数据上传/更新
+        Summary: 企业运营数据上传/更新
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.SaveTrailerTransportResponse().from_map(
+            await self.do_request_async('1.0', 'digital.logistic.trailer.transport.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_business_instancestatus(
@@ -5415,7 +5523,7 @@ class Client:
     ) -> shuziwuliu_models.ApplyInsuranceOspireportResponse:
         """
         Description: 海外、跨境邮包险理赔报案
-        Summary: 海外邮包险报案
+        Summary: 海外、跨境邮包险报案
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5427,7 +5535,7 @@ class Client:
     ) -> shuziwuliu_models.ApplyInsuranceOspireportResponse:
         """
         Description: 海外、跨境邮包险理赔报案
-        Summary: 海外邮包险报案
+        Summary: 海外、跨境邮包险报案
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5441,7 +5549,7 @@ class Client:
     ) -> shuziwuliu_models.ApplyInsuranceOspireportResponse:
         """
         Description: 海外、跨境邮包险理赔报案
-        Summary: 海外邮包险报案
+        Summary: 海外、跨境邮包险报案
         """
         UtilClient.validate_model(request)
         return shuziwuliu_models.ApplyInsuranceOspireportResponse().from_map(
@@ -5456,7 +5564,7 @@ class Client:
     ) -> shuziwuliu_models.ApplyInsuranceOspireportResponse:
         """
         Description: 海外、跨境邮包险理赔报案
-        Summary: 海外邮包险报案
+        Summary: 海外、跨境邮包险报案
         """
         UtilClient.validate_model(request)
         return shuziwuliu_models.ApplyInsuranceOspireportResponse().from_map(
@@ -5469,7 +5577,7 @@ class Client:
     ) -> shuziwuliu_models.NotifyInsuranceOspireportResponse:
         """
         Description: 海外、跨境邮包险案件结果通知
-        Summary: 海外邮包险案件结果通知
+        Summary: 海外、跨境邮包险案件结果通知
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5481,7 +5589,7 @@ class Client:
     ) -> shuziwuliu_models.NotifyInsuranceOspireportResponse:
         """
         Description: 海外、跨境邮包险案件结果通知
-        Summary: 海外邮包险案件结果通知
+        Summary: 海外、跨境邮包险案件结果通知
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5495,7 +5603,7 @@ class Client:
     ) -> shuziwuliu_models.NotifyInsuranceOspireportResponse:
         """
         Description: 海外、跨境邮包险案件结果通知
-        Summary: 海外邮包险案件结果通知
+        Summary: 海外、跨境邮包险案件结果通知
         """
         UtilClient.validate_model(request)
         return shuziwuliu_models.NotifyInsuranceOspireportResponse().from_map(
@@ -5510,7 +5618,7 @@ class Client:
     ) -> shuziwuliu_models.NotifyInsuranceOspireportResponse:
         """
         Description: 海外、跨境邮包险案件结果通知
-        Summary: 海外邮包险案件结果通知
+        Summary: 海外、跨境邮包险案件结果通知
         """
         UtilClient.validate_model(request)
         return shuziwuliu_models.NotifyInsuranceOspireportResponse().from_map(
@@ -5785,6 +5893,60 @@ class Client:
         UtilClient.validate_model(request)
         return shuziwuliu_models.SaveInsuranceWaybillResponse().from_map(
             await self.do_request_async('1.0', 'digital.logistic.insurance.waybill.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_insurance_epolicy(
+        self,
+        request: shuziwuliu_models.QueryInsuranceEpolicyRequest,
+    ) -> shuziwuliu_models.QueryInsuranceEpolicyResponse:
+        """
+        Description: 产业保险电子保单查询
+        Summary: 产业保险电子保单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_insurance_epolicy_ex(request, headers, runtime)
+
+    async def query_insurance_epolicy_async(
+        self,
+        request: shuziwuliu_models.QueryInsuranceEpolicyRequest,
+    ) -> shuziwuliu_models.QueryInsuranceEpolicyResponse:
+        """
+        Description: 产业保险电子保单查询
+        Summary: 产业保险电子保单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_insurance_epolicy_ex_async(request, headers, runtime)
+
+    def query_insurance_epolicy_ex(
+        self,
+        request: shuziwuliu_models.QueryInsuranceEpolicyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.QueryInsuranceEpolicyResponse:
+        """
+        Description: 产业保险电子保单查询
+        Summary: 产业保险电子保单查询
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.QueryInsuranceEpolicyResponse().from_map(
+            self.do_request('1.0', 'digital.logistic.insurance.epolicy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_insurance_epolicy_ex_async(
+        self,
+        request: shuziwuliu_models.QueryInsuranceEpolicyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.QueryInsuranceEpolicyResponse:
+        """
+        Description: 产业保险电子保单查询
+        Summary: 产业保险电子保单查询
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.QueryInsuranceEpolicyResponse().from_map(
+            await self.do_request_async('1.0', 'digital.logistic.insurance.epolicy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def push_auth_signinfo(

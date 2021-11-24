@@ -11872,6 +11872,240 @@ class CreateBillReceivablebillnodetailResponse(TeaModel):
         return self
 
 
+class SaveTrailerCorpRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        company_name: str = None,
+        social_credit_code: str = None,
+        channel_company_name: str = None,
+        channel_social_credit_code: str = None,
+        entry_date: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 企业名称
+        self.company_name = company_name
+        # 企业统一社会信用代码
+        self.social_credit_code = social_credit_code
+        # 渠道企业名称
+        self.channel_company_name = channel_company_name
+        # 渠道企业信用代码
+        self.channel_social_credit_code = channel_social_credit_code
+        # 企业入驻渠道日期
+        self.entry_date = entry_date
+
+    def validate(self):
+        self.validate_required(self.company_name, 'company_name')
+        self.validate_required(self.social_credit_code, 'social_credit_code')
+        self.validate_required(self.channel_company_name, 'channel_company_name')
+        self.validate_required(self.channel_social_credit_code, 'channel_social_credit_code')
+        self.validate_required(self.entry_date, 'entry_date')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.company_name is not None:
+            result['company_name'] = self.company_name
+        if self.social_credit_code is not None:
+            result['social_credit_code'] = self.social_credit_code
+        if self.channel_company_name is not None:
+            result['channel_company_name'] = self.channel_company_name
+        if self.channel_social_credit_code is not None:
+            result['channel_social_credit_code'] = self.channel_social_credit_code
+        if self.entry_date is not None:
+            result['entry_date'] = self.entry_date
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('company_name') is not None:
+            self.company_name = m.get('company_name')
+        if m.get('social_credit_code') is not None:
+            self.social_credit_code = m.get('social_credit_code')
+        if m.get('channel_company_name') is not None:
+            self.channel_company_name = m.get('channel_company_name')
+        if m.get('channel_social_credit_code') is not None:
+            self.channel_social_credit_code = m.get('channel_social_credit_code')
+        if m.get('entry_date') is not None:
+            self.entry_date = m.get('entry_date')
+        return self
+
+
+class SaveTrailerCorpResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class SaveTrailerTransportRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        company_name: str = None,
+        social_credit_code: str = None,
+        transport_month: str = None,
+        transport_container_quantity: int = None,
+        freight_total_amount: str = None,
+        transport_driver_quantity: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 企业名称
+        self.company_name = company_name
+        # 企业统一社会信用代码
+        self.social_credit_code = social_credit_code
+        # 运营数据.月份
+        self.transport_month = transport_month
+        # 运营数据.运输箱量
+        self.transport_container_quantity = transport_container_quantity
+        # 运营数据.运费总额
+        self.freight_total_amount = freight_total_amount
+        # 运营数据.运输司机量
+        self.transport_driver_quantity = transport_driver_quantity
+
+    def validate(self):
+        self.validate_required(self.company_name, 'company_name')
+        self.validate_required(self.social_credit_code, 'social_credit_code')
+        self.validate_required(self.transport_month, 'transport_month')
+        self.validate_required(self.freight_total_amount, 'freight_total_amount')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.company_name is not None:
+            result['company_name'] = self.company_name
+        if self.social_credit_code is not None:
+            result['social_credit_code'] = self.social_credit_code
+        if self.transport_month is not None:
+            result['transport_month'] = self.transport_month
+        if self.transport_container_quantity is not None:
+            result['transport_container_quantity'] = self.transport_container_quantity
+        if self.freight_total_amount is not None:
+            result['freight_total_amount'] = self.freight_total_amount
+        if self.transport_driver_quantity is not None:
+            result['transport_driver_quantity'] = self.transport_driver_quantity
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('company_name') is not None:
+            self.company_name = m.get('company_name')
+        if m.get('social_credit_code') is not None:
+            self.social_credit_code = m.get('social_credit_code')
+        if m.get('transport_month') is not None:
+            self.transport_month = m.get('transport_month')
+        if m.get('transport_container_quantity') is not None:
+            self.transport_container_quantity = m.get('transport_container_quantity')
+        if m.get('freight_total_amount') is not None:
+            self.freight_total_amount = m.get('freight_total_amount')
+        if m.get('transport_driver_quantity') is not None:
+            self.transport_driver_quantity = m.get('transport_driver_quantity')
+        return self
+
+
+class SaveTrailerTransportResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 上传结果
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
 class QueryBusinessInstancestatusRequest(TeaModel):
     def __init__(
         self,
@@ -23778,6 +24012,110 @@ class SaveInsuranceWaybillResponse(TeaModel):
             self.waybill_action_type = m.get('waybill_action_type')
         if m.get('trade_no') is not None:
             self.trade_no = m.get('trade_no')
+        return self
+
+
+class QueryInsuranceEpolicyRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        apply_trade_no: str = None,
+        external_channel_code: str = None,
+        policy_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 投保返回的交易流水号
+        self.apply_trade_no = apply_trade_no
+        # 保司编码
+        self.external_channel_code = external_channel_code
+        # 保单号
+        self.policy_no = policy_no
+
+    def validate(self):
+        self.validate_required(self.apply_trade_no, 'apply_trade_no')
+        if self.apply_trade_no is not None:
+            self.validate_max_length(self.apply_trade_no, 'apply_trade_no', 50)
+        self.validate_required(self.external_channel_code, 'external_channel_code')
+        if self.external_channel_code is not None:
+            self.validate_max_length(self.external_channel_code, 'external_channel_code', 64)
+        self.validate_required(self.policy_no, 'policy_no')
+        if self.policy_no is not None:
+            self.validate_max_length(self.policy_no, 'policy_no', 64)
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.apply_trade_no is not None:
+            result['apply_trade_no'] = self.apply_trade_no
+        if self.external_channel_code is not None:
+            result['external_channel_code'] = self.external_channel_code
+        if self.policy_no is not None:
+            result['policy_no'] = self.policy_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('apply_trade_no') is not None:
+            self.apply_trade_no = m.get('apply_trade_no')
+        if m.get('external_channel_code') is not None:
+            self.external_channel_code = m.get('external_channel_code')
+        if m.get('policy_no') is not None:
+            self.policy_no = m.get('policy_no')
+        return self
+
+
+class QueryInsuranceEpolicyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        policy_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 电子保单url地址
+        self.policy_url = policy_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.policy_url is not None:
+            result['policy_url'] = self.policy_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('policy_url') is not None:
+            self.policy_url = m.get('policy_url')
         return self
 
 
