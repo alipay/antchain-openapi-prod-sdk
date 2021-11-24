@@ -195,6 +195,8 @@ use AntChain\SHUZIWULIU\Models\QueryCreditStatementRequest;
 use AntChain\SHUZIWULIU\Models\QueryCreditStatementResponse;
 use AntChain\SHUZIWULIU\Models\QueryCreditUserissueRequest;
 use AntChain\SHUZIWULIU\Models\QueryCreditUserissueResponse;
+use AntChain\SHUZIWULIU\Models\QueryInsuranceEpolicyRequest;
+use AntChain\SHUZIWULIU\Models\QueryInsuranceEpolicyResponse;
 use AntChain\SHUZIWULIU\Models\QueryInsuranceYzbreportRequest;
 use AntChain\SHUZIWULIU\Models\QueryInsuranceYzbreportResponse;
 use AntChain\SHUZIWULIU\Models\QueryPfFinancingqualificationRequest;
@@ -265,6 +267,10 @@ use AntChain\SHUZIWULIU\Models\SaveBizVehicleRequest;
 use AntChain\SHUZIWULIU\Models\SaveBizVehicleResponse;
 use AntChain\SHUZIWULIU\Models\SaveInsuranceWaybillRequest;
 use AntChain\SHUZIWULIU\Models\SaveInsuranceWaybillResponse;
+use AntChain\SHUZIWULIU\Models\SaveTrailerCorpRequest;
+use AntChain\SHUZIWULIU\Models\SaveTrailerCorpResponse;
+use AntChain\SHUZIWULIU\Models\SaveTrailerTransportRequest;
+use AntChain\SHUZIWULIU\Models\SaveTrailerTransportResponse;
 use AntChain\SHUZIWULIU\Models\SaveWaybillOrderRequest;
 use AntChain\SHUZIWULIU\Models\SaveWaybillOrderResponse;
 use AntChain\SHUZIWULIU\Models\SendCreditProxyRequest;
@@ -470,7 +476,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.128',
+                    'sdk_version'      => '1.3.132',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1836,6 +1842,72 @@ class Client
         Utils::validateModel($request);
 
         return CreateBillReceivablebillnodetailResponse::fromMap($this->doRequest('1.0', 'digital.logistic.bill.receivablebillnodetail.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业信息上传/更新
+     * Summary: 企业信息上传/更新.
+     *
+     * @param SaveTrailerCorpRequest $request
+     *
+     * @return SaveTrailerCorpResponse
+     */
+    public function saveTrailerCorp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveTrailerCorpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业信息上传/更新
+     * Summary: 企业信息上传/更新.
+     *
+     * @param SaveTrailerCorpRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return SaveTrailerCorpResponse
+     */
+    public function saveTrailerCorpEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveTrailerCorpResponse::fromMap($this->doRequest('1.0', 'digital.logistic.trailer.corp.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业运营数据上传/更新
+     * Summary: 企业运营数据上传/更新.
+     *
+     * @param SaveTrailerTransportRequest $request
+     *
+     * @return SaveTrailerTransportResponse
+     */
+    public function saveTrailerTransport($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveTrailerTransportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业运营数据上传/更新
+     * Summary: 企业运营数据上传/更新.
+     *
+     * @param SaveTrailerTransportRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return SaveTrailerTransportResponse
+     */
+    public function saveTrailerTransportEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveTrailerTransportResponse::fromMap($this->doRequest('1.0', 'digital.logistic.trailer.transport.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -3657,7 +3729,7 @@ class Client
 
     /**
      * Description: 海外、跨境邮包险理赔报案
-     * Summary: 海外邮包险报案.
+     * Summary: 海外、跨境邮包险报案.
      *
      * @param ApplyInsuranceOspireportRequest $request
      *
@@ -3673,7 +3745,7 @@ class Client
 
     /**
      * Description: 海外、跨境邮包险理赔报案
-     * Summary: 海外邮包险报案.
+     * Summary: 海外、跨境邮包险报案.
      *
      * @param ApplyInsuranceOspireportRequest $request
      * @param string[]                        $headers
@@ -3690,7 +3762,7 @@ class Client
 
     /**
      * Description: 海外、跨境邮包险案件结果通知
-     * Summary: 海外邮包险案件结果通知.
+     * Summary: 海外、跨境邮包险案件结果通知.
      *
      * @param NotifyInsuranceOspireportRequest $request
      *
@@ -3706,7 +3778,7 @@ class Client
 
     /**
      * Description: 海外、跨境邮包险案件结果通知
-     * Summary: 海外邮包险案件结果通知.
+     * Summary: 海外、跨境邮包险案件结果通知.
      *
      * @param NotifyInsuranceOspireportRequest $request
      * @param string[]                         $headers
@@ -3884,6 +3956,39 @@ class Client
         Utils::validateModel($request);
 
         return SaveInsuranceWaybillResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.waybill.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产业保险电子保单查询
+     * Summary: 产业保险电子保单查询.
+     *
+     * @param QueryInsuranceEpolicyRequest $request
+     *
+     * @return QueryInsuranceEpolicyResponse
+     */
+    public function queryInsuranceEpolicy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInsuranceEpolicyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产业保险电子保单查询
+     * Summary: 产业保险电子保单查询.
+     *
+     * @param QueryInsuranceEpolicyRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryInsuranceEpolicyResponse
+     */
+    public function queryInsuranceEpolicyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInsuranceEpolicyResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.epolicy.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
