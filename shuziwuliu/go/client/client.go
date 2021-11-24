@@ -10446,6 +10446,209 @@ func (s *CreateBillReceivablebillnodetailResponse) SetTxCode(v string) *CreateBi
 	return s
 }
 
+type SaveTrailerCorpRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 企业名称
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
+	// 企业统一社会信用代码
+	SocialCreditCode *string `json:"social_credit_code,omitempty" xml:"social_credit_code,omitempty" require:"true"`
+	// 渠道企业名称
+	ChannelCompanyName *string `json:"channel_company_name,omitempty" xml:"channel_company_name,omitempty" require:"true"`
+	// 渠道企业信用代码
+	ChannelSocialCreditCode *string `json:"channel_social_credit_code,omitempty" xml:"channel_social_credit_code,omitempty" require:"true"`
+	// 企业入驻渠道日期
+	EntryDate *string `json:"entry_date,omitempty" xml:"entry_date,omitempty" require:"true"`
+}
+
+func (s SaveTrailerCorpRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveTrailerCorpRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SaveTrailerCorpRequest) SetAuthToken(v string) *SaveTrailerCorpRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SaveTrailerCorpRequest) SetProductInstanceId(v string) *SaveTrailerCorpRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SaveTrailerCorpRequest) SetCompanyName(v string) *SaveTrailerCorpRequest {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *SaveTrailerCorpRequest) SetSocialCreditCode(v string) *SaveTrailerCorpRequest {
+	s.SocialCreditCode = &v
+	return s
+}
+
+func (s *SaveTrailerCorpRequest) SetChannelCompanyName(v string) *SaveTrailerCorpRequest {
+	s.ChannelCompanyName = &v
+	return s
+}
+
+func (s *SaveTrailerCorpRequest) SetChannelSocialCreditCode(v string) *SaveTrailerCorpRequest {
+	s.ChannelSocialCreditCode = &v
+	return s
+}
+
+func (s *SaveTrailerCorpRequest) SetEntryDate(v string) *SaveTrailerCorpRequest {
+	s.EntryDate = &v
+	return s
+}
+
+type SaveTrailerCorpResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s SaveTrailerCorpResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveTrailerCorpResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SaveTrailerCorpResponse) SetReqMsgId(v string) *SaveTrailerCorpResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SaveTrailerCorpResponse) SetResultCode(v string) *SaveTrailerCorpResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SaveTrailerCorpResponse) SetResultMsg(v string) *SaveTrailerCorpResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SaveTrailerCorpResponse) SetResult(v string) *SaveTrailerCorpResponse {
+	s.Result = &v
+	return s
+}
+
+type SaveTrailerTransportRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 企业名称
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
+	// 企业统一社会信用代码
+	SocialCreditCode *string `json:"social_credit_code,omitempty" xml:"social_credit_code,omitempty" require:"true"`
+	// 运营数据.月份
+	TransportMonth *string `json:"transport_month,omitempty" xml:"transport_month,omitempty" require:"true"`
+	// 运营数据.运输箱量
+	TransportContainerQuantity *int64 `json:"transport_container_quantity,omitempty" xml:"transport_container_quantity,omitempty"`
+	// 运营数据.运费总额
+	FreightTotalAmount *string `json:"freight_total_amount,omitempty" xml:"freight_total_amount,omitempty" require:"true"`
+	// 运营数据.运输司机量
+	TransportDriverQuantity *int64 `json:"transport_driver_quantity,omitempty" xml:"transport_driver_quantity,omitempty"`
+}
+
+func (s SaveTrailerTransportRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveTrailerTransportRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SaveTrailerTransportRequest) SetAuthToken(v string) *SaveTrailerTransportRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SaveTrailerTransportRequest) SetProductInstanceId(v string) *SaveTrailerTransportRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SaveTrailerTransportRequest) SetCompanyName(v string) *SaveTrailerTransportRequest {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *SaveTrailerTransportRequest) SetSocialCreditCode(v string) *SaveTrailerTransportRequest {
+	s.SocialCreditCode = &v
+	return s
+}
+
+func (s *SaveTrailerTransportRequest) SetTransportMonth(v string) *SaveTrailerTransportRequest {
+	s.TransportMonth = &v
+	return s
+}
+
+func (s *SaveTrailerTransportRequest) SetTransportContainerQuantity(v int64) *SaveTrailerTransportRequest {
+	s.TransportContainerQuantity = &v
+	return s
+}
+
+func (s *SaveTrailerTransportRequest) SetFreightTotalAmount(v string) *SaveTrailerTransportRequest {
+	s.FreightTotalAmount = &v
+	return s
+}
+
+func (s *SaveTrailerTransportRequest) SetTransportDriverQuantity(v int64) *SaveTrailerTransportRequest {
+	s.TransportDriverQuantity = &v
+	return s
+}
+
+type SaveTrailerTransportResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s SaveTrailerTransportResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveTrailerTransportResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SaveTrailerTransportResponse) SetReqMsgId(v string) *SaveTrailerTransportResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SaveTrailerTransportResponse) SetResultCode(v string) *SaveTrailerTransportResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SaveTrailerTransportResponse) SetResultMsg(v string) *SaveTrailerTransportResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SaveTrailerTransportResponse) SetResult(v string) *SaveTrailerTransportResponse {
+	s.Result = &v
+	return s
+}
+
 type QueryBusinessInstancestatusRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -20213,6 +20416,90 @@ func (s *SaveInsuranceWaybillResponse) SetTradeNo(v string) *SaveInsuranceWaybil
 	return s
 }
 
+type QueryInsuranceEpolicyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 投保返回的交易流水号
+	ApplyTradeNo *string `json:"apply_trade_no,omitempty" xml:"apply_trade_no,omitempty" require:"true" maxLength:"50"`
+	// 保司编码
+	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"64"`
+	// 保单号
+	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty" require:"true" maxLength:"64"`
+}
+
+func (s QueryInsuranceEpolicyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInsuranceEpolicyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInsuranceEpolicyRequest) SetAuthToken(v string) *QueryInsuranceEpolicyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryInsuranceEpolicyRequest) SetProductInstanceId(v string) *QueryInsuranceEpolicyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryInsuranceEpolicyRequest) SetApplyTradeNo(v string) *QueryInsuranceEpolicyRequest {
+	s.ApplyTradeNo = &v
+	return s
+}
+
+func (s *QueryInsuranceEpolicyRequest) SetExternalChannelCode(v string) *QueryInsuranceEpolicyRequest {
+	s.ExternalChannelCode = &v
+	return s
+}
+
+func (s *QueryInsuranceEpolicyRequest) SetPolicyNo(v string) *QueryInsuranceEpolicyRequest {
+	s.PolicyNo = &v
+	return s
+}
+
+type QueryInsuranceEpolicyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 电子保单url地址
+	PolicyUrl *string `json:"policy_url,omitempty" xml:"policy_url,omitempty"`
+}
+
+func (s QueryInsuranceEpolicyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInsuranceEpolicyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInsuranceEpolicyResponse) SetReqMsgId(v string) *QueryInsuranceEpolicyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryInsuranceEpolicyResponse) SetResultCode(v string) *QueryInsuranceEpolicyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryInsuranceEpolicyResponse) SetResultMsg(v string) *QueryInsuranceEpolicyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryInsuranceEpolicyResponse) SetPolicyUrl(v string) *QueryInsuranceEpolicyResponse {
+	s.PolicyUrl = &v
+	return s
+}
+
 type PushAuthSigninfoRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -28669,7 +28956,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.128"),
+				"sdk_version":      tea.String("1.3.132"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -30072,6 +30359,74 @@ func (client *Client) CreateBillReceivablebillnodetailEx(request *CreateBillRece
 	}
 	_result = &CreateBillReceivablebillnodetailResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.bill.receivablebillnodetail.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企业信息上传/更新
+ * Summary: 企业信息上传/更新
+ */
+func (client *Client) SaveTrailerCorp(request *SaveTrailerCorpRequest) (_result *SaveTrailerCorpResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SaveTrailerCorpResponse{}
+	_body, _err := client.SaveTrailerCorpEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企业信息上传/更新
+ * Summary: 企业信息上传/更新
+ */
+func (client *Client) SaveTrailerCorpEx(request *SaveTrailerCorpRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SaveTrailerCorpResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SaveTrailerCorpResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.trailer.corp.save"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企业运营数据上传/更新
+ * Summary: 企业运营数据上传/更新
+ */
+func (client *Client) SaveTrailerTransport(request *SaveTrailerTransportRequest) (_result *SaveTrailerTransportResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SaveTrailerTransportResponse{}
+	_body, _err := client.SaveTrailerTransportEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企业运营数据上传/更新
+ * Summary: 企业运营数据上传/更新
+ */
+func (client *Client) SaveTrailerTransportEx(request *SaveTrailerTransportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SaveTrailerTransportResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SaveTrailerTransportResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.trailer.transport.save"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -31953,7 +32308,7 @@ func (client *Client) ApplyInsuranceOspiEx(request *ApplyInsuranceOspiRequest, h
 
 /**
  * Description: 海外、跨境邮包险理赔报案
- * Summary: 海外邮包险报案
+ * Summary: 海外、跨境邮包险报案
  */
 func (client *Client) ApplyInsuranceOspireport(request *ApplyInsuranceOspireportRequest) (_result *ApplyInsuranceOspireportResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -31969,7 +32324,7 @@ func (client *Client) ApplyInsuranceOspireport(request *ApplyInsuranceOspireport
 
 /**
  * Description: 海外、跨境邮包险理赔报案
- * Summary: 海外邮包险报案
+ * Summary: 海外、跨境邮包险报案
  */
 func (client *Client) ApplyInsuranceOspireportEx(request *ApplyInsuranceOspireportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyInsuranceOspireportResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -31987,7 +32342,7 @@ func (client *Client) ApplyInsuranceOspireportEx(request *ApplyInsuranceOspirepo
 
 /**
  * Description: 海外、跨境邮包险案件结果通知
- * Summary: 海外邮包险案件结果通知
+ * Summary: 海外、跨境邮包险案件结果通知
  */
 func (client *Client) NotifyInsuranceOspireport(request *NotifyInsuranceOspireportRequest) (_result *NotifyInsuranceOspireportResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -32003,7 +32358,7 @@ func (client *Client) NotifyInsuranceOspireport(request *NotifyInsuranceOspirepo
 
 /**
  * Description: 海外、跨境邮包险案件结果通知
- * Summary: 海外邮包险案件结果通知
+ * Summary: 海外、跨境邮包险案件结果通知
  */
 func (client *Client) NotifyInsuranceOspireportEx(request *NotifyInsuranceOspireportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyInsuranceOspireportResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -32182,6 +32537,40 @@ func (client *Client) SaveInsuranceWaybillEx(request *SaveInsuranceWaybillReques
 	}
 	_result = &SaveInsuranceWaybillResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.insurance.waybill.save"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 产业保险电子保单查询
+ * Summary: 产业保险电子保单查询
+ */
+func (client *Client) QueryInsuranceEpolicy(request *QueryInsuranceEpolicyRequest) (_result *QueryInsuranceEpolicyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryInsuranceEpolicyResponse{}
+	_body, _err := client.QueryInsuranceEpolicyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 产业保险电子保单查询
+ * Summary: 产业保险电子保单查询
+ */
+func (client *Client) QueryInsuranceEpolicyEx(request *QueryInsuranceEpolicyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryInsuranceEpolicyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryInsuranceEpolicyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.insurance.epolicy.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
