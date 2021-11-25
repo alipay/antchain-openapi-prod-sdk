@@ -219,6 +219,8 @@ use AntChain\TWC\Models\DeployLeaseContractRequest;
 use AntChain\TWC\Models\DeployLeaseContractResponse;
 use AntChain\TWC\Models\DeployMytfTappRequest;
 use AntChain\TWC\Models\DeployMytfTappResponse;
+use AntChain\TWC\Models\DetailFlowPhaseRequest;
+use AntChain\TWC\Models\DetailFlowPhaseResponse;
 use AntChain\TWC\Models\DownloadContractDocumentRequest;
 use AntChain\TWC\Models\DownloadContractDocumentResponse;
 use AntChain\TWC\Models\FinishFlowInstanceRequest;
@@ -568,7 +570,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.9',
+                    'sdk_version'      => '1.7.12',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -7381,5 +7383,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryFlowPhaseResponse::fromMap($this->doRequest('1.0', 'twc.notary.flow.phase.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阶段存证数据详情
+     * Summary: 阶段存证数据详情.
+     *
+     * @param DetailFlowPhaseRequest $request
+     *
+     * @return DetailFlowPhaseResponse
+     */
+    public function detailFlowPhase($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailFlowPhaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阶段存证数据详情
+     * Summary: 阶段存证数据详情.
+     *
+     * @param DetailFlowPhaseRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return DetailFlowPhaseResponse
+     */
+    public function detailFlowPhaseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailFlowPhaseResponse::fromMap($this->doRequest('1.0', 'twc.notary.flow.phase.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
