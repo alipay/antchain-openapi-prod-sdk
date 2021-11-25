@@ -33554,3 +33554,144 @@ class QueryFlowPhaseResponse(TeaModel):
         return self
 
 
+class DetailFlowPhaseRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        flow_id: str = None,
+        phase_id: str = None,
+        tx_hash: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 流程id，通过twc.notary.instance.create(创建存证流程实例)获取
+        self.flow_id = flow_id
+        # 阶段ID，通过twc.notary.flow.phase.create(创建阶段存证)创建了阶段存证获取
+        self.phase_id = phase_id
+        # 链上交易Hash，必须成功阶段存证后，通过twc.notary.flow.phase.query获取
+        self.tx_hash = tx_hash
+
+    def validate(self):
+        self.validate_required(self.flow_id, 'flow_id')
+        self.validate_required(self.phase_id, 'phase_id')
+        self.validate_required(self.tx_hash, 'tx_hash')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
+        if self.phase_id is not None:
+            result['phase_id'] = self.phase_id
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
+        if m.get('phase_id') is not None:
+            self.phase_id = m.get('phase_id')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        return self
+
+
+class DetailFlowPhaseResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        tx_hash: str = None,
+        data_type: str = None,
+        notary_content: str = None,
+        data_type_key: str = None,
+        url: str = None,
+        block_hash: str = None,
+        block_height: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 阶段存证交易hash
+        self.tx_hash = tx_hash
+        # 模板字段类型，Hash/Structure，(Hash->哈希,Structure->结构化)
+        self.data_type = data_type
+        # 阶段存证内容，如果模板数据类型定义是Hash(哈希)则返回存证时Hash，如果定义是Structure(结构化)，则返回所有字段json对象的字符串Base64后的值
+        self.notary_content = notary_content
+        # 结构化数据里面英文key对应的中文名称关系，json格式，key为字段英文名，value为字段中文名称
+        # 
+        self.data_type_key = data_type_key
+        # 阶段存证内容csv下载地址，暂时预留，存证内容过大时采用文件形式输出，有效期1个小时
+        self.url = url
+        # 交易所在的区块Hash
+        self.block_hash = block_hash
+        # 交易所在的区块高
+        self.block_height = block_height
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        if self.data_type is not None:
+            result['data_type'] = self.data_type
+        if self.notary_content is not None:
+            result['notary_content'] = self.notary_content
+        if self.data_type_key is not None:
+            result['data_type_key'] = self.data_type_key
+        if self.url is not None:
+            result['url'] = self.url
+        if self.block_hash is not None:
+            result['block_hash'] = self.block_hash
+        if self.block_height is not None:
+            result['block_height'] = self.block_height
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        if m.get('data_type') is not None:
+            self.data_type = m.get('data_type')
+        if m.get('notary_content') is not None:
+            self.notary_content = m.get('notary_content')
+        if m.get('data_type_key') is not None:
+            self.data_type_key = m.get('data_type_key')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('block_hash') is not None:
+            self.block_hash = m.get('block_hash')
+        if m.get('block_height') is not None:
+            self.block_height = m.get('block_height')
+        return self
+
+

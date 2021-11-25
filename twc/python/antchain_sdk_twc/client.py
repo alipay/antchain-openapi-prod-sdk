@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.9'
+                    'sdk_version': '1.7.12'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.9'
+                    'sdk_version': '1.7.12'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -11347,4 +11347,58 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.QueryFlowPhaseResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.flow.phase.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_flow_phase(
+        self,
+        request: twc_models.DetailFlowPhaseRequest,
+    ) -> twc_models.DetailFlowPhaseResponse:
+        """
+        Description: 阶段存证数据详情
+        Summary: 阶段存证数据详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_flow_phase_ex(request, headers, runtime)
+
+    async def detail_flow_phase_async(
+        self,
+        request: twc_models.DetailFlowPhaseRequest,
+    ) -> twc_models.DetailFlowPhaseResponse:
+        """
+        Description: 阶段存证数据详情
+        Summary: 阶段存证数据详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_flow_phase_ex_async(request, headers, runtime)
+
+    def detail_flow_phase_ex(
+        self,
+        request: twc_models.DetailFlowPhaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.DetailFlowPhaseResponse:
+        """
+        Description: 阶段存证数据详情
+        Summary: 阶段存证数据详情
+        """
+        UtilClient.validate_model(request)
+        return twc_models.DetailFlowPhaseResponse().from_map(
+            self.do_request('1.0', 'twc.notary.flow.phase.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_flow_phase_ex_async(
+        self,
+        request: twc_models.DetailFlowPhaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.DetailFlowPhaseResponse:
+        """
+        Description: 阶段存证数据详情
+        Summary: 阶段存证数据详情
+        """
+        UtilClient.validate_model(request)
+        return twc_models.DetailFlowPhaseResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.flow.phase.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
