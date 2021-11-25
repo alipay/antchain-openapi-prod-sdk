@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.25.19'
+                    'sdk_version': '1.25.48'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.25.19'
+                    'sdk_version': '1.25.48'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -5191,6 +5191,924 @@ class Client:
         UtilClient.validate_model(request)
         return blockchain_models.SendChainRestAntResponse().from_map(
             await self.do_request_async('1.0', 'baas.chain.rest.ant.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_chain_subnet(
+        self,
+        request: blockchain_models.QueryChainSubnetRequest,
+    ) -> blockchain_models.QueryChainSubnetResponse:
+        """
+        Description: 阿里云子链列表查询
+        Summary: 阿里云子链列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_chain_subnet_ex(request, headers, runtime)
+
+    async def query_chain_subnet_async(
+        self,
+        request: blockchain_models.QueryChainSubnetRequest,
+    ) -> blockchain_models.QueryChainSubnetResponse:
+        """
+        Description: 阿里云子链列表查询
+        Summary: 阿里云子链列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_chain_subnet_ex_async(request, headers, runtime)
+
+    def query_chain_subnet_ex(
+        self,
+        request: blockchain_models.QueryChainSubnetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainSubnetResponse:
+        """
+        Description: 阿里云子链列表查询
+        Summary: 阿里云子链列表查询
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryChainSubnetResponse().from_map(
+            self.do_request('1.0', 'baas.chain.subnet.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_chain_subnet_ex_async(
+        self,
+        request: blockchain_models.QueryChainSubnetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainSubnetResponse:
+        """
+        Description: 阿里云子链列表查询
+        Summary: 阿里云子链列表查询
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryChainSubnetResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.subnet.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_chain_subnet_create(
+        self,
+        request: blockchain_models.CheckChainSubnetCreateRequest,
+    ) -> blockchain_models.CheckChainSubnetCreateResponse:
+        """
+        Description: 阿里云子链创建的前置检查
+        Summary: 阿里云子链创建的前置检查
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_chain_subnet_create_ex(request, headers, runtime)
+
+    async def check_chain_subnet_create_async(
+        self,
+        request: blockchain_models.CheckChainSubnetCreateRequest,
+    ) -> blockchain_models.CheckChainSubnetCreateResponse:
+        """
+        Description: 阿里云子链创建的前置检查
+        Summary: 阿里云子链创建的前置检查
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_chain_subnet_create_ex_async(request, headers, runtime)
+
+    def check_chain_subnet_create_ex(
+        self,
+        request: blockchain_models.CheckChainSubnetCreateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CheckChainSubnetCreateResponse:
+        """
+        Description: 阿里云子链创建的前置检查
+        Summary: 阿里云子链创建的前置检查
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CheckChainSubnetCreateResponse().from_map(
+            self.do_request('1.0', 'baas.chain.subnet.create.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_chain_subnet_create_ex_async(
+        self,
+        request: blockchain_models.CheckChainSubnetCreateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CheckChainSubnetCreateResponse:
+        """
+        Description: 阿里云子链创建的前置检查
+        Summary: 阿里云子链创建的前置检查
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CheckChainSubnetCreateResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.subnet.create.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_chain_subnet(
+        self,
+        request: blockchain_models.CreateChainSubnetRequest,
+    ) -> blockchain_models.CreateChainSubnetResponse:
+        """
+        Description: 阿里云子链创建
+        Summary: 阿里云子链创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_chain_subnet_ex(request, headers, runtime)
+
+    async def create_chain_subnet_async(
+        self,
+        request: blockchain_models.CreateChainSubnetRequest,
+    ) -> blockchain_models.CreateChainSubnetResponse:
+        """
+        Description: 阿里云子链创建
+        Summary: 阿里云子链创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_chain_subnet_ex_async(request, headers, runtime)
+
+    def create_chain_subnet_ex(
+        self,
+        request: blockchain_models.CreateChainSubnetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateChainSubnetResponse:
+        """
+        Description: 阿里云子链创建
+        Summary: 阿里云子链创建
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateChainSubnetResponse().from_map(
+            self.do_request('1.0', 'baas.chain.subnet.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_chain_subnet_ex_async(
+        self,
+        request: blockchain_models.CreateChainSubnetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateChainSubnetResponse:
+        """
+        Description: 阿里云子链创建
+        Summary: 阿里云子链创建
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateChainSubnetResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.subnet.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_chain_subnet(
+        self,
+        request: blockchain_models.ExecChainSubnetRequest,
+    ) -> blockchain_models.ExecChainSubnetResponse:
+        """
+        Description: 阿里云子链的启动
+        Summary: 阿里云子链的启动
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_chain_subnet_ex(request, headers, runtime)
+
+    async def exec_chain_subnet_async(
+        self,
+        request: blockchain_models.ExecChainSubnetRequest,
+    ) -> blockchain_models.ExecChainSubnetResponse:
+        """
+        Description: 阿里云子链的启动
+        Summary: 阿里云子链的启动
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_chain_subnet_ex_async(request, headers, runtime)
+
+    def exec_chain_subnet_ex(
+        self,
+        request: blockchain_models.ExecChainSubnetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ExecChainSubnetResponse:
+        """
+        Description: 阿里云子链的启动
+        Summary: 阿里云子链的启动
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.ExecChainSubnetResponse().from_map(
+            self.do_request('1.0', 'baas.chain.subnet.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_chain_subnet_ex_async(
+        self,
+        request: blockchain_models.ExecChainSubnetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ExecChainSubnetResponse:
+        """
+        Description: 阿里云子链的启动
+        Summary: 阿里云子链的启动
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.ExecChainSubnetResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.subnet.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_chain_subnet_name(
+        self,
+        request: blockchain_models.UpdateChainSubnetNameRequest,
+    ) -> blockchain_models.UpdateChainSubnetNameResponse:
+        """
+        Description: 阿里云子链名称修改
+        Summary: 阿里云子链名称修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_chain_subnet_name_ex(request, headers, runtime)
+
+    async def update_chain_subnet_name_async(
+        self,
+        request: blockchain_models.UpdateChainSubnetNameRequest,
+    ) -> blockchain_models.UpdateChainSubnetNameResponse:
+        """
+        Description: 阿里云子链名称修改
+        Summary: 阿里云子链名称修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_chain_subnet_name_ex_async(request, headers, runtime)
+
+    def update_chain_subnet_name_ex(
+        self,
+        request: blockchain_models.UpdateChainSubnetNameRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UpdateChainSubnetNameResponse:
+        """
+        Description: 阿里云子链名称修改
+        Summary: 阿里云子链名称修改
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.UpdateChainSubnetNameResponse().from_map(
+            self.do_request('1.0', 'baas.chain.subnet.name.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_chain_subnet_name_ex_async(
+        self,
+        request: blockchain_models.UpdateChainSubnetNameRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UpdateChainSubnetNameResponse:
+        """
+        Description: 阿里云子链名称修改
+        Summary: 阿里云子链名称修改
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.UpdateChainSubnetNameResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.subnet.name.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_chain_subnet_node(
+        self,
+        request: blockchain_models.QueryChainSubnetNodeRequest,
+    ) -> blockchain_models.QueryChainSubnetNodeResponse:
+        """
+        Description: 阿里云子链节点信息查询
+        Summary: 阿里云子链节点信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_chain_subnet_node_ex(request, headers, runtime)
+
+    async def query_chain_subnet_node_async(
+        self,
+        request: blockchain_models.QueryChainSubnetNodeRequest,
+    ) -> blockchain_models.QueryChainSubnetNodeResponse:
+        """
+        Description: 阿里云子链节点信息查询
+        Summary: 阿里云子链节点信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_chain_subnet_node_ex_async(request, headers, runtime)
+
+    def query_chain_subnet_node_ex(
+        self,
+        request: blockchain_models.QueryChainSubnetNodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainSubnetNodeResponse:
+        """
+        Description: 阿里云子链节点信息查询
+        Summary: 阿里云子链节点信息查询
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryChainSubnetNodeResponse().from_map(
+            self.do_request('1.0', 'baas.chain.subnet.node.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_chain_subnet_node_ex_async(
+        self,
+        request: blockchain_models.QueryChainSubnetNodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainSubnetNodeResponse:
+        """
+        Description: 阿里云子链节点信息查询
+        Summary: 阿里云子链节点信息查询
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryChainSubnetNodeResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.subnet.node.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_chain_subnet_node(
+        self,
+        request: blockchain_models.DeleteChainSubnetNodeRequest,
+    ) -> blockchain_models.DeleteChainSubnetNodeResponse:
+        """
+        Description: 阿里云子链的节点删除
+        Summary: 阿里云子链的节点删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_chain_subnet_node_ex(request, headers, runtime)
+
+    async def delete_chain_subnet_node_async(
+        self,
+        request: blockchain_models.DeleteChainSubnetNodeRequest,
+    ) -> blockchain_models.DeleteChainSubnetNodeResponse:
+        """
+        Description: 阿里云子链的节点删除
+        Summary: 阿里云子链的节点删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_chain_subnet_node_ex_async(request, headers, runtime)
+
+    def delete_chain_subnet_node_ex(
+        self,
+        request: blockchain_models.DeleteChainSubnetNodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.DeleteChainSubnetNodeResponse:
+        """
+        Description: 阿里云子链的节点删除
+        Summary: 阿里云子链的节点删除
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.DeleteChainSubnetNodeResponse().from_map(
+            self.do_request('1.0', 'baas.chain.subnet.node.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_chain_subnet_node_ex_async(
+        self,
+        request: blockchain_models.DeleteChainSubnetNodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.DeleteChainSubnetNodeResponse:
+        """
+        Description: 阿里云子链的节点删除
+        Summary: 阿里云子链的节点删除
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.DeleteChainSubnetNodeResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.subnet.node.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_chain_subnet_node(
+        self,
+        request: blockchain_models.CheckChainSubnetNodeRequest,
+    ) -> blockchain_models.CheckChainSubnetNodeResponse:
+        """
+        Description: 阿里云子链节点添加的前置检查
+        Summary: 阿里云子链节点添加的前置检查
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_chain_subnet_node_ex(request, headers, runtime)
+
+    async def check_chain_subnet_node_async(
+        self,
+        request: blockchain_models.CheckChainSubnetNodeRequest,
+    ) -> blockchain_models.CheckChainSubnetNodeResponse:
+        """
+        Description: 阿里云子链节点添加的前置检查
+        Summary: 阿里云子链节点添加的前置检查
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_chain_subnet_node_ex_async(request, headers, runtime)
+
+    def check_chain_subnet_node_ex(
+        self,
+        request: blockchain_models.CheckChainSubnetNodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CheckChainSubnetNodeResponse:
+        """
+        Description: 阿里云子链节点添加的前置检查
+        Summary: 阿里云子链节点添加的前置检查
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CheckChainSubnetNodeResponse().from_map(
+            self.do_request('1.0', 'baas.chain.subnet.node.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_chain_subnet_node_ex_async(
+        self,
+        request: blockchain_models.CheckChainSubnetNodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CheckChainSubnetNodeResponse:
+        """
+        Description: 阿里云子链节点添加的前置检查
+        Summary: 阿里云子链节点添加的前置检查
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CheckChainSubnetNodeResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.subnet.node.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_chain_subnet_node(
+        self,
+        request: blockchain_models.AddChainSubnetNodeRequest,
+    ) -> blockchain_models.AddChainSubnetNodeResponse:
+        """
+        Description: 阿里云子链节点添加
+        Summary: 阿里云子链节点添加
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_chain_subnet_node_ex(request, headers, runtime)
+
+    async def add_chain_subnet_node_async(
+        self,
+        request: blockchain_models.AddChainSubnetNodeRequest,
+    ) -> blockchain_models.AddChainSubnetNodeResponse:
+        """
+        Description: 阿里云子链节点添加
+        Summary: 阿里云子链节点添加
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_chain_subnet_node_ex_async(request, headers, runtime)
+
+    def add_chain_subnet_node_ex(
+        self,
+        request: blockchain_models.AddChainSubnetNodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.AddChainSubnetNodeResponse:
+        """
+        Description: 阿里云子链节点添加
+        Summary: 阿里云子链节点添加
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.AddChainSubnetNodeResponse().from_map(
+            self.do_request('1.0', 'baas.chain.subnet.node.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_chain_subnet_node_ex_async(
+        self,
+        request: blockchain_models.AddChainSubnetNodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.AddChainSubnetNodeResponse:
+        """
+        Description: 阿里云子链节点添加
+        Summary: 阿里云子链节点添加
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.AddChainSubnetNodeResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.subnet.node.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_chain_subnet_member(
+        self,
+        request: blockchain_models.QueryChainSubnetMemberRequest,
+    ) -> blockchain_models.QueryChainSubnetMemberResponse:
+        """
+        Description: 阿里云子链机构列表查询
+        Summary: 阿里云子链机构列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_chain_subnet_member_ex(request, headers, runtime)
+
+    async def query_chain_subnet_member_async(
+        self,
+        request: blockchain_models.QueryChainSubnetMemberRequest,
+    ) -> blockchain_models.QueryChainSubnetMemberResponse:
+        """
+        Description: 阿里云子链机构列表查询
+        Summary: 阿里云子链机构列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_chain_subnet_member_ex_async(request, headers, runtime)
+
+    def query_chain_subnet_member_ex(
+        self,
+        request: blockchain_models.QueryChainSubnetMemberRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainSubnetMemberResponse:
+        """
+        Description: 阿里云子链机构列表查询
+        Summary: 阿里云子链机构列表查询
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryChainSubnetMemberResponse().from_map(
+            self.do_request('1.0', 'baas.chain.subnet.member.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_chain_subnet_member_ex_async(
+        self,
+        request: blockchain_models.QueryChainSubnetMemberRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainSubnetMemberResponse:
+        """
+        Description: 阿里云子链机构列表查询
+        Summary: 阿里云子链机构列表查询
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryChainSubnetMemberResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.subnet.member.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_chain_subnet_member(
+        self,
+        request: blockchain_models.DeleteChainSubnetMemberRequest,
+    ) -> blockchain_models.DeleteChainSubnetMemberResponse:
+        """
+        Description: 阿里云子链成员删除
+        Summary: 阿里云子链成员删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_chain_subnet_member_ex(request, headers, runtime)
+
+    async def delete_chain_subnet_member_async(
+        self,
+        request: blockchain_models.DeleteChainSubnetMemberRequest,
+    ) -> blockchain_models.DeleteChainSubnetMemberResponse:
+        """
+        Description: 阿里云子链成员删除
+        Summary: 阿里云子链成员删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_chain_subnet_member_ex_async(request, headers, runtime)
+
+    def delete_chain_subnet_member_ex(
+        self,
+        request: blockchain_models.DeleteChainSubnetMemberRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.DeleteChainSubnetMemberResponse:
+        """
+        Description: 阿里云子链成员删除
+        Summary: 阿里云子链成员删除
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.DeleteChainSubnetMemberResponse().from_map(
+            self.do_request('1.0', 'baas.chain.subnet.member.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_chain_subnet_member_ex_async(
+        self,
+        request: blockchain_models.DeleteChainSubnetMemberRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.DeleteChainSubnetMemberResponse:
+        """
+        Description: 阿里云子链成员删除
+        Summary: 阿里云子链成员删除
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.DeleteChainSubnetMemberResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.subnet.member.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_chain_subnet_member(
+        self,
+        request: blockchain_models.CheckChainSubnetMemberRequest,
+    ) -> blockchain_models.CheckChainSubnetMemberResponse:
+        """
+        Description: 阿里云子链成员添加前校验
+        Summary: 阿里云子链成员添加前校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_chain_subnet_member_ex(request, headers, runtime)
+
+    async def check_chain_subnet_member_async(
+        self,
+        request: blockchain_models.CheckChainSubnetMemberRequest,
+    ) -> blockchain_models.CheckChainSubnetMemberResponse:
+        """
+        Description: 阿里云子链成员添加前校验
+        Summary: 阿里云子链成员添加前校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_chain_subnet_member_ex_async(request, headers, runtime)
+
+    def check_chain_subnet_member_ex(
+        self,
+        request: blockchain_models.CheckChainSubnetMemberRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CheckChainSubnetMemberResponse:
+        """
+        Description: 阿里云子链成员添加前校验
+        Summary: 阿里云子链成员添加前校验
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CheckChainSubnetMemberResponse().from_map(
+            self.do_request('1.0', 'baas.chain.subnet.member.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_chain_subnet_member_ex_async(
+        self,
+        request: blockchain_models.CheckChainSubnetMemberRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CheckChainSubnetMemberResponse:
+        """
+        Description: 阿里云子链成员添加前校验
+        Summary: 阿里云子链成员添加前校验
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CheckChainSubnetMemberResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.subnet.member.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_chain_subnet_member(
+        self,
+        request: blockchain_models.AddChainSubnetMemberRequest,
+    ) -> blockchain_models.AddChainSubnetMemberResponse:
+        """
+        Description: 阿里云子链成员添加
+        Summary: 阿里云子链成员添加
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_chain_subnet_member_ex(request, headers, runtime)
+
+    async def add_chain_subnet_member_async(
+        self,
+        request: blockchain_models.AddChainSubnetMemberRequest,
+    ) -> blockchain_models.AddChainSubnetMemberResponse:
+        """
+        Description: 阿里云子链成员添加
+        Summary: 阿里云子链成员添加
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_chain_subnet_member_ex_async(request, headers, runtime)
+
+    def add_chain_subnet_member_ex(
+        self,
+        request: blockchain_models.AddChainSubnetMemberRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.AddChainSubnetMemberResponse:
+        """
+        Description: 阿里云子链成员添加
+        Summary: 阿里云子链成员添加
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.AddChainSubnetMemberResponse().from_map(
+            self.do_request('1.0', 'baas.chain.subnet.member.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_chain_subnet_member_ex_async(
+        self,
+        request: blockchain_models.AddChainSubnetMemberRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.AddChainSubnetMemberResponse:
+        """
+        Description: 阿里云子链成员添加
+        Summary: 阿里云子链成员添加
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.AddChainSubnetMemberResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.subnet.member.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_chain_subnet_rest(
+        self,
+        request: blockchain_models.ApplyChainSubnetRestRequest,
+    ) -> blockchain_models.ApplyChainSubnetRestResponse:
+        """
+        Description: 阿里云子链REST开通
+        Summary: 阿里云子链REST开通
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_chain_subnet_rest_ex(request, headers, runtime)
+
+    async def apply_chain_subnet_rest_async(
+        self,
+        request: blockchain_models.ApplyChainSubnetRestRequest,
+    ) -> blockchain_models.ApplyChainSubnetRestResponse:
+        """
+        Description: 阿里云子链REST开通
+        Summary: 阿里云子链REST开通
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_chain_subnet_rest_ex_async(request, headers, runtime)
+
+    def apply_chain_subnet_rest_ex(
+        self,
+        request: blockchain_models.ApplyChainSubnetRestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ApplyChainSubnetRestResponse:
+        """
+        Description: 阿里云子链REST开通
+        Summary: 阿里云子链REST开通
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.ApplyChainSubnetRestResponse().from_map(
+            self.do_request('1.0', 'baas.chain.subnet.rest.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_chain_subnet_rest_ex_async(
+        self,
+        request: blockchain_models.ApplyChainSubnetRestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ApplyChainSubnetRestResponse:
+        """
+        Description: 阿里云子链REST开通
+        Summary: 阿里云子链REST开通
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.ApplyChainSubnetRestResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.subnet.rest.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_chain_dataexport_task(
+        self,
+        request: blockchain_models.QueryChainDataexportTaskRequest,
+    ) -> blockchain_models.QueryChainDataexportTaskResponse:
+        """
+        Description: 阿里云数据导出任务查询
+        Summary: 阿里云数据导出任务查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_chain_dataexport_task_ex(request, headers, runtime)
+
+    async def query_chain_dataexport_task_async(
+        self,
+        request: blockchain_models.QueryChainDataexportTaskRequest,
+    ) -> blockchain_models.QueryChainDataexportTaskResponse:
+        """
+        Description: 阿里云数据导出任务查询
+        Summary: 阿里云数据导出任务查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_chain_dataexport_task_ex_async(request, headers, runtime)
+
+    def query_chain_dataexport_task_ex(
+        self,
+        request: blockchain_models.QueryChainDataexportTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainDataexportTaskResponse:
+        """
+        Description: 阿里云数据导出任务查询
+        Summary: 阿里云数据导出任务查询
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryChainDataexportTaskResponse().from_map(
+            self.do_request('1.0', 'baas.chain.dataexport.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_chain_dataexport_task_ex_async(
+        self,
+        request: blockchain_models.QueryChainDataexportTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainDataexportTaskResponse:
+        """
+        Description: 阿里云数据导出任务查询
+        Summary: 阿里云数据导出任务查询
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryChainDataexportTaskResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.dataexport.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_chain_data_export(
+        self,
+        request: blockchain_models.QueryChainDataExportRequest,
+    ) -> blockchain_models.QueryChainDataExportResponse:
+        """
+        Description: 阿里云数据导出服务，列出所有导出任务功能接口
+        Summary: 列出所有导出任务接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_chain_data_export_ex(request, headers, runtime)
+
+    async def query_chain_data_export_async(
+        self,
+        request: blockchain_models.QueryChainDataExportRequest,
+    ) -> blockchain_models.QueryChainDataExportResponse:
+        """
+        Description: 阿里云数据导出服务，列出所有导出任务功能接口
+        Summary: 列出所有导出任务接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_chain_data_export_ex_async(request, headers, runtime)
+
+    def query_chain_data_export_ex(
+        self,
+        request: blockchain_models.QueryChainDataExportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainDataExportResponse:
+        """
+        Description: 阿里云数据导出服务，列出所有导出任务功能接口
+        Summary: 列出所有导出任务接口
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryChainDataExportResponse().from_map(
+            self.do_request('1.0', 'baas.chain.data.export.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_chain_data_export_ex_async(
+        self,
+        request: blockchain_models.QueryChainDataExportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainDataExportResponse:
+        """
+        Description: 阿里云数据导出服务，列出所有导出任务功能接口
+        Summary: 列出所有导出任务接口
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryChainDataExportResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.data.export.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_chain_dataexport_task(
+        self,
+        request: blockchain_models.CreateChainDataexportTaskRequest,
+    ) -> blockchain_models.CreateChainDataexportTaskResponse:
+        """
+        Description: 阿里云数据导出需求创建数据导出任务
+        Summary: 创建数据导出任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_chain_dataexport_task_ex(request, headers, runtime)
+
+    async def create_chain_dataexport_task_async(
+        self,
+        request: blockchain_models.CreateChainDataexportTaskRequest,
+    ) -> blockchain_models.CreateChainDataexportTaskResponse:
+        """
+        Description: 阿里云数据导出需求创建数据导出任务
+        Summary: 创建数据导出任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_chain_dataexport_task_ex_async(request, headers, runtime)
+
+    def create_chain_dataexport_task_ex(
+        self,
+        request: blockchain_models.CreateChainDataexportTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateChainDataexportTaskResponse:
+        """
+        Description: 阿里云数据导出需求创建数据导出任务
+        Summary: 创建数据导出任务
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateChainDataexportTaskResponse().from_map(
+            self.do_request('1.0', 'baas.chain.dataexport.task.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_chain_dataexport_task_ex_async(
+        self,
+        request: blockchain_models.CreateChainDataexportTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateChainDataexportTaskResponse:
+        """
+        Description: 阿里云数据导出需求创建数据导出任务
+        Summary: 创建数据导出任务
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateChainDataexportTaskResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.dataexport.task.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_aml_corporation_joinprepare(
@@ -15049,6 +15967,114 @@ class Client:
             await self.do_request_async('1.0', 'baas.browser.node.owner.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def delete_blockchain_miniprogram(
+        self,
+        request: blockchain_models.DeleteBlockchainMiniprogramRequest,
+    ) -> blockchain_models.DeleteBlockchainMiniprogramResponse:
+        """
+        Description: 小程序权限删除
+        Summary: 小程序权限删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_blockchain_miniprogram_ex(request, headers, runtime)
+
+    async def delete_blockchain_miniprogram_async(
+        self,
+        request: blockchain_models.DeleteBlockchainMiniprogramRequest,
+    ) -> blockchain_models.DeleteBlockchainMiniprogramResponse:
+        """
+        Description: 小程序权限删除
+        Summary: 小程序权限删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_blockchain_miniprogram_ex_async(request, headers, runtime)
+
+    def delete_blockchain_miniprogram_ex(
+        self,
+        request: blockchain_models.DeleteBlockchainMiniprogramRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.DeleteBlockchainMiniprogramResponse:
+        """
+        Description: 小程序权限删除
+        Summary: 小程序权限删除
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.DeleteBlockchainMiniprogramResponse().from_map(
+            self.do_request('1.0', 'baas.blockchain.miniprogram.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_blockchain_miniprogram_ex_async(
+        self,
+        request: blockchain_models.DeleteBlockchainMiniprogramRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.DeleteBlockchainMiniprogramResponse:
+        """
+        Description: 小程序权限删除
+        Summary: 小程序权限删除
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.DeleteBlockchainMiniprogramResponse().from_map(
+            await self.do_request_async('1.0', 'baas.blockchain.miniprogram.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_blockchain_miniprogram(
+        self,
+        request: blockchain_models.QueryBlockchainMiniprogramRequest,
+    ) -> blockchain_models.QueryBlockchainMiniprogramResponse:
+        """
+        Description: 查询用户链上交易移动端查看权限
+        Summary: 查询用户链上交易移动端查看权限
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_blockchain_miniprogram_ex(request, headers, runtime)
+
+    async def query_blockchain_miniprogram_async(
+        self,
+        request: blockchain_models.QueryBlockchainMiniprogramRequest,
+    ) -> blockchain_models.QueryBlockchainMiniprogramResponse:
+        """
+        Description: 查询用户链上交易移动端查看权限
+        Summary: 查询用户链上交易移动端查看权限
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_blockchain_miniprogram_ex_async(request, headers, runtime)
+
+    def query_blockchain_miniprogram_ex(
+        self,
+        request: blockchain_models.QueryBlockchainMiniprogramRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryBlockchainMiniprogramResponse:
+        """
+        Description: 查询用户链上交易移动端查看权限
+        Summary: 查询用户链上交易移动端查看权限
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryBlockchainMiniprogramResponse().from_map(
+            self.do_request('1.0', 'baas.blockchain.miniprogram.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_blockchain_miniprogram_ex_async(
+        self,
+        request: blockchain_models.QueryBlockchainMiniprogramRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryBlockchainMiniprogramResponse:
+        """
+        Description: 查询用户链上交易移动端查看权限
+        Summary: 查询用户链上交易移动端查看权限
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryBlockchainMiniprogramResponse().from_map(
+            await self.do_request_async('1.0', 'baas.blockchain.miniprogram.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_credit_transfer_apply(
         self,
         request: blockchain_models.QueryCreditTransferApplyRequest,
@@ -17103,6 +18129,742 @@ class Client:
         UtilClient.validate_model(request)
         return blockchain_models.QueryAuthOrgStatusResponse().from_map(
             await self.do_request_async('1.0', 'baas.auth.org.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_auth_asset_issue(
+        self,
+        request: blockchain_models.StartAuthAssetIssueRequest,
+    ) -> blockchain_models.StartAuthAssetIssueResponse:
+        """
+        Description: 预充值交易通过身份的凭证封装的方式在区块链上资产化。
+        Summary: 交易资产的归属
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_auth_asset_issue_ex(request, headers, runtime)
+
+    async def start_auth_asset_issue_async(
+        self,
+        request: blockchain_models.StartAuthAssetIssueRequest,
+    ) -> blockchain_models.StartAuthAssetIssueResponse:
+        """
+        Description: 预充值交易通过身份的凭证封装的方式在区块链上资产化。
+        Summary: 交易资产的归属
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_auth_asset_issue_ex_async(request, headers, runtime)
+
+    def start_auth_asset_issue_ex(
+        self,
+        request: blockchain_models.StartAuthAssetIssueRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.StartAuthAssetIssueResponse:
+        """
+        Description: 预充值交易通过身份的凭证封装的方式在区块链上资产化。
+        Summary: 交易资产的归属
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.StartAuthAssetIssueResponse().from_map(
+            self.do_request('1.0', 'baas.auth.asset.issue.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_auth_asset_issue_ex_async(
+        self,
+        request: blockchain_models.StartAuthAssetIssueRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.StartAuthAssetIssueResponse:
+        """
+        Description: 预充值交易通过身份的凭证封装的方式在区块链上资产化。
+        Summary: 交易资产的归属
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.StartAuthAssetIssueResponse().from_map(
+            await self.do_request_async('1.0', 'baas.auth.asset.issue.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def all_auth_cert_template(
+        self,
+        request: blockchain_models.AllAuthCertTemplateRequest,
+    ) -> blockchain_models.AllAuthCertTemplateResponse:
+        """
+        Description: 查询卡证模板的列表
+        Summary: 查询模板列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.all_auth_cert_template_ex(request, headers, runtime)
+
+    async def all_auth_cert_template_async(
+        self,
+        request: blockchain_models.AllAuthCertTemplateRequest,
+    ) -> blockchain_models.AllAuthCertTemplateResponse:
+        """
+        Description: 查询卡证模板的列表
+        Summary: 查询模板列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.all_auth_cert_template_ex_async(request, headers, runtime)
+
+    def all_auth_cert_template_ex(
+        self,
+        request: blockchain_models.AllAuthCertTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.AllAuthCertTemplateResponse:
+        """
+        Description: 查询卡证模板的列表
+        Summary: 查询模板列表
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.AllAuthCertTemplateResponse().from_map(
+            self.do_request('1.0', 'baas.auth.cert.template.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def all_auth_cert_template_ex_async(
+        self,
+        request: blockchain_models.AllAuthCertTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.AllAuthCertTemplateResponse:
+        """
+        Description: 查询卡证模板的列表
+        Summary: 查询模板列表
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.AllAuthCertTemplateResponse().from_map(
+            await self.do_request_async('1.0', 'baas.auth.cert.template.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_auth_cert_instanceforcustom(
+        self,
+        request: blockchain_models.SaveAuthCertInstanceforcustomRequest,
+    ) -> blockchain_models.SaveAuthCertInstanceforcustomResponse:
+        """
+        Description: 为客权业务定制化的编辑或新增证书实例，可以绕过审批流程
+        Summary: 编辑或新增证书实例
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_auth_cert_instanceforcustom_ex(request, headers, runtime)
+
+    async def save_auth_cert_instanceforcustom_async(
+        self,
+        request: blockchain_models.SaveAuthCertInstanceforcustomRequest,
+    ) -> blockchain_models.SaveAuthCertInstanceforcustomResponse:
+        """
+        Description: 为客权业务定制化的编辑或新增证书实例，可以绕过审批流程
+        Summary: 编辑或新增证书实例
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_auth_cert_instanceforcustom_ex_async(request, headers, runtime)
+
+    def save_auth_cert_instanceforcustom_ex(
+        self,
+        request: blockchain_models.SaveAuthCertInstanceforcustomRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.SaveAuthCertInstanceforcustomResponse:
+        """
+        Description: 为客权业务定制化的编辑或新增证书实例，可以绕过审批流程
+        Summary: 编辑或新增证书实例
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.SaveAuthCertInstanceforcustomResponse().from_map(
+            self.do_request('1.0', 'baas.auth.cert.instanceforcustom.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_auth_cert_instanceforcustom_ex_async(
+        self,
+        request: blockchain_models.SaveAuthCertInstanceforcustomRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.SaveAuthCertInstanceforcustomResponse:
+        """
+        Description: 为客权业务定制化的编辑或新增证书实例，可以绕过审批流程
+        Summary: 编辑或新增证书实例
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.SaveAuthCertInstanceforcustomResponse().from_map(
+            await self.do_request_async('1.0', 'baas.auth.cert.instanceforcustom.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchcreate_auth_cert(
+        self,
+        request: blockchain_models.BatchcreateAuthCertRequest,
+    ) -> blockchain_models.BatchcreateAuthCertResponse:
+        """
+        Description: 通过上传的领取人明细文件，为证书实例批量颁发证书
+        Summary: 批量颁发证书
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchcreate_auth_cert_ex(request, headers, runtime)
+
+    async def batchcreate_auth_cert_async(
+        self,
+        request: blockchain_models.BatchcreateAuthCertRequest,
+    ) -> blockchain_models.BatchcreateAuthCertResponse:
+        """
+        Description: 通过上传的领取人明细文件，为证书实例批量颁发证书
+        Summary: 批量颁发证书
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchcreate_auth_cert_ex_async(request, headers, runtime)
+
+    def batchcreate_auth_cert_ex(
+        self,
+        request: blockchain_models.BatchcreateAuthCertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.BatchcreateAuthCertResponse:
+        """
+        Description: 通过上传的领取人明细文件，为证书实例批量颁发证书
+        Summary: 批量颁发证书
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.BatchcreateAuthCertResponse().from_map(
+            self.do_request('1.0', 'baas.auth.cert.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchcreate_auth_cert_ex_async(
+        self,
+        request: blockchain_models.BatchcreateAuthCertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.BatchcreateAuthCertResponse:
+        """
+        Description: 通过上传的领取人明细文件，为证书实例批量颁发证书
+        Summary: 批量颁发证书
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.BatchcreateAuthCertResponse().from_map(
+            await self.do_request_async('1.0', 'baas.auth.cert.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_auth_cert(
+        self,
+        request: blockchain_models.CreateAuthCertRequest,
+    ) -> blockchain_models.CreateAuthCertResponse:
+        """
+        Description: 单个颁发证书
+        Summary: 颁发证书
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_auth_cert_ex(request, headers, runtime)
+
+    async def create_auth_cert_async(
+        self,
+        request: blockchain_models.CreateAuthCertRequest,
+    ) -> blockchain_models.CreateAuthCertResponse:
+        """
+        Description: 单个颁发证书
+        Summary: 颁发证书
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_auth_cert_ex_async(request, headers, runtime)
+
+    def create_auth_cert_ex(
+        self,
+        request: blockchain_models.CreateAuthCertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateAuthCertResponse:
+        """
+        Description: 单个颁发证书
+        Summary: 颁发证书
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateAuthCertResponse().from_map(
+            self.do_request('1.0', 'baas.auth.cert.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_auth_cert_ex_async(
+        self,
+        request: blockchain_models.CreateAuthCertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateAuthCertResponse:
+        """
+        Description: 单个颁发证书
+        Summary: 颁发证书
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateAuthCertResponse().from_map(
+            await self.do_request_async('1.0', 'baas.auth.cert.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def invalidate_auth_cert(
+        self,
+        request: blockchain_models.InvalidateAuthCertRequest,
+    ) -> blockchain_models.InvalidateAuthCertResponse:
+        """
+        Description: 吊销已经颁发的证书
+        Summary: 吊销证书
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.invalidate_auth_cert_ex(request, headers, runtime)
+
+    async def invalidate_auth_cert_async(
+        self,
+        request: blockchain_models.InvalidateAuthCertRequest,
+    ) -> blockchain_models.InvalidateAuthCertResponse:
+        """
+        Description: 吊销已经颁发的证书
+        Summary: 吊销证书
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.invalidate_auth_cert_ex_async(request, headers, runtime)
+
+    def invalidate_auth_cert_ex(
+        self,
+        request: blockchain_models.InvalidateAuthCertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.InvalidateAuthCertResponse:
+        """
+        Description: 吊销已经颁发的证书
+        Summary: 吊销证书
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.InvalidateAuthCertResponse().from_map(
+            self.do_request('1.0', 'baas.auth.cert.invalidate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def invalidate_auth_cert_ex_async(
+        self,
+        request: blockchain_models.InvalidateAuthCertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.InvalidateAuthCertResponse:
+        """
+        Description: 吊销已经颁发的证书
+        Summary: 吊销证书
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.InvalidateAuthCertResponse().from_map(
+            await self.do_request_async('1.0', 'baas.auth.cert.invalidate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_auth_cert_progress(
+        self,
+        request: blockchain_models.QueryAuthCertProgressRequest,
+    ) -> blockchain_models.QueryAuthCertProgressResponse:
+        """
+        Description: 查询批量颁发证书的进度详情
+        Summary: 查询批量颁发证书的进度
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_auth_cert_progress_ex(request, headers, runtime)
+
+    async def query_auth_cert_progress_async(
+        self,
+        request: blockchain_models.QueryAuthCertProgressRequest,
+    ) -> blockchain_models.QueryAuthCertProgressResponse:
+        """
+        Description: 查询批量颁发证书的进度详情
+        Summary: 查询批量颁发证书的进度
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_auth_cert_progress_ex_async(request, headers, runtime)
+
+    def query_auth_cert_progress_ex(
+        self,
+        request: blockchain_models.QueryAuthCertProgressRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthCertProgressResponse:
+        """
+        Description: 查询批量颁发证书的进度详情
+        Summary: 查询批量颁发证书的进度
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryAuthCertProgressResponse().from_map(
+            self.do_request('1.0', 'baas.auth.cert.progress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_auth_cert_progress_ex_async(
+        self,
+        request: blockchain_models.QueryAuthCertProgressRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthCertProgressResponse:
+        """
+        Description: 查询批量颁发证书的进度详情
+        Summary: 查询批量颁发证书的进度
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryAuthCertProgressResponse().from_map(
+            await self.do_request_async('1.0', 'baas.auth.cert.progress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_auth_cert_instance(
+        self,
+        request: blockchain_models.UploadAuthCertInstanceRequest,
+    ) -> blockchain_models.UploadAuthCertInstanceResponse:
+        """
+        Description: 上传需要批量颁发的证书领取人明细csv文件到oss服务器，并返回文件的路径
+        Summary: 上传领取人明细csv文件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_auth_cert_instance_ex(request, headers, runtime)
+
+    async def upload_auth_cert_instance_async(
+        self,
+        request: blockchain_models.UploadAuthCertInstanceRequest,
+    ) -> blockchain_models.UploadAuthCertInstanceResponse:
+        """
+        Description: 上传需要批量颁发的证书领取人明细csv文件到oss服务器，并返回文件的路径
+        Summary: 上传领取人明细csv文件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_auth_cert_instance_ex_async(request, headers, runtime)
+
+    def upload_auth_cert_instance_ex(
+        self,
+        request: blockchain_models.UploadAuthCertInstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UploadAuthCertInstanceResponse:
+        """
+        Description: 上传需要批量颁发的证书领取人明细csv文件到oss服务器，并返回文件的路径
+        Summary: 上传领取人明细csv文件
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = blockchain_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='baas.auth.cert.instance.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_auth_cert_instance_response = blockchain_models.UploadAuthCertInstanceResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_auth_cert_instance_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return blockchain_models.UploadAuthCertInstanceResponse().from_map(
+            self.do_request('1.0', 'baas.auth.cert.instance.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_auth_cert_instance_ex_async(
+        self,
+        request: blockchain_models.UploadAuthCertInstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UploadAuthCertInstanceResponse:
+        """
+        Description: 上传需要批量颁发的证书领取人明细csv文件到oss服务器，并返回文件的路径
+        Summary: 上传领取人明细csv文件
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = blockchain_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='baas.auth.cert.instance.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_auth_cert_instance_response = blockchain_models.UploadAuthCertInstanceResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_auth_cert_instance_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return blockchain_models.UploadAuthCertInstanceResponse().from_map(
+            await self.do_request_async('1.0', 'baas.auth.cert.instance.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_auth_cert_instance(
+        self,
+        request: blockchain_models.SaveAuthCertInstanceRequest,
+    ) -> blockchain_models.SaveAuthCertInstanceResponse:
+        """
+        Description:  编辑或新增证书实例
+        Summary:  编辑或新增证书实例
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_auth_cert_instance_ex(request, headers, runtime)
+
+    async def save_auth_cert_instance_async(
+        self,
+        request: blockchain_models.SaveAuthCertInstanceRequest,
+    ) -> blockchain_models.SaveAuthCertInstanceResponse:
+        """
+        Description:  编辑或新增证书实例
+        Summary:  编辑或新增证书实例
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_auth_cert_instance_ex_async(request, headers, runtime)
+
+    def save_auth_cert_instance_ex(
+        self,
+        request: blockchain_models.SaveAuthCertInstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.SaveAuthCertInstanceResponse:
+        """
+        Description:  编辑或新增证书实例
+        Summary:  编辑或新增证书实例
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.SaveAuthCertInstanceResponse().from_map(
+            self.do_request('1.0', 'baas.auth.cert.instance.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_auth_cert_instance_ex_async(
+        self,
+        request: blockchain_models.SaveAuthCertInstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.SaveAuthCertInstanceResponse:
+        """
+        Description:  编辑或新增证书实例
+        Summary:  编辑或新增证书实例
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.SaveAuthCertInstanceResponse().from_map(
+            await self.do_request_async('1.0', 'baas.auth.cert.instance.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_auth_cert_instance(
+        self,
+        request: blockchain_models.ApplyAuthCertInstanceRequest,
+    ) -> blockchain_models.ApplyAuthCertInstanceResponse:
+        """
+        Description: 状态为编辑中的证书实例，调用此接口提交审核
+        Summary: 证书实例提交审核
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_auth_cert_instance_ex(request, headers, runtime)
+
+    async def apply_auth_cert_instance_async(
+        self,
+        request: blockchain_models.ApplyAuthCertInstanceRequest,
+    ) -> blockchain_models.ApplyAuthCertInstanceResponse:
+        """
+        Description: 状态为编辑中的证书实例，调用此接口提交审核
+        Summary: 证书实例提交审核
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_auth_cert_instance_ex_async(request, headers, runtime)
+
+    def apply_auth_cert_instance_ex(
+        self,
+        request: blockchain_models.ApplyAuthCertInstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ApplyAuthCertInstanceResponse:
+        """
+        Description: 状态为编辑中的证书实例，调用此接口提交审核
+        Summary: 证书实例提交审核
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.ApplyAuthCertInstanceResponse().from_map(
+            self.do_request('1.0', 'baas.auth.cert.instance.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_auth_cert_instance_ex_async(
+        self,
+        request: blockchain_models.ApplyAuthCertInstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ApplyAuthCertInstanceResponse:
+        """
+        Description: 状态为编辑中的证书实例，调用此接口提交审核
+        Summary: 证书实例提交审核
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.ApplyAuthCertInstanceResponse().from_map(
+            await self.do_request_async('1.0', 'baas.auth.cert.instance.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_auth_cert_instancedataurl(
+        self,
+        request: blockchain_models.GetAuthCertInstancedataurlRequest,
+    ) -> blockchain_models.GetAuthCertInstancedataurlResponse:
+        """
+        Description: 向证书平台申请一个oss临时url，用来上传证书领取人csv文件，有效期30分钟
+        Summary: 获取证书领取人csv上传url
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_auth_cert_instancedataurl_ex(request, headers, runtime)
+
+    async def get_auth_cert_instancedataurl_async(
+        self,
+        request: blockchain_models.GetAuthCertInstancedataurlRequest,
+    ) -> blockchain_models.GetAuthCertInstancedataurlResponse:
+        """
+        Description: 向证书平台申请一个oss临时url，用来上传证书领取人csv文件，有效期30分钟
+        Summary: 获取证书领取人csv上传url
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_auth_cert_instancedataurl_ex_async(request, headers, runtime)
+
+    def get_auth_cert_instancedataurl_ex(
+        self,
+        request: blockchain_models.GetAuthCertInstancedataurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.GetAuthCertInstancedataurlResponse:
+        """
+        Description: 向证书平台申请一个oss临时url，用来上传证书领取人csv文件，有效期30分钟
+        Summary: 获取证书领取人csv上传url
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.GetAuthCertInstancedataurlResponse().from_map(
+            self.do_request('1.0', 'baas.auth.cert.instancedataurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_auth_cert_instancedataurl_ex_async(
+        self,
+        request: blockchain_models.GetAuthCertInstancedataurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.GetAuthCertInstancedataurlResponse:
+        """
+        Description: 向证书平台申请一个oss临时url，用来上传证书领取人csv文件，有效期30分钟
+        Summary: 获取证书领取人csv上传url
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.GetAuthCertInstancedataurlResponse().from_map(
+            await self.do_request_async('1.0', 'baas.auth.cert.instancedataurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_auth_cert_claim(
+        self,
+        request: blockchain_models.CreateAuthCertClaimRequest,
+    ) -> blockchain_models.CreateAuthCertClaimResponse:
+        """
+        Description: 证书平台创建自定义存证
+        Summary: 证书平台创建存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_auth_cert_claim_ex(request, headers, runtime)
+
+    async def create_auth_cert_claim_async(
+        self,
+        request: blockchain_models.CreateAuthCertClaimRequest,
+    ) -> blockchain_models.CreateAuthCertClaimResponse:
+        """
+        Description: 证书平台创建自定义存证
+        Summary: 证书平台创建存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_auth_cert_claim_ex_async(request, headers, runtime)
+
+    def create_auth_cert_claim_ex(
+        self,
+        request: blockchain_models.CreateAuthCertClaimRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateAuthCertClaimResponse:
+        """
+        Description: 证书平台创建自定义存证
+        Summary: 证书平台创建存证
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateAuthCertClaimResponse().from_map(
+            self.do_request('1.0', 'baas.auth.cert.claim.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_auth_cert_claim_ex_async(
+        self,
+        request: blockchain_models.CreateAuthCertClaimRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateAuthCertClaimResponse:
+        """
+        Description: 证书平台创建自定义存证
+        Summary: 证书平台创建存证
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateAuthCertClaimResponse().from_map(
+            await self.do_request_async('1.0', 'baas.auth.cert.claim.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_auth_cert_claim(
+        self,
+        request: blockchain_models.QueryAuthCertClaimRequest,
+    ) -> blockchain_models.QueryAuthCertClaimResponse:
+        """
+        Description: 证书平台查询用户自定义存证
+        Summary: 证书平台查询用户自定义存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_auth_cert_claim_ex(request, headers, runtime)
+
+    async def query_auth_cert_claim_async(
+        self,
+        request: blockchain_models.QueryAuthCertClaimRequest,
+    ) -> blockchain_models.QueryAuthCertClaimResponse:
+        """
+        Description: 证书平台查询用户自定义存证
+        Summary: 证书平台查询用户自定义存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_auth_cert_claim_ex_async(request, headers, runtime)
+
+    def query_auth_cert_claim_ex(
+        self,
+        request: blockchain_models.QueryAuthCertClaimRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthCertClaimResponse:
+        """
+        Description: 证书平台查询用户自定义存证
+        Summary: 证书平台查询用户自定义存证
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryAuthCertClaimResponse().from_map(
+            self.do_request('1.0', 'baas.auth.cert.claim.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_auth_cert_claim_ex_async(
+        self,
+        request: blockchain_models.QueryAuthCertClaimRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthCertClaimResponse:
+        """
+        Description: 证书平台查询用户自定义存证
+        Summary: 证书平台查询用户自定义存证
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryAuthCertClaimResponse().from_map(
+            await self.do_request_async('1.0', 'baas.auth.cert.claim.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_did_corporate_agentcreate(
@@ -20853,6 +22615,600 @@ class Client:
         UtilClient.validate_model(request)
         return blockchain_models.VerifyDidZkpverifiableclaimProofResponse().from_map(
             await self.do_request_async('1.0', 'baas.did.zkpverifiableclaim.proof.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_did_person_facevrf(
+        self,
+        request: blockchain_models.CreateDidPersonFacevrfRequest,
+    ) -> blockchain_models.CreateDidPersonFacevrfResponse:
+        """
+        Description: 支持移动端APP的安卓和IOS集成SDK进行刷脸认证，在查询query认证结果通过的情况下创建DID身份。
+        Summary: APP移动端刷脸认证成功后创建DID
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_did_person_facevrf_ex(request, headers, runtime)
+
+    async def create_did_person_facevrf_async(
+        self,
+        request: blockchain_models.CreateDidPersonFacevrfRequest,
+    ) -> blockchain_models.CreateDidPersonFacevrfResponse:
+        """
+        Description: 支持移动端APP的安卓和IOS集成SDK进行刷脸认证，在查询query认证结果通过的情况下创建DID身份。
+        Summary: APP移动端刷脸认证成功后创建DID
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_did_person_facevrf_ex_async(request, headers, runtime)
+
+    def create_did_person_facevrf_ex(
+        self,
+        request: blockchain_models.CreateDidPersonFacevrfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateDidPersonFacevrfResponse:
+        """
+        Description: 支持移动端APP的安卓和IOS集成SDK进行刷脸认证，在查询query认证结果通过的情况下创建DID身份。
+        Summary: APP移动端刷脸认证成功后创建DID
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateDidPersonFacevrfResponse().from_map(
+            self.do_request('1.0', 'baas.did.person.facevrf.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_did_person_facevrf_ex_async(
+        self,
+        request: blockchain_models.CreateDidPersonFacevrfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateDidPersonFacevrfResponse:
+        """
+        Description: 支持移动端APP的安卓和IOS集成SDK进行刷脸认证，在查询query认证结果通过的情况下创建DID身份。
+        Summary: APP移动端刷脸认证成功后创建DID
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateDidPersonFacevrfResponse().from_map(
+            await self.do_request_async('1.0', 'baas.did.person.facevrf.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_did_person_facevrf(
+        self,
+        request: blockchain_models.QueryDidPersonFacevrfRequest,
+    ) -> blockchain_models.QueryDidPersonFacevrfResponse:
+        """
+        Description: 查询之前发起的实人认证的结果，如果认证通过就创建DID身份并返回。
+        Summary: 查询可信实人认证的结果并创建DID
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_did_person_facevrf_ex(request, headers, runtime)
+
+    async def query_did_person_facevrf_async(
+        self,
+        request: blockchain_models.QueryDidPersonFacevrfRequest,
+    ) -> blockchain_models.QueryDidPersonFacevrfResponse:
+        """
+        Description: 查询之前发起的实人认证的结果，如果认证通过就创建DID身份并返回。
+        Summary: 查询可信实人认证的结果并创建DID
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_did_person_facevrf_ex_async(request, headers, runtime)
+
+    def query_did_person_facevrf_ex(
+        self,
+        request: blockchain_models.QueryDidPersonFacevrfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryDidPersonFacevrfResponse:
+        """
+        Description: 查询之前发起的实人认证的结果，如果认证通过就创建DID身份并返回。
+        Summary: 查询可信实人认证的结果并创建DID
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryDidPersonFacevrfResponse().from_map(
+            self.do_request('1.0', 'baas.did.person.facevrf.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_did_person_facevrf_ex_async(
+        self,
+        request: blockchain_models.QueryDidPersonFacevrfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryDidPersonFacevrfResponse:
+        """
+        Description: 查询之前发起的实人认证的结果，如果认证通过就创建DID身份并返回。
+        Summary: 查询可信实人认证的结果并创建DID
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryDidPersonFacevrfResponse().from_map(
+            await self.do_request_async('1.0', 'baas.did.person.facevrf.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_did_person_facevrfminiapp(
+        self,
+        request: blockchain_models.CreateDidPersonFacevrfminiappRequest,
+    ) -> blockchain_models.CreateDidPersonFacevrfminiappResponse:
+        """
+        Description: h5或者小程序刷脸认证成功后创建DID
+        Summary: h5或者小程序刷脸认证成功后创建DID
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_did_person_facevrfminiapp_ex(request, headers, runtime)
+
+    async def create_did_person_facevrfminiapp_async(
+        self,
+        request: blockchain_models.CreateDidPersonFacevrfminiappRequest,
+    ) -> blockchain_models.CreateDidPersonFacevrfminiappResponse:
+        """
+        Description: h5或者小程序刷脸认证成功后创建DID
+        Summary: h5或者小程序刷脸认证成功后创建DID
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_did_person_facevrfminiapp_ex_async(request, headers, runtime)
+
+    def create_did_person_facevrfminiapp_ex(
+        self,
+        request: blockchain_models.CreateDidPersonFacevrfminiappRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateDidPersonFacevrfminiappResponse:
+        """
+        Description: h5或者小程序刷脸认证成功后创建DID
+        Summary: h5或者小程序刷脸认证成功后创建DID
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateDidPersonFacevrfminiappResponse().from_map(
+            self.do_request('1.0', 'baas.did.person.facevrfminiapp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_did_person_facevrfminiapp_ex_async(
+        self,
+        request: blockchain_models.CreateDidPersonFacevrfminiappRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateDidPersonFacevrfminiappResponse:
+        """
+        Description: h5或者小程序刷脸认证成功后创建DID
+        Summary: h5或者小程序刷脸认证成功后创建DID
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateDidPersonFacevrfminiappResponse().from_map(
+            await self.do_request_async('1.0', 'baas.did.person.facevrfminiapp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_did_person_facevrfminiapp(
+        self,
+        request: blockchain_models.QueryDidPersonFacevrfminiappRequest,
+    ) -> blockchain_models.QueryDidPersonFacevrfminiappResponse:
+        """
+        Description: 查询之前发起的实人认证的结果，如果认证通过就创建DID身份并返回。
+        Summary: 查询小程序刷脸的结果并创建DID
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_did_person_facevrfminiapp_ex(request, headers, runtime)
+
+    async def query_did_person_facevrfminiapp_async(
+        self,
+        request: blockchain_models.QueryDidPersonFacevrfminiappRequest,
+    ) -> blockchain_models.QueryDidPersonFacevrfminiappResponse:
+        """
+        Description: 查询之前发起的实人认证的结果，如果认证通过就创建DID身份并返回。
+        Summary: 查询小程序刷脸的结果并创建DID
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_did_person_facevrfminiapp_ex_async(request, headers, runtime)
+
+    def query_did_person_facevrfminiapp_ex(
+        self,
+        request: blockchain_models.QueryDidPersonFacevrfminiappRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryDidPersonFacevrfminiappResponse:
+        """
+        Description: 查询之前发起的实人认证的结果，如果认证通过就创建DID身份并返回。
+        Summary: 查询小程序刷脸的结果并创建DID
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryDidPersonFacevrfminiappResponse().from_map(
+            self.do_request('1.0', 'baas.did.person.facevrfminiapp.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_did_person_facevrfminiapp_ex_async(
+        self,
+        request: blockchain_models.QueryDidPersonFacevrfminiappRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryDidPersonFacevrfminiappResponse:
+        """
+        Description: 查询之前发起的实人认证的结果，如果认证通过就创建DID身份并返回。
+        Summary: 查询小程序刷脸的结果并创建DID
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryDidPersonFacevrfminiappResponse().from_map(
+            await self.do_request_async('1.0', 'baas.did.person.facevrfminiapp.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_did_vcrepository_issuenewocp(
+        self,
+        request: blockchain_models.StartDidVcrepositoryIssuenewocpRequest,
+    ) -> blockchain_models.StartDidVcrepositoryIssuenewocpResponse:
+        """
+        Description: 使用自己或者代理的did为指定did颁发证书，同时在VC Repository中对证书VC进行存储。 支持授权管理，只有被授权的did未来才可以访问获取此颁发的证书数据。
+        Summary: 指定did颁发证书，并存储（新商品）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_did_vcrepository_issuenewocp_ex(request, headers, runtime)
+
+    async def start_did_vcrepository_issuenewocp_async(
+        self,
+        request: blockchain_models.StartDidVcrepositoryIssuenewocpRequest,
+    ) -> blockchain_models.StartDidVcrepositoryIssuenewocpResponse:
+        """
+        Description: 使用自己或者代理的did为指定did颁发证书，同时在VC Repository中对证书VC进行存储。 支持授权管理，只有被授权的did未来才可以访问获取此颁发的证书数据。
+        Summary: 指定did颁发证书，并存储（新商品）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_did_vcrepository_issuenewocp_ex_async(request, headers, runtime)
+
+    def start_did_vcrepository_issuenewocp_ex(
+        self,
+        request: blockchain_models.StartDidVcrepositoryIssuenewocpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.StartDidVcrepositoryIssuenewocpResponse:
+        """
+        Description: 使用自己或者代理的did为指定did颁发证书，同时在VC Repository中对证书VC进行存储。 支持授权管理，只有被授权的did未来才可以访问获取此颁发的证书数据。
+        Summary: 指定did颁发证书，并存储（新商品）
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.StartDidVcrepositoryIssuenewocpResponse().from_map(
+            self.do_request('1.0', 'baas.did.vcrepository.issuenewocp.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_did_vcrepository_issuenewocp_ex_async(
+        self,
+        request: blockchain_models.StartDidVcrepositoryIssuenewocpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.StartDidVcrepositoryIssuenewocpResponse:
+        """
+        Description: 使用自己或者代理的did为指定did颁发证书，同时在VC Repository中对证书VC进行存储。 支持授权管理，只有被授权的did未来才可以访问获取此颁发的证书数据。
+        Summary: 指定did颁发证书，并存储（新商品）
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.StartDidVcrepositoryIssuenewocpResponse().from_map(
+            await self.do_request_async('1.0', 'baas.did.vcrepository.issuenewocp.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_did_verifiableclaim_issurenewocp(
+        self,
+        request: blockchain_models.StartDidVerifiableclaimIssurenewocpRequest,
+    ) -> blockchain_models.StartDidVerifiableclaimIssurenewocpResponse:
+        """
+        Description: 使用自己或者代理的did为指定did颁发证书
+        Summary: 为指定did颁发证书（新商品）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_did_verifiableclaim_issurenewocp_ex(request, headers, runtime)
+
+    async def start_did_verifiableclaim_issurenewocp_async(
+        self,
+        request: blockchain_models.StartDidVerifiableclaimIssurenewocpRequest,
+    ) -> blockchain_models.StartDidVerifiableclaimIssurenewocpResponse:
+        """
+        Description: 使用自己或者代理的did为指定did颁发证书
+        Summary: 为指定did颁发证书（新商品）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_did_verifiableclaim_issurenewocp_ex_async(request, headers, runtime)
+
+    def start_did_verifiableclaim_issurenewocp_ex(
+        self,
+        request: blockchain_models.StartDidVerifiableclaimIssurenewocpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.StartDidVerifiableclaimIssurenewocpResponse:
+        """
+        Description: 使用自己或者代理的did为指定did颁发证书
+        Summary: 为指定did颁发证书（新商品）
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.StartDidVerifiableclaimIssurenewocpResponse().from_map(
+            self.do_request('1.0', 'baas.did.verifiableclaim.issurenewocp.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_did_verifiableclaim_issurenewocp_ex_async(
+        self,
+        request: blockchain_models.StartDidVerifiableclaimIssurenewocpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.StartDidVerifiableclaimIssurenewocpResponse:
+        """
+        Description: 使用自己或者代理的did为指定did颁发证书
+        Summary: 为指定did颁发证书（新商品）
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.StartDidVerifiableclaimIssurenewocpResponse().from_map(
+            await self.do_request_async('1.0', 'baas.did.verifiableclaim.issurenewocp.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_did_person_withtwometanewocp(
+        self,
+        request: blockchain_models.CreateDidPersonWithtwometanewocpRequest,
+    ) -> blockchain_models.CreateDidPersonWithtwometanewocpResponse:
+        """
+        Description: 通过个人二要素验证后创建个人did，若未通过个人二要素验证，则不创建did并报错
+        Summary: 通过个人二要素验证后创建个人did（新）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_did_person_withtwometanewocp_ex(request, headers, runtime)
+
+    async def create_did_person_withtwometanewocp_async(
+        self,
+        request: blockchain_models.CreateDidPersonWithtwometanewocpRequest,
+    ) -> blockchain_models.CreateDidPersonWithtwometanewocpResponse:
+        """
+        Description: 通过个人二要素验证后创建个人did，若未通过个人二要素验证，则不创建did并报错
+        Summary: 通过个人二要素验证后创建个人did（新）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_did_person_withtwometanewocp_ex_async(request, headers, runtime)
+
+    def create_did_person_withtwometanewocp_ex(
+        self,
+        request: blockchain_models.CreateDidPersonWithtwometanewocpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateDidPersonWithtwometanewocpResponse:
+        """
+        Description: 通过个人二要素验证后创建个人did，若未通过个人二要素验证，则不创建did并报错
+        Summary: 通过个人二要素验证后创建个人did（新）
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateDidPersonWithtwometanewocpResponse().from_map(
+            self.do_request('1.0', 'baas.did.person.withtwometanewocp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_did_person_withtwometanewocp_ex_async(
+        self,
+        request: blockchain_models.CreateDidPersonWithtwometanewocpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateDidPersonWithtwometanewocpResponse:
+        """
+        Description: 通过个人二要素验证后创建个人did，若未通过个人二要素验证，则不创建did并报错
+        Summary: 通过个人二要素验证后创建个人did（新）
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateDidPersonWithtwometanewocpResponse().from_map(
+            await self.do_request_async('1.0', 'baas.did.person.withtwometanewocp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_did_person_withthreemetanewocp(
+        self,
+        request: blockchain_models.CreateDidPersonWiththreemetanewocpRequest,
+    ) -> blockchain_models.CreateDidPersonWiththreemetanewocpResponse:
+        """
+        Description: 通过个人三要素验证后创建个人did，若未通过个人三要素验证，则不创建did并报错
+        Summary: 通过个人三要素验证后创建个人did（新）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_did_person_withthreemetanewocp_ex(request, headers, runtime)
+
+    async def create_did_person_withthreemetanewocp_async(
+        self,
+        request: blockchain_models.CreateDidPersonWiththreemetanewocpRequest,
+    ) -> blockchain_models.CreateDidPersonWiththreemetanewocpResponse:
+        """
+        Description: 通过个人三要素验证后创建个人did，若未通过个人三要素验证，则不创建did并报错
+        Summary: 通过个人三要素验证后创建个人did（新）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_did_person_withthreemetanewocp_ex_async(request, headers, runtime)
+
+    def create_did_person_withthreemetanewocp_ex(
+        self,
+        request: blockchain_models.CreateDidPersonWiththreemetanewocpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateDidPersonWiththreemetanewocpResponse:
+        """
+        Description: 通过个人三要素验证后创建个人did，若未通过个人三要素验证，则不创建did并报错
+        Summary: 通过个人三要素验证后创建个人did（新）
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateDidPersonWiththreemetanewocpResponse().from_map(
+            self.do_request('1.0', 'baas.did.person.withthreemetanewocp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_did_person_withthreemetanewocp_ex_async(
+        self,
+        request: blockchain_models.CreateDidPersonWiththreemetanewocpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateDidPersonWiththreemetanewocpResponse:
+        """
+        Description: 通过个人三要素验证后创建个人did，若未通过个人三要素验证，则不创建did并报错
+        Summary: 通过个人三要素验证后创建个人did（新）
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateDidPersonWiththreemetanewocpResponse().from_map(
+            await self.do_request_async('1.0', 'baas.did.person.withthreemetanewocp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_did_identification_faceauthnewocp(
+        self,
+        request: blockchain_models.StartDidIdentificationFaceauthnewocpRequest,
+    ) -> blockchain_models.StartDidIdentificationFaceauthnewocpResponse:
+        """
+        Description: 开始实人认证
+        Summary: 开始实人认证（新商品）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_did_identification_faceauthnewocp_ex(request, headers, runtime)
+
+    async def start_did_identification_faceauthnewocp_async(
+        self,
+        request: blockchain_models.StartDidIdentificationFaceauthnewocpRequest,
+    ) -> blockchain_models.StartDidIdentificationFaceauthnewocpResponse:
+        """
+        Description: 开始实人认证
+        Summary: 开始实人认证（新商品）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_did_identification_faceauthnewocp_ex_async(request, headers, runtime)
+
+    def start_did_identification_faceauthnewocp_ex(
+        self,
+        request: blockchain_models.StartDidIdentificationFaceauthnewocpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.StartDidIdentificationFaceauthnewocpResponse:
+        """
+        Description: 开始实人认证
+        Summary: 开始实人认证（新商品）
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.StartDidIdentificationFaceauthnewocpResponse().from_map(
+            self.do_request('1.0', 'baas.did.identification.faceauthnewocp.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_did_identification_faceauthnewocp_ex_async(
+        self,
+        request: blockchain_models.StartDidIdentificationFaceauthnewocpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.StartDidIdentificationFaceauthnewocpResponse:
+        """
+        Description: 开始实人认证
+        Summary: 开始实人认证（新商品）
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.StartDidIdentificationFaceauthnewocpResponse().from_map(
+            await self.do_request_async('1.0', 'baas.did.identification.faceauthnewocp.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_did_person_facevrfnewocp(
+        self,
+        request: blockchain_models.CreateDidPersonFacevrfnewocpRequest,
+    ) -> blockchain_models.CreateDidPersonFacevrfnewocpResponse:
+        """
+        Description: 支持移动端APP的安卓和IOS集成SDK进行刷脸认证，在查询query认证结果通过的情况下创建DID身份。
+        Summary: APP移动端刷脸认证成功后创建DID
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_did_person_facevrfnewocp_ex(request, headers, runtime)
+
+    async def create_did_person_facevrfnewocp_async(
+        self,
+        request: blockchain_models.CreateDidPersonFacevrfnewocpRequest,
+    ) -> blockchain_models.CreateDidPersonFacevrfnewocpResponse:
+        """
+        Description: 支持移动端APP的安卓和IOS集成SDK进行刷脸认证，在查询query认证结果通过的情况下创建DID身份。
+        Summary: APP移动端刷脸认证成功后创建DID
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_did_person_facevrfnewocp_ex_async(request, headers, runtime)
+
+    def create_did_person_facevrfnewocp_ex(
+        self,
+        request: blockchain_models.CreateDidPersonFacevrfnewocpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateDidPersonFacevrfnewocpResponse:
+        """
+        Description: 支持移动端APP的安卓和IOS集成SDK进行刷脸认证，在查询query认证结果通过的情况下创建DID身份。
+        Summary: APP移动端刷脸认证成功后创建DID
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateDidPersonFacevrfnewocpResponse().from_map(
+            self.do_request('1.0', 'baas.did.person.facevrfnewocp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_did_person_facevrfnewocp_ex_async(
+        self,
+        request: blockchain_models.CreateDidPersonFacevrfnewocpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateDidPersonFacevrfnewocpResponse:
+        """
+        Description: 支持移动端APP的安卓和IOS集成SDK进行刷脸认证，在查询query认证结果通过的情况下创建DID身份。
+        Summary: APP移动端刷脸认证成功后创建DID
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateDidPersonFacevrfnewocpResponse().from_map(
+            await self.do_request_async('1.0', 'baas.did.person.facevrfnewocp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_did_person_facevrfminiappnewocp(
+        self,
+        request: blockchain_models.CreateDidPersonFacevrfminiappnewocpRequest,
+    ) -> blockchain_models.CreateDidPersonFacevrfminiappnewocpResponse:
+        """
+        Description: h5或者小程序刷脸认证成功后创建DID（新个人刷脸商品）
+        Summary: h5或者小程序刷脸认证成功后创建DID
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_did_person_facevrfminiappnewocp_ex(request, headers, runtime)
+
+    async def create_did_person_facevrfminiappnewocp_async(
+        self,
+        request: blockchain_models.CreateDidPersonFacevrfminiappnewocpRequest,
+    ) -> blockchain_models.CreateDidPersonFacevrfminiappnewocpResponse:
+        """
+        Description: h5或者小程序刷脸认证成功后创建DID（新个人刷脸商品）
+        Summary: h5或者小程序刷脸认证成功后创建DID
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_did_person_facevrfminiappnewocp_ex_async(request, headers, runtime)
+
+    def create_did_person_facevrfminiappnewocp_ex(
+        self,
+        request: blockchain_models.CreateDidPersonFacevrfminiappnewocpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateDidPersonFacevrfminiappnewocpResponse:
+        """
+        Description: h5或者小程序刷脸认证成功后创建DID（新个人刷脸商品）
+        Summary: h5或者小程序刷脸认证成功后创建DID
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateDidPersonFacevrfminiappnewocpResponse().from_map(
+            self.do_request('1.0', 'baas.did.person.facevrfminiappnewocp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_did_person_facevrfminiappnewocp_ex_async(
+        self,
+        request: blockchain_models.CreateDidPersonFacevrfminiappnewocpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateDidPersonFacevrfminiappnewocpResponse:
+        """
+        Description: h5或者小程序刷脸认证成功后创建DID（新个人刷脸商品）
+        Summary: h5或者小程序刷脸认证成功后创建DID
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateDidPersonFacevrfminiappnewocpResponse().from_map(
+            await self.do_request_async('1.0', 'baas.did.person.facevrfminiappnewocp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_mydidcommun_agency_settlein(
@@ -26589,4 +28945,58 @@ class Client:
         UtilClient.validate_model(request)
         return blockchain_models.StartMydidDidThreeelementResponse().from_map(
             await self.do_request_async('1.0', 'baas.mydid.did.threeelement.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antcloud_gatewayx_file_upload(
+        self,
+        request: blockchain_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> blockchain_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antcloud_gatewayx_file_upload_ex(request, headers, runtime)
+
+    async def create_antcloud_gatewayx_file_upload_async(
+        self,
+        request: blockchain_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> blockchain_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antcloud_gatewayx_file_upload_ex_async(request, headers, runtime)
+
+    def create_antcloud_gatewayx_file_upload_ex(
+        self,
+        request: blockchain_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+            self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antcloud_gatewayx_file_upload_ex_async(
+        self,
+        request: blockchain_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
