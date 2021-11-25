@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.9"},
+                        {"sdk_version", "1.7.12"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.9"},
+                        {"sdk_version", "1.7.12"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -8933,6 +8933,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryFlowPhaseResponse>(await DoRequestAsync("1.0", "twc.notary.flow.phase.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 阶段存证数据详情
+         * Summary: 阶段存证数据详情
+         */
+        public DetailFlowPhaseResponse DetailFlowPhase(DetailFlowPhaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DetailFlowPhaseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 阶段存证数据详情
+         * Summary: 阶段存证数据详情
+         */
+        public async Task<DetailFlowPhaseResponse> DetailFlowPhaseAsync(DetailFlowPhaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DetailFlowPhaseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 阶段存证数据详情
+         * Summary: 阶段存证数据详情
+         */
+        public DetailFlowPhaseResponse DetailFlowPhaseEx(DetailFlowPhaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailFlowPhaseResponse>(DoRequest("1.0", "twc.notary.flow.phase.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 阶段存证数据详情
+         * Summary: 阶段存证数据详情
+         */
+        public async Task<DetailFlowPhaseResponse> DetailFlowPhaseExAsync(DetailFlowPhaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailFlowPhaseResponse>(await DoRequestAsync("1.0", "twc.notary.flow.phase.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
