@@ -1,0 +1,3927 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.1.51',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 文件描述
+model FileDefine {
+  // 调用方设定，保证文件唯一性。
+  // 
+  // 
+  bizId: string(name='biz_id', example='调用方设定，保证文件唯一性。 '),
+  // 文件名称
+  fileName: string(name='file_name', example='文件名称'),
+  // 文件大小
+  size?: long(name='size', example='文件大小'),
+  // 文件key
+  osskey: string(name='osskey', example='文件key'),
+  // 文件类型
+  type: string(name='type', example='文件类型'),
+  // 预览链接
+  url?: string(name='url', example='预览链接'),
+}
+
+// 企业奖项
+model Award {
+  // 奖项名称
+  // 
+  // 
+  awardName: string(name='award_name', example='奖项名称'),
+  // 奖项级别（参见附录十四）
+  // 
+  // 
+  awardLevel: string(name='award_level', example='奖项级别（参见附录十四）'),
+  // 颁发日期（yyyy）
+  // 
+  // 
+  issueDate: string(name='issue_date', example='颁发日期（yyyy）'),
+  // 有效开始日期（yyyy-MM-dd）
+  // 
+  // 
+  effectStartDate: string(name='effect_start_date', example='有效开始日期（yyyy-MM-dd）'),
+  // 有效结束日期（yyyy-MM-dd）
+  // 
+  // 
+  effectEndDate: string(name='effect_end_date', example='有效结束日期（yyyy-MM-dd）'),
+  // 文件信息，支持上传多个文件
+  // 
+  // 
+  fileDefines: [ FileDefine ](name='file_defines', example=''),
+  // key
+  awardId: string(name='award_id', example='key'),
+}
+
+// 企业施工资质
+model Construction {
+  // 证书编号
+  // 
+  // 
+  certNum: string(name='cert_num', example='证书编号'),
+  // 发证机关
+  // 
+  // 
+  issuingAuthority: string(name='issuing_authority', example='发证机关'),
+  // 资质类别
+  certType: string(name='cert_type', example='资质类别'),
+  // 等级
+  level: string(name='level', example='等级'),
+  // 有效期开始日期（yyyy-MM-dd）
+  // 
+  // 
+  effectStartDate: string(name='effect_start_date', example='有效期开始日期（yyyy-MM-dd）'),
+  // 有效期结束日期（yyyy-MM-dd）
+  // 
+  // 
+  effectEndDate: string(name='effect_end_date', example='有效期结束日期（yyyy-MM-dd）'),
+  // 文件
+  fileDefines?: [ FileDefine ](name='file_defines', example=''),
+  // key
+  constructionId: string(name='construction_id', example='key'),
+  // 证件名称
+  certName: string(name='cert_name', example='证件名称'),
+}
+
+// 企业资信担保
+model Assure {
+  // 担保ID
+  // 
+  // 
+  assureId: string(name='assure_id', example='担保ID'),
+  // 文件信息，支持上传多个文件
+  // 
+  // 
+  fileDefines: [ FileDefine ](name='file_defines', example='文件信息，支持上传多个文件'),
+}
+
+// 企业银行授信
+model BankCert {
+  // 银行账号
+  // 
+  // 
+  bankAccount: string(name='bank_account', example='银行账号'),
+  // 银行名称
+  // 
+  // 
+  bankName: string(name='bank_name', example='银行名称'),
+  // 文件信息，支持上传多个文件
+  // 
+  // 
+  fileDefines: [ FileDefine ](name='file_defines', example='文件信息，支持上传多个文件'),
+}
+
+// 企业资信财报
+model AccountResult {
+  // 财报ID
+  // 
+  // 
+  accResultId: string(name='acc_result_id', example='财报ID'),
+  // 文件信息，支持上传多个文件
+  // 
+  // 
+  fileDefines: [ FileDefine ](name='file_defines', example='文件信息，支持上传多个文件'),
+}
+
+// 关联企业信息
+model RefFirm {
+  // 企业Id
+  // 
+  // 
+  firmUserId: long(name='firm_user_id', example='企业Id'),
+  // did
+  did: string(name='did', example='did_24c93459216945468fdf1d899c521910'),
+  // 	
+  // 企业所在地
+  firmAddress: string(name='firm_address', example='  企业所在地'),
+  // 企业认证状态
+  firmCertStatus: string(name='firm_cert_status', example='企业认证状态'),
+  // 行业类型
+  industryType: string(name='industry_type', example='行业类型'),
+  // 企业营业执照注册号
+  // 
+  // 
+  certRegNo: string(name='cert_reg_no', example='企业营业执照注册号'),
+  // 营业执照文件osskey
+  // 
+  // 
+  certRegFileId: string(name='cert_reg_file_id', example='营业执照文件osskey'),
+  // 营业文件类型(JPEG,JPG)
+  // 
+  // 
+  certRegFileType: string(name='cert_reg_file_type', example='营业文件类型(JPEG,JPG)'),
+  // 法定代表人证件类型
+  lpCertType: string(name='lp_cert_type', example='法定代表人证件类型'),
+  // 法人证件号码	
+  // 
+  lpCertNo: string(name='lp_cert_no', example='法人证件号码 '),
+  // 法人姓名
+  // 
+  // 
+  lpName: string(name='lp_name', example='法人姓名'),
+  // 法人身份证正面图片字节信息，osskeyId
+  // 
+  // 
+  lpCertFileFrontId: string(name='lp_cert_file_front_id', example='法人身份证正面图片字节信息，osskeyId'),
+  // 法人身份证正面图片文件类型
+  // 
+  // 
+  lpCertFileFrontType: string(name='lp_cert_file_front_type', example='法人身份证正面图片文件类型'),
+  // 企业法人证件反面图片，osskeyId
+  // 
+  // 
+  lpCertFileReverseId: string(name='lp_cert_file_reverse_id', example='企业法人证件反面图片，osskeyId'),
+  // 法人身份证反面图片文件类型
+  // 
+  // 
+  lpCertFileReverseType: string(name='lp_cert_file_reverse_type', example='法人身份证反面图片文件类型'),
+  // 施工资质
+  // 
+  // 
+  constructions: [ Construction ](name='constructions', example='施工资质'),
+  // 企业名称
+  // 
+  // 
+  firmName: string(name='firm_name', example='企业名称'),
+  // 关联关系 （参见附录三）
+  // 
+  // 
+  referType: string(name='refer_type', example='关联关系 （参见附录三）'),
+  // 资信-财报
+  // 
+  // 
+  accountResults: [ AccountResult ](name='account_results', example=''),
+  // 资信-担保
+  // 
+  // 
+  assures: [ Assure ](name='assures', example='资信-担保'),
+  // 奖项
+  // 
+  // 
+  awards: [ Award ](name='awards', example=''),
+  // 银行授信
+  // 
+  // 
+  bankCert: BankCert(name='bank_cert', example='银行授信'),
+  // 类型
+  firmType: string(name='firm_type', example='类型'),
+  // 银行授信状态
+  bankCertStatus?: boolean(name='bank_cert_status', example='true, false'),
+  // 资质证书状态
+  constructionStatus?: boolean(name='construction_status', example='true, false'),
+  // 资信-财报状态
+  accountResultStatus: boolean(name='account_result_status', example='资信-财报状态'),
+  // 奖项状态
+  awardStatus?: boolean(name='award_status', example='奖项状态'),
+}
+
+// 合同流程签名人
+model ContractFlowSigner {
+  // 签署人账号id
+  // 
+  signerAccountId: string(name='signer_account_id', example='签署人账号id'),
+  // 签约主体的账号id（个人/企业）；如签署人本签署，则返回签署人账号id；如签署人代机构签署，则返回机构账号id
+  // 
+  signerAuthorizedAccountId: string(name='signer_authorized_account_id', example='签约主体的账号id（个人/企业）；如签署人本签署，则返回签署人账号id；如签署人代机构签署，则返回机构账号id'),
+  // 签约主体名称
+  // 
+  signerAuthorizedAccountName: string(name='signer_authorized_account_name', example='签约主体名称'),
+  // 签署主体是否已实名
+  // 
+  signerAuthorizedAccountRealName: boolean(name='signer_authorized_account_real_name', example='true, false'),
+  // 签署主体类型, 0-个人, 1-机构
+  // 
+  signerAuthorizedAccountType: long(name='signer_authorized_account_type', example='签署主体类型, 0-个人, 1-机构'),
+  // 签署人名称
+  // 
+  signerName: string(name='signer_name', example='签署人名称'),
+  // 签署人是否已实名
+  // 
+  signerRealName: boolean(name='signer_real_name', example='true, false'),
+  // 签署顺序
+  // 
+  signOrder: long(name='sign_order', example='签署顺序'),
+  // 签署状态, 0-待签, 1-未签, 2-已签 3-待审批 4-拒签
+  // 
+  signStatus: long(name='sign_status', example=''),
+  // 本次签署任务对应指定的第三方业务流水号id，当存在多个第三方业务流水号id时，返回多个，并逗号隔开
+  // 
+  thirdOrderNo: string(name='third_order_no', example='本次签署任务对应指定的第三方业务流水号id，当存在多个第三方业务流水号id时，返回多个，并逗号隔开'),
+}
+
+// 个人认证信息
+model UserDetailData {
+  // 账户Id
+  userId: long(name='user_id', example='账户Id'),
+  // 统一身份id
+  // 
+  // 
+  did: string(name='did', example='统一身份id'),
+  // 账户名
+  // 
+  // 
+  loginId: string(name='login_id', example='账户名'),
+  // 用户姓名
+  // 
+  // 
+  userName: string(name='user_name', example='用户姓名'),
+  // 用户类型
+  userType: string(name='user_type', example='用户类型'),
+  // 账户类型
+  accountType: string(name='account_type', example='账户类型'),
+  // 个人认证状态
+  certStatus: string(name='cert_status', example='个人认证状态'),
+  // 邮箱
+  email: string(name='email', example='邮箱'),
+  // 手机号
+  telphone: string(name='telphone', example='手机号'),
+  // 个人证件类型
+  certType: string(name='cert_type', example='个人证件类型'),
+  // 证件号码	
+  // 
+  certNum: string(name='cert_num', example='证件号码 '),
+  // cert_file_front_id
+  certFileFrontId: string(name='cert_file_front_id', example='cert_file_front_id'),
+  // 个人证件正面类型
+  certFileFrontType: string(name='cert_file_front_type', example='JPG'),
+  // 个人证件反面图片，osskeyId
+  // 
+  // 
+  certFileReverseId: string(name='cert_file_reverse_id', example='个人证件反面图片，osskeyId'),
+  // 个人证件反面类型。JPG
+  // 
+  // 
+  certFileReverseType: string(name='cert_file_reverse_type', example='JPG'),
+  // 关联企业信息
+  // 
+  // 
+  refFirms: [ RefFirm ](name='ref_firms', example=''),
+  // 是否有印章
+  sealFlag?: boolean(name='seal_flag', example='true, false'),
+}
+
+// 返回数据结构体
+model TokenData {
+  // 授权token
+  accessToken: string(name='access_token', example='token'),
+  // 授权类型
+  tokenType: string(name='token_type', example='type'),
+  // 过期时间
+  expiresln: long(name='expiresln', example=''),
+  // 重新刷新Token
+  refreshToken: string(name='refresh_token', example='token'),
+  // sessionid
+  sessionId?: string(name='session_id', example='xxx'),
+}
+
+// 合同文档地址
+model ContractDocAddress {
+  // 电子合同文档ID
+  // 
+  fileId: string(name='file_id', example='电子合同文档ID'),
+  // 电子合同文档名称，默认文件名称
+  // 
+  fileName: string(name='file_name', example='电子合同文档名称，默认文件名称'),
+  // 电子合同下载文档地址, 有效时间1小时
+  // 
+  fileUrl: string(name='file_url', example='电子合同下载文档地址, 有效时间1小时'),
+  // 链上hash
+  txHash?: string(name='tx_hash', example='链上hash'),
+}
+
+// 农民工基本信息
+model WorkersBaseInfo {
+  // 姓名
+  fullName: string(name='full_name', example='张三'),
+  // 身份证号
+  idCard: string(name='id_card', example='22312313'),
+  // 身份证有效期起
+  idCardStartDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='id_card_start_date', example='2018-10-10T10:10:00Z'),
+  // 身份证有效期止
+  idCardEndDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='id_card_end_date', example='2018-10-10T10:10:00Z'),
+  // 农民工个人did（实名认证后才有工号id）
+  workersDid?: string(name='workers_did', example='1231212'),
+  // 手机号
+  mobileNo?: string(name='mobile_no', example='13944654125'),
+  // 工种
+  workType: [ string ](name='work_type', example='["钢筋工"]'),
+  // 工作状态   [1.进场   2.退场]
+  workState?: string(name='work_state', example='1'),
+  // 进场时间
+  enterTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='enter_time', example='2018-10-10T10:10:00Z'),
+  // 退场时间
+  quitTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='quit_time', example='2018-10-10T10:10:00Z'),
+  // 合同薪资（单位：元）
+  compensation?: string(name='compensation', example='1000'),
+}
+
+// 签约字段
+model ContractSignField {
+  // account_id
+  accountId: string(name='account_id', example='account_id'),
+  // file_id
+  fileId: string(name='file_id', example='file_id'),
+  // signfield_id
+  signfieldId: string(name='signfield_id', example='signfield_id'),
+}
+
+// 农民工工资发放
+model WorkersWagePayment {
+  // 薪资年月
+  payYM: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='pay_y_m', example='2018-10-10T10:10:00Z'),
+  // 工资是否发放[已发放 未发放]
+  payWages: string(name='pay_wages', example='已发放'),
+}
+
+// 账号信息
+model UserData {
+  // 账号id
+  loginId: string(name='login_id', example='12'),
+  // 账号id
+  userId: long(name='user_id', example='12'),
+  // 用户类型
+  userType: string(name='user_type', example='COMMON_USER_C'),
+  // 用户姓名
+  userName: string(name='user_name', example='张三'),
+  // 关联企业
+  refFirms: [ RefFirm ](name='ref_firms', example='xxx'),
+  // 认证状态
+  certStatus: string(name='cert_status', example='认证状态'),
+  // 账户类别
+  accountType: string(name='account_type', example='xxx'),
+  // did
+  did: string(name='did', example='did'),
+}
+
+// 合同关联主体
+model Contractaccountapplication {
+  // 邮箱
+  email: string(name='email', example='xx@alipay.com'),
+  // 身份证号码
+  idNumber: string(name='id_number', example='311111111111111111'),
+  // 身份证类型
+  idType: string(name='id_type', example='CRED_PSN_CH_IDCARD'),
+  // 电话号
+  mobile: string(name='mobile', example='15811111111'),
+  // 姓名
+  name: string(name='name', example='张三'),
+  // 用户id
+  userId: string(name='user_id', example='A001'),
+}
+
+// 存证信息
+model ContractNotaryInfo {
+  // 存证的内容哈希值
+  // 
+  contentHash: string(name='content_hash', example='存证的内容哈希值'),
+  // 存证相关联的文档ID
+  // 
+  docId: string(name='doc_id', example='存证相关联的文档ID'),
+  // 存证事务ID
+  // 
+  transactionId: string(name='transaction_id', example='存证事务ID'),
+  // 存证地址
+  txHash: string(name='tx_hash', example='存证地址'),
+}
+
+// ContractSignFieldApplication
+model ContractSignFieldApplication {
+  // add_sign_time
+  addSignTime?: boolean(name='add_sign_time', example='true, false'),
+  // authorized_account_id
+  authorizedAccountId: string(name='authorized_account_id', example='authorized_account_id'),
+  // file_id
+  fileId: string(name='file_id', example='file_id'),
+  // order
+  order?: string(name='order', example='order'),
+  // pos_page
+  posPage: string(name='pos_page', example='pos_page'),
+  // pos_x
+  posX: string(name='pos_x', example='pos_x'),
+  // seal_id
+  sealId?: string(name='seal_id', example='seal_id'),
+  // third_order_no
+  thirdOrderNo?: string(name='third_order_no', example='third_order_no'),
+  // pos_y
+  posY: string(name='pos_y', example='pos_y'),
+  // width
+  width?: string(name='width', example='width'),
+  // signType
+  signType?: long(name='sign_type', example='signType'),
+}
+
+// ContractHandSignFieldApplication
+model ContractHandSignFieldApplication {
+  // account_id
+  accountId: string(name='account_id', example='account_id'),
+  // file_id
+  fileId: string(name='file_id', example='file_id'),
+  // order
+  order?: long(name='order', example='order'),
+  // pos_page
+  posPage?: string(name='pos_page', example='pos_page'),
+  // posX
+  posX?: string(name='pos_x', example='posX'),
+  // posY
+  posY?: string(name='pos_y', example='posY'),
+  // sealId
+  sealId?: string(name='seal_id', example='sealId'),
+  // signDateBeanType
+  signDateBeanType: long(name='sign_date_bean_type', example='signDateBeanType'),
+  // signDateFontSize
+  signDateFontSize: long(name='sign_date_font_size', example='signDateFontSize'),
+  // sign_date_format
+  signDateFormat?: string(name='sign_date_format', example='sign_date_format'),
+  // signDatePosPage
+  signDatePosPage?: long(name='sign_date_pos_page', example='signDatePosPage'),
+  // signDatePosX
+  signDatePosX?: string(name='sign_date_pos_x', example='signDatePosX'),
+  // sign_date_pos_y
+  signDatePosY?: string(name='sign_date_pos_y', example='sign_date_pos_y'),
+  // sign_type
+  signType?: long(name='sign_type', example='sign_type'),
+  // third_order_no
+  thirdOrderNo?: string(name='third_order_no', example='third_order_no'),
+  // width
+  width?: string(name='width', example='width'),
+  // seal_ids
+  sealIds?: [ string ](name='seal_ids', example='seal_ids'),
+  // 签名字段type
+  signFieldType?: long(name='sign_field_type', example='签名字段type'),
+}
+
+// 农民工考勤
+model WorkersCheckAttendance {
+  // 考勤类型  [1.入场 2.退场]
+  attendanceType: string(name='attendance_type', example='1'),
+  // 打卡时间
+  clockInTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='clock_in_time', example='2018-10-10T10:10:00Z'),
+}
+
+// 签署区列表详情
+model ContractSignFieldDetail {
+  // 签约主体类别，0-个人，1-机构，默认0,2 是不限
+  actorIndentityType: long(name='actor_indentity_type', example='0'),
+  // 添加时间
+  addTime: long(name='add_time', example='100'),
+  // 是否指定位置，TRUE表示不允许更新位置，配置项，无默认值
+  assignedPosbean: boolean(name='assigned_posbean', example='true, false'),
+  // 是否指定印章数据，TRUE表示不允许更新印章，配置项，无默认值
+  assignedSeal: boolean(name='assigned_seal', example='true, false'),
+  // 签约主体账号标识，将使用该主体账号对应的数字证书完成本次签署，如：当存在签署操作人代某机构签署时，需要传入该机构的账号id
+  authorizedAccountId: string(name='authorized_account_id', example='id'),
+  // 是否自动执行，TRUE需要静默授权，配置项，无默认值
+  autoExecute: boolean(name='auto_execute', example='true, false'),
+  // 执行失败原因
+  executeFailedReason: string(name='execute_failed_reason', example='reason'),
+  // 文件file id
+  fileId: string(name='file_id', example='id'),
+  // 流程id
+  flowId: string(name='flow_id', example='id'),
+  // 签署区顺序，默认1,且不小于1，顺序越小越先处理
+  order: long(name='order', example='1'),
+  // 页码信息，可以_,_或_-_分割
+  posPage: string(name='pos_page', example='1,2'),
+  // x坐标
+  posX: string(name='pos_x', example='100'),
+  // y坐标
+  posY: string(name='pos_y', example='100'),
+  // 印章文件file key
+  sealFileKey: string(name='seal_file_key', example='key'),
+  // 印章id
+  sealId: string(name='seal_id', example='id'),
+  // 印章类型，支持多种类型时逗号分割，0-手绘印章，1-模版印章，为空不限制
+  sealType: string(name='seal_type', example='0'),
+  // 签署操作人个人账号标识，即操作本次签署的个人，如需e签宝通知用户签署，则系统向该账号下绑定的手机、邮箱发送签署链接
+  signerAccountId: string(name='signer_account_id', example='id'),
+  // 签署区Id
+  signfieldId: string(name='signfield_id', example='id'),
+  // 签署类型，0-不限，1-单页签署，2-骑缝签署,4-关键字签署，默认1
+  signType: long(name='sign_type', example='0'),
+  // 签署区状态（0："等待执行，1："执行中"，2："执行失败"，3："审批中"，4： "执行完成")
+  status: long(name='status', example='0'),
+  // 状态描述
+  statusDescription: string(name='status_description', example='des'),
+  // 签署区宽
+  width: string(name='width', example='width'),
+}
+
+// 代扣订单信息
+model ContractPaymentOrderInfo {
+  // 代扣触发时间，精确到毫秒 java.lang.System#currentTimeMillis()
+  // 
+  payDate: long(name='pay_date', example='12345600000'),
+  // 代扣金额，整数 精确到分
+  // 
+  payMoney: long(name='pay_money', example='1000'),
+  // 是否用户签署成功后立即触发第一期代扣
+  // 
+  triggerImmediately?: long(name='trigger_immediately', example='1'),
+}
+
+// 财报信息
+model FileInfo {
+  // 业务id
+  bizId?: string(name='biz_id', example='id'),
+  // 财报文件，base64
+  fileStr: string(name='file_str', example='file'),
+  // 文件名称（企业财报.jpg）
+  fileName: string(name='file_name', example='name'),
+  // 文件大小(byte长度)
+  fileSize: long(name='file_size', example='100'),
+  // 文件类型(jpg)
+  fileType: string(name='file_type', example='jpg'),
+}
+
+// 待签署文件
+model ContractDocument {
+  // 是否加密，0-不加密，1-加，默认0
+  // 
+  encryption?: long(name='encryption', example='1,0'),
+  // 电子合同文档的ID
+  // 
+  fileId: string(name='file_id', example='01e50a9cedb74493a2d320b4f4732a29'),
+  // 电子合同文档名称，默认文件名称
+  // 
+  fileName?: string(name='file_name', example='第一份合同.pdf'),
+  // 电子合同文档密码, 如果encryption值为1, 文档密码不能为空，默认没有密码
+  // 
+  filePassword?: string(name='file_password', example='mypassword'),
+}
+
+// OneStepSignField
+model OneStepSignField {
+  // accountId
+  accountId: string(name='account_id', example='accountId'),
+  // file_id
+  fileId: string(name='file_id', example='file_id'),
+  // order
+  order?: long(name='order', example='order'),
+  // posPage
+  posPage: string(name='pos_page', example='posPage'),
+  // posX
+  posX: string(name='pos_x', example='posX'),
+  // posY
+  posY: string(name='pos_y', example='posY'),
+  // sealId
+  sealId?: string(name='seal_id', example='sealId'),
+  // sign_date_bean_type
+  signDateBeanType?: long(name='sign_date_bean_type', example='sign_date_bean_type'),
+  // sign_date_font_size
+  signDateFontSize?: long(name='sign_date_font_size', example='sign_date_font_size'),
+  // sign_date_format
+  signDateFormat?: string(name='sign_date_format', example='sign_date_format'),
+  // sign_date_pos_page
+  signDatePosPage?: long(name='sign_date_pos_page', example='sign_date_pos_page'),
+  // sign_date_pos_x
+  signDatePosX?: string(name='sign_date_pos_x', example='sign_date_pos_x'),
+  //  
+  signDatePosY?: string(name='sign_date_pos_y', example=' '),
+  // signType
+  signType?: long(name='sign_type', example='signType'),
+  // third_order_no
+  thirdOrderNo?: string(name='third_order_no', example='third_order_no'),
+  // width
+  width?: string(name='width', example='width'),
+  // auto_execute
+  autoExecute?: boolean(name='auto_execute', example='auto_execute'),
+}
+
+// 法人认证信息
+model CertifyLPDTO {
+  // 认证id
+  certifyId: string(name='certify_id', example='认证id'),
+  // 二维码url
+  qrUrl: string(name='qr_url', example='二维码url'),
+  //  二维码中的Logo的图片地址
+  imgUrl: string(name='img_url', example=' 二维码中的Logo的图片地址'),
+  //  二维码中Logo缩放的比例系数，如5表示长宽最小值的1/5
+  ratio: string(name='ratio', example=' 二维码中Logo缩放的比例系数，如5表示长宽最小值的1/5'),
+  // 过期时间戳，单位毫秒
+  expires: long(name='expires', example='过期时间戳，单位毫秒'),
+}
+
+// 合约签约配置
+model Contractsignflowconfig {
+  // 回调通知地址 ,默认取项目配置通知地址
+  // 
+  noticeDeveloperUrl?: string(name='notice_developer_url', example='http://127.0.0.1:9110/notice'),
+  // 通知方式，逗号分割，1-短信，2-邮件 。默认值1，请务必请选择一个通知方式，否则客户将接收不到流程的签署通知和审批通知，如果流程需要审批，将导致审批无法完成；如果客户需要不通知，可以设置notice_type为""
+  // 
+  noticeType: string(name='notice_type', example='1,2'),
+  // 签署成功或者流程结束后的默认重定向地址，默认签署完成停在当前页面
+  // 
+  redirectUrl?: string(name='redirect_url', example='http://127.0.0.1:8110/h5/forword'),
+  // 签署成功或者流程结束后的默认重定向地址，默认签署完成停在当前页面
+  // 
+  signPlatform?: string(name='sign_platform', example='1'),
+  // 签署失败时的跳转地址，如果不做单独配置，默认与redirect_url一致（配合twc.notary.contract.signflow.create接口使用）
+  // 
+  redirectUrlOnFailure?: string(name='redirect_url_on_failure', example='http://127.0.0.1:8110/h5/forword/failure'),
+  // 是否允许自由签署，默认false（配合twc.notary.contract.signflow.create接口使用）
+  // 
+  freeSignature?: boolean(name='free_signature', example='true, false'),
+}
+
+// 企业银行授信
+model BandCert {
+  // 银行账号
+  // 
+  // 
+  bankAccount: string(name='bank_account', example='银行账号'),
+  // 银行名称
+  // 
+  // 
+  bankName: string(name='bank_name', example='银行名称'),
+  // 文件信息，支持上传多个文件
+  // 
+  // 
+  fileDefines: [ FileDefine ](name='file_defines', example='文件信息，支持上传多个文件'),
+}
+
+// 保证金对象
+model SecurityFundDto {
+  // 保证金类型
+  type: string(name='type', example='type'),
+  // 金额
+  amount: string(name='amount', example='1'),
+}
+
+// 合同乙方信息
+model PartyBFirmDto {
+  // 乙方统一社会信用代码
+  partyBBidderCode: string(name='party_b_bidder_code', example='code'),
+  // 乙方名称
+  partyBName: string(name='party_b_name', example='name'),
+  // 乙方授权代表Did
+  partyBAuditDid: string(name='party_b_audit_did', example='did'),
+}
+
+// 合同企业主体
+model Contractorganizationapplication {
+  // 执照号码
+  idNumber: string(name='id_number', example='12330100470104939U'),
+  // 执照类型
+  idType: string(name='id_type', example='CRED_ORG_USCC'),
+  // 法人名称
+  legalPerson: string(name='legal_person', example='测试法人'),
+  // 法人证件号
+  legalPersonId: string(name='legal_person_id', example='311111111111111111'),
+  // 企业名称
+  name: string(name='name', example='测试企业'),
+  // 组织id
+  organizationId: string(name='organization_id', example='B002'),
+}
+
+model VerifyUserPwdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 登录账号
+  loginId: string(name='login_id'),
+  // 登录密码
+  password: string(name='password'),
+  // 过期时间指定(单位 秒)，默认30分钟
+  expires?: long(name='expires'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 公钥名称
+  pubkeyName: string(name='pubkey_name'),
+}
+
+model VerifyUserPwdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: TokenData(name='data'),
+  // 用户id返回值
+  userId?: long(name='user_id'),
+  // did
+  did?: string(name='did'),
+}
+
+/**
+ * Description: 账密登录(PWD_LOGIN)
+ * Summary: 账密登录
+ */
+async function verifyUserPwd(request: VerifyUserPwdRequest): VerifyUserPwdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyUserPwdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 账密登录(PWD_LOGIN)
+ * Summary: 账密登录
+ */
+async function verifyUserPwdEx(request: VerifyUserPwdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyUserPwdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.user.pwd.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyUserSmsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 邮箱 or 短信 二选一
+  telphone?: string(name='telphone'),
+  // 过期时间（单位：秒），默认30分钟
+  expires?: long(name='expires'),
+  // 重发短信时间（单位：S），默认60s
+  intervals?: long(name='intervals'),
+  // 是否立刻发发送短信(1 立刻发送 0 等待业务触发)
+  sendDirect?: long(name='send_direct'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 邮箱
+  email?: string(name='email'),
+}
+
+model ApplyUserSmsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 短信重新触发url
+  // 
+  // 
+  smsResendUrl?: string(name='sms_resend_url'),
+  // 核验id
+  // 
+  // 
+  verifyId?: string(name='verify_id'),
+  // did_24c93459216945468fdf1d899c521910
+  did?: string(name='did'),
+}
+
+/**
+ * Description: 短信登录申请
+ * Summary: 短信登录申请
+ */
+async function applyUserSms(request: ApplyUserSmsRequest): ApplyUserSmsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyUserSmsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 短信登录申请
+ * Summary: 短信登录申请
+ */
+async function applyUserSmsEx(request: ApplyUserSmsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyUserSmsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.user.sms.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyUserSmsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 核验id，sms_login_apply 产生
+  verifyId: string(name='verify_id'),
+  // 短信code
+  checkCode: string(name='check_code'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+}
+
+model VerifyUserSmsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: TokenData(name='data'),
+  // 新增userId返回值
+  userId?: long(name='user_id'),
+}
+
+/**
+ * Description: 短信登录
+ * Summary: 短信登录
+ */
+async function verifyUserSms(request: VerifyUserSmsRequest): VerifyUserSmsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyUserSmsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 短信登录
+ * Summary: 短信登录
+ */
+async function verifyUserSmsEx(request: VerifyUserSmsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyUserSmsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.user.sms.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AuthUserRefRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 操作员id，一般是C类用户
+  operatorId: long(name='operator_id'),
+  // 待登录的B类账号id
+  refUserId: long(name='ref_user_id'),
+  // operatorId 用户登录时对应的accessToken
+  // 
+  // 
+  accessToken: string(name='access_token'),
+  // 是否设为默认企业(1 设置默认企业 0 切换临时企业)
+  // 
+  // 
+  setDefault: long(name='set_default'),
+}
+
+model AuthUserRefResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 关联登录
+ * Summary: 关联登录
+ */
+async function authUserRef(request: AuthUserRefRequest): AuthUserRefResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return authUserRefEx(request, headers, runtime);
+}
+
+/**
+ * Description: 关联登录
+ * Summary: 关联登录
+ */
+async function authUserRefEx(request: AuthUserRefRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthUserRefResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.user.ref.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CloseUserLoginRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 账号id
+  userId: long(name='user_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // accessToken
+  accessToken: string(name='access_token'),
+}
+
+model CloseUserLoginResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 退出登录
+ * Summary: 退出登录
+ */
+async function closeUserLogin(request: CloseUserLoginRequest): CloseUserLoginResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return closeUserLoginEx(request, headers, runtime);
+}
+
+/**
+ * Description: 退出登录
+ * Summary: 退出登录
+ */
+async function closeUserLoginEx(request: CloseUserLoginRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CloseUserLoginResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.user.login.close', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 登录名称
+  loginId?: string(name='login_id'),
+  // 非登录账号无需密码
+  password?: string(name='password'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 用户类型
+  userType: string(name='user_type'),
+  // 用户名称
+  userName?: string(name='user_name'),
+  // 手机号码
+  telphone?: string(name='telphone'),
+  // 用户邮箱
+  email?: string(name='email'),
+  // 创建者,一般是C创建B类账号。非提其他主体创建，可以不传
+  creatorUserId?: long(name='creator_user_id'),
+}
+
+model CreateUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 用户注册
+ * Summary: 用户注册
+ */
+async function createUser(request: CreateUserRequest): CreateUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户注册
+ * Summary: 用户注册
+ */
+async function createUserEx(request: CreateUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.user.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetUserCurrentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 账号id
+  userId: long(name='user_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 不传默认是 BASE_INFO
+  // BASE_INFO 基本信息
+  // ORG_CERT_FILE 企业图片
+  // LP_CERT_FILE 法人图片
+  queryOptions?: [ string ](name='query_options'),
+  // 企业用户userId
+  firmUserId?: long(name='firm_user_id'),
+}
+
+model GetUserCurrentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: UserDetailData(name='data'),
+}
+
+/**
+ * Description: 获取用户信息
+ * Summary: 获取用户信息
+ */
+async function getUserCurrent(request: GetUserCurrentRequest): GetUserCurrentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getUserCurrentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取用户信息
+ * Summary: 获取用户信息
+ */
+async function getUserCurrentEx(request: GetUserCurrentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetUserCurrentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.user.current.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyFirmRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 账号id
+  userId: long(name='user_id'),
+  // 企业名称
+  firmName?: string(name='firm_name'),
+  // 企业类型
+  firmType?: string(name='firm_type'),
+  // 企业营业执照注册号
+  certRegNo?: string(name='cert_reg_no'),
+  // 企业营业执照图片，osskey
+  certRegFileId?: string(name='cert_reg_file_id'),
+  // 法人证件类型
+  lpCertType?: string(name='lp_cert_type'),
+  // 证件号码
+  lpCertNo?: string(name='lp_cert_no'),
+  // 企业法人证件正面图片
+  lpCertFileFrontId?: string(name='lp_cert_file_front_id'),
+  // 企业法人证件反面图片
+  // 
+  // 
+  lpCertFileReverseId?: string(name='lp_cert_file_reverse_id'),
+  // JPEG,JPG
+  certRegFileType?: string(name='cert_reg_file_type'),
+  // JPG
+  lpCertFileFrontType?: string(name='lp_cert_file_front_type'),
+  // 身份证反面文件类型
+  lpCertFileReverseType?: string(name='lp_cert_file_reverse_type'),
+  // 法人姓名
+  lpName?: string(name='lp_name'),
+  // 租户信息
+  tenantId: string(name='tenant_id'),
+  // 行业类型
+  industryType?: string(name='industry_type'),
+  // 公司所在地
+  firmAddress?: string(name='firm_address'),
+  // 提交类型
+  operationType: string(name='operation_type'),
+}
+
+model VerifyFirmResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 企业分布式did
+  did?: string(name='did'),
+  // 法人认证信息
+  certifyLpDto?: CertifyLPDTO(name='certify_lp_dto'),
+}
+
+/**
+ * Description: 企业认证
+ * Summary: 企业认证
+ */
+async function verifyFirm(request: VerifyFirmRequest): VerifyFirmResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyFirmEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业认证
+ * Summary: 企业认证
+ */
+async function verifyFirmEx(request: VerifyFirmRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyFirmResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.firm.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 账号id
+  userId: long(name='user_id'),
+  // 个人名称
+  name: string(name='name'),
+  // 证件类型
+  certType: string(name='cert_type'),
+  // 证件号码
+  certNum: string(name='cert_num'),
+  // 个人证件正面图片,osskey值
+  // 
+  certFileFrontId?: string(name='cert_file_front_id'),
+  // 个人证件反面图片,oss的key值
+  certFileReverseId?: string(name='cert_file_reverse_id'),
+  // JPG
+  certFileFrontType?: string(name='cert_file_front_type'),
+  // 个人证件文件反面，文件类型
+  certFileReverseType?: string(name='cert_file_reverse_type'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+}
+
+model VerifyUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 验证成功，颁发个人did
+  did?: string(name='did'),
+  // 个人二维码认证信息
+  certifyLpDto?: CertifyLPDTO(name='certify_lp_dto'),
+}
+
+/**
+ * Description: 个人认证
+ * Summary: 个人认证
+ */
+async function verifyUser(request: VerifyUserRequest): VerifyUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人认证
+ * Summary: 个人认证
+ */
+async function verifyUserEx(request: VerifyUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.user.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RecognizeOcrFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件id
+  fileId: string(name='file_id'),
+  // 文件类型
+  fileType: string(name='file_type'),
+  // 证件类型
+  certType: string(name='cert_type'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+}
+
+model RecognizeOcrFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 解析数据结果，对应不同证件
+  parseData?: string(name='parse_data'),
+}
+
+/**
+ * Description: ocr_文件识别接口
+ * Summary: ocr_文件识别接口
+ */
+async function recognizeOcrFile(request: RecognizeOcrFileRequest): RecognizeOcrFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return recognizeOcrFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: ocr_文件识别接口
+ * Summary: ocr_文件识别接口
+ */
+async function recognizeOcrFileEx(request: RecognizeOcrFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RecognizeOcrFileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.ocr.file.recognize', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CertifyCertifyFirmmetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 自定义唯一id
+  bizId: string(name='biz_id'),
+  // 租户类型
+  tenantId: string(name='tenant_id'),
+  // 企业名称
+  firmName: string(name='firm_name'),
+  // 企业营业执照号
+  certNo: string(name='cert_no'),
+  // 法人姓名
+  lpCertName: string(name='lp_cert_name'),
+  // 法人身份证号
+  lpCertNo: string(name='lp_cert_no'),
+}
+
+model CertifyCertifyFirmmetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 企业did
+  did?: string(name='did'),
+}
+
+/**
+ * Description: 输入企业的四要素进行认证。
+ * Summary: 企业四要素认证
+ */
+async function certifyCertifyFirmmeta(request: CertifyCertifyFirmmetaRequest): CertifyCertifyFirmmetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return certifyCertifyFirmmetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 输入企业的四要素进行认证。
+ * Summary: 企业四要素认证
+ */
+async function certifyCertifyFirmmetaEx(request: CertifyCertifyFirmmetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CertifyCertifyFirmmetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.certify.firmmeta.certify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CertifyCertifyPersonmetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 自定义唯一id
+  bizId: string(name='biz_id'),
+  // 租户类型
+  tenantId: string(name='tenant_id'),
+  // 姓名
+  userName: string(name='user_name'),
+  // 身份证号
+  userCertNo: string(name='user_cert_no'),
+}
+
+model CertifyCertifyPersonmetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 个人did
+  did?: string(name='did'),
+}
+
+/**
+ * Description: 输入个人的二要素进行认证。
+ * Summary: 个人二要素认证
+ */
+async function certifyCertifyPersonmeta(request: CertifyCertifyPersonmetaRequest): CertifyCertifyPersonmetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return certifyCertifyPersonmetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 输入个人的二要素进行认证。
+ * Summary: 个人二要素认证
+ */
+async function certifyCertifyPersonmetaEx(request: CertifyCertifyPersonmetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CertifyCertifyPersonmetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.certify.personmeta.certify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CertifyCertifyFaceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 自定义唯一id
+  bizId: string(name='biz_id'),
+  // 租户类型
+  tenantId: string(name='tenant_id'),
+  // 姓名
+  userName: string(name='user_name'),
+  // 身份证号
+  userCertNo: string(name='user_cert_no'),
+  // 前端页面回调地址
+  frontCallbackUrl?: string(name='front_callback_url'),
+  // 后端接口回调地址
+  backCallbackUrl?: string(name='back_callback_url'),
+}
+
+model CertifyCertifyFaceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 跳转url
+  redirectUrl?: string(name='redirect_url'),
+  // 校验id
+  verifyId?: string(name='verify_id'),
+}
+
+/**
+ * Description: 人脸识别认证
+ * Summary: 人脸识别认证
+ */
+async function certifyCertifyFace(request: CertifyCertifyFaceRequest): CertifyCertifyFaceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return certifyCertifyFaceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 人脸识别认证
+ * Summary: 人脸识别认证
+ */
+async function certifyCertifyFaceEx(request: CertifyCertifyFaceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CertifyCertifyFaceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.certify.face.certify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryQueryFacecertifyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 自定义唯一id
+  bizId: string(name='biz_id'),
+  // 租户类型
+  tenantId: string(name='tenant_id'),
+  // 校验id
+  verifyId: string(name='verify_id'),
+}
+
+model QueryQueryFacecertifyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 认证状态
+  // VERIFY_SUCCESS：认证成功
+  // VERIFY_PROCESSING：正在认证
+  // VERIFY_FAILED：认证失败
+  verifyStatus?: string(name='verify_status'),
+}
+
+/**
+ * Description: 查询人脸识别结果
+ * Summary: 人脸识别结果查询
+ */
+async function queryQueryFacecertify(request: QueryQueryFacecertifyRequest): QueryQueryFacecertifyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryQueryFacecertifyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询人脸识别结果
+ * Summary: 人脸识别结果查询
+ */
+async function queryQueryFacecertifyEx(request: QueryQueryFacecertifyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryQueryFacecertifyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.query.facecertify.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SwitchSwitchFirmidRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 账号id
+  userId: long(name='user_id'),
+  // 企业id
+  firmId: long(name='firm_id'),
+  // 登录sessionId
+  sessionId: string(name='session_id'),
+}
+
+model SwitchSwitchFirmidResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 结果码
+  errorCode?: string(name='error_code'),
+  // 结果消息
+  errorMsg?: string(name='error_msg'),
+}
+
+/**
+ * Description: 每次切换企业，同步当前企业id
+ * Summary: 控制台切换企业同步
+ */
+async function switchSwitchFirmid(request: SwitchSwitchFirmidRequest): SwitchSwitchFirmidResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return switchSwitchFirmidEx(request, headers, runtime);
+}
+
+/**
+ * Description: 每次切换企业，同步当前企业id
+ * Summary: 控制台切换企业同步
+ */
+async function switchSwitchFirmidEx(request: SwitchSwitchFirmidRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SwitchSwitchFirmidResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.switch.firmid.switch', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryQueryFirmfinancialRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业Id
+  firmId: long(name='firm_id'),
+  // 租户信息
+  tenantId: string(name='tenant_id'),
+  // 查询类型（1：查询状态，2：财报信息）
+  queryOptions: string(name='query_options'),
+}
+
+model QueryQueryFirmfinancialResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 结果码
+  errorCode?: string(name='error_code'),
+  // 结果消息
+  errorMsg?: string(name='error_msg'),
+  // 财报状态(true已上传，false未上传)
+  status?: boolean(name='status'),
+  // 查询结果
+  accountResult?: [ FileInfo ](name='account_result'),
+}
+
+/**
+ * Description: 企业身份中心查询企业财报
+ * Summary: 查询企业财报
+ */
+async function queryQueryFirmfinancial(request: QueryQueryFirmfinancialRequest): QueryQueryFirmfinancialResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryQueryFirmfinancialEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业身份中心查询企业财报
+ * Summary: 查询企业财报
+ */
+async function queryQueryFirmfinancialEx(request: QueryQueryFirmfinancialRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryQueryFirmfinancialResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.query.firmfinancial.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SwitchSwitchFirmfinancialRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业id
+  firmId: long(name='firm_id'),
+  // 租户类型
+  tenantId: string(name='tenant_id'),
+  // 操作类型（新增：add，删除：delete)
+  operationType: string(name='operation_type'),
+  // 业务id
+  bizId?: string(name='biz_id'),
+  // 财报信息
+  fileInfo?: FileInfo(name='file_info'),
+}
+
+model SwitchSwitchFirmfinancialResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 结果码
+  errorCode?: string(name='error_code'),
+  // 结果消息
+  errorMsg?: string(name='error_msg'),
+}
+
+/**
+ * Description: 企业身份中心新增或删除企业财报
+ * Summary: 新增/删除企业财报
+ */
+async function switchSwitchFirmfinancial(request: SwitchSwitchFirmfinancialRequest): SwitchSwitchFirmfinancialResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return switchSwitchFirmfinancialEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业身份中心新增或删除企业财报
+ * Summary: 新增/删除企业财报
+ */
+async function switchSwitchFirmfinancialEx(request: SwitchSwitchFirmfinancialRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SwitchSwitchFirmfinancialResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.switch.firmfinancial.switch', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDidRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // ⾃定义唯⼀id
+  bizId: string(name='biz_id'),
+  // 租户类型
+  // 
+  tenantType: string(name='tenant_type'),
+  // 认证类型，企业：FIRM，个人：PERSON
+  certType: string(name='cert_type'),
+  // 企业营业执照号(当认证类型为企业时为必传)
+  certRegNum?: string(name='cert_reg_num'),
+  // 法人姓名
+  legalName?: string(name='legal_name'),
+  // 法人身份证号
+  legalCertNum?: string(name='legal_cert_num'),
+  // 企业名称(当认证类型为企业时为必传)
+  firmName?: string(name='firm_name'),
+  // 个人email
+  email?: string(name='email'),
+  // 个人身份证号
+  certNum: string(name='cert_num'),
+  // 个人手机号
+  phone?: string(name='phone'),
+  // 个人姓名
+  name: string(name='name'),
+  // 个人did(当认证类型为企业时为必传)
+  userDid?: string(name='user_did'),
+}
+
+model CreateDidResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 企业did/个人did
+  did?: string(name='did'),
+}
+
+/**
+ * Description: 生成企业/个人did
+ * Summary: 生成企业/个人did
+ */
+async function createDid(request: CreateDidRequest): CreateDidResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDidEx(request, headers, runtime);
+}
+
+/**
+ * Description: 生成企业/个人did
+ * Summary: 生成企业/个人did
+ */
+async function createDidEx(request: CreateDidRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDidResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.did.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateContractPlatformRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 创建个人
+  creator: Contractaccountapplication(name='creator'),
+  // 合同企业信息
+  platform: Contractorganizationapplication(name='platform'),
+}
+
+model CreateContractPlatformResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  // 
+  code?: long(name='code'),
+  // 创建人ID
+  // 
+  creatorId?: string(name='creator_id'),
+  // 业务码信息
+  // 
+  message?: string(name='message'),
+  // 平台方ID
+  // 
+  platformId?: string(name='platform_id'),
+  // 平台用户与智能合同服务间鉴权使用的密钥
+  // 
+  secret?: string(name='secret'),
+}
+
+/**
+ * Description: 电子合同平台方发起注册，提供企业信息、合同签署的经办人信息，注册成为电子合同平台方用户
+ * Summary: 电子合同平台方注册
+ */
+async function createContractPlatform(request: CreateContractPlatformRequest): CreateContractPlatformResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createContractPlatformEx(request, headers, runtime);
+}
+
+/**
+ * Description: 电子合同平台方发起注册，提供企业信息、合同签署的经办人信息，注册成为电子合同平台方用户
+ * Summary: 电子合同平台方注册
+ */
+async function createContractPlatformEx(request: CreateContractPlatformRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateContractPlatformResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.platform.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddContractDocumentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待签署文件
+  docs: [ ContractDocument ](name='docs'),
+  // 流程ID
+  flowId: string(name='flow_id'),
+}
+
+model AddContractDocumentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  code?: long(name='code'),
+  // 业务码信息
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 向流程中添加待签署文档，文档必须先用文档管理接口创建，创建方式请参见文件管理接口文档。已经开启的流程不能再添加签署文档。
+ * Summary: 向电子合同签署流程中添加待签署文档
+ */
+async function addContractDocument(request: AddContractDocumentRequest): AddContractDocumentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addContractDocumentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 向流程中添加待签署文档，文档必须先用文档管理接口创建，创建方式请参见文件管理接口文档。已经开启的流程不能再添加签署文档。
+ * Summary: 向电子合同签署流程中添加待签署文档
+ */
+async function addContractDocumentEx(request: AddContractDocumentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddContractDocumentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.document.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddContractFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件名称
+  // 
+  name: string(name='name'),
+  // 输入项填充内容，以key:value传入
+  // 
+  simpleFormFields: string(name='simple_form_fields'),
+  // 模板编号
+  // 
+  templateId: string(name='template_id'),
+}
+
+model AddContractFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文件下载地址，有效期一小时
+  // 
+  downloadUrl?: string(name='download_url'),
+  // 文件id
+  // 
+  fileId?: string(name='file_id'),
+  // 文件名称
+  // 
+  fileName?: string(name='file_name'),
+  // 业务码，0表示成功
+  code?: long(name='code'),
+  // 业务码信息
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 基于文件模板生成待签文件用于后续文件，该文件可用用于签署，也可作为附件
+ * Summary: 通过电子合同模板添加文档
+ */
+async function addContractFile(request: AddContractFileRequest): AddContractFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addContractFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 基于文件模板生成待签文件用于后续文件，该文件可用用于签署，也可作为附件
+ * Summary: 通过电子合同模板添加文档
+ */
+async function addContractFileEx(request: AddContractFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddContractFileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.file.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyContractCallbackkeyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model ApplyContractCallbackkeyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 加签使用的key
+  // 
+  key?: string(name='key'),
+  // 业务码，0表示成功
+  code?: long(name='code'),
+  // 业务码信息
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 使用区块链合同回调服务，需要申请加签时使用的key。该key每个平台方对应一个，不可变更，多次申请结果幂等。
+ * Summary: 申请区块链合同回调加签key
+ */
+async function applyContractCallbackkey(request: ApplyContractCallbackkeyRequest): ApplyContractCallbackkeyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyContractCallbackkeyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 使用区块链合同回调服务，需要申请加签时使用的key。该key每个平台方对应一个，不可变更，多次申请结果幂等。
+ * Summary: 申请区块链合同回调加签key
+ */
+async function applyContractCallbackkeyEx(request: ApplyContractCallbackkeyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyContractCallbackkeyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.callbackkey.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AuthContractSignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权人DID，即个人账号DID或机构账号DID
+  // 
+  accountId: string(name='account_id'),
+  // 授权截止时间, 格式为yyyy-MM-dd HH:mm:ss，默认无限期
+  // 
+  deadline: string(name='deadline'),
+}
+
+model AuthContractSignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务数据, 是否授权成功
+  // 
+  accepted?: boolean(name='accepted'),
+  // 业务码，0表示成功
+  // 
+  code?: long(name='code'),
+  // 业务码信息
+  // 
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 静默签署授权
+ * Summary: 静默签署授权
+ */
+async function authContractSign(request: AuthContractSignRequest): AuthContractSignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return authContractSignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 静默签署授权
+ * Summary: 静默签署授权
+ */
+async function authContractSignEx(request: AuthContractSignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthContractSignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.sign.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateContractTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 模板文件md5值，再做base64编码
+  // 
+  contentMd5: string(name='content_md5'),
+  // 目标文件的MIME类型
+  // 
+  contentType: string(name='content_type'),
+  // 是否需要转成pdf，如果模板文件为.doc/.docx 传true，为pdf传false
+  // 
+  convert2Pdf: boolean(name='convert2_pdf'),
+  // 文件名称，必须带扩展名如:.pdf,.doc,.docx
+  // 
+  fileName: string(name='file_name'),
+}
+
+model CreateContractTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  // 
+  code?: long(name='code'),
+  // 业务码信息
+  // 
+  message?: string(name='message'),
+  // 模板ID
+  // 
+  templateId?: string(name='template_id'),
+  // 文件直传地址，需要用此上传地址使用put方式上传文件，只有文件上传后模板才可用
+  // 
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 通过文件直传地址创建模板，创建模板后上传文件，上传方法请参考文件流上传方法
+ * Summary: 通过文件上传方式创建电子合同签署模板
+ */
+async function createContractTemplate(request: CreateContractTemplateRequest): CreateContractTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createContractTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过文件直传地址创建模板，创建模板后上传文件，上传方法请参考文件流上传方法
+ * Summary: 通过文件上传方式创建电子合同签署模板
+ */
+async function createContractTemplateEx(request: CreateContractTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateContractTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.template.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateContractSignflowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 是否自动归档，默认false 如设置为true，则在流程开启后，当所有签署人签署完毕，系统自动将流程归档，状态变为“已完成”状态，在流程状态为“已完成”前，可随时添加签署人；如设置为false，则在调用流程开启后，需主动调用签署流程归档接口，将流程状...
+  // 
+  autoArchive?: boolean(name='auto_archive'),
+  // 是否强制代扣
+  // 
+  autoDeductionForce: boolean(name='auto_deduction_force'),
+  // 文件主题
+  // 
+  businessScene: string(name='business_scene'),
+  // 合同签名配置
+  contractSignFlowConfig: Contractsignflowconfig(name='contract_sign_flow_config'),
+  // 发起人账户id，即发起本次签署的操作人个人账号id；如不传，默认由对接平台发起
+  // 
+  initiatorAccountId?: string(name='initiator_account_id'),
+  // 发起方主体id，如存在个人代机构发起签约，则需传入机构id；如不传，则默认是对接平台
+  // 
+  initiatorAuthorizedAccountId?: string(name='initiator_authorized_account_id'),
+  // 代扣信息
+  repaymentOrderInfo: [ ContractPaymentOrderInfo ](name='repayment_order_info'),
+  // 签署平台，ALIPAY（支付宝小程序）或H5
+  // 
+  signPlatform?: string(name='sign_platform'),
+  // 签署有效截止日期，毫秒，默认3天失效
+  // 
+  signValidity?: long(name='sign_validity'),
+  // 付款方ID（个人）
+  // 
+  payerTuid?: string(name='payer_tuid'),
+  // 收款方ID(机构)
+  // 
+  payeeTuid?: string(name='payee_tuid'),
+}
+
+model CreateContractSignflowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  // 
+  code?: long(name='code'),
+  // 签约流程ID
+  flowId?: string(name='flow_id'),
+  // 业务码信息
+  // 
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 平台方制定签约模板和用户，发起手动签署流程，获得签署流程ID
+ * Summary: 创建签署流程
+ */
+async function createContractSignflow(request: CreateContractSignflowRequest): CreateContractSignflowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createContractSignflowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 平台方制定签约模板和用户，发起手动签署流程，获得签署流程ID
+ * Summary: 创建签署流程
+ */
+async function createContractSignflowEx(request: CreateContractSignflowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateContractSignflowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.signflow.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetContractFileuploadurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 所属账号did，即个人账号id或机构账号id，如不传，则默认属于对接平台
+  // 
+  accountId?: string(name='account_id'),
+  // 先计算文件md5值，在对该md5值进行base64编码
+  // 
+  contentMd5: string(name='content_md5'),
+  // 目标文件的MIME类型
+  // 
+  contentType: string(name='content_type'),
+  // 是否转换成pdf文档，默认false，代表不做转换。转换是异步行为，如果指定要转换，需要调用查询文件信息接口查询状态，转换完成后才可使用。
+  // 
+  convert2Pdf: string(name='convert_2_pdf'),
+  // 文件名称（必须带上文件扩展名，不然会导致后续发起流程校验过不去 示例：合同.pdf ）
+  // 
+  fileName: string(name='file_name'),
+  // 文件大小，单位byte
+  // 
+  fileSize: long(name='file_size'),
+}
+
+model GetContractFileuploadurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  // 
+  code?: long(name='code'),
+  // 文件Id
+  // 
+  fileId?: string(name='file_id'),
+  // 文件直传地址, 可以重复使用，但是只能传一样的文件，有效期一小时
+  // 
+  message?: string(name='message'),
+  // 上传url
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 采用文件直传的方式完成用户文件的上传。对接方通过该接口获取文件上传的授权地址
+ * Summary: 通过上传方式创建文件
+ */
+async function getContractFileuploadurl(request: GetContractFileuploadurlRequest): GetContractFileuploadurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getContractFileuploadurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 采用文件直传的方式完成用户文件的上传。对接方通过该接口获取文件上传的授权地址
+ * Summary: 通过上传方式创建文件
+ */
+async function getContractFileuploadurlEx(request: GetContractFileuploadurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetContractFileuploadurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.fileuploadurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddContractSignfieldRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 签署流程ID
+  // 
+  flowId: string(name='flow_id'),
+  // 合同签约字段集合
+  signfields: [ ContractSignFieldApplication ](name='signfields'),
+}
+
+model AddContractSignfieldResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  // 
+  code?: long(name='code'),
+  // 业务码信息
+  // 
+  message?: string(name='message'),
+  // 合同签约返回值
+  signfields?: [ ContractSignField ](name='signfields'),
+}
+
+/**
+ * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署人、签署文档信息。 签署区创建完成，流程开启后，系统将自动完成“用户自动盖章签署区”的盖章。用户可全程无感完成本次签署。创建签署方自动盖章签署区前，需确定已完成账号静默签署授权。签署方自动盖章的合同，需要由对接平台方自行校验真实身份和真实意愿
+ * Summary: 添加电子合同签署方自动盖章签署区
+ */
+async function addContractSignfield(request: AddContractSignfieldRequest): AddContractSignfieldResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addContractSignfieldEx(request, headers, runtime);
+}
+
+/**
+ * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署人、签署文档信息。 签署区创建完成，流程开启后，系统将自动完成“用户自动盖章签署区”的盖章。用户可全程无感完成本次签署。创建签署方自动盖章签署区前，需确定已完成账号静默签署授权。签署方自动盖章的合同，需要由对接平台方自行校验真实身份和真实意愿
+ * Summary: 添加电子合同签署方自动盖章签署区
+ */
+async function addContractSignfieldEx(request: AddContractSignfieldRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddContractSignfieldResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.signfield.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateContractHandsignfieldRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程id
+  // 
+  flowId: string(name='flow_id'),
+  // 签名参数
+  signFields: [ ContractHandSignFieldApplication ](name='sign_fields'),
+}
+
+model CreateContractHandsignfieldResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  // 
+  code?: long(name='code'),
+  // 业务码信息
+  // 
+  message?: string(name='message'),
+  // 签署区列表数据
+  // 
+  signfields?: [ ContractSignField ](name='signfields'),
+}
+
+/**
+ * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
+ * Summary: 添加电子合同签署方手动盖章签署区
+ */
+async function createContractHandsignfield(request: CreateContractHandsignfieldRequest): CreateContractHandsignfieldResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createContractHandsignfieldEx(request, headers, runtime);
+}
+
+/**
+ * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
+ * Summary: 添加电子合同签署方手动盖章签署区
+ */
+async function createContractHandsignfieldEx(request: CreateContractHandsignfieldRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateContractHandsignfieldResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.handsignfield.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartContractFlowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程ID
+  // 
+  flowId: string(name='flow_id'),
+}
+
+model StartContractFlowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  // 
+  code?: long(name='code'),
+  // 业务码信息
+  // 
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 开启签署流程，开启后流程文档不可再添加或修改文档，签署任务会自动按照设置开始流转。流程开启后，归档前，可随时追加签署区（指定签署人的签署信息）
+ * Summary: 电子合同签署流程开启
+ */
+async function startContractFlow(request: StartContractFlowRequest): StartContractFlowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startContractFlowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 开启签署流程，开启后流程文档不可再添加或修改文档，签署任务会自动按照设置开始流转。流程开启后，归档前，可随时追加签署区（指定签署人的签署信息）
+ * Summary: 电子合同签署流程开启
+ */
+async function startContractFlowEx(request: StartContractFlowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartContractFlowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.flow.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetContractSignurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 签署人账号id
+  // 
+  accountId: string(name='account_id'),
+  // 流程id
+  // 
+  flowId: string(name='flow_id'),
+  // 默认为空，返回的任务链接仅包含签署人本人需要签署的任务； 传入0，则返回的任务链接包含签署人“本人+所有代签机构”的签署任务； 传入指定机构id，则返回的任务链接包含签署人“本人+指定代签机构”的签署任务
+  // 
+  organizeId?: string(name='organize_id'),
+  // 是否需要同时返回短链接，默认为false
+  // 
+  shortUrl?: boolean(name='short_url'),
+  // 客户账户id
+  agentAccountId?: string(name='agent_account_id'),
+}
+
+model GetContractSignurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  // 
+  code?: long(name='code'),
+  // 业务码信息
+  // 
+  message?: string(name='message'),
+  // 短链地址
+  // 
+  shortUrl?: string(name='short_url'),
+  // 长链地址
+  // 
+  url?: string(name='url'),
+}
+
+/**
+ * Description: 流程开启后，获取指定签署人的签署链接地址，如仅传入签署人账号id，则获取的签署任务链接仅包含本人的签署任务；如同时签署人账号id+机构id，则获取的签署任务链接包含机构与个人的签署任务；organizeId传入0，则返回的任务链接包含签署人“本人+所有代签机构”的签署任务。
+ * Summary: 获取签署地址
+ */
+async function getContractSignurl(request: GetContractSignurlRequest): GetContractSignurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getContractSignurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 流程开启后，获取指定签署人的签署链接地址，如仅传入签署人账号id，则获取的签署任务链接仅包含本人的签署任务；如同时签署人账号id+机构id，则获取的签署任务链接包含机构与个人的签署任务；organizeId传入0，则返回的任务链接包含签署人“本人+所有代签机构”的签署任务。
+ * Summary: 获取签署地址
+ */
+async function getContractSignurlEx(request: GetContractSignurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetContractSignurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.signurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DownloadContractDocumentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程ID
+  // 
+  flowId: string(name='flow_id'),
+}
+
+model DownloadContractDocumentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文档下载地址
+  docs?: [ ContractDocAddress ](name='docs'),
+  // 业务码，0表示成功
+  code?: long(name='code'),
+  // 业务码信息
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 流程归档后，查询和下载签署后的文件
+ * Summary: 电子合同流程文档下载
+ */
+async function downloadContractDocument(request: DownloadContractDocumentRequest): DownloadContractDocumentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return downloadContractDocumentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 流程归档后，查询和下载签署后的文件
+ * Summary: 电子合同流程文档下载
+ */
+async function downloadContractDocumentEx(request: DownloadContractDocumentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DownloadContractDocumentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.document.download', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SaveContractFlowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程ID
+  // 
+  flowId: string(name='flow_id'),
+}
+
+model SaveContractFlowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  // 
+  code?: long(name='code'),
+  // 业务码信息
+  // 
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 手动归档签署流程，归档后所有资源均不可修改。归档前签署流程中的所有签署人必须都签署完成。如创建流程时设置了自动归档，则无需调用本接口，签署完成后系统会自动调用
+ * Summary: 电子合同签署流程归档
+ */
+async function saveContractFlow(request: SaveContractFlowRequest): SaveContractFlowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveContractFlowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 手动归档签署流程，归档后所有资源均不可修改。归档前签署流程中的所有签署人必须都签署完成。如创建流程时设置了自动归档，则无需调用本接口，签署完成后系统会自动调用
+ * Summary: 电子合同签署流程归档
+ */
+async function saveContractFlowEx(request: SaveContractFlowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveContractFlowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.flow.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContractFlowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程id
+  // 
+  flowId: string(name='flow_id'),
+}
+
+model QueryContractFlowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否自动归档
+  // 
+  autoArchive?: boolean(name='auto_archive'),
+  // 文件主题
+  // 
+  businessScene?: string(name='business_scene'),
+  // 业务码，0表示成功
+  // 
+  code?: long(name='code'),
+  // 流程配置信息
+  // 
+  configInfo?: Contractsignflowconfig(name='config_info'),
+  // 文件到期前，提前多少小时提醒续签
+  // 
+  contractRemind?: long(name='contract_remind'),
+  // 文件有效截止日期
+  // 
+  contractValidity?: long(name='contract_validity'),
+  // 流程描述, 如果流程已拒签或已撤回, 并且存在拒签或撤回原因, 流程描述显示为原因, 否则默认为流程状态描述
+  // 
+  flowDesc?: string(name='flow_desc'),
+  // 流程结束时间
+  // 
+  flowEndTime?: string(name='flow_end_time'),
+  // 流程ID
+  // 
+  flowId?: string(name='flow_id'),
+  // 流程开始时间
+  // 
+  flowStartTime?: string(name='flow_start_time'),
+  // 流程状态,0-草稿 1-签署中 2-完成 3-撤销 4-终止 5-过期 6-删除 7-拒签
+  // 
+  flowStatus?: long(name='flow_status'),
+  // 发起人账户id
+  // 
+  initiatorAccountId?: string(name='initiator_account_id'),
+  // 发起方主体id
+  // 
+  initiatorAuthorizedAccountId?: string(name='initiator_authorized_account_id'),
+  // 业务码信息
+  // 
+  message?: string(name='message'),
+  // 签署有效截止日期
+  signValidity?: string(name='sign_validity'),
+}
+
+/**
+ * Description: 查询签署流程的详细信息，包括流程配置、签署状态等
+ * Summary: 签署流程查询
+ */
+async function queryContractFlow(request: QueryContractFlowRequest): QueryContractFlowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractFlowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询签署流程的详细信息，包括流程配置、签署状态等
+ * Summary: 签署流程查询
+ */
+async function queryContractFlowEx(request: QueryContractFlowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractFlowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.flow.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetContractFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件id
+  // 
+  fileId: string(name='file_id'),
+}
+
+model GetContractFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  // 
+  code?: long(name='code'),
+  // 下载地址
+  // 
+  downloadUrl?: string(name='download_url'),
+  // 文件id
+  // 
+  fileId?: string(name='file_id'),
+  // 业务码信息
+  // 
+  message?: string(name='message'),
+  // 文件名称
+  // 
+  name?: string(name='name'),
+  // pdf文件总页数,仅当文件类型为pdf时有值
+  // 
+  pdfTotalPages?: long(name='pdf_total_pages'),
+  // 文件大小，单位byte
+  // 
+  size?: long(name='size'),
+  // 文件状态, 0:文件未上传；1:文件上传中 ；2：文件上传已完成,；3：文件上传失败 ；4：文件等待转pdf ；5：文件已转换pdf 。
+  // 
+  status?: long(name='status'),
+}
+
+/**
+ * Description: 查询文件详情，包括文件名称、大小、下载地址等
+ * Summary: 查询文件详情
+ */
+async function getContractFile(request: GetContractFileRequest): GetContractFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getContractFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询文件详情，包括文件名称、大小、下载地址等
+ * Summary: 查询文件详情
+ */
+async function getContractFileEx(request: GetContractFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetContractFileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.file.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContractNotaryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 签署流程ID
+  flowId: string(name='flow_id'),
+}
+
+model QueryContractNotaryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  // 
+  code?: long(name='code'),
+  // 业务码信息
+  // 
+  message?: string(name='message'),
+  // 存证信息列表
+  notaries?: [ ContractNotaryInfo ](name='notaries'),
+}
+
+/**
+ * Description: 通过流程ID查询合同存证信息
+ * Summary: 查询合同存证信息
+ */
+async function queryContractNotary(request: QueryContractNotaryRequest): QueryContractNotaryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractNotaryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过流程ID查询合同存证信息
+ * Summary: 查询合同存证信息
+ */
+async function queryContractNotaryEx(request: QueryContractNotaryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractNotaryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.notary.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateContractAccountsealimageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户id
+  // 
+  accountId: string(name='account_id'),
+  // 印章别名
+  // 
+  alias?: string(name='alias'),
+  // 印章数据，base64格式字符串，不包含格式前缀
+  // 
+  data: string(name='data'),
+  // 印章高度, 个人默认95px, 机构默认159px
+  // 
+  height?: long(name='height'),
+  // 是否对图片进行透明化处理，默认false。仅对图片整体做透明化处理，无法去除图片背景
+  // 
+  transparentFlag?: boolean(name='transparent_flag'),
+  // 印章数据类型，BASE64：base64格式
+  // 
+  type: string(name='type'),
+  // 印章宽度, 个人默认95px, 机构默认159px
+  // 
+  width?: long(name='width'),
+}
+
+model CreateContractAccountsealimageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 印章fileKey
+  // 
+  fileKey?: string(name='file_key'),
+  // 印章高度
+  // 
+  height?: long(name='height'),
+  // 印章id
+  // 
+  sealId?: string(name='seal_id'),
+  // 印章下载地址, 有效时间1小时
+  // 
+  url?: string(name='url'),
+  // 印章宽度
+  // 
+  width?: long(name='width'),
+  // 业务码，0表示成功
+  code?: long(name='code'),
+  // 业务码信息
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 创建个人/机构图片印章
+ * Summary: 创建个人/机构图片印章
+ */
+async function createContractAccountsealimage(request: CreateContractAccountsealimageRequest): CreateContractAccountsealimageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createContractAccountsealimageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建个人/机构图片印章
+ * Summary: 创建个人/机构图片印章
+ */
+async function createContractAccountsealimageEx(request: CreateContractAccountsealimageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateContractAccountsealimageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.accountsealimage.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateContractOnestepflowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 是否自动归档，默认false。
+  // 
+  autoArchive?: boolean(name='auto_archive'),
+  // 是否自动开启，默认false。
+  // 
+  autoInitiate?: boolean(name='auto_initiate'),
+  // 文件主题
+  // 
+  businessScene: string(name='business_scene'),
+  // 流程备注
+  // 
+  comment?: string(name='comment'),
+  // 流程配置
+  contractSignFlowConfig: Contractsignflowconfig(name='contract_sign_flow_config'),
+  // 合同文件
+  docs: [ ContractDocument ](name='docs'),
+  // 发起人账户id，即发起本次签署的操作人个人账号id；如不传，默认由对接平台发起
+  // 
+  initiatorAccountId?: string(name='initiator_account_id'),
+  // 发起方主体id，如存在个人代机构发起签约，则需传入机构id；如不传，则默认是对接平台
+  // 
+  initiatorAuthorizedAccountId?: string(name='initiator_authorized_account_id'),
+  // 签署操作人个人账号标识，即操作本次签署的个人
+  // 
+  signFields: [ OneStepSignField ](name='sign_fields'),
+  // 签署平台，ALIPAY（支付宝小程序）或H5，默认H5
+  // 
+  signPlatform?: string(name='sign_platform'),
+  // 签署有效截止日期，毫秒，默认3天失效
+  // 
+  signValidity: long(name='sign_validity'),
+}
+
+model CreateContractOnestepflowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  // 
+  code?: long(name='code'),
+  // 流程ID
+  // 
+  flowId?: string(name='flow_id'),
+  // 业务码信息
+  // 
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
+ * Summary: 一步创建签署流程接口
+ */
+async function createContractOnestepflow(request: CreateContractOnestepflowRequest): CreateContractOnestepflowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createContractOnestepflowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
+ * Summary: 一步创建签署流程接口
+ */
+async function createContractOnestepflowEx(request: CreateContractOnestepflowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateContractOnestepflowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.onestepflow.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContractFlowsignerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程id
+  // 
+  flowId: string(name='flow_id'),
+}
+
+model QueryContractFlowsignerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  // 
+  code?: long(name='code'),
+  // 业务码信息
+  // 
+  message?: string(name='message'),
+  // 签署人信息
+  signers?: [ ContractFlowSigner ](name='signers'),
+}
+
+/**
+ * Description: 查询流程所有签署人列表。
+ * Summary: 查询流程签署人列表
+ */
+async function queryContractFlowsigner(request: QueryContractFlowsignerRequest): QueryContractFlowsignerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractFlowsignerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询流程所有签署人列表。
+ * Summary: 查询流程签署人列表
+ */
+async function queryContractFlowsignerEx(request: QueryContractFlowsignerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractFlowsignerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.flowsigner.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContractSignfieldsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 账号id，默认所有签署人
+  accountId?: string(name='account_id'),
+  // 流程id
+  flowId: string(name='flow_id'),
+  // 指定签署区id列表，逗号分割，默认所有签署区
+  signfieldIds?: string(name='signfield_ids'),
+}
+
+model QueryContractSignfieldsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  code?: long(name='code'),
+  // 业务码信息
+  message?: string(name='message'),
+  // 签署区列表数据
+  signfields?: [ ContractSignFieldDetail ](name='signfields'),
+}
+
+/**
+ * Description: 查询流程签署区列表，可以查询指定指定id或者签署人所属的签署区
+ * Summary: 查询签署区列表
+ */
+async function queryContractSignfields(request: QueryContractSignfieldsRequest): QueryContractSignfieldsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractSignfieldsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询流程签署区列表，可以查询指定指定id或者签署人所属的签署区
+ * Summary: 查询签署区列表
+ */
+async function queryContractSignfieldsEx(request: QueryContractSignfieldsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractSignfieldsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.signfields.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteContractSignerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 签署人ID
+  accountId: string(name='account_id'),
+  // 流程id
+  flowId: string(name='flow_id'),
+}
+
+model DeleteContractSignerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  code?: long(name='code'),
+  // 业务码信息
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 执行签署人删除逻辑
+ * Summary: 删除签署人
+ */
+async function deleteContractSigner(request: DeleteContractSignerRequest): DeleteContractSignerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteContractSignerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 执行签署人删除逻辑
+ * Summary: 删除签署人
+ */
+async function deleteContractSignerEx(request: DeleteContractSignerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteContractSignerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.signer.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncEcpCloudRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // api_code
+  apiCode: string(name='api_code'),
+  // param_map_json
+  paramMapJson: string(name='param_map_json'),
+}
+
+model SyncEcpCloudResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: string(name='data'),
+}
+
+/**
+ * Description: ecp同步金融云,内部通道
+ * Summary: ecp同步金融云,内部通道
+ */
+async function syncEcpCloud(request: SyncEcpCloudRequest): SyncEcpCloudResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncEcpCloudEx(request, headers, runtime);
+}
+
+/**
+ * Description: ecp同步金融云,内部通道
+ * Summary: ecp同步金融云,内部通道
+ */
+async function syncEcpCloudEx(request: SyncEcpCloudRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncEcpCloudResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.ecp.cloud.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateOauthUrlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 回调地址
+  callbackUrl: string(name='callback_url'),
+  // 登录渠道(web,h5)
+  loginChannel: string(name='login_channel'),
+  // 客户端口令
+  clientToken: string(name='client_token'),
+}
+
+model CreateOauthUrlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 验权url
+  oauthUrl?: string(name='oauth_url'),
+}
+
+/**
+ * Description: 生成url跳转登录
+ * Summary: 生成url跳转登录
+ */
+async function createOauthUrl(request: CreateOauthUrlRequest): CreateOauthUrlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createOauthUrlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 生成url跳转登录
+ * Summary: 生成url跳转登录
+ */
+async function createOauthUrlEx(request: CreateOauthUrlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateOauthUrlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.oauth.url.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetOauthTokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权类型
+  grantType: string(name='grant_type'),
+  // 授权码
+  authCode: string(name='auth_code'),
+  // client端申请oauth时的口令
+  clientToken: string(name='client_token'),
+  // 过期时间
+  expires?: long(name='expires'),
+}
+
+model GetOauthTokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: TokenData(name='data'),
+}
+
+/**
+ * Description: 获取token
+ * Summary: 获取token
+ */
+async function getOauthToken(request: GetOauthTokenRequest): GetOauthTokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getOauthTokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取token
+ * Summary: 获取token
+ */
+async function getOauthTokenEx(request: GetOauthTokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetOauthTokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.oauth.token.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetOauthTokendetailRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权token
+  accessToken: string(name='access_token'),
+}
+
+model GetOauthTokendetailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权token
+  accessToken?: string(name='access_token'),
+  // 授权可查看的用户的信息
+  dataGrant?: UserData(name='data_grant'),
+}
+
+/**
+ * Description: token明细获取
+ * Summary: token明细获取
+ */
+async function getOauthTokendetail(request: GetOauthTokendetailRequest): GetOauthTokendetailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getOauthTokendetailEx(request, headers, runtime);
+}
+
+/**
+ * Description: token明细获取
+ * Summary: token明细获取
+ */
+async function getOauthTokendetailEx(request: GetOauthTokendetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetOauthTokendetailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.oauth.tokendetail.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckSessionAliveRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // sessionID
+  sessionId: string(name='session_id'),
+}
+
+model CheckSessionAliveResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户id
+  userId?: long(name='user_id'),
+  // 登录时间
+  loginTime?: string(name='login_time'),
+  // 添加用户类型
+  userData?: UserData(name='user_data'),
+  // did
+  did?: string(name='did'),
+}
+
+/**
+ * Description: session判活
+ * Summary: session判活
+ */
+async function checkSessionAlive(request: CheckSessionAliveRequest): CheckSessionAliveResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkSessionAliveEx(request, headers, runtime);
+}
+
+/**
+ * Description: session判活
+ * Summary: session判活
+ */
+async function checkSessionAliveEx(request: CheckSessionAliveRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckSessionAliveResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.session.alive.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyPartnerAsyncRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // ZHONGYI
+  partnerId: string(name='partner_id'),
+  // 产品code
+  productCode: string(name='product_code'),
+  // 通知内容	
+  // 
+  notifyContent: string(name='notify_content'),
+}
+
+model NotifyPartnerAsyncResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 外部合作伙伴异步通知接口
+ * Summary: 外部合作伙伴异步通知接口
+ */
+async function notifyPartnerAsync(request: NotifyPartnerAsyncRequest): NotifyPartnerAsyncResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyPartnerAsyncEx(request, headers, runtime);
+}
+
+/**
+ * Description: 外部合作伙伴异步通知接口
+ * Summary: 外部合作伙伴异步通知接口
+ */
+async function notifyPartnerAsyncEx(request: NotifyPartnerAsyncRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyPartnerAsyncResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.partner.async.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateProjectBaseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 唯一业务id
+  projectId: long(name='project_id'),
+  // 项目编号
+  projectCode: string(name='project_code'),
+  // 项目名称
+  projectName: string(name='project_name'),
+  // 项目建立时间
+  projectCreateTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='project_create_time'),
+  // 建设单位统一社会信用代码
+  partyABidderCode: string(name='party_a_bidder_code'),
+  // 施工单位统一社会信用代码
+  partyBBidderCode: string(name='party_b_bidder_code'),
+  // 项目所在行政区域代码
+  regionCode: string(name='region_code'),
+  // 项目类型
+  projectType: string(name='project_type'),
+  // 拟开工时间
+  startTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time'),
+  // 拟建成时间
+  endTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time'),
+  // 工程造价（单位：元，精确小数点后6位）
+  projectPrice: string(name='project_price'),
+  // 资金来源
+  fundSource: string(name='fund_source'),
+  // 行业分类
+  indusCategory: string(name='indus_category'),
+  // 项目地址
+  projectAddress: string(name='project_address'),
+  // 争议解决方式
+  disputeresolutionType?: string(name='disputeresolution_type'),
+  // 资金落实比例
+  contributionRatio?: string(name='contribution_ratio'),
+  // 资金落实情况
+  fundImpl?: string(name='fund_impl'),
+  // 项目规模
+  projectScale?: string(name='project_scale'),
+  // 总投资额(单位：元，小数点后六位)
+  bidBond?: string(name='bid_bond'),
+  // 建设单位的项目联系人
+  contactor?: string(name='contactor'),
+  // 建设单位的项目联系人联系方式
+  contactInformation?: string(name='contact_information'),
+  // 是否国有投资
+  isGContruction?: string(name='is_g_contruction'),
+  // 担保方式
+  guaranteeType?: string(name='guarantee_type'),
+  // 反担保协议编号
+  conterGuarAgreeNo?: string(name='conter_guar_agree_no'),
+  // 创建人did
+  createdDid?: string(name='created_did'),
+  // 数据时间戳
+  dataTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='data_timestamp'),
+}
+
+model CreateProjectBaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 信息上链的哈希
+  txHash?: string(name='tx_hash'),
+}
+
+/**
+ * Description: 创建一条项目基本信息
+ * Summary: 创建一条项目基本信息
+ */
+async function createProjectBase(request: CreateProjectBaseRequest): CreateProjectBaseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createProjectBaseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建一条项目基本信息
+ * Summary: 创建一条项目基本信息
+ */
+async function createProjectBaseEx(request: CreateProjectBaseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateProjectBaseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.project.base.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchcreateWorkersBaseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目编号
+  projectCode: string(name='project_code'),
+  // 农民工基本信息
+  workerList: [ WorkersBaseInfo ](name='worker_list'),
+}
+
+model BatchcreateWorkersBaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 批量新增农民工基本信息
+ * Summary: 批量新增农民工基本信息
+ */
+async function batchcreateWorkersBase(request: BatchcreateWorkersBaseRequest): BatchcreateWorkersBaseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchcreateWorkersBaseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量新增农民工基本信息
+ * Summary: 批量新增农民工基本信息
+ */
+async function batchcreateWorkersBaseEx(request: BatchcreateWorkersBaseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateWorkersBaseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.workers.base.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchcreateWorkersAttendanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目编号
+  projectCode: string(name='project_code'),
+  // 身份证号
+  idCard: string(name='id_card'),
+  // 农民工考勤信息
+  attendanceList: [ WorkersCheckAttendance ](name='attendance_list'),
+}
+
+model BatchcreateWorkersAttendanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 批量新增农民工考勤信息
+ * Summary: 批量新增农民工考勤信息
+ */
+async function batchcreateWorkersAttendance(request: BatchcreateWorkersAttendanceRequest): BatchcreateWorkersAttendanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchcreateWorkersAttendanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量新增农民工考勤信息
+ * Summary: 批量新增农民工考勤信息
+ */
+async function batchcreateWorkersAttendanceEx(request: BatchcreateWorkersAttendanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateWorkersAttendanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.workers.attendance.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchcreateWorkersWageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目编号
+  projectCode: string(name='project_code'),
+  // 身份证号
+  idCard: string(name='id_card'),
+  // 农民工工资发放信息
+  wageList: [ WorkersWagePayment ](name='wage_list'),
+}
+
+model BatchcreateWorkersWageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 批量新增农民工工资发放信息
+ * Summary: 批量新增农民工工资发放信息
+ */
+async function batchcreateWorkersWage(request: BatchcreateWorkersWageRequest): BatchcreateWorkersWageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchcreateWorkersWageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量新增农民工工资发放信息
+ * Summary: 批量新增农民工工资发放信息
+ */
+async function batchcreateWorkersWageEx(request: BatchcreateWorkersWageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateWorkersWageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.workers.wage.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateProjectFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目编号 
+  projectCode: string(name='project_code'),
+  // 文件id
+  fileId: string(name='file_id'),
+  // 文件业务id
+  fileBizId?: string(name='file_biz_id'),
+  // 文件编号
+  fileCode?: string(name='file_code'),
+  // 文件名称
+  fileName?: string(name='file_name'),
+  // 文件类型
+  fileType: string(name='file_type'),
+  // 扩展字段
+  extraData?: string(name='extra_data'),
+  // 数据时间戳
+  dataTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='data_timestamp'),
+}
+
+model CreateProjectFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 信息上链的哈希
+  // 
+  txHash?: string(name='tx_hash'),
+}
+
+/**
+ * Description: 创建一条项目文件信息
+ * Summary: 创建一条项目文件信息
+ */
+async function createProjectFile(request: CreateProjectFileRequest): CreateProjectFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createProjectFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建一条项目文件信息
+ * Summary: 创建一条项目文件信息
+ */
+async function createProjectFileEx(request: CreateProjectFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateProjectFileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.project.file.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateContractBaseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目编号 
+  projectCode: string(name='project_code'),
+  // 合同信息id
+  contractInfoId: long(name='contract_info_id'),
+  // 合同编号
+  contractInfoCode: string(name='contract_info_code'),
+  // 合同名称
+  contractName: string(name='contract_name'),
+  // 合同版本,从1起
+  contractVersion: long(name='contract_version'),
+  // 变更原因（第一版不传值）
+  changeReason?: string(name='change_reason'),
+  // 合同类型
+  contractType: string(name='contract_type'),
+  // 甲方统一社会信用代码
+  partyABidderCode: string(name='party_a_bidder_code'),
+  // 甲方名称
+  partyAName: string(name='party_a_name'),
+  // 甲方授权代表Did
+  partyAAuditDid: string(name='party_a_audit_did'),
+  // 乙方集合
+  partyBFirmDtoList: [ PartyBFirmDto ](name='party_b_firm_dto_list'),
+  // 合同金额
+  contractMoney: string(name='contract_money'),
+  // 金额币种代码
+  priceCurrency: string(name='price_currency'),
+  // 金额单位
+  priceUnit: string(name='price_unit'),
+  // 拟开工时间
+  startDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_date'),
+  // 拟建成时间
+  endDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_date'),
+  // 合同签署时间
+  contractSignTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='contract_sign_time'),
+  // 创建人Did
+  createdDid: string(name='created_did'),
+  // 合同文件
+  contractFile: string(name='contract_file'),
+  // 文件存证
+  evidence: string(name='evidence'),
+  // 存证txHash
+  txHash?: string(name='tx_hash'),
+  // 数据时间戳
+  dataTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='data_timestamp'),
+  // 保证金对象集合
+  securityFundDtoList?: [ SecurityFundDto ](name='security_fund_dto_list'),
+}
+
+model CreateContractBaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 信息上链的哈希
+  txHash?: string(name='tx_hash'),
+}
+
+/**
+ * Description: 合同基本信息流入
+ * Summary: 合同基本信息流入
+ */
+async function createContractBase(request: CreateContractBaseRequest): CreateContractBaseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createContractBaseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合同基本信息流入
+ * Summary: 合同基本信息流入
+ */
+async function createContractBaseEx(request: CreateContractBaseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateContractBaseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.base.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateContractImplRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合同编号,(确定是哪个合同的收付款，需要唯一标识id)
+  contractInfoCode: string(name='contract_info_code'),
+  // 收付款id
+  contractImplId: long(name='contract_impl_id'),
+  // 付款方统一社会信用代码
+  partyABidderCode: string(name='party_a_bidder_code'),
+  // 付款方审核人Did
+  partyAAuditDid: string(name='party_a_audit_did'),
+  // 付款方名称	
+  partyAName: string(name='party_a_name'),
+  // 收款方统一社会信用代码
+  partyBBidderCode: string(name='party_b_bidder_code'),
+  // 收款方审核人Did
+  partyBAuditDid?: string(name='party_b_audit_did'),
+  // 收款方名称
+  partyBName: string(name='party_b_name'),
+  // 拨付金额
+  payMoney: string(name='pay_money'),
+  // 金额币种代码
+  priceCurrency: string(name='price_currency'),
+  // 金额单位
+  priceUnit: string(name='price_unit'),
+  // 支付说明
+  remarks: string(name='remarks'),
+  // 款项类型
+  paymentType: string(name='payment_type'),
+  // 拨付时间
+  payTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='pay_time'),
+  // 创建人Did
+  createdDid: string(name='created_did'),
+  // 付款凭证文件(文件Id)
+  file: string(name='file'),
+  // 数据时间戳
+  dataTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='data_timestamp'),
+}
+
+model CreateContractImplResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 信息上链的哈希
+  txHash?: string(name='tx_hash'),
+}
+
+/**
+ * Description: 合同收付款信息流入
+ * Summary: 合同收付款信息流入
+ */
+async function createContractImpl(request: CreateContractImplRequest): CreateContractImplResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createContractImplEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合同收付款信息流入
+ * Summary: 合同收付款信息流入
+ */
+async function createContractImplEx(request: CreateContractImplRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateContractImplResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.contract.impl.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateUserCertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 云蚂账户id
+  userId: long(name='user_id'),
+  // 姓名
+  name: string(name='name'),
+  // 个人证件类型
+  certType: string(name='cert_type'),
+  // 证件号码
+  certNum: string(name='cert_num'),
+  // 个人证件正面图片文件id，应用侧fileId
+  certFileFront: long(name='cert_file_front'),
+  // 个人证件正面类型。JPG
+  certFileFrontType: string(name='cert_file_front_type'),
+  // 个人证件反面图片文件id，应用侧fileId
+  certFileReverse: long(name='cert_file_reverse'),
+  // 个人证件反面类型。JPG
+  certFileReverseType: string(name='cert_file_reverse_type'),
+}
+
+model CreateUserCertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 个人认证信息同步
+ * Summary: 个人认证信息同步
+ */
+async function createUserCert(request: CreateUserCertRequest): CreateUserCertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createUserCertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人认证信息同步
+ * Summary: 个人认证信息同步
+ */
+async function createUserCertEx(request: CreateUserCertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateUserCertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.user.cert.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateUserInfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 云蚂侧用户id
+  // 
+  userId: long(name='user_id'),
+  // 信息同步类型
+  // 
+  operationType: string(name='operation_type'),
+  // 用户邮箱
+  // 
+  email?: string(name='email'),
+  // 用户手机号码
+  // 
+  telphone?: string(name='telphone'),
+  // 个人认证状态
+  // 
+  userCertStatus?: string(name='user_cert_status'),
+  // 个人认证did
+  // 
+  userDid?: string(name='user_did'),
+}
+
+model UpdateUserInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 用户信息变更同步
+ * Summary: 用户信息变更同步
+ */
+async function updateUserInfo(request: UpdateUserInfoRequest): UpdateUserInfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateUserInfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户信息变更同步
+ * Summary: 用户信息变更同步
+ */
+async function updateUserInfoEx(request: UpdateUserInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateUserInfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.user.info.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateUserRegisterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 默认登录名称
+  loginId: string(name='login_id'),
+  // 用户邮箱
+  email?: string(name='email'),
+  // 用户手机号码
+  telphone?: string(name='telphone'),
+  // 云蚂侧用户id
+  userId: long(name='user_id'),
+  // 来源 ： 1 APP注册，2 PC注册，3 后台添加
+  source: string(name='source'),
+}
+
+model CreateUserRegisterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 用户注册信息同步
+ * Summary: 用户注册信息同步
+ */
+async function createUserRegister(request: CreateUserRegisterRequest): CreateUserRegisterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createUserRegisterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户注册信息同步
+ * Summary: 用户注册信息同步
+ */
+async function createUserRegisterEx(request: CreateUserRegisterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateUserRegisterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.user.register.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateFirmCertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 云蚂侧企业id
+  firmId: long(name='firm_id'),
+  // 企业名称
+  firmName: string(name='firm_name'),
+  // 企业类型
+  firmType?: string(name='firm_type'),
+  // 行业类型
+  industryType: string(name='industry_type'),
+  // 企业地址省份
+  firmAddress: string(name='firm_address'),
+  // 企业营业执照注册号
+  certRegNo: string(name='cert_reg_no'),
+  // 营业执照图片id，应用侧fileId
+  certRegFile: long(name='cert_reg_file'),
+  // 营业执照图片类型(JPEG,JPG)
+  certRegFileType: string(name='cert_reg_file_type'),
+  // 法定代表人证件类型
+  lpCertType: string(name='lp_cert_type'),
+  // 法人证件号码
+  lpCertNo: string(name='lp_cert_no'),
+  // 法人姓名
+  lpName: string(name='lp_name'),
+  // 法人身份证正面图片id，应用侧FileId
+  lpCertFileFront: long(name='lp_cert_file_front'),
+  // 法人身份证正面图片文件类型(JPEG,JPG)
+  lpCertFileFrontType: string(name='lp_cert_file_front_type'),
+  // 法人身份证反面图片id，应用侧FileId
+  lpCertFileReverse: long(name='lp_cert_file_reverse'),
+  // 法人身份证反面图片id，应用侧FileId
+  lpCertFileReverseType: string(name='lp_cert_file_reverse_type'),
+}
+
+model CreateFirmCertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 企业认证信息同步
+ * Summary: 企业认证信息同步
+ */
+async function createFirmCert(request: CreateFirmCertRequest): CreateFirmCertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createFirmCertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业认证信息同步
+ * Summary: 企业认证信息同步
+ */
+async function createFirmCertEx(request: CreateFirmCertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateFirmCertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.firm.cert.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateFirmInfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 云蚂侧用户id
+  userId: long(name='user_id'),
+  // 信息同步类型
+  operationType: string(name='operation_type'),
+  // 云蚂侧企业id
+  firmId: long(name='firm_id'),
+  // 企业名称
+  firmName?: string(name='firm_name'),
+  // 企业认证状态
+  firmCertStatus?: string(name='firm_cert_status'),
+  // 企业认证did
+  firmDid?: string(name='firm_did'),
+  // 账户角色
+  referType?: string(name='refer_type'),
+  // 云蚂侧原管理员账户id
+  formerAdminId?: long(name='former_admin_id'),
+}
+
+model UpdateFirmInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 企业信息变更同步
+ * Summary: 企业信息变更同步
+ */
+async function updateFirmInfo(request: UpdateFirmInfoRequest): UpdateFirmInfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateFirmInfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业信息变更同步
+ * Summary: 企业信息变更同步
+ */
+async function updateFirmInfoEx(request: UpdateFirmInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateFirmInfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.firm.info.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryChainTransactionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据链上交易hash
+  txHash: string(name='tx_hash'),
+}
+
+model QueryChainTransactionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数据链上交易hash
+  txHash?: string(name='tx_hash'),
+  // 数据块高
+  blockNumber?: long(name='block_number'),
+  // 数据上链时间
+  timestamp?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='timestamp'),
+}
+
+/**
+ * Description: 查询链上信息
+ * Summary: 查询链上信息
+ */
+async function queryChainTransaction(request: QueryChainTransactionRequest): QueryChainTransactionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryChainTransactionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询链上信息
+ * Summary: 查询链上信息
+ */
+async function queryChainTransactionEx(request: QueryChainTransactionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryChainTransactionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.acc.chain.transaction.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
