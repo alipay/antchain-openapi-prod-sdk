@@ -21494,6 +21494,98 @@ export class QueryFlowPhaseResponse extends $tea.Model {
   }
 }
 
+export class DetailFlowPhaseRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 流程id，通过twc.notary.instance.create(创建存证流程实例)获取
+  flowId: string;
+  // 阶段ID，通过twc.notary.flow.phase.create(创建阶段存证)创建了阶段存证获取
+  phaseId: string;
+  // 链上交易Hash，必须成功阶段存证后，通过twc.notary.flow.phase.query获取
+  txHash: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+      phaseId: 'phase_id',
+      txHash: 'tx_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+      phaseId: 'string',
+      txHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailFlowPhaseResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 阶段存证交易hash
+  txHash?: string;
+  // 模板字段类型，Hash/Structure，(Hash->哈希,Structure->结构化)
+  dataType?: string;
+  // 阶段存证内容，如果模板数据类型定义是Hash(哈希)则返回存证时Hash，如果定义是Structure(结构化)，则返回所有字段json对象的字符串Base64后的值
+  notaryContent?: string;
+  // 结构化数据里面英文key对应的中文名称关系，json格式，key为字段英文名，value为字段中文名称
+  // 
+  dataTypeKey?: string;
+  // 阶段存证内容csv下载地址，暂时预留，存证内容过大时采用文件形式输出，有效期1个小时
+  url?: string;
+  // 交易所在的区块Hash
+  blockHash?: string;
+  // 交易所在的区块高
+  blockHeight?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      txHash: 'tx_hash',
+      dataType: 'data_type',
+      notaryContent: 'notary_content',
+      dataTypeKey: 'data_type_key',
+      url: 'url',
+      blockHash: 'block_hash',
+      blockHeight: 'block_height',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      txHash: 'string',
+      dataType: 'string',
+      notaryContent: 'string',
+      dataTypeKey: 'string',
+      url: 'string',
+      blockHash: 'string',
+      blockHeight: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -21607,7 +21699,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.9",
+          sdk_version: "1.7.12",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -25550,6 +25642,25 @@ export default class Client {
   async queryFlowPhaseEx(request: QueryFlowPhaseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFlowPhaseResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryFlowPhaseResponse>(await this.doRequest("1.0", "twc.notary.flow.phase.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFlowPhaseResponse({}));
+  }
+
+  /**
+   * Description: 阶段存证数据详情
+   * Summary: 阶段存证数据详情
+   */
+  async detailFlowPhase(request: DetailFlowPhaseRequest): Promise<DetailFlowPhaseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.detailFlowPhaseEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 阶段存证数据详情
+   * Summary: 阶段存证数据详情
+   */
+  async detailFlowPhaseEx(request: DetailFlowPhaseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailFlowPhaseResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DetailFlowPhaseResponse>(await this.doRequest("1.0", "twc.notary.flow.phase.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailFlowPhaseResponse({}));
   }
 
 }
