@@ -24,6 +24,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 批量添加权限成功与否
+        [NameInMap("status")]
+        [Validation(Required=false)]
+        public long? Status { get; set; }
+
     }
 
 }

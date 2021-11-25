@@ -53,6 +53,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public List<ProcessNode> ProcessTemplate { get; set; }
 
+        // 带签名信息的参数信息
+        [NameInMap("parameters")]
+        [Validation(Required=true)]
+        public string Parameters { get; set; }
+
     }
 
 }

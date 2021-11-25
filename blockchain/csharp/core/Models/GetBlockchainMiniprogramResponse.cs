@@ -24,10 +24,10 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 交易二维码
-        [NameInMap("qrcode")]
+        // 交易二维码二进制内容的Base64编码
+        [NameInMap("qr_code_download_url")]
         [Validation(Required=false)]
-        public string Qrcode { get; set; }
+        public string QrCodeDownloadUrl { get; set; }
 
     }
 

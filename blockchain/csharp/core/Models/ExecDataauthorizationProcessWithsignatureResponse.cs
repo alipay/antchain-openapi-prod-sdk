@@ -29,6 +29,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public ProcessResult ProcessResult { get; set; }
 
+        // 权限凭证
+        [NameInMap("authority_cert")]
+        [Validation(Required=false)]
+        public string AuthorityCert { get; set; }
+
     }
 
 }

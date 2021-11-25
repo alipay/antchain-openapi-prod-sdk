@@ -24,10 +24,10 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=true)]
         public string CertNo { get; set; }
 
-        // 证书的subject did
+        // 证书的subject did，不给此参数时候三要素验证不颁发vc
         // 
         [NameInMap("did")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Did { get; set; }
 
         // 手机号码

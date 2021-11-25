@@ -33,6 +33,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string BizCode { get; set; }
 
+        // transmit在底层vc仓库使用时候是否需要使用did密钥进行信封封装加密，如果设定true则不需要底层信封加密，需要调用方执行vcContent的加密保护。
+        [NameInMap("not_encrypt")]
+        [Validation(Required=false)]
+        public bool? NotEncrypt { get; set; }
+
     }
 
 }

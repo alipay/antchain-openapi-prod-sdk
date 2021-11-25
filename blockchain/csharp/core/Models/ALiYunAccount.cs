@@ -35,6 +35,16 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string AccountStatus { get; set; }
 
+        // 机构信息
+        [NameInMap("member_name")]
+        [Validation(Required=false)]
+        public string MemberName { get; set; }
+
+        // 创建时间
+        [NameInMap("create_time")]
+        [Validation(Required=false)]
+        public long? CreateTime { get; set; }
+
     }
 
 }

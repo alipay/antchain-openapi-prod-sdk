@@ -30,6 +30,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public long? UpdateTime { get; set; }
 
+        // REST开通结果
+        [NameInMap("result")]
+        [Validation(Required=false)]
+        public string Result { get; set; }
+
     }
 
 }

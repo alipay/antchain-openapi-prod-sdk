@@ -18,7 +18,7 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // { ''challenge":xxxx, //待签名的明文
+        // { __challenge":xxxx, //待签名的明文
         //  “expired”：xxxx,//签名有效时间 
         // “sign”：xxxx，//对上述字段进行的签名
         // }

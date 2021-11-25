@@ -20,6 +20,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string GmtAuthorized { get; set; }
 
+        // 记录id
+        [NameInMap("user_id")]
+        [Validation(Required=false)]
+        public long? UserId { get; set; }
+
     }
 
 }

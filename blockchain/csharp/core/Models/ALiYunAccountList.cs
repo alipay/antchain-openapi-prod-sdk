@@ -20,6 +20,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public List<ALiYunAccount> Accounts { get; set; }
 
+        // 联盟管理员
+        [NameInMap("consortium_admin")]
+        [Validation(Required=false)]
+        public bool? ConsortiumAdmin { get; set; }
+
     }
 
 }
