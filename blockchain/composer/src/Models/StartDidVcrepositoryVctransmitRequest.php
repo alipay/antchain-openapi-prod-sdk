@@ -36,12 +36,19 @@ class StartDidVcrepositoryVctransmitRequest extends Model
      * @var string
      */
     public $bizCode;
+
+    // transmit在底层vc仓库使用时候是否需要使用did密钥进行信封封装加密，如果设定true则不需要底层信封加密，需要调用方执行vcContent的加密保护。
+    /**
+     * @var bool
+     */
+    public $notEncrypt;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'did'               => 'did',
         'payload'           => 'payload',
         'bizCode'           => 'biz_code',
+        'notEncrypt'        => 'not_encrypt',
     ];
 
     public function validate()
@@ -67,6 +74,9 @@ class StartDidVcrepositoryVctransmitRequest extends Model
         }
         if (null !== $this->bizCode) {
             $res['biz_code'] = $this->bizCode;
+        }
+        if (null !== $this->notEncrypt) {
+            $res['not_encrypt'] = $this->notEncrypt;
         }
 
         return $res;
@@ -94,6 +104,9 @@ class StartDidVcrepositoryVctransmitRequest extends Model
         }
         if (isset($map['biz_code'])) {
             $model->bizCode = $map['biz_code'];
+        }
+        if (isset($map['not_encrypt'])) {
+            $model->notEncrypt = $map['not_encrypt'];
         }
 
         return $model;

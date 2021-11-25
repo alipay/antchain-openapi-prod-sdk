@@ -26,16 +26,16 @@ class GetBlockchainMiniprogramResponse extends Model
      */
     public $resultMsg;
 
-    // 交易二维码
+    // 交易二维码二进制内容的Base64编码
     /**
      * @var string
      */
-    public $qrcode;
+    public $qrCodeDownloadUrl;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'qrcode'     => 'qrcode',
+        'reqMsgId'          => 'req_msg_id',
+        'resultCode'        => 'result_code',
+        'resultMsg'         => 'result_msg',
+        'qrCodeDownloadUrl' => 'qr_code_download_url',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class GetBlockchainMiniprogramResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->qrcode) {
-            $res['qrcode'] = $this->qrcode;
+        if (null !== $this->qrCodeDownloadUrl) {
+            $res['qr_code_download_url'] = $this->qrCodeDownloadUrl;
         }
 
         return $res;
@@ -78,8 +78,8 @@ class GetBlockchainMiniprogramResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['qrcode'])) {
-            $model->qrcode = $map['qrcode'];
+        if (isset($map['qr_code_download_url'])) {
+            $model->qrCodeDownloadUrl = $map['qr_code_download_url'];
         }
 
         return $model;

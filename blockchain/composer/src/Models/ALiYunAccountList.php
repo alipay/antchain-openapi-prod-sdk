@@ -23,9 +23,18 @@ class ALiYunAccountList extends Model
      * @var ALiYunAccount[]
      */
     public $accounts;
+
+    // 联盟管理员
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $consortiumAdmin;
     protected $_name = [
-        'pagination' => 'pagination',
-        'accounts'   => 'accounts',
+        'pagination'      => 'pagination',
+        'accounts'        => 'accounts',
+        'consortiumAdmin' => 'consortium_admin',
     ];
 
     public function validate()
@@ -46,6 +55,9 @@ class ALiYunAccountList extends Model
                     $res['accounts'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->consortiumAdmin) {
+            $res['consortium_admin'] = $this->consortiumAdmin;
         }
 
         return $res;
@@ -70,6 +82,9 @@ class ALiYunAccountList extends Model
                     $model->accounts[$n++] = null !== $item ? ALiYunAccount::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['consortium_admin'])) {
+            $model->consortiumAdmin = $map['consortium_admin'];
         }
 
         return $model;

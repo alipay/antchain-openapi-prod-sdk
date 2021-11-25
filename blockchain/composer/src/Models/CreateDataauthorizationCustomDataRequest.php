@@ -60,6 +60,12 @@ class CreateDataauthorizationCustomDataRequest extends Model
      * @var ProcessNode[]
      */
     public $processTemplate;
+
+    // 带签名信息的参数信息
+    /**
+     * @var string
+     */
+    public $parameters;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,6 +76,7 @@ class CreateDataauthorizationCustomDataRequest extends Model
         'name'              => 'name',
         'ownerId'           => 'owner_id',
         'processTemplate'   => 'process_template',
+        'parameters'        => 'parameters',
     ];
 
     public function validate()
@@ -79,6 +86,7 @@ class CreateDataauthorizationCustomDataRequest extends Model
         Model::validateRequired('dataId', $this->dataId, true);
         Model::validateRequired('name', $this->name, true);
         Model::validateRequired('ownerId', $this->ownerId, true);
+        Model::validateRequired('parameters', $this->parameters, true);
     }
 
     public function toMap()
@@ -116,6 +124,9 @@ class CreateDataauthorizationCustomDataRequest extends Model
                     $res['process_template'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->parameters) {
+            $res['parameters'] = $this->parameters;
         }
 
         return $res;
@@ -161,6 +172,9 @@ class CreateDataauthorizationCustomDataRequest extends Model
                     $model->processTemplate[$n++] = null !== $item ? ProcessNode::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['parameters'])) {
+            $model->parameters = $map['parameters'];
         }
 
         return $model;

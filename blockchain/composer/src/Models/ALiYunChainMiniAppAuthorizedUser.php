@@ -23,9 +23,18 @@ class ALiYunChainMiniAppAuthorizedUser extends Model
      * @var string
      */
     public $gmtAuthorized;
+
+    // 记录id
+    /**
+     * @example 112
+     *
+     * @var int
+     */
+    public $userId;
     protected $_name = [
         'phone'         => 'phone',
         'gmtAuthorized' => 'gmt_authorized',
+        'userId'        => 'user_id',
     ];
 
     public function validate()
@@ -40,6 +49,9 @@ class ALiYunChainMiniAppAuthorizedUser extends Model
         }
         if (null !== $this->gmtAuthorized) {
             $res['gmt_authorized'] = $this->gmtAuthorized;
+        }
+        if (null !== $this->userId) {
+            $res['user_id'] = $this->userId;
         }
 
         return $res;
@@ -58,6 +70,9 @@ class ALiYunChainMiniAppAuthorizedUser extends Model
         }
         if (isset($map['gmt_authorized'])) {
             $model->gmtAuthorized = $map['gmt_authorized'];
+        }
+        if (isset($map['user_id'])) {
+            $model->userId = $map['user_id'];
         }
 
         return $model;

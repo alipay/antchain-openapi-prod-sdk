@@ -31,11 +31,18 @@ class ExecDataauthorizationProcessWithsignatureResponse extends Model
      * @var ProcessResult
      */
     public $processResult;
+
+    // 权限凭证
+    /**
+     * @var string
+     */
+    public $authorityCert;
     protected $_name = [
         'reqMsgId'      => 'req_msg_id',
         'resultCode'    => 'result_code',
         'resultMsg'     => 'result_msg',
         'processResult' => 'process_result',
+        'authorityCert' => 'authority_cert',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class ExecDataauthorizationProcessWithsignatureResponse extends Model
         }
         if (null !== $this->processResult) {
             $res['process_result'] = null !== $this->processResult ? $this->processResult->toMap() : null;
+        }
+        if (null !== $this->authorityCert) {
+            $res['authority_cert'] = $this->authorityCert;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class ExecDataauthorizationProcessWithsignatureResponse extends Model
         }
         if (isset($map['process_result'])) {
             $model->processResult = ProcessResult::fromMap($map['process_result']);
+        }
+        if (isset($map['authority_cert'])) {
+            $model->authorityCert = $map['authority_cert'];
         }
 
         return $model;

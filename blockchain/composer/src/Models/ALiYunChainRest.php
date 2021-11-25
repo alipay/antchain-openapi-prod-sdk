@@ -39,11 +39,20 @@ class ALiYunChainRest extends Model
      * @var int
      */
     public $updateTime;
+
+    // REST开通结果
+    /**
+     * @example OK
+     *
+     * @var string
+     */
+    public $result;
     protected $_name = [
         'accessId'   => 'access_id',
         'createTime' => 'create_time',
         'rest'       => 'rest',
         'updateTime' => 'update_time',
+        'result'     => 'result',
     ];
 
     public function validate()
@@ -64,6 +73,9 @@ class ALiYunChainRest extends Model
         }
         if (null !== $this->updateTime) {
             $res['update_time'] = $this->updateTime;
+        }
+        if (null !== $this->result) {
+            $res['result'] = $this->result;
         }
 
         return $res;
@@ -88,6 +100,9 @@ class ALiYunChainRest extends Model
         }
         if (isset($map['update_time'])) {
             $model->updateTime = $map['update_time'];
+        }
+        if (isset($map['result'])) {
+            $model->result = $map['result'];
         }
 
         return $model;

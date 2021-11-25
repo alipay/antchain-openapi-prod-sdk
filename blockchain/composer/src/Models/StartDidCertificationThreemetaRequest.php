@@ -26,7 +26,7 @@ class StartDidCertificationThreemetaRequest extends Model
      */
     public $certNo;
 
-    // 证书的subject did
+    // 证书的subject did，不给此参数时候三要素验证不颁发vc
     //
     /**
      * @var string
@@ -64,7 +64,6 @@ class StartDidCertificationThreemetaRequest extends Model
     public function validate()
     {
         Model::validateRequired('certNo', $this->certNo, true);
-        Model::validateRequired('did', $this->did, true);
         Model::validateRequired('mobile', $this->mobile, true);
         Model::validateRequired('name', $this->name, true);
     }

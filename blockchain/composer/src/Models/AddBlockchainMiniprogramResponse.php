@@ -25,10 +25,17 @@ class AddBlockchainMiniprogramResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 批量添加权限成功与否
+    /**
+     * @var int
+     */
+    public $status;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'status'     => 'status',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class AddBlockchainMiniprogramResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class AddBlockchainMiniprogramResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
         }
 
         return $model;
