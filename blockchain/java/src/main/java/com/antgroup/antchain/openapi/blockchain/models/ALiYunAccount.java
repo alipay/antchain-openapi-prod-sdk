@@ -24,6 +24,14 @@ public class ALiYunAccount extends TeaModel {
     @NameInMap("account_status")
     public String accountStatus;
 
+    // 机构信息
+    @NameInMap("member_name")
+    public String memberName;
+
+    // 创建时间
+    @NameInMap("create_time")
+    public Long createTime;
+
     public static ALiYunAccount build(java.util.Map<String, ?> map) throws Exception {
         ALiYunAccount self = new ALiYunAccount();
         return TeaModel.build(map, self);
@@ -67,6 +75,22 @@ public class ALiYunAccount extends TeaModel {
     }
     public String getAccountStatus() {
         return this.accountStatus;
+    }
+
+    public ALiYunAccount setMemberName(String memberName) {
+        this.memberName = memberName;
+        return this;
+    }
+    public String getMemberName() {
+        return this.memberName;
+    }
+
+    public ALiYunAccount setCreateTime(Long createTime) {
+        this.createTime = createTime;
+        return this;
+    }
+    public Long getCreateTime() {
+        return this.createTime;
     }
 
 }

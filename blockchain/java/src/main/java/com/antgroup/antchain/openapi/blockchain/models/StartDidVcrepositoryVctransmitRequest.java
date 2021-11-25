@@ -25,6 +25,10 @@ public class StartDidVcrepositoryVctransmitRequest extends TeaModel {
     @NameInMap("biz_code")
     public String bizCode;
 
+    // transmit在底层vc仓库使用时候是否需要使用did密钥进行信封封装加密，如果设定true则不需要底层信封加密，需要调用方执行vcContent的加密保护。
+    @NameInMap("not_encrypt")
+    public Boolean notEncrypt;
+
     public static StartDidVcrepositoryVctransmitRequest build(java.util.Map<String, ?> map) throws Exception {
         StartDidVcrepositoryVctransmitRequest self = new StartDidVcrepositoryVctransmitRequest();
         return TeaModel.build(map, self);
@@ -68,6 +72,14 @@ public class StartDidVcrepositoryVctransmitRequest extends TeaModel {
     }
     public String getBizCode() {
         return this.bizCode;
+    }
+
+    public StartDidVcrepositoryVctransmitRequest setNotEncrypt(Boolean notEncrypt) {
+        this.notEncrypt = notEncrypt;
+        return this;
+    }
+    public Boolean getNotEncrypt() {
+        return this.notEncrypt;
     }
 
 }

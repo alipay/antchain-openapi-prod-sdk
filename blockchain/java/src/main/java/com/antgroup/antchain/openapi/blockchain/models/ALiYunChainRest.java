@@ -20,6 +20,10 @@ public class ALiYunChainRest extends TeaModel {
     @NameInMap("update_time")
     public Long updateTime;
 
+    // REST开通结果
+    @NameInMap("result")
+    public String result;
+
     public static ALiYunChainRest build(java.util.Map<String, ?> map) throws Exception {
         ALiYunChainRest self = new ALiYunChainRest();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class ALiYunChainRest extends TeaModel {
     }
     public Long getUpdateTime() {
         return this.updateTime;
+    }
+
+    public ALiYunChainRest setResult(String result) {
+        this.result = result;
+        return this;
+    }
+    public String getResult() {
+        return this.result;
     }
 
 }

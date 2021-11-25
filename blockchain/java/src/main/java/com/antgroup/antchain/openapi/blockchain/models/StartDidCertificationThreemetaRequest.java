@@ -17,10 +17,9 @@ public class StartDidCertificationThreemetaRequest extends TeaModel {
     @Validation(required = true)
     public String certNo;
 
-    // 证书的subject did
+    // 证书的subject did，不给此参数时候三要素验证不颁发vc
     // 
     @NameInMap("did")
-    @Validation(required = true)
     public String did;
 
     // 手机号码

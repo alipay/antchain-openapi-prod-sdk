@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.25.19")
+                    new TeaPair("sdk_version", "1.25.48")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1890,6 +1890,329 @@ public class Client {
     public SendChainRestAntResponse sendChainRestAntEx(SendChainRestAntRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.chain.rest.ant.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendChainRestAntResponse());
+    }
+
+    /**
+     * Description: 阿里云子链列表查询
+     * Summary: 阿里云子链列表查询
+     */
+    public QueryChainSubnetResponse queryChainSubnet(QueryChainSubnetRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryChainSubnetEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云子链列表查询
+     * Summary: 阿里云子链列表查询
+     */
+    public QueryChainSubnetResponse queryChainSubnetEx(QueryChainSubnetRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.subnet.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryChainSubnetResponse());
+    }
+
+    /**
+     * Description: 阿里云子链创建的前置检查
+     * Summary: 阿里云子链创建的前置检查
+     */
+    public CheckChainSubnetCreateResponse checkChainSubnetCreate(CheckChainSubnetCreateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkChainSubnetCreateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云子链创建的前置检查
+     * Summary: 阿里云子链创建的前置检查
+     */
+    public CheckChainSubnetCreateResponse checkChainSubnetCreateEx(CheckChainSubnetCreateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.subnet.create.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckChainSubnetCreateResponse());
+    }
+
+    /**
+     * Description: 阿里云子链创建
+     * Summary: 阿里云子链创建
+     */
+    public CreateChainSubnetResponse createChainSubnet(CreateChainSubnetRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createChainSubnetEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云子链创建
+     * Summary: 阿里云子链创建
+     */
+    public CreateChainSubnetResponse createChainSubnetEx(CreateChainSubnetRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.subnet.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateChainSubnetResponse());
+    }
+
+    /**
+     * Description: 阿里云子链的启动
+     * Summary: 阿里云子链的启动
+     */
+    public ExecChainSubnetResponse execChainSubnet(ExecChainSubnetRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execChainSubnetEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云子链的启动
+     * Summary: 阿里云子链的启动
+     */
+    public ExecChainSubnetResponse execChainSubnetEx(ExecChainSubnetRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.subnet.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecChainSubnetResponse());
+    }
+
+    /**
+     * Description: 阿里云子链名称修改
+     * Summary: 阿里云子链名称修改
+     */
+    public UpdateChainSubnetNameResponse updateChainSubnetName(UpdateChainSubnetNameRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateChainSubnetNameEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云子链名称修改
+     * Summary: 阿里云子链名称修改
+     */
+    public UpdateChainSubnetNameResponse updateChainSubnetNameEx(UpdateChainSubnetNameRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.subnet.name.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateChainSubnetNameResponse());
+    }
+
+    /**
+     * Description: 阿里云子链节点信息查询
+     * Summary: 阿里云子链节点信息查询
+     */
+    public QueryChainSubnetNodeResponse queryChainSubnetNode(QueryChainSubnetNodeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryChainSubnetNodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云子链节点信息查询
+     * Summary: 阿里云子链节点信息查询
+     */
+    public QueryChainSubnetNodeResponse queryChainSubnetNodeEx(QueryChainSubnetNodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.subnet.node.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryChainSubnetNodeResponse());
+    }
+
+    /**
+     * Description: 阿里云子链的节点删除
+     * Summary: 阿里云子链的节点删除
+     */
+    public DeleteChainSubnetNodeResponse deleteChainSubnetNode(DeleteChainSubnetNodeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteChainSubnetNodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云子链的节点删除
+     * Summary: 阿里云子链的节点删除
+     */
+    public DeleteChainSubnetNodeResponse deleteChainSubnetNodeEx(DeleteChainSubnetNodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.subnet.node.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteChainSubnetNodeResponse());
+    }
+
+    /**
+     * Description: 阿里云子链节点添加的前置检查
+     * Summary: 阿里云子链节点添加的前置检查
+     */
+    public CheckChainSubnetNodeResponse checkChainSubnetNode(CheckChainSubnetNodeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkChainSubnetNodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云子链节点添加的前置检查
+     * Summary: 阿里云子链节点添加的前置检查
+     */
+    public CheckChainSubnetNodeResponse checkChainSubnetNodeEx(CheckChainSubnetNodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.subnet.node.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckChainSubnetNodeResponse());
+    }
+
+    /**
+     * Description: 阿里云子链节点添加
+     * Summary: 阿里云子链节点添加
+     */
+    public AddChainSubnetNodeResponse addChainSubnetNode(AddChainSubnetNodeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addChainSubnetNodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云子链节点添加
+     * Summary: 阿里云子链节点添加
+     */
+    public AddChainSubnetNodeResponse addChainSubnetNodeEx(AddChainSubnetNodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.subnet.node.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddChainSubnetNodeResponse());
+    }
+
+    /**
+     * Description: 阿里云子链机构列表查询
+     * Summary: 阿里云子链机构列表查询
+     */
+    public QueryChainSubnetMemberResponse queryChainSubnetMember(QueryChainSubnetMemberRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryChainSubnetMemberEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云子链机构列表查询
+     * Summary: 阿里云子链机构列表查询
+     */
+    public QueryChainSubnetMemberResponse queryChainSubnetMemberEx(QueryChainSubnetMemberRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.subnet.member.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryChainSubnetMemberResponse());
+    }
+
+    /**
+     * Description: 阿里云子链成员删除
+     * Summary: 阿里云子链成员删除
+     */
+    public DeleteChainSubnetMemberResponse deleteChainSubnetMember(DeleteChainSubnetMemberRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteChainSubnetMemberEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云子链成员删除
+     * Summary: 阿里云子链成员删除
+     */
+    public DeleteChainSubnetMemberResponse deleteChainSubnetMemberEx(DeleteChainSubnetMemberRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.subnet.member.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteChainSubnetMemberResponse());
+    }
+
+    /**
+     * Description: 阿里云子链成员添加前校验
+     * Summary: 阿里云子链成员添加前校验
+     */
+    public CheckChainSubnetMemberResponse checkChainSubnetMember(CheckChainSubnetMemberRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkChainSubnetMemberEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云子链成员添加前校验
+     * Summary: 阿里云子链成员添加前校验
+     */
+    public CheckChainSubnetMemberResponse checkChainSubnetMemberEx(CheckChainSubnetMemberRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.subnet.member.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckChainSubnetMemberResponse());
+    }
+
+    /**
+     * Description: 阿里云子链成员添加
+     * Summary: 阿里云子链成员添加
+     */
+    public AddChainSubnetMemberResponse addChainSubnetMember(AddChainSubnetMemberRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addChainSubnetMemberEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云子链成员添加
+     * Summary: 阿里云子链成员添加
+     */
+    public AddChainSubnetMemberResponse addChainSubnetMemberEx(AddChainSubnetMemberRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.subnet.member.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddChainSubnetMemberResponse());
+    }
+
+    /**
+     * Description: 阿里云子链REST开通
+     * Summary: 阿里云子链REST开通
+     */
+    public ApplyChainSubnetRestResponse applyChainSubnetRest(ApplyChainSubnetRestRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyChainSubnetRestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云子链REST开通
+     * Summary: 阿里云子链REST开通
+     */
+    public ApplyChainSubnetRestResponse applyChainSubnetRestEx(ApplyChainSubnetRestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.subnet.rest.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyChainSubnetRestResponse());
+    }
+
+    /**
+     * Description: 阿里云数据导出任务查询
+     * Summary: 阿里云数据导出任务查询
+     */
+    public QueryChainDataexportTaskResponse queryChainDataexportTask(QueryChainDataexportTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryChainDataexportTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云数据导出任务查询
+     * Summary: 阿里云数据导出任务查询
+     */
+    public QueryChainDataexportTaskResponse queryChainDataexportTaskEx(QueryChainDataexportTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.dataexport.task.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryChainDataexportTaskResponse());
+    }
+
+    /**
+     * Description: 阿里云数据导出服务，列出所有导出任务功能接口
+     * Summary: 列出所有导出任务接口
+     */
+    public QueryChainDataExportResponse queryChainDataExport(QueryChainDataExportRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryChainDataExportEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云数据导出服务，列出所有导出任务功能接口
+     * Summary: 列出所有导出任务接口
+     */
+    public QueryChainDataExportResponse queryChainDataExportEx(QueryChainDataExportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.data.export.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryChainDataExportResponse());
+    }
+
+    /**
+     * Description: 阿里云数据导出需求创建数据导出任务
+     * Summary: 创建数据导出任务
+     */
+    public CreateChainDataexportTaskResponse createChainDataexportTask(CreateChainDataexportTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createChainDataexportTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云数据导出需求创建数据导出任务
+     * Summary: 创建数据导出任务
+     */
+    public CreateChainDataexportTaskResponse createChainDataexportTaskEx(CreateChainDataexportTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.dataexport.task.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateChainDataexportTaskResponse());
     }
 
     /**
@@ -5365,6 +5688,44 @@ public class Client {
     }
 
     /**
+     * Description: 小程序权限删除
+     * Summary: 小程序权限删除
+     */
+    public DeleteBlockchainMiniprogramResponse deleteBlockchainMiniprogram(DeleteBlockchainMiniprogramRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteBlockchainMiniprogramEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 小程序权限删除
+     * Summary: 小程序权限删除
+     */
+    public DeleteBlockchainMiniprogramResponse deleteBlockchainMiniprogramEx(DeleteBlockchainMiniprogramRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.blockchain.miniprogram.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteBlockchainMiniprogramResponse());
+    }
+
+    /**
+     * Description: 查询用户链上交易移动端查看权限
+     * Summary: 查询用户链上交易移动端查看权限
+     */
+    public QueryBlockchainMiniprogramResponse queryBlockchainMiniprogram(QueryBlockchainMiniprogramRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBlockchainMiniprogramEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询用户链上交易移动端查看权限
+     * Summary: 查询用户链上交易移动端查看权限
+     */
+    public QueryBlockchainMiniprogramResponse queryBlockchainMiniprogramEx(QueryBlockchainMiniprogramRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.blockchain.miniprogram.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBlockchainMiniprogramResponse());
+    }
+
+    /**
      * Description: 物流金融信用流转能力注册开通结果查询
      * Summary: 物流金融信用流转能力注册开通结果查询
      */
@@ -6086,6 +6447,274 @@ public class Client {
     public QueryAuthOrgStatusResponse queryAuthOrgStatusEx(QueryAuthOrgStatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.auth.org.status.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuthOrgStatusResponse());
+    }
+
+    /**
+     * Description: 预充值交易通过身份的凭证封装的方式在区块链上资产化。
+     * Summary: 交易资产的归属
+     */
+    public StartAuthAssetIssueResponse startAuthAssetIssue(StartAuthAssetIssueRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.startAuthAssetIssueEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 预充值交易通过身份的凭证封装的方式在区块链上资产化。
+     * Summary: 交易资产的归属
+     */
+    public StartAuthAssetIssueResponse startAuthAssetIssueEx(StartAuthAssetIssueRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.asset.issue.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartAuthAssetIssueResponse());
+    }
+
+    /**
+     * Description: 查询卡证模板的列表
+     * Summary: 查询模板列表
+     */
+    public AllAuthCertTemplateResponse allAuthCertTemplate(AllAuthCertTemplateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.allAuthCertTemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询卡证模板的列表
+     * Summary: 查询模板列表
+     */
+    public AllAuthCertTemplateResponse allAuthCertTemplateEx(AllAuthCertTemplateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.cert.template.all", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AllAuthCertTemplateResponse());
+    }
+
+    /**
+     * Description: 为客权业务定制化的编辑或新增证书实例，可以绕过审批流程
+     * Summary: 编辑或新增证书实例
+     */
+    public SaveAuthCertInstanceforcustomResponse saveAuthCertInstanceforcustom(SaveAuthCertInstanceforcustomRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.saveAuthCertInstanceforcustomEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 为客权业务定制化的编辑或新增证书实例，可以绕过审批流程
+     * Summary: 编辑或新增证书实例
+     */
+    public SaveAuthCertInstanceforcustomResponse saveAuthCertInstanceforcustomEx(SaveAuthCertInstanceforcustomRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.cert.instanceforcustom.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveAuthCertInstanceforcustomResponse());
+    }
+
+    /**
+     * Description: 通过上传的领取人明细文件，为证书实例批量颁发证书
+     * Summary: 批量颁发证书
+     */
+    public BatchcreateAuthCertResponse batchcreateAuthCert(BatchcreateAuthCertRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchcreateAuthCertEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过上传的领取人明细文件，为证书实例批量颁发证书
+     * Summary: 批量颁发证书
+     */
+    public BatchcreateAuthCertResponse batchcreateAuthCertEx(BatchcreateAuthCertRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.cert.batchcreate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchcreateAuthCertResponse());
+    }
+
+    /**
+     * Description: 单个颁发证书
+     * Summary: 颁发证书
+     */
+    public CreateAuthCertResponse createAuthCert(CreateAuthCertRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAuthCertEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 单个颁发证书
+     * Summary: 颁发证书
+     */
+    public CreateAuthCertResponse createAuthCertEx(CreateAuthCertRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.cert.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAuthCertResponse());
+    }
+
+    /**
+     * Description: 吊销已经颁发的证书
+     * Summary: 吊销证书
+     */
+    public InvalidateAuthCertResponse invalidateAuthCert(InvalidateAuthCertRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.invalidateAuthCertEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 吊销已经颁发的证书
+     * Summary: 吊销证书
+     */
+    public InvalidateAuthCertResponse invalidateAuthCertEx(InvalidateAuthCertRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.cert.invalidate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InvalidateAuthCertResponse());
+    }
+
+    /**
+     * Description: 查询批量颁发证书的进度详情
+     * Summary: 查询批量颁发证书的进度
+     */
+    public QueryAuthCertProgressResponse queryAuthCertProgress(QueryAuthCertProgressRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAuthCertProgressEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询批量颁发证书的进度详情
+     * Summary: 查询批量颁发证书的进度
+     */
+    public QueryAuthCertProgressResponse queryAuthCertProgressEx(QueryAuthCertProgressRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.cert.progress.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuthCertProgressResponse());
+    }
+
+    /**
+     * Description: 上传需要批量颁发的证书领取人明细csv文件到oss服务器，并返回文件的路径
+     * Summary: 上传领取人明细csv文件
+     */
+    public UploadAuthCertInstanceResponse uploadAuthCertInstance(UploadAuthCertInstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadAuthCertInstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 上传需要批量颁发的证书领取人明细csv文件到oss服务器，并返回文件的路径
+     * Summary: 上传领取人明细csv文件
+     */
+    public UploadAuthCertInstanceResponse uploadAuthCertInstanceEx(UploadAuthCertInstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "baas.auth.cert.instance.upload"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                UploadAuthCertInstanceResponse uploadAuthCertInstanceResponse = UploadAuthCertInstanceResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return uploadAuthCertInstanceResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.cert.instance.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadAuthCertInstanceResponse());
+    }
+
+    /**
+     * Description:  编辑或新增证书实例
+     * Summary:  编辑或新增证书实例
+     */
+    public SaveAuthCertInstanceResponse saveAuthCertInstance(SaveAuthCertInstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.saveAuthCertInstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description:  编辑或新增证书实例
+     * Summary:  编辑或新增证书实例
+     */
+    public SaveAuthCertInstanceResponse saveAuthCertInstanceEx(SaveAuthCertInstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.cert.instance.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveAuthCertInstanceResponse());
+    }
+
+    /**
+     * Description: 状态为编辑中的证书实例，调用此接口提交审核
+     * Summary: 证书实例提交审核
+     */
+    public ApplyAuthCertInstanceResponse applyAuthCertInstance(ApplyAuthCertInstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyAuthCertInstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 状态为编辑中的证书实例，调用此接口提交审核
+     * Summary: 证书实例提交审核
+     */
+    public ApplyAuthCertInstanceResponse applyAuthCertInstanceEx(ApplyAuthCertInstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.cert.instance.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyAuthCertInstanceResponse());
+    }
+
+    /**
+     * Description: 向证书平台申请一个oss临时url，用来上传证书领取人csv文件，有效期30分钟
+     * Summary: 获取证书领取人csv上传url
+     */
+    public GetAuthCertInstancedataurlResponse getAuthCertInstancedataurl(GetAuthCertInstancedataurlRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAuthCertInstancedataurlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 向证书平台申请一个oss临时url，用来上传证书领取人csv文件，有效期30分钟
+     * Summary: 获取证书领取人csv上传url
+     */
+    public GetAuthCertInstancedataurlResponse getAuthCertInstancedataurlEx(GetAuthCertInstancedataurlRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.cert.instancedataurl.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAuthCertInstancedataurlResponse());
+    }
+
+    /**
+     * Description: 证书平台创建自定义存证
+     * Summary: 证书平台创建存证
+     */
+    public CreateAuthCertClaimResponse createAuthCertClaim(CreateAuthCertClaimRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAuthCertClaimEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 证书平台创建自定义存证
+     * Summary: 证书平台创建存证
+     */
+    public CreateAuthCertClaimResponse createAuthCertClaimEx(CreateAuthCertClaimRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.cert.claim.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAuthCertClaimResponse());
+    }
+
+    /**
+     * Description: 证书平台查询用户自定义存证
+     * Summary: 证书平台查询用户自定义存证
+     */
+    public QueryAuthCertClaimResponse queryAuthCertClaim(QueryAuthCertClaimRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAuthCertClaimEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 证书平台查询用户自定义存证
+     * Summary: 证书平台查询用户自定义存证
+     */
+    public QueryAuthCertClaimResponse queryAuthCertClaimEx(QueryAuthCertClaimRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.cert.claim.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuthCertClaimResponse());
     }
 
     /**
@@ -7409,6 +8038,215 @@ public class Client {
     public VerifyDidZkpverifiableclaimProofResponse verifyDidZkpverifiableclaimProofEx(VerifyDidZkpverifiableclaimProofRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.did.zkpverifiableclaim.proof.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyDidZkpverifiableclaimProofResponse());
+    }
+
+    /**
+     * Description: 支持移动端APP的安卓和IOS集成SDK进行刷脸认证，在查询query认证结果通过的情况下创建DID身份。
+     * Summary: APP移动端刷脸认证成功后创建DID
+     */
+    public CreateDidPersonFacevrfResponse createDidPersonFacevrf(CreateDidPersonFacevrfRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDidPersonFacevrfEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 支持移动端APP的安卓和IOS集成SDK进行刷脸认证，在查询query认证结果通过的情况下创建DID身份。
+     * Summary: APP移动端刷脸认证成功后创建DID
+     */
+    public CreateDidPersonFacevrfResponse createDidPersonFacevrfEx(CreateDidPersonFacevrfRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.person.facevrf.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDidPersonFacevrfResponse());
+    }
+
+    /**
+     * Description: 查询之前发起的实人认证的结果，如果认证通过就创建DID身份并返回。
+     * Summary: 查询可信实人认证的结果并创建DID
+     */
+    public QueryDidPersonFacevrfResponse queryDidPersonFacevrf(QueryDidPersonFacevrfRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDidPersonFacevrfEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询之前发起的实人认证的结果，如果认证通过就创建DID身份并返回。
+     * Summary: 查询可信实人认证的结果并创建DID
+     */
+    public QueryDidPersonFacevrfResponse queryDidPersonFacevrfEx(QueryDidPersonFacevrfRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.person.facevrf.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDidPersonFacevrfResponse());
+    }
+
+    /**
+     * Description: h5或者小程序刷脸认证成功后创建DID
+     * Summary: h5或者小程序刷脸认证成功后创建DID
+     */
+    public CreateDidPersonFacevrfminiappResponse createDidPersonFacevrfminiapp(CreateDidPersonFacevrfminiappRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDidPersonFacevrfminiappEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: h5或者小程序刷脸认证成功后创建DID
+     * Summary: h5或者小程序刷脸认证成功后创建DID
+     */
+    public CreateDidPersonFacevrfminiappResponse createDidPersonFacevrfminiappEx(CreateDidPersonFacevrfminiappRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.person.facevrfminiapp.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDidPersonFacevrfminiappResponse());
+    }
+
+    /**
+     * Description: 查询之前发起的实人认证的结果，如果认证通过就创建DID身份并返回。
+     * Summary: 查询小程序刷脸的结果并创建DID
+     */
+    public QueryDidPersonFacevrfminiappResponse queryDidPersonFacevrfminiapp(QueryDidPersonFacevrfminiappRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDidPersonFacevrfminiappEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询之前发起的实人认证的结果，如果认证通过就创建DID身份并返回。
+     * Summary: 查询小程序刷脸的结果并创建DID
+     */
+    public QueryDidPersonFacevrfminiappResponse queryDidPersonFacevrfminiappEx(QueryDidPersonFacevrfminiappRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.person.facevrfminiapp.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDidPersonFacevrfminiappResponse());
+    }
+
+    /**
+     * Description: 使用自己或者代理的did为指定did颁发证书，同时在VC Repository中对证书VC进行存储。 支持授权管理，只有被授权的did未来才可以访问获取此颁发的证书数据。
+     * Summary: 指定did颁发证书，并存储（新商品）
+     */
+    public StartDidVcrepositoryIssuenewocpResponse startDidVcrepositoryIssuenewocp(StartDidVcrepositoryIssuenewocpRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.startDidVcrepositoryIssuenewocpEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 使用自己或者代理的did为指定did颁发证书，同时在VC Repository中对证书VC进行存储。 支持授权管理，只有被授权的did未来才可以访问获取此颁发的证书数据。
+     * Summary: 指定did颁发证书，并存储（新商品）
+     */
+    public StartDidVcrepositoryIssuenewocpResponse startDidVcrepositoryIssuenewocpEx(StartDidVcrepositoryIssuenewocpRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.vcrepository.issuenewocp.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartDidVcrepositoryIssuenewocpResponse());
+    }
+
+    /**
+     * Description: 使用自己或者代理的did为指定did颁发证书
+     * Summary: 为指定did颁发证书（新商品）
+     */
+    public StartDidVerifiableclaimIssurenewocpResponse startDidVerifiableclaimIssurenewocp(StartDidVerifiableclaimIssurenewocpRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.startDidVerifiableclaimIssurenewocpEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 使用自己或者代理的did为指定did颁发证书
+     * Summary: 为指定did颁发证书（新商品）
+     */
+    public StartDidVerifiableclaimIssurenewocpResponse startDidVerifiableclaimIssurenewocpEx(StartDidVerifiableclaimIssurenewocpRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.verifiableclaim.issurenewocp.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartDidVerifiableclaimIssurenewocpResponse());
+    }
+
+    /**
+     * Description: 通过个人二要素验证后创建个人did，若未通过个人二要素验证，则不创建did并报错
+     * Summary: 通过个人二要素验证后创建个人did（新）
+     */
+    public CreateDidPersonWithtwometanewocpResponse createDidPersonWithtwometanewocp(CreateDidPersonWithtwometanewocpRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDidPersonWithtwometanewocpEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过个人二要素验证后创建个人did，若未通过个人二要素验证，则不创建did并报错
+     * Summary: 通过个人二要素验证后创建个人did（新）
+     */
+    public CreateDidPersonWithtwometanewocpResponse createDidPersonWithtwometanewocpEx(CreateDidPersonWithtwometanewocpRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.person.withtwometanewocp.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDidPersonWithtwometanewocpResponse());
+    }
+
+    /**
+     * Description: 通过个人三要素验证后创建个人did，若未通过个人三要素验证，则不创建did并报错
+     * Summary: 通过个人三要素验证后创建个人did（新）
+     */
+    public CreateDidPersonWiththreemetanewocpResponse createDidPersonWiththreemetanewocp(CreateDidPersonWiththreemetanewocpRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDidPersonWiththreemetanewocpEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过个人三要素验证后创建个人did，若未通过个人三要素验证，则不创建did并报错
+     * Summary: 通过个人三要素验证后创建个人did（新）
+     */
+    public CreateDidPersonWiththreemetanewocpResponse createDidPersonWiththreemetanewocpEx(CreateDidPersonWiththreemetanewocpRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.person.withthreemetanewocp.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDidPersonWiththreemetanewocpResponse());
+    }
+
+    /**
+     * Description: 开始实人认证
+     * Summary: 开始实人认证（新商品）
+     */
+    public StartDidIdentificationFaceauthnewocpResponse startDidIdentificationFaceauthnewocp(StartDidIdentificationFaceauthnewocpRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.startDidIdentificationFaceauthnewocpEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 开始实人认证
+     * Summary: 开始实人认证（新商品）
+     */
+    public StartDidIdentificationFaceauthnewocpResponse startDidIdentificationFaceauthnewocpEx(StartDidIdentificationFaceauthnewocpRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.identification.faceauthnewocp.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartDidIdentificationFaceauthnewocpResponse());
+    }
+
+    /**
+     * Description: 支持移动端APP的安卓和IOS集成SDK进行刷脸认证，在查询query认证结果通过的情况下创建DID身份。
+     * Summary: APP移动端刷脸认证成功后创建DID
+     */
+    public CreateDidPersonFacevrfnewocpResponse createDidPersonFacevrfnewocp(CreateDidPersonFacevrfnewocpRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDidPersonFacevrfnewocpEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 支持移动端APP的安卓和IOS集成SDK进行刷脸认证，在查询query认证结果通过的情况下创建DID身份。
+     * Summary: APP移动端刷脸认证成功后创建DID
+     */
+    public CreateDidPersonFacevrfnewocpResponse createDidPersonFacevrfnewocpEx(CreateDidPersonFacevrfnewocpRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.person.facevrfnewocp.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDidPersonFacevrfnewocpResponse());
+    }
+
+    /**
+     * Description: h5或者小程序刷脸认证成功后创建DID（新个人刷脸商品）
+     * Summary: h5或者小程序刷脸认证成功后创建DID
+     */
+    public CreateDidPersonFacevrfminiappnewocpResponse createDidPersonFacevrfminiappnewocp(CreateDidPersonFacevrfminiappnewocpRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDidPersonFacevrfminiappnewocpEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: h5或者小程序刷脸认证成功后创建DID（新个人刷脸商品）
+     * Summary: h5或者小程序刷脸认证成功后创建DID
+     */
+    public CreateDidPersonFacevrfminiappnewocpResponse createDidPersonFacevrfminiappnewocpEx(CreateDidPersonFacevrfminiappnewocpRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.person.facevrfminiappnewocp.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDidPersonFacevrfminiappnewocpResponse());
     }
 
     /**
@@ -9429,5 +10267,24 @@ public class Client {
     public StartMydidDidThreeelementResponse startMydidDidThreeelementEx(StartMydidDidThreeelementRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.mydid.did.threeelement.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartMydidDidThreeelementResponse());
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse());
     }
 }

@@ -12,6 +12,10 @@ public class ALiYunChainMiniAppAuthorizedUser extends TeaModel {
     @NameInMap("gmt_authorized")
     public String gmtAuthorized;
 
+    // 记录id
+    @NameInMap("user_id")
+    public Long userId;
+
     public static ALiYunChainMiniAppAuthorizedUser build(java.util.Map<String, ?> map) throws Exception {
         ALiYunChainMiniAppAuthorizedUser self = new ALiYunChainMiniAppAuthorizedUser();
         return TeaModel.build(map, self);
@@ -31,6 +35,14 @@ public class ALiYunChainMiniAppAuthorizedUser extends TeaModel {
     }
     public String getGmtAuthorized() {
         return this.gmtAuthorized;
+    }
+
+    public ALiYunChainMiniAppAuthorizedUser setUserId(Long userId) {
+        this.userId = userId;
+        return this;
+    }
+    public Long getUserId() {
+        return this.userId;
     }
 
 }

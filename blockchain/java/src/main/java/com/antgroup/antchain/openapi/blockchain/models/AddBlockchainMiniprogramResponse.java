@@ -16,6 +16,10 @@ public class AddBlockchainMiniprogramResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 批量添加权限成功与否
+    @NameInMap("status")
+    public Long status;
+
     public static AddBlockchainMiniprogramResponse build(java.util.Map<String, ?> map) throws Exception {
         AddBlockchainMiniprogramResponse self = new AddBlockchainMiniprogramResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class AddBlockchainMiniprogramResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public AddBlockchainMiniprogramResponse setStatus(Long status) {
+        this.status = status;
+        return this;
+    }
+    public Long getStatus() {
+        return this.status;
     }
 
 }

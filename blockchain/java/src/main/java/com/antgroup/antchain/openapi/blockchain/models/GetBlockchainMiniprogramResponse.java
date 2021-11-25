@@ -16,9 +16,9 @@ public class GetBlockchainMiniprogramResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 交易二维码
-    @NameInMap("qrcode")
-    public String qrcode;
+    // 交易二维码二进制内容的Base64编码
+    @NameInMap("qr_code_download_url")
+    public String qrCodeDownloadUrl;
 
     public static GetBlockchainMiniprogramResponse build(java.util.Map<String, ?> map) throws Exception {
         GetBlockchainMiniprogramResponse self = new GetBlockchainMiniprogramResponse();
@@ -49,12 +49,12 @@ public class GetBlockchainMiniprogramResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public GetBlockchainMiniprogramResponse setQrcode(String qrcode) {
-        this.qrcode = qrcode;
+    public GetBlockchainMiniprogramResponse setQrCodeDownloadUrl(String qrCodeDownloadUrl) {
+        this.qrCodeDownloadUrl = qrCodeDownloadUrl;
         return this;
     }
-    public String getQrcode() {
-        return this.qrcode;
+    public String getQrCodeDownloadUrl() {
+        return this.qrCodeDownloadUrl;
     }
 
 }

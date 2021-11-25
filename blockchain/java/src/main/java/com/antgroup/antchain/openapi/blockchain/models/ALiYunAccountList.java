@@ -12,6 +12,10 @@ public class ALiYunAccountList extends TeaModel {
     @NameInMap("accounts")
     public java.util.List<ALiYunAccount> accounts;
 
+    // 联盟管理员
+    @NameInMap("consortium_admin")
+    public Boolean consortiumAdmin;
+
     public static ALiYunAccountList build(java.util.Map<String, ?> map) throws Exception {
         ALiYunAccountList self = new ALiYunAccountList();
         return TeaModel.build(map, self);
@@ -31,6 +35,14 @@ public class ALiYunAccountList extends TeaModel {
     }
     public java.util.List<ALiYunAccount> getAccounts() {
         return this.accounts;
+    }
+
+    public ALiYunAccountList setConsortiumAdmin(Boolean consortiumAdmin) {
+        this.consortiumAdmin = consortiumAdmin;
+        return this;
+    }
+    public Boolean getConsortiumAdmin() {
+        return this.consortiumAdmin;
     }
 
 }

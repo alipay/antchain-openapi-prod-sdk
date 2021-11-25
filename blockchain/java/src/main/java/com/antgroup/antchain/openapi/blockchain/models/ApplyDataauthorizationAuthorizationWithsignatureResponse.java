@@ -20,6 +20,10 @@ public class ApplyDataauthorizationAuthorizationWithsignatureResponse extends Te
     @NameInMap("process_result")
     public ProcessResult processResult;
 
+    // 权限凭证
+    @NameInMap("authority_cert")
+    public String authorityCert;
+
     public static ApplyDataauthorizationAuthorizationWithsignatureResponse build(java.util.Map<String, ?> map) throws Exception {
         ApplyDataauthorizationAuthorizationWithsignatureResponse self = new ApplyDataauthorizationAuthorizationWithsignatureResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class ApplyDataauthorizationAuthorizationWithsignatureResponse extends Te
     }
     public ProcessResult getProcessResult() {
         return this.processResult;
+    }
+
+    public ApplyDataauthorizationAuthorizationWithsignatureResponse setAuthorityCert(String authorityCert) {
+        this.authorityCert = authorityCert;
+        return this;
+    }
+    public String getAuthorityCert() {
+        return this.authorityCert;
     }
 
 }

@@ -44,6 +44,11 @@ public class CreateDataauthorizationCustomDataRequest extends TeaModel {
     @NameInMap("process_template")
     public java.util.List<ProcessNode> processTemplate;
 
+    // 带签名信息的参数信息
+    @NameInMap("parameters")
+    @Validation(required = true)
+    public String parameters;
+
     public static CreateDataauthorizationCustomDataRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDataauthorizationCustomDataRequest self = new CreateDataauthorizationCustomDataRequest();
         return TeaModel.build(map, self);
@@ -119,6 +124,14 @@ public class CreateDataauthorizationCustomDataRequest extends TeaModel {
     }
     public java.util.List<ProcessNode> getProcessTemplate() {
         return this.processTemplate;
+    }
+
+    public CreateDataauthorizationCustomDataRequest setParameters(String parameters) {
+        this.parameters = parameters;
+        return this;
+    }
+    public String getParameters() {
+        return this.parameters;
     }
 
 }
