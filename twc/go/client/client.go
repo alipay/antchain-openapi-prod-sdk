@@ -29210,6 +29210,133 @@ func (s *QueryFlowPhaseResponse) SetStatus(v string) *QueryFlowPhaseResponse {
 	return s
 }
 
+type DetailFlowPhaseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 流程id，通过twc.notary.instance.create(创建存证流程实例)获取
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty" require:"true"`
+	// 阶段ID，通过twc.notary.flow.phase.create(创建阶段存证)创建了阶段存证获取
+	PhaseId *string `json:"phase_id,omitempty" xml:"phase_id,omitempty" require:"true"`
+	// 链上交易Hash，必须成功阶段存证后，通过twc.notary.flow.phase.query获取
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+}
+
+func (s DetailFlowPhaseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailFlowPhaseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailFlowPhaseRequest) SetAuthToken(v string) *DetailFlowPhaseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailFlowPhaseRequest) SetProductInstanceId(v string) *DetailFlowPhaseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailFlowPhaseRequest) SetFlowId(v string) *DetailFlowPhaseRequest {
+	s.FlowId = &v
+	return s
+}
+
+func (s *DetailFlowPhaseRequest) SetPhaseId(v string) *DetailFlowPhaseRequest {
+	s.PhaseId = &v
+	return s
+}
+
+func (s *DetailFlowPhaseRequest) SetTxHash(v string) *DetailFlowPhaseRequest {
+	s.TxHash = &v
+	return s
+}
+
+type DetailFlowPhaseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 阶段存证交易hash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+	// 模板字段类型，Hash/Structure，(Hash->哈希,Structure->结构化)
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty"`
+	// 阶段存证内容，如果模板数据类型定义是Hash(哈希)则返回存证时Hash，如果定义是Structure(结构化)，则返回所有字段json对象的字符串Base64后的值
+	NotaryContent *string `json:"notary_content,omitempty" xml:"notary_content,omitempty"`
+	// 结构化数据里面英文key对应的中文名称关系，json格式，key为字段英文名，value为字段中文名称
+	//
+	DataTypeKey *string `json:"data_type_key,omitempty" xml:"data_type_key,omitempty"`
+	// 阶段存证内容csv下载地址，暂时预留，存证内容过大时采用文件形式输出，有效期1个小时
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// 交易所在的区块Hash
+	BlockHash *string `json:"block_hash,omitempty" xml:"block_hash,omitempty"`
+	// 交易所在的区块高
+	BlockHeight *string `json:"block_height,omitempty" xml:"block_height,omitempty"`
+}
+
+func (s DetailFlowPhaseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailFlowPhaseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailFlowPhaseResponse) SetReqMsgId(v string) *DetailFlowPhaseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailFlowPhaseResponse) SetResultCode(v string) *DetailFlowPhaseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailFlowPhaseResponse) SetResultMsg(v string) *DetailFlowPhaseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailFlowPhaseResponse) SetTxHash(v string) *DetailFlowPhaseResponse {
+	s.TxHash = &v
+	return s
+}
+
+func (s *DetailFlowPhaseResponse) SetDataType(v string) *DetailFlowPhaseResponse {
+	s.DataType = &v
+	return s
+}
+
+func (s *DetailFlowPhaseResponse) SetNotaryContent(v string) *DetailFlowPhaseResponse {
+	s.NotaryContent = &v
+	return s
+}
+
+func (s *DetailFlowPhaseResponse) SetDataTypeKey(v string) *DetailFlowPhaseResponse {
+	s.DataTypeKey = &v
+	return s
+}
+
+func (s *DetailFlowPhaseResponse) SetUrl(v string) *DetailFlowPhaseResponse {
+	s.Url = &v
+	return s
+}
+
+func (s *DetailFlowPhaseResponse) SetBlockHash(v string) *DetailFlowPhaseResponse {
+	s.BlockHash = &v
+	return s
+}
+
+func (s *DetailFlowPhaseResponse) SetBlockHeight(v string) *DetailFlowPhaseResponse {
+	s.BlockHeight = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -29332,7 +29459,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.9"),
+				"sdk_version":      tea.String("1.7.12"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -36347,6 +36474,40 @@ func (client *Client) QueryFlowPhaseEx(request *QueryFlowPhaseRequest, headers m
 	}
 	_result = &QueryFlowPhaseResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.flow.phase.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 阶段存证数据详情
+ * Summary: 阶段存证数据详情
+ */
+func (client *Client) DetailFlowPhase(request *DetailFlowPhaseRequest) (_result *DetailFlowPhaseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailFlowPhaseResponse{}
+	_body, _err := client.DetailFlowPhaseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 阶段存证数据详情
+ * Summary: 阶段存证数据详情
+ */
+func (client *Client) DetailFlowPhaseEx(request *DetailFlowPhaseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailFlowPhaseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailFlowPhaseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.flow.phase.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
