@@ -164,7 +164,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.34',
+                    'sdk_version'      => '1.0.49',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -245,6 +245,7 @@ class Client
 
     /**
      * Description: Demo接口，返回当输入的值
+     * 测试下
      * Summary: 返回输入值
      *
      * @param EchoGatewayCheckRequest $request
@@ -261,6 +262,7 @@ class Client
 
     /**
      * Description: Demo接口，返回当输入的值
+     * 测试下
      * Summary: 返回输入值
      *
      * @param EchoGatewayCheckRequest $request
@@ -273,7 +275,9 @@ class Client
     {
         if (!Utils::isUnset($request->fileObject)) {
             $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
-                'apiCode' => 'demo.gateway.check.echo',
+                'authToken' => $request->authToken,
+                'apiCode'   => 'demo.gateway.check.echo',
+                'fileName'  => $request->fileObjectName,
             ]);
             $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
             if (!UtilClient::isSuccess($uploadResp->resultCode, 'OK')) {

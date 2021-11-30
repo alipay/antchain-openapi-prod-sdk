@@ -47,6 +47,13 @@ class EchoGatewayCheckRequest extends Model
     public $fileObject;
 
     /**
+     * @description 待上传文件名
+     *
+     * @var string
+     */
+    public $fileObjectName;
+
+    /**
      * @var string
      */
     public $fileId;
@@ -56,6 +63,12 @@ class EchoGatewayCheckRequest extends Model
      * @var int
      */
     public $inputInt;
+
+    // 测试一下
+    /**
+     * @var string
+     */
+    public $fileName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -64,6 +77,7 @@ class EchoGatewayCheckRequest extends Model
         'inputArray'        => 'input_array',
         'fileId'            => 'file_id',
         'inputInt'          => 'input_int',
+        'fileName'          => 'file_name',
     ];
 
     public function validate()
@@ -73,6 +87,7 @@ class EchoGatewayCheckRequest extends Model
         Model::validateRequired('inputArray', $this->inputArray, true);
         Model::validateRequired('fileId', $this->fileId, true);
         Model::validateRequired('inputInt', $this->inputInt, true);
+        Model::validateRequired('fileName', $this->fileName, true);
         Model::validateMaximum('inputInt', $this->inputInt, 40);
         Model::validateMinimum('inputInt', $this->inputInt, 10);
     }
@@ -104,11 +119,17 @@ class EchoGatewayCheckRequest extends Model
         if (null !== $this->fileObject) {
             $res['fileObject'] = $this->fileObject;
         }
+        if (null !== $this->fileObjectName) {
+            $res['fileObjectName'] = $this->fileObjectName;
+        }
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
         }
         if (null !== $this->inputInt) {
             $res['input_int'] = $this->inputInt;
+        }
+        if (null !== $this->fileName) {
+            $res['file_name'] = $this->fileName;
         }
 
         return $res;
@@ -146,11 +167,17 @@ class EchoGatewayCheckRequest extends Model
         if (isset($map['fileObject'])) {
             $model->fileObject = $map['fileObject'];
         }
+        if (isset($map['fileObjectName'])) {
+            $model->fileObjectName = $map['fileObjectName'];
+        }
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
         }
         if (isset($map['input_int'])) {
             $model->inputInt = $map['input_int'];
+        }
+        if (isset($map['file_name'])) {
+            $model->fileName = $map['file_name'];
         }
 
         return $model;
