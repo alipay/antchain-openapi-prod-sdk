@@ -430,8 +430,10 @@ class EchoGatewayCheckRequest(TeaModel):
         input_string: str = None,
         input_array: List[TestStruct] = None,
         file_object: BinaryIO = None,
+        file_object_name: str = None,
         file_id: str = None,
         input_int: int = None,
+        file_name: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -445,9 +447,13 @@ class EchoGatewayCheckRequest(TeaModel):
         # file_id
         # 待上传文件
         self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
         self.file_id = file_id
         # 1
         self.input_int = input_int
+        # 测试一下
+        self.file_name = file_name
 
     def validate(self):
         if self.input_demo:
@@ -464,6 +470,7 @@ class EchoGatewayCheckRequest(TeaModel):
         if self.input_int is not None:
             self.validate_maximum(self.input_int, 'input_int', 40)
             self.validate_minimum(self.input_int, 'input_int', 10)
+        self.validate_required(self.file_name, 'file_name')
 
     def to_map(self):
         result = dict()
@@ -481,10 +488,14 @@ class EchoGatewayCheckRequest(TeaModel):
                 result['input_array'].append(k.to_map() if k else None)
         if self.file_object is not None:
             result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
         if self.file_id is not None:
             result['file_id'] = self.file_id
         if self.input_int is not None:
             result['input_int'] = self.input_int
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
         return result
 
     def from_map(self, m: dict = None):
@@ -505,10 +516,14 @@ class EchoGatewayCheckRequest(TeaModel):
                 self.input_array.append(temp_model.from_map(k))
         if m.get('fileObject') is not None:
             self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
         if m.get('input_int') is not None:
             self.input_int = m.get('input_int')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
         return self
 
 

@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.34'
+                    'sdk_version': '1.0.49'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.34'
+                    'sdk_version': '1.0.49'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -331,6 +331,7 @@ class Client:
     ) -> demo_models.EchoGatewayCheckResponse:
         """
         Description: Demo接口，返回当输入的值
+        测试下
         Summary: 返回输入值
         """
         runtime = util_models.RuntimeOptions()
@@ -343,6 +344,7 @@ class Client:
     ) -> demo_models.EchoGatewayCheckResponse:
         """
         Description: Demo接口，返回当输入的值
+        测试下
         Summary: 返回输入值
         """
         runtime = util_models.RuntimeOptions()
@@ -357,11 +359,14 @@ class Client:
     ) -> demo_models.EchoGatewayCheckResponse:
         """
         Description: Demo接口，返回当输入的值
+        测试下
         Summary: 返回输入值
         """
         if not UtilClient.is_unset(request.file_object):
             upload_req = demo_models.CreateAntcloudGatewayxFileUploadRequest(
-                api_code='demo.gateway.check.echo'
+                auth_token=request.auth_token,
+                api_code='demo.gateway.check.echo',
+                file_name=request.file_object_name
             )
             upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
             if not AntchainUtils.is_success(upload_resp.result_code, 'OK'):
@@ -387,11 +392,14 @@ class Client:
     ) -> demo_models.EchoGatewayCheckResponse:
         """
         Description: Demo接口，返回当输入的值
+        测试下
         Summary: 返回输入值
         """
         if not UtilClient.is_unset(request.file_object):
             upload_req = demo_models.CreateAntcloudGatewayxFileUploadRequest(
-                api_code='demo.gateway.check.echo'
+                auth_token=request.auth_token,
+                api_code='demo.gateway.check.echo',
+                file_name=request.file_object_name
             )
             upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
             if not AntchainUtils.is_success(upload_resp.result_code, 'OK'):
