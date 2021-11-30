@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.34',
+    sdk_version = '1.0.49',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -249,9 +249,12 @@ model EchoGatewayCheckRequest = {
   inputArray: [ TestStruct ](name='input_array'),
   // file_id
   fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
   fileId: string(name='file_id'),
   // 1
   inputInt: long(maximum=40, minimum=10, name='input_int'),
+  // 测试一下
+  fileName: string(name='file_name'),
 }
 
 model EchoGatewayCheckResponse = {
@@ -271,6 +274,7 @@ model EchoGatewayCheckResponse = {
 
 /**
  * Description: Demo接口，返回当输入的值
+测试下
  * Summary: 返回输入值
  */
 async function echoGatewayCheck(request: EchoGatewayCheckRequest): EchoGatewayCheckResponse {
@@ -281,12 +285,15 @@ async function echoGatewayCheck(request: EchoGatewayCheckRequest): EchoGatewayCh
 
 /**
  * Description: Demo接口，返回当输入的值
+测试下
  * Summary: 返回输入值
  */
 async function echoGatewayCheckEx(request: EchoGatewayCheckRequest, headers: map[string]string, runtime: Util.RuntimeOptions): EchoGatewayCheckResponse {
   if (!Util.isUnset(request.fileObject)) {
     var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
       apiCode = 'demo.gateway.check.echo',
+      fileName = request.fileObjectName,
     };
     var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
     if (!AntchainUtil.isSuccess(uploadResp.resultCode, "OK")) {
