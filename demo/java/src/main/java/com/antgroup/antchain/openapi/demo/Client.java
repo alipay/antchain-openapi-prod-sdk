@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.34")
+                    new TeaPair("sdk_version", "1.0.49")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -180,6 +180,7 @@ public class Client {
 
     /**
      * Description: Demo接口，返回当输入的值
+    测试下
      * Summary: 返回输入值
      */
     public EchoGatewayCheckResponse echoGatewayCheck(EchoGatewayCheckRequest request) throws Exception {
@@ -190,12 +191,15 @@ public class Client {
 
     /**
      * Description: Demo接口，返回当输入的值
+    测试下
      * Summary: 返回输入值
      */
     public EchoGatewayCheckResponse echoGatewayCheckEx(EchoGatewayCheckRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
             CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
-                new TeaPair("apiCode", "demo.gateway.check.echo")
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "demo.gateway.check.echo"),
+                new TeaPair("fileName", request.fileObjectName)
             ));
             CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
             if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "OK")) {

@@ -30,6 +30,10 @@ public class EchoGatewayCheckRequest extends TeaModel {
     @NameInMap("fileObject")
     public java.io.InputStream fileObject;
 
+    // 待上传文件名
+    @NameInMap("fileObjectName")
+    public String fileObjectName;
+
     @NameInMap("file_id")
     @Validation(required = true)
     public String fileId;
@@ -38,6 +42,11 @@ public class EchoGatewayCheckRequest extends TeaModel {
     @NameInMap("input_int")
     @Validation(required = true, maximum = 40, minimum = 10)
     public Long inputInt;
+
+    // 测试一下
+    @NameInMap("file_name")
+    @Validation(required = true)
+    public String fileName;
 
     public static EchoGatewayCheckRequest build(java.util.Map<String, ?> map) throws Exception {
         EchoGatewayCheckRequest self = new EchoGatewayCheckRequest();
@@ -92,6 +101,14 @@ public class EchoGatewayCheckRequest extends TeaModel {
         return this.fileObject;
     }
 
+    public EchoGatewayCheckRequest setFileObjectName(String fileObjectName) {
+        this.fileObjectName = fileObjectName;
+        return this;
+    }
+    public String getFileObjectName() {
+        return this.fileObjectName;
+    }
+
     public EchoGatewayCheckRequest setFileId(String fileId) {
         this.fileId = fileId;
         return this;
@@ -106,6 +123,14 @@ public class EchoGatewayCheckRequest extends TeaModel {
     }
     public Long getInputInt() {
         return this.inputInt;
+    }
+
+    public EchoGatewayCheckRequest setFileName(String fileName) {
+        this.fileName = fileName;
+        return this;
+    }
+    public String getFileName() {
+        return this.fileName;
     }
 
 }
