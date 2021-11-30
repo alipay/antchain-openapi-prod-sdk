@@ -41,6 +41,13 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public Stream FileObject { get; set; }
 
+        /// <summary>
+        /// 待上传文件名
+        /// </summary>
+        [NameInMap("fileObjectName")]
+        [Validation(Required=false)]
+        public string FileObjectName { get; set; }
+
         [NameInMap("file_id")]
         [Validation(Required=true)]
         public string FileId { get; set; }
@@ -49,6 +56,11 @@ namespace AntChain.SDK.DEMO.Models
         [NameInMap("input_int")]
         [Validation(Required=true)]
         public long? InputInt { get; set; }
+
+        // 测试一下
+        [NameInMap("file_name")]
+        [Validation(Required=true)]
+        public string FileName { get; set; }
 
     }
 

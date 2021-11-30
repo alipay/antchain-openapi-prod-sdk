@@ -137,7 +137,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.34"},
+                        {"sdk_version", "1.0.49"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.34"},
+                        {"sdk_version", "1.0.49"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -361,6 +361,7 @@ namespace AntChain.SDK.DEMO
 
         /**
          * Description: Demo接口，返回当输入的值
+        测试下
          * Summary: 返回输入值
          */
         public EchoGatewayCheckResponse EchoGatewayCheck(EchoGatewayCheckRequest request)
@@ -372,6 +373,7 @@ namespace AntChain.SDK.DEMO
 
         /**
          * Description: Demo接口，返回当输入的值
+        测试下
          * Summary: 返回输入值
          */
         public async Task<EchoGatewayCheckResponse> EchoGatewayCheckAsync(EchoGatewayCheckRequest request)
@@ -383,6 +385,7 @@ namespace AntChain.SDK.DEMO
 
         /**
          * Description: Demo接口，返回当输入的值
+        测试下
          * Summary: 返回输入值
          */
         public EchoGatewayCheckResponse EchoGatewayCheckEx(EchoGatewayCheckRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -391,7 +394,9 @@ namespace AntChain.SDK.DEMO
             {
                 CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
                 {
+                    AuthToken = request.AuthToken,
                     ApiCode = "demo.gateway.check.echo",
+                    FileName = request.FileObjectName,
                 };
                 CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
                 if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "OK"))
@@ -414,6 +419,7 @@ namespace AntChain.SDK.DEMO
 
         /**
          * Description: Demo接口，返回当输入的值
+        测试下
          * Summary: 返回输入值
          */
         public async Task<EchoGatewayCheckResponse> EchoGatewayCheckExAsync(EchoGatewayCheckRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -422,7 +428,9 @@ namespace AntChain.SDK.DEMO
             {
                 CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
                 {
+                    AuthToken = request.AuthToken,
                     ApiCode = "demo.gateway.check.echo",
+                    FileName = request.FileObjectName,
                 };
                 CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
                 if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "OK"))
