@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/demo",
-  "version": "1.0.34",
+  "version": "1.0.49",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@alicloud/tea-typescript": "latest",
-    "@antchain/alipay-util": "^1.0.2",
+    "@antchain/alipay-util": "^1.0.4",
     "@alicloud/tea-util": "^1.4.0",
     "@alicloud/rpc-util": "^0.1.0"
   },

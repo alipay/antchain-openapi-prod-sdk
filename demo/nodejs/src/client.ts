@@ -265,9 +265,12 @@ export class EchoGatewayCheckRequest extends $tea.Model {
   inputArray: TestStruct[];
   // file_id
   fileObject?: Readable;
+  fileObjectName?: string;
   fileId: string;
   // 1
   inputInt: number;
+  // 测试一下
+  fileName: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -276,8 +279,10 @@ export class EchoGatewayCheckRequest extends $tea.Model {
       inputString: 'input_string',
       inputArray: 'input_array',
       fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
       fileId: 'file_id',
       inputInt: 'input_int',
+      fileName: 'file_name',
     };
   }
 
@@ -289,8 +294,10 @@ export class EchoGatewayCheckRequest extends $tea.Model {
       inputString: 'string',
       inputArray: { 'type': 'array', 'itemType': TestStruct },
       fileObject: 'Readable',
+      fileObjectName: 'string',
       fileId: 'string',
       inputInt: 'number',
+      fileName: 'string',
     };
   }
 
@@ -540,7 +547,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.34",
+          sdk_version: "1.0.49",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -607,6 +614,7 @@ export default class Client {
 
   /**
    * Description: Demo接口，返回当输入的值
+  测试下
    * Summary: 返回输入值
    */
   async echoGatewayCheck(request: EchoGatewayCheckRequest): Promise<EchoGatewayCheckResponse> {
@@ -617,12 +625,15 @@ export default class Client {
 
   /**
    * Description: Demo接口，返回当输入的值
+  测试下
    * Summary: 返回输入值
    */
   async echoGatewayCheckEx(request: EchoGatewayCheckRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<EchoGatewayCheckResponse> {
     if (!Util.isUnset(request.fileObject)) {
       let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
         apiCode: "demo.gateway.check.echo",
+        fileName: request.fileObjectName,
       });
       let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
       if (!AntchainUtil.isSuccess(uploadResp.resultCode, "OK")) {
