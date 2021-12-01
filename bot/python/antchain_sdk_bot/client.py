@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.21'
+                    'sdk_version': '1.6.35'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.21'
+                    'sdk_version': '1.6.35'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -270,6 +270,168 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def open_acec_contract(
+        self,
+        request: bot_models.OpenAcecContractRequest,
+    ) -> bot_models.OpenAcecContractResponse:
+        """
+        Description: acec提供的SPI服务开通接口
+        Summary: acec提供的SPI服务开通接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.open_acec_contract_ex(request, headers, runtime)
+
+    async def open_acec_contract_async(
+        self,
+        request: bot_models.OpenAcecContractRequest,
+    ) -> bot_models.OpenAcecContractResponse:
+        """
+        Description: acec提供的SPI服务开通接口
+        Summary: acec提供的SPI服务开通接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.open_acec_contract_ex_async(request, headers, runtime)
+
+    def open_acec_contract_ex(
+        self,
+        request: bot_models.OpenAcecContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OpenAcecContractResponse:
+        """
+        Description: acec提供的SPI服务开通接口
+        Summary: acec提供的SPI服务开通接口
+        """
+        UtilClient.validate_model(request)
+        return bot_models.OpenAcecContractResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.acec.contract.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def open_acec_contract_ex_async(
+        self,
+        request: bot_models.OpenAcecContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OpenAcecContractResponse:
+        """
+        Description: acec提供的SPI服务开通接口
+        Summary: acec提供的SPI服务开通接口
+        """
+        UtilClient.validate_model(request)
+        return bot_models.OpenAcecContractResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.acec.contract.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def stop_acec_contract(
+        self,
+        request: bot_models.StopAcecContractRequest,
+    ) -> bot_models.StopAcecContractResponse:
+        """
+        Description: AI服务组提供的SPI服务停止接口
+        Summary: acec提供的SPI服务停止接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stop_acec_contract_ex(request, headers, runtime)
+
+    async def stop_acec_contract_async(
+        self,
+        request: bot_models.StopAcecContractRequest,
+    ) -> bot_models.StopAcecContractResponse:
+        """
+        Description: AI服务组提供的SPI服务停止接口
+        Summary: acec提供的SPI服务停止接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.stop_acec_contract_ex_async(request, headers, runtime)
+
+    def stop_acec_contract_ex(
+        self,
+        request: bot_models.StopAcecContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StopAcecContractResponse:
+        """
+        Description: AI服务组提供的SPI服务停止接口
+        Summary: acec提供的SPI服务停止接口
+        """
+        UtilClient.validate_model(request)
+        return bot_models.StopAcecContractResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.acec.contract.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def stop_acec_contract_ex_async(
+        self,
+        request: bot_models.StopAcecContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StopAcecContractResponse:
+        """
+        Description: AI服务组提供的SPI服务停止接口
+        Summary: acec提供的SPI服务停止接口
+        """
+        UtilClient.validate_model(request)
+        return bot_models.StopAcecContractResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.acec.contract.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def resume_acec_contract(
+        self,
+        request: bot_models.ResumeAcecContractRequest,
+    ) -> bot_models.ResumeAcecContractResponse:
+        """
+        Description: acec提供的SPI服务复入接口
+        Summary: acec提供的SPI服务复入接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.resume_acec_contract_ex(request, headers, runtime)
+
+    async def resume_acec_contract_async(
+        self,
+        request: bot_models.ResumeAcecContractRequest,
+    ) -> bot_models.ResumeAcecContractResponse:
+        """
+        Description: acec提供的SPI服务复入接口
+        Summary: acec提供的SPI服务复入接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.resume_acec_contract_ex_async(request, headers, runtime)
+
+    def resume_acec_contract_ex(
+        self,
+        request: bot_models.ResumeAcecContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ResumeAcecContractResponse:
+        """
+        Description: acec提供的SPI服务复入接口
+        Summary: acec提供的SPI服务复入接口
+        """
+        UtilClient.validate_model(request)
+        return bot_models.ResumeAcecContractResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.acec.contract.resume', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def resume_acec_contract_ex_async(
+        self,
+        request: bot_models.ResumeAcecContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ResumeAcecContractResponse:
+        """
+        Description: acec提供的SPI服务复入接口
+        Summary: acec提供的SPI服务复入接口
+        """
+        UtilClient.validate_model(request)
+        return bot_models.ResumeAcecContractResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.acec.contract.resume', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def create_acs_device(
         self,
@@ -4867,4 +5029,112 @@ class Client:
         UtilClient.validate_model(request)
         return bot_models.LoadTsmResourcefileResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.tsm.resourcefile.load', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_tlsnotary_task(
+        self,
+        request: bot_models.StartTlsnotaryTaskRequest,
+    ) -> bot_models.StartTlsnotaryTaskResponse:
+        """
+        Description: 触发tlsnotary文件认证任务
+        Summary: 触发tlsnotary文件认证任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_tlsnotary_task_ex(request, headers, runtime)
+
+    async def start_tlsnotary_task_async(
+        self,
+        request: bot_models.StartTlsnotaryTaskRequest,
+    ) -> bot_models.StartTlsnotaryTaskResponse:
+        """
+        Description: 触发tlsnotary文件认证任务
+        Summary: 触发tlsnotary文件认证任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_tlsnotary_task_ex_async(request, headers, runtime)
+
+    def start_tlsnotary_task_ex(
+        self,
+        request: bot_models.StartTlsnotaryTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StartTlsnotaryTaskResponse:
+        """
+        Description: 触发tlsnotary文件认证任务
+        Summary: 触发tlsnotary文件认证任务
+        """
+        UtilClient.validate_model(request)
+        return bot_models.StartTlsnotaryTaskResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.tlsnotary.task.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_tlsnotary_task_ex_async(
+        self,
+        request: bot_models.StartTlsnotaryTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StartTlsnotaryTaskResponse:
+        """
+        Description: 触发tlsnotary文件认证任务
+        Summary: 触发tlsnotary文件认证任务
+        """
+        UtilClient.validate_model(request)
+        return bot_models.StartTlsnotaryTaskResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.tlsnotary.task.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_tlsnotary_task(
+        self,
+        request: bot_models.QueryTlsnotaryTaskRequest,
+    ) -> bot_models.QueryTlsnotaryTaskResponse:
+        """
+        Description: 查询tlsnotary文件认证任务结果
+        Summary: 查询tlsnotary文件认证任务结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_tlsnotary_task_ex(request, headers, runtime)
+
+    async def query_tlsnotary_task_async(
+        self,
+        request: bot_models.QueryTlsnotaryTaskRequest,
+    ) -> bot_models.QueryTlsnotaryTaskResponse:
+        """
+        Description: 查询tlsnotary文件认证任务结果
+        Summary: 查询tlsnotary文件认证任务结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_tlsnotary_task_ex_async(request, headers, runtime)
+
+    def query_tlsnotary_task_ex(
+        self,
+        request: bot_models.QueryTlsnotaryTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryTlsnotaryTaskResponse:
+        """
+        Description: 查询tlsnotary文件认证任务结果
+        Summary: 查询tlsnotary文件认证任务结果
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryTlsnotaryTaskResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.tlsnotary.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_tlsnotary_task_ex_async(
+        self,
+        request: bot_models.QueryTlsnotaryTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryTlsnotaryTaskResponse:
+        """
+        Description: 查询tlsnotary文件认证任务结果
+        Summary: 查询tlsnotary文件认证任务结果
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryTlsnotaryTaskResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.tlsnotary.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
