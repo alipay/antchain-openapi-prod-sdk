@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateDeviceDatamodelRequest extends Model
+class StartTlsnotaryTaskRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,34 +19,28 @@ class CreateDeviceDatamodelRequest extends Model
      */
     public $productInstanceId;
 
-    // 数据模型
+    // 唯一的业务tlsnotary任务id
     /**
      * @var string
      */
-    public $dataModel;
+    public $taskId;
 
-    // 数据模型名称
+    // 加固文件的oss链接
     /**
      * @var string
      */
-    public $dataModelName;
-
-    // 数据模型类别
-    /**
-     * @var string
-     */
-    public $bizType;
+    public $ossLink;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'dataModel'         => 'data_model',
-        'dataModelName'     => 'data_model_name',
-        'bizType'           => 'biz_type',
+        'taskId'            => 'task_id',
+        'ossLink'           => 'oss_link',
     ];
 
     public function validate()
     {
-        Model::validateRequired('dataModel', $this->dataModel, true);
+        Model::validateRequired('taskId', $this->taskId, true);
+        Model::validateRequired('ossLink', $this->ossLink, true);
     }
 
     public function toMap()
@@ -58,14 +52,11 @@ class CreateDeviceDatamodelRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->dataModel) {
-            $res['data_model'] = $this->dataModel;
+        if (null !== $this->taskId) {
+            $res['task_id'] = $this->taskId;
         }
-        if (null !== $this->dataModelName) {
-            $res['data_model_name'] = $this->dataModelName;
-        }
-        if (null !== $this->bizType) {
-            $res['biz_type'] = $this->bizType;
+        if (null !== $this->ossLink) {
+            $res['oss_link'] = $this->ossLink;
         }
 
         return $res;
@@ -74,7 +65,7 @@ class CreateDeviceDatamodelRequest extends Model
     /**
      * @param array $map
      *
-     * @return CreateDeviceDatamodelRequest
+     * @return StartTlsnotaryTaskRequest
      */
     public static function fromMap($map = [])
     {
@@ -85,14 +76,11 @@ class CreateDeviceDatamodelRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['data_model'])) {
-            $model->dataModel = $map['data_model'];
+        if (isset($map['task_id'])) {
+            $model->taskId = $map['task_id'];
         }
-        if (isset($map['data_model_name'])) {
-            $model->dataModelName = $map['data_model_name'];
-        }
-        if (isset($map['biz_type'])) {
-            $model->bizType = $map['biz_type'];
+        if (isset($map['oss_link'])) {
+            $model->ossLink = $map['oss_link'];
         }
 
         return $model;

@@ -55,6 +55,14 @@ class LabelTrace extends Model
      * @var bool
      */
     public $isSuccess;
+
+    // 标签对应资产版本号
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $version;
     protected $_name = [
         'content'   => 'content',
         'txHash'    => 'tx_hash',
@@ -62,6 +70,7 @@ class LabelTrace extends Model
         'errorCode' => 'error_code',
         'errorMsg'  => 'error_msg',
         'isSuccess' => 'is_success',
+        'version'   => 'version',
     ];
 
     public function validate()
@@ -90,6 +99,9 @@ class LabelTrace extends Model
         }
         if (null !== $this->isSuccess) {
             $res['is_success'] = $this->isSuccess;
+        }
+        if (null !== $this->version) {
+            $res['version'] = $this->version;
         }
 
         return $res;
@@ -120,6 +132,9 @@ class LabelTrace extends Model
         }
         if (isset($map['is_success'])) {
             $model->isSuccess = $map['is_success'];
+        }
+        if (isset($map['version'])) {
+            $model->version = $map['version'];
         }
 
         return $model;

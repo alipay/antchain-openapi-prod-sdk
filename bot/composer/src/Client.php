@@ -101,6 +101,8 @@ use AntChain\BOT\Models\OfflineDeviceRequest;
 use AntChain\BOT\Models\OfflineDeviceResponse;
 use AntChain\BOT\Models\OnlineDeviceRequest;
 use AntChain\BOT\Models\OnlineDeviceResponse;
+use AntChain\BOT\Models\OpenAcecContractRequest;
+use AntChain\BOT\Models\OpenAcecContractResponse;
 use AntChain\BOT\Models\PagequeryProductkeyRequest;
 use AntChain\BOT\Models\PagequeryProductkeyResponse;
 use AntChain\BOT\Models\PagequerySceneRequest;
@@ -131,10 +133,14 @@ use AntChain\BOT\Models\QueryThingsdidAsyncprocessRequest;
 use AntChain\BOT\Models\QueryThingsdidAsyncprocessResponse;
 use AntChain\BOT\Models\QueryThingsdidDidRequest;
 use AntChain\BOT\Models\QueryThingsdidDidResponse;
+use AntChain\BOT\Models\QueryTlsnotaryTaskRequest;
+use AntChain\BOT\Models\QueryTlsnotaryTaskResponse;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainidRequest;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainidResponse;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainperipheralidRequest;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainperipheralidResponse;
+use AntChain\BOT\Models\ResumeAcecContractRequest;
+use AntChain\BOT\Models\ResumeAcecContractResponse;
 use AntChain\BOT\Models\SendAcsCollectorRequest;
 use AntChain\BOT\Models\SendAcsCollectorResponse;
 use AntChain\BOT\Models\SendCollectorBychainidmulRequest;
@@ -159,6 +165,10 @@ use AntChain\BOT\Models\StartTenantBindinfoRequest;
 use AntChain\BOT\Models\StartTenantBindinfoResponse;
 use AntChain\BOT\Models\StartThingsdidRegisterRequest;
 use AntChain\BOT\Models\StartThingsdidRegisterResponse;
+use AntChain\BOT\Models\StartTlsnotaryTaskRequest;
+use AntChain\BOT\Models\StartTlsnotaryTaskResponse;
+use AntChain\BOT\Models\StopAcecContractRequest;
+use AntChain\BOT\Models\StopAcecContractResponse;
 use AntChain\BOT\Models\SyncLabelTransferRequest;
 use AntChain\BOT\Models\SyncLabelTransferResponse;
 use AntChain\BOT\Models\UpdateDeviceInfobydeviceRequest;
@@ -328,7 +338,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.21',
+                    'sdk_version'      => '1.6.35',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -372,6 +382,105 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: acec提供的SPI服务开通接口
+     * Summary: acec提供的SPI服务开通接口.
+     *
+     * @param OpenAcecContractRequest $request
+     *
+     * @return OpenAcecContractResponse
+     */
+    public function openAcecContract($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->openAcecContractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: acec提供的SPI服务开通接口
+     * Summary: acec提供的SPI服务开通接口.
+     *
+     * @param OpenAcecContractRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return OpenAcecContractResponse
+     */
+    public function openAcecContractEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OpenAcecContractResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.acec.contract.open', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: AI服务组提供的SPI服务停止接口
+     * Summary: acec提供的SPI服务停止接口.
+     *
+     * @param StopAcecContractRequest $request
+     *
+     * @return StopAcecContractResponse
+     */
+    public function stopAcecContract($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->stopAcecContractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: AI服务组提供的SPI服务停止接口
+     * Summary: acec提供的SPI服务停止接口.
+     *
+     * @param StopAcecContractRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return StopAcecContractResponse
+     */
+    public function stopAcecContractEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StopAcecContractResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.acec.contract.stop', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: acec提供的SPI服务复入接口
+     * Summary: acec提供的SPI服务复入接口.
+     *
+     * @param ResumeAcecContractRequest $request
+     *
+     * @return ResumeAcecContractResponse
+     */
+    public function resumeAcecContract($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->resumeAcecContractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: acec提供的SPI服务复入接口
+     * Summary: acec提供的SPI服务复入接口.
+     *
+     * @param ResumeAcecContractRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ResumeAcecContractResponse
+     */
+    public function resumeAcecContractEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ResumeAcecContractResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.acec.contract.resume', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -3181,5 +3290,71 @@ class Client
         Utils::validateModel($request);
 
         return LoadTsmResourcefileResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.tsm.resourcefile.load', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 触发tlsnotary文件认证任务
+     * Summary: 触发tlsnotary文件认证任务
+     *
+     * @param StartTlsnotaryTaskRequest $request
+     *
+     * @return StartTlsnotaryTaskResponse
+     */
+    public function startTlsnotaryTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startTlsnotaryTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 触发tlsnotary文件认证任务
+     * Summary: 触发tlsnotary文件认证任务
+     *
+     * @param StartTlsnotaryTaskRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return StartTlsnotaryTaskResponse
+     */
+    public function startTlsnotaryTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartTlsnotaryTaskResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.tlsnotary.task.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询tlsnotary文件认证任务结果
+     * Summary: 查询tlsnotary文件认证任务结果.
+     *
+     * @param QueryTlsnotaryTaskRequest $request
+     *
+     * @return QueryTlsnotaryTaskResponse
+     */
+    public function queryTlsnotaryTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTlsnotaryTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询tlsnotary文件认证任务结果
+     * Summary: 查询tlsnotary文件认证任务结果.
+     *
+     * @param QueryTlsnotaryTaskRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryTlsnotaryTaskResponse
+     */
+    public function queryTlsnotaryTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTlsnotaryTaskResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.tlsnotary.task.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateDeviceDatamodelRequest extends Model
+class StopAcecContractRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,34 +19,36 @@ class CreateDeviceDatamodelRequest extends Model
      */
     public $productInstanceId;
 
-    // 数据模型
+    // 订单号
     /**
      * @var string
      */
-    public $dataModel;
+    public $orderNo;
 
-    // 数据模型名称
+    // 产品码，全局唯一
     /**
      * @var string
      */
-    public $dataModelName;
+    public $productCode;
 
-    // 数据模型类别
+    // 产品实例Id
     /**
      * @var string
      */
-    public $bizType;
+    public $instanceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'dataModel'         => 'data_model',
-        'dataModelName'     => 'data_model_name',
-        'bizType'           => 'biz_type',
+        'orderNo'           => 'order_no',
+        'productCode'       => 'product_code',
+        'instanceId'        => 'instance_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('dataModel', $this->dataModel, true);
+        Model::validateRequired('orderNo', $this->orderNo, true);
+        Model::validateRequired('productCode', $this->productCode, true);
+        Model::validateRequired('instanceId', $this->instanceId, true);
     }
 
     public function toMap()
@@ -58,14 +60,14 @@ class CreateDeviceDatamodelRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->dataModel) {
-            $res['data_model'] = $this->dataModel;
+        if (null !== $this->orderNo) {
+            $res['order_no'] = $this->orderNo;
         }
-        if (null !== $this->dataModelName) {
-            $res['data_model_name'] = $this->dataModelName;
+        if (null !== $this->productCode) {
+            $res['product_code'] = $this->productCode;
         }
-        if (null !== $this->bizType) {
-            $res['biz_type'] = $this->bizType;
+        if (null !== $this->instanceId) {
+            $res['instance_id'] = $this->instanceId;
         }
 
         return $res;
@@ -74,7 +76,7 @@ class CreateDeviceDatamodelRequest extends Model
     /**
      * @param array $map
      *
-     * @return CreateDeviceDatamodelRequest
+     * @return StopAcecContractRequest
      */
     public static function fromMap($map = [])
     {
@@ -85,14 +87,14 @@ class CreateDeviceDatamodelRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['data_model'])) {
-            $model->dataModel = $map['data_model'];
+        if (isset($map['order_no'])) {
+            $model->orderNo = $map['order_no'];
         }
-        if (isset($map['data_model_name'])) {
-            $model->dataModelName = $map['data_model_name'];
+        if (isset($map['product_code'])) {
+            $model->productCode = $map['product_code'];
         }
-        if (isset($map['biz_type'])) {
-            $model->bizType = $map['biz_type'];
+        if (isset($map['instance_id'])) {
+            $model->instanceId = $map['instance_id'];
         }
 
         return $model;

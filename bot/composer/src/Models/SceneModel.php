@@ -71,6 +71,22 @@ class SceneModel extends Model
      * @var string
      */
     public $sceneType;
+
+    // 是否跳过中台数据校验处理
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $skipPegasus;
+
+    // 定制数据处理类 , 使用用逗号分隔
+    /**
+     * @example XXX_GPS_PROCESSOR
+     *
+     * @var string
+     */
+    public $customerProcessor;
     protected $_name = [
         'id'                 => 'id',
         'gmtCreate'          => 'gmt_create',
@@ -80,6 +96,8 @@ class SceneModel extends Model
         'privateKeyPassword' => 'private_key_password',
         'tenantName'         => 'tenant_name',
         'sceneType'          => 'scene_type',
+        'skipPegasus'        => 'skip_pegasus',
+        'customerProcessor'  => 'customer_processor',
     ];
 
     public function validate()
@@ -119,6 +137,12 @@ class SceneModel extends Model
         if (null !== $this->sceneType) {
             $res['scene_type'] = $this->sceneType;
         }
+        if (null !== $this->skipPegasus) {
+            $res['skip_pegasus'] = $this->skipPegasus;
+        }
+        if (null !== $this->customerProcessor) {
+            $res['customer_processor'] = $this->customerProcessor;
+        }
 
         return $res;
     }
@@ -154,6 +178,12 @@ class SceneModel extends Model
         }
         if (isset($map['scene_type'])) {
             $model->sceneType = $map['scene_type'];
+        }
+        if (isset($map['skip_pegasus'])) {
+            $model->skipPegasus = $map['skip_pegasus'];
+        }
+        if (isset($map['customer_processor'])) {
+            $model->customerProcessor = $map['customer_processor'];
         }
 
         return $model;

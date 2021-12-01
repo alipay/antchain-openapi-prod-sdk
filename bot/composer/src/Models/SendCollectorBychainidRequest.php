@@ -36,12 +36,19 @@ class SendCollectorBychainidRequest extends Model
      * @var string
      */
     public $nonce;
+
+    // 数据模型Id
+    /**
+     * @var string
+     */
+    public $dataModelId;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
         'chainDeviceId'      => 'chain_device_id',
         'collectContentList' => 'collect_content_list',
         'nonce'              => 'nonce',
+        'dataModelId'        => 'data_model_id',
     ];
 
     public function validate()
@@ -75,6 +82,9 @@ class SendCollectorBychainidRequest extends Model
         if (null !== $this->nonce) {
             $res['nonce'] = $this->nonce;
         }
+        if (null !== $this->dataModelId) {
+            $res['data_model_id'] = $this->dataModelId;
+        }
 
         return $res;
     }
@@ -107,6 +117,9 @@ class SendCollectorBychainidRequest extends Model
         }
         if (isset($map['nonce'])) {
             $model->nonce = $map['nonce'];
+        }
+        if (isset($map['data_model_id'])) {
+            $model->dataModelId = $map['data_model_id'];
         }
 
         return $model;

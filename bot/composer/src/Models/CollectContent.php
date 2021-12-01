@@ -39,11 +39,20 @@ class CollectContent extends Model
      * @var string
      */
     public $extraData;
+
+    // 数据模型Id
+    /**
+     * @example 00000001
+     *
+     * @var string
+     */
+    public $dataModelId;
     protected $_name = [
         'chainDeviceId' => 'chain_device_id',
         'content'       => 'content',
         'signature'     => 'signature',
         'extraData'     => 'extra_data',
+        'dataModelId'   => 'data_model_id',
     ];
 
     public function validate()
@@ -68,6 +77,9 @@ class CollectContent extends Model
         if (null !== $this->extraData) {
             $res['extra_data'] = $this->extraData;
         }
+        if (null !== $this->dataModelId) {
+            $res['data_model_id'] = $this->dataModelId;
+        }
 
         return $res;
     }
@@ -91,6 +103,9 @@ class CollectContent extends Model
         }
         if (isset($map['extra_data'])) {
             $model->extraData = $map['extra_data'];
+        }
+        if (isset($map['data_model_id'])) {
+            $model->dataModelId = $map['data_model_id'];
         }
 
         return $model;

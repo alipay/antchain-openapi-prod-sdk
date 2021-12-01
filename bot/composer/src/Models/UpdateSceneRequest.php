@@ -25,6 +25,12 @@ class UpdateSceneRequest extends Model
      */
     public $id;
 
+    // 是否跳过中台数据校验处理
+    /**
+     * @var bool
+     */
+    public $skipPegasus;
+
     // 场景名称
     //
     /**
@@ -45,18 +51,27 @@ class UpdateSceneRequest extends Model
      * @var string
      */
     public $sceneType;
+
+    // 定制数据处理类 , 使用用逗号分隔
+    /**
+     * @var string
+     */
+    public $customerProcessor;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'id'                => 'id',
+        'skipPegasus'       => 'skip_pegasus',
         'sceneName'         => 'scene_name',
         'tenantName'        => 'tenant_name',
         'sceneType'         => 'scene_type',
+        'customerProcessor' => 'customer_processor',
     ];
 
     public function validate()
     {
         Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('skipPegasus', $this->skipPegasus, true);
     }
 
     public function toMap()
@@ -71,6 +86,9 @@ class UpdateSceneRequest extends Model
         if (null !== $this->id) {
             $res['id'] = $this->id;
         }
+        if (null !== $this->skipPegasus) {
+            $res['skip_pegasus'] = $this->skipPegasus;
+        }
         if (null !== $this->sceneName) {
             $res['scene_name'] = $this->sceneName;
         }
@@ -79,6 +97,9 @@ class UpdateSceneRequest extends Model
         }
         if (null !== $this->sceneType) {
             $res['scene_type'] = $this->sceneType;
+        }
+        if (null !== $this->customerProcessor) {
+            $res['customer_processor'] = $this->customerProcessor;
         }
 
         return $res;
@@ -101,6 +122,9 @@ class UpdateSceneRequest extends Model
         if (isset($map['id'])) {
             $model->id = $map['id'];
         }
+        if (isset($map['skip_pegasus'])) {
+            $model->skipPegasus = $map['skip_pegasus'];
+        }
         if (isset($map['scene_name'])) {
             $model->sceneName = $map['scene_name'];
         }
@@ -109,6 +133,9 @@ class UpdateSceneRequest extends Model
         }
         if (isset($map['scene_type'])) {
             $model->sceneType = $map['scene_type'];
+        }
+        if (isset($map['customer_processor'])) {
+            $model->customerProcessor = $map['customer_processor'];
         }
 
         return $model;

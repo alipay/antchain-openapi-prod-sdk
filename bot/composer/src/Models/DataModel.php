@@ -31,10 +31,19 @@ class DataModel extends Model
      * @var string
      */
     public $dataModel;
+
+    // 数据模型类别
+    /**
+     * @example ORDER
+     *
+     * @var string
+     */
+    public $bizType;
     protected $_name = [
         'dataModelId'   => 'data_model_id',
         'dataModelName' => 'data_model_name',
         'dataModel'     => 'data_model',
+        'bizType'       => 'biz_type',
     ];
 
     public function validate()
@@ -54,6 +63,9 @@ class DataModel extends Model
         }
         if (null !== $this->dataModel) {
             $res['data_model'] = $this->dataModel;
+        }
+        if (null !== $this->bizType) {
+            $res['biz_type'] = $this->bizType;
         }
 
         return $res;
@@ -75,6 +87,9 @@ class DataModel extends Model
         }
         if (isset($map['data_model'])) {
             $model->dataModel = $map['data_model'];
+        }
+        if (isset($map['biz_type'])) {
+            $model->bizType = $map['biz_type'];
         }
 
         return $model;
