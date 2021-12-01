@@ -5,7 +5,6 @@
 namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
-use GuzzleHttp\Psr7\Stream;
 
 class EchoGatewayCheckRequest extends Model
 {
@@ -39,20 +38,6 @@ class EchoGatewayCheckRequest extends Model
     public $inputArray;
 
     // file_id
-    /**
-     * @description 待上传文件
-     *
-     * @var Stream
-     */
-    public $fileObject;
-
-    /**
-     * @description 待上传文件名
-     *
-     * @var string
-     */
-    public $fileObjectName;
-
     /**
      * @var string
      */
@@ -116,12 +101,6 @@ class EchoGatewayCheckRequest extends Model
                 }
             }
         }
-        if (null !== $this->fileObject) {
-            $res['fileObject'] = $this->fileObject;
-        }
-        if (null !== $this->fileObjectName) {
-            $res['fileObjectName'] = $this->fileObjectName;
-        }
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
         }
@@ -163,12 +142,6 @@ class EchoGatewayCheckRequest extends Model
                     $model->inputArray[$n++] = null !== $item ? TestStruct::fromMap($item) : $item;
                 }
             }
-        }
-        if (isset($map['fileObject'])) {
-            $model->fileObject = $map['fileObject'];
-        }
-        if (isset($map['fileObjectName'])) {
-            $model->fileObjectName = $map['fileObjectName'];
         }
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
