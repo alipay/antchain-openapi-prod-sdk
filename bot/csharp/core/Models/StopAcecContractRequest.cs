@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class CreateDeviceDatamodelRequest : TeaModel {
+    public class StopAcecContractRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,20 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 数据模型
-        [NameInMap("data_model")]
+        // 订单号
+        [NameInMap("order_no")]
         [Validation(Required=true)]
-        public string DataModel { get; set; }
+        public string OrderNo { get; set; }
 
-        // 数据模型名称
-        [NameInMap("data_model_name")]
-        [Validation(Required=false)]
-        public string DataModelName { get; set; }
+        // 产品码，全局唯一
+        [NameInMap("product_code")]
+        [Validation(Required=true)]
+        public string ProductCode { get; set; }
 
-        // 数据模型类别
-        [NameInMap("biz_type")]
-        [Validation(Required=false)]
-        public string BizType { get; set; }
+        // 产品实例Id
+        [NameInMap("instance_id")]
+        [Validation(Required=true)]
+        public string InstanceId { get; set; }
 
     }
 

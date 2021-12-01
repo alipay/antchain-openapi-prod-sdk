@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class SendCollectorBychainidRequest : TeaModel {
+    public class ResumeAcecContractRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,25 +18,25 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 链上设备Id
-        [NameInMap("chain_device_id")]
+        // 服务接入码
+        [NameInMap("access_code")]
         [Validation(Required=true)]
-        public string ChainDeviceId { get; set; }
+        public string AccessCode { get; set; }
 
-        // 收集数据
-        [NameInMap("collect_content_list")]
+        // 实例Id
+        [NameInMap("instance_id")]
         [Validation(Required=true)]
-        public List<CollectContent> CollectContentList { get; set; }
+        public string InstanceId { get; set; }
 
-        // 随机数，防重放
-        [NameInMap("nonce")]
+        // 订单号
+        [NameInMap("order_no")]
         [Validation(Required=true)]
-        public string Nonce { get; set; }
+        public string OrderNo { get; set; }
 
-        // 数据模型Id
-        [NameInMap("data_model_id")]
-        [Validation(Required=false)]
-        public string DataModelId { get; set; }
+        // 产品码，全局唯一
+        [NameInMap("product_code")]
+        [Validation(Required=true)]
+        public string ProductCode { get; set; }
 
     }
 

@@ -23,6 +23,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public long? Id { get; set; }
 
+        // 是否跳过中台数据校验处理
+        [NameInMap("skip_pegasus")]
+        [Validation(Required=true)]
+        public bool? SkipPegasus { get; set; }
+
         // 场景名称
         // 
         [NameInMap("scene_name")]
@@ -40,6 +45,11 @@ namespace AntChain.SDK.BOT.Models
         [NameInMap("scene_type")]
         [Validation(Required=false)]
         public string SceneType { get; set; }
+
+        // 定制数据处理类 , 使用用逗号分隔
+        [NameInMap("customer_processor")]
+        [Validation(Required=false)]
+        public string CustomerProcessor { get; set; }
 
     }
 

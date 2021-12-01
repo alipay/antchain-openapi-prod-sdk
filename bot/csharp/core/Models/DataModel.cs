@@ -25,6 +25,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string DataModel_ { get; set; }
 
+        // 数据模型类别
+        [NameInMap("biz_type")]
+        [Validation(Required=false)]
+        public string BizType { get; set; }
+
     }
 
 }

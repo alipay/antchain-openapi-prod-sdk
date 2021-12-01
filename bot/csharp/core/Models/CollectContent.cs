@@ -30,6 +30,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ExtraData { get; set; }
 
+        // 数据模型Id
+        [NameInMap("data_model_id")]
+        [Validation(Required=false)]
+        public string DataModelId { get; set; }
+
     }
 
 }

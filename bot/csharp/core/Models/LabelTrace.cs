@@ -40,6 +40,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public bool? IsSuccess { get; set; }
 
+        // 标签对应资产版本号
+        [NameInMap("version")]
+        [Validation(Required=false)]
+        public long? Version { get; set; }
+
     }
 
 }

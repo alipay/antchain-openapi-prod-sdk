@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class CreateDeviceDatamodelRequest : TeaModel {
+    public class StartTlsnotaryTaskRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,15 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 数据模型
-        [NameInMap("data_model")]
+        // 唯一的业务tlsnotary任务id
+        [NameInMap("task_id")]
         [Validation(Required=true)]
-        public string DataModel { get; set; }
+        public string TaskId { get; set; }
 
-        // 数据模型名称
-        [NameInMap("data_model_name")]
-        [Validation(Required=false)]
-        public string DataModelName { get; set; }
-
-        // 数据模型类别
-        [NameInMap("biz_type")]
-        [Validation(Required=false)]
-        public string BizType { get; set; }
+        // 加固文件的oss链接
+        [NameInMap("oss_link")]
+        [Validation(Required=true)]
+        public string OssLink { get; set; }
 
     }
 

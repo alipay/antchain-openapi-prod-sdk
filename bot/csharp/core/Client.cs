@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.21"},
+                        {"sdk_version", "1.6.35"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.21"},
+                        {"sdk_version", "1.6.35"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -315,6 +315,132 @@ namespace AntChain.SDK.BOT
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: acec提供的SPI服务开通接口
+         * Summary: acec提供的SPI服务开通接口
+         */
+        public OpenAcecContractResponse OpenAcecContract(OpenAcecContractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OpenAcecContractEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: acec提供的SPI服务开通接口
+         * Summary: acec提供的SPI服务开通接口
+         */
+        public async Task<OpenAcecContractResponse> OpenAcecContractAsync(OpenAcecContractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OpenAcecContractExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: acec提供的SPI服务开通接口
+         * Summary: acec提供的SPI服务开通接口
+         */
+        public OpenAcecContractResponse OpenAcecContractEx(OpenAcecContractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OpenAcecContractResponse>(DoRequest("1.0", "blockchain.bot.acec.contract.open", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: acec提供的SPI服务开通接口
+         * Summary: acec提供的SPI服务开通接口
+         */
+        public async Task<OpenAcecContractResponse> OpenAcecContractExAsync(OpenAcecContractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OpenAcecContractResponse>(await DoRequestAsync("1.0", "blockchain.bot.acec.contract.open", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: AI服务组提供的SPI服务停止接口
+         * Summary: acec提供的SPI服务停止接口
+         */
+        public StopAcecContractResponse StopAcecContract(StopAcecContractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StopAcecContractEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: AI服务组提供的SPI服务停止接口
+         * Summary: acec提供的SPI服务停止接口
+         */
+        public async Task<StopAcecContractResponse> StopAcecContractAsync(StopAcecContractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StopAcecContractExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: AI服务组提供的SPI服务停止接口
+         * Summary: acec提供的SPI服务停止接口
+         */
+        public StopAcecContractResponse StopAcecContractEx(StopAcecContractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StopAcecContractResponse>(DoRequest("1.0", "blockchain.bot.acec.contract.stop", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: AI服务组提供的SPI服务停止接口
+         * Summary: acec提供的SPI服务停止接口
+         */
+        public async Task<StopAcecContractResponse> StopAcecContractExAsync(StopAcecContractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StopAcecContractResponse>(await DoRequestAsync("1.0", "blockchain.bot.acec.contract.stop", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: acec提供的SPI服务复入接口
+         * Summary: acec提供的SPI服务复入接口
+         */
+        public ResumeAcecContractResponse ResumeAcecContract(ResumeAcecContractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ResumeAcecContractEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: acec提供的SPI服务复入接口
+         * Summary: acec提供的SPI服务复入接口
+         */
+        public async Task<ResumeAcecContractResponse> ResumeAcecContractAsync(ResumeAcecContractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ResumeAcecContractExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: acec提供的SPI服务复入接口
+         * Summary: acec提供的SPI服务复入接口
+         */
+        public ResumeAcecContractResponse ResumeAcecContractEx(ResumeAcecContractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResumeAcecContractResponse>(DoRequest("1.0", "blockchain.bot.acec.contract.resume", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: acec提供的SPI服务复入接口
+         * Summary: acec提供的SPI服务复入接口
+         */
+        public async Task<ResumeAcecContractResponse> ResumeAcecContractExAsync(ResumeAcecContractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResumeAcecContractResponse>(await DoRequestAsync("1.0", "blockchain.bot.acec.contract.resume", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -3893,6 +4019,90 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<LoadTsmResourcefileResponse>(await DoRequestAsync("1.0", "blockchain.bot.tsm.resourcefile.load", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 触发tlsnotary文件认证任务
+         * Summary: 触发tlsnotary文件认证任务
+         */
+        public StartTlsnotaryTaskResponse StartTlsnotaryTask(StartTlsnotaryTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StartTlsnotaryTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 触发tlsnotary文件认证任务
+         * Summary: 触发tlsnotary文件认证任务
+         */
+        public async Task<StartTlsnotaryTaskResponse> StartTlsnotaryTaskAsync(StartTlsnotaryTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StartTlsnotaryTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 触发tlsnotary文件认证任务
+         * Summary: 触发tlsnotary文件认证任务
+         */
+        public StartTlsnotaryTaskResponse StartTlsnotaryTaskEx(StartTlsnotaryTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartTlsnotaryTaskResponse>(DoRequest("1.0", "blockchain.bot.tlsnotary.task.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 触发tlsnotary文件认证任务
+         * Summary: 触发tlsnotary文件认证任务
+         */
+        public async Task<StartTlsnotaryTaskResponse> StartTlsnotaryTaskExAsync(StartTlsnotaryTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartTlsnotaryTaskResponse>(await DoRequestAsync("1.0", "blockchain.bot.tlsnotary.task.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询tlsnotary文件认证任务结果
+         * Summary: 查询tlsnotary文件认证任务结果
+         */
+        public QueryTlsnotaryTaskResponse QueryTlsnotaryTask(QueryTlsnotaryTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTlsnotaryTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询tlsnotary文件认证任务结果
+         * Summary: 查询tlsnotary文件认证任务结果
+         */
+        public async Task<QueryTlsnotaryTaskResponse> QueryTlsnotaryTaskAsync(QueryTlsnotaryTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTlsnotaryTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询tlsnotary文件认证任务结果
+         * Summary: 查询tlsnotary文件认证任务结果
+         */
+        public QueryTlsnotaryTaskResponse QueryTlsnotaryTaskEx(QueryTlsnotaryTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTlsnotaryTaskResponse>(DoRequest("1.0", "blockchain.bot.tlsnotary.task.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询tlsnotary文件认证任务结果
+         * Summary: 查询tlsnotary文件认证任务结果
+         */
+        public async Task<QueryTlsnotaryTaskResponse> QueryTlsnotaryTaskExAsync(QueryTlsnotaryTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTlsnotaryTaskResponse>(await DoRequestAsync("1.0", "blockchain.bot.tlsnotary.task.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
