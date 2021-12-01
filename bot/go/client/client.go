@@ -166,6 +166,10 @@ type SceneModel struct {
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
 	// 场景类型
 	SceneType *string `json:"scene_type,omitempty" xml:"scene_type,omitempty"`
+	// 是否跳过中台数据校验处理
+	SkipPegasus *bool `json:"skip_pegasus,omitempty" xml:"skip_pegasus,omitempty"`
+	// 定制数据处理类 , 使用用逗号分隔
+	CustomerProcessor *string `json:"customer_processor,omitempty" xml:"customer_processor,omitempty"`
 }
 
 func (s SceneModel) String() string {
@@ -213,6 +217,16 @@ func (s *SceneModel) SetTenantName(v string) *SceneModel {
 
 func (s *SceneModel) SetSceneType(v string) *SceneModel {
 	s.SceneType = &v
+	return s
+}
+
+func (s *SceneModel) SetSkipPegasus(v bool) *SceneModel {
+	s.SkipPegasus = &v
+	return s
+}
+
+func (s *SceneModel) SetCustomerProcessor(v string) *SceneModel {
+	s.CustomerProcessor = &v
 	return s
 }
 
@@ -531,6 +545,8 @@ type CollectContent struct {
 	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
 	// 服务端发送的扩展数据（非可信设备直接产生的数据）
 	ExtraData *string `json:"extra_data,omitempty" xml:"extra_data,omitempty"`
+	// 数据模型Id
+	DataModelId *string `json:"data_model_id,omitempty" xml:"data_model_id,omitempty"`
 }
 
 func (s CollectContent) String() string {
@@ -558,6 +574,37 @@ func (s *CollectContent) SetSignature(v string) *CollectContent {
 
 func (s *CollectContent) SetExtraData(v string) *CollectContent {
 	s.ExtraData = &v
+	return s
+}
+
+func (s *CollectContent) SetDataModelId(v string) *CollectContent {
+	s.DataModelId = &v
+	return s
+}
+
+// tlsnotary文件认证成功后上传到oss的文件链接列表
+type TlsnotaryUploadOssLinks struct {
+	// 证书链摘要文件的oss链接
+	CertChainDigestLink *string `json:"cert_chain_digest_link,omitempty" xml:"cert_chain_digest_link,omitempty" require:"true"`
+	// 邮件eml文件的oss链接
+	EmlFileLink *string `json:"eml_file_link,omitempty" xml:"eml_file_link,omitempty" require:"true"`
+}
+
+func (s TlsnotaryUploadOssLinks) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TlsnotaryUploadOssLinks) GoString() string {
+	return s.String()
+}
+
+func (s *TlsnotaryUploadOssLinks) SetCertChainDigestLink(v string) *TlsnotaryUploadOssLinks {
+	s.CertChainDigestLink = &v
+	return s
+}
+
+func (s *TlsnotaryUploadOssLinks) SetEmlFileLink(v string) *TlsnotaryUploadOssLinks {
+	s.EmlFileLink = &v
 	return s
 }
 
@@ -1000,6 +1047,8 @@ type LabelTrace struct {
 	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
 	// 是否上链成功
 	IsSuccess *bool `json:"is_success,omitempty" xml:"is_success,omitempty"`
+	// 标签对应资产版本号
+	Version *int64 `json:"version,omitempty" xml:"version,omitempty"`
 }
 
 func (s LabelTrace) String() string {
@@ -1037,6 +1086,11 @@ func (s *LabelTrace) SetErrorMsg(v string) *LabelTrace {
 
 func (s *LabelTrace) SetIsSuccess(v bool) *LabelTrace {
 	s.IsSuccess = &v
+	return s
+}
+
+func (s *LabelTrace) SetVersion(v int64) *LabelTrace {
+	s.Version = &v
 	return s
 }
 
@@ -1200,6 +1254,8 @@ type DataModel struct {
 	DataModelName *string `json:"data_model_name,omitempty" xml:"data_model_name,omitempty"`
 	// 数据模型
 	DataModel *string `json:"data_model,omitempty" xml:"data_model,omitempty" require:"true"`
+	// 数据模型类别
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
 }
 
 func (s DataModel) String() string {
@@ -1222,6 +1278,11 @@ func (s *DataModel) SetDataModelName(v string) *DataModel {
 
 func (s *DataModel) SetDataModel(v string) *DataModel {
 	s.DataModel = &v
+	return s
+}
+
+func (s *DataModel) SetBizType(v string) *DataModel {
+	s.BizType = &v
 	return s
 }
 
@@ -2664,6 +2725,287 @@ func (s *BaiOcrResponse) SetData(v string) *BaiOcrResponse {
 	return s
 }
 
+type OpenAcecContractRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 产品码，全局唯一
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 开通产品的租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 实例Id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 服务接入码
+	AccessCode *string `json:"access_code,omitempty" xml:"access_code,omitempty" require:"true"`
+	// 用户自定义数据
+	CustomData *string `json:"custom_data,omitempty" xml:"custom_data,omitempty"`
+}
+
+func (s OpenAcecContractRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenAcecContractRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OpenAcecContractRequest) SetAuthToken(v string) *OpenAcecContractRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OpenAcecContractRequest) SetProductInstanceId(v string) *OpenAcecContractRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OpenAcecContractRequest) SetOrderNo(v string) *OpenAcecContractRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *OpenAcecContractRequest) SetProductCode(v string) *OpenAcecContractRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *OpenAcecContractRequest) SetTenantId(v string) *OpenAcecContractRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *OpenAcecContractRequest) SetInstanceId(v string) *OpenAcecContractRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *OpenAcecContractRequest) SetAccessCode(v string) *OpenAcecContractRequest {
+	s.AccessCode = &v
+	return s
+}
+
+func (s *OpenAcecContractRequest) SetCustomData(v string) *OpenAcecContractRequest {
+	s.CustomData = &v
+	return s
+}
+
+type OpenAcecContractResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务返回字段
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s OpenAcecContractResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenAcecContractResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OpenAcecContractResponse) SetReqMsgId(v string) *OpenAcecContractResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OpenAcecContractResponse) SetResultCode(v string) *OpenAcecContractResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OpenAcecContractResponse) SetResultMsg(v string) *OpenAcecContractResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OpenAcecContractResponse) SetData(v string) *OpenAcecContractResponse {
+	s.Data = &v
+	return s
+}
+
+type StopAcecContractRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 产品码，全局唯一
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 产品实例Id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+}
+
+func (s StopAcecContractRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StopAcecContractRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StopAcecContractRequest) SetAuthToken(v string) *StopAcecContractRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StopAcecContractRequest) SetProductInstanceId(v string) *StopAcecContractRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StopAcecContractRequest) SetOrderNo(v string) *StopAcecContractRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *StopAcecContractRequest) SetProductCode(v string) *StopAcecContractRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *StopAcecContractRequest) SetInstanceId(v string) *StopAcecContractRequest {
+	s.InstanceId = &v
+	return s
+}
+
+type StopAcecContractResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务返回字段
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s StopAcecContractResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StopAcecContractResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StopAcecContractResponse) SetReqMsgId(v string) *StopAcecContractResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StopAcecContractResponse) SetResultCode(v string) *StopAcecContractResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StopAcecContractResponse) SetResultMsg(v string) *StopAcecContractResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StopAcecContractResponse) SetData(v string) *StopAcecContractResponse {
+	s.Data = &v
+	return s
+}
+
+type ResumeAcecContractRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 服务接入码
+	AccessCode *string `json:"access_code,omitempty" xml:"access_code,omitempty" require:"true"`
+	// 实例Id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 产品码，全局唯一
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+}
+
+func (s ResumeAcecContractRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResumeAcecContractRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ResumeAcecContractRequest) SetAuthToken(v string) *ResumeAcecContractRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ResumeAcecContractRequest) SetProductInstanceId(v string) *ResumeAcecContractRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ResumeAcecContractRequest) SetAccessCode(v string) *ResumeAcecContractRequest {
+	s.AccessCode = &v
+	return s
+}
+
+func (s *ResumeAcecContractRequest) SetInstanceId(v string) *ResumeAcecContractRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *ResumeAcecContractRequest) SetOrderNo(v string) *ResumeAcecContractRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *ResumeAcecContractRequest) SetProductCode(v string) *ResumeAcecContractRequest {
+	s.ProductCode = &v
+	return s
+}
+
+type ResumeAcecContractResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务返回字段
+	//
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s ResumeAcecContractResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResumeAcecContractResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ResumeAcecContractResponse) SetReqMsgId(v string) *ResumeAcecContractResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ResumeAcecContractResponse) SetResultCode(v string) *ResumeAcecContractResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ResumeAcecContractResponse) SetResultMsg(v string) *ResumeAcecContractResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ResumeAcecContractResponse) SetData(v string) *ResumeAcecContractResponse {
+	s.Data = &v
+	return s
+}
+
 type CreateAcsDeviceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -3594,6 +3936,8 @@ type CreateDeviceDatamodelRequest struct {
 	DataModel *string `json:"data_model,omitempty" xml:"data_model,omitempty" require:"true"`
 	// 数据模型名称
 	DataModelName *string `json:"data_model_name,omitempty" xml:"data_model_name,omitempty"`
+	// 数据模型类别
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
 }
 
 func (s CreateDeviceDatamodelRequest) String() string {
@@ -3621,6 +3965,11 @@ func (s *CreateDeviceDatamodelRequest) SetDataModel(v string) *CreateDeviceDatam
 
 func (s *CreateDeviceDatamodelRequest) SetDataModelName(v string) *CreateDeviceDatamodelRequest {
 	s.DataModelName = &v
+	return s
+}
+
+func (s *CreateDeviceDatamodelRequest) SetBizType(v string) *CreateDeviceDatamodelRequest {
+	s.BizType = &v
 	return s
 }
 
@@ -4605,6 +4954,8 @@ type SendCollectorBychainidRequest struct {
 	CollectContentList []*CollectContent `json:"collect_content_list,omitempty" xml:"collect_content_list,omitempty" require:"true" type:"Repeated"`
 	// 随机数，防重放
 	Nonce *string `json:"nonce,omitempty" xml:"nonce,omitempty" require:"true"`
+	// 数据模型Id
+	DataModelId *string `json:"data_model_id,omitempty" xml:"data_model_id,omitempty"`
 }
 
 func (s SendCollectorBychainidRequest) String() string {
@@ -4637,6 +4988,11 @@ func (s *SendCollectorBychainidRequest) SetCollectContentList(v []*CollectConten
 
 func (s *SendCollectorBychainidRequest) SetNonce(v string) *SendCollectorBychainidRequest {
 	s.Nonce = &v
+	return s
+}
+
+func (s *SendCollectorBychainidRequest) SetDataModelId(v string) *SendCollectorBychainidRequest {
+	s.DataModelId = &v
 	return s
 }
 
@@ -8854,6 +9210,8 @@ type UpdateSceneRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 主键Id
 	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 是否跳过中台数据校验处理
+	SkipPegasus *bool `json:"skip_pegasus,omitempty" xml:"skip_pegasus,omitempty" require:"true"`
 	// 场景名称
 	//
 	SceneName *string `json:"scene_name,omitempty" xml:"scene_name,omitempty"`
@@ -8863,6 +9221,8 @@ type UpdateSceneRequest struct {
 	// 场景类型
 	//
 	SceneType *string `json:"scene_type,omitempty" xml:"scene_type,omitempty"`
+	// 定制数据处理类 , 使用用逗号分隔
+	CustomerProcessor *string `json:"customer_processor,omitempty" xml:"customer_processor,omitempty"`
 }
 
 func (s UpdateSceneRequest) String() string {
@@ -8888,6 +9248,11 @@ func (s *UpdateSceneRequest) SetId(v int64) *UpdateSceneRequest {
 	return s
 }
 
+func (s *UpdateSceneRequest) SetSkipPegasus(v bool) *UpdateSceneRequest {
+	s.SkipPegasus = &v
+	return s
+}
+
 func (s *UpdateSceneRequest) SetSceneName(v string) *UpdateSceneRequest {
 	s.SceneName = &v
 	return s
@@ -8900,6 +9265,11 @@ func (s *UpdateSceneRequest) SetTenantName(v string) *UpdateSceneRequest {
 
 func (s *UpdateSceneRequest) SetSceneType(v string) *UpdateSceneRequest {
 	s.SceneType = &v
+	return s
+}
+
+func (s *UpdateSceneRequest) SetCustomerProcessor(v string) *UpdateSceneRequest {
+	s.CustomerProcessor = &v
 	return s
 }
 
@@ -10800,6 +11170,195 @@ func (s *LoadTsmResourcefileResponse) SetCmdList(v []*TsmCommonCmd) *LoadTsmReso
 	return s
 }
 
+type StartTlsnotaryTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 唯一的业务tlsnotary任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 加固文件的oss链接
+	OssLink *string `json:"oss_link,omitempty" xml:"oss_link,omitempty" require:"true"`
+}
+
+func (s StartTlsnotaryTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartTlsnotaryTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StartTlsnotaryTaskRequest) SetAuthToken(v string) *StartTlsnotaryTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StartTlsnotaryTaskRequest) SetProductInstanceId(v string) *StartTlsnotaryTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StartTlsnotaryTaskRequest) SetTaskId(v string) *StartTlsnotaryTaskRequest {
+	s.TaskId = &v
+	return s
+}
+
+func (s *StartTlsnotaryTaskRequest) SetOssLink(v string) *StartTlsnotaryTaskRequest {
+	s.OssLink = &v
+	return s
+}
+
+type StartTlsnotaryTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 唯一的业务tlsnotary任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 业务错误码
+	ErrorCode *int64 `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 错误信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+}
+
+func (s StartTlsnotaryTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartTlsnotaryTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StartTlsnotaryTaskResponse) SetReqMsgId(v string) *StartTlsnotaryTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StartTlsnotaryTaskResponse) SetResultCode(v string) *StartTlsnotaryTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StartTlsnotaryTaskResponse) SetResultMsg(v string) *StartTlsnotaryTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StartTlsnotaryTaskResponse) SetTaskId(v string) *StartTlsnotaryTaskResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *StartTlsnotaryTaskResponse) SetErrorCode(v int64) *StartTlsnotaryTaskResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *StartTlsnotaryTaskResponse) SetErrorMsg(v string) *StartTlsnotaryTaskResponse {
+	s.ErrorMsg = &v
+	return s
+}
+
+type QueryTlsnotaryTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 唯一的业务 tlsnotary 任务 id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryTlsnotaryTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTlsnotaryTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTlsnotaryTaskRequest) SetAuthToken(v string) *QueryTlsnotaryTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTlsnotaryTaskRequest) SetProductInstanceId(v string) *QueryTlsnotaryTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTlsnotaryTaskRequest) SetTaskId(v string) *QueryTlsnotaryTaskRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryTlsnotaryTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 唯一的业务 tlsnotary 任务 id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// tlsnotary任务执行状态
+	State *int64 `json:"state,omitempty" xml:"state,omitempty"`
+	// 上传文件oss链接
+	UploadOssLinks *TlsnotaryUploadOssLinks `json:"upload_oss_links,omitempty" xml:"upload_oss_links,omitempty"`
+	// 业务错误码
+	ErrorCode *int64 `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 业务错误信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+}
+
+func (s QueryTlsnotaryTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTlsnotaryTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTlsnotaryTaskResponse) SetReqMsgId(v string) *QueryTlsnotaryTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTlsnotaryTaskResponse) SetResultCode(v string) *QueryTlsnotaryTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTlsnotaryTaskResponse) SetResultMsg(v string) *QueryTlsnotaryTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTlsnotaryTaskResponse) SetTaskId(v string) *QueryTlsnotaryTaskResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *QueryTlsnotaryTaskResponse) SetState(v int64) *QueryTlsnotaryTaskResponse {
+	s.State = &v
+	return s
+}
+
+func (s *QueryTlsnotaryTaskResponse) SetUploadOssLinks(v *TlsnotaryUploadOssLinks) *QueryTlsnotaryTaskResponse {
+	s.UploadOssLinks = v
+	return s
+}
+
+func (s *QueryTlsnotaryTaskResponse) SetErrorCode(v int64) *QueryTlsnotaryTaskResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *QueryTlsnotaryTaskResponse) SetErrorMsg(v string) *QueryTlsnotaryTaskResponse {
+	s.ErrorMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -10922,7 +11481,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.21"),
+				"sdk_version":      tea.String("1.6.35"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -10968,6 +11527,108 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: acec提供的SPI服务开通接口
+ * Summary: acec提供的SPI服务开通接口
+ */
+func (client *Client) OpenAcecContract(request *OpenAcecContractRequest) (_result *OpenAcecContractResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OpenAcecContractResponse{}
+	_body, _err := client.OpenAcecContractEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: acec提供的SPI服务开通接口
+ * Summary: acec提供的SPI服务开通接口
+ */
+func (client *Client) OpenAcecContractEx(request *OpenAcecContractRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OpenAcecContractResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OpenAcecContractResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.acec.contract.open"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: AI服务组提供的SPI服务停止接口
+ * Summary: acec提供的SPI服务停止接口
+ */
+func (client *Client) StopAcecContract(request *StopAcecContractRequest) (_result *StopAcecContractResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StopAcecContractResponse{}
+	_body, _err := client.StopAcecContractEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: AI服务组提供的SPI服务停止接口
+ * Summary: acec提供的SPI服务停止接口
+ */
+func (client *Client) StopAcecContractEx(request *StopAcecContractRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StopAcecContractResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StopAcecContractResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.acec.contract.stop"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: acec提供的SPI服务复入接口
+ * Summary: acec提供的SPI服务复入接口
+ */
+func (client *Client) ResumeAcecContract(request *ResumeAcecContractRequest) (_result *ResumeAcecContractResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ResumeAcecContractResponse{}
+	_body, _err := client.ResumeAcecContractEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: acec提供的SPI服务复入接口
+ * Summary: acec提供的SPI服务复入接口
+ */
+func (client *Client) ResumeAcecContractEx(request *ResumeAcecContractRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ResumeAcecContractResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ResumeAcecContractResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.acec.contract.resume"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
@@ -13857,6 +14518,74 @@ func (client *Client) LoadTsmResourcefileEx(request *LoadTsmResourcefileRequest,
 	}
 	_result = &LoadTsmResourcefileResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.tsm.resourcefile.load"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 触发tlsnotary文件认证任务
+ * Summary: 触发tlsnotary文件认证任务
+ */
+func (client *Client) StartTlsnotaryTask(request *StartTlsnotaryTaskRequest) (_result *StartTlsnotaryTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StartTlsnotaryTaskResponse{}
+	_body, _err := client.StartTlsnotaryTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 触发tlsnotary文件认证任务
+ * Summary: 触发tlsnotary文件认证任务
+ */
+func (client *Client) StartTlsnotaryTaskEx(request *StartTlsnotaryTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StartTlsnotaryTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StartTlsnotaryTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.tlsnotary.task.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询tlsnotary文件认证任务结果
+ * Summary: 查询tlsnotary文件认证任务结果
+ */
+func (client *Client) QueryTlsnotaryTask(request *QueryTlsnotaryTaskRequest) (_result *QueryTlsnotaryTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTlsnotaryTaskResponse{}
+	_body, _err := client.QueryTlsnotaryTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询tlsnotary文件认证任务结果
+ * Summary: 查询tlsnotary文件认证任务结果
+ */
+func (client *Client) QueryTlsnotaryTaskEx(request *QueryTlsnotaryTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTlsnotaryTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTlsnotaryTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.tlsnotary.task.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
