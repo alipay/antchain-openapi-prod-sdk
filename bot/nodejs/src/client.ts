@@ -95,6 +95,10 @@ export class SceneModel extends $tea.Model {
   tenantName?: string;
   // 场景类型
   sceneType?: string;
+  // 是否跳过中台数据校验处理
+  skipPegasus?: boolean;
+  // 定制数据处理类 , 使用用逗号分隔
+  customerProcessor?: string;
   static names(): { [key: string]: string } {
     return {
       id: 'id',
@@ -105,6 +109,8 @@ export class SceneModel extends $tea.Model {
       privateKeyPassword: 'private_key_password',
       tenantName: 'tenant_name',
       sceneType: 'scene_type',
+      skipPegasus: 'skip_pegasus',
+      customerProcessor: 'customer_processor',
     };
   }
 
@@ -118,6 +124,8 @@ export class SceneModel extends $tea.Model {
       privateKeyPassword: 'string',
       tenantName: 'string',
       sceneType: 'string',
+      skipPegasus: 'boolean',
+      customerProcessor: 'string',
     };
   }
 
@@ -361,12 +369,15 @@ export class CollectContent extends $tea.Model {
   signature: string;
   // 服务端发送的扩展数据（非可信设备直接产生的数据）
   extraData?: string;
+  // 数据模型Id
+  dataModelId?: string;
   static names(): { [key: string]: string } {
     return {
       chainDeviceId: 'chain_device_id',
       content: 'content',
       signature: 'signature',
       extraData: 'extra_data',
+      dataModelId: 'data_model_id',
     };
   }
 
@@ -376,6 +387,32 @@ export class CollectContent extends $tea.Model {
       content: 'string',
       signature: 'string',
       extraData: 'string',
+      dataModelId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// tlsnotary文件认证成功后上传到oss的文件链接列表
+export class TlsnotaryUploadOssLinks extends $tea.Model {
+  // 证书链摘要文件的oss链接
+  certChainDigestLink: string;
+  // 邮件eml文件的oss链接
+  emlFileLink: string;
+  static names(): { [key: string]: string } {
+    return {
+      certChainDigestLink: 'cert_chain_digest_link',
+      emlFileLink: 'eml_file_link',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      certChainDigestLink: 'string',
+      emlFileLink: 'string',
     };
   }
 
@@ -725,6 +762,8 @@ export class LabelTrace extends $tea.Model {
   errorMsg?: string;
   // 是否上链成功
   isSuccess?: boolean;
+  // 标签对应资产版本号
+  version?: number;
   static names(): { [key: string]: string } {
     return {
       content: 'content',
@@ -733,6 +772,7 @@ export class LabelTrace extends $tea.Model {
       errorCode: 'error_code',
       errorMsg: 'error_msg',
       isSuccess: 'is_success',
+      version: 'version',
     };
   }
 
@@ -744,6 +784,7 @@ export class LabelTrace extends $tea.Model {
       errorCode: 'string',
       errorMsg: 'string',
       isSuccess: 'boolean',
+      version: 'number',
     };
   }
 
@@ -879,11 +920,14 @@ export class DataModel extends $tea.Model {
   dataModelName?: string;
   // 数据模型
   dataModel: string;
+  // 数据模型类别
+  bizType?: string;
   static names(): { [key: string]: string } {
     return {
       dataModelId: 'data_model_id',
       dataModelName: 'data_model_name',
       dataModel: 'data_model',
+      bizType: 'biz_type',
     };
   }
 
@@ -892,6 +936,7 @@ export class DataModel extends $tea.Model {
       dataModelId: 'string',
       dataModelName: 'string',
       dataModel: 'string',
+      bizType: 'string',
     };
   }
 
@@ -2019,6 +2064,224 @@ export class BaiOcrResponse extends $tea.Model {
   }
 }
 
+export class OpenAcecContractRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单号
+  orderNo: string;
+  // 产品码，全局唯一
+  productCode: string;
+  // 开通产品的租户ID
+  tenantId: string;
+  // 实例Id
+  instanceId: string;
+  // 服务接入码
+  accessCode: string;
+  // 用户自定义数据
+  customData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      productCode: 'product_code',
+      tenantId: 'tenant_id',
+      instanceId: 'instance_id',
+      accessCode: 'access_code',
+      customData: 'custom_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      productCode: 'string',
+      tenantId: 'string',
+      instanceId: 'string',
+      accessCode: 'string',
+      customData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OpenAcecContractResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务返回字段
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StopAcecContractRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单号
+  orderNo: string;
+  // 产品码，全局唯一
+  productCode: string;
+  // 产品实例Id
+  instanceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      productCode: 'product_code',
+      instanceId: 'instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      productCode: 'string',
+      instanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StopAcecContractResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务返回字段
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResumeAcecContractRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 服务接入码
+  accessCode: string;
+  // 实例Id
+  instanceId: string;
+  // 订单号
+  orderNo: string;
+  // 产品码，全局唯一
+  productCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      accessCode: 'access_code',
+      instanceId: 'instance_id',
+      orderNo: 'order_no',
+      productCode: 'product_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      accessCode: 'string',
+      instanceId: 'string',
+      orderNo: 'string',
+      productCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResumeAcecContractResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务返回字段
+  // 
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAcsDeviceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2714,12 +2977,15 @@ export class CreateDeviceDatamodelRequest extends $tea.Model {
   dataModel: string;
   // 数据模型名称
   dataModelName?: string;
+  // 数据模型类别
+  bizType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       dataModel: 'data_model',
       dataModelName: 'data_model_name',
+      bizType: 'biz_type',
     };
   }
 
@@ -2729,6 +2995,7 @@ export class CreateDeviceDatamodelRequest extends $tea.Model {
       productInstanceId: 'string',
       dataModel: 'string',
       dataModelName: 'string',
+      bizType: 'string',
     };
   }
 
@@ -3510,6 +3777,8 @@ export class SendCollectorBychainidRequest extends $tea.Model {
   collectContentList: CollectContent[];
   // 随机数，防重放
   nonce: string;
+  // 数据模型Id
+  dataModelId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3517,6 +3786,7 @@ export class SendCollectorBychainidRequest extends $tea.Model {
       chainDeviceId: 'chain_device_id',
       collectContentList: 'collect_content_list',
       nonce: 'nonce',
+      dataModelId: 'data_model_id',
     };
   }
 
@@ -3527,6 +3797,7 @@ export class SendCollectorBychainidRequest extends $tea.Model {
       chainDeviceId: 'string',
       collectContentList: { 'type': 'array', 'itemType': CollectContent },
       nonce: 'string',
+      dataModelId: 'string',
     };
   }
 
@@ -6887,6 +7158,8 @@ export class UpdateSceneRequest extends $tea.Model {
   productInstanceId?: string;
   // 主键Id 
   id: number;
+  // 是否跳过中台数据校验处理
+  skipPegasus: boolean;
   // 场景名称
   // 
   sceneName?: string;
@@ -6896,14 +7169,18 @@ export class UpdateSceneRequest extends $tea.Model {
   // 场景类型
   // 
   sceneType?: string;
+  // 定制数据处理类 , 使用用逗号分隔
+  customerProcessor?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       id: 'id',
+      skipPegasus: 'skip_pegasus',
       sceneName: 'scene_name',
       tenantName: 'tenant_name',
       sceneType: 'scene_type',
+      customerProcessor: 'customer_processor',
     };
   }
 
@@ -6912,9 +7189,11 @@ export class UpdateSceneRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       id: 'number',
+      skipPegasus: 'boolean',
       sceneName: 'string',
       tenantName: 'string',
       sceneType: 'string',
+      customerProcessor: 'string',
     };
   }
 
@@ -8404,6 +8683,152 @@ export class LoadTsmResourcefileResponse extends $tea.Model {
   }
 }
 
+export class StartTlsnotaryTaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 唯一的业务tlsnotary任务id
+  taskId: string;
+  // 加固文件的oss链接
+  ossLink: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+      ossLink: 'oss_link',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+      ossLink: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartTlsnotaryTaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 唯一的业务tlsnotary任务id
+  taskId?: string;
+  // 业务错误码
+  errorCode?: number;
+  // 错误信息
+  errorMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      errorCode: 'number',
+      errorMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTlsnotaryTaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 唯一的业务 tlsnotary 任务 id
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTlsnotaryTaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 唯一的业务 tlsnotary 任务 id
+  taskId?: string;
+  // tlsnotary任务执行状态
+  state?: number;
+  // 上传文件oss链接
+  uploadOssLinks?: TlsnotaryUploadOssLinks;
+  // 业务错误码
+  errorCode?: number;
+  // 业务错误信息
+  errorMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      state: 'state',
+      uploadOssLinks: 'upload_oss_links',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      state: 'number',
+      uploadOssLinks: TlsnotaryUploadOssLinks,
+      errorCode: 'number',
+      errorMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -8517,7 +8942,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.21",
+          sdk_version: "1.6.35",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -8561,6 +8986,63 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: acec提供的SPI服务开通接口
+   * Summary: acec提供的SPI服务开通接口
+   */
+  async openAcecContract(request: OpenAcecContractRequest): Promise<OpenAcecContractResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.openAcecContractEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: acec提供的SPI服务开通接口
+   * Summary: acec提供的SPI服务开通接口
+   */
+  async openAcecContractEx(request: OpenAcecContractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OpenAcecContractResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OpenAcecContractResponse>(await this.doRequest("1.0", "blockchain.bot.acec.contract.open", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OpenAcecContractResponse({}));
+  }
+
+  /**
+   * Description: AI服务组提供的SPI服务停止接口
+   * Summary: acec提供的SPI服务停止接口
+   */
+  async stopAcecContract(request: StopAcecContractRequest): Promise<StopAcecContractResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.stopAcecContractEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: AI服务组提供的SPI服务停止接口
+   * Summary: acec提供的SPI服务停止接口
+   */
+  async stopAcecContractEx(request: StopAcecContractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StopAcecContractResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StopAcecContractResponse>(await this.doRequest("1.0", "blockchain.bot.acec.contract.stop", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StopAcecContractResponse({}));
+  }
+
+  /**
+   * Description: acec提供的SPI服务复入接口
+   * Summary: acec提供的SPI服务复入接口
+   */
+  async resumeAcecContract(request: ResumeAcecContractRequest): Promise<ResumeAcecContractResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.resumeAcecContractEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: acec提供的SPI服务复入接口
+   * Summary: acec提供的SPI服务复入接口
+   */
+  async resumeAcecContractEx(request: ResumeAcecContractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ResumeAcecContractResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ResumeAcecContractResponse>(await this.doRequest("1.0", "blockchain.bot.acec.contract.resume", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ResumeAcecContractResponse({}));
   }
 
   /**
@@ -10180,6 +10662,44 @@ export default class Client {
   async loadTsmResourcefileEx(request: LoadTsmResourcefileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<LoadTsmResourcefileResponse> {
     Util.validateModel(request);
     return $tea.cast<LoadTsmResourcefileResponse>(await this.doRequest("1.0", "blockchain.bot.tsm.resourcefile.load", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new LoadTsmResourcefileResponse({}));
+  }
+
+  /**
+   * Description: 触发tlsnotary文件认证任务
+   * Summary: 触发tlsnotary文件认证任务
+   */
+  async startTlsnotaryTask(request: StartTlsnotaryTaskRequest): Promise<StartTlsnotaryTaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.startTlsnotaryTaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 触发tlsnotary文件认证任务
+   * Summary: 触发tlsnotary文件认证任务
+   */
+  async startTlsnotaryTaskEx(request: StartTlsnotaryTaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartTlsnotaryTaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StartTlsnotaryTaskResponse>(await this.doRequest("1.0", "blockchain.bot.tlsnotary.task.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartTlsnotaryTaskResponse({}));
+  }
+
+  /**
+   * Description: 查询tlsnotary文件认证任务结果
+   * Summary: 查询tlsnotary文件认证任务结果
+   */
+  async queryTlsnotaryTask(request: QueryTlsnotaryTaskRequest): Promise<QueryTlsnotaryTaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTlsnotaryTaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询tlsnotary文件认证任务结果
+   * Summary: 查询tlsnotary文件认证任务结果
+   */
+  async queryTlsnotaryTaskEx(request: QueryTlsnotaryTaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTlsnotaryTaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTlsnotaryTaskResponse>(await this.doRequest("1.0", "blockchain.bot.tlsnotary.task.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTlsnotaryTaskResponse({}));
   }
 
 }
