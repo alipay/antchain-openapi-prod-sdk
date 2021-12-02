@@ -1,0 +1,1785 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.27',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 由于OP不支持MAP对象，此对象用来模拟Map中的Entry
+model MapStringToStringEntry {
+  // key
+  key: string(name='key', example='key'),
+  // value
+  value: string(name='value', example='value'),
+}
+
+// 查询的条件
+model Condition {
+  // 用于查询条件的字段
+  field: string(name='field', example='field'),
+  // 查询操作符
+  operator: string(name='operator', example='==,>,in'),
+  // 由于OP限制，此字段无法直接使用数组。请务必使用能够解析的JSON数组
+  values: string(name='values', example='[xx,yy]'),
+}
+
+// 字段组
+model AttributeGroup {
+  // id
+  uniqueId: string(name='unique_id', example='id'),
+  // name
+  name: string(name='name', example='name'),
+  // display_name
+  displayName?: string(name='display_name', example='display_name'),
+  // display_properties
+  displayProperties?: string(name='display_properties', example='{"key":"value"}'),
+}
+
+// 模型字段（属性）
+model Attribute {
+  // 所属模型的唯一标识
+  modelId: string(name='model_id', example='computer'),
+  // 唯一标识（所属模型内唯一）
+  uniqueId: string(name='unique_id', example='ip'),
+  // 名称（所属模型内唯一）
+  name: string(name='name', example='IP'),
+  // 描述
+  description?: string(name='description', example='IP 地址'),
+  // 类型【取值范围：INTEGER，LONG，DOUBLE，FLOAT，BOOLEAN，STRING，DATE，DATETIME，ENUM，ARRAY】
+  type: string(name='type', example='STRING'),
+  // 是否为系统内置
+  system: boolean(name='system', example='true, false'),
+  // 是否只读
+  readonly: boolean(name='readonly', example='true, false'),
+  // 是否必填
+  required: boolean(name='required', example='true, false'),
+  // 用于前端展示排序，数字越大优先级越高，默认为 0
+  priority: long(name='priority', example='0'),
+  // 用于前端展示的扩展属性
+  displayProperties?: [ MapStringToStringEntry ](name='display_properties', example=''),
+  // 创建时间
+  createdTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='created_time', example='2018-10-10T10:10:00Z'),
+  // 修改时间
+  modifiedTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='modified_time', example='2018-10-10T10:10:00Z'),
+  // 字段分组Id
+  groupId: string(name='group_id', example='group_name'),
+}
+
+// 模型分组
+model ModelCategory {
+  // 唯一标识（全局唯一）
+  uniqueId: string(name='unique_id', example='host_manage'),
+  // 名称（全局唯一）
+  name: string(name='name', example='主机管理'),
+  // 是否为系统内置
+  system: boolean(name='system', example='true, false'),
+  // 创建时间
+  createdTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='created_time', example='2018-10-10T10:10:00Z'),
+  // 修改时间
+  modifiedTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='modified_time', example='2018-10-10T10:10:00Z'),
+  // icon
+  icon?: string(name='icon', example='icon'),
+}
+
+// 模型关联
+model ModelRelationship {
+  // 目标模型的唯一标识
+  destinationModelId: string(name='destination_model_id', example='computer'),
+  // 源模型的唯一标识（目标模型内唯一）
+  sourceModelId: string(name='source_model_id', example='workspace'),
+  // 唯一标识（目标模型内唯一，等同于目标模型中与源模型建立关联的外键属性）
+  uniqueId: string(name='unique_id', example='workspace_id'),
+  // 描述
+  description?: string(name='description', example='工作空间到主机的关联'),
+  // 关联类型【取值范围：ONE_TO_ONE，ONE_TO_MANY】
+  relationType: string(name='relation_type', example='ONE_TO_MANY'),
+  // 是否为系统内置
+  system: boolean(name='system', example='true, false'),
+  // 创建时间
+  createdTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='created_time', example='2018-10-10T10:10:00Z'),
+  // 修改时间
+  modifiedTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='modified_time', example='2018-10-10T10:10:00Z'),
+}
+
+// 审计日志
+model AuditLog {
+  // id
+  id: string(name='id', example='id'),
+  // 操作者
+  operator: string(name='operator', example='operator'),
+  // 操作的对象类别
+  resourceType: string(name='resource_type', example='resourceType'),
+  // 动作
+  action: string(name='action', example='action'),
+  // 对象的ID
+  targets: [ string ](name='targets', example=''),
+  // operation_time
+  operationTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='operation_time', example='2018-10-10T10:10:00Z'),
+}
+
+// CMDB中的实体对象
+model Item {
+  // 实例ID
+  id: string(name='id', example='id'),
+  // 名称
+  name: string(name='name', example='name'),
+  // created_time
+  createdTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='created_time', example='2018-10-10T10:10:00Z'),
+  // modified_time
+  modifiedTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='modified_time', example='2018-10-10T10:10:00Z'),
+  // data_json
+  dataJson: string(name='data_json', example='{"key":"value"}'),
+}
+
+// 模型
+model Model {
+  // 唯一标识（全局唯一）
+  uniqueId: string(name='unique_id', example='computer'),
+  // 名称（全局唯一）
+  name: string(name='name', example='主机'),
+  // 所属模型分组的唯一标识
+  categoryId: string(name='category_id', example='host_manage'),
+  // 描述
+  description?: string(name='description', example='主机（包括物理机、虚拟机等）'),
+  // 是否为系统内置
+  system: boolean(name='system', example='true, false'),
+  // 用于前端展示排序，数字越大优先级越高，默认为 0
+  priority: long(name='priority', example='0'),
+  // 用于前端展示的扩展属性
+  displayProperties?: [ MapStringToStringEntry ](name='display_properties', example=''),
+  // 创建时间
+  createdTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='created_time', example='2018-10-10T10:10:00Z'),
+  // 修改时间
+  modifiedTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='modified_time', example='2018-10-10T10:10:00Z'),
+}
+
+// 系统参数
+model SystemParam {
+  // description
+  description: string(name='description', example='description'),
+  // key
+  key: string(name='key', example='key'),
+  // value_type
+  valueType: string(name='value_type', example='value_type'),
+  // value_json
+  valueJson: string(name='value_json', example='value_json'),
+  // group_name
+  groupName: string(name='group_name', example='group_name'),
+}
+
+// 联合查询时的过滤条件
+model Filter {
+  // join_model_id
+  joinModelId: string(name='join_model_id', example='关联的模型名称'),
+  // conditions
+  conditions: [ Condition ](name='conditions', example=''),
+}
+
+model QueryItemRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // display_fields
+  displayFields?: [ string ](name='display_fields'),
+  // page_size
+  pageSize?: long(name='page_size'),
+  // page_number
+  pageNumber?: long(name='page_number'),
+  // sort_fields
+  sortFields?: [ string ](name='sort_fields'),
+  // conditions
+  conditions: [ Condition ](name='conditions'),
+  // filter
+  filter?: Filter(name='filter'),
+  // model_id
+  modelId: string(name='model_id'),
+}
+
+model QueryItemResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // total_count
+  totalCount?: long(name='total_count'),
+  // data
+  data?: [ Item ](name='data'),
+}
+
+/**
+ * Description: 查询资源
+ * Summary: 查询资源
+ */
+async function queryItem(request: QueryItemRequest): QueryItemResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryItemEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询资源
+ * Summary: 查询资源
+ */
+async function queryItemEx(request: QueryItemRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryItemResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.item.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateItemRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // model_id
+  modelId: string(name='model_id'),
+  // name
+  name: string(name='name'),
+  // id
+  id: string(name='id'),
+  // 注意，data_json是一个MAP<String,Object>，但OP不支持MAP，，用户需要用Json序列化成字符串。不正确的格式将会报错
+  dataJson: string(name='data_json'),
+}
+
+model CreateItemResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建资源
+ * Summary: 创建资源
+ */
+async function createItem(request: CreateItemRequest): CreateItemResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createItemEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建资源
+ * Summary: 创建资源
+ */
+async function createItemEx(request: CreateItemRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateItemResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.item.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateItemRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // id
+  id: string(name='id'),
+  // model_id
+  modelId: string(name='model_id'),
+  // 同创建的data
+  dataJson: string(name='data_json'),
+}
+
+model UpdateItemResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 全量更新资源属性，不传的属性如果原本有值会被覆盖成空值
+ * Summary: 更新资源属性
+ */
+async function updateItem(request: UpdateItemRequest): UpdateItemResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateItemEx(request, headers, runtime);
+}
+
+/**
+ * Description: 全量更新资源属性，不传的属性如果原本有值会被覆盖成空值
+ * Summary: 更新资源属性
+ */
+async function updateItemEx(request: UpdateItemRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateItemResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.item.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteItemRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // id
+  id: string(name='id'),
+  // model_id
+  modelId: string(name='model_id'),
+}
+
+model DeleteItemResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除单个资源
+ * Summary: 删除单个资源
+ */
+async function deleteItem(request: DeleteItemRequest): DeleteItemResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteItemEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除单个资源
+ * Summary: 删除单个资源
+ */
+async function deleteItemEx(request: DeleteItemRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteItemResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.item.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetItemRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // id
+  id: string(name='id'),
+  // model_id
+  modelId: string(name='model_id'),
+}
+
+model GetItemResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: Item(name='data'),
+}
+
+/**
+ * Description: 获取单个Item的详细信息
+ * Summary: 获取单个Item的详细信息
+ */
+async function getItem(request: GetItemRequest): GetItemResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getItemEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取单个Item的详细信息
+ * Summary: 获取单个Item的详细信息
+ */
+async function getItemEx(request: GetItemRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetItemResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.item.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetModelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 要获取的模型的唯一标识
+  uniqueId: string(name='unique_id'),
+}
+
+model GetModelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 获取到的模型
+  data?: Model(name='data'),
+}
+
+/**
+ * Description: 获取单个模型
+ * Summary: 获取单个模型
+ */
+async function getModel(request: GetModelRequest): GetModelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getModelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取单个模型
+ * Summary: 获取单个模型
+ */
+async function getModelEx(request: GetModelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetModelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.model.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryModelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+}
+
+model QueryModelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询到的模型列表
+  data?: [ Model ](name='data'),
+}
+
+/**
+ * Description: 查询模型
+ * Summary: 查询模型
+ */
+async function queryModel(request: QueryModelRequest): QueryModelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryModelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询模型
+ * Summary: 查询模型
+ */
+async function queryModelEx(request: QueryModelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryModelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.model.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateModelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 唯一标识（全局唯一）
+  uniqueId: string(name='unique_id'),
+  // 名称（全局唯一）
+  name: string(name='name'),
+  // 所属模型分组的唯一标识
+  categoryId: string(name='category_id'),
+  // 描述
+  description?: string(name='description'),
+  // 用于前端展示排序，数字越大优先级越高，默认为 0
+  priority?: long(name='priority'),
+  // 用于前端展示的扩展属性
+  displayProperties?: [ MapStringToStringEntry ](name='display_properties'),
+}
+
+model CreateModelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 创建出的模型
+  data?: Model(name='data'),
+}
+
+/**
+ * Description: 创建模型
+ * Summary: 创建模型
+ */
+async function createModel(request: CreateModelRequest): CreateModelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createModelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建模型
+ * Summary: 创建模型
+ */
+async function createModelEx(request: CreateModelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateModelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.model.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateModelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 要更新的模型的唯一标识
+  uniqueId: string(name='unique_id'),
+  // 名称（全局唯一）
+  name: string(name='name'),
+  // 描述
+  description?: string(name='description'),
+  // 用于前端展示排序，数字越大优先级越高，默认为 0
+  priority?: long(name='priority'),
+  // 用于前端展示的扩展属性
+  displayProperties?: [ MapStringToStringEntry ](name='display_properties'),
+}
+
+model UpdateModelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 更新后的模型
+  data?: Model(name='data'),
+}
+
+/**
+ * Description: 更新模型
+ * Summary: 更新模型
+ */
+async function updateModel(request: UpdateModelRequest): UpdateModelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateModelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新模型
+ * Summary: 更新模型
+ */
+async function updateModelEx(request: UpdateModelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateModelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.model.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetModelcategoryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 要获取的模型分组的唯一标识
+  uniqueId: string(name='unique_id'),
+}
+
+model GetModelcategoryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 获取到的模型分组
+  data?: ModelCategory(name='data'),
+}
+
+/**
+ * Description: 获取单个模型分组
+ * Summary: 获取单个模型分组
+ */
+async function getModelcategory(request: GetModelcategoryRequest): GetModelcategoryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getModelcategoryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取单个模型分组
+ * Summary: 获取单个模型分组
+ */
+async function getModelcategoryEx(request: GetModelcategoryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetModelcategoryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.modelcategory.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteModelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 要删除的模型的唯一标识
+  uniqueId: string(name='unique_id'),
+}
+
+model DeleteModelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除模型
+ * Summary: 删除模型
+ */
+async function deleteModel(request: DeleteModelRequest): DeleteModelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteModelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除模型
+ * Summary: 删除模型
+ */
+async function deleteModelEx(request: DeleteModelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteModelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.model.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryModelcategoryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+}
+
+model QueryModelcategoryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询到的模型分组列表
+  data?: [ ModelCategory ](name='data'),
+}
+
+/**
+ * Description: 查询模型分组
+ * Summary: 查询模型分组
+ */
+async function queryModelcategory(request: QueryModelcategoryRequest): QueryModelcategoryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryModelcategoryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询模型分组
+ * Summary: 查询模型分组
+ */
+async function queryModelcategoryEx(request: QueryModelcategoryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryModelcategoryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.modelcategory.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateModelcategoryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 唯一标识（全局唯一）
+  uniqueId: string(name='unique_id'),
+  // 名称（全局唯一）
+  name: string(name='name'),
+}
+
+model CreateModelcategoryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 创建出的模型分组
+  data?: ModelCategory(name='data'),
+}
+
+/**
+ * Description: 创建模型分组
+ * Summary: 创建模型分组
+ */
+async function createModelcategory(request: CreateModelcategoryRequest): CreateModelcategoryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createModelcategoryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建模型分组
+ * Summary: 创建模型分组
+ */
+async function createModelcategoryEx(request: CreateModelcategoryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateModelcategoryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.modelcategory.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateModelcategoryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 要更新的模型分组的唯一标识
+  uniqueId: string(name='unique_id'),
+  // 名称（全局唯一）
+  name: string(name='name'),
+}
+
+model UpdateModelcategoryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 更新后的模型分组
+  data?: ModelCategory(name='data'),
+}
+
+/**
+ * Description: 更新模型分组
+ * Summary: 更新模型分组
+ */
+async function updateModelcategory(request: UpdateModelcategoryRequest): UpdateModelcategoryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateModelcategoryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新模型分组
+ * Summary: 更新模型分组
+ */
+async function updateModelcategoryEx(request: UpdateModelcategoryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateModelcategoryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.modelcategory.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteModelcategoryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 要删除的模型分组的唯一标识
+  uniqueId: string(name='unique_id'),
+}
+
+model DeleteModelcategoryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除模型分组
+ * Summary: 删除模型分组
+ */
+async function deleteModelcategory(request: DeleteModelcategoryRequest): DeleteModelcategoryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteModelcategoryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除模型分组
+ * Summary: 删除模型分组
+ */
+async function deleteModelcategoryEx(request: DeleteModelcategoryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteModelcategoryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.modelcategory.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetModelAttributeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 字段所属模型的唯一标识
+  modelId: string(name='model_id'),
+  // 要获取的字段的唯一标识
+  uniqueId: string(name='unique_id'),
+}
+
+model GetModelAttributeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 获取到的字段
+  data?: Attribute(name='data'),
+}
+
+/**
+ * Description: 获取单个模型字段
+ * Summary: 获取单个模型字段
+ */
+async function getModelAttribute(request: GetModelAttributeRequest): GetModelAttributeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getModelAttributeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取单个模型字段
+ * Summary: 获取单个模型字段
+ */
+async function getModelAttributeEx(request: GetModelAttributeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetModelAttributeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.model.attribute.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryModelAttributeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 所属模型的唯一标识
+  modelId?: string(name='model_id'),
+}
+
+model QueryModelAttributeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询到的模型字段列表
+  data?: [ Attribute ](name='data'),
+}
+
+/**
+ * Description: 查询模型字段
+ * Summary: 查询模型字段
+ */
+async function queryModelAttribute(request: QueryModelAttributeRequest): QueryModelAttributeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryModelAttributeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询模型字段
+ * Summary: 查询模型字段
+ */
+async function queryModelAttributeEx(request: QueryModelAttributeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryModelAttributeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.model.attribute.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateModelAttributeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 所属模型的唯一标识
+  modelId: string(name='model_id'),
+  // 唯一标识（所属模型内唯一）
+  uniqueId: string(name='unique_id'),
+  // 名称（所属模型内唯一）
+  name: string(name='name'),
+  // 描述
+  description?: string(name='description'),
+  // 类型【取值范围：INTEGER，LONG，DOUBLE，FLOAT，BOOLEAN，STRING，DATE，DATETIME，ENUM，ARRAY】
+  type: string(name='type'),
+  // 是否只读
+  readonly: boolean(name='readonly'),
+  // 是否必填
+  required: boolean(name='required'),
+  // 用于前端展示排序，数字越大优先级越高，默认为 0
+  priority?: long(name='priority'),
+  // 用于前端展示的扩展属性
+  displayProperties?: [ MapStringToStringEntry ](name='display_properties'),
+  // group_id
+  groupId: string(name='group_id'),
+}
+
+model CreateModelAttributeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 创建出的模型字段
+  data?: Attribute(name='data'),
+}
+
+/**
+ * Description: 创建模型字段
+ * Summary: 创建模型字段
+ */
+async function createModelAttribute(request: CreateModelAttributeRequest): CreateModelAttributeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createModelAttributeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建模型字段
+ * Summary: 创建模型字段
+ */
+async function createModelAttributeEx(request: CreateModelAttributeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateModelAttributeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.model.attribute.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateModelAttributeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 要更新的模型字段所属模型的唯一标识
+  modelId: string(name='model_id'),
+  // 要更新的模型字段的唯一标识
+  uniqueId: string(name='unique_id'),
+  // 名称（所属模型内唯一）
+  name: string(name='name'),
+  // 描述
+  description?: string(name='description'),
+  // 是否只读
+  readonly: boolean(name='readonly'),
+  // 是否必填
+  required: boolean(name='required'),
+  // 用于前端展示排序，数字越大优先级越高，默认为 0
+  priority?: long(name='priority'),
+  // 用于前端展示的扩展属性
+  displayProperties?: [ MapStringToStringEntry ](name='display_properties'),
+}
+
+model UpdateModelAttributeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 更新后的模型字段
+  data?: Attribute(name='data'),
+}
+
+/**
+ * Description: 更新模型字段
+ * Summary: 更新模型字段
+ */
+async function updateModelAttribute(request: UpdateModelAttributeRequest): UpdateModelAttributeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateModelAttributeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新模型字段
+ * Summary: 更新模型字段
+ */
+async function updateModelAttributeEx(request: UpdateModelAttributeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateModelAttributeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.model.attribute.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteModelAttributeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 要删除的模型字段所属模型的唯一标识
+  modelId: string(name='model_id'),
+  // 要删除的模型字段的唯一标识
+  uniqueId: string(name='unique_id'),
+}
+
+model DeleteModelAttributeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除模型字段
+ * Summary: 删除模型字段
+ */
+async function deleteModelAttribute(request: DeleteModelAttributeRequest): DeleteModelAttributeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteModelAttributeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除模型字段
+ * Summary: 删除模型字段
+ */
+async function deleteModelAttributeEx(request: DeleteModelAttributeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteModelAttributeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.model.attribute.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExistItemIdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // model_id
+  modelId: string(name='model_id'),
+  // id
+  id: string(name='id'),
+}
+
+model ExistItemIdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // exsit
+  exsit?: boolean(name='exsit'),
+}
+
+/**
+ * Description: id是否存在
+ * Summary: id是否存在
+ */
+async function existItemId(request: ExistItemIdRequest): ExistItemIdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return existItemIdEx(request, headers, runtime);
+}
+
+/**
+ * Description: id是否存在
+ * Summary: id是否存在
+ */
+async function existItemIdEx(request: ExistItemIdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExistItemIdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.item.id.exist', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryItemRelationsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 目标模型id
+  destinationModelId: string(name='destination_model_id'),
+  // item_id
+  itemId: string(name='item_id'),
+  // 1
+  pageSize?: long(name='page_size'),
+  // page_number
+  pageNumber: long(name='page_number'),
+  // display_fields
+  displayFields?: [ string ](name='display_fields'),
+  // 上钻表示查询拓扑目标为自己的上级资源，反之则是查询以自己为源目标的下级资源
+  drillUp?: boolean(name='drill_up'),
+}
+
+model QueryItemRelationsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ Item ](name='data'),
+  // total_count
+  totalCount?: long(name='total_count'),
+}
+
+/**
+ * Description: 查询当前item的关系资源，注意区分上钻和下钻
+ * Summary: 查询当前item的关系资源
+ */
+async function queryItemRelations(request: QueryItemRelationsRequest): QueryItemRelationsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryItemRelationsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询当前item的关系资源，注意区分上钻和下钻
+ * Summary: 查询当前item的关系资源
+ */
+async function queryItemRelationsEx(request: QueryItemRelationsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryItemRelationsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.item.relations.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportItemRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // model_id
+  modelId: string(name='model_id'),
+}
+
+model ImportItemResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // succeed_count
+  succeedCount?: long(name='succeed_count'),
+  // failed_count
+  failedCount?: long(name='failed_count'),
+  // failed_reasons
+  failedReasons?: [ string ](name='failed_reasons'),
+}
+
+/**
+ * Description: 导入ITEM
+ * Summary: 导入ITEM
+ */
+async function importItem(request: ImportItemRequest): ImportItemResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importItemEx(request, headers, runtime);
+}
+
+/**
+ * Description: 导入ITEM
+ * Summary: 导入ITEM
+ */
+async function importItemEx(request: ImportItemRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportItemResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.item.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExportItemRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // model_id
+  modelId: string(name='model_id'),
+  // display_fields
+  displayFields: [ string ](name='display_fields'),
+  // conditions
+  conditions?: [ Condition ](name='conditions'),
+}
+
+model ExportItemResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // file_source
+  fileSource?: string(name='file_source'),
+}
+
+/**
+ * Description: 导出资源
+ * Summary: 导出资源
+ */
+async function exportItem(request: ExportItemRequest): ExportItemResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return exportItemEx(request, headers, runtime);
+}
+
+/**
+ * Description: 导出资源
+ * Summary: 导出资源
+ */
+async function exportItemEx(request: ExportItemRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExportItemResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.item.export', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetModelrelationshipRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 要获取的模型关联的目标模型的唯一标识
+  destinationModelId: string(name='destination_model_id'),
+  // 要获取的模型关联的源模型的唯一标识
+  sourceModelId: string(name='source_model_id'),
+}
+
+model GetModelrelationshipResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 获取到的模型关联
+  data?: ModelRelationship(name='data'),
+}
+
+/**
+ * Description: 获取单个模型关联
+ * Summary: 获取单个模型关联
+ */
+async function getModelrelationship(request: GetModelrelationshipRequest): GetModelrelationshipResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getModelrelationshipEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取单个模型关联
+ * Summary: 获取单个模型关联
+ */
+async function getModelrelationshipEx(request: GetModelrelationshipRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetModelrelationshipResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.modelrelationship.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryModelrelationshipRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 目标模型的唯一标识
+  destinationModelId?: string(name='destination_model_id'),
+}
+
+model QueryModelrelationshipResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询到的模型关联列表
+  data?: [ ModelRelationship ](name='data'),
+}
+
+/**
+ * Description: 查询模型关联
+ * Summary: 查询模型关联
+ */
+async function queryModelrelationship(request: QueryModelrelationshipRequest): QueryModelrelationshipResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryModelrelationshipEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询模型关联
+ * Summary: 查询模型关联
+ */
+async function queryModelrelationshipEx(request: QueryModelrelationshipRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryModelrelationshipResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.modelrelationship.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateModelrelationshipRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 目标模型的唯一标识
+  destinationModelId: string(name='destination_model_id'),
+  // 源模型的唯一标识（目标模型内唯一）
+  sourceModelId: string(name='source_model_id'),
+  // 描述
+  description?: string(name='description'),
+  // 关联类型【取值范围：ONE_TO_ONE，ONE_TO_MANY】
+  relationType: string(name='relation_type'),
+}
+
+model CreateModelrelationshipResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 创建出的模型关联
+  data?: ModelRelationship(name='data'),
+}
+
+/**
+ * Description: 创建模型关联
+ * Summary: 创建模型关联
+ */
+async function createModelrelationship(request: CreateModelrelationshipRequest): CreateModelrelationshipResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createModelrelationshipEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建模型关联
+ * Summary: 创建模型关联
+ */
+async function createModelrelationshipEx(request: CreateModelrelationshipRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateModelrelationshipResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.modelrelationship.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateModelrelationshipRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 要更新的模型关联的目标模型的唯一标识
+  destinationModelId: string(name='destination_model_id'),
+  // 要更新的模型关联的源模型的唯一标识
+  sourceModelId: string(name='source_model_id'),
+  // 描述
+  description?: string(name='description'),
+}
+
+model UpdateModelrelationshipResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 更新后的模型关联
+  data?: ModelRelationship(name='data'),
+}
+
+/**
+ * Description: 更新模型关联
+ * Summary: 更新模型关联
+ */
+async function updateModelrelationship(request: UpdateModelrelationshipRequest): UpdateModelrelationshipResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateModelrelationshipEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新模型关联
+ * Summary: 更新模型关联
+ */
+async function updateModelrelationshipEx(request: UpdateModelrelationshipRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateModelrelationshipResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.modelrelationship.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteModelrelationshipRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 要删除的模型关联的目标模型的唯一标识
+  destinationModelId: string(name='destination_model_id'),
+  // 要删除的模型关联的源模型的唯一标识
+  sourceModelId: string(name='source_model_id'),
+}
+
+model DeleteModelrelationshipResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除模型关联
+ * Summary: 删除模型关联
+ */
+async function deleteModelrelationship(request: DeleteModelrelationshipRequest): DeleteModelrelationshipResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteModelrelationshipEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除模型关联
+ * Summary: 删除模型关联
+ */
+async function deleteModelrelationshipEx(request: DeleteModelrelationshipRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteModelrelationshipResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.modelrelationship.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PullParamRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+}
+
+model PullParamResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ SystemParam ](name='data'),
+}
+
+/**
+ * Description: 拉取当前环境的参数表
+ * Summary: 拉取当前环境的参数表
+ */
+async function pullParam(request: PullParamRequest): PullParamResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pullParamEx(request, headers, runtime);
+}
+
+/**
+ * Description: 拉取当前环境的参数表
+ * Summary: 拉取当前环境的参数表
+ */
+async function pullParamEx(request: PullParamRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PullParamResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.param.pull', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushParamRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 更新的键值
+  key: string(name='key'),
+  // 由于OP不支持MAP，需要使用json字符串
+  valueJson: string(name='value_json'),
+  // description
+  description: string(name='description'),
+  // value_type
+  valueType: string(name='value_type'),
+  // 参数分组
+  groupName: string(name='group_name'),
+}
+
+model PushParamResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新配置信息
+ * Summary: 更新配置信息
+ */
+async function pushParam(request: PushParamRequest): PushParamResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushParamEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新配置信息
+ * Summary: 更新配置信息
+ */
+async function pushParamEx(request: PushParamRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushParamResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.param.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAttributegroupRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // display_name
+  displayName: string(name='display_name'),
+  // model_id
+  modelId: string(name='model_id'),
+}
+
+model CreateAttributegroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建字段组
+ * Summary: 创建字段组
+ */
+async function createAttributegroup(request: CreateAttributegroupRequest): CreateAttributegroupResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAttributegroupEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建字段组
+ * Summary: 创建字段组
+ */
+async function createAttributegroupEx(request: CreateAttributegroupRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAttributegroupResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.attributegroup.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAttributegroupRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // model_id
+  modelId: string(name='model_id'),
+}
+
+model QueryAttributegroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ AttributeGroup ](name='data'),
+  // total_count
+  totalCount?: long(name='total_count'),
+}
+
+/**
+ * Description: 查询字段组
+ * Summary: 查询字段组
+ */
+async function queryAttributegroup(request: QueryAttributegroupRequest): QueryAttributegroupResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAttributegroupEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询字段组
+ * Summary: 查询字段组
+ */
+async function queryAttributegroupEx(request: QueryAttributegroupRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAttributegroupResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.attributegroup.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteAttributegroupRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // id
+  id: string(name='id'),
+}
+
+model DeleteAttributegroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除字段组
+ * Summary: 删除字段组
+ */
+async function deleteAttributegroup(request: DeleteAttributegroupRequest): DeleteAttributegroupResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteAttributegroupEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除字段组
+ * Summary: 删除字段组
+ */
+async function deleteAttributegroupEx(request: DeleteAttributegroupRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteAttributegroupResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.attributegroup.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateAttributegroupRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // id
+  id: string(name='id'),
+  // display_name
+  displayName: string(name='display_name'),
+}
+
+model UpdateAttributegroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新字段组
+ * Summary: 更新字段组
+ */
+async function updateAttributegroup(request: UpdateAttributegroupRequest): UpdateAttributegroupResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateAttributegroupEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新字段组
+ * Summary: 更新字段组
+ */
+async function updateAttributegroupEx(request: UpdateAttributegroupRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateAttributegroupResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.attributegroup.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAuditlogRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 操作者
+  operatorName?: string(name='operator_name'),
+  // resource_type
+  resourceType?: string(name='resource_type'),
+  // resource_ids
+  resourceIds?: [ string ](name='resource_ids'),
+  // begin_time
+  beginTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='begin_time'),
+  // end_time
+  endTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time'),
+  // page_size
+  pageSize: long(name='page_size'),
+  // page_number
+  pageNumber: long(name='page_number'),
+}
+
+model QueryAuditlogResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ AuditLog ](name='data'),
+  // total_count
+  totalCount?: long(name='total_count'),
+}
+
+/**
+ * Description: 审计日志查询
+ * Summary: 审计日志查询
+ */
+async function queryAuditlog(request: QueryAuditlogRequest): QueryAuditlogResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAuditlogEx(request, headers, runtime);
+}
+
+/**
+ * Description: 审计日志查询
+ * Summary: 审计日志查询
+ */
+async function queryAuditlogEx(request: QueryAuditlogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuditlogResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cmdb.auditlog.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
