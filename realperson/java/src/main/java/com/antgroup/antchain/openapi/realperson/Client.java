@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.7")
+                    new TeaPair("sdk_version", "1.6.0")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -387,6 +387,63 @@ public class Client {
     public CheckRouteTwometaResponse checkRouteTwometaEx(CheckRouteTwometaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.route.twometa.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckRouteTwometaResponse());
+    }
+
+    /**
+     * Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
+     * Summary: 移动风险设备查询
+     */
+    public QueryMobileRiskResponse queryMobileRisk(QueryMobileRiskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryMobileRiskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
+     * Summary: 移动风险设备查询
+     */
+    public QueryMobileRiskResponse queryMobileRiskEx(QueryMobileRiskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.mobile.risk.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMobileRiskResponse());
+    }
+
+    /**
+     * Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
+     * Summary: 查询认证人、认证时间等相关信息
+     */
+    public DetailFacevrfServerResponse detailFacevrfServer(DetailFacevrfServerRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailFacevrfServerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
+     * Summary: 查询认证人、认证时间等相关信息
+     */
+    public DetailFacevrfServerResponse detailFacevrfServerEx(DetailFacevrfServerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.facevrf.server.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailFacevrfServerResponse());
+    }
+
+    /**
+     * Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
+     * Summary: 个人反欺诈风险校验
+     */
+    public CheckAnticheatPersonalResponse checkAnticheatPersonal(CheckAnticheatPersonalRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkAnticheatPersonalEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
+     * Summary: 个人反欺诈风险校验
+     */
+    public CheckAnticheatPersonalResponse checkAnticheatPersonalEx(CheckAnticheatPersonalRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.anticheat.personal.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckAnticheatPersonalResponse());
     }
 
     /**
