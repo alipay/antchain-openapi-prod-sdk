@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\REALPERSON\Models\CheckAnticheatPersonalRequest;
+use AntChain\REALPERSON\Models\CheckAnticheatPersonalResponse;
 use AntChain\REALPERSON\Models\CheckIndividualidFourmetaRequest;
 use AntChain\REALPERSON\Models\CheckIndividualidFourmetaResponse;
 use AntChain\REALPERSON\Models\CheckIndividualidThreemetaRequest;
@@ -27,12 +29,16 @@ use AntChain\REALPERSON\Models\CreateFacevrfServerRequest;
 use AntChain\REALPERSON\Models\CreateFacevrfServerResponse;
 use AntChain\REALPERSON\Models\CreateVoiceprintServermodeRequest;
 use AntChain\REALPERSON\Models\CreateVoiceprintServermodeResponse;
+use AntChain\REALPERSON\Models\DetailFacevrfServerRequest;
+use AntChain\REALPERSON\Models\DetailFacevrfServerResponse;
 use AntChain\REALPERSON\Models\ExecFacevrfServerRequest;
 use AntChain\REALPERSON\Models\ExecFacevrfServerResponse;
 use AntChain\REALPERSON\Models\GetFacevrfEvidenceRequest;
 use AntChain\REALPERSON\Models\GetFacevrfEvidenceResponse;
 use AntChain\REALPERSON\Models\QueryFacevrfServerRequest;
 use AntChain\REALPERSON\Models\QueryFacevrfServerResponse;
+use AntChain\REALPERSON\Models\QueryMobileRiskRequest;
+use AntChain\REALPERSON\Models\QueryMobileRiskResponse;
 use AntChain\REALPERSON\Models\VerifyVoiceprintServermodeRequest;
 use AntChain\REALPERSON\Models\VerifyVoiceprintServermodeResponse;
 use AntChain\Util\UtilClient;
@@ -182,7 +188,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.7',
+                    'sdk_version'      => '1.6.0',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -607,6 +613,105 @@ class Client
         Utils::validateModel($request);
 
         return CheckRouteTwometaResponse::fromMap($this->doRequest('1.0', 'di.realperson.route.twometa.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
+     * Summary: 移动风险设备查询.
+     *
+     * @param QueryMobileRiskRequest $request
+     *
+     * @return QueryMobileRiskResponse
+     */
+    public function queryMobileRisk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMobileRiskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
+     * Summary: 移动风险设备查询.
+     *
+     * @param QueryMobileRiskRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryMobileRiskResponse
+     */
+    public function queryMobileRiskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMobileRiskResponse::fromMap($this->doRequest('1.0', 'di.realperson.mobile.risk.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
+     * Summary: 查询认证人、认证时间等相关信息.
+     *
+     * @param DetailFacevrfServerRequest $request
+     *
+     * @return DetailFacevrfServerResponse
+     */
+    public function detailFacevrfServer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailFacevrfServerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
+     * Summary: 查询认证人、认证时间等相关信息.
+     *
+     * @param DetailFacevrfServerRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return DetailFacevrfServerResponse
+     */
+    public function detailFacevrfServerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailFacevrfServerResponse::fromMap($this->doRequest('1.0', 'di.realperson.facevrf.server.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
+     * Summary: 个人反欺诈风险校验.
+     *
+     * @param CheckAnticheatPersonalRequest $request
+     *
+     * @return CheckAnticheatPersonalResponse
+     */
+    public function checkAnticheatPersonal($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkAnticheatPersonalEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
+     * Summary: 个人反欺诈风险校验.
+     *
+     * @param CheckAnticheatPersonalRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CheckAnticheatPersonalResponse
+     */
+    public function checkAnticheatPersonalEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckAnticheatPersonalResponse::fromMap($this->doRequest('1.0', 'di.realperson.anticheat.personal.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
