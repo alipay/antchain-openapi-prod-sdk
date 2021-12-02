@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.7"},
+                        {"sdk_version", "1.6.0"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.7"},
+                        {"sdk_version", "1.6.0"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -823,6 +823,132 @@ namespace AntChain.SDK.REALPERSON
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CheckRouteTwometaResponse>(await DoRequestAsync("1.0", "di.realperson.route.twometa.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
+         * Summary: 移动风险设备查询
+         */
+        public QueryMobileRiskResponse QueryMobileRisk(QueryMobileRiskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMobileRiskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
+         * Summary: 移动风险设备查询
+         */
+        public async Task<QueryMobileRiskResponse> QueryMobileRiskAsync(QueryMobileRiskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMobileRiskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
+         * Summary: 移动风险设备查询
+         */
+        public QueryMobileRiskResponse QueryMobileRiskEx(QueryMobileRiskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMobileRiskResponse>(DoRequest("1.0", "di.realperson.mobile.risk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
+         * Summary: 移动风险设备查询
+         */
+        public async Task<QueryMobileRiskResponse> QueryMobileRiskExAsync(QueryMobileRiskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMobileRiskResponse>(await DoRequestAsync("1.0", "di.realperson.mobile.risk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
+         * Summary: 查询认证人、认证时间等相关信息
+         */
+        public DetailFacevrfServerResponse DetailFacevrfServer(DetailFacevrfServerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DetailFacevrfServerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
+         * Summary: 查询认证人、认证时间等相关信息
+         */
+        public async Task<DetailFacevrfServerResponse> DetailFacevrfServerAsync(DetailFacevrfServerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DetailFacevrfServerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
+         * Summary: 查询认证人、认证时间等相关信息
+         */
+        public DetailFacevrfServerResponse DetailFacevrfServerEx(DetailFacevrfServerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailFacevrfServerResponse>(DoRequest("1.0", "di.realperson.facevrf.server.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
+         * Summary: 查询认证人、认证时间等相关信息
+         */
+        public async Task<DetailFacevrfServerResponse> DetailFacevrfServerExAsync(DetailFacevrfServerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailFacevrfServerResponse>(await DoRequestAsync("1.0", "di.realperson.facevrf.server.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
+         * Summary: 个人反欺诈风险校验
+         */
+        public CheckAnticheatPersonalResponse CheckAnticheatPersonal(CheckAnticheatPersonalRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckAnticheatPersonalEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
+         * Summary: 个人反欺诈风险校验
+         */
+        public async Task<CheckAnticheatPersonalResponse> CheckAnticheatPersonalAsync(CheckAnticheatPersonalRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckAnticheatPersonalExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
+         * Summary: 个人反欺诈风险校验
+         */
+        public CheckAnticheatPersonalResponse CheckAnticheatPersonalEx(CheckAnticheatPersonalRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckAnticheatPersonalResponse>(DoRequest("1.0", "di.realperson.anticheat.personal.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
+         * Summary: 个人反欺诈风险校验
+         */
+        public async Task<CheckAnticheatPersonalResponse> CheckAnticheatPersonalExAsync(CheckAnticheatPersonalRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckAnticheatPersonalResponse>(await DoRequestAsync("1.0", "di.realperson.anticheat.personal.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
