@@ -1164,6 +1164,235 @@ export class CheckRouteTwometaResponse extends $tea.Model {
   }
 }
 
+export class QueryMobileRiskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+  outerOrderNo: string;
+  // 设备身份临时标识
+  apdidToken: string;
+  // 接口使用场景，不同场景下接口返回字段集合会有差异，可缺省
+  scene?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      apdidToken: 'apdid_token',
+      scene: 'scene',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      apdidToken: 'string',
+      scene: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMobileRiskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 设备相关数据，默认只返回apdid，由Map<String,String>序列化
+  deviceInfo?: string;
+  // 设备风险标签，由Map<String,String>序列化
+  riskInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      deviceInfo: 'device_info',
+      riskInfo: 'risk_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      deviceInfo: 'string',
+      riskInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailFacevrfServerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 实人认证唯一标识
+  certifyId: string;
+  // 预留扩展业务参数
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      certifyId: 'certify_id',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      certifyId: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailFacevrfServerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // PASS：认证通过
+  // FAIL：认证不通过
+  // NO_RECODE：无认证记录
+  // PROCESSING：认证中
+  state?: string;
+  // 认证人信息，包括姓名和身份证号，不加密
+  // state为PASS/FAIL/PROCESSING时为JSON字符串，为NO_RECORD时为空
+  identityInfo?: string;
+  // 预留扩展结果
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      state: 'state',
+      identityInfo: 'identity_info',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      state: 'string',
+      identityInfo: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckAnticheatPersonalRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部请求id
+  outerOrderNo: string;
+  // 主体姓名
+  certName?: string;
+  // 主体身份证号
+  certNo: string;
+  // 受雇企业
+  companyName: string;
+  // 组织机构代码
+  companyNo?: string;
+  // 扩展字段，json格式
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      companyName: 'company_name',
+      companyNo: 'company_no',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      certName: 'string',
+      certNo: 'string',
+      companyName: 'string',
+      companyNo: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckAnticheatPersonalResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 风险等级
+  riskLevel?: string;
+  // 扩展信息
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      riskLevel: 'risk_level',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      riskLevel: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1365,7 +1594,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.7",
+          sdk_version: "1.6.0",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1639,6 +1868,63 @@ export default class Client {
   async checkRouteTwometaEx(request: CheckRouteTwometaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckRouteTwometaResponse> {
     Util.validateModel(request);
     return $tea.cast<CheckRouteTwometaResponse>(await this.doRequest("1.0", "di.realperson.route.twometa.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckRouteTwometaResponse({}));
+  }
+
+  /**
+   * Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
+   * Summary: 移动风险设备查询
+   */
+  async queryMobileRisk(request: QueryMobileRiskRequest): Promise<QueryMobileRiskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryMobileRiskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
+   * Summary: 移动风险设备查询
+   */
+  async queryMobileRiskEx(request: QueryMobileRiskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMobileRiskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryMobileRiskResponse>(await this.doRequest("1.0", "di.realperson.mobile.risk.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMobileRiskResponse({}));
+  }
+
+  /**
+   * Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
+   * Summary: 查询认证人、认证时间等相关信息
+   */
+  async detailFacevrfServer(request: DetailFacevrfServerRequest): Promise<DetailFacevrfServerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.detailFacevrfServerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
+   * Summary: 查询认证人、认证时间等相关信息
+   */
+  async detailFacevrfServerEx(request: DetailFacevrfServerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailFacevrfServerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DetailFacevrfServerResponse>(await this.doRequest("1.0", "di.realperson.facevrf.server.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailFacevrfServerResponse({}));
+  }
+
+  /**
+   * Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
+   * Summary: 个人反欺诈风险校验
+   */
+  async checkAnticheatPersonal(request: CheckAnticheatPersonalRequest): Promise<CheckAnticheatPersonalResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkAnticheatPersonalEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
+   * Summary: 个人反欺诈风险校验
+   */
+  async checkAnticheatPersonalEx(request: CheckAnticheatPersonalRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckAnticheatPersonalResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckAnticheatPersonalResponse>(await this.doRequest("1.0", "di.realperson.anticheat.personal.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckAnticheatPersonalResponse({}));
   }
 
   /**

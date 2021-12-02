@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/realperson",
-  "version": "1.3.7",
+  "version": "1.6.0",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
