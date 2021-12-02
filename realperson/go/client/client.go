@@ -1625,6 +1625,304 @@ func (s *CheckRouteTwometaResponse) SetExternInfo(v string) *CheckRouteTwometaRe
 	return s
 }
 
+type QueryMobileRiskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 设备身份临时标识
+	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty" require:"true"`
+	// 接口使用场景，不同场景下接口返回字段集合会有差异，可缺省
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+}
+
+func (s QueryMobileRiskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMobileRiskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMobileRiskRequest) SetAuthToken(v string) *QueryMobileRiskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMobileRiskRequest) SetProductInstanceId(v string) *QueryMobileRiskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMobileRiskRequest) SetOuterOrderNo(v string) *QueryMobileRiskRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryMobileRiskRequest) SetApdidToken(v string) *QueryMobileRiskRequest {
+	s.ApdidToken = &v
+	return s
+}
+
+func (s *QueryMobileRiskRequest) SetScene(v string) *QueryMobileRiskRequest {
+	s.Scene = &v
+	return s
+}
+
+type QueryMobileRiskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 设备相关数据，默认只返回apdid，由Map<String,String>序列化
+	DeviceInfo *string `json:"device_info,omitempty" xml:"device_info,omitempty"`
+	// 设备风险标签，由Map<String,String>序列化
+	RiskInfo *string `json:"risk_info,omitempty" xml:"risk_info,omitempty"`
+}
+
+func (s QueryMobileRiskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMobileRiskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMobileRiskResponse) SetReqMsgId(v string) *QueryMobileRiskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMobileRiskResponse) SetResultCode(v string) *QueryMobileRiskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMobileRiskResponse) SetResultMsg(v string) *QueryMobileRiskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMobileRiskResponse) SetDeviceInfo(v string) *QueryMobileRiskResponse {
+	s.DeviceInfo = &v
+	return s
+}
+
+func (s *QueryMobileRiskResponse) SetRiskInfo(v string) *QueryMobileRiskResponse {
+	s.RiskInfo = &v
+	return s
+}
+
+type DetailFacevrfServerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 实人认证唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
+	// 预留扩展业务参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s DetailFacevrfServerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailFacevrfServerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailFacevrfServerRequest) SetAuthToken(v string) *DetailFacevrfServerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailFacevrfServerRequest) SetProductInstanceId(v string) *DetailFacevrfServerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailFacevrfServerRequest) SetCertifyId(v string) *DetailFacevrfServerRequest {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *DetailFacevrfServerRequest) SetExternParam(v string) *DetailFacevrfServerRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type DetailFacevrfServerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// PASS：认证通过
+	// FAIL：认证不通过
+	// NO_RECODE：无认证记录
+	// PROCESSING：认证中
+	State *string `json:"state,omitempty" xml:"state,omitempty"`
+	// 认证人信息，包括姓名和身份证号，不加密
+	// state为PASS/FAIL/PROCESSING时为JSON字符串，为NO_RECORD时为空
+	IdentityInfo *string `json:"identity_info,omitempty" xml:"identity_info,omitempty"`
+	// 预留扩展结果
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s DetailFacevrfServerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailFacevrfServerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailFacevrfServerResponse) SetReqMsgId(v string) *DetailFacevrfServerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailFacevrfServerResponse) SetResultCode(v string) *DetailFacevrfServerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailFacevrfServerResponse) SetResultMsg(v string) *DetailFacevrfServerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailFacevrfServerResponse) SetState(v string) *DetailFacevrfServerResponse {
+	s.State = &v
+	return s
+}
+
+func (s *DetailFacevrfServerResponse) SetIdentityInfo(v string) *DetailFacevrfServerResponse {
+	s.IdentityInfo = &v
+	return s
+}
+
+func (s *DetailFacevrfServerResponse) SetExternInfo(v string) *DetailFacevrfServerResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type CheckAnticheatPersonalRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部请求id
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 主体姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 主体身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 受雇企业
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
+	// 组织机构代码
+	CompanyNo *string `json:"company_no,omitempty" xml:"company_no,omitempty"`
+	// 扩展字段，json格式
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s CheckAnticheatPersonalRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckAnticheatPersonalRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckAnticheatPersonalRequest) SetAuthToken(v string) *CheckAnticheatPersonalRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalRequest) SetProductInstanceId(v string) *CheckAnticheatPersonalRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalRequest) SetOuterOrderNo(v string) *CheckAnticheatPersonalRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalRequest) SetCertName(v string) *CheckAnticheatPersonalRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalRequest) SetCertNo(v string) *CheckAnticheatPersonalRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalRequest) SetCompanyName(v string) *CheckAnticheatPersonalRequest {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalRequest) SetCompanyNo(v string) *CheckAnticheatPersonalRequest {
+	s.CompanyNo = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalRequest) SetExternParam(v string) *CheckAnticheatPersonalRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type CheckAnticheatPersonalResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 风险等级
+	RiskLevel *string `json:"risk_level,omitempty" xml:"risk_level,omitempty"`
+	// 扩展信息
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s CheckAnticheatPersonalResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckAnticheatPersonalResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckAnticheatPersonalResponse) SetReqMsgId(v string) *CheckAnticheatPersonalResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalResponse) SetResultCode(v string) *CheckAnticheatPersonalResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalResponse) SetResultMsg(v string) *CheckAnticheatPersonalResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalResponse) SetRiskLevel(v string) *CheckAnticheatPersonalResponse {
+	s.RiskLevel = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalResponse) SetExternInfo(v string) *CheckAnticheatPersonalResponse {
+	s.ExternInfo = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1867,7 +2165,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.7"),
+				"sdk_version":      tea.String("1.6.0"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -2311,6 +2609,108 @@ func (client *Client) CheckRouteTwometaEx(request *CheckRouteTwometaRequest, hea
 	}
 	_result = &CheckRouteTwometaResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.route.twometa.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
+ * Summary: 移动风险设备查询
+ */
+func (client *Client) QueryMobileRisk(request *QueryMobileRiskRequest) (_result *QueryMobileRiskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMobileRiskResponse{}
+	_body, _err := client.QueryMobileRiskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
+ * Summary: 移动风险设备查询
+ */
+func (client *Client) QueryMobileRiskEx(request *QueryMobileRiskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMobileRiskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMobileRiskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.mobile.risk.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
+ * Summary: 查询认证人、认证时间等相关信息
+ */
+func (client *Client) DetailFacevrfServer(request *DetailFacevrfServerRequest) (_result *DetailFacevrfServerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailFacevrfServerResponse{}
+	_body, _err := client.DetailFacevrfServerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
+ * Summary: 查询认证人、认证时间等相关信息
+ */
+func (client *Client) DetailFacevrfServerEx(request *DetailFacevrfServerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailFacevrfServerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailFacevrfServerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.facevrf.server.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
+ * Summary: 个人反欺诈风险校验
+ */
+func (client *Client) CheckAnticheatPersonal(request *CheckAnticheatPersonalRequest) (_result *CheckAnticheatPersonalResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckAnticheatPersonalResponse{}
+	_body, _err := client.CheckAnticheatPersonalEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
+ * Summary: 个人反欺诈风险校验
+ */
+func (client *Client) CheckAnticheatPersonalEx(request *CheckAnticheatPersonalRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckAnticheatPersonalResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckAnticheatPersonalResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.anticheat.personal.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
