@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.21',
+    sdk_version = '1.6.35',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -177,6 +177,10 @@ model SceneModel {
   tenantName?: string(name='tenant_name', example='testTenant'),
   // 场景类型
   sceneType?: string(name='scene_type', example='共享单车'),
+  // 是否跳过中台数据校验处理
+  skipPegasus?: boolean(name='skip_pegasus', example='true, false'),
+  // 定制数据处理类 , 使用用逗号分隔
+  customerProcessor?: string(name='customer_processor', example='XXX_GPS_PROCESSOR'),
 }
 
 // 原始数据包
@@ -279,6 +283,16 @@ model CollectContent {
   signature: string(name='signature', example='wwexe02j'),
   // 服务端发送的扩展数据（非可信设备直接产生的数据）
   extraData?: string(name='extra_data', example='{"extraKey":"extraValue"}'),
+  // 数据模型Id
+  dataModelId?: string(name='data_model_id', example='00000001'),
+}
+
+// tlsnotary文件认证成功后上传到oss的文件链接列表
+model TlsnotaryUploadOssLinks {
+  // 证书链摘要文件的oss链接
+  certChainDigestLink: string(name='cert_chain_digest_link', example='tlsnotary/{taskId}.json'),
+  // 邮件eml文件的oss链接
+  emlFileLink: string(name='eml_file_link', example='tlsnotary/{taskId}.eml'),
 }
 
 // 发行设备
@@ -426,6 +440,8 @@ model LabelTrace {
   errorMsg?: string(name='error_msg', example='XXXXX'),
   // 是否上链成功
   isSuccess?: boolean(name='is_success', example='true, false'),
+  // 标签对应资产版本号
+  version?: long(name='version', example='1'),
 }
 
 // 场景分页查询结果
@@ -484,6 +500,8 @@ model DataModel {
   dataModelName?: string(name='data_model_name', example='检测设备模型'),
   // 数据模型
   dataModel: string(name='data_model', example='{          "PIC-URL": {                 "type": "string",                 "require":false              } }'),
+  // 数据模型类别
+  bizType?: string(name='biz_type', example='ORDER'),
 }
 
 // 租户项目创建请求结构体模型
@@ -1016,6 +1034,141 @@ model BaiOcrResponse {
   data: string(name='data', example='{"backResult":{"issue":"XXXX","endDate":"20231010","startDate":"20131010"}}'),
 }
 
+model OpenAcecContractRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 产品码，全局唯一
+  productCode: string(name='product_code'),
+  // 开通产品的租户ID
+  tenantId: string(name='tenant_id'),
+  // 实例Id
+  instanceId: string(name='instance_id'),
+  // 服务接入码
+  accessCode: string(name='access_code'),
+  // 用户自定义数据
+  customData?: string(name='custom_data'),
+}
+
+model OpenAcecContractResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务返回字段
+  data?: string(name='data'),
+}
+
+/**
+ * Description: acec提供的SPI服务开通接口
+ * Summary: acec提供的SPI服务开通接口
+ */
+async function openAcecContract(request: OpenAcecContractRequest): OpenAcecContractResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return openAcecContractEx(request, headers, runtime);
+}
+
+/**
+ * Description: acec提供的SPI服务开通接口
+ * Summary: acec提供的SPI服务开通接口
+ */
+async function openAcecContractEx(request: OpenAcecContractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OpenAcecContractResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.acec.contract.open', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StopAcecContractRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 产品码，全局唯一
+  productCode: string(name='product_code'),
+  // 产品实例Id
+  instanceId: string(name='instance_id'),
+}
+
+model StopAcecContractResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务返回字段
+  data?: string(name='data'),
+}
+
+/**
+ * Description: AI服务组提供的SPI服务停止接口
+ * Summary: acec提供的SPI服务停止接口
+ */
+async function stopAcecContract(request: StopAcecContractRequest): StopAcecContractResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return stopAcecContractEx(request, headers, runtime);
+}
+
+/**
+ * Description: AI服务组提供的SPI服务停止接口
+ * Summary: acec提供的SPI服务停止接口
+ */
+async function stopAcecContractEx(request: StopAcecContractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StopAcecContractResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.acec.contract.stop', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ResumeAcecContractRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 服务接入码
+  accessCode: string(name='access_code'),
+  // 实例Id
+  instanceId: string(name='instance_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 产品码，全局唯一
+  productCode: string(name='product_code'),
+}
+
+model ResumeAcecContractResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务返回字段
+  // 
+  data?: string(name='data'),
+}
+
+/**
+ * Description: acec提供的SPI服务复入接口
+ * Summary: acec提供的SPI服务复入接口
+ */
+async function resumeAcecContract(request: ResumeAcecContractRequest): ResumeAcecContractResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return resumeAcecContractEx(request, headers, runtime);
+}
+
+/**
+ * Description: acec提供的SPI服务复入接口
+ * Summary: acec提供的SPI服务复入接口
+ */
+async function resumeAcecContractEx(request: ResumeAcecContractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ResumeAcecContractResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.acec.contract.resume', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model CreateAcsDeviceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1445,6 +1598,8 @@ model CreateDeviceDatamodelRequest = {
   dataModel: string(name='data_model'),
   // 数据模型名称
   dataModelName?: string(name='data_model_name'),
+  // 数据模型类别
+  bizType?: string(name='biz_type'),
 }
 
 model CreateDeviceDatamodelResponse = {
@@ -1961,6 +2116,8 @@ model SendCollectorBychainidRequest = {
   collectContentList: [ CollectContent ](name='collect_content_list'),
   // 随机数，防重放
   nonce: string(name='nonce'),
+  // 数据模型Id
+  dataModelId?: string(name='data_model_id'),
 }
 
 model SendCollectorBychainidResponse = {
@@ -4128,6 +4285,8 @@ model UpdateSceneRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 主键Id 
   id: long(name='id'),
+  // 是否跳过中台数据校验处理
+  skipPegasus: boolean(name='skip_pegasus'),
   // 场景名称
   // 
   sceneName?: string(name='scene_name'),
@@ -4137,6 +4296,8 @@ model UpdateSceneRequest = {
   // 场景类型
   // 
   sceneType?: string(name='scene_type'),
+  // 定制数据处理类 , 使用用逗号分隔
+  customerProcessor?: string(name='customer_processor'),
 }
 
 model UpdateSceneResponse = {
@@ -5074,5 +5235,95 @@ async function loadTsmResourcefile(request: LoadTsmResourcefileRequest): LoadTsm
 async function loadTsmResourcefileEx(request: LoadTsmResourcefileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): LoadTsmResourcefileResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.tsm.resourcefile.load', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartTlsnotaryTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 唯一的业务tlsnotary任务id
+  taskId: string(name='task_id'),
+  // 加固文件的oss链接
+  ossLink: string(name='oss_link'),
+}
+
+model StartTlsnotaryTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 唯一的业务tlsnotary任务id
+  taskId?: string(name='task_id'),
+  // 业务错误码
+  errorCode?: long(name='error_code'),
+  // 错误信息
+  errorMsg?: string(name='error_msg'),
+}
+
+/**
+ * Description: 触发tlsnotary文件认证任务
+ * Summary: 触发tlsnotary文件认证任务
+ */
+async function startTlsnotaryTask(request: StartTlsnotaryTaskRequest): StartTlsnotaryTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startTlsnotaryTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 触发tlsnotary文件认证任务
+ * Summary: 触发tlsnotary文件认证任务
+ */
+async function startTlsnotaryTaskEx(request: StartTlsnotaryTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartTlsnotaryTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.tlsnotary.task.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTlsnotaryTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 唯一的业务 tlsnotary 任务 id
+  taskId: string(name='task_id'),
+}
+
+model QueryTlsnotaryTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 唯一的业务 tlsnotary 任务 id
+  taskId?: string(name='task_id'),
+  // tlsnotary任务执行状态
+  state?: long(name='state'),
+  // 上传文件oss链接
+  uploadOssLinks?: TlsnotaryUploadOssLinks(name='upload_oss_links'),
+  // 业务错误码
+  errorCode?: long(name='error_code'),
+  // 业务错误信息
+  errorMsg?: string(name='error_msg'),
+}
+
+/**
+ * Description: 查询tlsnotary文件认证任务结果
+ * Summary: 查询tlsnotary文件认证任务结果
+ */
+async function queryTlsnotaryTask(request: QueryTlsnotaryTaskRequest): QueryTlsnotaryTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTlsnotaryTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询tlsnotary文件认证任务结果
+ * Summary: 查询tlsnotary文件认证任务结果
+ */
+async function queryTlsnotaryTaskEx(request: QueryTlsnotaryTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTlsnotaryTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.tlsnotary.task.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
