@@ -23,6 +23,10 @@ public class CollectContent extends TeaModel {
     @NameInMap("extra_data")
     public String extraData;
 
+    // 数据模型Id
+    @NameInMap("data_model_id")
+    public String dataModelId;
+
     public static CollectContent build(java.util.Map<String, ?> map) throws Exception {
         CollectContent self = new CollectContent();
         return TeaModel.build(map, self);
@@ -58,6 +62,14 @@ public class CollectContent extends TeaModel {
     }
     public String getExtraData() {
         return this.extraData;
+    }
+
+    public CollectContent setDataModelId(String dataModelId) {
+        this.dataModelId = dataModelId;
+        return this;
+    }
+    public String getDataModelId() {
+        return this.dataModelId;
     }
 
 }

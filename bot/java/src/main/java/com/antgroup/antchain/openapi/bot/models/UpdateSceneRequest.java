@@ -16,6 +16,11 @@ public class UpdateSceneRequest extends TeaModel {
     @Validation(required = true)
     public Long id;
 
+    // 是否跳过中台数据校验处理
+    @NameInMap("skip_pegasus")
+    @Validation(required = true)
+    public Boolean skipPegasus;
+
     // 场景名称
     // 
     @NameInMap("scene_name")
@@ -30,6 +35,10 @@ public class UpdateSceneRequest extends TeaModel {
     // 
     @NameInMap("scene_type")
     public String sceneType;
+
+    // 定制数据处理类 , 使用用逗号分隔
+    @NameInMap("customer_processor")
+    public String customerProcessor;
 
     public static UpdateSceneRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateSceneRequest self = new UpdateSceneRequest();
@@ -60,6 +69,14 @@ public class UpdateSceneRequest extends TeaModel {
         return this.id;
     }
 
+    public UpdateSceneRequest setSkipPegasus(Boolean skipPegasus) {
+        this.skipPegasus = skipPegasus;
+        return this;
+    }
+    public Boolean getSkipPegasus() {
+        return this.skipPegasus;
+    }
+
     public UpdateSceneRequest setSceneName(String sceneName) {
         this.sceneName = sceneName;
         return this;
@@ -82,6 +99,14 @@ public class UpdateSceneRequest extends TeaModel {
     }
     public String getSceneType() {
         return this.sceneType;
+    }
+
+    public UpdateSceneRequest setCustomerProcessor(String customerProcessor) {
+        this.customerProcessor = customerProcessor;
+        return this;
+    }
+    public String getCustomerProcessor() {
+        return this.customerProcessor;
     }
 
 }

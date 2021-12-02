@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.21")
+                    new TeaPair("sdk_version", "1.6.35")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -157,6 +157,63 @@ public class Client {
         }
 
         throw new TeaUnretryableException(_lastRequest, _lastException);
+    }
+
+    /**
+     * Description: acec提供的SPI服务开通接口
+     * Summary: acec提供的SPI服务开通接口
+     */
+    public OpenAcecContractResponse openAcecContract(OpenAcecContractRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.openAcecContractEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: acec提供的SPI服务开通接口
+     * Summary: acec提供的SPI服务开通接口
+     */
+    public OpenAcecContractResponse openAcecContractEx(OpenAcecContractRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.acec.contract.open", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OpenAcecContractResponse());
+    }
+
+    /**
+     * Description: AI服务组提供的SPI服务停止接口
+     * Summary: acec提供的SPI服务停止接口
+     */
+    public StopAcecContractResponse stopAcecContract(StopAcecContractRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.stopAcecContractEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: AI服务组提供的SPI服务停止接口
+     * Summary: acec提供的SPI服务停止接口
+     */
+    public StopAcecContractResponse stopAcecContractEx(StopAcecContractRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.acec.contract.stop", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StopAcecContractResponse());
+    }
+
+    /**
+     * Description: acec提供的SPI服务复入接口
+     * Summary: acec提供的SPI服务复入接口
+     */
+    public ResumeAcecContractResponse resumeAcecContract(ResumeAcecContractRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.resumeAcecContractEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: acec提供的SPI服务复入接口
+     * Summary: acec提供的SPI服务复入接口
+     */
+    public ResumeAcecContractResponse resumeAcecContractEx(ResumeAcecContractRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.acec.contract.resume", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ResumeAcecContractResponse());
     }
 
     /**
@@ -1776,5 +1833,43 @@ public class Client {
     public LoadTsmResourcefileResponse loadTsmResourcefileEx(LoadTsmResourcefileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.tsm.resourcefile.load", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new LoadTsmResourcefileResponse());
+    }
+
+    /**
+     * Description: 触发tlsnotary文件认证任务
+     * Summary: 触发tlsnotary文件认证任务
+     */
+    public StartTlsnotaryTaskResponse startTlsnotaryTask(StartTlsnotaryTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.startTlsnotaryTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 触发tlsnotary文件认证任务
+     * Summary: 触发tlsnotary文件认证任务
+     */
+    public StartTlsnotaryTaskResponse startTlsnotaryTaskEx(StartTlsnotaryTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.tlsnotary.task.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartTlsnotaryTaskResponse());
+    }
+
+    /**
+     * Description: 查询tlsnotary文件认证任务结果
+     * Summary: 查询tlsnotary文件认证任务结果
+     */
+    public QueryTlsnotaryTaskResponse queryTlsnotaryTask(QueryTlsnotaryTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTlsnotaryTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询tlsnotary文件认证任务结果
+     * Summary: 查询tlsnotary文件认证任务结果
+     */
+    public QueryTlsnotaryTaskResponse queryTlsnotaryTaskEx(QueryTlsnotaryTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.tlsnotary.task.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTlsnotaryTaskResponse());
     }
 }

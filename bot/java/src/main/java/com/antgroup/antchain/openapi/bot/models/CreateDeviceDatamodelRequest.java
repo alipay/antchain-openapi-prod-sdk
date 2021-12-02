@@ -20,6 +20,10 @@ public class CreateDeviceDatamodelRequest extends TeaModel {
     @NameInMap("data_model_name")
     public String dataModelName;
 
+    // 数据模型类别
+    @NameInMap("biz_type")
+    public String bizType;
+
     public static CreateDeviceDatamodelRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDeviceDatamodelRequest self = new CreateDeviceDatamodelRequest();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class CreateDeviceDatamodelRequest extends TeaModel {
     }
     public String getDataModelName() {
         return this.dataModelName;
+    }
+
+    public CreateDeviceDatamodelRequest setBizType(String bizType) {
+        this.bizType = bizType;
+        return this;
+    }
+    public String getBizType() {
+        return this.bizType;
     }
 
 }

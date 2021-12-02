@@ -40,6 +40,14 @@ public class SceneModel extends TeaModel {
     @NameInMap("scene_type")
     public String sceneType;
 
+    // 是否跳过中台数据校验处理
+    @NameInMap("skip_pegasus")
+    public Boolean skipPegasus;
+
+    // 定制数据处理类 , 使用用逗号分隔
+    @NameInMap("customer_processor")
+    public String customerProcessor;
+
     public static SceneModel build(java.util.Map<String, ?> map) throws Exception {
         SceneModel self = new SceneModel();
         return TeaModel.build(map, self);
@@ -107,6 +115,22 @@ public class SceneModel extends TeaModel {
     }
     public String getSceneType() {
         return this.sceneType;
+    }
+
+    public SceneModel setSkipPegasus(Boolean skipPegasus) {
+        this.skipPegasus = skipPegasus;
+        return this;
+    }
+    public Boolean getSkipPegasus() {
+        return this.skipPegasus;
+    }
+
+    public SceneModel setCustomerProcessor(String customerProcessor) {
+        this.customerProcessor = customerProcessor;
+        return this;
+    }
+    public String getCustomerProcessor() {
+        return this.customerProcessor;
     }
 
 }

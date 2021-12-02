@@ -30,6 +30,10 @@ public class LabelTrace extends TeaModel {
     @NameInMap("is_success")
     public Boolean isSuccess;
 
+    // 标签对应资产版本号
+    @NameInMap("version")
+    public Long version;
+
     public static LabelTrace build(java.util.Map<String, ?> map) throws Exception {
         LabelTrace self = new LabelTrace();
         return TeaModel.build(map, self);
@@ -81,6 +85,14 @@ public class LabelTrace extends TeaModel {
     }
     public Boolean getIsSuccess() {
         return this.isSuccess;
+    }
+
+    public LabelTrace setVersion(Long version) {
+        this.version = version;
+        return this;
+    }
+    public Long getVersion() {
+        return this.version;
     }
 
 }

@@ -26,6 +26,10 @@ public class SendCollectorBychainidRequest extends TeaModel {
     @Validation(required = true)
     public String nonce;
 
+    // 数据模型Id
+    @NameInMap("data_model_id")
+    public String dataModelId;
+
     public static SendCollectorBychainidRequest build(java.util.Map<String, ?> map) throws Exception {
         SendCollectorBychainidRequest self = new SendCollectorBychainidRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class SendCollectorBychainidRequest extends TeaModel {
     }
     public String getNonce() {
         return this.nonce;
+    }
+
+    public SendCollectorBychainidRequest setDataModelId(String dataModelId) {
+        this.dataModelId = dataModelId;
+        return this;
+    }
+    public String getDataModelId() {
+        return this.dataModelId;
     }
 
 }

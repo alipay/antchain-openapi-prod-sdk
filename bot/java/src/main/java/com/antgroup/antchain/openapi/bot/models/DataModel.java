@@ -18,6 +18,10 @@ public class DataModel extends TeaModel {
     @Validation(required = true)
     public String dataModel;
 
+    // 数据模型类别
+    @NameInMap("biz_type")
+    public String bizType;
+
     public static DataModel build(java.util.Map<String, ?> map) throws Exception {
         DataModel self = new DataModel();
         return TeaModel.build(map, self);
@@ -45,6 +49,14 @@ public class DataModel extends TeaModel {
     }
     public String getDataModel() {
         return this.dataModel;
+    }
+
+    public DataModel setBizType(String bizType) {
+        this.bizType = bizType;
+        return this;
+    }
+    public String getBizType() {
+        return this.bizType;
     }
 
 }
