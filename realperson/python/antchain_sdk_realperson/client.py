@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.7'
+                    'sdk_version': '1.6.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.7'
+                    'sdk_version': '1.6.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -897,6 +897,168 @@ class Client:
         UtilClient.validate_model(request)
         return realperson_models.CheckRouteTwometaResponse().from_map(
             await self.do_request_async('1.0', 'di.realperson.route.twometa.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_mobile_risk(
+        self,
+        request: realperson_models.QueryMobileRiskRequest,
+    ) -> realperson_models.QueryMobileRiskResponse:
+        """
+        Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
+        Summary: 移动风险设备查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_mobile_risk_ex(request, headers, runtime)
+
+    async def query_mobile_risk_async(
+        self,
+        request: realperson_models.QueryMobileRiskRequest,
+    ) -> realperson_models.QueryMobileRiskResponse:
+        """
+        Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
+        Summary: 移动风险设备查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_mobile_risk_ex_async(request, headers, runtime)
+
+    def query_mobile_risk_ex(
+        self,
+        request: realperson_models.QueryMobileRiskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryMobileRiskResponse:
+        """
+        Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
+        Summary: 移动风险设备查询
+        """
+        UtilClient.validate_model(request)
+        return realperson_models.QueryMobileRiskResponse().from_map(
+            self.do_request('1.0', 'di.realperson.mobile.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_mobile_risk_ex_async(
+        self,
+        request: realperson_models.QueryMobileRiskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryMobileRiskResponse:
+        """
+        Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
+        Summary: 移动风险设备查询
+        """
+        UtilClient.validate_model(request)
+        return realperson_models.QueryMobileRiskResponse().from_map(
+            await self.do_request_async('1.0', 'di.realperson.mobile.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_facevrf_server(
+        self,
+        request: realperson_models.DetailFacevrfServerRequest,
+    ) -> realperson_models.DetailFacevrfServerResponse:
+        """
+        Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
+        Summary: 查询认证人、认证时间等相关信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_facevrf_server_ex(request, headers, runtime)
+
+    async def detail_facevrf_server_async(
+        self,
+        request: realperson_models.DetailFacevrfServerRequest,
+    ) -> realperson_models.DetailFacevrfServerResponse:
+        """
+        Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
+        Summary: 查询认证人、认证时间等相关信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_facevrf_server_ex_async(request, headers, runtime)
+
+    def detail_facevrf_server_ex(
+        self,
+        request: realperson_models.DetailFacevrfServerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.DetailFacevrfServerResponse:
+        """
+        Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
+        Summary: 查询认证人、认证时间等相关信息
+        """
+        UtilClient.validate_model(request)
+        return realperson_models.DetailFacevrfServerResponse().from_map(
+            self.do_request('1.0', 'di.realperson.facevrf.server.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_facevrf_server_ex_async(
+        self,
+        request: realperson_models.DetailFacevrfServerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.DetailFacevrfServerResponse:
+        """
+        Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
+        Summary: 查询认证人、认证时间等相关信息
+        """
+        UtilClient.validate_model(request)
+        return realperson_models.DetailFacevrfServerResponse().from_map(
+            await self.do_request_async('1.0', 'di.realperson.facevrf.server.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_anticheat_personal(
+        self,
+        request: realperson_models.CheckAnticheatPersonalRequest,
+    ) -> realperson_models.CheckAnticheatPersonalResponse:
+        """
+        Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
+        Summary: 个人反欺诈风险校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_anticheat_personal_ex(request, headers, runtime)
+
+    async def check_anticheat_personal_async(
+        self,
+        request: realperson_models.CheckAnticheatPersonalRequest,
+    ) -> realperson_models.CheckAnticheatPersonalResponse:
+        """
+        Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
+        Summary: 个人反欺诈风险校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_anticheat_personal_ex_async(request, headers, runtime)
+
+    def check_anticheat_personal_ex(
+        self,
+        request: realperson_models.CheckAnticheatPersonalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckAnticheatPersonalResponse:
+        """
+        Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
+        Summary: 个人反欺诈风险校验
+        """
+        UtilClient.validate_model(request)
+        return realperson_models.CheckAnticheatPersonalResponse().from_map(
+            self.do_request('1.0', 'di.realperson.anticheat.personal.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_anticheat_personal_ex_async(
+        self,
+        request: realperson_models.CheckAnticheatPersonalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckAnticheatPersonalResponse:
+        """
+        Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
+        Summary: 个人反欺诈风险校验
+        """
+        UtilClient.validate_model(request)
+        return realperson_models.CheckAnticheatPersonalResponse().from_map(
+            await self.do_request_async('1.0', 'di.realperson.anticheat.personal.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
