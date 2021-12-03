@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.3',
+    sdk_version = '1.2.5',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -171,6 +171,22 @@ model File {
   // VIDEO("VIDEO","视频"),
   // ;
   type: string(name='type', example='文件类型'),
+}
+
+// 用户资产
+model UserAsset {
+  // NFT商品的商品编码
+  skuId: long(name='sku_id', example='1234'),
+  // NFT资产的唯一编码
+  nftId: string(name='nft_id', example='AC1234#001/150'),
+  // NFT商品的名称
+  skuName: string(name='sku_name', example='敦煌飞天九色鹿'),
+  // NFT的创作者名称
+  authorName: string(name='author_name', example='敦煌'),
+  // NFT的发行方名称
+  issuerName: string(name='issuer_name', example='支付宝'),
+  // 缩略图url，带5分钟鉴权
+  miniImagePath: string(name='mini_image_path', example='http://www.abc.com'),
 }
 
 model ImportNftCreateRequest = {
@@ -538,5 +554,55 @@ async function createNftIssuer(request: CreateNftIssuerRequest): CreateNftIssuer
 async function createNftIssuerEx(request: CreateNftIssuerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateNftIssuerResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.nftx.nft.issuer.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryNftCustomerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 当前页码
+  page: long(name='page'),
+  // 页长
+  pageSize: long(name='page_size'),
+  // 用户手机号或支付宝UID
+  idNo: string(name='id_no'),
+  // 用户ID类型，和id_no对应
+  idType: string(name='id_type'),
+}
+
+model PagequeryNftCustomerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 页码，查询时传入
+  page?: long(name='page'),
+  // 页长，查询时传入
+  pageSize?: long(name='page_size'),
+  // 列表总数
+  totalCount?: long(name='total_count'),
+  // 用户资产列表
+  assetList?: [ UserAsset ](name='asset_list'),
+}
+
+/**
+ * Description: B端用户资产列表查询
+ * Summary: 用户资产列表查询
+ */
+async function pagequeryNftCustomer(request: PagequeryNftCustomerRequest): PagequeryNftCustomerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryNftCustomerEx(request, headers, runtime);
+}
+
+/**
+ * Description: B端用户资产列表查询
+ * Summary: 用户资产列表查询
+ */
+async function pagequeryNftCustomerEx(request: PagequeryNftCustomerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryNftCustomerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftx.nft.customer.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
