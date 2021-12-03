@@ -17,6 +17,8 @@ use AntChain\NFTX\Models\ExecNftTransferRequest;
 use AntChain\NFTX\Models\ExecNftTransferResponse;
 use AntChain\NFTX\Models\ImportNftCreateRequest;
 use AntChain\NFTX\Models\ImportNftCreateResponse;
+use AntChain\NFTX\Models\PagequeryNftCustomerRequest;
+use AntChain\NFTX\Models\PagequeryNftCustomerResponse;
 use AntChain\NFTX\Models\QueryNftCreateRequest;
 use AntChain\NFTX\Models\QueryNftCreateResponse;
 use AntChain\NFTX\Models\QueryNftCustomerRequest;
@@ -172,7 +174,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.3',
+                    'sdk_version'      => '1.2.5',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -447,5 +449,38 @@ class Client
         Utils::validateModel($request);
 
         return CreateNftIssuerResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.issuer.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: B端用户资产列表查询
+     * Summary: 用户资产列表查询.
+     *
+     * @param PagequeryNftCustomerRequest $request
+     *
+     * @return PagequeryNftCustomerResponse
+     */
+    public function pagequeryNftCustomer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryNftCustomerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: B端用户资产列表查询
+     * Summary: 用户资产列表查询.
+     *
+     * @param PagequeryNftCustomerRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return PagequeryNftCustomerResponse
+     */
+    public function pagequeryNftCustomerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryNftCustomerResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.customer.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
