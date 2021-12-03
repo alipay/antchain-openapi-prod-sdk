@@ -200,6 +200,70 @@ class File(TeaModel):
         return self
 
 
+class UserAsset(TeaModel):
+    def __init__(
+        self,
+        sku_id: int = None,
+        nft_id: str = None,
+        sku_name: str = None,
+        author_name: str = None,
+        issuer_name: str = None,
+        mini_image_path: str = None,
+    ):
+        # NFT商品的商品编码
+        self.sku_id = sku_id
+        # NFT资产的唯一编码
+        self.nft_id = nft_id
+        # NFT商品的名称
+        self.sku_name = sku_name
+        # NFT的创作者名称
+        self.author_name = author_name
+        # NFT的发行方名称
+        self.issuer_name = issuer_name
+        # 缩略图url，带5分钟鉴权
+        self.mini_image_path = mini_image_path
+
+    def validate(self):
+        self.validate_required(self.sku_id, 'sku_id')
+        self.validate_required(self.nft_id, 'nft_id')
+        self.validate_required(self.sku_name, 'sku_name')
+        self.validate_required(self.author_name, 'author_name')
+        self.validate_required(self.issuer_name, 'issuer_name')
+        self.validate_required(self.mini_image_path, 'mini_image_path')
+
+    def to_map(self):
+        result = dict()
+        if self.sku_id is not None:
+            result['sku_id'] = self.sku_id
+        if self.nft_id is not None:
+            result['nft_id'] = self.nft_id
+        if self.sku_name is not None:
+            result['sku_name'] = self.sku_name
+        if self.author_name is not None:
+            result['author_name'] = self.author_name
+        if self.issuer_name is not None:
+            result['issuer_name'] = self.issuer_name
+        if self.mini_image_path is not None:
+            result['mini_image_path'] = self.mini_image_path
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('sku_id') is not None:
+            self.sku_id = m.get('sku_id')
+        if m.get('nft_id') is not None:
+            self.nft_id = m.get('nft_id')
+        if m.get('sku_name') is not None:
+            self.sku_name = m.get('sku_name')
+        if m.get('author_name') is not None:
+            self.author_name = m.get('author_name')
+        if m.get('issuer_name') is not None:
+            self.issuer_name = m.get('issuer_name')
+        if m.get('mini_image_path') is not None:
+            self.mini_image_path = m.get('mini_image_path')
+        return self
+
+
 class ImportNftCreateRequest(TeaModel):
     def __init__(
         self,
@@ -1163,6 +1227,141 @@ class CreateNftIssuerResponse(TeaModel):
             self.task_id = m.get('task_id')
         if m.get('project_id') is not None:
             self.project_id = m.get('project_id')
+        return self
+
+
+class PagequeryNftCustomerRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        page: int = None,
+        page_size: int = None,
+        id_no: str = None,
+        id_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前页码
+        self.page = page
+        # 页长
+        self.page_size = page_size
+        # 用户手机号或支付宝UID
+        self.id_no = id_no
+        # 用户ID类型，和id_no对应
+        self.id_type = id_type
+
+    def validate(self):
+        self.validate_required(self.page, 'page')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.id_no, 'id_no')
+        self.validate_required(self.id_type, 'id_type')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.page is not None:
+            result['page'] = self.page
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.id_no is not None:
+            result['id_no'] = self.id_no
+        if self.id_type is not None:
+            result['id_type'] = self.id_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('page') is not None:
+            self.page = m.get('page')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('id_no') is not None:
+            self.id_no = m.get('id_no')
+        if m.get('id_type') is not None:
+            self.id_type = m.get('id_type')
+        return self
+
+
+class PagequeryNftCustomerResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        page: int = None,
+        page_size: int = None,
+        total_count: int = None,
+        asset_list: List[UserAsset] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 页码，查询时传入
+        self.page = page
+        # 页长，查询时传入
+        self.page_size = page_size
+        # 列表总数
+        self.total_count = total_count
+        # 用户资产列表
+        self.asset_list = asset_list
+
+    def validate(self):
+        if self.asset_list:
+            for k in self.asset_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.page is not None:
+            result['page'] = self.page
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        result['asset_list'] = []
+        if self.asset_list is not None:
+            for k in self.asset_list:
+                result['asset_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('page') is not None:
+            self.page = m.get('page')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
+        self.asset_list = []
+        if m.get('asset_list') is not None:
+            for k in m.get('asset_list'):
+                temp_model = UserAsset()
+                self.asset_list.append(temp_model.from_map(k))
         return self
 
 

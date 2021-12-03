@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_nftx.
 
-Created on 08/10/2021
+Created on 03/12/2021
 
 @author: Ant Chain SDK
 """

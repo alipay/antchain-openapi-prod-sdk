@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.3'
+                    'sdk_version': '1.2.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.3'
+                    'sdk_version': '1.2.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -647,4 +647,58 @@ class Client:
         UtilClient.validate_model(request)
         return nftx_models.CreateNftIssuerResponse().from_map(
             await self.do_request_async('1.0', 'antchain.nftx.nft.issuer.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_nft_customer(
+        self,
+        request: nftx_models.PagequeryNftCustomerRequest,
+    ) -> nftx_models.PagequeryNftCustomerResponse:
+        """
+        Description: B端用户资产列表查询
+        Summary: 用户资产列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_nft_customer_ex(request, headers, runtime)
+
+    async def pagequery_nft_customer_async(
+        self,
+        request: nftx_models.PagequeryNftCustomerRequest,
+    ) -> nftx_models.PagequeryNftCustomerResponse:
+        """
+        Description: B端用户资产列表查询
+        Summary: 用户资产列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_nft_customer_ex_async(request, headers, runtime)
+
+    def pagequery_nft_customer_ex(
+        self,
+        request: nftx_models.PagequeryNftCustomerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.PagequeryNftCustomerResponse:
+        """
+        Description: B端用户资产列表查询
+        Summary: 用户资产列表查询
+        """
+        UtilClient.validate_model(request)
+        return nftx_models.PagequeryNftCustomerResponse().from_map(
+            self.do_request('1.0', 'antchain.nftx.nft.customer.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_nft_customer_ex_async(
+        self,
+        request: nftx_models.PagequeryNftCustomerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.PagequeryNftCustomerResponse:
+        """
+        Description: B端用户资产列表查询
+        Summary: 用户资产列表查询
+        """
+        UtilClient.validate_model(request)
+        return nftx_models.PagequeryNftCustomerResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.nftx.nft.customer.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
