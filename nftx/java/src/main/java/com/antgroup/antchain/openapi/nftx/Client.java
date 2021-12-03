@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.3")
+                    new TeaPair("sdk_version", "1.2.5")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -290,5 +290,24 @@ public class Client {
     public CreateNftIssuerResponse createNftIssuerEx(CreateNftIssuerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.nftx.nft.issuer.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateNftIssuerResponse());
+    }
+
+    /**
+     * Description: B端用户资产列表查询
+     * Summary: 用户资产列表查询
+     */
+    public PagequeryNftCustomerResponse pagequeryNftCustomer(PagequeryNftCustomerRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryNftCustomerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: B端用户资产列表查询
+     * Summary: 用户资产列表查询
+     */
+    public PagequeryNftCustomerResponse pagequeryNftCustomerEx(PagequeryNftCustomerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftx.nft.customer.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryNftCustomerResponse());
     }
 }
