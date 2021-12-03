@@ -112,6 +112,47 @@ export class File extends $tea.Model {
   }
 }
 
+// 用户资产
+export class UserAsset extends $tea.Model {
+  // NFT商品的商品编码
+  skuId: number;
+  // NFT资产的唯一编码
+  nftId: string;
+  // NFT商品的名称
+  skuName: string;
+  // NFT的创作者名称
+  authorName: string;
+  // NFT的发行方名称
+  issuerName: string;
+  // 缩略图url，带5分钟鉴权
+  miniImagePath: string;
+  static names(): { [key: string]: string } {
+    return {
+      skuId: 'sku_id',
+      nftId: 'nft_id',
+      skuName: 'sku_name',
+      authorName: 'author_name',
+      issuerName: 'issuer_name',
+      miniImagePath: 'mini_image_path',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      skuId: 'number',
+      nftId: 'string',
+      skuName: 'string',
+      authorName: 'string',
+      issuerName: 'string',
+      miniImagePath: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ImportNftCreateRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -722,6 +763,89 @@ export class CreateNftIssuerResponse extends $tea.Model {
   }
 }
 
+export class PagequeryNftCustomerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 当前页码
+  page: number;
+  // 页长
+  pageSize: number;
+  // 用户手机号或支付宝UID
+  idNo: string;
+  // 用户ID类型，和id_no对应
+  idType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      page: 'page',
+      pageSize: 'page_size',
+      idNo: 'id_no',
+      idType: 'id_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      page: 'number',
+      pageSize: 'number',
+      idNo: 'string',
+      idType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryNftCustomerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 页码，查询时传入
+  page?: number;
+  // 页长，查询时传入
+  pageSize?: number;
+  // 列表总数
+  totalCount?: number;
+  // 用户资产列表
+  assetList?: UserAsset[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      page: 'page',
+      pageSize: 'page_size',
+      totalCount: 'total_count',
+      assetList: 'asset_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      page: 'number',
+      pageSize: 'number',
+      totalCount: 'number',
+      assetList: { 'type': 'array', 'itemType': UserAsset },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -835,7 +959,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.3",
+          sdk_version: "1.2.5",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1012,6 +1136,25 @@ export default class Client {
   async createNftIssuerEx(request: CreateNftIssuerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateNftIssuerResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateNftIssuerResponse>(await this.doRequest("1.0", "antchain.nftx.nft.issuer.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateNftIssuerResponse({}));
+  }
+
+  /**
+   * Description: B端用户资产列表查询
+   * Summary: 用户资产列表查询
+   */
+  async pagequeryNftCustomer(request: PagequeryNftCustomerRequest): Promise<PagequeryNftCustomerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryNftCustomerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: B端用户资产列表查询
+   * Summary: 用户资产列表查询
+   */
+  async pagequeryNftCustomerEx(request: PagequeryNftCustomerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryNftCustomerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryNftCustomerResponse>(await this.doRequest("1.0", "antchain.nftx.nft.customer.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryNftCustomerResponse({}));
   }
 
 }
