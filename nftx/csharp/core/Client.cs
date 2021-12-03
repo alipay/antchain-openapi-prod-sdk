@@ -137,7 +137,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.3"},
+                        {"sdk_version", "1.2.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.3"},
+                        {"sdk_version", "1.2.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -609,6 +609,48 @@ namespace AntChain.SDK.NFTX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateNftIssuerResponse>(await DoRequestAsync("1.0", "antchain.nftx.nft.issuer.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: B端用户资产列表查询
+         * Summary: 用户资产列表查询
+         */
+        public PagequeryNftCustomerResponse PagequeryNftCustomer(PagequeryNftCustomerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryNftCustomerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: B端用户资产列表查询
+         * Summary: 用户资产列表查询
+         */
+        public async Task<PagequeryNftCustomerResponse> PagequeryNftCustomerAsync(PagequeryNftCustomerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryNftCustomerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: B端用户资产列表查询
+         * Summary: 用户资产列表查询
+         */
+        public PagequeryNftCustomerResponse PagequeryNftCustomerEx(PagequeryNftCustomerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryNftCustomerResponse>(DoRequest("1.0", "antchain.nftx.nft.customer.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: B端用户资产列表查询
+         * Summary: 用户资产列表查询
+         */
+        public async Task<PagequeryNftCustomerResponse> PagequeryNftCustomerExAsync(PagequeryNftCustomerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryNftCustomerResponse>(await DoRequestAsync("1.0", "antchain.nftx.nft.customer.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
