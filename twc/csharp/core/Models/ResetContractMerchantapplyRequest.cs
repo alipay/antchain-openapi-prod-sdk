@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class ApplyContractMerchantRequest : TeaModel {
+    public class ResetContractMerchantapplyRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,15 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 入驻信息，必须是json字符串
-        [NameInMap("biz_content")]
+        // 进件或进件修改申请订单id，从进件申请接口的返回字段中获取
+        [NameInMap("order_id")]
         [Validation(Required=true)]
-        public string BizContent { get; set; }
+        public string OrderId { get; set; }
 
-        // 代理商户账户ID，此参数不填默认平台机构账户入驻
-        [NameInMap("agent_account_id")]
-        [Validation(Required=false)]
-        public string AgentAccountId { get; set; }
+        // 进件类型,1 创建、2 修改、3 申请创建、4 申请修改
+        [NameInMap("apply_type")]
+        [Validation(Required=true)]
+        public long? ApplyType { get; set; }
 
     }
 

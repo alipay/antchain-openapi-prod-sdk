@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.12"},
+                        {"sdk_version", "1.7.16"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.12"},
+                        {"sdk_version", "1.7.16"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -3977,6 +3977,90 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UpdatePrivatecontractIntanceResponse>(await DoRequestAsync("1.0", "twc.notary.privatecontract.intance.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 开放给私有云的外部用户的证书更新接口.
+         * Summary: 私有云用户证书更新接口.
+         */
+        public UpdatePrivatecontractCertResponse UpdatePrivatecontractCert(UpdatePrivatecontractCertRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdatePrivatecontractCertEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 开放给私有云的外部用户的证书更新接口.
+         * Summary: 私有云用户证书更新接口.
+         */
+        public async Task<UpdatePrivatecontractCertResponse> UpdatePrivatecontractCertAsync(UpdatePrivatecontractCertRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdatePrivatecontractCertExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 开放给私有云的外部用户的证书更新接口.
+         * Summary: 私有云用户证书更新接口.
+         */
+        public UpdatePrivatecontractCertResponse UpdatePrivatecontractCertEx(UpdatePrivatecontractCertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdatePrivatecontractCertResponse>(DoRequest("1.0", "twc.notary.privatecontract.cert.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 开放给私有云的外部用户的证书更新接口.
+         * Summary: 私有云用户证书更新接口.
+         */
+        public async Task<UpdatePrivatecontractCertResponse> UpdatePrivatecontractCertExAsync(UpdatePrivatecontractCertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdatePrivatecontractCertResponse>(await DoRequestAsync("1.0", "twc.notary.privatecontract.cert.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 修改商户进件申请信息状态数据，只允许超管租户操作
+         * Summary: 商户进件申请信息重置
+         */
+        public ResetContractMerchantapplyResponse ResetContractMerchantapply(ResetContractMerchantapplyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ResetContractMerchantapplyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 修改商户进件申请信息状态数据，只允许超管租户操作
+         * Summary: 商户进件申请信息重置
+         */
+        public async Task<ResetContractMerchantapplyResponse> ResetContractMerchantapplyAsync(ResetContractMerchantapplyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ResetContractMerchantapplyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 修改商户进件申请信息状态数据，只允许超管租户操作
+         * Summary: 商户进件申请信息重置
+         */
+        public ResetContractMerchantapplyResponse ResetContractMerchantapplyEx(ResetContractMerchantapplyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResetContractMerchantapplyResponse>(DoRequest("1.0", "twc.notary.contract.merchantapply.reset", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 修改商户进件申请信息状态数据，只允许超管租户操作
+         * Summary: 商户进件申请信息重置
+         */
+        public async Task<ResetContractMerchantapplyResponse> ResetContractMerchantapplyExAsync(ResetContractMerchantapplyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResetContractMerchantapplyResponse>(await DoRequestAsync("1.0", "twc.notary.contract.merchantapply.reset", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
