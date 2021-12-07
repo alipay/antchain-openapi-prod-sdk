@@ -365,6 +365,8 @@ use AntChain\TWC\Models\QueryWithholdAgreementurlRequest;
 use AntChain\TWC\Models\QueryWithholdAgreementurlResponse;
 use AntChain\TWC\Models\QueryWithholdPayresultRequest;
 use AntChain\TWC\Models\QueryWithholdPayresultResponse;
+use AntChain\TWC\Models\ResetContractMerchantapplyRequest;
+use AntChain\TWC\Models\ResetContractMerchantapplyResponse;
 use AntChain\TWC\Models\SaveContractFlowRequest;
 use AntChain\TWC\Models\SaveContractFlowResponse;
 use AntChain\TWC\Models\SaveJointconstraintRecordRequest;
@@ -409,6 +411,8 @@ use AntChain\TWC\Models\UpdateLeaseContractRequest;
 use AntChain\TWC\Models\UpdateLeaseContractResponse;
 use AntChain\TWC\Models\UpdateNotarizationOrderRequest;
 use AntChain\TWC\Models\UpdateNotarizationOrderResponse;
+use AntChain\TWC\Models\UpdatePrivatecontractCertRequest;
+use AntChain\TWC\Models\UpdatePrivatecontractCertResponse;
 use AntChain\TWC\Models\UpdatePrivatecontractIntanceRequest;
 use AntChain\TWC\Models\UpdatePrivatecontractIntanceResponse;
 use AntChain\TWC\Models\UpdateSueBreakpromiseinfoRequest;
@@ -570,7 +574,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.12',
+                    'sdk_version'      => '1.7.16',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -3489,6 +3493,72 @@ class Client
         Utils::validateModel($request);
 
         return UpdatePrivatecontractIntanceResponse::fromMap($this->doRequest('1.0', 'twc.notary.privatecontract.intance.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 开放给私有云的外部用户的证书更新接口.
+     * Summary: 私有云用户证书更新接口.
+     *
+     * @param UpdatePrivatecontractCertRequest $request
+     *
+     * @return UpdatePrivatecontractCertResponse
+     */
+    public function updatePrivatecontractCert($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updatePrivatecontractCertEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 开放给私有云的外部用户的证书更新接口.
+     * Summary: 私有云用户证书更新接口.
+     *
+     * @param UpdatePrivatecontractCertRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return UpdatePrivatecontractCertResponse
+     */
+    public function updatePrivatecontractCertEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdatePrivatecontractCertResponse::fromMap($this->doRequest('1.0', 'twc.notary.privatecontract.cert.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 修改商户进件申请信息状态数据，只允许超管租户操作
+     * Summary: 商户进件申请信息重置.
+     *
+     * @param ResetContractMerchantapplyRequest $request
+     *
+     * @return ResetContractMerchantapplyResponse
+     */
+    public function resetContractMerchantapply($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->resetContractMerchantapplyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 修改商户进件申请信息状态数据，只允许超管租户操作
+     * Summary: 商户进件申请信息重置.
+     *
+     * @param ResetContractMerchantapplyRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return ResetContractMerchantapplyResponse
+     */
+    public function resetContractMerchantapplyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ResetContractMerchantapplyResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.merchantapply.reset', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

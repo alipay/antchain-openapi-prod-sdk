@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyContractMerchantRequest extends Model
+class ResetContractMerchantapplyRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,27 +19,28 @@ class ApplyContractMerchantRequest extends Model
      */
     public $productInstanceId;
 
-    // 入驻信息，必须是json字符串
+    // 进件或进件修改申请订单id，从进件申请接口的返回字段中获取
     /**
      * @var string
      */
-    public $bizContent;
+    public $orderId;
 
-    // 代理商户账户ID，此参数不填默认平台机构账户入驻
+    // 进件类型,1 创建、2 修改、3 申请创建、4 申请修改
     /**
-     * @var string
+     * @var int
      */
-    public $agentAccountId;
+    public $applyType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'bizContent'        => 'biz_content',
-        'agentAccountId'    => 'agent_account_id',
+        'orderId'           => 'order_id',
+        'applyType'         => 'apply_type',
     ];
 
     public function validate()
     {
-        Model::validateRequired('bizContent', $this->bizContent, true);
+        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('applyType', $this->applyType, true);
     }
 
     public function toMap()
@@ -51,11 +52,11 @@ class ApplyContractMerchantRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->bizContent) {
-            $res['biz_content'] = $this->bizContent;
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
         }
-        if (null !== $this->agentAccountId) {
-            $res['agent_account_id'] = $this->agentAccountId;
+        if (null !== $this->applyType) {
+            $res['apply_type'] = $this->applyType;
         }
 
         return $res;
@@ -64,7 +65,7 @@ class ApplyContractMerchantRequest extends Model
     /**
      * @param array $map
      *
-     * @return ApplyContractMerchantRequest
+     * @return ResetContractMerchantapplyRequest
      */
     public static function fromMap($map = [])
     {
@@ -75,11 +76,11 @@ class ApplyContractMerchantRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['biz_content'])) {
-            $model->bizContent = $map['biz_content'];
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
         }
-        if (isset($map['agent_account_id'])) {
-            $model->agentAccountId = $map['agent_account_id'];
+        if (isset($map['apply_type'])) {
+            $model->applyType = $map['apply_type'];
         }
 
         return $model;
