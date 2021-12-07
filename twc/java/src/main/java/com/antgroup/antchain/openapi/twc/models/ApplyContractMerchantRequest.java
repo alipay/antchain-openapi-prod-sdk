@@ -11,7 +11,7 @@ public class ApplyContractMerchantRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 入驻材料
+    // 入驻信息，必须是json字符串
     @NameInMap("biz_content")
     @Validation(required = true)
     public String bizContent;

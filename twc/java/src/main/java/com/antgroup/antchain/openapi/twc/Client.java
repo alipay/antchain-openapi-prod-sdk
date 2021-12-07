@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.12")
+                    new TeaPair("sdk_version", "1.7.16")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1814,6 +1814,44 @@ public class Client {
     public UpdatePrivatecontractIntanceResponse updatePrivatecontractIntanceEx(UpdatePrivatecontractIntanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.privatecontract.intance.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdatePrivatecontractIntanceResponse());
+    }
+
+    /**
+     * Description: 开放给私有云的外部用户的证书更新接口.
+     * Summary: 私有云用户证书更新接口.
+     */
+    public UpdatePrivatecontractCertResponse updatePrivatecontractCert(UpdatePrivatecontractCertRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updatePrivatecontractCertEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 开放给私有云的外部用户的证书更新接口.
+     * Summary: 私有云用户证书更新接口.
+     */
+    public UpdatePrivatecontractCertResponse updatePrivatecontractCertEx(UpdatePrivatecontractCertRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.privatecontract.cert.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdatePrivatecontractCertResponse());
+    }
+
+    /**
+     * Description: 修改商户进件申请信息状态数据，只允许超管租户操作
+     * Summary: 商户进件申请信息重置
+     */
+    public ResetContractMerchantapplyResponse resetContractMerchantapply(ResetContractMerchantapplyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.resetContractMerchantapplyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 修改商户进件申请信息状态数据，只允许超管租户操作
+     * Summary: 商户进件申请信息重置
+     */
+    public ResetContractMerchantapplyResponse resetContractMerchantapplyEx(ResetContractMerchantapplyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.merchantapply.reset", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ResetContractMerchantapplyResponse());
     }
 
     /**
