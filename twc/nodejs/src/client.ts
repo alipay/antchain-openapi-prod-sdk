@@ -9641,7 +9641,7 @@ export class ApplyContractMerchantRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 入驻材料
+  // 入驻信息，必须是json字符串
   bizContent: string;
   // 代理商户账户ID，此参数不填默认平台机构账户入驻
   agentAccountId?: string;
@@ -10881,6 +10881,177 @@ export class UpdatePrivatecontractIntanceResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdatePrivatecontractCertRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 私有云实例id
+  instanceId: string;
+  // 私有云系统内部生成的用户id	
+  // 
+  userInnerId: string;
+  // 用户类型,个人PERSON，企业ORG	
+  userType: string;
+  // 用户名称, 个人为个人名称，企业为企业名称	
+  // 
+  userName: string;
+  // 用户证件类型，默认个人,身份证CRED_PSN_CH_IDCARD； 企业,统一社会信用代码,CRED_ORG_USCC	
+  // 
+  userCertType: string;
+  // 证件号码	
+  userCertNumber: string;
+  // 是否需要更新机构印模
+  updateOrgSeal: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      instanceId: 'instance_id',
+      userInnerId: 'user_inner_id',
+      userType: 'user_type',
+      userName: 'user_name',
+      userCertType: 'user_cert_type',
+      userCertNumber: 'user_cert_number',
+      updateOrgSeal: 'update_org_seal',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      instanceId: 'string',
+      userInnerId: 'string',
+      userType: 'string',
+      userName: 'string',
+      userCertType: 'string',
+      userCertNumber: 'string',
+      updateOrgSeal: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdatePrivatecontractCertResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 更新是否成功	
+  // 
+  success?: boolean;
+  // 返回code,0成功，其他均为失败	
+  // 
+  code?: string;
+  // 返回信息，成功返回success，错误时会返回详细信息。
+  message?: string;
+  // 用户的CA证书办法机构	
+  certAuthOrg?: string;
+  // 用户的CA证书序列号
+  certSerialNumber?: string;
+  // 用户证书过期时间	
+  certEndTime?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+      certAuthOrg: 'cert_auth_org',
+      certSerialNumber: 'cert_serial_number',
+      certEndTime: 'cert_end_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      code: 'string',
+      message: 'string',
+      certAuthOrg: 'string',
+      certSerialNumber: 'string',
+      certEndTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResetContractMerchantapplyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 进件或进件修改申请订单id，从进件申请接口的返回字段中获取
+  orderId: string;
+  // 进件类型,1 创建、2 修改、3 申请创建、4 申请修改
+  applyType: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      applyType: 'apply_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      applyType: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResetContractMerchantapplyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
     };
   }
 
@@ -21699,7 +21870,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.12",
+          sdk_version: "1.7.16",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -23400,6 +23571,44 @@ export default class Client {
   async updatePrivatecontractIntanceEx(request: UpdatePrivatecontractIntanceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdatePrivatecontractIntanceResponse> {
     Util.validateModel(request);
     return $tea.cast<UpdatePrivatecontractIntanceResponse>(await this.doRequest("1.0", "twc.notary.privatecontract.intance.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdatePrivatecontractIntanceResponse({}));
+  }
+
+  /**
+   * Description: 开放给私有云的外部用户的证书更新接口.
+   * Summary: 私有云用户证书更新接口.
+   */
+  async updatePrivatecontractCert(request: UpdatePrivatecontractCertRequest): Promise<UpdatePrivatecontractCertResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updatePrivatecontractCertEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 开放给私有云的外部用户的证书更新接口.
+   * Summary: 私有云用户证书更新接口.
+   */
+  async updatePrivatecontractCertEx(request: UpdatePrivatecontractCertRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdatePrivatecontractCertResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdatePrivatecontractCertResponse>(await this.doRequest("1.0", "twc.notary.privatecontract.cert.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdatePrivatecontractCertResponse({}));
+  }
+
+  /**
+   * Description: 修改商户进件申请信息状态数据，只允许超管租户操作
+   * Summary: 商户进件申请信息重置
+   */
+  async resetContractMerchantapply(request: ResetContractMerchantapplyRequest): Promise<ResetContractMerchantapplyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.resetContractMerchantapplyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 修改商户进件申请信息状态数据，只允许超管租户操作
+   * Summary: 商户进件申请信息重置
+   */
+  async resetContractMerchantapplyEx(request: ResetContractMerchantapplyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ResetContractMerchantapplyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ResetContractMerchantapplyResponse>(await this.doRequest("1.0", "twc.notary.contract.merchantapply.reset", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ResetContractMerchantapplyResponse({}));
   }
 
   /**
