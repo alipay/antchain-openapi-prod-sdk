@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.12'
+                    'sdk_version': '1.7.16'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.12'
+                    'sdk_version': '1.7.16'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -4975,6 +4975,114 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.UpdatePrivatecontractIntanceResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.privatecontract.intance.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_privatecontract_cert(
+        self,
+        request: twc_models.UpdatePrivatecontractCertRequest,
+    ) -> twc_models.UpdatePrivatecontractCertResponse:
+        """
+        Description: 开放给私有云的外部用户的证书更新接口.
+        Summary: 私有云用户证书更新接口.
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_privatecontract_cert_ex(request, headers, runtime)
+
+    async def update_privatecontract_cert_async(
+        self,
+        request: twc_models.UpdatePrivatecontractCertRequest,
+    ) -> twc_models.UpdatePrivatecontractCertResponse:
+        """
+        Description: 开放给私有云的外部用户的证书更新接口.
+        Summary: 私有云用户证书更新接口.
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_privatecontract_cert_ex_async(request, headers, runtime)
+
+    def update_privatecontract_cert_ex(
+        self,
+        request: twc_models.UpdatePrivatecontractCertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdatePrivatecontractCertResponse:
+        """
+        Description: 开放给私有云的外部用户的证书更新接口.
+        Summary: 私有云用户证书更新接口.
+        """
+        UtilClient.validate_model(request)
+        return twc_models.UpdatePrivatecontractCertResponse().from_map(
+            self.do_request('1.0', 'twc.notary.privatecontract.cert.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_privatecontract_cert_ex_async(
+        self,
+        request: twc_models.UpdatePrivatecontractCertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdatePrivatecontractCertResponse:
+        """
+        Description: 开放给私有云的外部用户的证书更新接口.
+        Summary: 私有云用户证书更新接口.
+        """
+        UtilClient.validate_model(request)
+        return twc_models.UpdatePrivatecontractCertResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.privatecontract.cert.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def reset_contract_merchantapply(
+        self,
+        request: twc_models.ResetContractMerchantapplyRequest,
+    ) -> twc_models.ResetContractMerchantapplyResponse:
+        """
+        Description: 修改商户进件申请信息状态数据，只允许超管租户操作
+        Summary: 商户进件申请信息重置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.reset_contract_merchantapply_ex(request, headers, runtime)
+
+    async def reset_contract_merchantapply_async(
+        self,
+        request: twc_models.ResetContractMerchantapplyRequest,
+    ) -> twc_models.ResetContractMerchantapplyResponse:
+        """
+        Description: 修改商户进件申请信息状态数据，只允许超管租户操作
+        Summary: 商户进件申请信息重置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.reset_contract_merchantapply_ex_async(request, headers, runtime)
+
+    def reset_contract_merchantapply_ex(
+        self,
+        request: twc_models.ResetContractMerchantapplyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ResetContractMerchantapplyResponse:
+        """
+        Description: 修改商户进件申请信息状态数据，只允许超管租户操作
+        Summary: 商户进件申请信息重置
+        """
+        UtilClient.validate_model(request)
+        return twc_models.ResetContractMerchantapplyResponse().from_map(
+            self.do_request('1.0', 'twc.notary.contract.merchantapply.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def reset_contract_merchantapply_ex_async(
+        self,
+        request: twc_models.ResetContractMerchantapplyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ResetContractMerchantapplyResponse:
+        """
+        Description: 修改商户进件申请信息状态数据，只允许超管租户操作
+        Summary: 商户进件申请信息重置
+        """
+        UtilClient.validate_model(request)
+        return twc_models.ResetContractMerchantapplyResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.contract.merchantapply.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def sync_inner_trans(
