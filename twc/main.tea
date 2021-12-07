@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.12',
+    sdk_version = '1.7.16',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -5199,7 +5199,7 @@ model ApplyContractMerchantRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 入驻材料
+  // 入驻信息，必须是json字符串
   bizContent: string(name='biz_content'),
   // 代理商户账户ID，此参数不填默认平台机构账户入驻
   agentAccountId?: string(name='agent_account_id'),
@@ -5961,6 +5961,111 @@ async function updatePrivatecontractIntance(request: UpdatePrivatecontractIntanc
 async function updatePrivatecontractIntanceEx(request: UpdatePrivatecontractIntanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdatePrivatecontractIntanceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.privatecontract.intance.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdatePrivatecontractCertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 私有云实例id
+  instanceId: string(name='instance_id'),
+  // 私有云系统内部生成的用户id	
+  // 
+  userInnerId: string(name='user_inner_id'),
+  // 用户类型,个人PERSON，企业ORG	
+  userType: string(name='user_type'),
+  // 用户名称, 个人为个人名称，企业为企业名称	
+  // 
+  userName: string(name='user_name'),
+  // 用户证件类型，默认个人,身份证CRED_PSN_CH_IDCARD； 企业,统一社会信用代码,CRED_ORG_USCC	
+  // 
+  userCertType: string(name='user_cert_type'),
+  // 证件号码	
+  userCertNumber: string(name='user_cert_number'),
+  // 是否需要更新机构印模
+  updateOrgSeal: boolean(name='update_org_seal'),
+}
+
+model UpdatePrivatecontractCertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 更新是否成功	
+  // 
+  success?: boolean(name='success'),
+  // 返回code,0成功，其他均为失败	
+  // 
+  code?: string(name='code'),
+  // 返回信息，成功返回success，错误时会返回详细信息。
+  message?: string(name='message'),
+  // 用户的CA证书办法机构	
+  certAuthOrg?: string(name='cert_auth_org'),
+  // 用户的CA证书序列号
+  certSerialNumber?: string(name='cert_serial_number'),
+  // 用户证书过期时间	
+  certEndTime?: long(name='cert_end_time'),
+}
+
+/**
+ * Description: 开放给私有云的外部用户的证书更新接口.
+ * Summary: 私有云用户证书更新接口.
+ */
+async function updatePrivatecontractCert(request: UpdatePrivatecontractCertRequest): UpdatePrivatecontractCertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updatePrivatecontractCertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 开放给私有云的外部用户的证书更新接口.
+ * Summary: 私有云用户证书更新接口.
+ */
+async function updatePrivatecontractCertEx(request: UpdatePrivatecontractCertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdatePrivatecontractCertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.privatecontract.cert.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ResetContractMerchantapplyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 进件或进件修改申请订单id，从进件申请接口的返回字段中获取
+  orderId: string(name='order_id'),
+  // 进件类型,1 创建、2 修改、3 申请创建、4 申请修改
+  applyType: long(name='apply_type'),
+}
+
+model ResetContractMerchantapplyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 修改商户进件申请信息状态数据，只允许超管租户操作
+ * Summary: 商户进件申请信息重置
+ */
+async function resetContractMerchantapply(request: ResetContractMerchantapplyRequest): ResetContractMerchantapplyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return resetContractMerchantapplyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 修改商户进件申请信息状态数据，只允许超管租户操作
+ * Summary: 商户进件申请信息重置
+ */
+async function resetContractMerchantapplyEx(request: ResetContractMerchantapplyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ResetContractMerchantapplyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.merchantapply.reset', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model SyncInnerTransRequest = {
