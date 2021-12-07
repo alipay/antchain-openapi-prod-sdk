@@ -13015,7 +13015,7 @@ type ApplyContractMerchantRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 入驻材料
+	// 入驻信息，必须是json字符串
 	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" require:"true"`
 	// 代理商户账户ID，此参数不填默认平台机构账户入驻
 	AgentAccountId *string `json:"agent_account_id,omitempty" xml:"agent_account_id,omitempty"`
@@ -14658,6 +14658,235 @@ func (s *UpdatePrivatecontractIntanceResponse) SetResultCode(v string) *UpdatePr
 
 func (s *UpdatePrivatecontractIntanceResponse) SetResultMsg(v string) *UpdatePrivatecontractIntanceResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type UpdatePrivatecontractCertRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 私有云实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 私有云系统内部生成的用户id
+	//
+	UserInnerId *string `json:"user_inner_id,omitempty" xml:"user_inner_id,omitempty" require:"true"`
+	// 用户类型,个人PERSON，企业ORG
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty" require:"true"`
+	// 用户名称, 个人为个人名称，企业为企业名称
+	//
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+	// 用户证件类型，默认个人,身份证CRED_PSN_CH_IDCARD； 企业,统一社会信用代码,CRED_ORG_USCC
+	//
+	UserCertType *string `json:"user_cert_type,omitempty" xml:"user_cert_type,omitempty" require:"true"`
+	// 证件号码
+	UserCertNumber *string `json:"user_cert_number,omitempty" xml:"user_cert_number,omitempty" require:"true"`
+	// 是否需要更新机构印模
+	UpdateOrgSeal *bool `json:"update_org_seal,omitempty" xml:"update_org_seal,omitempty" require:"true"`
+}
+
+func (s UpdatePrivatecontractCertRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdatePrivatecontractCertRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdatePrivatecontractCertRequest) SetAuthToken(v string) *UpdatePrivatecontractCertRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractCertRequest) SetProductInstanceId(v string) *UpdatePrivatecontractCertRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractCertRequest) SetInstanceId(v string) *UpdatePrivatecontractCertRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractCertRequest) SetUserInnerId(v string) *UpdatePrivatecontractCertRequest {
+	s.UserInnerId = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractCertRequest) SetUserType(v string) *UpdatePrivatecontractCertRequest {
+	s.UserType = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractCertRequest) SetUserName(v string) *UpdatePrivatecontractCertRequest {
+	s.UserName = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractCertRequest) SetUserCertType(v string) *UpdatePrivatecontractCertRequest {
+	s.UserCertType = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractCertRequest) SetUserCertNumber(v string) *UpdatePrivatecontractCertRequest {
+	s.UserCertNumber = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractCertRequest) SetUpdateOrgSeal(v bool) *UpdatePrivatecontractCertRequest {
+	s.UpdateOrgSeal = &v
+	return s
+}
+
+type UpdatePrivatecontractCertResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 更新是否成功
+	//
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 返回code,0成功，其他均为失败
+	//
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 返回信息，成功返回success，错误时会返回详细信息。
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 用户的CA证书办法机构
+	CertAuthOrg *string `json:"cert_auth_org,omitempty" xml:"cert_auth_org,omitempty"`
+	// 用户的CA证书序列号
+	CertSerialNumber *string `json:"cert_serial_number,omitempty" xml:"cert_serial_number,omitempty"`
+	// 用户证书过期时间
+	CertEndTime *int64 `json:"cert_end_time,omitempty" xml:"cert_end_time,omitempty"`
+}
+
+func (s UpdatePrivatecontractCertResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdatePrivatecontractCertResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdatePrivatecontractCertResponse) SetReqMsgId(v string) *UpdatePrivatecontractCertResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractCertResponse) SetResultCode(v string) *UpdatePrivatecontractCertResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractCertResponse) SetResultMsg(v string) *UpdatePrivatecontractCertResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractCertResponse) SetSuccess(v bool) *UpdatePrivatecontractCertResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractCertResponse) SetCode(v string) *UpdatePrivatecontractCertResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractCertResponse) SetMessage(v string) *UpdatePrivatecontractCertResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractCertResponse) SetCertAuthOrg(v string) *UpdatePrivatecontractCertResponse {
+	s.CertAuthOrg = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractCertResponse) SetCertSerialNumber(v string) *UpdatePrivatecontractCertResponse {
+	s.CertSerialNumber = &v
+	return s
+}
+
+func (s *UpdatePrivatecontractCertResponse) SetCertEndTime(v int64) *UpdatePrivatecontractCertResponse {
+	s.CertEndTime = &v
+	return s
+}
+
+type ResetContractMerchantapplyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 进件或进件修改申请订单id，从进件申请接口的返回字段中获取
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 进件类型,1 创建、2 修改、3 申请创建、4 申请修改
+	ApplyType *int64 `json:"apply_type,omitempty" xml:"apply_type,omitempty" require:"true"`
+}
+
+func (s ResetContractMerchantapplyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResetContractMerchantapplyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ResetContractMerchantapplyRequest) SetAuthToken(v string) *ResetContractMerchantapplyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ResetContractMerchantapplyRequest) SetProductInstanceId(v string) *ResetContractMerchantapplyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ResetContractMerchantapplyRequest) SetOrderId(v string) *ResetContractMerchantapplyRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *ResetContractMerchantapplyRequest) SetApplyType(v int64) *ResetContractMerchantapplyRequest {
+	s.ApplyType = &v
+	return s
+}
+
+type ResetContractMerchantapplyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s ResetContractMerchantapplyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResetContractMerchantapplyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ResetContractMerchantapplyResponse) SetReqMsgId(v string) *ResetContractMerchantapplyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ResetContractMerchantapplyResponse) SetResultCode(v string) *ResetContractMerchantapplyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ResetContractMerchantapplyResponse) SetResultMsg(v string) *ResetContractMerchantapplyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ResetContractMerchantapplyResponse) SetSuccess(v bool) *ResetContractMerchantapplyResponse {
+	s.Success = &v
 	return s
 }
 
@@ -29459,7 +29688,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.12"),
+				"sdk_version":      tea.String("1.7.16"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -32462,6 +32691,74 @@ func (client *Client) UpdatePrivatecontractIntanceEx(request *UpdatePrivatecontr
 	}
 	_result = &UpdatePrivatecontractIntanceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.privatecontract.intance.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 开放给私有云的外部用户的证书更新接口.
+ * Summary: 私有云用户证书更新接口.
+ */
+func (client *Client) UpdatePrivatecontractCert(request *UpdatePrivatecontractCertRequest) (_result *UpdatePrivatecontractCertResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdatePrivatecontractCertResponse{}
+	_body, _err := client.UpdatePrivatecontractCertEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 开放给私有云的外部用户的证书更新接口.
+ * Summary: 私有云用户证书更新接口.
+ */
+func (client *Client) UpdatePrivatecontractCertEx(request *UpdatePrivatecontractCertRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdatePrivatecontractCertResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdatePrivatecontractCertResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.privatecontract.cert.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 修改商户进件申请信息状态数据，只允许超管租户操作
+ * Summary: 商户进件申请信息重置
+ */
+func (client *Client) ResetContractMerchantapply(request *ResetContractMerchantapplyRequest) (_result *ResetContractMerchantapplyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ResetContractMerchantapplyResponse{}
+	_body, _err := client.ResetContractMerchantapplyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 修改商户进件申请信息状态数据，只允许超管租户操作
+ * Summary: 商户进件申请信息重置
+ */
+func (client *Client) ResetContractMerchantapplyEx(request *ResetContractMerchantapplyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ResetContractMerchantapplyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ResetContractMerchantapplyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.merchantapply.reset"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
