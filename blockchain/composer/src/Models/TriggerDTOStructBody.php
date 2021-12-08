@@ -6,7 +6,7 @@ namespace AntChain\BLOCKCHAIN\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class TriggerDTO extends Model
+class TriggerDTOStructBody extends Model
 {
     // 名称
     /**
@@ -68,7 +68,7 @@ class TriggerDTO extends Model
     /**
      * @example {}
      *
-     * @var CheckPoint
+     * @var CheckPointStructBody
      */
     public $checkpoint;
     protected $_name = [
@@ -120,7 +120,7 @@ class TriggerDTO extends Model
     /**
      * @param array $map
      *
-     * @return TriggerDTO
+     * @return TriggerDTOStructBody
      */
     public static function fromMap($map = [])
     {
@@ -147,7 +147,7 @@ class TriggerDTO extends Model
             $model->option = $map['option'];
         }
         if (isset($map['checkpoint'])) {
-            $model->checkpoint = CheckPoint::fromMap($map['checkpoint']);
+            $model->checkpoint = CheckPointStructBody::fromMap($map['checkpoint']);
         }
 
         return $model;

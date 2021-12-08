@@ -6,7 +6,7 @@ namespace AntChain\BLOCKCHAIN\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryChainDataExportResponse extends Model
+class UpdateChainDataexportStatusResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,9 +26,9 @@ class QueryChainDataExportResponse extends Model
      */
     public $resultMsg;
 
-    // 返回结果为TriggerDTO类型的list
+    // {}
     /**
-     * @var TriggerDTOStructBody[]
+     * @var TriggerDTOStructBody
      */
     public $result;
     protected $_name = [
@@ -55,13 +55,7 @@ class QueryChainDataExportResponse extends Model
             $res['result_msg'] = $this->resultMsg;
         }
         if (null !== $this->result) {
-            $res['result'] = [];
-            if (null !== $this->result && \is_array($this->result)) {
-                $n = 0;
-                foreach ($this->result as $item) {
-                    $res['result'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+            $res['result'] = null !== $this->result ? $this->result->toMap() : null;
         }
 
         return $res;
@@ -70,7 +64,7 @@ class QueryChainDataExportResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryChainDataExportResponse
+     * @return UpdateChainDataexportStatusResponse
      */
     public static function fromMap($map = [])
     {
@@ -85,13 +79,7 @@ class QueryChainDataExportResponse extends Model
             $model->resultMsg = $map['result_msg'];
         }
         if (isset($map['result'])) {
-            if (!empty($map['result'])) {
-                $model->result = [];
-                $n             = 0;
-                foreach ($map['result'] as $item) {
-                    $model->result[$n++] = null !== $item ? TriggerDTOStructBody::fromMap($item) : $item;
-                }
-            }
+            $model->result = TriggerDTOStructBody::fromMap($map['result']);
         }
 
         return $model;

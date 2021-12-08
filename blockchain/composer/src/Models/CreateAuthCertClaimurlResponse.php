@@ -6,7 +6,7 @@ namespace AntChain\BLOCKCHAIN\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryChainDataExportResponse extends Model
+class CreateAuthCertClaimurlResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class QueryChainDataExportResponse extends Model
      */
     public $resultMsg;
 
-    // 返回结果为TriggerDTO类型的list
+    // 证书平台支付宝小程序查验存证的url
     /**
-     * @var TriggerDTOStructBody[]
+     * @var string
      */
-    public $result;
+    public $miniUrl;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'result'     => 'result',
+        'miniUrl'    => 'mini_url',
     ];
 
     public function validate()
@@ -54,14 +54,8 @@ class QueryChainDataExportResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->result) {
-            $res['result'] = [];
-            if (null !== $this->result && \is_array($this->result)) {
-                $n = 0;
-                foreach ($this->result as $item) {
-                    $res['result'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+        if (null !== $this->miniUrl) {
+            $res['mini_url'] = $this->miniUrl;
         }
 
         return $res;
@@ -70,7 +64,7 @@ class QueryChainDataExportResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryChainDataExportResponse
+     * @return CreateAuthCertClaimurlResponse
      */
     public static function fromMap($map = [])
     {
@@ -84,14 +78,8 @@ class QueryChainDataExportResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['result'])) {
-            if (!empty($map['result'])) {
-                $model->result = [];
-                $n             = 0;
-                foreach ($map['result'] as $item) {
-                    $model->result[$n++] = null !== $item ? TriggerDTOStructBody::fromMap($item) : $item;
-                }
-            }
+        if (isset($map['mini_url'])) {
+            $model->miniUrl = $map['mini_url'];
         }
 
         return $model;

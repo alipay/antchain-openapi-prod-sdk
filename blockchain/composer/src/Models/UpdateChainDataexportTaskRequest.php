@@ -6,7 +6,7 @@ namespace AntChain\BLOCKCHAIN\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateChainDataexportTaskRequest extends Model
+class UpdateChainDataexportTaskRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,19 +19,25 @@ class CreateChainDataexportTaskRequest extends Model
      */
     public $productInstanceId;
 
-    // 链id
-    /**
-     * @var string
-     */
-    public $antChainId;
-
     // 联盟id
     /**
      * @var string
      */
     public $consortiumId;
 
-    // {}
+    // 链id
+    /**
+     * @var string
+     */
+    public $antChainId;
+
+    // 任务名称
+    /**
+     * @var string
+     */
+    public $triggerName;
+
+    // 导出任务接口体
     /**
      * @var TriggerDTOStructBody
      */
@@ -39,15 +45,17 @@ class CreateChainDataexportTaskRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'antChainId'        => 'ant_chain_id',
         'consortiumId'      => 'consortium_id',
+        'antChainId'        => 'ant_chain_id',
+        'triggerName'       => 'trigger_name',
         'trigger'           => 'trigger',
     ];
 
     public function validate()
     {
-        Model::validateRequired('antChainId', $this->antChainId, true);
         Model::validateRequired('consortiumId', $this->consortiumId, true);
+        Model::validateRequired('antChainId', $this->antChainId, true);
+        Model::validateRequired('triggerName', $this->triggerName, true);
         Model::validateRequired('trigger', $this->trigger, true);
     }
 
@@ -60,11 +68,14 @@ class CreateChainDataexportTaskRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->consortiumId) {
+            $res['consortium_id'] = $this->consortiumId;
+        }
         if (null !== $this->antChainId) {
             $res['ant_chain_id'] = $this->antChainId;
         }
-        if (null !== $this->consortiumId) {
-            $res['consortium_id'] = $this->consortiumId;
+        if (null !== $this->triggerName) {
+            $res['trigger_name'] = $this->triggerName;
         }
         if (null !== $this->trigger) {
             $res['trigger'] = null !== $this->trigger ? $this->trigger->toMap() : null;
@@ -76,7 +87,7 @@ class CreateChainDataexportTaskRequest extends Model
     /**
      * @param array $map
      *
-     * @return CreateChainDataexportTaskRequest
+     * @return UpdateChainDataexportTaskRequest
      */
     public static function fromMap($map = [])
     {
@@ -87,11 +98,14 @@ class CreateChainDataexportTaskRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
+        if (isset($map['consortium_id'])) {
+            $model->consortiumId = $map['consortium_id'];
+        }
         if (isset($map['ant_chain_id'])) {
             $model->antChainId = $map['ant_chain_id'];
         }
-        if (isset($map['consortium_id'])) {
-            $model->consortiumId = $map['consortium_id'];
+        if (isset($map['trigger_name'])) {
+            $model->triggerName = $map['trigger_name'];
         }
         if (isset($map['trigger'])) {
             $model->trigger = TriggerDTOStructBody::fromMap($map['trigger']);

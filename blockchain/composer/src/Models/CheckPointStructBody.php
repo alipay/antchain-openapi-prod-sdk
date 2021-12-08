@@ -6,7 +6,7 @@ namespace AntChain\BLOCKCHAIN\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CheckPoint extends Model
+class CheckPointStructBody extends Model
 {
     // 高度
     /**
@@ -20,7 +20,7 @@ class CheckPoint extends Model
     /**
      * @example 0
      *
-     * @var int
+     * @var string
      */
     public $index;
 
@@ -44,7 +44,7 @@ class CheckPoint extends Model
     /**
      * @example 0
      *
-     * @var int
+     * @var string
      */
     public $errorCount;
 
@@ -96,7 +96,7 @@ class CheckPoint extends Model
     /**
      * @param array $map
      *
-     * @return CheckPoint
+     * @return CheckPointStructBody
      */
     public static function fromMap($map = [])
     {

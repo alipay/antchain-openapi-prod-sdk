@@ -131,6 +131,8 @@ use AntChain\BLOCKCHAIN\Models\CreateApiConsortiumRequest;
 use AntChain\BLOCKCHAIN\Models\CreateApiConsortiumResponse;
 use AntChain\BLOCKCHAIN\Models\CreateAuthCertClaimRequest;
 use AntChain\BLOCKCHAIN\Models\CreateAuthCertClaimResponse;
+use AntChain\BLOCKCHAIN\Models\CreateAuthCertClaimurlRequest;
+use AntChain\BLOCKCHAIN\Models\CreateAuthCertClaimurlResponse;
 use AntChain\BLOCKCHAIN\Models\CreateAuthCertRequest;
 use AntChain\BLOCKCHAIN\Models\CreateAuthCertResponse;
 use AntChain\BLOCKCHAIN\Models\CreateAuthClaimUrlRequest;
@@ -183,6 +185,10 @@ use AntChain\BLOCKCHAIN\Models\CreateChainPublicCertRequest;
 use AntChain\BLOCKCHAIN\Models\CreateChainPublicCertResponse;
 use AntChain\BLOCKCHAIN\Models\CreateChainSubnetRequest;
 use AntChain\BLOCKCHAIN\Models\CreateChainSubnetResponse;
+use AntChain\BLOCKCHAIN\Models\CreateChainTableSqlRequest;
+use AntChain\BLOCKCHAIN\Models\CreateChainTableSqlResponse;
+use AntChain\BLOCKCHAIN\Models\CreateChainTaskIdRequest;
+use AntChain\BLOCKCHAIN\Models\CreateChainTaskIdResponse;
 use AntChain\BLOCKCHAIN\Models\CreateContractRecordRequest;
 use AntChain\BLOCKCHAIN\Models\CreateContractRecordResponse;
 use AntChain\BLOCKCHAIN\Models\CreateDataauthorizationAgentAuthorizationRequest;
@@ -591,8 +597,14 @@ use AntChain\BLOCKCHAIN\Models\QueryChainDataExportRequest;
 use AntChain\BLOCKCHAIN\Models\QueryChainDataExportResponse;
 use AntChain\BLOCKCHAIN\Models\QueryChainDataexportTaskRequest;
 use AntChain\BLOCKCHAIN\Models\QueryChainDataexportTaskResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainDataPreviewRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainDataPreviewResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainFailureLogRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainFailureLogResponse;
 use AntChain\BLOCKCHAIN\Models\QueryChainIdeRequest;
 use AntChain\BLOCKCHAIN\Models\QueryChainIdeResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainMappingRelationshipRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainMappingRelationshipResponse;
 use AntChain\BLOCKCHAIN\Models\QueryChainMiniappAuthorizationRequest;
 use AntChain\BLOCKCHAIN\Models\QueryChainMiniappAuthorizationResponse;
 use AntChain\BLOCKCHAIN\Models\QueryChainMiniappLogRequest;
@@ -1009,6 +1021,12 @@ use AntChain\BLOCKCHAIN\Models\UpdateChainContractContentRequest;
 use AntChain\BLOCKCHAIN\Models\UpdateChainContractContentResponse;
 use AntChain\BLOCKCHAIN\Models\UpdateChainContractProjectRequest;
 use AntChain\BLOCKCHAIN\Models\UpdateChainContractProjectResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateChainDataexportStatusRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateChainDataexportStatusResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateChainDataexportTaskRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateChainDataexportTaskResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateChainFailureLogRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateChainFailureLogResponse;
 use AntChain\BLOCKCHAIN\Models\UpdateChainMiniappAuthorizationRequest;
 use AntChain\BLOCKCHAIN\Models\UpdateChainMiniappAuthorizationResponse;
 use AntChain\BLOCKCHAIN\Models\UpdateChainNameAntRequest;
@@ -1190,7 +1208,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 蚂蚁链浏览器合约链交易内容
+            // TriggerLogDTO类成员
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -1218,7 +1236,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.25.48',
+                    'sdk_version'      => '1.25.70',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -4830,6 +4848,270 @@ class Client
         Utils::validateModel($request);
 
         return CreateChainDataexportTaskResponse::fromMap($this->doRequest('1.0', 'baas.chain.dataexport.task.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取预览数据（第一步：生成任务ID）
+     * Summary: 获取预览数据（第一步：生成任务ID）.
+     *
+     * @param CreateChainTaskIdRequest $request
+     *
+     * @return CreateChainTaskIdResponse
+     */
+    public function createChainTaskId($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createChainTaskIdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取预览数据（第一步：生成任务ID）
+     * Summary: 获取预览数据（第一步：生成任务ID）.
+     *
+     * @param CreateChainTaskIdRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CreateChainTaskIdResponse
+     */
+    public function createChainTaskIdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateChainTaskIdResponse::fromMap($this->doRequest('1.0', 'baas.chain.task.id.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取预览数据（第二步：根据任务ID获取预览数据结果）
+     * Summary: 根据任务ID获取预览数据结果.
+     *
+     * @param QueryChainDataPreviewRequest $request
+     *
+     * @return QueryChainDataPreviewResponse
+     */
+    public function queryChainDataPreview($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainDataPreviewEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取预览数据（第二步：根据任务ID获取预览数据结果）
+     * Summary: 根据任务ID获取预览数据结果.
+     *
+     * @param QueryChainDataPreviewRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryChainDataPreviewResponse
+     */
+    public function queryChainDataPreviewEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainDataPreviewResponse::fromMap($this->doRequest('1.0', 'baas.chain.data.preview.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据预览数据获取默认映射关系
+     * Summary: 根据预览数据获取默认映射关系.
+     *
+     * @param QueryChainMappingRelationshipRequest $request
+     *
+     * @return QueryChainMappingRelationshipResponse
+     */
+    public function queryChainMappingRelationship($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainMappingRelationshipEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据预览数据获取默认映射关系
+     * Summary: 根据预览数据获取默认映射关系.
+     *
+     * @param QueryChainMappingRelationshipRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryChainMappingRelationshipResponse
+     */
+    public function queryChainMappingRelationshipEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainMappingRelationshipResponse::fromMap($this->doRequest('1.0', 'baas.chain.mapping.relationship.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建导出MySQL任务失败，获取 Create Table 语句
+     * Summary: 获取 Create Table 语句.
+     *
+     * @param CreateChainTableSqlRequest $request
+     *
+     * @return CreateChainTableSqlResponse
+     */
+    public function createChainTableSql($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createChainTableSqlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建导出MySQL任务失败，获取 Create Table 语句
+     * Summary: 获取 Create Table 语句.
+     *
+     * @param CreateChainTableSqlRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CreateChainTableSqlResponse
+     */
+    public function createChainTableSqlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateChainTableSqlResponse::fromMap($this->doRequest('1.0', 'baas.chain.table.sql.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 修改导出任务状态（启动、暂停、删除）
+     * Summary: 修改导出任务状态（启动、暂停、删除）.
+     *
+     * @param UpdateChainDataexportStatusRequest $request
+     *
+     * @return UpdateChainDataexportStatusResponse
+     */
+    public function updateChainDataexportStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateChainDataexportStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 修改导出任务状态（启动、暂停、删除）
+     * Summary: 修改导出任务状态（启动、暂停、删除）.
+     *
+     * @param UpdateChainDataexportStatusRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return UpdateChainDataexportStatusResponse
+     */
+    public function updateChainDataexportStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateChainDataexportStatusResponse::fromMap($this->doRequest('1.0', 'baas.chain.dataexport.status.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 修改导出任务（名称、描述、告警地址）
+     * Summary: 修改导出任务（名称、描述、告警地址）.
+     *
+     * @param UpdateChainDataexportTaskRequest $request
+     *
+     * @return UpdateChainDataexportTaskResponse
+     */
+    public function updateChainDataexportTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateChainDataexportTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 修改导出任务（名称、描述、告警地址）
+     * Summary: 修改导出任务（名称、描述、告警地址）.
+     *
+     * @param UpdateChainDataexportTaskRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return UpdateChainDataexportTaskResponse
+     */
+    public function updateChainDataexportTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateChainDataexportTaskResponse::fromMap($this->doRequest('1.0', 'baas.chain.dataexport.task.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页失败的展示日志（过滤器：待处理、成功、已忽略）
+     * Summary: 分页失败的展示日志.
+     *
+     * @param QueryChainFailureLogRequest $request
+     *
+     * @return QueryChainFailureLogResponse
+     */
+    public function queryChainFailureLog($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainFailureLogEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页失败的展示日志（过滤器：待处理、成功、已忽略）
+     * Summary: 分页失败的展示日志.
+     *
+     * @param QueryChainFailureLogRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryChainFailureLogResponse
+     */
+    public function queryChainFailureLogEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainFailureLogResponse::fromMap($this->doRequest('1.0', 'baas.chain.failure.log.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量处理失败日志（重试/忽略）
+     * Summary: 批量处理失败日志（重试/忽略）.
+     *
+     * @param UpdateChainFailureLogRequest $request
+     *
+     * @return UpdateChainFailureLogResponse
+     */
+    public function updateChainFailureLog($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateChainFailureLogEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量处理失败日志（重试/忽略）
+     * Summary: 批量处理失败日志（重试/忽略）.
+     *
+     * @param UpdateChainFailureLogRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return UpdateChainFailureLogResponse
+     */
+    public function updateChainFailureLogEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateChainFailureLogResponse::fromMap($this->doRequest('1.0', 'baas.chain.failure.log.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -12619,6 +12901,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryAuthCertClaimResponse::fromMap($this->doRequest('1.0', 'baas.auth.cert.claim.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 生成查验证书存证的url
+     * Summary: 生成查验证书存证的url.
+     *
+     * @param CreateAuthCertClaimurlRequest $request
+     *
+     * @return CreateAuthCertClaimurlResponse
+     */
+    public function createAuthCertClaimurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAuthCertClaimurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 生成查验证书存证的url
+     * Summary: 生成查验证书存证的url.
+     *
+     * @param CreateAuthCertClaimurlRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CreateAuthCertClaimurlResponse
+     */
+    public function createAuthCertClaimurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAuthCertClaimurlResponse::fromMap($this->doRequest('1.0', 'baas.auth.cert.claimurl.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

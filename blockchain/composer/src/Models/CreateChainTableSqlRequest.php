@@ -6,7 +6,7 @@ namespace AntChain\BLOCKCHAIN\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateChainDataexportTaskRequest extends Model
+class CreateChainTableSqlRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -76,7 +76,7 @@ class CreateChainDataexportTaskRequest extends Model
     /**
      * @param array $map
      *
-     * @return CreateChainDataexportTaskRequest
+     * @return CreateChainTableSqlRequest
      */
     public static function fromMap($map = [])
     {

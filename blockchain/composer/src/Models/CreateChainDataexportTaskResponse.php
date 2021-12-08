@@ -26,9 +26,9 @@ class CreateChainDataexportTaskResponse extends Model
      */
     public $resultMsg;
 
-    // {}
+    // ""
     /**
-     * @var TriggerDTO
+     * @var string
      */
     public $result;
     protected $_name = [
@@ -55,7 +55,7 @@ class CreateChainDataexportTaskResponse extends Model
             $res['result_msg'] = $this->resultMsg;
         }
         if (null !== $this->result) {
-            $res['result'] = null !== $this->result ? $this->result->toMap() : null;
+            $res['result'] = $this->result;
         }
 
         return $res;
@@ -79,7 +79,7 @@ class CreateChainDataexportTaskResponse extends Model
             $model->resultMsg = $map['result_msg'];
         }
         if (isset($map['result'])) {
-            $model->result = TriggerDTO::fromMap($map['result']);
+            $model->result = $map['result'];
         }
 
         return $model;

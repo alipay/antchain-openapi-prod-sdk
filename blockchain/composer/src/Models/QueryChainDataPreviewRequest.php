@@ -6,7 +6,7 @@ namespace AntChain\BLOCKCHAIN\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateChainDataexportTaskRequest extends Model
+class QueryChainDataPreviewRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -31,24 +31,24 @@ class CreateChainDataexportTaskRequest extends Model
      */
     public $consortiumId;
 
-    // {}
+    // 任务id
     /**
-     * @var TriggerDTOStructBody
+     * @var string
      */
-    public $trigger;
+    public $taskId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'antChainId'        => 'ant_chain_id',
         'consortiumId'      => 'consortium_id',
-        'trigger'           => 'trigger',
+        'taskId'            => 'task_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('antChainId', $this->antChainId, true);
         Model::validateRequired('consortiumId', $this->consortiumId, true);
-        Model::validateRequired('trigger', $this->trigger, true);
+        Model::validateRequired('taskId', $this->taskId, true);
     }
 
     public function toMap()
@@ -66,8 +66,8 @@ class CreateChainDataexportTaskRequest extends Model
         if (null !== $this->consortiumId) {
             $res['consortium_id'] = $this->consortiumId;
         }
-        if (null !== $this->trigger) {
-            $res['trigger'] = null !== $this->trigger ? $this->trigger->toMap() : null;
+        if (null !== $this->taskId) {
+            $res['task_id'] = $this->taskId;
         }
 
         return $res;
@@ -76,7 +76,7 @@ class CreateChainDataexportTaskRequest extends Model
     /**
      * @param array $map
      *
-     * @return CreateChainDataexportTaskRequest
+     * @return QueryChainDataPreviewRequest
      */
     public static function fromMap($map = [])
     {
@@ -93,8 +93,8 @@ class CreateChainDataexportTaskRequest extends Model
         if (isset($map['consortium_id'])) {
             $model->consortiumId = $map['consortium_id'];
         }
-        if (isset($map['trigger'])) {
-            $model->trigger = TriggerDTOStructBody::fromMap($map['trigger']);
+        if (isset($map['task_id'])) {
+            $model->taskId = $map['task_id'];
         }
 
         return $model;
