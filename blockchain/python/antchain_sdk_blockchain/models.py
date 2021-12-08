@@ -150,6 +150,58 @@ class Config(TeaModel):
         return self
 
 
+class PositionStructBody(TeaModel):
+    def __init__(
+        self,
+        error_count: str = None,
+        height: str = None,
+        index: str = None,
+        last_error: str = None,
+        type: str = None,
+    ):
+        # 错误计数
+        self.error_count = error_count
+        # 高度
+        self.height = height
+        # 序号
+        self.index = index
+        # 最后一个错误
+        self.last_error = last_error
+        # 类型
+        self.type = type
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.error_count is not None:
+            result['error_count'] = self.error_count
+        if self.height is not None:
+            result['height'] = self.height
+        if self.index is not None:
+            result['index'] = self.index
+        if self.last_error is not None:
+            result['last_error'] = self.last_error
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('error_count') is not None:
+            self.error_count = m.get('error_count')
+        if m.get('height') is not None:
+            self.height = m.get('height')
+        if m.get('index') is not None:
+            self.index = m.get('index')
+        if m.get('last_error') is not None:
+            self.last_error = m.get('last_error')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
 class BlockchainBrowserTransactionContract(TeaModel):
     def __init__(
         self,
@@ -1028,65 +1080,6 @@ class ALiYunMember(TeaModel):
             self.role = m.get('role')
         if m.get('status') is not None:
             self.status = m.get('status')
-        return self
-
-
-class CheckPoint(TeaModel):
-    def __init__(
-        self,
-        height: str = None,
-        index: int = None,
-        type: str = None,
-        last_error: str = None,
-        error_count: int = None,
-        total_count: str = None,
-    ):
-        # 高度
-        self.height = height
-        # 序号
-        self.index = index
-        # 类型
-        self.type = type
-        # last_error
-        self.last_error = last_error
-        # 错误统计
-        self.error_count = error_count
-        # 统计
-        self.total_count = total_count
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.height is not None:
-            result['height'] = self.height
-        if self.index is not None:
-            result['index'] = self.index
-        if self.type is not None:
-            result['type'] = self.type
-        if self.last_error is not None:
-            result['last_error'] = self.last_error
-        if self.error_count is not None:
-            result['error_count'] = self.error_count
-        if self.total_count is not None:
-            result['total_count'] = self.total_count
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('height') is not None:
-            self.height = m.get('height')
-        if m.get('index') is not None:
-            self.index = m.get('index')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('last_error') is not None:
-            self.last_error = m.get('last_error')
-        if m.get('error_count') is not None:
-            self.error_count = m.get('error_count')
-        if m.get('total_count') is not None:
-            self.total_count = m.get('total_count')
         return self
 
 
@@ -2418,6 +2411,65 @@ class ContractIdeConfig(TeaModel):
         return self
 
 
+class CheckPointStructBody(TeaModel):
+    def __init__(
+        self,
+        height: str = None,
+        index: str = None,
+        type: str = None,
+        last_error: str = None,
+        error_count: str = None,
+        total_count: str = None,
+    ):
+        # 高度
+        self.height = height
+        # 序号
+        self.index = index
+        # 类型
+        self.type = type
+        # last_error
+        self.last_error = last_error
+        # 错误统计
+        self.error_count = error_count
+        # 统计
+        self.total_count = total_count
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.height is not None:
+            result['height'] = self.height
+        if self.index is not None:
+            result['index'] = self.index
+        if self.type is not None:
+            result['type'] = self.type
+        if self.last_error is not None:
+            result['last_error'] = self.last_error
+        if self.error_count is not None:
+            result['error_count'] = self.error_count
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('height') is not None:
+            self.height = m.get('height')
+        if m.get('index') is not None:
+            self.index = m.get('index')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('last_error') is not None:
+            self.last_error = m.get('last_error')
+        if m.get('error_count') is not None:
+            self.error_count = m.get('error_count')
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
+        return self
+
+
 class VcTransmitTargetStruct(TeaModel):
     def __init__(
         self,
@@ -2573,6 +2625,60 @@ class ALiYunPagination(TeaModel):
             self.page_number = m.get('page_number')
         if m.get('total_count') is not None:
             self.total_count = m.get('total_count')
+        return self
+
+
+class TriggerLogDTOStructBody(TeaModel):
+    def __init__(
+        self,
+        create_time: str = None,
+        modify_time: str = None,
+        status: str = None,
+        uuid: str = None,
+        position: PositionStructBody = None,
+    ):
+        # 创建时间
+        self.create_time = create_time
+        # 修改时间
+        self.modify_time = modify_time
+        # 状态
+        self.status = status
+        # uuid
+        self.uuid = uuid
+        # 位置
+        self.position = position
+
+    def validate(self):
+        if self.position:
+            self.position.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.create_time is not None:
+            result['create_time'] = self.create_time
+        if self.modify_time is not None:
+            result['modify_time'] = self.modify_time
+        if self.status is not None:
+            result['status'] = self.status
+        if self.uuid is not None:
+            result['uuid'] = self.uuid
+        if self.position is not None:
+            result['position'] = self.position.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('create_time') is not None:
+            self.create_time = m.get('create_time')
+        if m.get('modify_time') is not None:
+            self.modify_time = m.get('modify_time')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('uuid') is not None:
+            self.uuid = m.get('uuid')
+        if m.get('position') is not None:
+            temp_model = PositionStructBody()
+            self.position = temp_model.from_map(m['position'])
         return self
 
 
@@ -3870,6 +3976,59 @@ class BareClaim(TeaModel):
         return self
 
 
+class CommonResponsePageableStructBody(TeaModel):
+    def __init__(
+        self,
+        page_size: str = None,
+        current: str = None,
+        total: str = None,
+        list: List[TriggerLogDTOStructBody] = None,
+    ):
+        # 页面规格
+        self.page_size = page_size
+        # 当前页码
+        self.current = current
+        # 总条数
+        self.total = total
+        # 失败日志数组
+        self.list = list
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.current is not None:
+            result['current'] = self.current
+        if self.total is not None:
+            result['total'] = self.total
+        result['list'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        self.list = []
+        if m.get('list') is not None:
+            for k in m.get('list'):
+                temp_model = TriggerLogDTOStructBody()
+                self.list.append(temp_model.from_map(k))
+        return self
+
+
 class AccountMap(TeaModel):
     def __init__(
         self,
@@ -4144,6 +4303,81 @@ class TsrResponse(TeaModel):
             self.hash_algorithm = m.get('hash_algorithm')
         if m.get('ts') is not None:
             self.ts = m.get('ts')
+        return self
+
+
+class TriggerDTOStructBody(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        source: str = None,
+        create_time: str = None,
+        error_message: str = None,
+        status: str = None,
+        option: str = None,
+        checkpoint: CheckPointStructBody = None,
+    ):
+        # 名称
+        self.name = name
+        # 类型
+        self.type = type
+        # 源
+        self.source = source
+        # 创建时间
+        self.create_time = create_time
+        # 错误信息
+        self.error_message = error_message
+        # 状态
+        self.status = status
+        # option（map结构，由于金融云无map接口所以通过string类型传输json格式）
+        self.option = option
+        # checkpoint类
+        self.checkpoint = checkpoint
+
+    def validate(self):
+        if self.checkpoint:
+            self.checkpoint.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.type is not None:
+            result['type'] = self.type
+        if self.source is not None:
+            result['source'] = self.source
+        if self.create_time is not None:
+            result['create_time'] = self.create_time
+        if self.error_message is not None:
+            result['error_message'] = self.error_message
+        if self.status is not None:
+            result['status'] = self.status
+        if self.option is not None:
+            result['option'] = self.option
+        if self.checkpoint is not None:
+            result['checkpoint'] = self.checkpoint.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        if m.get('create_time') is not None:
+            self.create_time = m.get('create_time')
+        if m.get('error_message') is not None:
+            self.error_message = m.get('error_message')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('option') is not None:
+            self.option = m.get('option')
+        if m.get('checkpoint') is not None:
+            temp_model = CheckPointStructBody()
+            self.checkpoint = temp_model.from_map(m['checkpoint'])
         return self
 
 
@@ -6514,81 +6748,6 @@ class UpdateDidServiceList(TeaModel):
             for k in m.get('service_list'):
                 temp_model = DisServicesInfo()
                 self.service_list.append(temp_model.from_map(k))
-        return self
-
-
-class TriggerDTO(TeaModel):
-    def __init__(
-        self,
-        name: str = None,
-        type: str = None,
-        source: str = None,
-        create_time: str = None,
-        error_message: str = None,
-        status: str = None,
-        option: str = None,
-        checkpoint: CheckPoint = None,
-    ):
-        # 名称
-        self.name = name
-        # 类型
-        self.type = type
-        # 源
-        self.source = source
-        # 创建时间
-        self.create_time = create_time
-        # 错误信息
-        self.error_message = error_message
-        # 状态
-        self.status = status
-        # option（map结构，由于金融云无map接口所以通过string类型传输json格式）
-        self.option = option
-        # checkpoint类
-        self.checkpoint = checkpoint
-
-    def validate(self):
-        if self.checkpoint:
-            self.checkpoint.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.name is not None:
-            result['name'] = self.name
-        if self.type is not None:
-            result['type'] = self.type
-        if self.source is not None:
-            result['source'] = self.source
-        if self.create_time is not None:
-            result['create_time'] = self.create_time
-        if self.error_message is not None:
-            result['error_message'] = self.error_message
-        if self.status is not None:
-            result['status'] = self.status
-        if self.option is not None:
-            result['option'] = self.option
-        if self.checkpoint is not None:
-            result['checkpoint'] = self.checkpoint.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('source') is not None:
-            self.source = m.get('source')
-        if m.get('create_time') is not None:
-            self.create_time = m.get('create_time')
-        if m.get('error_message') is not None:
-            self.error_message = m.get('error_message')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('option') is not None:
-            self.option = m.get('option')
-        if m.get('checkpoint') is not None:
-            temp_model = CheckPoint()
-            self.checkpoint = temp_model.from_map(m['checkpoint'])
         return self
 
 
@@ -20670,7 +20829,7 @@ class QueryChainDataExportResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        result: List[TriggerDTO] = None,
+        result: List[TriggerDTOStructBody] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -20712,7 +20871,7 @@ class QueryChainDataExportResponse(TeaModel):
         self.result = []
         if m.get('result') is not None:
             for k in m.get('result'):
-                temp_model = TriggerDTO()
+                temp_model = TriggerDTOStructBody()
                 self.result.append(temp_model.from_map(k))
         return self
 
@@ -20724,7 +20883,7 @@ class CreateChainDataexportTaskRequest(TeaModel):
         product_instance_id: str = None,
         ant_chain_id: str = None,
         consortium_id: str = None,
-        trigger: TriggerDTO = None,
+        trigger: TriggerDTOStructBody = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -20768,7 +20927,7 @@ class CreateChainDataexportTaskRequest(TeaModel):
         if m.get('consortium_id') is not None:
             self.consortium_id = m.get('consortium_id')
         if m.get('trigger') is not None:
-            temp_model = TriggerDTO()
+            temp_model = TriggerDTOStructBody()
             self.trigger = temp_model.from_map(m['trigger'])
         return self
 
@@ -20779,7 +20938,519 @@ class CreateChainDataexportTaskResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        result: TriggerDTO = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # ""
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class CreateChainTaskIdRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        ant_chain_id: str = None,
+        consortium_id: str = None,
+        trigger: TriggerDTOStructBody = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链id
+        self.ant_chain_id = ant_chain_id
+        # 联盟id
+        self.consortium_id = consortium_id
+        # TriggerDTO结构体
+        self.trigger = trigger
+
+    def validate(self):
+        self.validate_required(self.ant_chain_id, 'ant_chain_id')
+        self.validate_required(self.consortium_id, 'consortium_id')
+        self.validate_required(self.trigger, 'trigger')
+        if self.trigger:
+            self.trigger.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.ant_chain_id is not None:
+            result['ant_chain_id'] = self.ant_chain_id
+        if self.consortium_id is not None:
+            result['consortium_id'] = self.consortium_id
+        if self.trigger is not None:
+            result['trigger'] = self.trigger.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('ant_chain_id') is not None:
+            self.ant_chain_id = m.get('ant_chain_id')
+        if m.get('consortium_id') is not None:
+            self.consortium_id = m.get('consortium_id')
+        if m.get('trigger') is not None:
+            temp_model = TriggerDTOStructBody()
+            self.trigger = temp_model.from_map(m['trigger'])
+        return self
+
+
+class CreateChainTaskIdResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # ""
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class QueryChainDataPreviewRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        ant_chain_id: str = None,
+        consortium_id: str = None,
+        task_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链id
+        self.ant_chain_id = ant_chain_id
+        # 联盟id
+        self.consortium_id = consortium_id
+        # 任务id
+        self.task_id = task_id
+
+    def validate(self):
+        self.validate_required(self.ant_chain_id, 'ant_chain_id')
+        self.validate_required(self.consortium_id, 'consortium_id')
+        self.validate_required(self.task_id, 'task_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.ant_chain_id is not None:
+            result['ant_chain_id'] = self.ant_chain_id
+        if self.consortium_id is not None:
+            result['consortium_id'] = self.consortium_id
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('ant_chain_id') is not None:
+            self.ant_chain_id = m.get('ant_chain_id')
+        if m.get('consortium_id') is not None:
+            self.consortium_id = m.get('consortium_id')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
+class QueryChainDataPreviewResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回预览数据
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class QueryChainMappingRelationshipRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        ant_chain_id: str = None,
+        consortium_id: str = None,
+        service_id: str = None,
+        mapping_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链id
+        self.ant_chain_id = ant_chain_id
+        # 联盟id
+        self.consortium_id = consortium_id
+        # ""
+        self.service_id = service_id
+        # 映射方法类型
+        self.mapping_type = mapping_type
+
+    def validate(self):
+        self.validate_required(self.ant_chain_id, 'ant_chain_id')
+        self.validate_required(self.consortium_id, 'consortium_id')
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.mapping_type, 'mapping_type')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.ant_chain_id is not None:
+            result['ant_chain_id'] = self.ant_chain_id
+        if self.consortium_id is not None:
+            result['consortium_id'] = self.consortium_id
+        if self.service_id is not None:
+            result['service_id'] = self.service_id
+        if self.mapping_type is not None:
+            result['mapping_type'] = self.mapping_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('ant_chain_id') is not None:
+            self.ant_chain_id = m.get('ant_chain_id')
+        if m.get('consortium_id') is not None:
+            self.consortium_id = m.get('consortium_id')
+        if m.get('service_id') is not None:
+            self.service_id = m.get('service_id')
+        if m.get('mapping_type') is not None:
+            self.mapping_type = m.get('mapping_type')
+        return self
+
+
+class QueryChainMappingRelationshipResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 映射结果
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class CreateChainTableSqlRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        ant_chain_id: str = None,
+        consortium_id: str = None,
+        trigger: TriggerDTOStructBody = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链id
+        self.ant_chain_id = ant_chain_id
+        # 联盟id
+        self.consortium_id = consortium_id
+        # {}
+        self.trigger = trigger
+
+    def validate(self):
+        self.validate_required(self.ant_chain_id, 'ant_chain_id')
+        self.validate_required(self.consortium_id, 'consortium_id')
+        self.validate_required(self.trigger, 'trigger')
+        if self.trigger:
+            self.trigger.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.ant_chain_id is not None:
+            result['ant_chain_id'] = self.ant_chain_id
+        if self.consortium_id is not None:
+            result['consortium_id'] = self.consortium_id
+        if self.trigger is not None:
+            result['trigger'] = self.trigger.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('ant_chain_id') is not None:
+            self.ant_chain_id = m.get('ant_chain_id')
+        if m.get('consortium_id') is not None:
+            self.consortium_id = m.get('consortium_id')
+        if m.get('trigger') is not None:
+            temp_model = TriggerDTOStructBody()
+            self.trigger = temp_model.from_map(m['trigger'])
+        return self
+
+
+class CreateChainTableSqlResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 创建导出MySQL任务失败，获取 Create Table 语句
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class UpdateChainDataexportStatusRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        ant_chain_id: str = None,
+        consortium_id: str = None,
+        trigger_name: str = None,
+        status_action: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链id
+        self.ant_chain_id = ant_chain_id
+        # 联盟id
+        self.consortium_id = consortium_id
+        # "9481b612d6ca4cfdbecc5c5d395eda423f007745-233d-4860-8fd4-a107233ace6c"
+        self.trigger_name = trigger_name
+        # "Enabled/Disabled/DELETE"
+        self.status_action = status_action
+
+    def validate(self):
+        self.validate_required(self.ant_chain_id, 'ant_chain_id')
+        self.validate_required(self.consortium_id, 'consortium_id')
+        self.validate_required(self.trigger_name, 'trigger_name')
+        self.validate_required(self.status_action, 'status_action')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.ant_chain_id is not None:
+            result['ant_chain_id'] = self.ant_chain_id
+        if self.consortium_id is not None:
+            result['consortium_id'] = self.consortium_id
+        if self.trigger_name is not None:
+            result['trigger_name'] = self.trigger_name
+        if self.status_action is not None:
+            result['status_action'] = self.status_action
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('ant_chain_id') is not None:
+            self.ant_chain_id = m.get('ant_chain_id')
+        if m.get('consortium_id') is not None:
+            self.consortium_id = m.get('consortium_id')
+        if m.get('trigger_name') is not None:
+            self.trigger_name = m.get('trigger_name')
+        if m.get('status_action') is not None:
+            self.status_action = m.get('status_action')
+        return self
+
+
+class UpdateChainDataexportStatusResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: TriggerDTOStructBody = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -20815,8 +21486,352 @@ class CreateChainDataexportTaskResponse(TeaModel):
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
         if m.get('result') is not None:
-            temp_model = TriggerDTO()
+            temp_model = TriggerDTOStructBody()
             self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class UpdateChainDataexportTaskRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        consortium_id: str = None,
+        ant_chain_id: str = None,
+        trigger_name: str = None,
+        trigger: TriggerDTOStructBody = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 联盟id
+        self.consortium_id = consortium_id
+        # 链id
+        self.ant_chain_id = ant_chain_id
+        # 任务名称
+        self.trigger_name = trigger_name
+        # 导出任务接口体
+        self.trigger = trigger
+
+    def validate(self):
+        self.validate_required(self.consortium_id, 'consortium_id')
+        self.validate_required(self.ant_chain_id, 'ant_chain_id')
+        self.validate_required(self.trigger_name, 'trigger_name')
+        self.validate_required(self.trigger, 'trigger')
+        if self.trigger:
+            self.trigger.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.consortium_id is not None:
+            result['consortium_id'] = self.consortium_id
+        if self.ant_chain_id is not None:
+            result['ant_chain_id'] = self.ant_chain_id
+        if self.trigger_name is not None:
+            result['trigger_name'] = self.trigger_name
+        if self.trigger is not None:
+            result['trigger'] = self.trigger.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('consortium_id') is not None:
+            self.consortium_id = m.get('consortium_id')
+        if m.get('ant_chain_id') is not None:
+            self.ant_chain_id = m.get('ant_chain_id')
+        if m.get('trigger_name') is not None:
+            self.trigger_name = m.get('trigger_name')
+        if m.get('trigger') is not None:
+            temp_model = TriggerDTOStructBody()
+            self.trigger = temp_model.from_map(m['trigger'])
+        return self
+
+
+class UpdateChainDataexportTaskResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: TriggerDTOStructBody = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 修改导出任务（名称、描述、告警地址）信息结构体
+        # 
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = TriggerDTOStructBody()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class QueryChainFailureLogRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        ant_chain_id: str = None,
+        consortium_id: str = None,
+        trigger_name: str = None,
+        status_action: str = None,
+        page_no: str = None,
+        page_size: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链id
+        self.ant_chain_id = ant_chain_id
+        # 联盟id
+        self.consortium_id = consortium_id
+        # ""
+        self.trigger_name = trigger_name
+        # ""
+        self.status_action = status_action
+        # 当前页码
+        self.page_no = page_no
+        # 页面规格
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.ant_chain_id, 'ant_chain_id')
+        self.validate_required(self.consortium_id, 'consortium_id')
+        self.validate_required(self.trigger_name, 'trigger_name')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.ant_chain_id is not None:
+            result['ant_chain_id'] = self.ant_chain_id
+        if self.consortium_id is not None:
+            result['consortium_id'] = self.consortium_id
+        if self.trigger_name is not None:
+            result['trigger_name'] = self.trigger_name
+        if self.status_action is not None:
+            result['status_action'] = self.status_action
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('ant_chain_id') is not None:
+            self.ant_chain_id = m.get('ant_chain_id')
+        if m.get('consortium_id') is not None:
+            self.consortium_id = m.get('consortium_id')
+        if m.get('trigger_name') is not None:
+            self.trigger_name = m.get('trigger_name')
+        if m.get('status_action') is not None:
+            self.status_action = m.get('status_action')
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class QueryChainFailureLogResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: CommonResponsePageableStructBody = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # {}
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = CommonResponsePageableStructBody()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class UpdateChainFailureLogRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        ant_chain_id: str = None,
+        consortium_id: str = None,
+        trigger_name: str = None,
+        status_action: str = None,
+        log_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链id
+        self.ant_chain_id = ant_chain_id
+        # 联盟id
+        self.consortium_id = consortium_id
+        # 日志名称
+        self.trigger_name = trigger_name
+        # 日志状态
+        self.status_action = status_action
+        # 日志id
+        self.log_id = log_id
+
+    def validate(self):
+        self.validate_required(self.ant_chain_id, 'ant_chain_id')
+        self.validate_required(self.consortium_id, 'consortium_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.ant_chain_id is not None:
+            result['ant_chain_id'] = self.ant_chain_id
+        if self.consortium_id is not None:
+            result['consortium_id'] = self.consortium_id
+        if self.trigger_name is not None:
+            result['trigger_name'] = self.trigger_name
+        if self.status_action is not None:
+            result['status_action'] = self.status_action
+        if self.log_id is not None:
+            result['log_id'] = self.log_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('ant_chain_id') is not None:
+            self.ant_chain_id = m.get('ant_chain_id')
+        if m.get('consortium_id') is not None:
+            self.consortium_id = m.get('consortium_id')
+        if m.get('trigger_name') is not None:
+            self.trigger_name = m.get('trigger_name')
+        if m.get('status_action') is not None:
+            self.status_action = m.get('status_action')
+        if m.get('log_id') is not None:
+            self.log_id = m.get('log_id')
+        return self
+
+
+class UpdateChainFailureLogResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
         return self
 
 
@@ -49319,6 +50334,88 @@ class QueryAuthCertClaimResponse(TeaModel):
             self.gmt_create = m.get('gmt_create')
         if m.get('gmt_transmit') is not None:
             self.gmt_transmit = m.get('gmt_transmit')
+        return self
+
+
+class CreateAuthCertClaimurlRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        vc_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 存证唯一id
+        self.vc_id = vc_id
+
+    def validate(self):
+        self.validate_required(self.vc_id, 'vc_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.vc_id is not None:
+            result['vc_id'] = self.vc_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('vc_id') is not None:
+            self.vc_id = m.get('vc_id')
+        return self
+
+
+class CreateAuthCertClaimurlResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        mini_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 证书平台支付宝小程序查验存证的url
+        self.mini_url = mini_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.mini_url is not None:
+            result['mini_url'] = self.mini_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('mini_url') is not None:
+            self.mini_url = m.get('mini_url')
         return self
 
 

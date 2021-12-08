@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 蚂蚁链浏览器合约链交易内容
+            # TriggerLogDTO类成员
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.25.48'
+                    'sdk_version': '1.25.70'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 蚂蚁链浏览器合约链交易内容
+            # TriggerLogDTO类成员
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.25.48'
+                    'sdk_version': '1.25.70'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -6109,6 +6109,438 @@ class Client:
         UtilClient.validate_model(request)
         return blockchain_models.CreateChainDataexportTaskResponse().from_map(
             await self.do_request_async('1.0', 'baas.chain.dataexport.task.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_chain_task_id(
+        self,
+        request: blockchain_models.CreateChainTaskIdRequest,
+    ) -> blockchain_models.CreateChainTaskIdResponse:
+        """
+        Description: 获取预览数据（第一步：生成任务ID）
+        Summary: 获取预览数据（第一步：生成任务ID）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_chain_task_id_ex(request, headers, runtime)
+
+    async def create_chain_task_id_async(
+        self,
+        request: blockchain_models.CreateChainTaskIdRequest,
+    ) -> blockchain_models.CreateChainTaskIdResponse:
+        """
+        Description: 获取预览数据（第一步：生成任务ID）
+        Summary: 获取预览数据（第一步：生成任务ID）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_chain_task_id_ex_async(request, headers, runtime)
+
+    def create_chain_task_id_ex(
+        self,
+        request: blockchain_models.CreateChainTaskIdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateChainTaskIdResponse:
+        """
+        Description: 获取预览数据（第一步：生成任务ID）
+        Summary: 获取预览数据（第一步：生成任务ID）
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateChainTaskIdResponse().from_map(
+            self.do_request('1.0', 'baas.chain.task.id.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_chain_task_id_ex_async(
+        self,
+        request: blockchain_models.CreateChainTaskIdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateChainTaskIdResponse:
+        """
+        Description: 获取预览数据（第一步：生成任务ID）
+        Summary: 获取预览数据（第一步：生成任务ID）
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateChainTaskIdResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.task.id.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_chain_data_preview(
+        self,
+        request: blockchain_models.QueryChainDataPreviewRequest,
+    ) -> blockchain_models.QueryChainDataPreviewResponse:
+        """
+        Description: 获取预览数据（第二步：根据任务ID获取预览数据结果）
+        Summary: 根据任务ID获取预览数据结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_chain_data_preview_ex(request, headers, runtime)
+
+    async def query_chain_data_preview_async(
+        self,
+        request: blockchain_models.QueryChainDataPreviewRequest,
+    ) -> blockchain_models.QueryChainDataPreviewResponse:
+        """
+        Description: 获取预览数据（第二步：根据任务ID获取预览数据结果）
+        Summary: 根据任务ID获取预览数据结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_chain_data_preview_ex_async(request, headers, runtime)
+
+    def query_chain_data_preview_ex(
+        self,
+        request: blockchain_models.QueryChainDataPreviewRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainDataPreviewResponse:
+        """
+        Description: 获取预览数据（第二步：根据任务ID获取预览数据结果）
+        Summary: 根据任务ID获取预览数据结果
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryChainDataPreviewResponse().from_map(
+            self.do_request('1.0', 'baas.chain.data.preview.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_chain_data_preview_ex_async(
+        self,
+        request: blockchain_models.QueryChainDataPreviewRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainDataPreviewResponse:
+        """
+        Description: 获取预览数据（第二步：根据任务ID获取预览数据结果）
+        Summary: 根据任务ID获取预览数据结果
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryChainDataPreviewResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.data.preview.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_chain_mapping_relationship(
+        self,
+        request: blockchain_models.QueryChainMappingRelationshipRequest,
+    ) -> blockchain_models.QueryChainMappingRelationshipResponse:
+        """
+        Description: 根据预览数据获取默认映射关系
+        Summary: 根据预览数据获取默认映射关系
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_chain_mapping_relationship_ex(request, headers, runtime)
+
+    async def query_chain_mapping_relationship_async(
+        self,
+        request: blockchain_models.QueryChainMappingRelationshipRequest,
+    ) -> blockchain_models.QueryChainMappingRelationshipResponse:
+        """
+        Description: 根据预览数据获取默认映射关系
+        Summary: 根据预览数据获取默认映射关系
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_chain_mapping_relationship_ex_async(request, headers, runtime)
+
+    def query_chain_mapping_relationship_ex(
+        self,
+        request: blockchain_models.QueryChainMappingRelationshipRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainMappingRelationshipResponse:
+        """
+        Description: 根据预览数据获取默认映射关系
+        Summary: 根据预览数据获取默认映射关系
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryChainMappingRelationshipResponse().from_map(
+            self.do_request('1.0', 'baas.chain.mapping.relationship.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_chain_mapping_relationship_ex_async(
+        self,
+        request: blockchain_models.QueryChainMappingRelationshipRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainMappingRelationshipResponse:
+        """
+        Description: 根据预览数据获取默认映射关系
+        Summary: 根据预览数据获取默认映射关系
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryChainMappingRelationshipResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.mapping.relationship.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_chain_table_sql(
+        self,
+        request: blockchain_models.CreateChainTableSqlRequest,
+    ) -> blockchain_models.CreateChainTableSqlResponse:
+        """
+        Description: 创建导出MySQL任务失败，获取 Create Table 语句
+        Summary: 获取 Create Table 语句
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_chain_table_sql_ex(request, headers, runtime)
+
+    async def create_chain_table_sql_async(
+        self,
+        request: blockchain_models.CreateChainTableSqlRequest,
+    ) -> blockchain_models.CreateChainTableSqlResponse:
+        """
+        Description: 创建导出MySQL任务失败，获取 Create Table 语句
+        Summary: 获取 Create Table 语句
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_chain_table_sql_ex_async(request, headers, runtime)
+
+    def create_chain_table_sql_ex(
+        self,
+        request: blockchain_models.CreateChainTableSqlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateChainTableSqlResponse:
+        """
+        Description: 创建导出MySQL任务失败，获取 Create Table 语句
+        Summary: 获取 Create Table 语句
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateChainTableSqlResponse().from_map(
+            self.do_request('1.0', 'baas.chain.table.sql.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_chain_table_sql_ex_async(
+        self,
+        request: blockchain_models.CreateChainTableSqlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateChainTableSqlResponse:
+        """
+        Description: 创建导出MySQL任务失败，获取 Create Table 语句
+        Summary: 获取 Create Table 语句
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateChainTableSqlResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.table.sql.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_chain_dataexport_status(
+        self,
+        request: blockchain_models.UpdateChainDataexportStatusRequest,
+    ) -> blockchain_models.UpdateChainDataexportStatusResponse:
+        """
+        Description: 修改导出任务状态（启动、暂停、删除）
+        Summary: 修改导出任务状态（启动、暂停、删除）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_chain_dataexport_status_ex(request, headers, runtime)
+
+    async def update_chain_dataexport_status_async(
+        self,
+        request: blockchain_models.UpdateChainDataexportStatusRequest,
+    ) -> blockchain_models.UpdateChainDataexportStatusResponse:
+        """
+        Description: 修改导出任务状态（启动、暂停、删除）
+        Summary: 修改导出任务状态（启动、暂停、删除）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_chain_dataexport_status_ex_async(request, headers, runtime)
+
+    def update_chain_dataexport_status_ex(
+        self,
+        request: blockchain_models.UpdateChainDataexportStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UpdateChainDataexportStatusResponse:
+        """
+        Description: 修改导出任务状态（启动、暂停、删除）
+        Summary: 修改导出任务状态（启动、暂停、删除）
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.UpdateChainDataexportStatusResponse().from_map(
+            self.do_request('1.0', 'baas.chain.dataexport.status.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_chain_dataexport_status_ex_async(
+        self,
+        request: blockchain_models.UpdateChainDataexportStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UpdateChainDataexportStatusResponse:
+        """
+        Description: 修改导出任务状态（启动、暂停、删除）
+        Summary: 修改导出任务状态（启动、暂停、删除）
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.UpdateChainDataexportStatusResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.dataexport.status.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_chain_dataexport_task(
+        self,
+        request: blockchain_models.UpdateChainDataexportTaskRequest,
+    ) -> blockchain_models.UpdateChainDataexportTaskResponse:
+        """
+        Description: 修改导出任务（名称、描述、告警地址）
+        Summary: 修改导出任务（名称、描述、告警地址）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_chain_dataexport_task_ex(request, headers, runtime)
+
+    async def update_chain_dataexport_task_async(
+        self,
+        request: blockchain_models.UpdateChainDataexportTaskRequest,
+    ) -> blockchain_models.UpdateChainDataexportTaskResponse:
+        """
+        Description: 修改导出任务（名称、描述、告警地址）
+        Summary: 修改导出任务（名称、描述、告警地址）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_chain_dataexport_task_ex_async(request, headers, runtime)
+
+    def update_chain_dataexport_task_ex(
+        self,
+        request: blockchain_models.UpdateChainDataexportTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UpdateChainDataexportTaskResponse:
+        """
+        Description: 修改导出任务（名称、描述、告警地址）
+        Summary: 修改导出任务（名称、描述、告警地址）
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.UpdateChainDataexportTaskResponse().from_map(
+            self.do_request('1.0', 'baas.chain.dataexport.task.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_chain_dataexport_task_ex_async(
+        self,
+        request: blockchain_models.UpdateChainDataexportTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UpdateChainDataexportTaskResponse:
+        """
+        Description: 修改导出任务（名称、描述、告警地址）
+        Summary: 修改导出任务（名称、描述、告警地址）
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.UpdateChainDataexportTaskResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.dataexport.task.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_chain_failure_log(
+        self,
+        request: blockchain_models.QueryChainFailureLogRequest,
+    ) -> blockchain_models.QueryChainFailureLogResponse:
+        """
+        Description: 分页失败的展示日志（过滤器：待处理、成功、已忽略）
+        Summary: 分页失败的展示日志
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_chain_failure_log_ex(request, headers, runtime)
+
+    async def query_chain_failure_log_async(
+        self,
+        request: blockchain_models.QueryChainFailureLogRequest,
+    ) -> blockchain_models.QueryChainFailureLogResponse:
+        """
+        Description: 分页失败的展示日志（过滤器：待处理、成功、已忽略）
+        Summary: 分页失败的展示日志
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_chain_failure_log_ex_async(request, headers, runtime)
+
+    def query_chain_failure_log_ex(
+        self,
+        request: blockchain_models.QueryChainFailureLogRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainFailureLogResponse:
+        """
+        Description: 分页失败的展示日志（过滤器：待处理、成功、已忽略）
+        Summary: 分页失败的展示日志
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryChainFailureLogResponse().from_map(
+            self.do_request('1.0', 'baas.chain.failure.log.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_chain_failure_log_ex_async(
+        self,
+        request: blockchain_models.QueryChainFailureLogRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainFailureLogResponse:
+        """
+        Description: 分页失败的展示日志（过滤器：待处理、成功、已忽略）
+        Summary: 分页失败的展示日志
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryChainFailureLogResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.failure.log.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_chain_failure_log(
+        self,
+        request: blockchain_models.UpdateChainFailureLogRequest,
+    ) -> blockchain_models.UpdateChainFailureLogResponse:
+        """
+        Description: 批量处理失败日志（重试/忽略）
+        Summary: 批量处理失败日志（重试/忽略）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_chain_failure_log_ex(request, headers, runtime)
+
+    async def update_chain_failure_log_async(
+        self,
+        request: blockchain_models.UpdateChainFailureLogRequest,
+    ) -> blockchain_models.UpdateChainFailureLogResponse:
+        """
+        Description: 批量处理失败日志（重试/忽略）
+        Summary: 批量处理失败日志（重试/忽略）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_chain_failure_log_ex_async(request, headers, runtime)
+
+    def update_chain_failure_log_ex(
+        self,
+        request: blockchain_models.UpdateChainFailureLogRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UpdateChainFailureLogResponse:
+        """
+        Description: 批量处理失败日志（重试/忽略）
+        Summary: 批量处理失败日志（重试/忽略）
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.UpdateChainFailureLogResponse().from_map(
+            self.do_request('1.0', 'baas.chain.failure.log.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_chain_failure_log_ex_async(
+        self,
+        request: blockchain_models.UpdateChainFailureLogRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UpdateChainFailureLogResponse:
+        """
+        Description: 批量处理失败日志（重试/忽略）
+        Summary: 批量处理失败日志（重试/忽略）
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.UpdateChainFailureLogResponse().from_map(
+            await self.do_request_async('1.0', 'baas.chain.failure.log.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_aml_corporation_joinprepare(
@@ -18865,6 +19297,60 @@ class Client:
         UtilClient.validate_model(request)
         return blockchain_models.QueryAuthCertClaimResponse().from_map(
             await self.do_request_async('1.0', 'baas.auth.cert.claim.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_auth_cert_claimurl(
+        self,
+        request: blockchain_models.CreateAuthCertClaimurlRequest,
+    ) -> blockchain_models.CreateAuthCertClaimurlResponse:
+        """
+        Description: 生成查验证书存证的url
+        Summary: 生成查验证书存证的url
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_auth_cert_claimurl_ex(request, headers, runtime)
+
+    async def create_auth_cert_claimurl_async(
+        self,
+        request: blockchain_models.CreateAuthCertClaimurlRequest,
+    ) -> blockchain_models.CreateAuthCertClaimurlResponse:
+        """
+        Description: 生成查验证书存证的url
+        Summary: 生成查验证书存证的url
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_auth_cert_claimurl_ex_async(request, headers, runtime)
+
+    def create_auth_cert_claimurl_ex(
+        self,
+        request: blockchain_models.CreateAuthCertClaimurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateAuthCertClaimurlResponse:
+        """
+        Description: 生成查验证书存证的url
+        Summary: 生成查验证书存证的url
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateAuthCertClaimurlResponse().from_map(
+            self.do_request('1.0', 'baas.auth.cert.claimurl.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_auth_cert_claimurl_ex_async(
+        self,
+        request: blockchain_models.CreateAuthCertClaimurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateAuthCertClaimurlResponse:
+        """
+        Description: 生成查验证书存证的url
+        Summary: 生成查验证书存证的url
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.CreateAuthCertClaimurlResponse().from_map(
+            await self.do_request_async('1.0', 'baas.auth.cert.claimurl.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_did_corporate_agentcreate(
