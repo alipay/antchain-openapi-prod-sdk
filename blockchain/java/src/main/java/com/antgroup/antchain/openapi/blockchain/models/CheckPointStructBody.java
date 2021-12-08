@@ -3,14 +3,14 @@ package com.antgroup.antchain.openapi.blockchain.models;
 
 import com.aliyun.tea.*;
 
-public class CheckPoint extends TeaModel {
+public class CheckPointStructBody extends TeaModel {
     // 高度
     @NameInMap("height")
     public String height;
 
     // 序号
     @NameInMap("index")
-    public Long index;
+    public String index;
 
     // 类型
     @NameInMap("type")
@@ -22,18 +22,18 @@ public class CheckPoint extends TeaModel {
 
     // 错误统计
     @NameInMap("error_count")
-    public Long errorCount;
+    public String errorCount;
 
     // 统计
     @NameInMap("total_count")
     public String totalCount;
 
-    public static CheckPoint build(java.util.Map<String, ?> map) throws Exception {
-        CheckPoint self = new CheckPoint();
+    public static CheckPointStructBody build(java.util.Map<String, ?> map) throws Exception {
+        CheckPointStructBody self = new CheckPointStructBody();
         return TeaModel.build(map, self);
     }
 
-    public CheckPoint setHeight(String height) {
+    public CheckPointStructBody setHeight(String height) {
         this.height = height;
         return this;
     }
@@ -41,15 +41,15 @@ public class CheckPoint extends TeaModel {
         return this.height;
     }
 
-    public CheckPoint setIndex(Long index) {
+    public CheckPointStructBody setIndex(String index) {
         this.index = index;
         return this;
     }
-    public Long getIndex() {
+    public String getIndex() {
         return this.index;
     }
 
-    public CheckPoint setType(String type) {
+    public CheckPointStructBody setType(String type) {
         this.type = type;
         return this;
     }
@@ -57,7 +57,7 @@ public class CheckPoint extends TeaModel {
         return this.type;
     }
 
-    public CheckPoint setLastError(String lastError) {
+    public CheckPointStructBody setLastError(String lastError) {
         this.lastError = lastError;
         return this;
     }
@@ -65,15 +65,15 @@ public class CheckPoint extends TeaModel {
         return this.lastError;
     }
 
-    public CheckPoint setErrorCount(Long errorCount) {
+    public CheckPointStructBody setErrorCount(String errorCount) {
         this.errorCount = errorCount;
         return this;
     }
-    public Long getErrorCount() {
+    public String getErrorCount() {
         return this.errorCount;
     }
 
-    public CheckPoint setTotalCount(String totalCount) {
+    public CheckPointStructBody setTotalCount(String totalCount) {
         this.totalCount = totalCount;
         return this;
     }

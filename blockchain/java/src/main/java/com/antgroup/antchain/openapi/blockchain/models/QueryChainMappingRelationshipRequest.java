@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.blockchain.models;
 
 import com.aliyun.tea.*;
 
-public class CreateChainDataexportTaskRequest extends TeaModel {
+public class QueryChainMappingRelationshipRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -21,17 +21,22 @@ public class CreateChainDataexportTaskRequest extends TeaModel {
     @Validation(required = true)
     public String consortiumId;
 
-    // {}
-    @NameInMap("trigger")
+    // ""
+    @NameInMap("service_id")
     @Validation(required = true)
-    public TriggerDTOStructBody trigger;
+    public String serviceId;
 
-    public static CreateChainDataexportTaskRequest build(java.util.Map<String, ?> map) throws Exception {
-        CreateChainDataexportTaskRequest self = new CreateChainDataexportTaskRequest();
+    // 映射方法类型
+    @NameInMap("mapping_type")
+    @Validation(required = true)
+    public String mappingType;
+
+    public static QueryChainMappingRelationshipRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryChainMappingRelationshipRequest self = new QueryChainMappingRelationshipRequest();
         return TeaModel.build(map, self);
     }
 
-    public CreateChainDataexportTaskRequest setAuthToken(String authToken) {
+    public QueryChainMappingRelationshipRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -39,7 +44,7 @@ public class CreateChainDataexportTaskRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CreateChainDataexportTaskRequest setProductInstanceId(String productInstanceId) {
+    public QueryChainMappingRelationshipRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -47,7 +52,7 @@ public class CreateChainDataexportTaskRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CreateChainDataexportTaskRequest setAntChainId(String antChainId) {
+    public QueryChainMappingRelationshipRequest setAntChainId(String antChainId) {
         this.antChainId = antChainId;
         return this;
     }
@@ -55,7 +60,7 @@ public class CreateChainDataexportTaskRequest extends TeaModel {
         return this.antChainId;
     }
 
-    public CreateChainDataexportTaskRequest setConsortiumId(String consortiumId) {
+    public QueryChainMappingRelationshipRequest setConsortiumId(String consortiumId) {
         this.consortiumId = consortiumId;
         return this;
     }
@@ -63,12 +68,20 @@ public class CreateChainDataexportTaskRequest extends TeaModel {
         return this.consortiumId;
     }
 
-    public CreateChainDataexportTaskRequest setTrigger(TriggerDTOStructBody trigger) {
-        this.trigger = trigger;
+    public QueryChainMappingRelationshipRequest setServiceId(String serviceId) {
+        this.serviceId = serviceId;
         return this;
     }
-    public TriggerDTOStructBody getTrigger() {
-        return this.trigger;
+    public String getServiceId() {
+        return this.serviceId;
+    }
+
+    public QueryChainMappingRelationshipRequest setMappingType(String mappingType) {
+        this.mappingType = mappingType;
+        return this;
+    }
+    public String getMappingType() {
+        return this.mappingType;
     }
 
 }

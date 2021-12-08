@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.blockchain.models;
 
 import com.aliyun.tea.*;
 
-public class CreateChainDataexportTaskRequest extends TeaModel {
+public class CreateChainTableSqlRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -26,12 +26,12 @@ public class CreateChainDataexportTaskRequest extends TeaModel {
     @Validation(required = true)
     public TriggerDTOStructBody trigger;
 
-    public static CreateChainDataexportTaskRequest build(java.util.Map<String, ?> map) throws Exception {
-        CreateChainDataexportTaskRequest self = new CreateChainDataexportTaskRequest();
+    public static CreateChainTableSqlRequest build(java.util.Map<String, ?> map) throws Exception {
+        CreateChainTableSqlRequest self = new CreateChainTableSqlRequest();
         return TeaModel.build(map, self);
     }
 
-    public CreateChainDataexportTaskRequest setAuthToken(String authToken) {
+    public CreateChainTableSqlRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -39,7 +39,7 @@ public class CreateChainDataexportTaskRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CreateChainDataexportTaskRequest setProductInstanceId(String productInstanceId) {
+    public CreateChainTableSqlRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -47,7 +47,7 @@ public class CreateChainDataexportTaskRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CreateChainDataexportTaskRequest setAntChainId(String antChainId) {
+    public CreateChainTableSqlRequest setAntChainId(String antChainId) {
         this.antChainId = antChainId;
         return this;
     }
@@ -55,7 +55,7 @@ public class CreateChainDataexportTaskRequest extends TeaModel {
         return this.antChainId;
     }
 
-    public CreateChainDataexportTaskRequest setConsortiumId(String consortiumId) {
+    public CreateChainTableSqlRequest setConsortiumId(String consortiumId) {
         this.consortiumId = consortiumId;
         return this;
     }
@@ -63,7 +63,7 @@ public class CreateChainDataexportTaskRequest extends TeaModel {
         return this.consortiumId;
     }
 
-    public CreateChainDataexportTaskRequest setTrigger(TriggerDTOStructBody trigger) {
+    public CreateChainTableSqlRequest setTrigger(TriggerDTOStructBody trigger) {
         this.trigger = trigger;
         return this;
     }

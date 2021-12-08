@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.25.48")
+                    new TeaPair("sdk_version", "1.25.70")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -2213,6 +2213,158 @@ public class Client {
     public CreateChainDataexportTaskResponse createChainDataexportTaskEx(CreateChainDataexportTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.chain.dataexport.task.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateChainDataexportTaskResponse());
+    }
+
+    /**
+     * Description: 获取预览数据（第一步：生成任务ID）
+     * Summary: 获取预览数据（第一步：生成任务ID）
+     */
+    public CreateChainTaskIdResponse createChainTaskId(CreateChainTaskIdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createChainTaskIdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取预览数据（第一步：生成任务ID）
+     * Summary: 获取预览数据（第一步：生成任务ID）
+     */
+    public CreateChainTaskIdResponse createChainTaskIdEx(CreateChainTaskIdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.task.id.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateChainTaskIdResponse());
+    }
+
+    /**
+     * Description: 获取预览数据（第二步：根据任务ID获取预览数据结果）
+     * Summary: 根据任务ID获取预览数据结果
+     */
+    public QueryChainDataPreviewResponse queryChainDataPreview(QueryChainDataPreviewRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryChainDataPreviewEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取预览数据（第二步：根据任务ID获取预览数据结果）
+     * Summary: 根据任务ID获取预览数据结果
+     */
+    public QueryChainDataPreviewResponse queryChainDataPreviewEx(QueryChainDataPreviewRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.data.preview.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryChainDataPreviewResponse());
+    }
+
+    /**
+     * Description: 根据预览数据获取默认映射关系
+     * Summary: 根据预览数据获取默认映射关系
+     */
+    public QueryChainMappingRelationshipResponse queryChainMappingRelationship(QueryChainMappingRelationshipRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryChainMappingRelationshipEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据预览数据获取默认映射关系
+     * Summary: 根据预览数据获取默认映射关系
+     */
+    public QueryChainMappingRelationshipResponse queryChainMappingRelationshipEx(QueryChainMappingRelationshipRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.mapping.relationship.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryChainMappingRelationshipResponse());
+    }
+
+    /**
+     * Description: 创建导出MySQL任务失败，获取 Create Table 语句
+     * Summary: 获取 Create Table 语句
+     */
+    public CreateChainTableSqlResponse createChainTableSql(CreateChainTableSqlRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createChainTableSqlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建导出MySQL任务失败，获取 Create Table 语句
+     * Summary: 获取 Create Table 语句
+     */
+    public CreateChainTableSqlResponse createChainTableSqlEx(CreateChainTableSqlRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.table.sql.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateChainTableSqlResponse());
+    }
+
+    /**
+     * Description: 修改导出任务状态（启动、暂停、删除）
+     * Summary: 修改导出任务状态（启动、暂停、删除）
+     */
+    public UpdateChainDataexportStatusResponse updateChainDataexportStatus(UpdateChainDataexportStatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateChainDataexportStatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 修改导出任务状态（启动、暂停、删除）
+     * Summary: 修改导出任务状态（启动、暂停、删除）
+     */
+    public UpdateChainDataexportStatusResponse updateChainDataexportStatusEx(UpdateChainDataexportStatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.dataexport.status.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateChainDataexportStatusResponse());
+    }
+
+    /**
+     * Description: 修改导出任务（名称、描述、告警地址）
+     * Summary: 修改导出任务（名称、描述、告警地址）
+     */
+    public UpdateChainDataexportTaskResponse updateChainDataexportTask(UpdateChainDataexportTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateChainDataexportTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 修改导出任务（名称、描述、告警地址）
+     * Summary: 修改导出任务（名称、描述、告警地址）
+     */
+    public UpdateChainDataexportTaskResponse updateChainDataexportTaskEx(UpdateChainDataexportTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.dataexport.task.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateChainDataexportTaskResponse());
+    }
+
+    /**
+     * Description: 分页失败的展示日志（过滤器：待处理、成功、已忽略）
+     * Summary: 分页失败的展示日志
+     */
+    public QueryChainFailureLogResponse queryChainFailureLog(QueryChainFailureLogRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryChainFailureLogEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页失败的展示日志（过滤器：待处理、成功、已忽略）
+     * Summary: 分页失败的展示日志
+     */
+    public QueryChainFailureLogResponse queryChainFailureLogEx(QueryChainFailureLogRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.failure.log.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryChainFailureLogResponse());
+    }
+
+    /**
+     * Description: 批量处理失败日志（重试/忽略）
+     * Summary: 批量处理失败日志（重试/忽略）
+     */
+    public UpdateChainFailureLogResponse updateChainFailureLog(UpdateChainFailureLogRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateChainFailureLogEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 批量处理失败日志（重试/忽略）
+     * Summary: 批量处理失败日志（重试/忽略）
+     */
+    public UpdateChainFailureLogResponse updateChainFailureLogEx(UpdateChainFailureLogRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.chain.failure.log.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateChainFailureLogResponse());
     }
 
     /**
@@ -6715,6 +6867,25 @@ public class Client {
     public QueryAuthCertClaimResponse queryAuthCertClaimEx(QueryAuthCertClaimRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.auth.cert.claim.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuthCertClaimResponse());
+    }
+
+    /**
+     * Description: 生成查验证书存证的url
+     * Summary: 生成查验证书存证的url
+     */
+    public CreateAuthCertClaimurlResponse createAuthCertClaimurl(CreateAuthCertClaimurlRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAuthCertClaimurlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 生成查验证书存证的url
+     * Summary: 生成查验证书存证的url
+     */
+    public CreateAuthCertClaimurlResponse createAuthCertClaimurlEx(CreateAuthCertClaimurlRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.cert.claimurl.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAuthCertClaimurlResponse());
     }
 
     /**

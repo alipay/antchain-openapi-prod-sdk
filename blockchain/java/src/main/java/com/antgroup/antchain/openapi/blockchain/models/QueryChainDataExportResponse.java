@@ -18,7 +18,7 @@ public class QueryChainDataExportResponse extends TeaModel {
 
     // 返回结果为TriggerDTO类型的list
     @NameInMap("result")
-    public java.util.List<TriggerDTO> result;
+    public java.util.List<TriggerDTOStructBody> result;
 
     public static QueryChainDataExportResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryChainDataExportResponse self = new QueryChainDataExportResponse();
@@ -49,11 +49,11 @@ public class QueryChainDataExportResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryChainDataExportResponse setResult(java.util.List<TriggerDTO> result) {
+    public QueryChainDataExportResponse setResult(java.util.List<TriggerDTOStructBody> result) {
         this.result = result;
         return this;
     }
-    public java.util.List<TriggerDTO> getResult() {
+    public java.util.List<TriggerDTOStructBody> getResult() {
         return this.result;
     }
 

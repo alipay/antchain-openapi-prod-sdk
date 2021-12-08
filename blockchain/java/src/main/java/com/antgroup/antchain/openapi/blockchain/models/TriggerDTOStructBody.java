@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.blockchain.models;
 
 import com.aliyun.tea.*;
 
-public class TriggerDTO extends TeaModel {
+public class TriggerDTOStructBody extends TeaModel {
     // 名称
     @NameInMap("name")
     public String name;
@@ -34,14 +34,14 @@ public class TriggerDTO extends TeaModel {
 
     // checkpoint类
     @NameInMap("checkpoint")
-    public CheckPoint checkpoint;
+    public CheckPointStructBody checkpoint;
 
-    public static TriggerDTO build(java.util.Map<String, ?> map) throws Exception {
-        TriggerDTO self = new TriggerDTO();
+    public static TriggerDTOStructBody build(java.util.Map<String, ?> map) throws Exception {
+        TriggerDTOStructBody self = new TriggerDTOStructBody();
         return TeaModel.build(map, self);
     }
 
-    public TriggerDTO setName(String name) {
+    public TriggerDTOStructBody setName(String name) {
         this.name = name;
         return this;
     }
@@ -49,7 +49,7 @@ public class TriggerDTO extends TeaModel {
         return this.name;
     }
 
-    public TriggerDTO setType(String type) {
+    public TriggerDTOStructBody setType(String type) {
         this.type = type;
         return this;
     }
@@ -57,7 +57,7 @@ public class TriggerDTO extends TeaModel {
         return this.type;
     }
 
-    public TriggerDTO setSource(String source) {
+    public TriggerDTOStructBody setSource(String source) {
         this.source = source;
         return this;
     }
@@ -65,7 +65,7 @@ public class TriggerDTO extends TeaModel {
         return this.source;
     }
 
-    public TriggerDTO setCreateTime(String createTime) {
+    public TriggerDTOStructBody setCreateTime(String createTime) {
         this.createTime = createTime;
         return this;
     }
@@ -73,7 +73,7 @@ public class TriggerDTO extends TeaModel {
         return this.createTime;
     }
 
-    public TriggerDTO setErrorMessage(String errorMessage) {
+    public TriggerDTOStructBody setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
         return this;
     }
@@ -81,7 +81,7 @@ public class TriggerDTO extends TeaModel {
         return this.errorMessage;
     }
 
-    public TriggerDTO setStatus(String status) {
+    public TriggerDTOStructBody setStatus(String status) {
         this.status = status;
         return this;
     }
@@ -89,7 +89,7 @@ public class TriggerDTO extends TeaModel {
         return this.status;
     }
 
-    public TriggerDTO setOption(String option) {
+    public TriggerDTOStructBody setOption(String option) {
         this.option = option;
         return this;
     }
@@ -97,11 +97,11 @@ public class TriggerDTO extends TeaModel {
         return this.option;
     }
 
-    public TriggerDTO setCheckpoint(CheckPoint checkpoint) {
+    public TriggerDTOStructBody setCheckpoint(CheckPointStructBody checkpoint) {
         this.checkpoint = checkpoint;
         return this;
     }
-    public CheckPoint getCheckpoint() {
+    public CheckPointStructBody getCheckpoint() {
         return this.checkpoint;
     }
 

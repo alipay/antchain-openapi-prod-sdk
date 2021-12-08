@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.blockchain.models;
 
 import com.aliyun.tea.*;
 
-public class CreateChainDataexportTaskResponse extends TeaModel {
+public class UpdateChainDataexportTaskResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,17 @@ public class CreateChainDataexportTaskResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // ""
+    //  修改导出任务（名称、描述、告警地址）信息结构体
+    //   
     @NameInMap("result")
-    public String result;
+    public TriggerDTOStructBody result;
 
-    public static CreateChainDataexportTaskResponse build(java.util.Map<String, ?> map) throws Exception {
-        CreateChainDataexportTaskResponse self = new CreateChainDataexportTaskResponse();
+    public static UpdateChainDataexportTaskResponse build(java.util.Map<String, ?> map) throws Exception {
+        UpdateChainDataexportTaskResponse self = new UpdateChainDataexportTaskResponse();
         return TeaModel.build(map, self);
     }
 
-    public CreateChainDataexportTaskResponse setReqMsgId(String reqMsgId) {
+    public UpdateChainDataexportTaskResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +34,7 @@ public class CreateChainDataexportTaskResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public CreateChainDataexportTaskResponse setResultCode(String resultCode) {
+    public UpdateChainDataexportTaskResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +42,7 @@ public class CreateChainDataexportTaskResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public CreateChainDataexportTaskResponse setResultMsg(String resultMsg) {
+    public UpdateChainDataexportTaskResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,11 +50,11 @@ public class CreateChainDataexportTaskResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CreateChainDataexportTaskResponse setResult(String result) {
+    public UpdateChainDataexportTaskResponse setResult(TriggerDTOStructBody result) {
         this.result = result;
         return this;
     }
-    public String getResult() {
+    public TriggerDTOStructBody getResult() {
         return this.result;
     }
 

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.blockchain.models;
 
 import com.aliyun.tea.*;
 
-public class CreateChainDataexportTaskRequest extends TeaModel {
+public class QueryChainDataPreviewRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -21,17 +21,17 @@ public class CreateChainDataexportTaskRequest extends TeaModel {
     @Validation(required = true)
     public String consortiumId;
 
-    // {}
-    @NameInMap("trigger")
+    // 任务id
+    @NameInMap("task_id")
     @Validation(required = true)
-    public TriggerDTOStructBody trigger;
+    public String taskId;
 
-    public static CreateChainDataexportTaskRequest build(java.util.Map<String, ?> map) throws Exception {
-        CreateChainDataexportTaskRequest self = new CreateChainDataexportTaskRequest();
+    public static QueryChainDataPreviewRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryChainDataPreviewRequest self = new QueryChainDataPreviewRequest();
         return TeaModel.build(map, self);
     }
 
-    public CreateChainDataexportTaskRequest setAuthToken(String authToken) {
+    public QueryChainDataPreviewRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -39,7 +39,7 @@ public class CreateChainDataexportTaskRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CreateChainDataexportTaskRequest setProductInstanceId(String productInstanceId) {
+    public QueryChainDataPreviewRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -47,7 +47,7 @@ public class CreateChainDataexportTaskRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CreateChainDataexportTaskRequest setAntChainId(String antChainId) {
+    public QueryChainDataPreviewRequest setAntChainId(String antChainId) {
         this.antChainId = antChainId;
         return this;
     }
@@ -55,7 +55,7 @@ public class CreateChainDataexportTaskRequest extends TeaModel {
         return this.antChainId;
     }
 
-    public CreateChainDataexportTaskRequest setConsortiumId(String consortiumId) {
+    public QueryChainDataPreviewRequest setConsortiumId(String consortiumId) {
         this.consortiumId = consortiumId;
         return this;
     }
@@ -63,12 +63,12 @@ public class CreateChainDataexportTaskRequest extends TeaModel {
         return this.consortiumId;
     }
 
-    public CreateChainDataexportTaskRequest setTrigger(TriggerDTOStructBody trigger) {
-        this.trigger = trigger;
+    public QueryChainDataPreviewRequest setTaskId(String taskId) {
+        this.taskId = taskId;
         return this;
     }
-    public TriggerDTOStructBody getTrigger() {
-        return this.trigger;
+    public String getTaskId() {
+        return this.taskId;
     }
 
 }
