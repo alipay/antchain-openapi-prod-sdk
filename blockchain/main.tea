@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.25.48',
+    sdk_version = '1.25.70',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -157,6 +157,20 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// TriggerLogDTO类成员
+model PositionStructBody {
+  // 错误计数
+  errorCount?: string(name='error_count', example='"1"'),
+  // 高度
+  height?: string(name='height', example='"10"'),
+  // 序号
+  index?: string(name='index', example='“1”'),
+  // 最后一个错误
+  lastError?: string(name='last_error', example='“”'),
+  // 类型
+  type?: string(name='type', example='""'),
 }
 
 // 蚂蚁链浏览器合约链交易内容
@@ -381,22 +395,6 @@ model ALiYunMember {
   role?: string(name='role', example='角色'),
   // 状态
   status?: string(name='status', example='状态'),
-}
-
-// 阿里云数据导出任务checkpoint类
-model CheckPoint {
-  // 高度
-  height?: string(name='height', example='100'),
-  // 序号
-  index?: long(name='index', example='0'),
-  // 类型
-  type?: string(name='type', example='"Block"'),
-  // last_error
-  lastError?: string(name='last_error', example='“”'),
-  // 错误统计
-  errorCount?: long(name='error_count', example='0'),
-  // 统计
-  totalCount?: string(name='total_count', example='0'),
 }
 
 // 阿里云合约工程信息
@@ -756,6 +754,22 @@ model ContractIdeConfig {
   version?: string(name='version', example='2.7'),
 }
 
+// 阿里云数据导出任务checkpoint类
+model CheckPointStructBody {
+  // 高度
+  height?: string(name='height', example='100'),
+  // 序号
+  index?: string(name='index', example='0'),
+  // 类型
+  type?: string(name='type', example='"Block"'),
+  // last_error
+  lastError?: string(name='last_error', example='“”'),
+  // 错误统计
+  errorCount?: string(name='error_count', example='0'),
+  // 统计
+  totalCount?: string(name='total_count', example='0'),
+}
+
 // VC可信传输时，指定的目标did信息
 model VcTransmitTargetStruct {
   // 目标did的公钥
@@ -796,6 +810,20 @@ model ALiYunPagination {
   pageNumber?: long(name='page_number', example='1'),
   // 总数大小
   totalCount?: long(name='total_count', example='100'),
+}
+
+// 日志存储类型
+model TriggerLogDTOStructBody {
+  // 创建时间
+  createTime?: string(name='create_time', example='""'),
+  // 修改时间
+  modifyTime?: string(name='modify_time', example='""'),
+  // 状态
+  status?: string(name='status', example='""'),
+  // uuid
+  uuid?: string(name='uuid', example='“”'),
+  // 位置
+  position?: PositionStructBody(name='position', example='{}'),
 }
 
 // 数字资产管理平台版通交易信息
@@ -1129,6 +1157,18 @@ model BareClaim {
   type?: string(name='type', example='claimtype'),
 }
 
+// 分页失败的展示日志（过滤器：待处理、成功、已忽略）
+model CommonResponsePageableStructBody {
+  // 页面规格
+  pageSize?: string(name='page_size', example='10'),
+  // 当前页码
+  current?: string(name='current', example='10'),
+  // 总条数
+  total?: string(name='total', example='total'),
+  // 失败日志数组
+  list?: [ TriggerLogDTOStructBody ](name='list', example='{}'),
+}
+
 // 账户映射的具体信息
 model AccountMap {
   // 要映射的链对应的唯一id
@@ -1196,6 +1236,26 @@ model TsrResponse {
   hashAlgorithm: string(name='hash_algorithm', example='321'),
   // 时间
   ts: string(name='ts', example='123'),
+}
+
+// 阿里云数据导出服务TriggerDTO结构体
+model TriggerDTOStructBody {
+  // 名称
+  name?: string(name='name', example='9481b612d6ca4cfdbecc5c5d395eda4237c749fa-97fc-4156-9c23-e21cd6060669'),
+  // 类型
+  type?: string(name='type', example='"BLOCK"'),
+  // 源
+  source?: string(name='source', example='“”'),
+  // 创建时间
+  createTime?: string(name='create_time', example='103422'),
+  // 错误信息
+  errorMessage?: string(name='error_message', example='"error"'),
+  // 状态
+  status?: string(name='status', example='“success”'),
+  // option（map结构，由于金融云无map接口所以通过string类型传输json格式）
+  option?: string(name='option', example='{a:"123",  b:"123"}'),
+  // checkpoint类
+  checkpoint?: CheckPointStructBody(name='checkpoint', example='{}'),
 }
 
 // 阿里云联盟返回结果
@@ -1789,26 +1849,6 @@ model UpdateDidServiceList {
   previousVersion: long(name='previous_version', example=''),
   // 服务信息列表
   serviceList: [ DisServicesInfo ](name='service_list', example=''),
-}
-
-// 阿里云数据导出服务TriggerDTO结构体
-model TriggerDTO {
-  // 名称
-  name?: string(name='name', example='9481b612d6ca4cfdbecc5c5d395eda4237c749fa-97fc-4156-9c23-e21cd6060669'),
-  // 类型
-  type?: string(name='type', example='"BLOCK"'),
-  // 源
-  source?: string(name='source', example='“”'),
-  // 创建时间
-  createTime?: string(name='create_time', example='103422'),
-  // 错误信息
-  errorMessage?: string(name='error_message', example='"error"'),
-  // 状态
-  status?: string(name='status', example='“success”'),
-  // option（map结构，由于金融云无map接口所以通过string类型传输json格式）
-  option?: string(name='option', example='{a:"123",  b:"123"}'),
-  // checkpoint类
-  checkpoint?: CheckPoint(name='checkpoint', example='{}'),
 }
 
 // 阿里云蚂蚁区块链证书列表信息
@@ -7192,7 +7232,7 @@ model QueryChainDataExportResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 返回结果为TriggerDTO类型的list
-  result?: [ TriggerDTO ](name='result'),
+  result?: [ TriggerDTOStructBody ](name='result'),
 }
 
 /**
@@ -7223,7 +7263,7 @@ model CreateChainDataexportTaskRequest = {
   // 联盟id
   consortiumId: string(name='consortium_id'),
   // {}
-  trigger: TriggerDTO(name='trigger'),
+  trigger: TriggerDTOStructBody(name='trigger'),
 }
 
 model CreateChainDataexportTaskResponse = {
@@ -7233,8 +7273,8 @@ model CreateChainDataexportTaskResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // {}
-  result?: TriggerDTO(name='result'),
+  // ""
+  result?: string(name='result'),
 }
 
 /**
@@ -7254,6 +7294,359 @@ async function createChainDataexportTask(request: CreateChainDataexportTaskReque
 async function createChainDataexportTaskEx(request: CreateChainDataexportTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateChainDataexportTaskResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.chain.dataexport.task.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateChainTaskIdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链id
+  antChainId: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId: string(name='consortium_id'),
+  // TriggerDTO结构体
+  trigger: TriggerDTOStructBody(name='trigger'),
+}
+
+model CreateChainTaskIdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // ""
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 获取预览数据（第一步：生成任务ID）
+ * Summary: 获取预览数据（第一步：生成任务ID）
+ */
+async function createChainTaskId(request: CreateChainTaskIdRequest): CreateChainTaskIdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createChainTaskIdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取预览数据（第一步：生成任务ID）
+ * Summary: 获取预览数据（第一步：生成任务ID）
+ */
+async function createChainTaskIdEx(request: CreateChainTaskIdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateChainTaskIdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.task.id.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryChainDataPreviewRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链id
+  antChainId: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId: string(name='consortium_id'),
+  // 任务id
+  taskId: string(name='task_id'),
+}
+
+model QueryChainDataPreviewResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回预览数据
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 获取预览数据（第二步：根据任务ID获取预览数据结果）
+ * Summary: 根据任务ID获取预览数据结果
+ */
+async function queryChainDataPreview(request: QueryChainDataPreviewRequest): QueryChainDataPreviewResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryChainDataPreviewEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取预览数据（第二步：根据任务ID获取预览数据结果）
+ * Summary: 根据任务ID获取预览数据结果
+ */
+async function queryChainDataPreviewEx(request: QueryChainDataPreviewRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryChainDataPreviewResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.data.preview.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryChainMappingRelationshipRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链id
+  antChainId: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId: string(name='consortium_id'),
+  // ""
+  serviceId: string(name='service_id'),
+  // 映射方法类型
+  mappingType: string(name='mapping_type'),
+}
+
+model QueryChainMappingRelationshipResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 映射结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 根据预览数据获取默认映射关系
+ * Summary: 根据预览数据获取默认映射关系
+ */
+async function queryChainMappingRelationship(request: QueryChainMappingRelationshipRequest): QueryChainMappingRelationshipResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryChainMappingRelationshipEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据预览数据获取默认映射关系
+ * Summary: 根据预览数据获取默认映射关系
+ */
+async function queryChainMappingRelationshipEx(request: QueryChainMappingRelationshipRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryChainMappingRelationshipResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.mapping.relationship.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateChainTableSqlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链id
+  antChainId: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId: string(name='consortium_id'),
+  // {}
+  trigger: TriggerDTOStructBody(name='trigger'),
+}
+
+model CreateChainTableSqlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 创建导出MySQL任务失败，获取 Create Table 语句
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 创建导出MySQL任务失败，获取 Create Table 语句
+ * Summary: 获取 Create Table 语句
+ */
+async function createChainTableSql(request: CreateChainTableSqlRequest): CreateChainTableSqlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createChainTableSqlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建导出MySQL任务失败，获取 Create Table 语句
+ * Summary: 获取 Create Table 语句
+ */
+async function createChainTableSqlEx(request: CreateChainTableSqlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateChainTableSqlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.table.sql.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateChainDataexportStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链id
+  antChainId: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId: string(name='consortium_id'),
+  // "9481b612d6ca4cfdbecc5c5d395eda423f007745-233d-4860-8fd4-a107233ace6c"
+  triggerName: string(name='trigger_name'),
+  //  "Enabled/Disabled/DELETE"
+  statusAction: string(name='status_action'),
+}
+
+model UpdateChainDataexportStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // {}
+  result?: TriggerDTOStructBody(name='result'),
+}
+
+/**
+ * Description: 修改导出任务状态（启动、暂停、删除）
+ * Summary: 修改导出任务状态（启动、暂停、删除）
+ */
+async function updateChainDataexportStatus(request: UpdateChainDataexportStatusRequest): UpdateChainDataexportStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateChainDataexportStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 修改导出任务状态（启动、暂停、删除）
+ * Summary: 修改导出任务状态（启动、暂停、删除）
+ */
+async function updateChainDataexportStatusEx(request: UpdateChainDataexportStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateChainDataexportStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.dataexport.status.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateChainDataexportTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟id
+  consortiumId: string(name='consortium_id'),
+  // 链id
+  antChainId: string(name='ant_chain_id'),
+  // 任务名称
+  triggerName: string(name='trigger_name'),
+  // 导出任务接口体
+  trigger: TriggerDTOStructBody(name='trigger'),
+}
+
+model UpdateChainDataexportTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  //  修改导出任务（名称、描述、告警地址）信息结构体
+  //   
+  result?: TriggerDTOStructBody(name='result'),
+}
+
+/**
+ * Description: 修改导出任务（名称、描述、告警地址）
+ * Summary: 修改导出任务（名称、描述、告警地址）
+ */
+async function updateChainDataexportTask(request: UpdateChainDataexportTaskRequest): UpdateChainDataexportTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateChainDataexportTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 修改导出任务（名称、描述、告警地址）
+ * Summary: 修改导出任务（名称、描述、告警地址）
+ */
+async function updateChainDataexportTaskEx(request: UpdateChainDataexportTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateChainDataexportTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.dataexport.task.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryChainFailureLogRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链id
+  antChainId: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId: string(name='consortium_id'),
+  // ""
+  triggerName: string(name='trigger_name'),
+  // ""
+  statusAction?: string(name='status_action'),
+  // 当前页码
+  pageNo?: string(name='page_no'),
+  // 页面规格
+  pageSize?: string(name='page_size'),
+}
+
+model QueryChainFailureLogResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // {}
+  result?: CommonResponsePageableStructBody(name='result'),
+}
+
+/**
+ * Description: 分页失败的展示日志（过滤器：待处理、成功、已忽略）
+ * Summary: 分页失败的展示日志
+ */
+async function queryChainFailureLog(request: QueryChainFailureLogRequest): QueryChainFailureLogResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryChainFailureLogEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页失败的展示日志（过滤器：待处理、成功、已忽略）
+ * Summary: 分页失败的展示日志
+ */
+async function queryChainFailureLogEx(request: QueryChainFailureLogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryChainFailureLogResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.failure.log.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateChainFailureLogRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链id
+  antChainId: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId: string(name='consortium_id'),
+  // 日志名称
+  triggerName?: string(name='trigger_name'),
+  // 日志状态
+  statusAction?: string(name='status_action'),
+  // 日志id
+  logId?: string(name='log_id'),
+}
+
+model UpdateChainFailureLogResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 批量处理失败日志（重试/忽略）
+ * Summary: 批量处理失败日志（重试/忽略）
+ */
+async function updateChainFailureLog(request: UpdateChainFailureLogRequest): UpdateChainFailureLogResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateChainFailureLogEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量处理失败日志（重试/忽略）
+ * Summary: 批量处理失败日志（重试/忽略）
+ */
+async function updateChainFailureLogEx(request: UpdateChainFailureLogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateChainFailureLogResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.failure.log.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartAmlCorporationJoinprepareRequest = {
@@ -18604,6 +18997,44 @@ async function queryAuthCertClaim(request: QueryAuthCertClaimRequest): QueryAuth
 async function queryAuthCertClaimEx(request: QueryAuthCertClaimRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuthCertClaimResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.auth.cert.claim.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAuthCertClaimurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 存证唯一id
+  vcId: string(name='vc_id'),
+}
+
+model CreateAuthCertClaimurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 证书平台支付宝小程序查验存证的url
+  miniUrl?: string(name='mini_url'),
+}
+
+/**
+ * Description: 生成查验证书存证的url
+ * Summary: 生成查验证书存证的url
+ */
+async function createAuthCertClaimurl(request: CreateAuthCertClaimurlRequest): CreateAuthCertClaimurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAuthCertClaimurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 生成查验证书存证的url
+ * Summary: 生成查验证书存证的url
+ */
+async function createAuthCertClaimurlEx(request: CreateAuthCertClaimurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAuthCertClaimurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.cert.claimurl.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartDidCorporateAgentcreateRequest = {
