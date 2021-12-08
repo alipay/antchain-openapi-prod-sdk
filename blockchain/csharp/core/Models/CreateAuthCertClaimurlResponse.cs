@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BLOCKCHAIN.Models
 {
-    public class QueryChainDataExportResponse : TeaModel {
+    public class CreateAuthCertClaimurlResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 返回结果为TriggerDTO类型的list
-        [NameInMap("result")]
+        // 证书平台支付宝小程序查验存证的url
+        [NameInMap("mini_url")]
         [Validation(Required=false)]
-        public List<TriggerDTOStructBody> Result { get; set; }
+        public string MiniUrl { get; set; }
 
     }
 

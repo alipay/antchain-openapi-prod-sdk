@@ -9,7 +9,7 @@ using Tea;
 namespace AntChain.SDK.BLOCKCHAIN.Models
 {
     // 阿里云数据导出服务TriggerDTO结构体
-    public class TriggerDTO : TeaModel {
+    public class TriggerDTOStructBody : TeaModel {
         // 名称
         [NameInMap("name")]
         [Validation(Required=false)]
@@ -48,7 +48,7 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         // checkpoint类
         [NameInMap("checkpoint")]
         [Validation(Required=false)]
-        public CheckPoint Checkpoint { get; set; }
+        public CheckPointStructBody Checkpoint { get; set; }
 
     }
 

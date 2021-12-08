@@ -8,8 +8,13 @@ using Tea;
 
 namespace AntChain.SDK.BLOCKCHAIN.Models
 {
-    // 阿里云数据导出任务checkpoint类
-    public class CheckPoint : TeaModel {
+    // TriggerLogDTO类成员
+    public class PositionStructBody : TeaModel {
+        // 错误计数
+        [NameInMap("error_count")]
+        [Validation(Required=false)]
+        public string ErrorCount { get; set; }
+
         // 高度
         [NameInMap("height")]
         [Validation(Required=false)]
@@ -18,27 +23,17 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         // 序号
         [NameInMap("index")]
         [Validation(Required=false)]
-        public long? Index { get; set; }
+        public string Index { get; set; }
+
+        // 最后一个错误
+        [NameInMap("last_error")]
+        [Validation(Required=false)]
+        public string LastError { get; set; }
 
         // 类型
         [NameInMap("type")]
         [Validation(Required=false)]
         public string Type { get; set; }
-
-        // last_error
-        [NameInMap("last_error")]
-        [Validation(Required=false)]
-        public string LastError { get; set; }
-
-        // 错误统计
-        [NameInMap("error_count")]
-        [Validation(Required=false)]
-        public long? ErrorCount { get; set; }
-
-        // 统计
-        [NameInMap("total_count")]
-        [Validation(Required=false)]
-        public string TotalCount { get; set; }
 
     }
 

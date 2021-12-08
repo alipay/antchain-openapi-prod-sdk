@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BLOCKCHAIN.Models
 {
-    public class QueryChainDataExportResponse : TeaModel {
+    public class UpdateChainDataexportTaskResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 返回结果为TriggerDTO类型的list
+        //  修改导出任务（名称、描述、告警地址）信息结构体
+        //   
         [NameInMap("result")]
         [Validation(Required=false)]
-        public List<TriggerDTOStructBody> Result { get; set; }
+        public TriggerDTOStructBody Result { get; set; }
 
     }
 

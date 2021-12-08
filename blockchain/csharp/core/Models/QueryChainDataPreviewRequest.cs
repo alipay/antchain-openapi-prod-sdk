@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BLOCKCHAIN.Models
 {
-    public class CreateChainDataexportTaskRequest : TeaModel {
+    public class QueryChainDataPreviewRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -28,10 +28,10 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=true)]
         public string ConsortiumId { get; set; }
 
-        // {}
-        [NameInMap("trigger")]
+        // 任务id
+        [NameInMap("task_id")]
         [Validation(Required=true)]
-        public TriggerDTOStructBody Trigger { get; set; }
+        public string TaskId { get; set; }
 
     }
 

@@ -24,10 +24,10 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // {}
+        // ""
         [NameInMap("result")]
         [Validation(Required=false)]
-        public TriggerDTO Result { get; set; }
+        public string Result { get; set; }
 
     }
 

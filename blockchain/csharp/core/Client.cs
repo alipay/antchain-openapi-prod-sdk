@@ -137,7 +137,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.25.48"},
+                        {"sdk_version", "1.25.70"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.25.48"},
+                        {"sdk_version", "1.25.70"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -4859,6 +4859,342 @@ namespace AntChain.SDK.BLOCKCHAIN
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateChainDataexportTaskResponse>(await DoRequestAsync("1.0", "baas.chain.dataexport.task.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取预览数据（第一步：生成任务ID）
+         * Summary: 获取预览数据（第一步：生成任务ID）
+         */
+        public CreateChainTaskIdResponse CreateChainTaskId(CreateChainTaskIdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateChainTaskIdEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取预览数据（第一步：生成任务ID）
+         * Summary: 获取预览数据（第一步：生成任务ID）
+         */
+        public async Task<CreateChainTaskIdResponse> CreateChainTaskIdAsync(CreateChainTaskIdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateChainTaskIdExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取预览数据（第一步：生成任务ID）
+         * Summary: 获取预览数据（第一步：生成任务ID）
+         */
+        public CreateChainTaskIdResponse CreateChainTaskIdEx(CreateChainTaskIdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateChainTaskIdResponse>(DoRequest("1.0", "baas.chain.task.id.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取预览数据（第一步：生成任务ID）
+         * Summary: 获取预览数据（第一步：生成任务ID）
+         */
+        public async Task<CreateChainTaskIdResponse> CreateChainTaskIdExAsync(CreateChainTaskIdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateChainTaskIdResponse>(await DoRequestAsync("1.0", "baas.chain.task.id.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取预览数据（第二步：根据任务ID获取预览数据结果）
+         * Summary: 根据任务ID获取预览数据结果
+         */
+        public QueryChainDataPreviewResponse QueryChainDataPreview(QueryChainDataPreviewRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryChainDataPreviewEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取预览数据（第二步：根据任务ID获取预览数据结果）
+         * Summary: 根据任务ID获取预览数据结果
+         */
+        public async Task<QueryChainDataPreviewResponse> QueryChainDataPreviewAsync(QueryChainDataPreviewRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryChainDataPreviewExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取预览数据（第二步：根据任务ID获取预览数据结果）
+         * Summary: 根据任务ID获取预览数据结果
+         */
+        public QueryChainDataPreviewResponse QueryChainDataPreviewEx(QueryChainDataPreviewRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChainDataPreviewResponse>(DoRequest("1.0", "baas.chain.data.preview.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取预览数据（第二步：根据任务ID获取预览数据结果）
+         * Summary: 根据任务ID获取预览数据结果
+         */
+        public async Task<QueryChainDataPreviewResponse> QueryChainDataPreviewExAsync(QueryChainDataPreviewRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChainDataPreviewResponse>(await DoRequestAsync("1.0", "baas.chain.data.preview.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据预览数据获取默认映射关系
+         * Summary: 根据预览数据获取默认映射关系
+         */
+        public QueryChainMappingRelationshipResponse QueryChainMappingRelationship(QueryChainMappingRelationshipRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryChainMappingRelationshipEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据预览数据获取默认映射关系
+         * Summary: 根据预览数据获取默认映射关系
+         */
+        public async Task<QueryChainMappingRelationshipResponse> QueryChainMappingRelationshipAsync(QueryChainMappingRelationshipRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryChainMappingRelationshipExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据预览数据获取默认映射关系
+         * Summary: 根据预览数据获取默认映射关系
+         */
+        public QueryChainMappingRelationshipResponse QueryChainMappingRelationshipEx(QueryChainMappingRelationshipRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChainMappingRelationshipResponse>(DoRequest("1.0", "baas.chain.mapping.relationship.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据预览数据获取默认映射关系
+         * Summary: 根据预览数据获取默认映射关系
+         */
+        public async Task<QueryChainMappingRelationshipResponse> QueryChainMappingRelationshipExAsync(QueryChainMappingRelationshipRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChainMappingRelationshipResponse>(await DoRequestAsync("1.0", "baas.chain.mapping.relationship.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建导出MySQL任务失败，获取 Create Table 语句
+         * Summary: 获取 Create Table 语句
+         */
+        public CreateChainTableSqlResponse CreateChainTableSql(CreateChainTableSqlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateChainTableSqlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建导出MySQL任务失败，获取 Create Table 语句
+         * Summary: 获取 Create Table 语句
+         */
+        public async Task<CreateChainTableSqlResponse> CreateChainTableSqlAsync(CreateChainTableSqlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateChainTableSqlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建导出MySQL任务失败，获取 Create Table 语句
+         * Summary: 获取 Create Table 语句
+         */
+        public CreateChainTableSqlResponse CreateChainTableSqlEx(CreateChainTableSqlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateChainTableSqlResponse>(DoRequest("1.0", "baas.chain.table.sql.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建导出MySQL任务失败，获取 Create Table 语句
+         * Summary: 获取 Create Table 语句
+         */
+        public async Task<CreateChainTableSqlResponse> CreateChainTableSqlExAsync(CreateChainTableSqlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateChainTableSqlResponse>(await DoRequestAsync("1.0", "baas.chain.table.sql.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 修改导出任务状态（启动、暂停、删除）
+         * Summary: 修改导出任务状态（启动、暂停、删除）
+         */
+        public UpdateChainDataexportStatusResponse UpdateChainDataexportStatus(UpdateChainDataexportStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateChainDataexportStatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 修改导出任务状态（启动、暂停、删除）
+         * Summary: 修改导出任务状态（启动、暂停、删除）
+         */
+        public async Task<UpdateChainDataexportStatusResponse> UpdateChainDataexportStatusAsync(UpdateChainDataexportStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateChainDataexportStatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 修改导出任务状态（启动、暂停、删除）
+         * Summary: 修改导出任务状态（启动、暂停、删除）
+         */
+        public UpdateChainDataexportStatusResponse UpdateChainDataexportStatusEx(UpdateChainDataexportStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateChainDataexportStatusResponse>(DoRequest("1.0", "baas.chain.dataexport.status.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 修改导出任务状态（启动、暂停、删除）
+         * Summary: 修改导出任务状态（启动、暂停、删除）
+         */
+        public async Task<UpdateChainDataexportStatusResponse> UpdateChainDataexportStatusExAsync(UpdateChainDataexportStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateChainDataexportStatusResponse>(await DoRequestAsync("1.0", "baas.chain.dataexport.status.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 修改导出任务（名称、描述、告警地址）
+         * Summary: 修改导出任务（名称、描述、告警地址）
+         */
+        public UpdateChainDataexportTaskResponse UpdateChainDataexportTask(UpdateChainDataexportTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateChainDataexportTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 修改导出任务（名称、描述、告警地址）
+         * Summary: 修改导出任务（名称、描述、告警地址）
+         */
+        public async Task<UpdateChainDataexportTaskResponse> UpdateChainDataexportTaskAsync(UpdateChainDataexportTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateChainDataexportTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 修改导出任务（名称、描述、告警地址）
+         * Summary: 修改导出任务（名称、描述、告警地址）
+         */
+        public UpdateChainDataexportTaskResponse UpdateChainDataexportTaskEx(UpdateChainDataexportTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateChainDataexportTaskResponse>(DoRequest("1.0", "baas.chain.dataexport.task.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 修改导出任务（名称、描述、告警地址）
+         * Summary: 修改导出任务（名称、描述、告警地址）
+         */
+        public async Task<UpdateChainDataexportTaskResponse> UpdateChainDataexportTaskExAsync(UpdateChainDataexportTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateChainDataexportTaskResponse>(await DoRequestAsync("1.0", "baas.chain.dataexport.task.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页失败的展示日志（过滤器：待处理、成功、已忽略）
+         * Summary: 分页失败的展示日志
+         */
+        public QueryChainFailureLogResponse QueryChainFailureLog(QueryChainFailureLogRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryChainFailureLogEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页失败的展示日志（过滤器：待处理、成功、已忽略）
+         * Summary: 分页失败的展示日志
+         */
+        public async Task<QueryChainFailureLogResponse> QueryChainFailureLogAsync(QueryChainFailureLogRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryChainFailureLogExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页失败的展示日志（过滤器：待处理、成功、已忽略）
+         * Summary: 分页失败的展示日志
+         */
+        public QueryChainFailureLogResponse QueryChainFailureLogEx(QueryChainFailureLogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChainFailureLogResponse>(DoRequest("1.0", "baas.chain.failure.log.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页失败的展示日志（过滤器：待处理、成功、已忽略）
+         * Summary: 分页失败的展示日志
+         */
+        public async Task<QueryChainFailureLogResponse> QueryChainFailureLogExAsync(QueryChainFailureLogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChainFailureLogResponse>(await DoRequestAsync("1.0", "baas.chain.failure.log.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量处理失败日志（重试/忽略）
+         * Summary: 批量处理失败日志（重试/忽略）
+         */
+        public UpdateChainFailureLogResponse UpdateChainFailureLog(UpdateChainFailureLogRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateChainFailureLogEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量处理失败日志（重试/忽略）
+         * Summary: 批量处理失败日志（重试/忽略）
+         */
+        public async Task<UpdateChainFailureLogResponse> UpdateChainFailureLogAsync(UpdateChainFailureLogRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateChainFailureLogExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量处理失败日志（重试/忽略）
+         * Summary: 批量处理失败日志（重试/忽略）
+         */
+        public UpdateChainFailureLogResponse UpdateChainFailureLogEx(UpdateChainFailureLogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateChainFailureLogResponse>(DoRequest("1.0", "baas.chain.failure.log.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量处理失败日志（重试/忽略）
+         * Summary: 批量处理失败日志（重试/忽略）
+         */
+        public async Task<UpdateChainFailureLogResponse> UpdateChainFailureLogExAsync(UpdateChainFailureLogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateChainFailureLogResponse>(await DoRequestAsync("1.0", "baas.chain.failure.log.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -14807,6 +15143,48 @@ namespace AntChain.SDK.BLOCKCHAIN
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAuthCertClaimResponse>(await DoRequestAsync("1.0", "baas.auth.cert.claim.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 生成查验证书存证的url
+         * Summary: 生成查验证书存证的url
+         */
+        public CreateAuthCertClaimurlResponse CreateAuthCertClaimurl(CreateAuthCertClaimurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateAuthCertClaimurlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 生成查验证书存证的url
+         * Summary: 生成查验证书存证的url
+         */
+        public async Task<CreateAuthCertClaimurlResponse> CreateAuthCertClaimurlAsync(CreateAuthCertClaimurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateAuthCertClaimurlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 生成查验证书存证的url
+         * Summary: 生成查验证书存证的url
+         */
+        public CreateAuthCertClaimurlResponse CreateAuthCertClaimurlEx(CreateAuthCertClaimurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAuthCertClaimurlResponse>(DoRequest("1.0", "baas.auth.cert.claimurl.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 生成查验证书存证的url
+         * Summary: 生成查验证书存证的url
+         */
+        public async Task<CreateAuthCertClaimurlResponse> CreateAuthCertClaimurlExAsync(CreateAuthCertClaimurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAuthCertClaimurlResponse>(await DoRequestAsync("1.0", "baas.auth.cert.claimurl.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
