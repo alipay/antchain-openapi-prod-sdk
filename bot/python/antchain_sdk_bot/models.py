@@ -13222,6 +13222,7 @@ class QueryTlsnotaryTaskResponse(TeaModel):
         task_id: str = None,
         state: int = None,
         upload_oss_links: TlsnotaryUploadOssLinks = None,
+        notary_signature: str = None,
         error_code: int = None,
         error_msg: str = None,
     ):
@@ -13237,6 +13238,8 @@ class QueryTlsnotaryTaskResponse(TeaModel):
         self.state = state
         # 上传文件oss链接
         self.upload_oss_links = upload_oss_links
+        # 认证签名
+        self.notary_signature = notary_signature
         # 业务错误码
         self.error_code = error_code
         # 业务错误信息
@@ -13260,6 +13263,8 @@ class QueryTlsnotaryTaskResponse(TeaModel):
             result['state'] = self.state
         if self.upload_oss_links is not None:
             result['upload_oss_links'] = self.upload_oss_links.to_map()
+        if self.notary_signature is not None:
+            result['notary_signature'] = self.notary_signature
         if self.error_code is not None:
             result['error_code'] = self.error_code
         if self.error_msg is not None:
@@ -13281,6 +13286,8 @@ class QueryTlsnotaryTaskResponse(TeaModel):
         if m.get('upload_oss_links') is not None:
             temp_model = TlsnotaryUploadOssLinks()
             self.upload_oss_links = temp_model.from_map(m['upload_oss_links'])
+        if m.get('notary_signature') is not None:
+            self.notary_signature = m.get('notary_signature')
         if m.get('error_code') is not None:
             self.error_code = m.get('error_code')
         if m.get('error_msg') is not None:
