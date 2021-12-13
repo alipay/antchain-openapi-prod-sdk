@@ -11305,6 +11305,8 @@ type QueryTlsnotaryTaskResponse struct {
 	State *int64 `json:"state,omitempty" xml:"state,omitempty"`
 	// 上传文件oss链接
 	UploadOssLinks *TlsnotaryUploadOssLinks `json:"upload_oss_links,omitempty" xml:"upload_oss_links,omitempty"`
+	// 认证签名
+	NotarySignature *string `json:"notary_signature,omitempty" xml:"notary_signature,omitempty"`
 	// 业务错误码
 	ErrorCode *int64 `json:"error_code,omitempty" xml:"error_code,omitempty"`
 	// 业务错误信息
@@ -11346,6 +11348,11 @@ func (s *QueryTlsnotaryTaskResponse) SetState(v int64) *QueryTlsnotaryTaskRespon
 
 func (s *QueryTlsnotaryTaskResponse) SetUploadOssLinks(v *TlsnotaryUploadOssLinks) *QueryTlsnotaryTaskResponse {
 	s.UploadOssLinks = v
+	return s
+}
+
+func (s *QueryTlsnotaryTaskResponse) SetNotarySignature(v string) *QueryTlsnotaryTaskResponse {
+	s.NotarySignature = &v
 	return s
 }
 
@@ -11481,7 +11488,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.35"),
+				"sdk_version":      tea.String("1.6.36"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
