@@ -44,6 +44,12 @@ class QueryTlsnotaryTaskResponse extends Model
      */
     public $uploadOssLinks;
 
+    // 认证签名
+    /**
+     * @var string
+     */
+    public $notarySignature;
+
     // 业务错误码
     /**
      * @var int
@@ -56,14 +62,15 @@ class QueryTlsnotaryTaskResponse extends Model
      */
     public $errorMsg;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'taskId'         => 'task_id',
-        'state'          => 'state',
-        'uploadOssLinks' => 'upload_oss_links',
-        'errorCode'      => 'error_code',
-        'errorMsg'       => 'error_msg',
+        'reqMsgId'        => 'req_msg_id',
+        'resultCode'      => 'result_code',
+        'resultMsg'       => 'result_msg',
+        'taskId'          => 'task_id',
+        'state'           => 'state',
+        'uploadOssLinks'  => 'upload_oss_links',
+        'notarySignature' => 'notary_signature',
+        'errorCode'       => 'error_code',
+        'errorMsg'        => 'error_msg',
     ];
 
     public function validate()
@@ -90,6 +97,9 @@ class QueryTlsnotaryTaskResponse extends Model
         }
         if (null !== $this->uploadOssLinks) {
             $res['upload_oss_links'] = null !== $this->uploadOssLinks ? $this->uploadOssLinks->toMap() : null;
+        }
+        if (null !== $this->notarySignature) {
+            $res['notary_signature'] = $this->notarySignature;
         }
         if (null !== $this->errorCode) {
             $res['error_code'] = $this->errorCode;
@@ -126,6 +136,9 @@ class QueryTlsnotaryTaskResponse extends Model
         }
         if (isset($map['upload_oss_links'])) {
             $model->uploadOssLinks = TlsnotaryUploadOssLinks::fromMap($map['upload_oss_links']);
+        }
+        if (isset($map['notary_signature'])) {
+            $model->notarySignature = $map['notary_signature'];
         }
         if (isset($map['error_code'])) {
             $model->errorCode = $map['error_code'];
