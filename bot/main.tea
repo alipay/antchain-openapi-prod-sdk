@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.35',
+    sdk_version = '1.6.36',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -5302,6 +5302,8 @@ model QueryTlsnotaryTaskResponse = {
   state?: long(name='state'),
   // 上传文件oss链接
   uploadOssLinks?: TlsnotaryUploadOssLinks(name='upload_oss_links'),
+  // 认证签名
+  notarySignature?: string(name='notary_signature'),
   // 业务错误码
   errorCode?: long(name='error_code'),
   // 业务错误信息
