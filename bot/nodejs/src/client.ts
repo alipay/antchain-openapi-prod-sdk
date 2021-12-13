@@ -8794,6 +8794,8 @@ export class QueryTlsnotaryTaskResponse extends $tea.Model {
   state?: number;
   // 上传文件oss链接
   uploadOssLinks?: TlsnotaryUploadOssLinks;
+  // 认证签名
+  notarySignature?: string;
   // 业务错误码
   errorCode?: number;
   // 业务错误信息
@@ -8806,6 +8808,7 @@ export class QueryTlsnotaryTaskResponse extends $tea.Model {
       taskId: 'task_id',
       state: 'state',
       uploadOssLinks: 'upload_oss_links',
+      notarySignature: 'notary_signature',
       errorCode: 'error_code',
       errorMsg: 'error_msg',
     };
@@ -8819,6 +8822,7 @@ export class QueryTlsnotaryTaskResponse extends $tea.Model {
       taskId: 'string',
       state: 'number',
       uploadOssLinks: TlsnotaryUploadOssLinks,
+      notarySignature: 'string',
       errorCode: 'number',
       errorMsg: 'string',
     };
@@ -8942,7 +8946,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.35",
+          sdk_version: "1.6.36",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
