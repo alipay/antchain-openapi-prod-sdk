@@ -39,6 +39,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public TlsnotaryUploadOssLinks UploadOssLinks { get; set; }
 
+        // 认证签名
+        [NameInMap("notary_signature")]
+        [Validation(Required=false)]
+        public string NotarySignature { get; set; }
+
         // 业务错误码
         [NameInMap("error_code")]
         [Validation(Required=false)]
