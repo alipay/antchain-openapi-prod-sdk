@@ -28,6 +28,10 @@ public class QueryTlsnotaryTaskResponse extends TeaModel {
     @NameInMap("upload_oss_links")
     public TlsnotaryUploadOssLinks uploadOssLinks;
 
+    // 认证签名
+    @NameInMap("notary_signature")
+    public String notarySignature;
+
     // 业务错误码
     @NameInMap("error_code")
     public Long errorCode;
@@ -87,6 +91,14 @@ public class QueryTlsnotaryTaskResponse extends TeaModel {
     }
     public TlsnotaryUploadOssLinks getUploadOssLinks() {
         return this.uploadOssLinks;
+    }
+
+    public QueryTlsnotaryTaskResponse setNotarySignature(String notarySignature) {
+        this.notarySignature = notarySignature;
+        return this;
+    }
+    public String getNotarySignature() {
+        return this.notarySignature;
     }
 
     public QueryTlsnotaryTaskResponse setErrorCode(Long errorCode) {
