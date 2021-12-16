@@ -1,0 +1,71 @@
+{
+  "scope": "antchain",
+  "name": "MYTC",
+  "version": "1.0.0",
+  "main": "./main.tea",
+  "maintainers": [
+    {
+      "name": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  ],
+  "releases": {
+    "java": "com.antgroup.antchain.openapi:openapi-mytc:0.0.1",
+    "go": "github.com/antchain-openapi-sdk-go/mytc/client:v1.0.2",
+    "csharp": "AntChain.SDK.MYTC:1.0.2",
+    "ts": "@antchain/mytc:1.0.2",
+    "php": "antchain/mytc:1.0.2",
+    "python": "antchain_sdk_mytc:1.0.2"
+  },
+  "libraries": {
+    "Util": "darabonba:Util:*",
+    "RPCUtil": "alibabacloud:RPCUtil:*",
+    "AntchainUtil": "antchain:AntchainUtil:*"
+  },
+  "java": {
+    "package": "com.antgroup.antchain.openapi.mytc",
+    "packageInfo": {
+      "description": "Ant Chain MYTC SDK for Java",
+      "url": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "licenseNmae": "The Apache License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "developerId": "alipayproducts",
+      "developerName": "Ant Chain SDK",
+      "groupId": "com.antgroup.antchain.openapi",
+      "developerEmail": "alipaysdk@alipay.com"
+    }
+  },
+  "csharp": {
+    "className": "Client",
+    "namespace": "AntChain.SDK.MYTC",
+    "packageInfo": {
+      "name": "mytc",
+      "title": "antchain-mytc",
+      "description": "Ant Chain MYTC SDK Library for .NET",
+      "company": "Ant Chain, Inc"
+    }
+  },
+  "php": {
+    "package": "AntChain.MYTC",
+    "clientName": "Client",
+    "packageInfo": {
+      "name": "antchain/mytc",
+      "desc": "Ant Chain SDK Library for PHP",
+      "github": "https://github.com/alipay/antchain-openapi-sdk-php",
+      "files": {
+        "LICENSE": "../LICENSE"
+      }
+    }
+  },
+  "python": {
+    "package": "antchain_sdk_mytc",
+    "clientName": "client",
+    "packageInfo": {
+      "name": "antchain_mytc",
+      "desc": "Ant Chain MYTC SDK Library for Python",
+      "github": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "author": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  }
+}
