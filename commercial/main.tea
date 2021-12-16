@@ -1,0 +1,2406 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.26',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 定价约束信息VO
+model PriceConstraintVO {
+  // 规格条件Code
+  specConditionCode: string(name='spec_condition_code', example='durationUnit'),
+  // 当前规格条件下可选值
+  targetValue: string(name='target_value', example='year'),
+  // 基础价格
+  basePrice: string(name='base_price', example='10'),
+  // bd价格
+  bdPrice: string(name='bd_price', example='10'),
+  // 成本价格
+  costPrice: string(name='cost_price', example='10'),
+}
+
+// 政策信息
+model Policy {
+  // 政策id
+  policyId: string(name='policy_id', example='202103240P00072593'),
+  // 政策名称
+  policyName: string(name='policy_name', example='酒店saas'),
+  // 政策类型
+  policyType: string(name='policy_type', example='REBATE'),
+  // 政策生效时间
+  startTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time', example='2018-10-10T10:10:00Z'),
+  // 政策失效时间
+  endTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time', example='2018-10-10T10:10:00Z'),
+  // 下架时间
+  offlineTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='offline_time', example='2018-10-10T10:10:00Z'),
+  // 政策状态
+  policyStatus: string(name='policy_status', example='VALID'),
+  // 创建者
+  creator: string(name='creator', example='carroll.wk'),
+  // 修改者
+  modifier: string(name='modifier', example='carroll.wk'),
+  // 创建时间
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 修改时间
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+}
+
+// 政策关联商品信息
+model PolicyCommodity {
+  // 政策id
+  policyId: string(name='policy_id', example='202103240P00072593'),
+  // 商品code
+  commodityCode: string(name='commodity_code', example='mpaas_basic'),
+  // 商品名称
+  commodityName: string(name='commodity_name', example='mpaas基础版'),
+  // 商品描述
+  commodityDesc?: string(name='commodity_desc', example='这是mpaas的基础版'),
+}
+
+// 类目信息
+model Catalog {
+  // 类目id
+  catalogId: long(name='catalog_id', example=''),
+  // 类目名称
+  catalogName: string(name='catalog_name', example='企业及应用服务'),
+}
+
+// 定价计划信息VO
+model PricePlanVO {
+  // 规格Code
+  specCode: string(name='spec_code', example='software_bpaas_xxxx_xxx_pre'),
+  // 定价类型
+  priceType: string(name='price_type', example='YEAR_MONTH'),
+  // 定价计划描述
+  pricePlanDesc: string(name='price_plan_desc', example='定价计划描述xxx'),
+  // 定价约束列表
+  priceConstraint: [ PriceConstraintVO ](name='price_constraint', example=''),
+}
+
+// Pair
+model Pair {
+  // key
+  key: string(name='key', example='key'),
+  // value
+  value: string(name='value', example='value'),
+}
+
+// MultiCurrencyMoneyVO
+model MultiCurrencyMoneyVO {
+  // amount
+  amt: string(name='amt', example='amount'),
+  // ccy
+  ccy: string(name='ccy', example='ccy'),
+}
+
+// 发票电子邮箱
+model InvoiceEmail {
+  // 电子邮箱
+  email?: string(name='email', example='receiver@163.com'),
+  // 主键id
+  id?: long(name='id', example='1'),
+  // 唯一id
+  uniqueId?: string(name='unique_id', example='20211216192140IE0800000001'),
+}
+
+// 政策信息扩展
+model PolicyDTO {
+  // 政策信息
+  policy: Policy(name='policy', example=''),
+  // 政策关联商品
+  policyCommodity: PolicyCommodity(name='policy_commodity', example=''),
+  // 合同id
+  agreementId?: string(name='agreement_id', example='2021032410730500140A00330000088993'),
+  // 签约状态
+  signStatus: string(name='sign_status', example='SIGNED'),
+}
+
+// 规格信息VO
+model SpecVO {
+  // 规格code
+  specCode: string(name='spec_code', example='software_bpaas_xxxx_xxx_pre'),
+  // 规格名称
+  specName: string(name='spec_name', example='specName_xxx'),
+  // 主要付款方式
+  mainPayMethod: string(name='main_pay_method', example='PRE'),
+  // 售卖模式
+  salesMode: string(name='sales_mode', example='LICENSE'),
+  // 规格状态
+  specStatus: string(name='spec_status', example='EDITING'),
+  // 规格描述
+  desc: string(name='desc', example='规格描述xxx'),
+}
+
+// 产品信息VO
+model ProductVO {
+  // 商品Code
+  productCode: string(name='product_code', example='software_bpaas'),
+  // 产品名称
+  productName: string(name='product_name', example='mpaas'),
+  // 产品oxm类型
+  oxmType: string(name='oxm_type', example='SELF_DEV_TYPE'),
+  // 产品描述
+  desc: string(name='desc', example='产品描述xxx'),
+}
+
+// 发票寄送地址
+model InvoiceAddress {
+  // 主键id
+  id?: long(name='id', example='1'),
+  // 用户id
+  userId: string(name='user_id', example='2088124521254'),
+  // 收件人
+  addressee: string(name='addressee', example='张三'),
+  // 地区
+  area: string(name='area', example='北京'),
+  // 地址
+  address: string(name='address', example='东三环中路1号'),
+  // 电话
+  telephone: string(name='telephone', example='01085451247'),
+  // 邮编
+  postCode: string(name='post_code', example='110000'),
+  // 修改时间
+  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // 创建时间
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 唯一id
+  uniqueId?: string(name='unique_id', example='20211216192140IE0800000001'),
+}
+
+// 新增规格VO
+model SpecAddVO {
+  // 规格code
+  specCode: string(name='spec_code', example='software_bpaas_xxxx_xxx_pre'),
+  // 产品Code
+  productCode: string(name='product_code', example='software_bpaas'),
+  // 商品code
+  commodityCode: string(name='commodity_code', example='software_bpaas_xxxx'),
+  // 售卖模式
+  salesMode: string(name='sales_mode', example='PRE'),
+  // 付费方式
+  mainPayMethod: string(name='main_pay_method', example='POST'),
+  // 规格描述
+  specDesc: string(name='spec_desc', example='规格描述xxx'),
+  // 规格名称
+  specName: string(name='spec_name', example='规格名称xxx'),
+  // 定价计划
+  pricePlan: PricePlanVO(name='price_plan', example=''),
+}
+
+// 类目VO
+model CatalogVO {
+  // 类目Id
+  catalogId: long(name='catalog_id', example=''),
+  // 类目名称
+  catalogName: string(name='catalog_name', example='企业及应用服务'),
+  // 子类目列表
+  childCatalogs: [ Catalog ](name='child_catalogs', example=''),
+}
+
+// 规格售卖模式
+model SpecSalesMode {
+  // 规格售卖模式
+  salesModeCode: string(name='sales_mode_code', example='PRE'),
+  // 售卖模式
+  salesModeName: string(name='sales_mode_name', example='包年包月'),
+}
+
+// 产品信息扩展
+model ProductDTO {
+  // 产品信息
+  productCode: string(name='product_code', example='software_bpaas'),
+  // 产品名称
+  productName: string(name='product_name', example='bpaas'),
+  // 产品oxm类型
+  oxmType: string(name='oxm_type', example='SELF_DEV_TYPE'),
+  // 产品一级类目
+  l1CatalogId: long(name='l1_catalog_id', example=''),
+  // 产品二级类目
+  l2CatalogId: long(name='l2_catalog_id', example=''),
+  // 产品描述
+  desc: string(name='desc', example='产品描述xxx'),
+}
+
+// 签约信息
+model PartnerPolicyRelation {
+  // 合同id
+  agreementId: string(name='agreement_id', example='2021032410730500140A00330000088993'),
+  // 服务商id
+  spId: string(name='sp_id', example='2088124521254'),
+  // 合同生效时间
+  startTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time', example='2018-10-10T10:10:00Z'),
+  // 合同失效时间
+  endTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time', example='2018-10-10T10:10:00Z'),
+  // 合同取消时间
+  cancelTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='cancel_time', example='2018-10-10T10:10:00Z'),
+  // 政策id
+  policyId: string(name='policy_id', example='202103240P00072593'),
+  // 政策名称
+  policyName: string(name='policy_name', example='酒店saas'),
+  // 政策类型
+  policyType: string(name='policy_type', example='REBATE'),
+  // 政策link
+  policyLink?: string(name='policy_link', example='www.alipay.com'),
+  // 政策所属ou
+  policyOu?: string(name='policy_ou', example='小微金融有限公司'),
+  // 结算类型
+  settleType: string(name='settle_type', example='MONTH'),
+  // 修改时间
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // 创建时间
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+}
+
+// 发票信息
+model Invoice {
+  // 主键id
+  id?: long(name='id', example='1'),
+  // 用户id
+  userId: string(name='user_id', example='2088124521254'),
+  // 纳税人类型
+  taxpayerType: string(name='taxpayer_type', example='GENERAL'),
+  // 纳税人名称
+  taxpayerName?: string(name='taxpayer_name', example='数科有限公司'),
+  // 纳税人识别号
+  taxpayerNo?: string(name='taxpayer_no', example='201200103401023401234'),
+  // 开户行名称
+  bankName?: string(name='bank_name', example='北京银行海淀支行'),
+  // 开户行账号
+  bankAccount?: string(name='bank_account', example='60122333123409434'),
+  // 开户行地址
+  address?: string(name='address', example='北京市东三环中路1号'),
+  // 开户行电话
+  telephone?: string(name='telephone', example='010854423598'),
+  // 修改时间
+  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // 创建时间
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 唯一id
+  uniqueId?: string(name='unique_id', example='20211216192140IE0800000001'),
+}
+
+// 已购买的规格实例信息(用于控制台查询)
+model PaidSpecInstance {
+  // 规格实例id
+  specInstanceId: string(name='spec_instance_id', example='暂无'),
+  // 规格名称
+  specName: string(name='spec_name', example='腾信酒旅宝'),
+  // 规格配置(描述)
+  specConf?: string(name='spec_conf', example='暂无'),
+  // 实例开始时间
+  startTime?: string(name='start_time', example='2018.10.10'),
+  // 实例到期时间
+  endTime?: string(name='end_time', example='2019.10.11'),
+  // 规格实例的运行状态
+  status: string(name='status', example='正常有效'),
+}
+
+// 订单信息VO
+model MainOrderVO {
+  // order_no
+  orderNo: string(name='order_no', example='order_no'),
+  // buyer
+  buyer: string(name='buyer', example='buyer'),
+  // seller
+  seller: string(name='seller', example='seller'),
+  // sp_id
+  spId: string(name='sp_id', example='sp_id'),
+  // login_account
+  loginAccount: string(name='login_account', example='login_account'),
+  // product_name
+  productName: string(name='product_name', example='product_name'),
+  // money
+  money: MultiCurrencyMoneyVO(name='money', example='money'),
+  // gmt_create
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='gmt_create'),
+  // gmt_modified
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='gmt_modified'),
+  // gmt_close
+  gmtClose: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_close', example='gmt_close'),
+  // gmt_pay_success
+  gmtPaySuccess: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_pay_success', example='gmt_pay_success'),
+  // order_status
+  orderStatus: string(name='order_status', example='order_status'),
+  // order_type
+  orderType: string(name='order_type', example='order_type'),
+  // order_origin
+  orderOrigin: string(name='order_origin', example='order_origin'),
+  // order_level
+  orderLevel: string(name='order_level', example='order_level'),
+  // pay_method
+  payMethod: string(name='pay_method', example='pay_method'),
+  // orde_duration
+  orderDuration: string(name='order_duration', example='orde_duration'),
+  // parent_order_no
+  parentOrderNo: string(name='parent_order_no', example='parent_order_no'),
+  // commodity_name
+  commodityName: string(name='commodity_name', example='commodity_name'),
+  // spec_code
+  specCode: string(name='spec_code', example='spec_code'),
+  // spec_name
+  specName: string(name='spec_name', example='spec_name'),
+  // spec_desc
+  specDesc: string(name='spec_desc', example='spec_desc'),
+  // order_detail
+  orderDetail: string(name='order_detail', example='order_detail'),
+  // sub_order_include
+  subOrderInclude: boolean(name='sub_order_include', example='true, false'),
+  // spec_props
+  specProps: [ Pair ](name='spec_props', example='spec_props'),
+  // ext_params
+  extParams: [ Pair ](name='ext_params', example='ext_params'),
+}
+
+// 商品信息VO
+model CommodityVO {
+  // 商品Code
+  commodityCode: string(name='commodity_code', example='software_bpaas_xxxx'),
+  // 商品名称
+  commodityName: string(name='commodity_name', example='商品xxx'),
+  // 商品服务类型
+  serviceType: string(name='service_type', example='PLATFORM'),
+  // 商品来源
+  sourceType: string(name='source_type', example='S1P_SELF_DEV'),
+  // 商品描述
+  desc: string(name='desc', example='商品描述xxx'),
+}
+
+// 财务ap账单
+model ApBill {
+}
+
+// 纳税信息
+model TaxInfo {
+  // 纳税人名称
+  taxpayerName: string(name='taxpayer_name', example='数科有限公司'),
+  // 纳税人识别号
+  taxpayerNo: string(name='taxpayer_no', example='2021032410730500140A00330000088993'),
+  // 开户行名称
+  bankName?: string(name='bank_name', example='北京银行海淀支行'),
+  // 开户行账号
+  bankAccount?: string(name='bank_account', example='20884231521232548'),
+  // 开户行地址
+  address?: string(name='address', example='东三种中路1号'),
+  // 开户行电话
+  telephone?: string(name='telephone', example='01085442125'),
+}
+
+// 服务商开票信息
+model InvoiceInfo {
+  // 发票类型
+  invoiceType: string(name='invoice_type', example='增值税专用发票'),
+  // 发票编码
+  invoiceCode: string(name='invoice_code', example='2021032410730500140A00330000088993'),
+  // 开票日期
+  invoiceDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='invoice_date', example='2018-10-10T10:10:00Z'),
+  // 发票信息槽
+  invoiceSlots: string(name='invoice_slots', example='json串'),
+  // 税价合计
+  totalAmt: string(name='total_amt', example='20.25'),
+}
+
+// 产品code列表
+model ProductCodes {
+  // 产品code列表
+  productCodes: [ string ](name='product_codes', example='["code1","code2"]'),
+}
+
+// 已售规格实例详细信息(用于开发商查询)
+model SoldSpecInstance {
+  // 规格码
+  specCode: string(name='spec_code', example='暂无'),
+  // 规格实例id
+  specInstanceId: string(name='spec_instance_id', example='暂无'),
+  // 规格实例运行状态.
+  // 实例状态 STARTED 正常有效、STOPPED 停服、STAETED_IN_ARR 欠费运行中
+  status: string(name='status', example='STARTED'),
+  // 实例生效时间
+  startTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time', example='2018-10-10 13:15:24'),
+  // 实例计划停服时间
+  planStopTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='plan_stop_time', example='2018-10-11 00:00:00'),
+  // 实例实际停服时间
+  actualStopTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='actual_stop_time', example='2018-10-11 00:00:01'),
+  // 购买规格实例的商户id(商业中台用来唯一标识商户的id)
+  merchantId: string(name='merchant_id', example='暂无'),
+}
+
+// 商品来源
+model CommoditySourceType {
+  // 商品来源code
+  typeCode: string(name='type_code', example='S1P_SELF_DEV'),
+  // 商品来源描述
+  typeDesc: string(name='type_desc', example='一方纯自研'),
+}
+
+model QueryBillingcoreInvoiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+}
+
+model QueryBillingcoreInvoiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 发票信息
+  invoice?: Invoice(name='invoice'),
+}
+
+/**
+ * Description: 发票信息查询
+ * Summary: 发票信息查询
+ */
+async function queryBillingcoreInvoice(request: QueryBillingcoreInvoiceRequest): QueryBillingcoreInvoiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBillingcoreInvoiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发票信息查询
+ * Summary: 发票信息查询
+ */
+async function queryBillingcoreInvoiceEx(request: QueryBillingcoreInvoiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBillingcoreInvoiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.billingcore.invoice.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBillingcoreInvoicelocRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+}
+
+model QueryBillingcoreInvoicelocResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 发票信息
+  invoice?: Invoice(name='invoice'),
+  // 发票寄送地址
+  invoiceAddress?: InvoiceAddress(name='invoice_address'),
+  // 发票电子邮箱
+  invoiceEmail?: InvoiceEmail(name='invoice_email'),
+}
+
+/**
+ * Description: 发票地址信息查询
+ * Summary: 发票地址信息查询
+ */
+async function queryBillingcoreInvoiceloc(request: QueryBillingcoreInvoicelocRequest): QueryBillingcoreInvoicelocResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBillingcoreInvoicelocEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发票地址信息查询
+ * Summary: 发票地址信息查询
+ */
+async function queryBillingcoreInvoicelocEx(request: QueryBillingcoreInvoicelocRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBillingcoreInvoicelocResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.billingcore.invoiceloc.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddBillingcoreInvoiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 请求唯一id，可以是时间戳
+  requestUniqueId?: string(name='request_unique_id'),
+  // 发票信息
+  invoice: Invoice(name='invoice'),
+}
+
+model AddBillingcoreInvoiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 新增发票信息
+ * Summary: 新增发票信息
+ */
+async function addBillingcoreInvoice(request: AddBillingcoreInvoiceRequest): AddBillingcoreInvoiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addBillingcoreInvoiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增发票信息
+ * Summary: 新增发票信息
+ */
+async function addBillingcoreInvoiceEx(request: AddBillingcoreInvoiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddBillingcoreInvoiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.billingcore.invoice.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateBillingcoreInvoiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 请求唯一id，可以是时间戳
+  requestUniqueId?: string(name='request_unique_id'),
+  // 发票信息
+  invoice: Invoice(name='invoice'),
+}
+
+model UpdateBillingcoreInvoiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 更新发票信息
+ * Summary: 更新发票信息
+ */
+async function updateBillingcoreInvoice(request: UpdateBillingcoreInvoiceRequest): UpdateBillingcoreInvoiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateBillingcoreInvoiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新发票信息
+ * Summary: 更新发票信息
+ */
+async function updateBillingcoreInvoiceEx(request: UpdateBillingcoreInvoiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateBillingcoreInvoiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.billingcore.invoice.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddBillingcoreInvoiceaddressRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 请求唯一id，可以是时间戳
+  requestUniqueId?: string(name='request_unique_id'),
+  // 发票寄送地址
+  invoiceAddress: InvoiceAddress(name='invoice_address'),
+}
+
+model AddBillingcoreInvoiceaddressResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 新增发票地址
+ * Summary: 新增发票地址
+ */
+async function addBillingcoreInvoiceaddress(request: AddBillingcoreInvoiceaddressRequest): AddBillingcoreInvoiceaddressResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addBillingcoreInvoiceaddressEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增发票地址
+ * Summary: 新增发票地址
+ */
+async function addBillingcoreInvoiceaddressEx(request: AddBillingcoreInvoiceaddressRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddBillingcoreInvoiceaddressResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.billingcore.invoiceaddress.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateBillingcoreInvoiceaddressRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 发票寄送地址
+  invoiceAddress: InvoiceAddress(name='invoice_address'),
+  // 请求唯一id，可以是时间戳
+  requestUniqueId?: string(name='request_unique_id'),
+}
+
+model UpdateBillingcoreInvoiceaddressResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 更新发票地址信息
+ * Summary: 更新发票地址信息
+ */
+async function updateBillingcoreInvoiceaddress(request: UpdateBillingcoreInvoiceaddressRequest): UpdateBillingcoreInvoiceaddressResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateBillingcoreInvoiceaddressEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新发票地址信息
+ * Summary: 更新发票地址信息
+ */
+async function updateBillingcoreInvoiceaddressEx(request: UpdateBillingcoreInvoiceaddressRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateBillingcoreInvoiceaddressResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.billingcore.invoiceaddress.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddBillingcoreInvoiceemailRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 请求唯一id，可以是时间戳
+  requestUniqueId?: string(name='request_unique_id'),
+  // 发票电子邮箱
+  invoiceEmail: InvoiceEmail(name='invoice_email'),
+}
+
+model AddBillingcoreInvoiceemailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 新增发票电子邮箱
+ * Summary: 新增发票电子邮箱
+ */
+async function addBillingcoreInvoiceemail(request: AddBillingcoreInvoiceemailRequest): AddBillingcoreInvoiceemailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addBillingcoreInvoiceemailEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增发票电子邮箱
+ * Summary: 新增发票电子邮箱
+ */
+async function addBillingcoreInvoiceemailEx(request: AddBillingcoreInvoiceemailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddBillingcoreInvoiceemailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.billingcore.invoiceemail.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateBillingcoreInvoiceemailRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 请求唯一id，可以是时间戳
+  requestUniqueId?: string(name='request_unique_id'),
+  // 发票电子邮件信息
+  invoiceEmail: InvoiceEmail(name='invoice_email'),
+}
+
+model UpdateBillingcoreInvoiceemailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 更新发票电子邮箱
+ * Summary: 更新发票电子邮箱
+ */
+async function updateBillingcoreInvoiceemail(request: UpdateBillingcoreInvoiceemailRequest): UpdateBillingcoreInvoiceemailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateBillingcoreInvoiceemailEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新发票电子邮箱
+ * Summary: 更新发票电子邮箱
+ */
+async function updateBillingcoreInvoiceemailEx(request: UpdateBillingcoreInvoiceemailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateBillingcoreInvoiceemailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.billingcore.invoiceemail.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyBillingcoreMerchantinvoiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 发票信息
+  invoice: Invoice(name='invoice'),
+  // 发票寄送地址
+  invoiceAddress?: InvoiceAddress(name='invoice_address'),
+  // 发票电子邮箱
+  invoiceEmail?: InvoiceEmail(name='invoice_email'),
+}
+
+model ApplyBillingcoreMerchantinvoiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 商户开票申请
+ * Summary: 商户开票申请
+ */
+async function applyBillingcoreMerchantinvoice(request: ApplyBillingcoreMerchantinvoiceRequest): ApplyBillingcoreMerchantinvoiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyBillingcoreMerchantinvoiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商户开票申请
+ * Summary: 商户开票申请
+ */
+async function applyBillingcoreMerchantinvoiceEx(request: ApplyBillingcoreMerchantinvoiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyBillingcoreMerchantinvoiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.billingcore.merchantinvoice.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBillingcoreMerchantinvoiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 订单号
+  orderNo: string(name='order_no'),
+}
+
+model QueryBillingcoreMerchantinvoiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 主键id
+  id?: long(name='id'),
+  // 商户id
+  merchantId?: string(name='merchant_id'),
+  // 订单号
+  orderNo?: string(name='order_no'),
+  // 订单金额
+  orderAmt?: string(name='order_amt'),
+  // 币种
+  ccy?: string(name='ccy'),
+  // 发票信息
+  invoice?: Invoice(name='invoice'),
+  // 发票寄送地址
+  invoiceAddress?: InvoiceAddress(name='invoice_address'),
+  // 发票电子邮箱
+  invoiceEmail?: InvoiceEmail(name='invoice_email'),
+  // 创建时间
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create'),
+  // 修改时间
+  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified'),
+}
+
+/**
+ * Description: 商户开票查询
+ * Summary: 商户开票查询
+ */
+async function queryBillingcoreMerchantinvoice(request: QueryBillingcoreMerchantinvoiceRequest): QueryBillingcoreMerchantinvoiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBillingcoreMerchantinvoiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商户开票查询
+ * Summary: 商户开票查询
+ */
+async function queryBillingcoreMerchantinvoiceEx(request: QueryBillingcoreMerchantinvoiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBillingcoreMerchantinvoiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.billingcore.merchantinvoice.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBillingcoreSpbillRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 账单id
+  billId: string(name='bill_id'),
+}
+
+model QueryBillingcoreSpbillResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // ap账单
+  apBill?: ApBill(name='ap_bill'),
+}
+
+/**
+ * Description: 查询服务商账单
+ * Summary: 查询服务商账单
+ */
+async function queryBillingcoreSpbill(request: QueryBillingcoreSpbillRequest): QueryBillingcoreSpbillResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBillingcoreSpbillEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询服务商账单
+ * Summary: 查询服务商账单
+ */
+async function queryBillingcoreSpbillEx(request: QueryBillingcoreSpbillRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBillingcoreSpbillResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.billingcore.spbill.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryBillingcoreSpbillRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 当前页码
+  current: long(name='current'),
+  // 每页记录数
+  pageSize: long(name='page_size'),
+  // 开始时间
+  startDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_date'),
+  // 结束时间
+  endDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_date'),
+  // 账单状态
+  status?: string(name='status'),
+}
+
+model PagequeryBillingcoreSpbillResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总页数
+  totalPages?: long(name='total_pages'),
+  // 当前页码
+  current?: long(name='current'),
+  // 每页记录数
+  pageSize?: long(name='page_size'),
+  // 总记录数
+  total?: long(name='total'),
+  // 账单列表
+  data?: ApBill(name='data'),
+}
+
+/**
+ * Description: 分页查询服务商账单
+ * Summary: 分页查询服务商账单
+ */
+async function pagequeryBillingcoreSpbill(request: PagequeryBillingcoreSpbillRequest): PagequeryBillingcoreSpbillResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryBillingcoreSpbillEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询服务商账单
+ * Summary: 分页查询服务商账单
+ */
+async function pagequeryBillingcoreSpbillEx(request: PagequeryBillingcoreSpbillRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryBillingcoreSpbillResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.billingcore.spbill.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyBillingcoreSpinvoiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 账单号，多个时逗号分隔
+  billNos: string(name='bill_nos'),
+  // 账单总金额
+  billAmt: string(name='bill_amt'),
+  // 币种
+  ccy: string(name='ccy'),
+  // 销售方信息
+  sellerInfo: TaxInfo(name='seller_info'),
+  // 购买方信息
+  buyerInfo: TaxInfo(name='buyer_info'),
+  // 发票信息
+  invoiceInfos: [ InvoiceInfo ](name='invoice_infos'),
+}
+
+model ApplyBillingcoreSpinvoiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 服务商结算申请
+ * Summary: 服务商结算申请
+ */
+async function applyBillingcoreSpinvoice(request: ApplyBillingcoreSpinvoiceRequest): ApplyBillingcoreSpinvoiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyBillingcoreSpinvoiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 服务商结算申请
+ * Summary: 服务商结算申请
+ */
+async function applyBillingcoreSpinvoiceEx(request: ApplyBillingcoreSpinvoiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyBillingcoreSpinvoiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.billingcore.spinvoice.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AllCommercialcoreCatalogRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+}
+
+model AllCommercialcoreCatalogResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 全部类目树结构体
+  catalogTrees?: [ CatalogVO ](name='catalog_trees'),
+}
+
+/**
+ * Description: 查询所有类目树
+ * Summary: 查询所有类目树
+ */
+async function allCommercialcoreCatalog(request: AllCommercialcoreCatalogRequest): AllCommercialcoreCatalogResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return allCommercialcoreCatalogEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询所有类目树
+ * Summary: 查询所有类目树
+ */
+async function allCommercialcoreCatalogEx(request: AllCommercialcoreCatalogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AllCommercialcoreCatalogResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.commercialcore.catalog.all', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListCommercialcoreProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 类目id
+  catalogId: long(name='catalog_id'),
+}
+
+model ListCommercialcoreProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 产品列表
+  products?: [ ProductVO ](name='products'),
+}
+
+/**
+ * Description: 根据类目id查询产品列表
+ * Summary: 查询产品列表
+ */
+async function listCommercialcoreProduct(request: ListCommercialcoreProductRequest): ListCommercialcoreProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listCommercialcoreProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据类目id查询产品列表
+ * Summary: 查询产品列表
+ */
+async function listCommercialcoreProductEx(request: ListCommercialcoreProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListCommercialcoreProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.commercialcore.product.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListCommercialcoreCommodityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商品code
+  productCode: string(name='product_code'),
+}
+
+model ListCommercialcoreCommodityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商品列表
+  commodities?: [ CommodityVO ](name='commodities'),
+}
+
+/**
+ * Description: 根据产品Code查询商品列表
+ * Summary: 查询商品列表
+ */
+async function listCommercialcoreCommodity(request: ListCommercialcoreCommodityRequest): ListCommercialcoreCommodityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listCommercialcoreCommodityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据产品Code查询商品列表
+ * Summary: 查询商品列表
+ */
+async function listCommercialcoreCommodityEx(request: ListCommercialcoreCommodityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListCommercialcoreCommodityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.commercialcore.commodity.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListCommercialcoreSpecRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商品code
+  commodityCode: string(name='commodity_code'),
+}
+
+model ListCommercialcoreSpecResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 规格列表
+  specs?: [ SpecVO ](name='specs'),
+}
+
+/**
+ * Description: 根据商品code查询规格列表
+ * Summary: 查询规格列表
+ */
+async function listCommercialcoreSpec(request: ListCommercialcoreSpecRequest): ListCommercialcoreSpecResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listCommercialcoreSpecEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据商品code查询规格列表
+ * Summary: 查询规格列表
+ */
+async function listCommercialcoreSpecEx(request: ListCommercialcoreSpecRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListCommercialcoreSpecResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.commercialcore.spec.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCommercialcoreSpecRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 规格code
+  specCode: string(name='spec_code'),
+}
+
+model QueryCommercialcoreSpecResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 定价计划
+  pricePlan?: PricePlanVO(name='price_plan'),
+}
+
+/**
+ * Description: 根据规格code查询规格定价计划
+ * Summary: 查询规格定价计划
+ */
+async function queryCommercialcoreSpec(request: QueryCommercialcoreSpecRequest): QueryCommercialcoreSpecResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCommercialcoreSpecEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据规格code查询规格定价计划
+ * Summary: 查询规格定价计划
+ */
+async function queryCommercialcoreSpecEx(request: QueryCommercialcoreSpecRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCommercialcoreSpecResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.commercialcore.spec.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddCommercialcoreProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品code
+  productCode: string(name='product_code'),
+  // 产品名称
+  productName: string(name='product_name'),
+  // 产品oxm类型
+  oxmType: string(name='oxm_type'),
+  // 产品一级类目
+  l1CatalogId: long(name='l1_catalog_id'),
+  // 产品二级类目
+  l2CatalogId: long(name='l2_catalog_id'),
+  // 产品描述
+  desc?: string(name='desc'),
+}
+
+model AddCommercialcoreProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 新增产品
+ * Summary: 新增产品
+ */
+async function addCommercialcoreProduct(request: AddCommercialcoreProductRequest): AddCommercialcoreProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addCommercialcoreProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增产品
+ * Summary: 新增产品
+ */
+async function addCommercialcoreProductEx(request: AddCommercialcoreProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddCommercialcoreProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.commercialcore.product.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateCommercialcoreProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品code
+  productCode: string(name='product_code'),
+  // 产品名称
+  productName: string(name='product_name'),
+  // 产品oxm类型
+  oxmType: string(name='oxm_type'),
+  // 产品一级类目
+  l1CatalogId: long(name='l1_catalog_id'),
+  // 产品二级类目
+  l2CatalogId: long(name='l2_catalog_id'),
+  // 产品描述xxx
+  desc?: string(name='desc'),
+}
+
+model UpdateCommercialcoreProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 更新产品
+ * Summary: 更新产品
+ */
+async function updateCommercialcoreProduct(request: UpdateCommercialcoreProductRequest): UpdateCommercialcoreProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateCommercialcoreProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新产品
+ * Summary: 更新产品
+ */
+async function updateCommercialcoreProductEx(request: UpdateCommercialcoreProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateCommercialcoreProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.commercialcore.product.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryCommercialcoreProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+}
+
+model BatchqueryCommercialcoreProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 产品code列表
+  productCodes?: [ string ](name='product_codes'),
+}
+
+/**
+ * Description: 查询产品code列表
+ * Summary: 查询产品code列表
+ */
+async function batchqueryCommercialcoreProduct(request: BatchqueryCommercialcoreProductRequest): BatchqueryCommercialcoreProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryCommercialcoreProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询产品code列表
+ * Summary: 查询产品code列表
+ */
+async function batchqueryCommercialcoreProductEx(request: BatchqueryCommercialcoreProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryCommercialcoreProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.commercialcore.product.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCommercialcoreProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品code
+  productCode: string(name='product_code'),
+}
+
+model QueryCommercialcoreProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 产品信息
+  product?: ProductDTO(name='product'),
+}
+
+/**
+ * Description: 根据产品code查询产品信息
+ * Summary: 查询产品
+ */
+async function queryCommercialcoreProduct(request: QueryCommercialcoreProductRequest): QueryCommercialcoreProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCommercialcoreProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据产品code查询产品信息
+ * Summary: 查询产品
+ */
+async function queryCommercialcoreProductEx(request: QueryCommercialcoreProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCommercialcoreProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.commercialcore.product.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCommercialcoreCommodityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品code
+  productCode: string(name='product_code'),
+}
+
+model QueryCommercialcoreCommodityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商品来源列表
+  sourceTypes?: [ CommoditySourceType ](name='source_types'),
+}
+
+/**
+ * Description: 根据产品code查询商品来源
+ * Summary: 查询商品来源
+ */
+async function queryCommercialcoreCommodity(request: QueryCommercialcoreCommodityRequest): QueryCommercialcoreCommodityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCommercialcoreCommodityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据产品code查询商品来源
+ * Summary: 查询商品来源
+ */
+async function queryCommercialcoreCommodityEx(request: QueryCommercialcoreCommodityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCommercialcoreCommodityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.commercialcore.commodity.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddCommercialcoreCommodityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商品code
+  commodityCode: string(name='commodity_code'),
+  // 产品code
+  productCode: string(name='product_code'),
+  // 商品名称
+  commodityName: string(name='commodity_name'),
+  // 商品服务类型
+  serviceType: string(name='service_type'),
+  // 商品来源
+  sourceType: string(name='source_type'),
+  // 商品描述
+  desc?: string(name='desc'),
+}
+
+model AddCommercialcoreCommodityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 新增商品
+ * Summary: 新增商品
+ */
+async function addCommercialcoreCommodity(request: AddCommercialcoreCommodityRequest): AddCommercialcoreCommodityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addCommercialcoreCommodityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增商品
+ * Summary: 新增商品
+ */
+async function addCommercialcoreCommodityEx(request: AddCommercialcoreCommodityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddCommercialcoreCommodityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.commercialcore.commodity.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateCommercialcoreCommodityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商品code
+  commodityCode: string(name='commodity_code'),
+  // 产品code
+  productCode: string(name='product_code'),
+  // 商品名称
+  commodityName: string(name='commodity_name'),
+  // 商品服务类型
+  serviceType: string(name='service_type'),
+  // 商品来源
+  sourceType: string(name='source_type'),
+  // 商品描述
+  desc?: string(name='desc'),
+}
+
+model UpdateCommercialcoreCommodityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 更新商品
+ * Summary: 更新商品
+ */
+async function updateCommercialcoreCommodity(request: UpdateCommercialcoreCommodityRequest): UpdateCommercialcoreCommodityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateCommercialcoreCommodityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新商品
+ * Summary: 更新商品
+ */
+async function updateCommercialcoreCommodityEx(request: UpdateCommercialcoreCommodityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateCommercialcoreCommodityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.commercialcore.commodity.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryCommercialcoreSpecRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商品code
+  commodityCode: string(name='commodity_code'),
+}
+
+model BatchqueryCommercialcoreSpecResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 规格售卖模式列表
+  salesModes?: [ SpecSalesMode ](name='sales_modes'),
+}
+
+/**
+ * Description: 根据商品code查询规格售卖模式
+ * Summary: 查询规格售卖模式
+ */
+async function batchqueryCommercialcoreSpec(request: BatchqueryCommercialcoreSpecRequest): BatchqueryCommercialcoreSpecResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryCommercialcoreSpecEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据商品code查询规格售卖模式
+ * Summary: 查询规格售卖模式
+ */
+async function batchqueryCommercialcoreSpecEx(request: BatchqueryCommercialcoreSpecRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryCommercialcoreSpecResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.commercialcore.spec.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddCommercialcoreSpecRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 规格code
+  specCode: string(name='spec_code'),
+  // 产品code
+  productCode: string(name='product_code'),
+  // 商品code
+  commodityCode: string(name='commodity_code'),
+  // 售卖模式
+  salesMode: string(name='sales_mode'),
+  // 主要付款方式
+  mainPayMethod: string(name='main_pay_method'),
+  // 规格描述
+  specDesc?: string(name='spec_desc'),
+  // 规格名称
+  specName: string(name='spec_name'),
+  // 定价计划
+  pricePlan: PricePlanVO(name='price_plan'),
+}
+
+model AddCommercialcoreSpecResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 新增规格与定价计划
+ * Summary: 新增规格与定价计划
+ */
+async function addCommercialcoreSpec(request: AddCommercialcoreSpecRequest): AddCommercialcoreSpecResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addCommercialcoreSpecEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增规格与定价计划
+ * Summary: 新增规格与定价计划
+ */
+async function addCommercialcoreSpecEx(request: AddCommercialcoreSpecRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddCommercialcoreSpecResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.commercialcore.spec.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateCommercialcoreSpecRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 规格code
+  specCode: string(name='spec_code'),
+  // 规格名称
+  specName: string(name='spec_name'),
+  // 主要付款方式
+  mainPayMethod?: string(name='main_pay_method'),
+  // 售卖模式
+  salesMode?: string(name='sales_mode'),
+  // 规格描述
+  desc?: string(name='desc'),
+}
+
+model UpdateCommercialcoreSpecResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 更新规格
+ * Summary: 更新规格
+ */
+async function updateCommercialcoreSpec(request: UpdateCommercialcoreSpecRequest): UpdateCommercialcoreSpecResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateCommercialcoreSpecEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新规格
+ * Summary: 更新规格
+ */
+async function updateCommercialcoreSpecEx(request: UpdateCommercialcoreSpecRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateCommercialcoreSpecResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.commercialcore.spec.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AuthCommercialcoreSpecRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 规格code
+  specCode: string(name='spec_code'),
+  // 规格状态
+  specStatus: string(name='spec_status'),
+}
+
+model AuthCommercialcoreSpecResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 修改规格状态
+ * Summary: 修改规格状态
+ */
+async function authCommercialcoreSpec(request: AuthCommercialcoreSpecRequest): AuthCommercialcoreSpecResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return authCommercialcoreSpecEx(request, headers, runtime);
+}
+
+/**
+ * Description: 修改规格状态
+ * Summary: 修改规格状态
+ */
+async function authCommercialcoreSpecEx(request: AuthCommercialcoreSpecRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthCommercialcoreSpecResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.commercialcore.spec.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckCommercialcoreProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品code
+  productCode: string(name='product_code'),
+}
+
+model CheckCommercialcoreProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // true: code已存在 ；false : code不存在
+  isDuplicate?: boolean(name='is_duplicate'),
+}
+
+/**
+ * Description: 产品code查重校验
+ * Summary: 产品code查重校验
+ */
+async function checkCommercialcoreProduct(request: CheckCommercialcoreProductRequest): CheckCommercialcoreProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkCommercialcoreProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品code查重校验
+ * Summary: 产品code查重校验
+ */
+async function checkCommercialcoreProductEx(request: CheckCommercialcoreProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckCommercialcoreProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.commercialcore.product.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddPartnercoreSignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 政策id
+  policyId: string(name='policy_id'),
+}
+
+model AddPartnercoreSignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 新增签约接口
+ * Summary: 新增签约接口
+ */
+async function addPartnercoreSign(request: AddPartnercoreSignRequest): AddPartnercoreSignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addPartnercoreSignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增签约接口
+ * Summary: 新增签约接口
+ */
+async function addPartnercoreSignEx(request: AddPartnercoreSignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddPartnercoreSignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.partnercore.sign.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPartnercorePolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 政策id
+  policyId: string(name='policy_id'),
+}
+
+model QueryPartnercorePolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 政策信息扩展
+  policyDto?: PolicyDTO(name='policy_dto'),
+}
+
+/**
+ * Description: 政策详情查询
+ * Summary: 政策详情查询
+ */
+async function queryPartnercorePolicy(request: QueryPartnercorePolicyRequest): QueryPartnercorePolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPartnercorePolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 政策详情查询
+ * Summary: 政策详情查询
+ */
+async function queryPartnercorePolicyEx(request: QueryPartnercorePolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPartnercorePolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.partnercore.policy.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryPartnercorePolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 政策名称（字段保留） 不做调用
+  policyName?: string(name='policy_name'),
+  // 政策状态（字段保留） 不做调用
+  policyStatus?: string(name='policy_status'),
+  // 签约状态 SIGNED已签约 UNSIGNED 待签约
+  signStatus?: string(name='sign_status'),
+  // 当前页码
+  current: long(name='current'),
+  // 每页记录数
+  pageSize: long(name='page_size'),
+}
+
+model PagequeryPartnercorePolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 政策信息扩展
+  data?: [ PolicyDTO ](name='data'),
+  // 当前页码
+  current?: long(name='current'),
+  // 每页记录数
+  pageSize?: long(name='page_size'),
+  // 总记录数
+  total?: long(name='total'),
+  // 总页数
+  totalPages?: long(name='total_pages'),
+}
+
+/**
+ * Description: 政策分页查询
+ * Summary: 政策分页查询
+ */
+async function pagequeryPartnercorePolicy(request: PagequeryPartnercorePolicyRequest): PagequeryPartnercorePolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryPartnercorePolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 政策分页查询
+ * Summary: 政策分页查询
+ */
+async function pagequeryPartnercorePolicyEx(request: PagequeryPartnercorePolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryPartnercorePolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.partnercore.policy.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPartnercoreSignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 合同id
+  agreementId: string(name='agreement_id'),
+}
+
+model QueryPartnercoreSignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 合同信息
+  partnerPolicyRelation?: PartnerPolicyRelation(name='partner_policy_relation'),
+  // 政策信息扩展
+  policyDto?: PolicyDTO(name='policy_dto'),
+}
+
+/**
+ * Description: 签约信息查询
+ * Summary: 签约信息查询
+ */
+async function queryPartnercoreSign(request: QueryPartnercoreSignRequest): QueryPartnercoreSignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPartnercoreSignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 签约信息查询
+ * Summary: 签约信息查询
+ */
+async function queryPartnercoreSignEx(request: QueryPartnercoreSignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPartnercoreSignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.partnercore.sign.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryTradecorePaidspecinstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商业中台用来唯一标记商户的id
+  merchantId: string(name='merchant_id'),
+}
+
+model BatchqueryTradecorePaidspecinstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 所有符合条件的规格实例的部分信息
+  paidSpecInstances?: [ PaidSpecInstance ](name='paid_spec_instances'),
+}
+
+/**
+ * Description: 根具商户id获取商户已购的规格实例的详细信息(包含规格名称、描述等)；该接口用与商户控制台显示商户已购规格信息
+ * Summary: 批量获取商户已购规格实例信息-控制台用
+ */
+async function batchqueryTradecorePaidspecinstance(request: BatchqueryTradecorePaidspecinstanceRequest): BatchqueryTradecorePaidspecinstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryTradecorePaidspecinstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根具商户id获取商户已购的规格实例的详细信息(包含规格名称、描述等)；该接口用与商户控制台显示商户已购规格信息
+ * Summary: 批量获取商户已购规格实例信息-控制台用
+ */
+async function batchqueryTradecorePaidspecinstanceEx(request: BatchqueryTradecorePaidspecinstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryTradecorePaidspecinstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.tradecore.paidspecinstance.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryTradecoreSoldspecinstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商业中台用来唯一标记商户的id
+  // merchant_id 与 merchant_login_main_id至少填一个
+  merchantId?: string(name='merchant_id'),
+  // 商户(买家)登录主账号
+  // merchant_id 与 merchant_login_main_id至少填一个
+  merchantLoginMainId?: string(name='merchant_login_main_id'),
+}
+
+model BatchqueryTradecoreSoldspecinstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 某开发商已售给某商户的所有规格实例信息
+  soldSpecInstances?: [ SoldSpecInstance ](name='sold_spec_instances'),
+}
+
+/**
+ * Description: 根据商户id和开发商id获取已售给某商户的所有规格实例的详细信息(不包含规格名称、描述等)；该接口用于开发商查询
+ * Summary: 获取已售给商户的规格实例信息-开发商用 
+ */
+async function batchqueryTradecoreSoldspecinstance(request: BatchqueryTradecoreSoldspecinstanceRequest): BatchqueryTradecoreSoldspecinstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryTradecoreSoldspecinstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据商户id和开发商id获取已售给某商户的所有规格实例的详细信息(不包含规格名称、描述等)；该接口用于开发商查询
+ * Summary: 获取已售给商户的规格实例信息-开发商用 
+ */
+async function batchqueryTradecoreSoldspecinstanceEx(request: BatchqueryTradecoreSoldspecinstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryTradecoreSoldspecinstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.tradecore.soldspecinstance.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTradecoreMerchantinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商业中台唯一标识商户的id
+  merchantId: string(name='merchant_id'),
+}
+
+model QueryTradecoreMerchantinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商户的名称
+  merchantName?: string(name='merchant_name'),
+}
+
+/**
+ * Description: 根据商户id、开发商id获取存在服务关系的商户信息(开发商用)
+ * Summary: 获取商户信息-开发商用
+ */
+async function queryTradecoreMerchantinfo(request: QueryTradecoreMerchantinfoRequest): QueryTradecoreMerchantinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTradecoreMerchantinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据商户id、开发商id获取存在服务关系的商户信息(开发商用)
+ * Summary: 获取商户信息-开发商用
+ */
+async function queryTradecoreMerchantinfoEx(request: QueryTradecoreMerchantinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTradecoreMerchantinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.tradecore.merchantinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateTradecorePayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 订单编号
+  orderNo: string(name='order_no'),
+  // 交易渠道编号
+  channelNo: string(name='channel_no'),
+}
+
+model CreateTradecorePayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // form表单信息
+  formData?: string(name='form_data'),
+}
+
+/**
+ * Description: 创建支付单，调用支付宝接口获取收银台触发表单
+ * Summary: 支付创建
+ */
+async function createTradecorePay(request: CreateTradecorePayRequest): CreateTradecorePayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createTradecorePayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建支付单，调用支付宝接口获取收银台触发表单
+ * Summary: 支付创建
+ */
+async function createTradecorePayEx(request: CreateTradecorePayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateTradecorePayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.tradecore.pay.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ReceiveTradecorePayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 支付宝回调参数，参数可能变化，返回字符串
+  notifyData: string(name='notify_data'),
+}
+
+model ReceiveTradecorePayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回success表示成功，否则失败
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 支付宝支付结果回调
+ * Summary: 支付结果回调
+ */
+async function receiveTradecorePay(request: ReceiveTradecorePayRequest): ReceiveTradecorePayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return receiveTradecorePayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支付宝支付结果回调
+ * Summary: 支付结果回调
+ */
+async function receiveTradecorePayEx(request: ReceiveTradecorePayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReceiveTradecorePayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.tradecore.pay.receive', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelTradecoreOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 订单号
+  orderNo: string(name='order_no'),
+}
+
+model CancelTradecoreOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // main_order
+  mainOrder?: MainOrderVO(name='main_order'),
+}
+
+/**
+ * Description: 订单取消
+ * Summary: 订单取消
+ */
+async function cancelTradecoreOrder(request: CancelTradecoreOrderRequest): CancelTradecoreOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelTradecoreOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 订单取消
+ * Summary: 订单取消
+ */
+async function cancelTradecoreOrderEx(request: CancelTradecoreOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelTradecoreOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.tradecore.order.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateTradecoreOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // seller
+  seller: string(name='seller'),
+  // 开发环境可以用：0016010039
+  spId: string(name='sp_id'),
+  // product_name
+  productName: string(name='product_name'),
+  // 开发环境可以用：3000.00  单位是元
+  amt: string(name='amt'),
+  // ccy
+  ccy?: string(name='ccy'),
+  // 固定填写OFFICIAL_SITE
+  orderOrigin: string(name='order_origin'),
+  // LICENSE(软件许可),RENEW(软件许可更新和技术支持),SUBSCRIBE(软件订阅),PRE(包年包月),POST(按量付费),SERVICE(服务型)
+  payMethod: string(name='pay_method'),
+  // order_duration
+  orderDuration: string(name='order_duration'),
+  // commodity_name
+  commodityName: string(name='commodity_name'),
+  // 开发环境可以用：10007
+  specCode: string(name='spec_code'),
+  // spec_name
+  specName: string(name='spec_name'),
+  // spec_desc
+  specDesc?: string(name='spec_desc'),
+  // order_detail
+  orderDetail?: string(name='order_detail'),
+  // spec_props
+  specProps: [ Pair ](name='spec_props'),
+  // ext_params
+  extParams?: [ Pair ](name='ext_params'),
+}
+
+model CreateTradecoreOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // main_order
+  mainOrder?: MainOrderVO(name='main_order'),
+}
+
+/**
+ * Description: 订单创建
+ * Summary: 订单创建
+ */
+async function createTradecoreOrder(request: CreateTradecoreOrderRequest): CreateTradecoreOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createTradecoreOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 订单创建
+ * Summary: 订单创建
+ */
+async function createTradecoreOrderEx(request: CreateTradecoreOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateTradecoreOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.tradecore.order.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTradecoreOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 订单号
+  orderNo: string(name='order_no'),
+}
+
+model QueryTradecoreOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // main_order
+  mainOrder?: MainOrderVO(name='main_order'),
+}
+
+/**
+ * Description: 订单查询
+ * Summary: 订单查询
+ */
+async function queryTradecoreOrder(request: QueryTradecoreOrderRequest): QueryTradecoreOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTradecoreOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 订单查询
+ * Summary: 订单查询
+ */
+async function queryTradecoreOrderEx(request: QueryTradecoreOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTradecoreOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.tradecore.order.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryTradecoreOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 取值范围：NEW
+  orderType?: string(name='order_type'),
+  // 取值范围：INIT、PAY_SUCCESS、CLOSED
+  orderStatus?: string(name='order_status'),
+  // 取值范围：GMT_CREATE（订单创建时间）、GMT_PAY_SUCCESS（订单支付成功时间）
+  sortColumn?: string(name='sort_column'),
+  // 取值范围：ASC（升序）、DESC（降序）
+  sortType?: string(name='sort_type'),
+  // page_num
+  pageNum?: long(name='page_num'),
+  // page_size
+  pageSize?: long(name='page_size'),
+}
+
+model PagequeryTradecoreOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总页数
+  pages?: long(name='pages'),
+  // 当前页码
+  pageNum?: long(name='page_num'),
+  // page_size
+  pageSize?: long(name='page_size'),
+  // total
+  total?: long(name='total'),
+  // order_list
+  orderList?: [ MainOrderVO ](name='order_list'),
+}
+
+/**
+ * Description: 订单分页查询
+ * Summary: 订单分页查询
+ */
+async function pagequeryTradecoreOrder(request: PagequeryTradecoreOrderRequest): PagequeryTradecoreOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryTradecoreOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 订单分页查询
+ * Summary: 订单分页查询
+ */
+async function pagequeryTradecoreOrderEx(request: PagequeryTradecoreOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryTradecoreOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.tradecore.order.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckTradecoreSpRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 服务商id
+  spId: string(name='sp_id'),
+}
+
+model CheckTradecoreSpResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 服务商信息校验
+ * Summary: 服务商信息校验
+ */
+async function checkTradecoreSp(request: CheckTradecoreSpRequest): CheckTradecoreSpResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkTradecoreSpEx(request, headers, runtime);
+}
+
+/**
+ * Description: 服务商信息校验
+ * Summary: 服务商信息校验
+ */
+async function checkTradecoreSpEx(request: CheckTradecoreSpRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckTradecoreSpResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.commercial.tradecore.sp.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
