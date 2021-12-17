@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.16',
+    sdk_version = '1.7.19',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -477,6 +477,17 @@ model ContractPlatformSignField {
   width?: string(name='width', example='1'),
 }
 
+// 阶段存证内容类表，根据模板定义传入
+model PhaseNotary {
+  // 阶段编号，与模板阶段编号保持一致，不同阶段阶段编号不一样，要与阶段存证内容保持一致
+  phaseNo: long(name='phase_no', example='1'),
+  // 阶段存证内容，如果模板数据类型定义是Hash(哈希)则填入Hash即可，如果定义是Structure(结构化)，则填入模板所有字段json对象的字符串Base64后的值
+  notaryContent: string(name='notary_content', example='123123'),
+  // 业务方原始数据ID，业务方确保唯一，方便与业务方进行数据核对使用
+  // 
+  originDataId: string(name='origin_data_id', example='xxxx'),
+}
+
 // 电子合同存证合同文档信息
 model ContractNotaryDocumentInfo {
   // 签署完成的合同hash
@@ -665,6 +676,16 @@ model ProductInfo {
   extraInfo?: string(name='extra_info', example='{}'),
 }
 
+// 阶段存证进度查询结果
+model PhaseQueryResult {
+  // 阶段ID
+  phaseId: string(name='phase_id', example='4a605f04-ae9f-48d3-88ba-05c073ad5484'),
+  // 阶段存证的链上交易Hash，只有status为FINISH才会返回
+  txHash: string(name='tx_hash', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a97900xx269'),
+  // 阶段存证状态
+  status: string(name='status', example='FINISH'),
+}
+
 // 共享项目，资产端的采购平台回传的物流信息
 model SupplierLogisticInfo {
   // 采购平台的物流单号
@@ -809,6 +830,16 @@ model ContractNotaryDeductRefundInfo {
   order: string(name='order', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269_1'),
   // 退款操作发起时间
   timestamp: string(name='timestamp', example='1589198173000'),
+}
+
+// 阶段存证结果
+model PhaseCreateResult {
+  // 阶段编号，与模板阶段编号保持一致，不同阶段阶段编号不一样，要与阶段存证内容保持一致
+  phaseNo: long(name='phase_no', example='1'),
+  // 阶段ID，阶段存证的唯一标记
+  phaseId: string(name='phase_id', example='4a605f04-ae9f-48d3-88ba-05c073ad5484'),
+  // 业务方原始数据ID，方便与业务方进行数据核对使用，并且如果同一个阶段多次存证，则需要根据业务方原始数据ID识别不同的阶段存证响应
+  originDataId: string(name='origin_data_id', example='xxx'),
 }
 
 // 案件进度查询返回结果
@@ -12484,5 +12515,183 @@ async function detailFlowPhase(request: DetailFlowPhaseRequest): DetailFlowPhase
 async function detailFlowPhaseEx(request: DetailFlowPhaseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailFlowPhaseResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.flow.phase.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateFlowOnestepnotaryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 全流程模板id，需要提前创建好模板才能获取
+  templateId: string(name='template_id'),
+  // 流程名称，同一个租户下同一个模板，建议唯一不重复
+  flowName: string(name='flow_name'),
+  // 存证关联实体（个人/企业）的身份识别信息
+  notaryUser: NotaryUser(name='notary_user'),
+  // 阶段存证内容列表，根据模板定义传入
+  phaseNotaryList: [ PhaseNotary ](name='phase_notary_list'),
+  // 扩展属性
+  properties?: string(name='properties'),
+}
+
+model CreateFlowOnestepnotaryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回流程ID，全局唯一
+  flowId?: string(name='flow_id'),
+  // 阶段存证结果列表
+  phaseCreateResultList?: [ PhaseCreateResult ](name='phase_create_result_list'),
+}
+
+/**
+ * Description: 一键创建全流程存证实例和阶段存证
+ * Summary: 一键创建全流程存证实例和阶段存证
+ */
+async function createFlowOnestepnotary(request: CreateFlowOnestepnotaryRequest): CreateFlowOnestepnotaryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createFlowOnestepnotaryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 一键创建全流程存证实例和阶段存证
+ * Summary: 一键创建全流程存证实例和阶段存证
+ */
+async function createFlowOnestepnotaryEx(request: CreateFlowOnestepnotaryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateFlowOnestepnotaryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.flow.onestepnotary.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryFlowOnestepnotaryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程id，通过twc.notary.flow.onestepnotary.create接口获取
+  flowId: string(name='flow_id'),
+}
+
+model QueryFlowOnestepnotaryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证全流程状态，FINISH(完结)、PROCESSING(上链中)、DISABLE(失效)、FAILED(失败)
+  status?: string(name='status'),
+  // 阶段存证查询结果列表
+  phaseQueryResultList?: [ PhaseQueryResult ](name='phase_query_result_list'),
+}
+
+/**
+ * Description: 查询一键创建全流程存证进度状态
+ * Summary: 查询一键创建全流程存证进度状态
+ */
+async function queryFlowOnestepnotary(request: QueryFlowOnestepnotaryRequest): QueryFlowOnestepnotaryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryFlowOnestepnotaryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询一键创建全流程存证进度状态
+ * Summary: 查询一键创建全流程存证进度状态
+ */
+async function queryFlowOnestepnotaryEx(request: QueryFlowOnestepnotaryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFlowOnestepnotaryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.flow.onestepnotary.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyFlowCertificateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程id
+  flowId: string(name='flow_id'),
+  // 证书类型，AntchainCertification（蚂蚁链存证证明）、OrgCertification（公证处存证证明），目前支持公证处
+  certificationType: string(name='certification_type'),
+  // 公证处ID，OrgCertification（公证处存证证明）选填，不填则为默认公证处
+  orgId: string(name='org_id'),
+  // 是否需要legal码，默认为false即不需要，true表示需要
+  needLegalCode?: boolean(name='need_legal_code'),
+}
+
+model ApplyFlowCertificateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 出证订单号
+  orderNo?: string(name='order_no'),
+}
+
+/**
+ * Description: 存证全流程证明申请
+ * Summary: 存证全流程证明申请
+ */
+async function applyFlowCertificate(request: ApplyFlowCertificateRequest): ApplyFlowCertificateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyFlowCertificateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 存证全流程证明申请
+ * Summary: 存证全流程证明申请
+ */
+async function applyFlowCertificateEx(request: ApplyFlowCertificateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyFlowCertificateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.flow.certificate.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryFlowCertificateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程id
+  flowId: string(name='flow_id'),
+  // 证书类型，AntchainCertification（蚂蚁链存证证明）、OrgCertification（公证处存证证明），目前支持公证处
+  certificationType: string(name='certification_type'),
+  // 通过twc.notary.flow.certificate.apply(存证全流程证明申请)获取到的订单号
+  orderNo: string(name='order_no'),
+}
+
+model QueryFlowCertificateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证证明下载地址，有效期1个小时
+  certificateUrl?: string(name='certificate_url'),
+  // Legal码H5页面URL
+  legalCodeUrl?: string(name='legal_code_url'),
+  // Legal码证书H5页面URL
+  legalShowUrl?: string(name='legal_show_url'),
+}
+
+/**
+ * Description: 存证全流程证明出证进度查询
+ * Summary: 存证全流程证明出证进度查询
+ */
+async function queryFlowCertificate(request: QueryFlowCertificateRequest): QueryFlowCertificateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryFlowCertificateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 存证全流程证明出证进度查询
+ * Summary: 存证全流程证明出证进度查询
+ */
+async function queryFlowCertificateEx(request: QueryFlowCertificateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFlowCertificateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.flow.certificate.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
