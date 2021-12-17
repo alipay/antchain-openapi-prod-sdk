@@ -44,11 +44,11 @@ class RecognizeAntiQrcodeacResponse extends Model
      */
     public $detectDesc;
 
-    // 解码ID
+    // 加密数据
     /**
-     * @var int
+     * @var string
      */
-    public $decodeId;
+    public $encryptData;
     protected $_name = [
         'reqMsgId'    => 'req_msg_id',
         'resultCode'  => 'result_code',
@@ -56,7 +56,7 @@ class RecognizeAntiQrcodeacResponse extends Model
         'code'        => 'code',
         'detectState' => 'detect_state',
         'detectDesc'  => 'detect_desc',
-        'decodeId'    => 'decode_id',
+        'encryptData' => 'encrypt_data',
     ];
 
     public function validate()
@@ -84,8 +84,8 @@ class RecognizeAntiQrcodeacResponse extends Model
         if (null !== $this->detectDesc) {
             $res['detect_desc'] = $this->detectDesc;
         }
-        if (null !== $this->decodeId) {
-            $res['decode_id'] = $this->decodeId;
+        if (null !== $this->encryptData) {
+            $res['encrypt_data'] = $this->encryptData;
         }
 
         return $res;
@@ -117,8 +117,8 @@ class RecognizeAntiQrcodeacResponse extends Model
         if (isset($map['detect_desc'])) {
             $model->detectDesc = $map['detect_desc'];
         }
-        if (isset($map['decode_id'])) {
-            $model->decodeId = $map['decode_id'];
+        if (isset($map['encrypt_data'])) {
+            $model->encryptData = $map['encrypt_data'];
         }
 
         return $model;
