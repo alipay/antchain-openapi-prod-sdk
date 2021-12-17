@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.2',
+    sdk_version = '1.0.3',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -194,8 +194,8 @@ model RecognizeAntiQrcodeacResponse = {
   detectState?: string(name='detect_state'),
   // 识别状态描述
   detectDesc?: string(name='detect_desc'),
-  // 解码ID
-  decodeId?: long(name='decode_id'),
+  // 加密数据
+  encryptData?: string(name='encrypt_data'),
 }
 
 /**
