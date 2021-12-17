@@ -1211,6 +1211,40 @@ func (s *ContractPlatformSignField) SetWidth(v string) *ContractPlatformSignFiel
 	return s
 }
 
+// 阶段存证内容类表，根据模板定义传入
+type PhaseNotary struct {
+	// 阶段编号，与模板阶段编号保持一致，不同阶段阶段编号不一样，要与阶段存证内容保持一致
+	PhaseNo *int64 `json:"phase_no,omitempty" xml:"phase_no,omitempty" require:"true"`
+	// 阶段存证内容，如果模板数据类型定义是Hash(哈希)则填入Hash即可，如果定义是Structure(结构化)，则填入模板所有字段json对象的字符串Base64后的值
+	NotaryContent *string `json:"notary_content,omitempty" xml:"notary_content,omitempty" require:"true"`
+	// 业务方原始数据ID，业务方确保唯一，方便与业务方进行数据核对使用
+	//
+	OriginDataId *string `json:"origin_data_id,omitempty" xml:"origin_data_id,omitempty" require:"true"`
+}
+
+func (s PhaseNotary) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PhaseNotary) GoString() string {
+	return s.String()
+}
+
+func (s *PhaseNotary) SetPhaseNo(v int64) *PhaseNotary {
+	s.PhaseNo = &v
+	return s
+}
+
+func (s *PhaseNotary) SetNotaryContent(v string) *PhaseNotary {
+	s.NotaryContent = &v
+	return s
+}
+
+func (s *PhaseNotary) SetOriginDataId(v string) *PhaseNotary {
+	s.OriginDataId = &v
+	return s
+}
+
 // 电子合同存证合同文档信息
 type ContractNotaryDocumentInfo struct {
 	// 签署完成的合同hash
@@ -1839,6 +1873,39 @@ func (s *ProductInfo) SetExtraInfo(v string) *ProductInfo {
 	return s
 }
 
+// 阶段存证进度查询结果
+type PhaseQueryResult struct {
+	// 阶段ID
+	PhaseId *string `json:"phase_id,omitempty" xml:"phase_id,omitempty" require:"true"`
+	// 阶段存证的链上交易Hash，只有status为FINISH才会返回
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 阶段存证状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s PhaseQueryResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PhaseQueryResult) GoString() string {
+	return s.String()
+}
+
+func (s *PhaseQueryResult) SetPhaseId(v string) *PhaseQueryResult {
+	s.PhaseId = &v
+	return s
+}
+
+func (s *PhaseQueryResult) SetTxHash(v string) *PhaseQueryResult {
+	s.TxHash = &v
+	return s
+}
+
+func (s *PhaseQueryResult) SetStatus(v string) *PhaseQueryResult {
+	s.Status = &v
+	return s
+}
+
 // 共享项目，资产端的采购平台回传的物流信息
 type SupplierLogisticInfo struct {
 	// 采购平台的物流单号
@@ -2333,6 +2400,39 @@ func (s *ContractNotaryDeductRefundInfo) SetOrder(v string) *ContractNotaryDeduc
 
 func (s *ContractNotaryDeductRefundInfo) SetTimestamp(v string) *ContractNotaryDeductRefundInfo {
 	s.Timestamp = &v
+	return s
+}
+
+// 阶段存证结果
+type PhaseCreateResult struct {
+	// 阶段编号，与模板阶段编号保持一致，不同阶段阶段编号不一样，要与阶段存证内容保持一致
+	PhaseNo *int64 `json:"phase_no,omitempty" xml:"phase_no,omitempty" require:"true"`
+	// 阶段ID，阶段存证的唯一标记
+	PhaseId *string `json:"phase_id,omitempty" xml:"phase_id,omitempty" require:"true"`
+	// 业务方原始数据ID，方便与业务方进行数据核对使用，并且如果同一个阶段多次存证，则需要根据业务方原始数据ID识别不同的阶段存证响应
+	OriginDataId *string `json:"origin_data_id,omitempty" xml:"origin_data_id,omitempty" require:"true"`
+}
+
+func (s PhaseCreateResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PhaseCreateResult) GoString() string {
+	return s.String()
+}
+
+func (s *PhaseCreateResult) SetPhaseNo(v int64) *PhaseCreateResult {
+	s.PhaseNo = &v
+	return s
+}
+
+func (s *PhaseCreateResult) SetPhaseId(v string) *PhaseCreateResult {
+	s.PhaseId = &v
+	return s
+}
+
+func (s *PhaseCreateResult) SetOriginDataId(v string) *PhaseCreateResult {
+	s.OriginDataId = &v
 	return s
 }
 
@@ -29566,6 +29666,377 @@ func (s *DetailFlowPhaseResponse) SetBlockHeight(v string) *DetailFlowPhaseRespo
 	return s
 }
 
+type CreateFlowOnestepnotaryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 全流程模板id，需要提前创建好模板才能获取
+	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty" require:"true"`
+	// 流程名称，同一个租户下同一个模板，建议唯一不重复
+	FlowName *string `json:"flow_name,omitempty" xml:"flow_name,omitempty" require:"true"`
+	// 存证关联实体（个人/企业）的身份识别信息
+	NotaryUser *NotaryUser `json:"notary_user,omitempty" xml:"notary_user,omitempty" require:"true"`
+	// 阶段存证内容列表，根据模板定义传入
+	PhaseNotaryList []*PhaseNotary `json:"phase_notary_list,omitempty" xml:"phase_notary_list,omitempty" require:"true" type:"Repeated"`
+	// 扩展属性
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+}
+
+func (s CreateFlowOnestepnotaryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateFlowOnestepnotaryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateFlowOnestepnotaryRequest) SetAuthToken(v string) *CreateFlowOnestepnotaryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateFlowOnestepnotaryRequest) SetProductInstanceId(v string) *CreateFlowOnestepnotaryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateFlowOnestepnotaryRequest) SetTemplateId(v string) *CreateFlowOnestepnotaryRequest {
+	s.TemplateId = &v
+	return s
+}
+
+func (s *CreateFlowOnestepnotaryRequest) SetFlowName(v string) *CreateFlowOnestepnotaryRequest {
+	s.FlowName = &v
+	return s
+}
+
+func (s *CreateFlowOnestepnotaryRequest) SetNotaryUser(v *NotaryUser) *CreateFlowOnestepnotaryRequest {
+	s.NotaryUser = v
+	return s
+}
+
+func (s *CreateFlowOnestepnotaryRequest) SetPhaseNotaryList(v []*PhaseNotary) *CreateFlowOnestepnotaryRequest {
+	s.PhaseNotaryList = v
+	return s
+}
+
+func (s *CreateFlowOnestepnotaryRequest) SetProperties(v string) *CreateFlowOnestepnotaryRequest {
+	s.Properties = &v
+	return s
+}
+
+type CreateFlowOnestepnotaryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回流程ID，全局唯一
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty"`
+	// 阶段存证结果列表
+	PhaseCreateResultList []*PhaseCreateResult `json:"phase_create_result_list,omitempty" xml:"phase_create_result_list,omitempty" type:"Repeated"`
+}
+
+func (s CreateFlowOnestepnotaryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateFlowOnestepnotaryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateFlowOnestepnotaryResponse) SetReqMsgId(v string) *CreateFlowOnestepnotaryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateFlowOnestepnotaryResponse) SetResultCode(v string) *CreateFlowOnestepnotaryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateFlowOnestepnotaryResponse) SetResultMsg(v string) *CreateFlowOnestepnotaryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateFlowOnestepnotaryResponse) SetFlowId(v string) *CreateFlowOnestepnotaryResponse {
+	s.FlowId = &v
+	return s
+}
+
+func (s *CreateFlowOnestepnotaryResponse) SetPhaseCreateResultList(v []*PhaseCreateResult) *CreateFlowOnestepnotaryResponse {
+	s.PhaseCreateResultList = v
+	return s
+}
+
+type QueryFlowOnestepnotaryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 流程id，通过twc.notary.flow.onestepnotary.create接口获取
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty" require:"true"`
+}
+
+func (s QueryFlowOnestepnotaryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFlowOnestepnotaryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFlowOnestepnotaryRequest) SetAuthToken(v string) *QueryFlowOnestepnotaryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryFlowOnestepnotaryRequest) SetProductInstanceId(v string) *QueryFlowOnestepnotaryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryFlowOnestepnotaryRequest) SetFlowId(v string) *QueryFlowOnestepnotaryRequest {
+	s.FlowId = &v
+	return s
+}
+
+type QueryFlowOnestepnotaryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 存证全流程状态，FINISH(完结)、PROCESSING(上链中)、DISABLE(失效)、FAILED(失败)
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 阶段存证查询结果列表
+	PhaseQueryResultList []*PhaseQueryResult `json:"phase_query_result_list,omitempty" xml:"phase_query_result_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryFlowOnestepnotaryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFlowOnestepnotaryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFlowOnestepnotaryResponse) SetReqMsgId(v string) *QueryFlowOnestepnotaryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryFlowOnestepnotaryResponse) SetResultCode(v string) *QueryFlowOnestepnotaryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryFlowOnestepnotaryResponse) SetResultMsg(v string) *QueryFlowOnestepnotaryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryFlowOnestepnotaryResponse) SetStatus(v string) *QueryFlowOnestepnotaryResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryFlowOnestepnotaryResponse) SetPhaseQueryResultList(v []*PhaseQueryResult) *QueryFlowOnestepnotaryResponse {
+	s.PhaseQueryResultList = v
+	return s
+}
+
+type ApplyFlowCertificateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 流程id
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty" require:"true"`
+	// 证书类型，AntchainCertification（蚂蚁链存证证明）、OrgCertification（公证处存证证明），目前支持公证处
+	CertificationType *string `json:"certification_type,omitempty" xml:"certification_type,omitempty" require:"true"`
+	// 公证处ID，OrgCertification（公证处存证证明）选填，不填则为默认公证处
+	OrgId *string `json:"org_id,omitempty" xml:"org_id,omitempty" require:"true"`
+	// 是否需要legal码，默认为false即不需要，true表示需要
+	NeedLegalCode *bool `json:"need_legal_code,omitempty" xml:"need_legal_code,omitempty"`
+}
+
+func (s ApplyFlowCertificateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyFlowCertificateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyFlowCertificateRequest) SetAuthToken(v string) *ApplyFlowCertificateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyFlowCertificateRequest) SetProductInstanceId(v string) *ApplyFlowCertificateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyFlowCertificateRequest) SetFlowId(v string) *ApplyFlowCertificateRequest {
+	s.FlowId = &v
+	return s
+}
+
+func (s *ApplyFlowCertificateRequest) SetCertificationType(v string) *ApplyFlowCertificateRequest {
+	s.CertificationType = &v
+	return s
+}
+
+func (s *ApplyFlowCertificateRequest) SetOrgId(v string) *ApplyFlowCertificateRequest {
+	s.OrgId = &v
+	return s
+}
+
+func (s *ApplyFlowCertificateRequest) SetNeedLegalCode(v bool) *ApplyFlowCertificateRequest {
+	s.NeedLegalCode = &v
+	return s
+}
+
+type ApplyFlowCertificateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 出证订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+}
+
+func (s ApplyFlowCertificateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyFlowCertificateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyFlowCertificateResponse) SetReqMsgId(v string) *ApplyFlowCertificateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyFlowCertificateResponse) SetResultCode(v string) *ApplyFlowCertificateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyFlowCertificateResponse) SetResultMsg(v string) *ApplyFlowCertificateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyFlowCertificateResponse) SetOrderNo(v string) *ApplyFlowCertificateResponse {
+	s.OrderNo = &v
+	return s
+}
+
+type QueryFlowCertificateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 流程id
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty" require:"true"`
+	// 证书类型，AntchainCertification（蚂蚁链存证证明）、OrgCertification（公证处存证证明），目前支持公证处
+	CertificationType *string `json:"certification_type,omitempty" xml:"certification_type,omitempty" require:"true"`
+	// 通过twc.notary.flow.certificate.apply(存证全流程证明申请)获取到的订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+}
+
+func (s QueryFlowCertificateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFlowCertificateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFlowCertificateRequest) SetAuthToken(v string) *QueryFlowCertificateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryFlowCertificateRequest) SetProductInstanceId(v string) *QueryFlowCertificateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryFlowCertificateRequest) SetFlowId(v string) *QueryFlowCertificateRequest {
+	s.FlowId = &v
+	return s
+}
+
+func (s *QueryFlowCertificateRequest) SetCertificationType(v string) *QueryFlowCertificateRequest {
+	s.CertificationType = &v
+	return s
+}
+
+func (s *QueryFlowCertificateRequest) SetOrderNo(v string) *QueryFlowCertificateRequest {
+	s.OrderNo = &v
+	return s
+}
+
+type QueryFlowCertificateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 存证证明下载地址，有效期1个小时
+	CertificateUrl *string `json:"certificate_url,omitempty" xml:"certificate_url,omitempty"`
+	// Legal码H5页面URL
+	LegalCodeUrl *string `json:"legal_code_url,omitempty" xml:"legal_code_url,omitempty"`
+	// Legal码证书H5页面URL
+	LegalShowUrl *string `json:"legal_show_url,omitempty" xml:"legal_show_url,omitempty"`
+}
+
+func (s QueryFlowCertificateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFlowCertificateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFlowCertificateResponse) SetReqMsgId(v string) *QueryFlowCertificateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryFlowCertificateResponse) SetResultCode(v string) *QueryFlowCertificateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryFlowCertificateResponse) SetResultMsg(v string) *QueryFlowCertificateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryFlowCertificateResponse) SetCertificateUrl(v string) *QueryFlowCertificateResponse {
+	s.CertificateUrl = &v
+	return s
+}
+
+func (s *QueryFlowCertificateResponse) SetLegalCodeUrl(v string) *QueryFlowCertificateResponse {
+	s.LegalCodeUrl = &v
+	return s
+}
+
+func (s *QueryFlowCertificateResponse) SetLegalShowUrl(v string) *QueryFlowCertificateResponse {
+	s.LegalShowUrl = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -29688,7 +30159,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.16"),
+				"sdk_version":      tea.String("1.7.19"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -36805,6 +37276,142 @@ func (client *Client) DetailFlowPhaseEx(request *DetailFlowPhaseRequest, headers
 	}
 	_result = &DetailFlowPhaseResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.flow.phase.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 一键创建全流程存证实例和阶段存证
+ * Summary: 一键创建全流程存证实例和阶段存证
+ */
+func (client *Client) CreateFlowOnestepnotary(request *CreateFlowOnestepnotaryRequest) (_result *CreateFlowOnestepnotaryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateFlowOnestepnotaryResponse{}
+	_body, _err := client.CreateFlowOnestepnotaryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 一键创建全流程存证实例和阶段存证
+ * Summary: 一键创建全流程存证实例和阶段存证
+ */
+func (client *Client) CreateFlowOnestepnotaryEx(request *CreateFlowOnestepnotaryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateFlowOnestepnotaryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateFlowOnestepnotaryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.flow.onestepnotary.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询一键创建全流程存证进度状态
+ * Summary: 查询一键创建全流程存证进度状态
+ */
+func (client *Client) QueryFlowOnestepnotary(request *QueryFlowOnestepnotaryRequest) (_result *QueryFlowOnestepnotaryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryFlowOnestepnotaryResponse{}
+	_body, _err := client.QueryFlowOnestepnotaryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询一键创建全流程存证进度状态
+ * Summary: 查询一键创建全流程存证进度状态
+ */
+func (client *Client) QueryFlowOnestepnotaryEx(request *QueryFlowOnestepnotaryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFlowOnestepnotaryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryFlowOnestepnotaryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.flow.onestepnotary.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 存证全流程证明申请
+ * Summary: 存证全流程证明申请
+ */
+func (client *Client) ApplyFlowCertificate(request *ApplyFlowCertificateRequest) (_result *ApplyFlowCertificateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyFlowCertificateResponse{}
+	_body, _err := client.ApplyFlowCertificateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 存证全流程证明申请
+ * Summary: 存证全流程证明申请
+ */
+func (client *Client) ApplyFlowCertificateEx(request *ApplyFlowCertificateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyFlowCertificateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyFlowCertificateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.flow.certificate.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 存证全流程证明出证进度查询
+ * Summary: 存证全流程证明出证进度查询
+ */
+func (client *Client) QueryFlowCertificate(request *QueryFlowCertificateRequest) (_result *QueryFlowCertificateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryFlowCertificateResponse{}
+	_body, _err := client.QueryFlowCertificateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 存证全流程证明出证进度查询
+ * Summary: 存证全流程证明出证进度查询
+ */
+func (client *Client) QueryFlowCertificateEx(request *QueryFlowCertificateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFlowCertificateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryFlowCertificateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.flow.certificate.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
