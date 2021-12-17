@@ -39,10 +39,10 @@ namespace AntChain.SDK.MYTC.Models
         [Validation(Required=false)]
         public string DetectDesc { get; set; }
 
-        // 解码ID
-        [NameInMap("decode_id")]
+        // 加密数据
+        [NameInMap("encrypt_data")]
         [Validation(Required=false)]
-        public long? DecodeId { get; set; }
+        public string EncryptData { get; set; }
 
     }
 
