@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.16"},
+                        {"sdk_version", "1.7.19"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.16"},
+                        {"sdk_version", "1.7.19"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -9059,6 +9059,174 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<DetailFlowPhaseResponse>(await DoRequestAsync("1.0", "twc.notary.flow.phase.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 一键创建全流程存证实例和阶段存证
+         * Summary: 一键创建全流程存证实例和阶段存证
+         */
+        public CreateFlowOnestepnotaryResponse CreateFlowOnestepnotary(CreateFlowOnestepnotaryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateFlowOnestepnotaryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 一键创建全流程存证实例和阶段存证
+         * Summary: 一键创建全流程存证实例和阶段存证
+         */
+        public async Task<CreateFlowOnestepnotaryResponse> CreateFlowOnestepnotaryAsync(CreateFlowOnestepnotaryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateFlowOnestepnotaryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 一键创建全流程存证实例和阶段存证
+         * Summary: 一键创建全流程存证实例和阶段存证
+         */
+        public CreateFlowOnestepnotaryResponse CreateFlowOnestepnotaryEx(CreateFlowOnestepnotaryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateFlowOnestepnotaryResponse>(DoRequest("1.0", "twc.notary.flow.onestepnotary.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 一键创建全流程存证实例和阶段存证
+         * Summary: 一键创建全流程存证实例和阶段存证
+         */
+        public async Task<CreateFlowOnestepnotaryResponse> CreateFlowOnestepnotaryExAsync(CreateFlowOnestepnotaryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateFlowOnestepnotaryResponse>(await DoRequestAsync("1.0", "twc.notary.flow.onestepnotary.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询一键创建全流程存证进度状态
+         * Summary: 查询一键创建全流程存证进度状态
+         */
+        public QueryFlowOnestepnotaryResponse QueryFlowOnestepnotary(QueryFlowOnestepnotaryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryFlowOnestepnotaryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询一键创建全流程存证进度状态
+         * Summary: 查询一键创建全流程存证进度状态
+         */
+        public async Task<QueryFlowOnestepnotaryResponse> QueryFlowOnestepnotaryAsync(QueryFlowOnestepnotaryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryFlowOnestepnotaryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询一键创建全流程存证进度状态
+         * Summary: 查询一键创建全流程存证进度状态
+         */
+        public QueryFlowOnestepnotaryResponse QueryFlowOnestepnotaryEx(QueryFlowOnestepnotaryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFlowOnestepnotaryResponse>(DoRequest("1.0", "twc.notary.flow.onestepnotary.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询一键创建全流程存证进度状态
+         * Summary: 查询一键创建全流程存证进度状态
+         */
+        public async Task<QueryFlowOnestepnotaryResponse> QueryFlowOnestepnotaryExAsync(QueryFlowOnestepnotaryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFlowOnestepnotaryResponse>(await DoRequestAsync("1.0", "twc.notary.flow.onestepnotary.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 存证全流程证明申请
+         * Summary: 存证全流程证明申请
+         */
+        public ApplyFlowCertificateResponse ApplyFlowCertificate(ApplyFlowCertificateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyFlowCertificateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 存证全流程证明申请
+         * Summary: 存证全流程证明申请
+         */
+        public async Task<ApplyFlowCertificateResponse> ApplyFlowCertificateAsync(ApplyFlowCertificateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyFlowCertificateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 存证全流程证明申请
+         * Summary: 存证全流程证明申请
+         */
+        public ApplyFlowCertificateResponse ApplyFlowCertificateEx(ApplyFlowCertificateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyFlowCertificateResponse>(DoRequest("1.0", "twc.notary.flow.certificate.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 存证全流程证明申请
+         * Summary: 存证全流程证明申请
+         */
+        public async Task<ApplyFlowCertificateResponse> ApplyFlowCertificateExAsync(ApplyFlowCertificateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyFlowCertificateResponse>(await DoRequestAsync("1.0", "twc.notary.flow.certificate.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 存证全流程证明出证进度查询
+         * Summary: 存证全流程证明出证进度查询
+         */
+        public QueryFlowCertificateResponse QueryFlowCertificate(QueryFlowCertificateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryFlowCertificateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 存证全流程证明出证进度查询
+         * Summary: 存证全流程证明出证进度查询
+         */
+        public async Task<QueryFlowCertificateResponse> QueryFlowCertificateAsync(QueryFlowCertificateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryFlowCertificateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 存证全流程证明出证进度查询
+         * Summary: 存证全流程证明出证进度查询
+         */
+        public QueryFlowCertificateResponse QueryFlowCertificateEx(QueryFlowCertificateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFlowCertificateResponse>(DoRequest("1.0", "twc.notary.flow.certificate.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 存证全流程证明出证进度查询
+         * Summary: 存证全流程证明出证进度查询
+         */
+        public async Task<QueryFlowCertificateResponse> QueryFlowCertificateExAsync(QueryFlowCertificateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFlowCertificateResponse>(await DoRequestAsync("1.0", "twc.notary.flow.certificate.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
