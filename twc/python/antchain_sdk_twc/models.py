@@ -1429,6 +1429,47 @@ class ContractPlatformSignField(TeaModel):
         return self
 
 
+class PhaseNotary(TeaModel):
+    def __init__(
+        self,
+        phase_no: int = None,
+        notary_content: str = None,
+        origin_data_id: str = None,
+    ):
+        # 阶段编号，与模板阶段编号保持一致，不同阶段阶段编号不一样，要与阶段存证内容保持一致
+        self.phase_no = phase_no
+        # 阶段存证内容，如果模板数据类型定义是Hash(哈希)则填入Hash即可，如果定义是Structure(结构化)，则填入模板所有字段json对象的字符串Base64后的值
+        self.notary_content = notary_content
+        # 业务方原始数据ID，业务方确保唯一，方便与业务方进行数据核对使用
+        # 
+        self.origin_data_id = origin_data_id
+
+    def validate(self):
+        self.validate_required(self.phase_no, 'phase_no')
+        self.validate_required(self.notary_content, 'notary_content')
+        self.validate_required(self.origin_data_id, 'origin_data_id')
+
+    def to_map(self):
+        result = dict()
+        if self.phase_no is not None:
+            result['phase_no'] = self.phase_no
+        if self.notary_content is not None:
+            result['notary_content'] = self.notary_content
+        if self.origin_data_id is not None:
+            result['origin_data_id'] = self.origin_data_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('phase_no') is not None:
+            self.phase_no = m.get('phase_no')
+        if m.get('notary_content') is not None:
+            self.notary_content = m.get('notary_content')
+        if m.get('origin_data_id') is not None:
+            self.origin_data_id = m.get('origin_data_id')
+        return self
+
+
 class ContractNotaryDocumentInfo(TeaModel):
     def __init__(
         self,
@@ -2157,6 +2198,46 @@ class ProductInfo(TeaModel):
         return self
 
 
+class PhaseQueryResult(TeaModel):
+    def __init__(
+        self,
+        phase_id: str = None,
+        tx_hash: str = None,
+        status: str = None,
+    ):
+        # 阶段ID
+        self.phase_id = phase_id
+        # 阶段存证的链上交易Hash，只有status为FINISH才会返回
+        self.tx_hash = tx_hash
+        # 阶段存证状态
+        self.status = status
+
+    def validate(self):
+        self.validate_required(self.phase_id, 'phase_id')
+        self.validate_required(self.tx_hash, 'tx_hash')
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        result = dict()
+        if self.phase_id is not None:
+            result['phase_id'] = self.phase_id
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('phase_id') is not None:
+            self.phase_id = m.get('phase_id')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
 class SupplierLogisticInfo(TeaModel):
     def __init__(
         self,
@@ -2707,6 +2788,46 @@ class ContractNotaryDeductRefundInfo(TeaModel):
             self.order = m.get('order')
         if m.get('timestamp') is not None:
             self.timestamp = m.get('timestamp')
+        return self
+
+
+class PhaseCreateResult(TeaModel):
+    def __init__(
+        self,
+        phase_no: int = None,
+        phase_id: str = None,
+        origin_data_id: str = None,
+    ):
+        # 阶段编号，与模板阶段编号保持一致，不同阶段阶段编号不一样，要与阶段存证内容保持一致
+        self.phase_no = phase_no
+        # 阶段ID，阶段存证的唯一标记
+        self.phase_id = phase_id
+        # 业务方原始数据ID，方便与业务方进行数据核对使用，并且如果同一个阶段多次存证，则需要根据业务方原始数据ID识别不同的阶段存证响应
+        self.origin_data_id = origin_data_id
+
+    def validate(self):
+        self.validate_required(self.phase_no, 'phase_no')
+        self.validate_required(self.phase_id, 'phase_id')
+        self.validate_required(self.origin_data_id, 'origin_data_id')
+
+    def to_map(self):
+        result = dict()
+        if self.phase_no is not None:
+            result['phase_no'] = self.phase_no
+        if self.phase_id is not None:
+            result['phase_id'] = self.phase_id
+        if self.origin_data_id is not None:
+            result['origin_data_id'] = self.origin_data_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('phase_no') is not None:
+            self.phase_no = m.get('phase_no')
+        if m.get('phase_id') is not None:
+            self.phase_id = m.get('phase_id')
+        if m.get('origin_data_id') is not None:
+            self.origin_data_id = m.get('origin_data_id')
         return self
 
 
@@ -33952,6 +34073,460 @@ class DetailFlowPhaseResponse(TeaModel):
             self.block_hash = m.get('block_hash')
         if m.get('block_height') is not None:
             self.block_height = m.get('block_height')
+        return self
+
+
+class CreateFlowOnestepnotaryRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        template_id: str = None,
+        flow_name: str = None,
+        notary_user: NotaryUser = None,
+        phase_notary_list: List[PhaseNotary] = None,
+        properties: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 全流程模板id，需要提前创建好模板才能获取
+        self.template_id = template_id
+        # 流程名称，同一个租户下同一个模板，建议唯一不重复
+        self.flow_name = flow_name
+        # 存证关联实体（个人/企业）的身份识别信息
+        self.notary_user = notary_user
+        # 阶段存证内容列表，根据模板定义传入
+        self.phase_notary_list = phase_notary_list
+        # 扩展属性
+        self.properties = properties
+
+    def validate(self):
+        self.validate_required(self.template_id, 'template_id')
+        self.validate_required(self.flow_name, 'flow_name')
+        self.validate_required(self.notary_user, 'notary_user')
+        if self.notary_user:
+            self.notary_user.validate()
+        self.validate_required(self.phase_notary_list, 'phase_notary_list')
+        if self.phase_notary_list:
+            for k in self.phase_notary_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.template_id is not None:
+            result['template_id'] = self.template_id
+        if self.flow_name is not None:
+            result['flow_name'] = self.flow_name
+        if self.notary_user is not None:
+            result['notary_user'] = self.notary_user.to_map()
+        result['phase_notary_list'] = []
+        if self.phase_notary_list is not None:
+            for k in self.phase_notary_list:
+                result['phase_notary_list'].append(k.to_map() if k else None)
+        if self.properties is not None:
+            result['properties'] = self.properties
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('template_id') is not None:
+            self.template_id = m.get('template_id')
+        if m.get('flow_name') is not None:
+            self.flow_name = m.get('flow_name')
+        if m.get('notary_user') is not None:
+            temp_model = NotaryUser()
+            self.notary_user = temp_model.from_map(m['notary_user'])
+        self.phase_notary_list = []
+        if m.get('phase_notary_list') is not None:
+            for k in m.get('phase_notary_list'):
+                temp_model = PhaseNotary()
+                self.phase_notary_list.append(temp_model.from_map(k))
+        if m.get('properties') is not None:
+            self.properties = m.get('properties')
+        return self
+
+
+class CreateFlowOnestepnotaryResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        flow_id: str = None,
+        phase_create_result_list: List[PhaseCreateResult] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回流程ID，全局唯一
+        self.flow_id = flow_id
+        # 阶段存证结果列表
+        self.phase_create_result_list = phase_create_result_list
+
+    def validate(self):
+        if self.phase_create_result_list:
+            for k in self.phase_create_result_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
+        result['phase_create_result_list'] = []
+        if self.phase_create_result_list is not None:
+            for k in self.phase_create_result_list:
+                result['phase_create_result_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
+        self.phase_create_result_list = []
+        if m.get('phase_create_result_list') is not None:
+            for k in m.get('phase_create_result_list'):
+                temp_model = PhaseCreateResult()
+                self.phase_create_result_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryFlowOnestepnotaryRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        flow_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 流程id，通过twc.notary.flow.onestepnotary.create接口获取
+        self.flow_id = flow_id
+
+    def validate(self):
+        self.validate_required(self.flow_id, 'flow_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
+        return self
+
+
+class QueryFlowOnestepnotaryResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        status: str = None,
+        phase_query_result_list: List[PhaseQueryResult] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 存证全流程状态，FINISH(完结)、PROCESSING(上链中)、DISABLE(失效)、FAILED(失败)
+        self.status = status
+        # 阶段存证查询结果列表
+        self.phase_query_result_list = phase_query_result_list
+
+    def validate(self):
+        if self.phase_query_result_list:
+            for k in self.phase_query_result_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.status is not None:
+            result['status'] = self.status
+        result['phase_query_result_list'] = []
+        if self.phase_query_result_list is not None:
+            for k in self.phase_query_result_list:
+                result['phase_query_result_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        self.phase_query_result_list = []
+        if m.get('phase_query_result_list') is not None:
+            for k in m.get('phase_query_result_list'):
+                temp_model = PhaseQueryResult()
+                self.phase_query_result_list.append(temp_model.from_map(k))
+        return self
+
+
+class ApplyFlowCertificateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        flow_id: str = None,
+        certification_type: str = None,
+        org_id: str = None,
+        need_legal_code: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 流程id
+        self.flow_id = flow_id
+        # 证书类型，AntchainCertification（蚂蚁链存证证明）、OrgCertification（公证处存证证明），目前支持公证处
+        self.certification_type = certification_type
+        # 公证处ID，OrgCertification（公证处存证证明）选填，不填则为默认公证处
+        self.org_id = org_id
+        # 是否需要legal码，默认为false即不需要，true表示需要
+        self.need_legal_code = need_legal_code
+
+    def validate(self):
+        self.validate_required(self.flow_id, 'flow_id')
+        self.validate_required(self.certification_type, 'certification_type')
+        self.validate_required(self.org_id, 'org_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
+        if self.certification_type is not None:
+            result['certification_type'] = self.certification_type
+        if self.org_id is not None:
+            result['org_id'] = self.org_id
+        if self.need_legal_code is not None:
+            result['need_legal_code'] = self.need_legal_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
+        if m.get('certification_type') is not None:
+            self.certification_type = m.get('certification_type')
+        if m.get('org_id') is not None:
+            self.org_id = m.get('org_id')
+        if m.get('need_legal_code') is not None:
+            self.need_legal_code = m.get('need_legal_code')
+        return self
+
+
+class ApplyFlowCertificateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        order_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 出证订单号
+        self.order_no = order_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
+        return self
+
+
+class QueryFlowCertificateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        flow_id: str = None,
+        certification_type: str = None,
+        order_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 流程id
+        self.flow_id = flow_id
+        # 证书类型，AntchainCertification（蚂蚁链存证证明）、OrgCertification（公证处存证证明），目前支持公证处
+        self.certification_type = certification_type
+        # 通过twc.notary.flow.certificate.apply(存证全流程证明申请)获取到的订单号
+        self.order_no = order_no
+
+    def validate(self):
+        self.validate_required(self.flow_id, 'flow_id')
+        self.validate_required(self.certification_type, 'certification_type')
+        self.validate_required(self.order_no, 'order_no')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
+        if self.certification_type is not None:
+            result['certification_type'] = self.certification_type
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
+        if m.get('certification_type') is not None:
+            self.certification_type = m.get('certification_type')
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
+        return self
+
+
+class QueryFlowCertificateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        certificate_url: str = None,
+        legal_code_url: str = None,
+        legal_show_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 存证证明下载地址，有效期1个小时
+        self.certificate_url = certificate_url
+        # Legal码H5页面URL
+        self.legal_code_url = legal_code_url
+        # Legal码证书H5页面URL
+        self.legal_show_url = legal_show_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.certificate_url is not None:
+            result['certificate_url'] = self.certificate_url
+        if self.legal_code_url is not None:
+            result['legal_code_url'] = self.legal_code_url
+        if self.legal_show_url is not None:
+            result['legal_show_url'] = self.legal_show_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('certificate_url') is not None:
+            self.certificate_url = m.get('certificate_url')
+        if m.get('legal_code_url') is not None:
+            self.legal_code_url = m.get('legal_code_url')
+        if m.get('legal_show_url') is not None:
+            self.legal_show_url = m.get('legal_show_url')
         return self
 
 

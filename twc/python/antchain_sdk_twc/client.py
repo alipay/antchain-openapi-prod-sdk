@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.16'
+                    'sdk_version': '1.7.19'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.16'
+                    'sdk_version': '1.7.19'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -11509,4 +11509,220 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.DetailFlowPhaseResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.flow.phase.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_flow_onestepnotary(
+        self,
+        request: twc_models.CreateFlowOnestepnotaryRequest,
+    ) -> twc_models.CreateFlowOnestepnotaryResponse:
+        """
+        Description: 一键创建全流程存证实例和阶段存证
+        Summary: 一键创建全流程存证实例和阶段存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_flow_onestepnotary_ex(request, headers, runtime)
+
+    async def create_flow_onestepnotary_async(
+        self,
+        request: twc_models.CreateFlowOnestepnotaryRequest,
+    ) -> twc_models.CreateFlowOnestepnotaryResponse:
+        """
+        Description: 一键创建全流程存证实例和阶段存证
+        Summary: 一键创建全流程存证实例和阶段存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_flow_onestepnotary_ex_async(request, headers, runtime)
+
+    def create_flow_onestepnotary_ex(
+        self,
+        request: twc_models.CreateFlowOnestepnotaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateFlowOnestepnotaryResponse:
+        """
+        Description: 一键创建全流程存证实例和阶段存证
+        Summary: 一键创建全流程存证实例和阶段存证
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateFlowOnestepnotaryResponse().from_map(
+            self.do_request('1.0', 'twc.notary.flow.onestepnotary.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_flow_onestepnotary_ex_async(
+        self,
+        request: twc_models.CreateFlowOnestepnotaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateFlowOnestepnotaryResponse:
+        """
+        Description: 一键创建全流程存证实例和阶段存证
+        Summary: 一键创建全流程存证实例和阶段存证
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateFlowOnestepnotaryResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.flow.onestepnotary.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_flow_onestepnotary(
+        self,
+        request: twc_models.QueryFlowOnestepnotaryRequest,
+    ) -> twc_models.QueryFlowOnestepnotaryResponse:
+        """
+        Description: 查询一键创建全流程存证进度状态
+        Summary: 查询一键创建全流程存证进度状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_flow_onestepnotary_ex(request, headers, runtime)
+
+    async def query_flow_onestepnotary_async(
+        self,
+        request: twc_models.QueryFlowOnestepnotaryRequest,
+    ) -> twc_models.QueryFlowOnestepnotaryResponse:
+        """
+        Description: 查询一键创建全流程存证进度状态
+        Summary: 查询一键创建全流程存证进度状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_flow_onestepnotary_ex_async(request, headers, runtime)
+
+    def query_flow_onestepnotary_ex(
+        self,
+        request: twc_models.QueryFlowOnestepnotaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryFlowOnestepnotaryResponse:
+        """
+        Description: 查询一键创建全流程存证进度状态
+        Summary: 查询一键创建全流程存证进度状态
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryFlowOnestepnotaryResponse().from_map(
+            self.do_request('1.0', 'twc.notary.flow.onestepnotary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_flow_onestepnotary_ex_async(
+        self,
+        request: twc_models.QueryFlowOnestepnotaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryFlowOnestepnotaryResponse:
+        """
+        Description: 查询一键创建全流程存证进度状态
+        Summary: 查询一键创建全流程存证进度状态
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryFlowOnestepnotaryResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.flow.onestepnotary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_flow_certificate(
+        self,
+        request: twc_models.ApplyFlowCertificateRequest,
+    ) -> twc_models.ApplyFlowCertificateResponse:
+        """
+        Description: 存证全流程证明申请
+        Summary: 存证全流程证明申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_flow_certificate_ex(request, headers, runtime)
+
+    async def apply_flow_certificate_async(
+        self,
+        request: twc_models.ApplyFlowCertificateRequest,
+    ) -> twc_models.ApplyFlowCertificateResponse:
+        """
+        Description: 存证全流程证明申请
+        Summary: 存证全流程证明申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_flow_certificate_ex_async(request, headers, runtime)
+
+    def apply_flow_certificate_ex(
+        self,
+        request: twc_models.ApplyFlowCertificateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyFlowCertificateResponse:
+        """
+        Description: 存证全流程证明申请
+        Summary: 存证全流程证明申请
+        """
+        UtilClient.validate_model(request)
+        return twc_models.ApplyFlowCertificateResponse().from_map(
+            self.do_request('1.0', 'twc.notary.flow.certificate.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_flow_certificate_ex_async(
+        self,
+        request: twc_models.ApplyFlowCertificateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyFlowCertificateResponse:
+        """
+        Description: 存证全流程证明申请
+        Summary: 存证全流程证明申请
+        """
+        UtilClient.validate_model(request)
+        return twc_models.ApplyFlowCertificateResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.flow.certificate.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_flow_certificate(
+        self,
+        request: twc_models.QueryFlowCertificateRequest,
+    ) -> twc_models.QueryFlowCertificateResponse:
+        """
+        Description: 存证全流程证明出证进度查询
+        Summary: 存证全流程证明出证进度查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_flow_certificate_ex(request, headers, runtime)
+
+    async def query_flow_certificate_async(
+        self,
+        request: twc_models.QueryFlowCertificateRequest,
+    ) -> twc_models.QueryFlowCertificateResponse:
+        """
+        Description: 存证全流程证明出证进度查询
+        Summary: 存证全流程证明出证进度查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_flow_certificate_ex_async(request, headers, runtime)
+
+    def query_flow_certificate_ex(
+        self,
+        request: twc_models.QueryFlowCertificateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryFlowCertificateResponse:
+        """
+        Description: 存证全流程证明出证进度查询
+        Summary: 存证全流程证明出证进度查询
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryFlowCertificateResponse().from_map(
+            self.do_request('1.0', 'twc.notary.flow.certificate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_flow_certificate_ex_async(
+        self,
+        request: twc_models.QueryFlowCertificateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryFlowCertificateResponse:
+        """
+        Description: 存证全流程证明出证进度查询
+        Summary: 存证全流程证明出证进度查询
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryFlowCertificateResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.flow.certificate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
