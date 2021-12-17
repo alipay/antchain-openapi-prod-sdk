@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.16")
+                    new TeaPair("sdk_version", "1.7.19")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -4113,5 +4113,81 @@ public class Client {
     public DetailFlowPhaseResponse detailFlowPhaseEx(DetailFlowPhaseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.flow.phase.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailFlowPhaseResponse());
+    }
+
+    /**
+     * Description: 一键创建全流程存证实例和阶段存证
+     * Summary: 一键创建全流程存证实例和阶段存证
+     */
+    public CreateFlowOnestepnotaryResponse createFlowOnestepnotary(CreateFlowOnestepnotaryRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createFlowOnestepnotaryEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 一键创建全流程存证实例和阶段存证
+     * Summary: 一键创建全流程存证实例和阶段存证
+     */
+    public CreateFlowOnestepnotaryResponse createFlowOnestepnotaryEx(CreateFlowOnestepnotaryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.flow.onestepnotary.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateFlowOnestepnotaryResponse());
+    }
+
+    /**
+     * Description: 查询一键创建全流程存证进度状态
+     * Summary: 查询一键创建全流程存证进度状态
+     */
+    public QueryFlowOnestepnotaryResponse queryFlowOnestepnotary(QueryFlowOnestepnotaryRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryFlowOnestepnotaryEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询一键创建全流程存证进度状态
+     * Summary: 查询一键创建全流程存证进度状态
+     */
+    public QueryFlowOnestepnotaryResponse queryFlowOnestepnotaryEx(QueryFlowOnestepnotaryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.flow.onestepnotary.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFlowOnestepnotaryResponse());
+    }
+
+    /**
+     * Description: 存证全流程证明申请
+     * Summary: 存证全流程证明申请
+     */
+    public ApplyFlowCertificateResponse applyFlowCertificate(ApplyFlowCertificateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyFlowCertificateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 存证全流程证明申请
+     * Summary: 存证全流程证明申请
+     */
+    public ApplyFlowCertificateResponse applyFlowCertificateEx(ApplyFlowCertificateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.flow.certificate.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyFlowCertificateResponse());
+    }
+
+    /**
+     * Description: 存证全流程证明出证进度查询
+     * Summary: 存证全流程证明出证进度查询
+     */
+    public QueryFlowCertificateResponse queryFlowCertificate(QueryFlowCertificateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryFlowCertificateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 存证全流程证明出证进度查询
+     * Summary: 存证全流程证明出证进度查询
+     */
+    public QueryFlowCertificateResponse queryFlowCertificateEx(QueryFlowCertificateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.flow.certificate.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFlowCertificateResponse());
     }
 }
