@@ -25,6 +25,8 @@ use AntChain\TWC\Models\ApplyContractMerchantRequest;
 use AntChain\TWC\Models\ApplyContractMerchantResponse;
 use AntChain\TWC\Models\ApplyContractReportRequest;
 use AntChain\TWC\Models\ApplyContractReportResponse;
+use AntChain\TWC\Models\ApplyFlowCertificateRequest;
+use AntChain\TWC\Models\ApplyFlowCertificateResponse;
 use AntChain\TWC\Models\ApplyJusticeMediationRequest;
 use AntChain\TWC\Models\ApplyJusticeMediationResponse;
 use AntChain\TWC\Models\ApplyLeaseSupplierorderRequest;
@@ -125,6 +127,8 @@ use AntChain\TWC\Models\CreateFinanceTextnotaryRequest;
 use AntChain\TWC\Models\CreateFinanceTextnotaryResponse;
 use AntChain\TWC\Models\CreateFlowInstanceRequest;
 use AntChain\TWC\Models\CreateFlowInstanceResponse;
+use AntChain\TWC\Models\CreateFlowOnestepnotaryRequest;
+use AntChain\TWC\Models\CreateFlowOnestepnotaryResponse;
 use AntChain\TWC\Models\CreateInternalContractRequest;
 use AntChain\TWC\Models\CreateInternalContractResponse;
 use AntChain\TWC\Models\CreateInternalTextRequest;
@@ -325,6 +329,10 @@ use AntChain\TWC\Models\QueryContractWordspositionRequest;
 use AntChain\TWC\Models\QueryContractWordspositionResponse;
 use AntChain\TWC\Models\QueryEnterpriseFaceauthRequest;
 use AntChain\TWC\Models\QueryEnterpriseFaceauthResponse;
+use AntChain\TWC\Models\QueryFlowCertificateRequest;
+use AntChain\TWC\Models\QueryFlowCertificateResponse;
+use AntChain\TWC\Models\QueryFlowOnestepnotaryRequest;
+use AntChain\TWC\Models\QueryFlowOnestepnotaryResponse;
 use AntChain\TWC\Models\QueryFlowPhaseRequest;
 use AntChain\TWC\Models\QueryFlowPhaseResponse;
 use AntChain\TWC\Models\QueryIdentificationFaceauthRequest;
@@ -574,7 +582,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.16',
+                    'sdk_version'      => '1.7.19',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -7486,5 +7494,137 @@ class Client
         Utils::validateModel($request);
 
         return DetailFlowPhaseResponse::fromMap($this->doRequest('1.0', 'twc.notary.flow.phase.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 一键创建全流程存证实例和阶段存证
+     * Summary: 一键创建全流程存证实例和阶段存证
+     *
+     * @param CreateFlowOnestepnotaryRequest $request
+     *
+     * @return CreateFlowOnestepnotaryResponse
+     */
+    public function createFlowOnestepnotary($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createFlowOnestepnotaryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 一键创建全流程存证实例和阶段存证
+     * Summary: 一键创建全流程存证实例和阶段存证
+     *
+     * @param CreateFlowOnestepnotaryRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return CreateFlowOnestepnotaryResponse
+     */
+    public function createFlowOnestepnotaryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateFlowOnestepnotaryResponse::fromMap($this->doRequest('1.0', 'twc.notary.flow.onestepnotary.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询一键创建全流程存证进度状态
+     * Summary: 查询一键创建全流程存证进度状态
+     *
+     * @param QueryFlowOnestepnotaryRequest $request
+     *
+     * @return QueryFlowOnestepnotaryResponse
+     */
+    public function queryFlowOnestepnotary($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFlowOnestepnotaryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询一键创建全流程存证进度状态
+     * Summary: 查询一键创建全流程存证进度状态
+     *
+     * @param QueryFlowOnestepnotaryRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryFlowOnestepnotaryResponse
+     */
+    public function queryFlowOnestepnotaryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFlowOnestepnotaryResponse::fromMap($this->doRequest('1.0', 'twc.notary.flow.onestepnotary.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 存证全流程证明申请
+     * Summary: 存证全流程证明申请.
+     *
+     * @param ApplyFlowCertificateRequest $request
+     *
+     * @return ApplyFlowCertificateResponse
+     */
+    public function applyFlowCertificate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyFlowCertificateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 存证全流程证明申请
+     * Summary: 存证全流程证明申请.
+     *
+     * @param ApplyFlowCertificateRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ApplyFlowCertificateResponse
+     */
+    public function applyFlowCertificateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyFlowCertificateResponse::fromMap($this->doRequest('1.0', 'twc.notary.flow.certificate.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 存证全流程证明出证进度查询
+     * Summary: 存证全流程证明出证进度查询.
+     *
+     * @param QueryFlowCertificateRequest $request
+     *
+     * @return QueryFlowCertificateResponse
+     */
+    public function queryFlowCertificate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFlowCertificateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 存证全流程证明出证进度查询
+     * Summary: 存证全流程证明出证进度查询.
+     *
+     * @param QueryFlowCertificateRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryFlowCertificateResponse
+     */
+    public function queryFlowCertificateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFlowCertificateResponse::fromMap($this->doRequest('1.0', 'twc.notary.flow.certificate.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
