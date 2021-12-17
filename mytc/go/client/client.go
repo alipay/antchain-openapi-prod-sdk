@@ -247,8 +247,8 @@ type RecognizeAntiQrcodeacResponse struct {
 	DetectState *string `json:"detect_state,omitempty" xml:"detect_state,omitempty"`
 	// 识别状态描述
 	DetectDesc *string `json:"detect_desc,omitempty" xml:"detect_desc,omitempty"`
-	// 解码ID
-	DecodeId *int64 `json:"decode_id,omitempty" xml:"decode_id,omitempty"`
+	// 加密数据
+	EncryptData *string `json:"encrypt_data,omitempty" xml:"encrypt_data,omitempty"`
 }
 
 func (s RecognizeAntiQrcodeacResponse) String() string {
@@ -289,8 +289,8 @@ func (s *RecognizeAntiQrcodeacResponse) SetDetectDesc(v string) *RecognizeAntiQr
 	return s
 }
 
-func (s *RecognizeAntiQrcodeacResponse) SetDecodeId(v int64) *RecognizeAntiQrcodeacResponse {
-	s.DecodeId = &v
+func (s *RecognizeAntiQrcodeacResponse) SetEncryptData(v string) *RecognizeAntiQrcodeacResponse {
+	s.EncryptData = &v
 	return s
 }
 
@@ -536,7 +536,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.2"),
+				"sdk_version":      tea.String("1.0.3"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
