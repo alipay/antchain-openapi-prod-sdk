@@ -28,9 +28,9 @@ public class RecognizeAntiQrcodeacResponse extends TeaModel {
     @NameInMap("detect_desc")
     public String detectDesc;
 
-    // 解码ID
-    @NameInMap("decode_id")
-    public Long decodeId;
+    // 加密数据
+    @NameInMap("encrypt_data")
+    public String encryptData;
 
     public static RecognizeAntiQrcodeacResponse build(java.util.Map<String, ?> map) throws Exception {
         RecognizeAntiQrcodeacResponse self = new RecognizeAntiQrcodeacResponse();
@@ -85,12 +85,12 @@ public class RecognizeAntiQrcodeacResponse extends TeaModel {
         return this.detectDesc;
     }
 
-    public RecognizeAntiQrcodeacResponse setDecodeId(Long decodeId) {
-        this.decodeId = decodeId;
+    public RecognizeAntiQrcodeacResponse setEncryptData(String encryptData) {
+        this.encryptData = encryptData;
         return this;
     }
-    public Long getDecodeId() {
-        return this.decodeId;
+    public String getEncryptData() {
+        return this.encryptData;
     }
 
 }
