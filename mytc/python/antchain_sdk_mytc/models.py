@@ -256,7 +256,7 @@ class RecognizeAntiQrcodeacResponse(TeaModel):
         code: str = None,
         detect_state: str = None,
         detect_desc: str = None,
-        decode_id: int = None,
+        encrypt_data: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -270,8 +270,8 @@ class RecognizeAntiQrcodeacResponse(TeaModel):
         self.detect_state = detect_state
         # 识别状态描述
         self.detect_desc = detect_desc
-        # 解码ID
-        self.decode_id = decode_id
+        # 加密数据
+        self.encrypt_data = encrypt_data
 
     def validate(self):
         pass
@@ -290,8 +290,8 @@ class RecognizeAntiQrcodeacResponse(TeaModel):
             result['detect_state'] = self.detect_state
         if self.detect_desc is not None:
             result['detect_desc'] = self.detect_desc
-        if self.decode_id is not None:
-            result['decode_id'] = self.decode_id
+        if self.encrypt_data is not None:
+            result['encrypt_data'] = self.encrypt_data
         return result
 
     def from_map(self, m: dict = None):
@@ -308,8 +308,8 @@ class RecognizeAntiQrcodeacResponse(TeaModel):
             self.detect_state = m.get('detect_state')
         if m.get('detect_desc') is not None:
             self.detect_desc = m.get('detect_desc')
-        if m.get('decode_id') is not None:
-            self.decode_id = m.get('decode_id')
+        if m.get('encrypt_data') is not None:
+            self.encrypt_data = m.get('encrypt_data')
         return self
 
 
