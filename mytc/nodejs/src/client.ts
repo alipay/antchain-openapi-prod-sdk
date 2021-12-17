@@ -157,8 +157,8 @@ export class RecognizeAntiQrcodeacResponse extends $tea.Model {
   detectState?: string;
   // 识别状态描述
   detectDesc?: string;
-  // 解码ID
-  decodeId?: number;
+  // 加密数据
+  encryptData?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -167,7 +167,7 @@ export class RecognizeAntiQrcodeacResponse extends $tea.Model {
       code: 'code',
       detectState: 'detect_state',
       detectDesc: 'detect_desc',
-      decodeId: 'decode_id',
+      encryptData: 'encrypt_data',
     };
   }
 
@@ -179,7 +179,7 @@ export class RecognizeAntiQrcodeacResponse extends $tea.Model {
       code: 'string',
       detectState: 'string',
       detectDesc: 'string',
-      decodeId: 'number',
+      encryptData: 'string',
     };
   }
 
@@ -389,7 +389,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.2",
+          sdk_version: "1.0.3",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
