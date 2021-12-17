@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-abcdjb</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.11</version>
   <packaging>jar</packaging>
   <name>openapi-abcdjb</name>
   <description>Ant Chain ABCDJB SDK for Java
