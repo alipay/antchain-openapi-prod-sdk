@@ -889,6 +889,36 @@ export class ContractPlatformSignField extends $tea.Model {
   }
 }
 
+// 阶段存证内容类表，根据模板定义传入
+export class PhaseNotary extends $tea.Model {
+  // 阶段编号，与模板阶段编号保持一致，不同阶段阶段编号不一样，要与阶段存证内容保持一致
+  phaseNo: number;
+  // 阶段存证内容，如果模板数据类型定义是Hash(哈希)则填入Hash即可，如果定义是Structure(结构化)，则填入模板所有字段json对象的字符串Base64后的值
+  notaryContent: string;
+  // 业务方原始数据ID，业务方确保唯一，方便与业务方进行数据核对使用
+  // 
+  originDataId: string;
+  static names(): { [key: string]: string } {
+    return {
+      phaseNo: 'phase_no',
+      notaryContent: 'notary_content',
+      originDataId: 'origin_data_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      phaseNo: 'number',
+      notaryContent: 'string',
+      originDataId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 电子合同存证合同文档信息
 export class ContractNotaryDocumentInfo extends $tea.Model {
   // 签署完成的合同hash
@@ -1351,6 +1381,35 @@ export class ProductInfo extends $tea.Model {
   }
 }
 
+// 阶段存证进度查询结果
+export class PhaseQueryResult extends $tea.Model {
+  // 阶段ID
+  phaseId: string;
+  // 阶段存证的链上交易Hash，只有status为FINISH才会返回
+  txHash: string;
+  // 阶段存证状态
+  status: string;
+  static names(): { [key: string]: string } {
+    return {
+      phaseId: 'phase_id',
+      txHash: 'tx_hash',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      phaseId: 'string',
+      txHash: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 共享项目，资产端的采购平台回传的物流信息
 export class SupplierLogisticInfo extends $tea.Model {
   // 采购平台的物流单号
@@ -1698,6 +1757,35 @@ export class ContractNotaryDeductRefundInfo extends $tea.Model {
       amount: 'number',
       order: 'string',
       timestamp: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阶段存证结果
+export class PhaseCreateResult extends $tea.Model {
+  // 阶段编号，与模板阶段编号保持一致，不同阶段阶段编号不一样，要与阶段存证内容保持一致
+  phaseNo: number;
+  // 阶段ID，阶段存证的唯一标记
+  phaseId: string;
+  // 业务方原始数据ID，方便与业务方进行数据核对使用，并且如果同一个阶段多次存证，则需要根据业务方原始数据ID识别不同的阶段存证响应
+  originDataId: string;
+  static names(): { [key: string]: string } {
+    return {
+      phaseNo: 'phase_no',
+      phaseId: 'phase_id',
+      originDataId: 'origin_data_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      phaseNo: 'number',
+      phaseId: 'string',
+      originDataId: 'string',
     };
   }
 
@@ -21757,6 +21845,294 @@ export class DetailFlowPhaseResponse extends $tea.Model {
   }
 }
 
+export class CreateFlowOnestepnotaryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 全流程模板id，需要提前创建好模板才能获取
+  templateId: string;
+  // 流程名称，同一个租户下同一个模板，建议唯一不重复
+  flowName: string;
+  // 存证关联实体（个人/企业）的身份识别信息
+  notaryUser: NotaryUser;
+  // 阶段存证内容列表，根据模板定义传入
+  phaseNotaryList: PhaseNotary[];
+  // 扩展属性
+  properties?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      templateId: 'template_id',
+      flowName: 'flow_name',
+      notaryUser: 'notary_user',
+      phaseNotaryList: 'phase_notary_list',
+      properties: 'properties',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      templateId: 'string',
+      flowName: 'string',
+      notaryUser: NotaryUser,
+      phaseNotaryList: { 'type': 'array', 'itemType': PhaseNotary },
+      properties: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateFlowOnestepnotaryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回流程ID，全局唯一
+  flowId?: string;
+  // 阶段存证结果列表
+  phaseCreateResultList?: PhaseCreateResult[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      flowId: 'flow_id',
+      phaseCreateResultList: 'phase_create_result_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      flowId: 'string',
+      phaseCreateResultList: { 'type': 'array', 'itemType': PhaseCreateResult },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFlowOnestepnotaryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 流程id，通过twc.notary.flow.onestepnotary.create接口获取
+  flowId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFlowOnestepnotaryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 存证全流程状态，FINISH(完结)、PROCESSING(上链中)、DISABLE(失效)、FAILED(失败)
+  status?: string;
+  // 阶段存证查询结果列表
+  phaseQueryResultList?: PhaseQueryResult[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      phaseQueryResultList: 'phase_query_result_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+      phaseQueryResultList: { 'type': 'array', 'itemType': PhaseQueryResult },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyFlowCertificateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 流程id
+  flowId: string;
+  // 证书类型，AntchainCertification（蚂蚁链存证证明）、OrgCertification（公证处存证证明），目前支持公证处
+  certificationType: string;
+  // 公证处ID，OrgCertification（公证处存证证明）选填，不填则为默认公证处
+  orgId: string;
+  // 是否需要legal码，默认为false即不需要，true表示需要
+  needLegalCode?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+      certificationType: 'certification_type',
+      orgId: 'org_id',
+      needLegalCode: 'need_legal_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+      certificationType: 'string',
+      orgId: 'string',
+      needLegalCode: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyFlowCertificateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 出证订单号
+  orderNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFlowCertificateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 流程id
+  flowId: string;
+  // 证书类型，AntchainCertification（蚂蚁链存证证明）、OrgCertification（公证处存证证明），目前支持公证处
+  certificationType: string;
+  // 通过twc.notary.flow.certificate.apply(存证全流程证明申请)获取到的订单号
+  orderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+      certificationType: 'certification_type',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+      certificationType: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFlowCertificateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 存证证明下载地址，有效期1个小时
+  certificateUrl?: string;
+  // Legal码H5页面URL
+  legalCodeUrl?: string;
+  // Legal码证书H5页面URL
+  legalShowUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      certificateUrl: 'certificate_url',
+      legalCodeUrl: 'legal_code_url',
+      legalShowUrl: 'legal_show_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      certificateUrl: 'string',
+      legalCodeUrl: 'string',
+      legalShowUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -21870,7 +22246,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.16",
+          sdk_version: "1.7.19",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -25870,6 +26246,82 @@ export default class Client {
   async detailFlowPhaseEx(request: DetailFlowPhaseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailFlowPhaseResponse> {
     Util.validateModel(request);
     return $tea.cast<DetailFlowPhaseResponse>(await this.doRequest("1.0", "twc.notary.flow.phase.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailFlowPhaseResponse({}));
+  }
+
+  /**
+   * Description: 一键创建全流程存证实例和阶段存证
+   * Summary: 一键创建全流程存证实例和阶段存证
+   */
+  async createFlowOnestepnotary(request: CreateFlowOnestepnotaryRequest): Promise<CreateFlowOnestepnotaryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createFlowOnestepnotaryEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 一键创建全流程存证实例和阶段存证
+   * Summary: 一键创建全流程存证实例和阶段存证
+   */
+  async createFlowOnestepnotaryEx(request: CreateFlowOnestepnotaryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateFlowOnestepnotaryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateFlowOnestepnotaryResponse>(await this.doRequest("1.0", "twc.notary.flow.onestepnotary.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateFlowOnestepnotaryResponse({}));
+  }
+
+  /**
+   * Description: 查询一键创建全流程存证进度状态
+   * Summary: 查询一键创建全流程存证进度状态
+   */
+  async queryFlowOnestepnotary(request: QueryFlowOnestepnotaryRequest): Promise<QueryFlowOnestepnotaryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryFlowOnestepnotaryEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询一键创建全流程存证进度状态
+   * Summary: 查询一键创建全流程存证进度状态
+   */
+  async queryFlowOnestepnotaryEx(request: QueryFlowOnestepnotaryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFlowOnestepnotaryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryFlowOnestepnotaryResponse>(await this.doRequest("1.0", "twc.notary.flow.onestepnotary.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFlowOnestepnotaryResponse({}));
+  }
+
+  /**
+   * Description: 存证全流程证明申请
+   * Summary: 存证全流程证明申请
+   */
+  async applyFlowCertificate(request: ApplyFlowCertificateRequest): Promise<ApplyFlowCertificateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyFlowCertificateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 存证全流程证明申请
+   * Summary: 存证全流程证明申请
+   */
+  async applyFlowCertificateEx(request: ApplyFlowCertificateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyFlowCertificateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyFlowCertificateResponse>(await this.doRequest("1.0", "twc.notary.flow.certificate.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyFlowCertificateResponse({}));
+  }
+
+  /**
+   * Description: 存证全流程证明出证进度查询
+   * Summary: 存证全流程证明出证进度查询
+   */
+  async queryFlowCertificate(request: QueryFlowCertificateRequest): Promise<QueryFlowCertificateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryFlowCertificateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 存证全流程证明出证进度查询
+   * Summary: 存证全流程证明出证进度查询
+   */
+  async queryFlowCertificateEx(request: QueryFlowCertificateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFlowCertificateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryFlowCertificateResponse>(await this.doRequest("1.0", "twc.notary.flow.certificate.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFlowCertificateResponse({}));
   }
 
 }
