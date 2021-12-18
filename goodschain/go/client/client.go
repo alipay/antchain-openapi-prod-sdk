@@ -1771,6 +1771,178 @@ func (s *DisableGoodsResponse) SetResultMsg(v string) *DisableGoodsResponse {
 	return s
 }
 
+type GetHealthcodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 身份证号，使用蚂蚁侧提供的RSA公钥加密
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 设备编码
+	DeviceCode *string `json:"device_code,omitempty" xml:"device_code,omitempty" require:"true"`
+	// 姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 是否需要健康码信息，不传默认不需要
+	// 1：需要
+	// 0：不需要
+	Health *int64 `json:"health,omitempty" xml:"health,omitempty"`
+	// 是否需要疫苗信息
+	// 1：需要，0：不需要，不传默认不需要
+	Vaccination *int64 `json:"vaccination,omitempty" xml:"vaccination,omitempty"`
+	// 是否需要核酸信息：
+	// 1.需要，0：不需要，不传默认不需要
+	NucleicAcid *int64 `json:"nucleic_acid,omitempty" xml:"nucleic_acid,omitempty"`
+	// 是否需要行程码：
+	// 1.需要，0：不需要，不传默认不需要
+	Travel *int64 `json:"travel,omitempty" xml:"travel,omitempty"`
+}
+
+func (s GetHealthcodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetHealthcodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetHealthcodeRequest) SetAuthToken(v string) *GetHealthcodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetHealthcodeRequest) SetProductInstanceId(v string) *GetHealthcodeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetHealthcodeRequest) SetCertNo(v string) *GetHealthcodeRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *GetHealthcodeRequest) SetDeviceCode(v string) *GetHealthcodeRequest {
+	s.DeviceCode = &v
+	return s
+}
+
+func (s *GetHealthcodeRequest) SetName(v string) *GetHealthcodeRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *GetHealthcodeRequest) SetHealth(v int64) *GetHealthcodeRequest {
+	s.Health = &v
+	return s
+}
+
+func (s *GetHealthcodeRequest) SetVaccination(v int64) *GetHealthcodeRequest {
+	s.Vaccination = &v
+	return s
+}
+
+func (s *GetHealthcodeRequest) SetNucleicAcid(v int64) *GetHealthcodeRequest {
+	s.NucleicAcid = &v
+	return s
+}
+
+func (s *GetHealthcodeRequest) SetTravel(v int64) *GetHealthcodeRequest {
+	s.Travel = &v
+	return s
+}
+
+type GetHealthcodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 1：绿色 2：黄色 3：红色
+	HealthCode *string `json:"health_code,omitempty" xml:"health_code,omitempty"`
+	// 健康码失败原因
+	HealthFactor *string `json:"health_factor,omitempty" xml:"health_factor,omitempty"`
+	// 行程码信息
+	// 1:没去过疫情区，绿码;
+	// 2:去过疫情区，红码;
+	// 3:其他，黄码;
+	// 0:行程信息不全;
+	// -1查询失败;
+	TravelCode *string `json:"travel_code,omitempty" xml:"travel_code,omitempty"`
+	// 检测类型
+	ReportType *string `json:"report_type,omitempty" xml:"report_type,omitempty"`
+	// 检测结果
+	ReportResult *string `json:"report_result,omitempty" xml:"report_result,omitempty"`
+	// 检测机构
+	ReportOrganization *string `json:"report_organization,omitempty" xml:"report_organization,omitempty"`
+	// 检测时间
+	ReportTime *string `json:"report_time,omitempty" xml:"report_time,omitempty"`
+	// 疫苗接种信息：
+	// 0查询失败 1未接种 2已接种一针 3完成接种
+	VaccinationCode *string `json:"vaccination_code,omitempty" xml:"vaccination_code,omitempty"`
+}
+
+func (s GetHealthcodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetHealthcodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetHealthcodeResponse) SetReqMsgId(v string) *GetHealthcodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetHealthcodeResponse) SetResultCode(v string) *GetHealthcodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetHealthcodeResponse) SetResultMsg(v string) *GetHealthcodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetHealthcodeResponse) SetHealthCode(v string) *GetHealthcodeResponse {
+	s.HealthCode = &v
+	return s
+}
+
+func (s *GetHealthcodeResponse) SetHealthFactor(v string) *GetHealthcodeResponse {
+	s.HealthFactor = &v
+	return s
+}
+
+func (s *GetHealthcodeResponse) SetTravelCode(v string) *GetHealthcodeResponse {
+	s.TravelCode = &v
+	return s
+}
+
+func (s *GetHealthcodeResponse) SetReportType(v string) *GetHealthcodeResponse {
+	s.ReportType = &v
+	return s
+}
+
+func (s *GetHealthcodeResponse) SetReportResult(v string) *GetHealthcodeResponse {
+	s.ReportResult = &v
+	return s
+}
+
+func (s *GetHealthcodeResponse) SetReportOrganization(v string) *GetHealthcodeResponse {
+	s.ReportOrganization = &v
+	return s
+}
+
+func (s *GetHealthcodeResponse) SetReportTime(v string) *GetHealthcodeResponse {
+	s.ReportTime = &v
+	return s
+}
+
+func (s *GetHealthcodeResponse) SetVaccinationCode(v string) *GetHealthcodeResponse {
+	s.VaccinationCode = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1893,7 +2065,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.3"),
+				"sdk_version":      tea.String("1.0.4"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -2546,6 +2718,40 @@ func (client *Client) DisableGoodsEx(request *DisableGoodsRequest, headers map[s
 	}
 	_result = &DisableGoodsResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.goodschain.goods.disable"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取健康码、核酸、疫苗、行程码等信息
+ * Summary: 获取健康码、核酸、疫苗、行程码等信息
+ */
+func (client *Client) GetHealthcode(request *GetHealthcodeRequest) (_result *GetHealthcodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetHealthcodeResponse{}
+	_body, _err := client.GetHealthcodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取健康码、核酸、疫苗、行程码等信息
+ * Summary: 获取健康码、核酸、疫苗、行程码等信息
+ */
+func (client *Client) GetHealthcodeEx(request *GetHealthcodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetHealthcodeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetHealthcodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.goodschain.healthcode.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
