@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3'
+                    'sdk_version': '1.0.4'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3'
+                    'sdk_version': '1.0.4'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1241,4 +1241,58 @@ class Client:
         UtilClient.validate_model(request)
         return goodschain_models.DisableGoodsResponse().from_map(
             await self.do_request_async('1.0', 'antchain.goodschain.goods.disable', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_healthcode(
+        self,
+        request: goodschain_models.GetHealthcodeRequest,
+    ) -> goodschain_models.GetHealthcodeResponse:
+        """
+        Description: 获取健康码、核酸、疫苗、行程码等信息
+        Summary: 获取健康码、核酸、疫苗、行程码等信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_healthcode_ex(request, headers, runtime)
+
+    async def get_healthcode_async(
+        self,
+        request: goodschain_models.GetHealthcodeRequest,
+    ) -> goodschain_models.GetHealthcodeResponse:
+        """
+        Description: 获取健康码、核酸、疫苗、行程码等信息
+        Summary: 获取健康码、核酸、疫苗、行程码等信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_healthcode_ex_async(request, headers, runtime)
+
+    def get_healthcode_ex(
+        self,
+        request: goodschain_models.GetHealthcodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> goodschain_models.GetHealthcodeResponse:
+        """
+        Description: 获取健康码、核酸、疫苗、行程码等信息
+        Summary: 获取健康码、核酸、疫苗、行程码等信息
+        """
+        UtilClient.validate_model(request)
+        return goodschain_models.GetHealthcodeResponse().from_map(
+            self.do_request('1.0', 'antchain.goodschain.healthcode.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_healthcode_ex_async(
+        self,
+        request: goodschain_models.GetHealthcodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> goodschain_models.GetHealthcodeResponse:
+        """
+        Description: 获取健康码、核酸、疫苗、行程码等信息
+        Summary: 获取健康码、核酸、疫苗、行程码等信息
+        """
+        UtilClient.validate_model(request)
+        return goodschain_models.GetHealthcodeResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.goodschain.healthcode.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

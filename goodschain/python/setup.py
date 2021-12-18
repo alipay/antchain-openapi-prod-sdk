@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_goodschain.
 
-Created on 07/09/2021
+Created on 18/12/2021
 
 @author: Ant Chain SDK
 """

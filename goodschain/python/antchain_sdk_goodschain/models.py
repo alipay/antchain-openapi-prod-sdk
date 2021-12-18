@@ -2085,3 +2085,189 @@ class DisableGoodsResponse(TeaModel):
         return self
 
 
+class GetHealthcodeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        cert_no: str = None,
+        device_code: str = None,
+        name: str = None,
+        health: int = None,
+        vaccination: int = None,
+        nucleic_acid: int = None,
+        travel: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 身份证号，使用蚂蚁侧提供的RSA公钥加密
+        self.cert_no = cert_no
+        # 设备编码
+        self.device_code = device_code
+        # 姓名
+        self.name = name
+        # 是否需要健康码信息，不传默认不需要
+        # 1：需要
+        # 0：不需要
+        self.health = health
+        # 是否需要疫苗信息
+        # 1：需要，0：不需要，不传默认不需要
+        self.vaccination = vaccination
+        # 是否需要核酸信息：
+        # 1.需要，0：不需要，不传默认不需要
+        self.nucleic_acid = nucleic_acid
+        # 是否需要行程码：
+        # 1.需要，0：不需要，不传默认不需要
+        self.travel = travel
+
+    def validate(self):
+        self.validate_required(self.cert_no, 'cert_no')
+        self.validate_required(self.device_code, 'device_code')
+        self.validate_required(self.name, 'name')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.device_code is not None:
+            result['device_code'] = self.device_code
+        if self.name is not None:
+            result['name'] = self.name
+        if self.health is not None:
+            result['health'] = self.health
+        if self.vaccination is not None:
+            result['vaccination'] = self.vaccination
+        if self.nucleic_acid is not None:
+            result['nucleic_acid'] = self.nucleic_acid
+        if self.travel is not None:
+            result['travel'] = self.travel
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('device_code') is not None:
+            self.device_code = m.get('device_code')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('health') is not None:
+            self.health = m.get('health')
+        if m.get('vaccination') is not None:
+            self.vaccination = m.get('vaccination')
+        if m.get('nucleic_acid') is not None:
+            self.nucleic_acid = m.get('nucleic_acid')
+        if m.get('travel') is not None:
+            self.travel = m.get('travel')
+        return self
+
+
+class GetHealthcodeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        health_code: str = None,
+        health_factor: str = None,
+        travel_code: str = None,
+        report_type: str = None,
+        report_result: str = None,
+        report_organization: str = None,
+        report_time: str = None,
+        vaccination_code: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 1：绿色 2：黄色 3：红色
+        self.health_code = health_code
+        # 健康码失败原因
+        self.health_factor = health_factor
+        # 行程码信息
+        # 1:没去过疫情区，绿码;
+        # 2:去过疫情区，红码;
+        # 3:其他，黄码;
+        # 0:行程信息不全;
+        # -1查询失败;
+        self.travel_code = travel_code
+        # 检测类型
+        self.report_type = report_type
+        # 检测结果
+        self.report_result = report_result
+        # 检测机构
+        self.report_organization = report_organization
+        # 检测时间
+        self.report_time = report_time
+        # 疫苗接种信息：
+        # 0查询失败 1未接种 2已接种一针 3完成接种
+        self.vaccination_code = vaccination_code
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.health_code is not None:
+            result['health_code'] = self.health_code
+        if self.health_factor is not None:
+            result['health_factor'] = self.health_factor
+        if self.travel_code is not None:
+            result['travel_code'] = self.travel_code
+        if self.report_type is not None:
+            result['report_type'] = self.report_type
+        if self.report_result is not None:
+            result['report_result'] = self.report_result
+        if self.report_organization is not None:
+            result['report_organization'] = self.report_organization
+        if self.report_time is not None:
+            result['report_time'] = self.report_time
+        if self.vaccination_code is not None:
+            result['vaccination_code'] = self.vaccination_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('health_code') is not None:
+            self.health_code = m.get('health_code')
+        if m.get('health_factor') is not None:
+            self.health_factor = m.get('health_factor')
+        if m.get('travel_code') is not None:
+            self.travel_code = m.get('travel_code')
+        if m.get('report_type') is not None:
+            self.report_type = m.get('report_type')
+        if m.get('report_result') is not None:
+            self.report_result = m.get('report_result')
+        if m.get('report_organization') is not None:
+            self.report_organization = m.get('report_organization')
+        if m.get('report_time') is not None:
+            self.report_time = m.get('report_time')
+        if m.get('vaccination_code') is not None:
+            self.vaccination_code = m.get('vaccination_code')
+        return self
+
+
