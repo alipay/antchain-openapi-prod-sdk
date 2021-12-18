@@ -137,7 +137,7 @@ namespace AntChain.SDK.GOODSCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.0.4"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.GOODSCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.0.4"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -1071,6 +1071,48 @@ namespace AntChain.SDK.GOODSCHAIN
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<DisableGoodsResponse>(await DoRequestAsync("1.0", "antchain.goodschain.goods.disable", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取健康码、核酸、疫苗、行程码等信息
+         * Summary: 获取健康码、核酸、疫苗、行程码等信息
+         */
+        public GetHealthcodeResponse GetHealthcode(GetHealthcodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetHealthcodeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取健康码、核酸、疫苗、行程码等信息
+         * Summary: 获取健康码、核酸、疫苗、行程码等信息
+         */
+        public async Task<GetHealthcodeResponse> GetHealthcodeAsync(GetHealthcodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetHealthcodeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取健康码、核酸、疫苗、行程码等信息
+         * Summary: 获取健康码、核酸、疫苗、行程码等信息
+         */
+        public GetHealthcodeResponse GetHealthcodeEx(GetHealthcodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetHealthcodeResponse>(DoRequest("1.0", "antchain.goodschain.healthcode.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取健康码、核酸、疫苗、行程码等信息
+         * Summary: 获取健康码、核酸、疫苗、行程码等信息
+         */
+        public async Task<GetHealthcodeResponse> GetHealthcodeExAsync(GetHealthcodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetHealthcodeResponse>(await DoRequestAsync("1.0", "antchain.goodschain.healthcode.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
