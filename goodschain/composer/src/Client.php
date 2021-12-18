@@ -31,6 +31,8 @@ use AntChain\GOODSCHAIN\Models\CreateUserRequest;
 use AntChain\GOODSCHAIN\Models\CreateUserResponse;
 use AntChain\GOODSCHAIN\Models\DisableGoodsRequest;
 use AntChain\GOODSCHAIN\Models\DisableGoodsResponse;
+use AntChain\GOODSCHAIN\Models\GetHealthcodeRequest;
+use AntChain\GOODSCHAIN\Models\GetHealthcodeResponse;
 use AntChain\GOODSCHAIN\Models\PagequeryGoodsRequest;
 use AntChain\GOODSCHAIN\Models\PagequeryGoodsResponse;
 use AntChain\GOODSCHAIN\Models\QueryGoodsRequest;
@@ -194,7 +196,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.3',
+                    'sdk_version'      => '1.0.4',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -832,5 +834,38 @@ class Client
         Utils::validateModel($request);
 
         return DisableGoodsResponse::fromMap($this->doRequest('1.0', 'antchain.goodschain.goods.disable', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取健康码、核酸、疫苗、行程码等信息
+     * Summary: 获取健康码、核酸、疫苗、行程码等信息.
+     *
+     * @param GetHealthcodeRequest $request
+     *
+     * @return GetHealthcodeResponse
+     */
+    public function getHealthcode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getHealthcodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取健康码、核酸、疫苗、行程码等信息
+     * Summary: 获取健康码、核酸、疫苗、行程码等信息.
+     *
+     * @param GetHealthcodeRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return GetHealthcodeResponse
+     */
+    public function getHealthcodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetHealthcodeResponse::fromMap($this->doRequest('1.0', 'antchain.goodschain.healthcode.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
