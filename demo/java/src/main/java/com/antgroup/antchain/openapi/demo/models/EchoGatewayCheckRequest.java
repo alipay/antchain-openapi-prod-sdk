@@ -26,6 +26,14 @@ public class EchoGatewayCheckRequest extends TeaModel {
     public java.util.List<TestStruct> inputArray;
 
     // file_id
+    // 待上传文件
+    @NameInMap("fileObject")
+    public java.io.InputStream fileObject;
+
+    // 待上传文件名
+    @NameInMap("fileObjectName")
+    public String fileObjectName;
+
     @NameInMap("file_id")
     @Validation(required = true)
     public String fileId;
@@ -83,6 +91,22 @@ public class EchoGatewayCheckRequest extends TeaModel {
     }
     public java.util.List<TestStruct> getInputArray() {
         return this.inputArray;
+    }
+
+    public EchoGatewayCheckRequest setFileObject(java.io.InputStream fileObject) {
+        this.fileObject = fileObject;
+        return this;
+    }
+    public java.io.InputStream getFileObject() {
+        return this.fileObject;
+    }
+
+    public EchoGatewayCheckRequest setFileObjectName(String fileObjectName) {
+        this.fileObjectName = fileObjectName;
+        return this;
+    }
+    public String getFileObjectName() {
+        return this.fileObjectName;
     }
 
     public EchoGatewayCheckRequest setFileId(String fileId) {
