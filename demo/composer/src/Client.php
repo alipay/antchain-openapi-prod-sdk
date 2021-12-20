@@ -11,8 +11,14 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\DEMO\Models\EchoGatewayCheckRequest;
 use AntChain\DEMO\Models\EchoGatewayCheckResponse;
+use AntChain\DEMO\Models\QueryGatewayCheckRequest;
+use AntChain\DEMO\Models\QueryGatewayCheckResponse;
+use AntChain\DEMO\Models\QueryGatewayTestRequest;
+use AntChain\DEMO\Models\QueryGatewayTestResponse;
 use AntChain\DEMO\Models\StatusGatewayCheckRequest;
 use AntChain\DEMO\Models\StatusGatewayCheckResponse;
 use AntChain\Util\UtilClient;
@@ -162,13 +168,13 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.58',
+                    'sdk_version'      => '1.0.51',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
                 }
                 $_request->headers = Tea::merge([
-                    'host'       => Utils::defaultString($this->_endpoint, 'openapi.antchain.antgroup.com'),
+                    'host'       => Utils::defaultString($this->_endpoint, 'centre-openapi.antchain.antgroup.com'),
                     'user-agent' => Utils::getUserAgent($this->_userAgent),
                 ], $headers);
                 $tmp                               = Utils::anyifyMapValue(RpcUtils::query($request));
@@ -271,8 +277,125 @@ class Client
      */
     public function echoGatewayCheckEx($request, $headers, $runtime)
     {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'demo.gateway.check.echo',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'OK')) {
+                return new EchoGatewayCheckResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
         Utils::validateModel($request);
 
         return EchoGatewayCheckResponse::fromMap($this->doRequest('1.0', 'demo.gateway.check.echo', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: ceshi
+     * Summary: ss.
+     *
+     * @param QueryGatewayCheckRequest $request
+     *
+     * @return QueryGatewayCheckResponse
+     */
+    public function queryGatewayCheck($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryGatewayCheckEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: ceshi
+     * Summary: ss.
+     *
+     * @param QueryGatewayCheckRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryGatewayCheckResponse
+     */
+    public function queryGatewayCheckEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryGatewayCheckResponse::fromMap($this->doRequest('1.0', 'demo.gateway.check.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试用
+     * Summary: 测试001.
+     *
+     * @param QueryGatewayTestRequest $request
+     *
+     * @return QueryGatewayTestResponse
+     */
+    public function queryGatewayTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryGatewayTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试用
+     * Summary: 测试001.
+     *
+     * @param QueryGatewayTestRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryGatewayTestResponse
+     */
+    public function queryGatewayTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryGatewayTestResponse::fromMap($this->doRequest('1.0', 'demo.gateway.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
