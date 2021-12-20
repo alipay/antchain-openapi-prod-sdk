@@ -34,6 +34,20 @@ namespace AntChain.SDK.DEMO.Models
         public List<TestStruct> InputArray { get; set; }
 
         // file_id
+        /// <summary>
+        /// 待上传文件
+        /// </summary>
+        [NameInMap("fileObject")]
+        [Validation(Required=false)]
+        public Stream FileObject { get; set; }
+
+        /// <summary>
+        /// 待上传文件名
+        /// </summary>
+        [NameInMap("fileObjectName")]
+        [Validation(Required=false)]
+        public string FileObjectName { get; set; }
+
         [NameInMap("file_id")]
         [Validation(Required=true)]
         public string FileId { get; set; }
