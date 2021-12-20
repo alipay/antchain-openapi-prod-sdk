@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.58',
+    sdk_version = '1.0.51',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -108,7 +108,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   }
 
   __request.headers = {
-    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    host = Util.defaultString(@endpoint, 'centre-openapi.antchain.antgroup.com'),
     user-agent = Util.getUserAgent(@userAgent),
     ...headers
   };
@@ -193,6 +193,24 @@ model AnotherClass {
   refList?: [ DemoClass ](name='refList', example=''),
 }
 
+// 阿松大
+model TestClass {
+  // 1
+  test: string(name='test', example='testclass'),
+  // 2
+  demo: string(name='demo', example='testclass'),
+  // 3
+  demo1: string(name='demo1', example='id2'),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
+}
+
 model StatusGatewayCheckRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -240,6 +258,8 @@ model EchoGatewayCheckRequest = {
   // input_array
   inputArray: [ TestStruct ](name='input_array'),
   // file_id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
   fileId: string(name='file_id'),
   // 1
   inputInt: long(maximum=40, minimum=10, name='input_int'),
@@ -279,7 +299,147 @@ async function echoGatewayCheck(request: EchoGatewayCheckRequest): EchoGatewayCh
  * Summary: 返回输入值
  */
 async function echoGatewayCheckEx(request: EchoGatewayCheckRequest, headers: map[string]string, runtime: Util.RuntimeOptions): EchoGatewayCheckResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'demo.gateway.check.echo',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "OK")) {
+      var echoGatewayCheckResponse = new EchoGatewayCheckResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return echoGatewayCheckResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.gateway.check.echo', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGatewayCheckRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryGatewayCheckResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: ceshi
+ * Summary: ss
+ */
+async function queryGatewayCheck(request: QueryGatewayCheckRequest): QueryGatewayCheckResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGatewayCheckEx(request, headers, runtime);
+}
+
+/**
+ * Description: ceshi
+ * Summary: ss
+ */
+async function queryGatewayCheckEx(request: QueryGatewayCheckRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGatewayCheckResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.gateway.check.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGatewayTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryGatewayTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 测试用
+ * Summary: 测试001
+ */
+async function queryGatewayTest(request: QueryGatewayTestRequest): QueryGatewayTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGatewayTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试用
+ * Summary: 测试001
+ */
+async function queryGatewayTestEx(request: QueryGatewayTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGatewayTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.gateway.test.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
