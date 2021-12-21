@@ -28,17 +28,17 @@ public class VerifyBlockchainRequest extends TeaModel {
     @NameInMap("file_id")
     public String fileId;
 
-    // 证件名称
-    @NameInMap("cert_name")
-    public String certName;
+    // 核验用户信息
+    @NameInMap("user_data")
+    public VerifyUserData userData;
 
-    // 证件号码
-    @NameInMap("cert_no")
-    public String certNo;
+    // 核验权利声明信息
+    @NameInMap("statement_data")
+    public VerifyStatementData statementData;
 
-    // 证件类型
-    @NameInMap("cert_type")
-    public String certType;
+    // 核验取证信息
+    @NameInMap("evidence_data")
+    public VerifyEvidenceData evidenceData;
 
     public static VerifyBlockchainRequest build(java.util.Map<String, ?> map) throws Exception {
         VerifyBlockchainRequest self = new VerifyBlockchainRequest();
@@ -85,28 +85,28 @@ public class VerifyBlockchainRequest extends TeaModel {
         return this.fileId;
     }
 
-    public VerifyBlockchainRequest setCertName(String certName) {
-        this.certName = certName;
+    public VerifyBlockchainRequest setUserData(VerifyUserData userData) {
+        this.userData = userData;
         return this;
     }
-    public String getCertName() {
-        return this.certName;
+    public VerifyUserData getUserData() {
+        return this.userData;
     }
 
-    public VerifyBlockchainRequest setCertNo(String certNo) {
-        this.certNo = certNo;
+    public VerifyBlockchainRequest setStatementData(VerifyStatementData statementData) {
+        this.statementData = statementData;
         return this;
     }
-    public String getCertNo() {
-        return this.certNo;
+    public VerifyStatementData getStatementData() {
+        return this.statementData;
     }
 
-    public VerifyBlockchainRequest setCertType(String certType) {
-        this.certType = certType;
+    public VerifyBlockchainRequest setEvidenceData(VerifyEvidenceData evidenceData) {
+        this.evidenceData = evidenceData;
         return this;
     }
-    public String getCertType() {
-        return this.certType;
+    public VerifyEvidenceData getEvidenceData() {
+        return this.evidenceData;
     }
 
 }

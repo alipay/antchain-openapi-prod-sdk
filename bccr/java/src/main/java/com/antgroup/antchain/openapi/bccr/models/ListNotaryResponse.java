@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bccr.models;
 
 import com.aliyun.tea.*;
 
-public class AddGoodResponse extends TeaModel {
+public class ListNotaryResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class AddGoodResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 商品id
-    @NameInMap("good_id")
-    public String goodId;
+    // 公证处列表
+    @NameInMap("notary_list")
+    public java.util.List<NotaryPublicOffice> notaryList;
 
-    public static AddGoodResponse build(java.util.Map<String, ?> map) throws Exception {
-        AddGoodResponse self = new AddGoodResponse();
+    public static ListNotaryResponse build(java.util.Map<String, ?> map) throws Exception {
+        ListNotaryResponse self = new ListNotaryResponse();
         return TeaModel.build(map, self);
     }
 
-    public AddGoodResponse setReqMsgId(String reqMsgId) {
+    public ListNotaryResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class AddGoodResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public AddGoodResponse setResultCode(String resultCode) {
+    public ListNotaryResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class AddGoodResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public AddGoodResponse setResultMsg(String resultMsg) {
+    public ListNotaryResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class AddGoodResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public AddGoodResponse setGoodId(String goodId) {
-        this.goodId = goodId;
+    public ListNotaryResponse setNotaryList(java.util.List<NotaryPublicOffice> notaryList) {
+        this.notaryList = notaryList;
         return this;
     }
-    public String getGoodId() {
-        return this.goodId;
+    public java.util.List<NotaryPublicOffice> getNotaryList() {
+        return this.notaryList;
     }
 
 }

@@ -45,6 +45,42 @@ public class MonitorResult extends TeaModel {
     @NameInMap("detail")
     public String detail;
 
+    // 发布者
+    @NameInMap("poster")
+    public String poster;
+
+    // 侵权内容发布时间
+    @NameInMap("post_date")
+    public Long postDate;
+
+    // 侵权内容发现时间
+    @NameInMap("find_date")
+    public Long findDate;
+
+    // 观看数
+    @NameInMap("view_count")
+    public Long viewCount;
+
+    // 点赞数
+    @NameInMap("like_count")
+    public Long likeCount;
+
+    // 评论数
+    @NameInMap("comment_count")
+    public Long commentCount;
+
+    // 转发数
+    @NameInMap("repost_count")
+    public Long repostCount;
+
+    // 侵权文件下载链接
+    @NameInMap("download_url")
+    public String downloadUrl;
+
+    // 疑似侵权反馈时间
+    @NameInMap("infr_feedback_time")
+    public Long infrFeedbackTime;
+
     public static MonitorResult build(java.util.Map<String, ?> map) throws Exception {
         MonitorResult self = new MonitorResult();
         return TeaModel.build(map, self);
@@ -104,6 +140,78 @@ public class MonitorResult extends TeaModel {
     }
     public String getDetail() {
         return this.detail;
+    }
+
+    public MonitorResult setPoster(String poster) {
+        this.poster = poster;
+        return this;
+    }
+    public String getPoster() {
+        return this.poster;
+    }
+
+    public MonitorResult setPostDate(Long postDate) {
+        this.postDate = postDate;
+        return this;
+    }
+    public Long getPostDate() {
+        return this.postDate;
+    }
+
+    public MonitorResult setFindDate(Long findDate) {
+        this.findDate = findDate;
+        return this;
+    }
+    public Long getFindDate() {
+        return this.findDate;
+    }
+
+    public MonitorResult setViewCount(Long viewCount) {
+        this.viewCount = viewCount;
+        return this;
+    }
+    public Long getViewCount() {
+        return this.viewCount;
+    }
+
+    public MonitorResult setLikeCount(Long likeCount) {
+        this.likeCount = likeCount;
+        return this;
+    }
+    public Long getLikeCount() {
+        return this.likeCount;
+    }
+
+    public MonitorResult setCommentCount(Long commentCount) {
+        this.commentCount = commentCount;
+        return this;
+    }
+    public Long getCommentCount() {
+        return this.commentCount;
+    }
+
+    public MonitorResult setRepostCount(Long repostCount) {
+        this.repostCount = repostCount;
+        return this;
+    }
+    public Long getRepostCount() {
+        return this.repostCount;
+    }
+
+    public MonitorResult setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
+        return this;
+    }
+    public String getDownloadUrl() {
+        return this.downloadUrl;
+    }
+
+    public MonitorResult setInfrFeedbackTime(Long infrFeedbackTime) {
+        this.infrFeedbackTime = infrFeedbackTime;
+        return this;
+    }
+    public Long getInfrFeedbackTime() {
+        return this.infrFeedbackTime;
     }
 
 }

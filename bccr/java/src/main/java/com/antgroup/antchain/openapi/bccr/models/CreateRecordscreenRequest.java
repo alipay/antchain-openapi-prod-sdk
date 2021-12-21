@@ -21,7 +21,7 @@ public class CreateRecordscreenRequest extends TeaModel {
     @Validation(maxLength = 512)
     public String memo;
 
-    // 预校验网址和预打开网页（不能大于10条）
+    // 预校验网址和预打开网页（不能大于10条），如果automatic为true 则必填
     @NameInMap("url")
     public java.util.List<String> url;
 

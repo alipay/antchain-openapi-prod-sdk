@@ -16,6 +16,10 @@ public class StopMonitorTaskResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 停止结果
+    @NameInMap("result")
+    public Boolean result;
+
     public static StopMonitorTaskResponse build(java.util.Map<String, ?> map) throws Exception {
         StopMonitorTaskResponse self = new StopMonitorTaskResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class StopMonitorTaskResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public StopMonitorTaskResponse setResult(Boolean result) {
+        this.result = result;
+        return this;
+    }
+    public Boolean getResult() {
+        return this.result;
     }
 
 }

@@ -14,6 +14,10 @@ public class ProxyData extends TeaModel {
     @Validation(required = true)
     public String tenantName;
 
+    // 是否计量
+    @NameInMap("if_measure")
+    public Boolean ifMeasure;
+
     public static ProxyData build(java.util.Map<String, ?> map) throws Exception {
         ProxyData self = new ProxyData();
         return TeaModel.build(map, self);
@@ -33,6 +37,14 @@ public class ProxyData extends TeaModel {
     }
     public String getTenantName() {
         return this.tenantName;
+    }
+
+    public ProxyData setIfMeasure(Boolean ifMeasure) {
+        this.ifMeasure = ifMeasure;
+        return this;
+    }
+    public Boolean getIfMeasure() {
+        return this.ifMeasure;
     }
 
 }

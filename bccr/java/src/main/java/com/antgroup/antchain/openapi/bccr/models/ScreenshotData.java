@@ -58,6 +58,10 @@ public class ScreenshotData extends TeaModel {
     @NameInMap("screenshot_info")
     public ScreenshotInfo screenshotInfo;
 
+    // 网页title
+    @NameInMap("head_title")
+    public String headTitle;
+
     public static ScreenshotData build(java.util.Map<String, ?> map) throws Exception {
         ScreenshotData self = new ScreenshotData();
         return TeaModel.build(map, self);
@@ -165,6 +169,14 @@ public class ScreenshotData extends TeaModel {
     }
     public ScreenshotInfo getScreenshotInfo() {
         return this.screenshotInfo;
+    }
+
+    public ScreenshotData setHeadTitle(String headTitle) {
+        this.headTitle = headTitle;
+        return this;
+    }
+    public String getHeadTitle() {
+        return this.headTitle;
     }
 
 }

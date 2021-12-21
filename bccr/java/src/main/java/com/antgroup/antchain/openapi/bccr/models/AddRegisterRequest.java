@@ -66,13 +66,17 @@ public class AddRegisterRequest extends TeaModel {
     @NameInMap("phone_num")
     public String phoneNum;
 
+    // 幂等
+    @NameInMap("client_token")
+    public String clientToken;
+
     // 代理信息
     @NameInMap("proxy_info")
     public ProxyData proxyInfo;
 
-    // 幂等
-    @NameInMap("client_token")
-    public String clientToken;
+    // 同步账号信息
+    @NameInMap("sync_info")
+    public AccountData syncInfo;
 
     public static AddRegisterRequest build(java.util.Map<String, ?> map) throws Exception {
         AddRegisterRequest self = new AddRegisterRequest();
@@ -191,6 +195,14 @@ public class AddRegisterRequest extends TeaModel {
         return this.phoneNum;
     }
 
+    public AddRegisterRequest setClientToken(String clientToken) {
+        this.clientToken = clientToken;
+        return this;
+    }
+    public String getClientToken() {
+        return this.clientToken;
+    }
+
     public AddRegisterRequest setProxyInfo(ProxyData proxyInfo) {
         this.proxyInfo = proxyInfo;
         return this;
@@ -199,12 +211,12 @@ public class AddRegisterRequest extends TeaModel {
         return this.proxyInfo;
     }
 
-    public AddRegisterRequest setClientToken(String clientToken) {
-        this.clientToken = clientToken;
+    public AddRegisterRequest setSyncInfo(AccountData syncInfo) {
+        this.syncInfo = syncInfo;
         return this;
     }
-    public String getClientToken() {
-        return this.clientToken;
+    public AccountData getSyncInfo() {
+        return this.syncInfo;
     }
 
 }
