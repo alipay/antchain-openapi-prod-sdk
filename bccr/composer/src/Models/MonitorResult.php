@@ -74,14 +74,95 @@ class MonitorResult extends Model
      * @var string
      */
     public $detail;
+
+    // 发布者
+    /**
+     * @example 111111
+     *
+     * @var string
+     */
+    public $poster;
+
+    // 侵权内容发布时间
+    /**
+     * @example 1626614711096
+     *
+     * @var int
+     */
+    public $postDate;
+
+    // 侵权内容发现时间
+    /**
+     * @example 1626614711096
+     *
+     * @var int
+     */
+    public $findDate;
+
+    // 观看数
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $viewCount;
+
+    // 点赞数
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $likeCount;
+
+    // 评论数
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $commentCount;
+
+    // 转发数
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $repostCount;
+
+    // 侵权文件下载链接
+    /**
+     * @example https://xxxx
+     *
+     * @var string
+     */
+    public $downloadUrl;
+
+    // 疑似侵权反馈时间
+    /**
+     * @example 1592807928
+     *
+     * @var int
+     */
+    public $infrFeedbackTime;
     protected $_name = [
-        'monitorTaskId'   => 'monitor_task_id',
-        'monitorResultId' => 'monitor_result_id',
-        'infrUrl'         => 'infr_url',
-        'infrHost'        => 'infr_host',
-        'infrTitle'       => 'infr_title',
-        'infrTime'        => 'infr_time',
-        'detail'          => 'detail',
+        'monitorTaskId'    => 'monitor_task_id',
+        'monitorResultId'  => 'monitor_result_id',
+        'infrUrl'          => 'infr_url',
+        'infrHost'         => 'infr_host',
+        'infrTitle'        => 'infr_title',
+        'infrTime'         => 'infr_time',
+        'detail'           => 'detail',
+        'poster'           => 'poster',
+        'postDate'         => 'post_date',
+        'findDate'         => 'find_date',
+        'viewCount'        => 'view_count',
+        'likeCount'        => 'like_count',
+        'commentCount'     => 'comment_count',
+        'repostCount'      => 'repost_count',
+        'downloadUrl'      => 'download_url',
+        'infrFeedbackTime' => 'infr_feedback_time',
     ];
 
     public function validate()
@@ -113,6 +194,33 @@ class MonitorResult extends Model
         }
         if (null !== $this->detail) {
             $res['detail'] = $this->detail;
+        }
+        if (null !== $this->poster) {
+            $res['poster'] = $this->poster;
+        }
+        if (null !== $this->postDate) {
+            $res['post_date'] = $this->postDate;
+        }
+        if (null !== $this->findDate) {
+            $res['find_date'] = $this->findDate;
+        }
+        if (null !== $this->viewCount) {
+            $res['view_count'] = $this->viewCount;
+        }
+        if (null !== $this->likeCount) {
+            $res['like_count'] = $this->likeCount;
+        }
+        if (null !== $this->commentCount) {
+            $res['comment_count'] = $this->commentCount;
+        }
+        if (null !== $this->repostCount) {
+            $res['repost_count'] = $this->repostCount;
+        }
+        if (null !== $this->downloadUrl) {
+            $res['download_url'] = $this->downloadUrl;
+        }
+        if (null !== $this->infrFeedbackTime) {
+            $res['infr_feedback_time'] = $this->infrFeedbackTime;
         }
 
         return $res;
@@ -146,6 +254,33 @@ class MonitorResult extends Model
         }
         if (isset($map['detail'])) {
             $model->detail = $map['detail'];
+        }
+        if (isset($map['poster'])) {
+            $model->poster = $map['poster'];
+        }
+        if (isset($map['post_date'])) {
+            $model->postDate = $map['post_date'];
+        }
+        if (isset($map['find_date'])) {
+            $model->findDate = $map['find_date'];
+        }
+        if (isset($map['view_count'])) {
+            $model->viewCount = $map['view_count'];
+        }
+        if (isset($map['like_count'])) {
+            $model->likeCount = $map['like_count'];
+        }
+        if (isset($map['comment_count'])) {
+            $model->commentCount = $map['comment_count'];
+        }
+        if (isset($map['repost_count'])) {
+            $model->repostCount = $map['repost_count'];
+        }
+        if (isset($map['download_url'])) {
+            $model->downloadUrl = $map['download_url'];
+        }
+        if (isset($map['infr_feedback_time'])) {
+            $model->infrFeedbackTime = $map['infr_feedback_time'];
         }
 
         return $model;

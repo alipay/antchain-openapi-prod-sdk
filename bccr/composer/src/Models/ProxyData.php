@@ -23,9 +23,18 @@ class ProxyData extends Model
      * @var string
      */
     public $tenantName;
+
+    // 是否计量
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $ifMeasure;
     protected $_name = [
         'tenantId'   => 'tenant_id',
         'tenantName' => 'tenant_name',
+        'ifMeasure'  => 'if_measure',
     ];
 
     public function validate()
@@ -42,6 +51,9 @@ class ProxyData extends Model
         }
         if (null !== $this->tenantName) {
             $res['tenant_name'] = $this->tenantName;
+        }
+        if (null !== $this->ifMeasure) {
+            $res['if_measure'] = $this->ifMeasure;
         }
 
         return $res;
@@ -60,6 +72,9 @@ class ProxyData extends Model
         }
         if (isset($map['tenant_name'])) {
             $model->tenantName = $map['tenant_name'];
+        }
+        if (isset($map['if_measure'])) {
+            $model->ifMeasure = $map['if_measure'];
         }
 
         return $model;

@@ -41,32 +41,32 @@ class VerifyBlockchainRequest extends Model
      */
     public $fileId;
 
-    // 证件名称
+    // 核验用户信息
     /**
-     * @var string
+     * @var VerifyUserData
      */
-    public $certName;
+    public $userData;
 
-    // 证件号码
+    // 核验权利声明信息
     /**
-     * @var string
+     * @var VerifyStatementData
      */
-    public $certNo;
+    public $statementData;
 
-    // 证件类型
+    // 核验取证信息
     /**
-     * @var string
+     * @var VerifyEvidenceData
      */
-    public $certType;
+    public $evidenceData;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'txHash'            => 'tx_hash',
         'fileHash'          => 'file_hash',
         'fileId'            => 'file_id',
-        'certName'          => 'cert_name',
-        'certNo'            => 'cert_no',
-        'certType'          => 'cert_type',
+        'userData'          => 'user_data',
+        'statementData'     => 'statement_data',
+        'evidenceData'      => 'evidence_data',
     ];
 
     public function validate()
@@ -92,14 +92,14 @@ class VerifyBlockchainRequest extends Model
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
         }
-        if (null !== $this->certName) {
-            $res['cert_name'] = $this->certName;
+        if (null !== $this->userData) {
+            $res['user_data'] = null !== $this->userData ? $this->userData->toMap() : null;
         }
-        if (null !== $this->certNo) {
-            $res['cert_no'] = $this->certNo;
+        if (null !== $this->statementData) {
+            $res['statement_data'] = null !== $this->statementData ? $this->statementData->toMap() : null;
         }
-        if (null !== $this->certType) {
-            $res['cert_type'] = $this->certType;
+        if (null !== $this->evidenceData) {
+            $res['evidence_data'] = null !== $this->evidenceData ? $this->evidenceData->toMap() : null;
         }
 
         return $res;
@@ -128,14 +128,14 @@ class VerifyBlockchainRequest extends Model
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
         }
-        if (isset($map['cert_name'])) {
-            $model->certName = $map['cert_name'];
+        if (isset($map['user_data'])) {
+            $model->userData = VerifyUserData::fromMap($map['user_data']);
         }
-        if (isset($map['cert_no'])) {
-            $model->certNo = $map['cert_no'];
+        if (isset($map['statement_data'])) {
+            $model->statementData = VerifyStatementData::fromMap($map['statement_data']);
         }
-        if (isset($map['cert_type'])) {
-            $model->certType = $map['cert_type'];
+        if (isset($map['evidence_data'])) {
+            $model->evidenceData = VerifyEvidenceData::fromMap($map['evidence_data']);
         }
 
         return $model;

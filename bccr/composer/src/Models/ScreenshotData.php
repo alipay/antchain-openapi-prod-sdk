@@ -111,6 +111,14 @@ class ScreenshotData extends Model
      * @var ScreenshotInfo
      */
     public $screenshotInfo;
+
+    // 网页title
+    /**
+     * @example 测试
+     *
+     * @var string
+     */
+    public $headTitle;
     protected $_name = [
         'url'                  => 'url',
         'gmtEvidence'          => 'gmt_evidence',
@@ -125,6 +133,7 @@ class ScreenshotData extends Model
         'toolVersion'          => 'tool_version',
         'screenshotZip'        => 'screenshot_zip',
         'screenshotInfo'       => 'screenshot_info',
+        'headTitle'            => 'head_title',
     ];
 
     public function validate()
@@ -174,6 +183,9 @@ class ScreenshotData extends Model
         }
         if (null !== $this->screenshotInfo) {
             $res['screenshot_info'] = null !== $this->screenshotInfo ? $this->screenshotInfo->toMap() : null;
+        }
+        if (null !== $this->headTitle) {
+            $res['head_title'] = $this->headTitle;
         }
 
         return $res;
@@ -225,6 +237,9 @@ class ScreenshotData extends Model
         }
         if (isset($map['screenshot_info'])) {
             $model->screenshotInfo = ScreenshotInfo::fromMap($map['screenshot_info']);
+        }
+        if (isset($map['head_title'])) {
+            $model->headTitle = $map['head_title'];
         }
 
         return $model;

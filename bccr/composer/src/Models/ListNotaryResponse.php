@@ -6,7 +6,7 @@ namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AddGoodResponse extends Model
+class ListNotaryResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class AddGoodResponse extends Model
      */
     public $resultMsg;
 
-    // 商品id
+    // 公证处列表
     /**
-     * @var string
+     * @var NotaryPublicOffice[]
      */
-    public $goodId;
+    public $notaryList;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'goodId'     => 'good_id',
+        'notaryList' => 'notary_list',
     ];
 
     public function validate()
@@ -54,8 +54,14 @@ class AddGoodResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->goodId) {
-            $res['good_id'] = $this->goodId;
+        if (null !== $this->notaryList) {
+            $res['notary_list'] = [];
+            if (null !== $this->notaryList && \is_array($this->notaryList)) {
+                $n = 0;
+                foreach ($this->notaryList as $item) {
+                    $res['notary_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -64,7 +70,7 @@ class AddGoodResponse extends Model
     /**
      * @param array $map
      *
-     * @return AddGoodResponse
+     * @return ListNotaryResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +84,14 @@ class AddGoodResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['good_id'])) {
-            $model->goodId = $map['good_id'];
+        if (isset($map['notary_list'])) {
+            if (!empty($map['notary_list'])) {
+                $model->notaryList = [];
+                $n                 = 0;
+                foreach ($map['notary_list'] as $item) {
+                    $model->notaryList[$n++] = null !== $item ? NotaryPublicOffice::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

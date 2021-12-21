@@ -11,8 +11,6 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\BCCR\Models\AddGoodRequest;
-use AntChain\BCCR\Models\AddGoodResponse;
 use AntChain\BCCR\Models\AddHashregisterRequest;
 use AntChain\BCCR\Models\AddHashregisterResponse;
 use AntChain\BCCR\Models\AddRegisterRequest;
@@ -33,6 +31,8 @@ use AntChain\BCCR\Models\GetUploadurlRequest;
 use AntChain\BCCR\Models\GetUploadurlResponse;
 use AntChain\BCCR\Models\ListMonitorProviderRequest;
 use AntChain\BCCR\Models\ListMonitorProviderResponse;
+use AntChain\BCCR\Models\ListNotaryRequest;
+use AntChain\BCCR\Models\ListNotaryResponse;
 use AntChain\BCCR\Models\QueryMonitorResultRequest;
 use AntChain\BCCR\Models\QueryMonitorResultResponse;
 use AntChain\BCCR\Models\QueryMonitorTaskRequest;
@@ -172,7 +172,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 取证文件信息
+            // 监测提供商能力
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -200,7 +200,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.15',
+                    'sdk_version'      => '1.12.0',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -742,39 +742,6 @@ class Client
     }
 
     /**
-     * Description: 版权平台新增商品
-     * Summary: 新增商品
-     *
-     * @param AddGoodRequest $request
-     *
-     * @return AddGoodResponse
-     */
-    public function addGood($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->addGoodEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 版权平台新增商品
-     * Summary: 新增商品
-     *
-     * @param AddGoodRequest $request
-     * @param string[]       $headers
-     * @param RuntimeOptions $runtime
-     *
-     * @return AddGoodResponse
-     */
-    public function addGoodEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return AddGoodResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.good.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 创建网页取证
      * Summary: 创建网页取证
      *
@@ -937,5 +904,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryRecordscreenResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.recordscreen.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取支持的公证处列表
+     * Summary: 获取支持的公证处列表.
+     *
+     * @param ListNotaryRequest $request
+     *
+     * @return ListNotaryResponse
+     */
+    public function listNotary($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listNotaryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取支持的公证处列表
+     * Summary: 获取支持的公证处列表.
+     *
+     * @param ListNotaryRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return ListNotaryResponse
+     */
+    public function listNotaryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListNotaryResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.notary.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

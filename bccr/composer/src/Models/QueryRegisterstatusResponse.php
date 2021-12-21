@@ -85,6 +85,30 @@ class QueryRegisterstatusResponse extends Model
      * @var string
      */
     public $packageUrl;
+
+    // 权利声明书下载地址 注意只有传递了权利信息并且生成了权利声明书才会返回
+    /**
+     * @var string
+     */
+    public $statementUrl;
+
+    // 权利声明书存证交易HASH  注意只有传递了权利信息并且生成了权利声明书才会返回
+    /**
+     * @var string
+     */
+    public $statementTxHash;
+
+    // 登记人信息存证交易HASH
+    /**
+     * @var string
+     */
+    public $registerPersonTxHash;
+
+    // 安全信息
+    /**
+     * @var SecurityData
+     */
+    public $security;
     protected $_name = [
         'reqMsgId'             => 'req_msg_id',
         'resultCode'           => 'result_code',
@@ -99,6 +123,10 @@ class QueryRegisterstatusResponse extends Model
         'certificateStorageNo' => 'certificate_storage_no',
         'certificateTimeUrl'   => 'certificate_time_url',
         'packageUrl'           => 'package_url',
+        'statementUrl'         => 'statement_url',
+        'statementTxHash'      => 'statement_tx_hash',
+        'registerPersonTxHash' => 'register_person_tx_hash',
+        'security'             => 'security',
     ];
 
     public function validate()
@@ -146,6 +174,18 @@ class QueryRegisterstatusResponse extends Model
         }
         if (null !== $this->packageUrl) {
             $res['package_url'] = $this->packageUrl;
+        }
+        if (null !== $this->statementUrl) {
+            $res['statement_url'] = $this->statementUrl;
+        }
+        if (null !== $this->statementTxHash) {
+            $res['statement_tx_hash'] = $this->statementTxHash;
+        }
+        if (null !== $this->registerPersonTxHash) {
+            $res['register_person_tx_hash'] = $this->registerPersonTxHash;
+        }
+        if (null !== $this->security) {
+            $res['security'] = null !== $this->security ? $this->security->toMap() : null;
         }
 
         return $res;
@@ -197,6 +237,18 @@ class QueryRegisterstatusResponse extends Model
         }
         if (isset($map['package_url'])) {
             $model->packageUrl = $map['package_url'];
+        }
+        if (isset($map['statement_url'])) {
+            $model->statementUrl = $map['statement_url'];
+        }
+        if (isset($map['statement_tx_hash'])) {
+            $model->statementTxHash = $map['statement_tx_hash'];
+        }
+        if (isset($map['register_person_tx_hash'])) {
+            $model->registerPersonTxHash = $map['register_person_tx_hash'];
+        }
+        if (isset($map['security'])) {
+            $model->security = SecurityData::fromMap($map['security']);
         }
 
         return $model;

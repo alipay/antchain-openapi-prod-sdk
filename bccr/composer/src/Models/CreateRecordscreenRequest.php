@@ -31,7 +31,7 @@ class CreateRecordscreenRequest extends Model
      */
     public $memo;
 
-    // 预校验网址和预打开网页（不能大于10条）
+    // 预校验网址和预打开网页（不能大于10条），如果automatic为true 则必填
     /**
      * @var string[]
      */

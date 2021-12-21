@@ -91,17 +91,23 @@ class AddRegisterRequest extends Model
      */
     public $phoneNum;
 
+    // 幂等
+    /**
+     * @var string
+     */
+    public $clientToken;
+
     // 代理信息
     /**
      * @var ProxyData
      */
     public $proxyInfo;
 
-    // 幂等
+    // 同步账号信息
     /**
-     * @var string
+     * @var AccountData
      */
-    public $clientToken;
+    public $syncInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -117,8 +123,9 @@ class AddRegisterRequest extends Model
         'certNo'            => 'cert_no',
         'certType'          => 'cert_type',
         'phoneNum'          => 'phone_num',
-        'proxyInfo'         => 'proxy_info',
         'clientToken'       => 'client_token',
+        'proxyInfo'         => 'proxy_info',
+        'syncInfo'          => 'sync_info',
     ];
 
     public function validate()
@@ -178,11 +185,14 @@ class AddRegisterRequest extends Model
         if (null !== $this->phoneNum) {
             $res['phone_num'] = $this->phoneNum;
         }
+        if (null !== $this->clientToken) {
+            $res['client_token'] = $this->clientToken;
+        }
         if (null !== $this->proxyInfo) {
             $res['proxy_info'] = null !== $this->proxyInfo ? $this->proxyInfo->toMap() : null;
         }
-        if (null !== $this->clientToken) {
-            $res['client_token'] = $this->clientToken;
+        if (null !== $this->syncInfo) {
+            $res['sync_info'] = null !== $this->syncInfo ? $this->syncInfo->toMap() : null;
         }
 
         return $res;
@@ -238,11 +248,14 @@ class AddRegisterRequest extends Model
         if (isset($map['phone_num'])) {
             $model->phoneNum = $map['phone_num'];
         }
+        if (isset($map['client_token'])) {
+            $model->clientToken = $map['client_token'];
+        }
         if (isset($map['proxy_info'])) {
             $model->proxyInfo = ProxyData::fromMap($map['proxy_info']);
         }
-        if (isset($map['client_token'])) {
-            $model->clientToken = $map['client_token'];
+        if (isset($map['sync_info'])) {
+            $model->syncInfo = AccountData::fromMap($map['sync_info']);
         }
 
         return $model;

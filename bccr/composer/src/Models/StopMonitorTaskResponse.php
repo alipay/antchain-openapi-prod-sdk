@@ -25,10 +25,17 @@ class StopMonitorTaskResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 停止结果
+    /**
+     * @var bool
+     */
+    public $result;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'result'     => 'result',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class StopMonitorTaskResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->result) {
+            $res['result'] = $this->result;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class StopMonitorTaskResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['result'])) {
+            $model->result = $map['result'];
         }
 
         return $model;
