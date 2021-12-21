@@ -61,7 +61,7 @@ class AddIpChannelRequest extends Model
      */
     public $payMode;
 
-    // ip等级  0:经典IP/1:流量IP/3:设计IP
+    // ip等级  0:经典IP/1:流量IP/2:设计IP
     /**
      * @var int
      */
@@ -72,6 +72,18 @@ class AddIpChannelRequest extends Model
      * @var bool
      */
     public $tradeNeedConfirm;
+
+    // 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+    /**
+     * @var int
+     */
+    public $guaranteeRange;
+
+    // 交易模式
+    /**
+     * @var IPTradeMode
+     */
+    public $ipTradeMode;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -84,6 +96,8 @@ class AddIpChannelRequest extends Model
         'payMode'               => 'pay_mode',
         'ipLevel'               => 'ip_level',
         'tradeNeedConfirm'      => 'trade_need_confirm',
+        'guaranteeRange'        => 'guarantee_range',
+        'ipTradeMode'           => 'ip_trade_mode',
     ];
 
     public function validate()
@@ -91,9 +105,6 @@ class AddIpChannelRequest extends Model
         Model::validateRequired('baseRequest', $this->baseRequest, true);
         Model::validateRequired('ipId', $this->ipId, true);
         Model::validateRequired('channelName', $this->channelName, true);
-        Model::validateRequired('authorizationModel', $this->authorizationModel, true);
-        Model::validateRequired('payMode', $this->payMode, true);
-        Model::validateRequired('ipLevel', $this->ipLevel, true);
     }
 
     public function toMap()
@@ -131,6 +142,12 @@ class AddIpChannelRequest extends Model
         }
         if (null !== $this->tradeNeedConfirm) {
             $res['trade_need_confirm'] = $this->tradeNeedConfirm;
+        }
+        if (null !== $this->guaranteeRange) {
+            $res['guarantee_range'] = $this->guaranteeRange;
+        }
+        if (null !== $this->ipTradeMode) {
+            $res['ip_trade_mode'] = null !== $this->ipTradeMode ? $this->ipTradeMode->toMap() : null;
         }
 
         return $res;
@@ -180,6 +197,12 @@ class AddIpChannelRequest extends Model
         }
         if (isset($map['trade_need_confirm'])) {
             $model->tradeNeedConfirm = $map['trade_need_confirm'];
+        }
+        if (isset($map['guarantee_range'])) {
+            $model->guaranteeRange = $map['guarantee_range'];
+        }
+        if (isset($map['ip_trade_mode'])) {
+            $model->ipTradeMode = IPTradeMode::fromMap($map['ip_trade_mode']);
         }
 
         return $model;

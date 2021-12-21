@@ -114,6 +114,12 @@ class BatchqueryIpGoodsRequest extends Model
      * @var bool
      */
     public $queryCreaterChannel;
+
+    // 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+    /**
+     * @var int
+     */
+    public $guaranteeRange;
     protected $_name = [
         'authToken'            => 'auth_token',
         'productInstanceId'    => 'product_instance_id',
@@ -133,6 +139,7 @@ class BatchqueryIpGoodsRequest extends Model
         'isSortByPv'           => 'is_sort_by_pv',
         'isSortByStatusChange' => 'is_sort_by_status_change',
         'queryCreaterChannel'  => 'query_creater_channel',
+        'guaranteeRange'       => 'guarantee_range',
     ];
 
     public function validate()
@@ -205,6 +212,9 @@ class BatchqueryIpGoodsRequest extends Model
         if (null !== $this->queryCreaterChannel) {
             $res['query_creater_channel'] = $this->queryCreaterChannel;
         }
+        if (null !== $this->guaranteeRange) {
+            $res['guarantee_range'] = $this->guaranteeRange;
+        }
 
         return $res;
     }
@@ -270,6 +280,9 @@ class BatchqueryIpGoodsRequest extends Model
         }
         if (isset($map['query_creater_channel'])) {
             $model->queryCreaterChannel = $map['query_creater_channel'];
+        }
+        if (isset($map['guarantee_range'])) {
+            $model->guaranteeRange = $map['guarantee_range'];
         }
 
         return $model;

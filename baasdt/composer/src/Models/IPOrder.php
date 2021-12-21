@@ -392,6 +392,14 @@ class IPOrder extends Model
      * @var int[]
      */
     public $features;
+
+    // 申请授权合作的备注信息
+    /**
+     * @example
+     *
+     * @var IPOrderApplyInfo
+     */
+    public $applyInfo;
     protected $_name = [
         'ipOrderId'                 => 'ip_order_id',
         'sellerId'                  => 'seller_id',
@@ -441,6 +449,7 @@ class IPOrder extends Model
         'goodsInfoList'             => 'goods_info_list',
         'goodsIdList'               => 'goods_id_list',
         'features'                  => 'features',
+        'applyInfo'                 => 'apply_info',
     ];
 
     public function validate()
@@ -638,6 +647,9 @@ class IPOrder extends Model
         if (null !== $this->features) {
             $res['features'] = $this->features;
         }
+        if (null !== $this->applyInfo) {
+            $res['apply_info'] = null !== $this->applyInfo ? $this->applyInfo->toMap() : null;
+        }
 
         return $res;
     }
@@ -807,6 +819,9 @@ class IPOrder extends Model
             if (!empty($map['features'])) {
                 $model->features = $map['features'];
             }
+        }
+        if (isset($map['apply_info'])) {
+            $model->applyInfo = IPOrderApplyInfo::fromMap($map['apply_info']);
         }
 
         return $model;

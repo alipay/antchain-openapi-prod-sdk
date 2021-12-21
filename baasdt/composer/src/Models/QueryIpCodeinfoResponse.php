@@ -61,16 +61,31 @@ class QueryIpCodeinfoResponse extends Model
      * @var int
      */
     public $ipCodeStatus;
+
+    // 正版码前缀
+    //
+    /**
+     * @var string
+     */
+    public $showCodePrefix;
+
+    // 正版码配置附加信息，信息内容由调用方自定义。
+    /**
+     * @var string
+     */
+    public $extInfo;
     protected $_name = [
-        'reqMsgId'      => 'req_msg_id',
-        'resultCode'    => 'result_code',
-        'resultMsg'     => 'result_msg',
-        'orderId'       => 'order_id',
-        'features'      => 'features',
-        'goodsInfoList' => 'goods_info_list',
-        'adInfoList'    => 'ad_info_list',
-        'ipownerInfo'   => 'ipowner_info',
-        'ipCodeStatus'  => 'ip_code_status',
+        'reqMsgId'       => 'req_msg_id',
+        'resultCode'     => 'result_code',
+        'resultMsg'      => 'result_msg',
+        'orderId'        => 'order_id',
+        'features'       => 'features',
+        'goodsInfoList'  => 'goods_info_list',
+        'adInfoList'     => 'ad_info_list',
+        'ipownerInfo'    => 'ipowner_info',
+        'ipCodeStatus'   => 'ip_code_status',
+        'showCodePrefix' => 'show_code_prefix',
+        'extInfo'        => 'ext_info',
     ];
 
     public function validate()
@@ -118,6 +133,12 @@ class QueryIpCodeinfoResponse extends Model
         }
         if (null !== $this->ipCodeStatus) {
             $res['ip_code_status'] = $this->ipCodeStatus;
+        }
+        if (null !== $this->showCodePrefix) {
+            $res['show_code_prefix'] = $this->showCodePrefix;
+        }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
         }
 
         return $res;
@@ -171,6 +192,12 @@ class QueryIpCodeinfoResponse extends Model
         }
         if (isset($map['ip_code_status'])) {
             $model->ipCodeStatus = $map['ip_code_status'];
+        }
+        if (isset($map['show_code_prefix'])) {
+            $model->showCodePrefix = $map['show_code_prefix'];
+        }
+        if (isset($map['ext_info'])) {
+            $model->extInfo = $map['ext_info'];
         }
 
         return $model;

@@ -90,6 +90,12 @@ class BatchqueryIpSellerRequest extends Model
      * @var int
      */
     public $createEndTime;
+
+    // 版权方的用户名称
+    /**
+     * @var string
+     */
+    public $externalUserName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -105,6 +111,7 @@ class BatchqueryIpSellerRequest extends Model
         'sortOrder'         => 'sort_order',
         'createStartTime'   => 'create_start_time',
         'createEndTime'     => 'create_end_time',
+        'externalUserName'  => 'external_user_name',
     ];
 
     public function validate()
@@ -159,6 +166,9 @@ class BatchqueryIpSellerRequest extends Model
         }
         if (null !== $this->createEndTime) {
             $res['create_end_time'] = $this->createEndTime;
+        }
+        if (null !== $this->externalUserName) {
+            $res['external_user_name'] = $this->externalUserName;
         }
 
         return $res;
@@ -215,6 +225,9 @@ class BatchqueryIpSellerRequest extends Model
         }
         if (isset($map['create_end_time'])) {
             $model->createEndTime = $map['create_end_time'];
+        }
+        if (isset($map['external_user_name'])) {
+            $model->externalUserName = $map['external_user_name'];
         }
 
         return $model;

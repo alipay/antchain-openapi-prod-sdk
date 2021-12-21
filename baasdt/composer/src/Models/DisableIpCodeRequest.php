@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ConfirmIpAuthtradeRequest extends Model
+class DisableIpCodeRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,51 +19,36 @@ class ConfirmIpAuthtradeRequest extends Model
      */
     public $productInstanceId;
 
-    // 基础请求参数
+    // 基础参数
     /**
      * @var BaseRequestInfo
      */
     public $baseRequest;
 
-    // 审核账户ID
+    // 发起失效请求的区块链账户ID
     /**
      * @var string
      */
     public $accountId;
 
-    // 授权订单ID
+    // 要被失效的UNI的完整编码
     /**
      * @var string
      */
-    public $ipOrderId;
-
-    // 是否同意授权
-    /**
-     * @var bool
-     */
-    public $confirmResult;
-
-    // 审批信息备注，通过或不通过原因
-    /**
-     * @var string
-     */
-    public $memo;
+    public $uniCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
         'accountId'         => 'account_id',
-        'ipOrderId'         => 'ip_order_id',
-        'confirmResult'     => 'confirm_result',
-        'memo'              => 'memo',
+        'uniCode'           => 'uni_code',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
         Model::validateRequired('accountId', $this->accountId, true);
-        Model::validateRequired('ipOrderId', $this->ipOrderId, true);
-        Model::validateRequired('confirmResult', $this->confirmResult, true);
+        Model::validateRequired('uniCode', $this->uniCode, true);
     }
 
     public function toMap()
@@ -81,14 +66,8 @@ class ConfirmIpAuthtradeRequest extends Model
         if (null !== $this->accountId) {
             $res['account_id'] = $this->accountId;
         }
-        if (null !== $this->ipOrderId) {
-            $res['ip_order_id'] = $this->ipOrderId;
-        }
-        if (null !== $this->confirmResult) {
-            $res['confirm_result'] = $this->confirmResult;
-        }
-        if (null !== $this->memo) {
-            $res['memo'] = $this->memo;
+        if (null !== $this->uniCode) {
+            $res['uni_code'] = $this->uniCode;
         }
 
         return $res;
@@ -97,7 +76,7 @@ class ConfirmIpAuthtradeRequest extends Model
     /**
      * @param array $map
      *
-     * @return ConfirmIpAuthtradeRequest
+     * @return DisableIpCodeRequest
      */
     public static function fromMap($map = [])
     {
@@ -114,14 +93,8 @@ class ConfirmIpAuthtradeRequest extends Model
         if (isset($map['account_id'])) {
             $model->accountId = $map['account_id'];
         }
-        if (isset($map['ip_order_id'])) {
-            $model->ipOrderId = $map['ip_order_id'];
-        }
-        if (isset($map['confirm_result'])) {
-            $model->confirmResult = $map['confirm_result'];
-        }
-        if (isset($map['memo'])) {
-            $model->memo = $map['memo'];
+        if (isset($map['uni_code'])) {
+            $model->uniCode = $map['uni_code'];
         }
 
         return $model;

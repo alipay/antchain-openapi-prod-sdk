@@ -60,6 +60,18 @@ class SetIpCodeinfoRequest extends Model
      * @var string
      */
     public $codeSetTime;
+
+    // 正版码配置附加信息，信息内容由调用方自定义。可以从配置查询和正版码详情接口上获取。
+    /**
+     * @var string
+     */
+    public $extInfo;
+
+    // 正版码前缀，本期暂不支持
+    /**
+     * @var string
+     */
+    public $showCodePrefix;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,6 +82,8 @@ class SetIpCodeinfoRequest extends Model
         'adInfoList'        => 'ad_info_list',
         'ipownerInfo'       => 'ipowner_info',
         'codeSetTime'       => 'code_set_time',
+        'extInfo'           => 'ext_info',
+        'showCodePrefix'    => 'show_code_prefix',
     ];
 
     public function validate()
@@ -122,6 +136,12 @@ class SetIpCodeinfoRequest extends Model
         if (null !== $this->codeSetTime) {
             $res['code_set_time'] = $this->codeSetTime;
         }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
+        }
+        if (null !== $this->showCodePrefix) {
+            $res['show_code_prefix'] = $this->showCodePrefix;
+        }
 
         return $res;
     }
@@ -172,6 +192,12 @@ class SetIpCodeinfoRequest extends Model
         }
         if (isset($map['code_set_time'])) {
             $model->codeSetTime = $map['code_set_time'];
+        }
+        if (isset($map['ext_info'])) {
+            $model->extInfo = $map['ext_info'];
+        }
+        if (isset($map['show_code_prefix'])) {
+            $model->showCodePrefix = $map['show_code_prefix'];
         }
 
         return $model;

@@ -208,13 +208,29 @@ class IpBasicInfo extends Model
      */
     public $copyRightEndTime;
 
-    // 账户名称
+    // 账户名称-别名
     /**
      * @example xxxx
      *
      * @var string
      */
     public $accountName;
+
+    // 授权信息
+    /**
+     * @example
+     *
+     * @var IPAuthorizationInfo
+     */
+    public $authorizationInfo;
+
+    // 版权方名称
+    /**
+     * @example XXX有限公司
+     *
+     * @var string
+     */
+    public $externalUserName;
     protected $_name = [
         'ipName'             => 'ip_name',
         'ipId'               => 'ip_id',
@@ -241,6 +257,8 @@ class IpBasicInfo extends Model
         'accountId'          => 'account_id',
         'copyRightEndTime'   => 'copy_right_end_time',
         'accountName'        => 'account_name',
+        'authorizationInfo'  => 'authorization_info',
+        'externalUserName'   => 'external_user_name',
     ];
 
     public function validate()
@@ -347,6 +365,12 @@ class IpBasicInfo extends Model
         if (null !== $this->accountName) {
             $res['account_name'] = $this->accountName;
         }
+        if (null !== $this->authorizationInfo) {
+            $res['authorization_info'] = null !== $this->authorizationInfo ? $this->authorizationInfo->toMap() : null;
+        }
+        if (null !== $this->externalUserName) {
+            $res['external_user_name'] = $this->externalUserName;
+        }
 
         return $res;
     }
@@ -439,6 +463,12 @@ class IpBasicInfo extends Model
         }
         if (isset($map['account_name'])) {
             $model->accountName = $map['account_name'];
+        }
+        if (isset($map['authorization_info'])) {
+            $model->authorizationInfo = IPAuthorizationInfo::fromMap($map['authorization_info']);
+        }
+        if (isset($map['external_user_name'])) {
+            $model->externalUserName = $map['external_user_name'];
         }
 
         return $model;

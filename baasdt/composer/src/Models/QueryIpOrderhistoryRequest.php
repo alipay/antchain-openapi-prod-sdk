@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ConfirmIpAuthtradeRequest extends Model
+class QueryIpOrderhistoryRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,45 +25,22 @@ class ConfirmIpAuthtradeRequest extends Model
      */
     public $baseRequest;
 
-    // 审核账户ID
-    /**
-     * @var string
-     */
-    public $accountId;
-
-    // 授权订单ID
+    // 订单ID
     /**
      * @var string
      */
     public $ipOrderId;
-
-    // 是否同意授权
-    /**
-     * @var bool
-     */
-    public $confirmResult;
-
-    // 审批信息备注，通过或不通过原因
-    /**
-     * @var string
-     */
-    public $memo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
-        'accountId'         => 'account_id',
         'ipOrderId'         => 'ip_order_id',
-        'confirmResult'     => 'confirm_result',
-        'memo'              => 'memo',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
-        Model::validateRequired('accountId', $this->accountId, true);
         Model::validateRequired('ipOrderId', $this->ipOrderId, true);
-        Model::validateRequired('confirmResult', $this->confirmResult, true);
     }
 
     public function toMap()
@@ -78,17 +55,8 @@ class ConfirmIpAuthtradeRequest extends Model
         if (null !== $this->baseRequest) {
             $res['base_request'] = null !== $this->baseRequest ? $this->baseRequest->toMap() : null;
         }
-        if (null !== $this->accountId) {
-            $res['account_id'] = $this->accountId;
-        }
         if (null !== $this->ipOrderId) {
             $res['ip_order_id'] = $this->ipOrderId;
-        }
-        if (null !== $this->confirmResult) {
-            $res['confirm_result'] = $this->confirmResult;
-        }
-        if (null !== $this->memo) {
-            $res['memo'] = $this->memo;
         }
 
         return $res;
@@ -97,7 +65,7 @@ class ConfirmIpAuthtradeRequest extends Model
     /**
      * @param array $map
      *
-     * @return ConfirmIpAuthtradeRequest
+     * @return QueryIpOrderhistoryRequest
      */
     public static function fromMap($map = [])
     {
@@ -111,17 +79,8 @@ class ConfirmIpAuthtradeRequest extends Model
         if (isset($map['base_request'])) {
             $model->baseRequest = BaseRequestInfo::fromMap($map['base_request']);
         }
-        if (isset($map['account_id'])) {
-            $model->accountId = $map['account_id'];
-        }
         if (isset($map['ip_order_id'])) {
             $model->ipOrderId = $map['ip_order_id'];
-        }
-        if (isset($map['confirm_result'])) {
-            $model->confirmResult = $map['confirm_result'];
-        }
-        if (isset($map['memo'])) {
-            $model->memo = $map['memo'];
         }
 
         return $model;

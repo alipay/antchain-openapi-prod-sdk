@@ -67,6 +67,12 @@ class QueryIpOrderlistRequest extends Model
      */
     public $sellerName;
 
+    // 买方名称，根据卖方名称模糊查询
+    /**
+     * @var string
+     */
+    public $buyerName;
+
     // 交易类型：1 套餐交易， 2 定向授权
     /**
      * @var int
@@ -138,6 +144,12 @@ class QueryIpOrderlistRequest extends Model
      * @var string
      */
     public $channelName;
+
+    // 是否查询0授权费率的订单，true则查0费率订单，false则查非0费率订单
+    /**
+     * @var bool
+     */
+    public $zeroAuthRate;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -149,6 +161,7 @@ class QueryIpOrderlistRequest extends Model
         'orderStatus'       => 'order_status',
         'ipName'            => 'ip_name',
         'sellerName'        => 'seller_name',
+        'buyerName'         => 'buyer_name',
         'tradeType'         => 'trade_type',
         'goodsType'         => 'goods_type',
         'chargeType'        => 'charge_type',
@@ -161,6 +174,7 @@ class QueryIpOrderlistRequest extends Model
         'pageNumber'        => 'page_number',
         'pageSize'          => 'page_size',
         'channelName'       => 'channel_name',
+        'zeroAuthRate'      => 'zero_auth_rate',
     ];
 
     public function validate()
@@ -205,6 +219,9 @@ class QueryIpOrderlistRequest extends Model
         if (null !== $this->sellerName) {
             $res['seller_name'] = $this->sellerName;
         }
+        if (null !== $this->buyerName) {
+            $res['buyer_name'] = $this->buyerName;
+        }
         if (null !== $this->tradeType) {
             $res['trade_type'] = $this->tradeType;
         }
@@ -240,6 +257,9 @@ class QueryIpOrderlistRequest extends Model
         }
         if (null !== $this->channelName) {
             $res['channel_name'] = $this->channelName;
+        }
+        if (null !== $this->zeroAuthRate) {
+            $res['zero_auth_rate'] = $this->zeroAuthRate;
         }
 
         return $res;
@@ -283,6 +303,9 @@ class QueryIpOrderlistRequest extends Model
         if (isset($map['seller_name'])) {
             $model->sellerName = $map['seller_name'];
         }
+        if (isset($map['buyer_name'])) {
+            $model->buyerName = $map['buyer_name'];
+        }
         if (isset($map['trade_type'])) {
             $model->tradeType = $map['trade_type'];
         }
@@ -318,6 +341,9 @@ class QueryIpOrderlistRequest extends Model
         }
         if (isset($map['channel_name'])) {
             $model->channelName = $map['channel_name'];
+        }
+        if (isset($map['zero_auth_rate'])) {
+            $model->zeroAuthRate = $map['zero_auth_rate'];
         }
 
         return $model;

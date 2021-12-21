@@ -81,6 +81,22 @@ class IpChannelWithSku extends Model
      * @var string[]
      */
     public $authorizationType;
+
+    // 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $guaranteeRange;
+
+    // 交易模式
+    /**
+     * @example
+     *
+     * @var IPTradeMode
+     */
+    public $ipTradeMode;
     protected $_name = [
         'channelName'           => 'channel_name',
         'authorizationMode'     => 'authorization_mode',
@@ -91,6 +107,8 @@ class IpChannelWithSku extends Model
         'status'                => 'status',
         'tradeNeedConfirm'      => 'trade_need_confirm',
         'authorizationType'     => 'authorization_type',
+        'guaranteeRange'        => 'guarantee_range',
+        'ipTradeMode'           => 'ip_trade_mode',
     ];
 
     public function validate()
@@ -138,6 +156,12 @@ class IpChannelWithSku extends Model
         }
         if (null !== $this->authorizationType) {
             $res['authorization_type'] = $this->authorizationType;
+        }
+        if (null !== $this->guaranteeRange) {
+            $res['guarantee_range'] = $this->guaranteeRange;
+        }
+        if (null !== $this->ipTradeMode) {
+            $res['ip_trade_mode'] = null !== $this->ipTradeMode ? $this->ipTradeMode->toMap() : null;
         }
 
         return $res;
@@ -187,6 +211,12 @@ class IpChannelWithSku extends Model
             if (!empty($map['authorization_type'])) {
                 $model->authorizationType = $map['authorization_type'];
             }
+        }
+        if (isset($map['guarantee_range'])) {
+            $model->guaranteeRange = $map['guarantee_range'];
+        }
+        if (isset($map['ip_trade_mode'])) {
+            $model->ipTradeMode = IPTradeMode::fromMap($map['ip_trade_mode']);
         }
 
         return $model;

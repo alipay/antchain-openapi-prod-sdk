@@ -168,6 +168,12 @@ class StartIpAuthtradeRequest extends Model
      * @var int[]
      */
     public $features;
+
+    // 合作申请时的订单ID，如没有前置的申请环节，则不填
+    /**
+     * @var string
+     */
+    public $ipOrderId;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -196,6 +202,7 @@ class StartIpAuthtradeRequest extends Model
         'authType'              => 'auth_type',
         'authorizationModel'    => 'authorization_model',
         'features'              => 'features',
+        'ipOrderId'             => 'ip_order_id',
     ];
 
     public function validate()
@@ -293,6 +300,9 @@ class StartIpAuthtradeRequest extends Model
         if (null !== $this->features) {
             $res['features'] = $this->features;
         }
+        if (null !== $this->ipOrderId) {
+            $res['ip_order_id'] = $this->ipOrderId;
+        }
 
         return $res;
     }
@@ -389,6 +399,9 @@ class StartIpAuthtradeRequest extends Model
             if (!empty($map['features'])) {
                 $model->features = $map['features'];
             }
+        }
+        if (isset($map['ip_order_id'])) {
+            $model->ipOrderId = $map['ip_order_id'];
         }
 
         return $model;

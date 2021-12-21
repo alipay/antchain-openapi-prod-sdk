@@ -158,6 +158,12 @@ class UpdateIpGoodsRequest extends Model
      * @var bool
      */
     public $needApproval;
+
+    // 授权信息
+    /**
+     * @var IPAuthorizationInfo
+     */
+    public $authorizationInfo;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
@@ -183,6 +189,7 @@ class UpdateIpGoodsRequest extends Model
         'copyRightBeginTime' => 'copy_right_begin_time',
         'copyRightEndTime'   => 'copy_right_end_time',
         'needApproval'       => 'need_approval',
+        'authorizationInfo'  => 'authorization_info',
     ];
 
     public function validate()
@@ -281,6 +288,9 @@ class UpdateIpGoodsRequest extends Model
         if (null !== $this->needApproval) {
             $res['need_approval'] = $this->needApproval;
         }
+        if (null !== $this->authorizationInfo) {
+            $res['authorization_info'] = null !== $this->authorizationInfo ? $this->authorizationInfo->toMap() : null;
+        }
 
         return $res;
     }
@@ -370,6 +380,9 @@ class UpdateIpGoodsRequest extends Model
         }
         if (isset($map['need_approval'])) {
             $model->needApproval = $map['need_approval'];
+        }
+        if (isset($map['authorization_info'])) {
+            $model->authorizationInfo = IPAuthorizationInfo::fromMap($map['authorization_info']);
         }
 
         return $model;

@@ -32,24 +32,38 @@ class CheckIpCodeResponse extends Model
      */
     public $scannedCount;
 
-    // 扫描历史列表(仅展示最近扫描的50次信息)
+    // null，暂不使用该值//扫描历史列表(仅展示最近扫描的50次信息)
     /**
      * @var IPCodeScannedInfo[]
      */
     public $scannedList;
 
-    // 正版码的详情，如果为空，则正版码未领取，如果不为空，则正版码已领取
+    // 正版码的详情，始终不为空，如果类型中的user_name为空，则正版码未领取，如果不为空，则正版码已领取
     /**
      * @var IPCodeScannedInfo
      */
     public $codeDetail;
+
+    // 首次扫码信息
+    /**
+     * @var IPSimpleScannedInfo
+     */
+    public $firstScannedInfo;
+
+    // 扫码信息
+    /**
+     * @var IPSimpleScannedInfo[]
+     */
+    public $scannedInfoList;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'scannedCount' => 'scanned_count',
-        'scannedList'  => 'scanned_list',
-        'codeDetail'   => 'code_detail',
+        'reqMsgId'         => 'req_msg_id',
+        'resultCode'       => 'result_code',
+        'resultMsg'        => 'result_msg',
+        'scannedCount'     => 'scanned_count',
+        'scannedList'      => 'scanned_list',
+        'codeDetail'       => 'code_detail',
+        'firstScannedInfo' => 'first_scanned_info',
+        'scannedInfoList'  => 'scanned_info_list',
     ];
 
     public function validate()
@@ -82,6 +96,18 @@ class CheckIpCodeResponse extends Model
         }
         if (null !== $this->codeDetail) {
             $res['code_detail'] = null !== $this->codeDetail ? $this->codeDetail->toMap() : null;
+        }
+        if (null !== $this->firstScannedInfo) {
+            $res['first_scanned_info'] = null !== $this->firstScannedInfo ? $this->firstScannedInfo->toMap() : null;
+        }
+        if (null !== $this->scannedInfoList) {
+            $res['scanned_info_list'] = [];
+            if (null !== $this->scannedInfoList && \is_array($this->scannedInfoList)) {
+                $n = 0;
+                foreach ($this->scannedInfoList as $item) {
+                    $res['scanned_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -118,6 +144,18 @@ class CheckIpCodeResponse extends Model
         }
         if (isset($map['code_detail'])) {
             $model->codeDetail = IPCodeScannedInfo::fromMap($map['code_detail']);
+        }
+        if (isset($map['first_scanned_info'])) {
+            $model->firstScannedInfo = IPSimpleScannedInfo::fromMap($map['first_scanned_info']);
+        }
+        if (isset($map['scanned_info_list'])) {
+            if (!empty($map['scanned_info_list'])) {
+                $model->scannedInfoList = [];
+                $n                      = 0;
+                foreach ($map['scanned_info_list'] as $item) {
+                    $model->scannedInfoList[$n++] = null !== $item ? IPSimpleScannedInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

@@ -84,6 +84,12 @@ class BatchqueryIpGoodsinterestRequest extends Model
      * @var int
      */
     public $isSortByPv;
+
+    // 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+    /**
+     * @var string[]
+     */
+    public $guaranteeRange;
     protected $_name = [
         'authToken'            => 'auth_token',
         'productInstanceId'    => 'product_instance_id',
@@ -98,6 +104,7 @@ class BatchqueryIpGoodsinterestRequest extends Model
         'audienceGroup'        => 'audience_group',
         'isCreateTimeSortDesc' => 'is_create_time_sort_desc',
         'isSortByPv'           => 'is_sort_by_pv',
+        'guaranteeRange'       => 'guarantee_range',
     ];
 
     public function validate()
@@ -106,7 +113,6 @@ class BatchqueryIpGoodsinterestRequest extends Model
         Model::validateRequired('channelName', $this->channelName, true);
         Model::validateRequired('pageSize', $this->pageSize, true);
         Model::validateRequired('pageIndex', $this->pageIndex, true);
-        Model::validateRequired('ipLevel', $this->ipLevel, true);
         Model::validateRequired('ipType', $this->ipType, true);
         Model::validateRequired('audienceGroup', $this->audienceGroup, true);
         Model::validateRequired('isCreateTimeSortDesc', $this->isCreateTimeSortDesc, true);
@@ -154,6 +160,9 @@ class BatchqueryIpGoodsinterestRequest extends Model
         }
         if (null !== $this->isSortByPv) {
             $res['is_sort_by_pv'] = $this->isSortByPv;
+        }
+        if (null !== $this->guaranteeRange) {
+            $res['guarantee_range'] = $this->guaranteeRange;
         }
 
         return $res;
@@ -211,6 +220,11 @@ class BatchqueryIpGoodsinterestRequest extends Model
         }
         if (isset($map['is_sort_by_pv'])) {
             $model->isSortByPv = $map['is_sort_by_pv'];
+        }
+        if (isset($map['guarantee_range'])) {
+            if (!empty($map['guarantee_range'])) {
+                $model->guaranteeRange = $map['guarantee_range'];
+            }
         }
 
         return $model;

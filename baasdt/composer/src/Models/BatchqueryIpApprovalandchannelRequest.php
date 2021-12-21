@@ -61,6 +61,12 @@ class BatchqueryIpApprovalandchannelRequest extends Model
      */
     public $accountId;
 
+    // 版权方别名
+    /**
+     * @var string
+     */
+    public $accountExternalName;
+
     // 是否需要按照创建时间倒序排序
     //
     /**
@@ -97,6 +103,12 @@ class BatchqueryIpApprovalandchannelRequest extends Model
      * @var string
      */
     public $channelName;
+
+    // 上架渠道，SelfEmployed为上架到自营的渠道，NONLINE为未上架任何渠道
+    /**
+     * @var string
+     */
+    public $onlineChannel;
     protected $_name = [
         'authToken'            => 'auth_token',
         'productInstanceId'    => 'product_instance_id',
@@ -107,12 +119,14 @@ class BatchqueryIpApprovalandchannelRequest extends Model
         'ipType'               => 'ip_type',
         'audienceGroup'        => 'audience_group',
         'accountId'            => 'account_id',
+        'accountExternalName'  => 'account_external_name',
         'isCreateTimeSortDesc' => 'is_create_time_sort_desc',
         'pageSize'             => 'page_size',
         'pageIndex'            => 'page_index',
         'createBeginTime'      => 'create_begin_time',
         'createEndTime'        => 'create_end_time',
         'channelName'          => 'channel_name',
+        'onlineChannel'        => 'online_channel',
     ];
 
     public function validate()
@@ -157,6 +171,9 @@ class BatchqueryIpApprovalandchannelRequest extends Model
         if (null !== $this->accountId) {
             $res['account_id'] = $this->accountId;
         }
+        if (null !== $this->accountExternalName) {
+            $res['account_external_name'] = $this->accountExternalName;
+        }
         if (null !== $this->isCreateTimeSortDesc) {
             $res['is_create_time_sort_desc'] = $this->isCreateTimeSortDesc;
         }
@@ -174,6 +191,9 @@ class BatchqueryIpApprovalandchannelRequest extends Model
         }
         if (null !== $this->channelName) {
             $res['channel_name'] = $this->channelName;
+        }
+        if (null !== $this->onlineChannel) {
+            $res['online_channel'] = $this->onlineChannel;
         }
 
         return $res;
@@ -214,6 +234,9 @@ class BatchqueryIpApprovalandchannelRequest extends Model
         if (isset($map['account_id'])) {
             $model->accountId = $map['account_id'];
         }
+        if (isset($map['account_external_name'])) {
+            $model->accountExternalName = $map['account_external_name'];
+        }
         if (isset($map['is_create_time_sort_desc'])) {
             $model->isCreateTimeSortDesc = $map['is_create_time_sort_desc'];
         }
@@ -231,6 +254,9 @@ class BatchqueryIpApprovalandchannelRequest extends Model
         }
         if (isset($map['channel_name'])) {
             $model->channelName = $map['channel_name'];
+        }
+        if (isset($map['online_channel'])) {
+            $model->onlineChannel = $map['online_channel'];
         }
 
         return $model;

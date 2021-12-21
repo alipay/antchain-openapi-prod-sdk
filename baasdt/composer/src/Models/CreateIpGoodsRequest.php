@@ -158,6 +158,12 @@ class CreateIpGoodsRequest extends Model
      * @var string
      */
     public $ipGalleryUrl;
+
+    // IP授权信息
+    /**
+     * @var IPAuthorizationInfo
+     */
+    public $authorizationInfo;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
@@ -183,6 +189,7 @@ class CreateIpGoodsRequest extends Model
         'copyRightBeginTime' => 'copy_right_begin_time',
         'copyRightEndTime'   => 'copy_right_end_time',
         'ipGalleryUrl'       => 'ip_gallery_url',
+        'authorizationInfo'  => 'authorization_info',
     ];
 
     public function validate()
@@ -281,6 +288,9 @@ class CreateIpGoodsRequest extends Model
         if (null !== $this->ipGalleryUrl) {
             $res['ip_gallery_url'] = $this->ipGalleryUrl;
         }
+        if (null !== $this->authorizationInfo) {
+            $res['authorization_info'] = null !== $this->authorizationInfo ? $this->authorizationInfo->toMap() : null;
+        }
 
         return $res;
     }
@@ -370,6 +380,9 @@ class CreateIpGoodsRequest extends Model
         }
         if (isset($map['ip_gallery_url'])) {
             $model->ipGalleryUrl = $map['ip_gallery_url'];
+        }
+        if (isset($map['authorization_info'])) {
+            $model->authorizationInfo = IPAuthorizationInfo::fromMap($map['authorization_info']);
         }
 
         return $model;

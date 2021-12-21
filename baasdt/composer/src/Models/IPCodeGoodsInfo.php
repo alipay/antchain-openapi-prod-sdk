@@ -111,6 +111,14 @@ class IPCodeGoodsInfo extends Model
      * @var ProductSpecification[]
      */
     public $goodsSpecifications;
+
+    // 是否展示批次数据
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $isDisplayBatchdata;
     protected $_name = [
         'goodsName'                  => 'goods_name',
         'goodsUrl'                   => 'goods_url',
@@ -125,6 +133,7 @@ class IPCodeGoodsInfo extends Model
         'authorizationEndTime'       => 'authorization_end_time',
         'goodsSaleChannel'           => 'goods_sale_channel',
         'goodsSpecifications'        => 'goods_specifications',
+        'isDisplayBatchdata'         => 'is_display_batchdata',
     ];
 
     public function validate()
@@ -179,6 +188,9 @@ class IPCodeGoodsInfo extends Model
                     $res['goods_specifications'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->isDisplayBatchdata) {
+            $res['is_display_batchdata'] = $this->isDisplayBatchdata;
         }
 
         return $res;
@@ -236,6 +248,9 @@ class IPCodeGoodsInfo extends Model
                     $model->goodsSpecifications[$n++] = null !== $item ? ProductSpecification::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['is_display_batchdata'])) {
+            $model->isDisplayBatchdata = $map['is_display_batchdata'];
         }
 
         return $model;

@@ -72,6 +72,14 @@ class IPCodeScannedInfo extends Model
      */
     public $hash;
 
+    // 领取正版码交易所在的区块高度
+    /**
+     * @example 1234567
+     *
+     * @var int
+     */
+    public $blockNumber;
+
     // 处理时间(毫秒时间戳)
     /**
      * @example 713471745
@@ -120,7 +128,7 @@ class IPCodeScannedInfo extends Model
      */
     public $ipownerInfo;
 
-    // 0:未配置，1:配置成功可展示，9:下架【本期不实现】
+    // 0:未配置, 1:配置成功可展示, 4:已经失效, 9:下架【本期不实现】
     /**
      * @example
      *
@@ -159,26 +167,72 @@ class IPCodeScannedInfo extends Model
      * @var string
      */
     public $uniCode;
+
+    // 正版码配置附加信息，信息内容由调用方自定义
+    /**
+     * @example 附加信息
+     *
+     * @var string
+     */
+    public $extInfo;
+
+    // 收藏时间(UNIX时间戳)0表示未被收藏
+    /**
+     * @example 14917547571
+     *
+     * @var int
+     */
+    public $receiveTime;
+
+    // 同一批次存在失效UNI码的场景下,指示更新后的下标
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $fixedIndex;
+
+    // 同一批次存在失效UNI码的场景下,指示更新后的总量
+    /**
+     * @example 99
+     *
+     * @var int
+     */
+    public $fixedCount;
+
+    // 小龙坎有限公司
+    /**
+     * @example 商家名称
+     *
+     * @var string
+     */
+    public $accountExternalName;
     protected $_name = [
-        'ipCode'         => 'ip_code',
-        'batchUsedCount' => 'batch_used_count',
-        'userId'         => 'user_id',
-        'userName'       => 'user_name',
-        'avatar'         => 'avatar',
-        'phoneNumber'    => 'phone_number',
-        'gps'            => 'gps',
-        'hash'           => 'hash',
-        'timestamp'      => 'timestamp',
-        'ipId'           => 'ip_id',
-        'orderId'        => 'order_id',
-        'goodsInfoList'  => 'goods_info_list',
-        'adInfoList'     => 'ad_info_list',
-        'ipownerInfo'    => 'ipowner_info',
-        'ipCodeStatus'   => 'ip_code_status',
-        'features'       => 'features',
-        'checkCounts'    => 'check_counts',
-        'ipInfo'         => 'ip_info',
-        'uniCode'        => 'uni_code',
+        'ipCode'              => 'ip_code',
+        'batchUsedCount'      => 'batch_used_count',
+        'userId'              => 'user_id',
+        'userName'            => 'user_name',
+        'avatar'              => 'avatar',
+        'phoneNumber'         => 'phone_number',
+        'gps'                 => 'gps',
+        'hash'                => 'hash',
+        'blockNumber'         => 'block_number',
+        'timestamp'           => 'timestamp',
+        'ipId'                => 'ip_id',
+        'orderId'             => 'order_id',
+        'goodsInfoList'       => 'goods_info_list',
+        'adInfoList'          => 'ad_info_list',
+        'ipownerInfo'         => 'ipowner_info',
+        'ipCodeStatus'        => 'ip_code_status',
+        'features'            => 'features',
+        'checkCounts'         => 'check_counts',
+        'ipInfo'              => 'ip_info',
+        'uniCode'             => 'uni_code',
+        'extInfo'             => 'ext_info',
+        'receiveTime'         => 'receive_time',
+        'fixedIndex'          => 'fixed_index',
+        'fixedCount'          => 'fixed_count',
+        'accountExternalName' => 'account_external_name',
     ];
 
     public function validate()
@@ -218,6 +272,9 @@ class IPCodeScannedInfo extends Model
         }
         if (null !== $this->hash) {
             $res['hash'] = $this->hash;
+        }
+        if (null !== $this->blockNumber) {
+            $res['block_number'] = $this->blockNumber;
         }
         if (null !== $this->timestamp) {
             $res['timestamp'] = $this->timestamp;
@@ -264,6 +321,21 @@ class IPCodeScannedInfo extends Model
         if (null !== $this->uniCode) {
             $res['uni_code'] = $this->uniCode;
         }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
+        }
+        if (null !== $this->receiveTime) {
+            $res['receive_time'] = $this->receiveTime;
+        }
+        if (null !== $this->fixedIndex) {
+            $res['fixed_index'] = $this->fixedIndex;
+        }
+        if (null !== $this->fixedCount) {
+            $res['fixed_count'] = $this->fixedCount;
+        }
+        if (null !== $this->accountExternalName) {
+            $res['account_external_name'] = $this->accountExternalName;
+        }
 
         return $res;
     }
@@ -299,6 +371,9 @@ class IPCodeScannedInfo extends Model
         }
         if (isset($map['hash'])) {
             $model->hash = $map['hash'];
+        }
+        if (isset($map['block_number'])) {
+            $model->blockNumber = $map['block_number'];
         }
         if (isset($map['timestamp'])) {
             $model->timestamp = $map['timestamp'];
@@ -346,6 +421,21 @@ class IPCodeScannedInfo extends Model
         }
         if (isset($map['uni_code'])) {
             $model->uniCode = $map['uni_code'];
+        }
+        if (isset($map['ext_info'])) {
+            $model->extInfo = $map['ext_info'];
+        }
+        if (isset($map['receive_time'])) {
+            $model->receiveTime = $map['receive_time'];
+        }
+        if (isset($map['fixed_index'])) {
+            $model->fixedIndex = $map['fixed_index'];
+        }
+        if (isset($map['fixed_count'])) {
+            $model->fixedCount = $map['fixed_count'];
+        }
+        if (isset($map['account_external_name'])) {
+            $model->accountExternalName = $map['account_external_name'];
         }
 
         return $model;

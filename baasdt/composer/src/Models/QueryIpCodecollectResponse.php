@@ -49,6 +49,12 @@ class QueryIpCodecollectResponse extends Model
      * @var IPCodeChainInfo
      */
     public $chainInfo;
+
+    // 版权信息
+    /**
+     * @var IPCodeIpOwnerInfo
+     */
+    public $ipownerInfo;
     protected $_name = [
         'reqMsgId'       => 'req_msg_id',
         'resultCode'     => 'result_code',
@@ -57,6 +63,7 @@ class QueryIpCodecollectResponse extends Model
         'codeFlowList'   => 'code_flow_list',
         'codeLifeCircle' => 'code_life_circle',
         'chainInfo'      => 'chain_info',
+        'ipownerInfo'    => 'ipowner_info',
     ];
 
     public function validate()
@@ -98,6 +105,9 @@ class QueryIpCodecollectResponse extends Model
         }
         if (null !== $this->chainInfo) {
             $res['chain_info'] = null !== $this->chainInfo ? $this->chainInfo->toMap() : null;
+        }
+        if (null !== $this->ipownerInfo) {
+            $res['ipowner_info'] = null !== $this->ipownerInfo ? $this->ipownerInfo->toMap() : null;
         }
 
         return $res;
@@ -143,6 +153,9 @@ class QueryIpCodecollectResponse extends Model
         }
         if (isset($map['chain_info'])) {
             $model->chainInfo = IPCodeChainInfo::fromMap($map['chain_info']);
+        }
+        if (isset($map['ipowner_info'])) {
+            $model->ipownerInfo = IPCodeIpOwnerInfo::fromMap($map['ipowner_info']);
         }
 
         return $model;

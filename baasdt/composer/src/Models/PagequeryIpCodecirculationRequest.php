@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ConfirmIpAuthtradeRequest extends Model
+class PagequeryIpCodecirculationRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,45 +25,46 @@ class ConfirmIpAuthtradeRequest extends Model
      */
     public $baseRequest;
 
-    // 审核账户ID
+    // 正版码的编码
     /**
      * @var string
      */
-    public $accountId;
+    public $code;
 
-    // 授权订单ID
+    // 页码
+    /**
+     * @var int
+     */
+    public $pageNumber;
+
+    // 每页数据量大小(请小于等于100)
+    /**
+     * @var int
+     */
+    public $pageSize;
+
+    // 根据流转时间 排序顺序：正序还是倒序
     /**
      * @var string
      */
-    public $ipOrderId;
-
-    // 是否同意授权
-    /**
-     * @var bool
-     */
-    public $confirmResult;
-
-    // 审批信息备注，通过或不通过原因
-    /**
-     * @var string
-     */
-    public $memo;
+    public $order;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
-        'accountId'         => 'account_id',
-        'ipOrderId'         => 'ip_order_id',
-        'confirmResult'     => 'confirm_result',
-        'memo'              => 'memo',
+        'code'              => 'code',
+        'pageNumber'        => 'page_number',
+        'pageSize'          => 'page_size',
+        'order'             => 'order',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
-        Model::validateRequired('accountId', $this->accountId, true);
-        Model::validateRequired('ipOrderId', $this->ipOrderId, true);
-        Model::validateRequired('confirmResult', $this->confirmResult, true);
+        Model::validateRequired('code', $this->code, true);
+        Model::validateRequired('pageNumber', $this->pageNumber, true);
+        Model::validateRequired('pageSize', $this->pageSize, true);
+        Model::validateRequired('order', $this->order, true);
     }
 
     public function toMap()
@@ -78,17 +79,17 @@ class ConfirmIpAuthtradeRequest extends Model
         if (null !== $this->baseRequest) {
             $res['base_request'] = null !== $this->baseRequest ? $this->baseRequest->toMap() : null;
         }
-        if (null !== $this->accountId) {
-            $res['account_id'] = $this->accountId;
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
         }
-        if (null !== $this->ipOrderId) {
-            $res['ip_order_id'] = $this->ipOrderId;
+        if (null !== $this->pageNumber) {
+            $res['page_number'] = $this->pageNumber;
         }
-        if (null !== $this->confirmResult) {
-            $res['confirm_result'] = $this->confirmResult;
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
         }
-        if (null !== $this->memo) {
-            $res['memo'] = $this->memo;
+        if (null !== $this->order) {
+            $res['order'] = $this->order;
         }
 
         return $res;
@@ -97,7 +98,7 @@ class ConfirmIpAuthtradeRequest extends Model
     /**
      * @param array $map
      *
-     * @return ConfirmIpAuthtradeRequest
+     * @return PagequeryIpCodecirculationRequest
      */
     public static function fromMap($map = [])
     {
@@ -111,17 +112,17 @@ class ConfirmIpAuthtradeRequest extends Model
         if (isset($map['base_request'])) {
             $model->baseRequest = BaseRequestInfo::fromMap($map['base_request']);
         }
-        if (isset($map['account_id'])) {
-            $model->accountId = $map['account_id'];
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
         }
-        if (isset($map['ip_order_id'])) {
-            $model->ipOrderId = $map['ip_order_id'];
+        if (isset($map['page_number'])) {
+            $model->pageNumber = $map['page_number'];
         }
-        if (isset($map['confirm_result'])) {
-            $model->confirmResult = $map['confirm_result'];
+        if (isset($map['page_size'])) {
+            $model->pageSize = $map['page_size'];
         }
-        if (isset($map['memo'])) {
-            $model->memo = $map['memo'];
+        if (isset($map['order'])) {
+            $model->order = $map['order'];
         }
 
         return $model;

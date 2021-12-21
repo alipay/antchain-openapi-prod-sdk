@@ -31,11 +31,32 @@ class QueryIpCodeResponse extends Model
      * @var IPCodeScannedInfo
      */
     public $codeInfo;
+
+    // 首次扫码信息
+    /**
+     * @var IPSimpleScannedInfo
+     */
+    public $firstScannedInfo;
+
+    // 扫码信息
+    /**
+     * @var IPSimpleScannedInfo[]
+     */
+    public $scannedInfoList;
+
+    // 扫码次数
+    /**
+     * @var int
+     */
+    public $scannedCount;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'codeInfo'   => 'code_info',
+        'reqMsgId'         => 'req_msg_id',
+        'resultCode'       => 'result_code',
+        'resultMsg'        => 'result_msg',
+        'codeInfo'         => 'code_info',
+        'firstScannedInfo' => 'first_scanned_info',
+        'scannedInfoList'  => 'scanned_info_list',
+        'scannedCount'     => 'scanned_count',
     ];
 
     public function validate()
@@ -56,6 +77,21 @@ class QueryIpCodeResponse extends Model
         }
         if (null !== $this->codeInfo) {
             $res['code_info'] = null !== $this->codeInfo ? $this->codeInfo->toMap() : null;
+        }
+        if (null !== $this->firstScannedInfo) {
+            $res['first_scanned_info'] = null !== $this->firstScannedInfo ? $this->firstScannedInfo->toMap() : null;
+        }
+        if (null !== $this->scannedInfoList) {
+            $res['scanned_info_list'] = [];
+            if (null !== $this->scannedInfoList && \is_array($this->scannedInfoList)) {
+                $n = 0;
+                foreach ($this->scannedInfoList as $item) {
+                    $res['scanned_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->scannedCount) {
+            $res['scanned_count'] = $this->scannedCount;
         }
 
         return $res;
@@ -80,6 +116,21 @@ class QueryIpCodeResponse extends Model
         }
         if (isset($map['code_info'])) {
             $model->codeInfo = IPCodeScannedInfo::fromMap($map['code_info']);
+        }
+        if (isset($map['first_scanned_info'])) {
+            $model->firstScannedInfo = IPSimpleScannedInfo::fromMap($map['first_scanned_info']);
+        }
+        if (isset($map['scanned_info_list'])) {
+            if (!empty($map['scanned_info_list'])) {
+                $model->scannedInfoList = [];
+                $n                      = 0;
+                foreach ($map['scanned_info_list'] as $item) {
+                    $model->scannedInfoList[$n++] = null !== $item ? IPSimpleScannedInfo::fromMap($item) : $item;
+                }
+            }
+        }
+        if (isset($map['scanned_count'])) {
+            $model->scannedCount = $map['scanned_count'];
         }
 
         return $model;

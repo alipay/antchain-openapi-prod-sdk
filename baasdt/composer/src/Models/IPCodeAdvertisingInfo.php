@@ -47,16 +47,36 @@ class IPCodeAdvertisingInfo extends Model
      * @var string
      */
     public $adType;
+
+    // 展示有效期开始时间
+    /**
+     * @example 2018-10-10T10:10:00Z
+     *
+     * @var string
+     */
+    public $adValidBeginTime;
+
+    // 展示有效期结束时间
+    /**
+     * @example 2018-10-10T10:10:00Z
+     *
+     * @var string
+     */
+    public $adValidEndTime;
     protected $_name = [
-        'adImage'    => 'ad_image',
-        'adImageTmp' => 'ad_image_tmp',
-        'adUrl'      => 'ad_url',
-        'adName'     => 'ad_name',
-        'adType'     => 'ad_type',
+        'adImage'          => 'ad_image',
+        'adImageTmp'       => 'ad_image_tmp',
+        'adUrl'            => 'ad_url',
+        'adName'           => 'ad_name',
+        'adType'           => 'ad_type',
+        'adValidBeginTime' => 'ad_valid_begin_time',
+        'adValidEndTime'   => 'ad_valid_end_time',
     ];
 
     public function validate()
     {
+        Model::validatePattern('adValidBeginTime', $this->adValidBeginTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validatePattern('adValidEndTime', $this->adValidEndTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -76,6 +96,12 @@ class IPCodeAdvertisingInfo extends Model
         }
         if (null !== $this->adType) {
             $res['ad_type'] = $this->adType;
+        }
+        if (null !== $this->adValidBeginTime) {
+            $res['ad_valid_begin_time'] = $this->adValidBeginTime;
+        }
+        if (null !== $this->adValidEndTime) {
+            $res['ad_valid_end_time'] = $this->adValidEndTime;
         }
 
         return $res;
@@ -103,6 +129,12 @@ class IPCodeAdvertisingInfo extends Model
         }
         if (isset($map['ad_type'])) {
             $model->adType = $map['ad_type'];
+        }
+        if (isset($map['ad_valid_begin_time'])) {
+            $model->adValidBeginTime = $map['ad_valid_begin_time'];
+        }
+        if (isset($map['ad_valid_end_time'])) {
+            $model->adValidEndTime = $map['ad_valid_end_time'];
         }
 
         return $model;

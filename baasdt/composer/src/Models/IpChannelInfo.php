@@ -55,6 +55,22 @@ class IpChannelInfo extends Model
      * @var bool
      */
     public $tradeNeedConfirm;
+
+    // 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $guaranteeRange;
+
+    // 交易模式
+    /**
+     * @example
+     *
+     * @var IPTradeMode
+     */
+    public $ipTradeMode;
     protected $_name = [
         'channelName'       => 'channel_name',
         'authorizationMode' => 'authorization_mode',
@@ -62,6 +78,8 @@ class IpChannelInfo extends Model
         'ipLevel'           => 'ip_level',
         'status'            => 'status',
         'tradeNeedConfirm'  => 'trade_need_confirm',
+        'guaranteeRange'    => 'guarantee_range',
+        'ipTradeMode'       => 'ip_trade_mode',
     ];
 
     public function validate()
@@ -94,6 +112,12 @@ class IpChannelInfo extends Model
         if (null !== $this->tradeNeedConfirm) {
             $res['trade_need_confirm'] = $this->tradeNeedConfirm;
         }
+        if (null !== $this->guaranteeRange) {
+            $res['guarantee_range'] = $this->guaranteeRange;
+        }
+        if (null !== $this->ipTradeMode) {
+            $res['ip_trade_mode'] = null !== $this->ipTradeMode ? $this->ipTradeMode->toMap() : null;
+        }
 
         return $res;
     }
@@ -123,6 +147,12 @@ class IpChannelInfo extends Model
         }
         if (isset($map['trade_need_confirm'])) {
             $model->tradeNeedConfirm = $map['trade_need_confirm'];
+        }
+        if (isset($map['guarantee_range'])) {
+            $model->guaranteeRange = $map['guarantee_range'];
+        }
+        if (isset($map['ip_trade_mode'])) {
+            $model->ipTradeMode = IPTradeMode::fromMap($map['ip_trade_mode']);
         }
 
         return $model;
