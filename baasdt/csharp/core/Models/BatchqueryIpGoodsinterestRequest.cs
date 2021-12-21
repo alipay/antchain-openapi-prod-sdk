@@ -50,7 +50,7 @@ namespace AntChain.SDK.BAASDT.Models
 
         // ip等级
         [NameInMap("ip_level")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public List<long?> IpLevel { get; set; }
 
         // ip类型
@@ -72,6 +72,11 @@ namespace AntChain.SDK.BAASDT.Models
         [NameInMap("is_sort_by_pv")]
         [Validation(Required=true)]
         public long? IsSortByPv { get; set; }
+
+        // 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+        [NameInMap("guarantee_range")]
+        [Validation(Required=false)]
+        public List<string> GuaranteeRange { get; set; }
 
     }
 

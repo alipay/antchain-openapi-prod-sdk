@@ -136,6 +136,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public bool? NeedApproval { get; set; }
 
+        // 授权信息
+        [NameInMap("authorization_info")]
+        [Validation(Required=false)]
+        public IPAuthorizationInfo AuthorizationInfo { get; set; }
+
     }
 
 }

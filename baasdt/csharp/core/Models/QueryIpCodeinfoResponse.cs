@@ -54,6 +54,17 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public long? IpCodeStatus { get; set; }
 
+        // 正版码前缀
+        // 
+        [NameInMap("show_code_prefix")]
+        [Validation(Required=false)]
+        public string ShowCodePrefix { get; set; }
+
+        // 正版码配置附加信息，信息内容由调用方自定义。
+        [NameInMap("ext_info")]
+        [Validation(Required=false)]
+        public string ExtInfo { get; set; }
+
     }
 
 }

@@ -78,6 +78,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public long? CreateEndTime { get; set; }
 
+        // 版权方的用户名称
+        [NameInMap("external_user_name")]
+        [Validation(Required=false)]
+        public string ExternalUserName { get; set; }
+
     }
 
 }

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class QueryIpCodeResponse : TeaModel {
+    public class QueryIpOrderhistoryResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,10 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 正版码信息
-        [NameInMap("code_info")]
+        // 订单列表
+        [NameInMap("order_list")]
         [Validation(Required=false)]
-        public IPCodeScannedInfo CodeInfo { get; set; }
-
-        // 首次扫码信息
-        [NameInMap("first_scanned_info")]
-        [Validation(Required=false)]
-        public IPSimpleScannedInfo FirstScannedInfo { get; set; }
-
-        // 扫码信息
-        [NameInMap("scanned_info_list")]
-        [Validation(Required=false)]
-        public List<IPSimpleScannedInfo> ScannedInfoList { get; set; }
-
-        // 扫码次数
-        [NameInMap("scanned_count")]
-        [Validation(Required=false)]
-        public long? ScannedCount { get; set; }
+        public List<IPOrder> OrderList { get; set; }
 
     }
 

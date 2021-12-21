@@ -29,15 +29,25 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public long? ScannedCount { get; set; }
 
-        // 扫描历史列表(仅展示最近扫描的50次信息)
+        // null，暂不使用该值//扫描历史列表(仅展示最近扫描的50次信息)
         [NameInMap("scanned_list")]
         [Validation(Required=false)]
         public List<IPCodeScannedInfo> ScannedList { get; set; }
 
-        // 正版码的详情，如果为空，则正版码未领取，如果不为空，则正版码已领取
+        // 正版码的详情，始终不为空，如果类型中的user_name为空，则正版码未领取，如果不为空，则正版码已领取
         [NameInMap("code_detail")]
         [Validation(Required=false)]
         public IPCodeScannedInfo CodeDetail { get; set; }
+
+        // 首次扫码信息
+        [NameInMap("first_scanned_info")]
+        [Validation(Required=false)]
+        public IPSimpleScannedInfo FirstScannedInfo { get; set; }
+
+        // 扫码信息
+        [NameInMap("scanned_info_list")]
+        [Validation(Required=false)]
+        public List<IPSimpleScannedInfo> ScannedInfoList { get; set; }
 
     }
 

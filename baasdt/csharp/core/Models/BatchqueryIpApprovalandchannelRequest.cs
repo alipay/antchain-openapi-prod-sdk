@@ -53,6 +53,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string AccountId { get; set; }
 
+        // 版权方别名
+        [NameInMap("account_external_name")]
+        [Validation(Required=false)]
+        public string AccountExternalName { get; set; }
+
         // 是否需要按照创建时间倒序排序
         // 
         [NameInMap("is_create_time_sort_desc")]
@@ -83,6 +88,11 @@ namespace AntChain.SDK.BAASDT.Models
         [NameInMap("channel_name")]
         [Validation(Required=false)]
         public string ChannelName { get; set; }
+
+        // 上架渠道，SelfEmployed为上架到自营的渠道，NONLINE为未上架任何渠道
+        [NameInMap("online_channel")]
+        [Validation(Required=false)]
+        public string OnlineChannel { get; set; }
 
     }
 

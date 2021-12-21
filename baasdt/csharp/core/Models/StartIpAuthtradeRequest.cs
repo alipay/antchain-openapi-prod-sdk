@@ -143,6 +143,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public List<long?> Features { get; set; }
 
+        // 合作申请时的订单ID，如没有前置的申请环节，则不填
+        [NameInMap("ip_order_id")]
+        [Validation(Required=false)]
+        public string IpOrderId { get; set; }
+
     }
 
 }

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class QueryIpCodeResponse : TeaModel {
+    public class ConfirmIpBillpayResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,15 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 正版码信息
-        [NameInMap("code_info")]
+        // 账单ID
+        [NameInMap("ip_bill_id")]
         [Validation(Required=false)]
-        public IPCodeScannedInfo CodeInfo { get; set; }
+        public string IpBillId { get; set; }
 
-        // 首次扫码信息
-        [NameInMap("first_scanned_info")]
+        // 新的支付链接
+        [NameInMap("pay_url")]
         [Validation(Required=false)]
-        public IPSimpleScannedInfo FirstScannedInfo { get; set; }
-
-        // 扫码信息
-        [NameInMap("scanned_info_list")]
-        [Validation(Required=false)]
-        public List<IPSimpleScannedInfo> ScannedInfoList { get; set; }
-
-        // 扫码次数
-        [NameInMap("scanned_count")]
-        [Validation(Required=false)]
-        public long? ScannedCount { get; set; }
+        public string PayUrl { get; set; }
 
     }
 

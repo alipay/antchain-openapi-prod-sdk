@@ -98,6 +98,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public bool? QueryCreaterChannel { get; set; }
 
+        // 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+        [NameInMap("guarantee_range")]
+        [Validation(Required=false)]
+        public long? GuaranteeRange { get; set; }
+
     }
 
 }

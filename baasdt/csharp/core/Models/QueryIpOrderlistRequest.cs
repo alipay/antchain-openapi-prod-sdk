@@ -58,6 +58,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string SellerName { get; set; }
 
+        // 买方名称，根据卖方名称模糊查询
+        [NameInMap("buyer_name")]
+        [Validation(Required=false)]
+        public string BuyerName { get; set; }
+
         // 交易类型：1 套餐交易， 2 定向授权
         [NameInMap("trade_type")]
         [Validation(Required=false)]
@@ -117,6 +122,11 @@ namespace AntChain.SDK.BAASDT.Models
         [NameInMap("channel_name")]
         [Validation(Required=false)]
         public string ChannelName { get; set; }
+
+        // 是否查询0授权费率的订单，true则查0费率订单，false则查非0费率订单
+        [NameInMap("zero_auth_rate")]
+        [Validation(Required=false)]
+        public bool? ZeroAuthRate { get; set; }
 
     }
 

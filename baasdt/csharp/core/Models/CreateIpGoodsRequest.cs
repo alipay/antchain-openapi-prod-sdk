@@ -136,6 +136,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string IpGalleryUrl { get; set; }
 
+        // IP授权信息
+        [NameInMap("authorization_info")]
+        [Validation(Required=false)]
+        public IPAuthorizationInfo AuthorizationInfo { get; set; }
+
     }
 
 }

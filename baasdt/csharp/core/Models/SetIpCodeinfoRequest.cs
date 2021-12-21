@@ -53,6 +53,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string CodeSetTime { get; set; }
 
+        // 正版码配置附加信息，信息内容由调用方自定义。可以从配置查询和正版码详情接口上获取。
+        [NameInMap("ext_info")]
+        [Validation(Required=false)]
+        public string ExtInfo { get; set; }
+
+        // 正版码前缀，本期暂不支持
+        [NameInMap("show_code_prefix")]
+        [Validation(Required=false)]
+        public string ShowCodePrefix { get; set; }
+
     }
 
 }

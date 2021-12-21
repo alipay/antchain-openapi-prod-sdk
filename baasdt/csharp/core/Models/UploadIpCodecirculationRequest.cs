@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class ConfirmIpAuthtradeRequest : TeaModel {
+    public class UploadIpCodecirculationRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,25 +23,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // 审核账户ID
-        [NameInMap("account_id")]
+        // 		
+        // 正版码的编码
+        [NameInMap("code")]
         [Validation(Required=true)]
-        public string AccountId { get; set; }
+        public string Code { get; set; }
 
-        // 授权订单ID
-        [NameInMap("ip_order_id")]
+        // 正版码流转信息，每次最多10条信息。
+        [NameInMap("code_circulation_list")]
         [Validation(Required=true)]
-        public string IpOrderId { get; set; }
-
-        // 是否同意授权
-        [NameInMap("confirm_result")]
-        [Validation(Required=true)]
-        public bool? ConfirmResult { get; set; }
-
-        // 审批信息备注，通过或不通过原因
-        [NameInMap("memo")]
-        [Validation(Required=false)]
-        public string Memo { get; set; }
+        public List<CodeCirculation> CodeCirculationList { get; set; }
 
     }
 

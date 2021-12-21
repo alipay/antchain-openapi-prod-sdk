@@ -75,6 +75,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public List<ProductSpecification> GoodsSpecifications { get; set; }
 
+        // 是否展示批次数据
+        [NameInMap("is_display_batchdata")]
+        [Validation(Required=false)]
+        public bool? IsDisplayBatchdata { get; set; }
+
     }
 
 }

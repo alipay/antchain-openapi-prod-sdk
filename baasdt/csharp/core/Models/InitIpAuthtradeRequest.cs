@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class ConfirmIpAuthtradeRequest : TeaModel {
+    public class InitIpAuthtradeRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,25 +23,25 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // 审核账户ID
+        // 采购者的链上账户Id
         [NameInMap("account_id")]
         [Validation(Required=true)]
         public string AccountId { get; set; }
 
-        // 授权订单ID
-        [NameInMap("ip_order_id")]
+        // IP授权交易时传入IP ID；增值服务交易时传入服务ID
+        [NameInMap("ip_id")]
         [Validation(Required=true)]
-        public string IpOrderId { get; set; }
+        public string IpId { get; set; }
 
-        // 是否同意授权
-        [NameInMap("confirm_result")]
-        [Validation(Required=true)]
-        public bool? ConfirmResult { get; set; }
-
-        // 审批信息备注，通过或不通过原因
-        [NameInMap("memo")]
+        // 0 IP交易，1 增值服务交易
+        [NameInMap("goods_type")]
         [Validation(Required=false)]
-        public string Memo { get; set; }
+        public long? GoodsType { get; set; }
+
+        // 申请授权合作的备注信息
+        [NameInMap("apply_info")]
+        [Validation(Required=true)]
+        public IPOrderApplyInfo ApplyInfo { get; set; }
 
     }
 

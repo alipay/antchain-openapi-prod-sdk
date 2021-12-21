@@ -251,6 +251,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public List<long?> Features { get; set; }
 
+        // 申请授权合作的备注信息
+        [NameInMap("apply_info")]
+        [Validation(Required=false)]
+        public IPOrderApplyInfo ApplyInfo { get; set; }
+
     }
 
 }

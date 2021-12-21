@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class ConfirmIpAuthtradeRequest : TeaModel {
+    public class PagequeryIpCodecirculationRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,25 +23,25 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // 审核账户ID
-        [NameInMap("account_id")]
+        // 正版码的编码
+        [NameInMap("code")]
         [Validation(Required=true)]
-        public string AccountId { get; set; }
+        public string Code { get; set; }
 
-        // 授权订单ID
-        [NameInMap("ip_order_id")]
+        // 页码
+        [NameInMap("page_number")]
         [Validation(Required=true)]
-        public string IpOrderId { get; set; }
+        public long? PageNumber { get; set; }
 
-        // 是否同意授权
-        [NameInMap("confirm_result")]
+        // 每页数据量大小(请小于等于100)
+        [NameInMap("page_size")]
         [Validation(Required=true)]
-        public bool? ConfirmResult { get; set; }
+        public long? PageSize { get; set; }
 
-        // 审批信息备注，通过或不通过原因
-        [NameInMap("memo")]
-        [Validation(Required=false)]
-        public string Memo { get; set; }
+        // 根据流转时间 排序顺序：正序还是倒序
+        [NameInMap("order")]
+        [Validation(Required=true)]
+        public string Order { get; set; }
 
     }
 

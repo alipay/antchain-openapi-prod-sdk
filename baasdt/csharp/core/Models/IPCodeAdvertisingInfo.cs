@@ -35,6 +35,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string AdType { get; set; }
 
+        // 展示有效期开始时间
+        [NameInMap("ad_valid_begin_time")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string AdValidBeginTime { get; set; }
+
+        // 展示有效期结束时间
+        [NameInMap("ad_valid_end_time")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string AdValidEndTime { get; set; }
+
     }
 
 }

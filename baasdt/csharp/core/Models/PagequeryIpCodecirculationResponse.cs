@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class QueryIpCodecollectResponse : TeaModel {
+    public class PagequeryIpCodecirculationResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,30 +24,25 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 正版码商品信息配置列表,包含产品名和出品方
-        [NameInMap("goods_info_list")]
+        // 正版码流转信息列表
+        [NameInMap("code_circulation_list")]
         [Validation(Required=false)]
-        public List<IPCodeGoodsInfo> GoodsInfoList { get; set; }
+        public List<CodeCirculation> CodeCirculationList { get; set; }
 
-        // 正版码流转信息
-        [NameInMap("code_flow_list")]
+        // 正版码的流转信息总数
+        [NameInMap("total_count")]
         [Validation(Required=false)]
-        public List<IPCodeFlowInfo> CodeFlowList { get; set; }
+        public long? TotalCount { get; set; }
 
-        // 正版码生命周期
-        [NameInMap("code_life_circle")]
+        // 页码
+        [NameInMap("page_number")]
         [Validation(Required=false)]
-        public IPCodeConfigTimeInfo CodeLifeCircle { get; set; }
+        public long? PageNumber { get; set; }
 
-        // 区块链信息
-        [NameInMap("chain_info")]
+        // 页面数据量大小
+        [NameInMap("page_size")]
         [Validation(Required=false)]
-        public IPCodeChainInfo ChainInfo { get; set; }
-
-        // 版权信息
-        [NameInMap("ipowner_info")]
-        [Validation(Required=false)]
-        public IPCodeIpOwnerInfo IpownerInfo { get; set; }
+        public long? PageSize { get; set; }
 
     }
 

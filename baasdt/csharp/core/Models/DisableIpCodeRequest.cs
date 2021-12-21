@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class ConfirmIpAuthtradeRequest : TeaModel {
+    public class DisableIpCodeRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,30 +18,20 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 基础请求参数
+        // 基础参数
         [NameInMap("base_request")]
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // 审核账户ID
+        // 发起失效请求的区块链账户ID
         [NameInMap("account_id")]
         [Validation(Required=true)]
         public string AccountId { get; set; }
 
-        // 授权订单ID
-        [NameInMap("ip_order_id")]
+        // 要被失效的UNI的完整编码
+        [NameInMap("uni_code")]
         [Validation(Required=true)]
-        public string IpOrderId { get; set; }
-
-        // 是否同意授权
-        [NameInMap("confirm_result")]
-        [Validation(Required=true)]
-        public bool? ConfirmResult { get; set; }
-
-        // 审批信息备注，通过或不通过原因
-        [NameInMap("memo")]
-        [Validation(Required=false)]
-        public string Memo { get; set; }
+        public string UniCode { get; set; }
 
     }
 

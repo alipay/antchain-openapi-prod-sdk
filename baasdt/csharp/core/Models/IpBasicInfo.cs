@@ -138,10 +138,20 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public long? CopyRightEndTime { get; set; }
 
-        // 账户名称
+        // 账户名称-别名
         [NameInMap("account_name")]
         [Validation(Required=false)]
         public string AccountName { get; set; }
+
+        // 授权信息
+        [NameInMap("authorization_info")]
+        [Validation(Required=false)]
+        public IPAuthorizationInfo AuthorizationInfo { get; set; }
+
+        // 版权方名称
+        [NameInMap("external_user_name")]
+        [Validation(Required=false)]
+        public string ExternalUserName { get; set; }
 
     }
 

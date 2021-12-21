@@ -50,6 +50,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string Hash { get; set; }
 
+        // 领取正版码交易所在的区块高度
+        [NameInMap("block_number")]
+        [Validation(Required=false)]
+        public long? BlockNumber { get; set; }
+
         // 处理时间(毫秒时间戳)
         [NameInMap("timestamp")]
         [Validation(Required=true)]
@@ -80,7 +85,7 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public IPCodeIpOwnerInfo IpownerInfo { get; set; }
 
-        // 0:未配置，1:配置成功可展示，9:下架【本期不实现】
+        // 0:未配置, 1:配置成功可展示, 4:已经失效, 9:下架【本期不实现】
         [NameInMap("ip_code_status")]
         [Validation(Required=false)]
         public long? IpCodeStatus { get; set; }
@@ -104,6 +109,31 @@ namespace AntChain.SDK.BAASDT.Models
         [NameInMap("uni_code")]
         [Validation(Required=false)]
         public string UniCode { get; set; }
+
+        // 正版码配置附加信息，信息内容由调用方自定义
+        [NameInMap("ext_info")]
+        [Validation(Required=false)]
+        public string ExtInfo { get; set; }
+
+        // 收藏时间(UNIX时间戳)0表示未被收藏
+        [NameInMap("receive_time")]
+        [Validation(Required=false)]
+        public long? ReceiveTime { get; set; }
+
+        // 同一批次存在失效UNI码的场景下,指示更新后的下标
+        [NameInMap("fixed_index")]
+        [Validation(Required=false)]
+        public long? FixedIndex { get; set; }
+
+        // 同一批次存在失效UNI码的场景下,指示更新后的总量
+        [NameInMap("fixed_count")]
+        [Validation(Required=false)]
+        public long? FixedCount { get; set; }
+
+        // 小龙坎有限公司
+        [NameInMap("account_external_name")]
+        [Validation(Required=false)]
+        public string AccountExternalName { get; set; }
 
     }
 

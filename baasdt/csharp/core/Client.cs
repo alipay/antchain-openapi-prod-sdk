@@ -137,7 +137,7 @@ namespace AntChain.SDK.BAASDT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.39"},
+                        {"sdk_version", "1.3.54"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BAASDT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.39"},
+                        {"sdk_version", "1.3.54"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -9766,8 +9766,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 查询正版码信息
-         * Summary: 数字商品服务-IP授权服务-正版码查询
+         * Description: 查询正版码详细信息
+         * Summary: 数字商品服务-IP授权服务-查正版码详情
          */
         public QueryIpCodeResponse QueryIpCode(QueryIpCodeRequest request)
         {
@@ -9777,8 +9777,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 查询正版码信息
-         * Summary: 数字商品服务-IP授权服务-正版码查询
+         * Description: 查询正版码详细信息
+         * Summary: 数字商品服务-IP授权服务-查正版码详情
          */
         public async Task<QueryIpCodeResponse> QueryIpCodeAsync(QueryIpCodeRequest request)
         {
@@ -9788,8 +9788,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 查询正版码信息
-         * Summary: 数字商品服务-IP授权服务-正版码查询
+         * Description: 查询正版码详细信息
+         * Summary: 数字商品服务-IP授权服务-查正版码详情
          */
         public QueryIpCodeResponse QueryIpCodeEx(QueryIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -9798,8 +9798,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 查询正版码信息
-         * Summary: 数字商品服务-IP授权服务-正版码查询
+         * Description: 查询正版码详细信息
+         * Summary: 数字商品服务-IP授权服务-查正版码详情
          */
         public async Task<QueryIpCodeResponse> QueryIpCodeExAsync(QueryIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -10102,7 +10102,7 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 审批IP定向授权交易
+         * Description: 审批IP定向授权交易。如果订单状态是“合作待确认”，则审批后状态为“合作拒绝”或者“合作通过”。如果订单状态是”订单待审核“，则审批后状态为“审核失败”或者“申请中”。
          * Summary: 数字商品服务-IP授权服务-审批定向授权
          */
         public ConfirmIpAuthtradeResponse ConfirmIpAuthtrade(ConfirmIpAuthtradeRequest request)
@@ -10113,7 +10113,7 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 审批IP定向授权交易
+         * Description: 审批IP定向授权交易。如果订单状态是“合作待确认”，则审批后状态为“合作拒绝”或者“合作通过”。如果订单状态是”订单待审核“，则审批后状态为“审核失败”或者“申请中”。
          * Summary: 数字商品服务-IP授权服务-审批定向授权
          */
         public async Task<ConfirmIpAuthtradeResponse> ConfirmIpAuthtradeAsync(ConfirmIpAuthtradeRequest request)
@@ -10124,7 +10124,7 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 审批IP定向授权交易
+         * Description: 审批IP定向授权交易。如果订单状态是“合作待确认”，则审批后状态为“合作拒绝”或者“合作通过”。如果订单状态是”订单待审核“，则审批后状态为“审核失败”或者“申请中”。
          * Summary: 数字商品服务-IP授权服务-审批定向授权
          */
         public ConfirmIpAuthtradeResponse ConfirmIpAuthtradeEx(ConfirmIpAuthtradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -10134,7 +10134,7 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 审批IP定向授权交易
+         * Description: 审批IP定向授权交易。如果订单状态是“合作待确认”，则审批后状态为“合作拒绝”或者“合作通过”。如果订单状态是”订单待审核“，则审批后状态为“审核失败”或者“申请中”。
          * Summary: 数字商品服务-IP授权服务-审批定向授权
          */
         public async Task<ConfirmIpAuthtradeResponse> ConfirmIpAuthtradeExAsync(ConfirmIpAuthtradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -10354,7 +10354,7 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品-IP授权交易服务-账户信息补充（商家）
+         * Description: 数字商品-IP授权交易服务-商家账户信息补充，版权方联系人修改，仅支持版权方联系人修改
          * Summary: 数字商品服务-IP授权服务-账户信息补充
          */
         public UpdateIpAccountResponse UpdateIpAccount(UpdateIpAccountRequest request)
@@ -10365,7 +10365,7 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品-IP授权交易服务-账户信息补充（商家）
+         * Description: 数字商品-IP授权交易服务-商家账户信息补充，版权方联系人修改，仅支持版权方联系人修改
          * Summary: 数字商品服务-IP授权服务-账户信息补充
          */
         public async Task<UpdateIpAccountResponse> UpdateIpAccountAsync(UpdateIpAccountRequest request)
@@ -10376,7 +10376,7 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品-IP授权交易服务-账户信息补充（商家）
+         * Description: 数字商品-IP授权交易服务-商家账户信息补充，版权方联系人修改，仅支持版权方联系人修改
          * Summary: 数字商品服务-IP授权服务-账户信息补充
          */
         public UpdateIpAccountResponse UpdateIpAccountEx(UpdateIpAccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -10386,7 +10386,7 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品-IP授权交易服务-账户信息补充（商家）
+         * Description: 数字商品-IP授权交易服务-商家账户信息补充，版权方联系人修改，仅支持版权方联系人修改
          * Summary: 数字商品服务-IP授权服务-账户信息补充
          */
         public async Task<UpdateIpAccountResponse> UpdateIpAccountExAsync(UpdateIpAccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -11443,6 +11443,258 @@ namespace AntChain.SDK.BAASDT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ReopenIpBillResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.bill.reopen", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 下单问询，商家申请合作授权
+         * Summary: 数字商品服务-IP授权服务-授权交易问询
+         */
+        public InitIpAuthtradeResponse InitIpAuthtrade(InitIpAuthtradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitIpAuthtradeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 下单问询，商家申请合作授权
+         * Summary: 数字商品服务-IP授权服务-授权交易问询
+         */
+        public async Task<InitIpAuthtradeResponse> InitIpAuthtradeAsync(InitIpAuthtradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitIpAuthtradeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 下单问询，商家申请合作授权
+         * Summary: 数字商品服务-IP授权服务-授权交易问询
+         */
+        public InitIpAuthtradeResponse InitIpAuthtradeEx(InitIpAuthtradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitIpAuthtradeResponse>(DoRequest("1.0", "baas.antdao.ip.authtrade.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 下单问询，商家申请合作授权
+         * Summary: 数字商品服务-IP授权服务-授权交易问询
+         */
+        public async Task<InitIpAuthtradeResponse> InitIpAuthtradeExAsync(InitIpAuthtradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitIpAuthtradeResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.authtrade.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询订单历史信息
+         * Summary: 数字商品服务-IP授权服务-查询订单历史
+         */
+        public QueryIpOrderhistoryResponse QueryIpOrderhistory(QueryIpOrderhistoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryIpOrderhistoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询订单历史信息
+         * Summary: 数字商品服务-IP授权服务-查询订单历史
+         */
+        public async Task<QueryIpOrderhistoryResponse> QueryIpOrderhistoryAsync(QueryIpOrderhistoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryIpOrderhistoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询订单历史信息
+         * Summary: 数字商品服务-IP授权服务-查询订单历史
+         */
+        public QueryIpOrderhistoryResponse QueryIpOrderhistoryEx(QueryIpOrderhistoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIpOrderhistoryResponse>(DoRequest("1.0", "baas.antdao.ip.orderhistory.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询订单历史信息
+         * Summary: 数字商品服务-IP授权服务-查询订单历史
+         */
+        public async Task<QueryIpOrderhistoryResponse> QueryIpOrderhistoryExAsync(QueryIpOrderhistoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIpOrderhistoryResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.orderhistory.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 版权方确认线下回款，生成版权方需要支付的手续费账单和支付链接
+         * Summary: 数字商品服务-IP授权服务-确认线下回款
+         */
+        public ConfirmIpBillpayResponse ConfirmIpBillpay(ConfirmIpBillpayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ConfirmIpBillpayEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 版权方确认线下回款，生成版权方需要支付的手续费账单和支付链接
+         * Summary: 数字商品服务-IP授权服务-确认线下回款
+         */
+        public async Task<ConfirmIpBillpayResponse> ConfirmIpBillpayAsync(ConfirmIpBillpayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ConfirmIpBillpayExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 版权方确认线下回款，生成版权方需要支付的手续费账单和支付链接
+         * Summary: 数字商品服务-IP授权服务-确认线下回款
+         */
+        public ConfirmIpBillpayResponse ConfirmIpBillpayEx(ConfirmIpBillpayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmIpBillpayResponse>(DoRequest("1.0", "baas.antdao.ip.billpay.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 版权方确认线下回款，生成版权方需要支付的手续费账单和支付链接
+         * Summary: 数字商品服务-IP授权服务-确认线下回款
+         */
+        public async Task<ConfirmIpBillpayResponse> ConfirmIpBillpayExAsync(ConfirmIpBillpayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmIpBillpayResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.billpay.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字商品服务-IP授权服务-单码失效: 将UNI码失效,不可逆。
+         * Summary: 数字商品服务-IP授权服务-单码失效
+         */
+        public DisableIpCodeResponse DisableIpCode(DisableIpCodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DisableIpCodeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字商品服务-IP授权服务-单码失效: 将UNI码失效,不可逆。
+         * Summary: 数字商品服务-IP授权服务-单码失效
+         */
+        public async Task<DisableIpCodeResponse> DisableIpCodeAsync(DisableIpCodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DisableIpCodeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字商品服务-IP授权服务-单码失效: 将UNI码失效,不可逆。
+         * Summary: 数字商品服务-IP授权服务-单码失效
+         */
+        public DisableIpCodeResponse DisableIpCodeEx(DisableIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DisableIpCodeResponse>(DoRequest("1.0", "baas.antdao.ip.code.disable", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字商品服务-IP授权服务-单码失效: 将UNI码失效,不可逆。
+         * Summary: 数字商品服务-IP授权服务-单码失效
+         */
+        public async Task<DisableIpCodeResponse> DisableIpCodeExAsync(DisableIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DisableIpCodeResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.code.disable", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 上传正版码的流转信息
+         * Summary: 数字商品服务-IP授权服务-上传流转信息
+         */
+        public UploadIpCodecirculationResponse UploadIpCodecirculation(UploadIpCodecirculationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadIpCodecirculationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 上传正版码的流转信息
+         * Summary: 数字商品服务-IP授权服务-上传流转信息
+         */
+        public async Task<UploadIpCodecirculationResponse> UploadIpCodecirculationAsync(UploadIpCodecirculationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadIpCodecirculationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 上传正版码的流转信息
+         * Summary: 数字商品服务-IP授权服务-上传流转信息
+         */
+        public UploadIpCodecirculationResponse UploadIpCodecirculationEx(UploadIpCodecirculationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadIpCodecirculationResponse>(DoRequest("1.0", "baas.antdao.ip.codecirculation.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 上传正版码的流转信息
+         * Summary: 数字商品服务-IP授权服务-上传流转信息
+         */
+        public async Task<UploadIpCodecirculationResponse> UploadIpCodecirculationExAsync(UploadIpCodecirculationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadIpCodecirculationResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.codecirculation.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询正版码的流转信息
+         * Summary: 数字商品服务-IP授权服务-查询流转信息
+         */
+        public PagequeryIpCodecirculationResponse PagequeryIpCodecirculation(PagequeryIpCodecirculationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryIpCodecirculationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询正版码的流转信息
+         * Summary: 数字商品服务-IP授权服务-查询流转信息
+         */
+        public async Task<PagequeryIpCodecirculationResponse> PagequeryIpCodecirculationAsync(PagequeryIpCodecirculationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryIpCodecirculationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询正版码的流转信息
+         * Summary: 数字商品服务-IP授权服务-查询流转信息
+         */
+        public PagequeryIpCodecirculationResponse PagequeryIpCodecirculationEx(PagequeryIpCodecirculationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryIpCodecirculationResponse>(DoRequest("1.0", "baas.antdao.ip.codecirculation.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询正版码的流转信息
+         * Summary: 数字商品服务-IP授权服务-查询流转信息
+         */
+        public async Task<PagequeryIpCodecirculationResponse> PagequeryIpCodecirculationExAsync(PagequeryIpCodecirculationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryIpCodecirculationResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.codecirculation.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
