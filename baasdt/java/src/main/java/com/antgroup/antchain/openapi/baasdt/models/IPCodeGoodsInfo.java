@@ -57,6 +57,10 @@ public class IPCodeGoodsInfo extends TeaModel {
     @NameInMap("goods_specifications")
     public java.util.List<ProductSpecification> goodsSpecifications;
 
+    // 是否展示批次数据
+    @NameInMap("is_display_batchdata")
+    public Boolean isDisplayBatchdata;
+
     public static IPCodeGoodsInfo build(java.util.Map<String, ?> map) throws Exception {
         IPCodeGoodsInfo self = new IPCodeGoodsInfo();
         return TeaModel.build(map, self);
@@ -164,6 +168,14 @@ public class IPCodeGoodsInfo extends TeaModel {
     }
     public java.util.List<ProductSpecification> getGoodsSpecifications() {
         return this.goodsSpecifications;
+    }
+
+    public IPCodeGoodsInfo setIsDisplayBatchdata(Boolean isDisplayBatchdata) {
+        this.isDisplayBatchdata = isDisplayBatchdata;
+        return this;
+    }
+    public Boolean getIsDisplayBatchdata() {
+        return this.isDisplayBatchdata;
     }
 
 }

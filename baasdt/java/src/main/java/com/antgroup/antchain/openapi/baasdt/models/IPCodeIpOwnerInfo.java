@@ -20,6 +20,10 @@ public class IPCodeIpOwnerInfo extends TeaModel {
     @NameInMap("ip_description")
     public String ipDescription;
 
+    // 默认为空或者0是版权信息；1是著作信息；2是创作信息；3是联名信息
+    @NameInMap("ip_owner_type")
+    public Long ipOwnerType;
+
     public static IPCodeIpOwnerInfo build(java.util.Map<String, ?> map) throws Exception {
         IPCodeIpOwnerInfo self = new IPCodeIpOwnerInfo();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class IPCodeIpOwnerInfo extends TeaModel {
     }
     public String getIpDescription() {
         return this.ipDescription;
+    }
+
+    public IPCodeIpOwnerInfo setIpOwnerType(Long ipOwnerType) {
+        this.ipOwnerType = ipOwnerType;
+        return this;
+    }
+    public Long getIpOwnerType() {
+        return this.ipOwnerType;
     }
 
 }

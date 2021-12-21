@@ -24,6 +24,16 @@ public class IPCodeAdvertisingInfo extends TeaModel {
     @NameInMap("ad_type")
     public String adType;
 
+    // 展示有效期开始时间
+    @NameInMap("ad_valid_begin_time")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String adValidBeginTime;
+
+    // 展示有效期结束时间
+    @NameInMap("ad_valid_end_time")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String adValidEndTime;
+
     public static IPCodeAdvertisingInfo build(java.util.Map<String, ?> map) throws Exception {
         IPCodeAdvertisingInfo self = new IPCodeAdvertisingInfo();
         return TeaModel.build(map, self);
@@ -67,6 +77,22 @@ public class IPCodeAdvertisingInfo extends TeaModel {
     }
     public String getAdType() {
         return this.adType;
+    }
+
+    public IPCodeAdvertisingInfo setAdValidBeginTime(String adValidBeginTime) {
+        this.adValidBeginTime = adValidBeginTime;
+        return this;
+    }
+    public String getAdValidBeginTime() {
+        return this.adValidBeginTime;
+    }
+
+    public IPCodeAdvertisingInfo setAdValidEndTime(String adValidEndTime) {
+        this.adValidEndTime = adValidEndTime;
+        return this;
+    }
+    public String getAdValidEndTime() {
+        return this.adValidEndTime;
     }
 
 }

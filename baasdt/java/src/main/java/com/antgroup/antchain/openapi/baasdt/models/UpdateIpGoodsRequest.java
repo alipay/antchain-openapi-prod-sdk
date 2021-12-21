@@ -118,6 +118,10 @@ public class UpdateIpGoodsRequest extends TeaModel {
     @NameInMap("need_approval")
     public Boolean needApproval;
 
+    // 授权信息
+    @NameInMap("authorization_info")
+    public IPAuthorizationInfo authorizationInfo;
+
     public static UpdateIpGoodsRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateIpGoodsRequest self = new UpdateIpGoodsRequest();
         return TeaModel.build(map, self);
@@ -313,6 +317,14 @@ public class UpdateIpGoodsRequest extends TeaModel {
     }
     public Boolean getNeedApproval() {
         return this.needApproval;
+    }
+
+    public UpdateIpGoodsRequest setAuthorizationInfo(IPAuthorizationInfo authorizationInfo) {
+        this.authorizationInfo = authorizationInfo;
+        return this;
+    }
+    public IPAuthorizationInfo getAuthorizationInfo() {
+        return this.authorizationInfo;
     }
 
 }

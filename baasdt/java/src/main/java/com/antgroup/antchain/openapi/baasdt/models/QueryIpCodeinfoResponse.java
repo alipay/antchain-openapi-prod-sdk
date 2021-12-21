@@ -40,6 +40,15 @@ public class QueryIpCodeinfoResponse extends TeaModel {
     @NameInMap("ip_code_status")
     public Long ipCodeStatus;
 
+    // 正版码前缀
+    // 
+    @NameInMap("show_code_prefix")
+    public String showCodePrefix;
+
+    // 正版码配置附加信息，信息内容由调用方自定义。
+    @NameInMap("ext_info")
+    public String extInfo;
+
     public static QueryIpCodeinfoResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryIpCodeinfoResponse self = new QueryIpCodeinfoResponse();
         return TeaModel.build(map, self);
@@ -115,6 +124,22 @@ public class QueryIpCodeinfoResponse extends TeaModel {
     }
     public Long getIpCodeStatus() {
         return this.ipCodeStatus;
+    }
+
+    public QueryIpCodeinfoResponse setShowCodePrefix(String showCodePrefix) {
+        this.showCodePrefix = showCodePrefix;
+        return this;
+    }
+    public String getShowCodePrefix() {
+        return this.showCodePrefix;
+    }
+
+    public QueryIpCodeinfoResponse setExtInfo(String extInfo) {
+        this.extInfo = extInfo;
+        return this;
+    }
+    public String getExtInfo() {
+        return this.extInfo;
     }
 
 }

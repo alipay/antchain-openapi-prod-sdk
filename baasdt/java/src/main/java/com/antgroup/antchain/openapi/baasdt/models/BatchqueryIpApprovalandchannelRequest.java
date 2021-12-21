@@ -40,6 +40,10 @@ public class BatchqueryIpApprovalandchannelRequest extends TeaModel {
     @NameInMap("account_id")
     public String accountId;
 
+    // 版权方别名
+    @NameInMap("account_external_name")
+    public String accountExternalName;
+
     // 是否需要按照创建时间倒序排序
     // 
     @NameInMap("is_create_time_sort_desc")
@@ -69,6 +73,10 @@ public class BatchqueryIpApprovalandchannelRequest extends TeaModel {
     // 渠道名称
     @NameInMap("channel_name")
     public String channelName;
+
+    // 上架渠道，SelfEmployed为上架到自营的渠道，NONLINE为未上架任何渠道
+    @NameInMap("online_channel")
+    public String onlineChannel;
 
     public static BatchqueryIpApprovalandchannelRequest build(java.util.Map<String, ?> map) throws Exception {
         BatchqueryIpApprovalandchannelRequest self = new BatchqueryIpApprovalandchannelRequest();
@@ -147,6 +155,14 @@ public class BatchqueryIpApprovalandchannelRequest extends TeaModel {
         return this.accountId;
     }
 
+    public BatchqueryIpApprovalandchannelRequest setAccountExternalName(String accountExternalName) {
+        this.accountExternalName = accountExternalName;
+        return this;
+    }
+    public String getAccountExternalName() {
+        return this.accountExternalName;
+    }
+
     public BatchqueryIpApprovalandchannelRequest setIsCreateTimeSortDesc(Boolean isCreateTimeSortDesc) {
         this.isCreateTimeSortDesc = isCreateTimeSortDesc;
         return this;
@@ -193,6 +209,14 @@ public class BatchqueryIpApprovalandchannelRequest extends TeaModel {
     }
     public String getChannelName() {
         return this.channelName;
+    }
+
+    public BatchqueryIpApprovalandchannelRequest setOnlineChannel(String onlineChannel) {
+        this.onlineChannel = onlineChannel;
+        return this;
+    }
+    public String getOnlineChannel() {
+        return this.onlineChannel;
     }
 
 }

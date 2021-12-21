@@ -20,6 +20,18 @@ public class QueryIpCodeResponse extends TeaModel {
     @NameInMap("code_info")
     public IPCodeScannedInfo codeInfo;
 
+    // 首次扫码信息
+    @NameInMap("first_scanned_info")
+    public IPSimpleScannedInfo firstScannedInfo;
+
+    // 扫码信息
+    @NameInMap("scanned_info_list")
+    public java.util.List<IPSimpleScannedInfo> scannedInfoList;
+
+    // 扫码次数
+    @NameInMap("scanned_count")
+    public Long scannedCount;
+
     public static QueryIpCodeResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryIpCodeResponse self = new QueryIpCodeResponse();
         return TeaModel.build(map, self);
@@ -55,6 +67,30 @@ public class QueryIpCodeResponse extends TeaModel {
     }
     public IPCodeScannedInfo getCodeInfo() {
         return this.codeInfo;
+    }
+
+    public QueryIpCodeResponse setFirstScannedInfo(IPSimpleScannedInfo firstScannedInfo) {
+        this.firstScannedInfo = firstScannedInfo;
+        return this;
+    }
+    public IPSimpleScannedInfo getFirstScannedInfo() {
+        return this.firstScannedInfo;
+    }
+
+    public QueryIpCodeResponse setScannedInfoList(java.util.List<IPSimpleScannedInfo> scannedInfoList) {
+        this.scannedInfoList = scannedInfoList;
+        return this;
+    }
+    public java.util.List<IPSimpleScannedInfo> getScannedInfoList() {
+        return this.scannedInfoList;
+    }
+
+    public QueryIpCodeResponse setScannedCount(Long scannedCount) {
+        this.scannedCount = scannedCount;
+        return this;
+    }
+    public Long getScannedCount() {
+        return this.scannedCount;
     }
 
 }

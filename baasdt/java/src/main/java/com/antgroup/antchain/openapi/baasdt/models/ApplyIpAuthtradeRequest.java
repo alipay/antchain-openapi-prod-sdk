@@ -118,6 +118,10 @@ public class ApplyIpAuthtradeRequest extends TeaModel {
     @NameInMap("features")
     public java.util.List<Long> features;
 
+    // 合作申请时的订单ID，如没有前置的申请环节，则不填
+    @NameInMap("ip_order_id")
+    public String ipOrderId;
+
     public static ApplyIpAuthtradeRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyIpAuthtradeRequest self = new ApplyIpAuthtradeRequest();
         return TeaModel.build(map, self);
@@ -337,6 +341,14 @@ public class ApplyIpAuthtradeRequest extends TeaModel {
     }
     public java.util.List<Long> getFeatures() {
         return this.features;
+    }
+
+    public ApplyIpAuthtradeRequest setIpOrderId(String ipOrderId) {
+        this.ipOrderId = ipOrderId;
+        return this;
+    }
+    public String getIpOrderId() {
+        return this.ipOrderId;
     }
 
 }

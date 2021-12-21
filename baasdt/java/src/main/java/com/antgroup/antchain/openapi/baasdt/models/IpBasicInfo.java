@@ -124,9 +124,17 @@ public class IpBasicInfo extends TeaModel {
     @Validation(required = true)
     public Long copyRightEndTime;
 
-    // 账户名称
+    // 账户名称-别名
     @NameInMap("account_name")
     public String accountName;
+
+    // 授权信息
+    @NameInMap("authorization_info")
+    public IPAuthorizationInfo authorizationInfo;
+
+    // 版权方名称
+    @NameInMap("external_user_name")
+    public String externalUserName;
 
     public static IpBasicInfo build(java.util.Map<String, ?> map) throws Exception {
         IpBasicInfo self = new IpBasicInfo();
@@ -331,6 +339,22 @@ public class IpBasicInfo extends TeaModel {
     }
     public String getAccountName() {
         return this.accountName;
+    }
+
+    public IpBasicInfo setAuthorizationInfo(IPAuthorizationInfo authorizationInfo) {
+        this.authorizationInfo = authorizationInfo;
+        return this;
+    }
+    public IPAuthorizationInfo getAuthorizationInfo() {
+        return this.authorizationInfo;
+    }
+
+    public IpBasicInfo setExternalUserName(String externalUserName) {
+        this.externalUserName = externalUserName;
+        return this;
+    }
+    public String getExternalUserName() {
+        return this.externalUserName;
     }
 
 }

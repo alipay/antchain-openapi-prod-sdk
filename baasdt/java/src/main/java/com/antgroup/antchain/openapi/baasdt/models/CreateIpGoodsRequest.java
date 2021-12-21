@@ -118,6 +118,10 @@ public class CreateIpGoodsRequest extends TeaModel {
     @NameInMap("ip_gallery_url")
     public String ipGalleryUrl;
 
+    // IP授权信息
+    @NameInMap("authorization_info")
+    public IPAuthorizationInfo authorizationInfo;
+
     public static CreateIpGoodsRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateIpGoodsRequest self = new CreateIpGoodsRequest();
         return TeaModel.build(map, self);
@@ -313,6 +317,14 @@ public class CreateIpGoodsRequest extends TeaModel {
     }
     public String getIpGalleryUrl() {
         return this.ipGalleryUrl;
+    }
+
+    public CreateIpGoodsRequest setAuthorizationInfo(IPAuthorizationInfo authorizationInfo) {
+        this.authorizationInfo = authorizationInfo;
+        return this;
+    }
+    public IPAuthorizationInfo getAuthorizationInfo() {
+        return this.authorizationInfo;
     }
 
 }

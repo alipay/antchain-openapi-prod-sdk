@@ -32,6 +32,10 @@ public class QueryIpCodecollectResponse extends TeaModel {
     @NameInMap("chain_info")
     public IPCodeChainInfo chainInfo;
 
+    // 版权信息
+    @NameInMap("ipowner_info")
+    public IPCodeIpOwnerInfo ipownerInfo;
+
     public static QueryIpCodecollectResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryIpCodecollectResponse self = new QueryIpCodecollectResponse();
         return TeaModel.build(map, self);
@@ -91,6 +95,14 @@ public class QueryIpCodecollectResponse extends TeaModel {
     }
     public IPCodeChainInfo getChainInfo() {
         return this.chainInfo;
+    }
+
+    public QueryIpCodecollectResponse setIpownerInfo(IPCodeIpOwnerInfo ipownerInfo) {
+        this.ipownerInfo = ipownerInfo;
+        return this;
+    }
+    public IPCodeIpOwnerInfo getIpownerInfo() {
+        return this.ipownerInfo;
     }
 
 }

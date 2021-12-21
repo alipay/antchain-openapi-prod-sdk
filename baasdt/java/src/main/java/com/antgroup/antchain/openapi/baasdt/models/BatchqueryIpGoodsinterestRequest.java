@@ -41,7 +41,6 @@ public class BatchqueryIpGoodsinterestRequest extends TeaModel {
 
     // ip等级
     @NameInMap("ip_level")
-    @Validation(required = true)
     public java.util.List<Long> ipLevel;
 
     // ip类型
@@ -63,6 +62,10 @@ public class BatchqueryIpGoodsinterestRequest extends TeaModel {
     @NameInMap("is_sort_by_pv")
     @Validation(required = true)
     public Long isSortByPv;
+
+    // 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+    @NameInMap("guarantee_range")
+    public java.util.List<String> guaranteeRange;
 
     public static BatchqueryIpGoodsinterestRequest build(java.util.Map<String, ?> map) throws Exception {
         BatchqueryIpGoodsinterestRequest self = new BatchqueryIpGoodsinterestRequest();
@@ -171,6 +174,14 @@ public class BatchqueryIpGoodsinterestRequest extends TeaModel {
     }
     public Long getIsSortByPv() {
         return this.isSortByPv;
+    }
+
+    public BatchqueryIpGoodsinterestRequest setGuaranteeRange(java.util.List<String> guaranteeRange) {
+        this.guaranteeRange = guaranteeRange;
+        return this;
+    }
+    public java.util.List<String> getGuaranteeRange() {
+        return this.guaranteeRange;
     }
 
 }

@@ -33,6 +33,14 @@ public class IpChannelInfo extends TeaModel {
     @NameInMap("trade_need_confirm")
     public Boolean tradeNeedConfirm;
 
+    // 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+    @NameInMap("guarantee_range")
+    public Long guaranteeRange;
+
+    // 交易模式
+    @NameInMap("ip_trade_mode")
+    public IPTradeMode ipTradeMode;
+
     public static IpChannelInfo build(java.util.Map<String, ?> map) throws Exception {
         IpChannelInfo self = new IpChannelInfo();
         return TeaModel.build(map, self);
@@ -84,6 +92,22 @@ public class IpChannelInfo extends TeaModel {
     }
     public Boolean getTradeNeedConfirm() {
         return this.tradeNeedConfirm;
+    }
+
+    public IpChannelInfo setGuaranteeRange(Long guaranteeRange) {
+        this.guaranteeRange = guaranteeRange;
+        return this;
+    }
+    public Long getGuaranteeRange() {
+        return this.guaranteeRange;
+    }
+
+    public IpChannelInfo setIpTradeMode(IPTradeMode ipTradeMode) {
+        this.ipTradeMode = ipTradeMode;
+        return this;
+    }
+    public IPTradeMode getIpTradeMode() {
+        return this.ipTradeMode;
     }
 
 }

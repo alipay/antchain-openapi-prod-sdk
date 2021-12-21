@@ -43,6 +43,14 @@ public class SetIpCodeinfoRequest extends TeaModel {
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String codeSetTime;
 
+    // 正版码配置附加信息，信息内容由调用方自定义。可以从配置查询和正版码详情接口上获取。
+    @NameInMap("ext_info")
+    public String extInfo;
+
+    // 正版码前缀，本期暂不支持
+    @NameInMap("show_code_prefix")
+    public String showCodePrefix;
+
     public static SetIpCodeinfoRequest build(java.util.Map<String, ?> map) throws Exception {
         SetIpCodeinfoRequest self = new SetIpCodeinfoRequest();
         return TeaModel.build(map, self);
@@ -118,6 +126,22 @@ public class SetIpCodeinfoRequest extends TeaModel {
     }
     public String getCodeSetTime() {
         return this.codeSetTime;
+    }
+
+    public SetIpCodeinfoRequest setExtInfo(String extInfo) {
+        this.extInfo = extInfo;
+        return this;
+    }
+    public String getExtInfo() {
+        return this.extInfo;
+    }
+
+    public SetIpCodeinfoRequest setShowCodePrefix(String showCodePrefix) {
+        this.showCodePrefix = showCodePrefix;
+        return this;
+    }
+    public String getShowCodePrefix() {
+        return this.showCodePrefix;
     }
 
 }

@@ -63,6 +63,10 @@ public class BatchqueryIpSellerRequest extends TeaModel {
     @NameInMap("create_end_time")
     public Long createEndTime;
 
+    // 版权方的用户名称
+    @NameInMap("external_user_name")
+    public String externalUserName;
+
     public static BatchqueryIpSellerRequest build(java.util.Map<String, ?> map) throws Exception {
         BatchqueryIpSellerRequest self = new BatchqueryIpSellerRequest();
         return TeaModel.build(map, self);
@@ -178,6 +182,14 @@ public class BatchqueryIpSellerRequest extends TeaModel {
     }
     public Long getCreateEndTime() {
         return this.createEndTime;
+    }
+
+    public BatchqueryIpSellerRequest setExternalUserName(String externalUserName) {
+        this.externalUserName = externalUserName;
+        return this;
+    }
+    public String getExternalUserName() {
+        return this.externalUserName;
     }
 
 }

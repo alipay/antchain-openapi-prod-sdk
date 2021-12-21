@@ -31,6 +31,10 @@ public class ConfirmIpAuthtradeRequest extends TeaModel {
     @Validation(required = true)
     public Boolean confirmResult;
 
+    // 审批信息备注，通过或不通过原因
+    @NameInMap("memo")
+    public String memo;
+
     public static ConfirmIpAuthtradeRequest build(java.util.Map<String, ?> map) throws Exception {
         ConfirmIpAuthtradeRequest self = new ConfirmIpAuthtradeRequest();
         return TeaModel.build(map, self);
@@ -82,6 +86,14 @@ public class ConfirmIpAuthtradeRequest extends TeaModel {
     }
     public Boolean getConfirmResult() {
         return this.confirmResult;
+    }
+
+    public ConfirmIpAuthtradeRequest setMemo(String memo) {
+        this.memo = memo;
+        return this;
+    }
+    public String getMemo() {
+        return this.memo;
     }
 
 }

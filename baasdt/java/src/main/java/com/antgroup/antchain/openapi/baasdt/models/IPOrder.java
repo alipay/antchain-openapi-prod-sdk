@@ -235,6 +235,10 @@ public class IPOrder extends TeaModel {
     @NameInMap("features")
     public java.util.List<Long> features;
 
+    // 申请授权合作的备注信息
+    @NameInMap("apply_info")
+    public IPOrderApplyInfo applyInfo;
+
     public static IPOrder build(java.util.Map<String, ?> map) throws Exception {
         IPOrder self = new IPOrder();
         return TeaModel.build(map, self);
@@ -622,6 +626,14 @@ public class IPOrder extends TeaModel {
     }
     public java.util.List<Long> getFeatures() {
         return this.features;
+    }
+
+    public IPOrder setApplyInfo(IPOrderApplyInfo applyInfo) {
+        this.applyInfo = applyInfo;
+        return this;
+    }
+    public IPOrderApplyInfo getApplyInfo() {
+        return this.applyInfo;
     }
 
 }

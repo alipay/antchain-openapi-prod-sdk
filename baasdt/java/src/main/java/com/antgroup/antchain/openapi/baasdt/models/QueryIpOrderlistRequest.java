@@ -44,6 +44,10 @@ public class QueryIpOrderlistRequest extends TeaModel {
     @NameInMap("seller_name")
     public String sellerName;
 
+    // 买方名称，根据卖方名称模糊查询
+    @NameInMap("buyer_name")
+    public String buyerName;
+
     // 交易类型：1 套餐交易， 2 定向授权
     @NameInMap("trade_type")
     public Long tradeType;
@@ -95,6 +99,10 @@ public class QueryIpOrderlistRequest extends TeaModel {
     // 渠道名称
     @NameInMap("channel_name")
     public String channelName;
+
+    // 是否查询0授权费率的订单，true则查0费率订单，false则查非0费率订单
+    @NameInMap("zero_auth_rate")
+    public Boolean zeroAuthRate;
 
     public static QueryIpOrderlistRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryIpOrderlistRequest self = new QueryIpOrderlistRequest();
@@ -179,6 +187,14 @@ public class QueryIpOrderlistRequest extends TeaModel {
     }
     public String getSellerName() {
         return this.sellerName;
+    }
+
+    public QueryIpOrderlistRequest setBuyerName(String buyerName) {
+        this.buyerName = buyerName;
+        return this;
+    }
+    public String getBuyerName() {
+        return this.buyerName;
     }
 
     public QueryIpOrderlistRequest setTradeType(Long tradeType) {
@@ -275,6 +291,14 @@ public class QueryIpOrderlistRequest extends TeaModel {
     }
     public String getChannelName() {
         return this.channelName;
+    }
+
+    public QueryIpOrderlistRequest setZeroAuthRate(Boolean zeroAuthRate) {
+        this.zeroAuthRate = zeroAuthRate;
+        return this;
+    }
+    public Boolean getZeroAuthRate() {
+        return this.zeroAuthRate;
     }
 
 }

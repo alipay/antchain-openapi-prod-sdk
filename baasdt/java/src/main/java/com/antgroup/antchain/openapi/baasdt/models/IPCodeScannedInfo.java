@@ -40,6 +40,10 @@ public class IPCodeScannedInfo extends TeaModel {
     @NameInMap("hash")
     public String hash;
 
+    // 领取正版码交易所在的区块高度
+    @NameInMap("block_number")
+    public Long blockNumber;
+
     // 处理时间(毫秒时间戳)
     @NameInMap("timestamp")
     @Validation(required = true)
@@ -67,7 +71,7 @@ public class IPCodeScannedInfo extends TeaModel {
     @NameInMap("ipowner_info")
     public IPCodeIpOwnerInfo ipownerInfo;
 
-    // 0:未配置，1:配置成功可展示，9:下架【本期不实现】
+    // 0:未配置, 1:配置成功可展示, 4:已经失效, 9:下架【本期不实现】
     @NameInMap("ip_code_status")
     public Long ipCodeStatus;
 
@@ -86,6 +90,26 @@ public class IPCodeScannedInfo extends TeaModel {
     // UNI码
     @NameInMap("uni_code")
     public String uniCode;
+
+    // 正版码配置附加信息，信息内容由调用方自定义
+    @NameInMap("ext_info")
+    public String extInfo;
+
+    // 收藏时间(UNIX时间戳)0表示未被收藏
+    @NameInMap("receive_time")
+    public Long receiveTime;
+
+    // 同一批次存在失效UNI码的场景下,指示更新后的下标
+    @NameInMap("fixed_index")
+    public Long fixedIndex;
+
+    // 同一批次存在失效UNI码的场景下,指示更新后的总量
+    @NameInMap("fixed_count")
+    public Long fixedCount;
+
+    // 小龙坎有限公司
+    @NameInMap("account_external_name")
+    public String accountExternalName;
 
     public static IPCodeScannedInfo build(java.util.Map<String, ?> map) throws Exception {
         IPCodeScannedInfo self = new IPCodeScannedInfo();
@@ -154,6 +178,14 @@ public class IPCodeScannedInfo extends TeaModel {
     }
     public String getHash() {
         return this.hash;
+    }
+
+    public IPCodeScannedInfo setBlockNumber(Long blockNumber) {
+        this.blockNumber = blockNumber;
+        return this;
+    }
+    public Long getBlockNumber() {
+        return this.blockNumber;
     }
 
     public IPCodeScannedInfo setTimestamp(Long timestamp) {
@@ -242,6 +274,46 @@ public class IPCodeScannedInfo extends TeaModel {
     }
     public String getUniCode() {
         return this.uniCode;
+    }
+
+    public IPCodeScannedInfo setExtInfo(String extInfo) {
+        this.extInfo = extInfo;
+        return this;
+    }
+    public String getExtInfo() {
+        return this.extInfo;
+    }
+
+    public IPCodeScannedInfo setReceiveTime(Long receiveTime) {
+        this.receiveTime = receiveTime;
+        return this;
+    }
+    public Long getReceiveTime() {
+        return this.receiveTime;
+    }
+
+    public IPCodeScannedInfo setFixedIndex(Long fixedIndex) {
+        this.fixedIndex = fixedIndex;
+        return this;
+    }
+    public Long getFixedIndex() {
+        return this.fixedIndex;
+    }
+
+    public IPCodeScannedInfo setFixedCount(Long fixedCount) {
+        this.fixedCount = fixedCount;
+        return this;
+    }
+    public Long getFixedCount() {
+        return this.fixedCount;
+    }
+
+    public IPCodeScannedInfo setAccountExternalName(String accountExternalName) {
+        this.accountExternalName = accountExternalName;
+        return this;
+    }
+    public String getAccountExternalName() {
+        return this.accountExternalName;
     }
 
 }
