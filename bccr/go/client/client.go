@@ -148,72 +148,6 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-// 取证文件信息
-type ScreenInfo struct {
-	// 全链路取证日志文件下载链接
-	ProcessLogFile *string `json:"process_log_file,omitempty" xml:"process_log_file,omitempty"`
-	// 网页截图文件下载链接
-	WebScreenshotFile *string `json:"web_screenshot_file,omitempty" xml:"web_screenshot_file,omitempty"`
-	// 网页源码文件下载链接
-	WebSourceFile *string `json:"web_source_file,omitempty" xml:"web_source_file,omitempty"`
-	// 视频源文件下载链接
-	VideoFile *string `json:"video_file,omitempty" xml:"video_file,omitempty"`
-}
-
-func (s ScreenInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ScreenInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ScreenInfo) SetProcessLogFile(v string) *ScreenInfo {
-	s.ProcessLogFile = &v
-	return s
-}
-
-func (s *ScreenInfo) SetWebScreenshotFile(v string) *ScreenInfo {
-	s.WebScreenshotFile = &v
-	return s
-}
-
-func (s *ScreenInfo) SetWebSourceFile(v string) *ScreenInfo {
-	s.WebSourceFile = &v
-	return s
-}
-
-func (s *ScreenInfo) SetVideoFile(v string) *ScreenInfo {
-	s.VideoFile = &v
-	return s
-}
-
-// 网页取证具体信息
-type ScreenshotInfo struct {
-	// 全链路取证日志文件下载链接
-	ProcessLogFile *string `json:"process_log_file,omitempty" xml:"process_log_file,omitempty"`
-	// 网页截图文件下载链接
-	ScreenshotFile *string `json:"screenshot_file,omitempty" xml:"screenshot_file,omitempty" require:"true"`
-}
-
-func (s ScreenshotInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ScreenshotInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ScreenshotInfo) SetProcessLogFile(v string) *ScreenshotInfo {
-	s.ProcessLogFile = &v
-	return s
-}
-
-func (s *ScreenshotInfo) SetScreenshotFile(v string) *ScreenshotInfo {
-	s.ScreenshotFile = &v
-	return s
-}
-
 // 监测提供商能力
 type MonitorProviderCapability struct {
 	// 供应商id
@@ -254,6 +188,403 @@ func (s *MonitorProviderCapability) SetIsProvided(v bool) *MonitorProviderCapabi
 	return s
 }
 
+// 取证文件信息
+type ScreenInfo struct {
+	// 全链路取证日志文件下载链接
+	ProcessLogFile *string `json:"process_log_file,omitempty" xml:"process_log_file,omitempty"`
+	// 自清洁文件下载地址
+	CheckLogFile *string `json:"check_log_file,omitempty" xml:"check_log_file,omitempty"`
+	// 网页截图文件下载链接
+	WebScreenshotFile *string `json:"web_screenshot_file,omitempty" xml:"web_screenshot_file,omitempty"`
+	// 网页源码文件下载链接
+	WebSourceFile *string `json:"web_source_file,omitempty" xml:"web_source_file,omitempty"`
+	// 视频源文件下载链接
+	VideoFile *string `json:"video_file,omitempty" xml:"video_file,omitempty"`
+	// 操作日志交易hash
+	ProcessLogFileTxHash *string `json:"process_log_file_tx_hash,omitempty" xml:"process_log_file_tx_hash,omitempty"`
+	// 自清洁日志交易hash
+	CheckLogFileTxHash *string `json:"check_log_file_tx_hash,omitempty" xml:"check_log_file_tx_hash,omitempty"`
+}
+
+func (s ScreenInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ScreenInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ScreenInfo) SetProcessLogFile(v string) *ScreenInfo {
+	s.ProcessLogFile = &v
+	return s
+}
+
+func (s *ScreenInfo) SetCheckLogFile(v string) *ScreenInfo {
+	s.CheckLogFile = &v
+	return s
+}
+
+func (s *ScreenInfo) SetWebScreenshotFile(v string) *ScreenInfo {
+	s.WebScreenshotFile = &v
+	return s
+}
+
+func (s *ScreenInfo) SetWebSourceFile(v string) *ScreenInfo {
+	s.WebSourceFile = &v
+	return s
+}
+
+func (s *ScreenInfo) SetVideoFile(v string) *ScreenInfo {
+	s.VideoFile = &v
+	return s
+}
+
+func (s *ScreenInfo) SetProcessLogFileTxHash(v string) *ScreenInfo {
+	s.ProcessLogFileTxHash = &v
+	return s
+}
+
+func (s *ScreenInfo) SetCheckLogFileTxHash(v string) *ScreenInfo {
+	s.CheckLogFileTxHash = &v
+	return s
+}
+
+// 网页取证具体信息
+type ScreenshotInfo struct {
+	// 全链路取证日志文件下载链接
+	ProcessLogFile *string `json:"process_log_file,omitempty" xml:"process_log_file,omitempty"`
+	// 自清洁文件下载链接
+	CheckLogFile *string `json:"check_log_file,omitempty" xml:"check_log_file,omitempty"`
+	// 网页截图文件下载链接
+	ScreenshotFile *string `json:"screenshot_file,omitempty" xml:"screenshot_file,omitempty" require:"true"`
+	// 操作日志文件交易hash
+	ProcessLogFileTxHash *string `json:"process_log_file_tx_hash,omitempty" xml:"process_log_file_tx_hash,omitempty"`
+	// 自清洁日志文件交易hash
+	CheckLogFileTxHash *string `json:"check_log_file_tx_hash,omitempty" xml:"check_log_file_tx_hash,omitempty"`
+}
+
+func (s ScreenshotInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ScreenshotInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ScreenshotInfo) SetProcessLogFile(v string) *ScreenshotInfo {
+	s.ProcessLogFile = &v
+	return s
+}
+
+func (s *ScreenshotInfo) SetCheckLogFile(v string) *ScreenshotInfo {
+	s.CheckLogFile = &v
+	return s
+}
+
+func (s *ScreenshotInfo) SetScreenshotFile(v string) *ScreenshotInfo {
+	s.ScreenshotFile = &v
+	return s
+}
+
+func (s *ScreenshotInfo) SetProcessLogFileTxHash(v string) *ScreenshotInfo {
+	s.ProcessLogFileTxHash = &v
+	return s
+}
+
+func (s *ScreenshotInfo) SetCheckLogFileTxHash(v string) *ScreenshotInfo {
+	s.CheckLogFileTxHash = &v
+	return s
+}
+
+// 公证处信息
+type NotaryPublicOffice struct {
+	// 公证处code
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 公证处名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 公证处所在省（直辖市）
+	Province *string `json:"province,omitempty" xml:"province,omitempty" require:"true"`
+	// 公证处所在市
+	City *string `json:"city,omitempty" xml:"city,omitempty" require:"true"`
+}
+
+func (s NotaryPublicOffice) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotaryPublicOffice) GoString() string {
+	return s.String()
+}
+
+func (s *NotaryPublicOffice) SetCode(v string) *NotaryPublicOffice {
+	s.Code = &v
+	return s
+}
+
+func (s *NotaryPublicOffice) SetName(v string) *NotaryPublicOffice {
+	s.Name = &v
+	return s
+}
+
+func (s *NotaryPublicOffice) SetProvince(v string) *NotaryPublicOffice {
+	s.Province = &v
+	return s
+}
+
+func (s *NotaryPublicOffice) SetCity(v string) *NotaryPublicOffice {
+	s.City = &v
+	return s
+}
+
+// 代理信息
+type ProxyData struct {
+	// 金融云租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 租户名称
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty" require:"true"`
+	// 是否计量
+	IfMeasure *bool `json:"if_measure,omitempty" xml:"if_measure,omitempty"`
+}
+
+func (s ProxyData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ProxyData) GoString() string {
+	return s.String()
+}
+
+func (s *ProxyData) SetTenantId(v string) *ProxyData {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ProxyData) SetTenantName(v string) *ProxyData {
+	s.TenantName = &v
+	return s
+}
+
+func (s *ProxyData) SetIfMeasure(v bool) *ProxyData {
+	s.IfMeasure = &v
+	return s
+}
+
+// 监测文件类型
+type MonitorType struct {
+	// 文件类型
+	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
+	// 提交类型
+	SubmitType *string `json:"submit_type,omitempty" xml:"submit_type,omitempty" require:"true"`
+}
+
+func (s MonitorType) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MonitorType) GoString() string {
+	return s.String()
+}
+
+func (s *MonitorType) SetFileType(v string) *MonitorType {
+	s.FileType = &v
+	return s
+}
+
+func (s *MonitorType) SetSubmitType(v string) *MonitorType {
+	s.SubmitType = &v
+	return s
+}
+
+// 类型对应供应商
+type MonitorProviderType struct {
+	// 监测文件类型
+	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
+	// 提交类型
+	SubmitType *string `json:"submit_type,omitempty" xml:"submit_type,omitempty" require:"true"`
+	// 文件格式
+	FileFormat *string `json:"file_format,omitempty" xml:"file_format,omitempty"`
+	// 支持的服务商列表，已排序
+	MonitorProviders []*MonitorProviderCapability `json:"monitor_providers,omitempty" xml:"monitor_providers,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s MonitorProviderType) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MonitorProviderType) GoString() string {
+	return s.String()
+}
+
+func (s *MonitorProviderType) SetFileType(v string) *MonitorProviderType {
+	s.FileType = &v
+	return s
+}
+
+func (s *MonitorProviderType) SetSubmitType(v string) *MonitorProviderType {
+	s.SubmitType = &v
+	return s
+}
+
+func (s *MonitorProviderType) SetFileFormat(v string) *MonitorProviderType {
+	s.FileFormat = &v
+	return s
+}
+
+func (s *MonitorProviderType) SetMonitorProviders(v []*MonitorProviderCapability) *MonitorProviderType {
+	s.MonitorProviders = v
+	return s
+}
+
+// 录屏取证信息
+type RecordScreenData struct {
+	// 错误原因（状态为FAIL才有数据）
+	ErrorReason *string `json:"error_reason,omitempty" xml:"error_reason,omitempty"`
+	// 录屏文件Hash值
+	FileHash *string `json:"file_hash,omitempty" xml:"file_hash,omitempty"`
+	// 录屏结束时间
+	GmtEnd *int64 `json:"gmt_end,omitempty" xml:"gmt_end,omitempty" require:"true"`
+	// 录屏开始时间
+	GmtStart *int64 `json:"gmt_start,omitempty" xml:"gmt_start,omitempty" require:"true"`
+	// OS版本号
+	OsVersion *string `json:"os_version,omitempty" xml:"os_version,omitempty" require:"true"`
+	// 录屏文件信息
+	ScreenInfo *ScreenInfo `json:"screen_info,omitempty" xml:"screen_info,omitempty"`
+	// 证据包下载地址（状态为SUCCESS 才有数据）
+	ScreenZip *string `json:"screen_zip,omitempty" xml:"screen_zip,omitempty"`
+	// 录屏软件版本号
+	SwVersion *string `json:"sw_version,omitempty" xml:"sw_version,omitempty" require:"true"`
+	// 可信时间戳的返回对象
+	Tsr *string `json:"tsr,omitempty" xml:"tsr,omitempty"`
+	// 统一证据编号
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+	// 录屏文件大小
+	FileSize *int64 `json:"file_size,omitempty" xml:"file_size,omitempty"`
+	// 录屏文件存证块高
+	BlockHeight *int64 `json:"block_height,omitempty" xml:"block_height,omitempty"`
+	// 录屏文件上链时间
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
+	// 录屏文件公证处证书下载链接
+	CertificateUrl *string `json:"certificate_url,omitempty" xml:"certificate_url,omitempty"`
+	// 公证处证书编号
+	CertificateStorageNo *string `json:"certificate_storage_no,omitempty" xml:"certificate_storage_no,omitempty"`
+}
+
+func (s RecordScreenData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RecordScreenData) GoString() string {
+	return s.String()
+}
+
+func (s *RecordScreenData) SetErrorReason(v string) *RecordScreenData {
+	s.ErrorReason = &v
+	return s
+}
+
+func (s *RecordScreenData) SetFileHash(v string) *RecordScreenData {
+	s.FileHash = &v
+	return s
+}
+
+func (s *RecordScreenData) SetGmtEnd(v int64) *RecordScreenData {
+	s.GmtEnd = &v
+	return s
+}
+
+func (s *RecordScreenData) SetGmtStart(v int64) *RecordScreenData {
+	s.GmtStart = &v
+	return s
+}
+
+func (s *RecordScreenData) SetOsVersion(v string) *RecordScreenData {
+	s.OsVersion = &v
+	return s
+}
+
+func (s *RecordScreenData) SetScreenInfo(v *ScreenInfo) *RecordScreenData {
+	s.ScreenInfo = v
+	return s
+}
+
+func (s *RecordScreenData) SetScreenZip(v string) *RecordScreenData {
+	s.ScreenZip = &v
+	return s
+}
+
+func (s *RecordScreenData) SetSwVersion(v string) *RecordScreenData {
+	s.SwVersion = &v
+	return s
+}
+
+func (s *RecordScreenData) SetTsr(v string) *RecordScreenData {
+	s.Tsr = &v
+	return s
+}
+
+func (s *RecordScreenData) SetTxHash(v string) *RecordScreenData {
+	s.TxHash = &v
+	return s
+}
+
+func (s *RecordScreenData) SetFileSize(v int64) *RecordScreenData {
+	s.FileSize = &v
+	return s
+}
+
+func (s *RecordScreenData) SetBlockHeight(v int64) *RecordScreenData {
+	s.BlockHeight = &v
+	return s
+}
+
+func (s *RecordScreenData) SetTimestamp(v int64) *RecordScreenData {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *RecordScreenData) SetCertificateUrl(v string) *RecordScreenData {
+	s.CertificateUrl = &v
+	return s
+}
+
+func (s *RecordScreenData) SetCertificateStorageNo(v string) *RecordScreenData {
+	s.CertificateStorageNo = &v
+	return s
+}
+
+// 账号信息
+type AccountData struct {
+	// 账号id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 账号名称
+	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty" require:"true"`
+	// 账号平台（支付宝，淘宝，微信，抖音等）
+	AccountPlatform *string `json:"account_platform,omitempty" xml:"account_platform,omitempty" require:"true"`
+}
+
+func (s AccountData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AccountData) GoString() string {
+	return s.String()
+}
+
+func (s *AccountData) SetAccountId(v string) *AccountData {
+	s.AccountId = &v
+	return s
+}
+
+func (s *AccountData) SetAccountName(v string) *AccountData {
+	s.AccountName = &v
+	return s
+}
+
+func (s *AccountData) SetAccountPlatform(v string) *AccountData {
+	s.AccountPlatform = &v
+	return s
+}
+
 // 监测任务结果
 type MonitorResult struct {
 	// 监测任务ID
@@ -281,6 +612,24 @@ type MonitorResult struct {
 	// 侵权详情
 	//
 	Detail *string `json:"detail,omitempty" xml:"detail,omitempty"`
+	// 发布者
+	Poster *string `json:"poster,omitempty" xml:"poster,omitempty"`
+	// 侵权内容发布时间
+	PostDate *int64 `json:"post_date,omitempty" xml:"post_date,omitempty"`
+	// 侵权内容发现时间
+	FindDate *int64 `json:"find_date,omitempty" xml:"find_date,omitempty"`
+	// 观看数
+	ViewCount *int64 `json:"view_count,omitempty" xml:"view_count,omitempty"`
+	// 点赞数
+	LikeCount *int64 `json:"like_count,omitempty" xml:"like_count,omitempty"`
+	// 评论数
+	CommentCount *int64 `json:"comment_count,omitempty" xml:"comment_count,omitempty"`
+	// 转发数
+	RepostCount *int64 `json:"repost_count,omitempty" xml:"repost_count,omitempty"`
+	// 侵权文件下载链接
+	DownloadUrl *string `json:"download_url,omitempty" xml:"download_url,omitempty"`
+	// 疑似侵权反馈时间
+	InfrFeedbackTime *int64 `json:"infr_feedback_time,omitempty" xml:"infr_feedback_time,omitempty"`
 }
 
 func (s MonitorResult) String() string {
@@ -326,6 +675,51 @@ func (s *MonitorResult) SetDetail(v string) *MonitorResult {
 	return s
 }
 
+func (s *MonitorResult) SetPoster(v string) *MonitorResult {
+	s.Poster = &v
+	return s
+}
+
+func (s *MonitorResult) SetPostDate(v int64) *MonitorResult {
+	s.PostDate = &v
+	return s
+}
+
+func (s *MonitorResult) SetFindDate(v int64) *MonitorResult {
+	s.FindDate = &v
+	return s
+}
+
+func (s *MonitorResult) SetViewCount(v int64) *MonitorResult {
+	s.ViewCount = &v
+	return s
+}
+
+func (s *MonitorResult) SetLikeCount(v int64) *MonitorResult {
+	s.LikeCount = &v
+	return s
+}
+
+func (s *MonitorResult) SetCommentCount(v int64) *MonitorResult {
+	s.CommentCount = &v
+	return s
+}
+
+func (s *MonitorResult) SetRepostCount(v int64) *MonitorResult {
+	s.RepostCount = &v
+	return s
+}
+
+func (s *MonitorResult) SetDownloadUrl(v string) *MonitorResult {
+	s.DownloadUrl = &v
+	return s
+}
+
+func (s *MonitorResult) SetInfrFeedbackTime(v int64) *MonitorResult {
+	s.InfrFeedbackTime = &v
+	return s
+}
+
 // 网页取证数据
 type ScreenshotData struct {
 	// 取证地址
@@ -354,6 +748,8 @@ type ScreenshotData struct {
 	ScreenshotZip *string `json:"screenshot_zip,omitempty" xml:"screenshot_zip,omitempty"`
 	// 取证文件信息
 	ScreenshotInfo *ScreenshotInfo `json:"screenshot_info,omitempty" xml:"screenshot_info,omitempty"`
+	// 网页title
+	HeadTitle *string `json:"head_title,omitempty" xml:"head_title,omitempty"`
 }
 
 func (s ScreenshotData) String() string {
@@ -426,6 +822,11 @@ func (s *ScreenshotData) SetScreenshotZip(v string) *ScreenshotData {
 
 func (s *ScreenshotData) SetScreenshotInfo(v *ScreenshotInfo) *ScreenshotData {
 	s.ScreenshotInfo = v
+	return s
+}
+
+func (s *ScreenshotData) SetHeadTitle(v string) *ScreenshotData {
+	s.HeadTitle = &v
 	return s
 }
 
@@ -511,58 +912,6 @@ func (s *UserData) SetType(v string) *UserData {
 	return s
 }
 
-// 代理信息
-type ProxyData struct {
-	// 金融云租户id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// 租户名称
-	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty" require:"true"`
-}
-
-func (s ProxyData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ProxyData) GoString() string {
-	return s.String()
-}
-
-func (s *ProxyData) SetTenantId(v string) *ProxyData {
-	s.TenantId = &v
-	return s
-}
-
-func (s *ProxyData) SetTenantName(v string) *ProxyData {
-	s.TenantName = &v
-	return s
-}
-
-// 监测文件类型
-type MonitorType struct {
-	// 文件类型
-	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
-	// 提交类型
-	SubmitType *string `json:"submit_type,omitempty" xml:"submit_type,omitempty" require:"true"`
-}
-
-func (s MonitorType) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MonitorType) GoString() string {
-	return s.String()
-}
-
-func (s *MonitorType) SetFileType(v string) *MonitorType {
-	s.FileType = &v
-	return s
-}
-
-func (s *MonitorType) SetSubmitType(v string) *MonitorType {
-	s.SubmitType = &v
-	return s
-}
-
 // 商品sku信息
 type GoodSkuInfo struct {
 	// 授权规格序号
@@ -589,43 +938,92 @@ func (s *GoodSkuInfo) SetPrice(v int64) *GoodSkuInfo {
 	return s
 }
 
-// 类型对应供应商
-type MonitorProviderType struct {
-	// 监测文件类型
-	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
-	// 提交类型
-	SubmitType *string `json:"submit_type,omitempty" xml:"submit_type,omitempty" require:"true"`
-	// 文件格式
-	FileFormat *string `json:"file_format,omitempty" xml:"file_format,omitempty"`
-	// 支持的服务商列表，已排序
-	MonitorProviders []*MonitorProviderCapability `json:"monitor_providers,omitempty" xml:"monitor_providers,omitempty" require:"true" type:"Repeated"`
+// 权利信息
+type RightsInfo struct {
+	// 作品名称（最长128个字符）
+	WorkName *string `json:"work_name,omitempty" xml:"work_name,omitempty" require:"true" maxLength:"128"`
+	// 作品类型
+	WorkType *string `json:"work_type,omitempty" xml:"work_type,omitempty" require:"true"`
+	// 作品创作完成时间
+	CompletedTime *int64 `json:"completed_time,omitempty" xml:"completed_time,omitempty" require:"true"`
+	// 作品创作完成地点（最长128个字符）
+	CompletedPlace *string `json:"completed_place,omitempty" xml:"completed_place,omitempty" require:"true" maxLength:"128"`
+	// 是否发表
+	IsPublish *bool `json:"is_publish,omitempty" xml:"is_publish,omitempty" require:"true"`
+	// 发表时间（如果isPublish为true则必填）
+	PublishTime *int64 `json:"publish_time,omitempty" xml:"publish_time,omitempty"`
+	// 发表地点（如果isPublish为true则必填，最长128个字符）
+	PublishPlace *string `json:"publish_place,omitempty" xml:"publish_place,omitempty" maxLength:"128"`
+	// 发表网址（如果isPublish为true则必填，最长1024个字符）
+	PublishWeb *string `json:"publish_web,omitempty" xml:"publish_web,omitempty" maxLength:"1024"`
+	// 是否是作者
+	IsAuthor *bool `json:"is_author,omitempty" xml:"is_author,omitempty" require:"true"`
+	// 作者姓名（如果isAuthor为true则必填，最长32个字符）
+	AuthorCertName *string `json:"author_cert_name,omitempty" xml:"author_cert_name,omitempty" maxLength:"32"`
+	// 作者身份证号（如果isAuthor为true则必填）
+	AuthorCertNo *string `json:"author_cert_no,omitempty" xml:"author_cert_no,omitempty" maxLength:"30"`
 }
 
-func (s MonitorProviderType) String() string {
+func (s RightsInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s MonitorProviderType) GoString() string {
+func (s RightsInfo) GoString() string {
 	return s.String()
 }
 
-func (s *MonitorProviderType) SetFileType(v string) *MonitorProviderType {
-	s.FileType = &v
+func (s *RightsInfo) SetWorkName(v string) *RightsInfo {
+	s.WorkName = &v
 	return s
 }
 
-func (s *MonitorProviderType) SetSubmitType(v string) *MonitorProviderType {
-	s.SubmitType = &v
+func (s *RightsInfo) SetWorkType(v string) *RightsInfo {
+	s.WorkType = &v
 	return s
 }
 
-func (s *MonitorProviderType) SetFileFormat(v string) *MonitorProviderType {
-	s.FileFormat = &v
+func (s *RightsInfo) SetCompletedTime(v int64) *RightsInfo {
+	s.CompletedTime = &v
 	return s
 }
 
-func (s *MonitorProviderType) SetMonitorProviders(v []*MonitorProviderCapability) *MonitorProviderType {
-	s.MonitorProviders = v
+func (s *RightsInfo) SetCompletedPlace(v string) *RightsInfo {
+	s.CompletedPlace = &v
+	return s
+}
+
+func (s *RightsInfo) SetIsPublish(v bool) *RightsInfo {
+	s.IsPublish = &v
+	return s
+}
+
+func (s *RightsInfo) SetPublishTime(v int64) *RightsInfo {
+	s.PublishTime = &v
+	return s
+}
+
+func (s *RightsInfo) SetPublishPlace(v string) *RightsInfo {
+	s.PublishPlace = &v
+	return s
+}
+
+func (s *RightsInfo) SetPublishWeb(v string) *RightsInfo {
+	s.PublishWeb = &v
+	return s
+}
+
+func (s *RightsInfo) SetIsAuthor(v bool) *RightsInfo {
+	s.IsAuthor = &v
+	return s
+}
+
+func (s *RightsInfo) SetAuthorCertName(v string) *RightsInfo {
+	s.AuthorCertName = &v
+	return s
+}
+
+func (s *RightsInfo) SetAuthorCertNo(v string) *RightsInfo {
+	s.AuthorCertNo = &v
 	return s
 }
 
@@ -804,120 +1202,128 @@ func (s *MonitorTask) SetFailureMsg(v string) *MonitorTask {
 	return s
 }
 
-// 录屏取证信息
-type RecordScreenData struct {
-	// 错误原因（状态为FAIL才有数据）
-	ErrorReason *string `json:"error_reason,omitempty" xml:"error_reason,omitempty"`
-	// 录屏文件Hash值
-	FileHash *string `json:"file_hash,omitempty" xml:"file_hash,omitempty"`
-	// 录屏结束时间
-	GmtEnd *int64 `json:"gmt_end,omitempty" xml:"gmt_end,omitempty" require:"true"`
-	// 录屏开始时间
-	GmtStart *int64 `json:"gmt_start,omitempty" xml:"gmt_start,omitempty" require:"true"`
-	// OS版本号
-	OsVersion *string `json:"os_version,omitempty" xml:"os_version,omitempty" require:"true"`
-	// 录屏文件信息
-	ScreenInfo *ScreenInfo `json:"screen_info,omitempty" xml:"screen_info,omitempty"`
-	// 证据包下载地址（状态为SUCCESS 才有数据）
-	ScreenZip *string `json:"screen_zip,omitempty" xml:"screen_zip,omitempty"`
-	// 录屏软件版本号
-	SwVersion *string `json:"sw_version,omitempty" xml:"sw_version,omitempty" require:"true"`
-	// 可信时间戳的返回对象
-	Tsr *string `json:"tsr,omitempty" xml:"tsr,omitempty"`
-	// 统一证据编号
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
-	// 录屏文件大小
-	FileSize *int64 `json:"file_size,omitempty" xml:"file_size,omitempty"`
-	// 录屏文件存证块高
-	BlockHeight *int64 `json:"block_height,omitempty" xml:"block_height,omitempty"`
-	// 录屏文件上链时间
-	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
-	// 录屏文件公证处证书下载链接
-	CertificateUrl *string `json:"certificate_url,omitempty" xml:"certificate_url,omitempty"`
-	// 公证处证书编号
-	CertificateStorageNo *string `json:"certificate_storage_no,omitempty" xml:"certificate_storage_no,omitempty"`
+// 权利声明核验信息
+type VerifyStatementData struct {
+	// 权利声明书存证交易HASH
+	StatementTxHash *string `json:"statement_tx_hash,omitempty" xml:"statement_tx_hash,omitempty"`
+	// 权利声明书文件ID（和statementFileId 二选一,如果都传使用statementFileHash）
+	StatementFileId *string `json:"statement_file_id,omitempty" xml:"statement_file_id,omitempty"`
+	// 权利声明书文件HASH（和statementFileId 二选一,如果都传使用statementFileHash）
+	StatementFileHash *string `json:"statement_file_hash,omitempty" xml:"statement_file_hash,omitempty"`
 }
 
-func (s RecordScreenData) String() string {
+func (s VerifyStatementData) String() string {
 	return tea.Prettify(s)
 }
 
-func (s RecordScreenData) GoString() string {
+func (s VerifyStatementData) GoString() string {
 	return s.String()
 }
 
-func (s *RecordScreenData) SetErrorReason(v string) *RecordScreenData {
-	s.ErrorReason = &v
+func (s *VerifyStatementData) SetStatementTxHash(v string) *VerifyStatementData {
+	s.StatementTxHash = &v
 	return s
 }
 
-func (s *RecordScreenData) SetFileHash(v string) *RecordScreenData {
-	s.FileHash = &v
+func (s *VerifyStatementData) SetStatementFileId(v string) *VerifyStatementData {
+	s.StatementFileId = &v
 	return s
 }
 
-func (s *RecordScreenData) SetGmtEnd(v int64) *RecordScreenData {
-	s.GmtEnd = &v
+func (s *VerifyStatementData) SetStatementFileHash(v string) *VerifyStatementData {
+	s.StatementFileHash = &v
 	return s
 }
 
-func (s *RecordScreenData) SetGmtStart(v int64) *RecordScreenData {
-	s.GmtStart = &v
+// 内容安全信息
+type SecurityData struct {
+	// 内容安全检查结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty" require:"true"`
+	// 有风险的内容
+	RiskData []*string `json:"risk_data,omitempty" xml:"risk_data,omitempty" type:"Repeated"`
+}
+
+func (s SecurityData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SecurityData) GoString() string {
+	return s.String()
+}
+
+func (s *SecurityData) SetResult(v string) *SecurityData {
+	s.Result = &v
 	return s
 }
 
-func (s *RecordScreenData) SetOsVersion(v string) *RecordScreenData {
-	s.OsVersion = &v
+func (s *SecurityData) SetRiskData(v []*string) *SecurityData {
+	s.RiskData = v
 	return s
 }
 
-func (s *RecordScreenData) SetScreenInfo(v *ScreenInfo) *RecordScreenData {
-	s.ScreenInfo = v
+// 核验用户信息
+type VerifyUserData struct {
+	// 证件名称
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 证件类型
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// 登记人信息存证交易HASH
+	RegisterPersonTxHash *string `json:"register_person_tx_hash,omitempty" xml:"register_person_tx_hash,omitempty"`
+}
+
+func (s VerifyUserData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyUserData) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyUserData) SetCertName(v string) *VerifyUserData {
+	s.CertName = &v
 	return s
 }
 
-func (s *RecordScreenData) SetScreenZip(v string) *RecordScreenData {
-	s.ScreenZip = &v
+func (s *VerifyUserData) SetCertNo(v string) *VerifyUserData {
+	s.CertNo = &v
 	return s
 }
 
-func (s *RecordScreenData) SetSwVersion(v string) *RecordScreenData {
-	s.SwVersion = &v
+func (s *VerifyUserData) SetCertType(v string) *VerifyUserData {
+	s.CertType = &v
 	return s
 }
 
-func (s *RecordScreenData) SetTsr(v string) *RecordScreenData {
-	s.Tsr = &v
+func (s *VerifyUserData) SetRegisterPersonTxHash(v string) *VerifyUserData {
+	s.RegisterPersonTxHash = &v
 	return s
 }
 
-func (s *RecordScreenData) SetTxHash(v string) *RecordScreenData {
-	s.TxHash = &v
+// 核验取证信息
+type VerifyEvidenceData struct {
+	// 操作日志交易HASH
+	ProcessLogTxHash *string `json:"process_log_tx_hash,omitempty" xml:"process_log_tx_hash,omitempty"`
+	// 自清洁日志交易HASH
+	CheckLogTxHash *string `json:"check_log_tx_hash,omitempty" xml:"check_log_tx_hash,omitempty"`
+}
+
+func (s VerifyEvidenceData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyEvidenceData) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyEvidenceData) SetProcessLogTxHash(v string) *VerifyEvidenceData {
+	s.ProcessLogTxHash = &v
 	return s
 }
 
-func (s *RecordScreenData) SetFileSize(v int64) *RecordScreenData {
-	s.FileSize = &v
-	return s
-}
-
-func (s *RecordScreenData) SetBlockHeight(v int64) *RecordScreenData {
-	s.BlockHeight = &v
-	return s
-}
-
-func (s *RecordScreenData) SetTimestamp(v int64) *RecordScreenData {
-	s.Timestamp = &v
-	return s
-}
-
-func (s *RecordScreenData) SetCertificateUrl(v string) *RecordScreenData {
-	s.CertificateUrl = &v
-	return s
-}
-
-func (s *RecordScreenData) SetCertificateStorageNo(v string) *RecordScreenData {
-	s.CertificateStorageNo = &v
+func (s *VerifyEvidenceData) SetCheckLogTxHash(v string) *VerifyEvidenceData {
+	s.CheckLogTxHash = &v
 	return s
 }
 
@@ -1216,10 +1622,12 @@ type AddRegisterRequest struct {
 	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
 	// 电话号码
 	PhoneNum *string `json:"phone_num,omitempty" xml:"phone_num,omitempty"`
-	// 代理信息
-	ProxyInfo *ProxyData `json:"proxy_info,omitempty" xml:"proxy_info,omitempty"`
 	// 幂等
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty"`
+	// 代理信息
+	ProxyInfo *ProxyData `json:"proxy_info,omitempty" xml:"proxy_info,omitempty"`
+	// 同步账号信息
+	SyncInfo *AccountData `json:"sync_info,omitempty" xml:"sync_info,omitempty"`
 }
 
 func (s AddRegisterRequest) String() string {
@@ -1300,13 +1708,18 @@ func (s *AddRegisterRequest) SetPhoneNum(v string) *AddRegisterRequest {
 	return s
 }
 
+func (s *AddRegisterRequest) SetClientToken(v string) *AddRegisterRequest {
+	s.ClientToken = &v
+	return s
+}
+
 func (s *AddRegisterRequest) SetProxyInfo(v *ProxyData) *AddRegisterRequest {
 	s.ProxyInfo = v
 	return s
 }
 
-func (s *AddRegisterRequest) SetClientToken(v string) *AddRegisterRequest {
-	s.ClientToken = &v
+func (s *AddRegisterRequest) SetSyncInfo(v *AccountData) *AddRegisterRequest {
+	s.SyncInfo = v
 	return s
 }
 
@@ -1407,6 +1820,14 @@ type QueryRegisterstatusResponse struct {
 	CertificateTimeUrl *string `json:"certificate_time_url,omitempty" xml:"certificate_time_url,omitempty"`
 	// 证据包下载地址（状态为SUCCESS并且请求要求生成证据包才有数据）
 	PackageUrl *string `json:"package_url,omitempty" xml:"package_url,omitempty"`
+	// 权利声明书下载地址 注意只有传递了权利信息并且生成了权利声明书才会返回
+	StatementUrl *string `json:"statement_url,omitempty" xml:"statement_url,omitempty"`
+	// 权利声明书存证交易HASH  注意只有传递了权利信息并且生成了权利声明书才会返回
+	StatementTxHash *string `json:"statement_tx_hash,omitempty" xml:"statement_tx_hash,omitempty"`
+	// 登记人信息存证交易HASH
+	RegisterPersonTxHash *string `json:"register_person_tx_hash,omitempty" xml:"register_person_tx_hash,omitempty"`
+	// 安全信息
+	Security *SecurityData `json:"security,omitempty" xml:"security,omitempty"`
 }
 
 func (s QueryRegisterstatusResponse) String() string {
@@ -1479,6 +1900,26 @@ func (s *QueryRegisterstatusResponse) SetCertificateTimeUrl(v string) *QueryRegi
 
 func (s *QueryRegisterstatusResponse) SetPackageUrl(v string) *QueryRegisterstatusResponse {
 	s.PackageUrl = &v
+	return s
+}
+
+func (s *QueryRegisterstatusResponse) SetStatementUrl(v string) *QueryRegisterstatusResponse {
+	s.StatementUrl = &v
+	return s
+}
+
+func (s *QueryRegisterstatusResponse) SetStatementTxHash(v string) *QueryRegisterstatusResponse {
+	s.StatementTxHash = &v
+	return s
+}
+
+func (s *QueryRegisterstatusResponse) SetRegisterPersonTxHash(v string) *QueryRegisterstatusResponse {
+	s.RegisterPersonTxHash = &v
+	return s
+}
+
+func (s *QueryRegisterstatusResponse) SetSecurity(v *SecurityData) *QueryRegisterstatusResponse {
+	s.Security = v
 	return s
 }
 
@@ -1874,6 +2315,8 @@ type StopMonitorTaskResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 停止结果
+	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
 }
 
 func (s StopMonitorTaskResponse) String() string {
@@ -1896,6 +2339,11 @@ func (s *StopMonitorTaskResponse) SetResultCode(v string) *StopMonitorTaskRespon
 
 func (s *StopMonitorTaskResponse) SetResultMsg(v string) *StopMonitorTaskResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *StopMonitorTaskResponse) SetResult(v bool) *StopMonitorTaskResponse {
+	s.Result = &v
 	return s
 }
 
@@ -2646,118 +3094,6 @@ func (s *QueryUserListResponse) SetUserList(v []*UserData) *QueryUserListRespons
 	return s
 }
 
-type AddGoodRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 商品一级分类
-	Classification *string `json:"classification,omitempty" xml:"classification,omitempty" require:"true" maxLength:"20" minLength:"1"`
-	// 幂等
-	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty"`
-	// 商品名称
-	GoodName *string `json:"good_name,omitempty" xml:"good_name,omitempty" require:"true" maxLength:"200" minLength:"1"`
-	// 权利内容id，权利申明获得
-	RightId *string `json:"right_id,omitempty" xml:"right_id,omitempty" require:"true"`
-	// 是否直接上架   Y 上架  N 不上架  默认：Y
-	Selling *string `json:"selling,omitempty" xml:"selling,omitempty"`
-	// 商品标签，英文逗号分割
-	Tags *string `json:"tags,omitempty" xml:"tags,omitempty" maxLength:"200"`
-	// 授权规格列表（数量1-3）
-	SkuLists []*GoodSkuInfo `json:"sku_lists,omitempty" xml:"sku_lists,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s AddGoodRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AddGoodRequest) GoString() string {
-	return s.String()
-}
-
-func (s *AddGoodRequest) SetAuthToken(v string) *AddGoodRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *AddGoodRequest) SetProductInstanceId(v string) *AddGoodRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *AddGoodRequest) SetClassification(v string) *AddGoodRequest {
-	s.Classification = &v
-	return s
-}
-
-func (s *AddGoodRequest) SetClientToken(v string) *AddGoodRequest {
-	s.ClientToken = &v
-	return s
-}
-
-func (s *AddGoodRequest) SetGoodName(v string) *AddGoodRequest {
-	s.GoodName = &v
-	return s
-}
-
-func (s *AddGoodRequest) SetRightId(v string) *AddGoodRequest {
-	s.RightId = &v
-	return s
-}
-
-func (s *AddGoodRequest) SetSelling(v string) *AddGoodRequest {
-	s.Selling = &v
-	return s
-}
-
-func (s *AddGoodRequest) SetTags(v string) *AddGoodRequest {
-	s.Tags = &v
-	return s
-}
-
-func (s *AddGoodRequest) SetSkuLists(v []*GoodSkuInfo) *AddGoodRequest {
-	s.SkuLists = v
-	return s
-}
-
-type AddGoodResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 商品id
-	GoodId *string `json:"good_id,omitempty" xml:"good_id,omitempty"`
-}
-
-func (s AddGoodResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AddGoodResponse) GoString() string {
-	return s.String()
-}
-
-func (s *AddGoodResponse) SetReqMsgId(v string) *AddGoodResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *AddGoodResponse) SetResultCode(v string) *AddGoodResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *AddGoodResponse) SetResultMsg(v string) *AddGoodResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *AddGoodResponse) SetGoodId(v string) *AddGoodResponse {
-	s.GoodId = &v
-	return s
-}
-
 type CreateScreenshotRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -3017,12 +3353,12 @@ type VerifyBlockchainRequest struct {
 	//
 	// (和fileHash 二选一，必传一个，都传按fileHash为准)
 	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
-	// 证件名称
-	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
-	// 证件号码
-	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
-	// 证件类型
-	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// 核验用户信息
+	UserData *VerifyUserData `json:"user_data,omitempty" xml:"user_data,omitempty"`
+	// 核验权利声明信息
+	StatementData *VerifyStatementData `json:"statement_data,omitempty" xml:"statement_data,omitempty"`
+	// 核验取证信息
+	EvidenceData *VerifyEvidenceData `json:"evidence_data,omitempty" xml:"evidence_data,omitempty"`
 }
 
 func (s VerifyBlockchainRequest) String() string {
@@ -3058,18 +3394,18 @@ func (s *VerifyBlockchainRequest) SetFileId(v string) *VerifyBlockchainRequest {
 	return s
 }
 
-func (s *VerifyBlockchainRequest) SetCertName(v string) *VerifyBlockchainRequest {
-	s.CertName = &v
+func (s *VerifyBlockchainRequest) SetUserData(v *VerifyUserData) *VerifyBlockchainRequest {
+	s.UserData = v
 	return s
 }
 
-func (s *VerifyBlockchainRequest) SetCertNo(v string) *VerifyBlockchainRequest {
-	s.CertNo = &v
+func (s *VerifyBlockchainRequest) SetStatementData(v *VerifyStatementData) *VerifyBlockchainRequest {
+	s.StatementData = v
 	return s
 }
 
-func (s *VerifyBlockchainRequest) SetCertType(v string) *VerifyBlockchainRequest {
-	s.CertType = &v
+func (s *VerifyBlockchainRequest) SetEvidenceData(v *VerifyEvidenceData) *VerifyBlockchainRequest {
+	s.EvidenceData = v
 	return s
 }
 
@@ -3155,7 +3491,7 @@ type CreateRecordscreenRequest struct {
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true" maxLength:"128" minLength:"1"`
 	// 取证备注（最长512个字符）
 	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" maxLength:"512"`
-	// 预校验网址和预打开网页（不能大于10条）
+	// 预校验网址和预打开网页（不能大于10条），如果automatic为true 则必填
 	Url []*string `json:"url,omitempty" xml:"url,omitempty" type:"Repeated"`
 	// 取证类型 具体见附录 RecordScreenType
 	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
@@ -3455,6 +3791,69 @@ func (s *QueryRecordscreenResponse) SetData(v *RecordScreenData) *QueryRecordscr
 	return s
 }
 
+type ListNotaryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s ListNotaryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListNotaryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListNotaryRequest) SetAuthToken(v string) *ListNotaryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListNotaryRequest) SetProductInstanceId(v string) *ListNotaryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type ListNotaryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 公证处列表
+	NotaryList []*NotaryPublicOffice `json:"notary_list,omitempty" xml:"notary_list,omitempty" type:"Repeated"`
+}
+
+func (s ListNotaryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListNotaryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListNotaryResponse) SetReqMsgId(v string) *ListNotaryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListNotaryResponse) SetResultCode(v string) *ListNotaryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListNotaryResponse) SetResultMsg(v string) *ListNotaryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListNotaryResponse) SetNotaryList(v []*NotaryPublicOffice) *ListNotaryResponse {
+	s.NotaryList = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -3577,7 +3976,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.15"),
+				"sdk_version":      tea.String("1.12.0"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -4136,40 +4535,6 @@ func (client *Client) QueryUserListEx(request *QueryUserListRequest, headers map
 }
 
 /**
- * Description: 版权平台新增商品
- * Summary: 新增商品
- */
-func (client *Client) AddGood(request *AddGoodRequest) (_result *AddGoodResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &AddGoodResponse{}
-	_body, _err := client.AddGoodEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 版权平台新增商品
- * Summary: 新增商品
- */
-func (client *Client) AddGoodEx(request *AddGoodRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddGoodResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &AddGoodResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.good.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
  * Description: 创建网页取证
  * Summary: 创建网页取证
  */
@@ -4332,6 +4697,40 @@ func (client *Client) QueryRecordscreenEx(request *QueryRecordscreenRequest, hea
 	}
 	_result = &QueryRecordscreenResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.recordscreen.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取支持的公证处列表
+ * Summary: 获取支持的公证处列表
+ */
+func (client *Client) ListNotary(request *ListNotaryRequest) (_result *ListNotaryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListNotaryResponse{}
+	_body, _err := client.ListNotaryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取支持的公证处列表
+ * Summary: 获取支持的公证处列表
+ */
+func (client *Client) ListNotaryEx(request *ListNotaryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListNotaryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListNotaryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.notary.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
