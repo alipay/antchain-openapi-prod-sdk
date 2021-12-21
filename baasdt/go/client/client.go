@@ -295,6 +295,53 @@ func (s *CommissionLayer) SetDeductToken(v string) *CommissionLayer {
 	return s
 }
 
+// 商品交易模式
+type IPTradeMode struct {
+	// 交易类型，0：销售抽拥；1:按件付费
+	TradeType []*int64 `json:"trade_type,omitempty" xml:"trade_type,omitempty" type:"Repeated"`
+	// 佣金比例
+	CommissionWeight *string `json:"commission_weight,omitempty" xml:"commission_weight,omitempty"`
+	// 保底商品销售金额
+	GuaranteeSaleNumber *string `json:"guarantee_sale_number,omitempty" xml:"guarantee_sale_number,omitempty"`
+	// 单件单价
+	UnitPrice *string `json:"unit_price,omitempty" xml:"unit_price,omitempty"`
+	// 保底商品数量
+	GuaranteeGoodsNumber *string `json:"guarantee_goods_number,omitempty" xml:"guarantee_goods_number,omitempty"`
+}
+
+func (s IPTradeMode) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPTradeMode) GoString() string {
+	return s.String()
+}
+
+func (s *IPTradeMode) SetTradeType(v []*int64) *IPTradeMode {
+	s.TradeType = v
+	return s
+}
+
+func (s *IPTradeMode) SetCommissionWeight(v string) *IPTradeMode {
+	s.CommissionWeight = &v
+	return s
+}
+
+func (s *IPTradeMode) SetGuaranteeSaleNumber(v string) *IPTradeMode {
+	s.GuaranteeSaleNumber = &v
+	return s
+}
+
+func (s *IPTradeMode) SetUnitPrice(v string) *IPTradeMode {
+	s.UnitPrice = &v
+	return s
+}
+
+func (s *IPTradeMode) SetGuaranteeGoodsNumber(v string) *IPTradeMode {
+	s.GuaranteeGoodsNumber = &v
+	return s
+}
+
 // 交易
 type BlockTransaction struct {
 	// 交易信息
@@ -579,6 +626,46 @@ func (s *IpSkuInfo) SetSaleNum(v string) *IpSkuInfo {
 	return s
 }
 
+// 商品IP授权信息
+type IPAuthorizationInfo struct {
+	// 授权模式,0普通授权/1独家授权
+	AuthorizationModel []*int64 `json:"authorization_model,omitempty" xml:"authorization_model,omitempty" type:"Repeated"`
+	// 授权类型，衍生品授权，营销授权，商标授权，数字虚拟授权，其他
+	AuthorizationType []*string `json:"authorization_type,omitempty" xml:"authorization_type,omitempty" type:"Repeated"`
+	// 授权范围
+	AuthorizationScope *string `json:"authorization_scope,omitempty" xml:"authorization_scope,omitempty"`
+	// 授权要求
+	AuthorizationRequirement *string `json:"authorization_requirement,omitempty" xml:"authorization_requirement,omitempty"`
+}
+
+func (s IPAuthorizationInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPAuthorizationInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IPAuthorizationInfo) SetAuthorizationModel(v []*int64) *IPAuthorizationInfo {
+	s.AuthorizationModel = v
+	return s
+}
+
+func (s *IPAuthorizationInfo) SetAuthorizationType(v []*string) *IPAuthorizationInfo {
+	s.AuthorizationType = v
+	return s
+}
+
+func (s *IPAuthorizationInfo) SetAuthorizationScope(v string) *IPAuthorizationInfo {
+	s.AuthorizationScope = &v
+	return s
+}
+
+func (s *IPAuthorizationInfo) SetAuthorizationRequirement(v string) *IPAuthorizationInfo {
+	s.AuthorizationRequirement = &v
+	return s
+}
+
 // 商品规格
 type ProductSpecification struct {
 	// 规格名称
@@ -633,6 +720,8 @@ type IPCodeGoodsInfo struct {
 	GoodsSaleChannel *string `json:"goods_sale_channel,omitempty" xml:"goods_sale_channel,omitempty"`
 	// 商品规格
 	GoodsSpecifications []*ProductSpecification `json:"goods_specifications,omitempty" xml:"goods_specifications,omitempty" type:"Repeated"`
+	// 是否展示批次数据
+	IsDisplayBatchdata *bool `json:"is_display_batchdata,omitempty" xml:"is_display_batchdata,omitempty"`
 }
 
 func (s IPCodeGoodsInfo) String() string {
@@ -705,6 +794,11 @@ func (s *IPCodeGoodsInfo) SetGoodsSaleChannel(v string) *IPCodeGoodsInfo {
 
 func (s *IPCodeGoodsInfo) SetGoodsSpecifications(v []*ProductSpecification) *IPCodeGoodsInfo {
 	s.GoodsSpecifications = v
+	return s
+}
+
+func (s *IPCodeGoodsInfo) SetIsDisplayBatchdata(v bool) *IPCodeGoodsInfo {
+	s.IsDisplayBatchdata = &v
 	return s
 }
 
@@ -1502,6 +1596,8 @@ type IPCodeIpOwnerInfo struct {
 	IpOwnerImageTmp *string `json:"ip_owner_image_tmp,omitempty" xml:"ip_owner_image_tmp,omitempty"`
 	// ip描述
 	IpDescription *string `json:"ip_description,omitempty" xml:"ip_description,omitempty"`
+	// 默认为空或者0是版权信息；1是著作信息；2是创作信息；3是联名信息
+	IpOwnerType *int64 `json:"ip_owner_type,omitempty" xml:"ip_owner_type,omitempty"`
 }
 
 func (s IPCodeIpOwnerInfo) String() string {
@@ -1529,6 +1625,11 @@ func (s *IPCodeIpOwnerInfo) SetIpOwnerImageTmp(v string) *IPCodeIpOwnerInfo {
 
 func (s *IPCodeIpOwnerInfo) SetIpDescription(v string) *IPCodeIpOwnerInfo {
 	s.IpDescription = &v
+	return s
+}
+
+func (s *IPCodeIpOwnerInfo) SetIpOwnerType(v int64) *IPCodeIpOwnerInfo {
+	s.IpOwnerType = &v
 	return s
 }
 
@@ -1635,6 +1736,39 @@ func (s *IPSettleRule) SetSettleType(v int64) *IPSettleRule {
 
 func (s *IPSettleRule) SetSettleTarget(v string) *IPSettleRule {
 	s.SettleTarget = &v
+	return s
+}
+
+// 申请授权合作的备注信息
+type IPOrderApplyInfo struct {
+	// 授权合作商品
+	AuthGoods *string `json:"auth_goods,omitempty" xml:"auth_goods,omitempty" require:"true"`
+	// 销售规模数量
+	SalesAmount *int64 `json:"sales_amount,omitempty" xml:"sales_amount,omitempty" require:"true"`
+	// 销售规模金额
+	SalesNumber *string `json:"sales_number,omitempty" xml:"sales_number,omitempty" require:"true"`
+}
+
+func (s IPOrderApplyInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPOrderApplyInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IPOrderApplyInfo) SetAuthGoods(v string) *IPOrderApplyInfo {
+	s.AuthGoods = &v
+	return s
+}
+
+func (s *IPOrderApplyInfo) SetSalesAmount(v int64) *IPOrderApplyInfo {
+	s.SalesAmount = &v
+	return s
+}
+
+func (s *IPOrderApplyInfo) SetSalesNumber(v string) *IPOrderApplyInfo {
+	s.SalesNumber = &v
 	return s
 }
 
@@ -1837,8 +1971,12 @@ type IpBasicInfo struct {
 	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
 	// 资质生效的结束时间
 	CopyRightEndTime *int64 `json:"copy_right_end_time,omitempty" xml:"copy_right_end_time,omitempty" require:"true"`
-	// 账户名称
+	// 账户名称-别名
 	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty"`
+	// 授权信息
+	AuthorizationInfo *IPAuthorizationInfo `json:"authorization_info,omitempty" xml:"authorization_info,omitempty"`
+	// 版权方名称
+	ExternalUserName *string `json:"external_user_name,omitempty" xml:"external_user_name,omitempty"`
 }
 
 func (s IpBasicInfo) String() string {
@@ -1974,6 +2112,16 @@ func (s *IpBasicInfo) SetAccountName(v string) *IpBasicInfo {
 	return s
 }
 
+func (s *IpBasicInfo) SetAuthorizationInfo(v *IPAuthorizationInfo) *IpBasicInfo {
+	s.AuthorizationInfo = v
+	return s
+}
+
+func (s *IpBasicInfo) SetExternalUserName(v string) *IpBasicInfo {
+	s.ExternalUserName = &v
+	return s
+}
+
 // 正版码配置资源位信息
 type IPCodeAdvertisingInfo struct {
 	// 资源位头图
@@ -1986,6 +2134,10 @@ type IPCodeAdvertisingInfo struct {
 	AdName *string `json:"ad_name,omitempty" xml:"ad_name,omitempty"`
 	// 广告位类型，为空时代表是商品广告位，Resource时代表是资源位
 	AdType *string `json:"ad_type,omitempty" xml:"ad_type,omitempty"`
+	// 展示有效期开始时间
+	AdValidBeginTime *string `json:"ad_valid_begin_time,omitempty" xml:"ad_valid_begin_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 展示有效期结束时间
+	AdValidEndTime *string `json:"ad_valid_end_time,omitempty" xml:"ad_valid_end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s IPCodeAdvertisingInfo) String() string {
@@ -2021,6 +2173,16 @@ func (s *IPCodeAdvertisingInfo) SetAdType(v string) *IPCodeAdvertisingInfo {
 	return s
 }
 
+func (s *IPCodeAdvertisingInfo) SetAdValidBeginTime(v string) *IPCodeAdvertisingInfo {
+	s.AdValidBeginTime = &v
+	return s
+}
+
+func (s *IPCodeAdvertisingInfo) SetAdValidEndTime(v string) *IPCodeAdvertisingInfo {
+	s.AdValidEndTime = &v
+	return s
+}
+
 // ip的渠道信息带上sku信息
 type IpChannelWithSku struct {
 	// 渠道名字
@@ -2043,6 +2205,10 @@ type IpChannelWithSku struct {
 	TradeNeedConfirm *bool `json:"trade_need_confirm,omitempty" xml:"trade_need_confirm,omitempty"`
 	// 授权类型
 	AuthorizationType []*string `json:"authorization_type,omitempty" xml:"authorization_type,omitempty" type:"Repeated"`
+	// 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+	GuaranteeRange *int64 `json:"guarantee_range,omitempty" xml:"guarantee_range,omitempty"`
+	// 交易模式
+	IpTradeMode *IPTradeMode `json:"ip_trade_mode,omitempty" xml:"ip_trade_mode,omitempty"`
 }
 
 func (s IpChannelWithSku) String() string {
@@ -2095,6 +2261,16 @@ func (s *IpChannelWithSku) SetTradeNeedConfirm(v bool) *IpChannelWithSku {
 
 func (s *IpChannelWithSku) SetAuthorizationType(v []*string) *IpChannelWithSku {
 	s.AuthorizationType = v
+	return s
+}
+
+func (s *IpChannelWithSku) SetGuaranteeRange(v int64) *IpChannelWithSku {
+	s.GuaranteeRange = &v
+	return s
+}
+
+func (s *IpChannelWithSku) SetIpTradeMode(v *IPTradeMode) *IpChannelWithSku {
+	s.IpTradeMode = v
 	return s
 }
 
@@ -2717,6 +2893,39 @@ func (s *CommissionRule) SetAccountId(v string) *CommissionRule {
 
 func (s *CommissionRule) SetCommissionPeriod(v *CommissionPeriod) *CommissionRule {
 	s.CommissionPeriod = v
+	return s
+}
+
+// 简要扫码信息
+type IPSimpleScannedInfo struct {
+	// 扫码人
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
+	// 扫码时间
+	ScannedTime *string `json:"scanned_time,omitempty" xml:"scanned_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 扫码地址
+	Gps *string `json:"gps,omitempty" xml:"gps,omitempty"`
+}
+
+func (s IPSimpleScannedInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPSimpleScannedInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IPSimpleScannedInfo) SetUserName(v string) *IPSimpleScannedInfo {
+	s.UserName = &v
+	return s
+}
+
+func (s *IPSimpleScannedInfo) SetScannedTime(v string) *IPSimpleScannedInfo {
+	s.ScannedTime = &v
+	return s
+}
+
+func (s *IPSimpleScannedInfo) SetGps(v string) *IPSimpleScannedInfo {
+	s.Gps = &v
 	return s
 }
 
@@ -5027,6 +5236,8 @@ type IPCodeScannedInfo struct {
 	Gps *string `json:"gps,omitempty" xml:"gps,omitempty"`
 	// 领取正版码的交易哈希
 	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
+	// 领取正版码交易所在的区块高度
+	BlockNumber *int64 `json:"block_number,omitempty" xml:"block_number,omitempty"`
 	// 处理时间(毫秒时间戳)
 	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
 	// IP ID
@@ -5039,7 +5250,7 @@ type IPCodeScannedInfo struct {
 	AdInfoList []*IPCodeAdvertisingInfo `json:"ad_info_list,omitempty" xml:"ad_info_list,omitempty" type:"Repeated"`
 	// ip版权方信息
 	IpownerInfo *IPCodeIpOwnerInfo `json:"ipowner_info,omitempty" xml:"ipowner_info,omitempty"`
-	// 0:未配置，1:配置成功可展示，9:下架【本期不实现】
+	// 0:未配置, 1:配置成功可展示, 4:已经失效, 9:下架【本期不实现】
 	IpCodeStatus *int64 `json:"ip_code_status,omitempty" xml:"ip_code_status,omitempty"`
 	// 额外功能，包括是否允许收藏等
 	Features []*int64 `json:"features,omitempty" xml:"features,omitempty" type:"Repeated"`
@@ -5049,6 +5260,16 @@ type IPCodeScannedInfo struct {
 	IpInfo *IPCodeIpGoodInfo `json:"ip_info,omitempty" xml:"ip_info,omitempty"`
 	// UNI码
 	UniCode *string `json:"uni_code,omitempty" xml:"uni_code,omitempty"`
+	// 正版码配置附加信息，信息内容由调用方自定义
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+	// 收藏时间(UNIX时间戳)0表示未被收藏
+	ReceiveTime *int64 `json:"receive_time,omitempty" xml:"receive_time,omitempty"`
+	// 同一批次存在失效UNI码的场景下,指示更新后的下标
+	FixedIndex *int64 `json:"fixed_index,omitempty" xml:"fixed_index,omitempty"`
+	// 同一批次存在失效UNI码的场景下,指示更新后的总量
+	FixedCount *int64 `json:"fixed_count,omitempty" xml:"fixed_count,omitempty"`
+	// 小龙坎有限公司
+	AccountExternalName *string `json:"account_external_name,omitempty" xml:"account_external_name,omitempty"`
 }
 
 func (s IPCodeScannedInfo) String() string {
@@ -5096,6 +5317,11 @@ func (s *IPCodeScannedInfo) SetGps(v string) *IPCodeScannedInfo {
 
 func (s *IPCodeScannedInfo) SetHash(v string) *IPCodeScannedInfo {
 	s.Hash = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetBlockNumber(v int64) *IPCodeScannedInfo {
+	s.BlockNumber = &v
 	return s
 }
 
@@ -5151,6 +5377,31 @@ func (s *IPCodeScannedInfo) SetIpInfo(v *IPCodeIpGoodInfo) *IPCodeScannedInfo {
 
 func (s *IPCodeScannedInfo) SetUniCode(v string) *IPCodeScannedInfo {
 	s.UniCode = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetExtInfo(v string) *IPCodeScannedInfo {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetReceiveTime(v int64) *IPCodeScannedInfo {
+	s.ReceiveTime = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetFixedIndex(v int64) *IPCodeScannedInfo {
+	s.FixedIndex = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetFixedCount(v int64) *IPCodeScannedInfo {
+	s.FixedCount = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetAccountExternalName(v string) *IPCodeScannedInfo {
+	s.AccountExternalName = &v
 	return s
 }
 
@@ -6270,6 +6521,8 @@ type IPOrder struct {
 	GoodsIdList []*string `json:"goods_id_list,omitempty" xml:"goods_id_list,omitempty" type:"Repeated"`
 	// 订单功能选择，0 基础功能，1 领用收藏
 	Features []*int64 `json:"features,omitempty" xml:"features,omitempty" type:"Repeated"`
+	// 申请授权合作的备注信息
+	ApplyInfo *IPOrderApplyInfo `json:"apply_info,omitempty" xml:"apply_info,omitempty"`
 }
 
 func (s IPOrder) String() string {
@@ -6520,6 +6773,11 @@ func (s *IPOrder) SetFeatures(v []*int64) *IPOrder {
 	return s
 }
 
+func (s *IPOrder) SetApplyInfo(v *IPOrderApplyInfo) *IPOrder {
+	s.ApplyInfo = v
+	return s
+}
+
 // 商品授权信息（一客一价信息）
 type EquityAuthInfo struct {
 	// 链ID
@@ -6595,6 +6853,10 @@ type IpChannelInfo struct {
 	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// 交易是否需要确认
 	TradeNeedConfirm *bool `json:"trade_need_confirm,omitempty" xml:"trade_need_confirm,omitempty"`
+	// 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+	GuaranteeRange *int64 `json:"guarantee_range,omitempty" xml:"guarantee_range,omitempty"`
+	// 交易模式
+	IpTradeMode *IPTradeMode `json:"ip_trade_mode,omitempty" xml:"ip_trade_mode,omitempty"`
 }
 
 func (s IpChannelInfo) String() string {
@@ -6632,6 +6894,63 @@ func (s *IpChannelInfo) SetStatus(v int64) *IpChannelInfo {
 
 func (s *IpChannelInfo) SetTradeNeedConfirm(v bool) *IpChannelInfo {
 	s.TradeNeedConfirm = &v
+	return s
+}
+
+func (s *IpChannelInfo) SetGuaranteeRange(v int64) *IpChannelInfo {
+	s.GuaranteeRange = &v
+	return s
+}
+
+func (s *IpChannelInfo) SetIpTradeMode(v *IPTradeMode) *IpChannelInfo {
+	s.IpTradeMode = v
+	return s
+}
+
+// 正版码流转信息
+type CodeCirculation struct {
+	// 正版码的编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 流转信息标题
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
+	// 流转详细信息
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	// 哈希值
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
+	// 流转时间
+	Time *int64 `json:"time,omitempty" xml:"time,omitempty"`
+}
+
+func (s CodeCirculation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CodeCirculation) GoString() string {
+	return s.String()
+}
+
+func (s *CodeCirculation) SetCode(v string) *CodeCirculation {
+	s.Code = &v
+	return s
+}
+
+func (s *CodeCirculation) SetTitle(v string) *CodeCirculation {
+	s.Title = &v
+	return s
+}
+
+func (s *CodeCirculation) SetContent(v string) *CodeCirculation {
+	s.Content = &v
+	return s
+}
+
+func (s *CodeCirculation) SetHash(v string) *CodeCirculation {
+	s.Hash = &v
+	return s
+}
+
+func (s *CodeCirculation) SetTime(v int64) *CodeCirculation {
+	s.Time = &v
 	return s
 }
 
@@ -23117,6 +23436,8 @@ type StartIpAuthtradeRequest struct {
 	AuthorizationModel []*int64 `json:"authorization_model,omitempty" xml:"authorization_model,omitempty" type:"Repeated"`
 	// 订单功能选择，0 基础功能，1 领用收藏等
 	Features []*int64 `json:"features,omitempty" xml:"features,omitempty" type:"Repeated"`
+	// 合作申请时的订单ID，如没有前置的申请环节，则不填
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty"`
 }
 
 func (s StartIpAuthtradeRequest) String() string {
@@ -23259,6 +23580,11 @@ func (s *StartIpAuthtradeRequest) SetAuthorizationModel(v []*int64) *StartIpAuth
 
 func (s *StartIpAuthtradeRequest) SetFeatures(v []*int64) *StartIpAuthtradeRequest {
 	s.Features = v
+	return s
+}
+
+func (s *StartIpAuthtradeRequest) SetIpOrderId(v string) *StartIpAuthtradeRequest {
+	s.IpOrderId = &v
 	return s
 }
 
@@ -23744,6 +24070,8 @@ type QueryIpOrderlistRequest struct {
 	IpName *string `json:"ip_name,omitempty" xml:"ip_name,omitempty"`
 	// 卖方名称，根据卖方名称模糊查询
 	SellerName *string `json:"seller_name,omitempty" xml:"seller_name,omitempty"`
+	// 买方名称，根据卖方名称模糊查询
+	BuyerName *string `json:"buyer_name,omitempty" xml:"buyer_name,omitempty"`
 	// 交易类型：1 套餐交易， 2 定向授权
 	TradeType *int64 `json:"trade_type,omitempty" xml:"trade_type,omitempty"`
 	// 0 IP交易，1 增值服务交易
@@ -23768,6 +24096,8 @@ type QueryIpOrderlistRequest struct {
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 渠道名称
 	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty"`
+	// 是否查询0授权费率的订单，true则查0费率订单，false则查非0费率订单
+	ZeroAuthRate *bool `json:"zero_auth_rate,omitempty" xml:"zero_auth_rate,omitempty"`
 }
 
 func (s QueryIpOrderlistRequest) String() string {
@@ -23828,6 +24158,11 @@ func (s *QueryIpOrderlistRequest) SetSellerName(v string) *QueryIpOrderlistReque
 	return s
 }
 
+func (s *QueryIpOrderlistRequest) SetBuyerName(v string) *QueryIpOrderlistRequest {
+	s.BuyerName = &v
+	return s
+}
+
 func (s *QueryIpOrderlistRequest) SetTradeType(v int64) *QueryIpOrderlistRequest {
 	s.TradeType = &v
 	return s
@@ -23885,6 +24220,11 @@ func (s *QueryIpOrderlistRequest) SetPageSize(v int64) *QueryIpOrderlistRequest 
 
 func (s *QueryIpOrderlistRequest) SetChannelName(v string) *QueryIpOrderlistRequest {
 	s.ChannelName = &v
+	return s
+}
+
+func (s *QueryIpOrderlistRequest) SetZeroAuthRate(v bool) *QueryIpOrderlistRequest {
+	s.ZeroAuthRate = &v
 	return s
 }
 
@@ -24025,6 +24365,8 @@ type CreateIpGoodsRequest struct {
 	CopyRightEndTime *int64 `json:"copy_right_end_time,omitempty" xml:"copy_right_end_time,omitempty" require:"true"`
 	// IP图库链接
 	IpGalleryUrl *string `json:"ip_gallery_url,omitempty" xml:"ip_gallery_url,omitempty"`
+	// IP授权信息
+	AuthorizationInfo *IPAuthorizationInfo `json:"authorization_info,omitempty" xml:"authorization_info,omitempty"`
 }
 
 func (s CreateIpGoodsRequest) String() string {
@@ -24155,6 +24497,11 @@ func (s *CreateIpGoodsRequest) SetIpGalleryUrl(v string) *CreateIpGoodsRequest {
 	return s
 }
 
+func (s *CreateIpGoodsRequest) SetAuthorizationInfo(v *IPAuthorizationInfo) *CreateIpGoodsRequest {
+	s.AuthorizationInfo = v
+	return s
+}
+
 type CreateIpGoodsResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -24205,17 +24552,21 @@ type AddIpChannelRequest struct {
 	// 渠道信息
 	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
 	// 商品授权 0普通授权/1独家授权,本期只支持0
-	AuthorizationModel *int64 `json:"authorization_model,omitempty" xml:"authorization_model,omitempty" require:"true"`
+	AuthorizationModel *int64 `json:"authorization_model,omitempty" xml:"authorization_model,omitempty"`
 	// 新授权模式，0普通授权，1独家授权，支持多选
 	NewAuthorizationModel []*int64 `json:"new_authorization_model,omitempty" xml:"new_authorization_model,omitempty" type:"Repeated"`
 	// 授权类型，衍生品授权；营销授权；商标授权；数字虚拟授权；其他
 	AuthorizationType []*string `json:"authorization_type,omitempty" xml:"authorization_type,omitempty" type:"Repeated"`
 	// 计费模式 0:按量 1:按金额
-	PayMode *int64 `json:"pay_mode,omitempty" xml:"pay_mode,omitempty" require:"true"`
-	// ip等级  0:经典IP/1:流量IP/3:设计IP
-	IpLevel *int64 `json:"ip_level,omitempty" xml:"ip_level,omitempty" require:"true"`
+	PayMode *int64 `json:"pay_mode,omitempty" xml:"pay_mode,omitempty"`
+	// ip等级  0:经典IP/1:流量IP/2:设计IP
+	IpLevel *int64 `json:"ip_level,omitempty" xml:"ip_level,omitempty"`
 	// 交易是否需要确认，默认不需要确认
 	TradeNeedConfirm *bool `json:"trade_need_confirm,omitempty" xml:"trade_need_confirm,omitempty"`
+	// 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+	GuaranteeRange *int64 `json:"guarantee_range,omitempty" xml:"guarantee_range,omitempty"`
+	// 交易模式
+	IpTradeMode *IPTradeMode `json:"ip_trade_mode,omitempty" xml:"ip_trade_mode,omitempty"`
 }
 
 func (s AddIpChannelRequest) String() string {
@@ -24278,6 +24629,16 @@ func (s *AddIpChannelRequest) SetIpLevel(v int64) *AddIpChannelRequest {
 
 func (s *AddIpChannelRequest) SetTradeNeedConfirm(v bool) *AddIpChannelRequest {
 	s.TradeNeedConfirm = &v
+	return s
+}
+
+func (s *AddIpChannelRequest) SetGuaranteeRange(v int64) *AddIpChannelRequest {
+	s.GuaranteeRange = &v
+	return s
+}
+
+func (s *AddIpChannelRequest) SetIpTradeMode(v *IPTradeMode) *AddIpChannelRequest {
+	s.IpTradeMode = v
 	return s
 }
 
@@ -24433,6 +24794,8 @@ type BatchqueryIpGoodsRequest struct {
 	IsSortByStatusChange *int64 `json:"is_sort_by_status_change,omitempty" xml:"is_sort_by_status_change,omitempty"`
 	// 是否需要返回创建渠道，为空默认不返回
 	QueryCreaterChannel *bool `json:"query_creater_channel,omitempty" xml:"query_creater_channel,omitempty"`
+	// 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+	GuaranteeRange *int64 `json:"guarantee_range,omitempty" xml:"guarantee_range,omitempty"`
 }
 
 func (s BatchqueryIpGoodsRequest) String() string {
@@ -24530,6 +24893,11 @@ func (s *BatchqueryIpGoodsRequest) SetIsSortByStatusChange(v int64) *BatchqueryI
 
 func (s *BatchqueryIpGoodsRequest) SetQueryCreaterChannel(v bool) *BatchqueryIpGoodsRequest {
 	s.QueryCreaterChannel = &v
+	return s
+}
+
+func (s *BatchqueryIpGoodsRequest) SetGuaranteeRange(v int64) *BatchqueryIpGoodsRequest {
+	s.GuaranteeRange = &v
 	return s
 }
 
@@ -24810,6 +25178,8 @@ type UpdateIpGoodsRequest struct {
 	CopyRightEndTime *int64 `json:"copy_right_end_time,omitempty" xml:"copy_right_end_time,omitempty" require:"true"`
 	// 如果商品是审批通过状态，是否需要审批，默认false。该字段提供给运营使用，慎用！！！
 	NeedApproval *bool `json:"need_approval,omitempty" xml:"need_approval,omitempty"`
+	// 授权信息
+	AuthorizationInfo *IPAuthorizationInfo `json:"authorization_info,omitempty" xml:"authorization_info,omitempty"`
 }
 
 func (s UpdateIpGoodsRequest) String() string {
@@ -24940,6 +25310,11 @@ func (s *UpdateIpGoodsRequest) SetNeedApproval(v bool) *UpdateIpGoodsRequest {
 	return s
 }
 
+func (s *UpdateIpGoodsRequest) SetAuthorizationInfo(v *IPAuthorizationInfo) *UpdateIpGoodsRequest {
+	s.AuthorizationInfo = v
+	return s
+}
+
 type UpdateIpGoodsResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -24983,17 +25358,21 @@ type UpdateIpChannelRequest struct {
 	// 渠道信息
 	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
 	// 商品授权 0普通授权/1独家授权,本期只支持0
-	AuthorizationModel *int64 `json:"authorization_model,omitempty" xml:"authorization_model,omitempty" require:"true"`
+	AuthorizationModel *int64 `json:"authorization_model,omitempty" xml:"authorization_model,omitempty"`
 	// 新授权模式，0普通授权，1独家授权，支持多选
 	NewAuthorizationModel []*int64 `json:"new_authorization_model,omitempty" xml:"new_authorization_model,omitempty" type:"Repeated"`
 	// 授权类型，衍生品授权；营销授权；商标授权；数字虚拟授权；其他
 	AuthorizationType []*string `json:"authorization_type,omitempty" xml:"authorization_type,omitempty" type:"Repeated"`
 	// 计费模式 0:按量 1:按金额
-	PayMode *int64 `json:"pay_mode,omitempty" xml:"pay_mode,omitempty" require:"true"`
+	PayMode *int64 `json:"pay_mode,omitempty" xml:"pay_mode,omitempty"`
 	// ip等级  0:经典IP/1:流量IP/3:设计IP
-	IpLevel *int64 `json:"ip_level,omitempty" xml:"ip_level,omitempty" require:"true"`
+	IpLevel *int64 `json:"ip_level,omitempty" xml:"ip_level,omitempty"`
 	// 交易是否需要确认，为空则不更新
 	TradeNeedConfirm *bool `json:"trade_need_confirm,omitempty" xml:"trade_need_confirm,omitempty"`
+	// 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+	GuaranteeRange *int64 `json:"guarantee_range,omitempty" xml:"guarantee_range,omitempty"`
+	// 交易模式
+	IpTradeMode *IPTradeMode `json:"ip_trade_mode,omitempty" xml:"ip_trade_mode,omitempty"`
 }
 
 func (s UpdateIpChannelRequest) String() string {
@@ -25056,6 +25435,16 @@ func (s *UpdateIpChannelRequest) SetIpLevel(v int64) *UpdateIpChannelRequest {
 
 func (s *UpdateIpChannelRequest) SetTradeNeedConfirm(v bool) *UpdateIpChannelRequest {
 	s.TradeNeedConfirm = &v
+	return s
+}
+
+func (s *UpdateIpChannelRequest) SetGuaranteeRange(v int64) *UpdateIpChannelRequest {
+	s.GuaranteeRange = &v
+	return s
+}
+
+func (s *UpdateIpChannelRequest) SetIpTradeMode(v *IPTradeMode) *UpdateIpChannelRequest {
+	s.IpTradeMode = v
 	return s
 }
 
@@ -26617,6 +27006,8 @@ type BatchqueryIpApprovalandchannelRequest struct {
 	AudienceGroup *string `json:"audience_group,omitempty" xml:"audience_group,omitempty"`
 	// 归属账户
 	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+	// 版权方别名
+	AccountExternalName *string `json:"account_external_name,omitempty" xml:"account_external_name,omitempty"`
 	// 是否需要按照创建时间倒序排序
 	//
 	IsCreateTimeSortDesc *bool `json:"is_create_time_sort_desc,omitempty" xml:"is_create_time_sort_desc,omitempty" require:"true"`
@@ -26630,6 +27021,8 @@ type BatchqueryIpApprovalandchannelRequest struct {
 	CreateEndTime *string `json:"create_end_time,omitempty" xml:"create_end_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 渠道名称
 	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty"`
+	// 上架渠道，SelfEmployed为上架到自营的渠道，NONLINE为未上架任何渠道
+	OnlineChannel *string `json:"online_channel,omitempty" xml:"online_channel,omitempty"`
 }
 
 func (s BatchqueryIpApprovalandchannelRequest) String() string {
@@ -26685,6 +27078,11 @@ func (s *BatchqueryIpApprovalandchannelRequest) SetAccountId(v string) *Batchque
 	return s
 }
 
+func (s *BatchqueryIpApprovalandchannelRequest) SetAccountExternalName(v string) *BatchqueryIpApprovalandchannelRequest {
+	s.AccountExternalName = &v
+	return s
+}
+
 func (s *BatchqueryIpApprovalandchannelRequest) SetIsCreateTimeSortDesc(v bool) *BatchqueryIpApprovalandchannelRequest {
 	s.IsCreateTimeSortDesc = &v
 	return s
@@ -26712,6 +27110,11 @@ func (s *BatchqueryIpApprovalandchannelRequest) SetCreateEndTime(v string) *Batc
 
 func (s *BatchqueryIpApprovalandchannelRequest) SetChannelName(v string) *BatchqueryIpApprovalandchannelRequest {
 	s.ChannelName = &v
+	return s
+}
+
+func (s *BatchqueryIpApprovalandchannelRequest) SetOnlineChannel(v string) *BatchqueryIpApprovalandchannelRequest {
+	s.OnlineChannel = &v
 	return s
 }
 
@@ -26874,6 +27277,8 @@ type BatchqueryIpSellerRequest struct {
 	CreateStartTime *int64 `json:"create_start_time,omitempty" xml:"create_start_time,omitempty"`
 	// 筛选更新时间范围，结束区间
 	CreateEndTime *int64 `json:"create_end_time,omitempty" xml:"create_end_time,omitempty"`
+	// 版权方的用户名称
+	ExternalUserName *string `json:"external_user_name,omitempty" xml:"external_user_name,omitempty"`
 }
 
 func (s BatchqueryIpSellerRequest) String() string {
@@ -26951,6 +27356,11 @@ func (s *BatchqueryIpSellerRequest) SetCreateStartTime(v int64) *BatchqueryIpSel
 
 func (s *BatchqueryIpSellerRequest) SetCreateEndTime(v int64) *BatchqueryIpSellerRequest {
 	s.CreateEndTime = &v
+	return s
+}
+
+func (s *BatchqueryIpSellerRequest) SetExternalUserName(v string) *BatchqueryIpSellerRequest {
+	s.ExternalUserName = &v
 	return s
 }
 
@@ -27350,10 +27760,14 @@ type CheckIpCodeResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 被扫描的次数(包含本次)
 	ScannedCount *int64 `json:"scanned_count,omitempty" xml:"scanned_count,omitempty"`
-	// 扫描历史列表(仅展示最近扫描的50次信息)
+	// null，暂不使用该值//扫描历史列表(仅展示最近扫描的50次信息)
 	ScannedList []*IPCodeScannedInfo `json:"scanned_list,omitempty" xml:"scanned_list,omitempty" type:"Repeated"`
-	// 正版码的详情，如果为空，则正版码未领取，如果不为空，则正版码已领取
+	// 正版码的详情，始终不为空，如果类型中的user_name为空，则正版码未领取，如果不为空，则正版码已领取
 	CodeDetail *IPCodeScannedInfo `json:"code_detail,omitempty" xml:"code_detail,omitempty"`
+	// 首次扫码信息
+	FirstScannedInfo *IPSimpleScannedInfo `json:"first_scanned_info,omitempty" xml:"first_scanned_info,omitempty"`
+	// 扫码信息
+	ScannedInfoList []*IPSimpleScannedInfo `json:"scanned_info_list,omitempty" xml:"scanned_info_list,omitempty" type:"Repeated"`
 }
 
 func (s CheckIpCodeResponse) String() string {
@@ -27391,6 +27805,16 @@ func (s *CheckIpCodeResponse) SetScannedList(v []*IPCodeScannedInfo) *CheckIpCod
 
 func (s *CheckIpCodeResponse) SetCodeDetail(v *IPCodeScannedInfo) *CheckIpCodeResponse {
 	s.CodeDetail = v
+	return s
+}
+
+func (s *CheckIpCodeResponse) SetFirstScannedInfo(v *IPSimpleScannedInfo) *CheckIpCodeResponse {
+	s.FirstScannedInfo = v
+	return s
+}
+
+func (s *CheckIpCodeResponse) SetScannedInfoList(v []*IPSimpleScannedInfo) *CheckIpCodeResponse {
+	s.ScannedInfoList = v
 	return s
 }
 
@@ -29744,6 +30168,12 @@ type QueryIpCodeResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 正版码信息
 	CodeInfo *IPCodeScannedInfo `json:"code_info,omitempty" xml:"code_info,omitempty"`
+	// 首次扫码信息
+	FirstScannedInfo *IPSimpleScannedInfo `json:"first_scanned_info,omitempty" xml:"first_scanned_info,omitempty"`
+	// 扫码信息
+	ScannedInfoList []*IPSimpleScannedInfo `json:"scanned_info_list,omitempty" xml:"scanned_info_list,omitempty" type:"Repeated"`
+	// 扫码次数
+	ScannedCount *int64 `json:"scanned_count,omitempty" xml:"scanned_count,omitempty"`
 }
 
 func (s QueryIpCodeResponse) String() string {
@@ -29771,6 +30201,21 @@ func (s *QueryIpCodeResponse) SetResultMsg(v string) *QueryIpCodeResponse {
 
 func (s *QueryIpCodeResponse) SetCodeInfo(v *IPCodeScannedInfo) *QueryIpCodeResponse {
 	s.CodeInfo = v
+	return s
+}
+
+func (s *QueryIpCodeResponse) SetFirstScannedInfo(v *IPSimpleScannedInfo) *QueryIpCodeResponse {
+	s.FirstScannedInfo = v
+	return s
+}
+
+func (s *QueryIpCodeResponse) SetScannedInfoList(v []*IPSimpleScannedInfo) *QueryIpCodeResponse {
+	s.ScannedInfoList = v
+	return s
+}
+
+func (s *QueryIpCodeResponse) SetScannedCount(v int64) *QueryIpCodeResponse {
+	s.ScannedCount = &v
 	return s
 }
 
@@ -30191,6 +30636,10 @@ type SetIpCodeinfoRequest struct {
 	IpownerInfo *IPCodeIpOwnerInfo `json:"ipowner_info,omitempty" xml:"ipowner_info,omitempty"`
 	// (商家)配置正版码时间
 	CodeSetTime *string `json:"code_set_time,omitempty" xml:"code_set_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 正版码配置附加信息，信息内容由调用方自定义。可以从配置查询和正版码详情接口上获取。
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+	// 正版码前缀，本期暂不支持
+	ShowCodePrefix *string `json:"show_code_prefix,omitempty" xml:"show_code_prefix,omitempty"`
 }
 
 func (s SetIpCodeinfoRequest) String() string {
@@ -30243,6 +30692,16 @@ func (s *SetIpCodeinfoRequest) SetIpownerInfo(v *IPCodeIpOwnerInfo) *SetIpCodein
 
 func (s *SetIpCodeinfoRequest) SetCodeSetTime(v string) *SetIpCodeinfoRequest {
 	s.CodeSetTime = &v
+	return s
+}
+
+func (s *SetIpCodeinfoRequest) SetExtInfo(v string) *SetIpCodeinfoRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *SetIpCodeinfoRequest) SetShowCodePrefix(v string) *SetIpCodeinfoRequest {
+	s.ShowCodePrefix = &v
 	return s
 }
 
@@ -30493,6 +30952,8 @@ type ConfirmIpAuthtradeRequest struct {
 	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
 	// 是否同意授权
 	ConfirmResult *bool `json:"confirm_result,omitempty" xml:"confirm_result,omitempty" require:"true"`
+	// 审批信息备注，通过或不通过原因
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
 }
 
 func (s ConfirmIpAuthtradeRequest) String() string {
@@ -30530,6 +30991,11 @@ func (s *ConfirmIpAuthtradeRequest) SetIpOrderId(v string) *ConfirmIpAuthtradeRe
 
 func (s *ConfirmIpAuthtradeRequest) SetConfirmResult(v bool) *ConfirmIpAuthtradeRequest {
 	s.ConfirmResult = &v
+	return s
+}
+
+func (s *ConfirmIpAuthtradeRequest) SetMemo(v string) *ConfirmIpAuthtradeRequest {
+	s.Memo = &v
 	return s
 }
 
@@ -30964,6 +31430,8 @@ type ApplyIpAuthtradeRequest struct {
 	AuthorizationModel []*int64 `json:"authorization_model,omitempty" xml:"authorization_model,omitempty" type:"Repeated"`
 	// 订单功能选择，0 基础功能，1 领用收藏等
 	Features []*int64 `json:"features,omitempty" xml:"features,omitempty" type:"Repeated"`
+	// 合作申请时的订单ID，如没有前置的申请环节，则不填
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty"`
 }
 
 func (s ApplyIpAuthtradeRequest) String() string {
@@ -31109,6 +31577,11 @@ func (s *ApplyIpAuthtradeRequest) SetFeatures(v []*int64) *ApplyIpAuthtradeReque
 	return s
 }
 
+func (s *ApplyIpAuthtradeRequest) SetIpOrderId(v string) *ApplyIpAuthtradeRequest {
+	s.IpOrderId = &v
+	return s
+}
+
 type ApplyIpAuthtradeResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -31212,6 +31685,11 @@ type QueryIpCodeinfoResponse struct {
 	IpownerInfo *IPCodeIpOwnerInfo `json:"ipowner_info,omitempty" xml:"ipowner_info,omitempty"`
 	// 0:未配置，1:配置成功可展示，9:下架【本期不实现】
 	IpCodeStatus *int64 `json:"ip_code_status,omitempty" xml:"ip_code_status,omitempty"`
+	// 正版码前缀
+	//
+	ShowCodePrefix *string `json:"show_code_prefix,omitempty" xml:"show_code_prefix,omitempty"`
+	// 正版码配置附加信息，信息内容由调用方自定义。
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
 
 func (s QueryIpCodeinfoResponse) String() string {
@@ -31264,6 +31742,16 @@ func (s *QueryIpCodeinfoResponse) SetIpownerInfo(v *IPCodeIpOwnerInfo) *QueryIpC
 
 func (s *QueryIpCodeinfoResponse) SetIpCodeStatus(v int64) *QueryIpCodeinfoResponse {
 	s.IpCodeStatus = &v
+	return s
+}
+
+func (s *QueryIpCodeinfoResponse) SetShowCodePrefix(v string) *QueryIpCodeinfoResponse {
+	s.ShowCodePrefix = &v
+	return s
+}
+
+func (s *QueryIpCodeinfoResponse) SetExtInfo(v string) *QueryIpCodeinfoResponse {
+	s.ExtInfo = &v
 	return s
 }
 
@@ -32910,7 +33398,7 @@ type BatchqueryIpGoodsinterestRequest struct {
 	// 分页索引
 	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
 	// ip等级
-	IpLevel []*int64 `json:"ip_level,omitempty" xml:"ip_level,omitempty" require:"true" type:"Repeated"`
+	IpLevel []*int64 `json:"ip_level,omitempty" xml:"ip_level,omitempty" type:"Repeated"`
 	// ip类型
 	IpType []*string `json:"ip_type,omitempty" xml:"ip_type,omitempty" require:"true" type:"Repeated"`
 	// 受众人群
@@ -32919,6 +33407,8 @@ type BatchqueryIpGoodsinterestRequest struct {
 	IsCreateTimeSortDesc *bool `json:"is_create_time_sort_desc,omitempty" xml:"is_create_time_sort_desc,omitempty" require:"true"`
 	// 是否需要按照pv排序（0:不需要，1:正序，2:倒序），默认选1
 	IsSortByPv *int64 `json:"is_sort_by_pv,omitempty" xml:"is_sort_by_pv,omitempty" require:"true"`
+	// 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+	GuaranteeRange []*string `json:"guarantee_range,omitempty" xml:"guarantee_range,omitempty" type:"Repeated"`
 }
 
 func (s BatchqueryIpGoodsinterestRequest) String() string {
@@ -32991,6 +33481,11 @@ func (s *BatchqueryIpGoodsinterestRequest) SetIsCreateTimeSortDesc(v bool) *Batc
 
 func (s *BatchqueryIpGoodsinterestRequest) SetIsSortByPv(v int64) *BatchqueryIpGoodsinterestRequest {
 	s.IsSortByPv = &v
+	return s
+}
+
+func (s *BatchqueryIpGoodsinterestRequest) SetGuaranteeRange(v []*string) *BatchqueryIpGoodsinterestRequest {
+	s.GuaranteeRange = v
 	return s
 }
 
@@ -33478,6 +33973,8 @@ type QueryIpCodecollectResponse struct {
 	CodeLifeCircle *IPCodeConfigTimeInfo `json:"code_life_circle,omitempty" xml:"code_life_circle,omitempty"`
 	// 区块链信息
 	ChainInfo *IPCodeChainInfo `json:"chain_info,omitempty" xml:"chain_info,omitempty"`
+	// 版权信息
+	IpownerInfo *IPCodeIpOwnerInfo `json:"ipowner_info,omitempty" xml:"ipowner_info,omitempty"`
 }
 
 func (s QueryIpCodecollectResponse) String() string {
@@ -33520,6 +34017,11 @@ func (s *QueryIpCodecollectResponse) SetCodeLifeCircle(v *IPCodeConfigTimeInfo) 
 
 func (s *QueryIpCodecollectResponse) SetChainInfo(v *IPCodeChainInfo) *QueryIpCodecollectResponse {
 	s.ChainInfo = v
+	return s
+}
+
+func (s *QueryIpCodecollectResponse) SetIpownerInfo(v *IPCodeIpOwnerInfo) *QueryIpCodecollectResponse {
+	s.IpownerInfo = v
 	return s
 }
 
@@ -34213,6 +34715,539 @@ func (s *ReopenIpBillResponse) SetIpBillId(v string) *ReopenIpBillResponse {
 
 func (s *ReopenIpBillResponse) SetPayUrl(v string) *ReopenIpBillResponse {
 	s.PayUrl = &v
+	return s
+}
+
+type InitIpAuthtradeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础请求参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 采购者的链上账户Id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// IP授权交易时传入IP ID；增值服务交易时传入服务ID
+	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
+	// 0 IP交易，1 增值服务交易
+	GoodsType *int64 `json:"goods_type,omitempty" xml:"goods_type,omitempty"`
+	// 申请授权合作的备注信息
+	ApplyInfo *IPOrderApplyInfo `json:"apply_info,omitempty" xml:"apply_info,omitempty" require:"true"`
+}
+
+func (s InitIpAuthtradeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitIpAuthtradeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitIpAuthtradeRequest) SetAuthToken(v string) *InitIpAuthtradeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitIpAuthtradeRequest) SetProductInstanceId(v string) *InitIpAuthtradeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitIpAuthtradeRequest) SetBaseRequest(v *BaseRequestInfo) *InitIpAuthtradeRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *InitIpAuthtradeRequest) SetAccountId(v string) *InitIpAuthtradeRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *InitIpAuthtradeRequest) SetIpId(v string) *InitIpAuthtradeRequest {
+	s.IpId = &v
+	return s
+}
+
+func (s *InitIpAuthtradeRequest) SetGoodsType(v int64) *InitIpAuthtradeRequest {
+	s.GoodsType = &v
+	return s
+}
+
+func (s *InitIpAuthtradeRequest) SetApplyInfo(v *IPOrderApplyInfo) *InitIpAuthtradeRequest {
+	s.ApplyInfo = v
+	return s
+}
+
+type InitIpAuthtradeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty"`
+}
+
+func (s InitIpAuthtradeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitIpAuthtradeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitIpAuthtradeResponse) SetReqMsgId(v string) *InitIpAuthtradeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitIpAuthtradeResponse) SetResultCode(v string) *InitIpAuthtradeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitIpAuthtradeResponse) SetResultMsg(v string) *InitIpAuthtradeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitIpAuthtradeResponse) SetIpOrderId(v string) *InitIpAuthtradeResponse {
+	s.IpOrderId = &v
+	return s
+}
+
+type QueryIpOrderhistoryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础请求参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
+}
+
+func (s QueryIpOrderhistoryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpOrderhistoryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpOrderhistoryRequest) SetAuthToken(v string) *QueryIpOrderhistoryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIpOrderhistoryRequest) SetProductInstanceId(v string) *QueryIpOrderhistoryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIpOrderhistoryRequest) SetBaseRequest(v *BaseRequestInfo) *QueryIpOrderhistoryRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *QueryIpOrderhistoryRequest) SetIpOrderId(v string) *QueryIpOrderhistoryRequest {
+	s.IpOrderId = &v
+	return s
+}
+
+type QueryIpOrderhistoryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单列表
+	OrderList []*IPOrder `json:"order_list,omitempty" xml:"order_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryIpOrderhistoryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpOrderhistoryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpOrderhistoryResponse) SetReqMsgId(v string) *QueryIpOrderhistoryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIpOrderhistoryResponse) SetResultCode(v string) *QueryIpOrderhistoryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIpOrderhistoryResponse) SetResultMsg(v string) *QueryIpOrderhistoryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIpOrderhistoryResponse) SetOrderList(v []*IPOrder) *QueryIpOrderhistoryResponse {
+	s.OrderList = v
+	return s
+}
+
+type ConfirmIpBillpayRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础请求参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 账单ID
+	IpBillId *string `json:"ip_bill_id,omitempty" xml:"ip_bill_id,omitempty" require:"true"`
+}
+
+func (s ConfirmIpBillpayRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmIpBillpayRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmIpBillpayRequest) SetAuthToken(v string) *ConfirmIpBillpayRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmIpBillpayRequest) SetProductInstanceId(v string) *ConfirmIpBillpayRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ConfirmIpBillpayRequest) SetBaseRequest(v *BaseRequestInfo) *ConfirmIpBillpayRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *ConfirmIpBillpayRequest) SetIpBillId(v string) *ConfirmIpBillpayRequest {
+	s.IpBillId = &v
+	return s
+}
+
+type ConfirmIpBillpayResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 账单ID
+	IpBillId *string `json:"ip_bill_id,omitempty" xml:"ip_bill_id,omitempty"`
+	// 新的支付链接
+	PayUrl *string `json:"pay_url,omitempty" xml:"pay_url,omitempty"`
+}
+
+func (s ConfirmIpBillpayResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmIpBillpayResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmIpBillpayResponse) SetReqMsgId(v string) *ConfirmIpBillpayResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ConfirmIpBillpayResponse) SetResultCode(v string) *ConfirmIpBillpayResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ConfirmIpBillpayResponse) SetResultMsg(v string) *ConfirmIpBillpayResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ConfirmIpBillpayResponse) SetIpBillId(v string) *ConfirmIpBillpayResponse {
+	s.IpBillId = &v
+	return s
+}
+
+func (s *ConfirmIpBillpayResponse) SetPayUrl(v string) *ConfirmIpBillpayResponse {
+	s.PayUrl = &v
+	return s
+}
+
+type DisableIpCodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 发起失效请求的区块链账户ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 要被失效的UNI的完整编码
+	UniCode *string `json:"uni_code,omitempty" xml:"uni_code,omitempty" require:"true"`
+}
+
+func (s DisableIpCodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DisableIpCodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DisableIpCodeRequest) SetAuthToken(v string) *DisableIpCodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DisableIpCodeRequest) SetProductInstanceId(v string) *DisableIpCodeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DisableIpCodeRequest) SetBaseRequest(v *BaseRequestInfo) *DisableIpCodeRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *DisableIpCodeRequest) SetAccountId(v string) *DisableIpCodeRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *DisableIpCodeRequest) SetUniCode(v string) *DisableIpCodeRequest {
+	s.UniCode = &v
+	return s
+}
+
+type DisableIpCodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s DisableIpCodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DisableIpCodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DisableIpCodeResponse) SetReqMsgId(v string) *DisableIpCodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DisableIpCodeResponse) SetResultCode(v string) *DisableIpCodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DisableIpCodeResponse) SetResultMsg(v string) *DisableIpCodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type UploadIpCodecirculationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础请求参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	//
+	// 正版码的编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 正版码流转信息，每次最多10条信息。
+	CodeCirculationList []*CodeCirculation `json:"code_circulation_list,omitempty" xml:"code_circulation_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s UploadIpCodecirculationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadIpCodecirculationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadIpCodecirculationRequest) SetAuthToken(v string) *UploadIpCodecirculationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadIpCodecirculationRequest) SetProductInstanceId(v string) *UploadIpCodecirculationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadIpCodecirculationRequest) SetBaseRequest(v *BaseRequestInfo) *UploadIpCodecirculationRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *UploadIpCodecirculationRequest) SetCode(v string) *UploadIpCodecirculationRequest {
+	s.Code = &v
+	return s
+}
+
+func (s *UploadIpCodecirculationRequest) SetCodeCirculationList(v []*CodeCirculation) *UploadIpCodecirculationRequest {
+	s.CodeCirculationList = v
+	return s
+}
+
+type UploadIpCodecirculationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UploadIpCodecirculationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadIpCodecirculationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadIpCodecirculationResponse) SetReqMsgId(v string) *UploadIpCodecirculationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadIpCodecirculationResponse) SetResultCode(v string) *UploadIpCodecirculationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadIpCodecirculationResponse) SetResultMsg(v string) *UploadIpCodecirculationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PagequeryIpCodecirculationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础请求参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 正版码的编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 页码
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty" require:"true"`
+	// 每页数据量大小(请小于等于100)
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 根据流转时间 排序顺序：正序还是倒序
+	Order *string `json:"order,omitempty" xml:"order,omitempty" require:"true"`
+}
+
+func (s PagequeryIpCodecirculationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryIpCodecirculationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryIpCodecirculationRequest) SetAuthToken(v string) *PagequeryIpCodecirculationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryIpCodecirculationRequest) SetProductInstanceId(v string) *PagequeryIpCodecirculationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryIpCodecirculationRequest) SetBaseRequest(v *BaseRequestInfo) *PagequeryIpCodecirculationRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *PagequeryIpCodecirculationRequest) SetCode(v string) *PagequeryIpCodecirculationRequest {
+	s.Code = &v
+	return s
+}
+
+func (s *PagequeryIpCodecirculationRequest) SetPageNumber(v int64) *PagequeryIpCodecirculationRequest {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *PagequeryIpCodecirculationRequest) SetPageSize(v int64) *PagequeryIpCodecirculationRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryIpCodecirculationRequest) SetOrder(v string) *PagequeryIpCodecirculationRequest {
+	s.Order = &v
+	return s
+}
+
+type PagequeryIpCodecirculationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 正版码流转信息列表
+	CodeCirculationList []*CodeCirculation `json:"code_circulation_list,omitempty" xml:"code_circulation_list,omitempty" type:"Repeated"`
+	// 正版码的流转信息总数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 页码
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 页面数据量大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s PagequeryIpCodecirculationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryIpCodecirculationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryIpCodecirculationResponse) SetReqMsgId(v string) *PagequeryIpCodecirculationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryIpCodecirculationResponse) SetResultCode(v string) *PagequeryIpCodecirculationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryIpCodecirculationResponse) SetResultMsg(v string) *PagequeryIpCodecirculationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryIpCodecirculationResponse) SetCodeCirculationList(v []*CodeCirculation) *PagequeryIpCodecirculationResponse {
+	s.CodeCirculationList = v
+	return s
+}
+
+func (s *PagequeryIpCodecirculationResponse) SetTotalCount(v int64) *PagequeryIpCodecirculationResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *PagequeryIpCodecirculationResponse) SetPageNumber(v int64) *PagequeryIpCodecirculationResponse {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *PagequeryIpCodecirculationResponse) SetPageSize(v int64) *PagequeryIpCodecirculationResponse {
+	s.PageSize = &v
 	return s
 }
 
@@ -36537,7 +37572,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.39"),
+				"sdk_version":      tea.String("1.3.54"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -44215,8 +45250,8 @@ func (client *Client) CountIpPvEx(request *CountIpPvRequest, headers map[string]
 }
 
 /**
- * Description: 查询正版码信息
- * Summary: 数字商品服务-IP授权服务-正版码查询
+ * Description: 查询正版码详细信息
+ * Summary: 数字商品服务-IP授权服务-查正版码详情
  */
 func (client *Client) QueryIpCode(request *QueryIpCodeRequest) (_result *QueryIpCodeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -44231,8 +45266,8 @@ func (client *Client) QueryIpCode(request *QueryIpCodeRequest) (_result *QueryIp
 }
 
 /**
- * Description: 查询正版码信息
- * Summary: 数字商品服务-IP授权服务-正版码查询
+ * Description: 查询正版码详细信息
+ * Summary: 数字商品服务-IP授权服务-查正版码详情
  */
 func (client *Client) QueryIpCodeEx(request *QueryIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpCodeResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -44487,7 +45522,7 @@ func (client *Client) ConfirmIpOrdergalleryEx(request *ConfirmIpOrdergalleryRequ
 }
 
 /**
- * Description: 审批IP定向授权交易
+ * Description: 审批IP定向授权交易。如果订单状态是“合作待确认”，则审批后状态为“合作拒绝”或者“合作通过”。如果订单状态是”订单待审核“，则审批后状态为“审核失败”或者“申请中”。
  * Summary: 数字商品服务-IP授权服务-审批定向授权
  */
 func (client *Client) ConfirmIpAuthtrade(request *ConfirmIpAuthtradeRequest) (_result *ConfirmIpAuthtradeResponse, _err error) {
@@ -44503,7 +45538,7 @@ func (client *Client) ConfirmIpAuthtrade(request *ConfirmIpAuthtradeRequest) (_r
 }
 
 /**
- * Description: 审批IP定向授权交易
+ * Description: 审批IP定向授权交易。如果订单状态是“合作待确认”，则审批后状态为“合作拒绝”或者“合作通过”。如果订单状态是”订单待审核“，则审批后状态为“审核失败”或者“申请中”。
  * Summary: 数字商品服务-IP授权服务-审批定向授权
  */
 func (client *Client) ConfirmIpAuthtradeEx(request *ConfirmIpAuthtradeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmIpAuthtradeResponse, _err error) {
@@ -44691,7 +45726,7 @@ func (client *Client) BatchqueryIpApprovalwithupdateEx(request *BatchqueryIpAppr
 }
 
 /**
- * Description: 数字商品-IP授权交易服务-账户信息补充（商家）
+ * Description: 数字商品-IP授权交易服务-商家账户信息补充，版权方联系人修改，仅支持版权方联系人修改
  * Summary: 数字商品服务-IP授权服务-账户信息补充
  */
 func (client *Client) UpdateIpAccount(request *UpdateIpAccountRequest) (_result *UpdateIpAccountResponse, _err error) {
@@ -44707,7 +45742,7 @@ func (client *Client) UpdateIpAccount(request *UpdateIpAccountRequest) (_result 
 }
 
 /**
- * Description: 数字商品-IP授权交易服务-账户信息补充（商家）
+ * Description: 数字商品-IP授权交易服务-商家账户信息补充，版权方联系人修改，仅支持版权方联系人修改
  * Summary: 数字商品服务-IP授权服务-账户信息补充
  */
 func (client *Client) UpdateIpAccountEx(request *UpdateIpAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateIpAccountResponse, _err error) {
@@ -45567,6 +46602,210 @@ func (client *Client) ReopenIpBillEx(request *ReopenIpBillRequest, headers map[s
 	}
 	_result = &ReopenIpBillResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.bill.reopen"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 下单问询，商家申请合作授权
+ * Summary: 数字商品服务-IP授权服务-授权交易问询
+ */
+func (client *Client) InitIpAuthtrade(request *InitIpAuthtradeRequest) (_result *InitIpAuthtradeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitIpAuthtradeResponse{}
+	_body, _err := client.InitIpAuthtradeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 下单问询，商家申请合作授权
+ * Summary: 数字商品服务-IP授权服务-授权交易问询
+ */
+func (client *Client) InitIpAuthtradeEx(request *InitIpAuthtradeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitIpAuthtradeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitIpAuthtradeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.authtrade.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询订单历史信息
+ * Summary: 数字商品服务-IP授权服务-查询订单历史
+ */
+func (client *Client) QueryIpOrderhistory(request *QueryIpOrderhistoryRequest) (_result *QueryIpOrderhistoryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIpOrderhistoryResponse{}
+	_body, _err := client.QueryIpOrderhistoryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询订单历史信息
+ * Summary: 数字商品服务-IP授权服务-查询订单历史
+ */
+func (client *Client) QueryIpOrderhistoryEx(request *QueryIpOrderhistoryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpOrderhistoryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIpOrderhistoryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.orderhistory.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 版权方确认线下回款，生成版权方需要支付的手续费账单和支付链接
+ * Summary: 数字商品服务-IP授权服务-确认线下回款
+ */
+func (client *Client) ConfirmIpBillpay(request *ConfirmIpBillpayRequest) (_result *ConfirmIpBillpayResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ConfirmIpBillpayResponse{}
+	_body, _err := client.ConfirmIpBillpayEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 版权方确认线下回款，生成版权方需要支付的手续费账单和支付链接
+ * Summary: 数字商品服务-IP授权服务-确认线下回款
+ */
+func (client *Client) ConfirmIpBillpayEx(request *ConfirmIpBillpayRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmIpBillpayResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ConfirmIpBillpayResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.billpay.confirm"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-单码失效: 将UNI码失效,不可逆。
+ * Summary: 数字商品服务-IP授权服务-单码失效
+ */
+func (client *Client) DisableIpCode(request *DisableIpCodeRequest) (_result *DisableIpCodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DisableIpCodeResponse{}
+	_body, _err := client.DisableIpCodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-单码失效: 将UNI码失效,不可逆。
+ * Summary: 数字商品服务-IP授权服务-单码失效
+ */
+func (client *Client) DisableIpCodeEx(request *DisableIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DisableIpCodeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DisableIpCodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.code.disable"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 上传正版码的流转信息
+ * Summary: 数字商品服务-IP授权服务-上传流转信息
+ */
+func (client *Client) UploadIpCodecirculation(request *UploadIpCodecirculationRequest) (_result *UploadIpCodecirculationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadIpCodecirculationResponse{}
+	_body, _err := client.UploadIpCodecirculationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 上传正版码的流转信息
+ * Summary: 数字商品服务-IP授权服务-上传流转信息
+ */
+func (client *Client) UploadIpCodecirculationEx(request *UploadIpCodecirculationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadIpCodecirculationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadIpCodecirculationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.codecirculation.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询正版码的流转信息
+ * Summary: 数字商品服务-IP授权服务-查询流转信息
+ */
+func (client *Client) PagequeryIpCodecirculation(request *PagequeryIpCodecirculationRequest) (_result *PagequeryIpCodecirculationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryIpCodecirculationResponse{}
+	_body, _err := client.PagequeryIpCodecirculationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询正版码的流转信息
+ * Summary: 数字商品服务-IP授权服务-查询流转信息
+ */
+func (client *Client) PagequeryIpCodecirculationEx(request *PagequeryIpCodecirculationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryIpCodecirculationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryIpCodecirculationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.codecirculation.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
