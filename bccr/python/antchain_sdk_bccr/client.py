@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 取证文件信息
+            # 监测提供商能力
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.15'
+                    'sdk_version': '1.12.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 取证文件信息
+            # 监测提供商能力
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.15'
+                    'sdk_version': '1.12.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1081,60 +1081,6 @@ class Client:
             await self.do_request_async('1.0', 'blockchain.bccr.user.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def add_good(
-        self,
-        request: bccr_models.AddGoodRequest,
-    ) -> bccr_models.AddGoodResponse:
-        """
-        Description: 版权平台新增商品
-        Summary: 新增商品
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.add_good_ex(request, headers, runtime)
-
-    async def add_good_async(
-        self,
-        request: bccr_models.AddGoodRequest,
-    ) -> bccr_models.AddGoodResponse:
-        """
-        Description: 版权平台新增商品
-        Summary: 新增商品
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.add_good_ex_async(request, headers, runtime)
-
-    def add_good_ex(
-        self,
-        request: bccr_models.AddGoodRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> bccr_models.AddGoodResponse:
-        """
-        Description: 版权平台新增商品
-        Summary: 新增商品
-        """
-        UtilClient.validate_model(request)
-        return bccr_models.AddGoodResponse().from_map(
-            self.do_request('1.0', 'blockchain.bccr.good.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def add_good_ex_async(
-        self,
-        request: bccr_models.AddGoodRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> bccr_models.AddGoodResponse:
-        """
-        Description: 版权平台新增商品
-        Summary: 新增商品
-        """
-        UtilClient.validate_model(request)
-        return bccr_models.AddGoodResponse().from_map(
-            await self.do_request_async('1.0', 'blockchain.bccr.good.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
     def create_screenshot(
         self,
         request: bccr_models.CreateScreenshotRequest,
@@ -1403,4 +1349,58 @@ class Client:
         UtilClient.validate_model(request)
         return bccr_models.QueryRecordscreenResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bccr.recordscreen.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_notary(
+        self,
+        request: bccr_models.ListNotaryRequest,
+    ) -> bccr_models.ListNotaryResponse:
+        """
+        Description: 获取支持的公证处列表
+        Summary: 获取支持的公证处列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_notary_ex(request, headers, runtime)
+
+    async def list_notary_async(
+        self,
+        request: bccr_models.ListNotaryRequest,
+    ) -> bccr_models.ListNotaryResponse:
+        """
+        Description: 获取支持的公证处列表
+        Summary: 获取支持的公证处列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_notary_ex_async(request, headers, runtime)
+
+    def list_notary_ex(
+        self,
+        request: bccr_models.ListNotaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.ListNotaryResponse:
+        """
+        Description: 获取支持的公证处列表
+        Summary: 获取支持的公证处列表
+        """
+        UtilClient.validate_model(request)
+        return bccr_models.ListNotaryResponse().from_map(
+            self.do_request('1.0', 'blockchain.bccr.notary.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_notary_ex_async(
+        self,
+        request: bccr_models.ListNotaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.ListNotaryResponse:
+        """
+        Description: 获取支持的公证处列表
+        Summary: 获取支持的公证处列表
+        """
+        UtilClient.validate_model(request)
+        return bccr_models.ListNotaryResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bccr.notary.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
