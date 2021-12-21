@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.39',
+    sdk_version = '1.3.54',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -203,6 +203,20 @@ model CommissionLayer {
   deductToken: string(name='deduct_token', example='10'),
 }
 
+// 商品交易模式
+model IPTradeMode {
+  // 交易类型，0：销售抽拥；1:按件付费
+  tradeType?: [ long ](name='trade_type', example='0'),
+  // 佣金比例
+  commissionWeight?: string(name='commission_weight', example='0.1'),
+  // 保底商品销售金额
+  guaranteeSaleNumber?: string(name='guarantee_sale_number', example='1000000'),
+  // 单件单价
+  unitPrice?: string(name='unit_price', example='12'),
+  // 保底商品数量
+  guaranteeGoodsNumber?: string(name='guarantee_goods_number', example='20000'),
+}
+
 // 交易
 model BlockTransaction {
   // 交易信息
@@ -287,6 +301,18 @@ model IpSkuInfo {
   saleNum: string(name='sale_num', example='10000'),
 }
 
+// 商品IP授权信息
+model IPAuthorizationInfo {
+  // 授权模式,0普通授权/1独家授权
+  authorizationModel?: [ long ](name='authorization_model', example='0'),
+  // 授权类型，衍生品授权，营销授权，商标授权，数字虚拟授权，其他
+  authorizationType?: [ string ](name='authorization_type', example='衍生品授权'),
+  // 授权范围
+  authorizationScope?: string(name='authorization_scope', example='服装行业、电器行业'),
+  // 授权要求
+  authorizationRequirement?: string(name='authorization_requirement', example='合作商家必须拥有XX资质'),
+}
+
 // 商品规格
 model ProductSpecification {
   // 规格名称
@@ -323,6 +349,8 @@ model IPCodeGoodsInfo {
   goodsSaleChannel?: string(name='goods_sale_channel', example='拼多多;淘宝'),
   // 商品规格
   goodsSpecifications?: [ ProductSpecification ](name='goods_specifications', example=''),
+  // 是否展示批次数据
+  isDisplayBatchdata?: boolean(name='is_display_batchdata', example='true, false'),
 }
 
 // 权益附属信息
@@ -567,6 +595,8 @@ model IPCodeIpOwnerInfo {
   ipOwnerImageTmp?: string(name='ip_owner_image_tmp', example='http://xxx'),
   // ip描述
   ipDescription?: string(name='ip_description', example='这是一段ip描述'),
+  // 默认为空或者0是版权信息；1是著作信息；2是创作信息；3是联名信息
+  ipOwnerType?: long(name='ip_owner_type', example=''),
 }
 
 // 资产附属信息
@@ -599,6 +629,16 @@ model IPSettleRule {
   settleType: long(name='settle_type', example='1'),
   // 结算目标 如果settle_type = 1, 这里填写银行卡卡号; 如果settle_type = 2, 这里填写支付宝账号登录号, 且要求与商户名称name同名
   settleTarget: string(name='settle_target', example='myalipay@alipay.com'),
+}
+
+// 申请授权合作的备注信息
+model IPOrderApplyInfo {
+  // 授权合作商品
+  authGoods: string(name='auth_goods', example='授权合作商品'),
+  // 销售规模数量
+  salesAmount: long(name='sales_amount', example='10000'),
+  // 销售规模金额
+  salesNumber: string(name='sales_number', example='1000.00'),
 }
 
 // 区块体
@@ -701,8 +741,12 @@ model IpBasicInfo {
   accountId: string(name='account_id', example='xxxxxx'),
   // 资质生效的结束时间
   copyRightEndTime: long(name='copy_right_end_time', example=''),
-  // 账户名称
+  // 账户名称-别名
   accountName?: string(name='account_name', example='xxxx'),
+  // 授权信息
+  authorizationInfo?: IPAuthorizationInfo(name='authorization_info', example=''),
+  // 版权方名称
+  externalUserName?: string(name='external_user_name', example='XXX有限公司'),
 }
 
 // 正版码配置资源位信息
@@ -717,6 +761,10 @@ model IPCodeAdvertisingInfo {
   adName?: string(name='ad_name', example='小龙坎火锅'),
   // 广告位类型，为空时代表是商品广告位，Resource时代表是资源位
   adType?: string(name='ad_type', example='Resource'),
+  // 展示有效期开始时间
+  adValidBeginTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='ad_valid_begin_time', example='2018-10-10T10:10:00Z'),
+  // 展示有效期结束时间
+  adValidEndTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='ad_valid_end_time', example='2018-10-10T10:10:00Z'),
 }
 
 // ip的渠道信息带上sku信息
@@ -741,6 +789,10 @@ model IpChannelWithSku {
   tradeNeedConfirm?: boolean(name='trade_need_confirm', example='true, false'),
   // 授权类型
   authorizationType?: [ string ](name='authorization_type', example='衍生品授权'),
+  // 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+  guaranteeRange?: long(name='guarantee_range', example=''),
+  // 交易模式
+  ipTradeMode?: IPTradeMode(name='ip_trade_mode', example=''),
 }
 
 // 卡密信息
@@ -925,6 +977,16 @@ model CommissionRule {
   accountId: string(name='account_id', example='3d95ea95740377c6b69678f0dab9de1cf09a3dc4a487374a402db8ee7b02a89f'),
   // 手续费规则
   commissionPeriod: CommissionPeriod(name='commission_period', example=''),
+}
+
+// 简要扫码信息
+model IPSimpleScannedInfo {
+  // 扫码人
+  userName?: string(name='user_name', example='小王'),
+  // 扫码时间
+  scannedTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='scanned_time', example='2018-10-10T10:10:00Z'),
+  // 扫码地址
+  gps?: string(name='gps', example='浙江省杭州市滨江区'),
 }
 
 // 设置过自定义价格的权益信息
@@ -1611,6 +1673,8 @@ model IPCodeScannedInfo {
   gps?: string(name='gps', example='浙江省杭州市西湖区'),
   // 领取正版码的交易哈希
   hash?: string(name='hash', example='交易哈希'),
+  // 领取正版码交易所在的区块高度
+  blockNumber?: long(name='block_number', example='1234567'),
   // 处理时间(毫秒时间戳)
   timestamp: long(name='timestamp', example='713471745'),
   // IP ID
@@ -1623,7 +1687,7 @@ model IPCodeScannedInfo {
   adInfoList?: [ IPCodeAdvertisingInfo ](name='ad_info_list', example=''),
   // ip版权方信息
   ipownerInfo?: IPCodeIpOwnerInfo(name='ipowner_info', example=''),
-  // 0:未配置，1:配置成功可展示，9:下架【本期不实现】
+  // 0:未配置, 1:配置成功可展示, 4:已经失效, 9:下架【本期不实现】
   ipCodeStatus?: long(name='ip_code_status', example=''),
   // 额外功能，包括是否允许收藏等
   features?: [ long ](name='features', example=''),
@@ -1633,6 +1697,16 @@ model IPCodeScannedInfo {
   ipInfo?: IPCodeIpGoodInfo(name='ip_info', example=''),
   // UNI码
   uniCode?: string(name='uni_code', example='UNI23678678'),
+  // 正版码配置附加信息，信息内容由调用方自定义
+  extInfo?: string(name='ext_info', example='附加信息'),
+  // 收藏时间(UNIX时间戳)0表示未被收藏
+  receiveTime?: long(name='receive_time', example='14917547571'),
+  // 同一批次存在失效UNI码的场景下,指示更新后的下标
+  fixedIndex?: long(name='fixed_index', example='1'),
+  // 同一批次存在失效UNI码的场景下,指示更新后的总量
+  fixedCount?: long(name='fixed_count', example='99'),
+  // 小龙坎有限公司
+  accountExternalName?: string(name='account_external_name', example='商家名称'),
 }
 
 // IP淘宝店铺信息
@@ -2041,6 +2115,8 @@ model IPOrder {
   goodsIdList?: [ string ](name='goods_id_list', example=''),
   // 订单功能选择，0 基础功能，1 领用收藏
   features?: [ long ](name='features', example=''),
+  // 申请授权合作的备注信息
+  applyInfo?: IPOrderApplyInfo(name='apply_info', example=''),
 }
 
 // 商品授权信息（一客一价信息）
@@ -2075,6 +2151,24 @@ model IpChannelInfo {
   status: long(name='status', example='0'),
   // 交易是否需要确认
   tradeNeedConfirm?: boolean(name='trade_need_confirm', example='true, false'),
+  // 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+  guaranteeRange?: long(name='guarantee_range', example=''),
+  // 交易模式
+  ipTradeMode?: IPTradeMode(name='ip_trade_mode', example=''),
+}
+
+// 正版码流转信息
+model CodeCirculation {
+  // 正版码的编码
+  code?: string(name='code', example='82d96fAB65b3a49cAc8b878184Cb16'),
+  // 流转信息标题
+  title: string(name='title', example='领取'),
+  // 流转详细信息
+  content?: string(name='content', example='流转详细信息'),
+  // 哈希值
+  hash?: string(name='hash', example='哈希值'),
+  // 流转时间
+  time?: long(name='time', example='1694896477580'),
 }
 
 // ip的重点信息
@@ -9880,6 +9974,8 @@ model StartIpAuthtradeRequest = {
   authorizationModel?: [ long ](name='authorization_model'),
   // 订单功能选择，0 基础功能，1 领用收藏等
   features?: [ long ](name='features'),
+  // 合作申请时的订单ID，如没有前置的申请环节，则不填
+  ipOrderId?: string(name='ip_order_id'),
 }
 
 model StartIpAuthtradeResponse = {
@@ -10109,6 +10205,8 @@ model QueryIpOrderlistRequest = {
   ipName?: string(name='ip_name'),
   // 卖方名称，根据卖方名称模糊查询
   sellerName?: string(name='seller_name'),
+  // 买方名称，根据卖方名称模糊查询
+  buyerName?: string(name='buyer_name'),
   // 交易类型：1 套餐交易， 2 定向授权
   tradeType?: long(name='trade_type'),
   // 0 IP交易，1 增值服务交易
@@ -10133,6 +10231,8 @@ model QueryIpOrderlistRequest = {
   pageSize: long(name='page_size'),
   // 渠道名称
   channelName?: string(name='channel_name'),
+  // 是否查询0授权费率的订单，true则查0费率订单，false则查非0费率订单
+  zeroAuthRate?: boolean(name='zero_auth_rate'),
 }
 
 model QueryIpOrderlistResponse = {
@@ -10233,6 +10333,8 @@ model CreateIpGoodsRequest = {
   copyRightEndTime: long(name='copy_right_end_time'),
   // IP图库链接
   ipGalleryUrl?: string(name='ip_gallery_url'),
+  // IP授权信息
+  authorizationInfo?: IPAuthorizationInfo(name='authorization_info'),
 }
 
 model CreateIpGoodsResponse = {
@@ -10276,17 +10378,21 @@ model AddIpChannelRequest = {
   // 渠道信息
   channelName: string(name='channel_name'),
   // 商品授权 0普通授权/1独家授权,本期只支持0
-  authorizationModel: long(name='authorization_model'),
+  authorizationModel?: long(name='authorization_model'),
   // 新授权模式，0普通授权，1独家授权，支持多选
   newAuthorizationModel?: [ long ](name='new_authorization_model'),
   // 授权类型，衍生品授权；营销授权；商标授权；数字虚拟授权；其他
   authorizationType?: [ string ](name='authorization_type'),
   // 计费模式 0:按量 1:按金额
-  payMode: long(name='pay_mode'),
-  // ip等级  0:经典IP/1:流量IP/3:设计IP
-  ipLevel: long(name='ip_level'),
+  payMode?: long(name='pay_mode'),
+  // ip等级  0:经典IP/1:流量IP/2:设计IP
+  ipLevel?: long(name='ip_level'),
   // 交易是否需要确认，默认不需要确认
   tradeNeedConfirm?: boolean(name='trade_need_confirm'),
+  // 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+  guaranteeRange?: long(name='guarantee_range'),
+  // 交易模式
+  ipTradeMode?: IPTradeMode(name='ip_trade_mode'),
 }
 
 model AddIpChannelResponse = {
@@ -10395,6 +10501,8 @@ model BatchqueryIpGoodsRequest = {
   isSortByStatusChange?: long(name='is_sort_by_status_change'),
   // 是否需要返回创建渠道，为空默认不返回
   queryCreaterChannel?: boolean(name='query_creater_channel'),
+  // 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+  guaranteeRange?: long(name='guarantee_range'),
 }
 
 model BatchqueryIpGoodsResponse = {
@@ -10571,6 +10679,8 @@ model UpdateIpGoodsRequest = {
   copyRightEndTime: long(name='copy_right_end_time'),
   // 如果商品是审批通过状态，是否需要审批，默认false。该字段提供给运营使用，慎用！！！
   needApproval?: boolean(name='need_approval'),
+  // 授权信息
+  authorizationInfo?: IPAuthorizationInfo(name='authorization_info'),
 }
 
 model UpdateIpGoodsResponse = {
@@ -10612,17 +10722,21 @@ model UpdateIpChannelRequest = {
   // 渠道信息
   channelName: string(name='channel_name'),
   // 商品授权 0普通授权/1独家授权,本期只支持0
-  authorizationModel: long(name='authorization_model'),
+  authorizationModel?: long(name='authorization_model'),
   // 新授权模式，0普通授权，1独家授权，支持多选
   newAuthorizationModel?: [ long ](name='new_authorization_model'),
   // 授权类型，衍生品授权；营销授权；商标授权；数字虚拟授权；其他
   authorizationType?: [ string ](name='authorization_type'),
   // 计费模式 0:按量 1:按金额
-  payMode: long(name='pay_mode'),
+  payMode?: long(name='pay_mode'),
   // ip等级  0:经典IP/1:流量IP/3:设计IP
-  ipLevel: long(name='ip_level'),
+  ipLevel?: long(name='ip_level'),
   // 交易是否需要确认，为空则不更新
   tradeNeedConfirm?: boolean(name='trade_need_confirm'),
+  // 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+  guaranteeRange?: long(name='guarantee_range'),
+  // 交易模式
+  ipTradeMode?: IPTradeMode(name='ip_trade_mode'),
 }
 
 model UpdateIpChannelResponse = {
@@ -11376,6 +11490,8 @@ model BatchqueryIpApprovalandchannelRequest = {
   audienceGroup?: string(name='audience_group'),
   // 归属账户
   accountId?: string(name='account_id'),
+  // 版权方别名
+  accountExternalName?: string(name='account_external_name'),
   // 是否需要按照创建时间倒序排序
   // 
   isCreateTimeSortDesc: boolean(name='is_create_time_sort_desc'),
@@ -11389,6 +11505,8 @@ model BatchqueryIpApprovalandchannelRequest = {
   createEndTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='create_end_time'),
   // 渠道名称
   channelName?: string(name='channel_name'),
+  // 上架渠道，SelfEmployed为上架到自营的渠道，NONLINE为未上架任何渠道
+  onlineChannel?: string(name='online_channel'),
 }
 
 model BatchqueryIpApprovalandchannelResponse = {
@@ -11494,6 +11612,8 @@ model BatchqueryIpSellerRequest = {
   createStartTime?: long(name='create_start_time'),
   // 筛选更新时间范围，结束区间
   createEndTime?: long(name='create_end_time'),
+  // 版权方的用户名称
+  externalUserName?: string(name='external_user_name'),
 }
 
 model BatchqueryIpSellerResponse = {
@@ -11673,10 +11793,14 @@ model CheckIpCodeResponse = {
   resultMsg?: string(name='result_msg'),
   // 被扫描的次数(包含本次)
   scannedCount?: long(name='scanned_count'),
-  // 扫描历史列表(仅展示最近扫描的50次信息)
+  // null，暂不使用该值//扫描历史列表(仅展示最近扫描的50次信息)
   scannedList?: [ IPCodeScannedInfo ](name='scanned_list'),
-  // 正版码的详情，如果为空，则正版码未领取，如果不为空，则正版码已领取
+  // 正版码的详情，始终不为空，如果类型中的user_name为空，则正版码未领取，如果不为空，则正版码已领取
   codeDetail?: IPCodeScannedInfo(name='code_detail'),
+  // 首次扫码信息
+  firstScannedInfo?: IPSimpleScannedInfo(name='first_scanned_info'),
+  // 扫码信息
+  scannedInfoList?: [ IPSimpleScannedInfo ](name='scanned_info_list'),
 }
 
 /**
@@ -12807,11 +12931,17 @@ model QueryIpCodeResponse = {
   resultMsg?: string(name='result_msg'),
   // 正版码信息
   codeInfo?: IPCodeScannedInfo(name='code_info'),
+  // 首次扫码信息
+  firstScannedInfo?: IPSimpleScannedInfo(name='first_scanned_info'),
+  // 扫码信息
+  scannedInfoList?: [ IPSimpleScannedInfo ](name='scanned_info_list'),
+  // 扫码次数
+  scannedCount?: long(name='scanned_count'),
 }
 
 /**
- * Description: 查询正版码信息
- * Summary: 数字商品服务-IP授权服务-正版码查询
+ * Description: 查询正版码详细信息
+ * Summary: 数字商品服务-IP授权服务-查正版码详情
  */
 async function queryIpCode(request: QueryIpCodeRequest): QueryIpCodeResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -12820,8 +12950,8 @@ async function queryIpCode(request: QueryIpCodeRequest): QueryIpCodeResponse {
 }
 
 /**
- * Description: 查询正版码信息
- * Summary: 数字商品服务-IP授权服务-正版码查询
+ * Description: 查询正版码详细信息
+ * Summary: 数字商品服务-IP授权服务-查正版码详情
  */
 async function queryIpCodeEx(request: QueryIpCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIpCodeResponse {
   Util.validateModel(request);
@@ -13032,6 +13162,10 @@ model SetIpCodeinfoRequest = {
   ipownerInfo?: IPCodeIpOwnerInfo(name='ipowner_info'),
   // (商家)配置正版码时间
   codeSetTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='code_set_time'),
+  // 正版码配置附加信息，信息内容由调用方自定义。可以从配置查询和正版码详情接口上获取。
+  extInfo?: string(name='ext_info'),
+  // 正版码前缀，本期暂不支持
+  showCodePrefix?: string(name='show_code_prefix'),
 }
 
 model SetIpCodeinfoResponse = {
@@ -13168,6 +13302,8 @@ model ConfirmIpAuthtradeRequest = {
   ipOrderId: string(name='ip_order_id'),
   // 是否同意授权
   confirmResult: boolean(name='confirm_result'),
+  // 审批信息备注，通过或不通过原因
+  memo?: string(name='memo'),
 }
 
 model ConfirmIpAuthtradeResponse = {
@@ -13186,7 +13322,7 @@ model ConfirmIpAuthtradeResponse = {
 }
 
 /**
- * Description: 审批IP定向授权交易
+ * Description: 审批IP定向授权交易。如果订单状态是“合作待确认”，则审批后状态为“合作拒绝”或者“合作通过”。如果订单状态是”订单待审核“，则审批后状态为“审核失败”或者“申请中”。
  * Summary: 数字商品服务-IP授权服务-审批定向授权
  */
 async function confirmIpAuthtrade(request: ConfirmIpAuthtradeRequest): ConfirmIpAuthtradeResponse {
@@ -13196,7 +13332,7 @@ async function confirmIpAuthtrade(request: ConfirmIpAuthtradeRequest): ConfirmIp
 }
 
 /**
- * Description: 审批IP定向授权交易
+ * Description: 审批IP定向授权交易。如果订单状态是“合作待确认”，则审批后状态为“合作拒绝”或者“合作通过”。如果订单状态是”订单待审核“，则审批后状态为“审核失败”或者“申请中”。
  * Summary: 数字商品服务-IP授权服务-审批定向授权
  */
 async function confirmIpAuthtradeEx(request: ConfirmIpAuthtradeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmIpAuthtradeResponse {
@@ -13388,6 +13524,8 @@ model ApplyIpAuthtradeRequest = {
   authorizationModel?: [ long ](name='authorization_model'),
   // 订单功能选择，0 基础功能，1 领用收藏等
   features?: [ long ](name='features'),
+  // 合作申请时的订单ID，如没有前置的申请环节，则不填
+  ipOrderId?: string(name='ip_order_id'),
 }
 
 model ApplyIpAuthtradeResponse = {
@@ -13451,6 +13589,11 @@ model QueryIpCodeinfoResponse = {
   ipownerInfo?: IPCodeIpOwnerInfo(name='ipowner_info'),
   // 0:未配置，1:配置成功可展示，9:下架【本期不实现】
   ipCodeStatus?: long(name='ip_code_status'),
+  // 正版码前缀
+  // 
+  showCodePrefix?: string(name='show_code_prefix'),
+  // 正版码配置附加信息，信息内容由调用方自定义。
+  extInfo?: string(name='ext_info'),
 }
 
 /**
@@ -13576,7 +13719,7 @@ model UpdateIpAccountResponse = {
 }
 
 /**
- * Description: 数字商品-IP授权交易服务-账户信息补充（商家）
+ * Description: 数字商品-IP授权交易服务-商家账户信息补充，版权方联系人修改，仅支持版权方联系人修改
  * Summary: 数字商品服务-IP授权服务-账户信息补充
  */
 async function updateIpAccount(request: UpdateIpAccountRequest): UpdateIpAccountResponse {
@@ -13586,7 +13729,7 @@ async function updateIpAccount(request: UpdateIpAccountRequest): UpdateIpAccount
 }
 
 /**
- * Description: 数字商品-IP授权交易服务-账户信息补充（商家）
+ * Description: 数字商品-IP授权交易服务-商家账户信息补充，版权方联系人修改，仅支持版权方联系人修改
  * Summary: 数字商品服务-IP授权服务-账户信息补充
  */
 async function updateIpAccountEx(request: UpdateIpAccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateIpAccountResponse {
@@ -14207,7 +14350,7 @@ model BatchqueryIpGoodsinterestRequest = {
   // 分页索引
   pageIndex: long(name='page_index'),
   // ip等级
-  ipLevel: [ long ](name='ip_level'),
+  ipLevel?: [ long ](name='ip_level'),
   // ip类型
   ipType: [ string ](name='ip_type'),
   // 受众人群
@@ -14216,6 +14359,8 @@ model BatchqueryIpGoodsinterestRequest = {
   isCreateTimeSortDesc: boolean(name='is_create_time_sort_desc'),
   // 是否需要按照pv排序（0:不需要，1:正序，2:倒序），默认选1
   isSortByPv: long(name='is_sort_by_pv'),
+  // 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+  guaranteeRange?: [ string ](name='guarantee_range'),
 }
 
 model BatchqueryIpGoodsinterestResponse = {
@@ -14457,6 +14602,8 @@ model QueryIpCodecollectResponse = {
   codeLifeCircle?: IPCodeConfigTimeInfo(name='code_life_circle'),
   // 区块链信息
   chainInfo?: IPCodeChainInfo(name='chain_info'),
+  // 版权信息
+  ipownerInfo?: IPCodeIpOwnerInfo(name='ipowner_info'),
 }
 
 /**
@@ -14800,6 +14947,267 @@ async function reopenIpBill(request: ReopenIpBillRequest): ReopenIpBillResponse 
 async function reopenIpBillEx(request: ReopenIpBillRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReopenIpBillResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.antdao.ip.bill.reopen', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitIpAuthtradeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础请求参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 采购者的链上账户Id
+  accountId: string(name='account_id'),
+  // IP授权交易时传入IP ID；增值服务交易时传入服务ID
+  ipId: string(name='ip_id'),
+  // 0 IP交易，1 增值服务交易
+  goodsType?: long(name='goods_type'),
+  // 申请授权合作的备注信息
+  applyInfo: IPOrderApplyInfo(name='apply_info'),
+}
+
+model InitIpAuthtradeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单ID
+  ipOrderId?: string(name='ip_order_id'),
+}
+
+/**
+ * Description: 下单问询，商家申请合作授权
+ * Summary: 数字商品服务-IP授权服务-授权交易问询
+ */
+async function initIpAuthtrade(request: InitIpAuthtradeRequest): InitIpAuthtradeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initIpAuthtradeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 下单问询，商家申请合作授权
+ * Summary: 数字商品服务-IP授权服务-授权交易问询
+ */
+async function initIpAuthtradeEx(request: InitIpAuthtradeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitIpAuthtradeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.authtrade.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIpOrderhistoryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础请求参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 订单ID
+  ipOrderId: string(name='ip_order_id'),
+}
+
+model QueryIpOrderhistoryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单列表
+  orderList?: [ IPOrder ](name='order_list'),
+}
+
+/**
+ * Description: 查询订单历史信息
+ * Summary: 数字商品服务-IP授权服务-查询订单历史
+ */
+async function queryIpOrderhistory(request: QueryIpOrderhistoryRequest): QueryIpOrderhistoryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIpOrderhistoryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询订单历史信息
+ * Summary: 数字商品服务-IP授权服务-查询订单历史
+ */
+async function queryIpOrderhistoryEx(request: QueryIpOrderhistoryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIpOrderhistoryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.orderhistory.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfirmIpBillpayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础请求参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 账单ID
+  ipBillId: string(name='ip_bill_id'),
+}
+
+model ConfirmIpBillpayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 账单ID
+  ipBillId?: string(name='ip_bill_id'),
+  // 新的支付链接
+  payUrl?: string(name='pay_url'),
+}
+
+/**
+ * Description: 版权方确认线下回款，生成版权方需要支付的手续费账单和支付链接
+ * Summary: 数字商品服务-IP授权服务-确认线下回款
+ */
+async function confirmIpBillpay(request: ConfirmIpBillpayRequest): ConfirmIpBillpayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return confirmIpBillpayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 版权方确认线下回款，生成版权方需要支付的手续费账单和支付链接
+ * Summary: 数字商品服务-IP授权服务-确认线下回款
+ */
+async function confirmIpBillpayEx(request: ConfirmIpBillpayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmIpBillpayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.billpay.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DisableIpCodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 发起失效请求的区块链账户ID
+  accountId: string(name='account_id'),
+  // 要被失效的UNI的完整编码
+  uniCode: string(name='uni_code'),
+}
+
+model DisableIpCodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-单码失效: 将UNI码失效,不可逆。
+ * Summary: 数字商品服务-IP授权服务-单码失效
+ */
+async function disableIpCode(request: DisableIpCodeRequest): DisableIpCodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return disableIpCodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-单码失效: 将UNI码失效,不可逆。
+ * Summary: 数字商品服务-IP授权服务-单码失效
+ */
+async function disableIpCodeEx(request: DisableIpCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DisableIpCodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.code.disable', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadIpCodecirculationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础请求参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 		
+  // 正版码的编码
+  code: string(name='code'),
+  // 正版码流转信息，每次最多10条信息。
+  codeCirculationList: [ CodeCirculation ](name='code_circulation_list'),
+}
+
+model UploadIpCodecirculationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 上传正版码的流转信息
+ * Summary: 数字商品服务-IP授权服务-上传流转信息
+ */
+async function uploadIpCodecirculation(request: UploadIpCodecirculationRequest): UploadIpCodecirculationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadIpCodecirculationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 上传正版码的流转信息
+ * Summary: 数字商品服务-IP授权服务-上传流转信息
+ */
+async function uploadIpCodecirculationEx(request: UploadIpCodecirculationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadIpCodecirculationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.codecirculation.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryIpCodecirculationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础请求参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 正版码的编码
+  code: string(name='code'),
+  // 页码
+  pageNumber: long(name='page_number'),
+  // 每页数据量大小(请小于等于100)
+  pageSize: long(name='page_size'),
+  // 根据流转时间 排序顺序：正序还是倒序
+  order: string(name='order'),
+}
+
+model PagequeryIpCodecirculationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 正版码流转信息列表
+  codeCirculationList?: [ CodeCirculation ](name='code_circulation_list'),
+  // 正版码的流转信息总数
+  totalCount?: long(name='total_count'),
+  // 页码
+  pageNumber?: long(name='page_number'),
+  // 页面数据量大小
+  pageSize?: long(name='page_size'),
+}
+
+/**
+ * Description: 分页查询正版码的流转信息
+ * Summary: 数字商品服务-IP授权服务-查询流转信息
+ */
+async function pagequeryIpCodecirculation(request: PagequeryIpCodecirculationRequest): PagequeryIpCodecirculationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryIpCodecirculationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询正版码的流转信息
+ * Summary: 数字商品服务-IP授权服务-查询流转信息
+ */
+async function pagequeryIpCodecirculationEx(request: PagequeryIpCodecirculationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIpCodecirculationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.codecirculation.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryBlockanalysisBlockRequest = {
