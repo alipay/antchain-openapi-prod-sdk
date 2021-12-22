@@ -24,6 +24,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 标签上链hash返回
+        [NameInMap("result_list")]
+        [Validation(Required=false)]
+        public List<LabelChainResult> ResultList { get; set; }
+
     }
 
 }
