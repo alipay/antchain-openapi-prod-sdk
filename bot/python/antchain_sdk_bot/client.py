@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 场景码信息
+            # ProductKey信息
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.36'
+                    'sdk_version': '1.6.48'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 场景码信息
+            # ProductKey信息
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.36'
+                    'sdk_version': '1.6.48'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -4265,6 +4265,330 @@ class Client:
         UtilClient.validate_model(request)
         return bot_models.PagequeryProductkeyResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.productkey.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_dataverify_failure(
+        self,
+        request: bot_models.PagequeryDataverifyFailureRequest,
+    ) -> bot_models.PagequeryDataverifyFailureResponse:
+        """
+        Description: 分页查询校验失败的数据
+        Summary: 分页查询校验失败的数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_dataverify_failure_ex(request, headers, runtime)
+
+    async def pagequery_dataverify_failure_async(
+        self,
+        request: bot_models.PagequeryDataverifyFailureRequest,
+    ) -> bot_models.PagequeryDataverifyFailureResponse:
+        """
+        Description: 分页查询校验失败的数据
+        Summary: 分页查询校验失败的数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_dataverify_failure_ex_async(request, headers, runtime)
+
+    def pagequery_dataverify_failure_ex(
+        self,
+        request: bot_models.PagequeryDataverifyFailureRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryDataverifyFailureResponse:
+        """
+        Description: 分页查询校验失败的数据
+        Summary: 分页查询校验失败的数据
+        """
+        UtilClient.validate_model(request)
+        return bot_models.PagequeryDataverifyFailureResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.dataverify.failure.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_dataverify_failure_ex_async(
+        self,
+        request: bot_models.PagequeryDataverifyFailureRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryDataverifyFailureResponse:
+        """
+        Description: 分页查询校验失败的数据
+        Summary: 分页查询校验失败的数据
+        """
+        UtilClient.validate_model(request)
+        return bot_models.PagequeryDataverifyFailureResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.dataverify.failure.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_alert_strategy(
+        self,
+        request: bot_models.AddAlertStrategyRequest,
+    ) -> bot_models.AddAlertStrategyResponse:
+        """
+        Description:  新增告警策略
+        Summary:  新增告警策略
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_alert_strategy_ex(request, headers, runtime)
+
+    async def add_alert_strategy_async(
+        self,
+        request: bot_models.AddAlertStrategyRequest,
+    ) -> bot_models.AddAlertStrategyResponse:
+        """
+        Description:  新增告警策略
+        Summary:  新增告警策略
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_alert_strategy_ex_async(request, headers, runtime)
+
+    def add_alert_strategy_ex(
+        self,
+        request: bot_models.AddAlertStrategyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddAlertStrategyResponse:
+        """
+        Description:  新增告警策略
+        Summary:  新增告警策略
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddAlertStrategyResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.alert.strategy.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_alert_strategy_ex_async(
+        self,
+        request: bot_models.AddAlertStrategyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddAlertStrategyResponse:
+        """
+        Description:  新增告警策略
+        Summary:  新增告警策略
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddAlertStrategyResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.alert.strategy.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_alert_strategy(
+        self,
+        request: bot_models.UpdateAlertStrategyRequest,
+    ) -> bot_models.UpdateAlertStrategyResponse:
+        """
+        Description: 更新告警策略接口
+        Summary: 更新告警策略接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_alert_strategy_ex(request, headers, runtime)
+
+    async def update_alert_strategy_async(
+        self,
+        request: bot_models.UpdateAlertStrategyRequest,
+    ) -> bot_models.UpdateAlertStrategyResponse:
+        """
+        Description: 更新告警策略接口
+        Summary: 更新告警策略接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_alert_strategy_ex_async(request, headers, runtime)
+
+    def update_alert_strategy_ex(
+        self,
+        request: bot_models.UpdateAlertStrategyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateAlertStrategyResponse:
+        """
+        Description: 更新告警策略接口
+        Summary: 更新告警策略接口
+        """
+        UtilClient.validate_model(request)
+        return bot_models.UpdateAlertStrategyResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.alert.strategy.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_alert_strategy_ex_async(
+        self,
+        request: bot_models.UpdateAlertStrategyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateAlertStrategyResponse:
+        """
+        Description: 更新告警策略接口
+        Summary: 更新告警策略接口
+        """
+        UtilClient.validate_model(request)
+        return bot_models.UpdateAlertStrategyResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.alert.strategy.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_alert_strategy(
+        self,
+        request: bot_models.PagequeryAlertStrategyRequest,
+    ) -> bot_models.PagequeryAlertStrategyResponse:
+        """
+        Description: 分页查询告警策略接口
+        Summary: 分页查询告警策略接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_alert_strategy_ex(request, headers, runtime)
+
+    async def pagequery_alert_strategy_async(
+        self,
+        request: bot_models.PagequeryAlertStrategyRequest,
+    ) -> bot_models.PagequeryAlertStrategyResponse:
+        """
+        Description: 分页查询告警策略接口
+        Summary: 分页查询告警策略接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_alert_strategy_ex_async(request, headers, runtime)
+
+    def pagequery_alert_strategy_ex(
+        self,
+        request: bot_models.PagequeryAlertStrategyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryAlertStrategyResponse:
+        """
+        Description: 分页查询告警策略接口
+        Summary: 分页查询告警策略接口
+        """
+        UtilClient.validate_model(request)
+        return bot_models.PagequeryAlertStrategyResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.alert.strategy.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_alert_strategy_ex_async(
+        self,
+        request: bot_models.PagequeryAlertStrategyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryAlertStrategyResponse:
+        """
+        Description: 分页查询告警策略接口
+        Summary: 分页查询告警策略接口
+        """
+        UtilClient.validate_model(request)
+        return bot_models.PagequeryAlertStrategyResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.alert.strategy.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_label_transferraw(
+        self,
+        request: bot_models.SyncLabelTransferrawRequest,
+    ) -> bot_models.SyncLabelTransferrawResponse:
+        """
+        Description: 标签流转状态同步（元数据，无签名）
+        Summary: 标签流转状态同步（元数据，无签名）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_label_transferraw_ex(request, headers, runtime)
+
+    async def sync_label_transferraw_async(
+        self,
+        request: bot_models.SyncLabelTransferrawRequest,
+    ) -> bot_models.SyncLabelTransferrawResponse:
+        """
+        Description: 标签流转状态同步（元数据，无签名）
+        Summary: 标签流转状态同步（元数据，无签名）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_label_transferraw_ex_async(request, headers, runtime)
+
+    def sync_label_transferraw_ex(
+        self,
+        request: bot_models.SyncLabelTransferrawRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SyncLabelTransferrawResponse:
+        """
+        Description: 标签流转状态同步（元数据，无签名）
+        Summary: 标签流转状态同步（元数据，无签名）
+        """
+        UtilClient.validate_model(request)
+        return bot_models.SyncLabelTransferrawResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.label.transferraw.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_label_transferraw_ex_async(
+        self,
+        request: bot_models.SyncLabelTransferrawRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SyncLabelTransferrawResponse:
+        """
+        Description: 标签流转状态同步（元数据，无签名）
+        Summary: 标签流转状态同步（元数据，无签名）
+        """
+        UtilClient.validate_model(request)
+        return bot_models.SyncLabelTransferrawResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.label.transferraw.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def send_label_transferrawonasync(
+        self,
+        request: bot_models.SendLabelTransferrawonasyncRequest,
+    ) -> bot_models.SendLabelTransferrawonasyncResponse:
+        """
+        Description: 上报标签流转的异步接口（元数据，无签名），是 blockchain.bot.label.transferraw.sync的异步接口版本
+        Summary: 上报标签流转的异步接口（元数据，无签名）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.send_label_transferrawonasync_ex(request, headers, runtime)
+
+    async def send_label_transferrawonasync_async(
+        self,
+        request: bot_models.SendLabelTransferrawonasyncRequest,
+    ) -> bot_models.SendLabelTransferrawonasyncResponse:
+        """
+        Description: 上报标签流转的异步接口（元数据，无签名），是 blockchain.bot.label.transferraw.sync的异步接口版本
+        Summary: 上报标签流转的异步接口（元数据，无签名）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.send_label_transferrawonasync_ex_async(request, headers, runtime)
+
+    def send_label_transferrawonasync_ex(
+        self,
+        request: bot_models.SendLabelTransferrawonasyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SendLabelTransferrawonasyncResponse:
+        """
+        Description: 上报标签流转的异步接口（元数据，无签名），是 blockchain.bot.label.transferraw.sync的异步接口版本
+        Summary: 上报标签流转的异步接口（元数据，无签名）
+        """
+        UtilClient.validate_model(request)
+        return bot_models.SendLabelTransferrawonasyncResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.label.transferrawonasync.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def send_label_transferrawonasync_ex_async(
+        self,
+        request: bot_models.SendLabelTransferrawonasyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SendLabelTransferrawonasyncResponse:
+        """
+        Description: 上报标签流转的异步接口（元数据，无签名），是 blockchain.bot.label.transferraw.sync的异步接口版本
+        Summary: 上报标签流转的异步接口（元数据，无签名）
+        """
+        UtilClient.validate_model(request)
+        return bot_models.SendLabelTransferrawonasyncResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.label.transferrawonasync.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
