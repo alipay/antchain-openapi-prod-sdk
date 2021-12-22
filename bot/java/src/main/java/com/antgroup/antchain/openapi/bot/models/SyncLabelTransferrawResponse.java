@@ -16,6 +16,10 @@ public class SyncLabelTransferrawResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 标签上链hash返回
+    @NameInMap("result_list")
+    public java.util.List<LabelChainResult> resultList;
+
     public static SyncLabelTransferrawResponse build(java.util.Map<String, ?> map) throws Exception {
         SyncLabelTransferrawResponse self = new SyncLabelTransferrawResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class SyncLabelTransferrawResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public SyncLabelTransferrawResponse setResultList(java.util.List<LabelChainResult> resultList) {
+        this.resultList = resultList;
+        return this;
+    }
+    public java.util.List<LabelChainResult> getResultList() {
+        return this.resultList;
     }
 
 }
