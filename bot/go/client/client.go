@@ -10643,6 +10643,8 @@ type SyncLabelTransferrawResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 标签上链hash返回
+	ResultList []*LabelChainResult `json:"result_list,omitempty" xml:"result_list,omitempty" type:"Repeated"`
 }
 
 func (s SyncLabelTransferrawResponse) String() string {
@@ -10665,6 +10667,11 @@ func (s *SyncLabelTransferrawResponse) SetResultCode(v string) *SyncLabelTransfe
 
 func (s *SyncLabelTransferrawResponse) SetResultMsg(v string) *SyncLabelTransferrawResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *SyncLabelTransferrawResponse) SetResultList(v []*LabelChainResult) *SyncLabelTransferrawResponse {
+	s.ResultList = v
 	return s
 }
 
@@ -12410,7 +12417,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.48"),
+				"sdk_version":      tea.String("1.6.49"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
