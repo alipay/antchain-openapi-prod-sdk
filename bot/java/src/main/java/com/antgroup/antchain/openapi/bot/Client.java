@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.36")
+                    new TeaPair("sdk_version", "1.6.48")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1563,6 +1563,120 @@ public class Client {
     public PagequeryProductkeyResponse pagequeryProductkeyEx(PagequeryProductkeyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.productkey.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryProductkeyResponse());
+    }
+
+    /**
+     * Description: 分页查询校验失败的数据
+     * Summary: 分页查询校验失败的数据
+     */
+    public PagequeryDataverifyFailureResponse pagequeryDataverifyFailure(PagequeryDataverifyFailureRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryDataverifyFailureEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询校验失败的数据
+     * Summary: 分页查询校验失败的数据
+     */
+    public PagequeryDataverifyFailureResponse pagequeryDataverifyFailureEx(PagequeryDataverifyFailureRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.dataverify.failure.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryDataverifyFailureResponse());
+    }
+
+    /**
+     * Description:  新增告警策略
+     * Summary:  新增告警策略
+     */
+    public AddAlertStrategyResponse addAlertStrategy(AddAlertStrategyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addAlertStrategyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description:  新增告警策略
+     * Summary:  新增告警策略
+     */
+    public AddAlertStrategyResponse addAlertStrategyEx(AddAlertStrategyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.alert.strategy.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddAlertStrategyResponse());
+    }
+
+    /**
+     * Description: 更新告警策略接口
+     * Summary: 更新告警策略接口
+     */
+    public UpdateAlertStrategyResponse updateAlertStrategy(UpdateAlertStrategyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateAlertStrategyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新告警策略接口
+     * Summary: 更新告警策略接口
+     */
+    public UpdateAlertStrategyResponse updateAlertStrategyEx(UpdateAlertStrategyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.alert.strategy.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateAlertStrategyResponse());
+    }
+
+    /**
+     * Description: 分页查询告警策略接口
+     * Summary: 分页查询告警策略接口
+     */
+    public PagequeryAlertStrategyResponse pagequeryAlertStrategy(PagequeryAlertStrategyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryAlertStrategyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询告警策略接口
+     * Summary: 分页查询告警策略接口
+     */
+    public PagequeryAlertStrategyResponse pagequeryAlertStrategyEx(PagequeryAlertStrategyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.alert.strategy.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryAlertStrategyResponse());
+    }
+
+    /**
+     * Description: 标签流转状态同步（元数据，无签名）
+     * Summary: 标签流转状态同步（元数据，无签名）
+     */
+    public SyncLabelTransferrawResponse syncLabelTransferraw(SyncLabelTransferrawRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncLabelTransferrawEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 标签流转状态同步（元数据，无签名）
+     * Summary: 标签流转状态同步（元数据，无签名）
+     */
+    public SyncLabelTransferrawResponse syncLabelTransferrawEx(SyncLabelTransferrawRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.label.transferraw.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncLabelTransferrawResponse());
+    }
+
+    /**
+     * Description: 上报标签流转的异步接口（元数据，无签名），是 blockchain.bot.label.transferraw.sync的异步接口版本
+     * Summary: 上报标签流转的异步接口（元数据，无签名）
+     */
+    public SendLabelTransferrawonasyncResponse sendLabelTransferrawonasync(SendLabelTransferrawonasyncRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.sendLabelTransferrawonasyncEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 上报标签流转的异步接口（元数据，无签名），是 blockchain.bot.label.transferraw.sync的异步接口版本
+     * Summary: 上报标签流转的异步接口（元数据，无签名）
+     */
+    public SendLabelTransferrawonasyncResponse sendLabelTransferrawonasyncEx(SendLabelTransferrawonasyncRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.label.transferrawonasync.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendLabelTransferrawonasyncResponse());
     }
 
     /**

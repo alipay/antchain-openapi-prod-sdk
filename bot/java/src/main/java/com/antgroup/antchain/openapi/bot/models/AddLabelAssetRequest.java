@@ -26,6 +26,10 @@ public class AddLabelAssetRequest extends TeaModel {
     @Validation(required = true)
     public String assetId;
 
+    // 资产对应的设备类型码，对应资管平台中的设备类型
+    @NameInMap("device_type_code")
+    public Long deviceTypeCode;
+
     public static AddLabelAssetRequest build(java.util.Map<String, ?> map) throws Exception {
         AddLabelAssetRequest self = new AddLabelAssetRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class AddLabelAssetRequest extends TeaModel {
     }
     public String getAssetId() {
         return this.assetId;
+    }
+
+    public AddLabelAssetRequest setDeviceTypeCode(Long deviceTypeCode) {
+        this.deviceTypeCode = deviceTypeCode;
+        return this;
+    }
+    public Long getDeviceTypeCode() {
+        return this.deviceTypeCode;
     }
 
 }

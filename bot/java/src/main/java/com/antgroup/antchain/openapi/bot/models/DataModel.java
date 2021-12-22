@@ -22,6 +22,10 @@ public class DataModel extends TeaModel {
     @NameInMap("biz_type")
     public String bizType;
 
+    // 用户自定义版本
+    @NameInMap("customer_version")
+    public String customerVersion;
+
     public static DataModel build(java.util.Map<String, ?> map) throws Exception {
         DataModel self = new DataModel();
         return TeaModel.build(map, self);
@@ -57,6 +61,14 @@ public class DataModel extends TeaModel {
     }
     public String getBizType() {
         return this.bizType;
+    }
+
+    public DataModel setCustomerVersion(String customerVersion) {
+        this.customerVersion = customerVersion;
+        return this;
+    }
+    public String getCustomerVersion() {
+        return this.customerVersion;
     }
 
 }

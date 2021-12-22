@@ -24,6 +24,10 @@ public class CreateDeviceDatamodelRequest extends TeaModel {
     @NameInMap("biz_type")
     public String bizType;
 
+    // 用户自定义版本
+    @NameInMap("customer_version")
+    public String customerVersion;
+
     public static CreateDeviceDatamodelRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDeviceDatamodelRequest self = new CreateDeviceDatamodelRequest();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class CreateDeviceDatamodelRequest extends TeaModel {
     }
     public String getBizType() {
         return this.bizType;
+    }
+
+    public CreateDeviceDatamodelRequest setCustomerVersion(String customerVersion) {
+        this.customerVersion = customerVersion;
+        return this;
+    }
+    public String getCustomerVersion() {
+        return this.customerVersion;
     }
 
 }
