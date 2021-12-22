@@ -39,11 +39,20 @@ class DataModel extends Model
      * @var string
      */
     public $bizType;
+
+    // 用户自定义版本
+    /**
+     * @example V1.0
+     *
+     * @var string
+     */
+    public $customerVersion;
     protected $_name = [
-        'dataModelId'   => 'data_model_id',
-        'dataModelName' => 'data_model_name',
-        'dataModel'     => 'data_model',
-        'bizType'       => 'biz_type',
+        'dataModelId'     => 'data_model_id',
+        'dataModelName'   => 'data_model_name',
+        'dataModel'       => 'data_model',
+        'bizType'         => 'biz_type',
+        'customerVersion' => 'customer_version',
     ];
 
     public function validate()
@@ -66,6 +75,9 @@ class DataModel extends Model
         }
         if (null !== $this->bizType) {
             $res['biz_type'] = $this->bizType;
+        }
+        if (null !== $this->customerVersion) {
+            $res['customer_version'] = $this->customerVersion;
         }
 
         return $res;
@@ -90,6 +102,9 @@ class DataModel extends Model
         }
         if (isset($map['biz_type'])) {
             $model->bizType = $map['biz_type'];
+        }
+        if (isset($map['customer_version'])) {
+            $model->customerVersion = $map['customer_version'];
         }
 
         return $model;

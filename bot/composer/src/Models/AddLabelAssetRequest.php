@@ -36,12 +36,19 @@ class AddLabelAssetRequest extends Model
      * @var string
      */
     public $assetId;
+
+    // 资产对应的设备类型码，对应资管平台中的设备类型
+    /**
+     * @var int
+     */
+    public $deviceTypeCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'scene'             => 'scene',
         'labelId'           => 'label_id',
         'assetId'           => 'asset_id',
+        'deviceTypeCode'    => 'device_type_code',
     ];
 
     public function validate()
@@ -69,6 +76,9 @@ class AddLabelAssetRequest extends Model
         if (null !== $this->assetId) {
             $res['asset_id'] = $this->assetId;
         }
+        if (null !== $this->deviceTypeCode) {
+            $res['device_type_code'] = $this->deviceTypeCode;
+        }
 
         return $res;
     }
@@ -95,6 +105,9 @@ class AddLabelAssetRequest extends Model
         }
         if (isset($map['asset_id'])) {
             $model->assetId = $map['asset_id'];
+        }
+        if (isset($map['device_type_code'])) {
+            $model->deviceTypeCode = $map['device_type_code'];
         }
 
         return $model;

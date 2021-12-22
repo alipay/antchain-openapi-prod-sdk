@@ -36,12 +36,19 @@ class CreateDeviceDatamodelRequest extends Model
      * @var string
      */
     public $bizType;
+
+    // 用户自定义版本
+    /**
+     * @var string
+     */
+    public $customerVersion;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'dataModel'         => 'data_model',
         'dataModelName'     => 'data_model_name',
         'bizType'           => 'biz_type',
+        'customerVersion'   => 'customer_version',
     ];
 
     public function validate()
@@ -66,6 +73,9 @@ class CreateDeviceDatamodelRequest extends Model
         }
         if (null !== $this->bizType) {
             $res['biz_type'] = $this->bizType;
+        }
+        if (null !== $this->customerVersion) {
+            $res['customer_version'] = $this->customerVersion;
         }
 
         return $res;
@@ -93,6 +103,9 @@ class CreateDeviceDatamodelRequest extends Model
         }
         if (isset($map['biz_type'])) {
             $model->bizType = $map['biz_type'];
+        }
+        if (isset($map['customer_version'])) {
+            $model->customerVersion = $map['customer_version'];
         }
 
         return $model;

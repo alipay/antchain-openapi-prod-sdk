@@ -13,6 +13,8 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\BOT\Models\AddAbnormalRequest;
 use AntChain\BOT\Models\AddAbnormalResponse;
+use AntChain\BOT\Models\AddAlertStrategyRequest;
+use AntChain\BOT\Models\AddAlertStrategyResponse;
 use AntChain\BOT\Models\AddCertificateRequest;
 use AntChain\BOT\Models\AddCertificateResponse;
 use AntChain\BOT\Models\AddGoodsSkuRequest;
@@ -103,6 +105,10 @@ use AntChain\BOT\Models\OnlineDeviceRequest;
 use AntChain\BOT\Models\OnlineDeviceResponse;
 use AntChain\BOT\Models\OpenAcecContractRequest;
 use AntChain\BOT\Models\OpenAcecContractResponse;
+use AntChain\BOT\Models\PagequeryAlertStrategyRequest;
+use AntChain\BOT\Models\PagequeryAlertStrategyResponse;
+use AntChain\BOT\Models\PagequeryDataverifyFailureRequest;
+use AntChain\BOT\Models\PagequeryDataverifyFailureResponse;
 use AntChain\BOT\Models\PagequeryProductkeyRequest;
 use AntChain\BOT\Models\PagequeryProductkeyResponse;
 use AntChain\BOT\Models\PagequerySceneRequest;
@@ -153,6 +159,8 @@ use AntChain\BOT\Models\SendCollectorSummarydataRequest;
 use AntChain\BOT\Models\SendCollectorSummarydataResponse;
 use AntChain\BOT\Models\SendLabelTransferonasyncRequest;
 use AntChain\BOT\Models\SendLabelTransferonasyncResponse;
+use AntChain\BOT\Models\SendLabelTransferrawonasyncRequest;
+use AntChain\BOT\Models\SendLabelTransferrawonasyncResponse;
 use AntChain\BOT\Models\SetConsumerSubscribeRequest;
 use AntChain\BOT\Models\SetConsumerSubscribeResponse;
 use AntChain\BOT\Models\SetConsumerUnsubscribeRequest;
@@ -169,8 +177,12 @@ use AntChain\BOT\Models\StartTlsnotaryTaskRequest;
 use AntChain\BOT\Models\StartTlsnotaryTaskResponse;
 use AntChain\BOT\Models\StopAcecContractRequest;
 use AntChain\BOT\Models\StopAcecContractResponse;
+use AntChain\BOT\Models\SyncLabelTransferrawRequest;
+use AntChain\BOT\Models\SyncLabelTransferrawResponse;
 use AntChain\BOT\Models\SyncLabelTransferRequest;
 use AntChain\BOT\Models\SyncLabelTransferResponse;
+use AntChain\BOT\Models\UpdateAlertStrategyRequest;
+use AntChain\BOT\Models\UpdateAlertStrategyResponse;
 use AntChain\BOT\Models\UpdateDeviceInfobydeviceRequest;
 use AntChain\BOT\Models\UpdateDeviceInfobydeviceResponse;
 use AntChain\BOT\Models\UpdateDeviceInfoRequest;
@@ -310,7 +322,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 场景码信息
+            // ProductKey信息
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -338,7 +350,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.36',
+                    'sdk_version'      => '1.6.48',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -2824,6 +2836,204 @@ class Client
         Utils::validateModel($request);
 
         return PagequeryProductkeyResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.productkey.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询校验失败的数据
+     * Summary: 分页查询校验失败的数据.
+     *
+     * @param PagequeryDataverifyFailureRequest $request
+     *
+     * @return PagequeryDataverifyFailureResponse
+     */
+    public function pagequeryDataverifyFailure($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryDataverifyFailureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询校验失败的数据
+     * Summary: 分页查询校验失败的数据.
+     *
+     * @param PagequeryDataverifyFailureRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return PagequeryDataverifyFailureResponse
+     */
+    public function pagequeryDataverifyFailureEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryDataverifyFailureResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.dataverify.failure.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description:  新增告警策略
+     * Summary:  新增告警策略.
+     *
+     * @param AddAlertStrategyRequest $request
+     *
+     * @return AddAlertStrategyResponse
+     */
+    public function addAlertStrategy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addAlertStrategyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description:  新增告警策略
+     * Summary:  新增告警策略.
+     *
+     * @param AddAlertStrategyRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return AddAlertStrategyResponse
+     */
+    public function addAlertStrategyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddAlertStrategyResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.alert.strategy.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新告警策略接口
+     * Summary: 更新告警策略接口.
+     *
+     * @param UpdateAlertStrategyRequest $request
+     *
+     * @return UpdateAlertStrategyResponse
+     */
+    public function updateAlertStrategy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateAlertStrategyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新告警策略接口
+     * Summary: 更新告警策略接口.
+     *
+     * @param UpdateAlertStrategyRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return UpdateAlertStrategyResponse
+     */
+    public function updateAlertStrategyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateAlertStrategyResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.alert.strategy.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询告警策略接口
+     * Summary: 分页查询告警策略接口.
+     *
+     * @param PagequeryAlertStrategyRequest $request
+     *
+     * @return PagequeryAlertStrategyResponse
+     */
+    public function pagequeryAlertStrategy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryAlertStrategyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询告警策略接口
+     * Summary: 分页查询告警策略接口.
+     *
+     * @param PagequeryAlertStrategyRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return PagequeryAlertStrategyResponse
+     */
+    public function pagequeryAlertStrategyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryAlertStrategyResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.alert.strategy.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 标签流转状态同步（元数据，无签名）
+     * Summary: 标签流转状态同步（元数据，无签名）.
+     *
+     * @param SyncLabelTransferrawRequest $request
+     *
+     * @return SyncLabelTransferrawResponse
+     */
+    public function syncLabelTransferraw($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncLabelTransferrawEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 标签流转状态同步（元数据，无签名）
+     * Summary: 标签流转状态同步（元数据，无签名）.
+     *
+     * @param SyncLabelTransferrawRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return SyncLabelTransferrawResponse
+     */
+    public function syncLabelTransferrawEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncLabelTransferrawResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.label.transferraw.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 上报标签流转的异步接口（元数据，无签名），是 blockchain.bot.label.transferraw.sync的异步接口版本
+     * Summary: 上报标签流转的异步接口（元数据，无签名）.
+     *
+     * @param SendLabelTransferrawonasyncRequest $request
+     *
+     * @return SendLabelTransferrawonasyncResponse
+     */
+    public function sendLabelTransferrawonasync($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendLabelTransferrawonasyncEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 上报标签流转的异步接口（元数据，无签名），是 blockchain.bot.label.transferraw.sync的异步接口版本
+     * Summary: 上报标签流转的异步接口（元数据，无签名）.
+     *
+     * @param SendLabelTransferrawonasyncRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return SendLabelTransferrawonasyncResponse
+     */
+    public function sendLabelTransferrawonasyncEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendLabelTransferrawonasyncResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.label.transferrawonasync.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
