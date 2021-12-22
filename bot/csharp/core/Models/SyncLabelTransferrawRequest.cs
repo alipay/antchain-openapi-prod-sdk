@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class AddLabelAssetRequest : TeaModel {
+    public class SyncLabelTransferrawRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -19,24 +19,20 @@ namespace AntChain.SDK.BOT.Models
         public string ProductInstanceId { get; set; }
 
         // 场景码
+        // 
         [NameInMap("scene")]
         [Validation(Required=true)]
         public string Scene { get; set; }
 
-        // 标签Id
-        [NameInMap("label_id")]
+        // 收集标签数据
+        [NameInMap("collect_label_raw_content_list")]
         [Validation(Required=true)]
-        public string LabelId { get; set; }
+        public List<CollectLabelRawContent> CollectLabelRawContentList { get; set; }
 
-        // 资产Id
-        [NameInMap("asset_id")]
+        // 业务号
+        [NameInMap("nonce")]
         [Validation(Required=true)]
-        public string AssetId { get; set; }
-
-        // 资产对应的设备类型码，对应资管平台中的设备类型
-        [NameInMap("device_type_code")]
-        [Validation(Required=false)]
-        public long? DeviceTypeCode { get; set; }
+        public string Nonce { get; set; }
 
     }
 

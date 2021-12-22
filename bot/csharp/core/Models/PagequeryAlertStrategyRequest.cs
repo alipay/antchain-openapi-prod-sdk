@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class AddLabelAssetRequest : TeaModel {
+    public class PagequeryAlertStrategyRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,25 +18,26 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 场景码
-        [NameInMap("scene")]
+        // 页数，默认1
+        [NameInMap("page_index")]
         [Validation(Required=true)]
-        public string Scene { get; set; }
+        public long? PageIndex { get; set; }
 
-        // 标签Id
-        [NameInMap("label_id")]
+        // 页码大小，默认10
+        [NameInMap("page_size")]
         [Validation(Required=true)]
-        public string LabelId { get; set; }
+        public long? PageSize { get; set; }
 
-        // 资产Id
-        [NameInMap("asset_id")]
-        [Validation(Required=true)]
-        public string AssetId { get; set; }
-
-        // 资产对应的设备类型码，对应资管平台中的设备类型
-        [NameInMap("device_type_code")]
+        // 租户
+        [NameInMap("tenant_name")]
         [Validation(Required=false)]
-        public long? DeviceTypeCode { get; set; }
+        public string TenantName { get; set; }
+
+        // 场景码
+        // 
+        [NameInMap("scene")]
+        [Validation(Required=false)]
+        public string Scene { get; set; }
 
     }
 

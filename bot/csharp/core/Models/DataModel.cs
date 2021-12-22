@@ -30,6 +30,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string BizType { get; set; }
 
+        // 用户自定义版本
+        [NameInMap("customer_version")]
+        [Validation(Required=false)]
+        public string CustomerVersion { get; set; }
+
     }
 
 }
