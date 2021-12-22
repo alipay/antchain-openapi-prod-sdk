@@ -148,149 +148,6 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-// 场景码信息
-type SceneModel struct {
-	// 主键id
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 创建时间
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 修改时间
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 场景名
-	SceneName *string `json:"scene_name,omitempty" xml:"scene_name,omitempty" require:"true"`
-	// 是否托管
-	Escrowed *string `json:"escrowed,omitempty" xml:"escrowed,omitempty"`
-	// 私钥密码
-	PrivateKeyPassword *string `json:"private_key_password,omitempty" xml:"private_key_password,omitempty"`
-	// 租户
-	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
-	// 场景类型
-	SceneType *string `json:"scene_type,omitempty" xml:"scene_type,omitempty"`
-	// 是否跳过中台数据校验处理
-	SkipPegasus *bool `json:"skip_pegasus,omitempty" xml:"skip_pegasus,omitempty"`
-	// 定制数据处理类 , 使用用逗号分隔
-	CustomerProcessor *string `json:"customer_processor,omitempty" xml:"customer_processor,omitempty"`
-}
-
-func (s SceneModel) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SceneModel) GoString() string {
-	return s.String()
-}
-
-func (s *SceneModel) SetId(v int64) *SceneModel {
-	s.Id = &v
-	return s
-}
-
-func (s *SceneModel) SetGmtCreate(v string) *SceneModel {
-	s.GmtCreate = &v
-	return s
-}
-
-func (s *SceneModel) SetGmtModified(v string) *SceneModel {
-	s.GmtModified = &v
-	return s
-}
-
-func (s *SceneModel) SetSceneName(v string) *SceneModel {
-	s.SceneName = &v
-	return s
-}
-
-func (s *SceneModel) SetEscrowed(v string) *SceneModel {
-	s.Escrowed = &v
-	return s
-}
-
-func (s *SceneModel) SetPrivateKeyPassword(v string) *SceneModel {
-	s.PrivateKeyPassword = &v
-	return s
-}
-
-func (s *SceneModel) SetTenantName(v string) *SceneModel {
-	s.TenantName = &v
-	return s
-}
-
-func (s *SceneModel) SetSceneType(v string) *SceneModel {
-	s.SceneType = &v
-	return s
-}
-
-func (s *SceneModel) SetSkipPegasus(v bool) *SceneModel {
-	s.SkipPegasus = &v
-	return s
-}
-
-func (s *SceneModel) SetCustomerProcessor(v string) *SceneModel {
-	s.CustomerProcessor = &v
-	return s
-}
-
-// 原始数据包
-type RawData struct {
-	// 链上设备id
-	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty"`
-	// 数据内容
-	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
-	// 设备id
-	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty"`
-	// 上链哈希
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 上链时间
-	TxTime *int64 `json:"tx_time,omitempty" xml:"tx_time,omitempty" require:"true"`
-	// 链上外围设备ID
-	ChainPeripheralId *string `json:"chain_peripheral_id,omitempty" xml:"chain_peripheral_id,omitempty"`
-	// 外围设备ID
-	PeripheralId *string `json:"peripheral_id,omitempty" xml:"peripheral_id,omitempty"`
-}
-
-func (s RawData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RawData) GoString() string {
-	return s.String()
-}
-
-func (s *RawData) SetChainDeviceId(v string) *RawData {
-	s.ChainDeviceId = &v
-	return s
-}
-
-func (s *RawData) SetContent(v string) *RawData {
-	s.Content = &v
-	return s
-}
-
-func (s *RawData) SetDeviceId(v string) *RawData {
-	s.DeviceId = &v
-	return s
-}
-
-func (s *RawData) SetTxHash(v string) *RawData {
-	s.TxHash = &v
-	return s
-}
-
-func (s *RawData) SetTxTime(v int64) *RawData {
-	s.TxTime = &v
-	return s
-}
-
-func (s *RawData) SetChainPeripheralId(v string) *RawData {
-	s.ChainPeripheralId = &v
-	return s
-}
-
-func (s *RawData) SetPeripheralId(v string) *RawData {
-	s.PeripheralId = &v
-	return s
-}
-
 // ProductKey信息
 type ProductKeyModel struct {
 	// 主键id
@@ -441,6 +298,82 @@ func (s *PermissionedTenantModel) SetGatewayPublicKey(v string) *PermissionedTen
 	return s
 }
 
+// 告警策略
+type AlertStrategy struct {
+	// 主键ID
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更新时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 租户
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty" require:"true"`
+	// 场景码
+	//
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 策略类型：DEBUG（技术联调）；MONITOR（生产监控）
+	StrategyType *string `json:"strategy_type,omitempty" xml:"strategy_type,omitempty" require:"true"`
+	// 策略详情，json格式
+	StrategyDetail *string `json:"strategy_detail,omitempty" xml:"strategy_detail,omitempty" require:"true"`
+	// 是否启用，默认false
+	Enabled *bool `json:"enabled,omitempty" xml:"enabled,omitempty" require:"true"`
+	// 备注
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
+}
+
+func (s AlertStrategy) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AlertStrategy) GoString() string {
+	return s.String()
+}
+
+func (s *AlertStrategy) SetId(v int64) *AlertStrategy {
+	s.Id = &v
+	return s
+}
+
+func (s *AlertStrategy) SetGmtCreate(v string) *AlertStrategy {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *AlertStrategy) SetGmtModified(v string) *AlertStrategy {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *AlertStrategy) SetTenantName(v string) *AlertStrategy {
+	s.TenantName = &v
+	return s
+}
+
+func (s *AlertStrategy) SetScene(v string) *AlertStrategy {
+	s.Scene = &v
+	return s
+}
+
+func (s *AlertStrategy) SetStrategyType(v string) *AlertStrategy {
+	s.StrategyType = &v
+	return s
+}
+
+func (s *AlertStrategy) SetStrategyDetail(v string) *AlertStrategy {
+	s.StrategyDetail = &v
+	return s
+}
+
+func (s *AlertStrategy) SetEnabled(v bool) *AlertStrategy {
+	s.Enabled = &v
+	return s
+}
+
+func (s *AlertStrategy) SetRemark(v string) *AlertStrategy {
+	s.Remark = &v
+	return s
+}
+
 // sdk信息
 type SdkModel struct {
 	// 主键id
@@ -509,6 +442,259 @@ func (s *SdkModel) SetCorpName(v string) *SdkModel {
 	return s
 }
 
+// 场景码信息
+type SceneModel struct {
+	// 主键id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 修改时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 场景名
+	SceneName *string `json:"scene_name,omitempty" xml:"scene_name,omitempty" require:"true"`
+	// 是否托管
+	Escrowed *string `json:"escrowed,omitempty" xml:"escrowed,omitempty"`
+	// 私钥密码
+	PrivateKeyPassword *string `json:"private_key_password,omitempty" xml:"private_key_password,omitempty"`
+	// 租户
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// 场景类型
+	SceneType *string `json:"scene_type,omitempty" xml:"scene_type,omitempty"`
+	// 是否跳过中台数据校验处理
+	SkipPegasus *bool `json:"skip_pegasus,omitempty" xml:"skip_pegasus,omitempty"`
+	// 定制数据处理类 , 使用用逗号分隔
+	CustomerProcessor *string `json:"customer_processor,omitempty" xml:"customer_processor,omitempty"`
+}
+
+func (s SceneModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SceneModel) GoString() string {
+	return s.String()
+}
+
+func (s *SceneModel) SetId(v int64) *SceneModel {
+	s.Id = &v
+	return s
+}
+
+func (s *SceneModel) SetGmtCreate(v string) *SceneModel {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *SceneModel) SetGmtModified(v string) *SceneModel {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *SceneModel) SetSceneName(v string) *SceneModel {
+	s.SceneName = &v
+	return s
+}
+
+func (s *SceneModel) SetEscrowed(v string) *SceneModel {
+	s.Escrowed = &v
+	return s
+}
+
+func (s *SceneModel) SetPrivateKeyPassword(v string) *SceneModel {
+	s.PrivateKeyPassword = &v
+	return s
+}
+
+func (s *SceneModel) SetTenantName(v string) *SceneModel {
+	s.TenantName = &v
+	return s
+}
+
+func (s *SceneModel) SetSceneType(v string) *SceneModel {
+	s.SceneType = &v
+	return s
+}
+
+func (s *SceneModel) SetSkipPegasus(v bool) *SceneModel {
+	s.SkipPegasus = &v
+	return s
+}
+
+func (s *SceneModel) SetCustomerProcessor(v string) *SceneModel {
+	s.CustomerProcessor = &v
+	return s
+}
+
+// 数据校验失败返回体
+type DataVerifyFailureData struct {
+	// 主键id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// Alipay-0101
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 设备ID
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty"`
+	// 发行设备ID
+	DisDeviceId *string `json:"dis_device_id,omitempty" xml:"dis_device_id,omitempty"`
+	// 类型：0:数据上报;1:数据完整性校验
+	Type *int64 `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// c89b65a2e3afd604977c0....
+	PublicKey *string `json:"public_key,omitempty" xml:"public_key,omitempty"`
+	// 验签类型：0(RAW_DATA)；1(公钥格式为PEM)；2(公钥格式为DER)
+	FormatType *int64 `json:"format_type,omitempty" xml:"format_type,omitempty"`
+	// 验证内容hash
+	ContentId *string `json:"content_id,omitempty" xml:"content_id,omitempty"`
+	// 验证内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	// 签名
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty"`
+	// 错误信息
+	FailMessage *string `json:"fail_message,omitempty" xml:"fail_message,omitempty"`
+	// 补充数据
+	ExtraData *string `json:"extra_data,omitempty" xml:"extra_data,omitempty"`
+	// 数据来源：0(普通数据上报)；1(MAAS数据上报)；2(设备业务数据上报);3(标签流转)
+	Source *int64 `json:"source,omitempty" xml:"source,omitempty"`
+}
+
+func (s DataVerifyFailureData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataVerifyFailureData) GoString() string {
+	return s.String()
+}
+
+func (s *DataVerifyFailureData) SetId(v int64) *DataVerifyFailureData {
+	s.Id = &v
+	return s
+}
+
+func (s *DataVerifyFailureData) SetGmtCreate(v string) *DataVerifyFailureData {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *DataVerifyFailureData) SetScene(v string) *DataVerifyFailureData {
+	s.Scene = &v
+	return s
+}
+
+func (s *DataVerifyFailureData) SetDeviceId(v string) *DataVerifyFailureData {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *DataVerifyFailureData) SetDisDeviceId(v string) *DataVerifyFailureData {
+	s.DisDeviceId = &v
+	return s
+}
+
+func (s *DataVerifyFailureData) SetType(v int64) *DataVerifyFailureData {
+	s.Type = &v
+	return s
+}
+
+func (s *DataVerifyFailureData) SetPublicKey(v string) *DataVerifyFailureData {
+	s.PublicKey = &v
+	return s
+}
+
+func (s *DataVerifyFailureData) SetFormatType(v int64) *DataVerifyFailureData {
+	s.FormatType = &v
+	return s
+}
+
+func (s *DataVerifyFailureData) SetContentId(v string) *DataVerifyFailureData {
+	s.ContentId = &v
+	return s
+}
+
+func (s *DataVerifyFailureData) SetContent(v string) *DataVerifyFailureData {
+	s.Content = &v
+	return s
+}
+
+func (s *DataVerifyFailureData) SetSignature(v string) *DataVerifyFailureData {
+	s.Signature = &v
+	return s
+}
+
+func (s *DataVerifyFailureData) SetFailMessage(v string) *DataVerifyFailureData {
+	s.FailMessage = &v
+	return s
+}
+
+func (s *DataVerifyFailureData) SetExtraData(v string) *DataVerifyFailureData {
+	s.ExtraData = &v
+	return s
+}
+
+func (s *DataVerifyFailureData) SetSource(v int64) *DataVerifyFailureData {
+	s.Source = &v
+	return s
+}
+
+// 原始数据包
+type RawData struct {
+	// 链上设备id
+	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty"`
+	// 数据内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 设备id
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty"`
+	// 上链哈希
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 上链时间
+	TxTime *int64 `json:"tx_time,omitempty" xml:"tx_time,omitempty" require:"true"`
+	// 链上外围设备ID
+	ChainPeripheralId *string `json:"chain_peripheral_id,omitempty" xml:"chain_peripheral_id,omitempty"`
+	// 外围设备ID
+	PeripheralId *string `json:"peripheral_id,omitempty" xml:"peripheral_id,omitempty"`
+}
+
+func (s RawData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RawData) GoString() string {
+	return s.String()
+}
+
+func (s *RawData) SetChainDeviceId(v string) *RawData {
+	s.ChainDeviceId = &v
+	return s
+}
+
+func (s *RawData) SetContent(v string) *RawData {
+	s.Content = &v
+	return s
+}
+
+func (s *RawData) SetDeviceId(v string) *RawData {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *RawData) SetTxHash(v string) *RawData {
+	s.TxHash = &v
+	return s
+}
+
+func (s *RawData) SetTxTime(v int64) *RawData {
+	s.TxTime = &v
+	return s
+}
+
+func (s *RawData) SetChainPeripheralId(v string) *RawData {
+	s.ChainPeripheralId = &v
+	return s
+}
+
+func (s *RawData) SetPeripheralId(v string) *RawData {
+	s.PeripheralId = &v
+	return s
+}
+
 // GoodsIdAndCount
 type GoodsIdAndCount struct {
 	// 商品id
@@ -535,76 +721,54 @@ func (s *GoodsIdAndCount) SetCount(v int64) *GoodsIdAndCount {
 	return s
 }
 
-// 收集信息
-type CollectContent struct {
-	// 链上设备Id
-	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty" require:"true"`
-	// 收集的内容
-	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
-	// 对内容的签名
-	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
-	// 服务端发送的扩展数据（非可信设备直接产生的数据）
-	ExtraData *string `json:"extra_data,omitempty" xml:"extra_data,omitempty"`
-	// 数据模型Id
-	DataModelId *string `json:"data_model_id,omitempty" xml:"data_model_id,omitempty"`
+// ProductKey分页查询结果
+type ProductKeyPageResponse struct {
+	// 页数
+	//
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// 页码
+	//
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 总记录数
+	//
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty" require:"true"`
+	// 总页数
+	//
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty" require:"true"`
+	// 数据
+	PageData []*ProductKeyModel `json:"page_data,omitempty" xml:"page_data,omitempty" require:"true" type:"Repeated"`
 }
 
-func (s CollectContent) String() string {
+func (s ProductKeyPageResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CollectContent) GoString() string {
+func (s ProductKeyPageResponse) GoString() string {
 	return s.String()
 }
 
-func (s *CollectContent) SetChainDeviceId(v string) *CollectContent {
-	s.ChainDeviceId = &v
+func (s *ProductKeyPageResponse) SetPageIndex(v int64) *ProductKeyPageResponse {
+	s.PageIndex = &v
 	return s
 }
 
-func (s *CollectContent) SetContent(v string) *CollectContent {
-	s.Content = &v
+func (s *ProductKeyPageResponse) SetPageSize(v int64) *ProductKeyPageResponse {
+	s.PageSize = &v
 	return s
 }
 
-func (s *CollectContent) SetSignature(v string) *CollectContent {
-	s.Signature = &v
+func (s *ProductKeyPageResponse) SetTotalSize(v int64) *ProductKeyPageResponse {
+	s.TotalSize = &v
 	return s
 }
 
-func (s *CollectContent) SetExtraData(v string) *CollectContent {
-	s.ExtraData = &v
+func (s *ProductKeyPageResponse) SetTotalPages(v int64) *ProductKeyPageResponse {
+	s.TotalPages = &v
 	return s
 }
 
-func (s *CollectContent) SetDataModelId(v string) *CollectContent {
-	s.DataModelId = &v
-	return s
-}
-
-// tlsnotary文件认证成功后上传到oss的文件链接列表
-type TlsnotaryUploadOssLinks struct {
-	// 证书链摘要文件的oss链接
-	CertChainDigestLink *string `json:"cert_chain_digest_link,omitempty" xml:"cert_chain_digest_link,omitempty" require:"true"`
-	// 邮件eml文件的oss链接
-	EmlFileLink *string `json:"eml_file_link,omitempty" xml:"eml_file_link,omitempty" require:"true"`
-}
-
-func (s TlsnotaryUploadOssLinks) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TlsnotaryUploadOssLinks) GoString() string {
-	return s.String()
-}
-
-func (s *TlsnotaryUploadOssLinks) SetCertChainDigestLink(v string) *TlsnotaryUploadOssLinks {
-	s.CertChainDigestLink = &v
-	return s
-}
-
-func (s *TlsnotaryUploadOssLinks) SetEmlFileLink(v string) *TlsnotaryUploadOssLinks {
-	s.EmlFileLink = &v
+func (s *ProductKeyPageResponse) SetPageData(v []*ProductKeyModel) *ProductKeyPageResponse {
+	s.PageData = v
 	return s
 }
 
@@ -666,97 +830,6 @@ func (s *DistributeDevice) SetChainPeripheralId(v string) *DistributeDevice {
 
 func (s *DistributeDevice) SetDeviceStatus(v string) *DistributeDevice {
 	s.DeviceStatus = &v
-	return s
-}
-
-// ProductKey分页查询结果
-type ProductKeyPageResponse struct {
-	// 页数
-	//
-	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
-	// 页码
-	//
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
-	// 总记录数
-	//
-	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty" require:"true"`
-	// 总页数
-	//
-	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty" require:"true"`
-	// 数据
-	PageData []*ProductKeyModel `json:"page_data,omitempty" xml:"page_data,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s ProductKeyPageResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ProductKeyPageResponse) GoString() string {
-	return s.String()
-}
-
-func (s *ProductKeyPageResponse) SetPageIndex(v int64) *ProductKeyPageResponse {
-	s.PageIndex = &v
-	return s
-}
-
-func (s *ProductKeyPageResponse) SetPageSize(v int64) *ProductKeyPageResponse {
-	s.PageSize = &v
-	return s
-}
-
-func (s *ProductKeyPageResponse) SetTotalSize(v int64) *ProductKeyPageResponse {
-	s.TotalSize = &v
-	return s
-}
-
-func (s *ProductKeyPageResponse) SetTotalPages(v int64) *ProductKeyPageResponse {
-	s.TotalPages = &v
-	return s
-}
-
-func (s *ProductKeyPageResponse) SetPageData(v []*ProductKeyModel) *ProductKeyPageResponse {
-	s.PageData = v
-	return s
-}
-
-// 租户关联信息请求结构体
-type TenantBindInfoReq struct {
-	// 租户关联扩展信息
-	Extension *string `json:"extension,omitempty" xml:"extension,omitempty"`
-	// 业务类型，默认空
-	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
-	// 组织机构代码，可为中文
-	TenantUid *string `json:"tenant_uid,omitempty" xml:"tenant_uid,omitempty" require:"true"`
-	// 组织结构名称
-	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
-}
-
-func (s TenantBindInfoReq) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TenantBindInfoReq) GoString() string {
-	return s.String()
-}
-
-func (s *TenantBindInfoReq) SetExtension(v string) *TenantBindInfoReq {
-	s.Extension = &v
-	return s
-}
-
-func (s *TenantBindInfoReq) SetBizType(v string) *TenantBindInfoReq {
-	s.BizType = &v
-	return s
-}
-
-func (s *TenantBindInfoReq) SetTenantUid(v string) *TenantBindInfoReq {
-	s.TenantUid = &v
-	return s
-}
-
-func (s *TenantBindInfoReq) SetUserName(v string) *TenantBindInfoReq {
-	s.UserName = &v
 	return s
 }
 
@@ -849,53 +922,6 @@ func (s *SpaceRegisterReqModel) SetType(v string) *SpaceRegisterReqModel {
 	return s
 }
 
-// 标签流转上链返回txHash
-type LabelChainResult struct {
-	// 标签ID
-	LabelId *string `json:"label_id,omitempty" xml:"label_id,omitempty" require:"true"`
-	// 业务资产ID，接入方自行定义
-	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty"`
-	// 标签最近一次上链的txHash
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 错误码
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// 错误信息
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty" require:"true"`
-}
-
-func (s LabelChainResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LabelChainResult) GoString() string {
-	return s.String()
-}
-
-func (s *LabelChainResult) SetLabelId(v string) *LabelChainResult {
-	s.LabelId = &v
-	return s
-}
-
-func (s *LabelChainResult) SetAssetId(v string) *LabelChainResult {
-	s.AssetId = &v
-	return s
-}
-
-func (s *LabelChainResult) SetTxHash(v string) *LabelChainResult {
-	s.TxHash = &v
-	return s
-}
-
-func (s *LabelChainResult) SetErrorCode(v string) *LabelChainResult {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *LabelChainResult) SetErrorMsg(v string) *LabelChainResult {
-	s.ErrorMsg = &v
-	return s
-}
-
 // TSM CommonCmd
 type TsmCommonCmd struct {
 	// private byte cla;
@@ -964,39 +990,6 @@ func (s *TsmCommonCmd) SetP2(v int64) *TsmCommonCmd {
 	return s
 }
 
-// 发行数据包
-type DistributeDataPackage struct {
-	// 原始数据
-	DataList []*RawData `json:"data_list,omitempty" xml:"data_list,omitempty" require:"true" type:"Repeated"`
-	// 发行设备Id
-	DistributeDeviceId *string `json:"distribute_device_id,omitempty" xml:"distribute_device_id,omitempty" require:"true"`
-	// 打包时间
-	PackageTime *int64 `json:"package_time,omitempty" xml:"package_time,omitempty" require:"true"`
-}
-
-func (s DistributeDataPackage) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DistributeDataPackage) GoString() string {
-	return s.String()
-}
-
-func (s *DistributeDataPackage) SetDataList(v []*RawData) *DistributeDataPackage {
-	s.DataList = v
-	return s
-}
-
-func (s *DistributeDataPackage) SetDistributeDeviceId(v string) *DistributeDataPackage {
-	s.DistributeDeviceId = &v
-	return s
-}
-
-func (s *DistributeDataPackage) SetPackageTime(v int64) *DistributeDataPackage {
-	s.PackageTime = &v
-	return s
-}
-
 // 更新设备和空间关联请求结构体
 type UpdateDeviceSpaceReq struct {
 	// API要更新的设备DID
@@ -1030,6 +1023,39 @@ func (s *UpdateDeviceSpaceReq) SetUpdateMode(v int64) *UpdateDeviceSpaceReq {
 
 func (s *UpdateDeviceSpaceReq) SetDeviceSpace(v []*string) *UpdateDeviceSpaceReq {
 	s.DeviceSpace = v
+	return s
+}
+
+// 发行数据包
+type DistributeDataPackage struct {
+	// 原始数据
+	DataList []*RawData `json:"data_list,omitempty" xml:"data_list,omitempty" require:"true" type:"Repeated"`
+	// 发行设备Id
+	DistributeDeviceId *string `json:"distribute_device_id,omitempty" xml:"distribute_device_id,omitempty" require:"true"`
+	// 打包时间
+	PackageTime *int64 `json:"package_time,omitempty" xml:"package_time,omitempty" require:"true"`
+}
+
+func (s DistributeDataPackage) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DistributeDataPackage) GoString() string {
+	return s.String()
+}
+
+func (s *DistributeDataPackage) SetDataList(v []*RawData) *DistributeDataPackage {
+	s.DataList = v
+	return s
+}
+
+func (s *DistributeDataPackage) SetDistributeDeviceId(v string) *DistributeDataPackage {
+	s.DistributeDeviceId = &v
+	return s
+}
+
+func (s *DistributeDataPackage) SetPackageTime(v int64) *DistributeDataPackage {
+	s.PackageTime = &v
 	return s
 }
 
@@ -1094,6 +1120,1009 @@ func (s *LabelTrace) SetVersion(v int64) *LabelTrace {
 	return s
 }
 
+// 数据校验失败分页查询结果
+type DataVerifyFailureDataPageResponse struct {
+	// 页数
+	//
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// 页码
+	//
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 总记录数
+	//
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty" require:"true"`
+	// 总页数
+	//
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty" require:"true"`
+	// 数据
+	PageData []*DataVerifyFailureData `json:"page_data,omitempty" xml:"page_data,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s DataVerifyFailureDataPageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataVerifyFailureDataPageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DataVerifyFailureDataPageResponse) SetPageIndex(v int64) *DataVerifyFailureDataPageResponse {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *DataVerifyFailureDataPageResponse) SetPageSize(v int64) *DataVerifyFailureDataPageResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *DataVerifyFailureDataPageResponse) SetTotalSize(v int64) *DataVerifyFailureDataPageResponse {
+	s.TotalSize = &v
+	return s
+}
+
+func (s *DataVerifyFailureDataPageResponse) SetTotalPages(v int64) *DataVerifyFailureDataPageResponse {
+	s.TotalPages = &v
+	return s
+}
+
+func (s *DataVerifyFailureDataPageResponse) SetPageData(v []*DataVerifyFailureData) *DataVerifyFailureDataPageResponse {
+	s.PageData = v
+	return s
+}
+
+// 数据模型
+type DataModel struct {
+	//  数据模型Id
+	DataModelId *string `json:"data_model_id,omitempty" xml:"data_model_id,omitempty" require:"true"`
+	// 数据模型名称
+	DataModelName *string `json:"data_model_name,omitempty" xml:"data_model_name,omitempty"`
+	// 数据模型
+	DataModel *string `json:"data_model,omitempty" xml:"data_model,omitempty" require:"true"`
+	// 数据模型类别
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
+	// 用户自定义版本
+	CustomerVersion *string `json:"customer_version,omitempty" xml:"customer_version,omitempty"`
+}
+
+func (s DataModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataModel) GoString() string {
+	return s.String()
+}
+
+func (s *DataModel) SetDataModelId(v string) *DataModel {
+	s.DataModelId = &v
+	return s
+}
+
+func (s *DataModel) SetDataModelName(v string) *DataModel {
+	s.DataModelName = &v
+	return s
+}
+
+func (s *DataModel) SetDataModel(v string) *DataModel {
+	s.DataModel = &v
+	return s
+}
+
+func (s *DataModel) SetBizType(v string) *DataModel {
+	s.BizType = &v
+	return s
+}
+
+func (s *DataModel) SetCustomerVersion(v string) *DataModel {
+	s.CustomerVersion = &v
+	return s
+}
+
+// 收集标签数据（元数据，无签名）
+type CollectLabelRawContent struct {
+	// 1.设备端上报数据内容 2.与设备上报的数据一致，服务端不可修改 3.解析后需与DataModel匹配 4.映射 Label 对象结构化存储 5.转为JSON后如果是JSONObject 映射单个 Label 6.转为JSON后如果是JSONArray 映射多个 Label
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 数据模型ID
+	DataModelId *string `json:"data_model_id,omitempty" xml:"data_model_id,omitempty" require:"true"`
+}
+
+func (s CollectLabelRawContent) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CollectLabelRawContent) GoString() string {
+	return s.String()
+}
+
+func (s *CollectLabelRawContent) SetContent(v string) *CollectLabelRawContent {
+	s.Content = &v
+	return s
+}
+
+func (s *CollectLabelRawContent) SetDataModelId(v string) *CollectLabelRawContent {
+	s.DataModelId = &v
+	return s
+}
+
+// 告警策略分页查询结果
+type AlertStrategyPageResponse struct {
+	// 页数
+	//
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// 页码
+	//
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 总记录数
+	//
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty" require:"true"`
+	// 总页数
+	//
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty" require:"true"`
+	// 数据
+	PageData []*AlertStrategy `json:"page_data,omitempty" xml:"page_data,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s AlertStrategyPageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AlertStrategyPageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AlertStrategyPageResponse) SetPageIndex(v int64) *AlertStrategyPageResponse {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *AlertStrategyPageResponse) SetPageSize(v int64) *AlertStrategyPageResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *AlertStrategyPageResponse) SetTotalSize(v int64) *AlertStrategyPageResponse {
+	s.TotalSize = &v
+	return s
+}
+
+func (s *AlertStrategyPageResponse) SetTotalPages(v int64) *AlertStrategyPageResponse {
+	s.TotalPages = &v
+	return s
+}
+
+func (s *AlertStrategyPageResponse) SetPageData(v []*AlertStrategy) *AlertStrategyPageResponse {
+	s.PageData = v
+	return s
+}
+
+// 设备业务数据
+type BizContentGroup struct {
+	// 设备链上Id
+	//
+	//
+	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty"`
+	// 业务Id
+	//
+	//
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 业务类型
+	//
+	//
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 数据内容 JSON字符串
+	//
+	//
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+}
+
+func (s BizContentGroup) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BizContentGroup) GoString() string {
+	return s.String()
+}
+
+func (s *BizContentGroup) SetChainDeviceId(v string) *BizContentGroup {
+	s.ChainDeviceId = &v
+	return s
+}
+
+func (s *BizContentGroup) SetBizId(v string) *BizContentGroup {
+	s.BizId = &v
+	return s
+}
+
+func (s *BizContentGroup) SetBizType(v string) *BizContentGroup {
+	s.BizType = &v
+	return s
+}
+
+func (s *BizContentGroup) SetContent(v string) *BizContentGroup {
+	s.Content = &v
+	return s
+}
+
+// 实体身份更新请求结构体，设备/仓库/空间/组织
+type ThingsDidUpdateReq struct {
+	// 业务类型，默认空
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
+	// 待更新的实体did
+	ThingDid *string `json:"thing_did,omitempty" xml:"thing_did,omitempty" require:"true"`
+	// 更新内容，参考更新请求不同实体类型结构体，对应不同实体类型不一样
+	// 信物链实体附加信息 不同实体身份，有不同的json组织格式，
+	// 参考 DeviceRegisterReqModel， SpaceRegisterReqModel， CorporateReqModel， WarehouseReqModel，
+	ThingExtraParams *string `json:"thing_extra_params,omitempty" xml:"thing_extra_params,omitempty"`
+	// 更新后的实体版本
+	ThingVersion *string `json:"thing_version,omitempty" xml:"thing_version,omitempty" require:"true"`
+}
+
+func (s ThingsDidUpdateReq) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ThingsDidUpdateReq) GoString() string {
+	return s.String()
+}
+
+func (s *ThingsDidUpdateReq) SetBizType(v string) *ThingsDidUpdateReq {
+	s.BizType = &v
+	return s
+}
+
+func (s *ThingsDidUpdateReq) SetThingDid(v string) *ThingsDidUpdateReq {
+	s.ThingDid = &v
+	return s
+}
+
+func (s *ThingsDidUpdateReq) SetThingExtraParams(v string) *ThingsDidUpdateReq {
+	s.ThingExtraParams = &v
+	return s
+}
+
+func (s *ThingsDidUpdateReq) SetThingVersion(v string) *ThingsDidUpdateReq {
+	s.ThingVersion = &v
+	return s
+}
+
+// 具备实体权限访问者更新请求
+type DidUpdateTenantReq struct {
+	// 待更新实体身份did
+	ThingDid *string `json:"thing_did,omitempty" xml:"thing_did,omitempty" require:"true"`
+	// 待更新访问者列表
+	TenantList []*string `json:"tenant_list,omitempty" xml:"tenant_list,omitempty" require:"true" type:"Repeated"`
+	// 权限角色
+	// TENANT_ROLE_OWNER
+	// TENANT_ROLE_USER
+	// TENANT_ROLE_OBSERVER
+	TenantRole *string `json:"tenant_role,omitempty" xml:"tenant_role,omitempty" require:"true"`
+	// 增加权限：THINGS_OP_MODE_ADD
+	// 删除权限：THINGS_OP_MODE_REMOVE
+	OpMode *string `json:"op_mode,omitempty" xml:"op_mode,omitempty" require:"true"`
+}
+
+func (s DidUpdateTenantReq) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DidUpdateTenantReq) GoString() string {
+	return s.String()
+}
+
+func (s *DidUpdateTenantReq) SetThingDid(v string) *DidUpdateTenantReq {
+	s.ThingDid = &v
+	return s
+}
+
+func (s *DidUpdateTenantReq) SetTenantList(v []*string) *DidUpdateTenantReq {
+	s.TenantList = v
+	return s
+}
+
+func (s *DidUpdateTenantReq) SetTenantRole(v string) *DidUpdateTenantReq {
+	s.TenantRole = &v
+	return s
+}
+
+func (s *DidUpdateTenantReq) SetOpMode(v string) *DidUpdateTenantReq {
+	s.OpMode = &v
+	return s
+}
+
+// PurchaseOrderInfoDetail
+type PurchaseOrderInfoDetail struct {
+	// 租赁订单号
+	//
+	OrderNumber *string `json:"order_number,omitempty" xml:"order_number,omitempty" require:"true"`
+	// 收货人姓名
+	//
+	ConsigneeName *string `json:"consignee_name,omitempty" xml:"consignee_name,omitempty" require:"true"`
+	// 收货人身份证号
+	ConsigneeIdNumber *string `json:"consignee_id_number,omitempty" xml:"consignee_id_number,omitempty" require:"true"`
+	// 收货人手机号
+	//
+	ConsigneePhone *string `json:"consignee_phone,omitempty" xml:"consignee_phone,omitempty" require:"true"`
+	// 收货人地址
+	ConsigneeAddress *string `json:"consignee_address,omitempty" xml:"consignee_address,omitempty" require:"true"`
+	// 供货商名称
+	//
+	SupplierName *string `json:"supplier_name,omitempty" xml:"supplier_name,omitempty" require:"true"`
+	// 供货商租户id
+	//
+	SupplierId *string `json:"supplier_id,omitempty" xml:"supplier_id,omitempty" require:"true"`
+	// 采购商id
+	//
+	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true"`
+	// 商品信息列表
+	GoodsIdAndCount []*GoodsIdAndCount `json:"goods_id_and_count,omitempty" xml:"goods_id_and_count,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s PurchaseOrderInfoDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PurchaseOrderInfoDetail) GoString() string {
+	return s.String()
+}
+
+func (s *PurchaseOrderInfoDetail) SetOrderNumber(v string) *PurchaseOrderInfoDetail {
+	s.OrderNumber = &v
+	return s
+}
+
+func (s *PurchaseOrderInfoDetail) SetConsigneeName(v string) *PurchaseOrderInfoDetail {
+	s.ConsigneeName = &v
+	return s
+}
+
+func (s *PurchaseOrderInfoDetail) SetConsigneeIdNumber(v string) *PurchaseOrderInfoDetail {
+	s.ConsigneeIdNumber = &v
+	return s
+}
+
+func (s *PurchaseOrderInfoDetail) SetConsigneePhone(v string) *PurchaseOrderInfoDetail {
+	s.ConsigneePhone = &v
+	return s
+}
+
+func (s *PurchaseOrderInfoDetail) SetConsigneeAddress(v string) *PurchaseOrderInfoDetail {
+	s.ConsigneeAddress = &v
+	return s
+}
+
+func (s *PurchaseOrderInfoDetail) SetSupplierName(v string) *PurchaseOrderInfoDetail {
+	s.SupplierName = &v
+	return s
+}
+
+func (s *PurchaseOrderInfoDetail) SetSupplierId(v string) *PurchaseOrderInfoDetail {
+	s.SupplierId = &v
+	return s
+}
+
+func (s *PurchaseOrderInfoDetail) SetLeaseId(v string) *PurchaseOrderInfoDetail {
+	s.LeaseId = &v
+	return s
+}
+
+func (s *PurchaseOrderInfoDetail) SetGoodsIdAndCount(v []*GoodsIdAndCount) *PurchaseOrderInfoDetail {
+	s.GoodsIdAndCount = v
+	return s
+}
+
+// 信物链存证查询请求结构体
+type EvidenceQueryInfoReq struct {
+	// 暂时保留
+	DeviceSignature *string `json:"device_signature,omitempty" xml:"device_signature,omitempty"`
+	// 暂时保留
+	DeviceUid *string `json:"device_uid,omitempty" xml:"device_uid,omitempty"`
+	// 不同上链方式
+	// "CZ": 普通存证
+	// "IOTPAY": 支付存证
+	// "RAW": 文本上链
+	// "TTTS": 溯源存证
+	QueryType *string `json:"query_type,omitempty" xml:"query_type,omitempty" require:"true"`
+	// 查询的链上交易txHash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+}
+
+func (s EvidenceQueryInfoReq) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EvidenceQueryInfoReq) GoString() string {
+	return s.String()
+}
+
+func (s *EvidenceQueryInfoReq) SetDeviceSignature(v string) *EvidenceQueryInfoReq {
+	s.DeviceSignature = &v
+	return s
+}
+
+func (s *EvidenceQueryInfoReq) SetDeviceUid(v string) *EvidenceQueryInfoReq {
+	s.DeviceUid = &v
+	return s
+}
+
+func (s *EvidenceQueryInfoReq) SetQueryType(v string) *EvidenceQueryInfoReq {
+	s.QueryType = &v
+	return s
+}
+
+func (s *EvidenceQueryInfoReq) SetTxHash(v string) *EvidenceQueryInfoReq {
+	s.TxHash = &v
+	return s
+}
+
+// 手机型号信息
+type PhoneInfo struct {
+	// 颜色
+	Colour *string `json:"colour,omitempty" xml:"colour,omitempty" require:"true"`
+	// 色值
+	ColourNumber *string `json:"colour_number,omitempty" xml:"colour_number,omitempty" require:"true"`
+	// 内存大小
+	Memory *string `json:"memory,omitempty" xml:"memory,omitempty" require:"true"`
+}
+
+func (s PhoneInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PhoneInfo) GoString() string {
+	return s.String()
+}
+
+func (s *PhoneInfo) SetColour(v string) *PhoneInfo {
+	s.Colour = &v
+	return s
+}
+
+func (s *PhoneInfo) SetColourNumber(v string) *PhoneInfo {
+	s.ColourNumber = &v
+	return s
+}
+
+func (s *PhoneInfo) SetMemory(v string) *PhoneInfo {
+	s.Memory = &v
+	return s
+}
+
+// 收集数据返回的上链结果
+type SendCollectorResult struct {
+	// 数据内容content的上链交易哈希
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+}
+
+func (s SendCollectorResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendCollectorResult) GoString() string {
+	return s.String()
+}
+
+func (s *SendCollectorResult) SetTxHash(v string) *SendCollectorResult {
+	s.TxHash = &v
+	return s
+}
+
+// 实体身份注册请求结构体
+type ThingsDidRegisterReq struct {
+	// 业务编码，暂时保留，不需传入
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
+	// 信物链实体的所有者的分布式身份
+	OwnerTenantDid *string `json:"owner_tenant_did,omitempty" xml:"owner_tenant_did,omitempty"`
+	// 信物链实体附加信息 不同实体身份，有不同的json组织格式...
+	// 参考
+	// DeviceRegisterReqModel，
+	// SpaceRegisterReqModel，
+	// CorporateReqModel，
+	// WarehouseReqModel，
+	//
+	ThingExtraParams *string `json:"thing_extra_params,omitempty" xml:"thing_extra_params,omitempty"`
+	// 原始id，租户内同一类型实体唯一
+	ThingOriginId *string `json:"thing_origin_id,omitempty" xml:"thing_origin_id,omitempty" require:"true"`
+	// 实体原始名称
+	ThingOriginName *string `json:"thing_origin_name,omitempty" xml:"thing_origin_name,omitempty" require:"true"`
+	// 信物链实体身份
+	// DID_TYPE_DEVICE_ALIYUN(0): 阿里云设备
+	// DID_TYPE_DEVICE_PEGASUS(1): 链机设备
+	// DID_TYPE_DEVICE_MCU(2): MCU设备
+	// DID_TYPE_DEVICE_INTEL(3): intel设备
+	// DID_TYPE_DEVICE_DEVICE(16384): 默认设备 ...
+	// DID_TYPE_CORPORATE(65536): 组织实体
+	// DID_TYPE_WAREHOUSE(131072)：仓库实体
+	// DID_TYPE_SPACE(196608)： 空间实体
+	ThingType *int64 `json:"thing_type,omitempty" xml:"thing_type,omitempty" require:"true"`
+	// 实体版本
+	ThingVersion *string `json:"thing_version,omitempty" xml:"thing_version,omitempty" require:"true"`
+	// 信物链实体的使用方的分布式身份列表
+	UserDid []*string `json:"user_did,omitempty" xml:"user_did,omitempty" type:"Repeated"`
+}
+
+func (s ThingsDidRegisterReq) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ThingsDidRegisterReq) GoString() string {
+	return s.String()
+}
+
+func (s *ThingsDidRegisterReq) SetBizType(v string) *ThingsDidRegisterReq {
+	s.BizType = &v
+	return s
+}
+
+func (s *ThingsDidRegisterReq) SetOwnerTenantDid(v string) *ThingsDidRegisterReq {
+	s.OwnerTenantDid = &v
+	return s
+}
+
+func (s *ThingsDidRegisterReq) SetThingExtraParams(v string) *ThingsDidRegisterReq {
+	s.ThingExtraParams = &v
+	return s
+}
+
+func (s *ThingsDidRegisterReq) SetThingOriginId(v string) *ThingsDidRegisterReq {
+	s.ThingOriginId = &v
+	return s
+}
+
+func (s *ThingsDidRegisterReq) SetThingOriginName(v string) *ThingsDidRegisterReq {
+	s.ThingOriginName = &v
+	return s
+}
+
+func (s *ThingsDidRegisterReq) SetThingType(v int64) *ThingsDidRegisterReq {
+	s.ThingType = &v
+	return s
+}
+
+func (s *ThingsDidRegisterReq) SetThingVersion(v string) *ThingsDidRegisterReq {
+	s.ThingVersion = &v
+	return s
+}
+
+func (s *ThingsDidRegisterReq) SetUserDid(v []*string) *ThingsDidRegisterReq {
+	s.UserDid = v
+	return s
+}
+
+// 信物链证据基本组成结构体
+type EvidenceBaseModel struct {
+	// 业务数据
+	BizData *string `json:"biz_data,omitempty" xml:"biz_data,omitempty"`
+	// 证据哈希值
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
+	// 证据附属信息字段
+	MetaJson *string `json:"meta_json,omitempty" xml:"meta_json,omitempty"`
+}
+
+func (s EvidenceBaseModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EvidenceBaseModel) GoString() string {
+	return s.String()
+}
+
+func (s *EvidenceBaseModel) SetBizData(v string) *EvidenceBaseModel {
+	s.BizData = &v
+	return s
+}
+
+func (s *EvidenceBaseModel) SetHash(v string) *EvidenceBaseModel {
+	s.Hash = &v
+	return s
+}
+
+func (s *EvidenceBaseModel) SetMetaJson(v string) *EvidenceBaseModel {
+	s.MetaJson = &v
+	return s
+}
+
+// 设备类型
+type Device struct {
+	// 设备实体唯一Id
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 数据模型Id
+	DeviceDataModelId *string `json:"device_data_model_id,omitempty" xml:"device_data_model_id,omitempty" require:"true"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// imei号
+	DeviceImei *string `json:"device_imei,omitempty" xml:"device_imei,omitempty" require:"true"`
+	// 设备名称
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
+	// 设备厂商名称
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty"`
+	// 设备ICCID
+	//
+	//
+	DeviceIccid *string `json:"device_iccid,omitempty" xml:"device_iccid,omitempty"`
+	// 设备扩展信息
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+	// 设备链上Id
+	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty" require:"true"`
+	// 上链哈希
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 上链时间
+	TxTime *int64 `json:"tx_time,omitempty" xml:"tx_time,omitempty" require:"true"`
+	// 设备类型编码，必填，对应资管平台中的设备类型
+	//
+	// 枚举值：
+	//
+	// 车辆 1000
+	// 车辆 四轮车 1001
+	// 车辆 四轮车 纯电四轮车 1002
+	// 车辆 四轮车 混动四轮车 1003
+	// 车辆 四轮车 燃油四轮车 1004
+	// 车辆 两轮车 1011
+	// 车辆 两轮车 两轮单车 1012
+	// 车辆 两轮车 两轮助力车 1013
+	//
+	// 换电柜 2000
+	// 换电柜 二轮车换电柜 2001
+	//
+	// 电池 3000
+	// 电池 磷酸铁电池 3001
+	// 电池 三元锂电池 3002
+	//
+	// 回收设备 4000
+	//
+	// 垃圾分类回收 4001
+	//
+	// 洗车机 5000
+	DeviceTypeCode *int64 `json:"device_type_code,omitempty" xml:"device_type_code,omitempty" require:"true"`
+	// 单价
+	InitialPrice *int64 `json:"initial_price,omitempty" xml:"initial_price,omitempty" require:"true"`
+	// 投放时间
+	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 出厂时间
+	FactoryTime *string `json:"factory_time,omitempty" xml:"factory_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
+	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty"`
+}
+
+func (s Device) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Device) GoString() string {
+	return s.String()
+}
+
+func (s *Device) SetDeviceId(v string) *Device {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *Device) SetDeviceDataModelId(v string) *Device {
+	s.DeviceDataModelId = &v
+	return s
+}
+
+func (s *Device) SetScene(v string) *Device {
+	s.Scene = &v
+	return s
+}
+
+func (s *Device) SetDeviceImei(v string) *Device {
+	s.DeviceImei = &v
+	return s
+}
+
+func (s *Device) SetDeviceName(v string) *Device {
+	s.DeviceName = &v
+	return s
+}
+
+func (s *Device) SetCorpName(v string) *Device {
+	s.CorpName = &v
+	return s
+}
+
+func (s *Device) SetDeviceIccid(v string) *Device {
+	s.DeviceIccid = &v
+	return s
+}
+
+func (s *Device) SetExtraInfo(v string) *Device {
+	s.ExtraInfo = &v
+	return s
+}
+
+func (s *Device) SetChainDeviceId(v string) *Device {
+	s.ChainDeviceId = &v
+	return s
+}
+
+func (s *Device) SetTxHash(v string) *Device {
+	s.TxHash = &v
+	return s
+}
+
+func (s *Device) SetTxTime(v int64) *Device {
+	s.TxTime = &v
+	return s
+}
+
+func (s *Device) SetDeviceTypeCode(v int64) *Device {
+	s.DeviceTypeCode = &v
+	return s
+}
+
+func (s *Device) SetInitialPrice(v int64) *Device {
+	s.InitialPrice = &v
+	return s
+}
+
+func (s *Device) SetReleaseTime(v string) *Device {
+	s.ReleaseTime = &v
+	return s
+}
+
+func (s *Device) SetFactoryTime(v string) *Device {
+	s.FactoryTime = &v
+	return s
+}
+
+func (s *Device) SetDeviceStatus(v string) *Device {
+	s.DeviceStatus = &v
+	return s
+}
+
+// BAI提供的OCR接口返回值
+type BaiOcrResponse struct {
+	// 返回的结果体
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s BaiOcrResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiOcrResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BaiOcrResponse) SetData(v string) *BaiOcrResponse {
+	s.Data = &v
+	return s
+}
+
+// 收集标签数据
+type CollectLabelContent struct {
+	// 链上设备ID
+	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty" require:"true"`
+	// 1.设备端上报数据内容
+	// 2.与设备上报的数据一致，服务端不可修改
+	// 3.解析后需与DataModel匹配
+	// 4.映射 Label 对象结构化存储
+	// 5.转为JSON后如果是JSONObject 映射单个 Label
+	// 6.转为JSON后如果是JSONArray 映射多个 Label
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// content的签名
+	// 与设备上报的签名保持一致，服务端不可修改
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+	// 未经设备签名的附加数据JSON String
+	// 注意：如果 content 批量解析 ，extraData也会批量复制融入解析后的content
+	ExtraData *string `json:"extra_data,omitempty" xml:"extra_data,omitempty"`
+}
+
+func (s CollectLabelContent) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CollectLabelContent) GoString() string {
+	return s.String()
+}
+
+func (s *CollectLabelContent) SetChainDeviceId(v string) *CollectLabelContent {
+	s.ChainDeviceId = &v
+	return s
+}
+
+func (s *CollectLabelContent) SetContent(v string) *CollectLabelContent {
+	s.Content = &v
+	return s
+}
+
+func (s *CollectLabelContent) SetSignature(v string) *CollectLabelContent {
+	s.Signature = &v
+	return s
+}
+
+func (s *CollectLabelContent) SetExtraData(v string) *CollectLabelContent {
+	s.ExtraData = &v
+	return s
+}
+
+// 收集信息
+type CollectContent struct {
+	// 链上设备Id
+	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty" require:"true"`
+	// 收集的内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 对内容的签名
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+	// 服务端发送的扩展数据（非可信设备直接产生的数据）
+	ExtraData *string `json:"extra_data,omitempty" xml:"extra_data,omitempty"`
+	// 数据模型Id
+	DataModelId *string `json:"data_model_id,omitempty" xml:"data_model_id,omitempty"`
+}
+
+func (s CollectContent) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CollectContent) GoString() string {
+	return s.String()
+}
+
+func (s *CollectContent) SetChainDeviceId(v string) *CollectContent {
+	s.ChainDeviceId = &v
+	return s
+}
+
+func (s *CollectContent) SetContent(v string) *CollectContent {
+	s.Content = &v
+	return s
+}
+
+func (s *CollectContent) SetSignature(v string) *CollectContent {
+	s.Signature = &v
+	return s
+}
+
+func (s *CollectContent) SetExtraData(v string) *CollectContent {
+	s.ExtraData = &v
+	return s
+}
+
+func (s *CollectContent) SetDataModelId(v string) *CollectContent {
+	s.DataModelId = &v
+	return s
+}
+
+// tlsnotary文件认证成功后上传到oss的文件链接列表
+type TlsnotaryUploadOssLinks struct {
+	// 证书链摘要文件的oss链接
+	CertChainDigestLink *string `json:"cert_chain_digest_link,omitempty" xml:"cert_chain_digest_link,omitempty" require:"true"`
+	// 邮件eml文件的oss链接
+	EmlFileLink *string `json:"eml_file_link,omitempty" xml:"eml_file_link,omitempty" require:"true"`
+}
+
+func (s TlsnotaryUploadOssLinks) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TlsnotaryUploadOssLinks) GoString() string {
+	return s.String()
+}
+
+func (s *TlsnotaryUploadOssLinks) SetCertChainDigestLink(v string) *TlsnotaryUploadOssLinks {
+	s.CertChainDigestLink = &v
+	return s
+}
+
+func (s *TlsnotaryUploadOssLinks) SetEmlFileLink(v string) *TlsnotaryUploadOssLinks {
+	s.EmlFileLink = &v
+	return s
+}
+
+// 租户关联信息请求结构体
+type TenantBindInfoReq struct {
+	// 租户关联扩展信息
+	Extension *string `json:"extension,omitempty" xml:"extension,omitempty"`
+	// 业务类型，默认空
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
+	// 组织机构代码，可为中文
+	TenantUid *string `json:"tenant_uid,omitempty" xml:"tenant_uid,omitempty" require:"true"`
+	// 组织结构名称
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+}
+
+func (s TenantBindInfoReq) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TenantBindInfoReq) GoString() string {
+	return s.String()
+}
+
+func (s *TenantBindInfoReq) SetExtension(v string) *TenantBindInfoReq {
+	s.Extension = &v
+	return s
+}
+
+func (s *TenantBindInfoReq) SetBizType(v string) *TenantBindInfoReq {
+	s.BizType = &v
+	return s
+}
+
+func (s *TenantBindInfoReq) SetTenantUid(v string) *TenantBindInfoReq {
+	s.TenantUid = &v
+	return s
+}
+
+func (s *TenantBindInfoReq) SetUserName(v string) *TenantBindInfoReq {
+	s.UserName = &v
+	return s
+}
+
+// 标签流转上链返回txHash
+type LabelChainResult struct {
+	// 标签ID
+	LabelId *string `json:"label_id,omitempty" xml:"label_id,omitempty" require:"true"`
+	// 业务资产ID，接入方自行定义
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty"`
+	// 标签最近一次上链的txHash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 错误码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 错误信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty" require:"true"`
+}
+
+func (s LabelChainResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LabelChainResult) GoString() string {
+	return s.String()
+}
+
+func (s *LabelChainResult) SetLabelId(v string) *LabelChainResult {
+	s.LabelId = &v
+	return s
+}
+
+func (s *LabelChainResult) SetAssetId(v string) *LabelChainResult {
+	s.AssetId = &v
+	return s
+}
+
+func (s *LabelChainResult) SetTxHash(v string) *LabelChainResult {
+	s.TxHash = &v
+	return s
+}
+
+func (s *LabelChainResult) SetErrorCode(v string) *LabelChainResult {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *LabelChainResult) SetErrorMsg(v string) *LabelChainResult {
+	s.ErrorMsg = &v
+	return s
+}
+
+// 创建订单失败的返回结构体
+type InsertPurchaseOrderFailInfo struct {
+	// 订单ID
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 订单保存失败的原因
+	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty" require:"true"`
+}
+
+func (s InsertPurchaseOrderFailInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InsertPurchaseOrderFailInfo) GoString() string {
+	return s.String()
+}
+
+func (s *InsertPurchaseOrderFailInfo) SetOrderId(v string) *InsertPurchaseOrderFailInfo {
+	s.OrderId = &v
+	return s
+}
+
+func (s *InsertPurchaseOrderFailInfo) SetFailReason(v string) *InsertPurchaseOrderFailInfo {
+	s.FailReason = &v
+	return s
+}
+
 // 场景分页查询结果
 type ScenePageResponse struct {
 	// 页数
@@ -1142,32 +2171,6 @@ func (s *ScenePageResponse) SetTotalPages(v int64) *ScenePageResponse {
 
 func (s *ScenePageResponse) SetPageData(v []*SceneModel) *ScenePageResponse {
 	s.PageData = v
-	return s
-}
-
-// 创建订单失败的返回结构体
-type InsertPurchaseOrderFailInfo struct {
-	// 订单ID
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
-	// 订单保存失败的原因
-	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty" require:"true"`
-}
-
-func (s InsertPurchaseOrderFailInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s InsertPurchaseOrderFailInfo) GoString() string {
-	return s.String()
-}
-
-func (s *InsertPurchaseOrderFailInfo) SetOrderId(v string) *InsertPurchaseOrderFailInfo {
-	s.OrderId = &v
-	return s
-}
-
-func (s *InsertPurchaseOrderFailInfo) SetFailReason(v string) *InsertPurchaseOrderFailInfo {
-	s.FailReason = &v
 	return s
 }
 
@@ -1243,46 +2246,6 @@ func (s *ComputerInfo) SetMemory(v string) *ComputerInfo {
 
 func (s *ComputerInfo) SetDiskSize(v string) *ComputerInfo {
 	s.DiskSize = &v
-	return s
-}
-
-// 数据模型
-type DataModel struct {
-	//  数据模型Id
-	DataModelId *string `json:"data_model_id,omitempty" xml:"data_model_id,omitempty" require:"true"`
-	// 数据模型名称
-	DataModelName *string `json:"data_model_name,omitempty" xml:"data_model_name,omitempty"`
-	// 数据模型
-	DataModel *string `json:"data_model,omitempty" xml:"data_model,omitempty" require:"true"`
-	// 数据模型类别
-	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
-}
-
-func (s DataModel) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DataModel) GoString() string {
-	return s.String()
-}
-
-func (s *DataModel) SetDataModelId(v string) *DataModel {
-	s.DataModelId = &v
-	return s
-}
-
-func (s *DataModel) SetDataModelName(v string) *DataModel {
-	s.DataModelName = &v
-	return s
-}
-
-func (s *DataModel) SetDataModel(v string) *DataModel {
-	s.DataModel = &v
-	return s
-}
-
-func (s *DataModel) SetBizType(v string) *DataModel {
-	s.BizType = &v
 	return s
 }
 
@@ -1565,131 +2528,6 @@ func (s *ThingsDidBaseRegisterRequest) SetThingExtraParams(v string) *ThingsDidB
 	return s
 }
 
-// 外围设备信息
-type Peripheral struct {
-	// 外围设备Id
-	PeripheralId *string `json:"peripheral_id,omitempty" xml:"peripheral_id,omitempty" require:"true"`
-	// 数据模型id
-	//
-	PeripheralDataModelId *string `json:"peripheral_data_model_id,omitempty" xml:"peripheral_data_model_id,omitempty" require:"true"`
-	// 场景码
-	//
-	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
-	// 外围设备名称
-	//
-	PeripheralName *string `json:"peripheral_name,omitempty" xml:"peripheral_name,omitempty"`
-	// 厂商名称
-	//
-	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty"`
-	// 链上外围设备Id
-	//
-	ChainPeripheralId *string `json:"chain_peripheral_id,omitempty" xml:"chain_peripheral_id,omitempty" require:"true"`
-	// 链上哈希
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 上链时间
-	TxTime *int64 `json:"tx_time,omitempty" xml:"tx_time,omitempty" require:"true"`
-	// 设备类型编码，必填，对应资管平台中的设备类型
-	//
-	// 枚举值：
-	//
-	// 车辆 1000
-	// 车辆 四轮车 1001
-	// 车辆 四轮车 纯电四轮车 1002
-	// 车辆 四轮车 混动四轮车 1003
-	// 车辆 四轮车 燃油四轮车 1004
-	// 车辆 两轮车 1011
-	// 车辆 两轮车 两轮单车 1012
-	// 车辆 两轮车 两轮助力车 1013
-	//
-	// 换电柜 2000
-	// 换电柜 二轮车换电柜 2001
-	//
-	// 电池 3000
-	// 电池 磷酸铁电池 3001
-	// 电池 三元锂电池 3002
-	//
-	// 回收设备 4000
-	//
-	// 垃圾分类回收 4001
-	//
-	// 洗车机 5000
-	DeviceTypeCode *int64 `json:"device_type_code,omitempty" xml:"device_type_code,omitempty" require:"true"`
-	// 单价，单位分
-	InitialPrice *int64 `json:"initial_price,omitempty" xml:"initial_price,omitempty" require:"true"`
-	// 出厂时间
-	FactoryTime *string `json:"factory_time,omitempty" xml:"factory_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 投放时间
-	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s Peripheral) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Peripheral) GoString() string {
-	return s.String()
-}
-
-func (s *Peripheral) SetPeripheralId(v string) *Peripheral {
-	s.PeripheralId = &v
-	return s
-}
-
-func (s *Peripheral) SetPeripheralDataModelId(v string) *Peripheral {
-	s.PeripheralDataModelId = &v
-	return s
-}
-
-func (s *Peripheral) SetScene(v string) *Peripheral {
-	s.Scene = &v
-	return s
-}
-
-func (s *Peripheral) SetPeripheralName(v string) *Peripheral {
-	s.PeripheralName = &v
-	return s
-}
-
-func (s *Peripheral) SetCorpName(v string) *Peripheral {
-	s.CorpName = &v
-	return s
-}
-
-func (s *Peripheral) SetChainPeripheralId(v string) *Peripheral {
-	s.ChainPeripheralId = &v
-	return s
-}
-
-func (s *Peripheral) SetTxHash(v string) *Peripheral {
-	s.TxHash = &v
-	return s
-}
-
-func (s *Peripheral) SetTxTime(v int64) *Peripheral {
-	s.TxTime = &v
-	return s
-}
-
-func (s *Peripheral) SetDeviceTypeCode(v int64) *Peripheral {
-	s.DeviceTypeCode = &v
-	return s
-}
-
-func (s *Peripheral) SetInitialPrice(v int64) *Peripheral {
-	s.InitialPrice = &v
-	return s
-}
-
-func (s *Peripheral) SetFactoryTime(v string) *Peripheral {
-	s.FactoryTime = &v
-	return s
-}
-
-func (s *Peripheral) SetReleaseTime(v string) *Peripheral {
-	s.ReleaseTime = &v
-	return s
-}
-
 // 信物链实体查询返回的数据结构，对应数据表字段
 type DidBaseQueryResp struct {
 	// 授权水平，0-默认关联授权
@@ -1837,181 +2675,128 @@ func (s *DidBaseQueryResp) SetDid(v string) *DidBaseQueryResp {
 	return s
 }
 
-// 设备业务数据
-type BizContentGroup struct {
-	// 设备链上Id
+// 外围设备信息
+type Peripheral struct {
+	// 外围设备Id
+	PeripheralId *string `json:"peripheral_id,omitempty" xml:"peripheral_id,omitempty" require:"true"`
+	// 数据模型id
 	//
+	PeripheralDataModelId *string `json:"peripheral_data_model_id,omitempty" xml:"peripheral_data_model_id,omitempty" require:"true"`
+	// 场景码
 	//
-	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty"`
-	// 业务Id
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 外围设备名称
 	//
+	PeripheralName *string `json:"peripheral_name,omitempty" xml:"peripheral_name,omitempty"`
+	// 厂商名称
 	//
-	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
-	// 业务类型
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty"`
+	// 链上外围设备Id
 	//
-	//
-	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
-	// 数据内容 JSON字符串
-	//
-	//
-	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
-}
-
-func (s BizContentGroup) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BizContentGroup) GoString() string {
-	return s.String()
-}
-
-func (s *BizContentGroup) SetChainDeviceId(v string) *BizContentGroup {
-	s.ChainDeviceId = &v
-	return s
-}
-
-func (s *BizContentGroup) SetBizId(v string) *BizContentGroup {
-	s.BizId = &v
-	return s
-}
-
-func (s *BizContentGroup) SetBizType(v string) *BizContentGroup {
-	s.BizType = &v
-	return s
-}
-
-func (s *BizContentGroup) SetContent(v string) *BizContentGroup {
-	s.Content = &v
-	return s
-}
-
-// 具备实体权限访问者更新请求
-type DidUpdateTenantReq struct {
-	// 待更新实体身份did
-	ThingDid *string `json:"thing_did,omitempty" xml:"thing_did,omitempty" require:"true"`
-	// 待更新访问者列表
-	TenantList []*string `json:"tenant_list,omitempty" xml:"tenant_list,omitempty" require:"true" type:"Repeated"`
-	// 权限角色
-	// TENANT_ROLE_OWNER
-	// TENANT_ROLE_USER
-	// TENANT_ROLE_OBSERVER
-	TenantRole *string `json:"tenant_role,omitempty" xml:"tenant_role,omitempty" require:"true"`
-	// 增加权限：THINGS_OP_MODE_ADD
-	// 删除权限：THINGS_OP_MODE_REMOVE
-	OpMode *string `json:"op_mode,omitempty" xml:"op_mode,omitempty" require:"true"`
-}
-
-func (s DidUpdateTenantReq) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DidUpdateTenantReq) GoString() string {
-	return s.String()
-}
-
-func (s *DidUpdateTenantReq) SetThingDid(v string) *DidUpdateTenantReq {
-	s.ThingDid = &v
-	return s
-}
-
-func (s *DidUpdateTenantReq) SetTenantList(v []*string) *DidUpdateTenantReq {
-	s.TenantList = v
-	return s
-}
-
-func (s *DidUpdateTenantReq) SetTenantRole(v string) *DidUpdateTenantReq {
-	s.TenantRole = &v
-	return s
-}
-
-func (s *DidUpdateTenantReq) SetOpMode(v string) *DidUpdateTenantReq {
-	s.OpMode = &v
-	return s
-}
-
-// 实体身份更新请求结构体，设备/仓库/空间/组织
-type ThingsDidUpdateReq struct {
-	// 业务类型，默认空
-	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
-	// 待更新的实体did
-	ThingDid *string `json:"thing_did,omitempty" xml:"thing_did,omitempty" require:"true"`
-	// 更新内容，参考更新请求不同实体类型结构体，对应不同实体类型不一样
-	// 信物链实体附加信息 不同实体身份，有不同的json组织格式，
-	// 参考 DeviceRegisterReqModel， SpaceRegisterReqModel， CorporateReqModel， WarehouseReqModel，
-	ThingExtraParams *string `json:"thing_extra_params,omitempty" xml:"thing_extra_params,omitempty"`
-	// 更新后的实体版本
-	ThingVersion *string `json:"thing_version,omitempty" xml:"thing_version,omitempty" require:"true"`
-}
-
-func (s ThingsDidUpdateReq) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ThingsDidUpdateReq) GoString() string {
-	return s.String()
-}
-
-func (s *ThingsDidUpdateReq) SetBizType(v string) *ThingsDidUpdateReq {
-	s.BizType = &v
-	return s
-}
-
-func (s *ThingsDidUpdateReq) SetThingDid(v string) *ThingsDidUpdateReq {
-	s.ThingDid = &v
-	return s
-}
-
-func (s *ThingsDidUpdateReq) SetThingExtraParams(v string) *ThingsDidUpdateReq {
-	s.ThingExtraParams = &v
-	return s
-}
-
-func (s *ThingsDidUpdateReq) SetThingVersion(v string) *ThingsDidUpdateReq {
-	s.ThingVersion = &v
-	return s
-}
-
-// 信物链存证查询请求结构体
-type EvidenceQueryInfoReq struct {
-	// 暂时保留
-	DeviceSignature *string `json:"device_signature,omitempty" xml:"device_signature,omitempty"`
-	// 暂时保留
-	DeviceUid *string `json:"device_uid,omitempty" xml:"device_uid,omitempty"`
-	// 不同上链方式
-	// "CZ": 普通存证
-	// "IOTPAY": 支付存证
-	// "RAW": 文本上链
-	// "TTTS": 溯源存证
-	QueryType *string `json:"query_type,omitempty" xml:"query_type,omitempty" require:"true"`
-	// 查询的链上交易txHash
+	ChainPeripheralId *string `json:"chain_peripheral_id,omitempty" xml:"chain_peripheral_id,omitempty" require:"true"`
+	// 链上哈希
 	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 上链时间
+	TxTime *int64 `json:"tx_time,omitempty" xml:"tx_time,omitempty" require:"true"`
+	// 设备类型编码，必填，对应资管平台中的设备类型
+	//
+	// 枚举值：
+	//
+	// 车辆 1000
+	// 车辆 四轮车 1001
+	// 车辆 四轮车 纯电四轮车 1002
+	// 车辆 四轮车 混动四轮车 1003
+	// 车辆 四轮车 燃油四轮车 1004
+	// 车辆 两轮车 1011
+	// 车辆 两轮车 两轮单车 1012
+	// 车辆 两轮车 两轮助力车 1013
+	//
+	// 换电柜 2000
+	// 换电柜 二轮车换电柜 2001
+	//
+	// 电池 3000
+	// 电池 磷酸铁电池 3001
+	// 电池 三元锂电池 3002
+	//
+	// 回收设备 4000
+	//
+	// 垃圾分类回收 4001
+	//
+	// 洗车机 5000
+	DeviceTypeCode *int64 `json:"device_type_code,omitempty" xml:"device_type_code,omitempty" require:"true"`
+	// 单价，单位分
+	InitialPrice *int64 `json:"initial_price,omitempty" xml:"initial_price,omitempty" require:"true"`
+	// 出厂时间
+	FactoryTime *string `json:"factory_time,omitempty" xml:"factory_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 投放时间
+	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
-func (s EvidenceQueryInfoReq) String() string {
+func (s Peripheral) String() string {
 	return tea.Prettify(s)
 }
 
-func (s EvidenceQueryInfoReq) GoString() string {
+func (s Peripheral) GoString() string {
 	return s.String()
 }
 
-func (s *EvidenceQueryInfoReq) SetDeviceSignature(v string) *EvidenceQueryInfoReq {
-	s.DeviceSignature = &v
+func (s *Peripheral) SetPeripheralId(v string) *Peripheral {
+	s.PeripheralId = &v
 	return s
 }
 
-func (s *EvidenceQueryInfoReq) SetDeviceUid(v string) *EvidenceQueryInfoReq {
-	s.DeviceUid = &v
+func (s *Peripheral) SetPeripheralDataModelId(v string) *Peripheral {
+	s.PeripheralDataModelId = &v
 	return s
 }
 
-func (s *EvidenceQueryInfoReq) SetQueryType(v string) *EvidenceQueryInfoReq {
-	s.QueryType = &v
+func (s *Peripheral) SetScene(v string) *Peripheral {
+	s.Scene = &v
 	return s
 }
 
-func (s *EvidenceQueryInfoReq) SetTxHash(v string) *EvidenceQueryInfoReq {
+func (s *Peripheral) SetPeripheralName(v string) *Peripheral {
+	s.PeripheralName = &v
+	return s
+}
+
+func (s *Peripheral) SetCorpName(v string) *Peripheral {
+	s.CorpName = &v
+	return s
+}
+
+func (s *Peripheral) SetChainPeripheralId(v string) *Peripheral {
+	s.ChainPeripheralId = &v
+	return s
+}
+
+func (s *Peripheral) SetTxHash(v string) *Peripheral {
 	s.TxHash = &v
+	return s
+}
+
+func (s *Peripheral) SetTxTime(v int64) *Peripheral {
+	s.TxTime = &v
+	return s
+}
+
+func (s *Peripheral) SetDeviceTypeCode(v int64) *Peripheral {
+	s.DeviceTypeCode = &v
+	return s
+}
+
+func (s *Peripheral) SetInitialPrice(v int64) *Peripheral {
+	s.InitialPrice = &v
+	return s
+}
+
+func (s *Peripheral) SetFactoryTime(v string) *Peripheral {
+	s.FactoryTime = &v
+	return s
+}
+
+func (s *Peripheral) SetReleaseTime(v string) *Peripheral {
+	s.ReleaseTime = &v
 	return s
 }
 
@@ -2094,87 +2879,6 @@ func (s *WarehouseReqModel) SetStatus(v string) *WarehouseReqModel {
 
 func (s *WarehouseReqModel) SetType(v string) *WarehouseReqModel {
 	s.Type = &v
-	return s
-}
-
-// PurchaseOrderInfoDetail
-type PurchaseOrderInfoDetail struct {
-	// 租赁订单号
-	//
-	OrderNumber *string `json:"order_number,omitempty" xml:"order_number,omitempty" require:"true"`
-	// 收货人姓名
-	//
-	ConsigneeName *string `json:"consignee_name,omitempty" xml:"consignee_name,omitempty" require:"true"`
-	// 收货人身份证号
-	ConsigneeIdNumber *string `json:"consignee_id_number,omitempty" xml:"consignee_id_number,omitempty" require:"true"`
-	// 收货人手机号
-	//
-	ConsigneePhone *string `json:"consignee_phone,omitempty" xml:"consignee_phone,omitempty" require:"true"`
-	// 收货人地址
-	ConsigneeAddress *string `json:"consignee_address,omitempty" xml:"consignee_address,omitempty" require:"true"`
-	// 供货商名称
-	//
-	SupplierName *string `json:"supplier_name,omitempty" xml:"supplier_name,omitempty" require:"true"`
-	// 供货商租户id
-	//
-	SupplierId *string `json:"supplier_id,omitempty" xml:"supplier_id,omitempty" require:"true"`
-	// 采购商id
-	//
-	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true"`
-	// 商品信息列表
-	GoodsIdAndCount []*GoodsIdAndCount `json:"goods_id_and_count,omitempty" xml:"goods_id_and_count,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s PurchaseOrderInfoDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PurchaseOrderInfoDetail) GoString() string {
-	return s.String()
-}
-
-func (s *PurchaseOrderInfoDetail) SetOrderNumber(v string) *PurchaseOrderInfoDetail {
-	s.OrderNumber = &v
-	return s
-}
-
-func (s *PurchaseOrderInfoDetail) SetConsigneeName(v string) *PurchaseOrderInfoDetail {
-	s.ConsigneeName = &v
-	return s
-}
-
-func (s *PurchaseOrderInfoDetail) SetConsigneeIdNumber(v string) *PurchaseOrderInfoDetail {
-	s.ConsigneeIdNumber = &v
-	return s
-}
-
-func (s *PurchaseOrderInfoDetail) SetConsigneePhone(v string) *PurchaseOrderInfoDetail {
-	s.ConsigneePhone = &v
-	return s
-}
-
-func (s *PurchaseOrderInfoDetail) SetConsigneeAddress(v string) *PurchaseOrderInfoDetail {
-	s.ConsigneeAddress = &v
-	return s
-}
-
-func (s *PurchaseOrderInfoDetail) SetSupplierName(v string) *PurchaseOrderInfoDetail {
-	s.SupplierName = &v
-	return s
-}
-
-func (s *PurchaseOrderInfoDetail) SetSupplierId(v string) *PurchaseOrderInfoDetail {
-	s.SupplierId = &v
-	return s
-}
-
-func (s *PurchaseOrderInfoDetail) SetLeaseId(v string) *PurchaseOrderInfoDetail {
-	s.LeaseId = &v
-	return s
-}
-
-func (s *PurchaseOrderInfoDetail) SetGoodsIdAndCount(v []*GoodsIdAndCount) *PurchaseOrderInfoDetail {
-	s.GoodsIdAndCount = v
 	return s
 }
 
@@ -2295,173 +2999,6 @@ func (s *CorporateReqModel) SetType(v string) *CorporateReqModel {
 	return s
 }
 
-// 收集数据返回的上链结果
-type SendCollectorResult struct {
-	// 数据内容content的上链交易哈希
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-}
-
-func (s SendCollectorResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SendCollectorResult) GoString() string {
-	return s.String()
-}
-
-func (s *SendCollectorResult) SetTxHash(v string) *SendCollectorResult {
-	s.TxHash = &v
-	return s
-}
-
-// 手机型号信息
-type PhoneInfo struct {
-	// 颜色
-	Colour *string `json:"colour,omitempty" xml:"colour,omitempty" require:"true"`
-	// 色值
-	ColourNumber *string `json:"colour_number,omitempty" xml:"colour_number,omitempty" require:"true"`
-	// 内存大小
-	Memory *string `json:"memory,omitempty" xml:"memory,omitempty" require:"true"`
-}
-
-func (s PhoneInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PhoneInfo) GoString() string {
-	return s.String()
-}
-
-func (s *PhoneInfo) SetColour(v string) *PhoneInfo {
-	s.Colour = &v
-	return s
-}
-
-func (s *PhoneInfo) SetColourNumber(v string) *PhoneInfo {
-	s.ColourNumber = &v
-	return s
-}
-
-func (s *PhoneInfo) SetMemory(v string) *PhoneInfo {
-	s.Memory = &v
-	return s
-}
-
-// 信物链证据基本组成结构体
-type EvidenceBaseModel struct {
-	// 业务数据
-	BizData *string `json:"biz_data,omitempty" xml:"biz_data,omitempty"`
-	// 证据哈希值
-	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
-	// 证据附属信息字段
-	MetaJson *string `json:"meta_json,omitempty" xml:"meta_json,omitempty"`
-}
-
-func (s EvidenceBaseModel) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EvidenceBaseModel) GoString() string {
-	return s.String()
-}
-
-func (s *EvidenceBaseModel) SetBizData(v string) *EvidenceBaseModel {
-	s.BizData = &v
-	return s
-}
-
-func (s *EvidenceBaseModel) SetHash(v string) *EvidenceBaseModel {
-	s.Hash = &v
-	return s
-}
-
-func (s *EvidenceBaseModel) SetMetaJson(v string) *EvidenceBaseModel {
-	s.MetaJson = &v
-	return s
-}
-
-// 实体身份注册请求结构体
-type ThingsDidRegisterReq struct {
-	// 业务编码，暂时保留，不需传入
-	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
-	// 信物链实体的所有者的分布式身份
-	OwnerTenantDid *string `json:"owner_tenant_did,omitempty" xml:"owner_tenant_did,omitempty"`
-	// 信物链实体附加信息 不同实体身份，有不同的json组织格式...
-	// 参考
-	// DeviceRegisterReqModel，
-	// SpaceRegisterReqModel，
-	// CorporateReqModel，
-	// WarehouseReqModel，
-	//
-	ThingExtraParams *string `json:"thing_extra_params,omitempty" xml:"thing_extra_params,omitempty"`
-	// 原始id，租户内同一类型实体唯一
-	ThingOriginId *string `json:"thing_origin_id,omitempty" xml:"thing_origin_id,omitempty" require:"true"`
-	// 实体原始名称
-	ThingOriginName *string `json:"thing_origin_name,omitempty" xml:"thing_origin_name,omitempty" require:"true"`
-	// 信物链实体身份
-	// DID_TYPE_DEVICE_ALIYUN(0): 阿里云设备
-	// DID_TYPE_DEVICE_PEGASUS(1): 链机设备
-	// DID_TYPE_DEVICE_MCU(2): MCU设备
-	// DID_TYPE_DEVICE_INTEL(3): intel设备
-	// DID_TYPE_DEVICE_DEVICE(16384): 默认设备 ...
-	// DID_TYPE_CORPORATE(65536): 组织实体
-	// DID_TYPE_WAREHOUSE(131072)：仓库实体
-	// DID_TYPE_SPACE(196608)： 空间实体
-	ThingType *int64 `json:"thing_type,omitempty" xml:"thing_type,omitempty" require:"true"`
-	// 实体版本
-	ThingVersion *string `json:"thing_version,omitempty" xml:"thing_version,omitempty" require:"true"`
-	// 信物链实体的使用方的分布式身份列表
-	UserDid []*string `json:"user_did,omitempty" xml:"user_did,omitempty" type:"Repeated"`
-}
-
-func (s ThingsDidRegisterReq) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ThingsDidRegisterReq) GoString() string {
-	return s.String()
-}
-
-func (s *ThingsDidRegisterReq) SetBizType(v string) *ThingsDidRegisterReq {
-	s.BizType = &v
-	return s
-}
-
-func (s *ThingsDidRegisterReq) SetOwnerTenantDid(v string) *ThingsDidRegisterReq {
-	s.OwnerTenantDid = &v
-	return s
-}
-
-func (s *ThingsDidRegisterReq) SetThingExtraParams(v string) *ThingsDidRegisterReq {
-	s.ThingExtraParams = &v
-	return s
-}
-
-func (s *ThingsDidRegisterReq) SetThingOriginId(v string) *ThingsDidRegisterReq {
-	s.ThingOriginId = &v
-	return s
-}
-
-func (s *ThingsDidRegisterReq) SetThingOriginName(v string) *ThingsDidRegisterReq {
-	s.ThingOriginName = &v
-	return s
-}
-
-func (s *ThingsDidRegisterReq) SetThingType(v int64) *ThingsDidRegisterReq {
-	s.ThingType = &v
-	return s
-}
-
-func (s *ThingsDidRegisterReq) SetThingVersion(v string) *ThingsDidRegisterReq {
-	s.ThingVersion = &v
-	return s
-}
-
-func (s *ThingsDidRegisterReq) SetUserDid(v []*string) *ThingsDidRegisterReq {
-	s.UserDid = v
-	return s
-}
-
 // 租户分页查询结果
 type PermissionedTenantPageResponse struct {
 	// 页数
@@ -2506,222 +3043,6 @@ func (s *PermissionedTenantPageResponse) SetTotalPages(v int64) *PermissionedTen
 
 func (s *PermissionedTenantPageResponse) SetPageData(v []*PermissionedTenantModel) *PermissionedTenantPageResponse {
 	s.PageData = v
-	return s
-}
-
-// 设备类型
-type Device struct {
-	// 设备实体唯一Id
-	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
-	// 数据模型Id
-	DeviceDataModelId *string `json:"device_data_model_id,omitempty" xml:"device_data_model_id,omitempty" require:"true"`
-	// 场景码
-	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
-	// imei号
-	DeviceImei *string `json:"device_imei,omitempty" xml:"device_imei,omitempty" require:"true"`
-	// 设备名称
-	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
-	// 设备厂商名称
-	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty"`
-	// 设备ICCID
-	//
-	//
-	DeviceIccid *string `json:"device_iccid,omitempty" xml:"device_iccid,omitempty"`
-	// 设备扩展信息
-	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
-	// 设备链上Id
-	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty" require:"true"`
-	// 上链哈希
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 上链时间
-	TxTime *int64 `json:"tx_time,omitempty" xml:"tx_time,omitempty" require:"true"`
-	// 设备类型编码，必填，对应资管平台中的设备类型
-	//
-	// 枚举值：
-	//
-	// 车辆 1000
-	// 车辆 四轮车 1001
-	// 车辆 四轮车 纯电四轮车 1002
-	// 车辆 四轮车 混动四轮车 1003
-	// 车辆 四轮车 燃油四轮车 1004
-	// 车辆 两轮车 1011
-	// 车辆 两轮车 两轮单车 1012
-	// 车辆 两轮车 两轮助力车 1013
-	//
-	// 换电柜 2000
-	// 换电柜 二轮车换电柜 2001
-	//
-	// 电池 3000
-	// 电池 磷酸铁电池 3001
-	// 电池 三元锂电池 3002
-	//
-	// 回收设备 4000
-	//
-	// 垃圾分类回收 4001
-	//
-	// 洗车机 5000
-	DeviceTypeCode *int64 `json:"device_type_code,omitempty" xml:"device_type_code,omitempty" require:"true"`
-	// 单价
-	InitialPrice *int64 `json:"initial_price,omitempty" xml:"initial_price,omitempty" require:"true"`
-	// 投放时间
-	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 出厂时间
-	FactoryTime *string `json:"factory_time,omitempty" xml:"factory_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
-	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty"`
-}
-
-func (s Device) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Device) GoString() string {
-	return s.String()
-}
-
-func (s *Device) SetDeviceId(v string) *Device {
-	s.DeviceId = &v
-	return s
-}
-
-func (s *Device) SetDeviceDataModelId(v string) *Device {
-	s.DeviceDataModelId = &v
-	return s
-}
-
-func (s *Device) SetScene(v string) *Device {
-	s.Scene = &v
-	return s
-}
-
-func (s *Device) SetDeviceImei(v string) *Device {
-	s.DeviceImei = &v
-	return s
-}
-
-func (s *Device) SetDeviceName(v string) *Device {
-	s.DeviceName = &v
-	return s
-}
-
-func (s *Device) SetCorpName(v string) *Device {
-	s.CorpName = &v
-	return s
-}
-
-func (s *Device) SetDeviceIccid(v string) *Device {
-	s.DeviceIccid = &v
-	return s
-}
-
-func (s *Device) SetExtraInfo(v string) *Device {
-	s.ExtraInfo = &v
-	return s
-}
-
-func (s *Device) SetChainDeviceId(v string) *Device {
-	s.ChainDeviceId = &v
-	return s
-}
-
-func (s *Device) SetTxHash(v string) *Device {
-	s.TxHash = &v
-	return s
-}
-
-func (s *Device) SetTxTime(v int64) *Device {
-	s.TxTime = &v
-	return s
-}
-
-func (s *Device) SetDeviceTypeCode(v int64) *Device {
-	s.DeviceTypeCode = &v
-	return s
-}
-
-func (s *Device) SetInitialPrice(v int64) *Device {
-	s.InitialPrice = &v
-	return s
-}
-
-func (s *Device) SetReleaseTime(v string) *Device {
-	s.ReleaseTime = &v
-	return s
-}
-
-func (s *Device) SetFactoryTime(v string) *Device {
-	s.FactoryTime = &v
-	return s
-}
-
-func (s *Device) SetDeviceStatus(v string) *Device {
-	s.DeviceStatus = &v
-	return s
-}
-
-// 收集标签数据
-type CollectLabelContent struct {
-	// 链上设备ID
-	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty" require:"true"`
-	// 1.设备端上报数据内容
-	// 2.与设备上报的数据一致，服务端不可修改
-	// 3.解析后需与DataModel匹配
-	// 4.映射 Label 对象结构化存储
-	// 5.转为JSON后如果是JSONObject 映射单个 Label
-	// 6.转为JSON后如果是JSONArray 映射多个 Label
-	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
-	// content的签名
-	// 与设备上报的签名保持一致，服务端不可修改
-	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
-	// 未经设备签名的附加数据JSON String
-	// 注意：如果 content 批量解析 ，extraData也会批量复制融入解析后的content
-	ExtraData *string `json:"extra_data,omitempty" xml:"extra_data,omitempty"`
-}
-
-func (s CollectLabelContent) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CollectLabelContent) GoString() string {
-	return s.String()
-}
-
-func (s *CollectLabelContent) SetChainDeviceId(v string) *CollectLabelContent {
-	s.ChainDeviceId = &v
-	return s
-}
-
-func (s *CollectLabelContent) SetContent(v string) *CollectLabelContent {
-	s.Content = &v
-	return s
-}
-
-func (s *CollectLabelContent) SetSignature(v string) *CollectLabelContent {
-	s.Signature = &v
-	return s
-}
-
-func (s *CollectLabelContent) SetExtraData(v string) *CollectLabelContent {
-	s.ExtraData = &v
-	return s
-}
-
-// BAI提供的OCR接口返回值
-type BaiOcrResponse struct {
-	// 返回的结果体
-	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
-}
-
-func (s BaiOcrResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BaiOcrResponse) GoString() string {
-	return s.String()
-}
-
-func (s *BaiOcrResponse) SetData(v string) *BaiOcrResponse {
-	s.Data = &v
 	return s
 }
 
@@ -3938,6 +4259,8 @@ type CreateDeviceDatamodelRequest struct {
 	DataModelName *string `json:"data_model_name,omitempty" xml:"data_model_name,omitempty"`
 	// 数据模型类别
 	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
+	// 用户自定义版本
+	CustomerVersion *string `json:"customer_version,omitempty" xml:"customer_version,omitempty"`
 }
 
 func (s CreateDeviceDatamodelRequest) String() string {
@@ -3970,6 +4293,11 @@ func (s *CreateDeviceDatamodelRequest) SetDataModelName(v string) *CreateDeviceD
 
 func (s *CreateDeviceDatamodelRequest) SetBizType(v string) *CreateDeviceDatamodelRequest {
 	s.BizType = &v
+	return s
+}
+
+func (s *CreateDeviceDatamodelRequest) SetCustomerVersion(v string) *CreateDeviceDatamodelRequest {
+	s.CustomerVersion = &v
 	return s
 }
 
@@ -7994,6 +8322,8 @@ type AddLabelAssetRequest struct {
 	LabelId *string `json:"label_id,omitempty" xml:"label_id,omitempty" require:"true"`
 	// 资产Id
 	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
+	// 资产对应的设备类型码，对应资管平台中的设备类型
+	DeviceTypeCode *int64 `json:"device_type_code,omitempty" xml:"device_type_code,omitempty"`
 }
 
 func (s AddLabelAssetRequest) String() string {
@@ -8026,6 +8356,11 @@ func (s *AddLabelAssetRequest) SetLabelId(v string) *AddLabelAssetRequest {
 
 func (s *AddLabelAssetRequest) SetAssetId(v string) *AddLabelAssetRequest {
 	s.AssetId = &v
+	return s
+}
+
+func (s *AddLabelAssetRequest) SetDeviceTypeCode(v int64) *AddLabelAssetRequest {
+	s.DeviceTypeCode = &v
 	return s
 }
 
@@ -9838,6 +10173,593 @@ func (s *PagequeryProductkeyResponse) SetData(v *ProductKeyPageResponse) *Pagequ
 	return s
 }
 
+type PagequeryDataverifyFailureRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 页数，默认1
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// 页码大小，默认10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 场景码
+	//
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 起始查询时间
+	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 结束查询时间
+	EndDate *string `json:"end_date,omitempty" xml:"end_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 设备ID（模糊查询）
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty"`
+	// 数据来源：0(普通数据上报)；1(MAAS数据上报)；2(设备业务数据上报);3(标签流转)
+	Source *int64 `json:"source,omitempty" xml:"source,omitempty"`
+	// 类型：0:数据上报;1:数据完整性校验
+	Type *int64 `json:"type,omitempty" xml:"type,omitempty"`
+}
+
+func (s PagequeryDataverifyFailureRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryDataverifyFailureRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryDataverifyFailureRequest) SetAuthToken(v string) *PagequeryDataverifyFailureRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryDataverifyFailureRequest) SetProductInstanceId(v string) *PagequeryDataverifyFailureRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryDataverifyFailureRequest) SetPageIndex(v int64) *PagequeryDataverifyFailureRequest {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *PagequeryDataverifyFailureRequest) SetPageSize(v int64) *PagequeryDataverifyFailureRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryDataverifyFailureRequest) SetScene(v string) *PagequeryDataverifyFailureRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *PagequeryDataverifyFailureRequest) SetStartDate(v string) *PagequeryDataverifyFailureRequest {
+	s.StartDate = &v
+	return s
+}
+
+func (s *PagequeryDataverifyFailureRequest) SetEndDate(v string) *PagequeryDataverifyFailureRequest {
+	s.EndDate = &v
+	return s
+}
+
+func (s *PagequeryDataverifyFailureRequest) SetDeviceId(v string) *PagequeryDataverifyFailureRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *PagequeryDataverifyFailureRequest) SetSource(v int64) *PagequeryDataverifyFailureRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *PagequeryDataverifyFailureRequest) SetType(v int64) *PagequeryDataverifyFailureRequest {
+	s.Type = &v
+	return s
+}
+
+type PagequeryDataverifyFailureResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 数据
+	Data *DataVerifyFailureDataPageResponse `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s PagequeryDataverifyFailureResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryDataverifyFailureResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryDataverifyFailureResponse) SetReqMsgId(v string) *PagequeryDataverifyFailureResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryDataverifyFailureResponse) SetResultCode(v string) *PagequeryDataverifyFailureResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryDataverifyFailureResponse) SetResultMsg(v string) *PagequeryDataverifyFailureResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryDataverifyFailureResponse) SetData(v *DataVerifyFailureDataPageResponse) *PagequeryDataverifyFailureResponse {
+	s.Data = v
+	return s
+}
+
+type AddAlertStrategyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty" require:"true"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 策略类型：DEBUG（技术联调）；MONITOR（生产监控）
+	StrategyType *string `json:"strategy_type,omitempty" xml:"strategy_type,omitempty" require:"true"`
+	// 策略详情，json格式
+	StrategyDetail *string `json:"strategy_detail,omitempty" xml:"strategy_detail,omitempty" require:"true"`
+	// 是否启用，默认false
+	Enabled *bool `json:"enabled,omitempty" xml:"enabled,omitempty" require:"true"`
+	// 备注
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
+}
+
+func (s AddAlertStrategyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddAlertStrategyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddAlertStrategyRequest) SetAuthToken(v string) *AddAlertStrategyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddAlertStrategyRequest) SetProductInstanceId(v string) *AddAlertStrategyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddAlertStrategyRequest) SetTenantName(v string) *AddAlertStrategyRequest {
+	s.TenantName = &v
+	return s
+}
+
+func (s *AddAlertStrategyRequest) SetScene(v string) *AddAlertStrategyRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *AddAlertStrategyRequest) SetStrategyType(v string) *AddAlertStrategyRequest {
+	s.StrategyType = &v
+	return s
+}
+
+func (s *AddAlertStrategyRequest) SetStrategyDetail(v string) *AddAlertStrategyRequest {
+	s.StrategyDetail = &v
+	return s
+}
+
+func (s *AddAlertStrategyRequest) SetEnabled(v bool) *AddAlertStrategyRequest {
+	s.Enabled = &v
+	return s
+}
+
+func (s *AddAlertStrategyRequest) SetRemark(v string) *AddAlertStrategyRequest {
+	s.Remark = &v
+	return s
+}
+
+type AddAlertStrategyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s AddAlertStrategyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddAlertStrategyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddAlertStrategyResponse) SetReqMsgId(v string) *AddAlertStrategyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddAlertStrategyResponse) SetResultCode(v string) *AddAlertStrategyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddAlertStrategyResponse) SetResultMsg(v string) *AddAlertStrategyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type UpdateAlertStrategyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 主键ID，更新依据
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 租户
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// 场景码
+	//
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 策略类型：DEBUG（技术联调）；MONITOR（生产监控）
+	StrategyType *string `json:"strategy_type,omitempty" xml:"strategy_type,omitempty"`
+	// 策略详情，json格式
+	StrategyDetail *string `json:"strategy_detail,omitempty" xml:"strategy_detail,omitempty"`
+	// 是否启用，默认false
+	Enabled *bool `json:"enabled,omitempty" xml:"enabled,omitempty" require:"true"`
+	// 备注
+	//
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
+}
+
+func (s UpdateAlertStrategyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateAlertStrategyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateAlertStrategyRequest) SetAuthToken(v string) *UpdateAlertStrategyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateAlertStrategyRequest) SetProductInstanceId(v string) *UpdateAlertStrategyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateAlertStrategyRequest) SetId(v int64) *UpdateAlertStrategyRequest {
+	s.Id = &v
+	return s
+}
+
+func (s *UpdateAlertStrategyRequest) SetTenantName(v string) *UpdateAlertStrategyRequest {
+	s.TenantName = &v
+	return s
+}
+
+func (s *UpdateAlertStrategyRequest) SetScene(v string) *UpdateAlertStrategyRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *UpdateAlertStrategyRequest) SetStrategyType(v string) *UpdateAlertStrategyRequest {
+	s.StrategyType = &v
+	return s
+}
+
+func (s *UpdateAlertStrategyRequest) SetStrategyDetail(v string) *UpdateAlertStrategyRequest {
+	s.StrategyDetail = &v
+	return s
+}
+
+func (s *UpdateAlertStrategyRequest) SetEnabled(v bool) *UpdateAlertStrategyRequest {
+	s.Enabled = &v
+	return s
+}
+
+func (s *UpdateAlertStrategyRequest) SetRemark(v string) *UpdateAlertStrategyRequest {
+	s.Remark = &v
+	return s
+}
+
+type UpdateAlertStrategyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateAlertStrategyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateAlertStrategyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateAlertStrategyResponse) SetReqMsgId(v string) *UpdateAlertStrategyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateAlertStrategyResponse) SetResultCode(v string) *UpdateAlertStrategyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateAlertStrategyResponse) SetResultMsg(v string) *UpdateAlertStrategyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PagequeryAlertStrategyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 页数，默认1
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// 页码大小，默认10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 租户
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// 场景码
+	//
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+}
+
+func (s PagequeryAlertStrategyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryAlertStrategyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryAlertStrategyRequest) SetAuthToken(v string) *PagequeryAlertStrategyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryAlertStrategyRequest) SetProductInstanceId(v string) *PagequeryAlertStrategyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryAlertStrategyRequest) SetPageIndex(v int64) *PagequeryAlertStrategyRequest {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *PagequeryAlertStrategyRequest) SetPageSize(v int64) *PagequeryAlertStrategyRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryAlertStrategyRequest) SetTenantName(v string) *PagequeryAlertStrategyRequest {
+	s.TenantName = &v
+	return s
+}
+
+func (s *PagequeryAlertStrategyRequest) SetScene(v string) *PagequeryAlertStrategyRequest {
+	s.Scene = &v
+	return s
+}
+
+type PagequeryAlertStrategyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 数据
+	Data *AlertStrategyPageResponse `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s PagequeryAlertStrategyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryAlertStrategyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryAlertStrategyResponse) SetReqMsgId(v string) *PagequeryAlertStrategyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryAlertStrategyResponse) SetResultCode(v string) *PagequeryAlertStrategyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryAlertStrategyResponse) SetResultMsg(v string) *PagequeryAlertStrategyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryAlertStrategyResponse) SetData(v *AlertStrategyPageResponse) *PagequeryAlertStrategyResponse {
+	s.Data = v
+	return s
+}
+
+type SyncLabelTransferrawRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	//
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 收集标签数据
+	CollectLabelRawContentList []*CollectLabelRawContent `json:"collect_label_raw_content_list,omitempty" xml:"collect_label_raw_content_list,omitempty" require:"true" type:"Repeated"`
+	// 业务号
+	Nonce *string `json:"nonce,omitempty" xml:"nonce,omitempty" require:"true"`
+}
+
+func (s SyncLabelTransferrawRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncLabelTransferrawRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncLabelTransferrawRequest) SetAuthToken(v string) *SyncLabelTransferrawRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncLabelTransferrawRequest) SetProductInstanceId(v string) *SyncLabelTransferrawRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncLabelTransferrawRequest) SetScene(v string) *SyncLabelTransferrawRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *SyncLabelTransferrawRequest) SetCollectLabelRawContentList(v []*CollectLabelRawContent) *SyncLabelTransferrawRequest {
+	s.CollectLabelRawContentList = v
+	return s
+}
+
+func (s *SyncLabelTransferrawRequest) SetNonce(v string) *SyncLabelTransferrawRequest {
+	s.Nonce = &v
+	return s
+}
+
+type SyncLabelTransferrawResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SyncLabelTransferrawResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncLabelTransferrawResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncLabelTransferrawResponse) SetReqMsgId(v string) *SyncLabelTransferrawResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncLabelTransferrawResponse) SetResultCode(v string) *SyncLabelTransferrawResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncLabelTransferrawResponse) SetResultMsg(v string) *SyncLabelTransferrawResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type SendLabelTransferrawonasyncRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	//
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 收集的标签流转数据
+	CollectLabelRawContentList []*CollectLabelRawContent `json:"collect_label_raw_content_list,omitempty" xml:"collect_label_raw_content_list,omitempty" require:"true" type:"Repeated"`
+	// 业务号，防重放
+	Nonce *string `json:"nonce,omitempty" xml:"nonce,omitempty" require:"true"`
+	// 1 业务端查询结果的最晚时间 2 单位：天，最大值为30 天 3 在responsePeriod 天之后，调用异步接口结果查询 将 无法获取异步接口的执行结果
+	ResponsePeriod *int64 `json:"response_period,omitempty" xml:"response_period,omitempty" require:"true"`
+}
+
+func (s SendLabelTransferrawonasyncRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendLabelTransferrawonasyncRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SendLabelTransferrawonasyncRequest) SetAuthToken(v string) *SendLabelTransferrawonasyncRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SendLabelTransferrawonasyncRequest) SetProductInstanceId(v string) *SendLabelTransferrawonasyncRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SendLabelTransferrawonasyncRequest) SetScene(v string) *SendLabelTransferrawonasyncRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *SendLabelTransferrawonasyncRequest) SetCollectLabelRawContentList(v []*CollectLabelRawContent) *SendLabelTransferrawonasyncRequest {
+	s.CollectLabelRawContentList = v
+	return s
+}
+
+func (s *SendLabelTransferrawonasyncRequest) SetNonce(v string) *SendLabelTransferrawonasyncRequest {
+	s.Nonce = &v
+	return s
+}
+
+func (s *SendLabelTransferrawonasyncRequest) SetResponsePeriod(v int64) *SendLabelTransferrawonasyncRequest {
+	s.ResponsePeriod = &v
+	return s
+}
+
+type SendLabelTransferrawonasyncResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 接口请求的唯一标识
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+}
+
+func (s SendLabelTransferrawonasyncResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendLabelTransferrawonasyncResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SendLabelTransferrawonasyncResponse) SetReqMsgId(v string) *SendLabelTransferrawonasyncResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SendLabelTransferrawonasyncResponse) SetResultCode(v string) *SendLabelTransferrawonasyncResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SendLabelTransferrawonasyncResponse) SetResultMsg(v string) *SendLabelTransferrawonasyncResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SendLabelTransferrawonasyncResponse) SetRequestId(v string) *SendLabelTransferrawonasyncResponse {
+	s.RequestId = &v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -11488,7 +12410,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.36"),
+				"sdk_version":      tea.String("1.6.48"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -14045,6 +14967,210 @@ func (client *Client) PagequeryProductkeyEx(request *PagequeryProductkeyRequest,
 	}
 	_result = &PagequeryProductkeyResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.productkey.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询校验失败的数据
+ * Summary: 分页查询校验失败的数据
+ */
+func (client *Client) PagequeryDataverifyFailure(request *PagequeryDataverifyFailureRequest) (_result *PagequeryDataverifyFailureResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryDataverifyFailureResponse{}
+	_body, _err := client.PagequeryDataverifyFailureEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询校验失败的数据
+ * Summary: 分页查询校验失败的数据
+ */
+func (client *Client) PagequeryDataverifyFailureEx(request *PagequeryDataverifyFailureRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryDataverifyFailureResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryDataverifyFailureResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.dataverify.failure.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description:  新增告警策略
+ * Summary:  新增告警策略
+ */
+func (client *Client) AddAlertStrategy(request *AddAlertStrategyRequest) (_result *AddAlertStrategyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddAlertStrategyResponse{}
+	_body, _err := client.AddAlertStrategyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description:  新增告警策略
+ * Summary:  新增告警策略
+ */
+func (client *Client) AddAlertStrategyEx(request *AddAlertStrategyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddAlertStrategyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddAlertStrategyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.alert.strategy.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新告警策略接口
+ * Summary: 更新告警策略接口
+ */
+func (client *Client) UpdateAlertStrategy(request *UpdateAlertStrategyRequest) (_result *UpdateAlertStrategyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateAlertStrategyResponse{}
+	_body, _err := client.UpdateAlertStrategyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新告警策略接口
+ * Summary: 更新告警策略接口
+ */
+func (client *Client) UpdateAlertStrategyEx(request *UpdateAlertStrategyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateAlertStrategyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateAlertStrategyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.alert.strategy.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询告警策略接口
+ * Summary: 分页查询告警策略接口
+ */
+func (client *Client) PagequeryAlertStrategy(request *PagequeryAlertStrategyRequest) (_result *PagequeryAlertStrategyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryAlertStrategyResponse{}
+	_body, _err := client.PagequeryAlertStrategyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询告警策略接口
+ * Summary: 分页查询告警策略接口
+ */
+func (client *Client) PagequeryAlertStrategyEx(request *PagequeryAlertStrategyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryAlertStrategyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryAlertStrategyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.alert.strategy.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 标签流转状态同步（元数据，无签名）
+ * Summary: 标签流转状态同步（元数据，无签名）
+ */
+func (client *Client) SyncLabelTransferraw(request *SyncLabelTransferrawRequest) (_result *SyncLabelTransferrawResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncLabelTransferrawResponse{}
+	_body, _err := client.SyncLabelTransferrawEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 标签流转状态同步（元数据，无签名）
+ * Summary: 标签流转状态同步（元数据，无签名）
+ */
+func (client *Client) SyncLabelTransferrawEx(request *SyncLabelTransferrawRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncLabelTransferrawResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncLabelTransferrawResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.label.transferraw.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 上报标签流转的异步接口（元数据，无签名），是 blockchain.bot.label.transferraw.sync的异步接口版本
+ * Summary: 上报标签流转的异步接口（元数据，无签名）
+ */
+func (client *Client) SendLabelTransferrawonasync(request *SendLabelTransferrawonasyncRequest) (_result *SendLabelTransferrawonasyncResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SendLabelTransferrawonasyncResponse{}
+	_body, _err := client.SendLabelTransferrawonasyncEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 上报标签流转的异步接口（元数据，无签名），是 blockchain.bot.label.transferraw.sync的异步接口版本
+ * Summary: 上报标签流转的异步接口（元数据，无签名）
+ */
+func (client *Client) SendLabelTransferrawonasyncEx(request *SendLabelTransferrawonasyncRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendLabelTransferrawonasyncResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SendLabelTransferrawonasyncResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.label.transferrawonasync.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
