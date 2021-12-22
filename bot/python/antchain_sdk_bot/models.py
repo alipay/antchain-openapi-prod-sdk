@@ -12457,6 +12457,7 @@ class SyncLabelTransferrawResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        result_list: List[LabelChainResult] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -12464,9 +12465,14 @@ class SyncLabelTransferrawResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 标签上链hash返回
+        self.result_list = result_list
 
     def validate(self):
-        pass
+        if self.result_list:
+            for k in self.result_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         result = dict()
@@ -12476,6 +12482,10 @@ class SyncLabelTransferrawResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        result['result_list'] = []
+        if self.result_list is not None:
+            for k in self.result_list:
+                result['result_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -12486,6 +12496,11 @@ class SyncLabelTransferrawResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        self.result_list = []
+        if m.get('result_list') is not None:
+            for k in m.get('result_list'):
+                temp_model = LabelChainResult()
+                self.result_list.append(temp_model.from_map(k))
         return self
 
 
