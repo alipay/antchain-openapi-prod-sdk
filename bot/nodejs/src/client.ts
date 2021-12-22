@@ -8257,11 +8257,14 @@ export class SyncLabelTransferrawResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 标签上链hash返回
+  resultList?: LabelChainResult[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      resultList: 'result_list',
     };
   }
 
@@ -8270,6 +8273,7 @@ export class SyncLabelTransferrawResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      resultList: { 'type': 'array', 'itemType': LabelChainResult },
     };
   }
 
@@ -9644,7 +9648,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.48",
+          sdk_version: "1.6.49",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
