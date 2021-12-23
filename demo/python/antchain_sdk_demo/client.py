@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.51'
+                    'sdk_version': '1.0.52'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.51'
+                    'sdk_version': '1.0.52'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -523,6 +523,60 @@ class Client:
         UtilClient.validate_model(request)
         return demo_models.QueryGatewayTestResponse().from_map(
             await self.do_request_async('1.0', 'demo.gateway.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_sss_ss_ss(
+        self,
+        request: demo_models.BindSssSsSsRequest,
+    ) -> demo_models.BindSssSsSsResponse:
+        """
+        Description: sss
+        Summary: ss
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_sss_ss_ss_ex(request, headers, runtime)
+
+    async def bind_sss_ss_ss_async(
+        self,
+        request: demo_models.BindSssSsSsRequest,
+    ) -> demo_models.BindSssSsSsResponse:
+        """
+        Description: sss
+        Summary: ss
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_sss_ss_ss_ex_async(request, headers, runtime)
+
+    def bind_sss_ss_ss_ex(
+        self,
+        request: demo_models.BindSssSsSsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.BindSssSsSsResponse:
+        """
+        Description: sss
+        Summary: ss
+        """
+        UtilClient.validate_model(request)
+        return demo_models.BindSssSsSsResponse().from_map(
+            self.do_request('1.0', 'demo.sss.ss.ss.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_sss_ss_ss_ex_async(
+        self,
+        request: demo_models.BindSssSsSsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.BindSssSsSsResponse:
+        """
+        Description: sss
+        Summary: ss
+        """
+        UtilClient.validate_model(request)
+        return demo_models.BindSssSsSsResponse().from_map(
+            await self.do_request_async('1.0', 'demo.sss.ss.ss.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
