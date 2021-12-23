@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\DEMO\Models\BindSssSsSsRequest;
+use AntChain\DEMO\Models\BindSssSsSsResponse;
 use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\DEMO\Models\EchoGatewayCheckRequest;
@@ -168,7 +170,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.51',
+                    'sdk_version'      => '1.0.52',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -364,6 +366,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryGatewayTestResponse::fromMap($this->doRequest('1.0', 'demo.gateway.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: sss
+     * Summary: ss.
+     *
+     * @param BindSssSsSsRequest $request
+     *
+     * @return BindSssSsSsResponse
+     */
+    public function bindSssSsSs($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindSssSsSsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: sss
+     * Summary: ss.
+     *
+     * @param BindSssSsSsRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return BindSssSsSsResponse
+     */
+    public function bindSssSsSsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindSssSsSsResponse::fromMap($this->doRequest('1.0', 'demo.sss.ss.ss.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
