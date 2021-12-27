@@ -1,0 +1,4936 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.8.8',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 删除参数
+model OutParams {
+  // 输出参数
+  name: string(name='name', example='rate'),
+  // 参数描述
+  desc: string(name='desc', example='率利'),
+  // 参数值
+  value: string(name='value', example='accept'),
+}
+
+// 企业风险等级分布统计
+model RtopLevelDistribution {
+  // 统计值
+  count: integer(name='count', example='10'),
+  // 等级
+  level: string(name='level', example='EX_HIGH_RISK'),
+}
+
+// infocode
+model InfoCodes {
+  // infocode
+  name: string(name='name', example='infocode'),
+}
+
+// 决策流
+model DecisionFlow {
+  // 输出参数
+  decisionFlow?: OutParams(name='decision_flow', example=''),
+  // 决策结果
+  decision: string(name='decision', example='reject'),
+  // infocodes
+  infoCodes?: InfoCodes(name='info_codes', example='infocodes'),
+}
+
+// 天枢系统Contact结构体
+model Contact {
+  // 联系人类型
+  // 1配偶
+  // 2父母
+  // 3子女
+  // 4兄弟
+  // 5姐妹
+  // 6朋友
+  // 7其他
+  kind: string(name='kind', example='1'),
+  // 联系人姓名
+  name: string(name='name', example='张三'),
+  // 联系人手机号
+  mobile: string(name='mobile', example='12345'),
+}
+
+// 企业类型分布统计
+model RtopTypeDistribution {
+  // 统计值
+  count: integer(name='count', example='10'),
+  // 当前类型下的等级分布
+  levelDistribution: [ RtopLevelDistribution ](name='levelDistribution', example='undefined'),
+  // 类型
+  type: string(name='type', example='MLM'),
+}
+
+// 监管风险标签
+model RtopRiskTag {
+  // 标签ID
+  tagId: string(name='tag_id', example='CMN00010'),
+  // 标签名称
+  tagName: string(name='tag_name', example='网站失联'),
+  // 标签类型
+  tagType?: string(name='tag_type', example='CMN'),
+  // 标签文本
+  tagText?: string(name='tag_text', example='网站失联'),
+  // 线索概览
+  tagClue?: string(name='tag_clue', example='企业已列入经营异常名录'),
+  // 线索明细类型
+  clueDetailType?: string(name='clue_detail_type', example='01'),
+  // 线索明细
+  tagClueDetail?: string(name='tag_clue_detail', example='通过登记的住所或者经营场所无法联系'),
+}
+
+// 涉众风险企业特征
+model RtopCrowdRiskFeatureTag {
+  // 标签描述
+  tagExplanation: string(name='tag_explanation', example='XXX公司法人发生变更'),
+  // 标签名称
+  tagName: string(name='tag_name', example='法人变更'),
+}
+
+// 反欺诈风险数据服务风险规则详情
+model RiskDetail {
+  // 反欺诈风险数据服务命中规则风险权重
+  ruleWeight: string(name='rule_weight', example='1'),
+  // 反欺诈风险数据服务命中规则名称
+  ruleName: string(name='rule_name', example='贷款车辆厂商指导价与实际不符'),
+}
+
+// 安全数据服务请求参数
+model SecurityDataQueryStruct {
+  // 请求数据参数
+  params: string(name='params', example='{}'),
+  // 请求数据类型
+  type: string(name='type', example='IP'),
+  // 请求数据版本
+  version: string(name='version', example='1.0'),
+}
+
+// 企业舆情数量
+model RtopCompanyOpinionCount {
+  // 企业名称
+  companyName: string(name='company_name', example='福州北辰智创投资中心'),
+  // 企业对应的舆情数量
+  count: integer(name='count', example='10'),
+}
+
+// 企业信息
+model CompanyInfo {
+  // 活跃地json
+  activeAddrJson: string(name='active_addr_json', example='活跃地json'),
+  // 活跃市(字段停用)
+  activeCity: string(name='active_city', example='活跃市(字段停用)'),
+  // 活跃县(字段停用)
+  activeCounty: string(name='active_county', example='活跃县(字段停用)'),
+  // 活跃省(字段停用)
+  activeProvince: string(name='active_province', example='活跃省(字段停用)'),
+  // 类经融行业分类
+  categories: string(name='categories', example='类金融'),
+  // 核准日期
+  checkDate: string(name='check_date', example='20191023'),
+  // 删除标志
+  delFlag: string(name='del_flag', example='0'),
+  // odps数据产生时间，业务上不关心
+  dt: string(name='dt', example='20190922'),
+  // 企业曾用名
+  formerOrgNames: string(name='former_org_names', example='[123,45tee]'),
+  // {"mct_one_id":"ID1","org_name":"总公司名称1"}
+  headOffice: string(name='head_office', example='总公司,json格式'),
+  // 记录ID
+  id: long(name='id', example='1'),
+  // 影响金额
+  involvedAmount: long(name='involved_amount', example='300'),
+  // 影响人数
+  involvedPeople: long(name='involved_people', example='100'),
+  // 重要关联企业,json格式
+  keyRelaOrgs: string(name='key_rela_orgs', example='[{"mct_one_id":"ID1","org_name":"企业名称1","relation_desc":"关联描述1"},{"mct_one_id":"ID2","org_name":"企业名称2","relation_desc":"关联描述2"}]'),
+  // 法人
+  legalRepresentative: string(name='legal_representative', example='张三'),
+  // 企业ID
+  mctOneId: string(name='mct_one_id', example='12'),
+  // 经营地json
+  operatingAddrJson: string(name='operating_addr_json', example='经营地json'),
+  // 经营市(字段停用)
+  operatingCity: string(name='operating_city', example='经营市(字段停用)'),
+  // 经营县(字段停用)
+  operatingCounty: string(name='operating_county', example='经营县(字段停用)'),
+  // 经营地址(字段停用)
+  operatingPlace: string(name='operating_place', example='经营地址(字段停用)'),
+  // 经营省(字段停用)
+  operatingProvince: string(name='operating_province', example='operating_province'),
+  // 营运状态(1:营运0:不营运)
+  oprtActvState: string(name='oprt_actv_state', example='1'),
+  // 经营期限至
+  oprtEndDate: string(name='oprt_end_date', example='20210201'),
+  // 经营范围
+  oprtScope: string(name='oprt_scope', example='工商'),
+  // 经营期限自
+  oprtStartDate: string(name='oprt_start_date', example='20190201'),
+  // 操作类型
+  // 
+  opType: string(name='op_type', example='add、delete、update'),
+  // 组织机构代码
+  orgCode: string(name='org_code', example='246667'),
+  // 电子邮箱
+  orgEmail: string(name='org_email', example='werr@163.com'),
+  // 企业名
+  orgName: string(name='org_name', example='恒生电子'),
+  // 注册资本折人民币(万元)
+  orgRegCptlRmb: string(name='org_reg_cptl_rmb', example='3000000000'),
+  // 企业状态
+  orgState: string(name='org_state', example='正常'),
+  // 联系电话
+  orgTel: string(name='org_tel', example='1234567'),
+  // 企业类型
+  orgType: string(name='org_type', example='工商'),
+  // 平台名
+  platformName: string(name='platform_name', example='p2p平台'),
+  // 平台状态
+  platformStates: string(name='platform_states', example='平台状态'),
+  // 注册资本币种
+  registerCapitalCurrency: string(name='register_capital_currency', example='人名币'),
+  // 注册资本值
+  registerCapitalValue: string(name='register_capital_value', example='2300000'),
+  // 注册市
+  registerCity: string(name='register_city', example='宣城市'),
+  // 注册区县
+  registerCounty: string(name='register_county', example='南海区'),
+  // 注册时间
+  registerDate: string(name='register_date', example='20110203'),
+  // 注册地址
+  registerPlace: string(name='register_place', example='江苏省'),
+  // 注册省
+  registerProvince: string(name='register_province', example='安徽省'),
+  // 登记机关
+  registrationAuthority: string(name='registration_authority', example='XX金融办'),
+  // 工商注册号
+  regNo: string(name='reg_no', example='23456667'),
+  // 风报企业ID
+  riskstormCompanyId: string(name='riskstorm_company_id', example='1234'),
+  // 风险维度
+  riskFactors: string(name='risk_factors', example='风险维度'),
+  // 风险图谱可视化数据
+  riskGraphJson: string(name='risk_graph_json', example='风险图谱可视化数据'),
+  // 风险报文
+  riskMessage: string(name='risk_message', example='风险报文'),
+  // 风险指数
+  riskScore: long(name='risk_score', example='80'),
+  // 风险指数，按日的趋势图
+  riskScoreTrend: string(name='risk_score_trend', example='风险指数'),
+  // 风险指数周波动
+  riskScoreWeeklyFloat: long(name='risk_score_weekly_float', example='2.3'),
+  // 风险标签(字段停用)
+  riskTags: string(name='risk_tags', example='经营异常'),
+  // 风险标签ID
+  riskTagsId: string(name='risk_tags_id', example='NM12,NM34'),
+  // 风险定性
+  riskType: string(name='risk_type', example='风险定性'),
+  // 搜索内容
+  searchContent: string(name='search_content', example='隐隐科技'),
+  // 传播人次
+  spreadNumber: long(name='spread_number', example='传播人次'),
+  // 影响地区人次分布,json格式如下
+  spreadNumDistribution: string(name='spread_num_distribution', example='[{"place_type":"prov","active_info":[{"place_name":"省1","num":3690},{"place_name":"省2","num":3680}]},{"place_type":"city","active_info":[{"place_name":"市1","num":3690},{"place_name":"市2","num":3680}]}]'),
+  // 社会统一信用代码
+  ucCode: string(name='uc_code', example='2456787878'),
+  // 公有云数据库产生时间
+  updateDate: string(name='update_date', example='20190923'),
+  // 平台json  
+  platform: string(name='platform', example=' [{"platform_name":"ptp","platform_states":"平台状态"}]'),
+}
+
+// 逾期信息查询响应
+model OverdueInfoResponse {
+  // 逾期标识
+  // true：逾期
+  // false：未逾期
+  overDueFlag: boolean(name='over_due_flag', example='true'),
+  // 逾期天数
+  dpd: long(name='dpd', example='50'),
+  // 价值逾期天枢
+  cpd: long(name='cpd', example='50'),
+  // 应还总额
+  needAmount: long(name='need_amount', example='1000'),
+  // 总剩余应还
+  totalAmount: long(name='total_amount', example='1000'),
+}
+
+// 标签信息
+model RiskLabelInfo {
+  // 线索明细类型(字段停用)
+  clueDetailType: string(name='clue_detail_type', example='s d d f d f'),
+  // odps数据产出时间，冗余字段，业务上不需要，以备错误排查
+  dt?: string(name='dt', example='20190823'),
+  // 数据产生时间
+  gmtCreate: string(name='gmt_create', example='yyyy-MM-dd hh:mm:ss'),
+  // 记录唯一ID
+  id: long(name='id', example='1'),
+  // 0-正常 1-删除
+  isDeleted: long(name='is_deleted', example='is_deleted'),
+  // 企业ID
+  mctOneId: string(name='mct_one_id', example='A123445'),
+  // 操作人ID
+  operatorId: string(name='operator_id', example='123'),
+  // 操作类型
+  // add、delete、update
+  opType: string(name='op_type', example='add'),
+  // 企业名称
+  orgName: string(name='org_name', example='东方财富公司'),
+  // 线索类型
+  riskDetailType: string(name='risk_detail_type', example='列表'),
+  // 风险维度
+  // 
+  riskDimensionType: string(name='risk_dimension_type', example='风险维度'),
+  // 线索概览
+  tagClue: string(name='tag_clue', example='s d f g'),
+  // 线索明细
+  tagClueDetail: string(name='tag_clue_detail', example='11'),
+  // 标签ID
+  tagId: string(name='tag_id', example='NM23'),
+  // 线索列表表头，英文逗号分隔
+  // 
+  tagListHeaders: string(name='tag_list_headers', example='日期'),
+  // 标签列表，排序字段
+  tagListOrderColumn: string(name='tag_list_order_column', example='日期'),
+  // 标签列表排序方式
+  tagListOrderType: string(name='tag_list_order_type', example='顺序'),
+  // 标签文本
+  tagText: string(name='tag_text', example='1233'),
+  // 趋势图表名
+  tagTrendChartName: string(name='tag_trend_chart_name', example='XX趋势图 '),
+  // 数据同步到公有云时间(业务上赋值当天)
+  updateDate: string(name='update_date', example='20190823'),
+}
+
+// 风报接口返回结构体
+model RtopCompanyRiskInfo {
+  // 区域类型
+  placeType?: string(name='place_type', example='place_type'),
+  // 区域
+  placeName?: string(name='place_name', example='天津市'),
+  // 企业唯一id
+  mctOneId?: string(name='mct_one_id', example='mct_one_id'),
+  // 企业统一社会信用代码
+  ucCode?: string(name='uc_code', example='uc_code'),
+  // 工商注册号
+  regNo?: string(name='reg_no', example='reg_no'),
+  // 组织机构代码
+  orgCode?: string(name='org_code', example='org_code'),
+  // 企业名
+  orgName?: string(name='org_name', example='org_name'),
+  // 风险评分
+  riskScore?: string(name='risk_score', example='risk_score'),
+  // 风险变化程度排序，根据分值波动大小，标签变更次数排序
+  riskShiftRank?: string(name='risk_shift_rank', example='risk_shift_rank'),
+  // 风险定性
+  riskType?: string(name='risk_type', example='risk_type'),
+  // 风险标签id列表
+  riskTagsId?: [ string ](name='risk_tags_id', example=''),
+  // 线索
+  tagsClue?: string(name='tags_clue', example='tags_clue'),
+  // 风险线索明细
+  tagsClueDetail?: string(name='tags_clue_detail', example='tags_clue_detail'),
+}
+
+// 服务上下文包括环境信息和用户信息
+model ServiceContext {
+  // 客户端IP
+  clientIp?: string(name='client_ip', example='10.214.138.14'),
+  // 客户端UMID
+  clientPcidguid?: string(name='client_pcidguid', example='WV1bz5927da956db072d3001792dcc67e'),
+  // 服务器名
+  serverName?: string(name='server_name', example='server'),
+  // 会话ID
+  sessionId?: string(name='session_id', example='RZ1 2cz9oSg1GTGtGp9CwYtBbZMcD8DmobilecashierRZ12'),
+  // 用户ID
+  userId?: string(name='user_id', example='2088522384403582'),
+}
+
+// 预警企业
+model RtopCompanyAlarm {
+  // 企业ID
+  companyId: string(name='company_id', example='1'),
+  // 预警类型
+  alarmType: string(name='alarm_type', example='1'),
+  // 预警序号
+  alarmIdx: string(name='alarm_idx', example='1'),
+  // 预警日期
+  alarmDate: string(name='alarm_date', example='1'),
+  // 预警标识，是否需要预警
+  alarmFlag: string(name='alarm_flag', example='1'),
+}
+
+// 风险维度
+model RtopCompanyRiskFactor {
+  // 维度名称
+  name?: string(name='name', example='1'),
+  // 维度分数
+  score?: long(name='score', example=''),
+}
+
+// 企业年报信息
+model RtopRiskStormCompanyAnnualReport {
+  // 年报个数
+  annualReportCount?: long(name='annual_report_count', example='2'),
+  // 年报是否发生股权转让
+  annualReportHasEquityTransfer?: boolean(name='annual_report_has_equity_transfer', example='true'),
+  // 年报是否对外提供担保
+  annualReportHasExternalGuarantee?: boolean(name='annual_report_has_external_guarantee', example='true'),
+  // 年报是否对外投资
+  annualReportHasExternalInvest?: boolean(name='annual_report_has_external_invest', example='true'),
+  // 营业总收入中主营业务收入
+  annualReportMainBusinessIncome?: string(name='annual_report_main_business_income', example='1000'),
+  // 年报净利润
+  annualReportNetProfit?: string(name='annual_report_net_profit', example='1000'),
+  // 年报发布日期
+  annualReportReleaseDate?: string(name='annual_report_release_date', example='2018-09-09'),
+  // 年报股东实缴出资额（万元（实缴出资额用两个冒号::分割）
+  annualReportShActualPaid?: string(name='annual_report_sh_actual_paid', example='100::200:2'),
+  // 年报公司人数
+  annualReportStaffCount?: long(name='annual_report_staff_count', example='200'),
+  // 资产总额
+  annualReportTotalAssets?: string(name='annual_report_total_assets', example='1000'),
+  // 负债总额
+  annualReportTotalLiabilities?: string(name='annual_report_total_liabilities', example='1000'),
+  // 营业总收入
+  annualReportTotalOperatingIncome?: string(name='annual_report_total_operating_income', example='1000'),
+  // 年报所有者权益合计
+  annualReportTotalOwnerEquity?: string(name='annual_report_total_owner_equity', example='1000'),
+  // 年报利润总额
+  annualReportTotalProfit?: string(name='annual_report_total_profit', example='1000'),
+  // 纳税总额
+  annualReportTotalTax?: string(name='annual_report_total_tax', example='1000'),
+  // 年报报送年度
+  annualReportYear?: string(name='annual_report_year', example='2018'),
+}
+
+// 策略流信息
+model DfSceneInfos {
+  // scene_code
+  sceneCode: string(name='scene_code', example='场景code'),
+  // 拒绝
+  sceneDecision: string(name='scene_decision', example='reject'),
+  // decision_flow
+  decisionFlow: DecisionFlow(name='decision_flow', example='decision_flow'),
+}
+
+// 通用响应结构体
+model RpcommonResp {
+  // 调用是否成功
+  success: boolean(name='success', example='true, false'),
+  // 结果描述
+  resultMsg: string(name='result_msg', example='success'),
+  // 结果码
+  responseCode: string(name='response_code', example='0'),
+  // 具体返回值.jsonString形式
+  data: string(name='data', example='{"a":1}'),
+}
+
+// 风报风险标签统计
+model RiskStormLabelResp {
+  // 标签次数
+  labelCount: integer(name='label_count', example='10'),
+  // 标签id
+  labelId: string(name='label_id', example='cancelled'),
+  // 标签名称
+  labelName: string(name='label_name', example='注销'),
+}
+
+// 天枢系统居住信息结构体
+model LiveInfo {
+  // 居住省份
+  liveProvince?: string(name='live_province', example='居住省份'),
+  // 居住城市
+  liveCity?: string(name='live_city', example='居住城市'),
+  // 居住区域
+  liveArea?: string(name='live_area', example='居住区域'),
+  // 居住街道
+  liveStreet?: string(name='live_street', example='居住街道'),
+  // 居住详细地址
+  liveAddress?: string(name='live_address', example='居住详细地址'),
+  // 居住年限
+  liveYears?: long(name='live_years', example='居住年限'),
+}
+
+// 芝麻四要素认证接口
+model ZhimaIdentifyResp {
+  // 唯一ID，接口正常的话有此字段
+  bizNo?: string(name='biz_no', example='ZM201505190ad422641448624704506270407'),
+  // 带参数的回调地址，接口正常的话有此字段
+  certifyUrl?: string(name='certify_url', example='http://zmmcportal.stable.zhimaxy.net/index.htm?biz_content=%7B%22biz_no%22%3A%225f491814480fafe7dc0779a1c452c9f7%22%7D&sign=dsgdsfhgdsfh'),
+  // 蚂蚁调用芝麻的错误码
+  resultCode: string(name='result_code', example='OK'),
+  // 蚂蚁调用芝麻的结果描述
+  resultMsg: string(name='result_msg', example='Success/Invalid Arguments'),
+  // 蚂蚁调用芝麻的错误码
+  subCode?: string(name='sub_code', example='isv.invalid-app-id'),
+  // 蚂蚁调用芝麻信息
+  subMsg?: string(name='sub_msg', example='无效的AppID参数'),
+}
+
+// 标签过滤配置
+model RiskLabelFilterConfigInfo {
+  // 创建时间
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 修改时间
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // id
+  id: long(name='id', example='1'),
+  // 是否为基本筛选标签
+  isBase: long(name='is_base', example='1'),
+  // 标记删除
+  isDelete: long(name='is_delete', example='0'),
+  // 操作人员ID
+  operatorId: string(name='operator_id', example='1'),
+  // 地区名
+  placeName: string(name='place_name', example='place_name'),
+  // 地区类型
+  placeType: string(name='place_type', example='place_type'),
+  // 标签ID
+  tagId: string(name='tag_id', example='1'),
+}
+
+// 天枢系统专用Material结构体
+model Material {
+  // 资料类型0-风控报告1-合同2-图片3-附件
+  mType: string(name='m_type', example='0'),
+  // 大类编码00-风控报告10-合同20身份证图片26人脸图片30-附件
+  bigCode: string(name='big_code', example='00'),
+  // 小类编码
+  // 201-身份证人脸面202身份证国徽面212-活体人脸图片
+  smallCode: string(name='small_code', example='201'),
+  // 资料名称
+  meterialName: string(name='meterial_name', example='资料名称'),
+  // 文件地址
+  filePath: string(name='file_path', example='文件地址'),
+}
+
+// 反欺诈风险数据服务决策结果
+model SecurityResultInfos {
+  // 反欺诈风险数据服务风险建议决策
+  decision: string(name='decision', example='reject'),
+  // 反欺诈风险数据服务风险分
+  riskScore: long(name='risk_score', example='100.0'),
+  // 反欺诈风险数据服务场景码
+  sceneCode: string(name='scene_code', example='EC_TEST'),
+}
+
+// 反欺诈风险数据服务规则细节信息
+model RuleDetail {
+  // 规则细节名称
+  name: string(name='name', example='出现次数'),
+  // 规则细节值
+  value: string(name='value', example='19'),
+}
+
+// 风险基因-点
+model RtopRiskGeneNode {
+  // 主企业唯一ID
+  mainCompanyId?: string(name='main_company_id', example='1'),
+  // 主企业名称
+  mainCompanyName?: string(name='main_company_name', example='1'),
+  // 节点唯一ID
+  nodeId?: string(name='node_id', example='1'),
+  // 节点名称
+  nodeName?: string(name='node_name', example='1'),
+  // 节点证件号码
+  nodeCertNo?: string(name='node_cert_no', example='1'),
+  // 节点类型，枚举值
+  nodeType?: string(name='node_type', example='company'),
+  // 节点扩展信息
+  nodeExtJson?: string(name='node_ext_json', example='节点扩展信息'),
+  // 基因模式
+  riskLabel?: string(name='risk_label', example='risk_label'),
+  // 基因模式
+  riskMode?: string(name='risk_mode', example='基因模式'),
+}
+
+// 天枢文件信息统一结构体
+model DubheFileInfo {
+  // 文件访问路径
+  filePath: string(name='file_path', example='https://aa.bb.png?expiredtime=xx'),
+}
+
+// 反欺诈风险数据服务风险信息
+model RiskInfo {
+  // 反欺诈风险数据服务风险组描述
+  riskGroupDesc: string(name='risk_group_desc', example='贷款车辆存在异常关联记录'),
+  // 反欺诈风险数据服务风险组名
+  riskGroup: string(name='risk_group', example='存在异常关联'),
+  // 反欺诈风险数据服务风险组类别
+  riskGroupCategory: string(name='risk_group_category', example='车辆风险'),
+  // 反欺诈风险数据服务风险组信息
+  riskDetails: [ RiskDetail ](name='risk_details', example=''),
+}
+
+// 安全场景参数
+model SecurityScene {
+  // 接入渠道
+  accessChannel?: string(name='access_channel', example='web'),
+  // 事件信息
+  ctuParams?: string(name='ctu_params', example=''),
+  // 产品名称
+  productName?: string(name='product_name', example='mobile_cashier'),
+  // 产品节点
+  productNode?: string(name='product_node', example='code'),
+  // 扩展参数
+  securitySceneParams?: string(name='security_scene_params', example='1234'),
+  // 系统名称
+  systemName?: string(name='system_name', example='mobilecashier'),
+  // 总金额
+  totalFee?: string(name='total_fee', example='10.0'),
+}
+
+// 企业地区分布统计
+model RtopRegionalDistribution {
+  // 统计值
+  count: long(name='count', example='10'),
+  // 地区
+  place: string(name='place', example='​西湖区'),
+  // 当前地区的涉众风险类型分布，即非法集资有多少企业，传销有多少企业
+  typeDistribution?: [ RtopTypeDistribution ](name='type_distribution', example=''),
+}
+
+// 企业影响人数年龄分布统计
+model RtopAgeDistribution {
+  // 年龄
+  age: string(name='age', example='above20'),
+  // 统计值
+  count: integer(name='count', example='10'),
+}
+
+// 机构平台通知响应结果
+model DefinInnerChannelNotifyResult {
+  // 请求编号
+  requestId: string(name='request_id', example='aaaa'),
+  // 业务响应Json
+  bizResponse: string(name='biz_response', example='{\"a\":\"b\"}'),
+}
+
+// 标签配置全量信息
+model RiskLabelConfigInfo {
+  // id
+  id: long(name='id', example='1'),
+  // 线索ID
+  tagId: string(name='tag_id', example='124'),
+  // 标签文本
+  tagText: string(name='tag_text', example='233444'),
+  // 风险维度
+  riskDimensionType: string(name='risk_dimension_type', example='风险维度'),
+  // 线索类型
+  riskDetailType: string(name='risk_detail_type', example='列表'),
+  // 趋势图表名
+  tagTrendChartName: string(name='tag_trend_chart_name', example='XX趋势图'),
+  // 线索列表表头，英文逗号分隔
+  tagListHeaders: string(name='tag_list_headers', example='日期'),
+  // 标签列表，排序字段
+  tagListOrderColumn: string(name='tag_list_order_column', example='日期'),
+  // 标签列表排序方式
+  tagListOrderType: string(name='tag_list_order_type', example='顺序'),
+  // 标记删除
+  isDelete: long(name='is_delete', example='0'),
+  // 创建时间
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 修改时间
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // 操作人ID
+  operatorId: string(name='operator_id', example='1233'),
+}
+
+// 天枢系统专用CreditAmount结构体
+model CreditAmount {
+  // 授信额度
+  creditAmount: long(name='credit_amount', example='1'),
+  // 授信余额
+  restAmount: long(name='rest_amount', example='1'),
+  // 发放日期
+  payDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='pay_date', example=''),
+  // 到期日期
+  expireDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expire_date', example=''),
+  // 利率单位(1:年，2：月，3：日)
+  rateUnit: string(name='rate_unit', example='1'),
+  // 执行利率,利率值，单位%
+  // 年化5%，rateValue=5
+  // 
+  rateValue: long(name='rate_value', example=''),
+  // 还款方式1等额本息2等额本金3先息后本4一次性利随本清5只还本金6等本等息
+  repayWay: string(name='repay_way', example='1'),
+  // 状态0-正常 1-冻结 2-终止
+  status: string(name='status', example='0'),
+}
+
+// 企业影响人数性别分布统计
+model RtopGenderDistribution {
+  // 统计值
+  count: integer(name='count', example='10'),
+  // 性别
+  gender: string(name='gender', example='MALE'),
+}
+
+// 天枢系统专用RepayRef结构体
+model RepayRef {
+  // 客户编码
+  customNo: string(name='custom_no', example='xxx'),
+  // 当前期数
+  period: string(name='period', example='xx'),
+  // 应还总额
+  needAmount: long(name='need_amount', example='1'),
+  // 应还本金
+  transPrincipal: long(name='trans_principal', example=''),
+  // 应还利息
+  needAccrual: long(name='need_accrual', example=''),
+  // 应还手续费
+  needFee: long(name='need_fee', example=''),
+  // 已还总额
+  alreadyAmount: long(name='already_amount', example=''),
+  // 已还本金
+  alreadyCorpus: long(name='already_corpus', example=''),
+  // 已还逾期本金
+  alreadyOvercorpus: long(name='already_overcorpus', example=''),
+  // 已还利息
+  alreadyAccrual: long(name='already_accrual', example=''),
+  // 已还逾期息
+  alreadyPunish: long(name='already_punish', example=''),
+  // 已还手续费
+  alreadyFee: long(name='already_fee', example=''),
+  // 利率
+  rate: long(name='rate', example=''),
+  // 罚息率
+  penaltyValue: long(name='penalty_value', example=''),
+  // 当期剩余总额
+  restAmount: long(name='rest_amount', example=''),
+  // 当期剩余本金
+  restCorpus: long(name='rest_corpus', example=''),
+  // 当期剩余利息
+  restAccrual: long(name='rest_accrual', example=''),
+  // 当期剩余罚息
+  restPunish: long(name='rest_punish', example=''),
+  // 期末本金
+  remainCorpus: long(name='remain_corpus', example=''),
+  // 借据编号
+  receiptNo: string(name='receipt_no', example='xx'),
+  // 还款状态1：已还清 2 未还 3 部分还款
+  status: string(name='status', example='1'),
+  // 应还日期
+  settleDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='settle_date', example='2018-10-10T10:10:00Z'),
+  // 还款日期
+  tradeDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='trade_date', example='2018-10-10T10:10:00Z'),
+}
+
+// 全局动态中的企业
+model RtopRiskyCompany {
+  // 企业ID
+  companyId: string(name='company_id', example='1'),
+  // 异动分数
+  changeScore: string(name='change_score', example='1'),
+  // 异动程度
+  changeLevel: string(name='change_level', example='1'),
+  // 新增企业的时间
+  newAddedTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='new_added_time', example='2018-10-10T10:10:00Z'),
+  // 总公司注册地
+  headRegisterPlace: string(name='head_register_place', example='1'),
+  // 数据的时间
+  dataTime: string(name='data_time', example='1'),
+}
+
+// zhima.customer.ep.identification.query
+// 在认证完成后,商户可以查询认证的状态和结果
+// 
+model ZhimaQueryResp {
+  // 认证的企业证件号
+  epCertNo?: string(name='ep_cert_no', example='91330000327827106L'),
+  // 认证的企业名
+  epName?: string(name='ep_name', example='芝麻信用管理有限公司'),
+  // 认证不通过的错误码
+  failedCode?: string(name='failed_code', example='BIZ_LICENSE_LEGAL_INFO_NO_MATCH'),
+  // 认证是否通过，通过为true，不通过为false
+  passed?: string(name='passed', example='“true“,”false”'),
+  //  10000是成功，其余是失败
+  resultCode: string(name='result_code', example='OK/40002'),
+  //  
+  resultMsg: string(name='result_msg', example='Success/Invalid Arguments'),
+  //  
+  subCode?: string(name='sub_code', example='isv.invalid-app-id'),
+  //  
+  subMsg?: string(name='sub_msg', example='无效的AppID参数'),
+}
+
+// 企业影响人数分布统计
+model RtopPopulationDistribution {
+  // 市
+  city: string(name='city', example='杭州市'),
+  // 统计值
+  count: integer(name='count', example='10'),
+}
+
+// 企业反馈
+model RtopCompanyFeedback {
+  // 主键
+  id: long(name='id', example=''),
+  // 企业ID
+  companyId: string(name='company_id', example='1'),
+  // 反馈原因
+  feedbackReason: string(name='feedback_reason', example='1'),
+  // 反馈原因详情
+  feedbackReasonDetail: string(name='feedback_reason_detail', example='1'),
+  // 评论
+  comment: string(name='comment', example='1'),
+}
+
+// 企业日期趋势统计
+model RtopDateDistribution {
+  // 统计值
+  count: integer(name='count', example='10'),
+  // 年龄
+  date: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='date', example='2018-09-09'),
+}
+
+// 策略详情
+model StrategyDetails {
+  // 策略id
+  id: string(name='id', example='1'),
+  // 策略名称
+  name: string(name='name', example='策略名称'),
+  // 决策结果
+  decision: string(name='decision', example='accept'),
+  // 场景码
+  sceneCode: string(name='scene_code', example='scene_code'),
+}
+
+// 舆情的详情
+model RtopCompanyOpinionDetail {
+  // 具体的舆情内容
+  docContent: string(name='doc_content', example='行业整体趋势仍向好,白酒2Q18营收增速略回落,大众品龙头竞争力强化'),
+  // 舆情的id
+  docId: string(name='doc_id', example='1843266597720304871'),
+  // 舆情的标题
+  docTitle: string(name='doc_title', example='扫IC网获金证引擎战略投资;产业+互联网+金融;推进电子产业资源整合_搜狐科技_搜狐网'),
+  // 舆情的url
+  docUrl: string(name='doc_url', example='http://istock.jrj.com.cn/article,yanbao,30483668.html'),
+  // 情感得分
+  emotionScore?: string(name='emotion_score', example='2.80'),
+  // 实体相关度得分
+  entityRelevancyScore?: string(name='entity_relevancy_score', example='0.71'),
+  // 命中的关键词
+  hitKeywords?: string(name='hit_keywords', example=''),
+  // 媒体影响力得分
+  mediaInfluenceScore?: string(name='media_influence_score', example='6.90'),
+  // 来源媒体
+  mediaName: string(name='media_name', example='东方媒体'),
+  // 媒体传播得分
+  mediaPropagationScore?: string(name='media_propagation_score', example='0.60'),
+  // 舆情的发布时间
+  publishTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='publish_time', example='2018-07-15'),
+  // 相似文章数
+  similarDocs?: integer(name='similar_docs', example='2'),
+}
+
+// 云通信短信发送结果
+model SmsReponse {
+  // 发送回执ID
+  bizId: string(name='biz_id', example='696108134003934432^0'),
+  // 请求状态码; OK表示成功, 其他表示失败
+  code: string(name='code', example='OK'),
+  // 是否调用接口成功的描述
+  message: string(name='message', example='OK'),
+  // 请求ID
+  requestId: string(name='request_id', example='EF2DE797-B632-5DCF-8502-600959436E77'),
+}
+
+// 模型结果详情
+// 
+model ModelDetails {
+  // 风险场景编码
+  sceneCode: string(name='scene_code', example='scene_code'),
+  // 该风险场景的风险分值
+  // 
+  score: string(name='score', example='90'),
+}
+
+// 天枢系统职业信息
+model JobInfo {
+  // 职业
+  jobType?: string(name='job_type', example='xxx'),
+  // 职务
+  workPosition?: string(name='work_position', example='xxx'),
+  // 工作年限
+  jobLife?: string(name='job_life', example='2'),
+  // 本单位工作年限
+  currentJobLife?: long(name='current_job_life', example='1'),
+  // 公司名称
+  companyName?: string(name='company_name', example='xxx'),
+  // 公司行业类型
+  companyIndustryType?: string(name='company_industry_type', example='xx'),
+  // 公司电话
+  companyTel?: string(name='company_tel', example='111'),
+  // 公司省份
+  companyProvince?: string(name='company_province', example='浙江'),
+  // 公司城市
+  companyCity?: string(name='company_city', example='公司城市'),
+  // 公司区域
+  companyArea?: string(name='company_area', example='公司区域'),
+  // 公司街道
+  companyStreet?: string(name='company_street', example='公司街道'),
+  // 公司详细地址
+  companyAddress?: string(name='company_address', example='公司详细地址'),
+  // 年收入
+  yearSalary?: long(name='year_salary', example='年收入'),
+}
+
+// 天枢系统个人信息结构体
+model PersonalInfo {
+  // 客户姓名
+  customName: string(name='custom_name', example='张三'),
+  // 身份证号码(18位)
+  cardNo: string(name='card_no', example='1234555'),
+  // 1-身份证
+  idType: string(name='id_type', example='1'),
+  // 证件开始日期(格式：YYYY-MM-DD)
+  // 
+  certSignDate: string(name='cert_sign_date', example='YYYY-MM-DD'),
+  // 格式：YYYY-MM-DD，身份证有效期为长期的送: 9999-12-31
+  certValidate: string(name='cert_validate', example='YYYY-MM-DD'),
+  // 证件地址
+  certAdr: string(name='cert_adr', example='浙江'),
+  // 手机号
+  mobile: string(name='mobile', example='12344'),
+  // 学历
+  education: string(name='education', example='本科'),
+  // 所在省份 汉字
+  province?: string(name='province', example='浙江'),
+  // 所在城市 汉字
+  city?: string(name='city', example='杭州'),
+  // 地区名称 汉字
+  area?: string(name='area', example='xxx'),
+  // 详细地址
+  address?: string(name='address', example='xxx'),
+  // 性别M-男
+  // F-女
+  sex?: string(name='sex', example='M'),
+  // 民族
+  nation?: string(name='nation', example='汉'),
+}
+
+// 涉众风险企业特征
+model RtopCrowdRiskFeatureResp {
+  // 特征标签列表
+  clueTags?: [ RtopCrowdRiskFeatureTag ](name='clue_tags', example=''),
+  // 特征名称
+  featureName: string(name='feature_name', example='工商风险维度'),
+  // 特征​分数
+  score: integer(name='score', example='10'),
+}
+
+// 天枢系统RiskData结构体
+model RiskData {
+  // 联系人信息列表
+  contacts: [ Contact ](name='contacts', example='[{}]'),
+  // 人脸对比分
+  facePoint?: string(name='face_point', example='x'),
+  // 活体供应商
+  faceSource?: string(name='face_source', example='活体供应商'),
+}
+
+// 企业涉众风险详细信息
+model RtopCrowdRiskSummaryResp {
+  // 活跃市
+  activeCity?: string(name='active_city', example='杭州市'),
+  // 活跃县
+  activeCounty?: string(name='active_county', example='西湖区'),
+  // 活跃省
+  activeProvince?: string(name='active_province', example='浙江省'),
+  // 风险标签
+  clueTags?: [ string ](name='clue_tags', example=''),
+  // 企业ID
+  companyId: string(name='company_id', example='123456789'),
+  // 企业名称
+  companyName: string(name='company_name', example='XXXXX有限公司'),
+  // 风险等级
+  crowdRiskLevel?: string(name='crowd_risk_level', example='EX_HIGH_RISK'),
+  // 涉众风险分数
+  crowdRiskScore?: long(name='crowd_risk_score', example='80'),
+  // 涉众风险类型
+  crowdRiskType?: string(name='crowd_risk_type', example='MLM'),
+  // 发现时间
+  detectedTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='detected_time', example='2018-07-15'),
+  // 影响金额
+  moneyInvolved?: long(name='money_involved', example='100'),
+  // 影响人数
+  peopleInvolved?: long(name='people_involved', example='100'),
+  // 注册市
+  registeredCity?: string(name='registered_city', example='杭州市'),
+  // 注册县
+  registeredCounty?: string(name='registered_county', example='西湖区'),
+  // 注册省
+  registeredProvince?: string(name='registered_province', example='浙江省'),
+}
+
+// 天枢系统专用ReceiptInfo结构体
+model ReceiptInfo {
+  // 客户名
+  customName: string(name='custom_name', example='XXX'),
+  // 证件号码
+  cardNo: string(name='card_no', example='xxx'),
+  // 手机号
+  mobile: string(name='mobile', example='166****1234'),
+  // 贷款金额
+  applyAmount: long(name='apply_amount', example='1234'),
+  // 发放金额
+  loanAmount: long(name='loan_amount', example='1234'),
+  // 期数
+  period: long(name='period', example='12'),
+  // 当前期数
+  curPeriod: long(name='cur_period', example='12'),
+  // 还款方式1：等额本息，2：等额本金，3：按月付息到期还本，4：利随本清，5：自由还款
+  repayType: string(name='repay_type', example='1'),
+  // 还款日
+  repayDate: string(name='repay_date', example='XXXX.XX.XX'),
+  // 放款时间
+  loanTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='loan_time', example='2018-10-10T10:10:00Z'),
+  // 借据状态0：未还清，1：已还清，2：已提前还清
+  status: string(name='status', example='0'),
+  // 已还本金
+  alreadyCorpus: long(name='already_corpus', example='1234'),
+  // 已还利息
+  alreadyAccrual: long(name='already_accrual', example='50'),
+  // 结清日期
+  alreadyDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='already_date', example='2018-10-10T10:10:00Z'),
+  // 审批状态0：通过 1：拒绝 2：审批中 3：失败
+  workflowStatus: string(name='workflow_status', example='0'),
+  // 借据编号
+  receiptNo: string(name='receipt_no', example='145785'),
+}
+
+// 收藏的企业信息
+model RtopStarCompanyInfo {
+  // 行业
+  categories?: [ string ](name='categories', example=''),
+  // 经营地址
+  operatingPlace?: string(name='operating_place', example='广东省珠海市前山金鸡西路'),
+  // 经营省份
+  operatingProvince?: string(name='operating_province', example='湖北省'),
+  // 企业名称
+  orgName?: string(name='org_name', example='珠海格力电器股份有限公司'),
+  // 风险分数
+  riskScore?: long(name='risk_score', example='80'),
+  // 风险标签
+  riskTags?: [ string ](name='risk_tags', example='["内部被投诉","法定代表人名下企业超过6家"]'),
+  // 风险线索
+  riskTagDetails?: [ RtopRiskTag ](name='risk_tag_details', example=''),
+  // 风险标签Id集合
+  riskTagIds?: [ string ](name='risk_tag_ids', example='["CMN00025", "CMN00011"]'),
+  // 统一社会信用代码
+  ucCode?: string(name='uc_code', example='91440400192548256N'),
+}
+
+// 标签图片
+model RtopTagImage {
+  // 标签图片表主键
+  id: long(name='id', example=''),
+  // 图片
+  image?: string(name='image', example='1'),
+}
+
+// 监测企业的特征信息
+model RtopMonitorCompanyFeature {
+  // 特征的描述
+  description?: string(name='description', example='有企业地址变更历史，变更过经营范围'),
+  // 特征的名称
+  name: string(name='name', example='关联风险'),
+  // 特征里的风险标签列表
+  riskTags?: [ string ](name='risk_tags', example=''),
+  // 特征的评分
+  score: integer(name='score', example='80'),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
+}
+
+model QuerySecurityPolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 风险类型：表示风险处理或风险咨询——process/advice
+  riskType: string(name='risk_type'),
+  securityScene: SecurityScene(name='security_scene'),
+  serviceContext: ServiceContext(name='service_context'),
+}
+
+model QuerySecurityPolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 风险咨询情况下返回的风险等级，风险处理不会返回该值
+  level?: integer(name='level'),
+  // 反馈成功之后的id
+  securityId?: string(name='security_id'),
+  // 安全处理结果，枚举值为：reject[拒绝],validate[校验],accept[放过]
+  securityResult?: string(name='security_result'),
+  // 是否成功
+  success: string(name='success'),
+  // 有风险需要失败业务情况下的返回码
+  templateCode?: string(name='template_code'),
+  // 有风险需要失败业务情况下的返回码描述
+  templateDesc?: string(name='template_desc'),
+  // native场景下的核身id
+  verifyId?: string(name='verify_id'),
+  // h5场景下的核身地址
+  verifyUrl?: string(name='verify_url'),
+}
+
+/**
+ * Description: 外部客户业务接入风控+，进行风险识别和风险决策。
+ * Summary: 策略咨询服务输出
+ */
+async function querySecurityPolicy(request: QuerySecurityPolicyRequest): QuerySecurityPolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySecurityPolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 外部客户业务接入风控+，进行风险识别和风险决策。
+ * Summary: 策略咨询服务输出
+ */
+async function querySecurityPolicyEx(request: QuerySecurityPolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySecurityPolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.security.policy.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendSecurityDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 安全累计属性列表字段，安全属性列表
+  securityContent: string(name='security_content'),
+  // 代码发送给安全核心的事件编码
+  securitySign: string(name='security_sign'),
+}
+
+model SendSecurityDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success: string(name='success'),
+}
+
+/**
+ * Description: 向风控发送异步安全数据
+ * Summary: 异步发送安全数据
+ */
+async function sendSecurityData(request: SendSecurityDataRequest): SendSecurityDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendSecurityDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 向风控发送异步安全数据
+ * Summary: 异步发送安全数据
+ */
+async function sendSecurityDataEx(request: SendSecurityDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendSecurityDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.security.data.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfirmSecurityPolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 二次确认参数，防止篡改
+  confirmParams: string(name='confirm_params'),
+  // 代码发送给安全核心的事件编码
+  securityId: string(name='security_id'),
+}
+
+model ConfirmSecurityPolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success: string(name='success'),
+}
+
+/**
+ * Description: 外部客户业务接入蚂蚁风控，进行风险识别和风险决策输出核身后，进行二次确认
+ * Summary: 安全策略确认服务输出
+ */
+async function confirmSecurityPolicy(request: ConfirmSecurityPolicyRequest): ConfirmSecurityPolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return confirmSecurityPolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 外部客户业务接入蚂蚁风控，进行风险识别和风险决策输出核身后，进行二次确认
+ * Summary: 安全策略确认服务输出
+ */
+async function confirmSecurityPolicyEx(request: ConfirmSecurityPolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmSecurityPolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.security.policy.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckSecurityRdsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 输入大字段，具体见接入文档
+  rdsContent: string(name='rds_content'),
+}
+
+model CheckSecurityRdsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  result: integer(name='result'),
+}
+
+/**
+ * Description: 外部客户业务接入风控+，进行人机识别判断。
+ * Summary: 策略咨询服务输出
+ */
+async function checkSecurityRds(request: CheckSecurityRdsRequest): CheckSecurityRdsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkSecurityRdsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 外部客户业务接入风控+，进行人机识别判断。
+ * Summary: 策略咨询服务输出
+ */
+async function checkSecurityRdsEx(request: CheckSecurityRdsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckSecurityRdsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.security.rds.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySecurityDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  reqInfo: [ SecurityDataQueryStruct ](name='req_info'),
+}
+
+model QuerySecurityDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success: string(name='success'),
+}
+
+/**
+ * Description: 外部客户业务接入风控+，请求安全数据如ip画像等。
+ * Summary: 安全数据服务输出
+ */
+async function querySecurityData(request: QuerySecurityDataRequest): QuerySecurityDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySecurityDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 外部客户业务接入风控+，请求安全数据如ip画像等。
+ * Summary: 安全数据服务输出
+ */
+async function querySecurityDataEx(request: QuerySecurityDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySecurityDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.security.data.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckSecurityDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 入参为Map转换后的String
+  reqInfo: string(name='req_info'),
+}
+
+model CheckSecurityDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // code表示状态，message为提示，data为返回结果
+  response?: string(name='response'),
+}
+
+/**
+ * Description: 外部客户数据校验接口，比如端防护
+ * Summary: 安全数据服务校验
+ */
+async function checkSecurityData(request: CheckSecurityDataRequest): CheckSecurityDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkSecurityDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 外部客户数据校验接口，比如端防护
+ * Summary: 安全数据服务校验
+ */
+async function checkSecurityDataEx(request: CheckSecurityDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckSecurityDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.security.data.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecSecurityRiskdataserviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 风险数据服务请求事件属性详情
+  eventInfo: string(name='event_info'),
+  // 反欺诈数据服务查询请求唯一凭证，为申请成功后得到，当请求类型是query时必填
+  riskDataServiaceApplyId?: string(name='risk_data_serviace_apply_id'),
+  // 反欺诈风险数据服务请求类型（query or apply）
+  riskDataServiceType: string(name='risk_data_service_type'),
+}
+
+model ExecSecurityRiskdataserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 反欺诈风险数据服务申请成功时返回的查询凭证（申请请求时存在）
+  riskDataServiceApplyId?: string(name='risk_data_service_apply_id'),
+  // 反欺诈风险数据服务查询请求结果中风险详细信息字段（查询请求时存在）
+  riskInfos?: [ RiskInfo ](name='risk_infos'),
+  // 请求响应业务唯一id
+  securityId?: string(name='security_id'),
+  // 反欺诈风险数据服务查询成功时得到风险建议结果信息（查询请求时存在）
+  securityResultInfos?: SecurityResultInfos(name='security_result_infos'),
+  // 请求是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 反欺诈风险数据服务请求执行
+ * Summary: 反欺诈风险数据服务请求执行
+ */
+async function execSecurityRiskdataservice(request: ExecSecurityRiskdataserviceRequest): ExecSecurityRiskdataserviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execSecurityRiskdataserviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 反欺诈风险数据服务请求执行
+ * Summary: 反欺诈风险数据服务请求执行
+ */
+async function execSecurityRiskdataserviceEx(request: ExecSecurityRiskdataserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecSecurityRiskdataserviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.security.riskdataservice.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubheTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 测试id字段
+  testid: string(name='testid'),
+}
+
+model QueryDubheTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 测试返回体
+  testResponseStr?: string(name='test_response_str'),
+}
+
+/**
+ * Description: 天枢信贷业务系统线下测试环境测试接口
+ * Summary: 天枢信贷业务系统线下测试接口
+ */
+async function queryDubheTest(request: QueryDubheTestRequest): QueryDubheTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubheTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢信贷业务系统线下测试环境测试接口
+ * Summary: 天枢信贷业务系统线下测试接口
+ */
+async function queryDubheTestEx(request: QueryDubheTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubheTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubhe.test.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubheRouterFundrouterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 身份证号(md5加密32位)
+  cardNo: string(name='card_no'),
+  // 手机号（MD5加密，32位）
+  mobile: string(name='mobile'),
+  // 客户姓名
+  customName: string(name='custom_name'),
+  // 合作方产品编号
+  prodNo: string(name='prod_no'),
+  // 渠道类型
+  channelType?: string(name='channel_type'),
+  // 客户类型
+  customType?: string(name='custom_type'),
+  // 导流平台
+  trafficPlatform?: string(name='traffic_platform'),
+  // 流量名称
+  trafficSourceName?: string(name='traffic_source_name'),
+  // 广告位标志
+  trafficAdId?: string(name='traffic_ad_id'),
+  // 预留
+  trafficMktId?: string(name='traffic_mkt_id'),
+  // 预留
+  clickId?: string(name='click_id'),
+}
+
+model QueryDubheRouterFundrouterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 资金方代码
+  fundCode?: string(name='fund_code'),
+}
+
+/**
+ * Description: 通过客户三要素信息查询资金方代码(资金路由)
+ * Summary: 天枢系统资金方代码(资金路由)查询
+ */
+async function queryDubheRouterFundrouter(request: QueryDubheRouterFundrouterRequest): QueryDubheRouterFundrouterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubheRouterFundrouterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过客户三要素信息查询资金方代码(资金路由)
+ * Summary: 天枢系统资金方代码(资金路由)查询
+ */
+async function queryDubheRouterFundrouterEx(request: QueryDubheRouterFundrouterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubheRouterFundrouterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubhe.router.fundrouter.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyDubheCreditRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础信息
+  personalInfo: PersonalInfo(name='personal_info'),
+  // 资产方用户唯一标识
+  openId: string(name='open_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 居住信息
+  borrowerLiveInfo?: LiveInfo(name='borrower_live_info'),
+  // 工作信息
+  borrowerEmpInfo?: JobInfo(name='borrower_emp_info'),
+  // 产品编号
+  prodNo: string(name='prod_no'),
+  // 风险数据对象
+  riskData?: RiskData(name='risk_data'),
+  // 借款用途
+  loanReason?: string(name='loan_reason'),
+  // 资料文件
+  materials?: [ Material ](name='materials'),
+  // 导流平台
+  trafficPlatform?: string(name='traffic_platform'),
+  // 流量名称
+  trafficSourceName?: string(name='traffic_source_name'),
+  // 广告位标志
+  trafficAdId?: string(name='traffic_ad_id'),
+  // 预留
+  trafficMktId?: string(name='traffic_mkt_id'),
+  // 预留
+  clickId?: string(name='click_id'),
+  // 渠道类型
+  channelType?: string(name='channel_type'),
+  // 客户类型
+  customType?: string(name='custom_type'),
+}
+
+model ApplyDubheCreditResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 客户编号
+  customNo?: string(name='custom_no'),
+}
+
+/**
+ * Description: 天枢系统授信申请接口
+ * Summary: 天枢系统授信申请接口
+ */
+async function applyDubheCredit(request: ApplyDubheCreditRequest): ApplyDubheCreditResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyDubheCreditEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统授信申请接口
+ * Summary: 天枢系统授信申请接口
+ */
+async function applyDubheCreditEx(request: ApplyDubheCreditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyDubheCreditResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubhe.credit.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubheCreditStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授信申请订单号
+  originalOrderNo: string(name='original_order_no'),
+  // 订单号
+  orderNo: string(name='order_no'),
+}
+
+model QueryDubheCreditStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授信状态（0-通过/1-不通过2-处理中）
+  status?: string(name='status'),
+  // 拒绝原因
+  msg?: string(name='msg'),
+  // 授信额度
+  creditAmt?: long(name='credit_amt'),
+  // 期数
+  period?: long(name='period'),
+  // 还款方式
+  repayType?: string(name='repay_type'),
+  // 额度信息
+  creditInfo?: CreditAmount(name='credit_info'),
+  // 客户编号(该客户的唯一标识，后续接口需要用到)
+  customNo?: string(name='custom_no'),
+  // 授信申请编号
+  applyNo?: string(name='apply_no'),
+}
+
+/**
+ * Description: 天枢系统授信额度查询接口
+ * Summary: 天枢系统授信额度查询接口
+ */
+async function queryDubheCreditStatus(request: QueryDubheCreditStatusRequest): QueryDubheCreditStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubheCreditStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统授信额度查询接口
+ * Summary: 天枢系统授信额度查询接口
+ */
+async function queryDubheCreditStatusEx(request: QueryDubheCreditStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubheCreditStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubhe.credit.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CountDubheRepayReftrialRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 授信申请订单号
+  originalOrderNo: string(name='original_order_no'),
+  // 产品编号
+  prodNo: string(name='prod_no'),
+  // 借款金额
+  applyAmount: long(name='apply_amount'),
+  // 借款期数
+  applyPeriod: long(name='apply_period'),
+  // 还款方式
+  repayType: string(name='repay_type'),
+}
+
+model CountDubheRepayReftrialResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 还款计划试算结果
+  repayRefList?: [ RepayRef ](name='repay_ref_list'),
+}
+
+/**
+ * Description: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
+ * Summary: 天枢系统还款计划试算
+ */
+async function countDubheRepayReftrial(request: CountDubheRepayReftrialRequest): CountDubheRepayReftrialResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return countDubheRepayReftrialEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
+ * Summary: 天枢系统还款计划试算
+ */
+async function countDubheRepayReftrialEx(request: CountDubheRepayReftrialRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CountDubheRepayReftrialResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubhe.repay.reftrial.count', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubheRepayListRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 用信申请订单号
+  originalOrderNo: string(name='original_order_no'),
+}
+
+model QueryDubheRepayListResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 还款计划查询结果
+  repayRefList?: [ RepayRef ](name='repay_ref_list'),
+}
+
+/**
+ * Description: 天枢系统还款计划查询，根据申请订单查询还款计划
+ * Summary: 天枢系统还款计划查询
+ */
+async function queryDubheRepayList(request: QueryDubheRepayListRequest): QueryDubheRepayListResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubheRepayListEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统还款计划查询，根据申请订单查询还款计划
+ * Summary: 天枢系统还款计划查询
+ */
+async function queryDubheRepayListEx(request: QueryDubheRepayListRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubheRepayListResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubhe.repay.list.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyDubheUsecreditRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授信申请订单号
+  originalOrderNo: string(name='original_order_no'),
+  // 用信金额
+  loanAmount: long(name='loan_amount'),
+  // 期数
+  period: long(name='period'),
+  // 资产方用户唯一标识
+  openId: string(name='open_id'),
+  // 订单号
+  orderOn: string(name='order_on'),
+  // 还款方式
+  repayType: string(name='repay_type'),
+  // 1：手机数码 2：旅游 3：装修 4：教育 5：婚庆 6：租房 7：家具家居 8：健康医疗 9：其他消费 10：家用电器
+  loanWay: string(name='loan_way'),
+  // 1: APP
+  // 2: 支付宝小程序
+  // 3：微信小程序
+  // 4：微信公众号
+  // 5：PC网页
+  // 默认1
+  channelType: string(name='channel_type'),
+  // 1: 新增客户
+  // 2：存量激活客户
+  // 3：目标营销客户
+  // 默认1
+  customType: string(name='custom_type'),
+  // 指定还款日（仅无在贷借据时生效）
+  repayDate: string(name='repay_date'),
+}
+
+model ApplyDubheUsecreditResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 天枢系统用信申请接口
+ * Summary: 天枢系统用信申请接口
+ */
+async function applyDubheUsecredit(request: ApplyDubheUsecreditRequest): ApplyDubheUsecreditResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyDubheUsecreditEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统用信申请接口
+ * Summary: 天枢系统用信申请接口
+ */
+async function applyDubheUsecreditEx(request: ApplyDubheUsecreditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyDubheUsecreditResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubhe.usecredit.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubheUsecreditStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用信申请订单号
+  originalOrderNo: string(name='original_order_no'),
+  // 请求网络流水号
+  orderOn: string(name='order_on'),
+}
+
+model QueryDubheUsecreditStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用信状态（0-通过/1-不通过2-处理中）
+  status?: string(name='status'),
+  // 拒绝原因
+  msg?: string(name='msg'),
+  // 借据信息
+  receiptInfo?: ReceiptInfo(name='receipt_info'),
+  // 还款计划列表
+  repayRef?: [ RepayRef ](name='repay_ref'),
+}
+
+/**
+ * Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
+ * Summary: 天枢系统用信申请状态查询
+ */
+async function queryDubheUsecreditStatus(request: QueryDubheUsecreditStatusRequest): QueryDubheUsecreditStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubheUsecreditStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
+ * Summary: 天枢系统用信申请状态查询
+ */
+async function queryDubheUsecreditStatusEx(request: QueryDubheUsecreditStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubheUsecreditStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubhe.usecredit.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CountDubheRepayTrialRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用信申请订单号
+  originalOrderNo: string(name='original_order_no'),
+  // 还款类型1:当期结清，2：正常还款3：全部结清
+  repayType: string(name='repay_type'),
+  // 订单号
+  orderNo: string(name='order_no'),
+}
+
+model CountDubheRepayTrialResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 还款本金
+  realPrincipal?: long(name='real_principal'),
+  // 还款利息
+  realInterest?: long(name='real_interest'),
+  // 还款费用
+  realOverAmt?: long(name='real_over_amt'),
+  // 服务费
+  serviceCharge?: long(name='service_charge'),
+}
+
+/**
+ * Description: 天枢系统还款试算，根据借据号计算还款金额
+ * Summary: 天枢系统还款试算
+ */
+async function countDubheRepayTrial(request: CountDubheRepayTrialRequest): CountDubheRepayTrialResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return countDubheRepayTrialEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统还款试算，根据借据号计算还款金额
+ * Summary: 天枢系统还款试算
+ */
+async function countDubheRepayTrialEx(request: CountDubheRepayTrialRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CountDubheRepayTrialResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubhe.repay.trial.count', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RepayDubheRepayCheckstandRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用信申请订单号
+  originalOrderNo: string(name='original_order_no'),
+  // 还款类型1:当期结清，2：正常还款3：全部结清
+  repayType: string(name='repay_type'),
+  // 订单号
+  orderNo?: string(name='order_no'),
+}
+
+model RepayDubheRepayCheckstandResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 收银台地址(成功就有值)
+  checkstandAddress?: string(name='checkstand_address'),
+}
+
+/**
+ * Description: 天枢系统主动还款（收银台）接口
+ * Summary: 天枢系统主动还款（收银台）接口
+ */
+async function repayDubheRepayCheckstand(request: RepayDubheRepayCheckstandRequest): RepayDubheRepayCheckstandResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return repayDubheRepayCheckstandEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统主动还款（收银台）接口
+ * Summary: 天枢系统主动还款（收银台）接口
+ */
+async function repayDubheRepayCheckstandEx(request: RepayDubheRepayCheckstandRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RepayDubheRepayCheckstandResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubhe.repay.checkstand.repay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubheRepayInfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 原还款订单号
+  originalOrderNo: string(name='original_order_no'),
+  // 订单号
+  orderNo: string(name='order_no'),
+}
+
+model QueryDubheRepayInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 还款编号
+  repayNo?: string(name='repay_no'),
+  // 借据编码
+  receiptNo?: string(name='receipt_no'),
+  // 客户编号
+  customNo?: string(name='custom_no'),
+  // 客户名称
+  customName?: string(name='custom_name'),
+  // 还款类型1:提前还款，2：正常还款 3:批量还款 4：自由还款
+  repayType?: string(name='repay_type'),
+  // 还款标志1 线下还款 2 用户主动还款 3 系统代扣
+  repaySign?: string(name='repay_sign'),
+  // 还款日期
+  repayDate?: string(name='repay_date'),
+  // 实还总额
+  repayAmount?: long(name='repay_amount'),
+  // 实还本金
+  repayPrincipal?: long(name='repay_principal'),
+  // 实还利息
+  repayInterest?: long(name='repay_interest'),
+  // 实还通道手续费
+  channelAmt?: long(name='channel_amt'),
+  // 实还手续费
+  repayFee?: string(name='repay_fee'),
+  // 实收罚息
+  repayPunish?: long(name='repay_punish'),
+  // 还款账户
+  repayAccount?: string(name='repay_account'),
+  // 还款账户名称
+  repayAccountName?: string(name='repay_account_name'),
+  // 还款账户的手机号
+  repayMobile?: string(name='repay_mobile'),
+  // 还款账户银行行号
+  repayBankNo?: string(name='repay_bank_no'),
+  // 还款账户银行名称
+  repayBankName?: string(name='repay_bank_name'),
+  // 还款状态0:失败 1成功 2-审批中 3-还款中
+  repayStatus?: string(name='repay_status'),
+  // 失败原因
+  failReason?: string(name='fail_reason'),
+  // 授信申请编号
+  applyNo?: string(name='apply_no'),
+}
+
+/**
+ * Description: 天枢系统还款信息查询
+ * Summary: 天枢系统还款信息查询
+ */
+async function queryDubheRepayInfo(request: QueryDubheRepayInfoRequest): QueryDubheRepayInfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubheRepayInfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统还款信息查询
+ * Summary: 天枢系统还款信息查询
+ */
+async function queryDubheRepayInfoEx(request: QueryDubheRepayInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubheRepayInfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubhe.repay.info.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateDubheCustomerInfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客户姓名(可修改字段)
+  customName?: string(name='custom_name'),
+  // 户籍所在地(可修改字段)
+  censusRegister?: string(name='census_register'),
+  // 证件号码(可修改字段)
+  cardNo?: string(name='card_no'),
+  // 手机号码(可修改字段)
+  mobile?: string(name='mobile'),
+  // 客户编号(唯一不变)
+  customNo: string(name='custom_no'),
+  // 订单号
+  orderNo?: string(name='order_no'),
+}
+
+model UpdateDubheCustomerInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 天枢系统客户信息变更接口（变更客户三要素信息）
+ * Summary: 天枢系统客户信息变更接口
+ */
+async function updateDubheCustomerInfo(request: UpdateDubheCustomerInfoRequest): UpdateDubheCustomerInfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateDubheCustomerInfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统客户信息变更接口（变更客户三要素信息）
+ * Summary: 天枢系统客户信息变更接口
+ */
+async function updateDubheCustomerInfoEx(request: UpdateDubheCustomerInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateDubheCustomerInfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubhe.customer.info.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyDubheCustomerAgreementsignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客户编号
+  customNo: string(name='custom_no'),
+  // 订单号
+  orderNo?: string(name='order_no'),
+}
+
+model ApplyDubheCustomerAgreementsignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // sdkParams返回给商户app客户端，作为客户端唤起sdk的入参
+  sdkParams?: string(name='sdk_params'),
+}
+
+/**
+ * Description: 天枢系统协议签约申请(支付宝
+ * Summary: 天枢系统协议签约申请(支付宝)
+ */
+async function applyDubheCustomerAgreementsign(request: ApplyDubheCustomerAgreementsignRequest): ApplyDubheCustomerAgreementsignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyDubheCustomerAgreementsignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统协议签约申请(支付宝
+ * Summary: 天枢系统协议签约申请(支付宝)
+ */
+async function applyDubheCustomerAgreementsignEx(request: ApplyDubheCustomerAgreementsignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyDubheCustomerAgreementsignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubhe.customer.agreementsign.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubheCustomerAgreementsignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客户编号
+  customNo: string(name='custom_no'),
+  // 订单号
+  orderNo?: string(name='order_no'),
+}
+
+model QueryDubheCustomerAgreementsignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 客户编号
+  customNo?: string(name='custom_no'),
+  // 流水号(代扣协议中标示用户的唯一签约号)
+  transSerials?: string(name='trans_serials'),
+  // 协议签约状态(0-成功1-失败2-处理中)
+  status?: string(name='status'),
+  // 协议签约时间(支付宝代扣协议的实际签约时间，格式为yyyy-MM-dd HH:mm:ss)
+  signTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='sign_time'),
+  // 协议生效时间(用户代扣协议的实际生效时间，格式为yyyy-MM-dd HH:mm:ss)
+  validTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='valid_time'),
+  // 协议失效时间(用户代扣协议的失效时间，格式为yyyy-MM-dd HH:mm:ss)
+  invalidTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='invalid_time'),
+}
+
+/**
+ * Description: 天枢系统协议签约查询(支付宝)
+ * Summary: 天枢系统协议签约查询(支付宝)
+ */
+async function queryDubheCustomerAgreementsign(request: QueryDubheCustomerAgreementsignRequest): QueryDubheCustomerAgreementsignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubheCustomerAgreementsignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统协议签约查询(支付宝)
+ * Summary: 天枢系统协议签约查询(支付宝)
+ */
+async function queryDubheCustomerAgreementsignEx(request: QueryDubheCustomerAgreementsignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubheCustomerAgreementsignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubhe.customer.agreementsign.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RepayDubheRepayWithholdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // originalOrderNo
+  originalOrderNo: string(name='original_order_no'),
+  // 还款类型1:当期结清，2：正常还款3：全部结清
+  repayType: string(name='repay_type'),
+  // 订单号
+  orderNo: string(name='order_no'),
+}
+
+model RepayDubheRepayWithholdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 天枢信贷业务系统主动还款（直接代扣）接口
+ * Summary: 天枢信贷业务系统主动还款（直接代扣）接口
+ */
+async function repayDubheRepayWithhold(request: RepayDubheRepayWithholdRequest): RepayDubheRepayWithholdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return repayDubheRepayWithholdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢信贷业务系统主动还款（直接代扣）接口
+ * Summary: 天枢信贷业务系统主动还款（直接代扣）接口
+ */
+async function repayDubheRepayWithholdEx(request: RepayDubheRepayWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RepayDubheRepayWithholdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubhe.repay.withhold.repay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubheSearchContractRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 原用信订单号
+  originalOrderNo: string(name='original_order_no'),
+}
+
+model QueryDubheSearchContractResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 关联编号（授信/用信）
+  relationNo?: string(name='relation_no'),
+  // 合同编号
+  contractNo?: string(name='contract_no'),
+  // 合同名称
+  contractName?: string(name='contract_name'),
+  // 合同类型
+  contractType?: string(name='contract_type'),
+  // 客户编号
+  customNo?: string(name='custom_no'),
+  // 下载地址
+  savePath?: string(name='save_path'),
+  // 合同金额
+  contractAmount?: long(name='contract_amount'),
+}
+
+/**
+ * Description: 天枢系统合同获取
+ * Summary: 天枢系统合同获取
+ */
+async function queryDubheSearchContract(request: QueryDubheSearchContractRequest): QueryDubheSearchContractResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubheSearchContractEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统合同获取
+ * Summary: 天枢系统合同获取
+ */
+async function queryDubheSearchContractEx(request: QueryDubheSearchContractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubheSearchContractResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubhe.search.contract.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubheReceiptOverdueRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合同编号
+  contractNo: string(name='contract_no'),
+  // 渠道号
+  channelCode: string(name='channel_code'),
+}
+
+model QueryDubheReceiptOverdueResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 逾期信息响应
+  data?: OverdueInfoResponse(name='data'),
+}
+
+/**
+ * Description: 天枢逾期信息查询接口
+ * Summary: 逾期信息查询
+ */
+async function queryDubheReceiptOverdue(request: QueryDubheReceiptOverdueRequest): QueryDubheReceiptOverdueResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubheReceiptOverdueEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢逾期信息查询接口
+ * Summary: 逾期信息查询
+ */
+async function queryDubheReceiptOverdueEx(request: QueryDubheReceiptOverdueRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubheReceiptOverdueResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubhe.receipt.overdue.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendDubbridgeSmsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 接收短信的手机号码。支持对多个手机号码发送短信，手机号码之间以英文逗号（,）分隔。上限为1000个手机号码。批量调用相对于单条调用及时性稍有延迟。
+  phoneNumbers: string(name='phone_numbers'),
+  // 短信签名
+  signName: string(name='sign_name'),
+  // 短信模板CODE
+  templateCode: string(name='template_code'),
+  // 短信模板变量对应的值，JSON格式
+  templateParam?: string(name='template_param'),
+  // 上行短信扩展码
+  smsUpExtendCode?: string(name='sms_up_extend_code'),
+  // 外部流水扩展
+  outId: string(name='out_id'),
+}
+
+model SendDubbridgeSmsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 云通信发送结果
+  response?: SmsReponse(name='response'),
+}
+
+/**
+ * Description: 天枢发送短信接口，适用于一个模板相同参数
+ * Summary: 天枢发送短信接口
+ */
+async function sendDubbridgeSms(request: SendDubbridgeSmsRequest): SendDubbridgeSmsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendDubbridgeSmsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢发送短信接口，适用于一个模板相同参数
+ * Summary: 天枢发送短信接口
+ */
+async function sendDubbridgeSmsEx(request: SendDubbridgeSmsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendDubbridgeSmsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.sms.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendDubbridgeSmsBatchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 短信模板code
+  templateCode: string(name='template_code'),
+  // 接收短信的手机号码，JSON数组格式
+  phoneNumberJson: string(name='phone_number_json'),
+  // 短信签名名称，JSON数组格式
+  signNameJson: string(name='sign_name_json'),
+  // 短信模板变量对应的实际值，JSON数组格式
+  templateParamJson: string(name='template_param_json'),
+  // 上行短信扩展码，JSON数组格式。无特殊需要此字段的用户请忽略此字段
+  smsUpExtendCodeJson: string(name='sms_up_extend_code_json'),
+}
+
+model SendDubbridgeSmsBatchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 云通信短信发送结果
+  response?: SmsReponse(name='response'),
+}
+
+/**
+ * Description: 天枢批量发送短信接口，适合一个短信模板多个不同参数场景
+ * Summary: 天枢批量发送短信接口
+ */
+async function sendDubbridgeSmsBatch(request: SendDubbridgeSmsBatchRequest): SendDubbridgeSmsBatchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendDubbridgeSmsBatchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢批量发送短信接口，适合一个短信模板多个不同参数场景
+ * Summary: 天枢批量发送短信接口
+ */
+async function sendDubbridgeSmsBatchEx(request: SendDubbridgeSmsBatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendDubbridgeSmsBatchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.sms.batch.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeRouterFundrouterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 身份证号
+  cardNo: string(name='card_no'),
+  // 手机号
+  mobile: string(name='mobile'),
+  // 姓名
+  customName: string(name='custom_name'),
+  // 合作方产品编号
+  prodNo: string(name='prod_no'),
+  // 渠道类型
+  channelType?: string(name='channel_type'),
+  // 客户类型
+  customType?: string(name='custom_type'),
+  // 导流平台
+  trafficPlatform?: string(name='traffic_platform'),
+  // 流量名称
+  trafficSourceName?: string(name='traffic_source_name'),
+  // 广告位标志
+  trafficAdId?: string(name='traffic_ad_id'),
+  // 预留
+  trafficMktId?: string(name='traffic_mkt_id'),
+  // 预留
+  clickId?: string(name='click_id'),
+}
+
+model QueryDubbridgeRouterFundrouterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 资金方代码
+  fundCode?: string(name='fund_code'),
+}
+
+/**
+ * Description: 资金路由接口，获取资金方编号
+ * Summary: 天枢系统资金方代码(资金路由)查询
+ */
+async function queryDubbridgeRouterFundrouter(request: QueryDubbridgeRouterFundrouterRequest): QueryDubbridgeRouterFundrouterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeRouterFundrouterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 资金路由接口，获取资金方编号
+ * Summary: 天枢系统资金方代码(资金路由)查询
+ */
+async function queryDubbridgeRouterFundrouterEx(request: QueryDubbridgeRouterFundrouterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeRouterFundrouterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.router.fundrouter.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyDubbridgeCreditRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础信息
+  personalInfo: PersonalInfo(name='personal_info'),
+  // 资产方用户唯一标识
+  openId: string(name='open_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 居住信息
+  borrowerLiveInfo?: LiveInfo(name='borrower_live_info'),
+  // 工作信息
+  borrowerEmpInfo?: JobInfo(name='borrower_emp_info'),
+  // 产品编号
+  prodNo: string(name='prod_no'),
+  // 风险数据对象
+  riskData?: RiskData(name='risk_data'),
+  // 借款用途
+  loanReason?: string(name='loan_reason'),
+  // 资料文件
+  materials?: [ Material ](name='materials'),
+  // 导流平台
+  trafficPlatform?: string(name='traffic_platform'),
+  // 流量名称
+  trafficSourceName?: string(name='traffic_source_name'),
+  // 广告位标志
+  trafficAdId?: string(name='traffic_ad_id'),
+  // 预留
+  trafficMktId?: string(name='traffic_mkt_id'),
+  // 预留
+  clickId?: string(name='click_id'),
+  // 渠道类型
+  channelType?: string(name='channel_type'),
+  // 客户类型
+  customType?: string(name='custom_type'),
+}
+
+model ApplyDubbridgeCreditResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 客户编号
+  customNo?: string(name='custom_no'),
+}
+
+/**
+ * Description: 天枢系统授信申请接口
+ * Summary: 天枢系统授信申请接口
+ */
+async function applyDubbridgeCredit(request: ApplyDubbridgeCreditRequest): ApplyDubbridgeCreditResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyDubbridgeCreditEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统授信申请接口
+ * Summary: 天枢系统授信申请接口
+ */
+async function applyDubbridgeCreditEx(request: ApplyDubbridgeCreditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyDubbridgeCreditResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.credit.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadDubbridgeFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  orderNo: string(maxLength=32, name='order_no'),
+  // 渠道号
+  channelCode: string(name='channel_code'),
+  // 文件名
+  fileName: string(name='file_name'),
+  // 文件id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadDubbridgeFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文件信息
+  fileInfo?: DubheFileInfo(name='file_info'),
+}
+
+/**
+ * Description: 为流量方提供文件上传接口，用于申请件影像资料上传
+ * Summary: 天枢文件上传
+ */
+async function uploadDubbridgeFile(request: UploadDubbridgeFileRequest): UploadDubbridgeFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadDubbridgeFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 为流量方提供文件上传接口，用于申请件影像资料上传
+ * Summary: 天枢文件上传
+ */
+async function uploadDubbridgeFileEx(request: UploadDubbridgeFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadDubbridgeFileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'riskplus.dubbridge.file.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadDubbridgeFileResponse = new UploadDubbridgeFileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadDubbridgeFileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindDubbridgeCustomerBankcardRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 客户编号
+  customNo: string(name='custom_no'),
+  // 银行卡号
+  bankCardNo: string(name='bank_card_no'),
+  // 渠道描述，具体请见分配
+  channelCode: string(name='channel_code'),
+}
+
+model BindDubbridgeCustomerBankcardResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 绑卡流水
+  bindSerialNo?: string(name='bind_serial_no'),
+}
+
+/**
+ * Description: 代扣签约绑卡接口
+ * Summary: 代扣协议签约申请(银行卡绑卡)
+ */
+async function bindDubbridgeCustomerBankcard(request: BindDubbridgeCustomerBankcardRequest): BindDubbridgeCustomerBankcardResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindDubbridgeCustomerBankcardEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣签约绑卡接口
+ * Summary: 代扣协议签约申请(银行卡绑卡)
+ */
+async function bindDubbridgeCustomerBankcardEx(request: BindDubbridgeCustomerBankcardRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDubbridgeCustomerBankcardResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.customer.bankcard.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyDubbridgeCustomerBankcardRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model VerifyDubbridgeCustomerBankcardResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 代扣协议签约提交(银行卡绑卡)
+ * Summary: 代扣协议签约校验(银行卡绑卡)
+ */
+async function verifyDubbridgeCustomerBankcard(request: VerifyDubbridgeCustomerBankcardRequest): VerifyDubbridgeCustomerBankcardResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyDubbridgeCustomerBankcardEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣协议签约提交(银行卡绑卡)
+ * Summary: 代扣协议签约校验(银行卡绑卡)
+ */
+async function verifyDubbridgeCustomerBankcardEx(request: VerifyDubbridgeCustomerBankcardRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyDubbridgeCustomerBankcardResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.customer.bankcard.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyDubbridgeDefininnerchannelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 调用流水
+  seqNo: string(name='seq_no'),
+  // 机构平台接口名
+  apiName: string(name='api_name'),
+  // 机构编号
+  instMemberCode: string(name='inst_member_code'),
+  // 业务参数Json
+  bizParam: string(name='biz_param'),
+}
+
+model NotifyDubbridgeDefininnerchannelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 处理结果
+  data?: DefinInnerChannelNotifyResult(name='data'),
+}
+
+/**
+ * Description: 用于机构通道通用回调
+ * Summary: 机构通道回调通用接口
+ */
+async function notifyDubbridgeDefininnerchannel(request: NotifyDubbridgeDefininnerchannelRequest): NotifyDubbridgeDefininnerchannelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyDubbridgeDefininnerchannelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于机构通道通用回调
+ * Summary: 机构通道回调通用接口
+ */
+async function notifyDubbridgeDefininnerchannelEx(request: NotifyDubbridgeDefininnerchannelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyDubbridgeDefininnerchannelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.defininnerchannel.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyFinserviceZhimaIdentifyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 需要校验的人姓名
+  legalPersonCertName: string(name='legal_person_cert_name'),
+  // 需要校验的人身份证号
+  legalPersonCertNo: string(name='legal_person_cert_no'),
+  // 认证结束后的商户回调地址。
+  merchantUrl: string(name='merchant_url'),
+}
+
+model VerifyFinserviceZhimaIdentifyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 本次认证的唯一标识，商户需要记录，后续的操作都需要用到。
+  data?: ZhimaIdentifyResp(name='data'),
+}
+
+/**
+ * Description: 四要素认证首先调用此接口
+ * Summary: 芝麻四要素接口
+ */
+async function verifyFinserviceZhimaIdentify(request: VerifyFinserviceZhimaIdentifyRequest): VerifyFinserviceZhimaIdentifyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyFinserviceZhimaIdentifyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 四要素认证首先调用此接口
+ * Summary: 芝麻四要素接口
+ */
+async function verifyFinserviceZhimaIdentifyEx(request: VerifyFinserviceZhimaIdentifyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyFinserviceZhimaIdentifyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.finservice.zhima.identify.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryFinserviceZhimaIdentifyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 初始化时候返回的唯一标识
+  bizNo: string(name='biz_no'),
+}
+
+model QueryFinserviceZhimaIdentifyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  //  
+  data?: ZhimaQueryResp(name='data'),
+}
+
+/**
+ * Description:  
+ * Summary: 芝麻四要素认证结果查询
+ */
+async function queryFinserviceZhimaIdentify(request: QueryFinserviceZhimaIdentifyRequest): QueryFinserviceZhimaIdentifyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryFinserviceZhimaIdentifyEx(request, headers, runtime);
+}
+
+/**
+ * Description:  
+ * Summary: 芝麻四要素认证结果查询
+ */
+async function queryFinserviceZhimaIdentifyEx(request: QueryFinserviceZhimaIdentifyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFinserviceZhimaIdentifyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.finservice.zhima.identify.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMdipDataserviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 服务编码
+  serviceCode: string(name='service_code'),
+  // 服务参数
+  serviceParam: string(name='service_param'),
+}
+
+model QueryMdipDataserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 多源查询结果值
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 多源融合平台的数据服务查询接口
+ * Summary: 多源融合平台的数据服务查询接口
+ */
+async function queryMdipDataservice(request: QueryMdipDataserviceRequest): QueryMdipDataserviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMdipDataserviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 多源融合平台的数据服务查询接口
+ * Summary: 多源融合平台的数据服务查询接口
+ */
+async function queryMdipDataserviceEx(request: QueryMdipDataserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMdipDataserviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.mdip.dataservice.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRbbGenericInvokeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // {"platformId":1234,"method":"riskQuery"}
+  content: string(name='content'),
+  // 账号的所有权限点，逗号分隔
+  permission: string(name='permission'),
+  // 标题备用
+  title: string(name='title'),
+}
+
+model QueryRbbGenericInvokeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据内容
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 风险大脑企业版通用查询接口
+ * Summary: 【已废弃】
+ */
+async function queryRbbGenericInvoke(request: QueryRbbGenericInvokeRequest): QueryRbbGenericInvokeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRbbGenericInvokeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 风险大脑企业版通用查询接口
+ * Summary: 【已废弃】
+ */
+async function queryRbbGenericInvokeEx(request: QueryRbbGenericInvokeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRbbGenericInvokeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rbb.generic.invoke.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateRbbTokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 扩展字段
+  content: string(name='content'),
+  // 新人用户密码，用来做映射生成token
+  password: string(name='password'),
+  // 用户
+  username: string(name='username'),
+}
+
+model CreateRbbTokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 风险大脑企业版token生成
+ * Summary: 【已废弃】
+ */
+async function createRbbToken(request: CreateRbbTokenRequest): CreateRbbTokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createRbbTokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 风险大脑企业版token生成
+ * Summary: 【已废弃】
+ */
+async function createRbbTokenEx(request: CreateRbbTokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateRbbTokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rbb.token.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateRbbApiGwtokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 扩展字段
+  extension?: string(name='extension'),
+  // 新人用户密码，用来做映射生成token
+  password: string(name='password'),
+  // 用户
+  username: string(name='username'),
+}
+
+model CreateRbbApiGwtokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回登录token
+  logintoken?: string(name='logintoken'),
+}
+
+/**
+ * Description: 获取风险大脑企业版登录token
+ * Summary: 【已废弃】
+ */
+async function createRbbApiGwtoken(request: CreateRbbApiGwtokenRequest): CreateRbbApiGwtokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createRbbApiGwtokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取风险大脑企业版登录token
+ * Summary: 【已废弃】
+ */
+async function createRbbApiGwtokenEx(request: CreateRbbApiGwtokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateRbbApiGwtokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rbb.api.gwtoken.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRbbGeneralRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 额外参数json
+  extension?: string(name='extension'),
+  // 通用查询名称
+  queryname: string(maxLength=200, minLength=2, name='queryname'),
+  // 查询参数JSON字符串
+  queryparas?: string(name='queryparas'),
+}
+
+model QueryRbbGeneralResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // json字符串表示的通用查询结果
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 风险大脑企业版通用查询OpenAPI
+ * Summary: 风险大脑企业版通用查询OpenAPI
+ */
+async function queryRbbGeneral(request: QueryRbbGeneralRequest): QueryRbbGeneralResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRbbGeneralEx(request, headers, runtime);
+}
+
+/**
+ * Description: 风险大脑企业版通用查询OpenAPI
+ * Summary: 风险大脑企业版通用查询OpenAPI
+ */
+async function queryRbbGeneralEx(request: QueryRbbGeneralRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRbbGeneralResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rbb.general.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetRbbLoginTokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户名
+  username: string(name='username'),
+  // 密码
+  password: string(name='password'),
+  // 扩展json字符串
+  extension?: string(name='extension'),
+}
+
+model GetRbbLoginTokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 登录token，5分钟有效
+  logintoken?: string(name='logintoken'),
+}
+
+/**
+ * Description: 获取登录Token
+ * Summary: 获取登录Token
+ */
+async function getRbbLoginToken(request: GetRbbLoginTokenRequest): GetRbbLoginTokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getRbbLoginTokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取登录Token
+ * Summary: 获取登录Token
+ */
+async function getRbbLoginTokenEx(request: GetRbbLoginTokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetRbbLoginTokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rbb.login.token.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateRbbTenantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户过期时间，不填表示永不过期
+  effectiveEndDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='effective_end_date'),
+  // 租户编码，必须全局唯一
+  tenantCode: string(maxLength=64, minLength=2, name='tenant_code'),
+  // 租户名称
+  tenantName: string(maxLength=64, minLength=2, name='tenant_name'),
+  // 租户自定义属性，JSON格式，可以为空
+  tenantPropertyJson?: string(name='tenant_property_json'),
+}
+
+model CreateRbbTenantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 风险大脑企业版创建租户
+ * Summary: 风险大脑企业版创建租户
+ */
+async function createRbbTenant(request: CreateRbbTenantRequest): CreateRbbTenantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createRbbTenantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 风险大脑企业版创建租户
+ * Summary: 风险大脑企业版创建租户
+ */
+async function createRbbTenantEx(request: CreateRbbTenantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateRbbTenantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rbb.tenant.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateRbbUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户邮箱，非必填
+  email?: string(maxLength=128, minLength=3, name='email'),
+  // 用户姓名、真实名称，不要求全局唯一
+  fullName: string(maxLength=64, minLength=1, name='full_name'),
+  // 用户密码
+  password: string(maxLength=200, minLength=8, name='password'),
+  // 用户电话号码，非必填
+  phone?: string(maxLength=64, minLength=4, name='phone'),
+  // 用户所属租户编码
+  tenantCode?: string(maxLength=64, minLength=2, name='tenant_code'),
+  // 用户名，必须全局唯一
+  userName: string(name='user_name'),
+  // 用户属性扩展字段，json格式，可以为空
+  userPropertyJson?: string(name='user_property_json'),
+}
+
+model CreateRbbUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 风险大脑企业版创建用户
+ * Summary: 风险大脑企业版创建用户
+ */
+async function createRbbUser(request: CreateRbbUserRequest): CreateRbbUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createRbbUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 风险大脑企业版创建用户
+ * Summary: 风险大脑企业版创建用户
+ */
+async function createRbbUserEx(request: CreateRbbUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateRbbUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rbb.user.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRpgwSignUrlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业标识，固定值
+  companyCode: string(name='company_code'),
+  // 调用方平台用户id
+  platformUserIdentification: string(name='platform_user_identification'),
+  // 手机号
+  userCode: string(name='user_code'),
+}
+
+model QueryRpgwSignUrlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 签约地址
+  resultData?: string(name='result_data'),
+}
+
+/**
+ * Description: 获取签约接口
+ * Summary: 获取签约接口
+ */
+async function queryRpgwSignUrl(request: QueryRpgwSignUrlRequest): QueryRpgwSignUrlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRpgwSignUrlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取签约接口
+ * Summary: 获取签约接口
+ */
+async function queryRpgwSignUrlEx(request: QueryRpgwSignUrlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRpgwSignUrlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rpgw.sign.url.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterRpgwUserEinvoiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业标识，固定值
+  companyCode: string(name='company_code'),
+  // 调用方平台用户id
+  platformUserIdentification: string(name='platform_user_identification'),
+  // 身份证号码
+  identificationNumber: string(name='identification_number'),
+  // 用户手机号
+  mobilePhone: string(name='mobile_phone'),
+  // 用户姓名
+  userName: string(name='user_name'),
+  // 身份证照片人像面照片url
+  identityFrontPic: string(name='identity_front_pic'),
+  // 身份证照片国徽面url
+  identityBackPic: string(name='identity_back_pic'),
+  // 身份证有效期开始时间，格式yyyy-MM-dd
+  idcardValidityStart: string(name='idcard_validity_start'),
+  // 身份证有效期结束时间，格式yyyy-MM-dd
+  idcardValidityEnd: string(name='idcard_validity_end'),
+  // 实名认证时间，格式yyyy-MM-dd HH:mm:ss
+  identityTime: string(name='identity_time'),
+  // 注册模式，固定值
+  registerMode: string(name='register_mode'),
+  // 注册时间，格式yyyy-MM-dd HH:mm:ss
+  registerTime: string(name='register_time'),
+  // 用户人脸照片url
+  facePic?: string(name='face_pic'),
+  // 支付宝账号，实名认证的支付宝登录邮箱或手机登录，其账户姓名好和实人认证姓名一致
+  alipayAccount?: string(name='alipay_account'),
+  // 微信支付个人账户（openid）
+  wxpayAccount?: string(name='wxpay_account'),
+  // 银行卡号，标准一类或二类卡格式，持卡人为本用户
+  bankcardNo?: string(name='bankcard_no'),
+  // 开户行名称
+  bankName?: string(name='bank_name'),
+  // 开户行归属地省市
+  bankcardCity?: string(name='bankcard_city'),
+  // 用户所在省市
+  city?: string(name='city'),
+  // 拓展信息
+  extJson?: string(name='ext_json'),
+}
+
+model RegisterRpgwUserEinvoiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户在我方的id
+  resultData?: string(name='result_data'),
+}
+
+/**
+ * Description: 创建报税用户接口
+ * Summary: 创建报税用户接口
+ */
+async function registerRpgwUserEinvoice(request: RegisterRpgwUserEinvoiceRequest): RegisterRpgwUserEinvoiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerRpgwUserEinvoiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建报税用户接口
+ * Summary: 创建报税用户接口
+ */
+async function registerRpgwUserEinvoiceEx(request: RegisterRpgwUserEinvoiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterRpgwUserEinvoiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rpgw.user.einvoice.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRpgwUserSignurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业标识，固定值
+  companyCode: string(name='company_code'),
+  // 调用方平台用户id
+  platformUserIdentification: string(name='platform_user_identification'),
+  // 手机号
+  userCode: string(name='user_code'),
+}
+
+model QueryRpgwUserSignurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 签约地址
+  resultData?: string(name='result_data'),
+}
+
+/**
+ * Description: 查询签约接口
+ * Summary: 获取签约接口
+ */
+async function queryRpgwUserSignurl(request: QueryRpgwUserSignurlRequest): QueryRpgwUserSignurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRpgwUserSignurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询签约接口
+ * Summary: 获取签约接口
+ */
+async function queryRpgwUserSignurlEx(request: QueryRpgwUserSignurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRpgwUserSignurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rpgw.user.signurl.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model WithdrawRpgwUserCommissionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 提现业务单号
+  orderNumber: string(name='order_number'),
+  // 任务单号
+  userOrderNumbers: string(name='user_order_numbers'),
+  // 提现人id
+  withdrawerId: string(name='withdrawer_id'),
+  // 提现人支付宝id
+  withdrawerAlipayId: string(name='withdrawer_alipay_id'),
+  // 提现人姓名
+  withdrawerName: string(name='withdrawer_name'),
+  // 提现人手机
+  withdrawerPhoneNumber?: string(name='withdrawer_phone_number'),
+  // 提现人身份证
+  withdrawerIdNumber: string(name='withdrawer_id_number'),
+  // 提现金额
+  withdrawAmount: string(name='withdraw_amount'),
+  // 提现附言
+  orderTitle: string(name='order_title'),
+  // 业务备注
+  remark: string(name='remark'),
+}
+
+model WithdrawRpgwUserCommissionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 提现结果
+  resultData?: string(name='result_data'),
+}
+
+/**
+ * Description: 提现
+ * Summary: 提现
+ */
+async function withdrawRpgwUserCommission(request: WithdrawRpgwUserCommissionRequest): WithdrawRpgwUserCommissionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return withdrawRpgwUserCommissionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提现
+ * Summary: 提现
+ */
+async function withdrawRpgwUserCommissionEx(request: WithdrawRpgwUserCommissionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): WithdrawRpgwUserCommissionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rpgw.user.commission.withdraw', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncRpgwUserOrderinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  orderNumber: string(name='order_number'),
+  // REGISTER与PURCHASE二选一
+  orderType: string(name='order_type'),
+  // 时间，格式为yyyy-MM-dd HH:mm:ss
+  orderTime: string(name='order_time'),
+  // 邀请人id
+  inviterId: string(name='inviter_id'),
+  // 邀请人姓名
+  inviterName: string(name='inviter_name'),
+  // 邀请人手机号
+  inviterPhoneNumber: string(name='inviter_phone_number'),
+  // 邀请人身份证号
+  inviterIdNumber: string(name='inviter_id_number'),
+  // 邀请码
+  invitationCode?: string(name='invitation_code'),
+  // 被邀请人id
+  inviteeId: string(name='invitee_id'),
+  // 被邀请人姓名
+  inviteeName?: string(name='invitee_name'),
+  // 被邀请人手机号
+  inviteePhoneNumber: string(name='invitee_phone_number'),
+  // 被邀请人身份证
+  inviteeIdNumber?: string(name='invitee_id_number'),
+}
+
+model SyncRpgwUserOrderinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 同步结果
+  resultData?: string(name='result_data'),
+}
+
+/**
+ * Description: 信息同步
+ * Summary: 信息同步
+ */
+async function syncRpgwUserOrderinfo(request: SyncRpgwUserOrderinfoRequest): SyncRpgwUserOrderinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncRpgwUserOrderinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 信息同步
+ * Summary: 信息同步
+ */
+async function syncRpgwUserOrderinfoEx(request: SyncRpgwUserOrderinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncRpgwUserOrderinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rpgw.user.orderinfo.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRtopCompanyOpinionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 结束时间
+  endTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time'),
+  // 页码
+  pageNum: long(name='page_num'),
+  // 一页的数量
+  pageSize: long(name='page_size'),
+  // 所在地的名称
+  placeName: string(name='place_name'),
+  // 地区类型
+  placeType: string(name='place_type'),
+  // 开始时间
+  startTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time'),
+}
+
+model QueryRtopCompanyOpinionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  companyOpinionCount: [ RtopCompanyOpinionCount ](name='company_opinion_count'),
+  // 页码
+  pageNum: long(name='page_num'),
+  // 一页的数量
+  pageSize: long(name='page_size'),
+  // 总的记录数
+  totalCount: long(name='total_count'),
+}
+
+/**
+ * Description: 查询所在地的负面舆情企业列表
+ * Summary: 查询所在地的负面舆情企业列表
+ */
+async function queryRtopCompanyOpinion(request: QueryRtopCompanyOpinionRequest): QueryRtopCompanyOpinionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRtopCompanyOpinionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询所在地的负面舆情企业列表
+ * Summary: 查询所在地的负面舆情企业列表
+ */
+async function queryRtopCompanyOpinionEx(request: QueryRtopCompanyOpinionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRtopCompanyOpinionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.company.opinion.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListRtopCompanyOpinionsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 地区类型
+  companyName: string(name='company_name'),
+  // 页码
+  pageNum: long(name='page_num'),
+  // 一页的数量
+  pageSize: long(name='page_size'),
+}
+
+model ListRtopCompanyOpinionsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  companyOpinionDetails: [ RtopCompanyOpinionDetail ](name='company_opinion_details'),
+  // 页码
+  pageNum: long(name='page_num'),
+  // 一页的数量
+  pageSize: long(name='page_size'),
+  // 总的记录数
+  totalCount: long(name='total_count'),
+}
+
+/**
+ * Description: 查询企业的舆情详情信息
+ * Summary: 查询企业的舆情详情信息
+ */
+async function listRtopCompanyOpinions(request: ListRtopCompanyOpinionsRequest): ListRtopCompanyOpinionsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listRtopCompanyOpinionsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询企业的舆情详情信息
+ * Summary: 查询企业的舆情详情信息
+ */
+async function listRtopCompanyOpinionsEx(request: ListRtopCompanyOpinionsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListRtopCompanyOpinionsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.company.opinions.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetRtopCompanyMonitorRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 地区类型
+  companyName: string(name='company_name'),
+}
+
+model GetRtopCompanyMonitorResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 活跃市，不带国家和地区的代码
+  activeCity: string(name='active_city'),
+  // 监测企业的行业
+  companyCategory?: string(name='company_category'),
+  // 涉众风险类型
+  crowdRiskType: string(name='crowd_risk_type'),
+  features: [ RtopMonitorCompanyFeature ](name='features'),
+  // 影响金额
+  moneyInvolved: long(name='money_involved'),
+  monitorRiskTags: [ string ](name='monitor_risk_tags'),
+  // 监测企业的评分
+  monitorScore: long(name='monitor_score'),
+  // 影响人数
+  peopleInvolved: long(name='people_involved'),
+  // 注册市，不带国家和地区的代码
+  registeredCity: string(name='registered_city'),
+}
+
+/**
+ * Description: 查询监测企业的详情
+ * Summary: 查询监测企业的详情
+ */
+async function getRtopCompanyMonitor(request: GetRtopCompanyMonitorRequest): GetRtopCompanyMonitorResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getRtopCompanyMonitorEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询监测企业的详情
+ * Summary: 查询监测企业的详情
+ */
+async function getRtopCompanyMonitorEx(request: GetRtopCompanyMonitorRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetRtopCompanyMonitorResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.company.monitor.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRtopCrowdriskStatisticRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 结束时间
+  endTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time'),
+  // 所在地的名称
+  placeName?: string(name='place_name'),
+  // 地区类型
+  placeType?: string(name='place_type'),
+  // 开始时间
+  startTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time'),
+}
+
+model QueryRtopCrowdriskStatisticResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  levelDistribution?: [ RtopLevelDistribution ](name='level_distribution'),
+  // 按地区统计
+  regionDistribution?: [ RtopRegionalDistribution ](name='region_distribution'),
+  typeDistribution?: [ RtopTypeDistribution ](name='type_distribution'),
+}
+
+/**
+ * Description: 查询所在地的涉众风险企业统计信息
+ * Summary: 查询所在地的涉众风险企业统计信息
+ */
+async function queryRtopCrowdriskStatistic(request: QueryRtopCrowdriskStatisticRequest): QueryRtopCrowdriskStatisticResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRtopCrowdriskStatisticEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询所在地的涉众风险企业统计信息
+ * Summary: 查询所在地的涉众风险企业统计信息
+ */
+async function queryRtopCrowdriskStatisticEx(request: QueryRtopCrowdriskStatisticRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRtopCrowdriskStatisticResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.crowdrisk.statistic.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListRtopCrowdriskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 活跃地筛选
+  activePlaces?: [ string ](name='active_places'),
+  // 风险等级
+  crowdRiskLevels?: [ string ](name='crowd_risk_levels'),
+  // 风险类型
+  crowdRiskTypes?: [ string ](name='crowd_risk_types'),
+  // 结束时间
+  endTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 每页条数
+  pageSize?: long(name='page_size'),
+  // 所在地的名称
+  placeName?: string(name='place_name'),
+  // 地区类型
+  placeType?: string(name='place_type'),
+  // 注册地筛选
+  regPlaces?: [ string ](name='reg_places'),
+  // 排序字段
+  sortBy?: string(name='sort_by'),
+  // 排序方式
+  sortType?: string(name='sort_type'),
+  // 开始时间
+  startTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time'),
+}
+
+model ListRtopCrowdriskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 企业列表
+  companys?: [ RtopCrowdRiskSummaryResp ](name='companys'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 每页条数
+  pageSize?: long(name='page_size'),
+  // 总数
+  totalCount?: long(name='total_count'),
+}
+
+/**
+ * Description: 查询涉众风险企业的列表
+ * Summary: 查询涉众风险企业的列表
+ */
+async function listRtopCrowdrisk(request: ListRtopCrowdriskRequest): ListRtopCrowdriskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listRtopCrowdriskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询涉众风险企业的列表
+ * Summary: 查询涉众风险企业的列表
+ */
+async function listRtopCrowdriskEx(request: ListRtopCrowdriskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListRtopCrowdriskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.crowdrisk.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRtopCrowdriskDetailRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业ID
+  companyId?: string(name='company_id'),
+  // 所在地的名称
+  placeName?: string(name='place_name'),
+  // 地区类型
+  placeType?: string(name='place_type'),
+}
+
+model QueryRtopCrowdriskDetailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 活跃市
+  activeCity?: string(name='active_city'),
+  // 活跃县
+  activeCounty?: string(name='active_county'),
+  // 活跃省
+  activeProvince?: string(name='active_province'),
+  // 年龄分布
+  ageDistribution?: [ RtopAgeDistribution ](name='age_distribution'),
+  // 线索标签
+  clueTags?: [ string ](name='clue_tags'),
+  // 报文
+  conclusion?: string(name='conclusion'),
+  // 风险等级
+  crowdRiskLevel?: string(name='crowd_risk_level'),
+  // 涉众风险分析的分数
+  crowdRiskScore?: long(name='crowd_risk_score'),
+  // 风险类型
+  crowdRiskType?: string(name='crowd_risk_type'),
+  // 发现时间
+  detectedTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='detected_time'),
+  // 特征
+  features?: [ RtopCrowdRiskFeatureResp ](name='features'),
+  // 性别分布
+  genderDistribution?: [ RtopGenderDistribution ](name='gender_distribution'),
+  // 上次活跃时间
+  lastActiveTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='last_active_time'),
+  // 涉案金额
+  moneyInvolved?: long(name='money_involved'),
+  // 影响金额的历史曲线
+  moneyInvolvedHistory?: [ RtopDateDistribution ](name='money_involved_history'),
+  // 涉案人数
+  peopleInvolved?: long(name='people_involved'),
+  // 影响人数的历史曲线
+  peopleInvolvedHistory?: [ RtopDateDistribution ](name='people_involved_history'),
+  // 影响的人数分布，key为地区城市，value为影响的人数
+  populationDistribution?: [ RtopPopulationDistribution ](name='population_distribution'),
+  // 注册市
+  registeredCity?: string(name='registered_city'),
+  // 注册县
+  registeredCounty?: string(name='registered_county'),
+  // 注册省
+  registeredProvince?: string(name='registered_province'),
+}
+
+/**
+ * Description: 查询涉众风险企业的详细信息
+ * Summary: 查询涉众风险企业的详细信息
+ */
+async function queryRtopCrowdriskDetail(request: QueryRtopCrowdriskDetailRequest): QueryRtopCrowdriskDetailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRtopCrowdriskDetailEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询涉众风险企业的详细信息
+ * Summary: 查询涉众风险企业的详细信息
+ */
+async function queryRtopCrowdriskDetailEx(request: QueryRtopCrowdriskDetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRtopCrowdriskDetailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.crowdrisk.detail.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRtopRiskstormRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业ID
+  companyId?: string(name='company_id'),
+  // 数据类型
+  type?: string(name='type'),
+}
+
+model QueryRtopRiskstormResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 年报数据
+  annualReports?: [ RtopRiskStormCompanyAnnualReport ](name='annual_reports'),
+  // 风险标签数据
+  riskLabels?: [ RiskStormLabelResp ](name='risk_labels'),
+}
+
+/**
+ * Description: 查询风报的详细信息
+ * Summary: 查询风报的详细信息
+ */
+async function queryRtopRiskstorm(request: QueryRtopRiskstormRequest): QueryRtopRiskstormResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRtopRiskstormEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询风报的详细信息
+ * Summary: 查询风报的详细信息
+ */
+async function queryRtopRiskstormEx(request: QueryRtopRiskstormRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRtopRiskstormResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.riskstorm.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRtopCrowdriskSumRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 指定的企业ID列表，企业ID数量不超过100个。
+  companyIds: [ string ](name='company_ids'),
+  // 指定的地区名称，例如温州市、鹿城区等
+  placeName: string(name='place_name'),
+  // 地区类型，PROVINCE表示省，CITY表示市，COUNTY表示县
+  placeType: string(name='place_type'),
+}
+
+model QueryRtopCrowdriskSumResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询企业的影响金额之和
+  moneyInvolved?: long(name='money_involved'),
+  // 查询企业的影响人数之和
+  peopleInvolved?: long(name='people_involved'),
+}
+
+/**
+ * Description: 监管涉众风险指定的一批企业的影响人数之和、影响金额之和
+ * Summary: 监管涉众风险一批企业的影响人数影响金额
+ */
+async function queryRtopCrowdriskSum(request: QueryRtopCrowdriskSumRequest): QueryRtopCrowdriskSumResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRtopCrowdriskSumEx(request, headers, runtime);
+}
+
+/**
+ * Description: 监管涉众风险指定的一批企业的影响人数之和、影响金额之和
+ * Summary: 监管涉众风险一批企业的影响人数影响金额
+ */
+async function queryRtopCrowdriskSumEx(request: QueryRtopCrowdriskSumRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRtopCrowdriskSumResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.crowdrisk.sum.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetRtopCompanyDetailRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业ID
+  companyId: string(name='company_id'),
+}
+
+model GetRtopCompanyDetailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 风险分数
+  riskScore?: long(name='risk_score'),
+  // 风险维度特征
+  riskFeatures?: string(name='risk_features'),
+  // 风险标签列表
+  riskTags?: [ RtopRiskTag ](name='risk_tags'),
+}
+
+/**
+ * Description: 监管企业详情获取，包括风险分数、风险标签。
+ * Summary: 监管企业详情获取
+ */
+async function getRtopCompanyDetail(request: GetRtopCompanyDetailRequest): GetRtopCompanyDetailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getRtopCompanyDetailEx(request, headers, runtime);
+}
+
+/**
+ * Description: 监管企业详情获取，包括风险分数、风险标签。
+ * Summary: 监管企业详情获取
+ */
+async function getRtopCompanyDetailEx(request: GetRtopCompanyDetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetRtopCompanyDetailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.company.detail.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRtopCompanyRiskinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户access key
+  ak: string(name='ak'),
+  // 业务场景 ""
+  bizType?: string(name='biz_type'),
+  // 预留字段
+  memo?: string(name='memo'),
+  // 区域中文名称
+  placeName: string(name='place_name'),
+  // 区域类型
+  placeType: string(name='place_type'),
+  // 租户seceret key
+  sk: string(name='sk'),
+}
+
+model QueryRtopCompanyRiskinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 企业列表
+  data?: [ RtopCompanyRiskInfo ](name='data'),
+}
+
+/**
+ * Description: 企业风险查询接口
+ * Summary: 企业风险查询接口
+ */
+async function queryRtopCompanyRiskinfo(request: QueryRtopCompanyRiskinfoRequest): QueryRtopCompanyRiskinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRtopCompanyRiskinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业风险查询接口
+ * Summary: 企业风险查询接口
+ */
+async function queryRtopCompanyRiskinfoEx(request: QueryRtopCompanyRiskinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRtopCompanyRiskinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.company.riskinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecRtopGenericInvokeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // {"platformId":1234}
+  content: string(name='content'),
+  // 这个账号的所有权限点，逗号分隔
+  permission: string(name='permission'),
+  // title
+  title: string(name='title'),
+}
+
+model ExecRtopGenericInvokeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口数据
+  data?: string(name='data'),
+  // response_code
+  responseCode?: string(name='response_code'),
+  // 是否请求成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 公有云通用风险信息接口
+ * Summary: 公有云通用风险信息接口
+ */
+async function execRtopGenericInvoke(request: ExecRtopGenericInvokeRequest): ExecRtopGenericInvokeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execRtopGenericInvokeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 公有云通用风险信息接口
+ * Summary: 公有云通用风险信息接口
+ */
+async function execRtopGenericInvokeEx(request: ExecRtopGenericInvokeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecRtopGenericInvokeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.generic.invoke.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateRtopTokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model CreateRtopTokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: string(name='data'),
+  // 返回码
+  responseCode?: string(name='response_code'),
+  // 成功，失败
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 公有云生成token
+ * Summary: 公有云生成token
+ */
+async function createRtopToken(request: CreateRtopTokenRequest): CreateRtopTokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createRtopTokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 公有云生成token
+ * Summary: 公有云生成token
+ */
+async function createRtopTokenEx(request: CreateRtopTokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateRtopTokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.token.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRtopRisklabelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // pageNo
+  pageNo: long(name='page_no'),
+  // pageSize
+  pageSize: long(name='page_size'),
+  // scroll_id
+  scrollId?: string(name='scroll_id'),
+  // mct_one_id  -- search after使用
+  mctOneId?: string(name='mct_one_id'),
+  // 数据更新日期
+  updateDate: string(name='update_date'),
+  // tag_id  -- search after使用
+  tagId?: string(name='tag_id'),
+}
+
+model QueryRtopRisklabelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回码
+  responseCode?: string(name='response_code'),
+  // 标签信息
+  riskLabelInfos?: [ RiskLabelInfo ](name='risk_label_infos'),
+  // scroll_id
+  scrollId?: string(name='scroll_id'),
+  // 是否调用成功
+  success?: boolean(name='success'),
+  // total
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 标签全量信息获取
+ * Summary: 标签全量信息获取
+ */
+async function queryRtopRisklabel(request: QueryRtopRisklabelRequest): QueryRtopRisklabelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRtopRisklabelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 标签全量信息获取
+ * Summary: 标签全量信息获取
+ */
+async function queryRtopRisklabelEx(request: QueryRtopRisklabelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRtopRisklabelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.risklabel.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRtopCompanyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 公司ID集合
+  companyIds: [ string ](name='company_ids'),
+  // 数据同步到公有云时间(业务上赋值当天)
+  updateDate: string(name='update_date'),
+}
+
+model QueryRtopCompanyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 企业信息列表
+  companyInfos?: [ CompanyInfo ](name='company_infos'),
+  // 返回码
+  responseCode?: string(name='response_code'),
+  // 是否调用成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 企业全量信息获取
+ * Summary: 企业全量信息获取
+ */
+async function queryRtopCompany(request: QueryRtopCompanyRequest): QueryRtopCompanyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRtopCompanyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业全量信息获取
+ * Summary: 企业全量信息获取
+ */
+async function queryRtopCompanyEx(request: QueryRtopCompanyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRtopCompanyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.company.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRtopRisklabelFilterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // pageNo
+  pageNo: long(name='page_no'),
+  // page_size
+  pageSize: long(name='page_size'),
+  // 成都市
+  placeName: string(name='place_name'),
+  // CITY
+  placeType: string(name='place_type'),
+}
+
+model QueryRtopRisklabelFilterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回码
+  responseCode?: string(name='response_code'),
+  // 标签配置全量信息
+  riskLabelFilterConfigInfo?: [ RiskLabelFilterConfigInfo ](name='risk_label_filter_config_info'),
+  // 是否调用成功
+  success?: boolean(name='success'),
+  // 总数
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 标签配置全量信息获取
+rtop_company_tag_filter_config
+ * Summary: 标签配置全量信息获取
+ */
+async function queryRtopRisklabelFilter(request: QueryRtopRisklabelFilterRequest): QueryRtopRisklabelFilterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRtopRisklabelFilterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 标签配置全量信息获取
+rtop_company_tag_filter_config
+ * Summary: 标签配置全量信息获取
+ */
+async function queryRtopRisklabelFilterEx(request: QueryRtopRisklabelFilterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRtopRisklabelFilterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.risklabel.filter.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PullRegtechNewsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 表示本地数据库中舆情数据中的最大id
+  newsMaxId: string(name='news_max_id'),
+}
+
+model PullRegtechNewsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回的数据体
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 用于鹰眼项目舆情同步
+ * Summary: 鹰眼项目舆情同步
+ */
+async function pullRegtechNews(request: PullRegtechNewsRequest): PullRegtechNewsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pullRegtechNewsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于鹰眼项目舆情同步
+ * Summary: 鹰眼项目舆情同步
+ */
+async function pullRegtechNewsEx(request: PullRegtechNewsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PullRegtechNewsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.regtech.news.pull', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRtopCompanyFeedbackRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 当前是第几页
+  pageNo: long(name='page_no'),
+  // 每一页的记录条数
+  pageSize: long(name='page_size'),
+  // 用户属地
+  userPlace: string(name='user_place'),
+  // 用户所在地类型
+  userPlaceType: string(name='user_place_type'),
+}
+
+model QueryRtopCompanyFeedbackResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 企业反馈列表
+  companyFeedbacks?: [ RtopCompanyFeedback ](name='company_feedbacks'),
+  // 返回码
+  responseCode?: string(name='response_code'),
+  // 是否调用成功
+  success?: boolean(name='success'),
+  // 总条数
+  totalNum?: long(name='total_num'),
+}
+
+/**
+ * Description: 查看企业反馈
+ * Summary: 查看企业反馈
+ */
+async function queryRtopCompanyFeedback(request: QueryRtopCompanyFeedbackRequest): QueryRtopCompanyFeedbackResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRtopCompanyFeedbackEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查看企业反馈
+ * Summary: 查看企业反馈
+ */
+async function queryRtopCompanyFeedbackEx(request: QueryRtopCompanyFeedbackRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRtopCompanyFeedbackResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.company.feedback.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRtopCompanyAlarmRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据的时间
+  dataTime: string(name='data_time'),
+  // 当前是第几页
+  pageNo: long(name='page_no'),
+  // 每一页的记录条数
+  pageSize: long(name='page_size'),
+  // 用户属地
+  userPlace: string(name='user_place'),
+  // 用户所在地类型
+  userPlaceType: string(name='user_place_type'),
+}
+
+model QueryRtopCompanyAlarmResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 预警企业列表
+  companyAlarms?: [ RtopCompanyAlarm ](name='company_alarms'),
+  // 返回码
+  responseCode?: string(name='response_code'),
+  // 是否调用成功
+  success?: boolean(name='success'),
+  // 总条数
+  totalNum?: long(name='total_num'),
+}
+
+/**
+ * Description: 全局动态中的预警企业详细列表查询
+ * Summary: 全局动态中的预警企业详细列表查询
+ */
+async function queryRtopCompanyAlarm(request: QueryRtopCompanyAlarmRequest): QueryRtopCompanyAlarmResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRtopCompanyAlarmEx(request, headers, runtime);
+}
+
+/**
+ * Description: 全局动态中的预警企业详细列表查询
+ * Summary: 全局动态中的预警企业详细列表查询
+ */
+async function queryRtopCompanyAlarmEx(request: QueryRtopCompanyAlarmRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRtopCompanyAlarmResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.company.alarm.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRtopCompanyRiskyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据时间
+  dataTime: string(name='data_time'),
+  // 全局态势中的列表 类型
+  listType: string(name='list_type'),
+  // 当前是第几页
+  pageNo: long(name='page_no'),
+  // 每一页的记录条数
+  pageSize: long(name='page_size'),
+  // 全局动态类型
+  type: string(name='type'),
+  // 用户属地
+  userPlace: string(name='user_place'),
+  // 用户所在地类型
+  userPlaceType: string(name='user_place_type'),
+}
+
+model QueryRtopCompanyRiskyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回码
+  responseCode?: string(name='response_code'),
+  // 全局动态中的企业列表
+  riskyCompanies?: [ RtopRiskyCompany ](name='risky_companies'),
+  // 是否调用成功
+  success?: boolean(name='success'),
+  // 总条数
+  totalNum?: long(name='total_num'),
+}
+
+/**
+ * Description: 查询全局动态中的企业列表里的全部列表
+ * Summary: 查询全局动态中的企业列表里的全部列表
+ */
+async function queryRtopCompanyRisky(request: QueryRtopCompanyRiskyRequest): QueryRtopCompanyRiskyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRtopCompanyRiskyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询全局动态中的企业列表里的全部列表
+ * Summary: 查询全局动态中的企业列表里的全部列表
+ */
+async function queryRtopCompanyRiskyEx(request: QueryRtopCompanyRiskyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRtopCompanyRiskyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.company.risky.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRtopCompanyListRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 活跃地区
+  activeAreas?: [ string ](name='active_areas'),
+  // 企业类型
+  categories?: [ string ](name='categories'),
+  // 企业状态
+  companyStates?: [ string ](name='company_states'),
+  // 反馈
+  feedback?: [ string ](name='feedback'),
+  // 风险指数最大值
+  maxRiskScore?: long(name='max_risk_score'),
+  // 指数周波动最大值
+  maxRiskScoreWeeklyFloat?: string(name='max_risk_score_weekly_float'),
+  // 传播人次最大值
+  maxSpreadNumber?: long(name='max_spread_number'),
+  // 风险指数最小值
+  minRiskScore?: long(name='min_risk_score'),
+  // 指数周波动最小值
+  minRiskScoreWeeklyFloat?: string(name='min_risk_score_weekly_float'),
+  // 传播人次最小值
+  minSpreadNumber?: long(name='min_spread_number'),
+  // 正常营运状态
+  normalOperation?: boolean(name='normal_operation'),
+  // 经营地区
+  operateAreas?: [ string ](name='operate_areas'),
+  // 当前是第几页
+  pageNo: long(name='page_no'),
+  // 每一页的记录条数
+  pageSize: long(name='page_size'),
+  // 平台状态
+  platformStates?: [ string ](name='platform_states'),
+  // 注册地区
+  registerAreas?: [ string ](name='register_areas'),
+  // 高风险维度
+  riskyDimensions?: [ string ](name='risky_dimensions'),
+  // 风险标签
+  riskTags?: [ string ](name='risk_tags'),
+  // 风险定性
+  riskTypes?: [ string ](name='risk_types'),
+  // 排序字段
+  sortField?: string(name='sort_field'),
+  // 排序类型
+  sortType?: string(name='sort_type'),
+  // 用户属地
+  userPlace: string(name='user_place'),
+  // 用户所在地类型
+  userPlaceType: string(name='user_place_type'),
+}
+
+model QueryRtopCompanyListResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 企业id列表
+  companyIds?: [ string ](name='company_ids'),
+  // 返回码
+  responseCode?: string(name='response_code'),
+  // 是否调用成功
+  success?: boolean(name='success'),
+  // 总条数
+  totalNum?: long(name='total_num'),
+}
+
+/**
+ * Description: 查询企业列表
+ * Summary: 查询企业列表
+ */
+async function queryRtopCompanyList(request: QueryRtopCompanyListRequest): QueryRtopCompanyListResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRtopCompanyListEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询企业列表
+ * Summary: 查询企业列表
+ */
+async function queryRtopCompanyListEx(request: QueryRtopCompanyListRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRtopCompanyListResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.company.list.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRtopRisklabelConfigRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // page_no
+  pageNo: long(name='page_no'),
+  // page_size
+  pageSize: long(name='page_size'),
+}
+
+model QueryRtopRisklabelConfigResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回码	
+  // 
+  responseCode?: string(name='response_code'),
+  // 是否调用成功	
+  // 
+  success?: boolean(name='success'),
+  // 列表
+  tagConfig?: [ RiskLabelConfigInfo ](name='tag_config'),
+  // 总数
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 标签配置全量信息获取
+ * Summary: 标签配置全量信息获取
+ */
+async function queryRtopRisklabelConfig(request: QueryRtopRisklabelConfigRequest): QueryRtopRisklabelConfigResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRtopRisklabelConfigEx(request, headers, runtime);
+}
+
+/**
+ * Description: 标签配置全量信息获取
+ * Summary: 标签配置全量信息获取
+ */
+async function queryRtopRisklabelConfigEx(request: QueryRtopRisklabelConfigRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRtopRisklabelConfigResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.risklabel.config.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRtopCompanyRiskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业id
+  companyId: string(name='company_id'),
+}
+
+model QueryRtopCompanyRiskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 风险维度
+  riskFactors?: [ RtopCompanyRiskFactor ](name='risk_factors'),
+  // 风险等级
+  riskLevel?: string(name='risk_level'),
+  // 风险报文
+  riskMessage?: string(name='risk_message'),
+  // 风险分数
+  riskScore?: long(name='risk_score'),
+  // 风险标签
+  riskTags?: [ string ](name='risk_tags'),
+}
+
+/**
+ * Description: 企业风险标签信息查询
+ * Summary: 企业风险标签信息查询
+ */
+async function queryRtopCompanyRisk(request: QueryRtopCompanyRiskRequest): QueryRtopCompanyRiskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRtopCompanyRiskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业风险标签信息查询
+ * Summary: 企业风险标签信息查询
+ */
+async function queryRtopCompanyRiskEx(request: QueryRtopCompanyRiskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRtopCompanyRiskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.company.risk.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListRtopCompanyRelatedRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业id
+  companyId: string(name='company_id'),
+}
+
+model ListRtopCompanyRelatedResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // node
+  companies?: [ RtopRiskGeneNode ](name='companies'),
+  // 返回码
+  // 
+  responseCode?: string(name='response_code'),
+  // 是否调用成功
+  // 
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 查看重点关联企业
+ * Summary: 重点关联企业
+ */
+async function listRtopCompanyRelated(request: ListRtopCompanyRelatedRequest): ListRtopCompanyRelatedResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listRtopCompanyRelatedEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查看重点关联企业
+ * Summary: 重点关联企业
+ */
+async function listRtopCompanyRelatedEx(request: ListRtopCompanyRelatedRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListRtopCompanyRelatedResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.company.related.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRtopTagImageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业ID
+  companyId: string(name='company_id'),
+  // 标签ID
+  tagId: string(name='tag_id'),
+}
+
+model QueryRtopTagImageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 标签图片列表
+  riskImages?: [ RtopTagImage ](name='risk_images'),
+}
+
+/**
+ * Description: 风险标签图片查询
+ * Summary: 风险标签图片查询
+ */
+async function queryRtopTagImage(request: QueryRtopTagImageRequest): QueryRtopTagImageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRtopTagImageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 风险标签图片查询
+ * Summary: 风险标签图片查询
+ */
+async function queryRtopTagImageEx(request: QueryRtopTagImageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRtopTagImageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.tag.image.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListRtopStarCompanyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 页码
+  pageNo: long(name='page_no'),
+  // 一页条数
+  pageSize: long(name='page_size'),
+}
+
+model ListRtopStarCompanyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 企业列表
+  companyInfos?: [ RtopStarCompanyInfo ](name='company_infos'),
+  // 页码
+  pageNo?: long(name='page_no'),
+  // 一页条数
+  pageSize?: long(name='page_size'),
+  // 总的记录数
+  totalCount?: long(name='total_count'),
+}
+
+/**
+ * Description: 查询用户收藏企业列表
+ * Summary: 查询用户收藏企业列表
+ */
+async function listRtopStarCompany(request: ListRtopStarCompanyRequest): ListRtopStarCompanyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listRtopStarCompanyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询用户收藏企业列表
+ * Summary: 查询用户收藏企业列表
+ */
+async function listRtopStarCompanyEx(request: ListRtopStarCompanyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListRtopStarCompanyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rtop.star.company.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRpSecurityPolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 风险类型：表示风险处理或风险咨询——process/advice
+  riskType: string(name='risk_type'),
+  // security_scene
+  securityScene: SecurityScene(name='security_scene'),
+  // service_context
+  serviceContext: ServiceContext(name='service_context'),
+}
+
+model QueryRpSecurityPolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 模型结果详情
+  // 
+  modelDetails?: [ ModelDetails ](name='model_details'),
+  // 反馈成功之后的id
+  securityId?: string(name='security_id'),
+  // 安全处理结果，枚举值为：reject[拒绝],validate[校验],accept[放过]
+  securityResult?: string(name='security_result'),
+  // 策略结果详情
+  // 
+  strategyDetails?: [ StrategyDetails ](name='strategy_details'),
+  // 决策流信息
+  dfSceneInfos?: DfSceneInfos(name='df_scene_infos'),
+}
+
+/**
+ * Description: 策略咨询服务输出(saas)
+ * Summary: 策略咨询服务输出(saas)
+ */
+async function queryRpSecurityPolicy(request: QueryRpSecurityPolicyRequest): QueryRpSecurityPolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRpSecurityPolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 策略咨询服务输出(saas)
+ * Summary: 策略咨询服务输出(saas)
+ */
+async function queryRpSecurityPolicyEx(request: QueryRpSecurityPolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRpSecurityPolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rp.security.policy.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySnapshotEventRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 事件id
+  eventId?: string(name='event_id'),
+}
+
+model QuerySnapshotEventResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 风控快照查询
+ * Summary: 风控事件快照查询
+ */
+async function querySnapshotEvent(request: QuerySnapshotEventRequest): QuerySnapshotEventResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySnapshotEventEx(request, headers, runtime);
+}
+
+/**
+ * Description: 风控快照查询
+ * Summary: 风控事件快照查询
+ */
+async function querySnapshotEventEx(request: QuerySnapshotEventRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySnapshotEventResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.snapshot.event.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadUmktParamsFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // file_id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 场景策略id
+  sceneStrategyId: long(minimum=1, name='scene_strategy_id'),
+  // 预计执行时间，不设置则为立即执行
+  execTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='exec_time'),
+  // 支持不同的文件模版：
+  // MOBILE_MD5_WITH_MS_VARIABLE、MOBILE_MD5
+  // 后续支持
+  // DEVICE_MD5
+  fileTemplate: string(name='file_template'),
+}
+
+model UploadUmktParamsFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 营销盾批量参数文件上传接口
+ * Summary: 营销盾参数文件上传
+ */
+async function uploadUmktParamsFile(request: UploadUmktParamsFileRequest): UploadUmktParamsFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadUmktParamsFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 营销盾批量参数文件上传接口
+ * Summary: 营销盾参数文件上传
+ */
+async function uploadUmktParamsFileEx(request: UploadUmktParamsFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadUmktParamsFileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'riskplus.umkt.params.file.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadUmktParamsFileResponse = new UploadUmktParamsFileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadUmktParamsFileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.params.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
