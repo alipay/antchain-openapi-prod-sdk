@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.8',
+    sdk_version = '1.8.9',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -3183,6 +3183,48 @@ async function createRbbUserEx(request: CreateRbbUserRequest, headers: map[strin
   return doRequest('1.0' ,'riskplus.rbb.user.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model ExecRbbCompanyGuardRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业名称或统一社会信用代码
+  keyword: string(name='keyword'),
+  // 规则ID，在风险大脑系统中配置
+  ruleId: long(name='rule_id'),
+}
+
+model ExecRbbCompanyGuardResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 决策结果，ACCEPT/REJECT/TBD
+  decision?: string(name='decision'),
+  // 准入执行结果的快照
+  results?: string(name='results'),
+}
+
+/**
+ * Description: 企业准入接口
+ * Summary: 企业准入
+ */
+async function execRbbCompanyGuard(request: ExecRbbCompanyGuardRequest): ExecRbbCompanyGuardResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execRbbCompanyGuardEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业准入接口
+ * Summary: 企业准入
+ */
+async function execRbbCompanyGuardEx(request: ExecRbbCompanyGuardRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecRbbCompanyGuardResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rbb.company.guard.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryRpgwSignUrlRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -3407,6 +3449,8 @@ model SyncRpgwUserOrderinfoRequest = {
   orderNumber: string(name='order_number'),
   // REGISTER与PURCHASE二选一
   orderType: string(name='order_type'),
+  // 注册/下单总佣金
+  orderAmount: string(name='order_amount'),
   // 时间，格式为yyyy-MM-dd HH:mm:ss
   orderTime: string(name='order_time'),
   // 邀请人id
@@ -3442,7 +3486,7 @@ model SyncRpgwUserOrderinfoResponse = {
 
 /**
  * Description: 信息同步
- * Summary: 信息同步
+ * Summary: 下单等信息同步
  */
 async function syncRpgwUserOrderinfo(request: SyncRpgwUserOrderinfoRequest): SyncRpgwUserOrderinfoResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -3452,11 +3496,55 @@ async function syncRpgwUserOrderinfo(request: SyncRpgwUserOrderinfoRequest): Syn
 
 /**
  * Description: 信息同步
- * Summary: 信息同步
+ * Summary: 下单等信息同步
  */
 async function syncRpgwUserOrderinfoEx(request: SyncRpgwUserOrderinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncRpgwUserOrderinfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.rpgw.user.orderinfo.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyRpgwUserSignresultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 调用方平台用户id
+  platformUserIdentification: string(name='platform_user_identification'),
+  // 用户手机号
+  userCode: string(name='user_code'),
+  // 签约结果，1成功，0失败
+  signResult: string(name='sign_result'),
+  // 失败原因描述
+  resultDesc?: string(name='result_desc'),
+}
+
+model NotifyRpgwUserSignresultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 通知结果
+  resultData?: string(name='result_data'),
+}
+
+/**
+ * Description: 签约结果通知
+ * Summary: 签约结果通知
+ */
+async function notifyRpgwUserSignresult(request: NotifyRpgwUserSignresultRequest): NotifyRpgwUserSignresultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyRpgwUserSignresultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 签约结果通知
+ * Summary: 签约结果通知
+ */
+async function notifyRpgwUserSignresultEx(request: NotifyRpgwUserSignresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyRpgwUserSignresultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rpgw.user.signresult.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryRtopCompanyOpinionRequest = {
