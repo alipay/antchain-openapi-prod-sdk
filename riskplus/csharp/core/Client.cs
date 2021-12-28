@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.8"},
+                        {"sdk_version", "1.8.9"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.8"},
+                        {"sdk_version", "1.8.9"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -2128,6 +2128,48 @@ namespace AntChain.SDK.RISKPLUS
         }
 
         /**
+         * Description: 企业准入接口
+         * Summary: 企业准入
+         */
+        public ExecRbbCompanyGuardResponse ExecRbbCompanyGuard(ExecRbbCompanyGuardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecRbbCompanyGuardEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业准入接口
+         * Summary: 企业准入
+         */
+        public async Task<ExecRbbCompanyGuardResponse> ExecRbbCompanyGuardAsync(ExecRbbCompanyGuardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecRbbCompanyGuardExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业准入接口
+         * Summary: 企业准入
+         */
+        public ExecRbbCompanyGuardResponse ExecRbbCompanyGuardEx(ExecRbbCompanyGuardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecRbbCompanyGuardResponse>(DoRequest("1.0", "riskplus.rbb.company.guard.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企业准入接口
+         * Summary: 企业准入
+         */
+        public async Task<ExecRbbCompanyGuardResponse> ExecRbbCompanyGuardExAsync(ExecRbbCompanyGuardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecRbbCompanyGuardResponse>(await DoRequestAsync("1.0", "riskplus.rbb.company.guard.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 获取签约接口
          * Summary: 获取签约接口
          */
@@ -2297,7 +2339,7 @@ namespace AntChain.SDK.RISKPLUS
 
         /**
          * Description: 信息同步
-         * Summary: 信息同步
+         * Summary: 下单等信息同步
          */
         public SyncRpgwUserOrderinfoResponse SyncRpgwUserOrderinfo(SyncRpgwUserOrderinfoRequest request)
         {
@@ -2308,7 +2350,7 @@ namespace AntChain.SDK.RISKPLUS
 
         /**
          * Description: 信息同步
-         * Summary: 信息同步
+         * Summary: 下单等信息同步
          */
         public async Task<SyncRpgwUserOrderinfoResponse> SyncRpgwUserOrderinfoAsync(SyncRpgwUserOrderinfoRequest request)
         {
@@ -2319,7 +2361,7 @@ namespace AntChain.SDK.RISKPLUS
 
         /**
          * Description: 信息同步
-         * Summary: 信息同步
+         * Summary: 下单等信息同步
          */
         public SyncRpgwUserOrderinfoResponse SyncRpgwUserOrderinfoEx(SyncRpgwUserOrderinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -2329,12 +2371,54 @@ namespace AntChain.SDK.RISKPLUS
 
         /**
          * Description: 信息同步
-         * Summary: 信息同步
+         * Summary: 下单等信息同步
          */
         public async Task<SyncRpgwUserOrderinfoResponse> SyncRpgwUserOrderinfoExAsync(SyncRpgwUserOrderinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SyncRpgwUserOrderinfoResponse>(await DoRequestAsync("1.0", "riskplus.rpgw.user.orderinfo.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 签约结果通知
+         * Summary: 签约结果通知
+         */
+        public NotifyRpgwUserSignresultResponse NotifyRpgwUserSignresult(NotifyRpgwUserSignresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return NotifyRpgwUserSignresultEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 签约结果通知
+         * Summary: 签约结果通知
+         */
+        public async Task<NotifyRpgwUserSignresultResponse> NotifyRpgwUserSignresultAsync(NotifyRpgwUserSignresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await NotifyRpgwUserSignresultExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 签约结果通知
+         * Summary: 签约结果通知
+         */
+        public NotifyRpgwUserSignresultResponse NotifyRpgwUserSignresultEx(NotifyRpgwUserSignresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyRpgwUserSignresultResponse>(DoRequest("1.0", "riskplus.rpgw.user.signresult.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 签约结果通知
+         * Summary: 签约结果通知
+         */
+        public async Task<NotifyRpgwUserSignresultResponse> NotifyRpgwUserSignresultExAsync(NotifyRpgwUserSignresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyRpgwUserSignresultResponse>(await DoRequestAsync("1.0", "riskplus.rpgw.user.signresult.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

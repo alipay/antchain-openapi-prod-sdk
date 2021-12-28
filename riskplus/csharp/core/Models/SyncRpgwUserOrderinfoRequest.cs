@@ -28,6 +28,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string OrderType { get; set; }
 
+        // 注册/下单总佣金
+        [NameInMap("order_amount")]
+        [Validation(Required=true)]
+        public string OrderAmount { get; set; }
+
         // 时间，格式为yyyy-MM-dd HH:mm:ss
         [NameInMap("order_time")]
         [Validation(Required=true)]
