@@ -7844,6 +7844,90 @@ func (s *CreateRbbUserResponse) SetResultMsg(v string) *CreateRbbUserResponse {
 	return s
 }
 
+type ExecRbbCompanyGuardRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 企业名称或统一社会信用代码
+	Keyword *string `json:"keyword,omitempty" xml:"keyword,omitempty" require:"true"`
+	// 规则ID，在风险大脑系统中配置
+	RuleId *int64 `json:"rule_id,omitempty" xml:"rule_id,omitempty" require:"true"`
+}
+
+func (s ExecRbbCompanyGuardRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecRbbCompanyGuardRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecRbbCompanyGuardRequest) SetAuthToken(v string) *ExecRbbCompanyGuardRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecRbbCompanyGuardRequest) SetProductInstanceId(v string) *ExecRbbCompanyGuardRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecRbbCompanyGuardRequest) SetKeyword(v string) *ExecRbbCompanyGuardRequest {
+	s.Keyword = &v
+	return s
+}
+
+func (s *ExecRbbCompanyGuardRequest) SetRuleId(v int64) *ExecRbbCompanyGuardRequest {
+	s.RuleId = &v
+	return s
+}
+
+type ExecRbbCompanyGuardResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 决策结果，ACCEPT/REJECT/TBD
+	Decision *string `json:"decision,omitempty" xml:"decision,omitempty"`
+	// 准入执行结果的快照
+	Results *string `json:"results,omitempty" xml:"results,omitempty"`
+}
+
+func (s ExecRbbCompanyGuardResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecRbbCompanyGuardResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecRbbCompanyGuardResponse) SetReqMsgId(v string) *ExecRbbCompanyGuardResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecRbbCompanyGuardResponse) SetResultCode(v string) *ExecRbbCompanyGuardResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecRbbCompanyGuardResponse) SetResultMsg(v string) *ExecRbbCompanyGuardResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecRbbCompanyGuardResponse) SetDecision(v string) *ExecRbbCompanyGuardResponse {
+	s.Decision = &v
+	return s
+}
+
+func (s *ExecRbbCompanyGuardResponse) SetResults(v string) *ExecRbbCompanyGuardResponse {
+	s.Results = &v
+	return s
+}
+
 type QueryRpgwSignUrlRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -8356,6 +8440,8 @@ type SyncRpgwUserOrderinfoRequest struct {
 	OrderNumber *string `json:"order_number,omitempty" xml:"order_number,omitempty" require:"true"`
 	// REGISTER与PURCHASE二选一
 	OrderType *string `json:"order_type,omitempty" xml:"order_type,omitempty" require:"true"`
+	// 注册/下单总佣金
+	OrderAmount *string `json:"order_amount,omitempty" xml:"order_amount,omitempty" require:"true"`
 	// 时间，格式为yyyy-MM-dd HH:mm:ss
 	OrderTime *string `json:"order_time,omitempty" xml:"order_time,omitempty" require:"true"`
 	// 邀请人id
@@ -8403,6 +8489,11 @@ func (s *SyncRpgwUserOrderinfoRequest) SetOrderNumber(v string) *SyncRpgwUserOrd
 
 func (s *SyncRpgwUserOrderinfoRequest) SetOrderType(v string) *SyncRpgwUserOrderinfoRequest {
 	s.OrderType = &v
+	return s
+}
+
+func (s *SyncRpgwUserOrderinfoRequest) SetOrderAmount(v string) *SyncRpgwUserOrderinfoRequest {
+	s.OrderAmount = &v
 	return s
 }
 
@@ -8491,6 +8582,97 @@ func (s *SyncRpgwUserOrderinfoResponse) SetResultMsg(v string) *SyncRpgwUserOrde
 }
 
 func (s *SyncRpgwUserOrderinfoResponse) SetResultData(v string) *SyncRpgwUserOrderinfoResponse {
+	s.ResultData = &v
+	return s
+}
+
+type NotifyRpgwUserSignresultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 调用方平台用户id
+	PlatformUserIdentification *string `json:"platform_user_identification,omitempty" xml:"platform_user_identification,omitempty" require:"true"`
+	// 用户手机号
+	UserCode *string `json:"user_code,omitempty" xml:"user_code,omitempty" require:"true"`
+	// 签约结果，1成功，0失败
+	SignResult *string `json:"sign_result,omitempty" xml:"sign_result,omitempty" require:"true"`
+	// 失败原因描述
+	ResultDesc *string `json:"result_desc,omitempty" xml:"result_desc,omitempty"`
+}
+
+func (s NotifyRpgwUserSignresultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyRpgwUserSignresultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyRpgwUserSignresultRequest) SetAuthToken(v string) *NotifyRpgwUserSignresultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyRpgwUserSignresultRequest) SetProductInstanceId(v string) *NotifyRpgwUserSignresultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *NotifyRpgwUserSignresultRequest) SetPlatformUserIdentification(v string) *NotifyRpgwUserSignresultRequest {
+	s.PlatformUserIdentification = &v
+	return s
+}
+
+func (s *NotifyRpgwUserSignresultRequest) SetUserCode(v string) *NotifyRpgwUserSignresultRequest {
+	s.UserCode = &v
+	return s
+}
+
+func (s *NotifyRpgwUserSignresultRequest) SetSignResult(v string) *NotifyRpgwUserSignresultRequest {
+	s.SignResult = &v
+	return s
+}
+
+func (s *NotifyRpgwUserSignresultRequest) SetResultDesc(v string) *NotifyRpgwUserSignresultRequest {
+	s.ResultDesc = &v
+	return s
+}
+
+type NotifyRpgwUserSignresultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 通知结果
+	ResultData *string `json:"result_data,omitempty" xml:"result_data,omitempty"`
+}
+
+func (s NotifyRpgwUserSignresultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyRpgwUserSignresultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyRpgwUserSignresultResponse) SetReqMsgId(v string) *NotifyRpgwUserSignresultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyRpgwUserSignresultResponse) SetResultCode(v string) *NotifyRpgwUserSignresultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyRpgwUserSignresultResponse) SetResultMsg(v string) *NotifyRpgwUserSignresultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *NotifyRpgwUserSignresultResponse) SetResultData(v string) *NotifyRpgwUserSignresultResponse {
 	s.ResultData = &v
 	return s
 }
@@ -11876,7 +12058,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.8"),
+				"sdk_version":      tea.String("1.8.9"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -13382,6 +13564,40 @@ func (client *Client) CreateRbbUserEx(request *CreateRbbUserRequest, headers map
 }
 
 /**
+ * Description: 企业准入接口
+ * Summary: 企业准入
+ */
+func (client *Client) ExecRbbCompanyGuard(request *ExecRbbCompanyGuardRequest) (_result *ExecRbbCompanyGuardResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecRbbCompanyGuardResponse{}
+	_body, _err := client.ExecRbbCompanyGuardEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企业准入接口
+ * Summary: 企业准入
+ */
+func (client *Client) ExecRbbCompanyGuardEx(request *ExecRbbCompanyGuardRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecRbbCompanyGuardResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecRbbCompanyGuardResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.company.guard.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 获取签约接口
  * Summary: 获取签约接口
  */
@@ -13519,7 +13735,7 @@ func (client *Client) WithdrawRpgwUserCommissionEx(request *WithdrawRpgwUserComm
 
 /**
  * Description: 信息同步
- * Summary: 信息同步
+ * Summary: 下单等信息同步
  */
 func (client *Client) SyncRpgwUserOrderinfo(request *SyncRpgwUserOrderinfoRequest) (_result *SyncRpgwUserOrderinfoResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -13535,7 +13751,7 @@ func (client *Client) SyncRpgwUserOrderinfo(request *SyncRpgwUserOrderinfoReques
 
 /**
  * Description: 信息同步
- * Summary: 信息同步
+ * Summary: 下单等信息同步
  */
 func (client *Client) SyncRpgwUserOrderinfoEx(request *SyncRpgwUserOrderinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncRpgwUserOrderinfoResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -13544,6 +13760,40 @@ func (client *Client) SyncRpgwUserOrderinfoEx(request *SyncRpgwUserOrderinfoRequ
 	}
 	_result = &SyncRpgwUserOrderinfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rpgw.user.orderinfo.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 签约结果通知
+ * Summary: 签约结果通知
+ */
+func (client *Client) NotifyRpgwUserSignresult(request *NotifyRpgwUserSignresultRequest) (_result *NotifyRpgwUserSignresultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyRpgwUserSignresultResponse{}
+	_body, _err := client.NotifyRpgwUserSignresultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 签约结果通知
+ * Summary: 签约结果通知
+ */
+func (client *Client) NotifyRpgwUserSignresultEx(request *NotifyRpgwUserSignresultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyRpgwUserSignresultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyRpgwUserSignresultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rpgw.user.signresult.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
