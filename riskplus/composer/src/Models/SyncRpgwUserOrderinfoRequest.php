@@ -31,6 +31,12 @@ class SyncRpgwUserOrderinfoRequest extends Model
      */
     public $orderType;
 
+    // 注册/下单总佣金
+    /**
+     * @var string
+     */
+    public $orderAmount;
+
     // 时间，格式为yyyy-MM-dd HH:mm:ss
     /**
      * @var string
@@ -95,6 +101,7 @@ class SyncRpgwUserOrderinfoRequest extends Model
         'productInstanceId'  => 'product_instance_id',
         'orderNumber'        => 'order_number',
         'orderType'          => 'order_type',
+        'orderAmount'        => 'order_amount',
         'orderTime'          => 'order_time',
         'inviterId'          => 'inviter_id',
         'inviterName'        => 'inviter_name',
@@ -111,6 +118,7 @@ class SyncRpgwUserOrderinfoRequest extends Model
     {
         Model::validateRequired('orderNumber', $this->orderNumber, true);
         Model::validateRequired('orderType', $this->orderType, true);
+        Model::validateRequired('orderAmount', $this->orderAmount, true);
         Model::validateRequired('orderTime', $this->orderTime, true);
         Model::validateRequired('inviterId', $this->inviterId, true);
         Model::validateRequired('inviterName', $this->inviterName, true);
@@ -134,6 +142,9 @@ class SyncRpgwUserOrderinfoRequest extends Model
         }
         if (null !== $this->orderType) {
             $res['order_type'] = $this->orderType;
+        }
+        if (null !== $this->orderAmount) {
+            $res['order_amount'] = $this->orderAmount;
         }
         if (null !== $this->orderTime) {
             $res['order_time'] = $this->orderTime;
@@ -188,6 +199,9 @@ class SyncRpgwUserOrderinfoRequest extends Model
         }
         if (isset($map['order_type'])) {
             $model->orderType = $map['order_type'];
+        }
+        if (isset($map['order_amount'])) {
+            $model->orderAmount = $map['order_amount'];
         }
         if (isset($map['order_time'])) {
             $model->orderTime = $map['order_time'];

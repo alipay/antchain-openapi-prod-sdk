@@ -43,6 +43,8 @@ use AntChain\RISKPLUS\Models\CreateRbbUserRequest;
 use AntChain\RISKPLUS\Models\CreateRbbUserResponse;
 use AntChain\RISKPLUS\Models\CreateRtopTokenRequest;
 use AntChain\RISKPLUS\Models\CreateRtopTokenResponse;
+use AntChain\RISKPLUS\Models\ExecRbbCompanyGuardRequest;
+use AntChain\RISKPLUS\Models\ExecRbbCompanyGuardResponse;
 use AntChain\RISKPLUS\Models\ExecRtopGenericInvokeRequest;
 use AntChain\RISKPLUS\Models\ExecRtopGenericInvokeResponse;
 use AntChain\RISKPLUS\Models\ExecSecurityRiskdataserviceRequest;
@@ -63,6 +65,8 @@ use AntChain\RISKPLUS\Models\ListRtopStarCompanyRequest;
 use AntChain\RISKPLUS\Models\ListRtopStarCompanyResponse;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeDefininnerchannelRequest;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeDefininnerchannelResponse;
+use AntChain\RISKPLUS\Models\NotifyRpgwUserSignresultRequest;
+use AntChain\RISKPLUS\Models\NotifyRpgwUserSignresultResponse;
 use AntChain\RISKPLUS\Models\PullRegtechNewsRequest;
 use AntChain\RISKPLUS\Models\PullRegtechNewsResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRouterFundrouterRequest;
@@ -310,7 +314,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.8',
+                    'sdk_version'      => '1.8.9',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1761,6 +1765,39 @@ class Client
     }
 
     /**
+     * Description: 企业准入接口
+     * Summary: 企业准入.
+     *
+     * @param ExecRbbCompanyGuardRequest $request
+     *
+     * @return ExecRbbCompanyGuardResponse
+     */
+    public function execRbbCompanyGuard($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execRbbCompanyGuardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业准入接口
+     * Summary: 企业准入.
+     *
+     * @param ExecRbbCompanyGuardRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ExecRbbCompanyGuardResponse
+     */
+    public function execRbbCompanyGuardEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecRbbCompanyGuardResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.company.guard.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 获取签约接口
      * Summary: 获取签约接口.
      *
@@ -1894,7 +1931,7 @@ class Client
 
     /**
      * Description: 信息同步
-     * Summary: 信息同步.
+     * Summary: 下单等信息同步.
      *
      * @param SyncRpgwUserOrderinfoRequest $request
      *
@@ -1910,7 +1947,7 @@ class Client
 
     /**
      * Description: 信息同步
-     * Summary: 信息同步.
+     * Summary: 下单等信息同步.
      *
      * @param SyncRpgwUserOrderinfoRequest $request
      * @param string[]                     $headers
@@ -1923,6 +1960,39 @@ class Client
         Utils::validateModel($request);
 
         return SyncRpgwUserOrderinfoResponse::fromMap($this->doRequest('1.0', 'riskplus.rpgw.user.orderinfo.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 签约结果通知
+     * Summary: 签约结果通知.
+     *
+     * @param NotifyRpgwUserSignresultRequest $request
+     *
+     * @return NotifyRpgwUserSignresultResponse
+     */
+    public function notifyRpgwUserSignresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyRpgwUserSignresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 签约结果通知
+     * Summary: 签约结果通知.
+     *
+     * @param NotifyRpgwUserSignresultRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return NotifyRpgwUserSignresultResponse
+     */
+    public function notifyRpgwUserSignresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyRpgwUserSignresultResponse::fromMap($this->doRequest('1.0', 'riskplus.rpgw.user.signresult.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
