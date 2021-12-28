@@ -9150,6 +9150,103 @@ class CreateRbbUserResponse(TeaModel):
         return self
 
 
+class ExecRbbCompanyGuardRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        keyword: str = None,
+        rule_id: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 企业名称或统一社会信用代码
+        self.keyword = keyword
+        # 规则ID，在风险大脑系统中配置
+        self.rule_id = rule_id
+
+    def validate(self):
+        self.validate_required(self.keyword, 'keyword')
+        self.validate_required(self.rule_id, 'rule_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.keyword is not None:
+            result['keyword'] = self.keyword
+        if self.rule_id is not None:
+            result['rule_id'] = self.rule_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('keyword') is not None:
+            self.keyword = m.get('keyword')
+        if m.get('rule_id') is not None:
+            self.rule_id = m.get('rule_id')
+        return self
+
+
+class ExecRbbCompanyGuardResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        decision: str = None,
+        results: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 决策结果，ACCEPT/REJECT/TBD
+        self.decision = decision
+        # 准入执行结果的快照
+        self.results = results
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.decision is not None:
+            result['decision'] = self.decision
+        if self.results is not None:
+            result['results'] = self.results
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('decision') is not None:
+            self.decision = m.get('decision')
+        if m.get('results') is not None:
+            self.results = m.get('results')
+        return self
+
+
 class QueryRpgwSignUrlRequest(TeaModel):
     def __init__(
         self,
@@ -9732,6 +9829,7 @@ class SyncRpgwUserOrderinfoRequest(TeaModel):
         product_instance_id: str = None,
         order_number: str = None,
         order_type: str = None,
+        order_amount: str = None,
         order_time: str = None,
         inviter_id: str = None,
         inviter_name: str = None,
@@ -9750,6 +9848,8 @@ class SyncRpgwUserOrderinfoRequest(TeaModel):
         self.order_number = order_number
         # REGISTER与PURCHASE二选一
         self.order_type = order_type
+        # 注册/下单总佣金
+        self.order_amount = order_amount
         # 时间，格式为yyyy-MM-dd HH:mm:ss
         self.order_time = order_time
         # 邀请人id
@@ -9774,6 +9874,7 @@ class SyncRpgwUserOrderinfoRequest(TeaModel):
     def validate(self):
         self.validate_required(self.order_number, 'order_number')
         self.validate_required(self.order_type, 'order_type')
+        self.validate_required(self.order_amount, 'order_amount')
         self.validate_required(self.order_time, 'order_time')
         self.validate_required(self.inviter_id, 'inviter_id')
         self.validate_required(self.inviter_name, 'inviter_name')
@@ -9792,6 +9893,8 @@ class SyncRpgwUserOrderinfoRequest(TeaModel):
             result['order_number'] = self.order_number
         if self.order_type is not None:
             result['order_type'] = self.order_type
+        if self.order_amount is not None:
+            result['order_amount'] = self.order_amount
         if self.order_time is not None:
             result['order_time'] = self.order_time
         if self.inviter_id is not None:
@@ -9824,6 +9927,8 @@ class SyncRpgwUserOrderinfoRequest(TeaModel):
             self.order_number = m.get('order_number')
         if m.get('order_type') is not None:
             self.order_type = m.get('order_type')
+        if m.get('order_amount') is not None:
+            self.order_amount = m.get('order_amount')
         if m.get('order_time') is not None:
             self.order_time = m.get('order_time')
         if m.get('inviter_id') is not None:
@@ -9862,6 +9967,111 @@ class SyncRpgwUserOrderinfoResponse(TeaModel):
         # 异常信息的文本描述
         self.result_msg = result_msg
         # 同步结果
+        self.result_data = result_data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result_data is not None:
+            result['result_data'] = self.result_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result_data') is not None:
+            self.result_data = m.get('result_data')
+        return self
+
+
+class NotifyRpgwUserSignresultRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        platform_user_identification: str = None,
+        user_code: str = None,
+        sign_result: str = None,
+        result_desc: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 调用方平台用户id
+        self.platform_user_identification = platform_user_identification
+        # 用户手机号
+        self.user_code = user_code
+        # 签约结果，1成功，0失败
+        self.sign_result = sign_result
+        # 失败原因描述
+        self.result_desc = result_desc
+
+    def validate(self):
+        self.validate_required(self.platform_user_identification, 'platform_user_identification')
+        self.validate_required(self.user_code, 'user_code')
+        self.validate_required(self.sign_result, 'sign_result')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.platform_user_identification is not None:
+            result['platform_user_identification'] = self.platform_user_identification
+        if self.user_code is not None:
+            result['user_code'] = self.user_code
+        if self.sign_result is not None:
+            result['sign_result'] = self.sign_result
+        if self.result_desc is not None:
+            result['result_desc'] = self.result_desc
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('platform_user_identification') is not None:
+            self.platform_user_identification = m.get('platform_user_identification')
+        if m.get('user_code') is not None:
+            self.user_code = m.get('user_code')
+        if m.get('sign_result') is not None:
+            self.sign_result = m.get('sign_result')
+        if m.get('result_desc') is not None:
+            self.result_desc = m.get('result_desc')
+        return self
+
+
+class NotifyRpgwUserSignresultResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result_data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 通知结果
         self.result_data = result_data
 
     def validate(self):

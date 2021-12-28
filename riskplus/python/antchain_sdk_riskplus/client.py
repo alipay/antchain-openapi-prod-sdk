@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.8'
+                    'sdk_version': '1.8.9'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.8'
+                    'sdk_version': '1.8.9'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -2573,6 +2573,60 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.rbb.user.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def exec_rbb_company_guard(
+        self,
+        request: riskplus_models.ExecRbbCompanyGuardRequest,
+    ) -> riskplus_models.ExecRbbCompanyGuardResponse:
+        """
+        Description: 企业准入接口
+        Summary: 企业准入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_rbb_company_guard_ex(request, headers, runtime)
+
+    async def exec_rbb_company_guard_async(
+        self,
+        request: riskplus_models.ExecRbbCompanyGuardRequest,
+    ) -> riskplus_models.ExecRbbCompanyGuardResponse:
+        """
+        Description: 企业准入接口
+        Summary: 企业准入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_rbb_company_guard_ex_async(request, headers, runtime)
+
+    def exec_rbb_company_guard_ex(
+        self,
+        request: riskplus_models.ExecRbbCompanyGuardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ExecRbbCompanyGuardResponse:
+        """
+        Description: 企业准入接口
+        Summary: 企业准入
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.ExecRbbCompanyGuardResponse().from_map(
+            self.do_request('1.0', 'riskplus.rbb.company.guard.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_rbb_company_guard_ex_async(
+        self,
+        request: riskplus_models.ExecRbbCompanyGuardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ExecRbbCompanyGuardResponse:
+        """
+        Description: 企业准入接口
+        Summary: 企业准入
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.ExecRbbCompanyGuardResponse().from_map(
+            await self.do_request_async('1.0', 'riskplus.rbb.company.guard.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_rpgw_sign_url(
         self,
         request: riskplus_models.QueryRpgwSignUrlRequest,
@@ -2795,7 +2849,7 @@ class Client:
     ) -> riskplus_models.SyncRpgwUserOrderinfoResponse:
         """
         Description: 信息同步
-        Summary: 信息同步
+        Summary: 下单等信息同步
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2807,7 +2861,7 @@ class Client:
     ) -> riskplus_models.SyncRpgwUserOrderinfoResponse:
         """
         Description: 信息同步
-        Summary: 信息同步
+        Summary: 下单等信息同步
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2821,7 +2875,7 @@ class Client:
     ) -> riskplus_models.SyncRpgwUserOrderinfoResponse:
         """
         Description: 信息同步
-        Summary: 信息同步
+        Summary: 下单等信息同步
         """
         UtilClient.validate_model(request)
         return riskplus_models.SyncRpgwUserOrderinfoResponse().from_map(
@@ -2836,11 +2890,65 @@ class Client:
     ) -> riskplus_models.SyncRpgwUserOrderinfoResponse:
         """
         Description: 信息同步
-        Summary: 信息同步
+        Summary: 下单等信息同步
         """
         UtilClient.validate_model(request)
         return riskplus_models.SyncRpgwUserOrderinfoResponse().from_map(
             await self.do_request_async('1.0', 'riskplus.rpgw.user.orderinfo.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_rpgw_user_signresult(
+        self,
+        request: riskplus_models.NotifyRpgwUserSignresultRequest,
+    ) -> riskplus_models.NotifyRpgwUserSignresultResponse:
+        """
+        Description: 签约结果通知
+        Summary: 签约结果通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_rpgw_user_signresult_ex(request, headers, runtime)
+
+    async def notify_rpgw_user_signresult_async(
+        self,
+        request: riskplus_models.NotifyRpgwUserSignresultRequest,
+    ) -> riskplus_models.NotifyRpgwUserSignresultResponse:
+        """
+        Description: 签约结果通知
+        Summary: 签约结果通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_rpgw_user_signresult_ex_async(request, headers, runtime)
+
+    def notify_rpgw_user_signresult_ex(
+        self,
+        request: riskplus_models.NotifyRpgwUserSignresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.NotifyRpgwUserSignresultResponse:
+        """
+        Description: 签约结果通知
+        Summary: 签约结果通知
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.NotifyRpgwUserSignresultResponse().from_map(
+            self.do_request('1.0', 'riskplus.rpgw.user.signresult.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_rpgw_user_signresult_ex_async(
+        self,
+        request: riskplus_models.NotifyRpgwUserSignresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.NotifyRpgwUserSignresultResponse:
+        """
+        Description: 签约结果通知
+        Summary: 签约结果通知
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.NotifyRpgwUserSignresultResponse().from_map(
+            await self.do_request_async('1.0', 'riskplus.rpgw.user.signresult.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_rtop_company_opinion(
