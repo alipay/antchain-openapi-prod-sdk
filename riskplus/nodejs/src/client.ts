@@ -5871,6 +5871,73 @@ export class CreateRbbUserResponse extends $tea.Model {
   }
 }
 
+export class ExecRbbCompanyGuardRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 企业名称或统一社会信用代码
+  keyword: string;
+  // 规则ID，在风险大脑系统中配置
+  ruleId: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      keyword: 'keyword',
+      ruleId: 'rule_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      keyword: 'string',
+      ruleId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecRbbCompanyGuardResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 决策结果，ACCEPT/REJECT/TBD
+  decision?: string;
+  // 准入执行结果的快照
+  results?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      decision: 'decision',
+      results: 'results',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      decision: 'string',
+      results: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryRpgwSignUrlRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -6243,6 +6310,8 @@ export class SyncRpgwUserOrderinfoRequest extends $tea.Model {
   orderNumber: string;
   // REGISTER与PURCHASE二选一
   orderType: string;
+  // 注册/下单总佣金
+  orderAmount: string;
   // 时间，格式为yyyy-MM-dd HH:mm:ss
   orderTime: string;
   // 邀请人id
@@ -6269,6 +6338,7 @@ export class SyncRpgwUserOrderinfoRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       orderNumber: 'order_number',
       orderType: 'order_type',
+      orderAmount: 'order_amount',
       orderTime: 'order_time',
       inviterId: 'inviter_id',
       inviterName: 'inviter_name',
@@ -6288,6 +6358,7 @@ export class SyncRpgwUserOrderinfoRequest extends $tea.Model {
       productInstanceId: 'string',
       orderNumber: 'string',
       orderType: 'string',
+      orderAmount: 'string',
       orderTime: 'string',
       inviterId: 'string',
       inviterName: 'string',
@@ -6314,6 +6385,77 @@ export class SyncRpgwUserOrderinfoResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 同步结果
+  resultData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      resultData: 'result_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      resultData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyRpgwUserSignresultRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 调用方平台用户id
+  platformUserIdentification: string;
+  // 用户手机号
+  userCode: string;
+  // 签约结果，1成功，0失败
+  signResult: string;
+  // 失败原因描述
+  resultDesc?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      platformUserIdentification: 'platform_user_identification',
+      userCode: 'user_code',
+      signResult: 'sign_result',
+      resultDesc: 'result_desc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      platformUserIdentification: 'string',
+      userCode: 'string',
+      signResult: 'string',
+      resultDesc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyRpgwUserSignresultResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 通知结果
   resultData?: string;
   static names(): { [key: string]: string } {
     return {
@@ -8864,7 +9006,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.8",
+          sdk_version: "1.8.9",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -9730,6 +9872,25 @@ export default class Client {
   }
 
   /**
+   * Description: 企业准入接口
+   * Summary: 企业准入
+   */
+  async execRbbCompanyGuard(request: ExecRbbCompanyGuardRequest): Promise<ExecRbbCompanyGuardResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execRbbCompanyGuardEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企业准入接口
+   * Summary: 企业准入
+   */
+  async execRbbCompanyGuardEx(request: ExecRbbCompanyGuardRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecRbbCompanyGuardResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecRbbCompanyGuardResponse>(await this.doRequest("1.0", "riskplus.rbb.company.guard.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecRbbCompanyGuardResponse({}));
+  }
+
+  /**
    * Description: 获取签约接口
    * Summary: 获取签约接口
    */
@@ -9807,7 +9968,7 @@ export default class Client {
 
   /**
    * Description: 信息同步
-   * Summary: 信息同步
+   * Summary: 下单等信息同步
    */
   async syncRpgwUserOrderinfo(request: SyncRpgwUserOrderinfoRequest): Promise<SyncRpgwUserOrderinfoResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -9817,11 +9978,30 @@ export default class Client {
 
   /**
    * Description: 信息同步
-   * Summary: 信息同步
+   * Summary: 下单等信息同步
    */
   async syncRpgwUserOrderinfoEx(request: SyncRpgwUserOrderinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncRpgwUserOrderinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<SyncRpgwUserOrderinfoResponse>(await this.doRequest("1.0", "riskplus.rpgw.user.orderinfo.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncRpgwUserOrderinfoResponse({}));
+  }
+
+  /**
+   * Description: 签约结果通知
+   * Summary: 签约结果通知
+   */
+  async notifyRpgwUserSignresult(request: NotifyRpgwUserSignresultRequest): Promise<NotifyRpgwUserSignresultResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyRpgwUserSignresultEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 签约结果通知
+   * Summary: 签约结果通知
+   */
+  async notifyRpgwUserSignresultEx(request: NotifyRpgwUserSignresultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyRpgwUserSignresultResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyRpgwUserSignresultResponse>(await this.doRequest("1.0", "riskplus.rpgw.user.signresult.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyRpgwUserSignresultResponse({}));
   }
 
   /**
