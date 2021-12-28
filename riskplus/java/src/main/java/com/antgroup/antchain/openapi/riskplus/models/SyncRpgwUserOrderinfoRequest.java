@@ -21,6 +21,11 @@ public class SyncRpgwUserOrderinfoRequest extends TeaModel {
     @Validation(required = true)
     public String orderType;
 
+    // 注册/下单总佣金
+    @NameInMap("order_amount")
+    @Validation(required = true)
+    public String orderAmount;
+
     // 时间，格式为yyyy-MM-dd HH:mm:ss
     @NameInMap("order_time")
     @Validation(required = true)
@@ -103,6 +108,14 @@ public class SyncRpgwUserOrderinfoRequest extends TeaModel {
     }
     public String getOrderType() {
         return this.orderType;
+    }
+
+    public SyncRpgwUserOrderinfoRequest setOrderAmount(String orderAmount) {
+        this.orderAmount = orderAmount;
+        return this;
+    }
+    public String getOrderAmount() {
+        return this.orderAmount;
     }
 
     public SyncRpgwUserOrderinfoRequest setOrderTime(String orderTime) {

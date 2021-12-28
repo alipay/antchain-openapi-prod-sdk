@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.8")
+                    new TeaPair("sdk_version", "1.8.9")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -979,6 +979,25 @@ public class Client {
     }
 
     /**
+     * Description: 企业准入接口
+     * Summary: 企业准入
+     */
+    public ExecRbbCompanyGuardResponse execRbbCompanyGuard(ExecRbbCompanyGuardRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execRbbCompanyGuardEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企业准入接口
+     * Summary: 企业准入
+     */
+    public ExecRbbCompanyGuardResponse execRbbCompanyGuardEx(ExecRbbCompanyGuardRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.company.guard.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecRbbCompanyGuardResponse());
+    }
+
+    /**
      * Description: 获取签约接口
      * Summary: 获取签约接口
      */
@@ -1056,7 +1075,7 @@ public class Client {
 
     /**
      * Description: 信息同步
-     * Summary: 信息同步
+     * Summary: 下单等信息同步
      */
     public SyncRpgwUserOrderinfoResponse syncRpgwUserOrderinfo(SyncRpgwUserOrderinfoRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -1066,11 +1085,30 @@ public class Client {
 
     /**
      * Description: 信息同步
-     * Summary: 信息同步
+     * Summary: 下单等信息同步
      */
     public SyncRpgwUserOrderinfoResponse syncRpgwUserOrderinfoEx(SyncRpgwUserOrderinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.rpgw.user.orderinfo.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncRpgwUserOrderinfoResponse());
+    }
+
+    /**
+     * Description: 签约结果通知
+     * Summary: 签约结果通知
+     */
+    public NotifyRpgwUserSignresultResponse notifyRpgwUserSignresult(NotifyRpgwUserSignresultRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.notifyRpgwUserSignresultEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 签约结果通知
+     * Summary: 签约结果通知
+     */
+    public NotifyRpgwUserSignresultResponse notifyRpgwUserSignresultEx(NotifyRpgwUserSignresultRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rpgw.user.signresult.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyRpgwUserSignresultResponse());
     }
 
     /**
