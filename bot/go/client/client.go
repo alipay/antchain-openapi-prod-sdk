@@ -3552,6 +3552,189 @@ func (s *SendAcsCollectorResponse) SetResultList(v []*SendCollectorResult) *Send
 	return s
 }
 
+type CreateLeaseRealpersonRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 身份信息来源类型，当前仅支持证件（CERT_INFO）
+	IdentityType *string `json:"identity_type,omitempty" xml:"identity_type,omitempty" require:"true"`
+	// 证件类型，当前仅支持身份证（IDENTITY_CARD）
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
+	// 真实姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 商户请求的唯一标识。
+	// 值为 32 位长度的字母数字组合。其中，前面几位字符是商户自定义的简称，中间几位可以使用一段时间，后段可以使用一个随机或递增序列。该值也可以使用 UUID
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 认证结束回跳地址
+	ReturnUrl *string `json:"return_url,omitempty" xml:"return_url,omitempty" require:"true"`
+}
+
+func (s CreateLeaseRealpersonRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateLeaseRealpersonRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateLeaseRealpersonRequest) SetAuthToken(v string) *CreateLeaseRealpersonRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateLeaseRealpersonRequest) SetProductInstanceId(v string) *CreateLeaseRealpersonRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateLeaseRealpersonRequest) SetIdentityType(v string) *CreateLeaseRealpersonRequest {
+	s.IdentityType = &v
+	return s
+}
+
+func (s *CreateLeaseRealpersonRequest) SetCertType(v string) *CreateLeaseRealpersonRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *CreateLeaseRealpersonRequest) SetCertName(v string) *CreateLeaseRealpersonRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CreateLeaseRealpersonRequest) SetCertNo(v string) *CreateLeaseRealpersonRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CreateLeaseRealpersonRequest) SetOuterOrderNo(v string) *CreateLeaseRealpersonRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CreateLeaseRealpersonRequest) SetReturnUrl(v string) *CreateLeaseRealpersonRequest {
+	s.ReturnUrl = &v
+	return s
+}
+
+type CreateLeaseRealpersonResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务返回字段，JSON格式
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s CreateLeaseRealpersonResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateLeaseRealpersonResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateLeaseRealpersonResponse) SetReqMsgId(v string) *CreateLeaseRealpersonResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateLeaseRealpersonResponse) SetResultCode(v string) *CreateLeaseRealpersonResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateLeaseRealpersonResponse) SetResultMsg(v string) *CreateLeaseRealpersonResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateLeaseRealpersonResponse) SetData(v string) *CreateLeaseRealpersonResponse {
+	s.Data = &v
+	return s
+}
+
+type QueryLeaseRealpersonRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 实人认证的唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
+	// 商户请求的唯一标识。 值为 32 位长度的字母数字组合。其中，前面几位字符是商户自定义的简称，中间几位可以使用一段时间，后段可以使用一个随机或递增序列。该值也可以使用 UUID
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+}
+
+func (s QueryLeaseRealpersonRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeaseRealpersonRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeaseRealpersonRequest) SetAuthToken(v string) *QueryLeaseRealpersonRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryLeaseRealpersonRequest) SetProductInstanceId(v string) *QueryLeaseRealpersonRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryLeaseRealpersonRequest) SetCertifyId(v string) *QueryLeaseRealpersonRequest {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *QueryLeaseRealpersonRequest) SetOuterOrderNo(v string) *QueryLeaseRealpersonRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+type QueryLeaseRealpersonResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务返回字段，JSON格式
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryLeaseRealpersonResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeaseRealpersonResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeaseRealpersonResponse) SetReqMsgId(v string) *QueryLeaseRealpersonResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryLeaseRealpersonResponse) SetResultCode(v string) *QueryLeaseRealpersonResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryLeaseRealpersonResponse) SetResultMsg(v string) *QueryLeaseRealpersonResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryLeaseRealpersonResponse) SetData(v string) *QueryLeaseRealpersonResponse {
+	s.Data = &v
+	return s
+}
+
 type QueryBaiOcrRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -10767,6 +10950,95 @@ func (s *SendLabelTransferrawonasyncResponse) SetRequestId(v string) *SendLabelT
 	return s
 }
 
+type QueryDockedDataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 1. 已对接的接口名 ;
+	// 2. docked_method可通过 实例化SDK中的Request模型后获取，例如：
+	// String dockedMethod = new CreateDeviceDatamodelRequest().getMethod();
+	DockedMethod *string `json:"docked_method,omitempty" xml:"docked_method,omitempty" require:"true"`
+	// 关键key为chainDeviceId 时不填
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 1. 接口中的关键key ，例如 deviceId ；
+	// 2. key为chainDeviceId时，scene字段不填
+	//
+	Key []*string `json:"key,omitempty" xml:"key,omitempty" type:"Repeated"`
+}
+
+func (s QueryDockedDataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDockedDataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDockedDataRequest) SetAuthToken(v string) *QueryDockedDataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDockedDataRequest) SetProductInstanceId(v string) *QueryDockedDataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDockedDataRequest) SetDockedMethod(v string) *QueryDockedDataRequest {
+	s.DockedMethod = &v
+	return s
+}
+
+func (s *QueryDockedDataRequest) SetScene(v string) *QueryDockedDataRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *QueryDockedDataRequest) SetKey(v []*string) *QueryDockedDataRequest {
+	s.Key = v
+	return s
+}
+
+type QueryDockedDataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 1. 根据不同的method返回不同的数据内容
+	// 2. markdown格式的内容
+	Result []*string `json:"result,omitempty" xml:"result,omitempty" type:"Repeated"`
+}
+
+func (s QueryDockedDataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDockedDataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDockedDataResponse) SetReqMsgId(v string) *QueryDockedDataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDockedDataResponse) SetResultCode(v string) *QueryDockedDataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDockedDataResponse) SetResultMsg(v string) *QueryDockedDataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDockedDataResponse) SetResult(v []*string) *QueryDockedDataResponse {
+	s.Result = v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -12417,7 +12689,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.49"),
+				"sdk_version":      tea.String("1.6.53"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -12628,6 +12900,74 @@ func (client *Client) SendAcsCollectorEx(request *SendAcsCollectorRequest, heade
 	}
 	_result = &SendAcsCollectorResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.acs.collector.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租赁智能中心实人认证创建服务
+ * Summary: 租赁智能中心实人认证创建服务
+ */
+func (client *Client) CreateLeaseRealperson(request *CreateLeaseRealpersonRequest) (_result *CreateLeaseRealpersonResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateLeaseRealpersonResponse{}
+	_body, _err := client.CreateLeaseRealpersonEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租赁智能中心实人认证创建服务
+ * Summary: 租赁智能中心实人认证创建服务
+ */
+func (client *Client) CreateLeaseRealpersonEx(request *CreateLeaseRealpersonRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateLeaseRealpersonResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateLeaseRealpersonResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.lease.realperson.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租赁智能中心实人认证查询服务
+ * Summary: 租赁智能中心实人认证查询服务
+ */
+func (client *Client) QueryLeaseRealperson(request *QueryLeaseRealpersonRequest) (_result *QueryLeaseRealpersonResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryLeaseRealpersonResponse{}
+	_body, _err := client.QueryLeaseRealpersonEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租赁智能中心实人认证查询服务
+ * Summary: 租赁智能中心实人认证查询服务
+ */
+func (client *Client) QueryLeaseRealpersonEx(request *QueryLeaseRealpersonRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryLeaseRealpersonResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryLeaseRealpersonResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.lease.realperson.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -15178,6 +15518,40 @@ func (client *Client) SendLabelTransferrawonasyncEx(request *SendLabelTransferra
 	}
 	_result = &SendLabelTransferrawonasyncResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.label.transferrawonasync.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据接口名和关键key（deviceId等）, 查询验收已对接的数据
+ * Summary: 查询验收已对接的数据
+ */
+func (client *Client) QueryDockedData(request *QueryDockedDataRequest) (_result *QueryDockedDataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDockedDataResponse{}
+	_body, _err := client.QueryDockedDataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据接口名和关键key（deviceId等）, 查询验收已对接的数据
+ * Summary: 查询验收已对接的数据
+ */
+func (client *Client) QueryDockedDataEx(request *QueryDockedDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDockedDataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDockedDataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.docked.data.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
