@@ -49,6 +49,8 @@ use AntChain\BOT\Models\CreateDistributedeviceBydeviceRequest;
 use AntChain\BOT\Models\CreateDistributedeviceBydeviceResponse;
 use AntChain\BOT\Models\CreateDistributedeviceByperipheralidRequest;
 use AntChain\BOT\Models\CreateDistributedeviceByperipheralidResponse;
+use AntChain\BOT\Models\CreateLeaseRealpersonRequest;
+use AntChain\BOT\Models\CreateLeaseRealpersonResponse;
 use AntChain\BOT\Models\CreateTaskRequest;
 use AntChain\BOT\Models\CreateTaskResponse;
 use AntChain\BOT\Models\CreateTenantProjectRequest;
@@ -129,10 +131,14 @@ use AntChain\BOT\Models\QueryDataBytxhashRequest;
 use AntChain\BOT\Models\QueryDataBytxhashResponse;
 use AntChain\BOT\Models\QueryDeviceRegistrationRequest;
 use AntChain\BOT\Models\QueryDeviceRegistrationResponse;
+use AntChain\BOT\Models\QueryDockedDataRequest;
+use AntChain\BOT\Models\QueryDockedDataResponse;
 use AntChain\BOT\Models\QueryIotplatformPurchaseorderRequest;
 use AntChain\BOT\Models\QueryIotplatformPurchaseorderResponse;
 use AntChain\BOT\Models\QueryLabelTraceRequest;
 use AntChain\BOT\Models\QueryLabelTraceResponse;
+use AntChain\BOT\Models\QueryLeaseRealpersonRequest;
+use AntChain\BOT\Models\QueryLeaseRealpersonResponse;
 use AntChain\BOT\Models\QueryTaskRequest;
 use AntChain\BOT\Models\QueryTaskResponse;
 use AntChain\BOT\Models\QueryThingsdidAsyncprocessRequest;
@@ -350,7 +356,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.49',
+                    'sdk_version'      => '1.6.53',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -559,6 +565,72 @@ class Client
         Utils::validateModel($request);
 
         return SendAcsCollectorResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.acs.collector.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁智能中心实人认证创建服务
+     * Summary: 租赁智能中心实人认证创建服务
+     *
+     * @param CreateLeaseRealpersonRequest $request
+     *
+     * @return CreateLeaseRealpersonResponse
+     */
+    public function createLeaseRealperson($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLeaseRealpersonEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁智能中心实人认证创建服务
+     * Summary: 租赁智能中心实人认证创建服务
+     *
+     * @param CreateLeaseRealpersonRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return CreateLeaseRealpersonResponse
+     */
+    public function createLeaseRealpersonEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLeaseRealpersonResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.lease.realperson.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁智能中心实人认证查询服务
+     * Summary: 租赁智能中心实人认证查询服务
+     *
+     * @param QueryLeaseRealpersonRequest $request
+     *
+     * @return QueryLeaseRealpersonResponse
+     */
+    public function queryLeaseRealperson($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseRealpersonEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁智能中心实人认证查询服务
+     * Summary: 租赁智能中心实人认证查询服务
+     *
+     * @param QueryLeaseRealpersonRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryLeaseRealpersonResponse
+     */
+    public function queryLeaseRealpersonEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseRealpersonResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.lease.realperson.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -3034,6 +3106,39 @@ class Client
         Utils::validateModel($request);
 
         return SendLabelTransferrawonasyncResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.label.transferrawonasync.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据接口名和关键key（deviceId等）, 查询验收已对接的数据
+     * Summary: 查询验收已对接的数据.
+     *
+     * @param QueryDockedDataRequest $request
+     *
+     * @return QueryDockedDataResponse
+     */
+    public function queryDockedData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDockedDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据接口名和关键key（deviceId等）, 查询验收已对接的数据
+     * Summary: 查询验收已对接的数据.
+     *
+     * @param QueryDockedDataRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryDockedDataResponse
+     */
+    public function queryDockedDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDockedDataResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.docked.data.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
