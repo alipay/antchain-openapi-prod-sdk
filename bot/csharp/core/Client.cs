@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.49"},
+                        {"sdk_version", "1.6.53"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.49"},
+                        {"sdk_version", "1.6.53"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -525,6 +525,90 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SendAcsCollectorResponse>(await DoRequestAsync("1.0", "blockchain.bot.acs.collector.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁智能中心实人认证创建服务
+         * Summary: 租赁智能中心实人认证创建服务
+         */
+        public CreateLeaseRealpersonResponse CreateLeaseRealperson(CreateLeaseRealpersonRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateLeaseRealpersonEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁智能中心实人认证创建服务
+         * Summary: 租赁智能中心实人认证创建服务
+         */
+        public async Task<CreateLeaseRealpersonResponse> CreateLeaseRealpersonAsync(CreateLeaseRealpersonRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateLeaseRealpersonExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁智能中心实人认证创建服务
+         * Summary: 租赁智能中心实人认证创建服务
+         */
+        public CreateLeaseRealpersonResponse CreateLeaseRealpersonEx(CreateLeaseRealpersonRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseRealpersonResponse>(DoRequest("1.0", "blockchain.bot.lease.realperson.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁智能中心实人认证创建服务
+         * Summary: 租赁智能中心实人认证创建服务
+         */
+        public async Task<CreateLeaseRealpersonResponse> CreateLeaseRealpersonExAsync(CreateLeaseRealpersonRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseRealpersonResponse>(await DoRequestAsync("1.0", "blockchain.bot.lease.realperson.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁智能中心实人认证查询服务
+         * Summary: 租赁智能中心实人认证查询服务
+         */
+        public QueryLeaseRealpersonResponse QueryLeaseRealperson(QueryLeaseRealpersonRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryLeaseRealpersonEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁智能中心实人认证查询服务
+         * Summary: 租赁智能中心实人认证查询服务
+         */
+        public async Task<QueryLeaseRealpersonResponse> QueryLeaseRealpersonAsync(QueryLeaseRealpersonRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryLeaseRealpersonExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁智能中心实人认证查询服务
+         * Summary: 租赁智能中心实人认证查询服务
+         */
+        public QueryLeaseRealpersonResponse QueryLeaseRealpersonEx(QueryLeaseRealpersonRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLeaseRealpersonResponse>(DoRequest("1.0", "blockchain.bot.lease.realperson.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁智能中心实人认证查询服务
+         * Summary: 租赁智能中心实人认证查询服务
+         */
+        public async Task<QueryLeaseRealpersonResponse> QueryLeaseRealpersonExAsync(QueryLeaseRealpersonRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLeaseRealpersonResponse>(await DoRequestAsync("1.0", "blockchain.bot.lease.realperson.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -3675,6 +3759,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SendLabelTransferrawonasyncResponse>(await DoRequestAsync("1.0", "blockchain.bot.label.transferrawonasync.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据接口名和关键key（deviceId等）, 查询验收已对接的数据
+         * Summary: 查询验收已对接的数据
+         */
+        public QueryDockedDataResponse QueryDockedData(QueryDockedDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDockedDataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据接口名和关键key（deviceId等）, 查询验收已对接的数据
+         * Summary: 查询验收已对接的数据
+         */
+        public async Task<QueryDockedDataResponse> QueryDockedDataAsync(QueryDockedDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDockedDataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据接口名和关键key（deviceId等）, 查询验收已对接的数据
+         * Summary: 查询验收已对接的数据
+         */
+        public QueryDockedDataResponse QueryDockedDataEx(QueryDockedDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDockedDataResponse>(DoRequest("1.0", "blockchain.bot.docked.data.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据接口名和关键key（deviceId等）, 查询验收已对接的数据
+         * Summary: 查询验收已对接的数据
+         */
+        public async Task<QueryDockedDataResponse> QueryDockedDataExAsync(QueryDockedDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDockedDataResponse>(await DoRequestAsync("1.0", "blockchain.bot.docked.data.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
