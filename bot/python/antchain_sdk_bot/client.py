@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.49'
+                    'sdk_version': '1.6.53'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.49'
+                    'sdk_version': '1.6.53'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -539,6 +539,114 @@ class Client:
         UtilClient.validate_model(request)
         return bot_models.SendAcsCollectorResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.acs.collector.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_lease_realperson(
+        self,
+        request: bot_models.CreateLeaseRealpersonRequest,
+    ) -> bot_models.CreateLeaseRealpersonResponse:
+        """
+        Description: 租赁智能中心实人认证创建服务
+        Summary: 租赁智能中心实人认证创建服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_lease_realperson_ex(request, headers, runtime)
+
+    async def create_lease_realperson_async(
+        self,
+        request: bot_models.CreateLeaseRealpersonRequest,
+    ) -> bot_models.CreateLeaseRealpersonResponse:
+        """
+        Description: 租赁智能中心实人认证创建服务
+        Summary: 租赁智能中心实人认证创建服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_lease_realperson_ex_async(request, headers, runtime)
+
+    def create_lease_realperson_ex(
+        self,
+        request: bot_models.CreateLeaseRealpersonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateLeaseRealpersonResponse:
+        """
+        Description: 租赁智能中心实人认证创建服务
+        Summary: 租赁智能中心实人认证创建服务
+        """
+        UtilClient.validate_model(request)
+        return bot_models.CreateLeaseRealpersonResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.lease.realperson.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_lease_realperson_ex_async(
+        self,
+        request: bot_models.CreateLeaseRealpersonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateLeaseRealpersonResponse:
+        """
+        Description: 租赁智能中心实人认证创建服务
+        Summary: 租赁智能中心实人认证创建服务
+        """
+        UtilClient.validate_model(request)
+        return bot_models.CreateLeaseRealpersonResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.lease.realperson.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_lease_realperson(
+        self,
+        request: bot_models.QueryLeaseRealpersonRequest,
+    ) -> bot_models.QueryLeaseRealpersonResponse:
+        """
+        Description: 租赁智能中心实人认证查询服务
+        Summary: 租赁智能中心实人认证查询服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_lease_realperson_ex(request, headers, runtime)
+
+    async def query_lease_realperson_async(
+        self,
+        request: bot_models.QueryLeaseRealpersonRequest,
+    ) -> bot_models.QueryLeaseRealpersonResponse:
+        """
+        Description: 租赁智能中心实人认证查询服务
+        Summary: 租赁智能中心实人认证查询服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_lease_realperson_ex_async(request, headers, runtime)
+
+    def query_lease_realperson_ex(
+        self,
+        request: bot_models.QueryLeaseRealpersonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryLeaseRealpersonResponse:
+        """
+        Description: 租赁智能中心实人认证查询服务
+        Summary: 租赁智能中心实人认证查询服务
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryLeaseRealpersonResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.lease.realperson.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_lease_realperson_ex_async(
+        self,
+        request: bot_models.QueryLeaseRealpersonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryLeaseRealpersonResponse:
+        """
+        Description: 租赁智能中心实人认证查询服务
+        Summary: 租赁智能中心实人认证查询服务
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryLeaseRealpersonResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.lease.realperson.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_bai_ocr(
@@ -4589,6 +4697,60 @@ class Client:
         UtilClient.validate_model(request)
         return bot_models.SendLabelTransferrawonasyncResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.label.transferrawonasync.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_docked_data(
+        self,
+        request: bot_models.QueryDockedDataRequest,
+    ) -> bot_models.QueryDockedDataResponse:
+        """
+        Description: 根据接口名和关键key（deviceId等）, 查询验收已对接的数据
+        Summary: 查询验收已对接的数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_docked_data_ex(request, headers, runtime)
+
+    async def query_docked_data_async(
+        self,
+        request: bot_models.QueryDockedDataRequest,
+    ) -> bot_models.QueryDockedDataResponse:
+        """
+        Description: 根据接口名和关键key（deviceId等）, 查询验收已对接的数据
+        Summary: 查询验收已对接的数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_docked_data_ex_async(request, headers, runtime)
+
+    def query_docked_data_ex(
+        self,
+        request: bot_models.QueryDockedDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDockedDataResponse:
+        """
+        Description: 根据接口名和关键key（deviceId等）, 查询验收已对接的数据
+        Summary: 查询验收已对接的数据
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryDockedDataResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.docked.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_docked_data_ex_async(
+        self,
+        request: bot_models.QueryDockedDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDockedDataResponse:
+        """
+        Description: 根据接口名和关键key（deviceId等）, 查询验收已对接的数据
+        Summary: 查询验收已对接的数据
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryDockedDataResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.docked.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(

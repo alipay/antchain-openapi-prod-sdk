@@ -4122,6 +4122,219 @@ class SendAcsCollectorResponse(TeaModel):
         return self
 
 
+class CreateLeaseRealpersonRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        identity_type: str = None,
+        cert_type: str = None,
+        cert_name: str = None,
+        cert_no: str = None,
+        outer_order_no: str = None,
+        return_url: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 身份信息来源类型，当前仅支持证件（CERT_INFO）
+        self.identity_type = identity_type
+        # 证件类型，当前仅支持身份证（IDENTITY_CARD）
+        self.cert_type = cert_type
+        # 真实姓名
+        self.cert_name = cert_name
+        # 证件号码
+        self.cert_no = cert_no
+        # 商户请求的唯一标识。
+        # 值为 32 位长度的字母数字组合。其中，前面几位字符是商户自定义的简称，中间几位可以使用一段时间，后段可以使用一个随机或递增序列。该值也可以使用 UUID
+        self.outer_order_no = outer_order_no
+        # 认证结束回跳地址
+        self.return_url = return_url
+
+    def validate(self):
+        self.validate_required(self.identity_type, 'identity_type')
+        self.validate_required(self.cert_type, 'cert_type')
+        self.validate_required(self.cert_name, 'cert_name')
+        self.validate_required(self.cert_no, 'cert_no')
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+        self.validate_required(self.return_url, 'return_url')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.identity_type is not None:
+            result['identity_type'] = self.identity_type
+        if self.cert_type is not None:
+            result['cert_type'] = self.cert_type
+        if self.cert_name is not None:
+            result['cert_name'] = self.cert_name
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.return_url is not None:
+            result['return_url'] = self.return_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('identity_type') is not None:
+            self.identity_type = m.get('identity_type')
+        if m.get('cert_type') is not None:
+            self.cert_type = m.get('cert_type')
+        if m.get('cert_name') is not None:
+            self.cert_name = m.get('cert_name')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('return_url') is not None:
+            self.return_url = m.get('return_url')
+        return self
+
+
+class CreateLeaseRealpersonResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务返回字段，JSON格式
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class QueryLeaseRealpersonRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        certify_id: str = None,
+        outer_order_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 实人认证的唯一标识
+        self.certify_id = certify_id
+        # 商户请求的唯一标识。 值为 32 位长度的字母数字组合。其中，前面几位字符是商户自定义的简称，中间几位可以使用一段时间，后段可以使用一个随机或递增序列。该值也可以使用 UUID
+        self.outer_order_no = outer_order_no
+
+    def validate(self):
+        self.validate_required(self.certify_id, 'certify_id')
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.certify_id is not None:
+            result['certify_id'] = self.certify_id
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('certify_id') is not None:
+            self.certify_id = m.get('certify_id')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        return self
+
+
+class QueryLeaseRealpersonResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务返回字段，JSON格式
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
 class QueryBaiOcrRequest(TeaModel):
     def __init__(
         self,
@@ -12617,6 +12830,107 @@ class SendLabelTransferrawonasyncResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('request_id') is not None:
             self.request_id = m.get('request_id')
+        return self
+
+
+class QueryDockedDataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        docked_method: str = None,
+        scene: str = None,
+        key: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 1. 已对接的接口名 ;
+        # 2. docked_method可通过 实例化SDK中的Request模型后获取，例如：
+        # String dockedMethod = new CreateDeviceDatamodelRequest().getMethod();
+        self.docked_method = docked_method
+        # 关键key为chainDeviceId 时不填
+        self.scene = scene
+        # 1. 接口中的关键key ，例如 deviceId ；
+        # 2. key为chainDeviceId时，scene字段不填
+        # 
+        self.key = key
+
+    def validate(self):
+        self.validate_required(self.docked_method, 'docked_method')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.docked_method is not None:
+            result['docked_method'] = self.docked_method
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.key is not None:
+            result['key'] = self.key
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('docked_method') is not None:
+            self.docked_method = m.get('docked_method')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        return self
+
+
+class QueryDockedDataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 1. 根据不同的method返回不同的数据内容
+        # 2. markdown格式的内容
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
         return self
 
 
