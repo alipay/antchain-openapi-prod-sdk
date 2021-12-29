@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.49',
+    sdk_version = '1.6.53',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -1369,6 +1369,95 @@ async function sendAcsCollector(request: SendAcsCollectorRequest): SendAcsCollec
 async function sendAcsCollectorEx(request: SendAcsCollectorRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendAcsCollectorResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.acs.collector.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateLeaseRealpersonRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 身份信息来源类型，当前仅支持证件（CERT_INFO）
+  identityType: string(name='identity_type'),
+  // 证件类型，当前仅支持身份证（IDENTITY_CARD）
+  certType: string(name='cert_type'),
+  // 真实姓名
+  certName: string(name='cert_name'),
+  // 证件号码
+  certNo: string(name='cert_no'),
+  // 商户请求的唯一标识。
+  // 值为 32 位长度的字母数字组合。其中，前面几位字符是商户自定义的简称，中间几位可以使用一段时间，后段可以使用一个随机或递增序列。该值也可以使用 UUID
+  outerOrderNo: string(name='outer_order_no'),
+  // 认证结束回跳地址
+  returnUrl: string(name='return_url'),
+}
+
+model CreateLeaseRealpersonResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务返回字段，JSON格式
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 租赁智能中心实人认证创建服务
+ * Summary: 租赁智能中心实人认证创建服务
+ */
+async function createLeaseRealperson(request: CreateLeaseRealpersonRequest): CreateLeaseRealpersonResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createLeaseRealpersonEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁智能中心实人认证创建服务
+ * Summary: 租赁智能中心实人认证创建服务
+ */
+async function createLeaseRealpersonEx(request: CreateLeaseRealpersonRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateLeaseRealpersonResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.lease.realperson.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryLeaseRealpersonRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 实人认证的唯一标识
+  certifyId: string(name='certify_id'),
+  // 商户请求的唯一标识。 值为 32 位长度的字母数字组合。其中，前面几位字符是商户自定义的简称，中间几位可以使用一段时间，后段可以使用一个随机或递增序列。该值也可以使用 UUID
+  outerOrderNo: string(name='outer_order_no'),
+}
+
+model QueryLeaseRealpersonResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务返回字段，JSON格式
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 租赁智能中心实人认证查询服务
+ * Summary: 租赁智能中心实人认证查询服务
+ */
+async function queryLeaseRealperson(request: QueryLeaseRealpersonRequest): QueryLeaseRealpersonResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryLeaseRealpersonEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁智能中心实人认证查询服务
+ * Summary: 租赁智能中心实人认证查询服务
+ */
+async function queryLeaseRealpersonEx(request: QueryLeaseRealpersonRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLeaseRealpersonResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.lease.realperson.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryBaiOcrRequest = {
@@ -4979,6 +5068,53 @@ async function sendLabelTransferrawonasync(request: SendLabelTransferrawonasyncR
 async function sendLabelTransferrawonasyncEx(request: SendLabelTransferrawonasyncRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendLabelTransferrawonasyncResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.label.transferrawonasync.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDockedDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 1. 已对接的接口名 ; 
+  // 2. docked_method可通过 实例化SDK中的Request模型后获取，例如：
+  // String dockedMethod = new CreateDeviceDatamodelRequest().getMethod();
+  dockedMethod: string(name='docked_method'),
+  // 关键key为chainDeviceId 时不填
+  scene?: string(name='scene'),
+  // 1. 接口中的关键key ，例如 deviceId ；
+  // 2. key为chainDeviceId时，scene字段不填
+  // 
+  key?: [ string ](name='key'),
+}
+
+model QueryDockedDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 1. 根据不同的method返回不同的数据内容
+  // 2. markdown格式的内容
+  result?: [ string ](name='result'),
+}
+
+/**
+ * Description: 根据接口名和关键key（deviceId等）, 查询验收已对接的数据
+ * Summary: 查询验收已对接的数据
+ */
+async function queryDockedData(request: QueryDockedDataRequest): QueryDockedDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDockedDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据接口名和关键key（deviceId等）, 查询验收已对接的数据
+ * Summary: 查询验收已对接的数据
+ */
+async function queryDockedDataEx(request: QueryDockedDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDockedDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.docked.data.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
