@@ -2687,6 +2687,149 @@ export class SendAcsCollectorResponse extends $tea.Model {
   }
 }
 
+export class CreateLeaseRealpersonRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 身份信息来源类型，当前仅支持证件（CERT_INFO）
+  identityType: string;
+  // 证件类型，当前仅支持身份证（IDENTITY_CARD）
+  certType: string;
+  // 真实姓名
+  certName: string;
+  // 证件号码
+  certNo: string;
+  // 商户请求的唯一标识。
+  // 值为 32 位长度的字母数字组合。其中，前面几位字符是商户自定义的简称，中间几位可以使用一段时间，后段可以使用一个随机或递增序列。该值也可以使用 UUID
+  outerOrderNo: string;
+  // 认证结束回跳地址
+  returnUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      identityType: 'identity_type',
+      certType: 'cert_type',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      outerOrderNo: 'outer_order_no',
+      returnUrl: 'return_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      identityType: 'string',
+      certType: 'string',
+      certName: 'string',
+      certNo: 'string',
+      outerOrderNo: 'string',
+      returnUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLeaseRealpersonResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务返回字段，JSON格式
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryLeaseRealpersonRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 实人认证的唯一标识
+  certifyId: string;
+  // 商户请求的唯一标识。 值为 32 位长度的字母数字组合。其中，前面几位字符是商户自定义的简称，中间几位可以使用一段时间，后段可以使用一个随机或递增序列。该值也可以使用 UUID
+  outerOrderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      certifyId: 'certify_id',
+      outerOrderNo: 'outer_order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      certifyId: 'string',
+      outerOrderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryLeaseRealpersonResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务返回字段，JSON格式
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryBaiOcrRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -8354,6 +8497,78 @@ export class SendLabelTransferrawonasyncResponse extends $tea.Model {
   }
 }
 
+export class QueryDockedDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 1. 已对接的接口名 ; 
+  // 2. docked_method可通过 实例化SDK中的Request模型后获取，例如：
+  // String dockedMethod = new CreateDeviceDatamodelRequest().getMethod();
+  dockedMethod: string;
+  // 关键key为chainDeviceId 时不填
+  scene?: string;
+  // 1. 接口中的关键key ，例如 deviceId ；
+  // 2. key为chainDeviceId时，scene字段不填
+  // 
+  key?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      dockedMethod: 'docked_method',
+      scene: 'scene',
+      key: 'key',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      dockedMethod: 'string',
+      scene: 'string',
+      key: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDockedDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 1. 根据不同的method返回不同的数据内容
+  // 2. markdown格式的内容
+  result?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -9648,7 +9863,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.49",
+          sdk_version: "1.6.53",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -9787,6 +10002,44 @@ export default class Client {
   async sendAcsCollectorEx(request: SendAcsCollectorRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendAcsCollectorResponse> {
     Util.validateModel(request);
     return $tea.cast<SendAcsCollectorResponse>(await this.doRequest("1.0", "blockchain.bot.acs.collector.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendAcsCollectorResponse({}));
+  }
+
+  /**
+   * Description: 租赁智能中心实人认证创建服务
+   * Summary: 租赁智能中心实人认证创建服务
+   */
+  async createLeaseRealperson(request: CreateLeaseRealpersonRequest): Promise<CreateLeaseRealpersonResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createLeaseRealpersonEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁智能中心实人认证创建服务
+   * Summary: 租赁智能中心实人认证创建服务
+   */
+  async createLeaseRealpersonEx(request: CreateLeaseRealpersonRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateLeaseRealpersonResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateLeaseRealpersonResponse>(await this.doRequest("1.0", "blockchain.bot.lease.realperson.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateLeaseRealpersonResponse({}));
+  }
+
+  /**
+   * Description: 租赁智能中心实人认证查询服务
+   * Summary: 租赁智能中心实人认证查询服务
+   */
+  async queryLeaseRealperson(request: QueryLeaseRealpersonRequest): Promise<QueryLeaseRealpersonResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryLeaseRealpersonEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁智能中心实人认证查询服务
+   * Summary: 租赁智能中心实人认证查询服务
+   */
+  async queryLeaseRealpersonEx(request: QueryLeaseRealpersonRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryLeaseRealpersonResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryLeaseRealpersonResponse>(await this.doRequest("1.0", "blockchain.bot.lease.realperson.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryLeaseRealpersonResponse({}));
   }
 
   /**
@@ -11212,6 +11465,25 @@ export default class Client {
   async sendLabelTransferrawonasyncEx(request: SendLabelTransferrawonasyncRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendLabelTransferrawonasyncResponse> {
     Util.validateModel(request);
     return $tea.cast<SendLabelTransferrawonasyncResponse>(await this.doRequest("1.0", "blockchain.bot.label.transferrawonasync.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendLabelTransferrawonasyncResponse({}));
+  }
+
+  /**
+   * Description: 根据接口名和关键key（deviceId等）, 查询验收已对接的数据
+   * Summary: 查询验收已对接的数据
+   */
+  async queryDockedData(request: QueryDockedDataRequest): Promise<QueryDockedDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDockedDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据接口名和关键key（deviceId等）, 查询验收已对接的数据
+   * Summary: 查询验收已对接的数据
+   */
+  async queryDockedDataEx(request: QueryDockedDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDockedDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDockedDataResponse>(await this.doRequest("1.0", "blockchain.bot.docked.data.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDockedDataResponse({}));
   }
 
   /**
