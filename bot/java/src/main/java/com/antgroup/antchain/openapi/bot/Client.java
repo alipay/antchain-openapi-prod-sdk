@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.49")
+                    new TeaPair("sdk_version", "1.6.53")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -252,6 +252,44 @@ public class Client {
     public SendAcsCollectorResponse sendAcsCollectorEx(SendAcsCollectorRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.acs.collector.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendAcsCollectorResponse());
+    }
+
+    /**
+     * Description: 租赁智能中心实人认证创建服务
+     * Summary: 租赁智能中心实人认证创建服务
+     */
+    public CreateLeaseRealpersonResponse createLeaseRealperson(CreateLeaseRealpersonRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createLeaseRealpersonEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 租赁智能中心实人认证创建服务
+     * Summary: 租赁智能中心实人认证创建服务
+     */
+    public CreateLeaseRealpersonResponse createLeaseRealpersonEx(CreateLeaseRealpersonRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.lease.realperson.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateLeaseRealpersonResponse());
+    }
+
+    /**
+     * Description: 租赁智能中心实人认证查询服务
+     * Summary: 租赁智能中心实人认证查询服务
+     */
+    public QueryLeaseRealpersonResponse queryLeaseRealperson(QueryLeaseRealpersonRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryLeaseRealpersonEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 租赁智能中心实人认证查询服务
+     * Summary: 租赁智能中心实人认证查询服务
+     */
+    public QueryLeaseRealpersonResponse queryLeaseRealpersonEx(QueryLeaseRealpersonRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.lease.realperson.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLeaseRealpersonResponse());
     }
 
     /**
@@ -1677,6 +1715,25 @@ public class Client {
     public SendLabelTransferrawonasyncResponse sendLabelTransferrawonasyncEx(SendLabelTransferrawonasyncRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.label.transferrawonasync.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendLabelTransferrawonasyncResponse());
+    }
+
+    /**
+     * Description: 根据接口名和关键key（deviceId等）, 查询验收已对接的数据
+     * Summary: 查询验收已对接的数据
+     */
+    public QueryDockedDataResponse queryDockedData(QueryDockedDataRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDockedDataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据接口名和关键key（deviceId等）, 查询验收已对接的数据
+     * Summary: 查询验收已对接的数据
+     */
+    public QueryDockedDataResponse queryDockedDataEx(QueryDockedDataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.docked.data.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDockedDataResponse());
     }
 
     /**
