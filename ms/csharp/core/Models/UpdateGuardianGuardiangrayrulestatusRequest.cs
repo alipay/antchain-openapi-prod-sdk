@@ -1,0 +1,38 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.MS.Models
+{
+    public class UpdateGuardianGuardiangrayrulestatusRequest : TeaModel {
+        // OAuth模式下的授权token
+        [NameInMap("auth_token")]
+        [Validation(Required=false)]
+        public string AuthToken { get; set; }
+
+        [NameInMap("product_instance_id")]
+        [Validation(Required=false)]
+        public string ProductInstanceId { get; set; }
+
+        // 实例id
+        [NameInMap("instance_id")]
+        [Validation(Required=true)]
+        public string InstanceId { get; set; }
+
+        // ip 列表
+        [NameInMap("ip_list")]
+        [Validation(Required=true)]
+        public string IpList { get; set; }
+
+        // 规则id
+        [NameInMap("rule_id")]
+        [Validation(Required=true)]
+        public long? RuleId { get; set; }
+
+    }
+
+}
