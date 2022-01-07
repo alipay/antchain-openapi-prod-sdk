@@ -11,9 +11,9 @@ namespace AntChain.SDK.DONPA.Models
     // 预测请求结构体
     public class PredictRequest : TeaModel {
         // 资产明细ID
-        [NameInMap("asset_detail_id")]
+        [NameInMap("external_asset_detail_id")]
         [Validation(Required=false)]
-        public string AssetDetailId { get; set; }
+        public string ExternalAssetDetailId { get; set; }
 
         // 身份证号码MD5
         [NameInMap("cert_no_md5")]

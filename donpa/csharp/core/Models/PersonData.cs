@@ -25,6 +25,11 @@ namespace AntChain.SDK.DONPA.Models
         [Validation(Required=false)]
         public string Phone { get; set; }
 
+        // 身份证号加密方式
+        [NameInMap("mask_model")]
+        [Validation(Required=false)]
+        public string MaskModel { get; set; }
+
     }
 
 }

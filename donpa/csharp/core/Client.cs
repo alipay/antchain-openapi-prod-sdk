@@ -137,7 +137,7 @@ namespace AntChain.SDK.DONPA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.17"},
+                        {"sdk_version", "1.0.22"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.DONPA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.17"},
+                        {"sdk_version", "1.0.22"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -567,6 +567,174 @@ namespace AntChain.SDK.DONPA
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UnbindSlxfResponse>(await DoRequestAsync("1.0", "antchain.donpa.slxf.unbind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 失联修复发起API接口
+         * Summary: 失联修复发起API接口
+         */
+        public StartMyslxfResponse StartMyslxf(StartMyslxfRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StartMyslxfEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 失联修复发起API接口
+         * Summary: 失联修复发起API接口
+         */
+        public async Task<StartMyslxfResponse> StartMyslxfAsync(StartMyslxfRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StartMyslxfExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 失联修复发起API接口
+         * Summary: 失联修复发起API接口
+         */
+        public StartMyslxfResponse StartMyslxfEx(StartMyslxfRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartMyslxfResponse>(DoRequest("1.0", "antchain.donpa.myslxf.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 失联修复发起API接口
+         * Summary: 失联修复发起API接口
+         */
+        public async Task<StartMyslxfResponse> StartMyslxfExAsync(StartMyslxfRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartMyslxfResponse>(await DoRequestAsync("1.0", "antchain.donpa.myslxf.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询修复结果
+         * Summary: 查询修复结果
+         */
+        public BatchqueryMyslxfResponse BatchqueryMyslxf(BatchqueryMyslxfRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchqueryMyslxfEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询修复结果
+         * Summary: 查询修复结果
+         */
+        public async Task<BatchqueryMyslxfResponse> BatchqueryMyslxfAsync(BatchqueryMyslxfRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchqueryMyslxfExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询修复结果
+         * Summary: 查询修复结果
+         */
+        public BatchqueryMyslxfResponse BatchqueryMyslxfEx(BatchqueryMyslxfRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryMyslxfResponse>(DoRequest("1.0", "antchain.donpa.myslxf.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询修复结果
+         * Summary: 查询修复结果
+         */
+        public async Task<BatchqueryMyslxfResponse> BatchqueryMyslxfExAsync(BatchqueryMyslxfRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryMyslxfResponse>(await DoRequestAsync("1.0", "antchain.donpa.myslxf.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 绑定虚拟小号接口
+         * Summary: 绑定虚拟小号接口
+         */
+        public BindMyslxfResponse BindMyslxf(BindMyslxfRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BindMyslxfEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 绑定虚拟小号接口
+         * Summary: 绑定虚拟小号接口
+         */
+        public async Task<BindMyslxfResponse> BindMyslxfAsync(BindMyslxfRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BindMyslxfExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 绑定虚拟小号接口
+         * Summary: 绑定虚拟小号接口
+         */
+        public BindMyslxfResponse BindMyslxfEx(BindMyslxfRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindMyslxfResponse>(DoRequest("1.0", "antchain.donpa.myslxf.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 绑定虚拟小号接口
+         * Summary: 绑定虚拟小号接口
+         */
+        public async Task<BindMyslxfResponse> BindMyslxfExAsync(BindMyslxfRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindMyslxfResponse>(await DoRequestAsync("1.0", "antchain.donpa.myslxf.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 解绑虚拟小号接口
+         * Summary: 解绑虚拟小号接口
+         */
+        public UnbindMyslxfResponse UnbindMyslxf(UnbindMyslxfRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UnbindMyslxfEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 解绑虚拟小号接口
+         * Summary: 解绑虚拟小号接口
+         */
+        public async Task<UnbindMyslxfResponse> UnbindMyslxfAsync(UnbindMyslxfRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UnbindMyslxfExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 解绑虚拟小号接口
+         * Summary: 解绑虚拟小号接口
+         */
+        public UnbindMyslxfResponse UnbindMyslxfEx(UnbindMyslxfRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UnbindMyslxfResponse>(DoRequest("1.0", "antchain.donpa.myslxf.unbind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 解绑虚拟小号接口
+         * Summary: 解绑虚拟小号接口
+         */
+        public async Task<UnbindMyslxfResponse> UnbindMyslxfExAsync(UnbindMyslxfRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UnbindMyslxfResponse>(await DoRequestAsync("1.0", "antchain.donpa.myslxf.unbind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

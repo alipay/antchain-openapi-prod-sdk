@@ -11,9 +11,9 @@ namespace AntChain.SDK.DONPA.Models
     // 预测结果响应体
     public class PredictResponse : TeaModel {
         // 资产明细ID
-        [NameInMap("asset_detail_id")]
+        [NameInMap("external_asset_detail_id")]
         [Validation(Required=false)]
-        public string AssetDetailId { get; set; }
+        public string ExternalAssetDetailId { get; set; }
 
         // 反向指标
         [NameInMap("probability0")]
