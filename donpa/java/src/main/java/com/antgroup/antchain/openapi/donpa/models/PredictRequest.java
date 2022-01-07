@@ -5,8 +5,8 @@ import com.aliyun.tea.*;
 
 public class PredictRequest extends TeaModel {
     // 资产明细ID
-    @NameInMap("asset_detail_id")
-    public String assetDetailId;
+    @NameInMap("external_asset_detail_id")
+    public String externalAssetDetailId;
 
     // 身份证号码MD5
     @NameInMap("cert_no_md5")
@@ -38,12 +38,12 @@ public class PredictRequest extends TeaModel {
         return TeaModel.build(map, self);
     }
 
-    public PredictRequest setAssetDetailId(String assetDetailId) {
-        this.assetDetailId = assetDetailId;
+    public PredictRequest setExternalAssetDetailId(String externalAssetDetailId) {
+        this.externalAssetDetailId = externalAssetDetailId;
         return this;
     }
-    public String getAssetDetailId() {
-        return this.assetDetailId;
+    public String getExternalAssetDetailId() {
+        return this.externalAssetDetailId;
     }
 
     public PredictRequest setCertNoMd5(String certNoMd5) {

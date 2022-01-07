@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.17")
+                    new TeaPair("sdk_version", "1.0.22")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -271,5 +271,81 @@ public class Client {
     public UnbindSlxfResponse unbindSlxfEx(UnbindSlxfRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.donpa.slxf.unbind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UnbindSlxfResponse());
+    }
+
+    /**
+     * Description: 失联修复发起API接口
+     * Summary: 失联修复发起API接口
+     */
+    public StartMyslxfResponse startMyslxf(StartMyslxfRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.startMyslxfEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 失联修复发起API接口
+     * Summary: 失联修复发起API接口
+     */
+    public StartMyslxfResponse startMyslxfEx(StartMyslxfRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.donpa.myslxf.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartMyslxfResponse());
+    }
+
+    /**
+     * Description: 查询修复结果
+     * Summary: 查询修复结果
+     */
+    public BatchqueryMyslxfResponse batchqueryMyslxf(BatchqueryMyslxfRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryMyslxfEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询修复结果
+     * Summary: 查询修复结果
+     */
+    public BatchqueryMyslxfResponse batchqueryMyslxfEx(BatchqueryMyslxfRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.donpa.myslxf.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryMyslxfResponse());
+    }
+
+    /**
+     * Description: 绑定虚拟小号接口
+     * Summary: 绑定虚拟小号接口
+     */
+    public BindMyslxfResponse bindMyslxf(BindMyslxfRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindMyslxfEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 绑定虚拟小号接口
+     * Summary: 绑定虚拟小号接口
+     */
+    public BindMyslxfResponse bindMyslxfEx(BindMyslxfRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.donpa.myslxf.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindMyslxfResponse());
+    }
+
+    /**
+     * Description: 解绑虚拟小号接口
+     * Summary: 解绑虚拟小号接口
+     */
+    public UnbindMyslxfResponse unbindMyslxf(UnbindMyslxfRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.unbindMyslxfEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 解绑虚拟小号接口
+     * Summary: 解绑虚拟小号接口
+     */
+    public UnbindMyslxfResponse unbindMyslxfEx(UnbindMyslxfRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.donpa.myslxf.unbind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UnbindMyslxfResponse());
     }
 }

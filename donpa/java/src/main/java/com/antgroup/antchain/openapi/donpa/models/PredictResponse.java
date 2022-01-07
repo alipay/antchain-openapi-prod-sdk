@@ -5,8 +5,8 @@ import com.aliyun.tea.*;
 
 public class PredictResponse extends TeaModel {
     // 资产明细ID
-    @NameInMap("asset_detail_id")
-    public String assetDetailId;
+    @NameInMap("external_asset_detail_id")
+    public String externalAssetDetailId;
 
     // 反向指标
     @NameInMap("probability0")
@@ -41,12 +41,12 @@ public class PredictResponse extends TeaModel {
         return TeaModel.build(map, self);
     }
 
-    public PredictResponse setAssetDetailId(String assetDetailId) {
-        this.assetDetailId = assetDetailId;
+    public PredictResponse setExternalAssetDetailId(String externalAssetDetailId) {
+        this.externalAssetDetailId = externalAssetDetailId;
         return this;
     }
-    public String getAssetDetailId() {
-        return this.assetDetailId;
+    public String getExternalAssetDetailId() {
+        return this.externalAssetDetailId;
     }
 
     public PredictResponse setProbability0(String probability0) {

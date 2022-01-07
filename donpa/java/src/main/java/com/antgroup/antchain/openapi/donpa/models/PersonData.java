@@ -18,6 +18,10 @@ public class PersonData extends TeaModel {
     @NameInMap("phone")
     public String phone;
 
+    // 身份证号加密方式
+    @NameInMap("mask_model")
+    public String maskModel;
+
     public static PersonData build(java.util.Map<String, ?> map) throws Exception {
         PersonData self = new PersonData();
         return TeaModel.build(map, self);
@@ -45,6 +49,14 @@ public class PersonData extends TeaModel {
     }
     public String getPhone() {
         return this.phone;
+    }
+
+    public PersonData setMaskModel(String maskModel) {
+        this.maskModel = maskModel;
+        return this;
+    }
+    public String getMaskModel() {
+        return this.maskModel;
     }
 
 }
