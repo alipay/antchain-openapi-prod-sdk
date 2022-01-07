@@ -11,6 +11,10 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\DONPA\Models\BatchqueryMyslxfRequest;
+use AntChain\DONPA\Models\BatchqueryMyslxfResponse;
+use AntChain\DONPA\Models\BindMyslxfRequest;
+use AntChain\DONPA\Models\BindMyslxfResponse;
 use AntChain\DONPA\Models\BindSlxfRequest;
 use AntChain\DONPA\Models\BindSlxfResponse;
 use AntChain\DONPA\Models\PullSlxfRequest;
@@ -19,8 +23,12 @@ use AntChain\DONPA\Models\QueryPredictRequest;
 use AntChain\DONPA\Models\QueryPredictResponse;
 use AntChain\DONPA\Models\QuerySlxfRequest;
 use AntChain\DONPA\Models\QuerySlxfResponse;
+use AntChain\DONPA\Models\StartMyslxfRequest;
+use AntChain\DONPA\Models\StartMyslxfResponse;
 use AntChain\DONPA\Models\StartSlxfRequest;
 use AntChain\DONPA\Models\StartSlxfResponse;
+use AntChain\DONPA\Models\UnbindMyslxfRequest;
+use AntChain\DONPA\Models\UnbindMyslxfResponse;
 use AntChain\DONPA\Models\UnbindSlxfRequest;
 use AntChain\DONPA\Models\UnbindSlxfResponse;
 use AntChain\Util\UtilClient;
@@ -142,7 +150,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 修复数据
+            // 待修复的债务人信息
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -170,7 +178,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.17',
+                    'sdk_version'      => '1.0.22',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -412,5 +420,137 @@ class Client
         Utils::validateModel($request);
 
         return UnbindSlxfResponse::fromMap($this->doRequest('1.0', 'antchain.donpa.slxf.unbind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 失联修复发起API接口
+     * Summary: 失联修复发起API接口.
+     *
+     * @param StartMyslxfRequest $request
+     *
+     * @return StartMyslxfResponse
+     */
+    public function startMyslxf($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startMyslxfEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 失联修复发起API接口
+     * Summary: 失联修复发起API接口.
+     *
+     * @param StartMyslxfRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return StartMyslxfResponse
+     */
+    public function startMyslxfEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartMyslxfResponse::fromMap($this->doRequest('1.0', 'antchain.donpa.myslxf.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询修复结果
+     * Summary: 查询修复结果.
+     *
+     * @param BatchqueryMyslxfRequest $request
+     *
+     * @return BatchqueryMyslxfResponse
+     */
+    public function batchqueryMyslxf($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryMyslxfEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询修复结果
+     * Summary: 查询修复结果.
+     *
+     * @param BatchqueryMyslxfRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return BatchqueryMyslxfResponse
+     */
+    public function batchqueryMyslxfEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryMyslxfResponse::fromMap($this->doRequest('1.0', 'antchain.donpa.myslxf.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 绑定虚拟小号接口
+     * Summary: 绑定虚拟小号接口.
+     *
+     * @param BindMyslxfRequest $request
+     *
+     * @return BindMyslxfResponse
+     */
+    public function bindMyslxf($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindMyslxfEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 绑定虚拟小号接口
+     * Summary: 绑定虚拟小号接口.
+     *
+     * @param BindMyslxfRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return BindMyslxfResponse
+     */
+    public function bindMyslxfEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindMyslxfResponse::fromMap($this->doRequest('1.0', 'antchain.donpa.myslxf.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 解绑虚拟小号接口
+     * Summary: 解绑虚拟小号接口.
+     *
+     * @param UnbindMyslxfRequest $request
+     *
+     * @return UnbindMyslxfResponse
+     */
+    public function unbindMyslxf($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->unbindMyslxfEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 解绑虚拟小号接口
+     * Summary: 解绑虚拟小号接口.
+     *
+     * @param UnbindMyslxfRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return UnbindMyslxfResponse
+     */
+    public function unbindMyslxfEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UnbindMyslxfResponse::fromMap($this->doRequest('1.0', 'antchain.donpa.myslxf.unbind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

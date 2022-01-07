@@ -14,7 +14,7 @@ class PredictResponse extends Model
      *
      * @var string
      */
-    public $assetDetailId;
+    public $externalAssetDetailId;
 
     // 反向指标
     /**
@@ -72,14 +72,14 @@ class PredictResponse extends Model
      */
     public $certNo;
     protected $_name = [
-        'assetDetailId'   => 'asset_detail_id',
-        'probability0'    => 'probability0',
-        'probability1'    => 'probability1',
-        'certNoMd5'       => 'cert_no_md5',
-        'mobileMd5'       => 'mobile_md5',
-        'level'           => 'level',
-        'predictionScore' => 'prediction_score',
-        'certNo'          => 'cert_no',
+        'externalAssetDetailId' => 'external_asset_detail_id',
+        'probability0'          => 'probability0',
+        'probability1'          => 'probability1',
+        'certNoMd5'             => 'cert_no_md5',
+        'mobileMd5'             => 'mobile_md5',
+        'level'                 => 'level',
+        'predictionScore'       => 'prediction_score',
+        'certNo'                => 'cert_no',
     ];
 
     public function validate()
@@ -89,8 +89,8 @@ class PredictResponse extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->assetDetailId) {
-            $res['asset_detail_id'] = $this->assetDetailId;
+        if (null !== $this->externalAssetDetailId) {
+            $res['external_asset_detail_id'] = $this->externalAssetDetailId;
         }
         if (null !== $this->probability0) {
             $res['probability0'] = $this->probability0;
@@ -125,8 +125,8 @@ class PredictResponse extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['asset_detail_id'])) {
-            $model->assetDetailId = $map['asset_detail_id'];
+        if (isset($map['external_asset_detail_id'])) {
+            $model->externalAssetDetailId = $map['external_asset_detail_id'];
         }
         if (isset($map['probability0'])) {
             $model->probability0 = $map['probability0'];

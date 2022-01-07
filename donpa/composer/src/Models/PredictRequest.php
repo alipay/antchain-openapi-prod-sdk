@@ -14,7 +14,7 @@ class PredictRequest extends Model
      *
      * @var string
      */
-    public $assetDetailId;
+    public $externalAssetDetailId;
 
     // 身份证号码MD5
     /**
@@ -64,13 +64,13 @@ class PredictRequest extends Model
      */
     public $predictionScore;
     protected $_name = [
-        'assetDetailId'   => 'asset_detail_id',
-        'certNoMd5'       => 'cert_no_md5',
-        'paybackAmount'   => 'payback_amount',
-        'paybackNum'      => 'payback_num',
-        'overdueDay'      => 'overdue_day',
-        'certNo'          => 'cert_no',
-        'predictionScore' => 'prediction_score',
+        'externalAssetDetailId' => 'external_asset_detail_id',
+        'certNoMd5'             => 'cert_no_md5',
+        'paybackAmount'         => 'payback_amount',
+        'paybackNum'            => 'payback_num',
+        'overdueDay'            => 'overdue_day',
+        'certNo'                => 'cert_no',
+        'predictionScore'       => 'prediction_score',
     ];
 
     public function validate()
@@ -81,8 +81,8 @@ class PredictRequest extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->assetDetailId) {
-            $res['asset_detail_id'] = $this->assetDetailId;
+        if (null !== $this->externalAssetDetailId) {
+            $res['external_asset_detail_id'] = $this->externalAssetDetailId;
         }
         if (null !== $this->certNoMd5) {
             $res['cert_no_md5'] = $this->certNoMd5;
@@ -114,8 +114,8 @@ class PredictRequest extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['asset_detail_id'])) {
-            $model->assetDetailId = $map['asset_detail_id'];
+        if (isset($map['external_asset_detail_id'])) {
+            $model->externalAssetDetailId = $map['external_asset_detail_id'];
         }
         if (isset($map['cert_no_md5'])) {
             $model->certNoMd5 = $map['cert_no_md5'];

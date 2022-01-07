@@ -31,10 +31,19 @@ class PersonData extends Model
      * @var string
      */
     public $phone;
+
+    // 身份证号加密方式
+    /**
+     * @example SHA256,MD5,默认SHA256
+     *
+     * @var string
+     */
+    public $maskModel;
     protected $_name = [
-        'userName' => 'user_name',
-        'idCard'   => 'id_card',
-        'phone'    => 'phone',
+        'userName'  => 'user_name',
+        'idCard'    => 'id_card',
+        'phone'     => 'phone',
+        'maskModel' => 'mask_model',
     ];
 
     public function validate()
@@ -54,6 +63,9 @@ class PersonData extends Model
         }
         if (null !== $this->phone) {
             $res['phone'] = $this->phone;
+        }
+        if (null !== $this->maskModel) {
+            $res['mask_model'] = $this->maskModel;
         }
 
         return $res;
@@ -75,6 +87,9 @@ class PersonData extends Model
         }
         if (isset($map['phone'])) {
             $model->phone = $map['phone'];
+        }
+        if (isset($map['mask_model'])) {
+            $model->maskModel = $map['mask_model'];
         }
 
         return $model;
