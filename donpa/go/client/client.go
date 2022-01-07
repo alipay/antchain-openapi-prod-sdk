@@ -148,6 +148,46 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 待修复的债务人信息
+type PersonData struct {
+	// 姓名
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+	// 待修复 sha256 加密身份证号
+	IdCard *string `json:"id_card,omitempty" xml:"id_card,omitempty" require:"true"`
+	// 手机号
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
+	// 身份证号加密方式
+	MaskModel *string `json:"mask_model,omitempty" xml:"mask_model,omitempty"`
+}
+
+func (s PersonData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PersonData) GoString() string {
+	return s.String()
+}
+
+func (s *PersonData) SetUserName(v string) *PersonData {
+	s.UserName = &v
+	return s
+}
+
+func (s *PersonData) SetIdCard(v string) *PersonData {
+	s.IdCard = &v
+	return s
+}
+
+func (s *PersonData) SetPhone(v string) *PersonData {
+	s.Phone = &v
+	return s
+}
+
+func (s *PersonData) SetMaskModel(v string) *PersonData {
+	s.MaskModel = &v
+	return s
+}
+
 // 修复数据
 type RepairData struct {
 	// 修复结果状态：“RPS001”: 不可外呼，”RPS002":可以 外呼
@@ -198,7 +238,7 @@ func (s *RepairData) SetResultListNumber(v int64) *RepairData {
 // 预测请求结构体
 type PredictRequest struct {
 	// 资产明细ID
-	AssetDetailId *string `json:"asset_detail_id,omitempty" xml:"asset_detail_id,omitempty"`
+	ExternalAssetDetailId *string `json:"external_asset_detail_id,omitempty" xml:"external_asset_detail_id,omitempty"`
 	// 身份证号码MD5
 	CertNoMd5 *string `json:"cert_no_md5,omitempty" xml:"cert_no_md5,omitempty" require:"true"`
 	// 已还总额,默认0
@@ -221,8 +261,8 @@ func (s PredictRequest) GoString() string {
 	return s.String()
 }
 
-func (s *PredictRequest) SetAssetDetailId(v string) *PredictRequest {
-	s.AssetDetailId = &v
+func (s *PredictRequest) SetExternalAssetDetailId(v string) *PredictRequest {
+	s.ExternalAssetDetailId = &v
 	return s
 }
 
@@ -259,7 +299,7 @@ func (s *PredictRequest) SetPredictionScore(v string) *PredictRequest {
 // 预测结果响应体
 type PredictResponse struct {
 	// 资产明细ID
-	AssetDetailId *string `json:"asset_detail_id,omitempty" xml:"asset_detail_id,omitempty"`
+	ExternalAssetDetailId *string `json:"external_asset_detail_id,omitempty" xml:"external_asset_detail_id,omitempty"`
 	// 反向指标
 	Probability0 *string `json:"probability0,omitempty" xml:"probability0,omitempty"`
 	// 正向指标
@@ -284,8 +324,8 @@ func (s PredictResponse) GoString() string {
 	return s.String()
 }
 
-func (s *PredictResponse) SetAssetDetailId(v string) *PredictResponse {
-	s.AssetDetailId = &v
+func (s *PredictResponse) SetExternalAssetDetailId(v string) *PredictResponse {
+	s.ExternalAssetDetailId = &v
 	return s
 }
 
@@ -357,6 +397,46 @@ func (s *BatchRepairData) SetRepairDatas(v []*RepairData) *BatchRepairData {
 	return s
 }
 
+// 修复结果明细
+type DetailInfo struct {
+	// 修复人
+	PersonData *PersonData `json:"person_data,omitempty" xml:"person_data,omitempty" require:"true"`
+	// “0”: 修复中，”1":修复失败,”2":修复成功,”3":修复出错
+	RepairStatus *string `json:"repair_status,omitempty" xml:"repair_status,omitempty" require:"true"`
+	// 修复结果过期时间
+	ExpireTime *string `json:"expire_time,omitempty" xml:"expire_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 修复结果数
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+}
+
+func (s DetailInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DetailInfo) SetPersonData(v *PersonData) *DetailInfo {
+	s.PersonData = v
+	return s
+}
+
+func (s *DetailInfo) SetRepairStatus(v string) *DetailInfo {
+	s.RepairStatus = &v
+	return s
+}
+
+func (s *DetailInfo) SetExpireTime(v string) *DetailInfo {
+	s.ExpireTime = &v
+	return s
+}
+
+func (s *DetailInfo) SetCount(v int64) *DetailInfo {
+	s.Count = &v
+	return s
+}
+
 // 绑定接口返回的绑定信息
 type BindData struct {
 	// 虚拟小号（实际拨打以返回的 telX 为主）
@@ -399,39 +479,6 @@ func (s BatchInfo) GoString() string {
 
 func (s *BatchInfo) SetBatchId(v string) *BatchInfo {
 	s.BatchId = &v
-	return s
-}
-
-// 待修复的债务人信息
-type PersonData struct {
-	// 姓名
-	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
-	// 待修复 sha256 加密身份证号
-	IdCard *string `json:"id_card,omitempty" xml:"id_card,omitempty" require:"true"`
-	// 手机号
-	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
-}
-
-func (s PersonData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PersonData) GoString() string {
-	return s.String()
-}
-
-func (s *PersonData) SetUserName(v string) *PersonData {
-	s.UserName = &v
-	return s
-}
-
-func (s *PersonData) SetIdCard(v string) *PersonData {
-	s.IdCard = &v
-	return s
-}
-
-func (s *PersonData) SetPhone(v string) *PersonData {
-	s.Phone = &v
 	return s
 }
 
@@ -897,6 +944,342 @@ func (s *UnbindSlxfResponse) SetResultMsg(v string) *UnbindSlxfResponse {
 	return s
 }
 
+type StartMyslxfRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 待修复人列表
+	RepairPeopleList []*PersonData `json:"repair_people_list,omitempty" xml:"repair_people_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s StartMyslxfRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartMyslxfRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StartMyslxfRequest) SetAuthToken(v string) *StartMyslxfRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StartMyslxfRequest) SetProductInstanceId(v string) *StartMyslxfRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StartMyslxfRequest) SetRepairPeopleList(v []*PersonData) *StartMyslxfRequest {
+	s.RepairPeopleList = v
+	return s
+}
+
+type StartMyslxfResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 修复批次ID
+	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty"`
+}
+
+func (s StartMyslxfResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartMyslxfResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StartMyslxfResponse) SetReqMsgId(v string) *StartMyslxfResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StartMyslxfResponse) SetResultCode(v string) *StartMyslxfResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StartMyslxfResponse) SetResultMsg(v string) *StartMyslxfResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StartMyslxfResponse) SetBatchId(v string) *StartMyslxfResponse {
+	s.BatchId = &v
+	return s
+}
+
+type BatchqueryMyslxfRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 修复批次ID
+	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty" require:"true"`
+	// 查询修复人的列表
+	RepairPeopleList []*PersonData `json:"repair_people_list,omitempty" xml:"repair_people_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s BatchqueryMyslxfRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryMyslxfRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryMyslxfRequest) SetAuthToken(v string) *BatchqueryMyslxfRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchqueryMyslxfRequest) SetProductInstanceId(v string) *BatchqueryMyslxfRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchqueryMyslxfRequest) SetBatchId(v string) *BatchqueryMyslxfRequest {
+	s.BatchId = &v
+	return s
+}
+
+func (s *BatchqueryMyslxfRequest) SetRepairPeopleList(v []*PersonData) *BatchqueryMyslxfRequest {
+	s.RepairPeopleList = v
+	return s
+}
+
+type BatchqueryMyslxfResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 修复结果列表
+	DetailInfoList []*DetailInfo `json:"detail_info_list,omitempty" xml:"detail_info_list,omitempty" type:"Repeated"`
+}
+
+func (s BatchqueryMyslxfResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryMyslxfResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryMyslxfResponse) SetReqMsgId(v string) *BatchqueryMyslxfResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchqueryMyslxfResponse) SetResultCode(v string) *BatchqueryMyslxfResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchqueryMyslxfResponse) SetResultMsg(v string) *BatchqueryMyslxfResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchqueryMyslxfResponse) SetDetailInfoList(v []*DetailInfo) *BatchqueryMyslxfResponse {
+	s.DetailInfoList = v
+	return s
+}
+
+type BindMyslxfRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 批次ID
+	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty" require:"true"`
+	// 身份证号码
+	IdCard *string `json:"id_card,omitempty" xml:"id_card,omitempty" require:"true"`
+	// 绑定哪个手机号码，需要提供修复结果的序号，从1开始。
+	Seq *int64 `json:"seq,omitempty" xml:"seq,omitempty" require:"true"`
+	// 呼叫号码。必须预先注册
+	CallNumber *string `json:"call_number,omitempty" xml:"call_number,omitempty" require:"true"`
+	// 外显号码，必须预先平台注册
+	DisplayNumber *string `json:"display_number,omitempty" xml:"display_number,omitempty" require:"true"`
+}
+
+func (s BindMyslxfRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindMyslxfRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindMyslxfRequest) SetAuthToken(v string) *BindMyslxfRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindMyslxfRequest) SetProductInstanceId(v string) *BindMyslxfRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BindMyslxfRequest) SetBatchId(v string) *BindMyslxfRequest {
+	s.BatchId = &v
+	return s
+}
+
+func (s *BindMyslxfRequest) SetIdCard(v string) *BindMyslxfRequest {
+	s.IdCard = &v
+	return s
+}
+
+func (s *BindMyslxfRequest) SetSeq(v int64) *BindMyslxfRequest {
+	s.Seq = &v
+	return s
+}
+
+func (s *BindMyslxfRequest) SetCallNumber(v string) *BindMyslxfRequest {
+	s.CallNumber = &v
+	return s
+}
+
+func (s *BindMyslxfRequest) SetDisplayNumber(v string) *BindMyslxfRequest {
+	s.DisplayNumber = &v
+	return s
+}
+
+type BindMyslxfResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 绑定ID
+	BindId *string `json:"bind_id,omitempty" xml:"bind_id,omitempty"`
+	// 绑定过期时间
+	ExpireTime *string `json:"expire_time,omitempty" xml:"expire_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 绑定的虚拟号码
+	VirtualNumber *string `json:"virtual_number,omitempty" xml:"virtual_number,omitempty"`
+}
+
+func (s BindMyslxfResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindMyslxfResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindMyslxfResponse) SetReqMsgId(v string) *BindMyslxfResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindMyslxfResponse) SetResultCode(v string) *BindMyslxfResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindMyslxfResponse) SetResultMsg(v string) *BindMyslxfResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BindMyslxfResponse) SetBindId(v string) *BindMyslxfResponse {
+	s.BindId = &v
+	return s
+}
+
+func (s *BindMyslxfResponse) SetExpireTime(v string) *BindMyslxfResponse {
+	s.ExpireTime = &v
+	return s
+}
+
+func (s *BindMyslxfResponse) SetVirtualNumber(v string) *BindMyslxfResponse {
+	s.VirtualNumber = &v
+	return s
+}
+
+type UnbindMyslxfRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 绑定ID
+	BindId *string `json:"bind_id,omitempty" xml:"bind_id,omitempty" require:"true"`
+	// 批次ID
+	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty" require:"true"`
+}
+
+func (s UnbindMyslxfRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnbindMyslxfRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UnbindMyslxfRequest) SetAuthToken(v string) *UnbindMyslxfRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UnbindMyslxfRequest) SetProductInstanceId(v string) *UnbindMyslxfRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UnbindMyslxfRequest) SetBindId(v string) *UnbindMyslxfRequest {
+	s.BindId = &v
+	return s
+}
+
+func (s *UnbindMyslxfRequest) SetBatchId(v string) *UnbindMyslxfRequest {
+	s.BatchId = &v
+	return s
+}
+
+type UnbindMyslxfResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 解绑结果
+	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s UnbindMyslxfResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnbindMyslxfResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UnbindMyslxfResponse) SetReqMsgId(v string) *UnbindMyslxfResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UnbindMyslxfResponse) SetResultCode(v string) *UnbindMyslxfResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UnbindMyslxfResponse) SetResultMsg(v string) *UnbindMyslxfResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UnbindMyslxfResponse) SetResult(v bool) *UnbindMyslxfResponse {
+	s.Result = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1019,7 +1402,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.17"),
+				"sdk_version":      tea.String("1.0.22"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1264,6 +1647,142 @@ func (client *Client) UnbindSlxfEx(request *UnbindSlxfRequest, headers map[strin
 	}
 	_result = &UnbindSlxfResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.donpa.slxf.unbind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 失联修复发起API接口
+ * Summary: 失联修复发起API接口
+ */
+func (client *Client) StartMyslxf(request *StartMyslxfRequest) (_result *StartMyslxfResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StartMyslxfResponse{}
+	_body, _err := client.StartMyslxfEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 失联修复发起API接口
+ * Summary: 失联修复发起API接口
+ */
+func (client *Client) StartMyslxfEx(request *StartMyslxfRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StartMyslxfResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StartMyslxfResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.donpa.myslxf.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询修复结果
+ * Summary: 查询修复结果
+ */
+func (client *Client) BatchqueryMyslxf(request *BatchqueryMyslxfRequest) (_result *BatchqueryMyslxfResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchqueryMyslxfResponse{}
+	_body, _err := client.BatchqueryMyslxfEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询修复结果
+ * Summary: 查询修复结果
+ */
+func (client *Client) BatchqueryMyslxfEx(request *BatchqueryMyslxfRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryMyslxfResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchqueryMyslxfResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.donpa.myslxf.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 绑定虚拟小号接口
+ * Summary: 绑定虚拟小号接口
+ */
+func (client *Client) BindMyslxf(request *BindMyslxfRequest) (_result *BindMyslxfResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindMyslxfResponse{}
+	_body, _err := client.BindMyslxfEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 绑定虚拟小号接口
+ * Summary: 绑定虚拟小号接口
+ */
+func (client *Client) BindMyslxfEx(request *BindMyslxfRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindMyslxfResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindMyslxfResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.donpa.myslxf.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 解绑虚拟小号接口
+ * Summary: 解绑虚拟小号接口
+ */
+func (client *Client) UnbindMyslxf(request *UnbindMyslxfRequest) (_result *UnbindMyslxfResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UnbindMyslxfResponse{}
+	_body, _err := client.UnbindMyslxfEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 解绑虚拟小号接口
+ * Summary: 解绑虚拟小号接口
+ */
+func (client *Client) UnbindMyslxfEx(request *UnbindMyslxfRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UnbindMyslxfResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UnbindMyslxfResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.donpa.myslxf.unbind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
