@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.17',
+    sdk_version = '1.0.22',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -159,6 +159,18 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 待修复的债务人信息
+model PersonData {
+  // 姓名
+  userName: string(name='user_name', example='刘猫本'),
+  // 待修复 sha256 加密身份证号
+  idCard: string(name='id_card', example='384a3bdc4347348b9cfd74eb33a3daa43054f461a0e5ad01a97f912eaa6799ef'),
+  // 手机号
+  phone?: string(name='phone', example='13718750000'),
+  // 身份证号加密方式
+  maskModel?: string(name='mask_model', example='SHA256,MD5,默认SHA256'),
+}
+
 // 修复数据
 model RepairData {
   // 修复结果状态：“RPS001”: 不可外呼，”RPS002":可以 外呼
@@ -176,7 +188,7 @@ model RepairData {
 // 预测请求结构体
 model PredictRequest {
   // 资产明细ID
-  assetDetailId?: string(name='asset_detail_id', example='111'),
+  externalAssetDetailId?: string(name='external_asset_detail_id', example='111'),
   // 身份证号码MD5
   certNoMd5: string(name='cert_no_md5', example='5a0a52d01fa9304e8dba7170'),
   // 已还总额,默认0
@@ -194,7 +206,7 @@ model PredictRequest {
 // 预测结果响应体
 model PredictResponse {
   // 资产明细ID
-  assetDetailId?: string(name='asset_detail_id', example='112'),
+  externalAssetDetailId?: string(name='external_asset_detail_id', example='112'),
   // 反向指标
   probability0?: string(name='probability0', example='0.9123'),
   // 正向指标
@@ -221,6 +233,18 @@ model BatchRepairData {
   repairDatas: [ RepairData ](name='repair_datas', example=''),
 }
 
+// 修复结果明细
+model DetailInfo {
+  // 修复人
+  personData: PersonData(name='person_data', example=''),
+  // “0”: 修复中，”1":修复失败,”2":修复成功,”3":修复出错
+  repairStatus: string(name='repair_status', example='“0”: 修复中，”1":修复失败,”2":修复成功,”3":修复出错'),
+  // 修复结果过期时间
+  expireTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expire_time', example='2018-10-10T10:10:00Z'),
+  // 修复结果数
+  count: long(name='count', example='1，2'),
+}
+
 // 绑定接口返回的绑定信息
 model BindData {
   // 虚拟小号（实际拨打以返回的 telX 为主）
@@ -233,16 +257,6 @@ model BindData {
 model BatchInfo {
   // 修复的批次号
   batchId: string(name='batch_id', example='5a0a52d01fa9304e8dba7170'),
-}
-
-// 待修复的债务人信息
-model PersonData {
-  // 姓名
-  userName: string(name='user_name', example='刘猫本'),
-  // 待修复 sha256 加密身份证号
-  idCard: string(name='id_card', example='384a3bdc4347348b9cfd74eb33a3daa43054f461a0e5ad01a97f912eaa6799ef'),
-  // 手机号
-  phone?: string(name='phone', example='13718750000'),
 }
 
 model QueryPredictRequest = {
@@ -483,5 +497,173 @@ async function unbindSlxf(request: UnbindSlxfRequest): UnbindSlxfResponse {
 async function unbindSlxfEx(request: UnbindSlxfRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnbindSlxfResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.donpa.slxf.unbind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartMyslxfRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待修复人列表
+  repairPeopleList: [ PersonData ](name='repair_people_list'),
+}
+
+model StartMyslxfResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 修复批次ID
+  batchId?: string(name='batch_id'),
+}
+
+/**
+ * Description: 失联修复发起API接口
+ * Summary: 失联修复发起API接口
+ */
+async function startMyslxf(request: StartMyslxfRequest): StartMyslxfResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startMyslxfEx(request, headers, runtime);
+}
+
+/**
+ * Description: 失联修复发起API接口
+ * Summary: 失联修复发起API接口
+ */
+async function startMyslxfEx(request: StartMyslxfRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartMyslxfResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.donpa.myslxf.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryMyslxfRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 修复批次ID
+  batchId: string(name='batch_id'),
+  // 查询修复人的列表
+  repairPeopleList: [ PersonData ](name='repair_people_list'),
+}
+
+model BatchqueryMyslxfResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 修复结果列表
+  detailInfoList?: [ DetailInfo ](name='detail_info_list'),
+}
+
+/**
+ * Description: 查询修复结果
+ * Summary: 查询修复结果
+ */
+async function batchqueryMyslxf(request: BatchqueryMyslxfRequest): BatchqueryMyslxfResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryMyslxfEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询修复结果
+ * Summary: 查询修复结果
+ */
+async function batchqueryMyslxfEx(request: BatchqueryMyslxfRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryMyslxfResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.donpa.myslxf.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindMyslxfRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 批次ID
+  batchId: string(name='batch_id'),
+  // 身份证号码
+  idCard: string(name='id_card'),
+  // 绑定哪个手机号码，需要提供修复结果的序号，从1开始。
+  seq: long(name='seq'),
+  // 呼叫号码。必须预先注册
+  callNumber: string(name='call_number'),
+  // 外显号码，必须预先平台注册
+  displayNumber: string(name='display_number'),
+}
+
+model BindMyslxfResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 绑定ID
+  bindId?: string(name='bind_id'),
+  // 绑定过期时间
+  expireTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expire_time'),
+  // 绑定的虚拟号码
+  virtualNumber?: string(name='virtual_number'),
+}
+
+/**
+ * Description: 绑定虚拟小号接口
+ * Summary: 绑定虚拟小号接口
+ */
+async function bindMyslxf(request: BindMyslxfRequest): BindMyslxfResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindMyslxfEx(request, headers, runtime);
+}
+
+/**
+ * Description: 绑定虚拟小号接口
+ * Summary: 绑定虚拟小号接口
+ */
+async function bindMyslxfEx(request: BindMyslxfRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindMyslxfResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.donpa.myslxf.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UnbindMyslxfRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 绑定ID
+  bindId: string(name='bind_id'),
+  // 批次ID
+  batchId: string(name='batch_id'),
+}
+
+model UnbindMyslxfResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 解绑结果
+  result?: boolean(name='result'),
+}
+
+/**
+ * Description: 解绑虚拟小号接口
+ * Summary: 解绑虚拟小号接口
+ */
+async function unbindMyslxf(request: UnbindMyslxfRequest): UnbindMyslxfResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return unbindMyslxfEx(request, headers, runtime);
+}
+
+/**
+ * Description: 解绑虚拟小号接口
+ * Summary: 解绑虚拟小号接口
+ */
+async function unbindMyslxfEx(request: UnbindMyslxfRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnbindMyslxfResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.donpa.myslxf.unbind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
