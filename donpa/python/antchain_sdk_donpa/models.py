@@ -150,6 +150,52 @@ class Config(TeaModel):
         return self
 
 
+class PersonData(TeaModel):
+    def __init__(
+        self,
+        user_name: str = None,
+        id_card: str = None,
+        phone: str = None,
+        mask_model: str = None,
+    ):
+        # 姓名
+        self.user_name = user_name
+        # 待修复 sha256 加密身份证号
+        self.id_card = id_card
+        # 手机号
+        self.phone = phone
+        # 身份证号加密方式
+        self.mask_model = mask_model
+
+    def validate(self):
+        self.validate_required(self.user_name, 'user_name')
+        self.validate_required(self.id_card, 'id_card')
+
+    def to_map(self):
+        result = dict()
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.id_card is not None:
+            result['id_card'] = self.id_card
+        if self.phone is not None:
+            result['phone'] = self.phone
+        if self.mask_model is not None:
+            result['mask_model'] = self.mask_model
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('id_card') is not None:
+            self.id_card = m.get('id_card')
+        if m.get('phone') is not None:
+            self.phone = m.get('phone')
+        if m.get('mask_model') is not None:
+            self.mask_model = m.get('mask_model')
+        return self
+
+
 class RepairData(TeaModel):
     def __init__(
         self,
@@ -208,7 +254,7 @@ class RepairData(TeaModel):
 class PredictRequest(TeaModel):
     def __init__(
         self,
-        asset_detail_id: str = None,
+        external_asset_detail_id: str = None,
         cert_no_md_5: str = None,
         payback_amount: str = None,
         payback_num: str = None,
@@ -217,7 +263,7 @@ class PredictRequest(TeaModel):
         prediction_score: str = None,
     ):
         # 资产明细ID
-        self.asset_detail_id = asset_detail_id
+        self.external_asset_detail_id = external_asset_detail_id
         # 身份证号码MD5
         self.cert_no_md_5 = cert_no_md_5
         # 已还总额,默认0
@@ -236,8 +282,8 @@ class PredictRequest(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.asset_detail_id is not None:
-            result['asset_detail_id'] = self.asset_detail_id
+        if self.external_asset_detail_id is not None:
+            result['external_asset_detail_id'] = self.external_asset_detail_id
         if self.cert_no_md_5 is not None:
             result['cert_no_md5'] = self.cert_no_md_5
         if self.payback_amount is not None:
@@ -254,8 +300,8 @@ class PredictRequest(TeaModel):
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('asset_detail_id') is not None:
-            self.asset_detail_id = m.get('asset_detail_id')
+        if m.get('external_asset_detail_id') is not None:
+            self.external_asset_detail_id = m.get('external_asset_detail_id')
         if m.get('cert_no_md5') is not None:
             self.cert_no_md_5 = m.get('cert_no_md5')
         if m.get('payback_amount') is not None:
@@ -274,7 +320,7 @@ class PredictRequest(TeaModel):
 class PredictResponse(TeaModel):
     def __init__(
         self,
-        asset_detail_id: str = None,
+        external_asset_detail_id: str = None,
         probability_0: str = None,
         probability_1: str = None,
         cert_no_md_5: str = None,
@@ -284,7 +330,7 @@ class PredictResponse(TeaModel):
         cert_no: str = None,
     ):
         # 资产明细ID
-        self.asset_detail_id = asset_detail_id
+        self.external_asset_detail_id = external_asset_detail_id
         # 反向指标
         self.probability_0 = probability_0
         # 正向指标
@@ -305,8 +351,8 @@ class PredictResponse(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.asset_detail_id is not None:
-            result['asset_detail_id'] = self.asset_detail_id
+        if self.external_asset_detail_id is not None:
+            result['external_asset_detail_id'] = self.external_asset_detail_id
         if self.probability_0 is not None:
             result['probability0'] = self.probability_0
         if self.probability_1 is not None:
@@ -325,8 +371,8 @@ class PredictResponse(TeaModel):
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('asset_detail_id') is not None:
-            self.asset_detail_id = m.get('asset_detail_id')
+        if m.get('external_asset_detail_id') is not None:
+            self.external_asset_detail_id = m.get('external_asset_detail_id')
         if m.get('probability0') is not None:
             self.probability_0 = m.get('probability0')
         if m.get('probability1') is not None:
@@ -395,6 +441,59 @@ class BatchRepairData(TeaModel):
         return self
 
 
+class DetailInfo(TeaModel):
+    def __init__(
+        self,
+        person_data: PersonData = None,
+        repair_status: str = None,
+        expire_time: str = None,
+        count: int = None,
+    ):
+        # 修复人
+        self.person_data = person_data
+        # “0”: 修复中，”1":修复失败,”2":修复成功,”3":修复出错
+        self.repair_status = repair_status
+        # 修复结果过期时间
+        self.expire_time = expire_time
+        # 修复结果数
+        self.count = count
+
+    def validate(self):
+        self.validate_required(self.person_data, 'person_data')
+        if self.person_data:
+            self.person_data.validate()
+        self.validate_required(self.repair_status, 'repair_status')
+        self.validate_required(self.expire_time, 'expire_time')
+        if self.expire_time is not None:
+            self.validate_pattern(self.expire_time, 'expire_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.count, 'count')
+
+    def to_map(self):
+        result = dict()
+        if self.person_data is not None:
+            result['person_data'] = self.person_data.to_map()
+        if self.repair_status is not None:
+            result['repair_status'] = self.repair_status
+        if self.expire_time is not None:
+            result['expire_time'] = self.expire_time
+        if self.count is not None:
+            result['count'] = self.count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('person_data') is not None:
+            temp_model = PersonData()
+            self.person_data = temp_model.from_map(m['person_data'])
+        if m.get('repair_status') is not None:
+            self.repair_status = m.get('repair_status')
+        if m.get('expire_time') is not None:
+            self.expire_time = m.get('expire_time')
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        return self
+
+
 class BindData(TeaModel):
     def __init__(
         self,
@@ -448,45 +547,6 @@ class BatchInfo(TeaModel):
         m = m or dict()
         if m.get('batch_id') is not None:
             self.batch_id = m.get('batch_id')
-        return self
-
-
-class PersonData(TeaModel):
-    def __init__(
-        self,
-        user_name: str = None,
-        id_card: str = None,
-        phone: str = None,
-    ):
-        # 姓名
-        self.user_name = user_name
-        # 待修复 sha256 加密身份证号
-        self.id_card = id_card
-        # 手机号
-        self.phone = phone
-
-    def validate(self):
-        self.validate_required(self.user_name, 'user_name')
-        self.validate_required(self.id_card, 'id_card')
-
-    def to_map(self):
-        result = dict()
-        if self.user_name is not None:
-            result['user_name'] = self.user_name
-        if self.id_card is not None:
-            result['id_card'] = self.id_card
-        if self.phone is not None:
-            result['phone'] = self.phone
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('user_name') is not None:
-            self.user_name = m.get('user_name')
-        if m.get('id_card') is not None:
-            self.id_card = m.get('id_card')
-        if m.get('phone') is not None:
-            self.phone = m.get('phone')
         return self
 
 
@@ -1059,6 +1119,423 @@ class UnbindSlxfResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class StartMyslxfRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        repair_people_list: List[PersonData] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 待修复人列表
+        self.repair_people_list = repair_people_list
+
+    def validate(self):
+        self.validate_required(self.repair_people_list, 'repair_people_list')
+        if self.repair_people_list:
+            for k in self.repair_people_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        result['repair_people_list'] = []
+        if self.repair_people_list is not None:
+            for k in self.repair_people_list:
+                result['repair_people_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        self.repair_people_list = []
+        if m.get('repair_people_list') is not None:
+            for k in m.get('repair_people_list'):
+                temp_model = PersonData()
+                self.repair_people_list.append(temp_model.from_map(k))
+        return self
+
+
+class StartMyslxfResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        batch_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 修复批次ID
+        self.batch_id = batch_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.batch_id is not None:
+            result['batch_id'] = self.batch_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('batch_id') is not None:
+            self.batch_id = m.get('batch_id')
+        return self
+
+
+class BatchqueryMyslxfRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        batch_id: str = None,
+        repair_people_list: List[PersonData] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 修复批次ID
+        self.batch_id = batch_id
+        # 查询修复人的列表
+        self.repair_people_list = repair_people_list
+
+    def validate(self):
+        self.validate_required(self.batch_id, 'batch_id')
+        self.validate_required(self.repair_people_list, 'repair_people_list')
+        if self.repair_people_list:
+            for k in self.repair_people_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.batch_id is not None:
+            result['batch_id'] = self.batch_id
+        result['repair_people_list'] = []
+        if self.repair_people_list is not None:
+            for k in self.repair_people_list:
+                result['repair_people_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('batch_id') is not None:
+            self.batch_id = m.get('batch_id')
+        self.repair_people_list = []
+        if m.get('repair_people_list') is not None:
+            for k in m.get('repair_people_list'):
+                temp_model = PersonData()
+                self.repair_people_list.append(temp_model.from_map(k))
+        return self
+
+
+class BatchqueryMyslxfResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        detail_info_list: List[DetailInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 修复结果列表
+        self.detail_info_list = detail_info_list
+
+    def validate(self):
+        if self.detail_info_list:
+            for k in self.detail_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['detail_info_list'] = []
+        if self.detail_info_list is not None:
+            for k in self.detail_info_list:
+                result['detail_info_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.detail_info_list = []
+        if m.get('detail_info_list') is not None:
+            for k in m.get('detail_info_list'):
+                temp_model = DetailInfo()
+                self.detail_info_list.append(temp_model.from_map(k))
+        return self
+
+
+class BindMyslxfRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        batch_id: str = None,
+        id_card: str = None,
+        seq: int = None,
+        call_number: str = None,
+        display_number: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 批次ID
+        self.batch_id = batch_id
+        # 身份证号码
+        self.id_card = id_card
+        # 绑定哪个手机号码，需要提供修复结果的序号，从1开始。
+        self.seq = seq
+        # 呼叫号码。必须预先注册
+        self.call_number = call_number
+        # 外显号码，必须预先平台注册
+        self.display_number = display_number
+
+    def validate(self):
+        self.validate_required(self.batch_id, 'batch_id')
+        self.validate_required(self.id_card, 'id_card')
+        self.validate_required(self.seq, 'seq')
+        self.validate_required(self.call_number, 'call_number')
+        self.validate_required(self.display_number, 'display_number')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.batch_id is not None:
+            result['batch_id'] = self.batch_id
+        if self.id_card is not None:
+            result['id_card'] = self.id_card
+        if self.seq is not None:
+            result['seq'] = self.seq
+        if self.call_number is not None:
+            result['call_number'] = self.call_number
+        if self.display_number is not None:
+            result['display_number'] = self.display_number
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('batch_id') is not None:
+            self.batch_id = m.get('batch_id')
+        if m.get('id_card') is not None:
+            self.id_card = m.get('id_card')
+        if m.get('seq') is not None:
+            self.seq = m.get('seq')
+        if m.get('call_number') is not None:
+            self.call_number = m.get('call_number')
+        if m.get('display_number') is not None:
+            self.display_number = m.get('display_number')
+        return self
+
+
+class BindMyslxfResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        bind_id: str = None,
+        expire_time: str = None,
+        virtual_number: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 绑定ID
+        self.bind_id = bind_id
+        # 绑定过期时间
+        self.expire_time = expire_time
+        # 绑定的虚拟号码
+        self.virtual_number = virtual_number
+
+    def validate(self):
+        if self.expire_time is not None:
+            self.validate_pattern(self.expire_time, 'expire_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.bind_id is not None:
+            result['bind_id'] = self.bind_id
+        if self.expire_time is not None:
+            result['expire_time'] = self.expire_time
+        if self.virtual_number is not None:
+            result['virtual_number'] = self.virtual_number
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('bind_id') is not None:
+            self.bind_id = m.get('bind_id')
+        if m.get('expire_time') is not None:
+            self.expire_time = m.get('expire_time')
+        if m.get('virtual_number') is not None:
+            self.virtual_number = m.get('virtual_number')
+        return self
+
+
+class UnbindMyslxfRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        bind_id: str = None,
+        batch_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 绑定ID
+        self.bind_id = bind_id
+        # 批次ID
+        self.batch_id = batch_id
+
+    def validate(self):
+        self.validate_required(self.bind_id, 'bind_id')
+        self.validate_required(self.batch_id, 'batch_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.bind_id is not None:
+            result['bind_id'] = self.bind_id
+        if self.batch_id is not None:
+            result['batch_id'] = self.batch_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('bind_id') is not None:
+            self.bind_id = m.get('bind_id')
+        if m.get('batch_id') is not None:
+            self.batch_id = m.get('batch_id')
+        return self
+
+
+class UnbindMyslxfResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 解绑结果
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
         return self
 
 

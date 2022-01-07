@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 修复数据
+            # 待修复的债务人信息
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.17'
+                    'sdk_version': '1.0.22'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 修复数据
+            # 待修复的债务人信息
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.17'
+                    'sdk_version': '1.0.22'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -593,4 +593,220 @@ class Client:
         UtilClient.validate_model(request)
         return donpa_models.UnbindSlxfResponse().from_map(
             await self.do_request_async('1.0', 'antchain.donpa.slxf.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_myslxf(
+        self,
+        request: donpa_models.StartMyslxfRequest,
+    ) -> donpa_models.StartMyslxfResponse:
+        """
+        Description: 失联修复发起API接口
+        Summary: 失联修复发起API接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_myslxf_ex(request, headers, runtime)
+
+    async def start_myslxf_async(
+        self,
+        request: donpa_models.StartMyslxfRequest,
+    ) -> donpa_models.StartMyslxfResponse:
+        """
+        Description: 失联修复发起API接口
+        Summary: 失联修复发起API接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_myslxf_ex_async(request, headers, runtime)
+
+    def start_myslxf_ex(
+        self,
+        request: donpa_models.StartMyslxfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> donpa_models.StartMyslxfResponse:
+        """
+        Description: 失联修复发起API接口
+        Summary: 失联修复发起API接口
+        """
+        UtilClient.validate_model(request)
+        return donpa_models.StartMyslxfResponse().from_map(
+            self.do_request('1.0', 'antchain.donpa.myslxf.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_myslxf_ex_async(
+        self,
+        request: donpa_models.StartMyslxfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> donpa_models.StartMyslxfResponse:
+        """
+        Description: 失联修复发起API接口
+        Summary: 失联修复发起API接口
+        """
+        UtilClient.validate_model(request)
+        return donpa_models.StartMyslxfResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.donpa.myslxf.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_myslxf(
+        self,
+        request: donpa_models.BatchqueryMyslxfRequest,
+    ) -> donpa_models.BatchqueryMyslxfResponse:
+        """
+        Description: 查询修复结果
+        Summary: 查询修复结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_myslxf_ex(request, headers, runtime)
+
+    async def batchquery_myslxf_async(
+        self,
+        request: donpa_models.BatchqueryMyslxfRequest,
+    ) -> donpa_models.BatchqueryMyslxfResponse:
+        """
+        Description: 查询修复结果
+        Summary: 查询修复结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_myslxf_ex_async(request, headers, runtime)
+
+    def batchquery_myslxf_ex(
+        self,
+        request: donpa_models.BatchqueryMyslxfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> donpa_models.BatchqueryMyslxfResponse:
+        """
+        Description: 查询修复结果
+        Summary: 查询修复结果
+        """
+        UtilClient.validate_model(request)
+        return donpa_models.BatchqueryMyslxfResponse().from_map(
+            self.do_request('1.0', 'antchain.donpa.myslxf.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_myslxf_ex_async(
+        self,
+        request: donpa_models.BatchqueryMyslxfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> donpa_models.BatchqueryMyslxfResponse:
+        """
+        Description: 查询修复结果
+        Summary: 查询修复结果
+        """
+        UtilClient.validate_model(request)
+        return donpa_models.BatchqueryMyslxfResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.donpa.myslxf.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_myslxf(
+        self,
+        request: donpa_models.BindMyslxfRequest,
+    ) -> donpa_models.BindMyslxfResponse:
+        """
+        Description: 绑定虚拟小号接口
+        Summary: 绑定虚拟小号接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_myslxf_ex(request, headers, runtime)
+
+    async def bind_myslxf_async(
+        self,
+        request: donpa_models.BindMyslxfRequest,
+    ) -> donpa_models.BindMyslxfResponse:
+        """
+        Description: 绑定虚拟小号接口
+        Summary: 绑定虚拟小号接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_myslxf_ex_async(request, headers, runtime)
+
+    def bind_myslxf_ex(
+        self,
+        request: donpa_models.BindMyslxfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> donpa_models.BindMyslxfResponse:
+        """
+        Description: 绑定虚拟小号接口
+        Summary: 绑定虚拟小号接口
+        """
+        UtilClient.validate_model(request)
+        return donpa_models.BindMyslxfResponse().from_map(
+            self.do_request('1.0', 'antchain.donpa.myslxf.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_myslxf_ex_async(
+        self,
+        request: donpa_models.BindMyslxfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> donpa_models.BindMyslxfResponse:
+        """
+        Description: 绑定虚拟小号接口
+        Summary: 绑定虚拟小号接口
+        """
+        UtilClient.validate_model(request)
+        return donpa_models.BindMyslxfResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.donpa.myslxf.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def unbind_myslxf(
+        self,
+        request: donpa_models.UnbindMyslxfRequest,
+    ) -> donpa_models.UnbindMyslxfResponse:
+        """
+        Description: 解绑虚拟小号接口
+        Summary: 解绑虚拟小号接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.unbind_myslxf_ex(request, headers, runtime)
+
+    async def unbind_myslxf_async(
+        self,
+        request: donpa_models.UnbindMyslxfRequest,
+    ) -> donpa_models.UnbindMyslxfResponse:
+        """
+        Description: 解绑虚拟小号接口
+        Summary: 解绑虚拟小号接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.unbind_myslxf_ex_async(request, headers, runtime)
+
+    def unbind_myslxf_ex(
+        self,
+        request: donpa_models.UnbindMyslxfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> donpa_models.UnbindMyslxfResponse:
+        """
+        Description: 解绑虚拟小号接口
+        Summary: 解绑虚拟小号接口
+        """
+        UtilClient.validate_model(request)
+        return donpa_models.UnbindMyslxfResponse().from_map(
+            self.do_request('1.0', 'antchain.donpa.myslxf.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def unbind_myslxf_ex_async(
+        self,
+        request: donpa_models.UnbindMyslxfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> donpa_models.UnbindMyslxfResponse:
+        """
+        Description: 解绑虚拟小号接口
+        Summary: 解绑虚拟小号接口
+        """
+        UtilClient.validate_model(request)
+        return donpa_models.UnbindMyslxfResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.donpa.myslxf.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
