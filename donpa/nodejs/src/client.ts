@@ -77,6 +77,39 @@ export class Config extends $tea.Model {
   }
 }
 
+// 待修复的债务人信息
+export class PersonData extends $tea.Model {
+  // 姓名
+  userName: string;
+  // 待修复 sha256 加密身份证号
+  idCard: string;
+  // 手机号
+  phone?: string;
+  // 身份证号加密方式
+  maskModel?: string;
+  static names(): { [key: string]: string } {
+    return {
+      userName: 'user_name',
+      idCard: 'id_card',
+      phone: 'phone',
+      maskModel: 'mask_model',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userName: 'string',
+      idCard: 'string',
+      phone: 'string',
+      maskModel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 修复数据
 export class RepairData extends $tea.Model {
   // 修复结果状态：“RPS001”: 不可外呼，”RPS002":可以 外呼
@@ -117,7 +150,7 @@ export class RepairData extends $tea.Model {
 // 预测请求结构体
 export class PredictRequest extends $tea.Model {
   // 资产明细ID
-  assetDetailId?: string;
+  externalAssetDetailId?: string;
   // 身份证号码MD5
   certNoMd5: string;
   // 已还总额,默认0
@@ -132,7 +165,7 @@ export class PredictRequest extends $tea.Model {
   predictionScore?: string;
   static names(): { [key: string]: string } {
     return {
-      assetDetailId: 'asset_detail_id',
+      externalAssetDetailId: 'external_asset_detail_id',
       certNoMd5: 'cert_no_md5',
       paybackAmount: 'payback_amount',
       paybackNum: 'payback_num',
@@ -144,7 +177,7 @@ export class PredictRequest extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
-      assetDetailId: 'string',
+      externalAssetDetailId: 'string',
       certNoMd5: 'string',
       paybackAmount: 'string',
       paybackNum: 'string',
@@ -162,7 +195,7 @@ export class PredictRequest extends $tea.Model {
 // 预测结果响应体
 export class PredictResponse extends $tea.Model {
   // 资产明细ID
-  assetDetailId?: string;
+  externalAssetDetailId?: string;
   // 反向指标
   probability0?: string;
   // 正向指标
@@ -179,7 +212,7 @@ export class PredictResponse extends $tea.Model {
   certNo?: string;
   static names(): { [key: string]: string } {
     return {
-      assetDetailId: 'asset_detail_id',
+      externalAssetDetailId: 'external_asset_detail_id',
       probability0: 'probability0',
       probability1: 'probability1',
       certNoMd5: 'cert_no_md5',
@@ -192,7 +225,7 @@ export class PredictResponse extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
-      assetDetailId: 'string',
+      externalAssetDetailId: 'string',
       probability0: 'string',
       probability1: 'string',
       certNoMd5: 'string',
@@ -229,6 +262,39 @@ export class BatchRepairData extends $tea.Model {
       repairBatchStatus: 'string',
       repairTime: 'string',
       repairDatas: { 'type': 'array', 'itemType': RepairData },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 修复结果明细
+export class DetailInfo extends $tea.Model {
+  // 修复人
+  personData: PersonData;
+  // “0”: 修复中，”1":修复失败,”2":修复成功,”3":修复出错
+  repairStatus: string;
+  // 修复结果过期时间
+  expireTime: string;
+  // 修复结果数
+  count: number;
+  static names(): { [key: string]: string } {
+    return {
+      personData: 'person_data',
+      repairStatus: 'repair_status',
+      expireTime: 'expire_time',
+      count: 'count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      personData: PersonData,
+      repairStatus: 'string',
+      expireTime: 'string',
+      count: 'number',
     };
   }
 
@@ -275,35 +341,6 @@ export class BatchInfo extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       batchId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 待修复的债务人信息
-export class PersonData extends $tea.Model {
-  // 姓名
-  userName: string;
-  // 待修复 sha256 加密身份证号
-  idCard: string;
-  // 手机号
-  phone?: string;
-  static names(): { [key: string]: string } {
-    return {
-      userName: 'user_name',
-      idCard: 'id_card',
-      phone: 'phone',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      userName: 'string',
-      idCard: 'string',
-      phone: 'string',
     };
   }
 
@@ -690,6 +727,274 @@ export class UnbindSlxfResponse extends $tea.Model {
   }
 }
 
+export class StartMyslxfRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 待修复人列表
+  repairPeopleList: PersonData[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      repairPeopleList: 'repair_people_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      repairPeopleList: { 'type': 'array', 'itemType': PersonData },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartMyslxfResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 修复批次ID
+  batchId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      batchId: 'batch_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      batchId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryMyslxfRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 修复批次ID
+  batchId: string;
+  // 查询修复人的列表
+  repairPeopleList: PersonData[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      batchId: 'batch_id',
+      repairPeopleList: 'repair_people_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      batchId: 'string',
+      repairPeopleList: { 'type': 'array', 'itemType': PersonData },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryMyslxfResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 修复结果列表
+  detailInfoList?: DetailInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      detailInfoList: 'detail_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      detailInfoList: { 'type': 'array', 'itemType': DetailInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindMyslxfRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 批次ID
+  batchId: string;
+  // 身份证号码
+  idCard: string;
+  // 绑定哪个手机号码，需要提供修复结果的序号，从1开始。
+  seq: number;
+  // 呼叫号码。必须预先注册
+  callNumber: string;
+  // 外显号码，必须预先平台注册
+  displayNumber: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      batchId: 'batch_id',
+      idCard: 'id_card',
+      seq: 'seq',
+      callNumber: 'call_number',
+      displayNumber: 'display_number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      batchId: 'string',
+      idCard: 'string',
+      seq: 'number',
+      callNumber: 'string',
+      displayNumber: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindMyslxfResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 绑定ID
+  bindId?: string;
+  // 绑定过期时间
+  expireTime?: string;
+  // 绑定的虚拟号码
+  virtualNumber?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bindId: 'bind_id',
+      expireTime: 'expire_time',
+      virtualNumber: 'virtual_number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bindId: 'string',
+      expireTime: 'string',
+      virtualNumber: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UnbindMyslxfRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 绑定ID
+  bindId: string;
+  // 批次ID
+  batchId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bindId: 'bind_id',
+      batchId: 'batch_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bindId: 'string',
+      batchId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UnbindMyslxfResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 解绑结果
+  result?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -803,7 +1108,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.17",
+          sdk_version: "1.0.22",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -961,6 +1266,82 @@ export default class Client {
   async unbindSlxfEx(request: UnbindSlxfRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UnbindSlxfResponse> {
     Util.validateModel(request);
     return $tea.cast<UnbindSlxfResponse>(await this.doRequest("1.0", "antchain.donpa.slxf.unbind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UnbindSlxfResponse({}));
+  }
+
+  /**
+   * Description: 失联修复发起API接口
+   * Summary: 失联修复发起API接口
+   */
+  async startMyslxf(request: StartMyslxfRequest): Promise<StartMyslxfResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.startMyslxfEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 失联修复发起API接口
+   * Summary: 失联修复发起API接口
+   */
+  async startMyslxfEx(request: StartMyslxfRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartMyslxfResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StartMyslxfResponse>(await this.doRequest("1.0", "antchain.donpa.myslxf.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartMyslxfResponse({}));
+  }
+
+  /**
+   * Description: 查询修复结果
+   * Summary: 查询修复结果
+   */
+  async batchqueryMyslxf(request: BatchqueryMyslxfRequest): Promise<BatchqueryMyslxfResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryMyslxfEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询修复结果
+   * Summary: 查询修复结果
+   */
+  async batchqueryMyslxfEx(request: BatchqueryMyslxfRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryMyslxfResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryMyslxfResponse>(await this.doRequest("1.0", "antchain.donpa.myslxf.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryMyslxfResponse({}));
+  }
+
+  /**
+   * Description: 绑定虚拟小号接口
+   * Summary: 绑定虚拟小号接口
+   */
+  async bindMyslxf(request: BindMyslxfRequest): Promise<BindMyslxfResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.bindMyslxfEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 绑定虚拟小号接口
+   * Summary: 绑定虚拟小号接口
+   */
+  async bindMyslxfEx(request: BindMyslxfRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindMyslxfResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BindMyslxfResponse>(await this.doRequest("1.0", "antchain.donpa.myslxf.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindMyslxfResponse({}));
+  }
+
+  /**
+   * Description: 解绑虚拟小号接口
+   * Summary: 解绑虚拟小号接口
+   */
+  async unbindMyslxf(request: UnbindMyslxfRequest): Promise<UnbindMyslxfResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.unbindMyslxfEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 解绑虚拟小号接口
+   * Summary: 解绑虚拟小号接口
+   */
+  async unbindMyslxfEx(request: UnbindMyslxfRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UnbindMyslxfResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UnbindMyslxfResponse>(await this.doRequest("1.0", "antchain.donpa.myslxf.unbind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UnbindMyslxfResponse({}));
   }
 
 }
