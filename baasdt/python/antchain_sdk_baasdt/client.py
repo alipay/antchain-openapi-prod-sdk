@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.54'
+                    'sdk_version': '1.3.55'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.54'
+                    'sdk_version': '1.3.55'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -14865,6 +14865,60 @@ class Client:
         UtilClient.validate_model(request)
         return baasdt_models.PagequeryIpCodecirculationResponse().from_map(
             await self.do_request_async('1.0', 'baas.antdao.ip.codecirculation.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sign_ip_contract(
+        self,
+        request: baasdt_models.SignIpContractRequest,
+    ) -> baasdt_models.SignIpContractResponse:
+        """
+        Description: 签署区块链合同, 平台入驻协议、单方协议、三方和大于三方的协议均可签署。
+        Summary: 数字商品服务-IP授权服务-签署合同
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sign_ip_contract_ex(request, headers, runtime)
+
+    async def sign_ip_contract_async(
+        self,
+        request: baasdt_models.SignIpContractRequest,
+    ) -> baasdt_models.SignIpContractResponse:
+        """
+        Description: 签署区块链合同, 平台入驻协议、单方协议、三方和大于三方的协议均可签署。
+        Summary: 数字商品服务-IP授权服务-签署合同
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sign_ip_contract_ex_async(request, headers, runtime)
+
+    def sign_ip_contract_ex(
+        self,
+        request: baasdt_models.SignIpContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.SignIpContractResponse:
+        """
+        Description: 签署区块链合同, 平台入驻协议、单方协议、三方和大于三方的协议均可签署。
+        Summary: 数字商品服务-IP授权服务-签署合同
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.SignIpContractResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.contract.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sign_ip_contract_ex_async(
+        self,
+        request: baasdt_models.SignIpContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.SignIpContractResponse:
+        """
+        Description: 签署区块链合同, 平台入驻协议、单方协议、三方和大于三方的协议均可签署。
+        Summary: 数字商品服务-IP授权服务-签署合同
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.SignIpContractResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.contract.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_blockanalysis_block(

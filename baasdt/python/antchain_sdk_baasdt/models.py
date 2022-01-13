@@ -230,6 +230,82 @@ class Extension(TeaModel):
         return self
 
 
+class IPCommissionSeparateSetInfo(TeaModel):
+    def __init__(
+        self,
+        category: str = None,
+        commission_weight: str = None,
+        guarantee_sale_number: str = None,
+    ):
+        # 授权品类
+        self.category = category
+        # 佣金比例
+        self.commission_weight = commission_weight
+        # 保底商品销售金额
+        self.guarantee_sale_number = guarantee_sale_number
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.category is not None:
+            result['category'] = self.category
+        if self.commission_weight is not None:
+            result['commission_weight'] = self.commission_weight
+        if self.guarantee_sale_number is not None:
+            result['guarantee_sale_number'] = self.guarantee_sale_number
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('category') is not None:
+            self.category = m.get('category')
+        if m.get('commission_weight') is not None:
+            self.commission_weight = m.get('commission_weight')
+        if m.get('guarantee_sale_number') is not None:
+            self.guarantee_sale_number = m.get('guarantee_sale_number')
+        return self
+
+
+class IPPaytSeparateSetInfo(TeaModel):
+    def __init__(
+        self,
+        category: str = None,
+        unit_price: str = None,
+        guarantee_goods_number: str = None,
+    ):
+        # 授权品类
+        self.category = category
+        # 单件单价
+        self.unit_price = unit_price
+        # 保底商品数量
+        self.guarantee_goods_number = guarantee_goods_number
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.category is not None:
+            result['category'] = self.category
+        if self.unit_price is not None:
+            result['unit_price'] = self.unit_price
+        if self.guarantee_goods_number is not None:
+            result['guarantee_goods_number'] = self.guarantee_goods_number
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('category') is not None:
+            self.category = m.get('category')
+        if m.get('unit_price') is not None:
+            self.unit_price = m.get('unit_price')
+        if m.get('guarantee_goods_number') is not None:
+            self.guarantee_goods_number = m.get('guarantee_goods_number')
+        return self
+
+
 class UserPrice(TeaModel):
     def __init__(
         self,
@@ -330,51 +406,96 @@ class IPTradeMode(TeaModel):
     def __init__(
         self,
         trade_type: List[int] = None,
+        commission_set_type: str = None,
         commission_weight: str = None,
         guarantee_sale_number: str = None,
+        commission_separate_set_info: List[IPCommissionSeparateSetInfo] = None,
+        payt_set_type: str = None,
         unit_price: str = None,
         guarantee_goods_number: str = None,
+        payt_separate_set_info: List[IPPaytSeparateSetInfo] = None,
     ):
         # 交易类型，0：销售抽拥；1:按件付费
         self.trade_type = trade_type
+        # 销售抽拥设置类型，0批量设置，1，单独设置
+        self.commission_set_type = commission_set_type
         # 佣金比例
         self.commission_weight = commission_weight
         # 保底商品销售金额
         self.guarantee_sale_number = guarantee_sale_number
+        # 销售抽佣单独设置信息
+        self.commission_separate_set_info = commission_separate_set_info
+        # 按件付费设置类型，0批量设置，1，单独设置
+        self.payt_set_type = payt_set_type
         # 单件单价
         self.unit_price = unit_price
         # 保底商品数量
         self.guarantee_goods_number = guarantee_goods_number
+        # 按件付费单独设置信息
+        self.payt_separate_set_info = payt_separate_set_info
 
     def validate(self):
-        pass
+        if self.commission_separate_set_info:
+            for k in self.commission_separate_set_info:
+                if k:
+                    k.validate()
+        if self.payt_separate_set_info:
+            for k in self.payt_separate_set_info:
+                if k:
+                    k.validate()
 
     def to_map(self):
         result = dict()
         if self.trade_type is not None:
             result['trade_type'] = self.trade_type
+        if self.commission_set_type is not None:
+            result['commission_set_type'] = self.commission_set_type
         if self.commission_weight is not None:
             result['commission_weight'] = self.commission_weight
         if self.guarantee_sale_number is not None:
             result['guarantee_sale_number'] = self.guarantee_sale_number
+        result['commission_separate_set_info'] = []
+        if self.commission_separate_set_info is not None:
+            for k in self.commission_separate_set_info:
+                result['commission_separate_set_info'].append(k.to_map() if k else None)
+        if self.payt_set_type is not None:
+            result['payt_set_type'] = self.payt_set_type
         if self.unit_price is not None:
             result['unit_price'] = self.unit_price
         if self.guarantee_goods_number is not None:
             result['guarantee_goods_number'] = self.guarantee_goods_number
+        result['payt_separate_set_info'] = []
+        if self.payt_separate_set_info is not None:
+            for k in self.payt_separate_set_info:
+                result['payt_separate_set_info'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('trade_type') is not None:
             self.trade_type = m.get('trade_type')
+        if m.get('commission_set_type') is not None:
+            self.commission_set_type = m.get('commission_set_type')
         if m.get('commission_weight') is not None:
             self.commission_weight = m.get('commission_weight')
         if m.get('guarantee_sale_number') is not None:
             self.guarantee_sale_number = m.get('guarantee_sale_number')
+        self.commission_separate_set_info = []
+        if m.get('commission_separate_set_info') is not None:
+            for k in m.get('commission_separate_set_info'):
+                temp_model = IPCommissionSeparateSetInfo()
+                self.commission_separate_set_info.append(temp_model.from_map(k))
+        if m.get('payt_set_type') is not None:
+            self.payt_set_type = m.get('payt_set_type')
         if m.get('unit_price') is not None:
             self.unit_price = m.get('unit_price')
         if m.get('guarantee_goods_number') is not None:
             self.guarantee_goods_number = m.get('guarantee_goods_number')
+        self.payt_separate_set_info = []
+        if m.get('payt_separate_set_info') is not None:
+            for k in m.get('payt_separate_set_info'):
+                temp_model = IPPaytSeparateSetInfo()
+                self.payt_separate_set_info.append(temp_model.from_map(k))
         return self
 
 
@@ -1451,6 +1572,7 @@ class IPContactInfo(TeaModel):
         phone: str = None,
         type: int = None,
         certno: str = None,
+        cert_type: str = None,
     ):
         # 联系人姓名
         self.name = name
@@ -1462,6 +1584,8 @@ class IPContactInfo(TeaModel):
         self.type = type
         # 联系人身份证号
         self.certno = certno
+        # 联系人证件类型
+        self.cert_type = cert_type
 
     def validate(self):
         self.validate_required(self.name, 'name')
@@ -1479,6 +1603,8 @@ class IPContactInfo(TeaModel):
             result['type'] = self.type
         if self.certno is not None:
             result['certno'] = self.certno
+        if self.cert_type is not None:
+            result['cert_type'] = self.cert_type
         return result
 
     def from_map(self, m: dict = None):
@@ -1493,6 +1619,8 @@ class IPContactInfo(TeaModel):
             self.type = m.get('type')
         if m.get('certno') is not None:
             self.certno = m.get('certno')
+        if m.get('cert_type') is not None:
+            self.cert_type = m.get('cert_type')
         return self
 
 
@@ -7661,6 +7789,54 @@ class IPSalesSummary(TeaModel):
             self.settlement_begin_time = m.get('settlement_begin_time')
         if m.get('settlement_end_time') is not None:
             self.settlement_end_time = m.get('settlement_end_time')
+        return self
+
+
+class SignField(TeaModel):
+    def __init__(
+        self,
+        account_id: str = None,
+        pos_page: str = None,
+        pos_x: str = None,
+        pos_y: str = None,
+    ):
+        # 签署操作人个人账号标识，即操作本次签署的个人
+        self.account_id = account_id
+        # 签署所在页码，必须是整数数字
+        self.pos_page = pos_page
+        # x坐标，必须是数字
+        self.pos_x = pos_x
+        # y坐标，必须是数字
+        self.pos_y = pos_y
+
+    def validate(self):
+        self.validate_required(self.account_id, 'account_id')
+        self.validate_required(self.pos_page, 'pos_page')
+        self.validate_required(self.pos_x, 'pos_x')
+        self.validate_required(self.pos_y, 'pos_y')
+
+    def to_map(self):
+        result = dict()
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.pos_page is not None:
+            result['pos_page'] = self.pos_page
+        if self.pos_x is not None:
+            result['pos_x'] = self.pos_x
+        if self.pos_y is not None:
+            result['pos_y'] = self.pos_y
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('pos_page') is not None:
+            self.pos_page = m.get('pos_page')
+        if m.get('pos_x') is not None:
+            self.pos_x = m.get('pos_x')
+        if m.get('pos_y') is not None:
+            self.pos_y = m.get('pos_y')
         return self
 
 
@@ -29009,7 +29185,7 @@ class AddIpChannelRequest(TeaModel):
         self.pay_mode = pay_mode
         # ip等级  0:经典IP/1:流量IP/2:设计IP
         self.ip_level = ip_level
-        # 交易是否需要确认，默认不需要确认
+        # 交易是否需要确认，默认需要确认
         self.trade_need_confirm = trade_need_confirm
         # 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
         self.guarantee_range = guarantee_range
@@ -30714,6 +30890,7 @@ class ApplyIpAccountRequest(TeaModel):
         mcc: str = None,
         legal_name: str = None,
         legal_cert_no: str = None,
+        legal_cert_type: str = None,
         address_info: IPAddressInfo = None,
         contact_info: IPContactInfo = None,
         settle_rule: IPSettleRule = None,
@@ -30748,6 +30925,8 @@ class ApplyIpAccountRequest(TeaModel):
         self.legal_name = legal_name
         # 商户法人身份证号码, merchant_type = 1时必填
         self.legal_cert_no = legal_cert_no
+        # 商户法人证件类型，默认大陆身份证：CRED_PSN_CH_IDCARD
+        self.legal_cert_type = legal_cert_type
         # 商户经营地址
         self.address_info = address_info
         # 商户联系人信息
@@ -30811,6 +30990,8 @@ class ApplyIpAccountRequest(TeaModel):
             result['legal_name'] = self.legal_name
         if self.legal_cert_no is not None:
             result['legal_cert_no'] = self.legal_cert_no
+        if self.legal_cert_type is not None:
+            result['legal_cert_type'] = self.legal_cert_type
         if self.address_info is not None:
             result['address_info'] = self.address_info.to_map()
         if self.contact_info is not None:
@@ -30854,6 +31035,8 @@ class ApplyIpAccountRequest(TeaModel):
             self.legal_name = m.get('legal_name')
         if m.get('legal_cert_no') is not None:
             self.legal_cert_no = m.get('legal_cert_no')
+        if m.get('legal_cert_type') is not None:
+            self.legal_cert_type = m.get('legal_cert_type')
         if m.get('address_info') is not None:
             temp_model = IPAddressInfo()
             self.address_info = temp_model.from_map(m['address_info'])
@@ -37921,7 +38104,6 @@ class UpdateIpAccountRequest(TeaModel):
         if self.base_request:
             self.base_request.validate()
         self.validate_required(self.account_id, 'account_id')
-        self.validate_required(self.merchant_alias_name, 'merchant_alias_name')
         if self.contact_info:
             self.contact_info.validate()
         if self.contact_address:
@@ -41916,6 +42098,123 @@ class PagequeryIpCodecirculationResponse(TeaModel):
             self.page_number = m.get('page_number')
         if m.get('page_size') is not None:
             self.page_size = m.get('page_size')
+        return self
+
+
+class SignIpContractRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        contract_file_url: str = None,
+        sign_fields: List[SignField] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础请求参数
+        self.base_request = base_request
+        # 订单合同文件OSS文件key
+        self.contract_file_url = contract_file_url
+        # 签署区信息
+        self.sign_fields = sign_fields
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.contract_file_url, 'contract_file_url')
+        self.validate_required(self.sign_fields, 'sign_fields')
+        if self.sign_fields:
+            for k in self.sign_fields:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.contract_file_url is not None:
+            result['contract_file_url'] = self.contract_file_url
+        result['sign_fields'] = []
+        if self.sign_fields is not None:
+            for k in self.sign_fields:
+                result['sign_fields'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('contract_file_url') is not None:
+            self.contract_file_url = m.get('contract_file_url')
+        self.sign_fields = []
+        if m.get('sign_fields') is not None:
+            for k in m.get('sign_fields'):
+                temp_model = SignField()
+                self.sign_fields.append(temp_model.from_map(k))
+        return self
+
+
+class SignIpContractResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        signed_contract_file: str = None,
+        signed_contract_file_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 签署完成的文件OSS key。只有在签署流程全部完成后才会返回该数据。
+        self.signed_contract_file = signed_contract_file
+        # 签署完成的文件下载链接。只有在签署流程全部完成后才会返回该数据。
+        self.signed_contract_file_url = signed_contract_file_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.signed_contract_file is not None:
+            result['signed_contract_file'] = self.signed_contract_file
+        if self.signed_contract_file_url is not None:
+            result['signed_contract_file_url'] = self.signed_contract_file_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('signed_contract_file') is not None:
+            self.signed_contract_file = m.get('signed_contract_file')
+        if m.get('signed_contract_file_url') is not None:
+            self.signed_contract_file_url = m.get('signed_contract_file_url')
         return self
 
 
