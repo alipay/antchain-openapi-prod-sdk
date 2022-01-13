@@ -23,7 +23,6 @@ public class UpdateIpAccountRequest extends TeaModel {
 
     // 商户账户名称
     @NameInMap("merchant_alias_name")
-    @Validation(required = true)
     public String merchantAliasName;
 
     // 商户类型(本期仅支持: 1:企业, 6:个人商户)

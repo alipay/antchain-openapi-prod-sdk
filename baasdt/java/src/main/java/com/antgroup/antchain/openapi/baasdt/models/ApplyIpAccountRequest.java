@@ -67,6 +67,10 @@ public class ApplyIpAccountRequest extends TeaModel {
     @NameInMap("legal_cert_no")
     public String legalCertNo;
 
+    // 商户法人证件类型，默认大陆身份证：CRED_PSN_CH_IDCARD
+    @NameInMap("legal_cert_type")
+    public String legalCertType;
+
     // 商户经营地址
     @NameInMap("address_info")
     @Validation(required = true)
@@ -205,6 +209,14 @@ public class ApplyIpAccountRequest extends TeaModel {
     }
     public String getLegalCertNo() {
         return this.legalCertNo;
+    }
+
+    public ApplyIpAccountRequest setLegalCertType(String legalCertType) {
+        this.legalCertType = legalCertType;
+        return this;
+    }
+    public String getLegalCertType() {
+        return this.legalCertType;
     }
 
     public ApplyIpAccountRequest setAddressInfo(IPAddressInfo addressInfo) {

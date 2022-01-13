@@ -46,7 +46,7 @@ public class AddIpChannelRequest extends TeaModel {
     @NameInMap("ip_level")
     public Long ipLevel;
 
-    // 交易是否需要确认，默认不需要确认
+    // 交易是否需要确认，默认需要确认
     @NameInMap("trade_need_confirm")
     public Boolean tradeNeedConfirm;
 

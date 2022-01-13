@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.54")
+                    new TeaPair("sdk_version", "1.3.55")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -5307,6 +5307,25 @@ public class Client {
     public PagequeryIpCodecirculationResponse pagequeryIpCodecirculationEx(PagequeryIpCodecirculationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.codecirculation.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryIpCodecirculationResponse());
+    }
+
+    /**
+     * Description: 签署区块链合同, 平台入驻协议、单方协议、三方和大于三方的协议均可签署。
+     * Summary: 数字商品服务-IP授权服务-签署合同
+     */
+    public SignIpContractResponse signIpContract(SignIpContractRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.signIpContractEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 签署区块链合同, 平台入驻协议、单方协议、三方和大于三方的协议均可签署。
+     * Summary: 数字商品服务-IP授权服务-签署合同
+     */
+    public SignIpContractResponse signIpContractEx(SignIpContractRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.contract.sign", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SignIpContractResponse());
     }
 
     /**
