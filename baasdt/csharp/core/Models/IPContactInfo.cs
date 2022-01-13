@@ -35,6 +35,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string Certno { get; set; }
 
+        // 联系人证件类型
+        [NameInMap("cert_type")]
+        [Validation(Required=false)]
+        public string CertType { get; set; }
+
     }
 
 }

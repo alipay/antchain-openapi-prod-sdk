@@ -30,7 +30,7 @@ namespace AntChain.SDK.BAASDT.Models
 
         // 商户账户名称
         [NameInMap("merchant_alias_name")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string MerchantAliasName { get; set; }
 
         // 商户类型(本期仅支持: 1:企业, 6:个人商户)

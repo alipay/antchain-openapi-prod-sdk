@@ -79,6 +79,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string LegalCertNo { get; set; }
 
+        // 商户法人证件类型，默认大陆身份证：CRED_PSN_CH_IDCARD
+        [NameInMap("legal_cert_type")]
+        [Validation(Required=false)]
+        public string LegalCertType { get; set; }
+
         // 商户经营地址
         [NameInMap("address_info")]
         [Validation(Required=true)]

@@ -137,7 +137,7 @@ namespace AntChain.SDK.BAASDT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.54"},
+                        {"sdk_version", "1.3.55"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BAASDT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.54"},
+                        {"sdk_version", "1.3.55"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -11695,6 +11695,48 @@ namespace AntChain.SDK.BAASDT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PagequeryIpCodecirculationResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.codecirculation.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 签署区块链合同, 平台入驻协议、单方协议、三方和大于三方的协议均可签署。
+         * Summary: 数字商品服务-IP授权服务-签署合同
+         */
+        public SignIpContractResponse SignIpContract(SignIpContractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SignIpContractEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 签署区块链合同, 平台入驻协议、单方协议、三方和大于三方的协议均可签署。
+         * Summary: 数字商品服务-IP授权服务-签署合同
+         */
+        public async Task<SignIpContractResponse> SignIpContractAsync(SignIpContractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SignIpContractExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 签署区块链合同, 平台入驻协议、单方协议、三方和大于三方的协议均可签署。
+         * Summary: 数字商品服务-IP授权服务-签署合同
+         */
+        public SignIpContractResponse SignIpContractEx(SignIpContractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SignIpContractResponse>(DoRequest("1.0", "baas.antdao.ip.contract.sign", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 签署区块链合同, 平台入驻协议、单方协议、三方和大于三方的协议均可签署。
+         * Summary: 数字商品服务-IP授权服务-签署合同
+         */
+        public async Task<SignIpContractResponse> SignIpContractExAsync(SignIpContractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SignIpContractResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.contract.sign", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
