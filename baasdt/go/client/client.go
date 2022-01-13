@@ -215,6 +215,72 @@ func (s *Extension) SetValue(v string) *Extension {
 	return s
 }
 
+// 销售抽用单独设置的授权品类和保底金信息
+type IPCommissionSeparateSetInfo struct {
+	// 授权品类
+	Category *string `json:"category,omitempty" xml:"category,omitempty"`
+	// 佣金比例
+	CommissionWeight *string `json:"commission_weight,omitempty" xml:"commission_weight,omitempty"`
+	// 保底商品销售金额
+	GuaranteeSaleNumber *string `json:"guarantee_sale_number,omitempty" xml:"guarantee_sale_number,omitempty"`
+}
+
+func (s IPCommissionSeparateSetInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPCommissionSeparateSetInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IPCommissionSeparateSetInfo) SetCategory(v string) *IPCommissionSeparateSetInfo {
+	s.Category = &v
+	return s
+}
+
+func (s *IPCommissionSeparateSetInfo) SetCommissionWeight(v string) *IPCommissionSeparateSetInfo {
+	s.CommissionWeight = &v
+	return s
+}
+
+func (s *IPCommissionSeparateSetInfo) SetGuaranteeSaleNumber(v string) *IPCommissionSeparateSetInfo {
+	s.GuaranteeSaleNumber = &v
+	return s
+}
+
+// 按件付费单独设置的品类和保底量信息
+type IPPaytSeparateSetInfo struct {
+	// 授权品类
+	Category *string `json:"category,omitempty" xml:"category,omitempty"`
+	// 单件单价
+	UnitPrice *string `json:"unit_price,omitempty" xml:"unit_price,omitempty"`
+	// 保底商品数量
+	GuaranteeGoodsNumber *string `json:"guarantee_goods_number,omitempty" xml:"guarantee_goods_number,omitempty"`
+}
+
+func (s IPPaytSeparateSetInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPPaytSeparateSetInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IPPaytSeparateSetInfo) SetCategory(v string) *IPPaytSeparateSetInfo {
+	s.Category = &v
+	return s
+}
+
+func (s *IPPaytSeparateSetInfo) SetUnitPrice(v string) *IPPaytSeparateSetInfo {
+	s.UnitPrice = &v
+	return s
+}
+
+func (s *IPPaytSeparateSetInfo) SetGuaranteeGoodsNumber(v string) *IPPaytSeparateSetInfo {
+	s.GuaranteeGoodsNumber = &v
+	return s
+}
+
 // 用户价格
 type UserPrice struct {
 	// 具体价格
@@ -299,14 +365,22 @@ func (s *CommissionLayer) SetDeductToken(v string) *CommissionLayer {
 type IPTradeMode struct {
 	// 交易类型，0：销售抽拥；1:按件付费
 	TradeType []*int64 `json:"trade_type,omitempty" xml:"trade_type,omitempty" type:"Repeated"`
+	// 销售抽拥设置类型，0批量设置，1，单独设置
+	CommissionSetType *string `json:"commission_set_type,omitempty" xml:"commission_set_type,omitempty"`
 	// 佣金比例
 	CommissionWeight *string `json:"commission_weight,omitempty" xml:"commission_weight,omitempty"`
 	// 保底商品销售金额
 	GuaranteeSaleNumber *string `json:"guarantee_sale_number,omitempty" xml:"guarantee_sale_number,omitempty"`
+	// 销售抽佣单独设置信息
+	CommissionSeparateSetInfo []*IPCommissionSeparateSetInfo `json:"commission_separate_set_info,omitempty" xml:"commission_separate_set_info,omitempty" type:"Repeated"`
+	// 按件付费设置类型，0批量设置，1，单独设置
+	PaytSetType *string `json:"payt_set_type,omitempty" xml:"payt_set_type,omitempty"`
 	// 单件单价
 	UnitPrice *string `json:"unit_price,omitempty" xml:"unit_price,omitempty"`
 	// 保底商品数量
 	GuaranteeGoodsNumber *string `json:"guarantee_goods_number,omitempty" xml:"guarantee_goods_number,omitempty"`
+	// 按件付费单独设置信息
+	PaytSeparateSetInfo []*IPPaytSeparateSetInfo `json:"payt_separate_set_info,omitempty" xml:"payt_separate_set_info,omitempty" type:"Repeated"`
 }
 
 func (s IPTradeMode) String() string {
@@ -322,6 +396,11 @@ func (s *IPTradeMode) SetTradeType(v []*int64) *IPTradeMode {
 	return s
 }
 
+func (s *IPTradeMode) SetCommissionSetType(v string) *IPTradeMode {
+	s.CommissionSetType = &v
+	return s
+}
+
 func (s *IPTradeMode) SetCommissionWeight(v string) *IPTradeMode {
 	s.CommissionWeight = &v
 	return s
@@ -332,6 +411,16 @@ func (s *IPTradeMode) SetGuaranteeSaleNumber(v string) *IPTradeMode {
 	return s
 }
 
+func (s *IPTradeMode) SetCommissionSeparateSetInfo(v []*IPCommissionSeparateSetInfo) *IPTradeMode {
+	s.CommissionSeparateSetInfo = v
+	return s
+}
+
+func (s *IPTradeMode) SetPaytSetType(v string) *IPTradeMode {
+	s.PaytSetType = &v
+	return s
+}
+
 func (s *IPTradeMode) SetUnitPrice(v string) *IPTradeMode {
 	s.UnitPrice = &v
 	return s
@@ -339,6 +428,11 @@ func (s *IPTradeMode) SetUnitPrice(v string) *IPTradeMode {
 
 func (s *IPTradeMode) SetGuaranteeGoodsNumber(v string) *IPTradeMode {
 	s.GuaranteeGoodsNumber = &v
+	return s
+}
+
+func (s *IPTradeMode) SetPaytSeparateSetInfo(v []*IPPaytSeparateSetInfo) *IPTradeMode {
+	s.PaytSeparateSetInfo = v
 	return s
 }
 
@@ -1246,6 +1340,8 @@ type IPContactInfo struct {
 	Type *int64 `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 联系人身份证号
 	Certno *string `json:"certno,omitempty" xml:"certno,omitempty"`
+	// 联系人证件类型
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
 }
 
 func (s IPContactInfo) String() string {
@@ -1278,6 +1374,11 @@ func (s *IPContactInfo) SetType(v int64) *IPContactInfo {
 
 func (s *IPContactInfo) SetCertno(v string) *IPContactInfo {
 	s.Certno = &v
+	return s
+}
+
+func (s *IPContactInfo) SetCertType(v string) *IPContactInfo {
+	s.CertType = &v
 	return s
 }
 
@@ -6419,6 +6520,46 @@ func (s *IPSalesSummary) SetSettlementBeginTime(v int64) *IPSalesSummary {
 
 func (s *IPSalesSummary) SetSettlementEndTime(v int64) *IPSalesSummary {
 	s.SettlementEndTime = &v
+	return s
+}
+
+// 区块链合同签署区信息
+type SignField struct {
+	// 签署操作人个人账号标识，即操作本次签署的个人
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 签署所在页码，必须是整数数字
+	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty" require:"true"`
+	// x坐标，必须是数字
+	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty" require:"true"`
+	// y坐标，必须是数字
+	PosY *string `json:"pos_y,omitempty" xml:"pos_y,omitempty" require:"true"`
+}
+
+func (s SignField) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SignField) GoString() string {
+	return s.String()
+}
+
+func (s *SignField) SetAccountId(v string) *SignField {
+	s.AccountId = &v
+	return s
+}
+
+func (s *SignField) SetPosPage(v string) *SignField {
+	s.PosPage = &v
+	return s
+}
+
+func (s *SignField) SetPosX(v string) *SignField {
+	s.PosX = &v
+	return s
+}
+
+func (s *SignField) SetPosY(v string) *SignField {
+	s.PosY = &v
 	return s
 }
 
@@ -24561,7 +24702,7 @@ type AddIpChannelRequest struct {
 	PayMode *int64 `json:"pay_mode,omitempty" xml:"pay_mode,omitempty"`
 	// ip等级  0:经典IP/1:流量IP/2:设计IP
 	IpLevel *int64 `json:"ip_level,omitempty" xml:"ip_level,omitempty"`
-	// 交易是否需要确认，默认不需要确认
+	// 交易是否需要确认，默认需要确认
 	TradeNeedConfirm *bool `json:"trade_need_confirm,omitempty" xml:"trade_need_confirm,omitempty"`
 	// 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
 	GuaranteeRange *int64 `json:"guarantee_range,omitempty" xml:"guarantee_range,omitempty"`
@@ -26008,6 +26149,8 @@ type ApplyIpAccountRequest struct {
 	LegalName *string `json:"legal_name,omitempty" xml:"legal_name,omitempty"`
 	// 商户法人身份证号码, merchant_type = 1时必填
 	LegalCertNo *string `json:"legal_cert_no,omitempty" xml:"legal_cert_no,omitempty"`
+	// 商户法人证件类型，默认大陆身份证：CRED_PSN_CH_IDCARD
+	LegalCertType *string `json:"legal_cert_type,omitempty" xml:"legal_cert_type,omitempty"`
 	// 商户经营地址
 	AddressInfo *IPAddressInfo `json:"address_info,omitempty" xml:"address_info,omitempty" require:"true"`
 	// 商户联系人信息
@@ -26095,6 +26238,11 @@ func (s *ApplyIpAccountRequest) SetLegalName(v string) *ApplyIpAccountRequest {
 
 func (s *ApplyIpAccountRequest) SetLegalCertNo(v string) *ApplyIpAccountRequest {
 	s.LegalCertNo = &v
+	return s
+}
+
+func (s *ApplyIpAccountRequest) SetLegalCertType(v string) *ApplyIpAccountRequest {
+	s.LegalCertType = &v
 	return s
 }
 
@@ -31926,7 +32074,7 @@ type UpdateIpAccountRequest struct {
 	// 链上账户id
 	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
 	// 商户账户名称
-	MerchantAliasName *string `json:"merchant_alias_name,omitempty" xml:"merchant_alias_name,omitempty" require:"true"`
+	MerchantAliasName *string `json:"merchant_alias_name,omitempty" xml:"merchant_alias_name,omitempty"`
 	// 商户类型(本期仅支持: 1:企业, 6:个人商户)
 	MerchantType *int64 `json:"merchant_type,omitempty" xml:"merchant_type,omitempty"`
 	// 商户证件类型，201--统一社会信用证--营业执照号；
@@ -35251,6 +35399,97 @@ func (s *PagequeryIpCodecirculationResponse) SetPageSize(v int64) *PagequeryIpCo
 	return s
 }
 
+type SignIpContractRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础请求参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 订单合同文件OSS文件key
+	ContractFileUrl *string `json:"contract_file_url,omitempty" xml:"contract_file_url,omitempty" require:"true"`
+	// 签署区信息
+	SignFields []*SignField `json:"sign_fields,omitempty" xml:"sign_fields,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SignIpContractRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SignIpContractRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SignIpContractRequest) SetAuthToken(v string) *SignIpContractRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SignIpContractRequest) SetProductInstanceId(v string) *SignIpContractRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SignIpContractRequest) SetBaseRequest(v *BaseRequestInfo) *SignIpContractRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *SignIpContractRequest) SetContractFileUrl(v string) *SignIpContractRequest {
+	s.ContractFileUrl = &v
+	return s
+}
+
+func (s *SignIpContractRequest) SetSignFields(v []*SignField) *SignIpContractRequest {
+	s.SignFields = v
+	return s
+}
+
+type SignIpContractResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 签署完成的文件OSS key。只有在签署流程全部完成后才会返回该数据。
+	SignedContractFile *string `json:"signed_contract_file,omitempty" xml:"signed_contract_file,omitempty"`
+	// 签署完成的文件下载链接。只有在签署流程全部完成后才会返回该数据。
+	SignedContractFileUrl *string `json:"signed_contract_file_url,omitempty" xml:"signed_contract_file_url,omitempty"`
+}
+
+func (s SignIpContractResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SignIpContractResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SignIpContractResponse) SetReqMsgId(v string) *SignIpContractResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SignIpContractResponse) SetResultCode(v string) *SignIpContractResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SignIpContractResponse) SetResultMsg(v string) *SignIpContractResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SignIpContractResponse) SetSignedContractFile(v string) *SignIpContractResponse {
+	s.SignedContractFile = &v
+	return s
+}
+
+func (s *SignIpContractResponse) SetSignedContractFileUrl(v string) *SignIpContractResponse {
+	s.SignedContractFileUrl = &v
+	return s
+}
+
 type QueryBlockanalysisBlockRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -37572,7 +37811,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.54"),
+				"sdk_version":      tea.String("1.3.55"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -46806,6 +47045,40 @@ func (client *Client) PagequeryIpCodecirculationEx(request *PagequeryIpCodecircu
 	}
 	_result = &PagequeryIpCodecirculationResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.codecirculation.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 签署区块链合同, 平台入驻协议、单方协议、三方和大于三方的协议均可签署。
+ * Summary: 数字商品服务-IP授权服务-签署合同
+ */
+func (client *Client) SignIpContract(request *SignIpContractRequest) (_result *SignIpContractResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SignIpContractResponse{}
+	_body, _err := client.SignIpContractEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 签署区块链合同, 平台入驻协议、单方协议、三方和大于三方的协议均可签署。
+ * Summary: 数字商品服务-IP授权服务-签署合同
+ */
+func (client *Client) SignIpContractEx(request *SignIpContractRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SignIpContractResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SignIpContractResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.contract.sign"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
