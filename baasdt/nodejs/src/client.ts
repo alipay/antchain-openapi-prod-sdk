@@ -136,6 +136,64 @@ export class Extension extends $tea.Model {
   }
 }
 
+// 销售抽用单独设置的授权品类和保底金信息
+export class IPCommissionSeparateSetInfo extends $tea.Model {
+  // 授权品类
+  category?: string;
+  // 佣金比例
+  commissionWeight?: string;
+  // 保底商品销售金额
+  guaranteeSaleNumber?: string;
+  static names(): { [key: string]: string } {
+    return {
+      category: 'category',
+      commissionWeight: 'commission_weight',
+      guaranteeSaleNumber: 'guarantee_sale_number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      category: 'string',
+      commissionWeight: 'string',
+      guaranteeSaleNumber: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 按件付费单独设置的品类和保底量信息
+export class IPPaytSeparateSetInfo extends $tea.Model {
+  // 授权品类
+  category?: string;
+  // 单件单价
+  unitPrice?: string;
+  // 保底商品数量
+  guaranteeGoodsNumber?: string;
+  static names(): { [key: string]: string } {
+    return {
+      category: 'category',
+      unitPrice: 'unit_price',
+      guaranteeGoodsNumber: 'guarantee_goods_number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      category: 'string',
+      unitPrice: 'string',
+      guaranteeGoodsNumber: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 用户价格
 export class UserPrice extends $tea.Model {
   // 具体价格
@@ -206,31 +264,47 @@ export class CommissionLayer extends $tea.Model {
 export class IPTradeMode extends $tea.Model {
   // 交易类型，0：销售抽拥；1:按件付费
   tradeType?: number[];
+  // 销售抽拥设置类型，0批量设置，1，单独设置
+  commissionSetType?: string;
   // 佣金比例
   commissionWeight?: string;
   // 保底商品销售金额
   guaranteeSaleNumber?: string;
+  // 销售抽佣单独设置信息
+  commissionSeparateSetInfo?: IPCommissionSeparateSetInfo[];
+  // 按件付费设置类型，0批量设置，1，单独设置
+  paytSetType?: string;
   // 单件单价
   unitPrice?: string;
   // 保底商品数量
   guaranteeGoodsNumber?: string;
+  // 按件付费单独设置信息
+  paytSeparateSetInfo?: IPPaytSeparateSetInfo[];
   static names(): { [key: string]: string } {
     return {
       tradeType: 'trade_type',
+      commissionSetType: 'commission_set_type',
       commissionWeight: 'commission_weight',
       guaranteeSaleNumber: 'guarantee_sale_number',
+      commissionSeparateSetInfo: 'commission_separate_set_info',
+      paytSetType: 'payt_set_type',
       unitPrice: 'unit_price',
       guaranteeGoodsNumber: 'guarantee_goods_number',
+      paytSeparateSetInfo: 'payt_separate_set_info',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       tradeType: { 'type': 'array', 'itemType': 'number' },
+      commissionSetType: 'string',
       commissionWeight: 'string',
       guaranteeSaleNumber: 'string',
+      commissionSeparateSetInfo: { 'type': 'array', 'itemType': IPCommissionSeparateSetInfo },
+      paytSetType: 'string',
       unitPrice: 'string',
       guaranteeGoodsNumber: 'string',
+      paytSeparateSetInfo: { 'type': 'array', 'itemType': IPPaytSeparateSetInfo },
     };
   }
 
@@ -923,6 +997,8 @@ export class IPContactInfo extends $tea.Model {
   type: number;
   // 联系人身份证号
   certno?: string;
+  // 联系人证件类型
+  certType?: string;
   static names(): { [key: string]: string } {
     return {
       name: 'name',
@@ -930,6 +1006,7 @@ export class IPContactInfo extends $tea.Model {
       phone: 'phone',
       type: 'type',
       certno: 'certno',
+      certType: 'cert_type',
     };
   }
 
@@ -940,6 +1017,7 @@ export class IPContactInfo extends $tea.Model {
       phone: 'string',
       type: 'number',
       certno: 'string',
+      certType: 'string',
     };
   }
 
@@ -4595,6 +4673,39 @@ export class IPSalesSummary extends $tea.Model {
       memo: 'string',
       settlementBeginTime: 'number',
       settlementEndTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 区块链合同签署区信息
+export class SignField extends $tea.Model {
+  // 签署操作人个人账号标识，即操作本次签署的个人
+  accountId: string;
+  // 签署所在页码，必须是整数数字
+  posPage: string;
+  // x坐标，必须是数字
+  posX: string;
+  // y坐标，必须是数字
+  posY: string;
+  static names(): { [key: string]: string } {
+    return {
+      accountId: 'account_id',
+      posPage: 'pos_page',
+      posX: 'pos_x',
+      posY: 'pos_y',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accountId: 'string',
+      posPage: 'string',
+      posX: 'string',
+      posY: 'string',
     };
   }
 
@@ -18400,7 +18511,7 @@ export class AddIpChannelRequest extends $tea.Model {
   payMode?: number;
   // ip等级  0:经典IP/1:流量IP/2:设计IP
   ipLevel?: number;
-  // 交易是否需要确认，默认不需要确认
+  // 交易是否需要确认，默认需要确认
   tradeNeedConfirm?: boolean;
   // 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
   guaranteeRange?: number;
@@ -19482,6 +19593,8 @@ export class ApplyIpAccountRequest extends $tea.Model {
   legalName?: string;
   // 商户法人身份证号码, merchant_type = 1时必填
   legalCertNo?: string;
+  // 商户法人证件类型，默认大陆身份证：CRED_PSN_CH_IDCARD
+  legalCertType?: string;
   // 商户经营地址
   addressInfo: IPAddressInfo;
   // 商户联系人信息
@@ -19508,6 +19621,7 @@ export class ApplyIpAccountRequest extends $tea.Model {
       mcc: 'mcc',
       legalName: 'legal_name',
       legalCertNo: 'legal_cert_no',
+      legalCertType: 'legal_cert_type',
       addressInfo: 'address_info',
       contactInfo: 'contact_info',
       settleRule: 'settle_rule',
@@ -19532,6 +19646,7 @@ export class ApplyIpAccountRequest extends $tea.Model {
       mcc: 'string',
       legalName: 'string',
       legalCertNo: 'string',
+      legalCertType: 'string',
       addressInfo: IPAddressInfo,
       contactInfo: IPContactInfo,
       settleRule: IPSettleRule,
@@ -23866,7 +23981,7 @@ export class UpdateIpAccountRequest extends $tea.Model {
   // 链上账户id
   accountId: string;
   // 商户账户名称
-  merchantAliasName: string;
+  merchantAliasName?: string;
   // 商户类型(本期仅支持: 1:企业, 6:个人商户)
   merchantType?: number;
   // 商户证件类型，201--统一社会信用证--营业执照号；
@@ -26371,6 +26486,77 @@ export class PagequeryIpCodecirculationResponse extends $tea.Model {
   }
 }
 
+export class SignIpContractRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础请求参数
+  baseRequest: BaseRequestInfo;
+  // 订单合同文件OSS文件key
+  contractFileUrl: string;
+  // 签署区信息
+  signFields: SignField[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      contractFileUrl: 'contract_file_url',
+      signFields: 'sign_fields',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      contractFileUrl: 'string',
+      signFields: { 'type': 'array', 'itemType': SignField },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SignIpContractResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 签署完成的文件OSS key。只有在签署流程全部完成后才会返回该数据。
+  signedContractFile?: string;
+  // 签署完成的文件下载链接。只有在签署流程全部完成后才会返回该数据。
+  signedContractFileUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      signedContractFile: 'signed_contract_file',
+      signedContractFileUrl: 'signed_contract_file_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      signedContractFile: 'string',
+      signedContractFileUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryBlockanalysisBlockRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -28121,7 +28307,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.54",
+          sdk_version: "1.3.55",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -33315,6 +33501,25 @@ export default class Client {
   async pagequeryIpCodecirculationEx(request: PagequeryIpCodecirculationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIpCodecirculationResponse> {
     Util.validateModel(request);
     return $tea.cast<PagequeryIpCodecirculationResponse>(await this.doRequest("1.0", "baas.antdao.ip.codecirculation.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryIpCodecirculationResponse({}));
+  }
+
+  /**
+   * Description: 签署区块链合同, 平台入驻协议、单方协议、三方和大于三方的协议均可签署。
+   * Summary: 数字商品服务-IP授权服务-签署合同
+   */
+  async signIpContract(request: SignIpContractRequest): Promise<SignIpContractResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.signIpContractEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 签署区块链合同, 平台入驻协议、单方协议、三方和大于三方的协议均可签署。
+   * Summary: 数字商品服务-IP授权服务-签署合同
+   */
+  async signIpContractEx(request: SignIpContractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SignIpContractResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SignIpContractResponse>(await this.doRequest("1.0", "baas.antdao.ip.contract.sign", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SignIpContractResponse({}));
   }
 
   /**
