@@ -47,12 +47,21 @@ class IPContactInfo extends Model
      * @var string
      */
     public $certno;
+
+    // 联系人证件类型
+    /**
+     * @example CRED_PSN_CH_IDCARD
+     *
+     * @var string
+     */
+    public $certType;
     protected $_name = [
-        'name'   => 'name',
-        'mobile' => 'mobile',
-        'phone'  => 'phone',
-        'type'   => 'type',
-        'certno' => 'certno',
+        'name'     => 'name',
+        'mobile'   => 'mobile',
+        'phone'    => 'phone',
+        'type'     => 'type',
+        'certno'   => 'certno',
+        'certType' => 'cert_type',
     ];
 
     public function validate()
@@ -78,6 +87,9 @@ class IPContactInfo extends Model
         }
         if (null !== $this->certno) {
             $res['certno'] = $this->certno;
+        }
+        if (null !== $this->certType) {
+            $res['cert_type'] = $this->certType;
         }
 
         return $res;
@@ -105,6 +117,9 @@ class IPContactInfo extends Model
         }
         if (isset($map['certno'])) {
             $model->certno = $map['certno'];
+        }
+        if (isset($map['cert_type'])) {
+            $model->certType = $map['cert_type'];
         }
 
         return $model;

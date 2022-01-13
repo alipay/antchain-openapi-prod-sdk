@@ -92,6 +92,12 @@ class ApplyIpAccountRequest extends Model
      */
     public $legalCertNo;
 
+    // 商户法人证件类型，默认大陆身份证：CRED_PSN_CH_IDCARD
+    /**
+     * @var string
+     */
+    public $legalCertType;
+
     // 商户经营地址
     /**
      * @var IPAddressInfo
@@ -136,6 +142,7 @@ class ApplyIpAccountRequest extends Model
         'mcc'                => 'mcc',
         'legalName'          => 'legal_name',
         'legalCertNo'        => 'legal_cert_no',
+        'legalCertType'      => 'legal_cert_type',
         'addressInfo'        => 'address_info',
         'contactInfo'        => 'contact_info',
         'settleRule'         => 'settle_rule',
@@ -201,6 +208,9 @@ class ApplyIpAccountRequest extends Model
         }
         if (null !== $this->legalCertNo) {
             $res['legal_cert_no'] = $this->legalCertNo;
+        }
+        if (null !== $this->legalCertType) {
+            $res['legal_cert_type'] = $this->legalCertType;
         }
         if (null !== $this->addressInfo) {
             $res['address_info'] = null !== $this->addressInfo ? $this->addressInfo->toMap() : null;
@@ -270,6 +280,9 @@ class ApplyIpAccountRequest extends Model
         }
         if (isset($map['legal_cert_no'])) {
             $model->legalCertNo = $map['legal_cert_no'];
+        }
+        if (isset($map['legal_cert_type'])) {
+            $model->legalCertType = $map['legal_cert_type'];
         }
         if (isset($map['address_info'])) {
             $model->addressInfo = IPAddressInfo::fromMap($map['address_info']);

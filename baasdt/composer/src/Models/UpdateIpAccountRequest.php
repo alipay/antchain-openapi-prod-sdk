@@ -105,7 +105,6 @@ class UpdateIpAccountRequest extends Model
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
         Model::validateRequired('accountId', $this->accountId, true);
-        Model::validateRequired('merchantAliasName', $this->merchantAliasName, true);
     }
 
     public function toMap()

@@ -67,7 +67,7 @@ class AddIpChannelRequest extends Model
      */
     public $ipLevel;
 
-    // 交易是否需要确认，默认不需要确认
+    // 交易是否需要确认，默认需要确认
     /**
      * @var bool
      */

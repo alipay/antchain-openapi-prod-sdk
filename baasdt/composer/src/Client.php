@@ -521,6 +521,8 @@ use AntChain\BAASDT\Models\SetMerchantFundmanagerRequest;
 use AntChain\BAASDT\Models\SetMerchantFundmanagerResponse;
 use AntChain\BAASDT\Models\SetMerchantProvisionRequest;
 use AntChain\BAASDT\Models\SetMerchantProvisionResponse;
+use AntChain\BAASDT\Models\SignIpContractRequest;
+use AntChain\BAASDT\Models\SignIpContractResponse;
 use AntChain\BAASDT\Models\SignIpOrdercontractRequest;
 use AntChain\BAASDT\Models\SignIpOrdercontractResponse;
 use AntChain\BAASDT\Models\StartConsumecardPurchaseRequest;
@@ -736,7 +738,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.54',
+                    'sdk_version'      => '1.3.55',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -9693,6 +9695,39 @@ class Client
         Utils::validateModel($request);
 
         return PagequeryIpCodecirculationResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.codecirculation.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 签署区块链合同, 平台入驻协议、单方协议、三方和大于三方的协议均可签署。
+     * Summary: 数字商品服务-IP授权服务-签署合同.
+     *
+     * @param SignIpContractRequest $request
+     *
+     * @return SignIpContractResponse
+     */
+    public function signIpContract($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->signIpContractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 签署区块链合同, 平台入驻协议、单方协议、三方和大于三方的协议均可签署。
+     * Summary: 数字商品服务-IP授权服务-签署合同.
+     *
+     * @param SignIpContractRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return SignIpContractResponse
+     */
+    public function signIpContractEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SignIpContractResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.contract.sign', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
