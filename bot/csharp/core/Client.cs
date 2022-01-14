@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.54"},
+                        {"sdk_version", "1.6.60"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.54"},
+                        {"sdk_version", "1.6.60"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -609,6 +609,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryLeaseRealpersonResponse>(await DoRequestAsync("1.0", "blockchain.bot.lease.realperson.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁智能中心风控查询服务
+         * Summary: 租赁智能中心风控查询服务
+         */
+        public QueryLeaseRiskResponse QueryLeaseRisk(QueryLeaseRiskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryLeaseRiskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁智能中心风控查询服务
+         * Summary: 租赁智能中心风控查询服务
+         */
+        public async Task<QueryLeaseRiskResponse> QueryLeaseRiskAsync(QueryLeaseRiskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryLeaseRiskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁智能中心风控查询服务
+         * Summary: 租赁智能中心风控查询服务
+         */
+        public QueryLeaseRiskResponse QueryLeaseRiskEx(QueryLeaseRiskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLeaseRiskResponse>(DoRequest("1.0", "blockchain.bot.lease.risk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁智能中心风控查询服务
+         * Summary: 租赁智能中心风控查询服务
+         */
+        public async Task<QueryLeaseRiskResponse> QueryLeaseRiskExAsync(QueryLeaseRiskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLeaseRiskResponse>(await DoRequestAsync("1.0", "blockchain.bot.lease.risk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
