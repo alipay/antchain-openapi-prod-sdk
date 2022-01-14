@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.54'
+                    'sdk_version': '1.6.60'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.54'
+                    'sdk_version': '1.6.60'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -647,6 +647,60 @@ class Client:
         UtilClient.validate_model(request)
         return bot_models.QueryLeaseRealpersonResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.lease.realperson.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_lease_risk(
+        self,
+        request: bot_models.QueryLeaseRiskRequest,
+    ) -> bot_models.QueryLeaseRiskResponse:
+        """
+        Description: 租赁智能中心风控查询服务
+        Summary: 租赁智能中心风控查询服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_lease_risk_ex(request, headers, runtime)
+
+    async def query_lease_risk_async(
+        self,
+        request: bot_models.QueryLeaseRiskRequest,
+    ) -> bot_models.QueryLeaseRiskResponse:
+        """
+        Description: 租赁智能中心风控查询服务
+        Summary: 租赁智能中心风控查询服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_lease_risk_ex_async(request, headers, runtime)
+
+    def query_lease_risk_ex(
+        self,
+        request: bot_models.QueryLeaseRiskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryLeaseRiskResponse:
+        """
+        Description: 租赁智能中心风控查询服务
+        Summary: 租赁智能中心风控查询服务
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryLeaseRiskResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.lease.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_lease_risk_ex_async(
+        self,
+        request: bot_models.QueryLeaseRiskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryLeaseRiskResponse:
+        """
+        Description: 租赁智能中心风控查询服务
+        Summary: 租赁智能中心风控查询服务
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryLeaseRiskResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.lease.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_bai_ocr(

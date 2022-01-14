@@ -4335,6 +4335,120 @@ class QueryLeaseRealpersonResponse(TeaModel):
         return self
 
 
+class QueryLeaseRiskRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        user_id: str = None,
+        user_name: str = None,
+        cert_no: str = None,
+        mobile: str = None,
+        ip: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 外部系统的用户唯一ID
+        self.user_id = user_id
+        # 用户姓名
+        self.user_name = user_name
+        # 用户身份证号码
+        self.cert_no = cert_no
+        # 用户手机号码
+        self.mobile = mobile
+        # 用户IP地址
+        self.ip = ip
+
+    def validate(self):
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.user_name, 'user_name')
+        self.validate_required(self.cert_no, 'cert_no')
+        self.validate_required(self.mobile, 'mobile')
+        self.validate_required(self.ip, 'ip')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.ip is not None:
+            result['ip'] = self.ip
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('ip') is not None:
+            self.ip = m.get('ip')
+        return self
+
+
+class QueryLeaseRiskResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务返回字段，JSON格式
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
 class QueryBaiOcrRequest(TeaModel):
     def __init__(
         self,
