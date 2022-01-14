@@ -3735,6 +3735,104 @@ func (s *QueryLeaseRealpersonResponse) SetData(v string) *QueryLeaseRealpersonRe
 	return s
 }
 
+type QueryLeaseRiskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部系统的用户唯一ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 用户姓名
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+	// 用户身份证号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 用户手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 用户IP地址
+	Ip *string `json:"ip,omitempty" xml:"ip,omitempty" require:"true"`
+}
+
+func (s QueryLeaseRiskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeaseRiskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeaseRiskRequest) SetAuthToken(v string) *QueryLeaseRiskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryLeaseRiskRequest) SetProductInstanceId(v string) *QueryLeaseRiskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryLeaseRiskRequest) SetUserId(v string) *QueryLeaseRiskRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryLeaseRiskRequest) SetUserName(v string) *QueryLeaseRiskRequest {
+	s.UserName = &v
+	return s
+}
+
+func (s *QueryLeaseRiskRequest) SetCertNo(v string) *QueryLeaseRiskRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryLeaseRiskRequest) SetMobile(v string) *QueryLeaseRiskRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryLeaseRiskRequest) SetIp(v string) *QueryLeaseRiskRequest {
+	s.Ip = &v
+	return s
+}
+
+type QueryLeaseRiskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务返回字段，JSON格式
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryLeaseRiskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeaseRiskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeaseRiskResponse) SetReqMsgId(v string) *QueryLeaseRiskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryLeaseRiskResponse) SetResultCode(v string) *QueryLeaseRiskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryLeaseRiskResponse) SetResultMsg(v string) *QueryLeaseRiskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryLeaseRiskResponse) SetData(v string) *QueryLeaseRiskResponse {
+	s.Data = &v
+	return s
+}
+
 type QueryBaiOcrRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -12689,7 +12787,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.54"),
+				"sdk_version":      tea.String("1.6.60"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -12968,6 +13066,40 @@ func (client *Client) QueryLeaseRealpersonEx(request *QueryLeaseRealpersonReques
 	}
 	_result = &QueryLeaseRealpersonResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.lease.realperson.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租赁智能中心风控查询服务
+ * Summary: 租赁智能中心风控查询服务
+ */
+func (client *Client) QueryLeaseRisk(request *QueryLeaseRiskRequest) (_result *QueryLeaseRiskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryLeaseRiskResponse{}
+	_body, _err := client.QueryLeaseRiskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租赁智能中心风控查询服务
+ * Summary: 租赁智能中心风控查询服务
+ */
+func (client *Client) QueryLeaseRiskEx(request *QueryLeaseRiskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryLeaseRiskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryLeaseRiskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.lease.risk.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
