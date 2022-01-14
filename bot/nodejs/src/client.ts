@@ -2830,6 +2830,81 @@ export class QueryLeaseRealpersonResponse extends $tea.Model {
   }
 }
 
+export class QueryLeaseRiskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部系统的用户唯一ID
+  userId: string;
+  // 用户姓名
+  userName: string;
+  // 用户身份证号码
+  certNo: string;
+  // 用户手机号码
+  mobile: string;
+  // 用户IP地址
+  ip: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userId: 'user_id',
+      userName: 'user_name',
+      certNo: 'cert_no',
+      mobile: 'mobile',
+      ip: 'ip',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userId: 'string',
+      userName: 'string',
+      certNo: 'string',
+      mobile: 'string',
+      ip: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryLeaseRiskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务返回字段，JSON格式
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryBaiOcrRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -9863,7 +9938,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.54",
+          sdk_version: "1.6.60",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -10040,6 +10115,25 @@ export default class Client {
   async queryLeaseRealpersonEx(request: QueryLeaseRealpersonRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryLeaseRealpersonResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryLeaseRealpersonResponse>(await this.doRequest("1.0", "blockchain.bot.lease.realperson.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryLeaseRealpersonResponse({}));
+  }
+
+  /**
+   * Description: 租赁智能中心风控查询服务
+   * Summary: 租赁智能中心风控查询服务
+   */
+  async queryLeaseRisk(request: QueryLeaseRiskRequest): Promise<QueryLeaseRiskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryLeaseRiskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁智能中心风控查询服务
+   * Summary: 租赁智能中心风控查询服务
+   */
+  async queryLeaseRiskEx(request: QueryLeaseRiskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryLeaseRiskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryLeaseRiskResponse>(await this.doRequest("1.0", "blockchain.bot.lease.risk.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryLeaseRiskResponse({}));
   }
 
   /**
