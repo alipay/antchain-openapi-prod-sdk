@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.54',
+    sdk_version = '1.6.60',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -1458,6 +1458,52 @@ async function queryLeaseRealperson(request: QueryLeaseRealpersonRequest): Query
 async function queryLeaseRealpersonEx(request: QueryLeaseRealpersonRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLeaseRealpersonResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.lease.realperson.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryLeaseRiskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外部系统的用户唯一ID
+  userId: string(name='user_id'),
+  // 用户姓名
+  userName: string(name='user_name'),
+  // 用户身份证号码
+  certNo: string(name='cert_no'),
+  // 用户手机号码
+  mobile: string(name='mobile'),
+  // 用户IP地址
+  ip: string(name='ip'),
+}
+
+model QueryLeaseRiskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务返回字段，JSON格式
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 租赁智能中心风控查询服务
+ * Summary: 租赁智能中心风控查询服务
+ */
+async function queryLeaseRisk(request: QueryLeaseRiskRequest): QueryLeaseRiskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryLeaseRiskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁智能中心风控查询服务
+ * Summary: 租赁智能中心风控查询服务
+ */
+async function queryLeaseRiskEx(request: QueryLeaseRiskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLeaseRiskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.lease.risk.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryBaiOcrRequest = {
