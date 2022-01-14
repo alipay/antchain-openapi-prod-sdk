@@ -139,6 +139,8 @@ use AntChain\BOT\Models\QueryLabelTraceRequest;
 use AntChain\BOT\Models\QueryLabelTraceResponse;
 use AntChain\BOT\Models\QueryLeaseRealpersonRequest;
 use AntChain\BOT\Models\QueryLeaseRealpersonResponse;
+use AntChain\BOT\Models\QueryLeaseRiskRequest;
+use AntChain\BOT\Models\QueryLeaseRiskResponse;
 use AntChain\BOT\Models\QueryTaskRequest;
 use AntChain\BOT\Models\QueryTaskResponse;
 use AntChain\BOT\Models\QueryThingsdidAsyncprocessRequest;
@@ -356,7 +358,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.54',
+                    'sdk_version'      => '1.6.60',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -631,6 +633,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryLeaseRealpersonResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.lease.realperson.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁智能中心风控查询服务
+     * Summary: 租赁智能中心风控查询服务
+     *
+     * @param QueryLeaseRiskRequest $request
+     *
+     * @return QueryLeaseRiskResponse
+     */
+    public function queryLeaseRisk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseRiskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁智能中心风控查询服务
+     * Summary: 租赁智能中心风控查询服务
+     *
+     * @param QueryLeaseRiskRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryLeaseRiskResponse
+     */
+    public function queryLeaseRiskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseRiskResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.lease.risk.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
