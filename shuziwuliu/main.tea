@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.132',
+    sdk_version = '1.3.136',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -3320,7 +3320,7 @@ model CreateDisDidRequest = {
   platformDid?: string(name='platform_did'),
   // 角色类型。
   // 当组织类型为个人时，可填角色：货主、司机、承运商；
-  // 当组织类型为企业时，可填角色：网络货运平台、道路运输企业/3pl、货主、子平台、承运商
+  // 当组织类型为企业时，可填角色：网络货运平台、道路运输企业/3pl、货主、子平台、承运商、托盘方
   roleType: string(name='role_type'),
 }
 
@@ -3362,18 +3362,20 @@ model UploadTransportContractRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 货主did，一般为合同甲方的链上数字身份
-  consignorDid: string(name='consignor_did'),
+  // 合同甲方did，一般为合同甲方的链上数字身份
+  partyADid: string(name='party_a_did'),
   // 运输合同生效日期，格式要求yyyy-MM-dd
   contractEffectiveDate: string(name='contract_effective_date'),
   // 运输合同到期日期，要求格式yyyy-MM-dd
   contractExpiresDate: string(name='contract_expires_date'),
   // 影像件文件信息列表，可以包含多个文件，每个文件需要有文件id和文件hash  (请求蚂蚁影像上传接口获取的文件id和文件hash)。影像文件格式要求：bmp,jpg,jpeg,gif,psd,png,tiff,tga,eps,pdf
   fileInfos: [ UploadFileInfo ](name='file_infos'),
-  // 3plDid，一般为合同乙方的链上数字身份
-  thirdPartyLogisticsDid: string(name='third_party_logistics_did'),
+  // 合同乙方Did，一般为合同乙方的链上数字身份
+  partyBDid: string(name='party_b_did'),
   // 运输合同编号
   transportContractCode: string(name='transport_contract_code'),
+  // 所属平台did
+  platformDid: string(name='platform_did'),
 }
 
 model UploadTransportContractResponse = {
@@ -3502,6 +3504,8 @@ model CreateTransportWaybillRequest = {
   transportContractCode?: string(name='transport_contract_code'),
   // 所属运输线路编码
   transportRouteCode?: string(name='transport_route_code'),
+  // 托盘方did
+  palletDid?: string(name='pallet_did'),
 }
 
 model CreateTransportWaybillResponse = {
@@ -3626,6 +3630,8 @@ model UpdateTransportWaybillRequest = {
   transportContractCode?: string(name='transport_contract_code'),
   // 所属运输线路编码
   transportRouteCode?: string(name='transport_route_code'),
+  // 托盘方did
+  palletDid?: string(name='pallet_did'),
 }
 
 model UpdateTransportWaybillResponse = {
@@ -3729,6 +3735,8 @@ model CreateBillReceivablebillRequest = {
   deadline: long(name='deadline'),
   // 账单关联运单号数组，元素个数不能超过1000个
   waybillIds: [ string ](name='waybill_ids'),
+  // 所属平台did
+  platformDid: string(name='platform_did'),
 }
 
 model CreateBillReceivablebillResponse = {
@@ -3831,6 +3839,8 @@ model UpdateBillReceivablebillRequest = {
   deadline?: long(name='deadline'),
   // 账单关联运单号数组，元素个数不能超过1000个
   waybillIds?: [ string ](name='waybill_ids'),
+  // 所属平台did
+  platformDid?: string(name='platform_did'),
 }
 
 model UpdateBillReceivablebillResponse = {
@@ -3987,6 +3997,8 @@ model CreateBillReceivablebillnodetailRequest = {
   contractCode?: string(name='contract_code'),
   // 账单到期日期，13位毫秒级时间戳
   deadline: long(name='deadline'),
+  // 所属平台did
+  platformDid: string(name='platform_did'),
 }
 
 model CreateBillReceivablebillnodetailResponse = {
@@ -8134,8 +8146,6 @@ model QueryInsuranceEpolicyRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 投保返回的交易流水号
   applyTradeNo: string(maxLength=50, name='apply_trade_no'),
-  // 保司编码
-  externalChannelCode: string(maxLength=64, name='external_channel_code'),
   // 保单号
   policyNo: string(maxLength=64, name='policy_no'),
 }
@@ -8152,8 +8162,8 @@ model QueryInsuranceEpolicyResponse = {
 }
 
 /**
- * Description: 产业保险电子保单查询
- * Summary: 产业保险电子保单查询
+ * Description: 保险电子保单查询
+ * Summary: 保险电子保单查询
  */
 async function queryInsuranceEpolicy(request: QueryInsuranceEpolicyRequest): QueryInsuranceEpolicyResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -8162,8 +8172,8 @@ async function queryInsuranceEpolicy(request: QueryInsuranceEpolicyRequest): Que
 }
 
 /**
- * Description: 产业保险电子保单查询
- * Summary: 产业保险电子保单查询
+ * Description: 保险电子保单查询
+ * Summary: 保险电子保单查询
  */
 async function queryInsuranceEpolicyEx(request: QueryInsuranceEpolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInsuranceEpolicyResponse {
   Util.validateModel(request);
@@ -8540,6 +8550,10 @@ model PushPfPledgeRequest = {
   requestNo: string(maxLength=32, minLength=16, name='request_no'),
   // 质押发票号码列表
   invoiceNos?: [ string ](name='invoice_nos'),
+  // 托盘账单金额
+  palletBillAmount?: string(maxLength=64, minLength=1, name='pallet_bill_amount'),
+  // 托盘账单关联发票号列表
+  palletInvoiceNos?: [ string ](name='pallet_invoice_nos'),
 }
 
 model PushPfPledgeResponse = {
@@ -8994,6 +9008,58 @@ async function callbackPfDefinpf(request: CallbackPfDefinpfRequest): CallbackPfD
 async function callbackPfDefinpfEx(request: CallbackPfDefinpfRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackPfDefinpfResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'digital.logistic.pf.definpf.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPfWithdrawRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 银行端客户号
+  customerNo: string(maxLength=20, name='customer_no'),
+  // 证件类型;050 统一社会信用证代码
+  certType: string(maxLength=3, name='cert_type'),
+  // 证件号码
+  certNo: string(maxLength=20, name='cert_no'),
+}
+
+model QueryPfWithdrawResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 银行端客户号
+  // 
+  customerNo?: string(name='customer_no'),
+  // 证件类型;050 统一社会信用证代码
+  // 
+  certType?: string(name='cert_type'),
+  // 证件号码
+  certNo?: string(name='cert_no'),
+  // 客户完成账单融资申请放款至账户中待提款的金额，保留两位小数（单位：元）
+  withdrawalAmount?: string(name='withdrawal_amount'),
+  // 数据更新时间
+  updateTime?: string(name='update_time'),
+}
+
+/**
+ * Description: 用于查询可提款额度
+ * Summary: 可提款额度查询
+ */
+async function queryPfWithdraw(request: QueryPfWithdrawRequest): QueryPfWithdrawResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPfWithdrawEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于查询可提款额度
+ * Summary: 可提款额度查询
+ */
+async function queryPfWithdrawEx(request: QueryPfWithdrawRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPfWithdrawResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.pf.withdraw.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateDidForwarderRequest = {
