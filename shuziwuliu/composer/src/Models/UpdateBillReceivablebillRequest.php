@@ -78,6 +78,12 @@ class UpdateBillReceivablebillRequest extends Model
      * @var string[]
      */
     public $waybillIds;
+
+    // 所属平台did
+    /**
+     * @var string
+     */
+    public $platformDid;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -91,6 +97,7 @@ class UpdateBillReceivablebillRequest extends Model
         'contractCode'      => 'contract_code',
         'deadline'          => 'deadline',
         'waybillIds'        => 'waybill_ids',
+        'platformDid'       => 'platform_did',
     ];
 
     public function validate()
@@ -137,6 +144,9 @@ class UpdateBillReceivablebillRequest extends Model
         }
         if (null !== $this->waybillIds) {
             $res['waybill_ids'] = $this->waybillIds;
+        }
+        if (null !== $this->platformDid) {
+            $res['platform_did'] = $this->platformDid;
         }
 
         return $res;
@@ -187,6 +197,9 @@ class UpdateBillReceivablebillRequest extends Model
             if (!empty($map['waybill_ids'])) {
                 $model->waybillIds = $map['waybill_ids'];
             }
+        }
+        if (isset($map['platform_did'])) {
+            $model->platformDid = $map['platform_did'];
         }
 
         return $model;

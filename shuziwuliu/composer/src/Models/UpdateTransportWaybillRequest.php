@@ -150,6 +150,12 @@ class UpdateTransportWaybillRequest extends Model
      * @var string
      */
     public $transportRouteCode;
+
+    // 托盘方did
+    /**
+     * @var string
+     */
+    public $palletDid;
     protected $_name = [
         'authToken'              => 'auth_token',
         'productInstanceId'      => 'product_instance_id',
@@ -175,6 +181,7 @@ class UpdateTransportWaybillRequest extends Model
         'thirdPartyLogisticsDid' => 'third_party_logistics_did',
         'transportContractCode'  => 'transport_contract_code',
         'transportRouteCode'     => 'transport_route_code',
+        'palletDid'              => 'pallet_did',
     ];
 
     public function validate()
@@ -257,6 +264,9 @@ class UpdateTransportWaybillRequest extends Model
         }
         if (null !== $this->transportRouteCode) {
             $res['transport_route_code'] = $this->transportRouteCode;
+        }
+        if (null !== $this->palletDid) {
+            $res['pallet_did'] = $this->palletDid;
         }
 
         return $res;
@@ -341,6 +351,9 @@ class UpdateTransportWaybillRequest extends Model
         }
         if (isset($map['transport_route_code'])) {
             $model->transportRouteCode = $map['transport_route_code'];
+        }
+        if (isset($map['pallet_did'])) {
+            $model->palletDid = $map['pallet_did'];
         }
 
         return $model;

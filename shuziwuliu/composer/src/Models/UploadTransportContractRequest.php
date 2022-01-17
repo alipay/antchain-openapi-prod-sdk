@@ -19,11 +19,11 @@ class UploadTransportContractRequest extends Model
      */
     public $productInstanceId;
 
-    // 货主did，一般为合同甲方的链上数字身份
+    // 合同甲方did，一般为合同甲方的链上数字身份
     /**
      * @var string
      */
-    public $consignorDid;
+    public $partyADid;
 
     // 运输合同生效日期，格式要求yyyy-MM-dd
     /**
@@ -43,36 +43,44 @@ class UploadTransportContractRequest extends Model
      */
     public $fileInfos;
 
-    // 3plDid，一般为合同乙方的链上数字身份
+    // 合同乙方Did，一般为合同乙方的链上数字身份
     /**
      * @var string
      */
-    public $thirdPartyLogisticsDid;
+    public $partyBDid;
 
     // 运输合同编号
     /**
      * @var string
      */
     public $transportContractCode;
+
+    // 所属平台did
+    /**
+     * @var string
+     */
+    public $platformDid;
     protected $_name = [
-        'authToken'              => 'auth_token',
-        'productInstanceId'      => 'product_instance_id',
-        'consignorDid'           => 'consignor_did',
-        'contractEffectiveDate'  => 'contract_effective_date',
-        'contractExpiresDate'    => 'contract_expires_date',
-        'fileInfos'              => 'file_infos',
-        'thirdPartyLogisticsDid' => 'third_party_logistics_did',
-        'transportContractCode'  => 'transport_contract_code',
+        'authToken'             => 'auth_token',
+        'productInstanceId'     => 'product_instance_id',
+        'partyADid'             => 'party_a_did',
+        'contractEffectiveDate' => 'contract_effective_date',
+        'contractExpiresDate'   => 'contract_expires_date',
+        'fileInfos'             => 'file_infos',
+        'partyBDid'             => 'party_b_did',
+        'transportContractCode' => 'transport_contract_code',
+        'platformDid'           => 'platform_did',
     ];
 
     public function validate()
     {
-        Model::validateRequired('consignorDid', $this->consignorDid, true);
+        Model::validateRequired('partyADid', $this->partyADid, true);
         Model::validateRequired('contractEffectiveDate', $this->contractEffectiveDate, true);
         Model::validateRequired('contractExpiresDate', $this->contractExpiresDate, true);
         Model::validateRequired('fileInfos', $this->fileInfos, true);
-        Model::validateRequired('thirdPartyLogisticsDid', $this->thirdPartyLogisticsDid, true);
+        Model::validateRequired('partyBDid', $this->partyBDid, true);
         Model::validateRequired('transportContractCode', $this->transportContractCode, true);
+        Model::validateRequired('platformDid', $this->platformDid, true);
     }
 
     public function toMap()
@@ -84,8 +92,8 @@ class UploadTransportContractRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->consignorDid) {
-            $res['consignor_did'] = $this->consignorDid;
+        if (null !== $this->partyADid) {
+            $res['party_a_did'] = $this->partyADid;
         }
         if (null !== $this->contractEffectiveDate) {
             $res['contract_effective_date'] = $this->contractEffectiveDate;
@@ -102,11 +110,14 @@ class UploadTransportContractRequest extends Model
                 }
             }
         }
-        if (null !== $this->thirdPartyLogisticsDid) {
-            $res['third_party_logistics_did'] = $this->thirdPartyLogisticsDid;
+        if (null !== $this->partyBDid) {
+            $res['party_b_did'] = $this->partyBDid;
         }
         if (null !== $this->transportContractCode) {
             $res['transport_contract_code'] = $this->transportContractCode;
+        }
+        if (null !== $this->platformDid) {
+            $res['platform_did'] = $this->platformDid;
         }
 
         return $res;
@@ -126,8 +137,8 @@ class UploadTransportContractRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['consignor_did'])) {
-            $model->consignorDid = $map['consignor_did'];
+        if (isset($map['party_a_did'])) {
+            $model->partyADid = $map['party_a_did'];
         }
         if (isset($map['contract_effective_date'])) {
             $model->contractEffectiveDate = $map['contract_effective_date'];
@@ -144,11 +155,14 @@ class UploadTransportContractRequest extends Model
                 }
             }
         }
-        if (isset($map['third_party_logistics_did'])) {
-            $model->thirdPartyLogisticsDid = $map['third_party_logistics_did'];
+        if (isset($map['party_b_did'])) {
+            $model->partyBDid = $map['party_b_did'];
         }
         if (isset($map['transport_contract_code'])) {
             $model->transportContractCode = $map['transport_contract_code'];
+        }
+        if (isset($map['platform_did'])) {
+            $model->platformDid = $map['platform_did'];
         }
 
         return $model;

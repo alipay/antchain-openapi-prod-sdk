@@ -72,6 +72,12 @@ class CreateBillReceivablebillnodetailRequest extends Model
      * @var int
      */
     public $deadline;
+
+    // 所属平台did
+    /**
+     * @var string
+     */
+    public $platformDid;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -84,6 +90,7 @@ class CreateBillReceivablebillnodetailRequest extends Model
         'billStartTime'     => 'bill_start_time',
         'contractCode'      => 'contract_code',
         'deadline'          => 'deadline',
+        'platformDid'       => 'platform_did',
     ];
 
     public function validate()
@@ -96,6 +103,7 @@ class CreateBillReceivablebillnodetailRequest extends Model
         Model::validateRequired('billPayerDid', $this->billPayerDid, true);
         Model::validateRequired('billStartTime', $this->billStartTime, true);
         Model::validateRequired('deadline', $this->deadline, true);
+        Model::validateRequired('platformDid', $this->platformDid, true);
     }
 
     public function toMap()
@@ -133,6 +141,9 @@ class CreateBillReceivablebillnodetailRequest extends Model
         }
         if (null !== $this->deadline) {
             $res['deadline'] = $this->deadline;
+        }
+        if (null !== $this->platformDid) {
+            $res['platform_did'] = $this->platformDid;
         }
 
         return $res;
@@ -178,6 +189,9 @@ class CreateBillReceivablebillnodetailRequest extends Model
         }
         if (isset($map['deadline'])) {
             $model->deadline = $map['deadline'];
+        }
+        if (isset($map['platform_did'])) {
+            $model->platformDid = $map['platform_did'];
         }
 
         return $model;

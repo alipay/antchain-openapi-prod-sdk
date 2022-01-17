@@ -48,6 +48,18 @@ class PushPfPledgeRequest extends Model
      * @var string[]
      */
     public $invoiceNos;
+
+    // 托盘账单金额
+    /**
+     * @var string
+     */
+    public $palletBillAmount;
+
+    // 托盘账单关联发票号列表
+    /**
+     * @var string[]
+     */
+    public $palletInvoiceNos;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -56,6 +68,8 @@ class PushPfPledgeRequest extends Model
         'financingSubjectDid' => 'financing_subject_did',
         'requestNo'           => 'request_no',
         'invoiceNos'          => 'invoice_nos',
+        'palletBillAmount'    => 'pallet_bill_amount',
+        'palletInvoiceNos'    => 'pallet_invoice_nos',
     ];
 
     public function validate()
@@ -68,9 +82,11 @@ class PushPfPledgeRequest extends Model
         Model::validateMaxLength('billId', $this->billId, 128);
         Model::validateMaxLength('financingSubjectDid', $this->financingSubjectDid, 128);
         Model::validateMaxLength('requestNo', $this->requestNo, 32);
+        Model::validateMaxLength('palletBillAmount', $this->palletBillAmount, 64);
         Model::validateMinLength('billId', $this->billId, 1);
         Model::validateMinLength('financingSubjectDid', $this->financingSubjectDid, 1);
         Model::validateMinLength('requestNo', $this->requestNo, 16);
+        Model::validateMinLength('palletBillAmount', $this->palletBillAmount, 1);
     }
 
     public function toMap()
@@ -96,6 +112,12 @@ class PushPfPledgeRequest extends Model
         }
         if (null !== $this->invoiceNos) {
             $res['invoice_nos'] = $this->invoiceNos;
+        }
+        if (null !== $this->palletBillAmount) {
+            $res['pallet_bill_amount'] = $this->palletBillAmount;
+        }
+        if (null !== $this->palletInvoiceNos) {
+            $res['pallet_invoice_nos'] = $this->palletInvoiceNos;
         }
 
         return $res;
@@ -130,6 +152,14 @@ class PushPfPledgeRequest extends Model
         if (isset($map['invoice_nos'])) {
             if (!empty($map['invoice_nos'])) {
                 $model->invoiceNos = $map['invoice_nos'];
+            }
+        }
+        if (isset($map['pallet_bill_amount'])) {
+            $model->palletBillAmount = $map['pallet_bill_amount'];
+        }
+        if (isset($map['pallet_invoice_nos'])) {
+            if (!empty($map['pallet_invoice_nos'])) {
+                $model->palletInvoiceNos = $map['pallet_invoice_nos'];
             }
         }
 

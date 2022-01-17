@@ -211,6 +211,8 @@ use AntChain\SHUZIWULIU\Models\QueryPfPledgeRequest;
 use AntChain\SHUZIWULIU\Models\QueryPfPledgeResponse;
 use AntChain\SHUZIWULIU\Models\QueryPfQuotaRequest;
 use AntChain\SHUZIWULIU\Models\QueryPfQuotaResponse;
+use AntChain\SHUZIWULIU\Models\QueryPfWithdrawRequest;
+use AntChain\SHUZIWULIU\Models\QueryPfWithdrawResponse;
 use AntChain\SHUZIWULIU\Models\QueryWaybillInfoRequest;
 use AntChain\SHUZIWULIU\Models\QueryWaybillInfoResponse;
 use AntChain\SHUZIWULIU\Models\QueryWaybillStatusRequest;
@@ -476,7 +478,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.132',
+                    'sdk_version'      => '1.3.136',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -3959,8 +3961,8 @@ class Client
     }
 
     /**
-     * Description: 产业保险电子保单查询
-     * Summary: 产业保险电子保单查询.
+     * Description: 保险电子保单查询
+     * Summary: 保险电子保单查询.
      *
      * @param QueryInsuranceEpolicyRequest $request
      *
@@ -3975,8 +3977,8 @@ class Client
     }
 
     /**
-     * Description: 产业保险电子保单查询
-     * Summary: 产业保险电子保单查询.
+     * Description: 保险电子保单查询
+     * Summary: 保险电子保单查询.
      *
      * @param QueryInsuranceEpolicyRequest $request
      * @param string[]                     $headers
@@ -4418,6 +4420,39 @@ class Client
         Utils::validateModel($request);
 
         return CallbackPfDefinpfResponse::fromMap($this->doRequest('1.0', 'digital.logistic.pf.definpf.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于查询可提款额度
+     * Summary: 可提款额度查询.
+     *
+     * @param QueryPfWithdrawRequest $request
+     *
+     * @return QueryPfWithdrawResponse
+     */
+    public function queryPfWithdraw($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPfWithdrawEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于查询可提款额度
+     * Summary: 可提款额度查询.
+     *
+     * @param QueryPfWithdrawRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryPfWithdrawResponse
+     */
+    public function queryPfWithdrawEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPfWithdrawResponse::fromMap($this->doRequest('1.0', 'digital.logistic.pf.withdraw.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
