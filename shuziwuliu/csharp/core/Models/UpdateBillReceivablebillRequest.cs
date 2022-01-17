@@ -68,6 +68,11 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public List<string> WaybillIds { get; set; }
 
+        // 所属平台did
+        [NameInMap("platform_did")]
+        [Validation(Required=false)]
+        public string PlatformDid { get; set; }
+
     }
 
 }

@@ -23,11 +23,6 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=50)]
         public string ApplyTradeNo { get; set; }
 
-        // 保司编码
-        [NameInMap("external_channel_code")]
-        [Validation(Required=true, MaxLength=64)]
-        public string ExternalChannelCode { get; set; }
-
         // 保单号
         [NameInMap("policy_no")]
         [Validation(Required=true, MaxLength=64)]

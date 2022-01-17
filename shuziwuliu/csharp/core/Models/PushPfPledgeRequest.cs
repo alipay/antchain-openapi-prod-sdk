@@ -43,6 +43,16 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public List<string> InvoiceNos { get; set; }
 
+        // 托盘账单金额
+        [NameInMap("pallet_bill_amount")]
+        [Validation(Required=false, MaxLength=64)]
+        public string PalletBillAmount { get; set; }
+
+        // 托盘账单关联发票号列表
+        [NameInMap("pallet_invoice_nos")]
+        [Validation(Required=false)]
+        public List<string> PalletInvoiceNos { get; set; }
+
     }
 
 }

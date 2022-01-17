@@ -63,6 +63,11 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true)]
         public long? Deadline { get; set; }
 
+        // 所属平台did
+        [NameInMap("platform_did")]
+        [Validation(Required=true)]
+        public string PlatformDid { get; set; }
+
     }
 
 }

@@ -18,10 +18,10 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 货主did，一般为合同甲方的链上数字身份
-        [NameInMap("consignor_did")]
+        // 合同甲方did，一般为合同甲方的链上数字身份
+        [NameInMap("party_a_did")]
         [Validation(Required=true)]
-        public string ConsignorDid { get; set; }
+        public string PartyADid { get; set; }
 
         // 运输合同生效日期，格式要求yyyy-MM-dd
         [NameInMap("contract_effective_date")]
@@ -38,15 +38,20 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true)]
         public List<UploadFileInfo> FileInfos { get; set; }
 
-        // 3plDid，一般为合同乙方的链上数字身份
-        [NameInMap("third_party_logistics_did")]
+        // 合同乙方Did，一般为合同乙方的链上数字身份
+        [NameInMap("party_b_did")]
         [Validation(Required=true)]
-        public string ThirdPartyLogisticsDid { get; set; }
+        public string PartyBDid { get; set; }
 
         // 运输合同编号
         [NameInMap("transport_contract_code")]
         [Validation(Required=true)]
         public string TransportContractCode { get; set; }
+
+        // 所属平台did
+        [NameInMap("platform_did")]
+        [Validation(Required=true)]
+        public string PlatformDid { get; set; }
 
     }
 

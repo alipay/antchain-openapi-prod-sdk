@@ -128,6 +128,11 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string TransportRouteCode { get; set; }
 
+        // 托盘方did
+        [NameInMap("pallet_did")]
+        [Validation(Required=false)]
+        public string PalletDid { get; set; }
+
     }
 
 }

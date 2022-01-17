@@ -137,7 +137,7 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.132"},
+                        {"sdk_version", "1.3.136"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.132"},
+                        {"sdk_version", "1.3.136"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -4694,8 +4694,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 产业保险电子保单查询
-         * Summary: 产业保险电子保单查询
+         * Description: 保险电子保单查询
+         * Summary: 保险电子保单查询
          */
         public QueryInsuranceEpolicyResponse QueryInsuranceEpolicy(QueryInsuranceEpolicyRequest request)
         {
@@ -4705,8 +4705,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 产业保险电子保单查询
-         * Summary: 产业保险电子保单查询
+         * Description: 保险电子保单查询
+         * Summary: 保险电子保单查询
          */
         public async Task<QueryInsuranceEpolicyResponse> QueryInsuranceEpolicyAsync(QueryInsuranceEpolicyRequest request)
         {
@@ -4716,8 +4716,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 产业保险电子保单查询
-         * Summary: 产业保险电子保单查询
+         * Description: 保险电子保单查询
+         * Summary: 保险电子保单查询
          */
         public QueryInsuranceEpolicyResponse QueryInsuranceEpolicyEx(QueryInsuranceEpolicyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -4726,8 +4726,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 产业保险电子保单查询
-         * Summary: 产业保险电子保单查询
+         * Description: 保险电子保单查询
+         * Summary: 保险电子保单查询
          */
         public async Task<QueryInsuranceEpolicyResponse> QueryInsuranceEpolicyExAsync(QueryInsuranceEpolicyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -5279,6 +5279,48 @@ namespace AntChain.SDK.SHUZIWULIU
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CallbackPfDefinpfResponse>(await DoRequestAsync("1.0", "digital.logistic.pf.definpf.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于查询可提款额度
+         * Summary: 可提款额度查询
+         */
+        public QueryPfWithdrawResponse QueryPfWithdraw(QueryPfWithdrawRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryPfWithdrawEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于查询可提款额度
+         * Summary: 可提款额度查询
+         */
+        public async Task<QueryPfWithdrawResponse> QueryPfWithdrawAsync(QueryPfWithdrawRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryPfWithdrawExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于查询可提款额度
+         * Summary: 可提款额度查询
+         */
+        public QueryPfWithdrawResponse QueryPfWithdrawEx(QueryPfWithdrawRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPfWithdrawResponse>(DoRequest("1.0", "digital.logistic.pf.withdraw.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于查询可提款额度
+         * Summary: 可提款额度查询
+         */
+        public async Task<QueryPfWithdrawResponse> QueryPfWithdrawExAsync(QueryPfWithdrawRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPfWithdrawResponse>(await DoRequestAsync("1.0", "digital.logistic.pf.withdraw.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

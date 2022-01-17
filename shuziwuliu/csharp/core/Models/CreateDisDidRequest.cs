@@ -70,7 +70,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 角色类型。
         // 当组织类型为个人时，可填角色：货主、司机、承运商；
-        // 当组织类型为企业时，可填角色：网络货运平台、道路运输企业/3pl、货主、子平台、承运商
+        // 当组织类型为企业时，可填角色：网络货运平台、道路运输企业/3pl、货主、子平台、承运商、托盘方
         [NameInMap("role_type")]
         [Validation(Required=true)]
         public string RoleType { get; set; }
