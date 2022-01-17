@@ -101,6 +101,10 @@ public class UpdateTransportWaybillRequest extends TeaModel {
     @NameInMap("transport_route_code")
     public String transportRouteCode;
 
+    // 托盘方did
+    @NameInMap("pallet_did")
+    public String palletDid;
+
     public static UpdateTransportWaybillRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateTransportWaybillRequest self = new UpdateTransportWaybillRequest();
         return TeaModel.build(map, self);
@@ -296,6 +300,14 @@ public class UpdateTransportWaybillRequest extends TeaModel {
     }
     public String getTransportRouteCode() {
         return this.transportRouteCode;
+    }
+
+    public UpdateTransportWaybillRequest setPalletDid(String palletDid) {
+        this.palletDid = palletDid;
+        return this;
+    }
+    public String getPalletDid() {
+        return this.palletDid;
     }
 
 }

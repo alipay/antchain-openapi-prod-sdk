@@ -35,6 +35,15 @@ public class PushPfPledgeRequest extends TeaModel {
     @NameInMap("invoice_nos")
     public java.util.List<String> invoiceNos;
 
+    // 托盘账单金额
+    @NameInMap("pallet_bill_amount")
+    @Validation(maxLength = 64, minLength = 1)
+    public String palletBillAmount;
+
+    // 托盘账单关联发票号列表
+    @NameInMap("pallet_invoice_nos")
+    public java.util.List<String> palletInvoiceNos;
+
     public static PushPfPledgeRequest build(java.util.Map<String, ?> map) throws Exception {
         PushPfPledgeRequest self = new PushPfPledgeRequest();
         return TeaModel.build(map, self);
@@ -94,6 +103,22 @@ public class PushPfPledgeRequest extends TeaModel {
     }
     public java.util.List<String> getInvoiceNos() {
         return this.invoiceNos;
+    }
+
+    public PushPfPledgeRequest setPalletBillAmount(String palletBillAmount) {
+        this.palletBillAmount = palletBillAmount;
+        return this;
+    }
+    public String getPalletBillAmount() {
+        return this.palletBillAmount;
+    }
+
+    public PushPfPledgeRequest setPalletInvoiceNos(java.util.List<String> palletInvoiceNos) {
+        this.palletInvoiceNos = palletInvoiceNos;
+        return this;
+    }
+    public java.util.List<String> getPalletInvoiceNos() {
+        return this.palletInvoiceNos;
     }
 
 }

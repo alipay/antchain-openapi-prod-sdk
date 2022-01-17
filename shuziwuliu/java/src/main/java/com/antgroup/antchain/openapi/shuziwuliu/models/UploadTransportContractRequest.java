@@ -11,10 +11,10 @@ public class UploadTransportContractRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 货主did，一般为合同甲方的链上数字身份
-    @NameInMap("consignor_did")
+    // 合同甲方did，一般为合同甲方的链上数字身份
+    @NameInMap("party_a_did")
     @Validation(required = true)
-    public String consignorDid;
+    public String partyADid;
 
     // 运输合同生效日期，格式要求yyyy-MM-dd
     @NameInMap("contract_effective_date")
@@ -31,15 +31,20 @@ public class UploadTransportContractRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<UploadFileInfo> fileInfos;
 
-    // 3plDid，一般为合同乙方的链上数字身份
-    @NameInMap("third_party_logistics_did")
+    // 合同乙方Did，一般为合同乙方的链上数字身份
+    @NameInMap("party_b_did")
     @Validation(required = true)
-    public String thirdPartyLogisticsDid;
+    public String partyBDid;
 
     // 运输合同编号
     @NameInMap("transport_contract_code")
     @Validation(required = true)
     public String transportContractCode;
+
+    // 所属平台did
+    @NameInMap("platform_did")
+    @Validation(required = true)
+    public String platformDid;
 
     public static UploadTransportContractRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadTransportContractRequest self = new UploadTransportContractRequest();
@@ -62,12 +67,12 @@ public class UploadTransportContractRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public UploadTransportContractRequest setConsignorDid(String consignorDid) {
-        this.consignorDid = consignorDid;
+    public UploadTransportContractRequest setPartyADid(String partyADid) {
+        this.partyADid = partyADid;
         return this;
     }
-    public String getConsignorDid() {
-        return this.consignorDid;
+    public String getPartyADid() {
+        return this.partyADid;
     }
 
     public UploadTransportContractRequest setContractEffectiveDate(String contractEffectiveDate) {
@@ -94,12 +99,12 @@ public class UploadTransportContractRequest extends TeaModel {
         return this.fileInfos;
     }
 
-    public UploadTransportContractRequest setThirdPartyLogisticsDid(String thirdPartyLogisticsDid) {
-        this.thirdPartyLogisticsDid = thirdPartyLogisticsDid;
+    public UploadTransportContractRequest setPartyBDid(String partyBDid) {
+        this.partyBDid = partyBDid;
         return this;
     }
-    public String getThirdPartyLogisticsDid() {
-        return this.thirdPartyLogisticsDid;
+    public String getPartyBDid() {
+        return this.partyBDid;
     }
 
     public UploadTransportContractRequest setTransportContractCode(String transportContractCode) {
@@ -108,6 +113,14 @@ public class UploadTransportContractRequest extends TeaModel {
     }
     public String getTransportContractCode() {
         return this.transportContractCode;
+    }
+
+    public UploadTransportContractRequest setPlatformDid(String platformDid) {
+        this.platformDid = platformDid;
+        return this;
+    }
+    public String getPlatformDid() {
+        return this.platformDid;
     }
 
 }

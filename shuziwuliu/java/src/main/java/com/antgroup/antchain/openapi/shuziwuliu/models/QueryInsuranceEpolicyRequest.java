@@ -16,11 +16,6 @@ public class QueryInsuranceEpolicyRequest extends TeaModel {
     @Validation(required = true, maxLength = 50)
     public String applyTradeNo;
 
-    // 保司编码
-    @NameInMap("external_channel_code")
-    @Validation(required = true, maxLength = 64)
-    public String externalChannelCode;
-
     // 保单号
     @NameInMap("policy_no")
     @Validation(required = true, maxLength = 64)
@@ -53,14 +48,6 @@ public class QueryInsuranceEpolicyRequest extends TeaModel {
     }
     public String getApplyTradeNo() {
         return this.applyTradeNo;
-    }
-
-    public QueryInsuranceEpolicyRequest setExternalChannelCode(String externalChannelCode) {
-        this.externalChannelCode = externalChannelCode;
-        return this;
-    }
-    public String getExternalChannelCode() {
-        return this.externalChannelCode;
     }
 
     public QueryInsuranceEpolicyRequest setPolicyNo(String policyNo) {

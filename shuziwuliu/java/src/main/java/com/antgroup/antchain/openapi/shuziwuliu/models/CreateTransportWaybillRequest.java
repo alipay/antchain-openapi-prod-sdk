@@ -105,6 +105,10 @@ public class CreateTransportWaybillRequest extends TeaModel {
     @NameInMap("transport_route_code")
     public String transportRouteCode;
 
+    // 托盘方did
+    @NameInMap("pallet_did")
+    public String palletDid;
+
     public static CreateTransportWaybillRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateTransportWaybillRequest self = new CreateTransportWaybillRequest();
         return TeaModel.build(map, self);
@@ -284,6 +288,14 @@ public class CreateTransportWaybillRequest extends TeaModel {
     }
     public String getTransportRouteCode() {
         return this.transportRouteCode;
+    }
+
+    public CreateTransportWaybillRequest setPalletDid(String palletDid) {
+        this.palletDid = palletDid;
+        return this;
+    }
+    public String getPalletDid() {
+        return this.palletDid;
     }
 
 }

@@ -53,6 +53,10 @@ public class UpdateBillReceivablebillRequest extends TeaModel {
     @NameInMap("waybill_ids")
     public java.util.List<String> waybillIds;
 
+    // 所属平台did
+    @NameInMap("platform_did")
+    public String platformDid;
+
     public static UpdateBillReceivablebillRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateBillReceivablebillRequest self = new UpdateBillReceivablebillRequest();
         return TeaModel.build(map, self);
@@ -152,6 +156,14 @@ public class UpdateBillReceivablebillRequest extends TeaModel {
     }
     public java.util.List<String> getWaybillIds() {
         return this.waybillIds;
+    }
+
+    public UpdateBillReceivablebillRequest setPlatformDid(String platformDid) {
+        this.platformDid = platformDid;
+        return this;
+    }
+    public String getPlatformDid() {
+        return this.platformDid;
     }
 
 }

@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.132")
+                    new TeaPair("sdk_version", "1.3.136")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -2140,8 +2140,8 @@ public class Client {
     }
 
     /**
-     * Description: 产业保险电子保单查询
-     * Summary: 产业保险电子保单查询
+     * Description: 保险电子保单查询
+     * Summary: 保险电子保单查询
      */
     public QueryInsuranceEpolicyResponse queryInsuranceEpolicy(QueryInsuranceEpolicyRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -2150,8 +2150,8 @@ public class Client {
     }
 
     /**
-     * Description: 产业保险电子保单查询
-     * Summary: 产业保险电子保单查询
+     * Description: 保险电子保单查询
+     * Summary: 保险电子保单查询
      */
     public QueryInsuranceEpolicyResponse queryInsuranceEpolicyEx(QueryInsuranceEpolicyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -2403,6 +2403,25 @@ public class Client {
     public CallbackPfDefinpfResponse callbackPfDefinpfEx(CallbackPfDefinpfRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.pf.definpf.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackPfDefinpfResponse());
+    }
+
+    /**
+     * Description: 用于查询可提款额度
+     * Summary: 可提款额度查询
+     */
+    public QueryPfWithdrawResponse queryPfWithdraw(QueryPfWithdrawRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryPfWithdrawEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用于查询可提款额度
+     * Summary: 可提款额度查询
+     */
+    public QueryPfWithdrawResponse queryPfWithdrawEx(QueryPfWithdrawRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.pf.withdraw.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPfWithdrawResponse());
     }
 
     /**

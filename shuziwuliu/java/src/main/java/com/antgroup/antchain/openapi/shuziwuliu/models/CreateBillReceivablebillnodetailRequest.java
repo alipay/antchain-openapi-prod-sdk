@@ -55,6 +55,11 @@ public class CreateBillReceivablebillnodetailRequest extends TeaModel {
     @Validation(required = true)
     public Long deadline;
 
+    // 所属平台did
+    @NameInMap("platform_did")
+    @Validation(required = true)
+    public String platformDid;
+
     public static CreateBillReceivablebillnodetailRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateBillReceivablebillnodetailRequest self = new CreateBillReceivablebillnodetailRequest();
         return TeaModel.build(map, self);
@@ -146,6 +151,14 @@ public class CreateBillReceivablebillnodetailRequest extends TeaModel {
     }
     public Long getDeadline() {
         return this.deadline;
+    }
+
+    public CreateBillReceivablebillnodetailRequest setPlatformDid(String platformDid) {
+        this.platformDid = platformDid;
+        return this;
+    }
+    public String getPlatformDid() {
+        return this.platformDid;
     }
 
 }

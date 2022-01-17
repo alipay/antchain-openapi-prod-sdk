@@ -61,6 +61,11 @@ public class CreateBillReceivablebillRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<String> waybillIds;
 
+    // 所属平台did
+    @NameInMap("platform_did")
+    @Validation(required = true)
+    public String platformDid;
+
     public static CreateBillReceivablebillRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateBillReceivablebillRequest self = new CreateBillReceivablebillRequest();
         return TeaModel.build(map, self);
@@ -160,6 +165,14 @@ public class CreateBillReceivablebillRequest extends TeaModel {
     }
     public java.util.List<String> getWaybillIds() {
         return this.waybillIds;
+    }
+
+    public CreateBillReceivablebillRequest setPlatformDid(String platformDid) {
+        this.platformDid = platformDid;
+        return this;
+    }
+    public String getPlatformDid() {
+        return this.platformDid;
     }
 
 }
