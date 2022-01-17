@@ -9981,7 +9981,7 @@ class CreateDisDidRequest(TeaModel):
         self.platform_did = platform_did
         # 角色类型。
         # 当组织类型为个人时，可填角色：货主、司机、承运商；
-        # 当组织类型为企业时，可填角色：网络货运平台、道路运输企业/3pl、货主、子平台、承运商
+        # 当组织类型为企业时，可填角色：网络货运平台、道路运输企业/3pl、货主、子平台、承运商、托盘方
         self.role_type = role_type
 
     def validate(self):
@@ -10113,31 +10113,34 @@ class UploadTransportContractRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        consignor_did: str = None,
+        party_adid: str = None,
         contract_effective_date: str = None,
         contract_expires_date: str = None,
         file_infos: List[UploadFileInfo] = None,
-        third_party_logistics_did: str = None,
+        party_bdid: str = None,
         transport_contract_code: str = None,
+        platform_did: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 货主did，一般为合同甲方的链上数字身份
-        self.consignor_did = consignor_did
+        # 合同甲方did，一般为合同甲方的链上数字身份
+        self.party_adid = party_adid
         # 运输合同生效日期，格式要求yyyy-MM-dd
         self.contract_effective_date = contract_effective_date
         # 运输合同到期日期，要求格式yyyy-MM-dd
         self.contract_expires_date = contract_expires_date
         # 影像件文件信息列表，可以包含多个文件，每个文件需要有文件id和文件hash  (请求蚂蚁影像上传接口获取的文件id和文件hash)。影像文件格式要求：bmp,jpg,jpeg,gif,psd,png,tiff,tga,eps,pdf
         self.file_infos = file_infos
-        # 3plDid，一般为合同乙方的链上数字身份
-        self.third_party_logistics_did = third_party_logistics_did
+        # 合同乙方Did，一般为合同乙方的链上数字身份
+        self.party_bdid = party_bdid
         # 运输合同编号
         self.transport_contract_code = transport_contract_code
+        # 所属平台did
+        self.platform_did = platform_did
 
     def validate(self):
-        self.validate_required(self.consignor_did, 'consignor_did')
+        self.validate_required(self.party_adid, 'party_adid')
         self.validate_required(self.contract_effective_date, 'contract_effective_date')
         self.validate_required(self.contract_expires_date, 'contract_expires_date')
         self.validate_required(self.file_infos, 'file_infos')
@@ -10145,8 +10148,9 @@ class UploadTransportContractRequest(TeaModel):
             for k in self.file_infos:
                 if k:
                     k.validate()
-        self.validate_required(self.third_party_logistics_did, 'third_party_logistics_did')
+        self.validate_required(self.party_bdid, 'party_bdid')
         self.validate_required(self.transport_contract_code, 'transport_contract_code')
+        self.validate_required(self.platform_did, 'platform_did')
 
     def to_map(self):
         result = dict()
@@ -10154,8 +10158,8 @@ class UploadTransportContractRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.consignor_did is not None:
-            result['consignor_did'] = self.consignor_did
+        if self.party_adid is not None:
+            result['party_a_did'] = self.party_adid
         if self.contract_effective_date is not None:
             result['contract_effective_date'] = self.contract_effective_date
         if self.contract_expires_date is not None:
@@ -10164,10 +10168,12 @@ class UploadTransportContractRequest(TeaModel):
         if self.file_infos is not None:
             for k in self.file_infos:
                 result['file_infos'].append(k.to_map() if k else None)
-        if self.third_party_logistics_did is not None:
-            result['third_party_logistics_did'] = self.third_party_logistics_did
+        if self.party_bdid is not None:
+            result['party_b_did'] = self.party_bdid
         if self.transport_contract_code is not None:
             result['transport_contract_code'] = self.transport_contract_code
+        if self.platform_did is not None:
+            result['platform_did'] = self.platform_did
         return result
 
     def from_map(self, m: dict = None):
@@ -10176,8 +10182,8 @@ class UploadTransportContractRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('consignor_did') is not None:
-            self.consignor_did = m.get('consignor_did')
+        if m.get('party_a_did') is not None:
+            self.party_adid = m.get('party_a_did')
         if m.get('contract_effective_date') is not None:
             self.contract_effective_date = m.get('contract_effective_date')
         if m.get('contract_expires_date') is not None:
@@ -10187,10 +10193,12 @@ class UploadTransportContractRequest(TeaModel):
             for k in m.get('file_infos'):
                 temp_model = UploadFileInfo()
                 self.file_infos.append(temp_model.from_map(k))
-        if m.get('third_party_logistics_did') is not None:
-            self.third_party_logistics_did = m.get('third_party_logistics_did')
+        if m.get('party_b_did') is not None:
+            self.party_bdid = m.get('party_b_did')
         if m.get('transport_contract_code') is not None:
             self.transport_contract_code = m.get('transport_contract_code')
+        if m.get('platform_did') is not None:
+            self.platform_did = m.get('platform_did')
         return self
 
 
@@ -10398,6 +10406,7 @@ class CreateTransportWaybillRequest(TeaModel):
         third_party_logistics_did: str = None,
         transport_contract_code: str = None,
         transport_route_code: str = None,
+        pallet_did: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -10442,6 +10451,8 @@ class CreateTransportWaybillRequest(TeaModel):
         self.transport_contract_code = transport_contract_code
         # 所属运输线路编码
         self.transport_route_code = transport_route_code
+        # 托盘方did
+        self.pallet_did = pallet_did
 
     def validate(self):
         self.validate_required(self.all_freight, 'all_freight')
@@ -10505,6 +10516,8 @@ class CreateTransportWaybillRequest(TeaModel):
             result['transport_contract_code'] = self.transport_contract_code
         if self.transport_route_code is not None:
             result['transport_route_code'] = self.transport_route_code
+        if self.pallet_did is not None:
+            result['pallet_did'] = self.pallet_did
         return result
 
     def from_map(self, m: dict = None):
@@ -10553,6 +10566,8 @@ class CreateTransportWaybillRequest(TeaModel):
             self.transport_contract_code = m.get('transport_contract_code')
         if m.get('transport_route_code') is not None:
             self.transport_route_code = m.get('transport_route_code')
+        if m.get('pallet_did') is not None:
+            self.pallet_did = m.get('pallet_did')
         return self
 
 
@@ -10734,6 +10749,7 @@ class UpdateTransportWaybillRequest(TeaModel):
         third_party_logistics_did: str = None,
         transport_contract_code: str = None,
         transport_route_code: str = None,
+        pallet_did: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -10782,6 +10798,8 @@ class UpdateTransportWaybillRequest(TeaModel):
         self.transport_contract_code = transport_contract_code
         # 所属运输线路编码
         self.transport_route_code = transport_route_code
+        # 托盘方did
+        self.pallet_did = pallet_did
 
     def validate(self):
         self.validate_required(self.tax_waybill_id, 'tax_waybill_id')
@@ -10837,6 +10855,8 @@ class UpdateTransportWaybillRequest(TeaModel):
             result['transport_contract_code'] = self.transport_contract_code
         if self.transport_route_code is not None:
             result['transport_route_code'] = self.transport_route_code
+        if self.pallet_did is not None:
+            result['pallet_did'] = self.pallet_did
         return result
 
     def from_map(self, m: dict = None):
@@ -10889,6 +10909,8 @@ class UpdateTransportWaybillRequest(TeaModel):
             self.transport_contract_code = m.get('transport_contract_code')
         if m.get('transport_route_code') is not None:
             self.transport_route_code = m.get('transport_route_code')
+        if m.get('pallet_did') is not None:
+            self.pallet_did = m.get('pallet_did')
         return self
 
 
@@ -11069,6 +11091,7 @@ class CreateBillReceivablebillRequest(TeaModel):
         contract_code: str = None,
         deadline: int = None,
         waybill_ids: List[str] = None,
+        platform_did: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -11094,6 +11117,8 @@ class CreateBillReceivablebillRequest(TeaModel):
         self.deadline = deadline
         # 账单关联运单号数组，元素个数不能超过1000个
         self.waybill_ids = waybill_ids
+        # 所属平台did
+        self.platform_did = platform_did
 
     def validate(self):
         self.validate_required(self.bill_amount, 'bill_amount')
@@ -11105,6 +11130,7 @@ class CreateBillReceivablebillRequest(TeaModel):
         self.validate_required(self.bill_start_time, 'bill_start_time')
         self.validate_required(self.deadline, 'deadline')
         self.validate_required(self.waybill_ids, 'waybill_ids')
+        self.validate_required(self.platform_did, 'platform_did')
 
     def to_map(self):
         result = dict()
@@ -11132,6 +11158,8 @@ class CreateBillReceivablebillRequest(TeaModel):
             result['deadline'] = self.deadline
         if self.waybill_ids is not None:
             result['waybill_ids'] = self.waybill_ids
+        if self.platform_did is not None:
+            result['platform_did'] = self.platform_did
         return result
 
     def from_map(self, m: dict = None):
@@ -11160,6 +11188,8 @@ class CreateBillReceivablebillRequest(TeaModel):
             self.deadline = m.get('deadline')
         if m.get('waybill_ids') is not None:
             self.waybill_ids = m.get('waybill_ids')
+        if m.get('platform_did') is not None:
+            self.platform_did = m.get('platform_did')
         return self
 
 
@@ -11331,6 +11361,7 @@ class UpdateBillReceivablebillRequest(TeaModel):
         contract_code: str = None,
         deadline: int = None,
         waybill_ids: List[str] = None,
+        platform_did: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -11355,6 +11386,8 @@ class UpdateBillReceivablebillRequest(TeaModel):
         self.deadline = deadline
         # 账单关联运单号数组，元素个数不能超过1000个
         self.waybill_ids = waybill_ids
+        # 所属平台did
+        self.platform_did = platform_did
 
     def validate(self):
         self.validate_required(self.bill_id, 'bill_id')
@@ -11386,6 +11419,8 @@ class UpdateBillReceivablebillRequest(TeaModel):
             result['deadline'] = self.deadline
         if self.waybill_ids is not None:
             result['waybill_ids'] = self.waybill_ids
+        if self.platform_did is not None:
+            result['platform_did'] = self.platform_did
         return result
 
     def from_map(self, m: dict = None):
@@ -11414,6 +11449,8 @@ class UpdateBillReceivablebillRequest(TeaModel):
             self.deadline = m.get('deadline')
         if m.get('waybill_ids') is not None:
             self.waybill_ids = m.get('waybill_ids')
+        if m.get('platform_did') is not None:
+            self.platform_did = m.get('platform_did')
         return self
 
 
@@ -11741,6 +11778,7 @@ class CreateBillReceivablebillnodetailRequest(TeaModel):
         bill_start_time: int = None,
         contract_code: str = None,
         deadline: int = None,
+        platform_did: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -11763,6 +11801,8 @@ class CreateBillReceivablebillnodetailRequest(TeaModel):
         self.contract_code = contract_code
         # 账单到期日期，13位毫秒级时间戳
         self.deadline = deadline
+        # 所属平台did
+        self.platform_did = platform_did
 
     def validate(self):
         self.validate_required(self.bill_amount, 'bill_amount')
@@ -11773,6 +11813,7 @@ class CreateBillReceivablebillnodetailRequest(TeaModel):
         self.validate_required(self.bill_payer_did, 'bill_payer_did')
         self.validate_required(self.bill_start_time, 'bill_start_time')
         self.validate_required(self.deadline, 'deadline')
+        self.validate_required(self.platform_did, 'platform_did')
 
     def to_map(self):
         result = dict()
@@ -11798,6 +11839,8 @@ class CreateBillReceivablebillnodetailRequest(TeaModel):
             result['contract_code'] = self.contract_code
         if self.deadline is not None:
             result['deadline'] = self.deadline
+        if self.platform_did is not None:
+            result['platform_did'] = self.platform_did
         return result
 
     def from_map(self, m: dict = None):
@@ -11824,6 +11867,8 @@ class CreateBillReceivablebillnodetailRequest(TeaModel):
             self.contract_code = m.get('contract_code')
         if m.get('deadline') is not None:
             self.deadline = m.get('deadline')
+        if m.get('platform_did') is not None:
+            self.platform_did = m.get('platform_did')
         return self
 
 
@@ -24021,7 +24066,6 @@ class QueryInsuranceEpolicyRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         apply_trade_no: str = None,
-        external_channel_code: str = None,
         policy_no: str = None,
     ):
         # OAuth模式下的授权token
@@ -24029,8 +24073,6 @@ class QueryInsuranceEpolicyRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 投保返回的交易流水号
         self.apply_trade_no = apply_trade_no
-        # 保司编码
-        self.external_channel_code = external_channel_code
         # 保单号
         self.policy_no = policy_no
 
@@ -24038,9 +24080,6 @@ class QueryInsuranceEpolicyRequest(TeaModel):
         self.validate_required(self.apply_trade_no, 'apply_trade_no')
         if self.apply_trade_no is not None:
             self.validate_max_length(self.apply_trade_no, 'apply_trade_no', 50)
-        self.validate_required(self.external_channel_code, 'external_channel_code')
-        if self.external_channel_code is not None:
-            self.validate_max_length(self.external_channel_code, 'external_channel_code', 64)
         self.validate_required(self.policy_no, 'policy_no')
         if self.policy_no is not None:
             self.validate_max_length(self.policy_no, 'policy_no', 64)
@@ -24053,8 +24092,6 @@ class QueryInsuranceEpolicyRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.apply_trade_no is not None:
             result['apply_trade_no'] = self.apply_trade_no
-        if self.external_channel_code is not None:
-            result['external_channel_code'] = self.external_channel_code
         if self.policy_no is not None:
             result['policy_no'] = self.policy_no
         return result
@@ -24067,8 +24104,6 @@ class QueryInsuranceEpolicyRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('apply_trade_no') is not None:
             self.apply_trade_no = m.get('apply_trade_no')
-        if m.get('external_channel_code') is not None:
-            self.external_channel_code = m.get('external_channel_code')
         if m.get('policy_no') is not None:
             self.policy_no = m.get('policy_no')
         return self
@@ -25171,6 +25206,8 @@ class PushPfPledgeRequest(TeaModel):
         financing_subject_did: str = None,
         request_no: str = None,
         invoice_nos: List[str] = None,
+        pallet_bill_amount: str = None,
+        pallet_invoice_nos: List[str] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -25185,6 +25222,10 @@ class PushPfPledgeRequest(TeaModel):
         self.request_no = request_no
         # 质押发票号码列表
         self.invoice_nos = invoice_nos
+        # 托盘账单金额
+        self.pallet_bill_amount = pallet_bill_amount
+        # 托盘账单关联发票号列表
+        self.pallet_invoice_nos = pallet_invoice_nos
 
     def validate(self):
         self.validate_required(self.project_id, 'project_id')
@@ -25199,6 +25240,8 @@ class PushPfPledgeRequest(TeaModel):
         self.validate_required(self.request_no, 'request_no')
         if self.request_no is not None:
             self.validate_max_length(self.request_no, 'request_no', 32)
+        if self.pallet_bill_amount is not None:
+            self.validate_max_length(self.pallet_bill_amount, 'pallet_bill_amount', 64)
 
     def to_map(self):
         result = dict()
@@ -25216,6 +25259,10 @@ class PushPfPledgeRequest(TeaModel):
             result['request_no'] = self.request_no
         if self.invoice_nos is not None:
             result['invoice_nos'] = self.invoice_nos
+        if self.pallet_bill_amount is not None:
+            result['pallet_bill_amount'] = self.pallet_bill_amount
+        if self.pallet_invoice_nos is not None:
+            result['pallet_invoice_nos'] = self.pallet_invoice_nos
         return result
 
     def from_map(self, m: dict = None):
@@ -25234,6 +25281,10 @@ class PushPfPledgeRequest(TeaModel):
             self.request_no = m.get('request_no')
         if m.get('invoice_nos') is not None:
             self.invoice_nos = m.get('invoice_nos')
+        if m.get('pallet_bill_amount') is not None:
+            self.pallet_bill_amount = m.get('pallet_bill_amount')
+        if m.get('pallet_invoice_nos') is not None:
+            self.pallet_invoice_nos = m.get('pallet_invoice_nos')
         return self
 
 
@@ -26311,6 +26362,140 @@ class CallbackPfDefinpfResponse(TeaModel):
             self.error_msg = m.get('error_msg')
         if m.get('response') is not None:
             self.response = m.get('response')
+        return self
+
+
+class QueryPfWithdrawRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        customer_no: str = None,
+        cert_type: str = None,
+        cert_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 银行端客户号
+        self.customer_no = customer_no
+        # 证件类型;050 统一社会信用证代码
+        self.cert_type = cert_type
+        # 证件号码
+        self.cert_no = cert_no
+
+    def validate(self):
+        self.validate_required(self.customer_no, 'customer_no')
+        if self.customer_no is not None:
+            self.validate_max_length(self.customer_no, 'customer_no', 20)
+        self.validate_required(self.cert_type, 'cert_type')
+        if self.cert_type is not None:
+            self.validate_max_length(self.cert_type, 'cert_type', 3)
+        self.validate_required(self.cert_no, 'cert_no')
+        if self.cert_no is not None:
+            self.validate_max_length(self.cert_no, 'cert_no', 20)
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.customer_no is not None:
+            result['customer_no'] = self.customer_no
+        if self.cert_type is not None:
+            result['cert_type'] = self.cert_type
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('customer_no') is not None:
+            self.customer_no = m.get('customer_no')
+        if m.get('cert_type') is not None:
+            self.cert_type = m.get('cert_type')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        return self
+
+
+class QueryPfWithdrawResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        customer_no: str = None,
+        cert_type: str = None,
+        cert_no: str = None,
+        withdrawal_amount: str = None,
+        update_time: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 银行端客户号
+        # 
+        self.customer_no = customer_no
+        # 证件类型;050 统一社会信用证代码
+        # 
+        self.cert_type = cert_type
+        # 证件号码
+        self.cert_no = cert_no
+        # 客户完成账单融资申请放款至账户中待提款的金额，保留两位小数（单位：元）
+        self.withdrawal_amount = withdrawal_amount
+        # 数据更新时间
+        self.update_time = update_time
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.customer_no is not None:
+            result['customer_no'] = self.customer_no
+        if self.cert_type is not None:
+            result['cert_type'] = self.cert_type
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.withdrawal_amount is not None:
+            result['withdrawal_amount'] = self.withdrawal_amount
+        if self.update_time is not None:
+            result['update_time'] = self.update_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('customer_no') is not None:
+            self.customer_no = m.get('customer_no')
+        if m.get('cert_type') is not None:
+            self.cert_type = m.get('cert_type')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('withdrawal_amount') is not None:
+            self.withdrawal_amount = m.get('withdrawal_amount')
+        if m.get('update_time') is not None:
+            self.update_time = m.get('update_time')
         return self
 
 

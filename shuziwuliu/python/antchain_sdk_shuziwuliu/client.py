@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.132'
+                    'sdk_version': '1.3.136'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.132'
+                    'sdk_version': '1.3.136'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -5900,8 +5900,8 @@ class Client:
         request: shuziwuliu_models.QueryInsuranceEpolicyRequest,
     ) -> shuziwuliu_models.QueryInsuranceEpolicyResponse:
         """
-        Description: 产业保险电子保单查询
-        Summary: 产业保险电子保单查询
+        Description: 保险电子保单查询
+        Summary: 保险电子保单查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5912,8 +5912,8 @@ class Client:
         request: shuziwuliu_models.QueryInsuranceEpolicyRequest,
     ) -> shuziwuliu_models.QueryInsuranceEpolicyResponse:
         """
-        Description: 产业保险电子保单查询
-        Summary: 产业保险电子保单查询
+        Description: 保险电子保单查询
+        Summary: 保险电子保单查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5926,8 +5926,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> shuziwuliu_models.QueryInsuranceEpolicyResponse:
         """
-        Description: 产业保险电子保单查询
-        Summary: 产业保险电子保单查询
+        Description: 保险电子保单查询
+        Summary: 保险电子保单查询
         """
         UtilClient.validate_model(request)
         return shuziwuliu_models.QueryInsuranceEpolicyResponse().from_map(
@@ -5941,8 +5941,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> shuziwuliu_models.QueryInsuranceEpolicyResponse:
         """
-        Description: 产业保险电子保单查询
-        Summary: 产业保险电子保单查询
+        Description: 保险电子保单查询
+        Summary: 保险电子保单查询
         """
         UtilClient.validate_model(request)
         return shuziwuliu_models.QueryInsuranceEpolicyResponse().from_map(
@@ -6649,6 +6649,60 @@ class Client:
         UtilClient.validate_model(request)
         return shuziwuliu_models.CallbackPfDefinpfResponse().from_map(
             await self.do_request_async('1.0', 'digital.logistic.pf.definpf.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_pf_withdraw(
+        self,
+        request: shuziwuliu_models.QueryPfWithdrawRequest,
+    ) -> shuziwuliu_models.QueryPfWithdrawResponse:
+        """
+        Description: 用于查询可提款额度
+        Summary: 可提款额度查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_pf_withdraw_ex(request, headers, runtime)
+
+    async def query_pf_withdraw_async(
+        self,
+        request: shuziwuliu_models.QueryPfWithdrawRequest,
+    ) -> shuziwuliu_models.QueryPfWithdrawResponse:
+        """
+        Description: 用于查询可提款额度
+        Summary: 可提款额度查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_pf_withdraw_ex_async(request, headers, runtime)
+
+    def query_pf_withdraw_ex(
+        self,
+        request: shuziwuliu_models.QueryPfWithdrawRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.QueryPfWithdrawResponse:
+        """
+        Description: 用于查询可提款额度
+        Summary: 可提款额度查询
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.QueryPfWithdrawResponse().from_map(
+            self.do_request('1.0', 'digital.logistic.pf.withdraw.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_pf_withdraw_ex_async(
+        self,
+        request: shuziwuliu_models.QueryPfWithdrawRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.QueryPfWithdrawResponse:
+        """
+        Description: 用于查询可提款额度
+        Summary: 可提款额度查询
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.QueryPfWithdrawResponse().from_map(
+            await self.do_request_async('1.0', 'digital.logistic.pf.withdraw.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_did_forwarder(
