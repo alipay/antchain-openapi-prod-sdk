@@ -11,8 +11,12 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\NFTX\Models\ApplyNftTransferRequest;
+use AntChain\NFTX\Models\ApplyNftTransferResponse;
 use AntChain\NFTX\Models\CreateNftIssuerRequest;
 use AntChain\NFTX\Models\CreateNftIssuerResponse;
+use AntChain\NFTX\Models\CreateNftPublishRequest;
+use AntChain\NFTX\Models\CreateNftPublishResponse;
 use AntChain\NFTX\Models\ExecNftTransferRequest;
 use AntChain\NFTX\Models\ExecNftTransferResponse;
 use AntChain\NFTX\Models\ImportNftCreateRequest;
@@ -25,6 +29,8 @@ use AntChain\NFTX\Models\QueryNftCustomerRequest;
 use AntChain\NFTX\Models\QueryNftCustomerResponse;
 use AntChain\NFTX\Models\QueryNftOrderRequest;
 use AntChain\NFTX\Models\QueryNftOrderResponse;
+use AntChain\NFTX\Models\RunNftTransferRequest;
+use AntChain\NFTX\Models\RunNftTransferResponse;
 use AntChain\NFTX\Models\SendNftTransferRequest;
 use AntChain\NFTX\Models\SendNftTransferResponse;
 use AntChain\Util\UtilClient;
@@ -174,7 +180,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.5',
+                    'sdk_version'      => '1.3.5',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -482,5 +488,104 @@ class Client
         Utils::validateModel($request);
 
         return PagequeryNftCustomerResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.customer.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: NFT铸造, 带监制方和渠道租户
+     * Summary: NFT铸造, 带监制方和渠道租户.
+     *
+     * @param CreateNftPublishRequest $request
+     *
+     * @return CreateNftPublishResponse
+     */
+    public function createNftPublish($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createNftPublishEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: NFT铸造, 带监制方和渠道租户
+     * Summary: NFT铸造, 带监制方和渠道租户.
+     *
+     * @param CreateNftPublishRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return CreateNftPublishResponse
+     */
+    public function createNftPublishEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateNftPublishResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.publish.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 按项目表编码B2C发放NFT,带渠道租户
+     * Summary: 按项目表编码B2C发放NFT,带渠道租户.
+     *
+     * @param RunNftTransferRequest $request
+     *
+     * @return RunNftTransferResponse
+     */
+    public function runNftTransfer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->runNftTransferEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 按项目表编码B2C发放NFT,带渠道租户
+     * Summary: 按项目表编码B2C发放NFT,带渠道租户.
+     *
+     * @param RunNftTransferRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return RunNftTransferResponse
+     */
+    public function runNftTransferEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RunNftTransferResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.transfer.run', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 按商品编码B2C发放NFT 带渠道租户
+     * Summary: 按商品编码B2C发放NFT 带渠道租户.
+     *
+     * @param ApplyNftTransferRequest $request
+     *
+     * @return ApplyNftTransferResponse
+     */
+    public function applyNftTransfer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyNftTransferEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 按商品编码B2C发放NFT 带渠道租户
+     * Summary: 按商品编码B2C发放NFT 带渠道租户.
+     *
+     * @param ApplyNftTransferRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return ApplyNftTransferResponse
+     */
+    public function applyNftTransferEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyNftTransferResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.transfer.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

@@ -32,9 +32,10 @@ class File extends Model
      */
     public $name;
 
-    // IMAGE("IMAGE","图片"),
-    // VIDEO("VIDEO","视频"),
-    // ;
+    // IMAGE("IMAGE", "图片"),
+    // VIDEO("VIDEO", "视频"),
+    // AUDIO("AUDIO","音频"),
+    // THREE_DIMENSIONS("THREE_DIMENSIONS","3D模型")
     /**
      * @example 文件类型
      *
