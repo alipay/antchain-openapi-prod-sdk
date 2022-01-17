@@ -8766,7 +8766,7 @@ type CreateDisDidRequest struct {
 	PlatformDid *string `json:"platform_did,omitempty" xml:"platform_did,omitempty"`
 	// 角色类型。
 	// 当组织类型为个人时，可填角色：货主、司机、承运商；
-	// 当组织类型为企业时，可填角色：网络货运平台、道路运输企业/3pl、货主、子平台、承运商
+	// 当组织类型为企业时，可填角色：网络货运平台、道路运输企业/3pl、货主、子平台、承运商、托盘方
 	RoleType *string `json:"role_type,omitempty" xml:"role_type,omitempty" require:"true"`
 }
 
@@ -8900,18 +8900,20 @@ type UploadTransportContractRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 货主did，一般为合同甲方的链上数字身份
-	ConsignorDid *string `json:"consignor_did,omitempty" xml:"consignor_did,omitempty" require:"true"`
+	// 合同甲方did，一般为合同甲方的链上数字身份
+	PartyADid *string `json:"party_a_did,omitempty" xml:"party_a_did,omitempty" require:"true"`
 	// 运输合同生效日期，格式要求yyyy-MM-dd
 	ContractEffectiveDate *string `json:"contract_effective_date,omitempty" xml:"contract_effective_date,omitempty" require:"true"`
 	// 运输合同到期日期，要求格式yyyy-MM-dd
 	ContractExpiresDate *string `json:"contract_expires_date,omitempty" xml:"contract_expires_date,omitempty" require:"true"`
 	// 影像件文件信息列表，可以包含多个文件，每个文件需要有文件id和文件hash  (请求蚂蚁影像上传接口获取的文件id和文件hash)。影像文件格式要求：bmp,jpg,jpeg,gif,psd,png,tiff,tga,eps,pdf
 	FileInfos []*UploadFileInfo `json:"file_infos,omitempty" xml:"file_infos,omitempty" require:"true" type:"Repeated"`
-	// 3plDid，一般为合同乙方的链上数字身份
-	ThirdPartyLogisticsDid *string `json:"third_party_logistics_did,omitempty" xml:"third_party_logistics_did,omitempty" require:"true"`
+	// 合同乙方Did，一般为合同乙方的链上数字身份
+	PartyBDid *string `json:"party_b_did,omitempty" xml:"party_b_did,omitempty" require:"true"`
 	// 运输合同编号
 	TransportContractCode *string `json:"transport_contract_code,omitempty" xml:"transport_contract_code,omitempty" require:"true"`
+	// 所属平台did
+	PlatformDid *string `json:"platform_did,omitempty" xml:"platform_did,omitempty" require:"true"`
 }
 
 func (s UploadTransportContractRequest) String() string {
@@ -8932,8 +8934,8 @@ func (s *UploadTransportContractRequest) SetProductInstanceId(v string) *UploadT
 	return s
 }
 
-func (s *UploadTransportContractRequest) SetConsignorDid(v string) *UploadTransportContractRequest {
-	s.ConsignorDid = &v
+func (s *UploadTransportContractRequest) SetPartyADid(v string) *UploadTransportContractRequest {
+	s.PartyADid = &v
 	return s
 }
 
@@ -8952,13 +8954,18 @@ func (s *UploadTransportContractRequest) SetFileInfos(v []*UploadFileInfo) *Uplo
 	return s
 }
 
-func (s *UploadTransportContractRequest) SetThirdPartyLogisticsDid(v string) *UploadTransportContractRequest {
-	s.ThirdPartyLogisticsDid = &v
+func (s *UploadTransportContractRequest) SetPartyBDid(v string) *UploadTransportContractRequest {
+	s.PartyBDid = &v
 	return s
 }
 
 func (s *UploadTransportContractRequest) SetTransportContractCode(v string) *UploadTransportContractRequest {
 	s.TransportContractCode = &v
+	return s
+}
+
+func (s *UploadTransportContractRequest) SetPlatformDid(v string) *UploadTransportContractRequest {
+	s.PlatformDid = &v
 	return s
 }
 
@@ -9164,6 +9171,8 @@ type CreateTransportWaybillRequest struct {
 	TransportContractCode *string `json:"transport_contract_code,omitempty" xml:"transport_contract_code,omitempty"`
 	// 所属运输线路编码
 	TransportRouteCode *string `json:"transport_route_code,omitempty" xml:"transport_route_code,omitempty"`
+	// 托盘方did
+	PalletDid *string `json:"pallet_did,omitempty" xml:"pallet_did,omitempty"`
 }
 
 func (s CreateTransportWaybillRequest) String() string {
@@ -9281,6 +9290,11 @@ func (s *CreateTransportWaybillRequest) SetTransportContractCode(v string) *Crea
 
 func (s *CreateTransportWaybillRequest) SetTransportRouteCode(v string) *CreateTransportWaybillRequest {
 	s.TransportRouteCode = &v
+	return s
+}
+
+func (s *CreateTransportWaybillRequest) SetPalletDid(v string) *CreateTransportWaybillRequest {
+	s.PalletDid = &v
 	return s
 }
 
@@ -9462,6 +9476,8 @@ type UpdateTransportWaybillRequest struct {
 	TransportContractCode *string `json:"transport_contract_code,omitempty" xml:"transport_contract_code,omitempty"`
 	// 所属运输线路编码
 	TransportRouteCode *string `json:"transport_route_code,omitempty" xml:"transport_route_code,omitempty"`
+	// 托盘方did
+	PalletDid *string `json:"pallet_did,omitempty" xml:"pallet_did,omitempty"`
 }
 
 func (s UpdateTransportWaybillRequest) String() string {
@@ -9589,6 +9605,11 @@ func (s *UpdateTransportWaybillRequest) SetTransportContractCode(v string) *Upda
 
 func (s *UpdateTransportWaybillRequest) SetTransportRouteCode(v string) *UpdateTransportWaybillRequest {
 	s.TransportRouteCode = &v
+	return s
+}
+
+func (s *UpdateTransportWaybillRequest) SetPalletDid(v string) *UpdateTransportWaybillRequest {
+	s.PalletDid = &v
 	return s
 }
 
@@ -9754,6 +9775,8 @@ type CreateBillReceivablebillRequest struct {
 	Deadline *int64 `json:"deadline,omitempty" xml:"deadline,omitempty" require:"true"`
 	// 账单关联运单号数组，元素个数不能超过1000个
 	WaybillIds []*string `json:"waybill_ids,omitempty" xml:"waybill_ids,omitempty" require:"true" type:"Repeated"`
+	// 所属平台did
+	PlatformDid *string `json:"platform_did,omitempty" xml:"platform_did,omitempty" require:"true"`
 }
 
 func (s CreateBillReceivablebillRequest) String() string {
@@ -9821,6 +9844,11 @@ func (s *CreateBillReceivablebillRequest) SetDeadline(v int64) *CreateBillReceiv
 
 func (s *CreateBillReceivablebillRequest) SetWaybillIds(v []*string) *CreateBillReceivablebillRequest {
 	s.WaybillIds = v
+	return s
+}
+
+func (s *CreateBillReceivablebillRequest) SetPlatformDid(v string) *CreateBillReceivablebillRequest {
+	s.PlatformDid = &v
 	return s
 }
 
@@ -9980,6 +10008,8 @@ type UpdateBillReceivablebillRequest struct {
 	Deadline *int64 `json:"deadline,omitempty" xml:"deadline,omitempty"`
 	// 账单关联运单号数组，元素个数不能超过1000个
 	WaybillIds []*string `json:"waybill_ids,omitempty" xml:"waybill_ids,omitempty" type:"Repeated"`
+	// 所属平台did
+	PlatformDid *string `json:"platform_did,omitempty" xml:"platform_did,omitempty"`
 }
 
 func (s UpdateBillReceivablebillRequest) String() string {
@@ -10047,6 +10077,11 @@ func (s *UpdateBillReceivablebillRequest) SetDeadline(v int64) *UpdateBillReceiv
 
 func (s *UpdateBillReceivablebillRequest) SetWaybillIds(v []*string) *UpdateBillReceivablebillRequest {
 	s.WaybillIds = v
+	return s
+}
+
+func (s *UpdateBillReceivablebillRequest) SetPlatformDid(v string) *UpdateBillReceivablebillRequest {
+	s.PlatformDid = &v
 	return s
 }
 
@@ -10342,6 +10377,8 @@ type CreateBillReceivablebillnodetailRequest struct {
 	ContractCode *string `json:"contract_code,omitempty" xml:"contract_code,omitempty"`
 	// 账单到期日期，13位毫秒级时间戳
 	Deadline *int64 `json:"deadline,omitempty" xml:"deadline,omitempty" require:"true"`
+	// 所属平台did
+	PlatformDid *string `json:"platform_did,omitempty" xml:"platform_did,omitempty" require:"true"`
 }
 
 func (s CreateBillReceivablebillnodetailRequest) String() string {
@@ -10404,6 +10441,11 @@ func (s *CreateBillReceivablebillnodetailRequest) SetContractCode(v string) *Cre
 
 func (s *CreateBillReceivablebillnodetailRequest) SetDeadline(v int64) *CreateBillReceivablebillnodetailRequest {
 	s.Deadline = &v
+	return s
+}
+
+func (s *CreateBillReceivablebillnodetailRequest) SetPlatformDid(v string) *CreateBillReceivablebillnodetailRequest {
+	s.PlatformDid = &v
 	return s
 }
 
@@ -20422,8 +20464,6 @@ type QueryInsuranceEpolicyRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 投保返回的交易流水号
 	ApplyTradeNo *string `json:"apply_trade_no,omitempty" xml:"apply_trade_no,omitempty" require:"true" maxLength:"50"`
-	// 保司编码
-	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"64"`
 	// 保单号
 	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty" require:"true" maxLength:"64"`
 }
@@ -20448,11 +20488,6 @@ func (s *QueryInsuranceEpolicyRequest) SetProductInstanceId(v string) *QueryInsu
 
 func (s *QueryInsuranceEpolicyRequest) SetApplyTradeNo(v string) *QueryInsuranceEpolicyRequest {
 	s.ApplyTradeNo = &v
-	return s
-}
-
-func (s *QueryInsuranceEpolicyRequest) SetExternalChannelCode(v string) *QueryInsuranceEpolicyRequest {
-	s.ExternalChannelCode = &v
 	return s
 }
 
@@ -21400,6 +21435,10 @@ type PushPfPledgeRequest struct {
 	RequestNo *string `json:"request_no,omitempty" xml:"request_no,omitempty" require:"true" maxLength:"32" minLength:"16"`
 	// 质押发票号码列表
 	InvoiceNos []*string `json:"invoice_nos,omitempty" xml:"invoice_nos,omitempty" type:"Repeated"`
+	// 托盘账单金额
+	PalletBillAmount *string `json:"pallet_bill_amount,omitempty" xml:"pallet_bill_amount,omitempty" maxLength:"64" minLength:"1"`
+	// 托盘账单关联发票号列表
+	PalletInvoiceNos []*string `json:"pallet_invoice_nos,omitempty" xml:"pallet_invoice_nos,omitempty" type:"Repeated"`
 }
 
 func (s PushPfPledgeRequest) String() string {
@@ -21442,6 +21481,16 @@ func (s *PushPfPledgeRequest) SetRequestNo(v string) *PushPfPledgeRequest {
 
 func (s *PushPfPledgeRequest) SetInvoiceNos(v []*string) *PushPfPledgeRequest {
 	s.InvoiceNos = v
+	return s
+}
+
+func (s *PushPfPledgeRequest) SetPalletBillAmount(v string) *PushPfPledgeRequest {
+	s.PalletBillAmount = &v
+	return s
+}
+
+func (s *PushPfPledgeRequest) SetPalletInvoiceNos(v []*string) *PushPfPledgeRequest {
+	s.PalletInvoiceNos = v
 	return s
 }
 
@@ -22379,6 +22428,120 @@ func (s *CallbackPfDefinpfResponse) SetErrorMsg(v string) *CallbackPfDefinpfResp
 
 func (s *CallbackPfDefinpfResponse) SetResponse(v string) *CallbackPfDefinpfResponse {
 	s.Response = &v
+	return s
+}
+
+type QueryPfWithdrawRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 银行端客户号
+	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty" require:"true" maxLength:"20"`
+	// 证件类型;050 统一社会信用证代码
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true" maxLength:"3"`
+	// 证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true" maxLength:"20"`
+}
+
+func (s QueryPfWithdrawRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPfWithdrawRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPfWithdrawRequest) SetAuthToken(v string) *QueryPfWithdrawRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryPfWithdrawRequest) SetProductInstanceId(v string) *QueryPfWithdrawRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryPfWithdrawRequest) SetCustomerNo(v string) *QueryPfWithdrawRequest {
+	s.CustomerNo = &v
+	return s
+}
+
+func (s *QueryPfWithdrawRequest) SetCertType(v string) *QueryPfWithdrawRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *QueryPfWithdrawRequest) SetCertNo(v string) *QueryPfWithdrawRequest {
+	s.CertNo = &v
+	return s
+}
+
+type QueryPfWithdrawResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 银行端客户号
+	//
+	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty"`
+	// 证件类型;050 统一社会信用证代码
+	//
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// 证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 客户完成账单融资申请放款至账户中待提款的金额，保留两位小数（单位：元）
+	WithdrawalAmount *string `json:"withdrawal_amount,omitempty" xml:"withdrawal_amount,omitempty"`
+	// 数据更新时间
+	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
+}
+
+func (s QueryPfWithdrawResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPfWithdrawResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPfWithdrawResponse) SetReqMsgId(v string) *QueryPfWithdrawResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryPfWithdrawResponse) SetResultCode(v string) *QueryPfWithdrawResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryPfWithdrawResponse) SetResultMsg(v string) *QueryPfWithdrawResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryPfWithdrawResponse) SetCustomerNo(v string) *QueryPfWithdrawResponse {
+	s.CustomerNo = &v
+	return s
+}
+
+func (s *QueryPfWithdrawResponse) SetCertType(v string) *QueryPfWithdrawResponse {
+	s.CertType = &v
+	return s
+}
+
+func (s *QueryPfWithdrawResponse) SetCertNo(v string) *QueryPfWithdrawResponse {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryPfWithdrawResponse) SetWithdrawalAmount(v string) *QueryPfWithdrawResponse {
+	s.WithdrawalAmount = &v
+	return s
+}
+
+func (s *QueryPfWithdrawResponse) SetUpdateTime(v string) *QueryPfWithdrawResponse {
+	s.UpdateTime = &v
 	return s
 }
 
@@ -28956,7 +29119,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.132"),
+				"sdk_version":      tea.String("1.3.136"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -32545,8 +32708,8 @@ func (client *Client) SaveInsuranceWaybillEx(request *SaveInsuranceWaybillReques
 }
 
 /**
- * Description: 产业保险电子保单查询
- * Summary: 产业保险电子保单查询
+ * Description: 保险电子保单查询
+ * Summary: 保险电子保单查询
  */
 func (client *Client) QueryInsuranceEpolicy(request *QueryInsuranceEpolicyRequest) (_result *QueryInsuranceEpolicyResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -32561,8 +32724,8 @@ func (client *Client) QueryInsuranceEpolicy(request *QueryInsuranceEpolicyReques
 }
 
 /**
- * Description: 产业保险电子保单查询
- * Summary: 产业保险电子保单查询
+ * Description: 保险电子保单查询
+ * Summary: 保险电子保单查询
  */
 func (client *Client) QueryInsuranceEpolicyEx(request *QueryInsuranceEpolicyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryInsuranceEpolicyResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -33013,6 +33176,40 @@ func (client *Client) CallbackPfDefinpfEx(request *CallbackPfDefinpfRequest, hea
 	}
 	_result = &CallbackPfDefinpfResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.pf.definpf.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用于查询可提款额度
+ * Summary: 可提款额度查询
+ */
+func (client *Client) QueryPfWithdraw(request *QueryPfWithdrawRequest) (_result *QueryPfWithdrawResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryPfWithdrawResponse{}
+	_body, _err := client.QueryPfWithdrawEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用于查询可提款额度
+ * Summary: 可提款额度查询
+ */
+func (client *Client) QueryPfWithdrawEx(request *QueryPfWithdrawRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPfWithdrawResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryPfWithdrawResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.pf.withdraw.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
