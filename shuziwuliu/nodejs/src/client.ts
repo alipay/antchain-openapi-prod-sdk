@@ -6278,7 +6278,7 @@ export class CreateDisDidRequest extends $tea.Model {
   platformDid?: string;
   // 角色类型。
   // 当组织类型为个人时，可填角色：货主、司机、承运商；
-  // 当组织类型为企业时，可填角色：网络货运平台、道路运输企业/3pl、货主、子平台、承运商
+  // 当组织类型为企业时，可填角色：网络货运平台、道路运输企业/3pl、货主、子平台、承运商、托盘方
   roleType: string;
   static names(): { [key: string]: string } {
     return {
@@ -6365,28 +6365,31 @@ export class UploadTransportContractRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 货主did，一般为合同甲方的链上数字身份
-  consignorDid: string;
+  // 合同甲方did，一般为合同甲方的链上数字身份
+  partyADid: string;
   // 运输合同生效日期，格式要求yyyy-MM-dd
   contractEffectiveDate: string;
   // 运输合同到期日期，要求格式yyyy-MM-dd
   contractExpiresDate: string;
   // 影像件文件信息列表，可以包含多个文件，每个文件需要有文件id和文件hash  (请求蚂蚁影像上传接口获取的文件id和文件hash)。影像文件格式要求：bmp,jpg,jpeg,gif,psd,png,tiff,tga,eps,pdf
   fileInfos: UploadFileInfo[];
-  // 3plDid，一般为合同乙方的链上数字身份
-  thirdPartyLogisticsDid: string;
+  // 合同乙方Did，一般为合同乙方的链上数字身份
+  partyBDid: string;
   // 运输合同编号
   transportContractCode: string;
+  // 所属平台did
+  platformDid: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      consignorDid: 'consignor_did',
+      partyADid: 'party_a_did',
       contractEffectiveDate: 'contract_effective_date',
       contractExpiresDate: 'contract_expires_date',
       fileInfos: 'file_infos',
-      thirdPartyLogisticsDid: 'third_party_logistics_did',
+      partyBDid: 'party_b_did',
       transportContractCode: 'transport_contract_code',
+      platformDid: 'platform_did',
     };
   }
 
@@ -6394,12 +6397,13 @@ export class UploadTransportContractRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      consignorDid: 'string',
+      partyADid: 'string',
       contractEffectiveDate: 'string',
       contractExpiresDate: 'string',
       fileInfos: { 'type': 'array', 'itemType': UploadFileInfo },
-      thirdPartyLogisticsDid: 'string',
+      partyBDid: 'string',
       transportContractCode: 'string',
+      platformDid: 'string',
     };
   }
 
@@ -6571,6 +6575,8 @@ export class CreateTransportWaybillRequest extends $tea.Model {
   transportContractCode?: string;
   // 所属运输线路编码
   transportRouteCode?: string;
+  // 托盘方did
+  palletDid?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6595,6 +6601,7 @@ export class CreateTransportWaybillRequest extends $tea.Model {
       thirdPartyLogisticsDid: 'third_party_logistics_did',
       transportContractCode: 'transport_contract_code',
       transportRouteCode: 'transport_route_code',
+      palletDid: 'pallet_did',
     };
   }
 
@@ -6622,6 +6629,7 @@ export class CreateTransportWaybillRequest extends $tea.Model {
       thirdPartyLogisticsDid: 'string',
       transportContractCode: 'string',
       transportRouteCode: 'string',
+      palletDid: 'string',
     };
   }
 
@@ -6781,6 +6789,8 @@ export class UpdateTransportWaybillRequest extends $tea.Model {
   transportContractCode?: string;
   // 所属运输线路编码
   transportRouteCode?: string;
+  // 托盘方did
+  palletDid?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6807,6 +6817,7 @@ export class UpdateTransportWaybillRequest extends $tea.Model {
       thirdPartyLogisticsDid: 'third_party_logistics_did',
       transportContractCode: 'transport_contract_code',
       transportRouteCode: 'transport_route_code',
+      palletDid: 'pallet_did',
     };
   }
 
@@ -6836,6 +6847,7 @@ export class UpdateTransportWaybillRequest extends $tea.Model {
       thirdPartyLogisticsDid: 'string',
       transportContractCode: 'string',
       transportRouteCode: 'string',
+      palletDid: 'string',
     };
   }
 
@@ -6976,6 +6988,8 @@ export class CreateBillReceivablebillRequest extends $tea.Model {
   deadline: number;
   // 账单关联运单号数组，元素个数不能超过1000个
   waybillIds: string[];
+  // 所属平台did
+  platformDid: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6990,6 +7004,7 @@ export class CreateBillReceivablebillRequest extends $tea.Model {
       contractCode: 'contract_code',
       deadline: 'deadline',
       waybillIds: 'waybill_ids',
+      platformDid: 'platform_did',
     };
   }
 
@@ -7007,6 +7022,7 @@ export class CreateBillReceivablebillRequest extends $tea.Model {
       contractCode: 'string',
       deadline: 'number',
       waybillIds: { 'type': 'array', 'itemType': 'string' },
+      platformDid: 'string',
     };
   }
 
@@ -7144,6 +7160,8 @@ export class UpdateBillReceivablebillRequest extends $tea.Model {
   deadline?: number;
   // 账单关联运单号数组，元素个数不能超过1000个
   waybillIds?: string[];
+  // 所属平台did
+  platformDid?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7158,6 +7176,7 @@ export class UpdateBillReceivablebillRequest extends $tea.Model {
       contractCode: 'contract_code',
       deadline: 'deadline',
       waybillIds: 'waybill_ids',
+      platformDid: 'platform_did',
     };
   }
 
@@ -7175,6 +7194,7 @@ export class UpdateBillReceivablebillRequest extends $tea.Model {
       contractCode: 'string',
       deadline: 'number',
       waybillIds: { 'type': 'array', 'itemType': 'string' },
+      platformDid: 'string',
     };
   }
 
@@ -7407,6 +7427,8 @@ export class CreateBillReceivablebillnodetailRequest extends $tea.Model {
   contractCode?: string;
   // 账单到期日期，13位毫秒级时间戳
   deadline: number;
+  // 所属平台did
+  platformDid: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7420,6 +7442,7 @@ export class CreateBillReceivablebillnodetailRequest extends $tea.Model {
       billStartTime: 'bill_start_time',
       contractCode: 'contract_code',
       deadline: 'deadline',
+      platformDid: 'platform_did',
     };
   }
 
@@ -7436,6 +7459,7 @@ export class CreateBillReceivablebillnodetailRequest extends $tea.Model {
       billStartTime: 'number',
       contractCode: 'string',
       deadline: 'number',
+      platformDid: 'string',
     };
   }
 
@@ -14459,8 +14483,6 @@ export class QueryInsuranceEpolicyRequest extends $tea.Model {
   productInstanceId?: string;
   // 投保返回的交易流水号
   applyTradeNo: string;
-  // 保司编码
-  externalChannelCode: string;
   // 保单号
   policyNo: string;
   static names(): { [key: string]: string } {
@@ -14468,7 +14490,6 @@ export class QueryInsuranceEpolicyRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       applyTradeNo: 'apply_trade_no',
-      externalChannelCode: 'external_channel_code',
       policyNo: 'policy_no',
     };
   }
@@ -14478,7 +14499,6 @@ export class QueryInsuranceEpolicyRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       applyTradeNo: 'string',
-      externalChannelCode: 'string',
       policyNo: 'string',
     };
   }
@@ -15143,6 +15163,10 @@ export class PushPfPledgeRequest extends $tea.Model {
   requestNo: string;
   // 质押发票号码列表
   invoiceNos?: string[];
+  // 托盘账单金额
+  palletBillAmount?: string;
+  // 托盘账单关联发票号列表
+  palletInvoiceNos?: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -15152,6 +15176,8 @@ export class PushPfPledgeRequest extends $tea.Model {
       financingSubjectDid: 'financing_subject_did',
       requestNo: 'request_no',
       invoiceNos: 'invoice_nos',
+      palletBillAmount: 'pallet_bill_amount',
+      palletInvoiceNos: 'pallet_invoice_nos',
     };
   }
 
@@ -15164,6 +15190,8 @@ export class PushPfPledgeRequest extends $tea.Model {
       financingSubjectDid: 'string',
       requestNo: 'string',
       invoiceNos: { 'type': 'array', 'itemType': 'string' },
+      palletBillAmount: 'string',
+      palletInvoiceNos: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -15867,6 +15895,91 @@ export class CallbackPfDefinpfResponse extends $tea.Model {
       result: 'boolean',
       errorMsg: 'string',
       response: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryPfWithdrawRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 银行端客户号
+  customerNo: string;
+  // 证件类型;050 统一社会信用证代码
+  certType: string;
+  // 证件号码
+  certNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      customerNo: 'customer_no',
+      certType: 'cert_type',
+      certNo: 'cert_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      customerNo: 'string',
+      certType: 'string',
+      certNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryPfWithdrawResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 银行端客户号
+  // 
+  customerNo?: string;
+  // 证件类型;050 统一社会信用证代码
+  // 
+  certType?: string;
+  // 证件号码
+  certNo?: string;
+  // 客户完成账单融资申请放款至账户中待提款的金额，保留两位小数（单位：元）
+  withdrawalAmount?: string;
+  // 数据更新时间
+  updateTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      customerNo: 'customer_no',
+      certType: 'cert_type',
+      certNo: 'cert_no',
+      withdrawalAmount: 'withdrawal_amount',
+      updateTime: 'update_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      customerNo: 'string',
+      certType: 'string',
+      certNo: 'string',
+      withdrawalAmount: 'string',
+      updateTime: 'string',
     };
   }
 
@@ -20498,7 +20611,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.132",
+          sdk_version: "1.3.136",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -22525,8 +22638,8 @@ export default class Client {
   }
 
   /**
-   * Description: 产业保险电子保单查询
-   * Summary: 产业保险电子保单查询
+   * Description: 保险电子保单查询
+   * Summary: 保险电子保单查询
    */
   async queryInsuranceEpolicy(request: QueryInsuranceEpolicyRequest): Promise<QueryInsuranceEpolicyResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -22535,8 +22648,8 @@ export default class Client {
   }
 
   /**
-   * Description: 产业保险电子保单查询
-   * Summary: 产业保险电子保单查询
+   * Description: 保险电子保单查询
+   * Summary: 保险电子保单查询
    */
   async queryInsuranceEpolicyEx(request: QueryInsuranceEpolicyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInsuranceEpolicyResponse> {
     Util.validateModel(request);
@@ -22788,6 +22901,25 @@ export default class Client {
   async callbackPfDefinpfEx(request: CallbackPfDefinpfRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackPfDefinpfResponse> {
     Util.validateModel(request);
     return $tea.cast<CallbackPfDefinpfResponse>(await this.doRequest("1.0", "digital.logistic.pf.definpf.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackPfDefinpfResponse({}));
+  }
+
+  /**
+   * Description: 用于查询可提款额度
+   * Summary: 可提款额度查询
+   */
+  async queryPfWithdraw(request: QueryPfWithdrawRequest): Promise<QueryPfWithdrawResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryPfWithdrawEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用于查询可提款额度
+   * Summary: 可提款额度查询
+   */
+  async queryPfWithdrawEx(request: QueryPfWithdrawRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryPfWithdrawResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryPfWithdrawResponse>(await this.doRequest("1.0", "digital.logistic.pf.withdraw.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryPfWithdrawResponse({}));
   }
 
   /**
