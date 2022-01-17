@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.5'
+                    'sdk_version': '1.3.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.5'
+                    'sdk_version': '1.3.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -701,4 +701,166 @@ class Client:
         UtilClient.validate_model(request)
         return nftx_models.PagequeryNftCustomerResponse().from_map(
             await self.do_request_async('1.0', 'antchain.nftx.nft.customer.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_nft_publish(
+        self,
+        request: nftx_models.CreateNftPublishRequest,
+    ) -> nftx_models.CreateNftPublishResponse:
+        """
+        Description: NFT铸造, 带监制方和渠道租户
+        Summary: NFT铸造, 带监制方和渠道租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_nft_publish_ex(request, headers, runtime)
+
+    async def create_nft_publish_async(
+        self,
+        request: nftx_models.CreateNftPublishRequest,
+    ) -> nftx_models.CreateNftPublishResponse:
+        """
+        Description: NFT铸造, 带监制方和渠道租户
+        Summary: NFT铸造, 带监制方和渠道租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_nft_publish_ex_async(request, headers, runtime)
+
+    def create_nft_publish_ex(
+        self,
+        request: nftx_models.CreateNftPublishRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.CreateNftPublishResponse:
+        """
+        Description: NFT铸造, 带监制方和渠道租户
+        Summary: NFT铸造, 带监制方和渠道租户
+        """
+        UtilClient.validate_model(request)
+        return nftx_models.CreateNftPublishResponse().from_map(
+            self.do_request('1.0', 'antchain.nftx.nft.publish.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_nft_publish_ex_async(
+        self,
+        request: nftx_models.CreateNftPublishRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.CreateNftPublishResponse:
+        """
+        Description: NFT铸造, 带监制方和渠道租户
+        Summary: NFT铸造, 带监制方和渠道租户
+        """
+        UtilClient.validate_model(request)
+        return nftx_models.CreateNftPublishResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.nftx.nft.publish.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def run_nft_transfer(
+        self,
+        request: nftx_models.RunNftTransferRequest,
+    ) -> nftx_models.RunNftTransferResponse:
+        """
+        Description: 按项目表编码B2C发放NFT,带渠道租户
+        Summary: 按项目表编码B2C发放NFT,带渠道租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.run_nft_transfer_ex(request, headers, runtime)
+
+    async def run_nft_transfer_async(
+        self,
+        request: nftx_models.RunNftTransferRequest,
+    ) -> nftx_models.RunNftTransferResponse:
+        """
+        Description: 按项目表编码B2C发放NFT,带渠道租户
+        Summary: 按项目表编码B2C发放NFT,带渠道租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.run_nft_transfer_ex_async(request, headers, runtime)
+
+    def run_nft_transfer_ex(
+        self,
+        request: nftx_models.RunNftTransferRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.RunNftTransferResponse:
+        """
+        Description: 按项目表编码B2C发放NFT,带渠道租户
+        Summary: 按项目表编码B2C发放NFT,带渠道租户
+        """
+        UtilClient.validate_model(request)
+        return nftx_models.RunNftTransferResponse().from_map(
+            self.do_request('1.0', 'antchain.nftx.nft.transfer.run', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def run_nft_transfer_ex_async(
+        self,
+        request: nftx_models.RunNftTransferRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.RunNftTransferResponse:
+        """
+        Description: 按项目表编码B2C发放NFT,带渠道租户
+        Summary: 按项目表编码B2C发放NFT,带渠道租户
+        """
+        UtilClient.validate_model(request)
+        return nftx_models.RunNftTransferResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.nftx.nft.transfer.run', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_nft_transfer(
+        self,
+        request: nftx_models.ApplyNftTransferRequest,
+    ) -> nftx_models.ApplyNftTransferResponse:
+        """
+        Description: 按商品编码B2C发放NFT 带渠道租户
+        Summary: 按商品编码B2C发放NFT 带渠道租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_nft_transfer_ex(request, headers, runtime)
+
+    async def apply_nft_transfer_async(
+        self,
+        request: nftx_models.ApplyNftTransferRequest,
+    ) -> nftx_models.ApplyNftTransferResponse:
+        """
+        Description: 按商品编码B2C发放NFT 带渠道租户
+        Summary: 按商品编码B2C发放NFT 带渠道租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_nft_transfer_ex_async(request, headers, runtime)
+
+    def apply_nft_transfer_ex(
+        self,
+        request: nftx_models.ApplyNftTransferRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.ApplyNftTransferResponse:
+        """
+        Description: 按商品编码B2C发放NFT 带渠道租户
+        Summary: 按商品编码B2C发放NFT 带渠道租户
+        """
+        UtilClient.validate_model(request)
+        return nftx_models.ApplyNftTransferResponse().from_map(
+            self.do_request('1.0', 'antchain.nftx.nft.transfer.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_nft_transfer_ex_async(
+        self,
+        request: nftx_models.ApplyNftTransferRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.ApplyNftTransferResponse:
+        """
+        Description: 按商品编码B2C发放NFT 带渠道租户
+        Summary: 按商品编码B2C发放NFT 带渠道租户
+        """
+        UtilClient.validate_model(request)
+        return nftx_models.ApplyNftTransferResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.nftx.nft.transfer.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
