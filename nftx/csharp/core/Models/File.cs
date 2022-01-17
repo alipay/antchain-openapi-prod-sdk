@@ -25,9 +25,10 @@ namespace AntChain.SDK.NFTX.Models
         [Validation(Required=true)]
         public string Name { get; set; }
 
-        // IMAGE("IMAGE","图片"),
-        // VIDEO("VIDEO","视频"),
-        // ;
+        //     IMAGE("IMAGE", "图片"),
+        //     VIDEO("VIDEO", "视频"),
+        //     AUDIO("AUDIO","音频"),
+        //     THREE_DIMENSIONS("THREE_DIMENSIONS","3D模型")
         [NameInMap("type")]
         [Validation(Required=true)]
         public string Type { get; set; }
