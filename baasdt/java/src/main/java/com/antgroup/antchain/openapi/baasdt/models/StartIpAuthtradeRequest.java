@@ -122,6 +122,10 @@ public class StartIpAuthtradeRequest extends TeaModel {
     @NameInMap("ip_order_id")
     public String ipOrderId;
 
+    // true 不真实支付，false 需真实支付
+    @NameInMap("only_call_blockchain")
+    public Boolean onlyCallBlockchain;
+
     public static StartIpAuthtradeRequest build(java.util.Map<String, ?> map) throws Exception {
         StartIpAuthtradeRequest self = new StartIpAuthtradeRequest();
         return TeaModel.build(map, self);
@@ -349,6 +353,14 @@ public class StartIpAuthtradeRequest extends TeaModel {
     }
     public String getIpOrderId() {
         return this.ipOrderId;
+    }
+
+    public StartIpAuthtradeRequest setOnlyCallBlockchain(Boolean onlyCallBlockchain) {
+        this.onlyCallBlockchain = onlyCallBlockchain;
+        return this;
+    }
+    public Boolean getOnlyCallBlockchain() {
+        return this.onlyCallBlockchain;
     }
 
 }
