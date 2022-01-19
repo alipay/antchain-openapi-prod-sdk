@@ -27878,6 +27878,7 @@ class StartIpAuthtradeRequest(TeaModel):
         authorization_model: List[int] = None,
         features: List[int] = None,
         ip_order_id: str = None,
+        only_call_blockchain: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -27934,6 +27935,8 @@ class StartIpAuthtradeRequest(TeaModel):
         self.features = features
         # 合作申请时的订单ID，如没有前置的申请环节，则不填
         self.ip_order_id = ip_order_id
+        # true 不真实支付，false 需真实支付
+        self.only_call_blockchain = only_call_blockchain
 
     def validate(self):
         self.validate_required(self.base_request, 'base_request')
@@ -28004,6 +28007,8 @@ class StartIpAuthtradeRequest(TeaModel):
             result['features'] = self.features
         if self.ip_order_id is not None:
             result['ip_order_id'] = self.ip_order_id
+        if self.only_call_blockchain is not None:
+            result['only_call_blockchain'] = self.only_call_blockchain
         return result
 
     def from_map(self, m: dict = None):
@@ -28065,6 +28070,8 @@ class StartIpAuthtradeRequest(TeaModel):
             self.features = m.get('features')
         if m.get('ip_order_id') is not None:
             self.ip_order_id = m.get('ip_order_id')
+        if m.get('only_call_blockchain') is not None:
+            self.only_call_blockchain = m.get('only_call_blockchain')
         return self
 
 
