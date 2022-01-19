@@ -148,6 +148,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string IpOrderId { get; set; }
 
+        // true 不真实支付，false 需真实支付
+        [NameInMap("only_call_blockchain")]
+        [Validation(Required=false)]
+        public bool? OnlyCallBlockchain { get; set; }
+
     }
 
 }
