@@ -174,6 +174,12 @@ class StartIpAuthtradeRequest extends Model
      * @var string
      */
     public $ipOrderId;
+
+    // true 不真实支付，false 需真实支付
+    /**
+     * @var bool
+     */
+    public $onlyCallBlockchain;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -203,6 +209,7 @@ class StartIpAuthtradeRequest extends Model
         'authorizationModel'    => 'authorization_model',
         'features'              => 'features',
         'ipOrderId'             => 'ip_order_id',
+        'onlyCallBlockchain'    => 'only_call_blockchain',
     ];
 
     public function validate()
@@ -303,6 +310,9 @@ class StartIpAuthtradeRequest extends Model
         if (null !== $this->ipOrderId) {
             $res['ip_order_id'] = $this->ipOrderId;
         }
+        if (null !== $this->onlyCallBlockchain) {
+            $res['only_call_blockchain'] = $this->onlyCallBlockchain;
+        }
 
         return $res;
     }
@@ -402,6 +412,9 @@ class StartIpAuthtradeRequest extends Model
         }
         if (isset($map['ip_order_id'])) {
             $model->ipOrderId = $map['ip_order_id'];
+        }
+        if (isset($map['only_call_blockchain'])) {
+            $model->onlyCallBlockchain = $map['only_call_blockchain'];
         }
 
         return $model;
