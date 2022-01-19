@@ -23579,6 +23579,8 @@ type StartIpAuthtradeRequest struct {
 	Features []*int64 `json:"features,omitempty" xml:"features,omitempty" type:"Repeated"`
 	// 合作申请时的订单ID，如没有前置的申请环节，则不填
 	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty"`
+	// true 不真实支付，false 需真实支付
+	OnlyCallBlockchain *bool `json:"only_call_blockchain,omitempty" xml:"only_call_blockchain,omitempty"`
 }
 
 func (s StartIpAuthtradeRequest) String() string {
@@ -23726,6 +23728,11 @@ func (s *StartIpAuthtradeRequest) SetFeatures(v []*int64) *StartIpAuthtradeReque
 
 func (s *StartIpAuthtradeRequest) SetIpOrderId(v string) *StartIpAuthtradeRequest {
 	s.IpOrderId = &v
+	return s
+}
+
+func (s *StartIpAuthtradeRequest) SetOnlyCallBlockchain(v bool) *StartIpAuthtradeRequest {
+	s.OnlyCallBlockchain = &v
 	return s
 }
 
@@ -37811,7 +37818,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.55"),
+				"sdk_version":      tea.String("1.3.56"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
