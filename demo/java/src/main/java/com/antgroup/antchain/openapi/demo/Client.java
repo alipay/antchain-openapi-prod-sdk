@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.52")
+                    new TeaPair("sdk_version", "1.0.55")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -157,6 +157,25 @@ public class Client {
         }
 
         throw new TeaUnretryableException(_lastRequest, _lastException);
+    }
+
+    /**
+     * Description: 123
+     * Summary: 123
+     */
+    public BindQweQweResponse bindQweQwe(BindQweQweRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindQweQweEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 123
+     * Summary: 123
+     */
+    public BindQweQweResponse bindQweQweEx(BindQweQweRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.qwe.qwe.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindQweQweResponse());
     }
 
     /**
@@ -275,6 +294,44 @@ public class Client {
     public BindSssSsSsResponse bindSssSsSsEx(BindSssSsSsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.sss.ss.ss.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindSssSsSsResponse());
+    }
+
+    /**
+     * Description: aaa
+     * Summary: 测试
+     */
+    public QueryGatewayMyResponse queryGatewayMy(QueryGatewayMyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryGatewayMyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aaa
+     * Summary: 测试
+     */
+    public QueryGatewayMyResponse queryGatewayMyEx(QueryGatewayMyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.gateway.my.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGatewayMyResponse());
+    }
+
+    /**
+     * Description: 测试使用
+     * Summary: 测试创建
+     */
+    public QueryTestGatewayTestResponse queryTestGatewayTest(QueryTestGatewayTestRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTestGatewayTestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 测试使用
+     * Summary: 测试创建
+     */
+    public QueryTestGatewayTestResponse queryTestGatewayTestEx(QueryTestGatewayTestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.gateway.test.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestGatewayTestResponse());
     }
 
     /**
