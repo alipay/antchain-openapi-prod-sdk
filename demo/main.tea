@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.52',
+    sdk_version = '1.0.55',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -209,6 +209,40 @@ model XNameValuePair {
   name: string(name='name', example='key'),
   // 键值
   value: string(name='value', example='value'),
+}
+
+model BindQweQweRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model BindQweQweResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 123
+ * Summary: 123
+ */
+async function bindQweQwe(request: BindQweQweRequest): BindQweQweResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindQweQweEx(request, headers, runtime);
+}
+
+/**
+ * Description: 123
+ * Summary: 123
+ */
+async function bindQweQweEx(request: BindQweQweRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindQweQweResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.qwe.qwe.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StatusGatewayCheckRequest = {
@@ -422,6 +456,74 @@ async function bindSssSsSs(request: BindSssSsSsRequest): BindSssSsSsResponse {
 async function bindSssSsSsEx(request: BindSssSsSsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindSssSsSsResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.sss.ss.ss.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGatewayMyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryGatewayMyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: aaa
+ * Summary: 测试
+ */
+async function queryGatewayMy(request: QueryGatewayMyRequest): QueryGatewayMyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGatewayMyEx(request, headers, runtime);
+}
+
+/**
+ * Description: aaa
+ * Summary: 测试
+ */
+async function queryGatewayMyEx(request: QueryGatewayMyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGatewayMyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.gateway.my.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTestGatewayTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryTestGatewayTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 测试使用
+ * Summary: 测试创建
+ */
+async function queryTestGatewayTest(request: QueryTestGatewayTestRequest): QueryTestGatewayTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTestGatewayTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试使用
+ * Summary: 测试创建
+ */
+async function queryTestGatewayTestEx(request: QueryTestGatewayTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestGatewayTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.test.gateway.test.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
