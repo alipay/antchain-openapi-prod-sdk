@@ -321,6 +321,62 @@ func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
 	return s
 }
 
+type BindQweQweRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s BindQweQweRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindQweQweRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindQweQweRequest) SetAuthToken(v string) *BindQweQweRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindQweQweRequest) SetProductInstanceId(v string) *BindQweQweRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type BindQweQweResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s BindQweQweResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindQweQweResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindQweQweResponse) SetReqMsgId(v string) *BindQweQweResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindQweQweResponse) SetResultCode(v string) *BindQweQweResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindQweQweResponse) SetResultMsg(v string) *BindQweQweResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type StatusGatewayCheckRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -685,6 +741,118 @@ func (s *BindSssSsSsResponse) SetResultMsg(v string) *BindSssSsSsResponse {
 	return s
 }
 
+type QueryGatewayMyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryGatewayMyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGatewayMyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGatewayMyRequest) SetAuthToken(v string) *QueryGatewayMyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryGatewayMyRequest) SetProductInstanceId(v string) *QueryGatewayMyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryGatewayMyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryGatewayMyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGatewayMyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGatewayMyResponse) SetReqMsgId(v string) *QueryGatewayMyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryGatewayMyResponse) SetResultCode(v string) *QueryGatewayMyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryGatewayMyResponse) SetResultMsg(v string) *QueryGatewayMyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryTestGatewayTestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryTestGatewayTestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestGatewayTestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestGatewayTestRequest) SetAuthToken(v string) *QueryTestGatewayTestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTestGatewayTestRequest) SetProductInstanceId(v string) *QueryTestGatewayTestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryTestGatewayTestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryTestGatewayTestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestGatewayTestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestGatewayTestResponse) SetReqMsgId(v string) *QueryTestGatewayTestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTestGatewayTestResponse) SetResultCode(v string) *QueryTestGatewayTestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTestGatewayTestResponse) SetResultMsg(v string) *QueryTestGatewayTestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -927,7 +1095,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.52"),
+				"sdk_version":      tea.String("1.0.55"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -973,6 +1141,40 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 123
+ * Summary: 123
+ */
+func (client *Client) BindQweQwe(request *BindQweQweRequest) (_result *BindQweQweResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindQweQweResponse{}
+	_body, _err := client.BindQweQweEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 123
+ * Summary: 123
+ */
+func (client *Client) BindQweQweEx(request *BindQweQweRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindQweQweResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindQweQweResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.qwe.qwe.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
@@ -1169,6 +1371,74 @@ func (client *Client) BindSssSsSsEx(request *BindSssSsSsRequest, headers map[str
 	}
 	_result = &BindSssSsSsResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.sss.ss.ss.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aaa
+ * Summary: 测试
+ */
+func (client *Client) QueryGatewayMy(request *QueryGatewayMyRequest) (_result *QueryGatewayMyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryGatewayMyResponse{}
+	_body, _err := client.QueryGatewayMyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aaa
+ * Summary: 测试
+ */
+func (client *Client) QueryGatewayMyEx(request *QueryGatewayMyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryGatewayMyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryGatewayMyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.gateway.my.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 测试使用
+ * Summary: 测试创建
+ */
+func (client *Client) QueryTestGatewayTest(request *QueryTestGatewayTestRequest) (_result *QueryTestGatewayTestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTestGatewayTestResponse{}
+	_body, _err := client.QueryTestGatewayTestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 测试使用
+ * Summary: 测试创建
+ */
+func (client *Client) QueryTestGatewayTestEx(request *QueryTestGatewayTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTestGatewayTestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTestGatewayTestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.test.gateway.test.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
