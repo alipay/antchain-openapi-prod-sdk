@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class FinishFlowInstanceResponse : TeaModel {
+    public class QueryJusticeBasecaseResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,20 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // legal标URL，只有当入参needLegalLogo为true且响应resultCode=200时才会返回
-        [NameInMap("legal_logo_url")]
+        // 业务码，0表示成功 其余都是代表失败
+        [NameInMap("code")]
         [Validation(Required=false)]
-        public string LegalLogoUrl { get; set; }
+        public long? Code { get; set; }
+
+        // 案件基础信息出参
+        [NameInMap("case_base_info_list")]
+        [Validation(Required=false)]
+        public List<CaseBaseInfo> CaseBaseInfoList { get; set; }
+
+        // 响应的详细信息
+        [NameInMap("message")]
+        [Validation(Required=false)]
+        public string Message { get; set; }
 
     }
 

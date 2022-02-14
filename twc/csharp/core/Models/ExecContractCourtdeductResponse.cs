@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class FinishFlowInstanceResponse : TeaModel {
+    public class ExecContractCourtdeductResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,20 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // legal标URL，只有当入参needLegalLogo为true且响应resultCode=200时才会返回
-        [NameInMap("legal_logo_url")]
+        // 是否执行成功
+        [NameInMap("success")]
         [Validation(Required=false)]
-        public string LegalLogoUrl { get; set; }
+        public bool? Success { get; set; }
+
+        // 扣款金额，单位：分
+        [NameInMap("pay_money")]
+        [Validation(Required=false)]
+        public long? PayMoney { get; set; }
+
+        // 扣款详情信息
+        [NameInMap("pay_detail_msg")]
+        [Validation(Required=false)]
+        public string PayDetailMsg { get; set; }
 
     }
 

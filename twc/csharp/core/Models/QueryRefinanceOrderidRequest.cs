@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class QueryFlowOnestepnotaryRequest : TeaModel {
+    public class QueryRefinanceOrderidRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,20 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 流程id，通过twc.notary.flow.onestepnotary.create接口获取
-        [NameInMap("flow_id")]
+        // 资产包id
+        [NameInMap("package_id")]
         [Validation(Required=true)]
-        public string FlowId { get; set; }
+        public string PackageId { get; set; }
 
-        // 是否需要legal标，默认为false，如果需要则填true
-        [NameInMap("need_legal_logo")]
-        [Validation(Required=false)]
-        public bool? NeedLegalLogo { get; set; }
+        // 从第0页开始
+        [NameInMap("page")]
+        [Validation(Required=true)]
+        public long? Page { get; set; }
+
+        // 每次max最多查询的个数
+        [NameInMap("page_size")]
+        [Validation(Required=true)]
+        public long? PageSize { get; set; }
 
     }
 

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class FinishFlowInstanceResponse : TeaModel {
+    public class VerifyRefinancePackageResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // legal标URL，只有当入参needLegalLogo为true且响应resultCode=200时才会返回
-        [NameInMap("legal_logo_url")]
+        // 资产包当前的状态
+        [NameInMap("status")]
         [Validation(Required=false)]
-        public string LegalLogoUrl { get; set; }
+        public string Status { get; set; }
 
     }
 

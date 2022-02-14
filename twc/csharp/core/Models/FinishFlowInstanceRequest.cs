@@ -23,6 +23,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string FlowId { get; set; }
 
+        // 是否需要legal标，默认为false，如果需要则填true
+        [NameInMap("need_legal_logo")]
+        [Validation(Required=false)]
+        public bool? NeedLegalLogo { get; set; }
+
     }
 
 }

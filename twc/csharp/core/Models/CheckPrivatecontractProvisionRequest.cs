@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class QueryFlowOnestepnotaryRequest : TeaModel {
+    public class CheckPrivatecontractProvisionRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,10 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 流程id，通过twc.notary.flow.onestepnotary.create接口获取
-        [NameInMap("flow_id")]
+        // 私有云合同服务实例ID
+        [NameInMap("instance_id")]
         [Validation(Required=true)]
-        public string FlowId { get; set; }
-
-        // 是否需要legal标，默认为false，如果需要则填true
-        [NameInMap("need_legal_logo")]
-        [Validation(Required=false)]
-        public bool? NeedLegalLogo { get; set; }
+        public string InstanceId { get; set; }
 
     }
 

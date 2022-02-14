@@ -34,6 +34,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public List<PhaseQueryResult> PhaseQueryResultList { get; set; }
 
+        // legal标URL，只有当入参needLegalLogo为true且响应status为FINISH时才会返回
+        [NameInMap("legal_logo_url")]
+        [Validation(Required=false)]
+        public string LegalLogoUrl { get; set; }
+
     }
 
 }
