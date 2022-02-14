@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class FinishFlowInstanceResponse extends Model
+class DownloadJusticeCasefileResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,30 @@ class FinishFlowInstanceResponse extends Model
      */
     public $resultMsg;
 
-    // legal标URL，只有当入参needLegalLogo为true且响应resultCode=200时才会返回
+    // 业务码，0表示成功 其余都是代表失败
+    /**
+     * @var int
+     */
+    public $code;
+
+    // 文件下载地址 默认24小时内有效
     /**
      * @var string
      */
-    public $legalLogoUrl;
+    public $downloadUrl;
+
+    // 响应的详细信息
+    /**
+     * @var string
+     */
+    public $message;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'legalLogoUrl' => 'legal_logo_url',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'code'        => 'code',
+        'downloadUrl' => 'download_url',
+        'message'     => 'message',
     ];
 
     public function validate()
@@ -54,8 +68,14 @@ class FinishFlowInstanceResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->legalLogoUrl) {
-            $res['legal_logo_url'] = $this->legalLogoUrl;
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
+        }
+        if (null !== $this->downloadUrl) {
+            $res['download_url'] = $this->downloadUrl;
+        }
+        if (null !== $this->message) {
+            $res['message'] = $this->message;
         }
 
         return $res;
@@ -64,7 +84,7 @@ class FinishFlowInstanceResponse extends Model
     /**
      * @param array $map
      *
-     * @return FinishFlowInstanceResponse
+     * @return DownloadJusticeCasefileResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +98,14 @@ class FinishFlowInstanceResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['legal_logo_url'])) {
-            $model->legalLogoUrl = $map['legal_logo_url'];
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
+        }
+        if (isset($map['download_url'])) {
+            $model->downloadUrl = $map['download_url'];
+        }
+        if (isset($map['message'])) {
+            $model->message = $map['message'];
         }
 
         return $model;

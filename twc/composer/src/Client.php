@@ -51,6 +51,8 @@ use AntChain\TWC\Models\CertifyEnterpriseFaceauthRequest;
 use AntChain\TWC\Models\CertifyEnterpriseFaceauthResponse;
 use AntChain\TWC\Models\CertifyIdentificationFaceauthRequest;
 use AntChain\TWC\Models\CertifyIdentificationFaceauthResponse;
+use AntChain\TWC\Models\CheckContractCourtdeductRequest;
+use AntChain\TWC\Models\CheckContractCourtdeductResponse;
 use AntChain\TWC\Models\CheckEpidentityFourmetaRequest;
 use AntChain\TWC\Models\CheckEpidentityFourmetaResponse;
 use AntChain\TWC\Models\CheckEpidentityThreemetaRequest;
@@ -61,6 +63,8 @@ use AntChain\TWC\Models\CheckIndustryNotaryRequest;
 use AntChain\TWC\Models\CheckIndustryNotaryResponse;
 use AntChain\TWC\Models\CheckNotarizationOrderRequest;
 use AntChain\TWC\Models\CheckNotarizationOrderResponse;
+use AntChain\TWC\Models\CheckPrivatecontractProvisionRequest;
+use AntChain\TWC\Models\CheckPrivatecontractProvisionResponse;
 use AntChain\TWC\Models\CheckStatusRequest;
 use AntChain\TWC\Models\CheckStatusResponse;
 use AntChain\TWC\Models\CheckWitnessSignaccessRequest;
@@ -79,6 +83,8 @@ use AntChain\TWC\Models\CreateContractAdminaccountRequest;
 use AntChain\TWC\Models\CreateContractAdminaccountResponse;
 use AntChain\TWC\Models\CreateContractCommontriggerRequest;
 use AntChain\TWC\Models\CreateContractCommontriggerResponse;
+use AntChain\TWC\Models\CreateContractCourtdeductRequest;
+use AntChain\TWC\Models\CreateContractCourtdeductResponse;
 use AntChain\TWC\Models\CreateContractFlowRequest;
 use AntChain\TWC\Models\CreateContractFlowResponse;
 use AntChain\TWC\Models\CreateContractHandsignfieldRequest;
@@ -227,6 +233,10 @@ use AntChain\TWC\Models\DetailFlowPhaseRequest;
 use AntChain\TWC\Models\DetailFlowPhaseResponse;
 use AntChain\TWC\Models\DownloadContractDocumentRequest;
 use AntChain\TWC\Models\DownloadContractDocumentResponse;
+use AntChain\TWC\Models\DownloadJusticeCasefileRequest;
+use AntChain\TWC\Models\DownloadJusticeCasefileResponse;
+use AntChain\TWC\Models\ExecContractCourtdeductRequest;
+use AntChain\TWC\Models\ExecContractCourtdeductResponse;
 use AntChain\TWC\Models\FinishFlowInstanceRequest;
 use AntChain\TWC\Models\FinishFlowInstanceResponse;
 use AntChain\TWC\Models\FinishLeaseSupplierstatusRequest;
@@ -291,6 +301,8 @@ use AntChain\TWC\Models\NotifyContractSignerRequest;
 use AntChain\TWC\Models\NotifyContractSignerResponse;
 use AntChain\TWC\Models\OpenInternalTwcRequest;
 use AntChain\TWC\Models\OpenInternalTwcResponse;
+use AntChain\TWC\Models\PushPrivatecontractGaugeRequest;
+use AntChain\TWC\Models\PushPrivatecontractGaugeResponse;
 use AntChain\TWC\Models\QueryCertificationRequest;
 use AntChain\TWC\Models\QueryCertificationResponse;
 use AntChain\TWC\Models\QueryContractAccountRequest;
@@ -339,6 +351,8 @@ use AntChain\TWC\Models\QueryIdentificationFaceauthRequest;
 use AntChain\TWC\Models\QueryIdentificationFaceauthResponse;
 use AntChain\TWC\Models\QueryJointconstraintBreachrecordRequest;
 use AntChain\TWC\Models\QueryJointconstraintBreachrecordResponse;
+use AntChain\TWC\Models\QueryJusticeBasecaseRequest;
+use AntChain\TWC\Models\QueryJusticeBasecaseResponse;
 use AntChain\TWC\Models\QueryJusticeCaseinfoRequest;
 use AntChain\TWC\Models\QueryJusticeCaseinfoResponse;
 use AntChain\TWC\Models\QueryJusticeMediationRequest;
@@ -349,22 +363,46 @@ use AntChain\TWC\Models\QueryLeaseApplicationRequest;
 use AntChain\TWC\Models\QueryLeaseApplicationResponse;
 use AntChain\TWC\Models\QueryLeaseBizRequest;
 use AntChain\TWC\Models\QueryLeaseBizResponse;
+use AntChain\TWC\Models\QueryLeaseClearingRequest;
+use AntChain\TWC\Models\QueryLeaseClearingResponse;
+use AntChain\TWC\Models\QueryLeaseCreditpromiseRequest;
+use AntChain\TWC\Models\QueryLeaseCreditpromiseResponse;
 use AntChain\TWC\Models\QueryLeaseEncryptedinfoRequest;
 use AntChain\TWC\Models\QueryLeaseEncryptedinfoResponse;
 use AntChain\TWC\Models\QueryLeaseFinancecertifyincontractRequest;
 use AntChain\TWC\Models\QueryLeaseFinancecertifyincontractResponse;
 use AntChain\TWC\Models\QueryLeaseFinancecertifyRequest;
 use AntChain\TWC\Models\QueryLeaseFinancecertifyResponse;
+use AntChain\TWC\Models\QueryLeaseFinancecreditRequest;
+use AntChain\TWC\Models\QueryLeaseFinancecreditResponse;
 use AntChain\TWC\Models\QueryLeaseIotinfoRequest;
 use AntChain\TWC\Models\QueryLeaseIotinfoResponse;
+use AntChain\TWC\Models\QueryLeaseLeasepromiseRequest;
+use AntChain\TWC\Models\QueryLeaseLeasepromiseResponse;
+use AntChain\TWC\Models\QueryLeaseOrderdetailinfoRequest;
+use AntChain\TWC\Models\QueryLeaseOrderdetailinfoResponse;
 use AntChain\TWC\Models\QueryLeaseOrderinfoRequest;
 use AntChain\TWC\Models\QueryLeaseOrderinfoResponse;
+use AntChain\TWC\Models\QueryLeaseOrderproductRequest;
+use AntChain\TWC\Models\QueryLeaseOrderproductResponse;
 use AntChain\TWC\Models\QueryLeaseProductinfoRequest;
 use AntChain\TWC\Models\QueryLeaseProductinfoResponse;
 use AntChain\TWC\Models\QueryLeaseProofRequest;
 use AntChain\TWC\Models\QueryLeaseProofResponse;
+use AntChain\TWC\Models\QueryLeaseRentalinfoRequest;
+use AntChain\TWC\Models\QueryLeaseRentalinfoResponse;
+use AntChain\TWC\Models\QueryLeaseRepaymentRequest;
+use AntChain\TWC\Models\QueryLeaseRepaymentResponse;
+use AntChain\TWC\Models\QueryLeaseUserRequest;
+use AntChain\TWC\Models\QueryLeaseUserResponse;
 use AntChain\TWC\Models\QueryPayresultfileurlRequest;
 use AntChain\TWC\Models\QueryPayresultfileurlResponse;
+use AntChain\TWC\Models\QueryRefinanceOrderidRequest;
+use AntChain\TWC\Models\QueryRefinanceOrderidResponse;
+use AntChain\TWC\Models\QueryRefinanceOrderRequest;
+use AntChain\TWC\Models\QueryRefinanceOrderResponse;
+use AntChain\TWC\Models\QueryRefinanceProductRequest;
+use AntChain\TWC\Models\QueryRefinanceProductResponse;
 use AntChain\TWC\Models\QuerySueUserinfoRequest;
 use AntChain\TWC\Models\QuerySueUserinfoResponse;
 use AntChain\TWC\Models\QueryWithholdAgreementRequest;
@@ -435,6 +473,8 @@ use AntChain\TWC\Models\VerifyPrivatecompanyTwometaRequest;
 use AntChain\TWC\Models\VerifyPrivatecompanyTwometaResponse;
 use AntChain\TWC\Models\VerifyPrivatepersonTwometaRequest;
 use AntChain\TWC\Models\VerifyPrivatepersonTwometaResponse;
+use AntChain\TWC\Models\VerifyRefinancePackageRequest;
+use AntChain\TWC\Models\VerifyRefinancePackageResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -582,7 +622,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.19',
+                    'sdk_version'      => '1.7.31',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -3570,6 +3610,171 @@ class Client
     }
 
     /**
+     * Description: 内部接口，校验私有化合同服务实例权限状态，可能为开通/释放/恢复/停服等
+     * Summary: 校验私有化合同服务实例权限情况.
+     *
+     * @param CheckPrivatecontractProvisionRequest $request
+     *
+     * @return CheckPrivatecontractProvisionResponse
+     */
+    public function checkPrivatecontractProvision($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkPrivatecontractProvisionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 内部接口，校验私有化合同服务实例权限状态，可能为开通/释放/恢复/停服等
+     * Summary: 校验私有化合同服务实例权限情况.
+     *
+     * @param CheckPrivatecontractProvisionRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CheckPrivatecontractProvisionResponse
+     */
+    public function checkPrivatecontractProvisionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckPrivatecontractProvisionResponse::fromMap($this->doRequest('1.0', 'twc.notary.privatecontract.provision.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 私有化合同服务实例计量数据推送
+     * Summary: 私有化合同服务实例计量数据推送
+     *
+     * @param PushPrivatecontractGaugeRequest $request
+     *
+     * @return PushPrivatecontractGaugeResponse
+     */
+    public function pushPrivatecontractGauge($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushPrivatecontractGaugeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 私有化合同服务实例计量数据推送
+     * Summary: 私有化合同服务实例计量数据推送
+     *
+     * @param PushPrivatecontractGaugeRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return PushPrivatecontractGaugeResponse
+     */
+    public function pushPrivatecontractGaugeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushPrivatecontractGaugeResponse::fromMap($this->doRequest('1.0', 'twc.notary.privatecontract.gauge.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 法院代扣链路，扣款前需要进行账户预校验，验证此接口是否可以进行付款
+     * Summary: 法院代扣账户扣款预校验.
+     *
+     * @param CheckContractCourtdeductRequest $request
+     *
+     * @return CheckContractCourtdeductResponse
+     */
+    public function checkContractCourtdeduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkContractCourtdeductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 法院代扣链路，扣款前需要进行账户预校验，验证此接口是否可以进行付款
+     * Summary: 法院代扣账户扣款预校验.
+     *
+     * @param CheckContractCourtdeductRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return CheckContractCourtdeductResponse
+     */
+    public function checkContractCourtdeductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckContractCourtdeductResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.courtdeduct.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 法院代扣计划创建
+     * Summary: 法院代扣计划创建.
+     *
+     * @param CreateContractCourtdeductRequest $request
+     *
+     * @return CreateContractCourtdeductResponse
+     */
+    public function createContractCourtdeduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createContractCourtdeductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 法院代扣计划创建
+     * Summary: 法院代扣计划创建.
+     *
+     * @param CreateContractCourtdeductRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CreateContractCourtdeductResponse
+     */
+    public function createContractCourtdeductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateContractCourtdeductResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.courtdeduct.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 法院代扣执行扣款
+     * Summary: 法院代扣执行扣款.
+     *
+     * @param ExecContractCourtdeductRequest $request
+     *
+     * @return ExecContractCourtdeductResponse
+     */
+    public function execContractCourtdeduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execContractCourtdeductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 法院代扣执行扣款
+     * Summary: 法院代扣执行扣款.
+     *
+     * @param ExecContractCourtdeductRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ExecContractCourtdeductResponse
+     */
+    public function execContractCourtdeductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecContractCourtdeductResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.courtdeduct.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: baas-notary向notarycore同步生成的事务数据，仅做数据同步使用
      * Summary: 向notarycore同步事务数据.
      *
@@ -4560,6 +4765,72 @@ class Client
     }
 
     /**
+     * Description: 案件基础信息查询
+     * Summary: 案件基础信息查询.
+     *
+     * @param QueryJusticeBasecaseRequest $request
+     *
+     * @return QueryJusticeBasecaseResponse
+     */
+    public function queryJusticeBasecase($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryJusticeBasecaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 案件基础信息查询
+     * Summary: 案件基础信息查询.
+     *
+     * @param QueryJusticeBasecaseRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryJusticeBasecaseResponse
+     */
+    public function queryJusticeBasecaseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryJusticeBasecaseResponse::fromMap($this->doRequest('1.0', 'twc.notary.justice.basecase.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 案件材料下载
+     * Summary: 案件材料下载.
+     *
+     * @param DownloadJusticeCasefileRequest $request
+     *
+     * @return DownloadJusticeCasefileResponse
+     */
+    public function downloadJusticeCasefile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->downloadJusticeCasefileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 案件材料下载
+     * Summary: 案件材料下载.
+     *
+     * @param DownloadJusticeCasefileRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return DownloadJusticeCasefileResponse
+     */
+    public function downloadJusticeCasefileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DownloadJusticeCasefileResponse::fromMap($this->doRequest('1.0', 'twc.notary.justice.casefile.download', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 升级融资租赁合约
      * Summary: 升级融资租赁合约.
      *
@@ -4920,6 +5191,435 @@ class Client
         Utils::validateModel($request);
 
         return QueryLeaseFinancecertifyincontractResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.financecertifyincontract.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资租赁用户信息查询
+     * Summary: 融资租赁用户信息查询.
+     *
+     * @param QueryLeaseUserRequest $request
+     *
+     * @return QueryLeaseUserResponse
+     */
+    public function queryLeaseUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资租赁用户信息查询
+     * Summary: 融资租赁用户信息查询.
+     *
+     * @param QueryLeaseUserRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryLeaseUserResponse
+     */
+    public function queryLeaseUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseUserResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.user.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资租赁订单详情查询
+     * Summary: 融资租赁订单详情查询.
+     *
+     * @param QueryLeaseOrderdetailinfoRequest $request
+     *
+     * @return QueryLeaseOrderdetailinfoResponse
+     */
+    public function queryLeaseOrderdetailinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseOrderdetailinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资租赁订单详情查询
+     * Summary: 融资租赁订单详情查询.
+     *
+     * @param QueryLeaseOrderdetailinfoRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryLeaseOrderdetailinfoResponse
+     */
+    public function queryLeaseOrderdetailinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseOrderdetailinfoResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.orderdetailinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资租赁租赁机构承诺查询
+     * Summary: 融资租赁租赁机构承诺查询.
+     *
+     * @param QueryLeaseLeasepromiseRequest $request
+     *
+     * @return QueryLeaseLeasepromiseResponse
+     */
+    public function queryLeaseLeasepromise($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseLeasepromiseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资租赁租赁机构承诺查询
+     * Summary: 融资租赁租赁机构承诺查询.
+     *
+     * @param QueryLeaseLeasepromiseRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryLeaseLeasepromiseResponse
+     */
+    public function queryLeaseLeasepromiseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseLeasepromiseResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.leasepromise.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资租赁资方承诺查询
+     * Summary: 融资租赁资方承诺查询.
+     *
+     * @param QueryLeaseCreditpromiseRequest $request
+     *
+     * @return QueryLeaseCreditpromiseResponse
+     */
+    public function queryLeaseCreditpromise($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseCreditpromiseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资租赁资方承诺查询
+     * Summary: 融资租赁资方承诺查询.
+     *
+     * @param QueryLeaseCreditpromiseRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryLeaseCreditpromiseResponse
+     */
+    public function queryLeaseCreditpromiseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseCreditpromiseResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.creditpromise.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资租赁订单清分信息查询
+     * Summary: 融资租赁订单清分信息查询.
+     *
+     * @param QueryLeaseClearingRequest $request
+     *
+     * @return QueryLeaseClearingResponse
+     */
+    public function queryLeaseClearing($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseClearingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资租赁订单清分信息查询
+     * Summary: 融资租赁订单清分信息查询.
+     *
+     * @param QueryLeaseClearingRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryLeaseClearingResponse
+     */
+    public function queryLeaseClearingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseClearingResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.clearing.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资租赁用户侧还款信息
+     * Summary: 融资租赁用户侧还款信息.
+     *
+     * @param QueryLeaseRentalinfoRequest $request
+     *
+     * @return QueryLeaseRentalinfoResponse
+     */
+    public function queryLeaseRentalinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseRentalinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资租赁用户侧还款信息
+     * Summary: 融资租赁用户侧还款信息.
+     *
+     * @param QueryLeaseRentalinfoRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryLeaseRentalinfoResponse
+     */
+    public function queryLeaseRentalinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseRentalinfoResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.rentalinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资租赁资方还款信息查询
+     * Summary: 融资租赁资方还款信息查询.
+     *
+     * @param QueryLeaseRepaymentRequest $request
+     *
+     * @return QueryLeaseRepaymentResponse
+     */
+    public function queryLeaseRepayment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseRepaymentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资租赁资方还款信息查询
+     * Summary: 融资租赁资方还款信息查询.
+     *
+     * @param QueryLeaseRepaymentRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryLeaseRepaymentResponse
+     */
+    public function queryLeaseRepaymentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseRepaymentResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.repayment.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询订单商品信息
+     * Summary: 查询订单商品信息.
+     *
+     * @param QueryLeaseOrderproductRequest $request
+     *
+     * @return QueryLeaseOrderproductResponse
+     */
+    public function queryLeaseOrderproduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseOrderproductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询订单商品信息
+     * Summary: 查询订单商品信息.
+     *
+     * @param QueryLeaseOrderproductRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryLeaseOrderproductResponse
+     */
+    public function queryLeaseOrderproductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseOrderproductResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.orderproduct.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资租赁查询资金方信息
+     * Summary: 融资租赁查询资金方信息.
+     *
+     * @param QueryLeaseFinancecreditRequest $request
+     *
+     * @return QueryLeaseFinancecreditResponse
+     */
+    public function queryLeaseFinancecredit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseFinancecreditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资租赁查询资金方信息
+     * Summary: 融资租赁查询资金方信息.
+     *
+     * @param QueryLeaseFinancecreditRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryLeaseFinancecreditResponse
+     */
+    public function queryLeaseFinancecreditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseFinancecreditResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.financecredit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据资产包id分页查询再融资订单id
+     * Summary: 分页查询再融资订单id.
+     *
+     * @param QueryRefinanceOrderidRequest $request
+     *
+     * @return QueryRefinanceOrderidResponse
+     */
+    public function queryRefinanceOrderid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRefinanceOrderidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据资产包id分页查询再融资订单id
+     * Summary: 分页查询再融资订单id.
+     *
+     * @param QueryRefinanceOrderidRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryRefinanceOrderidResponse
+     */
+    public function queryRefinanceOrderidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRefinanceOrderidResponse::fromMap($this->doRequest('1.0', 'twc.notary.refinance.orderid.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资产明细查询
+     * Summary: 资产明细.
+     *
+     * @param QueryRefinanceOrderRequest $request
+     *
+     * @return QueryRefinanceOrderResponse
+     */
+    public function queryRefinanceOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRefinanceOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资产明细查询
+     * Summary: 资产明细.
+     *
+     * @param QueryRefinanceOrderRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryRefinanceOrderResponse
+     */
+    public function queryRefinanceOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRefinanceOrderResponse::fromMap($this->doRequest('1.0', 'twc.notary.refinance.order.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 再融资的商品信息查询
+     * Summary: 再融资的商品信息查询.
+     *
+     * @param QueryRefinanceProductRequest $request
+     *
+     * @return QueryRefinanceProductResponse
+     */
+    public function queryRefinanceProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRefinanceProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 再融资的商品信息查询
+     * Summary: 再融资的商品信息查询.
+     *
+     * @param QueryRefinanceProductRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryRefinanceProductResponse
+     */
+    public function queryRefinanceProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRefinanceProductResponse::fromMap($this->doRequest('1.0', 'twc.notary.refinance.product.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资产包的受让/驳回资产包
+     * Summary: 资产包的受让/驳回资产包.
+     *
+     * @param VerifyRefinancePackageRequest $request
+     *
+     * @return VerifyRefinancePackageResponse
+     */
+    public function verifyRefinancePackage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyRefinancePackageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资产包的受让/驳回资产包
+     * Summary: 资产包的受让/驳回资产包.
+     *
+     * @param VerifyRefinancePackageRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return VerifyRefinancePackageResponse
+     */
+    public function verifyRefinancePackageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyRefinancePackageResponse::fromMap($this->doRequest('1.0', 'twc.notary.refinance.package.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

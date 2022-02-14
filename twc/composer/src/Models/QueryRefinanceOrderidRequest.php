@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryFlowOnestepnotaryRequest extends Model
+class QueryRefinanceOrderidRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,27 +19,36 @@ class QueryFlowOnestepnotaryRequest extends Model
      */
     public $productInstanceId;
 
-    // 流程id，通过twc.notary.flow.onestepnotary.create接口获取
+    // 资产包id
     /**
      * @var string
      */
-    public $flowId;
+    public $packageId;
 
-    // 是否需要legal标，默认为false，如果需要则填true
+    // 从第0页开始
     /**
-     * @var bool
+     * @var int
      */
-    public $needLegalLogo;
+    public $page;
+
+    // 每次max最多查询的个数
+    /**
+     * @var int
+     */
+    public $pageSize;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'flowId'            => 'flow_id',
-        'needLegalLogo'     => 'need_legal_logo',
+        'packageId'         => 'package_id',
+        'page'              => 'page',
+        'pageSize'          => 'page_size',
     ];
 
     public function validate()
     {
-        Model::validateRequired('flowId', $this->flowId, true);
+        Model::validateRequired('packageId', $this->packageId, true);
+        Model::validateRequired('page', $this->page, true);
+        Model::validateRequired('pageSize', $this->pageSize, true);
     }
 
     public function toMap()
@@ -51,11 +60,14 @@ class QueryFlowOnestepnotaryRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->flowId) {
-            $res['flow_id'] = $this->flowId;
+        if (null !== $this->packageId) {
+            $res['package_id'] = $this->packageId;
         }
-        if (null !== $this->needLegalLogo) {
-            $res['need_legal_logo'] = $this->needLegalLogo;
+        if (null !== $this->page) {
+            $res['page'] = $this->page;
+        }
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
         }
 
         return $res;
@@ -64,7 +76,7 @@ class QueryFlowOnestepnotaryRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryFlowOnestepnotaryRequest
+     * @return QueryRefinanceOrderidRequest
      */
     public static function fromMap($map = [])
     {
@@ -75,11 +87,14 @@ class QueryFlowOnestepnotaryRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['flow_id'])) {
-            $model->flowId = $map['flow_id'];
+        if (isset($map['package_id'])) {
+            $model->packageId = $map['package_id'];
         }
-        if (isset($map['need_legal_logo'])) {
-            $model->needLegalLogo = $map['need_legal_logo'];
+        if (isset($map['page'])) {
+            $model->page = $map['page'];
+        }
+        if (isset($map['page_size'])) {
+            $model->pageSize = $map['page_size'];
         }
 
         return $model;

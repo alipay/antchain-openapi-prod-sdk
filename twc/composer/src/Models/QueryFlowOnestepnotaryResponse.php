@@ -37,12 +37,19 @@ class QueryFlowOnestepnotaryResponse extends Model
      * @var PhaseQueryResult[]
      */
     public $phaseQueryResultList;
+
+    // legal标URL，只有当入参needLegalLogo为true且响应status为FINISH时才会返回
+    /**
+     * @var string
+     */
+    public $legalLogoUrl;
     protected $_name = [
         'reqMsgId'             => 'req_msg_id',
         'resultCode'           => 'result_code',
         'resultMsg'            => 'result_msg',
         'status'               => 'status',
         'phaseQueryResultList' => 'phase_query_result_list',
+        'legalLogoUrl'         => 'legal_logo_url',
     ];
 
     public function validate()
@@ -72,6 +79,9 @@ class QueryFlowOnestepnotaryResponse extends Model
                     $res['phase_query_result_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->legalLogoUrl) {
+            $res['legal_logo_url'] = $this->legalLogoUrl;
         }
 
         return $res;
@@ -105,6 +115,9 @@ class QueryFlowOnestepnotaryResponse extends Model
                     $model->phaseQueryResultList[$n++] = null !== $item ? PhaseQueryResult::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['legal_logo_url'])) {
+            $model->legalLogoUrl = $map['legal_logo_url'];
         }
 
         return $model;

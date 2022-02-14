@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class FinishFlowInstanceResponse extends Model
+class PushPrivatecontractGaugeResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class FinishFlowInstanceResponse extends Model
      */
     public $resultMsg;
 
-    // legal标URL，只有当入参needLegalLogo为true且响应resultCode=200时才会返回
+    // 是否上报成功
     /**
-     * @var string
+     * @var bool
      */
-    public $legalLogoUrl;
+    public $success;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'legalLogoUrl' => 'legal_logo_url',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'success'    => 'success',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class FinishFlowInstanceResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->legalLogoUrl) {
-            $res['legal_logo_url'] = $this->legalLogoUrl;
+        if (null !== $this->success) {
+            $res['success'] = $this->success;
         }
 
         return $res;
@@ -64,7 +64,7 @@ class FinishFlowInstanceResponse extends Model
     /**
      * @param array $map
      *
-     * @return FinishFlowInstanceResponse
+     * @return PushPrivatecontractGaugeResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +78,8 @@ class FinishFlowInstanceResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['legal_logo_url'])) {
-            $model->legalLogoUrl = $map['legal_logo_url'];
+        if (isset($map['success'])) {
+            $model->success = $map['success'];
         }
 
         return $model;

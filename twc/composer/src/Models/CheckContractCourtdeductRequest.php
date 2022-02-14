@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryFlowOnestepnotaryRequest extends Model
+class CheckContractCourtdeductRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,27 +19,36 @@ class QueryFlowOnestepnotaryRequest extends Model
      */
     public $productInstanceId;
 
-    // 流程id，通过twc.notary.flow.onestepnotary.create接口获取
+    // 付款账户人姓名
     /**
      * @var string
      */
-    public $flowId;
+    public $payerName;
 
-    // 是否需要legal标，默认为false，如果需要则填true
+    // 付款人银行账户
     /**
-     * @var bool
+     * @var string
      */
-    public $needLegalLogo;
+    public $payerAccount;
+
+    // 银行类型：icbc(工行)
+    /**
+     * @var string
+     */
+    public $bankType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'flowId'            => 'flow_id',
-        'needLegalLogo'     => 'need_legal_logo',
+        'payerName'         => 'payer_name',
+        'payerAccount'      => 'payer_account',
+        'bankType'          => 'bank_type',
     ];
 
     public function validate()
     {
-        Model::validateRequired('flowId', $this->flowId, true);
+        Model::validateRequired('payerName', $this->payerName, true);
+        Model::validateRequired('payerAccount', $this->payerAccount, true);
+        Model::validateRequired('bankType', $this->bankType, true);
     }
 
     public function toMap()
@@ -51,11 +60,14 @@ class QueryFlowOnestepnotaryRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->flowId) {
-            $res['flow_id'] = $this->flowId;
+        if (null !== $this->payerName) {
+            $res['payer_name'] = $this->payerName;
         }
-        if (null !== $this->needLegalLogo) {
-            $res['need_legal_logo'] = $this->needLegalLogo;
+        if (null !== $this->payerAccount) {
+            $res['payer_account'] = $this->payerAccount;
+        }
+        if (null !== $this->bankType) {
+            $res['bank_type'] = $this->bankType;
         }
 
         return $res;
@@ -64,7 +76,7 @@ class QueryFlowOnestepnotaryRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryFlowOnestepnotaryRequest
+     * @return CheckContractCourtdeductRequest
      */
     public static function fromMap($map = [])
     {
@@ -75,11 +87,14 @@ class QueryFlowOnestepnotaryRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['flow_id'])) {
-            $model->flowId = $map['flow_id'];
+        if (isset($map['payer_name'])) {
+            $model->payerName = $map['payer_name'];
         }
-        if (isset($map['need_legal_logo'])) {
-            $model->needLegalLogo = $map['need_legal_logo'];
+        if (isset($map['payer_account'])) {
+            $model->payerAccount = $map['payer_account'];
+        }
+        if (isset($map['bank_type'])) {
+            $model->bankType = $map['bank_type'];
         }
 
         return $model;

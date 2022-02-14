@@ -24,10 +24,17 @@ class FinishFlowInstanceRequest extends Model
      * @var string
      */
     public $flowId;
+
+    // 是否需要legal标，默认为false，如果需要则填true
+    /**
+     * @var bool
+     */
+    public $needLegalLogo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'flowId'            => 'flow_id',
+        'needLegalLogo'     => 'need_legal_logo',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class FinishFlowInstanceRequest extends Model
         }
         if (null !== $this->flowId) {
             $res['flow_id'] = $this->flowId;
+        }
+        if (null !== $this->needLegalLogo) {
+            $res['need_legal_logo'] = $this->needLegalLogo;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class FinishFlowInstanceRequest extends Model
         }
         if (isset($map['flow_id'])) {
             $model->flowId = $map['flow_id'];
+        }
+        if (isset($map['need_legal_logo'])) {
+            $model->needLegalLogo = $map['need_legal_logo'];
         }
 
         return $model;

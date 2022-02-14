@@ -97,6 +97,12 @@ class CreateLeaseClearingRequest extends Model
      * @var string
      */
     public $memo;
+
+    // 融资租赁资金方id
+    /**
+     * @var string
+     */
+    public $creditId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -113,6 +119,7 @@ class CreateLeaseClearingRequest extends Model
         'startTime'         => 'start_time',
         'async'             => 'async',
         'memo'              => 'memo',
+        'creditId'          => 'credit_id',
     ];
 
     public function validate()
@@ -125,6 +132,7 @@ class CreateLeaseClearingRequest extends Model
         Model::validateRequired('orderId', $this->orderId, true);
         Model::validateRequired('returnIndex', $this->returnIndex, true);
         Model::validateRequired('startTime', $this->startTime, true);
+        Model::validateRequired('creditId', $this->creditId, true);
     }
 
     public function toMap()
@@ -174,6 +182,9 @@ class CreateLeaseClearingRequest extends Model
         }
         if (null !== $this->memo) {
             $res['memo'] = $this->memo;
+        }
+        if (null !== $this->creditId) {
+            $res['credit_id'] = $this->creditId;
         }
 
         return $res;
@@ -233,6 +244,9 @@ class CreateLeaseClearingRequest extends Model
         }
         if (isset($map['memo'])) {
             $model->memo = $map['memo'];
+        }
+        if (isset($map['credit_id'])) {
+            $model->creditId = $map['credit_id'];
         }
 
         return $model;

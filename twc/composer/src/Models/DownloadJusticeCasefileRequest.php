@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryFlowOnestepnotaryRequest extends Model
+class DownloadJusticeCasefileRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,27 +19,28 @@ class QueryFlowOnestepnotaryRequest extends Model
      */
     public $productInstanceId;
 
-    // 流程id，通过twc.notary.flow.onestepnotary.create接口获取
+    // 案件id
     /**
      * @var string
      */
-    public $flowId;
+    public $caseId;
 
-    // 是否需要legal标，默认为false，如果需要则填true
+    // 维权记录id
     /**
-     * @var bool
+     * @var string
      */
-    public $needLegalLogo;
+    public $recordId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'flowId'            => 'flow_id',
-        'needLegalLogo'     => 'need_legal_logo',
+        'caseId'            => 'case_id',
+        'recordId'          => 'record_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('flowId', $this->flowId, true);
+        Model::validateRequired('caseId', $this->caseId, true);
+        Model::validateRequired('recordId', $this->recordId, true);
     }
 
     public function toMap()
@@ -51,11 +52,11 @@ class QueryFlowOnestepnotaryRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->flowId) {
-            $res['flow_id'] = $this->flowId;
+        if (null !== $this->caseId) {
+            $res['case_id'] = $this->caseId;
         }
-        if (null !== $this->needLegalLogo) {
-            $res['need_legal_logo'] = $this->needLegalLogo;
+        if (null !== $this->recordId) {
+            $res['record_id'] = $this->recordId;
         }
 
         return $res;
@@ -64,7 +65,7 @@ class QueryFlowOnestepnotaryRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryFlowOnestepnotaryRequest
+     * @return DownloadJusticeCasefileRequest
      */
     public static function fromMap($map = [])
     {
@@ -75,11 +76,11 @@ class QueryFlowOnestepnotaryRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['flow_id'])) {
-            $model->flowId = $map['flow_id'];
+        if (isset($map['case_id'])) {
+            $model->caseId = $map['case_id'];
         }
-        if (isset($map['need_legal_logo'])) {
-            $model->needLegalLogo = $map['need_legal_logo'];
+        if (isset($map['record_id'])) {
+            $model->recordId = $map['record_id'];
         }
 
         return $model;
