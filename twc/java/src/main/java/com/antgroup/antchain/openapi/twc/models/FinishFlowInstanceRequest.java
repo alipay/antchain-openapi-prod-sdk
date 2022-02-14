@@ -16,6 +16,10 @@ public class FinishFlowInstanceRequest extends TeaModel {
     @Validation(required = true)
     public String flowId;
 
+    // 是否需要legal标，默认为false，如果需要则填true
+    @NameInMap("need_legal_logo")
+    public Boolean needLegalLogo;
+
     public static FinishFlowInstanceRequest build(java.util.Map<String, ?> map) throws Exception {
         FinishFlowInstanceRequest self = new FinishFlowInstanceRequest();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class FinishFlowInstanceRequest extends TeaModel {
     }
     public String getFlowId() {
         return this.flowId;
+    }
+
+    public FinishFlowInstanceRequest setNeedLegalLogo(Boolean needLegalLogo) {
+        this.needLegalLogo = needLegalLogo;
+        return this;
+    }
+    public Boolean getNeedLegalLogo() {
+        return this.needLegalLogo;
     }
 
 }

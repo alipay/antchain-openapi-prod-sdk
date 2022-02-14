@@ -72,6 +72,11 @@ public class CreateLeaseClearingRequest extends TeaModel {
     @NameInMap("memo")
     public String memo;
 
+    // 融资租赁资金方id
+    @NameInMap("credit_id")
+    @Validation(required = true)
+    public String creditId;
+
     public static CreateLeaseClearingRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateLeaseClearingRequest self = new CreateLeaseClearingRequest();
         return TeaModel.build(map, self);
@@ -195,6 +200,14 @@ public class CreateLeaseClearingRequest extends TeaModel {
     }
     public String getMemo() {
         return this.memo;
+    }
+
+    public CreateLeaseClearingRequest setCreditId(String creditId) {
+        this.creditId = creditId;
+        return this;
+    }
+    public String getCreditId() {
+        return this.creditId;
     }
 
 }

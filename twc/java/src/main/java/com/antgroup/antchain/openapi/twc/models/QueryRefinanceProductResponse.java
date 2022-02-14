@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class FinishFlowInstanceResponse extends TeaModel {
+public class QueryRefinanceProductResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class FinishFlowInstanceResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // legal标URL，只有当入参needLegalLogo为true且响应resultCode=200时才会返回
-    @NameInMap("legal_logo_url")
-    public String legalLogoUrl;
+    // 商品信息，json格式
+    @NameInMap("response_data")
+    public String responseData;
 
-    public static FinishFlowInstanceResponse build(java.util.Map<String, ?> map) throws Exception {
-        FinishFlowInstanceResponse self = new FinishFlowInstanceResponse();
+    public static QueryRefinanceProductResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryRefinanceProductResponse self = new QueryRefinanceProductResponse();
         return TeaModel.build(map, self);
     }
 
-    public FinishFlowInstanceResponse setReqMsgId(String reqMsgId) {
+    public QueryRefinanceProductResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class FinishFlowInstanceResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public FinishFlowInstanceResponse setResultCode(String resultCode) {
+    public QueryRefinanceProductResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class FinishFlowInstanceResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public FinishFlowInstanceResponse setResultMsg(String resultMsg) {
+    public QueryRefinanceProductResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class FinishFlowInstanceResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public FinishFlowInstanceResponse setLegalLogoUrl(String legalLogoUrl) {
-        this.legalLogoUrl = legalLogoUrl;
+    public QueryRefinanceProductResponse setResponseData(String responseData) {
+        this.responseData = responseData;
         return this;
     }
-    public String getLegalLogoUrl() {
-        return this.legalLogoUrl;
+    public String getResponseData() {
+        return this.responseData;
     }
 
 }

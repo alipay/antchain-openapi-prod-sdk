@@ -16,6 +16,10 @@ public class QueryFlowOnestepnotaryRequest extends TeaModel {
     @Validation(required = true)
     public String flowId;
 
+    // 是否需要legal标，默认为false，如果需要则填true
+    @NameInMap("need_legal_logo")
+    public Boolean needLegalLogo;
+
     public static QueryFlowOnestepnotaryRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryFlowOnestepnotaryRequest self = new QueryFlowOnestepnotaryRequest();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class QueryFlowOnestepnotaryRequest extends TeaModel {
     }
     public String getFlowId() {
         return this.flowId;
+    }
+
+    public QueryFlowOnestepnotaryRequest setNeedLegalLogo(Boolean needLegalLogo) {
+        this.needLegalLogo = needLegalLogo;
+        return this;
+    }
+    public Boolean getNeedLegalLogo() {
+        return this.needLegalLogo;
     }
 
 }

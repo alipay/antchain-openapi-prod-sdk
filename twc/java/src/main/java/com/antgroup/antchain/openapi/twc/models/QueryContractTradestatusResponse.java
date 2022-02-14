@@ -36,12 +36,14 @@ public class QueryContractTradestatusResponse extends TeaModel {
 
     // 扣款状态
     // PAY_TOBE_TRIGGER 初始未扣款
-    // TRADE_IN_PROGRESS 扣款中
+    // PAY_TRIGGERING 准备扣款状态
+    // WAIT_BUYER_PAY 扣款中状态
+    // PAY_SYNC_TRADE_SUCCESS 扣款中状态
     // TRADE_REFUNDED 已发生退款
-    // TRADE_END 交易终止（未成功）
+    // TRADE_CLOSED 交易终止（未成功）
     // TRADE_SUCCESS 扣款成功
-    // TRADE_FAIL 扣款失败
-    // TRADE_FINISHED 交易终止（扣款成功，并且距离首次扣款超过180天）
+    // PAY_FAIL 扣款失败
+    // TRADE_FINISHED 交易终止（扣款成功）
     // TRADE_CANCEL 代扣取消
     @NameInMap("status")
     public String status;

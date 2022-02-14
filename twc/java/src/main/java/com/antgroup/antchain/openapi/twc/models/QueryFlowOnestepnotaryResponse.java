@@ -24,6 +24,10 @@ public class QueryFlowOnestepnotaryResponse extends TeaModel {
     @NameInMap("phase_query_result_list")
     public java.util.List<PhaseQueryResult> phaseQueryResultList;
 
+    // legal标URL，只有当入参needLegalLogo为true且响应status为FINISH时才会返回
+    @NameInMap("legal_logo_url")
+    public String legalLogoUrl;
+
     public static QueryFlowOnestepnotaryResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryFlowOnestepnotaryResponse self = new QueryFlowOnestepnotaryResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class QueryFlowOnestepnotaryResponse extends TeaModel {
     }
     public java.util.List<PhaseQueryResult> getPhaseQueryResultList() {
         return this.phaseQueryResultList;
+    }
+
+    public QueryFlowOnestepnotaryResponse setLegalLogoUrl(String legalLogoUrl) {
+        this.legalLogoUrl = legalLogoUrl;
+        return this;
+    }
+    public String getLegalLogoUrl() {
+        return this.legalLogoUrl;
     }
 
 }
