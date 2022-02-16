@@ -32092,7 +32092,6 @@ class CreateLeaseClearingRequest(TeaModel):
         self.validate_required(self.order_id, 'order_id')
         self.validate_required(self.return_index, 'return_index')
         self.validate_required(self.start_time, 'start_time')
-        self.validate_required(self.credit_id, 'credit_id')
 
     def to_map(self):
         result = dict()
