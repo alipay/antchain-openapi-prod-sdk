@@ -132,7 +132,6 @@ class CreateLeaseClearingRequest extends Model
         Model::validateRequired('orderId', $this->orderId, true);
         Model::validateRequired('returnIndex', $this->returnIndex, true);
         Model::validateRequired('startTime', $this->startTime, true);
-        Model::validateRequired('creditId', $this->creditId, true);
     }
 
     public function toMap()
