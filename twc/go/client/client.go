@@ -27910,7 +27910,7 @@ type CreateLeaseClearingRequest struct {
 	// 清分资金的来源，比如用户xx元，商家yy元
 	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
 	// 融资租赁资金方id
-	CreditId *string `json:"credit_id,omitempty" xml:"credit_id,omitempty" require:"true"`
+	CreditId *string `json:"credit_id,omitempty" xml:"credit_id,omitempty"`
 }
 
 func (s CreateLeaseClearingRequest) String() string {
@@ -32921,7 +32921,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.31"),
+				"sdk_version":      tea.String("1.7.32"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
