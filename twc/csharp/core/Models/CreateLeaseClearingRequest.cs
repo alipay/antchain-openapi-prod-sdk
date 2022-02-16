@@ -86,7 +86,7 @@ namespace AntChain.SDK.TWC.Models
 
         // 融资租赁资金方id
         [NameInMap("credit_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CreditId { get; set; }
 
     }
