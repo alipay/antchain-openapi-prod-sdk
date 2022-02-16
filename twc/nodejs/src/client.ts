@@ -20573,7 +20573,7 @@ export class CreateLeaseClearingRequest extends $tea.Model {
   // 清分资金的来源，比如用户xx元，商家yy元
   memo?: string;
   // 融资租赁资金方id
-  creditId: string;
+  creditId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -24308,7 +24308,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.31",
+          sdk_version: "1.7.32",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
