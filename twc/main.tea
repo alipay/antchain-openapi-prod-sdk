@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.31',
+    sdk_version = '1.7.32',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -11694,7 +11694,7 @@ model CreateLeaseClearingRequest = {
   // 清分资金的来源，比如用户xx元，商家yy元
   memo?: string(name='memo'),
   // 融资租赁资金方id
-  creditId: string(name='credit_id'),
+  creditId?: string(name='credit_id'),
 }
 
 model CreateLeaseClearingResponse = {
