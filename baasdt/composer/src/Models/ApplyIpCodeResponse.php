@@ -26,19 +26,19 @@ class ApplyIpCodeResponse extends Model
      */
     public $resultMsg;
 
-    // 正版码的批次ID
+    // 数字凭证的批次ID
     /**
      * @var string
      */
     public $codeBatchId;
 
-    // 正版码左区间
+    // 数字凭证左区间
     /**
      * @var int
      */
     public $codeBatchStart;
 
-    // 正版码右区间
+    // 数字凭证右区间
     /**
      * @var int
      */

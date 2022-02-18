@@ -26,7 +26,7 @@ class PullIpCodeResponse extends Model
      */
     public $resultMsg;
 
-    // 正版码列表(小程序扫描可跳转)
+    // 数字凭证列表(小程序扫描可跳转)
     /**
      * @var string[]
      */
@@ -80,7 +80,7 @@ class PullIpCodeResponse extends Model
      */
     public $ipDesc;
 
-    // 该批次正版码的过期时间戳(毫秒)
+    // 该批次数字凭证的过期时间戳(毫秒)
     /**
      * @var int
      */

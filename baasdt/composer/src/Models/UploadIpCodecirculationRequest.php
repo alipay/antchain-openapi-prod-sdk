@@ -25,14 +25,13 @@ class UploadIpCodecirculationRequest extends Model
      */
     public $baseRequest;
 
-    //
-    // 正版码的编码
+    // 数字凭证的编码
     /**
      * @var string
      */
     public $code;
 
-    // 正版码流转信息，每次最多10条信息。
+    // 数字凭证流转信息，每次最多10条信息。
     /**
      * @var CodeCirculation[]
      */

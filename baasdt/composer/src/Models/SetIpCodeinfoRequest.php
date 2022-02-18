@@ -25,7 +25,7 @@ class SetIpCodeinfoRequest extends Model
      */
     public $baseRequest;
 
-    // 正版码对应的订单上版权方的账户链上ID
+    // 数字凭证对应的订单上版权方的账户链上ID
     /**
      * @var string
      */
@@ -37,13 +37,13 @@ class SetIpCodeinfoRequest extends Model
      */
     public $orderId;
 
-    // 正版码商品信息配置列表
+    // 数字凭证商品信息配置列表
     /**
      * @var IPCodeGoodsInfo[]
      */
     public $goodsInfoList;
 
-    // 正版码资源位配置信息列表
+    // 数字凭证资源位配置信息列表
     /**
      * @var IPCodeAdvertisingInfo[]
      */
@@ -55,19 +55,19 @@ class SetIpCodeinfoRequest extends Model
      */
     public $ipownerInfo;
 
-    // (商家)配置正版码时间
+    // (商家)配置数字凭证时间
     /**
      * @var string
      */
     public $codeSetTime;
 
-    // 正版码配置附加信息，信息内容由调用方自定义。可以从配置查询和正版码详情接口上获取。
+    // 数字凭证配置附加信息，信息内容由调用方自定义。可以从配置查询和数字凭证详情接口上获取。
     /**
      * @var string
      */
     public $extInfo;
 
-    // 正版码前缀，本期暂不支持
+    // 数字凭证前缀，本期暂不支持
     /**
      * @var string
      */

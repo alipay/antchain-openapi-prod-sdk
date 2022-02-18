@@ -25,7 +25,7 @@ class QueryIpCodecollectRequest extends Model
      */
     public $baseRequest;
 
-    // 正版码ID
+    // 数字凭证ID
     /**
      * @var string
      */

@@ -38,13 +38,13 @@ class PagequeryIpCodeinfoResponse extends Model
      */
     public $pageSize;
 
-    // 领取到的正版码总数
+    // 领取到的数字凭证总数
     /**
      * @var int
      */
     public $codeCount;
 
-    // 正版码列表信息
+    // 数字凭证列表信息
     /**
      * @var IPCodeScannedInfo[]
      */

@@ -37,12 +37,19 @@ class QueryIpGoodsgalleryResponse extends Model
      * @var string
      */
     public $ipGalleryTemporaryUrl;
+
+    // 是否允许商家下载图库
+    /**
+     * @var bool
+     */
+    public $allowDownload;
     protected $_name = [
         'reqMsgId'              => 'req_msg_id',
         'resultCode'            => 'result_code',
         'resultMsg'             => 'result_msg',
         'ipGalleryUrl'          => 'ip_gallery_url',
         'ipGalleryTemporaryUrl' => 'ip_gallery_temporary_url',
+        'allowDownload'         => 'allow_download',
     ];
 
     public function validate()
@@ -66,6 +73,9 @@ class QueryIpGoodsgalleryResponse extends Model
         }
         if (null !== $this->ipGalleryTemporaryUrl) {
             $res['ip_gallery_temporary_url'] = $this->ipGalleryTemporaryUrl;
+        }
+        if (null !== $this->allowDownload) {
+            $res['allow_download'] = $this->allowDownload;
         }
 
         return $res;
@@ -93,6 +103,9 @@ class QueryIpGoodsgalleryResponse extends Model
         }
         if (isset($map['ip_gallery_temporary_url'])) {
             $model->ipGalleryTemporaryUrl = $map['ip_gallery_temporary_url'];
+        }
+        if (isset($map['allow_download'])) {
+            $model->allowDownload = $map['allow_download'];
         }
 
         return $model;

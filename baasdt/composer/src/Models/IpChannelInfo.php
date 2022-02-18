@@ -71,15 +71,24 @@ class IpChannelInfo extends Model
      * @var IPTradeMode
      */
     public $ipTradeMode;
+
+    // 授权行业
+    /**
+     * @example ["服装","食品"]
+     *
+     * @var string[]
+     */
+    public $authorizationIndustry;
     protected $_name = [
-        'channelName'       => 'channel_name',
-        'authorizationMode' => 'authorization_mode',
-        'payMode'           => 'pay_mode',
-        'ipLevel'           => 'ip_level',
-        'status'            => 'status',
-        'tradeNeedConfirm'  => 'trade_need_confirm',
-        'guaranteeRange'    => 'guarantee_range',
-        'ipTradeMode'       => 'ip_trade_mode',
+        'channelName'           => 'channel_name',
+        'authorizationMode'     => 'authorization_mode',
+        'payMode'               => 'pay_mode',
+        'ipLevel'               => 'ip_level',
+        'status'                => 'status',
+        'tradeNeedConfirm'      => 'trade_need_confirm',
+        'guaranteeRange'        => 'guarantee_range',
+        'ipTradeMode'           => 'ip_trade_mode',
+        'authorizationIndustry' => 'authorization_industry',
     ];
 
     public function validate()
@@ -118,6 +127,9 @@ class IpChannelInfo extends Model
         if (null !== $this->ipTradeMode) {
             $res['ip_trade_mode'] = null !== $this->ipTradeMode ? $this->ipTradeMode->toMap() : null;
         }
+        if (null !== $this->authorizationIndustry) {
+            $res['authorization_industry'] = $this->authorizationIndustry;
+        }
 
         return $res;
     }
@@ -153,6 +165,11 @@ class IpChannelInfo extends Model
         }
         if (isset($map['ip_trade_mode'])) {
             $model->ipTradeMode = IPTradeMode::fromMap($map['ip_trade_mode']);
+        }
+        if (isset($map['authorization_industry'])) {
+            if (!empty($map['authorization_industry'])) {
+                $model->authorizationIndustry = $map['authorization_industry'];
+            }
         }
 
         return $model;

@@ -38,13 +38,13 @@ class QueryIpCodeinfoResponse extends Model
      */
     public $features;
 
-    // 正版码商品信息配置列表
+    // 数字凭证商品信息配置列表
     /**
      * @var IPCodeGoodsInfo[]
      */
     public $goodsInfoList;
 
-    // 正版码资源位配置信息列表
+    // 数字凭证资源位配置信息列表
     /**
      * @var IPCodeAdvertisingInfo[]
      */
@@ -62,14 +62,14 @@ class QueryIpCodeinfoResponse extends Model
      */
     public $ipCodeStatus;
 
-    // 正版码前缀
+    // 数字凭证前缀
     //
     /**
      * @var string
      */
     public $showCodePrefix;
 
-    // 正版码配置附加信息，信息内容由调用方自定义。
+    // 数字凭证配置附加信息，信息内容由调用方自定义。
     /**
      * @var string
      */

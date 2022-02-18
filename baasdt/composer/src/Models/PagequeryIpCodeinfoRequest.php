@@ -43,7 +43,7 @@ class PagequeryIpCodeinfoRequest extends Model
      */
     public $pageSize;
 
-    // 0 扫描过的正版码，1 领取过的正版码
+    // 0 扫描过的数字凭证，1 领取过的数字凭证
     /**
      * @var int
      */

@@ -25,7 +25,7 @@ class PagequeryIpCodeRequest extends Model
      */
     public $baseRequest;
 
-    // 正版码批次编码
+    // 数字凭证批次编码
     /**
      * @var string
      */

@@ -97,6 +97,14 @@ class IpChannelWithSku extends Model
      * @var IPTradeMode
      */
     public $ipTradeMode;
+
+    // 授权行业
+    /**
+     * @example ["服装","食品"]
+     *
+     * @var string[]
+     */
+    public $authorizationIndustry;
     protected $_name = [
         'channelName'           => 'channel_name',
         'authorizationMode'     => 'authorization_mode',
@@ -109,6 +117,7 @@ class IpChannelWithSku extends Model
         'authorizationType'     => 'authorization_type',
         'guaranteeRange'        => 'guarantee_range',
         'ipTradeMode'           => 'ip_trade_mode',
+        'authorizationIndustry' => 'authorization_industry',
     ];
 
     public function validate()
@@ -162,6 +171,9 @@ class IpChannelWithSku extends Model
         }
         if (null !== $this->ipTradeMode) {
             $res['ip_trade_mode'] = null !== $this->ipTradeMode ? $this->ipTradeMode->toMap() : null;
+        }
+        if (null !== $this->authorizationIndustry) {
+            $res['authorization_industry'] = $this->authorizationIndustry;
         }
 
         return $res;
@@ -217,6 +229,11 @@ class IpChannelWithSku extends Model
         }
         if (isset($map['ip_trade_mode'])) {
             $model->ipTradeMode = IPTradeMode::fromMap($map['ip_trade_mode']);
+        }
+        if (isset($map['authorization_industry'])) {
+            if (!empty($map['authorization_industry'])) {
+                $model->authorizationIndustry = $map['authorization_industry'];
+            }
         }
 
         return $model;

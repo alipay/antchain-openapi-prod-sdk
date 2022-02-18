@@ -400,6 +400,14 @@ class IPOrder extends Model
      * @var IPOrderApplyInfo
      */
     public $applyInfo;
+
+    // 是否允许商家下载图库
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $allowDownload;
     protected $_name = [
         'ipOrderId'                 => 'ip_order_id',
         'sellerId'                  => 'seller_id',
@@ -450,6 +458,7 @@ class IPOrder extends Model
         'goodsIdList'               => 'goods_id_list',
         'features'                  => 'features',
         'applyInfo'                 => 'apply_info',
+        'allowDownload'             => 'allow_download',
     ];
 
     public function validate()
@@ -650,6 +659,9 @@ class IPOrder extends Model
         if (null !== $this->applyInfo) {
             $res['apply_info'] = null !== $this->applyInfo ? $this->applyInfo->toMap() : null;
         }
+        if (null !== $this->allowDownload) {
+            $res['allow_download'] = $this->allowDownload;
+        }
 
         return $res;
     }
@@ -822,6 +834,9 @@ class IPOrder extends Model
         }
         if (isset($map['apply_info'])) {
             $model->applyInfo = IPOrderApplyInfo::fromMap($map['apply_info']);
+        }
+        if (isset($map['allow_download'])) {
+            $model->allowDownload = $map['allow_download'];
         }
 
         return $model;

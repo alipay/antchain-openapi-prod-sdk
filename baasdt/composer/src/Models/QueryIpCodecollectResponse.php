@@ -26,19 +26,19 @@ class QueryIpCodecollectResponse extends Model
      */
     public $resultMsg;
 
-    // 正版码商品信息配置列表,包含产品名和出品方
+    // 数字凭证商品信息配置列表,包含产品名和出品方
     /**
      * @var IPCodeGoodsInfo[]
      */
     public $goodsInfoList;
 
-    // 正版码流转信息
+    // 数字凭证流转信息
     /**
      * @var IPCodeFlowInfo[]
      */
     public $codeFlowList;
 
-    // 正版码生命周期
+    // 数字凭证生命周期
     /**
      * @var IPCodeConfigTimeInfo
      */

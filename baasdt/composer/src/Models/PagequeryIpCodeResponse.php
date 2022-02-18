@@ -26,7 +26,7 @@ class PagequeryIpCodeResponse extends Model
      */
     public $resultMsg;
 
-    // 正版码列表(小程序扫描不可跳转的码)
+    // 数字凭证列表(小程序扫描不可跳转的码)
     // 注意: 这个接口查到的码为原始编码, 小程序扫描无法跳转, IPMart不适用!!!
     /**
      * @var string[]
@@ -81,7 +81,7 @@ class PagequeryIpCodeResponse extends Model
      */
     public $ipDesc;
 
-    // 该批次正版码的过期时间戳(毫秒)
+    // 该批次数字凭证的过期时间戳(毫秒)
     /**
      * @var int
      */

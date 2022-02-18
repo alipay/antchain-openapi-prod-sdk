@@ -42,6 +42,12 @@ class UpdateIpGoodsgalleryRequest extends Model
      * @var string
      */
     public $ipGalleryUrl;
+
+    // 是否允许商家下载图库
+    /**
+     * @var bool
+     */
+    public $allowDownload;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class UpdateIpGoodsgalleryRequest extends Model
         'accountId'         => 'account_id',
         'ipId'              => 'ip_id',
         'ipGalleryUrl'      => 'ip_gallery_url',
+        'allowDownload'     => 'allow_download',
     ];
 
     public function validate()
@@ -80,6 +87,9 @@ class UpdateIpGoodsgalleryRequest extends Model
         if (null !== $this->ipGalleryUrl) {
             $res['ip_gallery_url'] = $this->ipGalleryUrl;
         }
+        if (null !== $this->allowDownload) {
+            $res['allow_download'] = $this->allowDownload;
+        }
 
         return $res;
     }
@@ -109,6 +119,9 @@ class UpdateIpGoodsgalleryRequest extends Model
         }
         if (isset($map['ip_gallery_url'])) {
             $model->ipGalleryUrl = $map['ip_gallery_url'];
+        }
+        if (isset($map['allow_download'])) {
+            $model->allowDownload = $map['allow_download'];
         }
 
         return $model;

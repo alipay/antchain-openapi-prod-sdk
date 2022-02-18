@@ -738,7 +738,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.56',
+                    'sdk_version'      => '1.3.58',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -7287,8 +7287,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-正版码申请
-     * Summary: 数字商品服务-IP授权服务-正版码申请.
+     * Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+     * Summary: 数字商品服务-IP授权服务-数字凭证申请.
      *
      * @param ApplyIpCodeRequest $request
      *
@@ -7303,8 +7303,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-正版码申请
-     * Summary: 数字商品服务-IP授权服务-正版码申请.
+     * Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+     * Summary: 数字商品服务-IP授权服务-数字凭证申请.
      *
      * @param ApplyIpCodeRequest $request
      * @param string[]           $headers
@@ -7320,9 +7320,9 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+     * Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
      * 注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
-     * Summary: 数字商品服务-IP授权服务-正版码查询.
+     * Summary: 数字商品服务-IP授权服务-数字凭证查询.
      *
      * @param PagequeryIpCodeRequest $request
      *
@@ -7337,9 +7337,9 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+     * Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
      * 注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
-     * Summary: 数字商品服务-IP授权服务-正版码查询.
+     * Summary: 数字商品服务-IP授权服务-数字凭证查询.
      *
      * @param PagequeryIpCodeRequest $request
      * @param string[]               $headers
@@ -7355,8 +7355,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-正版码校验
-     * Summary: 数字商品服务-IP授权服务-正版码校验.
+     * Description: 数字商品服务-IP授权服务-数字凭证校验
+     * Summary: 数字商品服务-IP授权服务-数字凭证校验.
      *
      * @param CheckIpCodeRequest $request
      *
@@ -7371,8 +7371,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-正版码校验
-     * Summary: 数字商品服务-IP授权服务-正版码校验.
+     * Description: 数字商品服务-IP授权服务-数字凭证校验
+     * Summary: 数字商品服务-IP授权服务-数字凭证校验.
      *
      * @param CheckIpCodeRequest $request
      * @param string[]           $headers
@@ -7751,8 +7751,8 @@ class Client
     }
 
     /**
-     * Description: 领取正版码，如已被领取则返回被领取人昵称信息
-     * Summary: 数字商品服务-IP授权服务-正版码领取.
+     * Description: 领取数字凭证，如已被领取则返回被领取人昵称信息
+     * Summary: 数字商品服务-IP授权服务-数字凭证领取.
      *
      * @param ReceiveIpCodeRequest $request
      *
@@ -7767,8 +7767,8 @@ class Client
     }
 
     /**
-     * Description: 领取正版码，如已被领取则返回被领取人昵称信息
-     * Summary: 数字商品服务-IP授权服务-正版码领取.
+     * Description: 领取数字凭证，如已被领取则返回被领取人昵称信息
+     * Summary: 数字商品服务-IP授权服务-数字凭证领取.
      *
      * @param ReceiveIpCodeRequest $request
      * @param string[]             $headers
@@ -7784,8 +7784,8 @@ class Client
     }
 
     /**
-     * Description: 已领取或以扫描过的正版码列表，分页查询
-     * Summary: 数字商品服务-IP授权服务-正版码列表.
+     * Description: 已领取或以扫描过的数字凭证列表，分页查询
+     * Summary: 数字商品服务-IP授权服务-数字凭证列表.
      *
      * @param PagequeryIpCodeinfoRequest $request
      *
@@ -7800,8 +7800,8 @@ class Client
     }
 
     /**
-     * Description: 已领取或以扫描过的正版码列表，分页查询
-     * Summary: 数字商品服务-IP授权服务-正版码列表.
+     * Description: 已领取或以扫描过的数字凭证列表，分页查询
+     * Summary: 数字商品服务-IP授权服务-数字凭证列表.
      *
      * @param PagequeryIpCodeinfoRequest $request
      * @param string[]                   $headers
@@ -8180,8 +8180,8 @@ class Client
     }
 
     /**
-     * Description: 查询正版码详细信息
-     * Summary: 数字商品服务-IP授权服务-查正版码详情.
+     * Description: 查询数字凭证详细信息
+     * Summary: 数字商品服务-IP授权服务-数字凭证详情.
      *
      * @param QueryIpCodeRequest $request
      *
@@ -8196,8 +8196,8 @@ class Client
     }
 
     /**
-     * Description: 查询正版码详细信息
-     * Summary: 数字商品服务-IP授权服务-查正版码详情.
+     * Description: 查询数字凭证详细信息
+     * Summary: 数字商品服务-IP授权服务-数字凭证详情.
      *
      * @param QueryIpCodeRequest $request
      * @param string[]           $headers
@@ -8345,8 +8345,8 @@ class Client
     }
 
     /**
-     * Description: 配置正版码的商品信息和资源位信息
-     * Summary: 数字商品服务-IP授权服务-正版码配置.
+     * Description: 配置数字凭证的商品信息和资源位信息
+     * Summary: 数字商品服务-IP授权服务-数字凭证配置.
      *
      * @param SetIpCodeinfoRequest $request
      *
@@ -8361,8 +8361,8 @@ class Client
     }
 
     /**
-     * Description: 配置正版码的商品信息和资源位信息
-     * Summary: 数字商品服务-IP授权服务-正版码配置.
+     * Description: 配置数字凭证的商品信息和资源位信息
+     * Summary: 数字商品服务-IP授权服务-数字凭证配置.
      *
      * @param SetIpCodeinfoRequest $request
      * @param string[]             $headers
@@ -8576,8 +8576,8 @@ class Client
     }
 
     /**
-     * Description: 查询正版码的配置信息
-     * Summary: 数字商品服务-IP授权服务-查正版码配置.
+     * Description: 查询数字凭证的配置信息
+     * Summary: 数字商品服务-IP授权服务-数字凭证配置.
      *
      * @param QueryIpCodeinfoRequest $request
      *
@@ -8592,8 +8592,8 @@ class Client
     }
 
     /**
-     * Description: 查询正版码的配置信息
-     * Summary: 数字商品服务-IP授权服务-查正版码配置.
+     * Description: 查询数字凭证的配置信息
+     * Summary: 数字商品服务-IP授权服务-数字凭证配置.
      *
      * @param QueryIpCodeinfoRequest $request
      * @param string[]               $headers
@@ -9038,8 +9038,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
-     * Summary: 数字商品服务-IP授权服务-天猫查正版码
+     * Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+     * Summary: 数字商品服务-IP授权服务-查数字凭证
      *
      * @param PullIpCodeRequest $request
      *
@@ -9054,8 +9054,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
-     * Summary: 数字商品服务-IP授权服务-天猫查正版码
+     * Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+     * Summary: 数字商品服务-IP授权服务-查数字凭证
      *
      * @param PullIpCodeRequest $request
      * @param string[]          $headers
@@ -9236,8 +9236,8 @@ class Client
     }
 
     /**
-     * Description: 查询正版码收藏证书详情，主要包括该正版码对应的ip商品，流转信息，区块信息等
-     * Summary: 查询正版码收藏证书详情.
+     * Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
+     * Summary: 数字商品服务-IP授权服务-查收藏证书.
      *
      * @param QueryIpCodecollectRequest $request
      *
@@ -9252,8 +9252,8 @@ class Client
     }
 
     /**
-     * Description: 查询正版码收藏证书详情，主要包括该正版码对应的ip商品，流转信息，区块信息等
-     * Summary: 查询正版码收藏证书详情.
+     * Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
+     * Summary: 数字商品服务-IP授权服务-查收藏证书.
      *
      * @param QueryIpCodecollectRequest $request
      * @param string[]                  $headers
@@ -9632,7 +9632,7 @@ class Client
     }
 
     /**
-     * Description: 上传正版码的流转信息
+     * Description: 上传数字凭证的流转信息
      * Summary: 数字商品服务-IP授权服务-上传流转信息.
      *
      * @param UploadIpCodecirculationRequest $request
@@ -9648,7 +9648,7 @@ class Client
     }
 
     /**
-     * Description: 上传正版码的流转信息
+     * Description: 上传数字凭证的流转信息
      * Summary: 数字商品服务-IP授权服务-上传流转信息.
      *
      * @param UploadIpCodecirculationRequest $request
@@ -9665,7 +9665,7 @@ class Client
     }
 
     /**
-     * Description: 分页查询正版码的流转信息
+     * Description: 分页查询数字凭证的流转信息
      * Summary: 数字商品服务-IP授权服务-查询流转信息.
      *
      * @param PagequeryIpCodecirculationRequest $request
@@ -9681,7 +9681,7 @@ class Client
     }
 
     /**
-     * Description: 分页查询正版码的流转信息
+     * Description: 分页查询数字凭证的流转信息
      * Summary: 数字商品服务-IP授权服务-查询流转信息.
      *
      * @param PagequeryIpCodecirculationRequest $request

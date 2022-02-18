@@ -25,7 +25,7 @@ class CheckIpCodeRequest extends Model
      */
     public $baseRequest;
 
-    // 正版码的编码
+    // 数字凭证的编码
     /**
      * @var string
      */

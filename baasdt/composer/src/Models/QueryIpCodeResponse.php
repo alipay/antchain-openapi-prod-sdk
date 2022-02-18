@@ -26,7 +26,7 @@ class QueryIpCodeResponse extends Model
      */
     public $resultMsg;
 
-    // 正版码信息
+    // 数字凭证信息
     /**
      * @var IPCodeScannedInfo
      */

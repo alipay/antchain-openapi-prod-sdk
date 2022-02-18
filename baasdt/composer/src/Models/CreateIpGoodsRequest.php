@@ -164,6 +164,12 @@ class CreateIpGoodsRequest extends Model
      * @var IPAuthorizationInfo
      */
     public $authorizationInfo;
+
+    // 是否允许商家下载图库
+    /**
+     * @var bool
+     */
+    public $allowDownload;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
@@ -190,6 +196,7 @@ class CreateIpGoodsRequest extends Model
         'copyRightEndTime'   => 'copy_right_end_time',
         'ipGalleryUrl'       => 'ip_gallery_url',
         'authorizationInfo'  => 'authorization_info',
+        'allowDownload'      => 'allow_download',
     ];
 
     public function validate()
@@ -291,6 +298,9 @@ class CreateIpGoodsRequest extends Model
         if (null !== $this->authorizationInfo) {
             $res['authorization_info'] = null !== $this->authorizationInfo ? $this->authorizationInfo->toMap() : null;
         }
+        if (null !== $this->allowDownload) {
+            $res['allow_download'] = $this->allowDownload;
+        }
 
         return $res;
     }
@@ -383,6 +393,9 @@ class CreateIpGoodsRequest extends Model
         }
         if (isset($map['authorization_info'])) {
             $model->authorizationInfo = IPAuthorizationInfo::fromMap($map['authorization_info']);
+        }
+        if (isset($map['allow_download'])) {
+            $model->allowDownload = $map['allow_download'];
         }
 
         return $model;
