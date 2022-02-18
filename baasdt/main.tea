@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.56',
+    sdk_version = '1.3.58',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -823,6 +823,8 @@ model IpChannelWithSku {
   guaranteeRange?: long(name='guarantee_range', example=''),
   // 交易模式
   ipTradeMode?: IPTradeMode(name='ip_trade_mode', example=''),
+  // 授权行业
+  authorizationIndustry?: [ string ](name='authorization_industry', example='["服装","食品"]'),
 }
 
 // 卡密信息
@@ -2159,6 +2161,8 @@ model IPOrder {
   features?: [ long ](name='features', example=''),
   // 申请授权合作的备注信息
   applyInfo?: IPOrderApplyInfo(name='apply_info', example=''),
+  // 是否允许商家下载图库
+  allowDownload?: boolean(name='allow_download', example='true, false'),
 }
 
 // 商品授权信息（一客一价信息）
@@ -2197,6 +2201,8 @@ model IpChannelInfo {
   guaranteeRange?: long(name='guarantee_range', example=''),
   // 交易模式
   ipTradeMode?: IPTradeMode(name='ip_trade_mode', example=''),
+  // 授权行业
+  authorizationIndustry?: [ string ](name='authorization_industry', example='["服装","食品"]'),
 }
 
 // 正版码流转信息
@@ -10379,6 +10385,8 @@ model CreateIpGoodsRequest = {
   ipGalleryUrl?: string(name='ip_gallery_url'),
   // IP授权信息
   authorizationInfo?: IPAuthorizationInfo(name='authorization_info'),
+  // 是否允许商家下载图库
+  allowDownload?: boolean(name='allow_download'),
 }
 
 model CreateIpGoodsResponse = {
@@ -10437,6 +10445,8 @@ model AddIpChannelRequest = {
   guaranteeRange?: long(name='guarantee_range'),
   // 交易模式
   ipTradeMode?: IPTradeMode(name='ip_trade_mode'),
+  // 授权行业
+  authorizationIndustry?: [ string ](name='authorization_industry'),
 }
 
 model AddIpChannelResponse = {
@@ -10781,6 +10791,8 @@ model UpdateIpChannelRequest = {
   guaranteeRange?: long(name='guarantee_range'),
   // 交易模式
   ipTradeMode?: IPTradeMode(name='ip_trade_mode'),
+  // 授权行业
+  authorizationIndustry?: [ string ](name='authorization_industry'),
 }
 
 model UpdateIpChannelResponse = {
@@ -11716,17 +11728,17 @@ model ApplyIpCodeResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 正版码的批次ID
+  // 数字凭证的批次ID
   codeBatchId?: string(name='code_batch_id'),
-  // 正版码左区间
+  // 数字凭证左区间
   codeBatchStart?: long(name='code_batch_start'),
-  // 正版码右区间
+  // 数字凭证右区间
   codeBatchEnd?: long(name='code_batch_end'),
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-正版码申请
- * Summary: 数字商品服务-IP授权服务-正版码申请
+ * Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+ * Summary: 数字商品服务-IP授权服务-数字凭证申请
  */
 async function applyIpCode(request: ApplyIpCodeRequest): ApplyIpCodeResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -11735,8 +11747,8 @@ async function applyIpCode(request: ApplyIpCodeRequest): ApplyIpCodeResponse {
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-正版码申请
- * Summary: 数字商品服务-IP授权服务-正版码申请
+ * Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+ * Summary: 数字商品服务-IP授权服务-数字凭证申请
  */
 async function applyIpCodeEx(request: ApplyIpCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyIpCodeResponse {
   Util.validateModel(request);
@@ -11749,7 +11761,7 @@ model PagequeryIpCodeRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 基础参数
   baseRequest: BaseRequestInfo(name='base_request'),
-  // 正版码批次编码
+  // 数字凭证批次编码
   codeBatchId: string(name='code_batch_id'),
   // 分页参数:页码
   pageIndex: long(name='page_index'),
@@ -11764,7 +11776,7 @@ model PagequeryIpCodeResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 正版码列表(小程序扫描不可跳转的码)
+  // 数字凭证列表(小程序扫描不可跳转的码)
   // 注意: 这个接口查到的码为原始编码, 小程序扫描无法跳转, IPMart不适用!!!
   codeList?: [ string ](name='code_list'),
   // 展示码列表(和code_list一一对应)
@@ -11783,16 +11795,16 @@ model PagequeryIpCodeResponse = {
   ipImage?: string(name='ip_image'),
   // IP描述
   ipDesc?: string(name='ip_desc'),
-  // 该批次正版码的过期时间戳(毫秒)
+  // 该批次数字凭证的过期时间戳(毫秒)
   expiredDate?: long(name='expired_date'),
   // 已经申请的总数量
   totalCount?: long(name='total_count'),
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+ * Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
 注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
- * Summary: 数字商品服务-IP授权服务-正版码查询
+ * Summary: 数字商品服务-IP授权服务-数字凭证查询
  */
 async function pagequeryIpCode(request: PagequeryIpCodeRequest): PagequeryIpCodeResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -11801,9 +11813,9 @@ async function pagequeryIpCode(request: PagequeryIpCodeRequest): PagequeryIpCode
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+ * Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
 注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
- * Summary: 数字商品服务-IP授权服务-正版码查询
+ * Summary: 数字商品服务-IP授权服务-数字凭证查询
  */
 async function pagequeryIpCodeEx(request: PagequeryIpCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIpCodeResponse {
   Util.validateModel(request);
@@ -11816,7 +11828,7 @@ model CheckIpCodeRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 基础参数
   baseRequest: BaseRequestInfo(name='base_request'),
-  // 正版码的编码
+  // 数字凭证的编码
   code: string(name='code'),
   // 扫码用户的ID
   userId: string(name='user_id'),
@@ -11841,7 +11853,7 @@ model CheckIpCodeResponse = {
   scannedCount?: long(name='scanned_count'),
   // null，暂不使用该值//扫描历史列表(仅展示最近扫描的50次信息)
   scannedList?: [ IPCodeScannedInfo ](name='scanned_list'),
-  // 正版码的详情，始终不为空，如果类型中的user_name为空，则正版码未领取，如果不为空，则正版码已领取
+  // 数字凭证的详情，始终不为空，如果类型中的user_name为空，则数字凭证未领取，如果不为空，则数字凭证已领取
   codeDetail?: IPCodeScannedInfo(name='code_detail'),
   // 首次扫码信息
   firstScannedInfo?: IPSimpleScannedInfo(name='first_scanned_info'),
@@ -11850,8 +11862,8 @@ model CheckIpCodeResponse = {
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-正版码校验
- * Summary: 数字商品服务-IP授权服务-正版码校验
+ * Description: 数字商品服务-IP授权服务-数字凭证校验
+ * Summary: 数字商品服务-IP授权服务-数字凭证校验
  */
 async function checkIpCode(request: CheckIpCodeRequest): CheckIpCodeResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -11860,8 +11872,8 @@ async function checkIpCode(request: CheckIpCodeRequest): CheckIpCodeResponse {
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-正版码校验
- * Summary: 数字商品服务-IP授权服务-正版码校验
+ * Description: 数字商品服务-IP授权服务-数字凭证校验
+ * Summary: 数字商品服务-IP授权服务-数字凭证校验
  */
 async function checkIpCodeEx(request: CheckIpCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckIpCodeResponse {
   Util.validateModel(request);
@@ -12354,7 +12366,7 @@ model ReceiveIpCodeRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 基础参数
   baseRequest: BaseRequestInfo(name='base_request'),
-  // 正版码的编码
+  // 数字凭证的编码
   code: string(name='code'),
   // 领取用户的ID
   userId: string(name='user_id'),
@@ -12378,8 +12390,8 @@ model ReceiveIpCodeResponse = {
 }
 
 /**
- * Description: 领取正版码，如已被领取则返回被领取人昵称信息
- * Summary: 数字商品服务-IP授权服务-正版码领取
+ * Description: 领取数字凭证，如已被领取则返回被领取人昵称信息
+ * Summary: 数字商品服务-IP授权服务-数字凭证领取
  */
 async function receiveIpCode(request: ReceiveIpCodeRequest): ReceiveIpCodeResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -12388,8 +12400,8 @@ async function receiveIpCode(request: ReceiveIpCodeRequest): ReceiveIpCodeRespon
 }
 
 /**
- * Description: 领取正版码，如已被领取则返回被领取人昵称信息
- * Summary: 数字商品服务-IP授权服务-正版码领取
+ * Description: 领取数字凭证，如已被领取则返回被领取人昵称信息
+ * Summary: 数字商品服务-IP授权服务-数字凭证领取
  */
 async function receiveIpCodeEx(request: ReceiveIpCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReceiveIpCodeResponse {
   Util.validateModel(request);
@@ -12408,7 +12420,7 @@ model PagequeryIpCodeinfoRequest = {
   pageNumber: long(name='page_number'),
   // 每页数据量大小(请小于等于100)
   pageSize: long(name='page_size'),
-  // 0 扫描过的正版码，1 领取过的正版码
+  // 0 扫描过的数字凭证，1 领取过的数字凭证
   type: long(name='type'),
 }
 
@@ -12423,15 +12435,15 @@ model PagequeryIpCodeinfoResponse = {
   pageNumber?: long(name='page_number'),
   // 页面数据量大小
   pageSize?: long(name='page_size'),
-  // 领取到的正版码总数
+  // 领取到的数字凭证总数
   codeCount?: long(name='code_count'),
-  // 正版码列表信息
+  // 数字凭证列表信息
   codeList?: [ IPCodeScannedInfo ](name='code_list'),
 }
 
 /**
- * Description: 已领取或以扫描过的正版码列表，分页查询
- * Summary: 数字商品服务-IP授权服务-正版码列表
+ * Description: 已领取或以扫描过的数字凭证列表，分页查询
+ * Summary: 数字商品服务-IP授权服务-数字凭证列表
  */
 async function pagequeryIpCodeinfo(request: PagequeryIpCodeinfoRequest): PagequeryIpCodeinfoResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -12440,8 +12452,8 @@ async function pagequeryIpCodeinfo(request: PagequeryIpCodeinfoRequest): Pageque
 }
 
 /**
- * Description: 已领取或以扫描过的正版码列表，分页查询
- * Summary: 数字商品服务-IP授权服务-正版码列表
+ * Description: 已领取或以扫描过的数字凭证列表，分页查询
+ * Summary: 数字商品服务-IP授权服务-数字凭证列表
  */
 async function pagequeryIpCodeinfoEx(request: PagequeryIpCodeinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIpCodeinfoResponse {
   Util.validateModel(request);
@@ -12964,7 +12976,7 @@ model QueryIpCodeRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 基础参数
   baseRequest: BaseRequestInfo(name='base_request'),
-  // 正版码的编码
+  // 数字凭证的编码
   code: string(name='code'),
 }
 
@@ -12975,7 +12987,7 @@ model QueryIpCodeResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 正版码信息
+  // 数字凭证信息
   codeInfo?: IPCodeScannedInfo(name='code_info'),
   // 首次扫码信息
   firstScannedInfo?: IPSimpleScannedInfo(name='first_scanned_info'),
@@ -12986,8 +12998,8 @@ model QueryIpCodeResponse = {
 }
 
 /**
- * Description: 查询正版码详细信息
- * Summary: 数字商品服务-IP授权服务-查正版码详情
+ * Description: 查询数字凭证详细信息
+ * Summary: 数字商品服务-IP授权服务-数字凭证详情
  */
 async function queryIpCode(request: QueryIpCodeRequest): QueryIpCodeResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -12996,8 +13008,8 @@ async function queryIpCode(request: QueryIpCodeRequest): QueryIpCodeResponse {
 }
 
 /**
- * Description: 查询正版码详细信息
- * Summary: 数字商品服务-IP授权服务-查正版码详情
+ * Description: 查询数字凭证详细信息
+ * Summary: 数字商品服务-IP授权服务-数字凭证详情
  */
 async function queryIpCodeEx(request: QueryIpCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIpCodeResponse {
   Util.validateModel(request);
@@ -13114,6 +13126,8 @@ model UpdateIpGoodsgalleryRequest = {
   ipId: string(name='ip_id'),
   // IP图库链接，一个压缩包
   ipGalleryUrl: string(name='ip_gallery_url'),
+  // 是否允许商家下载图库
+  allowDownload?: boolean(name='allow_download'),
 }
 
 model UpdateIpGoodsgalleryResponse = {
@@ -13169,6 +13183,8 @@ model QueryIpGoodsgalleryResponse = {
   ipGalleryUrl?: string(name='ip_gallery_url'),
   // 图库临时下载链接，过期时间2小时
   ipGalleryTemporaryUrl?: string(name='ip_gallery_temporary_url'),
+  // 是否允许商家下载图库
+  allowDownload?: boolean(name='allow_download'),
 }
 
 /**
@@ -13196,21 +13212,21 @@ model SetIpCodeinfoRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 基础参数
   baseRequest: BaseRequestInfo(name='base_request'),
-  // 正版码对应的订单上版权方的账户链上ID
+  // 数字凭证对应的订单上版权方的账户链上ID
   accountId: string(name='account_id'),
   // 订单ID
   orderId: string(name='order_id'),
-  // 正版码商品信息配置列表
+  // 数字凭证商品信息配置列表
   goodsInfoList?: [ IPCodeGoodsInfo ](name='goods_info_list'),
-  // 正版码资源位配置信息列表
+  // 数字凭证资源位配置信息列表
   adInfoList?: [ IPCodeAdvertisingInfo ](name='ad_info_list'),
   // ip版权方信息
   ipownerInfo?: IPCodeIpOwnerInfo(name='ipowner_info'),
-  // (商家)配置正版码时间
+  // (商家)配置数字凭证时间
   codeSetTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='code_set_time'),
-  // 正版码配置附加信息，信息内容由调用方自定义。可以从配置查询和正版码详情接口上获取。
+  // 数字凭证配置附加信息，信息内容由调用方自定义。可以从配置查询和数字凭证详情接口上获取。
   extInfo?: string(name='ext_info'),
-  // 正版码前缀，本期暂不支持
+  // 数字凭证前缀，本期暂不支持
   showCodePrefix?: string(name='show_code_prefix'),
 }
 
@@ -13224,8 +13240,8 @@ model SetIpCodeinfoResponse = {
 }
 
 /**
- * Description: 配置正版码的商品信息和资源位信息
- * Summary: 数字商品服务-IP授权服务-正版码配置
+ * Description: 配置数字凭证的商品信息和资源位信息
+ * Summary: 数字商品服务-IP授权服务-数字凭证配置
  */
 async function setIpCodeinfo(request: SetIpCodeinfoRequest): SetIpCodeinfoResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -13234,8 +13250,8 @@ async function setIpCodeinfo(request: SetIpCodeinfoRequest): SetIpCodeinfoRespon
 }
 
 /**
- * Description: 配置正版码的商品信息和资源位信息
- * Summary: 数字商品服务-IP授权服务-正版码配置
+ * Description: 配置数字凭证的商品信息和资源位信息
+ * Summary: 数字商品服务-IP授权服务-数字凭证配置
  */
 async function setIpCodeinfoEx(request: SetIpCodeinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SetIpCodeinfoResponse {
   Util.validateModel(request);
@@ -13627,24 +13643,24 @@ model QueryIpCodeinfoResponse = {
   orderId?: string(name='order_id'),
   // 额外功能，包括基础功能，是否允许收藏等
   features?: [ long ](name='features'),
-  // 正版码商品信息配置列表
+  // 数字凭证商品信息配置列表
   goodsInfoList?: [ IPCodeGoodsInfo ](name='goods_info_list'),
-  // 正版码资源位配置信息列表
+  // 数字凭证资源位配置信息列表
   adInfoList?: [ IPCodeAdvertisingInfo ](name='ad_info_list'),
   // ip版权方信息
   ipownerInfo?: IPCodeIpOwnerInfo(name='ipowner_info'),
   // 0:未配置，1:配置成功可展示，9:下架【本期不实现】
   ipCodeStatus?: long(name='ip_code_status'),
-  // 正版码前缀
+  // 数字凭证前缀
   // 
   showCodePrefix?: string(name='show_code_prefix'),
-  // 正版码配置附加信息，信息内容由调用方自定义。
+  // 数字凭证配置附加信息，信息内容由调用方自定义。
   extInfo?: string(name='ext_info'),
 }
 
 /**
- * Description: 查询正版码的配置信息
- * Summary: 数字商品服务-IP授权服务-查正版码配置
+ * Description: 查询数字凭证的配置信息
+ * Summary: 数字商品服务-IP授权服务-数字凭证配置
  */
 async function queryIpCodeinfo(request: QueryIpCodeinfoRequest): QueryIpCodeinfoResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -13653,8 +13669,8 @@ async function queryIpCodeinfo(request: QueryIpCodeinfoRequest): QueryIpCodeinfo
 }
 
 /**
- * Description: 查询正版码的配置信息
- * Summary: 数字商品服务-IP授权服务-查正版码配置
+ * Description: 查询数字凭证的配置信息
+ * Summary: 数字商品服务-IP授权服务-数字凭证配置
  */
 async function queryIpCodeinfoEx(request: QueryIpCodeinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIpCodeinfoResponse {
   Util.validateModel(request);
@@ -14321,7 +14337,7 @@ model PullIpCodeRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 基础参数
   baseRequest: BaseRequestInfo(name='base_request'),
-  // 正版码批次编码
+  // 数字凭证批次编码
   codeBatchId: string(name='code_batch_id'),
   // 分页参数:页码
   pageIndex: long(name='page_index'),
@@ -14336,7 +14352,7 @@ model PullIpCodeResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 正版码列表(小程序扫描可跳转)
+  // 数字凭证列表(小程序扫描可跳转)
   codeList?: [ string ](name='code_list'),
   // 展示码列表(和code_list一一对应)
   showCodeList?: [ string ](name='show_code_list'),
@@ -14354,15 +14370,15 @@ model PullIpCodeResponse = {
   ipImage?: string(name='ip_image'),
   // IP描述
   ipDesc?: string(name='ip_desc'),
-  // 该批次正版码的过期时间戳(毫秒)
+  // 该批次数字凭证的过期时间戳(毫秒)
   expiredDate?: long(name='expired_date'),
   // 已经申请的总数量
   totalCount?: long(name='total_count'),
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
- * Summary: 数字商品服务-IP授权服务-天猫查正版码
+ * Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+ * Summary: 数字商品服务-IP授权服务-查数字凭证
  */
 async function pullIpCode(request: PullIpCodeRequest): PullIpCodeResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -14371,8 +14387,8 @@ async function pullIpCode(request: PullIpCodeRequest): PullIpCodeResponse {
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
- * Summary: 数字商品服务-IP授权服务-天猫查正版码
+ * Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+ * Summary: 数字商品服务-IP授权服务-查数字凭证
  */
 async function pullIpCodeEx(request: PullIpCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PullIpCodeResponse {
   Util.validateModel(request);
@@ -14629,7 +14645,7 @@ model QueryIpCodecollectRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 基础信息
   baseRequest: BaseRequestInfo(name='base_request'),
-  // 正版码ID
+  // 数字凭证ID
   ipCode: string(name='ip_code'),
 }
 
@@ -14640,11 +14656,11 @@ model QueryIpCodecollectResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 正版码商品信息配置列表,包含产品名和出品方
+  // 数字凭证商品信息配置列表,包含产品名和出品方
   goodsInfoList?: [ IPCodeGoodsInfo ](name='goods_info_list'),
-  // 正版码流转信息
+  // 数字凭证流转信息
   codeFlowList?: [ IPCodeFlowInfo ](name='code_flow_list'),
-  // 正版码生命周期
+  // 数字凭证生命周期
   codeLifeCircle?: IPCodeConfigTimeInfo(name='code_life_circle'),
   // 区块链信息
   chainInfo?: IPCodeChainInfo(name='chain_info'),
@@ -14653,8 +14669,8 @@ model QueryIpCodecollectResponse = {
 }
 
 /**
- * Description: 查询正版码收藏证书详情，主要包括该正版码对应的ip商品，流转信息，区块信息等
- * Summary: 查询正版码收藏证书详情
+ * Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
+ * Summary: 数字商品服务-IP授权服务-查收藏证书
  */
 async function queryIpCodecollect(request: QueryIpCodecollectRequest): QueryIpCodecollectResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -14663,8 +14679,8 @@ async function queryIpCodecollect(request: QueryIpCodecollectRequest): QueryIpCo
 }
 
 /**
- * Description: 查询正版码收藏证书详情，主要包括该正版码对应的ip商品，流转信息，区块信息等
- * Summary: 查询正版码收藏证书详情
+ * Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
+ * Summary: 数字商品服务-IP授权服务-查收藏证书
  */
 async function queryIpCodecollectEx(request: QueryIpCodecollectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIpCodecollectResponse {
   Util.validateModel(request);
@@ -15169,10 +15185,9 @@ model UploadIpCodecirculationRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 基础请求参数
   baseRequest: BaseRequestInfo(name='base_request'),
-  // 		
-  // 正版码的编码
+  // 数字凭证的编码
   code: string(name='code'),
-  // 正版码流转信息，每次最多10条信息。
+  // 数字凭证流转信息，每次最多10条信息。
   codeCirculationList: [ CodeCirculation ](name='code_circulation_list'),
 }
 
@@ -15186,7 +15201,7 @@ model UploadIpCodecirculationResponse = {
 }
 
 /**
- * Description: 上传正版码的流转信息
+ * Description: 上传数字凭证的流转信息
  * Summary: 数字商品服务-IP授权服务-上传流转信息
  */
 async function uploadIpCodecirculation(request: UploadIpCodecirculationRequest): UploadIpCodecirculationResponse {
@@ -15196,7 +15211,7 @@ async function uploadIpCodecirculation(request: UploadIpCodecirculationRequest):
 }
 
 /**
- * Description: 上传正版码的流转信息
+ * Description: 上传数字凭证的流转信息
  * Summary: 数字商品服务-IP授权服务-上传流转信息
  */
 async function uploadIpCodecirculationEx(request: UploadIpCodecirculationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadIpCodecirculationResponse {
@@ -15210,7 +15225,7 @@ model PagequeryIpCodecirculationRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 基础请求参数
   baseRequest: BaseRequestInfo(name='base_request'),
-  // 正版码的编码
+  // 数字凭证的编码
   code: string(name='code'),
   // 页码
   pageNumber: long(name='page_number'),
@@ -15227,9 +15242,9 @@ model PagequeryIpCodecirculationResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 正版码流转信息列表
+  // 数字凭证流转信息列表
   codeCirculationList?: [ CodeCirculation ](name='code_circulation_list'),
-  // 正版码的流转信息总数
+  // 数字凭证的流转信息总数
   totalCount?: long(name='total_count'),
   // 页码
   pageNumber?: long(name='page_number'),
@@ -15238,7 +15253,7 @@ model PagequeryIpCodecirculationResponse = {
 }
 
 /**
- * Description: 分页查询正版码的流转信息
+ * Description: 分页查询数字凭证的流转信息
  * Summary: 数字商品服务-IP授权服务-查询流转信息
  */
 async function pagequeryIpCodecirculation(request: PagequeryIpCodecirculationRequest): PagequeryIpCodecirculationResponse {
@@ -15248,7 +15263,7 @@ async function pagequeryIpCodecirculation(request: PagequeryIpCodecirculationReq
 }
 
 /**
- * Description: 分页查询正版码的流转信息
+ * Description: 分页查询数字凭证的流转信息
  * Summary: 数字商品服务-IP授权服务-查询流转信息
  */
 async function pagequeryIpCodecirculationEx(request: PagequeryIpCodecirculationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIpCodecirculationResponse {
