@@ -2746,6 +2746,7 @@ class IpChannelWithSku(TeaModel):
         authorization_type: List[str] = None,
         guarantee_range: int = None,
         ip_trade_mode: IPTradeMode = None,
+        authorization_industry: List[str] = None,
     ):
         # 渠道名字
         self.channel_name = channel_name
@@ -2771,6 +2772,8 @@ class IpChannelWithSku(TeaModel):
         self.guarantee_range = guarantee_range
         # 交易模式
         self.ip_trade_mode = ip_trade_mode
+        # 授权行业
+        self.authorization_industry = authorization_industry
 
     def validate(self):
         self.validate_required(self.channel_name, 'channel_name')
@@ -2812,6 +2815,8 @@ class IpChannelWithSku(TeaModel):
             result['guarantee_range'] = self.guarantee_range
         if self.ip_trade_mode is not None:
             result['ip_trade_mode'] = self.ip_trade_mode.to_map()
+        if self.authorization_industry is not None:
+            result['authorization_industry'] = self.authorization_industry
         return result
 
     def from_map(self, m: dict = None):
@@ -2842,6 +2847,8 @@ class IpChannelWithSku(TeaModel):
         if m.get('ip_trade_mode') is not None:
             temp_model = IPTradeMode()
             self.ip_trade_mode = temp_model.from_map(m['ip_trade_mode'])
+        if m.get('authorization_industry') is not None:
+            self.authorization_industry = m.get('authorization_industry')
         return self
 
 
@@ -7892,6 +7899,7 @@ class IPOrder(TeaModel):
         goods_id_list: List[str] = None,
         features: List[int] = None,
         apply_info: IPOrderApplyInfo = None,
+        allow_download: bool = None,
     ):
         # 订单ID
         self.ip_order_id = ip_order_id
@@ -7992,6 +8000,8 @@ class IPOrder(TeaModel):
         self.features = features
         # 申请授权合作的备注信息
         self.apply_info = apply_info
+        # 是否允许商家下载图库
+        self.allow_download = allow_download
 
     def validate(self):
         self.validate_required(self.ip_order_id, 'ip_order_id')
@@ -8141,6 +8151,8 @@ class IPOrder(TeaModel):
             result['features'] = self.features
         if self.apply_info is not None:
             result['apply_info'] = self.apply_info.to_map()
+        if self.allow_download is not None:
+            result['allow_download'] = self.allow_download
         return result
 
     def from_map(self, m: dict = None):
@@ -8247,6 +8259,8 @@ class IPOrder(TeaModel):
         if m.get('apply_info') is not None:
             temp_model = IPOrderApplyInfo()
             self.apply_info = temp_model.from_map(m['apply_info'])
+        if m.get('allow_download') is not None:
+            self.allow_download = m.get('allow_download')
         return self
 
 
@@ -8333,6 +8347,7 @@ class IpChannelInfo(TeaModel):
         trade_need_confirm: bool = None,
         guarantee_range: int = None,
         ip_trade_mode: IPTradeMode = None,
+        authorization_industry: List[str] = None,
     ):
         # 渠道名字
         self.channel_name = channel_name
@@ -8350,6 +8365,8 @@ class IpChannelInfo(TeaModel):
         self.guarantee_range = guarantee_range
         # 交易模式
         self.ip_trade_mode = ip_trade_mode
+        # 授权行业
+        self.authorization_industry = authorization_industry
 
     def validate(self):
         self.validate_required(self.channel_name, 'channel_name')
@@ -8378,6 +8395,8 @@ class IpChannelInfo(TeaModel):
             result['guarantee_range'] = self.guarantee_range
         if self.ip_trade_mode is not None:
             result['ip_trade_mode'] = self.ip_trade_mode.to_map()
+        if self.authorization_industry is not None:
+            result['authorization_industry'] = self.authorization_industry
         return result
 
     def from_map(self, m: dict = None):
@@ -8399,6 +8418,8 @@ class IpChannelInfo(TeaModel):
         if m.get('ip_trade_mode') is not None:
             temp_model = IPTradeMode()
             self.ip_trade_mode = temp_model.from_map(m['ip_trade_mode'])
+        if m.get('authorization_industry') is not None:
+            self.authorization_industry = m.get('authorization_industry')
         return self
 
 
@@ -28915,6 +28936,7 @@ class CreateIpGoodsRequest(TeaModel):
         copy_right_end_time: int = None,
         ip_gallery_url: str = None,
         authorization_info: IPAuthorizationInfo = None,
+        allow_download: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -28973,6 +28995,8 @@ class CreateIpGoodsRequest(TeaModel):
         self.ip_gallery_url = ip_gallery_url
         # IP授权信息
         self.authorization_info = authorization_info
+        # 是否允许商家下载图库
+        self.allow_download = allow_download
 
     def validate(self):
         self.validate_required(self.base_request, 'base_request')
@@ -29049,6 +29073,8 @@ class CreateIpGoodsRequest(TeaModel):
             result['ip_gallery_url'] = self.ip_gallery_url
         if self.authorization_info is not None:
             result['authorization_info'] = self.authorization_info.to_map()
+        if self.allow_download is not None:
+            result['allow_download'] = self.allow_download
         return result
 
     def from_map(self, m: dict = None):
@@ -29108,6 +29134,8 @@ class CreateIpGoodsRequest(TeaModel):
         if m.get('authorization_info') is not None:
             temp_model = IPAuthorizationInfo()
             self.authorization_info = temp_model.from_map(m['authorization_info'])
+        if m.get('allow_download') is not None:
+            self.allow_download = m.get('allow_download')
         return self
 
 
@@ -29172,6 +29200,7 @@ class AddIpChannelRequest(TeaModel):
         trade_need_confirm: bool = None,
         guarantee_range: int = None,
         ip_trade_mode: IPTradeMode = None,
+        authorization_industry: List[str] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -29198,6 +29227,8 @@ class AddIpChannelRequest(TeaModel):
         self.guarantee_range = guarantee_range
         # 交易模式
         self.ip_trade_mode = ip_trade_mode
+        # 授权行业
+        self.authorization_industry = authorization_industry
 
     def validate(self):
         self.validate_required(self.base_request, 'base_request')
@@ -29236,6 +29267,8 @@ class AddIpChannelRequest(TeaModel):
             result['guarantee_range'] = self.guarantee_range
         if self.ip_trade_mode is not None:
             result['ip_trade_mode'] = self.ip_trade_mode.to_map()
+        if self.authorization_industry is not None:
+            result['authorization_industry'] = self.authorization_industry
         return result
 
     def from_map(self, m: dict = None):
@@ -29268,6 +29301,8 @@ class AddIpChannelRequest(TeaModel):
         if m.get('ip_trade_mode') is not None:
             temp_model = IPTradeMode()
             self.ip_trade_mode = temp_model.from_map(m['ip_trade_mode'])
+        if m.get('authorization_industry') is not None:
+            self.authorization_industry = m.get('authorization_industry')
         return self
 
 
@@ -30144,6 +30179,7 @@ class UpdateIpChannelRequest(TeaModel):
         trade_need_confirm: bool = None,
         guarantee_range: int = None,
         ip_trade_mode: IPTradeMode = None,
+        authorization_industry: List[str] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -30170,6 +30206,8 @@ class UpdateIpChannelRequest(TeaModel):
         self.guarantee_range = guarantee_range
         # 交易模式
         self.ip_trade_mode = ip_trade_mode
+        # 授权行业
+        self.authorization_industry = authorization_industry
 
     def validate(self):
         self.validate_required(self.base_request, 'base_request')
@@ -30208,6 +30246,8 @@ class UpdateIpChannelRequest(TeaModel):
             result['guarantee_range'] = self.guarantee_range
         if self.ip_trade_mode is not None:
             result['ip_trade_mode'] = self.ip_trade_mode.to_map()
+        if self.authorization_industry is not None:
+            result['authorization_industry'] = self.authorization_industry
         return result
 
     def from_map(self, m: dict = None):
@@ -30240,6 +30280,8 @@ class UpdateIpChannelRequest(TeaModel):
         if m.get('ip_trade_mode') is not None:
             temp_model = IPTradeMode()
             self.ip_trade_mode = temp_model.from_map(m['ip_trade_mode'])
+        if m.get('authorization_industry') is not None:
+            self.authorization_industry = m.get('authorization_industry')
         return self
 
 
@@ -32690,11 +32732,11 @@ class ApplyIpCodeResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 正版码的批次ID
+        # 数字凭证的批次ID
         self.code_batch_id = code_batch_id
-        # 正版码左区间
+        # 数字凭证左区间
         self.code_batch_start = code_batch_start
-        # 正版码右区间
+        # 数字凭证右区间
         self.code_batch_end = code_batch_end
 
     def validate(self):
@@ -32748,7 +32790,7 @@ class PagequeryIpCodeRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 基础参数
         self.base_request = base_request
-        # 正版码批次编码
+        # 数字凭证批次编码
         self.code_batch_id = code_batch_id
         # 分页参数:页码
         self.page_index = page_index
@@ -32821,7 +32863,7 @@ class PagequeryIpCodeResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 正版码列表(小程序扫描不可跳转的码)
+        # 数字凭证列表(小程序扫描不可跳转的码)
         # 注意: 这个接口查到的码为原始编码, 小程序扫描无法跳转, IPMart不适用!!!
         self.code_list = code_list
         # 展示码列表(和code_list一一对应)
@@ -32840,7 +32882,7 @@ class PagequeryIpCodeResponse(TeaModel):
         self.ip_image = ip_image
         # IP描述
         self.ip_desc = ip_desc
-        # 该批次正版码的过期时间戳(毫秒)
+        # 该批次数字凭证的过期时间戳(毫秒)
         self.expired_date = expired_date
         # 已经申请的总数量
         self.total_count = total_count
@@ -32931,7 +32973,7 @@ class CheckIpCodeRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 基础参数
         self.base_request = base_request
-        # 正版码的编码
+        # 数字凭证的编码
         self.code = code
         # 扫码用户的ID
         self.user_id = user_id
@@ -33021,7 +33063,7 @@ class CheckIpCodeResponse(TeaModel):
         self.scanned_count = scanned_count
         # null，暂不使用该值//扫描历史列表(仅展示最近扫描的50次信息)
         self.scanned_list = scanned_list
-        # 正版码的详情，始终不为空，如果类型中的user_name为空，则正版码未领取，如果不为空，则正版码已领取
+        # 数字凭证的详情，始终不为空，如果类型中的user_name为空，则数字凭证未领取，如果不为空，则数字凭证已领取
         self.code_detail = code_detail
         # 首次扫码信息
         self.first_scanned_info = first_scanned_info
@@ -34326,7 +34368,7 @@ class ReceiveIpCodeRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 基础参数
         self.base_request = base_request
-        # 正版码的编码
+        # 数字凭证的编码
         self.code = code
         # 领取用户的ID
         self.user_id = user_id
@@ -34454,7 +34496,7 @@ class PagequeryIpCodeinfoRequest(TeaModel):
         self.page_number = page_number
         # 每页数据量大小(请小于等于100)
         self.page_size = page_size
-        # 0 扫描过的正版码，1 领取过的正版码
+        # 0 扫描过的数字凭证，1 领取过的数字凭证
         self.type = type
 
     def validate(self):
@@ -34525,9 +34567,9 @@ class PagequeryIpCodeinfoResponse(TeaModel):
         self.page_number = page_number
         # 页面数据量大小
         self.page_size = page_size
-        # 领取到的正版码总数
+        # 领取到的数字凭证总数
         self.code_count = code_count
-        # 正版码列表信息
+        # 数字凭证列表信息
         self.code_list = code_list
 
     def validate(self):
@@ -35942,7 +35984,7 @@ class QueryIpCodeRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 基础参数
         self.base_request = base_request
-        # 正版码的编码
+        # 数字凭证的编码
         self.code = code
 
     def validate(self):
@@ -35994,7 +36036,7 @@ class QueryIpCodeResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 正版码信息
+        # 数字凭证信息
         self.code_info = code_info
         # 首次扫码信息
         self.first_scanned_info = first_scanned_info
@@ -36321,6 +36363,7 @@ class UpdateIpGoodsgalleryRequest(TeaModel):
         account_id: str = None,
         ip_id: str = None,
         ip_gallery_url: str = None,
+        allow_download: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -36333,6 +36376,8 @@ class UpdateIpGoodsgalleryRequest(TeaModel):
         self.ip_id = ip_id
         # IP图库链接，一个压缩包
         self.ip_gallery_url = ip_gallery_url
+        # 是否允许商家下载图库
+        self.allow_download = allow_download
 
     def validate(self):
         self.validate_required(self.base_request, 'base_request')
@@ -36356,6 +36401,8 @@ class UpdateIpGoodsgalleryRequest(TeaModel):
             result['ip_id'] = self.ip_id
         if self.ip_gallery_url is not None:
             result['ip_gallery_url'] = self.ip_gallery_url
+        if self.allow_download is not None:
+            result['allow_download'] = self.allow_download
         return result
 
     def from_map(self, m: dict = None):
@@ -36373,6 +36420,8 @@ class UpdateIpGoodsgalleryRequest(TeaModel):
             self.ip_id = m.get('ip_id')
         if m.get('ip_gallery_url') is not None:
             self.ip_gallery_url = m.get('ip_gallery_url')
+        if m.get('allow_download') is not None:
+            self.allow_download = m.get('allow_download')
         return self
 
 
@@ -36484,6 +36533,7 @@ class QueryIpGoodsgalleryResponse(TeaModel):
         result_msg: str = None,
         ip_gallery_url: str = None,
         ip_gallery_temporary_url: str = None,
+        allow_download: bool = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -36495,6 +36545,8 @@ class QueryIpGoodsgalleryResponse(TeaModel):
         self.ip_gallery_url = ip_gallery_url
         # 图库临时下载链接，过期时间2小时
         self.ip_gallery_temporary_url = ip_gallery_temporary_url
+        # 是否允许商家下载图库
+        self.allow_download = allow_download
 
     def validate(self):
         pass
@@ -36511,6 +36563,8 @@ class QueryIpGoodsgalleryResponse(TeaModel):
             result['ip_gallery_url'] = self.ip_gallery_url
         if self.ip_gallery_temporary_url is not None:
             result['ip_gallery_temporary_url'] = self.ip_gallery_temporary_url
+        if self.allow_download is not None:
+            result['allow_download'] = self.allow_download
         return result
 
     def from_map(self, m: dict = None):
@@ -36525,6 +36579,8 @@ class QueryIpGoodsgalleryResponse(TeaModel):
             self.ip_gallery_url = m.get('ip_gallery_url')
         if m.get('ip_gallery_temporary_url') is not None:
             self.ip_gallery_temporary_url = m.get('ip_gallery_temporary_url')
+        if m.get('allow_download') is not None:
+            self.allow_download = m.get('allow_download')
         return self
 
 
@@ -36548,21 +36604,21 @@ class SetIpCodeinfoRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 基础参数
         self.base_request = base_request
-        # 正版码对应的订单上版权方的账户链上ID
+        # 数字凭证对应的订单上版权方的账户链上ID
         self.account_id = account_id
         # 订单ID
         self.order_id = order_id
-        # 正版码商品信息配置列表
+        # 数字凭证商品信息配置列表
         self.goods_info_list = goods_info_list
-        # 正版码资源位配置信息列表
+        # 数字凭证资源位配置信息列表
         self.ad_info_list = ad_info_list
         # ip版权方信息
         self.ipowner_info = ipowner_info
-        # (商家)配置正版码时间
+        # (商家)配置数字凭证时间
         self.code_set_time = code_set_time
-        # 正版码配置附加信息，信息内容由调用方自定义。可以从配置查询和正版码详情接口上获取。
+        # 数字凭证配置附加信息，信息内容由调用方自定义。可以从配置查询和数字凭证详情接口上获取。
         self.ext_info = ext_info
-        # 正版码前缀，本期暂不支持
+        # 数字凭证前缀，本期暂不支持
         self.show_code_prefix = show_code_prefix
 
     def validate(self):
@@ -37778,18 +37834,18 @@ class QueryIpCodeinfoResponse(TeaModel):
         self.order_id = order_id
         # 额外功能，包括基础功能，是否允许收藏等
         self.features = features
-        # 正版码商品信息配置列表
+        # 数字凭证商品信息配置列表
         self.goods_info_list = goods_info_list
-        # 正版码资源位配置信息列表
+        # 数字凭证资源位配置信息列表
         self.ad_info_list = ad_info_list
         # ip版权方信息
         self.ipowner_info = ipowner_info
         # 0:未配置，1:配置成功可展示，9:下架【本期不实现】
         self.ip_code_status = ip_code_status
-        # 正版码前缀
+        # 数字凭证前缀
         # 
         self.show_code_prefix = show_code_prefix
-        # 正版码配置附加信息，信息内容由调用方自定义。
+        # 数字凭证配置附加信息，信息内容由调用方自定义。
         self.ext_info = ext_info
 
     def validate(self):
@@ -39639,7 +39695,7 @@ class PullIpCodeRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 基础参数
         self.base_request = base_request
-        # 正版码批次编码
+        # 数字凭证批次编码
         self.code_batch_id = code_batch_id
         # 分页参数:页码
         self.page_index = page_index
@@ -39712,7 +39768,7 @@ class PullIpCodeResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 正版码列表(小程序扫描可跳转)
+        # 数字凭证列表(小程序扫描可跳转)
         self.code_list = code_list
         # 展示码列表(和code_list一一对应)
         self.show_code_list = show_code_list
@@ -39730,7 +39786,7 @@ class PullIpCodeResponse(TeaModel):
         self.ip_image = ip_image
         # IP描述
         self.ip_desc = ip_desc
-        # 该批次正版码的过期时间戳(毫秒)
+        # 该批次数字凭证的过期时间戳(毫秒)
         self.expired_date = expired_date
         # 已经申请的总数量
         self.total_count = total_count
@@ -40463,7 +40519,7 @@ class QueryIpCodecollectRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 基础信息
         self.base_request = base_request
-        # 正版码ID
+        # 数字凭证ID
         self.ip_code = ip_code
 
     def validate(self):
@@ -40516,11 +40572,11 @@ class QueryIpCodecollectResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 正版码商品信息配置列表,包含产品名和出品方
+        # 数字凭证商品信息配置列表,包含产品名和出品方
         self.goods_info_list = goods_info_list
-        # 正版码流转信息
+        # 数字凭证流转信息
         self.code_flow_list = code_flow_list
-        # 正版码生命周期
+        # 数字凭证生命周期
         self.code_life_circle = code_life_circle
         # 区块链信息
         self.chain_info = chain_info
@@ -41872,10 +41928,9 @@ class UploadIpCodecirculationRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 基础请求参数
         self.base_request = base_request
-        # 
-        # 正版码的编码
+        # 数字凭证的编码
         self.code = code
-        # 正版码流转信息，每次最多10条信息。
+        # 数字凭证流转信息，每次最多10条信息。
         self.code_circulation_list = code_circulation_list
 
     def validate(self):
@@ -41978,7 +42033,7 @@ class PagequeryIpCodecirculationRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 基础请求参数
         self.base_request = base_request
-        # 正版码的编码
+        # 数字凭证的编码
         self.code = code
         # 页码
         self.page_number = page_number
@@ -42051,9 +42106,9 @@ class PagequeryIpCodecirculationResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 正版码流转信息列表
+        # 数字凭证流转信息列表
         self.code_circulation_list = code_circulation_list
-        # 正版码的流转信息总数
+        # 数字凭证的流转信息总数
         self.total_count = total_count
         # 页码
         self.page_number = page_number
