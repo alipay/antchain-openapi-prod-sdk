@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.4',
+    sdk_version = '1.0.5',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -167,6 +167,46 @@ model EmissionsCategoryStatistics {
   emissionCategoryName: string(name='emission_category_name', example='间接排放'),
   // 排放量
   emissions: long(name='emissions', example='11.22'),
+}
+
+// 证书授权产品信息
+model CertProductAuthDO {
+  // 三方平台产品ID
+  productId: string(name='product_id', example='产品ID'),
+  // 三方平台产品名称
+  productName: string(name='product_name', example='产品名称'),
+}
+
+// 证书产品信息，包括证书详情、授权产品信息
+model CertProductInfoDO {
+  // 同证书信息显示
+  certificationNo: string(name='certification_no', example='证书编号'),
+  // 同证书信息显示
+  certificationType: string(name='certification_type', example='证书类型'),
+  // 同证书信息显示
+  certificationName: string(name='certification_name', example='证书名称'),
+  // 同证书信息显示
+  authenticationName: string(name='authentication_name', example='认证机构名称'),
+  // 证书颁发时间
+  issueTime: string(name='issue_time', example='2022-01-01'),
+  // 证书到期时间
+  invalidTime: string(name='invalid_time', example='2020-01-01'),
+  // 同证书信息显示
+  certificationAgent: string(name='certification_agent', example='认证委托人'),
+  // 同证书信息显示
+  manufacturer?: string(name='manufacturer', example='制造商'),
+  // 同证书信息显示
+  cproductFirm?: string(name='cproduct_firm', example='生产厂商'),
+  // 同证书信息显示
+  certificationLevel?: string(name='certification_level', example='认证等级'),
+  // 同证书信息显示
+  cproductName?: string(name='cproduct_name', example='产品名称'),
+  // 同证书信息显示
+  cproductModel?: string(name='cproduct_model', example='产品型号'),
+  // 证书文件地址
+  certificationFileAddress: string(name='certification_file_address', example='https://'),
+  // 证书授权的三方平台产品列表
+  authProducts?: [ CertProductAuthDO ](name='auth_products', example=''),
 }
 
 // 减排情况统计
@@ -453,5 +493,55 @@ async function describeAcarLastemissiondata(request: DescribeAcarLastemissiondat
 async function describeAcarLastemissiondataEx(request: DescribeAcarLastemissiondataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DescribeAcarLastemissiondataResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.carbon.acar.lastemissiondata.describe', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryThirdCertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 三方平台的产品ID
+  productId?: string(name='product_id'),
+  // GreenProductCertification ：绿色产品认证证书
+  // GarbonNeutrality ： 碳中和证书
+  // GreenhouseGasInventory 温室气体核查证书
+  certificationType?: string(name='certification_type'),
+  // 证书文件中的产品名称
+  cproductName?: string(name='cproduct_name'),
+  // 证书文件中的产品型号
+  cproductModel?: string(name='cproduct_model'),
+  // 证书文件中的生产商名称
+  cproductFirm?: string(name='cproduct_firm'),
+  // 三方平台的企业ID
+  companyId: string(name='company_id'),
+}
+
+model QueryThirdCertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 证书列表
+  certifications?: [ CertProductInfoDO ](name='certifications'),
+}
+
+/**
+ * Description: 三方平台调用此接口，查询用户的证书信息
+ * Summary: 证书查询
+ */
+async function queryThirdCert(request: QueryThirdCertRequest): QueryThirdCertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryThirdCertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 三方平台调用此接口，查询用户的证书信息
+ * Summary: 证书查询
+ */
+async function queryThirdCertEx(request: QueryThirdCertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryThirdCertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.third.cert.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
