@@ -21,6 +21,8 @@ use AntChain\STLR\Models\DescribeAcarReductionemissionsRequest;
 use AntChain\STLR\Models\DescribeAcarReductionemissionsResponse;
 use AntChain\STLR\Models\DescribeAcarScopemissionRequest;
 use AntChain\STLR\Models\DescribeAcarScopemissionResponse;
+use AntChain\STLR\Models\QueryThirdCertRequest;
+use AntChain\STLR\Models\QueryThirdCertResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -168,7 +170,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.4',
+                    'sdk_version'      => '1.0.5',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -377,5 +379,38 @@ class Client
         Utils::validateModel($request);
 
         return DescribeAcarLastemissiondataResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.acar.lastemissiondata.describe', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 三方平台调用此接口，查询用户的证书信息
+     * Summary: 证书查询.
+     *
+     * @param QueryThirdCertRequest $request
+     *
+     * @return QueryThirdCertResponse
+     */
+    public function queryThirdCert($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryThirdCertEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 三方平台调用此接口，查询用户的证书信息
+     * Summary: 证书查询.
+     *
+     * @param QueryThirdCertRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryThirdCertResponse
+     */
+    public function queryThirdCertEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryThirdCertResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.third.cert.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
