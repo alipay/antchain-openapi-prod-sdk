@@ -2310,6 +2310,8 @@ type IpChannelWithSku struct {
 	GuaranteeRange *int64 `json:"guarantee_range,omitempty" xml:"guarantee_range,omitempty"`
 	// 交易模式
 	IpTradeMode *IPTradeMode `json:"ip_trade_mode,omitempty" xml:"ip_trade_mode,omitempty"`
+	// 授权行业
+	AuthorizationIndustry []*string `json:"authorization_industry,omitempty" xml:"authorization_industry,omitempty" type:"Repeated"`
 }
 
 func (s IpChannelWithSku) String() string {
@@ -2372,6 +2374,11 @@ func (s *IpChannelWithSku) SetGuaranteeRange(v int64) *IpChannelWithSku {
 
 func (s *IpChannelWithSku) SetIpTradeMode(v *IPTradeMode) *IpChannelWithSku {
 	s.IpTradeMode = v
+	return s
+}
+
+func (s *IpChannelWithSku) SetAuthorizationIndustry(v []*string) *IpChannelWithSku {
+	s.AuthorizationIndustry = v
 	return s
 }
 
@@ -6664,6 +6671,8 @@ type IPOrder struct {
 	Features []*int64 `json:"features,omitempty" xml:"features,omitempty" type:"Repeated"`
 	// 申请授权合作的备注信息
 	ApplyInfo *IPOrderApplyInfo `json:"apply_info,omitempty" xml:"apply_info,omitempty"`
+	// 是否允许商家下载图库
+	AllowDownload *bool `json:"allow_download,omitempty" xml:"allow_download,omitempty"`
 }
 
 func (s IPOrder) String() string {
@@ -6919,6 +6928,11 @@ func (s *IPOrder) SetApplyInfo(v *IPOrderApplyInfo) *IPOrder {
 	return s
 }
 
+func (s *IPOrder) SetAllowDownload(v bool) *IPOrder {
+	s.AllowDownload = &v
+	return s
+}
+
 // 商品授权信息（一客一价信息）
 type EquityAuthInfo struct {
 	// 链ID
@@ -6998,6 +7012,8 @@ type IpChannelInfo struct {
 	GuaranteeRange *int64 `json:"guarantee_range,omitempty" xml:"guarantee_range,omitempty"`
 	// 交易模式
 	IpTradeMode *IPTradeMode `json:"ip_trade_mode,omitempty" xml:"ip_trade_mode,omitempty"`
+	// 授权行业
+	AuthorizationIndustry []*string `json:"authorization_industry,omitempty" xml:"authorization_industry,omitempty" type:"Repeated"`
 }
 
 func (s IpChannelInfo) String() string {
@@ -7045,6 +7061,11 @@ func (s *IpChannelInfo) SetGuaranteeRange(v int64) *IpChannelInfo {
 
 func (s *IpChannelInfo) SetIpTradeMode(v *IPTradeMode) *IpChannelInfo {
 	s.IpTradeMode = v
+	return s
+}
+
+func (s *IpChannelInfo) SetAuthorizationIndustry(v []*string) *IpChannelInfo {
+	s.AuthorizationIndustry = v
 	return s
 }
 
@@ -24515,6 +24536,8 @@ type CreateIpGoodsRequest struct {
 	IpGalleryUrl *string `json:"ip_gallery_url,omitempty" xml:"ip_gallery_url,omitempty"`
 	// IP授权信息
 	AuthorizationInfo *IPAuthorizationInfo `json:"authorization_info,omitempty" xml:"authorization_info,omitempty"`
+	// 是否允许商家下载图库
+	AllowDownload *bool `json:"allow_download,omitempty" xml:"allow_download,omitempty"`
 }
 
 func (s CreateIpGoodsRequest) String() string {
@@ -24650,6 +24673,11 @@ func (s *CreateIpGoodsRequest) SetAuthorizationInfo(v *IPAuthorizationInfo) *Cre
 	return s
 }
 
+func (s *CreateIpGoodsRequest) SetAllowDownload(v bool) *CreateIpGoodsRequest {
+	s.AllowDownload = &v
+	return s
+}
+
 type CreateIpGoodsResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -24715,6 +24743,8 @@ type AddIpChannelRequest struct {
 	GuaranteeRange *int64 `json:"guarantee_range,omitempty" xml:"guarantee_range,omitempty"`
 	// 交易模式
 	IpTradeMode *IPTradeMode `json:"ip_trade_mode,omitempty" xml:"ip_trade_mode,omitempty"`
+	// 授权行业
+	AuthorizationIndustry []*string `json:"authorization_industry,omitempty" xml:"authorization_industry,omitempty" type:"Repeated"`
 }
 
 func (s AddIpChannelRequest) String() string {
@@ -24787,6 +24817,11 @@ func (s *AddIpChannelRequest) SetGuaranteeRange(v int64) *AddIpChannelRequest {
 
 func (s *AddIpChannelRequest) SetIpTradeMode(v *IPTradeMode) *AddIpChannelRequest {
 	s.IpTradeMode = v
+	return s
+}
+
+func (s *AddIpChannelRequest) SetAuthorizationIndustry(v []*string) *AddIpChannelRequest {
+	s.AuthorizationIndustry = v
 	return s
 }
 
@@ -25521,6 +25556,8 @@ type UpdateIpChannelRequest struct {
 	GuaranteeRange *int64 `json:"guarantee_range,omitempty" xml:"guarantee_range,omitempty"`
 	// 交易模式
 	IpTradeMode *IPTradeMode `json:"ip_trade_mode,omitempty" xml:"ip_trade_mode,omitempty"`
+	// 授权行业
+	AuthorizationIndustry []*string `json:"authorization_industry,omitempty" xml:"authorization_industry,omitempty" type:"Repeated"`
 }
 
 func (s UpdateIpChannelRequest) String() string {
@@ -25593,6 +25630,11 @@ func (s *UpdateIpChannelRequest) SetGuaranteeRange(v int64) *UpdateIpChannelRequ
 
 func (s *UpdateIpChannelRequest) SetIpTradeMode(v *IPTradeMode) *UpdateIpChannelRequest {
 	s.IpTradeMode = v
+	return s
+}
+
+func (s *UpdateIpChannelRequest) SetAuthorizationIndustry(v []*string) *UpdateIpChannelRequest {
+	s.AuthorizationIndustry = v
 	return s
 }
 
@@ -27625,11 +27667,11 @@ type ApplyIpCodeResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 正版码的批次ID
+	// 数字凭证的批次ID
 	CodeBatchId *string `json:"code_batch_id,omitempty" xml:"code_batch_id,omitempty"`
-	// 正版码左区间
+	// 数字凭证左区间
 	CodeBatchStart *int64 `json:"code_batch_start,omitempty" xml:"code_batch_start,omitempty"`
-	// 正版码右区间
+	// 数字凭证右区间
 	CodeBatchEnd *int64 `json:"code_batch_end,omitempty" xml:"code_batch_end,omitempty"`
 }
 
@@ -27677,7 +27719,7 @@ type PagequeryIpCodeRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 基础参数
 	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
-	// 正版码批次编码
+	// 数字凭证批次编码
 	CodeBatchId *string `json:"code_batch_id,omitempty" xml:"code_batch_id,omitempty" require:"true"`
 	// 分页参数:页码
 	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
@@ -27730,7 +27772,7 @@ type PagequeryIpCodeResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 正版码列表(小程序扫描不可跳转的码)
+	// 数字凭证列表(小程序扫描不可跳转的码)
 	// 注意: 这个接口查到的码为原始编码, 小程序扫描无法跳转, IPMart不适用!!!
 	CodeList []*string `json:"code_list,omitempty" xml:"code_list,omitempty" type:"Repeated"`
 	// 展示码列表(和code_list一一对应)
@@ -27749,7 +27791,7 @@ type PagequeryIpCodeResponse struct {
 	IpImage *string `json:"ip_image,omitempty" xml:"ip_image,omitempty"`
 	// IP描述
 	IpDesc *string `json:"ip_desc,omitempty" xml:"ip_desc,omitempty"`
-	// 该批次正版码的过期时间戳(毫秒)
+	// 该批次数字凭证的过期时间戳(毫秒)
 	ExpiredDate *int64 `json:"expired_date,omitempty" xml:"expired_date,omitempty"`
 	// 已经申请的总数量
 	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
@@ -27839,7 +27881,7 @@ type CheckIpCodeRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 基础参数
 	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
-	// 正版码的编码
+	// 数字凭证的编码
 	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
 	// 扫码用户的ID
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
@@ -27917,7 +27959,7 @@ type CheckIpCodeResponse struct {
 	ScannedCount *int64 `json:"scanned_count,omitempty" xml:"scanned_count,omitempty"`
 	// null，暂不使用该值//扫描历史列表(仅展示最近扫描的50次信息)
 	ScannedList []*IPCodeScannedInfo `json:"scanned_list,omitempty" xml:"scanned_list,omitempty" type:"Repeated"`
-	// 正版码的详情，始终不为空，如果类型中的user_name为空，则正版码未领取，如果不为空，则正版码已领取
+	// 数字凭证的详情，始终不为空，如果类型中的user_name为空，则数字凭证未领取，如果不为空，则数字凭证已领取
 	CodeDetail *IPCodeScannedInfo `json:"code_detail,omitempty" xml:"code_detail,omitempty"`
 	// 首次扫码信息
 	FirstScannedInfo *IPSimpleScannedInfo `json:"first_scanned_info,omitempty" xml:"first_scanned_info,omitempty"`
@@ -28966,7 +29008,7 @@ type ReceiveIpCodeRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 基础参数
 	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
-	// 正版码的编码
+	// 数字凭证的编码
 	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
 	// 领取用户的ID
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
@@ -29077,7 +29119,7 @@ type PagequeryIpCodeinfoRequest struct {
 	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty" require:"true"`
 	// 每页数据量大小(请小于等于100)
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
-	// 0 扫描过的正版码，1 领取过的正版码
+	// 0 扫描过的数字凭证，1 领取过的数字凭证
 	Type *int64 `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 }
 
@@ -29135,9 +29177,9 @@ type PagequeryIpCodeinfoResponse struct {
 	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
 	// 页面数据量大小
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
-	// 领取到的正版码总数
+	// 领取到的数字凭证总数
 	CodeCount *int64 `json:"code_count,omitempty" xml:"code_count,omitempty"`
-	// 正版码列表信息
+	// 数字凭证列表信息
 	CodeList []*IPCodeScannedInfo `json:"code_list,omitempty" xml:"code_list,omitempty" type:"Repeated"`
 }
 
@@ -30282,7 +30324,7 @@ type QueryIpCodeRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 基础参数
 	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
-	// 正版码的编码
+	// 数字凭证的编码
 	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
 }
 
@@ -30321,7 +30363,7 @@ type QueryIpCodeResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 正版码信息
+	// 数字凭证信息
 	CodeInfo *IPCodeScannedInfo `json:"code_info,omitempty" xml:"code_info,omitempty"`
 	// 首次扫码信息
 	FirstScannedInfo *IPSimpleScannedInfo `json:"first_scanned_info,omitempty" xml:"first_scanned_info,omitempty"`
@@ -30603,6 +30645,8 @@ type UpdateIpGoodsgalleryRequest struct {
 	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
 	// IP图库链接，一个压缩包
 	IpGalleryUrl *string `json:"ip_gallery_url,omitempty" xml:"ip_gallery_url,omitempty" require:"true"`
+	// 是否允许商家下载图库
+	AllowDownload *bool `json:"allow_download,omitempty" xml:"allow_download,omitempty"`
 }
 
 func (s UpdateIpGoodsgalleryRequest) String() string {
@@ -30640,6 +30684,11 @@ func (s *UpdateIpGoodsgalleryRequest) SetIpId(v string) *UpdateIpGoodsgalleryReq
 
 func (s *UpdateIpGoodsgalleryRequest) SetIpGalleryUrl(v string) *UpdateIpGoodsgalleryRequest {
 	s.IpGalleryUrl = &v
+	return s
+}
+
+func (s *UpdateIpGoodsgalleryRequest) SetAllowDownload(v bool) *UpdateIpGoodsgalleryRequest {
+	s.AllowDownload = &v
 	return s
 }
 
@@ -30738,6 +30787,8 @@ type QueryIpGoodsgalleryResponse struct {
 	IpGalleryUrl *string `json:"ip_gallery_url,omitempty" xml:"ip_gallery_url,omitempty"`
 	// 图库临时下载链接，过期时间2小时
 	IpGalleryTemporaryUrl *string `json:"ip_gallery_temporary_url,omitempty" xml:"ip_gallery_temporary_url,omitempty"`
+	// 是否允许商家下载图库
+	AllowDownload *bool `json:"allow_download,omitempty" xml:"allow_download,omitempty"`
 }
 
 func (s QueryIpGoodsgalleryResponse) String() string {
@@ -30773,27 +30824,32 @@ func (s *QueryIpGoodsgalleryResponse) SetIpGalleryTemporaryUrl(v string) *QueryI
 	return s
 }
 
+func (s *QueryIpGoodsgalleryResponse) SetAllowDownload(v bool) *QueryIpGoodsgalleryResponse {
+	s.AllowDownload = &v
+	return s
+}
+
 type SetIpCodeinfoRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 基础参数
 	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
-	// 正版码对应的订单上版权方的账户链上ID
+	// 数字凭证对应的订单上版权方的账户链上ID
 	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
 	// 订单ID
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
-	// 正版码商品信息配置列表
+	// 数字凭证商品信息配置列表
 	GoodsInfoList []*IPCodeGoodsInfo `json:"goods_info_list,omitempty" xml:"goods_info_list,omitempty" type:"Repeated"`
-	// 正版码资源位配置信息列表
+	// 数字凭证资源位配置信息列表
 	AdInfoList []*IPCodeAdvertisingInfo `json:"ad_info_list,omitempty" xml:"ad_info_list,omitempty" type:"Repeated"`
 	// ip版权方信息
 	IpownerInfo *IPCodeIpOwnerInfo `json:"ipowner_info,omitempty" xml:"ipowner_info,omitempty"`
-	// (商家)配置正版码时间
+	// (商家)配置数字凭证时间
 	CodeSetTime *string `json:"code_set_time,omitempty" xml:"code_set_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 正版码配置附加信息，信息内容由调用方自定义。可以从配置查询和正版码详情接口上获取。
+	// 数字凭证配置附加信息，信息内容由调用方自定义。可以从配置查询和数字凭证详情接口上获取。
 	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
-	// 正版码前缀，本期暂不支持
+	// 数字凭证前缀，本期暂不支持
 	ShowCodePrefix *string `json:"show_code_prefix,omitempty" xml:"show_code_prefix,omitempty"`
 }
 
@@ -31832,18 +31888,18 @@ type QueryIpCodeinfoResponse struct {
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
 	// 额外功能，包括基础功能，是否允许收藏等
 	Features []*int64 `json:"features,omitempty" xml:"features,omitempty" type:"Repeated"`
-	// 正版码商品信息配置列表
+	// 数字凭证商品信息配置列表
 	GoodsInfoList []*IPCodeGoodsInfo `json:"goods_info_list,omitempty" xml:"goods_info_list,omitempty" type:"Repeated"`
-	// 正版码资源位配置信息列表
+	// 数字凭证资源位配置信息列表
 	AdInfoList []*IPCodeAdvertisingInfo `json:"ad_info_list,omitempty" xml:"ad_info_list,omitempty" type:"Repeated"`
 	// ip版权方信息
 	IpownerInfo *IPCodeIpOwnerInfo `json:"ipowner_info,omitempty" xml:"ipowner_info,omitempty"`
 	// 0:未配置，1:配置成功可展示，9:下架【本期不实现】
 	IpCodeStatus *int64 `json:"ip_code_status,omitempty" xml:"ip_code_status,omitempty"`
-	// 正版码前缀
+	// 数字凭证前缀
 	//
 	ShowCodePrefix *string `json:"show_code_prefix,omitempty" xml:"show_code_prefix,omitempty"`
-	// 正版码配置附加信息，信息内容由调用方自定义。
+	// 数字凭证配置附加信息，信息内容由调用方自定义。
 	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
 
@@ -33381,7 +33437,7 @@ type PullIpCodeRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 基础参数
 	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
-	// 正版码批次编码
+	// 数字凭证批次编码
 	CodeBatchId *string `json:"code_batch_id,omitempty" xml:"code_batch_id,omitempty" require:"true"`
 	// 分页参数:页码
 	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
@@ -33434,7 +33490,7 @@ type PullIpCodeResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 正版码列表(小程序扫描可跳转)
+	// 数字凭证列表(小程序扫描可跳转)
 	CodeList []*string `json:"code_list,omitempty" xml:"code_list,omitempty" type:"Repeated"`
 	// 展示码列表(和code_list一一对应)
 	ShowCodeList []*string `json:"show_code_list,omitempty" xml:"show_code_list,omitempty" type:"Repeated"`
@@ -33452,7 +33508,7 @@ type PullIpCodeResponse struct {
 	IpImage *string `json:"ip_image,omitempty" xml:"ip_image,omitempty"`
 	// IP描述
 	IpDesc *string `json:"ip_desc,omitempty" xml:"ip_desc,omitempty"`
-	// 该批次正版码的过期时间戳(毫秒)
+	// 该批次数字凭证的过期时间戳(毫秒)
 	ExpiredDate *int64 `json:"expired_date,omitempty" xml:"expired_date,omitempty"`
 	// 已经申请的总数量
 	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
@@ -34081,7 +34137,7 @@ type QueryIpCodecollectRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 基础信息
 	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
-	// 正版码ID
+	// 数字凭证ID
 	IpCode *string `json:"ip_code,omitempty" xml:"ip_code,omitempty" require:"true"`
 }
 
@@ -34120,11 +34176,11 @@ type QueryIpCodecollectResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 正版码商品信息配置列表,包含产品名和出品方
+	// 数字凭证商品信息配置列表,包含产品名和出品方
 	GoodsInfoList []*IPCodeGoodsInfo `json:"goods_info_list,omitempty" xml:"goods_info_list,omitempty" type:"Repeated"`
-	// 正版码流转信息
+	// 数字凭证流转信息
 	CodeFlowList []*IPCodeFlowInfo `json:"code_flow_list,omitempty" xml:"code_flow_list,omitempty" type:"Repeated"`
-	// 正版码生命周期
+	// 数字凭证生命周期
 	CodeLifeCircle *IPCodeConfigTimeInfo `json:"code_life_circle,omitempty" xml:"code_life_circle,omitempty"`
 	// 区块链信息
 	ChainInfo *IPCodeChainInfo `json:"chain_info,omitempty" xml:"chain_info,omitempty"`
@@ -35215,10 +35271,9 @@ type UploadIpCodecirculationRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 基础请求参数
 	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
-	//
-	// 正版码的编码
+	// 数字凭证的编码
 	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
-	// 正版码流转信息，每次最多10条信息。
+	// 数字凭证流转信息，每次最多10条信息。
 	CodeCirculationList []*CodeCirculation `json:"code_circulation_list,omitempty" xml:"code_circulation_list,omitempty" require:"true" type:"Repeated"`
 }
 
@@ -35293,7 +35348,7 @@ type PagequeryIpCodecirculationRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 基础请求参数
 	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
-	// 正版码的编码
+	// 数字凭证的编码
 	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
 	// 页码
 	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty" require:"true"`
@@ -35353,9 +35408,9 @@ type PagequeryIpCodecirculationResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 正版码流转信息列表
+	// 数字凭证流转信息列表
 	CodeCirculationList []*CodeCirculation `json:"code_circulation_list,omitempty" xml:"code_circulation_list,omitempty" type:"Repeated"`
-	// 正版码的流转信息总数
+	// 数字凭证的流转信息总数
 	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
 	// 页码
 	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
@@ -37818,7 +37873,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.56"),
+				"sdk_version":      tea.String("1.3.58"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -44576,8 +44631,8 @@ func (client *Client) BatchqueryIpSellerEx(request *BatchqueryIpSellerRequest, h
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-正版码申请
- * Summary: 数字商品服务-IP授权服务-正版码申请
+ * Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+ * Summary: 数字商品服务-IP授权服务-数字凭证申请
  */
 func (client *Client) ApplyIpCode(request *ApplyIpCodeRequest) (_result *ApplyIpCodeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -44592,8 +44647,8 @@ func (client *Client) ApplyIpCode(request *ApplyIpCodeRequest) (_result *ApplyIp
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-正版码申请
- * Summary: 数字商品服务-IP授权服务-正版码申请
+ * Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+ * Summary: 数字商品服务-IP授权服务-数字凭证申请
  */
 func (client *Client) ApplyIpCodeEx(request *ApplyIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyIpCodeResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -44610,9 +44665,9 @@ func (client *Client) ApplyIpCodeEx(request *ApplyIpCodeRequest, headers map[str
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+ * Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
 注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
- * Summary: 数字商品服务-IP授权服务-正版码查询
+ * Summary: 数字商品服务-IP授权服务-数字凭证查询
 */
 func (client *Client) PagequeryIpCode(request *PagequeryIpCodeRequest) (_result *PagequeryIpCodeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -44627,9 +44682,9 @@ func (client *Client) PagequeryIpCode(request *PagequeryIpCodeRequest) (_result 
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+ * Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
 注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
- * Summary: 数字商品服务-IP授权服务-正版码查询
+ * Summary: 数字商品服务-IP授权服务-数字凭证查询
 */
 func (client *Client) PagequeryIpCodeEx(request *PagequeryIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryIpCodeResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -44646,8 +44701,8 @@ func (client *Client) PagequeryIpCodeEx(request *PagequeryIpCodeRequest, headers
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-正版码校验
- * Summary: 数字商品服务-IP授权服务-正版码校验
+ * Description: 数字商品服务-IP授权服务-数字凭证校验
+ * Summary: 数字商品服务-IP授权服务-数字凭证校验
  */
 func (client *Client) CheckIpCode(request *CheckIpCodeRequest) (_result *CheckIpCodeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -44662,8 +44717,8 @@ func (client *Client) CheckIpCode(request *CheckIpCodeRequest) (_result *CheckIp
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-正版码校验
- * Summary: 数字商品服务-IP授权服务-正版码校验
+ * Description: 数字商品服务-IP授权服务-数字凭证校验
+ * Summary: 数字商品服务-IP授权服务-数字凭证校验
  */
 func (client *Client) CheckIpCodeEx(request *CheckIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckIpCodeResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -45054,8 +45109,8 @@ func (client *Client) QueryIpSuperviseapproveEx(request *QueryIpSuperviseapprove
 }
 
 /**
- * Description: 领取正版码，如已被领取则返回被领取人昵称信息
- * Summary: 数字商品服务-IP授权服务-正版码领取
+ * Description: 领取数字凭证，如已被领取则返回被领取人昵称信息
+ * Summary: 数字商品服务-IP授权服务-数字凭证领取
  */
 func (client *Client) ReceiveIpCode(request *ReceiveIpCodeRequest) (_result *ReceiveIpCodeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -45070,8 +45125,8 @@ func (client *Client) ReceiveIpCode(request *ReceiveIpCodeRequest) (_result *Rec
 }
 
 /**
- * Description: 领取正版码，如已被领取则返回被领取人昵称信息
- * Summary: 数字商品服务-IP授权服务-正版码领取
+ * Description: 领取数字凭证，如已被领取则返回被领取人昵称信息
+ * Summary: 数字商品服务-IP授权服务-数字凭证领取
  */
 func (client *Client) ReceiveIpCodeEx(request *ReceiveIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ReceiveIpCodeResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -45088,8 +45143,8 @@ func (client *Client) ReceiveIpCodeEx(request *ReceiveIpCodeRequest, headers map
 }
 
 /**
- * Description: 已领取或以扫描过的正版码列表，分页查询
- * Summary: 数字商品服务-IP授权服务-正版码列表
+ * Description: 已领取或以扫描过的数字凭证列表，分页查询
+ * Summary: 数字商品服务-IP授权服务-数字凭证列表
  */
 func (client *Client) PagequeryIpCodeinfo(request *PagequeryIpCodeinfoRequest) (_result *PagequeryIpCodeinfoResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -45104,8 +45159,8 @@ func (client *Client) PagequeryIpCodeinfo(request *PagequeryIpCodeinfoRequest) (
 }
 
 /**
- * Description: 已领取或以扫描过的正版码列表，分页查询
- * Summary: 数字商品服务-IP授权服务-正版码列表
+ * Description: 已领取或以扫描过的数字凭证列表，分页查询
+ * Summary: 数字商品服务-IP授权服务-数字凭证列表
  */
 func (client *Client) PagequeryIpCodeinfoEx(request *PagequeryIpCodeinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryIpCodeinfoResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -45496,8 +45551,8 @@ func (client *Client) CountIpPvEx(request *CountIpPvRequest, headers map[string]
 }
 
 /**
- * Description: 查询正版码详细信息
- * Summary: 数字商品服务-IP授权服务-查正版码详情
+ * Description: 查询数字凭证详细信息
+ * Summary: 数字商品服务-IP授权服务-数字凭证详情
  */
 func (client *Client) QueryIpCode(request *QueryIpCodeRequest) (_result *QueryIpCodeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -45512,8 +45567,8 @@ func (client *Client) QueryIpCode(request *QueryIpCodeRequest) (_result *QueryIp
 }
 
 /**
- * Description: 查询正版码详细信息
- * Summary: 数字商品服务-IP授权服务-查正版码详情
+ * Description: 查询数字凭证详细信息
+ * Summary: 数字商品服务-IP授权服务-数字凭证详情
  */
 func (client *Client) QueryIpCodeEx(request *QueryIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpCodeResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -45666,8 +45721,8 @@ func (client *Client) QueryIpGoodsgalleryEx(request *QueryIpGoodsgalleryRequest,
 }
 
 /**
- * Description: 配置正版码的商品信息和资源位信息
- * Summary: 数字商品服务-IP授权服务-正版码配置
+ * Description: 配置数字凭证的商品信息和资源位信息
+ * Summary: 数字商品服务-IP授权服务-数字凭证配置
  */
 func (client *Client) SetIpCodeinfo(request *SetIpCodeinfoRequest) (_result *SetIpCodeinfoResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -45682,8 +45737,8 @@ func (client *Client) SetIpCodeinfo(request *SetIpCodeinfoRequest) (_result *Set
 }
 
 /**
- * Description: 配置正版码的商品信息和资源位信息
- * Summary: 数字商品服务-IP授权服务-正版码配置
+ * Description: 配置数字凭证的商品信息和资源位信息
+ * Summary: 数字商品服务-IP授权服务-数字凭证配置
  */
 func (client *Client) SetIpCodeinfoEx(request *SetIpCodeinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SetIpCodeinfoResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -45904,8 +45959,8 @@ func (client *Client) ApplyIpAuthtradeEx(request *ApplyIpAuthtradeRequest, heade
 }
 
 /**
- * Description: 查询正版码的配置信息
- * Summary: 数字商品服务-IP授权服务-查正版码配置
+ * Description: 查询数字凭证的配置信息
+ * Summary: 数字商品服务-IP授权服务-数字凭证配置
  */
 func (client *Client) QueryIpCodeinfo(request *QueryIpCodeinfoRequest) (_result *QueryIpCodeinfoResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -45920,8 +45975,8 @@ func (client *Client) QueryIpCodeinfo(request *QueryIpCodeinfoRequest) (_result 
 }
 
 /**
- * Description: 查询正版码的配置信息
- * Summary: 数字商品服务-IP授权服务-查正版码配置
+ * Description: 查询数字凭证的配置信息
+ * Summary: 数字商品服务-IP授权服务-数字凭证配置
  */
 func (client *Client) QueryIpCodeinfoEx(request *QueryIpCodeinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpCodeinfoResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -46380,8 +46435,8 @@ func (client *Client) BatchqueryIpAccountsettlementEx(request *BatchqueryIpAccou
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
- * Summary: 数字商品服务-IP授权服务-天猫查正版码
+ * Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+ * Summary: 数字商品服务-IP授权服务-查数字凭证
  */
 func (client *Client) PullIpCode(request *PullIpCodeRequest) (_result *PullIpCodeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -46396,8 +46451,8 @@ func (client *Client) PullIpCode(request *PullIpCodeRequest) (_result *PullIpCod
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
- * Summary: 数字商品服务-IP授权服务-天猫查正版码
+ * Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+ * Summary: 数字商品服务-IP授权服务-查数字凭证
  */
 func (client *Client) PullIpCodeEx(request *PullIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PullIpCodeResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -46584,8 +46639,8 @@ func (client *Client) ListIpShopEx(request *ListIpShopRequest, headers map[strin
 }
 
 /**
- * Description: 查询正版码收藏证书详情，主要包括该正版码对应的ip商品，流转信息，区块信息等
- * Summary: 查询正版码收藏证书详情
+ * Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
+ * Summary: 数字商品服务-IP授权服务-查收藏证书
  */
 func (client *Client) QueryIpCodecollect(request *QueryIpCodecollectRequest) (_result *QueryIpCodecollectResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -46600,8 +46655,8 @@ func (client *Client) QueryIpCodecollect(request *QueryIpCodecollectRequest) (_r
 }
 
 /**
- * Description: 查询正版码收藏证书详情，主要包括该正版码对应的ip商品，流转信息，区块信息等
- * Summary: 查询正版码收藏证书详情
+ * Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
+ * Summary: 数字商品服务-IP授权服务-查收藏证书
  */
 func (client *Client) QueryIpCodecollectEx(request *QueryIpCodecollectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpCodecollectResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -46992,7 +47047,7 @@ func (client *Client) DisableIpCodeEx(request *DisableIpCodeRequest, headers map
 }
 
 /**
- * Description: 上传正版码的流转信息
+ * Description: 上传数字凭证的流转信息
  * Summary: 数字商品服务-IP授权服务-上传流转信息
  */
 func (client *Client) UploadIpCodecirculation(request *UploadIpCodecirculationRequest) (_result *UploadIpCodecirculationResponse, _err error) {
@@ -47008,7 +47063,7 @@ func (client *Client) UploadIpCodecirculation(request *UploadIpCodecirculationRe
 }
 
 /**
- * Description: 上传正版码的流转信息
+ * Description: 上传数字凭证的流转信息
  * Summary: 数字商品服务-IP授权服务-上传流转信息
  */
 func (client *Client) UploadIpCodecirculationEx(request *UploadIpCodecirculationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadIpCodecirculationResponse, _err error) {
@@ -47026,7 +47081,7 @@ func (client *Client) UploadIpCodecirculationEx(request *UploadIpCodecirculation
 }
 
 /**
- * Description: 分页查询正版码的流转信息
+ * Description: 分页查询数字凭证的流转信息
  * Summary: 数字商品服务-IP授权服务-查询流转信息
  */
 func (client *Client) PagequeryIpCodecirculation(request *PagequeryIpCodecirculationRequest) (_result *PagequeryIpCodecirculationResponse, _err error) {
@@ -47042,7 +47097,7 @@ func (client *Client) PagequeryIpCodecirculation(request *PagequeryIpCodecircula
 }
 
 /**
- * Description: 分页查询正版码的流转信息
+ * Description: 分页查询数字凭证的流转信息
  * Summary: 数字商品服务-IP授权服务-查询流转信息
  */
 func (client *Client) PagequeryIpCodecirculationEx(request *PagequeryIpCodecirculationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryIpCodecirculationResponse, _err error) {
