@@ -181,6 +181,142 @@ func (s *EmissionsCategoryStatistics) SetEmissions(v int64) *EmissionsCategorySt
 	return s
 }
 
+// 证书授权产品信息
+type CertProductAuthDO struct {
+	// 三方平台产品ID
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty" require:"true"`
+	// 三方平台产品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
+}
+
+func (s CertProductAuthDO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CertProductAuthDO) GoString() string {
+	return s.String()
+}
+
+func (s *CertProductAuthDO) SetProductId(v string) *CertProductAuthDO {
+	s.ProductId = &v
+	return s
+}
+
+func (s *CertProductAuthDO) SetProductName(v string) *CertProductAuthDO {
+	s.ProductName = &v
+	return s
+}
+
+// 证书产品信息，包括证书详情、授权产品信息
+type CertProductInfoDO struct {
+	// 同证书信息显示
+	CertificationNo *string `json:"certification_no,omitempty" xml:"certification_no,omitempty" require:"true"`
+	// 同证书信息显示
+	CertificationType *string `json:"certification_type,omitempty" xml:"certification_type,omitempty" require:"true"`
+	// 同证书信息显示
+	CertificationName *string `json:"certification_name,omitempty" xml:"certification_name,omitempty" require:"true"`
+	// 同证书信息显示
+	AuthenticationName *string `json:"authentication_name,omitempty" xml:"authentication_name,omitempty" require:"true"`
+	// 证书颁发时间
+	IssueTime *string `json:"issue_time,omitempty" xml:"issue_time,omitempty" require:"true"`
+	// 证书到期时间
+	InvalidTime *string `json:"invalid_time,omitempty" xml:"invalid_time,omitempty" require:"true"`
+	// 同证书信息显示
+	CertificationAgent *string `json:"certification_agent,omitempty" xml:"certification_agent,omitempty" require:"true"`
+	// 同证书信息显示
+	Manufacturer *string `json:"manufacturer,omitempty" xml:"manufacturer,omitempty"`
+	// 同证书信息显示
+	CproductFirm *string `json:"cproduct_firm,omitempty" xml:"cproduct_firm,omitempty"`
+	// 同证书信息显示
+	CertificationLevel *string `json:"certification_level,omitempty" xml:"certification_level,omitempty"`
+	// 同证书信息显示
+	CproductName *string `json:"cproduct_name,omitempty" xml:"cproduct_name,omitempty"`
+	// 同证书信息显示
+	CproductModel *string `json:"cproduct_model,omitempty" xml:"cproduct_model,omitempty"`
+	// 证书文件地址
+	CertificationFileAddress *string `json:"certification_file_address,omitempty" xml:"certification_file_address,omitempty" require:"true"`
+	// 证书授权的三方平台产品列表
+	AuthProducts []*CertProductAuthDO `json:"auth_products,omitempty" xml:"auth_products,omitempty" type:"Repeated"`
+}
+
+func (s CertProductInfoDO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CertProductInfoDO) GoString() string {
+	return s.String()
+}
+
+func (s *CertProductInfoDO) SetCertificationNo(v string) *CertProductInfoDO {
+	s.CertificationNo = &v
+	return s
+}
+
+func (s *CertProductInfoDO) SetCertificationType(v string) *CertProductInfoDO {
+	s.CertificationType = &v
+	return s
+}
+
+func (s *CertProductInfoDO) SetCertificationName(v string) *CertProductInfoDO {
+	s.CertificationName = &v
+	return s
+}
+
+func (s *CertProductInfoDO) SetAuthenticationName(v string) *CertProductInfoDO {
+	s.AuthenticationName = &v
+	return s
+}
+
+func (s *CertProductInfoDO) SetIssueTime(v string) *CertProductInfoDO {
+	s.IssueTime = &v
+	return s
+}
+
+func (s *CertProductInfoDO) SetInvalidTime(v string) *CertProductInfoDO {
+	s.InvalidTime = &v
+	return s
+}
+
+func (s *CertProductInfoDO) SetCertificationAgent(v string) *CertProductInfoDO {
+	s.CertificationAgent = &v
+	return s
+}
+
+func (s *CertProductInfoDO) SetManufacturer(v string) *CertProductInfoDO {
+	s.Manufacturer = &v
+	return s
+}
+
+func (s *CertProductInfoDO) SetCproductFirm(v string) *CertProductInfoDO {
+	s.CproductFirm = &v
+	return s
+}
+
+func (s *CertProductInfoDO) SetCertificationLevel(v string) *CertProductInfoDO {
+	s.CertificationLevel = &v
+	return s
+}
+
+func (s *CertProductInfoDO) SetCproductName(v string) *CertProductInfoDO {
+	s.CproductName = &v
+	return s
+}
+
+func (s *CertProductInfoDO) SetCproductModel(v string) *CertProductInfoDO {
+	s.CproductModel = &v
+	return s
+}
+
+func (s *CertProductInfoDO) SetCertificationFileAddress(v string) *CertProductInfoDO {
+	s.CertificationFileAddress = &v
+	return s
+}
+
+func (s *CertProductInfoDO) SetAuthProducts(v []*CertProductAuthDO) *CertProductInfoDO {
+	s.AuthProducts = v
+	return s
+}
+
 // 减排情况统计
 type EmissionsReductionStatistics struct {
 	// 减排措施类型，可选值：EnergySubstitution-能源替代，SelfDefining-自定义
@@ -836,6 +972,113 @@ func (s *DescribeAcarLastemissiondataResponse) SetDataEntryType(v string) *Descr
 	return s
 }
 
+type QueryThirdCertRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 三方平台的产品ID
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty"`
+	// GreenProductCertification ：绿色产品认证证书
+	// GarbonNeutrality ： 碳中和证书
+	// GreenhouseGasInventory 温室气体核查证书
+	CertificationType *string `json:"certification_type,omitempty" xml:"certification_type,omitempty"`
+	// 证书文件中的产品名称
+	CproductName *string `json:"cproduct_name,omitempty" xml:"cproduct_name,omitempty"`
+	// 证书文件中的产品型号
+	CproductModel *string `json:"cproduct_model,omitempty" xml:"cproduct_model,omitempty"`
+	// 证书文件中的生产商名称
+	CproductFirm *string `json:"cproduct_firm,omitempty" xml:"cproduct_firm,omitempty"`
+	// 三方平台的企业ID
+	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
+}
+
+func (s QueryThirdCertRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThirdCertRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThirdCertRequest) SetAuthToken(v string) *QueryThirdCertRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryThirdCertRequest) SetProductInstanceId(v string) *QueryThirdCertRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryThirdCertRequest) SetProductId(v string) *QueryThirdCertRequest {
+	s.ProductId = &v
+	return s
+}
+
+func (s *QueryThirdCertRequest) SetCertificationType(v string) *QueryThirdCertRequest {
+	s.CertificationType = &v
+	return s
+}
+
+func (s *QueryThirdCertRequest) SetCproductName(v string) *QueryThirdCertRequest {
+	s.CproductName = &v
+	return s
+}
+
+func (s *QueryThirdCertRequest) SetCproductModel(v string) *QueryThirdCertRequest {
+	s.CproductModel = &v
+	return s
+}
+
+func (s *QueryThirdCertRequest) SetCproductFirm(v string) *QueryThirdCertRequest {
+	s.CproductFirm = &v
+	return s
+}
+
+func (s *QueryThirdCertRequest) SetCompanyId(v string) *QueryThirdCertRequest {
+	s.CompanyId = &v
+	return s
+}
+
+type QueryThirdCertResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 证书列表
+	Certifications []*CertProductInfoDO `json:"certifications,omitempty" xml:"certifications,omitempty" type:"Repeated"`
+}
+
+func (s QueryThirdCertResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThirdCertResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThirdCertResponse) SetReqMsgId(v string) *QueryThirdCertResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryThirdCertResponse) SetResultCode(v string) *QueryThirdCertResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryThirdCertResponse) SetResultMsg(v string) *QueryThirdCertResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryThirdCertResponse) SetCertifications(v []*CertProductInfoDO) *QueryThirdCertResponse {
+	s.Certifications = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -958,7 +1201,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.4"),
+				"sdk_version":      tea.String("1.0.5"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1169,6 +1412,40 @@ func (client *Client) DescribeAcarLastemissiondataEx(request *DescribeAcarLastem
 	}
 	_result = &DescribeAcarLastemissiondataResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.acar.lastemissiondata.describe"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 三方平台调用此接口，查询用户的证书信息
+ * Summary: 证书查询
+ */
+func (client *Client) QueryThirdCert(request *QueryThirdCertRequest) (_result *QueryThirdCertResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryThirdCertResponse{}
+	_body, _err := client.QueryThirdCertEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 三方平台调用此接口，查询用户的证书信息
+ * Summary: 证书查询
+ */
+func (client *Client) QueryThirdCertEx(request *QueryThirdCertRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryThirdCertResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryThirdCertResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.third.cert.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
