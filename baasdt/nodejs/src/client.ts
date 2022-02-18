@@ -1723,6 +1723,8 @@ export class IpChannelWithSku extends $tea.Model {
   guaranteeRange?: number;
   // 交易模式
   ipTradeMode?: IPTradeMode;
+  // 授权行业
+  authorizationIndustry?: string[];
   static names(): { [key: string]: string } {
     return {
       channelName: 'channel_name',
@@ -1736,6 +1738,7 @@ export class IpChannelWithSku extends $tea.Model {
       authorizationType: 'authorization_type',
       guaranteeRange: 'guarantee_range',
       ipTradeMode: 'ip_trade_mode',
+      authorizationIndustry: 'authorization_industry',
     };
   }
 
@@ -1752,6 +1755,7 @@ export class IpChannelWithSku extends $tea.Model {
       authorizationType: { 'type': 'array', 'itemType': 'string' },
       guaranteeRange: 'number',
       ipTradeMode: IPTradeMode,
+      authorizationIndustry: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -4815,6 +4819,8 @@ export class IPOrder extends $tea.Model {
   features?: number[];
   // 申请授权合作的备注信息
   applyInfo?: IPOrderApplyInfo;
+  // 是否允许商家下载图库
+  allowDownload?: boolean;
   static names(): { [key: string]: string } {
     return {
       ipOrderId: 'ip_order_id',
@@ -4866,6 +4872,7 @@ export class IPOrder extends $tea.Model {
       goodsIdList: 'goods_id_list',
       features: 'features',
       applyInfo: 'apply_info',
+      allowDownload: 'allow_download',
     };
   }
 
@@ -4920,6 +4927,7 @@ export class IPOrder extends $tea.Model {
       goodsIdList: { 'type': 'array', 'itemType': 'string' },
       features: { 'type': 'array', 'itemType': 'number' },
       applyInfo: IPOrderApplyInfo,
+      allowDownload: 'boolean',
     };
   }
 
@@ -4991,6 +4999,8 @@ export class IpChannelInfo extends $tea.Model {
   guaranteeRange?: number;
   // 交易模式
   ipTradeMode?: IPTradeMode;
+  // 授权行业
+  authorizationIndustry?: string[];
   static names(): { [key: string]: string } {
     return {
       channelName: 'channel_name',
@@ -5001,6 +5011,7 @@ export class IpChannelInfo extends $tea.Model {
       tradeNeedConfirm: 'trade_need_confirm',
       guaranteeRange: 'guarantee_range',
       ipTradeMode: 'ip_trade_mode',
+      authorizationIndustry: 'authorization_industry',
     };
   }
 
@@ -5014,6 +5025,7 @@ export class IpChannelInfo extends $tea.Model {
       tradeNeedConfirm: 'boolean',
       guaranteeRange: 'number',
       ipTradeMode: IPTradeMode,
+      authorizationIndustry: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -18398,6 +18410,8 @@ export class CreateIpGoodsRequest extends $tea.Model {
   ipGalleryUrl?: string;
   // IP授权信息
   authorizationInfo?: IPAuthorizationInfo;
+  // 是否允许商家下载图库
+  allowDownload?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -18425,6 +18439,7 @@ export class CreateIpGoodsRequest extends $tea.Model {
       copyRightEndTime: 'copy_right_end_time',
       ipGalleryUrl: 'ip_gallery_url',
       authorizationInfo: 'authorization_info',
+      allowDownload: 'allow_download',
     };
   }
 
@@ -18455,6 +18470,7 @@ export class CreateIpGoodsRequest extends $tea.Model {
       copyRightEndTime: 'number',
       ipGalleryUrl: 'string',
       authorizationInfo: IPAuthorizationInfo,
+      allowDownload: 'boolean',
     };
   }
 
@@ -18521,6 +18537,8 @@ export class AddIpChannelRequest extends $tea.Model {
   guaranteeRange?: number;
   // 交易模式
   ipTradeMode?: IPTradeMode;
+  // 授权行业
+  authorizationIndustry?: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -18536,6 +18554,7 @@ export class AddIpChannelRequest extends $tea.Model {
       tradeNeedConfirm: 'trade_need_confirm',
       guaranteeRange: 'guarantee_range',
       ipTradeMode: 'ip_trade_mode',
+      authorizationIndustry: 'authorization_industry',
     };
   }
 
@@ -18554,6 +18573,7 @@ export class AddIpChannelRequest extends $tea.Model {
       tradeNeedConfirm: 'boolean',
       guaranteeRange: 'number',
       ipTradeMode: IPTradeMode,
+      authorizationIndustry: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -19099,6 +19119,8 @@ export class UpdateIpChannelRequest extends $tea.Model {
   guaranteeRange?: number;
   // 交易模式
   ipTradeMode?: IPTradeMode;
+  // 授权行业
+  authorizationIndustry?: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -19114,6 +19136,7 @@ export class UpdateIpChannelRequest extends $tea.Model {
       tradeNeedConfirm: 'trade_need_confirm',
       guaranteeRange: 'guarantee_range',
       ipTradeMode: 'ip_trade_mode',
+      authorizationIndustry: 'authorization_industry',
     };
   }
 
@@ -19132,6 +19155,7 @@ export class UpdateIpChannelRequest extends $tea.Model {
       tradeNeedConfirm: 'boolean',
       guaranteeRange: 'number',
       ipTradeMode: IPTradeMode,
+      authorizationIndustry: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -20666,11 +20690,11 @@ export class ApplyIpCodeResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 正版码的批次ID
+  // 数字凭证的批次ID
   codeBatchId?: string;
-  // 正版码左区间
+  // 数字凭证左区间
   codeBatchStart?: number;
-  // 正版码右区间
+  // 数字凭证右区间
   codeBatchEnd?: number;
   static names(): { [key: string]: string } {
     return {
@@ -20705,7 +20729,7 @@ export class PagequeryIpCodeRequest extends $tea.Model {
   productInstanceId?: string;
   // 基础参数
   baseRequest: BaseRequestInfo;
-  // 正版码批次编码
+  // 数字凭证批次编码
   codeBatchId: string;
   // 分页参数:页码
   pageIndex: number;
@@ -20745,7 +20769,7 @@ export class PagequeryIpCodeResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 正版码列表(小程序扫描不可跳转的码)
+  // 数字凭证列表(小程序扫描不可跳转的码)
   // 注意: 这个接口查到的码为原始编码, 小程序扫描无法跳转, IPMart不适用!!!
   codeList?: string[];
   // 展示码列表(和code_list一一对应)
@@ -20764,7 +20788,7 @@ export class PagequeryIpCodeResponse extends $tea.Model {
   ipImage?: string;
   // IP描述
   ipDesc?: string;
-  // 该批次正版码的过期时间戳(毫秒)
+  // 该批次数字凭证的过期时间戳(毫秒)
   expiredDate?: number;
   // 已经申请的总数量
   totalCount?: number;
@@ -20817,7 +20841,7 @@ export class CheckIpCodeRequest extends $tea.Model {
   productInstanceId?: string;
   // 基础参数
   baseRequest: BaseRequestInfo;
-  // 正版码的编码
+  // 数字凭证的编码
   code: string;
   // 扫码用户的ID
   userId: string;
@@ -20873,7 +20897,7 @@ export class CheckIpCodeResponse extends $tea.Model {
   scannedCount?: number;
   // null，暂不使用该值//扫描历史列表(仅展示最近扫描的50次信息)
   scannedList?: IPCodeScannedInfo[];
-  // 正版码的详情，始终不为空，如果类型中的user_name为空，则正版码未领取，如果不为空，则正版码已领取
+  // 数字凭证的详情，始终不为空，如果类型中的user_name为空，则数字凭证未领取，如果不为空，则数字凭证已领取
   codeDetail?: IPCodeScannedInfo;
   // 首次扫码信息
   firstScannedInfo?: IPSimpleScannedInfo;
@@ -21689,7 +21713,7 @@ export class ReceiveIpCodeRequest extends $tea.Model {
   productInstanceId?: string;
   // 基础参数
   baseRequest: BaseRequestInfo;
-  // 正版码的编码
+  // 数字凭证的编码
   code: string;
   // 领取用户的ID
   userId: string;
@@ -21774,7 +21798,7 @@ export class PagequeryIpCodeinfoRequest extends $tea.Model {
   pageNumber: number;
   // 每页数据量大小(请小于等于100)
   pageSize: number;
-  // 0 扫描过的正版码，1 领取过的正版码
+  // 0 扫描过的数字凭证，1 领取过的数字凭证
   type: number;
   static names(): { [key: string]: string } {
     return {
@@ -21816,9 +21840,9 @@ export class PagequeryIpCodeinfoResponse extends $tea.Model {
   pageNumber?: number;
   // 页面数据量大小
   pageSize?: number;
-  // 领取到的正版码总数
+  // 领取到的数字凭证总数
   codeCount?: number;
-  // 正版码列表信息
+  // 数字凭证列表信息
   codeList?: IPCodeScannedInfo[];
   static names(): { [key: string]: string } {
     return {
@@ -22688,7 +22712,7 @@ export class QueryIpCodeRequest extends $tea.Model {
   productInstanceId?: string;
   // 基础参数
   baseRequest: BaseRequestInfo;
-  // 正版码的编码
+  // 数字凭证的编码
   code: string;
   static names(): { [key: string]: string } {
     return {
@@ -22720,7 +22744,7 @@ export class QueryIpCodeResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 正版码信息
+  // 数字凭证信息
   codeInfo?: IPCodeScannedInfo;
   // 首次扫码信息
   firstScannedInfo?: IPSimpleScannedInfo;
@@ -22931,6 +22955,8 @@ export class UpdateIpGoodsgalleryRequest extends $tea.Model {
   ipId: string;
   // IP图库链接，一个压缩包
   ipGalleryUrl: string;
+  // 是否允许商家下载图库
+  allowDownload?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -22939,6 +22965,7 @@ export class UpdateIpGoodsgalleryRequest extends $tea.Model {
       accountId: 'account_id',
       ipId: 'ip_id',
       ipGalleryUrl: 'ip_gallery_url',
+      allowDownload: 'allow_download',
     };
   }
 
@@ -22950,6 +22977,7 @@ export class UpdateIpGoodsgalleryRequest extends $tea.Model {
       accountId: 'string',
       ipId: 'string',
       ipGalleryUrl: 'string',
+      allowDownload: 'boolean',
     };
   }
 
@@ -23036,6 +23064,8 @@ export class QueryIpGoodsgalleryResponse extends $tea.Model {
   ipGalleryUrl?: string;
   // 图库临时下载链接，过期时间2小时
   ipGalleryTemporaryUrl?: string;
+  // 是否允许商家下载图库
+  allowDownload?: boolean;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -23043,6 +23073,7 @@ export class QueryIpGoodsgalleryResponse extends $tea.Model {
       resultMsg: 'result_msg',
       ipGalleryUrl: 'ip_gallery_url',
       ipGalleryTemporaryUrl: 'ip_gallery_temporary_url',
+      allowDownload: 'allow_download',
     };
   }
 
@@ -23053,6 +23084,7 @@ export class QueryIpGoodsgalleryResponse extends $tea.Model {
       resultMsg: 'string',
       ipGalleryUrl: 'string',
       ipGalleryTemporaryUrl: 'string',
+      allowDownload: 'boolean',
     };
   }
 
@@ -23067,21 +23099,21 @@ export class SetIpCodeinfoRequest extends $tea.Model {
   productInstanceId?: string;
   // 基础参数
   baseRequest: BaseRequestInfo;
-  // 正版码对应的订单上版权方的账户链上ID
+  // 数字凭证对应的订单上版权方的账户链上ID
   accountId: string;
   // 订单ID
   orderId: string;
-  // 正版码商品信息配置列表
+  // 数字凭证商品信息配置列表
   goodsInfoList?: IPCodeGoodsInfo[];
-  // 正版码资源位配置信息列表
+  // 数字凭证资源位配置信息列表
   adInfoList?: IPCodeAdvertisingInfo[];
   // ip版权方信息
   ipownerInfo?: IPCodeIpOwnerInfo;
-  // (商家)配置正版码时间
+  // (商家)配置数字凭证时间
   codeSetTime?: string;
-  // 正版码配置附加信息，信息内容由调用方自定义。可以从配置查询和正版码详情接口上获取。
+  // 数字凭证配置附加信息，信息内容由调用方自定义。可以从配置查询和数字凭证详情接口上获取。
   extInfo?: string;
-  // 正版码前缀，本期暂不支持
+  // 数字凭证前缀，本期暂不支持
   showCodePrefix?: string;
   static names(): { [key: string]: string } {
     return {
@@ -23814,18 +23846,18 @@ export class QueryIpCodeinfoResponse extends $tea.Model {
   orderId?: string;
   // 额外功能，包括基础功能，是否允许收藏等
   features?: number[];
-  // 正版码商品信息配置列表
+  // 数字凭证商品信息配置列表
   goodsInfoList?: IPCodeGoodsInfo[];
-  // 正版码资源位配置信息列表
+  // 数字凭证资源位配置信息列表
   adInfoList?: IPCodeAdvertisingInfo[];
   // ip版权方信息
   ipownerInfo?: IPCodeIpOwnerInfo;
   // 0:未配置，1:配置成功可展示，9:下架【本期不实现】
   ipCodeStatus?: number;
-  // 正版码前缀
+  // 数字凭证前缀
   // 
   showCodePrefix?: string;
-  // 正版码配置附加信息，信息内容由调用方自定义。
+  // 数字凭证配置附加信息，信息内容由调用方自定义。
   extInfo?: string;
   static names(): { [key: string]: string } {
     return {
@@ -24955,7 +24987,7 @@ export class PullIpCodeRequest extends $tea.Model {
   productInstanceId?: string;
   // 基础参数
   baseRequest: BaseRequestInfo;
-  // 正版码批次编码
+  // 数字凭证批次编码
   codeBatchId: string;
   // 分页参数:页码
   pageIndex: number;
@@ -24995,7 +25027,7 @@ export class PullIpCodeResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 正版码列表(小程序扫描可跳转)
+  // 数字凭证列表(小程序扫描可跳转)
   codeList?: string[];
   // 展示码列表(和code_list一一对应)
   showCodeList?: string[];
@@ -25013,7 +25045,7 @@ export class PullIpCodeResponse extends $tea.Model {
   ipImage?: string;
   // IP描述
   ipDesc?: string;
-  // 该批次正版码的过期时间戳(毫秒)
+  // 该批次数字凭证的过期时间戳(毫秒)
   expiredDate?: number;
   // 已经申请的总数量
   totalCount?: number;
@@ -25469,7 +25501,7 @@ export class QueryIpCodecollectRequest extends $tea.Model {
   productInstanceId?: string;
   // 基础信息
   baseRequest: BaseRequestInfo;
-  // 正版码ID
+  // 数字凭证ID
   ipCode: string;
   static names(): { [key: string]: string } {
     return {
@@ -25501,11 +25533,11 @@ export class QueryIpCodecollectResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 正版码商品信息配置列表,包含产品名和出品方
+  // 数字凭证商品信息配置列表,包含产品名和出品方
   goodsInfoList?: IPCodeGoodsInfo[];
-  // 正版码流转信息
+  // 数字凭证流转信息
   codeFlowList?: IPCodeFlowInfo[];
-  // 正版码生命周期
+  // 数字凭证生命周期
   codeLifeCircle?: IPCodeConfigTimeInfo;
   // 区块链信息
   chainInfo?: IPCodeChainInfo;
@@ -26345,10 +26377,9 @@ export class UploadIpCodecirculationRequest extends $tea.Model {
   productInstanceId?: string;
   // 基础请求参数
   baseRequest: BaseRequestInfo;
-  // 		
-  // 正版码的编码
+  // 数字凭证的编码
   code: string;
-  // 正版码流转信息，每次最多10条信息。
+  // 数字凭证流转信息，每次最多10条信息。
   codeCirculationList: CodeCirculation[];
   static names(): { [key: string]: string } {
     return {
@@ -26409,7 +26440,7 @@ export class PagequeryIpCodecirculationRequest extends $tea.Model {
   productInstanceId?: string;
   // 基础请求参数
   baseRequest: BaseRequestInfo;
-  // 正版码的编码
+  // 数字凭证的编码
   code: string;
   // 页码
   pageNumber: number;
@@ -26453,9 +26484,9 @@ export class PagequeryIpCodecirculationResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 正版码流转信息列表
+  // 数字凭证流转信息列表
   codeCirculationList?: CodeCirculation[];
-  // 正版码的流转信息总数
+  // 数字凭证的流转信息总数
   totalCount?: number;
   // 页码
   pageNumber?: number;
@@ -28311,7 +28342,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.56",
+          sdk_version: "1.3.58",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -32119,8 +32150,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品服务-IP授权服务-正版码申请
-   * Summary: 数字商品服务-IP授权服务-正版码申请
+   * Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+   * Summary: 数字商品服务-IP授权服务-数字凭证申请
    */
   async applyIpCode(request: ApplyIpCodeRequest): Promise<ApplyIpCodeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -32129,8 +32160,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品服务-IP授权服务-正版码申请
-   * Summary: 数字商品服务-IP授权服务-正版码申请
+   * Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+   * Summary: 数字商品服务-IP授权服务-数字凭证申请
    */
   async applyIpCodeEx(request: ApplyIpCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyIpCodeResponse> {
     Util.validateModel(request);
@@ -32138,9 +32169,9 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+   * Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
   注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
-   * Summary: 数字商品服务-IP授权服务-正版码查询
+   * Summary: 数字商品服务-IP授权服务-数字凭证查询
    */
   async pagequeryIpCode(request: PagequeryIpCodeRequest): Promise<PagequeryIpCodeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -32149,9 +32180,9 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+   * Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
   注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
-   * Summary: 数字商品服务-IP授权服务-正版码查询
+   * Summary: 数字商品服务-IP授权服务-数字凭证查询
    */
   async pagequeryIpCodeEx(request: PagequeryIpCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIpCodeResponse> {
     Util.validateModel(request);
@@ -32159,8 +32190,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品服务-IP授权服务-正版码校验
-   * Summary: 数字商品服务-IP授权服务-正版码校验
+   * Description: 数字商品服务-IP授权服务-数字凭证校验
+   * Summary: 数字商品服务-IP授权服务-数字凭证校验
    */
   async checkIpCode(request: CheckIpCodeRequest): Promise<CheckIpCodeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -32169,8 +32200,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品服务-IP授权服务-正版码校验
-   * Summary: 数字商品服务-IP授权服务-正版码校验
+   * Description: 数字商品服务-IP授权服务-数字凭证校验
+   * Summary: 数字商品服务-IP授权服务-数字凭证校验
    */
   async checkIpCodeEx(request: CheckIpCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckIpCodeResponse> {
     Util.validateModel(request);
@@ -32387,8 +32418,8 @@ export default class Client {
   }
 
   /**
-   * Description: 领取正版码，如已被领取则返回被领取人昵称信息
-   * Summary: 数字商品服务-IP授权服务-正版码领取
+   * Description: 领取数字凭证，如已被领取则返回被领取人昵称信息
+   * Summary: 数字商品服务-IP授权服务-数字凭证领取
    */
   async receiveIpCode(request: ReceiveIpCodeRequest): Promise<ReceiveIpCodeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -32397,8 +32428,8 @@ export default class Client {
   }
 
   /**
-   * Description: 领取正版码，如已被领取则返回被领取人昵称信息
-   * Summary: 数字商品服务-IP授权服务-正版码领取
+   * Description: 领取数字凭证，如已被领取则返回被领取人昵称信息
+   * Summary: 数字商品服务-IP授权服务-数字凭证领取
    */
   async receiveIpCodeEx(request: ReceiveIpCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReceiveIpCodeResponse> {
     Util.validateModel(request);
@@ -32406,8 +32437,8 @@ export default class Client {
   }
 
   /**
-   * Description: 已领取或以扫描过的正版码列表，分页查询
-   * Summary: 数字商品服务-IP授权服务-正版码列表
+   * Description: 已领取或以扫描过的数字凭证列表，分页查询
+   * Summary: 数字商品服务-IP授权服务-数字凭证列表
    */
   async pagequeryIpCodeinfo(request: PagequeryIpCodeinfoRequest): Promise<PagequeryIpCodeinfoResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -32416,8 +32447,8 @@ export default class Client {
   }
 
   /**
-   * Description: 已领取或以扫描过的正版码列表，分页查询
-   * Summary: 数字商品服务-IP授权服务-正版码列表
+   * Description: 已领取或以扫描过的数字凭证列表，分页查询
+   * Summary: 数字商品服务-IP授权服务-数字凭证列表
    */
   async pagequeryIpCodeinfoEx(request: PagequeryIpCodeinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIpCodeinfoResponse> {
     Util.validateModel(request);
@@ -32634,8 +32665,8 @@ export default class Client {
   }
 
   /**
-   * Description: 查询正版码详细信息
-   * Summary: 数字商品服务-IP授权服务-查正版码详情
+   * Description: 查询数字凭证详细信息
+   * Summary: 数字商品服务-IP授权服务-数字凭证详情
    */
   async queryIpCode(request: QueryIpCodeRequest): Promise<QueryIpCodeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -32644,8 +32675,8 @@ export default class Client {
   }
 
   /**
-   * Description: 查询正版码详细信息
-   * Summary: 数字商品服务-IP授权服务-查正版码详情
+   * Description: 查询数字凭证详细信息
+   * Summary: 数字商品服务-IP授权服务-数字凭证详情
    */
   async queryIpCodeEx(request: QueryIpCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpCodeResponse> {
     Util.validateModel(request);
@@ -32729,8 +32760,8 @@ export default class Client {
   }
 
   /**
-   * Description: 配置正版码的商品信息和资源位信息
-   * Summary: 数字商品服务-IP授权服务-正版码配置
+   * Description: 配置数字凭证的商品信息和资源位信息
+   * Summary: 数字商品服务-IP授权服务-数字凭证配置
    */
   async setIpCodeinfo(request: SetIpCodeinfoRequest): Promise<SetIpCodeinfoResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -32739,8 +32770,8 @@ export default class Client {
   }
 
   /**
-   * Description: 配置正版码的商品信息和资源位信息
-   * Summary: 数字商品服务-IP授权服务-正版码配置
+   * Description: 配置数字凭证的商品信息和资源位信息
+   * Summary: 数字商品服务-IP授权服务-数字凭证配置
    */
   async setIpCodeinfoEx(request: SetIpCodeinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SetIpCodeinfoResponse> {
     Util.validateModel(request);
@@ -32862,8 +32893,8 @@ export default class Client {
   }
 
   /**
-   * Description: 查询正版码的配置信息
-   * Summary: 数字商品服务-IP授权服务-查正版码配置
+   * Description: 查询数字凭证的配置信息
+   * Summary: 数字商品服务-IP授权服务-数字凭证配置
    */
   async queryIpCodeinfo(request: QueryIpCodeinfoRequest): Promise<QueryIpCodeinfoResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -32872,8 +32903,8 @@ export default class Client {
   }
 
   /**
-   * Description: 查询正版码的配置信息
-   * Summary: 数字商品服务-IP授权服务-查正版码配置
+   * Description: 查询数字凭证的配置信息
+   * Summary: 数字商品服务-IP授权服务-数字凭证配置
    */
   async queryIpCodeinfoEx(request: QueryIpCodeinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpCodeinfoResponse> {
     Util.validateModel(request);
@@ -33128,8 +33159,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
-   * Summary: 数字商品服务-IP授权服务-天猫查正版码
+   * Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+   * Summary: 数字商品服务-IP授权服务-查数字凭证
    */
   async pullIpCode(request: PullIpCodeRequest): Promise<PullIpCodeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -33138,8 +33169,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
-   * Summary: 数字商品服务-IP授权服务-天猫查正版码
+   * Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+   * Summary: 数字商品服务-IP授权服务-查数字凭证
    */
   async pullIpCodeEx(request: PullIpCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PullIpCodeResponse> {
     Util.validateModel(request);
@@ -33242,8 +33273,8 @@ export default class Client {
   }
 
   /**
-   * Description: 查询正版码收藏证书详情，主要包括该正版码对应的ip商品，流转信息，区块信息等
-   * Summary: 查询正版码收藏证书详情
+   * Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
+   * Summary: 数字商品服务-IP授权服务-查收藏证书
    */
   async queryIpCodecollect(request: QueryIpCodecollectRequest): Promise<QueryIpCodecollectResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -33252,8 +33283,8 @@ export default class Client {
   }
 
   /**
-   * Description: 查询正版码收藏证书详情，主要包括该正版码对应的ip商品，流转信息，区块信息等
-   * Summary: 查询正版码收藏证书详情
+   * Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
+   * Summary: 数字商品服务-IP授权服务-查收藏证书
    */
   async queryIpCodecollectEx(request: QueryIpCodecollectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpCodecollectResponse> {
     Util.validateModel(request);
@@ -33470,7 +33501,7 @@ export default class Client {
   }
 
   /**
-   * Description: 上传正版码的流转信息
+   * Description: 上传数字凭证的流转信息
    * Summary: 数字商品服务-IP授权服务-上传流转信息
    */
   async uploadIpCodecirculation(request: UploadIpCodecirculationRequest): Promise<UploadIpCodecirculationResponse> {
@@ -33480,7 +33511,7 @@ export default class Client {
   }
 
   /**
-   * Description: 上传正版码的流转信息
+   * Description: 上传数字凭证的流转信息
    * Summary: 数字商品服务-IP授权服务-上传流转信息
    */
   async uploadIpCodecirculationEx(request: UploadIpCodecirculationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadIpCodecirculationResponse> {
@@ -33489,7 +33520,7 @@ export default class Client {
   }
 
   /**
-   * Description: 分页查询正版码的流转信息
+   * Description: 分页查询数字凭证的流转信息
    * Summary: 数字商品服务-IP授权服务-查询流转信息
    */
   async pagequeryIpCodecirculation(request: PagequeryIpCodecirculationRequest): Promise<PagequeryIpCodecirculationResponse> {
@@ -33499,7 +33530,7 @@ export default class Client {
   }
 
   /**
-   * Description: 分页查询正版码的流转信息
+   * Description: 分页查询数字凭证的流转信息
    * Summary: 数字商品服务-IP授权服务-查询流转信息
    */
   async pagequeryIpCodecirculationEx(request: PagequeryIpCodecirculationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIpCodecirculationResponse> {
