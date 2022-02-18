@@ -190,6 +190,169 @@ class EmissionsCategoryStatistics(TeaModel):
         return self
 
 
+class CertProductAuthDO(TeaModel):
+    def __init__(
+        self,
+        product_id: str = None,
+        product_name: str = None,
+    ):
+        # 三方平台产品ID
+        self.product_id = product_id
+        # 三方平台产品名称
+        self.product_name = product_name
+
+    def validate(self):
+        self.validate_required(self.product_id, 'product_id')
+        self.validate_required(self.product_name, 'product_name')
+
+    def to_map(self):
+        result = dict()
+        if self.product_id is not None:
+            result['product_id'] = self.product_id
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('product_id') is not None:
+            self.product_id = m.get('product_id')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        return self
+
+
+class CertProductInfoDO(TeaModel):
+    def __init__(
+        self,
+        certification_no: str = None,
+        certification_type: str = None,
+        certification_name: str = None,
+        authentication_name: str = None,
+        issue_time: str = None,
+        invalid_time: str = None,
+        certification_agent: str = None,
+        manufacturer: str = None,
+        cproduct_firm: str = None,
+        certification_level: str = None,
+        cproduct_name: str = None,
+        cproduct_model: str = None,
+        certification_file_address: str = None,
+        auth_products: List[CertProductAuthDO] = None,
+    ):
+        # 同证书信息显示
+        self.certification_no = certification_no
+        # 同证书信息显示
+        self.certification_type = certification_type
+        # 同证书信息显示
+        self.certification_name = certification_name
+        # 同证书信息显示
+        self.authentication_name = authentication_name
+        # 证书颁发时间
+        self.issue_time = issue_time
+        # 证书到期时间
+        self.invalid_time = invalid_time
+        # 同证书信息显示
+        self.certification_agent = certification_agent
+        # 同证书信息显示
+        self.manufacturer = manufacturer
+        # 同证书信息显示
+        self.cproduct_firm = cproduct_firm
+        # 同证书信息显示
+        self.certification_level = certification_level
+        # 同证书信息显示
+        self.cproduct_name = cproduct_name
+        # 同证书信息显示
+        self.cproduct_model = cproduct_model
+        # 证书文件地址
+        self.certification_file_address = certification_file_address
+        # 证书授权的三方平台产品列表
+        self.auth_products = auth_products
+
+    def validate(self):
+        self.validate_required(self.certification_no, 'certification_no')
+        self.validate_required(self.certification_type, 'certification_type')
+        self.validate_required(self.certification_name, 'certification_name')
+        self.validate_required(self.authentication_name, 'authentication_name')
+        self.validate_required(self.issue_time, 'issue_time')
+        self.validate_required(self.invalid_time, 'invalid_time')
+        self.validate_required(self.certification_agent, 'certification_agent')
+        self.validate_required(self.certification_file_address, 'certification_file_address')
+        if self.auth_products:
+            for k in self.auth_products:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.certification_no is not None:
+            result['certification_no'] = self.certification_no
+        if self.certification_type is not None:
+            result['certification_type'] = self.certification_type
+        if self.certification_name is not None:
+            result['certification_name'] = self.certification_name
+        if self.authentication_name is not None:
+            result['authentication_name'] = self.authentication_name
+        if self.issue_time is not None:
+            result['issue_time'] = self.issue_time
+        if self.invalid_time is not None:
+            result['invalid_time'] = self.invalid_time
+        if self.certification_agent is not None:
+            result['certification_agent'] = self.certification_agent
+        if self.manufacturer is not None:
+            result['manufacturer'] = self.manufacturer
+        if self.cproduct_firm is not None:
+            result['cproduct_firm'] = self.cproduct_firm
+        if self.certification_level is not None:
+            result['certification_level'] = self.certification_level
+        if self.cproduct_name is not None:
+            result['cproduct_name'] = self.cproduct_name
+        if self.cproduct_model is not None:
+            result['cproduct_model'] = self.cproduct_model
+        if self.certification_file_address is not None:
+            result['certification_file_address'] = self.certification_file_address
+        result['auth_products'] = []
+        if self.auth_products is not None:
+            for k in self.auth_products:
+                result['auth_products'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('certification_no') is not None:
+            self.certification_no = m.get('certification_no')
+        if m.get('certification_type') is not None:
+            self.certification_type = m.get('certification_type')
+        if m.get('certification_name') is not None:
+            self.certification_name = m.get('certification_name')
+        if m.get('authentication_name') is not None:
+            self.authentication_name = m.get('authentication_name')
+        if m.get('issue_time') is not None:
+            self.issue_time = m.get('issue_time')
+        if m.get('invalid_time') is not None:
+            self.invalid_time = m.get('invalid_time')
+        if m.get('certification_agent') is not None:
+            self.certification_agent = m.get('certification_agent')
+        if m.get('manufacturer') is not None:
+            self.manufacturer = m.get('manufacturer')
+        if m.get('cproduct_firm') is not None:
+            self.cproduct_firm = m.get('cproduct_firm')
+        if m.get('certification_level') is not None:
+            self.certification_level = m.get('certification_level')
+        if m.get('cproduct_name') is not None:
+            self.cproduct_name = m.get('cproduct_name')
+        if m.get('cproduct_model') is not None:
+            self.cproduct_model = m.get('cproduct_model')
+        if m.get('certification_file_address') is not None:
+            self.certification_file_address = m.get('certification_file_address')
+        self.auth_products = []
+        if m.get('auth_products') is not None:
+            for k in m.get('auth_products'):
+                temp_model = CertProductAuthDO()
+                self.auth_products.append(temp_model.from_map(k))
+        return self
+
+
 class EmissionsReductionStatistics(TeaModel):
     def __init__(
         self,
@@ -960,6 +1123,133 @@ class DescribeAcarLastemissiondataResponse(TeaModel):
             self.submission_time = m.get('submission_time')
         if m.get('data_entry_type') is not None:
             self.data_entry_type = m.get('data_entry_type')
+        return self
+
+
+class QueryThirdCertRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        product_id: str = None,
+        certification_type: str = None,
+        cproduct_name: str = None,
+        cproduct_model: str = None,
+        cproduct_firm: str = None,
+        company_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 三方平台的产品ID
+        self.product_id = product_id
+        # GreenProductCertification ：绿色产品认证证书
+        # GarbonNeutrality ： 碳中和证书
+        # GreenhouseGasInventory 温室气体核查证书
+        self.certification_type = certification_type
+        # 证书文件中的产品名称
+        self.cproduct_name = cproduct_name
+        # 证书文件中的产品型号
+        self.cproduct_model = cproduct_model
+        # 证书文件中的生产商名称
+        self.cproduct_firm = cproduct_firm
+        # 三方平台的企业ID
+        self.company_id = company_id
+
+    def validate(self):
+        self.validate_required(self.company_id, 'company_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.product_id is not None:
+            result['product_id'] = self.product_id
+        if self.certification_type is not None:
+            result['certification_type'] = self.certification_type
+        if self.cproduct_name is not None:
+            result['cproduct_name'] = self.cproduct_name
+        if self.cproduct_model is not None:
+            result['cproduct_model'] = self.cproduct_model
+        if self.cproduct_firm is not None:
+            result['cproduct_firm'] = self.cproduct_firm
+        if self.company_id is not None:
+            result['company_id'] = self.company_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('product_id') is not None:
+            self.product_id = m.get('product_id')
+        if m.get('certification_type') is not None:
+            self.certification_type = m.get('certification_type')
+        if m.get('cproduct_name') is not None:
+            self.cproduct_name = m.get('cproduct_name')
+        if m.get('cproduct_model') is not None:
+            self.cproduct_model = m.get('cproduct_model')
+        if m.get('cproduct_firm') is not None:
+            self.cproduct_firm = m.get('cproduct_firm')
+        if m.get('company_id') is not None:
+            self.company_id = m.get('company_id')
+        return self
+
+
+class QueryThirdCertResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        certifications: List[CertProductInfoDO] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 证书列表
+        self.certifications = certifications
+
+    def validate(self):
+        if self.certifications:
+            for k in self.certifications:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['certifications'] = []
+        if self.certifications is not None:
+            for k in self.certifications:
+                result['certifications'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.certifications = []
+        if m.get('certifications') is not None:
+            for k in m.get('certifications'):
+                temp_model = CertProductInfoDO()
+                self.certifications.append(temp_model.from_map(k))
         return self
 
 

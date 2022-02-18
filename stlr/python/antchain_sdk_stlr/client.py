@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4'
+                    'sdk_version': '1.0.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4'
+                    'sdk_version': '1.0.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -539,4 +539,58 @@ class Client:
         UtilClient.validate_model(request)
         return stlr_models.DescribeAcarLastemissiondataResponse().from_map(
             await self.do_request_async('1.0', 'antchain.carbon.acar.lastemissiondata.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_third_cert(
+        self,
+        request: stlr_models.QueryThirdCertRequest,
+    ) -> stlr_models.QueryThirdCertResponse:
+        """
+        Description: 三方平台调用此接口，查询用户的证书信息
+        Summary: 证书查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_third_cert_ex(request, headers, runtime)
+
+    async def query_third_cert_async(
+        self,
+        request: stlr_models.QueryThirdCertRequest,
+    ) -> stlr_models.QueryThirdCertResponse:
+        """
+        Description: 三方平台调用此接口，查询用户的证书信息
+        Summary: 证书查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_third_cert_ex_async(request, headers, runtime)
+
+    def query_third_cert_ex(
+        self,
+        request: stlr_models.QueryThirdCertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryThirdCertResponse:
+        """
+        Description: 三方平台调用此接口，查询用户的证书信息
+        Summary: 证书查询
+        """
+        UtilClient.validate_model(request)
+        return stlr_models.QueryThirdCertResponse().from_map(
+            self.do_request('1.0', 'antchain.carbon.third.cert.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_third_cert_ex_async(
+        self,
+        request: stlr_models.QueryThirdCertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryThirdCertResponse:
+        """
+        Description: 三方平台调用此接口，查询用户的证书信息
+        Summary: 证书查询
+        """
+        UtilClient.validate_model(request)
+        return stlr_models.QueryThirdCertResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.carbon.third.cert.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
