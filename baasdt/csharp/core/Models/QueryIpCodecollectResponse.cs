@@ -24,17 +24,17 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 正版码商品信息配置列表,包含产品名和出品方
+        // 数字凭证商品信息配置列表,包含产品名和出品方
         [NameInMap("goods_info_list")]
         [Validation(Required=false)]
         public List<IPCodeGoodsInfo> GoodsInfoList { get; set; }
 
-        // 正版码流转信息
+        // 数字凭证流转信息
         [NameInMap("code_flow_list")]
         [Validation(Required=false)]
         public List<IPCodeFlowInfo> CodeFlowList { get; set; }
 
-        // 正版码生命周期
+        // 数字凭证生命周期
         [NameInMap("code_life_circle")]
         [Validation(Required=false)]
         public IPCodeConfigTimeInfo CodeLifeCircle { get; set; }

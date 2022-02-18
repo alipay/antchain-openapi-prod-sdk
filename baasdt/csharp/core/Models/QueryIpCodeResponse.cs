@@ -24,7 +24,7 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 正版码信息
+        // 数字凭证信息
         [NameInMap("code_info")]
         [Validation(Required=false)]
         public IPCodeScannedInfo CodeInfo { get; set; }

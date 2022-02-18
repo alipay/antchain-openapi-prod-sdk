@@ -23,7 +23,7 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // 正版码的编码
+        // 数字凭证的编码
         [NameInMap("code")]
         [Validation(Required=true)]
         public string Code { get; set; }

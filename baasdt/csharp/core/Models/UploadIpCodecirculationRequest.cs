@@ -23,13 +23,12 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // 		
-        // 正版码的编码
+        // 数字凭证的编码
         [NameInMap("code")]
         [Validation(Required=true)]
         public string Code { get; set; }
 
-        // 正版码流转信息，每次最多10条信息。
+        // 数字凭证流转信息，每次最多10条信息。
         [NameInMap("code_circulation_list")]
         [Validation(Required=true)]
         public List<CodeCirculation> CodeCirculationList { get; set; }

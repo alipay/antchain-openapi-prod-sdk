@@ -137,7 +137,7 @@ namespace AntChain.SDK.BAASDT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.56"},
+                        {"sdk_version", "1.3.58"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BAASDT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.56"},
+                        {"sdk_version", "1.3.58"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -8628,8 +8628,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-正版码申请
-         * Summary: 数字商品服务-IP授权服务-正版码申请
+         * Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+         * Summary: 数字商品服务-IP授权服务-数字凭证申请
          */
         public ApplyIpCodeResponse ApplyIpCode(ApplyIpCodeRequest request)
         {
@@ -8639,8 +8639,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-正版码申请
-         * Summary: 数字商品服务-IP授权服务-正版码申请
+         * Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+         * Summary: 数字商品服务-IP授权服务-数字凭证申请
          */
         public async Task<ApplyIpCodeResponse> ApplyIpCodeAsync(ApplyIpCodeRequest request)
         {
@@ -8650,8 +8650,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-正版码申请
-         * Summary: 数字商品服务-IP授权服务-正版码申请
+         * Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+         * Summary: 数字商品服务-IP授权服务-数字凭证申请
          */
         public ApplyIpCodeResponse ApplyIpCodeEx(ApplyIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -8660,8 +8660,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-正版码申请
-         * Summary: 数字商品服务-IP授权服务-正版码申请
+         * Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+         * Summary: 数字商品服务-IP授权服务-数字凭证申请
          */
         public async Task<ApplyIpCodeResponse> ApplyIpCodeExAsync(ApplyIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -8670,9 +8670,9 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+         * Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
         注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
-         * Summary: 数字商品服务-IP授权服务-正版码查询
+         * Summary: 数字商品服务-IP授权服务-数字凭证查询
          */
         public PagequeryIpCodeResponse PagequeryIpCode(PagequeryIpCodeRequest request)
         {
@@ -8682,9 +8682,9 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+         * Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
         注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
-         * Summary: 数字商品服务-IP授权服务-正版码查询
+         * Summary: 数字商品服务-IP授权服务-数字凭证查询
          */
         public async Task<PagequeryIpCodeResponse> PagequeryIpCodeAsync(PagequeryIpCodeRequest request)
         {
@@ -8694,9 +8694,9 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+         * Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
         注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
-         * Summary: 数字商品服务-IP授权服务-正版码查询
+         * Summary: 数字商品服务-IP授权服务-数字凭证查询
          */
         public PagequeryIpCodeResponse PagequeryIpCodeEx(PagequeryIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -8705,9 +8705,9 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+         * Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
         注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
-         * Summary: 数字商品服务-IP授权服务-正版码查询
+         * Summary: 数字商品服务-IP授权服务-数字凭证查询
          */
         public async Task<PagequeryIpCodeResponse> PagequeryIpCodeExAsync(PagequeryIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -8716,8 +8716,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-正版码校验
-         * Summary: 数字商品服务-IP授权服务-正版码校验
+         * Description: 数字商品服务-IP授权服务-数字凭证校验
+         * Summary: 数字商品服务-IP授权服务-数字凭证校验
          */
         public CheckIpCodeResponse CheckIpCode(CheckIpCodeRequest request)
         {
@@ -8727,8 +8727,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-正版码校验
-         * Summary: 数字商品服务-IP授权服务-正版码校验
+         * Description: 数字商品服务-IP授权服务-数字凭证校验
+         * Summary: 数字商品服务-IP授权服务-数字凭证校验
          */
         public async Task<CheckIpCodeResponse> CheckIpCodeAsync(CheckIpCodeRequest request)
         {
@@ -8738,8 +8738,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-正版码校验
-         * Summary: 数字商品服务-IP授权服务-正版码校验
+         * Description: 数字商品服务-IP授权服务-数字凭证校验
+         * Summary: 数字商品服务-IP授权服务-数字凭证校验
          */
         public CheckIpCodeResponse CheckIpCodeEx(CheckIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -8748,8 +8748,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-正版码校验
-         * Summary: 数字商品服务-IP授权服务-正版码校验
+         * Description: 数字商品服务-IP授权服务-数字凭证校验
+         * Summary: 数字商品服务-IP授权服务-数字凭证校验
          */
         public async Task<CheckIpCodeResponse> CheckIpCodeExAsync(CheckIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -9220,8 +9220,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 领取正版码，如已被领取则返回被领取人昵称信息
-         * Summary: 数字商品服务-IP授权服务-正版码领取
+         * Description: 领取数字凭证，如已被领取则返回被领取人昵称信息
+         * Summary: 数字商品服务-IP授权服务-数字凭证领取
          */
         public ReceiveIpCodeResponse ReceiveIpCode(ReceiveIpCodeRequest request)
         {
@@ -9231,8 +9231,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 领取正版码，如已被领取则返回被领取人昵称信息
-         * Summary: 数字商品服务-IP授权服务-正版码领取
+         * Description: 领取数字凭证，如已被领取则返回被领取人昵称信息
+         * Summary: 数字商品服务-IP授权服务-数字凭证领取
          */
         public async Task<ReceiveIpCodeResponse> ReceiveIpCodeAsync(ReceiveIpCodeRequest request)
         {
@@ -9242,8 +9242,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 领取正版码，如已被领取则返回被领取人昵称信息
-         * Summary: 数字商品服务-IP授权服务-正版码领取
+         * Description: 领取数字凭证，如已被领取则返回被领取人昵称信息
+         * Summary: 数字商品服务-IP授权服务-数字凭证领取
          */
         public ReceiveIpCodeResponse ReceiveIpCodeEx(ReceiveIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -9252,8 +9252,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 领取正版码，如已被领取则返回被领取人昵称信息
-         * Summary: 数字商品服务-IP授权服务-正版码领取
+         * Description: 领取数字凭证，如已被领取则返回被领取人昵称信息
+         * Summary: 数字商品服务-IP授权服务-数字凭证领取
          */
         public async Task<ReceiveIpCodeResponse> ReceiveIpCodeExAsync(ReceiveIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -9262,8 +9262,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 已领取或以扫描过的正版码列表，分页查询
-         * Summary: 数字商品服务-IP授权服务-正版码列表
+         * Description: 已领取或以扫描过的数字凭证列表，分页查询
+         * Summary: 数字商品服务-IP授权服务-数字凭证列表
          */
         public PagequeryIpCodeinfoResponse PagequeryIpCodeinfo(PagequeryIpCodeinfoRequest request)
         {
@@ -9273,8 +9273,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 已领取或以扫描过的正版码列表，分页查询
-         * Summary: 数字商品服务-IP授权服务-正版码列表
+         * Description: 已领取或以扫描过的数字凭证列表，分页查询
+         * Summary: 数字商品服务-IP授权服务-数字凭证列表
          */
         public async Task<PagequeryIpCodeinfoResponse> PagequeryIpCodeinfoAsync(PagequeryIpCodeinfoRequest request)
         {
@@ -9284,8 +9284,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 已领取或以扫描过的正版码列表，分页查询
-         * Summary: 数字商品服务-IP授权服务-正版码列表
+         * Description: 已领取或以扫描过的数字凭证列表，分页查询
+         * Summary: 数字商品服务-IP授权服务-数字凭证列表
          */
         public PagequeryIpCodeinfoResponse PagequeryIpCodeinfoEx(PagequeryIpCodeinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -9294,8 +9294,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 已领取或以扫描过的正版码列表，分页查询
-         * Summary: 数字商品服务-IP授权服务-正版码列表
+         * Description: 已领取或以扫描过的数字凭证列表，分页查询
+         * Summary: 数字商品服务-IP授权服务-数字凭证列表
          */
         public async Task<PagequeryIpCodeinfoResponse> PagequeryIpCodeinfoExAsync(PagequeryIpCodeinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -9766,8 +9766,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 查询正版码详细信息
-         * Summary: 数字商品服务-IP授权服务-查正版码详情
+         * Description: 查询数字凭证详细信息
+         * Summary: 数字商品服务-IP授权服务-数字凭证详情
          */
         public QueryIpCodeResponse QueryIpCode(QueryIpCodeRequest request)
         {
@@ -9777,8 +9777,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 查询正版码详细信息
-         * Summary: 数字商品服务-IP授权服务-查正版码详情
+         * Description: 查询数字凭证详细信息
+         * Summary: 数字商品服务-IP授权服务-数字凭证详情
          */
         public async Task<QueryIpCodeResponse> QueryIpCodeAsync(QueryIpCodeRequest request)
         {
@@ -9788,8 +9788,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 查询正版码详细信息
-         * Summary: 数字商品服务-IP授权服务-查正版码详情
+         * Description: 查询数字凭证详细信息
+         * Summary: 数字商品服务-IP授权服务-数字凭证详情
          */
         public QueryIpCodeResponse QueryIpCodeEx(QueryIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -9798,8 +9798,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 查询正版码详细信息
-         * Summary: 数字商品服务-IP授权服务-查正版码详情
+         * Description: 查询数字凭证详细信息
+         * Summary: 数字商品服务-IP授权服务-数字凭证详情
          */
         public async Task<QueryIpCodeResponse> QueryIpCodeExAsync(QueryIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -9976,8 +9976,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 配置正版码的商品信息和资源位信息
-         * Summary: 数字商品服务-IP授权服务-正版码配置
+         * Description: 配置数字凭证的商品信息和资源位信息
+         * Summary: 数字商品服务-IP授权服务-数字凭证配置
          */
         public SetIpCodeinfoResponse SetIpCodeinfo(SetIpCodeinfoRequest request)
         {
@@ -9987,8 +9987,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 配置正版码的商品信息和资源位信息
-         * Summary: 数字商品服务-IP授权服务-正版码配置
+         * Description: 配置数字凭证的商品信息和资源位信息
+         * Summary: 数字商品服务-IP授权服务-数字凭证配置
          */
         public async Task<SetIpCodeinfoResponse> SetIpCodeinfoAsync(SetIpCodeinfoRequest request)
         {
@@ -9998,8 +9998,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 配置正版码的商品信息和资源位信息
-         * Summary: 数字商品服务-IP授权服务-正版码配置
+         * Description: 配置数字凭证的商品信息和资源位信息
+         * Summary: 数字商品服务-IP授权服务-数字凭证配置
          */
         public SetIpCodeinfoResponse SetIpCodeinfoEx(SetIpCodeinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -10008,8 +10008,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 配置正版码的商品信息和资源位信息
-         * Summary: 数字商品服务-IP授权服务-正版码配置
+         * Description: 配置数字凭证的商品信息和资源位信息
+         * Summary: 数字商品服务-IP授权服务-数字凭证配置
          */
         public async Task<SetIpCodeinfoResponse> SetIpCodeinfoExAsync(SetIpCodeinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -10270,8 +10270,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 查询正版码的配置信息
-         * Summary: 数字商品服务-IP授权服务-查正版码配置
+         * Description: 查询数字凭证的配置信息
+         * Summary: 数字商品服务-IP授权服务-数字凭证配置
          */
         public QueryIpCodeinfoResponse QueryIpCodeinfo(QueryIpCodeinfoRequest request)
         {
@@ -10281,8 +10281,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 查询正版码的配置信息
-         * Summary: 数字商品服务-IP授权服务-查正版码配置
+         * Description: 查询数字凭证的配置信息
+         * Summary: 数字商品服务-IP授权服务-数字凭证配置
          */
         public async Task<QueryIpCodeinfoResponse> QueryIpCodeinfoAsync(QueryIpCodeinfoRequest request)
         {
@@ -10292,8 +10292,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 查询正版码的配置信息
-         * Summary: 数字商品服务-IP授权服务-查正版码配置
+         * Description: 查询数字凭证的配置信息
+         * Summary: 数字商品服务-IP授权服务-数字凭证配置
          */
         public QueryIpCodeinfoResponse QueryIpCodeinfoEx(QueryIpCodeinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -10302,8 +10302,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 查询正版码的配置信息
-         * Summary: 数字商品服务-IP授权服务-查正版码配置
+         * Description: 查询数字凭证的配置信息
+         * Summary: 数字商品服务-IP授权服务-数字凭证配置
          */
         public async Task<QueryIpCodeinfoResponse> QueryIpCodeinfoExAsync(QueryIpCodeinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -10858,8 +10858,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
-         * Summary: 数字商品服务-IP授权服务-天猫查正版码
+         * Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+         * Summary: 数字商品服务-IP授权服务-查数字凭证
          */
         public PullIpCodeResponse PullIpCode(PullIpCodeRequest request)
         {
@@ -10869,8 +10869,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
-         * Summary: 数字商品服务-IP授权服务-天猫查正版码
+         * Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+         * Summary: 数字商品服务-IP授权服务-查数字凭证
          */
         public async Task<PullIpCodeResponse> PullIpCodeAsync(PullIpCodeRequest request)
         {
@@ -10880,8 +10880,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
-         * Summary: 数字商品服务-IP授权服务-天猫查正版码
+         * Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+         * Summary: 数字商品服务-IP授权服务-查数字凭证
          */
         public PullIpCodeResponse PullIpCodeEx(PullIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -10890,8 +10890,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
-         * Summary: 数字商品服务-IP授权服务-天猫查正版码
+         * Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+         * Summary: 数字商品服务-IP授权服务-查数字凭证
          */
         public async Task<PullIpCodeResponse> PullIpCodeExAsync(PullIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -11110,8 +11110,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 查询正版码收藏证书详情，主要包括该正版码对应的ip商品，流转信息，区块信息等
-         * Summary: 查询正版码收藏证书详情
+         * Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
+         * Summary: 数字商品服务-IP授权服务-查收藏证书
          */
         public QueryIpCodecollectResponse QueryIpCodecollect(QueryIpCodecollectRequest request)
         {
@@ -11121,8 +11121,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 查询正版码收藏证书详情，主要包括该正版码对应的ip商品，流转信息，区块信息等
-         * Summary: 查询正版码收藏证书详情
+         * Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
+         * Summary: 数字商品服务-IP授权服务-查收藏证书
          */
         public async Task<QueryIpCodecollectResponse> QueryIpCodecollectAsync(QueryIpCodecollectRequest request)
         {
@@ -11132,8 +11132,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 查询正版码收藏证书详情，主要包括该正版码对应的ip商品，流转信息，区块信息等
-         * Summary: 查询正版码收藏证书详情
+         * Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
+         * Summary: 数字商品服务-IP授权服务-查收藏证书
          */
         public QueryIpCodecollectResponse QueryIpCodecollectEx(QueryIpCodecollectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -11142,8 +11142,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 查询正版码收藏证书详情，主要包括该正版码对应的ip商品，流转信息，区块信息等
-         * Summary: 查询正版码收藏证书详情
+         * Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
+         * Summary: 数字商品服务-IP授权服务-查收藏证书
          */
         public async Task<QueryIpCodecollectResponse> QueryIpCodecollectExAsync(QueryIpCodecollectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -11614,7 +11614,7 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 上传正版码的流转信息
+         * Description: 上传数字凭证的流转信息
          * Summary: 数字商品服务-IP授权服务-上传流转信息
          */
         public UploadIpCodecirculationResponse UploadIpCodecirculation(UploadIpCodecirculationRequest request)
@@ -11625,7 +11625,7 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 上传正版码的流转信息
+         * Description: 上传数字凭证的流转信息
          * Summary: 数字商品服务-IP授权服务-上传流转信息
          */
         public async Task<UploadIpCodecirculationResponse> UploadIpCodecirculationAsync(UploadIpCodecirculationRequest request)
@@ -11636,7 +11636,7 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 上传正版码的流转信息
+         * Description: 上传数字凭证的流转信息
          * Summary: 数字商品服务-IP授权服务-上传流转信息
          */
         public UploadIpCodecirculationResponse UploadIpCodecirculationEx(UploadIpCodecirculationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -11646,7 +11646,7 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 上传正版码的流转信息
+         * Description: 上传数字凭证的流转信息
          * Summary: 数字商品服务-IP授权服务-上传流转信息
          */
         public async Task<UploadIpCodecirculationResponse> UploadIpCodecirculationExAsync(UploadIpCodecirculationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -11656,7 +11656,7 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 分页查询正版码的流转信息
+         * Description: 分页查询数字凭证的流转信息
          * Summary: 数字商品服务-IP授权服务-查询流转信息
          */
         public PagequeryIpCodecirculationResponse PagequeryIpCodecirculation(PagequeryIpCodecirculationRequest request)
@@ -11667,7 +11667,7 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 分页查询正版码的流转信息
+         * Description: 分页查询数字凭证的流转信息
          * Summary: 数字商品服务-IP授权服务-查询流转信息
          */
         public async Task<PagequeryIpCodecirculationResponse> PagequeryIpCodecirculationAsync(PagequeryIpCodecirculationRequest request)
@@ -11678,7 +11678,7 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 分页查询正版码的流转信息
+         * Description: 分页查询数字凭证的流转信息
          * Summary: 数字商品服务-IP授权服务-查询流转信息
          */
         public PagequeryIpCodecirculationResponse PagequeryIpCodecirculationEx(PagequeryIpCodecirculationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -11688,7 +11688,7 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 分页查询正版码的流转信息
+         * Description: 分页查询数字凭证的流转信息
          * Summary: 数字商品服务-IP授权服务-查询流转信息
          */
         public async Task<PagequeryIpCodecirculationResponse> PagequeryIpCodecirculationExAsync(PagequeryIpCodecirculationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)

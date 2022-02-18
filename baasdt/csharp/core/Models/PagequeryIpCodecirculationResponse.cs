@@ -24,12 +24,12 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 正版码流转信息列表
+        // 数字凭证流转信息列表
         [NameInMap("code_circulation_list")]
         [Validation(Required=false)]
         public List<CodeCirculation> CodeCirculationList { get; set; }
 
-        // 正版码的流转信息总数
+        // 数字凭证的流转信息总数
         [NameInMap("total_count")]
         [Validation(Required=false)]
         public long? TotalCount { get; set; }

@@ -38,7 +38,7 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public long? PageSize { get; set; }
 
-        // 0 扫描过的正版码，1 领取过的正版码
+        // 0 扫描过的数字凭证，1 领取过的数字凭证
         [NameInMap("type")]
         [Validation(Required=true)]
         public long? Type { get; set; }

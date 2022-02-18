@@ -73,6 +73,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public IPTradeMode IpTradeMode { get; set; }
 
+        // 授权行业
+        [NameInMap("authorization_industry")]
+        [Validation(Required=false)]
+        public List<string> AuthorizationIndustry { get; set; }
+
     }
 
 }

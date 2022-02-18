@@ -23,7 +23,7 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // 正版码批次编码
+        // 数字凭证批次编码
         [NameInMap("code_batch_id")]
         [Validation(Required=true)]
         public string CodeBatchId { get; set; }

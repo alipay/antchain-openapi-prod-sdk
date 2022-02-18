@@ -24,17 +24,17 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 正版码的批次ID
+        // 数字凭证的批次ID
         [NameInMap("code_batch_id")]
         [Validation(Required=false)]
         public string CodeBatchId { get; set; }
 
-        // 正版码左区间
+        // 数字凭证左区间
         [NameInMap("code_batch_start")]
         [Validation(Required=false)]
         public long? CodeBatchStart { get; set; }
 
-        // 正版码右区间
+        // 数字凭证右区间
         [NameInMap("code_batch_end")]
         [Validation(Required=false)]
         public long? CodeBatchEnd { get; set; }

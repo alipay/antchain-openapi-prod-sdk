@@ -141,6 +141,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public IPAuthorizationInfo AuthorizationInfo { get; set; }
 
+        // 是否允许商家下载图库
+        [NameInMap("allow_download")]
+        [Validation(Required=false)]
+        public bool? AllowDownload { get; set; }
+
     }
 
 }

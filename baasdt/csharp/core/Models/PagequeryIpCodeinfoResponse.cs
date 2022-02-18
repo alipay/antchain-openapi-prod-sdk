@@ -34,12 +34,12 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public long? PageSize { get; set; }
 
-        // 领取到的正版码总数
+        // 领取到的数字凭证总数
         [NameInMap("code_count")]
         [Validation(Required=false)]
         public long? CodeCount { get; set; }
 
-        // 正版码列表信息
+        // 数字凭证列表信息
         [NameInMap("code_list")]
         [Validation(Required=false)]
         public List<IPCodeScannedInfo> CodeList { get; set; }

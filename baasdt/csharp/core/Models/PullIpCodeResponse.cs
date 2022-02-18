@@ -24,7 +24,7 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 正版码列表(小程序扫描可跳转)
+        // 数字凭证列表(小程序扫描可跳转)
         [NameInMap("code_list")]
         [Validation(Required=false)]
         public List<string> CodeList { get; set; }
@@ -69,7 +69,7 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string IpDesc { get; set; }
 
-        // 该批次正版码的过期时间戳(毫秒)
+        // 该批次数字凭证的过期时间戳(毫秒)
         [NameInMap("expired_date")]
         [Validation(Required=false)]
         public long? ExpiredDate { get; set; }

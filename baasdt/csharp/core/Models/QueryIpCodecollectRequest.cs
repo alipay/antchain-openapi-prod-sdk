@@ -23,7 +23,7 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // 正版码ID
+        // 数字凭证ID
         [NameInMap("ip_code")]
         [Validation(Required=true)]
         public string IpCode { get; set; }
