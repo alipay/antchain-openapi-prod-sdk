@@ -106,6 +106,104 @@ export class EmissionsCategoryStatistics extends $tea.Model {
   }
 }
 
+// 证书授权产品信息
+export class CertProductAuthDO extends $tea.Model {
+  // 三方平台产品ID
+  productId: string;
+  // 三方平台产品名称
+  productName: string;
+  static names(): { [key: string]: string } {
+    return {
+      productId: 'product_id',
+      productName: 'product_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productId: 'string',
+      productName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 证书产品信息，包括证书详情、授权产品信息
+export class CertProductInfoDO extends $tea.Model {
+  // 同证书信息显示
+  certificationNo: string;
+  // 同证书信息显示
+  certificationType: string;
+  // 同证书信息显示
+  certificationName: string;
+  // 同证书信息显示
+  authenticationName: string;
+  // 证书颁发时间
+  issueTime: string;
+  // 证书到期时间
+  invalidTime: string;
+  // 同证书信息显示
+  certificationAgent: string;
+  // 同证书信息显示
+  manufacturer?: string;
+  // 同证书信息显示
+  cproductFirm?: string;
+  // 同证书信息显示
+  certificationLevel?: string;
+  // 同证书信息显示
+  cproductName?: string;
+  // 同证书信息显示
+  cproductModel?: string;
+  // 证书文件地址
+  certificationFileAddress: string;
+  // 证书授权的三方平台产品列表
+  authProducts?: CertProductAuthDO[];
+  static names(): { [key: string]: string } {
+    return {
+      certificationNo: 'certification_no',
+      certificationType: 'certification_type',
+      certificationName: 'certification_name',
+      authenticationName: 'authentication_name',
+      issueTime: 'issue_time',
+      invalidTime: 'invalid_time',
+      certificationAgent: 'certification_agent',
+      manufacturer: 'manufacturer',
+      cproductFirm: 'cproduct_firm',
+      certificationLevel: 'certification_level',
+      cproductName: 'cproduct_name',
+      cproductModel: 'cproduct_model',
+      certificationFileAddress: 'certification_file_address',
+      authProducts: 'auth_products',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      certificationNo: 'string',
+      certificationType: 'string',
+      certificationName: 'string',
+      authenticationName: 'string',
+      issueTime: 'string',
+      invalidTime: 'string',
+      certificationAgent: 'string',
+      manufacturer: 'string',
+      cproductFirm: 'string',
+      certificationLevel: 'string',
+      cproductName: 'string',
+      cproductModel: 'string',
+      certificationFileAddress: 'string',
+      authProducts: { 'type': 'array', 'itemType': CertProductAuthDO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 减排情况统计
 export class EmissionsReductionStatistics extends $tea.Model {
   // 减排措施类型，可选值：EnergySubstitution-能源替代，SelfDefining-自定义
@@ -610,6 +708,87 @@ export class DescribeAcarLastemissiondataResponse extends $tea.Model {
   }
 }
 
+export class QueryThirdCertRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 三方平台的产品ID
+  productId?: string;
+  // GreenProductCertification ：绿色产品认证证书
+  // GarbonNeutrality ： 碳中和证书
+  // GreenhouseGasInventory 温室气体核查证书
+  certificationType?: string;
+  // 证书文件中的产品名称
+  cproductName?: string;
+  // 证书文件中的产品型号
+  cproductModel?: string;
+  // 证书文件中的生产商名称
+  cproductFirm?: string;
+  // 三方平台的企业ID
+  companyId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      productId: 'product_id',
+      certificationType: 'certification_type',
+      cproductName: 'cproduct_name',
+      cproductModel: 'cproduct_model',
+      cproductFirm: 'cproduct_firm',
+      companyId: 'company_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      productId: 'string',
+      certificationType: 'string',
+      cproductName: 'string',
+      cproductModel: 'string',
+      cproductFirm: 'string',
+      companyId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryThirdCertResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 证书列表
+  certifications?: CertProductInfoDO[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      certifications: 'certifications',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      certifications: { 'type': 'array', 'itemType': CertProductInfoDO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -723,7 +902,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.4",
+          sdk_version: "1.0.5",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -862,6 +1041,25 @@ export default class Client {
   async describeAcarLastemissiondataEx(request: DescribeAcarLastemissiondataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DescribeAcarLastemissiondataResponse> {
     Util.validateModel(request);
     return $tea.cast<DescribeAcarLastemissiondataResponse>(await this.doRequest("1.0", "antchain.carbon.acar.lastemissiondata.describe", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DescribeAcarLastemissiondataResponse({}));
+  }
+
+  /**
+   * Description: 三方平台调用此接口，查询用户的证书信息
+   * Summary: 证书查询
+   */
+  async queryThirdCert(request: QueryThirdCertRequest): Promise<QueryThirdCertResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryThirdCertEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 三方平台调用此接口，查询用户的证书信息
+   * Summary: 证书查询
+   */
+  async queryThirdCertEx(request: QueryThirdCertRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryThirdCertResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryThirdCertResponse>(await this.doRequest("1.0", "antchain.carbon.third.cert.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryThirdCertResponse({}));
   }
 
 }
