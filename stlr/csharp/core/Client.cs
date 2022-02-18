@@ -137,7 +137,7 @@ namespace AntChain.SDK.STLR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.4"},
+                        {"sdk_version", "1.0.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.STLR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.4"},
+                        {"sdk_version", "1.0.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -525,6 +525,48 @@ namespace AntChain.SDK.STLR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<DescribeAcarLastemissiondataResponse>(await DoRequestAsync("1.0", "antchain.carbon.acar.lastemissiondata.describe", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 三方平台调用此接口，查询用户的证书信息
+         * Summary: 证书查询
+         */
+        public QueryThirdCertResponse QueryThirdCert(QueryThirdCertRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryThirdCertEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 三方平台调用此接口，查询用户的证书信息
+         * Summary: 证书查询
+         */
+        public async Task<QueryThirdCertResponse> QueryThirdCertAsync(QueryThirdCertRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryThirdCertExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 三方平台调用此接口，查询用户的证书信息
+         * Summary: 证书查询
+         */
+        public QueryThirdCertResponse QueryThirdCertEx(QueryThirdCertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryThirdCertResponse>(DoRequest("1.0", "antchain.carbon.third.cert.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 三方平台调用此接口，查询用户的证书信息
+         * Summary: 证书查询
+         */
+        public async Task<QueryThirdCertResponse> QueryThirdCertExAsync(QueryThirdCertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryThirdCertResponse>(await DoRequestAsync("1.0", "antchain.carbon.third.cert.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
