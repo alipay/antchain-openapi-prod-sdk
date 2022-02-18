@@ -239,6 +239,10 @@ public class IPOrder extends TeaModel {
     @NameInMap("apply_info")
     public IPOrderApplyInfo applyInfo;
 
+    // 是否允许商家下载图库
+    @NameInMap("allow_download")
+    public Boolean allowDownload;
+
     public static IPOrder build(java.util.Map<String, ?> map) throws Exception {
         IPOrder self = new IPOrder();
         return TeaModel.build(map, self);
@@ -634,6 +638,14 @@ public class IPOrder extends TeaModel {
     }
     public IPOrderApplyInfo getApplyInfo() {
         return this.applyInfo;
+    }
+
+    public IPOrder setAllowDownload(Boolean allowDownload) {
+        this.allowDownload = allowDownload;
+        return this;
+    }
+    public Boolean getAllowDownload() {
+        return this.allowDownload;
     }
 
 }

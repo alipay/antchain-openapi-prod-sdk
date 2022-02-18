@@ -16,11 +16,11 @@ public class PagequeryIpCodecirculationResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 正版码流转信息列表
+    // 数字凭证流转信息列表
     @NameInMap("code_circulation_list")
     public java.util.List<CodeCirculation> codeCirculationList;
 
-    // 正版码的流转信息总数
+    // 数字凭证的流转信息总数
     @NameInMap("total_count")
     public Long totalCount;
 

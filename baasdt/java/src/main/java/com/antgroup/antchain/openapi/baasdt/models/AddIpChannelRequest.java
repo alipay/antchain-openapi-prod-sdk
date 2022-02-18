@@ -58,6 +58,10 @@ public class AddIpChannelRequest extends TeaModel {
     @NameInMap("ip_trade_mode")
     public IPTradeMode ipTradeMode;
 
+    // 授权行业
+    @NameInMap("authorization_industry")
+    public java.util.List<String> authorizationIndustry;
+
     public static AddIpChannelRequest build(java.util.Map<String, ?> map) throws Exception {
         AddIpChannelRequest self = new AddIpChannelRequest();
         return TeaModel.build(map, self);
@@ -165,6 +169,14 @@ public class AddIpChannelRequest extends TeaModel {
     }
     public IPTradeMode getIpTradeMode() {
         return this.ipTradeMode;
+    }
+
+    public AddIpChannelRequest setAuthorizationIndustry(java.util.List<String> authorizationIndustry) {
+        this.authorizationIndustry = authorizationIndustry;
+        return this;
+    }
+    public java.util.List<String> getAuthorizationIndustry() {
+        return this.authorizationIndustry;
     }
 
 }

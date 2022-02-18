@@ -56,6 +56,10 @@ public class IpChannelWithSku extends TeaModel {
     @NameInMap("ip_trade_mode")
     public IPTradeMode ipTradeMode;
 
+    // 授权行业
+    @NameInMap("authorization_industry")
+    public java.util.List<String> authorizationIndustry;
+
     public static IpChannelWithSku build(java.util.Map<String, ?> map) throws Exception {
         IpChannelWithSku self = new IpChannelWithSku();
         return TeaModel.build(map, self);
@@ -147,6 +151,14 @@ public class IpChannelWithSku extends TeaModel {
     }
     public IPTradeMode getIpTradeMode() {
         return this.ipTradeMode;
+    }
+
+    public IpChannelWithSku setAuthorizationIndustry(java.util.List<String> authorizationIndustry) {
+        this.authorizationIndustry = authorizationIndustry;
+        return this;
+    }
+    public java.util.List<String> getAuthorizationIndustry() {
+        return this.authorizationIndustry;
     }
 
 }

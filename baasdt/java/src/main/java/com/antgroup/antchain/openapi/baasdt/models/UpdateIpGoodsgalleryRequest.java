@@ -31,6 +31,10 @@ public class UpdateIpGoodsgalleryRequest extends TeaModel {
     @Validation(required = true)
     public String ipGalleryUrl;
 
+    // 是否允许商家下载图库
+    @NameInMap("allow_download")
+    public Boolean allowDownload;
+
     public static UpdateIpGoodsgalleryRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateIpGoodsgalleryRequest self = new UpdateIpGoodsgalleryRequest();
         return TeaModel.build(map, self);
@@ -82,6 +86,14 @@ public class UpdateIpGoodsgalleryRequest extends TeaModel {
     }
     public String getIpGalleryUrl() {
         return this.ipGalleryUrl;
+    }
+
+    public UpdateIpGoodsgalleryRequest setAllowDownload(Boolean allowDownload) {
+        this.allowDownload = allowDownload;
+        return this;
+    }
+    public Boolean getAllowDownload() {
+        return this.allowDownload;
     }
 
 }

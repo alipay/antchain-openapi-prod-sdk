@@ -16,15 +16,15 @@ public class ApplyIpCodeResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 正版码的批次ID
+    // 数字凭证的批次ID
     @NameInMap("code_batch_id")
     public String codeBatchId;
 
-    // 正版码左区间
+    // 数字凭证左区间
     @NameInMap("code_batch_start")
     public Long codeBatchStart;
 
-    // 正版码右区间
+    // 数字凭证右区间
     @NameInMap("code_batch_end")
     public Long codeBatchEnd;
 

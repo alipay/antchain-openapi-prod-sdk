@@ -24,11 +24,11 @@ public class QueryIpCodeinfoResponse extends TeaModel {
     @NameInMap("features")
     public java.util.List<Long> features;
 
-    // 正版码商品信息配置列表
+    // 数字凭证商品信息配置列表
     @NameInMap("goods_info_list")
     public java.util.List<IPCodeGoodsInfo> goodsInfoList;
 
-    // 正版码资源位配置信息列表
+    // 数字凭证资源位配置信息列表
     @NameInMap("ad_info_list")
     public java.util.List<IPCodeAdvertisingInfo> adInfoList;
 
@@ -40,12 +40,12 @@ public class QueryIpCodeinfoResponse extends TeaModel {
     @NameInMap("ip_code_status")
     public Long ipCodeStatus;
 
-    // 正版码前缀
+    // 数字凭证前缀
     // 
     @NameInMap("show_code_prefix")
     public String showCodePrefix;
 
-    // 正版码配置附加信息，信息内容由调用方自定义。
+    // 数字凭证配置附加信息，信息内容由调用方自定义。
     @NameInMap("ext_info")
     public String extInfo;
 

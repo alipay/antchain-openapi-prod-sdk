@@ -16,7 +16,7 @@ public class PullIpCodeRequest extends TeaModel {
     @Validation(required = true)
     public BaseRequestInfo baseRequest;
 
-    // 正版码批次编码
+    // 数字凭证批次编码
     @NameInMap("code_batch_id")
     @Validation(required = true)
     public String codeBatchId;

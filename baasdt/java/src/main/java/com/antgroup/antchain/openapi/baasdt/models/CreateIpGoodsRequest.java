@@ -122,6 +122,10 @@ public class CreateIpGoodsRequest extends TeaModel {
     @NameInMap("authorization_info")
     public IPAuthorizationInfo authorizationInfo;
 
+    // 是否允许商家下载图库
+    @NameInMap("allow_download")
+    public Boolean allowDownload;
+
     public static CreateIpGoodsRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateIpGoodsRequest self = new CreateIpGoodsRequest();
         return TeaModel.build(map, self);
@@ -325,6 +329,14 @@ public class CreateIpGoodsRequest extends TeaModel {
     }
     public IPAuthorizationInfo getAuthorizationInfo() {
         return this.authorizationInfo;
+    }
+
+    public CreateIpGoodsRequest setAllowDownload(Boolean allowDownload) {
+        this.allowDownload = allowDownload;
+        return this;
+    }
+    public Boolean getAllowDownload() {
+        return this.allowDownload;
     }
 
 }

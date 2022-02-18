@@ -16,13 +16,12 @@ public class UploadIpCodecirculationRequest extends TeaModel {
     @Validation(required = true)
     public BaseRequestInfo baseRequest;
 
-    // 		
-    // 正版码的编码
+    // 数字凭证的编码
     @NameInMap("code")
     @Validation(required = true)
     public String code;
 
-    // 正版码流转信息，每次最多10条信息。
+    // 数字凭证流转信息，每次最多10条信息。
     @NameInMap("code_circulation_list")
     @Validation(required = true)
     public java.util.List<CodeCirculation> codeCirculationList;

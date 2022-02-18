@@ -16,7 +16,7 @@ public class PullIpCodeResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 正版码列表(小程序扫描可跳转)
+    // 数字凭证列表(小程序扫描可跳转)
     @NameInMap("code_list")
     public java.util.List<String> codeList;
 
@@ -52,7 +52,7 @@ public class PullIpCodeResponse extends TeaModel {
     @NameInMap("ip_desc")
     public String ipDesc;
 
-    // 该批次正版码的过期时间戳(毫秒)
+    // 该批次数字凭证的过期时间戳(毫秒)
     @NameInMap("expired_date")
     public Long expiredDate;
 

@@ -24,7 +24,7 @@ public class CheckIpCodeResponse extends TeaModel {
     @NameInMap("scanned_list")
     public java.util.List<IPCodeScannedInfo> scannedList;
 
-    // 正版码的详情，始终不为空，如果类型中的user_name为空，则正版码未领取，如果不为空，则正版码已领取
+    // 数字凭证的详情，始终不为空，如果类型中的user_name为空，则数字凭证未领取，如果不为空，则数字凭证已领取
     @NameInMap("code_detail")
     public IPCodeScannedInfo codeDetail;
 

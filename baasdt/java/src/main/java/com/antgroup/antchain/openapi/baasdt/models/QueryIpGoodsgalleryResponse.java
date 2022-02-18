@@ -24,6 +24,10 @@ public class QueryIpGoodsgalleryResponse extends TeaModel {
     @NameInMap("ip_gallery_temporary_url")
     public String ipGalleryTemporaryUrl;
 
+    // 是否允许商家下载图库
+    @NameInMap("allow_download")
+    public Boolean allowDownload;
+
     public static QueryIpGoodsgalleryResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryIpGoodsgalleryResponse self = new QueryIpGoodsgalleryResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class QueryIpGoodsgalleryResponse extends TeaModel {
     }
     public String getIpGalleryTemporaryUrl() {
         return this.ipGalleryTemporaryUrl;
+    }
+
+    public QueryIpGoodsgalleryResponse setAllowDownload(Boolean allowDownload) {
+        this.allowDownload = allowDownload;
+        return this;
+    }
+    public Boolean getAllowDownload() {
+        return this.allowDownload;
     }
 
 }

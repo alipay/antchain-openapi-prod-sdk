@@ -16,7 +16,7 @@ public class QueryIpCodecollectRequest extends TeaModel {
     @Validation(required = true)
     public BaseRequestInfo baseRequest;
 
-    // 正版码ID
+    // 数字凭证ID
     @NameInMap("ip_code")
     @Validation(required = true)
     public String ipCode;

@@ -16,7 +16,7 @@ public class QueryIpCodeResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 正版码信息
+    // 数字凭证信息
     @NameInMap("code_info")
     public IPCodeScannedInfo codeInfo;
 

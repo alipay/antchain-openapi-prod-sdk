@@ -16,7 +16,7 @@ public class PagequeryIpCodeResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 正版码列表(小程序扫描不可跳转的码)
+    // 数字凭证列表(小程序扫描不可跳转的码)
     // 注意: 这个接口查到的码为原始编码, 小程序扫描无法跳转, IPMart不适用!!!
     @NameInMap("code_list")
     public java.util.List<String> codeList;
@@ -53,7 +53,7 @@ public class PagequeryIpCodeResponse extends TeaModel {
     @NameInMap("ip_desc")
     public String ipDesc;
 
-    // 该批次正版码的过期时间戳(毫秒)
+    // 该批次数字凭证的过期时间戳(毫秒)
     @NameInMap("expired_date")
     public Long expiredDate;
 

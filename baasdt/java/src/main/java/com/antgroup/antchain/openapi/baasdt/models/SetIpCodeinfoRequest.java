@@ -16,7 +16,7 @@ public class SetIpCodeinfoRequest extends TeaModel {
     @Validation(required = true)
     public BaseRequestInfo baseRequest;
 
-    // 正版码对应的订单上版权方的账户链上ID
+    // 数字凭证对应的订单上版权方的账户链上ID
     @NameInMap("account_id")
     @Validation(required = true)
     public String accountId;
@@ -26,11 +26,11 @@ public class SetIpCodeinfoRequest extends TeaModel {
     @Validation(required = true)
     public String orderId;
 
-    // 正版码商品信息配置列表
+    // 数字凭证商品信息配置列表
     @NameInMap("goods_info_list")
     public java.util.List<IPCodeGoodsInfo> goodsInfoList;
 
-    // 正版码资源位配置信息列表
+    // 数字凭证资源位配置信息列表
     @NameInMap("ad_info_list")
     public java.util.List<IPCodeAdvertisingInfo> adInfoList;
 
@@ -38,16 +38,16 @@ public class SetIpCodeinfoRequest extends TeaModel {
     @NameInMap("ipowner_info")
     public IPCodeIpOwnerInfo ipownerInfo;
 
-    // (商家)配置正版码时间
+    // (商家)配置数字凭证时间
     @NameInMap("code_set_time")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String codeSetTime;
 
-    // 正版码配置附加信息，信息内容由调用方自定义。可以从配置查询和正版码详情接口上获取。
+    // 数字凭证配置附加信息，信息内容由调用方自定义。可以从配置查询和数字凭证详情接口上获取。
     @NameInMap("ext_info")
     public String extInfo;
 
-    // 正版码前缀，本期暂不支持
+    // 数字凭证前缀，本期暂不支持
     @NameInMap("show_code_prefix")
     public String showCodePrefix;
 
