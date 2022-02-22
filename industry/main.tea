@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.5',
+    sdk_version = '1.2.2',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -450,6 +450,8 @@ model SignMerchantAgreementRequest = {
   merchantUserId: string(name='merchant_user_id'),
   // 个人签约产品码，商户代扣场景固定GENERAL_WITHHOLDING_P
   personalProductCode: string(name='personal_product_code'),
+  // 签约请求单据号
+  requestId: string(name='request_id'),
 }
 
 model SignMerchantAgreementResponse = {
@@ -480,6 +482,53 @@ async function signMerchantAgreement(request: SignMerchantAgreementRequest): Sig
 async function signMerchantAgreementEx(request: SignMerchantAgreementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SignMerchantAgreementResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.industry.merchant.agreement.sign', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetMerchantInfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // source, 由中台为业务方分配, 标识业务来源
+  source: string(name='source'),
+  // 行业商户支付宝uid，跟merchant_tenant_name不能同时为空
+  merchantUserId?: string(name='merchant_user_id'),
+  // 行业商户租户名称， 跟merchant_user_id不能同时为空
+  merchantTenantName?: string(name='merchant_tenant_name'),
+}
+
+model GetMerchantInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // source, 由中台为业务方分配, 标识业务来源
+  source?: string(name='source'),
+  // 商户支付宝uid
+  merchantUserId?: string(name='merchant_user_id'),
+  // 行业商户租户名称
+  merchantTenantName?: string(name='merchant_tenant_name'),
+  // 二级商户id, smid, 进件成功才有
+  smid?: string(name='smid'),
+}
+
+/**
+ * Description: 行业卖家商户信息查询
+ * Summary: 行业卖家商户信息查询
+ */
+async function getMerchantInfo(request: GetMerchantInfoRequest): GetMerchantInfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getMerchantInfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 行业卖家商户信息查询
+ * Summary: 行业卖家商户信息查询
+ */
+async function getMerchantInfoEx(request: GetMerchantInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetMerchantInfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.industry.merchant.info.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PayTradePageRequest = {
@@ -625,8 +674,8 @@ model CreateTradeResponse = {
 }
 
 /**
- * Description: 买家卖家收单交易
- * Summary: 统一收单交易创建
+ * Description: 买家卖家收单
+ * Summary: 统一收单创建
  */
 async function createTrade(request: CreateTradeRequest): CreateTradeResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -635,8 +684,8 @@ async function createTrade(request: CreateTradeRequest): CreateTradeResponse {
 }
 
 /**
- * Description: 买家卖家收单交易
- * Summary: 统一收单交易创建
+ * Description: 买家卖家收单
+ * Summary: 统一收单创建
  */
 async function createTradeEx(request: CreateTradeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateTradeResponse {
   Util.validateModel(request);
@@ -674,8 +723,8 @@ model PayTradeResponse = {
 }
 
 /**
- * Description: 统一收单交易支付接口
- * Summary: 统一收单交易支付接口
+ * Description: 统一收单-支付
+ * Summary: 统一收单-支付
  */
 async function payTrade(request: PayTradeRequest): PayTradeResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -684,12 +733,75 @@ async function payTrade(request: PayTradeRequest): PayTradeResponse {
 }
 
 /**
- * Description: 统一收单交易支付接口
- * Summary: 统一收单交易支付接口
+ * Description: 统一收单-支付
+ * Summary: 统一收单-支付
  */
 async function payTradeEx(request: PayTradeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PayTradeResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.industry.trade.pay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncTradeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商户订单号
+  merchantOrderNo: string(name='merchant_order_no'),
+  // 行业场景码(由经支中台分配给业务方)
+  source: string(name='source'),
+  // 行业渠道码(由经支中台分配给业务方)
+  channel: string(name='channel'),
+  // 交易金额, 最小到分, 支持0元
+  totalAmount: string(name='total_amount'),
+  // 币种，默认156-人民币
+  currencyValue?: string(name='currency_value'),
+  // 交易标题
+  subject?: string(name='subject'),
+  // 交易详情(例如商品、价格快照、数量等)
+  body?: string(name='body'),
+  // 支付渠道, 当前仅支持ZFT-直付通
+  payProductCode: string(name='pay_product_code'),
+  // 交易收款方支付宝uid
+  payeeId: string(name='payee_id'),
+  // 交易付款方支付宝uid
+  payerId: string(name='payer_id'),
+  // 交易创建时间
+  gmtTradeCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_trade_create'),
+  // 交易支付时间
+  gmtTradePay: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_trade_pay'),
+  // 交易完成时间
+  gmtTradeComplete: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_trade_complete'),
+  // 交易状态
+  tradeStatus: string(name='trade_status'),
+  // 扩展字段，json串
+  properties: string(name='properties'),
+}
+
+model SyncTradeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 统一收单-同步
+ * Summary: 统一收单-同步
+ */
+async function syncTrade(request: SyncTradeRequest): SyncTradeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncTradeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 统一收单-同步
+ * Summary: 统一收单-同步
+ */
+async function syncTradeEx(request: SyncTradeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncTradeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.industry.trade.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
