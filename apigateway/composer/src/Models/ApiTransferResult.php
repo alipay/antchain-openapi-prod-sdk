@@ -12,7 +12,7 @@ class ApiTransferResult extends Model
     /**
      * @example
      *
-     * @var ApiTransferVO[]
+     * @var ApiInfoVO[]
      */
     public $apiTransferList;
 
@@ -94,7 +94,7 @@ class ApiTransferResult extends Model
                 $model->apiTransferList = [];
                 $n                      = 0;
                 foreach ($map['api_transfer_list'] as $item) {
-                    $model->apiTransferList[$n++] = null !== $item ? ApiTransferVO::fromMap($item) : $item;
+                    $model->apiTransferList[$n++] = null !== $item ? ApiInfoVO::fromMap($item) : $item;
                 }
             }
         }

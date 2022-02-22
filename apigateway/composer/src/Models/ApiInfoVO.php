@@ -706,11 +706,11 @@ class ApiInfoVO extends Model
 
     // 实例ID
     /**
-     * @example instanceId
+     * @example upstream_instance_id
      *
      * @var string
      */
-    public $instanceId;
+    public $upstreamInstanceId;
     protected $_name = [
         'apiCacheModel'         => 'api_cache_model',
         'apiCrossZoneList'      => 'api_cross_zone_list',
@@ -799,7 +799,7 @@ class ApiInfoVO extends Model
         'authAppInfoList'       => 'auth_app_info_list',
         'reqModelInfo'          => 'req_model_info',
         'rspModelInfo'          => 'rsp_model_info',
-        'instanceId'            => 'instance_id',
+        'upstreamInstanceId'    => 'upstream_instance_id',
     ];
 
     public function validate()
@@ -1126,8 +1126,8 @@ class ApiInfoVO extends Model
         if (null !== $this->rspModelInfo) {
             $res['rsp_model_info'] = null !== $this->rspModelInfo ? $this->rspModelInfo->toMap() : null;
         }
-        if (null !== $this->instanceId) {
-            $res['instance_id'] = $this->instanceId;
+        if (null !== $this->upstreamInstanceId) {
+            $res['upstream_instance_id'] = $this->upstreamInstanceId;
         }
 
         return $res;
@@ -1458,8 +1458,8 @@ class ApiInfoVO extends Model
         if (isset($map['rsp_model_info'])) {
             $model->rspModelInfo = ApiModelVO::fromMap($map['rsp_model_info']);
         }
-        if (isset($map['instance_id'])) {
-            $model->instanceId = $map['instance_id'];
+        if (isset($map['upstream_instance_id'])) {
+            $model->upstreamInstanceId = $map['upstream_instance_id'];
         }
 
         return $model;

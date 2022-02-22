@@ -41,6 +41,8 @@ use AntChain\APIGATEWAY\Models\AllCorsRequest;
 use AntChain\APIGATEWAY\Models\AllCorsResponse;
 use AntChain\APIGATEWAY\Models\AllExternalauthRequest;
 use AntChain\APIGATEWAY\Models\AllExternalauthResponse;
+use AntChain\APIGATEWAY\Models\AllGwconfigRegionRequest;
+use AntChain\APIGATEWAY\Models\AllGwconfigRegionResponse;
 use AntChain\APIGATEWAY\Models\AllGwconfigRequest;
 use AntChain\APIGATEWAY\Models\AllGwconfigResponse;
 use AntChain\APIGATEWAY\Models\AllParammappingRequest;
@@ -514,7 +516,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.309',
+                    'sdk_version'      => '1.1.312',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -6434,5 +6436,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryGwconfigTripleswitchResponse::fromMap($this->doRequest('1.0', 'sofa.apigateway.gwconfig.tripleswitch.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询所以region名称
+     * Summary: 查询所以region名称.
+     *
+     * @param AllGwconfigRegionRequest $request
+     *
+     * @return AllGwconfigRegionResponse
+     */
+    public function allGwconfigRegion($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->allGwconfigRegionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询所以region名称
+     * Summary: 查询所以region名称.
+     *
+     * @param AllGwconfigRegionRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return AllGwconfigRegionResponse
+     */
+    public function allGwconfigRegionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AllGwconfigRegionResponse::fromMap($this->doRequest('1.0', 'sofa.apigateway.gwconfig.region.all', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
