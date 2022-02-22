@@ -993,6 +993,7 @@ class SignMerchantAgreementRequest(TeaModel):
         source: str = None,
         merchant_user_id: str = None,
         personal_product_code: str = None,
+        request_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1002,11 +1003,14 @@ class SignMerchantAgreementRequest(TeaModel):
         self.merchant_user_id = merchant_user_id
         # 个人签约产品码，商户代扣场景固定GENERAL_WITHHOLDING_P
         self.personal_product_code = personal_product_code
+        # 签约请求单据号
+        self.request_id = request_id
 
     def validate(self):
         self.validate_required(self.source, 'source')
         self.validate_required(self.merchant_user_id, 'merchant_user_id')
         self.validate_required(self.personal_product_code, 'personal_product_code')
+        self.validate_required(self.request_id, 'request_id')
 
     def to_map(self):
         result = dict()
@@ -1018,6 +1022,8 @@ class SignMerchantAgreementRequest(TeaModel):
             result['merchant_user_id'] = self.merchant_user_id
         if self.personal_product_code is not None:
             result['personal_product_code'] = self.personal_product_code
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
         return result
 
     def from_map(self, m: dict = None):
@@ -1030,6 +1036,8 @@ class SignMerchantAgreementRequest(TeaModel):
             self.merchant_user_id = m.get('merchant_user_id')
         if m.get('personal_product_code') is not None:
             self.personal_product_code = m.get('personal_product_code')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
         return self
 
 
@@ -1075,6 +1083,117 @@ class SignMerchantAgreementResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('sign_str') is not None:
             self.sign_str = m.get('sign_str')
+        return self
+
+
+class GetMerchantInfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        source: str = None,
+        merchant_user_id: str = None,
+        merchant_tenant_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # source, 由中台为业务方分配, 标识业务来源
+        self.source = source
+        # 行业商户支付宝uid，跟merchant_tenant_name不能同时为空
+        self.merchant_user_id = merchant_user_id
+        # 行业商户租户名称， 跟merchant_user_id不能同时为空
+        self.merchant_tenant_name = merchant_tenant_name
+
+    def validate(self):
+        self.validate_required(self.source, 'source')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.source is not None:
+            result['source'] = self.source
+        if self.merchant_user_id is not None:
+            result['merchant_user_id'] = self.merchant_user_id
+        if self.merchant_tenant_name is not None:
+            result['merchant_tenant_name'] = self.merchant_tenant_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        if m.get('merchant_user_id') is not None:
+            self.merchant_user_id = m.get('merchant_user_id')
+        if m.get('merchant_tenant_name') is not None:
+            self.merchant_tenant_name = m.get('merchant_tenant_name')
+        return self
+
+
+class GetMerchantInfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        source: str = None,
+        merchant_user_id: str = None,
+        merchant_tenant_name: str = None,
+        smid: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # source, 由中台为业务方分配, 标识业务来源
+        self.source = source
+        # 商户支付宝uid
+        self.merchant_user_id = merchant_user_id
+        # 行业商户租户名称
+        self.merchant_tenant_name = merchant_tenant_name
+        # 二级商户id, smid, 进件成功才有
+        self.smid = smid
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.source is not None:
+            result['source'] = self.source
+        if self.merchant_user_id is not None:
+            result['merchant_user_id'] = self.merchant_user_id
+        if self.merchant_tenant_name is not None:
+            result['merchant_tenant_name'] = self.merchant_tenant_name
+        if self.smid is not None:
+            result['smid'] = self.smid
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        if m.get('merchant_user_id') is not None:
+            self.merchant_user_id = m.get('merchant_user_id')
+        if m.get('merchant_tenant_name') is not None:
+            self.merchant_tenant_name = m.get('merchant_tenant_name')
+        if m.get('smid') is not None:
+            self.smid = m.get('smid')
         return self
 
 
@@ -1609,6 +1728,190 @@ class PayTradeResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('trade_no') is not None:
             self.trade_no = m.get('trade_no')
+        return self
+
+
+class SyncTradeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        merchant_order_no: str = None,
+        source: str = None,
+        channel: str = None,
+        total_amount: str = None,
+        currency_value: str = None,
+        subject: str = None,
+        body: str = None,
+        pay_product_code: str = None,
+        payee_id: str = None,
+        payer_id: str = None,
+        gmt_trade_create: str = None,
+        gmt_trade_pay: str = None,
+        gmt_trade_complete: str = None,
+        trade_status: str = None,
+        properties: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 商户订单号
+        self.merchant_order_no = merchant_order_no
+        # 行业场景码(由经支中台分配给业务方)
+        self.source = source
+        # 行业渠道码(由经支中台分配给业务方)
+        self.channel = channel
+        # 交易金额, 最小到分, 支持0元
+        self.total_amount = total_amount
+        # 币种，默认156-人民币
+        self.currency_value = currency_value
+        # 交易标题
+        self.subject = subject
+        # 交易详情(例如商品、价格快照、数量等)
+        self.body = body
+        # 支付渠道, 当前仅支持ZFT-直付通
+        self.pay_product_code = pay_product_code
+        # 交易收款方支付宝uid
+        self.payee_id = payee_id
+        # 交易付款方支付宝uid
+        self.payer_id = payer_id
+        # 交易创建时间
+        self.gmt_trade_create = gmt_trade_create
+        # 交易支付时间
+        self.gmt_trade_pay = gmt_trade_pay
+        # 交易完成时间
+        self.gmt_trade_complete = gmt_trade_complete
+        # 交易状态
+        self.trade_status = trade_status
+        # 扩展字段，json串
+        self.properties = properties
+
+    def validate(self):
+        self.validate_required(self.merchant_order_no, 'merchant_order_no')
+        self.validate_required(self.source, 'source')
+        self.validate_required(self.channel, 'channel')
+        self.validate_required(self.total_amount, 'total_amount')
+        self.validate_required(self.pay_product_code, 'pay_product_code')
+        self.validate_required(self.payee_id, 'payee_id')
+        self.validate_required(self.payer_id, 'payer_id')
+        self.validate_required(self.gmt_trade_create, 'gmt_trade_create')
+        if self.gmt_trade_create is not None:
+            self.validate_pattern(self.gmt_trade_create, 'gmt_trade_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.gmt_trade_pay, 'gmt_trade_pay')
+        if self.gmt_trade_pay is not None:
+            self.validate_pattern(self.gmt_trade_pay, 'gmt_trade_pay', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.gmt_trade_complete, 'gmt_trade_complete')
+        if self.gmt_trade_complete is not None:
+            self.validate_pattern(self.gmt_trade_complete, 'gmt_trade_complete', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.trade_status, 'trade_status')
+        self.validate_required(self.properties, 'properties')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.merchant_order_no is not None:
+            result['merchant_order_no'] = self.merchant_order_no
+        if self.source is not None:
+            result['source'] = self.source
+        if self.channel is not None:
+            result['channel'] = self.channel
+        if self.total_amount is not None:
+            result['total_amount'] = self.total_amount
+        if self.currency_value is not None:
+            result['currency_value'] = self.currency_value
+        if self.subject is not None:
+            result['subject'] = self.subject
+        if self.body is not None:
+            result['body'] = self.body
+        if self.pay_product_code is not None:
+            result['pay_product_code'] = self.pay_product_code
+        if self.payee_id is not None:
+            result['payee_id'] = self.payee_id
+        if self.payer_id is not None:
+            result['payer_id'] = self.payer_id
+        if self.gmt_trade_create is not None:
+            result['gmt_trade_create'] = self.gmt_trade_create
+        if self.gmt_trade_pay is not None:
+            result['gmt_trade_pay'] = self.gmt_trade_pay
+        if self.gmt_trade_complete is not None:
+            result['gmt_trade_complete'] = self.gmt_trade_complete
+        if self.trade_status is not None:
+            result['trade_status'] = self.trade_status
+        if self.properties is not None:
+            result['properties'] = self.properties
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('merchant_order_no') is not None:
+            self.merchant_order_no = m.get('merchant_order_no')
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        if m.get('channel') is not None:
+            self.channel = m.get('channel')
+        if m.get('total_amount') is not None:
+            self.total_amount = m.get('total_amount')
+        if m.get('currency_value') is not None:
+            self.currency_value = m.get('currency_value')
+        if m.get('subject') is not None:
+            self.subject = m.get('subject')
+        if m.get('body') is not None:
+            self.body = m.get('body')
+        if m.get('pay_product_code') is not None:
+            self.pay_product_code = m.get('pay_product_code')
+        if m.get('payee_id') is not None:
+            self.payee_id = m.get('payee_id')
+        if m.get('payer_id') is not None:
+            self.payer_id = m.get('payer_id')
+        if m.get('gmt_trade_create') is not None:
+            self.gmt_trade_create = m.get('gmt_trade_create')
+        if m.get('gmt_trade_pay') is not None:
+            self.gmt_trade_pay = m.get('gmt_trade_pay')
+        if m.get('gmt_trade_complete') is not None:
+            self.gmt_trade_complete = m.get('gmt_trade_complete')
+        if m.get('trade_status') is not None:
+            self.trade_status = m.get('trade_status')
+        if m.get('properties') is not None:
+            self.properties = m.get('properties')
+        return self
+
+
+class SyncTradeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 

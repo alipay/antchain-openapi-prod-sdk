@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.5'
+                    'sdk_version': '1.2.2'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.5'
+                    'sdk_version': '1.2.2'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -521,6 +521,60 @@ class Client:
             await self.do_request_async('1.0', 'antcloud.industry.merchant.agreement.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def get_merchant_info(
+        self,
+        request: industry_models.GetMerchantInfoRequest,
+    ) -> industry_models.GetMerchantInfoResponse:
+        """
+        Description: 行业卖家商户信息查询
+        Summary: 行业卖家商户信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_merchant_info_ex(request, headers, runtime)
+
+    async def get_merchant_info_async(
+        self,
+        request: industry_models.GetMerchantInfoRequest,
+    ) -> industry_models.GetMerchantInfoResponse:
+        """
+        Description: 行业卖家商户信息查询
+        Summary: 行业卖家商户信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_merchant_info_ex_async(request, headers, runtime)
+
+    def get_merchant_info_ex(
+        self,
+        request: industry_models.GetMerchantInfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> industry_models.GetMerchantInfoResponse:
+        """
+        Description: 行业卖家商户信息查询
+        Summary: 行业卖家商户信息查询
+        """
+        UtilClient.validate_model(request)
+        return industry_models.GetMerchantInfoResponse().from_map(
+            self.do_request('1.0', 'antcloud.industry.merchant.info.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_merchant_info_ex_async(
+        self,
+        request: industry_models.GetMerchantInfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> industry_models.GetMerchantInfoResponse:
+        """
+        Description: 行业卖家商户信息查询
+        Summary: 行业卖家商户信息查询
+        """
+        UtilClient.validate_model(request)
+        return industry_models.GetMerchantInfoResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.industry.merchant.info.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def pay_trade_page(
         self,
         request: industry_models.PayTradePageRequest,
@@ -634,8 +688,8 @@ class Client:
         request: industry_models.CreateTradeRequest,
     ) -> industry_models.CreateTradeResponse:
         """
-        Description: 买家卖家收单交易
-        Summary: 统一收单交易创建
+        Description: 买家卖家收单
+        Summary: 统一收单创建
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -646,8 +700,8 @@ class Client:
         request: industry_models.CreateTradeRequest,
     ) -> industry_models.CreateTradeResponse:
         """
-        Description: 买家卖家收单交易
-        Summary: 统一收单交易创建
+        Description: 买家卖家收单
+        Summary: 统一收单创建
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -660,8 +714,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> industry_models.CreateTradeResponse:
         """
-        Description: 买家卖家收单交易
-        Summary: 统一收单交易创建
+        Description: 买家卖家收单
+        Summary: 统一收单创建
         """
         UtilClient.validate_model(request)
         return industry_models.CreateTradeResponse().from_map(
@@ -675,8 +729,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> industry_models.CreateTradeResponse:
         """
-        Description: 买家卖家收单交易
-        Summary: 统一收单交易创建
+        Description: 买家卖家收单
+        Summary: 统一收单创建
         """
         UtilClient.validate_model(request)
         return industry_models.CreateTradeResponse().from_map(
@@ -688,8 +742,8 @@ class Client:
         request: industry_models.PayTradeRequest,
     ) -> industry_models.PayTradeResponse:
         """
-        Description: 统一收单交易支付接口
-        Summary: 统一收单交易支付接口
+        Description: 统一收单-支付
+        Summary: 统一收单-支付
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -700,8 +754,8 @@ class Client:
         request: industry_models.PayTradeRequest,
     ) -> industry_models.PayTradeResponse:
         """
-        Description: 统一收单交易支付接口
-        Summary: 统一收单交易支付接口
+        Description: 统一收单-支付
+        Summary: 统一收单-支付
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -714,8 +768,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> industry_models.PayTradeResponse:
         """
-        Description: 统一收单交易支付接口
-        Summary: 统一收单交易支付接口
+        Description: 统一收单-支付
+        Summary: 统一收单-支付
         """
         UtilClient.validate_model(request)
         return industry_models.PayTradeResponse().from_map(
@@ -729,12 +783,66 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> industry_models.PayTradeResponse:
         """
-        Description: 统一收单交易支付接口
-        Summary: 统一收单交易支付接口
+        Description: 统一收单-支付
+        Summary: 统一收单-支付
         """
         UtilClient.validate_model(request)
         return industry_models.PayTradeResponse().from_map(
             await self.do_request_async('1.0', 'antcloud.industry.trade.pay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_trade(
+        self,
+        request: industry_models.SyncTradeRequest,
+    ) -> industry_models.SyncTradeResponse:
+        """
+        Description: 统一收单-同步
+        Summary: 统一收单-同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_trade_ex(request, headers, runtime)
+
+    async def sync_trade_async(
+        self,
+        request: industry_models.SyncTradeRequest,
+    ) -> industry_models.SyncTradeResponse:
+        """
+        Description: 统一收单-同步
+        Summary: 统一收单-同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_trade_ex_async(request, headers, runtime)
+
+    def sync_trade_ex(
+        self,
+        request: industry_models.SyncTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> industry_models.SyncTradeResponse:
+        """
+        Description: 统一收单-同步
+        Summary: 统一收单-同步
+        """
+        UtilClient.validate_model(request)
+        return industry_models.SyncTradeResponse().from_map(
+            self.do_request('1.0', 'antcloud.industry.trade.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_trade_ex_async(
+        self,
+        request: industry_models.SyncTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> industry_models.SyncTradeResponse:
+        """
+        Description: 统一收单-同步
+        Summary: 统一收单-同步
+        """
+        UtilClient.validate_model(request)
+        return industry_models.SyncTradeResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.industry.trade.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
