@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.5")
+                    new TeaPair("sdk_version", "1.2.2")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -257,6 +257,25 @@ public class Client {
     }
 
     /**
+     * Description: 行业卖家商户信息查询
+     * Summary: 行业卖家商户信息查询
+     */
+    public GetMerchantInfoResponse getMerchantInfo(GetMerchantInfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getMerchantInfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 行业卖家商户信息查询
+     * Summary: 行业卖家商户信息查询
+     */
+    public GetMerchantInfoResponse getMerchantInfoEx(GetMerchantInfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.industry.merchant.info.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetMerchantInfoResponse());
+    }
+
+    /**
      * Description: 买家卖家收单交易，直接收款给卖家过渡户
      * Summary: 买家卖家收单交易-电脑版
      */
@@ -295,8 +314,8 @@ public class Client {
     }
 
     /**
-     * Description: 买家卖家收单交易
-     * Summary: 统一收单交易创建
+     * Description: 买家卖家收单
+     * Summary: 统一收单创建
      */
     public CreateTradeResponse createTrade(CreateTradeRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -305,8 +324,8 @@ public class Client {
     }
 
     /**
-     * Description: 买家卖家收单交易
-     * Summary: 统一收单交易创建
+     * Description: 买家卖家收单
+     * Summary: 统一收单创建
      */
     public CreateTradeResponse createTradeEx(CreateTradeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -314,8 +333,8 @@ public class Client {
     }
 
     /**
-     * Description: 统一收单交易支付接口
-     * Summary: 统一收单交易支付接口
+     * Description: 统一收单-支付
+     * Summary: 统一收单-支付
      */
     public PayTradeResponse payTrade(PayTradeRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -324,12 +343,31 @@ public class Client {
     }
 
     /**
-     * Description: 统一收单交易支付接口
-     * Summary: 统一收单交易支付接口
+     * Description: 统一收单-支付
+     * Summary: 统一收单-支付
      */
     public PayTradeResponse payTradeEx(PayTradeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.industry.trade.pay", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PayTradeResponse());
+    }
+
+    /**
+     * Description: 统一收单-同步
+     * Summary: 统一收单-同步
+     */
+    public SyncTradeResponse syncTrade(SyncTradeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncTradeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 统一收单-同步
+     * Summary: 统一收单-同步
+     */
+    public SyncTradeResponse syncTradeEx(SyncTradeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.industry.trade.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncTradeResponse());
     }
 
     /**

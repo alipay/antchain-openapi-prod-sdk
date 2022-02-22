@@ -23,6 +23,11 @@ public class SignMerchantAgreementRequest extends TeaModel {
     @Validation(required = true)
     public String personalProductCode;
 
+    // 签约请求单据号
+    @NameInMap("request_id")
+    @Validation(required = true)
+    public String requestId;
+
     public static SignMerchantAgreementRequest build(java.util.Map<String, ?> map) throws Exception {
         SignMerchantAgreementRequest self = new SignMerchantAgreementRequest();
         return TeaModel.build(map, self);
@@ -58,6 +63,14 @@ public class SignMerchantAgreementRequest extends TeaModel {
     }
     public String getPersonalProductCode() {
         return this.personalProductCode;
+    }
+
+    public SignMerchantAgreementRequest setRequestId(String requestId) {
+        this.requestId = requestId;
+        return this;
+    }
+    public String getRequestId() {
+        return this.requestId;
     }
 
 }
