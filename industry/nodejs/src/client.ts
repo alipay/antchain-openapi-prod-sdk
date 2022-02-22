@@ -629,12 +629,15 @@ export class SignMerchantAgreementRequest extends $tea.Model {
   merchantUserId: string;
   // 个人签约产品码，商户代扣场景固定GENERAL_WITHHOLDING_P
   personalProductCode: string;
+  // 签约请求单据号
+  requestId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       source: 'source',
       merchantUserId: 'merchant_user_id',
       personalProductCode: 'personal_product_code',
+      requestId: 'request_id',
     };
   }
 
@@ -644,6 +647,7 @@ export class SignMerchantAgreementRequest extends $tea.Model {
       source: 'string',
       merchantUserId: 'string',
       personalProductCode: 'string',
+      requestId: 'string',
     };
   }
 
@@ -676,6 +680,82 @@ export class SignMerchantAgreementResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       signStr: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetMerchantInfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // source, 由中台为业务方分配, 标识业务来源
+  source: string;
+  // 行业商户支付宝uid，跟merchant_tenant_name不能同时为空
+  merchantUserId?: string;
+  // 行业商户租户名称， 跟merchant_user_id不能同时为空
+  merchantTenantName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      source: 'source',
+      merchantUserId: 'merchant_user_id',
+      merchantTenantName: 'merchant_tenant_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      source: 'string',
+      merchantUserId: 'string',
+      merchantTenantName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetMerchantInfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // source, 由中台为业务方分配, 标识业务来源
+  source?: string;
+  // 商户支付宝uid
+  merchantUserId?: string;
+  // 行业商户租户名称
+  merchantTenantName?: string;
+  // 二级商户id, smid, 进件成功才有
+  smid?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      source: 'source',
+      merchantUserId: 'merchant_user_id',
+      merchantTenantName: 'merchant_tenant_name',
+      smid: 'smid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      source: 'string',
+      merchantUserId: 'string',
+      merchantTenantName: 'string',
+      smid: 'string',
     };
   }
 
@@ -1030,6 +1110,114 @@ export class PayTradeResponse extends $tea.Model {
   }
 }
 
+export class SyncTradeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 商户订单号
+  merchantOrderNo: string;
+  // 行业场景码(由经支中台分配给业务方)
+  source: string;
+  // 行业渠道码(由经支中台分配给业务方)
+  channel: string;
+  // 交易金额, 最小到分, 支持0元
+  totalAmount: string;
+  // 币种，默认156-人民币
+  currencyValue?: string;
+  // 交易标题
+  subject?: string;
+  // 交易详情(例如商品、价格快照、数量等)
+  body?: string;
+  // 支付渠道, 当前仅支持ZFT-直付通
+  payProductCode: string;
+  // 交易收款方支付宝uid
+  payeeId: string;
+  // 交易付款方支付宝uid
+  payerId: string;
+  // 交易创建时间
+  gmtTradeCreate: string;
+  // 交易支付时间
+  gmtTradePay: string;
+  // 交易完成时间
+  gmtTradeComplete: string;
+  // 交易状态
+  tradeStatus: string;
+  // 扩展字段，json串
+  properties: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      merchantOrderNo: 'merchant_order_no',
+      source: 'source',
+      channel: 'channel',
+      totalAmount: 'total_amount',
+      currencyValue: 'currency_value',
+      subject: 'subject',
+      body: 'body',
+      payProductCode: 'pay_product_code',
+      payeeId: 'payee_id',
+      payerId: 'payer_id',
+      gmtTradeCreate: 'gmt_trade_create',
+      gmtTradePay: 'gmt_trade_pay',
+      gmtTradeComplete: 'gmt_trade_complete',
+      tradeStatus: 'trade_status',
+      properties: 'properties',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      merchantOrderNo: 'string',
+      source: 'string',
+      channel: 'string',
+      totalAmount: 'string',
+      currencyValue: 'string',
+      subject: 'string',
+      body: 'string',
+      payProductCode: 'string',
+      payeeId: 'string',
+      payerId: 'string',
+      gmtTradeCreate: 'string',
+      gmtTradePay: 'string',
+      gmtTradeComplete: 'string',
+      tradeStatus: 'string',
+      properties: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncTradeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1231,7 +1419,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.5",
+          sdk_version: "1.2.2",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1375,6 +1563,25 @@ export default class Client {
   }
 
   /**
+   * Description: 行业卖家商户信息查询
+   * Summary: 行业卖家商户信息查询
+   */
+  async getMerchantInfo(request: GetMerchantInfoRequest): Promise<GetMerchantInfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getMerchantInfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 行业卖家商户信息查询
+   * Summary: 行业卖家商户信息查询
+   */
+  async getMerchantInfoEx(request: GetMerchantInfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetMerchantInfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetMerchantInfoResponse>(await this.doRequest("1.0", "antcloud.industry.merchant.info.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetMerchantInfoResponse({}));
+  }
+
+  /**
    * Description: 买家卖家收单交易，直接收款给卖家过渡户
    * Summary: 买家卖家收单交易-电脑版
    */
@@ -1413,8 +1620,8 @@ export default class Client {
   }
 
   /**
-   * Description: 买家卖家收单交易
-   * Summary: 统一收单交易创建
+   * Description: 买家卖家收单
+   * Summary: 统一收单创建
    */
   async createTrade(request: CreateTradeRequest): Promise<CreateTradeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -1423,8 +1630,8 @@ export default class Client {
   }
 
   /**
-   * Description: 买家卖家收单交易
-   * Summary: 统一收单交易创建
+   * Description: 买家卖家收单
+   * Summary: 统一收单创建
    */
   async createTradeEx(request: CreateTradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateTradeResponse> {
     Util.validateModel(request);
@@ -1432,8 +1639,8 @@ export default class Client {
   }
 
   /**
-   * Description: 统一收单交易支付接口
-   * Summary: 统一收单交易支付接口
+   * Description: 统一收单-支付
+   * Summary: 统一收单-支付
    */
   async payTrade(request: PayTradeRequest): Promise<PayTradeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -1442,12 +1649,31 @@ export default class Client {
   }
 
   /**
-   * Description: 统一收单交易支付接口
-   * Summary: 统一收单交易支付接口
+   * Description: 统一收单-支付
+   * Summary: 统一收单-支付
    */
   async payTradeEx(request: PayTradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PayTradeResponse> {
     Util.validateModel(request);
     return $tea.cast<PayTradeResponse>(await this.doRequest("1.0", "antcloud.industry.trade.pay", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PayTradeResponse({}));
+  }
+
+  /**
+   * Description: 统一收单-同步
+   * Summary: 统一收单-同步
+   */
+  async syncTrade(request: SyncTradeRequest): Promise<SyncTradeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncTradeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 统一收单-同步
+   * Summary: 统一收单-同步
+   */
+  async syncTradeEx(request: SyncTradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncTradeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncTradeResponse>(await this.doRequest("1.0", "antcloud.industry.trade.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncTradeResponse({}));
   }
 
   /**
