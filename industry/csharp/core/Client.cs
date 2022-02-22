@@ -137,7 +137,7 @@ namespace AntChain.SDK.INDUSTRY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.5"},
+                        {"sdk_version", "1.2.2"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.INDUSTRY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.5"},
+                        {"sdk_version", "1.2.2"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -532,6 +532,48 @@ namespace AntChain.SDK.INDUSTRY
         }
 
         /**
+         * Description: 行业卖家商户信息查询
+         * Summary: 行业卖家商户信息查询
+         */
+        public GetMerchantInfoResponse GetMerchantInfo(GetMerchantInfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetMerchantInfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 行业卖家商户信息查询
+         * Summary: 行业卖家商户信息查询
+         */
+        public async Task<GetMerchantInfoResponse> GetMerchantInfoAsync(GetMerchantInfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetMerchantInfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 行业卖家商户信息查询
+         * Summary: 行业卖家商户信息查询
+         */
+        public GetMerchantInfoResponse GetMerchantInfoEx(GetMerchantInfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetMerchantInfoResponse>(DoRequest("1.0", "antcloud.industry.merchant.info.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 行业卖家商户信息查询
+         * Summary: 行业卖家商户信息查询
+         */
+        public async Task<GetMerchantInfoResponse> GetMerchantInfoExAsync(GetMerchantInfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetMerchantInfoResponse>(await DoRequestAsync("1.0", "antcloud.industry.merchant.info.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 买家卖家收单交易，直接收款给卖家过渡户
          * Summary: 买家卖家收单交易-电脑版
          */
@@ -616,8 +658,8 @@ namespace AntChain.SDK.INDUSTRY
         }
 
         /**
-         * Description: 买家卖家收单交易
-         * Summary: 统一收单交易创建
+         * Description: 买家卖家收单
+         * Summary: 统一收单创建
          */
         public CreateTradeResponse CreateTrade(CreateTradeRequest request)
         {
@@ -627,8 +669,8 @@ namespace AntChain.SDK.INDUSTRY
         }
 
         /**
-         * Description: 买家卖家收单交易
-         * Summary: 统一收单交易创建
+         * Description: 买家卖家收单
+         * Summary: 统一收单创建
          */
         public async Task<CreateTradeResponse> CreateTradeAsync(CreateTradeRequest request)
         {
@@ -638,8 +680,8 @@ namespace AntChain.SDK.INDUSTRY
         }
 
         /**
-         * Description: 买家卖家收单交易
-         * Summary: 统一收单交易创建
+         * Description: 买家卖家收单
+         * Summary: 统一收单创建
          */
         public CreateTradeResponse CreateTradeEx(CreateTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -648,8 +690,8 @@ namespace AntChain.SDK.INDUSTRY
         }
 
         /**
-         * Description: 买家卖家收单交易
-         * Summary: 统一收单交易创建
+         * Description: 买家卖家收单
+         * Summary: 统一收单创建
          */
         public async Task<CreateTradeResponse> CreateTradeExAsync(CreateTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -658,8 +700,8 @@ namespace AntChain.SDK.INDUSTRY
         }
 
         /**
-         * Description: 统一收单交易支付接口
-         * Summary: 统一收单交易支付接口
+         * Description: 统一收单-支付
+         * Summary: 统一收单-支付
          */
         public PayTradeResponse PayTrade(PayTradeRequest request)
         {
@@ -669,8 +711,8 @@ namespace AntChain.SDK.INDUSTRY
         }
 
         /**
-         * Description: 统一收单交易支付接口
-         * Summary: 统一收单交易支付接口
+         * Description: 统一收单-支付
+         * Summary: 统一收单-支付
          */
         public async Task<PayTradeResponse> PayTradeAsync(PayTradeRequest request)
         {
@@ -680,8 +722,8 @@ namespace AntChain.SDK.INDUSTRY
         }
 
         /**
-         * Description: 统一收单交易支付接口
-         * Summary: 统一收单交易支付接口
+         * Description: 统一收单-支付
+         * Summary: 统一收单-支付
          */
         public PayTradeResponse PayTradeEx(PayTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -690,13 +732,55 @@ namespace AntChain.SDK.INDUSTRY
         }
 
         /**
-         * Description: 统一收单交易支付接口
-         * Summary: 统一收单交易支付接口
+         * Description: 统一收单-支付
+         * Summary: 统一收单-支付
          */
         public async Task<PayTradeResponse> PayTradeExAsync(PayTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PayTradeResponse>(await DoRequestAsync("1.0", "antcloud.industry.trade.pay", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 统一收单-同步
+         * Summary: 统一收单-同步
+         */
+        public SyncTradeResponse SyncTrade(SyncTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncTradeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 统一收单-同步
+         * Summary: 统一收单-同步
+         */
+        public async Task<SyncTradeResponse> SyncTradeAsync(SyncTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncTradeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 统一收单-同步
+         * Summary: 统一收单-同步
+         */
+        public SyncTradeResponse SyncTradeEx(SyncTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncTradeResponse>(DoRequest("1.0", "antcloud.industry.trade.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 统一收单-同步
+         * Summary: 统一收单-同步
+         */
+        public async Task<SyncTradeResponse> SyncTradeExAsync(SyncTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncTradeResponse>(await DoRequestAsync("1.0", "antcloud.industry.trade.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

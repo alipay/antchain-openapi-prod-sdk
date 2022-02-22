@@ -8,31 +8,26 @@ using Tea;
 
 namespace AntChain.SDK.INDUSTRY.Models
 {
-    public class SignMerchantAgreementRequest : TeaModel {
+    public class GetMerchantInfoRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 来源场景码, 由中台为业务方分配
+        // source, 由中台为业务方分配, 标识业务来源
         [NameInMap("source")]
         [Validation(Required=true)]
         public string Source { get; set; }
 
-        // 商家pid
+        // 行业商户支付宝uid，跟merchant_tenant_name不能同时为空
         [NameInMap("merchant_user_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string MerchantUserId { get; set; }
 
-        // 个人签约产品码，商户代扣场景固定GENERAL_WITHHOLDING_P
-        [NameInMap("personal_product_code")]
-        [Validation(Required=true)]
-        public string PersonalProductCode { get; set; }
-
-        // 签约请求单据号
-        [NameInMap("request_id")]
-        [Validation(Required=true)]
-        public string RequestId { get; set; }
+        // 行业商户租户名称， 跟merchant_user_id不能同时为空
+        [NameInMap("merchant_tenant_name")]
+        [Validation(Required=false)]
+        public string MerchantTenantName { get; set; }
 
     }
 
