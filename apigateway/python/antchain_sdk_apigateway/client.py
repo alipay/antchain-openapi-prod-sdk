@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.309'
+                    'sdk_version': '1.1.312'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.309'
+                    'sdk_version': '1.1.312'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -9885,4 +9885,58 @@ class Client:
         UtilClient.validate_model(request)
         return apigateway_models.QueryGwconfigTripleswitchResponse().from_map(
             await self.do_request_async('1.0', 'sofa.apigateway.gwconfig.tripleswitch.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def all_gwconfig_region(
+        self,
+        request: apigateway_models.AllGwconfigRegionRequest,
+    ) -> apigateway_models.AllGwconfigRegionResponse:
+        """
+        Description: 查询所以region名称
+        Summary: 查询所以region名称
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.all_gwconfig_region_ex(request, headers, runtime)
+
+    async def all_gwconfig_region_async(
+        self,
+        request: apigateway_models.AllGwconfigRegionRequest,
+    ) -> apigateway_models.AllGwconfigRegionResponse:
+        """
+        Description: 查询所以region名称
+        Summary: 查询所以region名称
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.all_gwconfig_region_ex_async(request, headers, runtime)
+
+    def all_gwconfig_region_ex(
+        self,
+        request: apigateway_models.AllGwconfigRegionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> apigateway_models.AllGwconfigRegionResponse:
+        """
+        Description: 查询所以region名称
+        Summary: 查询所以region名称
+        """
+        UtilClient.validate_model(request)
+        return apigateway_models.AllGwconfigRegionResponse().from_map(
+            self.do_request('1.0', 'sofa.apigateway.gwconfig.region.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def all_gwconfig_region_ex_async(
+        self,
+        request: apigateway_models.AllGwconfigRegionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> apigateway_models.AllGwconfigRegionResponse:
+        """
+        Description: 查询所以region名称
+        Summary: 查询所以region名称
+        """
+        UtilClient.validate_model(request)
+        return apigateway_models.AllGwconfigRegionResponse().from_map(
+            await self.do_request_async('1.0', 'sofa.apigateway.gwconfig.region.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

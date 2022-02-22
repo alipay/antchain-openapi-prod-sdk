@@ -4078,7 +4078,7 @@ class ApiInfoVO(TeaModel):
         auth_app_info_list: List[AuthAppInfoVO] = None,
         req_model_info: ApiModelVO = None,
         rsp_model_info: ApiModelVO = None,
-        instance_id: str = None,
+        upstream_instance_id: str = None,
     ):
         # API缓存模型
         self.api_cache_model = api_cache_model
@@ -4255,7 +4255,7 @@ class ApiInfoVO(TeaModel):
         # 返回body数据模型
         self.rsp_model_info = rsp_model_info
         # 实例ID
-        self.instance_id = instance_id
+        self.upstream_instance_id = upstream_instance_id
 
     def validate(self):
         if self.api_cache_model:
@@ -4527,8 +4527,8 @@ class ApiInfoVO(TeaModel):
             result['req_model_info'] = self.req_model_info.to_map()
         if self.rsp_model_info is not None:
             result['rsp_model_info'] = self.rsp_model_info.to_map()
-        if self.instance_id is not None:
-            result['instance_id'] = self.instance_id
+        if self.upstream_instance_id is not None:
+            result['upstream_instance_id'] = self.upstream_instance_id
         return result
 
     def from_map(self, m: dict = None):
@@ -4751,8 +4751,8 @@ class ApiInfoVO(TeaModel):
         if m.get('rsp_model_info') is not None:
             temp_model = ApiModelVO()
             self.rsp_model_info = temp_model.from_map(m['rsp_model_info'])
-        if m.get('instance_id') is not None:
-            self.instance_id = m.get('instance_id')
+        if m.get('upstream_instance_id') is not None:
+            self.upstream_instance_id = m.get('upstream_instance_id')
         return self
 
 
@@ -7196,7 +7196,7 @@ class SofaGwService(TeaModel):
 class ApiTransferResult(TeaModel):
     def __init__(
         self,
-        api_transfer_list: List[ApiTransferVO] = None,
+        api_transfer_list: List[ApiInfoVO] = None,
         batch_action_result: BatchActionResult = None,
         file_name: str = None,
         apiflow_list: List[ApiInfoVO] = None,
@@ -7243,7 +7243,7 @@ class ApiTransferResult(TeaModel):
         self.api_transfer_list = []
         if m.get('api_transfer_list') is not None:
             for k in m.get('api_transfer_list'):
-                temp_model = ApiTransferVO()
+                temp_model = ApiInfoVO()
                 self.api_transfer_list.append(temp_model.from_map(k))
         if m.get('batch_action_result') is not None:
             temp_model = BatchActionResult()
@@ -26646,6 +26646,95 @@ class QueryGwconfigTripleswitchResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         data: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # data
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class AllGwconfigRegionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        workspace_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户id
+        self.tenant_id = tenant_id
+        # 工作空间标识
+        self.workspace_id = workspace_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        return self
+
+
+class AllGwconfigRegionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[str] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
