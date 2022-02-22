@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.309',
+    sdk_version = '1.1.312',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -1332,7 +1332,7 @@ model ApiInfoVO {
   // 返回body数据模型
   rspModelInfo?: ApiModelVO(name='rsp_model_info', example='rsp_model_info'),
   // 实例ID
-  instanceId?: string(name='instance_id', example='instanceId'),
+  upstreamInstanceId?: string(name='upstream_instance_id', example='upstream_instance_id'),
 }
 
 // 集群里的服务器信息
@@ -1936,7 +1936,7 @@ model SofaGwService {
 // ApiTransferResult
 model ApiTransferResult {
   // api配置
-  apiTransferList?: [ ApiTransferVO ](name='api_transfer_list', example=''),
+  apiTransferList?: [ ApiInfoVO ](name='api_transfer_list', example=''),
   // 批量转移结果
   batchActionResult?: BatchActionResult(name='batch_action_result', example=''),
   // file_name
@@ -9813,5 +9813,45 @@ async function queryGwconfigTripleswitch(request: QueryGwconfigTripleswitchReque
 async function queryGwconfigTripleswitchEx(request: QueryGwconfigTripleswitchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGwconfigTripleswitchResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'sofa.apigateway.gwconfig.tripleswitch.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AllGwconfigRegionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId?: string(name='tenant_id'),
+  // 工作空间标识
+  workspaceId?: string(name='workspace_id'),
+}
+
+model AllGwconfigRegionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ string ](name='data'),
+}
+
+/**
+ * Description: 查询所以region名称
+ * Summary: 查询所以region名称
+ */
+async function allGwconfigRegion(request: AllGwconfigRegionRequest): AllGwconfigRegionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return allGwconfigRegionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询所以region名称
+ * Summary: 查询所以region名称
+ */
+async function allGwconfigRegionEx(request: AllGwconfigRegionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AllGwconfigRegionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.apigateway.gwconfig.region.all', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
