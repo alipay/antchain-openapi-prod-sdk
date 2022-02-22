@@ -17,6 +17,8 @@ use AntChain\INDUSTRY\Models\CreateMerchantSellerRequest;
 use AntChain\INDUSTRY\Models\CreateMerchantSellerResponse;
 use AntChain\INDUSTRY\Models\CreateTradeRequest;
 use AntChain\INDUSTRY\Models\CreateTradeResponse;
+use AntChain\INDUSTRY\Models\GetMerchantInfoRequest;
+use AntChain\INDUSTRY\Models\GetMerchantInfoResponse;
 use AntChain\INDUSTRY\Models\PayTradePageRequest;
 use AntChain\INDUSTRY\Models\PayTradePageResponse;
 use AntChain\INDUSTRY\Models\PayTradeRequest;
@@ -27,6 +29,8 @@ use AntChain\INDUSTRY\Models\QueryTradeOrderRequest;
 use AntChain\INDUSTRY\Models\QueryTradeOrderResponse;
 use AntChain\INDUSTRY\Models\SignMerchantAgreementRequest;
 use AntChain\INDUSTRY\Models\SignMerchantAgreementResponse;
+use AntChain\INDUSTRY\Models\SyncTradeRequest;
+use AntChain\INDUSTRY\Models\SyncTradeResponse;
 use AntChain\INDUSTRY\Models\UploadMerchantImageRequest;
 use AntChain\INDUSTRY\Models\UploadMerchantImageResponse;
 use AntChain\Util\UtilClient;
@@ -176,7 +180,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.5',
+                    'sdk_version'      => '1.2.2',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -373,6 +377,39 @@ class Client
     }
 
     /**
+     * Description: 行业卖家商户信息查询
+     * Summary: 行业卖家商户信息查询.
+     *
+     * @param GetMerchantInfoRequest $request
+     *
+     * @return GetMerchantInfoResponse
+     */
+    public function getMerchantInfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getMerchantInfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 行业卖家商户信息查询
+     * Summary: 行业卖家商户信息查询.
+     *
+     * @param GetMerchantInfoRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return GetMerchantInfoResponse
+     */
+    public function getMerchantInfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetMerchantInfoResponse::fromMap($this->doRequest('1.0', 'antcloud.industry.merchant.info.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 买家卖家收单交易，直接收款给卖家过渡户
      * Summary: 买家卖家收单交易-电脑版.
      *
@@ -439,8 +476,8 @@ class Client
     }
 
     /**
-     * Description: 买家卖家收单交易
-     * Summary: 统一收单交易创建.
+     * Description: 买家卖家收单
+     * Summary: 统一收单创建.
      *
      * @param CreateTradeRequest $request
      *
@@ -455,8 +492,8 @@ class Client
     }
 
     /**
-     * Description: 买家卖家收单交易
-     * Summary: 统一收单交易创建.
+     * Description: 买家卖家收单
+     * Summary: 统一收单创建.
      *
      * @param CreateTradeRequest $request
      * @param string[]           $headers
@@ -472,8 +509,8 @@ class Client
     }
 
     /**
-     * Description: 统一收单交易支付接口
-     * Summary: 统一收单交易支付接口.
+     * Description: 统一收单-支付
+     * Summary: 统一收单-支付.
      *
      * @param PayTradeRequest $request
      *
@@ -488,8 +525,8 @@ class Client
     }
 
     /**
-     * Description: 统一收单交易支付接口
-     * Summary: 统一收单交易支付接口.
+     * Description: 统一收单-支付
+     * Summary: 统一收单-支付.
      *
      * @param PayTradeRequest $request
      * @param string[]        $headers
@@ -502,6 +539,39 @@ class Client
         Utils::validateModel($request);
 
         return PayTradeResponse::fromMap($this->doRequest('1.0', 'antcloud.industry.trade.pay', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 统一收单-同步
+     * Summary: 统一收单-同步.
+     *
+     * @param SyncTradeRequest $request
+     *
+     * @return SyncTradeResponse
+     */
+    public function syncTrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncTradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 统一收单-同步
+     * Summary: 统一收单-同步.
+     *
+     * @param SyncTradeRequest $request
+     * @param string[]         $headers
+     * @param RuntimeOptions   $runtime
+     *
+     * @return SyncTradeResponse
+     */
+    public function syncTradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncTradeResponse::fromMap($this->doRequest('1.0', 'antcloud.industry.trade.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
