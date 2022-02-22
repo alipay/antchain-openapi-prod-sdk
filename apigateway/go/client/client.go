@@ -3706,7 +3706,7 @@ type ApiInfoVO struct {
 	// 返回body数据模型
 	RspModelInfo *ApiModelVO `json:"rsp_model_info,omitempty" xml:"rsp_model_info,omitempty"`
 	// 实例ID
-	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
+	UpstreamInstanceId *string `json:"upstream_instance_id,omitempty" xml:"upstream_instance_id,omitempty"`
 }
 
 func (s ApiInfoVO) String() string {
@@ -4152,8 +4152,8 @@ func (s *ApiInfoVO) SetRspModelInfo(v *ApiModelVO) *ApiInfoVO {
 	return s
 }
 
-func (s *ApiInfoVO) SetInstanceId(v string) *ApiInfoVO {
-	s.InstanceId = &v
+func (s *ApiInfoVO) SetUpstreamInstanceId(v string) *ApiInfoVO {
+	s.UpstreamInstanceId = &v
 	return s
 }
 
@@ -6169,7 +6169,7 @@ func (s *SofaGwService) SetUpstream(v *SofaGwUpstreamVO) *SofaGwService {
 // ApiTransferResult
 type ApiTransferResult struct {
 	// api配置
-	ApiTransferList []*ApiTransferVO `json:"api_transfer_list,omitempty" xml:"api_transfer_list,omitempty" type:"Repeated"`
+	ApiTransferList []*ApiInfoVO `json:"api_transfer_list,omitempty" xml:"api_transfer_list,omitempty" type:"Repeated"`
 	// 批量转移结果
 	BatchActionResult *BatchActionResult `json:"batch_action_result,omitempty" xml:"batch_action_result,omitempty"`
 	// file_name
@@ -6186,7 +6186,7 @@ func (s ApiTransferResult) GoString() string {
 	return s.String()
 }
 
-func (s *ApiTransferResult) SetApiTransferList(v []*ApiTransferVO) *ApiTransferResult {
+func (s *ApiTransferResult) SetApiTransferList(v []*ApiInfoVO) *ApiTransferResult {
 	s.ApiTransferList = v
 	return s
 }
@@ -22454,6 +22454,83 @@ func (s *QueryGwconfigTripleswitchResponse) SetData(v bool) *QueryGwconfigTriple
 	return s
 }
 
+type AllGwconfigRegionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 工作空间标识
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+}
+
+func (s AllGwconfigRegionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AllGwconfigRegionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AllGwconfigRegionRequest) SetAuthToken(v string) *AllGwconfigRegionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AllGwconfigRegionRequest) SetProductInstanceId(v string) *AllGwconfigRegionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AllGwconfigRegionRequest) SetTenantId(v string) *AllGwconfigRegionRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *AllGwconfigRegionRequest) SetWorkspaceId(v string) *AllGwconfigRegionRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+type AllGwconfigRegionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// data
+	Data []*string `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s AllGwconfigRegionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AllGwconfigRegionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AllGwconfigRegionResponse) SetReqMsgId(v string) *AllGwconfigRegionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AllGwconfigRegionResponse) SetResultCode(v string) *AllGwconfigRegionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AllGwconfigRegionResponse) SetResultMsg(v string) *AllGwconfigRegionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AllGwconfigRegionResponse) SetData(v []*string) *AllGwconfigRegionResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -22576,7 +22653,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.309"),
+				"sdk_version":      tea.String("1.1.312"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -28671,6 +28748,40 @@ func (client *Client) QueryGwconfigTripleswitchEx(request *QueryGwconfigTriplesw
 	}
 	_result = &QueryGwconfigTripleswitchResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("sofa.apigateway.gwconfig.tripleswitch.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询所以region名称
+ * Summary: 查询所以region名称
+ */
+func (client *Client) AllGwconfigRegion(request *AllGwconfigRegionRequest) (_result *AllGwconfigRegionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AllGwconfigRegionResponse{}
+	_body, _err := client.AllGwconfigRegionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询所以region名称
+ * Summary: 查询所以region名称
+ */
+func (client *Client) AllGwconfigRegionEx(request *AllGwconfigRegionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AllGwconfigRegionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AllGwconfigRegionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("sofa.apigateway.gwconfig.region.all"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
