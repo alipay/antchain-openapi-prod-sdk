@@ -2547,7 +2547,7 @@ export class ApiInfoVO extends $tea.Model {
   // 返回body数据模型
   rspModelInfo?: ApiModelVO;
   // 实例ID
-  instanceId?: string;
+  upstreamInstanceId?: string;
   static names(): { [key: string]: string } {
     return {
       apiCacheModel: 'api_cache_model',
@@ -2637,7 +2637,7 @@ export class ApiInfoVO extends $tea.Model {
       authAppInfoList: 'auth_app_info_list',
       reqModelInfo: 'req_model_info',
       rspModelInfo: 'rsp_model_info',
-      instanceId: 'instance_id',
+      upstreamInstanceId: 'upstream_instance_id',
     };
   }
 
@@ -2730,7 +2730,7 @@ export class ApiInfoVO extends $tea.Model {
       authAppInfoList: { 'type': 'array', 'itemType': AuthAppInfoVO },
       reqModelInfo: ApiModelVO,
       rspModelInfo: ApiModelVO,
-      instanceId: 'string',
+      upstreamInstanceId: 'string',
     };
   }
 
@@ -4316,7 +4316,7 @@ export class SofaGwService extends $tea.Model {
 // ApiTransferResult
 export class ApiTransferResult extends $tea.Model {
   // api配置
-  apiTransferList?: ApiTransferVO[];
+  apiTransferList?: ApiInfoVO[];
   // 批量转移结果
   batchActionResult?: BatchActionResult;
   // file_name
@@ -4334,7 +4334,7 @@ export class ApiTransferResult extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
-      apiTransferList: { 'type': 'array', 'itemType': ApiTransferVO },
+      apiTransferList: { 'type': 'array', 'itemType': ApiInfoVO },
       batchActionResult: BatchActionResult,
       fileName: 'string',
       apiflowList: { 'type': 'array', 'itemType': ApiInfoVO },
@@ -17251,6 +17251,69 @@ export class QueryGwconfigTripleswitchResponse extends $tea.Model {
   }
 }
 
+export class AllGwconfigRegionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId?: string;
+  // 工作空间标识
+  workspaceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      workspaceId: 'workspace_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      workspaceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AllGwconfigRegionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // data
+  data?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -17364,7 +17427,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.309",
+          sdk_version: "1.1.312",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -20792,6 +20855,25 @@ export default class Client {
   async queryGwconfigTripleswitchEx(request: QueryGwconfigTripleswitchRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGwconfigTripleswitchResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryGwconfigTripleswitchResponse>(await this.doRequest("1.0", "sofa.apigateway.gwconfig.tripleswitch.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryGwconfigTripleswitchResponse({}));
+  }
+
+  /**
+   * Description: 查询所以region名称
+   * Summary: 查询所以region名称
+   */
+  async allGwconfigRegion(request: AllGwconfigRegionRequest): Promise<AllGwconfigRegionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.allGwconfigRegionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询所以region名称
+   * Summary: 查询所以region名称
+   */
+  async allGwconfigRegionEx(request: AllGwconfigRegionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AllGwconfigRegionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AllGwconfigRegionResponse>(await this.doRequest("1.0", "sofa.apigateway.gwconfig.region.all", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AllGwconfigRegionResponse({}));
   }
 
 }
