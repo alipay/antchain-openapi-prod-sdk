@@ -137,7 +137,7 @@ namespace AntChain.SDK.APIGATEWAY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.309"},
+                        {"sdk_version", "1.1.312"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.APIGATEWAY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.309"},
+                        {"sdk_version", "1.1.312"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -7795,6 +7795,48 @@ namespace AntChain.SDK.APIGATEWAY
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryGwconfigTripleswitchResponse>(await DoRequestAsync("1.0", "sofa.apigateway.gwconfig.tripleswitch.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询所以region名称
+         * Summary: 查询所以region名称
+         */
+        public AllGwconfigRegionResponse AllGwconfigRegion(AllGwconfigRegionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AllGwconfigRegionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询所以region名称
+         * Summary: 查询所以region名称
+         */
+        public async Task<AllGwconfigRegionResponse> AllGwconfigRegionAsync(AllGwconfigRegionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AllGwconfigRegionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询所以region名称
+         * Summary: 查询所以region名称
+         */
+        public AllGwconfigRegionResponse AllGwconfigRegionEx(AllGwconfigRegionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AllGwconfigRegionResponse>(DoRequest("1.0", "sofa.apigateway.gwconfig.region.all", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询所以region名称
+         * Summary: 查询所以region名称
+         */
+        public async Task<AllGwconfigRegionResponse> AllGwconfigRegionExAsync(AllGwconfigRegionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AllGwconfigRegionResponse>(await DoRequestAsync("1.0", "sofa.apigateway.gwconfig.region.all", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

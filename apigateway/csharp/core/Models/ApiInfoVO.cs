@@ -446,9 +446,9 @@ namespace AntChain.SDK.APIGATEWAY.Models
         public ApiModelVO RspModelInfo { get; set; }
 
         // 实例ID
-        [NameInMap("instance_id")]
+        [NameInMap("upstream_instance_id")]
         [Validation(Required=false)]
-        public string InstanceId { get; set; }
+        public string UpstreamInstanceId { get; set; }
 
     }
 

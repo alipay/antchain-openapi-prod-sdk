@@ -13,7 +13,7 @@ namespace AntChain.SDK.APIGATEWAY.Models
         // api配置
         [NameInMap("api_transfer_list")]
         [Validation(Required=false)]
-        public List<ApiTransferVO> ApiTransferList { get; set; }
+        public List<ApiInfoVO> ApiTransferList { get; set; }
 
         // 批量转移结果
         [NameInMap("batch_action_result")]
