@@ -355,8 +355,8 @@ public class ApiInfoVO extends TeaModel {
     public ApiModelVO rspModelInfo;
 
     // 实例ID
-    @NameInMap("instance_id")
-    public String instanceId;
+    @NameInMap("upstream_instance_id")
+    public String upstreamInstanceId;
 
     public static ApiInfoVO build(java.util.Map<String, ?> map) throws Exception {
         ApiInfoVO self = new ApiInfoVO();
@@ -1059,12 +1059,12 @@ public class ApiInfoVO extends TeaModel {
         return this.rspModelInfo;
     }
 
-    public ApiInfoVO setInstanceId(String instanceId) {
-        this.instanceId = instanceId;
+    public ApiInfoVO setUpstreamInstanceId(String upstreamInstanceId) {
+        this.upstreamInstanceId = upstreamInstanceId;
         return this;
     }
-    public String getInstanceId() {
-        return this.instanceId;
+    public String getUpstreamInstanceId() {
+        return this.upstreamInstanceId;
     }
 
 }

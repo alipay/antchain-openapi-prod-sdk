@@ -6,7 +6,7 @@ import com.aliyun.tea.*;
 public class ApiTransferResult extends TeaModel {
     // api配置
     @NameInMap("api_transfer_list")
-    public java.util.List<ApiTransferVO> apiTransferList;
+    public java.util.List<ApiInfoVO> apiTransferList;
 
     // 批量转移结果
     @NameInMap("batch_action_result")
@@ -25,11 +25,11 @@ public class ApiTransferResult extends TeaModel {
         return TeaModel.build(map, self);
     }
 
-    public ApiTransferResult setApiTransferList(java.util.List<ApiTransferVO> apiTransferList) {
+    public ApiTransferResult setApiTransferList(java.util.List<ApiInfoVO> apiTransferList) {
         this.apiTransferList = apiTransferList;
         return this;
     }
-    public java.util.List<ApiTransferVO> getApiTransferList() {
+    public java.util.List<ApiInfoVO> getApiTransferList() {
         return this.apiTransferList;
     }
 
