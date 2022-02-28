@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.55',
+    sdk_version = '1.0.57',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -173,6 +173,16 @@ model DemoClass {
   someList: [ string ](name='some_list', example=''),
 }
 
+// 阿松大
+model TestClass {
+  // 1
+  test: string(name='test', example='testclass'),
+  // 2
+  demo: string(name='demo', example='testclass'),
+  // 3
+  demo1: string(name='demo1', example='id2'),
+}
+
 // TestStruct
 model TestStruct {
   // x
@@ -191,16 +201,6 @@ model AnotherClass {
   ref: DemoClass(name='ref', example=''),
   // 列表引用Struct
   refList?: [ DemoClass ](name='refList', example=''),
-}
-
-// 阿松大
-model TestClass {
-  // 1
-  test: string(name='test', example='testclass'),
-  // 2
-  demo: string(name='demo', example='testclass'),
-  // 3
-  demo1: string(name='demo1', example='id2'),
 }
 
 // 键值对
@@ -490,6 +490,112 @@ async function queryGatewayMy(request: QueryGatewayMyRequest): QueryGatewayMyRes
 async function queryGatewayMyEx(request: QueryGatewayMyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGatewayMyResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.gateway.my.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindDemoCheckEeeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model BindDemoCheckEeeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: s
+ * Summary: ss
+ */
+async function bindDemoCheckEee(request: BindDemoCheckEeeRequest): BindDemoCheckEeeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindDemoCheckEeeEx(request, headers, runtime);
+}
+
+/**
+ * Description: s
+ * Summary: ss
+ */
+async function bindDemoCheckEeeEx(request: BindDemoCheckEeeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDemoCheckEeeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.demo.check.eee.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindGatewayAbcTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model BindGatewayAbcTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: test
+ * Summary: test
+ */
+async function bindGatewayAbcTest(request: BindGatewayAbcTestRequest): BindGatewayAbcTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindGatewayAbcTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: test
+ * Summary: test
+ */
+async function bindGatewayAbcTestEx(request: BindGatewayAbcTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindGatewayAbcTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.gateway.abc.test.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindTestTestTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // test
+  test: string(name='test'),
+}
+
+model BindTestTestTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // test
+  test?: string(name='test'),
+}
+
+/**
+ * Description: test
+ * Summary: test
+ */
+async function bindTestTestTest(request: BindTestTestTestRequest): BindTestTestTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindTestTestTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: test
+ * Summary: test
+ */
+async function bindTestTestTestEx(request: BindTestTestTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindTestTestTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.test.test.test.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryTestGatewayTestRequest = {
