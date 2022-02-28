@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.60',
+    sdk_version = '1.6.66',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -1270,107 +1270,6 @@ async function resumeAcecContractEx(request: ResumeAcecContractRequest, headers:
   return doRequest('1.0' ,'blockchain.bot.acec.contract.resume', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model CreateAcsDeviceRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 设备ID
-  deviceId: string(name='device_id'),
-  // 场景码-对应acs iot管控后台项目code
-  scene: string(name='scene'),
-  // 设备类型编码-对应acs iot管控后台设备类型编码
-  classCode: string(name='class_code'),
-  // 设备注册信息
-  content: string(name='content'),
-  // 设备注册信息 签名
-  signature: string(name='signature'),
-  // 设备名称
-  deviceName: string(name='device_name'),
-  // 设备单价 单位：分
-  initialPrice?: long(name='initial_price'),
-  // 设备出厂时间
-  factoryTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='factory_time'),
-  // 设备投放时间
-  releaseTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='release_time'),
-}
-
-model CreateAcsDeviceResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 链上设备Id
-  chainDeviceid?: string(name='chain_deviceid'),
-  // 发行设备ID
-  distributeDeviceId?: string(name='distribute_device_id'),
-  // 设备激活文本-设备直连上链方式使用
-  activeData?: string(name='active_data'),
-}
-
-/**
- * Description: biot 私有化 设备注册接口
- * Summary: biot 私有化 设备注册接口
- */
-async function createAcsDevice(request: CreateAcsDeviceRequest): CreateAcsDeviceResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return createAcsDeviceEx(request, headers, runtime);
-}
-
-/**
- * Description: biot 私有化 设备注册接口
- * Summary: biot 私有化 设备注册接口
- */
-async function createAcsDeviceEx(request: CreateAcsDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAcsDeviceResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.acs.device.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model SendAcsCollectorRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 链上设备Id
-  // 
-  chainDeviceId: string(name='chain_device_id'),
-  // 收集内容
-  collectContentList: [ CollectContent ](name='collect_content_list'),
-  // 随机数，防重放
-  nonce: [ string ](name='nonce'),
-}
-
-model SendAcsCollectorResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 收集数据返回的上链结果
-  resultList?: [ SendCollectorResult ](name='result_list'),
-}
-
-/**
- * Description: biot 私有化 业务数据上报
- * Summary: biot 私有化 业务数据上报
- */
-async function sendAcsCollector(request: SendAcsCollectorRequest): SendAcsCollectorResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return sendAcsCollectorEx(request, headers, runtime);
-}
-
-/**
- * Description: biot 私有化 业务数据上报
- * Summary: biot 私有化 业务数据上报
- */
-async function sendAcsCollectorEx(request: SendAcsCollectorRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendAcsCollectorResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.acs.collector.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
 model CreateLeaseRealpersonRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1557,6 +1456,107 @@ async function queryBaiOcr(request: QueryBaiOcrRequest): QueryBaiOcrResponse {
 async function queryBaiOcrEx(request: QueryBaiOcrRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaiOcrResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.bai.ocr.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAcsDeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备ID
+  deviceId: string(name='device_id'),
+  // 场景码-对应acs iot管控后台项目code
+  scene: string(name='scene'),
+  // 设备类型编码-对应acs iot管控后台设备类型编码
+  classCode: string(name='class_code'),
+  // 设备注册信息
+  content: string(name='content'),
+  // 设备注册信息 签名
+  signature: string(name='signature'),
+  // 设备名称
+  deviceName: string(name='device_name'),
+  // 设备单价 单位：分
+  initialPrice?: long(name='initial_price'),
+  // 设备出厂时间
+  factoryTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='factory_time'),
+  // 设备投放时间
+  releaseTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='release_time'),
+}
+
+model CreateAcsDeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 链上设备Id
+  chainDeviceid?: string(name='chain_deviceid'),
+  // 发行设备ID
+  distributeDeviceId?: string(name='distribute_device_id'),
+  // 设备激活文本-设备直连上链方式使用
+  activeData?: string(name='active_data'),
+}
+
+/**
+ * Description: biot 私有化 设备注册接口
+ * Summary: biot 私有化 设备注册接口
+ */
+async function createAcsDevice(request: CreateAcsDeviceRequest): CreateAcsDeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAcsDeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: biot 私有化 设备注册接口
+ * Summary: biot 私有化 设备注册接口
+ */
+async function createAcsDeviceEx(request: CreateAcsDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAcsDeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.acs.device.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendAcsCollectorRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链上设备Id
+  // 
+  chainDeviceId: string(name='chain_device_id'),
+  // 收集内容
+  collectContentList: [ CollectContent ](name='collect_content_list'),
+  // 随机数，防重放
+  nonce: [ string ](name='nonce'),
+}
+
+model SendAcsCollectorResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 收集数据返回的上链结果
+  resultList?: [ SendCollectorResult ](name='result_list'),
+}
+
+/**
+ * Description: biot 私有化 业务数据上报
+ * Summary: biot 私有化 业务数据上报
+ */
+async function sendAcsCollector(request: SendAcsCollectorRequest): SendAcsCollectorResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendAcsCollectorEx(request, headers, runtime);
+}
+
+/**
+ * Description: biot 私有化 业务数据上报
+ * Summary: biot 私有化 业务数据上报
+ */
+async function sendAcsCollectorEx(request: SendAcsCollectorRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendAcsCollectorResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.acs.collector.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
@@ -3547,6 +3547,10 @@ model UpdateDeviceInfobydeviceRequest = {
   releaseTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='release_time'),
   // 设备型号
   deviceName?: string(name='device_name'),
+  // 设备上报数据是否需要验签，取值范围（RAW_DATA、SIGNED_DATA），
+  // SIGNED_DATA：需要验签
+  // RAW_DATA：不需要验签
+  deviceFeature?: string(name='device_feature'),
 }
 
 model UpdateDeviceInfobydeviceResponse = {
@@ -4164,6 +4168,8 @@ model AddTenantRequest = {
   gatewayPrivateKey?: string(name='gateway_private_key'),
   // 网关公钥
   gatewayPublicKey?: string(name='gateway_public_key'),
+  // 是否需要生成秘钥对，默认为false
+  generateGatewayKeys?: boolean(name='generate_gateway_keys'),
 }
 
 model AddTenantResponse = {
@@ -4710,6 +4716,8 @@ model PagequerySceneRequest = {
   pageSize: long(name='page_size'),
   // 场景码
   sceneName?: string(name='scene_name'),
+  // 租户
+  tenantName?: string(name='tenant_name'),
 }
 
 model PagequerySceneResponse = {
