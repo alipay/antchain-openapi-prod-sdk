@@ -25,6 +25,10 @@ public class PagequerySceneRequest extends TeaModel {
     @NameInMap("scene_name")
     public String sceneName;
 
+    // 租户
+    @NameInMap("tenant_name")
+    public String tenantName;
+
     public static PagequerySceneRequest build(java.util.Map<String, ?> map) throws Exception {
         PagequerySceneRequest self = new PagequerySceneRequest();
         return TeaModel.build(map, self);
@@ -68,6 +72,14 @@ public class PagequerySceneRequest extends TeaModel {
     }
     public String getSceneName() {
         return this.sceneName;
+    }
+
+    public PagequerySceneRequest setTenantName(String tenantName) {
+        this.tenantName = tenantName;
+        return this;
+    }
+    public String getTenantName() {
+        return this.tenantName;
     }
 
 }

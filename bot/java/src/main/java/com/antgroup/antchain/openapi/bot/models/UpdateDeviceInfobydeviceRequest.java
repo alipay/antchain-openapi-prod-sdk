@@ -107,6 +107,12 @@ public class UpdateDeviceInfobydeviceRequest extends TeaModel {
     @NameInMap("device_name")
     public String deviceName;
 
+    // 设备上报数据是否需要验签，取值范围（RAW_DATA、SIGNED_DATA），
+    // SIGNED_DATA：需要验签
+    // RAW_DATA：不需要验签
+    @NameInMap("device_feature")
+    public String deviceFeature;
+
     public static UpdateDeviceInfobydeviceRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateDeviceInfobydeviceRequest self = new UpdateDeviceInfobydeviceRequest();
         return TeaModel.build(map, self);
@@ -214,6 +220,14 @@ public class UpdateDeviceInfobydeviceRequest extends TeaModel {
     }
     public String getDeviceName() {
         return this.deviceName;
+    }
+
+    public UpdateDeviceInfobydeviceRequest setDeviceFeature(String deviceFeature) {
+        this.deviceFeature = deviceFeature;
+        return this;
+    }
+    public String getDeviceFeature() {
+        return this.deviceFeature;
     }
 
 }

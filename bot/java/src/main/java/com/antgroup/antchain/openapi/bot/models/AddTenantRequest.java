@@ -33,6 +33,10 @@ public class AddTenantRequest extends TeaModel {
     @NameInMap("gateway_public_key")
     public String gatewayPublicKey;
 
+    // 是否需要生成秘钥对，默认为false
+    @NameInMap("generate_gateway_keys")
+    public Boolean generateGatewayKeys;
+
     public static AddTenantRequest build(java.util.Map<String, ?> map) throws Exception {
         AddTenantRequest self = new AddTenantRequest();
         return TeaModel.build(map, self);
@@ -92,6 +96,14 @@ public class AddTenantRequest extends TeaModel {
     }
     public String getGatewayPublicKey() {
         return this.gatewayPublicKey;
+    }
+
+    public AddTenantRequest setGenerateGatewayKeys(Boolean generateGatewayKeys) {
+        this.generateGatewayKeys = generateGatewayKeys;
+        return this;
+    }
+    public Boolean getGenerateGatewayKeys() {
+        return this.generateGatewayKeys;
     }
 
 }

@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.60")
+                    new TeaPair("sdk_version", "1.6.66")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -217,44 +217,6 @@ public class Client {
     }
 
     /**
-     * Description: biot 私有化 设备注册接口
-     * Summary: biot 私有化 设备注册接口
-     */
-    public CreateAcsDeviceResponse createAcsDevice(CreateAcsDeviceRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.createAcsDeviceEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: biot 私有化 设备注册接口
-     * Summary: biot 私有化 设备注册接口
-     */
-    public CreateAcsDeviceResponse createAcsDeviceEx(CreateAcsDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.acs.device.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAcsDeviceResponse());
-    }
-
-    /**
-     * Description: biot 私有化 业务数据上报
-     * Summary: biot 私有化 业务数据上报
-     */
-    public SendAcsCollectorResponse sendAcsCollector(SendAcsCollectorRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.sendAcsCollectorEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: biot 私有化 业务数据上报
-     * Summary: biot 私有化 业务数据上报
-     */
-    public SendAcsCollectorResponse sendAcsCollectorEx(SendAcsCollectorRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.acs.collector.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendAcsCollectorResponse());
-    }
-
-    /**
      * Description: 租赁智能中心实人认证创建服务
      * Summary: 租赁智能中心实人认证创建服务
      */
@@ -328,6 +290,44 @@ public class Client {
     public QueryBaiOcrResponse queryBaiOcrEx(QueryBaiOcrRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.bai.ocr.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBaiOcrResponse());
+    }
+
+    /**
+     * Description: biot 私有化 设备注册接口
+     * Summary: biot 私有化 设备注册接口
+     */
+    public CreateAcsDeviceResponse createAcsDevice(CreateAcsDeviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAcsDeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: biot 私有化 设备注册接口
+     * Summary: biot 私有化 设备注册接口
+     */
+    public CreateAcsDeviceResponse createAcsDeviceEx(CreateAcsDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.acs.device.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAcsDeviceResponse());
+    }
+
+    /**
+     * Description: biot 私有化 业务数据上报
+     * Summary: biot 私有化 业务数据上报
+     */
+    public SendAcsCollectorResponse sendAcsCollector(SendAcsCollectorRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.sendAcsCollectorEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: biot 私有化 业务数据上报
+     * Summary: biot 私有化 业务数据上报
+     */
+    public SendAcsCollectorResponse sendAcsCollectorEx(SendAcsCollectorRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.acs.collector.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendAcsCollectorResponse());
     }
 
     /**
