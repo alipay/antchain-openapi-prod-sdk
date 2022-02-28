@@ -1,0 +1,788 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '4.1.4',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 订单执行结果描述
+model OrderResult {
+  // 实例Id
+  instanceId: string(maxLength=10, name='instance_id', example='A0CSCMAYIBANKPWBATNA4F'),
+  // 是否生成成功
+  success: boolean(name='success', example=''),
+}
+
+// 从产品动态加载返回结果集
+model DiscreteValue {
+  // 组件展示的内容
+  text: string(name='text', example='可选大小'),
+  // 组件的具体值
+  value: string(name='value', example='testValue'),
+  // 组件值的单位
+  unit?: string(name='unit', example='GB'),
+  // 组件选中值的说明/提示
+  tips?: string(name='tips', example='容量'),
+  // 多个组件展示的顺序
+  sortId: long(name='sort_id', example='1'),
+}
+
+model UpdateAbilityChainAccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 业务流水，请求幂等号
+  bizId: string(name='biz_id'),
+  // 链id，每个合约独立的标识
+  chainId: string(name='chain_id'),
+  // 租户名。目前理解 chain_id + tenant_id + chain_user_id 能唯一标识某个合约上的某个账号
+  tenantId: string(name='tenant_id'),
+  // 链上账号。链上唯一账号。某些特定场景（比如某个租户可以在一个合约上不同平台方参与分润），会需要合约账户id
+  chainUserId?: string(name='chain_user_id'),
+  // decrease 减少 increase 增加
+  type: string(name='type'),
+  // 金额，单位：分。
+  value: long(name='value'),
+  // 扩展字段，json格式
+  extendParams?: string(name='extend_params'),
+}
+
+model UpdateAbilityChainAccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回值对象,json格式。
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 更新链上账户余额
+ * Summary: 更新链上账户余额
+ */
+async function updateAbilityChainAccount(request: UpdateAbilityChainAccountRequest): UpdateAbilityChainAccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateAbilityChainAccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新链上账户余额
+ * Summary: 更新链上账户余额
+ */
+async function updateAbilityChainAccountEx(request: UpdateAbilityChainAccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateAbilityChainAccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.ability.chain.account.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateAbilityChainAssetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 流水号
+  bizId: string(name='biz_id'),
+  // 链id，链上合约id
+  chainId: string(name='chain_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 链上用户id
+  chainUserId?: string(name='chain_user_id'),
+  // 链上token金额，价值现金。单元：分
+  tokenAmount: long(name='token_amount'),
+  // token链上数量。与现金有一定的兑换率。
+  tokenNumber: string(name='token_number'),
+  // 扩展字段，json格式
+  extendParams?: string(name='extend_params'),
+}
+
+model UpdateAbilityChainAssetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回json对象
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 链上资产核销、确认核销成功
+ * Summary: 链上资产核销确认
+ */
+async function updateAbilityChainAsset(request: UpdateAbilityChainAssetRequest): UpdateAbilityChainAssetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateAbilityChainAssetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链上资产核销、确认核销成功
+ * Summary: 链上资产核销确认
+ */
+async function updateAbilityChainAssetEx(request: UpdateAbilityChainAssetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateAbilityChainAssetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.ability.chain.asset.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StopSpProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 订单号用于业务串联，以及幂等。目前为纯数字。保留使用大小写英文字符可能。
+  orderNo: string(maxLength=64, minLength=32, name='order_no'),
+  // 产品码 全局唯一
+  productCode: string(maxLength=20, minLength=3, name='product_code'),
+  // 产品实例Id
+  instanceId: string(maxLength=50, minLength=20, name='instance_id'),
+  // 服务接入码，商品对接开通时关联的接入码，由产品方研发定义，并对应一个回调地址。
+  accessCode: string(maxLength=24, minLength=3, name='access_code'),
+}
+
+model StopSpProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 用户资源到期或欠费情况下会对资源先进行停服操作，用于限制用户使用但不能删除用户数据！不同的产品可以根据自身的功能进行不同的限制。
+停服属于通知类指令，即平台只负责通知到产品，不关心产品的业务处理结果。因为网络问题或者产品系统的故障导致的消息响应失败，平台会间隔1分钟持续通知（限制100次）。
+注意：如果产品的停服为耗时操作，在收到通知后需要自行存储消息异步处理，不能阻塞通知请求导致网络超时（超时时间10s）。
+ * Summary: SPI-停止服务
+ */
+async function stopSpProduct(request: StopSpProductRequest): StopSpProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return stopSpProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户资源到期或欠费情况下会对资源先进行停服操作，用于限制用户使用但不能删除用户数据！不同的产品可以根据自身的功能进行不同的限制。
+停服属于通知类指令，即平台只负责通知到产品，不关心产品的业务处理结果。因为网络问题或者产品系统的故障导致的消息响应失败，平台会间隔1分钟持续通知（限制100次）。
+注意：如果产品的停服为耗时操作，在收到通知后需要自行存储消息异步处理，不能阻塞通知请求导致网络超时（超时时间10s）。
+ * Summary: SPI-停止服务
+ */
+async function stopSpProductEx(request: StopSpProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StopSpProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.sp.product.stop', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ResumeSpProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 订单号用于业务串联，以及幂等。目前为纯数字。保留使用大小写英文字符可能。
+  orderNo: string(maxLength=64, minLength=32, name='order_no'),
+  // 产品码 全局唯一
+  productCode: string(maxLength=20, minLength=3, name='product_code'),
+  // 产品实例ID
+  instanceId: string(maxLength=50, minLength=20, name='instance_id'),
+  // 服务接入码，商品对接开通时关联的接入码，由产品方研发定义，并对应一个回调地址。
+  accessCode: string(maxLength=24, minLength=3, name='access_code'),
+}
+
+model ResumeSpProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 用户对欠费或者到期实例进行续费操作后，平台会通知产品解除对用户指定实例的操作限制。即恢复正常服务能力。
+恢复指令同样属于通知类指令，即平台只负责通知到产品，不关心产品的业务处理结果。因为网络问题或者产品系统的故障导致的消息响应失败，平台会间隔1分钟持续通知（限制100次）。
+注意：如果产品的恢复为耗时操作，在收到通知后需要自行存储消息异步处理，不能阻塞通知请求导致网络超时（超时时间10s）。
+ * Summary: SPI-恢复服务
+ */
+async function resumeSpProduct(request: ResumeSpProductRequest): ResumeSpProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return resumeSpProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户对欠费或者到期实例进行续费操作后，平台会通知产品解除对用户指定实例的操作限制。即恢复正常服务能力。
+恢复指令同样属于通知类指令，即平台只负责通知到产品，不关心产品的业务处理结果。因为网络问题或者产品系统的故障导致的消息响应失败，平台会间隔1分钟持续通知（限制100次）。
+注意：如果产品的恢复为耗时操作，在收到通知后需要自行存储消息异步处理，不能阻塞通知请求导致网络超时（超时时间10s）。
+ * Summary: SPI-恢复服务
+ */
+async function resumeSpProductEx(request: ResumeSpProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ResumeSpProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.sp.product.resume', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ProvisionSpProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 订单号用于业务串联，以及幂等。目前为纯数字。保留使用大小写英文字符可能。
+  orderNo: string(maxLength=64, minLength=32, name='order_no'),
+  // 产品码 全局唯一
+  productCode: string(maxLength=20, minLength=3, name='product_code'),
+  // 购买产品的租户
+  tenant: string(maxLength=8, minLength=8, name='tenant'),
+  // 产品实例Id
+  instanceIds: [ string ](name='instance_ids'),
+  // 具体规格配置信息（JSON格式）会按照key进行排序
+  specification: string(name='specification'),
+  // 部分产品创建时需要非生产规格的数据（JSON格式） 比如：ECS生产需要账号、密码等 会按照key进行排序
+  customData?: string(name='custom_data'),
+  // 实例需要创建到租户的环境信息
+  workspace?: string(name='workspace'),
+  // 实例需要创建到租户的地域
+  region?: string(name='region'),
+  // 实例需要创建到租户的机房，可以有多个（冗灾场景）
+  zones?: [ string ](name='zones'),
+  // 购买产品的租户ID，格式为2088XXXXXXXXXXXX	
+  tenantId: string(maxLength=16, minLength=16, name='tenant_id'),
+  // 服务接入码，商品对接开通时关联的接入码，由产品方研发定义，并对应一个回调地址。
+  accessCode: string(maxLength=24, minLength=3, name='access_code'),
+}
+
+model ProvisionSpProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一台ECS，就是创建一个ECS实例。
+创建产品会生成产品实例Id，后续变配、释放、停服、恢复服务操作都是通过实例Id作为标识。
+异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+ * Summary: SPI-创建产品实例
+ */
+async function provisionSpProduct(request: ProvisionSpProductRequest): ProvisionSpProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return provisionSpProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一台ECS，就是创建一个ECS实例。
+创建产品会生成产品实例Id，后续变配、释放、停服、恢复服务操作都是通过实例Id作为标识。
+异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+ * Summary: SPI-创建产品实例
+ */
+async function provisionSpProductEx(request: ProvisionSpProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ProvisionSpProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.sp.product.provision', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ModifySpProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 订单号用于业务串联，以及幂等。目前为纯数字。保留使用大小写英文字符可能。
+  orderNo: string(maxLength=64, minLength=32, name='order_no'),
+  // 产品码 全局唯一
+  productCode: string(maxLength=20, minLength=3, name='product_code'),
+  // 产品实例Id
+  instanceId: string(maxLength=50, minLength=20, name='instance_id'),
+  // 具体规格配置信息（JSON格式）会按照key进行排序
+  specification: string(name='specification'),
+  // 服务接入码，商品对接开通时关联的接入码，由产品方研发定义，并对应一个回调地址。
+  accessCode: string(maxLength=24, minLength=3, name='access_code'),
+}
+
+model ModifySpProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 对已有的实例进行规格变更操作。
+异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+ * Summary: SPI-变更产品实例配置
+ */
+async function modifySpProduct(request: ModifySpProductRequest): ModifySpProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return modifySpProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 对已有的实例进行规格变更操作。
+异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+ * Summary: SPI-变更产品实例配置
+ */
+async function modifySpProductEx(request: ModifySpProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ModifySpProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.sp.product.modify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ReleaseSpProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 订单号用于业务串联，以及幂等。目前为纯数字。保留使用大小写英文字符可能。
+  orderNo: string(maxLength=64, minLength=32, name='order_no'),
+  // 产品码 全局唯一
+  productCode: string(maxLength=20, minLength=3, name='product_code'),
+  // 产品实例ID
+  instanceId: string(maxLength=50, minLength=20, name='instance_id'),
+  // 服务接入码，商品对接开通时关联的接入码，由产品方研发定义，并对应一个回调地址
+  accessCode: string(maxLength=24, minLength=3, name='access_code'),
+}
+
+model ReleaseSpProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 用户主动删除实例或欠费逾期平台按照约定进行强制删除。
+释放操作属于通知类指令，即平台只负责通知到产品，不关心产品的业务处理结果。产品方应保证快速响应。因为网络问题或者产品系统的故障导致的消息响应失败，平台会间隔2分钟持续通知（限制100次）
+注意：如果产品的释放为耗时操作，在收到通知后需要自行存储消息异步处理，不能阻塞通知请求导致网络超时（超时时间5s)
+ * Summary: SPI-释放产品实例
+ */
+async function releaseSpProduct(request: ReleaseSpProductRequest): ReleaseSpProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return releaseSpProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户主动删除实例或欠费逾期平台按照约定进行强制删除。
+释放操作属于通知类指令，即平台只负责通知到产品，不关心产品的业务处理结果。产品方应保证快速响应。因为网络问题或者产品系统的故障导致的消息响应失败，平台会间隔2分钟持续通知（限制100次）
+注意：如果产品的释放为耗时操作，在收到通知后需要自行存储消息异步处理，不能阻塞通知请求导致网络超时（超时时间5s)
+ * Summary: SPI-释放产品实例
+ */
+async function releaseSpProductEx(request: ReleaseSpProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReleaseSpProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.sp.product.release', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetSpProductOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 订单号用于业务串联，以及幂等。目前为纯数字。保留使用大小写英文字符可能。
+  orderNo: string(maxLength=64, minLength=32, name='order_no'),
+  // 产品码 全局唯一
+  productCode: string(maxLength=20, minLength=3, name='product_code'),
+}
+
+model GetSpProductOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果
+  orderResults: [ OrderResult ](name='order_results'),
+}
+
+/**
+ * Description: 对于操作型指令（创建、变配）平台用来查询底层对指定订单的生产结果（如果超过规定时间没有主动告知平台结果）。
+注意：平台根据 order_no 查询，需要根据order_no做好结果保存。一般不会查询历史订单执行记录，主要用于在规定的生产时间内，底层因为网络、超时等问题导致没有能够将结果”通知“给平台。在产品上架时允许自定义操作指令的超时时间（默认最大120分钟）。建议可以控制产品生产时间的情况下配置一个合理的超时时间，便于及时定位异常问题，减少用户页面等待时间。如需要配置联系平台。
+接口为同步，最大超时时间5s，失败尝试3次（间隔2s）。
+ * Summary: SPI-获取产品订单结果
+ */
+async function getSpProductOrder(request: GetSpProductOrderRequest): GetSpProductOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getSpProductOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 对于操作型指令（创建、变配）平台用来查询底层对指定订单的生产结果（如果超过规定时间没有主动告知平台结果）。
+注意：平台根据 order_no 查询，需要根据order_no做好结果保存。一般不会查询历史订单执行记录，主要用于在规定的生产时间内，底层因为网络、超时等问题导致没有能够将结果”通知“给平台。在产品上架时允许自定义操作指令的超时时间（默认最大120分钟）。建议可以控制产品生产时间的情况下配置一个合理的超时时间，便于及时定位异常问题，减少用户页面等待时间。如需要配置联系平台。
+接口为同步，最大超时时间5s，失败尝试3次（间隔2s）。
+ * Summary: SPI-获取产品订单结果
+ */
+async function getSpProductOrderEx(request: GetSpProductOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetSpProductOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.sp.product.order.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model LoadSpProductOrderparameterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 加载业务的场景。具体内容同产品方定义，但产品下需保证唯一。
+  businessAction: string(name='business_action'),
+  // 用于加载对应场景数据的上下文（JSON格式具体同产品方定义）
+  businessContext: string(name='business_context'),
+  // 业务流水号。
+  orderNo?: string(name='order_no'),
+  // 产品code
+  productCode: string(name='product_code'),
+  // 地域。支持不同地域显示不同内容。
+  region?: string(name='region'),
+  // 租户id
+  tenant: string(name='tenant'),
+}
+
+model LoadSpProductOrderparameterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 首页页面产品自定义展示内容加载结果
+  discreteValues?: [ DiscreteValue ](name='discrete_values'),
+}
+
+/**
+ * Description: 提供订单系统渲染购买页，从产品方加载部分个性化的展示内容。
+ * Summary: 从产品方加载购买页参数
+ */
+async function loadSpProductOrderparameter(request: LoadSpProductOrderparameterRequest): LoadSpProductOrderparameterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return loadSpProductOrderparameterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提供订单系统渲染购买页，从产品方加载部分个性化的展示内容。
+ * Summary: 从产品方加载购买页参数
+ */
+async function loadSpProductOrderparameterEx(request: LoadSpProductOrderparameterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): LoadSpProductOrderparameterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.sp.product.orderparameter.load', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncIndustryTradeResultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 外部商户订单号，不超过32位
+  merchantOrderNo: string(name='merchant_order_no'),
+  // 原支付请求的商户订单号
+  outTradeNo: string(name='out_trade_no'),
+  // 支付宝交易号
+  tradeNo: string(name='trade_no'),
+  // 交易状态。
+  // WAIT_BUYER_PAY	交易创建，等待买家付款。
+  // TRADE_CLOSED	未付款交易超时关闭，或支付完成后全额退款。
+  // TRADE_SUCCESS	交易支付成功。
+  tradeStatus: string(name='trade_status'),
+  // 错误码。
+  errorCode?: string(name='error_code'),
+  // 错误原因
+  errorMsg?: string(name='error_msg'),
+  // 渠道 自营平台、第三方平台等
+  channel: string(name='channel'),
+}
+
+model SyncIndustryTradeResultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 交易结果通知
+ * Summary: 交易结果通知
+ */
+async function syncIndustryTradeResult(request: SyncIndustryTradeResultRequest): SyncIndustryTradeResultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncIndustryTradeResultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 交易结果通知
+ * Summary: 交易结果通知
+ */
+async function syncIndustryTradeResultEx(request: SyncIndustryTradeResultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncIndustryTradeResultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.industry.trade.result.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncMerchantSignResultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 本次关联注册失败错误原因。
+  errorMsg?: string(name='error_msg'),
+  // 商家注册(进件)受理单号
+  orderId: string(name='order_id'),
+  // 商家注册（包括进件）结果。99:已完结;-1:失败;
+  status: string(name='status'),
+  // 二级商户id
+  smid: string(name='smid'),
+  // 商户租户id
+  merchantUserId: string(name='merchant_user_id'),
+  // 商户名称
+  merchantName?: string(name='merchant_name'),
+  // 八位数的商户租户名称
+  merchantUserName?: string(name='merchant_user_name'),
+}
+
+model SyncMerchantSignResultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 商家注册结果通知
+ * Summary: 商家注册结果通知
+ */
+async function syncMerchantSignResult(request: SyncMerchantSignResultRequest): SyncMerchantSignResultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncMerchantSignResultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商家注册结果通知
+ * Summary: 商家注册结果通知
+ */
+async function syncMerchantSignResultEx(request: SyncMerchantSignResultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncMerchantSignResultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.merchant.sign.result.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OpenSpProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 订单号用于业务串联，以及幂等。目前为纯数字。保留使用大小写英文字符可能。
+  orderNo: string(maxLength=64, minLength=32, name='order_no'),
+  // 产品码 全局唯一
+  productCode: string(maxLength=20, minLength=3, name='product_code'),
+  // 开通产品的租户
+  tenant: string(maxLength=8, minLength=8, name='tenant'),
+  // 产品实例ID
+  instanceId: string(maxLength=50, minLength=20, name='instance_id'),
+  // 支持透传给产品非生产规格的自定义数据（JSON格式并按key排序）
+  customData?: string(name='custom_data'),
+  // 开通产品的租户ID，格式为2088XXXXXXXXXXXX
+  tenantId: string(maxLength=16, minLength=16, name='tenant_id'),
+  // 服务接入码，产品对接开通时关联的接入码，由产品方研发定义，并对应一个回调地址。
+  accessCode: string(maxLength=24, minLength=3, name='access_code'),
+}
+
+model OpenSpProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 产品开通指令。即租户开通了指定产品（比如：开通实人认证）。对于能力产品可能需要初始化操作。
+开通会生成产品实例ID，作为后续生命周期SPI管理资源的标识。用户开通一个产品会生成一个产品实例ID，如果后面欠费释放后再次开通会生成新的产品实例ID。
+目前开通只支持同步操作（目前超时最大5s），对于操作需要进行内部初始化的场景暂不支持。
+注意：开通操作中台会通知能力产品所有集群，如果其中一个集群失败，用户可以重试开通-触发中台重复通知（集群）。需要根据订单号order_no做好幂等判断。
+ * Summary: SPI-开通产品
+ */
+async function openSpProduct(request: OpenSpProductRequest): OpenSpProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return openSpProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品开通指令。即租户开通了指定产品（比如：开通实人认证）。对于能力产品可能需要初始化操作。
+开通会生成产品实例ID，作为后续生命周期SPI管理资源的标识。用户开通一个产品会生成一个产品实例ID，如果后面欠费释放后再次开通会生成新的产品实例ID。
+目前开通只支持同步操作（目前超时最大5s），对于操作需要进行内部初始化的场景暂不支持。
+注意：开通操作中台会通知能力产品所有集群，如果其中一个集群失败，用户可以重试开通-触发中台重复通知（集群）。需要根据订单号order_no做好幂等判断。
+ * Summary: SPI-开通产品
+ */
+async function openSpProductEx(request: OpenSpProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OpenSpProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.sp.product.open', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
