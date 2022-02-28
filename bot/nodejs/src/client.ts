@@ -2520,173 +2520,6 @@ export class ResumeAcecContractResponse extends $tea.Model {
   }
 }
 
-export class CreateAcsDeviceRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 设备ID
-  deviceId: string;
-  // 场景码-对应acs iot管控后台项目code
-  scene: string;
-  // 设备类型编码-对应acs iot管控后台设备类型编码
-  classCode: string;
-  // 设备注册信息
-  content: string;
-  // 设备注册信息 签名
-  signature: string;
-  // 设备名称
-  deviceName: string;
-  // 设备单价 单位：分
-  initialPrice?: number;
-  // 设备出厂时间
-  factoryTime?: string;
-  // 设备投放时间
-  releaseTime?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      deviceId: 'device_id',
-      scene: 'scene',
-      classCode: 'class_code',
-      content: 'content',
-      signature: 'signature',
-      deviceName: 'device_name',
-      initialPrice: 'initial_price',
-      factoryTime: 'factory_time',
-      releaseTime: 'release_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      deviceId: 'string',
-      scene: 'string',
-      classCode: 'string',
-      content: 'string',
-      signature: 'string',
-      deviceName: 'string',
-      initialPrice: 'number',
-      factoryTime: 'string',
-      releaseTime: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class CreateAcsDeviceResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 链上设备Id
-  chainDeviceid?: string;
-  // 发行设备ID
-  distributeDeviceId?: string;
-  // 设备激活文本-设备直连上链方式使用
-  activeData?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      chainDeviceid: 'chain_deviceid',
-      distributeDeviceId: 'distribute_device_id',
-      activeData: 'active_data',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      chainDeviceid: 'string',
-      distributeDeviceId: 'string',
-      activeData: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class SendAcsCollectorRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 链上设备Id
-  // 
-  chainDeviceId: string;
-  // 收集内容
-  collectContentList: CollectContent[];
-  // 随机数，防重放
-  nonce: string[];
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      chainDeviceId: 'chain_device_id',
-      collectContentList: 'collect_content_list',
-      nonce: 'nonce',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      chainDeviceId: 'string',
-      collectContentList: { 'type': 'array', 'itemType': CollectContent },
-      nonce: { 'type': 'array', 'itemType': 'string' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class SendAcsCollectorResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 收集数据返回的上链结果
-  resultList?: SendCollectorResult[];
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      resultList: 'result_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      resultList: { 'type': 'array', 'itemType': SendCollectorResult },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class CreateLeaseRealpersonRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2979,6 +2812,173 @@ export class QueryBaiOcrResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAcsDeviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备ID
+  deviceId: string;
+  // 场景码-对应acs iot管控后台项目code
+  scene: string;
+  // 设备类型编码-对应acs iot管控后台设备类型编码
+  classCode: string;
+  // 设备注册信息
+  content: string;
+  // 设备注册信息 签名
+  signature: string;
+  // 设备名称
+  deviceName: string;
+  // 设备单价 单位：分
+  initialPrice?: number;
+  // 设备出厂时间
+  factoryTime?: string;
+  // 设备投放时间
+  releaseTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceId: 'device_id',
+      scene: 'scene',
+      classCode: 'class_code',
+      content: 'content',
+      signature: 'signature',
+      deviceName: 'device_name',
+      initialPrice: 'initial_price',
+      factoryTime: 'factory_time',
+      releaseTime: 'release_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceId: 'string',
+      scene: 'string',
+      classCode: 'string',
+      content: 'string',
+      signature: 'string',
+      deviceName: 'string',
+      initialPrice: 'number',
+      factoryTime: 'string',
+      releaseTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAcsDeviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 链上设备Id
+  chainDeviceid?: string;
+  // 发行设备ID
+  distributeDeviceId?: string;
+  // 设备激活文本-设备直连上链方式使用
+  activeData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      chainDeviceid: 'chain_deviceid',
+      distributeDeviceId: 'distribute_device_id',
+      activeData: 'active_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      chainDeviceid: 'string',
+      distributeDeviceId: 'string',
+      activeData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendAcsCollectorRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链上设备Id
+  // 
+  chainDeviceId: string;
+  // 收集内容
+  collectContentList: CollectContent[];
+  // 随机数，防重放
+  nonce: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      chainDeviceId: 'chain_device_id',
+      collectContentList: 'collect_content_list',
+      nonce: 'nonce',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      chainDeviceId: 'string',
+      collectContentList: { 'type': 'array', 'itemType': CollectContent },
+      nonce: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendAcsCollectorResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 收集数据返回的上链结果
+  resultList?: SendCollectorResult[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      resultList: 'result_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      resultList: { 'type': 'array', 'itemType': SendCollectorResult },
     };
   }
 
@@ -6042,6 +6042,10 @@ export class UpdateDeviceInfobydeviceRequest extends $tea.Model {
   releaseTime: string;
   // 设备型号
   deviceName?: string;
+  // 设备上报数据是否需要验签，取值范围（RAW_DATA、SIGNED_DATA），
+  // SIGNED_DATA：需要验签
+  // RAW_DATA：不需要验签
+  deviceFeature?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6057,6 +6061,7 @@ export class UpdateDeviceInfobydeviceRequest extends $tea.Model {
       factoryTime: 'factory_time',
       releaseTime: 'release_time',
       deviceName: 'device_name',
+      deviceFeature: 'device_feature',
     };
   }
 
@@ -6075,6 +6080,7 @@ export class UpdateDeviceInfobydeviceRequest extends $tea.Model {
       factoryTime: 'string',
       releaseTime: 'string',
       deviceName: 'string',
+      deviceFeature: 'string',
     };
   }
 
@@ -7037,6 +7043,8 @@ export class AddTenantRequest extends $tea.Model {
   gatewayPrivateKey?: string;
   // 网关公钥
   gatewayPublicKey?: string;
+  // 是否需要生成秘钥对，默认为false
+  generateGatewayKeys?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7046,6 +7054,7 @@ export class AddTenantRequest extends $tea.Model {
       owner: 'owner',
       gatewayPrivateKey: 'gateway_private_key',
       gatewayPublicKey: 'gateway_public_key',
+      generateGatewayKeys: 'generate_gateway_keys',
     };
   }
 
@@ -7058,6 +7067,7 @@ export class AddTenantRequest extends $tea.Model {
       owner: 'string',
       gatewayPrivateKey: 'string',
       gatewayPublicKey: 'string',
+      generateGatewayKeys: 'boolean',
     };
   }
 
@@ -7911,6 +7921,8 @@ export class PagequerySceneRequest extends $tea.Model {
   pageSize: number;
   // 场景码
   sceneName?: string;
+  // 租户
+  tenantName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7918,6 +7930,7 @@ export class PagequerySceneRequest extends $tea.Model {
       pageIndex: 'page_index',
       pageSize: 'page_size',
       sceneName: 'scene_name',
+      tenantName: 'tenant_name',
     };
   }
 
@@ -7928,6 +7941,7 @@ export class PagequerySceneRequest extends $tea.Model {
       pageIndex: 'number',
       pageSize: 'number',
       sceneName: 'string',
+      tenantName: 'string',
     };
   }
 
@@ -9938,7 +9952,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.60",
+          sdk_version: "1.6.66",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -10042,44 +10056,6 @@ export default class Client {
   }
 
   /**
-   * Description: biot 私有化 设备注册接口
-   * Summary: biot 私有化 设备注册接口
-   */
-  async createAcsDevice(request: CreateAcsDeviceRequest): Promise<CreateAcsDeviceResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.createAcsDeviceEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: biot 私有化 设备注册接口
-   * Summary: biot 私有化 设备注册接口
-   */
-  async createAcsDeviceEx(request: CreateAcsDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAcsDeviceResponse> {
-    Util.validateModel(request);
-    return $tea.cast<CreateAcsDeviceResponse>(await this.doRequest("1.0", "blockchain.bot.acs.device.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAcsDeviceResponse({}));
-  }
-
-  /**
-   * Description: biot 私有化 业务数据上报
-   * Summary: biot 私有化 业务数据上报
-   */
-  async sendAcsCollector(request: SendAcsCollectorRequest): Promise<SendAcsCollectorResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.sendAcsCollectorEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: biot 私有化 业务数据上报
-   * Summary: biot 私有化 业务数据上报
-   */
-  async sendAcsCollectorEx(request: SendAcsCollectorRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendAcsCollectorResponse> {
-    Util.validateModel(request);
-    return $tea.cast<SendAcsCollectorResponse>(await this.doRequest("1.0", "blockchain.bot.acs.collector.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendAcsCollectorResponse({}));
-  }
-
-  /**
    * Description: 租赁智能中心实人认证创建服务
    * Summary: 租赁智能中心实人认证创建服务
    */
@@ -10153,6 +10129,44 @@ export default class Client {
   async queryBaiOcrEx(request: QueryBaiOcrRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBaiOcrResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryBaiOcrResponse>(await this.doRequest("1.0", "blockchain.bot.bai.ocr.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBaiOcrResponse({}));
+  }
+
+  /**
+   * Description: biot 私有化 设备注册接口
+   * Summary: biot 私有化 设备注册接口
+   */
+  async createAcsDevice(request: CreateAcsDeviceRequest): Promise<CreateAcsDeviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAcsDeviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: biot 私有化 设备注册接口
+   * Summary: biot 私有化 设备注册接口
+   */
+  async createAcsDeviceEx(request: CreateAcsDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAcsDeviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAcsDeviceResponse>(await this.doRequest("1.0", "blockchain.bot.acs.device.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAcsDeviceResponse({}));
+  }
+
+  /**
+   * Description: biot 私有化 业务数据上报
+   * Summary: biot 私有化 业务数据上报
+   */
+  async sendAcsCollector(request: SendAcsCollectorRequest): Promise<SendAcsCollectorResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.sendAcsCollectorEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: biot 私有化 业务数据上报
+   * Summary: biot 私有化 业务数据上报
+   */
+  async sendAcsCollectorEx(request: SendAcsCollectorRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendAcsCollectorResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SendAcsCollectorResponse>(await this.doRequest("1.0", "blockchain.bot.acs.collector.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendAcsCollectorResponse({}));
   }
 
   /**
