@@ -36,12 +36,19 @@ class PagequerySceneRequest extends Model
      * @var string
      */
     public $sceneName;
+
+    // 租户
+    /**
+     * @var string
+     */
+    public $tenantName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'pageIndex'         => 'page_index',
         'pageSize'          => 'page_size',
         'sceneName'         => 'scene_name',
+        'tenantName'        => 'tenant_name',
     ];
 
     public function validate()
@@ -67,6 +74,9 @@ class PagequerySceneRequest extends Model
         }
         if (null !== $this->sceneName) {
             $res['scene_name'] = $this->sceneName;
+        }
+        if (null !== $this->tenantName) {
+            $res['tenant_name'] = $this->tenantName;
         }
 
         return $res;
@@ -94,6 +104,9 @@ class PagequerySceneRequest extends Model
         }
         if (isset($map['scene_name'])) {
             $model->sceneName = $map['scene_name'];
+        }
+        if (isset($map['tenant_name'])) {
+            $model->tenantName = $map['tenant_name'];
         }
 
         return $model;

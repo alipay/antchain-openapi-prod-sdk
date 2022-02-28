@@ -126,6 +126,14 @@ class UpdateDeviceInfobydeviceRequest extends Model
      * @var string
      */
     public $deviceName;
+
+    // 设备上报数据是否需要验签，取值范围（RAW_DATA、SIGNED_DATA），
+    // SIGNED_DATA：需要验签
+    // RAW_DATA：不需要验签
+    /**
+     * @var string
+     */
+    public $deviceFeature;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -140,6 +148,7 @@ class UpdateDeviceInfobydeviceRequest extends Model
         'factoryTime'       => 'factory_time',
         'releaseTime'       => 'release_time',
         'deviceName'        => 'device_name',
+        'deviceFeature'     => 'device_feature',
     ];
 
     public function validate()
@@ -200,6 +209,9 @@ class UpdateDeviceInfobydeviceRequest extends Model
         if (null !== $this->deviceName) {
             $res['device_name'] = $this->deviceName;
         }
+        if (null !== $this->deviceFeature) {
+            $res['device_feature'] = $this->deviceFeature;
+        }
 
         return $res;
     }
@@ -250,6 +262,9 @@ class UpdateDeviceInfobydeviceRequest extends Model
         }
         if (isset($map['device_name'])) {
             $model->deviceName = $map['device_name'];
+        }
+        if (isset($map['device_feature'])) {
+            $model->deviceFeature = $map['device_feature'];
         }
 
         return $model;

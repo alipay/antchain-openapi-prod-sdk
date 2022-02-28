@@ -358,7 +358,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.60',
+                    'sdk_version'      => '1.6.66',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -504,72 +504,6 @@ class Client
     }
 
     /**
-     * Description: biot 私有化 设备注册接口
-     * Summary: biot 私有化 设备注册接口.
-     *
-     * @param CreateAcsDeviceRequest $request
-     *
-     * @return CreateAcsDeviceResponse
-     */
-    public function createAcsDevice($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->createAcsDeviceEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: biot 私有化 设备注册接口
-     * Summary: biot 私有化 设备注册接口.
-     *
-     * @param CreateAcsDeviceRequest $request
-     * @param string[]               $headers
-     * @param RuntimeOptions         $runtime
-     *
-     * @return CreateAcsDeviceResponse
-     */
-    public function createAcsDeviceEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return CreateAcsDeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.acs.device.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: biot 私有化 业务数据上报
-     * Summary: biot 私有化 业务数据上报.
-     *
-     * @param SendAcsCollectorRequest $request
-     *
-     * @return SendAcsCollectorResponse
-     */
-    public function sendAcsCollector($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->sendAcsCollectorEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: biot 私有化 业务数据上报
-     * Summary: biot 私有化 业务数据上报.
-     *
-     * @param SendAcsCollectorRequest $request
-     * @param string[]                $headers
-     * @param RuntimeOptions          $runtime
-     *
-     * @return SendAcsCollectorResponse
-     */
-    public function sendAcsCollectorEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return SendAcsCollectorResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.acs.collector.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 租赁智能中心实人认证创建服务
      * Summary: 租赁智能中心实人认证创建服务
      *
@@ -699,6 +633,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryBaiOcrResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.bai.ocr.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: biot 私有化 设备注册接口
+     * Summary: biot 私有化 设备注册接口.
+     *
+     * @param CreateAcsDeviceRequest $request
+     *
+     * @return CreateAcsDeviceResponse
+     */
+    public function createAcsDevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAcsDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: biot 私有化 设备注册接口
+     * Summary: biot 私有化 设备注册接口.
+     *
+     * @param CreateAcsDeviceRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return CreateAcsDeviceResponse
+     */
+    public function createAcsDeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAcsDeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.acs.device.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: biot 私有化 业务数据上报
+     * Summary: biot 私有化 业务数据上报.
+     *
+     * @param SendAcsCollectorRequest $request
+     *
+     * @return SendAcsCollectorResponse
+     */
+    public function sendAcsCollector($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendAcsCollectorEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: biot 私有化 业务数据上报
+     * Summary: biot 私有化 业务数据上报.
+     *
+     * @param SendAcsCollectorRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return SendAcsCollectorResponse
+     */
+    public function sendAcsCollectorEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendAcsCollectorResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.acs.collector.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

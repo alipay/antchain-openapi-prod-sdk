@@ -48,14 +48,21 @@ class AddTenantRequest extends Model
      * @var string
      */
     public $gatewayPublicKey;
+
+    // 是否需要生成秘钥对，默认为false
+    /**
+     * @var bool
+     */
+    public $generateGatewayKeys;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'tenantName'        => 'tenant_name',
-        'orgName'           => 'org_name',
-        'owner'             => 'owner',
-        'gatewayPrivateKey' => 'gateway_private_key',
-        'gatewayPublicKey'  => 'gateway_public_key',
+        'authToken'           => 'auth_token',
+        'productInstanceId'   => 'product_instance_id',
+        'tenantName'          => 'tenant_name',
+        'orgName'             => 'org_name',
+        'owner'               => 'owner',
+        'gatewayPrivateKey'   => 'gateway_private_key',
+        'gatewayPublicKey'    => 'gateway_public_key',
+        'generateGatewayKeys' => 'generate_gateway_keys',
     ];
 
     public function validate()
@@ -87,6 +94,9 @@ class AddTenantRequest extends Model
         }
         if (null !== $this->gatewayPublicKey) {
             $res['gateway_public_key'] = $this->gatewayPublicKey;
+        }
+        if (null !== $this->generateGatewayKeys) {
+            $res['generate_gateway_keys'] = $this->generateGatewayKeys;
         }
 
         return $res;
@@ -120,6 +130,9 @@ class AddTenantRequest extends Model
         }
         if (isset($map['gateway_public_key'])) {
             $model->gatewayPublicKey = $map['gateway_public_key'];
+        }
+        if (isset($map['generate_gateway_keys'])) {
+            $model->generateGatewayKeys = $map['generate_gateway_keys'];
         }
 
         return $model;
