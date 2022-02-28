@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.60'
+                    'sdk_version': '1.6.66'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.60'
+                    'sdk_version': '1.6.66'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -431,114 +431,6 @@ class Client:
         UtilClient.validate_model(request)
         return bot_models.ResumeAcecContractResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.acec.contract.resume', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def create_acs_device(
-        self,
-        request: bot_models.CreateAcsDeviceRequest,
-    ) -> bot_models.CreateAcsDeviceResponse:
-        """
-        Description: biot 私有化 设备注册接口
-        Summary: biot 私有化 设备注册接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_acs_device_ex(request, headers, runtime)
-
-    async def create_acs_device_async(
-        self,
-        request: bot_models.CreateAcsDeviceRequest,
-    ) -> bot_models.CreateAcsDeviceResponse:
-        """
-        Description: biot 私有化 设备注册接口
-        Summary: biot 私有化 设备注册接口
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.create_acs_device_ex_async(request, headers, runtime)
-
-    def create_acs_device_ex(
-        self,
-        request: bot_models.CreateAcsDeviceRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> bot_models.CreateAcsDeviceResponse:
-        """
-        Description: biot 私有化 设备注册接口
-        Summary: biot 私有化 设备注册接口
-        """
-        UtilClient.validate_model(request)
-        return bot_models.CreateAcsDeviceResponse().from_map(
-            self.do_request('1.0', 'blockchain.bot.acs.device.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def create_acs_device_ex_async(
-        self,
-        request: bot_models.CreateAcsDeviceRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> bot_models.CreateAcsDeviceResponse:
-        """
-        Description: biot 私有化 设备注册接口
-        Summary: biot 私有化 设备注册接口
-        """
-        UtilClient.validate_model(request)
-        return bot_models.CreateAcsDeviceResponse().from_map(
-            await self.do_request_async('1.0', 'blockchain.bot.acs.device.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def send_acs_collector(
-        self,
-        request: bot_models.SendAcsCollectorRequest,
-    ) -> bot_models.SendAcsCollectorResponse:
-        """
-        Description: biot 私有化 业务数据上报
-        Summary: biot 私有化 业务数据上报
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.send_acs_collector_ex(request, headers, runtime)
-
-    async def send_acs_collector_async(
-        self,
-        request: bot_models.SendAcsCollectorRequest,
-    ) -> bot_models.SendAcsCollectorResponse:
-        """
-        Description: biot 私有化 业务数据上报
-        Summary: biot 私有化 业务数据上报
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.send_acs_collector_ex_async(request, headers, runtime)
-
-    def send_acs_collector_ex(
-        self,
-        request: bot_models.SendAcsCollectorRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> bot_models.SendAcsCollectorResponse:
-        """
-        Description: biot 私有化 业务数据上报
-        Summary: biot 私有化 业务数据上报
-        """
-        UtilClient.validate_model(request)
-        return bot_models.SendAcsCollectorResponse().from_map(
-            self.do_request('1.0', 'blockchain.bot.acs.collector.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def send_acs_collector_ex_async(
-        self,
-        request: bot_models.SendAcsCollectorRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> bot_models.SendAcsCollectorResponse:
-        """
-        Description: biot 私有化 业务数据上报
-        Summary: biot 私有化 业务数据上报
-        """
-        UtilClient.validate_model(request)
-        return bot_models.SendAcsCollectorResponse().from_map(
-            await self.do_request_async('1.0', 'blockchain.bot.acs.collector.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_lease_realperson(
@@ -755,6 +647,114 @@ class Client:
         UtilClient.validate_model(request)
         return bot_models.QueryBaiOcrResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.bai.ocr.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_acs_device(
+        self,
+        request: bot_models.CreateAcsDeviceRequest,
+    ) -> bot_models.CreateAcsDeviceResponse:
+        """
+        Description: biot 私有化 设备注册接口
+        Summary: biot 私有化 设备注册接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_acs_device_ex(request, headers, runtime)
+
+    async def create_acs_device_async(
+        self,
+        request: bot_models.CreateAcsDeviceRequest,
+    ) -> bot_models.CreateAcsDeviceResponse:
+        """
+        Description: biot 私有化 设备注册接口
+        Summary: biot 私有化 设备注册接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_acs_device_ex_async(request, headers, runtime)
+
+    def create_acs_device_ex(
+        self,
+        request: bot_models.CreateAcsDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateAcsDeviceResponse:
+        """
+        Description: biot 私有化 设备注册接口
+        Summary: biot 私有化 设备注册接口
+        """
+        UtilClient.validate_model(request)
+        return bot_models.CreateAcsDeviceResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.acs.device.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_acs_device_ex_async(
+        self,
+        request: bot_models.CreateAcsDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateAcsDeviceResponse:
+        """
+        Description: biot 私有化 设备注册接口
+        Summary: biot 私有化 设备注册接口
+        """
+        UtilClient.validate_model(request)
+        return bot_models.CreateAcsDeviceResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.acs.device.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def send_acs_collector(
+        self,
+        request: bot_models.SendAcsCollectorRequest,
+    ) -> bot_models.SendAcsCollectorResponse:
+        """
+        Description: biot 私有化 业务数据上报
+        Summary: biot 私有化 业务数据上报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.send_acs_collector_ex(request, headers, runtime)
+
+    async def send_acs_collector_async(
+        self,
+        request: bot_models.SendAcsCollectorRequest,
+    ) -> bot_models.SendAcsCollectorResponse:
+        """
+        Description: biot 私有化 业务数据上报
+        Summary: biot 私有化 业务数据上报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.send_acs_collector_ex_async(request, headers, runtime)
+
+    def send_acs_collector_ex(
+        self,
+        request: bot_models.SendAcsCollectorRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SendAcsCollectorResponse:
+        """
+        Description: biot 私有化 业务数据上报
+        Summary: biot 私有化 业务数据上报
+        """
+        UtilClient.validate_model(request)
+        return bot_models.SendAcsCollectorResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.acs.collector.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def send_acs_collector_ex_async(
+        self,
+        request: bot_models.SendAcsCollectorRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SendAcsCollectorResponse:
+        """
+        Description: biot 私有化 业务数据上报
+        Summary: biot 私有化 业务数据上报
+        """
+        UtilClient.validate_model(request)
+        return bot_models.SendAcsCollectorResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.acs.collector.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
