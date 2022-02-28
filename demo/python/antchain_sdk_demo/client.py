@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.55'
+                    'sdk_version': '1.0.57'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.55'
+                    'sdk_version': '1.0.57'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -685,6 +685,168 @@ class Client:
         UtilClient.validate_model(request)
         return demo_models.QueryGatewayMyResponse().from_map(
             await self.do_request_async('1.0', 'demo.gateway.my.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_demo_check_eee(
+        self,
+        request: demo_models.BindDemoCheckEeeRequest,
+    ) -> demo_models.BindDemoCheckEeeResponse:
+        """
+        Description: s
+        Summary: ss
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_demo_check_eee_ex(request, headers, runtime)
+
+    async def bind_demo_check_eee_async(
+        self,
+        request: demo_models.BindDemoCheckEeeRequest,
+    ) -> demo_models.BindDemoCheckEeeResponse:
+        """
+        Description: s
+        Summary: ss
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_demo_check_eee_ex_async(request, headers, runtime)
+
+    def bind_demo_check_eee_ex(
+        self,
+        request: demo_models.BindDemoCheckEeeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.BindDemoCheckEeeResponse:
+        """
+        Description: s
+        Summary: ss
+        """
+        UtilClient.validate_model(request)
+        return demo_models.BindDemoCheckEeeResponse().from_map(
+            self.do_request('1.0', 'demo.demo.check.eee.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_demo_check_eee_ex_async(
+        self,
+        request: demo_models.BindDemoCheckEeeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.BindDemoCheckEeeResponse:
+        """
+        Description: s
+        Summary: ss
+        """
+        UtilClient.validate_model(request)
+        return demo_models.BindDemoCheckEeeResponse().from_map(
+            await self.do_request_async('1.0', 'demo.demo.check.eee.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_gateway_abc_test(
+        self,
+        request: demo_models.BindGatewayAbcTestRequest,
+    ) -> demo_models.BindGatewayAbcTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_gateway_abc_test_ex(request, headers, runtime)
+
+    async def bind_gateway_abc_test_async(
+        self,
+        request: demo_models.BindGatewayAbcTestRequest,
+    ) -> demo_models.BindGatewayAbcTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_gateway_abc_test_ex_async(request, headers, runtime)
+
+    def bind_gateway_abc_test_ex(
+        self,
+        request: demo_models.BindGatewayAbcTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.BindGatewayAbcTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return demo_models.BindGatewayAbcTestResponse().from_map(
+            self.do_request('1.0', 'demo.gateway.abc.test.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_gateway_abc_test_ex_async(
+        self,
+        request: demo_models.BindGatewayAbcTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.BindGatewayAbcTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return demo_models.BindGatewayAbcTestResponse().from_map(
+            await self.do_request_async('1.0', 'demo.gateway.abc.test.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_test_test_test(
+        self,
+        request: demo_models.BindTestTestTestRequest,
+    ) -> demo_models.BindTestTestTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_test_test_test_ex(request, headers, runtime)
+
+    async def bind_test_test_test_async(
+        self,
+        request: demo_models.BindTestTestTestRequest,
+    ) -> demo_models.BindTestTestTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_test_test_test_ex_async(request, headers, runtime)
+
+    def bind_test_test_test_ex(
+        self,
+        request: demo_models.BindTestTestTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.BindTestTestTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return demo_models.BindTestTestTestResponse().from_map(
+            self.do_request('1.0', 'demo.test.test.test.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_test_test_test_ex_async(
+        self,
+        request: demo_models.BindTestTestTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.BindTestTestTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return demo_models.BindTestTestTestResponse().from_map(
+            await self.do_request_async('1.0', 'demo.test.test.test.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_test_gateway_test(
