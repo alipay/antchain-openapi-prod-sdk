@@ -33,6 +33,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string SceneName { get; set; }
 
+        // 租户
+        [NameInMap("tenant_name")]
+        [Validation(Required=false)]
+        public string TenantName { get; set; }
+
     }
 
 }

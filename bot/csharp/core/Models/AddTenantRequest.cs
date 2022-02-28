@@ -43,6 +43,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string GatewayPublicKey { get; set; }
 
+        // 是否需要生成秘钥对，默认为false
+        [NameInMap("generate_gateway_keys")]
+        [Validation(Required=false)]
+        public bool? GenerateGatewayKeys { get; set; }
+
     }
 
 }

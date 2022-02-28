@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.60"},
+                        {"sdk_version", "1.6.66"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.60"},
+                        {"sdk_version", "1.6.66"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -444,90 +444,6 @@ namespace AntChain.SDK.BOT
         }
 
         /**
-         * Description: biot 私有化 设备注册接口
-         * Summary: biot 私有化 设备注册接口
-         */
-        public CreateAcsDeviceResponse CreateAcsDevice(CreateAcsDeviceRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return CreateAcsDeviceEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: biot 私有化 设备注册接口
-         * Summary: biot 私有化 设备注册接口
-         */
-        public async Task<CreateAcsDeviceResponse> CreateAcsDeviceAsync(CreateAcsDeviceRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await CreateAcsDeviceExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: biot 私有化 设备注册接口
-         * Summary: biot 私有化 设备注册接口
-         */
-        public CreateAcsDeviceResponse CreateAcsDeviceEx(CreateAcsDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CreateAcsDeviceResponse>(DoRequest("1.0", "blockchain.bot.acs.device.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: biot 私有化 设备注册接口
-         * Summary: biot 私有化 设备注册接口
-         */
-        public async Task<CreateAcsDeviceResponse> CreateAcsDeviceExAsync(CreateAcsDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CreateAcsDeviceResponse>(await DoRequestAsync("1.0", "blockchain.bot.acs.device.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: biot 私有化 业务数据上报
-         * Summary: biot 私有化 业务数据上报
-         */
-        public SendAcsCollectorResponse SendAcsCollector(SendAcsCollectorRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return SendAcsCollectorEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: biot 私有化 业务数据上报
-         * Summary: biot 私有化 业务数据上报
-         */
-        public async Task<SendAcsCollectorResponse> SendAcsCollectorAsync(SendAcsCollectorRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await SendAcsCollectorExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: biot 私有化 业务数据上报
-         * Summary: biot 私有化 业务数据上报
-         */
-        public SendAcsCollectorResponse SendAcsCollectorEx(SendAcsCollectorRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<SendAcsCollectorResponse>(DoRequest("1.0", "blockchain.bot.acs.collector.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: biot 私有化 业务数据上报
-         * Summary: biot 私有化 业务数据上报
-         */
-        public async Task<SendAcsCollectorResponse> SendAcsCollectorExAsync(SendAcsCollectorRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<SendAcsCollectorResponse>(await DoRequestAsync("1.0", "blockchain.bot.acs.collector.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
          * Description: 租赁智能中心实人认证创建服务
          * Summary: 租赁智能中心实人认证创建服务
          */
@@ -693,6 +609,90 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryBaiOcrResponse>(await DoRequestAsync("1.0", "blockchain.bot.bai.ocr.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: biot 私有化 设备注册接口
+         * Summary: biot 私有化 设备注册接口
+         */
+        public CreateAcsDeviceResponse CreateAcsDevice(CreateAcsDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateAcsDeviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: biot 私有化 设备注册接口
+         * Summary: biot 私有化 设备注册接口
+         */
+        public async Task<CreateAcsDeviceResponse> CreateAcsDeviceAsync(CreateAcsDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateAcsDeviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: biot 私有化 设备注册接口
+         * Summary: biot 私有化 设备注册接口
+         */
+        public CreateAcsDeviceResponse CreateAcsDeviceEx(CreateAcsDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAcsDeviceResponse>(DoRequest("1.0", "blockchain.bot.acs.device.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: biot 私有化 设备注册接口
+         * Summary: biot 私有化 设备注册接口
+         */
+        public async Task<CreateAcsDeviceResponse> CreateAcsDeviceExAsync(CreateAcsDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAcsDeviceResponse>(await DoRequestAsync("1.0", "blockchain.bot.acs.device.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: biot 私有化 业务数据上报
+         * Summary: biot 私有化 业务数据上报
+         */
+        public SendAcsCollectorResponse SendAcsCollector(SendAcsCollectorRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SendAcsCollectorEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: biot 私有化 业务数据上报
+         * Summary: biot 私有化 业务数据上报
+         */
+        public async Task<SendAcsCollectorResponse> SendAcsCollectorAsync(SendAcsCollectorRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SendAcsCollectorExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: biot 私有化 业务数据上报
+         * Summary: biot 私有化 业务数据上报
+         */
+        public SendAcsCollectorResponse SendAcsCollectorEx(SendAcsCollectorRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendAcsCollectorResponse>(DoRequest("1.0", "blockchain.bot.acs.collector.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: biot 私有化 业务数据上报
+         * Summary: biot 私有化 业务数据上报
+         */
+        public async Task<SendAcsCollectorResponse> SendAcsCollectorExAsync(SendAcsCollectorRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendAcsCollectorResponse>(await DoRequestAsync("1.0", "blockchain.bot.acs.collector.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

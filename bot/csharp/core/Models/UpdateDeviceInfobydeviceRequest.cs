@@ -115,6 +115,13 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string DeviceName { get; set; }
 
+        // 设备上报数据是否需要验签，取值范围（RAW_DATA、SIGNED_DATA），
+        // SIGNED_DATA：需要验签
+        // RAW_DATA：不需要验签
+        [NameInMap("device_feature")]
+        [Validation(Required=false)]
+        public string DeviceFeature { get; set; }
+
     }
 
 }
