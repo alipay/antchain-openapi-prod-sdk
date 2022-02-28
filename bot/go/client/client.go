@@ -3327,231 +3327,6 @@ func (s *ResumeAcecContractResponse) SetData(v string) *ResumeAcecContractRespon
 	return s
 }
 
-type CreateAcsDeviceRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 设备ID
-	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
-	// 场景码-对应acs iot管控后台项目code
-	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
-	// 设备类型编码-对应acs iot管控后台设备类型编码
-	ClassCode *string `json:"class_code,omitempty" xml:"class_code,omitempty" require:"true"`
-	// 设备注册信息
-	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
-	// 设备注册信息 签名
-	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
-	// 设备名称
-	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty" require:"true"`
-	// 设备单价 单位：分
-	InitialPrice *int64 `json:"initial_price,omitempty" xml:"initial_price,omitempty"`
-	// 设备出厂时间
-	FactoryTime *string `json:"factory_time,omitempty" xml:"factory_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 设备投放时间
-	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s CreateAcsDeviceRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CreateAcsDeviceRequest) GoString() string {
-	return s.String()
-}
-
-func (s *CreateAcsDeviceRequest) SetAuthToken(v string) *CreateAcsDeviceRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *CreateAcsDeviceRequest) SetProductInstanceId(v string) *CreateAcsDeviceRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *CreateAcsDeviceRequest) SetDeviceId(v string) *CreateAcsDeviceRequest {
-	s.DeviceId = &v
-	return s
-}
-
-func (s *CreateAcsDeviceRequest) SetScene(v string) *CreateAcsDeviceRequest {
-	s.Scene = &v
-	return s
-}
-
-func (s *CreateAcsDeviceRequest) SetClassCode(v string) *CreateAcsDeviceRequest {
-	s.ClassCode = &v
-	return s
-}
-
-func (s *CreateAcsDeviceRequest) SetContent(v string) *CreateAcsDeviceRequest {
-	s.Content = &v
-	return s
-}
-
-func (s *CreateAcsDeviceRequest) SetSignature(v string) *CreateAcsDeviceRequest {
-	s.Signature = &v
-	return s
-}
-
-func (s *CreateAcsDeviceRequest) SetDeviceName(v string) *CreateAcsDeviceRequest {
-	s.DeviceName = &v
-	return s
-}
-
-func (s *CreateAcsDeviceRequest) SetInitialPrice(v int64) *CreateAcsDeviceRequest {
-	s.InitialPrice = &v
-	return s
-}
-
-func (s *CreateAcsDeviceRequest) SetFactoryTime(v string) *CreateAcsDeviceRequest {
-	s.FactoryTime = &v
-	return s
-}
-
-func (s *CreateAcsDeviceRequest) SetReleaseTime(v string) *CreateAcsDeviceRequest {
-	s.ReleaseTime = &v
-	return s
-}
-
-type CreateAcsDeviceResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 链上设备Id
-	ChainDeviceid *string `json:"chain_deviceid,omitempty" xml:"chain_deviceid,omitempty"`
-	// 发行设备ID
-	DistributeDeviceId *string `json:"distribute_device_id,omitempty" xml:"distribute_device_id,omitempty"`
-	// 设备激活文本-设备直连上链方式使用
-	ActiveData *string `json:"active_data,omitempty" xml:"active_data,omitempty"`
-}
-
-func (s CreateAcsDeviceResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CreateAcsDeviceResponse) GoString() string {
-	return s.String()
-}
-
-func (s *CreateAcsDeviceResponse) SetReqMsgId(v string) *CreateAcsDeviceResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *CreateAcsDeviceResponse) SetResultCode(v string) *CreateAcsDeviceResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *CreateAcsDeviceResponse) SetResultMsg(v string) *CreateAcsDeviceResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *CreateAcsDeviceResponse) SetChainDeviceid(v string) *CreateAcsDeviceResponse {
-	s.ChainDeviceid = &v
-	return s
-}
-
-func (s *CreateAcsDeviceResponse) SetDistributeDeviceId(v string) *CreateAcsDeviceResponse {
-	s.DistributeDeviceId = &v
-	return s
-}
-
-func (s *CreateAcsDeviceResponse) SetActiveData(v string) *CreateAcsDeviceResponse {
-	s.ActiveData = &v
-	return s
-}
-
-type SendAcsCollectorRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 链上设备Id
-	//
-	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty" require:"true"`
-	// 收集内容
-	CollectContentList []*CollectContent `json:"collect_content_list,omitempty" xml:"collect_content_list,omitempty" require:"true" type:"Repeated"`
-	// 随机数，防重放
-	Nonce []*string `json:"nonce,omitempty" xml:"nonce,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s SendAcsCollectorRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SendAcsCollectorRequest) GoString() string {
-	return s.String()
-}
-
-func (s *SendAcsCollectorRequest) SetAuthToken(v string) *SendAcsCollectorRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *SendAcsCollectorRequest) SetProductInstanceId(v string) *SendAcsCollectorRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *SendAcsCollectorRequest) SetChainDeviceId(v string) *SendAcsCollectorRequest {
-	s.ChainDeviceId = &v
-	return s
-}
-
-func (s *SendAcsCollectorRequest) SetCollectContentList(v []*CollectContent) *SendAcsCollectorRequest {
-	s.CollectContentList = v
-	return s
-}
-
-func (s *SendAcsCollectorRequest) SetNonce(v []*string) *SendAcsCollectorRequest {
-	s.Nonce = v
-	return s
-}
-
-type SendAcsCollectorResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 收集数据返回的上链结果
-	ResultList []*SendCollectorResult `json:"result_list,omitempty" xml:"result_list,omitempty" type:"Repeated"`
-}
-
-func (s SendAcsCollectorResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SendAcsCollectorResponse) GoString() string {
-	return s.String()
-}
-
-func (s *SendAcsCollectorResponse) SetReqMsgId(v string) *SendAcsCollectorResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *SendAcsCollectorResponse) SetResultCode(v string) *SendAcsCollectorResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *SendAcsCollectorResponse) SetResultMsg(v string) *SendAcsCollectorResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *SendAcsCollectorResponse) SetResultList(v []*SendCollectorResult) *SendAcsCollectorResponse {
-	s.ResultList = v
-	return s
-}
-
 type CreateLeaseRealpersonRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -3935,6 +3710,231 @@ func (s *QueryBaiOcrResponse) SetResultMsg(v string) *QueryBaiOcrResponse {
 
 func (s *QueryBaiOcrResponse) SetData(v string) *QueryBaiOcrResponse {
 	s.Data = &v
+	return s
+}
+
+type CreateAcsDeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备ID
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 场景码-对应acs iot管控后台项目code
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 设备类型编码-对应acs iot管控后台设备类型编码
+	ClassCode *string `json:"class_code,omitempty" xml:"class_code,omitempty" require:"true"`
+	// 设备注册信息
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 设备注册信息 签名
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+	// 设备名称
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty" require:"true"`
+	// 设备单价 单位：分
+	InitialPrice *int64 `json:"initial_price,omitempty" xml:"initial_price,omitempty"`
+	// 设备出厂时间
+	FactoryTime *string `json:"factory_time,omitempty" xml:"factory_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 设备投放时间
+	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s CreateAcsDeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAcsDeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAcsDeviceRequest) SetAuthToken(v string) *CreateAcsDeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAcsDeviceRequest) SetProductInstanceId(v string) *CreateAcsDeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateAcsDeviceRequest) SetDeviceId(v string) *CreateAcsDeviceRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *CreateAcsDeviceRequest) SetScene(v string) *CreateAcsDeviceRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *CreateAcsDeviceRequest) SetClassCode(v string) *CreateAcsDeviceRequest {
+	s.ClassCode = &v
+	return s
+}
+
+func (s *CreateAcsDeviceRequest) SetContent(v string) *CreateAcsDeviceRequest {
+	s.Content = &v
+	return s
+}
+
+func (s *CreateAcsDeviceRequest) SetSignature(v string) *CreateAcsDeviceRequest {
+	s.Signature = &v
+	return s
+}
+
+func (s *CreateAcsDeviceRequest) SetDeviceName(v string) *CreateAcsDeviceRequest {
+	s.DeviceName = &v
+	return s
+}
+
+func (s *CreateAcsDeviceRequest) SetInitialPrice(v int64) *CreateAcsDeviceRequest {
+	s.InitialPrice = &v
+	return s
+}
+
+func (s *CreateAcsDeviceRequest) SetFactoryTime(v string) *CreateAcsDeviceRequest {
+	s.FactoryTime = &v
+	return s
+}
+
+func (s *CreateAcsDeviceRequest) SetReleaseTime(v string) *CreateAcsDeviceRequest {
+	s.ReleaseTime = &v
+	return s
+}
+
+type CreateAcsDeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 链上设备Id
+	ChainDeviceid *string `json:"chain_deviceid,omitempty" xml:"chain_deviceid,omitempty"`
+	// 发行设备ID
+	DistributeDeviceId *string `json:"distribute_device_id,omitempty" xml:"distribute_device_id,omitempty"`
+	// 设备激活文本-设备直连上链方式使用
+	ActiveData *string `json:"active_data,omitempty" xml:"active_data,omitempty"`
+}
+
+func (s CreateAcsDeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAcsDeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAcsDeviceResponse) SetReqMsgId(v string) *CreateAcsDeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAcsDeviceResponse) SetResultCode(v string) *CreateAcsDeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAcsDeviceResponse) SetResultMsg(v string) *CreateAcsDeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAcsDeviceResponse) SetChainDeviceid(v string) *CreateAcsDeviceResponse {
+	s.ChainDeviceid = &v
+	return s
+}
+
+func (s *CreateAcsDeviceResponse) SetDistributeDeviceId(v string) *CreateAcsDeviceResponse {
+	s.DistributeDeviceId = &v
+	return s
+}
+
+func (s *CreateAcsDeviceResponse) SetActiveData(v string) *CreateAcsDeviceResponse {
+	s.ActiveData = &v
+	return s
+}
+
+type SendAcsCollectorRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链上设备Id
+	//
+	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty" require:"true"`
+	// 收集内容
+	CollectContentList []*CollectContent `json:"collect_content_list,omitempty" xml:"collect_content_list,omitempty" require:"true" type:"Repeated"`
+	// 随机数，防重放
+	Nonce []*string `json:"nonce,omitempty" xml:"nonce,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SendAcsCollectorRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendAcsCollectorRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SendAcsCollectorRequest) SetAuthToken(v string) *SendAcsCollectorRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SendAcsCollectorRequest) SetProductInstanceId(v string) *SendAcsCollectorRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SendAcsCollectorRequest) SetChainDeviceId(v string) *SendAcsCollectorRequest {
+	s.ChainDeviceId = &v
+	return s
+}
+
+func (s *SendAcsCollectorRequest) SetCollectContentList(v []*CollectContent) *SendAcsCollectorRequest {
+	s.CollectContentList = v
+	return s
+}
+
+func (s *SendAcsCollectorRequest) SetNonce(v []*string) *SendAcsCollectorRequest {
+	s.Nonce = v
+	return s
+}
+
+type SendAcsCollectorResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 收集数据返回的上链结果
+	ResultList []*SendCollectorResult `json:"result_list,omitempty" xml:"result_list,omitempty" type:"Repeated"`
+}
+
+func (s SendAcsCollectorResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendAcsCollectorResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SendAcsCollectorResponse) SetReqMsgId(v string) *SendAcsCollectorResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SendAcsCollectorResponse) SetResultCode(v string) *SendAcsCollectorResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SendAcsCollectorResponse) SetResultMsg(v string) *SendAcsCollectorResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SendAcsCollectorResponse) SetResultList(v []*SendCollectorResult) *SendAcsCollectorResponse {
+	s.ResultList = v
 	return s
 }
 
@@ -7794,6 +7794,10 @@ type UpdateDeviceInfobydeviceRequest struct {
 	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 设备型号
 	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
+	// 设备上报数据是否需要验签，取值范围（RAW_DATA、SIGNED_DATA），
+	// SIGNED_DATA：需要验签
+	// RAW_DATA：不需要验签
+	DeviceFeature *string `json:"device_feature,omitempty" xml:"device_feature,omitempty"`
 }
 
 func (s UpdateDeviceInfobydeviceRequest) String() string {
@@ -7866,6 +7870,11 @@ func (s *UpdateDeviceInfobydeviceRequest) SetReleaseTime(v string) *UpdateDevice
 
 func (s *UpdateDeviceInfobydeviceRequest) SetDeviceName(v string) *UpdateDeviceInfobydeviceRequest {
 	s.DeviceName = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceRequest) SetDeviceFeature(v string) *UpdateDeviceInfobydeviceRequest {
+	s.DeviceFeature = &v
 	return s
 }
 
@@ -9069,6 +9078,8 @@ type AddTenantRequest struct {
 	GatewayPrivateKey *string `json:"gateway_private_key,omitempty" xml:"gateway_private_key,omitempty"`
 	// 网关公钥
 	GatewayPublicKey *string `json:"gateway_public_key,omitempty" xml:"gateway_public_key,omitempty"`
+	// 是否需要生成秘钥对，默认为false
+	GenerateGatewayKeys *bool `json:"generate_gateway_keys,omitempty" xml:"generate_gateway_keys,omitempty"`
 }
 
 func (s AddTenantRequest) String() string {
@@ -9111,6 +9122,11 @@ func (s *AddTenantRequest) SetGatewayPrivateKey(v string) *AddTenantRequest {
 
 func (s *AddTenantRequest) SetGatewayPublicKey(v string) *AddTenantRequest {
 	s.GatewayPublicKey = &v
+	return s
+}
+
+func (s *AddTenantRequest) SetGenerateGatewayKeys(v bool) *AddTenantRequest {
+	s.GenerateGatewayKeys = &v
 	return s
 }
 
@@ -10189,6 +10205,8 @@ type PagequerySceneRequest struct {
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 场景码
 	SceneName *string `json:"scene_name,omitempty" xml:"scene_name,omitempty"`
+	// 租户
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
 }
 
 func (s PagequerySceneRequest) String() string {
@@ -10221,6 +10239,11 @@ func (s *PagequerySceneRequest) SetPageSize(v int64) *PagequerySceneRequest {
 
 func (s *PagequerySceneRequest) SetSceneName(v string) *PagequerySceneRequest {
 	s.SceneName = &v
+	return s
+}
+
+func (s *PagequerySceneRequest) SetTenantName(v string) *PagequerySceneRequest {
+	s.TenantName = &v
 	return s
 }
 
@@ -12787,7 +12810,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.60"),
+				"sdk_version":      tea.String("1.6.66"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -12938,74 +12961,6 @@ func (client *Client) ResumeAcecContractEx(request *ResumeAcecContractRequest, h
 }
 
 /**
- * Description: biot 私有化 设备注册接口
- * Summary: biot 私有化 设备注册接口
- */
-func (client *Client) CreateAcsDevice(request *CreateAcsDeviceRequest) (_result *CreateAcsDeviceResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &CreateAcsDeviceResponse{}
-	_body, _err := client.CreateAcsDeviceEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: biot 私有化 设备注册接口
- * Summary: biot 私有化 设备注册接口
- */
-func (client *Client) CreateAcsDeviceEx(request *CreateAcsDeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAcsDeviceResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &CreateAcsDeviceResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.acs.device.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: biot 私有化 业务数据上报
- * Summary: biot 私有化 业务数据上报
- */
-func (client *Client) SendAcsCollector(request *SendAcsCollectorRequest) (_result *SendAcsCollectorResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &SendAcsCollectorResponse{}
-	_body, _err := client.SendAcsCollectorEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: biot 私有化 业务数据上报
- * Summary: biot 私有化 业务数据上报
- */
-func (client *Client) SendAcsCollectorEx(request *SendAcsCollectorRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendAcsCollectorResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &SendAcsCollectorResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.acs.collector.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
  * Description: 租赁智能中心实人认证创建服务
  * Summary: 租赁智能中心实人认证创建服务
  */
@@ -13134,6 +13089,74 @@ func (client *Client) QueryBaiOcrEx(request *QueryBaiOcrRequest, headers map[str
 	}
 	_result = &QueryBaiOcrResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.bai.ocr.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: biot 私有化 设备注册接口
+ * Summary: biot 私有化 设备注册接口
+ */
+func (client *Client) CreateAcsDevice(request *CreateAcsDeviceRequest) (_result *CreateAcsDeviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAcsDeviceResponse{}
+	_body, _err := client.CreateAcsDeviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: biot 私有化 设备注册接口
+ * Summary: biot 私有化 设备注册接口
+ */
+func (client *Client) CreateAcsDeviceEx(request *CreateAcsDeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAcsDeviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAcsDeviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.acs.device.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: biot 私有化 业务数据上报
+ * Summary: biot 私有化 业务数据上报
+ */
+func (client *Client) SendAcsCollector(request *SendAcsCollectorRequest) (_result *SendAcsCollectorResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SendAcsCollectorResponse{}
+	_body, _err := client.SendAcsCollectorEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: biot 私有化 业务数据上报
+ * Summary: biot 私有化 业务数据上报
+ */
+func (client *Client) SendAcsCollectorEx(request *SendAcsCollectorRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendAcsCollectorResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SendAcsCollectorResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.acs.collector.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
