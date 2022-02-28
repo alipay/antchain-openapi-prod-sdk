@@ -11,10 +11,16 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\DEMO\Models\BindDemoCheckEeeRequest;
+use AntChain\DEMO\Models\BindDemoCheckEeeResponse;
+use AntChain\DEMO\Models\BindGatewayAbcTestRequest;
+use AntChain\DEMO\Models\BindGatewayAbcTestResponse;
 use AntChain\DEMO\Models\BindQweQweRequest;
 use AntChain\DEMO\Models\BindQweQweResponse;
 use AntChain\DEMO\Models\BindSssSsSsRequest;
 use AntChain\DEMO\Models\BindSssSsSsResponse;
+use AntChain\DEMO\Models\BindTestTestTestRequest;
+use AntChain\DEMO\Models\BindTestTestTestResponse;
 use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\DEMO\Models\EchoGatewayCheckRequest;
@@ -176,7 +182,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.55',
+                    'sdk_version'      => '1.0.57',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -471,6 +477,105 @@ class Client
         Utils::validateModel($request);
 
         return QueryGatewayMyResponse::fromMap($this->doRequest('1.0', 'demo.gateway.my.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: s
+     * Summary: ss.
+     *
+     * @param BindDemoCheckEeeRequest $request
+     *
+     * @return BindDemoCheckEeeResponse
+     */
+    public function bindDemoCheckEee($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindDemoCheckEeeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: s
+     * Summary: ss.
+     *
+     * @param BindDemoCheckEeeRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return BindDemoCheckEeeResponse
+     */
+    public function bindDemoCheckEeeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindDemoCheckEeeResponse::fromMap($this->doRequest('1.0', 'demo.demo.check.eee.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param BindGatewayAbcTestRequest $request
+     *
+     * @return BindGatewayAbcTestResponse
+     */
+    public function bindGatewayAbcTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindGatewayAbcTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param BindGatewayAbcTestRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return BindGatewayAbcTestResponse
+     */
+    public function bindGatewayAbcTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindGatewayAbcTestResponse::fromMap($this->doRequest('1.0', 'demo.gateway.abc.test.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param BindTestTestTestRequest $request
+     *
+     * @return BindTestTestTestResponse
+     */
+    public function bindTestTestTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindTestTestTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param BindTestTestTestRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return BindTestTestTestResponse
+     */
+    public function bindTestTestTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindTestTestTestResponse::fromMap($this->doRequest('1.0', 'demo.test.test.test.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
