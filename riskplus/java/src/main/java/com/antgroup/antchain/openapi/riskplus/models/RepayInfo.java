@@ -3,13 +3,12 @@ package com.antgroup.antchain.openapi.riskplus.models;
 
 import com.aliyun.tea.*;
 
-public class OverdueInfoResponse extends TeaModel {
-    // 逾期标识
+public class RepayInfo extends TeaModel {
     // true：逾期
     // false：未逾期
-    @NameInMap("over_due_flag")
+    @NameInMap("overdue_flag")
     @Validation(required = true)
-    public Boolean overDueFlag;
+    public Boolean overdueFlag;
 
     // 逾期天数
     @NameInMap("over_days")
@@ -46,7 +45,7 @@ public class OverdueInfoResponse extends TeaModel {
     @Validation(required = true)
     public Long needOverdueAmount;
 
-    // 当前应还总额
+    // 当前应还总额（包含逾期和当前期）
     @NameInMap("current_need_amount")
     @Validation(required = true)
     public Long currentNeedAmount;
@@ -56,20 +55,20 @@ public class OverdueInfoResponse extends TeaModel {
     @Validation(required = true)
     public Long totalAmount;
 
-    public static OverdueInfoResponse build(java.util.Map<String, ?> map) throws Exception {
-        OverdueInfoResponse self = new OverdueInfoResponse();
+    public static RepayInfo build(java.util.Map<String, ?> map) throws Exception {
+        RepayInfo self = new RepayInfo();
         return TeaModel.build(map, self);
     }
 
-    public OverdueInfoResponse setOverDueFlag(Boolean overDueFlag) {
-        this.overDueFlag = overDueFlag;
+    public RepayInfo setOverdueFlag(Boolean overdueFlag) {
+        this.overdueFlag = overdueFlag;
         return this;
     }
-    public Boolean getOverDueFlag() {
-        return this.overDueFlag;
+    public Boolean getOverdueFlag() {
+        return this.overdueFlag;
     }
 
-    public OverdueInfoResponse setOverDays(Long overDays) {
+    public RepayInfo setOverDays(Long overDays) {
         this.overDays = overDays;
         return this;
     }
@@ -77,7 +76,7 @@ public class OverdueInfoResponse extends TeaModel {
         return this.overDays;
     }
 
-    public OverdueInfoResponse setValuableOverDays(Long valuableOverDays) {
+    public RepayInfo setValuableOverDays(Long valuableOverDays) {
         this.valuableOverDays = valuableOverDays;
         return this;
     }
@@ -85,7 +84,7 @@ public class OverdueInfoResponse extends TeaModel {
         return this.valuableOverDays;
     }
 
-    public OverdueInfoResponse setOverPeriodCount(Long overPeriodCount) {
+    public RepayInfo setOverPeriodCount(Long overPeriodCount) {
         this.overPeriodCount = overPeriodCount;
         return this;
     }
@@ -93,7 +92,7 @@ public class OverdueInfoResponse extends TeaModel {
         return this.overPeriodCount;
     }
 
-    public OverdueInfoResponse setOverPrincipal(Long overPrincipal) {
+    public RepayInfo setOverPrincipal(Long overPrincipal) {
         this.overPrincipal = overPrincipal;
         return this;
     }
@@ -101,7 +100,7 @@ public class OverdueInfoResponse extends TeaModel {
         return this.overPrincipal;
     }
 
-    public OverdueInfoResponse setOverInterest(Long overInterest) {
+    public RepayInfo setOverInterest(Long overInterest) {
         this.overInterest = overInterest;
         return this;
     }
@@ -109,7 +108,7 @@ public class OverdueInfoResponse extends TeaModel {
         return this.overInterest;
     }
 
-    public OverdueInfoResponse setOverPunish(Long overPunish) {
+    public RepayInfo setOverPunish(Long overPunish) {
         this.overPunish = overPunish;
         return this;
     }
@@ -117,7 +116,7 @@ public class OverdueInfoResponse extends TeaModel {
         return this.overPunish;
     }
 
-    public OverdueInfoResponse setNeedOverdueAmount(Long needOverdueAmount) {
+    public RepayInfo setNeedOverdueAmount(Long needOverdueAmount) {
         this.needOverdueAmount = needOverdueAmount;
         return this;
     }
@@ -125,7 +124,7 @@ public class OverdueInfoResponse extends TeaModel {
         return this.needOverdueAmount;
     }
 
-    public OverdueInfoResponse setCurrentNeedAmount(Long currentNeedAmount) {
+    public RepayInfo setCurrentNeedAmount(Long currentNeedAmount) {
         this.currentNeedAmount = currentNeedAmount;
         return this;
     }
@@ -133,7 +132,7 @@ public class OverdueInfoResponse extends TeaModel {
         return this.currentNeedAmount;
     }
 
-    public OverdueInfoResponse setTotalAmount(Long totalAmount) {
+    public RepayInfo setTotalAmount(Long totalAmount) {
         this.totalAmount = totalAmount;
         return this;
     }
