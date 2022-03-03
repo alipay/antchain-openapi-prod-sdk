@@ -78,6 +78,31 @@ export class Config extends $tea.Model {
   }
 }
 
+// 企业风险等级分布统计
+export class RtopLevelDistribution extends $tea.Model {
+  // 统计值
+  count: number;
+  // 等级
+  level: string;
+  static names(): { [key: string]: string } {
+    return {
+      count: 'count',
+      level: 'level',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      count: 'number',
+      level: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 删除参数
 export class OutParams extends $tea.Model {
   // 输出参数
@@ -107,31 +132,6 @@ export class OutParams extends $tea.Model {
   }
 }
 
-// 企业风险等级分布统计
-export class RtopLevelDistribution extends $tea.Model {
-  // 统计值
-  count: number;
-  // 等级
-  level: string;
-  static names(): { [key: string]: string } {
-    return {
-      count: 'count',
-      level: 'level',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      count: 'number',
-      level: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // infocode
 export class InfoCodes extends $tea.Model {
   // infocode
@@ -145,35 +145,6 @@ export class InfoCodes extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       name: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 决策流
-export class DecisionFlow extends $tea.Model {
-  // 输出参数
-  decisionFlow?: OutParams;
-  // 决策结果
-  decision: string;
-  // infocodes
-  infoCodes?: InfoCodes;
-  static names(): { [key: string]: string } {
-    return {
-      decisionFlow: 'decision_flow',
-      decision: 'decision',
-      infoCodes: 'info_codes',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      decisionFlow: OutParams,
-      decision: 'string',
-      infoCodes: InfoCodes,
     };
   }
 
@@ -210,6 +181,85 @@ export class Contact extends $tea.Model {
       kind: 'string',
       name: 'string',
       mobile: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 涉众风险企业特征
+export class RtopCrowdRiskFeatureTag extends $tea.Model {
+  // 标签描述
+  tagExplanation: string;
+  // 标签名称
+  tagName: string;
+  static names(): { [key: string]: string } {
+    return {
+      tagExplanation: 'tag_explanation',
+      tagName: 'tag_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tagExplanation: 'string',
+      tagName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 反欺诈风险数据服务风险规则详情
+export class RiskDetail extends $tea.Model {
+  // 反欺诈风险数据服务命中规则风险权重
+  ruleWeight: string;
+  // 反欺诈风险数据服务命中规则名称
+  ruleName: string;
+  static names(): { [key: string]: string } {
+    return {
+      ruleWeight: 'rule_weight',
+      ruleName: 'rule_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      ruleWeight: 'string',
+      ruleName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 决策流
+export class DecisionFlow extends $tea.Model {
+  // 输出参数
+  decisionFlow?: OutParams;
+  // 决策结果
+  decision: string;
+  // infocodes
+  infoCodes?: InfoCodes;
+  static names(): { [key: string]: string } {
+    return {
+      decisionFlow: 'decision_flow',
+      decision: 'decision',
+      infoCodes: 'info_codes',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      decisionFlow: OutParams,
+      decision: 'string',
+      infoCodes: InfoCodes,
     };
   }
 
@@ -292,23 +342,79 @@ export class RtopRiskTag extends $tea.Model {
   }
 }
 
-// 涉众风险企业特征
-export class RtopCrowdRiskFeatureTag extends $tea.Model {
-  // 标签描述
-  tagExplanation: string;
-  // 标签名称
-  tagName: string;
+// 天枢系统专用ReceiptInfo结构体
+export class ReceiptInfo extends $tea.Model {
+  // 客户名
+  customName: string;
+  // 证件号码
+  cardNo: string;
+  // 手机号
+  mobile: string;
+  // 贷款金额
+  applyAmount: number;
+  // 发放金额
+  loanAmount: number;
+  // 期数
+  period: number;
+  // 当前期数
+  curPeriod: number;
+  // 还款方式1：等额本息，2：等额本金，3：按月付息到期还本，4：利随本清，5：自由还款
+  repayType: string;
+  // 还款日
+  repayDate: string;
+  // 放款时间
+  loanTime: string;
+  // 借据状态0：未还清，1：已还清，2：已提前还清
+  status: string;
+  // 已还本金
+  alreadyCorpus: number;
+  // 已还利息
+  alreadyAccrual: number;
+  // 结清日期
+  alreadyDate: string;
+  // 审批状态0：通过 1：拒绝 2：审批中 3：失败
+  workflowStatus: string;
+  // 借据编号
+  receiptNo: string;
   static names(): { [key: string]: string } {
     return {
-      tagExplanation: 'tag_explanation',
-      tagName: 'tag_name',
+      customName: 'custom_name',
+      cardNo: 'card_no',
+      mobile: 'mobile',
+      applyAmount: 'apply_amount',
+      loanAmount: 'loan_amount',
+      period: 'period',
+      curPeriod: 'cur_period',
+      repayType: 'repay_type',
+      repayDate: 'repay_date',
+      loanTime: 'loan_time',
+      status: 'status',
+      alreadyCorpus: 'already_corpus',
+      alreadyAccrual: 'already_accrual',
+      alreadyDate: 'already_date',
+      workflowStatus: 'workflow_status',
+      receiptNo: 'receipt_no',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      tagExplanation: 'string',
-      tagName: 'string',
+      customName: 'string',
+      cardNo: 'string',
+      mobile: 'string',
+      applyAmount: 'number',
+      loanAmount: 'number',
+      period: 'number',
+      curPeriod: 'number',
+      repayType: 'string',
+      repayDate: 'string',
+      loanTime: 'string',
+      status: 'string',
+      alreadyCorpus: 'number',
+      alreadyAccrual: 'number',
+      alreadyDate: 'string',
+      workflowStatus: 'string',
+      receiptNo: 'string',
     };
   }
 
@@ -317,23 +423,484 @@ export class RtopCrowdRiskFeatureTag extends $tea.Model {
   }
 }
 
-// 反欺诈风险数据服务风险规则详情
-export class RiskDetail extends $tea.Model {
-  // 反欺诈风险数据服务命中规则风险权重
-  ruleWeight: string;
-  // 反欺诈风险数据服务命中规则名称
-  ruleName: string;
+// 天枢系统专用RepayRef结构体
+export class RepayRef extends $tea.Model {
+  // 客户编码
+  customNo: string;
+  // 当前期数
+  period: string;
+  // 应还总额
+  needAmount: number;
+  // 应还本金
+  transPrincipal: number;
+  // 应还利息
+  needAccrual: number;
+  // 应还手续费
+  needFee: number;
+  // 已还总额
+  alreadyAmount: number;
+  // 已还本金
+  alreadyCorpus: number;
+  // 已还逾期本金
+  alreadyOvercorpus: number;
+  // 已还利息
+  alreadyAccrual: number;
+  // 已还逾期息
+  alreadyPunish: number;
+  // 已还手续费
+  alreadyFee: number;
+  // 利率
+  rate: number;
+  // 罚息率
+  penaltyValue: number;
+  // 当期剩余总额
+  restAmount: number;
+  // 当期剩余本金
+  restCorpus: number;
+  // 当期剩余利息
+  restAccrual: number;
+  // 当期剩余罚息
+  restPunish: number;
+  // 期末本金
+  remainCorpus: number;
+  // 借据编号
+  receiptNo: string;
+  // 还款状态1：已还清 2 未还 3 部分还款
+  status: string;
+  // 应还日期
+  settleDate: string;
+  // 还款日期
+  tradeDate: string;
   static names(): { [key: string]: string } {
     return {
-      ruleWeight: 'rule_weight',
-      ruleName: 'rule_name',
+      customNo: 'custom_no',
+      period: 'period',
+      needAmount: 'need_amount',
+      transPrincipal: 'trans_principal',
+      needAccrual: 'need_accrual',
+      needFee: 'need_fee',
+      alreadyAmount: 'already_amount',
+      alreadyCorpus: 'already_corpus',
+      alreadyOvercorpus: 'already_overcorpus',
+      alreadyAccrual: 'already_accrual',
+      alreadyPunish: 'already_punish',
+      alreadyFee: 'already_fee',
+      rate: 'rate',
+      penaltyValue: 'penalty_value',
+      restAmount: 'rest_amount',
+      restCorpus: 'rest_corpus',
+      restAccrual: 'rest_accrual',
+      restPunish: 'rest_punish',
+      remainCorpus: 'remain_corpus',
+      receiptNo: 'receipt_no',
+      status: 'status',
+      settleDate: 'settle_date',
+      tradeDate: 'trade_date',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      ruleWeight: 'string',
-      ruleName: 'string',
+      customNo: 'string',
+      period: 'string',
+      needAmount: 'number',
+      transPrincipal: 'number',
+      needAccrual: 'number',
+      needFee: 'number',
+      alreadyAmount: 'number',
+      alreadyCorpus: 'number',
+      alreadyOvercorpus: 'number',
+      alreadyAccrual: 'number',
+      alreadyPunish: 'number',
+      alreadyFee: 'number',
+      rate: 'number',
+      penaltyValue: 'number',
+      restAmount: 'number',
+      restCorpus: 'number',
+      restAccrual: 'number',
+      restPunish: 'number',
+      remainCorpus: 'number',
+      receiptNo: 'string',
+      status: 'string',
+      settleDate: 'string',
+      tradeDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 反欺诈风险数据服务规则细节信息
+export class RuleDetail extends $tea.Model {
+  // 规则细节名称
+  name: string;
+  // 规则细节值
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 安全场景参数
+export class SecurityScene extends $tea.Model {
+  // 接入渠道
+  accessChannel?: string;
+  // 事件信息
+  ctuParams?: string;
+  // 产品名称
+  productName?: string;
+  // 产品节点
+  productNode?: string;
+  // 扩展参数
+  securitySceneParams?: string;
+  // 系统名称
+  systemName?: string;
+  // 总金额
+  totalFee?: string;
+  static names(): { [key: string]: string } {
+    return {
+      accessChannel: 'access_channel',
+      ctuParams: 'ctu_params',
+      productName: 'product_name',
+      productNode: 'product_node',
+      securitySceneParams: 'security_scene_params',
+      systemName: 'system_name',
+      totalFee: 'total_fee',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accessChannel: 'string',
+      ctuParams: 'string',
+      productName: 'string',
+      productNode: 'string',
+      securitySceneParams: 'string',
+      systemName: 'string',
+      totalFee: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 收藏的企业信息
+export class RtopStarCompanyInfo extends $tea.Model {
+  // 行业
+  categories?: string[];
+  // 经营地址
+  operatingPlace?: string;
+  // 经营省份
+  operatingProvince?: string;
+  // 企业名称
+  orgName?: string;
+  // 风险分数
+  riskScore?: number;
+  // 风险标签
+  riskTags?: string[];
+  // 风险线索
+  riskTagDetails?: RtopRiskTag[];
+  // 风险标签Id集合
+  riskTagIds?: string[];
+  // 统一社会信用代码
+  ucCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      categories: 'categories',
+      operatingPlace: 'operating_place',
+      operatingProvince: 'operating_province',
+      orgName: 'org_name',
+      riskScore: 'risk_score',
+      riskTags: 'risk_tags',
+      riskTagDetails: 'risk_tag_details',
+      riskTagIds: 'risk_tag_ids',
+      ucCode: 'uc_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      categories: { 'type': 'array', 'itemType': 'string' },
+      operatingPlace: 'string',
+      operatingProvince: 'string',
+      orgName: 'string',
+      riskScore: 'number',
+      riskTags: { 'type': 'array', 'itemType': 'string' },
+      riskTagDetails: { 'type': 'array', 'itemType': RtopRiskTag },
+      riskTagIds: { 'type': 'array', 'itemType': 'string' },
+      ucCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 企业日期趋势统计
+export class RtopDateDistribution extends $tea.Model {
+  // 统计值
+  count: number;
+  // 年龄
+  date: string;
+  static names(): { [key: string]: string } {
+    return {
+      count: 'count',
+      date: 'date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      count: 'number',
+      date: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 天枢系统个人信息结构体
+export class PersonalInfo extends $tea.Model {
+  // 客户姓名
+  customName: string;
+  // 身份证号码(18位)
+  cardNo: string;
+  // 1-身份证
+  idType: string;
+  // 证件开始日期(格式：YYYY-MM-DD)
+  // 
+  certSignDate: string;
+  // 格式：YYYY-MM-DD，身份证有效期为长期的送: 9999-12-31
+  certValidate: string;
+  // 证件地址
+  certAdr: string;
+  // 手机号
+  mobile: string;
+  // 学历
+  education: string;
+  // 所在省份 汉字
+  province?: string;
+  // 所在城市 汉字
+  city?: string;
+  // 地区名称 汉字
+  area?: string;
+  // 详细地址
+  address?: string;
+  // 性别M-男
+  // F-女
+  sex?: string;
+  // 民族
+  nation?: string;
+  static names(): { [key: string]: string } {
+    return {
+      customName: 'custom_name',
+      cardNo: 'card_no',
+      idType: 'id_type',
+      certSignDate: 'cert_sign_date',
+      certValidate: 'cert_validate',
+      certAdr: 'cert_adr',
+      mobile: 'mobile',
+      education: 'education',
+      province: 'province',
+      city: 'city',
+      area: 'area',
+      address: 'address',
+      sex: 'sex',
+      nation: 'nation',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      customName: 'string',
+      cardNo: 'string',
+      idType: 'string',
+      certSignDate: 'string',
+      certValidate: 'string',
+      certAdr: 'string',
+      mobile: 'string',
+      education: 'string',
+      province: 'string',
+      city: 'string',
+      area: 'string',
+      address: 'string',
+      sex: 'string',
+      nation: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 策略流信息
+export class DfSceneInfos extends $tea.Model {
+  // scene_code
+  sceneCode: string;
+  // 拒绝
+  sceneDecision: string;
+  // decision_flow
+  decisionFlow: DecisionFlow;
+  static names(): { [key: string]: string } {
+    return {
+      sceneCode: 'scene_code',
+      sceneDecision: 'scene_decision',
+      decisionFlow: 'decision_flow',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sceneCode: 'string',
+      sceneDecision: 'string',
+      decisionFlow: DecisionFlow,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 反欺诈风险数据服务风险信息
+export class RiskInfo extends $tea.Model {
+  // 反欺诈风险数据服务风险组描述
+  riskGroupDesc: string;
+  // 反欺诈风险数据服务风险组名
+  riskGroup: string;
+  // 反欺诈风险数据服务风险组类别
+  riskGroupCategory: string;
+  // 反欺诈风险数据服务风险组信息
+  riskDetails: RiskDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      riskGroupDesc: 'risk_group_desc',
+      riskGroup: 'risk_group',
+      riskGroupCategory: 'risk_group_category',
+      riskDetails: 'risk_details',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      riskGroupDesc: 'string',
+      riskGroup: 'string',
+      riskGroupCategory: 'string',
+      riskDetails: { 'type': 'array', 'itemType': RiskDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 风险维度
+export class RtopCompanyRiskFactor extends $tea.Model {
+  // 维度名称
+  name?: string;
+  // 维度分数
+  score?: number;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      score: 'score',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      score: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 天枢系统专用Material结构体
+export class Material extends $tea.Model {
+  // 资料类型0-风控报告1-合同2-图片3-附件
+  mType: string;
+  // 大类编码00-风控报告10-合同20身份证图片26人脸图片30-附件
+  bigCode: string;
+  // 小类编码
+  // 201-身份证人脸面202身份证国徽面212-活体人脸图片
+  smallCode: string;
+  // 资料名称
+  meterialName: string;
+  // 文件地址
+  filePath: string;
+  static names(): { [key: string]: string } {
+    return {
+      mType: 'm_type',
+      bigCode: 'big_code',
+      smallCode: 'small_code',
+      meterialName: 'meterial_name',
+      filePath: 'file_path',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      mType: 'string',
+      bigCode: 'string',
+      smallCode: 'string',
+      meterialName: 'string',
+      filePath: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 天枢系统RiskData结构体
+export class RiskData extends $tea.Model {
+  // 联系人信息列表
+  contacts: Contact[];
+  // 人脸对比分
+  facePoint?: string;
+  // 活体供应商
+  faceSource?: string;
+  static names(): { [key: string]: string } {
+    return {
+      contacts: 'contacts',
+      facePoint: 'face_point',
+      faceSource: 'face_source',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      contacts: { 'type': 'array', 'itemType': Contact },
+      facePoint: 'string',
+      faceSource: 'string',
     };
   }
 
@@ -371,22 +938,726 @@ export class SecurityDataQueryStruct extends $tea.Model {
   }
 }
 
-// 企业舆情数量
-export class RtopCompanyOpinionCount extends $tea.Model {
+// 标签信息
+export class RiskLabelInfo extends $tea.Model {
+  // 线索明细类型(字段停用)
+  clueDetailType: string;
+  // odps数据产出时间，冗余字段，业务上不需要，以备错误排查
+  dt?: string;
+  // 数据产生时间
+  gmtCreate: string;
+  // 记录唯一ID
+  id: number;
+  // 0-正常 1-删除
+  isDeleted: number;
+  // 企业ID
+  mctOneId: string;
+  // 操作人ID
+  operatorId: string;
+  // 操作类型
+  // add、delete、update
+  opType: string;
+  // 企业名称
+  orgName: string;
+  // 线索类型
+  riskDetailType: string;
+  // 风险维度
+  // 
+  riskDimensionType: string;
+  // 线索概览
+  tagClue: string;
+  // 线索明细
+  tagClueDetail: string;
+  // 标签ID
+  tagId: string;
+  // 线索列表表头，英文逗号分隔
+  // 
+  tagListHeaders: string;
+  // 标签列表，排序字段
+  tagListOrderColumn: string;
+  // 标签列表排序方式
+  tagListOrderType: string;
+  // 标签文本
+  tagText: string;
+  // 趋势图表名
+  tagTrendChartName: string;
+  // 数据同步到公有云时间(业务上赋值当天)
+  updateDate: string;
+  static names(): { [key: string]: string } {
+    return {
+      clueDetailType: 'clue_detail_type',
+      dt: 'dt',
+      gmtCreate: 'gmt_create',
+      id: 'id',
+      isDeleted: 'is_deleted',
+      mctOneId: 'mct_one_id',
+      operatorId: 'operator_id',
+      opType: 'op_type',
+      orgName: 'org_name',
+      riskDetailType: 'risk_detail_type',
+      riskDimensionType: 'risk_dimension_type',
+      tagClue: 'tag_clue',
+      tagClueDetail: 'tag_clue_detail',
+      tagId: 'tag_id',
+      tagListHeaders: 'tag_list_headers',
+      tagListOrderColumn: 'tag_list_order_column',
+      tagListOrderType: 'tag_list_order_type',
+      tagText: 'tag_text',
+      tagTrendChartName: 'tag_trend_chart_name',
+      updateDate: 'update_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      clueDetailType: 'string',
+      dt: 'string',
+      gmtCreate: 'string',
+      id: 'number',
+      isDeleted: 'number',
+      mctOneId: 'string',
+      operatorId: 'string',
+      opType: 'string',
+      orgName: 'string',
+      riskDetailType: 'string',
+      riskDimensionType: 'string',
+      tagClue: 'string',
+      tagClueDetail: 'string',
+      tagId: 'string',
+      tagListHeaders: 'string',
+      tagListOrderColumn: 'string',
+      tagListOrderType: 'string',
+      tagText: 'string',
+      tagTrendChartName: 'string',
+      updateDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 企业反馈
+export class RtopCompanyFeedback extends $tea.Model {
+  // 主键
+  id: number;
+  // 企业ID
+  companyId: string;
+  // 反馈原因
+  feedbackReason: string;
+  // 反馈原因详情
+  feedbackReasonDetail: string;
+  // 评论
+  comment: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      companyId: 'company_id',
+      feedbackReason: 'feedback_reason',
+      feedbackReasonDetail: 'feedback_reason_detail',
+      comment: 'comment',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'number',
+      companyId: 'string',
+      feedbackReason: 'string',
+      feedbackReasonDetail: 'string',
+      comment: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 监测企业的特征信息
+export class RtopMonitorCompanyFeature extends $tea.Model {
+  // 特征的描述
+  description?: string;
+  // 特征的名称
+  name: string;
+  // 特征里的风险标签列表
+  riskTags?: string[];
+  // 特征的评分
+  score: number;
+  static names(): { [key: string]: string } {
+    return {
+      description: 'description',
+      name: 'name',
+      riskTags: 'risk_tags',
+      score: 'score',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      description: 'string',
+      name: 'string',
+      riskTags: { 'type': 'array', 'itemType': 'string' },
+      score: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 风报接口返回结构体
+export class RtopCompanyRiskInfo extends $tea.Model {
+  // 区域类型
+  placeType?: string;
+  // 区域
+  placeName?: string;
+  // 企业唯一id
+  mctOneId?: string;
+  // 企业统一社会信用代码
+  ucCode?: string;
+  // 工商注册号
+  regNo?: string;
+  // 组织机构代码
+  orgCode?: string;
+  // 企业名
+  orgName?: string;
+  // 风险评分
+  riskScore?: string;
+  // 风险变化程度排序，根据分值波动大小，标签变更次数排序
+  riskShiftRank?: string;
+  // 风险定性
+  riskType?: string;
+  // 风险标签id列表
+  riskTagsId?: string[];
+  // 线索
+  tagsClue?: string;
+  // 风险线索明细
+  tagsClueDetail?: string;
+  static names(): { [key: string]: string } {
+    return {
+      placeType: 'place_type',
+      placeName: 'place_name',
+      mctOneId: 'mct_one_id',
+      ucCode: 'uc_code',
+      regNo: 'reg_no',
+      orgCode: 'org_code',
+      orgName: 'org_name',
+      riskScore: 'risk_score',
+      riskShiftRank: 'risk_shift_rank',
+      riskType: 'risk_type',
+      riskTagsId: 'risk_tags_id',
+      tagsClue: 'tags_clue',
+      tagsClueDetail: 'tags_clue_detail',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      placeType: 'string',
+      placeName: 'string',
+      mctOneId: 'string',
+      ucCode: 'string',
+      regNo: 'string',
+      orgCode: 'string',
+      orgName: 'string',
+      riskScore: 'string',
+      riskShiftRank: 'string',
+      riskType: 'string',
+      riskTagsId: { 'type': 'array', 'itemType': 'string' },
+      tagsClue: 'string',
+      tagsClueDetail: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 逾期信息查询响应
+export class OverdueInfoResponse extends $tea.Model {
+  // 逾期标识
+  // true：逾期
+  // false：未逾期
+  overDueFlag: boolean;
+  // 逾期天数
+  overDays: number;
+  // 逾期金额在50元以上的客户的逾期天数
+  valuableOverDays: number;
+  // 逾期期数
+  overPeriodCount: number;
+  // 逾期本金
+  overPrincipal: number;
+  // 逾期利息
+  overInterest: number;
+  // 应还罚息
+  overPunish: number;
+  // 应还逾期总额
+  needOverdueAmount: number;
+  // 当前应还总额
+  currentNeedAmount: number;
+  // 总剩余应还
+  totalAmount: number;
+  static names(): { [key: string]: string } {
+    return {
+      overDueFlag: 'over_due_flag',
+      overDays: 'over_days',
+      valuableOverDays: 'valuable_over_days',
+      overPeriodCount: 'over_period_count',
+      overPrincipal: 'over_principal',
+      overInterest: 'over_interest',
+      overPunish: 'over_punish',
+      needOverdueAmount: 'need_overdue_amount',
+      currentNeedAmount: 'current_need_amount',
+      totalAmount: 'total_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      overDueFlag: 'boolean',
+      overDays: 'number',
+      valuableOverDays: 'number',
+      overPeriodCount: 'number',
+      overPrincipal: 'number',
+      overInterest: 'number',
+      overPunish: 'number',
+      needOverdueAmount: 'number',
+      currentNeedAmount: 'number',
+      totalAmount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 企业年报信息
+export class RtopRiskStormCompanyAnnualReport extends $tea.Model {
+  // 年报个数
+  annualReportCount?: number;
+  // 年报是否发生股权转让
+  annualReportHasEquityTransfer?: boolean;
+  // 年报是否对外提供担保
+  annualReportHasExternalGuarantee?: boolean;
+  // 年报是否对外投资
+  annualReportHasExternalInvest?: boolean;
+  // 营业总收入中主营业务收入
+  annualReportMainBusinessIncome?: string;
+  // 年报净利润
+  annualReportNetProfit?: string;
+  // 年报发布日期
+  annualReportReleaseDate?: string;
+  // 年报股东实缴出资额（万元（实缴出资额用两个冒号::分割）
+  annualReportShActualPaid?: string;
+  // 年报公司人数
+  annualReportStaffCount?: number;
+  // 资产总额
+  annualReportTotalAssets?: string;
+  // 负债总额
+  annualReportTotalLiabilities?: string;
+  // 营业总收入
+  annualReportTotalOperatingIncome?: string;
+  // 年报所有者权益合计
+  annualReportTotalOwnerEquity?: string;
+  // 年报利润总额
+  annualReportTotalProfit?: string;
+  // 纳税总额
+  annualReportTotalTax?: string;
+  // 年报报送年度
+  annualReportYear?: string;
+  static names(): { [key: string]: string } {
+    return {
+      annualReportCount: 'annual_report_count',
+      annualReportHasEquityTransfer: 'annual_report_has_equity_transfer',
+      annualReportHasExternalGuarantee: 'annual_report_has_external_guarantee',
+      annualReportHasExternalInvest: 'annual_report_has_external_invest',
+      annualReportMainBusinessIncome: 'annual_report_main_business_income',
+      annualReportNetProfit: 'annual_report_net_profit',
+      annualReportReleaseDate: 'annual_report_release_date',
+      annualReportShActualPaid: 'annual_report_sh_actual_paid',
+      annualReportStaffCount: 'annual_report_staff_count',
+      annualReportTotalAssets: 'annual_report_total_assets',
+      annualReportTotalLiabilities: 'annual_report_total_liabilities',
+      annualReportTotalOperatingIncome: 'annual_report_total_operating_income',
+      annualReportTotalOwnerEquity: 'annual_report_total_owner_equity',
+      annualReportTotalProfit: 'annual_report_total_profit',
+      annualReportTotalTax: 'annual_report_total_tax',
+      annualReportYear: 'annual_report_year',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      annualReportCount: 'number',
+      annualReportHasEquityTransfer: 'boolean',
+      annualReportHasExternalGuarantee: 'boolean',
+      annualReportHasExternalInvest: 'boolean',
+      annualReportMainBusinessIncome: 'string',
+      annualReportNetProfit: 'string',
+      annualReportReleaseDate: 'string',
+      annualReportShActualPaid: 'string',
+      annualReportStaffCount: 'number',
+      annualReportTotalAssets: 'string',
+      annualReportTotalLiabilities: 'string',
+      annualReportTotalOperatingIncome: 'string',
+      annualReportTotalOwnerEquity: 'string',
+      annualReportTotalProfit: 'string',
+      annualReportTotalTax: 'string',
+      annualReportYear: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 全局动态中的企业
+export class RtopRiskyCompany extends $tea.Model {
+  // 企业ID
+  companyId: string;
+  // 异动分数
+  changeScore: string;
+  // 异动程度
+  changeLevel: string;
+  // 新增企业的时间
+  newAddedTime: string;
+  // 总公司注册地
+  headRegisterPlace: string;
+  // 数据的时间
+  dataTime: string;
+  static names(): { [key: string]: string } {
+    return {
+      companyId: 'company_id',
+      changeScore: 'change_score',
+      changeLevel: 'change_level',
+      newAddedTime: 'new_added_time',
+      headRegisterPlace: 'head_register_place',
+      dataTime: 'data_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      companyId: 'string',
+      changeScore: 'string',
+      changeLevel: 'string',
+      newAddedTime: 'string',
+      headRegisterPlace: 'string',
+      dataTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// zhima.customer.ep.identification.query
+// 在认证完成后,商户可以查询认证的状态和结果
+// 
+export class ZhimaQueryResp extends $tea.Model {
+  // 认证的企业证件号
+  epCertNo?: string;
+  // 认证的企业名
+  epName?: string;
+  // 认证不通过的错误码
+  failedCode?: string;
+  // 认证是否通过，通过为true，不通过为false
+  passed?: string;
+  //  10000是成功，其余是失败
+  resultCode: string;
+  //  
+  resultMsg: string;
+  //  
+  subCode?: string;
+  //  
+  subMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      epCertNo: 'ep_cert_no',
+      epName: 'ep_name',
+      failedCode: 'failed_code',
+      passed: 'passed',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      subCode: 'sub_code',
+      subMsg: 'sub_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      epCertNo: 'string',
+      epName: 'string',
+      failedCode: 'string',
+      passed: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      subCode: 'string',
+      subMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 机构平台通知响应结果
+export class DefinInnerChannelNotifyResult extends $tea.Model {
+  // 请求编号
+  requestId: string;
+  // 业务响应Json
+  bizResponse: string;
+  static names(): { [key: string]: string } {
+    return {
+      requestId: 'request_id',
+      bizResponse: 'biz_response',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      requestId: 'string',
+      bizResponse: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 企业涉众风险详细信息
+export class RtopCrowdRiskSummaryResp extends $tea.Model {
+  // 活跃市
+  activeCity?: string;
+  // 活跃县
+  activeCounty?: string;
+  // 活跃省
+  activeProvince?: string;
+  // 风险标签
+  clueTags?: string[];
+  // 企业ID
+  companyId: string;
   // 企业名称
   companyName: string;
-  // 企业对应的舆情数量
+  // 风险等级
+  crowdRiskLevel?: string;
+  // 涉众风险分数
+  crowdRiskScore?: number;
+  // 涉众风险类型
+  crowdRiskType?: string;
+  // 发现时间
+  detectedTime?: string;
+  // 影响金额
+  moneyInvolved?: number;
+  // 影响人数
+  peopleInvolved?: number;
+  // 注册市
+  registeredCity?: string;
+  // 注册县
+  registeredCounty?: string;
+  // 注册省
+  registeredProvince?: string;
+  static names(): { [key: string]: string } {
+    return {
+      activeCity: 'active_city',
+      activeCounty: 'active_county',
+      activeProvince: 'active_province',
+      clueTags: 'clue_tags',
+      companyId: 'company_id',
+      companyName: 'company_name',
+      crowdRiskLevel: 'crowd_risk_level',
+      crowdRiskScore: 'crowd_risk_score',
+      crowdRiskType: 'crowd_risk_type',
+      detectedTime: 'detected_time',
+      moneyInvolved: 'money_involved',
+      peopleInvolved: 'people_involved',
+      registeredCity: 'registered_city',
+      registeredCounty: 'registered_county',
+      registeredProvince: 'registered_province',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      activeCity: 'string',
+      activeCounty: 'string',
+      activeProvince: 'string',
+      clueTags: { 'type': 'array', 'itemType': 'string' },
+      companyId: 'string',
+      companyName: 'string',
+      crowdRiskLevel: 'string',
+      crowdRiskScore: 'number',
+      crowdRiskType: 'string',
+      detectedTime: 'string',
+      moneyInvolved: 'number',
+      peopleInvolved: 'number',
+      registeredCity: 'string',
+      registeredCounty: 'string',
+      registeredProvince: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 标签配置全量信息
+export class RiskLabelConfigInfo extends $tea.Model {
+  // id
+  id: number;
+  // 线索ID
+  tagId: string;
+  // 标签文本
+  tagText: string;
+  // 风险维度
+  riskDimensionType: string;
+  // 线索类型
+  riskDetailType: string;
+  // 趋势图表名
+  tagTrendChartName: string;
+  // 线索列表表头，英文逗号分隔
+  tagListHeaders: string;
+  // 标签列表，排序字段
+  tagListOrderColumn: string;
+  // 标签列表排序方式
+  tagListOrderType: string;
+  // 标记删除
+  isDelete: number;
+  // 创建时间
+  gmtCreate: string;
+  // 修改时间
+  gmtModified: string;
+  // 操作人ID
+  operatorId: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      tagId: 'tag_id',
+      tagText: 'tag_text',
+      riskDimensionType: 'risk_dimension_type',
+      riskDetailType: 'risk_detail_type',
+      tagTrendChartName: 'tag_trend_chart_name',
+      tagListHeaders: 'tag_list_headers',
+      tagListOrderColumn: 'tag_list_order_column',
+      tagListOrderType: 'tag_list_order_type',
+      isDelete: 'is_delete',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      operatorId: 'operator_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'number',
+      tagId: 'string',
+      tagText: 'string',
+      riskDimensionType: 'string',
+      riskDetailType: 'string',
+      tagTrendChartName: 'string',
+      tagListHeaders: 'string',
+      tagListOrderColumn: 'string',
+      tagListOrderType: 'string',
+      isDelete: 'number',
+      gmtCreate: 'string',
+      gmtModified: 'string',
+      operatorId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 策略详情
+export class StrategyDetails extends $tea.Model {
+  // 策略id
+  id: string;
+  // 策略名称
+  name: string;
+  // 决策结果
+  decision: string;
+  // 场景码
+  sceneCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      name: 'name',
+      decision: 'decision',
+      sceneCode: 'scene_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      name: 'string',
+      decision: 'string',
+      sceneCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 反欺诈风险数据服务决策结果
+export class SecurityResultInfos extends $tea.Model {
+  // 反欺诈风险数据服务风险建议决策
+  decision: string;
+  // 反欺诈风险数据服务风险分
+  riskScore: number;
+  // 反欺诈风险数据服务场景码
+  sceneCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      decision: 'decision',
+      riskScore: 'risk_score',
+      sceneCode: 'scene_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      decision: 'string',
+      riskScore: 'number',
+      sceneCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 企业影响人数年龄分布统计
+export class RtopAgeDistribution extends $tea.Model {
+  // 年龄
+  age: string;
+  // 统计值
   count: number;
   static names(): { [key: string]: string } {
     return {
-      companyName: 'company_name',
+      age: 'age',
       count: 'count',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      companyName: 'string',
+      age: 'string',
       count: 'number',
     };
   }
@@ -654,251 +1925,6 @@ export class CompanyInfo extends $tea.Model {
   }
 }
 
-// 逾期信息查询响应
-export class OverdueInfoResponse extends $tea.Model {
-  // 逾期标识
-  // true：逾期
-  // false：未逾期
-  overDueFlag: boolean;
-  // 逾期天数
-  dpd: number;
-  // 价值逾期天枢
-  cpd: number;
-  // 应还总额
-  needAmount: number;
-  // 总剩余应还
-  totalAmount: number;
-  static names(): { [key: string]: string } {
-    return {
-      overDueFlag: 'over_due_flag',
-      dpd: 'dpd',
-      cpd: 'cpd',
-      needAmount: 'need_amount',
-      totalAmount: 'total_amount',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      overDueFlag: 'boolean',
-      dpd: 'number',
-      cpd: 'number',
-      needAmount: 'number',
-      totalAmount: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 标签信息
-export class RiskLabelInfo extends $tea.Model {
-  // 线索明细类型(字段停用)
-  clueDetailType: string;
-  // odps数据产出时间，冗余字段，业务上不需要，以备错误排查
-  dt?: string;
-  // 数据产生时间
-  gmtCreate: string;
-  // 记录唯一ID
-  id: number;
-  // 0-正常 1-删除
-  isDeleted: number;
-  // 企业ID
-  mctOneId: string;
-  // 操作人ID
-  operatorId: string;
-  // 操作类型
-  // add、delete、update
-  opType: string;
-  // 企业名称
-  orgName: string;
-  // 线索类型
-  riskDetailType: string;
-  // 风险维度
-  // 
-  riskDimensionType: string;
-  // 线索概览
-  tagClue: string;
-  // 线索明细
-  tagClueDetail: string;
-  // 标签ID
-  tagId: string;
-  // 线索列表表头，英文逗号分隔
-  // 
-  tagListHeaders: string;
-  // 标签列表，排序字段
-  tagListOrderColumn: string;
-  // 标签列表排序方式
-  tagListOrderType: string;
-  // 标签文本
-  tagText: string;
-  // 趋势图表名
-  tagTrendChartName: string;
-  // 数据同步到公有云时间(业务上赋值当天)
-  updateDate: string;
-  static names(): { [key: string]: string } {
-    return {
-      clueDetailType: 'clue_detail_type',
-      dt: 'dt',
-      gmtCreate: 'gmt_create',
-      id: 'id',
-      isDeleted: 'is_deleted',
-      mctOneId: 'mct_one_id',
-      operatorId: 'operator_id',
-      opType: 'op_type',
-      orgName: 'org_name',
-      riskDetailType: 'risk_detail_type',
-      riskDimensionType: 'risk_dimension_type',
-      tagClue: 'tag_clue',
-      tagClueDetail: 'tag_clue_detail',
-      tagId: 'tag_id',
-      tagListHeaders: 'tag_list_headers',
-      tagListOrderColumn: 'tag_list_order_column',
-      tagListOrderType: 'tag_list_order_type',
-      tagText: 'tag_text',
-      tagTrendChartName: 'tag_trend_chart_name',
-      updateDate: 'update_date',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      clueDetailType: 'string',
-      dt: 'string',
-      gmtCreate: 'string',
-      id: 'number',
-      isDeleted: 'number',
-      mctOneId: 'string',
-      operatorId: 'string',
-      opType: 'string',
-      orgName: 'string',
-      riskDetailType: 'string',
-      riskDimensionType: 'string',
-      tagClue: 'string',
-      tagClueDetail: 'string',
-      tagId: 'string',
-      tagListHeaders: 'string',
-      tagListOrderColumn: 'string',
-      tagListOrderType: 'string',
-      tagText: 'string',
-      tagTrendChartName: 'string',
-      updateDate: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 风报接口返回结构体
-export class RtopCompanyRiskInfo extends $tea.Model {
-  // 区域类型
-  placeType?: string;
-  // 区域
-  placeName?: string;
-  // 企业唯一id
-  mctOneId?: string;
-  // 企业统一社会信用代码
-  ucCode?: string;
-  // 工商注册号
-  regNo?: string;
-  // 组织机构代码
-  orgCode?: string;
-  // 企业名
-  orgName?: string;
-  // 风险评分
-  riskScore?: string;
-  // 风险变化程度排序，根据分值波动大小，标签变更次数排序
-  riskShiftRank?: string;
-  // 风险定性
-  riskType?: string;
-  // 风险标签id列表
-  riskTagsId?: string[];
-  // 线索
-  tagsClue?: string;
-  // 风险线索明细
-  tagsClueDetail?: string;
-  static names(): { [key: string]: string } {
-    return {
-      placeType: 'place_type',
-      placeName: 'place_name',
-      mctOneId: 'mct_one_id',
-      ucCode: 'uc_code',
-      regNo: 'reg_no',
-      orgCode: 'org_code',
-      orgName: 'org_name',
-      riskScore: 'risk_score',
-      riskShiftRank: 'risk_shift_rank',
-      riskType: 'risk_type',
-      riskTagsId: 'risk_tags_id',
-      tagsClue: 'tags_clue',
-      tagsClueDetail: 'tags_clue_detail',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      placeType: 'string',
-      placeName: 'string',
-      mctOneId: 'string',
-      ucCode: 'string',
-      regNo: 'string',
-      orgCode: 'string',
-      orgName: 'string',
-      riskScore: 'string',
-      riskShiftRank: 'string',
-      riskType: 'string',
-      riskTagsId: { 'type': 'array', 'itemType': 'string' },
-      tagsClue: 'string',
-      tagsClueDetail: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 服务上下文包括环境信息和用户信息
-export class ServiceContext extends $tea.Model {
-  // 客户端IP
-  clientIp?: string;
-  // 客户端UMID
-  clientPcidguid?: string;
-  // 服务器名
-  serverName?: string;
-  // 会话ID
-  sessionId?: string;
-  // 用户ID
-  userId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      clientIp: 'client_ip',
-      clientPcidguid: 'client_pcidguid',
-      serverName: 'server_name',
-      sessionId: 'session_id',
-      userId: 'user_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      clientIp: 'string',
-      clientPcidguid: 'string',
-      serverName: 'string',
-      sessionId: 'string',
-      userId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 预警企业
 export class RtopCompanyAlarm extends $tea.Model {
   // 企业ID
@@ -928,141 +1954,6 @@ export class RtopCompanyAlarm extends $tea.Model {
       alarmIdx: 'string',
       alarmDate: 'string',
       alarmFlag: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 风险维度
-export class RtopCompanyRiskFactor extends $tea.Model {
-  // 维度名称
-  name?: string;
-  // 维度分数
-  score?: number;
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      score: 'score',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      score: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 企业年报信息
-export class RtopRiskStormCompanyAnnualReport extends $tea.Model {
-  // 年报个数
-  annualReportCount?: number;
-  // 年报是否发生股权转让
-  annualReportHasEquityTransfer?: boolean;
-  // 年报是否对外提供担保
-  annualReportHasExternalGuarantee?: boolean;
-  // 年报是否对外投资
-  annualReportHasExternalInvest?: boolean;
-  // 营业总收入中主营业务收入
-  annualReportMainBusinessIncome?: string;
-  // 年报净利润
-  annualReportNetProfit?: string;
-  // 年报发布日期
-  annualReportReleaseDate?: string;
-  // 年报股东实缴出资额（万元（实缴出资额用两个冒号::分割）
-  annualReportShActualPaid?: string;
-  // 年报公司人数
-  annualReportStaffCount?: number;
-  // 资产总额
-  annualReportTotalAssets?: string;
-  // 负债总额
-  annualReportTotalLiabilities?: string;
-  // 营业总收入
-  annualReportTotalOperatingIncome?: string;
-  // 年报所有者权益合计
-  annualReportTotalOwnerEquity?: string;
-  // 年报利润总额
-  annualReportTotalProfit?: string;
-  // 纳税总额
-  annualReportTotalTax?: string;
-  // 年报报送年度
-  annualReportYear?: string;
-  static names(): { [key: string]: string } {
-    return {
-      annualReportCount: 'annual_report_count',
-      annualReportHasEquityTransfer: 'annual_report_has_equity_transfer',
-      annualReportHasExternalGuarantee: 'annual_report_has_external_guarantee',
-      annualReportHasExternalInvest: 'annual_report_has_external_invest',
-      annualReportMainBusinessIncome: 'annual_report_main_business_income',
-      annualReportNetProfit: 'annual_report_net_profit',
-      annualReportReleaseDate: 'annual_report_release_date',
-      annualReportShActualPaid: 'annual_report_sh_actual_paid',
-      annualReportStaffCount: 'annual_report_staff_count',
-      annualReportTotalAssets: 'annual_report_total_assets',
-      annualReportTotalLiabilities: 'annual_report_total_liabilities',
-      annualReportTotalOperatingIncome: 'annual_report_total_operating_income',
-      annualReportTotalOwnerEquity: 'annual_report_total_owner_equity',
-      annualReportTotalProfit: 'annual_report_total_profit',
-      annualReportTotalTax: 'annual_report_total_tax',
-      annualReportYear: 'annual_report_year',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      annualReportCount: 'number',
-      annualReportHasEquityTransfer: 'boolean',
-      annualReportHasExternalGuarantee: 'boolean',
-      annualReportHasExternalInvest: 'boolean',
-      annualReportMainBusinessIncome: 'string',
-      annualReportNetProfit: 'string',
-      annualReportReleaseDate: 'string',
-      annualReportShActualPaid: 'string',
-      annualReportStaffCount: 'number',
-      annualReportTotalAssets: 'string',
-      annualReportTotalLiabilities: 'string',
-      annualReportTotalOperatingIncome: 'string',
-      annualReportTotalOwnerEquity: 'string',
-      annualReportTotalProfit: 'string',
-      annualReportTotalTax: 'string',
-      annualReportYear: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 策略流信息
-export class DfSceneInfos extends $tea.Model {
-  // scene_code
-  sceneCode: string;
-  // 拒绝
-  sceneDecision: string;
-  // decision_flow
-  decisionFlow: DecisionFlow;
-  static names(): { [key: string]: string } {
-    return {
-      sceneCode: 'scene_code',
-      sceneDecision: 'scene_decision',
-      decisionFlow: 'decision_flow',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      sceneCode: 'string',
-      sceneDecision: 'string',
-      decisionFlow: DecisionFlow,
     };
   }
 
@@ -1104,162 +1995,23 @@ export class RpcommonResp extends $tea.Model {
   }
 }
 
-// 风报风险标签统计
-export class RiskStormLabelResp extends $tea.Model {
-  // 标签次数
-  labelCount: number;
-  // 标签id
-  labelId: string;
-  // 标签名称
-  labelName: string;
-  static names(): { [key: string]: string } {
-    return {
-      labelCount: 'label_count',
-      labelId: 'label_id',
-      labelName: 'label_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      labelCount: 'number',
-      labelId: 'string',
-      labelName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 天枢系统居住信息结构体
-export class LiveInfo extends $tea.Model {
-  // 居住省份
-  liveProvince?: string;
-  // 居住城市
-  liveCity?: string;
-  // 居住区域
-  liveArea?: string;
-  // 居住街道
-  liveStreet?: string;
-  // 居住详细地址
-  liveAddress?: string;
-  // 居住年限
-  liveYears?: number;
-  static names(): { [key: string]: string } {
-    return {
-      liveProvince: 'live_province',
-      liveCity: 'live_city',
-      liveArea: 'live_area',
-      liveStreet: 'live_street',
-      liveAddress: 'live_address',
-      liveYears: 'live_years',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      liveProvince: 'string',
-      liveCity: 'string',
-      liveArea: 'string',
-      liveStreet: 'string',
-      liveAddress: 'string',
-      liveYears: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 芝麻四要素认证接口
-export class ZhimaIdentifyResp extends $tea.Model {
-  // 唯一ID，接口正常的话有此字段
-  bizNo?: string;
-  // 带参数的回调地址，接口正常的话有此字段
-  certifyUrl?: string;
-  // 蚂蚁调用芝麻的错误码
-  resultCode: string;
-  // 蚂蚁调用芝麻的结果描述
-  resultMsg: string;
-  // 蚂蚁调用芝麻的错误码
-  subCode?: string;
-  // 蚂蚁调用芝麻信息
-  subMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      bizNo: 'biz_no',
-      certifyUrl: 'certify_url',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      subCode: 'sub_code',
-      subMsg: 'sub_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      bizNo: 'string',
-      certifyUrl: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      subCode: 'string',
-      subMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 标签过滤配置
-export class RiskLabelFilterConfigInfo extends $tea.Model {
-  // 创建时间
-  gmtCreate: string;
-  // 修改时间
-  gmtModified: string;
-  // id
+// 标签图片
+export class RtopTagImage extends $tea.Model {
+  // 标签图片表主键
   id: number;
-  // 是否为基本筛选标签
-  isBase: number;
-  // 标记删除
-  isDelete: number;
-  // 操作人员ID
-  operatorId: string;
-  // 地区名
-  placeName: string;
-  // 地区类型
-  placeType: string;
-  // 标签ID
-  tagId: string;
+  // 图片
+  image?: string;
   static names(): { [key: string]: string } {
     return {
-      gmtCreate: 'gmt_create',
-      gmtModified: 'gmt_modified',
       id: 'id',
-      isBase: 'is_base',
-      isDelete: 'is_delete',
-      operatorId: 'operator_id',
-      placeName: 'place_name',
-      placeType: 'place_type',
-      tagId: 'tag_id',
+      image: 'image',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      gmtCreate: 'string',
-      gmtModified: 'string',
       id: 'number',
-      isBase: 'number',
-      isDelete: 'number',
-      operatorId: 'string',
-      placeName: 'string',
-      placeType: 'string',
-      tagId: 'string',
+      image: 'string',
     };
   }
 
@@ -1268,90 +2020,23 @@ export class RiskLabelFilterConfigInfo extends $tea.Model {
   }
 }
 
-// 天枢系统专用Material结构体
-export class Material extends $tea.Model {
-  // 资料类型0-风控报告1-合同2-图片3-附件
-  mType: string;
-  // 大类编码00-风控报告10-合同20身份证图片26人脸图片30-附件
-  bigCode: string;
-  // 小类编码
-  // 201-身份证人脸面202身份证国徽面212-活体人脸图片
-  smallCode: string;
-  // 资料名称
-  meterialName: string;
-  // 文件地址
-  filePath: string;
+// 企业影响人数性别分布统计
+export class RtopGenderDistribution extends $tea.Model {
+  // 统计值
+  count: number;
+  // 性别
+  gender: string;
   static names(): { [key: string]: string } {
     return {
-      mType: 'm_type',
-      bigCode: 'big_code',
-      smallCode: 'small_code',
-      meterialName: 'meterial_name',
-      filePath: 'file_path',
+      count: 'count',
+      gender: 'gender',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      mType: 'string',
-      bigCode: 'string',
-      smallCode: 'string',
-      meterialName: 'string',
-      filePath: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 反欺诈风险数据服务决策结果
-export class SecurityResultInfos extends $tea.Model {
-  // 反欺诈风险数据服务风险建议决策
-  decision: string;
-  // 反欺诈风险数据服务风险分
-  riskScore: number;
-  // 反欺诈风险数据服务场景码
-  sceneCode: string;
-  static names(): { [key: string]: string } {
-    return {
-      decision: 'decision',
-      riskScore: 'risk_score',
-      sceneCode: 'scene_code',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      decision: 'string',
-      riskScore: 'number',
-      sceneCode: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 反欺诈风险数据服务规则细节信息
-export class RuleDetail extends $tea.Model {
-  // 规则细节名称
-  name: string;
-  // 规则细节值
-  value: string;
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      value: 'value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      value: 'string',
+      count: 'number',
+      gender: 'string',
     };
   }
 
@@ -1413,6 +2098,31 @@ export class RtopRiskGeneNode extends $tea.Model {
   }
 }
 
+// 企业影响人数分布统计
+export class RtopPopulationDistribution extends $tea.Model {
+  // 市
+  city: string;
+  // 统计值
+  count: number;
+  static names(): { [key: string]: string } {
+    return {
+      city: 'city',
+      count: 'count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      city: 'string',
+      count: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 天枢文件信息统一结构体
 export class DubheFileInfo extends $tea.Model {
   // 文件访问路径
@@ -1434,31 +2144,35 @@ export class DubheFileInfo extends $tea.Model {
   }
 }
 
-// 反欺诈风险数据服务风险信息
-export class RiskInfo extends $tea.Model {
-  // 反欺诈风险数据服务风险组描述
-  riskGroupDesc: string;
-  // 反欺诈风险数据服务风险组名
-  riskGroup: string;
-  // 反欺诈风险数据服务风险组类别
-  riskGroupCategory: string;
-  // 反欺诈风险数据服务风险组信息
-  riskDetails: RiskDetail[];
+// 服务上下文包括环境信息和用户信息
+export class ServiceContext extends $tea.Model {
+  // 客户端IP
+  clientIp?: string;
+  // 客户端UMID
+  clientPcidguid?: string;
+  // 服务器名
+  serverName?: string;
+  // 会话ID
+  sessionId?: string;
+  // 用户ID
+  userId?: string;
   static names(): { [key: string]: string } {
     return {
-      riskGroupDesc: 'risk_group_desc',
-      riskGroup: 'risk_group',
-      riskGroupCategory: 'risk_group_category',
-      riskDetails: 'risk_details',
+      clientIp: 'client_ip',
+      clientPcidguid: 'client_pcidguid',
+      serverName: 'server_name',
+      sessionId: 'session_id',
+      userId: 'user_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      riskGroupDesc: 'string',
-      riskGroup: 'string',
-      riskGroupCategory: 'string',
-      riskDetails: { 'type': 'array', 'itemType': RiskDetail },
+      clientIp: 'string',
+      clientPcidguid: 'string',
+      serverName: 'string',
+      sessionId: 'string',
+      userId: 'string',
     };
   }
 
@@ -1467,43 +2181,50 @@ export class RiskInfo extends $tea.Model {
   }
 }
 
-// 安全场景参数
-export class SecurityScene extends $tea.Model {
-  // 接入渠道
-  accessChannel?: string;
-  // 事件信息
-  ctuParams?: string;
-  // 产品名称
-  productName?: string;
-  // 产品节点
-  productNode?: string;
-  // 扩展参数
-  securitySceneParams?: string;
-  // 系统名称
-  systemName?: string;
-  // 总金额
-  totalFee?: string;
+// 模型结果详情
+// 
+export class ModelDetails extends $tea.Model {
+  // 风险场景编码
+  sceneCode: string;
+  // 该风险场景的风险分值
+  // 
+  score: string;
   static names(): { [key: string]: string } {
     return {
-      accessChannel: 'access_channel',
-      ctuParams: 'ctu_params',
-      productName: 'product_name',
-      productNode: 'product_node',
-      securitySceneParams: 'security_scene_params',
-      systemName: 'system_name',
-      totalFee: 'total_fee',
+      sceneCode: 'scene_code',
+      score: 'score',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      accessChannel: 'string',
-      ctuParams: 'string',
-      productName: 'string',
-      productNode: 'string',
-      securitySceneParams: 'string',
-      systemName: 'string',
-      totalFee: 'string',
+      sceneCode: 'string',
+      score: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 企业舆情数量
+export class RtopCompanyOpinionCount extends $tea.Model {
+  // 企业名称
+  companyName: string;
+  // 企业对应的舆情数量
+  count: number;
+  static names(): { [key: string]: string } {
+    return {
+      companyName: 'company_name',
+      count: 'count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      companyName: 'string',
+      count: 'number',
     };
   }
 
@@ -1541,117 +2262,318 @@ export class RtopRegionalDistribution extends $tea.Model {
   }
 }
 
-// 企业影响人数年龄分布统计
-export class RtopAgeDistribution extends $tea.Model {
-  // 年龄
-  age: string;
-  // 统计值
-  count: number;
-  static names(): { [key: string]: string } {
-    return {
-      age: 'age',
-      count: 'count',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      age: 'string',
-      count: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 机构平台通知响应结果
-export class DefinInnerChannelNotifyResult extends $tea.Model {
-  // 请求编号
-  requestId: string;
-  // 业务响应Json
-  bizResponse: string;
-  static names(): { [key: string]: string } {
-    return {
-      requestId: 'request_id',
-      bizResponse: 'biz_response',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      requestId: 'string',
-      bizResponse: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 标签配置全量信息
-export class RiskLabelConfigInfo extends $tea.Model {
-  // id
-  id: number;
-  // 线索ID
-  tagId: string;
-  // 标签文本
-  tagText: string;
-  // 风险维度
-  riskDimensionType: string;
-  // 线索类型
-  riskDetailType: string;
-  // 趋势图表名
-  tagTrendChartName: string;
-  // 线索列表表头，英文逗号分隔
-  tagListHeaders: string;
-  // 标签列表，排序字段
-  tagListOrderColumn: string;
-  // 标签列表排序方式
-  tagListOrderType: string;
-  // 标记删除
-  isDelete: number;
+// 标签过滤配置
+export class RiskLabelFilterConfigInfo extends $tea.Model {
   // 创建时间
   gmtCreate: string;
   // 修改时间
   gmtModified: string;
-  // 操作人ID
+  // id
+  id: number;
+  // 是否为基本筛选标签
+  isBase: number;
+  // 标记删除
+  isDelete: number;
+  // 操作人员ID
   operatorId: string;
+  // 地区名
+  placeName: string;
+  // 地区类型
+  placeType: string;
+  // 标签ID
+  tagId: string;
   static names(): { [key: string]: string } {
     return {
-      id: 'id',
-      tagId: 'tag_id',
-      tagText: 'tag_text',
-      riskDimensionType: 'risk_dimension_type',
-      riskDetailType: 'risk_detail_type',
-      tagTrendChartName: 'tag_trend_chart_name',
-      tagListHeaders: 'tag_list_headers',
-      tagListOrderColumn: 'tag_list_order_column',
-      tagListOrderType: 'tag_list_order_type',
-      isDelete: 'is_delete',
       gmtCreate: 'gmt_create',
       gmtModified: 'gmt_modified',
+      id: 'id',
+      isBase: 'is_base',
+      isDelete: 'is_delete',
       operatorId: 'operator_id',
+      placeName: 'place_name',
+      placeType: 'place_type',
+      tagId: 'tag_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      id: 'number',
-      tagId: 'string',
-      tagText: 'string',
-      riskDimensionType: 'string',
-      riskDetailType: 'string',
-      tagTrendChartName: 'string',
-      tagListHeaders: 'string',
-      tagListOrderColumn: 'string',
-      tagListOrderType: 'string',
-      isDelete: 'number',
       gmtCreate: 'string',
       gmtModified: 'string',
+      id: 'number',
+      isBase: 'number',
+      isDelete: 'number',
       operatorId: 'string',
+      placeName: 'string',
+      placeType: 'string',
+      tagId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 天枢系统职业信息
+export class JobInfo extends $tea.Model {
+  // 职业
+  jobType?: string;
+  // 职务
+  workPosition?: string;
+  // 工作年限
+  jobLife?: string;
+  // 本单位工作年限
+  currentJobLife?: number;
+  // 公司名称
+  companyName?: string;
+  // 公司行业类型
+  companyIndustryType?: string;
+  // 公司电话
+  companyTel?: string;
+  // 公司省份
+  companyProvince?: string;
+  // 公司城市
+  companyCity?: string;
+  // 公司区域
+  companyArea?: string;
+  // 公司街道
+  companyStreet?: string;
+  // 公司详细地址
+  companyAddress?: string;
+  // 年收入
+  yearSalary?: number;
+  static names(): { [key: string]: string } {
+    return {
+      jobType: 'job_type',
+      workPosition: 'work_position',
+      jobLife: 'job_life',
+      currentJobLife: 'current_job_life',
+      companyName: 'company_name',
+      companyIndustryType: 'company_industry_type',
+      companyTel: 'company_tel',
+      companyProvince: 'company_province',
+      companyCity: 'company_city',
+      companyArea: 'company_area',
+      companyStreet: 'company_street',
+      companyAddress: 'company_address',
+      yearSalary: 'year_salary',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      jobType: 'string',
+      workPosition: 'string',
+      jobLife: 'string',
+      currentJobLife: 'number',
+      companyName: 'string',
+      companyIndustryType: 'string',
+      companyTel: 'string',
+      companyProvince: 'string',
+      companyCity: 'string',
+      companyArea: 'string',
+      companyStreet: 'string',
+      companyAddress: 'string',
+      yearSalary: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 涉众风险企业特征
+export class RtopCrowdRiskFeatureResp extends $tea.Model {
+  // 特征标签列表
+  clueTags?: RtopCrowdRiskFeatureTag[];
+  // 特征名称
+  featureName: string;
+  // 特征​分数
+  score: number;
+  static names(): { [key: string]: string } {
+    return {
+      clueTags: 'clue_tags',
+      featureName: 'feature_name',
+      score: 'score',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      clueTags: { 'type': 'array', 'itemType': RtopCrowdRiskFeatureTag },
+      featureName: 'string',
+      score: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 天枢系统居住信息结构体
+export class LiveInfo extends $tea.Model {
+  // 居住省份
+  liveProvince?: string;
+  // 居住城市
+  liveCity?: string;
+  // 居住区域
+  liveArea?: string;
+  // 居住街道
+  liveStreet?: string;
+  // 居住详细地址
+  liveAddress?: string;
+  // 居住年限
+  liveYears?: number;
+  static names(): { [key: string]: string } {
+    return {
+      liveProvince: 'live_province',
+      liveCity: 'live_city',
+      liveArea: 'live_area',
+      liveStreet: 'live_street',
+      liveAddress: 'live_address',
+      liveYears: 'live_years',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      liveProvince: 'string',
+      liveCity: 'string',
+      liveArea: 'string',
+      liveStreet: 'string',
+      liveAddress: 'string',
+      liveYears: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 风报风险标签统计
+export class RiskStormLabelResp extends $tea.Model {
+  // 标签次数
+  labelCount: number;
+  // 标签id
+  labelId: string;
+  // 标签名称
+  labelName: string;
+  static names(): { [key: string]: string } {
+    return {
+      labelCount: 'label_count',
+      labelId: 'label_id',
+      labelName: 'label_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      labelCount: 'number',
+      labelId: 'string',
+      labelName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 待还款信息
+export class RepayInfo extends $tea.Model {
+  // true：逾期
+  // false：未逾期
+  overdueFlag: boolean;
+  // 逾期天数
+  overDays: number;
+  // 逾期金额在50元以上的客户的逾期天数
+  valuableOverDays: number;
+  // 逾期期数
+  overPeriodCount: number;
+  // 逾期本金
+  overPrincipal: number;
+  // 逾期利息
+  overInterest: number;
+  // 应还罚息
+  overPunish: number;
+  // 应还逾期总额
+  needOverdueAmount: number;
+  // 当前应还总额（包含逾期和当前期）
+  currentNeedAmount: number;
+  // 总剩余应还
+  totalAmount: number;
+  static names(): { [key: string]: string } {
+    return {
+      overdueFlag: 'overdue_flag',
+      overDays: 'over_days',
+      valuableOverDays: 'valuable_over_days',
+      overPeriodCount: 'over_period_count',
+      overPrincipal: 'over_principal',
+      overInterest: 'over_interest',
+      overPunish: 'over_punish',
+      needOverdueAmount: 'need_overdue_amount',
+      currentNeedAmount: 'current_need_amount',
+      totalAmount: 'total_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      overdueFlag: 'boolean',
+      overDays: 'number',
+      valuableOverDays: 'number',
+      overPeriodCount: 'number',
+      overPrincipal: 'number',
+      overInterest: 'number',
+      overPunish: 'number',
+      needOverdueAmount: 'number',
+      currentNeedAmount: 'number',
+      totalAmount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 芝麻四要素认证接口
+export class ZhimaIdentifyResp extends $tea.Model {
+  // 唯一ID，接口正常的话有此字段
+  bizNo?: string;
+  // 带参数的回调地址，接口正常的话有此字段
+  certifyUrl?: string;
+  // 蚂蚁调用芝麻的错误码
+  resultCode: string;
+  // 蚂蚁调用芝麻的结果描述
+  resultMsg: string;
+  // 蚂蚁调用芝麻的错误码
+  subCode?: string;
+  // 蚂蚁调用芝麻信息
+  subMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      bizNo: 'biz_no',
+      certifyUrl: 'certify_url',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      subCode: 'sub_code',
+      subMsg: 'sub_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizNo: 'string',
+      certifyUrl: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      subCode: 'string',
+      subMsg: 'string',
     };
   }
 
@@ -1703,352 +2625,6 @@ export class CreditAmount extends $tea.Model {
       rateValue: 'number',
       repayWay: 'string',
       status: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 企业影响人数性别分布统计
-export class RtopGenderDistribution extends $tea.Model {
-  // 统计值
-  count: number;
-  // 性别
-  gender: string;
-  static names(): { [key: string]: string } {
-    return {
-      count: 'count',
-      gender: 'gender',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      count: 'number',
-      gender: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 天枢系统专用RepayRef结构体
-export class RepayRef extends $tea.Model {
-  // 客户编码
-  customNo: string;
-  // 当前期数
-  period: string;
-  // 应还总额
-  needAmount: number;
-  // 应还本金
-  transPrincipal: number;
-  // 应还利息
-  needAccrual: number;
-  // 应还手续费
-  needFee: number;
-  // 已还总额
-  alreadyAmount: number;
-  // 已还本金
-  alreadyCorpus: number;
-  // 已还逾期本金
-  alreadyOvercorpus: number;
-  // 已还利息
-  alreadyAccrual: number;
-  // 已还逾期息
-  alreadyPunish: number;
-  // 已还手续费
-  alreadyFee: number;
-  // 利率
-  rate: number;
-  // 罚息率
-  penaltyValue: number;
-  // 当期剩余总额
-  restAmount: number;
-  // 当期剩余本金
-  restCorpus: number;
-  // 当期剩余利息
-  restAccrual: number;
-  // 当期剩余罚息
-  restPunish: number;
-  // 期末本金
-  remainCorpus: number;
-  // 借据编号
-  receiptNo: string;
-  // 还款状态1：已还清 2 未还 3 部分还款
-  status: string;
-  // 应还日期
-  settleDate: string;
-  // 还款日期
-  tradeDate: string;
-  static names(): { [key: string]: string } {
-    return {
-      customNo: 'custom_no',
-      period: 'period',
-      needAmount: 'need_amount',
-      transPrincipal: 'trans_principal',
-      needAccrual: 'need_accrual',
-      needFee: 'need_fee',
-      alreadyAmount: 'already_amount',
-      alreadyCorpus: 'already_corpus',
-      alreadyOvercorpus: 'already_overcorpus',
-      alreadyAccrual: 'already_accrual',
-      alreadyPunish: 'already_punish',
-      alreadyFee: 'already_fee',
-      rate: 'rate',
-      penaltyValue: 'penalty_value',
-      restAmount: 'rest_amount',
-      restCorpus: 'rest_corpus',
-      restAccrual: 'rest_accrual',
-      restPunish: 'rest_punish',
-      remainCorpus: 'remain_corpus',
-      receiptNo: 'receipt_no',
-      status: 'status',
-      settleDate: 'settle_date',
-      tradeDate: 'trade_date',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      customNo: 'string',
-      period: 'string',
-      needAmount: 'number',
-      transPrincipal: 'number',
-      needAccrual: 'number',
-      needFee: 'number',
-      alreadyAmount: 'number',
-      alreadyCorpus: 'number',
-      alreadyOvercorpus: 'number',
-      alreadyAccrual: 'number',
-      alreadyPunish: 'number',
-      alreadyFee: 'number',
-      rate: 'number',
-      penaltyValue: 'number',
-      restAmount: 'number',
-      restCorpus: 'number',
-      restAccrual: 'number',
-      restPunish: 'number',
-      remainCorpus: 'number',
-      receiptNo: 'string',
-      status: 'string',
-      settleDate: 'string',
-      tradeDate: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 全局动态中的企业
-export class RtopRiskyCompany extends $tea.Model {
-  // 企业ID
-  companyId: string;
-  // 异动分数
-  changeScore: string;
-  // 异动程度
-  changeLevel: string;
-  // 新增企业的时间
-  newAddedTime: string;
-  // 总公司注册地
-  headRegisterPlace: string;
-  // 数据的时间
-  dataTime: string;
-  static names(): { [key: string]: string } {
-    return {
-      companyId: 'company_id',
-      changeScore: 'change_score',
-      changeLevel: 'change_level',
-      newAddedTime: 'new_added_time',
-      headRegisterPlace: 'head_register_place',
-      dataTime: 'data_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      companyId: 'string',
-      changeScore: 'string',
-      changeLevel: 'string',
-      newAddedTime: 'string',
-      headRegisterPlace: 'string',
-      dataTime: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// zhima.customer.ep.identification.query
-// 在认证完成后,商户可以查询认证的状态和结果
-// 
-export class ZhimaQueryResp extends $tea.Model {
-  // 认证的企业证件号
-  epCertNo?: string;
-  // 认证的企业名
-  epName?: string;
-  // 认证不通过的错误码
-  failedCode?: string;
-  // 认证是否通过，通过为true，不通过为false
-  passed?: string;
-  //  10000是成功，其余是失败
-  resultCode: string;
-  //  
-  resultMsg: string;
-  //  
-  subCode?: string;
-  //  
-  subMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      epCertNo: 'ep_cert_no',
-      epName: 'ep_name',
-      failedCode: 'failed_code',
-      passed: 'passed',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      subCode: 'sub_code',
-      subMsg: 'sub_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      epCertNo: 'string',
-      epName: 'string',
-      failedCode: 'string',
-      passed: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      subCode: 'string',
-      subMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 企业影响人数分布统计
-export class RtopPopulationDistribution extends $tea.Model {
-  // 市
-  city: string;
-  // 统计值
-  count: number;
-  static names(): { [key: string]: string } {
-    return {
-      city: 'city',
-      count: 'count',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      city: 'string',
-      count: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 企业反馈
-export class RtopCompanyFeedback extends $tea.Model {
-  // 主键
-  id: number;
-  // 企业ID
-  companyId: string;
-  // 反馈原因
-  feedbackReason: string;
-  // 反馈原因详情
-  feedbackReasonDetail: string;
-  // 评论
-  comment: string;
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      companyId: 'company_id',
-      feedbackReason: 'feedback_reason',
-      feedbackReasonDetail: 'feedback_reason_detail',
-      comment: 'comment',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'number',
-      companyId: 'string',
-      feedbackReason: 'string',
-      feedbackReasonDetail: 'string',
-      comment: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 企业日期趋势统计
-export class RtopDateDistribution extends $tea.Model {
-  // 统计值
-  count: number;
-  // 年龄
-  date: string;
-  static names(): { [key: string]: string } {
-    return {
-      count: 'count',
-      date: 'date',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      count: 'number',
-      date: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 策略详情
-export class StrategyDetails extends $tea.Model {
-  // 策略id
-  id: string;
-  // 策略名称
-  name: string;
-  // 决策结果
-  decision: string;
-  // 场景码
-  sceneCode: string;
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      name: 'name',
-      decision: 'decision',
-      sceneCode: 'scene_code',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      name: 'string',
-      decision: 'string',
-      sceneCode: 'string',
     };
   }
 
@@ -2147,504 +2723,6 @@ export class SmsReponse extends $tea.Model {
       code: 'string',
       message: 'string',
       requestId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 模型结果详情
-// 
-export class ModelDetails extends $tea.Model {
-  // 风险场景编码
-  sceneCode: string;
-  // 该风险场景的风险分值
-  // 
-  score: string;
-  static names(): { [key: string]: string } {
-    return {
-      sceneCode: 'scene_code',
-      score: 'score',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      sceneCode: 'string',
-      score: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 天枢系统职业信息
-export class JobInfo extends $tea.Model {
-  // 职业
-  jobType?: string;
-  // 职务
-  workPosition?: string;
-  // 工作年限
-  jobLife?: string;
-  // 本单位工作年限
-  currentJobLife?: number;
-  // 公司名称
-  companyName?: string;
-  // 公司行业类型
-  companyIndustryType?: string;
-  // 公司电话
-  companyTel?: string;
-  // 公司省份
-  companyProvince?: string;
-  // 公司城市
-  companyCity?: string;
-  // 公司区域
-  companyArea?: string;
-  // 公司街道
-  companyStreet?: string;
-  // 公司详细地址
-  companyAddress?: string;
-  // 年收入
-  yearSalary?: number;
-  static names(): { [key: string]: string } {
-    return {
-      jobType: 'job_type',
-      workPosition: 'work_position',
-      jobLife: 'job_life',
-      currentJobLife: 'current_job_life',
-      companyName: 'company_name',
-      companyIndustryType: 'company_industry_type',
-      companyTel: 'company_tel',
-      companyProvince: 'company_province',
-      companyCity: 'company_city',
-      companyArea: 'company_area',
-      companyStreet: 'company_street',
-      companyAddress: 'company_address',
-      yearSalary: 'year_salary',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      jobType: 'string',
-      workPosition: 'string',
-      jobLife: 'string',
-      currentJobLife: 'number',
-      companyName: 'string',
-      companyIndustryType: 'string',
-      companyTel: 'string',
-      companyProvince: 'string',
-      companyCity: 'string',
-      companyArea: 'string',
-      companyStreet: 'string',
-      companyAddress: 'string',
-      yearSalary: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 天枢系统个人信息结构体
-export class PersonalInfo extends $tea.Model {
-  // 客户姓名
-  customName: string;
-  // 身份证号码(18位)
-  cardNo: string;
-  // 1-身份证
-  idType: string;
-  // 证件开始日期(格式：YYYY-MM-DD)
-  // 
-  certSignDate: string;
-  // 格式：YYYY-MM-DD，身份证有效期为长期的送: 9999-12-31
-  certValidate: string;
-  // 证件地址
-  certAdr: string;
-  // 手机号
-  mobile: string;
-  // 学历
-  education: string;
-  // 所在省份 汉字
-  province?: string;
-  // 所在城市 汉字
-  city?: string;
-  // 地区名称 汉字
-  area?: string;
-  // 详细地址
-  address?: string;
-  // 性别M-男
-  // F-女
-  sex?: string;
-  // 民族
-  nation?: string;
-  static names(): { [key: string]: string } {
-    return {
-      customName: 'custom_name',
-      cardNo: 'card_no',
-      idType: 'id_type',
-      certSignDate: 'cert_sign_date',
-      certValidate: 'cert_validate',
-      certAdr: 'cert_adr',
-      mobile: 'mobile',
-      education: 'education',
-      province: 'province',
-      city: 'city',
-      area: 'area',
-      address: 'address',
-      sex: 'sex',
-      nation: 'nation',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      customName: 'string',
-      cardNo: 'string',
-      idType: 'string',
-      certSignDate: 'string',
-      certValidate: 'string',
-      certAdr: 'string',
-      mobile: 'string',
-      education: 'string',
-      province: 'string',
-      city: 'string',
-      area: 'string',
-      address: 'string',
-      sex: 'string',
-      nation: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 涉众风险企业特征
-export class RtopCrowdRiskFeatureResp extends $tea.Model {
-  // 特征标签列表
-  clueTags?: RtopCrowdRiskFeatureTag[];
-  // 特征名称
-  featureName: string;
-  // 特征​分数
-  score: number;
-  static names(): { [key: string]: string } {
-    return {
-      clueTags: 'clue_tags',
-      featureName: 'feature_name',
-      score: 'score',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      clueTags: { 'type': 'array', 'itemType': RtopCrowdRiskFeatureTag },
-      featureName: 'string',
-      score: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 天枢系统RiskData结构体
-export class RiskData extends $tea.Model {
-  // 联系人信息列表
-  contacts: Contact[];
-  // 人脸对比分
-  facePoint?: string;
-  // 活体供应商
-  faceSource?: string;
-  static names(): { [key: string]: string } {
-    return {
-      contacts: 'contacts',
-      facePoint: 'face_point',
-      faceSource: 'face_source',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      contacts: { 'type': 'array', 'itemType': Contact },
-      facePoint: 'string',
-      faceSource: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 企业涉众风险详细信息
-export class RtopCrowdRiskSummaryResp extends $tea.Model {
-  // 活跃市
-  activeCity?: string;
-  // 活跃县
-  activeCounty?: string;
-  // 活跃省
-  activeProvince?: string;
-  // 风险标签
-  clueTags?: string[];
-  // 企业ID
-  companyId: string;
-  // 企业名称
-  companyName: string;
-  // 风险等级
-  crowdRiskLevel?: string;
-  // 涉众风险分数
-  crowdRiskScore?: number;
-  // 涉众风险类型
-  crowdRiskType?: string;
-  // 发现时间
-  detectedTime?: string;
-  // 影响金额
-  moneyInvolved?: number;
-  // 影响人数
-  peopleInvolved?: number;
-  // 注册市
-  registeredCity?: string;
-  // 注册县
-  registeredCounty?: string;
-  // 注册省
-  registeredProvince?: string;
-  static names(): { [key: string]: string } {
-    return {
-      activeCity: 'active_city',
-      activeCounty: 'active_county',
-      activeProvince: 'active_province',
-      clueTags: 'clue_tags',
-      companyId: 'company_id',
-      companyName: 'company_name',
-      crowdRiskLevel: 'crowd_risk_level',
-      crowdRiskScore: 'crowd_risk_score',
-      crowdRiskType: 'crowd_risk_type',
-      detectedTime: 'detected_time',
-      moneyInvolved: 'money_involved',
-      peopleInvolved: 'people_involved',
-      registeredCity: 'registered_city',
-      registeredCounty: 'registered_county',
-      registeredProvince: 'registered_province',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      activeCity: 'string',
-      activeCounty: 'string',
-      activeProvince: 'string',
-      clueTags: { 'type': 'array', 'itemType': 'string' },
-      companyId: 'string',
-      companyName: 'string',
-      crowdRiskLevel: 'string',
-      crowdRiskScore: 'number',
-      crowdRiskType: 'string',
-      detectedTime: 'string',
-      moneyInvolved: 'number',
-      peopleInvolved: 'number',
-      registeredCity: 'string',
-      registeredCounty: 'string',
-      registeredProvince: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 天枢系统专用ReceiptInfo结构体
-export class ReceiptInfo extends $tea.Model {
-  // 客户名
-  customName: string;
-  // 证件号码
-  cardNo: string;
-  // 手机号
-  mobile: string;
-  // 贷款金额
-  applyAmount: number;
-  // 发放金额
-  loanAmount: number;
-  // 期数
-  period: number;
-  // 当前期数
-  curPeriod: number;
-  // 还款方式1：等额本息，2：等额本金，3：按月付息到期还本，4：利随本清，5：自由还款
-  repayType: string;
-  // 还款日
-  repayDate: string;
-  // 放款时间
-  loanTime: string;
-  // 借据状态0：未还清，1：已还清，2：已提前还清
-  status: string;
-  // 已还本金
-  alreadyCorpus: number;
-  // 已还利息
-  alreadyAccrual: number;
-  // 结清日期
-  alreadyDate: string;
-  // 审批状态0：通过 1：拒绝 2：审批中 3：失败
-  workflowStatus: string;
-  // 借据编号
-  receiptNo: string;
-  static names(): { [key: string]: string } {
-    return {
-      customName: 'custom_name',
-      cardNo: 'card_no',
-      mobile: 'mobile',
-      applyAmount: 'apply_amount',
-      loanAmount: 'loan_amount',
-      period: 'period',
-      curPeriod: 'cur_period',
-      repayType: 'repay_type',
-      repayDate: 'repay_date',
-      loanTime: 'loan_time',
-      status: 'status',
-      alreadyCorpus: 'already_corpus',
-      alreadyAccrual: 'already_accrual',
-      alreadyDate: 'already_date',
-      workflowStatus: 'workflow_status',
-      receiptNo: 'receipt_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      customName: 'string',
-      cardNo: 'string',
-      mobile: 'string',
-      applyAmount: 'number',
-      loanAmount: 'number',
-      period: 'number',
-      curPeriod: 'number',
-      repayType: 'string',
-      repayDate: 'string',
-      loanTime: 'string',
-      status: 'string',
-      alreadyCorpus: 'number',
-      alreadyAccrual: 'number',
-      alreadyDate: 'string',
-      workflowStatus: 'string',
-      receiptNo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 收藏的企业信息
-export class RtopStarCompanyInfo extends $tea.Model {
-  // 行业
-  categories?: string[];
-  // 经营地址
-  operatingPlace?: string;
-  // 经营省份
-  operatingProvince?: string;
-  // 企业名称
-  orgName?: string;
-  // 风险分数
-  riskScore?: number;
-  // 风险标签
-  riskTags?: string[];
-  // 风险线索
-  riskTagDetails?: RtopRiskTag[];
-  // 风险标签Id集合
-  riskTagIds?: string[];
-  // 统一社会信用代码
-  ucCode?: string;
-  static names(): { [key: string]: string } {
-    return {
-      categories: 'categories',
-      operatingPlace: 'operating_place',
-      operatingProvince: 'operating_province',
-      orgName: 'org_name',
-      riskScore: 'risk_score',
-      riskTags: 'risk_tags',
-      riskTagDetails: 'risk_tag_details',
-      riskTagIds: 'risk_tag_ids',
-      ucCode: 'uc_code',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      categories: { 'type': 'array', 'itemType': 'string' },
-      operatingPlace: 'string',
-      operatingProvince: 'string',
-      orgName: 'string',
-      riskScore: 'number',
-      riskTags: { 'type': 'array', 'itemType': 'string' },
-      riskTagDetails: { 'type': 'array', 'itemType': RtopRiskTag },
-      riskTagIds: { 'type': 'array', 'itemType': 'string' },
-      ucCode: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 标签图片
-export class RtopTagImage extends $tea.Model {
-  // 标签图片表主键
-  id: number;
-  // 图片
-  image?: string;
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      image: 'image',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'number',
-      image: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 监测企业的特征信息
-export class RtopMonitorCompanyFeature extends $tea.Model {
-  // 特征的描述
-  description?: string;
-  // 特征的名称
-  name: string;
-  // 特征里的风险标签列表
-  riskTags?: string[];
-  // 特征的评分
-  score: number;
-  static names(): { [key: string]: string } {
-    return {
-      description: 'description',
-      name: 'name',
-      riskTags: 'risk_tags',
-      score: 'score',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      description: 'string',
-      name: 'string',
-      riskTags: { 'type': 'array', 'itemType': 'string' },
-      score: 'number',
     };
   }
 
@@ -5201,6 +5279,101 @@ export class NotifyDubbridgeDefininnerchannelResponse extends $tea.Model {
   }
 }
 
+export class QueryDubbridgeCreditStatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授信申请订单号	
+  originalOrderNo?: string;
+  // 订单号
+  orderNo: string;
+  // 三方客户id
+  openId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      originalOrderNo: 'original_order_no',
+      orderNo: 'order_no',
+      openId: 'open_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      originalOrderNo: 'string',
+      orderNo: 'string',
+      openId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeCreditStatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 授信状态（0-通过/1-不通过2-处理中）
+  status?: string;
+  // 拒绝原因
+  msg?: string;
+  // 授信额度
+  creditAmt?: number;
+  // 期数
+  period?: number;
+  // 还款方式
+  repayType?: string;
+  // 额度信息
+  creditInfo?: CreditAmount;
+  // 客户编号(该客户的唯一标识，后续接口需要用到)
+  customNo?: string;
+  // 授信申请编号
+  applyNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      msg: 'msg',
+      creditAmt: 'credit_amt',
+      period: 'period',
+      repayType: 'repay_type',
+      creditInfo: 'credit_info',
+      customNo: 'custom_no',
+      applyNo: 'apply_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+      msg: 'string',
+      creditAmt: 'number',
+      period: 'number',
+      repayType: 'string',
+      creditInfo: CreditAmount,
+      customNo: 'string',
+      applyNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class VerifyFinserviceZhimaIdentifyRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -5879,12 +6052,15 @@ export class ExecRbbCompanyGuardRequest extends $tea.Model {
   keyword: string;
   // 规则ID，在风险大脑系统中配置
   ruleId: number;
+  // 额外参数，与规则有关
+  params?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       keyword: 'keyword',
       ruleId: 'rule_id',
+      params: 'params',
     };
   }
 
@@ -5894,6 +6070,7 @@ export class ExecRbbCompanyGuardRequest extends $tea.Model {
       productInstanceId: 'string',
       keyword: 'string',
       ruleId: 'number',
+      params: 'string',
     };
   }
 
@@ -5930,6 +6107,136 @@ export class ExecRbbCompanyGuardResponse extends $tea.Model {
       resultMsg: 'string',
       decision: 'string',
       results: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyRbbCompanyCreditRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 企业名称、统一社会信用代码
+  keyword: string;
+  // 规则ID，需提前在蚁盾中进行配置
+  ruleId: number;
+  // 额外参数，与规则有关
+  params?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      keyword: 'keyword',
+      ruleId: 'rule_id',
+      params: 'params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      keyword: 'string',
+      ruleId: 'number',
+      params: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyRbbCompanyCreditResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询token，用于查询授信结果
+  token?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRbbCompanyCreditRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 查询token，从apply接口获得
+  token: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRbbCompanyCreditResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 授信额度，单位元
+  creditAmount?: number;
+  // 额外特征字段
+  extra?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      creditAmount: 'credit_amount',
+      extra: 'extra',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      creditAmount: 'number',
+      extra: 'string',
     };
   }
 
@@ -8805,6 +9112,69 @@ export class UploadUmktParamsFileResponse extends $tea.Model {
   }
 }
 
+export class BatchqueryUmktRtMarketingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景营销策略id
+  sceneStrategyId: number;
+  // 用户列表传输模版
+  queryTemplate?: string;
+  // 用户查询凭证列表
+  customerKeys: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneStrategyId: 'scene_strategy_id',
+      queryTemplate: 'query_template',
+      customerKeys: 'customer_keys',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneStrategyId: 'number',
+      queryTemplate: 'string',
+      customerKeys: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryUmktRtMarketingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -9006,7 +9376,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.9",
+          sdk_version: "1.9.0",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -9682,6 +10052,25 @@ export default class Client {
   }
 
   /**
+   * Description: 天枢系统授信额度查询接口
+   * Summary: 天枢系统授信额度查询接口
+   */
+  async queryDubbridgeCreditStatus(request: QueryDubbridgeCreditStatusRequest): Promise<QueryDubbridgeCreditStatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeCreditStatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统授信额度查询接口
+   * Summary: 天枢系统授信额度查询接口
+   */
+  async queryDubbridgeCreditStatusEx(request: QueryDubbridgeCreditStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeCreditStatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeCreditStatusResponse>(await this.doRequest("1.0", "riskplus.dubbridge.credit.status.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeCreditStatusResponse({}));
+  }
+
+  /**
    * Description: 四要素认证首先调用此接口
    * Summary: 芝麻四要素接口
    */
@@ -9888,6 +10277,44 @@ export default class Client {
   async execRbbCompanyGuardEx(request: ExecRbbCompanyGuardRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecRbbCompanyGuardResponse> {
     Util.validateModel(request);
     return $tea.cast<ExecRbbCompanyGuardResponse>(await this.doRequest("1.0", "riskplus.rbb.company.guard.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecRbbCompanyGuardResponse({}));
+  }
+
+  /**
+   * Description: 提交授信申请
+   * Summary: 企业授信申请
+   */
+  async applyRbbCompanyCredit(request: ApplyRbbCompanyCreditRequest): Promise<ApplyRbbCompanyCreditResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyRbbCompanyCreditEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 提交授信申请
+   * Summary: 企业授信申请
+   */
+  async applyRbbCompanyCreditEx(request: ApplyRbbCompanyCreditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyRbbCompanyCreditResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyRbbCompanyCreditResponse>(await this.doRequest("1.0", "riskplus.rbb.company.credit.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyRbbCompanyCreditResponse({}));
+  }
+
+  /**
+   * Description: 查询企业授信结果
+   * Summary: 企业授信结果查询
+   */
+  async queryRbbCompanyCredit(request: QueryRbbCompanyCreditRequest): Promise<QueryRbbCompanyCreditResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryRbbCompanyCreditEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询企业授信结果
+   * Summary: 企业授信结果查询
+   */
+  async queryRbbCompanyCreditEx(request: QueryRbbCompanyCreditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRbbCompanyCreditResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryRbbCompanyCreditResponse>(await this.doRequest("1.0", "riskplus.rbb.company.credit.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRbbCompanyCreditResponse({}));
   }
 
   /**
@@ -10557,6 +10984,25 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<UploadUmktParamsFileResponse>(await this.doRequest("1.0", "riskplus.umkt.params.file.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadUmktParamsFileResponse({}));
+  }
+
+  /**
+   * Description: 营销盾实时营销服务，支持批量
+   * Summary: 营销盾实时营销服务
+   */
+  async batchqueryUmktRtMarketing(request: BatchqueryUmktRtMarketingRequest): Promise<BatchqueryUmktRtMarketingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryUmktRtMarketingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 营销盾实时营销服务，支持批量
+   * Summary: 营销盾实时营销服务
+   */
+  async batchqueryUmktRtMarketingEx(request: BatchqueryUmktRtMarketingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryUmktRtMarketingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryUmktRtMarketingResponse>(await this.doRequest("1.0", "riskplus.umkt.rt.marketing.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryUmktRtMarketingResponse({}));
   }
 
   /**
