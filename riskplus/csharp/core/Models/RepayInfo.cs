@@ -8,14 +8,13 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    // 逾期信息查询响应
-    public class OverdueInfoResponse : TeaModel {
-        // 逾期标识
+    // 待还款信息
+    public class RepayInfo : TeaModel {
         // true：逾期
         // false：未逾期
-        [NameInMap("over_due_flag")]
+        [NameInMap("overdue_flag")]
         [Validation(Required=true)]
-        public bool? OverDueFlag { get; set; }
+        public bool? OverdueFlag { get; set; }
 
         // 逾期天数
         [NameInMap("over_days")]
@@ -52,7 +51,7 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public long? NeedOverdueAmount { get; set; }
 
-        // 当前应还总额
+        // 当前应还总额（包含逾期和当前期）
         [NameInMap("current_need_amount")]
         [Validation(Required=true)]
         public long? CurrentNeedAmount { get; set; }

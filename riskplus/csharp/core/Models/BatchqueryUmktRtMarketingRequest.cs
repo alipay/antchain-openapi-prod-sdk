@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class ExecRbbCompanyGuardRequest : TeaModel {
+    public class BatchqueryUmktRtMarketingRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,20 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 企业名称或统一社会信用代码
-        [NameInMap("keyword")]
+        // 场景营销策略id
+        [NameInMap("scene_strategy_id")]
         [Validation(Required=true)]
-        public string Keyword { get; set; }
+        public long? SceneStrategyId { get; set; }
 
-        // 规则ID，在风险大脑系统中配置
-        [NameInMap("rule_id")]
-        [Validation(Required=true)]
-        public long? RuleId { get; set; }
-
-        // 额外参数，与规则有关
-        [NameInMap("params")]
+        // 用户列表传输模版
+        [NameInMap("query_template")]
         [Validation(Required=false)]
-        public string Params { get; set; }
+        public string QueryTemplate { get; set; }
+
+        // 用户查询凭证列表
+        [NameInMap("customer_keys")]
+        [Validation(Required=true)]
+        public List<string> CustomerKeys { get; set; }
 
     }
 
