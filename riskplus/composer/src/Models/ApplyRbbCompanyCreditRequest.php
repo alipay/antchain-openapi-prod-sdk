@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ExecRbbCompanyGuardRequest extends Model
+class ApplyRbbCompanyCreditRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,13 +19,13 @@ class ExecRbbCompanyGuardRequest extends Model
      */
     public $productInstanceId;
 
-    // 企业名称或统一社会信用代码
+    // 企业名称、统一社会信用代码
     /**
      * @var string
      */
     public $keyword;
 
-    // 规则ID，在风险大脑系统中配置
+    // 规则ID，需提前在蚁盾中进行配置
     /**
      * @var int
      */
@@ -75,7 +75,7 @@ class ExecRbbCompanyGuardRequest extends Model
     /**
      * @param array $map
      *
-     * @return ExecRbbCompanyGuardRequest
+     * @return ApplyRbbCompanyCreditRequest
      */
     public static function fromMap($map = [])
     {

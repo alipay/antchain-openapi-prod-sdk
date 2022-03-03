@@ -19,6 +19,10 @@ use AntChain\RISKPLUS\Models\ApplyDubheCustomerAgreementsignRequest;
 use AntChain\RISKPLUS\Models\ApplyDubheCustomerAgreementsignResponse;
 use AntChain\RISKPLUS\Models\ApplyDubheUsecreditRequest;
 use AntChain\RISKPLUS\Models\ApplyDubheUsecreditResponse;
+use AntChain\RISKPLUS\Models\ApplyRbbCompanyCreditRequest;
+use AntChain\RISKPLUS\Models\ApplyRbbCompanyCreditResponse;
+use AntChain\RISKPLUS\Models\BatchqueryUmktRtMarketingRequest;
+use AntChain\RISKPLUS\Models\BatchqueryUmktRtMarketingResponse;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardRequest;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardResponse;
 use AntChain\RISKPLUS\Models\CheckSecurityDataRequest;
@@ -69,6 +73,8 @@ use AntChain\RISKPLUS\Models\NotifyRpgwUserSignresultRequest;
 use AntChain\RISKPLUS\Models\NotifyRpgwUserSignresultResponse;
 use AntChain\RISKPLUS\Models\PullRegtechNewsRequest;
 use AntChain\RISKPLUS\Models\PullRegtechNewsResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeCreditStatusRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeCreditStatusResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRouterFundrouterRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRouterFundrouterResponse;
 use AntChain\RISKPLUS\Models\QueryDubheCreditStatusRequest;
@@ -93,6 +99,8 @@ use AntChain\RISKPLUS\Models\QueryFinserviceZhimaIdentifyRequest;
 use AntChain\RISKPLUS\Models\QueryFinserviceZhimaIdentifyResponse;
 use AntChain\RISKPLUS\Models\QueryMdipDataserviceRequest;
 use AntChain\RISKPLUS\Models\QueryMdipDataserviceResponse;
+use AntChain\RISKPLUS\Models\QueryRbbCompanyCreditRequest;
+use AntChain\RISKPLUS\Models\QueryRbbCompanyCreditResponse;
 use AntChain\RISKPLUS\Models\QueryRbbGeneralRequest;
 use AntChain\RISKPLUS\Models\QueryRbbGeneralResponse;
 use AntChain\RISKPLUS\Models\QueryRbbGenericInvokeRequest;
@@ -286,7 +294,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 删除参数
+            // 企业风险等级分布统计
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -314,7 +322,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.9',
+                    'sdk_version'      => '1.9.0',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1435,6 +1443,39 @@ class Client
     }
 
     /**
+     * Description: 天枢系统授信额度查询接口
+     * Summary: 天枢系统授信额度查询接口.
+     *
+     * @param QueryDubbridgeCreditStatusRequest $request
+     *
+     * @return QueryDubbridgeCreditStatusResponse
+     */
+    public function queryDubbridgeCreditStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeCreditStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统授信额度查询接口
+     * Summary: 天枢系统授信额度查询接口.
+     *
+     * @param QueryDubbridgeCreditStatusRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryDubbridgeCreditStatusResponse
+     */
+    public function queryDubbridgeCreditStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeCreditStatusResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.credit.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 四要素认证首先调用此接口
      * Summary: 芝麻四要素接口.
      *
@@ -1795,6 +1836,72 @@ class Client
         Utils::validateModel($request);
 
         return ExecRbbCompanyGuardResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.company.guard.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提交授信申请
+     * Summary: 企业授信申请.
+     *
+     * @param ApplyRbbCompanyCreditRequest $request
+     *
+     * @return ApplyRbbCompanyCreditResponse
+     */
+    public function applyRbbCompanyCredit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyRbbCompanyCreditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提交授信申请
+     * Summary: 企业授信申请.
+     *
+     * @param ApplyRbbCompanyCreditRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ApplyRbbCompanyCreditResponse
+     */
+    public function applyRbbCompanyCreditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyRbbCompanyCreditResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.company.credit.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询企业授信结果
+     * Summary: 企业授信结果查询.
+     *
+     * @param QueryRbbCompanyCreditRequest $request
+     *
+     * @return QueryRbbCompanyCreditResponse
+     */
+    public function queryRbbCompanyCredit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRbbCompanyCreditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询企业授信结果
+     * Summary: 企业授信结果查询.
+     *
+     * @param QueryRbbCompanyCreditRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryRbbCompanyCreditResponse
+     */
+    public function queryRbbCompanyCreditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRbbCompanyCreditResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.company.credit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -2937,6 +3044,39 @@ class Client
         Utils::validateModel($request);
 
         return UploadUmktParamsFileResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.params.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾实时营销服务，支持批量
+     * Summary: 营销盾实时营销服务
+     *
+     * @param BatchqueryUmktRtMarketingRequest $request
+     *
+     * @return BatchqueryUmktRtMarketingResponse
+     */
+    public function batchqueryUmktRtMarketing($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryUmktRtMarketingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾实时营销服务，支持批量
+     * Summary: 营销盾实时营销服务
+     *
+     * @param BatchqueryUmktRtMarketingRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return BatchqueryUmktRtMarketingResponse
+     */
+    public function batchqueryUmktRtMarketingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryUmktRtMarketingResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.rt.marketing.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

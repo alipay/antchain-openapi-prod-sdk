@@ -6,17 +6,16 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class OverdueInfoResponse extends Model
+class RepayInfo extends Model
 {
-    // 逾期标识
     // true：逾期
     // false：未逾期
     /**
-     * @example true
+     * @example true, false
      *
      * @var bool
      */
-    public $overDueFlag;
+    public $overdueFlag;
 
     // 逾期天数
     /**
@@ -74,7 +73,7 @@ class OverdueInfoResponse extends Model
      */
     public $needOverdueAmount;
 
-    // 当前应还总额
+    // 当前应还总额（包含逾期和当前期）
     /**
      * @example
      *
@@ -90,7 +89,7 @@ class OverdueInfoResponse extends Model
      */
     public $totalAmount;
     protected $_name = [
-        'overDueFlag'       => 'over_due_flag',
+        'overdueFlag'       => 'overdue_flag',
         'overDays'          => 'over_days',
         'valuableOverDays'  => 'valuable_over_days',
         'overPeriodCount'   => 'over_period_count',
@@ -104,7 +103,7 @@ class OverdueInfoResponse extends Model
 
     public function validate()
     {
-        Model::validateRequired('overDueFlag', $this->overDueFlag, true);
+        Model::validateRequired('overdueFlag', $this->overdueFlag, true);
         Model::validateRequired('overDays', $this->overDays, true);
         Model::validateRequired('valuableOverDays', $this->valuableOverDays, true);
         Model::validateRequired('overPeriodCount', $this->overPeriodCount, true);
@@ -119,8 +118,8 @@ class OverdueInfoResponse extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->overDueFlag) {
-            $res['over_due_flag'] = $this->overDueFlag;
+        if (null !== $this->overdueFlag) {
+            $res['overdue_flag'] = $this->overdueFlag;
         }
         if (null !== $this->overDays) {
             $res['over_days'] = $this->overDays;
@@ -156,13 +155,13 @@ class OverdueInfoResponse extends Model
     /**
      * @param array $map
      *
-     * @return OverdueInfoResponse
+     * @return RepayInfo
      */
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['over_due_flag'])) {
-            $model->overDueFlag = $map['over_due_flag'];
+        if (isset($map['overdue_flag'])) {
+            $model->overdueFlag = $map['overdue_flag'];
         }
         if (isset($map['over_days'])) {
             $model->overDays = $map['over_days'];
