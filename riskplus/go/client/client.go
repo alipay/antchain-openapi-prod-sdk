@@ -149,6 +149,32 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 企业风险等级分布统计
+type RtopLevelDistribution struct {
+	// 统计值
+	Count *int `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+	// 等级
+	Level *string `json:"level,omitempty" xml:"level,omitempty" require:"true"`
+}
+
+func (s RtopLevelDistribution) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopLevelDistribution) GoString() string {
+	return s.String()
+}
+
+func (s *RtopLevelDistribution) SetCount(v int) *RtopLevelDistribution {
+	s.Count = &v
+	return s
+}
+
+func (s *RtopLevelDistribution) SetLevel(v string) *RtopLevelDistribution {
+	s.Level = &v
+	return s
+}
+
 // 删除参数
 type OutParams struct {
 	// 输出参数
@@ -182,32 +208,6 @@ func (s *OutParams) SetValue(v string) *OutParams {
 	return s
 }
 
-// 企业风险等级分布统计
-type RtopLevelDistribution struct {
-	// 统计值
-	Count *int `json:"count,omitempty" xml:"count,omitempty" require:"true"`
-	// 等级
-	Level *string `json:"level,omitempty" xml:"level,omitempty" require:"true"`
-}
-
-func (s RtopLevelDistribution) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopLevelDistribution) GoString() string {
-	return s.String()
-}
-
-func (s *RtopLevelDistribution) SetCount(v int) *RtopLevelDistribution {
-	s.Count = &v
-	return s
-}
-
-func (s *RtopLevelDistribution) SetLevel(v string) *RtopLevelDistribution {
-	s.Level = &v
-	return s
-}
-
 // infocode
 type InfoCodes struct {
 	// infocode
@@ -224,39 +224,6 @@ func (s InfoCodes) GoString() string {
 
 func (s *InfoCodes) SetName(v string) *InfoCodes {
 	s.Name = &v
-	return s
-}
-
-// 决策流
-type DecisionFlow struct {
-	// 输出参数
-	DecisionFlow *OutParams `json:"decision_flow,omitempty" xml:"decision_flow,omitempty"`
-	// 决策结果
-	Decision *string `json:"decision,omitempty" xml:"decision,omitempty" require:"true"`
-	// infocodes
-	InfoCodes *InfoCodes `json:"info_codes,omitempty" xml:"info_codes,omitempty"`
-}
-
-func (s DecisionFlow) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DecisionFlow) GoString() string {
-	return s.String()
-}
-
-func (s *DecisionFlow) SetDecisionFlow(v *OutParams) *DecisionFlow {
-	s.DecisionFlow = v
-	return s
-}
-
-func (s *DecisionFlow) SetDecision(v string) *DecisionFlow {
-	s.Decision = &v
-	return s
-}
-
-func (s *DecisionFlow) SetInfoCodes(v *InfoCodes) *DecisionFlow {
-	s.InfoCodes = v
 	return s
 }
 
@@ -297,6 +264,91 @@ func (s *Contact) SetName(v string) *Contact {
 
 func (s *Contact) SetMobile(v string) *Contact {
 	s.Mobile = &v
+	return s
+}
+
+// 涉众风险企业特征
+type RtopCrowdRiskFeatureTag struct {
+	// 标签描述
+	TagExplanation *string `json:"tag_explanation,omitempty" xml:"tag_explanation,omitempty" require:"true"`
+	// 标签名称
+	TagName *string `json:"tag_name,omitempty" xml:"tag_name,omitempty" require:"true"`
+}
+
+func (s RtopCrowdRiskFeatureTag) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopCrowdRiskFeatureTag) GoString() string {
+	return s.String()
+}
+
+func (s *RtopCrowdRiskFeatureTag) SetTagExplanation(v string) *RtopCrowdRiskFeatureTag {
+	s.TagExplanation = &v
+	return s
+}
+
+func (s *RtopCrowdRiskFeatureTag) SetTagName(v string) *RtopCrowdRiskFeatureTag {
+	s.TagName = &v
+	return s
+}
+
+// 反欺诈风险数据服务风险规则详情
+type RiskDetail struct {
+	// 反欺诈风险数据服务命中规则风险权重
+	RuleWeight *string `json:"rule_weight,omitempty" xml:"rule_weight,omitempty" require:"true"`
+	// 反欺诈风险数据服务命中规则名称
+	RuleName *string `json:"rule_name,omitempty" xml:"rule_name,omitempty" require:"true"`
+}
+
+func (s RiskDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RiskDetail) GoString() string {
+	return s.String()
+}
+
+func (s *RiskDetail) SetRuleWeight(v string) *RiskDetail {
+	s.RuleWeight = &v
+	return s
+}
+
+func (s *RiskDetail) SetRuleName(v string) *RiskDetail {
+	s.RuleName = &v
+	return s
+}
+
+// 决策流
+type DecisionFlow struct {
+	// 输出参数
+	DecisionFlow *OutParams `json:"decision_flow,omitempty" xml:"decision_flow,omitempty"`
+	// 决策结果
+	Decision *string `json:"decision,omitempty" xml:"decision,omitempty" require:"true"`
+	// infocodes
+	InfoCodes *InfoCodes `json:"info_codes,omitempty" xml:"info_codes,omitempty"`
+}
+
+func (s DecisionFlow) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DecisionFlow) GoString() string {
+	return s.String()
+}
+
+func (s *DecisionFlow) SetDecisionFlow(v *OutParams) *DecisionFlow {
+	s.DecisionFlow = v
+	return s
+}
+
+func (s *DecisionFlow) SetDecision(v string) *DecisionFlow {
+	s.Decision = &v
+	return s
+}
+
+func (s *DecisionFlow) SetInfoCodes(v *InfoCodes) *DecisionFlow {
+	s.InfoCodes = v
 	return s
 }
 
@@ -394,55 +446,780 @@ func (s *RtopRiskTag) SetTagClueDetail(v string) *RtopRiskTag {
 	return s
 }
 
-// 涉众风险企业特征
-type RtopCrowdRiskFeatureTag struct {
-	// 标签描述
-	TagExplanation *string `json:"tag_explanation,omitempty" xml:"tag_explanation,omitempty" require:"true"`
-	// 标签名称
-	TagName *string `json:"tag_name,omitempty" xml:"tag_name,omitempty" require:"true"`
+// 天枢系统专用ReceiptInfo结构体
+type ReceiptInfo struct {
+	// 客户名
+	CustomName *string `json:"custom_name,omitempty" xml:"custom_name,omitempty" require:"true"`
+	// 证件号码
+	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty" require:"true"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 贷款金额
+	ApplyAmount *int64 `json:"apply_amount,omitempty" xml:"apply_amount,omitempty" require:"true"`
+	// 发放金额
+	LoanAmount *int64 `json:"loan_amount,omitempty" xml:"loan_amount,omitempty" require:"true"`
+	// 期数
+	Period *int64 `json:"period,omitempty" xml:"period,omitempty" require:"true"`
+	// 当前期数
+	CurPeriod *int64 `json:"cur_period,omitempty" xml:"cur_period,omitempty" require:"true"`
+	// 还款方式1：等额本息，2：等额本金，3：按月付息到期还本，4：利随本清，5：自由还款
+	RepayType *string `json:"repay_type,omitempty" xml:"repay_type,omitempty" require:"true"`
+	// 还款日
+	RepayDate *string `json:"repay_date,omitempty" xml:"repay_date,omitempty" require:"true"`
+	// 放款时间
+	LoanTime *string `json:"loan_time,omitempty" xml:"loan_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 借据状态0：未还清，1：已还清，2：已提前还清
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 已还本金
+	AlreadyCorpus *int64 `json:"already_corpus,omitempty" xml:"already_corpus,omitempty" require:"true"`
+	// 已还利息
+	AlreadyAccrual *int64 `json:"already_accrual,omitempty" xml:"already_accrual,omitempty" require:"true"`
+	// 结清日期
+	AlreadyDate *string `json:"already_date,omitempty" xml:"already_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 审批状态0：通过 1：拒绝 2：审批中 3：失败
+	WorkflowStatus *string `json:"workflow_status,omitempty" xml:"workflow_status,omitempty" require:"true"`
+	// 借据编号
+	ReceiptNo *string `json:"receipt_no,omitempty" xml:"receipt_no,omitempty" require:"true"`
 }
 
-func (s RtopCrowdRiskFeatureTag) String() string {
+func (s ReceiptInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s RtopCrowdRiskFeatureTag) GoString() string {
+func (s ReceiptInfo) GoString() string {
 	return s.String()
 }
 
-func (s *RtopCrowdRiskFeatureTag) SetTagExplanation(v string) *RtopCrowdRiskFeatureTag {
-	s.TagExplanation = &v
+func (s *ReceiptInfo) SetCustomName(v string) *ReceiptInfo {
+	s.CustomName = &v
 	return s
 }
 
-func (s *RtopCrowdRiskFeatureTag) SetTagName(v string) *RtopCrowdRiskFeatureTag {
-	s.TagName = &v
+func (s *ReceiptInfo) SetCardNo(v string) *ReceiptInfo {
+	s.CardNo = &v
 	return s
 }
 
-// 反欺诈风险数据服务风险规则详情
-type RiskDetail struct {
-	// 反欺诈风险数据服务命中规则风险权重
-	RuleWeight *string `json:"rule_weight,omitempty" xml:"rule_weight,omitempty" require:"true"`
-	// 反欺诈风险数据服务命中规则名称
-	RuleName *string `json:"rule_name,omitempty" xml:"rule_name,omitempty" require:"true"`
+func (s *ReceiptInfo) SetMobile(v string) *ReceiptInfo {
+	s.Mobile = &v
+	return s
 }
 
-func (s RiskDetail) String() string {
+func (s *ReceiptInfo) SetApplyAmount(v int64) *ReceiptInfo {
+	s.ApplyAmount = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetLoanAmount(v int64) *ReceiptInfo {
+	s.LoanAmount = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetPeriod(v int64) *ReceiptInfo {
+	s.Period = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetCurPeriod(v int64) *ReceiptInfo {
+	s.CurPeriod = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetRepayType(v string) *ReceiptInfo {
+	s.RepayType = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetRepayDate(v string) *ReceiptInfo {
+	s.RepayDate = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetLoanTime(v string) *ReceiptInfo {
+	s.LoanTime = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetStatus(v string) *ReceiptInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetAlreadyCorpus(v int64) *ReceiptInfo {
+	s.AlreadyCorpus = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetAlreadyAccrual(v int64) *ReceiptInfo {
+	s.AlreadyAccrual = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetAlreadyDate(v string) *ReceiptInfo {
+	s.AlreadyDate = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetWorkflowStatus(v string) *ReceiptInfo {
+	s.WorkflowStatus = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetReceiptNo(v string) *ReceiptInfo {
+	s.ReceiptNo = &v
+	return s
+}
+
+// 天枢系统专用RepayRef结构体
+type RepayRef struct {
+	// 客户编码
+	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty" require:"true"`
+	// 当前期数
+	Period *string `json:"period,omitempty" xml:"period,omitempty" require:"true"`
+	// 应还总额
+	NeedAmount *int64 `json:"need_amount,omitempty" xml:"need_amount,omitempty" require:"true"`
+	// 应还本金
+	TransPrincipal *int64 `json:"trans_principal,omitempty" xml:"trans_principal,omitempty" require:"true"`
+	// 应还利息
+	NeedAccrual *int64 `json:"need_accrual,omitempty" xml:"need_accrual,omitempty" require:"true"`
+	// 应还手续费
+	NeedFee *int64 `json:"need_fee,omitempty" xml:"need_fee,omitempty" require:"true"`
+	// 已还总额
+	AlreadyAmount *int64 `json:"already_amount,omitempty" xml:"already_amount,omitempty" require:"true"`
+	// 已还本金
+	AlreadyCorpus *int64 `json:"already_corpus,omitempty" xml:"already_corpus,omitempty" require:"true"`
+	// 已还逾期本金
+	AlreadyOvercorpus *int64 `json:"already_overcorpus,omitempty" xml:"already_overcorpus,omitempty" require:"true"`
+	// 已还利息
+	AlreadyAccrual *int64 `json:"already_accrual,omitempty" xml:"already_accrual,omitempty" require:"true"`
+	// 已还逾期息
+	AlreadyPunish *int64 `json:"already_punish,omitempty" xml:"already_punish,omitempty" require:"true"`
+	// 已还手续费
+	AlreadyFee *int64 `json:"already_fee,omitempty" xml:"already_fee,omitempty" require:"true"`
+	// 利率
+	Rate *int64 `json:"rate,omitempty" xml:"rate,omitempty" require:"true"`
+	// 罚息率
+	PenaltyValue *int64 `json:"penalty_value,omitempty" xml:"penalty_value,omitempty" require:"true"`
+	// 当期剩余总额
+	RestAmount *int64 `json:"rest_amount,omitempty" xml:"rest_amount,omitempty" require:"true"`
+	// 当期剩余本金
+	RestCorpus *int64 `json:"rest_corpus,omitempty" xml:"rest_corpus,omitempty" require:"true"`
+	// 当期剩余利息
+	RestAccrual *int64 `json:"rest_accrual,omitempty" xml:"rest_accrual,omitempty" require:"true"`
+	// 当期剩余罚息
+	RestPunish *int64 `json:"rest_punish,omitempty" xml:"rest_punish,omitempty" require:"true"`
+	// 期末本金
+	RemainCorpus *int64 `json:"remain_corpus,omitempty" xml:"remain_corpus,omitempty" require:"true"`
+	// 借据编号
+	ReceiptNo *string `json:"receipt_no,omitempty" xml:"receipt_no,omitempty" require:"true"`
+	// 还款状态1：已还清 2 未还 3 部分还款
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 应还日期
+	SettleDate *string `json:"settle_date,omitempty" xml:"settle_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 还款日期
+	TradeDate *string `json:"trade_date,omitempty" xml:"trade_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s RepayRef) String() string {
 	return tea.Prettify(s)
 }
 
-func (s RiskDetail) GoString() string {
+func (s RepayRef) GoString() string {
 	return s.String()
 }
 
-func (s *RiskDetail) SetRuleWeight(v string) *RiskDetail {
-	s.RuleWeight = &v
+func (s *RepayRef) SetCustomNo(v string) *RepayRef {
+	s.CustomNo = &v
 	return s
 }
 
-func (s *RiskDetail) SetRuleName(v string) *RiskDetail {
-	s.RuleName = &v
+func (s *RepayRef) SetPeriod(v string) *RepayRef {
+	s.Period = &v
+	return s
+}
+
+func (s *RepayRef) SetNeedAmount(v int64) *RepayRef {
+	s.NeedAmount = &v
+	return s
+}
+
+func (s *RepayRef) SetTransPrincipal(v int64) *RepayRef {
+	s.TransPrincipal = &v
+	return s
+}
+
+func (s *RepayRef) SetNeedAccrual(v int64) *RepayRef {
+	s.NeedAccrual = &v
+	return s
+}
+
+func (s *RepayRef) SetNeedFee(v int64) *RepayRef {
+	s.NeedFee = &v
+	return s
+}
+
+func (s *RepayRef) SetAlreadyAmount(v int64) *RepayRef {
+	s.AlreadyAmount = &v
+	return s
+}
+
+func (s *RepayRef) SetAlreadyCorpus(v int64) *RepayRef {
+	s.AlreadyCorpus = &v
+	return s
+}
+
+func (s *RepayRef) SetAlreadyOvercorpus(v int64) *RepayRef {
+	s.AlreadyOvercorpus = &v
+	return s
+}
+
+func (s *RepayRef) SetAlreadyAccrual(v int64) *RepayRef {
+	s.AlreadyAccrual = &v
+	return s
+}
+
+func (s *RepayRef) SetAlreadyPunish(v int64) *RepayRef {
+	s.AlreadyPunish = &v
+	return s
+}
+
+func (s *RepayRef) SetAlreadyFee(v int64) *RepayRef {
+	s.AlreadyFee = &v
+	return s
+}
+
+func (s *RepayRef) SetRate(v int64) *RepayRef {
+	s.Rate = &v
+	return s
+}
+
+func (s *RepayRef) SetPenaltyValue(v int64) *RepayRef {
+	s.PenaltyValue = &v
+	return s
+}
+
+func (s *RepayRef) SetRestAmount(v int64) *RepayRef {
+	s.RestAmount = &v
+	return s
+}
+
+func (s *RepayRef) SetRestCorpus(v int64) *RepayRef {
+	s.RestCorpus = &v
+	return s
+}
+
+func (s *RepayRef) SetRestAccrual(v int64) *RepayRef {
+	s.RestAccrual = &v
+	return s
+}
+
+func (s *RepayRef) SetRestPunish(v int64) *RepayRef {
+	s.RestPunish = &v
+	return s
+}
+
+func (s *RepayRef) SetRemainCorpus(v int64) *RepayRef {
+	s.RemainCorpus = &v
+	return s
+}
+
+func (s *RepayRef) SetReceiptNo(v string) *RepayRef {
+	s.ReceiptNo = &v
+	return s
+}
+
+func (s *RepayRef) SetStatus(v string) *RepayRef {
+	s.Status = &v
+	return s
+}
+
+func (s *RepayRef) SetSettleDate(v string) *RepayRef {
+	s.SettleDate = &v
+	return s
+}
+
+func (s *RepayRef) SetTradeDate(v string) *RepayRef {
+	s.TradeDate = &v
+	return s
+}
+
+// 反欺诈风险数据服务规则细节信息
+type RuleDetail struct {
+	// 规则细节名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 规则细节值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s RuleDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RuleDetail) GoString() string {
+	return s.String()
+}
+
+func (s *RuleDetail) SetName(v string) *RuleDetail {
+	s.Name = &v
+	return s
+}
+
+func (s *RuleDetail) SetValue(v string) *RuleDetail {
+	s.Value = &v
+	return s
+}
+
+// 安全场景参数
+type SecurityScene struct {
+	// 接入渠道
+	AccessChannel *string `json:"access_channel,omitempty" xml:"access_channel,omitempty"`
+	// 事件信息
+	CtuParams *string `json:"ctu_params,omitempty" xml:"ctu_params,omitempty"`
+	// 产品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty"`
+	// 产品节点
+	ProductNode *string `json:"product_node,omitempty" xml:"product_node,omitempty"`
+	// 扩展参数
+	SecuritySceneParams *string `json:"security_scene_params,omitempty" xml:"security_scene_params,omitempty"`
+	// 系统名称
+	SystemName *string `json:"system_name,omitempty" xml:"system_name,omitempty"`
+	// 总金额
+	TotalFee *string `json:"total_fee,omitempty" xml:"total_fee,omitempty"`
+}
+
+func (s SecurityScene) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SecurityScene) GoString() string {
+	return s.String()
+}
+
+func (s *SecurityScene) SetAccessChannel(v string) *SecurityScene {
+	s.AccessChannel = &v
+	return s
+}
+
+func (s *SecurityScene) SetCtuParams(v string) *SecurityScene {
+	s.CtuParams = &v
+	return s
+}
+
+func (s *SecurityScene) SetProductName(v string) *SecurityScene {
+	s.ProductName = &v
+	return s
+}
+
+func (s *SecurityScene) SetProductNode(v string) *SecurityScene {
+	s.ProductNode = &v
+	return s
+}
+
+func (s *SecurityScene) SetSecuritySceneParams(v string) *SecurityScene {
+	s.SecuritySceneParams = &v
+	return s
+}
+
+func (s *SecurityScene) SetSystemName(v string) *SecurityScene {
+	s.SystemName = &v
+	return s
+}
+
+func (s *SecurityScene) SetTotalFee(v string) *SecurityScene {
+	s.TotalFee = &v
+	return s
+}
+
+// 收藏的企业信息
+type RtopStarCompanyInfo struct {
+	// 行业
+	Categories []*string `json:"categories,omitempty" xml:"categories,omitempty" type:"Repeated"`
+	// 经营地址
+	OperatingPlace *string `json:"operating_place,omitempty" xml:"operating_place,omitempty"`
+	// 经营省份
+	OperatingProvince *string `json:"operating_province,omitempty" xml:"operating_province,omitempty"`
+	// 企业名称
+	OrgName *string `json:"org_name,omitempty" xml:"org_name,omitempty"`
+	// 风险分数
+	RiskScore *int64 `json:"risk_score,omitempty" xml:"risk_score,omitempty"`
+	// 风险标签
+	RiskTags []*string `json:"risk_tags,omitempty" xml:"risk_tags,omitempty" type:"Repeated"`
+	// 风险线索
+	RiskTagDetails []*RtopRiskTag `json:"risk_tag_details,omitempty" xml:"risk_tag_details,omitempty" type:"Repeated"`
+	// 风险标签Id集合
+	RiskTagIds []*string `json:"risk_tag_ids,omitempty" xml:"risk_tag_ids,omitempty" type:"Repeated"`
+	// 统一社会信用代码
+	UcCode *string `json:"uc_code,omitempty" xml:"uc_code,omitempty"`
+}
+
+func (s RtopStarCompanyInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopStarCompanyInfo) GoString() string {
+	return s.String()
+}
+
+func (s *RtopStarCompanyInfo) SetCategories(v []*string) *RtopStarCompanyInfo {
+	s.Categories = v
+	return s
+}
+
+func (s *RtopStarCompanyInfo) SetOperatingPlace(v string) *RtopStarCompanyInfo {
+	s.OperatingPlace = &v
+	return s
+}
+
+func (s *RtopStarCompanyInfo) SetOperatingProvince(v string) *RtopStarCompanyInfo {
+	s.OperatingProvince = &v
+	return s
+}
+
+func (s *RtopStarCompanyInfo) SetOrgName(v string) *RtopStarCompanyInfo {
+	s.OrgName = &v
+	return s
+}
+
+func (s *RtopStarCompanyInfo) SetRiskScore(v int64) *RtopStarCompanyInfo {
+	s.RiskScore = &v
+	return s
+}
+
+func (s *RtopStarCompanyInfo) SetRiskTags(v []*string) *RtopStarCompanyInfo {
+	s.RiskTags = v
+	return s
+}
+
+func (s *RtopStarCompanyInfo) SetRiskTagDetails(v []*RtopRiskTag) *RtopStarCompanyInfo {
+	s.RiskTagDetails = v
+	return s
+}
+
+func (s *RtopStarCompanyInfo) SetRiskTagIds(v []*string) *RtopStarCompanyInfo {
+	s.RiskTagIds = v
+	return s
+}
+
+func (s *RtopStarCompanyInfo) SetUcCode(v string) *RtopStarCompanyInfo {
+	s.UcCode = &v
+	return s
+}
+
+// 企业日期趋势统计
+type RtopDateDistribution struct {
+	// 统计值
+	Count *int `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+	// 年龄
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s RtopDateDistribution) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopDateDistribution) GoString() string {
+	return s.String()
+}
+
+func (s *RtopDateDistribution) SetCount(v int) *RtopDateDistribution {
+	s.Count = &v
+	return s
+}
+
+func (s *RtopDateDistribution) SetDate(v string) *RtopDateDistribution {
+	s.Date = &v
+	return s
+}
+
+// 天枢系统个人信息结构体
+type PersonalInfo struct {
+	// 客户姓名
+	CustomName *string `json:"custom_name,omitempty" xml:"custom_name,omitempty" require:"true"`
+	// 身份证号码(18位)
+	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty" require:"true"`
+	// 1-身份证
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty" require:"true"`
+	// 证件开始日期(格式：YYYY-MM-DD)
+	//
+	CertSignDate *string `json:"cert_sign_date,omitempty" xml:"cert_sign_date,omitempty" require:"true"`
+	// 格式：YYYY-MM-DD，身份证有效期为长期的送: 9999-12-31
+	CertValidate *string `json:"cert_validate,omitempty" xml:"cert_validate,omitempty" require:"true"`
+	// 证件地址
+	CertAdr *string `json:"cert_adr,omitempty" xml:"cert_adr,omitempty" require:"true"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 学历
+	Education *string `json:"education,omitempty" xml:"education,omitempty" require:"true"`
+	// 所在省份 汉字
+	Province *string `json:"province,omitempty" xml:"province,omitempty"`
+	// 所在城市 汉字
+	City *string `json:"city,omitempty" xml:"city,omitempty"`
+	// 地区名称 汉字
+	Area *string `json:"area,omitempty" xml:"area,omitempty"`
+	// 详细地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// 性别M-男
+	// F-女
+	Sex *string `json:"sex,omitempty" xml:"sex,omitempty"`
+	// 民族
+	Nation *string `json:"nation,omitempty" xml:"nation,omitempty"`
+}
+
+func (s PersonalInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PersonalInfo) GoString() string {
+	return s.String()
+}
+
+func (s *PersonalInfo) SetCustomName(v string) *PersonalInfo {
+	s.CustomName = &v
+	return s
+}
+
+func (s *PersonalInfo) SetCardNo(v string) *PersonalInfo {
+	s.CardNo = &v
+	return s
+}
+
+func (s *PersonalInfo) SetIdType(v string) *PersonalInfo {
+	s.IdType = &v
+	return s
+}
+
+func (s *PersonalInfo) SetCertSignDate(v string) *PersonalInfo {
+	s.CertSignDate = &v
+	return s
+}
+
+func (s *PersonalInfo) SetCertValidate(v string) *PersonalInfo {
+	s.CertValidate = &v
+	return s
+}
+
+func (s *PersonalInfo) SetCertAdr(v string) *PersonalInfo {
+	s.CertAdr = &v
+	return s
+}
+
+func (s *PersonalInfo) SetMobile(v string) *PersonalInfo {
+	s.Mobile = &v
+	return s
+}
+
+func (s *PersonalInfo) SetEducation(v string) *PersonalInfo {
+	s.Education = &v
+	return s
+}
+
+func (s *PersonalInfo) SetProvince(v string) *PersonalInfo {
+	s.Province = &v
+	return s
+}
+
+func (s *PersonalInfo) SetCity(v string) *PersonalInfo {
+	s.City = &v
+	return s
+}
+
+func (s *PersonalInfo) SetArea(v string) *PersonalInfo {
+	s.Area = &v
+	return s
+}
+
+func (s *PersonalInfo) SetAddress(v string) *PersonalInfo {
+	s.Address = &v
+	return s
+}
+
+func (s *PersonalInfo) SetSex(v string) *PersonalInfo {
+	s.Sex = &v
+	return s
+}
+
+func (s *PersonalInfo) SetNation(v string) *PersonalInfo {
+	s.Nation = &v
+	return s
+}
+
+// 策略流信息
+type DfSceneInfos struct {
+	// scene_code
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 拒绝
+	SceneDecision *string `json:"scene_decision,omitempty" xml:"scene_decision,omitempty" require:"true"`
+	// decision_flow
+	DecisionFlow *DecisionFlow `json:"decision_flow,omitempty" xml:"decision_flow,omitempty" require:"true"`
+}
+
+func (s DfSceneInfos) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DfSceneInfos) GoString() string {
+	return s.String()
+}
+
+func (s *DfSceneInfos) SetSceneCode(v string) *DfSceneInfos {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *DfSceneInfos) SetSceneDecision(v string) *DfSceneInfos {
+	s.SceneDecision = &v
+	return s
+}
+
+func (s *DfSceneInfos) SetDecisionFlow(v *DecisionFlow) *DfSceneInfos {
+	s.DecisionFlow = v
+	return s
+}
+
+// 反欺诈风险数据服务风险信息
+type RiskInfo struct {
+	// 反欺诈风险数据服务风险组描述
+	RiskGroupDesc *string `json:"risk_group_desc,omitempty" xml:"risk_group_desc,omitempty" require:"true"`
+	// 反欺诈风险数据服务风险组名
+	RiskGroup *string `json:"risk_group,omitempty" xml:"risk_group,omitempty" require:"true"`
+	// 反欺诈风险数据服务风险组类别
+	RiskGroupCategory *string `json:"risk_group_category,omitempty" xml:"risk_group_category,omitempty" require:"true"`
+	// 反欺诈风险数据服务风险组信息
+	RiskDetails []*RiskDetail `json:"risk_details,omitempty" xml:"risk_details,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s RiskInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RiskInfo) GoString() string {
+	return s.String()
+}
+
+func (s *RiskInfo) SetRiskGroupDesc(v string) *RiskInfo {
+	s.RiskGroupDesc = &v
+	return s
+}
+
+func (s *RiskInfo) SetRiskGroup(v string) *RiskInfo {
+	s.RiskGroup = &v
+	return s
+}
+
+func (s *RiskInfo) SetRiskGroupCategory(v string) *RiskInfo {
+	s.RiskGroupCategory = &v
+	return s
+}
+
+func (s *RiskInfo) SetRiskDetails(v []*RiskDetail) *RiskInfo {
+	s.RiskDetails = v
+	return s
+}
+
+// 风险维度
+type RtopCompanyRiskFactor struct {
+	// 维度名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 维度分数
+	Score *int64 `json:"score,omitempty" xml:"score,omitempty"`
+}
+
+func (s RtopCompanyRiskFactor) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopCompanyRiskFactor) GoString() string {
+	return s.String()
+}
+
+func (s *RtopCompanyRiskFactor) SetName(v string) *RtopCompanyRiskFactor {
+	s.Name = &v
+	return s
+}
+
+func (s *RtopCompanyRiskFactor) SetScore(v int64) *RtopCompanyRiskFactor {
+	s.Score = &v
+	return s
+}
+
+// 天枢系统专用Material结构体
+type Material struct {
+	// 资料类型0-风控报告1-合同2-图片3-附件
+	MType *string `json:"m_type,omitempty" xml:"m_type,omitempty" require:"true"`
+	// 大类编码00-风控报告10-合同20身份证图片26人脸图片30-附件
+	BigCode *string `json:"big_code,omitempty" xml:"big_code,omitempty" require:"true"`
+	// 小类编码
+	// 201-身份证人脸面202身份证国徽面212-活体人脸图片
+	SmallCode *string `json:"small_code,omitempty" xml:"small_code,omitempty" require:"true"`
+	// 资料名称
+	MeterialName *string `json:"meterial_name,omitempty" xml:"meterial_name,omitempty" require:"true"`
+	// 文件地址
+	FilePath *string `json:"file_path,omitempty" xml:"file_path,omitempty" require:"true"`
+}
+
+func (s Material) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Material) GoString() string {
+	return s.String()
+}
+
+func (s *Material) SetMType(v string) *Material {
+	s.MType = &v
+	return s
+}
+
+func (s *Material) SetBigCode(v string) *Material {
+	s.BigCode = &v
+	return s
+}
+
+func (s *Material) SetSmallCode(v string) *Material {
+	s.SmallCode = &v
+	return s
+}
+
+func (s *Material) SetMeterialName(v string) *Material {
+	s.MeterialName = &v
+	return s
+}
+
+func (s *Material) SetFilePath(v string) *Material {
+	s.FilePath = &v
+	return s
+}
+
+// 天枢系统RiskData结构体
+type RiskData struct {
+	// 联系人信息列表
+	Contacts []*Contact `json:"contacts,omitempty" xml:"contacts,omitempty" require:"true" type:"Repeated"`
+	// 人脸对比分
+	FacePoint *string `json:"face_point,omitempty" xml:"face_point,omitempty"`
+	// 活体供应商
+	FaceSource *string `json:"face_source,omitempty" xml:"face_source,omitempty"`
+}
+
+func (s RiskData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RiskData) GoString() string {
+	return s.String()
+}
+
+func (s *RiskData) SetContacts(v []*Contact) *RiskData {
+	s.Contacts = v
+	return s
+}
+
+func (s *RiskData) SetFacePoint(v string) *RiskData {
+	s.FacePoint = &v
+	return s
+}
+
+func (s *RiskData) SetFaceSource(v string) *RiskData {
+	s.FaceSource = &v
 	return s
 }
 
@@ -479,28 +1256,1024 @@ func (s *SecurityDataQueryStruct) SetVersion(v string) *SecurityDataQueryStruct 
 	return s
 }
 
-// 企业舆情数量
-type RtopCompanyOpinionCount struct {
+// 标签信息
+type RiskLabelInfo struct {
+	// 线索明细类型(字段停用)
+	ClueDetailType *string `json:"clue_detail_type,omitempty" xml:"clue_detail_type,omitempty" require:"true"`
+	// odps数据产出时间，冗余字段，业务上不需要，以备错误排查
+	Dt *string `json:"dt,omitempty" xml:"dt,omitempty"`
+	// 数据产生时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true"`
+	// 记录唯一ID
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 0-正常 1-删除
+	IsDeleted *int64 `json:"is_deleted,omitempty" xml:"is_deleted,omitempty" require:"true"`
+	// 企业ID
+	MctOneId *string `json:"mct_one_id,omitempty" xml:"mct_one_id,omitempty" require:"true"`
+	// 操作人ID
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
+	// 操作类型
+	// add、delete、update
+	OpType *string `json:"op_type,omitempty" xml:"op_type,omitempty" require:"true"`
 	// 企业名称
-	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
-	// 企业对应的舆情数量
-	Count *int `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+	OrgName *string `json:"org_name,omitempty" xml:"org_name,omitempty" require:"true"`
+	// 线索类型
+	RiskDetailType *string `json:"risk_detail_type,omitempty" xml:"risk_detail_type,omitempty" require:"true"`
+	// 风险维度
+	//
+	RiskDimensionType *string `json:"risk_dimension_type,omitempty" xml:"risk_dimension_type,omitempty" require:"true"`
+	// 线索概览
+	TagClue *string `json:"tag_clue,omitempty" xml:"tag_clue,omitempty" require:"true"`
+	// 线索明细
+	TagClueDetail *string `json:"tag_clue_detail,omitempty" xml:"tag_clue_detail,omitempty" require:"true"`
+	// 标签ID
+	TagId *string `json:"tag_id,omitempty" xml:"tag_id,omitempty" require:"true"`
+	// 线索列表表头，英文逗号分隔
+	//
+	TagListHeaders *string `json:"tag_list_headers,omitempty" xml:"tag_list_headers,omitempty" require:"true"`
+	// 标签列表，排序字段
+	TagListOrderColumn *string `json:"tag_list_order_column,omitempty" xml:"tag_list_order_column,omitempty" require:"true"`
+	// 标签列表排序方式
+	TagListOrderType *string `json:"tag_list_order_type,omitempty" xml:"tag_list_order_type,omitempty" require:"true"`
+	// 标签文本
+	TagText *string `json:"tag_text,omitempty" xml:"tag_text,omitempty" require:"true"`
+	// 趋势图表名
+	TagTrendChartName *string `json:"tag_trend_chart_name,omitempty" xml:"tag_trend_chart_name,omitempty" require:"true"`
+	// 数据同步到公有云时间(业务上赋值当天)
+	UpdateDate *string `json:"update_date,omitempty" xml:"update_date,omitempty" require:"true"`
 }
 
-func (s RtopCompanyOpinionCount) String() string {
+func (s RiskLabelInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s RtopCompanyOpinionCount) GoString() string {
+func (s RiskLabelInfo) GoString() string {
 	return s.String()
 }
 
-func (s *RtopCompanyOpinionCount) SetCompanyName(v string) *RtopCompanyOpinionCount {
+func (s *RiskLabelInfo) SetClueDetailType(v string) *RiskLabelInfo {
+	s.ClueDetailType = &v
+	return s
+}
+
+func (s *RiskLabelInfo) SetDt(v string) *RiskLabelInfo {
+	s.Dt = &v
+	return s
+}
+
+func (s *RiskLabelInfo) SetGmtCreate(v string) *RiskLabelInfo {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *RiskLabelInfo) SetId(v int64) *RiskLabelInfo {
+	s.Id = &v
+	return s
+}
+
+func (s *RiskLabelInfo) SetIsDeleted(v int64) *RiskLabelInfo {
+	s.IsDeleted = &v
+	return s
+}
+
+func (s *RiskLabelInfo) SetMctOneId(v string) *RiskLabelInfo {
+	s.MctOneId = &v
+	return s
+}
+
+func (s *RiskLabelInfo) SetOperatorId(v string) *RiskLabelInfo {
+	s.OperatorId = &v
+	return s
+}
+
+func (s *RiskLabelInfo) SetOpType(v string) *RiskLabelInfo {
+	s.OpType = &v
+	return s
+}
+
+func (s *RiskLabelInfo) SetOrgName(v string) *RiskLabelInfo {
+	s.OrgName = &v
+	return s
+}
+
+func (s *RiskLabelInfo) SetRiskDetailType(v string) *RiskLabelInfo {
+	s.RiskDetailType = &v
+	return s
+}
+
+func (s *RiskLabelInfo) SetRiskDimensionType(v string) *RiskLabelInfo {
+	s.RiskDimensionType = &v
+	return s
+}
+
+func (s *RiskLabelInfo) SetTagClue(v string) *RiskLabelInfo {
+	s.TagClue = &v
+	return s
+}
+
+func (s *RiskLabelInfo) SetTagClueDetail(v string) *RiskLabelInfo {
+	s.TagClueDetail = &v
+	return s
+}
+
+func (s *RiskLabelInfo) SetTagId(v string) *RiskLabelInfo {
+	s.TagId = &v
+	return s
+}
+
+func (s *RiskLabelInfo) SetTagListHeaders(v string) *RiskLabelInfo {
+	s.TagListHeaders = &v
+	return s
+}
+
+func (s *RiskLabelInfo) SetTagListOrderColumn(v string) *RiskLabelInfo {
+	s.TagListOrderColumn = &v
+	return s
+}
+
+func (s *RiskLabelInfo) SetTagListOrderType(v string) *RiskLabelInfo {
+	s.TagListOrderType = &v
+	return s
+}
+
+func (s *RiskLabelInfo) SetTagText(v string) *RiskLabelInfo {
+	s.TagText = &v
+	return s
+}
+
+func (s *RiskLabelInfo) SetTagTrendChartName(v string) *RiskLabelInfo {
+	s.TagTrendChartName = &v
+	return s
+}
+
+func (s *RiskLabelInfo) SetUpdateDate(v string) *RiskLabelInfo {
+	s.UpdateDate = &v
+	return s
+}
+
+// 企业反馈
+type RtopCompanyFeedback struct {
+	// 主键
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 企业ID
+	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
+	// 反馈原因
+	FeedbackReason *string `json:"feedback_reason,omitempty" xml:"feedback_reason,omitempty" require:"true"`
+	// 反馈原因详情
+	FeedbackReasonDetail *string `json:"feedback_reason_detail,omitempty" xml:"feedback_reason_detail,omitempty" require:"true"`
+	// 评论
+	Comment *string `json:"comment,omitempty" xml:"comment,omitempty" require:"true"`
+}
+
+func (s RtopCompanyFeedback) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopCompanyFeedback) GoString() string {
+	return s.String()
+}
+
+func (s *RtopCompanyFeedback) SetId(v int64) *RtopCompanyFeedback {
+	s.Id = &v
+	return s
+}
+
+func (s *RtopCompanyFeedback) SetCompanyId(v string) *RtopCompanyFeedback {
+	s.CompanyId = &v
+	return s
+}
+
+func (s *RtopCompanyFeedback) SetFeedbackReason(v string) *RtopCompanyFeedback {
+	s.FeedbackReason = &v
+	return s
+}
+
+func (s *RtopCompanyFeedback) SetFeedbackReasonDetail(v string) *RtopCompanyFeedback {
+	s.FeedbackReasonDetail = &v
+	return s
+}
+
+func (s *RtopCompanyFeedback) SetComment(v string) *RtopCompanyFeedback {
+	s.Comment = &v
+	return s
+}
+
+// 监测企业的特征信息
+type RtopMonitorCompanyFeature struct {
+	// 特征的描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 特征的名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 特征里的风险标签列表
+	RiskTags []*string `json:"risk_tags,omitempty" xml:"risk_tags,omitempty" type:"Repeated"`
+	// 特征的评分
+	Score *int `json:"score,omitempty" xml:"score,omitempty" require:"true"`
+}
+
+func (s RtopMonitorCompanyFeature) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopMonitorCompanyFeature) GoString() string {
+	return s.String()
+}
+
+func (s *RtopMonitorCompanyFeature) SetDescription(v string) *RtopMonitorCompanyFeature {
+	s.Description = &v
+	return s
+}
+
+func (s *RtopMonitorCompanyFeature) SetName(v string) *RtopMonitorCompanyFeature {
+	s.Name = &v
+	return s
+}
+
+func (s *RtopMonitorCompanyFeature) SetRiskTags(v []*string) *RtopMonitorCompanyFeature {
+	s.RiskTags = v
+	return s
+}
+
+func (s *RtopMonitorCompanyFeature) SetScore(v int) *RtopMonitorCompanyFeature {
+	s.Score = &v
+	return s
+}
+
+// 风报接口返回结构体
+type RtopCompanyRiskInfo struct {
+	// 区域类型
+	PlaceType *string `json:"place_type,omitempty" xml:"place_type,omitempty"`
+	// 区域
+	PlaceName *string `json:"place_name,omitempty" xml:"place_name,omitempty"`
+	// 企业唯一id
+	MctOneId *string `json:"mct_one_id,omitempty" xml:"mct_one_id,omitempty"`
+	// 企业统一社会信用代码
+	UcCode *string `json:"uc_code,omitempty" xml:"uc_code,omitempty"`
+	// 工商注册号
+	RegNo *string `json:"reg_no,omitempty" xml:"reg_no,omitempty"`
+	// 组织机构代码
+	OrgCode *string `json:"org_code,omitempty" xml:"org_code,omitempty"`
+	// 企业名
+	OrgName *string `json:"org_name,omitempty" xml:"org_name,omitempty"`
+	// 风险评分
+	RiskScore *string `json:"risk_score,omitempty" xml:"risk_score,omitempty"`
+	// 风险变化程度排序，根据分值波动大小，标签变更次数排序
+	RiskShiftRank *string `json:"risk_shift_rank,omitempty" xml:"risk_shift_rank,omitempty"`
+	// 风险定性
+	RiskType *string `json:"risk_type,omitempty" xml:"risk_type,omitempty"`
+	// 风险标签id列表
+	RiskTagsId []*string `json:"risk_tags_id,omitempty" xml:"risk_tags_id,omitempty" type:"Repeated"`
+	// 线索
+	TagsClue *string `json:"tags_clue,omitempty" xml:"tags_clue,omitempty"`
+	// 风险线索明细
+	TagsClueDetail *string `json:"tags_clue_detail,omitempty" xml:"tags_clue_detail,omitempty"`
+}
+
+func (s RtopCompanyRiskInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopCompanyRiskInfo) GoString() string {
+	return s.String()
+}
+
+func (s *RtopCompanyRiskInfo) SetPlaceType(v string) *RtopCompanyRiskInfo {
+	s.PlaceType = &v
+	return s
+}
+
+func (s *RtopCompanyRiskInfo) SetPlaceName(v string) *RtopCompanyRiskInfo {
+	s.PlaceName = &v
+	return s
+}
+
+func (s *RtopCompanyRiskInfo) SetMctOneId(v string) *RtopCompanyRiskInfo {
+	s.MctOneId = &v
+	return s
+}
+
+func (s *RtopCompanyRiskInfo) SetUcCode(v string) *RtopCompanyRiskInfo {
+	s.UcCode = &v
+	return s
+}
+
+func (s *RtopCompanyRiskInfo) SetRegNo(v string) *RtopCompanyRiskInfo {
+	s.RegNo = &v
+	return s
+}
+
+func (s *RtopCompanyRiskInfo) SetOrgCode(v string) *RtopCompanyRiskInfo {
+	s.OrgCode = &v
+	return s
+}
+
+func (s *RtopCompanyRiskInfo) SetOrgName(v string) *RtopCompanyRiskInfo {
+	s.OrgName = &v
+	return s
+}
+
+func (s *RtopCompanyRiskInfo) SetRiskScore(v string) *RtopCompanyRiskInfo {
+	s.RiskScore = &v
+	return s
+}
+
+func (s *RtopCompanyRiskInfo) SetRiskShiftRank(v string) *RtopCompanyRiskInfo {
+	s.RiskShiftRank = &v
+	return s
+}
+
+func (s *RtopCompanyRiskInfo) SetRiskType(v string) *RtopCompanyRiskInfo {
+	s.RiskType = &v
+	return s
+}
+
+func (s *RtopCompanyRiskInfo) SetRiskTagsId(v []*string) *RtopCompanyRiskInfo {
+	s.RiskTagsId = v
+	return s
+}
+
+func (s *RtopCompanyRiskInfo) SetTagsClue(v string) *RtopCompanyRiskInfo {
+	s.TagsClue = &v
+	return s
+}
+
+func (s *RtopCompanyRiskInfo) SetTagsClueDetail(v string) *RtopCompanyRiskInfo {
+	s.TagsClueDetail = &v
+	return s
+}
+
+// 逾期信息查询响应
+type OverdueInfoResponse struct {
+	// 逾期标识
+	// true：逾期
+	// false：未逾期
+	OverDueFlag *bool `json:"over_due_flag,omitempty" xml:"over_due_flag,omitempty" require:"true"`
+	// 逾期天数
+	OverDays *int64 `json:"over_days,omitempty" xml:"over_days,omitempty" require:"true"`
+	// 逾期金额在50元以上的客户的逾期天数
+	ValuableOverDays *int64 `json:"valuable_over_days,omitempty" xml:"valuable_over_days,omitempty" require:"true"`
+	// 逾期期数
+	OverPeriodCount *int64 `json:"over_period_count,omitempty" xml:"over_period_count,omitempty" require:"true"`
+	// 逾期本金
+	OverPrincipal *int64 `json:"over_principal,omitempty" xml:"over_principal,omitempty" require:"true"`
+	// 逾期利息
+	OverInterest *int64 `json:"over_interest,omitempty" xml:"over_interest,omitempty" require:"true"`
+	// 应还罚息
+	OverPunish *int64 `json:"over_punish,omitempty" xml:"over_punish,omitempty" require:"true"`
+	// 应还逾期总额
+	NeedOverdueAmount *int64 `json:"need_overdue_amount,omitempty" xml:"need_overdue_amount,omitempty" require:"true"`
+	// 当前应还总额
+	CurrentNeedAmount *int64 `json:"current_need_amount,omitempty" xml:"current_need_amount,omitempty" require:"true"`
+	// 总剩余应还
+	TotalAmount *int64 `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
+}
+
+func (s OverdueInfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OverdueInfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OverdueInfoResponse) SetOverDueFlag(v bool) *OverdueInfoResponse {
+	s.OverDueFlag = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetOverDays(v int64) *OverdueInfoResponse {
+	s.OverDays = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetValuableOverDays(v int64) *OverdueInfoResponse {
+	s.ValuableOverDays = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetOverPeriodCount(v int64) *OverdueInfoResponse {
+	s.OverPeriodCount = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetOverPrincipal(v int64) *OverdueInfoResponse {
+	s.OverPrincipal = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetOverInterest(v int64) *OverdueInfoResponse {
+	s.OverInterest = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetOverPunish(v int64) *OverdueInfoResponse {
+	s.OverPunish = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetNeedOverdueAmount(v int64) *OverdueInfoResponse {
+	s.NeedOverdueAmount = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetCurrentNeedAmount(v int64) *OverdueInfoResponse {
+	s.CurrentNeedAmount = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetTotalAmount(v int64) *OverdueInfoResponse {
+	s.TotalAmount = &v
+	return s
+}
+
+// 企业年报信息
+type RtopRiskStormCompanyAnnualReport struct {
+	// 年报个数
+	AnnualReportCount *int64 `json:"annual_report_count,omitempty" xml:"annual_report_count,omitempty"`
+	// 年报是否发生股权转让
+	AnnualReportHasEquityTransfer *bool `json:"annual_report_has_equity_transfer,omitempty" xml:"annual_report_has_equity_transfer,omitempty"`
+	// 年报是否对外提供担保
+	AnnualReportHasExternalGuarantee *bool `json:"annual_report_has_external_guarantee,omitempty" xml:"annual_report_has_external_guarantee,omitempty"`
+	// 年报是否对外投资
+	AnnualReportHasExternalInvest *bool `json:"annual_report_has_external_invest,omitempty" xml:"annual_report_has_external_invest,omitempty"`
+	// 营业总收入中主营业务收入
+	AnnualReportMainBusinessIncome *string `json:"annual_report_main_business_income,omitempty" xml:"annual_report_main_business_income,omitempty"`
+	// 年报净利润
+	AnnualReportNetProfit *string `json:"annual_report_net_profit,omitempty" xml:"annual_report_net_profit,omitempty"`
+	// 年报发布日期
+	AnnualReportReleaseDate *string `json:"annual_report_release_date,omitempty" xml:"annual_report_release_date,omitempty"`
+	// 年报股东实缴出资额（万元（实缴出资额用两个冒号::分割）
+	AnnualReportShActualPaid *string `json:"annual_report_sh_actual_paid,omitempty" xml:"annual_report_sh_actual_paid,omitempty"`
+	// 年报公司人数
+	AnnualReportStaffCount *int64 `json:"annual_report_staff_count,omitempty" xml:"annual_report_staff_count,omitempty"`
+	// 资产总额
+	AnnualReportTotalAssets *string `json:"annual_report_total_assets,omitempty" xml:"annual_report_total_assets,omitempty"`
+	// 负债总额
+	AnnualReportTotalLiabilities *string `json:"annual_report_total_liabilities,omitempty" xml:"annual_report_total_liabilities,omitempty"`
+	// 营业总收入
+	AnnualReportTotalOperatingIncome *string `json:"annual_report_total_operating_income,omitempty" xml:"annual_report_total_operating_income,omitempty"`
+	// 年报所有者权益合计
+	AnnualReportTotalOwnerEquity *string `json:"annual_report_total_owner_equity,omitempty" xml:"annual_report_total_owner_equity,omitempty"`
+	// 年报利润总额
+	AnnualReportTotalProfit *string `json:"annual_report_total_profit,omitempty" xml:"annual_report_total_profit,omitempty"`
+	// 纳税总额
+	AnnualReportTotalTax *string `json:"annual_report_total_tax,omitempty" xml:"annual_report_total_tax,omitempty"`
+	// 年报报送年度
+	AnnualReportYear *string `json:"annual_report_year,omitempty" xml:"annual_report_year,omitempty"`
+}
+
+func (s RtopRiskStormCompanyAnnualReport) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopRiskStormCompanyAnnualReport) GoString() string {
+	return s.String()
+}
+
+func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportCount(v int64) *RtopRiskStormCompanyAnnualReport {
+	s.AnnualReportCount = &v
+	return s
+}
+
+func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportHasEquityTransfer(v bool) *RtopRiskStormCompanyAnnualReport {
+	s.AnnualReportHasEquityTransfer = &v
+	return s
+}
+
+func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportHasExternalGuarantee(v bool) *RtopRiskStormCompanyAnnualReport {
+	s.AnnualReportHasExternalGuarantee = &v
+	return s
+}
+
+func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportHasExternalInvest(v bool) *RtopRiskStormCompanyAnnualReport {
+	s.AnnualReportHasExternalInvest = &v
+	return s
+}
+
+func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportMainBusinessIncome(v string) *RtopRiskStormCompanyAnnualReport {
+	s.AnnualReportMainBusinessIncome = &v
+	return s
+}
+
+func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportNetProfit(v string) *RtopRiskStormCompanyAnnualReport {
+	s.AnnualReportNetProfit = &v
+	return s
+}
+
+func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportReleaseDate(v string) *RtopRiskStormCompanyAnnualReport {
+	s.AnnualReportReleaseDate = &v
+	return s
+}
+
+func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportShActualPaid(v string) *RtopRiskStormCompanyAnnualReport {
+	s.AnnualReportShActualPaid = &v
+	return s
+}
+
+func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportStaffCount(v int64) *RtopRiskStormCompanyAnnualReport {
+	s.AnnualReportStaffCount = &v
+	return s
+}
+
+func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportTotalAssets(v string) *RtopRiskStormCompanyAnnualReport {
+	s.AnnualReportTotalAssets = &v
+	return s
+}
+
+func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportTotalLiabilities(v string) *RtopRiskStormCompanyAnnualReport {
+	s.AnnualReportTotalLiabilities = &v
+	return s
+}
+
+func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportTotalOperatingIncome(v string) *RtopRiskStormCompanyAnnualReport {
+	s.AnnualReportTotalOperatingIncome = &v
+	return s
+}
+
+func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportTotalOwnerEquity(v string) *RtopRiskStormCompanyAnnualReport {
+	s.AnnualReportTotalOwnerEquity = &v
+	return s
+}
+
+func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportTotalProfit(v string) *RtopRiskStormCompanyAnnualReport {
+	s.AnnualReportTotalProfit = &v
+	return s
+}
+
+func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportTotalTax(v string) *RtopRiskStormCompanyAnnualReport {
+	s.AnnualReportTotalTax = &v
+	return s
+}
+
+func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportYear(v string) *RtopRiskStormCompanyAnnualReport {
+	s.AnnualReportYear = &v
+	return s
+}
+
+// 全局动态中的企业
+type RtopRiskyCompany struct {
+	// 企业ID
+	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
+	// 异动分数
+	ChangeScore *string `json:"change_score,omitempty" xml:"change_score,omitempty" require:"true"`
+	// 异动程度
+	ChangeLevel *string `json:"change_level,omitempty" xml:"change_level,omitempty" require:"true"`
+	// 新增企业的时间
+	NewAddedTime *string `json:"new_added_time,omitempty" xml:"new_added_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 总公司注册地
+	HeadRegisterPlace *string `json:"head_register_place,omitempty" xml:"head_register_place,omitempty" require:"true"`
+	// 数据的时间
+	DataTime *string `json:"data_time,omitempty" xml:"data_time,omitempty" require:"true"`
+}
+
+func (s RtopRiskyCompany) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopRiskyCompany) GoString() string {
+	return s.String()
+}
+
+func (s *RtopRiskyCompany) SetCompanyId(v string) *RtopRiskyCompany {
+	s.CompanyId = &v
+	return s
+}
+
+func (s *RtopRiskyCompany) SetChangeScore(v string) *RtopRiskyCompany {
+	s.ChangeScore = &v
+	return s
+}
+
+func (s *RtopRiskyCompany) SetChangeLevel(v string) *RtopRiskyCompany {
+	s.ChangeLevel = &v
+	return s
+}
+
+func (s *RtopRiskyCompany) SetNewAddedTime(v string) *RtopRiskyCompany {
+	s.NewAddedTime = &v
+	return s
+}
+
+func (s *RtopRiskyCompany) SetHeadRegisterPlace(v string) *RtopRiskyCompany {
+	s.HeadRegisterPlace = &v
+	return s
+}
+
+func (s *RtopRiskyCompany) SetDataTime(v string) *RtopRiskyCompany {
+	s.DataTime = &v
+	return s
+}
+
+// zhima.customer.ep.identification.query
+// 在认证完成后,商户可以查询认证的状态和结果
+//
+type ZhimaQueryResp struct {
+	// 认证的企业证件号
+	EpCertNo *string `json:"ep_cert_no,omitempty" xml:"ep_cert_no,omitempty"`
+	// 认证的企业名
+	EpName *string `json:"ep_name,omitempty" xml:"ep_name,omitempty"`
+	// 认证不通过的错误码
+	FailedCode *string `json:"failed_code,omitempty" xml:"failed_code,omitempty"`
+	// 认证是否通过，通过为true，不通过为false
+	Passed *string `json:"passed,omitempty" xml:"passed,omitempty"`
+	//  10000是成功，其余是失败
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty" require:"true"`
+	//
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty" require:"true"`
+	//
+	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
+	//
+	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
+}
+
+func (s ZhimaQueryResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ZhimaQueryResp) GoString() string {
+	return s.String()
+}
+
+func (s *ZhimaQueryResp) SetEpCertNo(v string) *ZhimaQueryResp {
+	s.EpCertNo = &v
+	return s
+}
+
+func (s *ZhimaQueryResp) SetEpName(v string) *ZhimaQueryResp {
+	s.EpName = &v
+	return s
+}
+
+func (s *ZhimaQueryResp) SetFailedCode(v string) *ZhimaQueryResp {
+	s.FailedCode = &v
+	return s
+}
+
+func (s *ZhimaQueryResp) SetPassed(v string) *ZhimaQueryResp {
+	s.Passed = &v
+	return s
+}
+
+func (s *ZhimaQueryResp) SetResultCode(v string) *ZhimaQueryResp {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ZhimaQueryResp) SetResultMsg(v string) *ZhimaQueryResp {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ZhimaQueryResp) SetSubCode(v string) *ZhimaQueryResp {
+	s.SubCode = &v
+	return s
+}
+
+func (s *ZhimaQueryResp) SetSubMsg(v string) *ZhimaQueryResp {
+	s.SubMsg = &v
+	return s
+}
+
+// 机构平台通知响应结果
+type DefinInnerChannelNotifyResult struct {
+	// 请求编号
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 业务响应Json
+	BizResponse *string `json:"biz_response,omitempty" xml:"biz_response,omitempty" require:"true"`
+}
+
+func (s DefinInnerChannelNotifyResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DefinInnerChannelNotifyResult) GoString() string {
+	return s.String()
+}
+
+func (s *DefinInnerChannelNotifyResult) SetRequestId(v string) *DefinInnerChannelNotifyResult {
+	s.RequestId = &v
+	return s
+}
+
+func (s *DefinInnerChannelNotifyResult) SetBizResponse(v string) *DefinInnerChannelNotifyResult {
+	s.BizResponse = &v
+	return s
+}
+
+// 企业涉众风险详细信息
+type RtopCrowdRiskSummaryResp struct {
+	// 活跃市
+	ActiveCity *string `json:"active_city,omitempty" xml:"active_city,omitempty"`
+	// 活跃县
+	ActiveCounty *string `json:"active_county,omitempty" xml:"active_county,omitempty"`
+	// 活跃省
+	ActiveProvince *string `json:"active_province,omitempty" xml:"active_province,omitempty"`
+	// 风险标签
+	ClueTags []*string `json:"clue_tags,omitempty" xml:"clue_tags,omitempty" type:"Repeated"`
+	// 企业ID
+	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
+	// 企业名称
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
+	// 风险等级
+	CrowdRiskLevel *string `json:"crowd_risk_level,omitempty" xml:"crowd_risk_level,omitempty"`
+	// 涉众风险分数
+	CrowdRiskScore *int64 `json:"crowd_risk_score,omitempty" xml:"crowd_risk_score,omitempty"`
+	// 涉众风险类型
+	CrowdRiskType *string `json:"crowd_risk_type,omitempty" xml:"crowd_risk_type,omitempty"`
+	// 发现时间
+	DetectedTime *string `json:"detected_time,omitempty" xml:"detected_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 影响金额
+	MoneyInvolved *int64 `json:"money_involved,omitempty" xml:"money_involved,omitempty"`
+	// 影响人数
+	PeopleInvolved *int64 `json:"people_involved,omitempty" xml:"people_involved,omitempty"`
+	// 注册市
+	RegisteredCity *string `json:"registered_city,omitempty" xml:"registered_city,omitempty"`
+	// 注册县
+	RegisteredCounty *string `json:"registered_county,omitempty" xml:"registered_county,omitempty"`
+	// 注册省
+	RegisteredProvince *string `json:"registered_province,omitempty" xml:"registered_province,omitempty"`
+}
+
+func (s RtopCrowdRiskSummaryResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopCrowdRiskSummaryResp) GoString() string {
+	return s.String()
+}
+
+func (s *RtopCrowdRiskSummaryResp) SetActiveCity(v string) *RtopCrowdRiskSummaryResp {
+	s.ActiveCity = &v
+	return s
+}
+
+func (s *RtopCrowdRiskSummaryResp) SetActiveCounty(v string) *RtopCrowdRiskSummaryResp {
+	s.ActiveCounty = &v
+	return s
+}
+
+func (s *RtopCrowdRiskSummaryResp) SetActiveProvince(v string) *RtopCrowdRiskSummaryResp {
+	s.ActiveProvince = &v
+	return s
+}
+
+func (s *RtopCrowdRiskSummaryResp) SetClueTags(v []*string) *RtopCrowdRiskSummaryResp {
+	s.ClueTags = v
+	return s
+}
+
+func (s *RtopCrowdRiskSummaryResp) SetCompanyId(v string) *RtopCrowdRiskSummaryResp {
+	s.CompanyId = &v
+	return s
+}
+
+func (s *RtopCrowdRiskSummaryResp) SetCompanyName(v string) *RtopCrowdRiskSummaryResp {
 	s.CompanyName = &v
 	return s
 }
 
-func (s *RtopCompanyOpinionCount) SetCount(v int) *RtopCompanyOpinionCount {
+func (s *RtopCrowdRiskSummaryResp) SetCrowdRiskLevel(v string) *RtopCrowdRiskSummaryResp {
+	s.CrowdRiskLevel = &v
+	return s
+}
+
+func (s *RtopCrowdRiskSummaryResp) SetCrowdRiskScore(v int64) *RtopCrowdRiskSummaryResp {
+	s.CrowdRiskScore = &v
+	return s
+}
+
+func (s *RtopCrowdRiskSummaryResp) SetCrowdRiskType(v string) *RtopCrowdRiskSummaryResp {
+	s.CrowdRiskType = &v
+	return s
+}
+
+func (s *RtopCrowdRiskSummaryResp) SetDetectedTime(v string) *RtopCrowdRiskSummaryResp {
+	s.DetectedTime = &v
+	return s
+}
+
+func (s *RtopCrowdRiskSummaryResp) SetMoneyInvolved(v int64) *RtopCrowdRiskSummaryResp {
+	s.MoneyInvolved = &v
+	return s
+}
+
+func (s *RtopCrowdRiskSummaryResp) SetPeopleInvolved(v int64) *RtopCrowdRiskSummaryResp {
+	s.PeopleInvolved = &v
+	return s
+}
+
+func (s *RtopCrowdRiskSummaryResp) SetRegisteredCity(v string) *RtopCrowdRiskSummaryResp {
+	s.RegisteredCity = &v
+	return s
+}
+
+func (s *RtopCrowdRiskSummaryResp) SetRegisteredCounty(v string) *RtopCrowdRiskSummaryResp {
+	s.RegisteredCounty = &v
+	return s
+}
+
+func (s *RtopCrowdRiskSummaryResp) SetRegisteredProvince(v string) *RtopCrowdRiskSummaryResp {
+	s.RegisteredProvince = &v
+	return s
+}
+
+// 标签配置全量信息
+type RiskLabelConfigInfo struct {
+	// id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 线索ID
+	TagId *string `json:"tag_id,omitempty" xml:"tag_id,omitempty" require:"true"`
+	// 标签文本
+	TagText *string `json:"tag_text,omitempty" xml:"tag_text,omitempty" require:"true"`
+	// 风险维度
+	RiskDimensionType *string `json:"risk_dimension_type,omitempty" xml:"risk_dimension_type,omitempty" require:"true"`
+	// 线索类型
+	RiskDetailType *string `json:"risk_detail_type,omitempty" xml:"risk_detail_type,omitempty" require:"true"`
+	// 趋势图表名
+	TagTrendChartName *string `json:"tag_trend_chart_name,omitempty" xml:"tag_trend_chart_name,omitempty" require:"true"`
+	// 线索列表表头，英文逗号分隔
+	TagListHeaders *string `json:"tag_list_headers,omitempty" xml:"tag_list_headers,omitempty" require:"true"`
+	// 标签列表，排序字段
+	TagListOrderColumn *string `json:"tag_list_order_column,omitempty" xml:"tag_list_order_column,omitempty" require:"true"`
+	// 标签列表排序方式
+	TagListOrderType *string `json:"tag_list_order_type,omitempty" xml:"tag_list_order_type,omitempty" require:"true"`
+	// 标记删除
+	IsDelete *int64 `json:"is_delete,omitempty" xml:"is_delete,omitempty" require:"true"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 修改时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 操作人ID
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
+}
+
+func (s RiskLabelConfigInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RiskLabelConfigInfo) GoString() string {
+	return s.String()
+}
+
+func (s *RiskLabelConfigInfo) SetId(v int64) *RiskLabelConfigInfo {
+	s.Id = &v
+	return s
+}
+
+func (s *RiskLabelConfigInfo) SetTagId(v string) *RiskLabelConfigInfo {
+	s.TagId = &v
+	return s
+}
+
+func (s *RiskLabelConfigInfo) SetTagText(v string) *RiskLabelConfigInfo {
+	s.TagText = &v
+	return s
+}
+
+func (s *RiskLabelConfigInfo) SetRiskDimensionType(v string) *RiskLabelConfigInfo {
+	s.RiskDimensionType = &v
+	return s
+}
+
+func (s *RiskLabelConfigInfo) SetRiskDetailType(v string) *RiskLabelConfigInfo {
+	s.RiskDetailType = &v
+	return s
+}
+
+func (s *RiskLabelConfigInfo) SetTagTrendChartName(v string) *RiskLabelConfigInfo {
+	s.TagTrendChartName = &v
+	return s
+}
+
+func (s *RiskLabelConfigInfo) SetTagListHeaders(v string) *RiskLabelConfigInfo {
+	s.TagListHeaders = &v
+	return s
+}
+
+func (s *RiskLabelConfigInfo) SetTagListOrderColumn(v string) *RiskLabelConfigInfo {
+	s.TagListOrderColumn = &v
+	return s
+}
+
+func (s *RiskLabelConfigInfo) SetTagListOrderType(v string) *RiskLabelConfigInfo {
+	s.TagListOrderType = &v
+	return s
+}
+
+func (s *RiskLabelConfigInfo) SetIsDelete(v int64) *RiskLabelConfigInfo {
+	s.IsDelete = &v
+	return s
+}
+
+func (s *RiskLabelConfigInfo) SetGmtCreate(v string) *RiskLabelConfigInfo {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *RiskLabelConfigInfo) SetGmtModified(v string) *RiskLabelConfigInfo {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *RiskLabelConfigInfo) SetOperatorId(v string) *RiskLabelConfigInfo {
+	s.OperatorId = &v
+	return s
+}
+
+// 策略详情
+type StrategyDetails struct {
+	// 策略id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 策略名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 决策结果
+	Decision *string `json:"decision,omitempty" xml:"decision,omitempty" require:"true"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+}
+
+func (s StrategyDetails) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StrategyDetails) GoString() string {
+	return s.String()
+}
+
+func (s *StrategyDetails) SetId(v string) *StrategyDetails {
+	s.Id = &v
+	return s
+}
+
+func (s *StrategyDetails) SetName(v string) *StrategyDetails {
+	s.Name = &v
+	return s
+}
+
+func (s *StrategyDetails) SetDecision(v string) *StrategyDetails {
+	s.Decision = &v
+	return s
+}
+
+func (s *StrategyDetails) SetSceneCode(v string) *StrategyDetails {
+	s.SceneCode = &v
+	return s
+}
+
+// 反欺诈风险数据服务决策结果
+type SecurityResultInfos struct {
+	// 反欺诈风险数据服务风险建议决策
+	Decision *string `json:"decision,omitempty" xml:"decision,omitempty" require:"true"`
+	// 反欺诈风险数据服务风险分
+	RiskScore *int64 `json:"risk_score,omitempty" xml:"risk_score,omitempty" require:"true"`
+	// 反欺诈风险数据服务场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+}
+
+func (s SecurityResultInfos) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SecurityResultInfos) GoString() string {
+	return s.String()
+}
+
+func (s *SecurityResultInfos) SetDecision(v string) *SecurityResultInfos {
+	s.Decision = &v
+	return s
+}
+
+func (s *SecurityResultInfos) SetRiskScore(v int64) *SecurityResultInfos {
+	s.RiskScore = &v
+	return s
+}
+
+func (s *SecurityResultInfos) SetSceneCode(v string) *SecurityResultInfos {
+	s.SceneCode = &v
+	return s
+}
+
+// 企业影响人数年龄分布统计
+type RtopAgeDistribution struct {
+	// 年龄
+	Age *string `json:"age,omitempty" xml:"age,omitempty" require:"true"`
+	// 统计值
+	Count *int `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+}
+
+func (s RtopAgeDistribution) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopAgeDistribution) GoString() string {
+	return s.String()
+}
+
+func (s *RtopAgeDistribution) SetAge(v string) *RtopAgeDistribution {
+	s.Age = &v
+	return s
+}
+
+func (s *RtopAgeDistribution) SetCount(v int) *RtopAgeDistribution {
 	s.Count = &v
 	return s
 }
@@ -938,360 +2711,6 @@ func (s *CompanyInfo) SetPlatform(v string) *CompanyInfo {
 	return s
 }
 
-// 逾期信息查询响应
-type OverdueInfoResponse struct {
-	// 逾期标识
-	// true：逾期
-	// false：未逾期
-	OverDueFlag *bool `json:"over_due_flag,omitempty" xml:"over_due_flag,omitempty" require:"true"`
-	// 逾期天数
-	Dpd *int64 `json:"dpd,omitempty" xml:"dpd,omitempty" require:"true"`
-	// 价值逾期天枢
-	Cpd *int64 `json:"cpd,omitempty" xml:"cpd,omitempty" require:"true"`
-	// 应还总额
-	NeedAmount *int64 `json:"need_amount,omitempty" xml:"need_amount,omitempty" require:"true"`
-	// 总剩余应还
-	TotalAmount *int64 `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
-}
-
-func (s OverdueInfoResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OverdueInfoResponse) GoString() string {
-	return s.String()
-}
-
-func (s *OverdueInfoResponse) SetOverDueFlag(v bool) *OverdueInfoResponse {
-	s.OverDueFlag = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetDpd(v int64) *OverdueInfoResponse {
-	s.Dpd = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetCpd(v int64) *OverdueInfoResponse {
-	s.Cpd = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetNeedAmount(v int64) *OverdueInfoResponse {
-	s.NeedAmount = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetTotalAmount(v int64) *OverdueInfoResponse {
-	s.TotalAmount = &v
-	return s
-}
-
-// 标签信息
-type RiskLabelInfo struct {
-	// 线索明细类型(字段停用)
-	ClueDetailType *string `json:"clue_detail_type,omitempty" xml:"clue_detail_type,omitempty" require:"true"`
-	// odps数据产出时间，冗余字段，业务上不需要，以备错误排查
-	Dt *string `json:"dt,omitempty" xml:"dt,omitempty"`
-	// 数据产生时间
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true"`
-	// 记录唯一ID
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 0-正常 1-删除
-	IsDeleted *int64 `json:"is_deleted,omitempty" xml:"is_deleted,omitempty" require:"true"`
-	// 企业ID
-	MctOneId *string `json:"mct_one_id,omitempty" xml:"mct_one_id,omitempty" require:"true"`
-	// 操作人ID
-	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
-	// 操作类型
-	// add、delete、update
-	OpType *string `json:"op_type,omitempty" xml:"op_type,omitempty" require:"true"`
-	// 企业名称
-	OrgName *string `json:"org_name,omitempty" xml:"org_name,omitempty" require:"true"`
-	// 线索类型
-	RiskDetailType *string `json:"risk_detail_type,omitempty" xml:"risk_detail_type,omitempty" require:"true"`
-	// 风险维度
-	//
-	RiskDimensionType *string `json:"risk_dimension_type,omitempty" xml:"risk_dimension_type,omitempty" require:"true"`
-	// 线索概览
-	TagClue *string `json:"tag_clue,omitempty" xml:"tag_clue,omitempty" require:"true"`
-	// 线索明细
-	TagClueDetail *string `json:"tag_clue_detail,omitempty" xml:"tag_clue_detail,omitempty" require:"true"`
-	// 标签ID
-	TagId *string `json:"tag_id,omitempty" xml:"tag_id,omitempty" require:"true"`
-	// 线索列表表头，英文逗号分隔
-	//
-	TagListHeaders *string `json:"tag_list_headers,omitempty" xml:"tag_list_headers,omitempty" require:"true"`
-	// 标签列表，排序字段
-	TagListOrderColumn *string `json:"tag_list_order_column,omitempty" xml:"tag_list_order_column,omitempty" require:"true"`
-	// 标签列表排序方式
-	TagListOrderType *string `json:"tag_list_order_type,omitempty" xml:"tag_list_order_type,omitempty" require:"true"`
-	// 标签文本
-	TagText *string `json:"tag_text,omitempty" xml:"tag_text,omitempty" require:"true"`
-	// 趋势图表名
-	TagTrendChartName *string `json:"tag_trend_chart_name,omitempty" xml:"tag_trend_chart_name,omitempty" require:"true"`
-	// 数据同步到公有云时间(业务上赋值当天)
-	UpdateDate *string `json:"update_date,omitempty" xml:"update_date,omitempty" require:"true"`
-}
-
-func (s RiskLabelInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RiskLabelInfo) GoString() string {
-	return s.String()
-}
-
-func (s *RiskLabelInfo) SetClueDetailType(v string) *RiskLabelInfo {
-	s.ClueDetailType = &v
-	return s
-}
-
-func (s *RiskLabelInfo) SetDt(v string) *RiskLabelInfo {
-	s.Dt = &v
-	return s
-}
-
-func (s *RiskLabelInfo) SetGmtCreate(v string) *RiskLabelInfo {
-	s.GmtCreate = &v
-	return s
-}
-
-func (s *RiskLabelInfo) SetId(v int64) *RiskLabelInfo {
-	s.Id = &v
-	return s
-}
-
-func (s *RiskLabelInfo) SetIsDeleted(v int64) *RiskLabelInfo {
-	s.IsDeleted = &v
-	return s
-}
-
-func (s *RiskLabelInfo) SetMctOneId(v string) *RiskLabelInfo {
-	s.MctOneId = &v
-	return s
-}
-
-func (s *RiskLabelInfo) SetOperatorId(v string) *RiskLabelInfo {
-	s.OperatorId = &v
-	return s
-}
-
-func (s *RiskLabelInfo) SetOpType(v string) *RiskLabelInfo {
-	s.OpType = &v
-	return s
-}
-
-func (s *RiskLabelInfo) SetOrgName(v string) *RiskLabelInfo {
-	s.OrgName = &v
-	return s
-}
-
-func (s *RiskLabelInfo) SetRiskDetailType(v string) *RiskLabelInfo {
-	s.RiskDetailType = &v
-	return s
-}
-
-func (s *RiskLabelInfo) SetRiskDimensionType(v string) *RiskLabelInfo {
-	s.RiskDimensionType = &v
-	return s
-}
-
-func (s *RiskLabelInfo) SetTagClue(v string) *RiskLabelInfo {
-	s.TagClue = &v
-	return s
-}
-
-func (s *RiskLabelInfo) SetTagClueDetail(v string) *RiskLabelInfo {
-	s.TagClueDetail = &v
-	return s
-}
-
-func (s *RiskLabelInfo) SetTagId(v string) *RiskLabelInfo {
-	s.TagId = &v
-	return s
-}
-
-func (s *RiskLabelInfo) SetTagListHeaders(v string) *RiskLabelInfo {
-	s.TagListHeaders = &v
-	return s
-}
-
-func (s *RiskLabelInfo) SetTagListOrderColumn(v string) *RiskLabelInfo {
-	s.TagListOrderColumn = &v
-	return s
-}
-
-func (s *RiskLabelInfo) SetTagListOrderType(v string) *RiskLabelInfo {
-	s.TagListOrderType = &v
-	return s
-}
-
-func (s *RiskLabelInfo) SetTagText(v string) *RiskLabelInfo {
-	s.TagText = &v
-	return s
-}
-
-func (s *RiskLabelInfo) SetTagTrendChartName(v string) *RiskLabelInfo {
-	s.TagTrendChartName = &v
-	return s
-}
-
-func (s *RiskLabelInfo) SetUpdateDate(v string) *RiskLabelInfo {
-	s.UpdateDate = &v
-	return s
-}
-
-// 风报接口返回结构体
-type RtopCompanyRiskInfo struct {
-	// 区域类型
-	PlaceType *string `json:"place_type,omitempty" xml:"place_type,omitempty"`
-	// 区域
-	PlaceName *string `json:"place_name,omitempty" xml:"place_name,omitempty"`
-	// 企业唯一id
-	MctOneId *string `json:"mct_one_id,omitempty" xml:"mct_one_id,omitempty"`
-	// 企业统一社会信用代码
-	UcCode *string `json:"uc_code,omitempty" xml:"uc_code,omitempty"`
-	// 工商注册号
-	RegNo *string `json:"reg_no,omitempty" xml:"reg_no,omitempty"`
-	// 组织机构代码
-	OrgCode *string `json:"org_code,omitempty" xml:"org_code,omitempty"`
-	// 企业名
-	OrgName *string `json:"org_name,omitempty" xml:"org_name,omitempty"`
-	// 风险评分
-	RiskScore *string `json:"risk_score,omitempty" xml:"risk_score,omitempty"`
-	// 风险变化程度排序，根据分值波动大小，标签变更次数排序
-	RiskShiftRank *string `json:"risk_shift_rank,omitempty" xml:"risk_shift_rank,omitempty"`
-	// 风险定性
-	RiskType *string `json:"risk_type,omitempty" xml:"risk_type,omitempty"`
-	// 风险标签id列表
-	RiskTagsId []*string `json:"risk_tags_id,omitempty" xml:"risk_tags_id,omitempty" type:"Repeated"`
-	// 线索
-	TagsClue *string `json:"tags_clue,omitempty" xml:"tags_clue,omitempty"`
-	// 风险线索明细
-	TagsClueDetail *string `json:"tags_clue_detail,omitempty" xml:"tags_clue_detail,omitempty"`
-}
-
-func (s RtopCompanyRiskInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopCompanyRiskInfo) GoString() string {
-	return s.String()
-}
-
-func (s *RtopCompanyRiskInfo) SetPlaceType(v string) *RtopCompanyRiskInfo {
-	s.PlaceType = &v
-	return s
-}
-
-func (s *RtopCompanyRiskInfo) SetPlaceName(v string) *RtopCompanyRiskInfo {
-	s.PlaceName = &v
-	return s
-}
-
-func (s *RtopCompanyRiskInfo) SetMctOneId(v string) *RtopCompanyRiskInfo {
-	s.MctOneId = &v
-	return s
-}
-
-func (s *RtopCompanyRiskInfo) SetUcCode(v string) *RtopCompanyRiskInfo {
-	s.UcCode = &v
-	return s
-}
-
-func (s *RtopCompanyRiskInfo) SetRegNo(v string) *RtopCompanyRiskInfo {
-	s.RegNo = &v
-	return s
-}
-
-func (s *RtopCompanyRiskInfo) SetOrgCode(v string) *RtopCompanyRiskInfo {
-	s.OrgCode = &v
-	return s
-}
-
-func (s *RtopCompanyRiskInfo) SetOrgName(v string) *RtopCompanyRiskInfo {
-	s.OrgName = &v
-	return s
-}
-
-func (s *RtopCompanyRiskInfo) SetRiskScore(v string) *RtopCompanyRiskInfo {
-	s.RiskScore = &v
-	return s
-}
-
-func (s *RtopCompanyRiskInfo) SetRiskShiftRank(v string) *RtopCompanyRiskInfo {
-	s.RiskShiftRank = &v
-	return s
-}
-
-func (s *RtopCompanyRiskInfo) SetRiskType(v string) *RtopCompanyRiskInfo {
-	s.RiskType = &v
-	return s
-}
-
-func (s *RtopCompanyRiskInfo) SetRiskTagsId(v []*string) *RtopCompanyRiskInfo {
-	s.RiskTagsId = v
-	return s
-}
-
-func (s *RtopCompanyRiskInfo) SetTagsClue(v string) *RtopCompanyRiskInfo {
-	s.TagsClue = &v
-	return s
-}
-
-func (s *RtopCompanyRiskInfo) SetTagsClueDetail(v string) *RtopCompanyRiskInfo {
-	s.TagsClueDetail = &v
-	return s
-}
-
-// 服务上下文包括环境信息和用户信息
-type ServiceContext struct {
-	// 客户端IP
-	ClientIp *string `json:"client_ip,omitempty" xml:"client_ip,omitempty"`
-	// 客户端UMID
-	ClientPcidguid *string `json:"client_pcidguid,omitempty" xml:"client_pcidguid,omitempty"`
-	// 服务器名
-	ServerName *string `json:"server_name,omitempty" xml:"server_name,omitempty"`
-	// 会话ID
-	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
-	// 用户ID
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
-}
-
-func (s ServiceContext) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ServiceContext) GoString() string {
-	return s.String()
-}
-
-func (s *ServiceContext) SetClientIp(v string) *ServiceContext {
-	s.ClientIp = &v
-	return s
-}
-
-func (s *ServiceContext) SetClientPcidguid(v string) *ServiceContext {
-	s.ClientPcidguid = &v
-	return s
-}
-
-func (s *ServiceContext) SetServerName(v string) *ServiceContext {
-	s.ServerName = &v
-	return s
-}
-
-func (s *ServiceContext) SetSessionId(v string) *ServiceContext {
-	s.SessionId = &v
-	return s
-}
-
-func (s *ServiceContext) SetUserId(v string) *ServiceContext {
-	s.UserId = &v
-	return s
-}
-
 // 预警企业
 type RtopCompanyAlarm struct {
 	// 企业ID
@@ -1339,189 +2758,6 @@ func (s *RtopCompanyAlarm) SetAlarmFlag(v string) *RtopCompanyAlarm {
 	return s
 }
 
-// 风险维度
-type RtopCompanyRiskFactor struct {
-	// 维度名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 维度分数
-	Score *int64 `json:"score,omitempty" xml:"score,omitempty"`
-}
-
-func (s RtopCompanyRiskFactor) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopCompanyRiskFactor) GoString() string {
-	return s.String()
-}
-
-func (s *RtopCompanyRiskFactor) SetName(v string) *RtopCompanyRiskFactor {
-	s.Name = &v
-	return s
-}
-
-func (s *RtopCompanyRiskFactor) SetScore(v int64) *RtopCompanyRiskFactor {
-	s.Score = &v
-	return s
-}
-
-// 企业年报信息
-type RtopRiskStormCompanyAnnualReport struct {
-	// 年报个数
-	AnnualReportCount *int64 `json:"annual_report_count,omitempty" xml:"annual_report_count,omitempty"`
-	// 年报是否发生股权转让
-	AnnualReportHasEquityTransfer *bool `json:"annual_report_has_equity_transfer,omitempty" xml:"annual_report_has_equity_transfer,omitempty"`
-	// 年报是否对外提供担保
-	AnnualReportHasExternalGuarantee *bool `json:"annual_report_has_external_guarantee,omitempty" xml:"annual_report_has_external_guarantee,omitempty"`
-	// 年报是否对外投资
-	AnnualReportHasExternalInvest *bool `json:"annual_report_has_external_invest,omitempty" xml:"annual_report_has_external_invest,omitempty"`
-	// 营业总收入中主营业务收入
-	AnnualReportMainBusinessIncome *string `json:"annual_report_main_business_income,omitempty" xml:"annual_report_main_business_income,omitempty"`
-	// 年报净利润
-	AnnualReportNetProfit *string `json:"annual_report_net_profit,omitempty" xml:"annual_report_net_profit,omitempty"`
-	// 年报发布日期
-	AnnualReportReleaseDate *string `json:"annual_report_release_date,omitempty" xml:"annual_report_release_date,omitempty"`
-	// 年报股东实缴出资额（万元（实缴出资额用两个冒号::分割）
-	AnnualReportShActualPaid *string `json:"annual_report_sh_actual_paid,omitempty" xml:"annual_report_sh_actual_paid,omitempty"`
-	// 年报公司人数
-	AnnualReportStaffCount *int64 `json:"annual_report_staff_count,omitempty" xml:"annual_report_staff_count,omitempty"`
-	// 资产总额
-	AnnualReportTotalAssets *string `json:"annual_report_total_assets,omitempty" xml:"annual_report_total_assets,omitempty"`
-	// 负债总额
-	AnnualReportTotalLiabilities *string `json:"annual_report_total_liabilities,omitempty" xml:"annual_report_total_liabilities,omitempty"`
-	// 营业总收入
-	AnnualReportTotalOperatingIncome *string `json:"annual_report_total_operating_income,omitempty" xml:"annual_report_total_operating_income,omitempty"`
-	// 年报所有者权益合计
-	AnnualReportTotalOwnerEquity *string `json:"annual_report_total_owner_equity,omitempty" xml:"annual_report_total_owner_equity,omitempty"`
-	// 年报利润总额
-	AnnualReportTotalProfit *string `json:"annual_report_total_profit,omitempty" xml:"annual_report_total_profit,omitempty"`
-	// 纳税总额
-	AnnualReportTotalTax *string `json:"annual_report_total_tax,omitempty" xml:"annual_report_total_tax,omitempty"`
-	// 年报报送年度
-	AnnualReportYear *string `json:"annual_report_year,omitempty" xml:"annual_report_year,omitempty"`
-}
-
-func (s RtopRiskStormCompanyAnnualReport) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopRiskStormCompanyAnnualReport) GoString() string {
-	return s.String()
-}
-
-func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportCount(v int64) *RtopRiskStormCompanyAnnualReport {
-	s.AnnualReportCount = &v
-	return s
-}
-
-func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportHasEquityTransfer(v bool) *RtopRiskStormCompanyAnnualReport {
-	s.AnnualReportHasEquityTransfer = &v
-	return s
-}
-
-func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportHasExternalGuarantee(v bool) *RtopRiskStormCompanyAnnualReport {
-	s.AnnualReportHasExternalGuarantee = &v
-	return s
-}
-
-func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportHasExternalInvest(v bool) *RtopRiskStormCompanyAnnualReport {
-	s.AnnualReportHasExternalInvest = &v
-	return s
-}
-
-func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportMainBusinessIncome(v string) *RtopRiskStormCompanyAnnualReport {
-	s.AnnualReportMainBusinessIncome = &v
-	return s
-}
-
-func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportNetProfit(v string) *RtopRiskStormCompanyAnnualReport {
-	s.AnnualReportNetProfit = &v
-	return s
-}
-
-func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportReleaseDate(v string) *RtopRiskStormCompanyAnnualReport {
-	s.AnnualReportReleaseDate = &v
-	return s
-}
-
-func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportShActualPaid(v string) *RtopRiskStormCompanyAnnualReport {
-	s.AnnualReportShActualPaid = &v
-	return s
-}
-
-func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportStaffCount(v int64) *RtopRiskStormCompanyAnnualReport {
-	s.AnnualReportStaffCount = &v
-	return s
-}
-
-func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportTotalAssets(v string) *RtopRiskStormCompanyAnnualReport {
-	s.AnnualReportTotalAssets = &v
-	return s
-}
-
-func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportTotalLiabilities(v string) *RtopRiskStormCompanyAnnualReport {
-	s.AnnualReportTotalLiabilities = &v
-	return s
-}
-
-func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportTotalOperatingIncome(v string) *RtopRiskStormCompanyAnnualReport {
-	s.AnnualReportTotalOperatingIncome = &v
-	return s
-}
-
-func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportTotalOwnerEquity(v string) *RtopRiskStormCompanyAnnualReport {
-	s.AnnualReportTotalOwnerEquity = &v
-	return s
-}
-
-func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportTotalProfit(v string) *RtopRiskStormCompanyAnnualReport {
-	s.AnnualReportTotalProfit = &v
-	return s
-}
-
-func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportTotalTax(v string) *RtopRiskStormCompanyAnnualReport {
-	s.AnnualReportTotalTax = &v
-	return s
-}
-
-func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportYear(v string) *RtopRiskStormCompanyAnnualReport {
-	s.AnnualReportYear = &v
-	return s
-}
-
-// 策略流信息
-type DfSceneInfos struct {
-	// scene_code
-	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
-	// 拒绝
-	SceneDecision *string `json:"scene_decision,omitempty" xml:"scene_decision,omitempty" require:"true"`
-	// decision_flow
-	DecisionFlow *DecisionFlow `json:"decision_flow,omitempty" xml:"decision_flow,omitempty" require:"true"`
-}
-
-func (s DfSceneInfos) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DfSceneInfos) GoString() string {
-	return s.String()
-}
-
-func (s *DfSceneInfos) SetSceneCode(v string) *DfSceneInfos {
-	s.SceneCode = &v
-	return s
-}
-
-func (s *DfSceneInfos) SetSceneDecision(v string) *DfSceneInfos {
-	s.SceneDecision = &v
-	return s
-}
-
-func (s *DfSceneInfos) SetDecisionFlow(v *DecisionFlow) *DfSceneInfos {
-	s.DecisionFlow = v
-	return s
-}
-
 // 通用响应结构体
 type RpcommonResp struct {
 	// 调用是否成功
@@ -1562,326 +2798,55 @@ func (s *RpcommonResp) SetData(v string) *RpcommonResp {
 	return s
 }
 
-// 风报风险标签统计
-type RiskStormLabelResp struct {
-	// 标签次数
-	LabelCount *int `json:"label_count,omitempty" xml:"label_count,omitempty" require:"true"`
-	// 标签id
-	LabelId *string `json:"label_id,omitempty" xml:"label_id,omitempty" require:"true"`
-	// 标签名称
-	LabelName *string `json:"label_name,omitempty" xml:"label_name,omitempty" require:"true"`
-}
-
-func (s RiskStormLabelResp) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RiskStormLabelResp) GoString() string {
-	return s.String()
-}
-
-func (s *RiskStormLabelResp) SetLabelCount(v int) *RiskStormLabelResp {
-	s.LabelCount = &v
-	return s
-}
-
-func (s *RiskStormLabelResp) SetLabelId(v string) *RiskStormLabelResp {
-	s.LabelId = &v
-	return s
-}
-
-func (s *RiskStormLabelResp) SetLabelName(v string) *RiskStormLabelResp {
-	s.LabelName = &v
-	return s
-}
-
-// 天枢系统居住信息结构体
-type LiveInfo struct {
-	// 居住省份
-	LiveProvince *string `json:"live_province,omitempty" xml:"live_province,omitempty"`
-	// 居住城市
-	LiveCity *string `json:"live_city,omitempty" xml:"live_city,omitempty"`
-	// 居住区域
-	LiveArea *string `json:"live_area,omitempty" xml:"live_area,omitempty"`
-	// 居住街道
-	LiveStreet *string `json:"live_street,omitempty" xml:"live_street,omitempty"`
-	// 居住详细地址
-	LiveAddress *string `json:"live_address,omitempty" xml:"live_address,omitempty"`
-	// 居住年限
-	LiveYears *int64 `json:"live_years,omitempty" xml:"live_years,omitempty"`
-}
-
-func (s LiveInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LiveInfo) GoString() string {
-	return s.String()
-}
-
-func (s *LiveInfo) SetLiveProvince(v string) *LiveInfo {
-	s.LiveProvince = &v
-	return s
-}
-
-func (s *LiveInfo) SetLiveCity(v string) *LiveInfo {
-	s.LiveCity = &v
-	return s
-}
-
-func (s *LiveInfo) SetLiveArea(v string) *LiveInfo {
-	s.LiveArea = &v
-	return s
-}
-
-func (s *LiveInfo) SetLiveStreet(v string) *LiveInfo {
-	s.LiveStreet = &v
-	return s
-}
-
-func (s *LiveInfo) SetLiveAddress(v string) *LiveInfo {
-	s.LiveAddress = &v
-	return s
-}
-
-func (s *LiveInfo) SetLiveYears(v int64) *LiveInfo {
-	s.LiveYears = &v
-	return s
-}
-
-// 芝麻四要素认证接口
-type ZhimaIdentifyResp struct {
-	// 唯一ID，接口正常的话有此字段
-	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty"`
-	// 带参数的回调地址，接口正常的话有此字段
-	CertifyUrl *string `json:"certify_url,omitempty" xml:"certify_url,omitempty"`
-	// 蚂蚁调用芝麻的错误码
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty" require:"true"`
-	// 蚂蚁调用芝麻的结果描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty" require:"true"`
-	// 蚂蚁调用芝麻的错误码
-	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
-	// 蚂蚁调用芝麻信息
-	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
-}
-
-func (s ZhimaIdentifyResp) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ZhimaIdentifyResp) GoString() string {
-	return s.String()
-}
-
-func (s *ZhimaIdentifyResp) SetBizNo(v string) *ZhimaIdentifyResp {
-	s.BizNo = &v
-	return s
-}
-
-func (s *ZhimaIdentifyResp) SetCertifyUrl(v string) *ZhimaIdentifyResp {
-	s.CertifyUrl = &v
-	return s
-}
-
-func (s *ZhimaIdentifyResp) SetResultCode(v string) *ZhimaIdentifyResp {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *ZhimaIdentifyResp) SetResultMsg(v string) *ZhimaIdentifyResp {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *ZhimaIdentifyResp) SetSubCode(v string) *ZhimaIdentifyResp {
-	s.SubCode = &v
-	return s
-}
-
-func (s *ZhimaIdentifyResp) SetSubMsg(v string) *ZhimaIdentifyResp {
-	s.SubMsg = &v
-	return s
-}
-
-// 标签过滤配置
-type RiskLabelFilterConfigInfo struct {
-	// 创建时间
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 修改时间
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// id
+// 标签图片
+type RtopTagImage struct {
+	// 标签图片表主键
 	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 是否为基本筛选标签
-	IsBase *int64 `json:"is_base,omitempty" xml:"is_base,omitempty" require:"true"`
-	// 标记删除
-	IsDelete *int64 `json:"is_delete,omitempty" xml:"is_delete,omitempty" require:"true"`
-	// 操作人员ID
-	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
-	// 地区名
-	PlaceName *string `json:"place_name,omitempty" xml:"place_name,omitempty" require:"true"`
-	// 地区类型
-	PlaceType *string `json:"place_type,omitempty" xml:"place_type,omitempty" require:"true"`
-	// 标签ID
-	TagId *string `json:"tag_id,omitempty" xml:"tag_id,omitempty" require:"true"`
+	// 图片
+	Image *string `json:"image,omitempty" xml:"image,omitempty"`
 }
 
-func (s RiskLabelFilterConfigInfo) String() string {
+func (s RtopTagImage) String() string {
 	return tea.Prettify(s)
 }
 
-func (s RiskLabelFilterConfigInfo) GoString() string {
+func (s RtopTagImage) GoString() string {
 	return s.String()
 }
 
-func (s *RiskLabelFilterConfigInfo) SetGmtCreate(v string) *RiskLabelFilterConfigInfo {
-	s.GmtCreate = &v
-	return s
-}
-
-func (s *RiskLabelFilterConfigInfo) SetGmtModified(v string) *RiskLabelFilterConfigInfo {
-	s.GmtModified = &v
-	return s
-}
-
-func (s *RiskLabelFilterConfigInfo) SetId(v int64) *RiskLabelFilterConfigInfo {
+func (s *RtopTagImage) SetId(v int64) *RtopTagImage {
 	s.Id = &v
 	return s
 }
 
-func (s *RiskLabelFilterConfigInfo) SetIsBase(v int64) *RiskLabelFilterConfigInfo {
-	s.IsBase = &v
+func (s *RtopTagImage) SetImage(v string) *RtopTagImage {
+	s.Image = &v
 	return s
 }
 
-func (s *RiskLabelFilterConfigInfo) SetIsDelete(v int64) *RiskLabelFilterConfigInfo {
-	s.IsDelete = &v
-	return s
+// 企业影响人数性别分布统计
+type RtopGenderDistribution struct {
+	// 统计值
+	Count *int `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+	// 性别
+	Gender *string `json:"gender,omitempty" xml:"gender,omitempty" require:"true"`
 }
 
-func (s *RiskLabelFilterConfigInfo) SetOperatorId(v string) *RiskLabelFilterConfigInfo {
-	s.OperatorId = &v
-	return s
-}
-
-func (s *RiskLabelFilterConfigInfo) SetPlaceName(v string) *RiskLabelFilterConfigInfo {
-	s.PlaceName = &v
-	return s
-}
-
-func (s *RiskLabelFilterConfigInfo) SetPlaceType(v string) *RiskLabelFilterConfigInfo {
-	s.PlaceType = &v
-	return s
-}
-
-func (s *RiskLabelFilterConfigInfo) SetTagId(v string) *RiskLabelFilterConfigInfo {
-	s.TagId = &v
-	return s
-}
-
-// 天枢系统专用Material结构体
-type Material struct {
-	// 资料类型0-风控报告1-合同2-图片3-附件
-	MType *string `json:"m_type,omitempty" xml:"m_type,omitempty" require:"true"`
-	// 大类编码00-风控报告10-合同20身份证图片26人脸图片30-附件
-	BigCode *string `json:"big_code,omitempty" xml:"big_code,omitempty" require:"true"`
-	// 小类编码
-	// 201-身份证人脸面202身份证国徽面212-活体人脸图片
-	SmallCode *string `json:"small_code,omitempty" xml:"small_code,omitempty" require:"true"`
-	// 资料名称
-	MeterialName *string `json:"meterial_name,omitempty" xml:"meterial_name,omitempty" require:"true"`
-	// 文件地址
-	FilePath *string `json:"file_path,omitempty" xml:"file_path,omitempty" require:"true"`
-}
-
-func (s Material) String() string {
+func (s RtopGenderDistribution) String() string {
 	return tea.Prettify(s)
 }
 
-func (s Material) GoString() string {
+func (s RtopGenderDistribution) GoString() string {
 	return s.String()
 }
 
-func (s *Material) SetMType(v string) *Material {
-	s.MType = &v
+func (s *RtopGenderDistribution) SetCount(v int) *RtopGenderDistribution {
+	s.Count = &v
 	return s
 }
 
-func (s *Material) SetBigCode(v string) *Material {
-	s.BigCode = &v
-	return s
-}
-
-func (s *Material) SetSmallCode(v string) *Material {
-	s.SmallCode = &v
-	return s
-}
-
-func (s *Material) SetMeterialName(v string) *Material {
-	s.MeterialName = &v
-	return s
-}
-
-func (s *Material) SetFilePath(v string) *Material {
-	s.FilePath = &v
-	return s
-}
-
-// 反欺诈风险数据服务决策结果
-type SecurityResultInfos struct {
-	// 反欺诈风险数据服务风险建议决策
-	Decision *string `json:"decision,omitempty" xml:"decision,omitempty" require:"true"`
-	// 反欺诈风险数据服务风险分
-	RiskScore *int64 `json:"risk_score,omitempty" xml:"risk_score,omitempty" require:"true"`
-	// 反欺诈风险数据服务场景码
-	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
-}
-
-func (s SecurityResultInfos) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SecurityResultInfos) GoString() string {
-	return s.String()
-}
-
-func (s *SecurityResultInfos) SetDecision(v string) *SecurityResultInfos {
-	s.Decision = &v
-	return s
-}
-
-func (s *SecurityResultInfos) SetRiskScore(v int64) *SecurityResultInfos {
-	s.RiskScore = &v
-	return s
-}
-
-func (s *SecurityResultInfos) SetSceneCode(v string) *SecurityResultInfos {
-	s.SceneCode = &v
-	return s
-}
-
-// 反欺诈风险数据服务规则细节信息
-type RuleDetail struct {
-	// 规则细节名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 规则细节值
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-}
-
-func (s RuleDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RuleDetail) GoString() string {
-	return s.String()
-}
-
-func (s *RuleDetail) SetName(v string) *RuleDetail {
-	s.Name = &v
-	return s
-}
-
-func (s *RuleDetail) SetValue(v string) *RuleDetail {
-	s.Value = &v
+func (s *RtopGenderDistribution) SetGender(v string) *RtopGenderDistribution {
+	s.Gender = &v
 	return s
 }
 
@@ -1960,6 +2925,32 @@ func (s *RtopRiskGeneNode) SetRiskMode(v string) *RtopRiskGeneNode {
 	return s
 }
 
+// 企业影响人数分布统计
+type RtopPopulationDistribution struct {
+	// 市
+	City *string `json:"city,omitempty" xml:"city,omitempty" require:"true"`
+	// 统计值
+	Count *int `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+}
+
+func (s RtopPopulationDistribution) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopPopulationDistribution) GoString() string {
+	return s.String()
+}
+
+func (s *RtopPopulationDistribution) SetCity(v string) *RtopPopulationDistribution {
+	s.City = &v
+	return s
+}
+
+func (s *RtopPopulationDistribution) SetCount(v int) *RtopPopulationDistribution {
+	s.Count = &v
+	return s
+}
+
 // 天枢文件信息统一结构体
 type DubheFileInfo struct {
 	// 文件访问路径
@@ -1979,104 +2970,104 @@ func (s *DubheFileInfo) SetFilePath(v string) *DubheFileInfo {
 	return s
 }
 
-// 反欺诈风险数据服务风险信息
-type RiskInfo struct {
-	// 反欺诈风险数据服务风险组描述
-	RiskGroupDesc *string `json:"risk_group_desc,omitempty" xml:"risk_group_desc,omitempty" require:"true"`
-	// 反欺诈风险数据服务风险组名
-	RiskGroup *string `json:"risk_group,omitempty" xml:"risk_group,omitempty" require:"true"`
-	// 反欺诈风险数据服务风险组类别
-	RiskGroupCategory *string `json:"risk_group_category,omitempty" xml:"risk_group_category,omitempty" require:"true"`
-	// 反欺诈风险数据服务风险组信息
-	RiskDetails []*RiskDetail `json:"risk_details,omitempty" xml:"risk_details,omitempty" require:"true" type:"Repeated"`
+// 服务上下文包括环境信息和用户信息
+type ServiceContext struct {
+	// 客户端IP
+	ClientIp *string `json:"client_ip,omitempty" xml:"client_ip,omitempty"`
+	// 客户端UMID
+	ClientPcidguid *string `json:"client_pcidguid,omitempty" xml:"client_pcidguid,omitempty"`
+	// 服务器名
+	ServerName *string `json:"server_name,omitempty" xml:"server_name,omitempty"`
+	// 会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
 }
 
-func (s RiskInfo) String() string {
+func (s ServiceContext) String() string {
 	return tea.Prettify(s)
 }
 
-func (s RiskInfo) GoString() string {
+func (s ServiceContext) GoString() string {
 	return s.String()
 }
 
-func (s *RiskInfo) SetRiskGroupDesc(v string) *RiskInfo {
-	s.RiskGroupDesc = &v
+func (s *ServiceContext) SetClientIp(v string) *ServiceContext {
+	s.ClientIp = &v
 	return s
 }
 
-func (s *RiskInfo) SetRiskGroup(v string) *RiskInfo {
-	s.RiskGroup = &v
+func (s *ServiceContext) SetClientPcidguid(v string) *ServiceContext {
+	s.ClientPcidguid = &v
 	return s
 }
 
-func (s *RiskInfo) SetRiskGroupCategory(v string) *RiskInfo {
-	s.RiskGroupCategory = &v
+func (s *ServiceContext) SetServerName(v string) *ServiceContext {
+	s.ServerName = &v
 	return s
 }
 
-func (s *RiskInfo) SetRiskDetails(v []*RiskDetail) *RiskInfo {
-	s.RiskDetails = v
+func (s *ServiceContext) SetSessionId(v string) *ServiceContext {
+	s.SessionId = &v
 	return s
 }
 
-// 安全场景参数
-type SecurityScene struct {
-	// 接入渠道
-	AccessChannel *string `json:"access_channel,omitempty" xml:"access_channel,omitempty"`
-	// 事件信息
-	CtuParams *string `json:"ctu_params,omitempty" xml:"ctu_params,omitempty"`
-	// 产品名称
-	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty"`
-	// 产品节点
-	ProductNode *string `json:"product_node,omitempty" xml:"product_node,omitempty"`
-	// 扩展参数
-	SecuritySceneParams *string `json:"security_scene_params,omitempty" xml:"security_scene_params,omitempty"`
-	// 系统名称
-	SystemName *string `json:"system_name,omitempty" xml:"system_name,omitempty"`
-	// 总金额
-	TotalFee *string `json:"total_fee,omitempty" xml:"total_fee,omitempty"`
+func (s *ServiceContext) SetUserId(v string) *ServiceContext {
+	s.UserId = &v
+	return s
 }
 
-func (s SecurityScene) String() string {
+// 模型结果详情
+//
+type ModelDetails struct {
+	// 风险场景编码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 该风险场景的风险分值
+	//
+	Score *string `json:"score,omitempty" xml:"score,omitempty" require:"true"`
+}
+
+func (s ModelDetails) String() string {
 	return tea.Prettify(s)
 }
 
-func (s SecurityScene) GoString() string {
+func (s ModelDetails) GoString() string {
 	return s.String()
 }
 
-func (s *SecurityScene) SetAccessChannel(v string) *SecurityScene {
-	s.AccessChannel = &v
+func (s *ModelDetails) SetSceneCode(v string) *ModelDetails {
+	s.SceneCode = &v
 	return s
 }
 
-func (s *SecurityScene) SetCtuParams(v string) *SecurityScene {
-	s.CtuParams = &v
+func (s *ModelDetails) SetScore(v string) *ModelDetails {
+	s.Score = &v
 	return s
 }
 
-func (s *SecurityScene) SetProductName(v string) *SecurityScene {
-	s.ProductName = &v
+// 企业舆情数量
+type RtopCompanyOpinionCount struct {
+	// 企业名称
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
+	// 企业对应的舆情数量
+	Count *int `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+}
+
+func (s RtopCompanyOpinionCount) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopCompanyOpinionCount) GoString() string {
+	return s.String()
+}
+
+func (s *RtopCompanyOpinionCount) SetCompanyName(v string) *RtopCompanyOpinionCount {
+	s.CompanyName = &v
 	return s
 }
 
-func (s *SecurityScene) SetProductNode(v string) *SecurityScene {
-	s.ProductNode = &v
-	return s
-}
-
-func (s *SecurityScene) SetSecuritySceneParams(v string) *SecurityScene {
-	s.SecuritySceneParams = &v
-	return s
-}
-
-func (s *SecurityScene) SetSystemName(v string) *SecurityScene {
-	s.SystemName = &v
-	return s
-}
-
-func (s *SecurityScene) SetTotalFee(v string) *SecurityScene {
-	s.TotalFee = &v
+func (s *RtopCompanyOpinionCount) SetCount(v int) *RtopCompanyOpinionCount {
+	s.Count = &v
 	return s
 }
 
@@ -2113,158 +3104,438 @@ func (s *RtopRegionalDistribution) SetTypeDistribution(v []*RtopTypeDistribution
 	return s
 }
 
-// 企业影响人数年龄分布统计
-type RtopAgeDistribution struct {
-	// 年龄
-	Age *string `json:"age,omitempty" xml:"age,omitempty" require:"true"`
-	// 统计值
-	Count *int `json:"count,omitempty" xml:"count,omitempty" require:"true"`
-}
-
-func (s RtopAgeDistribution) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopAgeDistribution) GoString() string {
-	return s.String()
-}
-
-func (s *RtopAgeDistribution) SetAge(v string) *RtopAgeDistribution {
-	s.Age = &v
-	return s
-}
-
-func (s *RtopAgeDistribution) SetCount(v int) *RtopAgeDistribution {
-	s.Count = &v
-	return s
-}
-
-// 机构平台通知响应结果
-type DefinInnerChannelNotifyResult struct {
-	// 请求编号
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
-	// 业务响应Json
-	BizResponse *string `json:"biz_response,omitempty" xml:"biz_response,omitempty" require:"true"`
-}
-
-func (s DefinInnerChannelNotifyResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DefinInnerChannelNotifyResult) GoString() string {
-	return s.String()
-}
-
-func (s *DefinInnerChannelNotifyResult) SetRequestId(v string) *DefinInnerChannelNotifyResult {
-	s.RequestId = &v
-	return s
-}
-
-func (s *DefinInnerChannelNotifyResult) SetBizResponse(v string) *DefinInnerChannelNotifyResult {
-	s.BizResponse = &v
-	return s
-}
-
-// 标签配置全量信息
-type RiskLabelConfigInfo struct {
-	// id
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 线索ID
-	TagId *string `json:"tag_id,omitempty" xml:"tag_id,omitempty" require:"true"`
-	// 标签文本
-	TagText *string `json:"tag_text,omitempty" xml:"tag_text,omitempty" require:"true"`
-	// 风险维度
-	RiskDimensionType *string `json:"risk_dimension_type,omitempty" xml:"risk_dimension_type,omitempty" require:"true"`
-	// 线索类型
-	RiskDetailType *string `json:"risk_detail_type,omitempty" xml:"risk_detail_type,omitempty" require:"true"`
-	// 趋势图表名
-	TagTrendChartName *string `json:"tag_trend_chart_name,omitempty" xml:"tag_trend_chart_name,omitempty" require:"true"`
-	// 线索列表表头，英文逗号分隔
-	TagListHeaders *string `json:"tag_list_headers,omitempty" xml:"tag_list_headers,omitempty" require:"true"`
-	// 标签列表，排序字段
-	TagListOrderColumn *string `json:"tag_list_order_column,omitempty" xml:"tag_list_order_column,omitempty" require:"true"`
-	// 标签列表排序方式
-	TagListOrderType *string `json:"tag_list_order_type,omitempty" xml:"tag_list_order_type,omitempty" require:"true"`
-	// 标记删除
-	IsDelete *int64 `json:"is_delete,omitempty" xml:"is_delete,omitempty" require:"true"`
+// 标签过滤配置
+type RiskLabelFilterConfigInfo struct {
 	// 创建时间
 	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 修改时间
 	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 操作人ID
+	// id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 是否为基本筛选标签
+	IsBase *int64 `json:"is_base,omitempty" xml:"is_base,omitempty" require:"true"`
+	// 标记删除
+	IsDelete *int64 `json:"is_delete,omitempty" xml:"is_delete,omitempty" require:"true"`
+	// 操作人员ID
 	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
+	// 地区名
+	PlaceName *string `json:"place_name,omitempty" xml:"place_name,omitempty" require:"true"`
+	// 地区类型
+	PlaceType *string `json:"place_type,omitempty" xml:"place_type,omitempty" require:"true"`
+	// 标签ID
+	TagId *string `json:"tag_id,omitempty" xml:"tag_id,omitempty" require:"true"`
 }
 
-func (s RiskLabelConfigInfo) String() string {
+func (s RiskLabelFilterConfigInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s RiskLabelConfigInfo) GoString() string {
+func (s RiskLabelFilterConfigInfo) GoString() string {
 	return s.String()
 }
 
-func (s *RiskLabelConfigInfo) SetId(v int64) *RiskLabelConfigInfo {
-	s.Id = &v
-	return s
-}
-
-func (s *RiskLabelConfigInfo) SetTagId(v string) *RiskLabelConfigInfo {
-	s.TagId = &v
-	return s
-}
-
-func (s *RiskLabelConfigInfo) SetTagText(v string) *RiskLabelConfigInfo {
-	s.TagText = &v
-	return s
-}
-
-func (s *RiskLabelConfigInfo) SetRiskDimensionType(v string) *RiskLabelConfigInfo {
-	s.RiskDimensionType = &v
-	return s
-}
-
-func (s *RiskLabelConfigInfo) SetRiskDetailType(v string) *RiskLabelConfigInfo {
-	s.RiskDetailType = &v
-	return s
-}
-
-func (s *RiskLabelConfigInfo) SetTagTrendChartName(v string) *RiskLabelConfigInfo {
-	s.TagTrendChartName = &v
-	return s
-}
-
-func (s *RiskLabelConfigInfo) SetTagListHeaders(v string) *RiskLabelConfigInfo {
-	s.TagListHeaders = &v
-	return s
-}
-
-func (s *RiskLabelConfigInfo) SetTagListOrderColumn(v string) *RiskLabelConfigInfo {
-	s.TagListOrderColumn = &v
-	return s
-}
-
-func (s *RiskLabelConfigInfo) SetTagListOrderType(v string) *RiskLabelConfigInfo {
-	s.TagListOrderType = &v
-	return s
-}
-
-func (s *RiskLabelConfigInfo) SetIsDelete(v int64) *RiskLabelConfigInfo {
-	s.IsDelete = &v
-	return s
-}
-
-func (s *RiskLabelConfigInfo) SetGmtCreate(v string) *RiskLabelConfigInfo {
+func (s *RiskLabelFilterConfigInfo) SetGmtCreate(v string) *RiskLabelFilterConfigInfo {
 	s.GmtCreate = &v
 	return s
 }
 
-func (s *RiskLabelConfigInfo) SetGmtModified(v string) *RiskLabelConfigInfo {
+func (s *RiskLabelFilterConfigInfo) SetGmtModified(v string) *RiskLabelFilterConfigInfo {
 	s.GmtModified = &v
 	return s
 }
 
-func (s *RiskLabelConfigInfo) SetOperatorId(v string) *RiskLabelConfigInfo {
+func (s *RiskLabelFilterConfigInfo) SetId(v int64) *RiskLabelFilterConfigInfo {
+	s.Id = &v
+	return s
+}
+
+func (s *RiskLabelFilterConfigInfo) SetIsBase(v int64) *RiskLabelFilterConfigInfo {
+	s.IsBase = &v
+	return s
+}
+
+func (s *RiskLabelFilterConfigInfo) SetIsDelete(v int64) *RiskLabelFilterConfigInfo {
+	s.IsDelete = &v
+	return s
+}
+
+func (s *RiskLabelFilterConfigInfo) SetOperatorId(v string) *RiskLabelFilterConfigInfo {
 	s.OperatorId = &v
+	return s
+}
+
+func (s *RiskLabelFilterConfigInfo) SetPlaceName(v string) *RiskLabelFilterConfigInfo {
+	s.PlaceName = &v
+	return s
+}
+
+func (s *RiskLabelFilterConfigInfo) SetPlaceType(v string) *RiskLabelFilterConfigInfo {
+	s.PlaceType = &v
+	return s
+}
+
+func (s *RiskLabelFilterConfigInfo) SetTagId(v string) *RiskLabelFilterConfigInfo {
+	s.TagId = &v
+	return s
+}
+
+// 天枢系统职业信息
+type JobInfo struct {
+	// 职业
+	JobType *string `json:"job_type,omitempty" xml:"job_type,omitempty"`
+	// 职务
+	WorkPosition *string `json:"work_position,omitempty" xml:"work_position,omitempty"`
+	// 工作年限
+	JobLife *string `json:"job_life,omitempty" xml:"job_life,omitempty"`
+	// 本单位工作年限
+	CurrentJobLife *int64 `json:"current_job_life,omitempty" xml:"current_job_life,omitempty"`
+	// 公司名称
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty"`
+	// 公司行业类型
+	CompanyIndustryType *string `json:"company_industry_type,omitempty" xml:"company_industry_type,omitempty"`
+	// 公司电话
+	CompanyTel *string `json:"company_tel,omitempty" xml:"company_tel,omitempty"`
+	// 公司省份
+	CompanyProvince *string `json:"company_province,omitempty" xml:"company_province,omitempty"`
+	// 公司城市
+	CompanyCity *string `json:"company_city,omitempty" xml:"company_city,omitempty"`
+	// 公司区域
+	CompanyArea *string `json:"company_area,omitempty" xml:"company_area,omitempty"`
+	// 公司街道
+	CompanyStreet *string `json:"company_street,omitempty" xml:"company_street,omitempty"`
+	// 公司详细地址
+	CompanyAddress *string `json:"company_address,omitempty" xml:"company_address,omitempty"`
+	// 年收入
+	YearSalary *int64 `json:"year_salary,omitempty" xml:"year_salary,omitempty"`
+}
+
+func (s JobInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s JobInfo) GoString() string {
+	return s.String()
+}
+
+func (s *JobInfo) SetJobType(v string) *JobInfo {
+	s.JobType = &v
+	return s
+}
+
+func (s *JobInfo) SetWorkPosition(v string) *JobInfo {
+	s.WorkPosition = &v
+	return s
+}
+
+func (s *JobInfo) SetJobLife(v string) *JobInfo {
+	s.JobLife = &v
+	return s
+}
+
+func (s *JobInfo) SetCurrentJobLife(v int64) *JobInfo {
+	s.CurrentJobLife = &v
+	return s
+}
+
+func (s *JobInfo) SetCompanyName(v string) *JobInfo {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *JobInfo) SetCompanyIndustryType(v string) *JobInfo {
+	s.CompanyIndustryType = &v
+	return s
+}
+
+func (s *JobInfo) SetCompanyTel(v string) *JobInfo {
+	s.CompanyTel = &v
+	return s
+}
+
+func (s *JobInfo) SetCompanyProvince(v string) *JobInfo {
+	s.CompanyProvince = &v
+	return s
+}
+
+func (s *JobInfo) SetCompanyCity(v string) *JobInfo {
+	s.CompanyCity = &v
+	return s
+}
+
+func (s *JobInfo) SetCompanyArea(v string) *JobInfo {
+	s.CompanyArea = &v
+	return s
+}
+
+func (s *JobInfo) SetCompanyStreet(v string) *JobInfo {
+	s.CompanyStreet = &v
+	return s
+}
+
+func (s *JobInfo) SetCompanyAddress(v string) *JobInfo {
+	s.CompanyAddress = &v
+	return s
+}
+
+func (s *JobInfo) SetYearSalary(v int64) *JobInfo {
+	s.YearSalary = &v
+	return s
+}
+
+// 涉众风险企业特征
+type RtopCrowdRiskFeatureResp struct {
+	// 特征标签列表
+	ClueTags []*RtopCrowdRiskFeatureTag `json:"clue_tags,omitempty" xml:"clue_tags,omitempty" type:"Repeated"`
+	// 特征名称
+	FeatureName *string `json:"feature_name,omitempty" xml:"feature_name,omitempty" require:"true"`
+	// 特征​分数
+	Score *int `json:"score,omitempty" xml:"score,omitempty" require:"true"`
+}
+
+func (s RtopCrowdRiskFeatureResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopCrowdRiskFeatureResp) GoString() string {
+	return s.String()
+}
+
+func (s *RtopCrowdRiskFeatureResp) SetClueTags(v []*RtopCrowdRiskFeatureTag) *RtopCrowdRiskFeatureResp {
+	s.ClueTags = v
+	return s
+}
+
+func (s *RtopCrowdRiskFeatureResp) SetFeatureName(v string) *RtopCrowdRiskFeatureResp {
+	s.FeatureName = &v
+	return s
+}
+
+func (s *RtopCrowdRiskFeatureResp) SetScore(v int) *RtopCrowdRiskFeatureResp {
+	s.Score = &v
+	return s
+}
+
+// 天枢系统居住信息结构体
+type LiveInfo struct {
+	// 居住省份
+	LiveProvince *string `json:"live_province,omitempty" xml:"live_province,omitempty"`
+	// 居住城市
+	LiveCity *string `json:"live_city,omitempty" xml:"live_city,omitempty"`
+	// 居住区域
+	LiveArea *string `json:"live_area,omitempty" xml:"live_area,omitempty"`
+	// 居住街道
+	LiveStreet *string `json:"live_street,omitempty" xml:"live_street,omitempty"`
+	// 居住详细地址
+	LiveAddress *string `json:"live_address,omitempty" xml:"live_address,omitempty"`
+	// 居住年限
+	LiveYears *int64 `json:"live_years,omitempty" xml:"live_years,omitempty"`
+}
+
+func (s LiveInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LiveInfo) GoString() string {
+	return s.String()
+}
+
+func (s *LiveInfo) SetLiveProvince(v string) *LiveInfo {
+	s.LiveProvince = &v
+	return s
+}
+
+func (s *LiveInfo) SetLiveCity(v string) *LiveInfo {
+	s.LiveCity = &v
+	return s
+}
+
+func (s *LiveInfo) SetLiveArea(v string) *LiveInfo {
+	s.LiveArea = &v
+	return s
+}
+
+func (s *LiveInfo) SetLiveStreet(v string) *LiveInfo {
+	s.LiveStreet = &v
+	return s
+}
+
+func (s *LiveInfo) SetLiveAddress(v string) *LiveInfo {
+	s.LiveAddress = &v
+	return s
+}
+
+func (s *LiveInfo) SetLiveYears(v int64) *LiveInfo {
+	s.LiveYears = &v
+	return s
+}
+
+// 风报风险标签统计
+type RiskStormLabelResp struct {
+	// 标签次数
+	LabelCount *int `json:"label_count,omitempty" xml:"label_count,omitempty" require:"true"`
+	// 标签id
+	LabelId *string `json:"label_id,omitempty" xml:"label_id,omitempty" require:"true"`
+	// 标签名称
+	LabelName *string `json:"label_name,omitempty" xml:"label_name,omitempty" require:"true"`
+}
+
+func (s RiskStormLabelResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RiskStormLabelResp) GoString() string {
+	return s.String()
+}
+
+func (s *RiskStormLabelResp) SetLabelCount(v int) *RiskStormLabelResp {
+	s.LabelCount = &v
+	return s
+}
+
+func (s *RiskStormLabelResp) SetLabelId(v string) *RiskStormLabelResp {
+	s.LabelId = &v
+	return s
+}
+
+func (s *RiskStormLabelResp) SetLabelName(v string) *RiskStormLabelResp {
+	s.LabelName = &v
+	return s
+}
+
+// 待还款信息
+type RepayInfo struct {
+	// true：逾期
+	// false：未逾期
+	OverdueFlag *bool `json:"overdue_flag,omitempty" xml:"overdue_flag,omitempty" require:"true"`
+	// 逾期天数
+	OverDays *int64 `json:"over_days,omitempty" xml:"over_days,omitempty" require:"true"`
+	// 逾期金额在50元以上的客户的逾期天数
+	ValuableOverDays *int64 `json:"valuable_over_days,omitempty" xml:"valuable_over_days,omitempty" require:"true"`
+	// 逾期期数
+	OverPeriodCount *int64 `json:"over_period_count,omitempty" xml:"over_period_count,omitempty" require:"true"`
+	// 逾期本金
+	OverPrincipal *int64 `json:"over_principal,omitempty" xml:"over_principal,omitempty" require:"true"`
+	// 逾期利息
+	OverInterest *int64 `json:"over_interest,omitempty" xml:"over_interest,omitempty" require:"true"`
+	// 应还罚息
+	OverPunish *int64 `json:"over_punish,omitempty" xml:"over_punish,omitempty" require:"true"`
+	// 应还逾期总额
+	NeedOverdueAmount *int64 `json:"need_overdue_amount,omitempty" xml:"need_overdue_amount,omitempty" require:"true"`
+	// 当前应还总额（包含逾期和当前期）
+	CurrentNeedAmount *int64 `json:"current_need_amount,omitempty" xml:"current_need_amount,omitempty" require:"true"`
+	// 总剩余应还
+	TotalAmount *int64 `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
+}
+
+func (s RepayInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RepayInfo) GoString() string {
+	return s.String()
+}
+
+func (s *RepayInfo) SetOverdueFlag(v bool) *RepayInfo {
+	s.OverdueFlag = &v
+	return s
+}
+
+func (s *RepayInfo) SetOverDays(v int64) *RepayInfo {
+	s.OverDays = &v
+	return s
+}
+
+func (s *RepayInfo) SetValuableOverDays(v int64) *RepayInfo {
+	s.ValuableOverDays = &v
+	return s
+}
+
+func (s *RepayInfo) SetOverPeriodCount(v int64) *RepayInfo {
+	s.OverPeriodCount = &v
+	return s
+}
+
+func (s *RepayInfo) SetOverPrincipal(v int64) *RepayInfo {
+	s.OverPrincipal = &v
+	return s
+}
+
+func (s *RepayInfo) SetOverInterest(v int64) *RepayInfo {
+	s.OverInterest = &v
+	return s
+}
+
+func (s *RepayInfo) SetOverPunish(v int64) *RepayInfo {
+	s.OverPunish = &v
+	return s
+}
+
+func (s *RepayInfo) SetNeedOverdueAmount(v int64) *RepayInfo {
+	s.NeedOverdueAmount = &v
+	return s
+}
+
+func (s *RepayInfo) SetCurrentNeedAmount(v int64) *RepayInfo {
+	s.CurrentNeedAmount = &v
+	return s
+}
+
+func (s *RepayInfo) SetTotalAmount(v int64) *RepayInfo {
+	s.TotalAmount = &v
+	return s
+}
+
+// 芝麻四要素认证接口
+type ZhimaIdentifyResp struct {
+	// 唯一ID，接口正常的话有此字段
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty"`
+	// 带参数的回调地址，接口正常的话有此字段
+	CertifyUrl *string `json:"certify_url,omitempty" xml:"certify_url,omitempty"`
+	// 蚂蚁调用芝麻的错误码
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty" require:"true"`
+	// 蚂蚁调用芝麻的结果描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty" require:"true"`
+	// 蚂蚁调用芝麻的错误码
+	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
+	// 蚂蚁调用芝麻信息
+	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
+}
+
+func (s ZhimaIdentifyResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ZhimaIdentifyResp) GoString() string {
+	return s.String()
+}
+
+func (s *ZhimaIdentifyResp) SetBizNo(v string) *ZhimaIdentifyResp {
+	s.BizNo = &v
+	return s
+}
+
+func (s *ZhimaIdentifyResp) SetCertifyUrl(v string) *ZhimaIdentifyResp {
+	s.CertifyUrl = &v
+	return s
+}
+
+func (s *ZhimaIdentifyResp) SetResultCode(v string) *ZhimaIdentifyResp {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ZhimaIdentifyResp) SetResultMsg(v string) *ZhimaIdentifyResp {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ZhimaIdentifyResp) SetSubCode(v string) *ZhimaIdentifyResp {
+	s.SubCode = &v
+	return s
+}
+
+func (s *ZhimaIdentifyResp) SetSubMsg(v string) *ZhimaIdentifyResp {
+	s.SubMsg = &v
 	return s
 }
 
@@ -2335,468 +3606,6 @@ func (s *CreditAmount) SetRepayWay(v string) *CreditAmount {
 
 func (s *CreditAmount) SetStatus(v string) *CreditAmount {
 	s.Status = &v
-	return s
-}
-
-// 企业影响人数性别分布统计
-type RtopGenderDistribution struct {
-	// 统计值
-	Count *int `json:"count,omitempty" xml:"count,omitempty" require:"true"`
-	// 性别
-	Gender *string `json:"gender,omitempty" xml:"gender,omitempty" require:"true"`
-}
-
-func (s RtopGenderDistribution) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopGenderDistribution) GoString() string {
-	return s.String()
-}
-
-func (s *RtopGenderDistribution) SetCount(v int) *RtopGenderDistribution {
-	s.Count = &v
-	return s
-}
-
-func (s *RtopGenderDistribution) SetGender(v string) *RtopGenderDistribution {
-	s.Gender = &v
-	return s
-}
-
-// 天枢系统专用RepayRef结构体
-type RepayRef struct {
-	// 客户编码
-	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty" require:"true"`
-	// 当前期数
-	Period *string `json:"period,omitempty" xml:"period,omitempty" require:"true"`
-	// 应还总额
-	NeedAmount *int64 `json:"need_amount,omitempty" xml:"need_amount,omitempty" require:"true"`
-	// 应还本金
-	TransPrincipal *int64 `json:"trans_principal,omitempty" xml:"trans_principal,omitempty" require:"true"`
-	// 应还利息
-	NeedAccrual *int64 `json:"need_accrual,omitempty" xml:"need_accrual,omitempty" require:"true"`
-	// 应还手续费
-	NeedFee *int64 `json:"need_fee,omitempty" xml:"need_fee,omitempty" require:"true"`
-	// 已还总额
-	AlreadyAmount *int64 `json:"already_amount,omitempty" xml:"already_amount,omitempty" require:"true"`
-	// 已还本金
-	AlreadyCorpus *int64 `json:"already_corpus,omitempty" xml:"already_corpus,omitempty" require:"true"`
-	// 已还逾期本金
-	AlreadyOvercorpus *int64 `json:"already_overcorpus,omitempty" xml:"already_overcorpus,omitempty" require:"true"`
-	// 已还利息
-	AlreadyAccrual *int64 `json:"already_accrual,omitempty" xml:"already_accrual,omitempty" require:"true"`
-	// 已还逾期息
-	AlreadyPunish *int64 `json:"already_punish,omitempty" xml:"already_punish,omitempty" require:"true"`
-	// 已还手续费
-	AlreadyFee *int64 `json:"already_fee,omitempty" xml:"already_fee,omitempty" require:"true"`
-	// 利率
-	Rate *int64 `json:"rate,omitempty" xml:"rate,omitempty" require:"true"`
-	// 罚息率
-	PenaltyValue *int64 `json:"penalty_value,omitempty" xml:"penalty_value,omitempty" require:"true"`
-	// 当期剩余总额
-	RestAmount *int64 `json:"rest_amount,omitempty" xml:"rest_amount,omitempty" require:"true"`
-	// 当期剩余本金
-	RestCorpus *int64 `json:"rest_corpus,omitempty" xml:"rest_corpus,omitempty" require:"true"`
-	// 当期剩余利息
-	RestAccrual *int64 `json:"rest_accrual,omitempty" xml:"rest_accrual,omitempty" require:"true"`
-	// 当期剩余罚息
-	RestPunish *int64 `json:"rest_punish,omitempty" xml:"rest_punish,omitempty" require:"true"`
-	// 期末本金
-	RemainCorpus *int64 `json:"remain_corpus,omitempty" xml:"remain_corpus,omitempty" require:"true"`
-	// 借据编号
-	ReceiptNo *string `json:"receipt_no,omitempty" xml:"receipt_no,omitempty" require:"true"`
-	// 还款状态1：已还清 2 未还 3 部分还款
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 应还日期
-	SettleDate *string `json:"settle_date,omitempty" xml:"settle_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 还款日期
-	TradeDate *string `json:"trade_date,omitempty" xml:"trade_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s RepayRef) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RepayRef) GoString() string {
-	return s.String()
-}
-
-func (s *RepayRef) SetCustomNo(v string) *RepayRef {
-	s.CustomNo = &v
-	return s
-}
-
-func (s *RepayRef) SetPeriod(v string) *RepayRef {
-	s.Period = &v
-	return s
-}
-
-func (s *RepayRef) SetNeedAmount(v int64) *RepayRef {
-	s.NeedAmount = &v
-	return s
-}
-
-func (s *RepayRef) SetTransPrincipal(v int64) *RepayRef {
-	s.TransPrincipal = &v
-	return s
-}
-
-func (s *RepayRef) SetNeedAccrual(v int64) *RepayRef {
-	s.NeedAccrual = &v
-	return s
-}
-
-func (s *RepayRef) SetNeedFee(v int64) *RepayRef {
-	s.NeedFee = &v
-	return s
-}
-
-func (s *RepayRef) SetAlreadyAmount(v int64) *RepayRef {
-	s.AlreadyAmount = &v
-	return s
-}
-
-func (s *RepayRef) SetAlreadyCorpus(v int64) *RepayRef {
-	s.AlreadyCorpus = &v
-	return s
-}
-
-func (s *RepayRef) SetAlreadyOvercorpus(v int64) *RepayRef {
-	s.AlreadyOvercorpus = &v
-	return s
-}
-
-func (s *RepayRef) SetAlreadyAccrual(v int64) *RepayRef {
-	s.AlreadyAccrual = &v
-	return s
-}
-
-func (s *RepayRef) SetAlreadyPunish(v int64) *RepayRef {
-	s.AlreadyPunish = &v
-	return s
-}
-
-func (s *RepayRef) SetAlreadyFee(v int64) *RepayRef {
-	s.AlreadyFee = &v
-	return s
-}
-
-func (s *RepayRef) SetRate(v int64) *RepayRef {
-	s.Rate = &v
-	return s
-}
-
-func (s *RepayRef) SetPenaltyValue(v int64) *RepayRef {
-	s.PenaltyValue = &v
-	return s
-}
-
-func (s *RepayRef) SetRestAmount(v int64) *RepayRef {
-	s.RestAmount = &v
-	return s
-}
-
-func (s *RepayRef) SetRestCorpus(v int64) *RepayRef {
-	s.RestCorpus = &v
-	return s
-}
-
-func (s *RepayRef) SetRestAccrual(v int64) *RepayRef {
-	s.RestAccrual = &v
-	return s
-}
-
-func (s *RepayRef) SetRestPunish(v int64) *RepayRef {
-	s.RestPunish = &v
-	return s
-}
-
-func (s *RepayRef) SetRemainCorpus(v int64) *RepayRef {
-	s.RemainCorpus = &v
-	return s
-}
-
-func (s *RepayRef) SetReceiptNo(v string) *RepayRef {
-	s.ReceiptNo = &v
-	return s
-}
-
-func (s *RepayRef) SetStatus(v string) *RepayRef {
-	s.Status = &v
-	return s
-}
-
-func (s *RepayRef) SetSettleDate(v string) *RepayRef {
-	s.SettleDate = &v
-	return s
-}
-
-func (s *RepayRef) SetTradeDate(v string) *RepayRef {
-	s.TradeDate = &v
-	return s
-}
-
-// 全局动态中的企业
-type RtopRiskyCompany struct {
-	// 企业ID
-	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
-	// 异动分数
-	ChangeScore *string `json:"change_score,omitempty" xml:"change_score,omitempty" require:"true"`
-	// 异动程度
-	ChangeLevel *string `json:"change_level,omitempty" xml:"change_level,omitempty" require:"true"`
-	// 新增企业的时间
-	NewAddedTime *string `json:"new_added_time,omitempty" xml:"new_added_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 总公司注册地
-	HeadRegisterPlace *string `json:"head_register_place,omitempty" xml:"head_register_place,omitempty" require:"true"`
-	// 数据的时间
-	DataTime *string `json:"data_time,omitempty" xml:"data_time,omitempty" require:"true"`
-}
-
-func (s RtopRiskyCompany) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopRiskyCompany) GoString() string {
-	return s.String()
-}
-
-func (s *RtopRiskyCompany) SetCompanyId(v string) *RtopRiskyCompany {
-	s.CompanyId = &v
-	return s
-}
-
-func (s *RtopRiskyCompany) SetChangeScore(v string) *RtopRiskyCompany {
-	s.ChangeScore = &v
-	return s
-}
-
-func (s *RtopRiskyCompany) SetChangeLevel(v string) *RtopRiskyCompany {
-	s.ChangeLevel = &v
-	return s
-}
-
-func (s *RtopRiskyCompany) SetNewAddedTime(v string) *RtopRiskyCompany {
-	s.NewAddedTime = &v
-	return s
-}
-
-func (s *RtopRiskyCompany) SetHeadRegisterPlace(v string) *RtopRiskyCompany {
-	s.HeadRegisterPlace = &v
-	return s
-}
-
-func (s *RtopRiskyCompany) SetDataTime(v string) *RtopRiskyCompany {
-	s.DataTime = &v
-	return s
-}
-
-// zhima.customer.ep.identification.query
-// 在认证完成后,商户可以查询认证的状态和结果
-//
-type ZhimaQueryResp struct {
-	// 认证的企业证件号
-	EpCertNo *string `json:"ep_cert_no,omitempty" xml:"ep_cert_no,omitempty"`
-	// 认证的企业名
-	EpName *string `json:"ep_name,omitempty" xml:"ep_name,omitempty"`
-	// 认证不通过的错误码
-	FailedCode *string `json:"failed_code,omitempty" xml:"failed_code,omitempty"`
-	// 认证是否通过，通过为true，不通过为false
-	Passed *string `json:"passed,omitempty" xml:"passed,omitempty"`
-	//  10000是成功，其余是失败
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty" require:"true"`
-	//
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty" require:"true"`
-	//
-	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
-	//
-	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
-}
-
-func (s ZhimaQueryResp) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ZhimaQueryResp) GoString() string {
-	return s.String()
-}
-
-func (s *ZhimaQueryResp) SetEpCertNo(v string) *ZhimaQueryResp {
-	s.EpCertNo = &v
-	return s
-}
-
-func (s *ZhimaQueryResp) SetEpName(v string) *ZhimaQueryResp {
-	s.EpName = &v
-	return s
-}
-
-func (s *ZhimaQueryResp) SetFailedCode(v string) *ZhimaQueryResp {
-	s.FailedCode = &v
-	return s
-}
-
-func (s *ZhimaQueryResp) SetPassed(v string) *ZhimaQueryResp {
-	s.Passed = &v
-	return s
-}
-
-func (s *ZhimaQueryResp) SetResultCode(v string) *ZhimaQueryResp {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *ZhimaQueryResp) SetResultMsg(v string) *ZhimaQueryResp {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *ZhimaQueryResp) SetSubCode(v string) *ZhimaQueryResp {
-	s.SubCode = &v
-	return s
-}
-
-func (s *ZhimaQueryResp) SetSubMsg(v string) *ZhimaQueryResp {
-	s.SubMsg = &v
-	return s
-}
-
-// 企业影响人数分布统计
-type RtopPopulationDistribution struct {
-	// 市
-	City *string `json:"city,omitempty" xml:"city,omitempty" require:"true"`
-	// 统计值
-	Count *int `json:"count,omitempty" xml:"count,omitempty" require:"true"`
-}
-
-func (s RtopPopulationDistribution) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopPopulationDistribution) GoString() string {
-	return s.String()
-}
-
-func (s *RtopPopulationDistribution) SetCity(v string) *RtopPopulationDistribution {
-	s.City = &v
-	return s
-}
-
-func (s *RtopPopulationDistribution) SetCount(v int) *RtopPopulationDistribution {
-	s.Count = &v
-	return s
-}
-
-// 企业反馈
-type RtopCompanyFeedback struct {
-	// 主键
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 企业ID
-	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
-	// 反馈原因
-	FeedbackReason *string `json:"feedback_reason,omitempty" xml:"feedback_reason,omitempty" require:"true"`
-	// 反馈原因详情
-	FeedbackReasonDetail *string `json:"feedback_reason_detail,omitempty" xml:"feedback_reason_detail,omitempty" require:"true"`
-	// 评论
-	Comment *string `json:"comment,omitempty" xml:"comment,omitempty" require:"true"`
-}
-
-func (s RtopCompanyFeedback) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopCompanyFeedback) GoString() string {
-	return s.String()
-}
-
-func (s *RtopCompanyFeedback) SetId(v int64) *RtopCompanyFeedback {
-	s.Id = &v
-	return s
-}
-
-func (s *RtopCompanyFeedback) SetCompanyId(v string) *RtopCompanyFeedback {
-	s.CompanyId = &v
-	return s
-}
-
-func (s *RtopCompanyFeedback) SetFeedbackReason(v string) *RtopCompanyFeedback {
-	s.FeedbackReason = &v
-	return s
-}
-
-func (s *RtopCompanyFeedback) SetFeedbackReasonDetail(v string) *RtopCompanyFeedback {
-	s.FeedbackReasonDetail = &v
-	return s
-}
-
-func (s *RtopCompanyFeedback) SetComment(v string) *RtopCompanyFeedback {
-	s.Comment = &v
-	return s
-}
-
-// 企业日期趋势统计
-type RtopDateDistribution struct {
-	// 统计值
-	Count *int `json:"count,omitempty" xml:"count,omitempty" require:"true"`
-	// 年龄
-	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s RtopDateDistribution) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopDateDistribution) GoString() string {
-	return s.String()
-}
-
-func (s *RtopDateDistribution) SetCount(v int) *RtopDateDistribution {
-	s.Count = &v
-	return s
-}
-
-func (s *RtopDateDistribution) SetDate(v string) *RtopDateDistribution {
-	s.Date = &v
-	return s
-}
-
-// 策略详情
-type StrategyDetails struct {
-	// 策略id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 策略名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 决策结果
-	Decision *string `json:"decision,omitempty" xml:"decision,omitempty" require:"true"`
-	// 场景码
-	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
-}
-
-func (s StrategyDetails) String() string {
-	return tea.Prettify(s)
-}
-
-func (s StrategyDetails) GoString() string {
-	return s.String()
-}
-
-func (s *StrategyDetails) SetId(v string) *StrategyDetails {
-	s.Id = &v
-	return s
-}
-
-func (s *StrategyDetails) SetName(v string) *StrategyDetails {
-	s.Name = &v
-	return s
-}
-
-func (s *StrategyDetails) SetDecision(v string) *StrategyDetails {
-	s.Decision = &v
-	return s
-}
-
-func (s *StrategyDetails) SetSceneCode(v string) *StrategyDetails {
-	s.SceneCode = &v
 	return s
 }
 
@@ -2933,697 +3742,6 @@ func (s *SmsReponse) SetMessage(v string) *SmsReponse {
 
 func (s *SmsReponse) SetRequestId(v string) *SmsReponse {
 	s.RequestId = &v
-	return s
-}
-
-// 模型结果详情
-//
-type ModelDetails struct {
-	// 风险场景编码
-	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
-	// 该风险场景的风险分值
-	//
-	Score *string `json:"score,omitempty" xml:"score,omitempty" require:"true"`
-}
-
-func (s ModelDetails) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ModelDetails) GoString() string {
-	return s.String()
-}
-
-func (s *ModelDetails) SetSceneCode(v string) *ModelDetails {
-	s.SceneCode = &v
-	return s
-}
-
-func (s *ModelDetails) SetScore(v string) *ModelDetails {
-	s.Score = &v
-	return s
-}
-
-// 天枢系统职业信息
-type JobInfo struct {
-	// 职业
-	JobType *string `json:"job_type,omitempty" xml:"job_type,omitempty"`
-	// 职务
-	WorkPosition *string `json:"work_position,omitempty" xml:"work_position,omitempty"`
-	// 工作年限
-	JobLife *string `json:"job_life,omitempty" xml:"job_life,omitempty"`
-	// 本单位工作年限
-	CurrentJobLife *int64 `json:"current_job_life,omitempty" xml:"current_job_life,omitempty"`
-	// 公司名称
-	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty"`
-	// 公司行业类型
-	CompanyIndustryType *string `json:"company_industry_type,omitempty" xml:"company_industry_type,omitempty"`
-	// 公司电话
-	CompanyTel *string `json:"company_tel,omitempty" xml:"company_tel,omitempty"`
-	// 公司省份
-	CompanyProvince *string `json:"company_province,omitempty" xml:"company_province,omitempty"`
-	// 公司城市
-	CompanyCity *string `json:"company_city,omitempty" xml:"company_city,omitempty"`
-	// 公司区域
-	CompanyArea *string `json:"company_area,omitempty" xml:"company_area,omitempty"`
-	// 公司街道
-	CompanyStreet *string `json:"company_street,omitempty" xml:"company_street,omitempty"`
-	// 公司详细地址
-	CompanyAddress *string `json:"company_address,omitempty" xml:"company_address,omitempty"`
-	// 年收入
-	YearSalary *int64 `json:"year_salary,omitempty" xml:"year_salary,omitempty"`
-}
-
-func (s JobInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s JobInfo) GoString() string {
-	return s.String()
-}
-
-func (s *JobInfo) SetJobType(v string) *JobInfo {
-	s.JobType = &v
-	return s
-}
-
-func (s *JobInfo) SetWorkPosition(v string) *JobInfo {
-	s.WorkPosition = &v
-	return s
-}
-
-func (s *JobInfo) SetJobLife(v string) *JobInfo {
-	s.JobLife = &v
-	return s
-}
-
-func (s *JobInfo) SetCurrentJobLife(v int64) *JobInfo {
-	s.CurrentJobLife = &v
-	return s
-}
-
-func (s *JobInfo) SetCompanyName(v string) *JobInfo {
-	s.CompanyName = &v
-	return s
-}
-
-func (s *JobInfo) SetCompanyIndustryType(v string) *JobInfo {
-	s.CompanyIndustryType = &v
-	return s
-}
-
-func (s *JobInfo) SetCompanyTel(v string) *JobInfo {
-	s.CompanyTel = &v
-	return s
-}
-
-func (s *JobInfo) SetCompanyProvince(v string) *JobInfo {
-	s.CompanyProvince = &v
-	return s
-}
-
-func (s *JobInfo) SetCompanyCity(v string) *JobInfo {
-	s.CompanyCity = &v
-	return s
-}
-
-func (s *JobInfo) SetCompanyArea(v string) *JobInfo {
-	s.CompanyArea = &v
-	return s
-}
-
-func (s *JobInfo) SetCompanyStreet(v string) *JobInfo {
-	s.CompanyStreet = &v
-	return s
-}
-
-func (s *JobInfo) SetCompanyAddress(v string) *JobInfo {
-	s.CompanyAddress = &v
-	return s
-}
-
-func (s *JobInfo) SetYearSalary(v int64) *JobInfo {
-	s.YearSalary = &v
-	return s
-}
-
-// 天枢系统个人信息结构体
-type PersonalInfo struct {
-	// 客户姓名
-	CustomName *string `json:"custom_name,omitempty" xml:"custom_name,omitempty" require:"true"`
-	// 身份证号码(18位)
-	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty" require:"true"`
-	// 1-身份证
-	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty" require:"true"`
-	// 证件开始日期(格式：YYYY-MM-DD)
-	//
-	CertSignDate *string `json:"cert_sign_date,omitempty" xml:"cert_sign_date,omitempty" require:"true"`
-	// 格式：YYYY-MM-DD，身份证有效期为长期的送: 9999-12-31
-	CertValidate *string `json:"cert_validate,omitempty" xml:"cert_validate,omitempty" require:"true"`
-	// 证件地址
-	CertAdr *string `json:"cert_adr,omitempty" xml:"cert_adr,omitempty" require:"true"`
-	// 手机号
-	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
-	// 学历
-	Education *string `json:"education,omitempty" xml:"education,omitempty" require:"true"`
-	// 所在省份 汉字
-	Province *string `json:"province,omitempty" xml:"province,omitempty"`
-	// 所在城市 汉字
-	City *string `json:"city,omitempty" xml:"city,omitempty"`
-	// 地区名称 汉字
-	Area *string `json:"area,omitempty" xml:"area,omitempty"`
-	// 详细地址
-	Address *string `json:"address,omitempty" xml:"address,omitempty"`
-	// 性别M-男
-	// F-女
-	Sex *string `json:"sex,omitempty" xml:"sex,omitempty"`
-	// 民族
-	Nation *string `json:"nation,omitempty" xml:"nation,omitempty"`
-}
-
-func (s PersonalInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PersonalInfo) GoString() string {
-	return s.String()
-}
-
-func (s *PersonalInfo) SetCustomName(v string) *PersonalInfo {
-	s.CustomName = &v
-	return s
-}
-
-func (s *PersonalInfo) SetCardNo(v string) *PersonalInfo {
-	s.CardNo = &v
-	return s
-}
-
-func (s *PersonalInfo) SetIdType(v string) *PersonalInfo {
-	s.IdType = &v
-	return s
-}
-
-func (s *PersonalInfo) SetCertSignDate(v string) *PersonalInfo {
-	s.CertSignDate = &v
-	return s
-}
-
-func (s *PersonalInfo) SetCertValidate(v string) *PersonalInfo {
-	s.CertValidate = &v
-	return s
-}
-
-func (s *PersonalInfo) SetCertAdr(v string) *PersonalInfo {
-	s.CertAdr = &v
-	return s
-}
-
-func (s *PersonalInfo) SetMobile(v string) *PersonalInfo {
-	s.Mobile = &v
-	return s
-}
-
-func (s *PersonalInfo) SetEducation(v string) *PersonalInfo {
-	s.Education = &v
-	return s
-}
-
-func (s *PersonalInfo) SetProvince(v string) *PersonalInfo {
-	s.Province = &v
-	return s
-}
-
-func (s *PersonalInfo) SetCity(v string) *PersonalInfo {
-	s.City = &v
-	return s
-}
-
-func (s *PersonalInfo) SetArea(v string) *PersonalInfo {
-	s.Area = &v
-	return s
-}
-
-func (s *PersonalInfo) SetAddress(v string) *PersonalInfo {
-	s.Address = &v
-	return s
-}
-
-func (s *PersonalInfo) SetSex(v string) *PersonalInfo {
-	s.Sex = &v
-	return s
-}
-
-func (s *PersonalInfo) SetNation(v string) *PersonalInfo {
-	s.Nation = &v
-	return s
-}
-
-// 涉众风险企业特征
-type RtopCrowdRiskFeatureResp struct {
-	// 特征标签列表
-	ClueTags []*RtopCrowdRiskFeatureTag `json:"clue_tags,omitempty" xml:"clue_tags,omitempty" type:"Repeated"`
-	// 特征名称
-	FeatureName *string `json:"feature_name,omitempty" xml:"feature_name,omitempty" require:"true"`
-	// 特征​分数
-	Score *int `json:"score,omitempty" xml:"score,omitempty" require:"true"`
-}
-
-func (s RtopCrowdRiskFeatureResp) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopCrowdRiskFeatureResp) GoString() string {
-	return s.String()
-}
-
-func (s *RtopCrowdRiskFeatureResp) SetClueTags(v []*RtopCrowdRiskFeatureTag) *RtopCrowdRiskFeatureResp {
-	s.ClueTags = v
-	return s
-}
-
-func (s *RtopCrowdRiskFeatureResp) SetFeatureName(v string) *RtopCrowdRiskFeatureResp {
-	s.FeatureName = &v
-	return s
-}
-
-func (s *RtopCrowdRiskFeatureResp) SetScore(v int) *RtopCrowdRiskFeatureResp {
-	s.Score = &v
-	return s
-}
-
-// 天枢系统RiskData结构体
-type RiskData struct {
-	// 联系人信息列表
-	Contacts []*Contact `json:"contacts,omitempty" xml:"contacts,omitempty" require:"true" type:"Repeated"`
-	// 人脸对比分
-	FacePoint *string `json:"face_point,omitempty" xml:"face_point,omitempty"`
-	// 活体供应商
-	FaceSource *string `json:"face_source,omitempty" xml:"face_source,omitempty"`
-}
-
-func (s RiskData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RiskData) GoString() string {
-	return s.String()
-}
-
-func (s *RiskData) SetContacts(v []*Contact) *RiskData {
-	s.Contacts = v
-	return s
-}
-
-func (s *RiskData) SetFacePoint(v string) *RiskData {
-	s.FacePoint = &v
-	return s
-}
-
-func (s *RiskData) SetFaceSource(v string) *RiskData {
-	s.FaceSource = &v
-	return s
-}
-
-// 企业涉众风险详细信息
-type RtopCrowdRiskSummaryResp struct {
-	// 活跃市
-	ActiveCity *string `json:"active_city,omitempty" xml:"active_city,omitempty"`
-	// 活跃县
-	ActiveCounty *string `json:"active_county,omitempty" xml:"active_county,omitempty"`
-	// 活跃省
-	ActiveProvince *string `json:"active_province,omitempty" xml:"active_province,omitempty"`
-	// 风险标签
-	ClueTags []*string `json:"clue_tags,omitempty" xml:"clue_tags,omitempty" type:"Repeated"`
-	// 企业ID
-	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
-	// 企业名称
-	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
-	// 风险等级
-	CrowdRiskLevel *string `json:"crowd_risk_level,omitempty" xml:"crowd_risk_level,omitempty"`
-	// 涉众风险分数
-	CrowdRiskScore *int64 `json:"crowd_risk_score,omitempty" xml:"crowd_risk_score,omitempty"`
-	// 涉众风险类型
-	CrowdRiskType *string `json:"crowd_risk_type,omitempty" xml:"crowd_risk_type,omitempty"`
-	// 发现时间
-	DetectedTime *string `json:"detected_time,omitempty" xml:"detected_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 影响金额
-	MoneyInvolved *int64 `json:"money_involved,omitempty" xml:"money_involved,omitempty"`
-	// 影响人数
-	PeopleInvolved *int64 `json:"people_involved,omitempty" xml:"people_involved,omitempty"`
-	// 注册市
-	RegisteredCity *string `json:"registered_city,omitempty" xml:"registered_city,omitempty"`
-	// 注册县
-	RegisteredCounty *string `json:"registered_county,omitempty" xml:"registered_county,omitempty"`
-	// 注册省
-	RegisteredProvince *string `json:"registered_province,omitempty" xml:"registered_province,omitempty"`
-}
-
-func (s RtopCrowdRiskSummaryResp) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopCrowdRiskSummaryResp) GoString() string {
-	return s.String()
-}
-
-func (s *RtopCrowdRiskSummaryResp) SetActiveCity(v string) *RtopCrowdRiskSummaryResp {
-	s.ActiveCity = &v
-	return s
-}
-
-func (s *RtopCrowdRiskSummaryResp) SetActiveCounty(v string) *RtopCrowdRiskSummaryResp {
-	s.ActiveCounty = &v
-	return s
-}
-
-func (s *RtopCrowdRiskSummaryResp) SetActiveProvince(v string) *RtopCrowdRiskSummaryResp {
-	s.ActiveProvince = &v
-	return s
-}
-
-func (s *RtopCrowdRiskSummaryResp) SetClueTags(v []*string) *RtopCrowdRiskSummaryResp {
-	s.ClueTags = v
-	return s
-}
-
-func (s *RtopCrowdRiskSummaryResp) SetCompanyId(v string) *RtopCrowdRiskSummaryResp {
-	s.CompanyId = &v
-	return s
-}
-
-func (s *RtopCrowdRiskSummaryResp) SetCompanyName(v string) *RtopCrowdRiskSummaryResp {
-	s.CompanyName = &v
-	return s
-}
-
-func (s *RtopCrowdRiskSummaryResp) SetCrowdRiskLevel(v string) *RtopCrowdRiskSummaryResp {
-	s.CrowdRiskLevel = &v
-	return s
-}
-
-func (s *RtopCrowdRiskSummaryResp) SetCrowdRiskScore(v int64) *RtopCrowdRiskSummaryResp {
-	s.CrowdRiskScore = &v
-	return s
-}
-
-func (s *RtopCrowdRiskSummaryResp) SetCrowdRiskType(v string) *RtopCrowdRiskSummaryResp {
-	s.CrowdRiskType = &v
-	return s
-}
-
-func (s *RtopCrowdRiskSummaryResp) SetDetectedTime(v string) *RtopCrowdRiskSummaryResp {
-	s.DetectedTime = &v
-	return s
-}
-
-func (s *RtopCrowdRiskSummaryResp) SetMoneyInvolved(v int64) *RtopCrowdRiskSummaryResp {
-	s.MoneyInvolved = &v
-	return s
-}
-
-func (s *RtopCrowdRiskSummaryResp) SetPeopleInvolved(v int64) *RtopCrowdRiskSummaryResp {
-	s.PeopleInvolved = &v
-	return s
-}
-
-func (s *RtopCrowdRiskSummaryResp) SetRegisteredCity(v string) *RtopCrowdRiskSummaryResp {
-	s.RegisteredCity = &v
-	return s
-}
-
-func (s *RtopCrowdRiskSummaryResp) SetRegisteredCounty(v string) *RtopCrowdRiskSummaryResp {
-	s.RegisteredCounty = &v
-	return s
-}
-
-func (s *RtopCrowdRiskSummaryResp) SetRegisteredProvince(v string) *RtopCrowdRiskSummaryResp {
-	s.RegisteredProvince = &v
-	return s
-}
-
-// 天枢系统专用ReceiptInfo结构体
-type ReceiptInfo struct {
-	// 客户名
-	CustomName *string `json:"custom_name,omitempty" xml:"custom_name,omitempty" require:"true"`
-	// 证件号码
-	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty" require:"true"`
-	// 手机号
-	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
-	// 贷款金额
-	ApplyAmount *int64 `json:"apply_amount,omitempty" xml:"apply_amount,omitempty" require:"true"`
-	// 发放金额
-	LoanAmount *int64 `json:"loan_amount,omitempty" xml:"loan_amount,omitempty" require:"true"`
-	// 期数
-	Period *int64 `json:"period,omitempty" xml:"period,omitempty" require:"true"`
-	// 当前期数
-	CurPeriod *int64 `json:"cur_period,omitempty" xml:"cur_period,omitempty" require:"true"`
-	// 还款方式1：等额本息，2：等额本金，3：按月付息到期还本，4：利随本清，5：自由还款
-	RepayType *string `json:"repay_type,omitempty" xml:"repay_type,omitempty" require:"true"`
-	// 还款日
-	RepayDate *string `json:"repay_date,omitempty" xml:"repay_date,omitempty" require:"true"`
-	// 放款时间
-	LoanTime *string `json:"loan_time,omitempty" xml:"loan_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 借据状态0：未还清，1：已还清，2：已提前还清
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 已还本金
-	AlreadyCorpus *int64 `json:"already_corpus,omitempty" xml:"already_corpus,omitempty" require:"true"`
-	// 已还利息
-	AlreadyAccrual *int64 `json:"already_accrual,omitempty" xml:"already_accrual,omitempty" require:"true"`
-	// 结清日期
-	AlreadyDate *string `json:"already_date,omitempty" xml:"already_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 审批状态0：通过 1：拒绝 2：审批中 3：失败
-	WorkflowStatus *string `json:"workflow_status,omitempty" xml:"workflow_status,omitempty" require:"true"`
-	// 借据编号
-	ReceiptNo *string `json:"receipt_no,omitempty" xml:"receipt_no,omitempty" require:"true"`
-}
-
-func (s ReceiptInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ReceiptInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ReceiptInfo) SetCustomName(v string) *ReceiptInfo {
-	s.CustomName = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetCardNo(v string) *ReceiptInfo {
-	s.CardNo = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetMobile(v string) *ReceiptInfo {
-	s.Mobile = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetApplyAmount(v int64) *ReceiptInfo {
-	s.ApplyAmount = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetLoanAmount(v int64) *ReceiptInfo {
-	s.LoanAmount = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetPeriod(v int64) *ReceiptInfo {
-	s.Period = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetCurPeriod(v int64) *ReceiptInfo {
-	s.CurPeriod = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetRepayType(v string) *ReceiptInfo {
-	s.RepayType = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetRepayDate(v string) *ReceiptInfo {
-	s.RepayDate = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetLoanTime(v string) *ReceiptInfo {
-	s.LoanTime = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetStatus(v string) *ReceiptInfo {
-	s.Status = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetAlreadyCorpus(v int64) *ReceiptInfo {
-	s.AlreadyCorpus = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetAlreadyAccrual(v int64) *ReceiptInfo {
-	s.AlreadyAccrual = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetAlreadyDate(v string) *ReceiptInfo {
-	s.AlreadyDate = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetWorkflowStatus(v string) *ReceiptInfo {
-	s.WorkflowStatus = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetReceiptNo(v string) *ReceiptInfo {
-	s.ReceiptNo = &v
-	return s
-}
-
-// 收藏的企业信息
-type RtopStarCompanyInfo struct {
-	// 行业
-	Categories []*string `json:"categories,omitempty" xml:"categories,omitempty" type:"Repeated"`
-	// 经营地址
-	OperatingPlace *string `json:"operating_place,omitempty" xml:"operating_place,omitempty"`
-	// 经营省份
-	OperatingProvince *string `json:"operating_province,omitempty" xml:"operating_province,omitempty"`
-	// 企业名称
-	OrgName *string `json:"org_name,omitempty" xml:"org_name,omitempty"`
-	// 风险分数
-	RiskScore *int64 `json:"risk_score,omitempty" xml:"risk_score,omitempty"`
-	// 风险标签
-	RiskTags []*string `json:"risk_tags,omitempty" xml:"risk_tags,omitempty" type:"Repeated"`
-	// 风险线索
-	RiskTagDetails []*RtopRiskTag `json:"risk_tag_details,omitempty" xml:"risk_tag_details,omitempty" type:"Repeated"`
-	// 风险标签Id集合
-	RiskTagIds []*string `json:"risk_tag_ids,omitempty" xml:"risk_tag_ids,omitempty" type:"Repeated"`
-	// 统一社会信用代码
-	UcCode *string `json:"uc_code,omitempty" xml:"uc_code,omitempty"`
-}
-
-func (s RtopStarCompanyInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopStarCompanyInfo) GoString() string {
-	return s.String()
-}
-
-func (s *RtopStarCompanyInfo) SetCategories(v []*string) *RtopStarCompanyInfo {
-	s.Categories = v
-	return s
-}
-
-func (s *RtopStarCompanyInfo) SetOperatingPlace(v string) *RtopStarCompanyInfo {
-	s.OperatingPlace = &v
-	return s
-}
-
-func (s *RtopStarCompanyInfo) SetOperatingProvince(v string) *RtopStarCompanyInfo {
-	s.OperatingProvince = &v
-	return s
-}
-
-func (s *RtopStarCompanyInfo) SetOrgName(v string) *RtopStarCompanyInfo {
-	s.OrgName = &v
-	return s
-}
-
-func (s *RtopStarCompanyInfo) SetRiskScore(v int64) *RtopStarCompanyInfo {
-	s.RiskScore = &v
-	return s
-}
-
-func (s *RtopStarCompanyInfo) SetRiskTags(v []*string) *RtopStarCompanyInfo {
-	s.RiskTags = v
-	return s
-}
-
-func (s *RtopStarCompanyInfo) SetRiskTagDetails(v []*RtopRiskTag) *RtopStarCompanyInfo {
-	s.RiskTagDetails = v
-	return s
-}
-
-func (s *RtopStarCompanyInfo) SetRiskTagIds(v []*string) *RtopStarCompanyInfo {
-	s.RiskTagIds = v
-	return s
-}
-
-func (s *RtopStarCompanyInfo) SetUcCode(v string) *RtopStarCompanyInfo {
-	s.UcCode = &v
-	return s
-}
-
-// 标签图片
-type RtopTagImage struct {
-	// 标签图片表主键
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 图片
-	Image *string `json:"image,omitempty" xml:"image,omitempty"`
-}
-
-func (s RtopTagImage) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopTagImage) GoString() string {
-	return s.String()
-}
-
-func (s *RtopTagImage) SetId(v int64) *RtopTagImage {
-	s.Id = &v
-	return s
-}
-
-func (s *RtopTagImage) SetImage(v string) *RtopTagImage {
-	s.Image = &v
-	return s
-}
-
-// 监测企业的特征信息
-type RtopMonitorCompanyFeature struct {
-	// 特征的描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 特征的名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 特征里的风险标签列表
-	RiskTags []*string `json:"risk_tags,omitempty" xml:"risk_tags,omitempty" type:"Repeated"`
-	// 特征的评分
-	Score *int `json:"score,omitempty" xml:"score,omitempty" require:"true"`
-}
-
-func (s RtopMonitorCompanyFeature) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopMonitorCompanyFeature) GoString() string {
-	return s.String()
-}
-
-func (s *RtopMonitorCompanyFeature) SetDescription(v string) *RtopMonitorCompanyFeature {
-	s.Description = &v
-	return s
-}
-
-func (s *RtopMonitorCompanyFeature) SetName(v string) *RtopMonitorCompanyFeature {
-	s.Name = &v
-	return s
-}
-
-func (s *RtopMonitorCompanyFeature) SetRiskTags(v []*string) *RtopMonitorCompanyFeature {
-	s.RiskTags = v
-	return s
-}
-
-func (s *RtopMonitorCompanyFeature) SetScore(v int) *RtopMonitorCompanyFeature {
-	s.Score = &v
 	return s
 }
 
@@ -7004,6 +7122,139 @@ func (s *NotifyDubbridgeDefininnerchannelResponse) SetData(v *DefinInnerChannelN
 	return s
 }
 
+type QueryDubbridgeCreditStatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 授信申请订单号
+	OriginalOrderNo *string `json:"original_order_no,omitempty" xml:"original_order_no,omitempty"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 三方客户id
+	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty"`
+}
+
+func (s QueryDubbridgeCreditStatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeCreditStatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeCreditStatusRequest) SetAuthToken(v string) *QueryDubbridgeCreditStatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditStatusRequest) SetProductInstanceId(v string) *QueryDubbridgeCreditStatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditStatusRequest) SetOriginalOrderNo(v string) *QueryDubbridgeCreditStatusRequest {
+	s.OriginalOrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditStatusRequest) SetOrderNo(v string) *QueryDubbridgeCreditStatusRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditStatusRequest) SetOpenId(v string) *QueryDubbridgeCreditStatusRequest {
+	s.OpenId = &v
+	return s
+}
+
+type QueryDubbridgeCreditStatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授信状态（0-通过/1-不通过2-处理中）
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 拒绝原因
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 授信额度
+	CreditAmt *int64 `json:"credit_amt,omitempty" xml:"credit_amt,omitempty"`
+	// 期数
+	Period *int64 `json:"period,omitempty" xml:"period,omitempty"`
+	// 还款方式
+	RepayType *string `json:"repay_type,omitempty" xml:"repay_type,omitempty"`
+	// 额度信息
+	CreditInfo *CreditAmount `json:"credit_info,omitempty" xml:"credit_info,omitempty"`
+	// 客户编号(该客户的唯一标识，后续接口需要用到)
+	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty"`
+	// 授信申请编号
+	ApplyNo *string `json:"apply_no,omitempty" xml:"apply_no,omitempty"`
+}
+
+func (s QueryDubbridgeCreditStatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeCreditStatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeCreditStatusResponse) SetReqMsgId(v string) *QueryDubbridgeCreditStatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditStatusResponse) SetResultCode(v string) *QueryDubbridgeCreditStatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditStatusResponse) SetResultMsg(v string) *QueryDubbridgeCreditStatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditStatusResponse) SetStatus(v string) *QueryDubbridgeCreditStatusResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditStatusResponse) SetMsg(v string) *QueryDubbridgeCreditStatusResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditStatusResponse) SetCreditAmt(v int64) *QueryDubbridgeCreditStatusResponse {
+	s.CreditAmt = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditStatusResponse) SetPeriod(v int64) *QueryDubbridgeCreditStatusResponse {
+	s.Period = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditStatusResponse) SetRepayType(v string) *QueryDubbridgeCreditStatusResponse {
+	s.RepayType = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditStatusResponse) SetCreditInfo(v *CreditAmount) *QueryDubbridgeCreditStatusResponse {
+	s.CreditInfo = v
+	return s
+}
+
+func (s *QueryDubbridgeCreditStatusResponse) SetCustomNo(v string) *QueryDubbridgeCreditStatusResponse {
+	s.CustomNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditStatusResponse) SetApplyNo(v string) *QueryDubbridgeCreditStatusResponse {
+	s.ApplyNo = &v
+	return s
+}
+
 type VerifyFinserviceZhimaIdentifyRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -7852,6 +8103,8 @@ type ExecRbbCompanyGuardRequest struct {
 	Keyword *string `json:"keyword,omitempty" xml:"keyword,omitempty" require:"true"`
 	// 规则ID，在风险大脑系统中配置
 	RuleId *int64 `json:"rule_id,omitempty" xml:"rule_id,omitempty" require:"true"`
+	// 额外参数，与规则有关
+	Params *string `json:"params,omitempty" xml:"params,omitempty"`
 }
 
 func (s ExecRbbCompanyGuardRequest) String() string {
@@ -7879,6 +8132,11 @@ func (s *ExecRbbCompanyGuardRequest) SetKeyword(v string) *ExecRbbCompanyGuardRe
 
 func (s *ExecRbbCompanyGuardRequest) SetRuleId(v int64) *ExecRbbCompanyGuardRequest {
 	s.RuleId = &v
+	return s
+}
+
+func (s *ExecRbbCompanyGuardRequest) SetParams(v string) *ExecRbbCompanyGuardRequest {
+	s.Params = &v
 	return s
 }
 
@@ -7925,6 +8183,167 @@ func (s *ExecRbbCompanyGuardResponse) SetDecision(v string) *ExecRbbCompanyGuard
 
 func (s *ExecRbbCompanyGuardResponse) SetResults(v string) *ExecRbbCompanyGuardResponse {
 	s.Results = &v
+	return s
+}
+
+type ApplyRbbCompanyCreditRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 企业名称、统一社会信用代码
+	Keyword *string `json:"keyword,omitempty" xml:"keyword,omitempty" require:"true"`
+	// 规则ID，需提前在蚁盾中进行配置
+	RuleId *int64 `json:"rule_id,omitempty" xml:"rule_id,omitempty" require:"true"`
+	// 额外参数，与规则有关
+	Params *string `json:"params,omitempty" xml:"params,omitempty"`
+}
+
+func (s ApplyRbbCompanyCreditRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyRbbCompanyCreditRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyRbbCompanyCreditRequest) SetAuthToken(v string) *ApplyRbbCompanyCreditRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyRbbCompanyCreditRequest) SetProductInstanceId(v string) *ApplyRbbCompanyCreditRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyRbbCompanyCreditRequest) SetKeyword(v string) *ApplyRbbCompanyCreditRequest {
+	s.Keyword = &v
+	return s
+}
+
+func (s *ApplyRbbCompanyCreditRequest) SetRuleId(v int64) *ApplyRbbCompanyCreditRequest {
+	s.RuleId = &v
+	return s
+}
+
+func (s *ApplyRbbCompanyCreditRequest) SetParams(v string) *ApplyRbbCompanyCreditRequest {
+	s.Params = &v
+	return s
+}
+
+type ApplyRbbCompanyCreditResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询token，用于查询授信结果
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+}
+
+func (s ApplyRbbCompanyCreditResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyRbbCompanyCreditResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyRbbCompanyCreditResponse) SetReqMsgId(v string) *ApplyRbbCompanyCreditResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyRbbCompanyCreditResponse) SetResultCode(v string) *ApplyRbbCompanyCreditResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyRbbCompanyCreditResponse) SetResultMsg(v string) *ApplyRbbCompanyCreditResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyRbbCompanyCreditResponse) SetToken(v string) *ApplyRbbCompanyCreditResponse {
+	s.Token = &v
+	return s
+}
+
+type QueryRbbCompanyCreditRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询token，从apply接口获得
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+}
+
+func (s QueryRbbCompanyCreditRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRbbCompanyCreditRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRbbCompanyCreditRequest) SetAuthToken(v string) *QueryRbbCompanyCreditRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryRbbCompanyCreditRequest) SetProductInstanceId(v string) *QueryRbbCompanyCreditRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryRbbCompanyCreditRequest) SetToken(v string) *QueryRbbCompanyCreditRequest {
+	s.Token = &v
+	return s
+}
+
+type QueryRbbCompanyCreditResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授信额度，单位元
+	CreditAmount *int64 `json:"credit_amount,omitempty" xml:"credit_amount,omitempty"`
+	// 额外特征字段
+	Extra *string `json:"extra,omitempty" xml:"extra,omitempty"`
+}
+
+func (s QueryRbbCompanyCreditResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRbbCompanyCreditResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRbbCompanyCreditResponse) SetReqMsgId(v string) *QueryRbbCompanyCreditResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryRbbCompanyCreditResponse) SetResultCode(v string) *QueryRbbCompanyCreditResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryRbbCompanyCreditResponse) SetResultMsg(v string) *QueryRbbCompanyCreditResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryRbbCompanyCreditResponse) SetCreditAmount(v int64) *QueryRbbCompanyCreditResponse {
+	s.CreditAmount = &v
+	return s
+}
+
+func (s *QueryRbbCompanyCreditResponse) SetExtra(v string) *QueryRbbCompanyCreditResponse {
+	s.Extra = &v
 	return s
 }
 
@@ -11816,6 +12235,83 @@ func (s *UploadUmktParamsFileResponse) SetResultMsg(v string) *UploadUmktParamsF
 	return s
 }
 
+type BatchqueryUmktRtMarketingRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景营销策略id
+	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
+	// 用户列表传输模版
+	QueryTemplate *string `json:"query_template,omitempty" xml:"query_template,omitempty"`
+	// 用户查询凭证列表
+	CustomerKeys []*string `json:"customer_keys,omitempty" xml:"customer_keys,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s BatchqueryUmktRtMarketingRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryUmktRtMarketingRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryUmktRtMarketingRequest) SetAuthToken(v string) *BatchqueryUmktRtMarketingRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchqueryUmktRtMarketingRequest) SetProductInstanceId(v string) *BatchqueryUmktRtMarketingRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchqueryUmktRtMarketingRequest) SetSceneStrategyId(v int64) *BatchqueryUmktRtMarketingRequest {
+	s.SceneStrategyId = &v
+	return s
+}
+
+func (s *BatchqueryUmktRtMarketingRequest) SetQueryTemplate(v string) *BatchqueryUmktRtMarketingRequest {
+	s.QueryTemplate = &v
+	return s
+}
+
+func (s *BatchqueryUmktRtMarketingRequest) SetCustomerKeys(v []*string) *BatchqueryUmktRtMarketingRequest {
+	s.CustomerKeys = v
+	return s
+}
+
+type BatchqueryUmktRtMarketingResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s BatchqueryUmktRtMarketingResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryUmktRtMarketingResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryUmktRtMarketingResponse) SetReqMsgId(v string) *BatchqueryUmktRtMarketingResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchqueryUmktRtMarketingResponse) SetResultCode(v string) *BatchqueryUmktRtMarketingResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchqueryUmktRtMarketingResponse) SetResultMsg(v string) *BatchqueryUmktRtMarketingResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -12058,7 +12554,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.9"),
+				"sdk_version":      tea.String("1.9.0"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -13224,6 +13720,40 @@ func (client *Client) NotifyDubbridgeDefininnerchannelEx(request *NotifyDubbridg
 }
 
 /**
+ * Description: 天枢系统授信额度查询接口
+ * Summary: 天枢系统授信额度查询接口
+ */
+func (client *Client) QueryDubbridgeCreditStatus(request *QueryDubbridgeCreditStatusRequest) (_result *QueryDubbridgeCreditStatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeCreditStatusResponse{}
+	_body, _err := client.QueryDubbridgeCreditStatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统授信额度查询接口
+ * Summary: 天枢系统授信额度查询接口
+ */
+func (client *Client) QueryDubbridgeCreditStatusEx(request *QueryDubbridgeCreditStatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeCreditStatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeCreditStatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.credit.status.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 四要素认证首先调用此接口
  * Summary: 芝麻四要素接口
  */
@@ -13590,6 +14120,74 @@ func (client *Client) ExecRbbCompanyGuardEx(request *ExecRbbCompanyGuardRequest,
 	}
 	_result = &ExecRbbCompanyGuardResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.company.guard.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 提交授信申请
+ * Summary: 企业授信申请
+ */
+func (client *Client) ApplyRbbCompanyCredit(request *ApplyRbbCompanyCreditRequest) (_result *ApplyRbbCompanyCreditResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyRbbCompanyCreditResponse{}
+	_body, _err := client.ApplyRbbCompanyCreditEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 提交授信申请
+ * Summary: 企业授信申请
+ */
+func (client *Client) ApplyRbbCompanyCreditEx(request *ApplyRbbCompanyCreditRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyRbbCompanyCreditResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyRbbCompanyCreditResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.company.credit.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询企业授信结果
+ * Summary: 企业授信结果查询
+ */
+func (client *Client) QueryRbbCompanyCredit(request *QueryRbbCompanyCreditRequest) (_result *QueryRbbCompanyCreditResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryRbbCompanyCreditResponse{}
+	_body, _err := client.QueryRbbCompanyCreditEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询企业授信结果
+ * Summary: 企业授信结果查询
+ */
+func (client *Client) QueryRbbCompanyCreditEx(request *QueryRbbCompanyCreditRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryRbbCompanyCreditResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryRbbCompanyCreditResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.company.credit.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -14777,6 +15375,40 @@ func (client *Client) UploadUmktParamsFileEx(request *UploadUmktParamsFileReques
 	}
 	_result = &UploadUmktParamsFileResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.params.file.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾实时营销服务，支持批量
+ * Summary: 营销盾实时营销服务
+ */
+func (client *Client) BatchqueryUmktRtMarketing(request *BatchqueryUmktRtMarketingRequest) (_result *BatchqueryUmktRtMarketingResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchqueryUmktRtMarketingResponse{}
+	_body, _err := client.BatchqueryUmktRtMarketingEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾实时营销服务，支持批量
+ * Summary: 营销盾实时营销服务
+ */
+func (client *Client) BatchqueryUmktRtMarketingEx(request *BatchqueryUmktRtMarketingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryUmktRtMarketingResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchqueryUmktRtMarketingResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.rt.marketing.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
