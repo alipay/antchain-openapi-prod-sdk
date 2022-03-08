@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.apigateway.models;
 
 import com.aliyun.tea.*;
 
-public class AllGwconfigRegionRequest extends TeaModel {
+public class AllRouterRegionRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,20 +11,20 @@ public class AllGwconfigRegionRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 租户id
+    // 租户ID
     @NameInMap("tenant_id")
     public String tenantId;
 
-    // 工作空间标识
+    // workspace_id
     @NameInMap("workspace_id")
     public String workspaceId;
 
-    public static AllGwconfigRegionRequest build(java.util.Map<String, ?> map) throws Exception {
-        AllGwconfigRegionRequest self = new AllGwconfigRegionRequest();
+    public static AllRouterRegionRequest build(java.util.Map<String, ?> map) throws Exception {
+        AllRouterRegionRequest self = new AllRouterRegionRequest();
         return TeaModel.build(map, self);
     }
 
-    public AllGwconfigRegionRequest setAuthToken(String authToken) {
+    public AllRouterRegionRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -32,7 +32,7 @@ public class AllGwconfigRegionRequest extends TeaModel {
         return this.authToken;
     }
 
-    public AllGwconfigRegionRequest setProductInstanceId(String productInstanceId) {
+    public AllRouterRegionRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -40,7 +40,7 @@ public class AllGwconfigRegionRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public AllGwconfigRegionRequest setTenantId(String tenantId) {
+    public AllRouterRegionRequest setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }
@@ -48,7 +48,7 @@ public class AllGwconfigRegionRequest extends TeaModel {
         return this.tenantId;
     }
 
-    public AllGwconfigRegionRequest setWorkspaceId(String workspaceId) {
+    public AllRouterRegionRequest setWorkspaceId(String workspaceId) {
         this.workspaceId = workspaceId;
         return this;
     }

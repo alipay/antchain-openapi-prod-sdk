@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.apigateway.models;
 
 import com.aliyun.tea.*;
 
-public class AllGwconfigRegionResponse extends TeaModel {
+public class AllRouterRegionResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -18,14 +18,14 @@ public class AllGwconfigRegionResponse extends TeaModel {
 
     // data
     @NameInMap("data")
-    public java.util.List<String> data;
+    public java.util.List<RegionVO> data;
 
-    public static AllGwconfigRegionResponse build(java.util.Map<String, ?> map) throws Exception {
-        AllGwconfigRegionResponse self = new AllGwconfigRegionResponse();
+    public static AllRouterRegionResponse build(java.util.Map<String, ?> map) throws Exception {
+        AllRouterRegionResponse self = new AllRouterRegionResponse();
         return TeaModel.build(map, self);
     }
 
-    public AllGwconfigRegionResponse setReqMsgId(String reqMsgId) {
+    public AllRouterRegionResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class AllGwconfigRegionResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public AllGwconfigRegionResponse setResultCode(String resultCode) {
+    public AllRouterRegionResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class AllGwconfigRegionResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public AllGwconfigRegionResponse setResultMsg(String resultMsg) {
+    public AllRouterRegionResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,11 +49,11 @@ public class AllGwconfigRegionResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public AllGwconfigRegionResponse setData(java.util.List<String> data) {
+    public AllRouterRegionResponse setData(java.util.List<RegionVO> data) {
         this.data = data;
         return this;
     }
-    public java.util.List<String> getData() {
+    public java.util.List<RegionVO> getData() {
         return this.data;
     }
 

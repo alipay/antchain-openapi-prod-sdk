@@ -54,6 +54,10 @@ public class RouterInfoVO extends TeaModel {
     @NameInMap("workspace_id")
     public String workspaceId;
 
+    // 跨域状态
+    @NameInMap("cors_status")
+    public String corsStatus;
+
     public static RouterInfoVO build(java.util.Map<String, ?> map) throws Exception {
         RouterInfoVO self = new RouterInfoVO();
         return TeaModel.build(map, self);
@@ -153,6 +157,14 @@ public class RouterInfoVO extends TeaModel {
     }
     public String getWorkspaceId() {
         return this.workspaceId;
+    }
+
+    public RouterInfoVO setCorsStatus(String corsStatus) {
+        this.corsStatus = corsStatus;
+        return this;
+    }
+    public String getCorsStatus() {
+        return this.corsStatus;
     }
 
 }

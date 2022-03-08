@@ -54,6 +54,10 @@ public class ApiModelParamVO extends TeaModel {
     @NameInMap("workspace_id")
     public String workspaceId;
 
+    // model_description
+    @NameInMap("model_description")
+    public String modelDescription;
+
     public static ApiModelParamVO build(java.util.Map<String, ?> map) throws Exception {
         ApiModelParamVO self = new ApiModelParamVO();
         return TeaModel.build(map, self);
@@ -153,6 +157,14 @@ public class ApiModelParamVO extends TeaModel {
     }
     public String getWorkspaceId() {
         return this.workspaceId;
+    }
+
+    public ApiModelParamVO setModelDescription(String modelDescription) {
+        this.modelDescription = modelDescription;
+        return this;
+    }
+    public String getModelDescription() {
+        return this.modelDescription;
     }
 
 }

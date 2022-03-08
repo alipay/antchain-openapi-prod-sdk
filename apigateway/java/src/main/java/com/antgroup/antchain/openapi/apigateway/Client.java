@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.312")
+                    new TeaPair("sdk_version", "1.1.325")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -3544,21 +3544,59 @@ public class Client {
     }
 
     /**
-     * Description: 查询所以region名称
-     * Summary: 查询所以region名称
+     * Description: 查询灰度规则配置
+     * Summary: 查询灰度规则配置
      */
-    public AllGwconfigRegionResponse allGwconfigRegion(AllGwconfigRegionRequest request) throws Exception {
+    public AllGrayscaleResponse allGrayscale(AllGrayscaleRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.allGwconfigRegionEx(request, headers, runtime);
+        return this.allGrayscaleEx(request, headers, runtime);
     }
 
     /**
-     * Description: 查询所以region名称
-     * Summary: 查询所以region名称
+     * Description: 查询灰度规则配置
+     * Summary: 查询灰度规则配置
      */
-    public AllGwconfigRegionResponse allGwconfigRegionEx(AllGwconfigRegionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public AllGrayscaleResponse allGrayscaleEx(AllGrayscaleRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "sofa.apigateway.gwconfig.region.all", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AllGwconfigRegionResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "sofa.apigateway.grayscale.all", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AllGrayscaleResponse());
+    }
+
+    /**
+     * Description: 分页查询灰度规则列表
+     * Summary: 分页查询灰度规则列表
+     */
+    public ListGrayscaleResponse listGrayscale(ListGrayscaleRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listGrayscaleEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询灰度规则列表
+     * Summary: 分页查询灰度规则列表
+     */
+    public ListGrayscaleResponse listGrayscaleEx(ListGrayscaleRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "sofa.apigateway.grayscale.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListGrayscaleResponse());
+    }
+
+    /**
+     * Description: 查询所有region名称
+     * Summary: 查询所有region名称
+     */
+    public AllRouterRegionResponse allRouterRegion(AllRouterRegionRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.allRouterRegionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询所有region名称
+     * Summary: 查询所有region名称
+     */
+    public AllRouterRegionResponse allRouterRegionEx(AllRouterRegionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "sofa.apigateway.router.region.all", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AllRouterRegionResponse());
     }
 }

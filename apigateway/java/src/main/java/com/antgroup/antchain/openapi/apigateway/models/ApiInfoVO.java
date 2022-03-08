@@ -338,9 +338,9 @@ public class ApiInfoVO extends TeaModel {
     @NameInMap("need_tls")
     public Boolean needTls;
 
-    // api_group_info
-    @NameInMap("api_group_info")
-    public ApiGroupVO apiGroupInfo;
+    // api_group
+    @NameInMap("api_group")
+    public ApiGroupVO apiGroup;
 
     // 授权对象列表
     @NameInMap("auth_app_info_list")
@@ -357,6 +357,14 @@ public class ApiInfoVO extends TeaModel {
     // 实例ID
     @NameInMap("upstream_instance_id")
     public String upstreamInstanceId;
+
+    // 跨域状态
+    @NameInMap("cors_status")
+    public String corsStatus;
+
+    // gray_type
+    @NameInMap("gray_type")
+    public Boolean grayType;
 
     public static ApiInfoVO build(java.util.Map<String, ?> map) throws Exception {
         ApiInfoVO self = new ApiInfoVO();
@@ -1027,12 +1035,12 @@ public class ApiInfoVO extends TeaModel {
         return this.needTls;
     }
 
-    public ApiInfoVO setApiGroupInfo(ApiGroupVO apiGroupInfo) {
-        this.apiGroupInfo = apiGroupInfo;
+    public ApiInfoVO setApiGroup(ApiGroupVO apiGroup) {
+        this.apiGroup = apiGroup;
         return this;
     }
-    public ApiGroupVO getApiGroupInfo() {
-        return this.apiGroupInfo;
+    public ApiGroupVO getApiGroup() {
+        return this.apiGroup;
     }
 
     public ApiInfoVO setAuthAppInfoList(java.util.List<AuthAppInfoVO> authAppInfoList) {
@@ -1065,6 +1073,22 @@ public class ApiInfoVO extends TeaModel {
     }
     public String getUpstreamInstanceId() {
         return this.upstreamInstanceId;
+    }
+
+    public ApiInfoVO setCorsStatus(String corsStatus) {
+        this.corsStatus = corsStatus;
+        return this;
+    }
+    public String getCorsStatus() {
+        return this.corsStatus;
+    }
+
+    public ApiInfoVO setGrayType(Boolean grayType) {
+        this.grayType = grayType;
+        return this;
+    }
+    public Boolean getGrayType() {
+        return this.grayType;
     }
 
 }
