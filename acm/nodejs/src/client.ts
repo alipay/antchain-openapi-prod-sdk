@@ -77,6 +77,142 @@ export class Config extends $tea.Model {
   }
 }
 
+// 访问IaaS层的身份
+export class Accessor extends $tea.Model {
+  // Accessor关联的AccessKey
+  accessKey?: string;
+  // Accessor关联的AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
+  accessSecret?: string;
+  // AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
+  account?: string;
+  // AccessKey创建时间，ISO8601格式
+  createTime?: string;
+  // Accessor唯一标识
+  id?: string;
+  // Accessor类型(RAM/ACCOUNT)
+  type?: string;
+  static names(): { [key: string]: string } {
+    return {
+      accessKey: 'access_key',
+      accessSecret: 'access_secret',
+      account: 'account',
+      createTime: 'create_time',
+      id: 'id',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accessKey: 'string',
+      accessSecret: 'string',
+      account: 'string',
+      createTime: 'string',
+      id: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 标签实体
+export class Tag extends $tea.Model {
+  // 标签类型
+  tagType: string;
+  // 标签值
+  tagValue: string;
+  static names(): { [key: string]: string } {
+    return {
+      tagType: 'tag_type',
+      tagValue: 'tag_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tagType: 'string',
+      tagValue: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// AccessKey
+export class AccessKey extends $tea.Model {
+  // AccessKey创建时间，ISO8601格式
+  createTime?: string;
+  // AccessKey唯一标识
+  id?: string;
+  // AccessKey的秘钥，加密传输，网关返回后，使用调用方的AccesSecret进行解密
+  secret?: string;
+  // 状态
+  status?: string;
+  // AccessKey最近一次修改时间，ISO8601格式
+  updateTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      createTime: 'create_time',
+      id: 'id',
+      secret: 'secret',
+      status: 'status',
+      updateTime: 'update_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      createTime: 'string',
+      id: 'string',
+      secret: 'string',
+      status: 'string',
+      updateTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 企业
+export class Customer extends $tea.Model {
+  // 企业创建时间，ISO8601格式
+  createTime?: string;
+  // 企业ID
+  id?: string;
+  // 企业名称
+  name?: string;
+  // 企业最近一次修改时间，ISO8601格式
+  updateTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      createTime: 'create_time',
+      id: 'id',
+      name: 'name',
+      updateTime: 'update_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      createTime: 'string',
+      id: 'string',
+      name: 'string',
+      updateTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 租户
 export class Tenant extends $tea.Model {
   // 蚂蚁通行证签约账户
@@ -156,6 +292,8 @@ export class Operator extends $tea.Model {
   nickname?: string;
   // 真实姓名
   realName?: string;
+  // 部门唯一码
+  departmentCode?: string;
   // 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
   status?: string;
   // 操作员加入的租户列表
@@ -174,6 +312,7 @@ export class Operator extends $tea.Model {
       mobile: 'mobile',
       nickname: 'nickname',
       realName: 'real_name',
+      departmentCode: 'department_code',
       status: 'status',
       tenants: 'tenants',
       updateTime: 'update_time',
@@ -192,144 +331,9 @@ export class Operator extends $tea.Model {
       mobile: 'string',
       nickname: 'string',
       realName: 'string',
+      departmentCode: 'string',
       status: 'string',
       tenants: { 'type': 'array', 'itemType': 'string' },
-      updateTime: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// AccessKey
-export class AccessKey extends $tea.Model {
-  // AccessKey创建时间，ISO8601格式
-  createTime?: string;
-  // AccessKey唯一标识
-  id?: string;
-  // AccessKey的秘钥，加密传输，网关返回后，使用调用方的AccesSecret进行解密
-  secret?: string;
-  // 状态
-  status?: string;
-  // AccessKey最近一次修改时间，ISO8601格式
-  updateTime?: string;
-  static names(): { [key: string]: string } {
-    return {
-      createTime: 'create_time',
-      id: 'id',
-      secret: 'secret',
-      status: 'status',
-      updateTime: 'update_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      createTime: 'string',
-      id: 'string',
-      secret: 'string',
-      status: 'string',
-      updateTime: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 标签实体
-export class Tag extends $tea.Model {
-  // 标签类型
-  tagType: string;
-  // 标签值
-  tagValue: string;
-  static names(): { [key: string]: string } {
-    return {
-      tagType: 'tag_type',
-      tagValue: 'tag_value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      tagType: 'string',
-      tagValue: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 访问IaaS层的身份
-export class Accessor extends $tea.Model {
-  // Accessor关联的AccessKey
-  accessKey?: string;
-  // Accessor关联的AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
-  accessSecret?: string;
-  // AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
-  account?: string;
-  // AccessKey创建时间，ISO8601格式
-  createTime?: string;
-  // Accessor唯一标识
-  id?: string;
-  // Accessor类型(RAM/ACCOUNT)
-  type?: string;
-  static names(): { [key: string]: string } {
-    return {
-      accessKey: 'access_key',
-      accessSecret: 'access_secret',
-      account: 'account',
-      createTime: 'create_time',
-      id: 'id',
-      type: 'type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      accessKey: 'string',
-      accessSecret: 'string',
-      account: 'string',
-      createTime: 'string',
-      id: 'string',
-      type: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 企业
-export class Customer extends $tea.Model {
-  // 企业创建时间，ISO8601格式
-  createTime?: string;
-  // 企业ID
-  id?: string;
-  // 企业名称
-  name?: string;
-  // 企业最近一次修改时间，ISO8601格式
-  updateTime?: string;
-  static names(): { [key: string]: string } {
-    return {
-      createTime: 'create_time',
-      id: 'id',
-      name: 'name',
-      updateTime: 'update_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      createTime: 'string',
-      id: 'string',
-      name: 'string',
       updateTime: 'string',
     };
   }
@@ -468,6 +472,12 @@ export class GetOperatorResponse extends $tea.Model {
   tenants: string[];
   // 操作员最近一次修改时间，ISO8601格式
   updateTime?: string;
+  // 工号
+  workNo?: string;
+  // 是否是主账号
+  isMaster?: boolean;
+  // 钉钉机器人 token
+  ddRobot?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -486,6 +496,9 @@ export class GetOperatorResponse extends $tea.Model {
       status: 'status',
       tenants: 'tenants',
       updateTime: 'update_time',
+      workNo: 'work_no',
+      isMaster: 'is_master',
+      ddRobot: 'dd_robot',
     };
   }
 
@@ -507,6 +520,9 @@ export class GetOperatorResponse extends $tea.Model {
       status: 'string',
       tenants: { 'type': 'array', 'itemType': 'string' },
       updateTime: 'string',
+      workNo: 'string',
+      isMaster: 'boolean',
+      ddRobot: 'string',
     };
   }
 
@@ -528,6 +544,8 @@ export class QueryOperatorRequest extends $tea.Model {
   realName?: string;
   // 租户唯一标识
   tenant?: string;
+  // 部门唯一码
+  departmentCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -536,6 +554,7 @@ export class QueryOperatorRequest extends $tea.Model {
       pageSize: 'page_size',
       realName: 'real_name',
       tenant: 'tenant',
+      departmentCode: 'department_code',
     };
   }
 
@@ -547,6 +566,7 @@ export class QueryOperatorRequest extends $tea.Model {
       pageSize: 'number',
       realName: 'string',
       tenant: 'string',
+      departmentCode: 'string',
     };
   }
 
@@ -710,8 +730,14 @@ export class CreateOperatorRequest extends $tea.Model {
   realName: string;
   // 租户唯一标识
   tenant?: string;
+  // 工号
+  workNo?: string;
   // 业务场景码
   bussinessCode?: string;
+  // 加密密码
+  encryptedPassword?: string;
+  // 首次登录是否需要重置密码，取值范围：true, false，默认为 false
+  resetPasswordWhenFirstLogin?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -723,7 +749,10 @@ export class CreateOperatorRequest extends $tea.Model {
       nickname: 'nickname',
       realName: 'real_name',
       tenant: 'tenant',
+      workNo: 'work_no',
       bussinessCode: 'bussiness_code',
+      encryptedPassword: 'encrypted_password',
+      resetPasswordWhenFirstLogin: 'reset_password_when_first_login',
     };
   }
 
@@ -738,7 +767,10 @@ export class CreateOperatorRequest extends $tea.Model {
       nickname: 'string',
       realName: 'string',
       tenant: 'string',
+      workNo: 'string',
       bussinessCode: 'string',
+      encryptedPassword: 'string',
+      resetPasswordWhenFirstLogin: 'boolean',
     };
   }
 
@@ -1006,11 +1038,20 @@ export class CreateTenantRequest extends $tea.Model {
   antUid: string;
   // 金融云官网:ANTCLOUD, 蚂蚁开放平台：ANTOPEN, 口碑：KOUBEI
   businessOwnerId?: string;
+  // 租户名称，如果为空则随机生成
+  name?: string;
+  // 显示名称
+  displayName?: string;
+  // 描述信息
+  description?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       antUid: 'ant_uid',
       businessOwnerId: 'business_owner_id',
+      name: 'name',
+      displayName: 'display_name',
+      description: 'description',
     };
   }
 
@@ -1019,6 +1060,9 @@ export class CreateTenantRequest extends $tea.Model {
       authToken: 'string',
       antUid: 'string',
       businessOwnerId: 'string',
+      name: 'string',
+      displayName: 'string',
+      description: 'string',
     };
   }
 
@@ -1639,10 +1683,13 @@ export class GetTenantIaasaccountRequest extends $tea.Model {
   authToken?: string;
   // 租户唯一标识
   tenant: string;
+  // 一方化调用参数，阿里云服务名
+  sourceId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       tenant: 'tenant',
+      sourceId: 'source_id',
     };
   }
 
@@ -1650,6 +1697,7 @@ export class GetTenantIaasaccountRequest extends $tea.Model {
     return {
       authToken: 'string',
       tenant: 'string',
+      sourceId: 'string',
     };
   }
 
@@ -1675,6 +1723,10 @@ export class GetTenantIaasaccountResponse extends $tea.Model {
   createTime?: string;
   // IaaS账户id
   id?: string;
+  // sts token
+  accessToken?: string;
+  // 是否是sts模式
+  stsMode?: boolean;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -1685,6 +1737,8 @@ export class GetTenantIaasaccountResponse extends $tea.Model {
       account: 'account',
       createTime: 'create_time',
       id: 'id',
+      accessToken: 'access_token',
+      stsMode: 'sts_mode',
     };
   }
 
@@ -1698,6 +1752,8 @@ export class GetTenantIaasaccountResponse extends $tea.Model {
       account: 'string',
       createTime: 'string',
       id: 'string',
+      accessToken: 'string',
+      stsMode: 'boolean',
     };
   }
 
@@ -2211,6 +2267,8 @@ export class GetMasterTenantResponse extends $tea.Model {
   updateTime?: string;
   // 用户类型
   userType?: string;
+  // 租户的类型 N 支付宝 Q支付宝开放平台 V 蚂蚁链账号
+  tenantLevel?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2224,6 +2282,7 @@ export class GetMasterTenantResponse extends $tea.Model {
       name: 'name',
       updateTime: 'update_time',
       userType: 'user_type',
+      tenantLevel: 'tenant_level',
     };
   }
 
@@ -2240,6 +2299,7 @@ export class GetMasterTenantResponse extends $tea.Model {
       name: 'string',
       updateTime: 'string',
       userType: 'string',
+      tenantLevel: 'string',
     };
   }
 
@@ -2484,6 +2544,58 @@ export class RemoveTenantBusinesstagResponse extends $tea.Model {
   }
 }
 
+export class SendOperatorActiveemailRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 操作员ID
+  operatorId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      operatorId: 'operator_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      operatorId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendOperatorActiveemailResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2597,7 +2709,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.19",
+          sdk_version: "1.0.21",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -3192,6 +3304,25 @@ export default class Client {
   async removeTenantBusinesstagEx(request: RemoveTenantBusinesstagRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RemoveTenantBusinesstagResponse> {
     Util.validateModel(request);
     return $tea.cast<RemoveTenantBusinesstagResponse>(await this.doRequest("1.0", "antcloud.acm.tenant.businesstag.remove", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RemoveTenantBusinesstagResponse({}));
+  }
+
+  /**
+   * Description: 用户发送操作员的激活邮件
+   * Summary: 操作员发送激活邮件
+   */
+  async sendOperatorActiveemail(request: SendOperatorActiveemailRequest): Promise<SendOperatorActiveemailResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.sendOperatorActiveemailEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用户发送操作员的激活邮件
+   * Summary: 操作员发送激活邮件
+   */
+  async sendOperatorActiveemailEx(request: SendOperatorActiveemailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendOperatorActiveemailResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SendOperatorActiveemailResponse>(await this.doRequest("1.0", "antcloud.acm.operator.activeemail.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendOperatorActiveemailResponse({}));
   }
 
 }
