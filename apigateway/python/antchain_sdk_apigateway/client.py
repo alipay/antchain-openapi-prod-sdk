@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 注册中心详情
+            # ProtocolVO
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.312'
+                    'sdk_version': '1.1.325'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 注册中心详情
+            # ProtocolVO
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.312'
+                    'sdk_version': '1.1.325'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -9887,56 +9887,164 @@ class Client:
             await self.do_request_async('1.0', 'sofa.apigateway.gwconfig.tripleswitch.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def all_gwconfig_region(
+    def all_grayscale(
         self,
-        request: apigateway_models.AllGwconfigRegionRequest,
-    ) -> apigateway_models.AllGwconfigRegionResponse:
+        request: apigateway_models.AllGrayscaleRequest,
+    ) -> apigateway_models.AllGrayscaleResponse:
         """
-        Description: 查询所以region名称
-        Summary: 查询所以region名称
+        Description: 查询灰度规则配置
+        Summary: 查询灰度规则配置
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.all_gwconfig_region_ex(request, headers, runtime)
+        return self.all_grayscale_ex(request, headers, runtime)
 
-    async def all_gwconfig_region_async(
+    async def all_grayscale_async(
         self,
-        request: apigateway_models.AllGwconfigRegionRequest,
-    ) -> apigateway_models.AllGwconfigRegionResponse:
+        request: apigateway_models.AllGrayscaleRequest,
+    ) -> apigateway_models.AllGrayscaleResponse:
         """
-        Description: 查询所以region名称
-        Summary: 查询所以region名称
+        Description: 查询灰度规则配置
+        Summary: 查询灰度规则配置
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.all_gwconfig_region_ex_async(request, headers, runtime)
+        return await self.all_grayscale_ex_async(request, headers, runtime)
 
-    def all_gwconfig_region_ex(
+    def all_grayscale_ex(
         self,
-        request: apigateway_models.AllGwconfigRegionRequest,
+        request: apigateway_models.AllGrayscaleRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> apigateway_models.AllGwconfigRegionResponse:
+    ) -> apigateway_models.AllGrayscaleResponse:
         """
-        Description: 查询所以region名称
-        Summary: 查询所以region名称
+        Description: 查询灰度规则配置
+        Summary: 查询灰度规则配置
         """
         UtilClient.validate_model(request)
-        return apigateway_models.AllGwconfigRegionResponse().from_map(
-            self.do_request('1.0', 'sofa.apigateway.gwconfig.region.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return apigateway_models.AllGrayscaleResponse().from_map(
+            self.do_request('1.0', 'sofa.apigateway.grayscale.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def all_gwconfig_region_ex_async(
+    async def all_grayscale_ex_async(
         self,
-        request: apigateway_models.AllGwconfigRegionRequest,
+        request: apigateway_models.AllGrayscaleRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> apigateway_models.AllGwconfigRegionResponse:
+    ) -> apigateway_models.AllGrayscaleResponse:
         """
-        Description: 查询所以region名称
-        Summary: 查询所以region名称
+        Description: 查询灰度规则配置
+        Summary: 查询灰度规则配置
         """
         UtilClient.validate_model(request)
-        return apigateway_models.AllGwconfigRegionResponse().from_map(
-            await self.do_request_async('1.0', 'sofa.apigateway.gwconfig.region.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return apigateway_models.AllGrayscaleResponse().from_map(
+            await self.do_request_async('1.0', 'sofa.apigateway.grayscale.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_grayscale(
+        self,
+        request: apigateway_models.ListGrayscaleRequest,
+    ) -> apigateway_models.ListGrayscaleResponse:
+        """
+        Description: 分页查询灰度规则列表
+        Summary: 分页查询灰度规则列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_grayscale_ex(request, headers, runtime)
+
+    async def list_grayscale_async(
+        self,
+        request: apigateway_models.ListGrayscaleRequest,
+    ) -> apigateway_models.ListGrayscaleResponse:
+        """
+        Description: 分页查询灰度规则列表
+        Summary: 分页查询灰度规则列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_grayscale_ex_async(request, headers, runtime)
+
+    def list_grayscale_ex(
+        self,
+        request: apigateway_models.ListGrayscaleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> apigateway_models.ListGrayscaleResponse:
+        """
+        Description: 分页查询灰度规则列表
+        Summary: 分页查询灰度规则列表
+        """
+        UtilClient.validate_model(request)
+        return apigateway_models.ListGrayscaleResponse().from_map(
+            self.do_request('1.0', 'sofa.apigateway.grayscale.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_grayscale_ex_async(
+        self,
+        request: apigateway_models.ListGrayscaleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> apigateway_models.ListGrayscaleResponse:
+        """
+        Description: 分页查询灰度规则列表
+        Summary: 分页查询灰度规则列表
+        """
+        UtilClient.validate_model(request)
+        return apigateway_models.ListGrayscaleResponse().from_map(
+            await self.do_request_async('1.0', 'sofa.apigateway.grayscale.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def all_router_region(
+        self,
+        request: apigateway_models.AllRouterRegionRequest,
+    ) -> apigateway_models.AllRouterRegionResponse:
+        """
+        Description: 查询所有region名称
+        Summary: 查询所有region名称
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.all_router_region_ex(request, headers, runtime)
+
+    async def all_router_region_async(
+        self,
+        request: apigateway_models.AllRouterRegionRequest,
+    ) -> apigateway_models.AllRouterRegionResponse:
+        """
+        Description: 查询所有region名称
+        Summary: 查询所有region名称
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.all_router_region_ex_async(request, headers, runtime)
+
+    def all_router_region_ex(
+        self,
+        request: apigateway_models.AllRouterRegionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> apigateway_models.AllRouterRegionResponse:
+        """
+        Description: 查询所有region名称
+        Summary: 查询所有region名称
+        """
+        UtilClient.validate_model(request)
+        return apigateway_models.AllRouterRegionResponse().from_map(
+            self.do_request('1.0', 'sofa.apigateway.router.region.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def all_router_region_ex_async(
+        self,
+        request: apigateway_models.AllRouterRegionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> apigateway_models.AllRouterRegionResponse:
+        """
+        Description: 查询所有region名称
+        Summary: 查询所有region名称
+        """
+        UtilClient.validate_model(request)
+        return apigateway_models.AllRouterRegionResponse().from_map(
+            await self.do_request_async('1.0', 'sofa.apigateway.router.region.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

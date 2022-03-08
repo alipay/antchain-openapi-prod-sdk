@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_apigateway.
 
-Created on 22/02/2022
+Created on 08/03/2022
 
 @author: Ant Chain SDK
 """
