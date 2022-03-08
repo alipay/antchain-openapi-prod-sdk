@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.19',
+    sdk_version = '1.0.21',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -159,6 +159,56 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 访问IaaS层的身份
+model Accessor {
+  // Accessor关联的AccessKey
+  accessKey?: string(name='access_key', example='LTAIyqaeoWfELqMg'),
+  // Accessor关联的AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
+  accessSecret?: string(name='access_secret', example=''),
+  // AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
+  account?: string(name='account', example=''),
+  // AccessKey创建时间，ISO8601格式
+  createTime?: string(name='create_time', example=''),
+  // Accessor唯一标识
+  id?: string(name='id', example=''),
+  // Accessor类型(RAM/ACCOUNT)
+  type?: string(name='type', example='RAM'),
+}
+
+// 标签实体
+model Tag {
+  // 标签类型
+  tagType: string(name='tag_type', example='CHANNEL_SCENE'),
+  // 标签值
+  tagValue: string(name='tag_value', example='BAASDT_IPAE'),
+}
+
+// AccessKey
+model AccessKey {
+  // AccessKey创建时间，ISO8601格式
+  createTime?: string(name='create_time', example=''),
+  // AccessKey唯一标识
+  id?: string(name='id', example='LTAIyqaeoWfELqMg'),
+  // AccessKey的秘钥，加密传输，网关返回后，使用调用方的AccesSecret进行解密
+  secret?: string(name='secret', example=''),
+  // 状态
+  status?: string(name='status', example='ACTIVE'),
+  // AccessKey最近一次修改时间，ISO8601格式
+  updateTime?: string(name='update_time', example=''),
+}
+
+// 企业
+model Customer {
+  // 企业创建时间，ISO8601格式
+  createTime?: string(name='create_time', example=''),
+  // 企业ID
+  id?: string(name='id', example='2088xxxxx1'),
+  // 企业名称
+  name?: string(name='name', example='蚂蚁金融云有限公司'),
+  // 企业最近一次修改时间，ISO8601格式
+  updateTime?: string(name='update_time', example=''),
+}
+
 // 租户
 model Tenant {
   // 蚂蚁通行证签约账户
@@ -205,61 +255,13 @@ model Operator {
   nickname?: string(name='nickname', example=''),
   // 真实姓名
   realName?: string(name='real_name', example=''),
+  // 部门唯一码
+  departmentCode?: string(name='department_code', example=' '),
   // 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
   status?: string(name='status', example=''),
   // 操作员加入的租户列表
   tenants?: [ string ](name='tenants', example=''),
   // 操作员最近一次修改时间，ISO8601格式
-  updateTime?: string(name='update_time', example=''),
-}
-
-// AccessKey
-model AccessKey {
-  // AccessKey创建时间，ISO8601格式
-  createTime?: string(name='create_time', example=''),
-  // AccessKey唯一标识
-  id?: string(name='id', example='LTAIyqaeoWfELqMg'),
-  // AccessKey的秘钥，加密传输，网关返回后，使用调用方的AccesSecret进行解密
-  secret?: string(name='secret', example=''),
-  // 状态
-  status?: string(name='status', example='ACTIVE'),
-  // AccessKey最近一次修改时间，ISO8601格式
-  updateTime?: string(name='update_time', example=''),
-}
-
-// 标签实体
-model Tag {
-  // 标签类型
-  tagType: string(name='tag_type', example='CHANNEL_SCENE'),
-  // 标签值
-  tagValue: string(name='tag_value', example='BAASDT_IPAE'),
-}
-
-// 访问IaaS层的身份
-model Accessor {
-  // Accessor关联的AccessKey
-  accessKey?: string(name='access_key', example='LTAIyqaeoWfELqMg'),
-  // Accessor关联的AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
-  accessSecret?: string(name='access_secret', example=''),
-  // AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
-  account?: string(name='account', example=''),
-  // AccessKey创建时间，ISO8601格式
-  createTime?: string(name='create_time', example=''),
-  // Accessor唯一标识
-  id?: string(name='id', example=''),
-  // Accessor类型(RAM/ACCOUNT)
-  type?: string(name='type', example='RAM'),
-}
-
-// 企业
-model Customer {
-  // 企业创建时间，ISO8601格式
-  createTime?: string(name='create_time', example=''),
-  // 企业ID
-  id?: string(name='id', example='2088xxxxx1'),
-  // 企业名称
-  name?: string(name='name', example='蚂蚁金融云有限公司'),
-  // 企业最近一次修改时间，ISO8601格式
   updateTime?: string(name='update_time', example=''),
 }
 
@@ -348,6 +350,12 @@ model GetOperatorResponse = {
   tenants: [ string ](name='tenants'),
   // 操作员最近一次修改时间，ISO8601格式
   updateTime?: string(name='update_time'),
+  // 工号
+  workNo?: string(name='work_no'),
+  // 是否是主账号
+  isMaster?: boolean(name='is_master'),
+  // 钉钉机器人 token
+  ddRobot?: string(name='dd_robot'),
 }
 
 /**
@@ -382,6 +390,8 @@ model QueryOperatorRequest = {
   realName?: string(name='real_name'),
   // 租户唯一标识
   tenant?: string(name='tenant'),
+  // 部门唯一码
+  departmentCode?: string(name='department_code'),
 }
 
 model QueryOperatorResponse = {
@@ -494,8 +504,14 @@ model CreateOperatorRequest = {
   realName: string(name='real_name'),
   // 租户唯一标识
   tenant?: string(name='tenant'),
+  // 工号
+  workNo?: string(name='work_no'),
   // 业务场景码
   bussinessCode?: string(name='bussiness_code'),
+  // 加密密码
+  encryptedPassword?: string(name='encrypted_password'),
+  // 首次登录是否需要重置密码，取值范围：true, false，默认为 false
+  resetPasswordWhenFirstLogin?: boolean(name='reset_password_when_first_login'),
 }
 
 model CreateOperatorResponse = {
@@ -672,6 +688,12 @@ model CreateTenantRequest = {
   antUid: string(name='ant_uid'),
   // 金融云官网:ANTCLOUD, 蚂蚁开放平台：ANTOPEN, 口碑：KOUBEI
   businessOwnerId?: string(name='business_owner_id'),
+  // 租户名称，如果为空则随机生成
+  name?: string(name='name'),
+  // 显示名称
+  displayName?: string(name='display_name'),
+  // 描述信息
+  description?: string(name='description'),
 }
 
 model CreateTenantResponse = {
@@ -1068,6 +1090,8 @@ model GetTenantIaasaccountRequest = {
   authToken?: string(name='auth_token'),
   // 租户唯一标识
   tenant: string(name='tenant'),
+  // 一方化调用参数，阿里云服务名
+  sourceId?: string(name='source_id'),
 }
 
 model GetTenantIaasaccountResponse = {
@@ -1087,6 +1111,10 @@ model GetTenantIaasaccountResponse = {
   createTime?: string(name='create_time'),
   // IaaS账户id
   id?: string(name='id'),
+  // sts token
+  accessToken?: string(name='access_token'),
+  // 是否是sts模式
+  stsMode?: boolean(name='sts_mode'),
 }
 
 /**
@@ -1422,6 +1450,8 @@ model GetMasterTenantResponse = {
   updateTime?: string(name='update_time'),
   // 用户类型
   userType?: string(name='user_type'),
+  // 租户的类型 N 支付宝 Q支付宝开放平台 V 蚂蚁链账号
+  tenantLevel?: string(name='tenant_level'),
 }
 
 /**
@@ -1595,5 +1625,40 @@ async function removeTenantBusinesstag(request: RemoveTenantBusinesstagRequest):
 async function removeTenantBusinesstagEx(request: RemoveTenantBusinesstagRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RemoveTenantBusinesstagResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.acm.tenant.businesstag.remove', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendOperatorActiveemailRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 操作员ID
+  operatorId: string(name='operator_id'),
+}
+
+model SendOperatorActiveemailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 用户发送操作员的激活邮件
+ * Summary: 操作员发送激活邮件
+ */
+async function sendOperatorActiveemail(request: SendOperatorActiveemailRequest): SendOperatorActiveemailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendOperatorActiveemailEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户发送操作员的激活邮件
+ * Summary: 操作员发送激活邮件
+ */
+async function sendOperatorActiveemailEx(request: SendOperatorActiveemailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendOperatorActiveemailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.operator.activeemail.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
