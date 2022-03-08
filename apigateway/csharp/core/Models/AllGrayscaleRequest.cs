@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.APIGATEWAY.Models
 {
-    public class AllGwconfigRegionRequest : TeaModel {
+    public class AllGrayscaleRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,20 @@ namespace AntChain.SDK.APIGATEWAY.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 租户id
-        [NameInMap("tenant_id")]
+        // param
+        [NameInMap("param")]
         [Validation(Required=false)]
-        public string TenantId { get; set; }
+        public GrayscaleConfigQueryVO Param { get; set; }
 
-        // 工作空间标识
+        // workspace_id
         [NameInMap("workspace_id")]
         [Validation(Required=false)]
         public string WorkspaceId { get; set; }
+
+        // tenant_id
+        [NameInMap("tenant_id")]
+        [Validation(Required=false)]
+        public string TenantId { get; set; }
 
     }
 

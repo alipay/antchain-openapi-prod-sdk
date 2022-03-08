@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.APIGATEWAY.Models
 {
-    public class AllGwconfigRegionResponse : TeaModel {
+    public class ListGrayscaleResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -27,7 +27,7 @@ namespace AntChain.SDK.APIGATEWAY.Models
         // data
         [NameInMap("data")]
         [Validation(Required=false)]
-        public List<string> Data { get; set; }
+        public GrayscaleConfigPagedListVO Data { get; set; }
 
     }
 

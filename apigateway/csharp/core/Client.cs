@@ -137,7 +137,7 @@ namespace AntChain.SDK.APIGATEWAY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.312"},
+                        {"sdk_version", "1.1.325"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.APIGATEWAY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.312"},
+                        {"sdk_version", "1.1.325"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -7798,45 +7798,129 @@ namespace AntChain.SDK.APIGATEWAY
         }
 
         /**
-         * Description: 查询所以region名称
-         * Summary: 查询所以region名称
+         * Description: 查询灰度规则配置
+         * Summary: 查询灰度规则配置
          */
-        public AllGwconfigRegionResponse AllGwconfigRegion(AllGwconfigRegionRequest request)
+        public AllGrayscaleResponse AllGrayscale(AllGrayscaleRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return AllGwconfigRegionEx(request, headers, runtime);
+            return AllGrayscaleEx(request, headers, runtime);
         }
 
         /**
-         * Description: 查询所以region名称
-         * Summary: 查询所以region名称
+         * Description: 查询灰度规则配置
+         * Summary: 查询灰度规则配置
          */
-        public async Task<AllGwconfigRegionResponse> AllGwconfigRegionAsync(AllGwconfigRegionRequest request)
+        public async Task<AllGrayscaleResponse> AllGrayscaleAsync(AllGrayscaleRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await AllGwconfigRegionExAsync(request, headers, runtime);
+            return await AllGrayscaleExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: 查询所以region名称
-         * Summary: 查询所以region名称
+         * Description: 查询灰度规则配置
+         * Summary: 查询灰度规则配置
          */
-        public AllGwconfigRegionResponse AllGwconfigRegionEx(AllGwconfigRegionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public AllGrayscaleResponse AllGrayscaleEx(AllGrayscaleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<AllGwconfigRegionResponse>(DoRequest("1.0", "sofa.apigateway.gwconfig.region.all", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<AllGrayscaleResponse>(DoRequest("1.0", "sofa.apigateway.grayscale.all", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 查询所以region名称
-         * Summary: 查询所以region名称
+         * Description: 查询灰度规则配置
+         * Summary: 查询灰度规则配置
          */
-        public async Task<AllGwconfigRegionResponse> AllGwconfigRegionExAsync(AllGwconfigRegionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<AllGrayscaleResponse> AllGrayscaleExAsync(AllGrayscaleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<AllGwconfigRegionResponse>(await DoRequestAsync("1.0", "sofa.apigateway.gwconfig.region.all", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<AllGrayscaleResponse>(await DoRequestAsync("1.0", "sofa.apigateway.grayscale.all", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询灰度规则列表
+         * Summary: 分页查询灰度规则列表
+         */
+        public ListGrayscaleResponse ListGrayscale(ListGrayscaleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListGrayscaleEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询灰度规则列表
+         * Summary: 分页查询灰度规则列表
+         */
+        public async Task<ListGrayscaleResponse> ListGrayscaleAsync(ListGrayscaleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListGrayscaleExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询灰度规则列表
+         * Summary: 分页查询灰度规则列表
+         */
+        public ListGrayscaleResponse ListGrayscaleEx(ListGrayscaleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListGrayscaleResponse>(DoRequest("1.0", "sofa.apigateway.grayscale.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询灰度规则列表
+         * Summary: 分页查询灰度规则列表
+         */
+        public async Task<ListGrayscaleResponse> ListGrayscaleExAsync(ListGrayscaleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListGrayscaleResponse>(await DoRequestAsync("1.0", "sofa.apigateway.grayscale.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询所有region名称
+         * Summary: 查询所有region名称
+         */
+        public AllRouterRegionResponse AllRouterRegion(AllRouterRegionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AllRouterRegionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询所有region名称
+         * Summary: 查询所有region名称
+         */
+        public async Task<AllRouterRegionResponse> AllRouterRegionAsync(AllRouterRegionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AllRouterRegionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询所有region名称
+         * Summary: 查询所有region名称
+         */
+        public AllRouterRegionResponse AllRouterRegionEx(AllRouterRegionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AllRouterRegionResponse>(DoRequest("1.0", "sofa.apigateway.router.region.all", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询所有region名称
+         * Summary: 查询所有region名称
+         */
+        public async Task<AllRouterRegionResponse> AllRouterRegionExAsync(AllRouterRegionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AllRouterRegionResponse>(await DoRequestAsync("1.0", "sofa.apigateway.router.region.all", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

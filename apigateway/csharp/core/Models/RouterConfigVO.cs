@@ -55,6 +55,26 @@ namespace AntChain.SDK.APIGATEWAY.Models
         [Validation(Required=false)]
         public string InterceptionRule { get; set; }
 
+        // 跨域标识
+        [NameInMap("gw_id")]
+        [Validation(Required=false)]
+        public string GwId { get; set; }
+
+        // region标识
+        [NameInMap("region_id")]
+        [Validation(Required=false)]
+        public string RegionId { get; set; }
+
+        // region名称
+        [NameInMap("region_name")]
+        [Validation(Required=false)]
+        public string RegionName { get; set; }
+
+        // gateway_config
+        [NameInMap("gateway_config")]
+        [Validation(Required=false)]
+        public GateWayConfigVO GatewayConfig { get; set; }
+
     }
 
 }

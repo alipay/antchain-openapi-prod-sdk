@@ -70,6 +70,11 @@ namespace AntChain.SDK.APIGATEWAY.Models
         [Validation(Required=false)]
         public string WorkspaceId { get; set; }
 
+        // model_description
+        [NameInMap("model_description")]
+        [Validation(Required=false)]
+        public string ModelDescription { get; set; }
+
     }
 
 }

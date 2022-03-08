@@ -70,6 +70,11 @@ namespace AntChain.SDK.APIGATEWAY.Models
         [Validation(Required=false)]
         public string WorkspaceId { get; set; }
 
+        // 跨域状态
+        [NameInMap("cors_status")]
+        [Validation(Required=false)]
+        public string CorsStatus { get; set; }
+
     }
 
 }

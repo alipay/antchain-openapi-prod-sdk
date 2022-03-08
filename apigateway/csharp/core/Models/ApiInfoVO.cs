@@ -425,10 +425,10 @@ namespace AntChain.SDK.APIGATEWAY.Models
         [Validation(Required=false)]
         public bool? NeedTls { get; set; }
 
-        // api_group_info
-        [NameInMap("api_group_info")]
+        // api_group
+        [NameInMap("api_group")]
         [Validation(Required=false)]
-        public ApiGroupVO ApiGroupInfo { get; set; }
+        public ApiGroupVO ApiGroup { get; set; }
 
         // 授权对象列表
         [NameInMap("auth_app_info_list")]
@@ -449,6 +449,16 @@ namespace AntChain.SDK.APIGATEWAY.Models
         [NameInMap("upstream_instance_id")]
         [Validation(Required=false)]
         public string UpstreamInstanceId { get; set; }
+
+        // 跨域状态
+        [NameInMap("cors_status")]
+        [Validation(Required=false)]
+        public string CorsStatus { get; set; }
+
+        // gray_type
+        [NameInMap("gray_type")]
+        [Validation(Required=false)]
+        public bool? GrayType { get; set; }
 
     }
 

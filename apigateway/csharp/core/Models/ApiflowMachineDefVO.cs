@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.APIGATEWAY.Models
 {
-    // 编排VO
+    // ApiflowMachineDefVO
     public class ApiflowMachineDefVO : TeaModel {
         // 	
         // api数
