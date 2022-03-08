@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "APIGATEWAY",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-apigateway:1.1.312",
-    "go": "github.com/antchain-openapi-sdk-go/apigateway/client:v1.1.312",
-    "csharp": "AntChain.SDK.APIGATEWAY:1.1.312",
-    "ts": "@antchain/apigateway:1.1.312",
-    "php": "antchain/apigateway:1.1.312",
-    "python": "antchain_sdk_apigateway:1.1.312"
+    "java": "com.antgroup.antchain.openapi:openapi-apigateway:1.1.325",
+    "go": "github.com/antchain-openapi-sdk-go/apigateway/client:v1.1.325",
+    "csharp": "AntChain.SDK.APIGATEWAY:1.1.325",
+    "ts": "@antchain/apigateway:1.1.325",
+    "php": "antchain/apigateway:1.1.325",
+    "python": "antchain_sdk_apigateway:1.1.325"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

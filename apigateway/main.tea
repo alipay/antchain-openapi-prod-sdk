@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.312',
+    sdk_version = '1.1.325',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -159,6 +159,32 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// ProtocolVO
+model ProtocolVO {
+  // 协议类型
+  protocol?: string(name='protocol', example='HTTP、RPC、DUBBO'),
+  // 端口
+  port?: string(name='port', example='80'),
+}
+
+// RegistryVO
+model RegistryVO {
+  // host
+  host?: string(name='host', example='hz-gw-host-egress'),
+  // protocol_support
+  protocolSupport?: [ ProtocolVO ](name='protocol_support', example='[{“protocol”:“HTTP”,"port":"80"}]'),
+  // 注册中心类型
+  type?: string(name='type', example='dsr 、nacos、 none'),
+}
+
+// AuthenticationConfigVO
+model AuthenticationConfigVO {
+  // access_key
+  accessKey?: string(name='access_key', example='key1'),
+  // secret_key
+  secretKey?: string(name='secret_key', example='key1'),
+}
+
 // 注册中心详情
 model RegistryInfoVO {
   // workspace_id
@@ -201,14 +227,6 @@ model RegistryInfoVO {
   nameSpace?: string(name='name_space', example='name_space'),
   // 集群名称
   clusterName?: string(name='cluster_name', example='cluster_name'),
-}
-
-// AuthenticationConfigVO
-model AuthenticationConfigVO {
-  // access_key
-  accessKey?: string(name='access_key', example='key1'),
-  // secret_key
-  secretKey?: string(name='secret_key', example='key1'),
 }
 
 // SystemClusterVO
@@ -269,30 +287,26 @@ model SystemClusterVO {
   tlsType?: string(name='tls_type', example='DEV/PROD'),
 }
 
-// ProtocolVO
-model ProtocolVO {
-  // 协议类型
-  protocol?: string(name='protocol', example='HTTP、RPC、DUBBO'),
-  // 端口
-  port?: string(name='port', example='80'),
-}
-
-// EncryptConfigVO
-model EncryptConfigVO {
-  // app_id
-  appId?: string(name='app_id', example='app1'),
-  // 加密状态
-  encryptionStatus?: string(name='encryption_status', example='OPENED/CLOSED'),
-  // 加密类型
-  encryptType?: string(name='encrypt_type', example='ECC/RSA/SM'),
-  // key_pair
-  keyPair?: string(name='key_pair', example='keypair1'),
-  // private_key
-  privateKey?: string(name='private_key', example='key1'),
-  // pub_key
-  pubKey?: string(name='pub_key', example='key1'),
+// GateWayConfigVO
+model GateWayConfigVO {
+  // 唯一标识
+  gatewayId?: string(name='gateway_id', example='gatewayId'),
+  // host
+  host?: string(name='host', example='host'),
+  // 唯一性标识
+  id?: string(name='id', example='id'),
+  // zone名称、网关名称
+  name?: string(name='name', example='name'),
+  // 注册中心
+  routers?: [ RegistryVO ](name='routers', example=''),
+  // tenant_id
+  tenantId?: string(name='tenant_id', example='tenant_id'),
   // workspace_id
-  workspaceId?: string(name='workspace_id', example='default'),
+  workspaceId?: string(name='workspace_id', example='workspace_id'),
+  // zone
+  zone?: string(name='zone', example='hz | sh'),
+  // 流量比例
+  weight?: long(name='weight', example=''),
 }
 
 // RouterConfigVO
@@ -315,6 +329,32 @@ model RouterConfigVO {
   weight?: long(name='weight', example=''),
   // interceptionRule
   interceptionRule?: string(name='interception_rule', example='interception_rule1'),
+  // 跨域标识
+  gwId?: string(name='gw_id', example='ASDFGH'),
+  // region标识
+  regionId?: string(name='region_id', example='default'),
+  // region名称
+  regionName?: string(name='region_name', example='default'),
+  // gateway_config
+  gatewayConfig?: GateWayConfigVO(name='gateway_config', example=''),
+}
+
+// EncryptConfigVO
+model EncryptConfigVO {
+  // app_id
+  appId?: string(name='app_id', example='app1'),
+  // 加密状态
+  encryptionStatus?: string(name='encryption_status', example='OPENED/CLOSED'),
+  // 加密类型
+  encryptType?: string(name='encrypt_type', example='ECC/RSA/SM'),
+  // key_pair
+  keyPair?: string(name='key_pair', example='keypair1'),
+  // private_key
+  privateKey?: string(name='private_key', example='key1'),
+  // pub_key
+  pubKey?: string(name='pub_key', example='key1'),
+  // workspace_id
+  workspaceId?: string(name='workspace_id', example='default'),
 }
 
 // ApiRspCodeVO
@@ -327,86 +367,12 @@ model ApiRspCodeVO {
   errorDesc?: string(name='error_desc', example='error_desc'),
 }
 
-// ApiGroupDomainVO
-model ApiGroupDomainVO {
-  // gmt_create
-  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
-  // gmt_modified
-  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
-  // api_group_id
-  apiGroupId?: string(name='api_group_id', example='api_group_id'),
-  // domain_name
-  domainName?: string(name='domain_name', example='domain_name'),
-}
-
-// RouterInfoVO
-model RouterInfoVO {
-  // api数
-  apiCount?: long(name='api_count', example=''),
-  // 是否可以删除
-  canDelete?: boolean(name='can_delete', example='true, false'),
-  // 创建时间
-  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
-  // 更改时间
-  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
-  // operator
-  operator?: string(name='operator', example='scott'),
-  // routerConfigs
-  routerConfigs?: [ RouterConfigVO ](name='router_configs', example=''),
-  // router_id
-  routerId?: string(name='router_id', example='8Amfi67dmE9wpY46'),
-  // routerName
-  routerName?: string(name='router_name', example='router_name1'),
-  // routerType
-  routerType?: string(name='router_type', example='PATH / HEADER / WEIGHT / LDC'),
-  // upstream_protocol
-  upstreamProtocol?: string(name='upstream_protocol', example='HTTP / MRPC / SOFA / SOFA_VPC'),
-  // tenant_id
-  tenantId?: string(name='tenant_id', example='tenant_id'),
-  // workspace_id
-  workspaceId?: string(name='workspace_id', example='workspace_id'),
-}
-
-// AppInfoVO
-model AppInfoVO {
-  // api_count
-  apiCount?: long(name='api_count', example=''),
-  // app_id
-  appId?: string(name='app_id', example='app_id'),
-  // app_name
-  appName?: string(name='app_name', example='app_name'),
-  // appSecret
-  appSecret?: string(name='app_secret', example='app_secret1'),
-  // app类型
-  appType?: string(name='app_type', example='STANDARD / MPAAS'),
-  // authenticationConfig
-  authenticationConfig?: AuthenticationConfigVO(name='authentication_config', example=''),
-  // 是否可以删除
-  canDelete?: boolean(name='can_delete', example='true, false'),
-  // description
-  description?: string(name='description', example='description'),
-  // encryptConfig
-  encryptConfig?: EncryptConfigVO(name='encrypt_config', example=''),
-  // 创建时间
-  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
-  // 更改时间
-  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
-  // operator
-  operator?: string(name='operator', example='scott'),
-  // tenant_id
-  tenantId?: string(name='tenant_id', example='tenant_id'),
-  // workspace_id
-  workspaceId?: string(name='workspace_id', example='workspace_id'),
-}
-
-// RegistryVO
-model RegistryVO {
-  // host
-  host?: string(name='host', example='hz-gw-host-egress'),
-  // protocol_support
-  protocolSupport?: [ ProtocolVO ](name='protocol_support', example='[{“protocol”:“HTTP”,"port":"80"}]'),
-  // 注册中心类型
-  type?: string(name='type', example='dsr 、nacos、 none'),
+// ApiCacheKeyVO
+model ApiCacheKeyVO {
+  // key
+  key?: string(name='key', example='key1'),
+  // location
+  location?: string(name='location', example='HEADER/QUERY/BODY'),
 }
 
 // ApiParamVO
@@ -443,6 +409,68 @@ model ApiParamVO {
   tenantId?: string(name='tenant_id', example='tenant_id'),
 }
 
+// RouterInfoVO
+model RouterInfoVO {
+  // api数
+  apiCount?: long(name='api_count', example=''),
+  // 是否可以删除
+  canDelete?: boolean(name='can_delete', example='true, false'),
+  // 创建时间
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 更改时间
+  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // operator
+  operator?: string(name='operator', example='scott'),
+  // routerConfigs
+  routerConfigs?: [ RouterConfigVO ](name='router_configs', example=''),
+  // router_id
+  routerId?: string(name='router_id', example='8Amfi67dmE9wpY46'),
+  // routerName
+  routerName?: string(name='router_name', example='router_name1'),
+  // routerType
+  routerType?: string(name='router_type', example='PATH / HEADER / WEIGHT / LDC'),
+  // upstream_protocol
+  upstreamProtocol?: string(name='upstream_protocol', example='HTTP / MRPC / SOFA / SOFA_VPC'),
+  // tenant_id
+  tenantId?: string(name='tenant_id', example='tenant_id'),
+  // workspace_id
+  workspaceId?: string(name='workspace_id', example='workspace_id'),
+  // 跨域状态
+  corsStatus?: string(name='cors_status', example='OPENED/CLOSED'),
+}
+
+// AppInfoVO
+model AppInfoVO {
+  // api_count
+  apiCount?: long(name='api_count', example=''),
+  // app_id
+  appId?: string(name='app_id', example='app_id'),
+  // app_name
+  appName?: string(name='app_name', example='app_name'),
+  // appSecret
+  appSecret?: string(name='app_secret', example='app_secret1'),
+  // app类型
+  appType?: string(name='app_type', example='STANDARD / MPAAS'),
+  // authenticationConfig
+  authenticationConfig?: AuthenticationConfigVO(name='authentication_config', example=''),
+  // 是否可以删除
+  canDelete?: boolean(name='can_delete', example='true, false'),
+  // description
+  description?: string(name='description', example='description'),
+  // encryptConfig
+  encryptConfig?: EncryptConfigVO(name='encrypt_config', example=''),
+  // 创建时间
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 更改时间
+  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // operator
+  operator?: string(name='operator', example='scott'),
+  // tenant_id
+  tenantId?: string(name='tenant_id', example='tenant_id'),
+  // workspace_id
+  workspaceId?: string(name='workspace_id', example='workspace_id'),
+}
+
 // 数据模型参数VO
 model ApiModelParamVO {
   // 默认值
@@ -469,50 +497,41 @@ model ApiModelParamVO {
   tenantId?: string(name='tenant_id', example='tenant_id'),
   // workspace_id
   workspaceId?: string(name='workspace_id', example='workspace id'),
+  // model_description
+  modelDescription?: string(name='model_description', example='model_description'),
 }
 
-// ApiCacheKeyVO
-model ApiCacheKeyVO {
-  // key
-  key?: string(name='key', example='key1'),
-  // location
-  location?: string(name='location', example='HEADER/QUERY/BODY'),
-}
-
-// ApiGroupVO
-model ApiGroupVO {
-  // api数
-  apiCount?: long(name='api_count', example=''),
-  // 分组标识(全局唯一)
-  apiGroupId?: string(name='api_group_id', example='3778911001abc'),
-  // 用户授权开关
-  authUserSwitch?: string(name='auth_user_switch', example='ON/OFF'),
-  // 是否可以删除
-  canDelete?: boolean(name='can_delete', example='true, false'),
-  // 描述
-  description?: string(name='description', example='这是一段描述信息'),
-  // 域名
-  domainName?: string(name='domain_name', example='https://3grofekygwdqrddt.shprod.antfinapigw.com-east-2'),
-  // 创建时间
+// ApiGroupDomainVO
+model ApiGroupDomainVO {
+  // gmt_create
   gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
-  // 更改时间
+  // gmt_modified
   gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
-  // 分组名
-  groupName?: string(name='group_name', example='test_group'),
-  // need_api_auth_user
-  needApiAuthUser?: boolean(name='need_api_auth_user', example='true, false'),
-  // 创建人
-  operator?: string(name='operator', example='scott'),
-  // 租户标识
-  tenantId?: string(name='tenant_id', example='TSCPDICNT'),
-  // 工作空间标识
-  workspaceId?: string(name='workspace_id', example='default'),
-  // 是否可操作
-  operationPermission?: boolean(name='operation_permission', example=''),
-  // DEFAULT|CUSTOM
-  domainType?: string(name='domain_type', example='DEFAULT|CUSTOM'),
-  // 自定义域名
-  domainList?: [ ApiGroupDomainVO ](name='domain_list', example=''),
+  // api_group_id
+  apiGroupId?: string(name='api_group_id', example='api_group_id'),
+  // domain_name
+  domainName?: string(name='domain_name', example='domain_name'),
+}
+
+// 授权信息
+model SofaGwAuthenticationVO {
+  // 		
+  // access key
+  // 
+  // 
+  authAccessKey?: string(name='auth_access_key', example='xxx'),
+  // secret key
+  authSecretKey?: string(name='auth_secret_key', example='yyy'),
+  // id
+  id?: long(name='id', example='100'),
+}
+
+// 排序信息
+model OrderInfo {
+  // 要排序的字段
+  key: string(name='key', example='groupName'),
+  // 升序or降序
+  order: string(name='order', example='asc / desc'),
 }
 
 // AuthAppInfoVO
@@ -555,6 +574,197 @@ model AuthAppInfoVO {
   tenantId?: string(name='tenant_id', example='tenant_id'),
 }
 
+// 策略管理
+model StrategyInfoVO {
+  // workspace_id
+  workspaceId?: string(name='workspace_id', example='workspace_id'),
+  // tenant_id
+  tenantId?: string(name='tenant_id', example='tenant_id'),
+  // 创建时间
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 更新时间
+  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // 策略唯一标识
+  strategyId?: string(name='strategy_id', example='strategy_id'),
+  // 策略名称
+  strategyName?: string(name='strategy_name', example='strategy_name'),
+  // 策略状态
+  strategyStatus?: string(name='strategy_status', example='CLOSED/OPENED'),
+  // 操作人
+  operator?: string(name='operator', example='operator'),
+  // 	
+  // API数量
+  apiCount?: long(name='api_count', example='api_count'),
+  // 策略描述
+  description?: string(name='description', example='description'),
+  // 策略类型
+  strategyType?: string(name='strategy_type', example='BLACK/WHITE'),
+  // 名单集合
+  host?: [ string ](name='host', example=''),
+  // true, false
+  canDelete?: boolean(name='can_delete', example='true, false'),
+}
+
+// SwitchVO
+model SwitchVO {
+  // 唯一标识
+  id?: string(name='id', example='8Amfi67dmE9wpY46'),
+  // 键值
+  key?: string(name='key', example='key'),
+  // 名称
+  name?: string(name='name', example='name'),
+  // 开关
+  value?: string(name='value', example='ON/OFF'),
+}
+
+// LimitConfigVO
+model LimitConfigVO {
+  // 是否需要限制
+  needLimit?: boolean(name='need_limit', example='true, false'),
+  // 限制阈值
+  limit?: long(name='limit', example=''),
+  // 限制响应类型
+  limitRspType?: string(name='limit_rsp_type', example='DEFAULT/MSG'),
+  // 响应信息
+  rspMsg?: string(name='rsp_msg', example='rsp_msg1'),
+}
+
+// ApiGroupVO
+model ApiGroupVO {
+  // api数
+  apiCount?: long(name='api_count', example=''),
+  // 分组标识(全局唯一)
+  apiGroupId?: string(name='api_group_id', example='3778911001abc'),
+  // 用户授权开关
+  authUserSwitch?: string(name='auth_user_switch', example='ON/OFF'),
+  // 是否可以删除
+  canDelete?: boolean(name='can_delete', example='true, false'),
+  // 描述
+  description?: string(name='description', example='这是一段描述信息'),
+  // 域名
+  domainName?: string(name='domain_name', example='https://3grofekygwdqrddt.shprod.antfinapigw.com-east-2'),
+  // 创建时间
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 更改时间
+  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // 分组名
+  groupName?: string(name='group_name', example='test_group'),
+  // need_api_auth_user
+  needApiAuthUser?: boolean(name='need_api_auth_user', example='true, false'),
+  // 创建人
+  operator?: string(name='operator', example='scott'),
+  // 租户标识
+  tenantId?: string(name='tenant_id', example='TSCPDICNT'),
+  // 工作空间标识
+  workspaceId?: string(name='workspace_id', example='default'),
+  // 是否可操作
+  operationPermission?: boolean(name='operation_permission', example=''),
+  // DEFAULT|CUSTOM
+  domainType?: string(name='domain_type', example='DEFAULT|CUSTOM'),
+  // 自定义域名
+  domainList?: [ ApiGroupDomainVO ](name='domain_list', example=''),
+}
+
+// ApiflowOutputVO
+model ApiflowOutputVO {
+  // name
+  name?: string(name='name', example='name'),
+  // mapping_name
+  mappingName?: string(name='mapping_name', example='mapping_name'),
+}
+
+// GrayRuleConfigVO
+model GrayRuleConfigVO {
+  // lable
+  lable?: string(name='lable', example='lable'),
+  // weight
+  weight?: long(name='weight', example=''),
+  // app_name
+  appName?: string(name='app_name', example='app_name'),
+  // arg_key
+  argKey?: string(name='arg_key', example='arg_key'),
+  // match_type
+  matchType?: string(name='match_type', example='match_type'),
+  // arg_value
+  argValue?: string(name='arg_value', example='arg_value'),
+}
+
+// CorsInfoVO
+model CorsInfoVO {
+  // 是否允许发送COOKIE
+  allowCredentials?: boolean(name='allow_credentials', example='true, false'),
+  // 允许的 request headers
+  allowHeaders?: [ string ](name='allow_headers', example=''),
+  // 允许的http method
+  allowMethods?: [ string ](name='allow_methods', example=''),
+  // 允许的 ORIGIN
+  allowOrigins?: [ string ](name='allow_origins', example=''),
+  // API数量
+  apiCount?: long(name='api_count', example=''),
+  // cors标识
+  corsId?: string(name='cors_id', example='cors_id1'),
+  // cors名称
+  corsName?: string(name='cors_name', example='cors_name1'),
+  // cors_scop
+  corsScop?: string(name='cors_scop', example='WORKSPACE/API'),
+  // cors状态
+  corsStatus?: string(name='cors_status', example='CLOSED/OPENED'),
+  // 允许暴露的 reponse header
+  exposeHeaders?: [ string ](name='expose_headers', example=''),
+  // 创建时间
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 更新时间
+  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // 预检请求的有效期
+  maxAge?: long(name='max_age', example=''),
+  // 创建人
+  operator?: string(name='operator', example='scott'),
+  // 租户标识
+  tenantId?: string(name='tenant_id', example='TSCPDICNT'),
+  // 工作空间标识
+  workspaceId?: string(name='workspace_id', example='default'),
+}
+
+// ApiVersionVO
+model ApiVersionVO {
+  // API标识
+  apiId?: string(name='api_id', example='api_id1'),
+  // editOperator
+  editOperator?: string(name='edit_operator', example='scott'),
+  // 创建时间
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 编辑时间
+  gmtEdit?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_edit', example='2018-10-10T10:10:00Z'),
+  // 更改时间
+  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // gmtOffline
+  gmtOffline?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_offline', example='2018-10-10T10:10:00Z'),
+  // gmtOnline
+  gmtOnline?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_online', example='2018-10-10T10:10:00Z'),
+  // offlineDesc
+  offlineDesc?: string(name='offline_desc', example='offline_desc1'),
+  // offlineOperator
+  offlineOperator?: string(name='offline_operator', example='scott'),
+  // onlineDesc
+  onlineDesc?: string(name='online_desc', example='online_desc1'),
+  // onlineOperator
+  onlineOperator?: string(name='online_operator', example='online_operator1'),
+  // versionId
+  versionId?: string(name='version_id', example='4438Y8yXxU0cYrgS'),
+  // 版本号
+  versionNo?: string(name='version_no', example='1.2'),
+  // versionStatus
+  versionStatus?: string(name='version_status', example='EDIT / ONLINE / OFFLINE'),
+  // 能否发布
+  canOnline?: boolean(name='can_online', example='true, false'),
+}
+
+// ApiMockConfigVO
+model ApiMockConfigVO {
+  // mock_data
+  mockData?: string(name='mock_data', example='mock_data'),
+}
+
 // ApiCrossZoneVO
 model ApiCrossZoneVO {
   // workspace_id
@@ -577,10 +787,46 @@ model ApiCrossZoneVO {
   registryId?: string(name='registry_id', example='registry_id'),
 }
 
-// ApiMockConfigVO
-model ApiMockConfigVO {
-  // mock_data
-  mockData?: string(name='mock_data', example='mock_data'),
+// ParamMappingInfoVO
+model ParamMappingInfoVO {
+  // api_count
+  apiCount?: long(name='api_count', example=''),
+  // can_delete
+  canDelete?: boolean(name='can_delete', example='true/false'),
+  // 配置模板
+  configTemplate?: string(name='config_template', example='config_template'),
+  // 描述
+  description?: string(name='description', example='description'),
+  // gmt_create
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // gmt_modified
+  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // 映射类型
+  mappingType?: string(name='mapping_type', example='request\response'),
+  // 创建人
+  operator?: string(name='operator', example='operator'),
+  // param_mapping_id
+  paramMappingId?: string(name='param_mapping_id', example='8Amfi67dmE9wpY46'),
+  // 参数映射名称
+  paramMappingName?: string(name='param_mapping_name', example='param_mapping_name'),
+  // 脚本配置
+  scriptConfig?: string(name='script_config', example='script_config'),
+  // tenant_id
+  tenantId?: string(name='tenant_id', example='TSCPDICNT'),
+  // workspace_id
+  workspaceId?: string(name='workspace_id', example='default'),
+  // 配置模板名称
+  configTemplateName?: string(name='config_template_name', example='config_template_name'),
+}
+
+// ApiCacheVO
+model ApiCacheVO {
+  // 是否需要缓存
+  needCache?: boolean(name='need_cache', example='true, false'),
+  // TTL
+  ttl?: long(name='ttl', example='10000'),
+  // cacheKeys
+  cacheKeys?: [ ApiCacheKeyVO ](name='cache_keys', example=''),
 }
 
 // 外部授权信息
@@ -646,115 +892,6 @@ model ExternalAuthInfoVO {
   workspaceId?: string(name='workspace_id', example='default'),
 }
 
-// SwitchVO
-model SwitchVO {
-  // 唯一标识
-  id?: string(name='id', example='8Amfi67dmE9wpY46'),
-  // 键值
-  key?: string(name='key', example='key'),
-  // 名称
-  name?: string(name='name', example='name'),
-  // 开关
-  value?: string(name='value', example='ON/OFF'),
-}
-
-// ApiflowOutputVO
-model ApiflowOutputVO {
-  // name
-  name?: string(name='name', example='name'),
-  // mapping_name
-  mappingName?: string(name='mapping_name', example='mapping_name'),
-}
-
-// GateWayConfigVO
-model GateWayConfigVO {
-  // 唯一标识
-  gatewayId?: string(name='gateway_id', example='gatewayId'),
-  // host
-  host?: string(name='host', example='host'),
-  // 唯一性标识
-  id?: string(name='id', example='id'),
-  // zone名称、网关名称
-  name?: string(name='name', example='name'),
-  // 注册中心
-  routers?: [ RegistryVO ](name='routers', example=''),
-  // tenant_id
-  tenantId?: string(name='tenant_id', example='tenant_id'),
-  // workspace_id
-  workspaceId?: string(name='workspace_id', example='workspace_id'),
-  // zone
-  zone?: string(name='zone', example='hz | sh'),
-  // 流量比例
-  weight?: long(name='weight', example=''),
-}
-
-// CorsInfoVO
-model CorsInfoVO {
-  // 是否允许发送COOKIE
-  allowCredentials?: boolean(name='allow_credentials', example='true, false'),
-  // 允许的 request headers
-  allowHeaders?: [ string ](name='allow_headers', example=''),
-  // 允许的http method
-  allowMethods?: [ string ](name='allow_methods', example=''),
-  // 允许的 ORIGIN
-  allowOrigins?: [ string ](name='allow_origins', example=''),
-  // API数量
-  apiCount?: long(name='api_count', example=''),
-  // cors标识
-  corsId?: string(name='cors_id', example='cors_id1'),
-  // cors名称
-  corsName?: string(name='cors_name', example='cors_name1'),
-  // cors_scop
-  corsScop?: string(name='cors_scop', example='WORKSPACE/API'),
-  // cors状态
-  corsStatus?: string(name='cors_status', example='CLOSED/OPENED'),
-  // 允许暴露的 reponse header
-  exposeHeaders?: [ string ](name='expose_headers', example=''),
-  // 创建时间
-  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
-  // 更新时间
-  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
-  // 预检请求的有效期
-  maxAge?: long(name='max_age', example=''),
-  // 创建人
-  operator?: string(name='operator', example='scott'),
-  // 租户标识
-  tenantId?: string(name='tenant_id', example='TSCPDICNT'),
-  // 工作空间标识
-  workspaceId?: string(name='workspace_id', example='default'),
-}
-
-// 策略管理
-model StrategyInfoVO {
-  // workspace_id
-  workspaceId?: string(name='workspace_id', example='workspace_id'),
-  // tenant_id
-  tenantId?: string(name='tenant_id', example='tenant_id'),
-  // 创建时间
-  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
-  // 更新时间
-  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
-  // 策略唯一标识
-  strategyId?: string(name='strategy_id', example='strategy_id'),
-  // 策略名称
-  strategyName?: string(name='strategy_name', example='strategy_name'),
-  // 策略状态
-  strategyStatus?: string(name='strategy_status', example='CLOSED/OPENED'),
-  // 操作人
-  operator?: string(name='operator', example='operator'),
-  // 	
-  // API数量
-  apiCount?: long(name='api_count', example='api_count'),
-  // 策略描述
-  description?: string(name='description', example='description'),
-  // 策略类型
-  strategyType?: string(name='strategy_type', example='BLACK/WHITE'),
-  // 名单集合
-  host?: [ string ](name='host', example=''),
-  // true, false
-  canDelete?: boolean(name='can_delete', example='true, false'),
-}
-
 // ActionResult
 model ActionResult {
   // 错误码
@@ -801,116 +938,19 @@ model ApiModelVO {
   modelType?: string(name='model_type', example='option'),
 }
 
-// LimitConfigVO
-model LimitConfigVO {
-  // 是否需要限制
-  needLimit?: boolean(name='need_limit', example='true, false'),
-  // 限制阈值
-  limit?: long(name='limit', example=''),
-  // 限制响应类型
-  limitRspType?: string(name='limit_rsp_type', example='DEFAULT/MSG'),
-  // 响应信息
-  rspMsg?: string(name='rsp_msg', example='rsp_msg1'),
+// PageInfo
+model PageInfo {
+  // 排序信息
+  orderInfos?: [ OrderInfo ](name='order_infos', example=''),
+  // 当前页
+  pageIndex?: long(name='page_index', example=''),
+  // 每页记录数
+  pageSize?: long(name='page_size', example=''),
+  // 总数
+  total?: long(name='total', example=''),
 }
 
-// ApiCacheVO
-model ApiCacheVO {
-  // 是否需要缓存
-  needCache?: boolean(name='need_cache', example='true, false'),
-  // TTL
-  ttl?: long(name='ttl', example='10000'),
-  // cacheKeys
-  cacheKeys?: [ ApiCacheKeyVO ](name='cache_keys', example=''),
-}
-
-// ParamMappingInfoVO
-model ParamMappingInfoVO {
-  // api_count
-  apiCount?: long(name='api_count', example=''),
-  // can_delete
-  canDelete?: boolean(name='can_delete', example='true/false'),
-  // 配置模板
-  configTemplate?: string(name='config_template', example='config_template'),
-  // 描述
-  description?: string(name='description', example='description'),
-  // gmt_create
-  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
-  // gmt_modified
-  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
-  // 映射类型
-  mappingType?: string(name='mapping_type', example='request\response'),
-  // 创建人
-  operator?: string(name='operator', example='operator'),
-  // param_mapping_id
-  paramMappingId?: string(name='param_mapping_id', example='8Amfi67dmE9wpY46'),
-  // 参数映射名称
-  paramMappingName?: string(name='param_mapping_name', example='param_mapping_name'),
-  // 脚本配置
-  scriptConfig?: string(name='script_config', example='script_config'),
-  // tenant_id
-  tenantId?: string(name='tenant_id', example='TSCPDICNT'),
-  // workspace_id
-  workspaceId?: string(name='workspace_id', example='default'),
-  // 配置模板名称
-  configTemplateName?: string(name='config_template_name', example='config_template_name'),
-}
-
-// 排序信息
-model OrderInfo {
-  // 要排序的字段
-  key: string(name='key', example='groupName'),
-  // 升序or降序
-  order: string(name='order', example='asc / desc'),
-}
-
-// ApiVersionVO
-model ApiVersionVO {
-  // API标识
-  apiId?: string(name='api_id', example='api_id1'),
-  // editOperator
-  editOperator?: string(name='edit_operator', example='scott'),
-  // 创建时间
-  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
-  // 编辑时间
-  gmtEdit?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_edit', example='2018-10-10T10:10:00Z'),
-  // 更改时间
-  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
-  // gmtOffline
-  gmtOffline?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_offline', example='2018-10-10T10:10:00Z'),
-  // gmtOnline
-  gmtOnline?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_online', example='2018-10-10T10:10:00Z'),
-  // offlineDesc
-  offlineDesc?: string(name='offline_desc', example='offline_desc1'),
-  // offlineOperator
-  offlineOperator?: string(name='offline_operator', example='scott'),
-  // onlineDesc
-  onlineDesc?: string(name='online_desc', example='online_desc1'),
-  // onlineOperator
-  onlineOperator?: string(name='online_operator', example='online_operator1'),
-  // versionId
-  versionId?: string(name='version_id', example='4438Y8yXxU0cYrgS'),
-  // 版本号
-  versionNo?: string(name='version_no', example='1.2'),
-  // versionStatus
-  versionStatus?: string(name='version_status', example='EDIT / ONLINE / OFFLINE'),
-  // 能否发布
-  canOnline?: boolean(name='can_online', example='true, false'),
-}
-
-// 授权信息
-model SofaGwAuthenticationVO {
-  // 		
-  // access key
-  // 
-  // 
-  authAccessKey?: string(name='auth_access_key', example='xxx'),
-  // secret key
-  authSecretKey?: string(name='auth_secret_key', example='yyy'),
-  // id
-  id?: long(name='id', example='100'),
-}
-
-// 编排VO
+// ApiflowMachineDefVO
 model ApiflowMachineDefVO {
   // 	
   // api数
@@ -947,28 +987,6 @@ model ApiflowMachineDefVO {
   machineStatus?: string(name='machine_status', example='machine_status'),
   // field_mapping
   fieldMapping?: string(name='field_mapping', example='field_mapping'),
-}
-
-// SystemConfigVO
-model SystemConfigVO {
-  // config_key
-  configKey?: string(name='config_key', example='config_key'),
-  // config_value
-  configValue?: string(name='config_value', example='config_value'),
-  // 描述
-  description?: string(name='description', example='description'),
-  // gateway_list
-  gatewayList?: [ GateWayConfigVO ](name='gateway_list', example=''),
-  // 创建时间
-  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
-  // 更改时间
-  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
-  // instance_id
-  instanceId?: string(name='instance_id', example='instance_id'),
-  // 创建人
-  operator?: string(name='operator', example='operator'),
-  // switch_list
-  switchList?: [ SwitchVO ](name='switch_list', example=''),
 }
 
 // ApiTransferVO
@@ -1155,6 +1173,84 @@ model ApiTransferVO {
   needTls?: boolean(name='need_tls', example='true, false'),
 }
 
+// GrayscaleConfigVO
+model GrayscaleConfigVO {
+  // gmt_create
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // gmt_modified
+  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // router_type
+  routerType?: string(name='router_type', example='WEIGHT|HEADER'),
+  // service
+  service?: string(name='service', example='service'),
+  // matchable_service
+  matchableService?: string(name='matchable_service', example='matchable_service'),
+  // instance_id
+  instanceId?: string(name='instance_id', example='instance_id'),
+  // router_id
+  routerId?: string(name='router_id', example='router_id'),
+  // app_name
+  appName?: string(name='app_name', example='app_name'),
+  // valid
+  valid?: string(name='valid', example='valid'),
+  // gray_rule_config_list
+  grayRuleConfigList?: [ GrayRuleConfigVO ](name='gray_rule_config_list', example=''),
+}
+
+// ApiflowInstVO
+model ApiflowInstVO {
+  // id
+  id?: string(name='id', example='id'),
+  // machine_inst_id
+  machineInstId?: string(name='machine_inst_id', example='machine_inst_id'),
+  // name
+  name?: string(name='name', example='name'),
+  // type
+  type?: string(name='type', example='type'),
+  // service_name
+  serviceName?: string(name='service_name', example='service_name'),
+  // service_method
+  serviceMethod?: string(name='service_method', example='service_method'),
+  // service_type
+  serviceType?: string(name='service_type', example='service_type'),
+  // business_key
+  businessKey?: string(name='business_key', example='business_key'),
+  // state_id_compensated_for
+  stateIdCompensatedFor?: string(name='state_id_compensated_for', example='state_id_compensated_for'),
+  // state_id_retried_for
+  stateIdRetriedFor?: string(name='state_id_retried_for', example='state_id_retried_for'),
+  // gmt_started
+  gmtStarted?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_started', example='2018-10-10T10:10:00Z'),
+  // is_for_update
+  isForUpdate?: boolean(name='is_for_update', example='true, false'),
+  // input_params
+  inputParams?: string(name='input_params', example='input_params'),
+  // output_params
+  outputParams?: string(name='output_params', example='output_params'),
+  // status
+  status?: string(name='status', example='status'),
+  // excep
+  excep?: string(name='excep', example='excep'),
+  // gmt_updated
+  gmtUpdated?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_updated', example='2018-10-10T10:10:00Z'),
+  // gmt_end
+  gmtEnd?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_end', example='2018-10-10T10:10:00Z'),
+}
+
+// 后端配置
+model SofaGwUpstreamVO {
+  // GET/POST/PUT/DELETE
+  method?: string(name='method', example='GET'),
+  // 协议
+  schema?: string(name='schema', example='http'),
+  // timeout
+  timeout?: long(name='timeout', example='3000'),
+  // url
+  url?: string(name='url', example='/resources'),
+  // 是否签名
+  verify?: boolean(name='verify', example='true, false'),
+}
+
 // ApiInfoVO
 model ApiInfoVO {
   // API缓存模型
@@ -1323,8 +1419,8 @@ model ApiInfoVO {
   fieldMapping?: [ ApiflowOutputVO ](name='field_mapping', example=''),
   // triple协议证书开关
   needTls?: boolean(name='need_tls', example='true, false'),
-  // api_group_info
-  apiGroupInfo?: ApiGroupVO(name='api_group_info', example='api_group_info'),
+  // api_group
+  apiGroup?: ApiGroupVO(name='api_group', example='api_group'),
   // 授权对象列表
   authAppInfoList?: [ AuthAppInfoVO ](name='auth_app_info_list', example='auth_app_info_list'),
   // 请求body数据模型
@@ -1333,252 +1429,10 @@ model ApiInfoVO {
   rspModelInfo?: ApiModelVO(name='rsp_model_info', example='rsp_model_info'),
   // 实例ID
   upstreamInstanceId?: string(name='upstream_instance_id', example='upstream_instance_id'),
-}
-
-// 集群里的服务器信息
-model SofaGwHostVO {
-  // 服务器地址，域名或ip(:端口)
-  address?: string(name='address', example='dsrconsole.alipay.com:8080'),
-  // host name
-  hostName?: string(name='host_name', example='dsrconsole_01'),
-  // 元信息
-  metaData?: string(name='meta_data', example='dsrconsole.alipay.com'),
-}
-
-// 后端配置
-model SofaGwUpstreamVO {
-  // GET/POST/PUT/DELETE
-  method?: string(name='method', example='GET'),
-  // 协议
-  schema?: string(name='schema', example='http'),
-  // timeout
-  timeout?: long(name='timeout', example='3000'),
-  // url
-  url?: string(name='url', example='/resources'),
-  // 是否签名
-  verify?: boolean(name='verify', example='true, false'),
-}
-
-// ApiflowMachineInstVO
-model ApiflowMachineInstVO {
-  // id
-  id?: string(name='id', example='id'),
-  // machine_id
-  machineId?: string(name='machine_id', example='machine_id'),
-  // tenant_id
-  tenantId?: string(name='tenant_id', example='tenant_id'),
-  // parent_id
-  parentId?: string(name='parent_id', example='parent_id'),
-  // gmt_started
-  gmtStarted?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_started', example='2018-10-10T10:10:00Z'),
-  // business_key
-  businessKey?: string(name='business_key', example='business_key'),
-  // start_params
-  startParams?: string(name='start_params', example='start_params'),
-  // gmt_end
-  gmtEnd?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_end', example='2018-10-10T10:10:00Z'),
-  // excep
-  excep?: string(name='excep', example='excep'),
-  // end_params
-  endParams?: string(name='end_params', example='end_params'),
-  // status
-  status?: string(name='status', example='status'),
-  // compensation_status
-  compensationStatus?: string(name='compensation_status', example='compensation_status'),
-  // is_running
-  isRunning?: boolean(name='is_running', example='true, false'),
-  // gmt_updated
-  gmtUpdated?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_updated', example=''),
-}
-
-// BatchActionResult
-model BatchActionResult {
-  // 批量挂载结果
-  results?: [ ActionResult ](name='results', example=''),
-  // total_count
-  totalCount?: long(name='total_count', example='10'),
-  // success_count
-  successCount?: long(name='success_count', example='5'),
-  // failed_count
-  failedCount?: long(name='failed_count', example='5'),
-}
-
-// ImportResult
-model ImportResult {
-  // code
-  code?: string(name='code', example='code'),
-  // 覆盖报错的配置
-  errorConfig?: string(name='error_config', example='apiGroup，systemCluster，externalAuth，paramMapping，routerInfo，corsInfo'),
-  // error_message
-  errorMessage?: string(name='error_message', example='error_message'),
-  // API的ID
-  id?: string(name='id', example='id'),
-  // API的名称
-  name?: string(name='name', example='name'),
-  // 覆盖成功的标识
-  success?: boolean(name='success', example='true, false'),
-  // 覆盖失败的配置名称
-  configName?: string(name='config_name', example='config_name'),
-}
-
-// ApiTestParamVO
-model ApiTestParamVO {
-  // location
-  location?: string(name='location', example='HEADER/QUERY'),
-  // key
-  key?: string(name='key', example='key1'),
-  // value
-  value?: string(name='value', example='value1'),
-}
-
-// ApiflowInstVO
-model ApiflowInstVO {
-  // id
-  id?: string(name='id', example='id'),
-  // machine_inst_id
-  machineInstId?: string(name='machine_inst_id', example='machine_inst_id'),
-  // name
-  name?: string(name='name', example='name'),
-  // type
-  type?: string(name='type', example='type'),
-  // service_name
-  serviceName?: string(name='service_name', example='service_name'),
-  // service_method
-  serviceMethod?: string(name='service_method', example='service_method'),
-  // service_type
-  serviceType?: string(name='service_type', example='service_type'),
-  // business_key
-  businessKey?: string(name='business_key', example='business_key'),
-  // state_id_compensated_for
-  stateIdCompensatedFor?: string(name='state_id_compensated_for', example='state_id_compensated_for'),
-  // state_id_retried_for
-  stateIdRetriedFor?: string(name='state_id_retried_for', example='state_id_retried_for'),
-  // gmt_started
-  gmtStarted?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_started', example='2018-10-10T10:10:00Z'),
-  // is_for_update
-  isForUpdate?: boolean(name='is_for_update', example='true, false'),
-  // input_params
-  inputParams?: string(name='input_params', example='input_params'),
-  // output_params
-  outputParams?: string(name='output_params', example='output_params'),
-  // status
-  status?: string(name='status', example='status'),
-  // excep
-  excep?: string(name='excep', example='excep'),
-  // gmt_updated
-  gmtUpdated?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_updated', example='2018-10-10T10:10:00Z'),
-  // gmt_end
-  gmtEnd?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_end', example='2018-10-10T10:10:00Z'),
-}
-
-// 操作人
-model OperatorVO {
-  // 创建时间
-  createTime?: string(name='create_time', example='2018-10-10T10:10:00Z'),
-  // 企业的唯一标识
-  customer?: string(name='customer', example='QWERTYUIO'),
-  // 邮箱
-  email?: string(name='email', example='AAA@AA'),
-  // 操作员ID
-  id?: string(name='id', example='id'),
-  // 登录名
-  loginName?: string(name='login_name', example='login_name'),
-  // 手机号
-  mobile?: string(name='mobile', example='13245678901'),
-  // 昵称
-  nickName?: string(name='nick_name', example='nick_name'),
-  // 真实姓名
-  realName?: string(name='real_name', example='real_name'),
-  // 操作员状态
-  status?: string(name='status', example='(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态'),
-  // 租户
-  tenants?: [ string ](name='tenants', example=''),
-  // 操作员最近一次修改时间，ISO8601格式
-  updateTime?: string(name='update_time', example='update_time'),
-  // 操作员工号
-  workNo?: string(name='work_no', example='work_no'),
-  // tenant_id
-  tenantId?: string(name='tenant_id', example='tenant_id'),
-  // workspace_id
-  workspaceId?: string(name='workspace_id', example='workspace_id'),
-}
-
-// 联系方式
-model ContactInfoVO {
-  // 授权App标识
-  authAppInfoId?: string(name='auth_app_info_id', example='a0VIPBXUI4rc25gR'),
-  // 公司名称
-  company?: string(name='company', example='antfinancial'),
-  // 联系方式标识
-  contactId?: string(name='contact_id', example='a0VIPBcUI4rd25gR'),
-  // 电子邮箱
-  mail?: string(name='mail', example='kelly.cq@antfin.com'),
-  // 联系人姓名
-  name?: string(name='name', example='kelly'),
-  // 电话号码
-  tel?: string(name='tel', example='0571-81234567'),
-  // 租户标识
-  tenantId?: string(name='tenant_id', example='TSCPDICNT'),
-  // 工作空间标识
-  workspaceId?: string(name='workspace_id', example='default'),
-  // 创建时间
-  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
-  // 更新时间
-  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
-}
-
-// 访问控制
-model SofaGwControlVO {
-  // 要添加的授权的app_name列表
-  addItems?: [ string ](name='add_items', example=''),
-  // 实例标识
-  instanceId?: string(name='instance_id', example='abcdEFGH1234'),
-  // 授权的app_name列表
-  items?: [ string ](name='items', example=''),
-  // 固定值：app
-  match?: string(name='match', example='app'),
-  // 要删除的授权的app_name列表
-  removeItems?: [ string ](name='remove_items', example=''),
-  // service name
-  serviceName?: string(name='service_name', example='demoservice'),
-  // 子类型，固定值：whitelist
-  subType?: string(name='sub_type', example='whitelist'),
-  // 控制类型，固定值：access-control
-  type?: string(name='type', example='access-control'),
-}
-
-// MonitorData
-model MonitorData {
-  // 时间点
-  timestamp?: long(name='timestamp', example=''),
-  // value
-  value?: long(name='value', example=''),
-}
-
-// PageInfo
-model PageInfo {
-  // 排序信息
-  orderInfos?: [ OrderInfo ](name='order_infos', example=''),
-  // 当前页
-  pageIndex?: long(name='page_index', example=''),
-  // 每页记录数
-  pageSize?: long(name='page_size', example=''),
-  // 总数
-  total?: long(name='total', example=''),
-}
-
-// 前端配置
-model SofaGwDownstream {
-  // 认证信息
-  auth?: [ SofaGwAuthenticationVO ](name='auth', example=''),
-  // GET/POST/PUT/DELETE
-  method?: string(name='method', example='GET'),
-  // 协议
-  schema?: string(name='schema', example='http'),
-  // url
-  url?: string(name='url', example='/dsrconsole/resources'),
-  // 是否签名
-  verify?: boolean(name='verify', example='true, false'),
+  // 跨域状态
+  corsStatus?: string(name='cors_status', example='OPENED/CLOSED'),
+  // gray_type
+  grayType?: boolean(name='gray_type', example='true, false'),
 }
 
 // AuthUserInfoVO
@@ -1623,128 +1477,224 @@ model AuthUserInfoVO {
   canAuth?: boolean(name='can_auth', example='true, false'),
 }
 
-// AppInfoPagedListVO
-model AppInfoPagedListVO {
-  // list
-  list?: [ AppInfoVO ](name='list', example=''),
-  // pageInfo
-  pageInfo?: PageInfo(name='page_info', example=''),
+// BatchActionResult
+model BatchActionResult {
+  // 批量挂载结果
+  results?: [ ActionResult ](name='results', example=''),
+  // total_count
+  totalCount?: long(name='total_count', example='10'),
+  // success_count
+  successCount?: long(name='success_count', example='5'),
+  // failed_count
+  failedCount?: long(name='failed_count', example='5'),
 }
 
-// RegistryInfoQueryVO
-model RegistryInfoQueryVO {
-  // 是否模糊搜索
-  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
-  // page_info
-  pageInfo?: PageInfo(name='page_info', example=''),
-  // query
-  query?: RegistryInfoVO(name='query', example=''),
+// ApiTestParamVO
+model ApiTestParamVO {
+  // location
+  location?: string(name='location', example='HEADER/QUERY'),
+  // key
+  key?: string(name='key', example='key1'),
+  // value
+  value?: string(name='value', example='value1'),
 }
 
-// RouterInfoPagedListVO
-model RouterInfoPagedListVO {
-  // list
-  list?: [ RouterInfoVO ](name='list', example=''),
-  // pageInfo
-  pageInfo?: PageInfo(name='page_info', example=''),
+// MonitorData
+model MonitorData {
+  // 时间点
+  timestamp?: long(name='timestamp', example=''),
+  // value
+  value?: long(name='value', example=''),
 }
 
-// ApiGroupAuthUserConfigVO
-model ApiGroupAuthUserConfigVO {
-  // api授权管理开关
-  apiAuthUserSwitch?: string(name='api_auth_user_switch', example='api_auth_user_switch'),
-  // 是否是管理员
-  checkMaster?: boolean(name='check_master', example=''),
-  // 需要api授权管理
-  needApiAuthUser?: boolean(name='need_api_auth_user', example='true/false'),
+// 操作人
+model OperatorVO {
+  // 创建时间
+  createTime?: string(name='create_time', example='2018-10-10T10:10:00Z'),
+  // 企业的唯一标识
+  customer?: string(name='customer', example='QWERTYUIO'),
+  // 邮箱
+  email?: string(name='email', example='AAA@AA'),
+  // 操作员ID
+  id?: string(name='id', example='id'),
+  // 登录名
+  loginName?: string(name='login_name', example='login_name'),
+  // 手机号
+  mobile?: string(name='mobile', example='13245678901'),
+  // 昵称
+  nickName?: string(name='nick_name', example='nick_name'),
+  // 真实姓名
+  realName?: string(name='real_name', example='real_name'),
+  // 操作员状态
+  status?: string(name='status', example='(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态'),
+  // 租户
+  tenants?: [ string ](name='tenants', example=''),
+  // 操作员最近一次修改时间，ISO8601格式
+  updateTime?: string(name='update_time', example='update_time'),
+  // 操作员工号
+  workNo?: string(name='work_no', example='work_no'),
   // tenant_id
   tenantId?: string(name='tenant_id', example='tenant_id'),
   // workspace_id
   workspaceId?: string(name='workspace_id', example='workspace_id'),
 }
 
-// AuthAppInfoPagedListVO
-model AuthAppInfoPagedListVO {
-  // list
-  list?: [ AuthAppInfoVO ](name='list', example=''),
-  // pageInfo
-  pageInfo?: PageInfo(name='page_info', example=''),
+// ImportResult
+model ImportResult {
+  // code
+  code?: string(name='code', example='code'),
+  // 覆盖报错的配置
+  errorConfig?: string(name='error_config', example='apiGroup，systemCluster，externalAuth，paramMapping，routerInfo，corsInfo'),
+  // error_message
+  errorMessage?: string(name='error_message', example='error_message'),
+  // API的ID
+  id?: string(name='id', example='id'),
+  // API的名称
+  name?: string(name='name', example='name'),
+  // 覆盖成功的标识
+  success?: boolean(name='success', example='true, false'),
+  // 覆盖失败的配置名称
+  configName?: string(name='config_name', example='config_name'),
 }
 
-// ParamMappingInfoPagedListVO
-model ParamMappingInfoPagedListVO {
-  // list
-  list?: [ ParamMappingInfoVO ](name='list', example=''),
-  // pageInfo
-  pageInfo?: PageInfo(name='page_info', example=''),
+// 集群里的服务器信息
+model SofaGwHostVO {
+  // 服务器地址，域名或ip(:端口)
+  address?: string(name='address', example='dsrconsole.alipay.com:8080'),
+  // host name
+  hostName?: string(name='host_name', example='dsrconsole_01'),
+  // 元信息
+  metaData?: string(name='meta_data', example='dsrconsole.alipay.com'),
 }
 
-// 集群信息
-model SofaGwClusterVO {
-  // app name
-  appName?: string(name='app_name', example='dsrconsole'),
-  // hosts
-  hosts?: [ SofaGwHostVO ](name='hosts', example=''),
-  // id
-  id?: long(name='id', example='100'),
+// SystemConfigVO
+model SystemConfigVO {
+  // config_key
+  configKey?: string(name='config_key', example='config_key'),
+  // config_value
+  configValue?: string(name='config_value', example='config_value'),
+  // 描述
+  description?: string(name='description', example='description'),
+  // gateway_list
+  gatewayList?: [ GateWayConfigVO ](name='gateway_list', example=''),
+  // 创建时间
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 更改时间
+  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // instance_id
+  instanceId?: string(name='instance_id', example='instance_id'),
+  // 创建人
+  operator?: string(name='operator', example='operator'),
+  // switch_list
+  switchList?: [ SwitchVO ](name='switch_list', example=''),
+}
+
+// 访问控制
+model SofaGwControlVO {
+  // 要添加的授权的app_name列表
+  addItems?: [ string ](name='add_items', example=''),
   // 实例标识
   instanceId?: string(name='instance_id', example='abcdEFGH1234'),
-  // 集群名
-  name?: string(name='name', example='dsrconsole_cluster'),
+  // 授权的app_name列表
+  items?: [ string ](name='items', example=''),
+  // 固定值：app
+  match?: string(name='match', example='app'),
+  // 要删除的授权的app_name列表
+  removeItems?: [ string ](name='remove_items', example=''),
+  // service name
+  serviceName?: string(name='service_name', example='demoservice'),
+  // 子类型，固定值：whitelist
+  subType?: string(name='sub_type', example='whitelist'),
+  // 控制类型，固定值：access-control
+  type?: string(name='type', example='access-control'),
 }
 
-// RegistryInfoPagedListVO
-model RegistryInfoPagedListVO {
-  // list
-  list?: [ RegistryInfoVO ](name='list', example=''),
+// ApiflowMachineInstVO
+model ApiflowMachineInstVO {
+  // id
+  id?: string(name='id', example='id'),
+  // machine_id
+  machineId?: string(name='machine_id', example='machine_id'),
+  // tenant_id
+  tenantId?: string(name='tenant_id', example='tenant_id'),
+  // parent_id
+  parentId?: string(name='parent_id', example='parent_id'),
+  // gmt_started
+  gmtStarted?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_started', example='2018-10-10T10:10:00Z'),
+  // business_key
+  businessKey?: string(name='business_key', example='business_key'),
+  // start_params
+  startParams?: string(name='start_params', example='start_params'),
+  // gmt_end
+  gmtEnd?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_end', example='2018-10-10T10:10:00Z'),
+  // excep
+  excep?: string(name='excep', example='excep'),
+  // end_params
+  endParams?: string(name='end_params', example='end_params'),
+  // status
+  status?: string(name='status', example='status'),
+  // compensation_status
+  compensationStatus?: string(name='compensation_status', example='compensation_status'),
+  // is_running
+  isRunning?: boolean(name='is_running', example='true, false'),
+  // gmt_updated
+  gmtUpdated?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_updated', example=''),
+}
+
+// 前端配置
+model SofaGwDownstream {
+  // 认证信息
+  auth?: [ SofaGwAuthenticationVO ](name='auth', example=''),
+  // GET/POST/PUT/DELETE
+  method?: string(name='method', example='GET'),
+  // 协议
+  schema?: string(name='schema', example='http'),
+  // url
+  url?: string(name='url', example='/dsrconsole/resources'),
+  // 是否签名
+  verify?: boolean(name='verify', example='true, false'),
+}
+
+// 联系方式
+model ContactInfoVO {
+  // 授权App标识
+  authAppInfoId?: string(name='auth_app_info_id', example='a0VIPBXUI4rc25gR'),
+  // 公司名称
+  company?: string(name='company', example='antfinancial'),
+  // 联系方式标识
+  contactId?: string(name='contact_id', example='a0VIPBcUI4rd25gR'),
+  // 电子邮箱
+  mail?: string(name='mail', example='kelly.cq@antfin.com'),
+  // 联系人姓名
+  name?: string(name='name', example='kelly'),
+  // 电话号码
+  tel?: string(name='tel', example='0571-81234567'),
+  // 租户标识
+  tenantId?: string(name='tenant_id', example='TSCPDICNT'),
+  // 工作空间标识
+  workspaceId?: string(name='workspace_id', example='default'),
+  // 创建时间
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 更新时间
+  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+}
+
+// ApiGroupPagedListVO
+model ApiGroupPagedListVO {
+  // 当前页的数据
+  list?: [ ApiGroupVO ](name='list', example=''),
   // page_info
   pageInfo?: PageInfo(name='page_info', example=''),
 }
 
-// MonitoryRequest
-model MonitoryRequest {
-  // API标识
-  apiId?: string(name='api_id', example='h4ZWfWe9anCJn4Tye3tPMiGJZJ2PeGWq'),
-  // App标识
-  appId?: string(name='app_id', example='Oo2llCf0MkkhGtgL'),
-  // code
-  code?: string(name='code', example='code1'),
-  // 开始时间
-  startTime?: long(name='start_time', example=''),
-  // end_time
-  endTime?: long(name='end_time', example=''),
-}
-
-// 联系方式分页列表
-model ContactInfoPagedListVO {
-  // 分页信息
-  pageInfo?: PageInfo(name='page_info', example=''),
-  // 联系方式列表
-  list?: [ ContactInfoVO ](name='list', example=''),
-}
-
-// 策略分页信息
-model StrategyPagedListVO {
-  // list
-  list?: [ StrategyInfoVO ](name='list', example=''),
-  // 分页信息
-  pageInfo?: PageInfo(name='page_info', example=''),
-}
-
-// SystemClusterPagedListVO
-model SystemClusterPagedListVO {
-  // list
-  list?: [ SystemClusterVO ](name='list', example=''),
-  // page_info
-  pageInfo?: PageInfo(name='page_info', example=''),
-}
-
-// AppInfoQueryVO
-model AppInfoQueryVO {
+// ExternalAuthInfoQueryVO
+model ExternalAuthInfoQueryVO {
+  // 是否模糊搜索
+  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
   // pageInfo
   pageInfo?: PageInfo(name='page_info', example=''),
   // query
-  query?: AppInfoVO(name='query', example=''),
+  query?: ExternalAuthInfoVO(name='query', example=''),
 }
 
 // ApiflowMachineDefQueryVO
@@ -1757,38 +1707,116 @@ model ApiflowMachineDefQueryVO {
   query?: ApiflowMachineDefVO(name='query', example=''),
 }
 
-// ldc信息
-model LdcInfoVO {
-  // 是否开启
-  enable?: boolean(name='enable', example='true, false'),
-  // 参数位置
-  paramLocation?: string(name='param_location', example='header'),
-  // 参数名
-  paramKey?: string(name='param_key', example='uid'),
-  // tenant_id
-  tenantId?: string(name='tenant_id', example='tenant_id'),
-  // workspace_id
-  workspaceId?: string(name='workspace_id', example='workspace_id'),
-}
-
-// 查询联系方式
-model ContactInfoQueryVO {
-  // 分页信息
+// ApiInfoQueryVO
+model ApiInfoQueryVO {
+  // 是否模糊搜索
+  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
+  // pageInfo
   pageInfo?: PageInfo(name='page_info', example=''),
   // query
-  query?: ContactInfoVO(name='query', example=''),
+  query?: ApiInfoVO(name='query', example=''),
+  // 自定义查询条件
+  queryCondition?: string(name='query_condition', example='queryCondition'),
+}
+
+// MonitoryAggregationVO
+model MonitoryAggregationVO {
+  // invoke_num
+  invokeNum?: [ MonitorData ](name='invoke_num', example=''),
+  // qps
+  qps?: [ MonitorData ](name='qps', example=''),
+  // rt
+  rt?: [ MonitorData ](name='rt', example=''),
+  // 错误码
+  errCode?: [ MonitorData ](name='err_code', example=''),
+  // 错误率
+  errRate?: [ MonitorData ](name='err_rate', example=''),
+  // byte_in
+  byteIn?: [ MonitorData ](name='byte_in', example=''),
+  // byte_out
+  byteOut?: [ MonitorData ](name='byte_out', example=''),
+}
+
+// RouterInfoQueryVO
+model RouterInfoQueryVO {
+  // pageInfo
+  pageInfo?: PageInfo(name='page_info', example=''),
+  // query
+  query?: RouterInfoVO(name='query', example=''),
   // 是否模糊搜索
   fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
 }
 
-// ApiGroupQueryVO
-model ApiGroupQueryVO {
+// SystemClusterQueryVO
+model SystemClusterQueryVO {
+  // 是否模糊搜索
+  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
   // page_info
   pageInfo?: PageInfo(name='page_info', example=''),
   // query
-  query?: ApiGroupVO(name='query', example=''),
+  query?: SystemClusterVO(name='query', example=''),
+}
+
+// ApiflowInstPagedListVO
+model ApiflowInstPagedListVO {
+  // list
+  list?: [ ApiflowInstVO ](name='list', example=''),
+  // page_info
+  pageInfo?: PageInfo(name='page_info', example=''),
+}
+
+// ApiflowMachineDefPagedListVO
+model ApiflowMachineDefPagedListVO {
+  // list
+  list?: [ ApiflowMachineDefVO ](name='list', example=''),
+  // page_info
+  pageInfo?: PageInfo(name='page_info', example=''),
+}
+
+// AuthAppInfoQueryVO
+model AuthAppInfoQueryVO {
+  // pageInfo
+  pageInfo?: PageInfo(name='page_info', example=''),
+  // query
+  query?: AuthAppInfoVO(name='query', example=''),
+  // 自定义查询条件
+  queryCondition?: string(name='query_condition', example='API_MOUNT_APP_AUTH'),
+  // 是否支持模糊查询
+  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
+}
+
+// ApiflowTestReqVO
+model ApiflowTestReqVO {
+  // api_id
+  apiId?: string(name='api_id', example='api_id'),
+  // workspace_id
+  workspaceId?: string(name='workspace_id', example='workspace_id'),
+  // tenant_id
+  tenantId?: string(name='tenant_id', example='tenant_id'),
+  // machine_name
+  machineName?: string(name='machine_name', example='machine_name'),
+  // params
+  inputParams?: [ ApiTestParamVO ](name='input_params', example=''),
+  // output_params
+  outputParams?: [ ApiflowOutputVO ](name='output_params', example=''),
+}
+
+// RouterInfoPagedListVO
+model RouterInfoPagedListVO {
+  // list
+  list?: [ RouterInfoVO ](name='list', example=''),
+  // pageInfo
+  pageInfo?: PageInfo(name='page_info', example=''),
+}
+
+// RegistryInfoQueryVO
+model RegistryInfoQueryVO {
   // 是否模糊搜索
   fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
+  // page_info
+  pageInfo?: PageInfo(name='page_info', example=''),
+  // query
+  query?: RegistryInfoVO(name='query', example=''),
 }
 
 // 入参
@@ -1811,102 +1839,54 @@ model EngineVO {
   params?: string(name='params', example='{"person":2}'),
 }
 
-// ParamMappingInfoQueryVO
-model ParamMappingInfoQueryVO {
-  // pageInfo
-  pageInfo?: PageInfo(name='page_info', example=''),
-  // query
-  query?: ParamMappingInfoVO(name='query', example=''),
-  // 支持模糊查询
-  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
-}
-
-// ApiTestReqVO
-model ApiTestReqVO {
-  // API标识
-  apiId?: string(name='api_id', example='api_id1'),
-  // 应用标识
-  appId?: string(name='app_id', example='app_id1'),
-  // params
-  params?: [ ApiTestParamVO ](name='params', example=''),
-  // payload
-  payload?: string(name='payload', example='payload1'),
-  // tenant_id
-  tenantId?: string(name='tenant_id', example='tenant_id'),
-  // 工作空间标识
-  workspaceId?: string(name='workspace_id', example='default'),
-}
-
-// SystemClusterQueryVO
-model SystemClusterQueryVO {
-  // 是否模糊搜索
-  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
+// GrayscaleConfigPagedListVO
+model GrayscaleConfigPagedListVO {
+  // list
+  list?: [ GrayscaleConfigVO ](name='list', example=''),
   // page_info
   pageInfo?: PageInfo(name='page_info', example=''),
-  // query
-  query?: SystemClusterVO(name='query', example=''),
 }
 
-// AuthAppInfoQueryVO
-model AuthAppInfoQueryVO {
-  // pageInfo
-  pageInfo?: PageInfo(name='page_info', example=''),
-  // query
-  query?: AuthAppInfoVO(name='query', example=''),
-  // 自定义查询条件
-  queryCondition?: string(name='query_condition', example='API_MOUNT_APP_AUTH'),
-  // 是否支持模糊查询
-  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
+// BatchImportResult
+model BatchImportResult {
+  // failed_count
+  failedCount?: long(name='failed_count', example='1'),
+  // 重复的API列表
+  repeatApiList?: [ ApiTransferVO ](name='repeat_api_list', example=''),
+  // results
+  results?: [ ImportResult ](name='results', example=''),
+  // success_count
+  successCount?: long(name='success_count', example='3'),
+  // total_count
+  totalCount?: long(name='total_count', example='4'),
+  // 导入成功的API列表
+  successApiList?: [ ApiInfoVO ](name='success_api_list', example=''),
 }
 
-// AuthUserInfoQueryVO
-model AuthUserInfoQueryVO {
-  // pageInfo
+// 查询联系方式
+model ContactInfoQueryVO {
+  // 分页信息
   pageInfo?: PageInfo(name='page_info', example=''),
-  // OperatorVO
-  query?: AuthUserInfoVO(name='query', example=''),
+  // query
+  query?: ContactInfoVO(name='query', example=''),
   // 是否模糊搜索
   fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
 }
 
-// HomePageVO
-model HomePageVO {
-  // api分组数量
-  apiGroupCount?: long(name='api_group_count', example=''),
-  // api数量
-  apiCount?: long(name='api_count', example='api_count'),
-  // app数量
-  appCount?: long(name='app_count', example=''),
-}
-
-// ApiflowMachineInstQueryVO
-model ApiflowMachineInstQueryVO {
-  // fuzzy_search
-  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
+// OperatorPagedListVO
+model OperatorPagedListVO {
+  // 当前页的数据
+  list?: [ OperatorVO ](name='list', example=''),
   // page_info
   pageInfo?: PageInfo(name='page_info', example=''),
-  // query
-  query?: ApiflowMachineInstVO(name='query', example=''),
 }
 
-// ApiModelQueryVO
-model ApiModelQueryVO {
-  // 支持模糊查询
-  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
-  // page_info
+// 联系方式分页列表
+model ContactInfoPagedListVO {
+  // 分页信息
   pageInfo?: PageInfo(name='page_info', example=''),
-  // query
-  query?: ApiModelVO(name='query', example=''),
-}
-
-// ExternalAuthInfoQueryVO
-model ExternalAuthInfoQueryVO {
-  // 是否模糊搜索
-  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
-  // pageInfo
-  pageInfo?: PageInfo(name='page_info', example=''),
-  // query
-  query?: ExternalAuthInfoVO(name='query', example=''),
+  // 联系方式列表
+  list?: [ ContactInfoVO ](name='list', example=''),
 }
 
 // Api信息
@@ -1933,6 +1913,106 @@ model SofaGwService {
   upstream?: SofaGwUpstreamVO(name='upstream', example=''),
 }
 
+// cors分页信息
+model CorsInfoPagedListVO {
+  // cors列表
+  list?: [ CorsInfoVO ](name='list', example=''),
+  // 分页信息
+  pageInfo?: PageInfo(name='page_info', example=''),
+}
+
+// ApiflowMachineInstQueryVO
+model ApiflowMachineInstQueryVO {
+  // fuzzy_search
+  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
+  // page_info
+  pageInfo?: PageInfo(name='page_info', example=''),
+  // query
+  query?: ApiflowMachineInstVO(name='query', example=''),
+}
+
+// SystemConfigQueryVO
+model SystemConfigQueryVO {
+  // 是否模糊搜索
+  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
+  // page_info
+  pageInfo?: PageInfo(name='page_info', example=''),
+  // query
+  query?: SystemConfigVO(name='query', example=''),
+}
+
+// StrategyInfoQueryVO
+model StrategyInfoQueryVO {
+  // 分页信息
+  pageInfo?: PageInfo(name='page_info', example=''),
+  // query
+  query?: StrategyInfoVO(name='query', example=''),
+  // 是否模糊搜索
+  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
+}
+
+// OperatorQueryVO
+model OperatorQueryVO {
+  // pageInfo
+  pageInfo?: PageInfo(name='page_info', example=''),
+  // query
+  query?: OperatorVO(name='query', example=''),
+}
+
+// ApiInfoPagedListVO
+model ApiInfoPagedListVO {
+  // list
+  list?: [ ApiInfoVO ](name='list', example=''),
+  // pageInfo
+  pageInfo?: PageInfo(name='page_info', example=''),
+}
+
+// AppInfoPagedListVO
+model AppInfoPagedListVO {
+  // list
+  list?: [ AppInfoVO ](name='list', example=''),
+  // pageInfo
+  pageInfo?: PageInfo(name='page_info', example=''),
+}
+
+// ldc信息
+model LdcInfoVO {
+  // 是否开启
+  enable?: boolean(name='enable', example='true, false'),
+  // 参数位置
+  paramLocation?: string(name='param_location', example='header'),
+  // 参数名
+  paramKey?: string(name='param_key', example='uid'),
+  // tenant_id
+  tenantId?: string(name='tenant_id', example='tenant_id'),
+  // workspace_id
+  workspaceId?: string(name='workspace_id', example='workspace_id'),
+}
+
+// AppInfoQueryVO
+model AppInfoQueryVO {
+  // pageInfo
+  pageInfo?: PageInfo(name='page_info', example=''),
+  // query
+  query?: AppInfoVO(name='query', example=''),
+}
+
+// 策略分页信息
+model StrategyPagedListVO {
+  // list
+  list?: [ StrategyInfoVO ](name='list', example=''),
+  // 分页信息
+  pageInfo?: PageInfo(name='page_info', example=''),
+}
+
+// RegionVO
+model RegionVO {
+  // region_id
+  id?: string(name='id', example='default'),
+  // region名称
+  name?: string(name='name', example='default'),
+}
+
 // ApiTransferResult
 model ApiTransferResult {
   // api配置
@@ -1945,115 +2025,52 @@ model ApiTransferResult {
   apiflowList?: [ ApiInfoVO ](name='apiflow_list', example='apiflow_list'),
 }
 
-// BatchImportResult
-model BatchImportResult {
-  // failed_count
-  failedCount?: long(name='failed_count', example='1'),
-  // 重复的API列表
-  repeatApiList?: [ ApiTransferVO ](name='repeat_api_list', example=''),
-  // results
-  results?: [ ImportResult ](name='results', example=''),
-  // success_count
-  successCount?: long(name='success_count', example='3'),
-  // total_count
-  totalCount?: long(name='total_count', example='4'),
-  // 导入成功的API列表
-  successApiList?: [ ApiInfoVO ](name='success_api_list', example=''),
+// HomePageVO
+model HomePageVO {
+  // api分组数量
+  apiGroupCount?: long(name='api_group_count', example=''),
+  // api数量
+  apiCount?: long(name='api_count', example='api_count'),
+  // app数量
+  appCount?: long(name='app_count', example=''),
 }
 
-// ApiflowMachineDefPagedListVO
-model ApiflowMachineDefPagedListVO {
-  // list
-  list?: [ ApiflowMachineDefVO ](name='list', example=''),
+// ApiflowInstQueryVO
+model ApiflowInstQueryVO {
+  // fuzzy_search
+  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
   // page_info
   pageInfo?: PageInfo(name='page_info', example=''),
+  // query
+  query?: ApiflowInstVO(name='query', example=''),
 }
 
-// OperatorPagedListVO
-model OperatorPagedListVO {
-  // 当前页的数据
-  list?: [ OperatorVO ](name='list', example=''),
-  // page_info
-  pageInfo?: PageInfo(name='page_info', example=''),
-}
-
-// cors分页信息
-model CorsInfoPagedListVO {
-  // cors列表
-  list?: [ CorsInfoVO ](name='list', example=''),
-  // 分页信息
-  pageInfo?: PageInfo(name='page_info', example=''),
-}
-
-// ApiInfoPagedListVO
-model ApiInfoPagedListVO {
-  // list
-  list?: [ ApiInfoVO ](name='list', example=''),
-  // pageInfo
-  pageInfo?: PageInfo(name='page_info', example=''),
-}
-
-// OperatorQueryVO
-model OperatorQueryVO {
+// ParamMappingInfoQueryVO
+model ParamMappingInfoQueryVO {
   // pageInfo
   pageInfo?: PageInfo(name='page_info', example=''),
   // query
-  query?: OperatorVO(name='query', example=''),
+  query?: ParamMappingInfoVO(name='query', example=''),
+  // 支持模糊查询
+  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
 }
 
-// api导入 效验返回体
-model CheckApiResult {
-  // 导入的所有的API集合
-  allApiList?: [ ApiTransferVO ](name='all_api_list', example='[{transfer},{transfer}]'),
-  // API或者配置中有重复的集合
-  failedApiList?: [ ApiTransferVO ](name='failed_api_list', example='[{transfer},{transfer}]'),
-  // 	
-  // API包括配置无重复的集合
-  successApiList?: [ ApiTransferVO ](name='success_api_list', example='[{transfer},{transfer}]'),
-  // 失败api配置详情
-  checkResult?: string(name='check_result', example='[{},{}]'),
-}
-
-// ApiflowTestReqVO
-model ApiflowTestReqVO {
-  // api_id
-  apiId?: string(name='api_id', example='api_id'),
-  // workspace_id
-  workspaceId?: string(name='workspace_id', example='workspace_id'),
-  // tenant_id
-  tenantId?: string(name='tenant_id', example='tenant_id'),
-  // machine_name
-  machineName?: string(name='machine_name', example='machine_name'),
-  // params
-  inputParams?: [ ApiTestParamVO ](name='input_params', example=''),
-  // output_params
-  outputParams?: [ ApiflowOutputVO ](name='output_params', example=''),
-}
-
-// MonitoryAggregationVO
-model MonitoryAggregationVO {
-  // invoke_num
-  invokeNum?: [ MonitorData ](name='invoke_num', example=''),
-  // qps
-  qps?: [ MonitorData ](name='qps', example=''),
-  // rt
-  rt?: [ MonitorData ](name='rt', example=''),
-  // 错误码
-  errCode?: [ MonitorData ](name='err_code', example=''),
-  // 错误率
-  errRate?: [ MonitorData ](name='err_rate', example=''),
-  // byte_in
-  byteIn?: [ MonitorData ](name='byte_in', example=''),
-  // byte_out
-  byteOut?: [ MonitorData ](name='byte_out', example=''),
-}
-
-// ApiGroupPagedListVO
-model ApiGroupPagedListVO {
-  // 当前页的数据
-  list?: [ ApiGroupVO ](name='list', example=''),
+// RegistryInfoPagedListVO
+model RegistryInfoPagedListVO {
+  // list
+  list?: [ RegistryInfoVO ](name='list', example=''),
   // page_info
   pageInfo?: PageInfo(name='page_info', example=''),
+}
+
+// ApiGroupQueryVO
+model ApiGroupQueryVO {
+  // page_info
+  pageInfo?: PageInfo(name='page_info', example=''),
+  // query
+  query?: ApiGroupVO(name='query', example=''),
+  // 是否模糊搜索
+  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
 }
 
 // ApiTestRspVO
@@ -2070,12 +2087,155 @@ model ApiTestRspVO {
   headers?: [ ApiTestParamVO ](name='headers', example=''),
 }
 
-// ApiflowInstPagedListVO
-model ApiflowInstPagedListVO {
+// ApiModelPagedListVO
+model ApiModelPagedListVO {
   // list
-  list?: [ ApiflowInstVO ](name='list', example=''),
+  list?: [ ApiModelVO ](name='list', example=''),
   // page_info
   pageInfo?: PageInfo(name='page_info', example=''),
+}
+
+// ApiflowMachineInstPagedListVO
+model ApiflowMachineInstPagedListVO {
+  // list
+  list?: [ ApiflowMachineInstVO ](name='list', example=''),
+  // page_info
+  pageInfo?: PageInfo(name='page_info', example=''),
+}
+
+// api导入 效验返回体
+model CheckApiResult {
+  // 导入的所有的API集合
+  allApiList?: [ ApiTransferVO ](name='all_api_list', example='[{transfer},{transfer}]'),
+  // API或者配置中有重复的集合
+  failedApiList?: [ ApiTransferVO ](name='failed_api_list', example='[{transfer},{transfer}]'),
+  // 	
+  // API包括配置无重复的集合
+  successApiList?: [ ApiTransferVO ](name='success_api_list', example='[{transfer},{transfer}]'),
+  // 失败api配置详情
+  checkResult?: string(name='check_result', example='[{},{}]'),
+}
+
+// CorsInfoQueryVO
+model CorsInfoQueryVO {
+  // 分页信息
+  pageInfo?: PageInfo(name='page_info', example=''),
+  // query
+  query?: CorsInfoVO(name='query', example=''),
+  // 是否模糊搜索
+  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
+}
+
+// 集群信息
+model SofaGwClusterVO {
+  // app name
+  appName?: string(name='app_name', example='dsrconsole'),
+  // hosts
+  hosts?: [ SofaGwHostVO ](name='hosts', example=''),
+  // id
+  id?: long(name='id', example='100'),
+  // 实例标识
+  instanceId?: string(name='instance_id', example='abcdEFGH1234'),
+  // 集群名
+  name?: string(name='name', example='dsrconsole_cluster'),
+}
+
+// ApiGroupAuthUserConfigVO
+model ApiGroupAuthUserConfigVO {
+  // api授权管理开关
+  apiAuthUserSwitch?: string(name='api_auth_user_switch', example='api_auth_user_switch'),
+  // 是否是管理员
+  checkMaster?: boolean(name='check_master', example=''),
+  // 需要api授权管理
+  needApiAuthUser?: boolean(name='need_api_auth_user', example='true/false'),
+  // tenant_id
+  tenantId?: string(name='tenant_id', example='tenant_id'),
+  // workspace_id
+  workspaceId?: string(name='workspace_id', example='workspace_id'),
+}
+
+// ApiModelQueryVO
+model ApiModelQueryVO {
+  // 支持模糊查询
+  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
+  // page_info
+  pageInfo?: PageInfo(name='page_info', example=''),
+  // query
+  query?: ApiModelVO(name='query', example=''),
+}
+
+// ApiTestReqVO
+model ApiTestReqVO {
+  // API标识
+  apiId?: string(name='api_id', example='api_id1'),
+  // 应用标识
+  appId?: string(name='app_id', example='app_id1'),
+  // params
+  params?: [ ApiTestParamVO ](name='params', example=''),
+  // payload
+  payload?: string(name='payload', example='payload1'),
+  // tenant_id
+  tenantId?: string(name='tenant_id', example='tenant_id'),
+  // 工作空间标识
+  workspaceId?: string(name='workspace_id', example='default'),
+}
+
+// ParamMappingInfoPagedListVO
+model ParamMappingInfoPagedListVO {
+  // list
+  list?: [ ParamMappingInfoVO ](name='list', example=''),
+  // pageInfo
+  pageInfo?: PageInfo(name='page_info', example=''),
+}
+
+// MonitoryRequest
+model MonitoryRequest {
+  // API标识
+  apiId?: string(name='api_id', example='h4ZWfWe9anCJn4Tye3tPMiGJZJ2PeGWq'),
+  // App标识
+  appId?: string(name='app_id', example='Oo2llCf0MkkhGtgL'),
+  // code
+  code?: string(name='code', example='code1'),
+  // 开始时间
+  startTime?: long(name='start_time', example=''),
+  // end_time
+  endTime?: long(name='end_time', example=''),
+}
+
+// AuthUserInfoQueryVO
+model AuthUserInfoQueryVO {
+  // pageInfo
+  pageInfo?: PageInfo(name='page_info', example=''),
+  // OperatorVO
+  query?: AuthUserInfoVO(name='query', example=''),
+  // 是否模糊搜索
+  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
+}
+
+// ExternalAuthInfoPagedListVO
+model ExternalAuthInfoPagedListVO {
+  // list
+  list?: [ ExternalAuthInfoVO ](name='list', example=''),
+  // pageInfo
+  pageInfo?: PageInfo(name='page_info', example=''),
+}
+
+// SystemClusterPagedListVO
+model SystemClusterPagedListVO {
+  // list
+  list?: [ SystemClusterVO ](name='list', example=''),
+  // page_info
+  pageInfo?: PageInfo(name='page_info', example=''),
+}
+
+// GrayscaleConfigQueryVO
+model GrayscaleConfigQueryVO {
+  // fuzzy_search
+  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
+  // page_info
+  pageInfo?: PageInfo(name='page_info', example='page_info'),
+  // query
+  query?: GrayscaleConfigVO(name='query', example=''),
 }
 
 // API分组 或 应用
@@ -2096,16 +2256,12 @@ model SofaGwAppVO {
   type?: string(name='type', example='PUBLISHER/SUBSCRIBER'),
 }
 
-// ApiInfoQueryVO
-model ApiInfoQueryVO {
-  // 是否模糊搜索
-  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
+// AuthAppInfoPagedListVO
+model AuthAppInfoPagedListVO {
+  // list
+  list?: [ AuthAppInfoVO ](name='list', example=''),
   // pageInfo
   pageInfo?: PageInfo(name='page_info', example=''),
-  // query
-  query?: ApiInfoVO(name='query', example=''),
-  // 自定义查询条件
-  queryCondition?: string(name='query_condition', example='queryCondition'),
 }
 
 // AuthUserInfoPagedListVO
@@ -2114,80 +2270,6 @@ model AuthUserInfoPagedListVO {
   list?: [ AuthUserInfoVO ](name='list', example=''),
   // page_info
   pageInfo?: PageInfo(name='page_info', example=''),
-}
-
-// ApiModelPagedListVO
-model ApiModelPagedListVO {
-  // list
-  list?: [ ApiModelVO ](name='list', example=''),
-  // page_info
-  pageInfo?: PageInfo(name='page_info', example=''),
-}
-
-// ApiflowInstQueryVO
-model ApiflowInstQueryVO {
-  // fuzzy_search
-  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
-  // page_info
-  pageInfo?: PageInfo(name='page_info', example=''),
-  // query
-  query?: ApiflowInstVO(name='query', example=''),
-}
-
-// CorsInfoQueryVO
-model CorsInfoQueryVO {
-  // 分页信息
-  pageInfo?: PageInfo(name='page_info', example=''),
-  // query
-  query?: CorsInfoVO(name='query', example=''),
-  // 是否模糊搜索
-  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
-}
-
-// ApiflowMachineInstPagedListVO
-model ApiflowMachineInstPagedListVO {
-  // list
-  list?: [ ApiflowMachineInstVO ](name='list', example=''),
-  // page_info
-  pageInfo?: PageInfo(name='page_info', example=''),
-}
-
-// StrategyInfoQueryVO
-model StrategyInfoQueryVO {
-  // 分页信息
-  pageInfo?: PageInfo(name='page_info', example=''),
-  // query
-  query?: StrategyInfoVO(name='query', example=''),
-  // 是否模糊搜索
-  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
-}
-
-// ExternalAuthInfoPagedListVO
-model ExternalAuthInfoPagedListVO {
-  // list
-  list?: [ ExternalAuthInfoVO ](name='list', example=''),
-  // pageInfo
-  pageInfo?: PageInfo(name='page_info', example=''),
-}
-
-// RouterInfoQueryVO
-model RouterInfoQueryVO {
-  // pageInfo
-  pageInfo?: PageInfo(name='page_info', example=''),
-  // query
-  query?: RouterInfoVO(name='query', example=''),
-  // 是否模糊搜索
-  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
-}
-
-// SystemConfigQueryVO
-model SystemConfigQueryVO {
-  // 是否模糊搜索
-  fuzzySearch?: boolean(name='fuzzy_search', example='true, false'),
-  // page_info
-  pageInfo?: PageInfo(name='page_info', example=''),
-  // query
-  query?: SystemConfigVO(name='query', example=''),
 }
 
 model CreateApigroupRequest = {
@@ -9815,17 +9897,19 @@ async function queryGwconfigTripleswitchEx(request: QueryGwconfigTripleswitchReq
   return doRequest('1.0' ,'sofa.apigateway.gwconfig.tripleswitch.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model AllGwconfigRegionRequest = {
+model AllGrayscaleRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 租户id
-  tenantId?: string(name='tenant_id'),
-  // 工作空间标识
+  // param
+  param?: GrayscaleConfigQueryVO(name='param'),
+  // workspace_id
   workspaceId?: string(name='workspace_id'),
+  // tenant_id
+  tenantId?: string(name='tenant_id'),
 }
 
-model AllGwconfigRegionResponse = {
+model AllGrayscaleResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -9833,25 +9917,107 @@ model AllGwconfigRegionResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
-  data?: [ string ](name='data'),
+  data?: [ GrayscaleConfigVO ](name='data'),
 }
 
 /**
- * Description: 查询所以region名称
- * Summary: 查询所以region名称
+ * Description: 查询灰度规则配置
+ * Summary: 查询灰度规则配置
  */
-async function allGwconfigRegion(request: AllGwconfigRegionRequest): AllGwconfigRegionResponse {
+async function allGrayscale(request: AllGrayscaleRequest): AllGrayscaleResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return allGwconfigRegionEx(request, headers, runtime);
+  return allGrayscaleEx(request, headers, runtime);
 }
 
 /**
- * Description: 查询所以region名称
- * Summary: 查询所以region名称
+ * Description: 查询灰度规则配置
+ * Summary: 查询灰度规则配置
  */
-async function allGwconfigRegionEx(request: AllGwconfigRegionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AllGwconfigRegionResponse {
+async function allGrayscaleEx(request: AllGrayscaleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AllGrayscaleResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'sofa.apigateway.gwconfig.region.all', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'sofa.apigateway.grayscale.all', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListGrayscaleRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // param
+  param?: GrayscaleConfigQueryVO(name='param'),
+  // workspace_id
+  workspaceId?: string(name='workspace_id'),
+  // tenant_id
+  tenantId?: string(name='tenant_id'),
+}
+
+model ListGrayscaleResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: GrayscaleConfigPagedListVO(name='data'),
+}
+
+/**
+ * Description: 分页查询灰度规则列表
+ * Summary: 分页查询灰度规则列表
+ */
+async function listGrayscale(request: ListGrayscaleRequest): ListGrayscaleResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listGrayscaleEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询灰度规则列表
+ * Summary: 分页查询灰度规则列表
+ */
+async function listGrayscaleEx(request: ListGrayscaleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListGrayscaleResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.apigateway.grayscale.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AllRouterRegionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户ID
+  tenantId?: string(name='tenant_id'),
+  // workspace_id
+  workspaceId?: string(name='workspace_id'),
+}
+
+model AllRouterRegionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ RegionVO ](name='data'),
+}
+
+/**
+ * Description: 查询所有region名称
+ * Summary: 查询所有region名称
+ */
+async function allRouterRegion(request: AllRouterRegionRequest): AllRouterRegionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return allRouterRegionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询所有region名称
+ * Summary: 查询所有region名称
+ */
+async function allRouterRegionEx(request: AllRouterRegionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AllRouterRegionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'sofa.apigateway.router.region.all', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
