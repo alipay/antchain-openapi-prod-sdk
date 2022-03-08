@@ -672,13 +672,13 @@ class ApiInfoVO extends Model
      */
     public $needTls;
 
-    // api_group_info
+    // api_group
     /**
-     * @example api_group_info
+     * @example api_group
      *
      * @var ApiGroupVO
      */
-    public $apiGroupInfo;
+    public $apiGroup;
 
     // 授权对象列表
     /**
@@ -711,6 +711,22 @@ class ApiInfoVO extends Model
      * @var string
      */
     public $upstreamInstanceId;
+
+    // 跨域状态
+    /**
+     * @example OPENED/CLOSED
+     *
+     * @var string
+     */
+    public $corsStatus;
+
+    // gray_type
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $grayType;
     protected $_name = [
         'apiCacheModel'         => 'api_cache_model',
         'apiCrossZoneList'      => 'api_cross_zone_list',
@@ -795,11 +811,13 @@ class ApiInfoVO extends Model
         'apiCount'              => 'api_count',
         'fieldMapping'          => 'field_mapping',
         'needTls'               => 'need_tls',
-        'apiGroupInfo'          => 'api_group_info',
+        'apiGroup'              => 'api_group',
         'authAppInfoList'       => 'auth_app_info_list',
         'reqModelInfo'          => 'req_model_info',
         'rspModelInfo'          => 'rsp_model_info',
         'upstreamInstanceId'    => 'upstream_instance_id',
+        'corsStatus'            => 'cors_status',
+        'grayType'              => 'gray_type',
     ];
 
     public function validate()
@@ -1108,8 +1126,8 @@ class ApiInfoVO extends Model
         if (null !== $this->needTls) {
             $res['need_tls'] = $this->needTls;
         }
-        if (null !== $this->apiGroupInfo) {
-            $res['api_group_info'] = null !== $this->apiGroupInfo ? $this->apiGroupInfo->toMap() : null;
+        if (null !== $this->apiGroup) {
+            $res['api_group'] = null !== $this->apiGroup ? $this->apiGroup->toMap() : null;
         }
         if (null !== $this->authAppInfoList) {
             $res['auth_app_info_list'] = [];
@@ -1128,6 +1146,12 @@ class ApiInfoVO extends Model
         }
         if (null !== $this->upstreamInstanceId) {
             $res['upstream_instance_id'] = $this->upstreamInstanceId;
+        }
+        if (null !== $this->corsStatus) {
+            $res['cors_status'] = $this->corsStatus;
+        }
+        if (null !== $this->grayType) {
+            $res['gray_type'] = $this->grayType;
         }
 
         return $res;
@@ -1440,8 +1464,8 @@ class ApiInfoVO extends Model
         if (isset($map['need_tls'])) {
             $model->needTls = $map['need_tls'];
         }
-        if (isset($map['api_group_info'])) {
-            $model->apiGroupInfo = ApiGroupVO::fromMap($map['api_group_info']);
+        if (isset($map['api_group'])) {
+            $model->apiGroup = ApiGroupVO::fromMap($map['api_group']);
         }
         if (isset($map['auth_app_info_list'])) {
             if (!empty($map['auth_app_info_list'])) {
@@ -1460,6 +1484,12 @@ class ApiInfoVO extends Model
         }
         if (isset($map['upstream_instance_id'])) {
             $model->upstreamInstanceId = $map['upstream_instance_id'];
+        }
+        if (isset($map['cors_status'])) {
+            $model->corsStatus = $map['cors_status'];
+        }
+        if (isset($map['gray_type'])) {
+            $model->grayType = $map['gray_type'];
         }
 
         return $model;

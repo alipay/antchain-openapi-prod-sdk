@@ -103,6 +103,14 @@ class RouterInfoVO extends Model
      * @var string
      */
     public $workspaceId;
+
+    // 跨域状态
+    /**
+     * @example OPENED/CLOSED
+     *
+     * @var string
+     */
+    public $corsStatus;
     protected $_name = [
         'apiCount'         => 'api_count',
         'canDelete'        => 'can_delete',
@@ -116,6 +124,7 @@ class RouterInfoVO extends Model
         'upstreamProtocol' => 'upstream_protocol',
         'tenantId'         => 'tenant_id',
         'workspaceId'      => 'workspace_id',
+        'corsStatus'       => 'cors_status',
     ];
 
     public function validate()
@@ -168,6 +177,9 @@ class RouterInfoVO extends Model
         }
         if (null !== $this->workspaceId) {
             $res['workspace_id'] = $this->workspaceId;
+        }
+        if (null !== $this->corsStatus) {
+            $res['cors_status'] = $this->corsStatus;
         }
 
         return $res;
@@ -222,6 +234,9 @@ class RouterInfoVO extends Model
         }
         if (isset($map['workspace_id'])) {
             $model->workspaceId = $map['workspace_id'];
+        }
+        if (isset($map['cors_status'])) {
+            $model->corsStatus = $map['cors_status'];
         }
 
         return $model;

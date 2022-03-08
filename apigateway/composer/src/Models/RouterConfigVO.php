@@ -79,6 +79,38 @@ class RouterConfigVO extends Model
      * @var string
      */
     public $interceptionRule;
+
+    // 跨域标识
+    /**
+     * @example ASDFGH
+     *
+     * @var string
+     */
+    public $gwId;
+
+    // region标识
+    /**
+     * @example default
+     *
+     * @var string
+     */
+    public $regionId;
+
+    // region名称
+    /**
+     * @example default
+     *
+     * @var string
+     */
+    public $regionName;
+
+    // gateway_config
+    /**
+     * @example
+     *
+     * @var GateWayConfigVO
+     */
+    public $gatewayConfig;
     protected $_name = [
         'argKey'           => 'arg_key',
         'argValue'         => 'arg_value',
@@ -89,6 +121,10 @@ class RouterConfigVO extends Model
         'sysId'            => 'sys_id',
         'weight'           => 'weight',
         'interceptionRule' => 'interception_rule',
+        'gwId'             => 'gw_id',
+        'regionId'         => 'region_id',
+        'regionName'       => 'region_name',
+        'gatewayConfig'    => 'gateway_config',
     ];
 
     public function validate()
@@ -124,6 +160,18 @@ class RouterConfigVO extends Model
         }
         if (null !== $this->interceptionRule) {
             $res['interception_rule'] = $this->interceptionRule;
+        }
+        if (null !== $this->gwId) {
+            $res['gw_id'] = $this->gwId;
+        }
+        if (null !== $this->regionId) {
+            $res['region_id'] = $this->regionId;
+        }
+        if (null !== $this->regionName) {
+            $res['region_name'] = $this->regionName;
+        }
+        if (null !== $this->gatewayConfig) {
+            $res['gateway_config'] = null !== $this->gatewayConfig ? $this->gatewayConfig->toMap() : null;
         }
 
         return $res;
@@ -163,6 +211,18 @@ class RouterConfigVO extends Model
         }
         if (isset($map['interception_rule'])) {
             $model->interceptionRule = $map['interception_rule'];
+        }
+        if (isset($map['gw_id'])) {
+            $model->gwId = $map['gw_id'];
+        }
+        if (isset($map['region_id'])) {
+            $model->regionId = $map['region_id'];
+        }
+        if (isset($map['region_name'])) {
+            $model->regionName = $map['region_name'];
+        }
+        if (isset($map['gateway_config'])) {
+            $model->gatewayConfig = GateWayConfigVO::fromMap($map['gateway_config']);
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\APIGATEWAY\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AllGwconfigRegionResponse extends Model
+class AllRouterRegionResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -28,7 +28,7 @@ class AllGwconfigRegionResponse extends Model
 
     // data
     /**
-     * @var string[]
+     * @var RegionVO[]
      */
     public $data;
     protected $_name = [
@@ -55,7 +55,13 @@ class AllGwconfigRegionResponse extends Model
             $res['result_msg'] = $this->resultMsg;
         }
         if (null !== $this->data) {
-            $res['data'] = $this->data;
+            $res['data'] = [];
+            if (null !== $this->data && \is_array($this->data)) {
+                $n = 0;
+                foreach ($this->data as $item) {
+                    $res['data'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -64,7 +70,7 @@ class AllGwconfigRegionResponse extends Model
     /**
      * @param array $map
      *
-     * @return AllGwconfigRegionResponse
+     * @return AllRouterRegionResponse
      */
     public static function fromMap($map = [])
     {
@@ -80,7 +86,11 @@ class AllGwconfigRegionResponse extends Model
         }
         if (isset($map['data'])) {
             if (!empty($map['data'])) {
-                $model->data = $map['data'];
+                $model->data = [];
+                $n           = 0;
+                foreach ($map['data'] as $item) {
+                    $model->data[$n++] = null !== $item ? RegionVO::fromMap($item) : $item;
+                }
             }
         }
 

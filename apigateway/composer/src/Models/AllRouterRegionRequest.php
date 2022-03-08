@@ -6,7 +6,7 @@ namespace AntChain\APIGATEWAY\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AllGwconfigRegionRequest extends Model
+class AllRouterRegionRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,13 +19,13 @@ class AllGwconfigRegionRequest extends Model
      */
     public $productInstanceId;
 
-    // 租户id
+    // 租户ID
     /**
      * @var string
      */
     public $tenantId;
 
-    // 工作空间标识
+    // workspace_id
     /**
      * @var string
      */
@@ -63,7 +63,7 @@ class AllGwconfigRegionRequest extends Model
     /**
      * @param array $map
      *
-     * @return AllGwconfigRegionRequest
+     * @return AllRouterRegionRequest
      */
     public static function fromMap($map = [])
     {

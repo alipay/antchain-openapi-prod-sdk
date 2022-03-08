@@ -41,8 +41,8 @@ use AntChain\APIGATEWAY\Models\AllCorsRequest;
 use AntChain\APIGATEWAY\Models\AllCorsResponse;
 use AntChain\APIGATEWAY\Models\AllExternalauthRequest;
 use AntChain\APIGATEWAY\Models\AllExternalauthResponse;
-use AntChain\APIGATEWAY\Models\AllGwconfigRegionRequest;
-use AntChain\APIGATEWAY\Models\AllGwconfigRegionResponse;
+use AntChain\APIGATEWAY\Models\AllGrayscaleRequest;
+use AntChain\APIGATEWAY\Models\AllGrayscaleResponse;
 use AntChain\APIGATEWAY\Models\AllGwconfigRequest;
 use AntChain\APIGATEWAY\Models\AllGwconfigResponse;
 use AntChain\APIGATEWAY\Models\AllParammappingRequest;
@@ -53,6 +53,8 @@ use AntChain\APIGATEWAY\Models\AllRegistrySysRequest;
 use AntChain\APIGATEWAY\Models\AllRegistrySysResponse;
 use AntChain\APIGATEWAY\Models\AllRouterApiRequest;
 use AntChain\APIGATEWAY\Models\AllRouterApiResponse;
+use AntChain\APIGATEWAY\Models\AllRouterRegionRequest;
+use AntChain\APIGATEWAY\Models\AllRouterRegionResponse;
 use AntChain\APIGATEWAY\Models\AllRouterRequest;
 use AntChain\APIGATEWAY\Models\AllRouterResponse;
 use AntChain\APIGATEWAY\Models\AllStrategyApiRequest;
@@ -255,6 +257,8 @@ use AntChain\APIGATEWAY\Models\ListExternalauthApiRequest;
 use AntChain\APIGATEWAY\Models\ListExternalauthApiResponse;
 use AntChain\APIGATEWAY\Models\ListExternalauthRequest;
 use AntChain\APIGATEWAY\Models\ListExternalauthResponse;
+use AntChain\APIGATEWAY\Models\ListGrayscaleRequest;
+use AntChain\APIGATEWAY\Models\ListGrayscaleResponse;
 use AntChain\APIGATEWAY\Models\ListOperatorRequest;
 use AntChain\APIGATEWAY\Models\ListOperatorResponse;
 use AntChain\APIGATEWAY\Models\ListParammappingApiRequest;
@@ -488,7 +492,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 注册中心详情
+            // ProtocolVO
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -516,7 +520,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.312',
+                    'sdk_version'      => '1.1.325',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -6439,35 +6443,101 @@ class Client
     }
 
     /**
-     * Description: 查询所以region名称
-     * Summary: 查询所以region名称.
+     * Description: 查询灰度规则配置
+     * Summary: 查询灰度规则配置.
      *
-     * @param AllGwconfigRegionRequest $request
+     * @param AllGrayscaleRequest $request
      *
-     * @return AllGwconfigRegionResponse
+     * @return AllGrayscaleResponse
      */
-    public function allGwconfigRegion($request)
+    public function allGrayscale($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->allGwconfigRegionEx($request, $headers, $runtime);
+        return $this->allGrayscaleEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 查询所以region名称
-     * Summary: 查询所以region名称.
+     * Description: 查询灰度规则配置
+     * Summary: 查询灰度规则配置.
      *
-     * @param AllGwconfigRegionRequest $request
-     * @param string[]                 $headers
-     * @param RuntimeOptions           $runtime
+     * @param AllGrayscaleRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
      *
-     * @return AllGwconfigRegionResponse
+     * @return AllGrayscaleResponse
      */
-    public function allGwconfigRegionEx($request, $headers, $runtime)
+    public function allGrayscaleEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return AllGwconfigRegionResponse::fromMap($this->doRequest('1.0', 'sofa.apigateway.gwconfig.region.all', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return AllGrayscaleResponse::fromMap($this->doRequest('1.0', 'sofa.apigateway.grayscale.all', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询灰度规则列表
+     * Summary: 分页查询灰度规则列表.
+     *
+     * @param ListGrayscaleRequest $request
+     *
+     * @return ListGrayscaleResponse
+     */
+    public function listGrayscale($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listGrayscaleEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询灰度规则列表
+     * Summary: 分页查询灰度规则列表.
+     *
+     * @param ListGrayscaleRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return ListGrayscaleResponse
+     */
+    public function listGrayscaleEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListGrayscaleResponse::fromMap($this->doRequest('1.0', 'sofa.apigateway.grayscale.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询所有region名称
+     * Summary: 查询所有region名称.
+     *
+     * @param AllRouterRegionRequest $request
+     *
+     * @return AllRouterRegionResponse
+     */
+    public function allRouterRegion($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->allRouterRegionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询所有region名称
+     * Summary: 查询所有region名称.
+     *
+     * @param AllRouterRegionRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return AllRouterRegionResponse
+     */
+    public function allRouterRegionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AllRouterRegionResponse::fromMap($this->doRequest('1.0', 'sofa.apigateway.router.region.all', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

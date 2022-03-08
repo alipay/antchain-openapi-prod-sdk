@@ -103,19 +103,28 @@ class ApiModelParamVO extends Model
      * @var string
      */
     public $workspaceId;
+
+    // model_description
+    /**
+     * @example model_description
+     *
+     * @var string
+     */
+    public $modelDescription;
     protected $_name = [
-        'defaultValue' => 'default_value',
-        'description'  => 'description',
-        'gmtCreate'    => 'gmt_create',
-        'gmtModified'  => 'gmt_modified',
-        'modelId'      => 'model_id',
-        'operation'    => 'operation',
-        'paramId'      => 'param_id',
-        'paramName'    => 'param_name',
-        'paramType'    => 'param_type',
-        'refModelId'   => 'ref_model_id',
-        'tenantId'     => 'tenant_id',
-        'workspaceId'  => 'workspace_id',
+        'defaultValue'     => 'default_value',
+        'description'      => 'description',
+        'gmtCreate'        => 'gmt_create',
+        'gmtModified'      => 'gmt_modified',
+        'modelId'          => 'model_id',
+        'operation'        => 'operation',
+        'paramId'          => 'param_id',
+        'paramName'        => 'param_name',
+        'paramType'        => 'param_type',
+        'refModelId'       => 'ref_model_id',
+        'tenantId'         => 'tenant_id',
+        'workspaceId'      => 'workspace_id',
+        'modelDescription' => 'model_description',
     ];
 
     public function validate()
@@ -162,6 +171,9 @@ class ApiModelParamVO extends Model
         }
         if (null !== $this->workspaceId) {
             $res['workspace_id'] = $this->workspaceId;
+        }
+        if (null !== $this->modelDescription) {
+            $res['model_description'] = $this->modelDescription;
         }
 
         return $res;
@@ -210,6 +222,9 @@ class ApiModelParamVO extends Model
         }
         if (isset($map['workspace_id'])) {
             $model->workspaceId = $map['workspace_id'];
+        }
+        if (isset($map['model_description'])) {
+            $model->modelDescription = $map['model_description'];
         }
 
         return $model;
