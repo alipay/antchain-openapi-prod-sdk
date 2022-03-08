@@ -150,6 +150,194 @@ class Config(TeaModel):
         return self
 
 
+class Accessor(TeaModel):
+    def __init__(
+        self,
+        access_key: str = None,
+        access_secret: str = None,
+        account: str = None,
+        create_time: str = None,
+        id: str = None,
+        type: str = None,
+    ):
+        # Accessor关联的AccessKey
+        self.access_key = access_key
+        # Accessor关联的AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
+        self.access_secret = access_secret
+        # AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
+        self.account = account
+        # AccessKey创建时间，ISO8601格式
+        self.create_time = create_time
+        # Accessor唯一标识
+        self.id = id
+        # Accessor类型(RAM/ACCOUNT)
+        self.type = type
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.access_key is not None:
+            result['access_key'] = self.access_key
+        if self.access_secret is not None:
+            result['access_secret'] = self.access_secret
+        if self.account is not None:
+            result['account'] = self.account
+        if self.create_time is not None:
+            result['create_time'] = self.create_time
+        if self.id is not None:
+            result['id'] = self.id
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('access_key') is not None:
+            self.access_key = m.get('access_key')
+        if m.get('access_secret') is not None:
+            self.access_secret = m.get('access_secret')
+        if m.get('account') is not None:
+            self.account = m.get('account')
+        if m.get('create_time') is not None:
+            self.create_time = m.get('create_time')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class Tag(TeaModel):
+    def __init__(
+        self,
+        tag_type: str = None,
+        tag_value: str = None,
+    ):
+        # 标签类型
+        self.tag_type = tag_type
+        # 标签值
+        self.tag_value = tag_value
+
+    def validate(self):
+        self.validate_required(self.tag_type, 'tag_type')
+        self.validate_required(self.tag_value, 'tag_value')
+
+    def to_map(self):
+        result = dict()
+        if self.tag_type is not None:
+            result['tag_type'] = self.tag_type
+        if self.tag_value is not None:
+            result['tag_value'] = self.tag_value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('tag_type') is not None:
+            self.tag_type = m.get('tag_type')
+        if m.get('tag_value') is not None:
+            self.tag_value = m.get('tag_value')
+        return self
+
+
+class AccessKey(TeaModel):
+    def __init__(
+        self,
+        create_time: str = None,
+        id: str = None,
+        secret: str = None,
+        status: str = None,
+        update_time: str = None,
+    ):
+        # AccessKey创建时间，ISO8601格式
+        self.create_time = create_time
+        # AccessKey唯一标识
+        self.id = id
+        # AccessKey的秘钥，加密传输，网关返回后，使用调用方的AccesSecret进行解密
+        self.secret = secret
+        # 状态
+        self.status = status
+        # AccessKey最近一次修改时间，ISO8601格式
+        self.update_time = update_time
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.create_time is not None:
+            result['create_time'] = self.create_time
+        if self.id is not None:
+            result['id'] = self.id
+        if self.secret is not None:
+            result['secret'] = self.secret
+        if self.status is not None:
+            result['status'] = self.status
+        if self.update_time is not None:
+            result['update_time'] = self.update_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('create_time') is not None:
+            self.create_time = m.get('create_time')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('secret') is not None:
+            self.secret = m.get('secret')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('update_time') is not None:
+            self.update_time = m.get('update_time')
+        return self
+
+
+class Customer(TeaModel):
+    def __init__(
+        self,
+        create_time: str = None,
+        id: str = None,
+        name: str = None,
+        update_time: str = None,
+    ):
+        # 企业创建时间，ISO8601格式
+        self.create_time = create_time
+        # 企业ID
+        self.id = id
+        # 企业名称
+        self.name = name
+        # 企业最近一次修改时间，ISO8601格式
+        self.update_time = update_time
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.create_time is not None:
+            result['create_time'] = self.create_time
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.update_time is not None:
+            result['update_time'] = self.update_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('create_time') is not None:
+            self.create_time = m.get('create_time')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('update_time') is not None:
+            self.update_time = m.get('update_time')
+        return self
+
+
 class Tenant(TeaModel):
     def __init__(
         self,
@@ -250,6 +438,7 @@ class Operator(TeaModel):
         mobile: str = None,
         nickname: str = None,
         real_name: str = None,
+        department_code: str = None,
         status: str = None,
         tenants: List[str] = None,
         update_time: str = None,
@@ -274,6 +463,8 @@ class Operator(TeaModel):
         self.nickname = nickname
         # 真实姓名
         self.real_name = real_name
+        # 部门唯一码
+        self.department_code = department_code
         # 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
         self.status = status
         # 操作员加入的租户列表
@@ -306,6 +497,8 @@ class Operator(TeaModel):
             result['nickname'] = self.nickname
         if self.real_name is not None:
             result['real_name'] = self.real_name
+        if self.department_code is not None:
+            result['department_code'] = self.department_code
         if self.status is not None:
             result['status'] = self.status
         if self.tenants is not None:
@@ -336,198 +529,12 @@ class Operator(TeaModel):
             self.nickname = m.get('nickname')
         if m.get('real_name') is not None:
             self.real_name = m.get('real_name')
+        if m.get('department_code') is not None:
+            self.department_code = m.get('department_code')
         if m.get('status') is not None:
             self.status = m.get('status')
         if m.get('tenants') is not None:
             self.tenants = m.get('tenants')
-        if m.get('update_time') is not None:
-            self.update_time = m.get('update_time')
-        return self
-
-
-class AccessKey(TeaModel):
-    def __init__(
-        self,
-        create_time: str = None,
-        id: str = None,
-        secret: str = None,
-        status: str = None,
-        update_time: str = None,
-    ):
-        # AccessKey创建时间，ISO8601格式
-        self.create_time = create_time
-        # AccessKey唯一标识
-        self.id = id
-        # AccessKey的秘钥，加密传输，网关返回后，使用调用方的AccesSecret进行解密
-        self.secret = secret
-        # 状态
-        self.status = status
-        # AccessKey最近一次修改时间，ISO8601格式
-        self.update_time = update_time
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.create_time is not None:
-            result['create_time'] = self.create_time
-        if self.id is not None:
-            result['id'] = self.id
-        if self.secret is not None:
-            result['secret'] = self.secret
-        if self.status is not None:
-            result['status'] = self.status
-        if self.update_time is not None:
-            result['update_time'] = self.update_time
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('create_time') is not None:
-            self.create_time = m.get('create_time')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('secret') is not None:
-            self.secret = m.get('secret')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('update_time') is not None:
-            self.update_time = m.get('update_time')
-        return self
-
-
-class Tag(TeaModel):
-    def __init__(
-        self,
-        tag_type: str = None,
-        tag_value: str = None,
-    ):
-        # 标签类型
-        self.tag_type = tag_type
-        # 标签值
-        self.tag_value = tag_value
-
-    def validate(self):
-        self.validate_required(self.tag_type, 'tag_type')
-        self.validate_required(self.tag_value, 'tag_value')
-
-    def to_map(self):
-        result = dict()
-        if self.tag_type is not None:
-            result['tag_type'] = self.tag_type
-        if self.tag_value is not None:
-            result['tag_value'] = self.tag_value
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('tag_type') is not None:
-            self.tag_type = m.get('tag_type')
-        if m.get('tag_value') is not None:
-            self.tag_value = m.get('tag_value')
-        return self
-
-
-class Accessor(TeaModel):
-    def __init__(
-        self,
-        access_key: str = None,
-        access_secret: str = None,
-        account: str = None,
-        create_time: str = None,
-        id: str = None,
-        type: str = None,
-    ):
-        # Accessor关联的AccessKey
-        self.access_key = access_key
-        # Accessor关联的AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
-        self.access_secret = access_secret
-        # AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
-        self.account = account
-        # AccessKey创建时间，ISO8601格式
-        self.create_time = create_time
-        # Accessor唯一标识
-        self.id = id
-        # Accessor类型(RAM/ACCOUNT)
-        self.type = type
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.access_key is not None:
-            result['access_key'] = self.access_key
-        if self.access_secret is not None:
-            result['access_secret'] = self.access_secret
-        if self.account is not None:
-            result['account'] = self.account
-        if self.create_time is not None:
-            result['create_time'] = self.create_time
-        if self.id is not None:
-            result['id'] = self.id
-        if self.type is not None:
-            result['type'] = self.type
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('access_key') is not None:
-            self.access_key = m.get('access_key')
-        if m.get('access_secret') is not None:
-            self.access_secret = m.get('access_secret')
-        if m.get('account') is not None:
-            self.account = m.get('account')
-        if m.get('create_time') is not None:
-            self.create_time = m.get('create_time')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        return self
-
-
-class Customer(TeaModel):
-    def __init__(
-        self,
-        create_time: str = None,
-        id: str = None,
-        name: str = None,
-        update_time: str = None,
-    ):
-        # 企业创建时间，ISO8601格式
-        self.create_time = create_time
-        # 企业ID
-        self.id = id
-        # 企业名称
-        self.name = name
-        # 企业最近一次修改时间，ISO8601格式
-        self.update_time = update_time
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.create_time is not None:
-            result['create_time'] = self.create_time
-        if self.id is not None:
-            result['id'] = self.id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.update_time is not None:
-            result['update_time'] = self.update_time
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('create_time') is not None:
-            self.create_time = m.get('create_time')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
         if m.get('update_time') is not None:
             self.update_time = m.get('update_time')
         return self
@@ -688,6 +695,9 @@ class GetOperatorResponse(TeaModel):
         status: str = None,
         tenants: List[str] = None,
         update_time: str = None,
+        work_no: str = None,
+        is_master: bool = None,
+        dd_robot: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -721,6 +731,12 @@ class GetOperatorResponse(TeaModel):
         self.tenants = tenants
         # 操作员最近一次修改时间，ISO8601格式
         self.update_time = update_time
+        # 工号
+        self.work_no = work_no
+        # 是否是主账号
+        self.is_master = is_master
+        # 钉钉机器人 token
+        self.dd_robot = dd_robot
 
     def validate(self):
         self.validate_required(self.customer, 'customer')
@@ -769,6 +785,12 @@ class GetOperatorResponse(TeaModel):
             result['tenants'] = self.tenants
         if self.update_time is not None:
             result['update_time'] = self.update_time
+        if self.work_no is not None:
+            result['work_no'] = self.work_no
+        if self.is_master is not None:
+            result['is_master'] = self.is_master
+        if self.dd_robot is not None:
+            result['dd_robot'] = self.dd_robot
         return result
 
     def from_map(self, m: dict = None):
@@ -805,6 +827,12 @@ class GetOperatorResponse(TeaModel):
             self.tenants = m.get('tenants')
         if m.get('update_time') is not None:
             self.update_time = m.get('update_time')
+        if m.get('work_no') is not None:
+            self.work_no = m.get('work_no')
+        if m.get('is_master') is not None:
+            self.is_master = m.get('is_master')
+        if m.get('dd_robot') is not None:
+            self.dd_robot = m.get('dd_robot')
         return self
 
 
@@ -817,6 +845,7 @@ class QueryOperatorRequest(TeaModel):
         page_size: int = None,
         real_name: str = None,
         tenant: str = None,
+        department_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -830,6 +859,8 @@ class QueryOperatorRequest(TeaModel):
         self.real_name = real_name
         # 租户唯一标识
         self.tenant = tenant
+        # 部门唯一码
+        self.department_code = department_code
 
     def validate(self):
         self.validate_required(self.customer, 'customer')
@@ -848,6 +879,8 @@ class QueryOperatorRequest(TeaModel):
             result['real_name'] = self.real_name
         if self.tenant is not None:
             result['tenant'] = self.tenant
+        if self.department_code is not None:
+            result['department_code'] = self.department_code
         return result
 
     def from_map(self, m: dict = None):
@@ -864,6 +897,8 @@ class QueryOperatorRequest(TeaModel):
             self.real_name = m.get('real_name')
         if m.get('tenant') is not None:
             self.tenant = m.get('tenant')
+        if m.get('department_code') is not None:
+            self.department_code = m.get('department_code')
         return self
 
 
@@ -1108,7 +1143,10 @@ class CreateOperatorRequest(TeaModel):
         nickname: str = None,
         real_name: str = None,
         tenant: str = None,
+        work_no: str = None,
         bussiness_code: str = None,
+        encrypted_password: str = None,
+        reset_password_when_first_login: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1128,8 +1166,14 @@ class CreateOperatorRequest(TeaModel):
         self.real_name = real_name
         # 租户唯一标识
         self.tenant = tenant
+        # 工号
+        self.work_no = work_no
         # 业务场景码
         self.bussiness_code = bussiness_code
+        # 加密密码
+        self.encrypted_password = encrypted_password
+        # 首次登录是否需要重置密码，取值范围：true, false，默认为 false
+        self.reset_password_when_first_login = reset_password_when_first_login
 
     def validate(self):
         self.validate_required(self.login_name, 'login_name')
@@ -1155,8 +1199,14 @@ class CreateOperatorRequest(TeaModel):
             result['real_name'] = self.real_name
         if self.tenant is not None:
             result['tenant'] = self.tenant
+        if self.work_no is not None:
+            result['work_no'] = self.work_no
         if self.bussiness_code is not None:
             result['bussiness_code'] = self.bussiness_code
+        if self.encrypted_password is not None:
+            result['encrypted_password'] = self.encrypted_password
+        if self.reset_password_when_first_login is not None:
+            result['reset_password_when_first_login'] = self.reset_password_when_first_login
         return result
 
     def from_map(self, m: dict = None):
@@ -1179,8 +1229,14 @@ class CreateOperatorRequest(TeaModel):
             self.real_name = m.get('real_name')
         if m.get('tenant') is not None:
             self.tenant = m.get('tenant')
+        if m.get('work_no') is not None:
+            self.work_no = m.get('work_no')
         if m.get('bussiness_code') is not None:
             self.bussiness_code = m.get('bussiness_code')
+        if m.get('encrypted_password') is not None:
+            self.encrypted_password = m.get('encrypted_password')
+        if m.get('reset_password_when_first_login') is not None:
+            self.reset_password_when_first_login = m.get('reset_password_when_first_login')
         return self
 
 
@@ -1563,6 +1619,9 @@ class CreateTenantRequest(TeaModel):
         auth_token: str = None,
         ant_uid: str = None,
         business_owner_id: str = None,
+        name: str = None,
+        display_name: str = None,
+        description: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1570,6 +1629,12 @@ class CreateTenantRequest(TeaModel):
         self.ant_uid = ant_uid
         # 金融云官网:ANTCLOUD, 蚂蚁开放平台：ANTOPEN, 口碑：KOUBEI
         self.business_owner_id = business_owner_id
+        # 租户名称，如果为空则随机生成
+        self.name = name
+        # 显示名称
+        self.display_name = display_name
+        # 描述信息
+        self.description = description
 
     def validate(self):
         self.validate_required(self.ant_uid, 'ant_uid')
@@ -1582,6 +1647,12 @@ class CreateTenantRequest(TeaModel):
             result['ant_uid'] = self.ant_uid
         if self.business_owner_id is not None:
             result['business_owner_id'] = self.business_owner_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.display_name is not None:
+            result['display_name'] = self.display_name
+        if self.description is not None:
+            result['description'] = self.description
         return result
 
     def from_map(self, m: dict = None):
@@ -1592,6 +1663,12 @@ class CreateTenantRequest(TeaModel):
             self.ant_uid = m.get('ant_uid')
         if m.get('business_owner_id') is not None:
             self.business_owner_id = m.get('business_owner_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('display_name') is not None:
+            self.display_name = m.get('display_name')
+        if m.get('description') is not None:
+            self.description = m.get('description')
         return self
 
 
@@ -2516,11 +2593,14 @@ class GetTenantIaasaccountRequest(TeaModel):
         self,
         auth_token: str = None,
         tenant: str = None,
+        source_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         # 租户唯一标识
         self.tenant = tenant
+        # 一方化调用参数，阿里云服务名
+        self.source_id = source_id
 
     def validate(self):
         self.validate_required(self.tenant, 'tenant')
@@ -2531,6 +2611,8 @@ class GetTenantIaasaccountRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.tenant is not None:
             result['tenant'] = self.tenant
+        if self.source_id is not None:
+            result['source_id'] = self.source_id
         return result
 
     def from_map(self, m: dict = None):
@@ -2539,6 +2621,8 @@ class GetTenantIaasaccountRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('tenant') is not None:
             self.tenant = m.get('tenant')
+        if m.get('source_id') is not None:
+            self.source_id = m.get('source_id')
         return self
 
 
@@ -2553,6 +2637,8 @@ class GetTenantIaasaccountResponse(TeaModel):
         account: str = None,
         create_time: str = None,
         id: str = None,
+        access_token: str = None,
+        sts_mode: bool = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -2570,6 +2656,10 @@ class GetTenantIaasaccountResponse(TeaModel):
         self.create_time = create_time
         # IaaS账户id
         self.id = id
+        # sts token
+        self.access_token = access_token
+        # 是否是sts模式
+        self.sts_mode = sts_mode
 
     def validate(self):
         pass
@@ -2592,6 +2682,10 @@ class GetTenantIaasaccountResponse(TeaModel):
             result['create_time'] = self.create_time
         if self.id is not None:
             result['id'] = self.id
+        if self.access_token is not None:
+            result['access_token'] = self.access_token
+        if self.sts_mode is not None:
+            result['sts_mode'] = self.sts_mode
         return result
 
     def from_map(self, m: dict = None):
@@ -2612,6 +2706,10 @@ class GetTenantIaasaccountResponse(TeaModel):
             self.create_time = m.get('create_time')
         if m.get('id') is not None:
             self.id = m.get('id')
+        if m.get('access_token') is not None:
+            self.access_token = m.get('access_token')
+        if m.get('sts_mode') is not None:
+            self.sts_mode = m.get('sts_mode')
         return self
 
 
@@ -3347,6 +3445,7 @@ class GetMasterTenantResponse(TeaModel):
         name: str = None,
         update_time: str = None,
         user_type: str = None,
+        tenant_level: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -3370,6 +3469,8 @@ class GetMasterTenantResponse(TeaModel):
         self.update_time = update_time
         # 用户类型
         self.user_type = user_type
+        # 租户的类型 N 支付宝 Q支付宝开放平台 V 蚂蚁链账号
+        self.tenant_level = tenant_level
 
     def validate(self):
         pass
@@ -3398,6 +3499,8 @@ class GetMasterTenantResponse(TeaModel):
             result['update_time'] = self.update_time
         if self.user_type is not None:
             result['user_type'] = self.user_type
+        if self.tenant_level is not None:
+            result['tenant_level'] = self.tenant_level
         return result
 
     def from_map(self, m: dict = None):
@@ -3424,6 +3527,8 @@ class GetMasterTenantResponse(TeaModel):
             self.update_time = m.get('update_time')
         if m.get('user_type') is not None:
             self.user_type = m.get('user_type')
+        if m.get('tenant_level') is not None:
+            self.tenant_level = m.get('tenant_level')
         return self
 
 
@@ -3727,6 +3832,75 @@ class RemoveTenantBusinesstagRequest(TeaModel):
 
 
 class RemoveTenantBusinesstagResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class SendOperatorActiveemailRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        operator_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 操作员ID
+        self.operator_id = operator_id
+
+    def validate(self):
+        self.validate_required(self.operator_id, 'operator_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.operator_id is not None:
+            result['operator_id'] = self.operator_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('operator_id') is not None:
+            self.operator_id = m.get('operator_id')
+        return self
+
+
+class SendOperatorActiveemailResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
