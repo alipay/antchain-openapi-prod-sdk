@@ -77,6 +77,85 @@ export class Config extends $tea.Model {
   }
 }
 
+// ProtocolVO
+export class ProtocolVO extends $tea.Model {
+  // 协议类型
+  protocol?: string;
+  // 端口
+  port?: string;
+  static names(): { [key: string]: string } {
+    return {
+      protocol: 'protocol',
+      port: 'port',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      protocol: 'string',
+      port: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// RegistryVO
+export class RegistryVO extends $tea.Model {
+  // host
+  host?: string;
+  // protocol_support
+  protocolSupport?: ProtocolVO[];
+  // 注册中心类型
+  type?: string;
+  static names(): { [key: string]: string } {
+    return {
+      host: 'host',
+      protocolSupport: 'protocol_support',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      host: 'string',
+      protocolSupport: { 'type': 'array', 'itemType': ProtocolVO },
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// AuthenticationConfigVO
+export class AuthenticationConfigVO extends $tea.Model {
+  // access_key
+  accessKey?: string;
+  // secret_key
+  secretKey?: string;
+  static names(): { [key: string]: string } {
+    return {
+      accessKey: 'access_key',
+      secretKey: 'secret_key',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accessKey: 'string',
+      secretKey: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 注册中心详情
 export class RegistryInfoVO extends $tea.Model {
   // workspace_id
@@ -166,31 +245,6 @@ export class RegistryInfoVO extends $tea.Model {
       protocolVersion: 'string',
       nameSpace: 'string',
       clusterName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// AuthenticationConfigVO
-export class AuthenticationConfigVO extends $tea.Model {
-  // access_key
-  accessKey?: string;
-  // secret_key
-  secretKey?: string;
-  static names(): { [key: string]: string } {
-    return {
-      accessKey: 'access_key',
-      secretKey: 'secret_key',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      accessKey: 'string',
-      secretKey: 'string',
     };
   }
 
@@ -324,23 +378,120 @@ export class SystemClusterVO extends $tea.Model {
   }
 }
 
-// ProtocolVO
-export class ProtocolVO extends $tea.Model {
-  // 协议类型
-  protocol?: string;
-  // 端口
-  port?: string;
+// GateWayConfigVO
+export class GateWayConfigVO extends $tea.Model {
+  // 唯一标识
+  gatewayId?: string;
+  // host
+  host?: string;
+  // 唯一性标识
+  id?: string;
+  // zone名称、网关名称
+  name?: string;
+  // 注册中心
+  routers?: RegistryVO[];
+  // tenant_id
+  tenantId?: string;
+  // workspace_id
+  workspaceId?: string;
+  // zone
+  zone?: string;
+  // 流量比例
+  weight?: number;
   static names(): { [key: string]: string } {
     return {
-      protocol: 'protocol',
-      port: 'port',
+      gatewayId: 'gateway_id',
+      host: 'host',
+      id: 'id',
+      name: 'name',
+      routers: 'routers',
+      tenantId: 'tenant_id',
+      workspaceId: 'workspace_id',
+      zone: 'zone',
+      weight: 'weight',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      protocol: 'string',
-      port: 'string',
+      gatewayId: 'string',
+      host: 'string',
+      id: 'string',
+      name: 'string',
+      routers: { 'type': 'array', 'itemType': RegistryVO },
+      tenantId: 'string',
+      workspaceId: 'string',
+      zone: 'string',
+      weight: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// RouterConfigVO
+export class RouterConfigVO extends $tea.Model {
+  // argKey
+  argKey?: string;
+  // argValue
+  argValue?: string;
+  // matchType
+  matchType?: string;
+  // param_location
+  paramLocation?: string;
+  // router_type
+  routerType?: string;
+  // systemCluster
+  systemCluster?: SystemClusterVO;
+  // sys_id
+  sysId?: string;
+  // weight
+  weight?: number;
+  // interceptionRule
+  interceptionRule?: string;
+  // 跨域标识
+  gwId?: string;
+  // region标识
+  regionId?: string;
+  // region名称
+  regionName?: string;
+  // gateway_config
+  gatewayConfig?: GateWayConfigVO;
+  static names(): { [key: string]: string } {
+    return {
+      argKey: 'arg_key',
+      argValue: 'arg_value',
+      matchType: 'match_type',
+      paramLocation: 'param_location',
+      routerType: 'router_type',
+      systemCluster: 'system_cluster',
+      sysId: 'sys_id',
+      weight: 'weight',
+      interceptionRule: 'interception_rule',
+      gwId: 'gw_id',
+      regionId: 'region_id',
+      regionName: 'region_name',
+      gatewayConfig: 'gateway_config',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      argKey: 'string',
+      argValue: 'string',
+      matchType: 'string',
+      paramLocation: 'string',
+      routerType: 'string',
+      systemCluster: SystemClusterVO,
+      sysId: 'string',
+      weight: 'number',
+      interceptionRule: 'string',
+      gwId: 'string',
+      regionId: 'string',
+      regionName: 'string',
+      gatewayConfig: GateWayConfigVO,
     };
   }
 
@@ -394,59 +545,6 @@ export class EncryptConfigVO extends $tea.Model {
   }
 }
 
-// RouterConfigVO
-export class RouterConfigVO extends $tea.Model {
-  // argKey
-  argKey?: string;
-  // argValue
-  argValue?: string;
-  // matchType
-  matchType?: string;
-  // param_location
-  paramLocation?: string;
-  // router_type
-  routerType?: string;
-  // systemCluster
-  systemCluster?: SystemClusterVO;
-  // sys_id
-  sysId?: string;
-  // weight
-  weight?: number;
-  // interceptionRule
-  interceptionRule?: string;
-  static names(): { [key: string]: string } {
-    return {
-      argKey: 'arg_key',
-      argValue: 'arg_value',
-      matchType: 'match_type',
-      paramLocation: 'param_location',
-      routerType: 'router_type',
-      systemCluster: 'system_cluster',
-      sysId: 'sys_id',
-      weight: 'weight',
-      interceptionRule: 'interception_rule',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      argKey: 'string',
-      argValue: 'string',
-      matchType: 'string',
-      paramLocation: 'string',
-      routerType: 'string',
-      systemCluster: SystemClusterVO,
-      sysId: 'string',
-      weight: 'number',
-      interceptionRule: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // ApiRspCodeVO
 export class ApiRspCodeVO extends $tea.Model {
   // error_code
@@ -476,198 +574,23 @@ export class ApiRspCodeVO extends $tea.Model {
   }
 }
 
-// ApiGroupDomainVO
-export class ApiGroupDomainVO extends $tea.Model {
-  // gmt_create
-  gmtCreate?: string;
-  // gmt_modified
-  gmtModified?: string;
-  // api_group_id
-  apiGroupId?: string;
-  // domain_name
-  domainName?: string;
+// ApiCacheKeyVO
+export class ApiCacheKeyVO extends $tea.Model {
+  // key
+  key?: string;
+  // location
+  location?: string;
   static names(): { [key: string]: string } {
     return {
-      gmtCreate: 'gmt_create',
-      gmtModified: 'gmt_modified',
-      apiGroupId: 'api_group_id',
-      domainName: 'domain_name',
+      key: 'key',
+      location: 'location',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      gmtCreate: 'string',
-      gmtModified: 'string',
-      apiGroupId: 'string',
-      domainName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// RouterInfoVO
-export class RouterInfoVO extends $tea.Model {
-  // api数
-  apiCount?: number;
-  // 是否可以删除
-  canDelete?: boolean;
-  // 创建时间
-  gmtCreate?: string;
-  // 更改时间
-  gmtModified?: string;
-  // operator
-  operator?: string;
-  // routerConfigs
-  routerConfigs?: RouterConfigVO[];
-  // router_id
-  routerId?: string;
-  // routerName
-  routerName?: string;
-  // routerType
-  routerType?: string;
-  // upstream_protocol
-  upstreamProtocol?: string;
-  // tenant_id
-  tenantId?: string;
-  // workspace_id
-  workspaceId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      apiCount: 'api_count',
-      canDelete: 'can_delete',
-      gmtCreate: 'gmt_create',
-      gmtModified: 'gmt_modified',
-      operator: 'operator',
-      routerConfigs: 'router_configs',
-      routerId: 'router_id',
-      routerName: 'router_name',
-      routerType: 'router_type',
-      upstreamProtocol: 'upstream_protocol',
-      tenantId: 'tenant_id',
-      workspaceId: 'workspace_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      apiCount: 'number',
-      canDelete: 'boolean',
-      gmtCreate: 'string',
-      gmtModified: 'string',
-      operator: 'string',
-      routerConfigs: { 'type': 'array', 'itemType': RouterConfigVO },
-      routerId: 'string',
-      routerName: 'string',
-      routerType: 'string',
-      upstreamProtocol: 'string',
-      tenantId: 'string',
-      workspaceId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// AppInfoVO
-export class AppInfoVO extends $tea.Model {
-  // api_count
-  apiCount?: number;
-  // app_id
-  appId?: string;
-  // app_name
-  appName?: string;
-  // appSecret
-  appSecret?: string;
-  // app类型
-  appType?: string;
-  // authenticationConfig
-  authenticationConfig?: AuthenticationConfigVO;
-  // 是否可以删除
-  canDelete?: boolean;
-  // description
-  description?: string;
-  // encryptConfig
-  encryptConfig?: EncryptConfigVO;
-  // 创建时间
-  gmtCreate?: string;
-  // 更改时间
-  gmtModified?: string;
-  // operator
-  operator?: string;
-  // tenant_id
-  tenantId?: string;
-  // workspace_id
-  workspaceId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      apiCount: 'api_count',
-      appId: 'app_id',
-      appName: 'app_name',
-      appSecret: 'app_secret',
-      appType: 'app_type',
-      authenticationConfig: 'authentication_config',
-      canDelete: 'can_delete',
-      description: 'description',
-      encryptConfig: 'encrypt_config',
-      gmtCreate: 'gmt_create',
-      gmtModified: 'gmt_modified',
-      operator: 'operator',
-      tenantId: 'tenant_id',
-      workspaceId: 'workspace_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      apiCount: 'number',
-      appId: 'string',
-      appName: 'string',
-      appSecret: 'string',
-      appType: 'string',
-      authenticationConfig: AuthenticationConfigVO,
-      canDelete: 'boolean',
-      description: 'string',
-      encryptConfig: EncryptConfigVO,
-      gmtCreate: 'string',
-      gmtModified: 'string',
-      operator: 'string',
-      tenantId: 'string',
-      workspaceId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// RegistryVO
-export class RegistryVO extends $tea.Model {
-  // host
-  host?: string;
-  // protocol_support
-  protocolSupport?: ProtocolVO[];
-  // 注册中心类型
-  type?: string;
-  static names(): { [key: string]: string } {
-    return {
-      host: 'host',
-      protocolSupport: 'protocol_support',
-      type: 'type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      host: 'string',
-      protocolSupport: { 'type': 'array', 'itemType': ProtocolVO },
-      type: 'string',
+      key: 'string',
+      location: 'string',
     };
   }
 
@@ -753,6 +676,148 @@ export class ApiParamVO extends $tea.Model {
   }
 }
 
+// RouterInfoVO
+export class RouterInfoVO extends $tea.Model {
+  // api数
+  apiCount?: number;
+  // 是否可以删除
+  canDelete?: boolean;
+  // 创建时间
+  gmtCreate?: string;
+  // 更改时间
+  gmtModified?: string;
+  // operator
+  operator?: string;
+  // routerConfigs
+  routerConfigs?: RouterConfigVO[];
+  // router_id
+  routerId?: string;
+  // routerName
+  routerName?: string;
+  // routerType
+  routerType?: string;
+  // upstream_protocol
+  upstreamProtocol?: string;
+  // tenant_id
+  tenantId?: string;
+  // workspace_id
+  workspaceId?: string;
+  // 跨域状态
+  corsStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      apiCount: 'api_count',
+      canDelete: 'can_delete',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      operator: 'operator',
+      routerConfigs: 'router_configs',
+      routerId: 'router_id',
+      routerName: 'router_name',
+      routerType: 'router_type',
+      upstreamProtocol: 'upstream_protocol',
+      tenantId: 'tenant_id',
+      workspaceId: 'workspace_id',
+      corsStatus: 'cors_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      apiCount: 'number',
+      canDelete: 'boolean',
+      gmtCreate: 'string',
+      gmtModified: 'string',
+      operator: 'string',
+      routerConfigs: { 'type': 'array', 'itemType': RouterConfigVO },
+      routerId: 'string',
+      routerName: 'string',
+      routerType: 'string',
+      upstreamProtocol: 'string',
+      tenantId: 'string',
+      workspaceId: 'string',
+      corsStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// AppInfoVO
+export class AppInfoVO extends $tea.Model {
+  // api_count
+  apiCount?: number;
+  // app_id
+  appId?: string;
+  // app_name
+  appName?: string;
+  // appSecret
+  appSecret?: string;
+  // app类型
+  appType?: string;
+  // authenticationConfig
+  authenticationConfig?: AuthenticationConfigVO;
+  // 是否可以删除
+  canDelete?: boolean;
+  // description
+  description?: string;
+  // encryptConfig
+  encryptConfig?: EncryptConfigVO;
+  // 创建时间
+  gmtCreate?: string;
+  // 更改时间
+  gmtModified?: string;
+  // operator
+  operator?: string;
+  // tenant_id
+  tenantId?: string;
+  // workspace_id
+  workspaceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      apiCount: 'api_count',
+      appId: 'app_id',
+      appName: 'app_name',
+      appSecret: 'app_secret',
+      appType: 'app_type',
+      authenticationConfig: 'authentication_config',
+      canDelete: 'can_delete',
+      description: 'description',
+      encryptConfig: 'encrypt_config',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      operator: 'operator',
+      tenantId: 'tenant_id',
+      workspaceId: 'workspace_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      apiCount: 'number',
+      appId: 'string',
+      appName: 'string',
+      appSecret: 'string',
+      appType: 'string',
+      authenticationConfig: AuthenticationConfigVO,
+      canDelete: 'boolean',
+      description: 'string',
+      encryptConfig: EncryptConfigVO,
+      gmtCreate: 'string',
+      gmtModified: 'string',
+      operator: 'string',
+      tenantId: 'string',
+      workspaceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 数据模型参数VO
 export class ApiModelParamVO extends $tea.Model {
   // 默认值
@@ -779,6 +844,8 @@ export class ApiModelParamVO extends $tea.Model {
   tenantId?: string;
   // workspace_id
   workspaceId?: string;
+  // model_description
+  modelDescription?: string;
   static names(): { [key: string]: string } {
     return {
       defaultValue: 'default_value',
@@ -793,6 +860,7 @@ export class ApiModelParamVO extends $tea.Model {
       refModelId: 'ref_model_id',
       tenantId: 'tenant_id',
       workspaceId: 'workspace_id',
+      modelDescription: 'model_description',
     };
   }
 
@@ -810,6 +878,7 @@ export class ApiModelParamVO extends $tea.Model {
       refModelId: 'string',
       tenantId: 'string',
       workspaceId: 'string',
+      modelDescription: 'string',
     };
   }
 
@@ -818,104 +887,88 @@ export class ApiModelParamVO extends $tea.Model {
   }
 }
 
-// ApiCacheKeyVO
-export class ApiCacheKeyVO extends $tea.Model {
-  // key
-  key?: string;
-  // location
-  location?: string;
+// ApiGroupDomainVO
+export class ApiGroupDomainVO extends $tea.Model {
+  // gmt_create
+  gmtCreate?: string;
+  // gmt_modified
+  gmtModified?: string;
+  // api_group_id
+  apiGroupId?: string;
+  // domain_name
+  domainName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      apiGroupId: 'api_group_id',
+      domainName: 'domain_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      gmtCreate: 'string',
+      gmtModified: 'string',
+      apiGroupId: 'string',
+      domainName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 授权信息
+export class SofaGwAuthenticationVO extends $tea.Model {
+  // 		
+  // access key
+  // 
+  // 
+  authAccessKey?: string;
+  // secret key
+  authSecretKey?: string;
+  // id
+  id?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authAccessKey: 'auth_access_key',
+      authSecretKey: 'auth_secret_key',
+      id: 'id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authAccessKey: 'string',
+      authSecretKey: 'string',
+      id: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 排序信息
+export class OrderInfo extends $tea.Model {
+  // 要排序的字段
+  key: string;
+  // 升序or降序
+  order: string;
   static names(): { [key: string]: string } {
     return {
       key: 'key',
-      location: 'location',
+      order: 'order',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       key: 'string',
-      location: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ApiGroupVO
-export class ApiGroupVO extends $tea.Model {
-  // api数
-  apiCount?: number;
-  // 分组标识(全局唯一)
-  apiGroupId?: string;
-  // 用户授权开关
-  authUserSwitch?: string;
-  // 是否可以删除
-  canDelete?: boolean;
-  // 描述
-  description?: string;
-  // 域名
-  domainName?: string;
-  // 创建时间
-  gmtCreate?: string;
-  // 更改时间
-  gmtModified?: string;
-  // 分组名
-  groupName?: string;
-  // need_api_auth_user
-  needApiAuthUser?: boolean;
-  // 创建人
-  operator?: string;
-  // 租户标识
-  tenantId?: string;
-  // 工作空间标识
-  workspaceId?: string;
-  // 是否可操作
-  operationPermission?: boolean;
-  // DEFAULT|CUSTOM
-  domainType?: string;
-  // 自定义域名
-  domainList?: ApiGroupDomainVO[];
-  static names(): { [key: string]: string } {
-    return {
-      apiCount: 'api_count',
-      apiGroupId: 'api_group_id',
-      authUserSwitch: 'auth_user_switch',
-      canDelete: 'can_delete',
-      description: 'description',
-      domainName: 'domain_name',
-      gmtCreate: 'gmt_create',
-      gmtModified: 'gmt_modified',
-      groupName: 'group_name',
-      needApiAuthUser: 'need_api_auth_user',
-      operator: 'operator',
-      tenantId: 'tenant_id',
-      workspaceId: 'workspace_id',
-      operationPermission: 'operation_permission',
-      domainType: 'domain_type',
-      domainList: 'domain_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      apiCount: 'number',
-      apiGroupId: 'string',
-      authUserSwitch: 'string',
-      canDelete: 'boolean',
-      description: 'string',
-      domainName: 'string',
-      gmtCreate: 'string',
-      gmtModified: 'string',
-      groupName: 'string',
-      needApiAuthUser: 'boolean',
-      operator: 'string',
-      tenantId: 'string',
-      workspaceId: 'string',
-      operationPermission: 'boolean',
-      domainType: 'string',
-      domainList: { 'type': 'array', 'itemType': ApiGroupDomainVO },
+      order: 'string',
     };
   }
 
@@ -1013,6 +1066,468 @@ export class AuthAppInfoVO extends $tea.Model {
   }
 }
 
+// 策略管理
+export class StrategyInfoVO extends $tea.Model {
+  // workspace_id
+  workspaceId?: string;
+  // tenant_id
+  tenantId?: string;
+  // 创建时间
+  gmtCreate?: string;
+  // 更新时间
+  gmtModified?: string;
+  // 策略唯一标识
+  strategyId?: string;
+  // 策略名称
+  strategyName?: string;
+  // 策略状态
+  strategyStatus?: string;
+  // 操作人
+  operator?: string;
+  // 	
+  // API数量
+  apiCount?: number;
+  // 策略描述
+  description?: string;
+  // 策略类型
+  strategyType?: string;
+  // 名单集合
+  host?: string[];
+  // true, false
+  canDelete?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      workspaceId: 'workspace_id',
+      tenantId: 'tenant_id',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      strategyId: 'strategy_id',
+      strategyName: 'strategy_name',
+      strategyStatus: 'strategy_status',
+      operator: 'operator',
+      apiCount: 'api_count',
+      description: 'description',
+      strategyType: 'strategy_type',
+      host: 'host',
+      canDelete: 'can_delete',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      workspaceId: 'string',
+      tenantId: 'string',
+      gmtCreate: 'string',
+      gmtModified: 'string',
+      strategyId: 'string',
+      strategyName: 'string',
+      strategyStatus: 'string',
+      operator: 'string',
+      apiCount: 'number',
+      description: 'string',
+      strategyType: 'string',
+      host: { 'type': 'array', 'itemType': 'string' },
+      canDelete: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// SwitchVO
+export class SwitchVO extends $tea.Model {
+  // 唯一标识
+  id?: string;
+  // 键值
+  key?: string;
+  // 名称
+  name?: string;
+  // 开关
+  value?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      key: 'key',
+      name: 'name',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      key: 'string',
+      name: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// LimitConfigVO
+export class LimitConfigVO extends $tea.Model {
+  // 是否需要限制
+  needLimit?: boolean;
+  // 限制阈值
+  limit?: number;
+  // 限制响应类型
+  limitRspType?: string;
+  // 响应信息
+  rspMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      needLimit: 'need_limit',
+      limit: 'limit',
+      limitRspType: 'limit_rsp_type',
+      rspMsg: 'rsp_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      needLimit: 'boolean',
+      limit: 'number',
+      limitRspType: 'string',
+      rspMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ApiGroupVO
+export class ApiGroupVO extends $tea.Model {
+  // api数
+  apiCount?: number;
+  // 分组标识(全局唯一)
+  apiGroupId?: string;
+  // 用户授权开关
+  authUserSwitch?: string;
+  // 是否可以删除
+  canDelete?: boolean;
+  // 描述
+  description?: string;
+  // 域名
+  domainName?: string;
+  // 创建时间
+  gmtCreate?: string;
+  // 更改时间
+  gmtModified?: string;
+  // 分组名
+  groupName?: string;
+  // need_api_auth_user
+  needApiAuthUser?: boolean;
+  // 创建人
+  operator?: string;
+  // 租户标识
+  tenantId?: string;
+  // 工作空间标识
+  workspaceId?: string;
+  // 是否可操作
+  operationPermission?: boolean;
+  // DEFAULT|CUSTOM
+  domainType?: string;
+  // 自定义域名
+  domainList?: ApiGroupDomainVO[];
+  static names(): { [key: string]: string } {
+    return {
+      apiCount: 'api_count',
+      apiGroupId: 'api_group_id',
+      authUserSwitch: 'auth_user_switch',
+      canDelete: 'can_delete',
+      description: 'description',
+      domainName: 'domain_name',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      groupName: 'group_name',
+      needApiAuthUser: 'need_api_auth_user',
+      operator: 'operator',
+      tenantId: 'tenant_id',
+      workspaceId: 'workspace_id',
+      operationPermission: 'operation_permission',
+      domainType: 'domain_type',
+      domainList: 'domain_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      apiCount: 'number',
+      apiGroupId: 'string',
+      authUserSwitch: 'string',
+      canDelete: 'boolean',
+      description: 'string',
+      domainName: 'string',
+      gmtCreate: 'string',
+      gmtModified: 'string',
+      groupName: 'string',
+      needApiAuthUser: 'boolean',
+      operator: 'string',
+      tenantId: 'string',
+      workspaceId: 'string',
+      operationPermission: 'boolean',
+      domainType: 'string',
+      domainList: { 'type': 'array', 'itemType': ApiGroupDomainVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ApiflowOutputVO
+export class ApiflowOutputVO extends $tea.Model {
+  // name
+  name?: string;
+  // mapping_name
+  mappingName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      mappingName: 'mapping_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      mappingName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// GrayRuleConfigVO
+export class GrayRuleConfigVO extends $tea.Model {
+  // lable
+  lable?: string;
+  // weight
+  weight?: number;
+  // app_name
+  appName?: string;
+  // arg_key
+  argKey?: string;
+  // match_type
+  matchType?: string;
+  // arg_value
+  argValue?: string;
+  static names(): { [key: string]: string } {
+    return {
+      lable: 'lable',
+      weight: 'weight',
+      appName: 'app_name',
+      argKey: 'arg_key',
+      matchType: 'match_type',
+      argValue: 'arg_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      lable: 'string',
+      weight: 'number',
+      appName: 'string',
+      argKey: 'string',
+      matchType: 'string',
+      argValue: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// CorsInfoVO
+export class CorsInfoVO extends $tea.Model {
+  // 是否允许发送COOKIE
+  allowCredentials?: boolean;
+  // 允许的 request headers
+  allowHeaders?: string[];
+  // 允许的http method
+  allowMethods?: string[];
+  // 允许的 ORIGIN
+  allowOrigins?: string[];
+  // API数量
+  apiCount?: number;
+  // cors标识
+  corsId?: string;
+  // cors名称
+  corsName?: string;
+  // cors_scop
+  corsScop?: string;
+  // cors状态
+  corsStatus?: string;
+  // 允许暴露的 reponse header
+  exposeHeaders?: string[];
+  // 创建时间
+  gmtCreate?: string;
+  // 更新时间
+  gmtModified?: string;
+  // 预检请求的有效期
+  maxAge?: number;
+  // 创建人
+  operator?: string;
+  // 租户标识
+  tenantId?: string;
+  // 工作空间标识
+  workspaceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      allowCredentials: 'allow_credentials',
+      allowHeaders: 'allow_headers',
+      allowMethods: 'allow_methods',
+      allowOrigins: 'allow_origins',
+      apiCount: 'api_count',
+      corsId: 'cors_id',
+      corsName: 'cors_name',
+      corsScop: 'cors_scop',
+      corsStatus: 'cors_status',
+      exposeHeaders: 'expose_headers',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      maxAge: 'max_age',
+      operator: 'operator',
+      tenantId: 'tenant_id',
+      workspaceId: 'workspace_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      allowCredentials: 'boolean',
+      allowHeaders: { 'type': 'array', 'itemType': 'string' },
+      allowMethods: { 'type': 'array', 'itemType': 'string' },
+      allowOrigins: { 'type': 'array', 'itemType': 'string' },
+      apiCount: 'number',
+      corsId: 'string',
+      corsName: 'string',
+      corsScop: 'string',
+      corsStatus: 'string',
+      exposeHeaders: { 'type': 'array', 'itemType': 'string' },
+      gmtCreate: 'string',
+      gmtModified: 'string',
+      maxAge: 'number',
+      operator: 'string',
+      tenantId: 'string',
+      workspaceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ApiVersionVO
+export class ApiVersionVO extends $tea.Model {
+  // API标识
+  apiId?: string;
+  // editOperator
+  editOperator?: string;
+  // 创建时间
+  gmtCreate?: string;
+  // 编辑时间
+  gmtEdit?: string;
+  // 更改时间
+  gmtModified?: string;
+  // gmtOffline
+  gmtOffline?: string;
+  // gmtOnline
+  gmtOnline?: string;
+  // offlineDesc
+  offlineDesc?: string;
+  // offlineOperator
+  offlineOperator?: string;
+  // onlineDesc
+  onlineDesc?: string;
+  // onlineOperator
+  onlineOperator?: string;
+  // versionId
+  versionId?: string;
+  // 版本号
+  versionNo?: string;
+  // versionStatus
+  versionStatus?: string;
+  // 能否发布
+  canOnline?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      apiId: 'api_id',
+      editOperator: 'edit_operator',
+      gmtCreate: 'gmt_create',
+      gmtEdit: 'gmt_edit',
+      gmtModified: 'gmt_modified',
+      gmtOffline: 'gmt_offline',
+      gmtOnline: 'gmt_online',
+      offlineDesc: 'offline_desc',
+      offlineOperator: 'offline_operator',
+      onlineDesc: 'online_desc',
+      onlineOperator: 'online_operator',
+      versionId: 'version_id',
+      versionNo: 'version_no',
+      versionStatus: 'version_status',
+      canOnline: 'can_online',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      apiId: 'string',
+      editOperator: 'string',
+      gmtCreate: 'string',
+      gmtEdit: 'string',
+      gmtModified: 'string',
+      gmtOffline: 'string',
+      gmtOnline: 'string',
+      offlineDesc: 'string',
+      offlineOperator: 'string',
+      onlineDesc: 'string',
+      onlineOperator: 'string',
+      versionId: 'string',
+      versionNo: 'string',
+      versionStatus: 'string',
+      canOnline: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ApiMockConfigVO
+export class ApiMockConfigVO extends $tea.Model {
+  // mock_data
+  mockData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      mockData: 'mock_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      mockData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // ApiCrossZoneVO
 export class ApiCrossZoneVO extends $tea.Model {
   // workspace_id
@@ -1066,19 +1581,100 @@ export class ApiCrossZoneVO extends $tea.Model {
   }
 }
 
-// ApiMockConfigVO
-export class ApiMockConfigVO extends $tea.Model {
-  // mock_data
-  mockData?: string;
+// ParamMappingInfoVO
+export class ParamMappingInfoVO extends $tea.Model {
+  // api_count
+  apiCount?: number;
+  // can_delete
+  canDelete?: boolean;
+  // 配置模板
+  configTemplate?: string;
+  // 描述
+  description?: string;
+  // gmt_create
+  gmtCreate?: string;
+  // gmt_modified
+  gmtModified?: string;
+  // 映射类型
+  mappingType?: string;
+  // 创建人
+  operator?: string;
+  // param_mapping_id
+  paramMappingId?: string;
+  // 参数映射名称
+  paramMappingName?: string;
+  // 脚本配置
+  scriptConfig?: string;
+  // tenant_id
+  tenantId?: string;
+  // workspace_id
+  workspaceId?: string;
+  // 配置模板名称
+  configTemplateName?: string;
   static names(): { [key: string]: string } {
     return {
-      mockData: 'mock_data',
+      apiCount: 'api_count',
+      canDelete: 'can_delete',
+      configTemplate: 'config_template',
+      description: 'description',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      mappingType: 'mapping_type',
+      operator: 'operator',
+      paramMappingId: 'param_mapping_id',
+      paramMappingName: 'param_mapping_name',
+      scriptConfig: 'script_config',
+      tenantId: 'tenant_id',
+      workspaceId: 'workspace_id',
+      configTemplateName: 'config_template_name',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      mockData: 'string',
+      apiCount: 'number',
+      canDelete: 'boolean',
+      configTemplate: 'string',
+      description: 'string',
+      gmtCreate: 'string',
+      gmtModified: 'string',
+      mappingType: 'string',
+      operator: 'string',
+      paramMappingId: 'string',
+      paramMappingName: 'string',
+      scriptConfig: 'string',
+      tenantId: 'string',
+      workspaceId: 'string',
+      configTemplateName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ApiCacheVO
+export class ApiCacheVO extends $tea.Model {
+  // 是否需要缓存
+  needCache?: boolean;
+  // TTL
+  ttl?: number;
+  // cacheKeys
+  cacheKeys?: ApiCacheKeyVO[];
+  static names(): { [key: string]: string } {
+    return {
+      needCache: 'need_cache',
+      ttl: 'ttl',
+      cacheKeys: 'cache_keys',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      needCache: 'boolean',
+      ttl: 'number',
+      cacheKeys: { 'type': 'array', 'itemType': ApiCacheKeyVO },
     };
   }
 
@@ -1217,268 +1813,6 @@ export class ExternalAuthInfoVO extends $tea.Model {
   }
 }
 
-// SwitchVO
-export class SwitchVO extends $tea.Model {
-  // 唯一标识
-  id?: string;
-  // 键值
-  key?: string;
-  // 名称
-  name?: string;
-  // 开关
-  value?: string;
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      key: 'key',
-      name: 'name',
-      value: 'value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      key: 'string',
-      name: 'string',
-      value: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ApiflowOutputVO
-export class ApiflowOutputVO extends $tea.Model {
-  // name
-  name?: string;
-  // mapping_name
-  mappingName?: string;
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      mappingName: 'mapping_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      mappingName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// GateWayConfigVO
-export class GateWayConfigVO extends $tea.Model {
-  // 唯一标识
-  gatewayId?: string;
-  // host
-  host?: string;
-  // 唯一性标识
-  id?: string;
-  // zone名称、网关名称
-  name?: string;
-  // 注册中心
-  routers?: RegistryVO[];
-  // tenant_id
-  tenantId?: string;
-  // workspace_id
-  workspaceId?: string;
-  // zone
-  zone?: string;
-  // 流量比例
-  weight?: number;
-  static names(): { [key: string]: string } {
-    return {
-      gatewayId: 'gateway_id',
-      host: 'host',
-      id: 'id',
-      name: 'name',
-      routers: 'routers',
-      tenantId: 'tenant_id',
-      workspaceId: 'workspace_id',
-      zone: 'zone',
-      weight: 'weight',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      gatewayId: 'string',
-      host: 'string',
-      id: 'string',
-      name: 'string',
-      routers: { 'type': 'array', 'itemType': RegistryVO },
-      tenantId: 'string',
-      workspaceId: 'string',
-      zone: 'string',
-      weight: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// CorsInfoVO
-export class CorsInfoVO extends $tea.Model {
-  // 是否允许发送COOKIE
-  allowCredentials?: boolean;
-  // 允许的 request headers
-  allowHeaders?: string[];
-  // 允许的http method
-  allowMethods?: string[];
-  // 允许的 ORIGIN
-  allowOrigins?: string[];
-  // API数量
-  apiCount?: number;
-  // cors标识
-  corsId?: string;
-  // cors名称
-  corsName?: string;
-  // cors_scop
-  corsScop?: string;
-  // cors状态
-  corsStatus?: string;
-  // 允许暴露的 reponse header
-  exposeHeaders?: string[];
-  // 创建时间
-  gmtCreate?: string;
-  // 更新时间
-  gmtModified?: string;
-  // 预检请求的有效期
-  maxAge?: number;
-  // 创建人
-  operator?: string;
-  // 租户标识
-  tenantId?: string;
-  // 工作空间标识
-  workspaceId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      allowCredentials: 'allow_credentials',
-      allowHeaders: 'allow_headers',
-      allowMethods: 'allow_methods',
-      allowOrigins: 'allow_origins',
-      apiCount: 'api_count',
-      corsId: 'cors_id',
-      corsName: 'cors_name',
-      corsScop: 'cors_scop',
-      corsStatus: 'cors_status',
-      exposeHeaders: 'expose_headers',
-      gmtCreate: 'gmt_create',
-      gmtModified: 'gmt_modified',
-      maxAge: 'max_age',
-      operator: 'operator',
-      tenantId: 'tenant_id',
-      workspaceId: 'workspace_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      allowCredentials: 'boolean',
-      allowHeaders: { 'type': 'array', 'itemType': 'string' },
-      allowMethods: { 'type': 'array', 'itemType': 'string' },
-      allowOrigins: { 'type': 'array', 'itemType': 'string' },
-      apiCount: 'number',
-      corsId: 'string',
-      corsName: 'string',
-      corsScop: 'string',
-      corsStatus: 'string',
-      exposeHeaders: { 'type': 'array', 'itemType': 'string' },
-      gmtCreate: 'string',
-      gmtModified: 'string',
-      maxAge: 'number',
-      operator: 'string',
-      tenantId: 'string',
-      workspaceId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 策略管理
-export class StrategyInfoVO extends $tea.Model {
-  // workspace_id
-  workspaceId?: string;
-  // tenant_id
-  tenantId?: string;
-  // 创建时间
-  gmtCreate?: string;
-  // 更新时间
-  gmtModified?: string;
-  // 策略唯一标识
-  strategyId?: string;
-  // 策略名称
-  strategyName?: string;
-  // 策略状态
-  strategyStatus?: string;
-  // 操作人
-  operator?: string;
-  // 	
-  // API数量
-  apiCount?: number;
-  // 策略描述
-  description?: string;
-  // 策略类型
-  strategyType?: string;
-  // 名单集合
-  host?: string[];
-  // true, false
-  canDelete?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      workspaceId: 'workspace_id',
-      tenantId: 'tenant_id',
-      gmtCreate: 'gmt_create',
-      gmtModified: 'gmt_modified',
-      strategyId: 'strategy_id',
-      strategyName: 'strategy_name',
-      strategyStatus: 'strategy_status',
-      operator: 'operator',
-      apiCount: 'api_count',
-      description: 'description',
-      strategyType: 'strategy_type',
-      host: 'host',
-      canDelete: 'can_delete',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      workspaceId: 'string',
-      tenantId: 'string',
-      gmtCreate: 'string',
-      gmtModified: 'string',
-      strategyId: 'string',
-      strategyName: 'string',
-      strategyStatus: 'string',
-      operator: 'string',
-      apiCount: 'number',
-      description: 'string',
-      strategyType: 'string',
-      host: { 'type': 'array', 'itemType': 'string' },
-      canDelete: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // ActionResult
 export class ActionResult extends $tea.Model {
   // 错误码
@@ -1587,31 +1921,31 @@ export class ApiModelVO extends $tea.Model {
   }
 }
 
-// LimitConfigVO
-export class LimitConfigVO extends $tea.Model {
-  // 是否需要限制
-  needLimit?: boolean;
-  // 限制阈值
-  limit?: number;
-  // 限制响应类型
-  limitRspType?: string;
-  // 响应信息
-  rspMsg?: string;
+// PageInfo
+export class PageInfo extends $tea.Model {
+  // 排序信息
+  orderInfos?: OrderInfo[];
+  // 当前页
+  pageIndex?: number;
+  // 每页记录数
+  pageSize?: number;
+  // 总数
+  total?: number;
   static names(): { [key: string]: string } {
     return {
-      needLimit: 'need_limit',
-      limit: 'limit',
-      limitRspType: 'limit_rsp_type',
-      rspMsg: 'rsp_msg',
+      orderInfos: 'order_infos',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+      total: 'total',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      needLimit: 'boolean',
-      limit: 'number',
-      limitRspType: 'string',
-      rspMsg: 'string',
+      orderInfos: { 'type': 'array', 'itemType': OrderInfo },
+      pageIndex: 'number',
+      pageSize: 'number',
+      total: 'number',
     };
   }
 
@@ -1620,243 +1954,7 @@ export class LimitConfigVO extends $tea.Model {
   }
 }
 
-// ApiCacheVO
-export class ApiCacheVO extends $tea.Model {
-  // 是否需要缓存
-  needCache?: boolean;
-  // TTL
-  ttl?: number;
-  // cacheKeys
-  cacheKeys?: ApiCacheKeyVO[];
-  static names(): { [key: string]: string } {
-    return {
-      needCache: 'need_cache',
-      ttl: 'ttl',
-      cacheKeys: 'cache_keys',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      needCache: 'boolean',
-      ttl: 'number',
-      cacheKeys: { 'type': 'array', 'itemType': ApiCacheKeyVO },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ParamMappingInfoVO
-export class ParamMappingInfoVO extends $tea.Model {
-  // api_count
-  apiCount?: number;
-  // can_delete
-  canDelete?: boolean;
-  // 配置模板
-  configTemplate?: string;
-  // 描述
-  description?: string;
-  // gmt_create
-  gmtCreate?: string;
-  // gmt_modified
-  gmtModified?: string;
-  // 映射类型
-  mappingType?: string;
-  // 创建人
-  operator?: string;
-  // param_mapping_id
-  paramMappingId?: string;
-  // 参数映射名称
-  paramMappingName?: string;
-  // 脚本配置
-  scriptConfig?: string;
-  // tenant_id
-  tenantId?: string;
-  // workspace_id
-  workspaceId?: string;
-  // 配置模板名称
-  configTemplateName?: string;
-  static names(): { [key: string]: string } {
-    return {
-      apiCount: 'api_count',
-      canDelete: 'can_delete',
-      configTemplate: 'config_template',
-      description: 'description',
-      gmtCreate: 'gmt_create',
-      gmtModified: 'gmt_modified',
-      mappingType: 'mapping_type',
-      operator: 'operator',
-      paramMappingId: 'param_mapping_id',
-      paramMappingName: 'param_mapping_name',
-      scriptConfig: 'script_config',
-      tenantId: 'tenant_id',
-      workspaceId: 'workspace_id',
-      configTemplateName: 'config_template_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      apiCount: 'number',
-      canDelete: 'boolean',
-      configTemplate: 'string',
-      description: 'string',
-      gmtCreate: 'string',
-      gmtModified: 'string',
-      mappingType: 'string',
-      operator: 'string',
-      paramMappingId: 'string',
-      paramMappingName: 'string',
-      scriptConfig: 'string',
-      tenantId: 'string',
-      workspaceId: 'string',
-      configTemplateName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 排序信息
-export class OrderInfo extends $tea.Model {
-  // 要排序的字段
-  key: string;
-  // 升序or降序
-  order: string;
-  static names(): { [key: string]: string } {
-    return {
-      key: 'key',
-      order: 'order',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      key: 'string',
-      order: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ApiVersionVO
-export class ApiVersionVO extends $tea.Model {
-  // API标识
-  apiId?: string;
-  // editOperator
-  editOperator?: string;
-  // 创建时间
-  gmtCreate?: string;
-  // 编辑时间
-  gmtEdit?: string;
-  // 更改时间
-  gmtModified?: string;
-  // gmtOffline
-  gmtOffline?: string;
-  // gmtOnline
-  gmtOnline?: string;
-  // offlineDesc
-  offlineDesc?: string;
-  // offlineOperator
-  offlineOperator?: string;
-  // onlineDesc
-  onlineDesc?: string;
-  // onlineOperator
-  onlineOperator?: string;
-  // versionId
-  versionId?: string;
-  // 版本号
-  versionNo?: string;
-  // versionStatus
-  versionStatus?: string;
-  // 能否发布
-  canOnline?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      apiId: 'api_id',
-      editOperator: 'edit_operator',
-      gmtCreate: 'gmt_create',
-      gmtEdit: 'gmt_edit',
-      gmtModified: 'gmt_modified',
-      gmtOffline: 'gmt_offline',
-      gmtOnline: 'gmt_online',
-      offlineDesc: 'offline_desc',
-      offlineOperator: 'offline_operator',
-      onlineDesc: 'online_desc',
-      onlineOperator: 'online_operator',
-      versionId: 'version_id',
-      versionNo: 'version_no',
-      versionStatus: 'version_status',
-      canOnline: 'can_online',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      apiId: 'string',
-      editOperator: 'string',
-      gmtCreate: 'string',
-      gmtEdit: 'string',
-      gmtModified: 'string',
-      gmtOffline: 'string',
-      gmtOnline: 'string',
-      offlineDesc: 'string',
-      offlineOperator: 'string',
-      onlineDesc: 'string',
-      onlineOperator: 'string',
-      versionId: 'string',
-      versionNo: 'string',
-      versionStatus: 'string',
-      canOnline: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 授权信息
-export class SofaGwAuthenticationVO extends $tea.Model {
-  // 		
-  // access key
-  // 
-  // 
-  authAccessKey?: string;
-  // secret key
-  authSecretKey?: string;
-  // id
-  id?: number;
-  static names(): { [key: string]: string } {
-    return {
-      authAccessKey: 'auth_access_key',
-      authSecretKey: 'auth_secret_key',
-      id: 'id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authAccessKey: 'string',
-      authSecretKey: 'string',
-      id: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 编排VO
+// ApiflowMachineDefVO
 export class ApiflowMachineDefVO extends $tea.Model {
   // 	
   // api数
@@ -1934,59 +2032,6 @@ export class ApiflowMachineDefVO extends $tea.Model {
       content: 'string',
       machineStatus: 'string',
       fieldMapping: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// SystemConfigVO
-export class SystemConfigVO extends $tea.Model {
-  // config_key
-  configKey?: string;
-  // config_value
-  configValue?: string;
-  // 描述
-  description?: string;
-  // gateway_list
-  gatewayList?: GateWayConfigVO[];
-  // 创建时间
-  gmtCreate?: string;
-  // 更改时间
-  gmtModified?: string;
-  // instance_id
-  instanceId?: string;
-  // 创建人
-  operator?: string;
-  // switch_list
-  switchList?: SwitchVO[];
-  static names(): { [key: string]: string } {
-    return {
-      configKey: 'config_key',
-      configValue: 'config_value',
-      description: 'description',
-      gatewayList: 'gateway_list',
-      gmtCreate: 'gmt_create',
-      gmtModified: 'gmt_modified',
-      instanceId: 'instance_id',
-      operator: 'operator',
-      switchList: 'switch_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      configKey: 'string',
-      configValue: 'string',
-      description: 'string',
-      gatewayList: { 'type': 'array', 'itemType': GateWayConfigVO },
-      gmtCreate: 'string',
-      gmtModified: 'string',
-      instanceId: 'string',
-      operator: 'string',
-      switchList: { 'type': 'array', 'itemType': SwitchVO },
     };
   }
 
@@ -2370,6 +2415,189 @@ export class ApiTransferVO extends $tea.Model {
   }
 }
 
+// GrayscaleConfigVO
+export class GrayscaleConfigVO extends $tea.Model {
+  // gmt_create
+  gmtCreate?: string;
+  // gmt_modified
+  gmtModified?: string;
+  // router_type
+  routerType?: string;
+  // service
+  service?: string;
+  // matchable_service
+  matchableService?: string;
+  // instance_id
+  instanceId?: string;
+  // router_id
+  routerId?: string;
+  // app_name
+  appName?: string;
+  // valid
+  valid?: string;
+  // gray_rule_config_list
+  grayRuleConfigList?: GrayRuleConfigVO[];
+  static names(): { [key: string]: string } {
+    return {
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      routerType: 'router_type',
+      service: 'service',
+      matchableService: 'matchable_service',
+      instanceId: 'instance_id',
+      routerId: 'router_id',
+      appName: 'app_name',
+      valid: 'valid',
+      grayRuleConfigList: 'gray_rule_config_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      gmtCreate: 'string',
+      gmtModified: 'string',
+      routerType: 'string',
+      service: 'string',
+      matchableService: 'string',
+      instanceId: 'string',
+      routerId: 'string',
+      appName: 'string',
+      valid: 'string',
+      grayRuleConfigList: { 'type': 'array', 'itemType': GrayRuleConfigVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ApiflowInstVO
+export class ApiflowInstVO extends $tea.Model {
+  // id
+  id?: string;
+  // machine_inst_id
+  machineInstId?: string;
+  // name
+  name?: string;
+  // type
+  type?: string;
+  // service_name
+  serviceName?: string;
+  // service_method
+  serviceMethod?: string;
+  // service_type
+  serviceType?: string;
+  // business_key
+  businessKey?: string;
+  // state_id_compensated_for
+  stateIdCompensatedFor?: string;
+  // state_id_retried_for
+  stateIdRetriedFor?: string;
+  // gmt_started
+  gmtStarted?: string;
+  // is_for_update
+  isForUpdate?: boolean;
+  // input_params
+  inputParams?: string;
+  // output_params
+  outputParams?: string;
+  // status
+  status?: string;
+  // excep
+  excep?: string;
+  // gmt_updated
+  gmtUpdated?: string;
+  // gmt_end
+  gmtEnd?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      machineInstId: 'machine_inst_id',
+      name: 'name',
+      type: 'type',
+      serviceName: 'service_name',
+      serviceMethod: 'service_method',
+      serviceType: 'service_type',
+      businessKey: 'business_key',
+      stateIdCompensatedFor: 'state_id_compensated_for',
+      stateIdRetriedFor: 'state_id_retried_for',
+      gmtStarted: 'gmt_started',
+      isForUpdate: 'is_for_update',
+      inputParams: 'input_params',
+      outputParams: 'output_params',
+      status: 'status',
+      excep: 'excep',
+      gmtUpdated: 'gmt_updated',
+      gmtEnd: 'gmt_end',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      machineInstId: 'string',
+      name: 'string',
+      type: 'string',
+      serviceName: 'string',
+      serviceMethod: 'string',
+      serviceType: 'string',
+      businessKey: 'string',
+      stateIdCompensatedFor: 'string',
+      stateIdRetriedFor: 'string',
+      gmtStarted: 'string',
+      isForUpdate: 'boolean',
+      inputParams: 'string',
+      outputParams: 'string',
+      status: 'string',
+      excep: 'string',
+      gmtUpdated: 'string',
+      gmtEnd: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 后端配置
+export class SofaGwUpstreamVO extends $tea.Model {
+  // GET/POST/PUT/DELETE
+  method?: string;
+  // 协议
+  schema?: string;
+  // timeout
+  timeout?: number;
+  // url
+  url?: string;
+  // 是否签名
+  verify?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      method: 'method',
+      schema: 'schema',
+      timeout: 'timeout',
+      url: 'url',
+      verify: 'verify',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      method: 'string',
+      schema: 'string',
+      timeout: 'number',
+      url: 'string',
+      verify: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // ApiInfoVO
 export class ApiInfoVO extends $tea.Model {
   // API缓存模型
@@ -2538,8 +2766,8 @@ export class ApiInfoVO extends $tea.Model {
   fieldMapping?: ApiflowOutputVO[];
   // triple协议证书开关
   needTls?: boolean;
-  // api_group_info
-  apiGroupInfo?: ApiGroupVO;
+  // api_group
+  apiGroup?: ApiGroupVO;
   // 授权对象列表
   authAppInfoList?: AuthAppInfoVO[];
   // 请求body数据模型
@@ -2548,6 +2776,10 @@ export class ApiInfoVO extends $tea.Model {
   rspModelInfo?: ApiModelVO;
   // 实例ID
   upstreamInstanceId?: string;
+  // 跨域状态
+  corsStatus?: string;
+  // gray_type
+  grayType?: boolean;
   static names(): { [key: string]: string } {
     return {
       apiCacheModel: 'api_cache_model',
@@ -2633,11 +2865,13 @@ export class ApiInfoVO extends $tea.Model {
       apiCount: 'api_count',
       fieldMapping: 'field_mapping',
       needTls: 'need_tls',
-      apiGroupInfo: 'api_group_info',
+      apiGroup: 'api_group',
       authAppInfoList: 'auth_app_info_list',
       reqModelInfo: 'req_model_info',
       rspModelInfo: 'rsp_model_info',
       upstreamInstanceId: 'upstream_instance_id',
+      corsStatus: 'cors_status',
+      grayType: 'gray_type',
     };
   }
 
@@ -2726,620 +2960,13 @@ export class ApiInfoVO extends $tea.Model {
       apiCount: 'number',
       fieldMapping: { 'type': 'array', 'itemType': ApiflowOutputVO },
       needTls: 'boolean',
-      apiGroupInfo: ApiGroupVO,
+      apiGroup: ApiGroupVO,
       authAppInfoList: { 'type': 'array', 'itemType': AuthAppInfoVO },
       reqModelInfo: ApiModelVO,
       rspModelInfo: ApiModelVO,
       upstreamInstanceId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 集群里的服务器信息
-export class SofaGwHostVO extends $tea.Model {
-  // 服务器地址，域名或ip(:端口)
-  address?: string;
-  // host name
-  hostName?: string;
-  // 元信息
-  metaData?: string;
-  static names(): { [key: string]: string } {
-    return {
-      address: 'address',
-      hostName: 'host_name',
-      metaData: 'meta_data',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      address: 'string',
-      hostName: 'string',
-      metaData: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 后端配置
-export class SofaGwUpstreamVO extends $tea.Model {
-  // GET/POST/PUT/DELETE
-  method?: string;
-  // 协议
-  schema?: string;
-  // timeout
-  timeout?: number;
-  // url
-  url?: string;
-  // 是否签名
-  verify?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      method: 'method',
-      schema: 'schema',
-      timeout: 'timeout',
-      url: 'url',
-      verify: 'verify',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      method: 'string',
-      schema: 'string',
-      timeout: 'number',
-      url: 'string',
-      verify: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ApiflowMachineInstVO
-export class ApiflowMachineInstVO extends $tea.Model {
-  // id
-  id?: string;
-  // machine_id
-  machineId?: string;
-  // tenant_id
-  tenantId?: string;
-  // parent_id
-  parentId?: string;
-  // gmt_started
-  gmtStarted?: string;
-  // business_key
-  businessKey?: string;
-  // start_params
-  startParams?: string;
-  // gmt_end
-  gmtEnd?: string;
-  // excep
-  excep?: string;
-  // end_params
-  endParams?: string;
-  // status
-  status?: string;
-  // compensation_status
-  compensationStatus?: string;
-  // is_running
-  isRunning?: boolean;
-  // gmt_updated
-  gmtUpdated?: string;
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      machineId: 'machine_id',
-      tenantId: 'tenant_id',
-      parentId: 'parent_id',
-      gmtStarted: 'gmt_started',
-      businessKey: 'business_key',
-      startParams: 'start_params',
-      gmtEnd: 'gmt_end',
-      excep: 'excep',
-      endParams: 'end_params',
-      status: 'status',
-      compensationStatus: 'compensation_status',
-      isRunning: 'is_running',
-      gmtUpdated: 'gmt_updated',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      machineId: 'string',
-      tenantId: 'string',
-      parentId: 'string',
-      gmtStarted: 'string',
-      businessKey: 'string',
-      startParams: 'string',
-      gmtEnd: 'string',
-      excep: 'string',
-      endParams: 'string',
-      status: 'string',
-      compensationStatus: 'string',
-      isRunning: 'boolean',
-      gmtUpdated: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// BatchActionResult
-export class BatchActionResult extends $tea.Model {
-  // 批量挂载结果
-  results?: ActionResult[];
-  // total_count
-  totalCount?: number;
-  // success_count
-  successCount?: number;
-  // failed_count
-  failedCount?: number;
-  static names(): { [key: string]: string } {
-    return {
-      results: 'results',
-      totalCount: 'total_count',
-      successCount: 'success_count',
-      failedCount: 'failed_count',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      results: { 'type': 'array', 'itemType': ActionResult },
-      totalCount: 'number',
-      successCount: 'number',
-      failedCount: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ImportResult
-export class ImportResult extends $tea.Model {
-  // code
-  code?: string;
-  // 覆盖报错的配置
-  errorConfig?: string;
-  // error_message
-  errorMessage?: string;
-  // API的ID
-  id?: string;
-  // API的名称
-  name?: string;
-  // 覆盖成功的标识
-  success?: boolean;
-  // 覆盖失败的配置名称
-  configName?: string;
-  static names(): { [key: string]: string } {
-    return {
-      code: 'code',
-      errorConfig: 'error_config',
-      errorMessage: 'error_message',
-      id: 'id',
-      name: 'name',
-      success: 'success',
-      configName: 'config_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      code: 'string',
-      errorConfig: 'string',
-      errorMessage: 'string',
-      id: 'string',
-      name: 'string',
-      success: 'boolean',
-      configName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ApiTestParamVO
-export class ApiTestParamVO extends $tea.Model {
-  // location
-  location?: string;
-  // key
-  key?: string;
-  // value
-  value?: string;
-  static names(): { [key: string]: string } {
-    return {
-      location: 'location',
-      key: 'key',
-      value: 'value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      location: 'string',
-      key: 'string',
-      value: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ApiflowInstVO
-export class ApiflowInstVO extends $tea.Model {
-  // id
-  id?: string;
-  // machine_inst_id
-  machineInstId?: string;
-  // name
-  name?: string;
-  // type
-  type?: string;
-  // service_name
-  serviceName?: string;
-  // service_method
-  serviceMethod?: string;
-  // service_type
-  serviceType?: string;
-  // business_key
-  businessKey?: string;
-  // state_id_compensated_for
-  stateIdCompensatedFor?: string;
-  // state_id_retried_for
-  stateIdRetriedFor?: string;
-  // gmt_started
-  gmtStarted?: string;
-  // is_for_update
-  isForUpdate?: boolean;
-  // input_params
-  inputParams?: string;
-  // output_params
-  outputParams?: string;
-  // status
-  status?: string;
-  // excep
-  excep?: string;
-  // gmt_updated
-  gmtUpdated?: string;
-  // gmt_end
-  gmtEnd?: string;
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      machineInstId: 'machine_inst_id',
-      name: 'name',
-      type: 'type',
-      serviceName: 'service_name',
-      serviceMethod: 'service_method',
-      serviceType: 'service_type',
-      businessKey: 'business_key',
-      stateIdCompensatedFor: 'state_id_compensated_for',
-      stateIdRetriedFor: 'state_id_retried_for',
-      gmtStarted: 'gmt_started',
-      isForUpdate: 'is_for_update',
-      inputParams: 'input_params',
-      outputParams: 'output_params',
-      status: 'status',
-      excep: 'excep',
-      gmtUpdated: 'gmt_updated',
-      gmtEnd: 'gmt_end',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      machineInstId: 'string',
-      name: 'string',
-      type: 'string',
-      serviceName: 'string',
-      serviceMethod: 'string',
-      serviceType: 'string',
-      businessKey: 'string',
-      stateIdCompensatedFor: 'string',
-      stateIdRetriedFor: 'string',
-      gmtStarted: 'string',
-      isForUpdate: 'boolean',
-      inputParams: 'string',
-      outputParams: 'string',
-      status: 'string',
-      excep: 'string',
-      gmtUpdated: 'string',
-      gmtEnd: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 操作人
-export class OperatorVO extends $tea.Model {
-  // 创建时间
-  createTime?: string;
-  // 企业的唯一标识
-  customer?: string;
-  // 邮箱
-  email?: string;
-  // 操作员ID
-  id?: string;
-  // 登录名
-  loginName?: string;
-  // 手机号
-  mobile?: string;
-  // 昵称
-  nickName?: string;
-  // 真实姓名
-  realName?: string;
-  // 操作员状态
-  status?: string;
-  // 租户
-  tenants?: string[];
-  // 操作员最近一次修改时间，ISO8601格式
-  updateTime?: string;
-  // 操作员工号
-  workNo?: string;
-  // tenant_id
-  tenantId?: string;
-  // workspace_id
-  workspaceId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      createTime: 'create_time',
-      customer: 'customer',
-      email: 'email',
-      id: 'id',
-      loginName: 'login_name',
-      mobile: 'mobile',
-      nickName: 'nick_name',
-      realName: 'real_name',
-      status: 'status',
-      tenants: 'tenants',
-      updateTime: 'update_time',
-      workNo: 'work_no',
-      tenantId: 'tenant_id',
-      workspaceId: 'workspace_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      createTime: 'string',
-      customer: 'string',
-      email: 'string',
-      id: 'string',
-      loginName: 'string',
-      mobile: 'string',
-      nickName: 'string',
-      realName: 'string',
-      status: 'string',
-      tenants: { 'type': 'array', 'itemType': 'string' },
-      updateTime: 'string',
-      workNo: 'string',
-      tenantId: 'string',
-      workspaceId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 联系方式
-export class ContactInfoVO extends $tea.Model {
-  // 授权App标识
-  authAppInfoId?: string;
-  // 公司名称
-  company?: string;
-  // 联系方式标识
-  contactId?: string;
-  // 电子邮箱
-  mail?: string;
-  // 联系人姓名
-  name?: string;
-  // 电话号码
-  tel?: string;
-  // 租户标识
-  tenantId?: string;
-  // 工作空间标识
-  workspaceId?: string;
-  // 创建时间
-  gmtCreate?: string;
-  // 更新时间
-  gmtModified?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authAppInfoId: 'auth_app_info_id',
-      company: 'company',
-      contactId: 'contact_id',
-      mail: 'mail',
-      name: 'name',
-      tel: 'tel',
-      tenantId: 'tenant_id',
-      workspaceId: 'workspace_id',
-      gmtCreate: 'gmt_create',
-      gmtModified: 'gmt_modified',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authAppInfoId: 'string',
-      company: 'string',
-      contactId: 'string',
-      mail: 'string',
-      name: 'string',
-      tel: 'string',
-      tenantId: 'string',
-      workspaceId: 'string',
-      gmtCreate: 'string',
-      gmtModified: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 访问控制
-export class SofaGwControlVO extends $tea.Model {
-  // 要添加的授权的app_name列表
-  addItems?: string[];
-  // 实例标识
-  instanceId?: string;
-  // 授权的app_name列表
-  items?: string[];
-  // 固定值：app
-  match?: string;
-  // 要删除的授权的app_name列表
-  removeItems?: string[];
-  // service name
-  serviceName?: string;
-  // 子类型，固定值：whitelist
-  subType?: string;
-  // 控制类型，固定值：access-control
-  type?: string;
-  static names(): { [key: string]: string } {
-    return {
-      addItems: 'add_items',
-      instanceId: 'instance_id',
-      items: 'items',
-      match: 'match',
-      removeItems: 'remove_items',
-      serviceName: 'service_name',
-      subType: 'sub_type',
-      type: 'type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      addItems: { 'type': 'array', 'itemType': 'string' },
-      instanceId: 'string',
-      items: { 'type': 'array', 'itemType': 'string' },
-      match: 'string',
-      removeItems: { 'type': 'array', 'itemType': 'string' },
-      serviceName: 'string',
-      subType: 'string',
-      type: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// MonitorData
-export class MonitorData extends $tea.Model {
-  // 时间点
-  timestamp?: number;
-  // value
-  value?: number;
-  static names(): { [key: string]: string } {
-    return {
-      timestamp: 'timestamp',
-      value: 'value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      timestamp: 'number',
-      value: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// PageInfo
-export class PageInfo extends $tea.Model {
-  // 排序信息
-  orderInfos?: OrderInfo[];
-  // 当前页
-  pageIndex?: number;
-  // 每页记录数
-  pageSize?: number;
-  // 总数
-  total?: number;
-  static names(): { [key: string]: string } {
-    return {
-      orderInfos: 'order_infos',
-      pageIndex: 'page_index',
-      pageSize: 'page_size',
-      total: 'total',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      orderInfos: { 'type': 'array', 'itemType': OrderInfo },
-      pageIndex: 'number',
-      pageSize: 'number',
-      total: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 前端配置
-export class SofaGwDownstream extends $tea.Model {
-  // 认证信息
-  auth?: SofaGwAuthenticationVO[];
-  // GET/POST/PUT/DELETE
-  method?: string;
-  // 协议
-  schema?: string;
-  // url
-  url?: string;
-  // 是否签名
-  verify?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      auth: 'auth',
-      method: 'method',
-      schema: 'schema',
-      url: 'url',
-      verify: 'verify',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      auth: { 'type': 'array', 'itemType': SofaGwAuthenticationVO },
-      method: 'string',
-      schema: 'string',
-      url: 'string',
-      verify: 'boolean',
+      corsStatus: 'string',
+      grayType: 'boolean',
     };
   }
 
@@ -3441,11 +3068,514 @@ export class AuthUserInfoVO extends $tea.Model {
   }
 }
 
-// AppInfoPagedListVO
-export class AppInfoPagedListVO extends $tea.Model {
-  // list
-  list?: AppInfoVO[];
-  // pageInfo
+// BatchActionResult
+export class BatchActionResult extends $tea.Model {
+  // 批量挂载结果
+  results?: ActionResult[];
+  // total_count
+  totalCount?: number;
+  // success_count
+  successCount?: number;
+  // failed_count
+  failedCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      results: 'results',
+      totalCount: 'total_count',
+      successCount: 'success_count',
+      failedCount: 'failed_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      results: { 'type': 'array', 'itemType': ActionResult },
+      totalCount: 'number',
+      successCount: 'number',
+      failedCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ApiTestParamVO
+export class ApiTestParamVO extends $tea.Model {
+  // location
+  location?: string;
+  // key
+  key?: string;
+  // value
+  value?: string;
+  static names(): { [key: string]: string } {
+    return {
+      location: 'location',
+      key: 'key',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      location: 'string',
+      key: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// MonitorData
+export class MonitorData extends $tea.Model {
+  // 时间点
+  timestamp?: number;
+  // value
+  value?: number;
+  static names(): { [key: string]: string } {
+    return {
+      timestamp: 'timestamp',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      timestamp: 'number',
+      value: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 操作人
+export class OperatorVO extends $tea.Model {
+  // 创建时间
+  createTime?: string;
+  // 企业的唯一标识
+  customer?: string;
+  // 邮箱
+  email?: string;
+  // 操作员ID
+  id?: string;
+  // 登录名
+  loginName?: string;
+  // 手机号
+  mobile?: string;
+  // 昵称
+  nickName?: string;
+  // 真实姓名
+  realName?: string;
+  // 操作员状态
+  status?: string;
+  // 租户
+  tenants?: string[];
+  // 操作员最近一次修改时间，ISO8601格式
+  updateTime?: string;
+  // 操作员工号
+  workNo?: string;
+  // tenant_id
+  tenantId?: string;
+  // workspace_id
+  workspaceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      createTime: 'create_time',
+      customer: 'customer',
+      email: 'email',
+      id: 'id',
+      loginName: 'login_name',
+      mobile: 'mobile',
+      nickName: 'nick_name',
+      realName: 'real_name',
+      status: 'status',
+      tenants: 'tenants',
+      updateTime: 'update_time',
+      workNo: 'work_no',
+      tenantId: 'tenant_id',
+      workspaceId: 'workspace_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      createTime: 'string',
+      customer: 'string',
+      email: 'string',
+      id: 'string',
+      loginName: 'string',
+      mobile: 'string',
+      nickName: 'string',
+      realName: 'string',
+      status: 'string',
+      tenants: { 'type': 'array', 'itemType': 'string' },
+      updateTime: 'string',
+      workNo: 'string',
+      tenantId: 'string',
+      workspaceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ImportResult
+export class ImportResult extends $tea.Model {
+  // code
+  code?: string;
+  // 覆盖报错的配置
+  errorConfig?: string;
+  // error_message
+  errorMessage?: string;
+  // API的ID
+  id?: string;
+  // API的名称
+  name?: string;
+  // 覆盖成功的标识
+  success?: boolean;
+  // 覆盖失败的配置名称
+  configName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      code: 'code',
+      errorConfig: 'error_config',
+      errorMessage: 'error_message',
+      id: 'id',
+      name: 'name',
+      success: 'success',
+      configName: 'config_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      code: 'string',
+      errorConfig: 'string',
+      errorMessage: 'string',
+      id: 'string',
+      name: 'string',
+      success: 'boolean',
+      configName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 集群里的服务器信息
+export class SofaGwHostVO extends $tea.Model {
+  // 服务器地址，域名或ip(:端口)
+  address?: string;
+  // host name
+  hostName?: string;
+  // 元信息
+  metaData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      address: 'address',
+      hostName: 'host_name',
+      metaData: 'meta_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      address: 'string',
+      hostName: 'string',
+      metaData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// SystemConfigVO
+export class SystemConfigVO extends $tea.Model {
+  // config_key
+  configKey?: string;
+  // config_value
+  configValue?: string;
+  // 描述
+  description?: string;
+  // gateway_list
+  gatewayList?: GateWayConfigVO[];
+  // 创建时间
+  gmtCreate?: string;
+  // 更改时间
+  gmtModified?: string;
+  // instance_id
+  instanceId?: string;
+  // 创建人
+  operator?: string;
+  // switch_list
+  switchList?: SwitchVO[];
+  static names(): { [key: string]: string } {
+    return {
+      configKey: 'config_key',
+      configValue: 'config_value',
+      description: 'description',
+      gatewayList: 'gateway_list',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      instanceId: 'instance_id',
+      operator: 'operator',
+      switchList: 'switch_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      configKey: 'string',
+      configValue: 'string',
+      description: 'string',
+      gatewayList: { 'type': 'array', 'itemType': GateWayConfigVO },
+      gmtCreate: 'string',
+      gmtModified: 'string',
+      instanceId: 'string',
+      operator: 'string',
+      switchList: { 'type': 'array', 'itemType': SwitchVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 访问控制
+export class SofaGwControlVO extends $tea.Model {
+  // 要添加的授权的app_name列表
+  addItems?: string[];
+  // 实例标识
+  instanceId?: string;
+  // 授权的app_name列表
+  items?: string[];
+  // 固定值：app
+  match?: string;
+  // 要删除的授权的app_name列表
+  removeItems?: string[];
+  // service name
+  serviceName?: string;
+  // 子类型，固定值：whitelist
+  subType?: string;
+  // 控制类型，固定值：access-control
+  type?: string;
+  static names(): { [key: string]: string } {
+    return {
+      addItems: 'add_items',
+      instanceId: 'instance_id',
+      items: 'items',
+      match: 'match',
+      removeItems: 'remove_items',
+      serviceName: 'service_name',
+      subType: 'sub_type',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      addItems: { 'type': 'array', 'itemType': 'string' },
+      instanceId: 'string',
+      items: { 'type': 'array', 'itemType': 'string' },
+      match: 'string',
+      removeItems: { 'type': 'array', 'itemType': 'string' },
+      serviceName: 'string',
+      subType: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ApiflowMachineInstVO
+export class ApiflowMachineInstVO extends $tea.Model {
+  // id
+  id?: string;
+  // machine_id
+  machineId?: string;
+  // tenant_id
+  tenantId?: string;
+  // parent_id
+  parentId?: string;
+  // gmt_started
+  gmtStarted?: string;
+  // business_key
+  businessKey?: string;
+  // start_params
+  startParams?: string;
+  // gmt_end
+  gmtEnd?: string;
+  // excep
+  excep?: string;
+  // end_params
+  endParams?: string;
+  // status
+  status?: string;
+  // compensation_status
+  compensationStatus?: string;
+  // is_running
+  isRunning?: boolean;
+  // gmt_updated
+  gmtUpdated?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      machineId: 'machine_id',
+      tenantId: 'tenant_id',
+      parentId: 'parent_id',
+      gmtStarted: 'gmt_started',
+      businessKey: 'business_key',
+      startParams: 'start_params',
+      gmtEnd: 'gmt_end',
+      excep: 'excep',
+      endParams: 'end_params',
+      status: 'status',
+      compensationStatus: 'compensation_status',
+      isRunning: 'is_running',
+      gmtUpdated: 'gmt_updated',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      machineId: 'string',
+      tenantId: 'string',
+      parentId: 'string',
+      gmtStarted: 'string',
+      businessKey: 'string',
+      startParams: 'string',
+      gmtEnd: 'string',
+      excep: 'string',
+      endParams: 'string',
+      status: 'string',
+      compensationStatus: 'string',
+      isRunning: 'boolean',
+      gmtUpdated: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 前端配置
+export class SofaGwDownstream extends $tea.Model {
+  // 认证信息
+  auth?: SofaGwAuthenticationVO[];
+  // GET/POST/PUT/DELETE
+  method?: string;
+  // 协议
+  schema?: string;
+  // url
+  url?: string;
+  // 是否签名
+  verify?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      auth: 'auth',
+      method: 'method',
+      schema: 'schema',
+      url: 'url',
+      verify: 'verify',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      auth: { 'type': 'array', 'itemType': SofaGwAuthenticationVO },
+      method: 'string',
+      schema: 'string',
+      url: 'string',
+      verify: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 联系方式
+export class ContactInfoVO extends $tea.Model {
+  // 授权App标识
+  authAppInfoId?: string;
+  // 公司名称
+  company?: string;
+  // 联系方式标识
+  contactId?: string;
+  // 电子邮箱
+  mail?: string;
+  // 联系人姓名
+  name?: string;
+  // 电话号码
+  tel?: string;
+  // 租户标识
+  tenantId?: string;
+  // 工作空间标识
+  workspaceId?: string;
+  // 创建时间
+  gmtCreate?: string;
+  // 更新时间
+  gmtModified?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authAppInfoId: 'auth_app_info_id',
+      company: 'company',
+      contactId: 'contact_id',
+      mail: 'mail',
+      name: 'name',
+      tel: 'tel',
+      tenantId: 'tenant_id',
+      workspaceId: 'workspace_id',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authAppInfoId: 'string',
+      company: 'string',
+      contactId: 'string',
+      mail: 'string',
+      name: 'string',
+      tel: 'string',
+      tenantId: 'string',
+      workspaceId: 'string',
+      gmtCreate: 'string',
+      gmtModified: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ApiGroupPagedListVO
+export class ApiGroupPagedListVO extends $tea.Model {
+  // 当前页的数据
+  list?: ApiGroupVO[];
+  // page_info
   pageInfo?: PageInfo;
   static names(): { [key: string]: string } {
     return {
@@ -3456,7 +3586,7 @@ export class AppInfoPagedListVO extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
-      list: { 'type': 'array', 'itemType': AppInfoVO },
+      list: { 'type': 'array', 'itemType': ApiGroupVO },
       pageInfo: PageInfo,
     };
   }
@@ -3466,14 +3596,14 @@ export class AppInfoPagedListVO extends $tea.Model {
   }
 }
 
-// RegistryInfoQueryVO
-export class RegistryInfoQueryVO extends $tea.Model {
+// ExternalAuthInfoQueryVO
+export class ExternalAuthInfoQueryVO extends $tea.Model {
   // 是否模糊搜索
   fuzzySearch?: boolean;
-  // page_info
+  // pageInfo
   pageInfo?: PageInfo;
   // query
-  query?: RegistryInfoVO;
+  query?: ExternalAuthInfoVO;
   static names(): { [key: string]: string } {
     return {
       fuzzySearch: 'fuzzy_search',
@@ -3486,318 +3616,7 @@ export class RegistryInfoQueryVO extends $tea.Model {
     return {
       fuzzySearch: 'boolean',
       pageInfo: PageInfo,
-      query: RegistryInfoVO,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// RouterInfoPagedListVO
-export class RouterInfoPagedListVO extends $tea.Model {
-  // list
-  list?: RouterInfoVO[];
-  // pageInfo
-  pageInfo?: PageInfo;
-  static names(): { [key: string]: string } {
-    return {
-      list: 'list',
-      pageInfo: 'page_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      list: { 'type': 'array', 'itemType': RouterInfoVO },
-      pageInfo: PageInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ApiGroupAuthUserConfigVO
-export class ApiGroupAuthUserConfigVO extends $tea.Model {
-  // api授权管理开关
-  apiAuthUserSwitch?: string;
-  // 是否是管理员
-  checkMaster?: boolean;
-  // 需要api授权管理
-  needApiAuthUser?: boolean;
-  // tenant_id
-  tenantId?: string;
-  // workspace_id
-  workspaceId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      apiAuthUserSwitch: 'api_auth_user_switch',
-      checkMaster: 'check_master',
-      needApiAuthUser: 'need_api_auth_user',
-      tenantId: 'tenant_id',
-      workspaceId: 'workspace_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      apiAuthUserSwitch: 'string',
-      checkMaster: 'boolean',
-      needApiAuthUser: 'boolean',
-      tenantId: 'string',
-      workspaceId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// AuthAppInfoPagedListVO
-export class AuthAppInfoPagedListVO extends $tea.Model {
-  // list
-  list?: AuthAppInfoVO[];
-  // pageInfo
-  pageInfo?: PageInfo;
-  static names(): { [key: string]: string } {
-    return {
-      list: 'list',
-      pageInfo: 'page_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      list: { 'type': 'array', 'itemType': AuthAppInfoVO },
-      pageInfo: PageInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ParamMappingInfoPagedListVO
-export class ParamMappingInfoPagedListVO extends $tea.Model {
-  // list
-  list?: ParamMappingInfoVO[];
-  // pageInfo
-  pageInfo?: PageInfo;
-  static names(): { [key: string]: string } {
-    return {
-      list: 'list',
-      pageInfo: 'page_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      list: { 'type': 'array', 'itemType': ParamMappingInfoVO },
-      pageInfo: PageInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 集群信息
-export class SofaGwClusterVO extends $tea.Model {
-  // app name
-  appName?: string;
-  // hosts
-  hosts?: SofaGwHostVO[];
-  // id
-  id?: number;
-  // 实例标识
-  instanceId?: string;
-  // 集群名
-  name?: string;
-  static names(): { [key: string]: string } {
-    return {
-      appName: 'app_name',
-      hosts: 'hosts',
-      id: 'id',
-      instanceId: 'instance_id',
-      name: 'name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      appName: 'string',
-      hosts: { 'type': 'array', 'itemType': SofaGwHostVO },
-      id: 'number',
-      instanceId: 'string',
-      name: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// RegistryInfoPagedListVO
-export class RegistryInfoPagedListVO extends $tea.Model {
-  // list
-  list?: RegistryInfoVO[];
-  // page_info
-  pageInfo?: PageInfo;
-  static names(): { [key: string]: string } {
-    return {
-      list: 'list',
-      pageInfo: 'page_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      list: { 'type': 'array', 'itemType': RegistryInfoVO },
-      pageInfo: PageInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// MonitoryRequest
-export class MonitoryRequest extends $tea.Model {
-  // API标识
-  apiId?: string;
-  // App标识
-  appId?: string;
-  // code
-  code?: string;
-  // 开始时间
-  startTime?: number;
-  // end_time
-  endTime?: number;
-  static names(): { [key: string]: string } {
-    return {
-      apiId: 'api_id',
-      appId: 'app_id',
-      code: 'code',
-      startTime: 'start_time',
-      endTime: 'end_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      apiId: 'string',
-      appId: 'string',
-      code: 'string',
-      startTime: 'number',
-      endTime: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 联系方式分页列表
-export class ContactInfoPagedListVO extends $tea.Model {
-  // 分页信息
-  pageInfo?: PageInfo;
-  // 联系方式列表
-  list?: ContactInfoVO[];
-  static names(): { [key: string]: string } {
-    return {
-      pageInfo: 'page_info',
-      list: 'list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      pageInfo: PageInfo,
-      list: { 'type': 'array', 'itemType': ContactInfoVO },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 策略分页信息
-export class StrategyPagedListVO extends $tea.Model {
-  // list
-  list?: StrategyInfoVO[];
-  // 分页信息
-  pageInfo?: PageInfo;
-  static names(): { [key: string]: string } {
-    return {
-      list: 'list',
-      pageInfo: 'page_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      list: { 'type': 'array', 'itemType': StrategyInfoVO },
-      pageInfo: PageInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// SystemClusterPagedListVO
-export class SystemClusterPagedListVO extends $tea.Model {
-  // list
-  list?: SystemClusterVO[];
-  // page_info
-  pageInfo?: PageInfo;
-  static names(): { [key: string]: string } {
-    return {
-      list: 'list',
-      pageInfo: 'page_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      list: { 'type': 'array', 'itemType': SystemClusterVO },
-      pageInfo: PageInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// AppInfoQueryVO
-export class AppInfoQueryVO extends $tea.Model {
-  // pageInfo
-  pageInfo?: PageInfo;
-  // query
-  query?: AppInfoVO;
-  static names(): { [key: string]: string } {
-    return {
-      pageInfo: 'page_info',
-      query: 'query',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      pageInfo: PageInfo,
-      query: AppInfoVO,
+      query: ExternalAuthInfoVO,
     };
   }
 
@@ -3835,35 +3654,31 @@ export class ApiflowMachineDefQueryVO extends $tea.Model {
   }
 }
 
-// ldc信息
-export class LdcInfoVO extends $tea.Model {
-  // 是否开启
-  enable?: boolean;
-  // 参数位置
-  paramLocation?: string;
-  // 参数名
-  paramKey?: string;
-  // tenant_id
-  tenantId?: string;
-  // workspace_id
-  workspaceId?: string;
+// ApiInfoQueryVO
+export class ApiInfoQueryVO extends $tea.Model {
+  // 是否模糊搜索
+  fuzzySearch?: boolean;
+  // pageInfo
+  pageInfo?: PageInfo;
+  // query
+  query?: ApiInfoVO;
+  // 自定义查询条件
+  queryCondition?: string;
   static names(): { [key: string]: string } {
     return {
-      enable: 'enable',
-      paramLocation: 'param_location',
-      paramKey: 'param_key',
-      tenantId: 'tenant_id',
-      workspaceId: 'workspace_id',
+      fuzzySearch: 'fuzzy_search',
+      pageInfo: 'page_info',
+      query: 'query',
+      queryCondition: 'query_condition',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      enable: 'boolean',
-      paramLocation: 'string',
-      paramKey: 'string',
-      tenantId: 'string',
-      workspaceId: 'string',
+      fuzzySearch: 'boolean',
+      pageInfo: PageInfo,
+      query: ApiInfoVO,
+      queryCondition: 'string',
     };
   }
 
@@ -3872,12 +3687,57 @@ export class LdcInfoVO extends $tea.Model {
   }
 }
 
-// 查询联系方式
-export class ContactInfoQueryVO extends $tea.Model {
-  // 分页信息
+// MonitoryAggregationVO
+export class MonitoryAggregationVO extends $tea.Model {
+  // invoke_num
+  invokeNum?: MonitorData[];
+  // qps
+  qps?: MonitorData[];
+  // rt
+  rt?: MonitorData[];
+  // 错误码
+  errCode?: MonitorData[];
+  // 错误率
+  errRate?: MonitorData[];
+  // byte_in
+  byteIn?: MonitorData[];
+  // byte_out
+  byteOut?: MonitorData[];
+  static names(): { [key: string]: string } {
+    return {
+      invokeNum: 'invoke_num',
+      qps: 'qps',
+      rt: 'rt',
+      errCode: 'err_code',
+      errRate: 'err_rate',
+      byteIn: 'byte_in',
+      byteOut: 'byte_out',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      invokeNum: { 'type': 'array', 'itemType': MonitorData },
+      qps: { 'type': 'array', 'itemType': MonitorData },
+      rt: { 'type': 'array', 'itemType': MonitorData },
+      errCode: { 'type': 'array', 'itemType': MonitorData },
+      errRate: { 'type': 'array', 'itemType': MonitorData },
+      byteIn: { 'type': 'array', 'itemType': MonitorData },
+      byteOut: { 'type': 'array', 'itemType': MonitorData },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// RouterInfoQueryVO
+export class RouterInfoQueryVO extends $tea.Model {
+  // pageInfo
   pageInfo?: PageInfo;
   // query
-  query?: ContactInfoVO;
+  query?: RouterInfoVO;
   // 是否模糊搜索
   fuzzySearch?: boolean;
   static names(): { [key: string]: string } {
@@ -3891,7 +3751,7 @@ export class ContactInfoQueryVO extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       pageInfo: PageInfo,
-      query: ContactInfoVO,
+      query: RouterInfoVO,
       fuzzySearch: 'boolean',
     };
   }
@@ -3901,18 +3761,100 @@ export class ContactInfoQueryVO extends $tea.Model {
   }
 }
 
-// ApiGroupQueryVO
-export class ApiGroupQueryVO extends $tea.Model {
+// SystemClusterQueryVO
+export class SystemClusterQueryVO extends $tea.Model {
+  // 是否模糊搜索
+  fuzzySearch?: boolean;
   // page_info
   pageInfo?: PageInfo;
   // query
-  query?: ApiGroupVO;
-  // 是否模糊搜索
+  query?: SystemClusterVO;
+  static names(): { [key: string]: string } {
+    return {
+      fuzzySearch: 'fuzzy_search',
+      pageInfo: 'page_info',
+      query: 'query',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fuzzySearch: 'boolean',
+      pageInfo: PageInfo,
+      query: SystemClusterVO,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ApiflowInstPagedListVO
+export class ApiflowInstPagedListVO extends $tea.Model {
+  // list
+  list?: ApiflowInstVO[];
+  // page_info
+  pageInfo?: PageInfo;
+  static names(): { [key: string]: string } {
+    return {
+      list: 'list',
+      pageInfo: 'page_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      list: { 'type': 'array', 'itemType': ApiflowInstVO },
+      pageInfo: PageInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ApiflowMachineDefPagedListVO
+export class ApiflowMachineDefPagedListVO extends $tea.Model {
+  // list
+  list?: ApiflowMachineDefVO[];
+  // page_info
+  pageInfo?: PageInfo;
+  static names(): { [key: string]: string } {
+    return {
+      list: 'list',
+      pageInfo: 'page_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      list: { 'type': 'array', 'itemType': ApiflowMachineDefVO },
+      pageInfo: PageInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// AuthAppInfoQueryVO
+export class AuthAppInfoQueryVO extends $tea.Model {
+  // pageInfo
+  pageInfo?: PageInfo;
+  // query
+  query?: AuthAppInfoVO;
+  // 自定义查询条件
+  queryCondition?: string;
+  // 是否支持模糊查询
   fuzzySearch?: boolean;
   static names(): { [key: string]: string } {
     return {
       pageInfo: 'page_info',
       query: 'query',
+      queryCondition: 'query_condition',
       fuzzySearch: 'fuzzy_search',
     };
   }
@@ -3920,8 +3862,104 @@ export class ApiGroupQueryVO extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       pageInfo: PageInfo,
-      query: ApiGroupVO,
+      query: AuthAppInfoVO,
+      queryCondition: 'string',
       fuzzySearch: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ApiflowTestReqVO
+export class ApiflowTestReqVO extends $tea.Model {
+  // api_id
+  apiId?: string;
+  // workspace_id
+  workspaceId?: string;
+  // tenant_id
+  tenantId?: string;
+  // machine_name
+  machineName?: string;
+  // params
+  inputParams?: ApiTestParamVO[];
+  // output_params
+  outputParams?: ApiflowOutputVO[];
+  static names(): { [key: string]: string } {
+    return {
+      apiId: 'api_id',
+      workspaceId: 'workspace_id',
+      tenantId: 'tenant_id',
+      machineName: 'machine_name',
+      inputParams: 'input_params',
+      outputParams: 'output_params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      apiId: 'string',
+      workspaceId: 'string',
+      tenantId: 'string',
+      machineName: 'string',
+      inputParams: { 'type': 'array', 'itemType': ApiTestParamVO },
+      outputParams: { 'type': 'array', 'itemType': ApiflowOutputVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// RouterInfoPagedListVO
+export class RouterInfoPagedListVO extends $tea.Model {
+  // list
+  list?: RouterInfoVO[];
+  // pageInfo
+  pageInfo?: PageInfo;
+  static names(): { [key: string]: string } {
+    return {
+      list: 'list',
+      pageInfo: 'page_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      list: { 'type': 'array', 'itemType': RouterInfoVO },
+      pageInfo: PageInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// RegistryInfoQueryVO
+export class RegistryInfoQueryVO extends $tea.Model {
+  // 是否模糊搜索
+  fuzzySearch?: boolean;
+  // page_info
+  pageInfo?: PageInfo;
+  // query
+  query?: RegistryInfoVO;
+  static names(): { [key: string]: string } {
+    return {
+      fuzzySearch: 'fuzzy_search',
+      pageInfo: 'page_info',
+      query: 'query',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fuzzySearch: 'boolean',
+      pageInfo: PageInfo,
+      query: RegistryInfoVO,
     };
   }
 
@@ -3979,97 +4017,23 @@ export class EngineVO extends $tea.Model {
   }
 }
 
-// ParamMappingInfoQueryVO
-export class ParamMappingInfoQueryVO extends $tea.Model {
-  // pageInfo
-  pageInfo?: PageInfo;
-  // query
-  query?: ParamMappingInfoVO;
-  // 支持模糊查询
-  fuzzySearch?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      pageInfo: 'page_info',
-      query: 'query',
-      fuzzySearch: 'fuzzy_search',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      pageInfo: PageInfo,
-      query: ParamMappingInfoVO,
-      fuzzySearch: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ApiTestReqVO
-export class ApiTestReqVO extends $tea.Model {
-  // API标识
-  apiId?: string;
-  // 应用标识
-  appId?: string;
-  // params
-  params?: ApiTestParamVO[];
-  // payload
-  payload?: string;
-  // tenant_id
-  tenantId?: string;
-  // 工作空间标识
-  workspaceId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      apiId: 'api_id',
-      appId: 'app_id',
-      params: 'params',
-      payload: 'payload',
-      tenantId: 'tenant_id',
-      workspaceId: 'workspace_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      apiId: 'string',
-      appId: 'string',
-      params: { 'type': 'array', 'itemType': ApiTestParamVO },
-      payload: 'string',
-      tenantId: 'string',
-      workspaceId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// SystemClusterQueryVO
-export class SystemClusterQueryVO extends $tea.Model {
-  // 是否模糊搜索
-  fuzzySearch?: boolean;
+// GrayscaleConfigPagedListVO
+export class GrayscaleConfigPagedListVO extends $tea.Model {
+  // list
+  list?: GrayscaleConfigVO[];
   // page_info
   pageInfo?: PageInfo;
-  // query
-  query?: SystemClusterVO;
   static names(): { [key: string]: string } {
     return {
-      fuzzySearch: 'fuzzy_search',
+      list: 'list',
       pageInfo: 'page_info',
-      query: 'query',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      fuzzySearch: 'boolean',
+      list: { 'type': 'array', 'itemType': GrayscaleConfigVO },
       pageInfo: PageInfo,
-      query: SystemClusterVO,
     };
   }
 
@@ -4078,31 +4042,39 @@ export class SystemClusterQueryVO extends $tea.Model {
   }
 }
 
-// AuthAppInfoQueryVO
-export class AuthAppInfoQueryVO extends $tea.Model {
-  // pageInfo
-  pageInfo?: PageInfo;
-  // query
-  query?: AuthAppInfoVO;
-  // 自定义查询条件
-  queryCondition?: string;
-  // 是否支持模糊查询
-  fuzzySearch?: boolean;
+// BatchImportResult
+export class BatchImportResult extends $tea.Model {
+  // failed_count
+  failedCount?: number;
+  // 重复的API列表
+  repeatApiList?: ApiTransferVO[];
+  // results
+  results?: ImportResult[];
+  // success_count
+  successCount?: number;
+  // total_count
+  totalCount?: number;
+  // 导入成功的API列表
+  successApiList?: ApiInfoVO[];
   static names(): { [key: string]: string } {
     return {
-      pageInfo: 'page_info',
-      query: 'query',
-      queryCondition: 'query_condition',
-      fuzzySearch: 'fuzzy_search',
+      failedCount: 'failed_count',
+      repeatApiList: 'repeat_api_list',
+      results: 'results',
+      successCount: 'success_count',
+      totalCount: 'total_count',
+      successApiList: 'success_api_list',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      pageInfo: PageInfo,
-      query: AuthAppInfoVO,
-      queryCondition: 'string',
-      fuzzySearch: 'boolean',
+      failedCount: 'number',
+      repeatApiList: { 'type': 'array', 'itemType': ApiTransferVO },
+      results: { 'type': 'array', 'itemType': ImportResult },
+      successCount: 'number',
+      totalCount: 'number',
+      successApiList: { 'type': 'array', 'itemType': ApiInfoVO },
     };
   }
 
@@ -4111,12 +4083,12 @@ export class AuthAppInfoQueryVO extends $tea.Model {
   }
 }
 
-// AuthUserInfoQueryVO
-export class AuthUserInfoQueryVO extends $tea.Model {
-  // pageInfo
+// 查询联系方式
+export class ContactInfoQueryVO extends $tea.Model {
+  // 分页信息
   pageInfo?: PageInfo;
-  // OperatorVO
-  query?: AuthUserInfoVO;
+  // query
+  query?: ContactInfoVO;
   // 是否模糊搜索
   fuzzySearch?: boolean;
   static names(): { [key: string]: string } {
@@ -4130,7 +4102,7 @@ export class AuthUserInfoQueryVO extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       pageInfo: PageInfo,
-      query: AuthUserInfoVO,
+      query: ContactInfoVO,
       fuzzySearch: 'boolean',
     };
   }
@@ -4140,56 +4112,23 @@ export class AuthUserInfoQueryVO extends $tea.Model {
   }
 }
 
-// HomePageVO
-export class HomePageVO extends $tea.Model {
-  // api分组数量
-  apiGroupCount?: number;
-  // api数量
-  apiCount?: number;
-  // app数量
-  appCount?: number;
-  static names(): { [key: string]: string } {
-    return {
-      apiGroupCount: 'api_group_count',
-      apiCount: 'api_count',
-      appCount: 'app_count',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      apiGroupCount: 'number',
-      apiCount: 'number',
-      appCount: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ApiflowMachineInstQueryVO
-export class ApiflowMachineInstQueryVO extends $tea.Model {
-  // fuzzy_search
-  fuzzySearch?: boolean;
+// OperatorPagedListVO
+export class OperatorPagedListVO extends $tea.Model {
+  // 当前页的数据
+  list?: OperatorVO[];
   // page_info
   pageInfo?: PageInfo;
-  // query
-  query?: ApiflowMachineInstVO;
   static names(): { [key: string]: string } {
     return {
-      fuzzySearch: 'fuzzy_search',
+      list: 'list',
       pageInfo: 'page_info',
-      query: 'query',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      fuzzySearch: 'boolean',
+      list: { 'type': 'array', 'itemType': OperatorVO },
       pageInfo: PageInfo,
-      query: ApiflowMachineInstVO,
     };
   }
 
@@ -4198,56 +4137,23 @@ export class ApiflowMachineInstQueryVO extends $tea.Model {
   }
 }
 
-// ApiModelQueryVO
-export class ApiModelQueryVO extends $tea.Model {
-  // 支持模糊查询
-  fuzzySearch?: boolean;
-  // page_info
+// 联系方式分页列表
+export class ContactInfoPagedListVO extends $tea.Model {
+  // 分页信息
   pageInfo?: PageInfo;
-  // query
-  query?: ApiModelVO;
+  // 联系方式列表
+  list?: ContactInfoVO[];
   static names(): { [key: string]: string } {
     return {
-      fuzzySearch: 'fuzzy_search',
       pageInfo: 'page_info',
-      query: 'query',
+      list: 'list',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      fuzzySearch: 'boolean',
       pageInfo: PageInfo,
-      query: ApiModelVO,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ExternalAuthInfoQueryVO
-export class ExternalAuthInfoQueryVO extends $tea.Model {
-  // 是否模糊搜索
-  fuzzySearch?: boolean;
-  // pageInfo
-  pageInfo?: PageInfo;
-  // query
-  query?: ExternalAuthInfoVO;
-  static names(): { [key: string]: string } {
-    return {
-      fuzzySearch: 'fuzzy_search',
-      pageInfo: 'page_info',
-      query: 'query',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      fuzzySearch: 'boolean',
-      pageInfo: PageInfo,
-      query: ExternalAuthInfoVO,
+      list: { 'type': 'array', 'itemType': ContactInfoVO },
     };
   }
 
@@ -4313,130 +4219,6 @@ export class SofaGwService extends $tea.Model {
   }
 }
 
-// ApiTransferResult
-export class ApiTransferResult extends $tea.Model {
-  // api配置
-  apiTransferList?: ApiInfoVO[];
-  // 批量转移结果
-  batchActionResult?: BatchActionResult;
-  // file_name
-  fileName?: string;
-  // 流程编排列表
-  apiflowList?: ApiInfoVO[];
-  static names(): { [key: string]: string } {
-    return {
-      apiTransferList: 'api_transfer_list',
-      batchActionResult: 'batch_action_result',
-      fileName: 'file_name',
-      apiflowList: 'apiflow_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      apiTransferList: { 'type': 'array', 'itemType': ApiInfoVO },
-      batchActionResult: BatchActionResult,
-      fileName: 'string',
-      apiflowList: { 'type': 'array', 'itemType': ApiInfoVO },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// BatchImportResult
-export class BatchImportResult extends $tea.Model {
-  // failed_count
-  failedCount?: number;
-  // 重复的API列表
-  repeatApiList?: ApiTransferVO[];
-  // results
-  results?: ImportResult[];
-  // success_count
-  successCount?: number;
-  // total_count
-  totalCount?: number;
-  // 导入成功的API列表
-  successApiList?: ApiInfoVO[];
-  static names(): { [key: string]: string } {
-    return {
-      failedCount: 'failed_count',
-      repeatApiList: 'repeat_api_list',
-      results: 'results',
-      successCount: 'success_count',
-      totalCount: 'total_count',
-      successApiList: 'success_api_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      failedCount: 'number',
-      repeatApiList: { 'type': 'array', 'itemType': ApiTransferVO },
-      results: { 'type': 'array', 'itemType': ImportResult },
-      successCount: 'number',
-      totalCount: 'number',
-      successApiList: { 'type': 'array', 'itemType': ApiInfoVO },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ApiflowMachineDefPagedListVO
-export class ApiflowMachineDefPagedListVO extends $tea.Model {
-  // list
-  list?: ApiflowMachineDefVO[];
-  // page_info
-  pageInfo?: PageInfo;
-  static names(): { [key: string]: string } {
-    return {
-      list: 'list',
-      pageInfo: 'page_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      list: { 'type': 'array', 'itemType': ApiflowMachineDefVO },
-      pageInfo: PageInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// OperatorPagedListVO
-export class OperatorPagedListVO extends $tea.Model {
-  // 当前页的数据
-  list?: OperatorVO[];
-  // page_info
-  pageInfo?: PageInfo;
-  static names(): { [key: string]: string } {
-    return {
-      list: 'list',
-      pageInfo: 'page_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      list: { 'type': 'array', 'itemType': OperatorVO },
-      pageInfo: PageInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // cors分页信息
 export class CorsInfoPagedListVO extends $tea.Model {
   // cors列表
@@ -4462,23 +4244,85 @@ export class CorsInfoPagedListVO extends $tea.Model {
   }
 }
 
-// ApiInfoPagedListVO
-export class ApiInfoPagedListVO extends $tea.Model {
-  // list
-  list?: ApiInfoVO[];
-  // pageInfo
+// ApiflowMachineInstQueryVO
+export class ApiflowMachineInstQueryVO extends $tea.Model {
+  // fuzzy_search
+  fuzzySearch?: boolean;
+  // page_info
   pageInfo?: PageInfo;
+  // query
+  query?: ApiflowMachineInstVO;
   static names(): { [key: string]: string } {
     return {
-      list: 'list',
+      fuzzySearch: 'fuzzy_search',
       pageInfo: 'page_info',
+      query: 'query',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      list: { 'type': 'array', 'itemType': ApiInfoVO },
+      fuzzySearch: 'boolean',
       pageInfo: PageInfo,
+      query: ApiflowMachineInstVO,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// SystemConfigQueryVO
+export class SystemConfigQueryVO extends $tea.Model {
+  // 是否模糊搜索
+  fuzzySearch?: boolean;
+  // page_info
+  pageInfo?: PageInfo;
+  // query
+  query?: SystemConfigVO;
+  static names(): { [key: string]: string } {
+    return {
+      fuzzySearch: 'fuzzy_search',
+      pageInfo: 'page_info',
+      query: 'query',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fuzzySearch: 'boolean',
+      pageInfo: PageInfo,
+      query: SystemConfigVO,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// StrategyInfoQueryVO
+export class StrategyInfoQueryVO extends $tea.Model {
+  // 分页信息
+  pageInfo?: PageInfo;
+  // query
+  query?: StrategyInfoVO;
+  // 是否模糊搜索
+  fuzzySearch?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      pageInfo: 'page_info',
+      query: 'query',
+      fuzzySearch: 'fuzzy_search',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      pageInfo: PageInfo,
+      query: StrategyInfoVO,
+      fuzzySearch: 'boolean',
     };
   }
 
@@ -4512,32 +4356,23 @@ export class OperatorQueryVO extends $tea.Model {
   }
 }
 
-// api导入 效验返回体
-export class CheckApiResult extends $tea.Model {
-  // 导入的所有的API集合
-  allApiList?: ApiTransferVO[];
-  // API或者配置中有重复的集合
-  failedApiList?: ApiTransferVO[];
-  // 	
-  // API包括配置无重复的集合
-  successApiList?: ApiTransferVO[];
-  // 失败api配置详情
-  checkResult?: string;
+// ApiInfoPagedListVO
+export class ApiInfoPagedListVO extends $tea.Model {
+  // list
+  list?: ApiInfoVO[];
+  // pageInfo
+  pageInfo?: PageInfo;
   static names(): { [key: string]: string } {
     return {
-      allApiList: 'all_api_list',
-      failedApiList: 'failed_api_list',
-      successApiList: 'success_api_list',
-      checkResult: 'check_result',
+      list: 'list',
+      pageInfo: 'page_info',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      allApiList: { 'type': 'array', 'itemType': ApiTransferVO },
-      failedApiList: { 'type': 'array', 'itemType': ApiTransferVO },
-      successApiList: { 'type': 'array', 'itemType': ApiTransferVO },
-      checkResult: 'string',
+      list: { 'type': 'array', 'itemType': ApiInfoVO },
+      pageInfo: PageInfo,
     };
   }
 
@@ -4546,39 +4381,60 @@ export class CheckApiResult extends $tea.Model {
   }
 }
 
-// ApiflowTestReqVO
-export class ApiflowTestReqVO extends $tea.Model {
-  // api_id
-  apiId?: string;
-  // workspace_id
-  workspaceId?: string;
+// AppInfoPagedListVO
+export class AppInfoPagedListVO extends $tea.Model {
+  // list
+  list?: AppInfoVO[];
+  // pageInfo
+  pageInfo?: PageInfo;
+  static names(): { [key: string]: string } {
+    return {
+      list: 'list',
+      pageInfo: 'page_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      list: { 'type': 'array', 'itemType': AppInfoVO },
+      pageInfo: PageInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ldc信息
+export class LdcInfoVO extends $tea.Model {
+  // 是否开启
+  enable?: boolean;
+  // 参数位置
+  paramLocation?: string;
+  // 参数名
+  paramKey?: string;
   // tenant_id
   tenantId?: string;
-  // machine_name
-  machineName?: string;
-  // params
-  inputParams?: ApiTestParamVO[];
-  // output_params
-  outputParams?: ApiflowOutputVO[];
+  // workspace_id
+  workspaceId?: string;
   static names(): { [key: string]: string } {
     return {
-      apiId: 'api_id',
-      workspaceId: 'workspace_id',
+      enable: 'enable',
+      paramLocation: 'param_location',
+      paramKey: 'param_key',
       tenantId: 'tenant_id',
-      machineName: 'machine_name',
-      inputParams: 'input_params',
-      outputParams: 'output_params',
+      workspaceId: 'workspace_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      apiId: 'string',
-      workspaceId: 'string',
+      enable: 'boolean',
+      paramLocation: 'string',
+      paramKey: 'string',
       tenantId: 'string',
-      machineName: 'string',
-      inputParams: { 'type': 'array', 'itemType': ApiTestParamVO },
-      outputParams: { 'type': 'array', 'itemType': ApiflowOutputVO },
+      workspaceId: 'string',
     };
   }
 
@@ -4587,43 +4443,23 @@ export class ApiflowTestReqVO extends $tea.Model {
   }
 }
 
-// MonitoryAggregationVO
-export class MonitoryAggregationVO extends $tea.Model {
-  // invoke_num
-  invokeNum?: MonitorData[];
-  // qps
-  qps?: MonitorData[];
-  // rt
-  rt?: MonitorData[];
-  // 错误码
-  errCode?: MonitorData[];
-  // 错误率
-  errRate?: MonitorData[];
-  // byte_in
-  byteIn?: MonitorData[];
-  // byte_out
-  byteOut?: MonitorData[];
+// AppInfoQueryVO
+export class AppInfoQueryVO extends $tea.Model {
+  // pageInfo
+  pageInfo?: PageInfo;
+  // query
+  query?: AppInfoVO;
   static names(): { [key: string]: string } {
     return {
-      invokeNum: 'invoke_num',
-      qps: 'qps',
-      rt: 'rt',
-      errCode: 'err_code',
-      errRate: 'err_rate',
-      byteIn: 'byte_in',
-      byteOut: 'byte_out',
+      pageInfo: 'page_info',
+      query: 'query',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      invokeNum: { 'type': 'array', 'itemType': MonitorData },
-      qps: { 'type': 'array', 'itemType': MonitorData },
-      rt: { 'type': 'array', 'itemType': MonitorData },
-      errCode: { 'type': 'array', 'itemType': MonitorData },
-      errRate: { 'type': 'array', 'itemType': MonitorData },
-      byteIn: { 'type': 'array', 'itemType': MonitorData },
-      byteOut: { 'type': 'array', 'itemType': MonitorData },
+      pageInfo: PageInfo,
+      query: AppInfoVO,
     };
   }
 
@@ -4632,10 +4468,180 @@ export class MonitoryAggregationVO extends $tea.Model {
   }
 }
 
-// ApiGroupPagedListVO
-export class ApiGroupPagedListVO extends $tea.Model {
-  // 当前页的数据
-  list?: ApiGroupVO[];
+// 策略分页信息
+export class StrategyPagedListVO extends $tea.Model {
+  // list
+  list?: StrategyInfoVO[];
+  // 分页信息
+  pageInfo?: PageInfo;
+  static names(): { [key: string]: string } {
+    return {
+      list: 'list',
+      pageInfo: 'page_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      list: { 'type': 'array', 'itemType': StrategyInfoVO },
+      pageInfo: PageInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// RegionVO
+export class RegionVO extends $tea.Model {
+  // region_id
+  id?: string;
+  // region名称
+  name?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ApiTransferResult
+export class ApiTransferResult extends $tea.Model {
+  // api配置
+  apiTransferList?: ApiInfoVO[];
+  // 批量转移结果
+  batchActionResult?: BatchActionResult;
+  // file_name
+  fileName?: string;
+  // 流程编排列表
+  apiflowList?: ApiInfoVO[];
+  static names(): { [key: string]: string } {
+    return {
+      apiTransferList: 'api_transfer_list',
+      batchActionResult: 'batch_action_result',
+      fileName: 'file_name',
+      apiflowList: 'apiflow_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      apiTransferList: { 'type': 'array', 'itemType': ApiInfoVO },
+      batchActionResult: BatchActionResult,
+      fileName: 'string',
+      apiflowList: { 'type': 'array', 'itemType': ApiInfoVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// HomePageVO
+export class HomePageVO extends $tea.Model {
+  // api分组数量
+  apiGroupCount?: number;
+  // api数量
+  apiCount?: number;
+  // app数量
+  appCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      apiGroupCount: 'api_group_count',
+      apiCount: 'api_count',
+      appCount: 'app_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      apiGroupCount: 'number',
+      apiCount: 'number',
+      appCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ApiflowInstQueryVO
+export class ApiflowInstQueryVO extends $tea.Model {
+  // fuzzy_search
+  fuzzySearch?: boolean;
+  // page_info
+  pageInfo?: PageInfo;
+  // query
+  query?: ApiflowInstVO;
+  static names(): { [key: string]: string } {
+    return {
+      fuzzySearch: 'fuzzy_search',
+      pageInfo: 'page_info',
+      query: 'query',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fuzzySearch: 'boolean',
+      pageInfo: PageInfo,
+      query: ApiflowInstVO,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ParamMappingInfoQueryVO
+export class ParamMappingInfoQueryVO extends $tea.Model {
+  // pageInfo
+  pageInfo?: PageInfo;
+  // query
+  query?: ParamMappingInfoVO;
+  // 支持模糊查询
+  fuzzySearch?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      pageInfo: 'page_info',
+      query: 'query',
+      fuzzySearch: 'fuzzy_search',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      pageInfo: PageInfo,
+      query: ParamMappingInfoVO,
+      fuzzySearch: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// RegistryInfoPagedListVO
+export class RegistryInfoPagedListVO extends $tea.Model {
+  // list
+  list?: RegistryInfoVO[];
   // page_info
   pageInfo?: PageInfo;
   static names(): { [key: string]: string } {
@@ -4647,8 +4653,37 @@ export class ApiGroupPagedListVO extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
-      list: { 'type': 'array', 'itemType': ApiGroupVO },
+      list: { 'type': 'array', 'itemType': RegistryInfoVO },
       pageInfo: PageInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ApiGroupQueryVO
+export class ApiGroupQueryVO extends $tea.Model {
+  // page_info
+  pageInfo?: PageInfo;
+  // query
+  query?: ApiGroupVO;
+  // 是否模糊搜索
+  fuzzySearch?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      pageInfo: 'page_info',
+      query: 'query',
+      fuzzySearch: 'fuzzy_search',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      pageInfo: PageInfo,
+      query: ApiGroupVO,
+      fuzzySearch: 'boolean',
     };
   }
 
@@ -4694,10 +4729,10 @@ export class ApiTestRspVO extends $tea.Model {
   }
 }
 
-// ApiflowInstPagedListVO
-export class ApiflowInstPagedListVO extends $tea.Model {
+// ApiModelPagedListVO
+export class ApiModelPagedListVO extends $tea.Model {
   // list
-  list?: ApiflowInstVO[];
+  list?: ApiModelVO[];
   // page_info
   pageInfo?: PageInfo;
   static names(): { [key: string]: string } {
@@ -4709,8 +4744,410 @@ export class ApiflowInstPagedListVO extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
-      list: { 'type': 'array', 'itemType': ApiflowInstVO },
+      list: { 'type': 'array', 'itemType': ApiModelVO },
       pageInfo: PageInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ApiflowMachineInstPagedListVO
+export class ApiflowMachineInstPagedListVO extends $tea.Model {
+  // list
+  list?: ApiflowMachineInstVO[];
+  // page_info
+  pageInfo?: PageInfo;
+  static names(): { [key: string]: string } {
+    return {
+      list: 'list',
+      pageInfo: 'page_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      list: { 'type': 'array', 'itemType': ApiflowMachineInstVO },
+      pageInfo: PageInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// api导入 效验返回体
+export class CheckApiResult extends $tea.Model {
+  // 导入的所有的API集合
+  allApiList?: ApiTransferVO[];
+  // API或者配置中有重复的集合
+  failedApiList?: ApiTransferVO[];
+  // 	
+  // API包括配置无重复的集合
+  successApiList?: ApiTransferVO[];
+  // 失败api配置详情
+  checkResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      allApiList: 'all_api_list',
+      failedApiList: 'failed_api_list',
+      successApiList: 'success_api_list',
+      checkResult: 'check_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      allApiList: { 'type': 'array', 'itemType': ApiTransferVO },
+      failedApiList: { 'type': 'array', 'itemType': ApiTransferVO },
+      successApiList: { 'type': 'array', 'itemType': ApiTransferVO },
+      checkResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// CorsInfoQueryVO
+export class CorsInfoQueryVO extends $tea.Model {
+  // 分页信息
+  pageInfo?: PageInfo;
+  // query
+  query?: CorsInfoVO;
+  // 是否模糊搜索
+  fuzzySearch?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      pageInfo: 'page_info',
+      query: 'query',
+      fuzzySearch: 'fuzzy_search',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      pageInfo: PageInfo,
+      query: CorsInfoVO,
+      fuzzySearch: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 集群信息
+export class SofaGwClusterVO extends $tea.Model {
+  // app name
+  appName?: string;
+  // hosts
+  hosts?: SofaGwHostVO[];
+  // id
+  id?: number;
+  // 实例标识
+  instanceId?: string;
+  // 集群名
+  name?: string;
+  static names(): { [key: string]: string } {
+    return {
+      appName: 'app_name',
+      hosts: 'hosts',
+      id: 'id',
+      instanceId: 'instance_id',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      appName: 'string',
+      hosts: { 'type': 'array', 'itemType': SofaGwHostVO },
+      id: 'number',
+      instanceId: 'string',
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ApiGroupAuthUserConfigVO
+export class ApiGroupAuthUserConfigVO extends $tea.Model {
+  // api授权管理开关
+  apiAuthUserSwitch?: string;
+  // 是否是管理员
+  checkMaster?: boolean;
+  // 需要api授权管理
+  needApiAuthUser?: boolean;
+  // tenant_id
+  tenantId?: string;
+  // workspace_id
+  workspaceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      apiAuthUserSwitch: 'api_auth_user_switch',
+      checkMaster: 'check_master',
+      needApiAuthUser: 'need_api_auth_user',
+      tenantId: 'tenant_id',
+      workspaceId: 'workspace_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      apiAuthUserSwitch: 'string',
+      checkMaster: 'boolean',
+      needApiAuthUser: 'boolean',
+      tenantId: 'string',
+      workspaceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ApiModelQueryVO
+export class ApiModelQueryVO extends $tea.Model {
+  // 支持模糊查询
+  fuzzySearch?: boolean;
+  // page_info
+  pageInfo?: PageInfo;
+  // query
+  query?: ApiModelVO;
+  static names(): { [key: string]: string } {
+    return {
+      fuzzySearch: 'fuzzy_search',
+      pageInfo: 'page_info',
+      query: 'query',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fuzzySearch: 'boolean',
+      pageInfo: PageInfo,
+      query: ApiModelVO,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ApiTestReqVO
+export class ApiTestReqVO extends $tea.Model {
+  // API标识
+  apiId?: string;
+  // 应用标识
+  appId?: string;
+  // params
+  params?: ApiTestParamVO[];
+  // payload
+  payload?: string;
+  // tenant_id
+  tenantId?: string;
+  // 工作空间标识
+  workspaceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      apiId: 'api_id',
+      appId: 'app_id',
+      params: 'params',
+      payload: 'payload',
+      tenantId: 'tenant_id',
+      workspaceId: 'workspace_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      apiId: 'string',
+      appId: 'string',
+      params: { 'type': 'array', 'itemType': ApiTestParamVO },
+      payload: 'string',
+      tenantId: 'string',
+      workspaceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ParamMappingInfoPagedListVO
+export class ParamMappingInfoPagedListVO extends $tea.Model {
+  // list
+  list?: ParamMappingInfoVO[];
+  // pageInfo
+  pageInfo?: PageInfo;
+  static names(): { [key: string]: string } {
+    return {
+      list: 'list',
+      pageInfo: 'page_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      list: { 'type': 'array', 'itemType': ParamMappingInfoVO },
+      pageInfo: PageInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// MonitoryRequest
+export class MonitoryRequest extends $tea.Model {
+  // API标识
+  apiId?: string;
+  // App标识
+  appId?: string;
+  // code
+  code?: string;
+  // 开始时间
+  startTime?: number;
+  // end_time
+  endTime?: number;
+  static names(): { [key: string]: string } {
+    return {
+      apiId: 'api_id',
+      appId: 'app_id',
+      code: 'code',
+      startTime: 'start_time',
+      endTime: 'end_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      apiId: 'string',
+      appId: 'string',
+      code: 'string',
+      startTime: 'number',
+      endTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// AuthUserInfoQueryVO
+export class AuthUserInfoQueryVO extends $tea.Model {
+  // pageInfo
+  pageInfo?: PageInfo;
+  // OperatorVO
+  query?: AuthUserInfoVO;
+  // 是否模糊搜索
+  fuzzySearch?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      pageInfo: 'page_info',
+      query: 'query',
+      fuzzySearch: 'fuzzy_search',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      pageInfo: PageInfo,
+      query: AuthUserInfoVO,
+      fuzzySearch: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ExternalAuthInfoPagedListVO
+export class ExternalAuthInfoPagedListVO extends $tea.Model {
+  // list
+  list?: ExternalAuthInfoVO[];
+  // pageInfo
+  pageInfo?: PageInfo;
+  static names(): { [key: string]: string } {
+    return {
+      list: 'list',
+      pageInfo: 'page_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      list: { 'type': 'array', 'itemType': ExternalAuthInfoVO },
+      pageInfo: PageInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// SystemClusterPagedListVO
+export class SystemClusterPagedListVO extends $tea.Model {
+  // list
+  list?: SystemClusterVO[];
+  // page_info
+  pageInfo?: PageInfo;
+  static names(): { [key: string]: string } {
+    return {
+      list: 'list',
+      pageInfo: 'page_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      list: { 'type': 'array', 'itemType': SystemClusterVO },
+      pageInfo: PageInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// GrayscaleConfigQueryVO
+export class GrayscaleConfigQueryVO extends $tea.Model {
+  // fuzzy_search
+  fuzzySearch?: boolean;
+  // page_info
+  pageInfo?: PageInfo;
+  // query
+  query?: GrayscaleConfigVO;
+  static names(): { [key: string]: string } {
+    return {
+      fuzzySearch: 'fuzzy_search',
+      pageInfo: 'page_info',
+      query: 'query',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fuzzySearch: 'boolean',
+      pageInfo: PageInfo,
+      query: GrayscaleConfigVO,
     };
   }
 
@@ -4764,31 +5201,23 @@ export class SofaGwAppVO extends $tea.Model {
   }
 }
 
-// ApiInfoQueryVO
-export class ApiInfoQueryVO extends $tea.Model {
-  // 是否模糊搜索
-  fuzzySearch?: boolean;
+// AuthAppInfoPagedListVO
+export class AuthAppInfoPagedListVO extends $tea.Model {
+  // list
+  list?: AuthAppInfoVO[];
   // pageInfo
   pageInfo?: PageInfo;
-  // query
-  query?: ApiInfoVO;
-  // 自定义查询条件
-  queryCondition?: string;
   static names(): { [key: string]: string } {
     return {
-      fuzzySearch: 'fuzzy_search',
+      list: 'list',
       pageInfo: 'page_info',
-      query: 'query',
-      queryCondition: 'query_condition',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      fuzzySearch: 'boolean',
+      list: { 'type': 'array', 'itemType': AuthAppInfoVO },
       pageInfo: PageInfo,
-      query: ApiInfoVO,
-      queryCondition: 'string',
     };
   }
 
@@ -4814,226 +5243,6 @@ export class AuthUserInfoPagedListVO extends $tea.Model {
     return {
       list: { 'type': 'array', 'itemType': AuthUserInfoVO },
       pageInfo: PageInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ApiModelPagedListVO
-export class ApiModelPagedListVO extends $tea.Model {
-  // list
-  list?: ApiModelVO[];
-  // page_info
-  pageInfo?: PageInfo;
-  static names(): { [key: string]: string } {
-    return {
-      list: 'list',
-      pageInfo: 'page_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      list: { 'type': 'array', 'itemType': ApiModelVO },
-      pageInfo: PageInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ApiflowInstQueryVO
-export class ApiflowInstQueryVO extends $tea.Model {
-  // fuzzy_search
-  fuzzySearch?: boolean;
-  // page_info
-  pageInfo?: PageInfo;
-  // query
-  query?: ApiflowInstVO;
-  static names(): { [key: string]: string } {
-    return {
-      fuzzySearch: 'fuzzy_search',
-      pageInfo: 'page_info',
-      query: 'query',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      fuzzySearch: 'boolean',
-      pageInfo: PageInfo,
-      query: ApiflowInstVO,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// CorsInfoQueryVO
-export class CorsInfoQueryVO extends $tea.Model {
-  // 分页信息
-  pageInfo?: PageInfo;
-  // query
-  query?: CorsInfoVO;
-  // 是否模糊搜索
-  fuzzySearch?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      pageInfo: 'page_info',
-      query: 'query',
-      fuzzySearch: 'fuzzy_search',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      pageInfo: PageInfo,
-      query: CorsInfoVO,
-      fuzzySearch: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ApiflowMachineInstPagedListVO
-export class ApiflowMachineInstPagedListVO extends $tea.Model {
-  // list
-  list?: ApiflowMachineInstVO[];
-  // page_info
-  pageInfo?: PageInfo;
-  static names(): { [key: string]: string } {
-    return {
-      list: 'list',
-      pageInfo: 'page_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      list: { 'type': 'array', 'itemType': ApiflowMachineInstVO },
-      pageInfo: PageInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// StrategyInfoQueryVO
-export class StrategyInfoQueryVO extends $tea.Model {
-  // 分页信息
-  pageInfo?: PageInfo;
-  // query
-  query?: StrategyInfoVO;
-  // 是否模糊搜索
-  fuzzySearch?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      pageInfo: 'page_info',
-      query: 'query',
-      fuzzySearch: 'fuzzy_search',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      pageInfo: PageInfo,
-      query: StrategyInfoVO,
-      fuzzySearch: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ExternalAuthInfoPagedListVO
-export class ExternalAuthInfoPagedListVO extends $tea.Model {
-  // list
-  list?: ExternalAuthInfoVO[];
-  // pageInfo
-  pageInfo?: PageInfo;
-  static names(): { [key: string]: string } {
-    return {
-      list: 'list',
-      pageInfo: 'page_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      list: { 'type': 'array', 'itemType': ExternalAuthInfoVO },
-      pageInfo: PageInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// RouterInfoQueryVO
-export class RouterInfoQueryVO extends $tea.Model {
-  // pageInfo
-  pageInfo?: PageInfo;
-  // query
-  query?: RouterInfoVO;
-  // 是否模糊搜索
-  fuzzySearch?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      pageInfo: 'page_info',
-      query: 'query',
-      fuzzySearch: 'fuzzy_search',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      pageInfo: PageInfo,
-      query: RouterInfoVO,
-      fuzzySearch: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// SystemConfigQueryVO
-export class SystemConfigQueryVO extends $tea.Model {
-  // 是否模糊搜索
-  fuzzySearch?: boolean;
-  // page_info
-  pageInfo?: PageInfo;
-  // query
-  query?: SystemConfigVO;
-  static names(): { [key: string]: string } {
-    return {
-      fuzzySearch: 'fuzzy_search',
-      pageInfo: 'page_info',
-      query: 'query',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      fuzzySearch: 'boolean',
-      pageInfo: PageInfo,
-      query: SystemConfigVO,
     };
   }
 
@@ -17251,13 +17460,147 @@ export class QueryGwconfigTripleswitchResponse extends $tea.Model {
   }
 }
 
-export class AllGwconfigRegionRequest extends $tea.Model {
+export class AllGrayscaleRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 租户id
+  // param
+  param?: GrayscaleConfigQueryVO;
+  // workspace_id
+  workspaceId?: string;
+  // tenant_id
   tenantId?: string;
-  // 工作空间标识
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      param: 'param',
+      workspaceId: 'workspace_id',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      param: GrayscaleConfigQueryVO,
+      workspaceId: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AllGrayscaleResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // data
+  data?: GrayscaleConfigVO[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': GrayscaleConfigVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListGrayscaleRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // param
+  param?: GrayscaleConfigQueryVO;
+  // workspace_id
+  workspaceId?: string;
+  // tenant_id
+  tenantId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      param: 'param',
+      workspaceId: 'workspace_id',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      param: GrayscaleConfigQueryVO,
+      workspaceId: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListGrayscaleResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // data
+  data?: GrayscaleConfigPagedListVO;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: GrayscaleConfigPagedListVO,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AllRouterRegionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户ID
+  tenantId?: string;
+  // workspace_id
   workspaceId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -17282,7 +17625,7 @@ export class AllGwconfigRegionRequest extends $tea.Model {
   }
 }
 
-export class AllGwconfigRegionResponse extends $tea.Model {
+export class AllRouterRegionResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -17290,7 +17633,7 @@ export class AllGwconfigRegionResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // data
-  data?: string[];
+  data?: RegionVO[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -17305,7 +17648,7 @@ export class AllGwconfigRegionResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      data: { 'type': 'array', 'itemType': 'string' },
+      data: { 'type': 'array', 'itemType': RegionVO },
     };
   }
 
@@ -17427,7 +17770,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.312",
+          sdk_version: "1.1.325",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -20858,22 +21201,60 @@ export default class Client {
   }
 
   /**
-   * Description: 查询所以region名称
-   * Summary: 查询所以region名称
+   * Description: 查询灰度规则配置
+   * Summary: 查询灰度规则配置
    */
-  async allGwconfigRegion(request: AllGwconfigRegionRequest): Promise<AllGwconfigRegionResponse> {
+  async allGrayscale(request: AllGrayscaleRequest): Promise<AllGrayscaleResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.allGwconfigRegionEx(request, headers, runtime);
+    return await this.allGrayscaleEx(request, headers, runtime);
   }
 
   /**
-   * Description: 查询所以region名称
-   * Summary: 查询所以region名称
+   * Description: 查询灰度规则配置
+   * Summary: 查询灰度规则配置
    */
-  async allGwconfigRegionEx(request: AllGwconfigRegionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AllGwconfigRegionResponse> {
+  async allGrayscaleEx(request: AllGrayscaleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AllGrayscaleResponse> {
     Util.validateModel(request);
-    return $tea.cast<AllGwconfigRegionResponse>(await this.doRequest("1.0", "sofa.apigateway.gwconfig.region.all", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AllGwconfigRegionResponse({}));
+    return $tea.cast<AllGrayscaleResponse>(await this.doRequest("1.0", "sofa.apigateway.grayscale.all", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AllGrayscaleResponse({}));
+  }
+
+  /**
+   * Description: 分页查询灰度规则列表
+   * Summary: 分页查询灰度规则列表
+   */
+  async listGrayscale(request: ListGrayscaleRequest): Promise<ListGrayscaleResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listGrayscaleEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 分页查询灰度规则列表
+   * Summary: 分页查询灰度规则列表
+   */
+  async listGrayscaleEx(request: ListGrayscaleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListGrayscaleResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListGrayscaleResponse>(await this.doRequest("1.0", "sofa.apigateway.grayscale.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListGrayscaleResponse({}));
+  }
+
+  /**
+   * Description: 查询所有region名称
+   * Summary: 查询所有region名称
+   */
+  async allRouterRegion(request: AllRouterRegionRequest): Promise<AllRouterRegionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.allRouterRegionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询所有region名称
+   * Summary: 查询所有region名称
+   */
+  async allRouterRegionEx(request: AllRouterRegionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AllRouterRegionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AllRouterRegionResponse>(await this.doRequest("1.0", "sofa.apigateway.router.region.all", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AllRouterRegionResponse({}));
   }
 
 }
