@@ -36,6 +36,14 @@ public class GetTenantIaasaccountResponse extends TeaModel {
     @NameInMap("id")
     public String id;
 
+    // sts token
+    @NameInMap("access_token")
+    public String accessToken;
+
+    // 是否是sts模式
+    @NameInMap("sts_mode")
+    public Boolean stsMode;
+
     public static GetTenantIaasaccountResponse build(java.util.Map<String, ?> map) throws Exception {
         GetTenantIaasaccountResponse self = new GetTenantIaasaccountResponse();
         return TeaModel.build(map, self);
@@ -103,6 +111,22 @@ public class GetTenantIaasaccountResponse extends TeaModel {
     }
     public String getId() {
         return this.id;
+    }
+
+    public GetTenantIaasaccountResponse setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+        return this;
+    }
+    public String getAccessToken() {
+        return this.accessToken;
+    }
+
+    public GetTenantIaasaccountResponse setStsMode(Boolean stsMode) {
+        this.stsMode = stsMode;
+        return this;
+    }
+    public Boolean getStsMode() {
+        return this.stsMode;
     }
 
 }

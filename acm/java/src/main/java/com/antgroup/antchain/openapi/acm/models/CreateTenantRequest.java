@@ -17,6 +17,18 @@ public class CreateTenantRequest extends TeaModel {
     @NameInMap("business_owner_id")
     public String businessOwnerId;
 
+    // 租户名称，如果为空则随机生成
+    @NameInMap("name")
+    public String name;
+
+    // 显示名称
+    @NameInMap("display_name")
+    public String displayName;
+
+    // 描述信息
+    @NameInMap("description")
+    public String description;
+
     public static CreateTenantRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateTenantRequest self = new CreateTenantRequest();
         return TeaModel.build(map, self);
@@ -44,6 +56,30 @@ public class CreateTenantRequest extends TeaModel {
     }
     public String getBusinessOwnerId() {
         return this.businessOwnerId;
+    }
+
+    public CreateTenantRequest setName(String name) {
+        this.name = name;
+        return this;
+    }
+    public String getName() {
+        return this.name;
+    }
+
+    public CreateTenantRequest setDisplayName(String displayName) {
+        this.displayName = displayName;
+        return this;
+    }
+    public String getDisplayName() {
+        return this.displayName;
+    }
+
+    public CreateTenantRequest setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+    public String getDescription() {
+        return this.description;
     }
 
 }

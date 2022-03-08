@@ -13,6 +13,10 @@ public class GetTenantIaasaccountRequest extends TeaModel {
     @Validation(required = true)
     public String tenant;
 
+    // 一方化调用参数，阿里云服务名
+    @NameInMap("source_id")
+    public String sourceId;
+
     public static GetTenantIaasaccountRequest build(java.util.Map<String, ?> map) throws Exception {
         GetTenantIaasaccountRequest self = new GetTenantIaasaccountRequest();
         return TeaModel.build(map, self);
@@ -32,6 +36,14 @@ public class GetTenantIaasaccountRequest extends TeaModel {
     }
     public String getTenant() {
         return this.tenant;
+    }
+
+    public GetTenantIaasaccountRequest setSourceId(String sourceId) {
+        this.sourceId = sourceId;
+        return this;
+    }
+    public String getSourceId() {
+        return this.sourceId;
     }
 
 }

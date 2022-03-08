@@ -48,6 +48,10 @@ public class GetMasterTenantResponse extends TeaModel {
     @NameInMap("user_type")
     public String userType;
 
+    // 租户的类型 N 支付宝 Q支付宝开放平台 V 蚂蚁链账号
+    @NameInMap("tenant_level")
+    public String tenantLevel;
+
     public static GetMasterTenantResponse build(java.util.Map<String, ?> map) throws Exception {
         GetMasterTenantResponse self = new GetMasterTenantResponse();
         return TeaModel.build(map, self);
@@ -139,6 +143,14 @@ public class GetMasterTenantResponse extends TeaModel {
     }
     public String getUserType() {
         return this.userType;
+    }
+
+    public GetMasterTenantResponse setTenantLevel(String tenantLevel) {
+        this.tenantLevel = tenantLevel;
+        return this;
+    }
+    public String getTenantLevel() {
+        return this.tenantLevel;
     }
 
 }

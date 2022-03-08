@@ -44,6 +44,10 @@ public class Operator extends TeaModel {
     @NameInMap("real_name")
     public String realName;
 
+    // 部门唯一码
+    @NameInMap("department_code")
+    public String departmentCode;
+
     // 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
     @NameInMap("status")
     public String status;
@@ -139,6 +143,14 @@ public class Operator extends TeaModel {
     }
     public String getRealName() {
         return this.realName;
+    }
+
+    public Operator setDepartmentCode(String departmentCode) {
+        this.departmentCode = departmentCode;
+        return this;
+    }
+    public String getDepartmentCode() {
+        return this.departmentCode;
     }
 
     public Operator setStatus(String status) {

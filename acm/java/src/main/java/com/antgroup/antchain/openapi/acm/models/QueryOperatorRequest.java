@@ -29,6 +29,10 @@ public class QueryOperatorRequest extends TeaModel {
     @NameInMap("tenant")
     public String tenant;
 
+    // 部门唯一码
+    @NameInMap("department_code")
+    public String departmentCode;
+
     public static QueryOperatorRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryOperatorRequest self = new QueryOperatorRequest();
         return TeaModel.build(map, self);
@@ -80,6 +84,14 @@ public class QueryOperatorRequest extends TeaModel {
     }
     public String getTenant() {
         return this.tenant;
+    }
+
+    public QueryOperatorRequest setDepartmentCode(String departmentCode) {
+        this.departmentCode = departmentCode;
+        return this;
+    }
+    public String getDepartmentCode() {
+        return this.departmentCode;
     }
 
 }

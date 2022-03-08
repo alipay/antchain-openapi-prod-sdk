@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.19")
+                    new TeaPair("sdk_version", "1.0.21")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -708,5 +708,24 @@ public class Client {
     public RemoveTenantBusinesstagResponse removeTenantBusinesstagEx(RemoveTenantBusinesstagRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.businesstag.remove", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RemoveTenantBusinesstagResponse());
+    }
+
+    /**
+     * Description: 用户发送操作员的激活邮件
+     * Summary: 操作员发送激活邮件
+     */
+    public SendOperatorActiveemailResponse sendOperatorActiveemail(SendOperatorActiveemailRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.sendOperatorActiveemailEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用户发送操作员的激活邮件
+     * Summary: 操作员发送激活邮件
+     */
+    public SendOperatorActiveemailResponse sendOperatorActiveemailEx(SendOperatorActiveemailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.operator.activeemail.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendOperatorActiveemailResponse());
     }
 }

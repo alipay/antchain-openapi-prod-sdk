@@ -42,9 +42,21 @@ public class CreateOperatorRequest extends TeaModel {
     @NameInMap("tenant")
     public String tenant;
 
+    // 工号
+    @NameInMap("work_no")
+    public String workNo;
+
     // 业务场景码
     @NameInMap("bussiness_code")
     public String bussinessCode;
+
+    // 加密密码
+    @NameInMap("encrypted_password")
+    public String encryptedPassword;
+
+    // 首次登录是否需要重置密码，取值范围：true, false，默认为 false
+    @NameInMap("reset_password_when_first_login")
+    public Boolean resetPasswordWhenFirstLogin;
 
     public static CreateOperatorRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateOperatorRequest self = new CreateOperatorRequest();
@@ -123,12 +135,36 @@ public class CreateOperatorRequest extends TeaModel {
         return this.tenant;
     }
 
+    public CreateOperatorRequest setWorkNo(String workNo) {
+        this.workNo = workNo;
+        return this;
+    }
+    public String getWorkNo() {
+        return this.workNo;
+    }
+
     public CreateOperatorRequest setBussinessCode(String bussinessCode) {
         this.bussinessCode = bussinessCode;
         return this;
     }
     public String getBussinessCode() {
         return this.bussinessCode;
+    }
+
+    public CreateOperatorRequest setEncryptedPassword(String encryptedPassword) {
+        this.encryptedPassword = encryptedPassword;
+        return this;
+    }
+    public String getEncryptedPassword() {
+        return this.encryptedPassword;
+    }
+
+    public CreateOperatorRequest setResetPasswordWhenFirstLogin(Boolean resetPasswordWhenFirstLogin) {
+        this.resetPasswordWhenFirstLogin = resetPasswordWhenFirstLogin;
+        return this;
+    }
+    public Boolean getResetPasswordWhenFirstLogin() {
+        return this.resetPasswordWhenFirstLogin;
     }
 
 }

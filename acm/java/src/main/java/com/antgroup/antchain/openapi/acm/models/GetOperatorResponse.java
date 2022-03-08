@@ -79,6 +79,18 @@ public class GetOperatorResponse extends TeaModel {
     @NameInMap("update_time")
     public String updateTime;
 
+    // 工号
+    @NameInMap("work_no")
+    public String workNo;
+
+    // 是否是主账号
+    @NameInMap("is_master")
+    public Boolean isMaster;
+
+    // 钉钉机器人 token
+    @NameInMap("dd_robot")
+    public String ddRobot;
+
     public static GetOperatorResponse build(java.util.Map<String, ?> map) throws Exception {
         GetOperatorResponse self = new GetOperatorResponse();
         return TeaModel.build(map, self);
@@ -210,6 +222,30 @@ public class GetOperatorResponse extends TeaModel {
     }
     public String getUpdateTime() {
         return this.updateTime;
+    }
+
+    public GetOperatorResponse setWorkNo(String workNo) {
+        this.workNo = workNo;
+        return this;
+    }
+    public String getWorkNo() {
+        return this.workNo;
+    }
+
+    public GetOperatorResponse setIsMaster(Boolean isMaster) {
+        this.isMaster = isMaster;
+        return this;
+    }
+    public Boolean getIsMaster() {
+        return this.isMaster;
+    }
+
+    public GetOperatorResponse setDdRobot(String ddRobot) {
+        this.ddRobot = ddRobot;
+        return this;
+    }
+    public String getDdRobot() {
+        return this.ddRobot;
     }
 
 }
