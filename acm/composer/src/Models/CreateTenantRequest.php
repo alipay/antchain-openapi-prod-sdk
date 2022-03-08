@@ -25,10 +25,31 @@ class CreateTenantRequest extends Model
      * @var string
      */
     public $businessOwnerId;
+
+    // 租户名称，如果为空则随机生成
+    /**
+     * @var string
+     */
+    public $name;
+
+    // 显示名称
+    /**
+     * @var string
+     */
+    public $displayName;
+
+    // 描述信息
+    /**
+     * @var string
+     */
+    public $description;
     protected $_name = [
         'authToken'       => 'auth_token',
         'antUid'          => 'ant_uid',
         'businessOwnerId' => 'business_owner_id',
+        'name'            => 'name',
+        'displayName'     => 'display_name',
+        'description'     => 'description',
     ];
 
     public function validate()
@@ -47,6 +68,15 @@ class CreateTenantRequest extends Model
         }
         if (null !== $this->businessOwnerId) {
             $res['business_owner_id'] = $this->businessOwnerId;
+        }
+        if (null !== $this->name) {
+            $res['name'] = $this->name;
+        }
+        if (null !== $this->displayName) {
+            $res['display_name'] = $this->displayName;
+        }
+        if (null !== $this->description) {
+            $res['description'] = $this->description;
         }
 
         return $res;
@@ -68,6 +98,15 @@ class CreateTenantRequest extends Model
         }
         if (isset($map['business_owner_id'])) {
             $model->businessOwnerId = $map['business_owner_id'];
+        }
+        if (isset($map['name'])) {
+            $model->name = $map['name'];
+        }
+        if (isset($map['display_name'])) {
+            $model->displayName = $map['display_name'];
+        }
+        if (isset($map['description'])) {
+            $model->description = $map['description'];
         }
 
         return $model;

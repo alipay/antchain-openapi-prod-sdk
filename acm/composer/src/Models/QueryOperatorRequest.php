@@ -43,13 +43,20 @@ class QueryOperatorRequest extends Model
      * @var string
      */
     public $tenant;
+
+    // 部门唯一码
+    /**
+     * @var string
+     */
+    public $departmentCode;
     protected $_name = [
-        'authToken' => 'auth_token',
-        'customer'  => 'customer',
-        'pageNum'   => 'page_num',
-        'pageSize'  => 'page_size',
-        'realName'  => 'real_name',
-        'tenant'    => 'tenant',
+        'authToken'      => 'auth_token',
+        'customer'       => 'customer',
+        'pageNum'        => 'page_num',
+        'pageSize'       => 'page_size',
+        'realName'       => 'real_name',
+        'tenant'         => 'tenant',
+        'departmentCode' => 'department_code',
     ];
 
     public function validate()
@@ -77,6 +84,9 @@ class QueryOperatorRequest extends Model
         }
         if (null !== $this->tenant) {
             $res['tenant'] = $this->tenant;
+        }
+        if (null !== $this->departmentCode) {
+            $res['department_code'] = $this->departmentCode;
         }
 
         return $res;
@@ -107,6 +117,9 @@ class QueryOperatorRequest extends Model
         }
         if (isset($map['tenant'])) {
             $model->tenant = $map['tenant'];
+        }
+        if (isset($map['department_code'])) {
+            $model->departmentCode = $map['department_code'];
         }
 
         return $model;

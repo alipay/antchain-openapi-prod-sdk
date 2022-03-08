@@ -65,6 +65,8 @@ use AntChain\Acm\Models\RemoveTenantBusinesstagRequest;
 use AntChain\Acm\Models\RemoveTenantBusinesstagResponse;
 use AntChain\Acm\Models\SearchOperatorRequest;
 use AntChain\Acm\Models\SearchOperatorResponse;
+use AntChain\Acm\Models\SendOperatorActiveemailRequest;
+use AntChain\Acm\Models\SendOperatorActiveemailResponse;
 use AntChain\Acm\Models\UpdateCustomerIdentityRequest;
 use AntChain\Acm\Models\UpdateCustomerIdentityResponse;
 use AntChain\Acm\Models\UpdateOperatorRequest;
@@ -188,7 +190,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 租户
+            // 访问IaaS层的身份
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -216,7 +218,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.19',
+                    'sdk_version'      => '1.0.21',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1217,5 +1219,38 @@ class Client
         Utils::validateModel($request);
 
         return RemoveTenantBusinesstagResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.tenant.businesstag.remove', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户发送操作员的激活邮件
+     * Summary: 操作员发送激活邮件.
+     *
+     * @param SendOperatorActiveemailRequest $request
+     *
+     * @return SendOperatorActiveemailResponse
+     */
+    public function sendOperatorActiveemail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendOperatorActiveemailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户发送操作员的激活邮件
+     * Summary: 操作员发送激活邮件.
+     *
+     * @param SendOperatorActiveemailRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return SendOperatorActiveemailResponse
+     */
+    public function sendOperatorActiveemailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendOperatorActiveemailResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.operator.activeemail.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

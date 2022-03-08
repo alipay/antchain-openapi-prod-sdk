@@ -103,6 +103,24 @@ class GetOperatorResponse extends Model
      * @var string
      */
     public $updateTime;
+
+    // 工号
+    /**
+     * @var string
+     */
+    public $workNo;
+
+    // 是否是主账号
+    /**
+     * @var bool
+     */
+    public $isMaster;
+
+    // 钉钉机器人 token
+    /**
+     * @var string
+     */
+    public $ddRobot;
     protected $_name = [
         'reqMsgId'       => 'req_msg_id',
         'resultCode'     => 'result_code',
@@ -120,6 +138,9 @@ class GetOperatorResponse extends Model
         'status'         => 'status',
         'tenants'        => 'tenants',
         'updateTime'     => 'update_time',
+        'workNo'         => 'work_no',
+        'isMaster'       => 'is_master',
+        'ddRobot'        => 'dd_robot',
     ];
 
     public function validate()
@@ -188,6 +209,15 @@ class GetOperatorResponse extends Model
         if (null !== $this->updateTime) {
             $res['update_time'] = $this->updateTime;
         }
+        if (null !== $this->workNo) {
+            $res['work_no'] = $this->workNo;
+        }
+        if (null !== $this->isMaster) {
+            $res['is_master'] = $this->isMaster;
+        }
+        if (null !== $this->ddRobot) {
+            $res['dd_robot'] = $this->ddRobot;
+        }
 
         return $res;
     }
@@ -249,6 +279,15 @@ class GetOperatorResponse extends Model
         }
         if (isset($map['update_time'])) {
             $model->updateTime = $map['update_time'];
+        }
+        if (isset($map['work_no'])) {
+            $model->workNo = $map['work_no'];
+        }
+        if (isset($map['is_master'])) {
+            $model->isMaster = $map['is_master'];
+        }
+        if (isset($map['dd_robot'])) {
+            $model->ddRobot = $map['dd_robot'];
         }
 
         return $model;

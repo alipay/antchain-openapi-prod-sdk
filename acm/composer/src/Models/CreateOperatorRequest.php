@@ -62,22 +62,43 @@ class CreateOperatorRequest extends Model
      */
     public $tenant;
 
+    // 工号
+    /**
+     * @var string
+     */
+    public $workNo;
+
     // 业务场景码
     /**
      * @var string
      */
     public $bussinessCode;
+
+    // 加密密码
+    /**
+     * @var string
+     */
+    public $encryptedPassword;
+
+    // 首次登录是否需要重置密码，取值范围：true, false，默认为 false
+    /**
+     * @var bool
+     */
+    public $resetPasswordWhenFirstLogin;
     protected $_name = [
-        'authToken'      => 'auth_token',
-        'customer'       => 'customer',
-        'externalId'     => 'external_id',
-        'externalSystem' => 'external_system',
-        'loginName'      => 'login_name',
-        'mobile'         => 'mobile',
-        'nickname'       => 'nickname',
-        'realName'       => 'real_name',
-        'tenant'         => 'tenant',
-        'bussinessCode'  => 'bussiness_code',
+        'authToken'                   => 'auth_token',
+        'customer'                    => 'customer',
+        'externalId'                  => 'external_id',
+        'externalSystem'              => 'external_system',
+        'loginName'                   => 'login_name',
+        'mobile'                      => 'mobile',
+        'nickname'                    => 'nickname',
+        'realName'                    => 'real_name',
+        'tenant'                      => 'tenant',
+        'workNo'                      => 'work_no',
+        'bussinessCode'               => 'bussiness_code',
+        'encryptedPassword'           => 'encrypted_password',
+        'resetPasswordWhenFirstLogin' => 'reset_password_when_first_login',
     ];
 
     public function validate()
@@ -116,8 +137,17 @@ class CreateOperatorRequest extends Model
         if (null !== $this->tenant) {
             $res['tenant'] = $this->tenant;
         }
+        if (null !== $this->workNo) {
+            $res['work_no'] = $this->workNo;
+        }
         if (null !== $this->bussinessCode) {
             $res['bussiness_code'] = $this->bussinessCode;
+        }
+        if (null !== $this->encryptedPassword) {
+            $res['encrypted_password'] = $this->encryptedPassword;
+        }
+        if (null !== $this->resetPasswordWhenFirstLogin) {
+            $res['reset_password_when_first_login'] = $this->resetPasswordWhenFirstLogin;
         }
 
         return $res;
@@ -158,8 +188,17 @@ class CreateOperatorRequest extends Model
         if (isset($map['tenant'])) {
             $model->tenant = $map['tenant'];
         }
+        if (isset($map['work_no'])) {
+            $model->workNo = $map['work_no'];
+        }
         if (isset($map['bussiness_code'])) {
             $model->bussinessCode = $map['bussiness_code'];
+        }
+        if (isset($map['encrypted_password'])) {
+            $model->encryptedPassword = $map['encrypted_password'];
+        }
+        if (isset($map['reset_password_when_first_login'])) {
+            $model->resetPasswordWhenFirstLogin = $map['reset_password_when_first_login'];
         }
 
         return $model;

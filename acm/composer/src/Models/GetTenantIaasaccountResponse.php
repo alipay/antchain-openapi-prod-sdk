@@ -55,6 +55,18 @@ class GetTenantIaasaccountResponse extends Model
      * @var string
      */
     public $id;
+
+    // sts token
+    /**
+     * @var string
+     */
+    public $accessToken;
+
+    // 是否是sts模式
+    /**
+     * @var bool
+     */
+    public $stsMode;
     protected $_name = [
         'reqMsgId'     => 'req_msg_id',
         'resultCode'   => 'result_code',
@@ -64,6 +76,8 @@ class GetTenantIaasaccountResponse extends Model
         'account'      => 'account',
         'createTime'   => 'create_time',
         'id'           => 'id',
+        'accessToken'  => 'access_token',
+        'stsMode'      => 'sts_mode',
     ];
 
     public function validate()
@@ -96,6 +110,12 @@ class GetTenantIaasaccountResponse extends Model
         }
         if (null !== $this->id) {
             $res['id'] = $this->id;
+        }
+        if (null !== $this->accessToken) {
+            $res['access_token'] = $this->accessToken;
+        }
+        if (null !== $this->stsMode) {
+            $res['sts_mode'] = $this->stsMode;
         }
 
         return $res;
@@ -132,6 +152,12 @@ class GetTenantIaasaccountResponse extends Model
         }
         if (isset($map['id'])) {
             $model->id = $map['id'];
+        }
+        if (isset($map['access_token'])) {
+            $model->accessToken = $map['access_token'];
+        }
+        if (isset($map['sts_mode'])) {
+            $model->stsMode = $map['sts_mode'];
         }
 
         return $model;

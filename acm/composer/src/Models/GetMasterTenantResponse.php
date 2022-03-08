@@ -73,6 +73,12 @@ class GetMasterTenantResponse extends Model
      * @var string
      */
     public $userType;
+
+    // 租户的类型 N 支付宝 Q支付宝开放平台 V 蚂蚁链账号
+    /**
+     * @var string
+     */
+    public $tenantLevel;
     protected $_name = [
         'reqMsgId'    => 'req_msg_id',
         'resultCode'  => 'result_code',
@@ -85,6 +91,7 @@ class GetMasterTenantResponse extends Model
         'name'        => 'name',
         'updateTime'  => 'update_time',
         'userType'    => 'user_type',
+        'tenantLevel' => 'tenant_level',
     ];
 
     public function validate()
@@ -126,6 +133,9 @@ class GetMasterTenantResponse extends Model
         }
         if (null !== $this->userType) {
             $res['user_type'] = $this->userType;
+        }
+        if (null !== $this->tenantLevel) {
+            $res['tenant_level'] = $this->tenantLevel;
         }
 
         return $res;
@@ -171,6 +181,9 @@ class GetMasterTenantResponse extends Model
         }
         if (isset($map['user_type'])) {
             $model->userType = $map['user_type'];
+        }
+        if (isset($map['tenant_level'])) {
+            $model->tenantLevel = $map['tenant_level'];
         }
 
         return $model;

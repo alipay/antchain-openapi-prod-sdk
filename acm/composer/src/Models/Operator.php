@@ -88,6 +88,14 @@ class Operator extends Model
      */
     public $realName;
 
+    // 部门唯一码
+    /**
+     * @example
+     *
+     * @var string
+     */
+    public $departmentCode;
+
     // 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
     /**
      * @example
@@ -122,6 +130,7 @@ class Operator extends Model
         'mobile'         => 'mobile',
         'nickname'       => 'nickname',
         'realName'       => 'real_name',
+        'departmentCode' => 'department_code',
         'status'         => 'status',
         'tenants'        => 'tenants',
         'updateTime'     => 'update_time',
@@ -163,6 +172,9 @@ class Operator extends Model
         }
         if (null !== $this->realName) {
             $res['real_name'] = $this->realName;
+        }
+        if (null !== $this->departmentCode) {
+            $res['department_code'] = $this->departmentCode;
         }
         if (null !== $this->status) {
             $res['status'] = $this->status;
@@ -214,6 +226,9 @@ class Operator extends Model
         }
         if (isset($map['real_name'])) {
             $model->realName = $map['real_name'];
+        }
+        if (isset($map['department_code'])) {
+            $model->departmentCode = $map['department_code'];
         }
         if (isset($map['status'])) {
             $model->status = $map['status'];
