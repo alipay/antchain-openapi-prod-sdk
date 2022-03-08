@@ -24,6 +24,21 @@ namespace AntChain.SDK.Acm.Models
         [Validation(Required=false)]
         public string BusinessOwnerId { get; set; }
 
+        // 租户名称，如果为空则随机生成
+        [NameInMap("name")]
+        [Validation(Required=false)]
+        public string Name { get; set; }
+
+        // 显示名称
+        [NameInMap("display_name")]
+        [Validation(Required=false)]
+        public string DisplayName { get; set; }
+
+        // 描述信息
+        [NameInMap("description")]
+        [Validation(Required=false)]
+        public string Description { get; set; }
+
     }
 
 }

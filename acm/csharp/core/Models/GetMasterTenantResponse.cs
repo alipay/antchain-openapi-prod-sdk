@@ -64,6 +64,11 @@ namespace AntChain.SDK.Acm.Models
         [Validation(Required=false)]
         public string UserType { get; set; }
 
+        // 租户的类型 N 支付宝 Q支付宝开放平台 V 蚂蚁链账号
+        [NameInMap("tenant_level")]
+        [Validation(Required=false)]
+        public string TenantLevel { get; set; }
+
     }
 
 }

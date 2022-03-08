@@ -60,6 +60,11 @@ namespace AntChain.SDK.Acm.Models
         [Validation(Required=false)]
         public string RealName { get; set; }
 
+        // 部门唯一码
+        [NameInMap("department_code")]
+        [Validation(Required=false)]
+        public string DepartmentCode { get; set; }
+
         // 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
         [NameInMap("status")]
         [Validation(Required=false)]

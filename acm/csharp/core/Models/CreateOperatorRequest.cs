@@ -54,10 +54,25 @@ namespace AntChain.SDK.Acm.Models
         [Validation(Required=false)]
         public string Tenant { get; set; }
 
+        // 工号
+        [NameInMap("work_no")]
+        [Validation(Required=false)]
+        public string WorkNo { get; set; }
+
         // 业务场景码
         [NameInMap("bussiness_code")]
         [Validation(Required=false)]
         public string BussinessCode { get; set; }
+
+        // 加密密码
+        [NameInMap("encrypted_password")]
+        [Validation(Required=false)]
+        public string EncryptedPassword { get; set; }
+
+        // 首次登录是否需要重置密码，取值范围：true, false，默认为 false
+        [NameInMap("reset_password_when_first_login")]
+        [Validation(Required=false)]
+        public bool? ResetPasswordWhenFirstLogin { get; set; }
 
     }
 

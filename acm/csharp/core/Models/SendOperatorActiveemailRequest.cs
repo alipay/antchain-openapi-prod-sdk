@@ -8,21 +8,16 @@ using Tea;
 
 namespace AntChain.SDK.Acm.Models
 {
-    public class GetTenantIaasaccountRequest : TeaModel {
+    public class SendOperatorActiveemailRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 租户唯一标识
-        [NameInMap("tenant")]
+        // 操作员ID
+        [NameInMap("operator_id")]
         [Validation(Required=true)]
-        public string Tenant { get; set; }
-
-        // 一方化调用参数，阿里云服务名
-        [NameInMap("source_id")]
-        [Validation(Required=false)]
-        public string SourceId { get; set; }
+        public string OperatorId { get; set; }
 
     }
 

@@ -137,7 +137,7 @@ namespace AntChain.SDK.Acm
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.19"},
+                        {"sdk_version", "1.0.21"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.Acm
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.19"},
+                        {"sdk_version", "1.0.21"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -1533,6 +1533,48 @@ namespace AntChain.SDK.Acm
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<RemoveTenantBusinesstagResponse>(await DoRequestAsync("1.0", "antcloud.acm.tenant.businesstag.remove", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户发送操作员的激活邮件
+         * Summary: 操作员发送激活邮件
+         */
+        public SendOperatorActiveemailResponse SendOperatorActiveemail(SendOperatorActiveemailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SendOperatorActiveemailEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户发送操作员的激活邮件
+         * Summary: 操作员发送激活邮件
+         */
+        public async Task<SendOperatorActiveemailResponse> SendOperatorActiveemailAsync(SendOperatorActiveemailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SendOperatorActiveemailExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户发送操作员的激活邮件
+         * Summary: 操作员发送激活邮件
+         */
+        public SendOperatorActiveemailResponse SendOperatorActiveemailEx(SendOperatorActiveemailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendOperatorActiveemailResponse>(DoRequest("1.0", "antcloud.acm.operator.activeemail.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户发送操作员的激活邮件
+         * Summary: 操作员发送激活邮件
+         */
+        public async Task<SendOperatorActiveemailResponse> SendOperatorActiveemailExAsync(SendOperatorActiveemailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendOperatorActiveemailResponse>(await DoRequestAsync("1.0", "antcloud.acm.operator.activeemail.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

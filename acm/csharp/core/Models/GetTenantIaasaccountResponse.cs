@@ -49,6 +49,16 @@ namespace AntChain.SDK.Acm.Models
         [Validation(Required=false)]
         public string Id { get; set; }
 
+        // sts token
+        [NameInMap("access_token")]
+        [Validation(Required=false)]
+        public string AccessToken { get; set; }
+
+        // 是否是sts模式
+        [NameInMap("sts_mode")]
+        [Validation(Required=false)]
+        public bool? StsMode { get; set; }
+
     }
 
 }

@@ -89,6 +89,21 @@ namespace AntChain.SDK.Acm.Models
         [Validation(Required=false)]
         public string UpdateTime { get; set; }
 
+        // 工号
+        [NameInMap("work_no")]
+        [Validation(Required=false)]
+        public string WorkNo { get; set; }
+
+        // 是否是主账号
+        [NameInMap("is_master")]
+        [Validation(Required=false)]
+        public bool? IsMaster { get; set; }
+
+        // 钉钉机器人 token
+        [NameInMap("dd_robot")]
+        [Validation(Required=false)]
+        public string DdRobot { get; set; }
+
     }
 
 }

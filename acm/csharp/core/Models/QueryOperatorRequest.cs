@@ -39,6 +39,11 @@ namespace AntChain.SDK.Acm.Models
         [Validation(Required=false)]
         public string Tenant { get; set; }
 
+        // 部门唯一码
+        [NameInMap("department_code")]
+        [Validation(Required=false)]
+        public string DepartmentCode { get; set; }
+
     }
 
 }
