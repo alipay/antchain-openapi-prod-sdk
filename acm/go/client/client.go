@@ -148,6 +148,173 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 访问IaaS层的身份
+type Accessor struct {
+	// Accessor关联的AccessKey
+	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
+	// Accessor关联的AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
+	AccessSecret *string `json:"access_secret,omitempty" xml:"access_secret,omitempty"`
+	// AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
+	Account *string `json:"account,omitempty" xml:"account,omitempty"`
+	// AccessKey创建时间，ISO8601格式
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// Accessor唯一标识
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// Accessor类型(RAM/ACCOUNT)
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+}
+
+func (s Accessor) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Accessor) GoString() string {
+	return s.String()
+}
+
+func (s *Accessor) SetAccessKey(v string) *Accessor {
+	s.AccessKey = &v
+	return s
+}
+
+func (s *Accessor) SetAccessSecret(v string) *Accessor {
+	s.AccessSecret = &v
+	return s
+}
+
+func (s *Accessor) SetAccount(v string) *Accessor {
+	s.Account = &v
+	return s
+}
+
+func (s *Accessor) SetCreateTime(v string) *Accessor {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *Accessor) SetId(v string) *Accessor {
+	s.Id = &v
+	return s
+}
+
+func (s *Accessor) SetType(v string) *Accessor {
+	s.Type = &v
+	return s
+}
+
+// 标签实体
+type Tag struct {
+	// 标签类型
+	TagType *string `json:"tag_type,omitempty" xml:"tag_type,omitempty" require:"true"`
+	// 标签值
+	TagValue *string `json:"tag_value,omitempty" xml:"tag_value,omitempty" require:"true"`
+}
+
+func (s Tag) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Tag) GoString() string {
+	return s.String()
+}
+
+func (s *Tag) SetTagType(v string) *Tag {
+	s.TagType = &v
+	return s
+}
+
+func (s *Tag) SetTagValue(v string) *Tag {
+	s.TagValue = &v
+	return s
+}
+
+// AccessKey
+type AccessKey struct {
+	// AccessKey创建时间，ISO8601格式
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// AccessKey唯一标识
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// AccessKey的秘钥，加密传输，网关返回后，使用调用方的AccesSecret进行解密
+	Secret *string `json:"secret,omitempty" xml:"secret,omitempty"`
+	// 状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// AccessKey最近一次修改时间，ISO8601格式
+	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
+}
+
+func (s AccessKey) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AccessKey) GoString() string {
+	return s.String()
+}
+
+func (s *AccessKey) SetCreateTime(v string) *AccessKey {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *AccessKey) SetId(v string) *AccessKey {
+	s.Id = &v
+	return s
+}
+
+func (s *AccessKey) SetSecret(v string) *AccessKey {
+	s.Secret = &v
+	return s
+}
+
+func (s *AccessKey) SetStatus(v string) *AccessKey {
+	s.Status = &v
+	return s
+}
+
+func (s *AccessKey) SetUpdateTime(v string) *AccessKey {
+	s.UpdateTime = &v
+	return s
+}
+
+// 企业
+type Customer struct {
+	// 企业创建时间，ISO8601格式
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// 企业ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 企业名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 企业最近一次修改时间，ISO8601格式
+	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
+}
+
+func (s Customer) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Customer) GoString() string {
+	return s.String()
+}
+
+func (s *Customer) SetCreateTime(v string) *Customer {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *Customer) SetId(v string) *Customer {
+	s.Id = &v
+	return s
+}
+
+func (s *Customer) SetName(v string) *Customer {
+	s.Name = &v
+	return s
+}
+
+func (s *Customer) SetUpdateTime(v string) *Customer {
+	s.UpdateTime = &v
+	return s
+}
+
 // 租户
 type Tenant struct {
 	// 蚂蚁通行证签约账户
@@ -252,6 +419,8 @@ type Operator struct {
 	Nickname *string `json:"nickname,omitempty" xml:"nickname,omitempty"`
 	// 真实姓名
 	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty"`
+	// 部门唯一码
+	DepartmentCode *string `json:"department_code,omitempty" xml:"department_code,omitempty"`
 	// 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 	// 操作员加入的租户列表
@@ -318,6 +487,11 @@ func (s *Operator) SetRealName(v string) *Operator {
 	return s
 }
 
+func (s *Operator) SetDepartmentCode(v string) *Operator {
+	s.DepartmentCode = &v
+	return s
+}
+
 func (s *Operator) SetStatus(v string) *Operator {
 	s.Status = &v
 	return s
@@ -329,173 +503,6 @@ func (s *Operator) SetTenants(v []*string) *Operator {
 }
 
 func (s *Operator) SetUpdateTime(v string) *Operator {
-	s.UpdateTime = &v
-	return s
-}
-
-// AccessKey
-type AccessKey struct {
-	// AccessKey创建时间，ISO8601格式
-	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// AccessKey唯一标识
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// AccessKey的秘钥，加密传输，网关返回后，使用调用方的AccesSecret进行解密
-	Secret *string `json:"secret,omitempty" xml:"secret,omitempty"`
-	// 状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// AccessKey最近一次修改时间，ISO8601格式
-	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
-}
-
-func (s AccessKey) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AccessKey) GoString() string {
-	return s.String()
-}
-
-func (s *AccessKey) SetCreateTime(v string) *AccessKey {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *AccessKey) SetId(v string) *AccessKey {
-	s.Id = &v
-	return s
-}
-
-func (s *AccessKey) SetSecret(v string) *AccessKey {
-	s.Secret = &v
-	return s
-}
-
-func (s *AccessKey) SetStatus(v string) *AccessKey {
-	s.Status = &v
-	return s
-}
-
-func (s *AccessKey) SetUpdateTime(v string) *AccessKey {
-	s.UpdateTime = &v
-	return s
-}
-
-// 标签实体
-type Tag struct {
-	// 标签类型
-	TagType *string `json:"tag_type,omitempty" xml:"tag_type,omitempty" require:"true"`
-	// 标签值
-	TagValue *string `json:"tag_value,omitempty" xml:"tag_value,omitempty" require:"true"`
-}
-
-func (s Tag) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Tag) GoString() string {
-	return s.String()
-}
-
-func (s *Tag) SetTagType(v string) *Tag {
-	s.TagType = &v
-	return s
-}
-
-func (s *Tag) SetTagValue(v string) *Tag {
-	s.TagValue = &v
-	return s
-}
-
-// 访问IaaS层的身份
-type Accessor struct {
-	// Accessor关联的AccessKey
-	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
-	// Accessor关联的AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
-	AccessSecret *string `json:"access_secret,omitempty" xml:"access_secret,omitempty"`
-	// AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
-	Account *string `json:"account,omitempty" xml:"account,omitempty"`
-	// AccessKey创建时间，ISO8601格式
-	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// Accessor唯一标识
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// Accessor类型(RAM/ACCOUNT)
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-}
-
-func (s Accessor) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Accessor) GoString() string {
-	return s.String()
-}
-
-func (s *Accessor) SetAccessKey(v string) *Accessor {
-	s.AccessKey = &v
-	return s
-}
-
-func (s *Accessor) SetAccessSecret(v string) *Accessor {
-	s.AccessSecret = &v
-	return s
-}
-
-func (s *Accessor) SetAccount(v string) *Accessor {
-	s.Account = &v
-	return s
-}
-
-func (s *Accessor) SetCreateTime(v string) *Accessor {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *Accessor) SetId(v string) *Accessor {
-	s.Id = &v
-	return s
-}
-
-func (s *Accessor) SetType(v string) *Accessor {
-	s.Type = &v
-	return s
-}
-
-// 企业
-type Customer struct {
-	// 企业创建时间，ISO8601格式
-	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// 企业ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 企业名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 企业最近一次修改时间，ISO8601格式
-	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
-}
-
-func (s Customer) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Customer) GoString() string {
-	return s.String()
-}
-
-func (s *Customer) SetCreateTime(v string) *Customer {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *Customer) SetId(v string) *Customer {
-	s.Id = &v
-	return s
-}
-
-func (s *Customer) SetName(v string) *Customer {
-	s.Name = &v
-	return s
-}
-
-func (s *Customer) SetUpdateTime(v string) *Customer {
 	s.UpdateTime = &v
 	return s
 }
@@ -650,6 +657,12 @@ type GetOperatorResponse struct {
 	Tenants []*string `json:"tenants,omitempty" xml:"tenants,omitempty" require:"true" type:"Repeated"`
 	// 操作员最近一次修改时间，ISO8601格式
 	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
+	// 工号
+	WorkNo *string `json:"work_no,omitempty" xml:"work_no,omitempty"`
+	// 是否是主账号
+	IsMaster *bool `json:"is_master,omitempty" xml:"is_master,omitempty"`
+	// 钉钉机器人 token
+	DdRobot *string `json:"dd_robot,omitempty" xml:"dd_robot,omitempty"`
 }
 
 func (s GetOperatorResponse) String() string {
@@ -740,6 +753,21 @@ func (s *GetOperatorResponse) SetUpdateTime(v string) *GetOperatorResponse {
 	return s
 }
 
+func (s *GetOperatorResponse) SetWorkNo(v string) *GetOperatorResponse {
+	s.WorkNo = &v
+	return s
+}
+
+func (s *GetOperatorResponse) SetIsMaster(v bool) *GetOperatorResponse {
+	s.IsMaster = &v
+	return s
+}
+
+func (s *GetOperatorResponse) SetDdRobot(v string) *GetOperatorResponse {
+	s.DdRobot = &v
+	return s
+}
+
 type QueryOperatorRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -753,6 +781,8 @@ type QueryOperatorRequest struct {
 	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty"`
 	// 租户唯一标识
 	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
+	// 部门唯一码
+	DepartmentCode *string `json:"department_code,omitempty" xml:"department_code,omitempty"`
 }
 
 func (s QueryOperatorRequest) String() string {
@@ -790,6 +820,11 @@ func (s *QueryOperatorRequest) SetRealName(v string) *QueryOperatorRequest {
 
 func (s *QueryOperatorRequest) SetTenant(v string) *QueryOperatorRequest {
 	s.Tenant = &v
+	return s
+}
+
+func (s *QueryOperatorRequest) SetDepartmentCode(v string) *QueryOperatorRequest {
+	s.DepartmentCode = &v
 	return s
 }
 
@@ -999,8 +1034,14 @@ type CreateOperatorRequest struct {
 	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty" require:"true"`
 	// 租户唯一标识
 	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
+	// 工号
+	WorkNo *string `json:"work_no,omitempty" xml:"work_no,omitempty"`
 	// 业务场景码
 	BussinessCode *string `json:"bussiness_code,omitempty" xml:"bussiness_code,omitempty"`
+	// 加密密码
+	EncryptedPassword *string `json:"encrypted_password,omitempty" xml:"encrypted_password,omitempty"`
+	// 首次登录是否需要重置密码，取值范围：true, false，默认为 false
+	ResetPasswordWhenFirstLogin *bool `json:"reset_password_when_first_login,omitempty" xml:"reset_password_when_first_login,omitempty"`
 }
 
 func (s CreateOperatorRequest) String() string {
@@ -1056,8 +1097,23 @@ func (s *CreateOperatorRequest) SetTenant(v string) *CreateOperatorRequest {
 	return s
 }
 
+func (s *CreateOperatorRequest) SetWorkNo(v string) *CreateOperatorRequest {
+	s.WorkNo = &v
+	return s
+}
+
 func (s *CreateOperatorRequest) SetBussinessCode(v string) *CreateOperatorRequest {
 	s.BussinessCode = &v
+	return s
+}
+
+func (s *CreateOperatorRequest) SetEncryptedPassword(v string) *CreateOperatorRequest {
+	s.EncryptedPassword = &v
+	return s
+}
+
+func (s *CreateOperatorRequest) SetResetPasswordWhenFirstLogin(v bool) *CreateOperatorRequest {
+	s.ResetPasswordWhenFirstLogin = &v
 	return s
 }
 
@@ -1390,6 +1446,12 @@ type CreateTenantRequest struct {
 	AntUid *string `json:"ant_uid,omitempty" xml:"ant_uid,omitempty" require:"true"`
 	// 金融云官网:ANTCLOUD, 蚂蚁开放平台：ANTOPEN, 口碑：KOUBEI
 	BusinessOwnerId *string `json:"business_owner_id,omitempty" xml:"business_owner_id,omitempty"`
+	// 租户名称，如果为空则随机生成
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 显示名称
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty"`
+	// 描述信息
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 }
 
 func (s CreateTenantRequest) String() string {
@@ -1412,6 +1474,21 @@ func (s *CreateTenantRequest) SetAntUid(v string) *CreateTenantRequest {
 
 func (s *CreateTenantRequest) SetBusinessOwnerId(v string) *CreateTenantRequest {
 	s.BusinessOwnerId = &v
+	return s
+}
+
+func (s *CreateTenantRequest) SetName(v string) *CreateTenantRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *CreateTenantRequest) SetDisplayName(v string) *CreateTenantRequest {
+	s.DisplayName = &v
+	return s
+}
+
+func (s *CreateTenantRequest) SetDescription(v string) *CreateTenantRequest {
+	s.Description = &v
 	return s
 }
 
@@ -2194,6 +2271,8 @@ type GetTenantIaasaccountRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 租户唯一标识
 	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
+	// 一方化调用参数，阿里云服务名
+	SourceId *string `json:"source_id,omitempty" xml:"source_id,omitempty"`
 }
 
 func (s GetTenantIaasaccountRequest) String() string {
@@ -2214,6 +2293,11 @@ func (s *GetTenantIaasaccountRequest) SetTenant(v string) *GetTenantIaasaccountR
 	return s
 }
 
+func (s *GetTenantIaasaccountRequest) SetSourceId(v string) *GetTenantIaasaccountRequest {
+	s.SourceId = &v
+	return s
+}
+
 type GetTenantIaasaccountResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -2231,6 +2315,10 @@ type GetTenantIaasaccountResponse struct {
 	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
 	// IaaS账户id
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// sts token
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty"`
+	// 是否是sts模式
+	StsMode *bool `json:"sts_mode,omitempty" xml:"sts_mode,omitempty"`
 }
 
 func (s GetTenantIaasaccountResponse) String() string {
@@ -2278,6 +2366,16 @@ func (s *GetTenantIaasaccountResponse) SetCreateTime(v string) *GetTenantIaasacc
 
 func (s *GetTenantIaasaccountResponse) SetId(v string) *GetTenantIaasaccountResponse {
 	s.Id = &v
+	return s
+}
+
+func (s *GetTenantIaasaccountResponse) SetAccessToken(v string) *GetTenantIaasaccountResponse {
+	s.AccessToken = &v
+	return s
+}
+
+func (s *GetTenantIaasaccountResponse) SetStsMode(v bool) *GetTenantIaasaccountResponse {
+	s.StsMode = &v
 	return s
 }
 
@@ -2925,6 +3023,8 @@ type GetMasterTenantResponse struct {
 	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
 	// 用户类型
 	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
+	// 租户的类型 N 支付宝 Q支付宝开放平台 V 蚂蚁链账号
+	TenantLevel *string `json:"tenant_level,omitempty" xml:"tenant_level,omitempty"`
 }
 
 func (s GetMasterTenantResponse) String() string {
@@ -2987,6 +3087,11 @@ func (s *GetMasterTenantResponse) SetUpdateTime(v string) *GetMasterTenantRespon
 
 func (s *GetMasterTenantResponse) SetUserType(v string) *GetMasterTenantResponse {
 	s.UserType = &v
+	return s
+}
+
+func (s *GetMasterTenantResponse) SetTenantLevel(v string) *GetMasterTenantResponse {
+	s.TenantLevel = &v
 	return s
 }
 
@@ -3267,6 +3372,63 @@ func (s *RemoveTenantBusinesstagResponse) SetResultMsg(v string) *RemoveTenantBu
 	return s
 }
 
+type SendOperatorActiveemailRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 操作员ID
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
+}
+
+func (s SendOperatorActiveemailRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendOperatorActiveemailRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SendOperatorActiveemailRequest) SetAuthToken(v string) *SendOperatorActiveemailRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SendOperatorActiveemailRequest) SetOperatorId(v string) *SendOperatorActiveemailRequest {
+	s.OperatorId = &v
+	return s
+}
+
+type SendOperatorActiveemailResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SendOperatorActiveemailResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendOperatorActiveemailResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SendOperatorActiveemailResponse) SetReqMsgId(v string) *SendOperatorActiveemailResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SendOperatorActiveemailResponse) SetResultCode(v string) *SendOperatorActiveemailResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SendOperatorActiveemailResponse) SetResultMsg(v string) *SendOperatorActiveemailResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -3389,7 +3551,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.19"),
+				"sdk_version":      tea.String("1.0.21"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -4416,6 +4578,40 @@ func (client *Client) RemoveTenantBusinesstagEx(request *RemoveTenantBusinesstag
 	}
 	_result = &RemoveTenantBusinesstagResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.tenant.businesstag.remove"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用户发送操作员的激活邮件
+ * Summary: 操作员发送激活邮件
+ */
+func (client *Client) SendOperatorActiveemail(request *SendOperatorActiveemailRequest) (_result *SendOperatorActiveemailResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SendOperatorActiveemailResponse{}
+	_body, _err := client.SendOperatorActiveemailEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用户发送操作员的激活邮件
+ * Summary: 操作员发送激活邮件
+ */
+func (client *Client) SendOperatorActiveemailEx(request *SendOperatorActiveemailRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendOperatorActiveemailResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SendOperatorActiveemailResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.operator.activeemail.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
