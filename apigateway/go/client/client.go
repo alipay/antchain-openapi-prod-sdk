@@ -148,6 +148,91 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// ProtocolVO
+type ProtocolVO struct {
+	// 协议类型
+	Protocol *string `json:"protocol,omitempty" xml:"protocol,omitempty"`
+	// 端口
+	Port *string `json:"port,omitempty" xml:"port,omitempty"`
+}
+
+func (s ProtocolVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ProtocolVO) GoString() string {
+	return s.String()
+}
+
+func (s *ProtocolVO) SetProtocol(v string) *ProtocolVO {
+	s.Protocol = &v
+	return s
+}
+
+func (s *ProtocolVO) SetPort(v string) *ProtocolVO {
+	s.Port = &v
+	return s
+}
+
+// RegistryVO
+type RegistryVO struct {
+	// host
+	Host *string `json:"host,omitempty" xml:"host,omitempty"`
+	// protocol_support
+	ProtocolSupport []*ProtocolVO `json:"protocol_support,omitempty" xml:"protocol_support,omitempty" type:"Repeated"`
+	// 注册中心类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+}
+
+func (s RegistryVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegistryVO) GoString() string {
+	return s.String()
+}
+
+func (s *RegistryVO) SetHost(v string) *RegistryVO {
+	s.Host = &v
+	return s
+}
+
+func (s *RegistryVO) SetProtocolSupport(v []*ProtocolVO) *RegistryVO {
+	s.ProtocolSupport = v
+	return s
+}
+
+func (s *RegistryVO) SetType(v string) *RegistryVO {
+	s.Type = &v
+	return s
+}
+
+// AuthenticationConfigVO
+type AuthenticationConfigVO struct {
+	// access_key
+	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
+	// secret_key
+	SecretKey *string `json:"secret_key,omitempty" xml:"secret_key,omitempty"`
+}
+
+func (s AuthenticationConfigVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthenticationConfigVO) GoString() string {
+	return s.String()
+}
+
+func (s *AuthenticationConfigVO) SetAccessKey(v string) *AuthenticationConfigVO {
+	s.AccessKey = &v
+	return s
+}
+
+func (s *AuthenticationConfigVO) SetSecretKey(v string) *AuthenticationConfigVO {
+	s.SecretKey = &v
+	return s
+}
+
 // 注册中心详情
 type RegistryInfoVO struct {
 	// workspace_id
@@ -297,32 +382,6 @@ func (s *RegistryInfoVO) SetNameSpace(v string) *RegistryInfoVO {
 
 func (s *RegistryInfoVO) SetClusterName(v string) *RegistryInfoVO {
 	s.ClusterName = &v
-	return s
-}
-
-// AuthenticationConfigVO
-type AuthenticationConfigVO struct {
-	// access_key
-	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
-	// secret_key
-	SecretKey *string `json:"secret_key,omitempty" xml:"secret_key,omitempty"`
-}
-
-func (s AuthenticationConfigVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AuthenticationConfigVO) GoString() string {
-	return s.String()
-}
-
-func (s *AuthenticationConfigVO) SetAccessKey(v string) *AuthenticationConfigVO {
-	s.AccessKey = &v
-	return s
-}
-
-func (s *AuthenticationConfigVO) SetSecretKey(v string) *AuthenticationConfigVO {
-	s.SecretKey = &v
 	return s
 }
 
@@ -527,29 +586,181 @@ func (s *SystemClusterVO) SetTlsType(v string) *SystemClusterVO {
 	return s
 }
 
-// ProtocolVO
-type ProtocolVO struct {
-	// 协议类型
-	Protocol *string `json:"protocol,omitempty" xml:"protocol,omitempty"`
-	// 端口
-	Port *string `json:"port,omitempty" xml:"port,omitempty"`
+// GateWayConfigVO
+type GateWayConfigVO struct {
+	// 唯一标识
+	GatewayId *string `json:"gateway_id,omitempty" xml:"gateway_id,omitempty"`
+	// host
+	Host *string `json:"host,omitempty" xml:"host,omitempty"`
+	// 唯一性标识
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// zone名称、网关名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 注册中心
+	Routers []*RegistryVO `json:"routers,omitempty" xml:"routers,omitempty" type:"Repeated"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// zone
+	Zone *string `json:"zone,omitempty" xml:"zone,omitempty"`
+	// 流量比例
+	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
 }
 
-func (s ProtocolVO) String() string {
+func (s GateWayConfigVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ProtocolVO) GoString() string {
+func (s GateWayConfigVO) GoString() string {
 	return s.String()
 }
 
-func (s *ProtocolVO) SetProtocol(v string) *ProtocolVO {
-	s.Protocol = &v
+func (s *GateWayConfigVO) SetGatewayId(v string) *GateWayConfigVO {
+	s.GatewayId = &v
 	return s
 }
 
-func (s *ProtocolVO) SetPort(v string) *ProtocolVO {
-	s.Port = &v
+func (s *GateWayConfigVO) SetHost(v string) *GateWayConfigVO {
+	s.Host = &v
+	return s
+}
+
+func (s *GateWayConfigVO) SetId(v string) *GateWayConfigVO {
+	s.Id = &v
+	return s
+}
+
+func (s *GateWayConfigVO) SetName(v string) *GateWayConfigVO {
+	s.Name = &v
+	return s
+}
+
+func (s *GateWayConfigVO) SetRouters(v []*RegistryVO) *GateWayConfigVO {
+	s.Routers = v
+	return s
+}
+
+func (s *GateWayConfigVO) SetTenantId(v string) *GateWayConfigVO {
+	s.TenantId = &v
+	return s
+}
+
+func (s *GateWayConfigVO) SetWorkspaceId(v string) *GateWayConfigVO {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *GateWayConfigVO) SetZone(v string) *GateWayConfigVO {
+	s.Zone = &v
+	return s
+}
+
+func (s *GateWayConfigVO) SetWeight(v int64) *GateWayConfigVO {
+	s.Weight = &v
+	return s
+}
+
+// RouterConfigVO
+type RouterConfigVO struct {
+	// argKey
+	ArgKey *string `json:"arg_key,omitempty" xml:"arg_key,omitempty"`
+	// argValue
+	ArgValue *string `json:"arg_value,omitempty" xml:"arg_value,omitempty"`
+	// matchType
+	MatchType *string `json:"match_type,omitempty" xml:"match_type,omitempty"`
+	// param_location
+	ParamLocation *string `json:"param_location,omitempty" xml:"param_location,omitempty"`
+	// router_type
+	RouterType *string `json:"router_type,omitempty" xml:"router_type,omitempty"`
+	// systemCluster
+	SystemCluster *SystemClusterVO `json:"system_cluster,omitempty" xml:"system_cluster,omitempty"`
+	// sys_id
+	SysId *string `json:"sys_id,omitempty" xml:"sys_id,omitempty"`
+	// weight
+	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
+	// interceptionRule
+	InterceptionRule *string `json:"interception_rule,omitempty" xml:"interception_rule,omitempty"`
+	// 跨域标识
+	GwId *string `json:"gw_id,omitempty" xml:"gw_id,omitempty"`
+	// region标识
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
+	// region名称
+	RegionName *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
+	// gateway_config
+	GatewayConfig *GateWayConfigVO `json:"gateway_config,omitempty" xml:"gateway_config,omitempty"`
+}
+
+func (s RouterConfigVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RouterConfigVO) GoString() string {
+	return s.String()
+}
+
+func (s *RouterConfigVO) SetArgKey(v string) *RouterConfigVO {
+	s.ArgKey = &v
+	return s
+}
+
+func (s *RouterConfigVO) SetArgValue(v string) *RouterConfigVO {
+	s.ArgValue = &v
+	return s
+}
+
+func (s *RouterConfigVO) SetMatchType(v string) *RouterConfigVO {
+	s.MatchType = &v
+	return s
+}
+
+func (s *RouterConfigVO) SetParamLocation(v string) *RouterConfigVO {
+	s.ParamLocation = &v
+	return s
+}
+
+func (s *RouterConfigVO) SetRouterType(v string) *RouterConfigVO {
+	s.RouterType = &v
+	return s
+}
+
+func (s *RouterConfigVO) SetSystemCluster(v *SystemClusterVO) *RouterConfigVO {
+	s.SystemCluster = v
+	return s
+}
+
+func (s *RouterConfigVO) SetSysId(v string) *RouterConfigVO {
+	s.SysId = &v
+	return s
+}
+
+func (s *RouterConfigVO) SetWeight(v int64) *RouterConfigVO {
+	s.Weight = &v
+	return s
+}
+
+func (s *RouterConfigVO) SetInterceptionRule(v string) *RouterConfigVO {
+	s.InterceptionRule = &v
+	return s
+}
+
+func (s *RouterConfigVO) SetGwId(v string) *RouterConfigVO {
+	s.GwId = &v
+	return s
+}
+
+func (s *RouterConfigVO) SetRegionId(v string) *RouterConfigVO {
+	s.RegionId = &v
+	return s
+}
+
+func (s *RouterConfigVO) SetRegionName(v string) *RouterConfigVO {
+	s.RegionName = &v
+	return s
+}
+
+func (s *RouterConfigVO) SetGatewayConfig(v *GateWayConfigVO) *RouterConfigVO {
+	s.GatewayConfig = v
 	return s
 }
 
@@ -614,81 +825,6 @@ func (s *EncryptConfigVO) SetWorkspaceId(v string) *EncryptConfigVO {
 	return s
 }
 
-// RouterConfigVO
-type RouterConfigVO struct {
-	// argKey
-	ArgKey *string `json:"arg_key,omitempty" xml:"arg_key,omitempty"`
-	// argValue
-	ArgValue *string `json:"arg_value,omitempty" xml:"arg_value,omitempty"`
-	// matchType
-	MatchType *string `json:"match_type,omitempty" xml:"match_type,omitempty"`
-	// param_location
-	ParamLocation *string `json:"param_location,omitempty" xml:"param_location,omitempty"`
-	// router_type
-	RouterType *string `json:"router_type,omitempty" xml:"router_type,omitempty"`
-	// systemCluster
-	SystemCluster *SystemClusterVO `json:"system_cluster,omitempty" xml:"system_cluster,omitempty"`
-	// sys_id
-	SysId *string `json:"sys_id,omitempty" xml:"sys_id,omitempty"`
-	// weight
-	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
-	// interceptionRule
-	InterceptionRule *string `json:"interception_rule,omitempty" xml:"interception_rule,omitempty"`
-}
-
-func (s RouterConfigVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RouterConfigVO) GoString() string {
-	return s.String()
-}
-
-func (s *RouterConfigVO) SetArgKey(v string) *RouterConfigVO {
-	s.ArgKey = &v
-	return s
-}
-
-func (s *RouterConfigVO) SetArgValue(v string) *RouterConfigVO {
-	s.ArgValue = &v
-	return s
-}
-
-func (s *RouterConfigVO) SetMatchType(v string) *RouterConfigVO {
-	s.MatchType = &v
-	return s
-}
-
-func (s *RouterConfigVO) SetParamLocation(v string) *RouterConfigVO {
-	s.ParamLocation = &v
-	return s
-}
-
-func (s *RouterConfigVO) SetRouterType(v string) *RouterConfigVO {
-	s.RouterType = &v
-	return s
-}
-
-func (s *RouterConfigVO) SetSystemCluster(v *SystemClusterVO) *RouterConfigVO {
-	s.SystemCluster = v
-	return s
-}
-
-func (s *RouterConfigVO) SetSysId(v string) *RouterConfigVO {
-	s.SysId = &v
-	return s
-}
-
-func (s *RouterConfigVO) SetWeight(v int64) *RouterConfigVO {
-	s.Weight = &v
-	return s
-}
-
-func (s *RouterConfigVO) SetInterceptionRule(v string) *RouterConfigVO {
-	s.InterceptionRule = &v
-	return s
-}
-
 // ApiRspCodeVO
 type ApiRspCodeVO struct {
 	// error_code
@@ -722,282 +858,29 @@ func (s *ApiRspCodeVO) SetErrorDesc(v string) *ApiRspCodeVO {
 	return s
 }
 
-// ApiGroupDomainVO
-type ApiGroupDomainVO struct {
-	// gmt_create
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// gmt_modified
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// api_group_id
-	ApiGroupId *string `json:"api_group_id,omitempty" xml:"api_group_id,omitempty"`
-	// domain_name
-	DomainName *string `json:"domain_name,omitempty" xml:"domain_name,omitempty"`
+// ApiCacheKeyVO
+type ApiCacheKeyVO struct {
+	// key
+	Key *string `json:"key,omitempty" xml:"key,omitempty"`
+	// location
+	Location *string `json:"location,omitempty" xml:"location,omitempty"`
 }
 
-func (s ApiGroupDomainVO) String() string {
+func (s ApiCacheKeyVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ApiGroupDomainVO) GoString() string {
+func (s ApiCacheKeyVO) GoString() string {
 	return s.String()
 }
 
-func (s *ApiGroupDomainVO) SetGmtCreate(v string) *ApiGroupDomainVO {
-	s.GmtCreate = &v
+func (s *ApiCacheKeyVO) SetKey(v string) *ApiCacheKeyVO {
+	s.Key = &v
 	return s
 }
 
-func (s *ApiGroupDomainVO) SetGmtModified(v string) *ApiGroupDomainVO {
-	s.GmtModified = &v
-	return s
-}
-
-func (s *ApiGroupDomainVO) SetApiGroupId(v string) *ApiGroupDomainVO {
-	s.ApiGroupId = &v
-	return s
-}
-
-func (s *ApiGroupDomainVO) SetDomainName(v string) *ApiGroupDomainVO {
-	s.DomainName = &v
-	return s
-}
-
-// RouterInfoVO
-type RouterInfoVO struct {
-	// api数
-	ApiCount *int64 `json:"api_count,omitempty" xml:"api_count,omitempty"`
-	// 是否可以删除
-	CanDelete *bool `json:"can_delete,omitempty" xml:"can_delete,omitempty"`
-	// 创建时间
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 更改时间
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// operator
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
-	// routerConfigs
-	RouterConfigs []*RouterConfigVO `json:"router_configs,omitempty" xml:"router_configs,omitempty" type:"Repeated"`
-	// router_id
-	RouterId *string `json:"router_id,omitempty" xml:"router_id,omitempty"`
-	// routerName
-	RouterName *string `json:"router_name,omitempty" xml:"router_name,omitempty"`
-	// routerType
-	RouterType *string `json:"router_type,omitempty" xml:"router_type,omitempty"`
-	// upstream_protocol
-	UpstreamProtocol *string `json:"upstream_protocol,omitempty" xml:"upstream_protocol,omitempty"`
-	// tenant_id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-}
-
-func (s RouterInfoVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RouterInfoVO) GoString() string {
-	return s.String()
-}
-
-func (s *RouterInfoVO) SetApiCount(v int64) *RouterInfoVO {
-	s.ApiCount = &v
-	return s
-}
-
-func (s *RouterInfoVO) SetCanDelete(v bool) *RouterInfoVO {
-	s.CanDelete = &v
-	return s
-}
-
-func (s *RouterInfoVO) SetGmtCreate(v string) *RouterInfoVO {
-	s.GmtCreate = &v
-	return s
-}
-
-func (s *RouterInfoVO) SetGmtModified(v string) *RouterInfoVO {
-	s.GmtModified = &v
-	return s
-}
-
-func (s *RouterInfoVO) SetOperator(v string) *RouterInfoVO {
-	s.Operator = &v
-	return s
-}
-
-func (s *RouterInfoVO) SetRouterConfigs(v []*RouterConfigVO) *RouterInfoVO {
-	s.RouterConfigs = v
-	return s
-}
-
-func (s *RouterInfoVO) SetRouterId(v string) *RouterInfoVO {
-	s.RouterId = &v
-	return s
-}
-
-func (s *RouterInfoVO) SetRouterName(v string) *RouterInfoVO {
-	s.RouterName = &v
-	return s
-}
-
-func (s *RouterInfoVO) SetRouterType(v string) *RouterInfoVO {
-	s.RouterType = &v
-	return s
-}
-
-func (s *RouterInfoVO) SetUpstreamProtocol(v string) *RouterInfoVO {
-	s.UpstreamProtocol = &v
-	return s
-}
-
-func (s *RouterInfoVO) SetTenantId(v string) *RouterInfoVO {
-	s.TenantId = &v
-	return s
-}
-
-func (s *RouterInfoVO) SetWorkspaceId(v string) *RouterInfoVO {
-	s.WorkspaceId = &v
-	return s
-}
-
-// AppInfoVO
-type AppInfoVO struct {
-	// api_count
-	ApiCount *int64 `json:"api_count,omitempty" xml:"api_count,omitempty"`
-	// app_id
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
-	// app_name
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
-	// appSecret
-	AppSecret *string `json:"app_secret,omitempty" xml:"app_secret,omitempty"`
-	// app类型
-	AppType *string `json:"app_type,omitempty" xml:"app_type,omitempty"`
-	// authenticationConfig
-	AuthenticationConfig *AuthenticationConfigVO `json:"authentication_config,omitempty" xml:"authentication_config,omitempty"`
-	// 是否可以删除
-	CanDelete *bool `json:"can_delete,omitempty" xml:"can_delete,omitempty"`
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// encryptConfig
-	EncryptConfig *EncryptConfigVO `json:"encrypt_config,omitempty" xml:"encrypt_config,omitempty"`
-	// 创建时间
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 更改时间
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// operator
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
-	// tenant_id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-}
-
-func (s AppInfoVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppInfoVO) GoString() string {
-	return s.String()
-}
-
-func (s *AppInfoVO) SetApiCount(v int64) *AppInfoVO {
-	s.ApiCount = &v
-	return s
-}
-
-func (s *AppInfoVO) SetAppId(v string) *AppInfoVO {
-	s.AppId = &v
-	return s
-}
-
-func (s *AppInfoVO) SetAppName(v string) *AppInfoVO {
-	s.AppName = &v
-	return s
-}
-
-func (s *AppInfoVO) SetAppSecret(v string) *AppInfoVO {
-	s.AppSecret = &v
-	return s
-}
-
-func (s *AppInfoVO) SetAppType(v string) *AppInfoVO {
-	s.AppType = &v
-	return s
-}
-
-func (s *AppInfoVO) SetAuthenticationConfig(v *AuthenticationConfigVO) *AppInfoVO {
-	s.AuthenticationConfig = v
-	return s
-}
-
-func (s *AppInfoVO) SetCanDelete(v bool) *AppInfoVO {
-	s.CanDelete = &v
-	return s
-}
-
-func (s *AppInfoVO) SetDescription(v string) *AppInfoVO {
-	s.Description = &v
-	return s
-}
-
-func (s *AppInfoVO) SetEncryptConfig(v *EncryptConfigVO) *AppInfoVO {
-	s.EncryptConfig = v
-	return s
-}
-
-func (s *AppInfoVO) SetGmtCreate(v string) *AppInfoVO {
-	s.GmtCreate = &v
-	return s
-}
-
-func (s *AppInfoVO) SetGmtModified(v string) *AppInfoVO {
-	s.GmtModified = &v
-	return s
-}
-
-func (s *AppInfoVO) SetOperator(v string) *AppInfoVO {
-	s.Operator = &v
-	return s
-}
-
-func (s *AppInfoVO) SetTenantId(v string) *AppInfoVO {
-	s.TenantId = &v
-	return s
-}
-
-func (s *AppInfoVO) SetWorkspaceId(v string) *AppInfoVO {
-	s.WorkspaceId = &v
-	return s
-}
-
-// RegistryVO
-type RegistryVO struct {
-	// host
-	Host *string `json:"host,omitempty" xml:"host,omitempty"`
-	// protocol_support
-	ProtocolSupport []*ProtocolVO `json:"protocol_support,omitempty" xml:"protocol_support,omitempty" type:"Repeated"`
-	// 注册中心类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-}
-
-func (s RegistryVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RegistryVO) GoString() string {
-	return s.String()
-}
-
-func (s *RegistryVO) SetHost(v string) *RegistryVO {
-	s.Host = &v
-	return s
-}
-
-func (s *RegistryVO) SetProtocolSupport(v []*ProtocolVO) *RegistryVO {
-	s.ProtocolSupport = v
-	return s
-}
-
-func (s *RegistryVO) SetType(v string) *RegistryVO {
-	s.Type = &v
+func (s *ApiCacheKeyVO) SetLocation(v string) *ApiCacheKeyVO {
+	s.Location = &v
 	return s
 }
 
@@ -1118,6 +1001,219 @@ func (s *ApiParamVO) SetTenantId(v string) *ApiParamVO {
 	return s
 }
 
+// RouterInfoVO
+type RouterInfoVO struct {
+	// api数
+	ApiCount *int64 `json:"api_count,omitempty" xml:"api_count,omitempty"`
+	// 是否可以删除
+	CanDelete *bool `json:"can_delete,omitempty" xml:"can_delete,omitempty"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更改时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// operator
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	// routerConfigs
+	RouterConfigs []*RouterConfigVO `json:"router_configs,omitempty" xml:"router_configs,omitempty" type:"Repeated"`
+	// router_id
+	RouterId *string `json:"router_id,omitempty" xml:"router_id,omitempty"`
+	// routerName
+	RouterName *string `json:"router_name,omitempty" xml:"router_name,omitempty"`
+	// routerType
+	RouterType *string `json:"router_type,omitempty" xml:"router_type,omitempty"`
+	// upstream_protocol
+	UpstreamProtocol *string `json:"upstream_protocol,omitempty" xml:"upstream_protocol,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// 跨域状态
+	CorsStatus *string `json:"cors_status,omitempty" xml:"cors_status,omitempty"`
+}
+
+func (s RouterInfoVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RouterInfoVO) GoString() string {
+	return s.String()
+}
+
+func (s *RouterInfoVO) SetApiCount(v int64) *RouterInfoVO {
+	s.ApiCount = &v
+	return s
+}
+
+func (s *RouterInfoVO) SetCanDelete(v bool) *RouterInfoVO {
+	s.CanDelete = &v
+	return s
+}
+
+func (s *RouterInfoVO) SetGmtCreate(v string) *RouterInfoVO {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *RouterInfoVO) SetGmtModified(v string) *RouterInfoVO {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *RouterInfoVO) SetOperator(v string) *RouterInfoVO {
+	s.Operator = &v
+	return s
+}
+
+func (s *RouterInfoVO) SetRouterConfigs(v []*RouterConfigVO) *RouterInfoVO {
+	s.RouterConfigs = v
+	return s
+}
+
+func (s *RouterInfoVO) SetRouterId(v string) *RouterInfoVO {
+	s.RouterId = &v
+	return s
+}
+
+func (s *RouterInfoVO) SetRouterName(v string) *RouterInfoVO {
+	s.RouterName = &v
+	return s
+}
+
+func (s *RouterInfoVO) SetRouterType(v string) *RouterInfoVO {
+	s.RouterType = &v
+	return s
+}
+
+func (s *RouterInfoVO) SetUpstreamProtocol(v string) *RouterInfoVO {
+	s.UpstreamProtocol = &v
+	return s
+}
+
+func (s *RouterInfoVO) SetTenantId(v string) *RouterInfoVO {
+	s.TenantId = &v
+	return s
+}
+
+func (s *RouterInfoVO) SetWorkspaceId(v string) *RouterInfoVO {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *RouterInfoVO) SetCorsStatus(v string) *RouterInfoVO {
+	s.CorsStatus = &v
+	return s
+}
+
+// AppInfoVO
+type AppInfoVO struct {
+	// api_count
+	ApiCount *int64 `json:"api_count,omitempty" xml:"api_count,omitempty"`
+	// app_id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	// appSecret
+	AppSecret *string `json:"app_secret,omitempty" xml:"app_secret,omitempty"`
+	// app类型
+	AppType *string `json:"app_type,omitempty" xml:"app_type,omitempty"`
+	// authenticationConfig
+	AuthenticationConfig *AuthenticationConfigVO `json:"authentication_config,omitempty" xml:"authentication_config,omitempty"`
+	// 是否可以删除
+	CanDelete *bool `json:"can_delete,omitempty" xml:"can_delete,omitempty"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// encryptConfig
+	EncryptConfig *EncryptConfigVO `json:"encrypt_config,omitempty" xml:"encrypt_config,omitempty"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更改时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// operator
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+}
+
+func (s AppInfoVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppInfoVO) GoString() string {
+	return s.String()
+}
+
+func (s *AppInfoVO) SetApiCount(v int64) *AppInfoVO {
+	s.ApiCount = &v
+	return s
+}
+
+func (s *AppInfoVO) SetAppId(v string) *AppInfoVO {
+	s.AppId = &v
+	return s
+}
+
+func (s *AppInfoVO) SetAppName(v string) *AppInfoVO {
+	s.AppName = &v
+	return s
+}
+
+func (s *AppInfoVO) SetAppSecret(v string) *AppInfoVO {
+	s.AppSecret = &v
+	return s
+}
+
+func (s *AppInfoVO) SetAppType(v string) *AppInfoVO {
+	s.AppType = &v
+	return s
+}
+
+func (s *AppInfoVO) SetAuthenticationConfig(v *AuthenticationConfigVO) *AppInfoVO {
+	s.AuthenticationConfig = v
+	return s
+}
+
+func (s *AppInfoVO) SetCanDelete(v bool) *AppInfoVO {
+	s.CanDelete = &v
+	return s
+}
+
+func (s *AppInfoVO) SetDescription(v string) *AppInfoVO {
+	s.Description = &v
+	return s
+}
+
+func (s *AppInfoVO) SetEncryptConfig(v *EncryptConfigVO) *AppInfoVO {
+	s.EncryptConfig = v
+	return s
+}
+
+func (s *AppInfoVO) SetGmtCreate(v string) *AppInfoVO {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *AppInfoVO) SetGmtModified(v string) *AppInfoVO {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *AppInfoVO) SetOperator(v string) *AppInfoVO {
+	s.Operator = &v
+	return s
+}
+
+func (s *AppInfoVO) SetTenantId(v string) *AppInfoVO {
+	s.TenantId = &v
+	return s
+}
+
+func (s *AppInfoVO) SetWorkspaceId(v string) *AppInfoVO {
+	s.WorkspaceId = &v
+	return s
+}
+
 // 数据模型参数VO
 type ApiModelParamVO struct {
 	// 默认值
@@ -1144,6 +1240,8 @@ type ApiModelParamVO struct {
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// workspace_id
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// model_description
+	ModelDescription *string `json:"model_description,omitempty" xml:"model_description,omitempty"`
 }
 
 func (s ApiModelParamVO) String() string {
@@ -1214,153 +1312,110 @@ func (s *ApiModelParamVO) SetWorkspaceId(v string) *ApiModelParamVO {
 	return s
 }
 
-// ApiCacheKeyVO
-type ApiCacheKeyVO struct {
-	// key
-	Key *string `json:"key,omitempty" xml:"key,omitempty"`
-	// location
-	Location *string `json:"location,omitempty" xml:"location,omitempty"`
-}
-
-func (s ApiCacheKeyVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ApiCacheKeyVO) GoString() string {
-	return s.String()
-}
-
-func (s *ApiCacheKeyVO) SetKey(v string) *ApiCacheKeyVO {
-	s.Key = &v
+func (s *ApiModelParamVO) SetModelDescription(v string) *ApiModelParamVO {
+	s.ModelDescription = &v
 	return s
 }
 
-func (s *ApiCacheKeyVO) SetLocation(v string) *ApiCacheKeyVO {
-	s.Location = &v
-	return s
-}
-
-// ApiGroupVO
-type ApiGroupVO struct {
-	// api数
-	ApiCount *int64 `json:"api_count,omitempty" xml:"api_count,omitempty"`
-	// 分组标识(全局唯一)
-	ApiGroupId *string `json:"api_group_id,omitempty" xml:"api_group_id,omitempty"`
-	// 用户授权开关
-	AuthUserSwitch *string `json:"auth_user_switch,omitempty" xml:"auth_user_switch,omitempty"`
-	// 是否可以删除
-	CanDelete *bool `json:"can_delete,omitempty" xml:"can_delete,omitempty"`
-	// 描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 域名
-	DomainName *string `json:"domain_name,omitempty" xml:"domain_name,omitempty"`
-	// 创建时间
+// ApiGroupDomainVO
+type ApiGroupDomainVO struct {
+	// gmt_create
 	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 更改时间
+	// gmt_modified
 	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 分组名
-	GroupName *string `json:"group_name,omitempty" xml:"group_name,omitempty"`
-	// need_api_auth_user
-	NeedApiAuthUser *bool `json:"need_api_auth_user,omitempty" xml:"need_api_auth_user,omitempty"`
-	// 创建人
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
-	// 租户标识
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// 工作空间标识
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-	// 是否可操作
-	OperationPermission *bool `json:"operation_permission,omitempty" xml:"operation_permission,omitempty"`
-	// DEFAULT|CUSTOM
-	DomainType *string `json:"domain_type,omitempty" xml:"domain_type,omitempty"`
-	// 自定义域名
-	DomainList []*ApiGroupDomainVO `json:"domain_list,omitempty" xml:"domain_list,omitempty" type:"Repeated"`
+	// api_group_id
+	ApiGroupId *string `json:"api_group_id,omitempty" xml:"api_group_id,omitempty"`
+	// domain_name
+	DomainName *string `json:"domain_name,omitempty" xml:"domain_name,omitempty"`
 }
 
-func (s ApiGroupVO) String() string {
+func (s ApiGroupDomainVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ApiGroupVO) GoString() string {
+func (s ApiGroupDomainVO) GoString() string {
 	return s.String()
 }
 
-func (s *ApiGroupVO) SetApiCount(v int64) *ApiGroupVO {
-	s.ApiCount = &v
-	return s
-}
-
-func (s *ApiGroupVO) SetApiGroupId(v string) *ApiGroupVO {
-	s.ApiGroupId = &v
-	return s
-}
-
-func (s *ApiGroupVO) SetAuthUserSwitch(v string) *ApiGroupVO {
-	s.AuthUserSwitch = &v
-	return s
-}
-
-func (s *ApiGroupVO) SetCanDelete(v bool) *ApiGroupVO {
-	s.CanDelete = &v
-	return s
-}
-
-func (s *ApiGroupVO) SetDescription(v string) *ApiGroupVO {
-	s.Description = &v
-	return s
-}
-
-func (s *ApiGroupVO) SetDomainName(v string) *ApiGroupVO {
-	s.DomainName = &v
-	return s
-}
-
-func (s *ApiGroupVO) SetGmtCreate(v string) *ApiGroupVO {
+func (s *ApiGroupDomainVO) SetGmtCreate(v string) *ApiGroupDomainVO {
 	s.GmtCreate = &v
 	return s
 }
 
-func (s *ApiGroupVO) SetGmtModified(v string) *ApiGroupVO {
+func (s *ApiGroupDomainVO) SetGmtModified(v string) *ApiGroupDomainVO {
 	s.GmtModified = &v
 	return s
 }
 
-func (s *ApiGroupVO) SetGroupName(v string) *ApiGroupVO {
-	s.GroupName = &v
+func (s *ApiGroupDomainVO) SetApiGroupId(v string) *ApiGroupDomainVO {
+	s.ApiGroupId = &v
 	return s
 }
 
-func (s *ApiGroupVO) SetNeedApiAuthUser(v bool) *ApiGroupVO {
-	s.NeedApiAuthUser = &v
+func (s *ApiGroupDomainVO) SetDomainName(v string) *ApiGroupDomainVO {
+	s.DomainName = &v
 	return s
 }
 
-func (s *ApiGroupVO) SetOperator(v string) *ApiGroupVO {
-	s.Operator = &v
+// 授权信息
+type SofaGwAuthenticationVO struct {
+	//
+	// access key
+	//
+	//
+	AuthAccessKey *string `json:"auth_access_key,omitempty" xml:"auth_access_key,omitempty"`
+	// secret key
+	AuthSecretKey *string `json:"auth_secret_key,omitempty" xml:"auth_secret_key,omitempty"`
+	// id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
+}
+
+func (s SofaGwAuthenticationVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SofaGwAuthenticationVO) GoString() string {
+	return s.String()
+}
+
+func (s *SofaGwAuthenticationVO) SetAuthAccessKey(v string) *SofaGwAuthenticationVO {
+	s.AuthAccessKey = &v
 	return s
 }
 
-func (s *ApiGroupVO) SetTenantId(v string) *ApiGroupVO {
-	s.TenantId = &v
+func (s *SofaGwAuthenticationVO) SetAuthSecretKey(v string) *SofaGwAuthenticationVO {
+	s.AuthSecretKey = &v
 	return s
 }
 
-func (s *ApiGroupVO) SetWorkspaceId(v string) *ApiGroupVO {
-	s.WorkspaceId = &v
+func (s *SofaGwAuthenticationVO) SetId(v int64) *SofaGwAuthenticationVO {
+	s.Id = &v
 	return s
 }
 
-func (s *ApiGroupVO) SetOperationPermission(v bool) *ApiGroupVO {
-	s.OperationPermission = &v
+// 排序信息
+type OrderInfo struct {
+	// 要排序的字段
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// 升序or降序
+	Order *string `json:"order,omitempty" xml:"order,omitempty" require:"true"`
+}
+
+func (s OrderInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderInfo) GoString() string {
+	return s.String()
+}
+
+func (s *OrderInfo) SetKey(v string) *OrderInfo {
+	s.Key = &v
 	return s
 }
 
-func (s *ApiGroupVO) SetDomainType(v string) *ApiGroupVO {
-	s.DomainType = &v
-	return s
-}
-
-func (s *ApiGroupVO) SetDomainList(v []*ApiGroupDomainVO) *ApiGroupVO {
-	s.DomainList = v
+func (s *OrderInfo) SetOrder(v string) *OrderInfo {
+	s.Order = &v
 	return s
 }
 
@@ -1502,6 +1557,654 @@ func (s *AuthAppInfoVO) SetTenantId(v string) *AuthAppInfoVO {
 	return s
 }
 
+// 策略管理
+type StrategyInfoVO struct {
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更新时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 策略唯一标识
+	StrategyId *string `json:"strategy_id,omitempty" xml:"strategy_id,omitempty"`
+	// 策略名称
+	StrategyName *string `json:"strategy_name,omitempty" xml:"strategy_name,omitempty"`
+	// 策略状态
+	StrategyStatus *string `json:"strategy_status,omitempty" xml:"strategy_status,omitempty"`
+	// 操作人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	//
+	// API数量
+	ApiCount *int64 `json:"api_count,omitempty" xml:"api_count,omitempty"`
+	// 策略描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 策略类型
+	StrategyType *string `json:"strategy_type,omitempty" xml:"strategy_type,omitempty"`
+	// 名单集合
+	Host []*string `json:"host,omitempty" xml:"host,omitempty" type:"Repeated"`
+	// true, false
+	CanDelete *bool `json:"can_delete,omitempty" xml:"can_delete,omitempty"`
+}
+
+func (s StrategyInfoVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StrategyInfoVO) GoString() string {
+	return s.String()
+}
+
+func (s *StrategyInfoVO) SetWorkspaceId(v string) *StrategyInfoVO {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *StrategyInfoVO) SetTenantId(v string) *StrategyInfoVO {
+	s.TenantId = &v
+	return s
+}
+
+func (s *StrategyInfoVO) SetGmtCreate(v string) *StrategyInfoVO {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *StrategyInfoVO) SetGmtModified(v string) *StrategyInfoVO {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *StrategyInfoVO) SetStrategyId(v string) *StrategyInfoVO {
+	s.StrategyId = &v
+	return s
+}
+
+func (s *StrategyInfoVO) SetStrategyName(v string) *StrategyInfoVO {
+	s.StrategyName = &v
+	return s
+}
+
+func (s *StrategyInfoVO) SetStrategyStatus(v string) *StrategyInfoVO {
+	s.StrategyStatus = &v
+	return s
+}
+
+func (s *StrategyInfoVO) SetOperator(v string) *StrategyInfoVO {
+	s.Operator = &v
+	return s
+}
+
+func (s *StrategyInfoVO) SetApiCount(v int64) *StrategyInfoVO {
+	s.ApiCount = &v
+	return s
+}
+
+func (s *StrategyInfoVO) SetDescription(v string) *StrategyInfoVO {
+	s.Description = &v
+	return s
+}
+
+func (s *StrategyInfoVO) SetStrategyType(v string) *StrategyInfoVO {
+	s.StrategyType = &v
+	return s
+}
+
+func (s *StrategyInfoVO) SetHost(v []*string) *StrategyInfoVO {
+	s.Host = v
+	return s
+}
+
+func (s *StrategyInfoVO) SetCanDelete(v bool) *StrategyInfoVO {
+	s.CanDelete = &v
+	return s
+}
+
+// SwitchVO
+type SwitchVO struct {
+	// 唯一标识
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 键值
+	Key *string `json:"key,omitempty" xml:"key,omitempty"`
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 开关
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+}
+
+func (s SwitchVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SwitchVO) GoString() string {
+	return s.String()
+}
+
+func (s *SwitchVO) SetId(v string) *SwitchVO {
+	s.Id = &v
+	return s
+}
+
+func (s *SwitchVO) SetKey(v string) *SwitchVO {
+	s.Key = &v
+	return s
+}
+
+func (s *SwitchVO) SetName(v string) *SwitchVO {
+	s.Name = &v
+	return s
+}
+
+func (s *SwitchVO) SetValue(v string) *SwitchVO {
+	s.Value = &v
+	return s
+}
+
+// LimitConfigVO
+type LimitConfigVO struct {
+	// 是否需要限制
+	NeedLimit *bool `json:"need_limit,omitempty" xml:"need_limit,omitempty"`
+	// 限制阈值
+	Limit *int64 `json:"limit,omitempty" xml:"limit,omitempty"`
+	// 限制响应类型
+	LimitRspType *string `json:"limit_rsp_type,omitempty" xml:"limit_rsp_type,omitempty"`
+	// 响应信息
+	RspMsg *string `json:"rsp_msg,omitempty" xml:"rsp_msg,omitempty"`
+}
+
+func (s LimitConfigVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LimitConfigVO) GoString() string {
+	return s.String()
+}
+
+func (s *LimitConfigVO) SetNeedLimit(v bool) *LimitConfigVO {
+	s.NeedLimit = &v
+	return s
+}
+
+func (s *LimitConfigVO) SetLimit(v int64) *LimitConfigVO {
+	s.Limit = &v
+	return s
+}
+
+func (s *LimitConfigVO) SetLimitRspType(v string) *LimitConfigVO {
+	s.LimitRspType = &v
+	return s
+}
+
+func (s *LimitConfigVO) SetRspMsg(v string) *LimitConfigVO {
+	s.RspMsg = &v
+	return s
+}
+
+// ApiGroupVO
+type ApiGroupVO struct {
+	// api数
+	ApiCount *int64 `json:"api_count,omitempty" xml:"api_count,omitempty"`
+	// 分组标识(全局唯一)
+	ApiGroupId *string `json:"api_group_id,omitempty" xml:"api_group_id,omitempty"`
+	// 用户授权开关
+	AuthUserSwitch *string `json:"auth_user_switch,omitempty" xml:"auth_user_switch,omitempty"`
+	// 是否可以删除
+	CanDelete *bool `json:"can_delete,omitempty" xml:"can_delete,omitempty"`
+	// 描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 域名
+	DomainName *string `json:"domain_name,omitempty" xml:"domain_name,omitempty"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更改时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 分组名
+	GroupName *string `json:"group_name,omitempty" xml:"group_name,omitempty"`
+	// need_api_auth_user
+	NeedApiAuthUser *bool `json:"need_api_auth_user,omitempty" xml:"need_api_auth_user,omitempty"`
+	// 创建人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	// 租户标识
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 工作空间标识
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// 是否可操作
+	OperationPermission *bool `json:"operation_permission,omitempty" xml:"operation_permission,omitempty"`
+	// DEFAULT|CUSTOM
+	DomainType *string `json:"domain_type,omitempty" xml:"domain_type,omitempty"`
+	// 自定义域名
+	DomainList []*ApiGroupDomainVO `json:"domain_list,omitempty" xml:"domain_list,omitempty" type:"Repeated"`
+}
+
+func (s ApiGroupVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiGroupVO) GoString() string {
+	return s.String()
+}
+
+func (s *ApiGroupVO) SetApiCount(v int64) *ApiGroupVO {
+	s.ApiCount = &v
+	return s
+}
+
+func (s *ApiGroupVO) SetApiGroupId(v string) *ApiGroupVO {
+	s.ApiGroupId = &v
+	return s
+}
+
+func (s *ApiGroupVO) SetAuthUserSwitch(v string) *ApiGroupVO {
+	s.AuthUserSwitch = &v
+	return s
+}
+
+func (s *ApiGroupVO) SetCanDelete(v bool) *ApiGroupVO {
+	s.CanDelete = &v
+	return s
+}
+
+func (s *ApiGroupVO) SetDescription(v string) *ApiGroupVO {
+	s.Description = &v
+	return s
+}
+
+func (s *ApiGroupVO) SetDomainName(v string) *ApiGroupVO {
+	s.DomainName = &v
+	return s
+}
+
+func (s *ApiGroupVO) SetGmtCreate(v string) *ApiGroupVO {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *ApiGroupVO) SetGmtModified(v string) *ApiGroupVO {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *ApiGroupVO) SetGroupName(v string) *ApiGroupVO {
+	s.GroupName = &v
+	return s
+}
+
+func (s *ApiGroupVO) SetNeedApiAuthUser(v bool) *ApiGroupVO {
+	s.NeedApiAuthUser = &v
+	return s
+}
+
+func (s *ApiGroupVO) SetOperator(v string) *ApiGroupVO {
+	s.Operator = &v
+	return s
+}
+
+func (s *ApiGroupVO) SetTenantId(v string) *ApiGroupVO {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ApiGroupVO) SetWorkspaceId(v string) *ApiGroupVO {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *ApiGroupVO) SetOperationPermission(v bool) *ApiGroupVO {
+	s.OperationPermission = &v
+	return s
+}
+
+func (s *ApiGroupVO) SetDomainType(v string) *ApiGroupVO {
+	s.DomainType = &v
+	return s
+}
+
+func (s *ApiGroupVO) SetDomainList(v []*ApiGroupDomainVO) *ApiGroupVO {
+	s.DomainList = v
+	return s
+}
+
+// ApiflowOutputVO
+type ApiflowOutputVO struct {
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// mapping_name
+	MappingName *string `json:"mapping_name,omitempty" xml:"mapping_name,omitempty"`
+}
+
+func (s ApiflowOutputVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiflowOutputVO) GoString() string {
+	return s.String()
+}
+
+func (s *ApiflowOutputVO) SetName(v string) *ApiflowOutputVO {
+	s.Name = &v
+	return s
+}
+
+func (s *ApiflowOutputVO) SetMappingName(v string) *ApiflowOutputVO {
+	s.MappingName = &v
+	return s
+}
+
+// GrayRuleConfigVO
+type GrayRuleConfigVO struct {
+	// lable
+	Lable *string `json:"lable,omitempty" xml:"lable,omitempty"`
+	// weight
+	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	// arg_key
+	ArgKey *string `json:"arg_key,omitempty" xml:"arg_key,omitempty"`
+	// match_type
+	MatchType *string `json:"match_type,omitempty" xml:"match_type,omitempty"`
+	// arg_value
+	ArgValue *string `json:"arg_value,omitempty" xml:"arg_value,omitempty"`
+}
+
+func (s GrayRuleConfigVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GrayRuleConfigVO) GoString() string {
+	return s.String()
+}
+
+func (s *GrayRuleConfigVO) SetLable(v string) *GrayRuleConfigVO {
+	s.Lable = &v
+	return s
+}
+
+func (s *GrayRuleConfigVO) SetWeight(v int64) *GrayRuleConfigVO {
+	s.Weight = &v
+	return s
+}
+
+func (s *GrayRuleConfigVO) SetAppName(v string) *GrayRuleConfigVO {
+	s.AppName = &v
+	return s
+}
+
+func (s *GrayRuleConfigVO) SetArgKey(v string) *GrayRuleConfigVO {
+	s.ArgKey = &v
+	return s
+}
+
+func (s *GrayRuleConfigVO) SetMatchType(v string) *GrayRuleConfigVO {
+	s.MatchType = &v
+	return s
+}
+
+func (s *GrayRuleConfigVO) SetArgValue(v string) *GrayRuleConfigVO {
+	s.ArgValue = &v
+	return s
+}
+
+// CorsInfoVO
+type CorsInfoVO struct {
+	// 是否允许发送COOKIE
+	AllowCredentials *bool `json:"allow_credentials,omitempty" xml:"allow_credentials,omitempty"`
+	// 允许的 request headers
+	AllowHeaders []*string `json:"allow_headers,omitempty" xml:"allow_headers,omitempty" type:"Repeated"`
+	// 允许的http method
+	AllowMethods []*string `json:"allow_methods,omitempty" xml:"allow_methods,omitempty" type:"Repeated"`
+	// 允许的 ORIGIN
+	AllowOrigins []*string `json:"allow_origins,omitempty" xml:"allow_origins,omitempty" type:"Repeated"`
+	// API数量
+	ApiCount *int64 `json:"api_count,omitempty" xml:"api_count,omitempty"`
+	// cors标识
+	CorsId *string `json:"cors_id,omitempty" xml:"cors_id,omitempty"`
+	// cors名称
+	CorsName *string `json:"cors_name,omitempty" xml:"cors_name,omitempty"`
+	// cors_scop
+	CorsScop *string `json:"cors_scop,omitempty" xml:"cors_scop,omitempty"`
+	// cors状态
+	CorsStatus *string `json:"cors_status,omitempty" xml:"cors_status,omitempty"`
+	// 允许暴露的 reponse header
+	ExposeHeaders []*string `json:"expose_headers,omitempty" xml:"expose_headers,omitempty" type:"Repeated"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更新时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 预检请求的有效期
+	MaxAge *int64 `json:"max_age,omitempty" xml:"max_age,omitempty"`
+	// 创建人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	// 租户标识
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 工作空间标识
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+}
+
+func (s CorsInfoVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CorsInfoVO) GoString() string {
+	return s.String()
+}
+
+func (s *CorsInfoVO) SetAllowCredentials(v bool) *CorsInfoVO {
+	s.AllowCredentials = &v
+	return s
+}
+
+func (s *CorsInfoVO) SetAllowHeaders(v []*string) *CorsInfoVO {
+	s.AllowHeaders = v
+	return s
+}
+
+func (s *CorsInfoVO) SetAllowMethods(v []*string) *CorsInfoVO {
+	s.AllowMethods = v
+	return s
+}
+
+func (s *CorsInfoVO) SetAllowOrigins(v []*string) *CorsInfoVO {
+	s.AllowOrigins = v
+	return s
+}
+
+func (s *CorsInfoVO) SetApiCount(v int64) *CorsInfoVO {
+	s.ApiCount = &v
+	return s
+}
+
+func (s *CorsInfoVO) SetCorsId(v string) *CorsInfoVO {
+	s.CorsId = &v
+	return s
+}
+
+func (s *CorsInfoVO) SetCorsName(v string) *CorsInfoVO {
+	s.CorsName = &v
+	return s
+}
+
+func (s *CorsInfoVO) SetCorsScop(v string) *CorsInfoVO {
+	s.CorsScop = &v
+	return s
+}
+
+func (s *CorsInfoVO) SetCorsStatus(v string) *CorsInfoVO {
+	s.CorsStatus = &v
+	return s
+}
+
+func (s *CorsInfoVO) SetExposeHeaders(v []*string) *CorsInfoVO {
+	s.ExposeHeaders = v
+	return s
+}
+
+func (s *CorsInfoVO) SetGmtCreate(v string) *CorsInfoVO {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *CorsInfoVO) SetGmtModified(v string) *CorsInfoVO {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *CorsInfoVO) SetMaxAge(v int64) *CorsInfoVO {
+	s.MaxAge = &v
+	return s
+}
+
+func (s *CorsInfoVO) SetOperator(v string) *CorsInfoVO {
+	s.Operator = &v
+	return s
+}
+
+func (s *CorsInfoVO) SetTenantId(v string) *CorsInfoVO {
+	s.TenantId = &v
+	return s
+}
+
+func (s *CorsInfoVO) SetWorkspaceId(v string) *CorsInfoVO {
+	s.WorkspaceId = &v
+	return s
+}
+
+// ApiVersionVO
+type ApiVersionVO struct {
+	// API标识
+	ApiId *string `json:"api_id,omitempty" xml:"api_id,omitempty"`
+	// editOperator
+	EditOperator *string `json:"edit_operator,omitempty" xml:"edit_operator,omitempty"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 编辑时间
+	GmtEdit *string `json:"gmt_edit,omitempty" xml:"gmt_edit,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更改时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// gmtOffline
+	GmtOffline *string `json:"gmt_offline,omitempty" xml:"gmt_offline,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// gmtOnline
+	GmtOnline *string `json:"gmt_online,omitempty" xml:"gmt_online,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// offlineDesc
+	OfflineDesc *string `json:"offline_desc,omitempty" xml:"offline_desc,omitempty"`
+	// offlineOperator
+	OfflineOperator *string `json:"offline_operator,omitempty" xml:"offline_operator,omitempty"`
+	// onlineDesc
+	OnlineDesc *string `json:"online_desc,omitempty" xml:"online_desc,omitempty"`
+	// onlineOperator
+	OnlineOperator *string `json:"online_operator,omitempty" xml:"online_operator,omitempty"`
+	// versionId
+	VersionId *string `json:"version_id,omitempty" xml:"version_id,omitempty"`
+	// 版本号
+	VersionNo *string `json:"version_no,omitempty" xml:"version_no,omitempty"`
+	// versionStatus
+	VersionStatus *string `json:"version_status,omitempty" xml:"version_status,omitempty"`
+	// 能否发布
+	CanOnline *bool `json:"can_online,omitempty" xml:"can_online,omitempty"`
+}
+
+func (s ApiVersionVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiVersionVO) GoString() string {
+	return s.String()
+}
+
+func (s *ApiVersionVO) SetApiId(v string) *ApiVersionVO {
+	s.ApiId = &v
+	return s
+}
+
+func (s *ApiVersionVO) SetEditOperator(v string) *ApiVersionVO {
+	s.EditOperator = &v
+	return s
+}
+
+func (s *ApiVersionVO) SetGmtCreate(v string) *ApiVersionVO {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *ApiVersionVO) SetGmtEdit(v string) *ApiVersionVO {
+	s.GmtEdit = &v
+	return s
+}
+
+func (s *ApiVersionVO) SetGmtModified(v string) *ApiVersionVO {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *ApiVersionVO) SetGmtOffline(v string) *ApiVersionVO {
+	s.GmtOffline = &v
+	return s
+}
+
+func (s *ApiVersionVO) SetGmtOnline(v string) *ApiVersionVO {
+	s.GmtOnline = &v
+	return s
+}
+
+func (s *ApiVersionVO) SetOfflineDesc(v string) *ApiVersionVO {
+	s.OfflineDesc = &v
+	return s
+}
+
+func (s *ApiVersionVO) SetOfflineOperator(v string) *ApiVersionVO {
+	s.OfflineOperator = &v
+	return s
+}
+
+func (s *ApiVersionVO) SetOnlineDesc(v string) *ApiVersionVO {
+	s.OnlineDesc = &v
+	return s
+}
+
+func (s *ApiVersionVO) SetOnlineOperator(v string) *ApiVersionVO {
+	s.OnlineOperator = &v
+	return s
+}
+
+func (s *ApiVersionVO) SetVersionId(v string) *ApiVersionVO {
+	s.VersionId = &v
+	return s
+}
+
+func (s *ApiVersionVO) SetVersionNo(v string) *ApiVersionVO {
+	s.VersionNo = &v
+	return s
+}
+
+func (s *ApiVersionVO) SetVersionStatus(v string) *ApiVersionVO {
+	s.VersionStatus = &v
+	return s
+}
+
+func (s *ApiVersionVO) SetCanOnline(v bool) *ApiVersionVO {
+	s.CanOnline = &v
+	return s
+}
+
+// ApiMockConfigVO
+type ApiMockConfigVO struct {
+	// mock_data
+	MockData *string `json:"mock_data,omitempty" xml:"mock_data,omitempty"`
+}
+
+func (s ApiMockConfigVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiMockConfigVO) GoString() string {
+	return s.String()
+}
+
+func (s *ApiMockConfigVO) SetMockData(v string) *ApiMockConfigVO {
+	s.MockData = &v
+	return s
+}
+
 // ApiCrossZoneVO
 type ApiCrossZoneVO struct {
 	// workspace_id
@@ -1577,22 +2280,146 @@ func (s *ApiCrossZoneVO) SetRegistryId(v string) *ApiCrossZoneVO {
 	return s
 }
 
-// ApiMockConfigVO
-type ApiMockConfigVO struct {
-	// mock_data
-	MockData *string `json:"mock_data,omitempty" xml:"mock_data,omitempty"`
+// ParamMappingInfoVO
+type ParamMappingInfoVO struct {
+	// api_count
+	ApiCount *int64 `json:"api_count,omitempty" xml:"api_count,omitempty"`
+	// can_delete
+	CanDelete *bool `json:"can_delete,omitempty" xml:"can_delete,omitempty"`
+	// 配置模板
+	ConfigTemplate *string `json:"config_template,omitempty" xml:"config_template,omitempty"`
+	// 描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// gmt_create
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// gmt_modified
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 映射类型
+	MappingType *string `json:"mapping_type,omitempty" xml:"mapping_type,omitempty"`
+	// 创建人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	// param_mapping_id
+	ParamMappingId *string `json:"param_mapping_id,omitempty" xml:"param_mapping_id,omitempty"`
+	// 参数映射名称
+	ParamMappingName *string `json:"param_mapping_name,omitempty" xml:"param_mapping_name,omitempty"`
+	// 脚本配置
+	ScriptConfig *string `json:"script_config,omitempty" xml:"script_config,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// 配置模板名称
+	ConfigTemplateName *string `json:"config_template_name,omitempty" xml:"config_template_name,omitempty"`
 }
 
-func (s ApiMockConfigVO) String() string {
+func (s ParamMappingInfoVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ApiMockConfigVO) GoString() string {
+func (s ParamMappingInfoVO) GoString() string {
 	return s.String()
 }
 
-func (s *ApiMockConfigVO) SetMockData(v string) *ApiMockConfigVO {
-	s.MockData = &v
+func (s *ParamMappingInfoVO) SetApiCount(v int64) *ParamMappingInfoVO {
+	s.ApiCount = &v
+	return s
+}
+
+func (s *ParamMappingInfoVO) SetCanDelete(v bool) *ParamMappingInfoVO {
+	s.CanDelete = &v
+	return s
+}
+
+func (s *ParamMappingInfoVO) SetConfigTemplate(v string) *ParamMappingInfoVO {
+	s.ConfigTemplate = &v
+	return s
+}
+
+func (s *ParamMappingInfoVO) SetDescription(v string) *ParamMappingInfoVO {
+	s.Description = &v
+	return s
+}
+
+func (s *ParamMappingInfoVO) SetGmtCreate(v string) *ParamMappingInfoVO {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *ParamMappingInfoVO) SetGmtModified(v string) *ParamMappingInfoVO {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *ParamMappingInfoVO) SetMappingType(v string) *ParamMappingInfoVO {
+	s.MappingType = &v
+	return s
+}
+
+func (s *ParamMappingInfoVO) SetOperator(v string) *ParamMappingInfoVO {
+	s.Operator = &v
+	return s
+}
+
+func (s *ParamMappingInfoVO) SetParamMappingId(v string) *ParamMappingInfoVO {
+	s.ParamMappingId = &v
+	return s
+}
+
+func (s *ParamMappingInfoVO) SetParamMappingName(v string) *ParamMappingInfoVO {
+	s.ParamMappingName = &v
+	return s
+}
+
+func (s *ParamMappingInfoVO) SetScriptConfig(v string) *ParamMappingInfoVO {
+	s.ScriptConfig = &v
+	return s
+}
+
+func (s *ParamMappingInfoVO) SetTenantId(v string) *ParamMappingInfoVO {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ParamMappingInfoVO) SetWorkspaceId(v string) *ParamMappingInfoVO {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *ParamMappingInfoVO) SetConfigTemplateName(v string) *ParamMappingInfoVO {
+	s.ConfigTemplateName = &v
+	return s
+}
+
+// ApiCacheVO
+type ApiCacheVO struct {
+	// 是否需要缓存
+	NeedCache *bool `json:"need_cache,omitempty" xml:"need_cache,omitempty"`
+	// TTL
+	Ttl *int64 `json:"ttl,omitempty" xml:"ttl,omitempty"`
+	// cacheKeys
+	CacheKeys []*ApiCacheKeyVO `json:"cache_keys,omitempty" xml:"cache_keys,omitempty" type:"Repeated"`
+}
+
+func (s ApiCacheVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiCacheVO) GoString() string {
+	return s.String()
+}
+
+func (s *ApiCacheVO) SetNeedCache(v bool) *ApiCacheVO {
+	s.NeedCache = &v
+	return s
+}
+
+func (s *ApiCacheVO) SetTtl(v int64) *ApiCacheVO {
+	s.Ttl = &v
+	return s
+}
+
+func (s *ApiCacheVO) SetCacheKeys(v []*ApiCacheKeyVO) *ApiCacheVO {
+	s.CacheKeys = v
 	return s
 }
 
@@ -1802,375 +2629,6 @@ func (s *ExternalAuthInfoVO) SetWorkspaceId(v string) *ExternalAuthInfoVO {
 	return s
 }
 
-// SwitchVO
-type SwitchVO struct {
-	// 唯一标识
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 键值
-	Key *string `json:"key,omitempty" xml:"key,omitempty"`
-	// 名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 开关
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
-}
-
-func (s SwitchVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SwitchVO) GoString() string {
-	return s.String()
-}
-
-func (s *SwitchVO) SetId(v string) *SwitchVO {
-	s.Id = &v
-	return s
-}
-
-func (s *SwitchVO) SetKey(v string) *SwitchVO {
-	s.Key = &v
-	return s
-}
-
-func (s *SwitchVO) SetName(v string) *SwitchVO {
-	s.Name = &v
-	return s
-}
-
-func (s *SwitchVO) SetValue(v string) *SwitchVO {
-	s.Value = &v
-	return s
-}
-
-// ApiflowOutputVO
-type ApiflowOutputVO struct {
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// mapping_name
-	MappingName *string `json:"mapping_name,omitempty" xml:"mapping_name,omitempty"`
-}
-
-func (s ApiflowOutputVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ApiflowOutputVO) GoString() string {
-	return s.String()
-}
-
-func (s *ApiflowOutputVO) SetName(v string) *ApiflowOutputVO {
-	s.Name = &v
-	return s
-}
-
-func (s *ApiflowOutputVO) SetMappingName(v string) *ApiflowOutputVO {
-	s.MappingName = &v
-	return s
-}
-
-// GateWayConfigVO
-type GateWayConfigVO struct {
-	// 唯一标识
-	GatewayId *string `json:"gateway_id,omitempty" xml:"gateway_id,omitempty"`
-	// host
-	Host *string `json:"host,omitempty" xml:"host,omitempty"`
-	// 唯一性标识
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// zone名称、网关名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 注册中心
-	Routers []*RegistryVO `json:"routers,omitempty" xml:"routers,omitempty" type:"Repeated"`
-	// tenant_id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-	// zone
-	Zone *string `json:"zone,omitempty" xml:"zone,omitempty"`
-	// 流量比例
-	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
-}
-
-func (s GateWayConfigVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GateWayConfigVO) GoString() string {
-	return s.String()
-}
-
-func (s *GateWayConfigVO) SetGatewayId(v string) *GateWayConfigVO {
-	s.GatewayId = &v
-	return s
-}
-
-func (s *GateWayConfigVO) SetHost(v string) *GateWayConfigVO {
-	s.Host = &v
-	return s
-}
-
-func (s *GateWayConfigVO) SetId(v string) *GateWayConfigVO {
-	s.Id = &v
-	return s
-}
-
-func (s *GateWayConfigVO) SetName(v string) *GateWayConfigVO {
-	s.Name = &v
-	return s
-}
-
-func (s *GateWayConfigVO) SetRouters(v []*RegistryVO) *GateWayConfigVO {
-	s.Routers = v
-	return s
-}
-
-func (s *GateWayConfigVO) SetTenantId(v string) *GateWayConfigVO {
-	s.TenantId = &v
-	return s
-}
-
-func (s *GateWayConfigVO) SetWorkspaceId(v string) *GateWayConfigVO {
-	s.WorkspaceId = &v
-	return s
-}
-
-func (s *GateWayConfigVO) SetZone(v string) *GateWayConfigVO {
-	s.Zone = &v
-	return s
-}
-
-func (s *GateWayConfigVO) SetWeight(v int64) *GateWayConfigVO {
-	s.Weight = &v
-	return s
-}
-
-// CorsInfoVO
-type CorsInfoVO struct {
-	// 是否允许发送COOKIE
-	AllowCredentials *bool `json:"allow_credentials,omitempty" xml:"allow_credentials,omitempty"`
-	// 允许的 request headers
-	AllowHeaders []*string `json:"allow_headers,omitempty" xml:"allow_headers,omitempty" type:"Repeated"`
-	// 允许的http method
-	AllowMethods []*string `json:"allow_methods,omitempty" xml:"allow_methods,omitempty" type:"Repeated"`
-	// 允许的 ORIGIN
-	AllowOrigins []*string `json:"allow_origins,omitempty" xml:"allow_origins,omitempty" type:"Repeated"`
-	// API数量
-	ApiCount *int64 `json:"api_count,omitempty" xml:"api_count,omitempty"`
-	// cors标识
-	CorsId *string `json:"cors_id,omitempty" xml:"cors_id,omitempty"`
-	// cors名称
-	CorsName *string `json:"cors_name,omitempty" xml:"cors_name,omitempty"`
-	// cors_scop
-	CorsScop *string `json:"cors_scop,omitempty" xml:"cors_scop,omitempty"`
-	// cors状态
-	CorsStatus *string `json:"cors_status,omitempty" xml:"cors_status,omitempty"`
-	// 允许暴露的 reponse header
-	ExposeHeaders []*string `json:"expose_headers,omitempty" xml:"expose_headers,omitempty" type:"Repeated"`
-	// 创建时间
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 更新时间
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 预检请求的有效期
-	MaxAge *int64 `json:"max_age,omitempty" xml:"max_age,omitempty"`
-	// 创建人
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
-	// 租户标识
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// 工作空间标识
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-}
-
-func (s CorsInfoVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CorsInfoVO) GoString() string {
-	return s.String()
-}
-
-func (s *CorsInfoVO) SetAllowCredentials(v bool) *CorsInfoVO {
-	s.AllowCredentials = &v
-	return s
-}
-
-func (s *CorsInfoVO) SetAllowHeaders(v []*string) *CorsInfoVO {
-	s.AllowHeaders = v
-	return s
-}
-
-func (s *CorsInfoVO) SetAllowMethods(v []*string) *CorsInfoVO {
-	s.AllowMethods = v
-	return s
-}
-
-func (s *CorsInfoVO) SetAllowOrigins(v []*string) *CorsInfoVO {
-	s.AllowOrigins = v
-	return s
-}
-
-func (s *CorsInfoVO) SetApiCount(v int64) *CorsInfoVO {
-	s.ApiCount = &v
-	return s
-}
-
-func (s *CorsInfoVO) SetCorsId(v string) *CorsInfoVO {
-	s.CorsId = &v
-	return s
-}
-
-func (s *CorsInfoVO) SetCorsName(v string) *CorsInfoVO {
-	s.CorsName = &v
-	return s
-}
-
-func (s *CorsInfoVO) SetCorsScop(v string) *CorsInfoVO {
-	s.CorsScop = &v
-	return s
-}
-
-func (s *CorsInfoVO) SetCorsStatus(v string) *CorsInfoVO {
-	s.CorsStatus = &v
-	return s
-}
-
-func (s *CorsInfoVO) SetExposeHeaders(v []*string) *CorsInfoVO {
-	s.ExposeHeaders = v
-	return s
-}
-
-func (s *CorsInfoVO) SetGmtCreate(v string) *CorsInfoVO {
-	s.GmtCreate = &v
-	return s
-}
-
-func (s *CorsInfoVO) SetGmtModified(v string) *CorsInfoVO {
-	s.GmtModified = &v
-	return s
-}
-
-func (s *CorsInfoVO) SetMaxAge(v int64) *CorsInfoVO {
-	s.MaxAge = &v
-	return s
-}
-
-func (s *CorsInfoVO) SetOperator(v string) *CorsInfoVO {
-	s.Operator = &v
-	return s
-}
-
-func (s *CorsInfoVO) SetTenantId(v string) *CorsInfoVO {
-	s.TenantId = &v
-	return s
-}
-
-func (s *CorsInfoVO) SetWorkspaceId(v string) *CorsInfoVO {
-	s.WorkspaceId = &v
-	return s
-}
-
-// 策略管理
-type StrategyInfoVO struct {
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-	// tenant_id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// 创建时间
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 更新时间
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 策略唯一标识
-	StrategyId *string `json:"strategy_id,omitempty" xml:"strategy_id,omitempty"`
-	// 策略名称
-	StrategyName *string `json:"strategy_name,omitempty" xml:"strategy_name,omitempty"`
-	// 策略状态
-	StrategyStatus *string `json:"strategy_status,omitempty" xml:"strategy_status,omitempty"`
-	// 操作人
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
-	//
-	// API数量
-	ApiCount *int64 `json:"api_count,omitempty" xml:"api_count,omitempty"`
-	// 策略描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 策略类型
-	StrategyType *string `json:"strategy_type,omitempty" xml:"strategy_type,omitempty"`
-	// 名单集合
-	Host []*string `json:"host,omitempty" xml:"host,omitempty" type:"Repeated"`
-	// true, false
-	CanDelete *bool `json:"can_delete,omitempty" xml:"can_delete,omitempty"`
-}
-
-func (s StrategyInfoVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s StrategyInfoVO) GoString() string {
-	return s.String()
-}
-
-func (s *StrategyInfoVO) SetWorkspaceId(v string) *StrategyInfoVO {
-	s.WorkspaceId = &v
-	return s
-}
-
-func (s *StrategyInfoVO) SetTenantId(v string) *StrategyInfoVO {
-	s.TenantId = &v
-	return s
-}
-
-func (s *StrategyInfoVO) SetGmtCreate(v string) *StrategyInfoVO {
-	s.GmtCreate = &v
-	return s
-}
-
-func (s *StrategyInfoVO) SetGmtModified(v string) *StrategyInfoVO {
-	s.GmtModified = &v
-	return s
-}
-
-func (s *StrategyInfoVO) SetStrategyId(v string) *StrategyInfoVO {
-	s.StrategyId = &v
-	return s
-}
-
-func (s *StrategyInfoVO) SetStrategyName(v string) *StrategyInfoVO {
-	s.StrategyName = &v
-	return s
-}
-
-func (s *StrategyInfoVO) SetStrategyStatus(v string) *StrategyInfoVO {
-	s.StrategyStatus = &v
-	return s
-}
-
-func (s *StrategyInfoVO) SetOperator(v string) *StrategyInfoVO {
-	s.Operator = &v
-	return s
-}
-
-func (s *StrategyInfoVO) SetApiCount(v int64) *StrategyInfoVO {
-	s.ApiCount = &v
-	return s
-}
-
-func (s *StrategyInfoVO) SetDescription(v string) *StrategyInfoVO {
-	s.Description = &v
-	return s
-}
-
-func (s *StrategyInfoVO) SetStrategyType(v string) *StrategyInfoVO {
-	s.StrategyType = &v
-	return s
-}
-
-func (s *StrategyInfoVO) SetHost(v []*string) *StrategyInfoVO {
-	s.Host = v
-	return s
-}
-
-func (s *StrategyInfoVO) SetCanDelete(v bool) *StrategyInfoVO {
-	s.CanDelete = &v
-	return s
-}
-
 // ActionResult
 type ActionResult struct {
 	// 错误码
@@ -2323,369 +2781,47 @@ func (s *ApiModelVO) SetModelType(v string) *ApiModelVO {
 	return s
 }
 
-// LimitConfigVO
-type LimitConfigVO struct {
-	// 是否需要限制
-	NeedLimit *bool `json:"need_limit,omitempty" xml:"need_limit,omitempty"`
-	// 限制阈值
-	Limit *int64 `json:"limit,omitempty" xml:"limit,omitempty"`
-	// 限制响应类型
-	LimitRspType *string `json:"limit_rsp_type,omitempty" xml:"limit_rsp_type,omitempty"`
-	// 响应信息
-	RspMsg *string `json:"rsp_msg,omitempty" xml:"rsp_msg,omitempty"`
+// PageInfo
+type PageInfo struct {
+	// 排序信息
+	OrderInfos []*OrderInfo `json:"order_infos,omitempty" xml:"order_infos,omitempty" type:"Repeated"`
+	// 当前页
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	// 每页记录数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
 }
 
-func (s LimitConfigVO) String() string {
+func (s PageInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s LimitConfigVO) GoString() string {
+func (s PageInfo) GoString() string {
 	return s.String()
 }
 
-func (s *LimitConfigVO) SetNeedLimit(v bool) *LimitConfigVO {
-	s.NeedLimit = &v
+func (s *PageInfo) SetOrderInfos(v []*OrderInfo) *PageInfo {
+	s.OrderInfos = v
 	return s
 }
 
-func (s *LimitConfigVO) SetLimit(v int64) *LimitConfigVO {
-	s.Limit = &v
+func (s *PageInfo) SetPageIndex(v int64) *PageInfo {
+	s.PageIndex = &v
 	return s
 }
 
-func (s *LimitConfigVO) SetLimitRspType(v string) *LimitConfigVO {
-	s.LimitRspType = &v
+func (s *PageInfo) SetPageSize(v int64) *PageInfo {
+	s.PageSize = &v
 	return s
 }
 
-func (s *LimitConfigVO) SetRspMsg(v string) *LimitConfigVO {
-	s.RspMsg = &v
+func (s *PageInfo) SetTotal(v int64) *PageInfo {
+	s.Total = &v
 	return s
 }
 
-// ApiCacheVO
-type ApiCacheVO struct {
-	// 是否需要缓存
-	NeedCache *bool `json:"need_cache,omitempty" xml:"need_cache,omitempty"`
-	// TTL
-	Ttl *int64 `json:"ttl,omitempty" xml:"ttl,omitempty"`
-	// cacheKeys
-	CacheKeys []*ApiCacheKeyVO `json:"cache_keys,omitempty" xml:"cache_keys,omitempty" type:"Repeated"`
-}
-
-func (s ApiCacheVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ApiCacheVO) GoString() string {
-	return s.String()
-}
-
-func (s *ApiCacheVO) SetNeedCache(v bool) *ApiCacheVO {
-	s.NeedCache = &v
-	return s
-}
-
-func (s *ApiCacheVO) SetTtl(v int64) *ApiCacheVO {
-	s.Ttl = &v
-	return s
-}
-
-func (s *ApiCacheVO) SetCacheKeys(v []*ApiCacheKeyVO) *ApiCacheVO {
-	s.CacheKeys = v
-	return s
-}
-
-// ParamMappingInfoVO
-type ParamMappingInfoVO struct {
-	// api_count
-	ApiCount *int64 `json:"api_count,omitempty" xml:"api_count,omitempty"`
-	// can_delete
-	CanDelete *bool `json:"can_delete,omitempty" xml:"can_delete,omitempty"`
-	// 配置模板
-	ConfigTemplate *string `json:"config_template,omitempty" xml:"config_template,omitempty"`
-	// 描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// gmt_create
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// gmt_modified
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 映射类型
-	MappingType *string `json:"mapping_type,omitempty" xml:"mapping_type,omitempty"`
-	// 创建人
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
-	// param_mapping_id
-	ParamMappingId *string `json:"param_mapping_id,omitempty" xml:"param_mapping_id,omitempty"`
-	// 参数映射名称
-	ParamMappingName *string `json:"param_mapping_name,omitempty" xml:"param_mapping_name,omitempty"`
-	// 脚本配置
-	ScriptConfig *string `json:"script_config,omitempty" xml:"script_config,omitempty"`
-	// tenant_id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-	// 配置模板名称
-	ConfigTemplateName *string `json:"config_template_name,omitempty" xml:"config_template_name,omitempty"`
-}
-
-func (s ParamMappingInfoVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ParamMappingInfoVO) GoString() string {
-	return s.String()
-}
-
-func (s *ParamMappingInfoVO) SetApiCount(v int64) *ParamMappingInfoVO {
-	s.ApiCount = &v
-	return s
-}
-
-func (s *ParamMappingInfoVO) SetCanDelete(v bool) *ParamMappingInfoVO {
-	s.CanDelete = &v
-	return s
-}
-
-func (s *ParamMappingInfoVO) SetConfigTemplate(v string) *ParamMappingInfoVO {
-	s.ConfigTemplate = &v
-	return s
-}
-
-func (s *ParamMappingInfoVO) SetDescription(v string) *ParamMappingInfoVO {
-	s.Description = &v
-	return s
-}
-
-func (s *ParamMappingInfoVO) SetGmtCreate(v string) *ParamMappingInfoVO {
-	s.GmtCreate = &v
-	return s
-}
-
-func (s *ParamMappingInfoVO) SetGmtModified(v string) *ParamMappingInfoVO {
-	s.GmtModified = &v
-	return s
-}
-
-func (s *ParamMappingInfoVO) SetMappingType(v string) *ParamMappingInfoVO {
-	s.MappingType = &v
-	return s
-}
-
-func (s *ParamMappingInfoVO) SetOperator(v string) *ParamMappingInfoVO {
-	s.Operator = &v
-	return s
-}
-
-func (s *ParamMappingInfoVO) SetParamMappingId(v string) *ParamMappingInfoVO {
-	s.ParamMappingId = &v
-	return s
-}
-
-func (s *ParamMappingInfoVO) SetParamMappingName(v string) *ParamMappingInfoVO {
-	s.ParamMappingName = &v
-	return s
-}
-
-func (s *ParamMappingInfoVO) SetScriptConfig(v string) *ParamMappingInfoVO {
-	s.ScriptConfig = &v
-	return s
-}
-
-func (s *ParamMappingInfoVO) SetTenantId(v string) *ParamMappingInfoVO {
-	s.TenantId = &v
-	return s
-}
-
-func (s *ParamMappingInfoVO) SetWorkspaceId(v string) *ParamMappingInfoVO {
-	s.WorkspaceId = &v
-	return s
-}
-
-func (s *ParamMappingInfoVO) SetConfigTemplateName(v string) *ParamMappingInfoVO {
-	s.ConfigTemplateName = &v
-	return s
-}
-
-// 排序信息
-type OrderInfo struct {
-	// 要排序的字段
-	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
-	// 升序or降序
-	Order *string `json:"order,omitempty" xml:"order,omitempty" require:"true"`
-}
-
-func (s OrderInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OrderInfo) GoString() string {
-	return s.String()
-}
-
-func (s *OrderInfo) SetKey(v string) *OrderInfo {
-	s.Key = &v
-	return s
-}
-
-func (s *OrderInfo) SetOrder(v string) *OrderInfo {
-	s.Order = &v
-	return s
-}
-
-// ApiVersionVO
-type ApiVersionVO struct {
-	// API标识
-	ApiId *string `json:"api_id,omitempty" xml:"api_id,omitempty"`
-	// editOperator
-	EditOperator *string `json:"edit_operator,omitempty" xml:"edit_operator,omitempty"`
-	// 创建时间
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 编辑时间
-	GmtEdit *string `json:"gmt_edit,omitempty" xml:"gmt_edit,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 更改时间
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// gmtOffline
-	GmtOffline *string `json:"gmt_offline,omitempty" xml:"gmt_offline,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// gmtOnline
-	GmtOnline *string `json:"gmt_online,omitempty" xml:"gmt_online,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// offlineDesc
-	OfflineDesc *string `json:"offline_desc,omitempty" xml:"offline_desc,omitempty"`
-	// offlineOperator
-	OfflineOperator *string `json:"offline_operator,omitempty" xml:"offline_operator,omitempty"`
-	// onlineDesc
-	OnlineDesc *string `json:"online_desc,omitempty" xml:"online_desc,omitempty"`
-	// onlineOperator
-	OnlineOperator *string `json:"online_operator,omitempty" xml:"online_operator,omitempty"`
-	// versionId
-	VersionId *string `json:"version_id,omitempty" xml:"version_id,omitempty"`
-	// 版本号
-	VersionNo *string `json:"version_no,omitempty" xml:"version_no,omitempty"`
-	// versionStatus
-	VersionStatus *string `json:"version_status,omitempty" xml:"version_status,omitempty"`
-	// 能否发布
-	CanOnline *bool `json:"can_online,omitempty" xml:"can_online,omitempty"`
-}
-
-func (s ApiVersionVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ApiVersionVO) GoString() string {
-	return s.String()
-}
-
-func (s *ApiVersionVO) SetApiId(v string) *ApiVersionVO {
-	s.ApiId = &v
-	return s
-}
-
-func (s *ApiVersionVO) SetEditOperator(v string) *ApiVersionVO {
-	s.EditOperator = &v
-	return s
-}
-
-func (s *ApiVersionVO) SetGmtCreate(v string) *ApiVersionVO {
-	s.GmtCreate = &v
-	return s
-}
-
-func (s *ApiVersionVO) SetGmtEdit(v string) *ApiVersionVO {
-	s.GmtEdit = &v
-	return s
-}
-
-func (s *ApiVersionVO) SetGmtModified(v string) *ApiVersionVO {
-	s.GmtModified = &v
-	return s
-}
-
-func (s *ApiVersionVO) SetGmtOffline(v string) *ApiVersionVO {
-	s.GmtOffline = &v
-	return s
-}
-
-func (s *ApiVersionVO) SetGmtOnline(v string) *ApiVersionVO {
-	s.GmtOnline = &v
-	return s
-}
-
-func (s *ApiVersionVO) SetOfflineDesc(v string) *ApiVersionVO {
-	s.OfflineDesc = &v
-	return s
-}
-
-func (s *ApiVersionVO) SetOfflineOperator(v string) *ApiVersionVO {
-	s.OfflineOperator = &v
-	return s
-}
-
-func (s *ApiVersionVO) SetOnlineDesc(v string) *ApiVersionVO {
-	s.OnlineDesc = &v
-	return s
-}
-
-func (s *ApiVersionVO) SetOnlineOperator(v string) *ApiVersionVO {
-	s.OnlineOperator = &v
-	return s
-}
-
-func (s *ApiVersionVO) SetVersionId(v string) *ApiVersionVO {
-	s.VersionId = &v
-	return s
-}
-
-func (s *ApiVersionVO) SetVersionNo(v string) *ApiVersionVO {
-	s.VersionNo = &v
-	return s
-}
-
-func (s *ApiVersionVO) SetVersionStatus(v string) *ApiVersionVO {
-	s.VersionStatus = &v
-	return s
-}
-
-func (s *ApiVersionVO) SetCanOnline(v bool) *ApiVersionVO {
-	s.CanOnline = &v
-	return s
-}
-
-// 授权信息
-type SofaGwAuthenticationVO struct {
-	//
-	// access key
-	//
-	//
-	AuthAccessKey *string `json:"auth_access_key,omitempty" xml:"auth_access_key,omitempty"`
-	// secret key
-	AuthSecretKey *string `json:"auth_secret_key,omitempty" xml:"auth_secret_key,omitempty"`
-	// id
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
-}
-
-func (s SofaGwAuthenticationVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SofaGwAuthenticationVO) GoString() string {
-	return s.String()
-}
-
-func (s *SofaGwAuthenticationVO) SetAuthAccessKey(v string) *SofaGwAuthenticationVO {
-	s.AuthAccessKey = &v
-	return s
-}
-
-func (s *SofaGwAuthenticationVO) SetAuthSecretKey(v string) *SofaGwAuthenticationVO {
-	s.AuthSecretKey = &v
-	return s
-}
-
-func (s *SofaGwAuthenticationVO) SetId(v int64) *SofaGwAuthenticationVO {
-	s.Id = &v
-	return s
-}
-
-// 编排VO
+// ApiflowMachineDefVO
 type ApiflowMachineDefVO struct {
 	//
 	// api数
@@ -2814,81 +2950,6 @@ func (s *ApiflowMachineDefVO) SetMachineStatus(v string) *ApiflowMachineDefVO {
 
 func (s *ApiflowMachineDefVO) SetFieldMapping(v string) *ApiflowMachineDefVO {
 	s.FieldMapping = &v
-	return s
-}
-
-// SystemConfigVO
-type SystemConfigVO struct {
-	// config_key
-	ConfigKey *string `json:"config_key,omitempty" xml:"config_key,omitempty"`
-	// config_value
-	ConfigValue *string `json:"config_value,omitempty" xml:"config_value,omitempty"`
-	// 描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// gateway_list
-	GatewayList []*GateWayConfigVO `json:"gateway_list,omitempty" xml:"gateway_list,omitempty" type:"Repeated"`
-	// 创建时间
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 更改时间
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// instance_id
-	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
-	// 创建人
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
-	// switch_list
-	SwitchList []*SwitchVO `json:"switch_list,omitempty" xml:"switch_list,omitempty" type:"Repeated"`
-}
-
-func (s SystemConfigVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SystemConfigVO) GoString() string {
-	return s.String()
-}
-
-func (s *SystemConfigVO) SetConfigKey(v string) *SystemConfigVO {
-	s.ConfigKey = &v
-	return s
-}
-
-func (s *SystemConfigVO) SetConfigValue(v string) *SystemConfigVO {
-	s.ConfigValue = &v
-	return s
-}
-
-func (s *SystemConfigVO) SetDescription(v string) *SystemConfigVO {
-	s.Description = &v
-	return s
-}
-
-func (s *SystemConfigVO) SetGatewayList(v []*GateWayConfigVO) *SystemConfigVO {
-	s.GatewayList = v
-	return s
-}
-
-func (s *SystemConfigVO) SetGmtCreate(v string) *SystemConfigVO {
-	s.GmtCreate = &v
-	return s
-}
-
-func (s *SystemConfigVO) SetGmtModified(v string) *SystemConfigVO {
-	s.GmtModified = &v
-	return s
-}
-
-func (s *SystemConfigVO) SetInstanceId(v string) *SystemConfigVO {
-	s.InstanceId = &v
-	return s
-}
-
-func (s *SystemConfigVO) SetOperator(v string) *SystemConfigVO {
-	s.Operator = &v
-	return s
-}
-
-func (s *SystemConfigVO) SetSwitchList(v []*SwitchVO) *SystemConfigVO {
-	s.SwitchList = v
 	return s
 }
 
@@ -3529,6 +3590,273 @@ func (s *ApiTransferVO) SetNeedTls(v bool) *ApiTransferVO {
 	return s
 }
 
+// GrayscaleConfigVO
+type GrayscaleConfigVO struct {
+	// gmt_create
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// gmt_modified
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// router_type
+	RouterType *string `json:"router_type,omitempty" xml:"router_type,omitempty"`
+	// service
+	Service *string `json:"service,omitempty" xml:"service,omitempty"`
+	// matchable_service
+	MatchableService *string `json:"matchable_service,omitempty" xml:"matchable_service,omitempty"`
+	// instance_id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
+	// router_id
+	RouterId *string `json:"router_id,omitempty" xml:"router_id,omitempty"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	// valid
+	Valid *string `json:"valid,omitempty" xml:"valid,omitempty"`
+	// gray_rule_config_list
+	GrayRuleConfigList []*GrayRuleConfigVO `json:"gray_rule_config_list,omitempty" xml:"gray_rule_config_list,omitempty" type:"Repeated"`
+}
+
+func (s GrayscaleConfigVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GrayscaleConfigVO) GoString() string {
+	return s.String()
+}
+
+func (s *GrayscaleConfigVO) SetGmtCreate(v string) *GrayscaleConfigVO {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *GrayscaleConfigVO) SetGmtModified(v string) *GrayscaleConfigVO {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *GrayscaleConfigVO) SetRouterType(v string) *GrayscaleConfigVO {
+	s.RouterType = &v
+	return s
+}
+
+func (s *GrayscaleConfigVO) SetService(v string) *GrayscaleConfigVO {
+	s.Service = &v
+	return s
+}
+
+func (s *GrayscaleConfigVO) SetMatchableService(v string) *GrayscaleConfigVO {
+	s.MatchableService = &v
+	return s
+}
+
+func (s *GrayscaleConfigVO) SetInstanceId(v string) *GrayscaleConfigVO {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *GrayscaleConfigVO) SetRouterId(v string) *GrayscaleConfigVO {
+	s.RouterId = &v
+	return s
+}
+
+func (s *GrayscaleConfigVO) SetAppName(v string) *GrayscaleConfigVO {
+	s.AppName = &v
+	return s
+}
+
+func (s *GrayscaleConfigVO) SetValid(v string) *GrayscaleConfigVO {
+	s.Valid = &v
+	return s
+}
+
+func (s *GrayscaleConfigVO) SetGrayRuleConfigList(v []*GrayRuleConfigVO) *GrayscaleConfigVO {
+	s.GrayRuleConfigList = v
+	return s
+}
+
+// ApiflowInstVO
+type ApiflowInstVO struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// machine_inst_id
+	MachineInstId *string `json:"machine_inst_id,omitempty" xml:"machine_inst_id,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// type
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// service_name
+	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty"`
+	// service_method
+	ServiceMethod *string `json:"service_method,omitempty" xml:"service_method,omitempty"`
+	// service_type
+	ServiceType *string `json:"service_type,omitempty" xml:"service_type,omitempty"`
+	// business_key
+	BusinessKey *string `json:"business_key,omitempty" xml:"business_key,omitempty"`
+	// state_id_compensated_for
+	StateIdCompensatedFor *string `json:"state_id_compensated_for,omitempty" xml:"state_id_compensated_for,omitempty"`
+	// state_id_retried_for
+	StateIdRetriedFor *string `json:"state_id_retried_for,omitempty" xml:"state_id_retried_for,omitempty"`
+	// gmt_started
+	GmtStarted *string `json:"gmt_started,omitempty" xml:"gmt_started,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// is_for_update
+	IsForUpdate *bool `json:"is_for_update,omitempty" xml:"is_for_update,omitempty"`
+	// input_params
+	InputParams *string `json:"input_params,omitempty" xml:"input_params,omitempty"`
+	// output_params
+	OutputParams *string `json:"output_params,omitempty" xml:"output_params,omitempty"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// excep
+	Excep *string `json:"excep,omitempty" xml:"excep,omitempty"`
+	// gmt_updated
+	GmtUpdated *string `json:"gmt_updated,omitempty" xml:"gmt_updated,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// gmt_end
+	GmtEnd *string `json:"gmt_end,omitempty" xml:"gmt_end,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s ApiflowInstVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiflowInstVO) GoString() string {
+	return s.String()
+}
+
+func (s *ApiflowInstVO) SetId(v string) *ApiflowInstVO {
+	s.Id = &v
+	return s
+}
+
+func (s *ApiflowInstVO) SetMachineInstId(v string) *ApiflowInstVO {
+	s.MachineInstId = &v
+	return s
+}
+
+func (s *ApiflowInstVO) SetName(v string) *ApiflowInstVO {
+	s.Name = &v
+	return s
+}
+
+func (s *ApiflowInstVO) SetType(v string) *ApiflowInstVO {
+	s.Type = &v
+	return s
+}
+
+func (s *ApiflowInstVO) SetServiceName(v string) *ApiflowInstVO {
+	s.ServiceName = &v
+	return s
+}
+
+func (s *ApiflowInstVO) SetServiceMethod(v string) *ApiflowInstVO {
+	s.ServiceMethod = &v
+	return s
+}
+
+func (s *ApiflowInstVO) SetServiceType(v string) *ApiflowInstVO {
+	s.ServiceType = &v
+	return s
+}
+
+func (s *ApiflowInstVO) SetBusinessKey(v string) *ApiflowInstVO {
+	s.BusinessKey = &v
+	return s
+}
+
+func (s *ApiflowInstVO) SetStateIdCompensatedFor(v string) *ApiflowInstVO {
+	s.StateIdCompensatedFor = &v
+	return s
+}
+
+func (s *ApiflowInstVO) SetStateIdRetriedFor(v string) *ApiflowInstVO {
+	s.StateIdRetriedFor = &v
+	return s
+}
+
+func (s *ApiflowInstVO) SetGmtStarted(v string) *ApiflowInstVO {
+	s.GmtStarted = &v
+	return s
+}
+
+func (s *ApiflowInstVO) SetIsForUpdate(v bool) *ApiflowInstVO {
+	s.IsForUpdate = &v
+	return s
+}
+
+func (s *ApiflowInstVO) SetInputParams(v string) *ApiflowInstVO {
+	s.InputParams = &v
+	return s
+}
+
+func (s *ApiflowInstVO) SetOutputParams(v string) *ApiflowInstVO {
+	s.OutputParams = &v
+	return s
+}
+
+func (s *ApiflowInstVO) SetStatus(v string) *ApiflowInstVO {
+	s.Status = &v
+	return s
+}
+
+func (s *ApiflowInstVO) SetExcep(v string) *ApiflowInstVO {
+	s.Excep = &v
+	return s
+}
+
+func (s *ApiflowInstVO) SetGmtUpdated(v string) *ApiflowInstVO {
+	s.GmtUpdated = &v
+	return s
+}
+
+func (s *ApiflowInstVO) SetGmtEnd(v string) *ApiflowInstVO {
+	s.GmtEnd = &v
+	return s
+}
+
+// 后端配置
+type SofaGwUpstreamVO struct {
+	// GET/POST/PUT/DELETE
+	Method *string `json:"method,omitempty" xml:"method,omitempty"`
+	// 协议
+	Schema *string `json:"schema,omitempty" xml:"schema,omitempty"`
+	// timeout
+	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty"`
+	// url
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// 是否签名
+	Verify *bool `json:"verify,omitempty" xml:"verify,omitempty"`
+}
+
+func (s SofaGwUpstreamVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SofaGwUpstreamVO) GoString() string {
+	return s.String()
+}
+
+func (s *SofaGwUpstreamVO) SetMethod(v string) *SofaGwUpstreamVO {
+	s.Method = &v
+	return s
+}
+
+func (s *SofaGwUpstreamVO) SetSchema(v string) *SofaGwUpstreamVO {
+	s.Schema = &v
+	return s
+}
+
+func (s *SofaGwUpstreamVO) SetTimeout(v int64) *SofaGwUpstreamVO {
+	s.Timeout = &v
+	return s
+}
+
+func (s *SofaGwUpstreamVO) SetUrl(v string) *SofaGwUpstreamVO {
+	s.Url = &v
+	return s
+}
+
+func (s *SofaGwUpstreamVO) SetVerify(v bool) *SofaGwUpstreamVO {
+	s.Verify = &v
+	return s
+}
+
 // ApiInfoVO
 type ApiInfoVO struct {
 	// API缓存模型
@@ -3697,8 +4025,8 @@ type ApiInfoVO struct {
 	FieldMapping []*ApiflowOutputVO `json:"field_mapping,omitempty" xml:"field_mapping,omitempty" type:"Repeated"`
 	// triple协议证书开关
 	NeedTls *bool `json:"need_tls,omitempty" xml:"need_tls,omitempty"`
-	// api_group_info
-	ApiGroupInfo *ApiGroupVO `json:"api_group_info,omitempty" xml:"api_group_info,omitempty"`
+	// api_group
+	ApiGroup *ApiGroupVO `json:"api_group,omitempty" xml:"api_group,omitempty"`
 	// 授权对象列表
 	AuthAppInfoList []*AuthAppInfoVO `json:"auth_app_info_list,omitempty" xml:"auth_app_info_list,omitempty" type:"Repeated"`
 	// 请求body数据模型
@@ -3707,6 +4035,10 @@ type ApiInfoVO struct {
 	RspModelInfo *ApiModelVO `json:"rsp_model_info,omitempty" xml:"rsp_model_info,omitempty"`
 	// 实例ID
 	UpstreamInstanceId *string `json:"upstream_instance_id,omitempty" xml:"upstream_instance_id,omitempty"`
+	// 跨域状态
+	CorsStatus *string `json:"cors_status,omitempty" xml:"cors_status,omitempty"`
+	// gray_type
+	GrayType *bool `json:"gray_type,omitempty" xml:"gray_type,omitempty"`
 }
 
 func (s ApiInfoVO) String() string {
@@ -4132,8 +4464,8 @@ func (s *ApiInfoVO) SetNeedTls(v bool) *ApiInfoVO {
 	return s
 }
 
-func (s *ApiInfoVO) SetApiGroupInfo(v *ApiGroupVO) *ApiInfoVO {
-	s.ApiGroupInfo = v
+func (s *ApiInfoVO) SetApiGroup(v *ApiGroupVO) *ApiInfoVO {
+	s.ApiGroup = v
 	return s
 }
 
@@ -4157,838 +4489,13 @@ func (s *ApiInfoVO) SetUpstreamInstanceId(v string) *ApiInfoVO {
 	return s
 }
 
-// 集群里的服务器信息
-type SofaGwHostVO struct {
-	// 服务器地址，域名或ip(:端口)
-	Address *string `json:"address,omitempty" xml:"address,omitempty"`
-	// host name
-	HostName *string `json:"host_name,omitempty" xml:"host_name,omitempty"`
-	// 元信息
-	MetaData *string `json:"meta_data,omitempty" xml:"meta_data,omitempty"`
-}
-
-func (s SofaGwHostVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SofaGwHostVO) GoString() string {
-	return s.String()
-}
-
-func (s *SofaGwHostVO) SetAddress(v string) *SofaGwHostVO {
-	s.Address = &v
-	return s
-}
-
-func (s *SofaGwHostVO) SetHostName(v string) *SofaGwHostVO {
-	s.HostName = &v
-	return s
-}
-
-func (s *SofaGwHostVO) SetMetaData(v string) *SofaGwHostVO {
-	s.MetaData = &v
-	return s
-}
-
-// 后端配置
-type SofaGwUpstreamVO struct {
-	// GET/POST/PUT/DELETE
-	Method *string `json:"method,omitempty" xml:"method,omitempty"`
-	// 协议
-	Schema *string `json:"schema,omitempty" xml:"schema,omitempty"`
-	// timeout
-	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty"`
-	// url
-	Url *string `json:"url,omitempty" xml:"url,omitempty"`
-	// 是否签名
-	Verify *bool `json:"verify,omitempty" xml:"verify,omitempty"`
-}
-
-func (s SofaGwUpstreamVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SofaGwUpstreamVO) GoString() string {
-	return s.String()
-}
-
-func (s *SofaGwUpstreamVO) SetMethod(v string) *SofaGwUpstreamVO {
-	s.Method = &v
-	return s
-}
-
-func (s *SofaGwUpstreamVO) SetSchema(v string) *SofaGwUpstreamVO {
-	s.Schema = &v
-	return s
-}
-
-func (s *SofaGwUpstreamVO) SetTimeout(v int64) *SofaGwUpstreamVO {
-	s.Timeout = &v
-	return s
-}
-
-func (s *SofaGwUpstreamVO) SetUrl(v string) *SofaGwUpstreamVO {
-	s.Url = &v
-	return s
-}
-
-func (s *SofaGwUpstreamVO) SetVerify(v bool) *SofaGwUpstreamVO {
-	s.Verify = &v
-	return s
-}
-
-// ApiflowMachineInstVO
-type ApiflowMachineInstVO struct {
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// machine_id
-	MachineId *string `json:"machine_id,omitempty" xml:"machine_id,omitempty"`
-	// tenant_id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// parent_id
-	ParentId *string `json:"parent_id,omitempty" xml:"parent_id,omitempty"`
-	// gmt_started
-	GmtStarted *string `json:"gmt_started,omitempty" xml:"gmt_started,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// business_key
-	BusinessKey *string `json:"business_key,omitempty" xml:"business_key,omitempty"`
-	// start_params
-	StartParams *string `json:"start_params,omitempty" xml:"start_params,omitempty"`
-	// gmt_end
-	GmtEnd *string `json:"gmt_end,omitempty" xml:"gmt_end,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// excep
-	Excep *string `json:"excep,omitempty" xml:"excep,omitempty"`
-	// end_params
-	EndParams *string `json:"end_params,omitempty" xml:"end_params,omitempty"`
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// compensation_status
-	CompensationStatus *string `json:"compensation_status,omitempty" xml:"compensation_status,omitempty"`
-	// is_running
-	IsRunning *bool `json:"is_running,omitempty" xml:"is_running,omitempty"`
-	// gmt_updated
-	GmtUpdated *string `json:"gmt_updated,omitempty" xml:"gmt_updated,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s ApiflowMachineInstVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ApiflowMachineInstVO) GoString() string {
-	return s.String()
-}
-
-func (s *ApiflowMachineInstVO) SetId(v string) *ApiflowMachineInstVO {
-	s.Id = &v
-	return s
-}
-
-func (s *ApiflowMachineInstVO) SetMachineId(v string) *ApiflowMachineInstVO {
-	s.MachineId = &v
-	return s
-}
-
-func (s *ApiflowMachineInstVO) SetTenantId(v string) *ApiflowMachineInstVO {
-	s.TenantId = &v
-	return s
-}
-
-func (s *ApiflowMachineInstVO) SetParentId(v string) *ApiflowMachineInstVO {
-	s.ParentId = &v
-	return s
-}
-
-func (s *ApiflowMachineInstVO) SetGmtStarted(v string) *ApiflowMachineInstVO {
-	s.GmtStarted = &v
-	return s
-}
-
-func (s *ApiflowMachineInstVO) SetBusinessKey(v string) *ApiflowMachineInstVO {
-	s.BusinessKey = &v
-	return s
-}
-
-func (s *ApiflowMachineInstVO) SetStartParams(v string) *ApiflowMachineInstVO {
-	s.StartParams = &v
-	return s
-}
-
-func (s *ApiflowMachineInstVO) SetGmtEnd(v string) *ApiflowMachineInstVO {
-	s.GmtEnd = &v
-	return s
-}
-
-func (s *ApiflowMachineInstVO) SetExcep(v string) *ApiflowMachineInstVO {
-	s.Excep = &v
-	return s
-}
-
-func (s *ApiflowMachineInstVO) SetEndParams(v string) *ApiflowMachineInstVO {
-	s.EndParams = &v
-	return s
-}
-
-func (s *ApiflowMachineInstVO) SetStatus(v string) *ApiflowMachineInstVO {
-	s.Status = &v
-	return s
-}
-
-func (s *ApiflowMachineInstVO) SetCompensationStatus(v string) *ApiflowMachineInstVO {
-	s.CompensationStatus = &v
-	return s
-}
-
-func (s *ApiflowMachineInstVO) SetIsRunning(v bool) *ApiflowMachineInstVO {
-	s.IsRunning = &v
-	return s
-}
-
-func (s *ApiflowMachineInstVO) SetGmtUpdated(v string) *ApiflowMachineInstVO {
-	s.GmtUpdated = &v
-	return s
-}
-
-// BatchActionResult
-type BatchActionResult struct {
-	// 批量挂载结果
-	Results []*ActionResult `json:"results,omitempty" xml:"results,omitempty" type:"Repeated"`
-	// total_count
-	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
-	// success_count
-	SuccessCount *int64 `json:"success_count,omitempty" xml:"success_count,omitempty"`
-	// failed_count
-	FailedCount *int64 `json:"failed_count,omitempty" xml:"failed_count,omitempty"`
-}
-
-func (s BatchActionResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BatchActionResult) GoString() string {
-	return s.String()
-}
-
-func (s *BatchActionResult) SetResults(v []*ActionResult) *BatchActionResult {
-	s.Results = v
-	return s
-}
-
-func (s *BatchActionResult) SetTotalCount(v int64) *BatchActionResult {
-	s.TotalCount = &v
-	return s
-}
-
-func (s *BatchActionResult) SetSuccessCount(v int64) *BatchActionResult {
-	s.SuccessCount = &v
-	return s
-}
-
-func (s *BatchActionResult) SetFailedCount(v int64) *BatchActionResult {
-	s.FailedCount = &v
-	return s
-}
-
-// ImportResult
-type ImportResult struct {
-	// code
-	Code *string `json:"code,omitempty" xml:"code,omitempty"`
-	// 覆盖报错的配置
-	ErrorConfig *string `json:"error_config,omitempty" xml:"error_config,omitempty"`
-	// error_message
-	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
-	// API的ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// API的名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 覆盖成功的标识
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 覆盖失败的配置名称
-	ConfigName *string `json:"config_name,omitempty" xml:"config_name,omitempty"`
-}
-
-func (s ImportResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ImportResult) GoString() string {
-	return s.String()
-}
-
-func (s *ImportResult) SetCode(v string) *ImportResult {
-	s.Code = &v
-	return s
-}
-
-func (s *ImportResult) SetErrorConfig(v string) *ImportResult {
-	s.ErrorConfig = &v
-	return s
-}
-
-func (s *ImportResult) SetErrorMessage(v string) *ImportResult {
-	s.ErrorMessage = &v
-	return s
-}
-
-func (s *ImportResult) SetId(v string) *ImportResult {
-	s.Id = &v
-	return s
-}
-
-func (s *ImportResult) SetName(v string) *ImportResult {
-	s.Name = &v
-	return s
-}
-
-func (s *ImportResult) SetSuccess(v bool) *ImportResult {
-	s.Success = &v
-	return s
-}
-
-func (s *ImportResult) SetConfigName(v string) *ImportResult {
-	s.ConfigName = &v
-	return s
-}
-
-// ApiTestParamVO
-type ApiTestParamVO struct {
-	// location
-	Location *string `json:"location,omitempty" xml:"location,omitempty"`
-	// key
-	Key *string `json:"key,omitempty" xml:"key,omitempty"`
-	// value
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
-}
-
-func (s ApiTestParamVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ApiTestParamVO) GoString() string {
-	return s.String()
-}
-
-func (s *ApiTestParamVO) SetLocation(v string) *ApiTestParamVO {
-	s.Location = &v
-	return s
-}
-
-func (s *ApiTestParamVO) SetKey(v string) *ApiTestParamVO {
-	s.Key = &v
-	return s
-}
-
-func (s *ApiTestParamVO) SetValue(v string) *ApiTestParamVO {
-	s.Value = &v
-	return s
-}
-
-// ApiflowInstVO
-type ApiflowInstVO struct {
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// machine_inst_id
-	MachineInstId *string `json:"machine_inst_id,omitempty" xml:"machine_inst_id,omitempty"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// type
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// service_name
-	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty"`
-	// service_method
-	ServiceMethod *string `json:"service_method,omitempty" xml:"service_method,omitempty"`
-	// service_type
-	ServiceType *string `json:"service_type,omitempty" xml:"service_type,omitempty"`
-	// business_key
-	BusinessKey *string `json:"business_key,omitempty" xml:"business_key,omitempty"`
-	// state_id_compensated_for
-	StateIdCompensatedFor *string `json:"state_id_compensated_for,omitempty" xml:"state_id_compensated_for,omitempty"`
-	// state_id_retried_for
-	StateIdRetriedFor *string `json:"state_id_retried_for,omitempty" xml:"state_id_retried_for,omitempty"`
-	// gmt_started
-	GmtStarted *string `json:"gmt_started,omitempty" xml:"gmt_started,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// is_for_update
-	IsForUpdate *bool `json:"is_for_update,omitempty" xml:"is_for_update,omitempty"`
-	// input_params
-	InputParams *string `json:"input_params,omitempty" xml:"input_params,omitempty"`
-	// output_params
-	OutputParams *string `json:"output_params,omitempty" xml:"output_params,omitempty"`
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// excep
-	Excep *string `json:"excep,omitempty" xml:"excep,omitempty"`
-	// gmt_updated
-	GmtUpdated *string `json:"gmt_updated,omitempty" xml:"gmt_updated,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// gmt_end
-	GmtEnd *string `json:"gmt_end,omitempty" xml:"gmt_end,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s ApiflowInstVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ApiflowInstVO) GoString() string {
-	return s.String()
-}
-
-func (s *ApiflowInstVO) SetId(v string) *ApiflowInstVO {
-	s.Id = &v
-	return s
-}
-
-func (s *ApiflowInstVO) SetMachineInstId(v string) *ApiflowInstVO {
-	s.MachineInstId = &v
-	return s
-}
-
-func (s *ApiflowInstVO) SetName(v string) *ApiflowInstVO {
-	s.Name = &v
-	return s
-}
-
-func (s *ApiflowInstVO) SetType(v string) *ApiflowInstVO {
-	s.Type = &v
-	return s
-}
-
-func (s *ApiflowInstVO) SetServiceName(v string) *ApiflowInstVO {
-	s.ServiceName = &v
-	return s
-}
-
-func (s *ApiflowInstVO) SetServiceMethod(v string) *ApiflowInstVO {
-	s.ServiceMethod = &v
-	return s
-}
-
-func (s *ApiflowInstVO) SetServiceType(v string) *ApiflowInstVO {
-	s.ServiceType = &v
-	return s
-}
-
-func (s *ApiflowInstVO) SetBusinessKey(v string) *ApiflowInstVO {
-	s.BusinessKey = &v
-	return s
-}
-
-func (s *ApiflowInstVO) SetStateIdCompensatedFor(v string) *ApiflowInstVO {
-	s.StateIdCompensatedFor = &v
-	return s
-}
-
-func (s *ApiflowInstVO) SetStateIdRetriedFor(v string) *ApiflowInstVO {
-	s.StateIdRetriedFor = &v
-	return s
-}
-
-func (s *ApiflowInstVO) SetGmtStarted(v string) *ApiflowInstVO {
-	s.GmtStarted = &v
-	return s
-}
-
-func (s *ApiflowInstVO) SetIsForUpdate(v bool) *ApiflowInstVO {
-	s.IsForUpdate = &v
-	return s
-}
-
-func (s *ApiflowInstVO) SetInputParams(v string) *ApiflowInstVO {
-	s.InputParams = &v
-	return s
-}
-
-func (s *ApiflowInstVO) SetOutputParams(v string) *ApiflowInstVO {
-	s.OutputParams = &v
-	return s
-}
-
-func (s *ApiflowInstVO) SetStatus(v string) *ApiflowInstVO {
-	s.Status = &v
-	return s
-}
-
-func (s *ApiflowInstVO) SetExcep(v string) *ApiflowInstVO {
-	s.Excep = &v
-	return s
-}
-
-func (s *ApiflowInstVO) SetGmtUpdated(v string) *ApiflowInstVO {
-	s.GmtUpdated = &v
-	return s
-}
-
-func (s *ApiflowInstVO) SetGmtEnd(v string) *ApiflowInstVO {
-	s.GmtEnd = &v
-	return s
-}
-
-// 操作人
-type OperatorVO struct {
-	// 创建时间
-	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// 企业的唯一标识
-	Customer *string `json:"customer,omitempty" xml:"customer,omitempty"`
-	// 邮箱
-	Email *string `json:"email,omitempty" xml:"email,omitempty"`
-	// 操作员ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 登录名
-	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
-	// 手机号
-	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
-	// 昵称
-	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
-	// 真实姓名
-	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty"`
-	// 操作员状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 租户
-	Tenants []*string `json:"tenants,omitempty" xml:"tenants,omitempty" type:"Repeated"`
-	// 操作员最近一次修改时间，ISO8601格式
-	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
-	// 操作员工号
-	WorkNo *string `json:"work_no,omitempty" xml:"work_no,omitempty"`
-	// tenant_id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-}
-
-func (s OperatorVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OperatorVO) GoString() string {
-	return s.String()
-}
-
-func (s *OperatorVO) SetCreateTime(v string) *OperatorVO {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *OperatorVO) SetCustomer(v string) *OperatorVO {
-	s.Customer = &v
-	return s
-}
-
-func (s *OperatorVO) SetEmail(v string) *OperatorVO {
-	s.Email = &v
-	return s
-}
-
-func (s *OperatorVO) SetId(v string) *OperatorVO {
-	s.Id = &v
-	return s
-}
-
-func (s *OperatorVO) SetLoginName(v string) *OperatorVO {
-	s.LoginName = &v
-	return s
-}
-
-func (s *OperatorVO) SetMobile(v string) *OperatorVO {
-	s.Mobile = &v
-	return s
-}
-
-func (s *OperatorVO) SetNickName(v string) *OperatorVO {
-	s.NickName = &v
-	return s
-}
-
-func (s *OperatorVO) SetRealName(v string) *OperatorVO {
-	s.RealName = &v
-	return s
-}
-
-func (s *OperatorVO) SetStatus(v string) *OperatorVO {
-	s.Status = &v
-	return s
-}
-
-func (s *OperatorVO) SetTenants(v []*string) *OperatorVO {
-	s.Tenants = v
-	return s
-}
-
-func (s *OperatorVO) SetUpdateTime(v string) *OperatorVO {
-	s.UpdateTime = &v
-	return s
-}
-
-func (s *OperatorVO) SetWorkNo(v string) *OperatorVO {
-	s.WorkNo = &v
-	return s
-}
-
-func (s *OperatorVO) SetTenantId(v string) *OperatorVO {
-	s.TenantId = &v
-	return s
-}
-
-func (s *OperatorVO) SetWorkspaceId(v string) *OperatorVO {
-	s.WorkspaceId = &v
-	return s
-}
-
-// 联系方式
-type ContactInfoVO struct {
-	// 授权App标识
-	AuthAppInfoId *string `json:"auth_app_info_id,omitempty" xml:"auth_app_info_id,omitempty"`
-	// 公司名称
-	Company *string `json:"company,omitempty" xml:"company,omitempty"`
-	// 联系方式标识
-	ContactId *string `json:"contact_id,omitempty" xml:"contact_id,omitempty"`
-	// 电子邮箱
-	Mail *string `json:"mail,omitempty" xml:"mail,omitempty"`
-	// 联系人姓名
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 电话号码
-	Tel *string `json:"tel,omitempty" xml:"tel,omitempty"`
-	// 租户标识
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// 工作空间标识
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-	// 创建时间
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 更新时间
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s ContactInfoVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContactInfoVO) GoString() string {
-	return s.String()
-}
-
-func (s *ContactInfoVO) SetAuthAppInfoId(v string) *ContactInfoVO {
-	s.AuthAppInfoId = &v
-	return s
-}
-
-func (s *ContactInfoVO) SetCompany(v string) *ContactInfoVO {
-	s.Company = &v
-	return s
-}
-
-func (s *ContactInfoVO) SetContactId(v string) *ContactInfoVO {
-	s.ContactId = &v
-	return s
-}
-
-func (s *ContactInfoVO) SetMail(v string) *ContactInfoVO {
-	s.Mail = &v
-	return s
-}
-
-func (s *ContactInfoVO) SetName(v string) *ContactInfoVO {
-	s.Name = &v
-	return s
-}
-
-func (s *ContactInfoVO) SetTel(v string) *ContactInfoVO {
-	s.Tel = &v
-	return s
-}
-
-func (s *ContactInfoVO) SetTenantId(v string) *ContactInfoVO {
-	s.TenantId = &v
-	return s
-}
-
-func (s *ContactInfoVO) SetWorkspaceId(v string) *ContactInfoVO {
-	s.WorkspaceId = &v
-	return s
-}
-
-func (s *ContactInfoVO) SetGmtCreate(v string) *ContactInfoVO {
-	s.GmtCreate = &v
-	return s
-}
-
-func (s *ContactInfoVO) SetGmtModified(v string) *ContactInfoVO {
-	s.GmtModified = &v
-	return s
-}
-
-// 访问控制
-type SofaGwControlVO struct {
-	// 要添加的授权的app_name列表
-	AddItems []*string `json:"add_items,omitempty" xml:"add_items,omitempty" type:"Repeated"`
-	// 实例标识
-	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
-	// 授权的app_name列表
-	Items []*string `json:"items,omitempty" xml:"items,omitempty" type:"Repeated"`
-	// 固定值：app
-	Match *string `json:"match,omitempty" xml:"match,omitempty"`
-	// 要删除的授权的app_name列表
-	RemoveItems []*string `json:"remove_items,omitempty" xml:"remove_items,omitempty" type:"Repeated"`
-	// service name
-	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty"`
-	// 子类型，固定值：whitelist
-	SubType *string `json:"sub_type,omitempty" xml:"sub_type,omitempty"`
-	// 控制类型，固定值：access-control
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-}
-
-func (s SofaGwControlVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SofaGwControlVO) GoString() string {
-	return s.String()
-}
-
-func (s *SofaGwControlVO) SetAddItems(v []*string) *SofaGwControlVO {
-	s.AddItems = v
-	return s
-}
-
-func (s *SofaGwControlVO) SetInstanceId(v string) *SofaGwControlVO {
-	s.InstanceId = &v
-	return s
-}
-
-func (s *SofaGwControlVO) SetItems(v []*string) *SofaGwControlVO {
-	s.Items = v
-	return s
-}
-
-func (s *SofaGwControlVO) SetMatch(v string) *SofaGwControlVO {
-	s.Match = &v
-	return s
-}
-
-func (s *SofaGwControlVO) SetRemoveItems(v []*string) *SofaGwControlVO {
-	s.RemoveItems = v
-	return s
-}
-
-func (s *SofaGwControlVO) SetServiceName(v string) *SofaGwControlVO {
-	s.ServiceName = &v
-	return s
-}
-
-func (s *SofaGwControlVO) SetSubType(v string) *SofaGwControlVO {
-	s.SubType = &v
-	return s
-}
-
-func (s *SofaGwControlVO) SetType(v string) *SofaGwControlVO {
-	s.Type = &v
-	return s
-}
-
-// MonitorData
-type MonitorData struct {
-	// 时间点
-	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
-	// value
-	Value *int64 `json:"value,omitempty" xml:"value,omitempty"`
-}
-
-func (s MonitorData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MonitorData) GoString() string {
-	return s.String()
-}
-
-func (s *MonitorData) SetTimestamp(v int64) *MonitorData {
-	s.Timestamp = &v
-	return s
-}
-
-func (s *MonitorData) SetValue(v int64) *MonitorData {
-	s.Value = &v
-	return s
-}
-
-// PageInfo
-type PageInfo struct {
-	// 排序信息
-	OrderInfos []*OrderInfo `json:"order_infos,omitempty" xml:"order_infos,omitempty" type:"Repeated"`
-	// 当前页
-	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
-	// 每页记录数
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
-	// 总数
-	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
-}
-
-func (s PageInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PageInfo) GoString() string {
-	return s.String()
-}
-
-func (s *PageInfo) SetOrderInfos(v []*OrderInfo) *PageInfo {
-	s.OrderInfos = v
-	return s
-}
-
-func (s *PageInfo) SetPageIndex(v int64) *PageInfo {
-	s.PageIndex = &v
-	return s
-}
-
-func (s *PageInfo) SetPageSize(v int64) *PageInfo {
-	s.PageSize = &v
-	return s
-}
-
-func (s *PageInfo) SetTotal(v int64) *PageInfo {
-	s.Total = &v
-	return s
-}
-
-// 前端配置
-type SofaGwDownstream struct {
-	// 认证信息
-	Auth []*SofaGwAuthenticationVO `json:"auth,omitempty" xml:"auth,omitempty" type:"Repeated"`
-	// GET/POST/PUT/DELETE
-	Method *string `json:"method,omitempty" xml:"method,omitempty"`
-	// 协议
-	Schema *string `json:"schema,omitempty" xml:"schema,omitempty"`
-	// url
-	Url *string `json:"url,omitempty" xml:"url,omitempty"`
-	// 是否签名
-	Verify *bool `json:"verify,omitempty" xml:"verify,omitempty"`
-}
-
-func (s SofaGwDownstream) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SofaGwDownstream) GoString() string {
-	return s.String()
-}
-
-func (s *SofaGwDownstream) SetAuth(v []*SofaGwAuthenticationVO) *SofaGwDownstream {
-	s.Auth = v
-	return s
-}
-
-func (s *SofaGwDownstream) SetMethod(v string) *SofaGwDownstream {
-	s.Method = &v
-	return s
-}
-
-func (s *SofaGwDownstream) SetSchema(v string) *SofaGwDownstream {
-	s.Schema = &v
-	return s
-}
-
-func (s *SofaGwDownstream) SetUrl(v string) *SofaGwDownstream {
-	s.Url = &v
+func (s *ApiInfoVO) SetCorsStatus(v string) *ApiInfoVO {
+	s.CorsStatus = &v
 	return s
 }
 
-func (s *SofaGwDownstream) SetVerify(v bool) *SofaGwDownstream {
-	s.Verify = &v
+func (s *ApiInfoVO) SetGrayType(v bool) *ApiInfoVO {
+	s.GrayType = &v
 	return s
 }
 
@@ -5137,410 +4644,746 @@ func (s *AuthUserInfoVO) SetCanAuth(v bool) *AuthUserInfoVO {
 	return s
 }
 
-// AppInfoPagedListVO
-type AppInfoPagedListVO struct {
-	// list
-	List []*AppInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
-	// pageInfo
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+// BatchActionResult
+type BatchActionResult struct {
+	// 批量挂载结果
+	Results []*ActionResult `json:"results,omitempty" xml:"results,omitempty" type:"Repeated"`
+	// total_count
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// success_count
+	SuccessCount *int64 `json:"success_count,omitempty" xml:"success_count,omitempty"`
+	// failed_count
+	FailedCount *int64 `json:"failed_count,omitempty" xml:"failed_count,omitempty"`
 }
 
-func (s AppInfoPagedListVO) String() string {
+func (s BatchActionResult) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AppInfoPagedListVO) GoString() string {
+func (s BatchActionResult) GoString() string {
 	return s.String()
 }
 
-func (s *AppInfoPagedListVO) SetList(v []*AppInfoVO) *AppInfoPagedListVO {
-	s.List = v
+func (s *BatchActionResult) SetResults(v []*ActionResult) *BatchActionResult {
+	s.Results = v
 	return s
 }
 
-func (s *AppInfoPagedListVO) SetPageInfo(v *PageInfo) *AppInfoPagedListVO {
-	s.PageInfo = v
+func (s *BatchActionResult) SetTotalCount(v int64) *BatchActionResult {
+	s.TotalCount = &v
 	return s
 }
 
-// RegistryInfoQueryVO
-type RegistryInfoQueryVO struct {
-	// 是否模糊搜索
-	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
-	// page_info
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-	// query
-	Query *RegistryInfoVO `json:"query,omitempty" xml:"query,omitempty"`
+func (s *BatchActionResult) SetSuccessCount(v int64) *BatchActionResult {
+	s.SuccessCount = &v
+	return s
 }
 
-func (s RegistryInfoQueryVO) String() string {
+func (s *BatchActionResult) SetFailedCount(v int64) *BatchActionResult {
+	s.FailedCount = &v
+	return s
+}
+
+// ApiTestParamVO
+type ApiTestParamVO struct {
+	// location
+	Location *string `json:"location,omitempty" xml:"location,omitempty"`
+	// key
+	Key *string `json:"key,omitempty" xml:"key,omitempty"`
+	// value
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+}
+
+func (s ApiTestParamVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s RegistryInfoQueryVO) GoString() string {
+func (s ApiTestParamVO) GoString() string {
 	return s.String()
 }
 
-func (s *RegistryInfoQueryVO) SetFuzzySearch(v bool) *RegistryInfoQueryVO {
-	s.FuzzySearch = &v
+func (s *ApiTestParamVO) SetLocation(v string) *ApiTestParamVO {
+	s.Location = &v
 	return s
 }
 
-func (s *RegistryInfoQueryVO) SetPageInfo(v *PageInfo) *RegistryInfoQueryVO {
-	s.PageInfo = v
+func (s *ApiTestParamVO) SetKey(v string) *ApiTestParamVO {
+	s.Key = &v
 	return s
 }
 
-func (s *RegistryInfoQueryVO) SetQuery(v *RegistryInfoVO) *RegistryInfoQueryVO {
-	s.Query = v
+func (s *ApiTestParamVO) SetValue(v string) *ApiTestParamVO {
+	s.Value = &v
 	return s
 }
 
-// RouterInfoPagedListVO
-type RouterInfoPagedListVO struct {
-	// list
-	List []*RouterInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
-	// pageInfo
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+// MonitorData
+type MonitorData struct {
+	// 时间点
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
+	// value
+	Value *int64 `json:"value,omitempty" xml:"value,omitempty"`
 }
 
-func (s RouterInfoPagedListVO) String() string {
+func (s MonitorData) String() string {
 	return tea.Prettify(s)
 }
 
-func (s RouterInfoPagedListVO) GoString() string {
+func (s MonitorData) GoString() string {
 	return s.String()
 }
 
-func (s *RouterInfoPagedListVO) SetList(v []*RouterInfoVO) *RouterInfoPagedListVO {
-	s.List = v
+func (s *MonitorData) SetTimestamp(v int64) *MonitorData {
+	s.Timestamp = &v
 	return s
 }
 
-func (s *RouterInfoPagedListVO) SetPageInfo(v *PageInfo) *RouterInfoPagedListVO {
-	s.PageInfo = v
+func (s *MonitorData) SetValue(v int64) *MonitorData {
+	s.Value = &v
 	return s
 }
 
-// ApiGroupAuthUserConfigVO
-type ApiGroupAuthUserConfigVO struct {
-	// api授权管理开关
-	ApiAuthUserSwitch *string `json:"api_auth_user_switch,omitempty" xml:"api_auth_user_switch,omitempty"`
-	// 是否是管理员
-	CheckMaster *bool `json:"check_master,omitempty" xml:"check_master,omitempty"`
-	// 需要api授权管理
-	NeedApiAuthUser *bool `json:"need_api_auth_user,omitempty" xml:"need_api_auth_user,omitempty"`
+// 操作人
+type OperatorVO struct {
+	// 创建时间
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// 企业的唯一标识
+	Customer *string `json:"customer,omitempty" xml:"customer,omitempty"`
+	// 邮箱
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// 操作员ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 登录名
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 昵称
+	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
+	// 真实姓名
+	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty"`
+	// 操作员状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 租户
+	Tenants []*string `json:"tenants,omitempty" xml:"tenants,omitempty" type:"Repeated"`
+	// 操作员最近一次修改时间，ISO8601格式
+	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
+	// 操作员工号
+	WorkNo *string `json:"work_no,omitempty" xml:"work_no,omitempty"`
 	// tenant_id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// workspace_id
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
 }
 
-func (s ApiGroupAuthUserConfigVO) String() string {
+func (s OperatorVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ApiGroupAuthUserConfigVO) GoString() string {
+func (s OperatorVO) GoString() string {
 	return s.String()
 }
 
-func (s *ApiGroupAuthUserConfigVO) SetApiAuthUserSwitch(v string) *ApiGroupAuthUserConfigVO {
-	s.ApiAuthUserSwitch = &v
+func (s *OperatorVO) SetCreateTime(v string) *OperatorVO {
+	s.CreateTime = &v
 	return s
 }
 
-func (s *ApiGroupAuthUserConfigVO) SetCheckMaster(v bool) *ApiGroupAuthUserConfigVO {
-	s.CheckMaster = &v
+func (s *OperatorVO) SetCustomer(v string) *OperatorVO {
+	s.Customer = &v
 	return s
 }
 
-func (s *ApiGroupAuthUserConfigVO) SetNeedApiAuthUser(v bool) *ApiGroupAuthUserConfigVO {
-	s.NeedApiAuthUser = &v
+func (s *OperatorVO) SetEmail(v string) *OperatorVO {
+	s.Email = &v
 	return s
 }
 
-func (s *ApiGroupAuthUserConfigVO) SetTenantId(v string) *ApiGroupAuthUserConfigVO {
-	s.TenantId = &v
-	return s
-}
-
-func (s *ApiGroupAuthUserConfigVO) SetWorkspaceId(v string) *ApiGroupAuthUserConfigVO {
-	s.WorkspaceId = &v
-	return s
-}
-
-// AuthAppInfoPagedListVO
-type AuthAppInfoPagedListVO struct {
-	// list
-	List []*AuthAppInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
-	// pageInfo
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-}
-
-func (s AuthAppInfoPagedListVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AuthAppInfoPagedListVO) GoString() string {
-	return s.String()
-}
-
-func (s *AuthAppInfoPagedListVO) SetList(v []*AuthAppInfoVO) *AuthAppInfoPagedListVO {
-	s.List = v
-	return s
-}
-
-func (s *AuthAppInfoPagedListVO) SetPageInfo(v *PageInfo) *AuthAppInfoPagedListVO {
-	s.PageInfo = v
-	return s
-}
-
-// ParamMappingInfoPagedListVO
-type ParamMappingInfoPagedListVO struct {
-	// list
-	List []*ParamMappingInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
-	// pageInfo
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-}
-
-func (s ParamMappingInfoPagedListVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ParamMappingInfoPagedListVO) GoString() string {
-	return s.String()
-}
-
-func (s *ParamMappingInfoPagedListVO) SetList(v []*ParamMappingInfoVO) *ParamMappingInfoPagedListVO {
-	s.List = v
-	return s
-}
-
-func (s *ParamMappingInfoPagedListVO) SetPageInfo(v *PageInfo) *ParamMappingInfoPagedListVO {
-	s.PageInfo = v
-	return s
-}
-
-// 集群信息
-type SofaGwClusterVO struct {
-	// app name
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
-	// hosts
-	Hosts []*SofaGwHostVO `json:"hosts,omitempty" xml:"hosts,omitempty" type:"Repeated"`
-	// id
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
-	// 实例标识
-	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
-	// 集群名
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-}
-
-func (s SofaGwClusterVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SofaGwClusterVO) GoString() string {
-	return s.String()
-}
-
-func (s *SofaGwClusterVO) SetAppName(v string) *SofaGwClusterVO {
-	s.AppName = &v
-	return s
-}
-
-func (s *SofaGwClusterVO) SetHosts(v []*SofaGwHostVO) *SofaGwClusterVO {
-	s.Hosts = v
-	return s
-}
-
-func (s *SofaGwClusterVO) SetId(v int64) *SofaGwClusterVO {
+func (s *OperatorVO) SetId(v string) *OperatorVO {
 	s.Id = &v
 	return s
 }
 
-func (s *SofaGwClusterVO) SetInstanceId(v string) *SofaGwClusterVO {
-	s.InstanceId = &v
+func (s *OperatorVO) SetLoginName(v string) *OperatorVO {
+	s.LoginName = &v
 	return s
 }
 
-func (s *SofaGwClusterVO) SetName(v string) *SofaGwClusterVO {
-	s.Name = &v
+func (s *OperatorVO) SetMobile(v string) *OperatorVO {
+	s.Mobile = &v
 	return s
 }
 
-// RegistryInfoPagedListVO
-type RegistryInfoPagedListVO struct {
-	// list
-	List []*RegistryInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
-	// page_info
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-}
-
-func (s RegistryInfoPagedListVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RegistryInfoPagedListVO) GoString() string {
-	return s.String()
-}
-
-func (s *RegistryInfoPagedListVO) SetList(v []*RegistryInfoVO) *RegistryInfoPagedListVO {
-	s.List = v
+func (s *OperatorVO) SetNickName(v string) *OperatorVO {
+	s.NickName = &v
 	return s
 }
 
-func (s *RegistryInfoPagedListVO) SetPageInfo(v *PageInfo) *RegistryInfoPagedListVO {
-	s.PageInfo = v
+func (s *OperatorVO) SetRealName(v string) *OperatorVO {
+	s.RealName = &v
 	return s
 }
 
-// MonitoryRequest
-type MonitoryRequest struct {
-	// API标识
-	ApiId *string `json:"api_id,omitempty" xml:"api_id,omitempty"`
-	// App标识
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+func (s *OperatorVO) SetStatus(v string) *OperatorVO {
+	s.Status = &v
+	return s
+}
+
+func (s *OperatorVO) SetTenants(v []*string) *OperatorVO {
+	s.Tenants = v
+	return s
+}
+
+func (s *OperatorVO) SetUpdateTime(v string) *OperatorVO {
+	s.UpdateTime = &v
+	return s
+}
+
+func (s *OperatorVO) SetWorkNo(v string) *OperatorVO {
+	s.WorkNo = &v
+	return s
+}
+
+func (s *OperatorVO) SetTenantId(v string) *OperatorVO {
+	s.TenantId = &v
+	return s
+}
+
+func (s *OperatorVO) SetWorkspaceId(v string) *OperatorVO {
+	s.WorkspaceId = &v
+	return s
+}
+
+// ImportResult
+type ImportResult struct {
 	// code
 	Code *string `json:"code,omitempty" xml:"code,omitempty"`
-	// 开始时间
-	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty"`
-	// end_time
-	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty"`
+	// 覆盖报错的配置
+	ErrorConfig *string `json:"error_config,omitempty" xml:"error_config,omitempty"`
+	// error_message
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+	// API的ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// API的名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 覆盖成功的标识
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 覆盖失败的配置名称
+	ConfigName *string `json:"config_name,omitempty" xml:"config_name,omitempty"`
 }
 
-func (s MonitoryRequest) String() string {
+func (s ImportResult) String() string {
 	return tea.Prettify(s)
 }
 
-func (s MonitoryRequest) GoString() string {
+func (s ImportResult) GoString() string {
 	return s.String()
 }
 
-func (s *MonitoryRequest) SetApiId(v string) *MonitoryRequest {
-	s.ApiId = &v
-	return s
-}
-
-func (s *MonitoryRequest) SetAppId(v string) *MonitoryRequest {
-	s.AppId = &v
-	return s
-}
-
-func (s *MonitoryRequest) SetCode(v string) *MonitoryRequest {
+func (s *ImportResult) SetCode(v string) *ImportResult {
 	s.Code = &v
 	return s
 }
 
-func (s *MonitoryRequest) SetStartTime(v int64) *MonitoryRequest {
-	s.StartTime = &v
+func (s *ImportResult) SetErrorConfig(v string) *ImportResult {
+	s.ErrorConfig = &v
 	return s
 }
 
-func (s *MonitoryRequest) SetEndTime(v int64) *MonitoryRequest {
-	s.EndTime = &v
+func (s *ImportResult) SetErrorMessage(v string) *ImportResult {
+	s.ErrorMessage = &v
 	return s
 }
 
-// 联系方式分页列表
-type ContactInfoPagedListVO struct {
-	// 分页信息
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-	// 联系方式列表
-	List []*ContactInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+func (s *ImportResult) SetId(v string) *ImportResult {
+	s.Id = &v
+	return s
 }
 
-func (s ContactInfoPagedListVO) String() string {
+func (s *ImportResult) SetName(v string) *ImportResult {
+	s.Name = &v
+	return s
+}
+
+func (s *ImportResult) SetSuccess(v bool) *ImportResult {
+	s.Success = &v
+	return s
+}
+
+func (s *ImportResult) SetConfigName(v string) *ImportResult {
+	s.ConfigName = &v
+	return s
+}
+
+// 集群里的服务器信息
+type SofaGwHostVO struct {
+	// 服务器地址，域名或ip(:端口)
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// host name
+	HostName *string `json:"host_name,omitempty" xml:"host_name,omitempty"`
+	// 元信息
+	MetaData *string `json:"meta_data,omitempty" xml:"meta_data,omitempty"`
+}
+
+func (s SofaGwHostVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ContactInfoPagedListVO) GoString() string {
+func (s SofaGwHostVO) GoString() string {
 	return s.String()
 }
 
-func (s *ContactInfoPagedListVO) SetPageInfo(v *PageInfo) *ContactInfoPagedListVO {
-	s.PageInfo = v
+func (s *SofaGwHostVO) SetAddress(v string) *SofaGwHostVO {
+	s.Address = &v
 	return s
 }
 
-func (s *ContactInfoPagedListVO) SetList(v []*ContactInfoVO) *ContactInfoPagedListVO {
-	s.List = v
+func (s *SofaGwHostVO) SetHostName(v string) *SofaGwHostVO {
+	s.HostName = &v
 	return s
 }
 
-// 策略分页信息
-type StrategyPagedListVO struct {
-	// list
-	List []*StrategyInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
-	// 分页信息
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+func (s *SofaGwHostVO) SetMetaData(v string) *SofaGwHostVO {
+	s.MetaData = &v
+	return s
 }
 
-func (s StrategyPagedListVO) String() string {
+// SystemConfigVO
+type SystemConfigVO struct {
+	// config_key
+	ConfigKey *string `json:"config_key,omitempty" xml:"config_key,omitempty"`
+	// config_value
+	ConfigValue *string `json:"config_value,omitempty" xml:"config_value,omitempty"`
+	// 描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// gateway_list
+	GatewayList []*GateWayConfigVO `json:"gateway_list,omitempty" xml:"gateway_list,omitempty" type:"Repeated"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更改时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// instance_id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
+	// 创建人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	// switch_list
+	SwitchList []*SwitchVO `json:"switch_list,omitempty" xml:"switch_list,omitempty" type:"Repeated"`
+}
+
+func (s SystemConfigVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s StrategyPagedListVO) GoString() string {
+func (s SystemConfigVO) GoString() string {
 	return s.String()
 }
 
-func (s *StrategyPagedListVO) SetList(v []*StrategyInfoVO) *StrategyPagedListVO {
-	s.List = v
+func (s *SystemConfigVO) SetConfigKey(v string) *SystemConfigVO {
+	s.ConfigKey = &v
 	return s
 }
 
-func (s *StrategyPagedListVO) SetPageInfo(v *PageInfo) *StrategyPagedListVO {
-	s.PageInfo = v
+func (s *SystemConfigVO) SetConfigValue(v string) *SystemConfigVO {
+	s.ConfigValue = &v
 	return s
 }
 
-// SystemClusterPagedListVO
-type SystemClusterPagedListVO struct {
-	// list
-	List []*SystemClusterVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+func (s *SystemConfigVO) SetDescription(v string) *SystemConfigVO {
+	s.Description = &v
+	return s
+}
+
+func (s *SystemConfigVO) SetGatewayList(v []*GateWayConfigVO) *SystemConfigVO {
+	s.GatewayList = v
+	return s
+}
+
+func (s *SystemConfigVO) SetGmtCreate(v string) *SystemConfigVO {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *SystemConfigVO) SetGmtModified(v string) *SystemConfigVO {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *SystemConfigVO) SetInstanceId(v string) *SystemConfigVO {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *SystemConfigVO) SetOperator(v string) *SystemConfigVO {
+	s.Operator = &v
+	return s
+}
+
+func (s *SystemConfigVO) SetSwitchList(v []*SwitchVO) *SystemConfigVO {
+	s.SwitchList = v
+	return s
+}
+
+// 访问控制
+type SofaGwControlVO struct {
+	// 要添加的授权的app_name列表
+	AddItems []*string `json:"add_items,omitempty" xml:"add_items,omitempty" type:"Repeated"`
+	// 实例标识
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
+	// 授权的app_name列表
+	Items []*string `json:"items,omitempty" xml:"items,omitempty" type:"Repeated"`
+	// 固定值：app
+	Match *string `json:"match,omitempty" xml:"match,omitempty"`
+	// 要删除的授权的app_name列表
+	RemoveItems []*string `json:"remove_items,omitempty" xml:"remove_items,omitempty" type:"Repeated"`
+	// service name
+	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty"`
+	// 子类型，固定值：whitelist
+	SubType *string `json:"sub_type,omitempty" xml:"sub_type,omitempty"`
+	// 控制类型，固定值：access-control
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+}
+
+func (s SofaGwControlVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SofaGwControlVO) GoString() string {
+	return s.String()
+}
+
+func (s *SofaGwControlVO) SetAddItems(v []*string) *SofaGwControlVO {
+	s.AddItems = v
+	return s
+}
+
+func (s *SofaGwControlVO) SetInstanceId(v string) *SofaGwControlVO {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *SofaGwControlVO) SetItems(v []*string) *SofaGwControlVO {
+	s.Items = v
+	return s
+}
+
+func (s *SofaGwControlVO) SetMatch(v string) *SofaGwControlVO {
+	s.Match = &v
+	return s
+}
+
+func (s *SofaGwControlVO) SetRemoveItems(v []*string) *SofaGwControlVO {
+	s.RemoveItems = v
+	return s
+}
+
+func (s *SofaGwControlVO) SetServiceName(v string) *SofaGwControlVO {
+	s.ServiceName = &v
+	return s
+}
+
+func (s *SofaGwControlVO) SetSubType(v string) *SofaGwControlVO {
+	s.SubType = &v
+	return s
+}
+
+func (s *SofaGwControlVO) SetType(v string) *SofaGwControlVO {
+	s.Type = &v
+	return s
+}
+
+// ApiflowMachineInstVO
+type ApiflowMachineInstVO struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// machine_id
+	MachineId *string `json:"machine_id,omitempty" xml:"machine_id,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// parent_id
+	ParentId *string `json:"parent_id,omitempty" xml:"parent_id,omitempty"`
+	// gmt_started
+	GmtStarted *string `json:"gmt_started,omitempty" xml:"gmt_started,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// business_key
+	BusinessKey *string `json:"business_key,omitempty" xml:"business_key,omitempty"`
+	// start_params
+	StartParams *string `json:"start_params,omitempty" xml:"start_params,omitempty"`
+	// gmt_end
+	GmtEnd *string `json:"gmt_end,omitempty" xml:"gmt_end,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// excep
+	Excep *string `json:"excep,omitempty" xml:"excep,omitempty"`
+	// end_params
+	EndParams *string `json:"end_params,omitempty" xml:"end_params,omitempty"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// compensation_status
+	CompensationStatus *string `json:"compensation_status,omitempty" xml:"compensation_status,omitempty"`
+	// is_running
+	IsRunning *bool `json:"is_running,omitempty" xml:"is_running,omitempty"`
+	// gmt_updated
+	GmtUpdated *string `json:"gmt_updated,omitempty" xml:"gmt_updated,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s ApiflowMachineInstVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiflowMachineInstVO) GoString() string {
+	return s.String()
+}
+
+func (s *ApiflowMachineInstVO) SetId(v string) *ApiflowMachineInstVO {
+	s.Id = &v
+	return s
+}
+
+func (s *ApiflowMachineInstVO) SetMachineId(v string) *ApiflowMachineInstVO {
+	s.MachineId = &v
+	return s
+}
+
+func (s *ApiflowMachineInstVO) SetTenantId(v string) *ApiflowMachineInstVO {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ApiflowMachineInstVO) SetParentId(v string) *ApiflowMachineInstVO {
+	s.ParentId = &v
+	return s
+}
+
+func (s *ApiflowMachineInstVO) SetGmtStarted(v string) *ApiflowMachineInstVO {
+	s.GmtStarted = &v
+	return s
+}
+
+func (s *ApiflowMachineInstVO) SetBusinessKey(v string) *ApiflowMachineInstVO {
+	s.BusinessKey = &v
+	return s
+}
+
+func (s *ApiflowMachineInstVO) SetStartParams(v string) *ApiflowMachineInstVO {
+	s.StartParams = &v
+	return s
+}
+
+func (s *ApiflowMachineInstVO) SetGmtEnd(v string) *ApiflowMachineInstVO {
+	s.GmtEnd = &v
+	return s
+}
+
+func (s *ApiflowMachineInstVO) SetExcep(v string) *ApiflowMachineInstVO {
+	s.Excep = &v
+	return s
+}
+
+func (s *ApiflowMachineInstVO) SetEndParams(v string) *ApiflowMachineInstVO {
+	s.EndParams = &v
+	return s
+}
+
+func (s *ApiflowMachineInstVO) SetStatus(v string) *ApiflowMachineInstVO {
+	s.Status = &v
+	return s
+}
+
+func (s *ApiflowMachineInstVO) SetCompensationStatus(v string) *ApiflowMachineInstVO {
+	s.CompensationStatus = &v
+	return s
+}
+
+func (s *ApiflowMachineInstVO) SetIsRunning(v bool) *ApiflowMachineInstVO {
+	s.IsRunning = &v
+	return s
+}
+
+func (s *ApiflowMachineInstVO) SetGmtUpdated(v string) *ApiflowMachineInstVO {
+	s.GmtUpdated = &v
+	return s
+}
+
+// 前端配置
+type SofaGwDownstream struct {
+	// 认证信息
+	Auth []*SofaGwAuthenticationVO `json:"auth,omitempty" xml:"auth,omitempty" type:"Repeated"`
+	// GET/POST/PUT/DELETE
+	Method *string `json:"method,omitempty" xml:"method,omitempty"`
+	// 协议
+	Schema *string `json:"schema,omitempty" xml:"schema,omitempty"`
+	// url
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// 是否签名
+	Verify *bool `json:"verify,omitempty" xml:"verify,omitempty"`
+}
+
+func (s SofaGwDownstream) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SofaGwDownstream) GoString() string {
+	return s.String()
+}
+
+func (s *SofaGwDownstream) SetAuth(v []*SofaGwAuthenticationVO) *SofaGwDownstream {
+	s.Auth = v
+	return s
+}
+
+func (s *SofaGwDownstream) SetMethod(v string) *SofaGwDownstream {
+	s.Method = &v
+	return s
+}
+
+func (s *SofaGwDownstream) SetSchema(v string) *SofaGwDownstream {
+	s.Schema = &v
+	return s
+}
+
+func (s *SofaGwDownstream) SetUrl(v string) *SofaGwDownstream {
+	s.Url = &v
+	return s
+}
+
+func (s *SofaGwDownstream) SetVerify(v bool) *SofaGwDownstream {
+	s.Verify = &v
+	return s
+}
+
+// 联系方式
+type ContactInfoVO struct {
+	// 授权App标识
+	AuthAppInfoId *string `json:"auth_app_info_id,omitempty" xml:"auth_app_info_id,omitempty"`
+	// 公司名称
+	Company *string `json:"company,omitempty" xml:"company,omitempty"`
+	// 联系方式标识
+	ContactId *string `json:"contact_id,omitempty" xml:"contact_id,omitempty"`
+	// 电子邮箱
+	Mail *string `json:"mail,omitempty" xml:"mail,omitempty"`
+	// 联系人姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 电话号码
+	Tel *string `json:"tel,omitempty" xml:"tel,omitempty"`
+	// 租户标识
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 工作空间标识
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更新时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s ContactInfoVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContactInfoVO) GoString() string {
+	return s.String()
+}
+
+func (s *ContactInfoVO) SetAuthAppInfoId(v string) *ContactInfoVO {
+	s.AuthAppInfoId = &v
+	return s
+}
+
+func (s *ContactInfoVO) SetCompany(v string) *ContactInfoVO {
+	s.Company = &v
+	return s
+}
+
+func (s *ContactInfoVO) SetContactId(v string) *ContactInfoVO {
+	s.ContactId = &v
+	return s
+}
+
+func (s *ContactInfoVO) SetMail(v string) *ContactInfoVO {
+	s.Mail = &v
+	return s
+}
+
+func (s *ContactInfoVO) SetName(v string) *ContactInfoVO {
+	s.Name = &v
+	return s
+}
+
+func (s *ContactInfoVO) SetTel(v string) *ContactInfoVO {
+	s.Tel = &v
+	return s
+}
+
+func (s *ContactInfoVO) SetTenantId(v string) *ContactInfoVO {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ContactInfoVO) SetWorkspaceId(v string) *ContactInfoVO {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *ContactInfoVO) SetGmtCreate(v string) *ContactInfoVO {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *ContactInfoVO) SetGmtModified(v string) *ContactInfoVO {
+	s.GmtModified = &v
+	return s
+}
+
+// ApiGroupPagedListVO
+type ApiGroupPagedListVO struct {
+	// 当前页的数据
+	List []*ApiGroupVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
 	// page_info
 	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
 }
 
-func (s SystemClusterPagedListVO) String() string {
+func (s ApiGroupPagedListVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s SystemClusterPagedListVO) GoString() string {
+func (s ApiGroupPagedListVO) GoString() string {
 	return s.String()
 }
 
-func (s *SystemClusterPagedListVO) SetList(v []*SystemClusterVO) *SystemClusterPagedListVO {
+func (s *ApiGroupPagedListVO) SetList(v []*ApiGroupVO) *ApiGroupPagedListVO {
 	s.List = v
 	return s
 }
 
-func (s *SystemClusterPagedListVO) SetPageInfo(v *PageInfo) *SystemClusterPagedListVO {
+func (s *ApiGroupPagedListVO) SetPageInfo(v *PageInfo) *ApiGroupPagedListVO {
 	s.PageInfo = v
 	return s
 }
 
-// AppInfoQueryVO
-type AppInfoQueryVO struct {
+// ExternalAuthInfoQueryVO
+type ExternalAuthInfoQueryVO struct {
+	// 是否模糊搜索
+	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
 	// pageInfo
 	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
 	// query
-	Query *AppInfoVO `json:"query,omitempty" xml:"query,omitempty"`
+	Query *ExternalAuthInfoVO `json:"query,omitempty" xml:"query,omitempty"`
 }
 
-func (s AppInfoQueryVO) String() string {
+func (s ExternalAuthInfoQueryVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AppInfoQueryVO) GoString() string {
+func (s ExternalAuthInfoQueryVO) GoString() string {
 	return s.String()
 }
 
-func (s *AppInfoQueryVO) SetPageInfo(v *PageInfo) *AppInfoQueryVO {
+func (s *ExternalAuthInfoQueryVO) SetFuzzySearch(v bool) *ExternalAuthInfoQueryVO {
+	s.FuzzySearch = &v
+	return s
+}
+
+func (s *ExternalAuthInfoQueryVO) SetPageInfo(v *PageInfo) *ExternalAuthInfoQueryVO {
 	s.PageInfo = v
 	return s
 }
 
-func (s *AppInfoQueryVO) SetQuery(v *AppInfoVO) *AppInfoQueryVO {
+func (s *ExternalAuthInfoQueryVO) SetQuery(v *ExternalAuthInfoVO) *ExternalAuthInfoQueryVO {
 	s.Query = v
 	return s
 }
@@ -5578,116 +5421,375 @@ func (s *ApiflowMachineDefQueryVO) SetQuery(v *ApiflowMachineDefVO) *ApiflowMach
 	return s
 }
 
-// ldc信息
-type LdcInfoVO struct {
-	// 是否开启
-	Enable *bool `json:"enable,omitempty" xml:"enable,omitempty"`
-	// 参数位置
-	ParamLocation *string `json:"param_location,omitempty" xml:"param_location,omitempty"`
-	// 参数名
-	ParamKey *string `json:"param_key,omitempty" xml:"param_key,omitempty"`
-	// tenant_id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+// ApiInfoQueryVO
+type ApiInfoQueryVO struct {
+	// 是否模糊搜索
+	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
+	// pageInfo
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+	// query
+	Query *ApiInfoVO `json:"query,omitempty" xml:"query,omitempty"`
+	// 自定义查询条件
+	QueryCondition *string `json:"query_condition,omitempty" xml:"query_condition,omitempty"`
 }
 
-func (s LdcInfoVO) String() string {
+func (s ApiInfoQueryVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s LdcInfoVO) GoString() string {
+func (s ApiInfoQueryVO) GoString() string {
 	return s.String()
 }
 
-func (s *LdcInfoVO) SetEnable(v bool) *LdcInfoVO {
-	s.Enable = &v
+func (s *ApiInfoQueryVO) SetFuzzySearch(v bool) *ApiInfoQueryVO {
+	s.FuzzySearch = &v
 	return s
 }
 
-func (s *LdcInfoVO) SetParamLocation(v string) *LdcInfoVO {
-	s.ParamLocation = &v
+func (s *ApiInfoQueryVO) SetPageInfo(v *PageInfo) *ApiInfoQueryVO {
+	s.PageInfo = v
 	return s
 }
 
-func (s *LdcInfoVO) SetParamKey(v string) *LdcInfoVO {
-	s.ParamKey = &v
+func (s *ApiInfoQueryVO) SetQuery(v *ApiInfoVO) *ApiInfoQueryVO {
+	s.Query = v
 	return s
 }
 
-func (s *LdcInfoVO) SetTenantId(v string) *LdcInfoVO {
-	s.TenantId = &v
+func (s *ApiInfoQueryVO) SetQueryCondition(v string) *ApiInfoQueryVO {
+	s.QueryCondition = &v
 	return s
 }
 
-func (s *LdcInfoVO) SetWorkspaceId(v string) *LdcInfoVO {
+// MonitoryAggregationVO
+type MonitoryAggregationVO struct {
+	// invoke_num
+	InvokeNum []*MonitorData `json:"invoke_num,omitempty" xml:"invoke_num,omitempty" type:"Repeated"`
+	// qps
+	Qps []*MonitorData `json:"qps,omitempty" xml:"qps,omitempty" type:"Repeated"`
+	// rt
+	Rt []*MonitorData `json:"rt,omitempty" xml:"rt,omitempty" type:"Repeated"`
+	// 错误码
+	ErrCode []*MonitorData `json:"err_code,omitempty" xml:"err_code,omitempty" type:"Repeated"`
+	// 错误率
+	ErrRate []*MonitorData `json:"err_rate,omitempty" xml:"err_rate,omitempty" type:"Repeated"`
+	// byte_in
+	ByteIn []*MonitorData `json:"byte_in,omitempty" xml:"byte_in,omitempty" type:"Repeated"`
+	// byte_out
+	ByteOut []*MonitorData `json:"byte_out,omitempty" xml:"byte_out,omitempty" type:"Repeated"`
+}
+
+func (s MonitoryAggregationVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MonitoryAggregationVO) GoString() string {
+	return s.String()
+}
+
+func (s *MonitoryAggregationVO) SetInvokeNum(v []*MonitorData) *MonitoryAggregationVO {
+	s.InvokeNum = v
+	return s
+}
+
+func (s *MonitoryAggregationVO) SetQps(v []*MonitorData) *MonitoryAggregationVO {
+	s.Qps = v
+	return s
+}
+
+func (s *MonitoryAggregationVO) SetRt(v []*MonitorData) *MonitoryAggregationVO {
+	s.Rt = v
+	return s
+}
+
+func (s *MonitoryAggregationVO) SetErrCode(v []*MonitorData) *MonitoryAggregationVO {
+	s.ErrCode = v
+	return s
+}
+
+func (s *MonitoryAggregationVO) SetErrRate(v []*MonitorData) *MonitoryAggregationVO {
+	s.ErrRate = v
+	return s
+}
+
+func (s *MonitoryAggregationVO) SetByteIn(v []*MonitorData) *MonitoryAggregationVO {
+	s.ByteIn = v
+	return s
+}
+
+func (s *MonitoryAggregationVO) SetByteOut(v []*MonitorData) *MonitoryAggregationVO {
+	s.ByteOut = v
+	return s
+}
+
+// RouterInfoQueryVO
+type RouterInfoQueryVO struct {
+	// pageInfo
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+	// query
+	Query *RouterInfoVO `json:"query,omitempty" xml:"query,omitempty"`
+	// 是否模糊搜索
+	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
+}
+
+func (s RouterInfoQueryVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RouterInfoQueryVO) GoString() string {
+	return s.String()
+}
+
+func (s *RouterInfoQueryVO) SetPageInfo(v *PageInfo) *RouterInfoQueryVO {
+	s.PageInfo = v
+	return s
+}
+
+func (s *RouterInfoQueryVO) SetQuery(v *RouterInfoVO) *RouterInfoQueryVO {
+	s.Query = v
+	return s
+}
+
+func (s *RouterInfoQueryVO) SetFuzzySearch(v bool) *RouterInfoQueryVO {
+	s.FuzzySearch = &v
+	return s
+}
+
+// SystemClusterQueryVO
+type SystemClusterQueryVO struct {
+	// 是否模糊搜索
+	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
+	// page_info
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+	// query
+	Query *SystemClusterVO `json:"query,omitempty" xml:"query,omitempty"`
+}
+
+func (s SystemClusterQueryVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SystemClusterQueryVO) GoString() string {
+	return s.String()
+}
+
+func (s *SystemClusterQueryVO) SetFuzzySearch(v bool) *SystemClusterQueryVO {
+	s.FuzzySearch = &v
+	return s
+}
+
+func (s *SystemClusterQueryVO) SetPageInfo(v *PageInfo) *SystemClusterQueryVO {
+	s.PageInfo = v
+	return s
+}
+
+func (s *SystemClusterQueryVO) SetQuery(v *SystemClusterVO) *SystemClusterQueryVO {
+	s.Query = v
+	return s
+}
+
+// ApiflowInstPagedListVO
+type ApiflowInstPagedListVO struct {
+	// list
+	List []*ApiflowInstVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+	// page_info
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+}
+
+func (s ApiflowInstPagedListVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiflowInstPagedListVO) GoString() string {
+	return s.String()
+}
+
+func (s *ApiflowInstPagedListVO) SetList(v []*ApiflowInstVO) *ApiflowInstPagedListVO {
+	s.List = v
+	return s
+}
+
+func (s *ApiflowInstPagedListVO) SetPageInfo(v *PageInfo) *ApiflowInstPagedListVO {
+	s.PageInfo = v
+	return s
+}
+
+// ApiflowMachineDefPagedListVO
+type ApiflowMachineDefPagedListVO struct {
+	// list
+	List []*ApiflowMachineDefVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+	// page_info
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+}
+
+func (s ApiflowMachineDefPagedListVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiflowMachineDefPagedListVO) GoString() string {
+	return s.String()
+}
+
+func (s *ApiflowMachineDefPagedListVO) SetList(v []*ApiflowMachineDefVO) *ApiflowMachineDefPagedListVO {
+	s.List = v
+	return s
+}
+
+func (s *ApiflowMachineDefPagedListVO) SetPageInfo(v *PageInfo) *ApiflowMachineDefPagedListVO {
+	s.PageInfo = v
+	return s
+}
+
+// AuthAppInfoQueryVO
+type AuthAppInfoQueryVO struct {
+	// pageInfo
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+	// query
+	Query *AuthAppInfoVO `json:"query,omitempty" xml:"query,omitempty"`
+	// 自定义查询条件
+	QueryCondition *string `json:"query_condition,omitempty" xml:"query_condition,omitempty"`
+	// 是否支持模糊查询
+	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
+}
+
+func (s AuthAppInfoQueryVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthAppInfoQueryVO) GoString() string {
+	return s.String()
+}
+
+func (s *AuthAppInfoQueryVO) SetPageInfo(v *PageInfo) *AuthAppInfoQueryVO {
+	s.PageInfo = v
+	return s
+}
+
+func (s *AuthAppInfoQueryVO) SetQuery(v *AuthAppInfoVO) *AuthAppInfoQueryVO {
+	s.Query = v
+	return s
+}
+
+func (s *AuthAppInfoQueryVO) SetQueryCondition(v string) *AuthAppInfoQueryVO {
+	s.QueryCondition = &v
+	return s
+}
+
+func (s *AuthAppInfoQueryVO) SetFuzzySearch(v bool) *AuthAppInfoQueryVO {
+	s.FuzzySearch = &v
+	return s
+}
+
+// ApiflowTestReqVO
+type ApiflowTestReqVO struct {
+	// api_id
+	ApiId *string `json:"api_id,omitempty" xml:"api_id,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// machine_name
+	MachineName *string `json:"machine_name,omitempty" xml:"machine_name,omitempty"`
+	// params
+	InputParams []*ApiTestParamVO `json:"input_params,omitempty" xml:"input_params,omitempty" type:"Repeated"`
+	// output_params
+	OutputParams []*ApiflowOutputVO `json:"output_params,omitempty" xml:"output_params,omitempty" type:"Repeated"`
+}
+
+func (s ApiflowTestReqVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiflowTestReqVO) GoString() string {
+	return s.String()
+}
+
+func (s *ApiflowTestReqVO) SetApiId(v string) *ApiflowTestReqVO {
+	s.ApiId = &v
+	return s
+}
+
+func (s *ApiflowTestReqVO) SetWorkspaceId(v string) *ApiflowTestReqVO {
 	s.WorkspaceId = &v
 	return s
 }
 
-// 查询联系方式
-type ContactInfoQueryVO struct {
-	// 分页信息
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-	// query
-	Query *ContactInfoVO `json:"query,omitempty" xml:"query,omitempty"`
-	// 是否模糊搜索
-	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
+func (s *ApiflowTestReqVO) SetTenantId(v string) *ApiflowTestReqVO {
+	s.TenantId = &v
+	return s
 }
 
-func (s ContactInfoQueryVO) String() string {
+func (s *ApiflowTestReqVO) SetMachineName(v string) *ApiflowTestReqVO {
+	s.MachineName = &v
+	return s
+}
+
+func (s *ApiflowTestReqVO) SetInputParams(v []*ApiTestParamVO) *ApiflowTestReqVO {
+	s.InputParams = v
+	return s
+}
+
+func (s *ApiflowTestReqVO) SetOutputParams(v []*ApiflowOutputVO) *ApiflowTestReqVO {
+	s.OutputParams = v
+	return s
+}
+
+// RouterInfoPagedListVO
+type RouterInfoPagedListVO struct {
+	// list
+	List []*RouterInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+	// pageInfo
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+}
+
+func (s RouterInfoPagedListVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ContactInfoQueryVO) GoString() string {
+func (s RouterInfoPagedListVO) GoString() string {
 	return s.String()
 }
 
-func (s *ContactInfoQueryVO) SetPageInfo(v *PageInfo) *ContactInfoQueryVO {
+func (s *RouterInfoPagedListVO) SetList(v []*RouterInfoVO) *RouterInfoPagedListVO {
+	s.List = v
+	return s
+}
+
+func (s *RouterInfoPagedListVO) SetPageInfo(v *PageInfo) *RouterInfoPagedListVO {
 	s.PageInfo = v
 	return s
 }
 
-func (s *ContactInfoQueryVO) SetQuery(v *ContactInfoVO) *ContactInfoQueryVO {
-	s.Query = v
-	return s
-}
-
-func (s *ContactInfoQueryVO) SetFuzzySearch(v bool) *ContactInfoQueryVO {
-	s.FuzzySearch = &v
-	return s
-}
-
-// ApiGroupQueryVO
-type ApiGroupQueryVO struct {
+// RegistryInfoQueryVO
+type RegistryInfoQueryVO struct {
+	// 是否模糊搜索
+	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
 	// page_info
 	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
 	// query
-	Query *ApiGroupVO `json:"query,omitempty" xml:"query,omitempty"`
-	// 是否模糊搜索
-	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
+	Query *RegistryInfoVO `json:"query,omitempty" xml:"query,omitempty"`
 }
 
-func (s ApiGroupQueryVO) String() string {
+func (s RegistryInfoQueryVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ApiGroupQueryVO) GoString() string {
+func (s RegistryInfoQueryVO) GoString() string {
 	return s.String()
 }
 
-func (s *ApiGroupQueryVO) SetPageInfo(v *PageInfo) *ApiGroupQueryVO {
+func (s *RegistryInfoQueryVO) SetFuzzySearch(v bool) *RegistryInfoQueryVO {
+	s.FuzzySearch = &v
+	return s
+}
+
+func (s *RegistryInfoQueryVO) SetPageInfo(v *PageInfo) *RegistryInfoQueryVO {
 	s.PageInfo = v
 	return s
 }
 
-func (s *ApiGroupQueryVO) SetQuery(v *ApiGroupVO) *ApiGroupQueryVO {
+func (s *RegistryInfoQueryVO) SetQuery(v *RegistryInfoVO) *RegistryInfoQueryVO {
 	s.Query = v
-	return s
-}
-
-func (s *ApiGroupQueryVO) SetFuzzySearch(v bool) *ApiGroupQueryVO {
-	s.FuzzySearch = &v
 	return s
 }
 
@@ -5759,328 +5861,168 @@ func (s *EngineVO) SetParams(v string) *EngineVO {
 	return s
 }
 
-// ParamMappingInfoQueryVO
-type ParamMappingInfoQueryVO struct {
-	// pageInfo
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-	// query
-	Query *ParamMappingInfoVO `json:"query,omitempty" xml:"query,omitempty"`
-	// 支持模糊查询
-	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
-}
-
-func (s ParamMappingInfoQueryVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ParamMappingInfoQueryVO) GoString() string {
-	return s.String()
-}
-
-func (s *ParamMappingInfoQueryVO) SetPageInfo(v *PageInfo) *ParamMappingInfoQueryVO {
-	s.PageInfo = v
-	return s
-}
-
-func (s *ParamMappingInfoQueryVO) SetQuery(v *ParamMappingInfoVO) *ParamMappingInfoQueryVO {
-	s.Query = v
-	return s
-}
-
-func (s *ParamMappingInfoQueryVO) SetFuzzySearch(v bool) *ParamMappingInfoQueryVO {
-	s.FuzzySearch = &v
-	return s
-}
-
-// ApiTestReqVO
-type ApiTestReqVO struct {
-	// API标识
-	ApiId *string `json:"api_id,omitempty" xml:"api_id,omitempty"`
-	// 应用标识
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
-	// params
-	Params []*ApiTestParamVO `json:"params,omitempty" xml:"params,omitempty" type:"Repeated"`
-	// payload
-	Payload *string `json:"payload,omitempty" xml:"payload,omitempty"`
-	// tenant_id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// 工作空间标识
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-}
-
-func (s ApiTestReqVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ApiTestReqVO) GoString() string {
-	return s.String()
-}
-
-func (s *ApiTestReqVO) SetApiId(v string) *ApiTestReqVO {
-	s.ApiId = &v
-	return s
-}
-
-func (s *ApiTestReqVO) SetAppId(v string) *ApiTestReqVO {
-	s.AppId = &v
-	return s
-}
-
-func (s *ApiTestReqVO) SetParams(v []*ApiTestParamVO) *ApiTestReqVO {
-	s.Params = v
-	return s
-}
-
-func (s *ApiTestReqVO) SetPayload(v string) *ApiTestReqVO {
-	s.Payload = &v
-	return s
-}
-
-func (s *ApiTestReqVO) SetTenantId(v string) *ApiTestReqVO {
-	s.TenantId = &v
-	return s
-}
-
-func (s *ApiTestReqVO) SetWorkspaceId(v string) *ApiTestReqVO {
-	s.WorkspaceId = &v
-	return s
-}
-
-// SystemClusterQueryVO
-type SystemClusterQueryVO struct {
-	// 是否模糊搜索
-	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
+// GrayscaleConfigPagedListVO
+type GrayscaleConfigPagedListVO struct {
+	// list
+	List []*GrayscaleConfigVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
 	// page_info
 	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-	// query
-	Query *SystemClusterVO `json:"query,omitempty" xml:"query,omitempty"`
 }
 
-func (s SystemClusterQueryVO) String() string {
+func (s GrayscaleConfigPagedListVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s SystemClusterQueryVO) GoString() string {
+func (s GrayscaleConfigPagedListVO) GoString() string {
 	return s.String()
 }
 
-func (s *SystemClusterQueryVO) SetFuzzySearch(v bool) *SystemClusterQueryVO {
-	s.FuzzySearch = &v
+func (s *GrayscaleConfigPagedListVO) SetList(v []*GrayscaleConfigVO) *GrayscaleConfigPagedListVO {
+	s.List = v
 	return s
 }
 
-func (s *SystemClusterQueryVO) SetPageInfo(v *PageInfo) *SystemClusterQueryVO {
+func (s *GrayscaleConfigPagedListVO) SetPageInfo(v *PageInfo) *GrayscaleConfigPagedListVO {
 	s.PageInfo = v
 	return s
 }
 
-func (s *SystemClusterQueryVO) SetQuery(v *SystemClusterVO) *SystemClusterQueryVO {
-	s.Query = v
-	return s
+// BatchImportResult
+type BatchImportResult struct {
+	// failed_count
+	FailedCount *int64 `json:"failed_count,omitempty" xml:"failed_count,omitempty"`
+	// 重复的API列表
+	RepeatApiList []*ApiTransferVO `json:"repeat_api_list,omitempty" xml:"repeat_api_list,omitempty" type:"Repeated"`
+	// results
+	Results []*ImportResult `json:"results,omitempty" xml:"results,omitempty" type:"Repeated"`
+	// success_count
+	SuccessCount *int64 `json:"success_count,omitempty" xml:"success_count,omitempty"`
+	// total_count
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 导入成功的API列表
+	SuccessApiList []*ApiInfoVO `json:"success_api_list,omitempty" xml:"success_api_list,omitempty" type:"Repeated"`
 }
 
-// AuthAppInfoQueryVO
-type AuthAppInfoQueryVO struct {
-	// pageInfo
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-	// query
-	Query *AuthAppInfoVO `json:"query,omitempty" xml:"query,omitempty"`
-	// 自定义查询条件
-	QueryCondition *string `json:"query_condition,omitempty" xml:"query_condition,omitempty"`
-	// 是否支持模糊查询
-	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
-}
-
-func (s AuthAppInfoQueryVO) String() string {
+func (s BatchImportResult) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AuthAppInfoQueryVO) GoString() string {
+func (s BatchImportResult) GoString() string {
 	return s.String()
 }
 
-func (s *AuthAppInfoQueryVO) SetPageInfo(v *PageInfo) *AuthAppInfoQueryVO {
-	s.PageInfo = v
+func (s *BatchImportResult) SetFailedCount(v int64) *BatchImportResult {
+	s.FailedCount = &v
 	return s
 }
 
-func (s *AuthAppInfoQueryVO) SetQuery(v *AuthAppInfoVO) *AuthAppInfoQueryVO {
-	s.Query = v
+func (s *BatchImportResult) SetRepeatApiList(v []*ApiTransferVO) *BatchImportResult {
+	s.RepeatApiList = v
 	return s
 }
 
-func (s *AuthAppInfoQueryVO) SetQueryCondition(v string) *AuthAppInfoQueryVO {
-	s.QueryCondition = &v
+func (s *BatchImportResult) SetResults(v []*ImportResult) *BatchImportResult {
+	s.Results = v
 	return s
 }
 
-func (s *AuthAppInfoQueryVO) SetFuzzySearch(v bool) *AuthAppInfoQueryVO {
-	s.FuzzySearch = &v
+func (s *BatchImportResult) SetSuccessCount(v int64) *BatchImportResult {
+	s.SuccessCount = &v
 	return s
 }
 
-// AuthUserInfoQueryVO
-type AuthUserInfoQueryVO struct {
-	// pageInfo
+func (s *BatchImportResult) SetTotalCount(v int64) *BatchImportResult {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *BatchImportResult) SetSuccessApiList(v []*ApiInfoVO) *BatchImportResult {
+	s.SuccessApiList = v
+	return s
+}
+
+// 查询联系方式
+type ContactInfoQueryVO struct {
+	// 分页信息
 	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-	// OperatorVO
-	Query *AuthUserInfoVO `json:"query,omitempty" xml:"query,omitempty"`
+	// query
+	Query *ContactInfoVO `json:"query,omitempty" xml:"query,omitempty"`
 	// 是否模糊搜索
 	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
 }
 
-func (s AuthUserInfoQueryVO) String() string {
+func (s ContactInfoQueryVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AuthUserInfoQueryVO) GoString() string {
+func (s ContactInfoQueryVO) GoString() string {
 	return s.String()
 }
 
-func (s *AuthUserInfoQueryVO) SetPageInfo(v *PageInfo) *AuthUserInfoQueryVO {
+func (s *ContactInfoQueryVO) SetPageInfo(v *PageInfo) *ContactInfoQueryVO {
 	s.PageInfo = v
 	return s
 }
 
-func (s *AuthUserInfoQueryVO) SetQuery(v *AuthUserInfoVO) *AuthUserInfoQueryVO {
+func (s *ContactInfoQueryVO) SetQuery(v *ContactInfoVO) *ContactInfoQueryVO {
 	s.Query = v
 	return s
 }
 
-func (s *AuthUserInfoQueryVO) SetFuzzySearch(v bool) *AuthUserInfoQueryVO {
+func (s *ContactInfoQueryVO) SetFuzzySearch(v bool) *ContactInfoQueryVO {
 	s.FuzzySearch = &v
 	return s
 }
 
-// HomePageVO
-type HomePageVO struct {
-	// api分组数量
-	ApiGroupCount *int64 `json:"api_group_count,omitempty" xml:"api_group_count,omitempty"`
-	// api数量
-	ApiCount *int64 `json:"api_count,omitempty" xml:"api_count,omitempty"`
-	// app数量
-	AppCount *int64 `json:"app_count,omitempty" xml:"app_count,omitempty"`
-}
-
-func (s HomePageVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s HomePageVO) GoString() string {
-	return s.String()
-}
-
-func (s *HomePageVO) SetApiGroupCount(v int64) *HomePageVO {
-	s.ApiGroupCount = &v
-	return s
-}
-
-func (s *HomePageVO) SetApiCount(v int64) *HomePageVO {
-	s.ApiCount = &v
-	return s
-}
-
-func (s *HomePageVO) SetAppCount(v int64) *HomePageVO {
-	s.AppCount = &v
-	return s
-}
-
-// ApiflowMachineInstQueryVO
-type ApiflowMachineInstQueryVO struct {
-	// fuzzy_search
-	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
+// OperatorPagedListVO
+type OperatorPagedListVO struct {
+	// 当前页的数据
+	List []*OperatorVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
 	// page_info
 	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-	// query
-	Query *ApiflowMachineInstVO `json:"query,omitempty" xml:"query,omitempty"`
 }
 
-func (s ApiflowMachineInstQueryVO) String() string {
+func (s OperatorPagedListVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ApiflowMachineInstQueryVO) GoString() string {
+func (s OperatorPagedListVO) GoString() string {
 	return s.String()
 }
 
-func (s *ApiflowMachineInstQueryVO) SetFuzzySearch(v bool) *ApiflowMachineInstQueryVO {
-	s.FuzzySearch = &v
+func (s *OperatorPagedListVO) SetList(v []*OperatorVO) *OperatorPagedListVO {
+	s.List = v
 	return s
 }
 
-func (s *ApiflowMachineInstQueryVO) SetPageInfo(v *PageInfo) *ApiflowMachineInstQueryVO {
+func (s *OperatorPagedListVO) SetPageInfo(v *PageInfo) *OperatorPagedListVO {
 	s.PageInfo = v
 	return s
 }
 
-func (s *ApiflowMachineInstQueryVO) SetQuery(v *ApiflowMachineInstVO) *ApiflowMachineInstQueryVO {
-	s.Query = v
-	return s
-}
-
-// ApiModelQueryVO
-type ApiModelQueryVO struct {
-	// 支持模糊查询
-	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
-	// page_info
+// 联系方式分页列表
+type ContactInfoPagedListVO struct {
+	// 分页信息
 	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-	// query
-	Query *ApiModelVO `json:"query,omitempty" xml:"query,omitempty"`
+	// 联系方式列表
+	List []*ContactInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
 }
 
-func (s ApiModelQueryVO) String() string {
+func (s ContactInfoPagedListVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ApiModelQueryVO) GoString() string {
+func (s ContactInfoPagedListVO) GoString() string {
 	return s.String()
 }
 
-func (s *ApiModelQueryVO) SetFuzzySearch(v bool) *ApiModelQueryVO {
-	s.FuzzySearch = &v
-	return s
-}
-
-func (s *ApiModelQueryVO) SetPageInfo(v *PageInfo) *ApiModelQueryVO {
+func (s *ContactInfoPagedListVO) SetPageInfo(v *PageInfo) *ContactInfoPagedListVO {
 	s.PageInfo = v
 	return s
 }
 
-func (s *ApiModelQueryVO) SetQuery(v *ApiModelVO) *ApiModelQueryVO {
-	s.Query = v
-	return s
-}
-
-// ExternalAuthInfoQueryVO
-type ExternalAuthInfoQueryVO struct {
-	// 是否模糊搜索
-	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
-	// pageInfo
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-	// query
-	Query *ExternalAuthInfoVO `json:"query,omitempty" xml:"query,omitempty"`
-}
-
-func (s ExternalAuthInfoQueryVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ExternalAuthInfoQueryVO) GoString() string {
-	return s.String()
-}
-
-func (s *ExternalAuthInfoQueryVO) SetFuzzySearch(v bool) *ExternalAuthInfoQueryVO {
-	s.FuzzySearch = &v
-	return s
-}
-
-func (s *ExternalAuthInfoQueryVO) SetPageInfo(v *PageInfo) *ExternalAuthInfoQueryVO {
-	s.PageInfo = v
-	return s
-}
-
-func (s *ExternalAuthInfoQueryVO) SetQuery(v *ExternalAuthInfoVO) *ExternalAuthInfoQueryVO {
-	s.Query = v
+func (s *ContactInfoPagedListVO) SetList(v []*ContactInfoVO) *ContactInfoPagedListVO {
+	s.List = v
 	return s
 }
 
@@ -6166,6 +6108,334 @@ func (s *SofaGwService) SetUpstream(v *SofaGwUpstreamVO) *SofaGwService {
 	return s
 }
 
+// cors分页信息
+type CorsInfoPagedListVO struct {
+	// cors列表
+	List []*CorsInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+	// 分页信息
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+}
+
+func (s CorsInfoPagedListVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CorsInfoPagedListVO) GoString() string {
+	return s.String()
+}
+
+func (s *CorsInfoPagedListVO) SetList(v []*CorsInfoVO) *CorsInfoPagedListVO {
+	s.List = v
+	return s
+}
+
+func (s *CorsInfoPagedListVO) SetPageInfo(v *PageInfo) *CorsInfoPagedListVO {
+	s.PageInfo = v
+	return s
+}
+
+// ApiflowMachineInstQueryVO
+type ApiflowMachineInstQueryVO struct {
+	// fuzzy_search
+	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
+	// page_info
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+	// query
+	Query *ApiflowMachineInstVO `json:"query,omitempty" xml:"query,omitempty"`
+}
+
+func (s ApiflowMachineInstQueryVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiflowMachineInstQueryVO) GoString() string {
+	return s.String()
+}
+
+func (s *ApiflowMachineInstQueryVO) SetFuzzySearch(v bool) *ApiflowMachineInstQueryVO {
+	s.FuzzySearch = &v
+	return s
+}
+
+func (s *ApiflowMachineInstQueryVO) SetPageInfo(v *PageInfo) *ApiflowMachineInstQueryVO {
+	s.PageInfo = v
+	return s
+}
+
+func (s *ApiflowMachineInstQueryVO) SetQuery(v *ApiflowMachineInstVO) *ApiflowMachineInstQueryVO {
+	s.Query = v
+	return s
+}
+
+// SystemConfigQueryVO
+type SystemConfigQueryVO struct {
+	// 是否模糊搜索
+	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
+	// page_info
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+	// query
+	Query *SystemConfigVO `json:"query,omitempty" xml:"query,omitempty"`
+}
+
+func (s SystemConfigQueryVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SystemConfigQueryVO) GoString() string {
+	return s.String()
+}
+
+func (s *SystemConfigQueryVO) SetFuzzySearch(v bool) *SystemConfigQueryVO {
+	s.FuzzySearch = &v
+	return s
+}
+
+func (s *SystemConfigQueryVO) SetPageInfo(v *PageInfo) *SystemConfigQueryVO {
+	s.PageInfo = v
+	return s
+}
+
+func (s *SystemConfigQueryVO) SetQuery(v *SystemConfigVO) *SystemConfigQueryVO {
+	s.Query = v
+	return s
+}
+
+// StrategyInfoQueryVO
+type StrategyInfoQueryVO struct {
+	// 分页信息
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+	// query
+	Query *StrategyInfoVO `json:"query,omitempty" xml:"query,omitempty"`
+	// 是否模糊搜索
+	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
+}
+
+func (s StrategyInfoQueryVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StrategyInfoQueryVO) GoString() string {
+	return s.String()
+}
+
+func (s *StrategyInfoQueryVO) SetPageInfo(v *PageInfo) *StrategyInfoQueryVO {
+	s.PageInfo = v
+	return s
+}
+
+func (s *StrategyInfoQueryVO) SetQuery(v *StrategyInfoVO) *StrategyInfoQueryVO {
+	s.Query = v
+	return s
+}
+
+func (s *StrategyInfoQueryVO) SetFuzzySearch(v bool) *StrategyInfoQueryVO {
+	s.FuzzySearch = &v
+	return s
+}
+
+// OperatorQueryVO
+type OperatorQueryVO struct {
+	// pageInfo
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+	// query
+	Query *OperatorVO `json:"query,omitempty" xml:"query,omitempty"`
+}
+
+func (s OperatorQueryVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperatorQueryVO) GoString() string {
+	return s.String()
+}
+
+func (s *OperatorQueryVO) SetPageInfo(v *PageInfo) *OperatorQueryVO {
+	s.PageInfo = v
+	return s
+}
+
+func (s *OperatorQueryVO) SetQuery(v *OperatorVO) *OperatorQueryVO {
+	s.Query = v
+	return s
+}
+
+// ApiInfoPagedListVO
+type ApiInfoPagedListVO struct {
+	// list
+	List []*ApiInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+	// pageInfo
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+}
+
+func (s ApiInfoPagedListVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiInfoPagedListVO) GoString() string {
+	return s.String()
+}
+
+func (s *ApiInfoPagedListVO) SetList(v []*ApiInfoVO) *ApiInfoPagedListVO {
+	s.List = v
+	return s
+}
+
+func (s *ApiInfoPagedListVO) SetPageInfo(v *PageInfo) *ApiInfoPagedListVO {
+	s.PageInfo = v
+	return s
+}
+
+// AppInfoPagedListVO
+type AppInfoPagedListVO struct {
+	// list
+	List []*AppInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+	// pageInfo
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+}
+
+func (s AppInfoPagedListVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppInfoPagedListVO) GoString() string {
+	return s.String()
+}
+
+func (s *AppInfoPagedListVO) SetList(v []*AppInfoVO) *AppInfoPagedListVO {
+	s.List = v
+	return s
+}
+
+func (s *AppInfoPagedListVO) SetPageInfo(v *PageInfo) *AppInfoPagedListVO {
+	s.PageInfo = v
+	return s
+}
+
+// ldc信息
+type LdcInfoVO struct {
+	// 是否开启
+	Enable *bool `json:"enable,omitempty" xml:"enable,omitempty"`
+	// 参数位置
+	ParamLocation *string `json:"param_location,omitempty" xml:"param_location,omitempty"`
+	// 参数名
+	ParamKey *string `json:"param_key,omitempty" xml:"param_key,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+}
+
+func (s LdcInfoVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LdcInfoVO) GoString() string {
+	return s.String()
+}
+
+func (s *LdcInfoVO) SetEnable(v bool) *LdcInfoVO {
+	s.Enable = &v
+	return s
+}
+
+func (s *LdcInfoVO) SetParamLocation(v string) *LdcInfoVO {
+	s.ParamLocation = &v
+	return s
+}
+
+func (s *LdcInfoVO) SetParamKey(v string) *LdcInfoVO {
+	s.ParamKey = &v
+	return s
+}
+
+func (s *LdcInfoVO) SetTenantId(v string) *LdcInfoVO {
+	s.TenantId = &v
+	return s
+}
+
+func (s *LdcInfoVO) SetWorkspaceId(v string) *LdcInfoVO {
+	s.WorkspaceId = &v
+	return s
+}
+
+// AppInfoQueryVO
+type AppInfoQueryVO struct {
+	// pageInfo
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+	// query
+	Query *AppInfoVO `json:"query,omitempty" xml:"query,omitempty"`
+}
+
+func (s AppInfoQueryVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppInfoQueryVO) GoString() string {
+	return s.String()
+}
+
+func (s *AppInfoQueryVO) SetPageInfo(v *PageInfo) *AppInfoQueryVO {
+	s.PageInfo = v
+	return s
+}
+
+func (s *AppInfoQueryVO) SetQuery(v *AppInfoVO) *AppInfoQueryVO {
+	s.Query = v
+	return s
+}
+
+// 策略分页信息
+type StrategyPagedListVO struct {
+	// list
+	List []*StrategyInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+	// 分页信息
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+}
+
+func (s StrategyPagedListVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StrategyPagedListVO) GoString() string {
+	return s.String()
+}
+
+func (s *StrategyPagedListVO) SetList(v []*StrategyInfoVO) *StrategyPagedListVO {
+	s.List = v
+	return s
+}
+
+func (s *StrategyPagedListVO) SetPageInfo(v *PageInfo) *StrategyPagedListVO {
+	s.PageInfo = v
+	return s
+}
+
+// RegionVO
+type RegionVO struct {
+	// region_id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// region名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+}
+
+func (s RegionVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegionVO) GoString() string {
+	return s.String()
+}
+
+func (s *RegionVO) SetId(v string) *RegionVO {
+	s.Id = &v
+	return s
+}
+
+func (s *RegionVO) SetName(v string) *RegionVO {
+	s.Name = &v
+	return s
+}
+
 // ApiTransferResult
 type ApiTransferResult struct {
 	// api配置
@@ -6206,369 +6476,161 @@ func (s *ApiTransferResult) SetApiflowList(v []*ApiInfoVO) *ApiTransferResult {
 	return s
 }
 
-// BatchImportResult
-type BatchImportResult struct {
-	// failed_count
-	FailedCount *int64 `json:"failed_count,omitempty" xml:"failed_count,omitempty"`
-	// 重复的API列表
-	RepeatApiList []*ApiTransferVO `json:"repeat_api_list,omitempty" xml:"repeat_api_list,omitempty" type:"Repeated"`
-	// results
-	Results []*ImportResult `json:"results,omitempty" xml:"results,omitempty" type:"Repeated"`
-	// success_count
-	SuccessCount *int64 `json:"success_count,omitempty" xml:"success_count,omitempty"`
-	// total_count
-	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
-	// 导入成功的API列表
-	SuccessApiList []*ApiInfoVO `json:"success_api_list,omitempty" xml:"success_api_list,omitempty" type:"Repeated"`
+// HomePageVO
+type HomePageVO struct {
+	// api分组数量
+	ApiGroupCount *int64 `json:"api_group_count,omitempty" xml:"api_group_count,omitempty"`
+	// api数量
+	ApiCount *int64 `json:"api_count,omitempty" xml:"api_count,omitempty"`
+	// app数量
+	AppCount *int64 `json:"app_count,omitempty" xml:"app_count,omitempty"`
 }
 
-func (s BatchImportResult) String() string {
+func (s HomePageVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s BatchImportResult) GoString() string {
+func (s HomePageVO) GoString() string {
 	return s.String()
 }
 
-func (s *BatchImportResult) SetFailedCount(v int64) *BatchImportResult {
-	s.FailedCount = &v
+func (s *HomePageVO) SetApiGroupCount(v int64) *HomePageVO {
+	s.ApiGroupCount = &v
 	return s
 }
 
-func (s *BatchImportResult) SetRepeatApiList(v []*ApiTransferVO) *BatchImportResult {
-	s.RepeatApiList = v
+func (s *HomePageVO) SetApiCount(v int64) *HomePageVO {
+	s.ApiCount = &v
 	return s
 }
 
-func (s *BatchImportResult) SetResults(v []*ImportResult) *BatchImportResult {
-	s.Results = v
+func (s *HomePageVO) SetAppCount(v int64) *HomePageVO {
+	s.AppCount = &v
 	return s
 }
 
-func (s *BatchImportResult) SetSuccessCount(v int64) *BatchImportResult {
-	s.SuccessCount = &v
-	return s
-}
-
-func (s *BatchImportResult) SetTotalCount(v int64) *BatchImportResult {
-	s.TotalCount = &v
-	return s
-}
-
-func (s *BatchImportResult) SetSuccessApiList(v []*ApiInfoVO) *BatchImportResult {
-	s.SuccessApiList = v
-	return s
-}
-
-// ApiflowMachineDefPagedListVO
-type ApiflowMachineDefPagedListVO struct {
-	// list
-	List []*ApiflowMachineDefVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+// ApiflowInstQueryVO
+type ApiflowInstQueryVO struct {
+	// fuzzy_search
+	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
 	// page_info
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-}
-
-func (s ApiflowMachineDefPagedListVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ApiflowMachineDefPagedListVO) GoString() string {
-	return s.String()
-}
-
-func (s *ApiflowMachineDefPagedListVO) SetList(v []*ApiflowMachineDefVO) *ApiflowMachineDefPagedListVO {
-	s.List = v
-	return s
-}
-
-func (s *ApiflowMachineDefPagedListVO) SetPageInfo(v *PageInfo) *ApiflowMachineDefPagedListVO {
-	s.PageInfo = v
-	return s
-}
-
-// OperatorPagedListVO
-type OperatorPagedListVO struct {
-	// 当前页的数据
-	List []*OperatorVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
-	// page_info
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-}
-
-func (s OperatorPagedListVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OperatorPagedListVO) GoString() string {
-	return s.String()
-}
-
-func (s *OperatorPagedListVO) SetList(v []*OperatorVO) *OperatorPagedListVO {
-	s.List = v
-	return s
-}
-
-func (s *OperatorPagedListVO) SetPageInfo(v *PageInfo) *OperatorPagedListVO {
-	s.PageInfo = v
-	return s
-}
-
-// cors分页信息
-type CorsInfoPagedListVO struct {
-	// cors列表
-	List []*CorsInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
-	// 分页信息
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-}
-
-func (s CorsInfoPagedListVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CorsInfoPagedListVO) GoString() string {
-	return s.String()
-}
-
-func (s *CorsInfoPagedListVO) SetList(v []*CorsInfoVO) *CorsInfoPagedListVO {
-	s.List = v
-	return s
-}
-
-func (s *CorsInfoPagedListVO) SetPageInfo(v *PageInfo) *CorsInfoPagedListVO {
-	s.PageInfo = v
-	return s
-}
-
-// ApiInfoPagedListVO
-type ApiInfoPagedListVO struct {
-	// list
-	List []*ApiInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
-	// pageInfo
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-}
-
-func (s ApiInfoPagedListVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ApiInfoPagedListVO) GoString() string {
-	return s.String()
-}
-
-func (s *ApiInfoPagedListVO) SetList(v []*ApiInfoVO) *ApiInfoPagedListVO {
-	s.List = v
-	return s
-}
-
-func (s *ApiInfoPagedListVO) SetPageInfo(v *PageInfo) *ApiInfoPagedListVO {
-	s.PageInfo = v
-	return s
-}
-
-// OperatorQueryVO
-type OperatorQueryVO struct {
-	// pageInfo
 	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
 	// query
-	Query *OperatorVO `json:"query,omitempty" xml:"query,omitempty"`
+	Query *ApiflowInstVO `json:"query,omitempty" xml:"query,omitempty"`
 }
 
-func (s OperatorQueryVO) String() string {
+func (s ApiflowInstQueryVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s OperatorQueryVO) GoString() string {
+func (s ApiflowInstQueryVO) GoString() string {
 	return s.String()
 }
 
-func (s *OperatorQueryVO) SetPageInfo(v *PageInfo) *OperatorQueryVO {
+func (s *ApiflowInstQueryVO) SetFuzzySearch(v bool) *ApiflowInstQueryVO {
+	s.FuzzySearch = &v
+	return s
+}
+
+func (s *ApiflowInstQueryVO) SetPageInfo(v *PageInfo) *ApiflowInstQueryVO {
 	s.PageInfo = v
 	return s
 }
 
-func (s *OperatorQueryVO) SetQuery(v *OperatorVO) *OperatorQueryVO {
+func (s *ApiflowInstQueryVO) SetQuery(v *ApiflowInstVO) *ApiflowInstQueryVO {
 	s.Query = v
 	return s
 }
 
-// api导入 效验返回体
-type CheckApiResult struct {
-	// 导入的所有的API集合
-	AllApiList []*ApiTransferVO `json:"all_api_list,omitempty" xml:"all_api_list,omitempty" type:"Repeated"`
-	// API或者配置中有重复的集合
-	FailedApiList []*ApiTransferVO `json:"failed_api_list,omitempty" xml:"failed_api_list,omitempty" type:"Repeated"`
-	//
-	// API包括配置无重复的集合
-	SuccessApiList []*ApiTransferVO `json:"success_api_list,omitempty" xml:"success_api_list,omitempty" type:"Repeated"`
-	// 失败api配置详情
-	CheckResult *string `json:"check_result,omitempty" xml:"check_result,omitempty"`
+// ParamMappingInfoQueryVO
+type ParamMappingInfoQueryVO struct {
+	// pageInfo
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+	// query
+	Query *ParamMappingInfoVO `json:"query,omitempty" xml:"query,omitempty"`
+	// 支持模糊查询
+	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
 }
 
-func (s CheckApiResult) String() string {
+func (s ParamMappingInfoQueryVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CheckApiResult) GoString() string {
+func (s ParamMappingInfoQueryVO) GoString() string {
 	return s.String()
 }
 
-func (s *CheckApiResult) SetAllApiList(v []*ApiTransferVO) *CheckApiResult {
-	s.AllApiList = v
+func (s *ParamMappingInfoQueryVO) SetPageInfo(v *PageInfo) *ParamMappingInfoQueryVO {
+	s.PageInfo = v
 	return s
 }
 
-func (s *CheckApiResult) SetFailedApiList(v []*ApiTransferVO) *CheckApiResult {
-	s.FailedApiList = v
+func (s *ParamMappingInfoQueryVO) SetQuery(v *ParamMappingInfoVO) *ParamMappingInfoQueryVO {
+	s.Query = v
 	return s
 }
 
-func (s *CheckApiResult) SetSuccessApiList(v []*ApiTransferVO) *CheckApiResult {
-	s.SuccessApiList = v
+func (s *ParamMappingInfoQueryVO) SetFuzzySearch(v bool) *ParamMappingInfoQueryVO {
+	s.FuzzySearch = &v
 	return s
 }
 
-func (s *CheckApiResult) SetCheckResult(v string) *CheckApiResult {
-	s.CheckResult = &v
-	return s
-}
-
-// ApiflowTestReqVO
-type ApiflowTestReqVO struct {
-	// api_id
-	ApiId *string `json:"api_id,omitempty" xml:"api_id,omitempty"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-	// tenant_id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// machine_name
-	MachineName *string `json:"machine_name,omitempty" xml:"machine_name,omitempty"`
-	// params
-	InputParams []*ApiTestParamVO `json:"input_params,omitempty" xml:"input_params,omitempty" type:"Repeated"`
-	// output_params
-	OutputParams []*ApiflowOutputVO `json:"output_params,omitempty" xml:"output_params,omitempty" type:"Repeated"`
-}
-
-func (s ApiflowTestReqVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ApiflowTestReqVO) GoString() string {
-	return s.String()
-}
-
-func (s *ApiflowTestReqVO) SetApiId(v string) *ApiflowTestReqVO {
-	s.ApiId = &v
-	return s
-}
-
-func (s *ApiflowTestReqVO) SetWorkspaceId(v string) *ApiflowTestReqVO {
-	s.WorkspaceId = &v
-	return s
-}
-
-func (s *ApiflowTestReqVO) SetTenantId(v string) *ApiflowTestReqVO {
-	s.TenantId = &v
-	return s
-}
-
-func (s *ApiflowTestReqVO) SetMachineName(v string) *ApiflowTestReqVO {
-	s.MachineName = &v
-	return s
-}
-
-func (s *ApiflowTestReqVO) SetInputParams(v []*ApiTestParamVO) *ApiflowTestReqVO {
-	s.InputParams = v
-	return s
-}
-
-func (s *ApiflowTestReqVO) SetOutputParams(v []*ApiflowOutputVO) *ApiflowTestReqVO {
-	s.OutputParams = v
-	return s
-}
-
-// MonitoryAggregationVO
-type MonitoryAggregationVO struct {
-	// invoke_num
-	InvokeNum []*MonitorData `json:"invoke_num,omitempty" xml:"invoke_num,omitempty" type:"Repeated"`
-	// qps
-	Qps []*MonitorData `json:"qps,omitempty" xml:"qps,omitempty" type:"Repeated"`
-	// rt
-	Rt []*MonitorData `json:"rt,omitempty" xml:"rt,omitempty" type:"Repeated"`
-	// 错误码
-	ErrCode []*MonitorData `json:"err_code,omitempty" xml:"err_code,omitempty" type:"Repeated"`
-	// 错误率
-	ErrRate []*MonitorData `json:"err_rate,omitempty" xml:"err_rate,omitempty" type:"Repeated"`
-	// byte_in
-	ByteIn []*MonitorData `json:"byte_in,omitempty" xml:"byte_in,omitempty" type:"Repeated"`
-	// byte_out
-	ByteOut []*MonitorData `json:"byte_out,omitempty" xml:"byte_out,omitempty" type:"Repeated"`
-}
-
-func (s MonitoryAggregationVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MonitoryAggregationVO) GoString() string {
-	return s.String()
-}
-
-func (s *MonitoryAggregationVO) SetInvokeNum(v []*MonitorData) *MonitoryAggregationVO {
-	s.InvokeNum = v
-	return s
-}
-
-func (s *MonitoryAggregationVO) SetQps(v []*MonitorData) *MonitoryAggregationVO {
-	s.Qps = v
-	return s
-}
-
-func (s *MonitoryAggregationVO) SetRt(v []*MonitorData) *MonitoryAggregationVO {
-	s.Rt = v
-	return s
-}
-
-func (s *MonitoryAggregationVO) SetErrCode(v []*MonitorData) *MonitoryAggregationVO {
-	s.ErrCode = v
-	return s
-}
-
-func (s *MonitoryAggregationVO) SetErrRate(v []*MonitorData) *MonitoryAggregationVO {
-	s.ErrRate = v
-	return s
-}
-
-func (s *MonitoryAggregationVO) SetByteIn(v []*MonitorData) *MonitoryAggregationVO {
-	s.ByteIn = v
-	return s
-}
-
-func (s *MonitoryAggregationVO) SetByteOut(v []*MonitorData) *MonitoryAggregationVO {
-	s.ByteOut = v
-	return s
-}
-
-// ApiGroupPagedListVO
-type ApiGroupPagedListVO struct {
-	// 当前页的数据
-	List []*ApiGroupVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+// RegistryInfoPagedListVO
+type RegistryInfoPagedListVO struct {
+	// list
+	List []*RegistryInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
 	// page_info
 	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
 }
 
-func (s ApiGroupPagedListVO) String() string {
+func (s RegistryInfoPagedListVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ApiGroupPagedListVO) GoString() string {
+func (s RegistryInfoPagedListVO) GoString() string {
 	return s.String()
 }
 
-func (s *ApiGroupPagedListVO) SetList(v []*ApiGroupVO) *ApiGroupPagedListVO {
+func (s *RegistryInfoPagedListVO) SetList(v []*RegistryInfoVO) *RegistryInfoPagedListVO {
 	s.List = v
 	return s
 }
 
-func (s *ApiGroupPagedListVO) SetPageInfo(v *PageInfo) *ApiGroupPagedListVO {
+func (s *RegistryInfoPagedListVO) SetPageInfo(v *PageInfo) *RegistryInfoPagedListVO {
 	s.PageInfo = v
+	return s
+}
+
+// ApiGroupQueryVO
+type ApiGroupQueryVO struct {
+	// page_info
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+	// query
+	Query *ApiGroupVO `json:"query,omitempty" xml:"query,omitempty"`
+	// 是否模糊搜索
+	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
+}
+
+func (s ApiGroupQueryVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiGroupQueryVO) GoString() string {
+	return s.String()
+}
+
+func (s *ApiGroupQueryVO) SetPageInfo(v *PageInfo) *ApiGroupQueryVO {
+	s.PageInfo = v
+	return s
+}
+
+func (s *ApiGroupQueryVO) SetQuery(v *ApiGroupVO) *ApiGroupQueryVO {
+	s.Query = v
+	return s
+}
+
+func (s *ApiGroupQueryVO) SetFuzzySearch(v bool) *ApiGroupQueryVO {
+	s.FuzzySearch = &v
 	return s
 }
 
@@ -6619,29 +6681,501 @@ func (s *ApiTestRspVO) SetHeaders(v []*ApiTestParamVO) *ApiTestRspVO {
 	return s
 }
 
-// ApiflowInstPagedListVO
-type ApiflowInstPagedListVO struct {
+// ApiModelPagedListVO
+type ApiModelPagedListVO struct {
 	// list
-	List []*ApiflowInstVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+	List []*ApiModelVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
 	// page_info
 	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
 }
 
-func (s ApiflowInstPagedListVO) String() string {
+func (s ApiModelPagedListVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ApiflowInstPagedListVO) GoString() string {
+func (s ApiModelPagedListVO) GoString() string {
 	return s.String()
 }
 
-func (s *ApiflowInstPagedListVO) SetList(v []*ApiflowInstVO) *ApiflowInstPagedListVO {
+func (s *ApiModelPagedListVO) SetList(v []*ApiModelVO) *ApiModelPagedListVO {
 	s.List = v
 	return s
 }
 
-func (s *ApiflowInstPagedListVO) SetPageInfo(v *PageInfo) *ApiflowInstPagedListVO {
+func (s *ApiModelPagedListVO) SetPageInfo(v *PageInfo) *ApiModelPagedListVO {
 	s.PageInfo = v
+	return s
+}
+
+// ApiflowMachineInstPagedListVO
+type ApiflowMachineInstPagedListVO struct {
+	// list
+	List []*ApiflowMachineInstVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+	// page_info
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+}
+
+func (s ApiflowMachineInstPagedListVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiflowMachineInstPagedListVO) GoString() string {
+	return s.String()
+}
+
+func (s *ApiflowMachineInstPagedListVO) SetList(v []*ApiflowMachineInstVO) *ApiflowMachineInstPagedListVO {
+	s.List = v
+	return s
+}
+
+func (s *ApiflowMachineInstPagedListVO) SetPageInfo(v *PageInfo) *ApiflowMachineInstPagedListVO {
+	s.PageInfo = v
+	return s
+}
+
+// api导入 效验返回体
+type CheckApiResult struct {
+	// 导入的所有的API集合
+	AllApiList []*ApiTransferVO `json:"all_api_list,omitempty" xml:"all_api_list,omitempty" type:"Repeated"`
+	// API或者配置中有重复的集合
+	FailedApiList []*ApiTransferVO `json:"failed_api_list,omitempty" xml:"failed_api_list,omitempty" type:"Repeated"`
+	//
+	// API包括配置无重复的集合
+	SuccessApiList []*ApiTransferVO `json:"success_api_list,omitempty" xml:"success_api_list,omitempty" type:"Repeated"`
+	// 失败api配置详情
+	CheckResult *string `json:"check_result,omitempty" xml:"check_result,omitempty"`
+}
+
+func (s CheckApiResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckApiResult) GoString() string {
+	return s.String()
+}
+
+func (s *CheckApiResult) SetAllApiList(v []*ApiTransferVO) *CheckApiResult {
+	s.AllApiList = v
+	return s
+}
+
+func (s *CheckApiResult) SetFailedApiList(v []*ApiTransferVO) *CheckApiResult {
+	s.FailedApiList = v
+	return s
+}
+
+func (s *CheckApiResult) SetSuccessApiList(v []*ApiTransferVO) *CheckApiResult {
+	s.SuccessApiList = v
+	return s
+}
+
+func (s *CheckApiResult) SetCheckResult(v string) *CheckApiResult {
+	s.CheckResult = &v
+	return s
+}
+
+// CorsInfoQueryVO
+type CorsInfoQueryVO struct {
+	// 分页信息
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+	// query
+	Query *CorsInfoVO `json:"query,omitempty" xml:"query,omitempty"`
+	// 是否模糊搜索
+	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
+}
+
+func (s CorsInfoQueryVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CorsInfoQueryVO) GoString() string {
+	return s.String()
+}
+
+func (s *CorsInfoQueryVO) SetPageInfo(v *PageInfo) *CorsInfoQueryVO {
+	s.PageInfo = v
+	return s
+}
+
+func (s *CorsInfoQueryVO) SetQuery(v *CorsInfoVO) *CorsInfoQueryVO {
+	s.Query = v
+	return s
+}
+
+func (s *CorsInfoQueryVO) SetFuzzySearch(v bool) *CorsInfoQueryVO {
+	s.FuzzySearch = &v
+	return s
+}
+
+// 集群信息
+type SofaGwClusterVO struct {
+	// app name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	// hosts
+	Hosts []*SofaGwHostVO `json:"hosts,omitempty" xml:"hosts,omitempty" type:"Repeated"`
+	// id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
+	// 实例标识
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
+	// 集群名
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+}
+
+func (s SofaGwClusterVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SofaGwClusterVO) GoString() string {
+	return s.String()
+}
+
+func (s *SofaGwClusterVO) SetAppName(v string) *SofaGwClusterVO {
+	s.AppName = &v
+	return s
+}
+
+func (s *SofaGwClusterVO) SetHosts(v []*SofaGwHostVO) *SofaGwClusterVO {
+	s.Hosts = v
+	return s
+}
+
+func (s *SofaGwClusterVO) SetId(v int64) *SofaGwClusterVO {
+	s.Id = &v
+	return s
+}
+
+func (s *SofaGwClusterVO) SetInstanceId(v string) *SofaGwClusterVO {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *SofaGwClusterVO) SetName(v string) *SofaGwClusterVO {
+	s.Name = &v
+	return s
+}
+
+// ApiGroupAuthUserConfigVO
+type ApiGroupAuthUserConfigVO struct {
+	// api授权管理开关
+	ApiAuthUserSwitch *string `json:"api_auth_user_switch,omitempty" xml:"api_auth_user_switch,omitempty"`
+	// 是否是管理员
+	CheckMaster *bool `json:"check_master,omitempty" xml:"check_master,omitempty"`
+	// 需要api授权管理
+	NeedApiAuthUser *bool `json:"need_api_auth_user,omitempty" xml:"need_api_auth_user,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+}
+
+func (s ApiGroupAuthUserConfigVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiGroupAuthUserConfigVO) GoString() string {
+	return s.String()
+}
+
+func (s *ApiGroupAuthUserConfigVO) SetApiAuthUserSwitch(v string) *ApiGroupAuthUserConfigVO {
+	s.ApiAuthUserSwitch = &v
+	return s
+}
+
+func (s *ApiGroupAuthUserConfigVO) SetCheckMaster(v bool) *ApiGroupAuthUserConfigVO {
+	s.CheckMaster = &v
+	return s
+}
+
+func (s *ApiGroupAuthUserConfigVO) SetNeedApiAuthUser(v bool) *ApiGroupAuthUserConfigVO {
+	s.NeedApiAuthUser = &v
+	return s
+}
+
+func (s *ApiGroupAuthUserConfigVO) SetTenantId(v string) *ApiGroupAuthUserConfigVO {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ApiGroupAuthUserConfigVO) SetWorkspaceId(v string) *ApiGroupAuthUserConfigVO {
+	s.WorkspaceId = &v
+	return s
+}
+
+// ApiModelQueryVO
+type ApiModelQueryVO struct {
+	// 支持模糊查询
+	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
+	// page_info
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+	// query
+	Query *ApiModelVO `json:"query,omitempty" xml:"query,omitempty"`
+}
+
+func (s ApiModelQueryVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiModelQueryVO) GoString() string {
+	return s.String()
+}
+
+func (s *ApiModelQueryVO) SetFuzzySearch(v bool) *ApiModelQueryVO {
+	s.FuzzySearch = &v
+	return s
+}
+
+func (s *ApiModelQueryVO) SetPageInfo(v *PageInfo) *ApiModelQueryVO {
+	s.PageInfo = v
+	return s
+}
+
+func (s *ApiModelQueryVO) SetQuery(v *ApiModelVO) *ApiModelQueryVO {
+	s.Query = v
+	return s
+}
+
+// ApiTestReqVO
+type ApiTestReqVO struct {
+	// API标识
+	ApiId *string `json:"api_id,omitempty" xml:"api_id,omitempty"`
+	// 应用标识
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	// params
+	Params []*ApiTestParamVO `json:"params,omitempty" xml:"params,omitempty" type:"Repeated"`
+	// payload
+	Payload *string `json:"payload,omitempty" xml:"payload,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 工作空间标识
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+}
+
+func (s ApiTestReqVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiTestReqVO) GoString() string {
+	return s.String()
+}
+
+func (s *ApiTestReqVO) SetApiId(v string) *ApiTestReqVO {
+	s.ApiId = &v
+	return s
+}
+
+func (s *ApiTestReqVO) SetAppId(v string) *ApiTestReqVO {
+	s.AppId = &v
+	return s
+}
+
+func (s *ApiTestReqVO) SetParams(v []*ApiTestParamVO) *ApiTestReqVO {
+	s.Params = v
+	return s
+}
+
+func (s *ApiTestReqVO) SetPayload(v string) *ApiTestReqVO {
+	s.Payload = &v
+	return s
+}
+
+func (s *ApiTestReqVO) SetTenantId(v string) *ApiTestReqVO {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ApiTestReqVO) SetWorkspaceId(v string) *ApiTestReqVO {
+	s.WorkspaceId = &v
+	return s
+}
+
+// ParamMappingInfoPagedListVO
+type ParamMappingInfoPagedListVO struct {
+	// list
+	List []*ParamMappingInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+	// pageInfo
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+}
+
+func (s ParamMappingInfoPagedListVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ParamMappingInfoPagedListVO) GoString() string {
+	return s.String()
+}
+
+func (s *ParamMappingInfoPagedListVO) SetList(v []*ParamMappingInfoVO) *ParamMappingInfoPagedListVO {
+	s.List = v
+	return s
+}
+
+func (s *ParamMappingInfoPagedListVO) SetPageInfo(v *PageInfo) *ParamMappingInfoPagedListVO {
+	s.PageInfo = v
+	return s
+}
+
+// MonitoryRequest
+type MonitoryRequest struct {
+	// API标识
+	ApiId *string `json:"api_id,omitempty" xml:"api_id,omitempty"`
+	// App标识
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	// code
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 开始时间
+	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty"`
+	// end_time
+	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty"`
+}
+
+func (s MonitoryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MonitoryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *MonitoryRequest) SetApiId(v string) *MonitoryRequest {
+	s.ApiId = &v
+	return s
+}
+
+func (s *MonitoryRequest) SetAppId(v string) *MonitoryRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *MonitoryRequest) SetCode(v string) *MonitoryRequest {
+	s.Code = &v
+	return s
+}
+
+func (s *MonitoryRequest) SetStartTime(v int64) *MonitoryRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *MonitoryRequest) SetEndTime(v int64) *MonitoryRequest {
+	s.EndTime = &v
+	return s
+}
+
+// AuthUserInfoQueryVO
+type AuthUserInfoQueryVO struct {
+	// pageInfo
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+	// OperatorVO
+	Query *AuthUserInfoVO `json:"query,omitempty" xml:"query,omitempty"`
+	// 是否模糊搜索
+	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
+}
+
+func (s AuthUserInfoQueryVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthUserInfoQueryVO) GoString() string {
+	return s.String()
+}
+
+func (s *AuthUserInfoQueryVO) SetPageInfo(v *PageInfo) *AuthUserInfoQueryVO {
+	s.PageInfo = v
+	return s
+}
+
+func (s *AuthUserInfoQueryVO) SetQuery(v *AuthUserInfoVO) *AuthUserInfoQueryVO {
+	s.Query = v
+	return s
+}
+
+func (s *AuthUserInfoQueryVO) SetFuzzySearch(v bool) *AuthUserInfoQueryVO {
+	s.FuzzySearch = &v
+	return s
+}
+
+// ExternalAuthInfoPagedListVO
+type ExternalAuthInfoPagedListVO struct {
+	// list
+	List []*ExternalAuthInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+	// pageInfo
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+}
+
+func (s ExternalAuthInfoPagedListVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExternalAuthInfoPagedListVO) GoString() string {
+	return s.String()
+}
+
+func (s *ExternalAuthInfoPagedListVO) SetList(v []*ExternalAuthInfoVO) *ExternalAuthInfoPagedListVO {
+	s.List = v
+	return s
+}
+
+func (s *ExternalAuthInfoPagedListVO) SetPageInfo(v *PageInfo) *ExternalAuthInfoPagedListVO {
+	s.PageInfo = v
+	return s
+}
+
+// SystemClusterPagedListVO
+type SystemClusterPagedListVO struct {
+	// list
+	List []*SystemClusterVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+	// page_info
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+}
+
+func (s SystemClusterPagedListVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SystemClusterPagedListVO) GoString() string {
+	return s.String()
+}
+
+func (s *SystemClusterPagedListVO) SetList(v []*SystemClusterVO) *SystemClusterPagedListVO {
+	s.List = v
+	return s
+}
+
+func (s *SystemClusterPagedListVO) SetPageInfo(v *PageInfo) *SystemClusterPagedListVO {
+	s.PageInfo = v
+	return s
+}
+
+// GrayscaleConfigQueryVO
+type GrayscaleConfigQueryVO struct {
+	// fuzzy_search
+	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
+	// page_info
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+	// query
+	Query *GrayscaleConfigVO `json:"query,omitempty" xml:"query,omitempty"`
+}
+
+func (s GrayscaleConfigQueryVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GrayscaleConfigQueryVO) GoString() string {
+	return s.String()
+}
+
+func (s *GrayscaleConfigQueryVO) SetFuzzySearch(v bool) *GrayscaleConfigQueryVO {
+	s.FuzzySearch = &v
+	return s
+}
+
+func (s *GrayscaleConfigQueryVO) SetPageInfo(v *PageInfo) *GrayscaleConfigQueryVO {
+	s.PageInfo = v
+	return s
+}
+
+func (s *GrayscaleConfigQueryVO) SetQuery(v *GrayscaleConfigVO) *GrayscaleConfigQueryVO {
+	s.Query = v
 	return s
 }
 
@@ -6706,43 +7240,29 @@ func (s *SofaGwAppVO) SetType(v string) *SofaGwAppVO {
 	return s
 }
 
-// ApiInfoQueryVO
-type ApiInfoQueryVO struct {
-	// 是否模糊搜索
-	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
+// AuthAppInfoPagedListVO
+type AuthAppInfoPagedListVO struct {
+	// list
+	List []*AuthAppInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
 	// pageInfo
 	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-	// query
-	Query *ApiInfoVO `json:"query,omitempty" xml:"query,omitempty"`
-	// 自定义查询条件
-	QueryCondition *string `json:"query_condition,omitempty" xml:"query_condition,omitempty"`
 }
 
-func (s ApiInfoQueryVO) String() string {
+func (s AuthAppInfoPagedListVO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ApiInfoQueryVO) GoString() string {
+func (s AuthAppInfoPagedListVO) GoString() string {
 	return s.String()
 }
 
-func (s *ApiInfoQueryVO) SetFuzzySearch(v bool) *ApiInfoQueryVO {
-	s.FuzzySearch = &v
+func (s *AuthAppInfoPagedListVO) SetList(v []*AuthAppInfoVO) *AuthAppInfoPagedListVO {
+	s.List = v
 	return s
 }
 
-func (s *ApiInfoQueryVO) SetPageInfo(v *PageInfo) *ApiInfoQueryVO {
+func (s *AuthAppInfoPagedListVO) SetPageInfo(v *PageInfo) *AuthAppInfoPagedListVO {
 	s.PageInfo = v
-	return s
-}
-
-func (s *ApiInfoQueryVO) SetQuery(v *ApiInfoVO) *ApiInfoQueryVO {
-	s.Query = v
-	return s
-}
-
-func (s *ApiInfoQueryVO) SetQueryCondition(v string) *ApiInfoQueryVO {
-	s.QueryCondition = &v
 	return s
 }
 
@@ -6769,249 +7289,6 @@ func (s *AuthUserInfoPagedListVO) SetList(v []*AuthUserInfoVO) *AuthUserInfoPage
 
 func (s *AuthUserInfoPagedListVO) SetPageInfo(v *PageInfo) *AuthUserInfoPagedListVO {
 	s.PageInfo = v
-	return s
-}
-
-// ApiModelPagedListVO
-type ApiModelPagedListVO struct {
-	// list
-	List []*ApiModelVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
-	// page_info
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-}
-
-func (s ApiModelPagedListVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ApiModelPagedListVO) GoString() string {
-	return s.String()
-}
-
-func (s *ApiModelPagedListVO) SetList(v []*ApiModelVO) *ApiModelPagedListVO {
-	s.List = v
-	return s
-}
-
-func (s *ApiModelPagedListVO) SetPageInfo(v *PageInfo) *ApiModelPagedListVO {
-	s.PageInfo = v
-	return s
-}
-
-// ApiflowInstQueryVO
-type ApiflowInstQueryVO struct {
-	// fuzzy_search
-	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
-	// page_info
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-	// query
-	Query *ApiflowInstVO `json:"query,omitempty" xml:"query,omitempty"`
-}
-
-func (s ApiflowInstQueryVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ApiflowInstQueryVO) GoString() string {
-	return s.String()
-}
-
-func (s *ApiflowInstQueryVO) SetFuzzySearch(v bool) *ApiflowInstQueryVO {
-	s.FuzzySearch = &v
-	return s
-}
-
-func (s *ApiflowInstQueryVO) SetPageInfo(v *PageInfo) *ApiflowInstQueryVO {
-	s.PageInfo = v
-	return s
-}
-
-func (s *ApiflowInstQueryVO) SetQuery(v *ApiflowInstVO) *ApiflowInstQueryVO {
-	s.Query = v
-	return s
-}
-
-// CorsInfoQueryVO
-type CorsInfoQueryVO struct {
-	// 分页信息
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-	// query
-	Query *CorsInfoVO `json:"query,omitempty" xml:"query,omitempty"`
-	// 是否模糊搜索
-	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
-}
-
-func (s CorsInfoQueryVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CorsInfoQueryVO) GoString() string {
-	return s.String()
-}
-
-func (s *CorsInfoQueryVO) SetPageInfo(v *PageInfo) *CorsInfoQueryVO {
-	s.PageInfo = v
-	return s
-}
-
-func (s *CorsInfoQueryVO) SetQuery(v *CorsInfoVO) *CorsInfoQueryVO {
-	s.Query = v
-	return s
-}
-
-func (s *CorsInfoQueryVO) SetFuzzySearch(v bool) *CorsInfoQueryVO {
-	s.FuzzySearch = &v
-	return s
-}
-
-// ApiflowMachineInstPagedListVO
-type ApiflowMachineInstPagedListVO struct {
-	// list
-	List []*ApiflowMachineInstVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
-	// page_info
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-}
-
-func (s ApiflowMachineInstPagedListVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ApiflowMachineInstPagedListVO) GoString() string {
-	return s.String()
-}
-
-func (s *ApiflowMachineInstPagedListVO) SetList(v []*ApiflowMachineInstVO) *ApiflowMachineInstPagedListVO {
-	s.List = v
-	return s
-}
-
-func (s *ApiflowMachineInstPagedListVO) SetPageInfo(v *PageInfo) *ApiflowMachineInstPagedListVO {
-	s.PageInfo = v
-	return s
-}
-
-// StrategyInfoQueryVO
-type StrategyInfoQueryVO struct {
-	// 分页信息
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-	// query
-	Query *StrategyInfoVO `json:"query,omitempty" xml:"query,omitempty"`
-	// 是否模糊搜索
-	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
-}
-
-func (s StrategyInfoQueryVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s StrategyInfoQueryVO) GoString() string {
-	return s.String()
-}
-
-func (s *StrategyInfoQueryVO) SetPageInfo(v *PageInfo) *StrategyInfoQueryVO {
-	s.PageInfo = v
-	return s
-}
-
-func (s *StrategyInfoQueryVO) SetQuery(v *StrategyInfoVO) *StrategyInfoQueryVO {
-	s.Query = v
-	return s
-}
-
-func (s *StrategyInfoQueryVO) SetFuzzySearch(v bool) *StrategyInfoQueryVO {
-	s.FuzzySearch = &v
-	return s
-}
-
-// ExternalAuthInfoPagedListVO
-type ExternalAuthInfoPagedListVO struct {
-	// list
-	List []*ExternalAuthInfoVO `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
-	// pageInfo
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-}
-
-func (s ExternalAuthInfoPagedListVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ExternalAuthInfoPagedListVO) GoString() string {
-	return s.String()
-}
-
-func (s *ExternalAuthInfoPagedListVO) SetList(v []*ExternalAuthInfoVO) *ExternalAuthInfoPagedListVO {
-	s.List = v
-	return s
-}
-
-func (s *ExternalAuthInfoPagedListVO) SetPageInfo(v *PageInfo) *ExternalAuthInfoPagedListVO {
-	s.PageInfo = v
-	return s
-}
-
-// RouterInfoQueryVO
-type RouterInfoQueryVO struct {
-	// pageInfo
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-	// query
-	Query *RouterInfoVO `json:"query,omitempty" xml:"query,omitempty"`
-	// 是否模糊搜索
-	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
-}
-
-func (s RouterInfoQueryVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RouterInfoQueryVO) GoString() string {
-	return s.String()
-}
-
-func (s *RouterInfoQueryVO) SetPageInfo(v *PageInfo) *RouterInfoQueryVO {
-	s.PageInfo = v
-	return s
-}
-
-func (s *RouterInfoQueryVO) SetQuery(v *RouterInfoVO) *RouterInfoQueryVO {
-	s.Query = v
-	return s
-}
-
-func (s *RouterInfoQueryVO) SetFuzzySearch(v bool) *RouterInfoQueryVO {
-	s.FuzzySearch = &v
-	return s
-}
-
-// SystemConfigQueryVO
-type SystemConfigQueryVO struct {
-	// 是否模糊搜索
-	FuzzySearch *bool `json:"fuzzy_search,omitempty" xml:"fuzzy_search,omitempty"`
-	// page_info
-	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
-	// query
-	Query *SystemConfigVO `json:"query,omitempty" xml:"query,omitempty"`
-}
-
-func (s SystemConfigQueryVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SystemConfigQueryVO) GoString() string {
-	return s.String()
-}
-
-func (s *SystemConfigQueryVO) SetFuzzySearch(v bool) *SystemConfigQueryVO {
-	s.FuzzySearch = &v
-	return s
-}
-
-func (s *SystemConfigQueryVO) SetPageInfo(v *PageInfo) *SystemConfigQueryVO {
-	s.PageInfo = v
-	return s
-}
-
-func (s *SystemConfigQueryVO) SetQuery(v *SystemConfigVO) *SystemConfigQueryVO {
-	s.Query = v
 	return s
 }
 
@@ -22454,45 +22731,52 @@ func (s *QueryGwconfigTripleswitchResponse) SetData(v bool) *QueryGwconfigTriple
 	return s
 }
 
-type AllGwconfigRegionRequest struct {
+type AllGrayscaleRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 租户id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// 工作空间标识
+	// param
+	Param *GrayscaleConfigQueryVO `json:"param,omitempty" xml:"param,omitempty"`
+	// workspace_id
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 }
 
-func (s AllGwconfigRegionRequest) String() string {
+func (s AllGrayscaleRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AllGwconfigRegionRequest) GoString() string {
+func (s AllGrayscaleRequest) GoString() string {
 	return s.String()
 }
 
-func (s *AllGwconfigRegionRequest) SetAuthToken(v string) *AllGwconfigRegionRequest {
+func (s *AllGrayscaleRequest) SetAuthToken(v string) *AllGrayscaleRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *AllGwconfigRegionRequest) SetProductInstanceId(v string) *AllGwconfigRegionRequest {
+func (s *AllGrayscaleRequest) SetProductInstanceId(v string) *AllGrayscaleRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *AllGwconfigRegionRequest) SetTenantId(v string) *AllGwconfigRegionRequest {
-	s.TenantId = &v
+func (s *AllGrayscaleRequest) SetParam(v *GrayscaleConfigQueryVO) *AllGrayscaleRequest {
+	s.Param = v
 	return s
 }
 
-func (s *AllGwconfigRegionRequest) SetWorkspaceId(v string) *AllGwconfigRegionRequest {
+func (s *AllGrayscaleRequest) SetWorkspaceId(v string) *AllGrayscaleRequest {
 	s.WorkspaceId = &v
 	return s
 }
 
-type AllGwconfigRegionResponse struct {
+func (s *AllGrayscaleRequest) SetTenantId(v string) *AllGrayscaleRequest {
+	s.TenantId = &v
+	return s
+}
+
+type AllGrayscaleResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -22500,33 +22784,194 @@ type AllGwconfigRegionResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
-	Data []*string `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	Data []*GrayscaleConfigVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
 
-func (s AllGwconfigRegionResponse) String() string {
+func (s AllGrayscaleResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AllGwconfigRegionResponse) GoString() string {
+func (s AllGrayscaleResponse) GoString() string {
 	return s.String()
 }
 
-func (s *AllGwconfigRegionResponse) SetReqMsgId(v string) *AllGwconfigRegionResponse {
+func (s *AllGrayscaleResponse) SetReqMsgId(v string) *AllGrayscaleResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *AllGwconfigRegionResponse) SetResultCode(v string) *AllGwconfigRegionResponse {
+func (s *AllGrayscaleResponse) SetResultCode(v string) *AllGrayscaleResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *AllGwconfigRegionResponse) SetResultMsg(v string) *AllGwconfigRegionResponse {
+func (s *AllGrayscaleResponse) SetResultMsg(v string) *AllGrayscaleResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *AllGwconfigRegionResponse) SetData(v []*string) *AllGwconfigRegionResponse {
+func (s *AllGrayscaleResponse) SetData(v []*GrayscaleConfigVO) *AllGrayscaleResponse {
+	s.Data = v
+	return s
+}
+
+type ListGrayscaleRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// param
+	Param *GrayscaleConfigQueryVO `json:"param,omitempty" xml:"param,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+}
+
+func (s ListGrayscaleRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListGrayscaleRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListGrayscaleRequest) SetAuthToken(v string) *ListGrayscaleRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListGrayscaleRequest) SetProductInstanceId(v string) *ListGrayscaleRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListGrayscaleRequest) SetParam(v *GrayscaleConfigQueryVO) *ListGrayscaleRequest {
+	s.Param = v
+	return s
+}
+
+func (s *ListGrayscaleRequest) SetWorkspaceId(v string) *ListGrayscaleRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *ListGrayscaleRequest) SetTenantId(v string) *ListGrayscaleRequest {
+	s.TenantId = &v
+	return s
+}
+
+type ListGrayscaleResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// data
+	Data *GrayscaleConfigPagedListVO `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s ListGrayscaleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListGrayscaleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListGrayscaleResponse) SetReqMsgId(v string) *ListGrayscaleResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListGrayscaleResponse) SetResultCode(v string) *ListGrayscaleResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListGrayscaleResponse) SetResultMsg(v string) *ListGrayscaleResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListGrayscaleResponse) SetData(v *GrayscaleConfigPagedListVO) *ListGrayscaleResponse {
+	s.Data = v
+	return s
+}
+
+type AllRouterRegionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+}
+
+func (s AllRouterRegionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AllRouterRegionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AllRouterRegionRequest) SetAuthToken(v string) *AllRouterRegionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AllRouterRegionRequest) SetProductInstanceId(v string) *AllRouterRegionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AllRouterRegionRequest) SetTenantId(v string) *AllRouterRegionRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *AllRouterRegionRequest) SetWorkspaceId(v string) *AllRouterRegionRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+type AllRouterRegionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// data
+	Data []*RegionVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s AllRouterRegionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AllRouterRegionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AllRouterRegionResponse) SetReqMsgId(v string) *AllRouterRegionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AllRouterRegionResponse) SetResultCode(v string) *AllRouterRegionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AllRouterRegionResponse) SetResultMsg(v string) *AllRouterRegionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AllRouterRegionResponse) SetData(v []*RegionVO) *AllRouterRegionResponse {
 	s.Data = v
 	return s
 }
@@ -22653,7 +23098,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.312"),
+				"sdk_version":      tea.String("1.1.325"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -28756,14 +29201,14 @@ func (client *Client) QueryGwconfigTripleswitchEx(request *QueryGwconfigTriplesw
 }
 
 /**
- * Description: 查询所以region名称
- * Summary: 查询所以region名称
+ * Description: 查询灰度规则配置
+ * Summary: 查询灰度规则配置
  */
-func (client *Client) AllGwconfigRegion(request *AllGwconfigRegionRequest) (_result *AllGwconfigRegionResponse, _err error) {
+func (client *Client) AllGrayscale(request *AllGrayscaleRequest) (_result *AllGrayscaleResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &AllGwconfigRegionResponse{}
-	_body, _err := client.AllGwconfigRegionEx(request, headers, runtime)
+	_result = &AllGrayscaleResponse{}
+	_body, _err := client.AllGrayscaleEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -28772,16 +29217,84 @@ func (client *Client) AllGwconfigRegion(request *AllGwconfigRegionRequest) (_res
 }
 
 /**
- * Description: 查询所以region名称
- * Summary: 查询所以region名称
+ * Description: 查询灰度规则配置
+ * Summary: 查询灰度规则配置
  */
-func (client *Client) AllGwconfigRegionEx(request *AllGwconfigRegionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AllGwconfigRegionResponse, _err error) {
+func (client *Client) AllGrayscaleEx(request *AllGrayscaleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AllGrayscaleResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &AllGwconfigRegionResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("sofa.apigateway.gwconfig.region.all"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &AllGrayscaleResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("sofa.apigateway.grayscale.all"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询灰度规则列表
+ * Summary: 分页查询灰度规则列表
+ */
+func (client *Client) ListGrayscale(request *ListGrayscaleRequest) (_result *ListGrayscaleResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListGrayscaleResponse{}
+	_body, _err := client.ListGrayscaleEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询灰度规则列表
+ * Summary: 分页查询灰度规则列表
+ */
+func (client *Client) ListGrayscaleEx(request *ListGrayscaleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListGrayscaleResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListGrayscaleResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("sofa.apigateway.grayscale.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询所有region名称
+ * Summary: 查询所有region名称
+ */
+func (client *Client) AllRouterRegion(request *AllRouterRegionRequest) (_result *AllRouterRegionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AllRouterRegionResponse{}
+	_body, _err := client.AllRouterRegionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询所有region名称
+ * Summary: 查询所有region名称
+ */
+func (client *Client) AllRouterRegionEx(request *AllRouterRegionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AllRouterRegionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AllRouterRegionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("sofa.apigateway.router.region.all"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
