@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.136',
+    sdk_version = '1.3.137',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -175,6 +175,44 @@ model VoucherTestOne {
   voucherTestOneBoolean: boolean(name='voucher_test_one_boolean', example='test'),
 }
 
+// 应付资费项
+model PayTariffInfo {
+  // 托运单号 [业务必填]
+  orderNo?: string(name='order_no', example='暂无'),
+  // 应付资费项code [业务必填]
+  // 
+  // 
+  payTariffCode?: string(name='pay_tariff_code', example='暂无'),
+  // 应付资费项项目 [业务必填]
+  // 
+  // 
+  payTariffProject?: string(name='pay_tariff_project', example='暂无'),
+  // 资费项中文描述 [业务必填]
+  // 
+  // 
+  payTariffDesc?: string(name='pay_tariff_desc', example='暂无'),
+  // 币种 [业务必填]
+  currency?: string(name='currency', example='CNY'),
+  // 资费项含税价 [业务必填]
+  // 
+  // 
+  priceIncludingTax?: string(name='price_including_tax', example='暂无'),
+  // 订舱单唯一性标识 [业务必填]
+  bookingNo?: string(name='booking_no', example='暂无'),
+  // 订舱单 [业务必填]
+  bkgNo?: string(name='bkg_no', example='暂无'),
+}
+
+// 人员伤残情况
+model PersonLoss {
+  // 伤情，HOSPITALIZE-住院，CLINIC-门诊，DEATH-死亡，ALLOWANCE-津贴
+  personInjuredCondition: string(maxLength=50, name='person_injured_condition', example='CLINIC'),
+  // 伤者姓名
+  personInjuredName: string(maxLength=200, name='person_injured_name', example='王大毛'),
+  // 损失预估，单位（元），最多支持2位小数
+  personLossEstimateAmount?: string(name='person_loss_estimate_amount', example='68.00'),
+}
+
 // 集装箱信息
 model ContainerInfo {
   // 订舱单唯一标识
@@ -187,26 +225,8 @@ model ContainerInfo {
   containerType?: string(name='container_type', example='暂无'),
 }
 
-// 货主支付方式
-model PayAmount {
-  // 支付金额（2位小数）
-  amount: string(name='amount', example='10000.00'),
-  // 支付方式
-  payType: string(name='pay_type', example='银行转账'),
-}
-
-// 电子提单批次下提单明细（无效）
-model EblDeatil {
-  // 电子提单copy文件hash
-  eblCopyPdfFileHash: string(name='ebl_copy_pdf_file_hash', example='暂无'),
-  // 电子提单copy文件id
-  eblCopyPdfFileId: string(name='ebl_copy_pdf_file_id', example='暂无'),
-  // 电子提单编号
-  eblNo: string(name='ebl_no', example='暂无'),
-}
-
 // 集装箱列表
-model HouseBlContainerParam {
+model MasterBlContainerParam {
   // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
   action?: string(name='action', example='暂无'),
   // 集装箱ID
@@ -215,86 +235,13 @@ model HouseBlContainerParam {
   containerNo?: string(name='container_no', example='暂无'),
 }
 
-// 订舱单
-model MasterBlBookingParam {
-  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-  action?: string(name='action', example='暂无'),
-  // 订舱单号
-  bookingNo: string(name='booking_no', example='暂无'),
-}
-
-// 包含文件id、文件hash信息
-model UploadFileInfo {
-  // 文件id
-  fileId: string(name='file_id', example='123456'),
-  // 文件hash
-  fileHash: string(name='file_hash', example='ca94860b2f902e1ba7917d2c6a983cc43e5b3921f4b7ab28ea791ac28314ba52'),
-}
-
-// 箱子信息
-model VehicleContainerParam {
-  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-  action?: string(name='action', example='暂无'),
-  // 集装箱ID
-  containerId: string(name='container_id', example='暂无'),
-  // 箱号
-  containerNo?: string(name='container_no', example='暂无'),
-  // 封号
-  sealNo?: string(name='seal_no', example='暂无'),
-}
-
-// 资费项账单
-model PayBillTariffParam {
-  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-  action?: string(name='action', example='UPDATE、DELETE、INSERT'),
-  // 账单金额 业务必填
-  billAmount?: string(name='bill_amount', example='暂无'),
-  // 应付账单、应付资费项 多对多code
-  payBillTariffCode: string(name='pay_bill_tariff_code', example='暂无'),
-  //  资费项金额 业务必填
-  payTariffAmount?: string(name='pay_tariff_amount', example='暂无'),
-  // 应付资费项编号 业务必填
-  payTariffCode?: string(name='pay_tariff_code', example='暂无'),
-}
-
-// 物流金融信用流转流水信息
-model StatementInfo {
-  // 信用流转批次号
-  batchId: string(name='batch_id', example='123123'),
-  // 全局唯一业务号
-  outBizNo: string(name='out_biz_no', example='123123'),
-  // 信用流转凭证
-  issueId: string(name='issue_id', example='1212312'),
-  // 合同号（预留）
-  contractId?: string(name='contract_id', example='123123'),
-  // 发行信用流转的运单号
-  waybillId: string(name='waybill_id', example='321312'),
-  // 发行信用流转的支付单号
-  payOrder: string(name='pay_order', example='123123'),
-  // 金额信息
-  creditLimit: string(name='credit_limit', example='18.67'),
-  // 流水类型
-  stateType: string(name='state_type', example='FINANCE'),
-  // 流水类型说明
-  stateMsg: string(name='state_msg', example='融资'),
-  // 凭证来源方did
-  fromDid: string(name='from_did', example='did:mychain:fa142b66cb1dece6a36cd66081ceeece19674409149c32679f2e17ed2dd8312c'),
-  // 凭证流转方did
-  toDid: string(name='to_did', example='did:mychain:fa142b66cb1dece6a36cd66081ceeece19674409149c32679f2e17ed2dd8312c'),
-  // 信用凭证发起时间
-  issueDate: string(name='issue_date', example='1581579336000'),
-  // 信用凭证到期时间
-  expireDate: string(name='expire_date', example='1581579336000'),
-}
-
-// 信用凭证数据集合
-model IssueTransferData {
+// 电子回单查询，具体凭证数据
+model ScpTicketIssueData {
+  // 凭证对应的司机/货主的did
+  did: string(name='did', example='1111'),
+  // 	
   // 凭证id
   issueId: string(name='issue_id', example='11111111'),
-  // 转出方did
-  payerDid: string(name='payer_did', example='11111'),
-  // 接收方did
-  rcvDid: string(name='rcv_did', example='111111'),
 }
 
 // 订舱单号
@@ -305,36 +252,14 @@ model CustomsOrderBookingParam {
   bookingNo: string(name='booking_no', example='暂无'),
 }
 
-// 支付信息
-model PaymentInfo {
-  // 收款账户名称
-  receiverAccountName: string(maxLength=200, name='receiver_account_name', example='王大力'),
-  // 收款账户，支付宝账号
-  receiverAccount: string(maxLength=50, name='receiver_account', example='xxx@sina.com'),
-  // 收款账户类型 ,1-个人账号，0-公司账号
-  receiverAccountType: string(maxLength=2, name='receiver_account_type', example='1'),
-  // 收款人证件号码 ，账户类型为个人时，非空
-  receiverCertificateNo?: string(maxLength=50, name='receiver_certificate_no', example='39991000299910029'),
-  // 收款人证件类型，01-身份证，02-护照，03-军官证，04-港澳通行证，05-驾驶证，06-港澳回乡证或台胞证，07-临时身份证，99-其他
-  receiverCertificateType: string(maxLength=2, name='receiver_certificate_type', example='01'),
-}
-
-// 航运集装箱类型信息
-model ContainerTypeInfo {
-  // 箱型
-  containerType?: string(name='container_type', example='暂无'),
-  // 箱量
-  containerVolume?: string(name='container_volume', example='暂无'),
-}
-
-// 池融资凭证核验查询结果
-model PfVoucherCheckResult {
-  // 凭证id
-  voucherId: string(name='voucher_id', example='20119112323'),
-  // 凭证类型
-  voucherCategory: string(name='voucher_category', example='WAYBILL'),
-  // 状态；PASS:通过，NO_PASS 未通过
-  status: string(name='status', example='PASS'),
+// 电子提单变更状态明细（无效）
+model EblStatusDeatil {
+  // 当前提单状态
+  currentEblStatus: string(name='current_ebl_status', example='endorsed'),
+  // 电子提单编号
+  eblNo: string(name='ebl_no', example='暂无'),
+  // 下一个提单状态
+  nextEblStatus: string(name='next_ebl_status', example='surrendered'),
 }
 
 // 凭证id发行信息
@@ -359,6 +284,91 @@ model IssueIdInfo {
   status: long(name='status', example='1'),
   // 失败原因信息
   errMsg: string(name='err_msg', example='success'),
+}
+
+// 资费项发票
+model PayTariffInvoiceParam {
+  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+  action?: string(name='action', example='暂无'),
+  // 发票金额 业务必填
+  invoiceAmount?: string(name='invoice_amount', example='暂无'),
+  // 资费项金额 业务必填
+  payTariffAmount?: string(name='pay_tariff_amount', example='暂无'),
+  // 资费单据编号 业务必填
+  payTariffCode?: string(name='pay_tariff_code', example='暂无'),
+  // 资费项发票code
+  payTariffInvoiceCode: string(name='pay_tariff_invoice_code', example='暂无'),
+}
+
+// 航运订舱单号信息
+model BookingNoInfo {
+  // 订舱单唯一标识
+  bookingNo?: string(name='booking_no', example='暂无'),
+  // 订舱号
+  bkgNo?: string(name='bkg_no', example='暂无'),
+}
+
+// 应收资费项
+model ReceiptTariffInfo {
+  // 托运单号 [业务必填]
+  orderNo?: string(name='order_no', example='暂无'),
+  // 应收资费项code [业务必填]
+  // 
+  // 
+  receiptTariffCode?: string(name='receipt_tariff_code', example='暂无'),
+  // 应收资费项项目 [业务必填]
+  receiptTariffProject?: string(name='receipt_tariff_project', example='暂无'),
+  // 资费项中文描述 [业务必填]
+  // 
+  // 
+  receiptTariffDesc?: string(name='receipt_tariff_desc', example='暂无'),
+  // 币种 [业务必填]
+  currency?: string(name='currency', example='CNY'),
+  // 资费项含税价 [业务必填]
+  // 
+  // 
+  priceIncludingTax?: string(name='price_including_tax', example='暂无'),
+  // 订舱单唯一标识 [业务必填]
+  bookingNo?: string(name='booking_no', example='暂无'),
+  // 订舱号 [业务必填]
+  bkgNo?: string(name='bkg_no', example='暂无'),
+}
+
+// 订舱单
+model HouseBlBookingParam {
+  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+  action?: string(name='action', example='暂无'),
+  // 订舱单号
+  bookingNo: string(name='booking_no', example='暂无'),
+}
+
+// 库存货物
+model InventoryCargo {
+  // 序号，在同一次库存申报请求中，序号保持不重复，不能小于等于0
+  inventoryIndex: long(name='inventory_index', example='1'),
+  // sku品名
+  sku: string(maxLength=200, name='sku', example='80656-RLC-422-5MP'),
+  // 商品名称
+  // 
+  cargoName?: string(maxLength=200, name='cargo_name', example='小米手机9'),
+  // 商品单品重量(kg)
+  cargoWeight?: string(maxLength=50, name='cargo_weight', example='0.8'),
+  // 商品外扩长宽高(cm)
+  cargoDimensions?: string(maxLength=200, name='cargo_dimensions', example='20.00*30.00*40.00'),
+  // 商品单品货物价值(元),最多支持2位小数
+  cargoWorth?: string(maxLength=30, name='cargo_worth', example='3800.12'),
+  // 当前库存货物数量
+  currentInventoryCargoNum: long(name='current_inventory_cargo_num', example='567'),
+  // 客户代码
+  // 
+  customerCode: string(maxLength=50, name='customer_code', example='32112'),
+  // 关联保单号,需要仓储CP做拆分计算
+  policyNo?: string(maxLength=64, name='policy_no', example='TB1882881002991'),
+  // 入库时间, yyyy-MM-dd HH:mm:ss，需要仓储CP做拆分计算
+  // 
+  stockinDate?: string(name='stockin_date', example='2021-3-08 13:12:22 '),
+  // 时区,仓储CP上报入库时间所属的时区
+  timezone?: string(maxLength=16, name='timezone', example='东八区'),
 }
 
 // so通知关联的订舱单
@@ -392,176 +402,30 @@ model SoNotifyBookingParam {
   voyage?: string(name='voyage', example='暂无'),
 }
 
-// 文档信息
-model Document {
-  // 文档url
-  documentUrl: string(maxLength=500, name='document_url', example='https://www.baidu.com/s?wd=图片&rsv_spt=1&rsv_iqid=0xb'),
-  // 文档名称 
-  documentName: string(maxLength=200, name='document_name', example='客诉材料'),
+// 签署方
+model AuthParty {
+  // 签署方名称
+  signPartyName: string(name='sign_party_name', example='贾玲'),
+  // 签署方证件类型，可以填写的枚举类：IDENTIFICATION_CARD，表示身份证
+  signPartyCertType: string(name='sign_party_cert_type', example='IDENTIFICATION_CARD'),
+  // 签署方证件号码
+  signPartyCertNum: string(name='sign_party_cert_num', example='3308199612247856'),
+  // 签署结果（必填，FINISH,FAIL,REFUSE三者选一，分别表示签署完成、失败和拒签）
+  signResult: string(name='sign_result', example='FINISH'),
+  // 签署失败或拒签原因（失败或拒签时必填）
+  signFailReason?: string(name='sign_fail_reason', example='审批未通过'),
+  // 签署时间(13位毫秒时间戳)
+  signTime: string(name='sign_time', example='2881999301656'),
 }
 
-// 凭证返回值
-model VoucherResp {
-  // 消息
-  msg: string(maxLength=10, minLength=0, name='msg', example='success'),
-}
-
-// 创建凭证Two
-model VoucherTestTwo {
-  // 测试Boolean
-  voucherTestTwoBoolean: boolean(name='voucher_test_two_boolean', example='test'),
-  // 凭证列表_apiTestList
-  voucherTestTwoApiTestList: [ VoucherTestOne ](name='voucher_test_two_api_test_list', example='test'),
-  // 测试Int
-  voucherTestTwoInt: long(name='voucher_test_two_int', example='test'),
-  // 测试Integer
-  voucherTestTwoInteger: long(maximum=10, minimum=0, name='voucher_test_two_integer', example='test'),
-  // 凭证列表_dateList
-  voucherTestTwoDateList: [ string ](name='voucher_test_two_date_list', example='test'),
-  // 测试String
-  voucherTestTwoString: string(maxLength=10, minLength=0, name='voucher_test_two_string', example='test'),
-  // 测试Date
-  voucherTestTwoDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='voucher_test_two_date', example='test'),
-  // 凭证列表_integerList
-  voucherTestTwoIntegerList: [ long ](name='voucher_test_two_integer_list', example='test'),
-  // 测试Long
-  voucherTestTwoLong: long(maximum=10, minimum=0, name='voucher_test_two_long', example='test'),
-  // 凭证列表_longList
-  voucherTestTwoLongList: [ long ](name='voucher_test_two_long_list', example='test'),
-  // 凭证列表_stringList
-  voucherTestTwoStringList: [ string ](name='voucher_test_two_string_list', example='test'),
-  // 测试apiTestInfo
-  voucherTestTwoApiTestInfo: VoucherTestOne(name='voucher_test_two_api_test_info', example='test'),
-  // 凭证列表_booleanList
-  voucherTestTwoBooleanList: [ boolean ](name='voucher_test_two_boolean_list', example='test'),
-}
-
-// 资费项账单
-model ReceiptBillTariffParam {
-  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-  action?: string(name='action', example='UPDATE、DELETE、INSERT'),
-  //  账单金额 业务必填
-  billAmount?: string(name='bill_amount', example='暂无'),
-  // 应收账单 、应收资费项 多对多关联code 
-  receiptBillTariffCode: string(name='receipt_bill_tariff_code', example='暂无'),
-  // 资费项金额 业务必填
-  receiptTariffAmount?: string(name='receipt_tariff_amount', example='暂无'),
-  // 应收资费项编号 业务必填
-  receiptTariffCode?: string(name='receipt_tariff_code', example='暂无'),
-}
-
-// 航运集装箱ID信息
-model ContainerIdInfo {
-  // 箱子唯一标识
-  containerId?: string(name='container_id', example='暂无'),
-  // 箱号
-  containerNo?: string(name='container_no', example='暂无'),
-}
-
-// 货物损失详情
-model CargoLoss {
-  // 物品类型
-  cargoType?: string(maxLength=200, name='cargo_type', example='电子/3C'),
-  // 物品名称
-  cargoName: string(maxLength=500, name='cargo_name', example='诺基亚nokiai103'),
-  // 物品所有人
-  cargoOwner?: string(maxLength=200, name='cargo_owner', example='福建省漳州市漳浦县201站点'),
-  // 物品损失描述 
-  cargoLossDesc?: string(maxLength=500, name='cargo_loss_desc', example='外包装破损'),
-  // 损失预估，单位（元），最多支持2位小数
-  cargoLossEstimateAmount: string(name='cargo_loss_estimate_amount', example='20.00'),
-}
-
-// 货物信息
-model GoodsInfo {
-  // 货物ID [业务必填]
-  goodsId?: string(name='goods_id', example='暂无'),
-  // 唛头
-  // 
-  // 
-  marks?: string(name='marks', example='暂无'),
-  // 货物名称
-  goods?: string(name='goods', example='暂无'),
-  // 货物类型
-  goodsType?: string(name='goods_type', example='暂无'),
-  // 货物重量
-  weight?: string(name='weight', example='暂无'),
-  // 件数
-  number?: string(name='number', example='暂无'),
-}
-
-// 授权上链文件
-model AuthChainFile {
-  // 签署文件的hash值
-  signFileHash: string(name='sign_file_hash', example='ca94860b2f902e1ba7917d2c6a983cc43e5b3921f4b7ab28ea791ac28314ba52'),
-  // 上链事务唯一标识
-  uploadChainTxCode: string(name='upload_chain_tx_code', example='ca94860b2f902e1ba7917d2c6a983cc43e5b3921f4b7ab28ea791ac28314ba52'),
-  // 蚂蚁区块链统一证据编号
-  baasUniqCode: string(name='baas_uniq_code', example='ca94860b2f902e1ba7917d2c6a983cc43e5b3921f4b7ab28ea791ac28314ba52'),
-  // 上链时间(13位毫秒级时间戳)
-  uploadChainTime: string(name='upload_chain_time', example='1628563284015'),
-  // 上链文件下载链接
-  fileUrl: string(name='file_url', example='https://pic2.zhimg.com/v2-4d91e54c6cc5d225471684987a2061a1_r.jpg'),
-  // 上链文件名称，要求包含扩展名。文件格式允许: pdf, txt, doc, docx
-  fileName: string(name='file_name', example='上链文件.pdf'),
-}
-
-// 池融资授信额度信息
-model PfCreditQuotaInfo {
-  // 证件号
-  certNo: string(name='cert_no', example='6323232'),
-  // 证件类型
-  certType: string(name='cert_type', example='0'),
-  // 授信到期日期
-  creditEnd: string(name='credit_end', example='2020-09-19'),
-  // 授信起始日期
-  creditStart: string(name='credit_start', example='2020-09-11'),
-  // 额度编号
-  quotaNo: string(name='quota_no', example='923323'),
-  // 剩余额度
-  remainingQuota: string(name='remaining_quota', example='1'),
-  // SON:放款账号loanAccNo
-  // 还款账号repayAcctNo
-  remark: string(name='remark', example='loanAccNo'),
-  // 额度状态：
-  // 0、停用 / 1、启用  /  2、冻结
-  status: string(name='status', example='0'),
-  // 授信额度
-  totalQuota: string(name='total_quota', example='0'),
-  // 数据更新时间
-  updateTime: string(name='update_time', example='2020-09-10'),
-  // 总质押额度
-  totalPledgeQuota: string(name='total_pledge_quota', example='100'),
-  // 剩余质押额度
-  remainPledgeQuota: string(name='remain_pledge_quota', example='10'),
-}
-
-// 应付账单发票关联项
-model PayBillInvoiceParam {
-  // 账单发票code
-  payBillInvoiceCode: string(name='pay_bill_invoice_code', example='xxx'),
-  // 账单编号
-  payBillOrderCode: string(name='pay_bill_order_code', example='xxx'),
-  // 账单金额
-  payBillAmount: string(name='pay_bill_amount', example='123123'),
-  // 发票金额
-  invoiceAmount: string(name='invoice_amount', example='123123'),
-  // 操作动作
-  action?: string(name='action', example='UPDATE、DELETE、INSERT'),
-}
-
-// 资费项发票
-model PayTariffInvoiceParam {
-  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-  action?: string(name='action', example='暂无'),
-  // 发票金额 业务必填
-  invoiceAmount?: string(name='invoice_amount', example='暂无'),
-  // 资费项金额 业务必填
-  payTariffAmount?: string(name='pay_tariff_amount', example='暂无'),
-  // 资费单据编号 业务必填
-  payTariffCode?: string(name='pay_tariff_code', example='暂无'),
-  // 资费项发票code
-  payTariffInvoiceCode: string(name='pay_tariff_invoice_code', example='暂无'),
+// 电子提单变更状态明细
+model EblStatusDetail {
+  // 当前提单状态
+  currentEblStatus: string(name='current_ebl_status', example='endorsed'),
+  // 电子提单编号
+  eblNo: string(name='ebl_no', example='暂无 '),
+  // 下一个提单状态
+  nextEblStatus: string(name='next_ebl_status', example='surrendered'),
 }
 
 // 投保基本信息
@@ -600,13 +464,224 @@ model InsureBaseInfo {
   identifyPeriodEnd?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='identify_period_end', example='2018-10-10T10:10:00Z'),
 }
 
-// 电子回单查询，具体凭证数据
-model ScpTicketIssueData {
-  // 凭证对应的司机/货主的did
-  did: string(name='did', example='1111'),
-  // 	
+// 池融资凭证核验查询结果
+model PfVoucherCheckResult {
   // 凭证id
-  issueId: string(name='issue_id', example='11111111'),
+  voucherId: string(name='voucher_id', example='20119112323'),
+  // 凭证类型
+  voucherCategory: string(name='voucher_category', example='WAYBILL'),
+  // 状态；PASS:通过，NO_PASS 未通过
+  status: string(name='status', example='PASS'),
+}
+
+// 历史数据
+model UploadFinancingParam {
+  // 订舱单量（票）
+  bookingCount: long(name='booking_count', example='123'),
+  // 唯一标识
+  code: string(name='code', example='123'),
+  // 结束日期
+  endDate: string(name='end_date', example='2020-01-31'),
+  // 货代did
+  forwarderDid: string(name='forwarder_did', example='暂无'),
+  // 开始日期
+  startDate: string(name='start_date', example='2020-01-01'),
+  // 箱量【数量，不区分箱型，20GP是1TEU，40GP是2TEU】
+  teu: long(name='teu', example='123'),
+  // 运输总额
+  amounts: string(name='amounts', example='[{"total_amount";"123.11","currency":“人民币”}]'),
+}
+
+// 链上hash
+model TxDto {
+  // 链上凭证
+  txCode: string(name='tx_code', example='d4648b331839616b6ad76ed74b5fabf9c188add347da55aef3caccfa471d9f66 '),
+  // 链上存储结构对应类型
+  dataType: string(name='data_type', example='ORDER'),
+}
+
+// 物流轨迹位置
+model LogisticLocation {
+  // 结构化地址信息,规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦
+  address?: string(name='address', example='北京市朝阳区阜通东大街6号 '),
+  // 行政区划代码
+  cityCode?: string(name='city_code', example='110000'),
+  // 纬度
+  // 
+  lat: string(name='lat', example='39.916527 '),
+  // 经度
+  lon: string(name='lon', example='116.397128 '),
+  // 轨迹时间戳
+  trackTime: long(name='track_time', example='1566221266000'),
+}
+
+// 用户凭证信息
+model UserIssueId {
+  // 凭证id
+  issueId: string(name='issue_id', example='12123'),
+  // 凭证余额
+  balanceAmt: string(name='balance_amt', example='87.09'),
+}
+
+// 电子提单批次下提单明细（无效）
+model EblDeatil {
+  // 电子提单copy文件hash
+  eblCopyPdfFileHash: string(name='ebl_copy_pdf_file_hash', example='暂无'),
+  // 电子提单copy文件id
+  eblCopyPdfFileId: string(name='ebl_copy_pdf_file_id', example='暂无'),
+  // 电子提单编号
+  eblNo: string(name='ebl_no', example='暂无'),
+}
+
+// 入库货物
+model StockinCargo {
+  // 入库序号，在同一次入库请求中，入库序号保持不重复，不能小于0
+  stockinIndex: long(name='stockin_index', example='1'),
+  // sku品名
+  // 
+  sku: string(maxLength=200, name='sku', example='80656-RLC-422-5MP'),
+  // 商品名称
+  cargoName?: string(maxLength=200, name='cargo_name', example='小米手机米9手机'),
+  // 商品单品重量(kg)
+  cargoWeight?: string(maxLength=50, name='cargo_weight', example='0.8'),
+  // 商品外扩长宽高(cm)
+  cargoDimensions?: string(maxLength=200, name='cargo_dimensions', example='20.00*30.00*40.00'),
+  // 商品单品货物价值(元),，最多支持2位小数
+  cargoWorth?: string(maxLength=30, name='cargo_worth', example='120.00'),
+  // 箱号
+  containerNo?: string(maxLength=50, name='container_no', example='1'),
+  // 实际入库件数
+  actualStockinNum: long(name='actual_stockin_num', example='6'),
+}
+
+// 车辆损失详情 
+model CarLoss {
+  // 车牌号，车牌号和车架号至少填一个
+  carMark?: string(maxLength=20, name='car_mark', example='皖C54322'),
+  // 车主姓名 
+  carOwnerName?: string(maxLength=200, name='car_owner_name', example='王大毛'),
+  // 车主联系方式
+  carOwnerContact?: string(maxLength=20, name='car_owner_contact', example='17029990909'),
+  // 车架号，车牌号和车架号至少填一个
+  carVinNo?: string(maxLength=100, name='car_vin_no', example='DMQJ928881992'),
+  // 损失预估，单位（元），最多支持2位小数
+  carLossEstimateAmount: string(name='car_loss_estimate_amount', example='1002.00'),
+}
+
+// 物流金融信用流转流水信息
+model StatementInfo {
+  // 信用流转批次号
+  batchId: string(name='batch_id', example='123123'),
+  // 全局唯一业务号
+  outBizNo: string(name='out_biz_no', example='123123'),
+  // 信用流转凭证
+  issueId: string(name='issue_id', example='1212312'),
+  // 合同号（预留）
+  contractId?: string(name='contract_id', example='123123'),
+  // 发行信用流转的运单号
+  waybillId: string(name='waybill_id', example='321312'),
+  // 发行信用流转的支付单号
+  payOrder: string(name='pay_order', example='123123'),
+  // 金额信息
+  creditLimit: string(name='credit_limit', example='18.67'),
+  // 流水类型
+  stateType: string(name='state_type', example='FINANCE'),
+  // 流水类型说明
+  stateMsg: string(name='state_msg', example='融资'),
+  // 凭证来源方did
+  fromDid: string(name='from_did', example='did:mychain:fa142b66cb1dece6a36cd66081ceeece19674409149c32679f2e17ed2dd8312c'),
+  // 凭证流转方did
+  toDid: string(name='to_did', example='did:mychain:fa142b66cb1dece6a36cd66081ceeece19674409149c32679f2e17ed2dd8312c'),
+  // 信用凭证发起时间
+  issueDate: string(name='issue_date', example='1581579336000'),
+  // 信用凭证到期时间
+  expireDate: string(name='expire_date', example='1581579336000'),
+}
+
+// 附加条款
+model MainItemAdd {
+  // 附加条款代码-参考保司提供样例
+  mainItemAddCode?: string(name='main_item_add_code', example=' '),
+  // 附加条款内容-参考保司提供样例
+  mainItemAddContent?: string(name='main_item_add_content', example=' '),
+}
+
+// 订舱单
+model MasterBlBookingParam {
+  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+  action?: string(name='action', example='暂无'),
+  // 订舱单号
+  bookingNo: string(name='booking_no', example='暂无'),
+}
+
+// FinishWaybillOrderReq
+model FinishWaybillOrderReq {
+  // 运费
+  allFreight?: string(name='all_freight', example='all_freight'),
+  // 回单押金
+  backFee?: string(name='back_fee', example='100'),
+  // 货主支付运费金额
+  consignorFreightAmount?: string(name='consignor_freight_amount', example='consignor_freight_amount'),
+  // 运费增项
+  freightIncr?: string(name='freight_incr', example='freight_incr'),
+  // 运费扣减
+  lossFee?: string(name='loss_fee', example='loss_fee'),
+  // 平台did
+  platformDid: string(name='platform_did', example='did:mychain:b6db2d812b1dac07a8c2a6201db3fff529f1ce7d78f58888fd791aec84dc8a8e'),
+  // 运单id
+  taxWaybillId: string(name='tax_waybill_id', example='运单id'),
+}
+
+// saas模式发行信息
+model SaasIssueApplyInfo {
+  // 货源订单
+  cargoOrder?: string(name='cargo_order', example='123123'),
+  // 合同号
+  contractId?: string(name='contract_id', example='123123'),
+  // 全局唯一业务单号
+  outBizNo: string(name='out_biz_no', example='123123'),
+  // 支付单号
+  payOrder: string(name='pay_order', example='123123'),
+  // 运单号
+  waybillId: string(name='waybill_id', example='123123'),
+  // 司机did
+  driverDid: string(name='driver_did', example='123123'),
+  // 发行费
+  freight: string(name='freight', example='1.12'),
+  // 到期时间戳
+  expireDate: string(name='expire_date', example='1593504406597'),
+}
+
+// 箱子信息
+model VehicleContainerParam {
+  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+  action?: string(name='action', example='暂无'),
+  // 集装箱ID
+  containerId: string(name='container_id', example='暂无'),
+  // 箱号
+  containerNo?: string(name='container_no', example='暂无'),
+  // 封号
+  sealNo?: string(name='seal_no', example='暂无'),
+}
+
+// A+模式发行信息
+model IssueApplyInfoPlus {
+  // 订单中的BookingNo，以英文逗号分割
+  bookingNo: string(name='booking_no', example='booking_no_A,booking_no_B,booking_no_C'),
+  // 船公司did
+  carrierDid: string(name='carrier_did', example='123123'),
+  // BookingNo中的箱号，以英文逗号分割
+  containerNo: string(name='container_no', example='booking_no_A:container_no_1,booking_no_A:container_no_2,booking_no_B:container_no_1'),
+  // 到期时间戳
+  expireDate: string(name='expire_date', example='1595381053000'),
+  // 发行金额，精确到小数点后2位
+  issueAmt: string(name='issue_amt', example='32.65'),
+  // 全局唯一业务号
+  outBizNo: string(name='out_biz_no', example='123123'),
+  // 支付单号
+  outOrderNo: string(name='out_order_no', example='123123'),
+  // 运单订单id
+  waybillId: string(name='waybill_id', example='123123'),
 }
 
 // 货物列表
@@ -647,192 +722,6 @@ model HouseBlGoodsParam {
   weight?: string(name='weight', example='委托重量'),
 }
 
-// 电子提单批次下提单明细
-model EblDetail {
-  // 电子提单copy文件hash
-  eblCopyPdfFileHash: string(name='ebl_copy_pdf_file_hash', example='暂无'),
-  // 电子提单copy文件id
-  eblCopyPdfFileId: string(name='ebl_copy_pdf_file_id', example='暂无'),
-  // 电子提单编号
-  eblNo: string(name='ebl_no', example='暂无'),
-}
-
-// 人员伤残情况
-model PersonLoss {
-  // 伤情，HOSPITALIZE-住院，CLINIC-门诊，DEATH-死亡，ALLOWANCE-津贴
-  personInjuredCondition: string(maxLength=50, name='person_injured_condition', example='CLINIC'),
-  // 伤者姓名
-  personInjuredName: string(maxLength=200, name='person_injured_name', example='王大毛'),
-  // 损失预估，单位（元），最多支持2位小数
-  personLossEstimateAmount?: string(name='person_loss_estimate_amount', example='68.00'),
-}
-
-// 历史数据
-model UploadFinancingParam {
-  // 订舱单量（票）
-  bookingCount: long(name='booking_count', example='123'),
-  // 唯一标识
-  code: string(name='code', example='123'),
-  // 结束日期
-  endDate: string(name='end_date', example='2020-01-31'),
-  // 货代did
-  forwarderDid: string(name='forwarder_did', example='暂无'),
-  // 开始日期
-  startDate: string(name='start_date', example='2020-01-01'),
-  // 箱量【数量，不区分箱型，20GP是1TEU，40GP是2TEU】
-  teu: long(name='teu', example='123'),
-  // 运输总额
-  amounts: string(name='amounts', example='[{"total_amount";"123.11","currency":“人民币”}]'),
-}
-
-// 库存货物
-model InventoryCargo {
-  // 序号，在同一次库存申报请求中，序号保持不重复，不能小于等于0
-  inventoryIndex: long(name='inventory_index', example='1'),
-  // sku品名
-  sku: string(maxLength=200, name='sku', example='80656-RLC-422-5MP'),
-  // 商品名称
-  // 
-  cargoName?: string(maxLength=200, name='cargo_name', example='小米手机9'),
-  // 商品单品重量(kg)
-  cargoWeight?: string(maxLength=50, name='cargo_weight', example='0.8'),
-  // 商品外扩长宽高(cm)
-  cargoDimensions?: string(maxLength=200, name='cargo_dimensions', example='20.00*30.00*40.00'),
-  // 商品单品货物价值(元),最多支持2位小数
-  cargoWorth?: string(maxLength=30, name='cargo_worth', example='3800.12'),
-  // 当前库存货物数量
-  currentInventoryCargoNum: long(name='current_inventory_cargo_num', example='567'),
-  // 客户代码
-  // 
-  customerCode: string(maxLength=50, name='customer_code', example='32112'),
-  // 关联保单号,需要仓储CP做拆分计算
-  policyNo?: string(maxLength=64, name='policy_no', example='TB1882881002991'),
-  // 入库时间, yyyy-MM-dd HH:mm:ss，需要仓储CP做拆分计算
-  // 
-  stockinDate?: string(name='stockin_date', example='2021-3-08 13:12:22 '),
-  // 时区,仓储CP上报入库时间所属的时区
-  timezone?: string(maxLength=16, name='timezone', example='东八区'),
-}
-
-// 签署方
-model AuthParty {
-  // 签署方名称
-  signPartyName: string(name='sign_party_name', example='贾玲'),
-  // 签署方证件类型，可以填写的枚举类：IDENTIFICATION_CARD，表示身份证
-  signPartyCertType: string(name='sign_party_cert_type', example='IDENTIFICATION_CARD'),
-  // 签署方证件号码
-  signPartyCertNum: string(name='sign_party_cert_num', example='3308199612247856'),
-  // 签署结果（必填，FINISH,FAIL,REFUSE三者选一，分别表示签署完成、失败和拒签）
-  signResult: string(name='sign_result', example='FINISH'),
-  // 签署失败或拒签原因（失败或拒签时必填）
-  signFailReason?: string(name='sign_fail_reason', example='审批未通过'),
-  // 签署时间(13位毫秒时间戳)
-  signTime: string(name='sign_time', example='2881999301656'),
-}
-
-// 链上hash
-model TxDto {
-  // 链上凭证
-  txCode: string(name='tx_code', example='d4648b331839616b6ad76ed74b5fabf9c188add347da55aef3caccfa471d9f66 '),
-  // 链上存储结构对应类型
-  dataType: string(name='data_type', example='ORDER'),
-}
-
-// 用户凭证信息
-model UserIssueId {
-  // 凭证id
-  issueId: string(name='issue_id', example='12123'),
-  // 凭证余额
-  balanceAmt: string(name='balance_amt', example='87.09'),
-}
-
-// 附加条款
-model MainItemAdd {
-  // 附加条款代码-参考保司提供样例
-  mainItemAddCode?: string(name='main_item_add_code', example=' '),
-  // 附加条款内容-参考保司提供样例
-  mainItemAddContent?: string(name='main_item_add_content', example=' '),
-}
-
-// 承运人责任险保险标的信息
-model InsureCarrierObjectInfo {
-  // 厂牌型号
-  cpModel: string(name='cp_model', example='xxxx'),
-  // 车架号
-  frameNo: string(name='frame_no', example='xxx'),
-  // 车牌号码
-  licenseNo: string(name='license_no', example='京A23211'),
-  // 吨位
-  tonNage: string(name='ton_nage', example='10'),
-  // 行驶证车主
-  drivPer: string(name='driv_per', example='张三'),
-  // 运营证号
-  runNo: string(name='run_no', example='xxxx'),
-  // 运输货物
-  tsCarGo: string(name='ts_car_go', example='运输货物'),
-}
-
-// 航运订舱单号信息
-model BookingNoInfo {
-  // 订舱单唯一标识
-  bookingNo?: string(name='booking_no', example='暂无'),
-  // 订舱号
-  bkgNo?: string(name='bkg_no', example='暂无'),
-}
-
-// 入库货物
-model StockinCargo {
-  // 入库序号，在同一次入库请求中，入库序号保持不重复，不能小于0
-  stockinIndex: long(name='stockin_index', example='1'),
-  // sku品名
-  // 
-  sku: string(maxLength=200, name='sku', example='80656-RLC-422-5MP'),
-  // 商品名称
-  cargoName?: string(maxLength=200, name='cargo_name', example='小米手机米9手机'),
-  // 商品单品重量(kg)
-  cargoWeight?: string(maxLength=50, name='cargo_weight', example='0.8'),
-  // 商品外扩长宽高(cm)
-  cargoDimensions?: string(maxLength=200, name='cargo_dimensions', example='20.00*30.00*40.00'),
-  // 商品单品货物价值(元),，最多支持2位小数
-  cargoWorth?: string(maxLength=30, name='cargo_worth', example='120.00'),
-  // 箱号
-  containerNo?: string(maxLength=50, name='container_no', example='1'),
-  // 实际入库件数
-  actualStockinNum: long(name='actual_stockin_num', example='6'),
-}
-
-// 提单货物数据
-model MasterBlGoodsDto {
-  // 唛头
-  marks?: string(name='marks', example='暂无'),
-  // 货物
-  goods: string(name='goods', example='笔记本电脑'),
-  // 货物类型
-  goodsType: string(name='goods_type', example='暂无'),
-  // 包装类型
-  packageType?: string(name='package_type', example='暂无'),
-  // 委托件数
-  number: string(name='number', example='10000'),
-  // 委托重量
-  weight: string(name='weight', example='暂无'),
-  // 委托体积
-  volume: string(name='volume', example='暂无'),
-}
-
-// 资费项发票
-model ReceiptTariffInvoiceParam {
-  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-  action?: string(name='action', example='暂无'),
-  // 发票金额 业务必填
-  invoiceAmount?: string(name='invoice_amount', example='暂无'),
-  // 资费项金额 业务必填
-  receiptTariffAmount?: string(name='receipt_tariff_amount', example='暂无'),
-  // 资费单据编号 业务必填
-  receiptTariffCode?: string(name='receipt_tariff_code', example='暂无'),
-  // 资费项发票code
-  receiptTariffInvoiceCode: string(name='receipt_tariff_invoice_code', example='暂无'),
-}
-
 // 上传booking信息
 model UploadOrderBooking {
   // 订舱单号
@@ -841,12 +730,18 @@ model UploadOrderBooking {
   containerNos: string(name='container_nos', example='{"123","123"}'),
 }
 
-// 轨迹核验结果
-model TrackCheckResult {
-  // 轨迹核验状态code
-  trackCheckStatus?: string(name='track_check_status', example='AD'),
-  // 轨迹核验结果描述
-  trackCheckStatusMsg?: string(name='track_check_status_msg', example='运单验证正常'),
+// 航运集装箱类型信息
+model ContainerTypeInfo {
+  // 箱型
+  containerType?: string(name='container_type', example='暂无'),
+  // 箱量
+  containerVolume?: string(name='container_volume', example='暂无'),
+}
+
+// 凭证返回值
+model VoucherResp {
+  // 消息
+  msg: string(maxLength=10, minLength=0, name='msg', example='success'),
 }
 
 // 货物
@@ -887,213 +782,58 @@ model ContainerGoodsParam {
   weight?: string(name='weight', example='1'),
 }
 
-// 车辆损失详情 
-model CarLoss {
-  // 车牌号，车牌号和车架号至少填一个
-  carMark?: string(maxLength=20, name='car_mark', example='皖C54322'),
-  // 车主姓名 
-  carOwnerName?: string(maxLength=200, name='car_owner_name', example='王大毛'),
-  // 车主联系方式
-  carOwnerContact?: string(maxLength=20, name='car_owner_contact', example='17029990909'),
-  // 车架号，车牌号和车架号至少填一个
-  carVinNo?: string(maxLength=100, name='car_vin_no', example='DMQJ928881992'),
-  // 损失预估，单位（元），最多支持2位小数
-  carLossEstimateAmount: string(name='car_loss_estimate_amount', example='1002.00'),
+// 应付账单发票关联项
+model PayBillInvoiceParam {
+  // 账单发票code
+  payBillInvoiceCode: string(name='pay_bill_invoice_code', example='xxx'),
+  // 账单编号
+  payBillOrderCode: string(name='pay_bill_order_code', example='xxx'),
+  // 账单金额
+  payBillAmount: string(name='pay_bill_amount', example='123123'),
+  // 发票金额
+  invoiceAmount: string(name='invoice_amount', example='123123'),
+  // 操作动作
+  action?: string(name='action', example='UPDATE、DELETE、INSERT'),
 }
 
-// 电子提单变更状态明细
-model EblStatusDetail {
-  // 当前提单状态
-  currentEblStatus: string(name='current_ebl_status', example='endorsed'),
-  // 电子提单编号
-  eblNo: string(name='ebl_no', example='暂无 '),
-  // 下一个提单状态
-  nextEblStatus: string(name='next_ebl_status', example='surrendered'),
+// 货主支付方式
+model PayAmount {
+  // 支付金额（2位小数）
+  amount: string(name='amount', example='10000.00'),
+  // 支付方式
+  payType: string(name='pay_type', example='银行转账'),
 }
 
-// 应付资费项
-model PayTariffInfo {
-  // 托运单号 [业务必填]
-  orderNo?: string(name='order_no', example='暂无'),
-  // 应付资费项code [业务必填]
-  // 
-  // 
+// 资费项账单
+model PayBillTariffParam {
+  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+  action?: string(name='action', example='UPDATE、DELETE、INSERT'),
+  // 账单金额 业务必填
+  billAmount?: string(name='bill_amount', example='暂无'),
+  // 应付账单、应付资费项 多对多code
+  payBillTariffCode: string(name='pay_bill_tariff_code', example='暂无'),
+  //  资费项金额 业务必填
+  payTariffAmount?: string(name='pay_tariff_amount', example='暂无'),
+  // 应付资费项编号 业务必填
   payTariffCode?: string(name='pay_tariff_code', example='暂无'),
-  // 应付资费项项目 [业务必填]
-  // 
-  // 
-  payTariffProject?: string(name='pay_tariff_project', example='暂无'),
-  // 资费项中文描述 [业务必填]
-  // 
-  // 
-  payTariffDesc?: string(name='pay_tariff_desc', example='暂无'),
-  // 币种 [业务必填]
-  currency?: string(name='currency', example='CNY'),
-  // 资费项含税价 [业务必填]
-  // 
-  // 
-  priceIncludingTax?: string(name='price_including_tax', example='暂无'),
-  // 订舱单唯一性标识 [业务必填]
-  bookingNo?: string(name='booking_no', example='暂无'),
-  // 订舱单 [业务必填]
-  bkgNo?: string(name='bkg_no', example='暂无'),
 }
 
-// FinishWaybillOrderReq
-model FinishWaybillOrderReq {
-  // 运费
-  allFreight?: string(name='all_freight', example='all_freight'),
-  // 回单押金
-  backFee?: string(name='back_fee', example='100'),
-  // 货主支付运费金额
-  consignorFreightAmount?: string(name='consignor_freight_amount', example='consignor_freight_amount'),
-  // 运费增项
-  freightIncr?: string(name='freight_incr', example='freight_incr'),
-  // 运费扣减
-  lossFee?: string(name='loss_fee', example='loss_fee'),
-  // 平台did
-  platformDid: string(name='platform_did', example='did:mychain:b6db2d812b1dac07a8c2a6201db3fff529f1ce7d78f58888fd791aec84dc8a8e'),
-  // 运单id
-  taxWaybillId: string(name='tax_waybill_id', example='运单id'),
-}
-
-// 运单号-司机运费
-model WaybillAmount {
-  // 运单金额（2位小数）
-  amount: string(name='amount', example='100000.00'),
-  // 运单号
-  waybillId: string(name='waybill_id', example='123456'),
-}
-
-// 电子回单查询凭证数据
-model ScpTicketIssueDataParam {
-  // 凭证id
-  issueId: string(name='issue_id', example='12345566'),
-  // 凭证对应的司机/货主的did
-  did: string(name='did', example='11111'),
-}
-
-// saas模式发行信息
-model SaasIssueApplyInfo {
-  // 货源订单
-  cargoOrder?: string(name='cargo_order', example='123123'),
-  // 合同号
-  contractId?: string(name='contract_id', example='123123'),
-  // 全局唯一业务单号
-  outBizNo: string(name='out_biz_no', example='123123'),
-  // 支付单号
-  payOrder: string(name='pay_order', example='123123'),
-  // 运单号
-  waybillId: string(name='waybill_id', example='123123'),
-  // 司机did
-  driverDid: string(name='driver_did', example='123123'),
-  // 发行费
-  freight: string(name='freight', example='1.12'),
-  // 到期时间戳
-  expireDate: string(name='expire_date', example='1593504406597'),
-}
-
-// 应收资费项
-model ReceiptTariffInfo {
-  // 托运单号 [业务必填]
-  orderNo?: string(name='order_no', example='暂无'),
-  // 应收资费项code [业务必填]
-  // 
-  // 
-  receiptTariffCode?: string(name='receipt_tariff_code', example='暂无'),
-  // 应收资费项项目 [业务必填]
-  receiptTariffProject?: string(name='receipt_tariff_project', example='暂无'),
-  // 资费项中文描述 [业务必填]
-  // 
-  // 
-  receiptTariffDesc?: string(name='receipt_tariff_desc', example='暂无'),
-  // 币种 [业务必填]
-  currency?: string(name='currency', example='CNY'),
-  // 资费项含税价 [业务必填]
-  // 
-  // 
-  priceIncludingTax?: string(name='price_including_tax', example='暂无'),
-  // 订舱单唯一标识 [业务必填]
-  bookingNo?: string(name='booking_no', example='暂无'),
-  // 订舱号 [业务必填]
-  bkgNo?: string(name='bkg_no', example='暂无'),
-}
-
-// 货源单号-货主运费
-model CargoAmount {
-  // 货运单对应金额（2位小数）
-  amount: string(name='amount', example='100000.00'),
-  // 货源单号
-  cargoOrder: string(name='cargo_order', example='123466'),
-}
-
-// 凭证开立申请信息
-model IssueApplyInfo {
-  // 货源订单
-  cargoOrder?: string(name='cargo_order', example='123123'),
-  // 合同号（预留）
-  contractId?: string(name='contract_id', example='123'),
-  // 凭证到期时间
-  expireDate: string(name='expire_date', example='1581579336000'),
-  // 支付单运费，运费最多精确到小数点后2位
-  freight: string(name='freight', example='189.76'),
-  // 全局唯一业务号
-  outBizNo: string(name='out_biz_no', example='fa142b66cb1dece6a3'),
-  // 支付订单
-  payOrder: string(name='pay_order', example='123123'),
-  // 运单id
-  waybillId: string(name='waybill_id', example='123123'),
-  // 司机did
-  driverDid?: string(name='driver_did', example='did:mychain:11119abde09890ad6c40a5f9ba96fcb33ca134c6c29efdbbc743549e62c12222'),
-}
-
-// 物流轨迹位置
-model LogisticLocation {
-  // 结构化地址信息,规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦
-  address?: string(name='address', example='北京市朝阳区阜通东大街6号 '),
-  // 行政区划代码
-  cityCode?: string(name='city_code', example='110000'),
-  // 纬度
-  // 
-  lat: string(name='lat', example='39.916527 '),
-  // 经度
-  lon: string(name='lon', example='116.397128 '),
-  // 轨迹时间戳
-  trackTime: long(name='track_time', example='1566221266000'),
+// 轨迹核验结果
+model TrackCheckResult {
+  // 轨迹核验状态code
+  trackCheckStatus?: string(name='track_check_status', example='AD'),
+  // 轨迹核验结果描述
+  trackCheckStatusMsg?: string(name='track_check_status_msg', example='运单验证正常'),
 }
 
 // 集装箱列表
-model MasterBlContainerParam {
+model HouseBlContainerParam {
   // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
   action?: string(name='action', example='暂无'),
   // 集装箱ID
   containerId: string(name='container_id', example='暂无'),
   // 箱号
   containerNo?: string(name='container_no', example='暂无'),
-}
-
-// 订舱单
-model HouseBlBookingParam {
-  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-  action?: string(name='action', example='暂无'),
-  // 订舱单号
-  bookingNo: string(name='booking_no', example='暂无'),
-}
-
-// 上传订单总金额
-model UploadOrderAmount {
-  // 币种
-  currency: string(name='currency', example='人民币'),
-  // 总金额
-  totalAmount: string(name='total_amount', example='123.23'),
-}
-
-// 索赔资料附件
-model ClaimInformation {
-  // 索赔资料地址url
-  fileUrl: string(maxLength=500, name='file_url', example='https://www.xxx.com'),
-  // 文件名	
-  fileName: string(maxLength=200, name='file_name', example='客服判责资料 '),
 }
 
 // 货物列表
@@ -1136,34 +876,294 @@ model MasterBlGoodsParam {
   weight?: string(name='weight', example='委托重量'),
 }
 
-// A+模式发行信息
-model IssueApplyInfoPlus {
-  // 订单中的BookingNo，以英文逗号分割
-  bookingNo: string(name='booking_no', example='booking_no_A,booking_no_B,booking_no_C'),
-  // 船公司did
-  carrierDid: string(name='carrier_did', example='123123'),
-  // BookingNo中的箱号，以英文逗号分割
-  containerNo: string(name='container_no', example='booking_no_A:container_no_1,booking_no_A:container_no_2,booking_no_B:container_no_1'),
-  // 到期时间戳
-  expireDate: string(name='expire_date', example='1595381053000'),
-  // 发行金额，精确到小数点后2位
-  issueAmt: string(name='issue_amt', example='32.65'),
-  // 全局唯一业务号
-  outBizNo: string(name='out_biz_no', example='123123'),
-  // 支付单号
-  outOrderNo: string(name='out_order_no', example='123123'),
-  // 运单订单id
-  waybillId: string(name='waybill_id', example='123123'),
+// 支付信息
+model PaymentInfo {
+  // 收款账户名称
+  receiverAccountName: string(maxLength=200, name='receiver_account_name', example='王大力'),
+  // 收款账户，支付宝账号
+  receiverAccount: string(maxLength=50, name='receiver_account', example='xxx@sina.com'),
+  // 收款账户类型 ,1-个人账号，0-公司账号
+  receiverAccountType: string(maxLength=2, name='receiver_account_type', example='1'),
+  // 收款人证件号码 ，账户类型为个人时，非空
+  receiverCertificateNo?: string(maxLength=50, name='receiver_certificate_no', example='39991000299910029'),
+  // 收款人证件类型，01-身份证，02-护照，03-军官证，04-港澳通行证，05-驾驶证，06-港澳回乡证或台胞证，07-临时身份证，99-其他
+  receiverCertificateType: string(maxLength=2, name='receiver_certificate_type', example='01'),
 }
 
-// 电子提单变更状态明细（无效）
-model EblStatusDeatil {
-  // 当前提单状态
-  currentEblStatus: string(name='current_ebl_status', example='endorsed'),
+// 货源单号-货主运费
+model CargoAmount {
+  // 货运单对应金额（2位小数）
+  amount: string(name='amount', example='100000.00'),
+  // 货源单号
+  cargoOrder: string(name='cargo_order', example='123466'),
+}
+
+// 凭证开立申请信息
+model IssueApplyInfo {
+  // 货源订单
+  cargoOrder?: string(name='cargo_order', example='123123'),
+  // 合同号（预留）
+  contractId?: string(name='contract_id', example='123'),
+  // 凭证到期时间
+  expireDate: string(name='expire_date', example='1581579336000'),
+  // 支付单运费，运费最多精确到小数点后2位
+  freight: string(name='freight', example='189.76'),
+  // 全局唯一业务号
+  outBizNo: string(name='out_biz_no', example='fa142b66cb1dece6a3'),
+  // 支付订单
+  payOrder: string(name='pay_order', example='123123'),
+  // 运单id
+  waybillId: string(name='waybill_id', example='123123'),
+  // 司机did
+  driverDid?: string(name='driver_did', example='did:mychain:11119abde09890ad6c40a5f9ba96fcb33ca134c6c29efdbbc743549e62c12222'),
+}
+
+// 授权上链文件
+model AuthChainFile {
+  // 签署文件的hash值
+  signFileHash: string(name='sign_file_hash', example='ca94860b2f902e1ba7917d2c6a983cc43e5b3921f4b7ab28ea791ac28314ba52'),
+  // 上链事务唯一标识
+  uploadChainTxCode: string(name='upload_chain_tx_code', example='ca94860b2f902e1ba7917d2c6a983cc43e5b3921f4b7ab28ea791ac28314ba52'),
+  // 蚂蚁区块链统一证据编号
+  baasUniqCode: string(name='baas_uniq_code', example='ca94860b2f902e1ba7917d2c6a983cc43e5b3921f4b7ab28ea791ac28314ba52'),
+  // 上链时间(13位毫秒级时间戳)
+  uploadChainTime: string(name='upload_chain_time', example='1628563284015'),
+  // 上链文件下载链接
+  fileUrl: string(name='file_url', example='https://pic2.zhimg.com/v2-4d91e54c6cc5d225471684987a2061a1_r.jpg'),
+  // 上链文件名称，要求包含扩展名。文件格式允许: pdf, txt, doc, docx
+  fileName: string(name='file_name', example='上链文件.pdf'),
+}
+
+// 电子回单查询凭证数据
+model ScpTicketIssueDataParam {
+  // 凭证id
+  issueId: string(name='issue_id', example='12345566'),
+  // 凭证对应的司机/货主的did
+  did: string(name='did', example='11111'),
+}
+
+// 货物损失详情
+model CargoLoss {
+  // 物品类型
+  cargoType?: string(maxLength=200, name='cargo_type', example='电子/3C'),
+  // 物品名称
+  cargoName: string(maxLength=500, name='cargo_name', example='诺基亚nokiai103'),
+  // 物品所有人
+  cargoOwner?: string(maxLength=200, name='cargo_owner', example='福建省漳州市漳浦县201站点'),
+  // 物品损失描述 
+  cargoLossDesc?: string(maxLength=500, name='cargo_loss_desc', example='外包装破损'),
+  // 损失预估，单位（元），最多支持2位小数
+  cargoLossEstimateAmount: string(name='cargo_loss_estimate_amount', example='20.00'),
+}
+
+// 资费项账单
+model ReceiptBillTariffParam {
+  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+  action?: string(name='action', example='UPDATE、DELETE、INSERT'),
+  //  账单金额 业务必填
+  billAmount?: string(name='bill_amount', example='暂无'),
+  // 应收账单 、应收资费项 多对多关联code 
+  receiptBillTariffCode: string(name='receipt_bill_tariff_code', example='暂无'),
+  // 资费项金额 业务必填
+  receiptTariffAmount?: string(name='receipt_tariff_amount', example='暂无'),
+  // 应收资费项编号 业务必填
+  receiptTariffCode?: string(name='receipt_tariff_code', example='暂无'),
+}
+
+// 上传订单总金额
+model UploadOrderAmount {
+  // 币种
+  currency: string(name='currency', example='人民币'),
+  // 总金额
+  totalAmount: string(name='total_amount', example='123.23'),
+}
+
+// 索赔资料附件
+model ClaimInformation {
+  // 索赔资料地址url
+  fileUrl: string(maxLength=500, name='file_url', example='https://www.xxx.com'),
+  // 文件名	
+  fileName: string(maxLength=200, name='file_name', example='客服判责资料 '),
+}
+
+// 信用凭证数据集合
+model IssueTransferData {
+  // 凭证id
+  issueId: string(name='issue_id', example='11111111'),
+  // 转出方did
+  payerDid: string(name='payer_did', example='11111'),
+  // 接收方did
+  rcvDid: string(name='rcv_did', example='111111'),
+}
+
+// 电子提单批次下提单明细
+model EblDetail {
+  // 电子提单copy文件hash
+  eblCopyPdfFileHash: string(name='ebl_copy_pdf_file_hash', example='暂无'),
+  // 电子提单copy文件id
+  eblCopyPdfFileId: string(name='ebl_copy_pdf_file_id', example='暂无'),
   // 电子提单编号
   eblNo: string(name='ebl_no', example='暂无'),
-  // 下一个提单状态
-  nextEblStatus: string(name='next_ebl_status', example='surrendered'),
+}
+
+// 包含文件id、文件hash信息
+model UploadFileInfo {
+  // 文件id
+  fileId: string(name='file_id', example='123456'),
+  // 文件hash
+  fileHash: string(name='file_hash', example='ca94860b2f902e1ba7917d2c6a983cc43e5b3921f4b7ab28ea791ac28314ba52'),
+}
+
+// 提单货物数据
+model MasterBlGoodsDto {
+  // 唛头
+  marks?: string(name='marks', example='暂无'),
+  // 货物
+  goods: string(name='goods', example='笔记本电脑'),
+  // 货物类型
+  goodsType: string(name='goods_type', example='暂无'),
+  // 包装类型
+  packageType?: string(name='package_type', example='暂无'),
+  // 委托件数
+  number: string(name='number', example='10000'),
+  // 委托重量
+  weight: string(name='weight', example='暂无'),
+  // 委托体积
+  volume: string(name='volume', example='暂无'),
+}
+
+// 运单号-司机运费
+model WaybillAmount {
+  // 运单金额（2位小数）
+  amount: string(name='amount', example='100000.00'),
+  // 运单号
+  waybillId: string(name='waybill_id', example='123456'),
+}
+
+// 承运人责任险保险标的信息
+model InsureCarrierObjectInfo {
+  // 厂牌型号
+  cpModel: string(name='cp_model', example='xxxx'),
+  // 车架号
+  frameNo: string(name='frame_no', example='xxx'),
+  // 车牌号码
+  licenseNo: string(name='license_no', example='京A23211'),
+  // 吨位
+  tonNage: string(name='ton_nage', example='10'),
+  // 行驶证车主
+  drivPer: string(name='driv_per', example='张三'),
+  // 运营证号
+  runNo: string(name='run_no', example='xxxx'),
+  // 运输货物
+  tsCarGo: string(name='ts_car_go', example='运输货物'),
+}
+
+// 创建凭证Two
+model VoucherTestTwo {
+  // 测试Boolean
+  voucherTestTwoBoolean: boolean(name='voucher_test_two_boolean', example='test'),
+  // 凭证列表_apiTestList
+  voucherTestTwoApiTestList: [ VoucherTestOne ](name='voucher_test_two_api_test_list', example='test'),
+  // 测试Int
+  voucherTestTwoInt: long(name='voucher_test_two_int', example='test'),
+  // 测试Integer
+  voucherTestTwoInteger: long(maximum=10, minimum=0, name='voucher_test_two_integer', example='test'),
+  // 凭证列表_dateList
+  voucherTestTwoDateList: [ string ](name='voucher_test_two_date_list', example='test'),
+  // 测试String
+  voucherTestTwoString: string(maxLength=10, minLength=0, name='voucher_test_two_string', example='test'),
+  // 测试Date
+  voucherTestTwoDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='voucher_test_two_date', example='test'),
+  // 凭证列表_integerList
+  voucherTestTwoIntegerList: [ long ](name='voucher_test_two_integer_list', example='test'),
+  // 测试Long
+  voucherTestTwoLong: long(maximum=10, minimum=0, name='voucher_test_two_long', example='test'),
+  // 凭证列表_longList
+  voucherTestTwoLongList: [ long ](name='voucher_test_two_long_list', example='test'),
+  // 凭证列表_stringList
+  voucherTestTwoStringList: [ string ](name='voucher_test_two_string_list', example='test'),
+  // 测试apiTestInfo
+  voucherTestTwoApiTestInfo: VoucherTestOne(name='voucher_test_two_api_test_info', example='test'),
+  // 凭证列表_booleanList
+  voucherTestTwoBooleanList: [ boolean ](name='voucher_test_two_boolean_list', example='test'),
+}
+
+// 资费项发票
+model ReceiptTariffInvoiceParam {
+  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+  action?: string(name='action', example='暂无'),
+  // 发票金额 业务必填
+  invoiceAmount?: string(name='invoice_amount', example='暂无'),
+  // 资费项金额 业务必填
+  receiptTariffAmount?: string(name='receipt_tariff_amount', example='暂无'),
+  // 资费单据编号 业务必填
+  receiptTariffCode?: string(name='receipt_tariff_code', example='暂无'),
+  // 资费项发票code
+  receiptTariffInvoiceCode: string(name='receipt_tariff_invoice_code', example='暂无'),
+}
+
+// 航运集装箱ID信息
+model ContainerIdInfo {
+  // 箱子唯一标识
+  containerId?: string(name='container_id', example='暂无'),
+  // 箱号
+  containerNo?: string(name='container_no', example='暂无'),
+}
+
+// 文档信息
+model Document {
+  // 文档url
+  documentUrl: string(maxLength=500, name='document_url', example='https://www.baidu.com/s?wd=图片&rsv_spt=1&rsv_iqid=0xb'),
+  // 文档名称 
+  documentName: string(maxLength=200, name='document_name', example='客诉材料'),
+}
+
+// 货物信息
+model GoodsInfo {
+  // 货物ID [业务必填]
+  goodsId?: string(name='goods_id', example='暂无'),
+  // 唛头
+  // 
+  // 
+  marks?: string(name='marks', example='暂无'),
+  // 货物名称
+  goods?: string(name='goods', example='暂无'),
+  // 货物类型
+  goodsType?: string(name='goods_type', example='暂无'),
+  // 货物重量
+  weight?: string(name='weight', example='暂无'),
+  // 件数
+  number?: string(name='number', example='暂无'),
+}
+
+// 池融资授信额度信息
+model PfCreditQuotaInfo {
+  // 证件号
+  certNo: string(name='cert_no', example='6323232'),
+  // 证件类型
+  certType: string(name='cert_type', example='0'),
+  // 授信到期日期
+  creditEnd: string(name='credit_end', example='2020-09-19'),
+  // 授信起始日期
+  creditStart: string(name='credit_start', example='2020-09-11'),
+  // 额度编号
+  quotaNo: string(name='quota_no', example='923323'),
+  // 剩余额度
+  remainingQuota: string(name='remaining_quota', example='1'),
+  // SON:放款账号loanAccNo
+  // 还款账号repayAcctNo
+  remark: string(name='remark', example='loanAccNo'),
+  // 额度状态：
+  // 0、停用 / 1、启用  /  2、冻结
+  status: string(name='status', example='0'),
+  // 授信额度
+  totalQuota: string(name='total_quota', example='0'),
+  // 数据更新时间
+  updateTime: string(name='update_time', example='2020-09-10'),
+  // 总质押额度
+  totalPledgeQuota: string(name='total_pledge_quota', example='100'),
+  // 剩余质押额度
+  remainPledgeQuota: string(name='remain_pledge_quota', example='10'),
 }
 
 model CreateReceivableBillRequest = {
@@ -7415,9 +7415,9 @@ model ApplyInsuranceOspiRequest = {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string(maxLength=50, name='trade_no'),
-  // 保司编码.，PAIC---平安
+  // 保司编码.，PAIC---平安，CICP-中华财险
   externalChannelCode: string(maxLength=10, name='external_channel_code'),
-  // 险种编码，06--跨境邮包险
+  // 险种编码，04--海外邮包险
   // 
   externalProductCode: string(maxLength=2, name='external_product_code'),
   // 投保人姓名，保险协议中的投保人全称
@@ -7526,7 +7526,7 @@ model ApplyInsuranceOspireportRequest = {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string(maxLength=50, name='trade_no'),
-  // 保司编码，PAIC---平安
+  // 保司编码，PAIC---平安，CICP-中华财险
   externalChannelCode: string(maxLength=10, name='external_channel_code'),
   // 险种编码
   // 04--海外邮包险
@@ -7779,7 +7779,7 @@ model ApplyInsuranceCbpiRequest = {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string(maxLength=50, name='trade_no'),
-  // 保司编码.，PAIC---平安
+  // 保司编码.，PAIC---平安，PICC-人保
   externalChannelCode: string(maxLength=10, name='external_channel_code'),
   // 险种编码，06--跨境邮包险
   externalProductCode: string(maxLength=2, name='external_product_code'),
@@ -8178,6 +8178,66 @@ async function queryInsuranceEpolicy(request: QueryInsuranceEpolicyRequest): Que
 async function queryInsuranceEpolicyEx(request: QueryInsuranceEpolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInsuranceEpolicyResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'digital.logistic.insurance.epolicy.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyInsuranceReportresultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 案件同步唯一码，调用方生成的唯一编码； 格式为 yyyyMMdd_身份标识_其他编码，yyyyMMdd请传递当前时间。 系统会根据该流水号做防重、幂等判断逻辑。	
+  // 
+  tradeNo: string(maxLength=50, name='trade_no'),
+  // 渠道简称code
+  channelSimpleCode: string(maxLength=16, name='channel_simple_code'),
+  // 报案号，关联的报案案件号	
+  // 
+  reportNo: string(maxLength=100, name='report_no'),
+  // 订单号	
+  // 
+  relaOrderNo: string(maxLength=100, name='rela_order_no'),
+  // 理赔金额(元)，实际的理赔金额，最多支持2位小数，超2位小数拒绝请求	
+  // 
+  claimAmount: string(name='claim_amount'),
+  // 支付时间，实际的保司打款时间，格式：yyyy-MM-dd HH:mm:ss	
+  // 
+  paymentTime: string(name='payment_time'),
+  // 银行流水，打款的银行流水号	
+  // 
+  bankSerialNum: string(maxLength=200, name='bank_serial_num'),
+}
+
+model NotifyInsuranceReportresultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 案件同步唯一码	
+  // 
+  tradeNo?: string(name='trade_no'),
+  // 案件通知状态--SUCCESS、FAIL	
+  // 
+  reportNotifyStatus?: string(name='report_notify_status'),
+}
+
+/**
+ * Description: 报案案件结果通知（内部）
+ * Summary: 报案案件结果通知（内部）
+ */
+async function notifyInsuranceReportresult(request: NotifyInsuranceReportresultRequest): NotifyInsuranceReportresultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyInsuranceReportresultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 报案案件结果通知（内部）
+ * Summary: 报案案件结果通知（内部）
+ */
+async function notifyInsuranceReportresultEx(request: NotifyInsuranceReportresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyInsuranceReportresultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.insurance.reportresult.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PushAuthSigninfoRequest = {
