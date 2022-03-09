@@ -29,13 +29,13 @@ class ApplyInsuranceOspiRequest extends Model
      */
     public $tradeNo;
 
-    // 保司编码.，PAIC---平安
+    // 保司编码.，PAIC---平安，CICP-中华财险
     /**
      * @var string
      */
     public $externalChannelCode;
 
-    // 险种编码，06--跨境邮包险
+    // 险种编码，04--海外邮包险
     //
     /**
      * @var string

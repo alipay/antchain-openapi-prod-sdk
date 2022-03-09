@@ -145,6 +145,8 @@ use AntChain\SHUZIWULIU\Models\ImportWaybillLocationRequest;
 use AntChain\SHUZIWULIU\Models\ImportWaybillLocationResponse;
 use AntChain\SHUZIWULIU\Models\NotifyInsuranceOspireportRequest;
 use AntChain\SHUZIWULIU\Models\NotifyInsuranceOspireportResponse;
+use AntChain\SHUZIWULIU\Models\NotifyInsuranceReportresultRequest;
+use AntChain\SHUZIWULIU\Models\NotifyInsuranceReportresultResponse;
 use AntChain\SHUZIWULIU\Models\OpenCreditDriverRequest;
 use AntChain\SHUZIWULIU\Models\OpenCreditDriverResponse;
 use AntChain\SHUZIWULIU\Models\PushAuthSigninfoRequest;
@@ -478,7 +480,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.136',
+                    'sdk_version'      => '1.3.137',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -3991,6 +3993,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryInsuranceEpolicyResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.epolicy.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 报案案件结果通知（内部）
+     * Summary: 报案案件结果通知（内部）.
+     *
+     * @param NotifyInsuranceReportresultRequest $request
+     *
+     * @return NotifyInsuranceReportresultResponse
+     */
+    public function notifyInsuranceReportresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyInsuranceReportresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 报案案件结果通知（内部）
+     * Summary: 报案案件结果通知（内部）.
+     *
+     * @param NotifyInsuranceReportresultRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return NotifyInsuranceReportresultResponse
+     */
+    public function notifyInsuranceReportresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyInsuranceReportresultResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.reportresult.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

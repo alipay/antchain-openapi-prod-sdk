@@ -29,7 +29,7 @@ class ApplyInsuranceOspireportRequest extends Model
      */
     public $tradeNo;
 
-    // 保司编码，PAIC---平安
+    // 保司编码，PAIC---平安，CICP-中华财险
     /**
      * @var string
      */
