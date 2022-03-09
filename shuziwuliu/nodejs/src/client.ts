@@ -118,6 +118,92 @@ export class VoucherTestOne extends $tea.Model {
   }
 }
 
+// 应付资费项
+export class PayTariffInfo extends $tea.Model {
+  // 托运单号 [业务必填]
+  orderNo?: string;
+  // 应付资费项code [业务必填]
+  // 
+  // 
+  payTariffCode?: string;
+  // 应付资费项项目 [业务必填]
+  // 
+  // 
+  payTariffProject?: string;
+  // 资费项中文描述 [业务必填]
+  // 
+  // 
+  payTariffDesc?: string;
+  // 币种 [业务必填]
+  currency?: string;
+  // 资费项含税价 [业务必填]
+  // 
+  // 
+  priceIncludingTax?: string;
+  // 订舱单唯一性标识 [业务必填]
+  bookingNo?: string;
+  // 订舱单 [业务必填]
+  bkgNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      orderNo: 'order_no',
+      payTariffCode: 'pay_tariff_code',
+      payTariffProject: 'pay_tariff_project',
+      payTariffDesc: 'pay_tariff_desc',
+      currency: 'currency',
+      priceIncludingTax: 'price_including_tax',
+      bookingNo: 'booking_no',
+      bkgNo: 'bkg_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderNo: 'string',
+      payTariffCode: 'string',
+      payTariffProject: 'string',
+      payTariffDesc: 'string',
+      currency: 'string',
+      priceIncludingTax: 'string',
+      bookingNo: 'string',
+      bkgNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 人员伤残情况
+export class PersonLoss extends $tea.Model {
+  // 伤情，HOSPITALIZE-住院，CLINIC-门诊，DEATH-死亡，ALLOWANCE-津贴
+  personInjuredCondition: string;
+  // 伤者姓名
+  personInjuredName: string;
+  // 损失预估，单位（元），最多支持2位小数
+  personLossEstimateAmount?: string;
+  static names(): { [key: string]: string } {
+    return {
+      personInjuredCondition: 'person_injured_condition',
+      personInjuredName: 'person_injured_name',
+      personLossEstimateAmount: 'person_loss_estimate_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      personInjuredCondition: 'string',
+      personInjuredName: 'string',
+      personLossEstimateAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 集装箱信息
 export class ContainerInfo extends $tea.Model {
   // 订舱单唯一标识
@@ -151,62 +237,8 @@ export class ContainerInfo extends $tea.Model {
   }
 }
 
-// 货主支付方式
-export class PayAmount extends $tea.Model {
-  // 支付金额（2位小数）
-  amount: string;
-  // 支付方式
-  payType: string;
-  static names(): { [key: string]: string } {
-    return {
-      amount: 'amount',
-      payType: 'pay_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      amount: 'string',
-      payType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 电子提单批次下提单明细（无效）
-export class EblDeatil extends $tea.Model {
-  // 电子提单copy文件hash
-  eblCopyPdfFileHash: string;
-  // 电子提单copy文件id
-  eblCopyPdfFileId: string;
-  // 电子提单编号
-  eblNo: string;
-  static names(): { [key: string]: string } {
-    return {
-      eblCopyPdfFileHash: 'ebl_copy_pdf_file_hash',
-      eblCopyPdfFileId: 'ebl_copy_pdf_file_id',
-      eblNo: 'ebl_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      eblCopyPdfFileHash: 'string',
-      eblCopyPdfFileId: 'string',
-      eblNo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 集装箱列表
-export class HouseBlContainerParam extends $tea.Model {
+export class MasterBlContainerParam extends $tea.Model {
   // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
   action?: string;
   // 集装箱ID
@@ -234,216 +266,24 @@ export class HouseBlContainerParam extends $tea.Model {
   }
 }
 
-// 订舱单
-export class MasterBlBookingParam extends $tea.Model {
-  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-  action?: string;
-  // 订舱单号
-  bookingNo: string;
-  static names(): { [key: string]: string } {
-    return {
-      action: 'action',
-      bookingNo: 'booking_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      action: 'string',
-      bookingNo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 包含文件id、文件hash信息
-export class UploadFileInfo extends $tea.Model {
-  // 文件id
-  fileId: string;
-  // 文件hash
-  fileHash: string;
-  static names(): { [key: string]: string } {
-    return {
-      fileId: 'file_id',
-      fileHash: 'file_hash',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      fileId: 'string',
-      fileHash: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 箱子信息
-export class VehicleContainerParam extends $tea.Model {
-  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-  action?: string;
-  // 集装箱ID
-  containerId: string;
-  // 箱号
-  containerNo?: string;
-  // 封号
-  sealNo?: string;
-  static names(): { [key: string]: string } {
-    return {
-      action: 'action',
-      containerId: 'container_id',
-      containerNo: 'container_no',
-      sealNo: 'seal_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      action: 'string',
-      containerId: 'string',
-      containerNo: 'string',
-      sealNo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 资费项账单
-export class PayBillTariffParam extends $tea.Model {
-  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-  action?: string;
-  // 账单金额 业务必填
-  billAmount?: string;
-  // 应付账单、应付资费项 多对多code
-  payBillTariffCode: string;
-  //  资费项金额 业务必填
-  payTariffAmount?: string;
-  // 应付资费项编号 业务必填
-  payTariffCode?: string;
-  static names(): { [key: string]: string } {
-    return {
-      action: 'action',
-      billAmount: 'bill_amount',
-      payBillTariffCode: 'pay_bill_tariff_code',
-      payTariffAmount: 'pay_tariff_amount',
-      payTariffCode: 'pay_tariff_code',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      action: 'string',
-      billAmount: 'string',
-      payBillTariffCode: 'string',
-      payTariffAmount: 'string',
-      payTariffCode: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 物流金融信用流转流水信息
-export class StatementInfo extends $tea.Model {
-  // 信用流转批次号
-  batchId: string;
-  // 全局唯一业务号
-  outBizNo: string;
-  // 信用流转凭证
-  issueId: string;
-  // 合同号（预留）
-  contractId?: string;
-  // 发行信用流转的运单号
-  waybillId: string;
-  // 发行信用流转的支付单号
-  payOrder: string;
-  // 金额信息
-  creditLimit: string;
-  // 流水类型
-  stateType: string;
-  // 流水类型说明
-  stateMsg: string;
-  // 凭证来源方did
-  fromDid: string;
-  // 凭证流转方did
-  toDid: string;
-  // 信用凭证发起时间
-  issueDate: string;
-  // 信用凭证到期时间
-  expireDate: string;
-  static names(): { [key: string]: string } {
-    return {
-      batchId: 'batch_id',
-      outBizNo: 'out_biz_no',
-      issueId: 'issue_id',
-      contractId: 'contract_id',
-      waybillId: 'waybill_id',
-      payOrder: 'pay_order',
-      creditLimit: 'credit_limit',
-      stateType: 'state_type',
-      stateMsg: 'state_msg',
-      fromDid: 'from_did',
-      toDid: 'to_did',
-      issueDate: 'issue_date',
-      expireDate: 'expire_date',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      batchId: 'string',
-      outBizNo: 'string',
-      issueId: 'string',
-      contractId: 'string',
-      waybillId: 'string',
-      payOrder: 'string',
-      creditLimit: 'string',
-      stateType: 'string',
-      stateMsg: 'string',
-      fromDid: 'string',
-      toDid: 'string',
-      issueDate: 'string',
-      expireDate: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 信用凭证数据集合
-export class IssueTransferData extends $tea.Model {
+// 电子回单查询，具体凭证数据
+export class ScpTicketIssueData extends $tea.Model {
+  // 凭证对应的司机/货主的did
+  did: string;
+  // 	
   // 凭证id
   issueId: string;
-  // 转出方did
-  payerDid: string;
-  // 接收方did
-  rcvDid: string;
   static names(): { [key: string]: string } {
     return {
+      did: 'did',
       issueId: 'issue_id',
-      payerDid: 'payer_did',
-      rcvDid: 'rcv_did',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
+      did: 'string',
       issueId: 'string',
-      payerDid: 'string',
-      rcvDid: 'string',
     };
   }
 
@@ -477,89 +317,27 @@ export class CustomsOrderBookingParam extends $tea.Model {
   }
 }
 
-// 支付信息
-export class PaymentInfo extends $tea.Model {
-  // 收款账户名称
-  receiverAccountName: string;
-  // 收款账户，支付宝账号
-  receiverAccount: string;
-  // 收款账户类型 ,1-个人账号，0-公司账号
-  receiverAccountType: string;
-  // 收款人证件号码 ，账户类型为个人时，非空
-  receiverCertificateNo?: string;
-  // 收款人证件类型，01-身份证，02-护照，03-军官证，04-港澳通行证，05-驾驶证，06-港澳回乡证或台胞证，07-临时身份证，99-其他
-  receiverCertificateType: string;
+// 电子提单变更状态明细（无效）
+export class EblStatusDeatil extends $tea.Model {
+  // 当前提单状态
+  currentEblStatus: string;
+  // 电子提单编号
+  eblNo: string;
+  // 下一个提单状态
+  nextEblStatus: string;
   static names(): { [key: string]: string } {
     return {
-      receiverAccountName: 'receiver_account_name',
-      receiverAccount: 'receiver_account',
-      receiverAccountType: 'receiver_account_type',
-      receiverCertificateNo: 'receiver_certificate_no',
-      receiverCertificateType: 'receiver_certificate_type',
+      currentEblStatus: 'current_ebl_status',
+      eblNo: 'ebl_no',
+      nextEblStatus: 'next_ebl_status',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      receiverAccountName: 'string',
-      receiverAccount: 'string',
-      receiverAccountType: 'string',
-      receiverCertificateNo: 'string',
-      receiverCertificateType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 航运集装箱类型信息
-export class ContainerTypeInfo extends $tea.Model {
-  // 箱型
-  containerType?: string;
-  // 箱量
-  containerVolume?: string;
-  static names(): { [key: string]: string } {
-    return {
-      containerType: 'container_type',
-      containerVolume: 'container_volume',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      containerType: 'string',
-      containerVolume: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 池融资凭证核验查询结果
-export class PfVoucherCheckResult extends $tea.Model {
-  // 凭证id
-  voucherId: string;
-  // 凭证类型
-  voucherCategory: string;
-  // 状态；PASS:通过，NO_PASS 未通过
-  status: string;
-  static names(): { [key: string]: string } {
-    return {
-      voucherId: 'voucher_id',
-      voucherCategory: 'voucher_category',
-      status: 'status',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      voucherId: 'string',
-      voucherCategory: 'string',
-      status: 'string',
+      currentEblStatus: 'string',
+      eblNo: 'string',
+      nextEblStatus: 'string',
     };
   }
 
@@ -617,6 +395,212 @@ export class IssueIdInfo extends $tea.Model {
       expireDate: 'string',
       status: 'number',
       errMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 资费项发票
+export class PayTariffInvoiceParam extends $tea.Model {
+  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+  action?: string;
+  // 发票金额 业务必填
+  invoiceAmount?: string;
+  // 资费项金额 业务必填
+  payTariffAmount?: string;
+  // 资费单据编号 业务必填
+  payTariffCode?: string;
+  // 资费项发票code
+  payTariffInvoiceCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      action: 'action',
+      invoiceAmount: 'invoice_amount',
+      payTariffAmount: 'pay_tariff_amount',
+      payTariffCode: 'pay_tariff_code',
+      payTariffInvoiceCode: 'pay_tariff_invoice_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      action: 'string',
+      invoiceAmount: 'string',
+      payTariffAmount: 'string',
+      payTariffCode: 'string',
+      payTariffInvoiceCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 航运订舱单号信息
+export class BookingNoInfo extends $tea.Model {
+  // 订舱单唯一标识
+  bookingNo?: string;
+  // 订舱号
+  bkgNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      bookingNo: 'booking_no',
+      bkgNo: 'bkg_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bookingNo: 'string',
+      bkgNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 应收资费项
+export class ReceiptTariffInfo extends $tea.Model {
+  // 托运单号 [业务必填]
+  orderNo?: string;
+  // 应收资费项code [业务必填]
+  // 
+  // 
+  receiptTariffCode?: string;
+  // 应收资费项项目 [业务必填]
+  receiptTariffProject?: string;
+  // 资费项中文描述 [业务必填]
+  // 
+  // 
+  receiptTariffDesc?: string;
+  // 币种 [业务必填]
+  currency?: string;
+  // 资费项含税价 [业务必填]
+  // 
+  // 
+  priceIncludingTax?: string;
+  // 订舱单唯一标识 [业务必填]
+  bookingNo?: string;
+  // 订舱号 [业务必填]
+  bkgNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      orderNo: 'order_no',
+      receiptTariffCode: 'receipt_tariff_code',
+      receiptTariffProject: 'receipt_tariff_project',
+      receiptTariffDesc: 'receipt_tariff_desc',
+      currency: 'currency',
+      priceIncludingTax: 'price_including_tax',
+      bookingNo: 'booking_no',
+      bkgNo: 'bkg_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderNo: 'string',
+      receiptTariffCode: 'string',
+      receiptTariffProject: 'string',
+      receiptTariffDesc: 'string',
+      currency: 'string',
+      priceIncludingTax: 'string',
+      bookingNo: 'string',
+      bkgNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 订舱单
+export class HouseBlBookingParam extends $tea.Model {
+  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+  action?: string;
+  // 订舱单号
+  bookingNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      action: 'action',
+      bookingNo: 'booking_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      action: 'string',
+      bookingNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 库存货物
+export class InventoryCargo extends $tea.Model {
+  // 序号，在同一次库存申报请求中，序号保持不重复，不能小于等于0
+  inventoryIndex: number;
+  // sku品名
+  sku: string;
+  // 商品名称
+  // 
+  cargoName?: string;
+  // 商品单品重量(kg)
+  cargoWeight?: string;
+  // 商品外扩长宽高(cm)
+  cargoDimensions?: string;
+  // 商品单品货物价值(元),最多支持2位小数
+  cargoWorth?: string;
+  // 当前库存货物数量
+  currentInventoryCargoNum: number;
+  // 客户代码
+  // 
+  customerCode: string;
+  // 关联保单号,需要仓储CP做拆分计算
+  policyNo?: string;
+  // 入库时间, yyyy-MM-dd HH:mm:ss，需要仓储CP做拆分计算
+  // 
+  stockinDate?: string;
+  // 时区,仓储CP上报入库时间所属的时区
+  timezone?: string;
+  static names(): { [key: string]: string } {
+    return {
+      inventoryIndex: 'inventory_index',
+      sku: 'sku',
+      cargoName: 'cargo_name',
+      cargoWeight: 'cargo_weight',
+      cargoDimensions: 'cargo_dimensions',
+      cargoWorth: 'cargo_worth',
+      currentInventoryCargoNum: 'current_inventory_cargo_num',
+      customerCode: 'customer_code',
+      policyNo: 'policy_no',
+      stockinDate: 'stockin_date',
+      timezone: 'timezone',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      inventoryIndex: 'number',
+      sku: 'string',
+      cargoName: 'string',
+      cargoWeight: 'string',
+      cargoDimensions: 'string',
+      cargoWorth: 'string',
+      currentInventoryCargoNum: 'number',
+      customerCode: 'string',
+      policyNo: 'string',
+      stockinDate: 'string',
+      timezone: 'string',
     };
   }
 
@@ -693,23 +677,39 @@ export class SoNotifyBookingParam extends $tea.Model {
   }
 }
 
-// 文档信息
-export class Document extends $tea.Model {
-  // 文档url
-  documentUrl: string;
-  // 文档名称 
-  documentName: string;
+// 签署方
+export class AuthParty extends $tea.Model {
+  // 签署方名称
+  signPartyName: string;
+  // 签署方证件类型，可以填写的枚举类：IDENTIFICATION_CARD，表示身份证
+  signPartyCertType: string;
+  // 签署方证件号码
+  signPartyCertNum: string;
+  // 签署结果（必填，FINISH,FAIL,REFUSE三者选一，分别表示签署完成、失败和拒签）
+  signResult: string;
+  // 签署失败或拒签原因（失败或拒签时必填）
+  signFailReason?: string;
+  // 签署时间(13位毫秒时间戳)
+  signTime: string;
   static names(): { [key: string]: string } {
     return {
-      documentUrl: 'document_url',
-      documentName: 'document_name',
+      signPartyName: 'sign_party_name',
+      signPartyCertType: 'sign_party_cert_type',
+      signPartyCertNum: 'sign_party_cert_num',
+      signResult: 'sign_result',
+      signFailReason: 'sign_fail_reason',
+      signTime: 'sign_time',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      documentUrl: 'string',
-      documentName: 'string',
+      signPartyName: 'string',
+      signPartyCertType: 'string',
+      signPartyCertNum: 'string',
+      signResult: 'string',
+      signFailReason: 'string',
+      signTime: 'string',
     };
   }
 
@@ -718,412 +718,27 @@ export class Document extends $tea.Model {
   }
 }
 
-// 凭证返回值
-export class VoucherResp extends $tea.Model {
-  // 消息
-  msg: string;
+// 电子提单变更状态明细
+export class EblStatusDetail extends $tea.Model {
+  // 当前提单状态
+  currentEblStatus: string;
+  // 电子提单编号
+  eblNo: string;
+  // 下一个提单状态
+  nextEblStatus: string;
   static names(): { [key: string]: string } {
     return {
-      msg: 'msg',
+      currentEblStatus: 'current_ebl_status',
+      eblNo: 'ebl_no',
+      nextEblStatus: 'next_ebl_status',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      msg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 创建凭证Two
-export class VoucherTestTwo extends $tea.Model {
-  // 测试Boolean
-  voucherTestTwoBoolean: boolean;
-  // 凭证列表_apiTestList
-  voucherTestTwoApiTestList: VoucherTestOne[];
-  // 测试Int
-  voucherTestTwoInt: number;
-  // 测试Integer
-  voucherTestTwoInteger: number;
-  // 凭证列表_dateList
-  voucherTestTwoDateList: string[];
-  // 测试String
-  voucherTestTwoString: string;
-  // 测试Date
-  voucherTestTwoDate: string;
-  // 凭证列表_integerList
-  voucherTestTwoIntegerList: number[];
-  // 测试Long
-  voucherTestTwoLong: number;
-  // 凭证列表_longList
-  voucherTestTwoLongList: number[];
-  // 凭证列表_stringList
-  voucherTestTwoStringList: string[];
-  // 测试apiTestInfo
-  voucherTestTwoApiTestInfo: VoucherTestOne;
-  // 凭证列表_booleanList
-  voucherTestTwoBooleanList: boolean[];
-  static names(): { [key: string]: string } {
-    return {
-      voucherTestTwoBoolean: 'voucher_test_two_boolean',
-      voucherTestTwoApiTestList: 'voucher_test_two_api_test_list',
-      voucherTestTwoInt: 'voucher_test_two_int',
-      voucherTestTwoInteger: 'voucher_test_two_integer',
-      voucherTestTwoDateList: 'voucher_test_two_date_list',
-      voucherTestTwoString: 'voucher_test_two_string',
-      voucherTestTwoDate: 'voucher_test_two_date',
-      voucherTestTwoIntegerList: 'voucher_test_two_integer_list',
-      voucherTestTwoLong: 'voucher_test_two_long',
-      voucherTestTwoLongList: 'voucher_test_two_long_list',
-      voucherTestTwoStringList: 'voucher_test_two_string_list',
-      voucherTestTwoApiTestInfo: 'voucher_test_two_api_test_info',
-      voucherTestTwoBooleanList: 'voucher_test_two_boolean_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      voucherTestTwoBoolean: 'boolean',
-      voucherTestTwoApiTestList: { 'type': 'array', 'itemType': VoucherTestOne },
-      voucherTestTwoInt: 'number',
-      voucherTestTwoInteger: 'number',
-      voucherTestTwoDateList: { 'type': 'array', 'itemType': 'string' },
-      voucherTestTwoString: 'string',
-      voucherTestTwoDate: 'string',
-      voucherTestTwoIntegerList: { 'type': 'array', 'itemType': 'number' },
-      voucherTestTwoLong: 'number',
-      voucherTestTwoLongList: { 'type': 'array', 'itemType': 'number' },
-      voucherTestTwoStringList: { 'type': 'array', 'itemType': 'string' },
-      voucherTestTwoApiTestInfo: VoucherTestOne,
-      voucherTestTwoBooleanList: { 'type': 'array', 'itemType': 'boolean' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 资费项账单
-export class ReceiptBillTariffParam extends $tea.Model {
-  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-  action?: string;
-  //  账单金额 业务必填
-  billAmount?: string;
-  // 应收账单 、应收资费项 多对多关联code 
-  receiptBillTariffCode: string;
-  // 资费项金额 业务必填
-  receiptTariffAmount?: string;
-  // 应收资费项编号 业务必填
-  receiptTariffCode?: string;
-  static names(): { [key: string]: string } {
-    return {
-      action: 'action',
-      billAmount: 'bill_amount',
-      receiptBillTariffCode: 'receipt_bill_tariff_code',
-      receiptTariffAmount: 'receipt_tariff_amount',
-      receiptTariffCode: 'receipt_tariff_code',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      action: 'string',
-      billAmount: 'string',
-      receiptBillTariffCode: 'string',
-      receiptTariffAmount: 'string',
-      receiptTariffCode: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 航运集装箱ID信息
-export class ContainerIdInfo extends $tea.Model {
-  // 箱子唯一标识
-  containerId?: string;
-  // 箱号
-  containerNo?: string;
-  static names(): { [key: string]: string } {
-    return {
-      containerId: 'container_id',
-      containerNo: 'container_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      containerId: 'string',
-      containerNo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 货物损失详情
-export class CargoLoss extends $tea.Model {
-  // 物品类型
-  cargoType?: string;
-  // 物品名称
-  cargoName: string;
-  // 物品所有人
-  cargoOwner?: string;
-  // 物品损失描述 
-  cargoLossDesc?: string;
-  // 损失预估，单位（元），最多支持2位小数
-  cargoLossEstimateAmount: string;
-  static names(): { [key: string]: string } {
-    return {
-      cargoType: 'cargo_type',
-      cargoName: 'cargo_name',
-      cargoOwner: 'cargo_owner',
-      cargoLossDesc: 'cargo_loss_desc',
-      cargoLossEstimateAmount: 'cargo_loss_estimate_amount',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      cargoType: 'string',
-      cargoName: 'string',
-      cargoOwner: 'string',
-      cargoLossDesc: 'string',
-      cargoLossEstimateAmount: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 货物信息
-export class GoodsInfo extends $tea.Model {
-  // 货物ID [业务必填]
-  goodsId?: string;
-  // 唛头
-  // 
-  // 
-  marks?: string;
-  // 货物名称
-  goods?: string;
-  // 货物类型
-  goodsType?: string;
-  // 货物重量
-  weight?: string;
-  // 件数
-  number?: string;
-  static names(): { [key: string]: string } {
-    return {
-      goodsId: 'goods_id',
-      marks: 'marks',
-      goods: 'goods',
-      goodsType: 'goods_type',
-      weight: 'weight',
-      number: 'number',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      goodsId: 'string',
-      marks: 'string',
-      goods: 'string',
-      goodsType: 'string',
-      weight: 'string',
-      number: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 授权上链文件
-export class AuthChainFile extends $tea.Model {
-  // 签署文件的hash值
-  signFileHash: string;
-  // 上链事务唯一标识
-  uploadChainTxCode: string;
-  // 蚂蚁区块链统一证据编号
-  baasUniqCode: string;
-  // 上链时间(13位毫秒级时间戳)
-  uploadChainTime: string;
-  // 上链文件下载链接
-  fileUrl: string;
-  // 上链文件名称，要求包含扩展名。文件格式允许: pdf, txt, doc, docx
-  fileName: string;
-  static names(): { [key: string]: string } {
-    return {
-      signFileHash: 'sign_file_hash',
-      uploadChainTxCode: 'upload_chain_tx_code',
-      baasUniqCode: 'baas_uniq_code',
-      uploadChainTime: 'upload_chain_time',
-      fileUrl: 'file_url',
-      fileName: 'file_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      signFileHash: 'string',
-      uploadChainTxCode: 'string',
-      baasUniqCode: 'string',
-      uploadChainTime: 'string',
-      fileUrl: 'string',
-      fileName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 池融资授信额度信息
-export class PfCreditQuotaInfo extends $tea.Model {
-  // 证件号
-  certNo: string;
-  // 证件类型
-  certType: string;
-  // 授信到期日期
-  creditEnd: string;
-  // 授信起始日期
-  creditStart: string;
-  // 额度编号
-  quotaNo: string;
-  // 剩余额度
-  remainingQuota: string;
-  // SON:放款账号loanAccNo
-  // 还款账号repayAcctNo
-  remark: string;
-  // 额度状态：
-  // 0、停用 / 1、启用  /  2、冻结
-  status: string;
-  // 授信额度
-  totalQuota: string;
-  // 数据更新时间
-  updateTime: string;
-  // 总质押额度
-  totalPledgeQuota: string;
-  // 剩余质押额度
-  remainPledgeQuota: string;
-  static names(): { [key: string]: string } {
-    return {
-      certNo: 'cert_no',
-      certType: 'cert_type',
-      creditEnd: 'credit_end',
-      creditStart: 'credit_start',
-      quotaNo: 'quota_no',
-      remainingQuota: 'remaining_quota',
-      remark: 'remark',
-      status: 'status',
-      totalQuota: 'total_quota',
-      updateTime: 'update_time',
-      totalPledgeQuota: 'total_pledge_quota',
-      remainPledgeQuota: 'remain_pledge_quota',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      certNo: 'string',
-      certType: 'string',
-      creditEnd: 'string',
-      creditStart: 'string',
-      quotaNo: 'string',
-      remainingQuota: 'string',
-      remark: 'string',
-      status: 'string',
-      totalQuota: 'string',
-      updateTime: 'string',
-      totalPledgeQuota: 'string',
-      remainPledgeQuota: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 应付账单发票关联项
-export class PayBillInvoiceParam extends $tea.Model {
-  // 账单发票code
-  payBillInvoiceCode: string;
-  // 账单编号
-  payBillOrderCode: string;
-  // 账单金额
-  payBillAmount: string;
-  // 发票金额
-  invoiceAmount: string;
-  // 操作动作
-  action?: string;
-  static names(): { [key: string]: string } {
-    return {
-      payBillInvoiceCode: 'pay_bill_invoice_code',
-      payBillOrderCode: 'pay_bill_order_code',
-      payBillAmount: 'pay_bill_amount',
-      invoiceAmount: 'invoice_amount',
-      action: 'action',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      payBillInvoiceCode: 'string',
-      payBillOrderCode: 'string',
-      payBillAmount: 'string',
-      invoiceAmount: 'string',
-      action: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 资费项发票
-export class PayTariffInvoiceParam extends $tea.Model {
-  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-  action?: string;
-  // 发票金额 业务必填
-  invoiceAmount?: string;
-  // 资费项金额 业务必填
-  payTariffAmount?: string;
-  // 资费单据编号 业务必填
-  payTariffCode?: string;
-  // 资费项发票code
-  payTariffInvoiceCode: string;
-  static names(): { [key: string]: string } {
-    return {
-      action: 'action',
-      invoiceAmount: 'invoice_amount',
-      payTariffAmount: 'pay_tariff_amount',
-      payTariffCode: 'pay_tariff_code',
-      payTariffInvoiceCode: 'pay_tariff_invoice_code',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      action: 'string',
-      invoiceAmount: 'string',
-      payTariffAmount: 'string',
-      payTariffCode: 'string',
-      payTariffInvoiceCode: 'string',
+      currentEblStatus: 'string',
+      eblNo: 'string',
+      nextEblStatus: 'string',
     };
   }
 
@@ -1213,24 +828,571 @@ export class InsureBaseInfo extends $tea.Model {
   }
 }
 
-// 电子回单查询，具体凭证数据
-export class ScpTicketIssueData extends $tea.Model {
-  // 凭证对应的司机/货主的did
-  did: string;
-  // 	
+// 池融资凭证核验查询结果
+export class PfVoucherCheckResult extends $tea.Model {
   // 凭证id
-  issueId: string;
+  voucherId: string;
+  // 凭证类型
+  voucherCategory: string;
+  // 状态；PASS:通过，NO_PASS 未通过
+  status: string;
   static names(): { [key: string]: string } {
     return {
-      did: 'did',
-      issueId: 'issue_id',
+      voucherId: 'voucher_id',
+      voucherCategory: 'voucher_category',
+      status: 'status',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      did: 'string',
+      voucherId: 'string',
+      voucherCategory: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 历史数据
+export class UploadFinancingParam extends $tea.Model {
+  // 订舱单量（票）
+  bookingCount: number;
+  // 唯一标识
+  code: string;
+  // 结束日期
+  endDate: string;
+  // 货代did
+  forwarderDid: string;
+  // 开始日期
+  startDate: string;
+  // 箱量【数量，不区分箱型，20GP是1TEU，40GP是2TEU】
+  teu: number;
+  // 运输总额
+  amounts: string;
+  static names(): { [key: string]: string } {
+    return {
+      bookingCount: 'booking_count',
+      code: 'code',
+      endDate: 'end_date',
+      forwarderDid: 'forwarder_did',
+      startDate: 'start_date',
+      teu: 'teu',
+      amounts: 'amounts',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bookingCount: 'number',
+      code: 'string',
+      endDate: 'string',
+      forwarderDid: 'string',
+      startDate: 'string',
+      teu: 'number',
+      amounts: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 链上hash
+export class TxDto extends $tea.Model {
+  // 链上凭证
+  txCode: string;
+  // 链上存储结构对应类型
+  dataType: string;
+  static names(): { [key: string]: string } {
+    return {
+      txCode: 'tx_code',
+      dataType: 'data_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      txCode: 'string',
+      dataType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 物流轨迹位置
+export class LogisticLocation extends $tea.Model {
+  // 结构化地址信息,规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦
+  address?: string;
+  // 行政区划代码
+  cityCode?: string;
+  // 纬度
+  // 
+  lat: string;
+  // 经度
+  lon: string;
+  // 轨迹时间戳
+  trackTime: number;
+  static names(): { [key: string]: string } {
+    return {
+      address: 'address',
+      cityCode: 'city_code',
+      lat: 'lat',
+      lon: 'lon',
+      trackTime: 'track_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      address: 'string',
+      cityCode: 'string',
+      lat: 'string',
+      lon: 'string',
+      trackTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户凭证信息
+export class UserIssueId extends $tea.Model {
+  // 凭证id
+  issueId: string;
+  // 凭证余额
+  balanceAmt: string;
+  static names(): { [key: string]: string } {
+    return {
+      issueId: 'issue_id',
+      balanceAmt: 'balance_amt',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
       issueId: 'string',
+      balanceAmt: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 电子提单批次下提单明细（无效）
+export class EblDeatil extends $tea.Model {
+  // 电子提单copy文件hash
+  eblCopyPdfFileHash: string;
+  // 电子提单copy文件id
+  eblCopyPdfFileId: string;
+  // 电子提单编号
+  eblNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      eblCopyPdfFileHash: 'ebl_copy_pdf_file_hash',
+      eblCopyPdfFileId: 'ebl_copy_pdf_file_id',
+      eblNo: 'ebl_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      eblCopyPdfFileHash: 'string',
+      eblCopyPdfFileId: 'string',
+      eblNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 入库货物
+export class StockinCargo extends $tea.Model {
+  // 入库序号，在同一次入库请求中，入库序号保持不重复，不能小于0
+  stockinIndex: number;
+  // sku品名
+  // 
+  sku: string;
+  // 商品名称
+  cargoName?: string;
+  // 商品单品重量(kg)
+  cargoWeight?: string;
+  // 商品外扩长宽高(cm)
+  cargoDimensions?: string;
+  // 商品单品货物价值(元),，最多支持2位小数
+  cargoWorth?: string;
+  // 箱号
+  containerNo?: string;
+  // 实际入库件数
+  actualStockinNum: number;
+  static names(): { [key: string]: string } {
+    return {
+      stockinIndex: 'stockin_index',
+      sku: 'sku',
+      cargoName: 'cargo_name',
+      cargoWeight: 'cargo_weight',
+      cargoDimensions: 'cargo_dimensions',
+      cargoWorth: 'cargo_worth',
+      containerNo: 'container_no',
+      actualStockinNum: 'actual_stockin_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      stockinIndex: 'number',
+      sku: 'string',
+      cargoName: 'string',
+      cargoWeight: 'string',
+      cargoDimensions: 'string',
+      cargoWorth: 'string',
+      containerNo: 'string',
+      actualStockinNum: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 车辆损失详情 
+export class CarLoss extends $tea.Model {
+  // 车牌号，车牌号和车架号至少填一个
+  carMark?: string;
+  // 车主姓名 
+  carOwnerName?: string;
+  // 车主联系方式
+  carOwnerContact?: string;
+  // 车架号，车牌号和车架号至少填一个
+  carVinNo?: string;
+  // 损失预估，单位（元），最多支持2位小数
+  carLossEstimateAmount: string;
+  static names(): { [key: string]: string } {
+    return {
+      carMark: 'car_mark',
+      carOwnerName: 'car_owner_name',
+      carOwnerContact: 'car_owner_contact',
+      carVinNo: 'car_vin_no',
+      carLossEstimateAmount: 'car_loss_estimate_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      carMark: 'string',
+      carOwnerName: 'string',
+      carOwnerContact: 'string',
+      carVinNo: 'string',
+      carLossEstimateAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 物流金融信用流转流水信息
+export class StatementInfo extends $tea.Model {
+  // 信用流转批次号
+  batchId: string;
+  // 全局唯一业务号
+  outBizNo: string;
+  // 信用流转凭证
+  issueId: string;
+  // 合同号（预留）
+  contractId?: string;
+  // 发行信用流转的运单号
+  waybillId: string;
+  // 发行信用流转的支付单号
+  payOrder: string;
+  // 金额信息
+  creditLimit: string;
+  // 流水类型
+  stateType: string;
+  // 流水类型说明
+  stateMsg: string;
+  // 凭证来源方did
+  fromDid: string;
+  // 凭证流转方did
+  toDid: string;
+  // 信用凭证发起时间
+  issueDate: string;
+  // 信用凭证到期时间
+  expireDate: string;
+  static names(): { [key: string]: string } {
+    return {
+      batchId: 'batch_id',
+      outBizNo: 'out_biz_no',
+      issueId: 'issue_id',
+      contractId: 'contract_id',
+      waybillId: 'waybill_id',
+      payOrder: 'pay_order',
+      creditLimit: 'credit_limit',
+      stateType: 'state_type',
+      stateMsg: 'state_msg',
+      fromDid: 'from_did',
+      toDid: 'to_did',
+      issueDate: 'issue_date',
+      expireDate: 'expire_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      batchId: 'string',
+      outBizNo: 'string',
+      issueId: 'string',
+      contractId: 'string',
+      waybillId: 'string',
+      payOrder: 'string',
+      creditLimit: 'string',
+      stateType: 'string',
+      stateMsg: 'string',
+      fromDid: 'string',
+      toDid: 'string',
+      issueDate: 'string',
+      expireDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 附加条款
+export class MainItemAdd extends $tea.Model {
+  // 附加条款代码-参考保司提供样例
+  mainItemAddCode?: string;
+  // 附加条款内容-参考保司提供样例
+  mainItemAddContent?: string;
+  static names(): { [key: string]: string } {
+    return {
+      mainItemAddCode: 'main_item_add_code',
+      mainItemAddContent: 'main_item_add_content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      mainItemAddCode: 'string',
+      mainItemAddContent: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 订舱单
+export class MasterBlBookingParam extends $tea.Model {
+  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+  action?: string;
+  // 订舱单号
+  bookingNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      action: 'action',
+      bookingNo: 'booking_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      action: 'string',
+      bookingNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// FinishWaybillOrderReq
+export class FinishWaybillOrderReq extends $tea.Model {
+  // 运费
+  allFreight?: string;
+  // 回单押金
+  backFee?: string;
+  // 货主支付运费金额
+  consignorFreightAmount?: string;
+  // 运费增项
+  freightIncr?: string;
+  // 运费扣减
+  lossFee?: string;
+  // 平台did
+  platformDid: string;
+  // 运单id
+  taxWaybillId: string;
+  static names(): { [key: string]: string } {
+    return {
+      allFreight: 'all_freight',
+      backFee: 'back_fee',
+      consignorFreightAmount: 'consignor_freight_amount',
+      freightIncr: 'freight_incr',
+      lossFee: 'loss_fee',
+      platformDid: 'platform_did',
+      taxWaybillId: 'tax_waybill_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      allFreight: 'string',
+      backFee: 'string',
+      consignorFreightAmount: 'string',
+      freightIncr: 'string',
+      lossFee: 'string',
+      platformDid: 'string',
+      taxWaybillId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// saas模式发行信息
+export class SaasIssueApplyInfo extends $tea.Model {
+  // 货源订单
+  cargoOrder?: string;
+  // 合同号
+  contractId?: string;
+  // 全局唯一业务单号
+  outBizNo: string;
+  // 支付单号
+  payOrder: string;
+  // 运单号
+  waybillId: string;
+  // 司机did
+  driverDid: string;
+  // 发行费
+  freight: string;
+  // 到期时间戳
+  expireDate: string;
+  static names(): { [key: string]: string } {
+    return {
+      cargoOrder: 'cargo_order',
+      contractId: 'contract_id',
+      outBizNo: 'out_biz_no',
+      payOrder: 'pay_order',
+      waybillId: 'waybill_id',
+      driverDid: 'driver_did',
+      freight: 'freight',
+      expireDate: 'expire_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cargoOrder: 'string',
+      contractId: 'string',
+      outBizNo: 'string',
+      payOrder: 'string',
+      waybillId: 'string',
+      driverDid: 'string',
+      freight: 'string',
+      expireDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 箱子信息
+export class VehicleContainerParam extends $tea.Model {
+  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+  action?: string;
+  // 集装箱ID
+  containerId: string;
+  // 箱号
+  containerNo?: string;
+  // 封号
+  sealNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      action: 'action',
+      containerId: 'container_id',
+      containerNo: 'container_no',
+      sealNo: 'seal_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      action: 'string',
+      containerId: 'string',
+      containerNo: 'string',
+      sealNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// A+模式发行信息
+export class IssueApplyInfoPlus extends $tea.Model {
+  // 订单中的BookingNo，以英文逗号分割
+  bookingNo: string;
+  // 船公司did
+  carrierDid: string;
+  // BookingNo中的箱号，以英文逗号分割
+  containerNo: string;
+  // 到期时间戳
+  expireDate: string;
+  // 发行金额，精确到小数点后2位
+  issueAmt: string;
+  // 全局唯一业务号
+  outBizNo: string;
+  // 支付单号
+  outOrderNo: string;
+  // 运单订单id
+  waybillId: string;
+  static names(): { [key: string]: string } {
+    return {
+      bookingNo: 'booking_no',
+      carrierDid: 'carrier_did',
+      containerNo: 'container_no',
+      expireDate: 'expire_date',
+      issueAmt: 'issue_amt',
+      outBizNo: 'out_biz_no',
+      outOrderNo: 'out_order_no',
+      waybillId: 'waybill_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bookingNo: 'string',
+      carrierDid: 'string',
+      containerNo: 'string',
+      expireDate: 'string',
+      issueAmt: 'string',
+      outBizNo: 'string',
+      outOrderNo: 'string',
+      waybillId: 'string',
     };
   }
 
@@ -1324,491 +1486,6 @@ export class HouseBlGoodsParam extends $tea.Model {
   }
 }
 
-// 电子提单批次下提单明细
-export class EblDetail extends $tea.Model {
-  // 电子提单copy文件hash
-  eblCopyPdfFileHash: string;
-  // 电子提单copy文件id
-  eblCopyPdfFileId: string;
-  // 电子提单编号
-  eblNo: string;
-  static names(): { [key: string]: string } {
-    return {
-      eblCopyPdfFileHash: 'ebl_copy_pdf_file_hash',
-      eblCopyPdfFileId: 'ebl_copy_pdf_file_id',
-      eblNo: 'ebl_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      eblCopyPdfFileHash: 'string',
-      eblCopyPdfFileId: 'string',
-      eblNo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 人员伤残情况
-export class PersonLoss extends $tea.Model {
-  // 伤情，HOSPITALIZE-住院，CLINIC-门诊，DEATH-死亡，ALLOWANCE-津贴
-  personInjuredCondition: string;
-  // 伤者姓名
-  personInjuredName: string;
-  // 损失预估，单位（元），最多支持2位小数
-  personLossEstimateAmount?: string;
-  static names(): { [key: string]: string } {
-    return {
-      personInjuredCondition: 'person_injured_condition',
-      personInjuredName: 'person_injured_name',
-      personLossEstimateAmount: 'person_loss_estimate_amount',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      personInjuredCondition: 'string',
-      personInjuredName: 'string',
-      personLossEstimateAmount: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 历史数据
-export class UploadFinancingParam extends $tea.Model {
-  // 订舱单量（票）
-  bookingCount: number;
-  // 唯一标识
-  code: string;
-  // 结束日期
-  endDate: string;
-  // 货代did
-  forwarderDid: string;
-  // 开始日期
-  startDate: string;
-  // 箱量【数量，不区分箱型，20GP是1TEU，40GP是2TEU】
-  teu: number;
-  // 运输总额
-  amounts: string;
-  static names(): { [key: string]: string } {
-    return {
-      bookingCount: 'booking_count',
-      code: 'code',
-      endDate: 'end_date',
-      forwarderDid: 'forwarder_did',
-      startDate: 'start_date',
-      teu: 'teu',
-      amounts: 'amounts',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      bookingCount: 'number',
-      code: 'string',
-      endDate: 'string',
-      forwarderDid: 'string',
-      startDate: 'string',
-      teu: 'number',
-      amounts: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 库存货物
-export class InventoryCargo extends $tea.Model {
-  // 序号，在同一次库存申报请求中，序号保持不重复，不能小于等于0
-  inventoryIndex: number;
-  // sku品名
-  sku: string;
-  // 商品名称
-  // 
-  cargoName?: string;
-  // 商品单品重量(kg)
-  cargoWeight?: string;
-  // 商品外扩长宽高(cm)
-  cargoDimensions?: string;
-  // 商品单品货物价值(元),最多支持2位小数
-  cargoWorth?: string;
-  // 当前库存货物数量
-  currentInventoryCargoNum: number;
-  // 客户代码
-  // 
-  customerCode: string;
-  // 关联保单号,需要仓储CP做拆分计算
-  policyNo?: string;
-  // 入库时间, yyyy-MM-dd HH:mm:ss，需要仓储CP做拆分计算
-  // 
-  stockinDate?: string;
-  // 时区,仓储CP上报入库时间所属的时区
-  timezone?: string;
-  static names(): { [key: string]: string } {
-    return {
-      inventoryIndex: 'inventory_index',
-      sku: 'sku',
-      cargoName: 'cargo_name',
-      cargoWeight: 'cargo_weight',
-      cargoDimensions: 'cargo_dimensions',
-      cargoWorth: 'cargo_worth',
-      currentInventoryCargoNum: 'current_inventory_cargo_num',
-      customerCode: 'customer_code',
-      policyNo: 'policy_no',
-      stockinDate: 'stockin_date',
-      timezone: 'timezone',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      inventoryIndex: 'number',
-      sku: 'string',
-      cargoName: 'string',
-      cargoWeight: 'string',
-      cargoDimensions: 'string',
-      cargoWorth: 'string',
-      currentInventoryCargoNum: 'number',
-      customerCode: 'string',
-      policyNo: 'string',
-      stockinDate: 'string',
-      timezone: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 签署方
-export class AuthParty extends $tea.Model {
-  // 签署方名称
-  signPartyName: string;
-  // 签署方证件类型，可以填写的枚举类：IDENTIFICATION_CARD，表示身份证
-  signPartyCertType: string;
-  // 签署方证件号码
-  signPartyCertNum: string;
-  // 签署结果（必填，FINISH,FAIL,REFUSE三者选一，分别表示签署完成、失败和拒签）
-  signResult: string;
-  // 签署失败或拒签原因（失败或拒签时必填）
-  signFailReason?: string;
-  // 签署时间(13位毫秒时间戳)
-  signTime: string;
-  static names(): { [key: string]: string } {
-    return {
-      signPartyName: 'sign_party_name',
-      signPartyCertType: 'sign_party_cert_type',
-      signPartyCertNum: 'sign_party_cert_num',
-      signResult: 'sign_result',
-      signFailReason: 'sign_fail_reason',
-      signTime: 'sign_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      signPartyName: 'string',
-      signPartyCertType: 'string',
-      signPartyCertNum: 'string',
-      signResult: 'string',
-      signFailReason: 'string',
-      signTime: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 链上hash
-export class TxDto extends $tea.Model {
-  // 链上凭证
-  txCode: string;
-  // 链上存储结构对应类型
-  dataType: string;
-  static names(): { [key: string]: string } {
-    return {
-      txCode: 'tx_code',
-      dataType: 'data_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      txCode: 'string',
-      dataType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 用户凭证信息
-export class UserIssueId extends $tea.Model {
-  // 凭证id
-  issueId: string;
-  // 凭证余额
-  balanceAmt: string;
-  static names(): { [key: string]: string } {
-    return {
-      issueId: 'issue_id',
-      balanceAmt: 'balance_amt',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      issueId: 'string',
-      balanceAmt: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 附加条款
-export class MainItemAdd extends $tea.Model {
-  // 附加条款代码-参考保司提供样例
-  mainItemAddCode?: string;
-  // 附加条款内容-参考保司提供样例
-  mainItemAddContent?: string;
-  static names(): { [key: string]: string } {
-    return {
-      mainItemAddCode: 'main_item_add_code',
-      mainItemAddContent: 'main_item_add_content',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      mainItemAddCode: 'string',
-      mainItemAddContent: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 承运人责任险保险标的信息
-export class InsureCarrierObjectInfo extends $tea.Model {
-  // 厂牌型号
-  cpModel: string;
-  // 车架号
-  frameNo: string;
-  // 车牌号码
-  licenseNo: string;
-  // 吨位
-  tonNage: string;
-  // 行驶证车主
-  drivPer: string;
-  // 运营证号
-  runNo: string;
-  // 运输货物
-  tsCarGo: string;
-  static names(): { [key: string]: string } {
-    return {
-      cpModel: 'cp_model',
-      frameNo: 'frame_no',
-      licenseNo: 'license_no',
-      tonNage: 'ton_nage',
-      drivPer: 'driv_per',
-      runNo: 'run_no',
-      tsCarGo: 'ts_car_go',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      cpModel: 'string',
-      frameNo: 'string',
-      licenseNo: 'string',
-      tonNage: 'string',
-      drivPer: 'string',
-      runNo: 'string',
-      tsCarGo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 航运订舱单号信息
-export class BookingNoInfo extends $tea.Model {
-  // 订舱单唯一标识
-  bookingNo?: string;
-  // 订舱号
-  bkgNo?: string;
-  static names(): { [key: string]: string } {
-    return {
-      bookingNo: 'booking_no',
-      bkgNo: 'bkg_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      bookingNo: 'string',
-      bkgNo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 入库货物
-export class StockinCargo extends $tea.Model {
-  // 入库序号，在同一次入库请求中，入库序号保持不重复，不能小于0
-  stockinIndex: number;
-  // sku品名
-  // 
-  sku: string;
-  // 商品名称
-  cargoName?: string;
-  // 商品单品重量(kg)
-  cargoWeight?: string;
-  // 商品外扩长宽高(cm)
-  cargoDimensions?: string;
-  // 商品单品货物价值(元),，最多支持2位小数
-  cargoWorth?: string;
-  // 箱号
-  containerNo?: string;
-  // 实际入库件数
-  actualStockinNum: number;
-  static names(): { [key: string]: string } {
-    return {
-      stockinIndex: 'stockin_index',
-      sku: 'sku',
-      cargoName: 'cargo_name',
-      cargoWeight: 'cargo_weight',
-      cargoDimensions: 'cargo_dimensions',
-      cargoWorth: 'cargo_worth',
-      containerNo: 'container_no',
-      actualStockinNum: 'actual_stockin_num',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      stockinIndex: 'number',
-      sku: 'string',
-      cargoName: 'string',
-      cargoWeight: 'string',
-      cargoDimensions: 'string',
-      cargoWorth: 'string',
-      containerNo: 'string',
-      actualStockinNum: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 提单货物数据
-export class MasterBlGoodsDto extends $tea.Model {
-  // 唛头
-  marks?: string;
-  // 货物
-  goods: string;
-  // 货物类型
-  goodsType: string;
-  // 包装类型
-  packageType?: string;
-  // 委托件数
-  number: string;
-  // 委托重量
-  weight: string;
-  // 委托体积
-  volume: string;
-  static names(): { [key: string]: string } {
-    return {
-      marks: 'marks',
-      goods: 'goods',
-      goodsType: 'goods_type',
-      packageType: 'package_type',
-      number: 'number',
-      weight: 'weight',
-      volume: 'volume',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      marks: 'string',
-      goods: 'string',
-      goodsType: 'string',
-      packageType: 'string',
-      number: 'string',
-      weight: 'string',
-      volume: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 资费项发票
-export class ReceiptTariffInvoiceParam extends $tea.Model {
-  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-  action?: string;
-  // 发票金额 业务必填
-  invoiceAmount?: string;
-  // 资费项金额 业务必填
-  receiptTariffAmount?: string;
-  // 资费单据编号 业务必填
-  receiptTariffCode?: string;
-  // 资费项发票code
-  receiptTariffInvoiceCode: string;
-  static names(): { [key: string]: string } {
-    return {
-      action: 'action',
-      invoiceAmount: 'invoice_amount',
-      receiptTariffAmount: 'receipt_tariff_amount',
-      receiptTariffCode: 'receipt_tariff_code',
-      receiptTariffInvoiceCode: 'receipt_tariff_invoice_code',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      action: 'string',
-      invoiceAmount: 'string',
-      receiptTariffAmount: 'string',
-      receiptTariffCode: 'string',
-      receiptTariffInvoiceCode: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 上传booking信息
 export class UploadOrderBooking extends $tea.Model {
   // 订舱单号
@@ -1834,23 +1511,44 @@ export class UploadOrderBooking extends $tea.Model {
   }
 }
 
-// 轨迹核验结果
-export class TrackCheckResult extends $tea.Model {
-  // 轨迹核验状态code
-  trackCheckStatus?: string;
-  // 轨迹核验结果描述
-  trackCheckStatusMsg?: string;
+// 航运集装箱类型信息
+export class ContainerTypeInfo extends $tea.Model {
+  // 箱型
+  containerType?: string;
+  // 箱量
+  containerVolume?: string;
   static names(): { [key: string]: string } {
     return {
-      trackCheckStatus: 'track_check_status',
-      trackCheckStatusMsg: 'track_check_status_msg',
+      containerType: 'container_type',
+      containerVolume: 'container_volume',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      trackCheckStatus: 'string',
-      trackCheckStatusMsg: 'string',
+      containerType: 'string',
+      containerVolume: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 凭证返回值
+export class VoucherResp extends $tea.Model {
+  // 消息
+  msg: string;
+  static names(): { [key: string]: string } {
+    return {
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      msg: 'string',
     };
   }
 
@@ -1944,35 +1642,35 @@ export class ContainerGoodsParam extends $tea.Model {
   }
 }
 
-// 车辆损失详情 
-export class CarLoss extends $tea.Model {
-  // 车牌号，车牌号和车架号至少填一个
-  carMark?: string;
-  // 车主姓名 
-  carOwnerName?: string;
-  // 车主联系方式
-  carOwnerContact?: string;
-  // 车架号，车牌号和车架号至少填一个
-  carVinNo?: string;
-  // 损失预估，单位（元），最多支持2位小数
-  carLossEstimateAmount: string;
+// 应付账单发票关联项
+export class PayBillInvoiceParam extends $tea.Model {
+  // 账单发票code
+  payBillInvoiceCode: string;
+  // 账单编号
+  payBillOrderCode: string;
+  // 账单金额
+  payBillAmount: string;
+  // 发票金额
+  invoiceAmount: string;
+  // 操作动作
+  action?: string;
   static names(): { [key: string]: string } {
     return {
-      carMark: 'car_mark',
-      carOwnerName: 'car_owner_name',
-      carOwnerContact: 'car_owner_contact',
-      carVinNo: 'car_vin_no',
-      carLossEstimateAmount: 'car_loss_estimate_amount',
+      payBillInvoiceCode: 'pay_bill_invoice_code',
+      payBillOrderCode: 'pay_bill_order_code',
+      payBillAmount: 'pay_bill_amount',
+      invoiceAmount: 'invoice_amount',
+      action: 'action',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      carMark: 'string',
-      carOwnerName: 'string',
-      carOwnerContact: 'string',
-      carVinNo: 'string',
-      carLossEstimateAmount: 'string',
+      payBillInvoiceCode: 'string',
+      payBillOrderCode: 'string',
+      payBillAmount: 'string',
+      invoiceAmount: 'string',
+      action: 'string',
     };
   }
 
@@ -1981,27 +1679,23 @@ export class CarLoss extends $tea.Model {
   }
 }
 
-// 电子提单变更状态明细
-export class EblStatusDetail extends $tea.Model {
-  // 当前提单状态
-  currentEblStatus: string;
-  // 电子提单编号
-  eblNo: string;
-  // 下一个提单状态
-  nextEblStatus: string;
+// 货主支付方式
+export class PayAmount extends $tea.Model {
+  // 支付金额（2位小数）
+  amount: string;
+  // 支付方式
+  payType: string;
   static names(): { [key: string]: string } {
     return {
-      currentEblStatus: 'current_ebl_status',
-      eblNo: 'ebl_no',
-      nextEblStatus: 'next_ebl_status',
+      amount: 'amount',
+      payType: 'pay_type',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      currentEblStatus: 'string',
-      eblNo: 'string',
-      nextEblStatus: 'string',
+      amount: 'string',
+      payType: 'string',
     };
   }
 
@@ -2010,55 +1704,35 @@ export class EblStatusDetail extends $tea.Model {
   }
 }
 
-// 应付资费项
-export class PayTariffInfo extends $tea.Model {
-  // 托运单号 [业务必填]
-  orderNo?: string;
-  // 应付资费项code [业务必填]
-  // 
-  // 
+// 资费项账单
+export class PayBillTariffParam extends $tea.Model {
+  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+  action?: string;
+  // 账单金额 业务必填
+  billAmount?: string;
+  // 应付账单、应付资费项 多对多code
+  payBillTariffCode: string;
+  //  资费项金额 业务必填
+  payTariffAmount?: string;
+  // 应付资费项编号 业务必填
   payTariffCode?: string;
-  // 应付资费项项目 [业务必填]
-  // 
-  // 
-  payTariffProject?: string;
-  // 资费项中文描述 [业务必填]
-  // 
-  // 
-  payTariffDesc?: string;
-  // 币种 [业务必填]
-  currency?: string;
-  // 资费项含税价 [业务必填]
-  // 
-  // 
-  priceIncludingTax?: string;
-  // 订舱单唯一性标识 [业务必填]
-  bookingNo?: string;
-  // 订舱单 [业务必填]
-  bkgNo?: string;
   static names(): { [key: string]: string } {
     return {
-      orderNo: 'order_no',
+      action: 'action',
+      billAmount: 'bill_amount',
+      payBillTariffCode: 'pay_bill_tariff_code',
+      payTariffAmount: 'pay_tariff_amount',
       payTariffCode: 'pay_tariff_code',
-      payTariffProject: 'pay_tariff_project',
-      payTariffDesc: 'pay_tariff_desc',
-      currency: 'currency',
-      priceIncludingTax: 'price_including_tax',
-      bookingNo: 'booking_no',
-      bkgNo: 'bkg_no',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      orderNo: 'string',
+      action: 'string',
+      billAmount: 'string',
+      payBillTariffCode: 'string',
+      payTariffAmount: 'string',
       payTariffCode: 'string',
-      payTariffProject: 'string',
-      payTariffDesc: 'string',
-      currency: 'string',
-      priceIncludingTax: 'string',
-      bookingNo: 'string',
-      bkgNo: 'string',
     };
   }
 
@@ -2067,309 +1741,23 @@ export class PayTariffInfo extends $tea.Model {
   }
 }
 
-// FinishWaybillOrderReq
-export class FinishWaybillOrderReq extends $tea.Model {
-  // 运费
-  allFreight?: string;
-  // 回单押金
-  backFee?: string;
-  // 货主支付运费金额
-  consignorFreightAmount?: string;
-  // 运费增项
-  freightIncr?: string;
-  // 运费扣减
-  lossFee?: string;
-  // 平台did
-  platformDid: string;
-  // 运单id
-  taxWaybillId: string;
+// 轨迹核验结果
+export class TrackCheckResult extends $tea.Model {
+  // 轨迹核验状态code
+  trackCheckStatus?: string;
+  // 轨迹核验结果描述
+  trackCheckStatusMsg?: string;
   static names(): { [key: string]: string } {
     return {
-      allFreight: 'all_freight',
-      backFee: 'back_fee',
-      consignorFreightAmount: 'consignor_freight_amount',
-      freightIncr: 'freight_incr',
-      lossFee: 'loss_fee',
-      platformDid: 'platform_did',
-      taxWaybillId: 'tax_waybill_id',
+      trackCheckStatus: 'track_check_status',
+      trackCheckStatusMsg: 'track_check_status_msg',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      allFreight: 'string',
-      backFee: 'string',
-      consignorFreightAmount: 'string',
-      freightIncr: 'string',
-      lossFee: 'string',
-      platformDid: 'string',
-      taxWaybillId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 运单号-司机运费
-export class WaybillAmount extends $tea.Model {
-  // 运单金额（2位小数）
-  amount: string;
-  // 运单号
-  waybillId: string;
-  static names(): { [key: string]: string } {
-    return {
-      amount: 'amount',
-      waybillId: 'waybill_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      amount: 'string',
-      waybillId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 电子回单查询凭证数据
-export class ScpTicketIssueDataParam extends $tea.Model {
-  // 凭证id
-  issueId: string;
-  // 凭证对应的司机/货主的did
-  did: string;
-  static names(): { [key: string]: string } {
-    return {
-      issueId: 'issue_id',
-      did: 'did',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      issueId: 'string',
-      did: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// saas模式发行信息
-export class SaasIssueApplyInfo extends $tea.Model {
-  // 货源订单
-  cargoOrder?: string;
-  // 合同号
-  contractId?: string;
-  // 全局唯一业务单号
-  outBizNo: string;
-  // 支付单号
-  payOrder: string;
-  // 运单号
-  waybillId: string;
-  // 司机did
-  driverDid: string;
-  // 发行费
-  freight: string;
-  // 到期时间戳
-  expireDate: string;
-  static names(): { [key: string]: string } {
-    return {
-      cargoOrder: 'cargo_order',
-      contractId: 'contract_id',
-      outBizNo: 'out_biz_no',
-      payOrder: 'pay_order',
-      waybillId: 'waybill_id',
-      driverDid: 'driver_did',
-      freight: 'freight',
-      expireDate: 'expire_date',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      cargoOrder: 'string',
-      contractId: 'string',
-      outBizNo: 'string',
-      payOrder: 'string',
-      waybillId: 'string',
-      driverDid: 'string',
-      freight: 'string',
-      expireDate: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 应收资费项
-export class ReceiptTariffInfo extends $tea.Model {
-  // 托运单号 [业务必填]
-  orderNo?: string;
-  // 应收资费项code [业务必填]
-  // 
-  // 
-  receiptTariffCode?: string;
-  // 应收资费项项目 [业务必填]
-  receiptTariffProject?: string;
-  // 资费项中文描述 [业务必填]
-  // 
-  // 
-  receiptTariffDesc?: string;
-  // 币种 [业务必填]
-  currency?: string;
-  // 资费项含税价 [业务必填]
-  // 
-  // 
-  priceIncludingTax?: string;
-  // 订舱单唯一标识 [业务必填]
-  bookingNo?: string;
-  // 订舱号 [业务必填]
-  bkgNo?: string;
-  static names(): { [key: string]: string } {
-    return {
-      orderNo: 'order_no',
-      receiptTariffCode: 'receipt_tariff_code',
-      receiptTariffProject: 'receipt_tariff_project',
-      receiptTariffDesc: 'receipt_tariff_desc',
-      currency: 'currency',
-      priceIncludingTax: 'price_including_tax',
-      bookingNo: 'booking_no',
-      bkgNo: 'bkg_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      orderNo: 'string',
-      receiptTariffCode: 'string',
-      receiptTariffProject: 'string',
-      receiptTariffDesc: 'string',
-      currency: 'string',
-      priceIncludingTax: 'string',
-      bookingNo: 'string',
-      bkgNo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 货源单号-货主运费
-export class CargoAmount extends $tea.Model {
-  // 货运单对应金额（2位小数）
-  amount: string;
-  // 货源单号
-  cargoOrder: string;
-  static names(): { [key: string]: string } {
-    return {
-      amount: 'amount',
-      cargoOrder: 'cargo_order',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      amount: 'string',
-      cargoOrder: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 凭证开立申请信息
-export class IssueApplyInfo extends $tea.Model {
-  // 货源订单
-  cargoOrder?: string;
-  // 合同号（预留）
-  contractId?: string;
-  // 凭证到期时间
-  expireDate: string;
-  // 支付单运费，运费最多精确到小数点后2位
-  freight: string;
-  // 全局唯一业务号
-  outBizNo: string;
-  // 支付订单
-  payOrder: string;
-  // 运单id
-  waybillId: string;
-  // 司机did
-  driverDid?: string;
-  static names(): { [key: string]: string } {
-    return {
-      cargoOrder: 'cargo_order',
-      contractId: 'contract_id',
-      expireDate: 'expire_date',
-      freight: 'freight',
-      outBizNo: 'out_biz_no',
-      payOrder: 'pay_order',
-      waybillId: 'waybill_id',
-      driverDid: 'driver_did',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      cargoOrder: 'string',
-      contractId: 'string',
-      expireDate: 'string',
-      freight: 'string',
-      outBizNo: 'string',
-      payOrder: 'string',
-      waybillId: 'string',
-      driverDid: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 物流轨迹位置
-export class LogisticLocation extends $tea.Model {
-  // 结构化地址信息,规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦
-  address?: string;
-  // 行政区划代码
-  cityCode?: string;
-  // 纬度
-  // 
-  lat: string;
-  // 经度
-  lon: string;
-  // 轨迹时间戳
-  trackTime: number;
-  static names(): { [key: string]: string } {
-    return {
-      address: 'address',
-      cityCode: 'city_code',
-      lat: 'lat',
-      lon: 'lon',
-      trackTime: 'track_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      address: 'string',
-      cityCode: 'string',
-      lat: 'string',
-      lon: 'string',
-      trackTime: 'number',
+      trackCheckStatus: 'string',
+      trackCheckStatusMsg: 'string',
     };
   }
 
@@ -2379,7 +1767,7 @@ export class LogisticLocation extends $tea.Model {
 }
 
 // 集装箱列表
-export class MasterBlContainerParam extends $tea.Model {
+export class HouseBlContainerParam extends $tea.Model {
   // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
   action?: string;
   // 集装箱ID
@@ -2399,81 +1787,6 @@ export class MasterBlContainerParam extends $tea.Model {
       action: 'string',
       containerId: 'string',
       containerNo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 订舱单
-export class HouseBlBookingParam extends $tea.Model {
-  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-  action?: string;
-  // 订舱单号
-  bookingNo: string;
-  static names(): { [key: string]: string } {
-    return {
-      action: 'action',
-      bookingNo: 'booking_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      action: 'string',
-      bookingNo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 上传订单总金额
-export class UploadOrderAmount extends $tea.Model {
-  // 币种
-  currency: string;
-  // 总金额
-  totalAmount: string;
-  static names(): { [key: string]: string } {
-    return {
-      currency: 'currency',
-      totalAmount: 'total_amount',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      currency: 'string',
-      totalAmount: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 索赔资料附件
-export class ClaimInformation extends $tea.Model {
-  // 索赔资料地址url
-  fileUrl: string;
-  // 文件名	
-  fileName: string;
-  static names(): { [key: string]: string } {
-    return {
-      fileUrl: 'file_url',
-      fileName: 'file_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      fileUrl: 'string',
-      fileName: 'string',
     };
   }
 
@@ -2571,46 +1884,451 @@ export class MasterBlGoodsParam extends $tea.Model {
   }
 }
 
-// A+模式发行信息
-export class IssueApplyInfoPlus extends $tea.Model {
-  // 订单中的BookingNo，以英文逗号分割
-  bookingNo: string;
-  // 船公司did
-  carrierDid: string;
-  // BookingNo中的箱号，以英文逗号分割
-  containerNo: string;
-  // 到期时间戳
+// 支付信息
+export class PaymentInfo extends $tea.Model {
+  // 收款账户名称
+  receiverAccountName: string;
+  // 收款账户，支付宝账号
+  receiverAccount: string;
+  // 收款账户类型 ,1-个人账号，0-公司账号
+  receiverAccountType: string;
+  // 收款人证件号码 ，账户类型为个人时，非空
+  receiverCertificateNo?: string;
+  // 收款人证件类型，01-身份证，02-护照，03-军官证，04-港澳通行证，05-驾驶证，06-港澳回乡证或台胞证，07-临时身份证，99-其他
+  receiverCertificateType: string;
+  static names(): { [key: string]: string } {
+    return {
+      receiverAccountName: 'receiver_account_name',
+      receiverAccount: 'receiver_account',
+      receiverAccountType: 'receiver_account_type',
+      receiverCertificateNo: 'receiver_certificate_no',
+      receiverCertificateType: 'receiver_certificate_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      receiverAccountName: 'string',
+      receiverAccount: 'string',
+      receiverAccountType: 'string',
+      receiverCertificateNo: 'string',
+      receiverCertificateType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 货源单号-货主运费
+export class CargoAmount extends $tea.Model {
+  // 货运单对应金额（2位小数）
+  amount: string;
+  // 货源单号
+  cargoOrder: string;
+  static names(): { [key: string]: string } {
+    return {
+      amount: 'amount',
+      cargoOrder: 'cargo_order',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      amount: 'string',
+      cargoOrder: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 凭证开立申请信息
+export class IssueApplyInfo extends $tea.Model {
+  // 货源订单
+  cargoOrder?: string;
+  // 合同号（预留）
+  contractId?: string;
+  // 凭证到期时间
   expireDate: string;
-  // 发行金额，精确到小数点后2位
-  issueAmt: string;
+  // 支付单运费，运费最多精确到小数点后2位
+  freight: string;
   // 全局唯一业务号
   outBizNo: string;
-  // 支付单号
-  outOrderNo: string;
-  // 运单订单id
+  // 支付订单
+  payOrder: string;
+  // 运单id
+  waybillId: string;
+  // 司机did
+  driverDid?: string;
+  static names(): { [key: string]: string } {
+    return {
+      cargoOrder: 'cargo_order',
+      contractId: 'contract_id',
+      expireDate: 'expire_date',
+      freight: 'freight',
+      outBizNo: 'out_biz_no',
+      payOrder: 'pay_order',
+      waybillId: 'waybill_id',
+      driverDid: 'driver_did',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cargoOrder: 'string',
+      contractId: 'string',
+      expireDate: 'string',
+      freight: 'string',
+      outBizNo: 'string',
+      payOrder: 'string',
+      waybillId: 'string',
+      driverDid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 授权上链文件
+export class AuthChainFile extends $tea.Model {
+  // 签署文件的hash值
+  signFileHash: string;
+  // 上链事务唯一标识
+  uploadChainTxCode: string;
+  // 蚂蚁区块链统一证据编号
+  baasUniqCode: string;
+  // 上链时间(13位毫秒级时间戳)
+  uploadChainTime: string;
+  // 上链文件下载链接
+  fileUrl: string;
+  // 上链文件名称，要求包含扩展名。文件格式允许: pdf, txt, doc, docx
+  fileName: string;
+  static names(): { [key: string]: string } {
+    return {
+      signFileHash: 'sign_file_hash',
+      uploadChainTxCode: 'upload_chain_tx_code',
+      baasUniqCode: 'baas_uniq_code',
+      uploadChainTime: 'upload_chain_time',
+      fileUrl: 'file_url',
+      fileName: 'file_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      signFileHash: 'string',
+      uploadChainTxCode: 'string',
+      baasUniqCode: 'string',
+      uploadChainTime: 'string',
+      fileUrl: 'string',
+      fileName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 电子回单查询凭证数据
+export class ScpTicketIssueDataParam extends $tea.Model {
+  // 凭证id
+  issueId: string;
+  // 凭证对应的司机/货主的did
+  did: string;
+  static names(): { [key: string]: string } {
+    return {
+      issueId: 'issue_id',
+      did: 'did',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      issueId: 'string',
+      did: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 货物损失详情
+export class CargoLoss extends $tea.Model {
+  // 物品类型
+  cargoType?: string;
+  // 物品名称
+  cargoName: string;
+  // 物品所有人
+  cargoOwner?: string;
+  // 物品损失描述 
+  cargoLossDesc?: string;
+  // 损失预估，单位（元），最多支持2位小数
+  cargoLossEstimateAmount: string;
+  static names(): { [key: string]: string } {
+    return {
+      cargoType: 'cargo_type',
+      cargoName: 'cargo_name',
+      cargoOwner: 'cargo_owner',
+      cargoLossDesc: 'cargo_loss_desc',
+      cargoLossEstimateAmount: 'cargo_loss_estimate_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cargoType: 'string',
+      cargoName: 'string',
+      cargoOwner: 'string',
+      cargoLossDesc: 'string',
+      cargoLossEstimateAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 资费项账单
+export class ReceiptBillTariffParam extends $tea.Model {
+  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+  action?: string;
+  //  账单金额 业务必填
+  billAmount?: string;
+  // 应收账单 、应收资费项 多对多关联code 
+  receiptBillTariffCode: string;
+  // 资费项金额 业务必填
+  receiptTariffAmount?: string;
+  // 应收资费项编号 业务必填
+  receiptTariffCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      action: 'action',
+      billAmount: 'bill_amount',
+      receiptBillTariffCode: 'receipt_bill_tariff_code',
+      receiptTariffAmount: 'receipt_tariff_amount',
+      receiptTariffCode: 'receipt_tariff_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      action: 'string',
+      billAmount: 'string',
+      receiptBillTariffCode: 'string',
+      receiptTariffAmount: 'string',
+      receiptTariffCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 上传订单总金额
+export class UploadOrderAmount extends $tea.Model {
+  // 币种
+  currency: string;
+  // 总金额
+  totalAmount: string;
+  static names(): { [key: string]: string } {
+    return {
+      currency: 'currency',
+      totalAmount: 'total_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      currency: 'string',
+      totalAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 索赔资料附件
+export class ClaimInformation extends $tea.Model {
+  // 索赔资料地址url
+  fileUrl: string;
+  // 文件名	
+  fileName: string;
+  static names(): { [key: string]: string } {
+    return {
+      fileUrl: 'file_url',
+      fileName: 'file_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fileUrl: 'string',
+      fileName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 信用凭证数据集合
+export class IssueTransferData extends $tea.Model {
+  // 凭证id
+  issueId: string;
+  // 转出方did
+  payerDid: string;
+  // 接收方did
+  rcvDid: string;
+  static names(): { [key: string]: string } {
+    return {
+      issueId: 'issue_id',
+      payerDid: 'payer_did',
+      rcvDid: 'rcv_did',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      issueId: 'string',
+      payerDid: 'string',
+      rcvDid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 电子提单批次下提单明细
+export class EblDetail extends $tea.Model {
+  // 电子提单copy文件hash
+  eblCopyPdfFileHash: string;
+  // 电子提单copy文件id
+  eblCopyPdfFileId: string;
+  // 电子提单编号
+  eblNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      eblCopyPdfFileHash: 'ebl_copy_pdf_file_hash',
+      eblCopyPdfFileId: 'ebl_copy_pdf_file_id',
+      eblNo: 'ebl_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      eblCopyPdfFileHash: 'string',
+      eblCopyPdfFileId: 'string',
+      eblNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 包含文件id、文件hash信息
+export class UploadFileInfo extends $tea.Model {
+  // 文件id
+  fileId: string;
+  // 文件hash
+  fileHash: string;
+  static names(): { [key: string]: string } {
+    return {
+      fileId: 'file_id',
+      fileHash: 'file_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fileId: 'string',
+      fileHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 提单货物数据
+export class MasterBlGoodsDto extends $tea.Model {
+  // 唛头
+  marks?: string;
+  // 货物
+  goods: string;
+  // 货物类型
+  goodsType: string;
+  // 包装类型
+  packageType?: string;
+  // 委托件数
+  number: string;
+  // 委托重量
+  weight: string;
+  // 委托体积
+  volume: string;
+  static names(): { [key: string]: string } {
+    return {
+      marks: 'marks',
+      goods: 'goods',
+      goodsType: 'goods_type',
+      packageType: 'package_type',
+      number: 'number',
+      weight: 'weight',
+      volume: 'volume',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      marks: 'string',
+      goods: 'string',
+      goodsType: 'string',
+      packageType: 'string',
+      number: 'string',
+      weight: 'string',
+      volume: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 运单号-司机运费
+export class WaybillAmount extends $tea.Model {
+  // 运单金额（2位小数）
+  amount: string;
+  // 运单号
   waybillId: string;
   static names(): { [key: string]: string } {
     return {
-      bookingNo: 'booking_no',
-      carrierDid: 'carrier_did',
-      containerNo: 'container_no',
-      expireDate: 'expire_date',
-      issueAmt: 'issue_amt',
-      outBizNo: 'out_biz_no',
-      outOrderNo: 'out_order_no',
+      amount: 'amount',
       waybillId: 'waybill_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      bookingNo: 'string',
-      carrierDid: 'string',
-      containerNo: 'string',
-      expireDate: 'string',
-      issueAmt: 'string',
-      outBizNo: 'string',
-      outOrderNo: 'string',
+      amount: 'string',
       waybillId: 'string',
     };
   }
@@ -2620,27 +2338,309 @@ export class IssueApplyInfoPlus extends $tea.Model {
   }
 }
 
-// 电子提单变更状态明细（无效）
-export class EblStatusDeatil extends $tea.Model {
-  // 当前提单状态
-  currentEblStatus: string;
-  // 电子提单编号
-  eblNo: string;
-  // 下一个提单状态
-  nextEblStatus: string;
+// 承运人责任险保险标的信息
+export class InsureCarrierObjectInfo extends $tea.Model {
+  // 厂牌型号
+  cpModel: string;
+  // 车架号
+  frameNo: string;
+  // 车牌号码
+  licenseNo: string;
+  // 吨位
+  tonNage: string;
+  // 行驶证车主
+  drivPer: string;
+  // 运营证号
+  runNo: string;
+  // 运输货物
+  tsCarGo: string;
   static names(): { [key: string]: string } {
     return {
-      currentEblStatus: 'current_ebl_status',
-      eblNo: 'ebl_no',
-      nextEblStatus: 'next_ebl_status',
+      cpModel: 'cp_model',
+      frameNo: 'frame_no',
+      licenseNo: 'license_no',
+      tonNage: 'ton_nage',
+      drivPer: 'driv_per',
+      runNo: 'run_no',
+      tsCarGo: 'ts_car_go',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      currentEblStatus: 'string',
-      eblNo: 'string',
-      nextEblStatus: 'string',
+      cpModel: 'string',
+      frameNo: 'string',
+      licenseNo: 'string',
+      tonNage: 'string',
+      drivPer: 'string',
+      runNo: 'string',
+      tsCarGo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 创建凭证Two
+export class VoucherTestTwo extends $tea.Model {
+  // 测试Boolean
+  voucherTestTwoBoolean: boolean;
+  // 凭证列表_apiTestList
+  voucherTestTwoApiTestList: VoucherTestOne[];
+  // 测试Int
+  voucherTestTwoInt: number;
+  // 测试Integer
+  voucherTestTwoInteger: number;
+  // 凭证列表_dateList
+  voucherTestTwoDateList: string[];
+  // 测试String
+  voucherTestTwoString: string;
+  // 测试Date
+  voucherTestTwoDate: string;
+  // 凭证列表_integerList
+  voucherTestTwoIntegerList: number[];
+  // 测试Long
+  voucherTestTwoLong: number;
+  // 凭证列表_longList
+  voucherTestTwoLongList: number[];
+  // 凭证列表_stringList
+  voucherTestTwoStringList: string[];
+  // 测试apiTestInfo
+  voucherTestTwoApiTestInfo: VoucherTestOne;
+  // 凭证列表_booleanList
+  voucherTestTwoBooleanList: boolean[];
+  static names(): { [key: string]: string } {
+    return {
+      voucherTestTwoBoolean: 'voucher_test_two_boolean',
+      voucherTestTwoApiTestList: 'voucher_test_two_api_test_list',
+      voucherTestTwoInt: 'voucher_test_two_int',
+      voucherTestTwoInteger: 'voucher_test_two_integer',
+      voucherTestTwoDateList: 'voucher_test_two_date_list',
+      voucherTestTwoString: 'voucher_test_two_string',
+      voucherTestTwoDate: 'voucher_test_two_date',
+      voucherTestTwoIntegerList: 'voucher_test_two_integer_list',
+      voucherTestTwoLong: 'voucher_test_two_long',
+      voucherTestTwoLongList: 'voucher_test_two_long_list',
+      voucherTestTwoStringList: 'voucher_test_two_string_list',
+      voucherTestTwoApiTestInfo: 'voucher_test_two_api_test_info',
+      voucherTestTwoBooleanList: 'voucher_test_two_boolean_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      voucherTestTwoBoolean: 'boolean',
+      voucherTestTwoApiTestList: { 'type': 'array', 'itemType': VoucherTestOne },
+      voucherTestTwoInt: 'number',
+      voucherTestTwoInteger: 'number',
+      voucherTestTwoDateList: { 'type': 'array', 'itemType': 'string' },
+      voucherTestTwoString: 'string',
+      voucherTestTwoDate: 'string',
+      voucherTestTwoIntegerList: { 'type': 'array', 'itemType': 'number' },
+      voucherTestTwoLong: 'number',
+      voucherTestTwoLongList: { 'type': 'array', 'itemType': 'number' },
+      voucherTestTwoStringList: { 'type': 'array', 'itemType': 'string' },
+      voucherTestTwoApiTestInfo: VoucherTestOne,
+      voucherTestTwoBooleanList: { 'type': 'array', 'itemType': 'boolean' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 资费项发票
+export class ReceiptTariffInvoiceParam extends $tea.Model {
+  // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+  action?: string;
+  // 发票金额 业务必填
+  invoiceAmount?: string;
+  // 资费项金额 业务必填
+  receiptTariffAmount?: string;
+  // 资费单据编号 业务必填
+  receiptTariffCode?: string;
+  // 资费项发票code
+  receiptTariffInvoiceCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      action: 'action',
+      invoiceAmount: 'invoice_amount',
+      receiptTariffAmount: 'receipt_tariff_amount',
+      receiptTariffCode: 'receipt_tariff_code',
+      receiptTariffInvoiceCode: 'receipt_tariff_invoice_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      action: 'string',
+      invoiceAmount: 'string',
+      receiptTariffAmount: 'string',
+      receiptTariffCode: 'string',
+      receiptTariffInvoiceCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 航运集装箱ID信息
+export class ContainerIdInfo extends $tea.Model {
+  // 箱子唯一标识
+  containerId?: string;
+  // 箱号
+  containerNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      containerId: 'container_id',
+      containerNo: 'container_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      containerId: 'string',
+      containerNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 文档信息
+export class Document extends $tea.Model {
+  // 文档url
+  documentUrl: string;
+  // 文档名称 
+  documentName: string;
+  static names(): { [key: string]: string } {
+    return {
+      documentUrl: 'document_url',
+      documentName: 'document_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      documentUrl: 'string',
+      documentName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 货物信息
+export class GoodsInfo extends $tea.Model {
+  // 货物ID [业务必填]
+  goodsId?: string;
+  // 唛头
+  // 
+  // 
+  marks?: string;
+  // 货物名称
+  goods?: string;
+  // 货物类型
+  goodsType?: string;
+  // 货物重量
+  weight?: string;
+  // 件数
+  number?: string;
+  static names(): { [key: string]: string } {
+    return {
+      goodsId: 'goods_id',
+      marks: 'marks',
+      goods: 'goods',
+      goodsType: 'goods_type',
+      weight: 'weight',
+      number: 'number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      goodsId: 'string',
+      marks: 'string',
+      goods: 'string',
+      goodsType: 'string',
+      weight: 'string',
+      number: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 池融资授信额度信息
+export class PfCreditQuotaInfo extends $tea.Model {
+  // 证件号
+  certNo: string;
+  // 证件类型
+  certType: string;
+  // 授信到期日期
+  creditEnd: string;
+  // 授信起始日期
+  creditStart: string;
+  // 额度编号
+  quotaNo: string;
+  // 剩余额度
+  remainingQuota: string;
+  // SON:放款账号loanAccNo
+  // 还款账号repayAcctNo
+  remark: string;
+  // 额度状态：
+  // 0、停用 / 1、启用  /  2、冻结
+  status: string;
+  // 授信额度
+  totalQuota: string;
+  // 数据更新时间
+  updateTime: string;
+  // 总质押额度
+  totalPledgeQuota: string;
+  // 剩余质押额度
+  remainPledgeQuota: string;
+  static names(): { [key: string]: string } {
+    return {
+      certNo: 'cert_no',
+      certType: 'cert_type',
+      creditEnd: 'credit_end',
+      creditStart: 'credit_start',
+      quotaNo: 'quota_no',
+      remainingQuota: 'remaining_quota',
+      remark: 'remark',
+      status: 'status',
+      totalQuota: 'total_quota',
+      updateTime: 'update_time',
+      totalPledgeQuota: 'total_pledge_quota',
+      remainPledgeQuota: 'remain_pledge_quota',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      certNo: 'string',
+      certType: 'string',
+      creditEnd: 'string',
+      creditStart: 'string',
+      quotaNo: 'string',
+      remainingQuota: 'string',
+      remark: 'string',
+      status: 'string',
+      totalQuota: 'string',
+      updateTime: 'string',
+      totalPledgeQuota: 'string',
+      remainPledgeQuota: 'string',
     };
   }
 
@@ -13196,9 +13196,9 @@ export class ApplyInsuranceOspiRequest extends $tea.Model {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string;
-  // 保司编码.，PAIC---平安
+  // 保司编码.，PAIC---平安，CICP-中华财险
   externalChannelCode: string;
-  // 险种编码，06--跨境邮包险
+  // 险种编码，04--海外邮包险
   // 
   externalProductCode: string;
   // 投保人姓名，保险协议中的投保人全称
@@ -13396,7 +13396,7 @@ export class ApplyInsuranceOspireportRequest extends $tea.Model {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string;
-  // 保司编码，PAIC---平安
+  // 保司编码，PAIC---平安，CICP-中华财险
   externalChannelCode: string;
   // 险种编码
   // 04--海外邮包险
@@ -13840,7 +13840,7 @@ export class ApplyInsuranceCbpiRequest extends $tea.Model {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string;
-  // 保司编码.，PAIC---平安
+  // 保司编码.，PAIC---平安，PICC-人保
   externalChannelCode: string;
   // 险种编码，06--跨境邮包险
   externalProductCode: string;
@@ -14532,6 +14532,101 @@ export class QueryInsuranceEpolicyResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       policyUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyInsuranceReportresultRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 案件同步唯一码，调用方生成的唯一编码； 格式为 yyyyMMdd_身份标识_其他编码，yyyyMMdd请传递当前时间。 系统会根据该流水号做防重、幂等判断逻辑。	
+  // 
+  tradeNo: string;
+  // 渠道简称code
+  channelSimpleCode: string;
+  // 报案号，关联的报案案件号	
+  // 
+  reportNo: string;
+  // 订单号	
+  // 
+  relaOrderNo: string;
+  // 理赔金额(元)，实际的理赔金额，最多支持2位小数，超2位小数拒绝请求	
+  // 
+  claimAmount: string;
+  // 支付时间，实际的保司打款时间，格式：yyyy-MM-dd HH:mm:ss	
+  // 
+  paymentTime: string;
+  // 银行流水，打款的银行流水号	
+  // 
+  bankSerialNum: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tradeNo: 'trade_no',
+      channelSimpleCode: 'channel_simple_code',
+      reportNo: 'report_no',
+      relaOrderNo: 'rela_order_no',
+      claimAmount: 'claim_amount',
+      paymentTime: 'payment_time',
+      bankSerialNum: 'bank_serial_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tradeNo: 'string',
+      channelSimpleCode: 'string',
+      reportNo: 'string',
+      relaOrderNo: 'string',
+      claimAmount: 'string',
+      paymentTime: 'string',
+      bankSerialNum: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyInsuranceReportresultResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 案件同步唯一码	
+  // 
+  tradeNo?: string;
+  // 案件通知状态--SUCCESS、FAIL	
+  // 
+  reportNotifyStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tradeNo: 'trade_no',
+      reportNotifyStatus: 'report_notify_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tradeNo: 'string',
+      reportNotifyStatus: 'string',
     };
   }
 
@@ -20611,7 +20706,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.136",
+          sdk_version: "1.3.137",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -22654,6 +22749,25 @@ export default class Client {
   async queryInsuranceEpolicyEx(request: QueryInsuranceEpolicyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInsuranceEpolicyResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryInsuranceEpolicyResponse>(await this.doRequest("1.0", "digital.logistic.insurance.epolicy.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInsuranceEpolicyResponse({}));
+  }
+
+  /**
+   * Description: 报案案件结果通知（内部）
+   * Summary: 报案案件结果通知（内部）
+   */
+  async notifyInsuranceReportresult(request: NotifyInsuranceReportresultRequest): Promise<NotifyInsuranceReportresultResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyInsuranceReportresultEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 报案案件结果通知（内部）
+   * Summary: 报案案件结果通知（内部）
+   */
+  async notifyInsuranceReportresultEx(request: NotifyInsuranceReportresultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyInsuranceReportresultResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyInsuranceReportresultResponse>(await this.doRequest("1.0", "digital.logistic.insurance.reportresult.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyInsuranceReportresultResponse({}));
   }
 
   /**
