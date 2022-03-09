@@ -27,12 +27,12 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=50)]
         public string TradeNo { get; set; }
 
-        // 保司编码.，PAIC---平安
+        // 保司编码.，PAIC---平安，CICP-中华财险
         [NameInMap("external_channel_code")]
         [Validation(Required=true, MaxLength=10)]
         public string ExternalChannelCode { get; set; }
 
-        // 险种编码，06--跨境邮包险
+        // 险种编码，04--海外邮包险
         // 
         [NameInMap("external_product_code")]
         [Validation(Required=true, MaxLength=2)]

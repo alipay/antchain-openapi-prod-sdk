@@ -137,7 +137,7 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.136"},
+                        {"sdk_version", "1.3.137"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.136"},
+                        {"sdk_version", "1.3.137"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -4733,6 +4733,48 @@ namespace AntChain.SDK.SHUZIWULIU
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryInsuranceEpolicyResponse>(await DoRequestAsync("1.0", "digital.logistic.insurance.epolicy.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 报案案件结果通知（内部）
+         * Summary: 报案案件结果通知（内部）
+         */
+        public NotifyInsuranceReportresultResponse NotifyInsuranceReportresult(NotifyInsuranceReportresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return NotifyInsuranceReportresultEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 报案案件结果通知（内部）
+         * Summary: 报案案件结果通知（内部）
+         */
+        public async Task<NotifyInsuranceReportresultResponse> NotifyInsuranceReportresultAsync(NotifyInsuranceReportresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await NotifyInsuranceReportresultExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 报案案件结果通知（内部）
+         * Summary: 报案案件结果通知（内部）
+         */
+        public NotifyInsuranceReportresultResponse NotifyInsuranceReportresultEx(NotifyInsuranceReportresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyInsuranceReportresultResponse>(DoRequest("1.0", "digital.logistic.insurance.reportresult.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 报案案件结果通知（内部）
+         * Summary: 报案案件结果通知（内部）
+         */
+        public async Task<NotifyInsuranceReportresultResponse> NotifyInsuranceReportresultExAsync(NotifyInsuranceReportresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyInsuranceReportresultResponse>(await DoRequestAsync("1.0", "digital.logistic.insurance.reportresult.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
