@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.136'
+                    'sdk_version': '1.3.137'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.136'
+                    'sdk_version': '1.3.137'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -5947,6 +5947,60 @@ class Client:
         UtilClient.validate_model(request)
         return shuziwuliu_models.QueryInsuranceEpolicyResponse().from_map(
             await self.do_request_async('1.0', 'digital.logistic.insurance.epolicy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_insurance_reportresult(
+        self,
+        request: shuziwuliu_models.NotifyInsuranceReportresultRequest,
+    ) -> shuziwuliu_models.NotifyInsuranceReportresultResponse:
+        """
+        Description: 报案案件结果通知（内部）
+        Summary: 报案案件结果通知（内部）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_insurance_reportresult_ex(request, headers, runtime)
+
+    async def notify_insurance_reportresult_async(
+        self,
+        request: shuziwuliu_models.NotifyInsuranceReportresultRequest,
+    ) -> shuziwuliu_models.NotifyInsuranceReportresultResponse:
+        """
+        Description: 报案案件结果通知（内部）
+        Summary: 报案案件结果通知（内部）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_insurance_reportresult_ex_async(request, headers, runtime)
+
+    def notify_insurance_reportresult_ex(
+        self,
+        request: shuziwuliu_models.NotifyInsuranceReportresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.NotifyInsuranceReportresultResponse:
+        """
+        Description: 报案案件结果通知（内部）
+        Summary: 报案案件结果通知（内部）
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.NotifyInsuranceReportresultResponse().from_map(
+            self.do_request('1.0', 'digital.logistic.insurance.reportresult.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_insurance_reportresult_ex_async(
+        self,
+        request: shuziwuliu_models.NotifyInsuranceReportresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.NotifyInsuranceReportresultResponse:
+        """
+        Description: 报案案件结果通知（内部）
+        Summary: 报案案件结果通知（内部）
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.NotifyInsuranceReportresultResponse().from_map(
+            await self.do_request_async('1.0', 'digital.logistic.insurance.reportresult.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def push_auth_signinfo(
