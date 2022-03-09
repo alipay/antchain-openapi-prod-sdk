@@ -202,6 +202,115 @@ func (s *VoucherTestOne) SetVoucherTestOneBoolean(v bool) *VoucherTestOne {
 	return s
 }
 
+// 应付资费项
+type PayTariffInfo struct {
+	// 托运单号 [业务必填]
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+	// 应付资费项code [业务必填]
+	//
+	//
+	PayTariffCode *string `json:"pay_tariff_code,omitempty" xml:"pay_tariff_code,omitempty"`
+	// 应付资费项项目 [业务必填]
+	//
+	//
+	PayTariffProject *string `json:"pay_tariff_project,omitempty" xml:"pay_tariff_project,omitempty"`
+	// 资费项中文描述 [业务必填]
+	//
+	//
+	PayTariffDesc *string `json:"pay_tariff_desc,omitempty" xml:"pay_tariff_desc,omitempty"`
+	// 币种 [业务必填]
+	Currency *string `json:"currency,omitempty" xml:"currency,omitempty"`
+	// 资费项含税价 [业务必填]
+	//
+	//
+	PriceIncludingTax *string `json:"price_including_tax,omitempty" xml:"price_including_tax,omitempty"`
+	// 订舱单唯一性标识 [业务必填]
+	BookingNo *string `json:"booking_no,omitempty" xml:"booking_no,omitempty"`
+	// 订舱单 [业务必填]
+	BkgNo *string `json:"bkg_no,omitempty" xml:"bkg_no,omitempty"`
+}
+
+func (s PayTariffInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PayTariffInfo) GoString() string {
+	return s.String()
+}
+
+func (s *PayTariffInfo) SetOrderNo(v string) *PayTariffInfo {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *PayTariffInfo) SetPayTariffCode(v string) *PayTariffInfo {
+	s.PayTariffCode = &v
+	return s
+}
+
+func (s *PayTariffInfo) SetPayTariffProject(v string) *PayTariffInfo {
+	s.PayTariffProject = &v
+	return s
+}
+
+func (s *PayTariffInfo) SetPayTariffDesc(v string) *PayTariffInfo {
+	s.PayTariffDesc = &v
+	return s
+}
+
+func (s *PayTariffInfo) SetCurrency(v string) *PayTariffInfo {
+	s.Currency = &v
+	return s
+}
+
+func (s *PayTariffInfo) SetPriceIncludingTax(v string) *PayTariffInfo {
+	s.PriceIncludingTax = &v
+	return s
+}
+
+func (s *PayTariffInfo) SetBookingNo(v string) *PayTariffInfo {
+	s.BookingNo = &v
+	return s
+}
+
+func (s *PayTariffInfo) SetBkgNo(v string) *PayTariffInfo {
+	s.BkgNo = &v
+	return s
+}
+
+// 人员伤残情况
+type PersonLoss struct {
+	// 伤情，HOSPITALIZE-住院，CLINIC-门诊，DEATH-死亡，ALLOWANCE-津贴
+	PersonInjuredCondition *string `json:"person_injured_condition,omitempty" xml:"person_injured_condition,omitempty" require:"true" maxLength:"50"`
+	// 伤者姓名
+	PersonInjuredName *string `json:"person_injured_name,omitempty" xml:"person_injured_name,omitempty" require:"true" maxLength:"200"`
+	// 损失预估，单位（元），最多支持2位小数
+	PersonLossEstimateAmount *string `json:"person_loss_estimate_amount,omitempty" xml:"person_loss_estimate_amount,omitempty"`
+}
+
+func (s PersonLoss) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PersonLoss) GoString() string {
+	return s.String()
+}
+
+func (s *PersonLoss) SetPersonInjuredCondition(v string) *PersonLoss {
+	s.PersonInjuredCondition = &v
+	return s
+}
+
+func (s *PersonLoss) SetPersonInjuredName(v string) *PersonLoss {
+	s.PersonInjuredName = &v
+	return s
+}
+
+func (s *PersonLoss) SetPersonLossEstimateAmount(v string) *PersonLoss {
+	s.PersonLossEstimateAmount = &v
+	return s
+}
+
 // 集装箱信息
 type ContainerInfo struct {
 	// 订舱单唯一标识
@@ -242,67 +351,8 @@ func (s *ContainerInfo) SetContainerType(v string) *ContainerInfo {
 	return s
 }
 
-// 货主支付方式
-type PayAmount struct {
-	// 支付金额（2位小数）
-	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
-	// 支付方式
-	PayType *string `json:"pay_type,omitempty" xml:"pay_type,omitempty" require:"true"`
-}
-
-func (s PayAmount) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PayAmount) GoString() string {
-	return s.String()
-}
-
-func (s *PayAmount) SetAmount(v string) *PayAmount {
-	s.Amount = &v
-	return s
-}
-
-func (s *PayAmount) SetPayType(v string) *PayAmount {
-	s.PayType = &v
-	return s
-}
-
-// 电子提单批次下提单明细（无效）
-type EblDeatil struct {
-	// 电子提单copy文件hash
-	EblCopyPdfFileHash *string `json:"ebl_copy_pdf_file_hash,omitempty" xml:"ebl_copy_pdf_file_hash,omitempty" require:"true"`
-	// 电子提单copy文件id
-	EblCopyPdfFileId *string `json:"ebl_copy_pdf_file_id,omitempty" xml:"ebl_copy_pdf_file_id,omitempty" require:"true"`
-	// 电子提单编号
-	EblNo *string `json:"ebl_no,omitempty" xml:"ebl_no,omitempty" require:"true"`
-}
-
-func (s EblDeatil) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EblDeatil) GoString() string {
-	return s.String()
-}
-
-func (s *EblDeatil) SetEblCopyPdfFileHash(v string) *EblDeatil {
-	s.EblCopyPdfFileHash = &v
-	return s
-}
-
-func (s *EblDeatil) SetEblCopyPdfFileId(v string) *EblDeatil {
-	s.EblCopyPdfFileId = &v
-	return s
-}
-
-func (s *EblDeatil) SetEblNo(v string) *EblDeatil {
-	s.EblNo = &v
-	return s
-}
-
 // 集装箱列表
-type HouseBlContainerParam struct {
+type MasterBlContainerParam struct {
 	// 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
 	Action *string `json:"action,omitempty" xml:"action,omitempty"`
 	// 集装箱ID
@@ -311,301 +361,53 @@ type HouseBlContainerParam struct {
 	ContainerNo *string `json:"container_no,omitempty" xml:"container_no,omitempty"`
 }
 
-func (s HouseBlContainerParam) String() string {
+func (s MasterBlContainerParam) String() string {
 	return tea.Prettify(s)
 }
 
-func (s HouseBlContainerParam) GoString() string {
+func (s MasterBlContainerParam) GoString() string {
 	return s.String()
 }
 
-func (s *HouseBlContainerParam) SetAction(v string) *HouseBlContainerParam {
+func (s *MasterBlContainerParam) SetAction(v string) *MasterBlContainerParam {
 	s.Action = &v
 	return s
 }
 
-func (s *HouseBlContainerParam) SetContainerId(v string) *HouseBlContainerParam {
+func (s *MasterBlContainerParam) SetContainerId(v string) *MasterBlContainerParam {
 	s.ContainerId = &v
 	return s
 }
 
-func (s *HouseBlContainerParam) SetContainerNo(v string) *HouseBlContainerParam {
+func (s *MasterBlContainerParam) SetContainerNo(v string) *MasterBlContainerParam {
 	s.ContainerNo = &v
 	return s
 }
 
-// 订舱单
-type MasterBlBookingParam struct {
-	// 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-	Action *string `json:"action,omitempty" xml:"action,omitempty"`
-	// 订舱单号
-	BookingNo *string `json:"booking_no,omitempty" xml:"booking_no,omitempty" require:"true"`
-}
-
-func (s MasterBlBookingParam) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MasterBlBookingParam) GoString() string {
-	return s.String()
-}
-
-func (s *MasterBlBookingParam) SetAction(v string) *MasterBlBookingParam {
-	s.Action = &v
-	return s
-}
-
-func (s *MasterBlBookingParam) SetBookingNo(v string) *MasterBlBookingParam {
-	s.BookingNo = &v
-	return s
-}
-
-// 包含文件id、文件hash信息
-type UploadFileInfo struct {
-	// 文件id
-	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
-	// 文件hash
-	FileHash *string `json:"file_hash,omitempty" xml:"file_hash,omitempty" require:"true"`
-}
-
-func (s UploadFileInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UploadFileInfo) GoString() string {
-	return s.String()
-}
-
-func (s *UploadFileInfo) SetFileId(v string) *UploadFileInfo {
-	s.FileId = &v
-	return s
-}
-
-func (s *UploadFileInfo) SetFileHash(v string) *UploadFileInfo {
-	s.FileHash = &v
-	return s
-}
-
-// 箱子信息
-type VehicleContainerParam struct {
-	// 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-	Action *string `json:"action,omitempty" xml:"action,omitempty"`
-	// 集装箱ID
-	ContainerId *string `json:"container_id,omitempty" xml:"container_id,omitempty" require:"true"`
-	// 箱号
-	ContainerNo *string `json:"container_no,omitempty" xml:"container_no,omitempty"`
-	// 封号
-	SealNo *string `json:"seal_no,omitempty" xml:"seal_no,omitempty"`
-}
-
-func (s VehicleContainerParam) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VehicleContainerParam) GoString() string {
-	return s.String()
-}
-
-func (s *VehicleContainerParam) SetAction(v string) *VehicleContainerParam {
-	s.Action = &v
-	return s
-}
-
-func (s *VehicleContainerParam) SetContainerId(v string) *VehicleContainerParam {
-	s.ContainerId = &v
-	return s
-}
-
-func (s *VehicleContainerParam) SetContainerNo(v string) *VehicleContainerParam {
-	s.ContainerNo = &v
-	return s
-}
-
-func (s *VehicleContainerParam) SetSealNo(v string) *VehicleContainerParam {
-	s.SealNo = &v
-	return s
-}
-
-// 资费项账单
-type PayBillTariffParam struct {
-	// 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-	Action *string `json:"action,omitempty" xml:"action,omitempty"`
-	// 账单金额 业务必填
-	BillAmount *string `json:"bill_amount,omitempty" xml:"bill_amount,omitempty"`
-	// 应付账单、应付资费项 多对多code
-	PayBillTariffCode *string `json:"pay_bill_tariff_code,omitempty" xml:"pay_bill_tariff_code,omitempty" require:"true"`
-	//  资费项金额 业务必填
-	PayTariffAmount *string `json:"pay_tariff_amount,omitempty" xml:"pay_tariff_amount,omitempty"`
-	// 应付资费项编号 业务必填
-	PayTariffCode *string `json:"pay_tariff_code,omitempty" xml:"pay_tariff_code,omitempty"`
-}
-
-func (s PayBillTariffParam) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PayBillTariffParam) GoString() string {
-	return s.String()
-}
-
-func (s *PayBillTariffParam) SetAction(v string) *PayBillTariffParam {
-	s.Action = &v
-	return s
-}
-
-func (s *PayBillTariffParam) SetBillAmount(v string) *PayBillTariffParam {
-	s.BillAmount = &v
-	return s
-}
-
-func (s *PayBillTariffParam) SetPayBillTariffCode(v string) *PayBillTariffParam {
-	s.PayBillTariffCode = &v
-	return s
-}
-
-func (s *PayBillTariffParam) SetPayTariffAmount(v string) *PayBillTariffParam {
-	s.PayTariffAmount = &v
-	return s
-}
-
-func (s *PayBillTariffParam) SetPayTariffCode(v string) *PayBillTariffParam {
-	s.PayTariffCode = &v
-	return s
-}
-
-// 物流金融信用流转流水信息
-type StatementInfo struct {
-	// 信用流转批次号
-	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty" require:"true"`
-	// 全局唯一业务号
-	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
-	// 信用流转凭证
-	IssueId *string `json:"issue_id,omitempty" xml:"issue_id,omitempty" require:"true"`
-	// 合同号（预留）
-	ContractId *string `json:"contract_id,omitempty" xml:"contract_id,omitempty"`
-	// 发行信用流转的运单号
-	WaybillId *string `json:"waybill_id,omitempty" xml:"waybill_id,omitempty" require:"true"`
-	// 发行信用流转的支付单号
-	PayOrder *string `json:"pay_order,omitempty" xml:"pay_order,omitempty" require:"true"`
-	// 金额信息
-	CreditLimit *string `json:"credit_limit,omitempty" xml:"credit_limit,omitempty" require:"true"`
-	// 流水类型
-	StateType *string `json:"state_type,omitempty" xml:"state_type,omitempty" require:"true"`
-	// 流水类型说明
-	StateMsg *string `json:"state_msg,omitempty" xml:"state_msg,omitempty" require:"true"`
-	// 凭证来源方did
-	FromDid *string `json:"from_did,omitempty" xml:"from_did,omitempty" require:"true"`
-	// 凭证流转方did
-	ToDid *string `json:"to_did,omitempty" xml:"to_did,omitempty" require:"true"`
-	// 信用凭证发起时间
-	IssueDate *string `json:"issue_date,omitempty" xml:"issue_date,omitempty" require:"true"`
-	// 信用凭证到期时间
-	ExpireDate *string `json:"expire_date,omitempty" xml:"expire_date,omitempty" require:"true"`
-}
-
-func (s StatementInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s StatementInfo) GoString() string {
-	return s.String()
-}
-
-func (s *StatementInfo) SetBatchId(v string) *StatementInfo {
-	s.BatchId = &v
-	return s
-}
-
-func (s *StatementInfo) SetOutBizNo(v string) *StatementInfo {
-	s.OutBizNo = &v
-	return s
-}
-
-func (s *StatementInfo) SetIssueId(v string) *StatementInfo {
-	s.IssueId = &v
-	return s
-}
-
-func (s *StatementInfo) SetContractId(v string) *StatementInfo {
-	s.ContractId = &v
-	return s
-}
-
-func (s *StatementInfo) SetWaybillId(v string) *StatementInfo {
-	s.WaybillId = &v
-	return s
-}
-
-func (s *StatementInfo) SetPayOrder(v string) *StatementInfo {
-	s.PayOrder = &v
-	return s
-}
-
-func (s *StatementInfo) SetCreditLimit(v string) *StatementInfo {
-	s.CreditLimit = &v
-	return s
-}
-
-func (s *StatementInfo) SetStateType(v string) *StatementInfo {
-	s.StateType = &v
-	return s
-}
-
-func (s *StatementInfo) SetStateMsg(v string) *StatementInfo {
-	s.StateMsg = &v
-	return s
-}
-
-func (s *StatementInfo) SetFromDid(v string) *StatementInfo {
-	s.FromDid = &v
-	return s
-}
-
-func (s *StatementInfo) SetToDid(v string) *StatementInfo {
-	s.ToDid = &v
-	return s
-}
-
-func (s *StatementInfo) SetIssueDate(v string) *StatementInfo {
-	s.IssueDate = &v
-	return s
-}
-
-func (s *StatementInfo) SetExpireDate(v string) *StatementInfo {
-	s.ExpireDate = &v
-	return s
-}
-
-// 信用凭证数据集合
-type IssueTransferData struct {
+// 电子回单查询，具体凭证数据
+type ScpTicketIssueData struct {
+	// 凭证对应的司机/货主的did
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+	//
 	// 凭证id
 	IssueId *string `json:"issue_id,omitempty" xml:"issue_id,omitempty" require:"true"`
-	// 转出方did
-	PayerDid *string `json:"payer_did,omitempty" xml:"payer_did,omitempty" require:"true"`
-	// 接收方did
-	RcvDid *string `json:"rcv_did,omitempty" xml:"rcv_did,omitempty" require:"true"`
 }
 
-func (s IssueTransferData) String() string {
+func (s ScpTicketIssueData) String() string {
 	return tea.Prettify(s)
 }
 
-func (s IssueTransferData) GoString() string {
+func (s ScpTicketIssueData) GoString() string {
 	return s.String()
 }
 
-func (s *IssueTransferData) SetIssueId(v string) *IssueTransferData {
+func (s *ScpTicketIssueData) SetDid(v string) *ScpTicketIssueData {
+	s.Did = &v
+	return s
+}
+
+func (s *ScpTicketIssueData) SetIssueId(v string) *ScpTicketIssueData {
 	s.IssueId = &v
-	return s
-}
-
-func (s *IssueTransferData) SetPayerDid(v string) *IssueTransferData {
-	s.PayerDid = &v
-	return s
-}
-
-func (s *IssueTransferData) SetRcvDid(v string) *IssueTransferData {
-	s.RcvDid = &v
 	return s
 }
 
@@ -635,109 +437,36 @@ func (s *CustomsOrderBookingParam) SetBookingNo(v string) *CustomsOrderBookingPa
 	return s
 }
 
-// 支付信息
-type PaymentInfo struct {
-	// 收款账户名称
-	ReceiverAccountName *string `json:"receiver_account_name,omitempty" xml:"receiver_account_name,omitempty" require:"true" maxLength:"200"`
-	// 收款账户，支付宝账号
-	ReceiverAccount *string `json:"receiver_account,omitempty" xml:"receiver_account,omitempty" require:"true" maxLength:"50"`
-	// 收款账户类型 ,1-个人账号，0-公司账号
-	ReceiverAccountType *string `json:"receiver_account_type,omitempty" xml:"receiver_account_type,omitempty" require:"true" maxLength:"2"`
-	// 收款人证件号码 ，账户类型为个人时，非空
-	ReceiverCertificateNo *string `json:"receiver_certificate_no,omitempty" xml:"receiver_certificate_no,omitempty" maxLength:"50"`
-	// 收款人证件类型，01-身份证，02-护照，03-军官证，04-港澳通行证，05-驾驶证，06-港澳回乡证或台胞证，07-临时身份证，99-其他
-	ReceiverCertificateType *string `json:"receiver_certificate_type,omitempty" xml:"receiver_certificate_type,omitempty" require:"true" maxLength:"2"`
+// 电子提单变更状态明细（无效）
+type EblStatusDeatil struct {
+	// 当前提单状态
+	CurrentEblStatus *string `json:"current_ebl_status,omitempty" xml:"current_ebl_status,omitempty" require:"true"`
+	// 电子提单编号
+	EblNo *string `json:"ebl_no,omitempty" xml:"ebl_no,omitempty" require:"true"`
+	// 下一个提单状态
+	NextEblStatus *string `json:"next_ebl_status,omitempty" xml:"next_ebl_status,omitempty" require:"true"`
 }
 
-func (s PaymentInfo) String() string {
+func (s EblStatusDeatil) String() string {
 	return tea.Prettify(s)
 }
 
-func (s PaymentInfo) GoString() string {
+func (s EblStatusDeatil) GoString() string {
 	return s.String()
 }
 
-func (s *PaymentInfo) SetReceiverAccountName(v string) *PaymentInfo {
-	s.ReceiverAccountName = &v
+func (s *EblStatusDeatil) SetCurrentEblStatus(v string) *EblStatusDeatil {
+	s.CurrentEblStatus = &v
 	return s
 }
 
-func (s *PaymentInfo) SetReceiverAccount(v string) *PaymentInfo {
-	s.ReceiverAccount = &v
+func (s *EblStatusDeatil) SetEblNo(v string) *EblStatusDeatil {
+	s.EblNo = &v
 	return s
 }
 
-func (s *PaymentInfo) SetReceiverAccountType(v string) *PaymentInfo {
-	s.ReceiverAccountType = &v
-	return s
-}
-
-func (s *PaymentInfo) SetReceiverCertificateNo(v string) *PaymentInfo {
-	s.ReceiverCertificateNo = &v
-	return s
-}
-
-func (s *PaymentInfo) SetReceiverCertificateType(v string) *PaymentInfo {
-	s.ReceiverCertificateType = &v
-	return s
-}
-
-// 航运集装箱类型信息
-type ContainerTypeInfo struct {
-	// 箱型
-	ContainerType *string `json:"container_type,omitempty" xml:"container_type,omitempty"`
-	// 箱量
-	ContainerVolume *string `json:"container_volume,omitempty" xml:"container_volume,omitempty"`
-}
-
-func (s ContainerTypeInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContainerTypeInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ContainerTypeInfo) SetContainerType(v string) *ContainerTypeInfo {
-	s.ContainerType = &v
-	return s
-}
-
-func (s *ContainerTypeInfo) SetContainerVolume(v string) *ContainerTypeInfo {
-	s.ContainerVolume = &v
-	return s
-}
-
-// 池融资凭证核验查询结果
-type PfVoucherCheckResult struct {
-	// 凭证id
-	VoucherId *string `json:"voucher_id,omitempty" xml:"voucher_id,omitempty" require:"true"`
-	// 凭证类型
-	VoucherCategory *string `json:"voucher_category,omitempty" xml:"voucher_category,omitempty" require:"true"`
-	// 状态；PASS:通过，NO_PASS 未通过
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-}
-
-func (s PfVoucherCheckResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PfVoucherCheckResult) GoString() string {
-	return s.String()
-}
-
-func (s *PfVoucherCheckResult) SetVoucherId(v string) *PfVoucherCheckResult {
-	s.VoucherId = &v
-	return s
-}
-
-func (s *PfVoucherCheckResult) SetVoucherCategory(v string) *PfVoucherCheckResult {
-	s.VoucherCategory = &v
-	return s
-}
-
-func (s *PfVoucherCheckResult) SetStatus(v string) *PfVoucherCheckResult {
-	s.Status = &v
+func (s *EblStatusDeatil) SetNextEblStatus(v string) *EblStatusDeatil {
+	s.NextEblStatus = &v
 	return s
 }
 
@@ -820,6 +549,271 @@ func (s *IssueIdInfo) SetStatus(v int64) *IssueIdInfo {
 
 func (s *IssueIdInfo) SetErrMsg(v string) *IssueIdInfo {
 	s.ErrMsg = &v
+	return s
+}
+
+// 资费项发票
+type PayTariffInvoiceParam struct {
+	// 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+	Action *string `json:"action,omitempty" xml:"action,omitempty"`
+	// 发票金额 业务必填
+	InvoiceAmount *string `json:"invoice_amount,omitempty" xml:"invoice_amount,omitempty"`
+	// 资费项金额 业务必填
+	PayTariffAmount *string `json:"pay_tariff_amount,omitempty" xml:"pay_tariff_amount,omitempty"`
+	// 资费单据编号 业务必填
+	PayTariffCode *string `json:"pay_tariff_code,omitempty" xml:"pay_tariff_code,omitempty"`
+	// 资费项发票code
+	PayTariffInvoiceCode *string `json:"pay_tariff_invoice_code,omitempty" xml:"pay_tariff_invoice_code,omitempty" require:"true"`
+}
+
+func (s PayTariffInvoiceParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PayTariffInvoiceParam) GoString() string {
+	return s.String()
+}
+
+func (s *PayTariffInvoiceParam) SetAction(v string) *PayTariffInvoiceParam {
+	s.Action = &v
+	return s
+}
+
+func (s *PayTariffInvoiceParam) SetInvoiceAmount(v string) *PayTariffInvoiceParam {
+	s.InvoiceAmount = &v
+	return s
+}
+
+func (s *PayTariffInvoiceParam) SetPayTariffAmount(v string) *PayTariffInvoiceParam {
+	s.PayTariffAmount = &v
+	return s
+}
+
+func (s *PayTariffInvoiceParam) SetPayTariffCode(v string) *PayTariffInvoiceParam {
+	s.PayTariffCode = &v
+	return s
+}
+
+func (s *PayTariffInvoiceParam) SetPayTariffInvoiceCode(v string) *PayTariffInvoiceParam {
+	s.PayTariffInvoiceCode = &v
+	return s
+}
+
+// 航运订舱单号信息
+type BookingNoInfo struct {
+	// 订舱单唯一标识
+	BookingNo *string `json:"booking_no,omitempty" xml:"booking_no,omitempty"`
+	// 订舱号
+	BkgNo *string `json:"bkg_no,omitempty" xml:"bkg_no,omitempty"`
+}
+
+func (s BookingNoInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BookingNoInfo) GoString() string {
+	return s.String()
+}
+
+func (s *BookingNoInfo) SetBookingNo(v string) *BookingNoInfo {
+	s.BookingNo = &v
+	return s
+}
+
+func (s *BookingNoInfo) SetBkgNo(v string) *BookingNoInfo {
+	s.BkgNo = &v
+	return s
+}
+
+// 应收资费项
+type ReceiptTariffInfo struct {
+	// 托运单号 [业务必填]
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+	// 应收资费项code [业务必填]
+	//
+	//
+	ReceiptTariffCode *string `json:"receipt_tariff_code,omitempty" xml:"receipt_tariff_code,omitempty"`
+	// 应收资费项项目 [业务必填]
+	ReceiptTariffProject *string `json:"receipt_tariff_project,omitempty" xml:"receipt_tariff_project,omitempty"`
+	// 资费项中文描述 [业务必填]
+	//
+	//
+	ReceiptTariffDesc *string `json:"receipt_tariff_desc,omitempty" xml:"receipt_tariff_desc,omitempty"`
+	// 币种 [业务必填]
+	Currency *string `json:"currency,omitempty" xml:"currency,omitempty"`
+	// 资费项含税价 [业务必填]
+	//
+	//
+	PriceIncludingTax *string `json:"price_including_tax,omitempty" xml:"price_including_tax,omitempty"`
+	// 订舱单唯一标识 [业务必填]
+	BookingNo *string `json:"booking_no,omitempty" xml:"booking_no,omitempty"`
+	// 订舱号 [业务必填]
+	BkgNo *string `json:"bkg_no,omitempty" xml:"bkg_no,omitempty"`
+}
+
+func (s ReceiptTariffInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiptTariffInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiptTariffInfo) SetOrderNo(v string) *ReceiptTariffInfo {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *ReceiptTariffInfo) SetReceiptTariffCode(v string) *ReceiptTariffInfo {
+	s.ReceiptTariffCode = &v
+	return s
+}
+
+func (s *ReceiptTariffInfo) SetReceiptTariffProject(v string) *ReceiptTariffInfo {
+	s.ReceiptTariffProject = &v
+	return s
+}
+
+func (s *ReceiptTariffInfo) SetReceiptTariffDesc(v string) *ReceiptTariffInfo {
+	s.ReceiptTariffDesc = &v
+	return s
+}
+
+func (s *ReceiptTariffInfo) SetCurrency(v string) *ReceiptTariffInfo {
+	s.Currency = &v
+	return s
+}
+
+func (s *ReceiptTariffInfo) SetPriceIncludingTax(v string) *ReceiptTariffInfo {
+	s.PriceIncludingTax = &v
+	return s
+}
+
+func (s *ReceiptTariffInfo) SetBookingNo(v string) *ReceiptTariffInfo {
+	s.BookingNo = &v
+	return s
+}
+
+func (s *ReceiptTariffInfo) SetBkgNo(v string) *ReceiptTariffInfo {
+	s.BkgNo = &v
+	return s
+}
+
+// 订舱单
+type HouseBlBookingParam struct {
+	// 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+	Action *string `json:"action,omitempty" xml:"action,omitempty"`
+	// 订舱单号
+	BookingNo *string `json:"booking_no,omitempty" xml:"booking_no,omitempty" require:"true"`
+}
+
+func (s HouseBlBookingParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HouseBlBookingParam) GoString() string {
+	return s.String()
+}
+
+func (s *HouseBlBookingParam) SetAction(v string) *HouseBlBookingParam {
+	s.Action = &v
+	return s
+}
+
+func (s *HouseBlBookingParam) SetBookingNo(v string) *HouseBlBookingParam {
+	s.BookingNo = &v
+	return s
+}
+
+// 库存货物
+type InventoryCargo struct {
+	// 序号，在同一次库存申报请求中，序号保持不重复，不能小于等于0
+	InventoryIndex *int64 `json:"inventory_index,omitempty" xml:"inventory_index,omitempty" require:"true"`
+	// sku品名
+	Sku *string `json:"sku,omitempty" xml:"sku,omitempty" require:"true" maxLength:"200"`
+	// 商品名称
+	//
+	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" maxLength:"200"`
+	// 商品单品重量(kg)
+	CargoWeight *string `json:"cargo_weight,omitempty" xml:"cargo_weight,omitempty" maxLength:"50"`
+	// 商品外扩长宽高(cm)
+	CargoDimensions *string `json:"cargo_dimensions,omitempty" xml:"cargo_dimensions,omitempty" maxLength:"200"`
+	// 商品单品货物价值(元),最多支持2位小数
+	CargoWorth *string `json:"cargo_worth,omitempty" xml:"cargo_worth,omitempty" maxLength:"30"`
+	// 当前库存货物数量
+	CurrentInventoryCargoNum *int64 `json:"current_inventory_cargo_num,omitempty" xml:"current_inventory_cargo_num,omitempty" require:"true"`
+	// 客户代码
+	//
+	CustomerCode *string `json:"customer_code,omitempty" xml:"customer_code,omitempty" require:"true" maxLength:"50"`
+	// 关联保单号,需要仓储CP做拆分计算
+	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty" maxLength:"64"`
+	// 入库时间, yyyy-MM-dd HH:mm:ss，需要仓储CP做拆分计算
+	//
+	StockinDate *string `json:"stockin_date,omitempty" xml:"stockin_date,omitempty"`
+	// 时区,仓储CP上报入库时间所属的时区
+	Timezone *string `json:"timezone,omitempty" xml:"timezone,omitempty" maxLength:"16"`
+}
+
+func (s InventoryCargo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InventoryCargo) GoString() string {
+	return s.String()
+}
+
+func (s *InventoryCargo) SetInventoryIndex(v int64) *InventoryCargo {
+	s.InventoryIndex = &v
+	return s
+}
+
+func (s *InventoryCargo) SetSku(v string) *InventoryCargo {
+	s.Sku = &v
+	return s
+}
+
+func (s *InventoryCargo) SetCargoName(v string) *InventoryCargo {
+	s.CargoName = &v
+	return s
+}
+
+func (s *InventoryCargo) SetCargoWeight(v string) *InventoryCargo {
+	s.CargoWeight = &v
+	return s
+}
+
+func (s *InventoryCargo) SetCargoDimensions(v string) *InventoryCargo {
+	s.CargoDimensions = &v
+	return s
+}
+
+func (s *InventoryCargo) SetCargoWorth(v string) *InventoryCargo {
+	s.CargoWorth = &v
+	return s
+}
+
+func (s *InventoryCargo) SetCurrentInventoryCargoNum(v int64) *InventoryCargo {
+	s.CurrentInventoryCargoNum = &v
+	return s
+}
+
+func (s *InventoryCargo) SetCustomerCode(v string) *InventoryCargo {
+	s.CustomerCode = &v
+	return s
+}
+
+func (s *InventoryCargo) SetPolicyNo(v string) *InventoryCargo {
+	s.PolicyNo = &v
+	return s
+}
+
+func (s *InventoryCargo) SetStockinDate(v string) *InventoryCargo {
+	s.StockinDate = &v
+	return s
+}
+
+func (s *InventoryCargo) SetTimezone(v string) *InventoryCargo {
+	s.Timezone = &v
 	return s
 }
 
@@ -922,573 +916,90 @@ func (s *SoNotifyBookingParam) SetVoyage(v string) *SoNotifyBookingParam {
 	return s
 }
 
-// 文档信息
-type Document struct {
-	// 文档url
-	DocumentUrl *string `json:"document_url,omitempty" xml:"document_url,omitempty" require:"true" maxLength:"500"`
-	// 文档名称
-	DocumentName *string `json:"document_name,omitempty" xml:"document_name,omitempty" require:"true" maxLength:"200"`
+// 签署方
+type AuthParty struct {
+	// 签署方名称
+	SignPartyName *string `json:"sign_party_name,omitempty" xml:"sign_party_name,omitempty" require:"true"`
+	// 签署方证件类型，可以填写的枚举类：IDENTIFICATION_CARD，表示身份证
+	SignPartyCertType *string `json:"sign_party_cert_type,omitempty" xml:"sign_party_cert_type,omitempty" require:"true"`
+	// 签署方证件号码
+	SignPartyCertNum *string `json:"sign_party_cert_num,omitempty" xml:"sign_party_cert_num,omitempty" require:"true"`
+	// 签署结果（必填，FINISH,FAIL,REFUSE三者选一，分别表示签署完成、失败和拒签）
+	SignResult *string `json:"sign_result,omitempty" xml:"sign_result,omitempty" require:"true"`
+	// 签署失败或拒签原因（失败或拒签时必填）
+	SignFailReason *string `json:"sign_fail_reason,omitempty" xml:"sign_fail_reason,omitempty"`
+	// 签署时间(13位毫秒时间戳)
+	SignTime *string `json:"sign_time,omitempty" xml:"sign_time,omitempty" require:"true"`
 }
 
-func (s Document) String() string {
+func (s AuthParty) String() string {
 	return tea.Prettify(s)
 }
 
-func (s Document) GoString() string {
+func (s AuthParty) GoString() string {
 	return s.String()
 }
 
-func (s *Document) SetDocumentUrl(v string) *Document {
-	s.DocumentUrl = &v
+func (s *AuthParty) SetSignPartyName(v string) *AuthParty {
+	s.SignPartyName = &v
 	return s
 }
 
-func (s *Document) SetDocumentName(v string) *Document {
-	s.DocumentName = &v
+func (s *AuthParty) SetSignPartyCertType(v string) *AuthParty {
+	s.SignPartyCertType = &v
 	return s
 }
 
-// 凭证返回值
-type VoucherResp struct {
-	// 消息
-	Msg *string `json:"msg,omitempty" xml:"msg,omitempty" require:"true" maxLength:"10" minLength:"0"`
+func (s *AuthParty) SetSignPartyCertNum(v string) *AuthParty {
+	s.SignPartyCertNum = &v
+	return s
 }
 
-func (s VoucherResp) String() string {
+func (s *AuthParty) SetSignResult(v string) *AuthParty {
+	s.SignResult = &v
+	return s
+}
+
+func (s *AuthParty) SetSignFailReason(v string) *AuthParty {
+	s.SignFailReason = &v
+	return s
+}
+
+func (s *AuthParty) SetSignTime(v string) *AuthParty {
+	s.SignTime = &v
+	return s
+}
+
+// 电子提单变更状态明细
+type EblStatusDetail struct {
+	// 当前提单状态
+	CurrentEblStatus *string `json:"current_ebl_status,omitempty" xml:"current_ebl_status,omitempty" require:"true"`
+	// 电子提单编号
+	EblNo *string `json:"ebl_no,omitempty" xml:"ebl_no,omitempty" require:"true"`
+	// 下一个提单状态
+	NextEblStatus *string `json:"next_ebl_status,omitempty" xml:"next_ebl_status,omitempty" require:"true"`
+}
+
+func (s EblStatusDetail) String() string {
 	return tea.Prettify(s)
 }
 
-func (s VoucherResp) GoString() string {
+func (s EblStatusDetail) GoString() string {
 	return s.String()
 }
 
-func (s *VoucherResp) SetMsg(v string) *VoucherResp {
-	s.Msg = &v
+func (s *EblStatusDetail) SetCurrentEblStatus(v string) *EblStatusDetail {
+	s.CurrentEblStatus = &v
 	return s
 }
 
-// 创建凭证Two
-type VoucherTestTwo struct {
-	// 测试Boolean
-	VoucherTestTwoBoolean *bool `json:"voucher_test_two_boolean,omitempty" xml:"voucher_test_two_boolean,omitempty" require:"true"`
-	// 凭证列表_apiTestList
-	VoucherTestTwoApiTestList []*VoucherTestOne `json:"voucher_test_two_api_test_list,omitempty" xml:"voucher_test_two_api_test_list,omitempty" require:"true" type:"Repeated"`
-	// 测试Int
-	VoucherTestTwoInt *int64 `json:"voucher_test_two_int,omitempty" xml:"voucher_test_two_int,omitempty" require:"true"`
-	// 测试Integer
-	VoucherTestTwoInteger *int64 `json:"voucher_test_two_integer,omitempty" xml:"voucher_test_two_integer,omitempty" require:"true" maximum:"10" minimum:"0"`
-	// 凭证列表_dateList
-	VoucherTestTwoDateList []*string `json:"voucher_test_two_date_list,omitempty" xml:"voucher_test_two_date_list,omitempty" require:"true" type:"Repeated"`
-	// 测试String
-	VoucherTestTwoString *string `json:"voucher_test_two_string,omitempty" xml:"voucher_test_two_string,omitempty" require:"true" maxLength:"10" minLength:"0"`
-	// 测试Date
-	VoucherTestTwoDate *string `json:"voucher_test_two_date,omitempty" xml:"voucher_test_two_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 凭证列表_integerList
-	VoucherTestTwoIntegerList []*int64 `json:"voucher_test_two_integer_list,omitempty" xml:"voucher_test_two_integer_list,omitempty" require:"true" type:"Repeated"`
-	// 测试Long
-	VoucherTestTwoLong *int64 `json:"voucher_test_two_long,omitempty" xml:"voucher_test_two_long,omitempty" require:"true" maximum:"10" minimum:"0"`
-	// 凭证列表_longList
-	VoucherTestTwoLongList []*int64 `json:"voucher_test_two_long_list,omitempty" xml:"voucher_test_two_long_list,omitempty" require:"true" type:"Repeated"`
-	// 凭证列表_stringList
-	VoucherTestTwoStringList []*string `json:"voucher_test_two_string_list,omitempty" xml:"voucher_test_two_string_list,omitempty" require:"true" type:"Repeated"`
-	// 测试apiTestInfo
-	VoucherTestTwoApiTestInfo *VoucherTestOne `json:"voucher_test_two_api_test_info,omitempty" xml:"voucher_test_two_api_test_info,omitempty" require:"true"`
-	// 凭证列表_booleanList
-	VoucherTestTwoBooleanList []*bool `json:"voucher_test_two_boolean_list,omitempty" xml:"voucher_test_two_boolean_list,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s VoucherTestTwo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VoucherTestTwo) GoString() string {
-	return s.String()
-}
-
-func (s *VoucherTestTwo) SetVoucherTestTwoBoolean(v bool) *VoucherTestTwo {
-	s.VoucherTestTwoBoolean = &v
+func (s *EblStatusDetail) SetEblNo(v string) *EblStatusDetail {
+	s.EblNo = &v
 	return s
 }
 
-func (s *VoucherTestTwo) SetVoucherTestTwoApiTestList(v []*VoucherTestOne) *VoucherTestTwo {
-	s.VoucherTestTwoApiTestList = v
-	return s
-}
-
-func (s *VoucherTestTwo) SetVoucherTestTwoInt(v int64) *VoucherTestTwo {
-	s.VoucherTestTwoInt = &v
-	return s
-}
-
-func (s *VoucherTestTwo) SetVoucherTestTwoInteger(v int64) *VoucherTestTwo {
-	s.VoucherTestTwoInteger = &v
-	return s
-}
-
-func (s *VoucherTestTwo) SetVoucherTestTwoDateList(v []*string) *VoucherTestTwo {
-	s.VoucherTestTwoDateList = v
-	return s
-}
-
-func (s *VoucherTestTwo) SetVoucherTestTwoString(v string) *VoucherTestTwo {
-	s.VoucherTestTwoString = &v
-	return s
-}
-
-func (s *VoucherTestTwo) SetVoucherTestTwoDate(v string) *VoucherTestTwo {
-	s.VoucherTestTwoDate = &v
-	return s
-}
-
-func (s *VoucherTestTwo) SetVoucherTestTwoIntegerList(v []*int64) *VoucherTestTwo {
-	s.VoucherTestTwoIntegerList = v
-	return s
-}
-
-func (s *VoucherTestTwo) SetVoucherTestTwoLong(v int64) *VoucherTestTwo {
-	s.VoucherTestTwoLong = &v
-	return s
-}
-
-func (s *VoucherTestTwo) SetVoucherTestTwoLongList(v []*int64) *VoucherTestTwo {
-	s.VoucherTestTwoLongList = v
-	return s
-}
-
-func (s *VoucherTestTwo) SetVoucherTestTwoStringList(v []*string) *VoucherTestTwo {
-	s.VoucherTestTwoStringList = v
-	return s
-}
-
-func (s *VoucherTestTwo) SetVoucherTestTwoApiTestInfo(v *VoucherTestOne) *VoucherTestTwo {
-	s.VoucherTestTwoApiTestInfo = v
-	return s
-}
-
-func (s *VoucherTestTwo) SetVoucherTestTwoBooleanList(v []*bool) *VoucherTestTwo {
-	s.VoucherTestTwoBooleanList = v
-	return s
-}
-
-// 资费项账单
-type ReceiptBillTariffParam struct {
-	// 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-	Action *string `json:"action,omitempty" xml:"action,omitempty"`
-	//  账单金额 业务必填
-	BillAmount *string `json:"bill_amount,omitempty" xml:"bill_amount,omitempty"`
-	// 应收账单 、应收资费项 多对多关联code
-	ReceiptBillTariffCode *string `json:"receipt_bill_tariff_code,omitempty" xml:"receipt_bill_tariff_code,omitempty" require:"true"`
-	// 资费项金额 业务必填
-	ReceiptTariffAmount *string `json:"receipt_tariff_amount,omitempty" xml:"receipt_tariff_amount,omitempty"`
-	// 应收资费项编号 业务必填
-	ReceiptTariffCode *string `json:"receipt_tariff_code,omitempty" xml:"receipt_tariff_code,omitempty"`
-}
-
-func (s ReceiptBillTariffParam) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ReceiptBillTariffParam) GoString() string {
-	return s.String()
-}
-
-func (s *ReceiptBillTariffParam) SetAction(v string) *ReceiptBillTariffParam {
-	s.Action = &v
-	return s
-}
-
-func (s *ReceiptBillTariffParam) SetBillAmount(v string) *ReceiptBillTariffParam {
-	s.BillAmount = &v
-	return s
-}
-
-func (s *ReceiptBillTariffParam) SetReceiptBillTariffCode(v string) *ReceiptBillTariffParam {
-	s.ReceiptBillTariffCode = &v
-	return s
-}
-
-func (s *ReceiptBillTariffParam) SetReceiptTariffAmount(v string) *ReceiptBillTariffParam {
-	s.ReceiptTariffAmount = &v
-	return s
-}
-
-func (s *ReceiptBillTariffParam) SetReceiptTariffCode(v string) *ReceiptBillTariffParam {
-	s.ReceiptTariffCode = &v
-	return s
-}
-
-// 航运集装箱ID信息
-type ContainerIdInfo struct {
-	// 箱子唯一标识
-	ContainerId *string `json:"container_id,omitempty" xml:"container_id,omitempty"`
-	// 箱号
-	ContainerNo *string `json:"container_no,omitempty" xml:"container_no,omitempty"`
-}
-
-func (s ContainerIdInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContainerIdInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ContainerIdInfo) SetContainerId(v string) *ContainerIdInfo {
-	s.ContainerId = &v
-	return s
-}
-
-func (s *ContainerIdInfo) SetContainerNo(v string) *ContainerIdInfo {
-	s.ContainerNo = &v
-	return s
-}
-
-// 货物损失详情
-type CargoLoss struct {
-	// 物品类型
-	CargoType *string `json:"cargo_type,omitempty" xml:"cargo_type,omitempty" maxLength:"200"`
-	// 物品名称
-	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" require:"true" maxLength:"500"`
-	// 物品所有人
-	CargoOwner *string `json:"cargo_owner,omitempty" xml:"cargo_owner,omitempty" maxLength:"200"`
-	// 物品损失描述
-	CargoLossDesc *string `json:"cargo_loss_desc,omitempty" xml:"cargo_loss_desc,omitempty" maxLength:"500"`
-	// 损失预估，单位（元），最多支持2位小数
-	CargoLossEstimateAmount *string `json:"cargo_loss_estimate_amount,omitempty" xml:"cargo_loss_estimate_amount,omitempty" require:"true"`
-}
-
-func (s CargoLoss) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CargoLoss) GoString() string {
-	return s.String()
-}
-
-func (s *CargoLoss) SetCargoType(v string) *CargoLoss {
-	s.CargoType = &v
-	return s
-}
-
-func (s *CargoLoss) SetCargoName(v string) *CargoLoss {
-	s.CargoName = &v
-	return s
-}
-
-func (s *CargoLoss) SetCargoOwner(v string) *CargoLoss {
-	s.CargoOwner = &v
-	return s
-}
-
-func (s *CargoLoss) SetCargoLossDesc(v string) *CargoLoss {
-	s.CargoLossDesc = &v
-	return s
-}
-
-func (s *CargoLoss) SetCargoLossEstimateAmount(v string) *CargoLoss {
-	s.CargoLossEstimateAmount = &v
-	return s
-}
-
-// 货物信息
-type GoodsInfo struct {
-	// 货物ID [业务必填]
-	GoodsId *string `json:"goods_id,omitempty" xml:"goods_id,omitempty"`
-	// 唛头
-	//
-	//
-	Marks *string `json:"marks,omitempty" xml:"marks,omitempty"`
-	// 货物名称
-	Goods *string `json:"goods,omitempty" xml:"goods,omitempty"`
-	// 货物类型
-	GoodsType *string `json:"goods_type,omitempty" xml:"goods_type,omitempty"`
-	// 货物重量
-	Weight *string `json:"weight,omitempty" xml:"weight,omitempty"`
-	// 件数
-	Number *string `json:"number,omitempty" xml:"number,omitempty"`
-}
-
-func (s GoodsInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GoodsInfo) GoString() string {
-	return s.String()
-}
-
-func (s *GoodsInfo) SetGoodsId(v string) *GoodsInfo {
-	s.GoodsId = &v
-	return s
-}
-
-func (s *GoodsInfo) SetMarks(v string) *GoodsInfo {
-	s.Marks = &v
-	return s
-}
-
-func (s *GoodsInfo) SetGoods(v string) *GoodsInfo {
-	s.Goods = &v
-	return s
-}
-
-func (s *GoodsInfo) SetGoodsType(v string) *GoodsInfo {
-	s.GoodsType = &v
-	return s
-}
-
-func (s *GoodsInfo) SetWeight(v string) *GoodsInfo {
-	s.Weight = &v
-	return s
-}
-
-func (s *GoodsInfo) SetNumber(v string) *GoodsInfo {
-	s.Number = &v
-	return s
-}
-
-// 授权上链文件
-type AuthChainFile struct {
-	// 签署文件的hash值
-	SignFileHash *string `json:"sign_file_hash,omitempty" xml:"sign_file_hash,omitempty" require:"true"`
-	// 上链事务唯一标识
-	UploadChainTxCode *string `json:"upload_chain_tx_code,omitempty" xml:"upload_chain_tx_code,omitempty" require:"true"`
-	// 蚂蚁区块链统一证据编号
-	BaasUniqCode *string `json:"baas_uniq_code,omitempty" xml:"baas_uniq_code,omitempty" require:"true"`
-	// 上链时间(13位毫秒级时间戳)
-	UploadChainTime *string `json:"upload_chain_time,omitempty" xml:"upload_chain_time,omitempty" require:"true"`
-	// 上链文件下载链接
-	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
-	// 上链文件名称，要求包含扩展名。文件格式允许: pdf, txt, doc, docx
-	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
-}
-
-func (s AuthChainFile) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AuthChainFile) GoString() string {
-	return s.String()
-}
-
-func (s *AuthChainFile) SetSignFileHash(v string) *AuthChainFile {
-	s.SignFileHash = &v
-	return s
-}
-
-func (s *AuthChainFile) SetUploadChainTxCode(v string) *AuthChainFile {
-	s.UploadChainTxCode = &v
-	return s
-}
-
-func (s *AuthChainFile) SetBaasUniqCode(v string) *AuthChainFile {
-	s.BaasUniqCode = &v
-	return s
-}
-
-func (s *AuthChainFile) SetUploadChainTime(v string) *AuthChainFile {
-	s.UploadChainTime = &v
-	return s
-}
-
-func (s *AuthChainFile) SetFileUrl(v string) *AuthChainFile {
-	s.FileUrl = &v
-	return s
-}
-
-func (s *AuthChainFile) SetFileName(v string) *AuthChainFile {
-	s.FileName = &v
-	return s
-}
-
-// 池融资授信额度信息
-type PfCreditQuotaInfo struct {
-	// 证件号
-	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
-	// 证件类型
-	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
-	// 授信到期日期
-	CreditEnd *string `json:"credit_end,omitempty" xml:"credit_end,omitempty" require:"true"`
-	// 授信起始日期
-	CreditStart *string `json:"credit_start,omitempty" xml:"credit_start,omitempty" require:"true"`
-	// 额度编号
-	QuotaNo *string `json:"quota_no,omitempty" xml:"quota_no,omitempty" require:"true"`
-	// 剩余额度
-	RemainingQuota *string `json:"remaining_quota,omitempty" xml:"remaining_quota,omitempty" require:"true"`
-	// SON:放款账号loanAccNo
-	// 还款账号repayAcctNo
-	Remark *string `json:"remark,omitempty" xml:"remark,omitempty" require:"true"`
-	// 额度状态：
-	// 0、停用 / 1、启用  /  2、冻结
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 授信额度
-	TotalQuota *string `json:"total_quota,omitempty" xml:"total_quota,omitempty" require:"true"`
-	// 数据更新时间
-	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty" require:"true"`
-	// 总质押额度
-	TotalPledgeQuota *string `json:"total_pledge_quota,omitempty" xml:"total_pledge_quota,omitempty" require:"true"`
-	// 剩余质押额度
-	RemainPledgeQuota *string `json:"remain_pledge_quota,omitempty" xml:"remain_pledge_quota,omitempty" require:"true"`
-}
-
-func (s PfCreditQuotaInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PfCreditQuotaInfo) GoString() string {
-	return s.String()
-}
-
-func (s *PfCreditQuotaInfo) SetCertNo(v string) *PfCreditQuotaInfo {
-	s.CertNo = &v
-	return s
-}
-
-func (s *PfCreditQuotaInfo) SetCertType(v string) *PfCreditQuotaInfo {
-	s.CertType = &v
-	return s
-}
-
-func (s *PfCreditQuotaInfo) SetCreditEnd(v string) *PfCreditQuotaInfo {
-	s.CreditEnd = &v
-	return s
-}
-
-func (s *PfCreditQuotaInfo) SetCreditStart(v string) *PfCreditQuotaInfo {
-	s.CreditStart = &v
-	return s
-}
-
-func (s *PfCreditQuotaInfo) SetQuotaNo(v string) *PfCreditQuotaInfo {
-	s.QuotaNo = &v
-	return s
-}
-
-func (s *PfCreditQuotaInfo) SetRemainingQuota(v string) *PfCreditQuotaInfo {
-	s.RemainingQuota = &v
-	return s
-}
-
-func (s *PfCreditQuotaInfo) SetRemark(v string) *PfCreditQuotaInfo {
-	s.Remark = &v
-	return s
-}
-
-func (s *PfCreditQuotaInfo) SetStatus(v string) *PfCreditQuotaInfo {
-	s.Status = &v
-	return s
-}
-
-func (s *PfCreditQuotaInfo) SetTotalQuota(v string) *PfCreditQuotaInfo {
-	s.TotalQuota = &v
-	return s
-}
-
-func (s *PfCreditQuotaInfo) SetUpdateTime(v string) *PfCreditQuotaInfo {
-	s.UpdateTime = &v
-	return s
-}
-
-func (s *PfCreditQuotaInfo) SetTotalPledgeQuota(v string) *PfCreditQuotaInfo {
-	s.TotalPledgeQuota = &v
-	return s
-}
-
-func (s *PfCreditQuotaInfo) SetRemainPledgeQuota(v string) *PfCreditQuotaInfo {
-	s.RemainPledgeQuota = &v
-	return s
-}
-
-// 应付账单发票关联项
-type PayBillInvoiceParam struct {
-	// 账单发票code
-	PayBillInvoiceCode *string `json:"pay_bill_invoice_code,omitempty" xml:"pay_bill_invoice_code,omitempty" require:"true"`
-	// 账单编号
-	PayBillOrderCode *string `json:"pay_bill_order_code,omitempty" xml:"pay_bill_order_code,omitempty" require:"true"`
-	// 账单金额
-	PayBillAmount *string `json:"pay_bill_amount,omitempty" xml:"pay_bill_amount,omitempty" require:"true"`
-	// 发票金额
-	InvoiceAmount *string `json:"invoice_amount,omitempty" xml:"invoice_amount,omitempty" require:"true"`
-	// 操作动作
-	Action *string `json:"action,omitempty" xml:"action,omitempty"`
-}
-
-func (s PayBillInvoiceParam) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PayBillInvoiceParam) GoString() string {
-	return s.String()
-}
-
-func (s *PayBillInvoiceParam) SetPayBillInvoiceCode(v string) *PayBillInvoiceParam {
-	s.PayBillInvoiceCode = &v
-	return s
-}
-
-func (s *PayBillInvoiceParam) SetPayBillOrderCode(v string) *PayBillInvoiceParam {
-	s.PayBillOrderCode = &v
-	return s
-}
-
-func (s *PayBillInvoiceParam) SetPayBillAmount(v string) *PayBillInvoiceParam {
-	s.PayBillAmount = &v
-	return s
-}
-
-func (s *PayBillInvoiceParam) SetInvoiceAmount(v string) *PayBillInvoiceParam {
-	s.InvoiceAmount = &v
-	return s
-}
-
-func (s *PayBillInvoiceParam) SetAction(v string) *PayBillInvoiceParam {
-	s.Action = &v
-	return s
-}
-
-// 资费项发票
-type PayTariffInvoiceParam struct {
-	// 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-	Action *string `json:"action,omitempty" xml:"action,omitempty"`
-	// 发票金额 业务必填
-	InvoiceAmount *string `json:"invoice_amount,omitempty" xml:"invoice_amount,omitempty"`
-	// 资费项金额 业务必填
-	PayTariffAmount *string `json:"pay_tariff_amount,omitempty" xml:"pay_tariff_amount,omitempty"`
-	// 资费单据编号 业务必填
-	PayTariffCode *string `json:"pay_tariff_code,omitempty" xml:"pay_tariff_code,omitempty"`
-	// 资费项发票code
-	PayTariffInvoiceCode *string `json:"pay_tariff_invoice_code,omitempty" xml:"pay_tariff_invoice_code,omitempty" require:"true"`
-}
-
-func (s PayTariffInvoiceParam) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PayTariffInvoiceParam) GoString() string {
-	return s.String()
-}
-
-func (s *PayTariffInvoiceParam) SetAction(v string) *PayTariffInvoiceParam {
-	s.Action = &v
-	return s
-}
-
-func (s *PayTariffInvoiceParam) SetInvoiceAmount(v string) *PayTariffInvoiceParam {
-	s.InvoiceAmount = &v
-	return s
-}
-
-func (s *PayTariffInvoiceParam) SetPayTariffAmount(v string) *PayTariffInvoiceParam {
-	s.PayTariffAmount = &v
-	return s
-}
-
-func (s *PayTariffInvoiceParam) SetPayTariffCode(v string) *PayTariffInvoiceParam {
-	s.PayTariffCode = &v
-	return s
-}
-
-func (s *PayTariffInvoiceParam) SetPayTariffInvoiceCode(v string) *PayTariffInvoiceParam {
-	s.PayTariffInvoiceCode = &v
+func (s *EblStatusDetail) SetNextEblStatus(v string) *EblStatusDetail {
+	s.NextEblStatus = &v
 	return s
 }
 
@@ -1616,30 +1127,738 @@ func (s *InsureBaseInfo) SetIdentifyPeriodEnd(v string) *InsureBaseInfo {
 	return s
 }
 
-// 电子回单查询，具体凭证数据
-type ScpTicketIssueData struct {
-	// 凭证对应的司机/货主的did
-	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
-	//
+// 池融资凭证核验查询结果
+type PfVoucherCheckResult struct {
 	// 凭证id
-	IssueId *string `json:"issue_id,omitempty" xml:"issue_id,omitempty" require:"true"`
+	VoucherId *string `json:"voucher_id,omitempty" xml:"voucher_id,omitempty" require:"true"`
+	// 凭证类型
+	VoucherCategory *string `json:"voucher_category,omitempty" xml:"voucher_category,omitempty" require:"true"`
+	// 状态；PASS:通过，NO_PASS 未通过
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 }
 
-func (s ScpTicketIssueData) String() string {
+func (s PfVoucherCheckResult) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ScpTicketIssueData) GoString() string {
+func (s PfVoucherCheckResult) GoString() string {
 	return s.String()
 }
 
-func (s *ScpTicketIssueData) SetDid(v string) *ScpTicketIssueData {
-	s.Did = &v
+func (s *PfVoucherCheckResult) SetVoucherId(v string) *PfVoucherCheckResult {
+	s.VoucherId = &v
 	return s
 }
 
-func (s *ScpTicketIssueData) SetIssueId(v string) *ScpTicketIssueData {
+func (s *PfVoucherCheckResult) SetVoucherCategory(v string) *PfVoucherCheckResult {
+	s.VoucherCategory = &v
+	return s
+}
+
+func (s *PfVoucherCheckResult) SetStatus(v string) *PfVoucherCheckResult {
+	s.Status = &v
+	return s
+}
+
+// 历史数据
+type UploadFinancingParam struct {
+	// 订舱单量（票）
+	BookingCount *int64 `json:"booking_count,omitempty" xml:"booking_count,omitempty" require:"true"`
+	// 唯一标识
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 结束日期
+	EndDate *string `json:"end_date,omitempty" xml:"end_date,omitempty" require:"true"`
+	// 货代did
+	ForwarderDid *string `json:"forwarder_did,omitempty" xml:"forwarder_did,omitempty" require:"true"`
+	// 开始日期
+	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty" require:"true"`
+	// 箱量【数量，不区分箱型，20GP是1TEU，40GP是2TEU】
+	Teu *int64 `json:"teu,omitempty" xml:"teu,omitempty" require:"true"`
+	// 运输总额
+	Amounts *string `json:"amounts,omitempty" xml:"amounts,omitempty" require:"true"`
+}
+
+func (s UploadFinancingParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadFinancingParam) GoString() string {
+	return s.String()
+}
+
+func (s *UploadFinancingParam) SetBookingCount(v int64) *UploadFinancingParam {
+	s.BookingCount = &v
+	return s
+}
+
+func (s *UploadFinancingParam) SetCode(v string) *UploadFinancingParam {
+	s.Code = &v
+	return s
+}
+
+func (s *UploadFinancingParam) SetEndDate(v string) *UploadFinancingParam {
+	s.EndDate = &v
+	return s
+}
+
+func (s *UploadFinancingParam) SetForwarderDid(v string) *UploadFinancingParam {
+	s.ForwarderDid = &v
+	return s
+}
+
+func (s *UploadFinancingParam) SetStartDate(v string) *UploadFinancingParam {
+	s.StartDate = &v
+	return s
+}
+
+func (s *UploadFinancingParam) SetTeu(v int64) *UploadFinancingParam {
+	s.Teu = &v
+	return s
+}
+
+func (s *UploadFinancingParam) SetAmounts(v string) *UploadFinancingParam {
+	s.Amounts = &v
+	return s
+}
+
+// 链上hash
+type TxDto struct {
+	// 链上凭证
+	TxCode *string `json:"tx_code,omitempty" xml:"tx_code,omitempty" require:"true"`
+	// 链上存储结构对应类型
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+}
+
+func (s TxDto) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TxDto) GoString() string {
+	return s.String()
+}
+
+func (s *TxDto) SetTxCode(v string) *TxDto {
+	s.TxCode = &v
+	return s
+}
+
+func (s *TxDto) SetDataType(v string) *TxDto {
+	s.DataType = &v
+	return s
+}
+
+// 物流轨迹位置
+type LogisticLocation struct {
+	// 结构化地址信息,规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// 行政区划代码
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty"`
+	// 纬度
+	//
+	Lat *string `json:"lat,omitempty" xml:"lat,omitempty" require:"true"`
+	// 经度
+	Lon *string `json:"lon,omitempty" xml:"lon,omitempty" require:"true"`
+	// 轨迹时间戳
+	TrackTime *int64 `json:"track_time,omitempty" xml:"track_time,omitempty" require:"true"`
+}
+
+func (s LogisticLocation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LogisticLocation) GoString() string {
+	return s.String()
+}
+
+func (s *LogisticLocation) SetAddress(v string) *LogisticLocation {
+	s.Address = &v
+	return s
+}
+
+func (s *LogisticLocation) SetCityCode(v string) *LogisticLocation {
+	s.CityCode = &v
+	return s
+}
+
+func (s *LogisticLocation) SetLat(v string) *LogisticLocation {
+	s.Lat = &v
+	return s
+}
+
+func (s *LogisticLocation) SetLon(v string) *LogisticLocation {
+	s.Lon = &v
+	return s
+}
+
+func (s *LogisticLocation) SetTrackTime(v int64) *LogisticLocation {
+	s.TrackTime = &v
+	return s
+}
+
+// 用户凭证信息
+type UserIssueId struct {
+	// 凭证id
+	IssueId *string `json:"issue_id,omitempty" xml:"issue_id,omitempty" require:"true"`
+	// 凭证余额
+	BalanceAmt *string `json:"balance_amt,omitempty" xml:"balance_amt,omitempty" require:"true"`
+}
+
+func (s UserIssueId) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UserIssueId) GoString() string {
+	return s.String()
+}
+
+func (s *UserIssueId) SetIssueId(v string) *UserIssueId {
 	s.IssueId = &v
+	return s
+}
+
+func (s *UserIssueId) SetBalanceAmt(v string) *UserIssueId {
+	s.BalanceAmt = &v
+	return s
+}
+
+// 电子提单批次下提单明细（无效）
+type EblDeatil struct {
+	// 电子提单copy文件hash
+	EblCopyPdfFileHash *string `json:"ebl_copy_pdf_file_hash,omitempty" xml:"ebl_copy_pdf_file_hash,omitempty" require:"true"`
+	// 电子提单copy文件id
+	EblCopyPdfFileId *string `json:"ebl_copy_pdf_file_id,omitempty" xml:"ebl_copy_pdf_file_id,omitempty" require:"true"`
+	// 电子提单编号
+	EblNo *string `json:"ebl_no,omitempty" xml:"ebl_no,omitempty" require:"true"`
+}
+
+func (s EblDeatil) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EblDeatil) GoString() string {
+	return s.String()
+}
+
+func (s *EblDeatil) SetEblCopyPdfFileHash(v string) *EblDeatil {
+	s.EblCopyPdfFileHash = &v
+	return s
+}
+
+func (s *EblDeatil) SetEblCopyPdfFileId(v string) *EblDeatil {
+	s.EblCopyPdfFileId = &v
+	return s
+}
+
+func (s *EblDeatil) SetEblNo(v string) *EblDeatil {
+	s.EblNo = &v
+	return s
+}
+
+// 入库货物
+type StockinCargo struct {
+	// 入库序号，在同一次入库请求中，入库序号保持不重复，不能小于0
+	StockinIndex *int64 `json:"stockin_index,omitempty" xml:"stockin_index,omitempty" require:"true"`
+	// sku品名
+	//
+	Sku *string `json:"sku,omitempty" xml:"sku,omitempty" require:"true" maxLength:"200"`
+	// 商品名称
+	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" maxLength:"200"`
+	// 商品单品重量(kg)
+	CargoWeight *string `json:"cargo_weight,omitempty" xml:"cargo_weight,omitempty" maxLength:"50"`
+	// 商品外扩长宽高(cm)
+	CargoDimensions *string `json:"cargo_dimensions,omitempty" xml:"cargo_dimensions,omitempty" maxLength:"200"`
+	// 商品单品货物价值(元),，最多支持2位小数
+	CargoWorth *string `json:"cargo_worth,omitempty" xml:"cargo_worth,omitempty" maxLength:"30"`
+	// 箱号
+	ContainerNo *string `json:"container_no,omitempty" xml:"container_no,omitempty" maxLength:"50"`
+	// 实际入库件数
+	ActualStockinNum *int64 `json:"actual_stockin_num,omitempty" xml:"actual_stockin_num,omitempty" require:"true"`
+}
+
+func (s StockinCargo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StockinCargo) GoString() string {
+	return s.String()
+}
+
+func (s *StockinCargo) SetStockinIndex(v int64) *StockinCargo {
+	s.StockinIndex = &v
+	return s
+}
+
+func (s *StockinCargo) SetSku(v string) *StockinCargo {
+	s.Sku = &v
+	return s
+}
+
+func (s *StockinCargo) SetCargoName(v string) *StockinCargo {
+	s.CargoName = &v
+	return s
+}
+
+func (s *StockinCargo) SetCargoWeight(v string) *StockinCargo {
+	s.CargoWeight = &v
+	return s
+}
+
+func (s *StockinCargo) SetCargoDimensions(v string) *StockinCargo {
+	s.CargoDimensions = &v
+	return s
+}
+
+func (s *StockinCargo) SetCargoWorth(v string) *StockinCargo {
+	s.CargoWorth = &v
+	return s
+}
+
+func (s *StockinCargo) SetContainerNo(v string) *StockinCargo {
+	s.ContainerNo = &v
+	return s
+}
+
+func (s *StockinCargo) SetActualStockinNum(v int64) *StockinCargo {
+	s.ActualStockinNum = &v
+	return s
+}
+
+// 车辆损失详情
+type CarLoss struct {
+	// 车牌号，车牌号和车架号至少填一个
+	CarMark *string `json:"car_mark,omitempty" xml:"car_mark,omitempty" maxLength:"20"`
+	// 车主姓名
+	CarOwnerName *string `json:"car_owner_name,omitempty" xml:"car_owner_name,omitempty" maxLength:"200"`
+	// 车主联系方式
+	CarOwnerContact *string `json:"car_owner_contact,omitempty" xml:"car_owner_contact,omitempty" maxLength:"20"`
+	// 车架号，车牌号和车架号至少填一个
+	CarVinNo *string `json:"car_vin_no,omitempty" xml:"car_vin_no,omitempty" maxLength:"100"`
+	// 损失预估，单位（元），最多支持2位小数
+	CarLossEstimateAmount *string `json:"car_loss_estimate_amount,omitempty" xml:"car_loss_estimate_amount,omitempty" require:"true"`
+}
+
+func (s CarLoss) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarLoss) GoString() string {
+	return s.String()
+}
+
+func (s *CarLoss) SetCarMark(v string) *CarLoss {
+	s.CarMark = &v
+	return s
+}
+
+func (s *CarLoss) SetCarOwnerName(v string) *CarLoss {
+	s.CarOwnerName = &v
+	return s
+}
+
+func (s *CarLoss) SetCarOwnerContact(v string) *CarLoss {
+	s.CarOwnerContact = &v
+	return s
+}
+
+func (s *CarLoss) SetCarVinNo(v string) *CarLoss {
+	s.CarVinNo = &v
+	return s
+}
+
+func (s *CarLoss) SetCarLossEstimateAmount(v string) *CarLoss {
+	s.CarLossEstimateAmount = &v
+	return s
+}
+
+// 物流金融信用流转流水信息
+type StatementInfo struct {
+	// 信用流转批次号
+	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty" require:"true"`
+	// 全局唯一业务号
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
+	// 信用流转凭证
+	IssueId *string `json:"issue_id,omitempty" xml:"issue_id,omitempty" require:"true"`
+	// 合同号（预留）
+	ContractId *string `json:"contract_id,omitempty" xml:"contract_id,omitempty"`
+	// 发行信用流转的运单号
+	WaybillId *string `json:"waybill_id,omitempty" xml:"waybill_id,omitempty" require:"true"`
+	// 发行信用流转的支付单号
+	PayOrder *string `json:"pay_order,omitempty" xml:"pay_order,omitempty" require:"true"`
+	// 金额信息
+	CreditLimit *string `json:"credit_limit,omitempty" xml:"credit_limit,omitempty" require:"true"`
+	// 流水类型
+	StateType *string `json:"state_type,omitempty" xml:"state_type,omitempty" require:"true"`
+	// 流水类型说明
+	StateMsg *string `json:"state_msg,omitempty" xml:"state_msg,omitempty" require:"true"`
+	// 凭证来源方did
+	FromDid *string `json:"from_did,omitempty" xml:"from_did,omitempty" require:"true"`
+	// 凭证流转方did
+	ToDid *string `json:"to_did,omitempty" xml:"to_did,omitempty" require:"true"`
+	// 信用凭证发起时间
+	IssueDate *string `json:"issue_date,omitempty" xml:"issue_date,omitempty" require:"true"`
+	// 信用凭证到期时间
+	ExpireDate *string `json:"expire_date,omitempty" xml:"expire_date,omitempty" require:"true"`
+}
+
+func (s StatementInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StatementInfo) GoString() string {
+	return s.String()
+}
+
+func (s *StatementInfo) SetBatchId(v string) *StatementInfo {
+	s.BatchId = &v
+	return s
+}
+
+func (s *StatementInfo) SetOutBizNo(v string) *StatementInfo {
+	s.OutBizNo = &v
+	return s
+}
+
+func (s *StatementInfo) SetIssueId(v string) *StatementInfo {
+	s.IssueId = &v
+	return s
+}
+
+func (s *StatementInfo) SetContractId(v string) *StatementInfo {
+	s.ContractId = &v
+	return s
+}
+
+func (s *StatementInfo) SetWaybillId(v string) *StatementInfo {
+	s.WaybillId = &v
+	return s
+}
+
+func (s *StatementInfo) SetPayOrder(v string) *StatementInfo {
+	s.PayOrder = &v
+	return s
+}
+
+func (s *StatementInfo) SetCreditLimit(v string) *StatementInfo {
+	s.CreditLimit = &v
+	return s
+}
+
+func (s *StatementInfo) SetStateType(v string) *StatementInfo {
+	s.StateType = &v
+	return s
+}
+
+func (s *StatementInfo) SetStateMsg(v string) *StatementInfo {
+	s.StateMsg = &v
+	return s
+}
+
+func (s *StatementInfo) SetFromDid(v string) *StatementInfo {
+	s.FromDid = &v
+	return s
+}
+
+func (s *StatementInfo) SetToDid(v string) *StatementInfo {
+	s.ToDid = &v
+	return s
+}
+
+func (s *StatementInfo) SetIssueDate(v string) *StatementInfo {
+	s.IssueDate = &v
+	return s
+}
+
+func (s *StatementInfo) SetExpireDate(v string) *StatementInfo {
+	s.ExpireDate = &v
+	return s
+}
+
+// 附加条款
+type MainItemAdd struct {
+	// 附加条款代码-参考保司提供样例
+	MainItemAddCode *string `json:"main_item_add_code,omitempty" xml:"main_item_add_code,omitempty"`
+	// 附加条款内容-参考保司提供样例
+	MainItemAddContent *string `json:"main_item_add_content,omitempty" xml:"main_item_add_content,omitempty"`
+}
+
+func (s MainItemAdd) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MainItemAdd) GoString() string {
+	return s.String()
+}
+
+func (s *MainItemAdd) SetMainItemAddCode(v string) *MainItemAdd {
+	s.MainItemAddCode = &v
+	return s
+}
+
+func (s *MainItemAdd) SetMainItemAddContent(v string) *MainItemAdd {
+	s.MainItemAddContent = &v
+	return s
+}
+
+// 订舱单
+type MasterBlBookingParam struct {
+	// 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+	Action *string `json:"action,omitempty" xml:"action,omitempty"`
+	// 订舱单号
+	BookingNo *string `json:"booking_no,omitempty" xml:"booking_no,omitempty" require:"true"`
+}
+
+func (s MasterBlBookingParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MasterBlBookingParam) GoString() string {
+	return s.String()
+}
+
+func (s *MasterBlBookingParam) SetAction(v string) *MasterBlBookingParam {
+	s.Action = &v
+	return s
+}
+
+func (s *MasterBlBookingParam) SetBookingNo(v string) *MasterBlBookingParam {
+	s.BookingNo = &v
+	return s
+}
+
+// FinishWaybillOrderReq
+type FinishWaybillOrderReq struct {
+	// 运费
+	AllFreight *string `json:"all_freight,omitempty" xml:"all_freight,omitempty"`
+	// 回单押金
+	BackFee *string `json:"back_fee,omitempty" xml:"back_fee,omitempty"`
+	// 货主支付运费金额
+	ConsignorFreightAmount *string `json:"consignor_freight_amount,omitempty" xml:"consignor_freight_amount,omitempty"`
+	// 运费增项
+	FreightIncr *string `json:"freight_incr,omitempty" xml:"freight_incr,omitempty"`
+	// 运费扣减
+	LossFee *string `json:"loss_fee,omitempty" xml:"loss_fee,omitempty"`
+	// 平台did
+	PlatformDid *string `json:"platform_did,omitempty" xml:"platform_did,omitempty" require:"true"`
+	// 运单id
+	TaxWaybillId *string `json:"tax_waybill_id,omitempty" xml:"tax_waybill_id,omitempty" require:"true"`
+}
+
+func (s FinishWaybillOrderReq) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinishWaybillOrderReq) GoString() string {
+	return s.String()
+}
+
+func (s *FinishWaybillOrderReq) SetAllFreight(v string) *FinishWaybillOrderReq {
+	s.AllFreight = &v
+	return s
+}
+
+func (s *FinishWaybillOrderReq) SetBackFee(v string) *FinishWaybillOrderReq {
+	s.BackFee = &v
+	return s
+}
+
+func (s *FinishWaybillOrderReq) SetConsignorFreightAmount(v string) *FinishWaybillOrderReq {
+	s.ConsignorFreightAmount = &v
+	return s
+}
+
+func (s *FinishWaybillOrderReq) SetFreightIncr(v string) *FinishWaybillOrderReq {
+	s.FreightIncr = &v
+	return s
+}
+
+func (s *FinishWaybillOrderReq) SetLossFee(v string) *FinishWaybillOrderReq {
+	s.LossFee = &v
+	return s
+}
+
+func (s *FinishWaybillOrderReq) SetPlatformDid(v string) *FinishWaybillOrderReq {
+	s.PlatformDid = &v
+	return s
+}
+
+func (s *FinishWaybillOrderReq) SetTaxWaybillId(v string) *FinishWaybillOrderReq {
+	s.TaxWaybillId = &v
+	return s
+}
+
+// saas模式发行信息
+type SaasIssueApplyInfo struct {
+	// 货源订单
+	CargoOrder *string `json:"cargo_order,omitempty" xml:"cargo_order,omitempty"`
+	// 合同号
+	ContractId *string `json:"contract_id,omitempty" xml:"contract_id,omitempty"`
+	// 全局唯一业务单号
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
+	// 支付单号
+	PayOrder *string `json:"pay_order,omitempty" xml:"pay_order,omitempty" require:"true"`
+	// 运单号
+	WaybillId *string `json:"waybill_id,omitempty" xml:"waybill_id,omitempty" require:"true"`
+	// 司机did
+	DriverDid *string `json:"driver_did,omitempty" xml:"driver_did,omitempty" require:"true"`
+	// 发行费
+	Freight *string `json:"freight,omitempty" xml:"freight,omitempty" require:"true"`
+	// 到期时间戳
+	ExpireDate *string `json:"expire_date,omitempty" xml:"expire_date,omitempty" require:"true"`
+}
+
+func (s SaasIssueApplyInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaasIssueApplyInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SaasIssueApplyInfo) SetCargoOrder(v string) *SaasIssueApplyInfo {
+	s.CargoOrder = &v
+	return s
+}
+
+func (s *SaasIssueApplyInfo) SetContractId(v string) *SaasIssueApplyInfo {
+	s.ContractId = &v
+	return s
+}
+
+func (s *SaasIssueApplyInfo) SetOutBizNo(v string) *SaasIssueApplyInfo {
+	s.OutBizNo = &v
+	return s
+}
+
+func (s *SaasIssueApplyInfo) SetPayOrder(v string) *SaasIssueApplyInfo {
+	s.PayOrder = &v
+	return s
+}
+
+func (s *SaasIssueApplyInfo) SetWaybillId(v string) *SaasIssueApplyInfo {
+	s.WaybillId = &v
+	return s
+}
+
+func (s *SaasIssueApplyInfo) SetDriverDid(v string) *SaasIssueApplyInfo {
+	s.DriverDid = &v
+	return s
+}
+
+func (s *SaasIssueApplyInfo) SetFreight(v string) *SaasIssueApplyInfo {
+	s.Freight = &v
+	return s
+}
+
+func (s *SaasIssueApplyInfo) SetExpireDate(v string) *SaasIssueApplyInfo {
+	s.ExpireDate = &v
+	return s
+}
+
+// 箱子信息
+type VehicleContainerParam struct {
+	// 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+	Action *string `json:"action,omitempty" xml:"action,omitempty"`
+	// 集装箱ID
+	ContainerId *string `json:"container_id,omitempty" xml:"container_id,omitempty" require:"true"`
+	// 箱号
+	ContainerNo *string `json:"container_no,omitempty" xml:"container_no,omitempty"`
+	// 封号
+	SealNo *string `json:"seal_no,omitempty" xml:"seal_no,omitempty"`
+}
+
+func (s VehicleContainerParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VehicleContainerParam) GoString() string {
+	return s.String()
+}
+
+func (s *VehicleContainerParam) SetAction(v string) *VehicleContainerParam {
+	s.Action = &v
+	return s
+}
+
+func (s *VehicleContainerParam) SetContainerId(v string) *VehicleContainerParam {
+	s.ContainerId = &v
+	return s
+}
+
+func (s *VehicleContainerParam) SetContainerNo(v string) *VehicleContainerParam {
+	s.ContainerNo = &v
+	return s
+}
+
+func (s *VehicleContainerParam) SetSealNo(v string) *VehicleContainerParam {
+	s.SealNo = &v
+	return s
+}
+
+// A+模式发行信息
+type IssueApplyInfoPlus struct {
+	// 订单中的BookingNo，以英文逗号分割
+	BookingNo *string `json:"booking_no,omitempty" xml:"booking_no,omitempty" require:"true"`
+	// 船公司did
+	CarrierDid *string `json:"carrier_did,omitempty" xml:"carrier_did,omitempty" require:"true"`
+	// BookingNo中的箱号，以英文逗号分割
+	ContainerNo *string `json:"container_no,omitempty" xml:"container_no,omitempty" require:"true"`
+	// 到期时间戳
+	ExpireDate *string `json:"expire_date,omitempty" xml:"expire_date,omitempty" require:"true"`
+	// 发行金额，精确到小数点后2位
+	IssueAmt *string `json:"issue_amt,omitempty" xml:"issue_amt,omitempty" require:"true"`
+	// 全局唯一业务号
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
+	// 支付单号
+	OutOrderNo *string `json:"out_order_no,omitempty" xml:"out_order_no,omitempty" require:"true"`
+	// 运单订单id
+	WaybillId *string `json:"waybill_id,omitempty" xml:"waybill_id,omitempty" require:"true"`
+}
+
+func (s IssueApplyInfoPlus) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IssueApplyInfoPlus) GoString() string {
+	return s.String()
+}
+
+func (s *IssueApplyInfoPlus) SetBookingNo(v string) *IssueApplyInfoPlus {
+	s.BookingNo = &v
+	return s
+}
+
+func (s *IssueApplyInfoPlus) SetCarrierDid(v string) *IssueApplyInfoPlus {
+	s.CarrierDid = &v
+	return s
+}
+
+func (s *IssueApplyInfoPlus) SetContainerNo(v string) *IssueApplyInfoPlus {
+	s.ContainerNo = &v
+	return s
+}
+
+func (s *IssueApplyInfoPlus) SetExpireDate(v string) *IssueApplyInfoPlus {
+	s.ExpireDate = &v
+	return s
+}
+
+func (s *IssueApplyInfoPlus) SetIssueAmt(v string) *IssueApplyInfoPlus {
+	s.IssueAmt = &v
+	return s
+}
+
+func (s *IssueApplyInfoPlus) SetOutBizNo(v string) *IssueApplyInfoPlus {
+	s.OutBizNo = &v
+	return s
+}
+
+func (s *IssueApplyInfoPlus) SetOutOrderNo(v string) *IssueApplyInfoPlus {
+	s.OutOrderNo = &v
+	return s
+}
+
+func (s *IssueApplyInfoPlus) SetWaybillId(v string) *IssueApplyInfoPlus {
+	s.WaybillId = &v
 	return s
 }
 
@@ -1774,621 +1993,6 @@ func (s *HouseBlGoodsParam) SetWeight(v string) *HouseBlGoodsParam {
 	return s
 }
 
-// 电子提单批次下提单明细
-type EblDetail struct {
-	// 电子提单copy文件hash
-	EblCopyPdfFileHash *string `json:"ebl_copy_pdf_file_hash,omitempty" xml:"ebl_copy_pdf_file_hash,omitempty" require:"true"`
-	// 电子提单copy文件id
-	EblCopyPdfFileId *string `json:"ebl_copy_pdf_file_id,omitempty" xml:"ebl_copy_pdf_file_id,omitempty" require:"true"`
-	// 电子提单编号
-	EblNo *string `json:"ebl_no,omitempty" xml:"ebl_no,omitempty" require:"true"`
-}
-
-func (s EblDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EblDetail) GoString() string {
-	return s.String()
-}
-
-func (s *EblDetail) SetEblCopyPdfFileHash(v string) *EblDetail {
-	s.EblCopyPdfFileHash = &v
-	return s
-}
-
-func (s *EblDetail) SetEblCopyPdfFileId(v string) *EblDetail {
-	s.EblCopyPdfFileId = &v
-	return s
-}
-
-func (s *EblDetail) SetEblNo(v string) *EblDetail {
-	s.EblNo = &v
-	return s
-}
-
-// 人员伤残情况
-type PersonLoss struct {
-	// 伤情，HOSPITALIZE-住院，CLINIC-门诊，DEATH-死亡，ALLOWANCE-津贴
-	PersonInjuredCondition *string `json:"person_injured_condition,omitempty" xml:"person_injured_condition,omitempty" require:"true" maxLength:"50"`
-	// 伤者姓名
-	PersonInjuredName *string `json:"person_injured_name,omitempty" xml:"person_injured_name,omitempty" require:"true" maxLength:"200"`
-	// 损失预估，单位（元），最多支持2位小数
-	PersonLossEstimateAmount *string `json:"person_loss_estimate_amount,omitempty" xml:"person_loss_estimate_amount,omitempty"`
-}
-
-func (s PersonLoss) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PersonLoss) GoString() string {
-	return s.String()
-}
-
-func (s *PersonLoss) SetPersonInjuredCondition(v string) *PersonLoss {
-	s.PersonInjuredCondition = &v
-	return s
-}
-
-func (s *PersonLoss) SetPersonInjuredName(v string) *PersonLoss {
-	s.PersonInjuredName = &v
-	return s
-}
-
-func (s *PersonLoss) SetPersonLossEstimateAmount(v string) *PersonLoss {
-	s.PersonLossEstimateAmount = &v
-	return s
-}
-
-// 历史数据
-type UploadFinancingParam struct {
-	// 订舱单量（票）
-	BookingCount *int64 `json:"booking_count,omitempty" xml:"booking_count,omitempty" require:"true"`
-	// 唯一标识
-	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
-	// 结束日期
-	EndDate *string `json:"end_date,omitempty" xml:"end_date,omitempty" require:"true"`
-	// 货代did
-	ForwarderDid *string `json:"forwarder_did,omitempty" xml:"forwarder_did,omitempty" require:"true"`
-	// 开始日期
-	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty" require:"true"`
-	// 箱量【数量，不区分箱型，20GP是1TEU，40GP是2TEU】
-	Teu *int64 `json:"teu,omitempty" xml:"teu,omitempty" require:"true"`
-	// 运输总额
-	Amounts *string `json:"amounts,omitempty" xml:"amounts,omitempty" require:"true"`
-}
-
-func (s UploadFinancingParam) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UploadFinancingParam) GoString() string {
-	return s.String()
-}
-
-func (s *UploadFinancingParam) SetBookingCount(v int64) *UploadFinancingParam {
-	s.BookingCount = &v
-	return s
-}
-
-func (s *UploadFinancingParam) SetCode(v string) *UploadFinancingParam {
-	s.Code = &v
-	return s
-}
-
-func (s *UploadFinancingParam) SetEndDate(v string) *UploadFinancingParam {
-	s.EndDate = &v
-	return s
-}
-
-func (s *UploadFinancingParam) SetForwarderDid(v string) *UploadFinancingParam {
-	s.ForwarderDid = &v
-	return s
-}
-
-func (s *UploadFinancingParam) SetStartDate(v string) *UploadFinancingParam {
-	s.StartDate = &v
-	return s
-}
-
-func (s *UploadFinancingParam) SetTeu(v int64) *UploadFinancingParam {
-	s.Teu = &v
-	return s
-}
-
-func (s *UploadFinancingParam) SetAmounts(v string) *UploadFinancingParam {
-	s.Amounts = &v
-	return s
-}
-
-// 库存货物
-type InventoryCargo struct {
-	// 序号，在同一次库存申报请求中，序号保持不重复，不能小于等于0
-	InventoryIndex *int64 `json:"inventory_index,omitempty" xml:"inventory_index,omitempty" require:"true"`
-	// sku品名
-	Sku *string `json:"sku,omitempty" xml:"sku,omitempty" require:"true" maxLength:"200"`
-	// 商品名称
-	//
-	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" maxLength:"200"`
-	// 商品单品重量(kg)
-	CargoWeight *string `json:"cargo_weight,omitempty" xml:"cargo_weight,omitempty" maxLength:"50"`
-	// 商品外扩长宽高(cm)
-	CargoDimensions *string `json:"cargo_dimensions,omitempty" xml:"cargo_dimensions,omitempty" maxLength:"200"`
-	// 商品单品货物价值(元),最多支持2位小数
-	CargoWorth *string `json:"cargo_worth,omitempty" xml:"cargo_worth,omitempty" maxLength:"30"`
-	// 当前库存货物数量
-	CurrentInventoryCargoNum *int64 `json:"current_inventory_cargo_num,omitempty" xml:"current_inventory_cargo_num,omitempty" require:"true"`
-	// 客户代码
-	//
-	CustomerCode *string `json:"customer_code,omitempty" xml:"customer_code,omitempty" require:"true" maxLength:"50"`
-	// 关联保单号,需要仓储CP做拆分计算
-	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty" maxLength:"64"`
-	// 入库时间, yyyy-MM-dd HH:mm:ss，需要仓储CP做拆分计算
-	//
-	StockinDate *string `json:"stockin_date,omitempty" xml:"stockin_date,omitempty"`
-	// 时区,仓储CP上报入库时间所属的时区
-	Timezone *string `json:"timezone,omitempty" xml:"timezone,omitempty" maxLength:"16"`
-}
-
-func (s InventoryCargo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s InventoryCargo) GoString() string {
-	return s.String()
-}
-
-func (s *InventoryCargo) SetInventoryIndex(v int64) *InventoryCargo {
-	s.InventoryIndex = &v
-	return s
-}
-
-func (s *InventoryCargo) SetSku(v string) *InventoryCargo {
-	s.Sku = &v
-	return s
-}
-
-func (s *InventoryCargo) SetCargoName(v string) *InventoryCargo {
-	s.CargoName = &v
-	return s
-}
-
-func (s *InventoryCargo) SetCargoWeight(v string) *InventoryCargo {
-	s.CargoWeight = &v
-	return s
-}
-
-func (s *InventoryCargo) SetCargoDimensions(v string) *InventoryCargo {
-	s.CargoDimensions = &v
-	return s
-}
-
-func (s *InventoryCargo) SetCargoWorth(v string) *InventoryCargo {
-	s.CargoWorth = &v
-	return s
-}
-
-func (s *InventoryCargo) SetCurrentInventoryCargoNum(v int64) *InventoryCargo {
-	s.CurrentInventoryCargoNum = &v
-	return s
-}
-
-func (s *InventoryCargo) SetCustomerCode(v string) *InventoryCargo {
-	s.CustomerCode = &v
-	return s
-}
-
-func (s *InventoryCargo) SetPolicyNo(v string) *InventoryCargo {
-	s.PolicyNo = &v
-	return s
-}
-
-func (s *InventoryCargo) SetStockinDate(v string) *InventoryCargo {
-	s.StockinDate = &v
-	return s
-}
-
-func (s *InventoryCargo) SetTimezone(v string) *InventoryCargo {
-	s.Timezone = &v
-	return s
-}
-
-// 签署方
-type AuthParty struct {
-	// 签署方名称
-	SignPartyName *string `json:"sign_party_name,omitempty" xml:"sign_party_name,omitempty" require:"true"`
-	// 签署方证件类型，可以填写的枚举类：IDENTIFICATION_CARD，表示身份证
-	SignPartyCertType *string `json:"sign_party_cert_type,omitempty" xml:"sign_party_cert_type,omitempty" require:"true"`
-	// 签署方证件号码
-	SignPartyCertNum *string `json:"sign_party_cert_num,omitempty" xml:"sign_party_cert_num,omitempty" require:"true"`
-	// 签署结果（必填，FINISH,FAIL,REFUSE三者选一，分别表示签署完成、失败和拒签）
-	SignResult *string `json:"sign_result,omitempty" xml:"sign_result,omitempty" require:"true"`
-	// 签署失败或拒签原因（失败或拒签时必填）
-	SignFailReason *string `json:"sign_fail_reason,omitempty" xml:"sign_fail_reason,omitempty"`
-	// 签署时间(13位毫秒时间戳)
-	SignTime *string `json:"sign_time,omitempty" xml:"sign_time,omitempty" require:"true"`
-}
-
-func (s AuthParty) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AuthParty) GoString() string {
-	return s.String()
-}
-
-func (s *AuthParty) SetSignPartyName(v string) *AuthParty {
-	s.SignPartyName = &v
-	return s
-}
-
-func (s *AuthParty) SetSignPartyCertType(v string) *AuthParty {
-	s.SignPartyCertType = &v
-	return s
-}
-
-func (s *AuthParty) SetSignPartyCertNum(v string) *AuthParty {
-	s.SignPartyCertNum = &v
-	return s
-}
-
-func (s *AuthParty) SetSignResult(v string) *AuthParty {
-	s.SignResult = &v
-	return s
-}
-
-func (s *AuthParty) SetSignFailReason(v string) *AuthParty {
-	s.SignFailReason = &v
-	return s
-}
-
-func (s *AuthParty) SetSignTime(v string) *AuthParty {
-	s.SignTime = &v
-	return s
-}
-
-// 链上hash
-type TxDto struct {
-	// 链上凭证
-	TxCode *string `json:"tx_code,omitempty" xml:"tx_code,omitempty" require:"true"`
-	// 链上存储结构对应类型
-	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
-}
-
-func (s TxDto) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TxDto) GoString() string {
-	return s.String()
-}
-
-func (s *TxDto) SetTxCode(v string) *TxDto {
-	s.TxCode = &v
-	return s
-}
-
-func (s *TxDto) SetDataType(v string) *TxDto {
-	s.DataType = &v
-	return s
-}
-
-// 用户凭证信息
-type UserIssueId struct {
-	// 凭证id
-	IssueId *string `json:"issue_id,omitempty" xml:"issue_id,omitempty" require:"true"`
-	// 凭证余额
-	BalanceAmt *string `json:"balance_amt,omitempty" xml:"balance_amt,omitempty" require:"true"`
-}
-
-func (s UserIssueId) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UserIssueId) GoString() string {
-	return s.String()
-}
-
-func (s *UserIssueId) SetIssueId(v string) *UserIssueId {
-	s.IssueId = &v
-	return s
-}
-
-func (s *UserIssueId) SetBalanceAmt(v string) *UserIssueId {
-	s.BalanceAmt = &v
-	return s
-}
-
-// 附加条款
-type MainItemAdd struct {
-	// 附加条款代码-参考保司提供样例
-	MainItemAddCode *string `json:"main_item_add_code,omitempty" xml:"main_item_add_code,omitempty"`
-	// 附加条款内容-参考保司提供样例
-	MainItemAddContent *string `json:"main_item_add_content,omitempty" xml:"main_item_add_content,omitempty"`
-}
-
-func (s MainItemAdd) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MainItemAdd) GoString() string {
-	return s.String()
-}
-
-func (s *MainItemAdd) SetMainItemAddCode(v string) *MainItemAdd {
-	s.MainItemAddCode = &v
-	return s
-}
-
-func (s *MainItemAdd) SetMainItemAddContent(v string) *MainItemAdd {
-	s.MainItemAddContent = &v
-	return s
-}
-
-// 承运人责任险保险标的信息
-type InsureCarrierObjectInfo struct {
-	// 厂牌型号
-	CpModel *string `json:"cp_model,omitempty" xml:"cp_model,omitempty" require:"true"`
-	// 车架号
-	FrameNo *string `json:"frame_no,omitempty" xml:"frame_no,omitempty" require:"true"`
-	// 车牌号码
-	LicenseNo *string `json:"license_no,omitempty" xml:"license_no,omitempty" require:"true"`
-	// 吨位
-	TonNage *string `json:"ton_nage,omitempty" xml:"ton_nage,omitempty" require:"true"`
-	// 行驶证车主
-	DrivPer *string `json:"driv_per,omitempty" xml:"driv_per,omitempty" require:"true"`
-	// 运营证号
-	RunNo *string `json:"run_no,omitempty" xml:"run_no,omitempty" require:"true"`
-	// 运输货物
-	TsCarGo *string `json:"ts_car_go,omitempty" xml:"ts_car_go,omitempty" require:"true"`
-}
-
-func (s InsureCarrierObjectInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s InsureCarrierObjectInfo) GoString() string {
-	return s.String()
-}
-
-func (s *InsureCarrierObjectInfo) SetCpModel(v string) *InsureCarrierObjectInfo {
-	s.CpModel = &v
-	return s
-}
-
-func (s *InsureCarrierObjectInfo) SetFrameNo(v string) *InsureCarrierObjectInfo {
-	s.FrameNo = &v
-	return s
-}
-
-func (s *InsureCarrierObjectInfo) SetLicenseNo(v string) *InsureCarrierObjectInfo {
-	s.LicenseNo = &v
-	return s
-}
-
-func (s *InsureCarrierObjectInfo) SetTonNage(v string) *InsureCarrierObjectInfo {
-	s.TonNage = &v
-	return s
-}
-
-func (s *InsureCarrierObjectInfo) SetDrivPer(v string) *InsureCarrierObjectInfo {
-	s.DrivPer = &v
-	return s
-}
-
-func (s *InsureCarrierObjectInfo) SetRunNo(v string) *InsureCarrierObjectInfo {
-	s.RunNo = &v
-	return s
-}
-
-func (s *InsureCarrierObjectInfo) SetTsCarGo(v string) *InsureCarrierObjectInfo {
-	s.TsCarGo = &v
-	return s
-}
-
-// 航运订舱单号信息
-type BookingNoInfo struct {
-	// 订舱单唯一标识
-	BookingNo *string `json:"booking_no,omitempty" xml:"booking_no,omitempty"`
-	// 订舱号
-	BkgNo *string `json:"bkg_no,omitempty" xml:"bkg_no,omitempty"`
-}
-
-func (s BookingNoInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BookingNoInfo) GoString() string {
-	return s.String()
-}
-
-func (s *BookingNoInfo) SetBookingNo(v string) *BookingNoInfo {
-	s.BookingNo = &v
-	return s
-}
-
-func (s *BookingNoInfo) SetBkgNo(v string) *BookingNoInfo {
-	s.BkgNo = &v
-	return s
-}
-
-// 入库货物
-type StockinCargo struct {
-	// 入库序号，在同一次入库请求中，入库序号保持不重复，不能小于0
-	StockinIndex *int64 `json:"stockin_index,omitempty" xml:"stockin_index,omitempty" require:"true"`
-	// sku品名
-	//
-	Sku *string `json:"sku,omitempty" xml:"sku,omitempty" require:"true" maxLength:"200"`
-	// 商品名称
-	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" maxLength:"200"`
-	// 商品单品重量(kg)
-	CargoWeight *string `json:"cargo_weight,omitempty" xml:"cargo_weight,omitempty" maxLength:"50"`
-	// 商品外扩长宽高(cm)
-	CargoDimensions *string `json:"cargo_dimensions,omitempty" xml:"cargo_dimensions,omitempty" maxLength:"200"`
-	// 商品单品货物价值(元),，最多支持2位小数
-	CargoWorth *string `json:"cargo_worth,omitempty" xml:"cargo_worth,omitempty" maxLength:"30"`
-	// 箱号
-	ContainerNo *string `json:"container_no,omitempty" xml:"container_no,omitempty" maxLength:"50"`
-	// 实际入库件数
-	ActualStockinNum *int64 `json:"actual_stockin_num,omitempty" xml:"actual_stockin_num,omitempty" require:"true"`
-}
-
-func (s StockinCargo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s StockinCargo) GoString() string {
-	return s.String()
-}
-
-func (s *StockinCargo) SetStockinIndex(v int64) *StockinCargo {
-	s.StockinIndex = &v
-	return s
-}
-
-func (s *StockinCargo) SetSku(v string) *StockinCargo {
-	s.Sku = &v
-	return s
-}
-
-func (s *StockinCargo) SetCargoName(v string) *StockinCargo {
-	s.CargoName = &v
-	return s
-}
-
-func (s *StockinCargo) SetCargoWeight(v string) *StockinCargo {
-	s.CargoWeight = &v
-	return s
-}
-
-func (s *StockinCargo) SetCargoDimensions(v string) *StockinCargo {
-	s.CargoDimensions = &v
-	return s
-}
-
-func (s *StockinCargo) SetCargoWorth(v string) *StockinCargo {
-	s.CargoWorth = &v
-	return s
-}
-
-func (s *StockinCargo) SetContainerNo(v string) *StockinCargo {
-	s.ContainerNo = &v
-	return s
-}
-
-func (s *StockinCargo) SetActualStockinNum(v int64) *StockinCargo {
-	s.ActualStockinNum = &v
-	return s
-}
-
-// 提单货物数据
-type MasterBlGoodsDto struct {
-	// 唛头
-	Marks *string `json:"marks,omitempty" xml:"marks,omitempty"`
-	// 货物
-	Goods *string `json:"goods,omitempty" xml:"goods,omitempty" require:"true"`
-	// 货物类型
-	GoodsType *string `json:"goods_type,omitempty" xml:"goods_type,omitempty" require:"true"`
-	// 包装类型
-	PackageType *string `json:"package_type,omitempty" xml:"package_type,omitempty"`
-	// 委托件数
-	Number *string `json:"number,omitempty" xml:"number,omitempty" require:"true"`
-	// 委托重量
-	Weight *string `json:"weight,omitempty" xml:"weight,omitempty" require:"true"`
-	// 委托体积
-	Volume *string `json:"volume,omitempty" xml:"volume,omitempty" require:"true"`
-}
-
-func (s MasterBlGoodsDto) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MasterBlGoodsDto) GoString() string {
-	return s.String()
-}
-
-func (s *MasterBlGoodsDto) SetMarks(v string) *MasterBlGoodsDto {
-	s.Marks = &v
-	return s
-}
-
-func (s *MasterBlGoodsDto) SetGoods(v string) *MasterBlGoodsDto {
-	s.Goods = &v
-	return s
-}
-
-func (s *MasterBlGoodsDto) SetGoodsType(v string) *MasterBlGoodsDto {
-	s.GoodsType = &v
-	return s
-}
-
-func (s *MasterBlGoodsDto) SetPackageType(v string) *MasterBlGoodsDto {
-	s.PackageType = &v
-	return s
-}
-
-func (s *MasterBlGoodsDto) SetNumber(v string) *MasterBlGoodsDto {
-	s.Number = &v
-	return s
-}
-
-func (s *MasterBlGoodsDto) SetWeight(v string) *MasterBlGoodsDto {
-	s.Weight = &v
-	return s
-}
-
-func (s *MasterBlGoodsDto) SetVolume(v string) *MasterBlGoodsDto {
-	s.Volume = &v
-	return s
-}
-
-// 资费项发票
-type ReceiptTariffInvoiceParam struct {
-	// 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-	Action *string `json:"action,omitempty" xml:"action,omitempty"`
-	// 发票金额 业务必填
-	InvoiceAmount *string `json:"invoice_amount,omitempty" xml:"invoice_amount,omitempty"`
-	// 资费项金额 业务必填
-	ReceiptTariffAmount *string `json:"receipt_tariff_amount,omitempty" xml:"receipt_tariff_amount,omitempty"`
-	// 资费单据编号 业务必填
-	ReceiptTariffCode *string `json:"receipt_tariff_code,omitempty" xml:"receipt_tariff_code,omitempty"`
-	// 资费项发票code
-	ReceiptTariffInvoiceCode *string `json:"receipt_tariff_invoice_code,omitempty" xml:"receipt_tariff_invoice_code,omitempty" require:"true"`
-}
-
-func (s ReceiptTariffInvoiceParam) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ReceiptTariffInvoiceParam) GoString() string {
-	return s.String()
-}
-
-func (s *ReceiptTariffInvoiceParam) SetAction(v string) *ReceiptTariffInvoiceParam {
-	s.Action = &v
-	return s
-}
-
-func (s *ReceiptTariffInvoiceParam) SetInvoiceAmount(v string) *ReceiptTariffInvoiceParam {
-	s.InvoiceAmount = &v
-	return s
-}
-
-func (s *ReceiptTariffInvoiceParam) SetReceiptTariffAmount(v string) *ReceiptTariffInvoiceParam {
-	s.ReceiptTariffAmount = &v
-	return s
-}
-
-func (s *ReceiptTariffInvoiceParam) SetReceiptTariffCode(v string) *ReceiptTariffInvoiceParam {
-	s.ReceiptTariffCode = &v
-	return s
-}
-
-func (s *ReceiptTariffInvoiceParam) SetReceiptTariffInvoiceCode(v string) *ReceiptTariffInvoiceParam {
-	s.ReceiptTariffInvoiceCode = &v
-	return s
-}
-
 // 上传booking信息
 type UploadOrderBooking struct {
 	// 订舱单号
@@ -2415,29 +2019,48 @@ func (s *UploadOrderBooking) SetContainerNos(v string) *UploadOrderBooking {
 	return s
 }
 
-// 轨迹核验结果
-type TrackCheckResult struct {
-	// 轨迹核验状态code
-	TrackCheckStatus *string `json:"track_check_status,omitempty" xml:"track_check_status,omitempty"`
-	// 轨迹核验结果描述
-	TrackCheckStatusMsg *string `json:"track_check_status_msg,omitempty" xml:"track_check_status_msg,omitempty"`
+// 航运集装箱类型信息
+type ContainerTypeInfo struct {
+	// 箱型
+	ContainerType *string `json:"container_type,omitempty" xml:"container_type,omitempty"`
+	// 箱量
+	ContainerVolume *string `json:"container_volume,omitempty" xml:"container_volume,omitempty"`
 }
 
-func (s TrackCheckResult) String() string {
+func (s ContainerTypeInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s TrackCheckResult) GoString() string {
+func (s ContainerTypeInfo) GoString() string {
 	return s.String()
 }
 
-func (s *TrackCheckResult) SetTrackCheckStatus(v string) *TrackCheckResult {
-	s.TrackCheckStatus = &v
+func (s *ContainerTypeInfo) SetContainerType(v string) *ContainerTypeInfo {
+	s.ContainerType = &v
 	return s
 }
 
-func (s *TrackCheckResult) SetTrackCheckStatusMsg(v string) *TrackCheckResult {
-	s.TrackCheckStatusMsg = &v
+func (s *ContainerTypeInfo) SetContainerVolume(v string) *ContainerTypeInfo {
+	s.ContainerVolume = &v
+	return s
+}
+
+// 凭证返回值
+type VoucherResp struct {
+	// 消息
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty" require:"true" maxLength:"10" minLength:"0"`
+}
+
+func (s VoucherResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VoucherResp) GoString() string {
+	return s.String()
+}
+
+func (s *VoucherResp) SetMsg(v string) *VoucherResp {
+	s.Msg = &v
 	return s
 }
 
@@ -2572,561 +2195,154 @@ func (s *ContainerGoodsParam) SetWeight(v string) *ContainerGoodsParam {
 	return s
 }
 
-// 车辆损失详情
-type CarLoss struct {
-	// 车牌号，车牌号和车架号至少填一个
-	CarMark *string `json:"car_mark,omitempty" xml:"car_mark,omitempty" maxLength:"20"`
-	// 车主姓名
-	CarOwnerName *string `json:"car_owner_name,omitempty" xml:"car_owner_name,omitempty" maxLength:"200"`
-	// 车主联系方式
-	CarOwnerContact *string `json:"car_owner_contact,omitempty" xml:"car_owner_contact,omitempty" maxLength:"20"`
-	// 车架号，车牌号和车架号至少填一个
-	CarVinNo *string `json:"car_vin_no,omitempty" xml:"car_vin_no,omitempty" maxLength:"100"`
-	// 损失预估，单位（元），最多支持2位小数
-	CarLossEstimateAmount *string `json:"car_loss_estimate_amount,omitempty" xml:"car_loss_estimate_amount,omitempty" require:"true"`
+// 应付账单发票关联项
+type PayBillInvoiceParam struct {
+	// 账单发票code
+	PayBillInvoiceCode *string `json:"pay_bill_invoice_code,omitempty" xml:"pay_bill_invoice_code,omitempty" require:"true"`
+	// 账单编号
+	PayBillOrderCode *string `json:"pay_bill_order_code,omitempty" xml:"pay_bill_order_code,omitempty" require:"true"`
+	// 账单金额
+	PayBillAmount *string `json:"pay_bill_amount,omitempty" xml:"pay_bill_amount,omitempty" require:"true"`
+	// 发票金额
+	InvoiceAmount *string `json:"invoice_amount,omitempty" xml:"invoice_amount,omitempty" require:"true"`
+	// 操作动作
+	Action *string `json:"action,omitempty" xml:"action,omitempty"`
 }
 
-func (s CarLoss) String() string {
+func (s PayBillInvoiceParam) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CarLoss) GoString() string {
+func (s PayBillInvoiceParam) GoString() string {
 	return s.String()
 }
 
-func (s *CarLoss) SetCarMark(v string) *CarLoss {
-	s.CarMark = &v
+func (s *PayBillInvoiceParam) SetPayBillInvoiceCode(v string) *PayBillInvoiceParam {
+	s.PayBillInvoiceCode = &v
 	return s
 }
 
-func (s *CarLoss) SetCarOwnerName(v string) *CarLoss {
-	s.CarOwnerName = &v
+func (s *PayBillInvoiceParam) SetPayBillOrderCode(v string) *PayBillInvoiceParam {
+	s.PayBillOrderCode = &v
 	return s
 }
 
-func (s *CarLoss) SetCarOwnerContact(v string) *CarLoss {
-	s.CarOwnerContact = &v
+func (s *PayBillInvoiceParam) SetPayBillAmount(v string) *PayBillInvoiceParam {
+	s.PayBillAmount = &v
 	return s
 }
 
-func (s *CarLoss) SetCarVinNo(v string) *CarLoss {
-	s.CarVinNo = &v
+func (s *PayBillInvoiceParam) SetInvoiceAmount(v string) *PayBillInvoiceParam {
+	s.InvoiceAmount = &v
 	return s
 }
 
-func (s *CarLoss) SetCarLossEstimateAmount(v string) *CarLoss {
-	s.CarLossEstimateAmount = &v
+func (s *PayBillInvoiceParam) SetAction(v string) *PayBillInvoiceParam {
+	s.Action = &v
 	return s
 }
 
-// 电子提单变更状态明细
-type EblStatusDetail struct {
-	// 当前提单状态
-	CurrentEblStatus *string `json:"current_ebl_status,omitempty" xml:"current_ebl_status,omitempty" require:"true"`
-	// 电子提单编号
-	EblNo *string `json:"ebl_no,omitempty" xml:"ebl_no,omitempty" require:"true"`
-	// 下一个提单状态
-	NextEblStatus *string `json:"next_ebl_status,omitempty" xml:"next_ebl_status,omitempty" require:"true"`
+// 货主支付方式
+type PayAmount struct {
+	// 支付金额（2位小数）
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 支付方式
+	PayType *string `json:"pay_type,omitempty" xml:"pay_type,omitempty" require:"true"`
 }
 
-func (s EblStatusDetail) String() string {
+func (s PayAmount) String() string {
 	return tea.Prettify(s)
 }
 
-func (s EblStatusDetail) GoString() string {
+func (s PayAmount) GoString() string {
 	return s.String()
 }
 
-func (s *EblStatusDetail) SetCurrentEblStatus(v string) *EblStatusDetail {
-	s.CurrentEblStatus = &v
+func (s *PayAmount) SetAmount(v string) *PayAmount {
+	s.Amount = &v
 	return s
 }
 
-func (s *EblStatusDetail) SetEblNo(v string) *EblStatusDetail {
-	s.EblNo = &v
+func (s *PayAmount) SetPayType(v string) *PayAmount {
+	s.PayType = &v
 	return s
 }
 
-func (s *EblStatusDetail) SetNextEblStatus(v string) *EblStatusDetail {
-	s.NextEblStatus = &v
-	return s
-}
-
-// 应付资费项
-type PayTariffInfo struct {
-	// 托运单号 [业务必填]
-	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
-	// 应付资费项code [业务必填]
-	//
-	//
+// 资费项账单
+type PayBillTariffParam struct {
+	// 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+	Action *string `json:"action,omitempty" xml:"action,omitempty"`
+	// 账单金额 业务必填
+	BillAmount *string `json:"bill_amount,omitempty" xml:"bill_amount,omitempty"`
+	// 应付账单、应付资费项 多对多code
+	PayBillTariffCode *string `json:"pay_bill_tariff_code,omitempty" xml:"pay_bill_tariff_code,omitempty" require:"true"`
+	//  资费项金额 业务必填
+	PayTariffAmount *string `json:"pay_tariff_amount,omitempty" xml:"pay_tariff_amount,omitempty"`
+	// 应付资费项编号 业务必填
 	PayTariffCode *string `json:"pay_tariff_code,omitempty" xml:"pay_tariff_code,omitempty"`
-	// 应付资费项项目 [业务必填]
-	//
-	//
-	PayTariffProject *string `json:"pay_tariff_project,omitempty" xml:"pay_tariff_project,omitempty"`
-	// 资费项中文描述 [业务必填]
-	//
-	//
-	PayTariffDesc *string `json:"pay_tariff_desc,omitempty" xml:"pay_tariff_desc,omitempty"`
-	// 币种 [业务必填]
-	Currency *string `json:"currency,omitempty" xml:"currency,omitempty"`
-	// 资费项含税价 [业务必填]
-	//
-	//
-	PriceIncludingTax *string `json:"price_including_tax,omitempty" xml:"price_including_tax,omitempty"`
-	// 订舱单唯一性标识 [业务必填]
-	BookingNo *string `json:"booking_no,omitempty" xml:"booking_no,omitempty"`
-	// 订舱单 [业务必填]
-	BkgNo *string `json:"bkg_no,omitempty" xml:"bkg_no,omitempty"`
 }
 
-func (s PayTariffInfo) String() string {
+func (s PayBillTariffParam) String() string {
 	return tea.Prettify(s)
 }
 
-func (s PayTariffInfo) GoString() string {
+func (s PayBillTariffParam) GoString() string {
 	return s.String()
 }
 
-func (s *PayTariffInfo) SetOrderNo(v string) *PayTariffInfo {
-	s.OrderNo = &v
+func (s *PayBillTariffParam) SetAction(v string) *PayBillTariffParam {
+	s.Action = &v
 	return s
 }
 
-func (s *PayTariffInfo) SetPayTariffCode(v string) *PayTariffInfo {
+func (s *PayBillTariffParam) SetBillAmount(v string) *PayBillTariffParam {
+	s.BillAmount = &v
+	return s
+}
+
+func (s *PayBillTariffParam) SetPayBillTariffCode(v string) *PayBillTariffParam {
+	s.PayBillTariffCode = &v
+	return s
+}
+
+func (s *PayBillTariffParam) SetPayTariffAmount(v string) *PayBillTariffParam {
+	s.PayTariffAmount = &v
+	return s
+}
+
+func (s *PayBillTariffParam) SetPayTariffCode(v string) *PayBillTariffParam {
 	s.PayTariffCode = &v
 	return s
 }
 
-func (s *PayTariffInfo) SetPayTariffProject(v string) *PayTariffInfo {
-	s.PayTariffProject = &v
-	return s
+// 轨迹核验结果
+type TrackCheckResult struct {
+	// 轨迹核验状态code
+	TrackCheckStatus *string `json:"track_check_status,omitempty" xml:"track_check_status,omitempty"`
+	// 轨迹核验结果描述
+	TrackCheckStatusMsg *string `json:"track_check_status_msg,omitempty" xml:"track_check_status_msg,omitempty"`
 }
 
-func (s *PayTariffInfo) SetPayTariffDesc(v string) *PayTariffInfo {
-	s.PayTariffDesc = &v
-	return s
-}
-
-func (s *PayTariffInfo) SetCurrency(v string) *PayTariffInfo {
-	s.Currency = &v
-	return s
-}
-
-func (s *PayTariffInfo) SetPriceIncludingTax(v string) *PayTariffInfo {
-	s.PriceIncludingTax = &v
-	return s
-}
-
-func (s *PayTariffInfo) SetBookingNo(v string) *PayTariffInfo {
-	s.BookingNo = &v
-	return s
-}
-
-func (s *PayTariffInfo) SetBkgNo(v string) *PayTariffInfo {
-	s.BkgNo = &v
-	return s
-}
-
-// FinishWaybillOrderReq
-type FinishWaybillOrderReq struct {
-	// 运费
-	AllFreight *string `json:"all_freight,omitempty" xml:"all_freight,omitempty"`
-	// 回单押金
-	BackFee *string `json:"back_fee,omitempty" xml:"back_fee,omitempty"`
-	// 货主支付运费金额
-	ConsignorFreightAmount *string `json:"consignor_freight_amount,omitempty" xml:"consignor_freight_amount,omitempty"`
-	// 运费增项
-	FreightIncr *string `json:"freight_incr,omitempty" xml:"freight_incr,omitempty"`
-	// 运费扣减
-	LossFee *string `json:"loss_fee,omitempty" xml:"loss_fee,omitempty"`
-	// 平台did
-	PlatformDid *string `json:"platform_did,omitempty" xml:"platform_did,omitempty" require:"true"`
-	// 运单id
-	TaxWaybillId *string `json:"tax_waybill_id,omitempty" xml:"tax_waybill_id,omitempty" require:"true"`
-}
-
-func (s FinishWaybillOrderReq) String() string {
+func (s TrackCheckResult) String() string {
 	return tea.Prettify(s)
 }
 
-func (s FinishWaybillOrderReq) GoString() string {
+func (s TrackCheckResult) GoString() string {
 	return s.String()
 }
 
-func (s *FinishWaybillOrderReq) SetAllFreight(v string) *FinishWaybillOrderReq {
-	s.AllFreight = &v
+func (s *TrackCheckResult) SetTrackCheckStatus(v string) *TrackCheckResult {
+	s.TrackCheckStatus = &v
 	return s
 }
 
-func (s *FinishWaybillOrderReq) SetBackFee(v string) *FinishWaybillOrderReq {
-	s.BackFee = &v
-	return s
-}
-
-func (s *FinishWaybillOrderReq) SetConsignorFreightAmount(v string) *FinishWaybillOrderReq {
-	s.ConsignorFreightAmount = &v
-	return s
-}
-
-func (s *FinishWaybillOrderReq) SetFreightIncr(v string) *FinishWaybillOrderReq {
-	s.FreightIncr = &v
-	return s
-}
-
-func (s *FinishWaybillOrderReq) SetLossFee(v string) *FinishWaybillOrderReq {
-	s.LossFee = &v
-	return s
-}
-
-func (s *FinishWaybillOrderReq) SetPlatformDid(v string) *FinishWaybillOrderReq {
-	s.PlatformDid = &v
-	return s
-}
-
-func (s *FinishWaybillOrderReq) SetTaxWaybillId(v string) *FinishWaybillOrderReq {
-	s.TaxWaybillId = &v
-	return s
-}
-
-// 运单号-司机运费
-type WaybillAmount struct {
-	// 运单金额（2位小数）
-	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
-	// 运单号
-	WaybillId *string `json:"waybill_id,omitempty" xml:"waybill_id,omitempty" require:"true"`
-}
-
-func (s WaybillAmount) String() string {
-	return tea.Prettify(s)
-}
-
-func (s WaybillAmount) GoString() string {
-	return s.String()
-}
-
-func (s *WaybillAmount) SetAmount(v string) *WaybillAmount {
-	s.Amount = &v
-	return s
-}
-
-func (s *WaybillAmount) SetWaybillId(v string) *WaybillAmount {
-	s.WaybillId = &v
-	return s
-}
-
-// 电子回单查询凭证数据
-type ScpTicketIssueDataParam struct {
-	// 凭证id
-	IssueId *string `json:"issue_id,omitempty" xml:"issue_id,omitempty" require:"true"`
-	// 凭证对应的司机/货主的did
-	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
-}
-
-func (s ScpTicketIssueDataParam) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ScpTicketIssueDataParam) GoString() string {
-	return s.String()
-}
-
-func (s *ScpTicketIssueDataParam) SetIssueId(v string) *ScpTicketIssueDataParam {
-	s.IssueId = &v
-	return s
-}
-
-func (s *ScpTicketIssueDataParam) SetDid(v string) *ScpTicketIssueDataParam {
-	s.Did = &v
-	return s
-}
-
-// saas模式发行信息
-type SaasIssueApplyInfo struct {
-	// 货源订单
-	CargoOrder *string `json:"cargo_order,omitempty" xml:"cargo_order,omitempty"`
-	// 合同号
-	ContractId *string `json:"contract_id,omitempty" xml:"contract_id,omitempty"`
-	// 全局唯一业务单号
-	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
-	// 支付单号
-	PayOrder *string `json:"pay_order,omitempty" xml:"pay_order,omitempty" require:"true"`
-	// 运单号
-	WaybillId *string `json:"waybill_id,omitempty" xml:"waybill_id,omitempty" require:"true"`
-	// 司机did
-	DriverDid *string `json:"driver_did,omitempty" xml:"driver_did,omitempty" require:"true"`
-	// 发行费
-	Freight *string `json:"freight,omitempty" xml:"freight,omitempty" require:"true"`
-	// 到期时间戳
-	ExpireDate *string `json:"expire_date,omitempty" xml:"expire_date,omitempty" require:"true"`
-}
-
-func (s SaasIssueApplyInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SaasIssueApplyInfo) GoString() string {
-	return s.String()
-}
-
-func (s *SaasIssueApplyInfo) SetCargoOrder(v string) *SaasIssueApplyInfo {
-	s.CargoOrder = &v
-	return s
-}
-
-func (s *SaasIssueApplyInfo) SetContractId(v string) *SaasIssueApplyInfo {
-	s.ContractId = &v
-	return s
-}
-
-func (s *SaasIssueApplyInfo) SetOutBizNo(v string) *SaasIssueApplyInfo {
-	s.OutBizNo = &v
-	return s
-}
-
-func (s *SaasIssueApplyInfo) SetPayOrder(v string) *SaasIssueApplyInfo {
-	s.PayOrder = &v
-	return s
-}
-
-func (s *SaasIssueApplyInfo) SetWaybillId(v string) *SaasIssueApplyInfo {
-	s.WaybillId = &v
-	return s
-}
-
-func (s *SaasIssueApplyInfo) SetDriverDid(v string) *SaasIssueApplyInfo {
-	s.DriverDid = &v
-	return s
-}
-
-func (s *SaasIssueApplyInfo) SetFreight(v string) *SaasIssueApplyInfo {
-	s.Freight = &v
-	return s
-}
-
-func (s *SaasIssueApplyInfo) SetExpireDate(v string) *SaasIssueApplyInfo {
-	s.ExpireDate = &v
-	return s
-}
-
-// 应收资费项
-type ReceiptTariffInfo struct {
-	// 托运单号 [业务必填]
-	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
-	// 应收资费项code [业务必填]
-	//
-	//
-	ReceiptTariffCode *string `json:"receipt_tariff_code,omitempty" xml:"receipt_tariff_code,omitempty"`
-	// 应收资费项项目 [业务必填]
-	ReceiptTariffProject *string `json:"receipt_tariff_project,omitempty" xml:"receipt_tariff_project,omitempty"`
-	// 资费项中文描述 [业务必填]
-	//
-	//
-	ReceiptTariffDesc *string `json:"receipt_tariff_desc,omitempty" xml:"receipt_tariff_desc,omitempty"`
-	// 币种 [业务必填]
-	Currency *string `json:"currency,omitempty" xml:"currency,omitempty"`
-	// 资费项含税价 [业务必填]
-	//
-	//
-	PriceIncludingTax *string `json:"price_including_tax,omitempty" xml:"price_including_tax,omitempty"`
-	// 订舱单唯一标识 [业务必填]
-	BookingNo *string `json:"booking_no,omitempty" xml:"booking_no,omitempty"`
-	// 订舱号 [业务必填]
-	BkgNo *string `json:"bkg_no,omitempty" xml:"bkg_no,omitempty"`
-}
-
-func (s ReceiptTariffInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ReceiptTariffInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ReceiptTariffInfo) SetOrderNo(v string) *ReceiptTariffInfo {
-	s.OrderNo = &v
-	return s
-}
-
-func (s *ReceiptTariffInfo) SetReceiptTariffCode(v string) *ReceiptTariffInfo {
-	s.ReceiptTariffCode = &v
-	return s
-}
-
-func (s *ReceiptTariffInfo) SetReceiptTariffProject(v string) *ReceiptTariffInfo {
-	s.ReceiptTariffProject = &v
-	return s
-}
-
-func (s *ReceiptTariffInfo) SetReceiptTariffDesc(v string) *ReceiptTariffInfo {
-	s.ReceiptTariffDesc = &v
-	return s
-}
-
-func (s *ReceiptTariffInfo) SetCurrency(v string) *ReceiptTariffInfo {
-	s.Currency = &v
-	return s
-}
-
-func (s *ReceiptTariffInfo) SetPriceIncludingTax(v string) *ReceiptTariffInfo {
-	s.PriceIncludingTax = &v
-	return s
-}
-
-func (s *ReceiptTariffInfo) SetBookingNo(v string) *ReceiptTariffInfo {
-	s.BookingNo = &v
-	return s
-}
-
-func (s *ReceiptTariffInfo) SetBkgNo(v string) *ReceiptTariffInfo {
-	s.BkgNo = &v
-	return s
-}
-
-// 货源单号-货主运费
-type CargoAmount struct {
-	// 货运单对应金额（2位小数）
-	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
-	// 货源单号
-	CargoOrder *string `json:"cargo_order,omitempty" xml:"cargo_order,omitempty" require:"true"`
-}
-
-func (s CargoAmount) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CargoAmount) GoString() string {
-	return s.String()
-}
-
-func (s *CargoAmount) SetAmount(v string) *CargoAmount {
-	s.Amount = &v
-	return s
-}
-
-func (s *CargoAmount) SetCargoOrder(v string) *CargoAmount {
-	s.CargoOrder = &v
-	return s
-}
-
-// 凭证开立申请信息
-type IssueApplyInfo struct {
-	// 货源订单
-	CargoOrder *string `json:"cargo_order,omitempty" xml:"cargo_order,omitempty"`
-	// 合同号（预留）
-	ContractId *string `json:"contract_id,omitempty" xml:"contract_id,omitempty"`
-	// 凭证到期时间
-	ExpireDate *string `json:"expire_date,omitempty" xml:"expire_date,omitempty" require:"true"`
-	// 支付单运费，运费最多精确到小数点后2位
-	Freight *string `json:"freight,omitempty" xml:"freight,omitempty" require:"true"`
-	// 全局唯一业务号
-	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
-	// 支付订单
-	PayOrder *string `json:"pay_order,omitempty" xml:"pay_order,omitempty" require:"true"`
-	// 运单id
-	WaybillId *string `json:"waybill_id,omitempty" xml:"waybill_id,omitempty" require:"true"`
-	// 司机did
-	DriverDid *string `json:"driver_did,omitempty" xml:"driver_did,omitempty"`
-}
-
-func (s IssueApplyInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IssueApplyInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IssueApplyInfo) SetCargoOrder(v string) *IssueApplyInfo {
-	s.CargoOrder = &v
-	return s
-}
-
-func (s *IssueApplyInfo) SetContractId(v string) *IssueApplyInfo {
-	s.ContractId = &v
-	return s
-}
-
-func (s *IssueApplyInfo) SetExpireDate(v string) *IssueApplyInfo {
-	s.ExpireDate = &v
-	return s
-}
-
-func (s *IssueApplyInfo) SetFreight(v string) *IssueApplyInfo {
-	s.Freight = &v
-	return s
-}
-
-func (s *IssueApplyInfo) SetOutBizNo(v string) *IssueApplyInfo {
-	s.OutBizNo = &v
-	return s
-}
-
-func (s *IssueApplyInfo) SetPayOrder(v string) *IssueApplyInfo {
-	s.PayOrder = &v
-	return s
-}
-
-func (s *IssueApplyInfo) SetWaybillId(v string) *IssueApplyInfo {
-	s.WaybillId = &v
-	return s
-}
-
-func (s *IssueApplyInfo) SetDriverDid(v string) *IssueApplyInfo {
-	s.DriverDid = &v
-	return s
-}
-
-// 物流轨迹位置
-type LogisticLocation struct {
-	// 结构化地址信息,规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦
-	Address *string `json:"address,omitempty" xml:"address,omitempty"`
-	// 行政区划代码
-	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty"`
-	// 纬度
-	//
-	Lat *string `json:"lat,omitempty" xml:"lat,omitempty" require:"true"`
-	// 经度
-	Lon *string `json:"lon,omitempty" xml:"lon,omitempty" require:"true"`
-	// 轨迹时间戳
-	TrackTime *int64 `json:"track_time,omitempty" xml:"track_time,omitempty" require:"true"`
-}
-
-func (s LogisticLocation) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LogisticLocation) GoString() string {
-	return s.String()
-}
-
-func (s *LogisticLocation) SetAddress(v string) *LogisticLocation {
-	s.Address = &v
-	return s
-}
-
-func (s *LogisticLocation) SetCityCode(v string) *LogisticLocation {
-	s.CityCode = &v
-	return s
-}
-
-func (s *LogisticLocation) SetLat(v string) *LogisticLocation {
-	s.Lat = &v
-	return s
-}
-
-func (s *LogisticLocation) SetLon(v string) *LogisticLocation {
-	s.Lon = &v
-	return s
-}
-
-func (s *LogisticLocation) SetTrackTime(v int64) *LogisticLocation {
-	s.TrackTime = &v
+func (s *TrackCheckResult) SetTrackCheckStatusMsg(v string) *TrackCheckResult {
+	s.TrackCheckStatusMsg = &v
 	return s
 }
 
 // 集装箱列表
-type MasterBlContainerParam struct {
+type HouseBlContainerParam struct {
 	// 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
 	Action *string `json:"action,omitempty" xml:"action,omitempty"`
 	// 集装箱ID
@@ -3135,104 +2351,26 @@ type MasterBlContainerParam struct {
 	ContainerNo *string `json:"container_no,omitempty" xml:"container_no,omitempty"`
 }
 
-func (s MasterBlContainerParam) String() string {
+func (s HouseBlContainerParam) String() string {
 	return tea.Prettify(s)
 }
 
-func (s MasterBlContainerParam) GoString() string {
+func (s HouseBlContainerParam) GoString() string {
 	return s.String()
 }
 
-func (s *MasterBlContainerParam) SetAction(v string) *MasterBlContainerParam {
+func (s *HouseBlContainerParam) SetAction(v string) *HouseBlContainerParam {
 	s.Action = &v
 	return s
 }
 
-func (s *MasterBlContainerParam) SetContainerId(v string) *MasterBlContainerParam {
+func (s *HouseBlContainerParam) SetContainerId(v string) *HouseBlContainerParam {
 	s.ContainerId = &v
 	return s
 }
 
-func (s *MasterBlContainerParam) SetContainerNo(v string) *MasterBlContainerParam {
+func (s *HouseBlContainerParam) SetContainerNo(v string) *HouseBlContainerParam {
 	s.ContainerNo = &v
-	return s
-}
-
-// 订舱单
-type HouseBlBookingParam struct {
-	// 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
-	Action *string `json:"action,omitempty" xml:"action,omitempty"`
-	// 订舱单号
-	BookingNo *string `json:"booking_no,omitempty" xml:"booking_no,omitempty" require:"true"`
-}
-
-func (s HouseBlBookingParam) String() string {
-	return tea.Prettify(s)
-}
-
-func (s HouseBlBookingParam) GoString() string {
-	return s.String()
-}
-
-func (s *HouseBlBookingParam) SetAction(v string) *HouseBlBookingParam {
-	s.Action = &v
-	return s
-}
-
-func (s *HouseBlBookingParam) SetBookingNo(v string) *HouseBlBookingParam {
-	s.BookingNo = &v
-	return s
-}
-
-// 上传订单总金额
-type UploadOrderAmount struct {
-	// 币种
-	Currency *string `json:"currency,omitempty" xml:"currency,omitempty" require:"true"`
-	// 总金额
-	TotalAmount *string `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
-}
-
-func (s UploadOrderAmount) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UploadOrderAmount) GoString() string {
-	return s.String()
-}
-
-func (s *UploadOrderAmount) SetCurrency(v string) *UploadOrderAmount {
-	s.Currency = &v
-	return s
-}
-
-func (s *UploadOrderAmount) SetTotalAmount(v string) *UploadOrderAmount {
-	s.TotalAmount = &v
-	return s
-}
-
-// 索赔资料附件
-type ClaimInformation struct {
-	// 索赔资料地址url
-	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true" maxLength:"500"`
-	// 文件名
-	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true" maxLength:"200"`
-}
-
-func (s ClaimInformation) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ClaimInformation) GoString() string {
-	return s.String()
-}
-
-func (s *ClaimInformation) SetFileUrl(v string) *ClaimInformation {
-	s.FileUrl = &v
-	return s
-}
-
-func (s *ClaimInformation) SetFileName(v string) *ClaimInformation {
-	s.FileName = &v
 	return s
 }
 
@@ -3374,104 +2512,966 @@ func (s *MasterBlGoodsParam) SetWeight(v string) *MasterBlGoodsParam {
 	return s
 }
 
-// A+模式发行信息
-type IssueApplyInfoPlus struct {
-	// 订单中的BookingNo，以英文逗号分割
-	BookingNo *string `json:"booking_no,omitempty" xml:"booking_no,omitempty" require:"true"`
-	// 船公司did
-	CarrierDid *string `json:"carrier_did,omitempty" xml:"carrier_did,omitempty" require:"true"`
-	// BookingNo中的箱号，以英文逗号分割
-	ContainerNo *string `json:"container_no,omitempty" xml:"container_no,omitempty" require:"true"`
-	// 到期时间戳
-	ExpireDate *string `json:"expire_date,omitempty" xml:"expire_date,omitempty" require:"true"`
-	// 发行金额，精确到小数点后2位
-	IssueAmt *string `json:"issue_amt,omitempty" xml:"issue_amt,omitempty" require:"true"`
-	// 全局唯一业务号
-	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
-	// 支付单号
-	OutOrderNo *string `json:"out_order_no,omitempty" xml:"out_order_no,omitempty" require:"true"`
-	// 运单订单id
-	WaybillId *string `json:"waybill_id,omitempty" xml:"waybill_id,omitempty" require:"true"`
+// 支付信息
+type PaymentInfo struct {
+	// 收款账户名称
+	ReceiverAccountName *string `json:"receiver_account_name,omitempty" xml:"receiver_account_name,omitempty" require:"true" maxLength:"200"`
+	// 收款账户，支付宝账号
+	ReceiverAccount *string `json:"receiver_account,omitempty" xml:"receiver_account,omitempty" require:"true" maxLength:"50"`
+	// 收款账户类型 ,1-个人账号，0-公司账号
+	ReceiverAccountType *string `json:"receiver_account_type,omitempty" xml:"receiver_account_type,omitempty" require:"true" maxLength:"2"`
+	// 收款人证件号码 ，账户类型为个人时，非空
+	ReceiverCertificateNo *string `json:"receiver_certificate_no,omitempty" xml:"receiver_certificate_no,omitempty" maxLength:"50"`
+	// 收款人证件类型，01-身份证，02-护照，03-军官证，04-港澳通行证，05-驾驶证，06-港澳回乡证或台胞证，07-临时身份证，99-其他
+	ReceiverCertificateType *string `json:"receiver_certificate_type,omitempty" xml:"receiver_certificate_type,omitempty" require:"true" maxLength:"2"`
 }
 
-func (s IssueApplyInfoPlus) String() string {
+func (s PaymentInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s IssueApplyInfoPlus) GoString() string {
+func (s PaymentInfo) GoString() string {
 	return s.String()
 }
 
-func (s *IssueApplyInfoPlus) SetBookingNo(v string) *IssueApplyInfoPlus {
-	s.BookingNo = &v
+func (s *PaymentInfo) SetReceiverAccountName(v string) *PaymentInfo {
+	s.ReceiverAccountName = &v
 	return s
 }
 
-func (s *IssueApplyInfoPlus) SetCarrierDid(v string) *IssueApplyInfoPlus {
-	s.CarrierDid = &v
+func (s *PaymentInfo) SetReceiverAccount(v string) *PaymentInfo {
+	s.ReceiverAccount = &v
 	return s
 }
 
-func (s *IssueApplyInfoPlus) SetContainerNo(v string) *IssueApplyInfoPlus {
-	s.ContainerNo = &v
+func (s *PaymentInfo) SetReceiverAccountType(v string) *PaymentInfo {
+	s.ReceiverAccountType = &v
 	return s
 }
 
-func (s *IssueApplyInfoPlus) SetExpireDate(v string) *IssueApplyInfoPlus {
+func (s *PaymentInfo) SetReceiverCertificateNo(v string) *PaymentInfo {
+	s.ReceiverCertificateNo = &v
+	return s
+}
+
+func (s *PaymentInfo) SetReceiverCertificateType(v string) *PaymentInfo {
+	s.ReceiverCertificateType = &v
+	return s
+}
+
+// 货源单号-货主运费
+type CargoAmount struct {
+	// 货运单对应金额（2位小数）
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 货源单号
+	CargoOrder *string `json:"cargo_order,omitempty" xml:"cargo_order,omitempty" require:"true"`
+}
+
+func (s CargoAmount) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CargoAmount) GoString() string {
+	return s.String()
+}
+
+func (s *CargoAmount) SetAmount(v string) *CargoAmount {
+	s.Amount = &v
+	return s
+}
+
+func (s *CargoAmount) SetCargoOrder(v string) *CargoAmount {
+	s.CargoOrder = &v
+	return s
+}
+
+// 凭证开立申请信息
+type IssueApplyInfo struct {
+	// 货源订单
+	CargoOrder *string `json:"cargo_order,omitempty" xml:"cargo_order,omitempty"`
+	// 合同号（预留）
+	ContractId *string `json:"contract_id,omitempty" xml:"contract_id,omitempty"`
+	// 凭证到期时间
+	ExpireDate *string `json:"expire_date,omitempty" xml:"expire_date,omitempty" require:"true"`
+	// 支付单运费，运费最多精确到小数点后2位
+	Freight *string `json:"freight,omitempty" xml:"freight,omitempty" require:"true"`
+	// 全局唯一业务号
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
+	// 支付订单
+	PayOrder *string `json:"pay_order,omitempty" xml:"pay_order,omitempty" require:"true"`
+	// 运单id
+	WaybillId *string `json:"waybill_id,omitempty" xml:"waybill_id,omitempty" require:"true"`
+	// 司机did
+	DriverDid *string `json:"driver_did,omitempty" xml:"driver_did,omitempty"`
+}
+
+func (s IssueApplyInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IssueApplyInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IssueApplyInfo) SetCargoOrder(v string) *IssueApplyInfo {
+	s.CargoOrder = &v
+	return s
+}
+
+func (s *IssueApplyInfo) SetContractId(v string) *IssueApplyInfo {
+	s.ContractId = &v
+	return s
+}
+
+func (s *IssueApplyInfo) SetExpireDate(v string) *IssueApplyInfo {
 	s.ExpireDate = &v
 	return s
 }
 
-func (s *IssueApplyInfoPlus) SetIssueAmt(v string) *IssueApplyInfoPlus {
-	s.IssueAmt = &v
+func (s *IssueApplyInfo) SetFreight(v string) *IssueApplyInfo {
+	s.Freight = &v
 	return s
 }
 
-func (s *IssueApplyInfoPlus) SetOutBizNo(v string) *IssueApplyInfoPlus {
+func (s *IssueApplyInfo) SetOutBizNo(v string) *IssueApplyInfo {
 	s.OutBizNo = &v
 	return s
 }
 
-func (s *IssueApplyInfoPlus) SetOutOrderNo(v string) *IssueApplyInfoPlus {
-	s.OutOrderNo = &v
+func (s *IssueApplyInfo) SetPayOrder(v string) *IssueApplyInfo {
+	s.PayOrder = &v
 	return s
 }
 
-func (s *IssueApplyInfoPlus) SetWaybillId(v string) *IssueApplyInfoPlus {
+func (s *IssueApplyInfo) SetWaybillId(v string) *IssueApplyInfo {
 	s.WaybillId = &v
 	return s
 }
 
-// 电子提单变更状态明细（无效）
-type EblStatusDeatil struct {
-	// 当前提单状态
-	CurrentEblStatus *string `json:"current_ebl_status,omitempty" xml:"current_ebl_status,omitempty" require:"true"`
-	// 电子提单编号
-	EblNo *string `json:"ebl_no,omitempty" xml:"ebl_no,omitempty" require:"true"`
-	// 下一个提单状态
-	NextEblStatus *string `json:"next_ebl_status,omitempty" xml:"next_ebl_status,omitempty" require:"true"`
-}
-
-func (s EblStatusDeatil) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EblStatusDeatil) GoString() string {
-	return s.String()
-}
-
-func (s *EblStatusDeatil) SetCurrentEblStatus(v string) *EblStatusDeatil {
-	s.CurrentEblStatus = &v
+func (s *IssueApplyInfo) SetDriverDid(v string) *IssueApplyInfo {
+	s.DriverDid = &v
 	return s
 }
 
-func (s *EblStatusDeatil) SetEblNo(v string) *EblStatusDeatil {
+// 授权上链文件
+type AuthChainFile struct {
+	// 签署文件的hash值
+	SignFileHash *string `json:"sign_file_hash,omitempty" xml:"sign_file_hash,omitempty" require:"true"`
+	// 上链事务唯一标识
+	UploadChainTxCode *string `json:"upload_chain_tx_code,omitempty" xml:"upload_chain_tx_code,omitempty" require:"true"`
+	// 蚂蚁区块链统一证据编号
+	BaasUniqCode *string `json:"baas_uniq_code,omitempty" xml:"baas_uniq_code,omitempty" require:"true"`
+	// 上链时间(13位毫秒级时间戳)
+	UploadChainTime *string `json:"upload_chain_time,omitempty" xml:"upload_chain_time,omitempty" require:"true"`
+	// 上链文件下载链接
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+	// 上链文件名称，要求包含扩展名。文件格式允许: pdf, txt, doc, docx
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+}
+
+func (s AuthChainFile) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthChainFile) GoString() string {
+	return s.String()
+}
+
+func (s *AuthChainFile) SetSignFileHash(v string) *AuthChainFile {
+	s.SignFileHash = &v
+	return s
+}
+
+func (s *AuthChainFile) SetUploadChainTxCode(v string) *AuthChainFile {
+	s.UploadChainTxCode = &v
+	return s
+}
+
+func (s *AuthChainFile) SetBaasUniqCode(v string) *AuthChainFile {
+	s.BaasUniqCode = &v
+	return s
+}
+
+func (s *AuthChainFile) SetUploadChainTime(v string) *AuthChainFile {
+	s.UploadChainTime = &v
+	return s
+}
+
+func (s *AuthChainFile) SetFileUrl(v string) *AuthChainFile {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *AuthChainFile) SetFileName(v string) *AuthChainFile {
+	s.FileName = &v
+	return s
+}
+
+// 电子回单查询凭证数据
+type ScpTicketIssueDataParam struct {
+	// 凭证id
+	IssueId *string `json:"issue_id,omitempty" xml:"issue_id,omitempty" require:"true"`
+	// 凭证对应的司机/货主的did
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+}
+
+func (s ScpTicketIssueDataParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ScpTicketIssueDataParam) GoString() string {
+	return s.String()
+}
+
+func (s *ScpTicketIssueDataParam) SetIssueId(v string) *ScpTicketIssueDataParam {
+	s.IssueId = &v
+	return s
+}
+
+func (s *ScpTicketIssueDataParam) SetDid(v string) *ScpTicketIssueDataParam {
+	s.Did = &v
+	return s
+}
+
+// 货物损失详情
+type CargoLoss struct {
+	// 物品类型
+	CargoType *string `json:"cargo_type,omitempty" xml:"cargo_type,omitempty" maxLength:"200"`
+	// 物品名称
+	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" require:"true" maxLength:"500"`
+	// 物品所有人
+	CargoOwner *string `json:"cargo_owner,omitempty" xml:"cargo_owner,omitempty" maxLength:"200"`
+	// 物品损失描述
+	CargoLossDesc *string `json:"cargo_loss_desc,omitempty" xml:"cargo_loss_desc,omitempty" maxLength:"500"`
+	// 损失预估，单位（元），最多支持2位小数
+	CargoLossEstimateAmount *string `json:"cargo_loss_estimate_amount,omitempty" xml:"cargo_loss_estimate_amount,omitempty" require:"true"`
+}
+
+func (s CargoLoss) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CargoLoss) GoString() string {
+	return s.String()
+}
+
+func (s *CargoLoss) SetCargoType(v string) *CargoLoss {
+	s.CargoType = &v
+	return s
+}
+
+func (s *CargoLoss) SetCargoName(v string) *CargoLoss {
+	s.CargoName = &v
+	return s
+}
+
+func (s *CargoLoss) SetCargoOwner(v string) *CargoLoss {
+	s.CargoOwner = &v
+	return s
+}
+
+func (s *CargoLoss) SetCargoLossDesc(v string) *CargoLoss {
+	s.CargoLossDesc = &v
+	return s
+}
+
+func (s *CargoLoss) SetCargoLossEstimateAmount(v string) *CargoLoss {
+	s.CargoLossEstimateAmount = &v
+	return s
+}
+
+// 资费项账单
+type ReceiptBillTariffParam struct {
+	// 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+	Action *string `json:"action,omitempty" xml:"action,omitempty"`
+	//  账单金额 业务必填
+	BillAmount *string `json:"bill_amount,omitempty" xml:"bill_amount,omitempty"`
+	// 应收账单 、应收资费项 多对多关联code
+	ReceiptBillTariffCode *string `json:"receipt_bill_tariff_code,omitempty" xml:"receipt_bill_tariff_code,omitempty" require:"true"`
+	// 资费项金额 业务必填
+	ReceiptTariffAmount *string `json:"receipt_tariff_amount,omitempty" xml:"receipt_tariff_amount,omitempty"`
+	// 应收资费项编号 业务必填
+	ReceiptTariffCode *string `json:"receipt_tariff_code,omitempty" xml:"receipt_tariff_code,omitempty"`
+}
+
+func (s ReceiptBillTariffParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiptBillTariffParam) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiptBillTariffParam) SetAction(v string) *ReceiptBillTariffParam {
+	s.Action = &v
+	return s
+}
+
+func (s *ReceiptBillTariffParam) SetBillAmount(v string) *ReceiptBillTariffParam {
+	s.BillAmount = &v
+	return s
+}
+
+func (s *ReceiptBillTariffParam) SetReceiptBillTariffCode(v string) *ReceiptBillTariffParam {
+	s.ReceiptBillTariffCode = &v
+	return s
+}
+
+func (s *ReceiptBillTariffParam) SetReceiptTariffAmount(v string) *ReceiptBillTariffParam {
+	s.ReceiptTariffAmount = &v
+	return s
+}
+
+func (s *ReceiptBillTariffParam) SetReceiptTariffCode(v string) *ReceiptBillTariffParam {
+	s.ReceiptTariffCode = &v
+	return s
+}
+
+// 上传订单总金额
+type UploadOrderAmount struct {
+	// 币种
+	Currency *string `json:"currency,omitempty" xml:"currency,omitempty" require:"true"`
+	// 总金额
+	TotalAmount *string `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
+}
+
+func (s UploadOrderAmount) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadOrderAmount) GoString() string {
+	return s.String()
+}
+
+func (s *UploadOrderAmount) SetCurrency(v string) *UploadOrderAmount {
+	s.Currency = &v
+	return s
+}
+
+func (s *UploadOrderAmount) SetTotalAmount(v string) *UploadOrderAmount {
+	s.TotalAmount = &v
+	return s
+}
+
+// 索赔资料附件
+type ClaimInformation struct {
+	// 索赔资料地址url
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true" maxLength:"500"`
+	// 文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true" maxLength:"200"`
+}
+
+func (s ClaimInformation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ClaimInformation) GoString() string {
+	return s.String()
+}
+
+func (s *ClaimInformation) SetFileUrl(v string) *ClaimInformation {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *ClaimInformation) SetFileName(v string) *ClaimInformation {
+	s.FileName = &v
+	return s
+}
+
+// 信用凭证数据集合
+type IssueTransferData struct {
+	// 凭证id
+	IssueId *string `json:"issue_id,omitempty" xml:"issue_id,omitempty" require:"true"`
+	// 转出方did
+	PayerDid *string `json:"payer_did,omitempty" xml:"payer_did,omitempty" require:"true"`
+	// 接收方did
+	RcvDid *string `json:"rcv_did,omitempty" xml:"rcv_did,omitempty" require:"true"`
+}
+
+func (s IssueTransferData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IssueTransferData) GoString() string {
+	return s.String()
+}
+
+func (s *IssueTransferData) SetIssueId(v string) *IssueTransferData {
+	s.IssueId = &v
+	return s
+}
+
+func (s *IssueTransferData) SetPayerDid(v string) *IssueTransferData {
+	s.PayerDid = &v
+	return s
+}
+
+func (s *IssueTransferData) SetRcvDid(v string) *IssueTransferData {
+	s.RcvDid = &v
+	return s
+}
+
+// 电子提单批次下提单明细
+type EblDetail struct {
+	// 电子提单copy文件hash
+	EblCopyPdfFileHash *string `json:"ebl_copy_pdf_file_hash,omitempty" xml:"ebl_copy_pdf_file_hash,omitempty" require:"true"`
+	// 电子提单copy文件id
+	EblCopyPdfFileId *string `json:"ebl_copy_pdf_file_id,omitempty" xml:"ebl_copy_pdf_file_id,omitempty" require:"true"`
+	// 电子提单编号
+	EblNo *string `json:"ebl_no,omitempty" xml:"ebl_no,omitempty" require:"true"`
+}
+
+func (s EblDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EblDetail) GoString() string {
+	return s.String()
+}
+
+func (s *EblDetail) SetEblCopyPdfFileHash(v string) *EblDetail {
+	s.EblCopyPdfFileHash = &v
+	return s
+}
+
+func (s *EblDetail) SetEblCopyPdfFileId(v string) *EblDetail {
+	s.EblCopyPdfFileId = &v
+	return s
+}
+
+func (s *EblDetail) SetEblNo(v string) *EblDetail {
 	s.EblNo = &v
 	return s
 }
 
-func (s *EblStatusDeatil) SetNextEblStatus(v string) *EblStatusDeatil {
-	s.NextEblStatus = &v
+// 包含文件id、文件hash信息
+type UploadFileInfo struct {
+	// 文件id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 文件hash
+	FileHash *string `json:"file_hash,omitempty" xml:"file_hash,omitempty" require:"true"`
+}
+
+func (s UploadFileInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadFileInfo) GoString() string {
+	return s.String()
+}
+
+func (s *UploadFileInfo) SetFileId(v string) *UploadFileInfo {
+	s.FileId = &v
+	return s
+}
+
+func (s *UploadFileInfo) SetFileHash(v string) *UploadFileInfo {
+	s.FileHash = &v
+	return s
+}
+
+// 提单货物数据
+type MasterBlGoodsDto struct {
+	// 唛头
+	Marks *string `json:"marks,omitempty" xml:"marks,omitempty"`
+	// 货物
+	Goods *string `json:"goods,omitempty" xml:"goods,omitempty" require:"true"`
+	// 货物类型
+	GoodsType *string `json:"goods_type,omitempty" xml:"goods_type,omitempty" require:"true"`
+	// 包装类型
+	PackageType *string `json:"package_type,omitempty" xml:"package_type,omitempty"`
+	// 委托件数
+	Number *string `json:"number,omitempty" xml:"number,omitempty" require:"true"`
+	// 委托重量
+	Weight *string `json:"weight,omitempty" xml:"weight,omitempty" require:"true"`
+	// 委托体积
+	Volume *string `json:"volume,omitempty" xml:"volume,omitempty" require:"true"`
+}
+
+func (s MasterBlGoodsDto) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MasterBlGoodsDto) GoString() string {
+	return s.String()
+}
+
+func (s *MasterBlGoodsDto) SetMarks(v string) *MasterBlGoodsDto {
+	s.Marks = &v
+	return s
+}
+
+func (s *MasterBlGoodsDto) SetGoods(v string) *MasterBlGoodsDto {
+	s.Goods = &v
+	return s
+}
+
+func (s *MasterBlGoodsDto) SetGoodsType(v string) *MasterBlGoodsDto {
+	s.GoodsType = &v
+	return s
+}
+
+func (s *MasterBlGoodsDto) SetPackageType(v string) *MasterBlGoodsDto {
+	s.PackageType = &v
+	return s
+}
+
+func (s *MasterBlGoodsDto) SetNumber(v string) *MasterBlGoodsDto {
+	s.Number = &v
+	return s
+}
+
+func (s *MasterBlGoodsDto) SetWeight(v string) *MasterBlGoodsDto {
+	s.Weight = &v
+	return s
+}
+
+func (s *MasterBlGoodsDto) SetVolume(v string) *MasterBlGoodsDto {
+	s.Volume = &v
+	return s
+}
+
+// 运单号-司机运费
+type WaybillAmount struct {
+	// 运单金额（2位小数）
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 运单号
+	WaybillId *string `json:"waybill_id,omitempty" xml:"waybill_id,omitempty" require:"true"`
+}
+
+func (s WaybillAmount) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WaybillAmount) GoString() string {
+	return s.String()
+}
+
+func (s *WaybillAmount) SetAmount(v string) *WaybillAmount {
+	s.Amount = &v
+	return s
+}
+
+func (s *WaybillAmount) SetWaybillId(v string) *WaybillAmount {
+	s.WaybillId = &v
+	return s
+}
+
+// 承运人责任险保险标的信息
+type InsureCarrierObjectInfo struct {
+	// 厂牌型号
+	CpModel *string `json:"cp_model,omitempty" xml:"cp_model,omitempty" require:"true"`
+	// 车架号
+	FrameNo *string `json:"frame_no,omitempty" xml:"frame_no,omitempty" require:"true"`
+	// 车牌号码
+	LicenseNo *string `json:"license_no,omitempty" xml:"license_no,omitempty" require:"true"`
+	// 吨位
+	TonNage *string `json:"ton_nage,omitempty" xml:"ton_nage,omitempty" require:"true"`
+	// 行驶证车主
+	DrivPer *string `json:"driv_per,omitempty" xml:"driv_per,omitempty" require:"true"`
+	// 运营证号
+	RunNo *string `json:"run_no,omitempty" xml:"run_no,omitempty" require:"true"`
+	// 运输货物
+	TsCarGo *string `json:"ts_car_go,omitempty" xml:"ts_car_go,omitempty" require:"true"`
+}
+
+func (s InsureCarrierObjectInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InsureCarrierObjectInfo) GoString() string {
+	return s.String()
+}
+
+func (s *InsureCarrierObjectInfo) SetCpModel(v string) *InsureCarrierObjectInfo {
+	s.CpModel = &v
+	return s
+}
+
+func (s *InsureCarrierObjectInfo) SetFrameNo(v string) *InsureCarrierObjectInfo {
+	s.FrameNo = &v
+	return s
+}
+
+func (s *InsureCarrierObjectInfo) SetLicenseNo(v string) *InsureCarrierObjectInfo {
+	s.LicenseNo = &v
+	return s
+}
+
+func (s *InsureCarrierObjectInfo) SetTonNage(v string) *InsureCarrierObjectInfo {
+	s.TonNage = &v
+	return s
+}
+
+func (s *InsureCarrierObjectInfo) SetDrivPer(v string) *InsureCarrierObjectInfo {
+	s.DrivPer = &v
+	return s
+}
+
+func (s *InsureCarrierObjectInfo) SetRunNo(v string) *InsureCarrierObjectInfo {
+	s.RunNo = &v
+	return s
+}
+
+func (s *InsureCarrierObjectInfo) SetTsCarGo(v string) *InsureCarrierObjectInfo {
+	s.TsCarGo = &v
+	return s
+}
+
+// 创建凭证Two
+type VoucherTestTwo struct {
+	// 测试Boolean
+	VoucherTestTwoBoolean *bool `json:"voucher_test_two_boolean,omitempty" xml:"voucher_test_two_boolean,omitempty" require:"true"`
+	// 凭证列表_apiTestList
+	VoucherTestTwoApiTestList []*VoucherTestOne `json:"voucher_test_two_api_test_list,omitempty" xml:"voucher_test_two_api_test_list,omitempty" require:"true" type:"Repeated"`
+	// 测试Int
+	VoucherTestTwoInt *int64 `json:"voucher_test_two_int,omitempty" xml:"voucher_test_two_int,omitempty" require:"true"`
+	// 测试Integer
+	VoucherTestTwoInteger *int64 `json:"voucher_test_two_integer,omitempty" xml:"voucher_test_two_integer,omitempty" require:"true" maximum:"10" minimum:"0"`
+	// 凭证列表_dateList
+	VoucherTestTwoDateList []*string `json:"voucher_test_two_date_list,omitempty" xml:"voucher_test_two_date_list,omitempty" require:"true" type:"Repeated"`
+	// 测试String
+	VoucherTestTwoString *string `json:"voucher_test_two_string,omitempty" xml:"voucher_test_two_string,omitempty" require:"true" maxLength:"10" minLength:"0"`
+	// 测试Date
+	VoucherTestTwoDate *string `json:"voucher_test_two_date,omitempty" xml:"voucher_test_two_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 凭证列表_integerList
+	VoucherTestTwoIntegerList []*int64 `json:"voucher_test_two_integer_list,omitempty" xml:"voucher_test_two_integer_list,omitempty" require:"true" type:"Repeated"`
+	// 测试Long
+	VoucherTestTwoLong *int64 `json:"voucher_test_two_long,omitempty" xml:"voucher_test_two_long,omitempty" require:"true" maximum:"10" minimum:"0"`
+	// 凭证列表_longList
+	VoucherTestTwoLongList []*int64 `json:"voucher_test_two_long_list,omitempty" xml:"voucher_test_two_long_list,omitempty" require:"true" type:"Repeated"`
+	// 凭证列表_stringList
+	VoucherTestTwoStringList []*string `json:"voucher_test_two_string_list,omitempty" xml:"voucher_test_two_string_list,omitempty" require:"true" type:"Repeated"`
+	// 测试apiTestInfo
+	VoucherTestTwoApiTestInfo *VoucherTestOne `json:"voucher_test_two_api_test_info,omitempty" xml:"voucher_test_two_api_test_info,omitempty" require:"true"`
+	// 凭证列表_booleanList
+	VoucherTestTwoBooleanList []*bool `json:"voucher_test_two_boolean_list,omitempty" xml:"voucher_test_two_boolean_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s VoucherTestTwo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VoucherTestTwo) GoString() string {
+	return s.String()
+}
+
+func (s *VoucherTestTwo) SetVoucherTestTwoBoolean(v bool) *VoucherTestTwo {
+	s.VoucherTestTwoBoolean = &v
+	return s
+}
+
+func (s *VoucherTestTwo) SetVoucherTestTwoApiTestList(v []*VoucherTestOne) *VoucherTestTwo {
+	s.VoucherTestTwoApiTestList = v
+	return s
+}
+
+func (s *VoucherTestTwo) SetVoucherTestTwoInt(v int64) *VoucherTestTwo {
+	s.VoucherTestTwoInt = &v
+	return s
+}
+
+func (s *VoucherTestTwo) SetVoucherTestTwoInteger(v int64) *VoucherTestTwo {
+	s.VoucherTestTwoInteger = &v
+	return s
+}
+
+func (s *VoucherTestTwo) SetVoucherTestTwoDateList(v []*string) *VoucherTestTwo {
+	s.VoucherTestTwoDateList = v
+	return s
+}
+
+func (s *VoucherTestTwo) SetVoucherTestTwoString(v string) *VoucherTestTwo {
+	s.VoucherTestTwoString = &v
+	return s
+}
+
+func (s *VoucherTestTwo) SetVoucherTestTwoDate(v string) *VoucherTestTwo {
+	s.VoucherTestTwoDate = &v
+	return s
+}
+
+func (s *VoucherTestTwo) SetVoucherTestTwoIntegerList(v []*int64) *VoucherTestTwo {
+	s.VoucherTestTwoIntegerList = v
+	return s
+}
+
+func (s *VoucherTestTwo) SetVoucherTestTwoLong(v int64) *VoucherTestTwo {
+	s.VoucherTestTwoLong = &v
+	return s
+}
+
+func (s *VoucherTestTwo) SetVoucherTestTwoLongList(v []*int64) *VoucherTestTwo {
+	s.VoucherTestTwoLongList = v
+	return s
+}
+
+func (s *VoucherTestTwo) SetVoucherTestTwoStringList(v []*string) *VoucherTestTwo {
+	s.VoucherTestTwoStringList = v
+	return s
+}
+
+func (s *VoucherTestTwo) SetVoucherTestTwoApiTestInfo(v *VoucherTestOne) *VoucherTestTwo {
+	s.VoucherTestTwoApiTestInfo = v
+	return s
+}
+
+func (s *VoucherTestTwo) SetVoucherTestTwoBooleanList(v []*bool) *VoucherTestTwo {
+	s.VoucherTestTwoBooleanList = v
+	return s
+}
+
+// 资费项发票
+type ReceiptTariffInvoiceParam struct {
+	// 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+	Action *string `json:"action,omitempty" xml:"action,omitempty"`
+	// 发票金额 业务必填
+	InvoiceAmount *string `json:"invoice_amount,omitempty" xml:"invoice_amount,omitempty"`
+	// 资费项金额 业务必填
+	ReceiptTariffAmount *string `json:"receipt_tariff_amount,omitempty" xml:"receipt_tariff_amount,omitempty"`
+	// 资费单据编号 业务必填
+	ReceiptTariffCode *string `json:"receipt_tariff_code,omitempty" xml:"receipt_tariff_code,omitempty"`
+	// 资费项发票code
+	ReceiptTariffInvoiceCode *string `json:"receipt_tariff_invoice_code,omitempty" xml:"receipt_tariff_invoice_code,omitempty" require:"true"`
+}
+
+func (s ReceiptTariffInvoiceParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiptTariffInvoiceParam) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiptTariffInvoiceParam) SetAction(v string) *ReceiptTariffInvoiceParam {
+	s.Action = &v
+	return s
+}
+
+func (s *ReceiptTariffInvoiceParam) SetInvoiceAmount(v string) *ReceiptTariffInvoiceParam {
+	s.InvoiceAmount = &v
+	return s
+}
+
+func (s *ReceiptTariffInvoiceParam) SetReceiptTariffAmount(v string) *ReceiptTariffInvoiceParam {
+	s.ReceiptTariffAmount = &v
+	return s
+}
+
+func (s *ReceiptTariffInvoiceParam) SetReceiptTariffCode(v string) *ReceiptTariffInvoiceParam {
+	s.ReceiptTariffCode = &v
+	return s
+}
+
+func (s *ReceiptTariffInvoiceParam) SetReceiptTariffInvoiceCode(v string) *ReceiptTariffInvoiceParam {
+	s.ReceiptTariffInvoiceCode = &v
+	return s
+}
+
+// 航运集装箱ID信息
+type ContainerIdInfo struct {
+	// 箱子唯一标识
+	ContainerId *string `json:"container_id,omitempty" xml:"container_id,omitempty"`
+	// 箱号
+	ContainerNo *string `json:"container_no,omitempty" xml:"container_no,omitempty"`
+}
+
+func (s ContainerIdInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContainerIdInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ContainerIdInfo) SetContainerId(v string) *ContainerIdInfo {
+	s.ContainerId = &v
+	return s
+}
+
+func (s *ContainerIdInfo) SetContainerNo(v string) *ContainerIdInfo {
+	s.ContainerNo = &v
+	return s
+}
+
+// 文档信息
+type Document struct {
+	// 文档url
+	DocumentUrl *string `json:"document_url,omitempty" xml:"document_url,omitempty" require:"true" maxLength:"500"`
+	// 文档名称
+	DocumentName *string `json:"document_name,omitempty" xml:"document_name,omitempty" require:"true" maxLength:"200"`
+}
+
+func (s Document) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Document) GoString() string {
+	return s.String()
+}
+
+func (s *Document) SetDocumentUrl(v string) *Document {
+	s.DocumentUrl = &v
+	return s
+}
+
+func (s *Document) SetDocumentName(v string) *Document {
+	s.DocumentName = &v
+	return s
+}
+
+// 货物信息
+type GoodsInfo struct {
+	// 货物ID [业务必填]
+	GoodsId *string `json:"goods_id,omitempty" xml:"goods_id,omitempty"`
+	// 唛头
+	//
+	//
+	Marks *string `json:"marks,omitempty" xml:"marks,omitempty"`
+	// 货物名称
+	Goods *string `json:"goods,omitempty" xml:"goods,omitempty"`
+	// 货物类型
+	GoodsType *string `json:"goods_type,omitempty" xml:"goods_type,omitempty"`
+	// 货物重量
+	Weight *string `json:"weight,omitempty" xml:"weight,omitempty"`
+	// 件数
+	Number *string `json:"number,omitempty" xml:"number,omitempty"`
+}
+
+func (s GoodsInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GoodsInfo) GoString() string {
+	return s.String()
+}
+
+func (s *GoodsInfo) SetGoodsId(v string) *GoodsInfo {
+	s.GoodsId = &v
+	return s
+}
+
+func (s *GoodsInfo) SetMarks(v string) *GoodsInfo {
+	s.Marks = &v
+	return s
+}
+
+func (s *GoodsInfo) SetGoods(v string) *GoodsInfo {
+	s.Goods = &v
+	return s
+}
+
+func (s *GoodsInfo) SetGoodsType(v string) *GoodsInfo {
+	s.GoodsType = &v
+	return s
+}
+
+func (s *GoodsInfo) SetWeight(v string) *GoodsInfo {
+	s.Weight = &v
+	return s
+}
+
+func (s *GoodsInfo) SetNumber(v string) *GoodsInfo {
+	s.Number = &v
+	return s
+}
+
+// 池融资授信额度信息
+type PfCreditQuotaInfo struct {
+	// 证件号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 证件类型
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
+	// 授信到期日期
+	CreditEnd *string `json:"credit_end,omitempty" xml:"credit_end,omitempty" require:"true"`
+	// 授信起始日期
+	CreditStart *string `json:"credit_start,omitempty" xml:"credit_start,omitempty" require:"true"`
+	// 额度编号
+	QuotaNo *string `json:"quota_no,omitempty" xml:"quota_no,omitempty" require:"true"`
+	// 剩余额度
+	RemainingQuota *string `json:"remaining_quota,omitempty" xml:"remaining_quota,omitempty" require:"true"`
+	// SON:放款账号loanAccNo
+	// 还款账号repayAcctNo
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty" require:"true"`
+	// 额度状态：
+	// 0、停用 / 1、启用  /  2、冻结
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 授信额度
+	TotalQuota *string `json:"total_quota,omitempty" xml:"total_quota,omitempty" require:"true"`
+	// 数据更新时间
+	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty" require:"true"`
+	// 总质押额度
+	TotalPledgeQuota *string `json:"total_pledge_quota,omitempty" xml:"total_pledge_quota,omitempty" require:"true"`
+	// 剩余质押额度
+	RemainPledgeQuota *string `json:"remain_pledge_quota,omitempty" xml:"remain_pledge_quota,omitempty" require:"true"`
+}
+
+func (s PfCreditQuotaInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PfCreditQuotaInfo) GoString() string {
+	return s.String()
+}
+
+func (s *PfCreditQuotaInfo) SetCertNo(v string) *PfCreditQuotaInfo {
+	s.CertNo = &v
+	return s
+}
+
+func (s *PfCreditQuotaInfo) SetCertType(v string) *PfCreditQuotaInfo {
+	s.CertType = &v
+	return s
+}
+
+func (s *PfCreditQuotaInfo) SetCreditEnd(v string) *PfCreditQuotaInfo {
+	s.CreditEnd = &v
+	return s
+}
+
+func (s *PfCreditQuotaInfo) SetCreditStart(v string) *PfCreditQuotaInfo {
+	s.CreditStart = &v
+	return s
+}
+
+func (s *PfCreditQuotaInfo) SetQuotaNo(v string) *PfCreditQuotaInfo {
+	s.QuotaNo = &v
+	return s
+}
+
+func (s *PfCreditQuotaInfo) SetRemainingQuota(v string) *PfCreditQuotaInfo {
+	s.RemainingQuota = &v
+	return s
+}
+
+func (s *PfCreditQuotaInfo) SetRemark(v string) *PfCreditQuotaInfo {
+	s.Remark = &v
+	return s
+}
+
+func (s *PfCreditQuotaInfo) SetStatus(v string) *PfCreditQuotaInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *PfCreditQuotaInfo) SetTotalQuota(v string) *PfCreditQuotaInfo {
+	s.TotalQuota = &v
+	return s
+}
+
+func (s *PfCreditQuotaInfo) SetUpdateTime(v string) *PfCreditQuotaInfo {
+	s.UpdateTime = &v
+	return s
+}
+
+func (s *PfCreditQuotaInfo) SetTotalPledgeQuota(v string) *PfCreditQuotaInfo {
+	s.TotalPledgeQuota = &v
+	return s
+}
+
+func (s *PfCreditQuotaInfo) SetRemainPledgeQuota(v string) *PfCreditQuotaInfo {
+	s.RemainPledgeQuota = &v
 	return s
 }
 
@@ -18507,9 +18507,9 @@ type ApplyInsuranceOspiRequest struct {
 	// 其他编码建议为随机值。
 	// 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
-	// 保司编码.，PAIC---平安
+	// 保司编码.，PAIC---平安，CICP-中华财险
 	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"10"`
-	// 险种编码，06--跨境邮包险
+	// 险种编码，04--海外邮包险
 	//
 	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"2"`
 	// 投保人姓名，保险协议中的投保人全称
@@ -18820,7 +18820,7 @@ type ApplyInsuranceOspireportRequest struct {
 	// 其他编码建议为随机值。
 	// 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
-	// 保司编码，PAIC---平安
+	// 保司编码，PAIC---平安，CICP-中华财险
 	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"10"`
 	// 险种编码
 	// 04--海外邮包险
@@ -19489,7 +19489,7 @@ type ApplyInsuranceCbpiRequest struct {
 	// 其他编码建议为随机值。
 	// 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
-	// 保司编码.，PAIC---平安
+	// 保司编码.，PAIC---平安，PICC-人保
 	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"10"`
 	// 险种编码，06--跨境邮包险
 	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"2"`
@@ -20532,6 +20532,133 @@ func (s *QueryInsuranceEpolicyResponse) SetResultMsg(v string) *QueryInsuranceEp
 
 func (s *QueryInsuranceEpolicyResponse) SetPolicyUrl(v string) *QueryInsuranceEpolicyResponse {
 	s.PolicyUrl = &v
+	return s
+}
+
+type NotifyInsuranceReportresultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 案件同步唯一码，调用方生成的唯一编码； 格式为 yyyyMMdd_身份标识_其他编码，yyyyMMdd请传递当前时间。 系统会根据该流水号做防重、幂等判断逻辑。
+	//
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
+	// 渠道简称code
+	ChannelSimpleCode *string `json:"channel_simple_code,omitempty" xml:"channel_simple_code,omitempty" require:"true" maxLength:"16"`
+	// 报案号，关联的报案案件号
+	//
+	ReportNo *string `json:"report_no,omitempty" xml:"report_no,omitempty" require:"true" maxLength:"100"`
+	// 订单号
+	//
+	RelaOrderNo *string `json:"rela_order_no,omitempty" xml:"rela_order_no,omitempty" require:"true" maxLength:"100"`
+	// 理赔金额(元)，实际的理赔金额，最多支持2位小数，超2位小数拒绝请求
+	//
+	ClaimAmount *string `json:"claim_amount,omitempty" xml:"claim_amount,omitempty" require:"true"`
+	// 支付时间，实际的保司打款时间，格式：yyyy-MM-dd HH:mm:ss
+	//
+	PaymentTime *string `json:"payment_time,omitempty" xml:"payment_time,omitempty" require:"true"`
+	// 银行流水，打款的银行流水号
+	//
+	BankSerialNum *string `json:"bank_serial_num,omitempty" xml:"bank_serial_num,omitempty" require:"true" maxLength:"200"`
+}
+
+func (s NotifyInsuranceReportresultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyInsuranceReportresultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyInsuranceReportresultRequest) SetAuthToken(v string) *NotifyInsuranceReportresultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyInsuranceReportresultRequest) SetProductInstanceId(v string) *NotifyInsuranceReportresultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *NotifyInsuranceReportresultRequest) SetTradeNo(v string) *NotifyInsuranceReportresultRequest {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *NotifyInsuranceReportresultRequest) SetChannelSimpleCode(v string) *NotifyInsuranceReportresultRequest {
+	s.ChannelSimpleCode = &v
+	return s
+}
+
+func (s *NotifyInsuranceReportresultRequest) SetReportNo(v string) *NotifyInsuranceReportresultRequest {
+	s.ReportNo = &v
+	return s
+}
+
+func (s *NotifyInsuranceReportresultRequest) SetRelaOrderNo(v string) *NotifyInsuranceReportresultRequest {
+	s.RelaOrderNo = &v
+	return s
+}
+
+func (s *NotifyInsuranceReportresultRequest) SetClaimAmount(v string) *NotifyInsuranceReportresultRequest {
+	s.ClaimAmount = &v
+	return s
+}
+
+func (s *NotifyInsuranceReportresultRequest) SetPaymentTime(v string) *NotifyInsuranceReportresultRequest {
+	s.PaymentTime = &v
+	return s
+}
+
+func (s *NotifyInsuranceReportresultRequest) SetBankSerialNum(v string) *NotifyInsuranceReportresultRequest {
+	s.BankSerialNum = &v
+	return s
+}
+
+type NotifyInsuranceReportresultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 案件同步唯一码
+	//
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+	// 案件通知状态--SUCCESS、FAIL
+	//
+	ReportNotifyStatus *string `json:"report_notify_status,omitempty" xml:"report_notify_status,omitempty"`
+}
+
+func (s NotifyInsuranceReportresultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyInsuranceReportresultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyInsuranceReportresultResponse) SetReqMsgId(v string) *NotifyInsuranceReportresultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyInsuranceReportresultResponse) SetResultCode(v string) *NotifyInsuranceReportresultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyInsuranceReportresultResponse) SetResultMsg(v string) *NotifyInsuranceReportresultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *NotifyInsuranceReportresultResponse) SetTradeNo(v string) *NotifyInsuranceReportresultResponse {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *NotifyInsuranceReportresultResponse) SetReportNotifyStatus(v string) *NotifyInsuranceReportresultResponse {
+	s.ReportNotifyStatus = &v
 	return s
 }
 
@@ -29119,7 +29246,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.136"),
+				"sdk_version":      tea.String("1.3.137"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -32734,6 +32861,40 @@ func (client *Client) QueryInsuranceEpolicyEx(request *QueryInsuranceEpolicyRequ
 	}
 	_result = &QueryInsuranceEpolicyResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.insurance.epolicy.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 报案案件结果通知（内部）
+ * Summary: 报案案件结果通知（内部）
+ */
+func (client *Client) NotifyInsuranceReportresult(request *NotifyInsuranceReportresultRequest) (_result *NotifyInsuranceReportresultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyInsuranceReportresultResponse{}
+	_body, _err := client.NotifyInsuranceReportresultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 报案案件结果通知（内部）
+ * Summary: 报案案件结果通知（内部）
+ */
+func (client *Client) NotifyInsuranceReportresultEx(request *NotifyInsuranceReportresultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyInsuranceReportresultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyInsuranceReportresultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.insurance.reportresult.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
