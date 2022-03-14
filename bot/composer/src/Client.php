@@ -366,7 +366,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.72',
+                    'sdk_version'      => '1.6.73',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -3251,8 +3251,8 @@ class Client
     }
 
     /**
-     * Description: 创建设备关联关系
-     * Summary: 创建设备关联关系.
+     * Description: 创建实体关联关系
+     * Summary: 创建实体关联关系.
      *
      * @param CreateDeviceRelationRequest $request
      *
@@ -3267,8 +3267,8 @@ class Client
     }
 
     /**
-     * Description: 创建设备关联关系
-     * Summary: 创建设备关联关系.
+     * Description: 创建实体关联关系
+     * Summary: 创建实体关联关系.
      *
      * @param CreateDeviceRelationRequest $request
      * @param string[]                    $headers
@@ -3284,8 +3284,8 @@ class Client
     }
 
     /**
-     * Description: 删除设备关联关系
-     * Summary: 删除设备关联关系.
+     * Description: 删除实体关联关系
+     * Summary: 删除实体关联关系.
      *
      * @param DeleteDeviceRelationRequest $request
      *
@@ -3300,8 +3300,8 @@ class Client
     }
 
     /**
-     * Description: 删除设备关联关系
-     * Summary: 删除设备关联关系.
+     * Description: 删除实体关联关系
+     * Summary: 删除实体关联关系.
      *
      * @param DeleteDeviceRelationRequest $request
      * @param string[]                    $headers

@@ -134,6 +134,12 @@ class UpdateDeviceInfobydeviceRequest extends Model
      * @var string
      */
     public $deviceFeature;
+
+    // 额外信息
+    /**
+     * @var string
+     */
+    public $extraInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -149,6 +155,7 @@ class UpdateDeviceInfobydeviceRequest extends Model
         'releaseTime'       => 'release_time',
         'deviceName'        => 'device_name',
         'deviceFeature'     => 'device_feature',
+        'extraInfo'         => 'extra_info',
     ];
 
     public function validate()
@@ -212,6 +219,9 @@ class UpdateDeviceInfobydeviceRequest extends Model
         if (null !== $this->deviceFeature) {
             $res['device_feature'] = $this->deviceFeature;
         }
+        if (null !== $this->extraInfo) {
+            $res['extra_info'] = $this->extraInfo;
+        }
 
         return $res;
     }
@@ -265,6 +275,9 @@ class UpdateDeviceInfobydeviceRequest extends Model
         }
         if (isset($map['device_feature'])) {
             $model->deviceFeature = $map['device_feature'];
+        }
+        if (isset($map['extra_info'])) {
+            $model->extraInfo = $map['extra_info'];
         }
 
         return $model;
