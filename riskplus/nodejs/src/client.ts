@@ -1580,6 +1580,35 @@ export class RiskLabelConfigInfo extends $tea.Model {
   }
 }
 
+// 营销盾批量查询单条结果
+export class BaseCustomerUmktInfoModel extends $tea.Model {
+  // 用户凭证
+  customerKey?: string;
+  // 输入模板
+  queryTemplate?: string;
+  // 实时营销结果
+  umktResult?: number;
+  static names(): { [key: string]: string } {
+    return {
+      customerKey: 'customer_key',
+      queryTemplate: 'query_template',
+      umktResult: 'umkt_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      customerKey: 'string',
+      queryTemplate: 'string',
+      umktResult: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 策略详情
 export class StrategyDetails extends $tea.Model {
   // 策略id
@@ -9154,11 +9183,17 @@ export class BatchqueryUmktRtMarketingResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 处理是否成功
+  success?: boolean;
+  // 实时营销单条结果
+  queryResult?: BaseCustomerUmktInfoModel[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      success: 'success',
+      queryResult: 'query_result',
     };
   }
 
@@ -9167,6 +9202,8 @@ export class BatchqueryUmktRtMarketingResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      success: 'boolean',
+      queryResult: { 'type': 'array', 'itemType': BaseCustomerUmktInfoModel },
     };
   }
 
@@ -9376,7 +9413,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.9.0",
+          sdk_version: "1.9.1",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
