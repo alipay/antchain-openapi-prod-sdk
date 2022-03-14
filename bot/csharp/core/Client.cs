@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.72"},
+                        {"sdk_version", "1.6.73"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.72"},
+                        {"sdk_version", "1.6.73"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -3930,8 +3930,8 @@ namespace AntChain.SDK.BOT
         }
 
         /**
-         * Description: 创建设备关联关系
-         * Summary: 创建设备关联关系
+         * Description: 创建实体关联关系
+         * Summary: 创建实体关联关系
          */
         public CreateDeviceRelationResponse CreateDeviceRelation(CreateDeviceRelationRequest request)
         {
@@ -3941,8 +3941,8 @@ namespace AntChain.SDK.BOT
         }
 
         /**
-         * Description: 创建设备关联关系
-         * Summary: 创建设备关联关系
+         * Description: 创建实体关联关系
+         * Summary: 创建实体关联关系
          */
         public async Task<CreateDeviceRelationResponse> CreateDeviceRelationAsync(CreateDeviceRelationRequest request)
         {
@@ -3952,8 +3952,8 @@ namespace AntChain.SDK.BOT
         }
 
         /**
-         * Description: 创建设备关联关系
-         * Summary: 创建设备关联关系
+         * Description: 创建实体关联关系
+         * Summary: 创建实体关联关系
          */
         public CreateDeviceRelationResponse CreateDeviceRelationEx(CreateDeviceRelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -3962,8 +3962,8 @@ namespace AntChain.SDK.BOT
         }
 
         /**
-         * Description: 创建设备关联关系
-         * Summary: 创建设备关联关系
+         * Description: 创建实体关联关系
+         * Summary: 创建实体关联关系
          */
         public async Task<CreateDeviceRelationResponse> CreateDeviceRelationExAsync(CreateDeviceRelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -3972,8 +3972,8 @@ namespace AntChain.SDK.BOT
         }
 
         /**
-         * Description: 删除设备关联关系
-         * Summary: 删除设备关联关系
+         * Description: 删除实体关联关系
+         * Summary: 删除实体关联关系
          */
         public DeleteDeviceRelationResponse DeleteDeviceRelation(DeleteDeviceRelationRequest request)
         {
@@ -3983,8 +3983,8 @@ namespace AntChain.SDK.BOT
         }
 
         /**
-         * Description: 删除设备关联关系
-         * Summary: 删除设备关联关系
+         * Description: 删除实体关联关系
+         * Summary: 删除实体关联关系
          */
         public async Task<DeleteDeviceRelationResponse> DeleteDeviceRelationAsync(DeleteDeviceRelationRequest request)
         {
@@ -3994,8 +3994,8 @@ namespace AntChain.SDK.BOT
         }
 
         /**
-         * Description: 删除设备关联关系
-         * Summary: 删除设备关联关系
+         * Description: 删除实体关联关系
+         * Summary: 删除实体关联关系
          */
         public DeleteDeviceRelationResponse DeleteDeviceRelationEx(DeleteDeviceRelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -4004,8 +4004,8 @@ namespace AntChain.SDK.BOT
         }
 
         /**
-         * Description: 删除设备关联关系
-         * Summary: 删除设备关联关系
+         * Description: 删除实体关联关系
+         * Summary: 删除实体关联关系
          */
         public async Task<DeleteDeviceRelationResponse> DeleteDeviceRelationExAsync(DeleteDeviceRelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {

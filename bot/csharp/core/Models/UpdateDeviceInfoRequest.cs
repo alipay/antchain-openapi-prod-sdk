@@ -96,6 +96,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string DeviceName { get; set; }
 
+        // 额外信息
+        [NameInMap("extra_info")]
+        [Validation(Required=false)]
+        public string ExtraInfo { get; set; }
+
     }
 
 }

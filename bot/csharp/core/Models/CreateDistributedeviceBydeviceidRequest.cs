@@ -35,7 +35,7 @@ namespace AntChain.SDK.BOT.Models
 
         // 设备imei号
         [NameInMap("device_imei")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string DeviceImei { get; set; }
 
         // 设备名称
