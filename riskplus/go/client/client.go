@@ -2179,6 +2179,39 @@ func (s *RiskLabelConfigInfo) SetOperatorId(v string) *RiskLabelConfigInfo {
 	return s
 }
 
+// 营销盾批量查询单条结果
+type BaseCustomerUmktInfoModel struct {
+	// 用户凭证
+	CustomerKey *string `json:"customer_key,omitempty" xml:"customer_key,omitempty"`
+	// 输入模板
+	QueryTemplate *string `json:"query_template,omitempty" xml:"query_template,omitempty"`
+	// 实时营销结果
+	UmktResult *int64 `json:"umkt_result,omitempty" xml:"umkt_result,omitempty"`
+}
+
+func (s BaseCustomerUmktInfoModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaseCustomerUmktInfoModel) GoString() string {
+	return s.String()
+}
+
+func (s *BaseCustomerUmktInfoModel) SetCustomerKey(v string) *BaseCustomerUmktInfoModel {
+	s.CustomerKey = &v
+	return s
+}
+
+func (s *BaseCustomerUmktInfoModel) SetQueryTemplate(v string) *BaseCustomerUmktInfoModel {
+	s.QueryTemplate = &v
+	return s
+}
+
+func (s *BaseCustomerUmktInfoModel) SetUmktResult(v int64) *BaseCustomerUmktInfoModel {
+	s.UmktResult = &v
+	return s
+}
+
 // 策略详情
 type StrategyDetails struct {
 	// 策略id
@@ -12287,6 +12320,10 @@ type BatchqueryUmktRtMarketingResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 处理是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 实时营销单条结果
+	QueryResult []*BaseCustomerUmktInfoModel `json:"query_result,omitempty" xml:"query_result,omitempty" type:"Repeated"`
 }
 
 func (s BatchqueryUmktRtMarketingResponse) String() string {
@@ -12309,6 +12346,16 @@ func (s *BatchqueryUmktRtMarketingResponse) SetResultCode(v string) *BatchqueryU
 
 func (s *BatchqueryUmktRtMarketingResponse) SetResultMsg(v string) *BatchqueryUmktRtMarketingResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchqueryUmktRtMarketingResponse) SetSuccess(v bool) *BatchqueryUmktRtMarketingResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *BatchqueryUmktRtMarketingResponse) SetQueryResult(v []*BaseCustomerUmktInfoModel) *BatchqueryUmktRtMarketingResponse {
+	s.QueryResult = v
 	return s
 }
 
@@ -12554,7 +12601,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.9.0"),
+				"sdk_version":      tea.String("1.9.1"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
