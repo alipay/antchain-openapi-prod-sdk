@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.66',
+    sdk_version = '1.6.72',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -159,50 +159,6 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
-// ProductKey信息
-model ProductKeyModel {
-  // 主键id
-  id: long(name='id', example='1'),
-  // 创建时间
-  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
-  // 更新时间
-  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
-  // 设备端ProductKey
-  productKey: string(name='product_key', example='DEV-0101'),
-  // 场景码
-  scene: string(name='scene', example='testScene'),
-  // 租户Id 
-  tenantName: string(name='tenant_name', example='testTenant'),
-  // 数据模型id 
-  dataModelId: string(name='data_model_id', example='model_001'),
-  // sdk前缀
-  sdkVersionPrefix: string(name='sdk_version_prefix', example='sdk_'),
-  // 制造商
-  manufacturer?: string(name='manufacturer', example='alibaba'),
-  // 顾客
-  customer?: string(name='customer', example='alipay'),
-}
-
-// 租户信息
-model PermissionedTenantModel {
-  // 主键Id
-  id: long(name='id', example='1'),
-  // 创建时间
-  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10 10:10:00'),
-  // 修改时间
-  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10 10:10:00'),
-  // 租户名称
-  tenantName: string(name='tenant_name', example='testTenant'),
-  // 公司名称
-  orgName: string(name='org_name', example='alipay'),
-  // 租户所有人标识
-  owner?: string(name='owner', example='alipay'),
-  // 网关私钥
-  gatewayPrivateKey?: string(name='gateway_private_key', example='MEUCIDxNw...'),
-  // 网关公钥
-  gatewayPublicKey?: string(name='gateway_public_key', example='MEUCID...'),
-}
-
 // 告警策略
 model AlertStrategy {
   // 主键ID 
@@ -244,6 +200,38 @@ model SdkModel {
   platform?: string(name='platform', example='windows'),
   // 公司名称
   corpName?: string(name='corp_name', example='alipay'),
+}
+
+// GoodsIdAndCount
+model GoodsIdAndCount {
+  // 商品id
+  goodsSkuId: long(name='goods_sku_id', example='23123131'),
+  // 商品采购数量
+  count: long(name='count', example='100'),
+}
+
+// ProductKey信息
+model ProductKeyModel {
+  // 主键id
+  id: long(name='id', example='1'),
+  // 创建时间
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 更新时间
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // 设备端ProductKey
+  productKey: string(name='product_key', example='DEV-0101'),
+  // 场景码
+  scene: string(name='scene', example='testScene'),
+  // 租户Id 
+  tenantName: string(name='tenant_name', example='testTenant'),
+  // 数据模型id 
+  dataModelId: string(name='data_model_id', example='model_001'),
+  // sdk前缀
+  sdkVersionPrefix: string(name='sdk_version_prefix', example='sdk_'),
+  // 制造商
+  manufacturer?: string(name='manufacturer', example='alibaba'),
+  // 顾客
+  customer?: string(name='customer', example='alipay'),
 }
 
 // 场景码信息
@@ -320,16 +308,28 @@ model RawData {
   peripheralId?: string(name='peripheral_id', example='123123'),
 }
 
-// GoodsIdAndCount
-model GoodsIdAndCount {
-  // 商品id
-  goodsSkuId: long(name='goods_sku_id', example='23123131'),
-  // 商品采购数量
-  count: long(name='count', example='100'),
+// 租户信息
+model PermissionedTenantModel {
+  // 主键Id
+  id: long(name='id', example='1'),
+  // 创建时间
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10 10:10:00'),
+  // 修改时间
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10 10:10:00'),
+  // 租户名称
+  tenantName: string(name='tenant_name', example='testTenant'),
+  // 公司名称
+  orgName: string(name='org_name', example='alipay'),
+  // 租户所有人标识
+  owner?: string(name='owner', example='alipay'),
+  // 网关私钥
+  gatewayPrivateKey?: string(name='gateway_private_key', example='MEUCIDxNw...'),
+  // 网关公钥
+  gatewayPublicKey?: string(name='gateway_public_key', example='MEUCID...'),
 }
 
-// ProductKey分页查询结果
-model ProductKeyPageResponse {
+// Sdk分页查询结果
+model SdkPageResponse {
   // 页数
   // 
   pageIndex: long(name='page_index', example='1'),
@@ -343,280 +343,7 @@ model ProductKeyPageResponse {
   // 
   totalPages: long(name='total_pages', example='10'),
   // 数据
-  pageData: [ ProductKeyModel ](name='page_data', example='{...}'),
-}
-
-// 发行设备
-model DistributeDevice {
-  // 链上设备Id  （deviceType=DEVICE 时有值)
-  chainDeviceId?: string(name='chain_device_id', example='4533'),
-  // 设备id
-  deviceId: string(name='device_id', example='1122'),
-  // 发行设备Id
-  distributeDeviceId: string(name='distribute_device_id', example='4455'),
-  // 场景码
-  scene: string(name='scene', example='SCENE'),
-  // 设备类型 DEVICE : 设备 、PERIPHERAL : 外围设备
-  deviceType: string(name='device_type', example='PERIPHERAL'),
-  // 链上外围设备Id（deviceType=PERIPHERAL 时有值)
-  chainPeripheralId?: string(name='chain_peripheral_id', example='123123'),
-  // 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
-  deviceStatus?: string(name='device_status', example='NORMAL'),
-}
-
-// 空间实体身份附加参数请求结构体，应用在注册/更新API的ThingExtraParams
-model SpaceRegisterReqModel {
-  // 面积 平方米单位*1e4	
-  area?: long(name='area', example='10000'),
-  // 自定义业务类型，例如选择：危险品/非危险品/食品
-  bizType?: string(name='biz_type', example='"biz_type"'),
-  // 海拔 米单位*1e2
-  elevation?: long(name='elevation', example='0'),
-  // 高度 米单位*1e2	
-  height?: long(name='height', example='123'),
-  // 纬度 度数单位*1e9	
-  latitude?: long(name='latitude', example='0'),
-  // 经度 度数单位*1e9	
-  longitude?: long(name='longitude', example='35000000000'),
-  // 自定义其他字段
-  otherInfo?: string(name='other_info', example='"自定义"'),
-  // 父类型，在业务中自定义关联，例如仓位的父节点是仓库
-  parentDid?: string(name='parent_did', example='“did:iot:xxxx”'),
-  // 可填入符合w3c did定义的服务节点
-  serviceEndpoint?: string(name='service_endpoint', example='"xxxx"'),
-  // 空间状态，自定义	
-  status?: string(name='status', example='"IN_USE"'),
-  // 空间类型，例如冷藏/冷冻/通道/平面/立体	
-  type?: string(name='type', example='“平面“'),
-}
-
-// TSM CommonCmd
-model TsmCommonCmd {
-  // private byte cla;
-  cla: long(name='cla', example='00'),
-  //  host challenge data.
-  data: [ long ](name='data', example='[0,0]'),
-  // private byte ins;
-  ins: long(name='ins', example='00'),
-  //  private byte lc;
-  lc: long(name='lc', example='lc'),
-  // private byte le = (byte) 0x00;
-  le?: long(name='le', example='0'),
-  // private Boolean needSecurityHandle = Boolean.TRUE;
-  needSecurityHandle?: boolean(name='need_security_handle', example='true, false'),
-  // private byte p1;
-  p1: long(name='p1', example='00'),
-  // private byte p2 = (byte) 0x00;
-  p2: long(name='p2', example='00'),
-}
-
-// 更新设备和空间关联请求结构体
-model UpdateDeviceSpaceReq {
-  // API要更新的设备DID
-  deviceDid: string(name='device_did', example='"did:iot:xxxxx"'),
-  // 0-全部更新 (暂不支持)
-  // 1-添加  
-  // 2-删除
-  // 
-  updateMode: long(name='update_mode', example='1'),
-  // API要更新的设备部署库位
-  deviceSpace: [ string ](name='device_space', example='["did:iot:xxxx","did:iot:xxxxx"]'),
-}
-
-// 发行数据包
-model DistributeDataPackage {
-  // 原始数据
-  dataList: [ RawData ](name='data_list', example=''),
-  // 发行设备Id
-  distributeDeviceId: string(name='distribute_device_id', example='244'),
-  // 打包时间
-  packageTime: long(name='package_time', example=''),
-}
-
-// 标签流转历史
-model LabelTrace {
-  // 操作内容
-  content?: string(name='content', example='XXXXX'),
-  // 链上哈希
-  txHash: string(name='tx_hash', example='XXXXX'),
-  // 上链时间
-  txTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='tx_time', example='XXXXX'),
-  // 上链失败的错误码
-  errorCode?: string(name='error_code', example='XXXXX'),
-  // 上链失败的错误信息
-  errorMsg?: string(name='error_msg', example='XXXXX'),
-  // 是否上链成功
-  isSuccess?: boolean(name='is_success', example='true, false'),
-  // 标签对应资产版本号
-  version?: long(name='version', example='1'),
-}
-
-// 数据校验失败分页查询结果
-model DataVerifyFailureDataPageResponse {
-  // 页数
-  // 
-  pageIndex: long(name='page_index', example='1'),
-  // 页码
-  // 
-  pageSize: long(name='page_size', example='10'),
-  // 总记录数
-  // 
-  totalSize: long(name='total_size', example='100'),
-  // 总页数
-  // 
-  totalPages: long(name='total_pages', example='10'),
-  // 数据
-  pageData: [ DataVerifyFailureData ](name='page_data', example='{...}'),
-}
-
-// 数据模型
-model DataModel {
-  //  数据模型Id
-  dataModelId: string(name='data_model_id', example='112233'),
-  // 数据模型名称
-  dataModelName?: string(name='data_model_name', example='检测设备模型'),
-  // 数据模型
-  dataModel: string(name='data_model', example='{          "PIC-URL": {                 "type": "string",                 "require":false              } }'),
-  // 数据模型类别
-  bizType?: string(name='biz_type', example='ORDER'),
-  // 用户自定义版本
-  customerVersion?: string(name='customer_version', example='V1.0'),
-}
-
-// 收集标签数据（元数据，无签名）
-model CollectLabelRawContent {
-  // 1.设备端上报数据内容 2.与设备上报的数据一致，服务端不可修改 3.解析后需与DataModel匹配 4.映射 Label 对象结构化存储 5.转为JSON后如果是JSONObject 映射单个 Label 6.转为JSON后如果是JSONArray 映射多个 Label
-  content: string(name='content', example='XXXXX'),
-  // 数据模型ID 
-  dataModelId: string(name='data_model_id', example='001202103171566166669'),
-}
-
-// 告警策略分页查询结果
-model AlertStrategyPageResponse {
-  // 页数
-  // 
-  pageIndex: long(name='page_index', example='1'),
-  // 页码
-  // 
-  pageSize: long(name='page_size', example='10'),
-  // 总记录数
-  // 
-  totalSize: long(name='total_size', example='100'),
-  // 总页数
-  // 
-  totalPages: long(name='total_pages', example='10'),
-  // 数据
-  pageData: [ AlertStrategy ](name='page_data', example='{...}'),
-}
-
-// 设备业务数据
-model BizContentGroup {
-  // 设备链上Id
-  // 
-  // 
-  chainDeviceId?: string(name='chain_device_id', example='txhash123'),
-  // 业务Id
-  // 
-  // 
-  bizId: string(name='biz_id', example='123123'),
-  // 业务类型
-  // 
-  // 
-  bizType: string(name='biz_type', example='123123'),
-  // 数据内容 JSON字符串
-  // 
-  // 
-  content: string(name='content', example='{"":"",""}'),
-}
-
-// 实体身份更新请求结构体，设备/仓库/空间/组织
-model ThingsDidUpdateReq {
-  // 业务类型，默认空
-  bizType?: string(name='biz_type', example='null'),
-  // 待更新的实体did
-  thingDid: string(name='thing_did', example='"did:iot:xxxxx"'),
-  // 更新内容，参考更新请求不同实体类型结构体，对应不同实体类型不一样
-  // 信物链实体附加信息 不同实体身份，有不同的json组织格式，
-  // 参考 DeviceRegisterReqModel， SpaceRegisterReqModel， CorporateReqModel， WarehouseReqModel，
-  thingExtraParams?: string(name='thing_extra_params', example='参考结构体'),
-  // 更新后的实体版本
-  thingVersion: string(name='thing_version', example='"1.0.1"'),
-}
-
-// 具备实体权限访问者更新请求
-model DidUpdateTenantReq {
-  // 待更新实体身份did
-  thingDid: string(name='thing_did', example='"did:iot_xxxxx"'),
-  // 待更新访问者列表
-  tenantList: [ string ](name='tenant_list', example='["",""]'),
-  // 权限角色
-  // TENANT_ROLE_OWNER
-  // TENANT_ROLE_USER
-  // TENANT_ROLE_OBSERVER
-  tenantRole: string(name='tenant_role', example='TENANT_ROLE_OWNER'),
-  // 增加权限：THINGS_OP_MODE_ADD
-  // 删除权限：THINGS_OP_MODE_REMOVE
-  opMode: string(name='op_mode', example='THINGS_OP_MODE_ADD'),
-}
-
-// PurchaseOrderInfoDetail 
-model PurchaseOrderInfoDetail {
-  // 租赁订单号
-  // 
-  orderNumber: string(name='order_number', example='dadadasda'),
-  // 收货人姓名
-  // 
-  consigneeName: string(name='consignee_name', example='立敢'),
-  // 收货人身份证号
-  consigneeIdNumber: string(name='consignee_id_number', example='424234324324234'),
-  // 收货人手机号
-  // 
-  consigneePhone: string(name='consignee_phone', example='13400113344'),
-  // 收货人地址
-  consigneeAddress: string(name='consignee_address', example='北京市海淀区XXXXXXXX'),
-  // 供货商名称
-  // 
-  supplierName: string(name='supplier_name', example='fsafsafaf'),
-  // 供货商租户id
-  // 
-  supplierId: string(name='supplier_id', example='fsffafaf'),
-  // 采购商id
-  // 
-  leaseId: string(name='lease_id', example='fafsafaf'),
-  // 商品信息列表
-  goodsIdAndCount: [ GoodsIdAndCount ](name='goods_id_and_count', example=''),
-}
-
-// 信物链存证查询请求结构体
-model EvidenceQueryInfoReq {
-  // 暂时保留
-  deviceSignature?: string(name='device_signature', example='null'),
-  // 暂时保留
-  deviceUid?: string(name='device_uid', example='null'),
-  // 不同上链方式
-  // "CZ": 普通存证
-  // "IOTPAY": 支付存证
-  // "RAW": 文本上链
-  // "TTTS": 溯源存证
-  queryType: string(name='query_type', example='"CZ"'),
-  // 查询的链上交易txHash
-  txHash: string(name='tx_hash', example='"516e981c8b62c6ef08dc99b5f5165ab2a8592b5a116298788f95bbd45d0cc499"'),
-}
-
-// 手机型号信息
-model PhoneInfo {
-  // 颜色
-  colour: string(name='colour', example='红色'),
-  // 色值
-  colourNumber: string(name='colour_number', example='#BA0F2F'),
-  // 内存大小
-  memory: string(name='memory', example='128GB'),
-}
-
-// 收集数据返回的上链结果
-model SendCollectorResult {
-  // 数据内容content的上链交易哈希
-  txHash: string(name='tx_hash', example='2c952456827828cdedad06afccef75a9f2c2840cbb6b0b659f653da1e5916cb2'),
+  pageData: [ SdkModel ](name='page_data', example='{...}'),
 }
 
 // 实体身份注册请求结构体
@@ -653,6 +380,85 @@ model ThingsDidRegisterReq {
   userDid?: [ string ](name='user_did', example='["did:mychain:xxxx1","did:mychain:xxxx2"]'),
 }
 
+// 查询设备列表结构体
+model IotBasicDeviceQueryResponse {
+  // 设备名称	
+  // 
+  deviceName: string(name='device_name', example='智能防疫一体机'),
+  // 设备序列号
+  deviceSn: string(name='device_sn', example='CN12300x'),
+  // 设备品类名称	
+  deviceCategoryName: string(name='device_category_name', example='智能防疫机'),
+  // 设备型号
+  deviceModel: string(name='device_model', example='PL10'),
+  // 设备状态
+  deviceStatus?: string(name='device_status', example='online'),
+  // 设备安装位置
+  location?: string(name='location', example='浙江省杭州市西湖区 '),
+  // 设备注册时间
+  registerTime: string(name='register_time', example='2018-10-10T10:10:00Z'),
+  // 设备厂商
+  corpName: string(name='corp_name', example='蚂蚁数科'),
+  // 租户ID
+  tenantId: string(name='tenant_id', example='2088xx'),
+  // 客户名称
+  customerName: string(name='customer_name', example='测试客户xx '),
+  // 异常错误码
+  abnormalCode?: string(name='abnormal_code', example='SMILE_INIT_ERROR'),
+  // 设备唯一身份id
+  deviceDid?: string(name='device_did', example='did:private:12dsadadadf '),
+}
+
+// 数据校验失败分页查询结果
+model DataVerifyFailureDataPageResponse {
+  // 页数
+  // 
+  pageIndex: long(name='page_index', example='1'),
+  // 页码
+  // 
+  pageSize: long(name='page_size', example='10'),
+  // 总记录数
+  // 
+  totalSize: long(name='total_size', example='100'),
+  // 总页数
+  // 
+  totalPages: long(name='total_pages', example='10'),
+  // 数据
+  pageData: [ DataVerifyFailureData ](name='page_data', example='{...}'),
+}
+
+// TSM CommonCmd
+model TsmCommonCmd {
+  // private byte cla;
+  cla: long(name='cla', example='00'),
+  //  host challenge data.
+  data: [ long ](name='data', example='[0,0]'),
+  // private byte ins;
+  ins: long(name='ins', example='00'),
+  //  private byte lc;
+  lc: long(name='lc', example='lc'),
+  // private byte le = (byte) 0x00;
+  le?: long(name='le', example='0'),
+  // private Boolean needSecurityHandle = Boolean.TRUE;
+  needSecurityHandle?: boolean(name='need_security_handle', example='true, false'),
+  // private byte p1;
+  p1: long(name='p1', example='00'),
+  // private byte p2 = (byte) 0x00;
+  p2: long(name='p2', example='00'),
+}
+
+// 租户关联信息请求结构体
+model TenantBindInfoReq {
+  // 租户关联扩展信息
+  extension?: string(name='extension', example='"CN,北京"'),
+  // 业务类型，默认空
+  bizType?: string(name='biz_type', example='null'),
+  // 组织机构代码，可为中文
+  tenantUid: string(name='tenant_uid', example='"12345"'),
+  // 组织结构名称
+  userName: string(name='user_name', example='"xx公司xx部门"'),
+}
+
 // 信物链证据基本组成结构体
 model EvidenceBaseModel {
   // 业务数据
@@ -661,6 +467,426 @@ model EvidenceBaseModel {
   hash?: string(name='hash', example='"证据哈希值"'),
   // 证据附属信息字段
   metaJson?: string(name='meta_json', example='"证据附属信息"'),
+}
+
+// tlsnotary文件认证成功后上传到oss的文件链接列表
+model TlsnotaryUploadOssLinks {
+  // 证书链摘要文件的oss链接
+  certChainDigestLink: string(name='cert_chain_digest_link', example='tlsnotary/{taskId}.json'),
+  // 邮件eml文件的oss链接
+  emlFileLink: string(name='eml_file_link', example='tlsnotary/{taskId}.eml'),
+}
+
+// 实体身份更新请求结构体，设备/仓库/空间/组织
+model ThingsDidUpdateReq {
+  // 业务类型，默认空
+  bizType?: string(name='biz_type', example='null'),
+  // 待更新的实体did
+  thingDid: string(name='thing_did', example='"did:iot:xxxxx"'),
+  // 更新内容，参考更新请求不同实体类型结构体，对应不同实体类型不一样
+  // 信物链实体附加信息 不同实体身份，有不同的json组织格式，
+  // 参考 DeviceRegisterReqModel， SpaceRegisterReqModel， CorporateReqModel， WarehouseReqModel，
+  thingExtraParams?: string(name='thing_extra_params', example='参考结构体'),
+  // 更新后的实体版本
+  thingVersion: string(name='thing_version', example='"1.0.1"'),
+}
+
+// 标签流转上链返回txHash
+model LabelChainResult {
+  // 标签ID
+  labelId: string(name='label_id', example='86F000001A51C02000000010'),
+  // 业务资产ID，接入方自行定义
+  assetId?: string(name='asset_id', example='XXX'),
+  // 标签最近一次上链的txHash
+  txHash: string(name='tx_hash', example='855e7ba37a0f227e384691e250f90bb2240adf11839016cf08506c9aa5c11cef'),
+  // 错误码
+  errorCode?: string(name='error_code', example='XXXX'),
+  // 错误信息
+  errorMsg: string(name='error_msg', example='xxxxx'),
+}
+
+// 仓库实体身份附加参数请求结构体，应用在注册/更新API的ThingExtraParams
+model WarehouseReqModel {
+  // 详细地址
+  address?: string(name='address', example='北京海淀区'),
+  // 面积 平方米单位*1e4
+  area?: long(name='area', example='1000000'),
+  // 海拔 米单位*1e2
+  elevation?: long(name='elevation', example='0'),
+  // 仓库高度 米单位*1e2
+  height?: long(name='height', example='1000'),
+  // 纬度 度数单位*1e9
+  latitude?: long(name='latitude', example='0'),
+  // 经度 度数单位*1e9
+  longitude?: long(name='longitude', example='35000000000'),
+  // 所在国家，中国
+  nation?: string(name='nation', example='中国'),
+  // 其他信息
+  otherInfo?: string(name='other_info', example='"自定义"'),
+  // 仓库状态, AVAILABLE, IN_USE, DELETED, 自定义
+  status?: string(name='status', example='"AVAILABLE"'),
+  // 仓库类型
+  type?: string(name='type', example='"自定义"'),
+}
+
+// PurchaseOrderInfoDetail 
+model PurchaseOrderInfoDetail {
+  // 租赁订单号
+  // 
+  orderNumber: string(name='order_number', example='dadadasda'),
+  // 收货人姓名
+  // 
+  consigneeName: string(name='consignee_name', example='立敢'),
+  // 收货人身份证号
+  consigneeIdNumber: string(name='consignee_id_number', example='424234324324234'),
+  // 收货人手机号
+  // 
+  consigneePhone: string(name='consignee_phone', example='13400113344'),
+  // 收货人地址
+  consigneeAddress: string(name='consignee_address', example='北京市海淀区XXXXXXXX'),
+  // 供货商名称
+  // 
+  supplierName: string(name='supplier_name', example='fsafsafaf'),
+  // 供货商租户id
+  // 
+  supplierId: string(name='supplier_id', example='fsffafaf'),
+  // 采购商id
+  // 
+  leaseId: string(name='lease_id', example='fafsafaf'),
+  // 商品信息列表
+  goodsIdAndCount: [ GoodsIdAndCount ](name='goods_id_and_count', example=''),
+}
+
+// 电脑型号信息
+model ComputerInfo {
+  // 颜色
+  colour?: string(name='colour', example='红色'),
+  // 色值
+  colourNumber?: string(name='colour_number', example='#BA0F2F'),
+  // 电脑型号
+  computerModel?: string(name='computer_model', example='X100'),
+  // 配置参数
+  configParam?: string(name='config_param', example='{""}'),
+  // 显卡
+  videoCard?: string(name='video_card', example='GTX3080'),
+  // 屏幕
+  screenSize?: string(name='screen_size', example='27'),
+  // 电脑CPU
+  cpu: string(name='cpu', example='i9'),
+  // 电脑内存
+  memory: string(name='memory', example='16GB'),
+  // 电脑硬盘
+  diskSize: string(name='disk_size', example='500GB'),
+}
+
+// 信物链存证查询请求结构体
+model EvidenceQueryInfoReq {
+  // 暂时保留
+  deviceSignature?: string(name='device_signature', example='null'),
+  // 暂时保留
+  deviceUid?: string(name='device_uid', example='null'),
+  // 不同上链方式
+  // "CZ": 普通存证
+  // "IOTPAY": 支付存证
+  // "RAW": 文本上链
+  // "TTTS": 溯源存证
+  queryType: string(name='query_type', example='"CZ"'),
+  // 查询的链上交易txHash
+  txHash: string(name='tx_hash', example='"516e981c8b62c6ef08dc99b5f5165ab2a8592b5a116298788f95bbd45d0cc499"'),
+}
+
+// 收集数据返回的上链结果
+model SendCollectorResult {
+  // 数据内容content的上链交易哈希
+  txHash: string(name='tx_hash', example='2c952456827828cdedad06afccef75a9f2c2840cbb6b0b659f653da1e5916cb2'),
+}
+
+// 创建订单失败的返回结构体
+model InsertPurchaseOrderFailInfo {
+  // 订单ID
+  orderId: string(name='order_id', example='safsafafafa'),
+  // 订单保存失败的原因
+  failReason: string(name='fail_reason', example='fasfasfasfa'),
+}
+
+// 租户项目创建请求结构体模型
+model TenantProjectCreateReq {
+  // 业务类型，默认空
+  bizType?: string(name='biz_type', example='null'),
+  // 可选的，项目关联的区块链类型，1/2/3代表存证/合约等类型
+  blockchainType?: long(name='blockchain_type', example='1'),
+  // 可选的，项目关联的区块链uid
+  blockchainUid?: string(name='blockchain_uid', example='1111111'),
+  // 租户下唯一项目名称，用以标识项目聚合的存证等信息
+  projectName: string(name='project_name', example='"唯一项目名称"'),
+}
+
+// 信物链存证请求结构体
+model EvidenceStorageReq {
+  // 业务数据，原文上链，或者加密（label若为CRYPTO）上链，上链后的业务数据，通过授权可被区块链其他业务方查询
+  bizData?: string(name='biz_data', example='[{"content":"{业务数据}","label":"CRYPTO","timestamp":0}]'),
+  // 不同上链方式
+  // 空/"": 默认
+  // "TTTS": 溯源
+  // "IOTPAY": 支付
+  // "CZ": 存证
+  // "RAW":文本
+  category: string(name='category', example='"CZ"'),
+  // 上链实体id(设备/空间)
+  // 不可和project_uid同时为空
+  iotDid?: string(name='iot_did', example='"did:iot:a9147bd2b83d4732b56dc06b346588f5619f80a2d4d2412fab535cbd37293a00"'),
+  // 需要上链的证据的哈希值
+  hash?: string(name='hash', example='"ace1213412313"'),
+  // 上链的附属信息
+  metaJson?: string(name='meta_json', example='"附属信息json"'),
+  // 上链的项目id,
+  // 不可和iot_did同时为空
+  projectUid?: string(name='project_uid', example='"上链的项目id"'),
+}
+
+// 收集标签数据
+model CollectLabelContent {
+  // 链上设备ID
+  chainDeviceId: string(name='chain_device_id', example='XXXXX'),
+  // 1.设备端上报数据内容  
+  // 2.与设备上报的数据一致，服务端不可修改
+  // 3.解析后需与DataModel匹配 
+  // 4.映射 Label 对象结构化存储
+  // 5.转为JSON后如果是JSONObject 映射单个 Label
+  // 6.转为JSON后如果是JSONArray 映射多个 Label
+  content: string(name='content', example='XXXXX'),
+  // content的签名
+  // 与设备上报的签名保持一致，服务端不可修改
+  signature: string(name='signature', example='XXXXX'),
+  // 未经设备签名的附加数据JSON String
+  // 注意：如果 content 批量解析 ，extraData也会批量复制融入解析后的content
+  extraData?: string(name='extra_data', example='XXXXX'),
+}
+
+// 收集信息
+model CollectContent {
+  // 链上设备Id
+  chainDeviceId: string(name='chain_device_id', example='1122'),
+  // 收集的内容
+  content: string(name='content', example='{"name","1"}'),
+  // 对内容的签名
+  signature: string(name='signature', example='wwexe02j'),
+  // 服务端发送的扩展数据（非可信设备直接产生的数据）
+  extraData?: string(name='extra_data', example='{"extraKey":"extraValue"}'),
+  // 数据模型Id
+  dataModelId?: string(name='data_model_id', example='00000001'),
+}
+
+// ProductKey分页查询结果
+model ProductKeyPageResponse {
+  // 页数
+  // 
+  pageIndex: long(name='page_index', example='1'),
+  // 页码
+  // 
+  pageSize: long(name='page_size', example='10'),
+  // 总记录数
+  // 
+  totalSize: long(name='total_size', example='100'),
+  // 总页数
+  // 
+  totalPages: long(name='total_pages', example='10'),
+  // 数据
+  pageData: [ ProductKeyModel ](name='page_data', example='{...}'),
+}
+
+// 数据模型
+model DataModel {
+  //  数据模型Id
+  dataModelId: string(name='data_model_id', example='112233'),
+  // 数据模型名称
+  dataModelName?: string(name='data_model_name', example='检测设备模型'),
+  // 数据模型
+  dataModel: string(name='data_model', example='{          "PIC-URL": {                 "type": "string",                 "require":false              } }'),
+  // 数据模型类别
+  bizType?: string(name='biz_type', example='ORDER'),
+  // 用户自定义版本
+  customerVersion?: string(name='customer_version', example='V1.0'),
+}
+
+// 空间实体身份附加参数请求结构体，应用在注册/更新API的ThingExtraParams
+model SpaceRegisterReqModel {
+  // 面积 平方米单位*1e4	
+  area?: long(name='area', example='10000'),
+  // 自定义业务类型，例如选择：危险品/非危险品/食品
+  bizType?: string(name='biz_type', example='"biz_type"'),
+  // 海拔 米单位*1e2
+  elevation?: long(name='elevation', example='0'),
+  // 高度 米单位*1e2	
+  height?: long(name='height', example='123'),
+  // 纬度 度数单位*1e9	
+  latitude?: long(name='latitude', example='0'),
+  // 经度 度数单位*1e9	
+  longitude?: long(name='longitude', example='35000000000'),
+  // 自定义其他字段
+  otherInfo?: string(name='other_info', example='"自定义"'),
+  // 父类型，在业务中自定义关联，例如仓位的父节点是仓库
+  parentDid?: string(name='parent_did', example='“did:iot:xxxx”'),
+  // 可填入符合w3c did定义的服务节点
+  serviceEndpoint?: string(name='service_endpoint', example='"xxxx"'),
+  // 空间状态，自定义	
+  status?: string(name='status', example='"IN_USE"'),
+  // 空间类型，例如冷藏/冷冻/通道/平面/立体	
+  type?: string(name='type', example='“平面“'),
+}
+
+// 标签流转历史
+model LabelTrace {
+  // 操作内容
+  content?: string(name='content', example='XXXXX'),
+  // 链上哈希
+  txHash: string(name='tx_hash', example='XXXXX'),
+  // 上链时间
+  txTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='tx_time', example='XXXXX'),
+  // 上链失败的错误码
+  errorCode?: string(name='error_code', example='XXXXX'),
+  // 上链失败的错误信息
+  errorMsg?: string(name='error_msg', example='XXXXX'),
+  // 是否上链成功
+  isSuccess?: boolean(name='is_success', example='true, false'),
+  // 标签对应资产版本号
+  version?: long(name='version', example='1'),
+}
+
+// 外围设备信息
+model Peripheral {
+  // 外围设备Id
+  peripheralId: string(name='peripheral_id', example='123'),
+  // 数据模型id
+  // 
+  peripheralDataModelId: string(name='peripheral_data_model_id', example='123456'),
+  // 场景码
+  // 
+  scene: string(name='scene', example='scene1'),
+  // 外围设备名称
+  // 
+  peripheralName?: string(name='peripheral_name', example='锂电池1 '),
+  // 厂商名称
+  // 
+  corpName?: string(name='corp_name', example='宁德时代1'),
+  // 链上外围设备Id
+  // 
+  chainPeripheralId: string(name='chain_peripheral_id', example='123123'),
+  // 链上哈希
+  txHash: string(name='tx_hash', example='txhash123'),
+  // 上链时间
+  txTime: long(name='tx_time', example='1605076751000'),
+  // 设备类型编码，必填，对应资管平台中的设备类型 
+  // 
+  // 枚举值：
+  // 
+  // 车辆 1000 
+  // 车辆 四轮车 1001 
+  // 车辆 四轮车 纯电四轮车 1002 
+  // 车辆 四轮车 混动四轮车 1003 
+  // 车辆 四轮车 燃油四轮车 1004 
+  // 车辆 两轮车 1011 
+  // 车辆 两轮车 两轮单车 1012 
+  // 车辆 两轮车 两轮助力车 1013 
+  // 
+  // 换电柜 2000 
+  // 换电柜 二轮车换电柜 2001 
+  // 
+  // 电池 3000 
+  // 电池 磷酸铁电池 3001 
+  // 电池 三元锂电池 3002 
+  // 
+  // 回收设备 4000 
+  // 
+  // 垃圾分类回收 4001 
+  // 
+  // 洗车机 5000
+  deviceTypeCode: long(name='device_type_code', example='3000'),
+  // 单价，单位分
+  initialPrice: long(name='initial_price', example='1000'),
+  // 出厂时间
+  factoryTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='factory_time', example='2018-10-10T10:10:00Z'),
+  // 投放时间
+  releaseTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='release_time', example='2018-10-10T10:10:00Z'),
+}
+
+// 更新设备和空间关联请求结构体
+model UpdateDeviceSpaceReq {
+  // API要更新的设备DID
+  deviceDid: string(name='device_did', example='"did:iot:xxxxx"'),
+  // 0-全部更新 (暂不支持)
+  // 1-添加  
+  // 2-删除
+  // 
+  updateMode: long(name='update_mode', example='1'),
+  // API要更新的设备部署库位
+  deviceSpace: [ string ](name='device_space', example='["did:iot:xxxx","did:iot:xxxxx"]'),
+}
+
+// 信物链实体身份注册请求结构体
+model ThingsDidBaseRegisterRequest {
+  // 信物链实体的所有者的分布式身份
+  ownerTenantDid?: string(name='owner_tenant_did', example='"did:mychain:6c9f6cde4f63103d25ab1d9893242547a8518d8f51bff1a9da44e4f8537a9816"'),
+  // 信物链实体的使用方的分布式身份列表
+  userDid?: [ string ](name='user_did', example='["did:mychain:xxxx1","did:mychain:xxxx2"]'),
+  // 信物链实体身份
+  // DID_TYPE_DEVICE_ALIYUN: 阿里云设备
+  // DID_TYPE_DEVICE_PEGASUS: 链机设备
+  // DID_TYPE_DEVICE_MCU: MCU设备
+  // DID_TYPE_DEVICE_INTEL: intel设备
+  // DID_TYPE_DEVICE_DEVICE: 默认设备
+  // ...
+  // DID_TYPE_CORPORATE:  组织实体
+  // DID_TYPE_WAREHOUSE：仓库实体
+  // DID_TYPE_SPACE： 空间实体
+  thingType: string(name='thing_type', example='"DID_TYPE_DEVICE_ALIYUN"'),
+  // 原始id，租户内同一类型实体唯一
+  thingOriginId: string(name='thing_origin_id', example='"aaaa123"'),
+  // 实体原始名称
+  thingOriginName: string(name='thing_origin_name', example='"摄像头a11"'),
+  // 实体版本
+  thingVersion: string(name='thing_version', example='"1.0.0"'),
+  // 业务编码
+  bizType?: string(name='biz_type', example='null'),
+  // 信物链实体附加信息
+  // 不同实体身份，有不同的json组织格式，参考另外技术文档
+  thingExtraParams?: string(name='thing_extra_params', example='"附加信息"'),
+}
+
+// 告警策略分页查询结果
+model AlertStrategyPageResponse {
+  // 页数
+  // 
+  pageIndex: long(name='page_index', example='1'),
+  // 页码
+  // 
+  pageSize: long(name='page_size', example='10'),
+  // 总记录数
+  // 
+  totalSize: long(name='total_size', example='100'),
+  // 总页数
+  // 
+  totalPages: long(name='total_pages', example='10'),
+  // 数据
+  pageData: [ AlertStrategy ](name='page_data', example='{...}'),
+}
+
+// 场景分页查询结果
+model ScenePageResponse {
+  // 页数
+  // 
+  pageIndex: long(name='page_index', example='1'),
+  // 页码
+  // 
+  pageSize: long(name='page_size', example='10'),
+  // 总记录数
+  // 
+  totalSize: long(name='total_size', example='100'),
+  // 总页数
+  // 
+  totalPages: long(name='total_pages', example='10'),
+  // 数据
+  pageData: [ SceneModel ](name='page_data', example='{...}'),
 }
 
 // 设备类型
@@ -725,236 +951,6 @@ model Device {
   deviceStatus?: string(name='device_status', example='NORMAL'),
 }
 
-// BAI提供的OCR接口返回值
-model BaiOcrResponse {
-  // 返回的结果体
-  data: string(name='data', example='{"backResult":{"issue":"XXXX","endDate":"20231010","startDate":"20131010"}}'),
-}
-
-// 收集标签数据
-model CollectLabelContent {
-  // 链上设备ID
-  chainDeviceId: string(name='chain_device_id', example='XXXXX'),
-  // 1.设备端上报数据内容  
-  // 2.与设备上报的数据一致，服务端不可修改
-  // 3.解析后需与DataModel匹配 
-  // 4.映射 Label 对象结构化存储
-  // 5.转为JSON后如果是JSONObject 映射单个 Label
-  // 6.转为JSON后如果是JSONArray 映射多个 Label
-  content: string(name='content', example='XXXXX'),
-  // content的签名
-  // 与设备上报的签名保持一致，服务端不可修改
-  signature: string(name='signature', example='XXXXX'),
-  // 未经设备签名的附加数据JSON String
-  // 注意：如果 content 批量解析 ，extraData也会批量复制融入解析后的content
-  extraData?: string(name='extra_data', example='XXXXX'),
-}
-
-// 收集信息
-model CollectContent {
-  // 链上设备Id
-  chainDeviceId: string(name='chain_device_id', example='1122'),
-  // 收集的内容
-  content: string(name='content', example='{"name","1"}'),
-  // 对内容的签名
-  signature: string(name='signature', example='wwexe02j'),
-  // 服务端发送的扩展数据（非可信设备直接产生的数据）
-  extraData?: string(name='extra_data', example='{"extraKey":"extraValue"}'),
-  // 数据模型Id
-  dataModelId?: string(name='data_model_id', example='00000001'),
-}
-
-// tlsnotary文件认证成功后上传到oss的文件链接列表
-model TlsnotaryUploadOssLinks {
-  // 证书链摘要文件的oss链接
-  certChainDigestLink: string(name='cert_chain_digest_link', example='tlsnotary/{taskId}.json'),
-  // 邮件eml文件的oss链接
-  emlFileLink: string(name='eml_file_link', example='tlsnotary/{taskId}.eml'),
-}
-
-// 租户关联信息请求结构体
-model TenantBindInfoReq {
-  // 租户关联扩展信息
-  extension?: string(name='extension', example='"CN,北京"'),
-  // 业务类型，默认空
-  bizType?: string(name='biz_type', example='null'),
-  // 组织机构代码，可为中文
-  tenantUid: string(name='tenant_uid', example='"12345"'),
-  // 组织结构名称
-  userName: string(name='user_name', example='"xx公司xx部门"'),
-}
-
-// 标签流转上链返回txHash
-model LabelChainResult {
-  // 标签ID
-  labelId: string(name='label_id', example='86F000001A51C02000000010'),
-  // 业务资产ID，接入方自行定义
-  assetId?: string(name='asset_id', example='XXX'),
-  // 标签最近一次上链的txHash
-  txHash: string(name='tx_hash', example='855e7ba37a0f227e384691e250f90bb2240adf11839016cf08506c9aa5c11cef'),
-  // 错误码
-  errorCode?: string(name='error_code', example='XXXX'),
-  // 错误信息
-  errorMsg: string(name='error_msg', example='xxxxx'),
-}
-
-// 创建订单失败的返回结构体
-model InsertPurchaseOrderFailInfo {
-  // 订单ID
-  orderId: string(name='order_id', example='safsafafafa'),
-  // 订单保存失败的原因
-  failReason: string(name='fail_reason', example='fasfasfasfa'),
-}
-
-// 场景分页查询结果
-model ScenePageResponse {
-  // 页数
-  // 
-  pageIndex: long(name='page_index', example='1'),
-  // 页码
-  // 
-  pageSize: long(name='page_size', example='10'),
-  // 总记录数
-  // 
-  totalSize: long(name='total_size', example='100'),
-  // 总页数
-  // 
-  totalPages: long(name='total_pages', example='10'),
-  // 数据
-  pageData: [ SceneModel ](name='page_data', example='{...}'),
-}
-
-// 电脑型号信息
-model ComputerInfo {
-  // 颜色
-  colour?: string(name='colour', example='红色'),
-  // 色值
-  colourNumber?: string(name='colour_number', example='#BA0F2F'),
-  // 电脑型号
-  computerModel?: string(name='computer_model', example='X100'),
-  // 配置参数
-  configParam?: string(name='config_param', example='{""}'),
-  // 显卡
-  videoCard?: string(name='video_card', example='GTX3080'),
-  // 屏幕
-  screenSize?: string(name='screen_size', example='27'),
-  // 电脑CPU
-  cpu: string(name='cpu', example='i9'),
-  // 电脑内存
-  memory: string(name='memory', example='16GB'),
-  // 电脑硬盘
-  diskSize: string(name='disk_size', example='500GB'),
-}
-
-// 租户项目创建请求结构体模型
-model TenantProjectCreateReq {
-  // 业务类型，默认空
-  bizType?: string(name='biz_type', example='null'),
-  // 可选的，项目关联的区块链类型，1/2/3代表存证/合约等类型
-  blockchainType?: long(name='blockchain_type', example='1'),
-  // 可选的，项目关联的区块链uid
-  blockchainUid?: string(name='blockchain_uid', example='1111111'),
-  // 租户下唯一项目名称，用以标识项目聚合的存证等信息
-  projectName: string(name='project_name', example='"唯一项目名称"'),
-}
-
-// Sdk分页查询结果
-model SdkPageResponse {
-  // 页数
-  // 
-  pageIndex: long(name='page_index', example='1'),
-  // 页码
-  // 
-  pageSize: long(name='page_size', example='10'),
-  // 总记录数
-  // 
-  totalSize: long(name='total_size', example='100'),
-  // 总页数
-  // 
-  totalPages: long(name='total_pages', example='10'),
-  // 数据
-  pageData: [ SdkModel ](name='page_data', example='{...}'),
-}
-
-// 信物链存证请求结构体
-model EvidenceStorageReq {
-  // 业务数据，原文上链，或者加密（label若为CRYPTO）上链，上链后的业务数据，通过授权可被区块链其他业务方查询
-  bizData?: string(name='biz_data', example='[{"content":"{业务数据}","label":"CRYPTO","timestamp":0}]'),
-  // 不同上链方式
-  // 空/"": 默认
-  // "TTTS": 溯源
-  // "IOTPAY": 支付
-  // "CZ": 存证
-  // "RAW":文本
-  category: string(name='category', example='"CZ"'),
-  // 上链实体id(设备/空间)
-  // 不可和project_uid同时为空
-  iotDid?: string(name='iot_did', example='"did:iot:a9147bd2b83d4732b56dc06b346588f5619f80a2d4d2412fab535cbd37293a00"'),
-  // 需要上链的证据的哈希值
-  hash?: string(name='hash', example='"ace1213412313"'),
-  // 上链的附属信息
-  metaJson?: string(name='meta_json', example='"附属信息json"'),
-  // 上链的项目id,
-  // 不可和iot_did同时为空
-  projectUid?: string(name='project_uid', example='"上链的项目id"'),
-}
-
-// 信物链查询实体身份请求结构体
-model DidBaseQueryReq {
-  // * "thingId"       原始ID
-  // * "certText"      证书文本
-  // * "certPublicKey"证书公钥
-  // * "didPublicKey" DID公钥
-  // * "didExtension"  DID扩展，设备/企业组织/仓库/空间的解析同thingsExtraParams
-  // * "didUsername"   DID用户名
-  // * "ownerDid"      所有者DID
-  // * "userDid"       使用者DID
-  // * "thingType"     实体类型，设备/企业组织/仓库/空间等
-  // * "thingStatus"   实体状态
-  // * "thingModelId" 实体物模型类型
-  // * "thingAttribute"实体属性
-  // * "thingVersion"  实体版本
-  // * "spacesAttached"关联空间列表
-  // * "thingsAttached"关联实体列表（例：库位关联设备）
-  // * "authLevel"     授权等级
-  // * "thingServiceEndpoint" 服务列表
-  dataFilter: [ string ](name='data_filter', example='["如下1","如下2"]'),
-  // 是否从链上查询，从链上查询将返回txHash值
-  onChain: boolean(name='on_chain', example='false'),
-  // 需要查询的实体Did列表，同一次查询的Did须为相同类型
-  thingsDidList: [ string ](name='things_did_list', example='["did:iot:xxxx","did:iot:yyyyy"]'),
-}
-
-// 信物链实体身份注册请求结构体
-model ThingsDidBaseRegisterRequest {
-  // 信物链实体的所有者的分布式身份
-  ownerTenantDid?: string(name='owner_tenant_did', example='"did:mychain:6c9f6cde4f63103d25ab1d9893242547a8518d8f51bff1a9da44e4f8537a9816"'),
-  // 信物链实体的使用方的分布式身份列表
-  userDid?: [ string ](name='user_did', example='["did:mychain:xxxx1","did:mychain:xxxx2"]'),
-  // 信物链实体身份
-  // DID_TYPE_DEVICE_ALIYUN: 阿里云设备
-  // DID_TYPE_DEVICE_PEGASUS: 链机设备
-  // DID_TYPE_DEVICE_MCU: MCU设备
-  // DID_TYPE_DEVICE_INTEL: intel设备
-  // DID_TYPE_DEVICE_DEVICE: 默认设备
-  // ...
-  // DID_TYPE_CORPORATE:  组织实体
-  // DID_TYPE_WAREHOUSE：仓库实体
-  // DID_TYPE_SPACE： 空间实体
-  thingType: string(name='thing_type', example='"DID_TYPE_DEVICE_ALIYUN"'),
-  // 原始id，租户内同一类型实体唯一
-  thingOriginId: string(name='thing_origin_id', example='"aaaa123"'),
-  // 实体原始名称
-  thingOriginName: string(name='thing_origin_name', example='"摄像头a11"'),
-  // 实体版本
-  thingVersion: string(name='thing_version', example='"1.0.0"'),
-  // 业务编码
-  bizType?: string(name='biz_type', example='null'),
-  // 信物链实体附加信息
-  // 不同实体身份，有不同的json组织格式，参考另外技术文档
-  thingExtraParams?: string(name='thing_extra_params', example='"附加信息"'),
-}
-
 // 信物链实体查询返回的数据结构，对应数据表字段
 model DidBaseQueryResp {
   // 授权水平，0-默认关联授权
@@ -1004,87 +1000,6 @@ model DidBaseQueryResp {
   did?: string(name='did', example='"did:iot:xxxx"'),
 }
 
-// 外围设备信息
-model Peripheral {
-  // 外围设备Id
-  peripheralId: string(name='peripheral_id', example='123'),
-  // 数据模型id
-  // 
-  peripheralDataModelId: string(name='peripheral_data_model_id', example='123456'),
-  // 场景码
-  // 
-  scene: string(name='scene', example='scene1'),
-  // 外围设备名称
-  // 
-  peripheralName?: string(name='peripheral_name', example='锂电池1 '),
-  // 厂商名称
-  // 
-  corpName?: string(name='corp_name', example='宁德时代1'),
-  // 链上外围设备Id
-  // 
-  chainPeripheralId: string(name='chain_peripheral_id', example='123123'),
-  // 链上哈希
-  txHash: string(name='tx_hash', example='txhash123'),
-  // 上链时间
-  txTime: long(name='tx_time', example='1605076751000'),
-  // 设备类型编码，必填，对应资管平台中的设备类型 
-  // 
-  // 枚举值：
-  // 
-  // 车辆 1000 
-  // 车辆 四轮车 1001 
-  // 车辆 四轮车 纯电四轮车 1002 
-  // 车辆 四轮车 混动四轮车 1003 
-  // 车辆 四轮车 燃油四轮车 1004 
-  // 车辆 两轮车 1011 
-  // 车辆 两轮车 两轮单车 1012 
-  // 车辆 两轮车 两轮助力车 1013 
-  // 
-  // 换电柜 2000 
-  // 换电柜 二轮车换电柜 2001 
-  // 
-  // 电池 3000 
-  // 电池 磷酸铁电池 3001 
-  // 电池 三元锂电池 3002 
-  // 
-  // 回收设备 4000 
-  // 
-  // 垃圾分类回收 4001 
-  // 
-  // 洗车机 5000
-  deviceTypeCode: long(name='device_type_code', example='3000'),
-  // 单价，单位分
-  initialPrice: long(name='initial_price', example='1000'),
-  // 出厂时间
-  factoryTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='factory_time', example='2018-10-10T10:10:00Z'),
-  // 投放时间
-  releaseTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='release_time', example='2018-10-10T10:10:00Z'),
-}
-
-// 仓库实体身份附加参数请求结构体，应用在注册/更新API的ThingExtraParams
-model WarehouseReqModel {
-  // 详细地址
-  address?: string(name='address', example='北京海淀区'),
-  // 面积 平方米单位*1e4
-  area?: long(name='area', example='1000000'),
-  // 海拔 米单位*1e2
-  elevation?: long(name='elevation', example='0'),
-  // 仓库高度 米单位*1e2
-  height?: long(name='height', example='1000'),
-  // 纬度 度数单位*1e9
-  latitude?: long(name='latitude', example='0'),
-  // 经度 度数单位*1e9
-  longitude?: long(name='longitude', example='35000000000'),
-  // 所在国家，中国
-  nation?: string(name='nation', example='中国'),
-  // 其他信息
-  otherInfo?: string(name='other_info', example='"自定义"'),
-  // 仓库状态, AVAILABLE, IN_USE, DELETED, 自定义
-  status?: string(name='status', example='"AVAILABLE"'),
-  // 仓库类型
-  type?: string(name='type', example='"自定义"'),
-}
-
 // 设备实体请求结构体，应用在注册/更新API的ThingsExtraParams
 model DeviceRegisterReqModel {
   // 保留
@@ -1101,6 +1016,26 @@ model DeviceRegisterReqModel {
   // 保留，默认
   //     STATUS_REGISTERED(3)
   status?: string(name='status', example='null'),
+}
+
+// 设备业务数据
+model BizContentGroup {
+  // 设备链上Id
+  // 
+  // 
+  chainDeviceId?: string(name='chain_device_id', example='txhash123'),
+  // 业务Id
+  // 
+  // 
+  bizId: string(name='biz_id', example='123123'),
+  // 业务类型
+  // 
+  // 
+  bizType: string(name='biz_type', example='123123'),
+  // 数据内容 JSON字符串
+  // 
+  // 
+  content: string(name='content', example='{"":"",""}'),
 }
 
 // 组织请求注册更新结构体，应用在注册/更新API的ThingExtraParams
@@ -1121,6 +1056,40 @@ model CorporateReqModel {
   type?: string(name='type', example='LimitedCompany'),
 }
 
+// 信物链查询实体身份请求结构体
+model DidBaseQueryReq {
+  // * "thingId"       原始ID
+  // * "certText"      证书文本
+  // * "certPublicKey"证书公钥
+  // * "didPublicKey" DID公钥
+  // * "didExtension"  DID扩展，设备/企业组织/仓库/空间的解析同thingsExtraParams
+  // * "didUsername"   DID用户名
+  // * "ownerDid"      所有者DID
+  // * "userDid"       使用者DID
+  // * "thingType"     实体类型，设备/企业组织/仓库/空间等
+  // * "thingStatus"   实体状态
+  // * "thingModelId" 实体物模型类型
+  // * "thingAttribute"实体属性
+  // * "thingVersion"  实体版本
+  // * "spacesAttached"关联空间列表
+  // * "thingsAttached"关联实体列表（例：库位关联设备）
+  // * "authLevel"     授权等级
+  // * "thingServiceEndpoint" 服务列表
+  dataFilter: [ string ](name='data_filter', example='["如下1","如下2"]'),
+  // 是否从链上查询，从链上查询将返回txHash值
+  onChain: boolean(name='on_chain', example='false'),
+  // 需要查询的实体Did列表，同一次查询的Did须为相同类型
+  thingsDidList: [ string ](name='things_did_list', example='["did:iot:xxxx","did:iot:yyyyy"]'),
+}
+
+// 收集标签数据（元数据，无签名）
+model CollectLabelRawContent {
+  // 1.设备端上报数据内容 2.与设备上报的数据一致，服务端不可修改 3.解析后需与DataModel匹配 4.映射 Label 对象结构化存储 5.转为JSON后如果是JSONObject 映射单个 Label 6.转为JSON后如果是JSONArray 映射多个 Label
+  content: string(name='content', example='XXXXX'),
+  // 数据模型ID 
+  dataModelId: string(name='data_model_id', example='001202103171566166669'),
+}
+
 // 租户分页查询结果
 model PermissionedTenantPageResponse {
   // 页数
@@ -1133,6 +1102,74 @@ model PermissionedTenantPageResponse {
   totalPages: long(name='total_pages', example='10'),
   // 数据
   pageData: [ PermissionedTenantModel ](name='page_data', example='{...}'),
+}
+
+// 发行设备
+model DistributeDevice {
+  // 链上设备Id  （deviceType=DEVICE 时有值)
+  chainDeviceId?: string(name='chain_device_id', example='4533'),
+  // 设备id
+  deviceId: string(name='device_id', example='1122'),
+  // 发行设备Id
+  distributeDeviceId: string(name='distribute_device_id', example='4455'),
+  // 场景码
+  scene: string(name='scene', example='SCENE'),
+  // 设备类型 DEVICE : 设备 、PERIPHERAL : 外围设备
+  deviceType: string(name='device_type', example='PERIPHERAL'),
+  // 链上外围设备Id（deviceType=PERIPHERAL 时有值)
+  chainPeripheralId?: string(name='chain_peripheral_id', example='123123'),
+  // 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
+  deviceStatus?: string(name='device_status', example='NORMAL'),
+}
+
+// 发行数据包
+model DistributeDataPackage {
+  // 原始数据
+  dataList: [ RawData ](name='data_list', example=''),
+  // 发行设备Id
+  distributeDeviceId: string(name='distribute_device_id', example='244'),
+  // 打包时间
+  packageTime: long(name='package_time', example=''),
+}
+
+// 设备概览统计信息
+model DeviceOverViewResponse {
+  // 设备品类名称
+  deviceCategoryName: string(name='device_category_name', example='test_category'),
+  // 设备总数
+  deviceTotal: long(name='device_total', example='2000'),
+}
+
+// 手机型号信息
+model PhoneInfo {
+  // 颜色
+  colour: string(name='colour', example='红色'),
+  // 色值
+  colourNumber: string(name='colour_number', example='#BA0F2F'),
+  // 内存大小
+  memory: string(name='memory', example='128GB'),
+}
+
+// 具备实体权限访问者更新请求
+model DidUpdateTenantReq {
+  // 待更新实体身份did
+  thingDid: string(name='thing_did', example='"did:iot_xxxxx"'),
+  // 待更新访问者列表
+  tenantList: [ string ](name='tenant_list', example='["",""]'),
+  // 权限角色
+  // TENANT_ROLE_OWNER
+  // TENANT_ROLE_USER
+  // TENANT_ROLE_OBSERVER
+  tenantRole: string(name='tenant_role', example='TENANT_ROLE_OWNER'),
+  // 增加权限：THINGS_OP_MODE_ADD
+  // 删除权限：THINGS_OP_MODE_REMOVE
+  opMode: string(name='op_mode', example='THINGS_OP_MODE_ADD'),
+}
+
+// BAI提供的OCR接口返回值
+model BaiOcrResponse {
+  // 返回的结果体
+  data: string(name='data', example='{"backResult":{"issue":"XXXX","endDate":"20231010","startDate":"20131010"}}'),
 }
 
 model OpenAcecContractRequest = {
@@ -1557,6 +1594,113 @@ async function sendAcsCollector(request: SendAcsCollectorRequest): SendAcsCollec
 async function sendAcsCollectorEx(request: SendAcsCollectorRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendAcsCollectorResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.acs.collector.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIotbasicDeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户ID
+  tenantId?: string(name='tenant_id'),
+  // 设备SN
+  deviceSn?: string(name='device_sn'),
+  // 设备品类code
+  categoryCode?: string(name='category_code'),
+  // 设备型号
+  deviceModel?: string(name='device_model'),
+  // 厂商名称
+  corpName?: string(name='corp_name'),
+  // 安装位置
+  location?: string(name='location'),
+  // 设备状态，在线/离线、故障
+  deviceStatus?: string(name='device_status'),
+  // 指定显示返回结果中的第几页。
+  // 
+  currentPage: long(minimum=1, name='current_page'),
+  // 指定返回结果中每页显示的产品数量，最大值是200。
+  // 
+  // 
+  pageSize: long(maximum=200, minimum=1, name='page_size'),
+}
+
+model QueryIotbasicDeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前页号。
+  // 
+  // 
+  currentPage?: long(name='current_page'),
+  // 总页数
+  pageCount?: long(name='page_count'),
+  // 每页显示条数
+  pageSize?: long(name='page_size'),
+  // 总记录数
+  total?: long(name='total'),
+  // 设备列表
+  deviceList?: [ IotBasicDeviceQueryResponse ](name='device_list'),
+}
+
+/**
+ * Description: 提供设备基础信息查询服务
+ * Summary: IoT设备平台-设备查询
+ */
+async function queryIotbasicDevice(request: QueryIotbasicDeviceRequest): QueryIotbasicDeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIotbasicDeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提供设备基础信息查询服务
+ * Summary: IoT设备平台-设备查询
+ */
+async function queryIotbasicDeviceEx(request: QueryIotbasicDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIotbasicDeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.device.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RecognizeIotbasicCustomerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户ID
+  tenantId: string(name='tenant_id'),
+}
+
+model RecognizeIotbasicCustomerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否授权开通IoT产品
+  authorized?: boolean(name='authorized'),
+  // 设备数量列表
+  deviceList?: [ DeviceOverViewResponse ](name='device_list'),
+}
+
+/**
+ * Description: IoT产品开通状态查询
+ * Summary: IoT产品开通状态查询
+ */
+async function recognizeIotbasicCustomer(request: RecognizeIotbasicCustomerRequest): RecognizeIotbasicCustomerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return recognizeIotbasicCustomerEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT产品开通状态查询
+ * Summary: IoT产品开通状态查询
+ */
+async function recognizeIotbasicCustomerEx(request: RecognizeIotbasicCustomerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RecognizeIotbasicCustomerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.customer.recognize', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
@@ -2234,6 +2378,8 @@ model CreateDistributedeviceBydeviceidRequest = {
   factoryTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='factory_time'),
   // 投放时间
   releaseTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='release_time'),
+  // 额外信息
+  extraInfo?: string(name='extra_info'),
 }
 
 model CreateDistributedeviceBydeviceidResponse = {
@@ -5169,6 +5315,86 @@ async function queryDockedData(request: QueryDockedDataRequest): QueryDockedData
 async function queryDockedDataEx(request: QueryDockedDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDockedDataResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.docked.data.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDeviceRelationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 主设备链上id
+  subjectChainDeviceId: string(name='subject_chain_device_id'),
+  // 关系谓语，目前的取值范围：SUB_DEVICE（子设备）、MAIN_DEVICE（主设备）
+  predicate: string(name='predicate'),
+  // 目标设备链上id列表
+  objectChainDeviceIdList: [ string ](name='object_chain_device_id_list'),
+}
+
+model CreateDeviceRelationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建设备关联关系
+ * Summary: 创建设备关联关系
+ */
+async function createDeviceRelation(request: CreateDeviceRelationRequest): CreateDeviceRelationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDeviceRelationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建设备关联关系
+ * Summary: 创建设备关联关系
+ */
+async function createDeviceRelationEx(request: CreateDeviceRelationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDeviceRelationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.device.relation.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteDeviceRelationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 主设备链上id
+  subjectChainDeviceId: string(name='subject_chain_device_id'),
+  // 关系谓语，目前取值范围：SUB_DEVICE、MAIN_DEVICE
+  predicate: string(name='predicate'),
+  // 目标设备链上id
+  objectChainDeviceId: string(name='object_chain_device_id'),
+}
+
+model DeleteDeviceRelationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除设备关联关系
+ * Summary: 删除设备关联关系
+ */
+async function deleteDeviceRelation(request: DeleteDeviceRelationRequest): DeleteDeviceRelationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteDeviceRelationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除设备关联关系
+ * Summary: 删除设备关联关系
+ */
+async function deleteDeviceRelationEx(request: DeleteDeviceRelationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteDeviceRelationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.device.relation.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
