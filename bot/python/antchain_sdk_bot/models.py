@@ -6382,6 +6382,7 @@ class UpdateDeviceInfoRequest(TeaModel):
         factory_time: str = None,
         release_time: str = None,
         device_name: str = None,
+        extra_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6437,6 +6438,8 @@ class UpdateDeviceInfoRequest(TeaModel):
         self.release_time = release_time
         # 设备型号
         self.device_name = device_name
+        # 额外信息
+        self.extra_info = extra_info
 
     def validate(self):
         self.validate_required(self.chain_device_id, 'chain_device_id')
@@ -6469,6 +6472,8 @@ class UpdateDeviceInfoRequest(TeaModel):
             result['release_time'] = self.release_time
         if self.device_name is not None:
             result['device_name'] = self.device_name
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
         return result
 
     def from_map(self, m: dict = None):
@@ -6495,6 +6500,8 @@ class UpdateDeviceInfoRequest(TeaModel):
             self.release_time = m.get('release_time')
         if m.get('device_name') is not None:
             self.device_name = m.get('device_name')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
         return self
 
 
@@ -6588,7 +6595,6 @@ class CreateDistributedeviceBydeviceidRequest(TeaModel):
     def validate(self):
         self.validate_required(self.device_data_model_id, 'device_data_model_id')
         self.validate_required(self.device_id, 'device_id')
-        self.validate_required(self.device_imei, 'device_imei')
         self.validate_required(self.scene, 'scene')
         if self.factory_time is not None:
             self.validate_pattern(self.factory_time, 'factory_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
@@ -9503,6 +9509,7 @@ class UpdateDeviceInfobydeviceRequest(TeaModel):
         release_time: str = None,
         device_name: str = None,
         device_feature: str = None,
+        extra_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -9575,6 +9582,8 @@ class UpdateDeviceInfobydeviceRequest(TeaModel):
         # SIGNED_DATA：需要验签
         # RAW_DATA：不需要验签
         self.device_feature = device_feature
+        # 额外信息
+        self.extra_info = extra_info
 
     def validate(self):
         self.validate_required(self.device_id, 'device_id')
@@ -9622,6 +9631,8 @@ class UpdateDeviceInfobydeviceRequest(TeaModel):
             result['device_name'] = self.device_name
         if self.device_feature is not None:
             result['device_feature'] = self.device_feature
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
         return result
 
     def from_map(self, m: dict = None):
@@ -9654,6 +9665,8 @@ class UpdateDeviceInfobydeviceRequest(TeaModel):
             self.device_name = m.get('device_name')
         if m.get('device_feature') is not None:
             self.device_feature = m.get('device_feature')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
         return self
 
 

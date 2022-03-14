@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.72'
+                    'sdk_version': '1.6.73'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.72'
+                    'sdk_version': '1.6.73'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -4920,8 +4920,8 @@ class Client:
         request: bot_models.CreateDeviceRelationRequest,
     ) -> bot_models.CreateDeviceRelationResponse:
         """
-        Description: 创建设备关联关系
-        Summary: 创建设备关联关系
+        Description: 创建实体关联关系
+        Summary: 创建实体关联关系
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -4932,8 +4932,8 @@ class Client:
         request: bot_models.CreateDeviceRelationRequest,
     ) -> bot_models.CreateDeviceRelationResponse:
         """
-        Description: 创建设备关联关系
-        Summary: 创建设备关联关系
+        Description: 创建实体关联关系
+        Summary: 创建实体关联关系
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -4946,8 +4946,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bot_models.CreateDeviceRelationResponse:
         """
-        Description: 创建设备关联关系
-        Summary: 创建设备关联关系
+        Description: 创建实体关联关系
+        Summary: 创建实体关联关系
         """
         UtilClient.validate_model(request)
         return bot_models.CreateDeviceRelationResponse().from_map(
@@ -4961,8 +4961,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bot_models.CreateDeviceRelationResponse:
         """
-        Description: 创建设备关联关系
-        Summary: 创建设备关联关系
+        Description: 创建实体关联关系
+        Summary: 创建实体关联关系
         """
         UtilClient.validate_model(request)
         return bot_models.CreateDeviceRelationResponse().from_map(
@@ -4974,8 +4974,8 @@ class Client:
         request: bot_models.DeleteDeviceRelationRequest,
     ) -> bot_models.DeleteDeviceRelationResponse:
         """
-        Description: 删除设备关联关系
-        Summary: 删除设备关联关系
+        Description: 删除实体关联关系
+        Summary: 删除实体关联关系
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -4986,8 +4986,8 @@ class Client:
         request: bot_models.DeleteDeviceRelationRequest,
     ) -> bot_models.DeleteDeviceRelationResponse:
         """
-        Description: 删除设备关联关系
-        Summary: 删除设备关联关系
+        Description: 删除实体关联关系
+        Summary: 删除实体关联关系
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5000,8 +5000,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bot_models.DeleteDeviceRelationResponse:
         """
-        Description: 删除设备关联关系
-        Summary: 删除设备关联关系
+        Description: 删除实体关联关系
+        Summary: 删除实体关联关系
         """
         UtilClient.validate_model(request)
         return bot_models.DeleteDeviceRelationResponse().from_map(
@@ -5015,8 +5015,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bot_models.DeleteDeviceRelationResponse:
         """
-        Description: 删除设备关联关系
-        Summary: 删除设备关联关系
+        Description: 删除实体关联关系
+        Summary: 删除实体关联关系
         """
         UtilClient.validate_model(request)
         return bot_models.DeleteDeviceRelationResponse().from_map(
