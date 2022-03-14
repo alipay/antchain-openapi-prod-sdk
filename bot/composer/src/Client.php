@@ -39,6 +39,8 @@ use AntChain\BOT\Models\CreateConsumerRequest;
 use AntChain\BOT\Models\CreateConsumerResponse;
 use AntChain\BOT\Models\CreateDeviceDatamodelRequest;
 use AntChain\BOT\Models\CreateDeviceDatamodelResponse;
+use AntChain\BOT\Models\CreateDeviceRelationRequest;
+use AntChain\BOT\Models\CreateDeviceRelationResponse;
 use AntChain\BOT\Models\CreateDistributedeviceBychainidRequest;
 use AntChain\BOT\Models\CreateDistributedeviceBychainidResponse;
 use AntChain\BOT\Models\CreateDistributedeviceBychainperipheralidRequest;
@@ -55,6 +57,8 @@ use AntChain\BOT\Models\CreateTaskRequest;
 use AntChain\BOT\Models\CreateTaskResponse;
 use AntChain\BOT\Models\CreateTenantProjectRequest;
 use AntChain\BOT\Models\CreateTenantProjectResponse;
+use AntChain\BOT\Models\DeleteDeviceRelationRequest;
+use AntChain\BOT\Models\DeleteDeviceRelationResponse;
 use AntChain\BOT\Models\DeploySceneRequest;
 use AntChain\BOT\Models\DeploySceneResponse;
 use AntChain\BOT\Models\ExecThingsdidOneapiRequest;
@@ -133,6 +137,8 @@ use AntChain\BOT\Models\QueryDeviceRegistrationRequest;
 use AntChain\BOT\Models\QueryDeviceRegistrationResponse;
 use AntChain\BOT\Models\QueryDockedDataRequest;
 use AntChain\BOT\Models\QueryDockedDataResponse;
+use AntChain\BOT\Models\QueryIotbasicDeviceRequest;
+use AntChain\BOT\Models\QueryIotbasicDeviceResponse;
 use AntChain\BOT\Models\QueryIotplatformPurchaseorderRequest;
 use AntChain\BOT\Models\QueryIotplatformPurchaseorderResponse;
 use AntChain\BOT\Models\QueryLabelTraceRequest;
@@ -149,6 +155,8 @@ use AntChain\BOT\Models\QueryThingsdidDidRequest;
 use AntChain\BOT\Models\QueryThingsdidDidResponse;
 use AntChain\BOT\Models\QueryTlsnotaryTaskRequest;
 use AntChain\BOT\Models\QueryTlsnotaryTaskResponse;
+use AntChain\BOT\Models\RecognizeIotbasicCustomerRequest;
+use AntChain\BOT\Models\RecognizeIotbasicCustomerResponse;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainidRequest;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainidResponse;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainperipheralidRequest;
@@ -330,7 +338,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // ProductKey信息
+            // 告警策略
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -358,7 +366,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.66',
+                    'sdk_version'      => '1.6.72',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -699,6 +707,72 @@ class Client
         Utils::validateModel($request);
 
         return SendAcsCollectorResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.acs.collector.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提供设备基础信息查询服务
+     * Summary: IoT设备平台-设备查询.
+     *
+     * @param QueryIotbasicDeviceRequest $request
+     *
+     * @return QueryIotbasicDeviceResponse
+     */
+    public function queryIotbasicDevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIotbasicDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提供设备基础信息查询服务
+     * Summary: IoT设备平台-设备查询.
+     *
+     * @param QueryIotbasicDeviceRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryIotbasicDeviceResponse
+     */
+    public function queryIotbasicDeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIotbasicDeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.device.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT产品开通状态查询
+     * Summary: IoT产品开通状态查询.
+     *
+     * @param RecognizeIotbasicCustomerRequest $request
+     *
+     * @return RecognizeIotbasicCustomerResponse
+     */
+    public function recognizeIotbasicCustomer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->recognizeIotbasicCustomerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT产品开通状态查询
+     * Summary: IoT产品开通状态查询.
+     *
+     * @param RecognizeIotbasicCustomerRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return RecognizeIotbasicCustomerResponse
+     */
+    public function recognizeIotbasicCustomerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RecognizeIotbasicCustomerResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.customer.recognize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -3174,6 +3248,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryDockedDataResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.docked.data.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建设备关联关系
+     * Summary: 创建设备关联关系.
+     *
+     * @param CreateDeviceRelationRequest $request
+     *
+     * @return CreateDeviceRelationResponse
+     */
+    public function createDeviceRelation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDeviceRelationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建设备关联关系
+     * Summary: 创建设备关联关系.
+     *
+     * @param CreateDeviceRelationRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return CreateDeviceRelationResponse
+     */
+    public function createDeviceRelationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDeviceRelationResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.relation.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除设备关联关系
+     * Summary: 删除设备关联关系.
+     *
+     * @param DeleteDeviceRelationRequest $request
+     *
+     * @return DeleteDeviceRelationResponse
+     */
+    public function deleteDeviceRelation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteDeviceRelationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除设备关联关系
+     * Summary: 删除设备关联关系.
+     *
+     * @param DeleteDeviceRelationRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return DeleteDeviceRelationResponse
+     */
+    public function deleteDeviceRelationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteDeviceRelationResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.relation.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

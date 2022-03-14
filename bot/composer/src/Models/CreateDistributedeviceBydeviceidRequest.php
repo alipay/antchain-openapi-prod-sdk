@@ -90,6 +90,12 @@ class CreateDistributedeviceBydeviceidRequest extends Model
      * @var string
      */
     public $releaseTime;
+
+    // 额外信息
+    /**
+     * @var string
+     */
+    public $extraInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -105,6 +111,7 @@ class CreateDistributedeviceBydeviceidRequest extends Model
         'initialPrice'      => 'initial_price',
         'factoryTime'       => 'factory_time',
         'releaseTime'       => 'release_time',
+        'extraInfo'         => 'extra_info',
     ];
 
     public function validate()
@@ -162,6 +169,9 @@ class CreateDistributedeviceBydeviceidRequest extends Model
         if (null !== $this->releaseTime) {
             $res['release_time'] = $this->releaseTime;
         }
+        if (null !== $this->extraInfo) {
+            $res['extra_info'] = $this->extraInfo;
+        }
 
         return $res;
     }
@@ -215,6 +225,9 @@ class CreateDistributedeviceBydeviceidRequest extends Model
         }
         if (isset($map['release_time'])) {
             $model->releaseTime = $map['release_time'];
+        }
+        if (isset($map['extra_info'])) {
+            $model->extraInfo = $map['extra_info'];
         }
 
         return $model;
