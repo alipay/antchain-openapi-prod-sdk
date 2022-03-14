@@ -2524,6 +2524,44 @@ class RiskLabelConfigInfo(TeaModel):
         return self
 
 
+class BaseCustomerUmktInfoModel(TeaModel):
+    def __init__(
+        self,
+        customer_key: str = None,
+        query_template: str = None,
+        umkt_result: int = None,
+    ):
+        # 用户凭证
+        self.customer_key = customer_key
+        # 输入模板
+        self.query_template = query_template
+        # 实时营销结果
+        self.umkt_result = umkt_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.customer_key is not None:
+            result['customer_key'] = self.customer_key
+        if self.query_template is not None:
+            result['query_template'] = self.query_template
+        if self.umkt_result is not None:
+            result['umkt_result'] = self.umkt_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('customer_key') is not None:
+            self.customer_key = m.get('customer_key')
+        if m.get('query_template') is not None:
+            self.query_template = m.get('query_template')
+        if m.get('umkt_result') is not None:
+            self.umkt_result = m.get('umkt_result')
+        return self
+
+
 class StrategyDetails(TeaModel):
     def __init__(
         self,
@@ -14447,6 +14485,8 @@ class BatchqueryUmktRtMarketingResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        success: bool = None,
+        query_result: List[BaseCustomerUmktInfoModel] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -14454,9 +14494,16 @@ class BatchqueryUmktRtMarketingResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 处理是否成功
+        self.success = success
+        # 实时营销单条结果
+        self.query_result = query_result
 
     def validate(self):
-        pass
+        if self.query_result:
+            for k in self.query_result:
+                if k:
+                    k.validate()
 
     def to_map(self):
         result = dict()
@@ -14466,6 +14513,12 @@ class BatchqueryUmktRtMarketingResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        result['query_result'] = []
+        if self.query_result is not None:
+            for k in self.query_result:
+                result['query_result'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -14476,6 +14529,13 @@ class BatchqueryUmktRtMarketingResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        self.query_result = []
+        if m.get('query_result') is not None:
+            for k in m.get('query_result'):
+                temp_model = BaseCustomerUmktInfoModel()
+                self.query_result.append(temp_model.from_map(k))
         return self
 
 
