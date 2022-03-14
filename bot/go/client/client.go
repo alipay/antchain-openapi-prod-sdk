@@ -5521,6 +5521,8 @@ type UpdateDeviceInfoRequest struct {
 	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 设备型号
 	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
+	// 额外信息
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
 }
 
 func (s UpdateDeviceInfoRequest) String() string {
@@ -5586,6 +5588,11 @@ func (s *UpdateDeviceInfoRequest) SetDeviceName(v string) *UpdateDeviceInfoReque
 	return s
 }
 
+func (s *UpdateDeviceInfoRequest) SetExtraInfo(v string) *UpdateDeviceInfoRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
 type UpdateDeviceInfoResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -5629,7 +5636,7 @@ type CreateDistributedeviceBydeviceidRequest struct {
 	// 设备Id
 	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
 	// 设备imei号
-	DeviceImei *string `json:"device_imei,omitempty" xml:"device_imei,omitempty" require:"true"`
+	DeviceImei *string `json:"device_imei,omitempty" xml:"device_imei,omitempty"`
 	// 设备名称
 	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
 	// 场景码
@@ -8164,6 +8171,8 @@ type UpdateDeviceInfobydeviceRequest struct {
 	// SIGNED_DATA：需要验签
 	// RAW_DATA：不需要验签
 	DeviceFeature *string `json:"device_feature,omitempty" xml:"device_feature,omitempty"`
+	// 额外信息
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
 }
 
 func (s UpdateDeviceInfobydeviceRequest) String() string {
@@ -8241,6 +8250,11 @@ func (s *UpdateDeviceInfobydeviceRequest) SetDeviceName(v string) *UpdateDeviceI
 
 func (s *UpdateDeviceInfobydeviceRequest) SetDeviceFeature(v string) *UpdateDeviceInfobydeviceRequest {
 	s.DeviceFeature = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceRequest) SetExtraInfo(v string) *UpdateDeviceInfobydeviceRequest {
+	s.ExtraInfo = &v
 	return s
 }
 
@@ -13330,7 +13344,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.72"),
+				"sdk_version":      tea.String("1.6.73"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -16303,8 +16317,8 @@ func (client *Client) QueryDockedDataEx(request *QueryDockedDataRequest, headers
 }
 
 /**
- * Description: 创建设备关联关系
- * Summary: 创建设备关联关系
+ * Description: 创建实体关联关系
+ * Summary: 创建实体关联关系
  */
 func (client *Client) CreateDeviceRelation(request *CreateDeviceRelationRequest) (_result *CreateDeviceRelationResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -16319,8 +16333,8 @@ func (client *Client) CreateDeviceRelation(request *CreateDeviceRelationRequest)
 }
 
 /**
- * Description: 创建设备关联关系
- * Summary: 创建设备关联关系
+ * Description: 创建实体关联关系
+ * Summary: 创建实体关联关系
  */
 func (client *Client) CreateDeviceRelationEx(request *CreateDeviceRelationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateDeviceRelationResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -16337,8 +16351,8 @@ func (client *Client) CreateDeviceRelationEx(request *CreateDeviceRelationReques
 }
 
 /**
- * Description: 删除设备关联关系
- * Summary: 删除设备关联关系
+ * Description: 删除实体关联关系
+ * Summary: 删除实体关联关系
  */
 func (client *Client) DeleteDeviceRelation(request *DeleteDeviceRelationRequest) (_result *DeleteDeviceRelationResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -16353,8 +16367,8 @@ func (client *Client) DeleteDeviceRelation(request *DeleteDeviceRelationRequest)
 }
 
 /**
- * Description: 删除设备关联关系
- * Summary: 删除设备关联关系
+ * Description: 删除实体关联关系
+ * Summary: 删除实体关联关系
  */
 func (client *Client) DeleteDeviceRelationEx(request *DeleteDeviceRelationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteDeviceRelationResponse, _err error) {
 	_err = util.ValidateModel(request)
