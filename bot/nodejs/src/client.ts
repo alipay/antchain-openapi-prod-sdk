@@ -4203,6 +4203,8 @@ export class UpdateDeviceInfoRequest extends $tea.Model {
   releaseTime?: string;
   // 设备型号
   deviceName?: string;
+  // 额外信息
+  extraInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4216,6 +4218,7 @@ export class UpdateDeviceInfoRequest extends $tea.Model {
       factoryTime: 'factory_time',
       releaseTime: 'release_time',
       deviceName: 'device_name',
+      extraInfo: 'extra_info',
     };
   }
 
@@ -4232,6 +4235,7 @@ export class UpdateDeviceInfoRequest extends $tea.Model {
       factoryTime: 'string',
       releaseTime: 'string',
       deviceName: 'string',
+      extraInfo: 'string',
     };
   }
 
@@ -4279,7 +4283,7 @@ export class CreateDistributedeviceBydeviceidRequest extends $tea.Model {
   // 设备Id
   deviceId: string;
   // 设备imei号
-  deviceImei: string;
+  deviceImei?: string;
   // 设备名称
   deviceName?: string;
   // 场景码
@@ -6316,6 +6320,8 @@ export class UpdateDeviceInfobydeviceRequest extends $tea.Model {
   // SIGNED_DATA：需要验签
   // RAW_DATA：不需要验签
   deviceFeature?: string;
+  // 额外信息
+  extraInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6332,6 +6338,7 @@ export class UpdateDeviceInfobydeviceRequest extends $tea.Model {
       releaseTime: 'release_time',
       deviceName: 'device_name',
       deviceFeature: 'device_feature',
+      extraInfo: 'extra_info',
     };
   }
 
@@ -6351,6 +6358,7 @@ export class UpdateDeviceInfobydeviceRequest extends $tea.Model {
       releaseTime: 'string',
       deviceName: 'string',
       deviceFeature: 'string',
+      extraInfo: 'string',
     };
   }
 
@@ -10348,7 +10356,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.72",
+          sdk_version: "1.6.73",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -12029,8 +12037,8 @@ export default class Client {
   }
 
   /**
-   * Description: 创建设备关联关系
-   * Summary: 创建设备关联关系
+   * Description: 创建实体关联关系
+   * Summary: 创建实体关联关系
    */
   async createDeviceRelation(request: CreateDeviceRelationRequest): Promise<CreateDeviceRelationResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -12039,8 +12047,8 @@ export default class Client {
   }
 
   /**
-   * Description: 创建设备关联关系
-   * Summary: 创建设备关联关系
+   * Description: 创建实体关联关系
+   * Summary: 创建实体关联关系
    */
   async createDeviceRelationEx(request: CreateDeviceRelationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDeviceRelationResponse> {
     Util.validateModel(request);
@@ -12048,8 +12056,8 @@ export default class Client {
   }
 
   /**
-   * Description: 删除设备关联关系
-   * Summary: 删除设备关联关系
+   * Description: 删除实体关联关系
+   * Summary: 删除实体关联关系
    */
   async deleteDeviceRelation(request: DeleteDeviceRelationRequest): Promise<DeleteDeviceRelationResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -12058,8 +12066,8 @@ export default class Client {
   }
 
   /**
-   * Description: 删除设备关联关系
-   * Summary: 删除设备关联关系
+   * Description: 删除实体关联关系
+   * Summary: 删除实体关联关系
    */
   async deleteDeviceRelationEx(request: DeleteDeviceRelationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteDeviceRelationResponse> {
     Util.validateModel(request);
