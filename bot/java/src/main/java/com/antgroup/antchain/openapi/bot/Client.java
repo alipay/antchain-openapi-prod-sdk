@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.72")
+                    new TeaPair("sdk_version", "1.6.73")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1794,8 +1794,8 @@ public class Client {
     }
 
     /**
-     * Description: 创建设备关联关系
-     * Summary: 创建设备关联关系
+     * Description: 创建实体关联关系
+     * Summary: 创建实体关联关系
      */
     public CreateDeviceRelationResponse createDeviceRelation(CreateDeviceRelationRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -1804,8 +1804,8 @@ public class Client {
     }
 
     /**
-     * Description: 创建设备关联关系
-     * Summary: 创建设备关联关系
+     * Description: 创建实体关联关系
+     * Summary: 创建实体关联关系
      */
     public CreateDeviceRelationResponse createDeviceRelationEx(CreateDeviceRelationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1813,8 +1813,8 @@ public class Client {
     }
 
     /**
-     * Description: 删除设备关联关系
-     * Summary: 删除设备关联关系
+     * Description: 删除实体关联关系
+     * Summary: 删除实体关联关系
      */
     public DeleteDeviceRelationResponse deleteDeviceRelation(DeleteDeviceRelationRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -1823,8 +1823,8 @@ public class Client {
     }
 
     /**
-     * Description: 删除设备关联关系
-     * Summary: 删除设备关联关系
+     * Description: 删除实体关联关系
+     * Summary: 删除实体关联关系
      */
     public DeleteDeviceRelationResponse deleteDeviceRelationEx(DeleteDeviceRelationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

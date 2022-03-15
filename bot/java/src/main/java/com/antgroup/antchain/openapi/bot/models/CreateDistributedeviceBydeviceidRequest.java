@@ -27,7 +27,6 @@ public class CreateDistributedeviceBydeviceidRequest extends TeaModel {
 
     // 设备imei号
     @NameInMap("device_imei")
-    @Validation(required = true)
     public String deviceImei;
 
     // 设备名称

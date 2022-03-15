@@ -113,6 +113,10 @@ public class UpdateDeviceInfobydeviceRequest extends TeaModel {
     @NameInMap("device_feature")
     public String deviceFeature;
 
+    // 额外信息
+    @NameInMap("extra_info")
+    public String extraInfo;
+
     public static UpdateDeviceInfobydeviceRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateDeviceInfobydeviceRequest self = new UpdateDeviceInfobydeviceRequest();
         return TeaModel.build(map, self);
@@ -228,6 +232,14 @@ public class UpdateDeviceInfobydeviceRequest extends TeaModel {
     }
     public String getDeviceFeature() {
         return this.deviceFeature;
+    }
+
+    public UpdateDeviceInfobydeviceRequest setExtraInfo(String extraInfo) {
+        this.extraInfo = extraInfo;
+        return this;
+    }
+    public String getExtraInfo() {
+        return this.extraInfo;
     }
 
 }
