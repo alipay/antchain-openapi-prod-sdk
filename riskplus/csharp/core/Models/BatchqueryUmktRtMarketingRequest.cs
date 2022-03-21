@@ -33,6 +33,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public List<string> CustomerKeys { get; set; }
 
+        // 业务方流水号
+        [NameInMap("biz_serial_no")]
+        [Validation(Required=true)]
+        public string BizSerialNo { get; set; }
+
     }
 
 }
