@@ -7323,6 +7323,8 @@ export class AddTenantRequest extends $tea.Model {
   gatewayPublicKey?: string;
   // 是否需要生成秘钥对，默认为false
   generateGatewayKeys?: boolean;
+  // 是否为测试租户
+  mock?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7333,6 +7335,7 @@ export class AddTenantRequest extends $tea.Model {
       gatewayPrivateKey: 'gateway_private_key',
       gatewayPublicKey: 'gateway_public_key',
       generateGatewayKeys: 'generate_gateway_keys',
+      mock: 'mock',
     };
   }
 
@@ -7346,6 +7349,7 @@ export class AddTenantRequest extends $tea.Model {
       gatewayPrivateKey: 'string',
       gatewayPublicKey: 'string',
       generateGatewayKeys: 'boolean',
+      mock: 'boolean',
     };
   }
 
@@ -7396,6 +7400,8 @@ export class AddSceneRequest extends $tea.Model {
   tenantName: string;
   // 场景类型
   sceneType: string;
+  // 是否为测试数据
+  mock?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7405,6 +7411,7 @@ export class AddSceneRequest extends $tea.Model {
       privateKeyPassword: 'private_key_password',
       tenantName: 'tenant_name',
       sceneType: 'scene_type',
+      mock: 'mock',
     };
   }
 
@@ -7417,6 +7424,7 @@ export class AddSceneRequest extends $tea.Model {
       privateKeyPassword: 'string',
       tenantName: 'string',
       sceneType: 'string',
+      mock: 'boolean',
     };
   }
 
@@ -7677,6 +7685,8 @@ export class AddProductkeyRequest extends $tea.Model {
   manufacturer: string;
   // 顾客
   customer: string;
+  // 是否为测试数据
+  mock?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7688,6 +7698,7 @@ export class AddProductkeyRequest extends $tea.Model {
       sdkVersionPrefix: 'sdk_version_prefix',
       manufacturer: 'manufacturer',
       customer: 'customer',
+      mock: 'mock',
     };
   }
 
@@ -7702,6 +7713,7 @@ export class AddProductkeyRequest extends $tea.Model {
       sdkVersionPrefix: 'string',
       manufacturer: 'string',
       customer: 'string',
+      mock: 'boolean',
     };
   }
 
@@ -7763,6 +7775,8 @@ export class UpdateProductkeyRequest extends $tea.Model {
   manufacturer?: string;
   // 顾客
   customer?: string;
+  // 是否为测试数据
+  mock?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7775,6 +7789,7 @@ export class UpdateProductkeyRequest extends $tea.Model {
       sdkVersionPrefix: 'sdk_version_prefix',
       manufacturer: 'manufacturer',
       customer: 'customer',
+      mock: 'mock',
     };
   }
 
@@ -7790,6 +7805,7 @@ export class UpdateProductkeyRequest extends $tea.Model {
       sdkVersionPrefix: 'string',
       manufacturer: 'string',
       customer: 'string',
+      mock: 'boolean',
     };
   }
 
@@ -7845,6 +7861,8 @@ export class UpdateTenantRequest extends $tea.Model {
   // 网关公钥
   // 
   gatewayPublicKey?: string;
+  // 是否为测试租户
+  mock?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7855,6 +7873,7 @@ export class UpdateTenantRequest extends $tea.Model {
       owner: 'owner',
       gatewayPrivateKey: 'gateway_private_key',
       gatewayPublicKey: 'gateway_public_key',
+      mock: 'mock',
     };
   }
 
@@ -7868,6 +7887,7 @@ export class UpdateTenantRequest extends $tea.Model {
       owner: 'string',
       gatewayPrivateKey: 'string',
       gatewayPublicKey: 'string',
+      mock: 'boolean',
     };
   }
 
@@ -7923,6 +7943,8 @@ export class UpdateSceneRequest extends $tea.Model {
   sceneType?: string;
   // 定制数据处理类 , 使用用逗号分隔
   customerProcessor?: string;
+  // 是否为测试数据
+  mock?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7933,6 +7955,7 @@ export class UpdateSceneRequest extends $tea.Model {
       tenantName: 'tenant_name',
       sceneType: 'scene_type',
       customerProcessor: 'customer_processor',
+      mock: 'mock',
     };
   }
 
@@ -7946,6 +7969,7 @@ export class UpdateSceneRequest extends $tea.Model {
       tenantName: 'string',
       sceneType: 'string',
       customerProcessor: 'string',
+      mock: 'boolean',
     };
   }
 
@@ -8132,6 +8156,8 @@ export class PagequeryTenantRequest extends $tea.Model {
   pageSize: number;
   // 租户
   tenantName?: string;
+  // 是否为测试数据
+  mock?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -8139,6 +8165,7 @@ export class PagequeryTenantRequest extends $tea.Model {
       pageIndex: 'page_index',
       pageSize: 'page_size',
       tenantName: 'tenant_name',
+      mock: 'mock',
     };
   }
 
@@ -8149,6 +8176,7 @@ export class PagequeryTenantRequest extends $tea.Model {
       pageIndex: 'number',
       pageSize: 'number',
       tenantName: 'string',
+      mock: 'boolean',
     };
   }
 
@@ -8201,6 +8229,8 @@ export class PagequerySceneRequest extends $tea.Model {
   sceneName?: string;
   // 租户
   tenantName?: string;
+  // 是否为测试数据
+  mock?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -8209,6 +8239,7 @@ export class PagequerySceneRequest extends $tea.Model {
       pageSize: 'page_size',
       sceneName: 'scene_name',
       tenantName: 'tenant_name',
+      mock: 'mock',
     };
   }
 
@@ -8220,6 +8251,7 @@ export class PagequerySceneRequest extends $tea.Model {
       pageSize: 'number',
       sceneName: 'string',
       tenantName: 'string',
+      mock: 'boolean',
     };
   }
 
@@ -8347,6 +8379,8 @@ export class PagequeryProductkeyRequest extends $tea.Model {
   // 租户ID
   // 
   tenantName?: string;
+  // 是否为测试数据
+  mock?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -8356,6 +8390,7 @@ export class PagequeryProductkeyRequest extends $tea.Model {
       productKey: 'product_key',
       scene: 'scene',
       tenantName: 'tenant_name',
+      mock: 'mock',
     };
   }
 
@@ -8368,6 +8403,7 @@ export class PagequeryProductkeyRequest extends $tea.Model {
       productKey: 'string',
       scene: 'string',
       tenantName: 'string',
+      mock: 'boolean',
     };
   }
 
@@ -10356,7 +10392,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.73",
+          sdk_version: "1.6.75",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
