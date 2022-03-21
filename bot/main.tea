@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.73',
+    sdk_version = '1.6.75',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -4320,6 +4320,8 @@ model AddTenantRequest = {
   gatewayPublicKey?: string(name='gateway_public_key'),
   // 是否需要生成秘钥对，默认为false
   generateGatewayKeys?: boolean(name='generate_gateway_keys'),
+  // 是否为测试租户
+  mock?: boolean(name='mock'),
 }
 
 model AddTenantResponse = {
@@ -4364,6 +4366,8 @@ model AddSceneRequest = {
   tenantName: string(name='tenant_name'),
   // 场景类型
   sceneType: string(name='scene_type'),
+  // 是否为测试数据
+  mock?: boolean(name='mock'),
 }
 
 model AddSceneResponse = {
@@ -4541,6 +4545,8 @@ model AddProductkeyRequest = {
   manufacturer: string(name='manufacturer'),
   // 顾客
   customer: string(name='customer'),
+  // 是否为测试数据
+  mock?: boolean(name='mock'),
 }
 
 model AddProductkeyResponse = {
@@ -4596,6 +4602,8 @@ model UpdateProductkeyRequest = {
   manufacturer?: string(name='manufacturer'),
   // 顾客
   customer?: string(name='customer'),
+  // 是否为测试数据
+  mock?: boolean(name='mock'),
 }
 
 model UpdateProductkeyResponse = {
@@ -4645,6 +4653,8 @@ model UpdateTenantRequest = {
   // 网关公钥
   // 
   gatewayPublicKey?: string(name='gateway_public_key'),
+  // 是否为测试租户
+  mock?: boolean(name='mock'),
 }
 
 model UpdateTenantResponse = {
@@ -4694,6 +4704,8 @@ model UpdateSceneRequest = {
   sceneType?: string(name='scene_type'),
   // 定制数据处理类 , 使用用逗号分隔
   customerProcessor?: string(name='customer_processor'),
+  // 是否为测试数据
+  mock?: boolean(name='mock'),
 }
 
 model UpdateSceneResponse = {
@@ -4824,6 +4836,8 @@ model PagequeryTenantRequest = {
   pageSize: long(name='page_size'),
   // 租户
   tenantName?: string(name='tenant_name'),
+  // 是否为测试数据
+  mock?: boolean(name='mock'),
 }
 
 model PagequeryTenantResponse = {
@@ -4868,6 +4882,8 @@ model PagequerySceneRequest = {
   sceneName?: string(name='scene_name'),
   // 租户
   tenantName?: string(name='tenant_name'),
+  // 是否为测试数据
+  mock?: boolean(name='mock'),
 }
 
 model PagequerySceneResponse = {
@@ -4960,6 +4976,8 @@ model PagequeryProductkeyRequest = {
   // 租户ID
   // 
   tenantName?: string(name='tenant_name'),
+  // 是否为测试数据
+  mock?: boolean(name='mock'),
 }
 
 model PagequeryProductkeyResponse = {
