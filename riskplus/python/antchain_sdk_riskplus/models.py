@@ -14435,6 +14435,7 @@ class BatchqueryUmktRtMarketingRequest(TeaModel):
         scene_strategy_id: int = None,
         query_template: str = None,
         customer_keys: List[str] = None,
+        biz_serial_no: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -14445,10 +14446,13 @@ class BatchqueryUmktRtMarketingRequest(TeaModel):
         self.query_template = query_template
         # 用户查询凭证列表
         self.customer_keys = customer_keys
+        # 业务方流水号
+        self.biz_serial_no = biz_serial_no
 
     def validate(self):
         self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
         self.validate_required(self.customer_keys, 'customer_keys')
+        self.validate_required(self.biz_serial_no, 'biz_serial_no')
 
     def to_map(self):
         result = dict()
@@ -14462,6 +14466,8 @@ class BatchqueryUmktRtMarketingRequest(TeaModel):
             result['query_template'] = self.query_template
         if self.customer_keys is not None:
             result['customer_keys'] = self.customer_keys
+        if self.biz_serial_no is not None:
+            result['biz_serial_no'] = self.biz_serial_no
         return result
 
     def from_map(self, m: dict = None):
@@ -14476,6 +14482,8 @@ class BatchqueryUmktRtMarketingRequest(TeaModel):
             self.query_template = m.get('query_template')
         if m.get('customer_keys') is not None:
             self.customer_keys = m.get('customer_keys')
+        if m.get('biz_serial_no') is not None:
+            self.biz_serial_no = m.get('biz_serial_no')
         return self
 
 
