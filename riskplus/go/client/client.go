@@ -12278,6 +12278,8 @@ type BatchqueryUmktRtMarketingRequest struct {
 	QueryTemplate *string `json:"query_template,omitempty" xml:"query_template,omitempty"`
 	// 用户查询凭证列表
 	CustomerKeys []*string `json:"customer_keys,omitempty" xml:"customer_keys,omitempty" require:"true" type:"Repeated"`
+	// 业务方流水号
+	BizSerialNo *string `json:"biz_serial_no,omitempty" xml:"biz_serial_no,omitempty" require:"true"`
 }
 
 func (s BatchqueryUmktRtMarketingRequest) String() string {
@@ -12310,6 +12312,11 @@ func (s *BatchqueryUmktRtMarketingRequest) SetQueryTemplate(v string) *Batchquer
 
 func (s *BatchqueryUmktRtMarketingRequest) SetCustomerKeys(v []*string) *BatchqueryUmktRtMarketingRequest {
 	s.CustomerKeys = v
+	return s
+}
+
+func (s *BatchqueryUmktRtMarketingRequest) SetBizSerialNo(v string) *BatchqueryUmktRtMarketingRequest {
+	s.BizSerialNo = &v
 	return s
 }
 
@@ -12601,7 +12608,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.9.1"),
+				"sdk_version":      tea.String("1.9.2"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
