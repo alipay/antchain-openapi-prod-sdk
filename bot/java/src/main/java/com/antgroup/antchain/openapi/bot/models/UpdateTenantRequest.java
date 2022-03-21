@@ -39,6 +39,10 @@ public class UpdateTenantRequest extends TeaModel {
     @NameInMap("gateway_public_key")
     public String gatewayPublicKey;
 
+    // 是否为测试租户
+    @NameInMap("mock")
+    public Boolean mock;
+
     public static UpdateTenantRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateTenantRequest self = new UpdateTenantRequest();
         return TeaModel.build(map, self);
@@ -106,6 +110,14 @@ public class UpdateTenantRequest extends TeaModel {
     }
     public String getGatewayPublicKey() {
         return this.gatewayPublicKey;
+    }
+
+    public UpdateTenantRequest setMock(Boolean mock) {
+        this.mock = mock;
+        return this;
+    }
+    public Boolean getMock() {
+        return this.mock;
     }
 
 }

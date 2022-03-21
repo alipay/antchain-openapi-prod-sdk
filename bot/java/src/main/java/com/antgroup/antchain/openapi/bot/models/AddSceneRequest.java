@@ -36,6 +36,10 @@ public class AddSceneRequest extends TeaModel {
     @Validation(required = true)
     public String sceneType;
 
+    // 是否为测试数据
+    @NameInMap("mock")
+    public Boolean mock;
+
     public static AddSceneRequest build(java.util.Map<String, ?> map) throws Exception {
         AddSceneRequest self = new AddSceneRequest();
         return TeaModel.build(map, self);
@@ -95,6 +99,14 @@ public class AddSceneRequest extends TeaModel {
     }
     public String getSceneType() {
         return this.sceneType;
+    }
+
+    public AddSceneRequest setMock(Boolean mock) {
+        this.mock = mock;
+        return this;
+    }
+    public Boolean getMock() {
+        return this.mock;
     }
 
 }

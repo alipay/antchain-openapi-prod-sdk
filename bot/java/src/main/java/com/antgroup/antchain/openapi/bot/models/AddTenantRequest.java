@@ -37,6 +37,10 @@ public class AddTenantRequest extends TeaModel {
     @NameInMap("generate_gateway_keys")
     public Boolean generateGatewayKeys;
 
+    // 是否为测试租户
+    @NameInMap("mock")
+    public Boolean mock;
+
     public static AddTenantRequest build(java.util.Map<String, ?> map) throws Exception {
         AddTenantRequest self = new AddTenantRequest();
         return TeaModel.build(map, self);
@@ -104,6 +108,14 @@ public class AddTenantRequest extends TeaModel {
     }
     public Boolean getGenerateGatewayKeys() {
         return this.generateGatewayKeys;
+    }
+
+    public AddTenantRequest setMock(Boolean mock) {
+        this.mock = mock;
+        return this;
+    }
+    public Boolean getMock() {
+        return this.mock;
     }
 
 }

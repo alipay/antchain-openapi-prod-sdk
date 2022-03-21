@@ -29,6 +29,10 @@ public class PagequerySceneRequest extends TeaModel {
     @NameInMap("tenant_name")
     public String tenantName;
 
+    // 是否为测试数据
+    @NameInMap("mock")
+    public Boolean mock;
+
     public static PagequerySceneRequest build(java.util.Map<String, ?> map) throws Exception {
         PagequerySceneRequest self = new PagequerySceneRequest();
         return TeaModel.build(map, self);
@@ -80,6 +84,14 @@ public class PagequerySceneRequest extends TeaModel {
     }
     public String getTenantName() {
         return this.tenantName;
+    }
+
+    public PagequerySceneRequest setMock(Boolean mock) {
+        this.mock = mock;
+        return this;
+    }
+    public Boolean getMock() {
+        return this.mock;
     }
 
 }

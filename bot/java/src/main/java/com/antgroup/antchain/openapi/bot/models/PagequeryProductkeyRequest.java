@@ -35,6 +35,10 @@ public class PagequeryProductkeyRequest extends TeaModel {
     @NameInMap("tenant_name")
     public String tenantName;
 
+    // 是否为测试数据
+    @NameInMap("mock")
+    public Boolean mock;
+
     public static PagequeryProductkeyRequest build(java.util.Map<String, ?> map) throws Exception {
         PagequeryProductkeyRequest self = new PagequeryProductkeyRequest();
         return TeaModel.build(map, self);
@@ -94,6 +98,14 @@ public class PagequeryProductkeyRequest extends TeaModel {
     }
     public String getTenantName() {
         return this.tenantName;
+    }
+
+    public PagequeryProductkeyRequest setMock(Boolean mock) {
+        this.mock = mock;
+        return this;
+    }
+    public Boolean getMock() {
+        return this.mock;
     }
 
 }

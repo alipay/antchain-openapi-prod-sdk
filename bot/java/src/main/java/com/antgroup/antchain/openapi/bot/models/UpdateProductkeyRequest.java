@@ -49,6 +49,10 @@ public class UpdateProductkeyRequest extends TeaModel {
     @NameInMap("customer")
     public String customer;
 
+    // 是否为测试数据
+    @NameInMap("mock")
+    public Boolean mock;
+
     public static UpdateProductkeyRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateProductkeyRequest self = new UpdateProductkeyRequest();
         return TeaModel.build(map, self);
@@ -132,6 +136,14 @@ public class UpdateProductkeyRequest extends TeaModel {
     }
     public String getCustomer() {
         return this.customer;
+    }
+
+    public UpdateProductkeyRequest setMock(Boolean mock) {
+        this.mock = mock;
+        return this;
+    }
+    public Boolean getMock() {
+        return this.mock;
     }
 
 }

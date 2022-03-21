@@ -40,6 +40,10 @@ public class UpdateSceneRequest extends TeaModel {
     @NameInMap("customer_processor")
     public String customerProcessor;
 
+    // 是否为测试数据
+    @NameInMap("mock")
+    public Boolean mock;
+
     public static UpdateSceneRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateSceneRequest self = new UpdateSceneRequest();
         return TeaModel.build(map, self);
@@ -107,6 +111,14 @@ public class UpdateSceneRequest extends TeaModel {
     }
     public String getCustomerProcessor() {
         return this.customerProcessor;
+    }
+
+    public UpdateSceneRequest setMock(Boolean mock) {
+        this.mock = mock;
+        return this;
+    }
+    public Boolean getMock() {
+        return this.mock;
     }
 
 }
