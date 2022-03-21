@@ -9151,6 +9151,8 @@ export class BatchqueryUmktRtMarketingRequest extends $tea.Model {
   queryTemplate?: string;
   // 用户查询凭证列表
   customerKeys: string[];
+  // 业务方流水号
+  bizSerialNo: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -9158,6 +9160,7 @@ export class BatchqueryUmktRtMarketingRequest extends $tea.Model {
       sceneStrategyId: 'scene_strategy_id',
       queryTemplate: 'query_template',
       customerKeys: 'customer_keys',
+      bizSerialNo: 'biz_serial_no',
     };
   }
 
@@ -9168,6 +9171,7 @@ export class BatchqueryUmktRtMarketingRequest extends $tea.Model {
       sceneStrategyId: 'number',
       queryTemplate: 'string',
       customerKeys: { 'type': 'array', 'itemType': 'string' },
+      bizSerialNo: 'string',
     };
   }
 
@@ -9413,7 +9417,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.9.1",
+          sdk_version: "1.9.2",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
