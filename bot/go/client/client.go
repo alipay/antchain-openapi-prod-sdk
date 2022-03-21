@@ -9460,6 +9460,8 @@ type AddTenantRequest struct {
 	GatewayPublicKey *string `json:"gateway_public_key,omitempty" xml:"gateway_public_key,omitempty"`
 	// 是否需要生成秘钥对，默认为false
 	GenerateGatewayKeys *bool `json:"generate_gateway_keys,omitempty" xml:"generate_gateway_keys,omitempty"`
+	// 是否为测试租户
+	Mock *bool `json:"mock,omitempty" xml:"mock,omitempty"`
 }
 
 func (s AddTenantRequest) String() string {
@@ -9510,6 +9512,11 @@ func (s *AddTenantRequest) SetGenerateGatewayKeys(v bool) *AddTenantRequest {
 	return s
 }
 
+func (s *AddTenantRequest) SetMock(v bool) *AddTenantRequest {
+	s.Mock = &v
+	return s
+}
+
 type AddTenantResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -9556,6 +9563,8 @@ type AddSceneRequest struct {
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty" require:"true"`
 	// 场景类型
 	SceneType *string `json:"scene_type,omitempty" xml:"scene_type,omitempty" require:"true"`
+	// 是否为测试数据
+	Mock *bool `json:"mock,omitempty" xml:"mock,omitempty"`
 }
 
 func (s AddSceneRequest) String() string {
@@ -9598,6 +9607,11 @@ func (s *AddSceneRequest) SetTenantName(v string) *AddSceneRequest {
 
 func (s *AddSceneRequest) SetSceneType(v string) *AddSceneRequest {
 	s.SceneType = &v
+	return s
+}
+
+func (s *AddSceneRequest) SetMock(v bool) *AddSceneRequest {
+	s.Mock = &v
 	return s
 }
 
@@ -9911,6 +9925,8 @@ type AddProductkeyRequest struct {
 	Manufacturer *string `json:"manufacturer,omitempty" xml:"manufacturer,omitempty" require:"true"`
 	// 顾客
 	Customer *string `json:"customer,omitempty" xml:"customer,omitempty" require:"true"`
+	// 是否为测试数据
+	Mock *bool `json:"mock,omitempty" xml:"mock,omitempty"`
 }
 
 func (s AddProductkeyRequest) String() string {
@@ -9963,6 +9979,11 @@ func (s *AddProductkeyRequest) SetManufacturer(v string) *AddProductkeyRequest {
 
 func (s *AddProductkeyRequest) SetCustomer(v string) *AddProductkeyRequest {
 	s.Customer = &v
+	return s
+}
+
+func (s *AddProductkeyRequest) SetMock(v bool) *AddProductkeyRequest {
+	s.Mock = &v
 	return s
 }
 
@@ -10023,6 +10044,8 @@ type UpdateProductkeyRequest struct {
 	Manufacturer *string `json:"manufacturer,omitempty" xml:"manufacturer,omitempty"`
 	// 顾客
 	Customer *string `json:"customer,omitempty" xml:"customer,omitempty"`
+	// 是否为测试数据
+	Mock *bool `json:"mock,omitempty" xml:"mock,omitempty"`
 }
 
 func (s UpdateProductkeyRequest) String() string {
@@ -10083,6 +10106,11 @@ func (s *UpdateProductkeyRequest) SetCustomer(v string) *UpdateProductkeyRequest
 	return s
 }
 
+func (s *UpdateProductkeyRequest) SetMock(v bool) *UpdateProductkeyRequest {
+	s.Mock = &v
+	return s
+}
+
 type UpdateProductkeyResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -10134,6 +10162,8 @@ type UpdateTenantRequest struct {
 	// 网关公钥
 	//
 	GatewayPublicKey *string `json:"gateway_public_key,omitempty" xml:"gateway_public_key,omitempty"`
+	// 是否为测试租户
+	Mock *bool `json:"mock,omitempty" xml:"mock,omitempty"`
 }
 
 func (s UpdateTenantRequest) String() string {
@@ -10181,6 +10211,11 @@ func (s *UpdateTenantRequest) SetGatewayPrivateKey(v string) *UpdateTenantReques
 
 func (s *UpdateTenantRequest) SetGatewayPublicKey(v string) *UpdateTenantRequest {
 	s.GatewayPublicKey = &v
+	return s
+}
+
+func (s *UpdateTenantRequest) SetMock(v bool) *UpdateTenantRequest {
+	s.Mock = &v
 	return s
 }
 
@@ -10235,6 +10270,8 @@ type UpdateSceneRequest struct {
 	SceneType *string `json:"scene_type,omitempty" xml:"scene_type,omitempty"`
 	// 定制数据处理类 , 使用用逗号分隔
 	CustomerProcessor *string `json:"customer_processor,omitempty" xml:"customer_processor,omitempty"`
+	// 是否为测试数据
+	Mock *bool `json:"mock,omitempty" xml:"mock,omitempty"`
 }
 
 func (s UpdateSceneRequest) String() string {
@@ -10282,6 +10319,11 @@ func (s *UpdateSceneRequest) SetSceneType(v string) *UpdateSceneRequest {
 
 func (s *UpdateSceneRequest) SetCustomerProcessor(v string) *UpdateSceneRequest {
 	s.CustomerProcessor = &v
+	return s
+}
+
+func (s *UpdateSceneRequest) SetMock(v bool) *UpdateSceneRequest {
+	s.Mock = &v
 	return s
 }
 
@@ -10501,6 +10543,8 @@ type PagequeryTenantRequest struct {
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 租户
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// 是否为测试数据
+	Mock *bool `json:"mock,omitempty" xml:"mock,omitempty"`
 }
 
 func (s PagequeryTenantRequest) String() string {
@@ -10533,6 +10577,11 @@ func (s *PagequeryTenantRequest) SetPageSize(v int64) *PagequeryTenantRequest {
 
 func (s *PagequeryTenantRequest) SetTenantName(v string) *PagequeryTenantRequest {
 	s.TenantName = &v
+	return s
+}
+
+func (s *PagequeryTenantRequest) SetMock(v bool) *PagequeryTenantRequest {
+	s.Mock = &v
 	return s
 }
 
@@ -10587,6 +10636,8 @@ type PagequerySceneRequest struct {
 	SceneName *string `json:"scene_name,omitempty" xml:"scene_name,omitempty"`
 	// 租户
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// 是否为测试数据
+	Mock *bool `json:"mock,omitempty" xml:"mock,omitempty"`
 }
 
 func (s PagequerySceneRequest) String() string {
@@ -10624,6 +10675,11 @@ func (s *PagequerySceneRequest) SetSceneName(v string) *PagequerySceneRequest {
 
 func (s *PagequerySceneRequest) SetTenantName(v string) *PagequerySceneRequest {
 	s.TenantName = &v
+	return s
+}
+
+func (s *PagequerySceneRequest) SetMock(v bool) *PagequerySceneRequest {
+	s.Mock = &v
 	return s
 }
 
@@ -10773,6 +10829,8 @@ type PagequeryProductkeyRequest struct {
 	// 租户ID
 	//
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// 是否为测试数据
+	Mock *bool `json:"mock,omitempty" xml:"mock,omitempty"`
 }
 
 func (s PagequeryProductkeyRequest) String() string {
@@ -10815,6 +10873,11 @@ func (s *PagequeryProductkeyRequest) SetScene(v string) *PagequeryProductkeyRequ
 
 func (s *PagequeryProductkeyRequest) SetTenantName(v string) *PagequeryProductkeyRequest {
 	s.TenantName = &v
+	return s
+}
+
+func (s *PagequeryProductkeyRequest) SetMock(v bool) *PagequeryProductkeyRequest {
+	s.Mock = &v
 	return s
 }
 
@@ -13344,7 +13407,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.73"),
+				"sdk_version":      tea.String("1.6.75"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
