@@ -11077,6 +11077,7 @@ class AddTenantRequest(TeaModel):
         gateway_private_key: str = None,
         gateway_public_key: str = None,
         generate_gateway_keys: bool = None,
+        mock: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -11093,6 +11094,8 @@ class AddTenantRequest(TeaModel):
         self.gateway_public_key = gateway_public_key
         # 是否需要生成秘钥对，默认为false
         self.generate_gateway_keys = generate_gateway_keys
+        # 是否为测试租户
+        self.mock = mock
 
     def validate(self):
         self.validate_required(self.tenant_name, 'tenant_name')
@@ -11116,6 +11119,8 @@ class AddTenantRequest(TeaModel):
             result['gateway_public_key'] = self.gateway_public_key
         if self.generate_gateway_keys is not None:
             result['generate_gateway_keys'] = self.generate_gateway_keys
+        if self.mock is not None:
+            result['mock'] = self.mock
         return result
 
     def from_map(self, m: dict = None):
@@ -11136,6 +11141,8 @@ class AddTenantRequest(TeaModel):
             self.gateway_public_key = m.get('gateway_public_key')
         if m.get('generate_gateway_keys') is not None:
             self.generate_gateway_keys = m.get('generate_gateway_keys')
+        if m.get('mock') is not None:
+            self.mock = m.get('mock')
         return self
 
 
@@ -11187,6 +11194,7 @@ class AddSceneRequest(TeaModel):
         private_key_password: str = None,
         tenant_name: str = None,
         scene_type: str = None,
+        mock: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -11201,6 +11209,8 @@ class AddSceneRequest(TeaModel):
         self.tenant_name = tenant_name
         # 场景类型
         self.scene_type = scene_type
+        # 是否为测试数据
+        self.mock = mock
 
     def validate(self):
         self.validate_required(self.scene_name, 'scene_name')
@@ -11225,6 +11235,8 @@ class AddSceneRequest(TeaModel):
             result['tenant_name'] = self.tenant_name
         if self.scene_type is not None:
             result['scene_type'] = self.scene_type
+        if self.mock is not None:
+            result['mock'] = self.mock
         return result
 
     def from_map(self, m: dict = None):
@@ -11243,6 +11255,8 @@ class AddSceneRequest(TeaModel):
             self.tenant_name = m.get('tenant_name')
         if m.get('scene_type') is not None:
             self.scene_type = m.get('scene_type')
+        if m.get('mock') is not None:
+            self.mock = m.get('mock')
         return self
 
 
@@ -11596,6 +11610,7 @@ class AddProductkeyRequest(TeaModel):
         sdk_version_prefix: str = None,
         manufacturer: str = None,
         customer: str = None,
+        mock: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -11614,6 +11629,8 @@ class AddProductkeyRequest(TeaModel):
         self.manufacturer = manufacturer
         # 顾客
         self.customer = customer
+        # 是否为测试数据
+        self.mock = mock
 
     def validate(self):
         self.validate_required(self.product_key, 'product_key')
@@ -11644,6 +11661,8 @@ class AddProductkeyRequest(TeaModel):
             result['manufacturer'] = self.manufacturer
         if self.customer is not None:
             result['customer'] = self.customer
+        if self.mock is not None:
+            result['mock'] = self.mock
         return result
 
     def from_map(self, m: dict = None):
@@ -11666,6 +11685,8 @@ class AddProductkeyRequest(TeaModel):
             self.manufacturer = m.get('manufacturer')
         if m.get('customer') is not None:
             self.customer = m.get('customer')
+        if m.get('mock') is not None:
+            self.mock = m.get('mock')
         return self
 
 
@@ -11720,6 +11741,7 @@ class UpdateProductkeyRequest(TeaModel):
         sdk_version_prefix: str = None,
         manufacturer: str = None,
         customer: str = None,
+        mock: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -11745,6 +11767,8 @@ class UpdateProductkeyRequest(TeaModel):
         self.manufacturer = manufacturer
         # 顾客
         self.customer = customer
+        # 是否为测试数据
+        self.mock = mock
 
     def validate(self):
         self.validate_required(self.id, 'id')
@@ -11771,6 +11795,8 @@ class UpdateProductkeyRequest(TeaModel):
             result['manufacturer'] = self.manufacturer
         if self.customer is not None:
             result['customer'] = self.customer
+        if self.mock is not None:
+            result['mock'] = self.mock
         return result
 
     def from_map(self, m: dict = None):
@@ -11795,6 +11821,8 @@ class UpdateProductkeyRequest(TeaModel):
             self.manufacturer = m.get('manufacturer')
         if m.get('customer') is not None:
             self.customer = m.get('customer')
+        if m.get('mock') is not None:
+            self.mock = m.get('mock')
         return self
 
 
@@ -11847,6 +11875,7 @@ class UpdateTenantRequest(TeaModel):
         owner: str = None,
         gateway_private_key: str = None,
         gateway_public_key: str = None,
+        mock: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -11866,6 +11895,8 @@ class UpdateTenantRequest(TeaModel):
         # 网关公钥
         # 
         self.gateway_public_key = gateway_public_key
+        # 是否为测试租户
+        self.mock = mock
 
     def validate(self):
         self.validate_required(self.id, 'id')
@@ -11888,6 +11919,8 @@ class UpdateTenantRequest(TeaModel):
             result['gateway_private_key'] = self.gateway_private_key
         if self.gateway_public_key is not None:
             result['gateway_public_key'] = self.gateway_public_key
+        if self.mock is not None:
+            result['mock'] = self.mock
         return result
 
     def from_map(self, m: dict = None):
@@ -11908,6 +11941,8 @@ class UpdateTenantRequest(TeaModel):
             self.gateway_private_key = m.get('gateway_private_key')
         if m.get('gateway_public_key') is not None:
             self.gateway_public_key = m.get('gateway_public_key')
+        if m.get('mock') is not None:
+            self.mock = m.get('mock')
         return self
 
 
@@ -11960,6 +11995,7 @@ class UpdateSceneRequest(TeaModel):
         tenant_name: str = None,
         scene_type: str = None,
         customer_processor: str = None,
+        mock: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -11979,6 +12015,8 @@ class UpdateSceneRequest(TeaModel):
         self.scene_type = scene_type
         # 定制数据处理类 , 使用用逗号分隔
         self.customer_processor = customer_processor
+        # 是否为测试数据
+        self.mock = mock
 
     def validate(self):
         self.validate_required(self.id, 'id')
@@ -12002,6 +12040,8 @@ class UpdateSceneRequest(TeaModel):
             result['scene_type'] = self.scene_type
         if self.customer_processor is not None:
             result['customer_processor'] = self.customer_processor
+        if self.mock is not None:
+            result['mock'] = self.mock
         return result
 
     def from_map(self, m: dict = None):
@@ -12022,6 +12062,8 @@ class UpdateSceneRequest(TeaModel):
             self.scene_type = m.get('scene_type')
         if m.get('customer_processor') is not None:
             self.customer_processor = m.get('customer_processor')
+        if m.get('mock') is not None:
+            self.mock = m.get('mock')
         return self
 
 
@@ -12281,6 +12323,7 @@ class PagequeryTenantRequest(TeaModel):
         page_index: int = None,
         page_size: int = None,
         tenant_name: str = None,
+        mock: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -12291,6 +12334,8 @@ class PagequeryTenantRequest(TeaModel):
         self.page_size = page_size
         # 租户
         self.tenant_name = tenant_name
+        # 是否为测试数据
+        self.mock = mock
 
     def validate(self):
         self.validate_required(self.page_index, 'page_index')
@@ -12308,6 +12353,8 @@ class PagequeryTenantRequest(TeaModel):
             result['page_size'] = self.page_size
         if self.tenant_name is not None:
             result['tenant_name'] = self.tenant_name
+        if self.mock is not None:
+            result['mock'] = self.mock
         return result
 
     def from_map(self, m: dict = None):
@@ -12322,6 +12369,8 @@ class PagequeryTenantRequest(TeaModel):
             self.page_size = m.get('page_size')
         if m.get('tenant_name') is not None:
             self.tenant_name = m.get('tenant_name')
+        if m.get('mock') is not None:
+            self.mock = m.get('mock')
         return self
 
 
@@ -12381,6 +12430,7 @@ class PagequerySceneRequest(TeaModel):
         page_size: int = None,
         scene_name: str = None,
         tenant_name: str = None,
+        mock: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -12393,6 +12443,8 @@ class PagequerySceneRequest(TeaModel):
         self.scene_name = scene_name
         # 租户
         self.tenant_name = tenant_name
+        # 是否为测试数据
+        self.mock = mock
 
     def validate(self):
         self.validate_required(self.page_index, 'page_index')
@@ -12412,6 +12464,8 @@ class PagequerySceneRequest(TeaModel):
             result['scene_name'] = self.scene_name
         if self.tenant_name is not None:
             result['tenant_name'] = self.tenant_name
+        if self.mock is not None:
+            result['mock'] = self.mock
         return result
 
     def from_map(self, m: dict = None):
@@ -12428,6 +12482,8 @@ class PagequerySceneRequest(TeaModel):
             self.scene_name = m.get('scene_name')
         if m.get('tenant_name') is not None:
             self.tenant_name = m.get('tenant_name')
+        if m.get('mock') is not None:
+            self.mock = m.get('mock')
         return self
 
 
@@ -12594,6 +12650,7 @@ class PagequeryProductkeyRequest(TeaModel):
         product_key: str = None,
         scene: str = None,
         tenant_name: str = None,
+        mock: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -12610,6 +12667,8 @@ class PagequeryProductkeyRequest(TeaModel):
         # 租户ID
         # 
         self.tenant_name = tenant_name
+        # 是否为测试数据
+        self.mock = mock
 
     def validate(self):
         self.validate_required(self.page_index, 'page_index')
@@ -12631,6 +12690,8 @@ class PagequeryProductkeyRequest(TeaModel):
             result['scene'] = self.scene
         if self.tenant_name is not None:
             result['tenant_name'] = self.tenant_name
+        if self.mock is not None:
+            result['mock'] = self.mock
         return result
 
     def from_map(self, m: dict = None):
@@ -12649,6 +12710,8 @@ class PagequeryProductkeyRequest(TeaModel):
             self.scene = m.get('scene')
         if m.get('tenant_name') is not None:
             self.tenant_name = m.get('tenant_name')
+        if m.get('mock') is not None:
+            self.mock = m.get('mock')
         return self
 
 
