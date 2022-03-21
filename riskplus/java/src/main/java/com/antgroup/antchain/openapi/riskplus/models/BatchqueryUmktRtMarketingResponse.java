@@ -16,6 +16,14 @@ public class BatchqueryUmktRtMarketingResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 处理是否成功
+    @NameInMap("success")
+    public Boolean success;
+
+    // 实时营销单条结果
+    @NameInMap("query_result")
+    public java.util.List<BaseCustomerUmktInfoModel> queryResult;
+
     public static BatchqueryUmktRtMarketingResponse build(java.util.Map<String, ?> map) throws Exception {
         BatchqueryUmktRtMarketingResponse self = new BatchqueryUmktRtMarketingResponse();
         return TeaModel.build(map, self);
@@ -43,6 +51,22 @@ public class BatchqueryUmktRtMarketingResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public BatchqueryUmktRtMarketingResponse setSuccess(Boolean success) {
+        this.success = success;
+        return this;
+    }
+    public Boolean getSuccess() {
+        return this.success;
+    }
+
+    public BatchqueryUmktRtMarketingResponse setQueryResult(java.util.List<BaseCustomerUmktInfoModel> queryResult) {
+        this.queryResult = queryResult;
+        return this;
+    }
+    public java.util.List<BaseCustomerUmktInfoModel> getQueryResult() {
+        return this.queryResult;
     }
 
 }

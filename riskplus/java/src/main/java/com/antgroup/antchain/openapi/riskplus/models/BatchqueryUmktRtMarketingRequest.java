@@ -25,6 +25,11 @@ public class BatchqueryUmktRtMarketingRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<String> customerKeys;
 
+    // 业务方流水号
+    @NameInMap("biz_serial_no")
+    @Validation(required = true)
+    public String bizSerialNo;
+
     public static BatchqueryUmktRtMarketingRequest build(java.util.Map<String, ?> map) throws Exception {
         BatchqueryUmktRtMarketingRequest self = new BatchqueryUmktRtMarketingRequest();
         return TeaModel.build(map, self);
@@ -68,6 +73,14 @@ public class BatchqueryUmktRtMarketingRequest extends TeaModel {
     }
     public java.util.List<String> getCustomerKeys() {
         return this.customerKeys;
+    }
+
+    public BatchqueryUmktRtMarketingRequest setBizSerialNo(String bizSerialNo) {
+        this.bizSerialNo = bizSerialNo;
+        return this;
+    }
+    public String getBizSerialNo() {
+        return this.bizSerialNo;
     }
 
 }
