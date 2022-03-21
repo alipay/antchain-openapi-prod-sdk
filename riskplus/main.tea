@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.9.0',
+    sdk_version = '1.9.2',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -768,6 +768,16 @@ model RiskLabelConfigInfo {
   gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
   // 操作人ID
   operatorId: string(name='operator_id', example='1233'),
+}
+
+// 营销盾批量查询单条结果
+model BaseCustomerUmktInfoModel {
+  // 用户凭证
+  customerKey?: string(name='customer_key', example='15011111605'),
+  // 输入模板
+  queryTemplate?: string(name='query_template', example='MOBILE'),
+  // 实时营销结果
+  umktResult?: long(name='umkt_result', example='1'),
 }
 
 // 策略详情
@@ -5154,6 +5164,8 @@ model BatchqueryUmktRtMarketingRequest = {
   queryTemplate?: string(name='query_template'),
   // 用户查询凭证列表
   customerKeys: [ string ](name='customer_keys'),
+  // 业务方流水号
+  bizSerialNo: string(name='biz_serial_no'),
 }
 
 model BatchqueryUmktRtMarketingResponse = {
@@ -5163,6 +5175,10 @@ model BatchqueryUmktRtMarketingResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 处理是否成功
+  success?: boolean(name='success'),
+  // 实时营销单条结果
+  queryResult?: [ BaseCustomerUmktInfoModel ](name='query_result'),
 }
 
 /**
