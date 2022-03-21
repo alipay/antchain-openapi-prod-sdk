@@ -36,18 +36,26 @@ class BatchqueryUmktRtMarketingRequest extends Model
      * @var string[]
      */
     public $customerKeys;
+
+    // 业务方流水号
+    /**
+     * @var string
+     */
+    public $bizSerialNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'sceneStrategyId'   => 'scene_strategy_id',
         'queryTemplate'     => 'query_template',
         'customerKeys'      => 'customer_keys',
+        'bizSerialNo'       => 'biz_serial_no',
     ];
 
     public function validate()
     {
         Model::validateRequired('sceneStrategyId', $this->sceneStrategyId, true);
         Model::validateRequired('customerKeys', $this->customerKeys, true);
+        Model::validateRequired('bizSerialNo', $this->bizSerialNo, true);
     }
 
     public function toMap()
@@ -67,6 +75,9 @@ class BatchqueryUmktRtMarketingRequest extends Model
         }
         if (null !== $this->customerKeys) {
             $res['customer_keys'] = $this->customerKeys;
+        }
+        if (null !== $this->bizSerialNo) {
+            $res['biz_serial_no'] = $this->bizSerialNo;
         }
 
         return $res;
@@ -96,6 +107,9 @@ class BatchqueryUmktRtMarketingRequest extends Model
             if (!empty($map['customer_keys'])) {
                 $model->customerKeys = $map['customer_keys'];
             }
+        }
+        if (isset($map['biz_serial_no'])) {
+            $model->bizSerialNo = $map['biz_serial_no'];
         }
 
         return $model;
