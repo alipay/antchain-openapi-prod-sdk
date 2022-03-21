@@ -42,6 +42,12 @@ class PagequerySceneRequest extends Model
      * @var string
      */
     public $tenantName;
+
+    // 是否为测试数据
+    /**
+     * @var bool
+     */
+    public $mock;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class PagequerySceneRequest extends Model
         'pageSize'          => 'page_size',
         'sceneName'         => 'scene_name',
         'tenantName'        => 'tenant_name',
+        'mock'              => 'mock',
     ];
 
     public function validate()
@@ -77,6 +84,9 @@ class PagequerySceneRequest extends Model
         }
         if (null !== $this->tenantName) {
             $res['tenant_name'] = $this->tenantName;
+        }
+        if (null !== $this->mock) {
+            $res['mock'] = $this->mock;
         }
 
         return $res;
@@ -107,6 +117,9 @@ class PagequerySceneRequest extends Model
         }
         if (isset($map['tenant_name'])) {
             $model->tenantName = $map['tenant_name'];
+        }
+        if (isset($map['mock'])) {
+            $model->mock = $map['mock'];
         }
 
         return $model;

@@ -54,6 +54,12 @@ class AddTenantRequest extends Model
      * @var bool
      */
     public $generateGatewayKeys;
+
+    // 是否为测试租户
+    /**
+     * @var bool
+     */
+    public $mock;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -63,6 +69,7 @@ class AddTenantRequest extends Model
         'gatewayPrivateKey'   => 'gateway_private_key',
         'gatewayPublicKey'    => 'gateway_public_key',
         'generateGatewayKeys' => 'generate_gateway_keys',
+        'mock'                => 'mock',
     ];
 
     public function validate()
@@ -97,6 +104,9 @@ class AddTenantRequest extends Model
         }
         if (null !== $this->generateGatewayKeys) {
             $res['generate_gateway_keys'] = $this->generateGatewayKeys;
+        }
+        if (null !== $this->mock) {
+            $res['mock'] = $this->mock;
         }
 
         return $res;
@@ -133,6 +143,9 @@ class AddTenantRequest extends Model
         }
         if (isset($map['generate_gateway_keys'])) {
             $model->generateGatewayKeys = $map['generate_gateway_keys'];
+        }
+        if (isset($map['mock'])) {
+            $model->mock = $map['mock'];
         }
 
         return $model;

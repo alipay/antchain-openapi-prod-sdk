@@ -57,6 +57,12 @@ class UpdateTenantRequest extends Model
      * @var string
      */
     public $gatewayPublicKey;
+
+    // 是否为测试租户
+    /**
+     * @var bool
+     */
+    public $mock;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -66,6 +72,7 @@ class UpdateTenantRequest extends Model
         'owner'             => 'owner',
         'gatewayPrivateKey' => 'gateway_private_key',
         'gatewayPublicKey'  => 'gateway_public_key',
+        'mock'              => 'mock',
     ];
 
     public function validate()
@@ -99,6 +106,9 @@ class UpdateTenantRequest extends Model
         }
         if (null !== $this->gatewayPublicKey) {
             $res['gateway_public_key'] = $this->gatewayPublicKey;
+        }
+        if (null !== $this->mock) {
+            $res['mock'] = $this->mock;
         }
 
         return $res;
@@ -135,6 +145,9 @@ class UpdateTenantRequest extends Model
         }
         if (isset($map['gateway_public_key'])) {
             $model->gatewayPublicKey = $map['gateway_public_key'];
+        }
+        if (isset($map['mock'])) {
+            $model->mock = $map['mock'];
         }
 
         return $model;

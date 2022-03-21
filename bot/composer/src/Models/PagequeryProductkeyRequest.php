@@ -50,6 +50,12 @@ class PagequeryProductkeyRequest extends Model
      * @var string
      */
     public $tenantName;
+
+    // 是否为测试数据
+    /**
+     * @var bool
+     */
+    public $mock;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -58,6 +64,7 @@ class PagequeryProductkeyRequest extends Model
         'productKey'        => 'product_key',
         'scene'             => 'scene',
         'tenantName'        => 'tenant_name',
+        'mock'              => 'mock',
     ];
 
     public function validate()
@@ -89,6 +96,9 @@ class PagequeryProductkeyRequest extends Model
         }
         if (null !== $this->tenantName) {
             $res['tenant_name'] = $this->tenantName;
+        }
+        if (null !== $this->mock) {
+            $res['mock'] = $this->mock;
         }
 
         return $res;
@@ -122,6 +132,9 @@ class PagequeryProductkeyRequest extends Model
         }
         if (isset($map['tenant_name'])) {
             $model->tenantName = $map['tenant_name'];
+        }
+        if (isset($map['mock'])) {
+            $model->mock = $map['mock'];
         }
 
         return $model;

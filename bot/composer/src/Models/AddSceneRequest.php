@@ -48,6 +48,12 @@ class AddSceneRequest extends Model
      * @var string
      */
     public $sceneType;
+
+    // 是否为测试数据
+    /**
+     * @var bool
+     */
+    public $mock;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
@@ -56,6 +62,7 @@ class AddSceneRequest extends Model
         'privateKeyPassword' => 'private_key_password',
         'tenantName'         => 'tenant_name',
         'sceneType'          => 'scene_type',
+        'mock'               => 'mock',
     ];
 
     public function validate()
@@ -91,6 +98,9 @@ class AddSceneRequest extends Model
         if (null !== $this->sceneType) {
             $res['scene_type'] = $this->sceneType;
         }
+        if (null !== $this->mock) {
+            $res['mock'] = $this->mock;
+        }
 
         return $res;
     }
@@ -123,6 +133,9 @@ class AddSceneRequest extends Model
         }
         if (isset($map['scene_type'])) {
             $model->sceneType = $map['scene_type'];
+        }
+        if (isset($map['mock'])) {
+            $model->mock = $map['mock'];
         }
 
         return $model;

@@ -57,6 +57,12 @@ class UpdateSceneRequest extends Model
      * @var string
      */
     public $customerProcessor;
+
+    // 是否为测试数据
+    /**
+     * @var bool
+     */
+    public $mock;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -66,6 +72,7 @@ class UpdateSceneRequest extends Model
         'tenantName'        => 'tenant_name',
         'sceneType'         => 'scene_type',
         'customerProcessor' => 'customer_processor',
+        'mock'              => 'mock',
     ];
 
     public function validate()
@@ -100,6 +107,9 @@ class UpdateSceneRequest extends Model
         }
         if (null !== $this->customerProcessor) {
             $res['customer_processor'] = $this->customerProcessor;
+        }
+        if (null !== $this->mock) {
+            $res['mock'] = $this->mock;
         }
 
         return $res;
@@ -136,6 +146,9 @@ class UpdateSceneRequest extends Model
         }
         if (isset($map['customer_processor'])) {
             $model->customerProcessor = $map['customer_processor'];
+        }
+        if (isset($map['mock'])) {
+            $model->mock = $map['mock'];
         }
 
         return $model;

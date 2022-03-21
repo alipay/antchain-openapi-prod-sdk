@@ -60,6 +60,12 @@ class AddProductkeyRequest extends Model
      * @var string
      */
     public $customer;
+
+    // 是否为测试数据
+    /**
+     * @var bool
+     */
+    public $mock;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,6 +76,7 @@ class AddProductkeyRequest extends Model
         'sdkVersionPrefix'  => 'sdk_version_prefix',
         'manufacturer'      => 'manufacturer',
         'customer'          => 'customer',
+        'mock'              => 'mock',
     ];
 
     public function validate()
@@ -113,6 +120,9 @@ class AddProductkeyRequest extends Model
         if (null !== $this->customer) {
             $res['customer'] = $this->customer;
         }
+        if (null !== $this->mock) {
+            $res['mock'] = $this->mock;
+        }
 
         return $res;
     }
@@ -151,6 +161,9 @@ class AddProductkeyRequest extends Model
         }
         if (isset($map['customer'])) {
             $model->customer = $map['customer'];
+        }
+        if (isset($map['mock'])) {
+            $model->mock = $map['mock'];
         }
 
         return $model;
