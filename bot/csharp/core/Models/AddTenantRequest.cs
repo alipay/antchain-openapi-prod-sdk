@@ -48,6 +48,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public bool? GenerateGatewayKeys { get; set; }
 
+        // 是否为测试租户
+        [NameInMap("mock")]
+        [Validation(Required=false)]
+        public bool? Mock { get; set; }
+
     }
 
 }

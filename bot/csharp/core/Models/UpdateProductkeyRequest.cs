@@ -63,6 +63,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string Customer { get; set; }
 
+        // 是否为测试数据
+        [NameInMap("mock")]
+        [Validation(Required=false)]
+        public bool? Mock { get; set; }
+
     }
 
 }
