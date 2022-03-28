@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class BatchqueryUmktRtMarketingResponse extends Model
+class QueryDubbridgeRiskinfoCommonResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,22 +26,15 @@ class BatchqueryUmktRtMarketingResponse extends Model
      */
     public $resultMsg;
 
-    // 处理是否成功
+    // 风控信息Json字符串
     /**
-     * @var bool
-     */
-    public $success;
-
-    // 实时营销单条结果
-    /**
-     * @var CustomerUmktInfoModel[]
+     * @var string
      */
     public $queryResult;
     protected $_name = [
         'reqMsgId'    => 'req_msg_id',
         'resultCode'  => 'result_code',
         'resultMsg'   => 'result_msg',
-        'success'     => 'success',
         'queryResult' => 'query_result',
     ];
 
@@ -61,17 +54,8 @@ class BatchqueryUmktRtMarketingResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
-        }
         if (null !== $this->queryResult) {
-            $res['query_result'] = [];
-            if (null !== $this->queryResult && \is_array($this->queryResult)) {
-                $n = 0;
-                foreach ($this->queryResult as $item) {
-                    $res['query_result'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+            $res['query_result'] = $this->queryResult;
         }
 
         return $res;
@@ -80,7 +64,7 @@ class BatchqueryUmktRtMarketingResponse extends Model
     /**
      * @param array $map
      *
-     * @return BatchqueryUmktRtMarketingResponse
+     * @return QueryDubbridgeRiskinfoCommonResponse
      */
     public static function fromMap($map = [])
     {
@@ -94,17 +78,8 @@ class BatchqueryUmktRtMarketingResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
-        }
         if (isset($map['query_result'])) {
-            if (!empty($map['query_result'])) {
-                $model->queryResult = [];
-                $n                  = 0;
-                foreach ($map['query_result'] as $item) {
-                    $model->queryResult[$n++] = null !== $item ? CustomerUmktInfoModel::fromMap($item) : $item;
-                }
-            }
+            $model->queryResult = $map['query_result'];
         }
 
         return $model;

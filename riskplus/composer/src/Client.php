@@ -75,6 +75,10 @@ use AntChain\RISKPLUS\Models\PullRegtechNewsRequest;
 use AntChain\RISKPLUS\Models\PullRegtechNewsResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditStatusResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoCommonRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoCommonResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoEnterprisescoreRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoEnterprisescoreResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRouterFundrouterRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRouterFundrouterResponse;
 use AntChain\RISKPLUS\Models\QueryDubheCreditStatusRequest;
@@ -163,6 +167,8 @@ use AntChain\RISKPLUS\Models\SendSecurityDataRequest;
 use AntChain\RISKPLUS\Models\SendSecurityDataResponse;
 use AntChain\RISKPLUS\Models\SyncRpgwUserOrderinfoRequest;
 use AntChain\RISKPLUS\Models\SyncRpgwUserOrderinfoResponse;
+use AntChain\RISKPLUS\Models\UpdateDubbridgeInstitutionCreditRequest;
+use AntChain\RISKPLUS\Models\UpdateDubbridgeInstitutionCreditResponse;
 use AntChain\RISKPLUS\Models\UpdateDubheCustomerInfoRequest;
 use AntChain\RISKPLUS\Models\UpdateDubheCustomerInfoResponse;
 use AntChain\RISKPLUS\Models\UploadDubbridgeFileRequest;
@@ -322,7 +328,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.9.2',
+                    'sdk_version'      => '1.9.3',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1473,6 +1479,105 @@ class Client
         Utils::validateModel($request);
 
         return QueryDubbridgeCreditStatusResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.credit.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统企业小微分查询
+     * Summary: 天枢系统企业小微分查询.
+     *
+     * @param QueryDubbridgeRiskinfoEnterprisescoreRequest $request
+     *
+     * @return QueryDubbridgeRiskinfoEnterprisescoreResponse
+     */
+    public function queryDubbridgeRiskinfoEnterprisescore($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeRiskinfoEnterprisescoreEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统企业小微分查询
+     * Summary: 天枢系统企业小微分查询.
+     *
+     * @param QueryDubbridgeRiskinfoEnterprisescoreRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return QueryDubbridgeRiskinfoEnterprisescoreResponse
+     */
+    public function queryDubbridgeRiskinfoEnterprisescoreEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeRiskinfoEnterprisescoreResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.riskinfo.enterprisescore.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统风控信息通用查询
+     * Summary: 天枢系统风控信息通用查询.
+     *
+     * @param QueryDubbridgeRiskinfoCommonRequest $request
+     *
+     * @return QueryDubbridgeRiskinfoCommonResponse
+     */
+    public function queryDubbridgeRiskinfoCommon($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeRiskinfoCommonEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统风控信息通用查询
+     * Summary: 天枢系统风控信息通用查询.
+     *
+     * @param QueryDubbridgeRiskinfoCommonRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryDubbridgeRiskinfoCommonResponse
+     */
+    public function queryDubbridgeRiskinfoCommonEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeRiskinfoCommonResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.riskinfo.common.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 额度、利率、状态调整
+     * Summary: 调额申请.
+     *
+     * @param UpdateDubbridgeInstitutionCreditRequest $request
+     *
+     * @return UpdateDubbridgeInstitutionCreditResponse
+     */
+    public function updateDubbridgeInstitutionCredit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDubbridgeInstitutionCreditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 额度、利率、状态调整
+     * Summary: 调额申请.
+     *
+     * @param UpdateDubbridgeInstitutionCreditRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return UpdateDubbridgeInstitutionCreditResponse
+     */
+    public function updateDubbridgeInstitutionCreditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDubbridgeInstitutionCreditResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.institution.credit.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
