@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class BatchqueryUmktRtMarketingResponse : TeaModel {
+    public class UpdateDubbridgeInstitutionCreditResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,25 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 处理是否成功
-        [NameInMap("success")]
+        // 蚂蚁端返回申请单号
+        [NameInMap("apply_no")]
         [Validation(Required=false)]
-        public bool? Success { get; set; }
+        public string ApplyNo { get; set; }
 
-        // 实时营销单条结果
-        [NameInMap("query_result")]
+        // 机构请求流水号，用于幂等
+        [NameInMap("serial_no")]
         [Validation(Required=false)]
-        public List<CustomerUmktInfoModel> QueryResult { get; set; }
+        public string SerialNo { get; set; }
+
+        // 业务响应码
+        [NameInMap("biz_code")]
+        [Validation(Required=false)]
+        public string BizCode { get; set; }
+
+        // 业务消息
+        [NameInMap("biz_msg")]
+        [Validation(Required=false)]
+        public string BizMsg { get; set; }
 
     }
 

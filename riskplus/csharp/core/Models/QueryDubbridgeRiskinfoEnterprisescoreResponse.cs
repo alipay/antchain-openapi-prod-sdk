@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class BatchqueryUmktRtMarketingResponse : TeaModel {
+    public class QueryDubbridgeRiskinfoEnterprisescoreResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,10 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 处理是否成功
-        [NameInMap("success")]
+        // 小微分
+        [NameInMap("score")]
         [Validation(Required=false)]
-        public bool? Success { get; set; }
-
-        // 实时营销单条结果
-        [NameInMap("query_result")]
-        [Validation(Required=false)]
-        public List<CustomerUmktInfoModel> QueryResult { get; set; }
+        public string Score { get; set; }
 
     }
 
