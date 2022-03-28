@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.9.2',
+    sdk_version = '1.9.3',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -224,6 +224,16 @@ model DecisionFlow {
   decision: string(name='decision', example='reject'),
   // infocodes
   infoCodes?: InfoCodes(name='info_codes', example='infocodes'),
+}
+
+// 营销盾批量查询单条结果
+model BaseCustomerUmktInfoModel {
+  // 用户凭证
+  customerKey?: string(name='customer_key', example='15011111605'),
+  // 输入模板
+  queryTemplate?: string(name='query_template', example='MOBILE'),
+  // 实时营销结果
+  umktResult?: long(name='umkt_result', example='1'),
 }
 
 // 企业类型分布统计
@@ -770,16 +780,6 @@ model RiskLabelConfigInfo {
   operatorId: string(name='operator_id', example='1233'),
 }
 
-// 营销盾批量查询单条结果
-model BaseCustomerUmktInfoModel {
-  // 用户凭证
-  customerKey?: string(name='customer_key', example='15011111605'),
-  // 输入模板
-  queryTemplate?: string(name='query_template', example='MOBILE'),
-  // 实时营销结果
-  umktResult?: long(name='umkt_result', example='1'),
-}
-
 // 策略详情
 model StrategyDetails {
   // 策略id
@@ -1027,6 +1027,14 @@ model ServiceContext {
   userId?: string(name='user_id', example='2088522384403582'),
 }
 
+// 营销盾实时圈客结果返回model
+model CustomerUmktInfoModel {
+  // 基本圈客结果信息
+  baseInfo: BaseCustomerUmktInfoModel(name='base_info', example=''),
+  // 额外的营销分结果
+  umktOutPutInfo?: string(name='umkt_out_put_info', example='{"f_01":"95.0"}'),
+}
+
 // 模型结果详情
 // 
 model ModelDetails {
@@ -1272,7 +1280,7 @@ model QuerySecurityPolicyResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 风险咨询情况下返回的风险等级，风险处理不会返回该值
-  level?: integer(name='level'),
+  level?: long(name='level'),
   // 反馈成功之后的id
   securityId?: string(name='security_id'),
   // 安全处理结果，枚举值为：reject[拒绝],validate[校验],accept[放过]
@@ -2862,6 +2870,158 @@ async function queryDubbridgeCreditStatus(request: QueryDubbridgeCreditStatusReq
 async function queryDubbridgeCreditStatusEx(request: QueryDubbridgeCreditStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeCreditStatusResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.dubbridge.credit.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeRiskinfoEnterprisescoreRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 统一信用代码
+  socialCreditCode: string(name='social_credit_code'),
+  // MD5
+  mobileMd5: string(name='mobile_md5'),
+  // 合作方用户id
+  openId: string(name='open_id'),
+  // 渠道号
+  channelCode: string(name='channel_code'),
+}
+
+model QueryDubbridgeRiskinfoEnterprisescoreResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 小微分
+  score?: string(name='score'),
+}
+
+/**
+ * Description: 天枢系统企业小微分查询
+ * Summary: 天枢系统企业小微分查询
+ */
+async function queryDubbridgeRiskinfoEnterprisescore(request: QueryDubbridgeRiskinfoEnterprisescoreRequest): QueryDubbridgeRiskinfoEnterprisescoreResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeRiskinfoEnterprisescoreEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统企业小微分查询
+ * Summary: 天枢系统企业小微分查询
+ */
+async function queryDubbridgeRiskinfoEnterprisescoreEx(request: QueryDubbridgeRiskinfoEnterprisescoreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeRiskinfoEnterprisescoreResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.riskinfo.enterprisescore.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeRiskinfoCommonRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询id
+  queryId: string(name='query_id'),
+  // 查询id类型
+  idType: string(name='id_type'),
+  // 用户id
+  openId: string(name='open_id'),
+}
+
+model QueryDubbridgeRiskinfoCommonResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 风控信息Json字符串
+  queryResult?: string(name='query_result'),
+}
+
+/**
+ * Description: 天枢系统风控信息通用查询
+ * Summary: 天枢系统风控信息通用查询
+ */
+async function queryDubbridgeRiskinfoCommon(request: QueryDubbridgeRiskinfoCommonRequest): QueryDubbridgeRiskinfoCommonResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeRiskinfoCommonEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统风控信息通用查询
+ * Summary: 天枢系统风控信息通用查询
+ */
+async function queryDubbridgeRiskinfoCommonEx(request: QueryDubbridgeRiskinfoCommonRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeRiskinfoCommonResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.riskinfo.common.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateDubbridgeInstitutionCreditRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 机构请求流水号，用于幂等。行方需确保唯一性
+  serialNo: string(name='serial_no'),
+  // 授信编号，授信申请时同申请单号一致，调额等操作同前授信申请时的授信编号一致
+  creditNo: string(name='credit_no'),
+  // 客户姓名
+  name: string(name='name'),
+  // 身份证号
+  certNo: string(name='cert_no'),
+  // ADJUST_AMT_APPLY|ADJUST_RATE_APPLY|CLEAR_UP_APPLY|FROZEN_APPLY|UN_FROZEN_APPLY
+  applyType: string(name='apply_type'),
+  // 基础固额-申请调整值，单位分，机构发起调额场景下有值
+  creditAmount?: string(name='credit_amount'),
+  // 年利率-申请调整值，机构发起调价场景下有值
+  creditRate?: string(name='credit_rate'),
+  // 申请来源
+  source: string(name='source'),
+  // 机构申请原因码
+  reasonCode: string(name='reason_code'),
+  // 机构发起原因描述
+  reasonMsg: string(name='reason_msg'),
+  // 透传授信阶段天枢字段，json格式
+  extInfoTs: string(name='ext_info_ts'),
+  // 扩展信息，json格式
+  extInfo: string(name='ext_info'),
+}
+
+model UpdateDubbridgeInstitutionCreditResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 蚂蚁端返回申请单号
+  applyNo?: string(name='apply_no'),
+  // 机构请求流水号，用于幂等
+  serialNo?: string(name='serial_no'),
+  // 业务响应码
+  bizCode?: string(name='biz_code'),
+  // 业务消息
+  bizMsg?: string(name='biz_msg'),
+}
+
+/**
+ * Description: 额度、利率、状态调整
+ * Summary: 调额申请
+ */
+async function updateDubbridgeInstitutionCredit(request: UpdateDubbridgeInstitutionCreditRequest): UpdateDubbridgeInstitutionCreditResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateDubbridgeInstitutionCreditEx(request, headers, runtime);
+}
+
+/**
+ * Description: 额度、利率、状态调整
+ * Summary: 调额申请
+ */
+async function updateDubbridgeInstitutionCreditEx(request: UpdateDubbridgeInstitutionCreditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateDubbridgeInstitutionCreditResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.institution.credit.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model VerifyFinserviceZhimaIdentifyRequest = {
@@ -5178,7 +5338,7 @@ model BatchqueryUmktRtMarketingResponse = {
   // 处理是否成功
   success?: boolean(name='success'),
   // 实时营销单条结果
-  queryResult?: [ BaseCustomerUmktInfoModel ](name='query_result'),
+  queryResult?: [ CustomerUmktInfoModel ](name='query_result'),
 }
 
 /**
