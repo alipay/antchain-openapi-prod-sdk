@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.2'
+                    'sdk_version': '1.9.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.2'
+                    'sdk_version': '1.9.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -2085,6 +2085,168 @@ class Client:
         UtilClient.validate_model(request)
         return riskplus_models.QueryDubbridgeCreditStatusResponse().from_map(
             await self.do_request_async('1.0', 'riskplus.dubbridge.credit.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_riskinfo_enterprisescore(
+        self,
+        request: riskplus_models.QueryDubbridgeRiskinfoEnterprisescoreRequest,
+    ) -> riskplus_models.QueryDubbridgeRiskinfoEnterprisescoreResponse:
+        """
+        Description: 天枢系统企业小微分查询
+        Summary: 天枢系统企业小微分查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_riskinfo_enterprisescore_ex(request, headers, runtime)
+
+    async def query_dubbridge_riskinfo_enterprisescore_async(
+        self,
+        request: riskplus_models.QueryDubbridgeRiskinfoEnterprisescoreRequest,
+    ) -> riskplus_models.QueryDubbridgeRiskinfoEnterprisescoreResponse:
+        """
+        Description: 天枢系统企业小微分查询
+        Summary: 天枢系统企业小微分查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_riskinfo_enterprisescore_ex_async(request, headers, runtime)
+
+    def query_dubbridge_riskinfo_enterprisescore_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeRiskinfoEnterprisescoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeRiskinfoEnterprisescoreResponse:
+        """
+        Description: 天枢系统企业小微分查询
+        Summary: 天枢系统企业小微分查询
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.QueryDubbridgeRiskinfoEnterprisescoreResponse().from_map(
+            self.do_request('1.0', 'riskplus.dubbridge.riskinfo.enterprisescore.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_riskinfo_enterprisescore_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeRiskinfoEnterprisescoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeRiskinfoEnterprisescoreResponse:
+        """
+        Description: 天枢系统企业小微分查询
+        Summary: 天枢系统企业小微分查询
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.QueryDubbridgeRiskinfoEnterprisescoreResponse().from_map(
+            await self.do_request_async('1.0', 'riskplus.dubbridge.riskinfo.enterprisescore.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_riskinfo_common(
+        self,
+        request: riskplus_models.QueryDubbridgeRiskinfoCommonRequest,
+    ) -> riskplus_models.QueryDubbridgeRiskinfoCommonResponse:
+        """
+        Description: 天枢系统风控信息通用查询
+        Summary: 天枢系统风控信息通用查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_riskinfo_common_ex(request, headers, runtime)
+
+    async def query_dubbridge_riskinfo_common_async(
+        self,
+        request: riskplus_models.QueryDubbridgeRiskinfoCommonRequest,
+    ) -> riskplus_models.QueryDubbridgeRiskinfoCommonResponse:
+        """
+        Description: 天枢系统风控信息通用查询
+        Summary: 天枢系统风控信息通用查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_riskinfo_common_ex_async(request, headers, runtime)
+
+    def query_dubbridge_riskinfo_common_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeRiskinfoCommonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeRiskinfoCommonResponse:
+        """
+        Description: 天枢系统风控信息通用查询
+        Summary: 天枢系统风控信息通用查询
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.QueryDubbridgeRiskinfoCommonResponse().from_map(
+            self.do_request('1.0', 'riskplus.dubbridge.riskinfo.common.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_riskinfo_common_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeRiskinfoCommonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeRiskinfoCommonResponse:
+        """
+        Description: 天枢系统风控信息通用查询
+        Summary: 天枢系统风控信息通用查询
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.QueryDubbridgeRiskinfoCommonResponse().from_map(
+            await self.do_request_async('1.0', 'riskplus.dubbridge.riskinfo.common.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_dubbridge_institution_credit(
+        self,
+        request: riskplus_models.UpdateDubbridgeInstitutionCreditRequest,
+    ) -> riskplus_models.UpdateDubbridgeInstitutionCreditResponse:
+        """
+        Description: 额度、利率、状态调整
+        Summary: 调额申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_dubbridge_institution_credit_ex(request, headers, runtime)
+
+    async def update_dubbridge_institution_credit_async(
+        self,
+        request: riskplus_models.UpdateDubbridgeInstitutionCreditRequest,
+    ) -> riskplus_models.UpdateDubbridgeInstitutionCreditResponse:
+        """
+        Description: 额度、利率、状态调整
+        Summary: 调额申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_dubbridge_institution_credit_ex_async(request, headers, runtime)
+
+    def update_dubbridge_institution_credit_ex(
+        self,
+        request: riskplus_models.UpdateDubbridgeInstitutionCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.UpdateDubbridgeInstitutionCreditResponse:
+        """
+        Description: 额度、利率、状态调整
+        Summary: 调额申请
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.UpdateDubbridgeInstitutionCreditResponse().from_map(
+            self.do_request('1.0', 'riskplus.dubbridge.institution.credit.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_dubbridge_institution_credit_ex_async(
+        self,
+        request: riskplus_models.UpdateDubbridgeInstitutionCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.UpdateDubbridgeInstitutionCreditResponse:
+        """
+        Description: 额度、利率、状态调整
+        Summary: 调额申请
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.UpdateDubbridgeInstitutionCreditResponse().from_map(
+            await self.do_request_async('1.0', 'riskplus.dubbridge.institution.credit.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def verify_finservice_zhima_identify(
