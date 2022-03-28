@@ -18,7 +18,7 @@ public class QuerySecurityPolicyResponse extends TeaModel {
 
     // 风险咨询情况下返回的风险等级，风险处理不会返回该值
     @NameInMap("level")
-    public Integer level;
+    public Long level;
 
     // 反馈成功之后的id
     @NameInMap("security_id")
@@ -78,11 +78,11 @@ public class QuerySecurityPolicyResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QuerySecurityPolicyResponse setLevel(Integer level) {
+    public QuerySecurityPolicyResponse setLevel(Long level) {
         this.level = level;
         return this;
     }
-    public Integer getLevel() {
+    public Long getLevel() {
         return this.level;
     }
 
