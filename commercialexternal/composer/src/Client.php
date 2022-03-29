@@ -13,6 +13,10 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\COMMERCIALEXTERNAL\Models\BatchqueryTradecoreSoldspecinstanceRequest;
 use AntChain\COMMERCIALEXTERNAL\Models\BatchqueryTradecoreSoldspecinstanceResponse;
+use AntChain\COMMERCIALEXTERNAL\Models\PushMeterPeriodicusageRequest;
+use AntChain\COMMERCIALEXTERNAL\Models\PushMeterPeriodicusageResponse;
+use AntChain\COMMERCIALEXTERNAL\Models\PushMeterRealtimeusageRequest;
+use AntChain\COMMERCIALEXTERNAL\Models\PushMeterRealtimeusageResponse;
 use AntChain\COMMERCIALEXTERNAL\Models\QueryTradecoreMerchantinfoRequest;
 use AntChain\COMMERCIALEXTERNAL\Models\QueryTradecoreMerchantinfoResponse;
 use AntChain\Util\UtilClient;
@@ -162,7 +166,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.7',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -206,6 +210,74 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description:
+     * 计量数据周期推送
+     * Summary:  计量数据周期推送
+     *
+     * @param PushMeterPeriodicusageRequest $request
+     *
+     * @return PushMeterPeriodicusageResponse
+     */
+    public function pushMeterPeriodicusage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushMeterPeriodicusageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description:
+     * 计量数据周期推送
+     * Summary:  计量数据周期推送
+     *
+     * @param PushMeterPeriodicusageRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return PushMeterPeriodicusageResponse
+     */
+    public function pushMeterPeriodicusageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushMeterPeriodicusageResponse::fromMap($this->doRequest('1.0', 'antcloud.commercialexternal.meter.periodicusage.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 实时用量推送，每调用一次推送一次
+     * Summary: 实时用量推送，每调用一次推送一次
+     *
+     * @param PushMeterRealtimeusageRequest $request
+     *
+     * @return PushMeterRealtimeusageResponse
+     */
+    public function pushMeterRealtimeusage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushMeterRealtimeusageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 实时用量推送，每调用一次推送一次
+     * Summary: 实时用量推送，每调用一次推送一次
+     *
+     * @param PushMeterRealtimeusageRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return PushMeterRealtimeusageResponse
+     */
+    public function pushMeterRealtimeusageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushMeterRealtimeusageResponse::fromMap($this->doRequest('1.0', 'antcloud.commercialexternal.meter.realtimeusage.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
