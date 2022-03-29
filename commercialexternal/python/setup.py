@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_commercialexternal.
 
-Created on 24/12/2021
+Created on 29/03/2022
 
 @author: Ant Chain SDK
 """

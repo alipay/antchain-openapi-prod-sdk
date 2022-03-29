@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.7'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.7'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -270,6 +270,118 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def push_meter_periodicusage(
+        self,
+        request: commercialexternal_models.PushMeterPeriodicusageRequest,
+    ) -> commercialexternal_models.PushMeterPeriodicusageResponse:
+        """
+        Description:
+        计量数据周期推送
+        Summary:  计量数据周期推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_meter_periodicusage_ex(request, headers, runtime)
+
+    async def push_meter_periodicusage_async(
+        self,
+        request: commercialexternal_models.PushMeterPeriodicusageRequest,
+    ) -> commercialexternal_models.PushMeterPeriodicusageResponse:
+        """
+        Description:
+        计量数据周期推送
+        Summary:  计量数据周期推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_meter_periodicusage_ex_async(request, headers, runtime)
+
+    def push_meter_periodicusage_ex(
+        self,
+        request: commercialexternal_models.PushMeterPeriodicusageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> commercialexternal_models.PushMeterPeriodicusageResponse:
+        """
+        Description:
+        计量数据周期推送
+        Summary:  计量数据周期推送
+        """
+        UtilClient.validate_model(request)
+        return commercialexternal_models.PushMeterPeriodicusageResponse().from_map(
+            self.do_request('1.0', 'antcloud.commercialexternal.meter.periodicusage.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_meter_periodicusage_ex_async(
+        self,
+        request: commercialexternal_models.PushMeterPeriodicusageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> commercialexternal_models.PushMeterPeriodicusageResponse:
+        """
+        Description:
+        计量数据周期推送
+        Summary:  计量数据周期推送
+        """
+        UtilClient.validate_model(request)
+        return commercialexternal_models.PushMeterPeriodicusageResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.commercialexternal.meter.periodicusage.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_meter_realtimeusage(
+        self,
+        request: commercialexternal_models.PushMeterRealtimeusageRequest,
+    ) -> commercialexternal_models.PushMeterRealtimeusageResponse:
+        """
+        Description: 实时用量推送，每调用一次推送一次
+        Summary: 实时用量推送，每调用一次推送一次
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_meter_realtimeusage_ex(request, headers, runtime)
+
+    async def push_meter_realtimeusage_async(
+        self,
+        request: commercialexternal_models.PushMeterRealtimeusageRequest,
+    ) -> commercialexternal_models.PushMeterRealtimeusageResponse:
+        """
+        Description: 实时用量推送，每调用一次推送一次
+        Summary: 实时用量推送，每调用一次推送一次
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_meter_realtimeusage_ex_async(request, headers, runtime)
+
+    def push_meter_realtimeusage_ex(
+        self,
+        request: commercialexternal_models.PushMeterRealtimeusageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> commercialexternal_models.PushMeterRealtimeusageResponse:
+        """
+        Description: 实时用量推送，每调用一次推送一次
+        Summary: 实时用量推送，每调用一次推送一次
+        """
+        UtilClient.validate_model(request)
+        return commercialexternal_models.PushMeterRealtimeusageResponse().from_map(
+            self.do_request('1.0', 'antcloud.commercialexternal.meter.realtimeusage.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_meter_realtimeusage_ex_async(
+        self,
+        request: commercialexternal_models.PushMeterRealtimeusageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> commercialexternal_models.PushMeterRealtimeusageResponse:
+        """
+        Description: 实时用量推送，每调用一次推送一次
+        Summary: 实时用量推送，每调用一次推送一次
+        """
+        UtilClient.validate_model(request)
+        return commercialexternal_models.PushMeterRealtimeusageResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.commercialexternal.meter.realtimeusage.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def query_tradecore_merchantinfo(
         self,

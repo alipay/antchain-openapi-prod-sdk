@@ -160,6 +160,10 @@ class SoldSpecInstance(TeaModel):
         plan_stop_time: str = None,
         actual_stop_time: str = None,
         merchant_id: str = None,
+        num: int = None,
+        spec_type: str = None,
+        res_code: str = None,
+        context: str = None,
     ):
         # 规格码
         self.spec_code = spec_code
@@ -176,6 +180,14 @@ class SoldSpecInstance(TeaModel):
         self.actual_stop_time = actual_stop_time
         # 购买规格实例的商户id(商业中台用来唯一标识商户的id)
         self.merchant_id = merchant_id
+        # 购买数量
+        self.num = num
+        # 商品规格售卖类型：按量付费（POST）、资源包（BAG）、包年包月（PRE）
+        self.spec_type = spec_type
+        # 资源（包）code
+        self.res_code = res_code
+        # 其他上下文信息，kv结构，本先新增，后面有新新增可以放在这里面，不用再升级接口
+        self.context = context
 
     def validate(self):
         self.validate_required(self.spec_code, 'spec_code')
@@ -188,6 +200,12 @@ class SoldSpecInstance(TeaModel):
         if self.actual_stop_time is not None:
             self.validate_pattern(self.actual_stop_time, 'actual_stop_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.merchant_id, 'merchant_id')
+        self.validate_required(self.num, 'num')
+        self.validate_required(self.spec_type, 'spec_type')
+        if self.res_code is not None:
+            self.validate_max_length(self.res_code, 'res_code', 128)
+        if self.context is not None:
+            self.validate_max_length(self.context, 'context', 2048)
 
     def to_map(self):
         result = dict()
@@ -205,6 +223,14 @@ class SoldSpecInstance(TeaModel):
             result['actual_stop_time'] = self.actual_stop_time
         if self.merchant_id is not None:
             result['merchant_id'] = self.merchant_id
+        if self.num is not None:
+            result['num'] = self.num
+        if self.spec_type is not None:
+            result['spec_type'] = self.spec_type
+        if self.res_code is not None:
+            result['res_code'] = self.res_code
+        if self.context is not None:
+            result['context'] = self.context
         return result
 
     def from_map(self, m: dict = None):
@@ -223,6 +249,267 @@ class SoldSpecInstance(TeaModel):
             self.actual_stop_time = m.get('actual_stop_time')
         if m.get('merchant_id') is not None:
             self.merchant_id = m.get('merchant_id')
+        if m.get('num') is not None:
+            self.num = m.get('num')
+        if m.get('spec_type') is not None:
+            self.spec_type = m.get('spec_type')
+        if m.get('res_code') is not None:
+            self.res_code = m.get('res_code')
+        if m.get('context') is not None:
+            self.context = m.get('context')
+        return self
+
+
+class PushMeterPeriodicusageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        domain_code: str = None,
+        spec_code: str = None,
+        resource_code: str = None,
+        spec_instance_id: str = None,
+        data: str = None,
+        gmt_meter_begin: str = None,
+        gmt_meter_end: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 计量域编码
+        self.domain_code = domain_code
+        # 规格编码
+        self.spec_code = spec_code
+        # 
+        # 资源编码
+        self.resource_code = resource_code
+        # 规格实例id
+        self.spec_instance_id = spec_instance_id
+        # 计量数据，json string格式字符串
+        self.data = data
+        # 计量数据对应的发生周期开始时间yyyyMMddHHmmss格式
+        self.gmt_meter_begin = gmt_meter_begin
+        # 计量数据对应的发生周期开始时间yyyyMMddHHmmss格式
+        self.gmt_meter_end = gmt_meter_end
+
+    def validate(self):
+        self.validate_required(self.domain_code, 'domain_code')
+        if self.domain_code is not None:
+            self.validate_max_length(self.domain_code, 'domain_code', 128)
+        self.validate_required(self.spec_code, 'spec_code')
+        if self.spec_code is not None:
+            self.validate_max_length(self.spec_code, 'spec_code', 128)
+        self.validate_required(self.resource_code, 'resource_code')
+        if self.resource_code is not None:
+            self.validate_max_length(self.resource_code, 'resource_code', 128)
+        self.validate_required(self.spec_instance_id, 'spec_instance_id')
+        if self.spec_instance_id is not None:
+            self.validate_max_length(self.spec_instance_id, 'spec_instance_id', 128)
+        self.validate_required(self.data, 'data')
+        self.validate_required(self.gmt_meter_begin, 'gmt_meter_begin')
+        self.validate_required(self.gmt_meter_end, 'gmt_meter_end')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.domain_code is not None:
+            result['domain_code'] = self.domain_code
+        if self.spec_code is not None:
+            result['spec_code'] = self.spec_code
+        if self.resource_code is not None:
+            result['resource_code'] = self.resource_code
+        if self.spec_instance_id is not None:
+            result['spec_instance_id'] = self.spec_instance_id
+        if self.data is not None:
+            result['data'] = self.data
+        if self.gmt_meter_begin is not None:
+            result['gmt_meter_begin'] = self.gmt_meter_begin
+        if self.gmt_meter_end is not None:
+            result['gmt_meter_end'] = self.gmt_meter_end
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('domain_code') is not None:
+            self.domain_code = m.get('domain_code')
+        if m.get('spec_code') is not None:
+            self.spec_code = m.get('spec_code')
+        if m.get('resource_code') is not None:
+            self.resource_code = m.get('resource_code')
+        if m.get('spec_instance_id') is not None:
+            self.spec_instance_id = m.get('spec_instance_id')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('gmt_meter_begin') is not None:
+            self.gmt_meter_begin = m.get('gmt_meter_begin')
+        if m.get('gmt_meter_end') is not None:
+            self.gmt_meter_end = m.get('gmt_meter_end')
+        return self
+
+
+class PushMeterPeriodicusageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class PushMeterRealtimeusageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        request_id: str = None,
+        domain_code: str = None,
+        spec_code: str = None,
+        resource_code: str = None,
+        spec_instance_id: str = None,
+        data: str = None,
+        gmt_meter: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 请求id，防重用
+        self.request_id = request_id
+        # 计量域编码
+        self.domain_code = domain_code
+        # 规格编码
+        self.spec_code = spec_code
+        # 资源编码
+        self.resource_code = resource_code
+        # 规格实例id
+        self.spec_instance_id = spec_instance_id
+        # 计量数据，json string格式字符串
+        self.data = data
+        # 计量数据发生时间
+        self.gmt_meter = gmt_meter
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        if self.request_id is not None:
+            self.validate_max_length(self.request_id, 'request_id', 64)
+        self.validate_required(self.domain_code, 'domain_code')
+        if self.domain_code is not None:
+            self.validate_max_length(self.domain_code, 'domain_code', 128)
+        self.validate_required(self.spec_code, 'spec_code')
+        if self.spec_code is not None:
+            self.validate_max_length(self.spec_code, 'spec_code', 128)
+        self.validate_required(self.resource_code, 'resource_code')
+        if self.resource_code is not None:
+            self.validate_max_length(self.resource_code, 'resource_code', 128)
+        self.validate_required(self.spec_instance_id, 'spec_instance_id')
+        if self.spec_instance_id is not None:
+            self.validate_max_length(self.spec_instance_id, 'spec_instance_id', 128)
+        self.validate_required(self.data, 'data')
+        self.validate_required(self.gmt_meter, 'gmt_meter')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.domain_code is not None:
+            result['domain_code'] = self.domain_code
+        if self.spec_code is not None:
+            result['spec_code'] = self.spec_code
+        if self.resource_code is not None:
+            result['resource_code'] = self.resource_code
+        if self.spec_instance_id is not None:
+            result['spec_instance_id'] = self.spec_instance_id
+        if self.data is not None:
+            result['data'] = self.data
+        if self.gmt_meter is not None:
+            result['gmt_meter'] = self.gmt_meter
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('domain_code') is not None:
+            self.domain_code = m.get('domain_code')
+        if m.get('spec_code') is not None:
+            self.spec_code = m.get('spec_code')
+        if m.get('resource_code') is not None:
+            self.resource_code = m.get('resource_code')
+        if m.get('spec_instance_id') is not None:
+            self.spec_instance_id = m.get('spec_instance_id')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('gmt_meter') is not None:
+            self.gmt_meter = m.get('gmt_meter')
+        return self
+
+
+class PushMeterRealtimeusageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 
