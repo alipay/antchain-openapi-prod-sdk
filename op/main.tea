@@ -1,0 +1,1235 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '3.2.3',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 数组元素类型
+model ListItem {
+  // 参数类型
+  type: string(name='type', example='STRING'),
+  // 结构体名称
+  structName?: string(name='struct_name', example='test'),
+  // 参数示例
+  example?: string(name='example', example='test'),
+  // 整数最大值
+  maximum?: long(name='maximum', example=''),
+  // 是否包括最大值
+  exclusiveMaximum?: boolean(name='exclusive_maximum', example='true, false'),
+  // 最小值
+  minimum?: long(name='minimum', example=''),
+  // 是否包括最小值
+  exclusiveMinimum?: boolean(name='exclusive_minimum', example='true, false'),
+  // 最大长度
+  maxLength?: long(name='max_length', example=''),
+  // 最小长度
+  minLength?: long(name='min_length', example=''),
+  // 模式
+  pattern?: string(name='pattern', example='NULL'),
+  // 最大元素个数
+  maxItems?: long(name='max_items', example=''),
+  // 最小元素数目
+  minItems?: long(name='min_items', example=''),
+  // 枚举类型
+  enumValues?: string(name='enum_values', example='A，B，C'),
+}
+
+// 参数模型
+model ParamModal {
+  // api meta数据id
+  apiMetaId: string(name='api_meta_id', example='0000000049'),
+  // api版本id
+  apiVersionId: string(name='api_version_id', example='0000000573'),
+  // 数组参数
+  listItem?: [ ListItem ](name='list_item', example=''),
+  // 结构体id
+  fieldStructId?: string(name='field_struct_id', example='NULL'),
+  // 结构体名称
+  fieldStructName?: string(name='field_struct_name', example='NULL'),
+  // 参数示例
+  example?: string(name='example', example='ABC'),
+  // 是否必填
+  required: boolean(name='required', example='true, false'),
+  // 最大整数长度
+  maximum?: long(name='maximum', example=''),
+  // 是否包括最大值
+  exclusiveMaximum?: boolean(name='exclusive_maximum', example='true, false'),
+  // 整数的最小值
+  minimum?: long(name='minimum', example=''),
+  // 是否排除最小值
+  exclusiveMinimum?: boolean(name='exclusive_minimum', example='true, false'),
+  // 字符串的最大长度
+  maxLength?: long(name='max_length', example=''),
+  // 字符串的最小长度
+  minLength?: long(name='min_length', example=''),
+  // 模式
+  pattern?: string(name='pattern', example='NULL'),
+  // 最大元素数目
+  maxItems?: long(name='max_items', example=''),
+  // 最小元素数目
+  minItems?: long(name='min_items', example=''),
+  // 枚举值
+  enumValues?: string(name='enum_values', example='FEEDBACK,ISGOOD,NOGOOD'),
+  // 参数名称
+  name: string(name='name', example='test'),
+  // 参数类型
+  type: string(name='type', example='STRING'),
+  // 参数描述
+  description: string(name='description', example='test'),
+  // 参数特性
+  feature: string(name='feature', example='file_transfer'),
+}
+
+// api结果码
+model ResultCodeRequest {
+  // api版本
+  apiVersion: string(name='api_version', example='1.0'),
+  // api名称
+  apiName: string(name='api_name', example='test'),
+  // 外部返回结果码
+  code: string(name='code', example='200'),
+  // 内部返回结果码
+  internalCode: string(name='internal_code', example='SUCCESS'),
+  // 结果码描述
+  description?: string(name='description', example='test'),
+  // 错误解决方法
+  resolution?: string(name='resolution', example='ERROR'),
+}
+
+// api请求参数体
+model ApiParamRequest {
+  // api名称
+  apiName: string(name='api_name', example='test'),
+  // api版本
+  apiVersion: string(name='api_version', example='1.0'),
+  // 参数名称
+  name: string(name='name', example='param'),
+  // 目标名称
+  targetName?: string(name='target_name', example='test'),
+  // 参数类型
+  type: string(name='type', example='STRING'),
+  // 链表信息
+  listItem?: [ ListItem ](name='list_item', example=''),
+  // 参数示例
+  example?: string(name='example', example='test'),
+  // 参数描述
+  description?: string(name='description', example='test'),
+  // 结构体名称
+  structName?: string(name='struct_name', example='test'),
+  // 最大值
+  maximum?: long(name='maximum', example=''),
+  // 最小值
+  minimum?: long(name='minimum', example=''),
+  // 最大长度
+  maxLength?: long(name='max_length', example=''),
+  // 最小长度
+  minLength?: long(name='min_length', example=''),
+  // 是否必填
+  required: boolean(name='required', example='true, false'),
+  // 特性
+  feature: string(name='feature', example='NULL'),
+}
+
+// api参数信息
+model ApiParamInfo {
+  // api名字
+  name: string(name='name', example='test'),
+  // api类型
+  type: string(name='type', example='STIRING'),
+  // 示例
+  example: string(name='example', example='1000'),
+  // api描述
+  description: string(name='description', example='test'),
+  // 结构体名称
+  structName: string(name='struct_name', example='test'),
+  // 最大数字
+  maximum: long(name='maximum', example='1000'),
+  // 最小数字
+  minimum: long(name='minimum', example='1000'),
+  // 字符串最大长度
+  maxLength: long(name='max_length', example=''),
+  // 最小长度
+  minLength: boolean(name='min_length', example='true, false'),
+  //  是否支持传输文件
+  fileTransfer: boolean(name='file_transfer', example='true, false'),
+  // 是否为必填字段
+  required: boolean(name='required', example='true, false'),
+}
+
+// api返回结果
+model ApiResultCodeInfo {
+  // 返回结果码
+  internalCode: string(name='internal_code', example='200'),
+  // 外部结果码
+  code: string(name='code', example='200'),
+  // 返回结果描述
+  description: string(name='description', example='error'),
+  // 返回结果码解决方案
+  resolution: string(name='resolution', example='error'),
+}
+
+// k-v对
+model KeyValuePair {
+  // key
+  key: string(name='key', example='test'),
+  // value
+  value?: string(name='value', example='test'),
+}
+
+// api分组枚举
+model ApiGroupTypeEnum {
+  // API分组类型
+  code: string(name='code', example='APP'),
+  // api分组描述
+  ddescription?: string(name='ddescription', example='test'),
+}
+
+// Api状态
+model StatusEnum {
+  // api状态码
+  code: string(name='code', example='INIT'),
+  // api状态码描述
+  description: string(name='description', example='离线'),
+}
+
+// 结果码
+model ResultCode {
+  // meta数据id
+  apiMetaId: string(name='api_meta_id', example='0000000193'),
+  // api版本id
+  apiVersionId: string(name='api_version_id', example='0000000194'),
+  // 结果码
+  internalCode: string(name='internal_code', example='200'),
+  // 外部结果码
+  code: string(name='code', example='200'),
+  // 返回结果描述
+  description: string(name='description', example='ERROR'),
+  // 解决错误办法
+  resolution: string(name='resolution', example='ERROR'),
+}
+
+// 分组信息
+model ApiGroup {
+  // 分组名称
+  name: string(name='name', example='demo'),
+  // 分组描述
+  description: string(name='description', example='test'),
+  // api类型
+  type: ApiGroupTypeEnum(name='type', example='SPI'),
+  // 产品
+  providerId: string(name='provider_id', example='demo'),
+  // 套件id
+  apiSuiteId: string(name='api_suite_id', example='0000000614'),
+}
+
+// Api基础数据
+model ApiMetaRequest {
+  // 产品码
+  providerName: string(name='provider_name', example='ABC'),
+  // 套件版本号
+  suiteVersion: string(name='suite_version', example='1.0.0'),
+  // api分组名称
+  groupName: string(name='group_name', example='demo-api'),
+  // api名称
+  name: string(name='name', example='api名称'),
+  // 新名字
+  newName?: string(name='new_name', example='antchain.abc.qqq.qqq.query'),
+  // api拥有者
+  owner: string(name='owner', example='linyao.lin'),
+  // api简介
+  summary: string(name='summary', example='test1'),
+  // 是否是内部api
+  internal: boolean(name='internal', example='true, false'),
+  // api版本
+  apiVersion: string(name='api_version', example='1.0'),
+  // api描述
+  description?: string(name='description', example='only for test'),
+  // 是否是第三方代理
+  thirdPartAuth?: boolean(name='third_part_auth', example='true, false'),
+  // api状态
+  statusEnum: StatusEnum(name='status_enum', example=''),
+  // 扩展参数
+  extAttribute?: string(name='ext_attribute', example='test'),
+}
+
+// 引入参数
+model ImportApiParamsRequest {
+  // 请求参数
+  requestParams?: [ ApiParamRequest ](name='request_params', example=''),
+  // 响应参数
+  responseParams?: [ ApiParamRequest ](name='response_params', example=''),
+  // 返回结果码
+  resultCodes?: [ ResultCodeRequest ](name='result_codes', example=''),
+  // api名称
+  apiName: string(name='api_name', example='test'),
+  // api版本
+  apiVersion: string(name='api_version', example='1.0'),
+}
+
+// api前端数据
+model ApiFrontendInfo {
+  // 是否有数据传输
+  fileTransfer: boolean(name='file_transfer', example='true, false'),
+  // api参数
+  requestPathParams: [ string ](name='request_path_params', example=''),
+  // Rest请求的URI，并带有路径参数
+  requestUriWithPathParams: string(name='request_uri_with_path_params', example='null'),
+  // api参数
+  requestParams: ApiParamInfo(name='request_params', example=''),
+}
+
+// api套件信息
+model ApiSuite {
+  // 产品码
+  providerId: string(name='provider_id', example='ABC'),
+  // 套件版本
+  version: string(name='version', example='1.0.0'),
+  // 是否发布
+  released: boolean(name='released', example='true, false'),
+  // 版本号
+  versionAlias: string(name='version_alias', example='test'),
+}
+
+// api后台参数
+model ApiBackendInfo {
+  //  调用方法
+  dispatchType: string(name='dispatch_type', example='HTTP'),
+  // TR转发的uniqueid
+  uniqueId?: string(name='unique_id', example='test'),
+  // TR转发的url
+  testUrl?: string(name='test_url', example='/test'),
+  // TR转发的路径
+  path?: string(name='path', example='/test'),
+  // 是否跳过鉴权
+  skipAuth?: boolean(name='skip_auth', example='true, false'),
+  // 后端转发超时时间
+  timeout: long(name='timeout', example=''),
+  // 后端返回参数
+  responseParams: [ ApiParamInfo ](name='response_params', example=''),
+  // 返回结果码
+  resultCodes: [ ApiResultCodeInfo ](name='result_codes', example=''),
+}
+
+// api版本请求体
+model ApiVersionRequest {
+  // 产品名称
+  providerName: string(name='provider_name', example='ABC'),
+  // 套件版本
+  suiteVersion: string(name='suite_version', example='1.0.0'),
+  // API名称
+  apiName: string(name='api_name', example='test'),
+  // api版本名称
+  name: string(name='name', example='1.0'),
+  // api版本描述
+  description: string(name='description', example='test'),
+  // api转发方式
+  dispatchType: string(name='dispatch_type', example='HTTP'),
+  // unique id
+  uniquId: string(name='uniqu_id', example='0000000015'),
+  // 测试url
+  testUrl?: string(name='test_url', example='http://123'),
+  // 转发路径
+  path?: string(name='path', example='/test/demo'),
+  // api状态
+  status: StatusEnum(name='status', example=''),
+  // 1000
+  timeout: long(name='timeout', example=''),
+  // 请求uri模式
+  requestUriPattern?: string(name='request_uri_pattern', example='NULL'),
+  // 请求路径参数
+  requestPathParams?: string(name='request_path_params', example='NULL'),
+  // 方法名称
+  requestMethod: string(name='request_method', example='test'),
+  // 支持特性
+  feature?: string(name='feature', example='file_transfer'),
+}
+
+// api版本信息
+model ApiVersion {
+  // 版本名称
+  name: string(name='name', example='1.0'),
+  // api版本描述
+  description: string(name='description', example='test'),
+  // apimeta数据id
+  apiMetaId: string(name='api_meta_id', example='0000000643'),
+  // api状态
+  status: string(name='status', example='INIT'),
+  // api请求参数
+  requestParams?: [ ParamModal ](name='request_params', example=''),
+  // api响应参数
+  responseParams: [ ParamModal ](name='response_params', example=''),
+  // api uri模式
+  requestUriPattern?: string(name='request_uri_pattern', example='/sofa/mq/msgtype'),
+  // 请求参数路径
+  requestPathParams?: string(name='request_path_params', example='instance_id'),
+  // 请求方法
+  requestMethod: string(name='request_method', example='test'),
+  // 具体API请求时，解析出来的路径参数与其对应的值
+  // eg. /sofa/mq/msgtype/{id}，如果实际请求为/sofa/mq/msgtype/1，那么返回的map就是 id => 1
+  requestPathValues: [ KeyValuePair ](name='request_path_values', example=''),
+  // 请求分发方法
+  dispatchType: string(name='dispatch_type', example='HTTP'),
+  // 分发内容
+  dispatchContext?: string(name='dispatch_context', example='HTTP'),
+  // 接口特性
+  feature?: string(name='feature', example='file_transfer'),
+}
+
+// api元数据
+model ApiMeta {
+  // api名字
+  name: string(name='name', example='test'),
+  // api简介
+  summary: string(name='summary', example='test'),
+  // api负责人
+  owner: string(name='owner', example='linyao.lin'),
+  // 为true时，不签约的情况下也可以调用
+  activationDisabled: boolean(name='activation_disabled', example='true, false'),
+  // 是否对外展示
+  internal: boolean(name='internal', example=''),
+  // unique_id
+  defaultUniqueId?: string(name='default_unique_id', example='null'),
+  // 调用路径
+  defaultHttpPath?: string(name='default_http_path', example='/iot/reportDeviceEvent'),
+  // 允许使用的用户类型
+  allowedUserType?: string(name='allowed_user_type', example='NULL'),
+  // 是否是第三方授权
+  thirdPartyAuth: boolean(name='third_party_auth', example='true, false'),
+  // 动作名称
+  actionName: string(name='action_name', example='NULL'),
+  // 角色名称
+  roleName?: string(name='role_name', example='NULL'),
+  // api描述
+  description: string(name='description', example='test'),
+  // api状态
+  status: string(name='status', example='INIT'),
+  // 产品码
+  providerId: string(name='provider_id', example='ABC'),
+  // 分组id
+  groupId: string(name='group_id', example='demo-sit'),
+  // 套件id
+  apiSuiteId: string(name='api_suite_id', example='test'),
+  // 扩展参数
+  extAttribute?: string(name='ext_attribute', example='test'),
+}
+
+// 渠道API
+model ChannelApi {
+  // 渠道名称
+  channelName: string(name='channel_name', example='ALIYUN_POP'),
+  // 外部产品码
+  productCode: string(name='product_code', example='SOFA'),
+  // 外部服务码
+  serviceCode?: string(name='service_code', example='aks'),
+  // 外部API名称
+  apiName: string(name='api_name', example='GetOneXMethod'),
+  // 外部API版本
+  apiVersion: string(name='api_version', example='2019-08-15'),
+  // 鉴权模式
+  authType?: string(name='auth_type', example='NONE'),
+  // 鉴权资源表达式
+  authExpression?: string(name='auth_expression', example='a/*'),
+  // 内部产品码
+  innerProviderName: string(name='inner_provider_name', example='IAM'),
+  // 内部API名称
+  innerApiName?: string(name='inner_api_name', example='antcloud.iam.operator.get'),
+  // 内部API版本
+  innerApiVersion?: string(name='inner_api_version', example='1.0'),
+}
+
+// api
+model ApiPair {
+  // api名称
+  name: string(name='name', example='api名称'),
+  // api版本
+  version: string(name='version', example='api版本'),
+}
+
+model QueryApiserviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品码
+  provider: string(name='provider'),
+  // 套件
+  suite: string(name='suite'),
+  // api名字
+  apiName: string(name='api_name'),
+}
+
+model QueryApiserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 套件信息
+  apiSuite?: ApiSuite(name='api_suite'),
+  // api基本信息
+  apiMeta?: ApiMeta(name='api_meta'),
+  // api版本数据
+  apiVersion?: ApiVersion(name='api_version'),
+  // api分组信息
+  apiGroup?: ApiGroup(name='api_group'),
+  // api请求参数
+  requestParams?: [ ParamModal ](name='request_params'),
+  // api返回参数
+  responseParams?: [ ParamModal ](name='response_params'),
+  // 结果码
+  resultCodes?: [ ResultCode ](name='result_codes'),
+}
+
+/**
+ * Description: 查询api详情
+ * Summary: 查询api
+ */
+async function queryApiservice(request: QueryApiserviceRequest): QueryApiserviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApiserviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询api详情
+ * Summary: 查询api
+ */
+async function queryApiserviceEx(request: QueryApiserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApiserviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.openapi.apiservice.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportApiserviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // api基本信息
+  apiMetaRequest: ApiMetaRequest(name='api_meta_request'),
+  // api版本
+  apiVersionRequest: ApiVersionRequest(name='api_version_request'),
+  // api请求参数
+  importApiParamsRequest?: ImportApiParamsRequest(name='import_api_params_request'),
+}
+
+model ImportApiserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 导入api信息
+ * Summary: 导入api信息
+ */
+async function importApiservice(request: ImportApiserviceRequest): ImportApiserviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importApiserviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 导入api信息
+ * Summary: 导入api信息
+ */
+async function importApiserviceEx(request: ImportApiserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportApiserviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.openapi.apiservice.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateApiserviceProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+  // 产品类型
+  type?: string(name='type'),
+  // 产品英文名
+  name: string(name='name'),
+  // 产品中文名
+  chineseName: string(name='chinese_name'),
+  // 产品版本
+  prodVersion?: string(name='prod_version'),
+  // 产品所有者
+  primaryOwnerId: string(name='primary_owner_id'),
+  // 产品描述
+  description: string(name='description'),
+  // api提供方类型
+  providerType?: string(name='provider_type'),
+  // 产品前缀
+  apiNamePrefix?: string(name='api_name_prefix'),
+}
+
+model CreateApiserviceProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 调用apicore创建产品
+ * Summary: 创建产品
+ */
+async function createApiserviceProduct(request: CreateApiserviceProductRequest): CreateApiserviceProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createApiserviceProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 调用apicore创建产品
+ * Summary: 创建产品
+ */
+async function createApiserviceProductEx(request: CreateApiserviceProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateApiserviceProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.openapi.apiservice.product.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateApiserviceGroupRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 所属产品
+  providerName: string(name='provider_name'),
+  // 套件版本
+  suiteVersion: string(name='suite_version'),
+  // 分组描述
+  description: string(name='description'),
+  // 分组名称
+  groupName: string(name='group_name'),
+  // 分组类型
+  apiGroupType?: string(name='api_group_type'),
+}
+
+model CreateApiserviceGroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建分组
+ * Summary: 创建分组
+ */
+async function createApiserviceGroup(request: CreateApiserviceGroupRequest): CreateApiserviceGroupResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createApiserviceGroupEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建分组
+ * Summary: 创建分组
+ */
+async function createApiserviceGroupEx(request: CreateApiserviceGroupRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateApiserviceGroupResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.openapi.apiservice.group.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateApiserviceSuiteRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 默认为1.0.0
+  suiteVersion?: string(name='suite_version'),
+  // 所属产品名
+  providerName: string(name='provider_name'),
+  // 是否已经发布
+  released: boolean(name='released'),
+}
+
+model CreateApiserviceSuiteResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建suite
+ * Summary: 创建suite
+ */
+async function createApiserviceSuite(request: CreateApiserviceSuiteRequest): CreateApiserviceSuiteResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createApiserviceSuiteEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建suite
+ * Summary: 创建suite
+ */
+async function createApiserviceSuiteEx(request: CreateApiserviceSuiteRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateApiserviceSuiteResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.openapi.apiservice.suite.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportSpecRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // API数据描述，XML文件内容
+  content: string(name='content'),
+}
+
+model ImportSpecResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 通过XML Spec形式导入产品的API配置
+ * Summary: 导入API配置
+ */
+async function importSpec(request: ImportSpecRequest): ImportSpecResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importSpecEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过XML Spec形式导入产品的API配置
+ * Summary: 导入API配置
+ */
+async function importSpecEx(request: ImportSpecRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportSpecResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.openapi.spec.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExportSpecRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+  // api列表
+  apis?: [ ApiPair ](name='apis'),
+}
+
+model ExportSpecResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // spec内容
+  content?: string(name='content'),
+}
+
+/**
+ * Description: 导出Spec
+ * Summary: 导出Spec
+ */
+async function exportSpec(request: ExportSpecRequest): ExportSpecResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return exportSpecEx(request, headers, runtime);
+}
+
+/**
+ * Description: 导出Spec
+ * Summary: 导出Spec
+ */
+async function exportSpecEx(request: ExportSpecRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExportSpecResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.openapi.spec.export', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetProviderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+}
+
+model GetProviderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // API前缀
+  apiNamePrefix?: string(name='api_name_prefix'),
+  // 描述
+  description?: string(name='description'),
+  // 是否在开发者中心展示
+  developerCenterDisplay?: boolean(name='developer_center_display'),
+  // Proivder名称，等同于产品码
+  name?: string(name='name'),
+  // 产品别名
+  nameAlias?: string(name='name_alias'),
+  // 组织机构
+  organization?: string(name='organization'),
+  // 产品类型
+  providerType?: string(name='provider_type'),
+  // 产品状态
+  status?: string(name='status'),
+  // 产品简介
+  summary?: string(name='summary'),
+}
+
+/**
+ * Description: 获取OpenAPI提供方详情
+ * Summary: 获取OpenAPI提供方详情
+ */
+async function getProvider(request: GetProviderRequest): GetProviderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getProviderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取OpenAPI提供方详情
+ * Summary: 获取OpenAPI提供方详情
+ */
+async function getProviderEx(request: GetProviderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetProviderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.openapi.provider.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportChannelapiRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 渠道API列表
+  apiList: [ ChannelApi ](name='api_list'),
+}
+
+model ImportChannelapiResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 失败列表
+  failureList?: [ ChannelApi ](name='failure_list'),
+  // 失败数量
+  failureNum?: long(name='failure_num'),
+  // 成功数量
+  successNum?: long(name='success_num'),
+}
+
+/**
+ * Description: 渠道API导入
+ * Summary: 渠道API导入
+ */
+async function importChannelapi(request: ImportChannelapiRequest): ImportChannelapiResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importChannelapiEx(request, headers, runtime);
+}
+
+/**
+ * Description: 渠道API导入
+ * Summary: 渠道API导入
+ */
+async function importChannelapiEx(request: ImportChannelapiRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportChannelapiResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.openapi.channelapi.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ServiceGatewayCheckRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+}
+
+model ServiceGatewayCheckResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 如果正常，返回OK
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 检测金融云网关目前的健康状态
+ * Summary: 网关健康检查1
+ */
+async function serviceGatewayCheck(request: ServiceGatewayCheckRequest): ServiceGatewayCheckResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return serviceGatewayCheckEx(request, headers, runtime);
+}
+
+/**
+ * Description: 检测金融云网关目前的健康状态
+ * Summary: 网关健康检查1
+ */
+async function serviceGatewayCheckEx(request: ServiceGatewayCheckRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ServiceGatewayCheckResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.openapi.gateway.check.service', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportGatewaySpecRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // API数据描述，XML文件内容
+  content: string(name='content'),
+}
+
+model ImportGatewaySpecResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 通过XML Spec形式导入产品的API配置
+ * Summary: 导入API配置
+ */
+async function importGatewaySpec(request: ImportGatewaySpecRequest): ImportGatewaySpecResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importGatewaySpecEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过XML Spec形式导入产品的API配置
+ * Summary: 导入API配置
+ */
+async function importGatewaySpecEx(request: ImportGatewaySpecRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportGatewaySpecResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.openapi.gateway.spec.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateGatewayClusterhostRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品码
+  product: string(name='product'),
+  // 集群名称，对应productInstanceId
+  cluster: string(name='cluster'),
+  // api所属套件版本
+  suitVersion: string(name='suit_version'),
+  // api分组名称
+  groupName: string(name='group_name'),
+  // 后端地址
+  host: string(name='host'),
+}
+
+model UpdateGatewayClusterhostResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新集群路由host
+ * Summary: 更新集群路由host
+ */
+async function updateGatewayClusterhost(request: UpdateGatewayClusterhostRequest): UpdateGatewayClusterhostResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateGatewayClusterhostEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新集群路由host
+ * Summary: 更新集群路由host
+ */
+async function updateGatewayClusterhostEx(request: UpdateGatewayClusterhostRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateGatewayClusterhostResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.openapi.gateway.clusterhost.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateGatewayStaticrouterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品码
+  provider: string(name='provider'),
+  // 套件版本
+  suitVersion: string(name='suit_version'),
+  // 分组名称
+  groupName: string(name='group_name'),
+  // accessKey
+  accesskey: string(name='accesskey'),
+  // 后端地址
+  host: string(name='host'),
+}
+
+model CreateGatewayStaticrouterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建静态路由
+ * Summary: 创建静态路由
+ */
+async function createGatewayStaticrouter(request: CreateGatewayStaticrouterRequest): CreateGatewayStaticrouterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createGatewayStaticrouterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建静态路由
+ * Summary: 创建静态路由
+ */
+async function createGatewayStaticrouterEx(request: CreateGatewayStaticrouterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateGatewayStaticrouterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.openapi.gateway.staticrouter.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGatewayClusterhostRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品码
+  product: string(name='product'),
+  // 集群名称，对应productInstanceId
+  cluster: string(name='cluster'),
+  // api所属套件版本
+  suitVersion: string(name='suit_version'),
+  // api分组名称
+  groupName: string(name='group_name'),
+}
+
+model QueryGatewayClusterhostResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 后端地址
+  host?: string(name='host'),
+}
+
+/**
+ * Description: 查询集群路由host
+ * Summary: 查询集群路由host
+ */
+async function queryGatewayClusterhost(request: QueryGatewayClusterhostRequest): QueryGatewayClusterhostResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGatewayClusterhostEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询集群路由host
+ * Summary: 查询集群路由host
+ */
+async function queryGatewayClusterhostEx(request: QueryGatewayClusterhostRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGatewayClusterhostResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.openapi.gateway.clusterhost.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportSdkRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+  // SDK语言
+  sdkLanguage: string(name='sdk_language'),
+  // 版本
+  versionOfSdk: string(name='version_of_sdk'),
+  // 依赖详情
+  dependencyDetail: string(name='dependency_detail'),
+}
+
+model ImportSdkResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 导入SDK信息
+ * Summary: 导入SDK信息
+ */
+async function importSdk(request: ImportSdkRequest): ImportSdkResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importSdkEx(request, headers, runtime);
+}
+
+/**
+ * Description: 导入SDK信息
+ * Summary: 导入SDK信息
+ */
+async function importSdkEx(request: ImportSdkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportSdkResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.openapi.sdk.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
