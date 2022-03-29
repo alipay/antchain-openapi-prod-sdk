@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-commercialexternal</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.7</version>
   <packaging>jar</packaging>
   <name>openapi-commercialexternal</name>
   <description>Ant Chain COMMERCIALEXTERNAL SDK for Java

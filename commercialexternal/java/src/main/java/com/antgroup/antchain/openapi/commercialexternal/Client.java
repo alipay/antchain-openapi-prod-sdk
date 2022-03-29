@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0")
+                    new TeaPair("sdk_version", "1.0.7")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -157,6 +157,46 @@ public class Client {
         }
 
         throw new TeaUnretryableException(_lastRequest, _lastException);
+    }
+
+    /**
+     * Description: 
+    计量数据周期推送
+     * Summary:  计量数据周期推送
+     */
+    public PushMeterPeriodicusageResponse pushMeterPeriodicusage(PushMeterPeriodicusageRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushMeterPeriodicusageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 
+    计量数据周期推送
+     * Summary:  计量数据周期推送
+     */
+    public PushMeterPeriodicusageResponse pushMeterPeriodicusageEx(PushMeterPeriodicusageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.commercialexternal.meter.periodicusage.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushMeterPeriodicusageResponse());
+    }
+
+    /**
+     * Description: 实时用量推送，每调用一次推送一次
+     * Summary: 实时用量推送，每调用一次推送一次
+     */
+    public PushMeterRealtimeusageResponse pushMeterRealtimeusage(PushMeterRealtimeusageRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushMeterRealtimeusageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 实时用量推送，每调用一次推送一次
+     * Summary: 实时用量推送，每调用一次推送一次
+     */
+    public PushMeterRealtimeusageResponse pushMeterRealtimeusageEx(PushMeterRealtimeusageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.commercialexternal.meter.realtimeusage.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushMeterRealtimeusageResponse());
     }
 
     /**

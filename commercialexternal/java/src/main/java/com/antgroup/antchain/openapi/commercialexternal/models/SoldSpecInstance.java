@@ -40,6 +40,26 @@ public class SoldSpecInstance extends TeaModel {
     @Validation(required = true)
     public String merchantId;
 
+    // 购买数量
+    @NameInMap("num")
+    @Validation(required = true)
+    public Long num;
+
+    // 商品规格售卖类型：按量付费（POST）、资源包（BAG）、包年包月（PRE）
+    @NameInMap("spec_type")
+    @Validation(required = true)
+    public String specType;
+
+    // 资源（包）code
+    @NameInMap("res_code")
+    @Validation(maxLength = 128)
+    public String resCode;
+
+    // 其他上下文信息，kv结构，本先新增，后面有新新增可以放在这里面，不用再升级接口
+    @NameInMap("context")
+    @Validation(maxLength = 2048)
+    public String context;
+
     public static SoldSpecInstance build(java.util.Map<String, ?> map) throws Exception {
         SoldSpecInstance self = new SoldSpecInstance();
         return TeaModel.build(map, self);
@@ -99,6 +119,38 @@ public class SoldSpecInstance extends TeaModel {
     }
     public String getMerchantId() {
         return this.merchantId;
+    }
+
+    public SoldSpecInstance setNum(Long num) {
+        this.num = num;
+        return this;
+    }
+    public Long getNum() {
+        return this.num;
+    }
+
+    public SoldSpecInstance setSpecType(String specType) {
+        this.specType = specType;
+        return this;
+    }
+    public String getSpecType() {
+        return this.specType;
+    }
+
+    public SoldSpecInstance setResCode(String resCode) {
+        this.resCode = resCode;
+        return this;
+    }
+    public String getResCode() {
+        return this.resCode;
+    }
+
+    public SoldSpecInstance setContext(String context) {
+        this.context = context;
+        return this;
+    }
+    public String getContext() {
+        return this.context;
     }
 
 }
