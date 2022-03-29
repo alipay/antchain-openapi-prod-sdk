@@ -165,6 +165,14 @@ type SoldSpecInstance struct {
 	ActualStopTime *string `json:"actual_stop_time,omitempty" xml:"actual_stop_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 购买规格实例的商户id(商业中台用来唯一标识商户的id)
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
+	// 购买数量
+	Num *int64 `json:"num,omitempty" xml:"num,omitempty" require:"true"`
+	// 商品规格售卖类型：按量付费（POST）、资源包（BAG）、包年包月（PRE）
+	SpecType *string `json:"spec_type,omitempty" xml:"spec_type,omitempty" require:"true"`
+	// 资源（包）code
+	ResCode *string `json:"res_code,omitempty" xml:"res_code,omitempty" maxLength:"128"`
+	// 其他上下文信息，kv结构，本先新增，后面有新新增可以放在这里面，不用再升级接口
+	Context *string `json:"context,omitempty" xml:"context,omitempty" maxLength:"2048"`
 }
 
 func (s SoldSpecInstance) String() string {
@@ -207,6 +215,225 @@ func (s *SoldSpecInstance) SetActualStopTime(v string) *SoldSpecInstance {
 
 func (s *SoldSpecInstance) SetMerchantId(v string) *SoldSpecInstance {
 	s.MerchantId = &v
+	return s
+}
+
+func (s *SoldSpecInstance) SetNum(v int64) *SoldSpecInstance {
+	s.Num = &v
+	return s
+}
+
+func (s *SoldSpecInstance) SetSpecType(v string) *SoldSpecInstance {
+	s.SpecType = &v
+	return s
+}
+
+func (s *SoldSpecInstance) SetResCode(v string) *SoldSpecInstance {
+	s.ResCode = &v
+	return s
+}
+
+func (s *SoldSpecInstance) SetContext(v string) *SoldSpecInstance {
+	s.Context = &v
+	return s
+}
+
+type PushMeterPeriodicusageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 计量域编码
+	DomainCode *string `json:"domain_code,omitempty" xml:"domain_code,omitempty" require:"true" maxLength:"128" minLength:"1"`
+	// 规格编码
+	SpecCode *string `json:"spec_code,omitempty" xml:"spec_code,omitempty" require:"true" maxLength:"128" minLength:"1"`
+	//
+	// 资源编码
+	ResourceCode *string `json:"resource_code,omitempty" xml:"resource_code,omitempty" require:"true" maxLength:"128" minLength:"1"`
+	// 规格实例id
+	SpecInstanceId *string `json:"spec_instance_id,omitempty" xml:"spec_instance_id,omitempty" require:"true" maxLength:"128" minLength:"1"`
+	// 计量数据，json string格式字符串
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+	// 计量数据对应的发生周期开始时间yyyyMMddHHmmss格式
+	GmtMeterBegin *string `json:"gmt_meter_begin,omitempty" xml:"gmt_meter_begin,omitempty" require:"true"`
+	// 计量数据对应的发生周期开始时间yyyyMMddHHmmss格式
+	GmtMeterEnd *string `json:"gmt_meter_end,omitempty" xml:"gmt_meter_end,omitempty" require:"true"`
+}
+
+func (s PushMeterPeriodicusageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushMeterPeriodicusageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushMeterPeriodicusageRequest) SetAuthToken(v string) *PushMeterPeriodicusageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushMeterPeriodicusageRequest) SetDomainCode(v string) *PushMeterPeriodicusageRequest {
+	s.DomainCode = &v
+	return s
+}
+
+func (s *PushMeterPeriodicusageRequest) SetSpecCode(v string) *PushMeterPeriodicusageRequest {
+	s.SpecCode = &v
+	return s
+}
+
+func (s *PushMeterPeriodicusageRequest) SetResourceCode(v string) *PushMeterPeriodicusageRequest {
+	s.ResourceCode = &v
+	return s
+}
+
+func (s *PushMeterPeriodicusageRequest) SetSpecInstanceId(v string) *PushMeterPeriodicusageRequest {
+	s.SpecInstanceId = &v
+	return s
+}
+
+func (s *PushMeterPeriodicusageRequest) SetData(v string) *PushMeterPeriodicusageRequest {
+	s.Data = &v
+	return s
+}
+
+func (s *PushMeterPeriodicusageRequest) SetGmtMeterBegin(v string) *PushMeterPeriodicusageRequest {
+	s.GmtMeterBegin = &v
+	return s
+}
+
+func (s *PushMeterPeriodicusageRequest) SetGmtMeterEnd(v string) *PushMeterPeriodicusageRequest {
+	s.GmtMeterEnd = &v
+	return s
+}
+
+type PushMeterPeriodicusageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PushMeterPeriodicusageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushMeterPeriodicusageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushMeterPeriodicusageResponse) SetReqMsgId(v string) *PushMeterPeriodicusageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushMeterPeriodicusageResponse) SetResultCode(v string) *PushMeterPeriodicusageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushMeterPeriodicusageResponse) SetResultMsg(v string) *PushMeterPeriodicusageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PushMeterRealtimeusageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 请求id，防重用
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
+	// 计量域编码
+	DomainCode *string `json:"domain_code,omitempty" xml:"domain_code,omitempty" require:"true" maxLength:"128" minLength:"1"`
+	// 规格编码
+	SpecCode *string `json:"spec_code,omitempty" xml:"spec_code,omitempty" require:"true" maxLength:"128" minLength:"1"`
+	// 资源编码
+	ResourceCode *string `json:"resource_code,omitempty" xml:"resource_code,omitempty" require:"true" maxLength:"128" minLength:"1"`
+	// 规格实例id
+	SpecInstanceId *string `json:"spec_instance_id,omitempty" xml:"spec_instance_id,omitempty" require:"true" maxLength:"128" minLength:"1"`
+	// 计量数据，json string格式字符串
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+	// 计量数据发生时间
+	GmtMeter *string `json:"gmt_meter,omitempty" xml:"gmt_meter,omitempty" require:"true"`
+}
+
+func (s PushMeterRealtimeusageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushMeterRealtimeusageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushMeterRealtimeusageRequest) SetAuthToken(v string) *PushMeterRealtimeusageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushMeterRealtimeusageRequest) SetRequestId(v string) *PushMeterRealtimeusageRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *PushMeterRealtimeusageRequest) SetDomainCode(v string) *PushMeterRealtimeusageRequest {
+	s.DomainCode = &v
+	return s
+}
+
+func (s *PushMeterRealtimeusageRequest) SetSpecCode(v string) *PushMeterRealtimeusageRequest {
+	s.SpecCode = &v
+	return s
+}
+
+func (s *PushMeterRealtimeusageRequest) SetResourceCode(v string) *PushMeterRealtimeusageRequest {
+	s.ResourceCode = &v
+	return s
+}
+
+func (s *PushMeterRealtimeusageRequest) SetSpecInstanceId(v string) *PushMeterRealtimeusageRequest {
+	s.SpecInstanceId = &v
+	return s
+}
+
+func (s *PushMeterRealtimeusageRequest) SetData(v string) *PushMeterRealtimeusageRequest {
+	s.Data = &v
+	return s
+}
+
+func (s *PushMeterRealtimeusageRequest) SetGmtMeter(v string) *PushMeterRealtimeusageRequest {
+	s.GmtMeter = &v
+	return s
+}
+
+type PushMeterRealtimeusageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PushMeterRealtimeusageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushMeterRealtimeusageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushMeterRealtimeusageResponse) SetReqMsgId(v string) *PushMeterRealtimeusageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushMeterRealtimeusageResponse) SetResultCode(v string) *PushMeterRealtimeusageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushMeterRealtimeusageResponse) SetResultMsg(v string) *PushMeterRealtimeusageResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -467,7 +694,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.7"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -513,6 +740,76 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description:
+计量数据周期推送
+ * Summary:  计量数据周期推送
+*/
+func (client *Client) PushMeterPeriodicusage(request *PushMeterPeriodicusageRequest) (_result *PushMeterPeriodicusageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushMeterPeriodicusageResponse{}
+	_body, _err := client.PushMeterPeriodicusageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description:
+计量数据周期推送
+ * Summary:  计量数据周期推送
+*/
+func (client *Client) PushMeterPeriodicusageEx(request *PushMeterPeriodicusageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushMeterPeriodicusageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushMeterPeriodicusageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.commercialexternal.meter.periodicusage.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 实时用量推送，每调用一次推送一次
+ * Summary: 实时用量推送，每调用一次推送一次
+ */
+func (client *Client) PushMeterRealtimeusage(request *PushMeterRealtimeusageRequest) (_result *PushMeterRealtimeusageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushMeterRealtimeusageResponse{}
+	_body, _err := client.PushMeterRealtimeusageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 实时用量推送，每调用一次推送一次
+ * Summary: 实时用量推送，每调用一次推送一次
+ */
+func (client *Client) PushMeterRealtimeusageEx(request *PushMeterRealtimeusageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushMeterRealtimeusageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushMeterRealtimeusageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.commercialexternal.meter.realtimeusage.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
