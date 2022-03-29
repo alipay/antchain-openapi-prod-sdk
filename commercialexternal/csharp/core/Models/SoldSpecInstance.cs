@@ -46,6 +46,26 @@ namespace AntChain.SDK.COMMERCIALEXTERNAL.Models
         [Validation(Required=true)]
         public string MerchantId { get; set; }
 
+        // 购买数量
+        [NameInMap("num")]
+        [Validation(Required=true)]
+        public long? Num { get; set; }
+
+        // 商品规格售卖类型：按量付费（POST）、资源包（BAG）、包年包月（PRE）
+        [NameInMap("spec_type")]
+        [Validation(Required=true)]
+        public string SpecType { get; set; }
+
+        // 资源（包）code
+        [NameInMap("res_code")]
+        [Validation(Required=false, MaxLength=128)]
+        public string ResCode { get; set; }
+
+        // 其他上下文信息，kv结构，本先新增，后面有新新增可以放在这里面，不用再升级接口
+        [NameInMap("context")]
+        [Validation(Required=false, MaxLength=2048)]
+        public string Context { get; set; }
+
     }
 
 }

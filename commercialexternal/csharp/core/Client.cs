@@ -137,7 +137,7 @@ namespace AntChain.SDK.COMMERCIALEXTERNAL
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.7"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.COMMERCIALEXTERNAL
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.7"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -315,6 +315,94 @@ namespace AntChain.SDK.COMMERCIALEXTERNAL
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 
+        计量数据周期推送
+         * Summary:  计量数据周期推送
+         */
+        public PushMeterPeriodicusageResponse PushMeterPeriodicusage(PushMeterPeriodicusageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushMeterPeriodicusageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 
+        计量数据周期推送
+         * Summary:  计量数据周期推送
+         */
+        public async Task<PushMeterPeriodicusageResponse> PushMeterPeriodicusageAsync(PushMeterPeriodicusageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushMeterPeriodicusageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 
+        计量数据周期推送
+         * Summary:  计量数据周期推送
+         */
+        public PushMeterPeriodicusageResponse PushMeterPeriodicusageEx(PushMeterPeriodicusageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushMeterPeriodicusageResponse>(DoRequest("1.0", "antcloud.commercialexternal.meter.periodicusage.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 
+        计量数据周期推送
+         * Summary:  计量数据周期推送
+         */
+        public async Task<PushMeterPeriodicusageResponse> PushMeterPeriodicusageExAsync(PushMeterPeriodicusageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushMeterPeriodicusageResponse>(await DoRequestAsync("1.0", "antcloud.commercialexternal.meter.periodicusage.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 实时用量推送，每调用一次推送一次
+         * Summary: 实时用量推送，每调用一次推送一次
+         */
+        public PushMeterRealtimeusageResponse PushMeterRealtimeusage(PushMeterRealtimeusageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushMeterRealtimeusageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 实时用量推送，每调用一次推送一次
+         * Summary: 实时用量推送，每调用一次推送一次
+         */
+        public async Task<PushMeterRealtimeusageResponse> PushMeterRealtimeusageAsync(PushMeterRealtimeusageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushMeterRealtimeusageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 实时用量推送，每调用一次推送一次
+         * Summary: 实时用量推送，每调用一次推送一次
+         */
+        public PushMeterRealtimeusageResponse PushMeterRealtimeusageEx(PushMeterRealtimeusageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushMeterRealtimeusageResponse>(DoRequest("1.0", "antcloud.commercialexternal.meter.realtimeusage.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 实时用量推送，每调用一次推送一次
+         * Summary: 实时用量推送，每调用一次推送一次
+         */
+        public async Task<PushMeterRealtimeusageResponse> PushMeterRealtimeusageExAsync(PushMeterRealtimeusageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushMeterRealtimeusageResponse>(await DoRequestAsync("1.0", "antcloud.commercialexternal.meter.realtimeusage.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
