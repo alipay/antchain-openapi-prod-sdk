@@ -196,7 +196,7 @@ func (s *DemoClass) SetSomeList(v []*string) *DemoClass {
 	return s
 }
 
-// 阿松大
+// test
 type TestClass struct {
 	// 1
 	Test *string `json:"test,omitempty" xml:"test,omitempty" require:"true"`
@@ -1277,7 +1277,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.57"),
+				"sdk_version":      tea.String("1.0.70"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
