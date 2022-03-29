@@ -94,6 +94,14 @@ export class SoldSpecInstance extends $tea.Model {
   actualStopTime?: string;
   // 购买规格实例的商户id(商业中台用来唯一标识商户的id)
   merchantId: string;
+  // 购买数量
+  num: number;
+  // 商品规格售卖类型：按量付费（POST）、资源包（BAG）、包年包月（PRE）
+  specType: string;
+  // 资源（包）code
+  resCode?: string;
+  // 其他上下文信息，kv结构，本先新增，后面有新新增可以放在这里面，不用再升级接口
+  context?: string;
   static names(): { [key: string]: string } {
     return {
       specCode: 'spec_code',
@@ -103,6 +111,10 @@ export class SoldSpecInstance extends $tea.Model {
       planStopTime: 'plan_stop_time',
       actualStopTime: 'actual_stop_time',
       merchantId: 'merchant_id',
+      num: 'num',
+      specType: 'spec_type',
+      resCode: 'res_code',
+      context: 'context',
     };
   }
 
@@ -115,6 +127,163 @@ export class SoldSpecInstance extends $tea.Model {
       planStopTime: 'string',
       actualStopTime: 'string',
       merchantId: 'string',
+      num: 'number',
+      specType: 'string',
+      resCode: 'string',
+      context: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushMeterPeriodicusageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 计量域编码
+  domainCode: string;
+  // 规格编码
+  specCode: string;
+  // 	
+  // 资源编码
+  resourceCode: string;
+  // 规格实例id
+  specInstanceId: string;
+  // 计量数据，json string格式字符串
+  data: string;
+  // 计量数据对应的发生周期开始时间yyyyMMddHHmmss格式
+  gmtMeterBegin: string;
+  // 计量数据对应的发生周期开始时间yyyyMMddHHmmss格式
+  gmtMeterEnd: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      domainCode: 'domain_code',
+      specCode: 'spec_code',
+      resourceCode: 'resource_code',
+      specInstanceId: 'spec_instance_id',
+      data: 'data',
+      gmtMeterBegin: 'gmt_meter_begin',
+      gmtMeterEnd: 'gmt_meter_end',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      domainCode: 'string',
+      specCode: 'string',
+      resourceCode: 'string',
+      specInstanceId: 'string',
+      data: 'string',
+      gmtMeterBegin: 'string',
+      gmtMeterEnd: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushMeterPeriodicusageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushMeterRealtimeusageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 请求id，防重用
+  requestId: string;
+  // 计量域编码
+  domainCode: string;
+  // 规格编码
+  specCode: string;
+  // 资源编码
+  resourceCode: string;
+  // 规格实例id
+  specInstanceId: string;
+  // 计量数据，json string格式字符串
+  data: string;
+  // 计量数据发生时间
+  gmtMeter: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestId: 'request_id',
+      domainCode: 'domain_code',
+      specCode: 'spec_code',
+      resourceCode: 'resource_code',
+      specInstanceId: 'spec_instance_id',
+      data: 'data',
+      gmtMeter: 'gmt_meter',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestId: 'string',
+      domainCode: 'string',
+      specCode: 'string',
+      resourceCode: 'string',
+      specInstanceId: 'string',
+      data: 'string',
+      gmtMeter: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushMeterRealtimeusageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -352,7 +521,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.7",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -396,6 +565,46 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 
+  计量数据周期推送
+   * Summary:  计量数据周期推送
+   */
+  async pushMeterPeriodicusage(request: PushMeterPeriodicusageRequest): Promise<PushMeterPeriodicusageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushMeterPeriodicusageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 
+  计量数据周期推送
+   * Summary:  计量数据周期推送
+   */
+  async pushMeterPeriodicusageEx(request: PushMeterPeriodicusageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushMeterPeriodicusageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushMeterPeriodicusageResponse>(await this.doRequest("1.0", "antcloud.commercialexternal.meter.periodicusage.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushMeterPeriodicusageResponse({}));
+  }
+
+  /**
+   * Description: 实时用量推送，每调用一次推送一次
+   * Summary: 实时用量推送，每调用一次推送一次
+   */
+  async pushMeterRealtimeusage(request: PushMeterRealtimeusageRequest): Promise<PushMeterRealtimeusageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushMeterRealtimeusageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 实时用量推送，每调用一次推送一次
+   * Summary: 实时用量推送，每调用一次推送一次
+   */
+  async pushMeterRealtimeusageEx(request: PushMeterRealtimeusageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushMeterRealtimeusageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushMeterRealtimeusageResponse>(await this.doRequest("1.0", "antcloud.commercialexternal.meter.realtimeusage.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushMeterRealtimeusageResponse({}));
   }
 
   /**
