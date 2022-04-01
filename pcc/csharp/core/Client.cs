@@ -137,7 +137,7 @@ namespace AntChain.SDK.PCC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.1"},
+                        {"sdk_version", "1.3.7"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.PCC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.1"},
+                        {"sdk_version", "1.3.7"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -357,6 +357,258 @@ namespace AntChain.SDK.PCC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryProductResponse>(await DoRequestAsync("1.0", "antcloud.pcc.product.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 导出商品配置数据，用于同步线上数据到线下
+         * Summary: 导出商品配置数据
+         */
+        public ExportCommodityConfigResponse ExportCommodityConfig(ExportCommodityConfigRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExportCommodityConfigEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 导出商品配置数据，用于同步线上数据到线下
+         * Summary: 导出商品配置数据
+         */
+        public async Task<ExportCommodityConfigResponse> ExportCommodityConfigAsync(ExportCommodityConfigRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExportCommodityConfigExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 导出商品配置数据，用于同步线上数据到线下
+         * Summary: 导出商品配置数据
+         */
+        public ExportCommodityConfigResponse ExportCommodityConfigEx(ExportCommodityConfigRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExportCommodityConfigResponse>(DoRequest("1.0", "antcloud.pcc.commodity.config.export", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 导出商品配置数据，用于同步线上数据到线下
+         * Summary: 导出商品配置数据
+         */
+        public async Task<ExportCommodityConfigResponse> ExportCommodityConfigExAsync(ExportCommodityConfigRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExportCommodityConfigResponse>(await DoRequestAsync("1.0", "antcloud.pcc.commodity.config.export", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询智科商品列表
+         * Summary: 分页查询智科商品列表
+         */
+        public PagequeryCommodityResponse PagequeryCommodity(PagequeryCommodityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryCommodityEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询智科商品列表
+         * Summary: 分页查询智科商品列表
+         */
+        public async Task<PagequeryCommodityResponse> PagequeryCommodityAsync(PagequeryCommodityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryCommodityExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询智科商品列表
+         * Summary: 分页查询智科商品列表
+         */
+        public PagequeryCommodityResponse PagequeryCommodityEx(PagequeryCommodityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryCommodityResponse>(DoRequest("1.0", "antcloud.pcc.commodity.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询智科商品列表
+         * Summary: 分页查询智科商品列表
+         */
+        public async Task<PagequeryCommodityResponse> PagequeryCommodityExAsync(PagequeryCommodityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryCommodityResponse>(await DoRequestAsync("1.0", "antcloud.pcc.commodity.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外部调用创建l3
+         * Summary: 外部调用创建l3
+         */
+        public ImportProductResponse ImportProduct(ImportProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportProductEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外部调用创建l3
+         * Summary: 外部调用创建l3
+         */
+        public async Task<ImportProductResponse> ImportProductAsync(ImportProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportProductExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外部调用创建l3
+         * Summary: 外部调用创建l3
+         */
+        public ImportProductResponse ImportProductEx(ImportProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportProductResponse>(DoRequest("1.0", "antcloud.pcc.product.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外部调用创建l3
+         * Summary: 外部调用创建l3
+         */
+        public async Task<ImportProductResponse> ImportProductExAsync(ImportProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportProductResponse>(await DoRequestAsync("1.0", "antcloud.pcc.product.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 按照商品名称，编码模糊搜索商品，默认20条，最多100条
+         * Summary: 按照商品名称模糊搜索商品
+         */
+        public QueryCommodityResponse QueryCommodity(QueryCommodityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCommodityEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 按照商品名称，编码模糊搜索商品，默认20条，最多100条
+         * Summary: 按照商品名称模糊搜索商品
+         */
+        public async Task<QueryCommodityResponse> QueryCommodityAsync(QueryCommodityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCommodityExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 按照商品名称，编码模糊搜索商品，默认20条，最多100条
+         * Summary: 按照商品名称模糊搜索商品
+         */
+        public QueryCommodityResponse QueryCommodityEx(QueryCommodityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCommodityResponse>(DoRequest("1.0", "antcloud.pcc.commodity.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 按照商品名称，编码模糊搜索商品，默认20条，最多100条
+         * Summary: 按照商品名称模糊搜索商品
+         */
+        public async Task<QueryCommodityResponse> QueryCommodityExAsync(QueryCommodityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCommodityResponse>(await DoRequestAsync("1.0", "antcloud.pcc.commodity.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商品绑定服务接入码access_code
+         * Summary: 商品绑定服务接入码
+         */
+        public BindCommodityAccessResponse BindCommodityAccess(BindCommodityAccessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BindCommodityAccessEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商品绑定服务接入码access_code
+         * Summary: 商品绑定服务接入码
+         */
+        public async Task<BindCommodityAccessResponse> BindCommodityAccessAsync(BindCommodityAccessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BindCommodityAccessExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商品绑定服务接入码access_code
+         * Summary: 商品绑定服务接入码
+         */
+        public BindCommodityAccessResponse BindCommodityAccessEx(BindCommodityAccessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindCommodityAccessResponse>(DoRequest("1.0", "antcloud.pcc.commodity.access.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商品绑定服务接入码access_code
+         * Summary: 商品绑定服务接入码
+         */
+        public async Task<BindCommodityAccessResponse> BindCommodityAccessExAsync(BindCommodityAccessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindCommodityAccessResponse>(await DoRequestAsync("1.0", "antcloud.pcc.commodity.access.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询产品树，可以查询 L1/L2 ，L1/L2/L3，L1/L2/L3/L4/L5
+         * Summary: 查询产品树
+         */
+        public QueryProductLineResponse QueryProductLine(QueryProductLineRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryProductLineEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询产品树，可以查询 L1/L2 ，L1/L2/L3，L1/L2/L3/L4/L5
+         * Summary: 查询产品树
+         */
+        public async Task<QueryProductLineResponse> QueryProductLineAsync(QueryProductLineRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryProductLineExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询产品树，可以查询 L1/L2 ，L1/L2/L3，L1/L2/L3/L4/L5
+         * Summary: 查询产品树
+         */
+        public QueryProductLineResponse QueryProductLineEx(QueryProductLineRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryProductLineResponse>(DoRequest("1.0", "antcloud.pcc.product.line.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询产品树，可以查询 L1/L2 ，L1/L2/L3，L1/L2/L3/L4/L5
+         * Summary: 查询产品树
+         */
+        public async Task<QueryProductLineResponse> QueryProductLineExAsync(QueryProductLineRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryProductLineResponse>(await DoRequestAsync("1.0", "antcloud.pcc.product.line.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
