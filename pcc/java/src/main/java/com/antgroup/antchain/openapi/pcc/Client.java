@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.1")
+                    new TeaPair("sdk_version", "1.3.7")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -176,5 +176,119 @@ public class Client {
     public QueryProductResponse queryProductEx(QueryProductRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.pcc.product.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryProductResponse());
+    }
+
+    /**
+     * Description: 导出商品配置数据，用于同步线上数据到线下
+     * Summary: 导出商品配置数据
+     */
+    public ExportCommodityConfigResponse exportCommodityConfig(ExportCommodityConfigRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.exportCommodityConfigEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 导出商品配置数据，用于同步线上数据到线下
+     * Summary: 导出商品配置数据
+     */
+    public ExportCommodityConfigResponse exportCommodityConfigEx(ExportCommodityConfigRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.pcc.commodity.config.export", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExportCommodityConfigResponse());
+    }
+
+    /**
+     * Description: 分页查询智科商品列表
+     * Summary: 分页查询智科商品列表
+     */
+    public PagequeryCommodityResponse pagequeryCommodity(PagequeryCommodityRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryCommodityEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询智科商品列表
+     * Summary: 分页查询智科商品列表
+     */
+    public PagequeryCommodityResponse pagequeryCommodityEx(PagequeryCommodityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.pcc.commodity.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryCommodityResponse());
+    }
+
+    /**
+     * Description: 外部调用创建l3
+     * Summary: 外部调用创建l3
+     */
+    public ImportProductResponse importProduct(ImportProductRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importProductEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 外部调用创建l3
+     * Summary: 外部调用创建l3
+     */
+    public ImportProductResponse importProductEx(ImportProductRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.pcc.product.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportProductResponse());
+    }
+
+    /**
+     * Description: 按照商品名称，编码模糊搜索商品，默认20条，最多100条
+     * Summary: 按照商品名称模糊搜索商品
+     */
+    public QueryCommodityResponse queryCommodity(QueryCommodityRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCommodityEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 按照商品名称，编码模糊搜索商品，默认20条，最多100条
+     * Summary: 按照商品名称模糊搜索商品
+     */
+    public QueryCommodityResponse queryCommodityEx(QueryCommodityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.pcc.commodity.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCommodityResponse());
+    }
+
+    /**
+     * Description: 商品绑定服务接入码access_code
+     * Summary: 商品绑定服务接入码
+     */
+    public BindCommodityAccessResponse bindCommodityAccess(BindCommodityAccessRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindCommodityAccessEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商品绑定服务接入码access_code
+     * Summary: 商品绑定服务接入码
+     */
+    public BindCommodityAccessResponse bindCommodityAccessEx(BindCommodityAccessRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.pcc.commodity.access.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindCommodityAccessResponse());
+    }
+
+    /**
+     * Description: 查询产品树，可以查询 L1/L2 ，L1/L2/L3，L1/L2/L3/L4/L5
+     * Summary: 查询产品树
+     */
+    public QueryProductLineResponse queryProductLine(QueryProductLineRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryProductLineEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询产品树，可以查询 L1/L2 ，L1/L2/L3，L1/L2/L3/L4/L5
+     * Summary: 查询产品树
+     */
+    public QueryProductLineResponse queryProductLineEx(QueryProductLineRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.pcc.product.line.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryProductLineResponse());
     }
 }
