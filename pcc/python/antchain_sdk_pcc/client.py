@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # Product基础信息，包含 code(产品码) ,name(产品名称),name_en(产品英文名)
+            # 约束条件列表
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.1'
+                    'sdk_version': '1.3.7'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # Product基础信息，包含 code(产品码) ,name(产品名称),name_en(产品英文名)
+            # 约束条件列表
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.1'
+                    'sdk_version': '1.3.7'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -323,4 +323,328 @@ class Client:
         UtilClient.validate_model(request)
         return pcc_models.QueryProductResponse().from_map(
             await self.do_request_async('1.0', 'antcloud.pcc.product.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def export_commodity_config(
+        self,
+        request: pcc_models.ExportCommodityConfigRequest,
+    ) -> pcc_models.ExportCommodityConfigResponse:
+        """
+        Description: 导出商品配置数据，用于同步线上数据到线下
+        Summary: 导出商品配置数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.export_commodity_config_ex(request, headers, runtime)
+
+    async def export_commodity_config_async(
+        self,
+        request: pcc_models.ExportCommodityConfigRequest,
+    ) -> pcc_models.ExportCommodityConfigResponse:
+        """
+        Description: 导出商品配置数据，用于同步线上数据到线下
+        Summary: 导出商品配置数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.export_commodity_config_ex_async(request, headers, runtime)
+
+    def export_commodity_config_ex(
+        self,
+        request: pcc_models.ExportCommodityConfigRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> pcc_models.ExportCommodityConfigResponse:
+        """
+        Description: 导出商品配置数据，用于同步线上数据到线下
+        Summary: 导出商品配置数据
+        """
+        UtilClient.validate_model(request)
+        return pcc_models.ExportCommodityConfigResponse().from_map(
+            self.do_request('1.0', 'antcloud.pcc.commodity.config.export', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def export_commodity_config_ex_async(
+        self,
+        request: pcc_models.ExportCommodityConfigRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> pcc_models.ExportCommodityConfigResponse:
+        """
+        Description: 导出商品配置数据，用于同步线上数据到线下
+        Summary: 导出商品配置数据
+        """
+        UtilClient.validate_model(request)
+        return pcc_models.ExportCommodityConfigResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.pcc.commodity.config.export', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_commodity(
+        self,
+        request: pcc_models.PagequeryCommodityRequest,
+    ) -> pcc_models.PagequeryCommodityResponse:
+        """
+        Description: 分页查询智科商品列表
+        Summary: 分页查询智科商品列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_commodity_ex(request, headers, runtime)
+
+    async def pagequery_commodity_async(
+        self,
+        request: pcc_models.PagequeryCommodityRequest,
+    ) -> pcc_models.PagequeryCommodityResponse:
+        """
+        Description: 分页查询智科商品列表
+        Summary: 分页查询智科商品列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_commodity_ex_async(request, headers, runtime)
+
+    def pagequery_commodity_ex(
+        self,
+        request: pcc_models.PagequeryCommodityRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> pcc_models.PagequeryCommodityResponse:
+        """
+        Description: 分页查询智科商品列表
+        Summary: 分页查询智科商品列表
+        """
+        UtilClient.validate_model(request)
+        return pcc_models.PagequeryCommodityResponse().from_map(
+            self.do_request('1.0', 'antcloud.pcc.commodity.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_commodity_ex_async(
+        self,
+        request: pcc_models.PagequeryCommodityRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> pcc_models.PagequeryCommodityResponse:
+        """
+        Description: 分页查询智科商品列表
+        Summary: 分页查询智科商品列表
+        """
+        UtilClient.validate_model(request)
+        return pcc_models.PagequeryCommodityResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.pcc.commodity.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_product(
+        self,
+        request: pcc_models.ImportProductRequest,
+    ) -> pcc_models.ImportProductResponse:
+        """
+        Description: 外部调用创建l3
+        Summary: 外部调用创建l3
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_product_ex(request, headers, runtime)
+
+    async def import_product_async(
+        self,
+        request: pcc_models.ImportProductRequest,
+    ) -> pcc_models.ImportProductResponse:
+        """
+        Description: 外部调用创建l3
+        Summary: 外部调用创建l3
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_product_ex_async(request, headers, runtime)
+
+    def import_product_ex(
+        self,
+        request: pcc_models.ImportProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> pcc_models.ImportProductResponse:
+        """
+        Description: 外部调用创建l3
+        Summary: 外部调用创建l3
+        """
+        UtilClient.validate_model(request)
+        return pcc_models.ImportProductResponse().from_map(
+            self.do_request('1.0', 'antcloud.pcc.product.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_product_ex_async(
+        self,
+        request: pcc_models.ImportProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> pcc_models.ImportProductResponse:
+        """
+        Description: 外部调用创建l3
+        Summary: 外部调用创建l3
+        """
+        UtilClient.validate_model(request)
+        return pcc_models.ImportProductResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.pcc.product.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_commodity(
+        self,
+        request: pcc_models.QueryCommodityRequest,
+    ) -> pcc_models.QueryCommodityResponse:
+        """
+        Description: 按照商品名称，编码模糊搜索商品，默认20条，最多100条
+        Summary: 按照商品名称模糊搜索商品
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_commodity_ex(request, headers, runtime)
+
+    async def query_commodity_async(
+        self,
+        request: pcc_models.QueryCommodityRequest,
+    ) -> pcc_models.QueryCommodityResponse:
+        """
+        Description: 按照商品名称，编码模糊搜索商品，默认20条，最多100条
+        Summary: 按照商品名称模糊搜索商品
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_commodity_ex_async(request, headers, runtime)
+
+    def query_commodity_ex(
+        self,
+        request: pcc_models.QueryCommodityRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> pcc_models.QueryCommodityResponse:
+        """
+        Description: 按照商品名称，编码模糊搜索商品，默认20条，最多100条
+        Summary: 按照商品名称模糊搜索商品
+        """
+        UtilClient.validate_model(request)
+        return pcc_models.QueryCommodityResponse().from_map(
+            self.do_request('1.0', 'antcloud.pcc.commodity.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_commodity_ex_async(
+        self,
+        request: pcc_models.QueryCommodityRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> pcc_models.QueryCommodityResponse:
+        """
+        Description: 按照商品名称，编码模糊搜索商品，默认20条，最多100条
+        Summary: 按照商品名称模糊搜索商品
+        """
+        UtilClient.validate_model(request)
+        return pcc_models.QueryCommodityResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.pcc.commodity.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_commodity_access(
+        self,
+        request: pcc_models.BindCommodityAccessRequest,
+    ) -> pcc_models.BindCommodityAccessResponse:
+        """
+        Description: 商品绑定服务接入码access_code
+        Summary: 商品绑定服务接入码
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_commodity_access_ex(request, headers, runtime)
+
+    async def bind_commodity_access_async(
+        self,
+        request: pcc_models.BindCommodityAccessRequest,
+    ) -> pcc_models.BindCommodityAccessResponse:
+        """
+        Description: 商品绑定服务接入码access_code
+        Summary: 商品绑定服务接入码
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_commodity_access_ex_async(request, headers, runtime)
+
+    def bind_commodity_access_ex(
+        self,
+        request: pcc_models.BindCommodityAccessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> pcc_models.BindCommodityAccessResponse:
+        """
+        Description: 商品绑定服务接入码access_code
+        Summary: 商品绑定服务接入码
+        """
+        UtilClient.validate_model(request)
+        return pcc_models.BindCommodityAccessResponse().from_map(
+            self.do_request('1.0', 'antcloud.pcc.commodity.access.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_commodity_access_ex_async(
+        self,
+        request: pcc_models.BindCommodityAccessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> pcc_models.BindCommodityAccessResponse:
+        """
+        Description: 商品绑定服务接入码access_code
+        Summary: 商品绑定服务接入码
+        """
+        UtilClient.validate_model(request)
+        return pcc_models.BindCommodityAccessResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.pcc.commodity.access.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_product_line(
+        self,
+        request: pcc_models.QueryProductLineRequest,
+    ) -> pcc_models.QueryProductLineResponse:
+        """
+        Description: 查询产品树，可以查询 L1/L2 ，L1/L2/L3，L1/L2/L3/L4/L5
+        Summary: 查询产品树
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_product_line_ex(request, headers, runtime)
+
+    async def query_product_line_async(
+        self,
+        request: pcc_models.QueryProductLineRequest,
+    ) -> pcc_models.QueryProductLineResponse:
+        """
+        Description: 查询产品树，可以查询 L1/L2 ，L1/L2/L3，L1/L2/L3/L4/L5
+        Summary: 查询产品树
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_product_line_ex_async(request, headers, runtime)
+
+    def query_product_line_ex(
+        self,
+        request: pcc_models.QueryProductLineRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> pcc_models.QueryProductLineResponse:
+        """
+        Description: 查询产品树，可以查询 L1/L2 ，L1/L2/L3，L1/L2/L3/L4/L5
+        Summary: 查询产品树
+        """
+        UtilClient.validate_model(request)
+        return pcc_models.QueryProductLineResponse().from_map(
+            self.do_request('1.0', 'antcloud.pcc.product.line.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_product_line_ex_async(
+        self,
+        request: pcc_models.QueryProductLineRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> pcc_models.QueryProductLineResponse:
+        """
+        Description: 查询产品树，可以查询 L1/L2 ，L1/L2/L3，L1/L2/L3/L4/L5
+        Summary: 查询产品树
+        """
+        UtilClient.validate_model(request)
+        return pcc_models.QueryProductLineResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.pcc.product.line.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
