@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.1',
+    sdk_version = '1.3.7',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -159,6 +159,307 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 约束条件列表
+model PriceConstraintConditionVO {
+  // 约束ID
+  id: long(name='id', example=''),
+  // 价格约束ID
+  priceConstraintId: long(name='price_constraint_id', example=''),
+  // 规格条件CODE
+  specConditionCode?: string(name='spec_condition_code', example='test'),
+  // 条件关系比较符
+  operator?: string(name='operator', example='test'),
+  // 待比较对象的值
+  targetValue?: string(name='target_value', example='test'),
+  // 特定场景下set才会有值
+  specConditionName?: string(name='spec_condition_name', example='test'),
+  // 特定场景下set才会有值
+  targetValueName?: string(name='target_value_name', example='test'),
+  // 描述
+  description?: string(name='description', example='test'),
+}
+
+// l5数据
+model OfferMaster {
+  // 内部商品码
+  innerCode: string(name='inner_code', example='baas_pre'),
+  // 用于展示的格式化商品编码
+  formatCode: string(name='format_code', example='PBC0000C013P-R'),
+  // 外部商品编码
+  outerCode: string(name='outer_code', example='baas_pre'),
+  // 商品名称
+  name: string(name='name', example='蚂蚁链BaaS平台（包年包月）'),
+  // 商品描述
+  description: string(name='description', example='商品描述'),
+  // 产品code
+  productCode: string(name='product_code', example='productCode'),
+  // 渠道产品编码
+  serviceCode: string(name='service_code', example='TWCBAG'),
+  // l4编码
+  spuCode: string(name='spu_code', example='MSRJSPU00000028'),
+}
+
+// 约束结果
+model PriceConstraintResultVO {
+  // 价格id
+  id: long(name='id', example='0,1'),
+  // 价格约束ID
+  priceConstraintId: long(name='price_constraint_id', example='0,1'),
+  // 基础价格费率
+  basePrice?: string(name='base_price', example='test'),
+  // 基础保底价
+  adjustPrice?: string(name='adjust_price', example='test'),
+  // BD销售最低价费率
+  bdPrice?: string(name='bd_price', example='test'),
+  // 成本价费率
+  costPrice?: string(name='cost_price', example='test'),
+  // 阶梯区间最小值
+  ladderStart?: string(name='ladder_start', example='test'),
+  // 阶梯区间结束值
+  ladderEnd?: string(name='ladder_end', example='test'),
+  // 价格单位，例如：元/每次
+  priceUnit?: string(name='price_unit', example='test'),
+  // 是否阶梯固定价
+  ladderPriceFixed?: boolean(name='ladder_price_fixed', example='test'),
+}
+
+// 潜客接受度市场逻辑明细
+model AcceptanceDetail {
+  // 客户名称
+  name?: string(name='name', example='test'),
+  // 客户价格
+  price?: string(name='price', example='test'),
+}
+
+// 基于竞品及加成市场逻辑明细
+model AdditionDetail {
+  // 友商名称
+  name?: string(name='name', example='test'),
+  // 友商价格
+  profit?: string(name='profit', example='test'),
+  // 技术分调整
+  technicalScore?: string(name='technical_score', example='test'),
+  // 品牌分调整
+  brandScore?: string(name='brand_score', example='test'),
+  // BD权限价预估
+  bdPricePredict?: string(name='bd_price_predict', example='test'),
+}
+
+// 成本法信息
+model CostInfo {
+  // 成本法原因
+  costReason?: string(name='cost_reason', example='test'),
+  // 预期毛利率
+  predictProfit?: string(name='predict_profit', example='test'),
+}
+
+// 定价计划对应的约束
+model PriceConstraintVO {
+  // 定价计划ID
+  id: long(name='id', example='0,1'),
+  // 定价计划ID
+  pricePlanId: long(name='price_plan_id', example='0,1'),
+  // 定价计划名称
+  name?: string(name='name', example='test'),
+  // 描述
+  description?: string(name='description', example='test'),
+  // 约束条件列表
+  priceConstraintConditionVoList?: [ PriceConstraintConditionVO ](name='price_constraint_condition_vo_list', example='test'),
+  // 约束结果列表
+  priceConstraintResultVoList?: [ PriceConstraintResultVO ](name='price_constraint_result_vo_list', example='test'),
+}
+
+// 客户价价值法信息
+model CustomerValueDetail {
+  // 名称
+  name?: string(name='name', example='test'),
+  // 友商价格
+  profit?: string(name='profit', example='test'),
+  // 蚂蚁收益
+  antDivide?: string(name='ant_divide', example='test'),
+  // BD权限价预估
+  bdPricePredict?: string(name='bd_price_predict', example='test'),
+}
+
+// 价格限制策略
+// 目前只支持保底价格配置
+model PriceLimitStrategyDTO {
+  // 创建人
+  creator?: string(name='creator', example='test'),
+  // 修改人
+  modifier?: string(name='modifier', example='test'),
+  // 是否删除
+  deleted?: boolean(name='deleted', example='true, false'),
+  // 定价计划ID
+  pricePlanId: long(name='price_plan_id', example='0,1'),
+  // 保底周期,year年、month月
+  durationType?: string(name='duration_type', example='test'),
+  // 保底价格
+  guaranteePrice?: string(name='guarantee_price', example='test'),
+  // 产品成本
+  guaranteeCostPrice?: string(name='guarantee_cost_price', example='test'),
+}
+
+// 市场法信息
+model MarketInfo {
+  // 市场逻辑
+  marketLogic?: string(name='market_logic', example='test'),
+  // 潜客接受度
+  acceptanceDetails?: [ AcceptanceDetail ](name='acceptance_details', example='test'),
+  // 基于竞品及加成
+  additionDetails?: [ AdditionDetail ](name='addition_details', example='test'),
+}
+
+// 产品线SPU
+model ProductSpu {
+  // SPU编码
+  spuCode: string(name='spu_code', example='QYBBSPU00000001'),
+  // SPU名称
+  spuName: string(name='spu_name', example='积分兑换'),
+  // spu描述
+  spuDesc: string(name='spu_desc', example='积分兑换场景'),
+  // 交付模式，ONLINE/OFFLINE
+  deliveryMode: string(name='delivery_mode', example='ONLINE'),
+  // 归属产品码
+  productCode: string(name='product_code', example='QYBB'),
+  // 是否涉及一方化 
+  involvedOneParty: boolean(name='involved_one_party', example='true, false'),
+  // technical_product:技术产品，technical_service:技术服务，solution_se:标准解决方案，saas:标准化SaaS，saas+:SaaS +，trading_network:交易网络
+  segment: string(name='segment', example='solution_se'),
+  // sku数据
+  offerMaster: [ OfferMaster ](name='offer_master', example=''),
+}
+
+// L3
+model BusinessProduct {
+  // 业务产品code
+  code: string(name='code', example='BAASPLUS'),
+  // 产品线名称
+  name: string(name='name', example='BaaS增值服务'),
+  // 归属业务线
+  businessLine: string(name='business_line', example='10010'),
+  // 归属产品线
+  productLine: string(name='product_line', example='10010'),
+  // spu列表
+  productSpu: [ ProductSpu ](name='product_spu', example=''),
+}
+
+// 定价计划
+model PricePlanVO {
+  // 定价计划ID
+  id: long(name='id', example=''),
+  // 商品CODE
+  commodityCode: string(name='commodity_code', example='TAASFM00304790'),
+  // 定价对象CODE
+  priceObjectCode: string(name='price_object_code', example='baasVer'),
+  // 定价计划名称
+  name: string(name='name', example='test'),
+  // 定价计划类型
+  type: string(name='type', example='personalized'),
+  // 租户ID
+  tenantId?: string(name='tenant_id', example='20888888'),
+  // 合同ID
+  contractId?: string(name='contract_id', example='233333'),
+  // 政策ID
+  policyId?: string(name='policy_id', example='11111'),
+  // 商务项目ID
+  businessProjectId?: string(name='business_project_id', example='111'),
+  // 执行条件
+  executeCondition?: string(name='execute_condition', example='123'),
+  // 优先级
+  priority: long(name='priority', example='1'),
+  // 价格匹配不到处理策略：抛异常，继续询价
+  noMatchRule?: string(name='no_match_rule', example='test'),
+  // 计价模式：公式、阶梯、自定义
+  pricingMode?: string(name='pricing_mode', example='ladder'),
+  // 计价方法：具体公式、阶梯方法、自定义
+  pricingMethod?: string(name='pricing_method', example='CUSTOM'),
+  // 阶梯区间类型，左开右闭/左闭右开
+  ladderIntervalType?: string(name='ladder_interval_type', example='LOC'),
+  // 父定价计划ID
+  parentPricePlanId?: long(name='parent_price_plan_id', example=''),
+  // 定价计划状态，编辑中、预发生效、线上生效、失效
+  status: string(name='status', example='ONLINE'),
+  // 生效起始时间
+  startTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time', example='2018-10-10T10:10:00Z'),
+  // 生效结束时间
+  endTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time', example='2018-10-10T10:10:00Z'),
+  // 创建者
+  creator?: string(name='creator', example='196301'),
+  // 修改者
+  modifier?: string(name='modifier', example='196301'),
+  // 创建时间
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 修改时间
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // 是否是基础价格
+  basis?: string(name='basis', example='Y'),
+  // 价格条件，多个以分号分隔
+  priceConditionCodes?: string(name='price_condition_codes', example='1,2,3'),
+  // 价格安全区间，格式 min,max如0,100
+  priceSafeArea: string(name='price_safe_area', example='1,100'),
+  // 关联模板
+  templateCode?: string(name='template_code', example='USAGE_AMOUNT_TEMPLATE'),
+  // 关联审批流程
+  bpmsProcessId?: string(name='bpms_process_id', example='111111'),
+  // 定价策略
+  strategy?: string(name='strategy', example='test'),
+  // 定价阶段
+  priceStage?: string(name='price_stage', example='PRE'),
+  // 定价计划对应的约束，只有在明确需要查询定价约束时才会手动set进去
+  priceConstraintVoList?: [ PriceConstraintVO ](name='price_constraint_vo_list', example=''),
+  // 价格限制策略
+  priceLimitStrategyDto?: [ PriceLimitStrategyDTO ](name='price_limit_strategy_dto', example=''),
+  // 销售渠道
+  saleChannel?: [ string ](name='sale_channel', example=''),
+  // 官网售卖折扣设置
+  officialSellDiscount?: string(name='official_sell_discount', example='8'),
+  // 客户法详情
+  customerValueInfo?: CustomerValueDetail(name='customer_value_info', example='XXXX'),
+  // 市场法详情
+  marketInfo?: MarketInfo(name='market_info', example='XXXX'),
+  // 成本法详情
+  costInfo?: CostInfo(name='cost_info', example='XXX'),
+}
+
+// L2
+model ProductLine {
+  // 溯源产品
+  code: string(name='code', example='10051'),
+  // 产品线名称
+  name: string(name='name', example='溯源产品'),
+  // 业务产品线code
+  businessLineCode: string(name='business_line_code', example='10010'),
+  // l3
+  businessProduct: [ BusinessProduct ](name='business_product', example=''),
+}
+
+// 收费项结果明细
+model PriceObjectFee {
+  // 收费项CODE
+  priceObjectCode?: string(name='price_object_code', example='test'),
+  // 收费项名称
+  priceObjectName?: string(name='price_object_name', example='test'),
+  // 高精度价格12位
+  price?: string(name='price', example='test'),
+  // 价格类型，标准价格，一客一价
+  priceType?: string(name='price_type', example='test'),
+  // 结算信息
+  settleType?: string(name='settle_type', example='test'),
+  // 币种
+  currency?: string(name='currency', example='test'),
+  // 命中的定价计划
+  pricePlanVo?: PricePlanVO(name='price_plan_vo', example='test'),
+  // 命中的定价计划约束
+  priceConstraintVo?: PriceConstraintVO(name='price_constraint_vo', example='test'),
+  // 扩展信息
+  extendsMap?: string(name='extends_map', example='test'),
+  // BD销售价格区间
+  bdPrice?: string(name='bd_price', example='test'),
+  // 最低成本价
+  costPrice?: string(name='cost_price', example='test'),
+}
+
 // Product基础信息，包含 code(产品码) ,name(产品名称),name_en(产品英文名)
 model ProductBaseInfo {
   // 产品码，系统内部识别
@@ -169,6 +470,46 @@ model ProductBaseInfo {
   nameEn?: string(name='name_en', example='invoichain-finance'),
   // 产品短码，管理维度识别
   shortCode: string(name='short_code', example='IIFS'),
+}
+
+// L1
+model BusinessLine {
+  // 产品线code
+  code: string(name='code', example='10031'),
+  // 1级产品线name
+  name: string(name='name', example='可信产业'),
+  // L2
+  productLine: [ ProductLine ](name='product_line', example=''),
+}
+
+// 客户价值法信息
+model CustomerValueInfo {
+  // 客户价价值法信息
+  customerValueDetails?: [ CustomerValueDetail ](name='customer_value_details', example='test'),
+}
+
+// 返回高精度12位价格,其他精度可使用工具类处理
+model InquiryPriceResponse {
+  // 高精度12位价格
+  price?: string(name='price', example='test'),
+  // 币种
+  currency?: string(name='currency', example='test'),
+  // BD销售价格(高精度12位)
+  bdPrice?: string(name='bd_price', example='test'),
+  // 最低成本价(高精度12位)
+  costPrice?: string(name='cost_price', example='test'),
+  // 收费项结果明细列表
+  priceObjectFeeList?: [ PriceObjectFee ](name='price_object_fee_list', example='test'),
+}
+
+// 商品结构
+model Commodity {
+  // 商品编码
+  code: string(name='code', example='KKAASP00000001'),
+  // 商品名称
+  name: string(name='name', example='测试商品'),
+  // 商品状态
+  status: string(name='status', example='ONLINE'),
 }
 
 model QueryProductRequest = {
@@ -206,5 +547,259 @@ async function queryProduct(request: QueryProductRequest): QueryProductResponse 
 async function queryProductEx(request: QueryProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryProductResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.pcc.product.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExportCommodityConfigRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商品编码
+  commodityCode: string(name='commodity_code'),
+}
+
+model ExportCommodityConfigResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 导出的商品配置数据
+  config?: string(name='config'),
+}
+
+/**
+ * Description: 导出商品配置数据，用于同步线上数据到线下
+ * Summary: 导出商品配置数据
+ */
+async function exportCommodityConfig(request: ExportCommodityConfigRequest): ExportCommodityConfigResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return exportCommodityConfigEx(request, headers, runtime);
+}
+
+/**
+ * Description: 导出商品配置数据，用于同步线上数据到线下
+ * Summary: 导出商品配置数据
+ */
+async function exportCommodityConfigEx(request: ExportCommodityConfigRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExportCommodityConfigResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.pcc.commodity.config.export', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryCommodityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 业务产品编码
+  productCode?: string(name='product_code'),
+  // 商品状态
+  status?: string(name='status'),
+  // 页数，不填则默认1
+  pageNo?: long(name='page_no'),
+  // 每页页数，不填则默认20
+  pageSize?: long(name='page_size'),
+}
+
+model PagequeryCommodityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商品列表
+  commodities?: [ Commodity ](name='commodities'),
+  // 商品总数
+  totalCount?: long(name='total_count'),
+  // 当前页数
+  pageNo?: long(name='page_no'),
+  // 每页页数
+  pageSize?: long(name='page_size'),
+}
+
+/**
+ * Description: 分页查询智科商品列表
+ * Summary: 分页查询智科商品列表
+ */
+async function pagequeryCommodity(request: PagequeryCommodityRequest): PagequeryCommodityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryCommodityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询智科商品列表
+ * Summary: 分页查询智科商品列表
+ */
+async function pagequeryCommodityEx(request: PagequeryCommodityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryCommodityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.pcc.commodity.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 幂等编码，需要唯一
+  bizNo: string(name='biz_no'),
+  // 所属业务线
+  businessLine: string(name='business_line'),
+  // 所属产品线
+  productLine: string(name='product_line'),
+  // 产品名称
+  name: string(name='name'),
+  // 产品描述
+  description: string(name='description'),
+  // pd
+  pds: [ string ](name='pds'),
+  // pd负责人
+  pdLeaders: [ string ](name='pd_leaders'),
+  // 研发负责人
+  devLeaders: [ string ](name='dev_leaders'),
+  // 研发人员
+  devs?: [ string ](name='devs'),
+  // 操作人
+  operator: string(name='operator'),
+}
+
+model ImportProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 外部调用创建l3
+ * Summary: 外部调用创建l3
+ */
+async function importProduct(request: ImportProductRequest): ImportProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 外部调用创建l3
+ * Summary: 外部调用创建l3
+ */
+async function importProductEx(request: ImportProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.pcc.product.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCommodityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 关键词，模糊查询商品名称、商品code、商品格式化编码
+  keyword: string(name='keyword'),
+  // 搜索返回条数限制
+  limit?: long(name='limit'),
+}
+
+model QueryCommodityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商品列表
+  commoditys?: [ Commodity ](name='commoditys'),
+}
+
+/**
+ * Description: 按照商品名称，编码模糊搜索商品，默认20条，最多100条
+ * Summary: 按照商品名称模糊搜索商品
+ */
+async function queryCommodity(request: QueryCommodityRequest): QueryCommodityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCommodityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 按照商品名称，编码模糊搜索商品，默认20条，最多100条
+ * Summary: 按照商品名称模糊搜索商品
+ */
+async function queryCommodityEx(request: QueryCommodityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCommodityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.pcc.commodity.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindCommodityAccessRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商品编码
+  commodityCode: string(name='commodity_code'),
+  // 服务接入码
+  accessCode: string(name='access_code'),
+}
+
+model BindCommodityAccessResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 商品绑定服务接入码access_code
+ * Summary: 商品绑定服务接入码
+ */
+async function bindCommodityAccess(request: BindCommodityAccessRequest): BindCommodityAccessResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindCommodityAccessEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商品绑定服务接入码access_code
+ * Summary: 商品绑定服务接入码
+ */
+async function bindCommodityAccessEx(request: BindCommodityAccessRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindCommodityAccessResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.pcc.commodity.access.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryProductLineRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 是否查询l3级产品
+  needProduct: boolean(name='need_product'),
+  // 是否查询l5
+  needSku: boolean(name='need_sku'),
+}
+
+model QueryProductLineResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 产品树JSON字符串
+  productTree?: [ BusinessLine ](name='product_tree'),
+}
+
+/**
+ * Description: 查询产品树，可以查询 L1/L2 ，L1/L2/L3，L1/L2/L3/L4/L5
+ * Summary: 查询产品树
+ */
+async function queryProductLine(request: QueryProductLineRequest): QueryProductLineResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryProductLineEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询产品树，可以查询 L1/L2 ，L1/L2/L3，L1/L2/L3/L4/L5
+ * Summary: 查询产品树
+ */
+async function queryProductLineEx(request: QueryProductLineRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryProductLineResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.pcc.product.line.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
