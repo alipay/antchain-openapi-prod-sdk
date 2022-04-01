@@ -11,6 +11,18 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\PCC\Models\BindCommodityAccessRequest;
+use AntChain\PCC\Models\BindCommodityAccessResponse;
+use AntChain\PCC\Models\ExportCommodityConfigRequest;
+use AntChain\PCC\Models\ExportCommodityConfigResponse;
+use AntChain\PCC\Models\ImportProductRequest;
+use AntChain\PCC\Models\ImportProductResponse;
+use AntChain\PCC\Models\PagequeryCommodityRequest;
+use AntChain\PCC\Models\PagequeryCommodityResponse;
+use AntChain\PCC\Models\QueryCommodityRequest;
+use AntChain\PCC\Models\QueryCommodityResponse;
+use AntChain\PCC\Models\QueryProductLineRequest;
+use AntChain\PCC\Models\QueryProductLineResponse;
 use AntChain\PCC\Models\QueryProductRequest;
 use AntChain\PCC\Models\QueryProductResponse;
 use AntChain\Util\UtilClient;
@@ -132,7 +144,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // Product基础信息，包含 code(产品码) ,name(产品名称),name_en(产品英文名)
+            // 约束条件列表
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -160,7 +172,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.1',
+                    'sdk_version'      => '1.3.7',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -237,5 +249,203 @@ class Client
         Utils::validateModel($request);
 
         return QueryProductResponse::fromMap($this->doRequest('1.0', 'antcloud.pcc.product.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 导出商品配置数据，用于同步线上数据到线下
+     * Summary: 导出商品配置数据.
+     *
+     * @param ExportCommodityConfigRequest $request
+     *
+     * @return ExportCommodityConfigResponse
+     */
+    public function exportCommodityConfig($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->exportCommodityConfigEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 导出商品配置数据，用于同步线上数据到线下
+     * Summary: 导出商品配置数据.
+     *
+     * @param ExportCommodityConfigRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ExportCommodityConfigResponse
+     */
+    public function exportCommodityConfigEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExportCommodityConfigResponse::fromMap($this->doRequest('1.0', 'antcloud.pcc.commodity.config.export', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询智科商品列表
+     * Summary: 分页查询智科商品列表.
+     *
+     * @param PagequeryCommodityRequest $request
+     *
+     * @return PagequeryCommodityResponse
+     */
+    public function pagequeryCommodity($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryCommodityEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询智科商品列表
+     * Summary: 分页查询智科商品列表.
+     *
+     * @param PagequeryCommodityRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return PagequeryCommodityResponse
+     */
+    public function pagequeryCommodityEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryCommodityResponse::fromMap($this->doRequest('1.0', 'antcloud.pcc.commodity.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 外部调用创建l3
+     * Summary: 外部调用创建l3.
+     *
+     * @param ImportProductRequest $request
+     *
+     * @return ImportProductResponse
+     */
+    public function importProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 外部调用创建l3
+     * Summary: 外部调用创建l3.
+     *
+     * @param ImportProductRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return ImportProductResponse
+     */
+    public function importProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportProductResponse::fromMap($this->doRequest('1.0', 'antcloud.pcc.product.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 按照商品名称，编码模糊搜索商品，默认20条，最多100条
+     * Summary: 按照商品名称模糊搜索商品
+     *
+     * @param QueryCommodityRequest $request
+     *
+     * @return QueryCommodityResponse
+     */
+    public function queryCommodity($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCommodityEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 按照商品名称，编码模糊搜索商品，默认20条，最多100条
+     * Summary: 按照商品名称模糊搜索商品
+     *
+     * @param QueryCommodityRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryCommodityResponse
+     */
+    public function queryCommodityEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCommodityResponse::fromMap($this->doRequest('1.0', 'antcloud.pcc.commodity.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商品绑定服务接入码access_code
+     * Summary: 商品绑定服务接入码
+     *
+     * @param BindCommodityAccessRequest $request
+     *
+     * @return BindCommodityAccessResponse
+     */
+    public function bindCommodityAccess($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindCommodityAccessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商品绑定服务接入码access_code
+     * Summary: 商品绑定服务接入码
+     *
+     * @param BindCommodityAccessRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return BindCommodityAccessResponse
+     */
+    public function bindCommodityAccessEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindCommodityAccessResponse::fromMap($this->doRequest('1.0', 'antcloud.pcc.commodity.access.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询产品树，可以查询 L1/L2 ，L1/L2/L3，L1/L2/L3/L4/L5
+     * Summary: 查询产品树.
+     *
+     * @param QueryProductLineRequest $request
+     *
+     * @return QueryProductLineResponse
+     */
+    public function queryProductLine($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryProductLineEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询产品树，可以查询 L1/L2 ，L1/L2/L3，L1/L2/L3/L4/L5
+     * Summary: 查询产品树.
+     *
+     * @param QueryProductLineRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryProductLineResponse
+     */
+    public function queryProductLineEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryProductLineResponse::fromMap($this->doRequest('1.0', 'antcloud.pcc.product.line.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
