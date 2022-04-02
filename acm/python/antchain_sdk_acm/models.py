@@ -3020,6 +3020,7 @@ class CreateAntchainTenantRequest(TeaModel):
         bussiness_role: str = None,
         is_alipay_tenant: bool = None,
         antchain_certified: bool = None,
+        source_user_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -3051,6 +3052,8 @@ class CreateAntchainTenantRequest(TeaModel):
         self.is_alipay_tenant = is_alipay_tenant
         # 是否认证过，不填默认未认证
         self.antchain_certified = antchain_certified
+        # 幂等使用，一般是外部系统的会员ID
+        self.source_user_id = source_user_id
 
     def validate(self):
         self.validate_required(self.name, 'name')
@@ -3088,6 +3091,8 @@ class CreateAntchainTenantRequest(TeaModel):
             result['is_alipay_tenant'] = self.is_alipay_tenant
         if self.antchain_certified is not None:
             result['antchain_certified'] = self.antchain_certified
+        if self.source_user_id is not None:
+            result['source_user_id'] = self.source_user_id
         return result
 
     def from_map(self, m: dict = None):
@@ -3120,6 +3125,8 @@ class CreateAntchainTenantRequest(TeaModel):
             self.is_alipay_tenant = m.get('is_alipay_tenant')
         if m.get('antchain_certified') is not None:
             self.antchain_certified = m.get('antchain_certified')
+        if m.get('source_user_id') is not None:
+            self.source_user_id = m.get('source_user_id')
         return self
 
 
