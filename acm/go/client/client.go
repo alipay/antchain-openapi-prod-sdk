@@ -2651,6 +2651,8 @@ type CreateAntchainTenantRequest struct {
 	IsAlipayTenant *bool `json:"is_alipay_tenant,omitempty" xml:"is_alipay_tenant,omitempty" require:"true"`
 	// 是否认证过，不填默认未认证
 	AntchainCertified *bool `json:"antchain_certified,omitempty" xml:"antchain_certified,omitempty"`
+	// 幂等使用，一般是外部系统的会员ID
+	SourceUserId *string `json:"source_user_id,omitempty" xml:"source_user_id,omitempty"`
 }
 
 func (s CreateAntchainTenantRequest) String() string {
@@ -2728,6 +2730,11 @@ func (s *CreateAntchainTenantRequest) SetIsAlipayTenant(v bool) *CreateAntchainT
 
 func (s *CreateAntchainTenantRequest) SetAntchainCertified(v bool) *CreateAntchainTenantRequest {
 	s.AntchainCertified = &v
+	return s
+}
+
+func (s *CreateAntchainTenantRequest) SetSourceUserId(v string) *CreateAntchainTenantRequest {
+	s.SourceUserId = &v
 	return s
 }
 
@@ -3551,7 +3558,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.21"),
+				"sdk_version":      tea.String("1.0.22"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
