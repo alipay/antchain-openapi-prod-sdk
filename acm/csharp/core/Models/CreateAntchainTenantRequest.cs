@@ -81,6 +81,11 @@ namespace AntChain.SDK.Acm.Models
         [Validation(Required=false)]
         public bool? AntchainCertified { get; set; }
 
+        // 幂等使用，一般是外部系统的会员ID
+        [NameInMap("source_user_id")]
+        [Validation(Required=false)]
+        public string SourceUserId { get; set; }
+
     }
 
 }
