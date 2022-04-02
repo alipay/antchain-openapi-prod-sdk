@@ -93,6 +93,12 @@ class CreateAntchainTenantRequest extends Model
      * @var bool
      */
     public $antchainCertified;
+
+    // 幂等使用，一般是外部系统的会员ID
+    /**
+     * @var string
+     */
+    public $sourceUserId;
     protected $_name = [
         'authToken'                => 'auth_token',
         'name'                     => 'name',
@@ -108,6 +114,7 @@ class CreateAntchainTenantRequest extends Model
         'bussinessRole'            => 'bussiness_role',
         'isAlipayTenant'           => 'is_alipay_tenant',
         'antchainCertified'        => 'antchain_certified',
+        'sourceUserId'             => 'source_user_id',
     ];
 
     public function validate()
@@ -163,6 +170,9 @@ class CreateAntchainTenantRequest extends Model
         if (null !== $this->antchainCertified) {
             $res['antchain_certified'] = $this->antchainCertified;
         }
+        if (null !== $this->sourceUserId) {
+            $res['source_user_id'] = $this->sourceUserId;
+        }
 
         return $res;
     }
@@ -216,6 +226,9 @@ class CreateAntchainTenantRequest extends Model
         }
         if (isset($map['antchain_certified'])) {
             $model->antchainCertified = $map['antchain_certified'];
+        }
+        if (isset($map['source_user_id'])) {
+            $model->sourceUserId = $map['source_user_id'];
         }
 
         return $model;
