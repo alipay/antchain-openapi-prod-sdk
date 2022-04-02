@@ -1989,6 +1989,8 @@ export class CreateAntchainTenantRequest extends $tea.Model {
   isAlipayTenant: boolean;
   // 是否认证过，不填默认未认证
   antchainCertified?: boolean;
+  // 幂等使用，一般是外部系统的会员ID
+  sourceUserId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2005,6 +2007,7 @@ export class CreateAntchainTenantRequest extends $tea.Model {
       bussinessRole: 'bussiness_role',
       isAlipayTenant: 'is_alipay_tenant',
       antchainCertified: 'antchain_certified',
+      sourceUserId: 'source_user_id',
     };
   }
 
@@ -2024,6 +2027,7 @@ export class CreateAntchainTenantRequest extends $tea.Model {
       bussinessRole: 'string',
       isAlipayTenant: 'boolean',
       antchainCertified: 'boolean',
+      sourceUserId: 'string',
     };
   }
 
@@ -2709,7 +2713,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.21",
+          sdk_version: "1.0.22",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
