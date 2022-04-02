@@ -66,6 +66,10 @@ public class CreateAntchainTenantRequest extends TeaModel {
     @NameInMap("antchain_certified")
     public Boolean antchainCertified;
 
+    // 幂等使用，一般是外部系统的会员ID
+    @NameInMap("source_user_id")
+    public String sourceUserId;
+
     public static CreateAntchainTenantRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateAntchainTenantRequest self = new CreateAntchainTenantRequest();
         return TeaModel.build(map, self);
@@ -181,6 +185,14 @@ public class CreateAntchainTenantRequest extends TeaModel {
     }
     public Boolean getAntchainCertified() {
         return this.antchainCertified;
+    }
+
+    public CreateAntchainTenantRequest setSourceUserId(String sourceUserId) {
+        this.sourceUserId = sourceUserId;
+        return this;
+    }
+    public String getSourceUserId() {
+        return this.sourceUserId;
     }
 
 }
