@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.5',
+    sdk_version = '1.4.0',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -233,7 +233,7 @@ model ImportNftCreateResponse = {
 
 /**
  * Description: B端商户的NFT发行以及铸造
- * Summary: B端商户的NFT铸造
+ * Summary: B端商户的NFT铸造 (废弃)
  */
 async function importNftCreate(request: ImportNftCreateRequest): ImportNftCreateResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -243,7 +243,7 @@ async function importNftCreate(request: ImportNftCreateRequest): ImportNftCreate
 
 /**
  * Description: B端商户的NFT发行以及铸造
- * Summary: B端商户的NFT铸造
+ * Summary: B端商户的NFT铸造 (废弃)
  */
 async function importNftCreateEx(request: ImportNftCreateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportNftCreateResponse {
   Util.validateModel(request);
@@ -708,7 +708,7 @@ model RunNftTransferResponse = {
 
 /**
  * Description: 按项目表编码B2C发放NFT,带渠道租户
- * Summary: 按项目表编码B2C发放NFT,带渠道租户
+ * Summary: 按项目表编码B2C发放NFT, (废弃)
  */
 async function runNftTransfer(request: RunNftTransferRequest): RunNftTransferResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -718,7 +718,7 @@ async function runNftTransfer(request: RunNftTransferRequest): RunNftTransferRes
 
 /**
  * Description: 按项目表编码B2C发放NFT,带渠道租户
- * Summary: 按项目表编码B2C发放NFT,带渠道租户
+ * Summary: 按项目表编码B2C发放NFT, (废弃)
  */
 async function runNftTransferEx(request: RunNftTransferRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RunNftTransferResponse {
   Util.validateModel(request);
@@ -773,5 +773,55 @@ async function applyNftTransfer(request: ApplyNftTransferRequest): ApplyNftTrans
 async function applyNftTransferEx(request: ApplyNftTransferRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyNftTransferResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.nftx.nft.transfer.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyNftTransferbyprojectwithchanneltenantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // NFT租户下唯一的项目编号
+  projectId: string(name='project_id'),
+  // 支付宝2088开头账号
+  toIdNo: string(name='to_id_no'),
+  // 账号类型，当前只支持支付宝账号
+  toIdType: string(name='to_id_type'),
+  // 交易NFT时租户的唯一订单号
+  orderNo: string(name='order_no'),
+  // 购买NFT的金额，单位分
+  priceCent?: long(name='price_cent'),
+  // 渠道租户
+  channelTenant: string(name='channel_tenant'),
+}
+
+model ApplyNftTransferbyprojectwithchanneltenantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // NFT商品编码
+  skuId?: string(name='sku_id'),
+  // 发放的NFT编码
+  nftId?: string(name='nft_id'),
+}
+
+/**
+ * Description: 按项目表编码B2C发放NFT,带渠道租户
+ * Summary: 按项目表编码B2C发放NFT,带渠道租户
+ */
+async function applyNftTransferbyprojectwithchanneltenant(request: ApplyNftTransferbyprojectwithchanneltenantRequest): ApplyNftTransferbyprojectwithchanneltenantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyNftTransferbyprojectwithchanneltenantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 按项目表编码B2C发放NFT,带渠道租户
+ * Summary: 按项目表编码B2C发放NFT,带渠道租户
+ */
+async function applyNftTransferbyprojectwithchanneltenantEx(request: ApplyNftTransferbyprojectwithchanneltenantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyNftTransferbyprojectwithchanneltenantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftx.nft.transferbyprojectwithchanneltenant.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
