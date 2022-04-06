@@ -1587,6 +1587,118 @@ func (s *ApplyNftTransferResponse) SetNftId(v string) *ApplyNftTransferResponse 
 	return s
 }
 
+type ApplyNftTransferbyprojectwithchanneltenantRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// NFT租户下唯一的项目编号
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 支付宝2088开头账号
+	ToIdNo *string `json:"to_id_no,omitempty" xml:"to_id_no,omitempty" require:"true"`
+	// 账号类型，当前只支持支付宝账号
+	ToIdType *string `json:"to_id_type,omitempty" xml:"to_id_type,omitempty" require:"true"`
+	// 交易NFT时租户的唯一订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 购买NFT的金额，单位分
+	PriceCent *int64 `json:"price_cent,omitempty" xml:"price_cent,omitempty"`
+	// 渠道租户
+	ChannelTenant *string `json:"channel_tenant,omitempty" xml:"channel_tenant,omitempty" require:"true"`
+}
+
+func (s ApplyNftTransferbyprojectwithchanneltenantRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyNftTransferbyprojectwithchanneltenantRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyNftTransferbyprojectwithchanneltenantRequest) SetAuthToken(v string) *ApplyNftTransferbyprojectwithchanneltenantRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyNftTransferbyprojectwithchanneltenantRequest) SetProductInstanceId(v string) *ApplyNftTransferbyprojectwithchanneltenantRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyNftTransferbyprojectwithchanneltenantRequest) SetProjectId(v string) *ApplyNftTransferbyprojectwithchanneltenantRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *ApplyNftTransferbyprojectwithchanneltenantRequest) SetToIdNo(v string) *ApplyNftTransferbyprojectwithchanneltenantRequest {
+	s.ToIdNo = &v
+	return s
+}
+
+func (s *ApplyNftTransferbyprojectwithchanneltenantRequest) SetToIdType(v string) *ApplyNftTransferbyprojectwithchanneltenantRequest {
+	s.ToIdType = &v
+	return s
+}
+
+func (s *ApplyNftTransferbyprojectwithchanneltenantRequest) SetOrderNo(v string) *ApplyNftTransferbyprojectwithchanneltenantRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *ApplyNftTransferbyprojectwithchanneltenantRequest) SetPriceCent(v int64) *ApplyNftTransferbyprojectwithchanneltenantRequest {
+	s.PriceCent = &v
+	return s
+}
+
+func (s *ApplyNftTransferbyprojectwithchanneltenantRequest) SetChannelTenant(v string) *ApplyNftTransferbyprojectwithchanneltenantRequest {
+	s.ChannelTenant = &v
+	return s
+}
+
+type ApplyNftTransferbyprojectwithchanneltenantResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// NFT商品编码
+	SkuId *string `json:"sku_id,omitempty" xml:"sku_id,omitempty"`
+	// 发放的NFT编码
+	NftId *string `json:"nft_id,omitempty" xml:"nft_id,omitempty"`
+}
+
+func (s ApplyNftTransferbyprojectwithchanneltenantResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyNftTransferbyprojectwithchanneltenantResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyNftTransferbyprojectwithchanneltenantResponse) SetReqMsgId(v string) *ApplyNftTransferbyprojectwithchanneltenantResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyNftTransferbyprojectwithchanneltenantResponse) SetResultCode(v string) *ApplyNftTransferbyprojectwithchanneltenantResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyNftTransferbyprojectwithchanneltenantResponse) SetResultMsg(v string) *ApplyNftTransferbyprojectwithchanneltenantResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyNftTransferbyprojectwithchanneltenantResponse) SetSkuId(v string) *ApplyNftTransferbyprojectwithchanneltenantResponse {
+	s.SkuId = &v
+	return s
+}
+
+func (s *ApplyNftTransferbyprojectwithchanneltenantResponse) SetNftId(v string) *ApplyNftTransferbyprojectwithchanneltenantResponse {
+	s.NftId = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1709,7 +1821,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.5"),
+				"sdk_version":      tea.String("1.4.0"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1759,7 +1871,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 
 /**
  * Description: B端商户的NFT发行以及铸造
- * Summary: B端商户的NFT铸造
+ * Summary: B端商户的NFT铸造 (废弃)
  */
 func (client *Client) ImportNftCreate(request *ImportNftCreateRequest) (_result *ImportNftCreateResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -1775,7 +1887,7 @@ func (client *Client) ImportNftCreate(request *ImportNftCreateRequest) (_result 
 
 /**
  * Description: B端商户的NFT发行以及铸造
- * Summary: B端商户的NFT铸造
+ * Summary: B端商户的NFT铸造 (废弃)
  */
 func (client *Client) ImportNftCreateEx(request *ImportNftCreateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportNftCreateResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -2065,7 +2177,7 @@ func (client *Client) CreateNftPublishEx(request *CreateNftPublishRequest, heade
 
 /**
  * Description: 按项目表编码B2C发放NFT,带渠道租户
- * Summary: 按项目表编码B2C发放NFT,带渠道租户
+ * Summary: 按项目表编码B2C发放NFT, (废弃)
  */
 func (client *Client) RunNftTransfer(request *RunNftTransferRequest) (_result *RunNftTransferResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -2081,7 +2193,7 @@ func (client *Client) RunNftTransfer(request *RunNftTransferRequest) (_result *R
 
 /**
  * Description: 按项目表编码B2C发放NFT,带渠道租户
- * Summary: 按项目表编码B2C发放NFT,带渠道租户
+ * Summary: 按项目表编码B2C发放NFT, (废弃)
  */
 func (client *Client) RunNftTransferEx(request *RunNftTransferRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RunNftTransferResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -2124,6 +2236,40 @@ func (client *Client) ApplyNftTransferEx(request *ApplyNftTransferRequest, heade
 	}
 	_result = &ApplyNftTransferResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.nft.transfer.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 按项目表编码B2C发放NFT,带渠道租户
+ * Summary: 按项目表编码B2C发放NFT,带渠道租户
+ */
+func (client *Client) ApplyNftTransferbyprojectwithchanneltenant(request *ApplyNftTransferbyprojectwithchanneltenantRequest) (_result *ApplyNftTransferbyprojectwithchanneltenantResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyNftTransferbyprojectwithchanneltenantResponse{}
+	_body, _err := client.ApplyNftTransferbyprojectwithchanneltenantEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 按项目表编码B2C发放NFT,带渠道租户
+ * Summary: 按项目表编码B2C发放NFT,带渠道租户
+ */
+func (client *Client) ApplyNftTransferbyprojectwithchanneltenantEx(request *ApplyNftTransferbyprojectwithchanneltenantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyNftTransferbyprojectwithchanneltenantResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyNftTransferbyprojectwithchanneltenantResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.nft.transferbyprojectwithchanneltenant.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
