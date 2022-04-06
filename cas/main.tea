@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.19',
+    sdk_version = '1.4.11',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -165,6 +165,40 @@ model AssignedApp {
   workspaceId: string(name='workspace_id', example='workspace_id'),
   // app_id
   appId: string(name='app_id', example='app_id'),
+}
+
+// RegionView
+model RegionView {
+  // id
+  id: string(name='id', example='id'),
+  // identity
+  identity: string(name='identity', example='identity'),
+  // providerId
+  providerId: string(name='provider_id', example='providerId'),
+  // name
+  name: string(name='name', example='name'),
+  // state
+  state: string(name='state', example='state'),
+  // description
+  description: string(name='description', example='description'),
+  // networkType
+  networkType: string(name='network_type', example='networkType'),
+  // availableNetworkTypes
+  availableNetworkTypes: [ string ](name='available_network_types', example='availableNetworkTypes'),
+}
+
+// WorkspaceZoneView
+model WorkspaceZoneView {
+  // id
+  id: string(name='id', example='id'),
+  // identity
+  identity: string(name='identity', example='identity'),
+  // name
+  name: string(name='name', example='name'),
+  // state
+  state: string(name='state', example='state'),
+  // description
+  description: string(name='description', example='description'),
 }
 
 // 数据库
@@ -235,40 +269,6 @@ model Database {
   workspaceId?: string(name='workspace_id', example='workspace_id'),
 }
 
-// RegionView
-model RegionView {
-  // id
-  id: string(name='id', example='id'),
-  // identity
-  identity: string(name='identity', example='identity'),
-  // providerId
-  providerId: string(name='provider_id', example='providerId'),
-  // name
-  name: string(name='name', example='name'),
-  // state
-  state: string(name='state', example='state'),
-  // description
-  description: string(name='description', example='description'),
-  // networkType
-  networkType: string(name='network_type', example='networkType'),
-  // availableNetworkTypes
-  availableNetworkTypes: [ string ](name='available_network_types', example='availableNetworkTypes'),
-}
-
-// WorkspaceZoneView
-model WorkspaceZoneView {
-  // id
-  id: string(name='id', example='id'),
-  // identity
-  identity: string(name='identity', example='identity'),
-  // name
-  name: string(name='name', example='name'),
-  // state
-  state: string(name='state', example='state'),
-  // description
-  description: string(name='description', example='description'),
-}
-
 // 一个 key-value 键值对
 model MapStringToStringEntity {
   // 键名
@@ -277,16 +277,22 @@ model MapStringToStringEntity {
   value: string(name='value', example='value'),
 }
 
-// disk related computer infos
-model DiskComputer {
-  // name
-  name?: string(name='name', example='name'),
-  // id
-  id?: string(name='id', example='id'),
-  // iaas id
-  iaasId?: string(name='iaas_id', example='i-aksfu8asufoisf***'),
-  // status
-  status?: string(name='status', example='STOP'),
+// scope
+model Scope {
+  // cell identity
+  cell?: string(name='cell', example='cell identity'),
+  // region identity
+  region?: string(name='region', example='region identity'),
+  // tenant name
+  tenant?: string(name='tenant', example='tenant identity'),
+  // workspace
+  workspace?: string(name='workspace', example='workspace identity'),
+  // workspace_group
+  workspaceGroup?: string(name='workspace_group', example='workspace_group identity'),
+  // zone identity
+  zone?: string(name='zone', example='zone identity'),
+  // cluster identity
+  cluster?: string(name='cluster', example='cluster identity'),
 }
 
 // CloudPlatform
@@ -299,30 +305,6 @@ model CloudPlatform {
   name?: string(name='name', example='name'),
   // password
   password?: string(name='password', example='password'),
-}
-
-// db account
-model DatabaseAccount {
-  // database
-  database?: Database(name='database', example=''),
-  // description
-  description?: string(name='description', example='description'),
-  // iaas_type
-  iaasType?: string(name='iaas_type', example='iaas_type'),
-  // id
-  id: string(name='id', example='id'),
-  // 名称
-  name: string(name='name', example='haha'),
-  // 密码
-  password: string(name='password', example='xxd@#xd'),
-  // 权限
-  privilege: string(name='privilege', example='READONLY'),
-  // status
-  status?: string(name='status', example='status'),
-  // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
-  // utc_modified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
 }
 
 // 用户信息
@@ -389,66 +371,62 @@ model WorkspaceView {
   zones: [ WorkspaceZoneView ](name='zones', example=''),
 }
 
-// scope
-model Scope {
-  // cell identity
-  cell?: string(name='cell', example='cell identity'),
-  // region identity
-  region?: string(name='region', example='region identity'),
-  // tenant name
-  tenant?: string(name='tenant', example='tenant identity'),
-  // workspace
-  workspace?: string(name='workspace', example='workspace identity'),
-  // workspace_group
-  workspaceGroup?: string(name='workspace_group', example='workspace_group identity'),
-  // zone identity
-  zone?: string(name='zone', example='zone identity'),
-  // cluster identity
-  cluster?: string(name='cluster', example='cluster identity'),
-}
-
-// workspace zone
-model WorkspaceZoneDto {
+// disk related computer infos
+model DiskComputer {
+  // name
+  name?: string(name='name', example='name'),
   // id
-  id: string(name='id', example='001'),
-  // workspace_id
-  workspaceId: string(name='workspace_id', example='001'),
-  // zone_id
-  zoneId: string(name='zone_id', example='001'),
-  // zone name
-  zoneName?: string(name='zone_name', example='shanghai'),
+  id?: string(name='id', example='id'),
+  // iaas id
+  iaasId?: string(name='iaas_id', example='i-aksfu8asufoisf***'),
+  // status
+  status?: string(name='status', example='STOP'),
 }
 
-// 代码仓库
-model CodeRepository {
-  // 代码仓库ID
-  id: string(name='id', example='123'),
+// db account
+model DatabaseAccount {
+  // database
+  database?: Database(name='database', example=''),
+  // description
+  description?: string(name='description', example='description'),
+  // iaas_type
+  iaasType?: string(name='iaas_type', example='iaas_type'),
+  // id
+  id: string(name='id', example='id'),
   // 名称
-  name: string(name='name', example='gitlab'),
-  // VCS源代码管理系统
-  type?: string(name='type', example='git | svn'),
-  // 负责人
-  owner?: string(name='owner', example='owner name'),
-  // 源代码地址
-  sourceLocation?: string(name='source_location', example='gitlab'),
-  // 被SCM管理的远程仓库ID
-  remoteRepoId?: string(name='remote_repo_id', example='123'),
-  // 流程标记id(可选参数)
-  instanceId?: string(name='instance_id', example='1234'),
-  // 是否初始化目录(可选参数，目前金融云传与不传都不初始化)
-  isInitStandardPath?: boolean(name='is_init_standard_path', example='true, false'),
-  // 代码库是否可复用(默认为不复用 0)
-  repoReuse?: string(name='repo_reuse', example='"0"'),
-  // 父代码库名称(reposReuse为0时可以不传)
-  parentReposName?: string(name='parent_repos_name', example='test'),
-  // 代码仓库状态
-  status?: string(name='status', example='CREATING, CREATE_FAILED, GENERATING_CODE, GENERATING_CODE_FAILED, FINISHED'),
-  // 扩展参数，JSON字符串
-  extraParams?: string(name='extra_params', example='"{}"'),
-  // 是否使用已有仓库
-  useExist?: boolean(name='use_exist', example='true, false'),
-  // 分组名称
-  groupName?: string(name='group_name', example='test'),
+  name: string(name='name', example='haha'),
+  // 密码
+  password: string(name='password', example='xxd@#xd'),
+  // 权限
+  privilege: string(name='privilege', example='READONLY'),
+  // status
+  status?: string(name='status', example='status'),
+  // utc_create
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // utc_modified
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
+}
+
+// Zone视图
+model ZoneView {
+  // id
+  id?: string(name='id', example='id'),
+  // name
+  name?: string(name='name', example='name'),
+  // displayName
+  displayName?: string(name='display_name', example='displayName'),
+}
+
+// Cloud
+model Cloud {
+  // id
+  id?: long(name='id', example='id'),
+  // identity
+  identity?: string(name='identity', example='identity'),
+  // name
+  name?: string(name='name', example='name'),
+  // platforms
+  platforms?: [ CloudPlatform ](name='platforms', example=''),
 }
 
 // 代码提交
@@ -473,38 +451,12 @@ model CodeCommit {
   utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
 }
 
-// Zone视图
-model ZoneView {
-  // id
-  id?: string(name='id', example='id'),
-  // name
-  name?: string(name='name', example='name'),
-  // displayName
-  displayName?: string(name='display_name', example='displayName'),
-}
-
-// 应用负责人
-model AppOwner {
-  // 研发负责人
-  devOwner?: UserInfo(name='dev_owner', example=''),
-  // backup开发人员
-  backupDevOwners?: [ UserInfo ](name='backup_dev_owners', example=''),
-  // 测试负责人
-  testOwner?: UserInfo(name='test_owner', example=''),
-  // 备用测试人员
-  backupTestOwners?: [ UserInfo ](name='backup_test_owners', example=''),
-  // 运维负责人
-  ops?: UserInfo(name='ops', example=''),
-  // 备用SRE人员
-  backupOpses?: [ UserInfo ](name='backup_opses', example=''),
-  // 开发architect负责人
-  devArchitect?: UserInfo(name='dev_architect', example=''),
-  // 备用Architects联系人
-  backupDevArchitects?: [ UserInfo ](name='backup_dev_architects', example=''),
-  // 测试architect
-  testArchitect?: UserInfo(name='test_architect', example=''),
-  // 备用测试architects
-  backupTestArchitects?: [ UserInfo ](name='backup_test_architects', example=''),
+// 解决DbSchema结构嵌套用的，其他人不要用这个，用grant
+model DbSchemaGrant {
+  // privilege
+  privilege: string(name='privilege', example='privilege'),
+  // account
+  account?: DatabaseAccount(name='account', example=''),
 }
 
 // Sofa arche type
@@ -529,72 +481,6 @@ model ScmSofaArchetype {
   metaData?: string(name='meta_data', example='"{}"'),
 }
 
-// 解决DbSchema结构嵌套用的，其他人不要用这个，用grant
-model DbSchemaGrant {
-  // privilege
-  privilege: string(name='privilege', example='privilege'),
-  // account
-  account?: DatabaseAccount(name='account', example=''),
-}
-
-// Cloud
-model Cloud {
-  // id
-  id?: long(name='id', example='id'),
-  // identity
-  identity?: string(name='identity', example='identity'),
-  // name
-  name?: string(name='name', example='name'),
-  // platforms
-  platforms?: [ CloudPlatform ](name='platforms', example=''),
-}
-
-// disk
-model Disk {
-  // ssd, cloud_efficiency
-  category?: string(name='category', example='ssd'),
-  // disk related computer info
-  computer?: DiskComputer(name='computer', example=''),
-  // 是否同时删除自动快照
-  deleteAutoSnapshot?: boolean(name='delete_auto_snapshot', example='true, false'),
-  // 磁盘是否随container一起释放
-  deleteWithComputer?: boolean(name='delete_with_computer', example='true, false'),
-  // device info
-  device?: string(name='device', example='/dev/xvdb'),
-  // 磁盘是否执行自动快照策略
-  enableAutoSnapshot?: boolean(name='enable_auto_snapshot', example='true, false'),
-  // iaasId
-  iaasId?: string(name='iaas_id', example='d-dsf8usduiufsid***'),
-  // id
-  id?: string(name='id', example='0000000001'),
-  // 创建磁盘的镜像
-  imageId?: string(name='image_id', example='d-dafjlakgh23424hhkjh***'),
-  // name
-  name?: string(name='name', example='name'),
-  // 磁盘是否可卸载
-  portable?: boolean(name='portable', example='true, false'),
-  // providerId
-  providerId?: string(name='provider_id', example='0000000001'),
-  // regionId
-  regionId?: string(name='region_id', example='0000000001'),
-  // disk size
-  size?: long(name='size', example=''),
-  // disk status
-  status?: string(name='status', example='AVAILABLE'),
-  // tenantId
-  tenantId?: string(name='tenant_id', example='0000000001'),
-  // SYSTEM, DATA
-  type?: string(name='type', example='SYSTEM'),
-  // utcCreate
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
-  // utcModified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
-  // workspaceId
-  workspaceId?: string(name='workspace_id', example='000000001'),
-  // zoneId
-  zoneId?: string(name='zone_id', example='000000001'),
-}
-
 // 应用生命周期
 model AppLifeCycle {
   // ID
@@ -617,50 +503,6 @@ model AppLifeCycle {
   gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
   // 最近修改时间
   gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
-}
-
-// 应用扩展信息
-model AppExtraInfo {
-  // ID
-  id?: string(name='id', example='123'),
-  // 名称
-  name?: string(name='name', example='test'),
-  // 值
-  value?: string(name='value', example='test'),
-  // 描述
-  description?: string(name='description', example='test'),
-  // 模板ID
-  templateId?: string(name='template_id', example='123'),
-  // 模板类型
-  type?: string(name='type', example='TEXT, AppTemplateTypeEnum, USER'),
-  // 创建时间
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
-  // 最近修改时间
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
-  // 应用扩展信息ID
-  appExtrainfoId?: string(name='app_extrainfo_id', example='123'),
-  // 应用ID
-  appId?: string(name='app_id', example='123'),
-  // 模板数据ID
-  templateDataId?: string(name='template_data_id', example='123'),
-}
-
-// 阿里云日志服务(SLS)-脱敏功能配置
-model SLSConfigSensitiveKey {
-  // 是否替换该字段中所有的敏感内容。建议设置为true
-  all: boolean(name='all', example='true, false'),
-  // 当type设置为const时必须填写
-  constValue?: string(name='const_value', example='const'),
-  // 日志Key名称
-  key: string(name='key', example='key'),
-  // 敏感内容的前缀
-  regexBegin: string(name='regex_begin', example='regex_begin'),
-  // 敏感内容正则表达式。
-  regexContent: string(name='regex_content', example='regex_content'),
-  // 脱敏方式，取值为const、md5。
-  // 若取值为const，则将敏感内容替换成const字段取值内容。
-  // 若取值为md5，则将敏感内容替换为其对应的MD5值。
-  type: string(name='type', example='const、md5'),
 }
 
 // LoadBalancer
@@ -731,44 +573,118 @@ model LoadBalancer {
   loadBalancerSpec?: string(name='load_balancer_spec', example='load_balancer_spec'),
 }
 
-// 路由的下一跳详细信息。
-model NextHopItem {
-  // 	
-  // 下一跳的类型。
-  // 
-  // Instance：ECS实例。
-  // HaVip：高可用虚拟IP。
-  // VpnGateway：VPN网关。
-  // NatGateway：NAT网关。
-  // NetworkInterface：辅助弹性网卡。
-  // RouterInterface：路由器接口。
-  // IPv6Gateway：IPv6网关。
-  nextHopType?: string(name='next_hop_type', example='HaVip'),
-  // 下一跳实例的ID。
-  nextHopId?: string(name='next_hop_id', example='ri-2zeo3xzyf38r4urzdpvqw'),
-  // 是否启用下一跳。
-  // 
-  // 0：不启用。
-  // 1：启用。
-  enable?: long(name='enable', example='0'),
-  // 下一跳的路由权重。
-  weight?: long(name='weight', example='80'),
+// 应用负责人
+model AppOwner {
+  // 研发负责人
+  devOwner?: UserInfo(name='dev_owner', example=''),
+  // backup开发人员
+  backupDevOwners?: [ UserInfo ](name='backup_dev_owners', example=''),
+  // 测试负责人
+  testOwner?: UserInfo(name='test_owner', example=''),
+  // 备用测试人员
+  backupTestOwners?: [ UserInfo ](name='backup_test_owners', example=''),
+  // 运维负责人
+  ops?: UserInfo(name='ops', example=''),
+  // 备用SRE人员
+  backupOpses?: [ UserInfo ](name='backup_opses', example=''),
+  // 开发architect负责人
+  devArchitect?: UserInfo(name='dev_architect', example=''),
+  // 备用Architects联系人
+  backupDevArchitects?: [ UserInfo ](name='backup_dev_architects', example=''),
+  // 测试architect
+  testArchitect?: UserInfo(name='test_architect', example=''),
+  // 备用测试architects
+  backupTestArchitects?: [ UserInfo ](name='backup_test_architects', example=''),
 }
 
-// 应用等级
-model AppLevel {
-  // ID
-  id: string(name='id', example='1234'),
-  // 应用等级名称
-  name?: string(name='name', example='test'),
-  // 创建者
-  creatorId?: string(name='creator_id', example='tester'),
-  // 租户ID
-  tenantId?: string(name='tenant_id', example='123'),
-  // 创建时间
+// 代码仓库
+model CodeRepository {
+  // 代码仓库ID
+  id: string(name='id', example='123'),
+  // 名称
+  name: string(name='name', example='gitlab'),
+  // VCS源代码管理系统
+  type?: string(name='type', example='git | svn'),
+  // 负责人
+  owner?: string(name='owner', example='owner name'),
+  // 源代码地址
+  sourceLocation?: string(name='source_location', example='gitlab'),
+  // 被SCM管理的远程仓库ID
+  remoteRepoId?: string(name='remote_repo_id', example='123'),
+  // 流程标记id(可选参数)
+  instanceId?: string(name='instance_id', example='1234'),
+  // 是否初始化目录(可选参数，目前金融云传与不传都不初始化)
+  isInitStandardPath?: boolean(name='is_init_standard_path', example='true, false'),
+  // 代码库是否可复用(默认为不复用 0)
+  repoReuse?: string(name='repo_reuse', example='"0"'),
+  // 父代码库名称(reposReuse为0时可以不传)
+  parentReposName?: string(name='parent_repos_name', example='test'),
+  // 代码仓库状态
+  status?: string(name='status', example='CREATING, CREATE_FAILED, GENERATING_CODE, GENERATING_CODE_FAILED, FINISHED'),
+  // 扩展参数，JSON字符串
+  extraParams?: string(name='extra_params', example='"{}"'),
+  // 是否使用已有仓库
+  useExist?: boolean(name='use_exist', example='true, false'),
+  // 分组名称
+  groupName?: string(name='group_name', example='test'),
+}
+
+// disk
+model Disk {
+  // ssd, cloud_efficiency
+  category?: string(name='category', example='ssd'),
+  // disk related computer info
+  computer?: DiskComputer(name='computer', example=''),
+  // 是否同时删除自动快照
+  deleteAutoSnapshot?: boolean(name='delete_auto_snapshot', example='true, false'),
+  // 磁盘是否随container一起释放
+  deleteWithComputer?: boolean(name='delete_with_computer', example='true, false'),
+  // device info
+  device?: string(name='device', example='/dev/xvdb'),
+  // 磁盘是否执行自动快照策略
+  enableAutoSnapshot?: boolean(name='enable_auto_snapshot', example='true, false'),
+  // iaasId
+  iaasId?: string(name='iaas_id', example='d-dsf8usduiufsid***'),
+  // id
+  id?: string(name='id', example='0000000001'),
+  // 创建磁盘的镜像
+  imageId?: string(name='image_id', example='d-dafjlakgh23424hhkjh***'),
+  // name
+  name?: string(name='name', example='name'),
+  // 磁盘是否可卸载
+  portable?: boolean(name='portable', example='true, false'),
+  // providerId
+  providerId?: string(name='provider_id', example='0000000001'),
+  // regionId
+  regionId?: string(name='region_id', example='0000000001'),
+  // disk size
+  size?: long(name='size', example=''),
+  // disk status
+  status?: string(name='status', example='AVAILABLE'),
+  // tenantId
+  tenantId?: string(name='tenant_id', example='0000000001'),
+  // SYSTEM, DATA
+  type?: string(name='type', example='SYSTEM'),
+  // utcCreate
   utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
-  // 最近修改时间
+  // utcModified
   utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  // workspaceId
+  workspaceId?: string(name='workspace_id', example='000000001'),
+  // zoneId
+  zoneId?: string(name='zone_id', example='000000001'),
+}
+
+// workspace zone
+model WorkspaceZoneDto {
+  // id
+  id: string(name='id', example='001'),
+  // workspace_id
+  workspaceId: string(name='workspace_id', example='001'),
+  // zone_id
+  zoneId: string(name='zone_id', example='001'),
+  // zone name
+  zoneName?: string(name='zone_name', example='shanghai'),
 }
 
 // WorkspaceGroupView
@@ -803,24 +719,100 @@ model TaskRequest {
   status?: string(name='status', example='status'),
 }
 
-// IaasRequest
-model IaasRequest {
-  // requestMethod
-  requestMethod?: string(name='request_method', example='requestMethod'),
-  // requestUrl
-  requestUrl?: string(name='request_url', example='requestUrl'),
-  // requestBody
-  requestBody?: string(name='request_body', example='requestBody'),
-  // request_headers
-  requestHeaders?: [ MapStringToStringEntity ](name='request_headers', example=''),
+// 应用等级
+model AppLevel {
+  // ID
+  id: string(name='id', example='1234'),
+  // 应用等级名称
+  name?: string(name='name', example='test'),
+  // 创建者
+  creatorId?: string(name='creator_id', example='tester'),
+  // 租户ID
+  tenantId?: string(name='tenant_id', example='123'),
+  // 创建时间
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // 最近修改时间
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
 }
 
-// IaasResponse
-model IaasResponse {
-  // response_body
-  responseBody?: string(name='response_body', example='response_body'),
-  // response_headers
-  responseHeaders?: [ MapStringToStringEntity ](name='response_headers', example=''),
+// 路由的下一跳详细信息。
+model NextHopItem {
+  // 	
+  // 下一跳的类型。
+  // 
+  // Instance：ECS实例。
+  // HaVip：高可用虚拟IP。
+  // VpnGateway：VPN网关。
+  // NatGateway：NAT网关。
+  // NetworkInterface：辅助弹性网卡。
+  // RouterInterface：路由器接口。
+  // IPv6Gateway：IPv6网关。
+  nextHopType?: string(name='next_hop_type', example='HaVip'),
+  // 下一跳实例的ID。
+  nextHopId?: string(name='next_hop_id', example='ri-2zeo3xzyf38r4urzdpvqw'),
+  // 是否启用下一跳。
+  // 
+  // 0：不启用。
+  // 1：启用。
+  enable?: long(name='enable', example='0'),
+  // 下一跳的路由权重。
+  weight?: long(name='weight', example='80'),
+}
+
+// 应用扩展信息
+model AppExtraInfo {
+  // ID
+  id?: string(name='id', example='123'),
+  // 名称
+  name?: string(name='name', example='test'),
+  // 值
+  value?: string(name='value', example='test'),
+  // 描述
+  description?: string(name='description', example='test'),
+  // 模板ID
+  templateId?: string(name='template_id', example='123'),
+  // 模板类型
+  type?: string(name='type', example='TEXT, AppTemplateTypeEnum, USER'),
+  // 创建时间
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // 最近修改时间
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  // 应用扩展信息ID
+  appExtrainfoId?: string(name='app_extrainfo_id', example='123'),
+  // 应用ID
+  appId?: string(name='app_id', example='123'),
+  // 模板数据ID
+  templateDataId?: string(name='template_data_id', example='123'),
+}
+
+// 阿里云日志服务(SLS)-脱敏功能配置
+model SLSConfigSensitiveKey {
+  // 是否替换该字段中所有的敏感内容。建议设置为true
+  all: boolean(name='all', example='true, false'),
+  // 当type设置为const时必须填写
+  constValue?: string(name='const_value', example='const'),
+  // 日志Key名称
+  key: string(name='key', example='key'),
+  // 敏感内容的前缀
+  regexBegin: string(name='regex_begin', example='regex_begin'),
+  // 敏感内容正则表达式。
+  regexContent: string(name='regex_content', example='regex_content'),
+  // 脱敏方式，取值为const、md5。
+  // 若取值为const，则将敏感内容替换成const字段取值内容。
+  // 若取值为md5，则将敏感内容替换为其对应的MD5值。
+  type: string(name='type', example='const、md5'),
+}
+
+// JoinedSecurityGroupVO
+model JoinedSecurityGroupVO {
+  // iaas id
+  iaasId?: string(name='iaas_id', example='sg-slg4s5f4sf43s54f***'),
+  // name
+  name?: string(name='name', example='name'),
+  // workspace id
+  workspaceId?: string(name='workspace_id', example='12345678'),
+  // workspace name
+  workspaceName?: string(name='workspace_name', example='wsName'),
 }
 
 // 分页查询基类
@@ -843,332 +835,42 @@ model PaginationQuery {
   orders?: [ string ](name='orders', example=''),
 }
 
-// 部署单元（Cell）
-model CellView {
+// IaasErrorInfo
+model IaasErrorInfo {
+  // error_code
+  errorCode?: string(name='error_code', example='error_code'),
+  // error_message
+  errorMessage?: string(name='error_message', example='error_message'),
+  // status_code
+  statusCode?: long(name='status_code', example=''),
+  // host_id
+  hostId?: string(name='host_id', example='host_id'),
+  // requestId
+  requestId?: string(name='request_id', example='requestId'),
+}
+
+// 技术栈运行时属性
+model BuildpackInstances {
+  // ecs个数
+  ecses?: long(name='ecses', example='123'),
+  // 绑定应用个数
+  appBinded?: long(name='app_binded', example='123'),
+}
+
+// WorkspaceDc
+model WorkspaceDc {
   // id
-  id?: string(name='id', example='id'),
-  // name
-  name?: string(name='name', example='name'),
-  // displayName
-  displayName?: string(name='display_name', example='displayName'),
-  // description
-  description?: string(name='description', example='description'),
-  // deploymentZoneId
-  deploymentZoneId?: string(name='deployment_zone_id', example='deploymentZoneId'),
+  id: string(name='id', example='001'),
+  // datacenterId
+  datacenterId: string(name='datacenter_id', example='001'),
   // workspaceId
-  workspaceId?: string(name='workspace_id', example='workspaceId'),
-  // workspaceGroupId
-  workspaceGroupId?: string(name='workspace_group_id', example='workspaceGroupId'),
-  // status
-  status?: string(name='status', example='status'),
-  // masterZoneId
-  masterZoneId?: string(name='master_zone_id', example='masterZoneId'),
-  // appendedZoneIds
-  appendedZoneIds?: [ string ](name='appended_zone_ids', example='appendedZoneIds'),
-  // List<ZoneView> zones
-  zones?: [ ZoneView ](name='zones', example=''),
-}
-
-// TaskVO用Resource字段
-model Resource {
-  // name
-  name: string(name='name', example='name'),
-  // description
-  description?: string(name='description', example='description'),
-  // instance_charge_type
-  instanceChargeType?: string(name='instance_charge_type', example='instance_charge_type'),
-  // expiredTime
-  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time', example='expiredTime'),
-  // auto_renew
-  autoRenew?: boolean(name='auto_renew', example='true, false'),
-  // autoRenewPeriod
-  autoRenewPeriod?: long(name='auto_renew_period', example='autoRenewPeriod'),
-  // iaas_id
-  iaasId?: string(name='iaas_id', example='iaas_id'),
-  // iaas_type
-  iaasType?: string(name='iaas_type', example='iaas_type'),
-  // region_id
-  regionId?: string(name='region_id', example='region_id'),
-  // zone_id
-  zoneId: string(name='zone_id', example='zone_id'),
-  // id
-  id: string(name='id', example='id'),
-  // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
-  // utc_modified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
-}
-
-// AppManifest
-model AppManifest {
-  // app_id
-  appId?: string(name='app_id', example='app_id'),
-  // app_version
-  appVersion?: string(name='app_version', example='app_version'),
-  // code_commit
-  codeCommit?: CodeCommit(name='code_commit', example='code_commit'),
-  // etag
-  etag?: string(name='etag', example='etag'),
-  // id
-  id?: string(name='id', example='id'),
-  // location
-  location?: string(name='location', example='location'),
-  // name
-  name?: string(name='name', example='name'),
-  // remark
-  remark?: string(name='remark', example='remark'),
-  // store_location
-  storeLocation?: string(name='store_location', example='store_location'),
-  // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
-  // utc_modified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='utc_modified'),
-  // workspace_id
-  workspaceId?: string(name='workspace_id', example='workspace_id'),
-}
-
-// 监听器健康检查配置
-model ListenerHealthMonitor {
-  // check_type
-  checkType?: string(name='check_type', example='check_type'),
-  // 默认 80
-  connectPort?: long(name='connect_port', example=''),
-  // 域名
-  domain?: string(name='domain', example='xx.com'),
-  // 健康阈值
-  healthyThreshold?: long(name='healthy_threshold', example=''),
-  // health_check_http_code
-  healthCheckHttpCode?: [ string ](name='health_check_http_code', example=''),
-  // http_method
-  httpMethod?: string(name='http_method', example='http_method'),
-  // id
-  id?: string(name='id', example='id'),
-  // 监控检查间隔
-  interval: long(name='interval', example=''),
-  // 超时时间
-  timeout: long(name='timeout', example=''),
-  // 不健康阈值
-  unHealthyThreshold?: long(name='un_healthy_threshold', example=''),
-  // uri
-  uri?: string(name='uri', example='/'),
-}
-
-// 应用分组
-model AppDomain {
-  // 创建人id
-  creatorId?: string(name='creator_id', example='creatorId'),
-  // id
-  id?: string(name='id', example='id'),
-  // 名称
-  name?: string(name='name', example='name'),
-  // parentId
-  parentId?: string(name='parent_id', example='parentId'),
-  // 租户id
-  tenantId?: string(name='tenant_id', example='tenantId'),
-  // toRootPath
-  toRootPath?: string(name='to_root_path', example='toRootPath'),
-  // utcCreate
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
-  // utcModified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
-}
-
-// 阿里云日志服务(SLS)-日志配置-输出类型配置
-model SLSConfigOutputDetail {
-  // 项目名称，必须为请求的project名。
-  projectName: string(name='project_name', example='k8s-log-custom-pbyyzncn-aks1128test-test'),
-  // 日志库名称
-  logstoreName: string(name='logstore_name', example='testLogStore'),
-}
-
-// 应用信息
-model AppView {
-  // 应用组id
-  appDomainId?: string(name='app_domain_id', example='123'),
-  // 应用扩展信息
-  appExtraInfos?: [ AppExtraInfo ](name='app_extra_infos', example=''),
-  // 应用等级
-  appLevel?: AppLevel(name='app_level', example='{}'),
-  // 应用负责人
-  appOwner?: AppOwner(name='app_owner', example=''),
-  // scm sofa archetype
-  archetype?: ScmSofaArchetype(name='archetype', example=''),
-  // 技术栈版本
-  buildpackVersion?: string(name='buildpack_version', example='123'),
-  // 中文名称
-  chineseName?: string(name='chinese_name', example='test'),
-  // 代码仓库
-  codeRepository?: CodeRepository(name='code_repository', example='gitlab'),
-  // 描述信息
-  description?: string(name='description', example='描述信息'),
-  // 扩展参数，JSOn字符串
-  extraParams?: string(name='extra_params', example='"{}"'),
-  // 应用ID
-  id: string(name='id', example='123'),
-  // 是否组件中心应用
-  isService?: boolean(name='is_service', example='true, false'),
-  // 应用名称
-  name: string(name='name', example='test'),
-  // 负责人ID
-  ownerId?: string(name='owner_id', example='123'),
-  // 技术栈所属分类ID
-  stackId: string(name='stack_id', example='123'),
-  // 应用状态
-  status?: string(name='status', example='CREATING, CREATED, CREATE_FAILED, DELETING, DELETED, DELETE_FAILED, UPDATING, UPDATE_CODE_REPO_FAILED, INIT_CODE_REPO_FAILED'),
-  // 应用标签，JSOn字符串
-  tags?: string(name='tags', example='"{}"'),
-  // 租户ID
-  tenantId?: string(name='tenant_id', example='123'),
-  // 创建时间
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
-  // 修改时间
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
-  // 工作空间ID
-  workspaceId?: string(name='workspace_id', example='123'),
-  // 负责人名称
-  ownerName?: string(name='owner_name', example='test'),
-  // 应用负责人真实名称
-  realOwnerName: string(name='real_owner_name', example='test'),
-  // 应用域路径名
-  domainNames?: [ string ](name='domain_names', example=''),
-  // 应用分组名称
-  appDomainName: string(name='app_domain_name', example='test'),
-  // 应用等级名称
-  appLevelName: string(name='app_level_name', example='test'),
-  // 技术栈名称
-  stackName?: string(name='stack_name', example='test'),
-  // 技术栈版本
-  stackVersion?: string(name='stack_version', example='test'),
-  // 服务器数量
-  containerCount?: long(name='container_count', example=''),
-  // 数据库个数
-  databaseCount?: long(name='database_count', example=''),
-  // SLB个数
-  slbCount?: long(name='slb_count', example=''),
-  // ocs个数
-  ocsCount?: long(name='ocs_count', example=''),
-  // 发布包个数
-  packageCount?: long(name='package_count', example=''),
-  // 生命周期信息
-  lifeCycle?: AppLifeCycle(name='life_cycle', example=''),
-}
-
-// 一个部署起来提供服务的应用实例信息
-model AppService {
-  // app_id
-  appId?: string(name='app_id', example='app_id'),
-  // app_name
-  appName?: string(name='app_name', example='app_name'),
-  // buildpack_full_version
-  buildpackFullVersion?: string(name='buildpack_full_version', example='buildpack_full_version'),
-  // buildpack_id
-  buildpackId?: string(name='buildpack_id', example='buildpack_id'),
-  // cell_ids
-  cellIds?: [ string ](name='cell_ids', example='cell_ids'),
-  // description
-  description?: string(name='description', example='description'),
-  // extend_properties
-  extendProperties?: string(name='extend_properties', example='extend_properties'),
-  // id
-  id?: string(name='id', example='id'),
-  // is_default
-  isDefault?: boolean(name='is_default', example='true, false'),
-  // is_service
-  isService?: boolean(name='is_service', example='true, false'),
-  // last_deploy_status
-  lastDeployStatus?: string(name='last_deploy_status', example='last_deploy_status'),
-  // last_deploy_version
-  lastDeployVersion?: string(name='last_deploy_version', example='last_deploy_version'),
-  // last_ops_order_id
-  lastOpsOrderId?: string(name='last_ops_order_id', example='last_ops_order_id'),
-  // name
-  name?: string(name='name', example='name'),
-  // owner_id
-  ownerId?: string(name='owner_id', example='owner_id'),
-  // techstack_id
-  techstackId?: long(name='techstack_id', example=''),
-  // techstack_identity
-  techstackIdentity?: string(name='techstack_identity', example='techstack_identity'),
-  // techstack_name
-  techstackName?: string(name='techstack_name', example='techstack_name'),
-  // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
-  // utc_modified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
-  // workspace_id
-  workspaceId?: string(name='workspace_id', example='workspace_id'),
-}
-
-// 路由条目的详细信息。
-model VRouteEntry {
-  // 路由条目的目标网段。
-  desinationCidrBlock?: string(name='desination_cidr_block', example='192.168.0.1/24'),
-  // 下一跳的实例ID。
-  instanceId?: string(name='instance_id', example='ri-2zeo3xzyf38r4urzd****'),
-  // 下一跳的实例名称。
-  instanceName?: string(name='instance_name', example='instanceName'),
-  // 路由条目ID。
-  nextHopId?: string(name='next_hop_id', example='rte-bp1mnnr2al0naomnpxxx'),
-  // 路由的下一跳列表。
-  nextHopItemList?: [ NextHopItem ](name='next_hop_item_list', example=''),
-  // 路由类型。
-  // 
-  // local：交换机路由。
-  // service：云服务路由。
-  // classicLink：开启ClassicLink功能后系统自动添加的路由。
-  nextHopType?: string(name='next_hop_type', example='local'),
-  // 路由条目所属路由表的ID。
-  routeTableId?: string(name='route_table_id', example='vtb-bp145q7glnuzdvzu2****'),
-  // 	
-  // 路由条目的状态。
-  // 
-  // Pending：配置中。
-  // Available：可用。
-  // Modifying：修改中。
-  status?: string(name='status', example='Pending'),
-  // 路由条目的类型。
-  // 
-  // System：系统路由。
-  // Custom：自定义路由。
-  // BGP：BGP路由。
-  // 
-  type?: string(name='type', example='System'),
-}
-
-// vpc import info
-model ImportInfo {
-  // 已导入的workspace name
-  importedWorkspaceName?: string(name='imported_workspace_name', example='wsName'),
-  // vpc是否已导入workspace
-  isImported?: boolean(name='is_imported', example='true, false'),
-  // 是否可以删除已导入的workspace
-  isUnimportable?: boolean(name='is_unimportable', example='true, false'),
-  // 不可删除已导入workspace的原因
-  unimportableReason?: string(name='unimportable_reason', example='true, false'),
-}
-
-// Database ImportVO
-model ImportVO {
-  // is_imported
-  isImported: boolean(name='is_imported', example='true, false'),
-  // imported_workspace_name
-  importedWorkspaceName: string(name='imported_workspace_name', example='imported_workspace_name'),
-  // is_unimportable
-  isUnimportable?: boolean(name='is_unimportable', example='true, false'),
-  // unimportable_reason
-  unimportableReason?: string(name='unimportable_reason', example='unimportable_reason'),
-}
-
-// JoinedSecurityGroupVO
-model JoinedSecurityGroupVO {
-  // iaas id
-  iaasId?: string(name='iaas_id', example='sg-slg4s5f4sf43s54f***'),
-  // name
-  name?: string(name='name', example='name'),
-  // workspace id
-  workspaceId?: string(name='workspace_id', example='12345678'),
-  // workspace name
-  workspaceName?: string(name='workspace_name', example='wsName'),
+  workspaceId: string(name='workspace_id', example='001'),
+  // datacenterType
+  datacenterType: string(name='datacenter_type', example='MAIN'),
+  // gmtCreate
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // gmtModified
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
 }
 
 // 安全组规则
@@ -1219,96 +921,136 @@ model SecurityGroupRule {
   sourceCidrIp?: string(name='source_cidr_ip', example='10.0.0.0/8'),
 }
 
-// WorkspaceWithGroupView
-model WorkspaceWithGroupView {
+// 查询用的DbSchema
+model DbSchema {
+  // charSet
+  charSet?: string(name='char_set', example='charSet'),
+  // database
+  database?: Database(name='database', example='database'),
+  // description
+  description?: string(name='description', example='description'),
+  // grants
+  grants: [ DbSchemaGrant ](name='grants', example=''),
+  // iaas_type
+  iaasType?: string(name='iaas_type', example='iaas_type'),
   // id
   id: string(name='id', example='id'),
-  // identity
-  identity: string(name='identity', example='identity'),
   // name
   name: string(name='name', example='name'),
-  // networkType
-  networkType: string(name='network_type', example='networkType'),
-  // region
-  region: RegionView(name='region', example=''),
   // status
   status: string(name='status', example='status'),
-  // tenantId
-  tenantId: string(name='tenant_id', example='tenantId'),
-  // zones
-  zones: [ WorkspaceZoneView ](name='zones', example=''),
-  // workspaceGroup
-  workspaceGroup: WorkspaceGroupView(name='workspace_group', example=''),
+  // utc_create
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // utc_modified
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
 }
 
-// AcsClusterUnit
-model AcsClusterUnit {
-  // cluster_id
-  clusterId: string(name='cluster_id', example='cluster_id'),
-  // address
-  address?: string(name='address', example='address'),
-  // unit_status
-  unitStatus?: long(name='unit_status', example='1'),
-  // create_time
-  createTime?: string(name='create_time', example='create_time'),
-  // modify_time
-  modifyTime?: string(name='modify_time', example='modify_time'),
-  // container_id
-  containerId?: string(name='container_id', example='container_id'),
-}
-
-// WorkspaceRegion
-model WorkspaceRegion {
+// ZoneDto
+model ZoneDto {
   // id
   id: string(name='id', example='001'),
-  // workspaceId
-  workspaceId: string(name='workspace_id', example='001'),
+  // identity
+  identity: string(name='identity', example='shanghai'),
+  // iaasProviderId
+  iaasProviderId: string(name='iaas_provider_id', example='001'),
+  // displayName
+  displayName: string(name='display_name', example='shanghai'),
+  // state
+  state: string(name='state', example='state'),
   // regionId
   regionId: string(name='region_id', example='001'),
-  // type
-  type: string(name='type', example='type'),
-  // securedIsolationIdentity
-  securedIsolationIdentity: string(name='secured_isolation_identity', example='securedIsolationIdentity'),
-  // securedIsolationName
-  securedIsolationName: string(name='secured_isolation_name', example='securedIsolationName'),
-  // securedZoneId
-  securedZoneId: string(name='secured_zone_id', example='securedZoneId'),
-}
-
-// WorkspaceRegionDto
-model WorkspaceRegionDto {
-  // id
-  id: string(name='id', example='001'),
-  // networkType
-  networkType?: string(name='network_type', example='vpc'),
-  // region id
-  regionId: string(name='region_id', example='001'),
-  // regionName
-  regionName?: string(name='region_name', example='shanghai'),
-  // 安全域id
-  securedZoneId?: string(name='secured_zone_id', example='001'),
-  // workspace_id
-  workspaceId: string(name='workspace_id', example='001'),
-  // workspaceLogicRegionStatus
-  workspaceLogicRegionStatus?: string(name='workspace_logic_region_status', example='CREATED'),
-  // workspaceLogicRegionType
-  workspaceLogicRegionType?: string(name='workspace_logic_region_type', example='LIVE'),
-  // workspaceZoneDtos
-  workspaceZoneDtos?: [ WorkspaceZoneDto ](name='workspace_zone_dtos', example=''),
-}
-
-// LB后端专用的vComputerGroup
-model VComputerGroup {
+  // no
+  no: long(name='no', example=''),
   // name
   name: string(name='name', example='name'),
+  // description
+  description: string(name='description', example='description'),
+  // utcCreate
+  utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // utcModified
+  utcModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
+}
+
+// 一个部署起来提供服务的应用实例信息
+model AppService {
+  // app_id
+  appId?: string(name='app_id', example='app_id'),
+  // app_name
+  appName?: string(name='app_name', example='app_name'),
+  // buildpack_full_version
+  buildpackFullVersion?: string(name='buildpack_full_version', example='buildpack_full_version'),
+  // buildpack_id
+  buildpackId?: string(name='buildpack_id', example='buildpack_id'),
+  // cell_ids
+  cellIds?: [ string ](name='cell_ids', example='cell_ids'),
+  // description
+  description?: string(name='description', example='description'),
+  // extend_properties
+  extendProperties?: string(name='extend_properties', example='extend_properties'),
   // id
-  id: string(name='id', example='id'),
+  id?: string(name='id', example='id'),
+  // is_default
+  isDefault?: boolean(name='is_default', example='true, false'),
+  // is_service
+  isService?: boolean(name='is_service', example='true, false'),
+  // last_deploy_status
+  lastDeployStatus?: string(name='last_deploy_status', example='last_deploy_status'),
+  // last_deploy_version
+  lastDeployVersion?: string(name='last_deploy_version', example='last_deploy_version'),
+  // last_ops_order_id
+  lastOpsOrderId?: string(name='last_ops_order_id', example='last_ops_order_id'),
+  // name
+  name?: string(name='name', example='name'),
+  // owner_id
+  ownerId?: string(name='owner_id', example='owner_id'),
+  // techstack_id
+  techstackId?: long(name='techstack_id', example=''),
+  // techstack_identity
+  techstackIdentity?: string(name='techstack_identity', example='techstack_identity'),
+  // techstack_name
+  techstackName?: string(name='techstack_name', example='techstack_name'),
+  // utc_create
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // utc_modified
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
   // workspace_id
-  workspaceId: string(name='workspace_id', example='workspace_id'),
-  // load_balancer
-  loadBalancer: LoadBalancer(name='load_balancer', example=''),
-  // status
-  status: string(name='status', example='status'),
+  workspaceId?: string(name='workspace_id', example='workspace_id'),
+}
+
+// 阿里云日志服务(SLS)-日志配置-输出类型配置
+model SLSConfigOutputDetail {
+  // 项目名称，必须为请求的project名。
+  projectName: string(name='project_name', example='k8s-log-custom-pbyyzncn-aks1128test-test'),
+  // 日志库名称
+  logstoreName: string(name='logstore_name', example='testLogStore'),
+}
+
+// 应用分组
+model AppDomain {
+  // 创建人id
+  creatorId?: string(name='creator_id', example='creatorId'),
+  // id
+  id?: string(name='id', example='id'),
+  // 名称
+  name?: string(name='name', example='name'),
+  // parentId
+  parentId?: string(name='parent_id', example='parentId'),
+  // 租户id
+  tenantId?: string(name='tenant_id', example='tenantId'),
+  // toRootPath
+  toRootPath?: string(name='to_root_path', example='toRootPath'),
+  // utcCreate
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // utcModified
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
+}
+
+// IaasResponse
+model IaasResponse {
+  // response_body
+  responseBody?: string(name='response_body', example='response_body'),
+  // response_headers
+  responseHeaders?: [ MapStringToStringEntity ](name='response_headers', example=''),
 }
 
 // 阿里云日志服务(SLS)-日志配置-输入类型配置
@@ -1404,6 +1146,182 @@ model SLSConfigInputDetail {
   plugin?: string(name='plugin', example='{"xxx":"xxx"}'),
 }
 
+// TaskVO用Resource字段
+model Resource {
+  // name
+  name: string(name='name', example='name'),
+  // description
+  description?: string(name='description', example='description'),
+  // instance_charge_type
+  instanceChargeType?: string(name='instance_charge_type', example='instance_charge_type'),
+  // expiredTime
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time', example='expiredTime'),
+  // auto_renew
+  autoRenew?: boolean(name='auto_renew', example='true, false'),
+  // autoRenewPeriod
+  autoRenewPeriod?: long(name='auto_renew_period', example='autoRenewPeriod'),
+  // iaas_id
+  iaasId?: string(name='iaas_id', example='iaas_id'),
+  // iaas_type
+  iaasType?: string(name='iaas_type', example='iaas_type'),
+  // region_id
+  regionId?: string(name='region_id', example='region_id'),
+  // zone_id
+  zoneId: string(name='zone_id', example='zone_id'),
+  // id
+  id: string(name='id', example='id'),
+  // utc_create
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // utc_modified
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
+}
+
+// 应用信息
+model AppView {
+  // 应用组id
+  appDomainId?: string(name='app_domain_id', example='123'),
+  // 应用扩展信息
+  appExtraInfos?: [ AppExtraInfo ](name='app_extra_infos', example=''),
+  // 应用等级
+  appLevel?: AppLevel(name='app_level', example='{}'),
+  // 应用负责人
+  appOwner?: AppOwner(name='app_owner', example=''),
+  // scm sofa archetype
+  archetype?: ScmSofaArchetype(name='archetype', example=''),
+  // 技术栈版本
+  buildpackVersion?: string(name='buildpack_version', example='123'),
+  // 中文名称
+  chineseName?: string(name='chinese_name', example='test'),
+  // 代码仓库
+  codeRepository?: CodeRepository(name='code_repository', example='gitlab'),
+  // 描述信息
+  description?: string(name='description', example='描述信息'),
+  // 扩展参数，JSOn字符串
+  extraParams?: string(name='extra_params', example='"{}"'),
+  // 应用ID
+  id: string(name='id', example='123'),
+  // 是否组件中心应用
+  isService?: boolean(name='is_service', example='true, false'),
+  // 应用名称
+  name: string(name='name', example='test'),
+  // 负责人ID
+  ownerId?: string(name='owner_id', example='123'),
+  // 技术栈所属分类ID
+  stackId: string(name='stack_id', example='123'),
+  // 应用状态
+  status?: string(name='status', example='CREATING, CREATED, CREATE_FAILED, DELETING, DELETED, DELETE_FAILED, UPDATING, UPDATE_CODE_REPO_FAILED, INIT_CODE_REPO_FAILED'),
+  // 应用标签，JSOn字符串
+  tags?: string(name='tags', example='"{}"'),
+  // 租户ID
+  tenantId?: string(name='tenant_id', example='123'),
+  // 创建时间
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // 修改时间
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  // 工作空间ID
+  workspaceId?: string(name='workspace_id', example='123'),
+  // 负责人名称
+  ownerName?: string(name='owner_name', example='test'),
+  // 应用负责人真实名称
+  realOwnerName: string(name='real_owner_name', example='test'),
+  // 应用域路径名
+  domainNames?: [ string ](name='domain_names', example=''),
+  // 应用分组名称
+  appDomainName: string(name='app_domain_name', example='test'),
+  // 应用等级名称
+  appLevelName: string(name='app_level_name', example='test'),
+  // 技术栈名称
+  stackName?: string(name='stack_name', example='test'),
+  // 技术栈版本
+  stackVersion?: string(name='stack_version', example='test'),
+  // 服务器数量
+  containerCount?: long(name='container_count', example=''),
+  // 数据库个数
+  databaseCount?: long(name='database_count', example=''),
+  // SLB个数
+  slbCount?: long(name='slb_count', example=''),
+  // ocs个数
+  ocsCount?: long(name='ocs_count', example=''),
+  // 发布包个数
+  packageCount?: long(name='package_count', example=''),
+  // 生命周期信息
+  lifeCycle?: AppLifeCycle(name='life_cycle', example=''),
+}
+
+// DnsZones
+model DnsZones {
+  // id
+  id: string(name='id', example='id'),
+  // name
+  name: string(name='name', example='name'),
+}
+
+// AppManifest
+model AppManifest {
+  // app_id
+  appId?: string(name='app_id', example='app_id'),
+  // app_version
+  appVersion?: string(name='app_version', example='app_version'),
+  // code_commit
+  codeCommit?: CodeCommit(name='code_commit', example='code_commit'),
+  // etag
+  etag?: string(name='etag', example='etag'),
+  // id
+  id?: string(name='id', example='id'),
+  // location
+  location?: string(name='location', example='location'),
+  // name
+  name?: string(name='name', example='name'),
+  // remark
+  remark?: string(name='remark', example='remark'),
+  // store_location
+  storeLocation?: string(name='store_location', example='store_location'),
+  // utc_create
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // utc_modified
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='utc_modified'),
+  // workspace_id
+  workspaceId?: string(name='workspace_id', example='workspace_id'),
+}
+
+// Database ImportVO
+model ImportVO {
+  // is_imported
+  isImported: boolean(name='is_imported', example='true, false'),
+  // imported_workspace_name
+  importedWorkspaceName: string(name='imported_workspace_name', example='imported_workspace_name'),
+  // is_unimportable
+  isUnimportable?: boolean(name='is_unimportable', example='true, false'),
+  // unimportable_reason
+  unimportableReason?: string(name='unimportable_reason', example='unimportable_reason'),
+}
+
+// 监听器健康检查配置
+model ListenerHealthMonitor {
+  // check_type
+  checkType?: string(name='check_type', example='check_type'),
+  // 默认 80
+  connectPort?: long(name='connect_port', example=''),
+  // 域名
+  domain?: string(name='domain', example='xx.com'),
+  // 健康阈值
+  healthyThreshold?: long(name='healthy_threshold', example=''),
+  // health_check_http_code
+  healthCheckHttpCode?: [ string ](name='health_check_http_code', example=''),
+  // http_method
+  httpMethod?: string(name='http_method', example='http_method'),
+  // id
+  id?: string(name='id', example='id'),
+  // 监控检查间隔
+  interval: long(name='interval', example=''),
+  // 超时时间
+  timeout: long(name='timeout', example=''),
+  // 不健康阈值
+  unHealthyThreshold?: long(name='un_healthy_threshold', example=''),
+  // uri
+  uri?: string(name='uri', example='/'),
+}
+
 // request中的单个任务
 model Task {
   // context
@@ -1428,6 +1346,148 @@ model Task {
   request?: TaskRequest(name='request', example=''),
 }
 
+// WorkspaceRegion
+model WorkspaceRegion {
+  // id
+  id: string(name='id', example='001'),
+  // workspaceId
+  workspaceId: string(name='workspace_id', example='001'),
+  // regionId
+  regionId: string(name='region_id', example='001'),
+  // type
+  type: string(name='type', example='type'),
+  // securedIsolationIdentity
+  securedIsolationIdentity: string(name='secured_isolation_identity', example='securedIsolationIdentity'),
+  // securedIsolationName
+  securedIsolationName: string(name='secured_isolation_name', example='securedIsolationName'),
+  // securedZoneId
+  securedZoneId: string(name='secured_zone_id', example='securedZoneId'),
+}
+
+// LB后端专用的vComputerGroup
+model VComputerGroup {
+  // name
+  name: string(name='name', example='name'),
+  // id
+  id: string(name='id', example='id'),
+  // workspace_id
+  workspaceId: string(name='workspace_id', example='workspace_id'),
+  // load_balancer
+  loadBalancer: LoadBalancer(name='load_balancer', example=''),
+  // status
+  status: string(name='status', example='status'),
+}
+
+// 部署单元（Cell）
+model CellView {
+  // 部署单元对应的paas id
+  id?: string(name='id', example='id'),
+  // 部署单元名称
+  name?: string(name='name', example='name'),
+  // 部署单元显示名称
+  displayName?: string(name='display_name', example='displayName'),
+  // 部署单元描述
+  description?: string(name='description', example='description'),
+  // deploymentZoneId
+  deploymentZoneId?: string(name='deployment_zone_id', example='deploymentZoneId'),
+  // workspaceId
+  workspaceId?: string(name='workspace_id', example='workspaceId'),
+  // workspaceGroupId
+  workspaceGroupId?: string(name='workspace_group_id', example='workspaceGroupId'),
+  // status
+  status?: string(name='status', example='status'),
+  // masterZoneId
+  masterZoneId?: string(name='master_zone_id', example='masterZoneId'),
+  // appendedZoneIds
+  appendedZoneIds?: [ string ](name='appended_zone_ids', example='appendedZoneIds'),
+  // List<ZoneView> zones
+  zones?: [ ZoneView ](name='zones', example=''),
+}
+
+// vpc import info
+model ImportInfo {
+  // 已导入的workspace name
+  importedWorkspaceName?: string(name='imported_workspace_name', example='wsName'),
+  // vpc是否已导入workspace
+  isImported?: boolean(name='is_imported', example='true, false'),
+  // 是否可以删除已导入的workspace
+  isUnimportable?: boolean(name='is_unimportable', example='true, false'),
+  // 不可删除已导入workspace的原因
+  unimportableReason?: string(name='unimportable_reason', example='true, false'),
+}
+
+// IaasRequest
+model IaasRequest {
+  // requestMethod
+  requestMethod?: string(name='request_method', example='requestMethod'),
+  // requestUrl
+  requestUrl?: string(name='request_url', example='requestUrl'),
+  // requestBody
+  requestBody?: string(name='request_body', example='requestBody'),
+  // request_headers
+  requestHeaders?: [ MapStringToStringEntity ](name='request_headers', example=''),
+}
+
+// property
+model Property {
+  // key
+  key: string(name='key', example='key'),
+  // value
+  value?: string(name='value', example='value'),
+}
+
+// WorkspaceWithGroupView
+model WorkspaceWithGroupView {
+  // id
+  id: string(name='id', example='id'),
+  // identity
+  identity: string(name='identity', example='identity'),
+  // name
+  name: string(name='name', example='name'),
+  // networkType
+  networkType: string(name='network_type', example='networkType'),
+  // region
+  region: RegionView(name='region', example=''),
+  // status
+  status: string(name='status', example='status'),
+  // tenantId
+  tenantId: string(name='tenant_id', example='tenantId'),
+  // zones
+  zones: [ WorkspaceZoneView ](name='zones', example=''),
+  // workspaceGroup
+  workspaceGroup: WorkspaceGroupView(name='workspace_group', example=''),
+}
+
+// AcsClusterUnit
+model AcsClusterUnit {
+  // cluster_id
+  clusterId: string(name='cluster_id', example='cluster_id'),
+  // address
+  address?: string(name='address', example='address'),
+  // unit_status
+  unitStatus?: long(name='unit_status', example='1'),
+  // create_time
+  createTime?: string(name='create_time', example='create_time'),
+  // modify_time
+  modifyTime?: string(name='modify_time', example='modify_time'),
+  // container_id
+  containerId?: string(name='container_id', example='container_id'),
+}
+
+// ConnectionStub
+model ConnectionStub {
+  // cloud
+  cloud?: Cloud(name='cloud', example=''),
+  // id
+  id?: long(name='id', example='id'),
+  // tenant_id
+  tenantId?: string(name='tenant_id', example='tenant_id'),
+  // tenant_name
+  tenantName?: string(name='tenant_name', example='tenant_name'),
+  // type
+  type?: string(name='type', example='PLUG, SOCKET'),
+}
+
 // 阿里云日志服务(SLS) - 日志内容，是一个键值对
 model SLSLogContent {
   // 键名
@@ -1436,34 +1496,26 @@ model SLSLogContent {
   value: string(name='value', example='value'),
 }
 
-// WorkspaceDc
-model WorkspaceDc {
+// WorkspaceRegionDto
+model WorkspaceRegionDto {
   // id
   id: string(name='id', example='001'),
-  // datacenterId
-  datacenterId: string(name='datacenter_id', example='001'),
-  // workspaceId
+  // networkType
+  networkType?: string(name='network_type', example='vpc'),
+  // region id
+  regionId: string(name='region_id', example='001'),
+  // regionName
+  regionName?: string(name='region_name', example='shanghai'),
+  // 安全域id
+  securedZoneId?: string(name='secured_zone_id', example='001'),
+  // workspace_id
   workspaceId: string(name='workspace_id', example='001'),
-  // datacenterType
-  datacenterType: string(name='datacenter_type', example='MAIN'),
-  // gmtCreate
-  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
-  // gmtModified
-  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
-}
-
-// IaasErrorInfo
-model IaasErrorInfo {
-  // error_code
-  errorCode?: string(name='error_code', example='error_code'),
-  // error_message
-  errorMessage?: string(name='error_message', example='error_message'),
-  // status_code
-  statusCode?: long(name='status_code', example=''),
-  // host_id
-  hostId?: string(name='host_id', example='host_id'),
-  // requestId
-  requestId?: string(name='request_id', example='requestId'),
+  // workspaceLogicRegionStatus
+  workspaceLogicRegionStatus?: string(name='workspace_logic_region_status', example='CREATED'),
+  // workspaceLogicRegionType
+  workspaceLogicRegionType?: string(name='workspace_logic_region_type', example='LIVE'),
+  // workspaceZoneDtos
+  workspaceZoneDtos?: [ WorkspaceZoneDto ](name='workspace_zone_dtos', example=''),
 }
 
 // 表示单个云服务器
@@ -1578,366 +1630,56 @@ model Computer {
   zoneId?: string(name='zone_id', example='0000000001'),
 }
 
-// ConnectionStub
-model ConnectionStub {
-  // cloud
-  cloud?: Cloud(name='cloud', example=''),
+// 路由条目的详细信息。
+model VRouteEntry {
+  // 路由条目的目标网段。
+  desinationCidrBlock?: string(name='desination_cidr_block', example='192.168.0.1/24'),
+  // 下一跳的实例ID。
+  instanceId?: string(name='instance_id', example='ri-2zeo3xzyf38r4urzd****'),
+  // 下一跳的实例名称。
+  instanceName?: string(name='instance_name', example='instanceName'),
+  // 路由条目ID。
+  nextHopId?: string(name='next_hop_id', example='rte-bp1mnnr2al0naomnpxxx'),
+  // 路由的下一跳列表。
+  nextHopItemList?: [ NextHopItem ](name='next_hop_item_list', example=''),
+  // 路由类型。
+  // 
+  // local：交换机路由。
+  // service：云服务路由。
+  // classicLink：开启ClassicLink功能后系统自动添加的路由。
+  nextHopType?: string(name='next_hop_type', example='local'),
+  // 路由条目所属路由表的ID。
+  routeTableId?: string(name='route_table_id', example='vtb-bp145q7glnuzdvzu2****'),
+  // 	
+  // 路由条目的状态。
+  // 
+  // Pending：配置中。
+  // Available：可用。
+  // Modifying：修改中。
+  status?: string(name='status', example='Pending'),
+  // 路由条目的类型。
+  // 
+  // System：系统路由。
+  // Custom：自定义路由。
+  // BGP：BGP路由。
+  // 
+  type?: string(name='type', example='System'),
+}
+
+// 工作空间
+model Workspace {
   // id
-  id?: long(name='id', example='id'),
-  // tenant_id
-  tenantId?: string(name='tenant_id', example='tenant_id'),
-  // tenant_name
-  tenantName?: string(name='tenant_name', example='tenant_name'),
-  // type
-  type?: string(name='type', example='PLUG, SOCKET'),
-}
-
-// 技术栈运行时属性
-model BuildpackInstances {
-  // ecs个数
-  ecses?: long(name='ecses', example='123'),
-  // 绑定应用个数
-  appBinded?: long(name='app_binded', example='123'),
-}
-
-// ZoneDto
-model ZoneDto {
-  // id
-  id: string(name='id', example='001'),
-  // identity
-  identity: string(name='identity', example='shanghai'),
-  // iaasProviderId
-  iaasProviderId: string(name='iaas_provider_id', example='001'),
-  // displayName
-  displayName: string(name='display_name', example='shanghai'),
-  // state
-  state: string(name='state', example='state'),
-  // regionId
-  regionId: string(name='region_id', example='001'),
-  // no
-  no: long(name='no', example=''),
-  // name
-  name: string(name='name', example='name'),
-  // description
-  description: string(name='description', example='description'),
-  // utcCreate
-  utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
-  // utcModified
-  utcModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
-}
-
-// 查询用的DbSchema
-model DbSchema {
-  // charSet
-  charSet?: string(name='char_set', example='charSet'),
-  // database
-  database?: Database(name='database', example='database'),
-  // description
-  description?: string(name='description', example='description'),
-  // grants
-  grants: [ DbSchemaGrant ](name='grants', example=''),
-  // iaas_type
-  iaasType?: string(name='iaas_type', example='iaas_type'),
-  // id
-  id: string(name='id', example='id'),
-  // name
-  name: string(name='name', example='name'),
-  // status
-  status: string(name='status', example='status'),
-  // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
-  // utc_modified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
-}
-
-// property
-model Property {
-  // key
-  key: string(name='key', example='key'),
-  // value
-  value?: string(name='value', example='value'),
-}
-
-// 技术栈
-model Buildpack {
-  // 技术栈标识ID
   id?: string(name='id', example='12345'),
-  // 技术栈名称
-  name?: string(name='name', example='sofa4'),
-  // 技术栈描述
-  des?: string(name='des', example='sofa4 描述'),
-  // 技术栈版本
-  version?: string(name='version', example='sofa4456'),
-  // 技术栈类别
-  stack?: string(name='stack', example='java'),
-  // 部署脚本id
-  deployScriptId?: string(name='deploy_script_id', example='sss'),
-  // 构建脚本ID
-  buildScriptId?: string(name='build_script_id', example='1234'),
-  // 配置id
-  configId?: string(name='config_id', example='12345'),
-  // 组件id
-  componentId?: string(name='component_id', example='12345'),
-  // 命令id
-  commandId?: string(name='command_id', example='12345'),
-  // 启用蓝绿
-  bgEnable?: boolean(name='bg_enable', example='true, false'),
-  // 创建人
-  creator?: string(name='creator', example='creator name'),
-  // 租户ID
-  tenantId?: string(name='tenant_id', example='1234'),
-  // 客户id列表
-  customerIds?: [ string ](name='customer_ids', example='["1234", "12345"]'),
-  // 技术栈定义类型
-  // 系统模板 TEMPLATE
-  // 用户自定义 CUSTOM
-  // 后台服务 BACKGROUND_SERVICE
-  type?: string(name='type', example='TEMPLATE | CUSTOM | BACKGROUND_SERVICE'),
-  // 技术栈状态
-  // 草稿 DRAFT
-  // 已提交 COMMITED 
-  // 已对外发布 PUBLISHED
-  // 已退役 RETIRED
-  status?: string(name='status', example='DRAFT | COMMITED | PUBLISHED | RETIRED'),
-  // 创建日期
-  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
-  // 最近修改时间
-  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
-  // 技术栈信息汇总
-  resultMsg?: string(name='result_msg', example='message content'),
-  // 可用 USABLE
-  // 不可用 UNUSABLE
-  versionStatus?: string(name='version_status', example='USABLE | UNUSABLE'),
-  // 运行时属性
-  instances?: BuildpackInstances(name='instances', example='{}'),
-}
-
-// 阿里云日志服务(SLS)-日志库
-model SLSLogStore {
-  // 日志库名称
-  name: string(name='name', example='testLogStore'),
-  // Shard个数，单位为个，范围为1~100。
-  shardCount: long(name='shard_count', example='10'),
-  // 数据的保存时间，单位为天，范围1~3600。
-  ttl: long(name='ttl', example='30'),
-}
-
-// 旧版-应用服务放入前端展示内容
-model AppServiceViewModel {
-  // 基类
-  baseAppService?: AppService(name='base_app_service', example=''),
-  // 应用负责人姓名
-  ownerName?: string(name='owner_name', example='ownerName'),
-  // 技术栈名称
-  buildpackName?: string(name='buildpack_name', example='buildpack_name'),
-  // App的别名
-  chineseName?: string(name='chinese_name', example='chinese_name'),
-  // buildpackVersion
-  buildpackVersion?: string(name='buildpack_version', example='buildpackVersion'),
-  // computerCount
-  computerCount?: long(name='computer_count', example=''),
-  // databaseCount
-  databaseCount?: long(name='database_count', example=''),
-  // loadBalancerCount
-  loadBalancerCount?: long(name='load_balancer_count', example=''),
-  // cacheCount
-  cacheCount?: long(name='cache_count', example=''),
-  // cellViewList
-  cellViewList?: [ CellView ](name='cell_view_list', example=''),
-}
-
-// lb 监听器
-model Listener {
-  // 后端服务器端口
-  backendServerPort: long(name='backend_server_port', example=''),
-  // 带宽
-  bandwidth?: long(name='bandwidth', example=''),
-  // certificate_iaas_id
-  certificateIaasId?: string(name='certificate_iaas_id', example='certificate_iaas_id'),
-  // 证书 id
-  certificateId?: string(name='certificate_id', example='adsfadsfdas'),
-  // cookie
-  cookie?: string(name='cookie', example='xxx'),
-  // cookie 超时时间
-  cookieTimeout?: long(name='cookie_timeout', example=''),
-  // description
-  description?: string(name='description', example='description'),
-  // 连接超时时间
-  establishedTimeout?: long(name='established_timeout', example=''),
-  // gm_crypto_cert_iaas_id
-  gmCryptoCertIaasId?: string(name='gm_crypto_cert_iaas_id', example='gm_crypto_cert_iaas_id'),
-  // 健康检查
-  healthMonitor?: ListenerHealthMonitor(name='health_monitor', example=''),
-  // iaas_id
-  iaasId?: string(name='iaas_id', example='iaas_id'),
-  // iaasType
-  iaasType?: string(name='iaas_type', example='iaasType'),
-  // id
-  id?: string(name='id', example='id'),
-  // is_health_monitor
-  isHealthMonitor?: string(name='is_health_monitor', example='is_health_monitor'),
-  // 监听器端口
-  listenerPort: long(name='listener_port', example='443'),
-  // load_balancer
-  loadBalancer?: LoadBalancer(name='load_balancer', example=''),
-  // name
-  name: string(name='name', example='name'),
-  // 会话保持的超时时间
-  persistTimeout?: long(name='persist_timeout', example=''),
-  // 转发规则
-  scheduler?: string(name='scheduler', example='WRR'),
-  // status
-  status: string(name='status', example='status'),
-  // sticky_session
-  stickySession?: string(name='sticky_session', example='sticky_session'),
-  // cookie 处理方式
-  stickySessionType?: string(name='sticky_session_type', example='SERVER'),
-  // 监听类型
-  type: string(name='type', example='HTTPS'),
-  // url_path
-  urlPath?: string(name='url_path', example='url_path'),
-  // x_forwarded_for
-  xForwardedFor?: string(name='x_forwarded_for', example='x_forwarded_for'),
-}
-
-// db schema
-model DatabaseSchema {
-  // 字符集
-  charSet: string(name='char_set', example='MYSQLUTF8'),
-  // 数量
-  count?: long(name='count', example=''),
-  // 是否自动生成名称。默认为 true
-  isAutoName?: boolean(name='is_auto_name', example='false'),
   // 名称
-  name: string(name='name', example='ddd'),
-  // 序列号是否连续。默认为 false
-  isSerial?: boolean(name='is_serial', example='true, false'),
-}
-
-// <String, Boolean> 映射
-model MapStringToBooleanEntity {
-  // key
-  key: string(name='key', example='key'),
-  // value
-  value: boolean(name='value', example='true, false'),
-}
-
-// IAM用户信息
-model UserDTO {
-  // 用户ID
-  id?: string(name='id', example='123'),
-  // 创建时间
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
-  // 最近修改时间
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
-  // 客户ID
-  customerId?: string(name='customer_id', example='123'),
-  // 用户类型
-  type?: string(name='type', example='test'),
-  // 用户显示名称
-  realName?: string(name='real_name', example='tester'),
-  // 用户名
-  name?: string(name='name', example='tester'),
-}
-
-// rmc 交换机详细信息
-model VSwitchVO {
-  // 交换机的iaas ID
-  iaasId?: string(name='iaas_id', example='vsw-25bcdxs7pv1****'),
-  // 交换机名称
-  name?: string(name='name', example='vswitchName'),
-  // 交换机描述信息
-  description?: string(name='description', example='description'),
-  // 交换机的状态，取值： Pending：配置中。 Available：可用。
-  status?: string(name='status', example='Available'),
-  // vpc id
-  vpcId?: string(name='vpc_id', example='0000000001'),
-  // workspace id
-  workspaceId?: string(name='workspace_id', example='0002321004'),
-  // zone id
-  zoneId?: string(name='zone_id', example='0435324900'),
-  // zone iaas id
-  zoneIaasId?: string(name='zone_iaas_id', example='cn-hangzhou-d'),
+  name?: string(name='name', example='prod'),
+  // 网络类型
+  networkType?: string(name='network_type', example='VPC'),
+  // 租户
+  tenant?: string(name='tenant', example='XDOE'),
+  // 可用区 id
+  zoneIds?: string(name='zone_ids', example='["12345"]'),
   // region id
-  regionId?: string(name='region_id', example='0000000001'),
-  // 换机的IPv4网段
-  cidrBlock?: string(name='cidr_block', example='172.16.0.0/24'),
-  // 交换机创建时间
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
-  // 可用ip数目
-  availableIpAddressCount?: long(name='available_ip_address_count', example=''),
-}
-
-// LoadBalancerRule
-model LoadBalancerRule {
-  // load_balancer
-  loadBalancer?: LoadBalancer(name='load_balancer', example=''),
-  // name
-  name: string(name='name', example='name'),
-  // id
-  id?: string(name='id', example='id'),
-  // listener_port
-  listenerPort?: long(name='listener_port', example='listener_port'),
-  // status
-  status?: string(name='status', example='status'),
-  // domain
-  domain?: string(name='domain', example='domain'),
-  // url
-  url: string(name='url', example='url'),
-  // cookie
-  cookie?: string(name='cookie', example='cookie'),
-  // is_health_monitor
-  isHealthMonitor?: string(name='is_health_monitor', example='is_health_monitor'),
-  // health_monitor
-  healthMonitor?: ListenerHealthMonitor(name='health_monitor', example=''),
-  // sticky_session
-  stickySession?: string(name='sticky_session', example='sticky_session'),
-  // app_id
-  appId?: string(name='app_id', example='app_id'),
-  // workspace_id
-  workspaceId?: string(name='workspace_id', example='workspace_id'),
-}
-
-// LB的vip类型
-model VipType {
-  // name
-  name: string(name='name', example='name'),
-  // vip_address_type
-  vipAddressType: string(name='vip_address_type', example='vip_address_type'),
-  // vip_type
-  vipType: string(name='vip_type', example='vip_type'),
-}
-
-// DatabaseSpec
-model DatabaseSpec {
-  // cpu
-  cpu?: long(name='cpu', example=''),
-  // custom_storage
-  customStorage?: boolean(name='custom_storage', example='true, false'),
-  // engine
-  engine?: string(name='engine', example='engine'),
-  // engine_version
-  engineVersion?: [ string ](name='engine_version', example=''),
-  // iaas_id
-  iaasId?: string(name='iaas_id', example='iaas_id'),
-  // id
-  id?: string(name='id', example='id'),
-  // max_connections
-  maxConnections?: long(name='max_connections', example=''),
-  // max_iops
-  maxIops?: long(name='max_iops', example=''),
-  // max_storage
-  maxStorage?: long(name='max_storage', example=''),
-  // memory
-  memory?: long(name='memory', example='memory'),
-  // min_storage
-  minStorage?: long(name='min_storage', example='min_storage'),
-  // name
-  name?: string(name='name', example='name'),
-  // supported_storages
-  supportedStorages?: [ long ](name='supported_storages', example=''),
-  // type
-  type?: string(name='type', example='type'),
+  regionId?: string(name='region_id', example='123456'),
 }
 
 // getfinaltask专用数据解雇，包含resource的详细信息
@@ -1964,242 +1706,6 @@ model TaskVO {
   workspaceId: string(name='workspace_id', example='workspace_id'),
   // resource
   resource: Resource(name='resource', example=''),
-}
-
-// 任务日志
-model ResourceLog {
-  // host
-  host?: string(name='host', example='host'),
-  // log_time
-  logTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='log_time', example='2018-10-10T10:10:00Z'),
-  // message
-  message: string(name='message', example='message'),
-  // resource_id
-  resourceId?: string(name='resource_id', example='resource_id'),
-  // resource_type
-  resourceType?: string(name='resource_type', example='resource_type'),
-  // severity
-  severity?: string(name='severity', example='severity'),
-  // source
-  source?: string(name='source', example='source'),
-  // task_id
-  taskId: string(name='task_id', example='task_id'),
-  // task_times
-  taskTimes: long(name='task_times', example='task_times'),
-  // type
-  type?: string(name='type', example='type'),
-  // iaas_error_info
-  iaasErrorInfo?: IaasErrorInfo(name='iaas_error_info', example=''),
-  // iaas_request
-  iaasRequest?: IaasRequest(name='iaas_request', example=''),
-  // iaas_response
-  iaasResponse?: IaasResponse(name='iaas_response', example=''),
-}
-
-// 地域信息
-model Region {
-  // description
-  description?: string(name='description', example='shanghai'),
-  // identity
-  identity: string(name='identity', example='cn-shanghai'),
-  // instanceStatus: AVAILABLE  UNAVAILABLE  RETIRED  DELETED
-  instancestatus: string(name='instancestatus', example='AVAILABLE'),
-  // name
-  name: string(name='name', example='shanghai'),
-  // properties
-  properties?: [ Property ](name='properties', example=''),
-}
-
-// 一次异步请求
-model RequestVO {
-  // context
-  context?: string(name='context', example='context'),
-  // id
-  id: string(name='id', example='id'),
-  // operator
-  operator?: string(name='operator', example='operator'),
-  // operator_name
-  operatorName: string(name='operator_name', example='operator_name'),
-  // operator_type
-  operatorType?: string(name='operator_type', example='operator_type'),
-  // status
-  status?: string(name='status', example='status'),
-  // token
-  token?: string(name='token', example='token'),
-  // type
-  type?: string(name='type', example='type'),
-  // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
-  // utc_modified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
-  // tasks
-  tasks?: [ Task ](name='tasks', example=''),
-}
-
-// staragent info
-model StarAgentInfo {
-  // computer serial number
-  sn?: string(name='sn', example='12345678'),
-  // hostname
-  hostname?: string(name='hostname', example='hostname'),
-  // ip
-  ip?: string(name='ip', example='10.167.32.9'),
-  // ip list
-  ipList?: string(name='ip_list', example='iplist'),
-  // 状态取值：RUNNING，ERROR，REGISTER，NOFIND
-  status?: string(name='status', example='RUNNING'),
-}
-
-// map <String,integer>
-model MapStringToIntegerEntity {
-  // key
-  key: string(name='key', example='key'),
-  // value
-  value: long(name='value', example=''),
-}
-
-// BasicCertificate
-model BasicCertificate {
-  // serverCertificateId
-  serverCertificateId: string(name='server_certificate_id', example='serverCertificateId'),
-  // serverCertificateName
-  serverCertificateName: string(name='server_certificate_name', example='serverCertificateName'),
-  // fingerprint
-  fingerprint?: string(name='fingerprint', example='fingerprint'),
-  // cert_type
-  certType: long(name='cert_type', example=''),
-}
-
-// Connection
-model Connection {
-  // access_key
-  accessKey?: string(name='access_key', example='access_key'),
-  // access_secret
-  accessSecret?: string(name='access_secret', example='access_secret'),
-  // created_time
-  createdTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='created_time', example='2018-10-10T10:10:00Z'),
-  // executor
-  executor?: string(name='executor', example='executor'),
-  // id
-  id?: long(name='id', example='id'),
-  // identity
-  identity?: string(name='identity', example='identity'),
-  // 修改时间
-  modifiedTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='modified_time', example='2018-10-10T10:10:00Z'),
-  // name
-  name?: string(name='name', example='name'),
-  // plug
-  plug?: ConnectionStub(name='plug', example=''),
-  // socket
-  socket?: ConnectionStub(name='socket', example=''),
-  // status
-  status?: string(name='status', example='NORMAL'),
-  // tenant_id
-  tenantId?: string(name='tenant_id', example='tenant_id'),
-}
-
-// ComputerImportVO
-model ComputerImportVO {
-  // computer iaaas id
-  iaasId?: string(name='iaas_id', example='i-464864321sagfasd***'),
-  // name
-  name?: string(name='name', example='name'),
-  // zone identity
-  zoneIaasId?: string(name='zone_iaas_id', example='hangzhou-a'),
-  // zone name
-  zoneName?: string(name='zone_name', example='hangzhou-a'),
-  // description
-  description?: string(name='description', example='description'),
-  // private ip
-  privateIp?: string(name='private_ip', example='10.167.5.194'),
-  // public ip
-  publicIp?: string(name='public_ip', example='10.167.5.194'),
-  // elasticIp
-  elasticIp?: string(name='elastic_ip', example='10.167.5.194'),
-  // vpcIaasId
-  vpcIaasId?: string(name='vpc_iaas_id', example='vpc24sfs4fs354fs***'),
-  // joined security group infos
-  joinedSecurityGroup?: [ JoinedSecurityGroupVO ](name='joined_security_group', example=''),
-  // creation time
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
-  // import info
-  importInfo?: ImportVO(name='import_info', example=''),
-}
-
-// computer quota
-model ComputerQuota {
-  // cpu shared
-  cpuShared?: long(name='cpu_shared', example=''),
-  // cpu
-  cpu?: long(name='cpu', example=''),
-  // memory
-  memory?: long(name='memory', example=''),
-  // disk
-  disk?: long(name='disk', example=''),
-}
-
-// 应用分组查询
-model AppDomainQuery {
-  // creatorId
-  creatorId?: string(name='creator_id', example='creatorId'),
-  // 是否为一方化请求
-  isOnePartyRequest?: boolean(name='is_one_party_request', example='true, false'),
-  // name
-  name?: string(name='name', example='name'),
-  // parentId
-  parentId?: string(name='parent_id', example='parentId'),
-  // tenantId
-  tenantId?: string(name='tenant_id', example='tenantId'),
-  // utcCreate
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='utcCreate'),
-  // 分页大小
-  pageSize?: long(name='page_size', example=''),
-  // query_type
-  queryType?: string(name='query_type', example='FUZZY, ACCURATE, START_WITH'),
-  // orders
-  orders?: [ string ](name='orders', example=''),
-  // 当前页数
-  currentPage?: long(name='current_page', example=''),
-}
-
-// disk spec
-model DiskSpec {
-  // id
-  id?: string(name='id', example='0000000001'),
-  // name
-  name?: string(name='name', example='name'),
-  // description
-  description?: string(name='description', example='description'),
-  // iaas id
-  iaasId?: string(name='iaas_id', example='0000000001'),
-  // providerId
-  providerId?: string(name='provider_id', example='0000000001'),
-  // iaasType
-  iaasType?: string(name='iaas_type', example='Aliyun'),
-  // enable
-  enable?: boolean(name='enable', example='true, false'),
-  // minSize
-  minSize?: long(name='min_size', example=''),
-  // maxSize
-  maxSize?: long(name='max_size', example=''),
-}
-
-// LoadBalancerImportVO
-model LoadBalancerImportVO {
-  // iaas_id
-  iaasId?: string(name='iaas_id', example='iaas_id'),
-  // name
-  name: string(name='name', example='name'),
-  // network_type
-  networkType?: string(name='network_type', example='network_type'),
-  // inner_ip_address
-  innerIpAddress?: [ string ](name='inner_ip_address', example=''),
-  // public_ip_address
-  publicIpAddress?: [ string ](name='public_ip_address', example=''),
-  // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
-  // import_info
-  importInfo: ImportVO(name='import_info', example=''),
 }
 
 // 应用查询
@@ -2256,88 +1762,54 @@ model AppQuery {
   queryType?: string(name='query_type', example='FUZZY, ACCURATE, START_WITH'),
 }
 
-// 安全组详细信息
-model SecurityGroup {
-  // 创建时间。按照ISO8601标准表示，并需要使用UTC时间。格式为：yyyy-MM-ddThh:mmZ。
-  creationTime: string(name='creation_time', example='2017-12-05T22:40:00Z'),
-  // 安全组的描述信息。
-  description?: string(name='description', example='描述信息'),
-  // region_id
-  regionId: string(name='region_id', example='region_id'),
-  // 安全组ID。
-  securityGroupId: string(name='security_group_id', example='sg-bp67acfmxazb4ph***'),
-  // 安全组名称。
-  securityGroupName: string(name='security_group_name', example='sgName'),
-  // 安全组所属的专有网络。
-  vpcId: string(name='vpc_id', example='vpc-bp67acfmxazb4ph***'),
-  // 安全组入方向规则
-  ingressRules?: [ SecurityGroupRule ](name='ingress_rules', example=''),
-  // 安全组出方向规则
-  egressRules?: [ SecurityGroupRule ](name='egress_rules', example=''),
-}
-
-// 一组具有依赖关系的 AppDomain，可以转换为一个树形结构
-model AppDomainFlatten {
-  // 一组具有依赖关系的 AppDomain
-  appDomains?: [ AppDomain ](name='app_domains', example=''),
-}
-
-// computer common image
-model CommonImage {
-  // description
-  description?: string(name='description', example='description'),
-  // is enable
-  enable?: boolean(name='enable', example='true, false'),
-  // iaas id
-  iaasId?: string(name='iaas_id', example='m-zm0e1v58t0rxikjh58***'),
-  // iaas type
-  iaasType?: string(name='iaas_type', example='Aliyun'),
-  // id
-  id?: string(name='id', example='0100310001'),
-  // 是否仅杭州金区 vpc 可用镜像
-  onlyHzFinVpcSupported?: boolean(name='only_hz_fin_vpc_supported', example='true, false'),
+// 应用分级查询
+model AppLevelQuery {
+  // appCountInclude
+  appCountInclude?: boolean(name='app_count_include', example='true, false'),
+  // creator_id
+  creatorId?: string(name='creator_id', example='creator_id'),
+  // is_one_party_request
+  isOnePartyRequest?: boolean(name='is_one_party_request', example='true, false'),
   // name
   name?: string(name='name', example='name'),
-  // os
-  os?: string(name='os', example='centos'),
-  // os bit取值：32，64
-  osBit?: long(name='os_bit', example='64'),
-  // os version
-  osVersion?: string(name='os_version', example='7.2'),
-  // provider id
-  providerId?: string(name='provider_id', example='0000000001'),
-  // region id
-  regionId?: string(name='region_id', example='0000000001'),
-  // status
-  status?: string(name='status', example='AVAILABLE'),
-  // system disk size(GB)
-  systemDiskSize?: long(name='system_disk_size', example='100'),
+  // tenant_id
+  tenantId?: string(name='tenant_id', example='tenant_id'),
+  // utc_create
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='utc_create'),
+  // 当前页数
+  currentPage?: long(name='current_page', example=''),
+  // orders
+  orders?: [ string ](name='orders', example=''),
+  // 分页大小
+  pageSize?: long(name='page_size', example=''),
+  // query_type
+  queryType?: string(name='query_type', example='FUZZY, ACCURATE, START_WITH'),
 }
 
-// PermissionVO
-model PermissionVO {
-  // authorizedCidrIp
-  authorizedCidrIp?: string(name='authorized_cidr_ip', example='0.0.0.0'),
-  // authorize_type
-  authorizeType?: string(name='authorize_type', example='CIDR_IP'),
-  // direction
-  direction?: string(name='direction', example='in'),
-  // endPort
-  endPort?: long(name='end_port', example='-1'),
-  // ipProtocol
-  ipProtocol?: string(name='ip_protocol', example='ALL'),
-  // nicType
-  nicType?: string(name='nic_type', example='INTRANET'),
-  // policy
-  policy?: string(name='policy', example='ACCEPT'),
-  // priority
-  priority?: long(name='priority', example=''),
-  // securityGroupId
-  securityGroupId?: string(name='security_group_id', example='0304856523'),
-  // startPort
-  startPort?: long(name='start_port', example='-1'),
-  // id
-  id: string(name='id', example='asfd8suf998sdf8sf9sd8 '),
+// ComputerType
+model ComputerType {
+  // cpu core count
+  cpuCoreCount?: long(name='cpu_core_count', example='4'),
+  // instance type id
+  id: string(name='id', example='ecs.d1ne.xlarge'),
+  // 实例规格族
+  instanceTypeFamily?: string(name='instance_type_family', example='ecs.ic5'),
+  // memory size
+  memorySize?: long(name='memory_size', example='4.0'),
+  // 实例状态，可能值： Available：资源充足 Sold...
+  status: string(name='status', example='Available'),
+}
+
+// computer 数据盘
+model DataDisk {
+  // 磁盘大小
+  size: long(name='size', example=''),
+  // 若使用磁盘创建，需填写此字段
+  snapshotSequence?: string(name='snapshot_sequence', example='123456'),
+  // 磁盘规格
+  specId: string(name='spec_id', example='cloud_efficiency'),
+  // 数据盘设备
+  device: string(name='device', example='/dev/xvdb'),
 }
 
 // LB后端健康状态
@@ -2346,6 +1818,50 @@ model LoadBalanceHealthStatus {
   serverId: string(name='server_id', example='server_id'),
   // status
   status: string(name='status', example='status'),
+}
+
+// DnsRecordParam
+model DnsRecordParam {
+  // workspace_id
+  workspaceId: string(name='workspace_id', example='workspace_id'),
+  // value
+  value: string(name='value', example='value'),
+  // ttl
+  ttl: long(name='ttl', example='60'),
+  // regionId
+  regionId: string(name='region_id', example='regionId'),
+  // zoneId
+  zoneId?: string(name='zone_id', example='zoneId'),
+  // description
+  description?: string(name='description', example='description'),
+  // resource_type
+  resourceType: string(name='resource_type', example='COMPUTER'),
+}
+
+// 机房信息
+model Zone {
+  // name
+  name: string(name='name', example='name'),
+  // identity
+  identity: string(name='identity', example='identity'),
+  // description
+  description?: string(name='description', example='description'),
+  // instanceStatus: AVAILABLE  UNAVAILABLE  RETIRED  DELETED
+  instancestatus: string(name='instancestatus', example='AVAILABLE'),
+  // region name
+  region: string(name='region', example='shanghai'),
+  // properties
+  properties: [ Property ](name='properties', example='properties'),
+}
+
+// 数据库Grant
+model Grant {
+  // account
+  account: DatabaseAccount(name='account', example=''),
+  // privilege
+  privilege: string(name='privilege', example='privilege'),
+  // schema
+  schema: DbSchema(name='schema', example=''),
 }
 
 // 旧版应用管理-发布包上传策略
@@ -2366,277 +1882,80 @@ model PackageUploadPolicy {
   bucket?: string(name='bucket', example='bucket'),
 }
 
-// 服务器规格
-model ComputerSpec {
-  // cpu个数
-  cpu?: long(name='cpu', example='1'),
-  // 可以挂载的磁盘类型
-  diskSpecIds?: [ string ](name='disk_spec_ids', example=''),
-  // 服务器规格名称
-  group: string(name='group', example='group'),
-  // 是否有IO优化
-  ioOptimized?: boolean(name='io_optimized', example='true, false'),
-  // 内存大小
-  memory?: long(name='memory', example='12'),
-  // description
-  description?: string(name='description', example='description'),
-  // enable
-  enable?: boolean(name='enable', example='true, false'),
-  // iaasId
-  iaasId?: string(name='iaas_id', example='iaasId'),
-  // COMPUTER_ECS
-  iaasType?: string(name='iaas_type', example='COMPUTER_ECS'),
+// TenantWorkspace
+model TenantWorkspace {
+  // displayName
+  displayName: string(name='display_name', example='test'),
+  // gmtCreate
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // gmtModified
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
   // id
-  id?: string(name='id', example='0000000001'),
+  id: string(name='id', example='001'),
   // name
-  name?: string(name='name', example='name'),
-  // providerId
-  providerId?: string(name='provider_id', example='0000000001'),
-}
-
-// ComputerParam
-model ComputerParam {
-  // description
-  description?: string(name='description', example='description'),
-  // name
-  name?: string(name='name', example='name'),
-  // image_id
-  imageId?: string(name='image_id', example='image_id'),
-  // instance_type
-  instanceType?: string(name='instance_type', example='instance_type'),
-  // region_id
-  regionId?: string(name='region_id', example='region_id'),
-  // security_group_id
-  securityGroupId?: string(name='security_group_id', example='security_group_id'),
-  // instance_name
-  instanceName?: string(name='instance_name', example='instance_name'),
-  // zone_id
-  zoneId?: string(name='zone_id', example='zone_id'),
-}
-
-// LB后端挂载的主机
-model MountComputer {
-  // computer
-  computer?: Computer(name='computer', example=''),
-  // domain
-  domain?: string(name='domain', example='domain'),
-  // loadbalancer
-  loadbalancer?: LoadBalancer(name='loadbalancer', example=''),
+  name: string(name='name', example='test'),
+  // networkType
+  networkType: string(name='network_type', example='vpc'),
   // status
-  status?: string(name='status', example='status'),
-  // weight
-  weight: long(name='weight', example='weight'),
-}
-
-// LB查询对应的VComputer
-model VComputer {
-  // v_computer_group
-  vComputerGroup?: VComputerGroup(name='v_computer_group', example=''),
-  // ip
-  ip?: string(name='ip', example='ip'),
-  // computer
-  computer?: Computer(name='computer', example=''),
-  // port
-  port?: long(name='port', example=''),
-  // weight
-  weight?: long(name='weight', example='weight'),
-}
-
-// 专有网络
-model VPC {
-  // VPC的IPv4网段
-  cidrBlock: string(name='cidr_block', example='10.0.0.0/24'),
-  // VPC的创建时间
-  creationTime: string(name='creation_time', example='2018-04-18T15:02:37Z'),
-  // VPC的描述信息
-  description?: string(name='description', example='This is my VPC'),
-  // VPC所在的地域
-  regionId: string(name='region_id', example='cn-hangzhou'),
-  // 路由表ID
-  routerTableIds: [ string ](name='router_table_ids', example='[vtb-bp1krxxzp0c29fmon****]'),
-  // VPC的状态，取值：
-  // 
-  // Pending：配置中。
-  // Available：可用。
-  status: string(name='status', example='Available'),
-  // 用户侧网段的列表
-  userCidrs?: string(name='user_cidrs', example='10.0.0.0/8'),
-  // VPC的id
-  vpcId: string(name='vpc_id', example='vpc-bp1qpo0kug3a20qqe****'),
-  // VPC的名称
-  vpcName: string(name='vpc_name', example='vpc1'),
-  // VPC路由器的ID
-  vRouterId: string(name='v_router_id', example='vrt-bp1jcg5cmxjbl9xgc****'),
-  // 关联的workspace id
-  workspaceId?: string(name='workspace_id', example='0000000001'),
-  // vpc是否已导入workspace
-  importInfo?: ImportInfo(name='import_info', example=''),
-}
-
-// 工作空间
-model Workspace {
-  // id
-  id?: string(name='id', example='12345'),
-  // 名称
-  name?: string(name='name', example='prod'),
-  // 网络类型
-  networkType?: string(name='network_type', example='VPC'),
-  // 租户
-  tenant?: string(name='tenant', example='XDOE'),
-  // 可用区 id
-  zoneIds?: string(name='zone_ids', example='["12345"]'),
-  // region id
-  regionId?: string(name='region_id', example='123456'),
-}
-
-// SecurityGroupParam
-model SecurityGroupParam {
-  // description
-  description?: string(name='description', example='description'),
-  // region id
-  regionId?: string(name='region_id', example='region id'),
-  // security_group_name
-  securityGroupName?: string(name='security_group_name', example='security_group_name'),
-  // vpc_id
-  vpcId?: string(name='vpc_id', example='vpc_id'),
-}
-
-// 用户查询
-model UserQuery {
-  // 基础查询
-  baseQuery?: PaginationQuery(name='base_query', example=''),
-  // id
-  id?: string(name='id', example='id'),
-  // customerId
-  customerId?: string(name='customer_id', example='customerId'),
+  status: string(name='status', example='CREATED'),
   // tenantId
-  tenantId?: string(name='tenant_id', example='tenantId'),
+  tenantId: string(name='tenant_id', example='001'),
   // type
-  type?: string(name='type', example='type'),
-  // types
-  types?: [ string ](name='types', example=''),
-  // email
-  email?: string(name='email', example='email'),
-  // mobile
-  mobile?: string(name='mobile', example='mobile'),
-  // realName
-  realName?: string(name='real_name', example='realName'),
-  // loginName
-  loginName?: string(name='login_name', example='loginName'),
+  type: string(name='type', example='NORMAL'),
+  // workspaceDcs
+  workspaceDcs: [ WorkspaceDc ](name='workspace_dcs', example=''),
+  // workspaceRegions
+  workspaceRegions: [ WorkspaceRegion ](name='workspace_regions', example=''),
 }
 
-// DatabaseImportVO
-model DatabaseImportVO {
-  // iaas_id
-  iaasId?: string(name='iaas_id', example='iaas_id'),
+// 应用分组视图
+model AppDomainView {
+  // ownerName
+  ownerName?: string(name='owner_name', example='ownerName'),
+  // fatherDomainName
+  fatherDomainName?: string(name='father_domain_name', example='fatherDomainName'),
+  // 应用列表
+  apps?: [ AppView ](name='apps', example=''),
+  // AppDomainView 的父类 AppDomain
+  baseAppDomain?: [ AppDomain ](name='base_app_domain', example=''),
+}
+
+// computer quota
+model ComputerQuota {
+  // cpu shared
+  cpuShared?: long(name='cpu_shared', example=''),
+  // cpu
+  cpu?: long(name='cpu', example=''),
+  // memory
+  memory?: long(name='memory', example=''),
+  // disk
+  disk?: long(name='disk', example=''),
+}
+
+// RegionDto
+model RegionDto {
+  // availableNetworkTypes
+  availableNetworkTypes: [ string ](name='available_network_types', example=''),
   // description
-  description?: string(name='description', example='description'),
-  // type
-  type?: string(name='type', example='type'),
-  // status
-  status?: string(name='status', example='status'),
-  // engine
-  engine?: string(name='engine', example='engine'),
-  // net_type
-  netType?: string(name='net_type', example='net_type'),
-  // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
-  // importInfo
-  importInfo: ImportVO(name='import_info', example=''),
-}
-
-// 应用等级视图
-model AppLevelView {
-  // 应用等级基类
-  baseAppLevel?: AppLevel(name='base_app_level', example=''),
-  // 应用数量
-  appCount?: long(name='app_count', example=''),
-  // 创建者名称
-  creatorName?: string(name='creator_name', example='创建者名称'),
-}
-
-// 阿里云日志服务(SLS)-日志项目
-model SLSProject {
-  // 项目描述
-  description?: string(name='description', example='项目描述'),
-  // 项目名称
-  name: string(name='name', example='k8s-log-custom-pbyyzncn-aks1128test-test'),
-}
-
-// Staragent Operation Task info
-model OperationTask {
+  description: string(name='description', example='description'),
+  // displayName
+  displayName: string(name='display_name', example='shanghai'),
+  // iaasProviderId
+  iaasProviderId: string(name='iaas_provider_id', example='001'),
   // id
-  id?: string(name='id', example='00001'),
-  // computer id
-  computerId?: string(name='computer_id', example='00001'),
-  // computer ip
-  computerIp?: string(name='computer_ip', example='11.167.13.98'),
-  // command
-  command?: string(name='command', example='ls'),
-  // 状态取值：INIT，PROCESSING，SUCCEEDED，FAILED，TIMEOUT，NOT_FOUND
-  status?: string(name='status', example='INIT'),
-  // errorCode
-  errorCode?: string(name='error_code', example='errorCode'),
-  // resultMsg
-  resultMsg?: string(name='result_msg', example='resultMsg'),
-}
-
-// 应用服务查询
-model AppServiceQuery {
-  // 根据 id 查询
-  id?: string(name='id', example='id'),
-  // workspaceId
-  workspaceId?: string(name='workspace_id', example='workspaceId'),
-  // appId
-  appId?: string(name='app_id', example='appId'),
-  // name
-  name?: string(name='name', example='name'),
-  // deployStatus
-  deployStatus?: string(name='deploy_status', example='deployStatus'),
-  // ownerId
-  ownerId?: string(name='owner_id', example='ownerId'),
-  // workspaceIds
-  workspaceIds?: [ string ](name='workspace_ids', example=''),
-  // appIds
-  appIds?: [ string ](name='app_ids', example=''),
-  // 是否为一方化查询请求
-  isOnePartyRequest?: boolean(name='is_one_party_request', example='true, false'),
-  // startIndex
-  startIndex?: long(name='start_index', example=''),
-  // pageSize
-  pageSize?: long(name='page_size', example=''),
-  // currentPage
-  currentPage?: long(name='current_page', example=''),
-  // orders
-  orders?: [ string ](name='orders', example=''),
-  // 查询类型
-  queryType?: string(name='query_type', example='FUZZY,  ACCURATE, START_WITH'),
-  // Map<String, String>
-  conditions?: string(name='conditions', example='"{}"'),
-}
-
-// 云服务器规格族
-model ComputerTypeFamily {
-  // computer type family id
-  id: string(name='id', example='ecs.g6'),
-  // 实例规格族所属代数。
-  generation: string(name='generation', example='ecs-5'),
-}
-
-// DatabaseSecurityIp
-model DatabaseSecurityIp {
-  // id
-  id: string(name='id', example='id'),
-  // resource_id
-  resourceId?: string(name='resource_id', example='resource_id'),
-  // resource_type
-  resourceType?: string(name='resource_type', example='resource_type'),
-  // ip
-  ip?: string(name='ip', example='ip'),
-  // status
-  status?: string(name='status', example='status'),
-  // type
-  type?: string(name='type', example='type'),
+  id: string(name='id', example='001'),
+  // identity
+  identity: string(name='identity', example='shanghai'),
+  // networkType
+  networkType: string(name='network_type', example='vpc'),
+  // state
+  state: string(name='state', example='state'),
+  // utcCreate
+  utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // utcModified
+  utcModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  // zoneDtos
+  zoneDtos: [ ZoneDto ](name='zone_dtos', example=''),
 }
 
 // WorkspaceDto
@@ -2685,292 +2004,211 @@ model RegionWorkspaceVO {
   workspaces: [ WorkspaceWithGroupView ](name='workspaces', example=''),
 }
 
-// 数据库Grant
-model Grant {
-  // account
-  account: DatabaseAccount(name='account', example=''),
-  // privilege
-  privilege: string(name='privilege', example='privilege'),
-  // schema
-  schema: DbSchema(name='schema', example=''),
+// 任务日志
+model ResourceLog {
+  // host
+  host?: string(name='host', example='host'),
+  // log_time
+  logTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='log_time', example='2018-10-10T10:10:00Z'),
+  // message
+  message: string(name='message', example='message'),
+  // resource_id
+  resourceId?: string(name='resource_id', example='resource_id'),
+  // resource_type
+  resourceType?: string(name='resource_type', example='resource_type'),
+  // severity
+  severity?: string(name='severity', example='severity'),
+  // source
+  source?: string(name='source', example='source'),
+  // task_id
+  taskId: string(name='task_id', example='task_id'),
+  // task_times
+  taskTimes: long(name='task_times', example='task_times'),
+  // type
+  type?: string(name='type', example='type'),
+  // iaas_error_info
+  iaasErrorInfo?: IaasErrorInfo(name='iaas_error_info', example=''),
+  // iaas_request
+  iaasRequest?: IaasRequest(name='iaas_request', example=''),
+  // iaas_response
+  iaasResponse?: IaasResponse(name='iaas_response', example=''),
 }
 
-// DatabaseEngine
-model DatabaseEngine {
-  // iaas_type
-  iaasType?: string(name='iaas_type', example='iaas_type'),
-  // engine
-  engine?: string(name='engine', example='engine'),
-  // engine_versions
-  engineVersions?: [ string ](name='engine_versions', example=''),
+// 专有网络
+model VPC {
+  // VPC的IPv4网段
+  cidrBlock: string(name='cidr_block', example='10.0.0.0/24'),
+  // VPC的创建时间
+  creationTime: string(name='creation_time', example='2018-04-18T15:02:37Z'),
+  // VPC的描述信息
+  description?: string(name='description', example='This is my VPC'),
+  // VPC所在的地域
+  regionId: string(name='region_id', example='cn-hangzhou'),
+  // 路由表ID
+  routerTableIds: [ string ](name='router_table_ids', example='[vtb-bp1krxxzp0c29fmon****]'),
+  // VPC的状态，取值：
+  // 
+  // Pending：配置中。
+  // Available：可用。
+  status: string(name='status', example='Available'),
+  // 用户侧网段的列表
+  userCidrs?: string(name='user_cidrs', example='10.0.0.0/8'),
+  // VPC的id
+  vpcId: string(name='vpc_id', example='vpc-bp1qpo0kug3a20qqe****'),
+  // VPC的名称
+  vpcName: string(name='vpc_name', example='vpc1'),
+  // VPC路由器的ID
+  vRouterId: string(name='v_router_id', example='vrt-bp1jcg5cmxjbl9xgc****'),
+  // 关联的workspace id
+  workspaceId?: string(name='workspace_id', example='0000000001'),
+  // vpc是否已导入workspace
+  importInfo?: ImportInfo(name='import_info', example=''),
+  // vpc在CAFE测的唯一ID
+  vpcPaasId?: string(name='vpc_paas_id', example='0000000001'),
 }
 
-// CellGroup
-model CellGroup {
-  // identity
-  identity: string(name='identity', example='identity'),
-  // name
-  name: string(name='name', example='name'),
-  // description
-  description?: string(name='description', example='description'),
-  // properties
-  properties?: [ Property ](name='properties', example='properties'),
-  // instancestatus
-  instancestatus: string(name='instancestatus', example='instancestatus'),
-}
-
-// VSwitchParam
-model VSwitchParam {
+// VpcParam
+model VPCParam {
   // cidr_block
   cidrBlock?: string(name='cidr_block', example='cidr_block'),
   // description
   description?: string(name='description', example='description'),
-  // region_id
-  regionId?: string(name='region_id', example='region_id'),
-  // vpc_id
-  vpcId?: string(name='vpc_id', example='vpc_id'),
-  // vswitch_name
-  vswitchName?: string(name='vswitch_name', example='vswitch_name'),
-  // zone_id
-  zoneId?: string(name='zone_id', example='zone_id'),
+  // region id
+  regionId?: string(name='region_id', example='region id'),
+  // vpc_name
+  vpcName?: string(name='vpc_name', example='vpc_name'),
 }
 
-// 应用分级查询
-model AppLevelQuery {
-  // appCountInclude
-  appCountInclude?: boolean(name='app_count_include', example='true, false'),
-  // creator_id
-  creatorId?: string(name='creator_id', example='creator_id'),
-  // is_one_party_request
-  isOnePartyRequest?: boolean(name='is_one_party_request', example='true, false'),
-  // name
-  name?: string(name='name', example='name'),
-  // tenant_id
-  tenantId?: string(name='tenant_id', example='tenant_id'),
-  // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='utc_create'),
-  // 当前页数
-  currentPage?: long(name='current_page', example=''),
-  // orders
-  orders?: [ string ](name='orders', example=''),
-  // 分页大小
-  pageSize?: long(name='page_size', example=''),
-  // query_type
-  queryType?: string(name='query_type', example='FUZZY, ACCURATE, START_WITH'),
-}
-
-// 阿里云日志服务(SLS) - 日志结果数组
-model SLSLogItem {
-  // 日志的时间戳（精度为秒，从 1970-1-1 00:00:00 UTC 计算起的秒数）。
-  logTime: long(name='log_time', example='1409529660'),
-  // 日志的来源，写入日志时指定。
-  source: string(name='source', example='10.237.0.17'),
-  // 日志原始内容
-  contents: [ SLSLogContent ](name='contents', example=''),
-}
-
-// ComputerType
-model ComputerType {
-  // cpu core count
-  cpuCoreCount?: long(name='cpu_core_count', example='4'),
-  // instance type id
-  id: string(name='id', example='ecs.d1ne.xlarge'),
-  // 实例规格族
-  instanceTypeFamily?: string(name='instance_type_family', example='ecs.ic5'),
-  // memory size
-  memorySize?: long(name='memory_size', example='4.0'),
-  // 实例状态，可能值： Available：资源充足 Sold...
-  status: string(name='status', example='Available'),
-}
-
-// 路由表信息
-model RouteTable {
-  // 路由表的创建时间。
-  creationTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='creation_time', example='2018-10-10T10:10:00Z'),
-  // 路由表所属的路由器类型，取值：
-  // 
-  // VRouter：VPC路由器。
-  // VBR：边界路由器。
-  routerType?: string(name='router_type', example='VRouter'),
-  // 	
-  // 路由条目的详细信息。
-  entryVOs?: [ VRouteEntry ](name='entry_v_os', example=''),
-  // 要查询的路由表的ID。
-  routeTableId?: string(name='route_table_id', example='rtb-bp12mw1f8k3jgygk9****'),
-  // 要查询的路由表所属的VPC路由器的ID。
-  vRouterId?: string(name='v_router_id', example='vtb-bp1krxxzp0c29fmon****'),
-}
-
-// 交换机详细信息
-model VSwitch {
-  // 交换机的IPv4网段
-  cidrBlock?: string(name='cidr_block', example='172.16.0.0/24'),
-  // 交换机的创建时间
-  creationTime?: string(name='creation_time', example='2018-01-18T12:43:57Z'),
-  // 交换机的描述信息
-  description?: string(name='description', example='VSwitchDescription'),
-  // cn-hangzhou
-  regionId?: string(name='region_id', example='cn-hangzhou'),
-  // 交换机的状态，取值：
-  // 
-  // Pending：配置中。
-  // Available：可用。
-  status?: string(name='status', example='Available'),
-  // 交换机所属VPC的ID
-  vpcId?: string(name='vpc_id', example='vpc-257gcdcdq64****'),
-  // 交换机的ID
-  vSwitchId?: string(name='v_switch_id', example='vsw-25bcdxs7pv1****'),
-  // 交换机的名称
-  vSwitchName?: string(name='v_switch_name', example='VSwitch-1'),
-  // 交换机所属的可用区
-  zoneId?: string(name='zone_id', example='cn-hangzhou-d '),
-  // zone iaas id
-  zoneIaasId?: string(name='zone_iaas_id', example='hangzhou-a'),
-}
-
-// 一个应用发布包视图
-model AppPackageListView {
-  // app_id
-  appId?: string(name='app_id', example='app_id'),
-  // app_name
-  appName?: string(name='app_name', example='app_name'),
-  // app_owner_id
-  appOwnerId?: string(name='app_owner_id', example='app_owner_id'),
-  // app_owner_name
-  appOwnerName?: string(name='app_owner_name', example='app_owner_name'),
-  // app_status
-  appStatus?: string(name='app_status', example='app_status'),
-  // buildpack_id
-  buildpackId?: string(name='buildpack_id', example='buildpack_id'),
-  // buildpack_name
-  buildpackName?: string(name='buildpack_name', example='buildpack_name'),
-  // buildpack_version
-  buildpackVersion?: string(name='buildpack_version', example='buildpack_version'),
-  // latest_package
-  latestPackage?: AppManifest(name='latest_package', example=''),
-  // package_count
-  packageCount?: long(name='package_count', example=''),
-}
-
-// LbCluster
-model LbCluster {
-  // container_cpu
-  containerCpu?: long(name='container_cpu', example='1'),
-  // container_cpu_exclusive
-  containerCpuExclusive?: boolean(name='container_cpu_exclusive', example=''),
-  // container_device_type
-  containerDeviceType?: string(name='container_device_type', example='container_device_type'),
-  // container_disk
-  containerDisk?: long(name='container_disk', example='1'),
-  // container_mem
-  containerMem?: long(name='container_mem', example='1'),
+// lb 监听器
+model Listener {
+  // 后端服务器端口
+  backendServerPort: long(name='backend_server_port', example=''),
+  // 带宽
+  bandwidth?: long(name='bandwidth', example=''),
+  // certificate_iaas_id
+  certificateIaasId?: string(name='certificate_iaas_id', example='certificate_iaas_id'),
+  // 证书 id
+  certificateId?: string(name='certificate_id', example='adsfadsfdas'),
+  // cookie
+  cookie?: string(name='cookie', example='xxx'),
+  // cookie 超时时间
+  cookieTimeout?: long(name='cookie_timeout', example=''),
+  // description
+  description?: string(name='description', example='description'),
+  // 连接超时时间
+  establishedTimeout?: long(name='established_timeout', example=''),
+  // gm_crypto_cert_iaas_id
+  gmCryptoCertIaasId?: string(name='gm_crypto_cert_iaas_id', example='gm_crypto_cert_iaas_id'),
+  // 健康检查
+  healthMonitor?: ListenerHealthMonitor(name='health_monitor', example=''),
+  // iaas_id
+  iaasId?: string(name='iaas_id', example='iaas_id'),
+  // iaasType
+  iaasType?: string(name='iaas_type', example='iaasType'),
   // id
-  id: string(name='id', example='id'),
-  // image
-  image: string(name='image', example='image'),
+  id?: string(name='id', example='id'),
+  // is_health_monitor
+  isHealthMonitor?: string(name='is_health_monitor', example='is_health_monitor'),
+  // 监听器端口
+  listenerPort: long(name='listener_port', example='443'),
+  // load_balancer
+  loadBalancer?: LoadBalancer(name='load_balancer', example=''),
   // name
   name: string(name='name', example='name'),
+  // 会话保持的超时时间
+  persistTimeout?: long(name='persist_timeout', example=''),
+  // 转发规则
+  scheduler?: string(name='scheduler', example='WRR'),
   // status
-  status: long(name='status', example='status'),
-  // unit_infos
-  unitInfos?: [ AcsClusterUnit ](name='unit_infos', example=''),
-  // unit_type
-  unitType?: long(name='unit_type', example='1'),
-  // used_ports
-  usedPorts?: [ long ](name='used_ports', example=''),
+  status: string(name='status', example='status'),
+  // sticky_session
+  stickySession?: string(name='sticky_session', example='sticky_session'),
+  // cookie 处理方式
+  stickySessionType?: string(name='sticky_session_type', example='SERVER'),
+  // 监听类型
+  type: string(name='type', example='HTTPS'),
+  // url_path
+  urlPath?: string(name='url_path', example='url_path'),
+  // x_forwarded_for
+  xForwardedFor?: string(name='x_forwarded_for', example='x_forwarded_for'),
 }
 
-// 动态查询
-model DynamicQuery {
-  // 分页规则-currentPage
-  currentPage?: long(name='current_page', example=''),
-  // 字段过滤
-  filter?: string(name='filter', example='字段过滤'),
-  // 分页规则-pageSize
-  pageSize?: long(name='page_size', example=''),
-  // 具体的查询条件字符串
-  query: string(name='query', example='具体的查询条件字符串'),
-  // 查询结果的排序规则
-  sort?: string(name='sort', example='查询结果的排序规则'),
+// LoadBalancerRule
+model LoadBalancerRule {
+  // load_balancer
+  loadBalancer?: LoadBalancer(name='load_balancer', example=''),
+  // name
+  name: string(name='name', example='name'),
+  // id
+  id?: string(name='id', example='id'),
+  // listener_port
+  listenerPort?: long(name='listener_port', example='listener_port'),
+  // status
+  status?: string(name='status', example='status'),
+  // domain
+  domain?: string(name='domain', example='domain'),
+  // url
+  url: string(name='url', example='url'),
+  // cookie
+  cookie?: string(name='cookie', example='cookie'),
+  // is_health_monitor
+  isHealthMonitor?: string(name='is_health_monitor', example='is_health_monitor'),
+  // health_monitor
+  healthMonitor?: ListenerHealthMonitor(name='health_monitor', example=''),
+  // sticky_session
+  stickySession?: string(name='sticky_session', example='sticky_session'),
+  // app_id
+  appId?: string(name='app_id', example='app_id'),
+  // workspace_id
+  workspaceId?: string(name='workspace_id', example='workspace_id'),
 }
 
-// RegionDto
-model RegionDto {
-  // availableNetworkTypes
-  availableNetworkTypes: [ string ](name='available_network_types', example=''),
+// 地域信息
+model Region {
+  // description
+  description?: string(name='description', example='shanghai'),
+  // identity
+  identity: string(name='identity', example='cn-shanghai'),
+  // instanceStatus: AVAILABLE  UNAVAILABLE  RETIRED  DELETED
+  instancestatus: string(name='instancestatus', example='AVAILABLE'),
+  // name
+  name: string(name='name', example='shanghai'),
+  // properties
+  properties?: [ Property ](name='properties', example=''),
+}
+
+// 云服务器规格族
+model ComputerTypeFamily {
+  // computer type family id
+  id: string(name='id', example='ecs.g6'),
+  // 实例规格族所属代数。
+  generation: string(name='generation', example='ecs-5'),
+}
+
+// 工作空间DNS Provider属性
+model WorkspaceDnsProvider {
+  // id
+  id: string(name='id', example='id'),
+  // workspace_id
+  workspaceId: string(name='workspace_id', example='workspace_id'),
+  // provider_id
+  providerId: string(name='provider_id', example='provider_id'),
+  // region_id
+  regionId: string(name='region_id', example='region_id'),
+  // zoneId
+  zoneId: string(name='zone_id', example='zoneId'),
+  // dns_provider_id
+  dnsProviderId: string(name='dns_provider_id', example='dns_provider_id'),
+  // dns_network_type
+  dnsNetworkType: string(name='dns_network_type', example='dns_network_type'),
+  // sub_domain_name
+  subDomainName: string(name='sub_domain_name', example='sub_domain_name'),
+  // utc_create
+  utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // utc_modified
+  utcModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
   // description
   description: string(name='description', example='description'),
-  // displayName
-  displayName: string(name='display_name', example='shanghai'),
-  // iaasProviderId
-  iaasProviderId: string(name='iaas_provider_id', example='001'),
-  // id
-  id: string(name='id', example='001'),
-  // identity
-  identity: string(name='identity', example='shanghai'),
-  // networkType
-  networkType: string(name='network_type', example='vpc'),
-  // state
-  state: string(name='state', example='state'),
-  // utcCreate
-  utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
-  // utcModified
-  utcModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
-  // zoneDtos
-  zoneDtos: [ ZoneDto ](name='zone_dtos', example=''),
-}
-
-// ListenerSecurityIp
-model ListenerSecurityIp {
-  // access_control
-  accessControl: boolean(name='access_control', example='true, false'),
-  // ips
-  ips: [ string ](name='ips', example=''),
-}
-
-// TenantWorkspace
-model TenantWorkspace {
-  // displayName
-  displayName: string(name='display_name', example='test'),
-  // gmtCreate
-  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
-  // gmtModified
-  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
-  // id
-  id: string(name='id', example='001'),
-  // name
-  name: string(name='name', example='test'),
-  // networkType
-  networkType: string(name='network_type', example='vpc'),
-  // status
-  status: string(name='status', example='CREATED'),
-  // tenantId
-  tenantId: string(name='tenant_id', example='001'),
-  // type
-  type: string(name='type', example='NORMAL'),
-  // workspaceDcs
-  workspaceDcs: [ WorkspaceDc ](name='workspace_dcs', example=''),
-  // workspaceRegions
-  workspaceRegions: [ WorkspaceRegion ](name='workspace_regions', example=''),
-}
-
-// 阿里云日志服务(SLS)-日志配置
-model SLSConfig {
-  // Logtail配置名称，同一Project下配置名必须唯一。
-  // 只能包括小写字母、数字、连字符（-）和下划线（_）。
-  // 必须以小写字母或者数字开头和结尾。
-  // 长度必须为2~128字节。
-  name: string(name='name', example='testLogConfig'),
-  // 配置类型，支持plugin、file。
-  inputType: string(name='input_type', example='file, plugin'),
-  // 输出类型，目前只支持LogService。
-  outputType?: string(name='output_type', example='LogService'),
-  // 日志样例
-  logSample?: string(name='log_sample', example='无'),
-  // 输入类型配置
-  inputDetail: SLSConfigInputDetail(name='input_detail', example=''),
-  // 输出类型配置
-  outputDetail: SLSConfigOutputDetail(name='output_detail', example=''),
 }
 
 // rmc vpc 详细信息
@@ -3007,6 +2245,217 @@ model VpcVO {
   utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
 }
 
+// LB查询对应的VComputer
+model VComputer {
+  // v_computer_group
+  vComputerGroup?: VComputerGroup(name='v_computer_group', example=''),
+  // ip
+  ip?: string(name='ip', example='ip'),
+  // computer
+  computer?: Computer(name='computer', example=''),
+  // port
+  port?: long(name='port', example=''),
+  // weight
+  weight?: long(name='weight', example='weight'),
+  // 是否是EIP
+  isEip?: boolean(name='is_eip', example='true, false'),
+  // is_managed_computer
+  isManagedComputer?: boolean(name='is_managed_computer', example='true, false'),
+  // iaas_id
+  iaasId?: string(name='iaas_id', example='iaas_id'),
+}
+
+// 路由表信息
+model RouteTable {
+  // 路由表的创建时间。
+  creationTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='creation_time', example='2018-10-10T10:10:00Z'),
+  // 路由表所属的路由器类型，取值：
+  // 
+  // VRouter：VPC路由器。
+  // VBR：边界路由器。
+  routerType?: string(name='router_type', example='VRouter'),
+  // 	
+  // 路由条目的详细信息。
+  entryVOs?: [ VRouteEntry ](name='entry_v_os', example=''),
+  // 要查询的路由表的ID。
+  routeTableId?: string(name='route_table_id', example='rtb-bp12mw1f8k3jgygk9****'),
+  // 要查询的路由表所属的VPC路由器的ID。
+  vRouterId?: string(name='v_router_id', example='vtb-bp1krxxzp0c29fmon****'),
+}
+
+// 中间件集群
+model MiddlewareCluster {
+  // cluster_id
+  clusterId: string(name='cluster_id', example='cluster_id'),
+  // cluster_name
+  clusterName: string(name='cluster_name', example='cluster_name'),
+  // region_ids
+  regionIds: [ string ](name='region_ids', example=''),
+  // zone_ids
+  zoneIds?: [ string ](name='zone_ids', example=''),
+  // acvip_endpoint
+  acvipEndpoint: string(name='acvip_endpoint', example='1.1.1.1'),
+}
+
+// 阿里云日志服务(SLS)-日志配置
+model SLSConfig {
+  // Logtail配置名称，同一Project下配置名必须唯一。
+  // 只能包括小写字母、数字、连字符（-）和下划线（_）。
+  // 必须以小写字母或者数字开头和结尾。
+  // 长度必须为2~128字节。
+  name: string(name='name', example='testLogConfig'),
+  // 配置类型，支持plugin、file。
+  inputType: string(name='input_type', example='file, plugin'),
+  // 输出类型，目前只支持LogService。
+  outputType?: string(name='output_type', example='LogService'),
+  // 日志样例
+  logSample?: string(name='log_sample', example='无'),
+  // 输入类型配置
+  inputDetail: SLSConfigInputDetail(name='input_detail', example=''),
+  // 输出类型配置
+  outputDetail: SLSConfigOutputDetail(name='output_detail', example=''),
+}
+
+// 安全组详细信息
+model SecurityGroup {
+  // 创建时间。按照ISO8601标准表示，并需要使用UTC时间。格式为：yyyy-MM-ddThh:mmZ。
+  creationTime: string(name='creation_time', example='2017-12-05T22:40:00Z'),
+  // 安全组的描述信息。
+  description?: string(name='description', example='描述信息'),
+  // region_id
+  regionId: string(name='region_id', example='region_id'),
+  // 安全组ID。
+  securityGroupId: string(name='security_group_id', example='sg-bp67acfmxazb4ph***'),
+  // 安全组名称。
+  securityGroupName: string(name='security_group_name', example='sgName'),
+  // 安全组所属的专有网络。
+  vpcId: string(name='vpc_id', example='vpc-bp67acfmxazb4ph***'),
+  // 安全组入方向规则
+  ingressRules?: [ SecurityGroupRule ](name='ingress_rules', example=''),
+  // 安全组出方向规则
+  egressRules?: [ SecurityGroupRule ](name='egress_rules', example=''),
+}
+
+// map <String,integer>
+model MapStringToIntegerEntity {
+  // key
+  key: string(name='key', example='key'),
+  // value
+  value: long(name='value', example=''),
+}
+
+// 一组具有依赖关系的 AppDomain，可以转换为一个树形结构
+model AppDomainFlatten {
+  // 一组具有依赖关系的 AppDomain
+  appDomains?: [ AppDomain ](name='app_domains', example=''),
+}
+
+// 一次异步请求
+model RequestVO {
+  // context
+  context?: string(name='context', example='context'),
+  // id
+  id: string(name='id', example='id'),
+  // operator
+  operator?: string(name='operator', example='operator'),
+  // operator_name
+  operatorName: string(name='operator_name', example='operator_name'),
+  // operator_type
+  operatorType?: string(name='operator_type', example='operator_type'),
+  // status
+  status?: string(name='status', example='status'),
+  // token
+  token?: string(name='token', example='token'),
+  // type
+  type?: string(name='type', example='type'),
+  // utc_create
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // utc_modified
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  // tasks
+  tasks?: [ Task ](name='tasks', example=''),
+}
+
+// VSwitchParam
+model VSwitchParam {
+  // cidr_block
+  cidrBlock?: string(name='cidr_block', example='cidr_block'),
+  // description
+  description?: string(name='description', example='description'),
+  // region_id
+  regionId?: string(name='region_id', example='region_id'),
+  // vpc_id
+  vpcId?: string(name='vpc_id', example='vpc_id'),
+  // vswitch_name
+  vswitchName?: string(name='vswitch_name', example='vswitch_name'),
+  // zone_id
+  zoneId?: string(name='zone_id', example='zone_id'),
+}
+
+// rmc 交换机详细信息
+model VSwitchVO {
+  // 交换机的iaas ID
+  iaasId?: string(name='iaas_id', example='vsw-25bcdxs7pv1****'),
+  // 交换机名称
+  name?: string(name='name', example='vswitchName'),
+  // 交换机描述信息
+  description?: string(name='description', example='description'),
+  // 交换机的状态，取值： Pending：配置中。 Available：可用。
+  status?: string(name='status', example='Available'),
+  // vpc id
+  vpcId?: string(name='vpc_id', example='0000000001'),
+  // workspace id
+  workspaceId?: string(name='workspace_id', example='0002321004'),
+  // zone id
+  zoneId?: string(name='zone_id', example='0435324900'),
+  // zone iaas id
+  zoneIaasId?: string(name='zone_iaas_id', example='cn-hangzhou-d'),
+  // region id
+  regionId?: string(name='region_id', example='0000000001'),
+  // 换机的IPv4网段
+  cidrBlock?: string(name='cidr_block', example='172.16.0.0/24'),
+  // 交换机创建时间
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // 可用ip数目
+  availableIpAddressCount?: long(name='available_ip_address_count', example=''),
+}
+
+// disk spec
+model DiskSpec {
+  // id
+  id?: string(name='id', example='0000000001'),
+  // name
+  name?: string(name='name', example='name'),
+  // description
+  description?: string(name='description', example='description'),
+  // iaas id
+  iaasId?: string(name='iaas_id', example='0000000001'),
+  // providerId
+  providerId?: string(name='provider_id', example='0000000001'),
+  // iaasType
+  iaasType?: string(name='iaas_type', example='Aliyun'),
+  // enable
+  enable?: boolean(name='enable', example='true, false'),
+  // minSize
+  minSize?: long(name='min_size', example=''),
+  // maxSize
+  maxSize?: long(name='max_size', example=''),
+}
+
+// LB后端挂载的主机
+model MountComputer {
+  // computer
+  computer?: Computer(name='computer', example=''),
+  // domain
+  domain?: string(name='domain', example='domain'),
+  // loadbalancer
+  loadbalancer?: LoadBalancer(name='loadbalancer', example=''),
+  // status
+  status?: string(name='status', example='status'),
+  // weight
+  weight: long(name='weight', example='weight'),
+}
+
 // vpc import info
 model VpcImport {
   // cidr block
@@ -3023,40 +2472,471 @@ model VpcImport {
   status: string(name='status', example='Available'),
 }
 
-// QuotaKv
-model QuotaKv {
-  // type
-  type: string(name='type', example='type'),
-  // quota
-  quota: long(name='quota', example=''),
+// 技术栈
+model Buildpack {
+  // 技术栈标识ID
+  id?: string(name='id', example='12345'),
+  // 技术栈名称
+  name?: string(name='name', example='sofa4'),
+  // 技术栈描述
+  des?: string(name='des', example='sofa4 描述'),
+  // 技术栈版本
+  version?: string(name='version', example='sofa4456'),
+  // 技术栈类别
+  stack?: string(name='stack', example='java'),
+  // 部署脚本id
+  deployScriptId?: string(name='deploy_script_id', example='sss'),
+  // 构建脚本ID
+  buildScriptId?: string(name='build_script_id', example='1234'),
+  // 配置id
+  configId?: string(name='config_id', example='12345'),
+  // 组件id
+  componentId?: string(name='component_id', example='12345'),
+  // 命令id
+  commandId?: string(name='command_id', example='12345'),
+  // 启用蓝绿
+  bgEnable?: boolean(name='bg_enable', example='true, false'),
+  // 创建人
+  creator?: string(name='creator', example='creator name'),
+  // 租户ID
+  tenantId?: string(name='tenant_id', example='1234'),
+  // 客户id列表
+  customerIds?: [ string ](name='customer_ids', example='["1234", "12345"]'),
+  // 技术栈定义类型
+  // 系统模板 TEMPLATE
+  // 用户自定义 CUSTOM
+  // 后台服务 BACKGROUND_SERVICE
+  type?: string(name='type', example='TEMPLATE | CUSTOM | BACKGROUND_SERVICE'),
+  // 技术栈状态
+  // 草稿 DRAFT
+  // 已提交 COMMITED 
+  // 已对外发布 PUBLISHED
+  // 已退役 RETIRED
+  status?: string(name='status', example='DRAFT | COMMITED | PUBLISHED | RETIRED'),
+  // 创建日期
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 最近修改时间
+  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // 技术栈信息汇总
+  resultMsg?: string(name='result_msg', example='message content'),
+  // 可用 USABLE
+  // 不可用 UNUSABLE
+  versionStatus?: string(name='version_status', example='USABLE | UNUSABLE'),
+  // 运行时属性
+  instances?: BuildpackInstances(name='instances', example='{}'),
 }
 
-// 应用分组视图
-model AppDomainView {
-  // ownerName
-  ownerName?: string(name='owner_name', example='ownerName'),
-  // fatherDomainName
-  fatherDomainName?: string(name='father_domain_name', example='fatherDomainName'),
-  // 应用列表
-  apps?: [ AppView ](name='apps', example=''),
-  // AppDomainView 的父类 AppDomain
-  baseAppDomain?: [ AppDomain ](name='base_app_domain', example=''),
+// 应用分组查询
+model AppDomainQuery {
+  // creatorId
+  creatorId?: string(name='creator_id', example='creatorId'),
+  // 是否为一方化请求
+  isOnePartyRequest?: boolean(name='is_one_party_request', example='true, false'),
+  // name
+  name?: string(name='name', example='name'),
+  // parentId
+  parentId?: string(name='parent_id', example='parentId'),
+  // tenantId
+  tenantId?: string(name='tenant_id', example='tenantId'),
+  // utcCreate
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='utcCreate'),
+  // 分页大小
+  pageSize?: long(name='page_size', example=''),
+  // query_type
+  queryType?: string(name='query_type', example='FUZZY, ACCURATE, START_WITH'),
+  // orders
+  orders?: [ string ](name='orders', example=''),
+  // 当前页数
+  currentPage?: long(name='current_page', example=''),
 }
 
-// 机房信息
-model Zone {
+// 交换机详细信息
+model VSwitch {
+  // 交换机的IPv4网段
+  cidrBlock?: string(name='cidr_block', example='172.16.0.0/24'),
+  // 交换机的创建时间
+  creationTime?: string(name='creation_time', example='2018-01-18T12:43:57Z'),
+  // 交换机的描述信息
+  description?: string(name='description', example='VSwitchDescription'),
+  // cn-hangzhou
+  regionId?: string(name='region_id', example='cn-hangzhou'),
+  // 交换机的状态，取值：
+  // 
+  // Pending：配置中。
+  // Available：可用。
+  status?: string(name='status', example='Available'),
+  // 交换机所属VPC的ID
+  vpcId?: string(name='vpc_id', example='vpc-257gcdcdq64****'),
+  // 交换机的ID
+  vSwitchId?: string(name='v_switch_id', example='vsw-25bcdxs7pv1****'),
+  // 交换机的名称
+  vSwitchName?: string(name='v_switch_name', example='VSwitch-1'),
+  // 交换机所属的可用区
+  zoneId?: string(name='zone_id', example='cn-hangzhou-d '),
+  // zone iaas id
+  zoneIaasId?: string(name='zone_iaas_id', example='hangzhou-a'),
+}
+
+// WorkspaceDnsRecordset
+model WorkspaceDnsRecordset {
+  // id
+  id: string(name='id', example='id'),
+  // iaasId
+  iaasId: string(name='iaas_id', example='iaasId'),
   // name
   name: string(name='name', example='name'),
-  // identity
-  identity: string(name='identity', example='identity'),
+  // dns_provider_id
+  dnsProviderId: string(name='dns_provider_id', example='dns_provider_id'),
+  // dns_network_type
+  dnsNetworkType?: string(name='dns_network_type', example='dns_network_type'),
+  // device_network_address_type
+  deviceNetworkAddressType?: string(name='device_network_address_type', example='VIP'),
+  // 绑定的资源的类型COMPUTER或LOAD_BALANCER
+  resourceType: string(name='resource_type', example='resource_type'),
   // description
   description?: string(name='description', example='description'),
-  // instanceStatus: AVAILABLE  UNAVAILABLE  RETIRED  DELETED
-  instancestatus: string(name='instancestatus', example='AVAILABLE'),
-  // region name
-  region: string(name='region', example='shanghai'),
-  // properties
-  properties: [ Property ](name='properties', example='properties'),
+  // type
+  type: string(name='type', example='A'),
+  // status
+  status: string(name='status', example='status'),
+  // value
+  value: string(name='value', example='1.1.1.1'),
+  // ttl
+  ttl: long(name='ttl', example='ttl'),
+  // workspace_id
+  workspaceId: string(name='workspace_id', example='workspace_id'),
+  // resource_id
+  resourceId?: string(name='resource_id', example='resource_id'),
+  // resource_iaas_id
+  resourceIaasId?: string(name='resource_iaas_id', example='resource_iaas_id'),
+  // utc_create
+  utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // utc_modified
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
+}
+
+// IAM用户信息
+model UserDTO {
+  // 用户ID
+  id?: string(name='id', example='123'),
+  // 创建时间
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // 最近修改时间
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  // 客户ID
+  customerId?: string(name='customer_id', example='123'),
+  // 用户类型
+  type?: string(name='type', example='test'),
+  // 用户显示名称
+  realName?: string(name='real_name', example='tester'),
+  // 用户名
+  name?: string(name='name', example='tester'),
+}
+
+// DatabaseSpec
+model DatabaseSpec {
+  // cpu
+  cpu?: long(name='cpu', example=''),
+  // custom_storage
+  customStorage?: boolean(name='custom_storage', example='true, false'),
+  // engine
+  engine?: string(name='engine', example='engine'),
+  // engine_version
+  engineVersion?: [ string ](name='engine_version', example=''),
+  // iaas_id
+  iaasId?: string(name='iaas_id', example='iaas_id'),
+  // id
+  id?: string(name='id', example='id'),
+  // max_connections
+  maxConnections?: long(name='max_connections', example=''),
+  // max_iops
+  maxIops?: long(name='max_iops', example=''),
+  // max_storage
+  maxStorage?: long(name='max_storage', example=''),
+  // memory
+  memory?: long(name='memory', example='memory'),
+  // min_storage
+  minStorage?: long(name='min_storage', example='min_storage'),
+  // name
+  name?: string(name='name', example='name'),
+  // supported_storages
+  supportedStorages?: [ long ](name='supported_storages', example=''),
+  // type
+  type?: string(name='type', example='type'),
+}
+
+// DatabaseImportVO
+model DatabaseImportVO {
+  // iaas_id
+  iaasId?: string(name='iaas_id', example='iaas_id'),
+  // description
+  description?: string(name='description', example='description'),
+  // type
+  type?: string(name='type', example='type'),
+  // status
+  status?: string(name='status', example='status'),
+  // engine
+  engine?: string(name='engine', example='engine'),
+  // net_type
+  netType?: string(name='net_type', example='net_type'),
+  // utc_create
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // importInfo
+  importInfo: ImportVO(name='import_info', example=''),
+}
+
+// 一个应用发布包视图
+model AppPackageListView {
+  // app_id
+  appId?: string(name='app_id', example='app_id'),
+  // app_name
+  appName?: string(name='app_name', example='app_name'),
+  // app_owner_id
+  appOwnerId?: string(name='app_owner_id', example='app_owner_id'),
+  // app_owner_name
+  appOwnerName?: string(name='app_owner_name', example='app_owner_name'),
+  // app_status
+  appStatus?: string(name='app_status', example='app_status'),
+  // buildpack_id
+  buildpackId?: string(name='buildpack_id', example='buildpack_id'),
+  // buildpack_name
+  buildpackName?: string(name='buildpack_name', example='buildpack_name'),
+  // buildpack_version
+  buildpackVersion?: string(name='buildpack_version', example='buildpack_version'),
+  // latest_package
+  latestPackage?: AppManifest(name='latest_package', example=''),
+  // package_count
+  packageCount?: long(name='package_count', example=''),
+}
+
+// PermissionVO
+model PermissionVO {
+  // authorizedCidrIp
+  authorizedCidrIp?: string(name='authorized_cidr_ip', example='0.0.0.0'),
+  // authorize_type
+  authorizeType?: string(name='authorize_type', example='CIDR_IP'),
+  // direction
+  direction?: string(name='direction', example='in'),
+  // endPort
+  endPort?: long(name='end_port', example='-1'),
+  // ipProtocol
+  ipProtocol?: string(name='ip_protocol', example='ALL'),
+  // nicType
+  nicType?: string(name='nic_type', example='INTRANET'),
+  // policy
+  policy?: string(name='policy', example='ACCEPT'),
+  // priority
+  priority?: long(name='priority', example=''),
+  // securityGroupId
+  securityGroupId?: string(name='security_group_id', example='0304856523'),
+  // startPort
+  startPort?: long(name='start_port', example='-1'),
+  // id
+  id: string(name='id', example='asfd8suf998sdf8sf9sd8 '),
+}
+
+// ComputerImportVO
+model ComputerImportVO {
+  // computer iaaas id
+  iaasId?: string(name='iaas_id', example='i-464864321sagfasd***'),
+  // name
+  name?: string(name='name', example='name'),
+  // zone identity
+  zoneIaasId?: string(name='zone_iaas_id', example='hangzhou-a'),
+  // zone name
+  zoneName?: string(name='zone_name', example='hangzhou-a'),
+  // description
+  description?: string(name='description', example='description'),
+  // private ip
+  privateIp?: string(name='private_ip', example='10.167.5.194'),
+  // public ip
+  publicIp?: string(name='public_ip', example='10.167.5.194'),
+  // elasticIp
+  elasticIp?: string(name='elastic_ip', example='10.167.5.194'),
+  // vpcIaasId
+  vpcIaasId?: string(name='vpc_iaas_id', example='vpc24sfs4fs354fs***'),
+  // joined security group infos
+  joinedSecurityGroup?: [ JoinedSecurityGroupVO ](name='joined_security_group', example=''),
+  // creation time
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // import info
+  importInfo?: ImportVO(name='import_info', example=''),
+}
+
+// 用户查询
+model UserQuery {
+  // 基础查询
+  baseQuery?: PaginationQuery(name='base_query', example=''),
+  // id
+  id?: string(name='id', example='id'),
+  // customerId
+  customerId?: string(name='customer_id', example='customerId'),
+  // tenantId
+  tenantId?: string(name='tenant_id', example='tenantId'),
+  // type
+  type?: string(name='type', example='type'),
+  // types
+  types?: [ string ](name='types', example=''),
+  // email
+  email?: string(name='email', example='email'),
+  // mobile
+  mobile?: string(name='mobile', example='mobile'),
+  // realName
+  realName?: string(name='real_name', example='realName'),
+  // loginName
+  loginName?: string(name='login_name', example='loginName'),
+}
+
+// 服务器规格
+model ComputerSpec {
+  // cpu个数
+  cpu?: long(name='cpu', example='1'),
+  // 可以挂载的磁盘类型
+  diskSpecIds?: [ string ](name='disk_spec_ids', example=''),
+  // 服务器规格名称
+  group: string(name='group', example='group'),
+  // 是否有IO优化
+  ioOptimized?: boolean(name='io_optimized', example='true, false'),
+  // 内存大小
+  memory?: long(name='memory', example='12'),
+  // description
+  description?: string(name='description', example='description'),
+  // enable
+  enable?: boolean(name='enable', example='true, false'),
+  // iaasId
+  iaasId?: string(name='iaas_id', example='iaasId'),
+  // COMPUTER_ECS
+  iaasType?: string(name='iaas_type', example='COMPUTER_ECS'),
+  // id
+  id?: string(name='id', example='0000000001'),
+  // name
+  name?: string(name='name', example='name'),
+  // providerId
+  providerId?: string(name='provider_id', example='0000000001'),
+}
+
+// Staragent Operation Task info
+model OperationTask {
+  // id
+  id?: string(name='id', example='00001'),
+  // computer id
+  computerId?: string(name='computer_id', example='00001'),
+  // computer ip
+  computerIp?: string(name='computer_ip', example='11.167.13.98'),
+  // command
+  command?: string(name='command', example='ls'),
+  // 状态取值：INIT，PROCESSING，SUCCEEDED，FAILED，TIMEOUT，NOT_FOUND
+  status?: string(name='status', example='INIT'),
+  // errorCode
+  errorCode?: string(name='error_code', example='errorCode'),
+  // resultMsg
+  resultMsg?: string(name='result_msg', example='resultMsg'),
+}
+
+// 阿里云日志服务(SLS)-日志项目
+model SLSProject {
+  // 项目描述
+  description?: string(name='description', example='项目描述'),
+  // 项目名称
+  name: string(name='name', example='k8s-log-custom-pbyyzncn-aks1128test-test'),
+  // 阿里云返回的regionName，仅作展示用
+  region?: string(name='region', example='region'),
+}
+
+// 阿里云日志服务(SLS)-日志库
+model SLSLogStore {
+  // 日志库名称
+  name: string(name='name', example='testLogStore'),
+  // Shard个数，单位为个，范围为1~100。
+  shardCount: long(name='shard_count', example='10'),
+  // 数据的保存时间，单位为天，范围1~3600。
+  ttl: long(name='ttl', example='30'),
+}
+
+// Connection
+model Connection {
+  // access_key
+  accessKey?: string(name='access_key', example='access_key'),
+  // access_secret
+  accessSecret?: string(name='access_secret', example='access_secret'),
+  // created_time
+  createdTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='created_time', example='2018-10-10T10:10:00Z'),
+  // executor
+  executor?: string(name='executor', example='executor'),
+  // id
+  id?: long(name='id', example='id'),
+  // identity
+  identity?: string(name='identity', example='identity'),
+  // 修改时间
+  modifiedTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='modified_time', example='2018-10-10T10:10:00Z'),
+  // name
+  name?: string(name='name', example='name'),
+  // plug
+  plug?: ConnectionStub(name='plug', example=''),
+  // socket
+  socket?: ConnectionStub(name='socket', example=''),
+  // status
+  status?: string(name='status', example='NORMAL'),
+  // tenant_id
+  tenantId?: string(name='tenant_id', example='tenant_id'),
+}
+
+// IaasDnsProvider
+model IaasDnsProvider {
+  // id
+  id: string(name='id', example='id'),
+  // service_config_id
+  serviceConfigId: string(name='service_config_id', example='service_config_id'),
+  // name
+  name: string(name='name', example='name'),
+  // description
+  description: string(name='description', example='description'),
+  // type
+  type: string(name='type', example='type'),
+  // status
+  status: string(name='status', example='status'),
+  // regionId
+  regionId: string(name='region_id', example='regionId'),
+  // zoneId
+  zoneId?: string(name='zone_id', example='zoneId'),
+  // utc_create
+  utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // utc_modified
+  utcModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  // dns_zones
+  dnsZones: [ DnsZones ](name='dns_zones', example=''),
+}
+
+// computer common image
+model CommonImage {
+  // description
+  description?: string(name='description', example='description'),
+  // is enable
+  enable?: boolean(name='enable', example='true, false'),
+  // iaas id
+  iaasId?: string(name='iaas_id', example='m-zm0e1v58t0rxikjh58***'),
+  // iaas type
+  iaasType?: string(name='iaas_type', example='Aliyun'),
+  // id
+  id?: string(name='id', example='0100310001'),
+  // 是否仅杭州金区 vpc 可用镜像
+  onlyHzFinVpcSupported?: boolean(name='only_hz_fin_vpc_supported', example='true, false'),
+  // name
+  name?: string(name='name', example='name'),
+  // os
+  os?: string(name='os', example='centos'),
+  // os bit取值：32，64
+  osBit?: long(name='os_bit', example='64'),
+  // os version
+  osVersion?: string(name='os_version', example='7.2'),
+  // provider id
+  providerId?: string(name='provider_id', example='0000000001'),
+  // region id
+  regionId?: string(name='region_id', example='0000000001'),
+  // status
+  status?: string(name='status', example='AVAILABLE'),
+  // system disk size(GB)
+  systemDiskSize?: long(name='system_disk_size', example='100'),
 }
 
 // SecurityGroupVO
@@ -3079,28 +2959,314 @@ model SecurityGroupVO {
   instanceCount?: long(name='instance_count', example=''),
 }
 
-// computer 数据盘
-model DataDisk {
-  // 磁盘大小
-  size: long(name='size', example=''),
-  // 若使用磁盘创建，需填写此字段
-  snapshotSequence?: string(name='snapshot_sequence', example='123456'),
-  // 磁盘规格
-  specId: string(name='spec_id', example='cloud_efficiency'),
-  // 数据盘设备
-  device: string(name='device', example='/dev/xvdb'),
+// staragent info
+model StarAgentInfo {
+  // computer serial number
+  sn?: string(name='sn', example='12345678'),
+  // hostname
+  hostname?: string(name='hostname', example='hostname'),
+  // ip
+  ip?: string(name='ip', example='10.167.32.9'),
+  // ip list
+  ipList?: string(name='ip_list', example='iplist'),
+  // 状态取值：RUNNING，ERROR，REGISTER，NOFIND
+  status?: string(name='status', example='RUNNING'),
 }
 
-// VpcParam
-model VPCParam {
-  // cidr_block
-  cidrBlock?: string(name='cidr_block', example='cidr_block'),
+// CellGroup
+model CellGroup {
+  // identity
+  identity: string(name='identity', example='identity'),
+  // name
+  name: string(name='name', example='name'),
+  // description
+  description?: string(name='description', example='description'),
+  // properties
+  properties?: [ Property ](name='properties', example='properties'),
+  // instancestatus
+  instancestatus: string(name='instancestatus', example='instancestatus'),
+}
+
+// SecurityGroupParam
+model SecurityGroupParam {
   // description
   description?: string(name='description', example='description'),
   // region id
   regionId?: string(name='region_id', example='region id'),
-  // vpc_name
-  vpcName?: string(name='vpc_name', example='vpc_name'),
+  // security_group_name
+  securityGroupName?: string(name='security_group_name', example='security_group_name'),
+  // vpc_id
+  vpcId?: string(name='vpc_id', example='vpc_id'),
+}
+
+// 应用等级视图
+model AppLevelView {
+  // 应用等级基类
+  baseAppLevel?: AppLevel(name='base_app_level', example=''),
+  // 应用数量
+  appCount?: long(name='app_count', example=''),
+  // 创建者名称
+  creatorName?: string(name='creator_name', example='创建者名称'),
+}
+
+// 阿里云日志服务(SLS) - 日志结果数组
+model SLSLogItem {
+  // 日志的时间戳（精度为秒，从 1970-1-1 00:00:00 UTC 计算起的秒数）。
+  logTime: long(name='log_time', example='1409529660'),
+  // 日志的来源，写入日志时指定。
+  source: string(name='source', example='10.237.0.17'),
+  // 日志原始内容
+  contents: [ SLSLogContent ](name='contents', example=''),
+}
+
+// 动态查询
+model DynamicQuery {
+  // 分页规则-currentPage
+  currentPage?: long(name='current_page', example=''),
+  // 字段过滤
+  filter?: string(name='filter', example='字段过滤'),
+  // 分页规则-pageSize
+  pageSize?: long(name='page_size', example=''),
+  // 具体的查询条件字符串
+  query: string(name='query', example='具体的查询条件字符串'),
+  // 查询结果的排序规则
+  sort?: string(name='sort', example='查询结果的排序规则'),
+}
+
+// IaasConnMetadata
+model IaasConnMetadata {
+  // id
+  id: string(name='id', example='id'),
+  // iaas_provider_id
+  iaasProviderId: string(name='iaas_provider_id', example='iaas_provider_id'),
+  // name
+  name: string(name='name', example='name'),
+  // iaas_conn_type
+  iaasConnType: string(name='iaas_conn_type', example='iaas_conn_type'),
+  // description
+  description: string(name='description', example='description'),
+  // available_features
+  availableFeatures?: [ string ](name='available_features', example=''),
+  // endpoint
+  endpoint: string(name='endpoint', example='endpoint'),
+  // region_ids
+  regionIds: [ string ](name='region_ids', example=''),
+  // is_default
+  isDefault: boolean(name='is_default', example='true, false'),
+  // utc_create
+  utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+}
+
+// 应用服务查询
+model AppServiceQuery {
+  // 根据 id 查询
+  id?: string(name='id', example='id'),
+  // workspaceId
+  workspaceId?: string(name='workspace_id', example='workspaceId'),
+  // appId
+  appId?: string(name='app_id', example='appId'),
+  // name
+  name?: string(name='name', example='name'),
+  // deployStatus
+  deployStatus?: string(name='deploy_status', example='deployStatus'),
+  // ownerId
+  ownerId?: string(name='owner_id', example='ownerId'),
+  // workspaceIds
+  workspaceIds?: [ string ](name='workspace_ids', example=''),
+  // appIds
+  appIds?: [ string ](name='app_ids', example=''),
+  // 是否为一方化查询请求
+  isOnePartyRequest?: boolean(name='is_one_party_request', example='true, false'),
+  // startIndex
+  startIndex?: long(name='start_index', example=''),
+  // pageSize
+  pageSize?: long(name='page_size', example=''),
+  // currentPage
+  currentPage?: long(name='current_page', example=''),
+  // orders
+  orders?: [ string ](name='orders', example=''),
+  // 查询类型
+  queryType?: string(name='query_type', example='FUZZY,  ACCURATE, START_WITH'),
+  // Map<String, String>
+  conditions?: string(name='conditions', example='"{}"'),
+}
+
+// ListenerSecurityIp
+model ListenerSecurityIp {
+  // access_control
+  accessControl: boolean(name='access_control', example='true, false'),
+  // ips
+  ips: [ string ](name='ips', example=''),
+}
+
+// LbCluster
+model LbCluster {
+  // container_cpu
+  containerCpu?: long(name='container_cpu', example='1'),
+  // container_cpu_exclusive
+  containerCpuExclusive?: boolean(name='container_cpu_exclusive', example=''),
+  // container_device_type
+  containerDeviceType?: string(name='container_device_type', example='container_device_type'),
+  // container_disk
+  containerDisk?: long(name='container_disk', example='1'),
+  // container_mem
+  containerMem?: long(name='container_mem', example='1'),
+  // id
+  id: string(name='id', example='id'),
+  // image
+  image: string(name='image', example='image'),
+  // name
+  name: string(name='name', example='name'),
+  // status
+  status: long(name='status', example='status'),
+  // unit_infos
+  unitInfos?: [ AcsClusterUnit ](name='unit_infos', example=''),
+  // unit_type
+  unitType?: long(name='unit_type', example='1'),
+  // used_ports
+  usedPorts?: [ long ](name='used_ports', example=''),
+}
+
+// QuotaKv
+model QuotaKv {
+  // type
+  type: string(name='type', example='type'),
+  // quota
+  quota: long(name='quota', example=''),
+}
+
+// BasicCertificate
+model BasicCertificate {
+  // serverCertificateId
+  serverCertificateId: string(name='server_certificate_id', example='serverCertificateId'),
+  // serverCertificateName
+  serverCertificateName: string(name='server_certificate_name', example='serverCertificateName'),
+  // fingerprint
+  fingerprint?: string(name='fingerprint', example='fingerprint'),
+  // cert_type
+  certType: long(name='cert_type', example=''),
+  // 标记这个证书的Provider
+  providerId?: string(name='provider_id', example='provider_id'),
+}
+
+// <String, Boolean> 映射
+model MapStringToBooleanEntity {
+  // key
+  key: string(name='key', example='key'),
+  // value
+  value: boolean(name='value', example='true, false'),
+}
+
+// db schema
+model DatabaseSchema {
+  // 字符集
+  charSet: string(name='char_set', example='MYSQLUTF8'),
+  // 数量
+  count?: long(name='count', example=''),
+  // 是否自动生成名称。默认为 true
+  isAutoName?: boolean(name='is_auto_name', example='false'),
+  // 名称
+  name: string(name='name', example='ddd'),
+  // 序列号是否连续。默认为 false
+  isSerial?: boolean(name='is_serial', example='true, false'),
+}
+
+// LoadBalancerImportVO
+model LoadBalancerImportVO {
+  // iaas_id
+  iaasId?: string(name='iaas_id', example='iaas_id'),
+  // name
+  name: string(name='name', example='name'),
+  // network_type
+  networkType?: string(name='network_type', example='network_type'),
+  // inner_ip_address
+  innerIpAddress?: [ string ](name='inner_ip_address', example=''),
+  // public_ip_address
+  publicIpAddress?: [ string ](name='public_ip_address', example=''),
+  // utc_create
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // import_info
+  importInfo: ImportVO(name='import_info', example=''),
+}
+
+// 旧版-应用服务放入前端展示内容
+model AppServiceViewModel {
+  // 基类
+  baseAppService?: AppService(name='base_app_service', example=''),
+  // 应用负责人姓名
+  ownerName?: string(name='owner_name', example='ownerName'),
+  // 技术栈名称
+  buildpackName?: string(name='buildpack_name', example='buildpack_name'),
+  // App的别名
+  chineseName?: string(name='chinese_name', example='chinese_name'),
+  // buildpackVersion
+  buildpackVersion?: string(name='buildpack_version', example='buildpackVersion'),
+  // computerCount
+  computerCount?: long(name='computer_count', example=''),
+  // databaseCount
+  databaseCount?: long(name='database_count', example=''),
+  // loadBalancerCount
+  loadBalancerCount?: long(name='load_balancer_count', example=''),
+  // cacheCount
+  cacheCount?: long(name='cache_count', example=''),
+  // cellViewList
+  cellViewList?: [ CellView ](name='cell_view_list', example=''),
+}
+
+// DatabaseSecurityIp
+model DatabaseSecurityIp {
+  // id
+  id: string(name='id', example='id'),
+  // resource_id
+  resourceId?: string(name='resource_id', example='resource_id'),
+  // resource_type
+  resourceType?: string(name='resource_type', example='resource_type'),
+  // ip
+  ip?: string(name='ip', example='ip'),
+  // status
+  status?: string(name='status', example='status'),
+  // type
+  type?: string(name='type', example='type'),
+}
+
+// DatabaseEngine
+model DatabaseEngine {
+  // iaas_type
+  iaasType?: string(name='iaas_type', example='iaas_type'),
+  // engine
+  engine?: string(name='engine', example='engine'),
+  // engine_versions
+  engineVersions?: [ string ](name='engine_versions', example=''),
+}
+
+// ComputerParam
+model ComputerParam {
+  // description
+  description?: string(name='description', example='description'),
+  // name
+  name?: string(name='name', example='name'),
+  // image_id
+  imageId?: string(name='image_id', example='image_id'),
+  // instance_type
+  instanceType?: string(name='instance_type', example='instance_type'),
+  // region_id
+  regionId?: string(name='region_id', example='region_id'),
+  // security_group_id
+  securityGroupId?: string(name='security_group_id', example='security_group_id'),
+  // instance_name
+  instanceName?: string(name='instance_name', example='instance_name'),
+  // zone_id
+  zoneId?: string(name='zone_id', example='zone_id'),
+}
+
+// LB的vip类型
+model VipType {
+  // name
+  name: string(name='name', example='name'),
+  // vip_address_type
+  vipAddressType: string(name='vip_address_type', example='vip_address_type'),
+  // vip_type
+  vipType: string(name='vip_type', example='vip_type'),
 }
 
 model BatchdeleteApplicationBuildRequest = {
@@ -4795,7 +4961,7 @@ model CreateComputerRequest = {
   instanceCount?: long(name='instance_count'),
   // 实例名称前缀。可包含小写字母(a-z)，数字(0-9) 和中划线(-)，以字母开头，中划线不能结尾或连续使用，2 ~ 40 个字符。
   name?: string(maxLength=40, minLength=2, name='name'),
-  // 实例的密码。长度为8至30个字符，必须同时包含大小写英文字母、数字和特殊符号中的三类字符。特殊符号可以是： ()`~!@#^&*-_+=|{}[]:;'<>,.?/ 其中，Windows实例不能以斜线号（/）为密码首字符。
+  // 实例的密码。长度为8至30个字符，必须同时包含大小写英文字母、数字和特殊符号中的三类字符。特殊符号可以是： ()`~!@#^&*-_+=|{}[]:;_<>,.?/ 其中，Windows实例不能以斜线号（/）为密码首字符。
   password?: string(maxLength=30, minLength=8, name='password'),
   // 购买资源的时长，单位为：月。当参数 InstanceChargeType 取值为 PrePaid 时才生效且为必选值。取值范围：1 - 9
   //      12
@@ -6725,6 +6891,10 @@ model DeleteResourceVpcRequest = {
   vpcId: string(name='vpc_id'),
   // workspace id
   workspace: string(name='workspace'),
+  // unbind_only
+  unbindOnly?: boolean(name='unbind_only'),
+  // vpc_paas_id,vcp_id不存在时可用。建议用这个
+  vpcPaasId?: string(name='vpc_paas_id'),
 }
 
 model DeleteResourceVpcResponse = {
@@ -8651,6 +8821,8 @@ model QueryLoadbalanceVcomputergroupRequest = {
   statuses?: [ string ](name='statuses'),
   // workspace
   workspace: string(name='workspace'),
+  // v_computer_group_ids
+  vComputerGroupIds?: [ string ](name='v_computer_group_ids'),
 }
 
 model QueryLoadbalanceVcomputergroupResponse = {
@@ -8756,6 +8928,8 @@ model QueryLoadbalanceVcomputerResponse = {
   resultMsg?: string(name='result_msg'),
   // v_computers
   data?: [ VComputer ](name='data'),
+  // total_count
+  totalCount?: long(name='total_count'),
 }
 
 /**
@@ -9373,9 +9547,13 @@ model QueryComputerAgentstatusRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // computer serial numbers
-  sn: [ string ](name='sn'),
+  sn?: [ string ](name='sn'),
   // workspace name
-  workspace: string(name='workspace'),
+  workspace?: string(name='workspace'),
+  // iaas_ids
+  iaasIds?: [ string ](name='iaas_ids'),
+  // zone_iaas_id
+  zoneIaasId?: string(name='zone_iaas_id'),
 }
 
 model QueryComputerAgentstatusResponse = {
@@ -9412,9 +9590,13 @@ model QueryComputerAgentsetupcommandRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // computer serial numbers
-  sn: [ string ](name='sn'),
+  sn?: [ string ](name='sn'),
   // workspace name
   workspace: string(name='workspace'),
+  // iaas_id
+  iaasId?: string(name='iaas_id'),
+  // zone_iaas_id
+  zoneIaasId?: string(name='zone_iaas_id'),
 }
 
 model QueryComputerAgentsetupcommandResponse = {
@@ -9458,6 +9640,14 @@ model QueryComputerImportRequest = {
   pageSize: long(name='page_size'),
   // current page
   currentPage: long(name='current_page'),
+  // 机器名称
+  name?: string(name='name'),
+  // 是否只查询可导入的
+  importableOnly?: boolean(name='importable_only'),
+  // iaas_id
+  iaasId?: string(name='iaas_id'),
+  // workspace_id
+  workspaceId?: string(name='workspace_id'),
 }
 
 model QueryComputerImportResponse = {
@@ -9474,8 +9664,8 @@ model QueryComputerImportResponse = {
 }
 
 /**
- * Description: 查询已导入的computer信息
- * Summary: 查询已导入的computer信息
+ * Description: 查询可以导入的computer信息
+ * Summary: 查询可以导入的computer信息
  */
 async function queryComputerImport(request: QueryComputerImportRequest): QueryComputerImportResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -9484,8 +9674,8 @@ async function queryComputerImport(request: QueryComputerImportRequest): QueryCo
 }
 
 /**
- * Description: 查询已导入的computer信息
- * Summary: 查询已导入的computer信息
+ * Description: 查询可以导入的computer信息
+ * Summary: 查询可以导入的computer信息
  */
 async function queryComputerImportEx(request: QueryComputerImportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryComputerImportResponse {
   Util.validateModel(request);
@@ -9509,6 +9699,10 @@ model ListComputerRequest = {
   cloudManageToken?: string(name='cloud_manage_token'),
   // vpc_iaas_id
   vpcIaasId?: string(name='vpc_iaas_id'),
+  // private_ips
+  privateIps?: [ string ](name='private_ips'),
+  // iaas_ids
+  iaasIds?: [ string ](name='iaas_ids'),
 }
 
 model ListComputerResponse = {
@@ -11265,6 +11459,8 @@ model UpdateLoadbalanceMountRequest = {
   mountMap?: [ MapStringToIntegerEntity ](name='mount_map'),
   // domain
   domain?: string(name='domain'),
+  // 是否是同步操作
+  isSync?: boolean(name='is_sync'),
 }
 
 model UpdateLoadbalanceMountResponse = {
@@ -11699,8 +11895,8 @@ async function queryRequestFinaltaskEx(request: QueryRequestFinaltaskRequest, he
 model QueryFeatureRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // region_id
-  regionId: string(name='region_id'),
+  // paas_region_id cafe的region_id，是一串数字
+  paasRegionId: string(name='paas_region_id'),
   // project_id
   projectId: string(name='project_id'),
 }
@@ -11929,6 +12125,8 @@ model QueryCertificateRequest = {
   workspaceId: string(name='workspace_id'),
   // zone_id
   zoneId: string(name='zone_id'),
+  // provider_ids
+  providerIds?: [ string ](name='provider_ids'),
 }
 
 model QueryCertificateResponse = {
@@ -11980,6 +12178,8 @@ model CreateCertificateRequest = {
   privateKey: string(name='private_key'),
   // cert_type
   certType?: long(name='cert_type'),
+  // 多provider时选填
+  providerId?: string(name='provider_id'),
 }
 
 model CreateCertificateResponse = {
@@ -12021,6 +12221,8 @@ model DeleteCertificateRequest = {
   workspaceId: string(name='workspace_id'),
   // zone_id
   zoneId: string(name='zone_id'),
+  // 多provider时选填
+  providerId?: string(name='provider_id'),
 }
 
 model DeleteCertificateResponse = {
@@ -12411,7 +12613,7 @@ model ImportResourceVpcRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // region identity
-  region: string(name='region'),
+  region?: string(name='region'),
   // vpc iaas id
   vpcId: string(name='vpc_id'),
   // workspace identity
@@ -12421,7 +12623,9 @@ model ImportResourceVpcRequest = {
   // vpc name
   vpcName: string(name='vpc_name'),
   // cidr block
-  cidrBlock: string(name='cidr_block'),
+  cidrBlock?: string(name='cidr_block'),
+  // paas_region_id
+  paasRegionId: string(name='paas_region_id'),
 }
 
 model ImportResourceVpcResponse = {
@@ -12980,5 +13184,722 @@ async function updateDiskStrategy(request: UpdateDiskStrategyRequest): UpdateDis
 async function updateDiskStrategyEx(request: UpdateDiskStrategyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateDiskStrategyResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.cas.disk.strategy.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateLoadbalanceVcomputergroupRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // load_balancer_id
+  loadBalancerId: string(name='load_balancer_id'),
+  // name
+  name: string(name='name'),
+  // computer_ids
+  computerIds: [ string ](name='computer_ids'),
+  // ports
+  ports: [ long ](name='ports'),
+  // weights
+  weights: [ long ](name='weights'),
+  // is_eip
+  isEip?: boolean(name='is_eip'),
+  // eips
+  eips?: [ string ](name='eips'),
+}
+
+model CreateLoadbalanceVcomputergroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // request_ids
+  data?: [ string ](name='data'),
+}
+
+/**
+ * Description: 创建虚拟服务器组
+ * Summary: 创建虚拟服务器组
+ */
+async function createLoadbalanceVcomputergroup(request: CreateLoadbalanceVcomputergroupRequest): CreateLoadbalanceVcomputergroupResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createLoadbalanceVcomputergroupEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建虚拟服务器组
+ * Summary: 创建虚拟服务器组
+ */
+async function createLoadbalanceVcomputergroupEx(request: CreateLoadbalanceVcomputergroupRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateLoadbalanceVcomputergroupResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.loadbalance.vcomputergroup.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateLoadbalanceVcomputergroupRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // v_computergroup_id
+  vComputergroupId: string(name='v_computergroup_id'),
+  // is_eip
+  isEip?: boolean(name='is_eip'),
+  // eips
+  eips: [ string ](name='eips'),
+  // computer_ids
+  computerIds?: [ string ](name='computer_ids'),
+  // weights
+  weights: [ long ](name='weights'),
+  // ports
+  ports: [ long ](name='ports'),
+  // 是否只是调整权重，不增删后端服务器
+  updateWeightOnly?: boolean(name='update_weight_only'),
+}
+
+model UpdateLoadbalanceVcomputergroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 在VComputerGroup里更新后端服务器
+ * Summary: 增加VCompute
+ */
+async function updateLoadbalanceVcomputergroup(request: UpdateLoadbalanceVcomputergroupRequest): UpdateLoadbalanceVcomputergroupResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateLoadbalanceVcomputergroupEx(request, headers, runtime);
+}
+
+/**
+ * Description: 在VComputerGroup里更新后端服务器
+ * Summary: 增加VCompute
+ */
+async function updateLoadbalanceVcomputergroupEx(request: UpdateLoadbalanceVcomputergroupRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateLoadbalanceVcomputergroupResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.loadbalance.vcomputergroup.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteLoadbalanceVcomputergroupRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 虚拟服务器ID，PAAS ID非IAAS ID
+  vComputerGroupId: string(name='v_computer_group_id'),
+}
+
+model DeleteLoadbalanceVcomputergroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // paas_request_id
+  paasRequestId?: string(name='paas_request_id'),
+}
+
+/**
+ * Description: 删除VComputerGroup
+ * Summary: 删除VComputerGroup
+ */
+async function deleteLoadbalanceVcomputergroup(request: DeleteLoadbalanceVcomputergroupRequest): DeleteLoadbalanceVcomputergroupResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteLoadbalanceVcomputergroupEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除VComputerGroup
+ * Summary: 删除VComputerGroup
+ */
+async function deleteLoadbalanceVcomputergroupEx(request: DeleteLoadbalanceVcomputergroupRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteLoadbalanceVcomputergroupResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.loadbalance.vcomputergroup.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddLoadbalanceVcomputergroupRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // workspace_id
+  workspaceId: string(name='workspace_id'),
+  // v_computer_group_id
+  vComputerGroupId: string(name='v_computer_group_id'),
+  // is_eip
+  isEip?: boolean(name='is_eip'),
+  // computer 的id数组
+  computerIds?: [ string ](name='computer_ids'),
+  // 权重
+  weights: [ long ](name='weights'),
+  // ports
+  ports: [ string ](name='ports'),
+  // 当is_eip时必填
+  eips?: [ string ](name='eips'),
+}
+
+model AddLoadbalanceVcomputergroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // paas_request_id
+  paasRequestId?: string(name='paas_request_id'),
+}
+
+/**
+ * Description: 在虚拟服务器组中增加服务器
+ * Summary: 在虚拟服务器组中增加服务器
+ */
+async function addLoadbalanceVcomputergroup(request: AddLoadbalanceVcomputergroupRequest): AddLoadbalanceVcomputergroupResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addLoadbalanceVcomputergroupEx(request, headers, runtime);
+}
+
+/**
+ * Description: 在虚拟服务器组中增加服务器
+ * Summary: 在虚拟服务器组中增加服务器
+ */
+async function addLoadbalanceVcomputergroupEx(request: AddLoadbalanceVcomputergroupRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddLoadbalanceVcomputergroupResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.loadbalance.vcomputergroup.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RemoveLoadbalanceVcomputergroupRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // computer_ids
+  computerIds: [ string ](name='computer_ids'),
+  // 后端是否是弹性网卡
+  isEip?: boolean(name='is_eip'),
+  // ports
+  ports: [ long ](name='ports'),
+  // weights
+  weights: [ long ](name='weights'),
+  // eips
+  eips?: [ string ](name='eips'),
+  // v_computer_group_id
+  vComputerGroupId: string(name='v_computer_group_id'),
+  // workspace_id
+  workspaceId: string(name='workspace_id'),
+}
+
+model RemoveLoadbalanceVcomputergroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // paas_request_id
+  paasRequestId?: string(name='paas_request_id'),
+}
+
+/**
+ * Description: 从虚拟服务器组中删除服务器
+ * Summary: 从虚拟服务器组中删除服务器
+ */
+async function removeLoadbalanceVcomputergroup(request: RemoveLoadbalanceVcomputergroupRequest): RemoveLoadbalanceVcomputergroupResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return removeLoadbalanceVcomputergroupEx(request, headers, runtime);
+}
+
+/**
+ * Description: 从虚拟服务器组中删除服务器
+ * Summary: 从虚拟服务器组中删除服务器
+ */
+async function removeLoadbalanceVcomputergroupEx(request: RemoveLoadbalanceVcomputergroupRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RemoveLoadbalanceVcomputergroupResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.loadbalance.vcomputergroup.remove', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddDnsRecordsetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // name
+  name: string(name='name'),
+  // description
+  description?: string(name='description'),
+  // type: 记录类型，默认为A, 仅支持 A, CName, 见DnsRecordSetType
+  type: string(name='type'),
+  // type: 类型, PUBLIC(外部域名) 或者 PRIVATE (域名) 见DnsNetworkType
+  dnsNetworkType?: string(name='dns_network_type'),
+  // tenant_id
+  tenantId: string(name='tenant_id'),
+  // dns_records
+  dnsRecords: [ DnsRecordParam ](name='dns_records'),
+}
+
+model AddDnsRecordsetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // xxxxxxx
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 添加域名记录
+ * Summary: 添加域名记录
+ */
+async function addDnsRecordset(request: AddDnsRecordsetRequest): AddDnsRecordsetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addDnsRecordsetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 添加域名记录
+ * Summary: 添加域名记录
+ */
+async function addDnsRecordsetEx(request: AddDnsRecordsetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddDnsRecordsetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.dns.recordset.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteDnsRecordRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // dns_recordset_id
+  dnsRecordsetId: string(name='dns_recordset_id'),
+  // dns_record_ip
+  dnsRecordIp: string(name='dns_record_ip'),
+  // workspace_id
+  workspaceId: string(name='workspace_id'),
+}
+
+model DeleteDnsRecordResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除一条DNS记录
+ * Summary: 删除一条DNS记录
+ */
+async function deleteDnsRecord(request: DeleteDnsRecordRequest): DeleteDnsRecordResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteDnsRecordEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除一条DNS记录
+ * Summary: 删除一条DNS记录
+ */
+async function deleteDnsRecordEx(request: DeleteDnsRecordRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteDnsRecordResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.dns.record.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDnsRecordsetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // workspace_id
+  workspaceId: string(name='workspace_id'),
+  // resource_type
+  resourceType?: string(name='resource_type'),
+  // ip
+  // 
+  ip?: string(name='ip'),
+  // dns_recordset_name
+  dnsRecordsetName?: string(name='dns_recordset_name'),
+  // resource_name
+  resourceName?: string(name='resource_name'),
+  // resource_iaas_ids
+  resourceIaasIds?: [ string ](name='resource_iaas_ids'),
+  // dns_recordset_ids
+  dnsRecordsetIds?: [ string ](name='dns_recordset_ids'),
+  // page_size
+  pageSize: long(name='page_size'),
+  // current_page
+  currentPage: long(name='current_page'),
+}
+
+model QueryDnsRecordsetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ WorkspaceDnsRecordset ](name='data'),
+  // total_count
+  totalCount?: long(name='total_count'),
+  // page_size
+  pageSize?: long(name='page_size'),
+  // current_page
+  currentPage?: long(name='current_page'),
+}
+
+/**
+ * Description: 查询当前recordset
+ * Summary: 查询当前recordset
+ */
+async function queryDnsRecordset(request: QueryDnsRecordsetRequest): QueryDnsRecordsetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDnsRecordsetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询当前recordset
+ * Summary: 查询当前recordset
+ */
+async function queryDnsRecordsetEx(request: QueryDnsRecordsetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDnsRecordsetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.dns.recordset.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindDnsProviderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // workspace_id
+  workspaceId: string(name='workspace_id'),
+  // 部分环境绑定到机房机房
+  zoneId?: string(name='zone_id'),
+  // dns_provider_id
+  dnsProviderId: string(name='dns_provider_id'),
+  // default_sub_domain_name
+  defaultSubDomainName?: string(name='default_sub_domain_name'),
+}
+
+model BindDnsProviderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: workspace绑定指定DNS服务商
+ * Summary: workspace绑定指定DNS服务商
+ */
+async function bindDnsProvider(request: BindDnsProviderRequest): BindDnsProviderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindDnsProviderEx(request, headers, runtime);
+}
+
+/**
+ * Description: workspace绑定指定DNS服务商
+ * Summary: workspace绑定指定DNS服务商
+ */
+async function bindDnsProviderEx(request: BindDnsProviderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDnsProviderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.dns.provider.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListDnsProviderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // regionId
+  regionId: string(name='region_id'),
+  // zone_id
+  zoneId?: string(name='zone_id'),
+}
+
+model ListDnsProviderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ IaasDnsProvider ](name='data'),
+}
+
+/**
+ * Description: 获取当前环境的DNS provider
+ * Summary: 获取当前环境的DNS provider
+ */
+async function listDnsProvider(request: ListDnsProviderRequest): ListDnsProviderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listDnsProviderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取当前环境的DNS provider
+ * Summary: 获取当前环境的DNS provider
+ */
+async function listDnsProviderEx(request: ListDnsProviderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListDnsProviderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.dns.provider.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryProviderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // LB，COMPUTE，VPC,OBJECT_STORAGE等
+  resourceType: string(name='resource_type'),
+  // paas_region_id
+  paasRegionId: string(name='paas_region_id'),
+}
+
+model QueryProviderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ IaasConnMetadata ](name='data'),
+}
+
+/**
+ * Description: 查询当前环境资源供应商信息
+ * Summary: 查询当前环境资源供应商信息
+ */
+async function queryProvider(request: QueryProviderRequest): QueryProviderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryProviderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询当前环境资源供应商信息
+ * Summary: 查询当前环境资源供应商信息
+ */
+async function queryProviderEx(request: QueryProviderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryProviderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.provider.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetDnsWorkspaceproviderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // workspace_id
+  workspaceId: string(name='workspace_id'),
+  // zoneId
+  zoneId?: string(name='zone_id'),
+  // dns_network_type
+  dnsNetworkType: string(name='dns_network_type'),
+}
+
+model GetDnsWorkspaceproviderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ WorkspaceDnsProvider ](name='data'),
+}
+
+/**
+ * Description: 获取当前工作空间的DNSProvider
+ * Summary: 获取当前工作空间的DNSProvider
+ */
+async function getDnsWorkspaceprovider(request: GetDnsWorkspaceproviderRequest): GetDnsWorkspaceproviderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getDnsWorkspaceproviderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取当前工作空间的DNSProvider
+ * Summary: 获取当前工作空间的DNSProvider
+ */
+async function getDnsWorkspaceproviderEx(request: GetDnsWorkspaceproviderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetDnsWorkspaceproviderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.dns.workspaceprovider.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateUniworkspacegroupRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 工作空间组名称
+  name: string(name='name'),
+  // 显示名字，可以中文
+  displayName: string(name='display_name'),
+  // 租户ID
+  tenantId: string(name='tenant_id'),
+  // namespace
+  namespace?: string(name='namespace'),
+  // json格式的字符串，工作空间组属性 
+  properties?: string(name='properties'),
+  // release_mode
+  releaseMode?: string(name='release_mode'),
+  // 工作空间的名称
+  workspaces: [ string ](name='workspaces'),
+  // workspaces_create_param
+  workspacesCreateParam: [ string ](name='workspaces_create_param'),
+  // cell_group_create_params
+  cellGroupCreateParams?: [ string ](name='cell_group_create_params'),
+  // cell_create_params
+  cellCreateParams?: [ string ](name='cell_create_params'),
+  // 域名前缀
+  domainSuffix?: string(name='domain_suffix'),
+  // VPC创建参数
+  vpcCreateParams: [ string ](name='vpc_create_params'),
+  // 导入的VPCIDs
+  importVpcs?: [ string ](name='import_vpcs'),
+}
+
+model CreateUniworkspacegroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // paas_request_id，异步任务ID
+  paasRequestId?: string(name='paas_request_id'),
+}
+
+/**
+ * Description: [异步]创建工作空间组，包括了VPC，交换机，单元化架构的一体化创建
+ * Summary: [异步]创建工作空间组
+ */
+async function createUniworkspacegroup(request: CreateUniworkspacegroupRequest): CreateUniworkspacegroupResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createUniworkspacegroupEx(request, headers, runtime);
+}
+
+/**
+ * Description: [异步]创建工作空间组，包括了VPC，交换机，单元化架构的一体化创建
+ * Summary: [异步]创建工作空间组
+ */
+async function createUniworkspacegroupEx(request: CreateUniworkspacegroupRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateUniworkspacegroupResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.uniworkspacegroup.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportMiddlewareclusterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // workspace_id
+  workspaceId: string(name='workspace_id'),
+  // cluster_id，OSP上的ID
+  clusterId: string(name='cluster_id'),
+}
+
+model ImportMiddlewareclusterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 导入一个中间件集群
+ * Summary: 导入一个中间件集群
+ */
+async function importMiddlewarecluster(request: ImportMiddlewareclusterRequest): ImportMiddlewareclusterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importMiddlewareclusterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 导入一个中间件集群
+ * Summary: 导入一个中间件集群
+ */
+async function importMiddlewareclusterEx(request: ImportMiddlewareclusterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportMiddlewareclusterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.middlewarecluster.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMiddlewareclusterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // workspace_id 和workspace_group_id至少要填一个
+  workspaceId?: string(name='workspace_id'),
+  // cluster_id OSP上的ID
+  clusterId?: string(name='cluster_id'),
+  // cluster_name
+  clusterName?: string(name='cluster_name'),
+  // workspace_group_name和workspace_id必须至少传入一个
+  workspaceGroupName?: string(name='workspace_group_name'),
+  // app_service_id
+  appServiceId?: string(name='app_service_id'),
+}
+
+model QueryMiddlewareclusterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ MiddlewareCluster ](name='data'),
+}
+
+/**
+ * Description: 查询当前工作空间中间件集群
+ * Summary: 查询当前工作空间中间件集群
+ */
+async function queryMiddlewarecluster(request: QueryMiddlewareclusterRequest): QueryMiddlewareclusterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMiddlewareclusterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询当前工作空间中间件集群
+ * Summary: 查询当前工作空间中间件集群
+ */
+async function queryMiddlewareclusterEx(request: QueryMiddlewareclusterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMiddlewareclusterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.middlewarecluster.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RemoveMiddlewareclusterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // workspace_id
+  workspaceId: string(name='workspace_id'),
+  // cluster_id
+  clusterId: string(name='cluster_id'),
+}
+
+model RemoveMiddlewareclusterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 移除一个中间件集群
+ * Summary: 移除一个中间件集群
+ */
+async function removeMiddlewarecluster(request: RemoveMiddlewareclusterRequest): RemoveMiddlewareclusterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return removeMiddlewareclusterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 移除一个中间件集群
+ * Summary: 移除一个中间件集群
+ */
+async function removeMiddlewareclusterEx(request: RemoveMiddlewareclusterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RemoveMiddlewareclusterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.middlewarecluster.remove', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
