@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.5'
+                    'sdk_version': '1.4.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.5'
+                    'sdk_version': '1.4.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -277,7 +277,7 @@ class Client:
     ) -> nftx_models.ImportNftCreateResponse:
         """
         Description: B端商户的NFT发行以及铸造
-        Summary: B端商户的NFT铸造
+        Summary: B端商户的NFT铸造 (废弃)
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -289,7 +289,7 @@ class Client:
     ) -> nftx_models.ImportNftCreateResponse:
         """
         Description: B端商户的NFT发行以及铸造
-        Summary: B端商户的NFT铸造
+        Summary: B端商户的NFT铸造 (废弃)
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -303,7 +303,7 @@ class Client:
     ) -> nftx_models.ImportNftCreateResponse:
         """
         Description: B端商户的NFT发行以及铸造
-        Summary: B端商户的NFT铸造
+        Summary: B端商户的NFT铸造 (废弃)
         """
         UtilClient.validate_model(request)
         return nftx_models.ImportNftCreateResponse().from_map(
@@ -318,7 +318,7 @@ class Client:
     ) -> nftx_models.ImportNftCreateResponse:
         """
         Description: B端商户的NFT发行以及铸造
-        Summary: B端商户的NFT铸造
+        Summary: B端商户的NFT铸造 (废弃)
         """
         UtilClient.validate_model(request)
         return nftx_models.ImportNftCreateResponse().from_map(
@@ -763,7 +763,7 @@ class Client:
     ) -> nftx_models.RunNftTransferResponse:
         """
         Description: 按项目表编码B2C发放NFT,带渠道租户
-        Summary: 按项目表编码B2C发放NFT,带渠道租户
+        Summary: 按项目表编码B2C发放NFT, (废弃)
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -775,7 +775,7 @@ class Client:
     ) -> nftx_models.RunNftTransferResponse:
         """
         Description: 按项目表编码B2C发放NFT,带渠道租户
-        Summary: 按项目表编码B2C发放NFT,带渠道租户
+        Summary: 按项目表编码B2C发放NFT, (废弃)
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -789,7 +789,7 @@ class Client:
     ) -> nftx_models.RunNftTransferResponse:
         """
         Description: 按项目表编码B2C发放NFT,带渠道租户
-        Summary: 按项目表编码B2C发放NFT,带渠道租户
+        Summary: 按项目表编码B2C发放NFT, (废弃)
         """
         UtilClient.validate_model(request)
         return nftx_models.RunNftTransferResponse().from_map(
@@ -804,7 +804,7 @@ class Client:
     ) -> nftx_models.RunNftTransferResponse:
         """
         Description: 按项目表编码B2C发放NFT,带渠道租户
-        Summary: 按项目表编码B2C发放NFT,带渠道租户
+        Summary: 按项目表编码B2C发放NFT, (废弃)
         """
         UtilClient.validate_model(request)
         return nftx_models.RunNftTransferResponse().from_map(
@@ -863,4 +863,58 @@ class Client:
         UtilClient.validate_model(request)
         return nftx_models.ApplyNftTransferResponse().from_map(
             await self.do_request_async('1.0', 'antchain.nftx.nft.transfer.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_nft_transferbyprojectwithchanneltenant(
+        self,
+        request: nftx_models.ApplyNftTransferbyprojectwithchanneltenantRequest,
+    ) -> nftx_models.ApplyNftTransferbyprojectwithchanneltenantResponse:
+        """
+        Description: 按项目表编码B2C发放NFT,带渠道租户
+        Summary: 按项目表编码B2C发放NFT,带渠道租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_nft_transferbyprojectwithchanneltenant_ex(request, headers, runtime)
+
+    async def apply_nft_transferbyprojectwithchanneltenant_async(
+        self,
+        request: nftx_models.ApplyNftTransferbyprojectwithchanneltenantRequest,
+    ) -> nftx_models.ApplyNftTransferbyprojectwithchanneltenantResponse:
+        """
+        Description: 按项目表编码B2C发放NFT,带渠道租户
+        Summary: 按项目表编码B2C发放NFT,带渠道租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_nft_transferbyprojectwithchanneltenant_ex_async(request, headers, runtime)
+
+    def apply_nft_transferbyprojectwithchanneltenant_ex(
+        self,
+        request: nftx_models.ApplyNftTransferbyprojectwithchanneltenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.ApplyNftTransferbyprojectwithchanneltenantResponse:
+        """
+        Description: 按项目表编码B2C发放NFT,带渠道租户
+        Summary: 按项目表编码B2C发放NFT,带渠道租户
+        """
+        UtilClient.validate_model(request)
+        return nftx_models.ApplyNftTransferbyprojectwithchanneltenantResponse().from_map(
+            self.do_request('1.0', 'antchain.nftx.nft.transferbyprojectwithchanneltenant.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_nft_transferbyprojectwithchanneltenant_ex_async(
+        self,
+        request: nftx_models.ApplyNftTransferbyprojectwithchanneltenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.ApplyNftTransferbyprojectwithchanneltenantResponse:
+        """
+        Description: 按项目表编码B2C发放NFT,带渠道租户
+        Summary: 按项目表编码B2C发放NFT,带渠道租户
+        """
+        UtilClient.validate_model(request)
+        return nftx_models.ApplyNftTransferbyprojectwithchanneltenantResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.nftx.nft.transferbyprojectwithchanneltenant.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
