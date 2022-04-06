@@ -1132,6 +1132,89 @@ export class ApplyNftTransferResponse extends $tea.Model {
   }
 }
 
+export class ApplyNftTransferbyprojectwithchanneltenantRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // NFT租户下唯一的项目编号
+  projectId: string;
+  // 支付宝2088开头账号
+  toIdNo: string;
+  // 账号类型，当前只支持支付宝账号
+  toIdType: string;
+  // 交易NFT时租户的唯一订单号
+  orderNo: string;
+  // 购买NFT的金额，单位分
+  priceCent?: number;
+  // 渠道租户
+  channelTenant: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      projectId: 'project_id',
+      toIdNo: 'to_id_no',
+      toIdType: 'to_id_type',
+      orderNo: 'order_no',
+      priceCent: 'price_cent',
+      channelTenant: 'channel_tenant',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      projectId: 'string',
+      toIdNo: 'string',
+      toIdType: 'string',
+      orderNo: 'string',
+      priceCent: 'number',
+      channelTenant: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyNftTransferbyprojectwithchanneltenantResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // NFT商品编码
+  skuId?: string;
+  // 发放的NFT编码
+  nftId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      skuId: 'sku_id',
+      nftId: 'nft_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      skuId: 'string',
+      nftId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1245,7 +1328,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.5",
+          sdk_version: "1.4.0",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1293,7 +1376,7 @@ export default class Client {
 
   /**
    * Description: B端商户的NFT发行以及铸造
-   * Summary: B端商户的NFT铸造
+   * Summary: B端商户的NFT铸造 (废弃)
    */
   async importNftCreate(request: ImportNftCreateRequest): Promise<ImportNftCreateResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -1303,7 +1386,7 @@ export default class Client {
 
   /**
    * Description: B端商户的NFT发行以及铸造
-   * Summary: B端商户的NFT铸造
+   * Summary: B端商户的NFT铸造 (废弃)
    */
   async importNftCreateEx(request: ImportNftCreateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportNftCreateResponse> {
     Util.validateModel(request);
@@ -1464,7 +1547,7 @@ export default class Client {
 
   /**
    * Description: 按项目表编码B2C发放NFT,带渠道租户
-   * Summary: 按项目表编码B2C发放NFT,带渠道租户
+   * Summary: 按项目表编码B2C发放NFT, (废弃)
    */
   async runNftTransfer(request: RunNftTransferRequest): Promise<RunNftTransferResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -1474,7 +1557,7 @@ export default class Client {
 
   /**
    * Description: 按项目表编码B2C发放NFT,带渠道租户
-   * Summary: 按项目表编码B2C发放NFT,带渠道租户
+   * Summary: 按项目表编码B2C发放NFT, (废弃)
    */
   async runNftTransferEx(request: RunNftTransferRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RunNftTransferResponse> {
     Util.validateModel(request);
@@ -1498,6 +1581,25 @@ export default class Client {
   async applyNftTransferEx(request: ApplyNftTransferRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyNftTransferResponse> {
     Util.validateModel(request);
     return $tea.cast<ApplyNftTransferResponse>(await this.doRequest("1.0", "antchain.nftx.nft.transfer.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyNftTransferResponse({}));
+  }
+
+  /**
+   * Description: 按项目表编码B2C发放NFT,带渠道租户
+   * Summary: 按项目表编码B2C发放NFT,带渠道租户
+   */
+  async applyNftTransferbyprojectwithchanneltenant(request: ApplyNftTransferbyprojectwithchanneltenantRequest): Promise<ApplyNftTransferbyprojectwithchanneltenantResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyNftTransferbyprojectwithchanneltenantEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 按项目表编码B2C发放NFT,带渠道租户
+   * Summary: 按项目表编码B2C发放NFT,带渠道租户
+   */
+  async applyNftTransferbyprojectwithchanneltenantEx(request: ApplyNftTransferbyprojectwithchanneltenantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyNftTransferbyprojectwithchanneltenantResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyNftTransferbyprojectwithchanneltenantResponse>(await this.doRequest("1.0", "antchain.nftx.nft.transferbyprojectwithchanneltenant.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyNftTransferbyprojectwithchanneltenantResponse({}));
   }
 
 }
