@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.19'
+                    'sdk_version': '1.4.11'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.19'
+                    'sdk_version': '1.4.11'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -8052,8 +8052,8 @@ class Client:
         request: cas_models.QueryComputerImportRequest,
     ) -> cas_models.QueryComputerImportResponse:
         """
-        Description: 查询已导入的computer信息
-        Summary: 查询已导入的computer信息
+        Description: 查询可以导入的computer信息
+        Summary: 查询可以导入的computer信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -8064,8 +8064,8 @@ class Client:
         request: cas_models.QueryComputerImportRequest,
     ) -> cas_models.QueryComputerImportResponse:
         """
-        Description: 查询已导入的computer信息
-        Summary: 查询已导入的computer信息
+        Description: 查询可以导入的computer信息
+        Summary: 查询可以导入的computer信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -8078,8 +8078,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> cas_models.QueryComputerImportResponse:
         """
-        Description: 查询已导入的computer信息
-        Summary: 查询已导入的computer信息
+        Description: 查询可以导入的computer信息
+        Summary: 查询可以导入的computer信息
         """
         UtilClient.validate_model(request)
         return cas_models.QueryComputerImportResponse().from_map(
@@ -8093,8 +8093,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> cas_models.QueryComputerImportResponse:
         """
-        Description: 查询已导入的computer信息
-        Summary: 查询已导入的computer信息
+        Description: 查询可以导入的computer信息
+        Summary: 查询可以导入的computer信息
         """
         UtilClient.validate_model(request)
         return cas_models.QueryComputerImportResponse().from_map(
@@ -12635,4 +12635,868 @@ class Client:
         UtilClient.validate_model(request)
         return cas_models.UpdateDiskStrategyResponse().from_map(
             await self.do_request_async('1.0', 'antcloud.cas.disk.strategy.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_loadbalance_vcomputergroup(
+        self,
+        request: cas_models.CreateLoadbalanceVcomputergroupRequest,
+    ) -> cas_models.CreateLoadbalanceVcomputergroupResponse:
+        """
+        Description: 创建虚拟服务器组
+        Summary: 创建虚拟服务器组
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_loadbalance_vcomputergroup_ex(request, headers, runtime)
+
+    async def create_loadbalance_vcomputergroup_async(
+        self,
+        request: cas_models.CreateLoadbalanceVcomputergroupRequest,
+    ) -> cas_models.CreateLoadbalanceVcomputergroupResponse:
+        """
+        Description: 创建虚拟服务器组
+        Summary: 创建虚拟服务器组
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_loadbalance_vcomputergroup_ex_async(request, headers, runtime)
+
+    def create_loadbalance_vcomputergroup_ex(
+        self,
+        request: cas_models.CreateLoadbalanceVcomputergroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.CreateLoadbalanceVcomputergroupResponse:
+        """
+        Description: 创建虚拟服务器组
+        Summary: 创建虚拟服务器组
+        """
+        UtilClient.validate_model(request)
+        return cas_models.CreateLoadbalanceVcomputergroupResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.loadbalance.vcomputergroup.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_loadbalance_vcomputergroup_ex_async(
+        self,
+        request: cas_models.CreateLoadbalanceVcomputergroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.CreateLoadbalanceVcomputergroupResponse:
+        """
+        Description: 创建虚拟服务器组
+        Summary: 创建虚拟服务器组
+        """
+        UtilClient.validate_model(request)
+        return cas_models.CreateLoadbalanceVcomputergroupResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.loadbalance.vcomputergroup.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_loadbalance_vcomputergroup(
+        self,
+        request: cas_models.UpdateLoadbalanceVcomputergroupRequest,
+    ) -> cas_models.UpdateLoadbalanceVcomputergroupResponse:
+        """
+        Description: 在VComputerGroup里更新后端服务器
+        Summary: 增加VCompute
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_loadbalance_vcomputergroup_ex(request, headers, runtime)
+
+    async def update_loadbalance_vcomputergroup_async(
+        self,
+        request: cas_models.UpdateLoadbalanceVcomputergroupRequest,
+    ) -> cas_models.UpdateLoadbalanceVcomputergroupResponse:
+        """
+        Description: 在VComputerGroup里更新后端服务器
+        Summary: 增加VCompute
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_loadbalance_vcomputergroup_ex_async(request, headers, runtime)
+
+    def update_loadbalance_vcomputergroup_ex(
+        self,
+        request: cas_models.UpdateLoadbalanceVcomputergroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.UpdateLoadbalanceVcomputergroupResponse:
+        """
+        Description: 在VComputerGroup里更新后端服务器
+        Summary: 增加VCompute
+        """
+        UtilClient.validate_model(request)
+        return cas_models.UpdateLoadbalanceVcomputergroupResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.loadbalance.vcomputergroup.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_loadbalance_vcomputergroup_ex_async(
+        self,
+        request: cas_models.UpdateLoadbalanceVcomputergroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.UpdateLoadbalanceVcomputergroupResponse:
+        """
+        Description: 在VComputerGroup里更新后端服务器
+        Summary: 增加VCompute
+        """
+        UtilClient.validate_model(request)
+        return cas_models.UpdateLoadbalanceVcomputergroupResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.loadbalance.vcomputergroup.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_loadbalance_vcomputergroup(
+        self,
+        request: cas_models.DeleteLoadbalanceVcomputergroupRequest,
+    ) -> cas_models.DeleteLoadbalanceVcomputergroupResponse:
+        """
+        Description: 删除VComputerGroup
+        Summary: 删除VComputerGroup
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_loadbalance_vcomputergroup_ex(request, headers, runtime)
+
+    async def delete_loadbalance_vcomputergroup_async(
+        self,
+        request: cas_models.DeleteLoadbalanceVcomputergroupRequest,
+    ) -> cas_models.DeleteLoadbalanceVcomputergroupResponse:
+        """
+        Description: 删除VComputerGroup
+        Summary: 删除VComputerGroup
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_loadbalance_vcomputergroup_ex_async(request, headers, runtime)
+
+    def delete_loadbalance_vcomputergroup_ex(
+        self,
+        request: cas_models.DeleteLoadbalanceVcomputergroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.DeleteLoadbalanceVcomputergroupResponse:
+        """
+        Description: 删除VComputerGroup
+        Summary: 删除VComputerGroup
+        """
+        UtilClient.validate_model(request)
+        return cas_models.DeleteLoadbalanceVcomputergroupResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.loadbalance.vcomputergroup.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_loadbalance_vcomputergroup_ex_async(
+        self,
+        request: cas_models.DeleteLoadbalanceVcomputergroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.DeleteLoadbalanceVcomputergroupResponse:
+        """
+        Description: 删除VComputerGroup
+        Summary: 删除VComputerGroup
+        """
+        UtilClient.validate_model(request)
+        return cas_models.DeleteLoadbalanceVcomputergroupResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.loadbalance.vcomputergroup.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_loadbalance_vcomputergroup(
+        self,
+        request: cas_models.AddLoadbalanceVcomputergroupRequest,
+    ) -> cas_models.AddLoadbalanceVcomputergroupResponse:
+        """
+        Description: 在虚拟服务器组中增加服务器
+        Summary: 在虚拟服务器组中增加服务器
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_loadbalance_vcomputergroup_ex(request, headers, runtime)
+
+    async def add_loadbalance_vcomputergroup_async(
+        self,
+        request: cas_models.AddLoadbalanceVcomputergroupRequest,
+    ) -> cas_models.AddLoadbalanceVcomputergroupResponse:
+        """
+        Description: 在虚拟服务器组中增加服务器
+        Summary: 在虚拟服务器组中增加服务器
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_loadbalance_vcomputergroup_ex_async(request, headers, runtime)
+
+    def add_loadbalance_vcomputergroup_ex(
+        self,
+        request: cas_models.AddLoadbalanceVcomputergroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.AddLoadbalanceVcomputergroupResponse:
+        """
+        Description: 在虚拟服务器组中增加服务器
+        Summary: 在虚拟服务器组中增加服务器
+        """
+        UtilClient.validate_model(request)
+        return cas_models.AddLoadbalanceVcomputergroupResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.loadbalance.vcomputergroup.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_loadbalance_vcomputergroup_ex_async(
+        self,
+        request: cas_models.AddLoadbalanceVcomputergroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.AddLoadbalanceVcomputergroupResponse:
+        """
+        Description: 在虚拟服务器组中增加服务器
+        Summary: 在虚拟服务器组中增加服务器
+        """
+        UtilClient.validate_model(request)
+        return cas_models.AddLoadbalanceVcomputergroupResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.loadbalance.vcomputergroup.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def remove_loadbalance_vcomputergroup(
+        self,
+        request: cas_models.RemoveLoadbalanceVcomputergroupRequest,
+    ) -> cas_models.RemoveLoadbalanceVcomputergroupResponse:
+        """
+        Description: 从虚拟服务器组中删除服务器
+        Summary: 从虚拟服务器组中删除服务器
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.remove_loadbalance_vcomputergroup_ex(request, headers, runtime)
+
+    async def remove_loadbalance_vcomputergroup_async(
+        self,
+        request: cas_models.RemoveLoadbalanceVcomputergroupRequest,
+    ) -> cas_models.RemoveLoadbalanceVcomputergroupResponse:
+        """
+        Description: 从虚拟服务器组中删除服务器
+        Summary: 从虚拟服务器组中删除服务器
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.remove_loadbalance_vcomputergroup_ex_async(request, headers, runtime)
+
+    def remove_loadbalance_vcomputergroup_ex(
+        self,
+        request: cas_models.RemoveLoadbalanceVcomputergroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.RemoveLoadbalanceVcomputergroupResponse:
+        """
+        Description: 从虚拟服务器组中删除服务器
+        Summary: 从虚拟服务器组中删除服务器
+        """
+        UtilClient.validate_model(request)
+        return cas_models.RemoveLoadbalanceVcomputergroupResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.loadbalance.vcomputergroup.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def remove_loadbalance_vcomputergroup_ex_async(
+        self,
+        request: cas_models.RemoveLoadbalanceVcomputergroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.RemoveLoadbalanceVcomputergroupResponse:
+        """
+        Description: 从虚拟服务器组中删除服务器
+        Summary: 从虚拟服务器组中删除服务器
+        """
+        UtilClient.validate_model(request)
+        return cas_models.RemoveLoadbalanceVcomputergroupResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.loadbalance.vcomputergroup.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_dns_recordset(
+        self,
+        request: cas_models.AddDnsRecordsetRequest,
+    ) -> cas_models.AddDnsRecordsetResponse:
+        """
+        Description: 添加域名记录
+        Summary: 添加域名记录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_dns_recordset_ex(request, headers, runtime)
+
+    async def add_dns_recordset_async(
+        self,
+        request: cas_models.AddDnsRecordsetRequest,
+    ) -> cas_models.AddDnsRecordsetResponse:
+        """
+        Description: 添加域名记录
+        Summary: 添加域名记录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_dns_recordset_ex_async(request, headers, runtime)
+
+    def add_dns_recordset_ex(
+        self,
+        request: cas_models.AddDnsRecordsetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.AddDnsRecordsetResponse:
+        """
+        Description: 添加域名记录
+        Summary: 添加域名记录
+        """
+        UtilClient.validate_model(request)
+        return cas_models.AddDnsRecordsetResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.dns.recordset.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_dns_recordset_ex_async(
+        self,
+        request: cas_models.AddDnsRecordsetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.AddDnsRecordsetResponse:
+        """
+        Description: 添加域名记录
+        Summary: 添加域名记录
+        """
+        UtilClient.validate_model(request)
+        return cas_models.AddDnsRecordsetResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.dns.recordset.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_dns_record(
+        self,
+        request: cas_models.DeleteDnsRecordRequest,
+    ) -> cas_models.DeleteDnsRecordResponse:
+        """
+        Description: 删除一条DNS记录
+        Summary: 删除一条DNS记录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_dns_record_ex(request, headers, runtime)
+
+    async def delete_dns_record_async(
+        self,
+        request: cas_models.DeleteDnsRecordRequest,
+    ) -> cas_models.DeleteDnsRecordResponse:
+        """
+        Description: 删除一条DNS记录
+        Summary: 删除一条DNS记录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_dns_record_ex_async(request, headers, runtime)
+
+    def delete_dns_record_ex(
+        self,
+        request: cas_models.DeleteDnsRecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.DeleteDnsRecordResponse:
+        """
+        Description: 删除一条DNS记录
+        Summary: 删除一条DNS记录
+        """
+        UtilClient.validate_model(request)
+        return cas_models.DeleteDnsRecordResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.dns.record.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_dns_record_ex_async(
+        self,
+        request: cas_models.DeleteDnsRecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.DeleteDnsRecordResponse:
+        """
+        Description: 删除一条DNS记录
+        Summary: 删除一条DNS记录
+        """
+        UtilClient.validate_model(request)
+        return cas_models.DeleteDnsRecordResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.dns.record.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dns_recordset(
+        self,
+        request: cas_models.QueryDnsRecordsetRequest,
+    ) -> cas_models.QueryDnsRecordsetResponse:
+        """
+        Description: 查询当前recordset
+        Summary: 查询当前recordset
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dns_recordset_ex(request, headers, runtime)
+
+    async def query_dns_recordset_async(
+        self,
+        request: cas_models.QueryDnsRecordsetRequest,
+    ) -> cas_models.QueryDnsRecordsetResponse:
+        """
+        Description: 查询当前recordset
+        Summary: 查询当前recordset
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dns_recordset_ex_async(request, headers, runtime)
+
+    def query_dns_recordset_ex(
+        self,
+        request: cas_models.QueryDnsRecordsetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.QueryDnsRecordsetResponse:
+        """
+        Description: 查询当前recordset
+        Summary: 查询当前recordset
+        """
+        UtilClient.validate_model(request)
+        return cas_models.QueryDnsRecordsetResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.dns.recordset.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dns_recordset_ex_async(
+        self,
+        request: cas_models.QueryDnsRecordsetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.QueryDnsRecordsetResponse:
+        """
+        Description: 查询当前recordset
+        Summary: 查询当前recordset
+        """
+        UtilClient.validate_model(request)
+        return cas_models.QueryDnsRecordsetResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.dns.recordset.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_dns_provider(
+        self,
+        request: cas_models.BindDnsProviderRequest,
+    ) -> cas_models.BindDnsProviderResponse:
+        """
+        Description: workspace绑定指定DNS服务商
+        Summary: workspace绑定指定DNS服务商
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_dns_provider_ex(request, headers, runtime)
+
+    async def bind_dns_provider_async(
+        self,
+        request: cas_models.BindDnsProviderRequest,
+    ) -> cas_models.BindDnsProviderResponse:
+        """
+        Description: workspace绑定指定DNS服务商
+        Summary: workspace绑定指定DNS服务商
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_dns_provider_ex_async(request, headers, runtime)
+
+    def bind_dns_provider_ex(
+        self,
+        request: cas_models.BindDnsProviderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.BindDnsProviderResponse:
+        """
+        Description: workspace绑定指定DNS服务商
+        Summary: workspace绑定指定DNS服务商
+        """
+        UtilClient.validate_model(request)
+        return cas_models.BindDnsProviderResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.dns.provider.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_dns_provider_ex_async(
+        self,
+        request: cas_models.BindDnsProviderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.BindDnsProviderResponse:
+        """
+        Description: workspace绑定指定DNS服务商
+        Summary: workspace绑定指定DNS服务商
+        """
+        UtilClient.validate_model(request)
+        return cas_models.BindDnsProviderResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.dns.provider.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_dns_provider(
+        self,
+        request: cas_models.ListDnsProviderRequest,
+    ) -> cas_models.ListDnsProviderResponse:
+        """
+        Description: 获取当前环境的DNS provider
+        Summary: 获取当前环境的DNS provider
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_dns_provider_ex(request, headers, runtime)
+
+    async def list_dns_provider_async(
+        self,
+        request: cas_models.ListDnsProviderRequest,
+    ) -> cas_models.ListDnsProviderResponse:
+        """
+        Description: 获取当前环境的DNS provider
+        Summary: 获取当前环境的DNS provider
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_dns_provider_ex_async(request, headers, runtime)
+
+    def list_dns_provider_ex(
+        self,
+        request: cas_models.ListDnsProviderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.ListDnsProviderResponse:
+        """
+        Description: 获取当前环境的DNS provider
+        Summary: 获取当前环境的DNS provider
+        """
+        UtilClient.validate_model(request)
+        return cas_models.ListDnsProviderResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.dns.provider.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_dns_provider_ex_async(
+        self,
+        request: cas_models.ListDnsProviderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.ListDnsProviderResponse:
+        """
+        Description: 获取当前环境的DNS provider
+        Summary: 获取当前环境的DNS provider
+        """
+        UtilClient.validate_model(request)
+        return cas_models.ListDnsProviderResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.dns.provider.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_provider(
+        self,
+        request: cas_models.QueryProviderRequest,
+    ) -> cas_models.QueryProviderResponse:
+        """
+        Description: 查询当前环境资源供应商信息
+        Summary: 查询当前环境资源供应商信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_provider_ex(request, headers, runtime)
+
+    async def query_provider_async(
+        self,
+        request: cas_models.QueryProviderRequest,
+    ) -> cas_models.QueryProviderResponse:
+        """
+        Description: 查询当前环境资源供应商信息
+        Summary: 查询当前环境资源供应商信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_provider_ex_async(request, headers, runtime)
+
+    def query_provider_ex(
+        self,
+        request: cas_models.QueryProviderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.QueryProviderResponse:
+        """
+        Description: 查询当前环境资源供应商信息
+        Summary: 查询当前环境资源供应商信息
+        """
+        UtilClient.validate_model(request)
+        return cas_models.QueryProviderResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.provider.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_provider_ex_async(
+        self,
+        request: cas_models.QueryProviderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.QueryProviderResponse:
+        """
+        Description: 查询当前环境资源供应商信息
+        Summary: 查询当前环境资源供应商信息
+        """
+        UtilClient.validate_model(request)
+        return cas_models.QueryProviderResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.provider.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_dns_workspaceprovider(
+        self,
+        request: cas_models.GetDnsWorkspaceproviderRequest,
+    ) -> cas_models.GetDnsWorkspaceproviderResponse:
+        """
+        Description: 获取当前工作空间的DNSProvider
+        Summary: 获取当前工作空间的DNSProvider
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_dns_workspaceprovider_ex(request, headers, runtime)
+
+    async def get_dns_workspaceprovider_async(
+        self,
+        request: cas_models.GetDnsWorkspaceproviderRequest,
+    ) -> cas_models.GetDnsWorkspaceproviderResponse:
+        """
+        Description: 获取当前工作空间的DNSProvider
+        Summary: 获取当前工作空间的DNSProvider
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_dns_workspaceprovider_ex_async(request, headers, runtime)
+
+    def get_dns_workspaceprovider_ex(
+        self,
+        request: cas_models.GetDnsWorkspaceproviderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.GetDnsWorkspaceproviderResponse:
+        """
+        Description: 获取当前工作空间的DNSProvider
+        Summary: 获取当前工作空间的DNSProvider
+        """
+        UtilClient.validate_model(request)
+        return cas_models.GetDnsWorkspaceproviderResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.dns.workspaceprovider.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_dns_workspaceprovider_ex_async(
+        self,
+        request: cas_models.GetDnsWorkspaceproviderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.GetDnsWorkspaceproviderResponse:
+        """
+        Description: 获取当前工作空间的DNSProvider
+        Summary: 获取当前工作空间的DNSProvider
+        """
+        UtilClient.validate_model(request)
+        return cas_models.GetDnsWorkspaceproviderResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.dns.workspaceprovider.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_uniworkspacegroup(
+        self,
+        request: cas_models.CreateUniworkspacegroupRequest,
+    ) -> cas_models.CreateUniworkspacegroupResponse:
+        """
+        Description: [异步]创建工作空间组，包括了VPC，交换机，单元化架构的一体化创建
+        Summary: [异步]创建工作空间组
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_uniworkspacegroup_ex(request, headers, runtime)
+
+    async def create_uniworkspacegroup_async(
+        self,
+        request: cas_models.CreateUniworkspacegroupRequest,
+    ) -> cas_models.CreateUniworkspacegroupResponse:
+        """
+        Description: [异步]创建工作空间组，包括了VPC，交换机，单元化架构的一体化创建
+        Summary: [异步]创建工作空间组
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_uniworkspacegroup_ex_async(request, headers, runtime)
+
+    def create_uniworkspacegroup_ex(
+        self,
+        request: cas_models.CreateUniworkspacegroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.CreateUniworkspacegroupResponse:
+        """
+        Description: [异步]创建工作空间组，包括了VPC，交换机，单元化架构的一体化创建
+        Summary: [异步]创建工作空间组
+        """
+        UtilClient.validate_model(request)
+        return cas_models.CreateUniworkspacegroupResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.uniworkspacegroup.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_uniworkspacegroup_ex_async(
+        self,
+        request: cas_models.CreateUniworkspacegroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.CreateUniworkspacegroupResponse:
+        """
+        Description: [异步]创建工作空间组，包括了VPC，交换机，单元化架构的一体化创建
+        Summary: [异步]创建工作空间组
+        """
+        UtilClient.validate_model(request)
+        return cas_models.CreateUniworkspacegroupResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.uniworkspacegroup.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_middlewarecluster(
+        self,
+        request: cas_models.ImportMiddlewareclusterRequest,
+    ) -> cas_models.ImportMiddlewareclusterResponse:
+        """
+        Description: 导入一个中间件集群
+        Summary: 导入一个中间件集群
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_middlewarecluster_ex(request, headers, runtime)
+
+    async def import_middlewarecluster_async(
+        self,
+        request: cas_models.ImportMiddlewareclusterRequest,
+    ) -> cas_models.ImportMiddlewareclusterResponse:
+        """
+        Description: 导入一个中间件集群
+        Summary: 导入一个中间件集群
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_middlewarecluster_ex_async(request, headers, runtime)
+
+    def import_middlewarecluster_ex(
+        self,
+        request: cas_models.ImportMiddlewareclusterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.ImportMiddlewareclusterResponse:
+        """
+        Description: 导入一个中间件集群
+        Summary: 导入一个中间件集群
+        """
+        UtilClient.validate_model(request)
+        return cas_models.ImportMiddlewareclusterResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.middlewarecluster.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_middlewarecluster_ex_async(
+        self,
+        request: cas_models.ImportMiddlewareclusterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.ImportMiddlewareclusterResponse:
+        """
+        Description: 导入一个中间件集群
+        Summary: 导入一个中间件集群
+        """
+        UtilClient.validate_model(request)
+        return cas_models.ImportMiddlewareclusterResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.middlewarecluster.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_middlewarecluster(
+        self,
+        request: cas_models.QueryMiddlewareclusterRequest,
+    ) -> cas_models.QueryMiddlewareclusterResponse:
+        """
+        Description: 查询当前工作空间中间件集群
+        Summary: 查询当前工作空间中间件集群
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_middlewarecluster_ex(request, headers, runtime)
+
+    async def query_middlewarecluster_async(
+        self,
+        request: cas_models.QueryMiddlewareclusterRequest,
+    ) -> cas_models.QueryMiddlewareclusterResponse:
+        """
+        Description: 查询当前工作空间中间件集群
+        Summary: 查询当前工作空间中间件集群
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_middlewarecluster_ex_async(request, headers, runtime)
+
+    def query_middlewarecluster_ex(
+        self,
+        request: cas_models.QueryMiddlewareclusterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.QueryMiddlewareclusterResponse:
+        """
+        Description: 查询当前工作空间中间件集群
+        Summary: 查询当前工作空间中间件集群
+        """
+        UtilClient.validate_model(request)
+        return cas_models.QueryMiddlewareclusterResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.middlewarecluster.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_middlewarecluster_ex_async(
+        self,
+        request: cas_models.QueryMiddlewareclusterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.QueryMiddlewareclusterResponse:
+        """
+        Description: 查询当前工作空间中间件集群
+        Summary: 查询当前工作空间中间件集群
+        """
+        UtilClient.validate_model(request)
+        return cas_models.QueryMiddlewareclusterResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.middlewarecluster.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def remove_middlewarecluster(
+        self,
+        request: cas_models.RemoveMiddlewareclusterRequest,
+    ) -> cas_models.RemoveMiddlewareclusterResponse:
+        """
+        Description: 移除一个中间件集群
+        Summary: 移除一个中间件集群
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.remove_middlewarecluster_ex(request, headers, runtime)
+
+    async def remove_middlewarecluster_async(
+        self,
+        request: cas_models.RemoveMiddlewareclusterRequest,
+    ) -> cas_models.RemoveMiddlewareclusterResponse:
+        """
+        Description: 移除一个中间件集群
+        Summary: 移除一个中间件集群
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.remove_middlewarecluster_ex_async(request, headers, runtime)
+
+    def remove_middlewarecluster_ex(
+        self,
+        request: cas_models.RemoveMiddlewareclusterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.RemoveMiddlewareclusterResponse:
+        """
+        Description: 移除一个中间件集群
+        Summary: 移除一个中间件集群
+        """
+        UtilClient.validate_model(request)
+        return cas_models.RemoveMiddlewareclusterResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.middlewarecluster.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def remove_middlewarecluster_ex_async(
+        self,
+        request: cas_models.RemoveMiddlewareclusterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.RemoveMiddlewareclusterResponse:
+        """
+        Description: 移除一个中间件集群
+        Summary: 移除一个中间件集群
+        """
+        UtilClient.validate_model(request)
+        return cas_models.RemoveMiddlewareclusterResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.middlewarecluster.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

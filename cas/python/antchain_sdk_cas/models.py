@@ -182,6 +182,142 @@ class AssignedApp(TeaModel):
         return self
 
 
+class RegionView(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        identity: str = None,
+        provider_id: str = None,
+        name: str = None,
+        state: str = None,
+        description: str = None,
+        network_type: str = None,
+        available_network_types: List[str] = None,
+    ):
+        # id
+        self.id = id
+        # identity
+        self.identity = identity
+        # providerId
+        self.provider_id = provider_id
+        # name
+        self.name = name
+        # state
+        self.state = state
+        # description
+        self.description = description
+        # networkType
+        self.network_type = network_type
+        # availableNetworkTypes
+        self.available_network_types = available_network_types
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.identity, 'identity')
+        self.validate_required(self.provider_id, 'provider_id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.state, 'state')
+        self.validate_required(self.description, 'description')
+        self.validate_required(self.network_type, 'network_type')
+        self.validate_required(self.available_network_types, 'available_network_types')
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.identity is not None:
+            result['identity'] = self.identity
+        if self.provider_id is not None:
+            result['provider_id'] = self.provider_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.state is not None:
+            result['state'] = self.state
+        if self.description is not None:
+            result['description'] = self.description
+        if self.network_type is not None:
+            result['network_type'] = self.network_type
+        if self.available_network_types is not None:
+            result['available_network_types'] = self.available_network_types
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('identity') is not None:
+            self.identity = m.get('identity')
+        if m.get('provider_id') is not None:
+            self.provider_id = m.get('provider_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('network_type') is not None:
+            self.network_type = m.get('network_type')
+        if m.get('available_network_types') is not None:
+            self.available_network_types = m.get('available_network_types')
+        return self
+
+
+class WorkspaceZoneView(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        identity: str = None,
+        name: str = None,
+        state: str = None,
+        description: str = None,
+    ):
+        # id
+        self.id = id
+        # identity
+        self.identity = identity
+        # name
+        self.name = name
+        # state
+        self.state = state
+        # description
+        self.description = description
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.identity, 'identity')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.state, 'state')
+        self.validate_required(self.description, 'description')
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.identity is not None:
+            result['identity'] = self.identity
+        if self.name is not None:
+            result['name'] = self.name
+        if self.state is not None:
+            result['state'] = self.state
+        if self.description is not None:
+            result['description'] = self.description
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('identity') is not None:
+            self.identity = m.get('identity')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        return self
+
+
 class Database(TeaModel):
     def __init__(
         self,
@@ -438,142 +574,6 @@ class Database(TeaModel):
         return self
 
 
-class RegionView(TeaModel):
-    def __init__(
-        self,
-        id: str = None,
-        identity: str = None,
-        provider_id: str = None,
-        name: str = None,
-        state: str = None,
-        description: str = None,
-        network_type: str = None,
-        available_network_types: List[str] = None,
-    ):
-        # id
-        self.id = id
-        # identity
-        self.identity = identity
-        # providerId
-        self.provider_id = provider_id
-        # name
-        self.name = name
-        # state
-        self.state = state
-        # description
-        self.description = description
-        # networkType
-        self.network_type = network_type
-        # availableNetworkTypes
-        self.available_network_types = available_network_types
-
-    def validate(self):
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.identity, 'identity')
-        self.validate_required(self.provider_id, 'provider_id')
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.state, 'state')
-        self.validate_required(self.description, 'description')
-        self.validate_required(self.network_type, 'network_type')
-        self.validate_required(self.available_network_types, 'available_network_types')
-
-    def to_map(self):
-        result = dict()
-        if self.id is not None:
-            result['id'] = self.id
-        if self.identity is not None:
-            result['identity'] = self.identity
-        if self.provider_id is not None:
-            result['provider_id'] = self.provider_id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.state is not None:
-            result['state'] = self.state
-        if self.description is not None:
-            result['description'] = self.description
-        if self.network_type is not None:
-            result['network_type'] = self.network_type
-        if self.available_network_types is not None:
-            result['available_network_types'] = self.available_network_types
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('identity') is not None:
-            self.identity = m.get('identity')
-        if m.get('provider_id') is not None:
-            self.provider_id = m.get('provider_id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('state') is not None:
-            self.state = m.get('state')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('network_type') is not None:
-            self.network_type = m.get('network_type')
-        if m.get('available_network_types') is not None:
-            self.available_network_types = m.get('available_network_types')
-        return self
-
-
-class WorkspaceZoneView(TeaModel):
-    def __init__(
-        self,
-        id: str = None,
-        identity: str = None,
-        name: str = None,
-        state: str = None,
-        description: str = None,
-    ):
-        # id
-        self.id = id
-        # identity
-        self.identity = identity
-        # name
-        self.name = name
-        # state
-        self.state = state
-        # description
-        self.description = description
-
-    def validate(self):
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.identity, 'identity')
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.state, 'state')
-        self.validate_required(self.description, 'description')
-
-    def to_map(self):
-        result = dict()
-        if self.id is not None:
-            result['id'] = self.id
-        if self.identity is not None:
-            result['identity'] = self.identity
-        if self.name is not None:
-            result['name'] = self.name
-        if self.state is not None:
-            result['state'] = self.state
-        if self.description is not None:
-            result['description'] = self.description
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('identity') is not None:
-            self.identity = m.get('identity')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('state') is not None:
-            self.state = m.get('state')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        return self
-
-
 class MapStringToStringEntity(TeaModel):
     def __init__(
         self,
@@ -606,48 +606,69 @@ class MapStringToStringEntity(TeaModel):
         return self
 
 
-class DiskComputer(TeaModel):
+class Scope(TeaModel):
     def __init__(
         self,
-        name: str = None,
-        id: str = None,
-        iaas_id: str = None,
-        status: str = None,
+        cell: str = None,
+        region: str = None,
+        tenant: str = None,
+        workspace: str = None,
+        workspace_group: str = None,
+        zone: str = None,
+        cluster: str = None,
     ):
-        # name
-        self.name = name
-        # id
-        self.id = id
-        # iaas id
-        self.iaas_id = iaas_id
-        # status
-        self.status = status
+        # cell identity
+        self.cell = cell
+        # region identity
+        self.region = region
+        # tenant name
+        self.tenant = tenant
+        # workspace
+        self.workspace = workspace
+        # workspace_group
+        self.workspace_group = workspace_group
+        # zone identity
+        self.zone = zone
+        # cluster identity
+        self.cluster = cluster
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.name is not None:
-            result['name'] = self.name
-        if self.id is not None:
-            result['id'] = self.id
-        if self.iaas_id is not None:
-            result['iaas_id'] = self.iaas_id
-        if self.status is not None:
-            result['status'] = self.status
+        if self.cell is not None:
+            result['cell'] = self.cell
+        if self.region is not None:
+            result['region'] = self.region
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
+        if self.workspace is not None:
+            result['workspace'] = self.workspace
+        if self.workspace_group is not None:
+            result['workspace_group'] = self.workspace_group
+        if self.zone is not None:
+            result['zone'] = self.zone
+        if self.cluster is not None:
+            result['cluster'] = self.cluster
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('iaas_id') is not None:
-            self.iaas_id = m.get('iaas_id')
-        if m.get('status') is not None:
-            self.status = m.get('status')
+        if m.get('cell') is not None:
+            self.cell = m.get('cell')
+        if m.get('region') is not None:
+            self.region = m.get('region')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
+        if m.get('workspace') is not None:
+            self.workspace = m.get('workspace')
+        if m.get('workspace_group') is not None:
+            self.workspace_group = m.get('workspace_group')
+        if m.get('zone') is not None:
+            self.zone = m.get('zone')
+        if m.get('cluster') is not None:
+            self.cluster = m.get('cluster')
         return self
 
 
@@ -693,103 +714,6 @@ class CloudPlatform(TeaModel):
             self.name = m.get('name')
         if m.get('password') is not None:
             self.password = m.get('password')
-        return self
-
-
-class DatabaseAccount(TeaModel):
-    def __init__(
-        self,
-        database: Database = None,
-        description: str = None,
-        iaas_type: str = None,
-        id: str = None,
-        name: str = None,
-        password: str = None,
-        privilege: str = None,
-        status: str = None,
-        utc_create: str = None,
-        utc_modified: str = None,
-    ):
-        # database
-        self.database = database
-        # description
-        self.description = description
-        # iaas_type
-        self.iaas_type = iaas_type
-        # id
-        self.id = id
-        # 名称
-        self.name = name
-        # 密码
-        self.password = password
-        # 权限
-        self.privilege = privilege
-        # status
-        self.status = status
-        # utc_create
-        self.utc_create = utc_create
-        # utc_modified
-        self.utc_modified = utc_modified
-
-    def validate(self):
-        if self.database:
-            self.database.validate()
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.password, 'password')
-        self.validate_required(self.privilege, 'privilege')
-        if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-
-    def to_map(self):
-        result = dict()
-        if self.database is not None:
-            result['database'] = self.database.to_map()
-        if self.description is not None:
-            result['description'] = self.description
-        if self.iaas_type is not None:
-            result['iaas_type'] = self.iaas_type
-        if self.id is not None:
-            result['id'] = self.id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.password is not None:
-            result['password'] = self.password
-        if self.privilege is not None:
-            result['privilege'] = self.privilege
-        if self.status is not None:
-            result['status'] = self.status
-        if self.utc_create is not None:
-            result['utc_create'] = self.utc_create
-        if self.utc_modified is not None:
-            result['utc_modified'] = self.utc_modified
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('database') is not None:
-            temp_model = Database()
-            self.database = temp_model.from_map(m['database'])
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('iaas_type') is not None:
-            self.iaas_type = m.get('iaas_type')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('password') is not None:
-            self.password = m.get('password')
-        if m.get('privilege') is not None:
-            self.privilege = m.get('privilege')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('utc_create') is not None:
-            self.utc_create = m.get('utc_create')
-        if m.get('utc_modified') is not None:
-            self.utc_modified = m.get('utc_modified')
         return self
 
 
@@ -1046,169 +970,164 @@ class WorkspaceView(TeaModel):
         return self
 
 
-class Scope(TeaModel):
+class DiskComputer(TeaModel):
     def __init__(
         self,
-        cell: str = None,
-        region: str = None,
-        tenant: str = None,
-        workspace: str = None,
-        workspace_group: str = None,
-        zone: str = None,
-        cluster: str = None,
+        name: str = None,
+        id: str = None,
+        iaas_id: str = None,
+        status: str = None,
     ):
-        # cell identity
-        self.cell = cell
-        # region identity
-        self.region = region
-        # tenant name
-        self.tenant = tenant
-        # workspace
-        self.workspace = workspace
-        # workspace_group
-        self.workspace_group = workspace_group
-        # zone identity
-        self.zone = zone
-        # cluster identity
-        self.cluster = cluster
+        # name
+        self.name = name
+        # id
+        self.id = id
+        # iaas id
+        self.iaas_id = iaas_id
+        # status
+        self.status = status
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.cell is not None:
-            result['cell'] = self.cell
-        if self.region is not None:
-            result['region'] = self.region
-        if self.tenant is not None:
-            result['tenant'] = self.tenant
-        if self.workspace is not None:
-            result['workspace'] = self.workspace
-        if self.workspace_group is not None:
-            result['workspace_group'] = self.workspace_group
-        if self.zone is not None:
-            result['zone'] = self.zone
-        if self.cluster is not None:
-            result['cluster'] = self.cluster
+        if self.name is not None:
+            result['name'] = self.name
+        if self.id is not None:
+            result['id'] = self.id
+        if self.iaas_id is not None:
+            result['iaas_id'] = self.iaas_id
+        if self.status is not None:
+            result['status'] = self.status
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('cell') is not None:
-            self.cell = m.get('cell')
-        if m.get('region') is not None:
-            self.region = m.get('region')
-        if m.get('tenant') is not None:
-            self.tenant = m.get('tenant')
-        if m.get('workspace') is not None:
-            self.workspace = m.get('workspace')
-        if m.get('workspace_group') is not None:
-            self.workspace_group = m.get('workspace_group')
-        if m.get('zone') is not None:
-            self.zone = m.get('zone')
-        if m.get('cluster') is not None:
-            self.cluster = m.get('cluster')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('iaas_id') is not None:
+            self.iaas_id = m.get('iaas_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
         return self
 
 
-class WorkspaceZoneDto(TeaModel):
+class DatabaseAccount(TeaModel):
     def __init__(
         self,
+        database: Database = None,
+        description: str = None,
+        iaas_type: str = None,
         id: str = None,
-        workspace_id: str = None,
-        zone_id: str = None,
-        zone_name: str = None,
+        name: str = None,
+        password: str = None,
+        privilege: str = None,
+        status: str = None,
+        utc_create: str = None,
+        utc_modified: str = None,
     ):
+        # database
+        self.database = database
+        # description
+        self.description = description
+        # iaas_type
+        self.iaas_type = iaas_type
         # id
         self.id = id
-        # workspace_id
-        self.workspace_id = workspace_id
-        # zone_id
-        self.zone_id = zone_id
-        # zone name
-        self.zone_name = zone_name
+        # 名称
+        self.name = name
+        # 密码
+        self.password = password
+        # 权限
+        self.privilege = privilege
+        # status
+        self.status = status
+        # utc_create
+        self.utc_create = utc_create
+        # utc_modified
+        self.utc_modified = utc_modified
 
     def validate(self):
+        if self.database:
+            self.database.validate()
         self.validate_required(self.id, 'id')
-        self.validate_required(self.workspace_id, 'workspace_id')
-        self.validate_required(self.zone_id, 'zone_id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.password, 'password')
+        self.validate_required(self.privilege, 'privilege')
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.utc_modified is not None:
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
+        if self.database is not None:
+            result['database'] = self.database.to_map()
+        if self.description is not None:
+            result['description'] = self.description
+        if self.iaas_type is not None:
+            result['iaas_type'] = self.iaas_type
         if self.id is not None:
             result['id'] = self.id
-        if self.workspace_id is not None:
-            result['workspace_id'] = self.workspace_id
-        if self.zone_id is not None:
-            result['zone_id'] = self.zone_id
-        if self.zone_name is not None:
-            result['zone_name'] = self.zone_name
+        if self.name is not None:
+            result['name'] = self.name
+        if self.password is not None:
+            result['password'] = self.password
+        if self.privilege is not None:
+            result['privilege'] = self.privilege
+        if self.status is not None:
+            result['status'] = self.status
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.utc_modified is not None:
+            result['utc_modified'] = self.utc_modified
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
+        if m.get('database') is not None:
+            temp_model = Database()
+            self.database = temp_model.from_map(m['database'])
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('iaas_type') is not None:
+            self.iaas_type = m.get('iaas_type')
         if m.get('id') is not None:
             self.id = m.get('id')
-        if m.get('workspace_id') is not None:
-            self.workspace_id = m.get('workspace_id')
-        if m.get('zone_id') is not None:
-            self.zone_id = m.get('zone_id')
-        if m.get('zone_name') is not None:
-            self.zone_name = m.get('zone_name')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('password') is not None:
+            self.password = m.get('password')
+        if m.get('privilege') is not None:
+            self.privilege = m.get('privilege')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('utc_modified') is not None:
+            self.utc_modified = m.get('utc_modified')
         return self
 
 
-class CodeRepository(TeaModel):
+class ZoneView(TeaModel):
     def __init__(
         self,
         id: str = None,
         name: str = None,
-        type: str = None,
-        owner: str = None,
-        source_location: str = None,
-        remote_repo_id: str = None,
-        instance_id: str = None,
-        is_init_standard_path: bool = None,
-        repo_reuse: str = None,
-        parent_repos_name: str = None,
-        status: str = None,
-        extra_params: str = None,
-        use_exist: bool = None,
-        group_name: str = None,
+        display_name: str = None,
     ):
-        # 代码仓库ID
+        # id
         self.id = id
-        # 名称
+        # name
         self.name = name
-        # VCS源代码管理系统
-        self.type = type
-        # 负责人
-        self.owner = owner
-        # 源代码地址
-        self.source_location = source_location
-        # 被SCM管理的远程仓库ID
-        self.remote_repo_id = remote_repo_id
-        # 流程标记id(可选参数)
-        self.instance_id = instance_id
-        # 是否初始化目录(可选参数，目前金融云传与不传都不初始化)
-        self.is_init_standard_path = is_init_standard_path
-        # 代码库是否可复用(默认为不复用 0)
-        self.repo_reuse = repo_reuse
-        # 父代码库名称(reposReuse为0时可以不传)
-        self.parent_repos_name = parent_repos_name
-        # 代码仓库状态
-        self.status = status
-        # 扩展参数，JSON字符串
-        self.extra_params = extra_params
-        # 是否使用已有仓库
-        self.use_exist = use_exist
-        # 分组名称
-        self.group_name = group_name
+        # displayName
+        self.display_name = display_name
 
     def validate(self):
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.name, 'name')
+        pass
 
     def to_map(self):
         result = dict()
@@ -1216,30 +1135,8 @@ class CodeRepository(TeaModel):
             result['id'] = self.id
         if self.name is not None:
             result['name'] = self.name
-        if self.type is not None:
-            result['type'] = self.type
-        if self.owner is not None:
-            result['owner'] = self.owner
-        if self.source_location is not None:
-            result['source_location'] = self.source_location
-        if self.remote_repo_id is not None:
-            result['remote_repo_id'] = self.remote_repo_id
-        if self.instance_id is not None:
-            result['instance_id'] = self.instance_id
-        if self.is_init_standard_path is not None:
-            result['is_init_standard_path'] = self.is_init_standard_path
-        if self.repo_reuse is not None:
-            result['repo_reuse'] = self.repo_reuse
-        if self.parent_repos_name is not None:
-            result['parent_repos_name'] = self.parent_repos_name
-        if self.status is not None:
-            result['status'] = self.status
-        if self.extra_params is not None:
-            result['extra_params'] = self.extra_params
-        if self.use_exist is not None:
-            result['use_exist'] = self.use_exist
-        if self.group_name is not None:
-            result['group_name'] = self.group_name
+        if self.display_name is not None:
+            result['display_name'] = self.display_name
         return result
 
     def from_map(self, m: dict = None):
@@ -1248,30 +1145,61 @@ class CodeRepository(TeaModel):
             self.id = m.get('id')
         if m.get('name') is not None:
             self.name = m.get('name')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('owner') is not None:
-            self.owner = m.get('owner')
-        if m.get('source_location') is not None:
-            self.source_location = m.get('source_location')
-        if m.get('remote_repo_id') is not None:
-            self.remote_repo_id = m.get('remote_repo_id')
-        if m.get('instance_id') is not None:
-            self.instance_id = m.get('instance_id')
-        if m.get('is_init_standard_path') is not None:
-            self.is_init_standard_path = m.get('is_init_standard_path')
-        if m.get('repo_reuse') is not None:
-            self.repo_reuse = m.get('repo_reuse')
-        if m.get('parent_repos_name') is not None:
-            self.parent_repos_name = m.get('parent_repos_name')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('extra_params') is not None:
-            self.extra_params = m.get('extra_params')
-        if m.get('use_exist') is not None:
-            self.use_exist = m.get('use_exist')
-        if m.get('group_name') is not None:
-            self.group_name = m.get('group_name')
+        if m.get('display_name') is not None:
+            self.display_name = m.get('display_name')
+        return self
+
+
+class Cloud(TeaModel):
+    def __init__(
+        self,
+        id: int = None,
+        identity: str = None,
+        name: str = None,
+        platforms: List[CloudPlatform] = None,
+    ):
+        # id
+        self.id = id
+        # identity
+        self.identity = identity
+        # name
+        self.name = name
+        # platforms
+        self.platforms = platforms
+
+    def validate(self):
+        if self.platforms:
+            for k in self.platforms:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.identity is not None:
+            result['identity'] = self.identity
+        if self.name is not None:
+            result['name'] = self.name
+        result['platforms'] = []
+        if self.platforms is not None:
+            for k in self.platforms:
+                result['platforms'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('identity') is not None:
+            self.identity = m.get('identity')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        self.platforms = []
+        if m.get('platforms') is not None:
+            for k in m.get('platforms'):
+                temp_model = CloudPlatform()
+                self.platforms.append(temp_model.from_map(k))
         return self
 
 
@@ -1358,187 +1286,37 @@ class CodeCommit(TeaModel):
         return self
 
 
-class ZoneView(TeaModel):
+class DbSchemaGrant(TeaModel):
     def __init__(
         self,
-        id: str = None,
-        name: str = None,
-        display_name: str = None,
+        privilege: str = None,
+        account: DatabaseAccount = None,
     ):
-        # id
-        self.id = id
-        # name
-        self.name = name
-        # displayName
-        self.display_name = display_name
+        # privilege
+        self.privilege = privilege
+        # account
+        self.account = account
 
     def validate(self):
-        pass
+        self.validate_required(self.privilege, 'privilege')
+        if self.account:
+            self.account.validate()
 
     def to_map(self):
         result = dict()
-        if self.id is not None:
-            result['id'] = self.id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.display_name is not None:
-            result['display_name'] = self.display_name
+        if self.privilege is not None:
+            result['privilege'] = self.privilege
+        if self.account is not None:
+            result['account'] = self.account.to_map()
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('display_name') is not None:
-            self.display_name = m.get('display_name')
-        return self
-
-
-class AppOwner(TeaModel):
-    def __init__(
-        self,
-        dev_owner: UserInfo = None,
-        backup_dev_owners: List[UserInfo] = None,
-        test_owner: UserInfo = None,
-        backup_test_owners: List[UserInfo] = None,
-        ops: UserInfo = None,
-        backup_opses: List[UserInfo] = None,
-        dev_architect: UserInfo = None,
-        backup_dev_architects: List[UserInfo] = None,
-        test_architect: UserInfo = None,
-        backup_test_architects: List[UserInfo] = None,
-    ):
-        # 研发负责人
-        self.dev_owner = dev_owner
-        # backup开发人员
-        self.backup_dev_owners = backup_dev_owners
-        # 测试负责人
-        self.test_owner = test_owner
-        # 备用测试人员
-        self.backup_test_owners = backup_test_owners
-        # 运维负责人
-        self.ops = ops
-        # 备用SRE人员
-        self.backup_opses = backup_opses
-        # 开发architect负责人
-        self.dev_architect = dev_architect
-        # 备用Architects联系人
-        self.backup_dev_architects = backup_dev_architects
-        # 测试architect
-        self.test_architect = test_architect
-        # 备用测试architects
-        self.backup_test_architects = backup_test_architects
-
-    def validate(self):
-        if self.dev_owner:
-            self.dev_owner.validate()
-        if self.backup_dev_owners:
-            for k in self.backup_dev_owners:
-                if k:
-                    k.validate()
-        if self.test_owner:
-            self.test_owner.validate()
-        if self.backup_test_owners:
-            for k in self.backup_test_owners:
-                if k:
-                    k.validate()
-        if self.ops:
-            self.ops.validate()
-        if self.backup_opses:
-            for k in self.backup_opses:
-                if k:
-                    k.validate()
-        if self.dev_architect:
-            self.dev_architect.validate()
-        if self.backup_dev_architects:
-            for k in self.backup_dev_architects:
-                if k:
-                    k.validate()
-        if self.test_architect:
-            self.test_architect.validate()
-        if self.backup_test_architects:
-            for k in self.backup_test_architects:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.dev_owner is not None:
-            result['dev_owner'] = self.dev_owner.to_map()
-        result['backup_dev_owners'] = []
-        if self.backup_dev_owners is not None:
-            for k in self.backup_dev_owners:
-                result['backup_dev_owners'].append(k.to_map() if k else None)
-        if self.test_owner is not None:
-            result['test_owner'] = self.test_owner.to_map()
-        result['backup_test_owners'] = []
-        if self.backup_test_owners is not None:
-            for k in self.backup_test_owners:
-                result['backup_test_owners'].append(k.to_map() if k else None)
-        if self.ops is not None:
-            result['ops'] = self.ops.to_map()
-        result['backup_opses'] = []
-        if self.backup_opses is not None:
-            for k in self.backup_opses:
-                result['backup_opses'].append(k.to_map() if k else None)
-        if self.dev_architect is not None:
-            result['dev_architect'] = self.dev_architect.to_map()
-        result['backup_dev_architects'] = []
-        if self.backup_dev_architects is not None:
-            for k in self.backup_dev_architects:
-                result['backup_dev_architects'].append(k.to_map() if k else None)
-        if self.test_architect is not None:
-            result['test_architect'] = self.test_architect.to_map()
-        result['backup_test_architects'] = []
-        if self.backup_test_architects is not None:
-            for k in self.backup_test_architects:
-                result['backup_test_architects'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('dev_owner') is not None:
-            temp_model = UserInfo()
-            self.dev_owner = temp_model.from_map(m['dev_owner'])
-        self.backup_dev_owners = []
-        if m.get('backup_dev_owners') is not None:
-            for k in m.get('backup_dev_owners'):
-                temp_model = UserInfo()
-                self.backup_dev_owners.append(temp_model.from_map(k))
-        if m.get('test_owner') is not None:
-            temp_model = UserInfo()
-            self.test_owner = temp_model.from_map(m['test_owner'])
-        self.backup_test_owners = []
-        if m.get('backup_test_owners') is not None:
-            for k in m.get('backup_test_owners'):
-                temp_model = UserInfo()
-                self.backup_test_owners.append(temp_model.from_map(k))
-        if m.get('ops') is not None:
-            temp_model = UserInfo()
-            self.ops = temp_model.from_map(m['ops'])
-        self.backup_opses = []
-        if m.get('backup_opses') is not None:
-            for k in m.get('backup_opses'):
-                temp_model = UserInfo()
-                self.backup_opses.append(temp_model.from_map(k))
-        if m.get('dev_architect') is not None:
-            temp_model = UserInfo()
-            self.dev_architect = temp_model.from_map(m['dev_architect'])
-        self.backup_dev_architects = []
-        if m.get('backup_dev_architects') is not None:
-            for k in m.get('backup_dev_architects'):
-                temp_model = UserInfo()
-                self.backup_dev_architects.append(temp_model.from_map(k))
-        if m.get('test_architect') is not None:
-            temp_model = UserInfo()
-            self.test_architect = temp_model.from_map(m['test_architect'])
-        self.backup_test_architects = []
-        if m.get('backup_test_architects') is not None:
-            for k in m.get('backup_test_architects'):
-                temp_model = UserInfo()
-                self.backup_test_architects.append(temp_model.from_map(k))
+        if m.get('privilege') is not None:
+            self.privilege = m.get('privilege')
+        if m.get('account') is not None:
+            temp_model = DatabaseAccount()
+            self.account = temp_model.from_map(m['account'])
         return self
 
 
@@ -1620,263 +1398,6 @@ class ScmSofaArchetype(TeaModel):
             self.use_private_repo = m.get('use_private_repo')
         if m.get('meta_data') is not None:
             self.meta_data = m.get('meta_data')
-        return self
-
-
-class DbSchemaGrant(TeaModel):
-    def __init__(
-        self,
-        privilege: str = None,
-        account: DatabaseAccount = None,
-    ):
-        # privilege
-        self.privilege = privilege
-        # account
-        self.account = account
-
-    def validate(self):
-        self.validate_required(self.privilege, 'privilege')
-        if self.account:
-            self.account.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.privilege is not None:
-            result['privilege'] = self.privilege
-        if self.account is not None:
-            result['account'] = self.account.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('privilege') is not None:
-            self.privilege = m.get('privilege')
-        if m.get('account') is not None:
-            temp_model = DatabaseAccount()
-            self.account = temp_model.from_map(m['account'])
-        return self
-
-
-class Cloud(TeaModel):
-    def __init__(
-        self,
-        id: int = None,
-        identity: str = None,
-        name: str = None,
-        platforms: List[CloudPlatform] = None,
-    ):
-        # id
-        self.id = id
-        # identity
-        self.identity = identity
-        # name
-        self.name = name
-        # platforms
-        self.platforms = platforms
-
-    def validate(self):
-        if self.platforms:
-            for k in self.platforms:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.id is not None:
-            result['id'] = self.id
-        if self.identity is not None:
-            result['identity'] = self.identity
-        if self.name is not None:
-            result['name'] = self.name
-        result['platforms'] = []
-        if self.platforms is not None:
-            for k in self.platforms:
-                result['platforms'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('identity') is not None:
-            self.identity = m.get('identity')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        self.platforms = []
-        if m.get('platforms') is not None:
-            for k in m.get('platforms'):
-                temp_model = CloudPlatform()
-                self.platforms.append(temp_model.from_map(k))
-        return self
-
-
-class Disk(TeaModel):
-    def __init__(
-        self,
-        category: str = None,
-        computer: DiskComputer = None,
-        delete_auto_snapshot: bool = None,
-        delete_with_computer: bool = None,
-        device: str = None,
-        enable_auto_snapshot: bool = None,
-        iaas_id: str = None,
-        id: str = None,
-        image_id: str = None,
-        name: str = None,
-        portable: bool = None,
-        provider_id: str = None,
-        region_id: str = None,
-        size: int = None,
-        status: str = None,
-        tenant_id: str = None,
-        type: str = None,
-        utc_create: str = None,
-        utc_modified: str = None,
-        workspace_id: str = None,
-        zone_id: str = None,
-    ):
-        # ssd, cloud_efficiency
-        self.category = category
-        # disk related computer info
-        self.computer = computer
-        # 是否同时删除自动快照
-        self.delete_auto_snapshot = delete_auto_snapshot
-        # 磁盘是否随container一起释放
-        self.delete_with_computer = delete_with_computer
-        # device info
-        self.device = device
-        # 磁盘是否执行自动快照策略
-        self.enable_auto_snapshot = enable_auto_snapshot
-        # iaasId
-        self.iaas_id = iaas_id
-        # id
-        self.id = id
-        # 创建磁盘的镜像
-        self.image_id = image_id
-        # name
-        self.name = name
-        # 磁盘是否可卸载
-        self.portable = portable
-        # providerId
-        self.provider_id = provider_id
-        # regionId
-        self.region_id = region_id
-        # disk size
-        self.size = size
-        # disk status
-        self.status = status
-        # tenantId
-        self.tenant_id = tenant_id
-        # SYSTEM, DATA
-        self.type = type
-        # utcCreate
-        self.utc_create = utc_create
-        # utcModified
-        self.utc_modified = utc_modified
-        # workspaceId
-        self.workspace_id = workspace_id
-        # zoneId
-        self.zone_id = zone_id
-
-    def validate(self):
-        if self.computer:
-            self.computer.validate()
-        if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-
-    def to_map(self):
-        result = dict()
-        if self.category is not None:
-            result['category'] = self.category
-        if self.computer is not None:
-            result['computer'] = self.computer.to_map()
-        if self.delete_auto_snapshot is not None:
-            result['delete_auto_snapshot'] = self.delete_auto_snapshot
-        if self.delete_with_computer is not None:
-            result['delete_with_computer'] = self.delete_with_computer
-        if self.device is not None:
-            result['device'] = self.device
-        if self.enable_auto_snapshot is not None:
-            result['enable_auto_snapshot'] = self.enable_auto_snapshot
-        if self.iaas_id is not None:
-            result['iaas_id'] = self.iaas_id
-        if self.id is not None:
-            result['id'] = self.id
-        if self.image_id is not None:
-            result['image_id'] = self.image_id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.portable is not None:
-            result['portable'] = self.portable
-        if self.provider_id is not None:
-            result['provider_id'] = self.provider_id
-        if self.region_id is not None:
-            result['region_id'] = self.region_id
-        if self.size is not None:
-            result['size'] = self.size
-        if self.status is not None:
-            result['status'] = self.status
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
-        if self.type is not None:
-            result['type'] = self.type
-        if self.utc_create is not None:
-            result['utc_create'] = self.utc_create
-        if self.utc_modified is not None:
-            result['utc_modified'] = self.utc_modified
-        if self.workspace_id is not None:
-            result['workspace_id'] = self.workspace_id
-        if self.zone_id is not None:
-            result['zone_id'] = self.zone_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('category') is not None:
-            self.category = m.get('category')
-        if m.get('computer') is not None:
-            temp_model = DiskComputer()
-            self.computer = temp_model.from_map(m['computer'])
-        if m.get('delete_auto_snapshot') is not None:
-            self.delete_auto_snapshot = m.get('delete_auto_snapshot')
-        if m.get('delete_with_computer') is not None:
-            self.delete_with_computer = m.get('delete_with_computer')
-        if m.get('device') is not None:
-            self.device = m.get('device')
-        if m.get('enable_auto_snapshot') is not None:
-            self.enable_auto_snapshot = m.get('enable_auto_snapshot')
-        if m.get('iaas_id') is not None:
-            self.iaas_id = m.get('iaas_id')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('image_id') is not None:
-            self.image_id = m.get('image_id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('portable') is not None:
-            self.portable = m.get('portable')
-        if m.get('provider_id') is not None:
-            self.provider_id = m.get('provider_id')
-        if m.get('region_id') is not None:
-            self.region_id = m.get('region_id')
-        if m.get('size') is not None:
-            self.size = m.get('size')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('utc_create') is not None:
-            self.utc_create = m.get('utc_create')
-        if m.get('utc_modified') is not None:
-            self.utc_modified = m.get('utc_modified')
-        if m.get('workspace_id') is not None:
-            self.workspace_id = m.get('workspace_id')
-        if m.get('zone_id') is not None:
-            self.zone_id = m.get('zone_id')
         return self
 
 
@@ -1973,168 +1494,6 @@ class AppLifeCycle(TeaModel):
             self.gmt_create = m.get('gmt_create')
         if m.get('gmt_modified') is not None:
             self.gmt_modified = m.get('gmt_modified')
-        return self
-
-
-class AppExtraInfo(TeaModel):
-    def __init__(
-        self,
-        id: str = None,
-        name: str = None,
-        value: str = None,
-        description: str = None,
-        template_id: str = None,
-        type: str = None,
-        utc_create: str = None,
-        utc_modified: str = None,
-        app_extrainfo_id: str = None,
-        app_id: str = None,
-        template_data_id: str = None,
-    ):
-        # ID
-        self.id = id
-        # 名称
-        self.name = name
-        # 值
-        self.value = value
-        # 描述
-        self.description = description
-        # 模板ID
-        self.template_id = template_id
-        # 模板类型
-        self.type = type
-        # 创建时间
-        self.utc_create = utc_create
-        # 最近修改时间
-        self.utc_modified = utc_modified
-        # 应用扩展信息ID
-        self.app_extrainfo_id = app_extrainfo_id
-        # 应用ID
-        self.app_id = app_id
-        # 模板数据ID
-        self.template_data_id = template_data_id
-
-    def validate(self):
-        if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-
-    def to_map(self):
-        result = dict()
-        if self.id is not None:
-            result['id'] = self.id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.value is not None:
-            result['value'] = self.value
-        if self.description is not None:
-            result['description'] = self.description
-        if self.template_id is not None:
-            result['template_id'] = self.template_id
-        if self.type is not None:
-            result['type'] = self.type
-        if self.utc_create is not None:
-            result['utc_create'] = self.utc_create
-        if self.utc_modified is not None:
-            result['utc_modified'] = self.utc_modified
-        if self.app_extrainfo_id is not None:
-            result['app_extrainfo_id'] = self.app_extrainfo_id
-        if self.app_id is not None:
-            result['app_id'] = self.app_id
-        if self.template_data_id is not None:
-            result['template_data_id'] = self.template_data_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('value') is not None:
-            self.value = m.get('value')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('template_id') is not None:
-            self.template_id = m.get('template_id')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('utc_create') is not None:
-            self.utc_create = m.get('utc_create')
-        if m.get('utc_modified') is not None:
-            self.utc_modified = m.get('utc_modified')
-        if m.get('app_extrainfo_id') is not None:
-            self.app_extrainfo_id = m.get('app_extrainfo_id')
-        if m.get('app_id') is not None:
-            self.app_id = m.get('app_id')
-        if m.get('template_data_id') is not None:
-            self.template_data_id = m.get('template_data_id')
-        return self
-
-
-class SLSConfigSensitiveKey(TeaModel):
-    def __init__(
-        self,
-        all: bool = None,
-        const_value: str = None,
-        key: str = None,
-        regex_begin: str = None,
-        regex_content: str = None,
-        type: str = None,
-    ):
-        # 是否替换该字段中所有的敏感内容。建议设置为true
-        self.all = all
-        # 当type设置为const时必须填写
-        self.const_value = const_value
-        # 日志Key名称
-        self.key = key
-        # 敏感内容的前缀
-        self.regex_begin = regex_begin
-        # 敏感内容正则表达式。
-        self.regex_content = regex_content
-        # 脱敏方式，取值为const、md5。
-        # 若取值为const，则将敏感内容替换成const字段取值内容。
-        # 若取值为md5，则将敏感内容替换为其对应的MD5值。
-        self.type = type
-
-    def validate(self):
-        self.validate_required(self.all, 'all')
-        self.validate_required(self.key, 'key')
-        self.validate_required(self.regex_begin, 'regex_begin')
-        self.validate_required(self.regex_content, 'regex_content')
-        self.validate_required(self.type, 'type')
-
-    def to_map(self):
-        result = dict()
-        if self.all is not None:
-            result['all'] = self.all
-        if self.const_value is not None:
-            result['const_value'] = self.const_value
-        if self.key is not None:
-            result['key'] = self.key
-        if self.regex_begin is not None:
-            result['regex_begin'] = self.regex_begin
-        if self.regex_content is not None:
-            result['regex_content'] = self.regex_content
-        if self.type is not None:
-            result['type'] = self.type
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('all') is not None:
-            self.all = m.get('all')
-        if m.get('const_value') is not None:
-            self.const_value = m.get('const_value')
-        if m.get('key') is not None:
-            self.key = m.get('key')
-        if m.get('regex_begin') is not None:
-            self.regex_begin = m.get('regex_begin')
-        if m.get('regex_content') is not None:
-            self.regex_content = m.get('regex_content')
-        if m.get('type') is not None:
-            self.type = m.get('type')
         return self
 
 
@@ -2395,92 +1754,202 @@ class LoadBalancer(TeaModel):
         return self
 
 
-class NextHopItem(TeaModel):
+class AppOwner(TeaModel):
     def __init__(
         self,
-        next_hop_type: str = None,
-        next_hop_id: str = None,
-        enable: int = None,
-        weight: int = None,
+        dev_owner: UserInfo = None,
+        backup_dev_owners: List[UserInfo] = None,
+        test_owner: UserInfo = None,
+        backup_test_owners: List[UserInfo] = None,
+        ops: UserInfo = None,
+        backup_opses: List[UserInfo] = None,
+        dev_architect: UserInfo = None,
+        backup_dev_architects: List[UserInfo] = None,
+        test_architect: UserInfo = None,
+        backup_test_architects: List[UserInfo] = None,
     ):
-        # 
-        # 下一跳的类型。
-        # 
-        # Instance：ECS实例。
-        # HaVip：高可用虚拟IP。
-        # VpnGateway：VPN网关。
-        # NatGateway：NAT网关。
-        # NetworkInterface：辅助弹性网卡。
-        # RouterInterface：路由器接口。
-        # IPv6Gateway：IPv6网关。
-        self.next_hop_type = next_hop_type
-        # 下一跳实例的ID。
-        self.next_hop_id = next_hop_id
-        # 是否启用下一跳。
-        # 
-        # 0：不启用。
-        # 1：启用。
-        self.enable = enable
-        # 下一跳的路由权重。
-        self.weight = weight
+        # 研发负责人
+        self.dev_owner = dev_owner
+        # backup开发人员
+        self.backup_dev_owners = backup_dev_owners
+        # 测试负责人
+        self.test_owner = test_owner
+        # 备用测试人员
+        self.backup_test_owners = backup_test_owners
+        # 运维负责人
+        self.ops = ops
+        # 备用SRE人员
+        self.backup_opses = backup_opses
+        # 开发architect负责人
+        self.dev_architect = dev_architect
+        # 备用Architects联系人
+        self.backup_dev_architects = backup_dev_architects
+        # 测试architect
+        self.test_architect = test_architect
+        # 备用测试architects
+        self.backup_test_architects = backup_test_architects
 
     def validate(self):
-        pass
+        if self.dev_owner:
+            self.dev_owner.validate()
+        if self.backup_dev_owners:
+            for k in self.backup_dev_owners:
+                if k:
+                    k.validate()
+        if self.test_owner:
+            self.test_owner.validate()
+        if self.backup_test_owners:
+            for k in self.backup_test_owners:
+                if k:
+                    k.validate()
+        if self.ops:
+            self.ops.validate()
+        if self.backup_opses:
+            for k in self.backup_opses:
+                if k:
+                    k.validate()
+        if self.dev_architect:
+            self.dev_architect.validate()
+        if self.backup_dev_architects:
+            for k in self.backup_dev_architects:
+                if k:
+                    k.validate()
+        if self.test_architect:
+            self.test_architect.validate()
+        if self.backup_test_architects:
+            for k in self.backup_test_architects:
+                if k:
+                    k.validate()
 
     def to_map(self):
         result = dict()
-        if self.next_hop_type is not None:
-            result['next_hop_type'] = self.next_hop_type
-        if self.next_hop_id is not None:
-            result['next_hop_id'] = self.next_hop_id
-        if self.enable is not None:
-            result['enable'] = self.enable
-        if self.weight is not None:
-            result['weight'] = self.weight
+        if self.dev_owner is not None:
+            result['dev_owner'] = self.dev_owner.to_map()
+        result['backup_dev_owners'] = []
+        if self.backup_dev_owners is not None:
+            for k in self.backup_dev_owners:
+                result['backup_dev_owners'].append(k.to_map() if k else None)
+        if self.test_owner is not None:
+            result['test_owner'] = self.test_owner.to_map()
+        result['backup_test_owners'] = []
+        if self.backup_test_owners is not None:
+            for k in self.backup_test_owners:
+                result['backup_test_owners'].append(k.to_map() if k else None)
+        if self.ops is not None:
+            result['ops'] = self.ops.to_map()
+        result['backup_opses'] = []
+        if self.backup_opses is not None:
+            for k in self.backup_opses:
+                result['backup_opses'].append(k.to_map() if k else None)
+        if self.dev_architect is not None:
+            result['dev_architect'] = self.dev_architect.to_map()
+        result['backup_dev_architects'] = []
+        if self.backup_dev_architects is not None:
+            for k in self.backup_dev_architects:
+                result['backup_dev_architects'].append(k.to_map() if k else None)
+        if self.test_architect is not None:
+            result['test_architect'] = self.test_architect.to_map()
+        result['backup_test_architects'] = []
+        if self.backup_test_architects is not None:
+            for k in self.backup_test_architects:
+                result['backup_test_architects'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('next_hop_type') is not None:
-            self.next_hop_type = m.get('next_hop_type')
-        if m.get('next_hop_id') is not None:
-            self.next_hop_id = m.get('next_hop_id')
-        if m.get('enable') is not None:
-            self.enable = m.get('enable')
-        if m.get('weight') is not None:
-            self.weight = m.get('weight')
+        if m.get('dev_owner') is not None:
+            temp_model = UserInfo()
+            self.dev_owner = temp_model.from_map(m['dev_owner'])
+        self.backup_dev_owners = []
+        if m.get('backup_dev_owners') is not None:
+            for k in m.get('backup_dev_owners'):
+                temp_model = UserInfo()
+                self.backup_dev_owners.append(temp_model.from_map(k))
+        if m.get('test_owner') is not None:
+            temp_model = UserInfo()
+            self.test_owner = temp_model.from_map(m['test_owner'])
+        self.backup_test_owners = []
+        if m.get('backup_test_owners') is not None:
+            for k in m.get('backup_test_owners'):
+                temp_model = UserInfo()
+                self.backup_test_owners.append(temp_model.from_map(k))
+        if m.get('ops') is not None:
+            temp_model = UserInfo()
+            self.ops = temp_model.from_map(m['ops'])
+        self.backup_opses = []
+        if m.get('backup_opses') is not None:
+            for k in m.get('backup_opses'):
+                temp_model = UserInfo()
+                self.backup_opses.append(temp_model.from_map(k))
+        if m.get('dev_architect') is not None:
+            temp_model = UserInfo()
+            self.dev_architect = temp_model.from_map(m['dev_architect'])
+        self.backup_dev_architects = []
+        if m.get('backup_dev_architects') is not None:
+            for k in m.get('backup_dev_architects'):
+                temp_model = UserInfo()
+                self.backup_dev_architects.append(temp_model.from_map(k))
+        if m.get('test_architect') is not None:
+            temp_model = UserInfo()
+            self.test_architect = temp_model.from_map(m['test_architect'])
+        self.backup_test_architects = []
+        if m.get('backup_test_architects') is not None:
+            for k in m.get('backup_test_architects'):
+                temp_model = UserInfo()
+                self.backup_test_architects.append(temp_model.from_map(k))
         return self
 
 
-class AppLevel(TeaModel):
+class CodeRepository(TeaModel):
     def __init__(
         self,
         id: str = None,
         name: str = None,
-        creator_id: str = None,
-        tenant_id: str = None,
-        utc_create: str = None,
-        utc_modified: str = None,
+        type: str = None,
+        owner: str = None,
+        source_location: str = None,
+        remote_repo_id: str = None,
+        instance_id: str = None,
+        is_init_standard_path: bool = None,
+        repo_reuse: str = None,
+        parent_repos_name: str = None,
+        status: str = None,
+        extra_params: str = None,
+        use_exist: bool = None,
+        group_name: str = None,
     ):
-        # ID
+        # 代码仓库ID
         self.id = id
-        # 应用等级名称
+        # 名称
         self.name = name
-        # 创建者
-        self.creator_id = creator_id
-        # 租户ID
-        self.tenant_id = tenant_id
-        # 创建时间
-        self.utc_create = utc_create
-        # 最近修改时间
-        self.utc_modified = utc_modified
+        # VCS源代码管理系统
+        self.type = type
+        # 负责人
+        self.owner = owner
+        # 源代码地址
+        self.source_location = source_location
+        # 被SCM管理的远程仓库ID
+        self.remote_repo_id = remote_repo_id
+        # 流程标记id(可选参数)
+        self.instance_id = instance_id
+        # 是否初始化目录(可选参数，目前金融云传与不传都不初始化)
+        self.is_init_standard_path = is_init_standard_path
+        # 代码库是否可复用(默认为不复用 0)
+        self.repo_reuse = repo_reuse
+        # 父代码库名称(reposReuse为0时可以不传)
+        self.parent_repos_name = parent_repos_name
+        # 代码仓库状态
+        self.status = status
+        # 扩展参数，JSON字符串
+        self.extra_params = extra_params
+        # 是否使用已有仓库
+        self.use_exist = use_exist
+        # 分组名称
+        self.group_name = group_name
 
     def validate(self):
         self.validate_required(self.id, 'id')
-        if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.name, 'name')
 
     def to_map(self):
         result = dict()
@@ -2488,14 +1957,30 @@ class AppLevel(TeaModel):
             result['id'] = self.id
         if self.name is not None:
             result['name'] = self.name
-        if self.creator_id is not None:
-            result['creator_id'] = self.creator_id
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
-        if self.utc_create is not None:
-            result['utc_create'] = self.utc_create
-        if self.utc_modified is not None:
-            result['utc_modified'] = self.utc_modified
+        if self.type is not None:
+            result['type'] = self.type
+        if self.owner is not None:
+            result['owner'] = self.owner
+        if self.source_location is not None:
+            result['source_location'] = self.source_location
+        if self.remote_repo_id is not None:
+            result['remote_repo_id'] = self.remote_repo_id
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.is_init_standard_path is not None:
+            result['is_init_standard_path'] = self.is_init_standard_path
+        if self.repo_reuse is not None:
+            result['repo_reuse'] = self.repo_reuse
+        if self.parent_repos_name is not None:
+            result['parent_repos_name'] = self.parent_repos_name
+        if self.status is not None:
+            result['status'] = self.status
+        if self.extra_params is not None:
+            result['extra_params'] = self.extra_params
+        if self.use_exist is not None:
+            result['use_exist'] = self.use_exist
+        if self.group_name is not None:
+            result['group_name'] = self.group_name
         return result
 
     def from_map(self, m: dict = None):
@@ -2504,14 +1989,247 @@ class AppLevel(TeaModel):
             self.id = m.get('id')
         if m.get('name') is not None:
             self.name = m.get('name')
-        if m.get('creator_id') is not None:
-            self.creator_id = m.get('creator_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('owner') is not None:
+            self.owner = m.get('owner')
+        if m.get('source_location') is not None:
+            self.source_location = m.get('source_location')
+        if m.get('remote_repo_id') is not None:
+            self.remote_repo_id = m.get('remote_repo_id')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('is_init_standard_path') is not None:
+            self.is_init_standard_path = m.get('is_init_standard_path')
+        if m.get('repo_reuse') is not None:
+            self.repo_reuse = m.get('repo_reuse')
+        if m.get('parent_repos_name') is not None:
+            self.parent_repos_name = m.get('parent_repos_name')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('extra_params') is not None:
+            self.extra_params = m.get('extra_params')
+        if m.get('use_exist') is not None:
+            self.use_exist = m.get('use_exist')
+        if m.get('group_name') is not None:
+            self.group_name = m.get('group_name')
+        return self
+
+
+class Disk(TeaModel):
+    def __init__(
+        self,
+        category: str = None,
+        computer: DiskComputer = None,
+        delete_auto_snapshot: bool = None,
+        delete_with_computer: bool = None,
+        device: str = None,
+        enable_auto_snapshot: bool = None,
+        iaas_id: str = None,
+        id: str = None,
+        image_id: str = None,
+        name: str = None,
+        portable: bool = None,
+        provider_id: str = None,
+        region_id: str = None,
+        size: int = None,
+        status: str = None,
+        tenant_id: str = None,
+        type: str = None,
+        utc_create: str = None,
+        utc_modified: str = None,
+        workspace_id: str = None,
+        zone_id: str = None,
+    ):
+        # ssd, cloud_efficiency
+        self.category = category
+        # disk related computer info
+        self.computer = computer
+        # 是否同时删除自动快照
+        self.delete_auto_snapshot = delete_auto_snapshot
+        # 磁盘是否随container一起释放
+        self.delete_with_computer = delete_with_computer
+        # device info
+        self.device = device
+        # 磁盘是否执行自动快照策略
+        self.enable_auto_snapshot = enable_auto_snapshot
+        # iaasId
+        self.iaas_id = iaas_id
+        # id
+        self.id = id
+        # 创建磁盘的镜像
+        self.image_id = image_id
+        # name
+        self.name = name
+        # 磁盘是否可卸载
+        self.portable = portable
+        # providerId
+        self.provider_id = provider_id
+        # regionId
+        self.region_id = region_id
+        # disk size
+        self.size = size
+        # disk status
+        self.status = status
+        # tenantId
+        self.tenant_id = tenant_id
+        # SYSTEM, DATA
+        self.type = type
+        # utcCreate
+        self.utc_create = utc_create
+        # utcModified
+        self.utc_modified = utc_modified
+        # workspaceId
+        self.workspace_id = workspace_id
+        # zoneId
+        self.zone_id = zone_id
+
+    def validate(self):
+        if self.computer:
+            self.computer.validate()
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.utc_modified is not None:
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.category is not None:
+            result['category'] = self.category
+        if self.computer is not None:
+            result['computer'] = self.computer.to_map()
+        if self.delete_auto_snapshot is not None:
+            result['delete_auto_snapshot'] = self.delete_auto_snapshot
+        if self.delete_with_computer is not None:
+            result['delete_with_computer'] = self.delete_with_computer
+        if self.device is not None:
+            result['device'] = self.device
+        if self.enable_auto_snapshot is not None:
+            result['enable_auto_snapshot'] = self.enable_auto_snapshot
+        if self.iaas_id is not None:
+            result['iaas_id'] = self.iaas_id
+        if self.id is not None:
+            result['id'] = self.id
+        if self.image_id is not None:
+            result['image_id'] = self.image_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.portable is not None:
+            result['portable'] = self.portable
+        if self.provider_id is not None:
+            result['provider_id'] = self.provider_id
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.size is not None:
+            result['size'] = self.size
+        if self.status is not None:
+            result['status'] = self.status
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.type is not None:
+            result['type'] = self.type
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.utc_modified is not None:
+            result['utc_modified'] = self.utc_modified
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.zone_id is not None:
+            result['zone_id'] = self.zone_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('category') is not None:
+            self.category = m.get('category')
+        if m.get('computer') is not None:
+            temp_model = DiskComputer()
+            self.computer = temp_model.from_map(m['computer'])
+        if m.get('delete_auto_snapshot') is not None:
+            self.delete_auto_snapshot = m.get('delete_auto_snapshot')
+        if m.get('delete_with_computer') is not None:
+            self.delete_with_computer = m.get('delete_with_computer')
+        if m.get('device') is not None:
+            self.device = m.get('device')
+        if m.get('enable_auto_snapshot') is not None:
+            self.enable_auto_snapshot = m.get('enable_auto_snapshot')
+        if m.get('iaas_id') is not None:
+            self.iaas_id = m.get('iaas_id')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('image_id') is not None:
+            self.image_id = m.get('image_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('portable') is not None:
+            self.portable = m.get('portable')
+        if m.get('provider_id') is not None:
+            self.provider_id = m.get('provider_id')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('size') is not None:
+            self.size = m.get('size')
+        if m.get('status') is not None:
+            self.status = m.get('status')
         if m.get('tenant_id') is not None:
             self.tenant_id = m.get('tenant_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
         if m.get('utc_create') is not None:
             self.utc_create = m.get('utc_create')
         if m.get('utc_modified') is not None:
             self.utc_modified = m.get('utc_modified')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('zone_id') is not None:
+            self.zone_id = m.get('zone_id')
+        return self
+
+
+class WorkspaceZoneDto(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        workspace_id: str = None,
+        zone_id: str = None,
+        zone_name: str = None,
+    ):
+        # id
+        self.id = id
+        # workspace_id
+        self.workspace_id = workspace_id
+        # zone_id
+        self.zone_id = zone_id
+        # zone name
+        self.zone_name = zone_name
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.zone_id, 'zone_id')
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.zone_id is not None:
+            result['zone_id'] = self.zone_id
+        if self.zone_name is not None:
+            result['zone_name'] = self.zone_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('zone_id') is not None:
+            self.zone_id = m.get('zone_id')
+        if m.get('zone_name') is not None:
+            self.zone_name = m.get('zone_name')
         return self
 
 
@@ -2649,95 +2367,330 @@ class TaskRequest(TeaModel):
         return self
 
 
-class IaasRequest(TeaModel):
+class AppLevel(TeaModel):
     def __init__(
         self,
-        request_method: str = None,
-        request_url: str = None,
-        request_body: str = None,
-        request_headers: List[MapStringToStringEntity] = None,
+        id: str = None,
+        name: str = None,
+        creator_id: str = None,
+        tenant_id: str = None,
+        utc_create: str = None,
+        utc_modified: str = None,
     ):
-        # requestMethod
-        self.request_method = request_method
-        # requestUrl
-        self.request_url = request_url
-        # requestBody
-        self.request_body = request_body
-        # request_headers
-        self.request_headers = request_headers
+        # ID
+        self.id = id
+        # 应用等级名称
+        self.name = name
+        # 创建者
+        self.creator_id = creator_id
+        # 租户ID
+        self.tenant_id = tenant_id
+        # 创建时间
+        self.utc_create = utc_create
+        # 最近修改时间
+        self.utc_modified = utc_modified
 
     def validate(self):
-        if self.request_headers:
-            for k in self.request_headers:
-                if k:
-                    k.validate()
+        self.validate_required(self.id, 'id')
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.utc_modified is not None:
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
-        if self.request_method is not None:
-            result['request_method'] = self.request_method
-        if self.request_url is not None:
-            result['request_url'] = self.request_url
-        if self.request_body is not None:
-            result['request_body'] = self.request_body
-        result['request_headers'] = []
-        if self.request_headers is not None:
-            for k in self.request_headers:
-                result['request_headers'].append(k.to_map() if k else None)
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.creator_id is not None:
+            result['creator_id'] = self.creator_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.utc_modified is not None:
+            result['utc_modified'] = self.utc_modified
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('request_method') is not None:
-            self.request_method = m.get('request_method')
-        if m.get('request_url') is not None:
-            self.request_url = m.get('request_url')
-        if m.get('request_body') is not None:
-            self.request_body = m.get('request_body')
-        self.request_headers = []
-        if m.get('request_headers') is not None:
-            for k in m.get('request_headers'):
-                temp_model = MapStringToStringEntity()
-                self.request_headers.append(temp_model.from_map(k))
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('creator_id') is not None:
+            self.creator_id = m.get('creator_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('utc_modified') is not None:
+            self.utc_modified = m.get('utc_modified')
         return self
 
 
-class IaasResponse(TeaModel):
+class NextHopItem(TeaModel):
     def __init__(
         self,
-        response_body: str = None,
-        response_headers: List[MapStringToStringEntity] = None,
+        next_hop_type: str = None,
+        next_hop_id: str = None,
+        enable: int = None,
+        weight: int = None,
     ):
-        # response_body
-        self.response_body = response_body
-        # response_headers
-        self.response_headers = response_headers
+        # 
+        # 下一跳的类型。
+        # 
+        # Instance：ECS实例。
+        # HaVip：高可用虚拟IP。
+        # VpnGateway：VPN网关。
+        # NatGateway：NAT网关。
+        # NetworkInterface：辅助弹性网卡。
+        # RouterInterface：路由器接口。
+        # IPv6Gateway：IPv6网关。
+        self.next_hop_type = next_hop_type
+        # 下一跳实例的ID。
+        self.next_hop_id = next_hop_id
+        # 是否启用下一跳。
+        # 
+        # 0：不启用。
+        # 1：启用。
+        self.enable = enable
+        # 下一跳的路由权重。
+        self.weight = weight
 
     def validate(self):
-        if self.response_headers:
-            for k in self.response_headers:
-                if k:
-                    k.validate()
+        pass
 
     def to_map(self):
         result = dict()
-        if self.response_body is not None:
-            result['response_body'] = self.response_body
-        result['response_headers'] = []
-        if self.response_headers is not None:
-            for k in self.response_headers:
-                result['response_headers'].append(k.to_map() if k else None)
+        if self.next_hop_type is not None:
+            result['next_hop_type'] = self.next_hop_type
+        if self.next_hop_id is not None:
+            result['next_hop_id'] = self.next_hop_id
+        if self.enable is not None:
+            result['enable'] = self.enable
+        if self.weight is not None:
+            result['weight'] = self.weight
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('response_body') is not None:
-            self.response_body = m.get('response_body')
-        self.response_headers = []
-        if m.get('response_headers') is not None:
-            for k in m.get('response_headers'):
-                temp_model = MapStringToStringEntity()
-                self.response_headers.append(temp_model.from_map(k))
+        if m.get('next_hop_type') is not None:
+            self.next_hop_type = m.get('next_hop_type')
+        if m.get('next_hop_id') is not None:
+            self.next_hop_id = m.get('next_hop_id')
+        if m.get('enable') is not None:
+            self.enable = m.get('enable')
+        if m.get('weight') is not None:
+            self.weight = m.get('weight')
+        return self
+
+
+class AppExtraInfo(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        name: str = None,
+        value: str = None,
+        description: str = None,
+        template_id: str = None,
+        type: str = None,
+        utc_create: str = None,
+        utc_modified: str = None,
+        app_extrainfo_id: str = None,
+        app_id: str = None,
+        template_data_id: str = None,
+    ):
+        # ID
+        self.id = id
+        # 名称
+        self.name = name
+        # 值
+        self.value = value
+        # 描述
+        self.description = description
+        # 模板ID
+        self.template_id = template_id
+        # 模板类型
+        self.type = type
+        # 创建时间
+        self.utc_create = utc_create
+        # 最近修改时间
+        self.utc_modified = utc_modified
+        # 应用扩展信息ID
+        self.app_extrainfo_id = app_extrainfo_id
+        # 应用ID
+        self.app_id = app_id
+        # 模板数据ID
+        self.template_data_id = template_data_id
+
+    def validate(self):
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.utc_modified is not None:
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.value is not None:
+            result['value'] = self.value
+        if self.description is not None:
+            result['description'] = self.description
+        if self.template_id is not None:
+            result['template_id'] = self.template_id
+        if self.type is not None:
+            result['type'] = self.type
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.utc_modified is not None:
+            result['utc_modified'] = self.utc_modified
+        if self.app_extrainfo_id is not None:
+            result['app_extrainfo_id'] = self.app_extrainfo_id
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.template_data_id is not None:
+            result['template_data_id'] = self.template_data_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('template_id') is not None:
+            self.template_id = m.get('template_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('utc_modified') is not None:
+            self.utc_modified = m.get('utc_modified')
+        if m.get('app_extrainfo_id') is not None:
+            self.app_extrainfo_id = m.get('app_extrainfo_id')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('template_data_id') is not None:
+            self.template_data_id = m.get('template_data_id')
+        return self
+
+
+class SLSConfigSensitiveKey(TeaModel):
+    def __init__(
+        self,
+        all: bool = None,
+        const_value: str = None,
+        key: str = None,
+        regex_begin: str = None,
+        regex_content: str = None,
+        type: str = None,
+    ):
+        # 是否替换该字段中所有的敏感内容。建议设置为true
+        self.all = all
+        # 当type设置为const时必须填写
+        self.const_value = const_value
+        # 日志Key名称
+        self.key = key
+        # 敏感内容的前缀
+        self.regex_begin = regex_begin
+        # 敏感内容正则表达式。
+        self.regex_content = regex_content
+        # 脱敏方式，取值为const、md5。
+        # 若取值为const，则将敏感内容替换成const字段取值内容。
+        # 若取值为md5，则将敏感内容替换为其对应的MD5值。
+        self.type = type
+
+    def validate(self):
+        self.validate_required(self.all, 'all')
+        self.validate_required(self.key, 'key')
+        self.validate_required(self.regex_begin, 'regex_begin')
+        self.validate_required(self.regex_content, 'regex_content')
+        self.validate_required(self.type, 'type')
+
+    def to_map(self):
+        result = dict()
+        if self.all is not None:
+            result['all'] = self.all
+        if self.const_value is not None:
+            result['const_value'] = self.const_value
+        if self.key is not None:
+            result['key'] = self.key
+        if self.regex_begin is not None:
+            result['regex_begin'] = self.regex_begin
+        if self.regex_content is not None:
+            result['regex_content'] = self.regex_content
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('all') is not None:
+            self.all = m.get('all')
+        if m.get('const_value') is not None:
+            self.const_value = m.get('const_value')
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('regex_begin') is not None:
+            self.regex_begin = m.get('regex_begin')
+        if m.get('regex_content') is not None:
+            self.regex_content = m.get('regex_content')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class JoinedSecurityGroupVO(TeaModel):
+    def __init__(
+        self,
+        iaas_id: str = None,
+        name: str = None,
+        workspace_id: str = None,
+        workspace_name: str = None,
+    ):
+        # iaas id
+        self.iaas_id = iaas_id
+        # name
+        self.name = name
+        # workspace id
+        self.workspace_id = workspace_id
+        # workspace name
+        self.workspace_name = workspace_name
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.iaas_id is not None:
+            result['iaas_id'] = self.iaas_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.workspace_name is not None:
+            result['workspace_name'] = self.workspace_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('iaas_id') is not None:
+            self.iaas_id = m.get('iaas_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('workspace_name') is not None:
+            self.workspace_name = m.get('workspace_name')
         return self
 
 
@@ -2814,819 +2767,469 @@ class PaginationQuery(TeaModel):
         return self
 
 
-class CellView(TeaModel):
+class IaasErrorInfo(TeaModel):
+    def __init__(
+        self,
+        error_code: str = None,
+        error_message: str = None,
+        status_code: int = None,
+        host_id: str = None,
+        request_id: str = None,
+    ):
+        # error_code
+        self.error_code = error_code
+        # error_message
+        self.error_message = error_message
+        # status_code
+        self.status_code = status_code
+        # host_id
+        self.host_id = host_id
+        # requestId
+        self.request_id = request_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
+        if self.error_message is not None:
+            result['error_message'] = self.error_message
+        if self.status_code is not None:
+            result['status_code'] = self.status_code
+        if self.host_id is not None:
+            result['host_id'] = self.host_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
+        if m.get('error_message') is not None:
+            self.error_message = m.get('error_message')
+        if m.get('status_code') is not None:
+            self.status_code = m.get('status_code')
+        if m.get('host_id') is not None:
+            self.host_id = m.get('host_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        return self
+
+
+class BuildpackInstances(TeaModel):
+    def __init__(
+        self,
+        ecses: int = None,
+        app_binded: int = None,
+    ):
+        # ecs个数
+        self.ecses = ecses
+        # 绑定应用个数
+        self.app_binded = app_binded
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.ecses is not None:
+            result['ecses'] = self.ecses
+        if self.app_binded is not None:
+            result['app_binded'] = self.app_binded
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('ecses') is not None:
+            self.ecses = m.get('ecses')
+        if m.get('app_binded') is not None:
+            self.app_binded = m.get('app_binded')
+        return self
+
+
+class WorkspaceDc(TeaModel):
     def __init__(
         self,
         id: str = None,
-        name: str = None,
-        display_name: str = None,
-        description: str = None,
-        deployment_zone_id: str = None,
+        datacenter_id: str = None,
         workspace_id: str = None,
-        workspace_group_id: str = None,
-        status: str = None,
-        master_zone_id: str = None,
-        appended_zone_ids: List[str] = None,
-        zones: List[ZoneView] = None,
+        datacenter_type: str = None,
+        gmt_create: str = None,
+        gmt_modified: str = None,
     ):
         # id
         self.id = id
-        # name
-        self.name = name
-        # displayName
-        self.display_name = display_name
-        # description
-        self.description = description
-        # deploymentZoneId
-        self.deployment_zone_id = deployment_zone_id
+        # datacenterId
+        self.datacenter_id = datacenter_id
         # workspaceId
         self.workspace_id = workspace_id
-        # workspaceGroupId
-        self.workspace_group_id = workspace_group_id
-        # status
-        self.status = status
-        # masterZoneId
-        self.master_zone_id = master_zone_id
-        # appendedZoneIds
-        self.appended_zone_ids = appended_zone_ids
-        # List<ZoneView> zones
-        self.zones = zones
+        # datacenterType
+        self.datacenter_type = datacenter_type
+        # gmtCreate
+        self.gmt_create = gmt_create
+        # gmtModified
+        self.gmt_modified = gmt_modified
 
     def validate(self):
-        if self.zones:
-            for k in self.zones:
-                if k:
-                    k.validate()
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.datacenter_id, 'datacenter_id')
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.datacenter_type, 'datacenter_type')
+        self.validate_required(self.gmt_create, 'gmt_create')
+        if self.gmt_create is not None:
+            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.gmt_modified, 'gmt_modified')
+        if self.gmt_modified is not None:
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
         if self.id is not None:
             result['id'] = self.id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.display_name is not None:
-            result['display_name'] = self.display_name
-        if self.description is not None:
-            result['description'] = self.description
-        if self.deployment_zone_id is not None:
-            result['deployment_zone_id'] = self.deployment_zone_id
+        if self.datacenter_id is not None:
+            result['datacenter_id'] = self.datacenter_id
         if self.workspace_id is not None:
             result['workspace_id'] = self.workspace_id
-        if self.workspace_group_id is not None:
-            result['workspace_group_id'] = self.workspace_group_id
-        if self.status is not None:
-            result['status'] = self.status
-        if self.master_zone_id is not None:
-            result['master_zone_id'] = self.master_zone_id
-        if self.appended_zone_ids is not None:
-            result['appended_zone_ids'] = self.appended_zone_ids
-        result['zones'] = []
-        if self.zones is not None:
-            for k in self.zones:
-                result['zones'].append(k.to_map() if k else None)
+        if self.datacenter_type is not None:
+            result['datacenter_type'] = self.datacenter_type
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('id') is not None:
             self.id = m.get('id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('display_name') is not None:
-            self.display_name = m.get('display_name')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('deployment_zone_id') is not None:
-            self.deployment_zone_id = m.get('deployment_zone_id')
+        if m.get('datacenter_id') is not None:
+            self.datacenter_id = m.get('datacenter_id')
         if m.get('workspace_id') is not None:
             self.workspace_id = m.get('workspace_id')
-        if m.get('workspace_group_id') is not None:
-            self.workspace_group_id = m.get('workspace_group_id')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('master_zone_id') is not None:
-            self.master_zone_id = m.get('master_zone_id')
-        if m.get('appended_zone_ids') is not None:
-            self.appended_zone_ids = m.get('appended_zone_ids')
-        self.zones = []
-        if m.get('zones') is not None:
-            for k in m.get('zones'):
-                temp_model = ZoneView()
-                self.zones.append(temp_model.from_map(k))
+        if m.get('datacenter_type') is not None:
+            self.datacenter_type = m.get('datacenter_type')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
         return self
 
 
-class Resource(TeaModel):
+class SecurityGroupRule(TeaModel):
     def __init__(
         self,
-        name: str = None,
         description: str = None,
-        instance_charge_type: str = None,
-        expired_time: str = None,
-        auto_renew: bool = None,
-        auto_renew_period: int = None,
-        iaas_id: str = None,
+        dest_cidr_ip: str = None,
+        ip_protocol: str = None,
+        nic_type: str = None,
+        policy: str = None,
+        port_range: str = None,
+        priority: str = None,
+        source_cidr_ip: str = None,
+    ):
+        # 规则描述信息
+        self.description = description
+        # 目的端IP地址范围。支持CIDR格式和IPv4格式的IP地址范围。
+        self.dest_cidr_ip = dest_cidr_ip
+        # 传输层协议。不区分大小写。取值范围：
+        # 
+        # icmp
+        # gre
+        # tcp
+        # udp
+        # all：支持所有协议
+        self.ip_protocol = ip_protocol
+        # 经典网络类型安全组规则的网卡类型。取值范围：
+        # 
+        # internet：公网。
+        # intranet：内网。
+        # 默认值：internet。
+        # 
+        # 在以下情况中，参数NicType取值只能为intranet：
+        # 
+        # 安全组规则的网络类型为专有网络VPC时，您无需设置NicType参数，默认并且只能为intranet。
+        # 当设置安全组之间互相访问时，即指定了DestGroupId且没有指定DestCidrIp时。
+        self.nic_type = nic_type
+        # 访问权限。取值范围：
+        # 
+        # accept：接受访问。
+        # drop：拒绝访问，不返回拒绝信息。
+        # 默认值：accept。
+        self.policy = policy
+        # 目的端安全组开放的传输层协议相关的端口范围。取值范围：
+        # 
+        # TCP/UDP协议：取值范围为1~65535。使用斜线（/）隔开起始端口和终止端口。正确示范：1/200；错误示范：200/1。
+        # ICMP协议：-1/-1。
+        # GRE协议：-1/-1。
+        # all：-1/-1。
+        self.port_range = port_range
+        # 安全组规则优先级。取值范围：1~100
+        # 
+        # 默认值：1。
+        self.priority = priority
+        # 源端IP地址范围。支持CIDR格式和IPv4格式的IP地址范围。
+        # 
+        # 默认值：0.0.0.0/0。
+        self.source_cidr_ip = source_cidr_ip
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.description is not None:
+            result['description'] = self.description
+        if self.dest_cidr_ip is not None:
+            result['dest_cidr_ip'] = self.dest_cidr_ip
+        if self.ip_protocol is not None:
+            result['ip_protocol'] = self.ip_protocol
+        if self.nic_type is not None:
+            result['nic_type'] = self.nic_type
+        if self.policy is not None:
+            result['policy'] = self.policy
+        if self.port_range is not None:
+            result['port_range'] = self.port_range
+        if self.priority is not None:
+            result['priority'] = self.priority
+        if self.source_cidr_ip is not None:
+            result['source_cidr_ip'] = self.source_cidr_ip
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('dest_cidr_ip') is not None:
+            self.dest_cidr_ip = m.get('dest_cidr_ip')
+        if m.get('ip_protocol') is not None:
+            self.ip_protocol = m.get('ip_protocol')
+        if m.get('nic_type') is not None:
+            self.nic_type = m.get('nic_type')
+        if m.get('policy') is not None:
+            self.policy = m.get('policy')
+        if m.get('port_range') is not None:
+            self.port_range = m.get('port_range')
+        if m.get('priority') is not None:
+            self.priority = m.get('priority')
+        if m.get('source_cidr_ip') is not None:
+            self.source_cidr_ip = m.get('source_cidr_ip')
+        return self
+
+
+class DbSchema(TeaModel):
+    def __init__(
+        self,
+        char_set: str = None,
+        database: Database = None,
+        description: str = None,
+        grants: List[DbSchemaGrant] = None,
         iaas_type: str = None,
-        region_id: str = None,
-        zone_id: str = None,
         id: str = None,
+        name: str = None,
+        status: str = None,
         utc_create: str = None,
         utc_modified: str = None,
     ):
+        # charSet
+        self.char_set = char_set
+        # database
+        self.database = database
+        # description
+        self.description = description
+        # grants
+        self.grants = grants
+        # iaas_type
+        self.iaas_type = iaas_type
+        # id
+        self.id = id
+        # name
+        self.name = name
+        # status
+        self.status = status
+        # utc_create
+        self.utc_create = utc_create
+        # utc_modified
+        self.utc_modified = utc_modified
+
+    def validate(self):
+        if self.database:
+            self.database.validate()
+        self.validate_required(self.grants, 'grants')
+        if self.grants:
+            for k in self.grants:
+                if k:
+                    k.validate()
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.status, 'status')
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.utc_modified is not None:
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.char_set is not None:
+            result['char_set'] = self.char_set
+        if self.database is not None:
+            result['database'] = self.database.to_map()
+        if self.description is not None:
+            result['description'] = self.description
+        result['grants'] = []
+        if self.grants is not None:
+            for k in self.grants:
+                result['grants'].append(k.to_map() if k else None)
+        if self.iaas_type is not None:
+            result['iaas_type'] = self.iaas_type
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.status is not None:
+            result['status'] = self.status
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.utc_modified is not None:
+            result['utc_modified'] = self.utc_modified
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('char_set') is not None:
+            self.char_set = m.get('char_set')
+        if m.get('database') is not None:
+            temp_model = Database()
+            self.database = temp_model.from_map(m['database'])
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        self.grants = []
+        if m.get('grants') is not None:
+            for k in m.get('grants'):
+                temp_model = DbSchemaGrant()
+                self.grants.append(temp_model.from_map(k))
+        if m.get('iaas_type') is not None:
+            self.iaas_type = m.get('iaas_type')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('utc_modified') is not None:
+            self.utc_modified = m.get('utc_modified')
+        return self
+
+
+class ZoneDto(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        identity: str = None,
+        iaas_provider_id: str = None,
+        display_name: str = None,
+        state: str = None,
+        region_id: str = None,
+        no: int = None,
+        name: str = None,
+        description: str = None,
+        utc_create: str = None,
+        utc_modified: str = None,
+    ):
+        # id
+        self.id = id
+        # identity
+        self.identity = identity
+        # iaasProviderId
+        self.iaas_provider_id = iaas_provider_id
+        # displayName
+        self.display_name = display_name
+        # state
+        self.state = state
+        # regionId
+        self.region_id = region_id
+        # no
+        self.no = no
         # name
         self.name = name
         # description
         self.description = description
-        # instance_charge_type
-        self.instance_charge_type = instance_charge_type
-        # expiredTime
-        self.expired_time = expired_time
-        # auto_renew
-        self.auto_renew = auto_renew
-        # autoRenewPeriod
-        self.auto_renew_period = auto_renew_period
-        # iaas_id
-        self.iaas_id = iaas_id
-        # iaas_type
-        self.iaas_type = iaas_type
-        # region_id
-        self.region_id = region_id
-        # zone_id
-        self.zone_id = zone_id
-        # id
-        self.id = id
-        # utc_create
-        self.utc_create = utc_create
-        # utc_modified
-        self.utc_modified = utc_modified
-
-    def validate(self):
-        self.validate_required(self.name, 'name')
-        if self.expired_time is not None:
-            self.validate_pattern(self.expired_time, 'expired_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.zone_id, 'zone_id')
-        self.validate_required(self.id, 'id')
-        if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-
-    def to_map(self):
-        result = dict()
-        if self.name is not None:
-            result['name'] = self.name
-        if self.description is not None:
-            result['description'] = self.description
-        if self.instance_charge_type is not None:
-            result['instance_charge_type'] = self.instance_charge_type
-        if self.expired_time is not None:
-            result['expired_time'] = self.expired_time
-        if self.auto_renew is not None:
-            result['auto_renew'] = self.auto_renew
-        if self.auto_renew_period is not None:
-            result['auto_renew_period'] = self.auto_renew_period
-        if self.iaas_id is not None:
-            result['iaas_id'] = self.iaas_id
-        if self.iaas_type is not None:
-            result['iaas_type'] = self.iaas_type
-        if self.region_id is not None:
-            result['region_id'] = self.region_id
-        if self.zone_id is not None:
-            result['zone_id'] = self.zone_id
-        if self.id is not None:
-            result['id'] = self.id
-        if self.utc_create is not None:
-            result['utc_create'] = self.utc_create
-        if self.utc_modified is not None:
-            result['utc_modified'] = self.utc_modified
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('instance_charge_type') is not None:
-            self.instance_charge_type = m.get('instance_charge_type')
-        if m.get('expired_time') is not None:
-            self.expired_time = m.get('expired_time')
-        if m.get('auto_renew') is not None:
-            self.auto_renew = m.get('auto_renew')
-        if m.get('auto_renew_period') is not None:
-            self.auto_renew_period = m.get('auto_renew_period')
-        if m.get('iaas_id') is not None:
-            self.iaas_id = m.get('iaas_id')
-        if m.get('iaas_type') is not None:
-            self.iaas_type = m.get('iaas_type')
-        if m.get('region_id') is not None:
-            self.region_id = m.get('region_id')
-        if m.get('zone_id') is not None:
-            self.zone_id = m.get('zone_id')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('utc_create') is not None:
-            self.utc_create = m.get('utc_create')
-        if m.get('utc_modified') is not None:
-            self.utc_modified = m.get('utc_modified')
-        return self
-
-
-class AppManifest(TeaModel):
-    def __init__(
-        self,
-        app_id: str = None,
-        app_version: str = None,
-        code_commit: CodeCommit = None,
-        etag: str = None,
-        id: str = None,
-        location: str = None,
-        name: str = None,
-        remark: str = None,
-        store_location: str = None,
-        utc_create: str = None,
-        utc_modified: str = None,
-        workspace_id: str = None,
-    ):
-        # app_id
-        self.app_id = app_id
-        # app_version
-        self.app_version = app_version
-        # code_commit
-        self.code_commit = code_commit
-        # etag
-        self.etag = etag
-        # id
-        self.id = id
-        # location
-        self.location = location
-        # name
-        self.name = name
-        # remark
-        self.remark = remark
-        # store_location
-        self.store_location = store_location
-        # utc_create
-        self.utc_create = utc_create
-        # utc_modified
-        self.utc_modified = utc_modified
-        # workspace_id
-        self.workspace_id = workspace_id
-
-    def validate(self):
-        if self.code_commit:
-            self.code_commit.validate()
-        if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-
-    def to_map(self):
-        result = dict()
-        if self.app_id is not None:
-            result['app_id'] = self.app_id
-        if self.app_version is not None:
-            result['app_version'] = self.app_version
-        if self.code_commit is not None:
-            result['code_commit'] = self.code_commit.to_map()
-        if self.etag is not None:
-            result['etag'] = self.etag
-        if self.id is not None:
-            result['id'] = self.id
-        if self.location is not None:
-            result['location'] = self.location
-        if self.name is not None:
-            result['name'] = self.name
-        if self.remark is not None:
-            result['remark'] = self.remark
-        if self.store_location is not None:
-            result['store_location'] = self.store_location
-        if self.utc_create is not None:
-            result['utc_create'] = self.utc_create
-        if self.utc_modified is not None:
-            result['utc_modified'] = self.utc_modified
-        if self.workspace_id is not None:
-            result['workspace_id'] = self.workspace_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('app_id') is not None:
-            self.app_id = m.get('app_id')
-        if m.get('app_version') is not None:
-            self.app_version = m.get('app_version')
-        if m.get('code_commit') is not None:
-            temp_model = CodeCommit()
-            self.code_commit = temp_model.from_map(m['code_commit'])
-        if m.get('etag') is not None:
-            self.etag = m.get('etag')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('location') is not None:
-            self.location = m.get('location')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('remark') is not None:
-            self.remark = m.get('remark')
-        if m.get('store_location') is not None:
-            self.store_location = m.get('store_location')
-        if m.get('utc_create') is not None:
-            self.utc_create = m.get('utc_create')
-        if m.get('utc_modified') is not None:
-            self.utc_modified = m.get('utc_modified')
-        if m.get('workspace_id') is not None:
-            self.workspace_id = m.get('workspace_id')
-        return self
-
-
-class ListenerHealthMonitor(TeaModel):
-    def __init__(
-        self,
-        check_type: str = None,
-        connect_port: int = None,
-        domain: str = None,
-        healthy_threshold: int = None,
-        health_check_http_code: List[str] = None,
-        http_method: str = None,
-        id: str = None,
-        interval: int = None,
-        timeout: int = None,
-        un_healthy_threshold: int = None,
-        uri: str = None,
-    ):
-        # check_type
-        self.check_type = check_type
-        # 默认 80
-        self.connect_port = connect_port
-        # 域名
-        self.domain = domain
-        # 健康阈值
-        self.healthy_threshold = healthy_threshold
-        # health_check_http_code
-        self.health_check_http_code = health_check_http_code
-        # http_method
-        self.http_method = http_method
-        # id
-        self.id = id
-        # 监控检查间隔
-        self.interval = interval
-        # 超时时间
-        self.timeout = timeout
-        # 不健康阈值
-        self.un_healthy_threshold = un_healthy_threshold
-        # uri
-        self.uri = uri
-
-    def validate(self):
-        self.validate_required(self.interval, 'interval')
-        self.validate_required(self.timeout, 'timeout')
-
-    def to_map(self):
-        result = dict()
-        if self.check_type is not None:
-            result['check_type'] = self.check_type
-        if self.connect_port is not None:
-            result['connect_port'] = self.connect_port
-        if self.domain is not None:
-            result['domain'] = self.domain
-        if self.healthy_threshold is not None:
-            result['healthy_threshold'] = self.healthy_threshold
-        if self.health_check_http_code is not None:
-            result['health_check_http_code'] = self.health_check_http_code
-        if self.http_method is not None:
-            result['http_method'] = self.http_method
-        if self.id is not None:
-            result['id'] = self.id
-        if self.interval is not None:
-            result['interval'] = self.interval
-        if self.timeout is not None:
-            result['timeout'] = self.timeout
-        if self.un_healthy_threshold is not None:
-            result['un_healthy_threshold'] = self.un_healthy_threshold
-        if self.uri is not None:
-            result['uri'] = self.uri
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('check_type') is not None:
-            self.check_type = m.get('check_type')
-        if m.get('connect_port') is not None:
-            self.connect_port = m.get('connect_port')
-        if m.get('domain') is not None:
-            self.domain = m.get('domain')
-        if m.get('healthy_threshold') is not None:
-            self.healthy_threshold = m.get('healthy_threshold')
-        if m.get('health_check_http_code') is not None:
-            self.health_check_http_code = m.get('health_check_http_code')
-        if m.get('http_method') is not None:
-            self.http_method = m.get('http_method')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('interval') is not None:
-            self.interval = m.get('interval')
-        if m.get('timeout') is not None:
-            self.timeout = m.get('timeout')
-        if m.get('un_healthy_threshold') is not None:
-            self.un_healthy_threshold = m.get('un_healthy_threshold')
-        if m.get('uri') is not None:
-            self.uri = m.get('uri')
-        return self
-
-
-class AppDomain(TeaModel):
-    def __init__(
-        self,
-        creator_id: str = None,
-        id: str = None,
-        name: str = None,
-        parent_id: str = None,
-        tenant_id: str = None,
-        to_root_path: str = None,
-        utc_create: str = None,
-        utc_modified: str = None,
-    ):
-        # 创建人id
-        self.creator_id = creator_id
-        # id
-        self.id = id
-        # 名称
-        self.name = name
-        # parentId
-        self.parent_id = parent_id
-        # 租户id
-        self.tenant_id = tenant_id
-        # toRootPath
-        self.to_root_path = to_root_path
         # utcCreate
         self.utc_create = utc_create
         # utcModified
         self.utc_modified = utc_modified
 
     def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.identity, 'identity')
+        self.validate_required(self.iaas_provider_id, 'iaas_provider_id')
+        self.validate_required(self.display_name, 'display_name')
+        self.validate_required(self.state, 'state')
+        self.validate_required(self.region_id, 'region_id')
+        self.validate_required(self.no, 'no')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.description, 'description')
+        self.validate_required(self.utc_create, 'utc_create')
         if self.utc_create is not None:
             self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.utc_modified, 'utc_modified')
         if self.utc_modified is not None:
             self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
-        if self.creator_id is not None:
-            result['creator_id'] = self.creator_id
         if self.id is not None:
             result['id'] = self.id
+        if self.identity is not None:
+            result['identity'] = self.identity
+        if self.iaas_provider_id is not None:
+            result['iaas_provider_id'] = self.iaas_provider_id
+        if self.display_name is not None:
+            result['display_name'] = self.display_name
+        if self.state is not None:
+            result['state'] = self.state
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.no is not None:
+            result['no'] = self.no
         if self.name is not None:
             result['name'] = self.name
-        if self.parent_id is not None:
-            result['parent_id'] = self.parent_id
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
-        if self.to_root_path is not None:
-            result['to_root_path'] = self.to_root_path
-        if self.utc_create is not None:
-            result['utc_create'] = self.utc_create
-        if self.utc_modified is not None:
-            result['utc_modified'] = self.utc_modified
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('creator_id') is not None:
-            self.creator_id = m.get('creator_id')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('parent_id') is not None:
-            self.parent_id = m.get('parent_id')
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
-        if m.get('to_root_path') is not None:
-            self.to_root_path = m.get('to_root_path')
-        if m.get('utc_create') is not None:
-            self.utc_create = m.get('utc_create')
-        if m.get('utc_modified') is not None:
-            self.utc_modified = m.get('utc_modified')
-        return self
-
-
-class SLSConfigOutputDetail(TeaModel):
-    def __init__(
-        self,
-        project_name: str = None,
-        logstore_name: str = None,
-    ):
-        # 项目名称，必须为请求的project名。
-        self.project_name = project_name
-        # 日志库名称
-        self.logstore_name = logstore_name
-
-    def validate(self):
-        self.validate_required(self.project_name, 'project_name')
-        self.validate_required(self.logstore_name, 'logstore_name')
-
-    def to_map(self):
-        result = dict()
-        if self.project_name is not None:
-            result['project_name'] = self.project_name
-        if self.logstore_name is not None:
-            result['logstore_name'] = self.logstore_name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('project_name') is not None:
-            self.project_name = m.get('project_name')
-        if m.get('logstore_name') is not None:
-            self.logstore_name = m.get('logstore_name')
-        return self
-
-
-class AppView(TeaModel):
-    def __init__(
-        self,
-        app_domain_id: str = None,
-        app_extra_infos: List[AppExtraInfo] = None,
-        app_level: AppLevel = None,
-        app_owner: AppOwner = None,
-        archetype: ScmSofaArchetype = None,
-        buildpack_version: str = None,
-        chinese_name: str = None,
-        code_repository: CodeRepository = None,
-        description: str = None,
-        extra_params: str = None,
-        id: str = None,
-        is_service: bool = None,
-        name: str = None,
-        owner_id: str = None,
-        stack_id: str = None,
-        status: str = None,
-        tags: str = None,
-        tenant_id: str = None,
-        utc_create: str = None,
-        utc_modified: str = None,
-        workspace_id: str = None,
-        owner_name: str = None,
-        real_owner_name: str = None,
-        domain_names: List[str] = None,
-        app_domain_name: str = None,
-        app_level_name: str = None,
-        stack_name: str = None,
-        stack_version: str = None,
-        container_count: int = None,
-        database_count: int = None,
-        slb_count: int = None,
-        ocs_count: int = None,
-        package_count: int = None,
-        life_cycle: AppLifeCycle = None,
-    ):
-        # 应用组id
-        self.app_domain_id = app_domain_id
-        # 应用扩展信息
-        self.app_extra_infos = app_extra_infos
-        # 应用等级
-        self.app_level = app_level
-        # 应用负责人
-        self.app_owner = app_owner
-        # scm sofa archetype
-        self.archetype = archetype
-        # 技术栈版本
-        self.buildpack_version = buildpack_version
-        # 中文名称
-        self.chinese_name = chinese_name
-        # 代码仓库
-        self.code_repository = code_repository
-        # 描述信息
-        self.description = description
-        # 扩展参数，JSOn字符串
-        self.extra_params = extra_params
-        # 应用ID
-        self.id = id
-        # 是否组件中心应用
-        self.is_service = is_service
-        # 应用名称
-        self.name = name
-        # 负责人ID
-        self.owner_id = owner_id
-        # 技术栈所属分类ID
-        self.stack_id = stack_id
-        # 应用状态
-        self.status = status
-        # 应用标签，JSOn字符串
-        self.tags = tags
-        # 租户ID
-        self.tenant_id = tenant_id
-        # 创建时间
-        self.utc_create = utc_create
-        # 修改时间
-        self.utc_modified = utc_modified
-        # 工作空间ID
-        self.workspace_id = workspace_id
-        # 负责人名称
-        self.owner_name = owner_name
-        # 应用负责人真实名称
-        self.real_owner_name = real_owner_name
-        # 应用域路径名
-        self.domain_names = domain_names
-        # 应用分组名称
-        self.app_domain_name = app_domain_name
-        # 应用等级名称
-        self.app_level_name = app_level_name
-        # 技术栈名称
-        self.stack_name = stack_name
-        # 技术栈版本
-        self.stack_version = stack_version
-        # 服务器数量
-        self.container_count = container_count
-        # 数据库个数
-        self.database_count = database_count
-        # SLB个数
-        self.slb_count = slb_count
-        # ocs个数
-        self.ocs_count = ocs_count
-        # 发布包个数
-        self.package_count = package_count
-        # 生命周期信息
-        self.life_cycle = life_cycle
-
-    def validate(self):
-        if self.app_extra_infos:
-            for k in self.app_extra_infos:
-                if k:
-                    k.validate()
-        if self.app_level:
-            self.app_level.validate()
-        if self.app_owner:
-            self.app_owner.validate()
-        if self.archetype:
-            self.archetype.validate()
-        if self.code_repository:
-            self.code_repository.validate()
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.stack_id, 'stack_id')
-        if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.real_owner_name, 'real_owner_name')
-        self.validate_required(self.app_domain_name, 'app_domain_name')
-        self.validate_required(self.app_level_name, 'app_level_name')
-        if self.life_cycle:
-            self.life_cycle.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.app_domain_id is not None:
-            result['app_domain_id'] = self.app_domain_id
-        result['app_extra_infos'] = []
-        if self.app_extra_infos is not None:
-            for k in self.app_extra_infos:
-                result['app_extra_infos'].append(k.to_map() if k else None)
-        if self.app_level is not None:
-            result['app_level'] = self.app_level.to_map()
-        if self.app_owner is not None:
-            result['app_owner'] = self.app_owner.to_map()
-        if self.archetype is not None:
-            result['archetype'] = self.archetype.to_map()
-        if self.buildpack_version is not None:
-            result['buildpack_version'] = self.buildpack_version
-        if self.chinese_name is not None:
-            result['chinese_name'] = self.chinese_name
-        if self.code_repository is not None:
-            result['code_repository'] = self.code_repository.to_map()
         if self.description is not None:
             result['description'] = self.description
-        if self.extra_params is not None:
-            result['extra_params'] = self.extra_params
-        if self.id is not None:
-            result['id'] = self.id
-        if self.is_service is not None:
-            result['is_service'] = self.is_service
-        if self.name is not None:
-            result['name'] = self.name
-        if self.owner_id is not None:
-            result['owner_id'] = self.owner_id
-        if self.stack_id is not None:
-            result['stack_id'] = self.stack_id
-        if self.status is not None:
-            result['status'] = self.status
-        if self.tags is not None:
-            result['tags'] = self.tags
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
         if self.utc_create is not None:
             result['utc_create'] = self.utc_create
         if self.utc_modified is not None:
             result['utc_modified'] = self.utc_modified
-        if self.workspace_id is not None:
-            result['workspace_id'] = self.workspace_id
-        if self.owner_name is not None:
-            result['owner_name'] = self.owner_name
-        if self.real_owner_name is not None:
-            result['real_owner_name'] = self.real_owner_name
-        if self.domain_names is not None:
-            result['domain_names'] = self.domain_names
-        if self.app_domain_name is not None:
-            result['app_domain_name'] = self.app_domain_name
-        if self.app_level_name is not None:
-            result['app_level_name'] = self.app_level_name
-        if self.stack_name is not None:
-            result['stack_name'] = self.stack_name
-        if self.stack_version is not None:
-            result['stack_version'] = self.stack_version
-        if self.container_count is not None:
-            result['container_count'] = self.container_count
-        if self.database_count is not None:
-            result['database_count'] = self.database_count
-        if self.slb_count is not None:
-            result['slb_count'] = self.slb_count
-        if self.ocs_count is not None:
-            result['ocs_count'] = self.ocs_count
-        if self.package_count is not None:
-            result['package_count'] = self.package_count
-        if self.life_cycle is not None:
-            result['life_cycle'] = self.life_cycle.to_map()
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('app_domain_id') is not None:
-            self.app_domain_id = m.get('app_domain_id')
-        self.app_extra_infos = []
-        if m.get('app_extra_infos') is not None:
-            for k in m.get('app_extra_infos'):
-                temp_model = AppExtraInfo()
-                self.app_extra_infos.append(temp_model.from_map(k))
-        if m.get('app_level') is not None:
-            temp_model = AppLevel()
-            self.app_level = temp_model.from_map(m['app_level'])
-        if m.get('app_owner') is not None:
-            temp_model = AppOwner()
-            self.app_owner = temp_model.from_map(m['app_owner'])
-        if m.get('archetype') is not None:
-            temp_model = ScmSofaArchetype()
-            self.archetype = temp_model.from_map(m['archetype'])
-        if m.get('buildpack_version') is not None:
-            self.buildpack_version = m.get('buildpack_version')
-        if m.get('chinese_name') is not None:
-            self.chinese_name = m.get('chinese_name')
-        if m.get('code_repository') is not None:
-            temp_model = CodeRepository()
-            self.code_repository = temp_model.from_map(m['code_repository'])
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('extra_params') is not None:
-            self.extra_params = m.get('extra_params')
         if m.get('id') is not None:
             self.id = m.get('id')
-        if m.get('is_service') is not None:
-            self.is_service = m.get('is_service')
+        if m.get('identity') is not None:
+            self.identity = m.get('identity')
+        if m.get('iaas_provider_id') is not None:
+            self.iaas_provider_id = m.get('iaas_provider_id')
+        if m.get('display_name') is not None:
+            self.display_name = m.get('display_name')
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('no') is not None:
+            self.no = m.get('no')
         if m.get('name') is not None:
             self.name = m.get('name')
-        if m.get('owner_id') is not None:
-            self.owner_id = m.get('owner_id')
-        if m.get('stack_id') is not None:
-            self.stack_id = m.get('stack_id')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('tags') is not None:
-            self.tags = m.get('tags')
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
+        if m.get('description') is not None:
+            self.description = m.get('description')
         if m.get('utc_create') is not None:
             self.utc_create = m.get('utc_create')
         if m.get('utc_modified') is not None:
             self.utc_modified = m.get('utc_modified')
-        if m.get('workspace_id') is not None:
-            self.workspace_id = m.get('workspace_id')
-        if m.get('owner_name') is not None:
-            self.owner_name = m.get('owner_name')
-        if m.get('real_owner_name') is not None:
-            self.real_owner_name = m.get('real_owner_name')
-        if m.get('domain_names') is not None:
-            self.domain_names = m.get('domain_names')
-        if m.get('app_domain_name') is not None:
-            self.app_domain_name = m.get('app_domain_name')
-        if m.get('app_level_name') is not None:
-            self.app_level_name = m.get('app_level_name')
-        if m.get('stack_name') is not None:
-            self.stack_name = m.get('stack_name')
-        if m.get('stack_version') is not None:
-            self.stack_version = m.get('stack_version')
-        if m.get('container_count') is not None:
-            self.container_count = m.get('container_count')
-        if m.get('database_count') is not None:
-            self.database_count = m.get('database_count')
-        if m.get('slb_count') is not None:
-            self.slb_count = m.get('slb_count')
-        if m.get('ocs_count') is not None:
-            self.ocs_count = m.get('ocs_count')
-        if m.get('package_count') is not None:
-            self.package_count = m.get('package_count')
-        if m.get('life_cycle') is not None:
-            temp_model = AppLifeCycle()
-            self.life_cycle = temp_model.from_map(m['life_cycle'])
         return self
 
 
@@ -3797,726 +3400,150 @@ class AppService(TeaModel):
         return self
 
 
-class VRouteEntry(TeaModel):
+class SLSConfigOutputDetail(TeaModel):
     def __init__(
         self,
-        desination_cidr_block: str = None,
-        instance_id: str = None,
-        instance_name: str = None,
-        next_hop_id: str = None,
-        next_hop_item_list: List[NextHopItem] = None,
-        next_hop_type: str = None,
-        route_table_id: str = None,
-        status: str = None,
-        type: str = None,
+        project_name: str = None,
+        logstore_name: str = None,
     ):
-        # 路由条目的目标网段。
-        self.desination_cidr_block = desination_cidr_block
-        # 下一跳的实例ID。
-        self.instance_id = instance_id
-        # 下一跳的实例名称。
-        self.instance_name = instance_name
-        # 路由条目ID。
-        self.next_hop_id = next_hop_id
-        # 路由的下一跳列表。
-        self.next_hop_item_list = next_hop_item_list
-        # 路由类型。
-        # 
-        # local：交换机路由。
-        # service：云服务路由。
-        # classicLink：开启ClassicLink功能后系统自动添加的路由。
-        self.next_hop_type = next_hop_type
-        # 路由条目所属路由表的ID。
-        self.route_table_id = route_table_id
-        # 
-        # 路由条目的状态。
-        # 
-        # Pending：配置中。
-        # Available：可用。
-        # Modifying：修改中。
-        self.status = status
-        # 路由条目的类型。
-        # 
-        # System：系统路由。
-        # Custom：自定义路由。
-        # BGP：BGP路由。
-        # 
-        self.type = type
+        # 项目名称，必须为请求的project名。
+        self.project_name = project_name
+        # 日志库名称
+        self.logstore_name = logstore_name
 
     def validate(self):
-        if self.next_hop_item_list:
-            for k in self.next_hop_item_list:
-                if k:
-                    k.validate()
+        self.validate_required(self.project_name, 'project_name')
+        self.validate_required(self.logstore_name, 'logstore_name')
 
     def to_map(self):
         result = dict()
-        if self.desination_cidr_block is not None:
-            result['desination_cidr_block'] = self.desination_cidr_block
-        if self.instance_id is not None:
-            result['instance_id'] = self.instance_id
-        if self.instance_name is not None:
-            result['instance_name'] = self.instance_name
-        if self.next_hop_id is not None:
-            result['next_hop_id'] = self.next_hop_id
-        result['next_hop_item_list'] = []
-        if self.next_hop_item_list is not None:
-            for k in self.next_hop_item_list:
-                result['next_hop_item_list'].append(k.to_map() if k else None)
-        if self.next_hop_type is not None:
-            result['next_hop_type'] = self.next_hop_type
-        if self.route_table_id is not None:
-            result['route_table_id'] = self.route_table_id
-        if self.status is not None:
-            result['status'] = self.status
-        if self.type is not None:
-            result['type'] = self.type
+        if self.project_name is not None:
+            result['project_name'] = self.project_name
+        if self.logstore_name is not None:
+            result['logstore_name'] = self.logstore_name
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('desination_cidr_block') is not None:
-            self.desination_cidr_block = m.get('desination_cidr_block')
-        if m.get('instance_id') is not None:
-            self.instance_id = m.get('instance_id')
-        if m.get('instance_name') is not None:
-            self.instance_name = m.get('instance_name')
-        if m.get('next_hop_id') is not None:
-            self.next_hop_id = m.get('next_hop_id')
-        self.next_hop_item_list = []
-        if m.get('next_hop_item_list') is not None:
-            for k in m.get('next_hop_item_list'):
-                temp_model = NextHopItem()
-                self.next_hop_item_list.append(temp_model.from_map(k))
-        if m.get('next_hop_type') is not None:
-            self.next_hop_type = m.get('next_hop_type')
-        if m.get('route_table_id') is not None:
-            self.route_table_id = m.get('route_table_id')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('type') is not None:
-            self.type = m.get('type')
+        if m.get('project_name') is not None:
+            self.project_name = m.get('project_name')
+        if m.get('logstore_name') is not None:
+            self.logstore_name = m.get('logstore_name')
         return self
 
 
-class ImportInfo(TeaModel):
+class AppDomain(TeaModel):
     def __init__(
         self,
-        imported_workspace_name: str = None,
-        is_imported: bool = None,
-        is_unimportable: bool = None,
-        unimportable_reason: str = None,
-    ):
-        # 已导入的workspace name
-        self.imported_workspace_name = imported_workspace_name
-        # vpc是否已导入workspace
-        self.is_imported = is_imported
-        # 是否可以删除已导入的workspace
-        self.is_unimportable = is_unimportable
-        # 不可删除已导入workspace的原因
-        self.unimportable_reason = unimportable_reason
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.imported_workspace_name is not None:
-            result['imported_workspace_name'] = self.imported_workspace_name
-        if self.is_imported is not None:
-            result['is_imported'] = self.is_imported
-        if self.is_unimportable is not None:
-            result['is_unimportable'] = self.is_unimportable
-        if self.unimportable_reason is not None:
-            result['unimportable_reason'] = self.unimportable_reason
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('imported_workspace_name') is not None:
-            self.imported_workspace_name = m.get('imported_workspace_name')
-        if m.get('is_imported') is not None:
-            self.is_imported = m.get('is_imported')
-        if m.get('is_unimportable') is not None:
-            self.is_unimportable = m.get('is_unimportable')
-        if m.get('unimportable_reason') is not None:
-            self.unimportable_reason = m.get('unimportable_reason')
-        return self
-
-
-class ImportVO(TeaModel):
-    def __init__(
-        self,
-        is_imported: bool = None,
-        imported_workspace_name: str = None,
-        is_unimportable: bool = None,
-        unimportable_reason: str = None,
-    ):
-        # is_imported
-        self.is_imported = is_imported
-        # imported_workspace_name
-        self.imported_workspace_name = imported_workspace_name
-        # is_unimportable
-        self.is_unimportable = is_unimportable
-        # unimportable_reason
-        self.unimportable_reason = unimportable_reason
-
-    def validate(self):
-        self.validate_required(self.is_imported, 'is_imported')
-        self.validate_required(self.imported_workspace_name, 'imported_workspace_name')
-
-    def to_map(self):
-        result = dict()
-        if self.is_imported is not None:
-            result['is_imported'] = self.is_imported
-        if self.imported_workspace_name is not None:
-            result['imported_workspace_name'] = self.imported_workspace_name
-        if self.is_unimportable is not None:
-            result['is_unimportable'] = self.is_unimportable
-        if self.unimportable_reason is not None:
-            result['unimportable_reason'] = self.unimportable_reason
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('is_imported') is not None:
-            self.is_imported = m.get('is_imported')
-        if m.get('imported_workspace_name') is not None:
-            self.imported_workspace_name = m.get('imported_workspace_name')
-        if m.get('is_unimportable') is not None:
-            self.is_unimportable = m.get('is_unimportable')
-        if m.get('unimportable_reason') is not None:
-            self.unimportable_reason = m.get('unimportable_reason')
-        return self
-
-
-class JoinedSecurityGroupVO(TeaModel):
-    def __init__(
-        self,
-        iaas_id: str = None,
-        name: str = None,
-        workspace_id: str = None,
-        workspace_name: str = None,
-    ):
-        # iaas id
-        self.iaas_id = iaas_id
-        # name
-        self.name = name
-        # workspace id
-        self.workspace_id = workspace_id
-        # workspace name
-        self.workspace_name = workspace_name
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.iaas_id is not None:
-            result['iaas_id'] = self.iaas_id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.workspace_id is not None:
-            result['workspace_id'] = self.workspace_id
-        if self.workspace_name is not None:
-            result['workspace_name'] = self.workspace_name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('iaas_id') is not None:
-            self.iaas_id = m.get('iaas_id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('workspace_id') is not None:
-            self.workspace_id = m.get('workspace_id')
-        if m.get('workspace_name') is not None:
-            self.workspace_name = m.get('workspace_name')
-        return self
-
-
-class SecurityGroupRule(TeaModel):
-    def __init__(
-        self,
-        description: str = None,
-        dest_cidr_ip: str = None,
-        ip_protocol: str = None,
-        nic_type: str = None,
-        policy: str = None,
-        port_range: str = None,
-        priority: str = None,
-        source_cidr_ip: str = None,
-    ):
-        # 规则描述信息
-        self.description = description
-        # 目的端IP地址范围。支持CIDR格式和IPv4格式的IP地址范围。
-        self.dest_cidr_ip = dest_cidr_ip
-        # 传输层协议。不区分大小写。取值范围：
-        # 
-        # icmp
-        # gre
-        # tcp
-        # udp
-        # all：支持所有协议
-        self.ip_protocol = ip_protocol
-        # 经典网络类型安全组规则的网卡类型。取值范围：
-        # 
-        # internet：公网。
-        # intranet：内网。
-        # 默认值：internet。
-        # 
-        # 在以下情况中，参数NicType取值只能为intranet：
-        # 
-        # 安全组规则的网络类型为专有网络VPC时，您无需设置NicType参数，默认并且只能为intranet。
-        # 当设置安全组之间互相访问时，即指定了DestGroupId且没有指定DestCidrIp时。
-        self.nic_type = nic_type
-        # 访问权限。取值范围：
-        # 
-        # accept：接受访问。
-        # drop：拒绝访问，不返回拒绝信息。
-        # 默认值：accept。
-        self.policy = policy
-        # 目的端安全组开放的传输层协议相关的端口范围。取值范围：
-        # 
-        # TCP/UDP协议：取值范围为1~65535。使用斜线（/）隔开起始端口和终止端口。正确示范：1/200；错误示范：200/1。
-        # ICMP协议：-1/-1。
-        # GRE协议：-1/-1。
-        # all：-1/-1。
-        self.port_range = port_range
-        # 安全组规则优先级。取值范围：1~100
-        # 
-        # 默认值：1。
-        self.priority = priority
-        # 源端IP地址范围。支持CIDR格式和IPv4格式的IP地址范围。
-        # 
-        # 默认值：0.0.0.0/0。
-        self.source_cidr_ip = source_cidr_ip
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.description is not None:
-            result['description'] = self.description
-        if self.dest_cidr_ip is not None:
-            result['dest_cidr_ip'] = self.dest_cidr_ip
-        if self.ip_protocol is not None:
-            result['ip_protocol'] = self.ip_protocol
-        if self.nic_type is not None:
-            result['nic_type'] = self.nic_type
-        if self.policy is not None:
-            result['policy'] = self.policy
-        if self.port_range is not None:
-            result['port_range'] = self.port_range
-        if self.priority is not None:
-            result['priority'] = self.priority
-        if self.source_cidr_ip is not None:
-            result['source_cidr_ip'] = self.source_cidr_ip
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('dest_cidr_ip') is not None:
-            self.dest_cidr_ip = m.get('dest_cidr_ip')
-        if m.get('ip_protocol') is not None:
-            self.ip_protocol = m.get('ip_protocol')
-        if m.get('nic_type') is not None:
-            self.nic_type = m.get('nic_type')
-        if m.get('policy') is not None:
-            self.policy = m.get('policy')
-        if m.get('port_range') is not None:
-            self.port_range = m.get('port_range')
-        if m.get('priority') is not None:
-            self.priority = m.get('priority')
-        if m.get('source_cidr_ip') is not None:
-            self.source_cidr_ip = m.get('source_cidr_ip')
-        return self
-
-
-class WorkspaceWithGroupView(TeaModel):
-    def __init__(
-        self,
+        creator_id: str = None,
         id: str = None,
-        identity: str = None,
         name: str = None,
-        network_type: str = None,
-        region: RegionView = None,
-        status: str = None,
+        parent_id: str = None,
         tenant_id: str = None,
-        zones: List[WorkspaceZoneView] = None,
-        workspace_group: WorkspaceGroupView = None,
+        to_root_path: str = None,
+        utc_create: str = None,
+        utc_modified: str = None,
     ):
+        # 创建人id
+        self.creator_id = creator_id
         # id
         self.id = id
-        # identity
-        self.identity = identity
-        # name
+        # 名称
         self.name = name
-        # networkType
-        self.network_type = network_type
-        # region
-        self.region = region
-        # status
-        self.status = status
-        # tenantId
+        # parentId
+        self.parent_id = parent_id
+        # 租户id
         self.tenant_id = tenant_id
-        # zones
-        self.zones = zones
-        # workspaceGroup
-        self.workspace_group = workspace_group
+        # toRootPath
+        self.to_root_path = to_root_path
+        # utcCreate
+        self.utc_create = utc_create
+        # utcModified
+        self.utc_modified = utc_modified
 
     def validate(self):
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.identity, 'identity')
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.network_type, 'network_type')
-        self.validate_required(self.region, 'region')
-        if self.region:
-            self.region.validate()
-        self.validate_required(self.status, 'status')
-        self.validate_required(self.tenant_id, 'tenant_id')
-        self.validate_required(self.zones, 'zones')
-        if self.zones:
-            for k in self.zones:
-                if k:
-                    k.validate()
-        self.validate_required(self.workspace_group, 'workspace_group')
-        if self.workspace_group:
-            self.workspace_group.validate()
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.utc_modified is not None:
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
+        if self.creator_id is not None:
+            result['creator_id'] = self.creator_id
         if self.id is not None:
             result['id'] = self.id
-        if self.identity is not None:
-            result['identity'] = self.identity
         if self.name is not None:
             result['name'] = self.name
-        if self.network_type is not None:
-            result['network_type'] = self.network_type
-        if self.region is not None:
-            result['region'] = self.region.to_map()
-        if self.status is not None:
-            result['status'] = self.status
+        if self.parent_id is not None:
+            result['parent_id'] = self.parent_id
         if self.tenant_id is not None:
             result['tenant_id'] = self.tenant_id
-        result['zones'] = []
-        if self.zones is not None:
-            for k in self.zones:
-                result['zones'].append(k.to_map() if k else None)
-        if self.workspace_group is not None:
-            result['workspace_group'] = self.workspace_group.to_map()
+        if self.to_root_path is not None:
+            result['to_root_path'] = self.to_root_path
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.utc_modified is not None:
+            result['utc_modified'] = self.utc_modified
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
+        if m.get('creator_id') is not None:
+            self.creator_id = m.get('creator_id')
         if m.get('id') is not None:
             self.id = m.get('id')
-        if m.get('identity') is not None:
-            self.identity = m.get('identity')
         if m.get('name') is not None:
             self.name = m.get('name')
-        if m.get('network_type') is not None:
-            self.network_type = m.get('network_type')
-        if m.get('region') is not None:
-            temp_model = RegionView()
-            self.region = temp_model.from_map(m['region'])
-        if m.get('status') is not None:
-            self.status = m.get('status')
+        if m.get('parent_id') is not None:
+            self.parent_id = m.get('parent_id')
         if m.get('tenant_id') is not None:
             self.tenant_id = m.get('tenant_id')
-        self.zones = []
-        if m.get('zones') is not None:
-            for k in m.get('zones'):
-                temp_model = WorkspaceZoneView()
-                self.zones.append(temp_model.from_map(k))
-        if m.get('workspace_group') is not None:
-            temp_model = WorkspaceGroupView()
-            self.workspace_group = temp_model.from_map(m['workspace_group'])
+        if m.get('to_root_path') is not None:
+            self.to_root_path = m.get('to_root_path')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('utc_modified') is not None:
+            self.utc_modified = m.get('utc_modified')
         return self
 
 
-class AcsClusterUnit(TeaModel):
+class IaasResponse(TeaModel):
     def __init__(
         self,
-        cluster_id: str = None,
-        address: str = None,
-        unit_status: int = None,
-        create_time: str = None,
-        modify_time: str = None,
-        container_id: str = None,
+        response_body: str = None,
+        response_headers: List[MapStringToStringEntity] = None,
     ):
-        # cluster_id
-        self.cluster_id = cluster_id
-        # address
-        self.address = address
-        # unit_status
-        self.unit_status = unit_status
-        # create_time
-        self.create_time = create_time
-        # modify_time
-        self.modify_time = modify_time
-        # container_id
-        self.container_id = container_id
+        # response_body
+        self.response_body = response_body
+        # response_headers
+        self.response_headers = response_headers
 
     def validate(self):
-        self.validate_required(self.cluster_id, 'cluster_id')
-
-    def to_map(self):
-        result = dict()
-        if self.cluster_id is not None:
-            result['cluster_id'] = self.cluster_id
-        if self.address is not None:
-            result['address'] = self.address
-        if self.unit_status is not None:
-            result['unit_status'] = self.unit_status
-        if self.create_time is not None:
-            result['create_time'] = self.create_time
-        if self.modify_time is not None:
-            result['modify_time'] = self.modify_time
-        if self.container_id is not None:
-            result['container_id'] = self.container_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('cluster_id') is not None:
-            self.cluster_id = m.get('cluster_id')
-        if m.get('address') is not None:
-            self.address = m.get('address')
-        if m.get('unit_status') is not None:
-            self.unit_status = m.get('unit_status')
-        if m.get('create_time') is not None:
-            self.create_time = m.get('create_time')
-        if m.get('modify_time') is not None:
-            self.modify_time = m.get('modify_time')
-        if m.get('container_id') is not None:
-            self.container_id = m.get('container_id')
-        return self
-
-
-class WorkspaceRegion(TeaModel):
-    def __init__(
-        self,
-        id: str = None,
-        workspace_id: str = None,
-        region_id: str = None,
-        type: str = None,
-        secured_isolation_identity: str = None,
-        secured_isolation_name: str = None,
-        secured_zone_id: str = None,
-    ):
-        # id
-        self.id = id
-        # workspaceId
-        self.workspace_id = workspace_id
-        # regionId
-        self.region_id = region_id
-        # type
-        self.type = type
-        # securedIsolationIdentity
-        self.secured_isolation_identity = secured_isolation_identity
-        # securedIsolationName
-        self.secured_isolation_name = secured_isolation_name
-        # securedZoneId
-        self.secured_zone_id = secured_zone_id
-
-    def validate(self):
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.workspace_id, 'workspace_id')
-        self.validate_required(self.region_id, 'region_id')
-        self.validate_required(self.type, 'type')
-        self.validate_required(self.secured_isolation_identity, 'secured_isolation_identity')
-        self.validate_required(self.secured_isolation_name, 'secured_isolation_name')
-        self.validate_required(self.secured_zone_id, 'secured_zone_id')
-
-    def to_map(self):
-        result = dict()
-        if self.id is not None:
-            result['id'] = self.id
-        if self.workspace_id is not None:
-            result['workspace_id'] = self.workspace_id
-        if self.region_id is not None:
-            result['region_id'] = self.region_id
-        if self.type is not None:
-            result['type'] = self.type
-        if self.secured_isolation_identity is not None:
-            result['secured_isolation_identity'] = self.secured_isolation_identity
-        if self.secured_isolation_name is not None:
-            result['secured_isolation_name'] = self.secured_isolation_name
-        if self.secured_zone_id is not None:
-            result['secured_zone_id'] = self.secured_zone_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('workspace_id') is not None:
-            self.workspace_id = m.get('workspace_id')
-        if m.get('region_id') is not None:
-            self.region_id = m.get('region_id')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('secured_isolation_identity') is not None:
-            self.secured_isolation_identity = m.get('secured_isolation_identity')
-        if m.get('secured_isolation_name') is not None:
-            self.secured_isolation_name = m.get('secured_isolation_name')
-        if m.get('secured_zone_id') is not None:
-            self.secured_zone_id = m.get('secured_zone_id')
-        return self
-
-
-class WorkspaceRegionDto(TeaModel):
-    def __init__(
-        self,
-        id: str = None,
-        network_type: str = None,
-        region_id: str = None,
-        region_name: str = None,
-        secured_zone_id: str = None,
-        workspace_id: str = None,
-        workspace_logic_region_status: str = None,
-        workspace_logic_region_type: str = None,
-        workspace_zone_dtos: List[WorkspaceZoneDto] = None,
-    ):
-        # id
-        self.id = id
-        # networkType
-        self.network_type = network_type
-        # region id
-        self.region_id = region_id
-        # regionName
-        self.region_name = region_name
-        # 安全域id
-        self.secured_zone_id = secured_zone_id
-        # workspace_id
-        self.workspace_id = workspace_id
-        # workspaceLogicRegionStatus
-        self.workspace_logic_region_status = workspace_logic_region_status
-        # workspaceLogicRegionType
-        self.workspace_logic_region_type = workspace_logic_region_type
-        # workspaceZoneDtos
-        self.workspace_zone_dtos = workspace_zone_dtos
-
-    def validate(self):
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.region_id, 'region_id')
-        self.validate_required(self.workspace_id, 'workspace_id')
-        if self.workspace_zone_dtos:
-            for k in self.workspace_zone_dtos:
+        if self.response_headers:
+            for k in self.response_headers:
                 if k:
                     k.validate()
 
     def to_map(self):
         result = dict()
-        if self.id is not None:
-            result['id'] = self.id
-        if self.network_type is not None:
-            result['network_type'] = self.network_type
-        if self.region_id is not None:
-            result['region_id'] = self.region_id
-        if self.region_name is not None:
-            result['region_name'] = self.region_name
-        if self.secured_zone_id is not None:
-            result['secured_zone_id'] = self.secured_zone_id
-        if self.workspace_id is not None:
-            result['workspace_id'] = self.workspace_id
-        if self.workspace_logic_region_status is not None:
-            result['workspace_logic_region_status'] = self.workspace_logic_region_status
-        if self.workspace_logic_region_type is not None:
-            result['workspace_logic_region_type'] = self.workspace_logic_region_type
-        result['workspace_zone_dtos'] = []
-        if self.workspace_zone_dtos is not None:
-            for k in self.workspace_zone_dtos:
-                result['workspace_zone_dtos'].append(k.to_map() if k else None)
+        if self.response_body is not None:
+            result['response_body'] = self.response_body
+        result['response_headers'] = []
+        if self.response_headers is not None:
+            for k in self.response_headers:
+                result['response_headers'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('network_type') is not None:
-            self.network_type = m.get('network_type')
-        if m.get('region_id') is not None:
-            self.region_id = m.get('region_id')
-        if m.get('region_name') is not None:
-            self.region_name = m.get('region_name')
-        if m.get('secured_zone_id') is not None:
-            self.secured_zone_id = m.get('secured_zone_id')
-        if m.get('workspace_id') is not None:
-            self.workspace_id = m.get('workspace_id')
-        if m.get('workspace_logic_region_status') is not None:
-            self.workspace_logic_region_status = m.get('workspace_logic_region_status')
-        if m.get('workspace_logic_region_type') is not None:
-            self.workspace_logic_region_type = m.get('workspace_logic_region_type')
-        self.workspace_zone_dtos = []
-        if m.get('workspace_zone_dtos') is not None:
-            for k in m.get('workspace_zone_dtos'):
-                temp_model = WorkspaceZoneDto()
-                self.workspace_zone_dtos.append(temp_model.from_map(k))
-        return self
-
-
-class VComputerGroup(TeaModel):
-    def __init__(
-        self,
-        name: str = None,
-        id: str = None,
-        workspace_id: str = None,
-        load_balancer: LoadBalancer = None,
-        status: str = None,
-    ):
-        # name
-        self.name = name
-        # id
-        self.id = id
-        # workspace_id
-        self.workspace_id = workspace_id
-        # load_balancer
-        self.load_balancer = load_balancer
-        # status
-        self.status = status
-
-    def validate(self):
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.workspace_id, 'workspace_id')
-        self.validate_required(self.load_balancer, 'load_balancer')
-        if self.load_balancer:
-            self.load_balancer.validate()
-        self.validate_required(self.status, 'status')
-
-    def to_map(self):
-        result = dict()
-        if self.name is not None:
-            result['name'] = self.name
-        if self.id is not None:
-            result['id'] = self.id
-        if self.workspace_id is not None:
-            result['workspace_id'] = self.workspace_id
-        if self.load_balancer is not None:
-            result['load_balancer'] = self.load_balancer.to_map()
-        if self.status is not None:
-            result['status'] = self.status
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('workspace_id') is not None:
-            self.workspace_id = m.get('workspace_id')
-        if m.get('load_balancer') is not None:
-            temp_model = LoadBalancer()
-            self.load_balancer = temp_model.from_map(m['load_balancer'])
-        if m.get('status') is not None:
-            self.status = m.get('status')
+        if m.get('response_body') is not None:
+            self.response_body = m.get('response_body')
+        self.response_headers = []
+        if m.get('response_headers') is not None:
+            for k in m.get('response_headers'):
+                temp_model = MapStringToStringEntity()
+                self.response_headers.append(temp_model.from_map(k))
         return self
 
 
@@ -4844,6 +3871,690 @@ class SLSConfigInputDetail(TeaModel):
         return self
 
 
+class Resource(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        description: str = None,
+        instance_charge_type: str = None,
+        expired_time: str = None,
+        auto_renew: bool = None,
+        auto_renew_period: int = None,
+        iaas_id: str = None,
+        iaas_type: str = None,
+        region_id: str = None,
+        zone_id: str = None,
+        id: str = None,
+        utc_create: str = None,
+        utc_modified: str = None,
+    ):
+        # name
+        self.name = name
+        # description
+        self.description = description
+        # instance_charge_type
+        self.instance_charge_type = instance_charge_type
+        # expiredTime
+        self.expired_time = expired_time
+        # auto_renew
+        self.auto_renew = auto_renew
+        # autoRenewPeriod
+        self.auto_renew_period = auto_renew_period
+        # iaas_id
+        self.iaas_id = iaas_id
+        # iaas_type
+        self.iaas_type = iaas_type
+        # region_id
+        self.region_id = region_id
+        # zone_id
+        self.zone_id = zone_id
+        # id
+        self.id = id
+        # utc_create
+        self.utc_create = utc_create
+        # utc_modified
+        self.utc_modified = utc_modified
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        if self.expired_time is not None:
+            self.validate_pattern(self.expired_time, 'expired_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.zone_id, 'zone_id')
+        self.validate_required(self.id, 'id')
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.utc_modified is not None:
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.description is not None:
+            result['description'] = self.description
+        if self.instance_charge_type is not None:
+            result['instance_charge_type'] = self.instance_charge_type
+        if self.expired_time is not None:
+            result['expired_time'] = self.expired_time
+        if self.auto_renew is not None:
+            result['auto_renew'] = self.auto_renew
+        if self.auto_renew_period is not None:
+            result['auto_renew_period'] = self.auto_renew_period
+        if self.iaas_id is not None:
+            result['iaas_id'] = self.iaas_id
+        if self.iaas_type is not None:
+            result['iaas_type'] = self.iaas_type
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.zone_id is not None:
+            result['zone_id'] = self.zone_id
+        if self.id is not None:
+            result['id'] = self.id
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.utc_modified is not None:
+            result['utc_modified'] = self.utc_modified
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('instance_charge_type') is not None:
+            self.instance_charge_type = m.get('instance_charge_type')
+        if m.get('expired_time') is not None:
+            self.expired_time = m.get('expired_time')
+        if m.get('auto_renew') is not None:
+            self.auto_renew = m.get('auto_renew')
+        if m.get('auto_renew_period') is not None:
+            self.auto_renew_period = m.get('auto_renew_period')
+        if m.get('iaas_id') is not None:
+            self.iaas_id = m.get('iaas_id')
+        if m.get('iaas_type') is not None:
+            self.iaas_type = m.get('iaas_type')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('zone_id') is not None:
+            self.zone_id = m.get('zone_id')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('utc_modified') is not None:
+            self.utc_modified = m.get('utc_modified')
+        return self
+
+
+class AppView(TeaModel):
+    def __init__(
+        self,
+        app_domain_id: str = None,
+        app_extra_infos: List[AppExtraInfo] = None,
+        app_level: AppLevel = None,
+        app_owner: AppOwner = None,
+        archetype: ScmSofaArchetype = None,
+        buildpack_version: str = None,
+        chinese_name: str = None,
+        code_repository: CodeRepository = None,
+        description: str = None,
+        extra_params: str = None,
+        id: str = None,
+        is_service: bool = None,
+        name: str = None,
+        owner_id: str = None,
+        stack_id: str = None,
+        status: str = None,
+        tags: str = None,
+        tenant_id: str = None,
+        utc_create: str = None,
+        utc_modified: str = None,
+        workspace_id: str = None,
+        owner_name: str = None,
+        real_owner_name: str = None,
+        domain_names: List[str] = None,
+        app_domain_name: str = None,
+        app_level_name: str = None,
+        stack_name: str = None,
+        stack_version: str = None,
+        container_count: int = None,
+        database_count: int = None,
+        slb_count: int = None,
+        ocs_count: int = None,
+        package_count: int = None,
+        life_cycle: AppLifeCycle = None,
+    ):
+        # 应用组id
+        self.app_domain_id = app_domain_id
+        # 应用扩展信息
+        self.app_extra_infos = app_extra_infos
+        # 应用等级
+        self.app_level = app_level
+        # 应用负责人
+        self.app_owner = app_owner
+        # scm sofa archetype
+        self.archetype = archetype
+        # 技术栈版本
+        self.buildpack_version = buildpack_version
+        # 中文名称
+        self.chinese_name = chinese_name
+        # 代码仓库
+        self.code_repository = code_repository
+        # 描述信息
+        self.description = description
+        # 扩展参数，JSOn字符串
+        self.extra_params = extra_params
+        # 应用ID
+        self.id = id
+        # 是否组件中心应用
+        self.is_service = is_service
+        # 应用名称
+        self.name = name
+        # 负责人ID
+        self.owner_id = owner_id
+        # 技术栈所属分类ID
+        self.stack_id = stack_id
+        # 应用状态
+        self.status = status
+        # 应用标签，JSOn字符串
+        self.tags = tags
+        # 租户ID
+        self.tenant_id = tenant_id
+        # 创建时间
+        self.utc_create = utc_create
+        # 修改时间
+        self.utc_modified = utc_modified
+        # 工作空间ID
+        self.workspace_id = workspace_id
+        # 负责人名称
+        self.owner_name = owner_name
+        # 应用负责人真实名称
+        self.real_owner_name = real_owner_name
+        # 应用域路径名
+        self.domain_names = domain_names
+        # 应用分组名称
+        self.app_domain_name = app_domain_name
+        # 应用等级名称
+        self.app_level_name = app_level_name
+        # 技术栈名称
+        self.stack_name = stack_name
+        # 技术栈版本
+        self.stack_version = stack_version
+        # 服务器数量
+        self.container_count = container_count
+        # 数据库个数
+        self.database_count = database_count
+        # SLB个数
+        self.slb_count = slb_count
+        # ocs个数
+        self.ocs_count = ocs_count
+        # 发布包个数
+        self.package_count = package_count
+        # 生命周期信息
+        self.life_cycle = life_cycle
+
+    def validate(self):
+        if self.app_extra_infos:
+            for k in self.app_extra_infos:
+                if k:
+                    k.validate()
+        if self.app_level:
+            self.app_level.validate()
+        if self.app_owner:
+            self.app_owner.validate()
+        if self.archetype:
+            self.archetype.validate()
+        if self.code_repository:
+            self.code_repository.validate()
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.stack_id, 'stack_id')
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.utc_modified is not None:
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.real_owner_name, 'real_owner_name')
+        self.validate_required(self.app_domain_name, 'app_domain_name')
+        self.validate_required(self.app_level_name, 'app_level_name')
+        if self.life_cycle:
+            self.life_cycle.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.app_domain_id is not None:
+            result['app_domain_id'] = self.app_domain_id
+        result['app_extra_infos'] = []
+        if self.app_extra_infos is not None:
+            for k in self.app_extra_infos:
+                result['app_extra_infos'].append(k.to_map() if k else None)
+        if self.app_level is not None:
+            result['app_level'] = self.app_level.to_map()
+        if self.app_owner is not None:
+            result['app_owner'] = self.app_owner.to_map()
+        if self.archetype is not None:
+            result['archetype'] = self.archetype.to_map()
+        if self.buildpack_version is not None:
+            result['buildpack_version'] = self.buildpack_version
+        if self.chinese_name is not None:
+            result['chinese_name'] = self.chinese_name
+        if self.code_repository is not None:
+            result['code_repository'] = self.code_repository.to_map()
+        if self.description is not None:
+            result['description'] = self.description
+        if self.extra_params is not None:
+            result['extra_params'] = self.extra_params
+        if self.id is not None:
+            result['id'] = self.id
+        if self.is_service is not None:
+            result['is_service'] = self.is_service
+        if self.name is not None:
+            result['name'] = self.name
+        if self.owner_id is not None:
+            result['owner_id'] = self.owner_id
+        if self.stack_id is not None:
+            result['stack_id'] = self.stack_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.tags is not None:
+            result['tags'] = self.tags
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.utc_modified is not None:
+            result['utc_modified'] = self.utc_modified
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.owner_name is not None:
+            result['owner_name'] = self.owner_name
+        if self.real_owner_name is not None:
+            result['real_owner_name'] = self.real_owner_name
+        if self.domain_names is not None:
+            result['domain_names'] = self.domain_names
+        if self.app_domain_name is not None:
+            result['app_domain_name'] = self.app_domain_name
+        if self.app_level_name is not None:
+            result['app_level_name'] = self.app_level_name
+        if self.stack_name is not None:
+            result['stack_name'] = self.stack_name
+        if self.stack_version is not None:
+            result['stack_version'] = self.stack_version
+        if self.container_count is not None:
+            result['container_count'] = self.container_count
+        if self.database_count is not None:
+            result['database_count'] = self.database_count
+        if self.slb_count is not None:
+            result['slb_count'] = self.slb_count
+        if self.ocs_count is not None:
+            result['ocs_count'] = self.ocs_count
+        if self.package_count is not None:
+            result['package_count'] = self.package_count
+        if self.life_cycle is not None:
+            result['life_cycle'] = self.life_cycle.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('app_domain_id') is not None:
+            self.app_domain_id = m.get('app_domain_id')
+        self.app_extra_infos = []
+        if m.get('app_extra_infos') is not None:
+            for k in m.get('app_extra_infos'):
+                temp_model = AppExtraInfo()
+                self.app_extra_infos.append(temp_model.from_map(k))
+        if m.get('app_level') is not None:
+            temp_model = AppLevel()
+            self.app_level = temp_model.from_map(m['app_level'])
+        if m.get('app_owner') is not None:
+            temp_model = AppOwner()
+            self.app_owner = temp_model.from_map(m['app_owner'])
+        if m.get('archetype') is not None:
+            temp_model = ScmSofaArchetype()
+            self.archetype = temp_model.from_map(m['archetype'])
+        if m.get('buildpack_version') is not None:
+            self.buildpack_version = m.get('buildpack_version')
+        if m.get('chinese_name') is not None:
+            self.chinese_name = m.get('chinese_name')
+        if m.get('code_repository') is not None:
+            temp_model = CodeRepository()
+            self.code_repository = temp_model.from_map(m['code_repository'])
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('extra_params') is not None:
+            self.extra_params = m.get('extra_params')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('is_service') is not None:
+            self.is_service = m.get('is_service')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('owner_id') is not None:
+            self.owner_id = m.get('owner_id')
+        if m.get('stack_id') is not None:
+            self.stack_id = m.get('stack_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('tags') is not None:
+            self.tags = m.get('tags')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('utc_modified') is not None:
+            self.utc_modified = m.get('utc_modified')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('owner_name') is not None:
+            self.owner_name = m.get('owner_name')
+        if m.get('real_owner_name') is not None:
+            self.real_owner_name = m.get('real_owner_name')
+        if m.get('domain_names') is not None:
+            self.domain_names = m.get('domain_names')
+        if m.get('app_domain_name') is not None:
+            self.app_domain_name = m.get('app_domain_name')
+        if m.get('app_level_name') is not None:
+            self.app_level_name = m.get('app_level_name')
+        if m.get('stack_name') is not None:
+            self.stack_name = m.get('stack_name')
+        if m.get('stack_version') is not None:
+            self.stack_version = m.get('stack_version')
+        if m.get('container_count') is not None:
+            self.container_count = m.get('container_count')
+        if m.get('database_count') is not None:
+            self.database_count = m.get('database_count')
+        if m.get('slb_count') is not None:
+            self.slb_count = m.get('slb_count')
+        if m.get('ocs_count') is not None:
+            self.ocs_count = m.get('ocs_count')
+        if m.get('package_count') is not None:
+            self.package_count = m.get('package_count')
+        if m.get('life_cycle') is not None:
+            temp_model = AppLifeCycle()
+            self.life_cycle = temp_model.from_map(m['life_cycle'])
+        return self
+
+
+class DnsZones(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        name: str = None,
+    ):
+        # id
+        self.id = id
+        # name
+        self.name = name
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.name, 'name')
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class AppManifest(TeaModel):
+    def __init__(
+        self,
+        app_id: str = None,
+        app_version: str = None,
+        code_commit: CodeCommit = None,
+        etag: str = None,
+        id: str = None,
+        location: str = None,
+        name: str = None,
+        remark: str = None,
+        store_location: str = None,
+        utc_create: str = None,
+        utc_modified: str = None,
+        workspace_id: str = None,
+    ):
+        # app_id
+        self.app_id = app_id
+        # app_version
+        self.app_version = app_version
+        # code_commit
+        self.code_commit = code_commit
+        # etag
+        self.etag = etag
+        # id
+        self.id = id
+        # location
+        self.location = location
+        # name
+        self.name = name
+        # remark
+        self.remark = remark
+        # store_location
+        self.store_location = store_location
+        # utc_create
+        self.utc_create = utc_create
+        # utc_modified
+        self.utc_modified = utc_modified
+        # workspace_id
+        self.workspace_id = workspace_id
+
+    def validate(self):
+        if self.code_commit:
+            self.code_commit.validate()
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.utc_modified is not None:
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.app_version is not None:
+            result['app_version'] = self.app_version
+        if self.code_commit is not None:
+            result['code_commit'] = self.code_commit.to_map()
+        if self.etag is not None:
+            result['etag'] = self.etag
+        if self.id is not None:
+            result['id'] = self.id
+        if self.location is not None:
+            result['location'] = self.location
+        if self.name is not None:
+            result['name'] = self.name
+        if self.remark is not None:
+            result['remark'] = self.remark
+        if self.store_location is not None:
+            result['store_location'] = self.store_location
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.utc_modified is not None:
+            result['utc_modified'] = self.utc_modified
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('app_version') is not None:
+            self.app_version = m.get('app_version')
+        if m.get('code_commit') is not None:
+            temp_model = CodeCommit()
+            self.code_commit = temp_model.from_map(m['code_commit'])
+        if m.get('etag') is not None:
+            self.etag = m.get('etag')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('location') is not None:
+            self.location = m.get('location')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('remark') is not None:
+            self.remark = m.get('remark')
+        if m.get('store_location') is not None:
+            self.store_location = m.get('store_location')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('utc_modified') is not None:
+            self.utc_modified = m.get('utc_modified')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        return self
+
+
+class ImportVO(TeaModel):
+    def __init__(
+        self,
+        is_imported: bool = None,
+        imported_workspace_name: str = None,
+        is_unimportable: bool = None,
+        unimportable_reason: str = None,
+    ):
+        # is_imported
+        self.is_imported = is_imported
+        # imported_workspace_name
+        self.imported_workspace_name = imported_workspace_name
+        # is_unimportable
+        self.is_unimportable = is_unimportable
+        # unimportable_reason
+        self.unimportable_reason = unimportable_reason
+
+    def validate(self):
+        self.validate_required(self.is_imported, 'is_imported')
+        self.validate_required(self.imported_workspace_name, 'imported_workspace_name')
+
+    def to_map(self):
+        result = dict()
+        if self.is_imported is not None:
+            result['is_imported'] = self.is_imported
+        if self.imported_workspace_name is not None:
+            result['imported_workspace_name'] = self.imported_workspace_name
+        if self.is_unimportable is not None:
+            result['is_unimportable'] = self.is_unimportable
+        if self.unimportable_reason is not None:
+            result['unimportable_reason'] = self.unimportable_reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('is_imported') is not None:
+            self.is_imported = m.get('is_imported')
+        if m.get('imported_workspace_name') is not None:
+            self.imported_workspace_name = m.get('imported_workspace_name')
+        if m.get('is_unimportable') is not None:
+            self.is_unimportable = m.get('is_unimportable')
+        if m.get('unimportable_reason') is not None:
+            self.unimportable_reason = m.get('unimportable_reason')
+        return self
+
+
+class ListenerHealthMonitor(TeaModel):
+    def __init__(
+        self,
+        check_type: str = None,
+        connect_port: int = None,
+        domain: str = None,
+        healthy_threshold: int = None,
+        health_check_http_code: List[str] = None,
+        http_method: str = None,
+        id: str = None,
+        interval: int = None,
+        timeout: int = None,
+        un_healthy_threshold: int = None,
+        uri: str = None,
+    ):
+        # check_type
+        self.check_type = check_type
+        # 默认 80
+        self.connect_port = connect_port
+        # 域名
+        self.domain = domain
+        # 健康阈值
+        self.healthy_threshold = healthy_threshold
+        # health_check_http_code
+        self.health_check_http_code = health_check_http_code
+        # http_method
+        self.http_method = http_method
+        # id
+        self.id = id
+        # 监控检查间隔
+        self.interval = interval
+        # 超时时间
+        self.timeout = timeout
+        # 不健康阈值
+        self.un_healthy_threshold = un_healthy_threshold
+        # uri
+        self.uri = uri
+
+    def validate(self):
+        self.validate_required(self.interval, 'interval')
+        self.validate_required(self.timeout, 'timeout')
+
+    def to_map(self):
+        result = dict()
+        if self.check_type is not None:
+            result['check_type'] = self.check_type
+        if self.connect_port is not None:
+            result['connect_port'] = self.connect_port
+        if self.domain is not None:
+            result['domain'] = self.domain
+        if self.healthy_threshold is not None:
+            result['healthy_threshold'] = self.healthy_threshold
+        if self.health_check_http_code is not None:
+            result['health_check_http_code'] = self.health_check_http_code
+        if self.http_method is not None:
+            result['http_method'] = self.http_method
+        if self.id is not None:
+            result['id'] = self.id
+        if self.interval is not None:
+            result['interval'] = self.interval
+        if self.timeout is not None:
+            result['timeout'] = self.timeout
+        if self.un_healthy_threshold is not None:
+            result['un_healthy_threshold'] = self.un_healthy_threshold
+        if self.uri is not None:
+            result['uri'] = self.uri
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('check_type') is not None:
+            self.check_type = m.get('check_type')
+        if m.get('connect_port') is not None:
+            self.connect_port = m.get('connect_port')
+        if m.get('domain') is not None:
+            self.domain = m.get('domain')
+        if m.get('healthy_threshold') is not None:
+            self.healthy_threshold = m.get('healthy_threshold')
+        if m.get('health_check_http_code') is not None:
+            self.health_check_http_code = m.get('health_check_http_code')
+        if m.get('http_method') is not None:
+            self.http_method = m.get('http_method')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('interval') is not None:
+            self.interval = m.get('interval')
+        if m.get('timeout') is not None:
+            self.timeout = m.get('timeout')
+        if m.get('un_healthy_threshold') is not None:
+            self.un_healthy_threshold = m.get('un_healthy_threshold')
+        if m.get('uri') is not None:
+            self.uri = m.get('uri')
+        return self
+
+
 class Task(TeaModel):
     def __init__(
         self,
@@ -4937,6 +4648,584 @@ class Task(TeaModel):
         return self
 
 
+class WorkspaceRegion(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        workspace_id: str = None,
+        region_id: str = None,
+        type: str = None,
+        secured_isolation_identity: str = None,
+        secured_isolation_name: str = None,
+        secured_zone_id: str = None,
+    ):
+        # id
+        self.id = id
+        # workspaceId
+        self.workspace_id = workspace_id
+        # regionId
+        self.region_id = region_id
+        # type
+        self.type = type
+        # securedIsolationIdentity
+        self.secured_isolation_identity = secured_isolation_identity
+        # securedIsolationName
+        self.secured_isolation_name = secured_isolation_name
+        # securedZoneId
+        self.secured_zone_id = secured_zone_id
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.region_id, 'region_id')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.secured_isolation_identity, 'secured_isolation_identity')
+        self.validate_required(self.secured_isolation_name, 'secured_isolation_name')
+        self.validate_required(self.secured_zone_id, 'secured_zone_id')
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.type is not None:
+            result['type'] = self.type
+        if self.secured_isolation_identity is not None:
+            result['secured_isolation_identity'] = self.secured_isolation_identity
+        if self.secured_isolation_name is not None:
+            result['secured_isolation_name'] = self.secured_isolation_name
+        if self.secured_zone_id is not None:
+            result['secured_zone_id'] = self.secured_zone_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('secured_isolation_identity') is not None:
+            self.secured_isolation_identity = m.get('secured_isolation_identity')
+        if m.get('secured_isolation_name') is not None:
+            self.secured_isolation_name = m.get('secured_isolation_name')
+        if m.get('secured_zone_id') is not None:
+            self.secured_zone_id = m.get('secured_zone_id')
+        return self
+
+
+class VComputerGroup(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        id: str = None,
+        workspace_id: str = None,
+        load_balancer: LoadBalancer = None,
+        status: str = None,
+    ):
+        # name
+        self.name = name
+        # id
+        self.id = id
+        # workspace_id
+        self.workspace_id = workspace_id
+        # load_balancer
+        self.load_balancer = load_balancer
+        # status
+        self.status = status
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.load_balancer, 'load_balancer')
+        if self.load_balancer:
+            self.load_balancer.validate()
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.id is not None:
+            result['id'] = self.id
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.load_balancer is not None:
+            result['load_balancer'] = self.load_balancer.to_map()
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('load_balancer') is not None:
+            temp_model = LoadBalancer()
+            self.load_balancer = temp_model.from_map(m['load_balancer'])
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class CellView(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        name: str = None,
+        display_name: str = None,
+        description: str = None,
+        deployment_zone_id: str = None,
+        workspace_id: str = None,
+        workspace_group_id: str = None,
+        status: str = None,
+        master_zone_id: str = None,
+        appended_zone_ids: List[str] = None,
+        zones: List[ZoneView] = None,
+    ):
+        # 部署单元对应的paas id
+        self.id = id
+        # 部署单元名称
+        self.name = name
+        # 部署单元显示名称
+        self.display_name = display_name
+        # 部署单元描述
+        self.description = description
+        # deploymentZoneId
+        self.deployment_zone_id = deployment_zone_id
+        # workspaceId
+        self.workspace_id = workspace_id
+        # workspaceGroupId
+        self.workspace_group_id = workspace_group_id
+        # status
+        self.status = status
+        # masterZoneId
+        self.master_zone_id = master_zone_id
+        # appendedZoneIds
+        self.appended_zone_ids = appended_zone_ids
+        # List<ZoneView> zones
+        self.zones = zones
+
+    def validate(self):
+        if self.zones:
+            for k in self.zones:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.display_name is not None:
+            result['display_name'] = self.display_name
+        if self.description is not None:
+            result['description'] = self.description
+        if self.deployment_zone_id is not None:
+            result['deployment_zone_id'] = self.deployment_zone_id
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.workspace_group_id is not None:
+            result['workspace_group_id'] = self.workspace_group_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.master_zone_id is not None:
+            result['master_zone_id'] = self.master_zone_id
+        if self.appended_zone_ids is not None:
+            result['appended_zone_ids'] = self.appended_zone_ids
+        result['zones'] = []
+        if self.zones is not None:
+            for k in self.zones:
+                result['zones'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('display_name') is not None:
+            self.display_name = m.get('display_name')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('deployment_zone_id') is not None:
+            self.deployment_zone_id = m.get('deployment_zone_id')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('workspace_group_id') is not None:
+            self.workspace_group_id = m.get('workspace_group_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('master_zone_id') is not None:
+            self.master_zone_id = m.get('master_zone_id')
+        if m.get('appended_zone_ids') is not None:
+            self.appended_zone_ids = m.get('appended_zone_ids')
+        self.zones = []
+        if m.get('zones') is not None:
+            for k in m.get('zones'):
+                temp_model = ZoneView()
+                self.zones.append(temp_model.from_map(k))
+        return self
+
+
+class ImportInfo(TeaModel):
+    def __init__(
+        self,
+        imported_workspace_name: str = None,
+        is_imported: bool = None,
+        is_unimportable: bool = None,
+        unimportable_reason: str = None,
+    ):
+        # 已导入的workspace name
+        self.imported_workspace_name = imported_workspace_name
+        # vpc是否已导入workspace
+        self.is_imported = is_imported
+        # 是否可以删除已导入的workspace
+        self.is_unimportable = is_unimportable
+        # 不可删除已导入workspace的原因
+        self.unimportable_reason = unimportable_reason
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.imported_workspace_name is not None:
+            result['imported_workspace_name'] = self.imported_workspace_name
+        if self.is_imported is not None:
+            result['is_imported'] = self.is_imported
+        if self.is_unimportable is not None:
+            result['is_unimportable'] = self.is_unimportable
+        if self.unimportable_reason is not None:
+            result['unimportable_reason'] = self.unimportable_reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('imported_workspace_name') is not None:
+            self.imported_workspace_name = m.get('imported_workspace_name')
+        if m.get('is_imported') is not None:
+            self.is_imported = m.get('is_imported')
+        if m.get('is_unimportable') is not None:
+            self.is_unimportable = m.get('is_unimportable')
+        if m.get('unimportable_reason') is not None:
+            self.unimportable_reason = m.get('unimportable_reason')
+        return self
+
+
+class IaasRequest(TeaModel):
+    def __init__(
+        self,
+        request_method: str = None,
+        request_url: str = None,
+        request_body: str = None,
+        request_headers: List[MapStringToStringEntity] = None,
+    ):
+        # requestMethod
+        self.request_method = request_method
+        # requestUrl
+        self.request_url = request_url
+        # requestBody
+        self.request_body = request_body
+        # request_headers
+        self.request_headers = request_headers
+
+    def validate(self):
+        if self.request_headers:
+            for k in self.request_headers:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.request_method is not None:
+            result['request_method'] = self.request_method
+        if self.request_url is not None:
+            result['request_url'] = self.request_url
+        if self.request_body is not None:
+            result['request_body'] = self.request_body
+        result['request_headers'] = []
+        if self.request_headers is not None:
+            for k in self.request_headers:
+                result['request_headers'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('request_method') is not None:
+            self.request_method = m.get('request_method')
+        if m.get('request_url') is not None:
+            self.request_url = m.get('request_url')
+        if m.get('request_body') is not None:
+            self.request_body = m.get('request_body')
+        self.request_headers = []
+        if m.get('request_headers') is not None:
+            for k in m.get('request_headers'):
+                temp_model = MapStringToStringEntity()
+                self.request_headers.append(temp_model.from_map(k))
+        return self
+
+
+class Property(TeaModel):
+    def __init__(
+        self,
+        key: str = None,
+        value: str = None,
+    ):
+        # key
+        self.key = key
+        # value
+        self.value = value
+
+    def validate(self):
+        self.validate_required(self.key, 'key')
+
+    def to_map(self):
+        result = dict()
+        if self.key is not None:
+            result['key'] = self.key
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class WorkspaceWithGroupView(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        identity: str = None,
+        name: str = None,
+        network_type: str = None,
+        region: RegionView = None,
+        status: str = None,
+        tenant_id: str = None,
+        zones: List[WorkspaceZoneView] = None,
+        workspace_group: WorkspaceGroupView = None,
+    ):
+        # id
+        self.id = id
+        # identity
+        self.identity = identity
+        # name
+        self.name = name
+        # networkType
+        self.network_type = network_type
+        # region
+        self.region = region
+        # status
+        self.status = status
+        # tenantId
+        self.tenant_id = tenant_id
+        # zones
+        self.zones = zones
+        # workspaceGroup
+        self.workspace_group = workspace_group
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.identity, 'identity')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.network_type, 'network_type')
+        self.validate_required(self.region, 'region')
+        if self.region:
+            self.region.validate()
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.zones, 'zones')
+        if self.zones:
+            for k in self.zones:
+                if k:
+                    k.validate()
+        self.validate_required(self.workspace_group, 'workspace_group')
+        if self.workspace_group:
+            self.workspace_group.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.identity is not None:
+            result['identity'] = self.identity
+        if self.name is not None:
+            result['name'] = self.name
+        if self.network_type is not None:
+            result['network_type'] = self.network_type
+        if self.region is not None:
+            result['region'] = self.region.to_map()
+        if self.status is not None:
+            result['status'] = self.status
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        result['zones'] = []
+        if self.zones is not None:
+            for k in self.zones:
+                result['zones'].append(k.to_map() if k else None)
+        if self.workspace_group is not None:
+            result['workspace_group'] = self.workspace_group.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('identity') is not None:
+            self.identity = m.get('identity')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('network_type') is not None:
+            self.network_type = m.get('network_type')
+        if m.get('region') is not None:
+            temp_model = RegionView()
+            self.region = temp_model.from_map(m['region'])
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        self.zones = []
+        if m.get('zones') is not None:
+            for k in m.get('zones'):
+                temp_model = WorkspaceZoneView()
+                self.zones.append(temp_model.from_map(k))
+        if m.get('workspace_group') is not None:
+            temp_model = WorkspaceGroupView()
+            self.workspace_group = temp_model.from_map(m['workspace_group'])
+        return self
+
+
+class AcsClusterUnit(TeaModel):
+    def __init__(
+        self,
+        cluster_id: str = None,
+        address: str = None,
+        unit_status: int = None,
+        create_time: str = None,
+        modify_time: str = None,
+        container_id: str = None,
+    ):
+        # cluster_id
+        self.cluster_id = cluster_id
+        # address
+        self.address = address
+        # unit_status
+        self.unit_status = unit_status
+        # create_time
+        self.create_time = create_time
+        # modify_time
+        self.modify_time = modify_time
+        # container_id
+        self.container_id = container_id
+
+    def validate(self):
+        self.validate_required(self.cluster_id, 'cluster_id')
+
+    def to_map(self):
+        result = dict()
+        if self.cluster_id is not None:
+            result['cluster_id'] = self.cluster_id
+        if self.address is not None:
+            result['address'] = self.address
+        if self.unit_status is not None:
+            result['unit_status'] = self.unit_status
+        if self.create_time is not None:
+            result['create_time'] = self.create_time
+        if self.modify_time is not None:
+            result['modify_time'] = self.modify_time
+        if self.container_id is not None:
+            result['container_id'] = self.container_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cluster_id') is not None:
+            self.cluster_id = m.get('cluster_id')
+        if m.get('address') is not None:
+            self.address = m.get('address')
+        if m.get('unit_status') is not None:
+            self.unit_status = m.get('unit_status')
+        if m.get('create_time') is not None:
+            self.create_time = m.get('create_time')
+        if m.get('modify_time') is not None:
+            self.modify_time = m.get('modify_time')
+        if m.get('container_id') is not None:
+            self.container_id = m.get('container_id')
+        return self
+
+
+class ConnectionStub(TeaModel):
+    def __init__(
+        self,
+        cloud: Cloud = None,
+        id: int = None,
+        tenant_id: str = None,
+        tenant_name: str = None,
+        type: str = None,
+    ):
+        # cloud
+        self.cloud = cloud
+        # id
+        self.id = id
+        # tenant_id
+        self.tenant_id = tenant_id
+        # tenant_name
+        self.tenant_name = tenant_name
+        # type
+        self.type = type
+
+    def validate(self):
+        if self.cloud:
+            self.cloud.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.cloud is not None:
+            result['cloud'] = self.cloud.to_map()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cloud') is not None:
+            temp_model = Cloud()
+            self.cloud = temp_model.from_map(m['cloud'])
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
 class SLSLogContent(TeaModel):
     def __init__(
         self,
@@ -4969,123 +5258,94 @@ class SLSLogContent(TeaModel):
         return self
 
 
-class WorkspaceDc(TeaModel):
+class WorkspaceRegionDto(TeaModel):
     def __init__(
         self,
         id: str = None,
-        datacenter_id: str = None,
+        network_type: str = None,
+        region_id: str = None,
+        region_name: str = None,
+        secured_zone_id: str = None,
         workspace_id: str = None,
-        datacenter_type: str = None,
-        gmt_create: str = None,
-        gmt_modified: str = None,
+        workspace_logic_region_status: str = None,
+        workspace_logic_region_type: str = None,
+        workspace_zone_dtos: List[WorkspaceZoneDto] = None,
     ):
         # id
         self.id = id
-        # datacenterId
-        self.datacenter_id = datacenter_id
-        # workspaceId
+        # networkType
+        self.network_type = network_type
+        # region id
+        self.region_id = region_id
+        # regionName
+        self.region_name = region_name
+        # 安全域id
+        self.secured_zone_id = secured_zone_id
+        # workspace_id
         self.workspace_id = workspace_id
-        # datacenterType
-        self.datacenter_type = datacenter_type
-        # gmtCreate
-        self.gmt_create = gmt_create
-        # gmtModified
-        self.gmt_modified = gmt_modified
+        # workspaceLogicRegionStatus
+        self.workspace_logic_region_status = workspace_logic_region_status
+        # workspaceLogicRegionType
+        self.workspace_logic_region_type = workspace_logic_region_type
+        # workspaceZoneDtos
+        self.workspace_zone_dtos = workspace_zone_dtos
 
     def validate(self):
         self.validate_required(self.id, 'id')
-        self.validate_required(self.datacenter_id, 'datacenter_id')
+        self.validate_required(self.region_id, 'region_id')
         self.validate_required(self.workspace_id, 'workspace_id')
-        self.validate_required(self.datacenter_type, 'datacenter_type')
-        self.validate_required(self.gmt_create, 'gmt_create')
-        if self.gmt_create is not None:
-            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.gmt_modified, 'gmt_modified')
-        if self.gmt_modified is not None:
-            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.workspace_zone_dtos:
+            for k in self.workspace_zone_dtos:
+                if k:
+                    k.validate()
 
     def to_map(self):
         result = dict()
         if self.id is not None:
             result['id'] = self.id
-        if self.datacenter_id is not None:
-            result['datacenter_id'] = self.datacenter_id
+        if self.network_type is not None:
+            result['network_type'] = self.network_type
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.region_name is not None:
+            result['region_name'] = self.region_name
+        if self.secured_zone_id is not None:
+            result['secured_zone_id'] = self.secured_zone_id
         if self.workspace_id is not None:
             result['workspace_id'] = self.workspace_id
-        if self.datacenter_type is not None:
-            result['datacenter_type'] = self.datacenter_type
-        if self.gmt_create is not None:
-            result['gmt_create'] = self.gmt_create
-        if self.gmt_modified is not None:
-            result['gmt_modified'] = self.gmt_modified
+        if self.workspace_logic_region_status is not None:
+            result['workspace_logic_region_status'] = self.workspace_logic_region_status
+        if self.workspace_logic_region_type is not None:
+            result['workspace_logic_region_type'] = self.workspace_logic_region_type
+        result['workspace_zone_dtos'] = []
+        if self.workspace_zone_dtos is not None:
+            for k in self.workspace_zone_dtos:
+                result['workspace_zone_dtos'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('id') is not None:
             self.id = m.get('id')
-        if m.get('datacenter_id') is not None:
-            self.datacenter_id = m.get('datacenter_id')
+        if m.get('network_type') is not None:
+            self.network_type = m.get('network_type')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('region_name') is not None:
+            self.region_name = m.get('region_name')
+        if m.get('secured_zone_id') is not None:
+            self.secured_zone_id = m.get('secured_zone_id')
         if m.get('workspace_id') is not None:
             self.workspace_id = m.get('workspace_id')
-        if m.get('datacenter_type') is not None:
-            self.datacenter_type = m.get('datacenter_type')
-        if m.get('gmt_create') is not None:
-            self.gmt_create = m.get('gmt_create')
-        if m.get('gmt_modified') is not None:
-            self.gmt_modified = m.get('gmt_modified')
-        return self
-
-
-class IaasErrorInfo(TeaModel):
-    def __init__(
-        self,
-        error_code: str = None,
-        error_message: str = None,
-        status_code: int = None,
-        host_id: str = None,
-        request_id: str = None,
-    ):
-        # error_code
-        self.error_code = error_code
-        # error_message
-        self.error_message = error_message
-        # status_code
-        self.status_code = status_code
-        # host_id
-        self.host_id = host_id
-        # requestId
-        self.request_id = request_id
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.error_code is not None:
-            result['error_code'] = self.error_code
-        if self.error_message is not None:
-            result['error_message'] = self.error_message
-        if self.status_code is not None:
-            result['status_code'] = self.status_code
-        if self.host_id is not None:
-            result['host_id'] = self.host_id
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('error_code') is not None:
-            self.error_code = m.get('error_code')
-        if m.get('error_message') is not None:
-            self.error_message = m.get('error_message')
-        if m.get('status_code') is not None:
-            self.status_code = m.get('status_code')
-        if m.get('host_id') is not None:
-            self.host_id = m.get('host_id')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
+        if m.get('workspace_logic_region_status') is not None:
+            self.workspace_logic_region_status = m.get('workspace_logic_region_status')
+        if m.get('workspace_logic_region_type') is not None:
+            self.workspace_logic_region_type = m.get('workspace_logic_region_type')
+        self.workspace_zone_dtos = []
+        if m.get('workspace_zone_dtos') is not None:
+            for k in m.get('workspace_zone_dtos'):
+                temp_model = WorkspaceZoneDto()
+                self.workspace_zone_dtos.append(temp_model.from_map(k))
         return self
 
 
@@ -5522,649 +5782,1772 @@ class Computer(TeaModel):
         return self
 
 
-class ConnectionStub(TeaModel):
+class VRouteEntry(TeaModel):
     def __init__(
         self,
-        cloud: Cloud = None,
-        id: int = None,
-        tenant_id: str = None,
-        tenant_name: str = None,
+        desination_cidr_block: str = None,
+        instance_id: str = None,
+        instance_name: str = None,
+        next_hop_id: str = None,
+        next_hop_item_list: List[NextHopItem] = None,
+        next_hop_type: str = None,
+        route_table_id: str = None,
+        status: str = None,
         type: str = None,
     ):
-        # cloud
-        self.cloud = cloud
-        # id
-        self.id = id
-        # tenant_id
-        self.tenant_id = tenant_id
-        # tenant_name
-        self.tenant_name = tenant_name
-        # type
+        # 路由条目的目标网段。
+        self.desination_cidr_block = desination_cidr_block
+        # 下一跳的实例ID。
+        self.instance_id = instance_id
+        # 下一跳的实例名称。
+        self.instance_name = instance_name
+        # 路由条目ID。
+        self.next_hop_id = next_hop_id
+        # 路由的下一跳列表。
+        self.next_hop_item_list = next_hop_item_list
+        # 路由类型。
+        # 
+        # local：交换机路由。
+        # service：云服务路由。
+        # classicLink：开启ClassicLink功能后系统自动添加的路由。
+        self.next_hop_type = next_hop_type
+        # 路由条目所属路由表的ID。
+        self.route_table_id = route_table_id
+        # 
+        # 路由条目的状态。
+        # 
+        # Pending：配置中。
+        # Available：可用。
+        # Modifying：修改中。
+        self.status = status
+        # 路由条目的类型。
+        # 
+        # System：系统路由。
+        # Custom：自定义路由。
+        # BGP：BGP路由。
+        # 
         self.type = type
 
     def validate(self):
-        if self.cloud:
-            self.cloud.validate()
+        if self.next_hop_item_list:
+            for k in self.next_hop_item_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         result = dict()
-        if self.cloud is not None:
-            result['cloud'] = self.cloud.to_map()
-        if self.id is not None:
-            result['id'] = self.id
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
-        if self.tenant_name is not None:
-            result['tenant_name'] = self.tenant_name
+        if self.desination_cidr_block is not None:
+            result['desination_cidr_block'] = self.desination_cidr_block
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.instance_name is not None:
+            result['instance_name'] = self.instance_name
+        if self.next_hop_id is not None:
+            result['next_hop_id'] = self.next_hop_id
+        result['next_hop_item_list'] = []
+        if self.next_hop_item_list is not None:
+            for k in self.next_hop_item_list:
+                result['next_hop_item_list'].append(k.to_map() if k else None)
+        if self.next_hop_type is not None:
+            result['next_hop_type'] = self.next_hop_type
+        if self.route_table_id is not None:
+            result['route_table_id'] = self.route_table_id
+        if self.status is not None:
+            result['status'] = self.status
         if self.type is not None:
             result['type'] = self.type
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('cloud') is not None:
-            temp_model = Cloud()
-            self.cloud = temp_model.from_map(m['cloud'])
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
-        if m.get('tenant_name') is not None:
-            self.tenant_name = m.get('tenant_name')
+        if m.get('desination_cidr_block') is not None:
+            self.desination_cidr_block = m.get('desination_cidr_block')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('instance_name') is not None:
+            self.instance_name = m.get('instance_name')
+        if m.get('next_hop_id') is not None:
+            self.next_hop_id = m.get('next_hop_id')
+        self.next_hop_item_list = []
+        if m.get('next_hop_item_list') is not None:
+            for k in m.get('next_hop_item_list'):
+                temp_model = NextHopItem()
+                self.next_hop_item_list.append(temp_model.from_map(k))
+        if m.get('next_hop_type') is not None:
+            self.next_hop_type = m.get('next_hop_type')
+        if m.get('route_table_id') is not None:
+            self.route_table_id = m.get('route_table_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
         if m.get('type') is not None:
             self.type = m.get('type')
         return self
 
 
-class BuildpackInstances(TeaModel):
+class Workspace(TeaModel):
     def __init__(
         self,
-        ecses: int = None,
-        app_binded: int = None,
+        id: str = None,
+        name: str = None,
+        network_type: str = None,
+        tenant: str = None,
+        zone_ids: str = None,
+        region_id: str = None,
     ):
-        # ecs个数
-        self.ecses = ecses
-        # 绑定应用个数
-        self.app_binded = app_binded
+        # id
+        self.id = id
+        # 名称
+        self.name = name
+        # 网络类型
+        self.network_type = network_type
+        # 租户
+        self.tenant = tenant
+        # 可用区 id
+        self.zone_ids = zone_ids
+        # region id
+        self.region_id = region_id
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.ecses is not None:
-            result['ecses'] = self.ecses
-        if self.app_binded is not None:
-            result['app_binded'] = self.app_binded
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('ecses') is not None:
-            self.ecses = m.get('ecses')
-        if m.get('app_binded') is not None:
-            self.app_binded = m.get('app_binded')
-        return self
-
-
-class ZoneDto(TeaModel):
-    def __init__(
-        self,
-        id: str = None,
-        identity: str = None,
-        iaas_provider_id: str = None,
-        display_name: str = None,
-        state: str = None,
-        region_id: str = None,
-        no: int = None,
-        name: str = None,
-        description: str = None,
-        utc_create: str = None,
-        utc_modified: str = None,
-    ):
-        # id
-        self.id = id
-        # identity
-        self.identity = identity
-        # iaasProviderId
-        self.iaas_provider_id = iaas_provider_id
-        # displayName
-        self.display_name = display_name
-        # state
-        self.state = state
-        # regionId
-        self.region_id = region_id
-        # no
-        self.no = no
-        # name
-        self.name = name
-        # description
-        self.description = description
-        # utcCreate
-        self.utc_create = utc_create
-        # utcModified
-        self.utc_modified = utc_modified
-
-    def validate(self):
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.identity, 'identity')
-        self.validate_required(self.iaas_provider_id, 'iaas_provider_id')
-        self.validate_required(self.display_name, 'display_name')
-        self.validate_required(self.state, 'state')
-        self.validate_required(self.region_id, 'region_id')
-        self.validate_required(self.no, 'no')
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.description, 'description')
-        self.validate_required(self.utc_create, 'utc_create')
-        if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.utc_modified, 'utc_modified')
-        if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-
-    def to_map(self):
-        result = dict()
         if self.id is not None:
             result['id'] = self.id
-        if self.identity is not None:
-            result['identity'] = self.identity
-        if self.iaas_provider_id is not None:
-            result['iaas_provider_id'] = self.iaas_provider_id
-        if self.display_name is not None:
-            result['display_name'] = self.display_name
-        if self.state is not None:
-            result['state'] = self.state
-        if self.region_id is not None:
-            result['region_id'] = self.region_id
-        if self.no is not None:
-            result['no'] = self.no
         if self.name is not None:
             result['name'] = self.name
-        if self.description is not None:
-            result['description'] = self.description
-        if self.utc_create is not None:
-            result['utc_create'] = self.utc_create
-        if self.utc_modified is not None:
-            result['utc_modified'] = self.utc_modified
+        if self.network_type is not None:
+            result['network_type'] = self.network_type
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
+        if self.zone_ids is not None:
+            result['zone_ids'] = self.zone_ids
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('id') is not None:
             self.id = m.get('id')
-        if m.get('identity') is not None:
-            self.identity = m.get('identity')
-        if m.get('iaas_provider_id') is not None:
-            self.iaas_provider_id = m.get('iaas_provider_id')
-        if m.get('display_name') is not None:
-            self.display_name = m.get('display_name')
-        if m.get('state') is not None:
-            self.state = m.get('state')
-        if m.get('region_id') is not None:
-            self.region_id = m.get('region_id')
-        if m.get('no') is not None:
-            self.no = m.get('no')
         if m.get('name') is not None:
             self.name = m.get('name')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('utc_create') is not None:
-            self.utc_create = m.get('utc_create')
-        if m.get('utc_modified') is not None:
-            self.utc_modified = m.get('utc_modified')
+        if m.get('network_type') is not None:
+            self.network_type = m.get('network_type')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
+        if m.get('zone_ids') is not None:
+            self.zone_ids = m.get('zone_ids')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
         return self
 
 
-class DbSchema(TeaModel):
+class TaskVO(TeaModel):
     def __init__(
         self,
-        char_set: str = None,
-        database: Database = None,
-        description: str = None,
-        grants: List[DbSchemaGrant] = None,
-        iaas_type: str = None,
+        context: str = None,
+        execution_times: int = None,
         id: str = None,
-        name: str = None,
+        request: TaskRequest = None,
+        resource_id: str = None,
+        resource_type: str = None,
         status: str = None,
         utc_create: str = None,
         utc_modified: str = None,
+        workspace_id: str = None,
+        resource: Resource = None,
     ):
-        # charSet
-        self.char_set = char_set
-        # database
-        self.database = database
-        # description
-        self.description = description
-        # grants
-        self.grants = grants
-        # iaas_type
-        self.iaas_type = iaas_type
+        # context
+        self.context = context
+        # execution_times
+        self.execution_times = execution_times
         # id
         self.id = id
-        # name
-        self.name = name
+        # request
+        self.request = request
+        # resource_id
+        self.resource_id = resource_id
+        # resource_type
+        self.resource_type = resource_type
         # status
         self.status = status
         # utc_create
         self.utc_create = utc_create
         # utc_modified
         self.utc_modified = utc_modified
+        # workspace_id
+        self.workspace_id = workspace_id
+        # resource
+        self.resource = resource
 
     def validate(self):
-        if self.database:
-            self.database.validate()
-        self.validate_required(self.grants, 'grants')
-        if self.grants:
-            for k in self.grants:
-                if k:
-                    k.validate()
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.name, 'name')
+        self.validate_required(self.context, 'context')
+        if self.request:
+            self.request.validate()
         self.validate_required(self.status, 'status')
         if self.utc_create is not None:
             self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
             self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.resource, 'resource')
+        if self.resource:
+            self.resource.validate()
 
     def to_map(self):
         result = dict()
-        if self.char_set is not None:
-            result['char_set'] = self.char_set
-        if self.database is not None:
-            result['database'] = self.database.to_map()
-        if self.description is not None:
-            result['description'] = self.description
-        result['grants'] = []
-        if self.grants is not None:
-            for k in self.grants:
-                result['grants'].append(k.to_map() if k else None)
-        if self.iaas_type is not None:
-            result['iaas_type'] = self.iaas_type
+        if self.context is not None:
+            result['context'] = self.context
+        if self.execution_times is not None:
+            result['execution_times'] = self.execution_times
         if self.id is not None:
             result['id'] = self.id
-        if self.name is not None:
-            result['name'] = self.name
+        if self.request is not None:
+            result['request'] = self.request.to_map()
+        if self.resource_id is not None:
+            result['resource_id'] = self.resource_id
+        if self.resource_type is not None:
+            result['resource_type'] = self.resource_type
         if self.status is not None:
             result['status'] = self.status
         if self.utc_create is not None:
             result['utc_create'] = self.utc_create
         if self.utc_modified is not None:
             result['utc_modified'] = self.utc_modified
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.resource is not None:
+            result['resource'] = self.resource.to_map()
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('char_set') is not None:
-            self.char_set = m.get('char_set')
-        if m.get('database') is not None:
-            temp_model = Database()
-            self.database = temp_model.from_map(m['database'])
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        self.grants = []
-        if m.get('grants') is not None:
-            for k in m.get('grants'):
-                temp_model = DbSchemaGrant()
-                self.grants.append(temp_model.from_map(k))
-        if m.get('iaas_type') is not None:
-            self.iaas_type = m.get('iaas_type')
+        if m.get('context') is not None:
+            self.context = m.get('context')
+        if m.get('execution_times') is not None:
+            self.execution_times = m.get('execution_times')
         if m.get('id') is not None:
             self.id = m.get('id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
+        if m.get('request') is not None:
+            temp_model = TaskRequest()
+            self.request = temp_model.from_map(m['request'])
+        if m.get('resource_id') is not None:
+            self.resource_id = m.get('resource_id')
+        if m.get('resource_type') is not None:
+            self.resource_type = m.get('resource_type')
         if m.get('status') is not None:
             self.status = m.get('status')
         if m.get('utc_create') is not None:
             self.utc_create = m.get('utc_create')
         if m.get('utc_modified') is not None:
             self.utc_modified = m.get('utc_modified')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('resource') is not None:
+            temp_model = Resource()
+            self.resource = temp_model.from_map(m['resource'])
         return self
 
 
-class Property(TeaModel):
-    def __init__(
-        self,
-        key: str = None,
-        value: str = None,
-    ):
-        # key
-        self.key = key
-        # value
-        self.value = value
-
-    def validate(self):
-        self.validate_required(self.key, 'key')
-
-    def to_map(self):
-        result = dict()
-        if self.key is not None:
-            result['key'] = self.key
-        if self.value is not None:
-            result['value'] = self.value
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('key') is not None:
-            self.key = m.get('key')
-        if m.get('value') is not None:
-            self.value = m.get('value')
-        return self
-
-
-class Buildpack(TeaModel):
+class AppQuery(TeaModel):
     def __init__(
         self,
         id: str = None,
-        name: str = None,
-        des: str = None,
-        version: str = None,
-        stack: str = None,
-        deploy_script_id: str = None,
-        build_script_id: str = None,
-        config_id: str = None,
-        component_id: str = None,
-        command_id: str = None,
-        bg_enable: bool = None,
-        creator: str = None,
         tenant_id: str = None,
-        customer_ids: List[str] = None,
-        type: str = None,
-        status: str = None,
-        gmt_create: str = None,
-        gmt_modified: str = None,
-        result_msg: str = None,
-        version_status: str = None,
-        instances: BuildpackInstances = None,
+        name: str = None,
+        chinese_name: str = None,
+        stack_id: str = None,
+        start_version: str = None,
+        end_version: str = None,
+        app_ids: List[str] = None,
+        app_domain_id: str = None,
+        app_domain_ids: List[str] = None,
+        app_domain_name: str = None,
+        app_level_id: str = None,
+        owner_id: str = None,
+        is_component: bool = None,
+        simple_query: bool = None,
+        workspace_id: str = None,
+        container_count: str = None,
+        database_count: str = None,
+        slb_count: str = None,
+        utc_create: str = None,
+        is_one_party_request: bool = None,
+        page_size: int = None,
+        current_page: int = None,
+        orders: List[str] = None,
+        query_type: str = None,
     ):
-        # 技术栈标识ID
+        # id
         self.id = id
-        # 技术栈名称
-        self.name = name
-        # 技术栈描述
-        self.des = des
-        # 技术栈版本
-        self.version = version
-        # 技术栈类别
-        self.stack = stack
-        # 部署脚本id
-        self.deploy_script_id = deploy_script_id
-        # 构建脚本ID
-        self.build_script_id = build_script_id
-        # 配置id
-        self.config_id = config_id
-        # 组件id
-        self.component_id = component_id
-        # 命令id
-        self.command_id = command_id
-        # 启用蓝绿
-        self.bg_enable = bg_enable
-        # 创建人
-        self.creator = creator
-        # 租户ID
+        # tenantId
         self.tenant_id = tenant_id
-        # 客户id列表
-        self.customer_ids = customer_ids
-        # 技术栈定义类型
-        # 系统模板 TEMPLATE
-        # 用户自定义 CUSTOM
-        # 后台服务 BACKGROUND_SERVICE
-        self.type = type
-        # 技术栈状态
-        # 草稿 DRAFT
-        # 已提交 COMMITED
-        # 已对外发布 PUBLISHED
-        # 已退役 RETIRED
-        self.status = status
-        # 创建日期
-        self.gmt_create = gmt_create
-        # 最近修改时间
-        self.gmt_modified = gmt_modified
-        # 技术栈信息汇总
-        self.result_msg = result_msg
-        # 可用 USABLE
-        # 不可用 UNUSABLE
-        self.version_status = version_status
-        # 运行时属性
-        self.instances = instances
+        # name
+        self.name = name
+        # chineseName
+        self.chinese_name = chinese_name
+        # stackId
+        self.stack_id = stack_id
+        # startVersion
+        self.start_version = start_version
+        # endVersion
+        self.end_version = end_version
+        # appIds
+        self.app_ids = app_ids
+        # appDomainId
+        self.app_domain_id = app_domain_id
+        # appDomainIds
+        self.app_domain_ids = app_domain_ids
+        # appDomainName
+        self.app_domain_name = app_domain_name
+        # appLevelId
+        self.app_level_id = app_level_id
+        # ownerId
+        self.owner_id = owner_id
+        # isComponent
+        self.is_component = is_component
+        # simpleQuery
+        self.simple_query = simple_query
+        # workspaceId
+        self.workspace_id = workspace_id
+        # containerCount
+        self.container_count = container_count
+        # databaseCount
+        self.database_count = database_count
+        # slbCount
+        self.slb_count = slb_count
+        # utcCreate
+        self.utc_create = utc_create
+        # isOnePartyRequest
+        self.is_one_party_request = is_one_party_request
+        # 分页大小
+        self.page_size = page_size
+        # 当前页数
+        self.current_page = current_page
+        # orders
+        self.orders = orders
+        # queryType
+        self.query_type = query_type
 
     def validate(self):
-        if self.gmt_create is not None:
-            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.gmt_modified is not None:
-            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.instances:
-            self.instances.validate()
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
         if self.id is not None:
             result['id'] = self.id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.des is not None:
-            result['des'] = self.des
-        if self.version is not None:
-            result['version'] = self.version
-        if self.stack is not None:
-            result['stack'] = self.stack
-        if self.deploy_script_id is not None:
-            result['deploy_script_id'] = self.deploy_script_id
-        if self.build_script_id is not None:
-            result['build_script_id'] = self.build_script_id
-        if self.config_id is not None:
-            result['config_id'] = self.config_id
-        if self.component_id is not None:
-            result['component_id'] = self.component_id
-        if self.command_id is not None:
-            result['command_id'] = self.command_id
-        if self.bg_enable is not None:
-            result['bg_enable'] = self.bg_enable
-        if self.creator is not None:
-            result['creator'] = self.creator
         if self.tenant_id is not None:
             result['tenant_id'] = self.tenant_id
-        if self.customer_ids is not None:
-            result['customer_ids'] = self.customer_ids
-        if self.type is not None:
-            result['type'] = self.type
-        if self.status is not None:
-            result['status'] = self.status
-        if self.gmt_create is not None:
-            result['gmt_create'] = self.gmt_create
-        if self.gmt_modified is not None:
-            result['gmt_modified'] = self.gmt_modified
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.version_status is not None:
-            result['version_status'] = self.version_status
-        if self.instances is not None:
-            result['instances'] = self.instances.to_map()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.chinese_name is not None:
+            result['chinese_name'] = self.chinese_name
+        if self.stack_id is not None:
+            result['stack_id'] = self.stack_id
+        if self.start_version is not None:
+            result['start_version'] = self.start_version
+        if self.end_version is not None:
+            result['end_version'] = self.end_version
+        if self.app_ids is not None:
+            result['app_ids'] = self.app_ids
+        if self.app_domain_id is not None:
+            result['app_domain_id'] = self.app_domain_id
+        if self.app_domain_ids is not None:
+            result['app_domain_ids'] = self.app_domain_ids
+        if self.app_domain_name is not None:
+            result['app_domain_name'] = self.app_domain_name
+        if self.app_level_id is not None:
+            result['app_level_id'] = self.app_level_id
+        if self.owner_id is not None:
+            result['owner_id'] = self.owner_id
+        if self.is_component is not None:
+            result['is_component'] = self.is_component
+        if self.simple_query is not None:
+            result['simple_query'] = self.simple_query
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.container_count is not None:
+            result['container_count'] = self.container_count
+        if self.database_count is not None:
+            result['database_count'] = self.database_count
+        if self.slb_count is not None:
+            result['slb_count'] = self.slb_count
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.is_one_party_request is not None:
+            result['is_one_party_request'] = self.is_one_party_request
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.current_page is not None:
+            result['current_page'] = self.current_page
+        if self.orders is not None:
+            result['orders'] = self.orders
+        if self.query_type is not None:
+            result['query_type'] = self.query_type
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('id') is not None:
             self.id = m.get('id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('des') is not None:
-            self.des = m.get('des')
-        if m.get('version') is not None:
-            self.version = m.get('version')
-        if m.get('stack') is not None:
-            self.stack = m.get('stack')
-        if m.get('deploy_script_id') is not None:
-            self.deploy_script_id = m.get('deploy_script_id')
-        if m.get('build_script_id') is not None:
-            self.build_script_id = m.get('build_script_id')
-        if m.get('config_id') is not None:
-            self.config_id = m.get('config_id')
-        if m.get('component_id') is not None:
-            self.component_id = m.get('component_id')
-        if m.get('command_id') is not None:
-            self.command_id = m.get('command_id')
-        if m.get('bg_enable') is not None:
-            self.bg_enable = m.get('bg_enable')
-        if m.get('creator') is not None:
-            self.creator = m.get('creator')
         if m.get('tenant_id') is not None:
             self.tenant_id = m.get('tenant_id')
-        if m.get('customer_ids') is not None:
-            self.customer_ids = m.get('customer_ids')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('gmt_create') is not None:
-            self.gmt_create = m.get('gmt_create')
-        if m.get('gmt_modified') is not None:
-            self.gmt_modified = m.get('gmt_modified')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('version_status') is not None:
-            self.version_status = m.get('version_status')
-        if m.get('instances') is not None:
-            temp_model = BuildpackInstances()
-            self.instances = temp_model.from_map(m['instances'])
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('chinese_name') is not None:
+            self.chinese_name = m.get('chinese_name')
+        if m.get('stack_id') is not None:
+            self.stack_id = m.get('stack_id')
+        if m.get('start_version') is not None:
+            self.start_version = m.get('start_version')
+        if m.get('end_version') is not None:
+            self.end_version = m.get('end_version')
+        if m.get('app_ids') is not None:
+            self.app_ids = m.get('app_ids')
+        if m.get('app_domain_id') is not None:
+            self.app_domain_id = m.get('app_domain_id')
+        if m.get('app_domain_ids') is not None:
+            self.app_domain_ids = m.get('app_domain_ids')
+        if m.get('app_domain_name') is not None:
+            self.app_domain_name = m.get('app_domain_name')
+        if m.get('app_level_id') is not None:
+            self.app_level_id = m.get('app_level_id')
+        if m.get('owner_id') is not None:
+            self.owner_id = m.get('owner_id')
+        if m.get('is_component') is not None:
+            self.is_component = m.get('is_component')
+        if m.get('simple_query') is not None:
+            self.simple_query = m.get('simple_query')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('container_count') is not None:
+            self.container_count = m.get('container_count')
+        if m.get('database_count') is not None:
+            self.database_count = m.get('database_count')
+        if m.get('slb_count') is not None:
+            self.slb_count = m.get('slb_count')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('is_one_party_request') is not None:
+            self.is_one_party_request = m.get('is_one_party_request')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('current_page') is not None:
+            self.current_page = m.get('current_page')
+        if m.get('orders') is not None:
+            self.orders = m.get('orders')
+        if m.get('query_type') is not None:
+            self.query_type = m.get('query_type')
         return self
 
 
-class SLSLogStore(TeaModel):
+class AppLevelQuery(TeaModel):
     def __init__(
         self,
+        app_count_include: bool = None,
+        creator_id: str = None,
+        is_one_party_request: bool = None,
         name: str = None,
-        shard_count: int = None,
-        ttl: int = None,
+        tenant_id: str = None,
+        utc_create: str = None,
+        current_page: int = None,
+        orders: List[str] = None,
+        page_size: int = None,
+        query_type: str = None,
     ):
-        # 日志库名称
+        # appCountInclude
+        self.app_count_include = app_count_include
+        # creator_id
+        self.creator_id = creator_id
+        # is_one_party_request
+        self.is_one_party_request = is_one_party_request
+        # name
         self.name = name
-        # Shard个数，单位为个，范围为1~100。
-        self.shard_count = shard_count
-        # 数据的保存时间，单位为天，范围1~3600。
-        self.ttl = ttl
+        # tenant_id
+        self.tenant_id = tenant_id
+        # utc_create
+        self.utc_create = utc_create
+        # 当前页数
+        self.current_page = current_page
+        # orders
+        self.orders = orders
+        # 分页大小
+        self.page_size = page_size
+        # query_type
+        self.query_type = query_type
 
     def validate(self):
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.shard_count, 'shard_count')
-        self.validate_required(self.ttl, 'ttl')
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
+        if self.app_count_include is not None:
+            result['app_count_include'] = self.app_count_include
+        if self.creator_id is not None:
+            result['creator_id'] = self.creator_id
+        if self.is_one_party_request is not None:
+            result['is_one_party_request'] = self.is_one_party_request
         if self.name is not None:
             result['name'] = self.name
-        if self.shard_count is not None:
-            result['shard_count'] = self.shard_count
-        if self.ttl is not None:
-            result['ttl'] = self.ttl
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.current_page is not None:
+            result['current_page'] = self.current_page
+        if self.orders is not None:
+            result['orders'] = self.orders
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.query_type is not None:
+            result['query_type'] = self.query_type
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
+        if m.get('app_count_include') is not None:
+            self.app_count_include = m.get('app_count_include')
+        if m.get('creator_id') is not None:
+            self.creator_id = m.get('creator_id')
+        if m.get('is_one_party_request') is not None:
+            self.is_one_party_request = m.get('is_one_party_request')
         if m.get('name') is not None:
             self.name = m.get('name')
-        if m.get('shard_count') is not None:
-            self.shard_count = m.get('shard_count')
-        if m.get('ttl') is not None:
-            self.ttl = m.get('ttl')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('current_page') is not None:
+            self.current_page = m.get('current_page')
+        if m.get('orders') is not None:
+            self.orders = m.get('orders')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('query_type') is not None:
+            self.query_type = m.get('query_type')
         return self
 
 
-class AppServiceViewModel(TeaModel):
+class ComputerType(TeaModel):
     def __init__(
         self,
-        base_app_service: AppService = None,
-        owner_name: str = None,
-        buildpack_name: str = None,
-        chinese_name: str = None,
-        buildpack_version: str = None,
-        computer_count: int = None,
-        database_count: int = None,
-        load_balancer_count: int = None,
-        cache_count: int = None,
-        cell_view_list: List[CellView] = None,
+        cpu_core_count: int = None,
+        id: str = None,
+        instance_type_family: str = None,
+        memory_size: int = None,
+        status: str = None,
     ):
-        # 基类
-        self.base_app_service = base_app_service
-        # 应用负责人姓名
-        self.owner_name = owner_name
-        # 技术栈名称
-        self.buildpack_name = buildpack_name
-        # App的别名
-        self.chinese_name = chinese_name
-        # buildpackVersion
-        self.buildpack_version = buildpack_version
-        # computerCount
-        self.computer_count = computer_count
-        # databaseCount
-        self.database_count = database_count
-        # loadBalancerCount
-        self.load_balancer_count = load_balancer_count
-        # cacheCount
-        self.cache_count = cache_count
-        # cellViewList
-        self.cell_view_list = cell_view_list
+        # cpu core count
+        self.cpu_core_count = cpu_core_count
+        # instance type id
+        self.id = id
+        # 实例规格族
+        self.instance_type_family = instance_type_family
+        # memory size
+        self.memory_size = memory_size
+        # 实例状态，可能值： Available：资源充足 Sold...
+        self.status = status
 
     def validate(self):
-        if self.base_app_service:
-            self.base_app_service.validate()
-        if self.cell_view_list:
-            for k in self.cell_view_list:
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        result = dict()
+        if self.cpu_core_count is not None:
+            result['cpu_core_count'] = self.cpu_core_count
+        if self.id is not None:
+            result['id'] = self.id
+        if self.instance_type_family is not None:
+            result['instance_type_family'] = self.instance_type_family
+        if self.memory_size is not None:
+            result['memory_size'] = self.memory_size
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cpu_core_count') is not None:
+            self.cpu_core_count = m.get('cpu_core_count')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('instance_type_family') is not None:
+            self.instance_type_family = m.get('instance_type_family')
+        if m.get('memory_size') is not None:
+            self.memory_size = m.get('memory_size')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class DataDisk(TeaModel):
+    def __init__(
+        self,
+        size: int = None,
+        snapshot_sequence: str = None,
+        spec_id: str = None,
+        device: str = None,
+    ):
+        # 磁盘大小
+        self.size = size
+        # 若使用磁盘创建，需填写此字段
+        self.snapshot_sequence = snapshot_sequence
+        # 磁盘规格
+        self.spec_id = spec_id
+        # 数据盘设备
+        self.device = device
+
+    def validate(self):
+        self.validate_required(self.size, 'size')
+        self.validate_required(self.spec_id, 'spec_id')
+        self.validate_required(self.device, 'device')
+
+    def to_map(self):
+        result = dict()
+        if self.size is not None:
+            result['size'] = self.size
+        if self.snapshot_sequence is not None:
+            result['snapshot_sequence'] = self.snapshot_sequence
+        if self.spec_id is not None:
+            result['spec_id'] = self.spec_id
+        if self.device is not None:
+            result['device'] = self.device
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('size') is not None:
+            self.size = m.get('size')
+        if m.get('snapshot_sequence') is not None:
+            self.snapshot_sequence = m.get('snapshot_sequence')
+        if m.get('spec_id') is not None:
+            self.spec_id = m.get('spec_id')
+        if m.get('device') is not None:
+            self.device = m.get('device')
+        return self
+
+
+class LoadBalanceHealthStatus(TeaModel):
+    def __init__(
+        self,
+        server_id: str = None,
+        status: str = None,
+    ):
+        # server_id
+        self.server_id = server_id
+        # status
+        self.status = status
+
+    def validate(self):
+        self.validate_required(self.server_id, 'server_id')
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        result = dict()
+        if self.server_id is not None:
+            result['server_id'] = self.server_id
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('server_id') is not None:
+            self.server_id = m.get('server_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class DnsRecordParam(TeaModel):
+    def __init__(
+        self,
+        workspace_id: str = None,
+        value: str = None,
+        ttl: int = None,
+        region_id: str = None,
+        zone_id: str = None,
+        description: str = None,
+        resource_type: str = None,
+    ):
+        # workspace_id
+        self.workspace_id = workspace_id
+        # value
+        self.value = value
+        # ttl
+        self.ttl = ttl
+        # regionId
+        self.region_id = region_id
+        # zoneId
+        self.zone_id = zone_id
+        # description
+        self.description = description
+        # resource_type
+        self.resource_type = resource_type
+
+    def validate(self):
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.value, 'value')
+        self.validate_required(self.ttl, 'ttl')
+        self.validate_required(self.region_id, 'region_id')
+        self.validate_required(self.resource_type, 'resource_type')
+
+    def to_map(self):
+        result = dict()
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.value is not None:
+            result['value'] = self.value
+        if self.ttl is not None:
+            result['ttl'] = self.ttl
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.zone_id is not None:
+            result['zone_id'] = self.zone_id
+        if self.description is not None:
+            result['description'] = self.description
+        if self.resource_type is not None:
+            result['resource_type'] = self.resource_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        if m.get('ttl') is not None:
+            self.ttl = m.get('ttl')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('zone_id') is not None:
+            self.zone_id = m.get('zone_id')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('resource_type') is not None:
+            self.resource_type = m.get('resource_type')
+        return self
+
+
+class Zone(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        identity: str = None,
+        description: str = None,
+        instancestatus: str = None,
+        region: str = None,
+        properties: List[Property] = None,
+    ):
+        # name
+        self.name = name
+        # identity
+        self.identity = identity
+        # description
+        self.description = description
+        # instanceStatus: AVAILABLE  UNAVAILABLE  RETIRED  DELETED
+        self.instancestatus = instancestatus
+        # region name
+        self.region = region
+        # properties
+        self.properties = properties
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.identity, 'identity')
+        self.validate_required(self.instancestatus, 'instancestatus')
+        self.validate_required(self.region, 'region')
+        self.validate_required(self.properties, 'properties')
+        if self.properties:
+            for k in self.properties:
                 if k:
                     k.validate()
 
     def to_map(self):
         result = dict()
-        if self.base_app_service is not None:
-            result['base_app_service'] = self.base_app_service.to_map()
-        if self.owner_name is not None:
-            result['owner_name'] = self.owner_name
-        if self.buildpack_name is not None:
-            result['buildpack_name'] = self.buildpack_name
-        if self.chinese_name is not None:
-            result['chinese_name'] = self.chinese_name
-        if self.buildpack_version is not None:
-            result['buildpack_version'] = self.buildpack_version
-        if self.computer_count is not None:
-            result['computer_count'] = self.computer_count
-        if self.database_count is not None:
-            result['database_count'] = self.database_count
-        if self.load_balancer_count is not None:
-            result['load_balancer_count'] = self.load_balancer_count
-        if self.cache_count is not None:
-            result['cache_count'] = self.cache_count
-        result['cell_view_list'] = []
-        if self.cell_view_list is not None:
-            for k in self.cell_view_list:
-                result['cell_view_list'].append(k.to_map() if k else None)
+        if self.name is not None:
+            result['name'] = self.name
+        if self.identity is not None:
+            result['identity'] = self.identity
+        if self.description is not None:
+            result['description'] = self.description
+        if self.instancestatus is not None:
+            result['instancestatus'] = self.instancestatus
+        if self.region is not None:
+            result['region'] = self.region
+        result['properties'] = []
+        if self.properties is not None:
+            for k in self.properties:
+                result['properties'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('base_app_service') is not None:
-            temp_model = AppService()
-            self.base_app_service = temp_model.from_map(m['base_app_service'])
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('identity') is not None:
+            self.identity = m.get('identity')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('instancestatus') is not None:
+            self.instancestatus = m.get('instancestatus')
+        if m.get('region') is not None:
+            self.region = m.get('region')
+        self.properties = []
+        if m.get('properties') is not None:
+            for k in m.get('properties'):
+                temp_model = Property()
+                self.properties.append(temp_model.from_map(k))
+        return self
+
+
+class Grant(TeaModel):
+    def __init__(
+        self,
+        account: DatabaseAccount = None,
+        privilege: str = None,
+        schema: DbSchema = None,
+    ):
+        # account
+        self.account = account
+        # privilege
+        self.privilege = privilege
+        # schema
+        self.schema = schema
+
+    def validate(self):
+        self.validate_required(self.account, 'account')
+        if self.account:
+            self.account.validate()
+        self.validate_required(self.privilege, 'privilege')
+        self.validate_required(self.schema, 'schema')
+        if self.schema:
+            self.schema.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.account is not None:
+            result['account'] = self.account.to_map()
+        if self.privilege is not None:
+            result['privilege'] = self.privilege
+        if self.schema is not None:
+            result['schema'] = self.schema.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('account') is not None:
+            temp_model = DatabaseAccount()
+            self.account = temp_model.from_map(m['account'])
+        if m.get('privilege') is not None:
+            self.privilege = m.get('privilege')
+        if m.get('schema') is not None:
+            temp_model = DbSchema()
+            self.schema = temp_model.from_map(m['schema'])
+        return self
+
+
+class PackageUploadPolicy(TeaModel):
+    def __init__(
+        self,
+        access_key: str = None,
+        policy: str = None,
+        signature: str = None,
+        path_prefix: str = None,
+        endpoint: str = None,
+        expire: str = None,
+        bucket: str = None,
+    ):
+        # accessKey
+        self.access_key = access_key
+        # 策略
+        self.policy = policy
+        # 签名
+        self.signature = signature
+        # 路径前缀
+        self.path_prefix = path_prefix
+        # endpoint
+        self.endpoint = endpoint
+        # expire
+        self.expire = expire
+        # bucket
+        self.bucket = bucket
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.access_key is not None:
+            result['access_key'] = self.access_key
+        if self.policy is not None:
+            result['policy'] = self.policy
+        if self.signature is not None:
+            result['signature'] = self.signature
+        if self.path_prefix is not None:
+            result['path_prefix'] = self.path_prefix
+        if self.endpoint is not None:
+            result['endpoint'] = self.endpoint
+        if self.expire is not None:
+            result['expire'] = self.expire
+        if self.bucket is not None:
+            result['bucket'] = self.bucket
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('access_key') is not None:
+            self.access_key = m.get('access_key')
+        if m.get('policy') is not None:
+            self.policy = m.get('policy')
+        if m.get('signature') is not None:
+            self.signature = m.get('signature')
+        if m.get('path_prefix') is not None:
+            self.path_prefix = m.get('path_prefix')
+        if m.get('endpoint') is not None:
+            self.endpoint = m.get('endpoint')
+        if m.get('expire') is not None:
+            self.expire = m.get('expire')
+        if m.get('bucket') is not None:
+            self.bucket = m.get('bucket')
+        return self
+
+
+class TenantWorkspace(TeaModel):
+    def __init__(
+        self,
+        display_name: str = None,
+        gmt_create: str = None,
+        gmt_modified: str = None,
+        id: str = None,
+        name: str = None,
+        network_type: str = None,
+        status: str = None,
+        tenant_id: str = None,
+        type: str = None,
+        workspace_dcs: List[WorkspaceDc] = None,
+        workspace_regions: List[WorkspaceRegion] = None,
+    ):
+        # displayName
+        self.display_name = display_name
+        # gmtCreate
+        self.gmt_create = gmt_create
+        # gmtModified
+        self.gmt_modified = gmt_modified
+        # id
+        self.id = id
+        # name
+        self.name = name
+        # networkType
+        self.network_type = network_type
+        # status
+        self.status = status
+        # tenantId
+        self.tenant_id = tenant_id
+        # type
+        self.type = type
+        # workspaceDcs
+        self.workspace_dcs = workspace_dcs
+        # workspaceRegions
+        self.workspace_regions = workspace_regions
+
+    def validate(self):
+        self.validate_required(self.display_name, 'display_name')
+        self.validate_required(self.gmt_create, 'gmt_create')
+        if self.gmt_create is not None:
+            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.gmt_modified, 'gmt_modified')
+        if self.gmt_modified is not None:
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.network_type, 'network_type')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.workspace_dcs, 'workspace_dcs')
+        if self.workspace_dcs:
+            for k in self.workspace_dcs:
+                if k:
+                    k.validate()
+        self.validate_required(self.workspace_regions, 'workspace_regions')
+        if self.workspace_regions:
+            for k in self.workspace_regions:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.display_name is not None:
+            result['display_name'] = self.display_name
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.network_type is not None:
+            result['network_type'] = self.network_type
+        if self.status is not None:
+            result['status'] = self.status
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.type is not None:
+            result['type'] = self.type
+        result['workspace_dcs'] = []
+        if self.workspace_dcs is not None:
+            for k in self.workspace_dcs:
+                result['workspace_dcs'].append(k.to_map() if k else None)
+        result['workspace_regions'] = []
+        if self.workspace_regions is not None:
+            for k in self.workspace_regions:
+                result['workspace_regions'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('display_name') is not None:
+            self.display_name = m.get('display_name')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('network_type') is not None:
+            self.network_type = m.get('network_type')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        self.workspace_dcs = []
+        if m.get('workspace_dcs') is not None:
+            for k in m.get('workspace_dcs'):
+                temp_model = WorkspaceDc()
+                self.workspace_dcs.append(temp_model.from_map(k))
+        self.workspace_regions = []
+        if m.get('workspace_regions') is not None:
+            for k in m.get('workspace_regions'):
+                temp_model = WorkspaceRegion()
+                self.workspace_regions.append(temp_model.from_map(k))
+        return self
+
+
+class AppDomainView(TeaModel):
+    def __init__(
+        self,
+        owner_name: str = None,
+        father_domain_name: str = None,
+        apps: List[AppView] = None,
+        base_app_domain: List[AppDomain] = None,
+    ):
+        # ownerName
+        self.owner_name = owner_name
+        # fatherDomainName
+        self.father_domain_name = father_domain_name
+        # 应用列表
+        self.apps = apps
+        # AppDomainView 的父类 AppDomain
+        self.base_app_domain = base_app_domain
+
+    def validate(self):
+        if self.apps:
+            for k in self.apps:
+                if k:
+                    k.validate()
+        if self.base_app_domain:
+            for k in self.base_app_domain:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.owner_name is not None:
+            result['owner_name'] = self.owner_name
+        if self.father_domain_name is not None:
+            result['father_domain_name'] = self.father_domain_name
+        result['apps'] = []
+        if self.apps is not None:
+            for k in self.apps:
+                result['apps'].append(k.to_map() if k else None)
+        result['base_app_domain'] = []
+        if self.base_app_domain is not None:
+            for k in self.base_app_domain:
+                result['base_app_domain'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
         if m.get('owner_name') is not None:
             self.owner_name = m.get('owner_name')
-        if m.get('buildpack_name') is not None:
-            self.buildpack_name = m.get('buildpack_name')
-        if m.get('chinese_name') is not None:
-            self.chinese_name = m.get('chinese_name')
-        if m.get('buildpack_version') is not None:
-            self.buildpack_version = m.get('buildpack_version')
-        if m.get('computer_count') is not None:
-            self.computer_count = m.get('computer_count')
-        if m.get('database_count') is not None:
-            self.database_count = m.get('database_count')
-        if m.get('load_balancer_count') is not None:
-            self.load_balancer_count = m.get('load_balancer_count')
-        if m.get('cache_count') is not None:
-            self.cache_count = m.get('cache_count')
-        self.cell_view_list = []
-        if m.get('cell_view_list') is not None:
-            for k in m.get('cell_view_list'):
-                temp_model = CellView()
-                self.cell_view_list.append(temp_model.from_map(k))
+        if m.get('father_domain_name') is not None:
+            self.father_domain_name = m.get('father_domain_name')
+        self.apps = []
+        if m.get('apps') is not None:
+            for k in m.get('apps'):
+                temp_model = AppView()
+                self.apps.append(temp_model.from_map(k))
+        self.base_app_domain = []
+        if m.get('base_app_domain') is not None:
+            for k in m.get('base_app_domain'):
+                temp_model = AppDomain()
+                self.base_app_domain.append(temp_model.from_map(k))
+        return self
+
+
+class ComputerQuota(TeaModel):
+    def __init__(
+        self,
+        cpu_shared: int = None,
+        cpu: int = None,
+        memory: int = None,
+        disk: int = None,
+    ):
+        # cpu shared
+        self.cpu_shared = cpu_shared
+        # cpu
+        self.cpu = cpu
+        # memory
+        self.memory = memory
+        # disk
+        self.disk = disk
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.cpu_shared is not None:
+            result['cpu_shared'] = self.cpu_shared
+        if self.cpu is not None:
+            result['cpu'] = self.cpu
+        if self.memory is not None:
+            result['memory'] = self.memory
+        if self.disk is not None:
+            result['disk'] = self.disk
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cpu_shared') is not None:
+            self.cpu_shared = m.get('cpu_shared')
+        if m.get('cpu') is not None:
+            self.cpu = m.get('cpu')
+        if m.get('memory') is not None:
+            self.memory = m.get('memory')
+        if m.get('disk') is not None:
+            self.disk = m.get('disk')
+        return self
+
+
+class RegionDto(TeaModel):
+    def __init__(
+        self,
+        available_network_types: List[str] = None,
+        description: str = None,
+        display_name: str = None,
+        iaas_provider_id: str = None,
+        id: str = None,
+        identity: str = None,
+        network_type: str = None,
+        state: str = None,
+        utc_create: str = None,
+        utc_modified: str = None,
+        zone_dtos: List[ZoneDto] = None,
+    ):
+        # availableNetworkTypes
+        self.available_network_types = available_network_types
+        # description
+        self.description = description
+        # displayName
+        self.display_name = display_name
+        # iaasProviderId
+        self.iaas_provider_id = iaas_provider_id
+        # id
+        self.id = id
+        # identity
+        self.identity = identity
+        # networkType
+        self.network_type = network_type
+        # state
+        self.state = state
+        # utcCreate
+        self.utc_create = utc_create
+        # utcModified
+        self.utc_modified = utc_modified
+        # zoneDtos
+        self.zone_dtos = zone_dtos
+
+    def validate(self):
+        self.validate_required(self.available_network_types, 'available_network_types')
+        self.validate_required(self.description, 'description')
+        self.validate_required(self.display_name, 'display_name')
+        self.validate_required(self.iaas_provider_id, 'iaas_provider_id')
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.identity, 'identity')
+        self.validate_required(self.network_type, 'network_type')
+        self.validate_required(self.state, 'state')
+        self.validate_required(self.utc_create, 'utc_create')
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.utc_modified, 'utc_modified')
+        if self.utc_modified is not None:
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.zone_dtos, 'zone_dtos')
+        if self.zone_dtos:
+            for k in self.zone_dtos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.available_network_types is not None:
+            result['available_network_types'] = self.available_network_types
+        if self.description is not None:
+            result['description'] = self.description
+        if self.display_name is not None:
+            result['display_name'] = self.display_name
+        if self.iaas_provider_id is not None:
+            result['iaas_provider_id'] = self.iaas_provider_id
+        if self.id is not None:
+            result['id'] = self.id
+        if self.identity is not None:
+            result['identity'] = self.identity
+        if self.network_type is not None:
+            result['network_type'] = self.network_type
+        if self.state is not None:
+            result['state'] = self.state
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.utc_modified is not None:
+            result['utc_modified'] = self.utc_modified
+        result['zone_dtos'] = []
+        if self.zone_dtos is not None:
+            for k in self.zone_dtos:
+                result['zone_dtos'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('available_network_types') is not None:
+            self.available_network_types = m.get('available_network_types')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('display_name') is not None:
+            self.display_name = m.get('display_name')
+        if m.get('iaas_provider_id') is not None:
+            self.iaas_provider_id = m.get('iaas_provider_id')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('identity') is not None:
+            self.identity = m.get('identity')
+        if m.get('network_type') is not None:
+            self.network_type = m.get('network_type')
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('utc_modified') is not None:
+            self.utc_modified = m.get('utc_modified')
+        self.zone_dtos = []
+        if m.get('zone_dtos') is not None:
+            for k in m.get('zone_dtos'):
+                temp_model = ZoneDto()
+                self.zone_dtos.append(temp_model.from_map(k))
+        return self
+
+
+class WorkspaceDto(TeaModel):
+    def __init__(
+        self,
+        display_name: str = None,
+        id: str = None,
+        name: str = None,
+        network_type: str = None,
+        project_id: str = None,
+        status: str = None,
+        type: str = None,
+        utc_create: str = None,
+        utc_modified: str = None,
+        workspace_region_dto: WorkspaceRegionDto = None,
+    ):
+        # displayName
+        self.display_name = display_name
+        # id
+        self.id = id
+        # name
+        self.name = name
+        # networkType
+        self.network_type = network_type
+        # projectId
+        self.project_id = project_id
+        # status
+        self.status = status
+        # type
+        self.type = type
+        # utcCreate
+        self.utc_create = utc_create
+        # utcModified
+        self.utc_modified = utc_modified
+        # workspaceRegionDto
+        self.workspace_region_dto = workspace_region_dto
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.network_type, 'network_type')
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.utc_create, 'utc_create')
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.utc_modified is not None:
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.workspace_region_dto:
+            self.workspace_region_dto.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.display_name is not None:
+            result['display_name'] = self.display_name
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.network_type is not None:
+            result['network_type'] = self.network_type
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.type is not None:
+            result['type'] = self.type
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.utc_modified is not None:
+            result['utc_modified'] = self.utc_modified
+        if self.workspace_region_dto is not None:
+            result['workspace_region_dto'] = self.workspace_region_dto.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('display_name') is not None:
+            self.display_name = m.get('display_name')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('network_type') is not None:
+            self.network_type = m.get('network_type')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('utc_modified') is not None:
+            self.utc_modified = m.get('utc_modified')
+        if m.get('workspace_region_dto') is not None:
+            temp_model = WorkspaceRegionDto()
+            self.workspace_region_dto = temp_model.from_map(m['workspace_region_dto'])
+        return self
+
+
+class RegionWorkspaceVO(TeaModel):
+    def __init__(
+        self,
+        available_network_types: List[str] = None,
+        description: str = None,
+        id: str = None,
+        identity: str = None,
+        name: str = None,
+        network_type: str = None,
+        provider_id: str = None,
+        state: str = None,
+        workspaces: List[WorkspaceWithGroupView] = None,
+    ):
+        # availableNetworkTypes
+        self.available_network_types = available_network_types
+        # description
+        self.description = description
+        # id
+        self.id = id
+        # identity
+        self.identity = identity
+        # name
+        self.name = name
+        # networkType
+        self.network_type = network_type
+        # providerId
+        self.provider_id = provider_id
+        # state
+        self.state = state
+        # workspaces
+        self.workspaces = workspaces
+
+    def validate(self):
+        self.validate_required(self.available_network_types, 'available_network_types')
+        self.validate_required(self.description, 'description')
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.identity, 'identity')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.network_type, 'network_type')
+        self.validate_required(self.provider_id, 'provider_id')
+        self.validate_required(self.state, 'state')
+        self.validate_required(self.workspaces, 'workspaces')
+        if self.workspaces:
+            for k in self.workspaces:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.available_network_types is not None:
+            result['available_network_types'] = self.available_network_types
+        if self.description is not None:
+            result['description'] = self.description
+        if self.id is not None:
+            result['id'] = self.id
+        if self.identity is not None:
+            result['identity'] = self.identity
+        if self.name is not None:
+            result['name'] = self.name
+        if self.network_type is not None:
+            result['network_type'] = self.network_type
+        if self.provider_id is not None:
+            result['provider_id'] = self.provider_id
+        if self.state is not None:
+            result['state'] = self.state
+        result['workspaces'] = []
+        if self.workspaces is not None:
+            for k in self.workspaces:
+                result['workspaces'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('available_network_types') is not None:
+            self.available_network_types = m.get('available_network_types')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('identity') is not None:
+            self.identity = m.get('identity')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('network_type') is not None:
+            self.network_type = m.get('network_type')
+        if m.get('provider_id') is not None:
+            self.provider_id = m.get('provider_id')
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        self.workspaces = []
+        if m.get('workspaces') is not None:
+            for k in m.get('workspaces'):
+                temp_model = WorkspaceWithGroupView()
+                self.workspaces.append(temp_model.from_map(k))
+        return self
+
+
+class ResourceLog(TeaModel):
+    def __init__(
+        self,
+        host: str = None,
+        log_time: str = None,
+        message: str = None,
+        resource_id: str = None,
+        resource_type: str = None,
+        severity: str = None,
+        source: str = None,
+        task_id: str = None,
+        task_times: int = None,
+        type: str = None,
+        iaas_error_info: IaasErrorInfo = None,
+        iaas_request: IaasRequest = None,
+        iaas_response: IaasResponse = None,
+    ):
+        # host
+        self.host = host
+        # log_time
+        self.log_time = log_time
+        # message
+        self.message = message
+        # resource_id
+        self.resource_id = resource_id
+        # resource_type
+        self.resource_type = resource_type
+        # severity
+        self.severity = severity
+        # source
+        self.source = source
+        # task_id
+        self.task_id = task_id
+        # task_times
+        self.task_times = task_times
+        # type
+        self.type = type
+        # iaas_error_info
+        self.iaas_error_info = iaas_error_info
+        # iaas_request
+        self.iaas_request = iaas_request
+        # iaas_response
+        self.iaas_response = iaas_response
+
+    def validate(self):
+        self.validate_required(self.log_time, 'log_time')
+        if self.log_time is not None:
+            self.validate_pattern(self.log_time, 'log_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.message, 'message')
+        self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.task_times, 'task_times')
+        if self.iaas_error_info:
+            self.iaas_error_info.validate()
+        if self.iaas_request:
+            self.iaas_request.validate()
+        if self.iaas_response:
+            self.iaas_response.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.host is not None:
+            result['host'] = self.host
+        if self.log_time is not None:
+            result['log_time'] = self.log_time
+        if self.message is not None:
+            result['message'] = self.message
+        if self.resource_id is not None:
+            result['resource_id'] = self.resource_id
+        if self.resource_type is not None:
+            result['resource_type'] = self.resource_type
+        if self.severity is not None:
+            result['severity'] = self.severity
+        if self.source is not None:
+            result['source'] = self.source
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.task_times is not None:
+            result['task_times'] = self.task_times
+        if self.type is not None:
+            result['type'] = self.type
+        if self.iaas_error_info is not None:
+            result['iaas_error_info'] = self.iaas_error_info.to_map()
+        if self.iaas_request is not None:
+            result['iaas_request'] = self.iaas_request.to_map()
+        if self.iaas_response is not None:
+            result['iaas_response'] = self.iaas_response.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('host') is not None:
+            self.host = m.get('host')
+        if m.get('log_time') is not None:
+            self.log_time = m.get('log_time')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('resource_id') is not None:
+            self.resource_id = m.get('resource_id')
+        if m.get('resource_type') is not None:
+            self.resource_type = m.get('resource_type')
+        if m.get('severity') is not None:
+            self.severity = m.get('severity')
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('task_times') is not None:
+            self.task_times = m.get('task_times')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('iaas_error_info') is not None:
+            temp_model = IaasErrorInfo()
+            self.iaas_error_info = temp_model.from_map(m['iaas_error_info'])
+        if m.get('iaas_request') is not None:
+            temp_model = IaasRequest()
+            self.iaas_request = temp_model.from_map(m['iaas_request'])
+        if m.get('iaas_response') is not None:
+            temp_model = IaasResponse()
+            self.iaas_response = temp_model.from_map(m['iaas_response'])
+        return self
+
+
+class VPC(TeaModel):
+    def __init__(
+        self,
+        cidr_block: str = None,
+        creation_time: str = None,
+        description: str = None,
+        region_id: str = None,
+        router_table_ids: List[str] = None,
+        status: str = None,
+        user_cidrs: str = None,
+        vpc_id: str = None,
+        vpc_name: str = None,
+        v_router_id: str = None,
+        workspace_id: str = None,
+        import_info: ImportInfo = None,
+        vpc_paas_id: str = None,
+    ):
+        # VPC的IPv4网段
+        self.cidr_block = cidr_block
+        # VPC的创建时间
+        self.creation_time = creation_time
+        # VPC的描述信息
+        self.description = description
+        # VPC所在的地域
+        self.region_id = region_id
+        # 路由表ID
+        self.router_table_ids = router_table_ids
+        # VPC的状态，取值：
+        # 
+        # Pending：配置中。
+        # Available：可用。
+        self.status = status
+        # 用户侧网段的列表
+        self.user_cidrs = user_cidrs
+        # VPC的id
+        self.vpc_id = vpc_id
+        # VPC的名称
+        self.vpc_name = vpc_name
+        # VPC路由器的ID
+        self.v_router_id = v_router_id
+        # 关联的workspace id
+        self.workspace_id = workspace_id
+        # vpc是否已导入workspace
+        self.import_info = import_info
+        # vpc在CAFE测的唯一ID
+        self.vpc_paas_id = vpc_paas_id
+
+    def validate(self):
+        self.validate_required(self.cidr_block, 'cidr_block')
+        self.validate_required(self.creation_time, 'creation_time')
+        self.validate_required(self.region_id, 'region_id')
+        self.validate_required(self.router_table_ids, 'router_table_ids')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.vpc_id, 'vpc_id')
+        self.validate_required(self.vpc_name, 'vpc_name')
+        self.validate_required(self.v_router_id, 'v_router_id')
+        if self.import_info:
+            self.import_info.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.cidr_block is not None:
+            result['cidr_block'] = self.cidr_block
+        if self.creation_time is not None:
+            result['creation_time'] = self.creation_time
+        if self.description is not None:
+            result['description'] = self.description
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.router_table_ids is not None:
+            result['router_table_ids'] = self.router_table_ids
+        if self.status is not None:
+            result['status'] = self.status
+        if self.user_cidrs is not None:
+            result['user_cidrs'] = self.user_cidrs
+        if self.vpc_id is not None:
+            result['vpc_id'] = self.vpc_id
+        if self.vpc_name is not None:
+            result['vpc_name'] = self.vpc_name
+        if self.v_router_id is not None:
+            result['v_router_id'] = self.v_router_id
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.import_info is not None:
+            result['import_info'] = self.import_info.to_map()
+        if self.vpc_paas_id is not None:
+            result['vpc_paas_id'] = self.vpc_paas_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cidr_block') is not None:
+            self.cidr_block = m.get('cidr_block')
+        if m.get('creation_time') is not None:
+            self.creation_time = m.get('creation_time')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('router_table_ids') is not None:
+            self.router_table_ids = m.get('router_table_ids')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('user_cidrs') is not None:
+            self.user_cidrs = m.get('user_cidrs')
+        if m.get('vpc_id') is not None:
+            self.vpc_id = m.get('vpc_id')
+        if m.get('vpc_name') is not None:
+            self.vpc_name = m.get('vpc_name')
+        if m.get('v_router_id') is not None:
+            self.v_router_id = m.get('v_router_id')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('import_info') is not None:
+            temp_model = ImportInfo()
+            self.import_info = temp_model.from_map(m['import_info'])
+        if m.get('vpc_paas_id') is not None:
+            self.vpc_paas_id = m.get('vpc_paas_id')
+        return self
+
+
+class VPCParam(TeaModel):
+    def __init__(
+        self,
+        cidr_block: str = None,
+        description: str = None,
+        region_id: str = None,
+        vpc_name: str = None,
+    ):
+        # cidr_block
+        self.cidr_block = cidr_block
+        # description
+        self.description = description
+        # region id
+        self.region_id = region_id
+        # vpc_name
+        self.vpc_name = vpc_name
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.cidr_block is not None:
+            result['cidr_block'] = self.cidr_block
+        if self.description is not None:
+            result['description'] = self.description
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.vpc_name is not None:
+            result['vpc_name'] = self.vpc_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cidr_block') is not None:
+            self.cidr_block = m.get('cidr_block')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('vpc_name') is not None:
+            self.vpc_name = m.get('vpc_name')
         return self
 
 
@@ -6370,262 +7753,6 @@ class Listener(TeaModel):
         return self
 
 
-class DatabaseSchema(TeaModel):
-    def __init__(
-        self,
-        char_set: str = None,
-        count: int = None,
-        is_auto_name: bool = None,
-        name: str = None,
-        is_serial: bool = None,
-    ):
-        # 字符集
-        self.char_set = char_set
-        # 数量
-        self.count = count
-        # 是否自动生成名称。默认为 true
-        self.is_auto_name = is_auto_name
-        # 名称
-        self.name = name
-        # 序列号是否连续。默认为 false
-        self.is_serial = is_serial
-
-    def validate(self):
-        self.validate_required(self.char_set, 'char_set')
-        self.validate_required(self.name, 'name')
-
-    def to_map(self):
-        result = dict()
-        if self.char_set is not None:
-            result['char_set'] = self.char_set
-        if self.count is not None:
-            result['count'] = self.count
-        if self.is_auto_name is not None:
-            result['is_auto_name'] = self.is_auto_name
-        if self.name is not None:
-            result['name'] = self.name
-        if self.is_serial is not None:
-            result['is_serial'] = self.is_serial
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('char_set') is not None:
-            self.char_set = m.get('char_set')
-        if m.get('count') is not None:
-            self.count = m.get('count')
-        if m.get('is_auto_name') is not None:
-            self.is_auto_name = m.get('is_auto_name')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('is_serial') is not None:
-            self.is_serial = m.get('is_serial')
-        return self
-
-
-class MapStringToBooleanEntity(TeaModel):
-    def __init__(
-        self,
-        key: str = None,
-        value: bool = None,
-    ):
-        # key
-        self.key = key
-        # value
-        self.value = value
-
-    def validate(self):
-        self.validate_required(self.key, 'key')
-        self.validate_required(self.value, 'value')
-
-    def to_map(self):
-        result = dict()
-        if self.key is not None:
-            result['key'] = self.key
-        if self.value is not None:
-            result['value'] = self.value
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('key') is not None:
-            self.key = m.get('key')
-        if m.get('value') is not None:
-            self.value = m.get('value')
-        return self
-
-
-class UserDTO(TeaModel):
-    def __init__(
-        self,
-        id: str = None,
-        utc_create: str = None,
-        utc_modified: str = None,
-        customer_id: str = None,
-        type: str = None,
-        real_name: str = None,
-        name: str = None,
-    ):
-        # 用户ID
-        self.id = id
-        # 创建时间
-        self.utc_create = utc_create
-        # 最近修改时间
-        self.utc_modified = utc_modified
-        # 客户ID
-        self.customer_id = customer_id
-        # 用户类型
-        self.type = type
-        # 用户显示名称
-        self.real_name = real_name
-        # 用户名
-        self.name = name
-
-    def validate(self):
-        if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-
-    def to_map(self):
-        result = dict()
-        if self.id is not None:
-            result['id'] = self.id
-        if self.utc_create is not None:
-            result['utc_create'] = self.utc_create
-        if self.utc_modified is not None:
-            result['utc_modified'] = self.utc_modified
-        if self.customer_id is not None:
-            result['customer_id'] = self.customer_id
-        if self.type is not None:
-            result['type'] = self.type
-        if self.real_name is not None:
-            result['real_name'] = self.real_name
-        if self.name is not None:
-            result['name'] = self.name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('utc_create') is not None:
-            self.utc_create = m.get('utc_create')
-        if m.get('utc_modified') is not None:
-            self.utc_modified = m.get('utc_modified')
-        if m.get('customer_id') is not None:
-            self.customer_id = m.get('customer_id')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('real_name') is not None:
-            self.real_name = m.get('real_name')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        return self
-
-
-class VSwitchVO(TeaModel):
-    def __init__(
-        self,
-        iaas_id: str = None,
-        name: str = None,
-        description: str = None,
-        status: str = None,
-        vpc_id: str = None,
-        workspace_id: str = None,
-        zone_id: str = None,
-        zone_iaas_id: str = None,
-        region_id: str = None,
-        cidr_block: str = None,
-        utc_create: str = None,
-        available_ip_address_count: int = None,
-    ):
-        # 交换机的iaas ID
-        self.iaas_id = iaas_id
-        # 交换机名称
-        self.name = name
-        # 交换机描述信息
-        self.description = description
-        # 交换机的状态，取值： Pending：配置中。 Available：可用。
-        self.status = status
-        # vpc id
-        self.vpc_id = vpc_id
-        # workspace id
-        self.workspace_id = workspace_id
-        # zone id
-        self.zone_id = zone_id
-        # zone iaas id
-        self.zone_iaas_id = zone_iaas_id
-        # region id
-        self.region_id = region_id
-        # 换机的IPv4网段
-        self.cidr_block = cidr_block
-        # 交换机创建时间
-        self.utc_create = utc_create
-        # 可用ip数目
-        self.available_ip_address_count = available_ip_address_count
-
-    def validate(self):
-        if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-
-    def to_map(self):
-        result = dict()
-        if self.iaas_id is not None:
-            result['iaas_id'] = self.iaas_id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.description is not None:
-            result['description'] = self.description
-        if self.status is not None:
-            result['status'] = self.status
-        if self.vpc_id is not None:
-            result['vpc_id'] = self.vpc_id
-        if self.workspace_id is not None:
-            result['workspace_id'] = self.workspace_id
-        if self.zone_id is not None:
-            result['zone_id'] = self.zone_id
-        if self.zone_iaas_id is not None:
-            result['zone_iaas_id'] = self.zone_iaas_id
-        if self.region_id is not None:
-            result['region_id'] = self.region_id
-        if self.cidr_block is not None:
-            result['cidr_block'] = self.cidr_block
-        if self.utc_create is not None:
-            result['utc_create'] = self.utc_create
-        if self.available_ip_address_count is not None:
-            result['available_ip_address_count'] = self.available_ip_address_count
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('iaas_id') is not None:
-            self.iaas_id = m.get('iaas_id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('vpc_id') is not None:
-            self.vpc_id = m.get('vpc_id')
-        if m.get('workspace_id') is not None:
-            self.workspace_id = m.get('workspace_id')
-        if m.get('zone_id') is not None:
-            self.zone_id = m.get('zone_id')
-        if m.get('zone_iaas_id') is not None:
-            self.zone_iaas_id = m.get('zone_iaas_id')
-        if m.get('region_id') is not None:
-            self.region_id = m.get('region_id')
-        if m.get('cidr_block') is not None:
-            self.cidr_block = m.get('cidr_block')
-        if m.get('utc_create') is not None:
-            self.utc_create = m.get('utc_create')
-        if m.get('available_ip_address_count') is not None:
-            self.available_ip_address_count = m.get('available_ip_address_count')
-        return self
-
-
 class LoadBalancerRule(TeaModel):
     def __init__(
         self,
@@ -6741,390 +7868,6 @@ class LoadBalancerRule(TeaModel):
         return self
 
 
-class VipType(TeaModel):
-    def __init__(
-        self,
-        name: str = None,
-        vip_address_type: str = None,
-        vip_type: str = None,
-    ):
-        # name
-        self.name = name
-        # vip_address_type
-        self.vip_address_type = vip_address_type
-        # vip_type
-        self.vip_type = vip_type
-
-    def validate(self):
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.vip_address_type, 'vip_address_type')
-        self.validate_required(self.vip_type, 'vip_type')
-
-    def to_map(self):
-        result = dict()
-        if self.name is not None:
-            result['name'] = self.name
-        if self.vip_address_type is not None:
-            result['vip_address_type'] = self.vip_address_type
-        if self.vip_type is not None:
-            result['vip_type'] = self.vip_type
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('vip_address_type') is not None:
-            self.vip_address_type = m.get('vip_address_type')
-        if m.get('vip_type') is not None:
-            self.vip_type = m.get('vip_type')
-        return self
-
-
-class DatabaseSpec(TeaModel):
-    def __init__(
-        self,
-        cpu: int = None,
-        custom_storage: bool = None,
-        engine: str = None,
-        engine_version: List[str] = None,
-        iaas_id: str = None,
-        id: str = None,
-        max_connections: int = None,
-        max_iops: int = None,
-        max_storage: int = None,
-        memory: int = None,
-        min_storage: int = None,
-        name: str = None,
-        supported_storages: List[int] = None,
-        type: str = None,
-    ):
-        # cpu
-        self.cpu = cpu
-        # custom_storage
-        self.custom_storage = custom_storage
-        # engine
-        self.engine = engine
-        # engine_version
-        self.engine_version = engine_version
-        # iaas_id
-        self.iaas_id = iaas_id
-        # id
-        self.id = id
-        # max_connections
-        self.max_connections = max_connections
-        # max_iops
-        self.max_iops = max_iops
-        # max_storage
-        self.max_storage = max_storage
-        # memory
-        self.memory = memory
-        # min_storage
-        self.min_storage = min_storage
-        # name
-        self.name = name
-        # supported_storages
-        self.supported_storages = supported_storages
-        # type
-        self.type = type
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.cpu is not None:
-            result['cpu'] = self.cpu
-        if self.custom_storage is not None:
-            result['custom_storage'] = self.custom_storage
-        if self.engine is not None:
-            result['engine'] = self.engine
-        if self.engine_version is not None:
-            result['engine_version'] = self.engine_version
-        if self.iaas_id is not None:
-            result['iaas_id'] = self.iaas_id
-        if self.id is not None:
-            result['id'] = self.id
-        if self.max_connections is not None:
-            result['max_connections'] = self.max_connections
-        if self.max_iops is not None:
-            result['max_iops'] = self.max_iops
-        if self.max_storage is not None:
-            result['max_storage'] = self.max_storage
-        if self.memory is not None:
-            result['memory'] = self.memory
-        if self.min_storage is not None:
-            result['min_storage'] = self.min_storage
-        if self.name is not None:
-            result['name'] = self.name
-        if self.supported_storages is not None:
-            result['supported_storages'] = self.supported_storages
-        if self.type is not None:
-            result['type'] = self.type
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('cpu') is not None:
-            self.cpu = m.get('cpu')
-        if m.get('custom_storage') is not None:
-            self.custom_storage = m.get('custom_storage')
-        if m.get('engine') is not None:
-            self.engine = m.get('engine')
-        if m.get('engine_version') is not None:
-            self.engine_version = m.get('engine_version')
-        if m.get('iaas_id') is not None:
-            self.iaas_id = m.get('iaas_id')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('max_connections') is not None:
-            self.max_connections = m.get('max_connections')
-        if m.get('max_iops') is not None:
-            self.max_iops = m.get('max_iops')
-        if m.get('max_storage') is not None:
-            self.max_storage = m.get('max_storage')
-        if m.get('memory') is not None:
-            self.memory = m.get('memory')
-        if m.get('min_storage') is not None:
-            self.min_storage = m.get('min_storage')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('supported_storages') is not None:
-            self.supported_storages = m.get('supported_storages')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        return self
-
-
-class TaskVO(TeaModel):
-    def __init__(
-        self,
-        context: str = None,
-        execution_times: int = None,
-        id: str = None,
-        request: TaskRequest = None,
-        resource_id: str = None,
-        resource_type: str = None,
-        status: str = None,
-        utc_create: str = None,
-        utc_modified: str = None,
-        workspace_id: str = None,
-        resource: Resource = None,
-    ):
-        # context
-        self.context = context
-        # execution_times
-        self.execution_times = execution_times
-        # id
-        self.id = id
-        # request
-        self.request = request
-        # resource_id
-        self.resource_id = resource_id
-        # resource_type
-        self.resource_type = resource_type
-        # status
-        self.status = status
-        # utc_create
-        self.utc_create = utc_create
-        # utc_modified
-        self.utc_modified = utc_modified
-        # workspace_id
-        self.workspace_id = workspace_id
-        # resource
-        self.resource = resource
-
-    def validate(self):
-        self.validate_required(self.context, 'context')
-        if self.request:
-            self.request.validate()
-        self.validate_required(self.status, 'status')
-        if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.workspace_id, 'workspace_id')
-        self.validate_required(self.resource, 'resource')
-        if self.resource:
-            self.resource.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.context is not None:
-            result['context'] = self.context
-        if self.execution_times is not None:
-            result['execution_times'] = self.execution_times
-        if self.id is not None:
-            result['id'] = self.id
-        if self.request is not None:
-            result['request'] = self.request.to_map()
-        if self.resource_id is not None:
-            result['resource_id'] = self.resource_id
-        if self.resource_type is not None:
-            result['resource_type'] = self.resource_type
-        if self.status is not None:
-            result['status'] = self.status
-        if self.utc_create is not None:
-            result['utc_create'] = self.utc_create
-        if self.utc_modified is not None:
-            result['utc_modified'] = self.utc_modified
-        if self.workspace_id is not None:
-            result['workspace_id'] = self.workspace_id
-        if self.resource is not None:
-            result['resource'] = self.resource.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('context') is not None:
-            self.context = m.get('context')
-        if m.get('execution_times') is not None:
-            self.execution_times = m.get('execution_times')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('request') is not None:
-            temp_model = TaskRequest()
-            self.request = temp_model.from_map(m['request'])
-        if m.get('resource_id') is not None:
-            self.resource_id = m.get('resource_id')
-        if m.get('resource_type') is not None:
-            self.resource_type = m.get('resource_type')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('utc_create') is not None:
-            self.utc_create = m.get('utc_create')
-        if m.get('utc_modified') is not None:
-            self.utc_modified = m.get('utc_modified')
-        if m.get('workspace_id') is not None:
-            self.workspace_id = m.get('workspace_id')
-        if m.get('resource') is not None:
-            temp_model = Resource()
-            self.resource = temp_model.from_map(m['resource'])
-        return self
-
-
-class ResourceLog(TeaModel):
-    def __init__(
-        self,
-        host: str = None,
-        log_time: str = None,
-        message: str = None,
-        resource_id: str = None,
-        resource_type: str = None,
-        severity: str = None,
-        source: str = None,
-        task_id: str = None,
-        task_times: int = None,
-        type: str = None,
-        iaas_error_info: IaasErrorInfo = None,
-        iaas_request: IaasRequest = None,
-        iaas_response: IaasResponse = None,
-    ):
-        # host
-        self.host = host
-        # log_time
-        self.log_time = log_time
-        # message
-        self.message = message
-        # resource_id
-        self.resource_id = resource_id
-        # resource_type
-        self.resource_type = resource_type
-        # severity
-        self.severity = severity
-        # source
-        self.source = source
-        # task_id
-        self.task_id = task_id
-        # task_times
-        self.task_times = task_times
-        # type
-        self.type = type
-        # iaas_error_info
-        self.iaas_error_info = iaas_error_info
-        # iaas_request
-        self.iaas_request = iaas_request
-        # iaas_response
-        self.iaas_response = iaas_response
-
-    def validate(self):
-        self.validate_required(self.log_time, 'log_time')
-        if self.log_time is not None:
-            self.validate_pattern(self.log_time, 'log_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.message, 'message')
-        self.validate_required(self.task_id, 'task_id')
-        self.validate_required(self.task_times, 'task_times')
-        if self.iaas_error_info:
-            self.iaas_error_info.validate()
-        if self.iaas_request:
-            self.iaas_request.validate()
-        if self.iaas_response:
-            self.iaas_response.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.host is not None:
-            result['host'] = self.host
-        if self.log_time is not None:
-            result['log_time'] = self.log_time
-        if self.message is not None:
-            result['message'] = self.message
-        if self.resource_id is not None:
-            result['resource_id'] = self.resource_id
-        if self.resource_type is not None:
-            result['resource_type'] = self.resource_type
-        if self.severity is not None:
-            result['severity'] = self.severity
-        if self.source is not None:
-            result['source'] = self.source
-        if self.task_id is not None:
-            result['task_id'] = self.task_id
-        if self.task_times is not None:
-            result['task_times'] = self.task_times
-        if self.type is not None:
-            result['type'] = self.type
-        if self.iaas_error_info is not None:
-            result['iaas_error_info'] = self.iaas_error_info.to_map()
-        if self.iaas_request is not None:
-            result['iaas_request'] = self.iaas_request.to_map()
-        if self.iaas_response is not None:
-            result['iaas_response'] = self.iaas_response.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('host') is not None:
-            self.host = m.get('host')
-        if m.get('log_time') is not None:
-            self.log_time = m.get('log_time')
-        if m.get('message') is not None:
-            self.message = m.get('message')
-        if m.get('resource_id') is not None:
-            self.resource_id = m.get('resource_id')
-        if m.get('resource_type') is not None:
-            self.resource_type = m.get('resource_type')
-        if m.get('severity') is not None:
-            self.severity = m.get('severity')
-        if m.get('source') is not None:
-            self.source = m.get('source')
-        if m.get('task_id') is not None:
-            self.task_id = m.get('task_id')
-        if m.get('task_times') is not None:
-            self.task_times = m.get('task_times')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('iaas_error_info') is not None:
-            temp_model = IaasErrorInfo()
-            self.iaas_error_info = temp_model.from_map(m['iaas_error_info'])
-        if m.get('iaas_request') is not None:
-            temp_model = IaasRequest()
-            self.iaas_request = temp_model.from_map(m['iaas_request'])
-        if m.get('iaas_response') is not None:
-            temp_model = IaasResponse()
-            self.iaas_response = temp_model.from_map(m['iaas_response'])
-        return self
-
-
 class Region(TeaModel):
     def __init__(
         self,
@@ -7188,2314 +7931,6 @@ class Region(TeaModel):
         return self
 
 
-class RequestVO(TeaModel):
-    def __init__(
-        self,
-        context: str = None,
-        id: str = None,
-        operator: str = None,
-        operator_name: str = None,
-        operator_type: str = None,
-        status: str = None,
-        token: str = None,
-        type: str = None,
-        utc_create: str = None,
-        utc_modified: str = None,
-        tasks: List[Task] = None,
-    ):
-        # context
-        self.context = context
-        # id
-        self.id = id
-        # operator
-        self.operator = operator
-        # operator_name
-        self.operator_name = operator_name
-        # operator_type
-        self.operator_type = operator_type
-        # status
-        self.status = status
-        # token
-        self.token = token
-        # type
-        self.type = type
-        # utc_create
-        self.utc_create = utc_create
-        # utc_modified
-        self.utc_modified = utc_modified
-        # tasks
-        self.tasks = tasks
-
-    def validate(self):
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.operator_name, 'operator_name')
-        if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.tasks:
-            for k in self.tasks:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.context is not None:
-            result['context'] = self.context
-        if self.id is not None:
-            result['id'] = self.id
-        if self.operator is not None:
-            result['operator'] = self.operator
-        if self.operator_name is not None:
-            result['operator_name'] = self.operator_name
-        if self.operator_type is not None:
-            result['operator_type'] = self.operator_type
-        if self.status is not None:
-            result['status'] = self.status
-        if self.token is not None:
-            result['token'] = self.token
-        if self.type is not None:
-            result['type'] = self.type
-        if self.utc_create is not None:
-            result['utc_create'] = self.utc_create
-        if self.utc_modified is not None:
-            result['utc_modified'] = self.utc_modified
-        result['tasks'] = []
-        if self.tasks is not None:
-            for k in self.tasks:
-                result['tasks'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('context') is not None:
-            self.context = m.get('context')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('operator') is not None:
-            self.operator = m.get('operator')
-        if m.get('operator_name') is not None:
-            self.operator_name = m.get('operator_name')
-        if m.get('operator_type') is not None:
-            self.operator_type = m.get('operator_type')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('token') is not None:
-            self.token = m.get('token')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('utc_create') is not None:
-            self.utc_create = m.get('utc_create')
-        if m.get('utc_modified') is not None:
-            self.utc_modified = m.get('utc_modified')
-        self.tasks = []
-        if m.get('tasks') is not None:
-            for k in m.get('tasks'):
-                temp_model = Task()
-                self.tasks.append(temp_model.from_map(k))
-        return self
-
-
-class StarAgentInfo(TeaModel):
-    def __init__(
-        self,
-        sn: str = None,
-        hostname: str = None,
-        ip: str = None,
-        ip_list: str = None,
-        status: str = None,
-    ):
-        # computer serial number
-        self.sn = sn
-        # hostname
-        self.hostname = hostname
-        # ip
-        self.ip = ip
-        # ip list
-        self.ip_list = ip_list
-        # 状态取值：RUNNING，ERROR，REGISTER，NOFIND
-        self.status = status
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.sn is not None:
-            result['sn'] = self.sn
-        if self.hostname is not None:
-            result['hostname'] = self.hostname
-        if self.ip is not None:
-            result['ip'] = self.ip
-        if self.ip_list is not None:
-            result['ip_list'] = self.ip_list
-        if self.status is not None:
-            result['status'] = self.status
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('sn') is not None:
-            self.sn = m.get('sn')
-        if m.get('hostname') is not None:
-            self.hostname = m.get('hostname')
-        if m.get('ip') is not None:
-            self.ip = m.get('ip')
-        if m.get('ip_list') is not None:
-            self.ip_list = m.get('ip_list')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        return self
-
-
-class MapStringToIntegerEntity(TeaModel):
-    def __init__(
-        self,
-        key: str = None,
-        value: int = None,
-    ):
-        # key
-        self.key = key
-        # value
-        self.value = value
-
-    def validate(self):
-        self.validate_required(self.key, 'key')
-        self.validate_required(self.value, 'value')
-
-    def to_map(self):
-        result = dict()
-        if self.key is not None:
-            result['key'] = self.key
-        if self.value is not None:
-            result['value'] = self.value
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('key') is not None:
-            self.key = m.get('key')
-        if m.get('value') is not None:
-            self.value = m.get('value')
-        return self
-
-
-class BasicCertificate(TeaModel):
-    def __init__(
-        self,
-        server_certificate_id: str = None,
-        server_certificate_name: str = None,
-        fingerprint: str = None,
-        cert_type: int = None,
-    ):
-        # serverCertificateId
-        self.server_certificate_id = server_certificate_id
-        # serverCertificateName
-        self.server_certificate_name = server_certificate_name
-        # fingerprint
-        self.fingerprint = fingerprint
-        # cert_type
-        self.cert_type = cert_type
-
-    def validate(self):
-        self.validate_required(self.server_certificate_id, 'server_certificate_id')
-        self.validate_required(self.server_certificate_name, 'server_certificate_name')
-        self.validate_required(self.cert_type, 'cert_type')
-
-    def to_map(self):
-        result = dict()
-        if self.server_certificate_id is not None:
-            result['server_certificate_id'] = self.server_certificate_id
-        if self.server_certificate_name is not None:
-            result['server_certificate_name'] = self.server_certificate_name
-        if self.fingerprint is not None:
-            result['fingerprint'] = self.fingerprint
-        if self.cert_type is not None:
-            result['cert_type'] = self.cert_type
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('server_certificate_id') is not None:
-            self.server_certificate_id = m.get('server_certificate_id')
-        if m.get('server_certificate_name') is not None:
-            self.server_certificate_name = m.get('server_certificate_name')
-        if m.get('fingerprint') is not None:
-            self.fingerprint = m.get('fingerprint')
-        if m.get('cert_type') is not None:
-            self.cert_type = m.get('cert_type')
-        return self
-
-
-class Connection(TeaModel):
-    def __init__(
-        self,
-        access_key: str = None,
-        access_secret: str = None,
-        created_time: str = None,
-        executor: str = None,
-        id: int = None,
-        identity: str = None,
-        modified_time: str = None,
-        name: str = None,
-        plug: ConnectionStub = None,
-        socket: ConnectionStub = None,
-        status: str = None,
-        tenant_id: str = None,
-    ):
-        # access_key
-        self.access_key = access_key
-        # access_secret
-        self.access_secret = access_secret
-        # created_time
-        self.created_time = created_time
-        # executor
-        self.executor = executor
-        # id
-        self.id = id
-        # identity
-        self.identity = identity
-        # 修改时间
-        self.modified_time = modified_time
-        # name
-        self.name = name
-        # plug
-        self.plug = plug
-        # socket
-        self.socket = socket
-        # status
-        self.status = status
-        # tenant_id
-        self.tenant_id = tenant_id
-
-    def validate(self):
-        if self.created_time is not None:
-            self.validate_pattern(self.created_time, 'created_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.modified_time is not None:
-            self.validate_pattern(self.modified_time, 'modified_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.plug:
-            self.plug.validate()
-        if self.socket:
-            self.socket.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.access_key is not None:
-            result['access_key'] = self.access_key
-        if self.access_secret is not None:
-            result['access_secret'] = self.access_secret
-        if self.created_time is not None:
-            result['created_time'] = self.created_time
-        if self.executor is not None:
-            result['executor'] = self.executor
-        if self.id is not None:
-            result['id'] = self.id
-        if self.identity is not None:
-            result['identity'] = self.identity
-        if self.modified_time is not None:
-            result['modified_time'] = self.modified_time
-        if self.name is not None:
-            result['name'] = self.name
-        if self.plug is not None:
-            result['plug'] = self.plug.to_map()
-        if self.socket is not None:
-            result['socket'] = self.socket.to_map()
-        if self.status is not None:
-            result['status'] = self.status
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('access_key') is not None:
-            self.access_key = m.get('access_key')
-        if m.get('access_secret') is not None:
-            self.access_secret = m.get('access_secret')
-        if m.get('created_time') is not None:
-            self.created_time = m.get('created_time')
-        if m.get('executor') is not None:
-            self.executor = m.get('executor')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('identity') is not None:
-            self.identity = m.get('identity')
-        if m.get('modified_time') is not None:
-            self.modified_time = m.get('modified_time')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('plug') is not None:
-            temp_model = ConnectionStub()
-            self.plug = temp_model.from_map(m['plug'])
-        if m.get('socket') is not None:
-            temp_model = ConnectionStub()
-            self.socket = temp_model.from_map(m['socket'])
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
-        return self
-
-
-class ComputerImportVO(TeaModel):
-    def __init__(
-        self,
-        iaas_id: str = None,
-        name: str = None,
-        zone_iaas_id: str = None,
-        zone_name: str = None,
-        description: str = None,
-        private_ip: str = None,
-        public_ip: str = None,
-        elastic_ip: str = None,
-        vpc_iaas_id: str = None,
-        joined_security_group: List[JoinedSecurityGroupVO] = None,
-        utc_create: str = None,
-        import_info: ImportVO = None,
-    ):
-        # computer iaaas id
-        self.iaas_id = iaas_id
-        # name
-        self.name = name
-        # zone identity
-        self.zone_iaas_id = zone_iaas_id
-        # zone name
-        self.zone_name = zone_name
-        # description
-        self.description = description
-        # private ip
-        self.private_ip = private_ip
-        # public ip
-        self.public_ip = public_ip
-        # elasticIp
-        self.elastic_ip = elastic_ip
-        # vpcIaasId
-        self.vpc_iaas_id = vpc_iaas_id
-        # joined security group infos
-        self.joined_security_group = joined_security_group
-        # creation time
-        self.utc_create = utc_create
-        # import info
-        self.import_info = import_info
-
-    def validate(self):
-        if self.joined_security_group:
-            for k in self.joined_security_group:
-                if k:
-                    k.validate()
-        if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.import_info:
-            self.import_info.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.iaas_id is not None:
-            result['iaas_id'] = self.iaas_id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.zone_iaas_id is not None:
-            result['zone_iaas_id'] = self.zone_iaas_id
-        if self.zone_name is not None:
-            result['zone_name'] = self.zone_name
-        if self.description is not None:
-            result['description'] = self.description
-        if self.private_ip is not None:
-            result['private_ip'] = self.private_ip
-        if self.public_ip is not None:
-            result['public_ip'] = self.public_ip
-        if self.elastic_ip is not None:
-            result['elastic_ip'] = self.elastic_ip
-        if self.vpc_iaas_id is not None:
-            result['vpc_iaas_id'] = self.vpc_iaas_id
-        result['joined_security_group'] = []
-        if self.joined_security_group is not None:
-            for k in self.joined_security_group:
-                result['joined_security_group'].append(k.to_map() if k else None)
-        if self.utc_create is not None:
-            result['utc_create'] = self.utc_create
-        if self.import_info is not None:
-            result['import_info'] = self.import_info.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('iaas_id') is not None:
-            self.iaas_id = m.get('iaas_id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('zone_iaas_id') is not None:
-            self.zone_iaas_id = m.get('zone_iaas_id')
-        if m.get('zone_name') is not None:
-            self.zone_name = m.get('zone_name')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('private_ip') is not None:
-            self.private_ip = m.get('private_ip')
-        if m.get('public_ip') is not None:
-            self.public_ip = m.get('public_ip')
-        if m.get('elastic_ip') is not None:
-            self.elastic_ip = m.get('elastic_ip')
-        if m.get('vpc_iaas_id') is not None:
-            self.vpc_iaas_id = m.get('vpc_iaas_id')
-        self.joined_security_group = []
-        if m.get('joined_security_group') is not None:
-            for k in m.get('joined_security_group'):
-                temp_model = JoinedSecurityGroupVO()
-                self.joined_security_group.append(temp_model.from_map(k))
-        if m.get('utc_create') is not None:
-            self.utc_create = m.get('utc_create')
-        if m.get('import_info') is not None:
-            temp_model = ImportVO()
-            self.import_info = temp_model.from_map(m['import_info'])
-        return self
-
-
-class ComputerQuota(TeaModel):
-    def __init__(
-        self,
-        cpu_shared: int = None,
-        cpu: int = None,
-        memory: int = None,
-        disk: int = None,
-    ):
-        # cpu shared
-        self.cpu_shared = cpu_shared
-        # cpu
-        self.cpu = cpu
-        # memory
-        self.memory = memory
-        # disk
-        self.disk = disk
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.cpu_shared is not None:
-            result['cpu_shared'] = self.cpu_shared
-        if self.cpu is not None:
-            result['cpu'] = self.cpu
-        if self.memory is not None:
-            result['memory'] = self.memory
-        if self.disk is not None:
-            result['disk'] = self.disk
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('cpu_shared') is not None:
-            self.cpu_shared = m.get('cpu_shared')
-        if m.get('cpu') is not None:
-            self.cpu = m.get('cpu')
-        if m.get('memory') is not None:
-            self.memory = m.get('memory')
-        if m.get('disk') is not None:
-            self.disk = m.get('disk')
-        return self
-
-
-class AppDomainQuery(TeaModel):
-    def __init__(
-        self,
-        creator_id: str = None,
-        is_one_party_request: bool = None,
-        name: str = None,
-        parent_id: str = None,
-        tenant_id: str = None,
-        utc_create: str = None,
-        page_size: int = None,
-        query_type: str = None,
-        orders: List[str] = None,
-        current_page: int = None,
-    ):
-        # creatorId
-        self.creator_id = creator_id
-        # 是否为一方化请求
-        self.is_one_party_request = is_one_party_request
-        # name
-        self.name = name
-        # parentId
-        self.parent_id = parent_id
-        # tenantId
-        self.tenant_id = tenant_id
-        # utcCreate
-        self.utc_create = utc_create
-        # 分页大小
-        self.page_size = page_size
-        # query_type
-        self.query_type = query_type
-        # orders
-        self.orders = orders
-        # 当前页数
-        self.current_page = current_page
-
-    def validate(self):
-        if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-
-    def to_map(self):
-        result = dict()
-        if self.creator_id is not None:
-            result['creator_id'] = self.creator_id
-        if self.is_one_party_request is not None:
-            result['is_one_party_request'] = self.is_one_party_request
-        if self.name is not None:
-            result['name'] = self.name
-        if self.parent_id is not None:
-            result['parent_id'] = self.parent_id
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
-        if self.utc_create is not None:
-            result['utc_create'] = self.utc_create
-        if self.page_size is not None:
-            result['page_size'] = self.page_size
-        if self.query_type is not None:
-            result['query_type'] = self.query_type
-        if self.orders is not None:
-            result['orders'] = self.orders
-        if self.current_page is not None:
-            result['current_page'] = self.current_page
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('creator_id') is not None:
-            self.creator_id = m.get('creator_id')
-        if m.get('is_one_party_request') is not None:
-            self.is_one_party_request = m.get('is_one_party_request')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('parent_id') is not None:
-            self.parent_id = m.get('parent_id')
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
-        if m.get('utc_create') is not None:
-            self.utc_create = m.get('utc_create')
-        if m.get('page_size') is not None:
-            self.page_size = m.get('page_size')
-        if m.get('query_type') is not None:
-            self.query_type = m.get('query_type')
-        if m.get('orders') is not None:
-            self.orders = m.get('orders')
-        if m.get('current_page') is not None:
-            self.current_page = m.get('current_page')
-        return self
-
-
-class DiskSpec(TeaModel):
-    def __init__(
-        self,
-        id: str = None,
-        name: str = None,
-        description: str = None,
-        iaas_id: str = None,
-        provider_id: str = None,
-        iaas_type: str = None,
-        enable: bool = None,
-        min_size: int = None,
-        max_size: int = None,
-    ):
-        # id
-        self.id = id
-        # name
-        self.name = name
-        # description
-        self.description = description
-        # iaas id
-        self.iaas_id = iaas_id
-        # providerId
-        self.provider_id = provider_id
-        # iaasType
-        self.iaas_type = iaas_type
-        # enable
-        self.enable = enable
-        # minSize
-        self.min_size = min_size
-        # maxSize
-        self.max_size = max_size
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.id is not None:
-            result['id'] = self.id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.description is not None:
-            result['description'] = self.description
-        if self.iaas_id is not None:
-            result['iaas_id'] = self.iaas_id
-        if self.provider_id is not None:
-            result['provider_id'] = self.provider_id
-        if self.iaas_type is not None:
-            result['iaas_type'] = self.iaas_type
-        if self.enable is not None:
-            result['enable'] = self.enable
-        if self.min_size is not None:
-            result['min_size'] = self.min_size
-        if self.max_size is not None:
-            result['max_size'] = self.max_size
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('iaas_id') is not None:
-            self.iaas_id = m.get('iaas_id')
-        if m.get('provider_id') is not None:
-            self.provider_id = m.get('provider_id')
-        if m.get('iaas_type') is not None:
-            self.iaas_type = m.get('iaas_type')
-        if m.get('enable') is not None:
-            self.enable = m.get('enable')
-        if m.get('min_size') is not None:
-            self.min_size = m.get('min_size')
-        if m.get('max_size') is not None:
-            self.max_size = m.get('max_size')
-        return self
-
-
-class LoadBalancerImportVO(TeaModel):
-    def __init__(
-        self,
-        iaas_id: str = None,
-        name: str = None,
-        network_type: str = None,
-        inner_ip_address: List[str] = None,
-        public_ip_address: List[str] = None,
-        utc_create: str = None,
-        import_info: ImportVO = None,
-    ):
-        # iaas_id
-        self.iaas_id = iaas_id
-        # name
-        self.name = name
-        # network_type
-        self.network_type = network_type
-        # inner_ip_address
-        self.inner_ip_address = inner_ip_address
-        # public_ip_address
-        self.public_ip_address = public_ip_address
-        # utc_create
-        self.utc_create = utc_create
-        # import_info
-        self.import_info = import_info
-
-    def validate(self):
-        self.validate_required(self.name, 'name')
-        if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.import_info, 'import_info')
-        if self.import_info:
-            self.import_info.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.iaas_id is not None:
-            result['iaas_id'] = self.iaas_id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.network_type is not None:
-            result['network_type'] = self.network_type
-        if self.inner_ip_address is not None:
-            result['inner_ip_address'] = self.inner_ip_address
-        if self.public_ip_address is not None:
-            result['public_ip_address'] = self.public_ip_address
-        if self.utc_create is not None:
-            result['utc_create'] = self.utc_create
-        if self.import_info is not None:
-            result['import_info'] = self.import_info.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('iaas_id') is not None:
-            self.iaas_id = m.get('iaas_id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('network_type') is not None:
-            self.network_type = m.get('network_type')
-        if m.get('inner_ip_address') is not None:
-            self.inner_ip_address = m.get('inner_ip_address')
-        if m.get('public_ip_address') is not None:
-            self.public_ip_address = m.get('public_ip_address')
-        if m.get('utc_create') is not None:
-            self.utc_create = m.get('utc_create')
-        if m.get('import_info') is not None:
-            temp_model = ImportVO()
-            self.import_info = temp_model.from_map(m['import_info'])
-        return self
-
-
-class AppQuery(TeaModel):
-    def __init__(
-        self,
-        id: str = None,
-        tenant_id: str = None,
-        name: str = None,
-        chinese_name: str = None,
-        stack_id: str = None,
-        start_version: str = None,
-        end_version: str = None,
-        app_ids: List[str] = None,
-        app_domain_id: str = None,
-        app_domain_ids: List[str] = None,
-        app_domain_name: str = None,
-        app_level_id: str = None,
-        owner_id: str = None,
-        is_component: bool = None,
-        simple_query: bool = None,
-        workspace_id: str = None,
-        container_count: str = None,
-        database_count: str = None,
-        slb_count: str = None,
-        utc_create: str = None,
-        is_one_party_request: bool = None,
-        page_size: int = None,
-        current_page: int = None,
-        orders: List[str] = None,
-        query_type: str = None,
-    ):
-        # id
-        self.id = id
-        # tenantId
-        self.tenant_id = tenant_id
-        # name
-        self.name = name
-        # chineseName
-        self.chinese_name = chinese_name
-        # stackId
-        self.stack_id = stack_id
-        # startVersion
-        self.start_version = start_version
-        # endVersion
-        self.end_version = end_version
-        # appIds
-        self.app_ids = app_ids
-        # appDomainId
-        self.app_domain_id = app_domain_id
-        # appDomainIds
-        self.app_domain_ids = app_domain_ids
-        # appDomainName
-        self.app_domain_name = app_domain_name
-        # appLevelId
-        self.app_level_id = app_level_id
-        # ownerId
-        self.owner_id = owner_id
-        # isComponent
-        self.is_component = is_component
-        # simpleQuery
-        self.simple_query = simple_query
-        # workspaceId
-        self.workspace_id = workspace_id
-        # containerCount
-        self.container_count = container_count
-        # databaseCount
-        self.database_count = database_count
-        # slbCount
-        self.slb_count = slb_count
-        # utcCreate
-        self.utc_create = utc_create
-        # isOnePartyRequest
-        self.is_one_party_request = is_one_party_request
-        # 分页大小
-        self.page_size = page_size
-        # 当前页数
-        self.current_page = current_page
-        # orders
-        self.orders = orders
-        # queryType
-        self.query_type = query_type
-
-    def validate(self):
-        if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-
-    def to_map(self):
-        result = dict()
-        if self.id is not None:
-            result['id'] = self.id
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.chinese_name is not None:
-            result['chinese_name'] = self.chinese_name
-        if self.stack_id is not None:
-            result['stack_id'] = self.stack_id
-        if self.start_version is not None:
-            result['start_version'] = self.start_version
-        if self.end_version is not None:
-            result['end_version'] = self.end_version
-        if self.app_ids is not None:
-            result['app_ids'] = self.app_ids
-        if self.app_domain_id is not None:
-            result['app_domain_id'] = self.app_domain_id
-        if self.app_domain_ids is not None:
-            result['app_domain_ids'] = self.app_domain_ids
-        if self.app_domain_name is not None:
-            result['app_domain_name'] = self.app_domain_name
-        if self.app_level_id is not None:
-            result['app_level_id'] = self.app_level_id
-        if self.owner_id is not None:
-            result['owner_id'] = self.owner_id
-        if self.is_component is not None:
-            result['is_component'] = self.is_component
-        if self.simple_query is not None:
-            result['simple_query'] = self.simple_query
-        if self.workspace_id is not None:
-            result['workspace_id'] = self.workspace_id
-        if self.container_count is not None:
-            result['container_count'] = self.container_count
-        if self.database_count is not None:
-            result['database_count'] = self.database_count
-        if self.slb_count is not None:
-            result['slb_count'] = self.slb_count
-        if self.utc_create is not None:
-            result['utc_create'] = self.utc_create
-        if self.is_one_party_request is not None:
-            result['is_one_party_request'] = self.is_one_party_request
-        if self.page_size is not None:
-            result['page_size'] = self.page_size
-        if self.current_page is not None:
-            result['current_page'] = self.current_page
-        if self.orders is not None:
-            result['orders'] = self.orders
-        if self.query_type is not None:
-            result['query_type'] = self.query_type
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('chinese_name') is not None:
-            self.chinese_name = m.get('chinese_name')
-        if m.get('stack_id') is not None:
-            self.stack_id = m.get('stack_id')
-        if m.get('start_version') is not None:
-            self.start_version = m.get('start_version')
-        if m.get('end_version') is not None:
-            self.end_version = m.get('end_version')
-        if m.get('app_ids') is not None:
-            self.app_ids = m.get('app_ids')
-        if m.get('app_domain_id') is not None:
-            self.app_domain_id = m.get('app_domain_id')
-        if m.get('app_domain_ids') is not None:
-            self.app_domain_ids = m.get('app_domain_ids')
-        if m.get('app_domain_name') is not None:
-            self.app_domain_name = m.get('app_domain_name')
-        if m.get('app_level_id') is not None:
-            self.app_level_id = m.get('app_level_id')
-        if m.get('owner_id') is not None:
-            self.owner_id = m.get('owner_id')
-        if m.get('is_component') is not None:
-            self.is_component = m.get('is_component')
-        if m.get('simple_query') is not None:
-            self.simple_query = m.get('simple_query')
-        if m.get('workspace_id') is not None:
-            self.workspace_id = m.get('workspace_id')
-        if m.get('container_count') is not None:
-            self.container_count = m.get('container_count')
-        if m.get('database_count') is not None:
-            self.database_count = m.get('database_count')
-        if m.get('slb_count') is not None:
-            self.slb_count = m.get('slb_count')
-        if m.get('utc_create') is not None:
-            self.utc_create = m.get('utc_create')
-        if m.get('is_one_party_request') is not None:
-            self.is_one_party_request = m.get('is_one_party_request')
-        if m.get('page_size') is not None:
-            self.page_size = m.get('page_size')
-        if m.get('current_page') is not None:
-            self.current_page = m.get('current_page')
-        if m.get('orders') is not None:
-            self.orders = m.get('orders')
-        if m.get('query_type') is not None:
-            self.query_type = m.get('query_type')
-        return self
-
-
-class SecurityGroup(TeaModel):
-    def __init__(
-        self,
-        creation_time: str = None,
-        description: str = None,
-        region_id: str = None,
-        security_group_id: str = None,
-        security_group_name: str = None,
-        vpc_id: str = None,
-        ingress_rules: List[SecurityGroupRule] = None,
-        egress_rules: List[SecurityGroupRule] = None,
-    ):
-        # 创建时间。按照ISO8601标准表示，并需要使用UTC时间。格式为：yyyy-MM-ddThh:mmZ。
-        self.creation_time = creation_time
-        # 安全组的描述信息。
-        self.description = description
-        # region_id
-        self.region_id = region_id
-        # 安全组ID。
-        self.security_group_id = security_group_id
-        # 安全组名称。
-        self.security_group_name = security_group_name
-        # 安全组所属的专有网络。
-        self.vpc_id = vpc_id
-        # 安全组入方向规则
-        self.ingress_rules = ingress_rules
-        # 安全组出方向规则
-        self.egress_rules = egress_rules
-
-    def validate(self):
-        self.validate_required(self.creation_time, 'creation_time')
-        self.validate_required(self.region_id, 'region_id')
-        self.validate_required(self.security_group_id, 'security_group_id')
-        self.validate_required(self.security_group_name, 'security_group_name')
-        self.validate_required(self.vpc_id, 'vpc_id')
-        if self.ingress_rules:
-            for k in self.ingress_rules:
-                if k:
-                    k.validate()
-        if self.egress_rules:
-            for k in self.egress_rules:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.creation_time is not None:
-            result['creation_time'] = self.creation_time
-        if self.description is not None:
-            result['description'] = self.description
-        if self.region_id is not None:
-            result['region_id'] = self.region_id
-        if self.security_group_id is not None:
-            result['security_group_id'] = self.security_group_id
-        if self.security_group_name is not None:
-            result['security_group_name'] = self.security_group_name
-        if self.vpc_id is not None:
-            result['vpc_id'] = self.vpc_id
-        result['ingress_rules'] = []
-        if self.ingress_rules is not None:
-            for k in self.ingress_rules:
-                result['ingress_rules'].append(k.to_map() if k else None)
-        result['egress_rules'] = []
-        if self.egress_rules is not None:
-            for k in self.egress_rules:
-                result['egress_rules'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('creation_time') is not None:
-            self.creation_time = m.get('creation_time')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('region_id') is not None:
-            self.region_id = m.get('region_id')
-        if m.get('security_group_id') is not None:
-            self.security_group_id = m.get('security_group_id')
-        if m.get('security_group_name') is not None:
-            self.security_group_name = m.get('security_group_name')
-        if m.get('vpc_id') is not None:
-            self.vpc_id = m.get('vpc_id')
-        self.ingress_rules = []
-        if m.get('ingress_rules') is not None:
-            for k in m.get('ingress_rules'):
-                temp_model = SecurityGroupRule()
-                self.ingress_rules.append(temp_model.from_map(k))
-        self.egress_rules = []
-        if m.get('egress_rules') is not None:
-            for k in m.get('egress_rules'):
-                temp_model = SecurityGroupRule()
-                self.egress_rules.append(temp_model.from_map(k))
-        return self
-
-
-class AppDomainFlatten(TeaModel):
-    def __init__(
-        self,
-        app_domains: List[AppDomain] = None,
-    ):
-        # 一组具有依赖关系的 AppDomain
-        self.app_domains = app_domains
-
-    def validate(self):
-        if self.app_domains:
-            for k in self.app_domains:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        result['app_domains'] = []
-        if self.app_domains is not None:
-            for k in self.app_domains:
-                result['app_domains'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        self.app_domains = []
-        if m.get('app_domains') is not None:
-            for k in m.get('app_domains'):
-                temp_model = AppDomain()
-                self.app_domains.append(temp_model.from_map(k))
-        return self
-
-
-class CommonImage(TeaModel):
-    def __init__(
-        self,
-        description: str = None,
-        enable: bool = None,
-        iaas_id: str = None,
-        iaas_type: str = None,
-        id: str = None,
-        only_hz_fin_vpc_supported: bool = None,
-        name: str = None,
-        os: str = None,
-        os_bit: int = None,
-        os_version: str = None,
-        provider_id: str = None,
-        region_id: str = None,
-        status: str = None,
-        system_disk_size: int = None,
-    ):
-        # description
-        self.description = description
-        # is enable
-        self.enable = enable
-        # iaas id
-        self.iaas_id = iaas_id
-        # iaas type
-        self.iaas_type = iaas_type
-        # id
-        self.id = id
-        # 是否仅杭州金区 vpc 可用镜像
-        self.only_hz_fin_vpc_supported = only_hz_fin_vpc_supported
-        # name
-        self.name = name
-        # os
-        self.os = os
-        # os bit取值：32，64
-        self.os_bit = os_bit
-        # os version
-        self.os_version = os_version
-        # provider id
-        self.provider_id = provider_id
-        # region id
-        self.region_id = region_id
-        # status
-        self.status = status
-        # system disk size(GB)
-        self.system_disk_size = system_disk_size
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.description is not None:
-            result['description'] = self.description
-        if self.enable is not None:
-            result['enable'] = self.enable
-        if self.iaas_id is not None:
-            result['iaas_id'] = self.iaas_id
-        if self.iaas_type is not None:
-            result['iaas_type'] = self.iaas_type
-        if self.id is not None:
-            result['id'] = self.id
-        if self.only_hz_fin_vpc_supported is not None:
-            result['only_hz_fin_vpc_supported'] = self.only_hz_fin_vpc_supported
-        if self.name is not None:
-            result['name'] = self.name
-        if self.os is not None:
-            result['os'] = self.os
-        if self.os_bit is not None:
-            result['os_bit'] = self.os_bit
-        if self.os_version is not None:
-            result['os_version'] = self.os_version
-        if self.provider_id is not None:
-            result['provider_id'] = self.provider_id
-        if self.region_id is not None:
-            result['region_id'] = self.region_id
-        if self.status is not None:
-            result['status'] = self.status
-        if self.system_disk_size is not None:
-            result['system_disk_size'] = self.system_disk_size
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('enable') is not None:
-            self.enable = m.get('enable')
-        if m.get('iaas_id') is not None:
-            self.iaas_id = m.get('iaas_id')
-        if m.get('iaas_type') is not None:
-            self.iaas_type = m.get('iaas_type')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('only_hz_fin_vpc_supported') is not None:
-            self.only_hz_fin_vpc_supported = m.get('only_hz_fin_vpc_supported')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('os') is not None:
-            self.os = m.get('os')
-        if m.get('os_bit') is not None:
-            self.os_bit = m.get('os_bit')
-        if m.get('os_version') is not None:
-            self.os_version = m.get('os_version')
-        if m.get('provider_id') is not None:
-            self.provider_id = m.get('provider_id')
-        if m.get('region_id') is not None:
-            self.region_id = m.get('region_id')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('system_disk_size') is not None:
-            self.system_disk_size = m.get('system_disk_size')
-        return self
-
-
-class PermissionVO(TeaModel):
-    def __init__(
-        self,
-        authorized_cidr_ip: str = None,
-        authorize_type: str = None,
-        direction: str = None,
-        end_port: int = None,
-        ip_protocol: str = None,
-        nic_type: str = None,
-        policy: str = None,
-        priority: int = None,
-        security_group_id: str = None,
-        start_port: int = None,
-        id: str = None,
-    ):
-        # authorizedCidrIp
-        self.authorized_cidr_ip = authorized_cidr_ip
-        # authorize_type
-        self.authorize_type = authorize_type
-        # direction
-        self.direction = direction
-        # endPort
-        self.end_port = end_port
-        # ipProtocol
-        self.ip_protocol = ip_protocol
-        # nicType
-        self.nic_type = nic_type
-        # policy
-        self.policy = policy
-        # priority
-        self.priority = priority
-        # securityGroupId
-        self.security_group_id = security_group_id
-        # startPort
-        self.start_port = start_port
-        # id
-        self.id = id
-
-    def validate(self):
-        self.validate_required(self.id, 'id')
-
-    def to_map(self):
-        result = dict()
-        if self.authorized_cidr_ip is not None:
-            result['authorized_cidr_ip'] = self.authorized_cidr_ip
-        if self.authorize_type is not None:
-            result['authorize_type'] = self.authorize_type
-        if self.direction is not None:
-            result['direction'] = self.direction
-        if self.end_port is not None:
-            result['end_port'] = self.end_port
-        if self.ip_protocol is not None:
-            result['ip_protocol'] = self.ip_protocol
-        if self.nic_type is not None:
-            result['nic_type'] = self.nic_type
-        if self.policy is not None:
-            result['policy'] = self.policy
-        if self.priority is not None:
-            result['priority'] = self.priority
-        if self.security_group_id is not None:
-            result['security_group_id'] = self.security_group_id
-        if self.start_port is not None:
-            result['start_port'] = self.start_port
-        if self.id is not None:
-            result['id'] = self.id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('authorized_cidr_ip') is not None:
-            self.authorized_cidr_ip = m.get('authorized_cidr_ip')
-        if m.get('authorize_type') is not None:
-            self.authorize_type = m.get('authorize_type')
-        if m.get('direction') is not None:
-            self.direction = m.get('direction')
-        if m.get('end_port') is not None:
-            self.end_port = m.get('end_port')
-        if m.get('ip_protocol') is not None:
-            self.ip_protocol = m.get('ip_protocol')
-        if m.get('nic_type') is not None:
-            self.nic_type = m.get('nic_type')
-        if m.get('policy') is not None:
-            self.policy = m.get('policy')
-        if m.get('priority') is not None:
-            self.priority = m.get('priority')
-        if m.get('security_group_id') is not None:
-            self.security_group_id = m.get('security_group_id')
-        if m.get('start_port') is not None:
-            self.start_port = m.get('start_port')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        return self
-
-
-class LoadBalanceHealthStatus(TeaModel):
-    def __init__(
-        self,
-        server_id: str = None,
-        status: str = None,
-    ):
-        # server_id
-        self.server_id = server_id
-        # status
-        self.status = status
-
-    def validate(self):
-        self.validate_required(self.server_id, 'server_id')
-        self.validate_required(self.status, 'status')
-
-    def to_map(self):
-        result = dict()
-        if self.server_id is not None:
-            result['server_id'] = self.server_id
-        if self.status is not None:
-            result['status'] = self.status
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('server_id') is not None:
-            self.server_id = m.get('server_id')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        return self
-
-
-class PackageUploadPolicy(TeaModel):
-    def __init__(
-        self,
-        access_key: str = None,
-        policy: str = None,
-        signature: str = None,
-        path_prefix: str = None,
-        endpoint: str = None,
-        expire: str = None,
-        bucket: str = None,
-    ):
-        # accessKey
-        self.access_key = access_key
-        # 策略
-        self.policy = policy
-        # 签名
-        self.signature = signature
-        # 路径前缀
-        self.path_prefix = path_prefix
-        # endpoint
-        self.endpoint = endpoint
-        # expire
-        self.expire = expire
-        # bucket
-        self.bucket = bucket
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.access_key is not None:
-            result['access_key'] = self.access_key
-        if self.policy is not None:
-            result['policy'] = self.policy
-        if self.signature is not None:
-            result['signature'] = self.signature
-        if self.path_prefix is not None:
-            result['path_prefix'] = self.path_prefix
-        if self.endpoint is not None:
-            result['endpoint'] = self.endpoint
-        if self.expire is not None:
-            result['expire'] = self.expire
-        if self.bucket is not None:
-            result['bucket'] = self.bucket
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('access_key') is not None:
-            self.access_key = m.get('access_key')
-        if m.get('policy') is not None:
-            self.policy = m.get('policy')
-        if m.get('signature') is not None:
-            self.signature = m.get('signature')
-        if m.get('path_prefix') is not None:
-            self.path_prefix = m.get('path_prefix')
-        if m.get('endpoint') is not None:
-            self.endpoint = m.get('endpoint')
-        if m.get('expire') is not None:
-            self.expire = m.get('expire')
-        if m.get('bucket') is not None:
-            self.bucket = m.get('bucket')
-        return self
-
-
-class ComputerSpec(TeaModel):
-    def __init__(
-        self,
-        cpu: int = None,
-        disk_spec_ids: List[str] = None,
-        group: str = None,
-        io_optimized: bool = None,
-        memory: int = None,
-        description: str = None,
-        enable: bool = None,
-        iaas_id: str = None,
-        iaas_type: str = None,
-        id: str = None,
-        name: str = None,
-        provider_id: str = None,
-    ):
-        # cpu个数
-        self.cpu = cpu
-        # 可以挂载的磁盘类型
-        self.disk_spec_ids = disk_spec_ids
-        # 服务器规格名称
-        self.group = group
-        # 是否有IO优化
-        self.io_optimized = io_optimized
-        # 内存大小
-        self.memory = memory
-        # description
-        self.description = description
-        # enable
-        self.enable = enable
-        # iaasId
-        self.iaas_id = iaas_id
-        # COMPUTER_ECS
-        self.iaas_type = iaas_type
-        # id
-        self.id = id
-        # name
-        self.name = name
-        # providerId
-        self.provider_id = provider_id
-
-    def validate(self):
-        self.validate_required(self.group, 'group')
-
-    def to_map(self):
-        result = dict()
-        if self.cpu is not None:
-            result['cpu'] = self.cpu
-        if self.disk_spec_ids is not None:
-            result['disk_spec_ids'] = self.disk_spec_ids
-        if self.group is not None:
-            result['group'] = self.group
-        if self.io_optimized is not None:
-            result['io_optimized'] = self.io_optimized
-        if self.memory is not None:
-            result['memory'] = self.memory
-        if self.description is not None:
-            result['description'] = self.description
-        if self.enable is not None:
-            result['enable'] = self.enable
-        if self.iaas_id is not None:
-            result['iaas_id'] = self.iaas_id
-        if self.iaas_type is not None:
-            result['iaas_type'] = self.iaas_type
-        if self.id is not None:
-            result['id'] = self.id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.provider_id is not None:
-            result['provider_id'] = self.provider_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('cpu') is not None:
-            self.cpu = m.get('cpu')
-        if m.get('disk_spec_ids') is not None:
-            self.disk_spec_ids = m.get('disk_spec_ids')
-        if m.get('group') is not None:
-            self.group = m.get('group')
-        if m.get('io_optimized') is not None:
-            self.io_optimized = m.get('io_optimized')
-        if m.get('memory') is not None:
-            self.memory = m.get('memory')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('enable') is not None:
-            self.enable = m.get('enable')
-        if m.get('iaas_id') is not None:
-            self.iaas_id = m.get('iaas_id')
-        if m.get('iaas_type') is not None:
-            self.iaas_type = m.get('iaas_type')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('provider_id') is not None:
-            self.provider_id = m.get('provider_id')
-        return self
-
-
-class ComputerParam(TeaModel):
-    def __init__(
-        self,
-        description: str = None,
-        name: str = None,
-        image_id: str = None,
-        instance_type: str = None,
-        region_id: str = None,
-        security_group_id: str = None,
-        instance_name: str = None,
-        zone_id: str = None,
-    ):
-        # description
-        self.description = description
-        # name
-        self.name = name
-        # image_id
-        self.image_id = image_id
-        # instance_type
-        self.instance_type = instance_type
-        # region_id
-        self.region_id = region_id
-        # security_group_id
-        self.security_group_id = security_group_id
-        # instance_name
-        self.instance_name = instance_name
-        # zone_id
-        self.zone_id = zone_id
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.description is not None:
-            result['description'] = self.description
-        if self.name is not None:
-            result['name'] = self.name
-        if self.image_id is not None:
-            result['image_id'] = self.image_id
-        if self.instance_type is not None:
-            result['instance_type'] = self.instance_type
-        if self.region_id is not None:
-            result['region_id'] = self.region_id
-        if self.security_group_id is not None:
-            result['security_group_id'] = self.security_group_id
-        if self.instance_name is not None:
-            result['instance_name'] = self.instance_name
-        if self.zone_id is not None:
-            result['zone_id'] = self.zone_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('image_id') is not None:
-            self.image_id = m.get('image_id')
-        if m.get('instance_type') is not None:
-            self.instance_type = m.get('instance_type')
-        if m.get('region_id') is not None:
-            self.region_id = m.get('region_id')
-        if m.get('security_group_id') is not None:
-            self.security_group_id = m.get('security_group_id')
-        if m.get('instance_name') is not None:
-            self.instance_name = m.get('instance_name')
-        if m.get('zone_id') is not None:
-            self.zone_id = m.get('zone_id')
-        return self
-
-
-class MountComputer(TeaModel):
-    def __init__(
-        self,
-        computer: Computer = None,
-        domain: str = None,
-        loadbalancer: LoadBalancer = None,
-        status: str = None,
-        weight: int = None,
-    ):
-        # computer
-        self.computer = computer
-        # domain
-        self.domain = domain
-        # loadbalancer
-        self.loadbalancer = loadbalancer
-        # status
-        self.status = status
-        # weight
-        self.weight = weight
-
-    def validate(self):
-        if self.computer:
-            self.computer.validate()
-        if self.loadbalancer:
-            self.loadbalancer.validate()
-        self.validate_required(self.weight, 'weight')
-
-    def to_map(self):
-        result = dict()
-        if self.computer is not None:
-            result['computer'] = self.computer.to_map()
-        if self.domain is not None:
-            result['domain'] = self.domain
-        if self.loadbalancer is not None:
-            result['loadbalancer'] = self.loadbalancer.to_map()
-        if self.status is not None:
-            result['status'] = self.status
-        if self.weight is not None:
-            result['weight'] = self.weight
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('computer') is not None:
-            temp_model = Computer()
-            self.computer = temp_model.from_map(m['computer'])
-        if m.get('domain') is not None:
-            self.domain = m.get('domain')
-        if m.get('loadbalancer') is not None:
-            temp_model = LoadBalancer()
-            self.loadbalancer = temp_model.from_map(m['loadbalancer'])
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('weight') is not None:
-            self.weight = m.get('weight')
-        return self
-
-
-class VComputer(TeaModel):
-    def __init__(
-        self,
-        v_computer_group: VComputerGroup = None,
-        ip: str = None,
-        computer: Computer = None,
-        port: int = None,
-        weight: int = None,
-    ):
-        # v_computer_group
-        self.v_computer_group = v_computer_group
-        # ip
-        self.ip = ip
-        # computer
-        self.computer = computer
-        # port
-        self.port = port
-        # weight
-        self.weight = weight
-
-    def validate(self):
-        if self.v_computer_group:
-            self.v_computer_group.validate()
-        if self.computer:
-            self.computer.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.v_computer_group is not None:
-            result['v_computer_group'] = self.v_computer_group.to_map()
-        if self.ip is not None:
-            result['ip'] = self.ip
-        if self.computer is not None:
-            result['computer'] = self.computer.to_map()
-        if self.port is not None:
-            result['port'] = self.port
-        if self.weight is not None:
-            result['weight'] = self.weight
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('v_computer_group') is not None:
-            temp_model = VComputerGroup()
-            self.v_computer_group = temp_model.from_map(m['v_computer_group'])
-        if m.get('ip') is not None:
-            self.ip = m.get('ip')
-        if m.get('computer') is not None:
-            temp_model = Computer()
-            self.computer = temp_model.from_map(m['computer'])
-        if m.get('port') is not None:
-            self.port = m.get('port')
-        if m.get('weight') is not None:
-            self.weight = m.get('weight')
-        return self
-
-
-class VPC(TeaModel):
-    def __init__(
-        self,
-        cidr_block: str = None,
-        creation_time: str = None,
-        description: str = None,
-        region_id: str = None,
-        router_table_ids: List[str] = None,
-        status: str = None,
-        user_cidrs: str = None,
-        vpc_id: str = None,
-        vpc_name: str = None,
-        v_router_id: str = None,
-        workspace_id: str = None,
-        import_info: ImportInfo = None,
-    ):
-        # VPC的IPv4网段
-        self.cidr_block = cidr_block
-        # VPC的创建时间
-        self.creation_time = creation_time
-        # VPC的描述信息
-        self.description = description
-        # VPC所在的地域
-        self.region_id = region_id
-        # 路由表ID
-        self.router_table_ids = router_table_ids
-        # VPC的状态，取值：
-        # 
-        # Pending：配置中。
-        # Available：可用。
-        self.status = status
-        # 用户侧网段的列表
-        self.user_cidrs = user_cidrs
-        # VPC的id
-        self.vpc_id = vpc_id
-        # VPC的名称
-        self.vpc_name = vpc_name
-        # VPC路由器的ID
-        self.v_router_id = v_router_id
-        # 关联的workspace id
-        self.workspace_id = workspace_id
-        # vpc是否已导入workspace
-        self.import_info = import_info
-
-    def validate(self):
-        self.validate_required(self.cidr_block, 'cidr_block')
-        self.validate_required(self.creation_time, 'creation_time')
-        self.validate_required(self.region_id, 'region_id')
-        self.validate_required(self.router_table_ids, 'router_table_ids')
-        self.validate_required(self.status, 'status')
-        self.validate_required(self.vpc_id, 'vpc_id')
-        self.validate_required(self.vpc_name, 'vpc_name')
-        self.validate_required(self.v_router_id, 'v_router_id')
-        if self.import_info:
-            self.import_info.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.cidr_block is not None:
-            result['cidr_block'] = self.cidr_block
-        if self.creation_time is not None:
-            result['creation_time'] = self.creation_time
-        if self.description is not None:
-            result['description'] = self.description
-        if self.region_id is not None:
-            result['region_id'] = self.region_id
-        if self.router_table_ids is not None:
-            result['router_table_ids'] = self.router_table_ids
-        if self.status is not None:
-            result['status'] = self.status
-        if self.user_cidrs is not None:
-            result['user_cidrs'] = self.user_cidrs
-        if self.vpc_id is not None:
-            result['vpc_id'] = self.vpc_id
-        if self.vpc_name is not None:
-            result['vpc_name'] = self.vpc_name
-        if self.v_router_id is not None:
-            result['v_router_id'] = self.v_router_id
-        if self.workspace_id is not None:
-            result['workspace_id'] = self.workspace_id
-        if self.import_info is not None:
-            result['import_info'] = self.import_info.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('cidr_block') is not None:
-            self.cidr_block = m.get('cidr_block')
-        if m.get('creation_time') is not None:
-            self.creation_time = m.get('creation_time')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('region_id') is not None:
-            self.region_id = m.get('region_id')
-        if m.get('router_table_ids') is not None:
-            self.router_table_ids = m.get('router_table_ids')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('user_cidrs') is not None:
-            self.user_cidrs = m.get('user_cidrs')
-        if m.get('vpc_id') is not None:
-            self.vpc_id = m.get('vpc_id')
-        if m.get('vpc_name') is not None:
-            self.vpc_name = m.get('vpc_name')
-        if m.get('v_router_id') is not None:
-            self.v_router_id = m.get('v_router_id')
-        if m.get('workspace_id') is not None:
-            self.workspace_id = m.get('workspace_id')
-        if m.get('import_info') is not None:
-            temp_model = ImportInfo()
-            self.import_info = temp_model.from_map(m['import_info'])
-        return self
-
-
-class Workspace(TeaModel):
-    def __init__(
-        self,
-        id: str = None,
-        name: str = None,
-        network_type: str = None,
-        tenant: str = None,
-        zone_ids: str = None,
-        region_id: str = None,
-    ):
-        # id
-        self.id = id
-        # 名称
-        self.name = name
-        # 网络类型
-        self.network_type = network_type
-        # 租户
-        self.tenant = tenant
-        # 可用区 id
-        self.zone_ids = zone_ids
-        # region id
-        self.region_id = region_id
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.id is not None:
-            result['id'] = self.id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.network_type is not None:
-            result['network_type'] = self.network_type
-        if self.tenant is not None:
-            result['tenant'] = self.tenant
-        if self.zone_ids is not None:
-            result['zone_ids'] = self.zone_ids
-        if self.region_id is not None:
-            result['region_id'] = self.region_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('network_type') is not None:
-            self.network_type = m.get('network_type')
-        if m.get('tenant') is not None:
-            self.tenant = m.get('tenant')
-        if m.get('zone_ids') is not None:
-            self.zone_ids = m.get('zone_ids')
-        if m.get('region_id') is not None:
-            self.region_id = m.get('region_id')
-        return self
-
-
-class SecurityGroupParam(TeaModel):
-    def __init__(
-        self,
-        description: str = None,
-        region_id: str = None,
-        security_group_name: str = None,
-        vpc_id: str = None,
-    ):
-        # description
-        self.description = description
-        # region id
-        self.region_id = region_id
-        # security_group_name
-        self.security_group_name = security_group_name
-        # vpc_id
-        self.vpc_id = vpc_id
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.description is not None:
-            result['description'] = self.description
-        if self.region_id is not None:
-            result['region_id'] = self.region_id
-        if self.security_group_name is not None:
-            result['security_group_name'] = self.security_group_name
-        if self.vpc_id is not None:
-            result['vpc_id'] = self.vpc_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('region_id') is not None:
-            self.region_id = m.get('region_id')
-        if m.get('security_group_name') is not None:
-            self.security_group_name = m.get('security_group_name')
-        if m.get('vpc_id') is not None:
-            self.vpc_id = m.get('vpc_id')
-        return self
-
-
-class UserQuery(TeaModel):
-    def __init__(
-        self,
-        base_query: PaginationQuery = None,
-        id: str = None,
-        customer_id: str = None,
-        tenant_id: str = None,
-        type: str = None,
-        types: List[str] = None,
-        email: str = None,
-        mobile: str = None,
-        real_name: str = None,
-        login_name: str = None,
-    ):
-        # 基础查询
-        self.base_query = base_query
-        # id
-        self.id = id
-        # customerId
-        self.customer_id = customer_id
-        # tenantId
-        self.tenant_id = tenant_id
-        # type
-        self.type = type
-        # types
-        self.types = types
-        # email
-        self.email = email
-        # mobile
-        self.mobile = mobile
-        # realName
-        self.real_name = real_name
-        # loginName
-        self.login_name = login_name
-
-    def validate(self):
-        if self.base_query:
-            self.base_query.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.base_query is not None:
-            result['base_query'] = self.base_query.to_map()
-        if self.id is not None:
-            result['id'] = self.id
-        if self.customer_id is not None:
-            result['customer_id'] = self.customer_id
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
-        if self.type is not None:
-            result['type'] = self.type
-        if self.types is not None:
-            result['types'] = self.types
-        if self.email is not None:
-            result['email'] = self.email
-        if self.mobile is not None:
-            result['mobile'] = self.mobile
-        if self.real_name is not None:
-            result['real_name'] = self.real_name
-        if self.login_name is not None:
-            result['login_name'] = self.login_name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('base_query') is not None:
-            temp_model = PaginationQuery()
-            self.base_query = temp_model.from_map(m['base_query'])
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('customer_id') is not None:
-            self.customer_id = m.get('customer_id')
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('types') is not None:
-            self.types = m.get('types')
-        if m.get('email') is not None:
-            self.email = m.get('email')
-        if m.get('mobile') is not None:
-            self.mobile = m.get('mobile')
-        if m.get('real_name') is not None:
-            self.real_name = m.get('real_name')
-        if m.get('login_name') is not None:
-            self.login_name = m.get('login_name')
-        return self
-
-
-class DatabaseImportVO(TeaModel):
-    def __init__(
-        self,
-        iaas_id: str = None,
-        description: str = None,
-        type: str = None,
-        status: str = None,
-        engine: str = None,
-        net_type: str = None,
-        utc_create: str = None,
-        import_info: ImportVO = None,
-    ):
-        # iaas_id
-        self.iaas_id = iaas_id
-        # description
-        self.description = description
-        # type
-        self.type = type
-        # status
-        self.status = status
-        # engine
-        self.engine = engine
-        # net_type
-        self.net_type = net_type
-        # utc_create
-        self.utc_create = utc_create
-        # importInfo
-        self.import_info = import_info
-
-    def validate(self):
-        if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.import_info, 'import_info')
-        if self.import_info:
-            self.import_info.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.iaas_id is not None:
-            result['iaas_id'] = self.iaas_id
-        if self.description is not None:
-            result['description'] = self.description
-        if self.type is not None:
-            result['type'] = self.type
-        if self.status is not None:
-            result['status'] = self.status
-        if self.engine is not None:
-            result['engine'] = self.engine
-        if self.net_type is not None:
-            result['net_type'] = self.net_type
-        if self.utc_create is not None:
-            result['utc_create'] = self.utc_create
-        if self.import_info is not None:
-            result['import_info'] = self.import_info.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('iaas_id') is not None:
-            self.iaas_id = m.get('iaas_id')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('engine') is not None:
-            self.engine = m.get('engine')
-        if m.get('net_type') is not None:
-            self.net_type = m.get('net_type')
-        if m.get('utc_create') is not None:
-            self.utc_create = m.get('utc_create')
-        if m.get('import_info') is not None:
-            temp_model = ImportVO()
-            self.import_info = temp_model.from_map(m['import_info'])
-        return self
-
-
-class AppLevelView(TeaModel):
-    def __init__(
-        self,
-        base_app_level: AppLevel = None,
-        app_count: int = None,
-        creator_name: str = None,
-    ):
-        # 应用等级基类
-        self.base_app_level = base_app_level
-        # 应用数量
-        self.app_count = app_count
-        # 创建者名称
-        self.creator_name = creator_name
-
-    def validate(self):
-        if self.base_app_level:
-            self.base_app_level.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.base_app_level is not None:
-            result['base_app_level'] = self.base_app_level.to_map()
-        if self.app_count is not None:
-            result['app_count'] = self.app_count
-        if self.creator_name is not None:
-            result['creator_name'] = self.creator_name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('base_app_level') is not None:
-            temp_model = AppLevel()
-            self.base_app_level = temp_model.from_map(m['base_app_level'])
-        if m.get('app_count') is not None:
-            self.app_count = m.get('app_count')
-        if m.get('creator_name') is not None:
-            self.creator_name = m.get('creator_name')
-        return self
-
-
-class SLSProject(TeaModel):
-    def __init__(
-        self,
-        description: str = None,
-        name: str = None,
-    ):
-        # 项目描述
-        self.description = description
-        # 项目名称
-        self.name = name
-
-    def validate(self):
-        self.validate_required(self.name, 'name')
-
-    def to_map(self):
-        result = dict()
-        if self.description is not None:
-            result['description'] = self.description
-        if self.name is not None:
-            result['name'] = self.name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        return self
-
-
-class OperationTask(TeaModel):
-    def __init__(
-        self,
-        id: str = None,
-        computer_id: str = None,
-        computer_ip: str = None,
-        command: str = None,
-        status: str = None,
-        error_code: str = None,
-        result_msg: str = None,
-    ):
-        # id
-        self.id = id
-        # computer id
-        self.computer_id = computer_id
-        # computer ip
-        self.computer_ip = computer_ip
-        # command
-        self.command = command
-        # 状态取值：INIT，PROCESSING，SUCCEEDED，FAILED，TIMEOUT，NOT_FOUND
-        self.status = status
-        # errorCode
-        self.error_code = error_code
-        # resultMsg
-        self.result_msg = result_msg
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.id is not None:
-            result['id'] = self.id
-        if self.computer_id is not None:
-            result['computer_id'] = self.computer_id
-        if self.computer_ip is not None:
-            result['computer_ip'] = self.computer_ip
-        if self.command is not None:
-            result['command'] = self.command
-        if self.status is not None:
-            result['status'] = self.status
-        if self.error_code is not None:
-            result['error_code'] = self.error_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('computer_id') is not None:
-            self.computer_id = m.get('computer_id')
-        if m.get('computer_ip') is not None:
-            self.computer_ip = m.get('computer_ip')
-        if m.get('command') is not None:
-            self.command = m.get('command')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('error_code') is not None:
-            self.error_code = m.get('error_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        return self
-
-
-class AppServiceQuery(TeaModel):
-    def __init__(
-        self,
-        id: str = None,
-        workspace_id: str = None,
-        app_id: str = None,
-        name: str = None,
-        deploy_status: str = None,
-        owner_id: str = None,
-        workspace_ids: List[str] = None,
-        app_ids: List[str] = None,
-        is_one_party_request: bool = None,
-        start_index: int = None,
-        page_size: int = None,
-        current_page: int = None,
-        orders: List[str] = None,
-        query_type: str = None,
-        conditions: str = None,
-    ):
-        # 根据 id 查询
-        self.id = id
-        # workspaceId
-        self.workspace_id = workspace_id
-        # appId
-        self.app_id = app_id
-        # name
-        self.name = name
-        # deployStatus
-        self.deploy_status = deploy_status
-        # ownerId
-        self.owner_id = owner_id
-        # workspaceIds
-        self.workspace_ids = workspace_ids
-        # appIds
-        self.app_ids = app_ids
-        # 是否为一方化查询请求
-        self.is_one_party_request = is_one_party_request
-        # startIndex
-        self.start_index = start_index
-        # pageSize
-        self.page_size = page_size
-        # currentPage
-        self.current_page = current_page
-        # orders
-        self.orders = orders
-        # 查询类型
-        self.query_type = query_type
-        # Map<String, String>
-        self.conditions = conditions
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.id is not None:
-            result['id'] = self.id
-        if self.workspace_id is not None:
-            result['workspace_id'] = self.workspace_id
-        if self.app_id is not None:
-            result['app_id'] = self.app_id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.deploy_status is not None:
-            result['deploy_status'] = self.deploy_status
-        if self.owner_id is not None:
-            result['owner_id'] = self.owner_id
-        if self.workspace_ids is not None:
-            result['workspace_ids'] = self.workspace_ids
-        if self.app_ids is not None:
-            result['app_ids'] = self.app_ids
-        if self.is_one_party_request is not None:
-            result['is_one_party_request'] = self.is_one_party_request
-        if self.start_index is not None:
-            result['start_index'] = self.start_index
-        if self.page_size is not None:
-            result['page_size'] = self.page_size
-        if self.current_page is not None:
-            result['current_page'] = self.current_page
-        if self.orders is not None:
-            result['orders'] = self.orders
-        if self.query_type is not None:
-            result['query_type'] = self.query_type
-        if self.conditions is not None:
-            result['conditions'] = self.conditions
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('workspace_id') is not None:
-            self.workspace_id = m.get('workspace_id')
-        if m.get('app_id') is not None:
-            self.app_id = m.get('app_id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('deploy_status') is not None:
-            self.deploy_status = m.get('deploy_status')
-        if m.get('owner_id') is not None:
-            self.owner_id = m.get('owner_id')
-        if m.get('workspace_ids') is not None:
-            self.workspace_ids = m.get('workspace_ids')
-        if m.get('app_ids') is not None:
-            self.app_ids = m.get('app_ids')
-        if m.get('is_one_party_request') is not None:
-            self.is_one_party_request = m.get('is_one_party_request')
-        if m.get('start_index') is not None:
-            self.start_index = m.get('start_index')
-        if m.get('page_size') is not None:
-            self.page_size = m.get('page_size')
-        if m.get('current_page') is not None:
-            self.current_page = m.get('current_page')
-        if m.get('orders') is not None:
-            self.orders = m.get('orders')
-        if m.get('query_type') is not None:
-            self.query_type = m.get('query_type')
-        if m.get('conditions') is not None:
-            self.conditions = m.get('conditions')
-        return self
-
-
 class ComputerTypeFamily(TeaModel):
     def __init__(
         self,
@@ -9528,1410 +7963,111 @@ class ComputerTypeFamily(TeaModel):
         return self
 
 
-class DatabaseSecurityIp(TeaModel):
+class WorkspaceDnsProvider(TeaModel):
     def __init__(
         self,
         id: str = None,
-        resource_id: str = None,
-        resource_type: str = None,
-        ip: str = None,
-        status: str = None,
-        type: str = None,
-    ):
-        # id
-        self.id = id
-        # resource_id
-        self.resource_id = resource_id
-        # resource_type
-        self.resource_type = resource_type
-        # ip
-        self.ip = ip
-        # status
-        self.status = status
-        # type
-        self.type = type
-
-    def validate(self):
-        self.validate_required(self.id, 'id')
-
-    def to_map(self):
-        result = dict()
-        if self.id is not None:
-            result['id'] = self.id
-        if self.resource_id is not None:
-            result['resource_id'] = self.resource_id
-        if self.resource_type is not None:
-            result['resource_type'] = self.resource_type
-        if self.ip is not None:
-            result['ip'] = self.ip
-        if self.status is not None:
-            result['status'] = self.status
-        if self.type is not None:
-            result['type'] = self.type
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('resource_id') is not None:
-            self.resource_id = m.get('resource_id')
-        if m.get('resource_type') is not None:
-            self.resource_type = m.get('resource_type')
-        if m.get('ip') is not None:
-            self.ip = m.get('ip')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        return self
-
-
-class WorkspaceDto(TeaModel):
-    def __init__(
-        self,
-        display_name: str = None,
-        id: str = None,
-        name: str = None,
-        network_type: str = None,
-        project_id: str = None,
-        status: str = None,
-        type: str = None,
+        workspace_id: str = None,
+        provider_id: str = None,
+        region_id: str = None,
+        zone_id: str = None,
+        dns_provider_id: str = None,
+        dns_network_type: str = None,
+        sub_domain_name: str = None,
         utc_create: str = None,
         utc_modified: str = None,
-        workspace_region_dto: WorkspaceRegionDto = None,
-    ):
-        # displayName
-        self.display_name = display_name
-        # id
-        self.id = id
-        # name
-        self.name = name
-        # networkType
-        self.network_type = network_type
-        # projectId
-        self.project_id = project_id
-        # status
-        self.status = status
-        # type
-        self.type = type
-        # utcCreate
-        self.utc_create = utc_create
-        # utcModified
-        self.utc_modified = utc_modified
-        # workspaceRegionDto
-        self.workspace_region_dto = workspace_region_dto
-
-    def validate(self):
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.network_type, 'network_type')
-        self.validate_required(self.project_id, 'project_id')
-        self.validate_required(self.status, 'status')
-        self.validate_required(self.utc_create, 'utc_create')
-        if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.workspace_region_dto:
-            self.workspace_region_dto.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.display_name is not None:
-            result['display_name'] = self.display_name
-        if self.id is not None:
-            result['id'] = self.id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.network_type is not None:
-            result['network_type'] = self.network_type
-        if self.project_id is not None:
-            result['project_id'] = self.project_id
-        if self.status is not None:
-            result['status'] = self.status
-        if self.type is not None:
-            result['type'] = self.type
-        if self.utc_create is not None:
-            result['utc_create'] = self.utc_create
-        if self.utc_modified is not None:
-            result['utc_modified'] = self.utc_modified
-        if self.workspace_region_dto is not None:
-            result['workspace_region_dto'] = self.workspace_region_dto.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('display_name') is not None:
-            self.display_name = m.get('display_name')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('network_type') is not None:
-            self.network_type = m.get('network_type')
-        if m.get('project_id') is not None:
-            self.project_id = m.get('project_id')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('utc_create') is not None:
-            self.utc_create = m.get('utc_create')
-        if m.get('utc_modified') is not None:
-            self.utc_modified = m.get('utc_modified')
-        if m.get('workspace_region_dto') is not None:
-            temp_model = WorkspaceRegionDto()
-            self.workspace_region_dto = temp_model.from_map(m['workspace_region_dto'])
-        return self
-
-
-class RegionWorkspaceVO(TeaModel):
-    def __init__(
-        self,
-        available_network_types: List[str] = None,
         description: str = None,
-        id: str = None,
-        identity: str = None,
-        name: str = None,
-        network_type: str = None,
-        provider_id: str = None,
-        state: str = None,
-        workspaces: List[WorkspaceWithGroupView] = None,
     ):
-        # availableNetworkTypes
-        self.available_network_types = available_network_types
-        # description
-        self.description = description
         # id
         self.id = id
-        # identity
-        self.identity = identity
-        # name
-        self.name = name
-        # networkType
-        self.network_type = network_type
-        # providerId
+        # workspace_id
+        self.workspace_id = workspace_id
+        # provider_id
         self.provider_id = provider_id
-        # state
-        self.state = state
-        # workspaces
-        self.workspaces = workspaces
-
-    def validate(self):
-        self.validate_required(self.available_network_types, 'available_network_types')
-        self.validate_required(self.description, 'description')
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.identity, 'identity')
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.network_type, 'network_type')
-        self.validate_required(self.provider_id, 'provider_id')
-        self.validate_required(self.state, 'state')
-        self.validate_required(self.workspaces, 'workspaces')
-        if self.workspaces:
-            for k in self.workspaces:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.available_network_types is not None:
-            result['available_network_types'] = self.available_network_types
-        if self.description is not None:
-            result['description'] = self.description
-        if self.id is not None:
-            result['id'] = self.id
-        if self.identity is not None:
-            result['identity'] = self.identity
-        if self.name is not None:
-            result['name'] = self.name
-        if self.network_type is not None:
-            result['network_type'] = self.network_type
-        if self.provider_id is not None:
-            result['provider_id'] = self.provider_id
-        if self.state is not None:
-            result['state'] = self.state
-        result['workspaces'] = []
-        if self.workspaces is not None:
-            for k in self.workspaces:
-                result['workspaces'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('available_network_types') is not None:
-            self.available_network_types = m.get('available_network_types')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('identity') is not None:
-            self.identity = m.get('identity')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('network_type') is not None:
-            self.network_type = m.get('network_type')
-        if m.get('provider_id') is not None:
-            self.provider_id = m.get('provider_id')
-        if m.get('state') is not None:
-            self.state = m.get('state')
-        self.workspaces = []
-        if m.get('workspaces') is not None:
-            for k in m.get('workspaces'):
-                temp_model = WorkspaceWithGroupView()
-                self.workspaces.append(temp_model.from_map(k))
-        return self
-
-
-class Grant(TeaModel):
-    def __init__(
-        self,
-        account: DatabaseAccount = None,
-        privilege: str = None,
-        schema: DbSchema = None,
-    ):
-        # account
-        self.account = account
-        # privilege
-        self.privilege = privilege
-        # schema
-        self.schema = schema
-
-    def validate(self):
-        self.validate_required(self.account, 'account')
-        if self.account:
-            self.account.validate()
-        self.validate_required(self.privilege, 'privilege')
-        self.validate_required(self.schema, 'schema')
-        if self.schema:
-            self.schema.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.account is not None:
-            result['account'] = self.account.to_map()
-        if self.privilege is not None:
-            result['privilege'] = self.privilege
-        if self.schema is not None:
-            result['schema'] = self.schema.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('account') is not None:
-            temp_model = DatabaseAccount()
-            self.account = temp_model.from_map(m['account'])
-        if m.get('privilege') is not None:
-            self.privilege = m.get('privilege')
-        if m.get('schema') is not None:
-            temp_model = DbSchema()
-            self.schema = temp_model.from_map(m['schema'])
-        return self
-
-
-class DatabaseEngine(TeaModel):
-    def __init__(
-        self,
-        iaas_type: str = None,
-        engine: str = None,
-        engine_versions: List[str] = None,
-    ):
-        # iaas_type
-        self.iaas_type = iaas_type
-        # engine
-        self.engine = engine
-        # engine_versions
-        self.engine_versions = engine_versions
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.iaas_type is not None:
-            result['iaas_type'] = self.iaas_type
-        if self.engine is not None:
-            result['engine'] = self.engine
-        if self.engine_versions is not None:
-            result['engine_versions'] = self.engine_versions
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('iaas_type') is not None:
-            self.iaas_type = m.get('iaas_type')
-        if m.get('engine') is not None:
-            self.engine = m.get('engine')
-        if m.get('engine_versions') is not None:
-            self.engine_versions = m.get('engine_versions')
-        return self
-
-
-class CellGroup(TeaModel):
-    def __init__(
-        self,
-        identity: str = None,
-        name: str = None,
-        description: str = None,
-        properties: List[Property] = None,
-        instancestatus: str = None,
-    ):
-        # identity
-        self.identity = identity
-        # name
-        self.name = name
-        # description
-        self.description = description
-        # properties
-        self.properties = properties
-        # instancestatus
-        self.instancestatus = instancestatus
-
-    def validate(self):
-        self.validate_required(self.identity, 'identity')
-        self.validate_required(self.name, 'name')
-        if self.properties:
-            for k in self.properties:
-                if k:
-                    k.validate()
-        self.validate_required(self.instancestatus, 'instancestatus')
-
-    def to_map(self):
-        result = dict()
-        if self.identity is not None:
-            result['identity'] = self.identity
-        if self.name is not None:
-            result['name'] = self.name
-        if self.description is not None:
-            result['description'] = self.description
-        result['properties'] = []
-        if self.properties is not None:
-            for k in self.properties:
-                result['properties'].append(k.to_map() if k else None)
-        if self.instancestatus is not None:
-            result['instancestatus'] = self.instancestatus
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('identity') is not None:
-            self.identity = m.get('identity')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        self.properties = []
-        if m.get('properties') is not None:
-            for k in m.get('properties'):
-                temp_model = Property()
-                self.properties.append(temp_model.from_map(k))
-        if m.get('instancestatus') is not None:
-            self.instancestatus = m.get('instancestatus')
-        return self
-
-
-class VSwitchParam(TeaModel):
-    def __init__(
-        self,
-        cidr_block: str = None,
-        description: str = None,
-        region_id: str = None,
-        vpc_id: str = None,
-        vswitch_name: str = None,
-        zone_id: str = None,
-    ):
-        # cidr_block
-        self.cidr_block = cidr_block
-        # description
-        self.description = description
         # region_id
         self.region_id = region_id
-        # vpc_id
-        self.vpc_id = vpc_id
-        # vswitch_name
-        self.vswitch_name = vswitch_name
-        # zone_id
+        # zoneId
         self.zone_id = zone_id
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.cidr_block is not None:
-            result['cidr_block'] = self.cidr_block
-        if self.description is not None:
-            result['description'] = self.description
-        if self.region_id is not None:
-            result['region_id'] = self.region_id
-        if self.vpc_id is not None:
-            result['vpc_id'] = self.vpc_id
-        if self.vswitch_name is not None:
-            result['vswitch_name'] = self.vswitch_name
-        if self.zone_id is not None:
-            result['zone_id'] = self.zone_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('cidr_block') is not None:
-            self.cidr_block = m.get('cidr_block')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('region_id') is not None:
-            self.region_id = m.get('region_id')
-        if m.get('vpc_id') is not None:
-            self.vpc_id = m.get('vpc_id')
-        if m.get('vswitch_name') is not None:
-            self.vswitch_name = m.get('vswitch_name')
-        if m.get('zone_id') is not None:
-            self.zone_id = m.get('zone_id')
-        return self
-
-
-class AppLevelQuery(TeaModel):
-    def __init__(
-        self,
-        app_count_include: bool = None,
-        creator_id: str = None,
-        is_one_party_request: bool = None,
-        name: str = None,
-        tenant_id: str = None,
-        utc_create: str = None,
-        current_page: int = None,
-        orders: List[str] = None,
-        page_size: int = None,
-        query_type: str = None,
-    ):
-        # appCountInclude
-        self.app_count_include = app_count_include
-        # creator_id
-        self.creator_id = creator_id
-        # is_one_party_request
-        self.is_one_party_request = is_one_party_request
-        # name
-        self.name = name
-        # tenant_id
-        self.tenant_id = tenant_id
+        # dns_provider_id
+        self.dns_provider_id = dns_provider_id
+        # dns_network_type
+        self.dns_network_type = dns_network_type
+        # sub_domain_name
+        self.sub_domain_name = sub_domain_name
         # utc_create
         self.utc_create = utc_create
-        # 当前页数
-        self.current_page = current_page
-        # orders
-        self.orders = orders
-        # 分页大小
-        self.page_size = page_size
-        # query_type
-        self.query_type = query_type
-
-    def validate(self):
-        if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-
-    def to_map(self):
-        result = dict()
-        if self.app_count_include is not None:
-            result['app_count_include'] = self.app_count_include
-        if self.creator_id is not None:
-            result['creator_id'] = self.creator_id
-        if self.is_one_party_request is not None:
-            result['is_one_party_request'] = self.is_one_party_request
-        if self.name is not None:
-            result['name'] = self.name
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
-        if self.utc_create is not None:
-            result['utc_create'] = self.utc_create
-        if self.current_page is not None:
-            result['current_page'] = self.current_page
-        if self.orders is not None:
-            result['orders'] = self.orders
-        if self.page_size is not None:
-            result['page_size'] = self.page_size
-        if self.query_type is not None:
-            result['query_type'] = self.query_type
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('app_count_include') is not None:
-            self.app_count_include = m.get('app_count_include')
-        if m.get('creator_id') is not None:
-            self.creator_id = m.get('creator_id')
-        if m.get('is_one_party_request') is not None:
-            self.is_one_party_request = m.get('is_one_party_request')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
-        if m.get('utc_create') is not None:
-            self.utc_create = m.get('utc_create')
-        if m.get('current_page') is not None:
-            self.current_page = m.get('current_page')
-        if m.get('orders') is not None:
-            self.orders = m.get('orders')
-        if m.get('page_size') is not None:
-            self.page_size = m.get('page_size')
-        if m.get('query_type') is not None:
-            self.query_type = m.get('query_type')
-        return self
-
-
-class SLSLogItem(TeaModel):
-    def __init__(
-        self,
-        log_time: int = None,
-        source: str = None,
-        contents: List[SLSLogContent] = None,
-    ):
-        # 日志的时间戳（精度为秒，从 1970-1-1 00:00:00 UTC 计算起的秒数）。
-        self.log_time = log_time
-        # 日志的来源，写入日志时指定。
-        self.source = source
-        # 日志原始内容
-        self.contents = contents
-
-    def validate(self):
-        self.validate_required(self.log_time, 'log_time')
-        self.validate_required(self.source, 'source')
-        self.validate_required(self.contents, 'contents')
-        if self.contents:
-            for k in self.contents:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.log_time is not None:
-            result['log_time'] = self.log_time
-        if self.source is not None:
-            result['source'] = self.source
-        result['contents'] = []
-        if self.contents is not None:
-            for k in self.contents:
-                result['contents'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('log_time') is not None:
-            self.log_time = m.get('log_time')
-        if m.get('source') is not None:
-            self.source = m.get('source')
-        self.contents = []
-        if m.get('contents') is not None:
-            for k in m.get('contents'):
-                temp_model = SLSLogContent()
-                self.contents.append(temp_model.from_map(k))
-        return self
-
-
-class ComputerType(TeaModel):
-    def __init__(
-        self,
-        cpu_core_count: int = None,
-        id: str = None,
-        instance_type_family: str = None,
-        memory_size: int = None,
-        status: str = None,
-    ):
-        # cpu core count
-        self.cpu_core_count = cpu_core_count
-        # instance type id
-        self.id = id
-        # 实例规格族
-        self.instance_type_family = instance_type_family
-        # memory size
-        self.memory_size = memory_size
-        # 实例状态，可能值： Available：资源充足 Sold...
-        self.status = status
-
-    def validate(self):
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.status, 'status')
-
-    def to_map(self):
-        result = dict()
-        if self.cpu_core_count is not None:
-            result['cpu_core_count'] = self.cpu_core_count
-        if self.id is not None:
-            result['id'] = self.id
-        if self.instance_type_family is not None:
-            result['instance_type_family'] = self.instance_type_family
-        if self.memory_size is not None:
-            result['memory_size'] = self.memory_size
-        if self.status is not None:
-            result['status'] = self.status
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('cpu_core_count') is not None:
-            self.cpu_core_count = m.get('cpu_core_count')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('instance_type_family') is not None:
-            self.instance_type_family = m.get('instance_type_family')
-        if m.get('memory_size') is not None:
-            self.memory_size = m.get('memory_size')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        return self
-
-
-class RouteTable(TeaModel):
-    def __init__(
-        self,
-        creation_time: str = None,
-        router_type: str = None,
-        entry_vos: List[VRouteEntry] = None,
-        route_table_id: str = None,
-        v_router_id: str = None,
-    ):
-        # 路由表的创建时间。
-        self.creation_time = creation_time
-        # 路由表所属的路由器类型，取值：
-        # 
-        # VRouter：VPC路由器。
-        # VBR：边界路由器。
-        self.router_type = router_type
-        # 
-        # 路由条目的详细信息。
-        self.entry_vos = entry_vos
-        # 要查询的路由表的ID。
-        self.route_table_id = route_table_id
-        # 要查询的路由表所属的VPC路由器的ID。
-        self.v_router_id = v_router_id
-
-    def validate(self):
-        if self.creation_time is not None:
-            self.validate_pattern(self.creation_time, 'creation_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.entry_vos:
-            for k in self.entry_vos:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.creation_time is not None:
-            result['creation_time'] = self.creation_time
-        if self.router_type is not None:
-            result['router_type'] = self.router_type
-        result['entry_v_os'] = []
-        if self.entry_vos is not None:
-            for k in self.entry_vos:
-                result['entry_v_os'].append(k.to_map() if k else None)
-        if self.route_table_id is not None:
-            result['route_table_id'] = self.route_table_id
-        if self.v_router_id is not None:
-            result['v_router_id'] = self.v_router_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('creation_time') is not None:
-            self.creation_time = m.get('creation_time')
-        if m.get('router_type') is not None:
-            self.router_type = m.get('router_type')
-        self.entry_vos = []
-        if m.get('entry_v_os') is not None:
-            for k in m.get('entry_v_os'):
-                temp_model = VRouteEntry()
-                self.entry_vos.append(temp_model.from_map(k))
-        if m.get('route_table_id') is not None:
-            self.route_table_id = m.get('route_table_id')
-        if m.get('v_router_id') is not None:
-            self.v_router_id = m.get('v_router_id')
-        return self
-
-
-class VSwitch(TeaModel):
-    def __init__(
-        self,
-        cidr_block: str = None,
-        creation_time: str = None,
-        description: str = None,
-        region_id: str = None,
-        status: str = None,
-        vpc_id: str = None,
-        v_switch_id: str = None,
-        v_switch_name: str = None,
-        zone_id: str = None,
-        zone_iaas_id: str = None,
-    ):
-        # 交换机的IPv4网段
-        self.cidr_block = cidr_block
-        # 交换机的创建时间
-        self.creation_time = creation_time
-        # 交换机的描述信息
-        self.description = description
-        # cn-hangzhou
-        self.region_id = region_id
-        # 交换机的状态，取值：
-        # 
-        # Pending：配置中。
-        # Available：可用。
-        self.status = status
-        # 交换机所属VPC的ID
-        self.vpc_id = vpc_id
-        # 交换机的ID
-        self.v_switch_id = v_switch_id
-        # 交换机的名称
-        self.v_switch_name = v_switch_name
-        # 交换机所属的可用区
-        self.zone_id = zone_id
-        # zone iaas id
-        self.zone_iaas_id = zone_iaas_id
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.cidr_block is not None:
-            result['cidr_block'] = self.cidr_block
-        if self.creation_time is not None:
-            result['creation_time'] = self.creation_time
-        if self.description is not None:
-            result['description'] = self.description
-        if self.region_id is not None:
-            result['region_id'] = self.region_id
-        if self.status is not None:
-            result['status'] = self.status
-        if self.vpc_id is not None:
-            result['vpc_id'] = self.vpc_id
-        if self.v_switch_id is not None:
-            result['v_switch_id'] = self.v_switch_id
-        if self.v_switch_name is not None:
-            result['v_switch_name'] = self.v_switch_name
-        if self.zone_id is not None:
-            result['zone_id'] = self.zone_id
-        if self.zone_iaas_id is not None:
-            result['zone_iaas_id'] = self.zone_iaas_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('cidr_block') is not None:
-            self.cidr_block = m.get('cidr_block')
-        if m.get('creation_time') is not None:
-            self.creation_time = m.get('creation_time')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('region_id') is not None:
-            self.region_id = m.get('region_id')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('vpc_id') is not None:
-            self.vpc_id = m.get('vpc_id')
-        if m.get('v_switch_id') is not None:
-            self.v_switch_id = m.get('v_switch_id')
-        if m.get('v_switch_name') is not None:
-            self.v_switch_name = m.get('v_switch_name')
-        if m.get('zone_id') is not None:
-            self.zone_id = m.get('zone_id')
-        if m.get('zone_iaas_id') is not None:
-            self.zone_iaas_id = m.get('zone_iaas_id')
-        return self
-
-
-class AppPackageListView(TeaModel):
-    def __init__(
-        self,
-        app_id: str = None,
-        app_name: str = None,
-        app_owner_id: str = None,
-        app_owner_name: str = None,
-        app_status: str = None,
-        buildpack_id: str = None,
-        buildpack_name: str = None,
-        buildpack_version: str = None,
-        latest_package: AppManifest = None,
-        package_count: int = None,
-    ):
-        # app_id
-        self.app_id = app_id
-        # app_name
-        self.app_name = app_name
-        # app_owner_id
-        self.app_owner_id = app_owner_id
-        # app_owner_name
-        self.app_owner_name = app_owner_name
-        # app_status
-        self.app_status = app_status
-        # buildpack_id
-        self.buildpack_id = buildpack_id
-        # buildpack_name
-        self.buildpack_name = buildpack_name
-        # buildpack_version
-        self.buildpack_version = buildpack_version
-        # latest_package
-        self.latest_package = latest_package
-        # package_count
-        self.package_count = package_count
-
-    def validate(self):
-        if self.latest_package:
-            self.latest_package.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.app_id is not None:
-            result['app_id'] = self.app_id
-        if self.app_name is not None:
-            result['app_name'] = self.app_name
-        if self.app_owner_id is not None:
-            result['app_owner_id'] = self.app_owner_id
-        if self.app_owner_name is not None:
-            result['app_owner_name'] = self.app_owner_name
-        if self.app_status is not None:
-            result['app_status'] = self.app_status
-        if self.buildpack_id is not None:
-            result['buildpack_id'] = self.buildpack_id
-        if self.buildpack_name is not None:
-            result['buildpack_name'] = self.buildpack_name
-        if self.buildpack_version is not None:
-            result['buildpack_version'] = self.buildpack_version
-        if self.latest_package is not None:
-            result['latest_package'] = self.latest_package.to_map()
-        if self.package_count is not None:
-            result['package_count'] = self.package_count
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('app_id') is not None:
-            self.app_id = m.get('app_id')
-        if m.get('app_name') is not None:
-            self.app_name = m.get('app_name')
-        if m.get('app_owner_id') is not None:
-            self.app_owner_id = m.get('app_owner_id')
-        if m.get('app_owner_name') is not None:
-            self.app_owner_name = m.get('app_owner_name')
-        if m.get('app_status') is not None:
-            self.app_status = m.get('app_status')
-        if m.get('buildpack_id') is not None:
-            self.buildpack_id = m.get('buildpack_id')
-        if m.get('buildpack_name') is not None:
-            self.buildpack_name = m.get('buildpack_name')
-        if m.get('buildpack_version') is not None:
-            self.buildpack_version = m.get('buildpack_version')
-        if m.get('latest_package') is not None:
-            temp_model = AppManifest()
-            self.latest_package = temp_model.from_map(m['latest_package'])
-        if m.get('package_count') is not None:
-            self.package_count = m.get('package_count')
-        return self
-
-
-class LbCluster(TeaModel):
-    def __init__(
-        self,
-        container_cpu: int = None,
-        container_cpu_exclusive: bool = None,
-        container_device_type: str = None,
-        container_disk: int = None,
-        container_mem: int = None,
-        id: str = None,
-        image: str = None,
-        name: str = None,
-        status: int = None,
-        unit_infos: List[AcsClusterUnit] = None,
-        unit_type: int = None,
-        used_ports: List[int] = None,
-    ):
-        # container_cpu
-        self.container_cpu = container_cpu
-        # container_cpu_exclusive
-        self.container_cpu_exclusive = container_cpu_exclusive
-        # container_device_type
-        self.container_device_type = container_device_type
-        # container_disk
-        self.container_disk = container_disk
-        # container_mem
-        self.container_mem = container_mem
-        # id
-        self.id = id
-        # image
-        self.image = image
-        # name
-        self.name = name
-        # status
-        self.status = status
-        # unit_infos
-        self.unit_infos = unit_infos
-        # unit_type
-        self.unit_type = unit_type
-        # used_ports
-        self.used_ports = used_ports
-
-    def validate(self):
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.image, 'image')
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.status, 'status')
-        if self.unit_infos:
-            for k in self.unit_infos:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.container_cpu is not None:
-            result['container_cpu'] = self.container_cpu
-        if self.container_cpu_exclusive is not None:
-            result['container_cpu_exclusive'] = self.container_cpu_exclusive
-        if self.container_device_type is not None:
-            result['container_device_type'] = self.container_device_type
-        if self.container_disk is not None:
-            result['container_disk'] = self.container_disk
-        if self.container_mem is not None:
-            result['container_mem'] = self.container_mem
-        if self.id is not None:
-            result['id'] = self.id
-        if self.image is not None:
-            result['image'] = self.image
-        if self.name is not None:
-            result['name'] = self.name
-        if self.status is not None:
-            result['status'] = self.status
-        result['unit_infos'] = []
-        if self.unit_infos is not None:
-            for k in self.unit_infos:
-                result['unit_infos'].append(k.to_map() if k else None)
-        if self.unit_type is not None:
-            result['unit_type'] = self.unit_type
-        if self.used_ports is not None:
-            result['used_ports'] = self.used_ports
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('container_cpu') is not None:
-            self.container_cpu = m.get('container_cpu')
-        if m.get('container_cpu_exclusive') is not None:
-            self.container_cpu_exclusive = m.get('container_cpu_exclusive')
-        if m.get('container_device_type') is not None:
-            self.container_device_type = m.get('container_device_type')
-        if m.get('container_disk') is not None:
-            self.container_disk = m.get('container_disk')
-        if m.get('container_mem') is not None:
-            self.container_mem = m.get('container_mem')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('image') is not None:
-            self.image = m.get('image')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        self.unit_infos = []
-        if m.get('unit_infos') is not None:
-            for k in m.get('unit_infos'):
-                temp_model = AcsClusterUnit()
-                self.unit_infos.append(temp_model.from_map(k))
-        if m.get('unit_type') is not None:
-            self.unit_type = m.get('unit_type')
-        if m.get('used_ports') is not None:
-            self.used_ports = m.get('used_ports')
-        return self
-
-
-class DynamicQuery(TeaModel):
-    def __init__(
-        self,
-        current_page: int = None,
-        filter: str = None,
-        page_size: int = None,
-        query: str = None,
-        sort: str = None,
-    ):
-        # 分页规则-currentPage
-        self.current_page = current_page
-        # 字段过滤
-        self.filter = filter
-        # 分页规则-pageSize
-        self.page_size = page_size
-        # 具体的查询条件字符串
-        self.query = query
-        # 查询结果的排序规则
-        self.sort = sort
-
-    def validate(self):
-        self.validate_required(self.query, 'query')
-
-    def to_map(self):
-        result = dict()
-        if self.current_page is not None:
-            result['current_page'] = self.current_page
-        if self.filter is not None:
-            result['filter'] = self.filter
-        if self.page_size is not None:
-            result['page_size'] = self.page_size
-        if self.query is not None:
-            result['query'] = self.query
-        if self.sort is not None:
-            result['sort'] = self.sort
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('current_page') is not None:
-            self.current_page = m.get('current_page')
-        if m.get('filter') is not None:
-            self.filter = m.get('filter')
-        if m.get('page_size') is not None:
-            self.page_size = m.get('page_size')
-        if m.get('query') is not None:
-            self.query = m.get('query')
-        if m.get('sort') is not None:
-            self.sort = m.get('sort')
-        return self
-
-
-class RegionDto(TeaModel):
-    def __init__(
-        self,
-        available_network_types: List[str] = None,
-        description: str = None,
-        display_name: str = None,
-        iaas_provider_id: str = None,
-        id: str = None,
-        identity: str = None,
-        network_type: str = None,
-        state: str = None,
-        utc_create: str = None,
-        utc_modified: str = None,
-        zone_dtos: List[ZoneDto] = None,
-    ):
-        # availableNetworkTypes
-        self.available_network_types = available_network_types
+        # utc_modified
+        self.utc_modified = utc_modified
         # description
         self.description = description
-        # displayName
-        self.display_name = display_name
-        # iaasProviderId
-        self.iaas_provider_id = iaas_provider_id
-        # id
-        self.id = id
-        # identity
-        self.identity = identity
-        # networkType
-        self.network_type = network_type
-        # state
-        self.state = state
-        # utcCreate
-        self.utc_create = utc_create
-        # utcModified
-        self.utc_modified = utc_modified
-        # zoneDtos
-        self.zone_dtos = zone_dtos
 
     def validate(self):
-        self.validate_required(self.available_network_types, 'available_network_types')
-        self.validate_required(self.description, 'description')
-        self.validate_required(self.display_name, 'display_name')
-        self.validate_required(self.iaas_provider_id, 'iaas_provider_id')
         self.validate_required(self.id, 'id')
-        self.validate_required(self.identity, 'identity')
-        self.validate_required(self.network_type, 'network_type')
-        self.validate_required(self.state, 'state')
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.provider_id, 'provider_id')
+        self.validate_required(self.region_id, 'region_id')
+        self.validate_required(self.zone_id, 'zone_id')
+        self.validate_required(self.dns_provider_id, 'dns_provider_id')
+        self.validate_required(self.dns_network_type, 'dns_network_type')
+        self.validate_required(self.sub_domain_name, 'sub_domain_name')
         self.validate_required(self.utc_create, 'utc_create')
         if self.utc_create is not None:
             self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.utc_modified, 'utc_modified')
         if self.utc_modified is not None:
             self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.zone_dtos, 'zone_dtos')
-        if self.zone_dtos:
-            for k in self.zone_dtos:
-                if k:
-                    k.validate()
+        self.validate_required(self.description, 'description')
 
     def to_map(self):
         result = dict()
-        if self.available_network_types is not None:
-            result['available_network_types'] = self.available_network_types
-        if self.description is not None:
-            result['description'] = self.description
-        if self.display_name is not None:
-            result['display_name'] = self.display_name
-        if self.iaas_provider_id is not None:
-            result['iaas_provider_id'] = self.iaas_provider_id
         if self.id is not None:
             result['id'] = self.id
-        if self.identity is not None:
-            result['identity'] = self.identity
-        if self.network_type is not None:
-            result['network_type'] = self.network_type
-        if self.state is not None:
-            result['state'] = self.state
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.provider_id is not None:
+            result['provider_id'] = self.provider_id
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.zone_id is not None:
+            result['zone_id'] = self.zone_id
+        if self.dns_provider_id is not None:
+            result['dns_provider_id'] = self.dns_provider_id
+        if self.dns_network_type is not None:
+            result['dns_network_type'] = self.dns_network_type
+        if self.sub_domain_name is not None:
+            result['sub_domain_name'] = self.sub_domain_name
         if self.utc_create is not None:
             result['utc_create'] = self.utc_create
         if self.utc_modified is not None:
             result['utc_modified'] = self.utc_modified
-        result['zone_dtos'] = []
-        if self.zone_dtos is not None:
-            for k in self.zone_dtos:
-                result['zone_dtos'].append(k.to_map() if k else None)
+        if self.description is not None:
+            result['description'] = self.description
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('available_network_types') is not None:
-            self.available_network_types = m.get('available_network_types')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('display_name') is not None:
-            self.display_name = m.get('display_name')
-        if m.get('iaas_provider_id') is not None:
-            self.iaas_provider_id = m.get('iaas_provider_id')
         if m.get('id') is not None:
             self.id = m.get('id')
-        if m.get('identity') is not None:
-            self.identity = m.get('identity')
-        if m.get('network_type') is not None:
-            self.network_type = m.get('network_type')
-        if m.get('state') is not None:
-            self.state = m.get('state')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('provider_id') is not None:
+            self.provider_id = m.get('provider_id')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('zone_id') is not None:
+            self.zone_id = m.get('zone_id')
+        if m.get('dns_provider_id') is not None:
+            self.dns_provider_id = m.get('dns_provider_id')
+        if m.get('dns_network_type') is not None:
+            self.dns_network_type = m.get('dns_network_type')
+        if m.get('sub_domain_name') is not None:
+            self.sub_domain_name = m.get('sub_domain_name')
         if m.get('utc_create') is not None:
             self.utc_create = m.get('utc_create')
         if m.get('utc_modified') is not None:
             self.utc_modified = m.get('utc_modified')
-        self.zone_dtos = []
-        if m.get('zone_dtos') is not None:
-            for k in m.get('zone_dtos'):
-                temp_model = ZoneDto()
-                self.zone_dtos.append(temp_model.from_map(k))
-        return self
-
-
-class ListenerSecurityIp(TeaModel):
-    def __init__(
-        self,
-        access_control: bool = None,
-        ips: List[str] = None,
-    ):
-        # access_control
-        self.access_control = access_control
-        # ips
-        self.ips = ips
-
-    def validate(self):
-        self.validate_required(self.access_control, 'access_control')
-        self.validate_required(self.ips, 'ips')
-
-    def to_map(self):
-        result = dict()
-        if self.access_control is not None:
-            result['access_control'] = self.access_control
-        if self.ips is not None:
-            result['ips'] = self.ips
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('access_control') is not None:
-            self.access_control = m.get('access_control')
-        if m.get('ips') is not None:
-            self.ips = m.get('ips')
-        return self
-
-
-class TenantWorkspace(TeaModel):
-    def __init__(
-        self,
-        display_name: str = None,
-        gmt_create: str = None,
-        gmt_modified: str = None,
-        id: str = None,
-        name: str = None,
-        network_type: str = None,
-        status: str = None,
-        tenant_id: str = None,
-        type: str = None,
-        workspace_dcs: List[WorkspaceDc] = None,
-        workspace_regions: List[WorkspaceRegion] = None,
-    ):
-        # displayName
-        self.display_name = display_name
-        # gmtCreate
-        self.gmt_create = gmt_create
-        # gmtModified
-        self.gmt_modified = gmt_modified
-        # id
-        self.id = id
-        # name
-        self.name = name
-        # networkType
-        self.network_type = network_type
-        # status
-        self.status = status
-        # tenantId
-        self.tenant_id = tenant_id
-        # type
-        self.type = type
-        # workspaceDcs
-        self.workspace_dcs = workspace_dcs
-        # workspaceRegions
-        self.workspace_regions = workspace_regions
-
-    def validate(self):
-        self.validate_required(self.display_name, 'display_name')
-        self.validate_required(self.gmt_create, 'gmt_create')
-        if self.gmt_create is not None:
-            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.gmt_modified, 'gmt_modified')
-        if self.gmt_modified is not None:
-            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.network_type, 'network_type')
-        self.validate_required(self.status, 'status')
-        self.validate_required(self.tenant_id, 'tenant_id')
-        self.validate_required(self.type, 'type')
-        self.validate_required(self.workspace_dcs, 'workspace_dcs')
-        if self.workspace_dcs:
-            for k in self.workspace_dcs:
-                if k:
-                    k.validate()
-        self.validate_required(self.workspace_regions, 'workspace_regions')
-        if self.workspace_regions:
-            for k in self.workspace_regions:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.display_name is not None:
-            result['display_name'] = self.display_name
-        if self.gmt_create is not None:
-            result['gmt_create'] = self.gmt_create
-        if self.gmt_modified is not None:
-            result['gmt_modified'] = self.gmt_modified
-        if self.id is not None:
-            result['id'] = self.id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.network_type is not None:
-            result['network_type'] = self.network_type
-        if self.status is not None:
-            result['status'] = self.status
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
-        if self.type is not None:
-            result['type'] = self.type
-        result['workspace_dcs'] = []
-        if self.workspace_dcs is not None:
-            for k in self.workspace_dcs:
-                result['workspace_dcs'].append(k.to_map() if k else None)
-        result['workspace_regions'] = []
-        if self.workspace_regions is not None:
-            for k in self.workspace_regions:
-                result['workspace_regions'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('display_name') is not None:
-            self.display_name = m.get('display_name')
-        if m.get('gmt_create') is not None:
-            self.gmt_create = m.get('gmt_create')
-        if m.get('gmt_modified') is not None:
-            self.gmt_modified = m.get('gmt_modified')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('network_type') is not None:
-            self.network_type = m.get('network_type')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        self.workspace_dcs = []
-        if m.get('workspace_dcs') is not None:
-            for k in m.get('workspace_dcs'):
-                temp_model = WorkspaceDc()
-                self.workspace_dcs.append(temp_model.from_map(k))
-        self.workspace_regions = []
-        if m.get('workspace_regions') is not None:
-            for k in m.get('workspace_regions'):
-                temp_model = WorkspaceRegion()
-                self.workspace_regions.append(temp_model.from_map(k))
-        return self
-
-
-class SLSConfig(TeaModel):
-    def __init__(
-        self,
-        name: str = None,
-        input_type: str = None,
-        output_type: str = None,
-        log_sample: str = None,
-        input_detail: SLSConfigInputDetail = None,
-        output_detail: SLSConfigOutputDetail = None,
-    ):
-        # Logtail配置名称，同一Project下配置名必须唯一。
-        # 只能包括小写字母、数字、连字符（-）和下划线（_）。
-        # 必须以小写字母或者数字开头和结尾。
-        # 长度必须为2~128字节。
-        self.name = name
-        # 配置类型，支持plugin、file。
-        self.input_type = input_type
-        # 输出类型，目前只支持LogService。
-        self.output_type = output_type
-        # 日志样例
-        self.log_sample = log_sample
-        # 输入类型配置
-        self.input_detail = input_detail
-        # 输出类型配置
-        self.output_detail = output_detail
-
-    def validate(self):
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.input_type, 'input_type')
-        self.validate_required(self.input_detail, 'input_detail')
-        if self.input_detail:
-            self.input_detail.validate()
-        self.validate_required(self.output_detail, 'output_detail')
-        if self.output_detail:
-            self.output_detail.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.name is not None:
-            result['name'] = self.name
-        if self.input_type is not None:
-            result['input_type'] = self.input_type
-        if self.output_type is not None:
-            result['output_type'] = self.output_type
-        if self.log_sample is not None:
-            result['log_sample'] = self.log_sample
-        if self.input_detail is not None:
-            result['input_detail'] = self.input_detail.to_map()
-        if self.output_detail is not None:
-            result['output_detail'] = self.output_detail.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('input_type') is not None:
-            self.input_type = m.get('input_type')
-        if m.get('output_type') is not None:
-            self.output_type = m.get('output_type')
-        if m.get('log_sample') is not None:
-            self.log_sample = m.get('log_sample')
-        if m.get('input_detail') is not None:
-            temp_model = SLSConfigInputDetail()
-            self.input_detail = temp_model.from_map(m['input_detail'])
-        if m.get('output_detail') is not None:
-            temp_model = SLSConfigOutputDetail()
-            self.output_detail = temp_model.from_map(m['output_detail'])
+        if m.get('description') is not None:
+            self.description = m.get('description')
         return self
 
 
@@ -11060,6 +8196,842 @@ class VpcVO(TeaModel):
         return self
 
 
+class VComputer(TeaModel):
+    def __init__(
+        self,
+        v_computer_group: VComputerGroup = None,
+        ip: str = None,
+        computer: Computer = None,
+        port: int = None,
+        weight: int = None,
+        is_eip: bool = None,
+        is_managed_computer: bool = None,
+        iaas_id: str = None,
+    ):
+        # v_computer_group
+        self.v_computer_group = v_computer_group
+        # ip
+        self.ip = ip
+        # computer
+        self.computer = computer
+        # port
+        self.port = port
+        # weight
+        self.weight = weight
+        # 是否是EIP
+        self.is_eip = is_eip
+        # is_managed_computer
+        self.is_managed_computer = is_managed_computer
+        # iaas_id
+        self.iaas_id = iaas_id
+
+    def validate(self):
+        if self.v_computer_group:
+            self.v_computer_group.validate()
+        if self.computer:
+            self.computer.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.v_computer_group is not None:
+            result['v_computer_group'] = self.v_computer_group.to_map()
+        if self.ip is not None:
+            result['ip'] = self.ip
+        if self.computer is not None:
+            result['computer'] = self.computer.to_map()
+        if self.port is not None:
+            result['port'] = self.port
+        if self.weight is not None:
+            result['weight'] = self.weight
+        if self.is_eip is not None:
+            result['is_eip'] = self.is_eip
+        if self.is_managed_computer is not None:
+            result['is_managed_computer'] = self.is_managed_computer
+        if self.iaas_id is not None:
+            result['iaas_id'] = self.iaas_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('v_computer_group') is not None:
+            temp_model = VComputerGroup()
+            self.v_computer_group = temp_model.from_map(m['v_computer_group'])
+        if m.get('ip') is not None:
+            self.ip = m.get('ip')
+        if m.get('computer') is not None:
+            temp_model = Computer()
+            self.computer = temp_model.from_map(m['computer'])
+        if m.get('port') is not None:
+            self.port = m.get('port')
+        if m.get('weight') is not None:
+            self.weight = m.get('weight')
+        if m.get('is_eip') is not None:
+            self.is_eip = m.get('is_eip')
+        if m.get('is_managed_computer') is not None:
+            self.is_managed_computer = m.get('is_managed_computer')
+        if m.get('iaas_id') is not None:
+            self.iaas_id = m.get('iaas_id')
+        return self
+
+
+class RouteTable(TeaModel):
+    def __init__(
+        self,
+        creation_time: str = None,
+        router_type: str = None,
+        entry_vos: List[VRouteEntry] = None,
+        route_table_id: str = None,
+        v_router_id: str = None,
+    ):
+        # 路由表的创建时间。
+        self.creation_time = creation_time
+        # 路由表所属的路由器类型，取值：
+        # 
+        # VRouter：VPC路由器。
+        # VBR：边界路由器。
+        self.router_type = router_type
+        # 
+        # 路由条目的详细信息。
+        self.entry_vos = entry_vos
+        # 要查询的路由表的ID。
+        self.route_table_id = route_table_id
+        # 要查询的路由表所属的VPC路由器的ID。
+        self.v_router_id = v_router_id
+
+    def validate(self):
+        if self.creation_time is not None:
+            self.validate_pattern(self.creation_time, 'creation_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.entry_vos:
+            for k in self.entry_vos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.creation_time is not None:
+            result['creation_time'] = self.creation_time
+        if self.router_type is not None:
+            result['router_type'] = self.router_type
+        result['entry_v_os'] = []
+        if self.entry_vos is not None:
+            for k in self.entry_vos:
+                result['entry_v_os'].append(k.to_map() if k else None)
+        if self.route_table_id is not None:
+            result['route_table_id'] = self.route_table_id
+        if self.v_router_id is not None:
+            result['v_router_id'] = self.v_router_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('creation_time') is not None:
+            self.creation_time = m.get('creation_time')
+        if m.get('router_type') is not None:
+            self.router_type = m.get('router_type')
+        self.entry_vos = []
+        if m.get('entry_v_os') is not None:
+            for k in m.get('entry_v_os'):
+                temp_model = VRouteEntry()
+                self.entry_vos.append(temp_model.from_map(k))
+        if m.get('route_table_id') is not None:
+            self.route_table_id = m.get('route_table_id')
+        if m.get('v_router_id') is not None:
+            self.v_router_id = m.get('v_router_id')
+        return self
+
+
+class MiddlewareCluster(TeaModel):
+    def __init__(
+        self,
+        cluster_id: str = None,
+        cluster_name: str = None,
+        region_ids: List[str] = None,
+        zone_ids: List[str] = None,
+        acvip_endpoint: str = None,
+    ):
+        # cluster_id
+        self.cluster_id = cluster_id
+        # cluster_name
+        self.cluster_name = cluster_name
+        # region_ids
+        self.region_ids = region_ids
+        # zone_ids
+        self.zone_ids = zone_ids
+        # acvip_endpoint
+        self.acvip_endpoint = acvip_endpoint
+
+    def validate(self):
+        self.validate_required(self.cluster_id, 'cluster_id')
+        self.validate_required(self.cluster_name, 'cluster_name')
+        self.validate_required(self.region_ids, 'region_ids')
+        self.validate_required(self.acvip_endpoint, 'acvip_endpoint')
+
+    def to_map(self):
+        result = dict()
+        if self.cluster_id is not None:
+            result['cluster_id'] = self.cluster_id
+        if self.cluster_name is not None:
+            result['cluster_name'] = self.cluster_name
+        if self.region_ids is not None:
+            result['region_ids'] = self.region_ids
+        if self.zone_ids is not None:
+            result['zone_ids'] = self.zone_ids
+        if self.acvip_endpoint is not None:
+            result['acvip_endpoint'] = self.acvip_endpoint
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cluster_id') is not None:
+            self.cluster_id = m.get('cluster_id')
+        if m.get('cluster_name') is not None:
+            self.cluster_name = m.get('cluster_name')
+        if m.get('region_ids') is not None:
+            self.region_ids = m.get('region_ids')
+        if m.get('zone_ids') is not None:
+            self.zone_ids = m.get('zone_ids')
+        if m.get('acvip_endpoint') is not None:
+            self.acvip_endpoint = m.get('acvip_endpoint')
+        return self
+
+
+class SLSConfig(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        input_type: str = None,
+        output_type: str = None,
+        log_sample: str = None,
+        input_detail: SLSConfigInputDetail = None,
+        output_detail: SLSConfigOutputDetail = None,
+    ):
+        # Logtail配置名称，同一Project下配置名必须唯一。
+        # 只能包括小写字母、数字、连字符（-）和下划线（_）。
+        # 必须以小写字母或者数字开头和结尾。
+        # 长度必须为2~128字节。
+        self.name = name
+        # 配置类型，支持plugin、file。
+        self.input_type = input_type
+        # 输出类型，目前只支持LogService。
+        self.output_type = output_type
+        # 日志样例
+        self.log_sample = log_sample
+        # 输入类型配置
+        self.input_detail = input_detail
+        # 输出类型配置
+        self.output_detail = output_detail
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.input_type, 'input_type')
+        self.validate_required(self.input_detail, 'input_detail')
+        if self.input_detail:
+            self.input_detail.validate()
+        self.validate_required(self.output_detail, 'output_detail')
+        if self.output_detail:
+            self.output_detail.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.input_type is not None:
+            result['input_type'] = self.input_type
+        if self.output_type is not None:
+            result['output_type'] = self.output_type
+        if self.log_sample is not None:
+            result['log_sample'] = self.log_sample
+        if self.input_detail is not None:
+            result['input_detail'] = self.input_detail.to_map()
+        if self.output_detail is not None:
+            result['output_detail'] = self.output_detail.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('input_type') is not None:
+            self.input_type = m.get('input_type')
+        if m.get('output_type') is not None:
+            self.output_type = m.get('output_type')
+        if m.get('log_sample') is not None:
+            self.log_sample = m.get('log_sample')
+        if m.get('input_detail') is not None:
+            temp_model = SLSConfigInputDetail()
+            self.input_detail = temp_model.from_map(m['input_detail'])
+        if m.get('output_detail') is not None:
+            temp_model = SLSConfigOutputDetail()
+            self.output_detail = temp_model.from_map(m['output_detail'])
+        return self
+
+
+class SecurityGroup(TeaModel):
+    def __init__(
+        self,
+        creation_time: str = None,
+        description: str = None,
+        region_id: str = None,
+        security_group_id: str = None,
+        security_group_name: str = None,
+        vpc_id: str = None,
+        ingress_rules: List[SecurityGroupRule] = None,
+        egress_rules: List[SecurityGroupRule] = None,
+    ):
+        # 创建时间。按照ISO8601标准表示，并需要使用UTC时间。格式为：yyyy-MM-ddThh:mmZ。
+        self.creation_time = creation_time
+        # 安全组的描述信息。
+        self.description = description
+        # region_id
+        self.region_id = region_id
+        # 安全组ID。
+        self.security_group_id = security_group_id
+        # 安全组名称。
+        self.security_group_name = security_group_name
+        # 安全组所属的专有网络。
+        self.vpc_id = vpc_id
+        # 安全组入方向规则
+        self.ingress_rules = ingress_rules
+        # 安全组出方向规则
+        self.egress_rules = egress_rules
+
+    def validate(self):
+        self.validate_required(self.creation_time, 'creation_time')
+        self.validate_required(self.region_id, 'region_id')
+        self.validate_required(self.security_group_id, 'security_group_id')
+        self.validate_required(self.security_group_name, 'security_group_name')
+        self.validate_required(self.vpc_id, 'vpc_id')
+        if self.ingress_rules:
+            for k in self.ingress_rules:
+                if k:
+                    k.validate()
+        if self.egress_rules:
+            for k in self.egress_rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.creation_time is not None:
+            result['creation_time'] = self.creation_time
+        if self.description is not None:
+            result['description'] = self.description
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.security_group_id is not None:
+            result['security_group_id'] = self.security_group_id
+        if self.security_group_name is not None:
+            result['security_group_name'] = self.security_group_name
+        if self.vpc_id is not None:
+            result['vpc_id'] = self.vpc_id
+        result['ingress_rules'] = []
+        if self.ingress_rules is not None:
+            for k in self.ingress_rules:
+                result['ingress_rules'].append(k.to_map() if k else None)
+        result['egress_rules'] = []
+        if self.egress_rules is not None:
+            for k in self.egress_rules:
+                result['egress_rules'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('creation_time') is not None:
+            self.creation_time = m.get('creation_time')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('security_group_id') is not None:
+            self.security_group_id = m.get('security_group_id')
+        if m.get('security_group_name') is not None:
+            self.security_group_name = m.get('security_group_name')
+        if m.get('vpc_id') is not None:
+            self.vpc_id = m.get('vpc_id')
+        self.ingress_rules = []
+        if m.get('ingress_rules') is not None:
+            for k in m.get('ingress_rules'):
+                temp_model = SecurityGroupRule()
+                self.ingress_rules.append(temp_model.from_map(k))
+        self.egress_rules = []
+        if m.get('egress_rules') is not None:
+            for k in m.get('egress_rules'):
+                temp_model = SecurityGroupRule()
+                self.egress_rules.append(temp_model.from_map(k))
+        return self
+
+
+class MapStringToIntegerEntity(TeaModel):
+    def __init__(
+        self,
+        key: str = None,
+        value: int = None,
+    ):
+        # key
+        self.key = key
+        # value
+        self.value = value
+
+    def validate(self):
+        self.validate_required(self.key, 'key')
+        self.validate_required(self.value, 'value')
+
+    def to_map(self):
+        result = dict()
+        if self.key is not None:
+            result['key'] = self.key
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class AppDomainFlatten(TeaModel):
+    def __init__(
+        self,
+        app_domains: List[AppDomain] = None,
+    ):
+        # 一组具有依赖关系的 AppDomain
+        self.app_domains = app_domains
+
+    def validate(self):
+        if self.app_domains:
+            for k in self.app_domains:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['app_domains'] = []
+        if self.app_domains is not None:
+            for k in self.app_domains:
+                result['app_domains'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        self.app_domains = []
+        if m.get('app_domains') is not None:
+            for k in m.get('app_domains'):
+                temp_model = AppDomain()
+                self.app_domains.append(temp_model.from_map(k))
+        return self
+
+
+class RequestVO(TeaModel):
+    def __init__(
+        self,
+        context: str = None,
+        id: str = None,
+        operator: str = None,
+        operator_name: str = None,
+        operator_type: str = None,
+        status: str = None,
+        token: str = None,
+        type: str = None,
+        utc_create: str = None,
+        utc_modified: str = None,
+        tasks: List[Task] = None,
+    ):
+        # context
+        self.context = context
+        # id
+        self.id = id
+        # operator
+        self.operator = operator
+        # operator_name
+        self.operator_name = operator_name
+        # operator_type
+        self.operator_type = operator_type
+        # status
+        self.status = status
+        # token
+        self.token = token
+        # type
+        self.type = type
+        # utc_create
+        self.utc_create = utc_create
+        # utc_modified
+        self.utc_modified = utc_modified
+        # tasks
+        self.tasks = tasks
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.operator_name, 'operator_name')
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.utc_modified is not None:
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.tasks:
+            for k in self.tasks:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.context is not None:
+            result['context'] = self.context
+        if self.id is not None:
+            result['id'] = self.id
+        if self.operator is not None:
+            result['operator'] = self.operator
+        if self.operator_name is not None:
+            result['operator_name'] = self.operator_name
+        if self.operator_type is not None:
+            result['operator_type'] = self.operator_type
+        if self.status is not None:
+            result['status'] = self.status
+        if self.token is not None:
+            result['token'] = self.token
+        if self.type is not None:
+            result['type'] = self.type
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.utc_modified is not None:
+            result['utc_modified'] = self.utc_modified
+        result['tasks'] = []
+        if self.tasks is not None:
+            for k in self.tasks:
+                result['tasks'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('context') is not None:
+            self.context = m.get('context')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('operator') is not None:
+            self.operator = m.get('operator')
+        if m.get('operator_name') is not None:
+            self.operator_name = m.get('operator_name')
+        if m.get('operator_type') is not None:
+            self.operator_type = m.get('operator_type')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('utc_modified') is not None:
+            self.utc_modified = m.get('utc_modified')
+        self.tasks = []
+        if m.get('tasks') is not None:
+            for k in m.get('tasks'):
+                temp_model = Task()
+                self.tasks.append(temp_model.from_map(k))
+        return self
+
+
+class VSwitchParam(TeaModel):
+    def __init__(
+        self,
+        cidr_block: str = None,
+        description: str = None,
+        region_id: str = None,
+        vpc_id: str = None,
+        vswitch_name: str = None,
+        zone_id: str = None,
+    ):
+        # cidr_block
+        self.cidr_block = cidr_block
+        # description
+        self.description = description
+        # region_id
+        self.region_id = region_id
+        # vpc_id
+        self.vpc_id = vpc_id
+        # vswitch_name
+        self.vswitch_name = vswitch_name
+        # zone_id
+        self.zone_id = zone_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.cidr_block is not None:
+            result['cidr_block'] = self.cidr_block
+        if self.description is not None:
+            result['description'] = self.description
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.vpc_id is not None:
+            result['vpc_id'] = self.vpc_id
+        if self.vswitch_name is not None:
+            result['vswitch_name'] = self.vswitch_name
+        if self.zone_id is not None:
+            result['zone_id'] = self.zone_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cidr_block') is not None:
+            self.cidr_block = m.get('cidr_block')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('vpc_id') is not None:
+            self.vpc_id = m.get('vpc_id')
+        if m.get('vswitch_name') is not None:
+            self.vswitch_name = m.get('vswitch_name')
+        if m.get('zone_id') is not None:
+            self.zone_id = m.get('zone_id')
+        return self
+
+
+class VSwitchVO(TeaModel):
+    def __init__(
+        self,
+        iaas_id: str = None,
+        name: str = None,
+        description: str = None,
+        status: str = None,
+        vpc_id: str = None,
+        workspace_id: str = None,
+        zone_id: str = None,
+        zone_iaas_id: str = None,
+        region_id: str = None,
+        cidr_block: str = None,
+        utc_create: str = None,
+        available_ip_address_count: int = None,
+    ):
+        # 交换机的iaas ID
+        self.iaas_id = iaas_id
+        # 交换机名称
+        self.name = name
+        # 交换机描述信息
+        self.description = description
+        # 交换机的状态，取值： Pending：配置中。 Available：可用。
+        self.status = status
+        # vpc id
+        self.vpc_id = vpc_id
+        # workspace id
+        self.workspace_id = workspace_id
+        # zone id
+        self.zone_id = zone_id
+        # zone iaas id
+        self.zone_iaas_id = zone_iaas_id
+        # region id
+        self.region_id = region_id
+        # 换机的IPv4网段
+        self.cidr_block = cidr_block
+        # 交换机创建时间
+        self.utc_create = utc_create
+        # 可用ip数目
+        self.available_ip_address_count = available_ip_address_count
+
+    def validate(self):
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.iaas_id is not None:
+            result['iaas_id'] = self.iaas_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.description is not None:
+            result['description'] = self.description
+        if self.status is not None:
+            result['status'] = self.status
+        if self.vpc_id is not None:
+            result['vpc_id'] = self.vpc_id
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.zone_id is not None:
+            result['zone_id'] = self.zone_id
+        if self.zone_iaas_id is not None:
+            result['zone_iaas_id'] = self.zone_iaas_id
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.cidr_block is not None:
+            result['cidr_block'] = self.cidr_block
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.available_ip_address_count is not None:
+            result['available_ip_address_count'] = self.available_ip_address_count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('iaas_id') is not None:
+            self.iaas_id = m.get('iaas_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('vpc_id') is not None:
+            self.vpc_id = m.get('vpc_id')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('zone_id') is not None:
+            self.zone_id = m.get('zone_id')
+        if m.get('zone_iaas_id') is not None:
+            self.zone_iaas_id = m.get('zone_iaas_id')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('cidr_block') is not None:
+            self.cidr_block = m.get('cidr_block')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('available_ip_address_count') is not None:
+            self.available_ip_address_count = m.get('available_ip_address_count')
+        return self
+
+
+class DiskSpec(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        name: str = None,
+        description: str = None,
+        iaas_id: str = None,
+        provider_id: str = None,
+        iaas_type: str = None,
+        enable: bool = None,
+        min_size: int = None,
+        max_size: int = None,
+    ):
+        # id
+        self.id = id
+        # name
+        self.name = name
+        # description
+        self.description = description
+        # iaas id
+        self.iaas_id = iaas_id
+        # providerId
+        self.provider_id = provider_id
+        # iaasType
+        self.iaas_type = iaas_type
+        # enable
+        self.enable = enable
+        # minSize
+        self.min_size = min_size
+        # maxSize
+        self.max_size = max_size
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.description is not None:
+            result['description'] = self.description
+        if self.iaas_id is not None:
+            result['iaas_id'] = self.iaas_id
+        if self.provider_id is not None:
+            result['provider_id'] = self.provider_id
+        if self.iaas_type is not None:
+            result['iaas_type'] = self.iaas_type
+        if self.enable is not None:
+            result['enable'] = self.enable
+        if self.min_size is not None:
+            result['min_size'] = self.min_size
+        if self.max_size is not None:
+            result['max_size'] = self.max_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('iaas_id') is not None:
+            self.iaas_id = m.get('iaas_id')
+        if m.get('provider_id') is not None:
+            self.provider_id = m.get('provider_id')
+        if m.get('iaas_type') is not None:
+            self.iaas_type = m.get('iaas_type')
+        if m.get('enable') is not None:
+            self.enable = m.get('enable')
+        if m.get('min_size') is not None:
+            self.min_size = m.get('min_size')
+        if m.get('max_size') is not None:
+            self.max_size = m.get('max_size')
+        return self
+
+
+class MountComputer(TeaModel):
+    def __init__(
+        self,
+        computer: Computer = None,
+        domain: str = None,
+        loadbalancer: LoadBalancer = None,
+        status: str = None,
+        weight: int = None,
+    ):
+        # computer
+        self.computer = computer
+        # domain
+        self.domain = domain
+        # loadbalancer
+        self.loadbalancer = loadbalancer
+        # status
+        self.status = status
+        # weight
+        self.weight = weight
+
+    def validate(self):
+        if self.computer:
+            self.computer.validate()
+        if self.loadbalancer:
+            self.loadbalancer.validate()
+        self.validate_required(self.weight, 'weight')
+
+    def to_map(self):
+        result = dict()
+        if self.computer is not None:
+            result['computer'] = self.computer.to_map()
+        if self.domain is not None:
+            result['domain'] = self.domain
+        if self.loadbalancer is not None:
+            result['loadbalancer'] = self.loadbalancer.to_map()
+        if self.status is not None:
+            result['status'] = self.status
+        if self.weight is not None:
+            result['weight'] = self.weight
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('computer') is not None:
+            temp_model = Computer()
+            self.computer = temp_model.from_map(m['computer'])
+        if m.get('domain') is not None:
+            self.domain = m.get('domain')
+        if m.get('loadbalancer') is not None:
+            temp_model = LoadBalancer()
+            self.loadbalancer = temp_model.from_map(m['loadbalancer'])
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('weight') is not None:
+            self.weight = m.get('weight')
+        return self
+
+
 class VpcImport(TeaModel):
     def __init__(
         self,
@@ -11125,169 +9097,1743 @@ class VpcImport(TeaModel):
         return self
 
 
-class QuotaKv(TeaModel):
+class Buildpack(TeaModel):
     def __init__(
         self,
+        id: str = None,
+        name: str = None,
+        des: str = None,
+        version: str = None,
+        stack: str = None,
+        deploy_script_id: str = None,
+        build_script_id: str = None,
+        config_id: str = None,
+        component_id: str = None,
+        command_id: str = None,
+        bg_enable: bool = None,
+        creator: str = None,
+        tenant_id: str = None,
+        customer_ids: List[str] = None,
         type: str = None,
-        quota: int = None,
+        status: str = None,
+        gmt_create: str = None,
+        gmt_modified: str = None,
+        result_msg: str = None,
+        version_status: str = None,
+        instances: BuildpackInstances = None,
     ):
-        # type
+        # 技术栈标识ID
+        self.id = id
+        # 技术栈名称
+        self.name = name
+        # 技术栈描述
+        self.des = des
+        # 技术栈版本
+        self.version = version
+        # 技术栈类别
+        self.stack = stack
+        # 部署脚本id
+        self.deploy_script_id = deploy_script_id
+        # 构建脚本ID
+        self.build_script_id = build_script_id
+        # 配置id
+        self.config_id = config_id
+        # 组件id
+        self.component_id = component_id
+        # 命令id
+        self.command_id = command_id
+        # 启用蓝绿
+        self.bg_enable = bg_enable
+        # 创建人
+        self.creator = creator
+        # 租户ID
+        self.tenant_id = tenant_id
+        # 客户id列表
+        self.customer_ids = customer_ids
+        # 技术栈定义类型
+        # 系统模板 TEMPLATE
+        # 用户自定义 CUSTOM
+        # 后台服务 BACKGROUND_SERVICE
         self.type = type
-        # quota
-        self.quota = quota
+        # 技术栈状态
+        # 草稿 DRAFT
+        # 已提交 COMMITED
+        # 已对外发布 PUBLISHED
+        # 已退役 RETIRED
+        self.status = status
+        # 创建日期
+        self.gmt_create = gmt_create
+        # 最近修改时间
+        self.gmt_modified = gmt_modified
+        # 技术栈信息汇总
+        self.result_msg = result_msg
+        # 可用 USABLE
+        # 不可用 UNUSABLE
+        self.version_status = version_status
+        # 运行时属性
+        self.instances = instances
 
     def validate(self):
-        self.validate_required(self.type, 'type')
-        self.validate_required(self.quota, 'quota')
+        if self.gmt_create is not None:
+            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.gmt_modified is not None:
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.instances:
+            self.instances.validate()
 
     def to_map(self):
         result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.des is not None:
+            result['des'] = self.des
+        if self.version is not None:
+            result['version'] = self.version
+        if self.stack is not None:
+            result['stack'] = self.stack
+        if self.deploy_script_id is not None:
+            result['deploy_script_id'] = self.deploy_script_id
+        if self.build_script_id is not None:
+            result['build_script_id'] = self.build_script_id
+        if self.config_id is not None:
+            result['config_id'] = self.config_id
+        if self.component_id is not None:
+            result['component_id'] = self.component_id
+        if self.command_id is not None:
+            result['command_id'] = self.command_id
+        if self.bg_enable is not None:
+            result['bg_enable'] = self.bg_enable
+        if self.creator is not None:
+            result['creator'] = self.creator
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.customer_ids is not None:
+            result['customer_ids'] = self.customer_ids
         if self.type is not None:
             result['type'] = self.type
-        if self.quota is not None:
-            result['quota'] = self.quota
+        if self.status is not None:
+            result['status'] = self.status
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.version_status is not None:
+            result['version_status'] = self.version_status
+        if self.instances is not None:
+            result['instances'] = self.instances.to_map()
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('des') is not None:
+            self.des = m.get('des')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        if m.get('stack') is not None:
+            self.stack = m.get('stack')
+        if m.get('deploy_script_id') is not None:
+            self.deploy_script_id = m.get('deploy_script_id')
+        if m.get('build_script_id') is not None:
+            self.build_script_id = m.get('build_script_id')
+        if m.get('config_id') is not None:
+            self.config_id = m.get('config_id')
+        if m.get('component_id') is not None:
+            self.component_id = m.get('component_id')
+        if m.get('command_id') is not None:
+            self.command_id = m.get('command_id')
+        if m.get('bg_enable') is not None:
+            self.bg_enable = m.get('bg_enable')
+        if m.get('creator') is not None:
+            self.creator = m.get('creator')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('customer_ids') is not None:
+            self.customer_ids = m.get('customer_ids')
         if m.get('type') is not None:
             self.type = m.get('type')
-        if m.get('quota') is not None:
-            self.quota = m.get('quota')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('version_status') is not None:
+            self.version_status = m.get('version_status')
+        if m.get('instances') is not None:
+            temp_model = BuildpackInstances()
+            self.instances = temp_model.from_map(m['instances'])
         return self
 
 
-class AppDomainView(TeaModel):
+class AppDomainQuery(TeaModel):
     def __init__(
         self,
-        owner_name: str = None,
-        father_domain_name: str = None,
-        apps: List[AppView] = None,
-        base_app_domain: List[AppDomain] = None,
+        creator_id: str = None,
+        is_one_party_request: bool = None,
+        name: str = None,
+        parent_id: str = None,
+        tenant_id: str = None,
+        utc_create: str = None,
+        page_size: int = None,
+        query_type: str = None,
+        orders: List[str] = None,
+        current_page: int = None,
     ):
-        # ownerName
-        self.owner_name = owner_name
-        # fatherDomainName
-        self.father_domain_name = father_domain_name
-        # 应用列表
-        self.apps = apps
-        # AppDomainView 的父类 AppDomain
-        self.base_app_domain = base_app_domain
+        # creatorId
+        self.creator_id = creator_id
+        # 是否为一方化请求
+        self.is_one_party_request = is_one_party_request
+        # name
+        self.name = name
+        # parentId
+        self.parent_id = parent_id
+        # tenantId
+        self.tenant_id = tenant_id
+        # utcCreate
+        self.utc_create = utc_create
+        # 分页大小
+        self.page_size = page_size
+        # query_type
+        self.query_type = query_type
+        # orders
+        self.orders = orders
+        # 当前页数
+        self.current_page = current_page
 
     def validate(self):
-        if self.apps:
-            for k in self.apps:
-                if k:
-                    k.validate()
-        if self.base_app_domain:
-            for k in self.base_app_domain:
-                if k:
-                    k.validate()
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
-        if self.owner_name is not None:
-            result['owner_name'] = self.owner_name
-        if self.father_domain_name is not None:
-            result['father_domain_name'] = self.father_domain_name
-        result['apps'] = []
-        if self.apps is not None:
-            for k in self.apps:
-                result['apps'].append(k.to_map() if k else None)
-        result['base_app_domain'] = []
-        if self.base_app_domain is not None:
-            for k in self.base_app_domain:
-                result['base_app_domain'].append(k.to_map() if k else None)
+        if self.creator_id is not None:
+            result['creator_id'] = self.creator_id
+        if self.is_one_party_request is not None:
+            result['is_one_party_request'] = self.is_one_party_request
+        if self.name is not None:
+            result['name'] = self.name
+        if self.parent_id is not None:
+            result['parent_id'] = self.parent_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.query_type is not None:
+            result['query_type'] = self.query_type
+        if self.orders is not None:
+            result['orders'] = self.orders
+        if self.current_page is not None:
+            result['current_page'] = self.current_page
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('owner_name') is not None:
-            self.owner_name = m.get('owner_name')
-        if m.get('father_domain_name') is not None:
-            self.father_domain_name = m.get('father_domain_name')
-        self.apps = []
-        if m.get('apps') is not None:
-            for k in m.get('apps'):
-                temp_model = AppView()
-                self.apps.append(temp_model.from_map(k))
-        self.base_app_domain = []
-        if m.get('base_app_domain') is not None:
-            for k in m.get('base_app_domain'):
-                temp_model = AppDomain()
-                self.base_app_domain.append(temp_model.from_map(k))
+        if m.get('creator_id') is not None:
+            self.creator_id = m.get('creator_id')
+        if m.get('is_one_party_request') is not None:
+            self.is_one_party_request = m.get('is_one_party_request')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('parent_id') is not None:
+            self.parent_id = m.get('parent_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('query_type') is not None:
+            self.query_type = m.get('query_type')
+        if m.get('orders') is not None:
+            self.orders = m.get('orders')
+        if m.get('current_page') is not None:
+            self.current_page = m.get('current_page')
         return self
 
 
-class Zone(TeaModel):
+class VSwitch(TeaModel):
     def __init__(
         self,
-        name: str = None,
-        identity: str = None,
+        cidr_block: str = None,
+        creation_time: str = None,
         description: str = None,
-        instancestatus: str = None,
-        region: str = None,
-        properties: List[Property] = None,
+        region_id: str = None,
+        status: str = None,
+        vpc_id: str = None,
+        v_switch_id: str = None,
+        v_switch_name: str = None,
+        zone_id: str = None,
+        zone_iaas_id: str = None,
     ):
+        # 交换机的IPv4网段
+        self.cidr_block = cidr_block
+        # 交换机的创建时间
+        self.creation_time = creation_time
+        # 交换机的描述信息
+        self.description = description
+        # cn-hangzhou
+        self.region_id = region_id
+        # 交换机的状态，取值：
+        # 
+        # Pending：配置中。
+        # Available：可用。
+        self.status = status
+        # 交换机所属VPC的ID
+        self.vpc_id = vpc_id
+        # 交换机的ID
+        self.v_switch_id = v_switch_id
+        # 交换机的名称
+        self.v_switch_name = v_switch_name
+        # 交换机所属的可用区
+        self.zone_id = zone_id
+        # zone iaas id
+        self.zone_iaas_id = zone_iaas_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.cidr_block is not None:
+            result['cidr_block'] = self.cidr_block
+        if self.creation_time is not None:
+            result['creation_time'] = self.creation_time
+        if self.description is not None:
+            result['description'] = self.description
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.vpc_id is not None:
+            result['vpc_id'] = self.vpc_id
+        if self.v_switch_id is not None:
+            result['v_switch_id'] = self.v_switch_id
+        if self.v_switch_name is not None:
+            result['v_switch_name'] = self.v_switch_name
+        if self.zone_id is not None:
+            result['zone_id'] = self.zone_id
+        if self.zone_iaas_id is not None:
+            result['zone_iaas_id'] = self.zone_iaas_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cidr_block') is not None:
+            self.cidr_block = m.get('cidr_block')
+        if m.get('creation_time') is not None:
+            self.creation_time = m.get('creation_time')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('vpc_id') is not None:
+            self.vpc_id = m.get('vpc_id')
+        if m.get('v_switch_id') is not None:
+            self.v_switch_id = m.get('v_switch_id')
+        if m.get('v_switch_name') is not None:
+            self.v_switch_name = m.get('v_switch_name')
+        if m.get('zone_id') is not None:
+            self.zone_id = m.get('zone_id')
+        if m.get('zone_iaas_id') is not None:
+            self.zone_iaas_id = m.get('zone_iaas_id')
+        return self
+
+
+class WorkspaceDnsRecordset(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        iaas_id: str = None,
+        name: str = None,
+        dns_provider_id: str = None,
+        dns_network_type: str = None,
+        device_network_address_type: str = None,
+        resource_type: str = None,
+        description: str = None,
+        type: str = None,
+        status: str = None,
+        value: str = None,
+        ttl: int = None,
+        workspace_id: str = None,
+        resource_id: str = None,
+        resource_iaas_id: str = None,
+        utc_create: str = None,
+        utc_modified: str = None,
+    ):
+        # id
+        self.id = id
+        # iaasId
+        self.iaas_id = iaas_id
         # name
         self.name = name
-        # identity
-        self.identity = identity
+        # dns_provider_id
+        self.dns_provider_id = dns_provider_id
+        # dns_network_type
+        self.dns_network_type = dns_network_type
+        # device_network_address_type
+        self.device_network_address_type = device_network_address_type
+        # 绑定的资源的类型COMPUTER或LOAD_BALANCER
+        self.resource_type = resource_type
         # description
         self.description = description
-        # instanceStatus: AVAILABLE  UNAVAILABLE  RETIRED  DELETED
-        self.instancestatus = instancestatus
-        # region name
+        # type
+        self.type = type
+        # status
+        self.status = status
+        # value
+        self.value = value
+        # ttl
+        self.ttl = ttl
+        # workspace_id
+        self.workspace_id = workspace_id
+        # resource_id
+        self.resource_id = resource_id
+        # resource_iaas_id
+        self.resource_iaas_id = resource_iaas_id
+        # utc_create
+        self.utc_create = utc_create
+        # utc_modified
+        self.utc_modified = utc_modified
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.iaas_id, 'iaas_id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.dns_provider_id, 'dns_provider_id')
+        self.validate_required(self.resource_type, 'resource_type')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.value, 'value')
+        self.validate_required(self.ttl, 'ttl')
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.utc_create, 'utc_create')
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.utc_modified is not None:
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.iaas_id is not None:
+            result['iaas_id'] = self.iaas_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.dns_provider_id is not None:
+            result['dns_provider_id'] = self.dns_provider_id
+        if self.dns_network_type is not None:
+            result['dns_network_type'] = self.dns_network_type
+        if self.device_network_address_type is not None:
+            result['device_network_address_type'] = self.device_network_address_type
+        if self.resource_type is not None:
+            result['resource_type'] = self.resource_type
+        if self.description is not None:
+            result['description'] = self.description
+        if self.type is not None:
+            result['type'] = self.type
+        if self.status is not None:
+            result['status'] = self.status
+        if self.value is not None:
+            result['value'] = self.value
+        if self.ttl is not None:
+            result['ttl'] = self.ttl
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.resource_id is not None:
+            result['resource_id'] = self.resource_id
+        if self.resource_iaas_id is not None:
+            result['resource_iaas_id'] = self.resource_iaas_id
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.utc_modified is not None:
+            result['utc_modified'] = self.utc_modified
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('iaas_id') is not None:
+            self.iaas_id = m.get('iaas_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('dns_provider_id') is not None:
+            self.dns_provider_id = m.get('dns_provider_id')
+        if m.get('dns_network_type') is not None:
+            self.dns_network_type = m.get('dns_network_type')
+        if m.get('device_network_address_type') is not None:
+            self.device_network_address_type = m.get('device_network_address_type')
+        if m.get('resource_type') is not None:
+            self.resource_type = m.get('resource_type')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        if m.get('ttl') is not None:
+            self.ttl = m.get('ttl')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('resource_id') is not None:
+            self.resource_id = m.get('resource_id')
+        if m.get('resource_iaas_id') is not None:
+            self.resource_iaas_id = m.get('resource_iaas_id')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('utc_modified') is not None:
+            self.utc_modified = m.get('utc_modified')
+        return self
+
+
+class UserDTO(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        utc_create: str = None,
+        utc_modified: str = None,
+        customer_id: str = None,
+        type: str = None,
+        real_name: str = None,
+        name: str = None,
+    ):
+        # 用户ID
+        self.id = id
+        # 创建时间
+        self.utc_create = utc_create
+        # 最近修改时间
+        self.utc_modified = utc_modified
+        # 客户ID
+        self.customer_id = customer_id
+        # 用户类型
+        self.type = type
+        # 用户显示名称
+        self.real_name = real_name
+        # 用户名
+        self.name = name
+
+    def validate(self):
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.utc_modified is not None:
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.utc_modified is not None:
+            result['utc_modified'] = self.utc_modified
+        if self.customer_id is not None:
+            result['customer_id'] = self.customer_id
+        if self.type is not None:
+            result['type'] = self.type
+        if self.real_name is not None:
+            result['real_name'] = self.real_name
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('utc_modified') is not None:
+            self.utc_modified = m.get('utc_modified')
+        if m.get('customer_id') is not None:
+            self.customer_id = m.get('customer_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('real_name') is not None:
+            self.real_name = m.get('real_name')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class DatabaseSpec(TeaModel):
+    def __init__(
+        self,
+        cpu: int = None,
+        custom_storage: bool = None,
+        engine: str = None,
+        engine_version: List[str] = None,
+        iaas_id: str = None,
+        id: str = None,
+        max_connections: int = None,
+        max_iops: int = None,
+        max_storage: int = None,
+        memory: int = None,
+        min_storage: int = None,
+        name: str = None,
+        supported_storages: List[int] = None,
+        type: str = None,
+    ):
+        # cpu
+        self.cpu = cpu
+        # custom_storage
+        self.custom_storage = custom_storage
+        # engine
+        self.engine = engine
+        # engine_version
+        self.engine_version = engine_version
+        # iaas_id
+        self.iaas_id = iaas_id
+        # id
+        self.id = id
+        # max_connections
+        self.max_connections = max_connections
+        # max_iops
+        self.max_iops = max_iops
+        # max_storage
+        self.max_storage = max_storage
+        # memory
+        self.memory = memory
+        # min_storage
+        self.min_storage = min_storage
+        # name
+        self.name = name
+        # supported_storages
+        self.supported_storages = supported_storages
+        # type
+        self.type = type
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.cpu is not None:
+            result['cpu'] = self.cpu
+        if self.custom_storage is not None:
+            result['custom_storage'] = self.custom_storage
+        if self.engine is not None:
+            result['engine'] = self.engine
+        if self.engine_version is not None:
+            result['engine_version'] = self.engine_version
+        if self.iaas_id is not None:
+            result['iaas_id'] = self.iaas_id
+        if self.id is not None:
+            result['id'] = self.id
+        if self.max_connections is not None:
+            result['max_connections'] = self.max_connections
+        if self.max_iops is not None:
+            result['max_iops'] = self.max_iops
+        if self.max_storage is not None:
+            result['max_storage'] = self.max_storage
+        if self.memory is not None:
+            result['memory'] = self.memory
+        if self.min_storage is not None:
+            result['min_storage'] = self.min_storage
+        if self.name is not None:
+            result['name'] = self.name
+        if self.supported_storages is not None:
+            result['supported_storages'] = self.supported_storages
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cpu') is not None:
+            self.cpu = m.get('cpu')
+        if m.get('custom_storage') is not None:
+            self.custom_storage = m.get('custom_storage')
+        if m.get('engine') is not None:
+            self.engine = m.get('engine')
+        if m.get('engine_version') is not None:
+            self.engine_version = m.get('engine_version')
+        if m.get('iaas_id') is not None:
+            self.iaas_id = m.get('iaas_id')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('max_connections') is not None:
+            self.max_connections = m.get('max_connections')
+        if m.get('max_iops') is not None:
+            self.max_iops = m.get('max_iops')
+        if m.get('max_storage') is not None:
+            self.max_storage = m.get('max_storage')
+        if m.get('memory') is not None:
+            self.memory = m.get('memory')
+        if m.get('min_storage') is not None:
+            self.min_storage = m.get('min_storage')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('supported_storages') is not None:
+            self.supported_storages = m.get('supported_storages')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class DatabaseImportVO(TeaModel):
+    def __init__(
+        self,
+        iaas_id: str = None,
+        description: str = None,
+        type: str = None,
+        status: str = None,
+        engine: str = None,
+        net_type: str = None,
+        utc_create: str = None,
+        import_info: ImportVO = None,
+    ):
+        # iaas_id
+        self.iaas_id = iaas_id
+        # description
+        self.description = description
+        # type
+        self.type = type
+        # status
+        self.status = status
+        # engine
+        self.engine = engine
+        # net_type
+        self.net_type = net_type
+        # utc_create
+        self.utc_create = utc_create
+        # importInfo
+        self.import_info = import_info
+
+    def validate(self):
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.import_info, 'import_info')
+        if self.import_info:
+            self.import_info.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.iaas_id is not None:
+            result['iaas_id'] = self.iaas_id
+        if self.description is not None:
+            result['description'] = self.description
+        if self.type is not None:
+            result['type'] = self.type
+        if self.status is not None:
+            result['status'] = self.status
+        if self.engine is not None:
+            result['engine'] = self.engine
+        if self.net_type is not None:
+            result['net_type'] = self.net_type
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.import_info is not None:
+            result['import_info'] = self.import_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('iaas_id') is not None:
+            self.iaas_id = m.get('iaas_id')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('engine') is not None:
+            self.engine = m.get('engine')
+        if m.get('net_type') is not None:
+            self.net_type = m.get('net_type')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('import_info') is not None:
+            temp_model = ImportVO()
+            self.import_info = temp_model.from_map(m['import_info'])
+        return self
+
+
+class AppPackageListView(TeaModel):
+    def __init__(
+        self,
+        app_id: str = None,
+        app_name: str = None,
+        app_owner_id: str = None,
+        app_owner_name: str = None,
+        app_status: str = None,
+        buildpack_id: str = None,
+        buildpack_name: str = None,
+        buildpack_version: str = None,
+        latest_package: AppManifest = None,
+        package_count: int = None,
+    ):
+        # app_id
+        self.app_id = app_id
+        # app_name
+        self.app_name = app_name
+        # app_owner_id
+        self.app_owner_id = app_owner_id
+        # app_owner_name
+        self.app_owner_name = app_owner_name
+        # app_status
+        self.app_status = app_status
+        # buildpack_id
+        self.buildpack_id = buildpack_id
+        # buildpack_name
+        self.buildpack_name = buildpack_name
+        # buildpack_version
+        self.buildpack_version = buildpack_version
+        # latest_package
+        self.latest_package = latest_package
+        # package_count
+        self.package_count = package_count
+
+    def validate(self):
+        if self.latest_package:
+            self.latest_package.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.app_name is not None:
+            result['app_name'] = self.app_name
+        if self.app_owner_id is not None:
+            result['app_owner_id'] = self.app_owner_id
+        if self.app_owner_name is not None:
+            result['app_owner_name'] = self.app_owner_name
+        if self.app_status is not None:
+            result['app_status'] = self.app_status
+        if self.buildpack_id is not None:
+            result['buildpack_id'] = self.buildpack_id
+        if self.buildpack_name is not None:
+            result['buildpack_name'] = self.buildpack_name
+        if self.buildpack_version is not None:
+            result['buildpack_version'] = self.buildpack_version
+        if self.latest_package is not None:
+            result['latest_package'] = self.latest_package.to_map()
+        if self.package_count is not None:
+            result['package_count'] = self.package_count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('app_name') is not None:
+            self.app_name = m.get('app_name')
+        if m.get('app_owner_id') is not None:
+            self.app_owner_id = m.get('app_owner_id')
+        if m.get('app_owner_name') is not None:
+            self.app_owner_name = m.get('app_owner_name')
+        if m.get('app_status') is not None:
+            self.app_status = m.get('app_status')
+        if m.get('buildpack_id') is not None:
+            self.buildpack_id = m.get('buildpack_id')
+        if m.get('buildpack_name') is not None:
+            self.buildpack_name = m.get('buildpack_name')
+        if m.get('buildpack_version') is not None:
+            self.buildpack_version = m.get('buildpack_version')
+        if m.get('latest_package') is not None:
+            temp_model = AppManifest()
+            self.latest_package = temp_model.from_map(m['latest_package'])
+        if m.get('package_count') is not None:
+            self.package_count = m.get('package_count')
+        return self
+
+
+class PermissionVO(TeaModel):
+    def __init__(
+        self,
+        authorized_cidr_ip: str = None,
+        authorize_type: str = None,
+        direction: str = None,
+        end_port: int = None,
+        ip_protocol: str = None,
+        nic_type: str = None,
+        policy: str = None,
+        priority: int = None,
+        security_group_id: str = None,
+        start_port: int = None,
+        id: str = None,
+    ):
+        # authorizedCidrIp
+        self.authorized_cidr_ip = authorized_cidr_ip
+        # authorize_type
+        self.authorize_type = authorize_type
+        # direction
+        self.direction = direction
+        # endPort
+        self.end_port = end_port
+        # ipProtocol
+        self.ip_protocol = ip_protocol
+        # nicType
+        self.nic_type = nic_type
+        # policy
+        self.policy = policy
+        # priority
+        self.priority = priority
+        # securityGroupId
+        self.security_group_id = security_group_id
+        # startPort
+        self.start_port = start_port
+        # id
+        self.id = id
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+
+    def to_map(self):
+        result = dict()
+        if self.authorized_cidr_ip is not None:
+            result['authorized_cidr_ip'] = self.authorized_cidr_ip
+        if self.authorize_type is not None:
+            result['authorize_type'] = self.authorize_type
+        if self.direction is not None:
+            result['direction'] = self.direction
+        if self.end_port is not None:
+            result['end_port'] = self.end_port
+        if self.ip_protocol is not None:
+            result['ip_protocol'] = self.ip_protocol
+        if self.nic_type is not None:
+            result['nic_type'] = self.nic_type
+        if self.policy is not None:
+            result['policy'] = self.policy
+        if self.priority is not None:
+            result['priority'] = self.priority
+        if self.security_group_id is not None:
+            result['security_group_id'] = self.security_group_id
+        if self.start_port is not None:
+            result['start_port'] = self.start_port
+        if self.id is not None:
+            result['id'] = self.id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('authorized_cidr_ip') is not None:
+            self.authorized_cidr_ip = m.get('authorized_cidr_ip')
+        if m.get('authorize_type') is not None:
+            self.authorize_type = m.get('authorize_type')
+        if m.get('direction') is not None:
+            self.direction = m.get('direction')
+        if m.get('end_port') is not None:
+            self.end_port = m.get('end_port')
+        if m.get('ip_protocol') is not None:
+            self.ip_protocol = m.get('ip_protocol')
+        if m.get('nic_type') is not None:
+            self.nic_type = m.get('nic_type')
+        if m.get('policy') is not None:
+            self.policy = m.get('policy')
+        if m.get('priority') is not None:
+            self.priority = m.get('priority')
+        if m.get('security_group_id') is not None:
+            self.security_group_id = m.get('security_group_id')
+        if m.get('start_port') is not None:
+            self.start_port = m.get('start_port')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        return self
+
+
+class ComputerImportVO(TeaModel):
+    def __init__(
+        self,
+        iaas_id: str = None,
+        name: str = None,
+        zone_iaas_id: str = None,
+        zone_name: str = None,
+        description: str = None,
+        private_ip: str = None,
+        public_ip: str = None,
+        elastic_ip: str = None,
+        vpc_iaas_id: str = None,
+        joined_security_group: List[JoinedSecurityGroupVO] = None,
+        utc_create: str = None,
+        import_info: ImportVO = None,
+    ):
+        # computer iaaas id
+        self.iaas_id = iaas_id
+        # name
+        self.name = name
+        # zone identity
+        self.zone_iaas_id = zone_iaas_id
+        # zone name
+        self.zone_name = zone_name
+        # description
+        self.description = description
+        # private ip
+        self.private_ip = private_ip
+        # public ip
+        self.public_ip = public_ip
+        # elasticIp
+        self.elastic_ip = elastic_ip
+        # vpcIaasId
+        self.vpc_iaas_id = vpc_iaas_id
+        # joined security group infos
+        self.joined_security_group = joined_security_group
+        # creation time
+        self.utc_create = utc_create
+        # import info
+        self.import_info = import_info
+
+    def validate(self):
+        if self.joined_security_group:
+            for k in self.joined_security_group:
+                if k:
+                    k.validate()
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.import_info:
+            self.import_info.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.iaas_id is not None:
+            result['iaas_id'] = self.iaas_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.zone_iaas_id is not None:
+            result['zone_iaas_id'] = self.zone_iaas_id
+        if self.zone_name is not None:
+            result['zone_name'] = self.zone_name
+        if self.description is not None:
+            result['description'] = self.description
+        if self.private_ip is not None:
+            result['private_ip'] = self.private_ip
+        if self.public_ip is not None:
+            result['public_ip'] = self.public_ip
+        if self.elastic_ip is not None:
+            result['elastic_ip'] = self.elastic_ip
+        if self.vpc_iaas_id is not None:
+            result['vpc_iaas_id'] = self.vpc_iaas_id
+        result['joined_security_group'] = []
+        if self.joined_security_group is not None:
+            for k in self.joined_security_group:
+                result['joined_security_group'].append(k.to_map() if k else None)
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.import_info is not None:
+            result['import_info'] = self.import_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('iaas_id') is not None:
+            self.iaas_id = m.get('iaas_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('zone_iaas_id') is not None:
+            self.zone_iaas_id = m.get('zone_iaas_id')
+        if m.get('zone_name') is not None:
+            self.zone_name = m.get('zone_name')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('private_ip') is not None:
+            self.private_ip = m.get('private_ip')
+        if m.get('public_ip') is not None:
+            self.public_ip = m.get('public_ip')
+        if m.get('elastic_ip') is not None:
+            self.elastic_ip = m.get('elastic_ip')
+        if m.get('vpc_iaas_id') is not None:
+            self.vpc_iaas_id = m.get('vpc_iaas_id')
+        self.joined_security_group = []
+        if m.get('joined_security_group') is not None:
+            for k in m.get('joined_security_group'):
+                temp_model = JoinedSecurityGroupVO()
+                self.joined_security_group.append(temp_model.from_map(k))
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('import_info') is not None:
+            temp_model = ImportVO()
+            self.import_info = temp_model.from_map(m['import_info'])
+        return self
+
+
+class UserQuery(TeaModel):
+    def __init__(
+        self,
+        base_query: PaginationQuery = None,
+        id: str = None,
+        customer_id: str = None,
+        tenant_id: str = None,
+        type: str = None,
+        types: List[str] = None,
+        email: str = None,
+        mobile: str = None,
+        real_name: str = None,
+        login_name: str = None,
+    ):
+        # 基础查询
+        self.base_query = base_query
+        # id
+        self.id = id
+        # customerId
+        self.customer_id = customer_id
+        # tenantId
+        self.tenant_id = tenant_id
+        # type
+        self.type = type
+        # types
+        self.types = types
+        # email
+        self.email = email
+        # mobile
+        self.mobile = mobile
+        # realName
+        self.real_name = real_name
+        # loginName
+        self.login_name = login_name
+
+    def validate(self):
+        if self.base_query:
+            self.base_query.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.base_query is not None:
+            result['base_query'] = self.base_query.to_map()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.customer_id is not None:
+            result['customer_id'] = self.customer_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.type is not None:
+            result['type'] = self.type
+        if self.types is not None:
+            result['types'] = self.types
+        if self.email is not None:
+            result['email'] = self.email
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.real_name is not None:
+            result['real_name'] = self.real_name
+        if self.login_name is not None:
+            result['login_name'] = self.login_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('base_query') is not None:
+            temp_model = PaginationQuery()
+            self.base_query = temp_model.from_map(m['base_query'])
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('customer_id') is not None:
+            self.customer_id = m.get('customer_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('types') is not None:
+            self.types = m.get('types')
+        if m.get('email') is not None:
+            self.email = m.get('email')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('real_name') is not None:
+            self.real_name = m.get('real_name')
+        if m.get('login_name') is not None:
+            self.login_name = m.get('login_name')
+        return self
+
+
+class ComputerSpec(TeaModel):
+    def __init__(
+        self,
+        cpu: int = None,
+        disk_spec_ids: List[str] = None,
+        group: str = None,
+        io_optimized: bool = None,
+        memory: int = None,
+        description: str = None,
+        enable: bool = None,
+        iaas_id: str = None,
+        iaas_type: str = None,
+        id: str = None,
+        name: str = None,
+        provider_id: str = None,
+    ):
+        # cpu个数
+        self.cpu = cpu
+        # 可以挂载的磁盘类型
+        self.disk_spec_ids = disk_spec_ids
+        # 服务器规格名称
+        self.group = group
+        # 是否有IO优化
+        self.io_optimized = io_optimized
+        # 内存大小
+        self.memory = memory
+        # description
+        self.description = description
+        # enable
+        self.enable = enable
+        # iaasId
+        self.iaas_id = iaas_id
+        # COMPUTER_ECS
+        self.iaas_type = iaas_type
+        # id
+        self.id = id
+        # name
+        self.name = name
+        # providerId
+        self.provider_id = provider_id
+
+    def validate(self):
+        self.validate_required(self.group, 'group')
+
+    def to_map(self):
+        result = dict()
+        if self.cpu is not None:
+            result['cpu'] = self.cpu
+        if self.disk_spec_ids is not None:
+            result['disk_spec_ids'] = self.disk_spec_ids
+        if self.group is not None:
+            result['group'] = self.group
+        if self.io_optimized is not None:
+            result['io_optimized'] = self.io_optimized
+        if self.memory is not None:
+            result['memory'] = self.memory
+        if self.description is not None:
+            result['description'] = self.description
+        if self.enable is not None:
+            result['enable'] = self.enable
+        if self.iaas_id is not None:
+            result['iaas_id'] = self.iaas_id
+        if self.iaas_type is not None:
+            result['iaas_type'] = self.iaas_type
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.provider_id is not None:
+            result['provider_id'] = self.provider_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cpu') is not None:
+            self.cpu = m.get('cpu')
+        if m.get('disk_spec_ids') is not None:
+            self.disk_spec_ids = m.get('disk_spec_ids')
+        if m.get('group') is not None:
+            self.group = m.get('group')
+        if m.get('io_optimized') is not None:
+            self.io_optimized = m.get('io_optimized')
+        if m.get('memory') is not None:
+            self.memory = m.get('memory')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('enable') is not None:
+            self.enable = m.get('enable')
+        if m.get('iaas_id') is not None:
+            self.iaas_id = m.get('iaas_id')
+        if m.get('iaas_type') is not None:
+            self.iaas_type = m.get('iaas_type')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('provider_id') is not None:
+            self.provider_id = m.get('provider_id')
+        return self
+
+
+class OperationTask(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        computer_id: str = None,
+        computer_ip: str = None,
+        command: str = None,
+        status: str = None,
+        error_code: str = None,
+        result_msg: str = None,
+    ):
+        # id
+        self.id = id
+        # computer id
+        self.computer_id = computer_id
+        # computer ip
+        self.computer_ip = computer_ip
+        # command
+        self.command = command
+        # 状态取值：INIT，PROCESSING，SUCCEEDED，FAILED，TIMEOUT，NOT_FOUND
+        self.status = status
+        # errorCode
+        self.error_code = error_code
+        # resultMsg
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.computer_id is not None:
+            result['computer_id'] = self.computer_id
+        if self.computer_ip is not None:
+            result['computer_ip'] = self.computer_ip
+        if self.command is not None:
+            result['command'] = self.command
+        if self.status is not None:
+            result['status'] = self.status
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('computer_id') is not None:
+            self.computer_id = m.get('computer_id')
+        if m.get('computer_ip') is not None:
+            self.computer_ip = m.get('computer_ip')
+        if m.get('command') is not None:
+            self.command = m.get('command')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class SLSProject(TeaModel):
+    def __init__(
+        self,
+        description: str = None,
+        name: str = None,
+        region: str = None,
+    ):
+        # 项目描述
+        self.description = description
+        # 项目名称
+        self.name = name
+        # 阿里云返回的regionName，仅作展示用
         self.region = region
-        # properties
-        self.properties = properties
 
     def validate(self):
         self.validate_required(self.name, 'name')
-        self.validate_required(self.identity, 'identity')
-        self.validate_required(self.instancestatus, 'instancestatus')
-        self.validate_required(self.region, 'region')
-        self.validate_required(self.properties, 'properties')
-        if self.properties:
-            for k in self.properties:
-                if k:
-                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.description is not None:
+            result['description'] = self.description
+        if self.name is not None:
+            result['name'] = self.name
+        if self.region is not None:
+            result['region'] = self.region
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('region') is not None:
+            self.region = m.get('region')
+        return self
+
+
+class SLSLogStore(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        shard_count: int = None,
+        ttl: int = None,
+    ):
+        # 日志库名称
+        self.name = name
+        # Shard个数，单位为个，范围为1~100。
+        self.shard_count = shard_count
+        # 数据的保存时间，单位为天，范围1~3600。
+        self.ttl = ttl
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.shard_count, 'shard_count')
+        self.validate_required(self.ttl, 'ttl')
 
     def to_map(self):
         result = dict()
         if self.name is not None:
             result['name'] = self.name
-        if self.identity is not None:
-            result['identity'] = self.identity
-        if self.description is not None:
-            result['description'] = self.description
-        if self.instancestatus is not None:
-            result['instancestatus'] = self.instancestatus
-        if self.region is not None:
-            result['region'] = self.region
-        result['properties'] = []
-        if self.properties is not None:
-            for k in self.properties:
-                result['properties'].append(k.to_map() if k else None)
+        if self.shard_count is not None:
+            result['shard_count'] = self.shard_count
+        if self.ttl is not None:
+            result['ttl'] = self.ttl
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('name') is not None:
             self.name = m.get('name')
+        if m.get('shard_count') is not None:
+            self.shard_count = m.get('shard_count')
+        if m.get('ttl') is not None:
+            self.ttl = m.get('ttl')
+        return self
+
+
+class Connection(TeaModel):
+    def __init__(
+        self,
+        access_key: str = None,
+        access_secret: str = None,
+        created_time: str = None,
+        executor: str = None,
+        id: int = None,
+        identity: str = None,
+        modified_time: str = None,
+        name: str = None,
+        plug: ConnectionStub = None,
+        socket: ConnectionStub = None,
+        status: str = None,
+        tenant_id: str = None,
+    ):
+        # access_key
+        self.access_key = access_key
+        # access_secret
+        self.access_secret = access_secret
+        # created_time
+        self.created_time = created_time
+        # executor
+        self.executor = executor
+        # id
+        self.id = id
+        # identity
+        self.identity = identity
+        # 修改时间
+        self.modified_time = modified_time
+        # name
+        self.name = name
+        # plug
+        self.plug = plug
+        # socket
+        self.socket = socket
+        # status
+        self.status = status
+        # tenant_id
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        if self.created_time is not None:
+            self.validate_pattern(self.created_time, 'created_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.modified_time is not None:
+            self.validate_pattern(self.modified_time, 'modified_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.plug:
+            self.plug.validate()
+        if self.socket:
+            self.socket.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.access_key is not None:
+            result['access_key'] = self.access_key
+        if self.access_secret is not None:
+            result['access_secret'] = self.access_secret
+        if self.created_time is not None:
+            result['created_time'] = self.created_time
+        if self.executor is not None:
+            result['executor'] = self.executor
+        if self.id is not None:
+            result['id'] = self.id
+        if self.identity is not None:
+            result['identity'] = self.identity
+        if self.modified_time is not None:
+            result['modified_time'] = self.modified_time
+        if self.name is not None:
+            result['name'] = self.name
+        if self.plug is not None:
+            result['plug'] = self.plug.to_map()
+        if self.socket is not None:
+            result['socket'] = self.socket.to_map()
+        if self.status is not None:
+            result['status'] = self.status
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('access_key') is not None:
+            self.access_key = m.get('access_key')
+        if m.get('access_secret') is not None:
+            self.access_secret = m.get('access_secret')
+        if m.get('created_time') is not None:
+            self.created_time = m.get('created_time')
+        if m.get('executor') is not None:
+            self.executor = m.get('executor')
+        if m.get('id') is not None:
+            self.id = m.get('id')
         if m.get('identity') is not None:
             self.identity = m.get('identity')
+        if m.get('modified_time') is not None:
+            self.modified_time = m.get('modified_time')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('plug') is not None:
+            temp_model = ConnectionStub()
+            self.plug = temp_model.from_map(m['plug'])
+        if m.get('socket') is not None:
+            temp_model = ConnectionStub()
+            self.socket = temp_model.from_map(m['socket'])
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class IaasDnsProvider(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        service_config_id: str = None,
+        name: str = None,
+        description: str = None,
+        type: str = None,
+        status: str = None,
+        region_id: str = None,
+        zone_id: str = None,
+        utc_create: str = None,
+        utc_modified: str = None,
+        dns_zones: List[DnsZones] = None,
+    ):
+        # id
+        self.id = id
+        # service_config_id
+        self.service_config_id = service_config_id
+        # name
+        self.name = name
+        # description
+        self.description = description
+        # type
+        self.type = type
+        # status
+        self.status = status
+        # regionId
+        self.region_id = region_id
+        # zoneId
+        self.zone_id = zone_id
+        # utc_create
+        self.utc_create = utc_create
+        # utc_modified
+        self.utc_modified = utc_modified
+        # dns_zones
+        self.dns_zones = dns_zones
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.service_config_id, 'service_config_id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.description, 'description')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.region_id, 'region_id')
+        self.validate_required(self.utc_create, 'utc_create')
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.utc_modified, 'utc_modified')
+        if self.utc_modified is not None:
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.dns_zones, 'dns_zones')
+        if self.dns_zones:
+            for k in self.dns_zones:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.service_config_id is not None:
+            result['service_config_id'] = self.service_config_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.description is not None:
+            result['description'] = self.description
+        if self.type is not None:
+            result['type'] = self.type
+        if self.status is not None:
+            result['status'] = self.status
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.zone_id is not None:
+            result['zone_id'] = self.zone_id
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.utc_modified is not None:
+            result['utc_modified'] = self.utc_modified
+        result['dns_zones'] = []
+        if self.dns_zones is not None:
+            for k in self.dns_zones:
+                result['dns_zones'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('service_config_id') is not None:
+            self.service_config_id = m.get('service_config_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
         if m.get('description') is not None:
             self.description = m.get('description')
-        if m.get('instancestatus') is not None:
-            self.instancestatus = m.get('instancestatus')
-        if m.get('region') is not None:
-            self.region = m.get('region')
-        self.properties = []
-        if m.get('properties') is not None:
-            for k in m.get('properties'):
-                temp_model = Property()
-                self.properties.append(temp_model.from_map(k))
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('zone_id') is not None:
+            self.zone_id = m.get('zone_id')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('utc_modified') is not None:
+            self.utc_modified = m.get('utc_modified')
+        self.dns_zones = []
+        if m.get('dns_zones') is not None:
+            for k in m.get('dns_zones'):
+                temp_model = DnsZones()
+                self.dns_zones.append(temp_model.from_map(k))
+        return self
+
+
+class CommonImage(TeaModel):
+    def __init__(
+        self,
+        description: str = None,
+        enable: bool = None,
+        iaas_id: str = None,
+        iaas_type: str = None,
+        id: str = None,
+        only_hz_fin_vpc_supported: bool = None,
+        name: str = None,
+        os: str = None,
+        os_bit: int = None,
+        os_version: str = None,
+        provider_id: str = None,
+        region_id: str = None,
+        status: str = None,
+        system_disk_size: int = None,
+    ):
+        # description
+        self.description = description
+        # is enable
+        self.enable = enable
+        # iaas id
+        self.iaas_id = iaas_id
+        # iaas type
+        self.iaas_type = iaas_type
+        # id
+        self.id = id
+        # 是否仅杭州金区 vpc 可用镜像
+        self.only_hz_fin_vpc_supported = only_hz_fin_vpc_supported
+        # name
+        self.name = name
+        # os
+        self.os = os
+        # os bit取值：32，64
+        self.os_bit = os_bit
+        # os version
+        self.os_version = os_version
+        # provider id
+        self.provider_id = provider_id
+        # region id
+        self.region_id = region_id
+        # status
+        self.status = status
+        # system disk size(GB)
+        self.system_disk_size = system_disk_size
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.description is not None:
+            result['description'] = self.description
+        if self.enable is not None:
+            result['enable'] = self.enable
+        if self.iaas_id is not None:
+            result['iaas_id'] = self.iaas_id
+        if self.iaas_type is not None:
+            result['iaas_type'] = self.iaas_type
+        if self.id is not None:
+            result['id'] = self.id
+        if self.only_hz_fin_vpc_supported is not None:
+            result['only_hz_fin_vpc_supported'] = self.only_hz_fin_vpc_supported
+        if self.name is not None:
+            result['name'] = self.name
+        if self.os is not None:
+            result['os'] = self.os
+        if self.os_bit is not None:
+            result['os_bit'] = self.os_bit
+        if self.os_version is not None:
+            result['os_version'] = self.os_version
+        if self.provider_id is not None:
+            result['provider_id'] = self.provider_id
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.system_disk_size is not None:
+            result['system_disk_size'] = self.system_disk_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('enable') is not None:
+            self.enable = m.get('enable')
+        if m.get('iaas_id') is not None:
+            self.iaas_id = m.get('iaas_id')
+        if m.get('iaas_type') is not None:
+            self.iaas_type = m.get('iaas_type')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('only_hz_fin_vpc_supported') is not None:
+            self.only_hz_fin_vpc_supported = m.get('only_hz_fin_vpc_supported')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('os') is not None:
+            self.os = m.get('os')
+        if m.get('os_bit') is not None:
+            self.os_bit = m.get('os_bit')
+        if m.get('os_version') is not None:
+            self.os_version = m.get('os_version')
+        if m.get('provider_id') is not None:
+            self.provider_id = m.get('provider_id')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('system_disk_size') is not None:
+            self.system_disk_size = m.get('system_disk_size')
         return self
 
 
@@ -11365,95 +10911,1219 @@ class SecurityGroupVO(TeaModel):
         return self
 
 
-class DataDisk(TeaModel):
+class StarAgentInfo(TeaModel):
     def __init__(
         self,
-        size: int = None,
-        snapshot_sequence: str = None,
-        spec_id: str = None,
-        device: str = None,
+        sn: str = None,
+        hostname: str = None,
+        ip: str = None,
+        ip_list: str = None,
+        status: str = None,
     ):
-        # 磁盘大小
-        self.size = size
-        # 若使用磁盘创建，需填写此字段
-        self.snapshot_sequence = snapshot_sequence
-        # 磁盘规格
-        self.spec_id = spec_id
-        # 数据盘设备
-        self.device = device
-
-    def validate(self):
-        self.validate_required(self.size, 'size')
-        self.validate_required(self.spec_id, 'spec_id')
-        self.validate_required(self.device, 'device')
-
-    def to_map(self):
-        result = dict()
-        if self.size is not None:
-            result['size'] = self.size
-        if self.snapshot_sequence is not None:
-            result['snapshot_sequence'] = self.snapshot_sequence
-        if self.spec_id is not None:
-            result['spec_id'] = self.spec_id
-        if self.device is not None:
-            result['device'] = self.device
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('size') is not None:
-            self.size = m.get('size')
-        if m.get('snapshot_sequence') is not None:
-            self.snapshot_sequence = m.get('snapshot_sequence')
-        if m.get('spec_id') is not None:
-            self.spec_id = m.get('spec_id')
-        if m.get('device') is not None:
-            self.device = m.get('device')
-        return self
-
-
-class VPCParam(TeaModel):
-    def __init__(
-        self,
-        cidr_block: str = None,
-        description: str = None,
-        region_id: str = None,
-        vpc_name: str = None,
-    ):
-        # cidr_block
-        self.cidr_block = cidr_block
-        # description
-        self.description = description
-        # region id
-        self.region_id = region_id
-        # vpc_name
-        self.vpc_name = vpc_name
+        # computer serial number
+        self.sn = sn
+        # hostname
+        self.hostname = hostname
+        # ip
+        self.ip = ip
+        # ip list
+        self.ip_list = ip_list
+        # 状态取值：RUNNING，ERROR，REGISTER，NOFIND
+        self.status = status
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.cidr_block is not None:
-            result['cidr_block'] = self.cidr_block
-        if self.description is not None:
-            result['description'] = self.description
-        if self.region_id is not None:
-            result['region_id'] = self.region_id
-        if self.vpc_name is not None:
-            result['vpc_name'] = self.vpc_name
+        if self.sn is not None:
+            result['sn'] = self.sn
+        if self.hostname is not None:
+            result['hostname'] = self.hostname
+        if self.ip is not None:
+            result['ip'] = self.ip
+        if self.ip_list is not None:
+            result['ip_list'] = self.ip_list
+        if self.status is not None:
+            result['status'] = self.status
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('cidr_block') is not None:
-            self.cidr_block = m.get('cidr_block')
+        if m.get('sn') is not None:
+            self.sn = m.get('sn')
+        if m.get('hostname') is not None:
+            self.hostname = m.get('hostname')
+        if m.get('ip') is not None:
+            self.ip = m.get('ip')
+        if m.get('ip_list') is not None:
+            self.ip_list = m.get('ip_list')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class CellGroup(TeaModel):
+    def __init__(
+        self,
+        identity: str = None,
+        name: str = None,
+        description: str = None,
+        properties: List[Property] = None,
+        instancestatus: str = None,
+    ):
+        # identity
+        self.identity = identity
+        # name
+        self.name = name
+        # description
+        self.description = description
+        # properties
+        self.properties = properties
+        # instancestatus
+        self.instancestatus = instancestatus
+
+    def validate(self):
+        self.validate_required(self.identity, 'identity')
+        self.validate_required(self.name, 'name')
+        if self.properties:
+            for k in self.properties:
+                if k:
+                    k.validate()
+        self.validate_required(self.instancestatus, 'instancestatus')
+
+    def to_map(self):
+        result = dict()
+        if self.identity is not None:
+            result['identity'] = self.identity
+        if self.name is not None:
+            result['name'] = self.name
+        if self.description is not None:
+            result['description'] = self.description
+        result['properties'] = []
+        if self.properties is not None:
+            for k in self.properties:
+                result['properties'].append(k.to_map() if k else None)
+        if self.instancestatus is not None:
+            result['instancestatus'] = self.instancestatus
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('identity') is not None:
+            self.identity = m.get('identity')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        self.properties = []
+        if m.get('properties') is not None:
+            for k in m.get('properties'):
+                temp_model = Property()
+                self.properties.append(temp_model.from_map(k))
+        if m.get('instancestatus') is not None:
+            self.instancestatus = m.get('instancestatus')
+        return self
+
+
+class SecurityGroupParam(TeaModel):
+    def __init__(
+        self,
+        description: str = None,
+        region_id: str = None,
+        security_group_name: str = None,
+        vpc_id: str = None,
+    ):
+        # description
+        self.description = description
+        # region id
+        self.region_id = region_id
+        # security_group_name
+        self.security_group_name = security_group_name
+        # vpc_id
+        self.vpc_id = vpc_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.description is not None:
+            result['description'] = self.description
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.security_group_name is not None:
+            result['security_group_name'] = self.security_group_name
+        if self.vpc_id is not None:
+            result['vpc_id'] = self.vpc_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
         if m.get('description') is not None:
             self.description = m.get('description')
         if m.get('region_id') is not None:
             self.region_id = m.get('region_id')
-        if m.get('vpc_name') is not None:
-            self.vpc_name = m.get('vpc_name')
+        if m.get('security_group_name') is not None:
+            self.security_group_name = m.get('security_group_name')
+        if m.get('vpc_id') is not None:
+            self.vpc_id = m.get('vpc_id')
+        return self
+
+
+class AppLevelView(TeaModel):
+    def __init__(
+        self,
+        base_app_level: AppLevel = None,
+        app_count: int = None,
+        creator_name: str = None,
+    ):
+        # 应用等级基类
+        self.base_app_level = base_app_level
+        # 应用数量
+        self.app_count = app_count
+        # 创建者名称
+        self.creator_name = creator_name
+
+    def validate(self):
+        if self.base_app_level:
+            self.base_app_level.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.base_app_level is not None:
+            result['base_app_level'] = self.base_app_level.to_map()
+        if self.app_count is not None:
+            result['app_count'] = self.app_count
+        if self.creator_name is not None:
+            result['creator_name'] = self.creator_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('base_app_level') is not None:
+            temp_model = AppLevel()
+            self.base_app_level = temp_model.from_map(m['base_app_level'])
+        if m.get('app_count') is not None:
+            self.app_count = m.get('app_count')
+        if m.get('creator_name') is not None:
+            self.creator_name = m.get('creator_name')
+        return self
+
+
+class SLSLogItem(TeaModel):
+    def __init__(
+        self,
+        log_time: int = None,
+        source: str = None,
+        contents: List[SLSLogContent] = None,
+    ):
+        # 日志的时间戳（精度为秒，从 1970-1-1 00:00:00 UTC 计算起的秒数）。
+        self.log_time = log_time
+        # 日志的来源，写入日志时指定。
+        self.source = source
+        # 日志原始内容
+        self.contents = contents
+
+    def validate(self):
+        self.validate_required(self.log_time, 'log_time')
+        self.validate_required(self.source, 'source')
+        self.validate_required(self.contents, 'contents')
+        if self.contents:
+            for k in self.contents:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.log_time is not None:
+            result['log_time'] = self.log_time
+        if self.source is not None:
+            result['source'] = self.source
+        result['contents'] = []
+        if self.contents is not None:
+            for k in self.contents:
+                result['contents'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('log_time') is not None:
+            self.log_time = m.get('log_time')
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        self.contents = []
+        if m.get('contents') is not None:
+            for k in m.get('contents'):
+                temp_model = SLSLogContent()
+                self.contents.append(temp_model.from_map(k))
+        return self
+
+
+class DynamicQuery(TeaModel):
+    def __init__(
+        self,
+        current_page: int = None,
+        filter: str = None,
+        page_size: int = None,
+        query: str = None,
+        sort: str = None,
+    ):
+        # 分页规则-currentPage
+        self.current_page = current_page
+        # 字段过滤
+        self.filter = filter
+        # 分页规则-pageSize
+        self.page_size = page_size
+        # 具体的查询条件字符串
+        self.query = query
+        # 查询结果的排序规则
+        self.sort = sort
+
+    def validate(self):
+        self.validate_required(self.query, 'query')
+
+    def to_map(self):
+        result = dict()
+        if self.current_page is not None:
+            result['current_page'] = self.current_page
+        if self.filter is not None:
+            result['filter'] = self.filter
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.query is not None:
+            result['query'] = self.query
+        if self.sort is not None:
+            result['sort'] = self.sort
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('current_page') is not None:
+            self.current_page = m.get('current_page')
+        if m.get('filter') is not None:
+            self.filter = m.get('filter')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('query') is not None:
+            self.query = m.get('query')
+        if m.get('sort') is not None:
+            self.sort = m.get('sort')
+        return self
+
+
+class IaasConnMetadata(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        iaas_provider_id: str = None,
+        name: str = None,
+        iaas_conn_type: str = None,
+        description: str = None,
+        available_features: List[str] = None,
+        endpoint: str = None,
+        region_ids: List[str] = None,
+        is_default: bool = None,
+        utc_create: str = None,
+    ):
+        # id
+        self.id = id
+        # iaas_provider_id
+        self.iaas_provider_id = iaas_provider_id
+        # name
+        self.name = name
+        # iaas_conn_type
+        self.iaas_conn_type = iaas_conn_type
+        # description
+        self.description = description
+        # available_features
+        self.available_features = available_features
+        # endpoint
+        self.endpoint = endpoint
+        # region_ids
+        self.region_ids = region_ids
+        # is_default
+        self.is_default = is_default
+        # utc_create
+        self.utc_create = utc_create
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.iaas_provider_id, 'iaas_provider_id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.iaas_conn_type, 'iaas_conn_type')
+        self.validate_required(self.description, 'description')
+        self.validate_required(self.endpoint, 'endpoint')
+        self.validate_required(self.region_ids, 'region_ids')
+        self.validate_required(self.is_default, 'is_default')
+        self.validate_required(self.utc_create, 'utc_create')
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.iaas_provider_id is not None:
+            result['iaas_provider_id'] = self.iaas_provider_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.iaas_conn_type is not None:
+            result['iaas_conn_type'] = self.iaas_conn_type
+        if self.description is not None:
+            result['description'] = self.description
+        if self.available_features is not None:
+            result['available_features'] = self.available_features
+        if self.endpoint is not None:
+            result['endpoint'] = self.endpoint
+        if self.region_ids is not None:
+            result['region_ids'] = self.region_ids
+        if self.is_default is not None:
+            result['is_default'] = self.is_default
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('iaas_provider_id') is not None:
+            self.iaas_provider_id = m.get('iaas_provider_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('iaas_conn_type') is not None:
+            self.iaas_conn_type = m.get('iaas_conn_type')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('available_features') is not None:
+            self.available_features = m.get('available_features')
+        if m.get('endpoint') is not None:
+            self.endpoint = m.get('endpoint')
+        if m.get('region_ids') is not None:
+            self.region_ids = m.get('region_ids')
+        if m.get('is_default') is not None:
+            self.is_default = m.get('is_default')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        return self
+
+
+class AppServiceQuery(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        workspace_id: str = None,
+        app_id: str = None,
+        name: str = None,
+        deploy_status: str = None,
+        owner_id: str = None,
+        workspace_ids: List[str] = None,
+        app_ids: List[str] = None,
+        is_one_party_request: bool = None,
+        start_index: int = None,
+        page_size: int = None,
+        current_page: int = None,
+        orders: List[str] = None,
+        query_type: str = None,
+        conditions: str = None,
+    ):
+        # 根据 id 查询
+        self.id = id
+        # workspaceId
+        self.workspace_id = workspace_id
+        # appId
+        self.app_id = app_id
+        # name
+        self.name = name
+        # deployStatus
+        self.deploy_status = deploy_status
+        # ownerId
+        self.owner_id = owner_id
+        # workspaceIds
+        self.workspace_ids = workspace_ids
+        # appIds
+        self.app_ids = app_ids
+        # 是否为一方化查询请求
+        self.is_one_party_request = is_one_party_request
+        # startIndex
+        self.start_index = start_index
+        # pageSize
+        self.page_size = page_size
+        # currentPage
+        self.current_page = current_page
+        # orders
+        self.orders = orders
+        # 查询类型
+        self.query_type = query_type
+        # Map<String, String>
+        self.conditions = conditions
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.deploy_status is not None:
+            result['deploy_status'] = self.deploy_status
+        if self.owner_id is not None:
+            result['owner_id'] = self.owner_id
+        if self.workspace_ids is not None:
+            result['workspace_ids'] = self.workspace_ids
+        if self.app_ids is not None:
+            result['app_ids'] = self.app_ids
+        if self.is_one_party_request is not None:
+            result['is_one_party_request'] = self.is_one_party_request
+        if self.start_index is not None:
+            result['start_index'] = self.start_index
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.current_page is not None:
+            result['current_page'] = self.current_page
+        if self.orders is not None:
+            result['orders'] = self.orders
+        if self.query_type is not None:
+            result['query_type'] = self.query_type
+        if self.conditions is not None:
+            result['conditions'] = self.conditions
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('deploy_status') is not None:
+            self.deploy_status = m.get('deploy_status')
+        if m.get('owner_id') is not None:
+            self.owner_id = m.get('owner_id')
+        if m.get('workspace_ids') is not None:
+            self.workspace_ids = m.get('workspace_ids')
+        if m.get('app_ids') is not None:
+            self.app_ids = m.get('app_ids')
+        if m.get('is_one_party_request') is not None:
+            self.is_one_party_request = m.get('is_one_party_request')
+        if m.get('start_index') is not None:
+            self.start_index = m.get('start_index')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('current_page') is not None:
+            self.current_page = m.get('current_page')
+        if m.get('orders') is not None:
+            self.orders = m.get('orders')
+        if m.get('query_type') is not None:
+            self.query_type = m.get('query_type')
+        if m.get('conditions') is not None:
+            self.conditions = m.get('conditions')
+        return self
+
+
+class ListenerSecurityIp(TeaModel):
+    def __init__(
+        self,
+        access_control: bool = None,
+        ips: List[str] = None,
+    ):
+        # access_control
+        self.access_control = access_control
+        # ips
+        self.ips = ips
+
+    def validate(self):
+        self.validate_required(self.access_control, 'access_control')
+        self.validate_required(self.ips, 'ips')
+
+    def to_map(self):
+        result = dict()
+        if self.access_control is not None:
+            result['access_control'] = self.access_control
+        if self.ips is not None:
+            result['ips'] = self.ips
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('access_control') is not None:
+            self.access_control = m.get('access_control')
+        if m.get('ips') is not None:
+            self.ips = m.get('ips')
+        return self
+
+
+class LbCluster(TeaModel):
+    def __init__(
+        self,
+        container_cpu: int = None,
+        container_cpu_exclusive: bool = None,
+        container_device_type: str = None,
+        container_disk: int = None,
+        container_mem: int = None,
+        id: str = None,
+        image: str = None,
+        name: str = None,
+        status: int = None,
+        unit_infos: List[AcsClusterUnit] = None,
+        unit_type: int = None,
+        used_ports: List[int] = None,
+    ):
+        # container_cpu
+        self.container_cpu = container_cpu
+        # container_cpu_exclusive
+        self.container_cpu_exclusive = container_cpu_exclusive
+        # container_device_type
+        self.container_device_type = container_device_type
+        # container_disk
+        self.container_disk = container_disk
+        # container_mem
+        self.container_mem = container_mem
+        # id
+        self.id = id
+        # image
+        self.image = image
+        # name
+        self.name = name
+        # status
+        self.status = status
+        # unit_infos
+        self.unit_infos = unit_infos
+        # unit_type
+        self.unit_type = unit_type
+        # used_ports
+        self.used_ports = used_ports
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.image, 'image')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.status, 'status')
+        if self.unit_infos:
+            for k in self.unit_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.container_cpu is not None:
+            result['container_cpu'] = self.container_cpu
+        if self.container_cpu_exclusive is not None:
+            result['container_cpu_exclusive'] = self.container_cpu_exclusive
+        if self.container_device_type is not None:
+            result['container_device_type'] = self.container_device_type
+        if self.container_disk is not None:
+            result['container_disk'] = self.container_disk
+        if self.container_mem is not None:
+            result['container_mem'] = self.container_mem
+        if self.id is not None:
+            result['id'] = self.id
+        if self.image is not None:
+            result['image'] = self.image
+        if self.name is not None:
+            result['name'] = self.name
+        if self.status is not None:
+            result['status'] = self.status
+        result['unit_infos'] = []
+        if self.unit_infos is not None:
+            for k in self.unit_infos:
+                result['unit_infos'].append(k.to_map() if k else None)
+        if self.unit_type is not None:
+            result['unit_type'] = self.unit_type
+        if self.used_ports is not None:
+            result['used_ports'] = self.used_ports
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('container_cpu') is not None:
+            self.container_cpu = m.get('container_cpu')
+        if m.get('container_cpu_exclusive') is not None:
+            self.container_cpu_exclusive = m.get('container_cpu_exclusive')
+        if m.get('container_device_type') is not None:
+            self.container_device_type = m.get('container_device_type')
+        if m.get('container_disk') is not None:
+            self.container_disk = m.get('container_disk')
+        if m.get('container_mem') is not None:
+            self.container_mem = m.get('container_mem')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('image') is not None:
+            self.image = m.get('image')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        self.unit_infos = []
+        if m.get('unit_infos') is not None:
+            for k in m.get('unit_infos'):
+                temp_model = AcsClusterUnit()
+                self.unit_infos.append(temp_model.from_map(k))
+        if m.get('unit_type') is not None:
+            self.unit_type = m.get('unit_type')
+        if m.get('used_ports') is not None:
+            self.used_ports = m.get('used_ports')
+        return self
+
+
+class QuotaKv(TeaModel):
+    def __init__(
+        self,
+        type: str = None,
+        quota: int = None,
+    ):
+        # type
+        self.type = type
+        # quota
+        self.quota = quota
+
+    def validate(self):
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.quota, 'quota')
+
+    def to_map(self):
+        result = dict()
+        if self.type is not None:
+            result['type'] = self.type
+        if self.quota is not None:
+            result['quota'] = self.quota
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('quota') is not None:
+            self.quota = m.get('quota')
+        return self
+
+
+class BasicCertificate(TeaModel):
+    def __init__(
+        self,
+        server_certificate_id: str = None,
+        server_certificate_name: str = None,
+        fingerprint: str = None,
+        cert_type: int = None,
+        provider_id: str = None,
+    ):
+        # serverCertificateId
+        self.server_certificate_id = server_certificate_id
+        # serverCertificateName
+        self.server_certificate_name = server_certificate_name
+        # fingerprint
+        self.fingerprint = fingerprint
+        # cert_type
+        self.cert_type = cert_type
+        # 标记这个证书的Provider
+        self.provider_id = provider_id
+
+    def validate(self):
+        self.validate_required(self.server_certificate_id, 'server_certificate_id')
+        self.validate_required(self.server_certificate_name, 'server_certificate_name')
+        self.validate_required(self.cert_type, 'cert_type')
+
+    def to_map(self):
+        result = dict()
+        if self.server_certificate_id is not None:
+            result['server_certificate_id'] = self.server_certificate_id
+        if self.server_certificate_name is not None:
+            result['server_certificate_name'] = self.server_certificate_name
+        if self.fingerprint is not None:
+            result['fingerprint'] = self.fingerprint
+        if self.cert_type is not None:
+            result['cert_type'] = self.cert_type
+        if self.provider_id is not None:
+            result['provider_id'] = self.provider_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('server_certificate_id') is not None:
+            self.server_certificate_id = m.get('server_certificate_id')
+        if m.get('server_certificate_name') is not None:
+            self.server_certificate_name = m.get('server_certificate_name')
+        if m.get('fingerprint') is not None:
+            self.fingerprint = m.get('fingerprint')
+        if m.get('cert_type') is not None:
+            self.cert_type = m.get('cert_type')
+        if m.get('provider_id') is not None:
+            self.provider_id = m.get('provider_id')
+        return self
+
+
+class MapStringToBooleanEntity(TeaModel):
+    def __init__(
+        self,
+        key: str = None,
+        value: bool = None,
+    ):
+        # key
+        self.key = key
+        # value
+        self.value = value
+
+    def validate(self):
+        self.validate_required(self.key, 'key')
+        self.validate_required(self.value, 'value')
+
+    def to_map(self):
+        result = dict()
+        if self.key is not None:
+            result['key'] = self.key
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class DatabaseSchema(TeaModel):
+    def __init__(
+        self,
+        char_set: str = None,
+        count: int = None,
+        is_auto_name: bool = None,
+        name: str = None,
+        is_serial: bool = None,
+    ):
+        # 字符集
+        self.char_set = char_set
+        # 数量
+        self.count = count
+        # 是否自动生成名称。默认为 true
+        self.is_auto_name = is_auto_name
+        # 名称
+        self.name = name
+        # 序列号是否连续。默认为 false
+        self.is_serial = is_serial
+
+    def validate(self):
+        self.validate_required(self.char_set, 'char_set')
+        self.validate_required(self.name, 'name')
+
+    def to_map(self):
+        result = dict()
+        if self.char_set is not None:
+            result['char_set'] = self.char_set
+        if self.count is not None:
+            result['count'] = self.count
+        if self.is_auto_name is not None:
+            result['is_auto_name'] = self.is_auto_name
+        if self.name is not None:
+            result['name'] = self.name
+        if self.is_serial is not None:
+            result['is_serial'] = self.is_serial
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('char_set') is not None:
+            self.char_set = m.get('char_set')
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        if m.get('is_auto_name') is not None:
+            self.is_auto_name = m.get('is_auto_name')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('is_serial') is not None:
+            self.is_serial = m.get('is_serial')
+        return self
+
+
+class LoadBalancerImportVO(TeaModel):
+    def __init__(
+        self,
+        iaas_id: str = None,
+        name: str = None,
+        network_type: str = None,
+        inner_ip_address: List[str] = None,
+        public_ip_address: List[str] = None,
+        utc_create: str = None,
+        import_info: ImportVO = None,
+    ):
+        # iaas_id
+        self.iaas_id = iaas_id
+        # name
+        self.name = name
+        # network_type
+        self.network_type = network_type
+        # inner_ip_address
+        self.inner_ip_address = inner_ip_address
+        # public_ip_address
+        self.public_ip_address = public_ip_address
+        # utc_create
+        self.utc_create = utc_create
+        # import_info
+        self.import_info = import_info
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.import_info, 'import_info')
+        if self.import_info:
+            self.import_info.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.iaas_id is not None:
+            result['iaas_id'] = self.iaas_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.network_type is not None:
+            result['network_type'] = self.network_type
+        if self.inner_ip_address is not None:
+            result['inner_ip_address'] = self.inner_ip_address
+        if self.public_ip_address is not None:
+            result['public_ip_address'] = self.public_ip_address
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.import_info is not None:
+            result['import_info'] = self.import_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('iaas_id') is not None:
+            self.iaas_id = m.get('iaas_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('network_type') is not None:
+            self.network_type = m.get('network_type')
+        if m.get('inner_ip_address') is not None:
+            self.inner_ip_address = m.get('inner_ip_address')
+        if m.get('public_ip_address') is not None:
+            self.public_ip_address = m.get('public_ip_address')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('import_info') is not None:
+            temp_model = ImportVO()
+            self.import_info = temp_model.from_map(m['import_info'])
+        return self
+
+
+class AppServiceViewModel(TeaModel):
+    def __init__(
+        self,
+        base_app_service: AppService = None,
+        owner_name: str = None,
+        buildpack_name: str = None,
+        chinese_name: str = None,
+        buildpack_version: str = None,
+        computer_count: int = None,
+        database_count: int = None,
+        load_balancer_count: int = None,
+        cache_count: int = None,
+        cell_view_list: List[CellView] = None,
+    ):
+        # 基类
+        self.base_app_service = base_app_service
+        # 应用负责人姓名
+        self.owner_name = owner_name
+        # 技术栈名称
+        self.buildpack_name = buildpack_name
+        # App的别名
+        self.chinese_name = chinese_name
+        # buildpackVersion
+        self.buildpack_version = buildpack_version
+        # computerCount
+        self.computer_count = computer_count
+        # databaseCount
+        self.database_count = database_count
+        # loadBalancerCount
+        self.load_balancer_count = load_balancer_count
+        # cacheCount
+        self.cache_count = cache_count
+        # cellViewList
+        self.cell_view_list = cell_view_list
+
+    def validate(self):
+        if self.base_app_service:
+            self.base_app_service.validate()
+        if self.cell_view_list:
+            for k in self.cell_view_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.base_app_service is not None:
+            result['base_app_service'] = self.base_app_service.to_map()
+        if self.owner_name is not None:
+            result['owner_name'] = self.owner_name
+        if self.buildpack_name is not None:
+            result['buildpack_name'] = self.buildpack_name
+        if self.chinese_name is not None:
+            result['chinese_name'] = self.chinese_name
+        if self.buildpack_version is not None:
+            result['buildpack_version'] = self.buildpack_version
+        if self.computer_count is not None:
+            result['computer_count'] = self.computer_count
+        if self.database_count is not None:
+            result['database_count'] = self.database_count
+        if self.load_balancer_count is not None:
+            result['load_balancer_count'] = self.load_balancer_count
+        if self.cache_count is not None:
+            result['cache_count'] = self.cache_count
+        result['cell_view_list'] = []
+        if self.cell_view_list is not None:
+            for k in self.cell_view_list:
+                result['cell_view_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('base_app_service') is not None:
+            temp_model = AppService()
+            self.base_app_service = temp_model.from_map(m['base_app_service'])
+        if m.get('owner_name') is not None:
+            self.owner_name = m.get('owner_name')
+        if m.get('buildpack_name') is not None:
+            self.buildpack_name = m.get('buildpack_name')
+        if m.get('chinese_name') is not None:
+            self.chinese_name = m.get('chinese_name')
+        if m.get('buildpack_version') is not None:
+            self.buildpack_version = m.get('buildpack_version')
+        if m.get('computer_count') is not None:
+            self.computer_count = m.get('computer_count')
+        if m.get('database_count') is not None:
+            self.database_count = m.get('database_count')
+        if m.get('load_balancer_count') is not None:
+            self.load_balancer_count = m.get('load_balancer_count')
+        if m.get('cache_count') is not None:
+            self.cache_count = m.get('cache_count')
+        self.cell_view_list = []
+        if m.get('cell_view_list') is not None:
+            for k in m.get('cell_view_list'):
+                temp_model = CellView()
+                self.cell_view_list.append(temp_model.from_map(k))
+        return self
+
+
+class DatabaseSecurityIp(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        resource_id: str = None,
+        resource_type: str = None,
+        ip: str = None,
+        status: str = None,
+        type: str = None,
+    ):
+        # id
+        self.id = id
+        # resource_id
+        self.resource_id = resource_id
+        # resource_type
+        self.resource_type = resource_type
+        # ip
+        self.ip = ip
+        # status
+        self.status = status
+        # type
+        self.type = type
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.resource_id is not None:
+            result['resource_id'] = self.resource_id
+        if self.resource_type is not None:
+            result['resource_type'] = self.resource_type
+        if self.ip is not None:
+            result['ip'] = self.ip
+        if self.status is not None:
+            result['status'] = self.status
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('resource_id') is not None:
+            self.resource_id = m.get('resource_id')
+        if m.get('resource_type') is not None:
+            self.resource_type = m.get('resource_type')
+        if m.get('ip') is not None:
+            self.ip = m.get('ip')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class DatabaseEngine(TeaModel):
+    def __init__(
+        self,
+        iaas_type: str = None,
+        engine: str = None,
+        engine_versions: List[str] = None,
+    ):
+        # iaas_type
+        self.iaas_type = iaas_type
+        # engine
+        self.engine = engine
+        # engine_versions
+        self.engine_versions = engine_versions
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.iaas_type is not None:
+            result['iaas_type'] = self.iaas_type
+        if self.engine is not None:
+            result['engine'] = self.engine
+        if self.engine_versions is not None:
+            result['engine_versions'] = self.engine_versions
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('iaas_type') is not None:
+            self.iaas_type = m.get('iaas_type')
+        if m.get('engine') is not None:
+            self.engine = m.get('engine')
+        if m.get('engine_versions') is not None:
+            self.engine_versions = m.get('engine_versions')
+        return self
+
+
+class ComputerParam(TeaModel):
+    def __init__(
+        self,
+        description: str = None,
+        name: str = None,
+        image_id: str = None,
+        instance_type: str = None,
+        region_id: str = None,
+        security_group_id: str = None,
+        instance_name: str = None,
+        zone_id: str = None,
+    ):
+        # description
+        self.description = description
+        # name
+        self.name = name
+        # image_id
+        self.image_id = image_id
+        # instance_type
+        self.instance_type = instance_type
+        # region_id
+        self.region_id = region_id
+        # security_group_id
+        self.security_group_id = security_group_id
+        # instance_name
+        self.instance_name = instance_name
+        # zone_id
+        self.zone_id = zone_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.description is not None:
+            result['description'] = self.description
+        if self.name is not None:
+            result['name'] = self.name
+        if self.image_id is not None:
+            result['image_id'] = self.image_id
+        if self.instance_type is not None:
+            result['instance_type'] = self.instance_type
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.security_group_id is not None:
+            result['security_group_id'] = self.security_group_id
+        if self.instance_name is not None:
+            result['instance_name'] = self.instance_name
+        if self.zone_id is not None:
+            result['zone_id'] = self.zone_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('image_id') is not None:
+            self.image_id = m.get('image_id')
+        if m.get('instance_type') is not None:
+            self.instance_type = m.get('instance_type')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('security_group_id') is not None:
+            self.security_group_id = m.get('security_group_id')
+        if m.get('instance_name') is not None:
+            self.instance_name = m.get('instance_name')
+        if m.get('zone_id') is not None:
+            self.zone_id = m.get('zone_id')
+        return self
+
+
+class VipType(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        vip_address_type: str = None,
+        vip_type: str = None,
+    ):
+        # name
+        self.name = name
+        # vip_address_type
+        self.vip_address_type = vip_address_type
+        # vip_type
+        self.vip_type = vip_type
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.vip_address_type, 'vip_address_type')
+        self.validate_required(self.vip_type, 'vip_type')
+
+    def to_map(self):
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.vip_address_type is not None:
+            result['vip_address_type'] = self.vip_address_type
+        if self.vip_type is not None:
+            result['vip_type'] = self.vip_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('vip_address_type') is not None:
+            self.vip_address_type = m.get('vip_address_type')
+        if m.get('vip_type') is not None:
+            self.vip_type = m.get('vip_type')
         return self
 
 
@@ -15431,7 +16101,7 @@ class CreateComputerRequest(TeaModel):
         self.instance_count = instance_count
         # 实例名称前缀。可包含小写字母(a-z)，数字(0-9) 和中划线(-)，以字母开头，中划线不能结尾或连续使用，2 ~ 40 个字符。
         self.name = name
-        # 实例的密码。长度为8至30个字符，必须同时包含大小写英文字母、数字和特殊符号中的三类字符。特殊符号可以是： ()`~!@#^&*-_+=|{}[]:;'<>,.?/ 其中，Windows实例不能以斜线号（/）为密码首字符。
+        # 实例的密码。长度为8至30个字符，必须同时包含大小写英文字母、数字和特殊符号中的三类字符。特殊符号可以是： ()`~!@#^&*-_+=|{}[]:;_<>,.?/ 其中，Windows实例不能以斜线号（/）为密码首字符。
         self.password = password
         # 购买资源的时长，单位为：月。当参数 InstanceChargeType 取值为 PrePaid 时才生效且为必选值。取值范围：1 - 9
         # 12
@@ -19766,6 +20436,8 @@ class DeleteResourceVpcRequest(TeaModel):
         region: str = None,
         vpc_id: str = None,
         workspace: str = None,
+        unbind_only: bool = None,
+        vpc_paas_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -19775,6 +20447,10 @@ class DeleteResourceVpcRequest(TeaModel):
         self.vpc_id = vpc_id
         # workspace id
         self.workspace = workspace
+        # unbind_only
+        self.unbind_only = unbind_only
+        # vpc_paas_id,vcp_id不存在时可用。建议用这个
+        self.vpc_paas_id = vpc_paas_id
 
     def validate(self):
         self.validate_required(self.region, 'region')
@@ -19791,6 +20467,10 @@ class DeleteResourceVpcRequest(TeaModel):
             result['vpc_id'] = self.vpc_id
         if self.workspace is not None:
             result['workspace'] = self.workspace
+        if self.unbind_only is not None:
+            result['unbind_only'] = self.unbind_only
+        if self.vpc_paas_id is not None:
+            result['vpc_paas_id'] = self.vpc_paas_id
         return result
 
     def from_map(self, m: dict = None):
@@ -19803,6 +20483,10 @@ class DeleteResourceVpcRequest(TeaModel):
             self.vpc_id = m.get('vpc_id')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
+        if m.get('unbind_only') is not None:
+            self.unbind_only = m.get('unbind_only')
+        if m.get('vpc_paas_id') is not None:
+            self.vpc_paas_id = m.get('vpc_paas_id')
         return self
 
 
@@ -24390,6 +25074,7 @@ class QueryLoadbalanceVcomputergroupRequest(TeaModel):
         name: str = None,
         statuses: List[str] = None,
         workspace: str = None,
+        v_computer_group_ids: List[str] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -24401,6 +25086,8 @@ class QueryLoadbalanceVcomputergroupRequest(TeaModel):
         self.statuses = statuses
         # workspace
         self.workspace = workspace
+        # v_computer_group_ids
+        self.v_computer_group_ids = v_computer_group_ids
 
     def validate(self):
         self.validate_required(self.load_balance_ids, 'load_balance_ids')
@@ -24418,6 +25105,8 @@ class QueryLoadbalanceVcomputergroupRequest(TeaModel):
             result['statuses'] = self.statuses
         if self.workspace is not None:
             result['workspace'] = self.workspace
+        if self.v_computer_group_ids is not None:
+            result['v_computer_group_ids'] = self.v_computer_group_ids
         return result
 
     def from_map(self, m: dict = None):
@@ -24432,6 +25121,8 @@ class QueryLoadbalanceVcomputergroupRequest(TeaModel):
             self.statuses = m.get('statuses')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
+        if m.get('v_computer_group_ids') is not None:
+            self.v_computer_group_ids = m.get('v_computer_group_ids')
         return self
 
 
@@ -24680,6 +25371,7 @@ class QueryLoadbalanceVcomputerResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         data: List[VComputer] = None,
+        total_count: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -24689,6 +25381,8 @@ class QueryLoadbalanceVcomputerResponse(TeaModel):
         self.result_msg = result_msg
         # v_computers
         self.data = data
+        # total_count
+        self.total_count = total_count
 
     def validate(self):
         if self.data:
@@ -24708,6 +25402,8 @@ class QueryLoadbalanceVcomputerResponse(TeaModel):
         if self.data is not None:
             for k in self.data:
                 result['data'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
         return result
 
     def from_map(self, m: dict = None):
@@ -24723,6 +25419,8 @@ class QueryLoadbalanceVcomputerResponse(TeaModel):
             for k in m.get('data'):
                 temp_model = VComputer()
                 self.data.append(temp_model.from_map(k))
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
         return self
 
 
@@ -26242,6 +26940,8 @@ class QueryComputerAgentstatusRequest(TeaModel):
         auth_token: str = None,
         sn: List[str] = None,
         workspace: str = None,
+        iaas_ids: List[str] = None,
+        zone_iaas_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -26249,10 +26949,13 @@ class QueryComputerAgentstatusRequest(TeaModel):
         self.sn = sn
         # workspace name
         self.workspace = workspace
+        # iaas_ids
+        self.iaas_ids = iaas_ids
+        # zone_iaas_id
+        self.zone_iaas_id = zone_iaas_id
 
     def validate(self):
-        self.validate_required(self.sn, 'sn')
-        self.validate_required(self.workspace, 'workspace')
+        pass
 
     def to_map(self):
         result = dict()
@@ -26262,6 +26965,10 @@ class QueryComputerAgentstatusRequest(TeaModel):
             result['sn'] = self.sn
         if self.workspace is not None:
             result['workspace'] = self.workspace
+        if self.iaas_ids is not None:
+            result['iaas_ids'] = self.iaas_ids
+        if self.zone_iaas_id is not None:
+            result['zone_iaas_id'] = self.zone_iaas_id
         return result
 
     def from_map(self, m: dict = None):
@@ -26272,6 +26979,10 @@ class QueryComputerAgentstatusRequest(TeaModel):
             self.sn = m.get('sn')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
+        if m.get('iaas_ids') is not None:
+            self.iaas_ids = m.get('iaas_ids')
+        if m.get('zone_iaas_id') is not None:
+            self.zone_iaas_id = m.get('zone_iaas_id')
         return self
 
 
@@ -26334,6 +27045,8 @@ class QueryComputerAgentsetupcommandRequest(TeaModel):
         auth_token: str = None,
         sn: List[str] = None,
         workspace: str = None,
+        iaas_id: str = None,
+        zone_iaas_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -26341,9 +27054,12 @@ class QueryComputerAgentsetupcommandRequest(TeaModel):
         self.sn = sn
         # workspace name
         self.workspace = workspace
+        # iaas_id
+        self.iaas_id = iaas_id
+        # zone_iaas_id
+        self.zone_iaas_id = zone_iaas_id
 
     def validate(self):
-        self.validate_required(self.sn, 'sn')
         self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
@@ -26354,6 +27070,10 @@ class QueryComputerAgentsetupcommandRequest(TeaModel):
             result['sn'] = self.sn
         if self.workspace is not None:
             result['workspace'] = self.workspace
+        if self.iaas_id is not None:
+            result['iaas_id'] = self.iaas_id
+        if self.zone_iaas_id is not None:
+            result['zone_iaas_id'] = self.zone_iaas_id
         return result
 
     def from_map(self, m: dict = None):
@@ -26364,6 +27084,10 @@ class QueryComputerAgentsetupcommandRequest(TeaModel):
             self.sn = m.get('sn')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
+        if m.get('iaas_id') is not None:
+            self.iaas_id = m.get('iaas_id')
+        if m.get('zone_iaas_id') is not None:
+            self.zone_iaas_id = m.get('zone_iaas_id')
         return self
 
 
@@ -26428,6 +27152,10 @@ class QueryComputerImportRequest(TeaModel):
         zone: str = None,
         page_size: int = None,
         current_page: int = None,
+        name: str = None,
+        importable_only: bool = None,
+        iaas_id: str = None,
+        workspace_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -26439,6 +27167,14 @@ class QueryComputerImportRequest(TeaModel):
         self.page_size = page_size
         # current page
         self.current_page = current_page
+        # 机器名称
+        self.name = name
+        # 是否只查询可导入的
+        self.importable_only = importable_only
+        # iaas_id
+        self.iaas_id = iaas_id
+        # workspace_id
+        self.workspace_id = workspace_id
 
     def validate(self):
         self.validate_required(self.workspace, 'workspace')
@@ -26457,6 +27193,14 @@ class QueryComputerImportRequest(TeaModel):
             result['page_size'] = self.page_size
         if self.current_page is not None:
             result['current_page'] = self.current_page
+        if self.name is not None:
+            result['name'] = self.name
+        if self.importable_only is not None:
+            result['importable_only'] = self.importable_only
+        if self.iaas_id is not None:
+            result['iaas_id'] = self.iaas_id
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
         return result
 
     def from_map(self, m: dict = None):
@@ -26471,6 +27215,14 @@ class QueryComputerImportRequest(TeaModel):
             self.page_size = m.get('page_size')
         if m.get('current_page') is not None:
             self.current_page = m.get('current_page')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('importable_only') is not None:
+            self.importable_only = m.get('importable_only')
+        if m.get('iaas_id') is not None:
+            self.iaas_id = m.get('iaas_id')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
         return self
 
 
@@ -26545,6 +27297,8 @@ class ListComputerRequest(TeaModel):
         workspace: str = None,
         cloud_manage_token: str = None,
         vpc_iaas_id: str = None,
+        private_ips: List[str] = None,
+        iaas_ids: List[str] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -26562,6 +27316,10 @@ class ListComputerRequest(TeaModel):
         self.cloud_manage_token = cloud_manage_token
         # vpc_iaas_id
         self.vpc_iaas_id = vpc_iaas_id
+        # private_ips
+        self.private_ips = private_ips
+        # iaas_ids
+        self.iaas_ids = iaas_ids
 
     def validate(self):
         self.validate_required(self.workspace, 'workspace')
@@ -26584,6 +27342,10 @@ class ListComputerRequest(TeaModel):
             result['cloud_manage_token'] = self.cloud_manage_token
         if self.vpc_iaas_id is not None:
             result['vpc_iaas_id'] = self.vpc_iaas_id
+        if self.private_ips is not None:
+            result['private_ips'] = self.private_ips
+        if self.iaas_ids is not None:
+            result['iaas_ids'] = self.iaas_ids
         return result
 
     def from_map(self, m: dict = None):
@@ -26604,6 +27366,10 @@ class ListComputerRequest(TeaModel):
             self.cloud_manage_token = m.get('cloud_manage_token')
         if m.get('vpc_iaas_id') is not None:
             self.vpc_iaas_id = m.get('vpc_iaas_id')
+        if m.get('private_ips') is not None:
+            self.private_ips = m.get('private_ips')
+        if m.get('iaas_ids') is not None:
+            self.iaas_ids = m.get('iaas_ids')
         return self
 
 
@@ -30666,6 +31432,7 @@ class UpdateLoadbalanceMountRequest(TeaModel):
         id: str = None,
         mount_map: List[MapStringToIntegerEntity] = None,
         domain: str = None,
+        is_sync: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -30675,6 +31442,8 @@ class UpdateLoadbalanceMountRequest(TeaModel):
         self.mount_map = mount_map
         # domain
         self.domain = domain
+        # 是否是同步操作
+        self.is_sync = is_sync
 
     def validate(self):
         self.validate_required(self.id, 'id')
@@ -30695,6 +31464,8 @@ class UpdateLoadbalanceMountRequest(TeaModel):
                 result['mount_map'].append(k.to_map() if k else None)
         if self.domain is not None:
             result['domain'] = self.domain
+        if self.is_sync is not None:
+            result['is_sync'] = self.is_sync
         return result
 
     def from_map(self, m: dict = None):
@@ -30710,6 +31481,8 @@ class UpdateLoadbalanceMountRequest(TeaModel):
                 self.mount_map.append(temp_model.from_map(k))
         if m.get('domain') is not None:
             self.domain = m.get('domain')
+        if m.get('is_sync') is not None:
+            self.is_sync = m.get('is_sync')
         return self
 
 
@@ -31744,26 +32517,26 @@ class QueryFeatureRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
-        region_id: str = None,
+        paas_region_id: str = None,
         project_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # region_id
-        self.region_id = region_id
+        # paas_region_id cafe的region_id，是一串数字
+        self.paas_region_id = paas_region_id
         # project_id
         self.project_id = project_id
 
     def validate(self):
-        self.validate_required(self.region_id, 'region_id')
+        self.validate_required(self.paas_region_id, 'paas_region_id')
         self.validate_required(self.project_id, 'project_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
-        if self.region_id is not None:
-            result['region_id'] = self.region_id
+        if self.paas_region_id is not None:
+            result['paas_region_id'] = self.paas_region_id
         if self.project_id is not None:
             result['project_id'] = self.project_id
         return result
@@ -31772,8 +32545,8 @@ class QueryFeatureRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
-        if m.get('region_id') is not None:
-            self.region_id = m.get('region_id')
+        if m.get('paas_region_id') is not None:
+            self.paas_region_id = m.get('paas_region_id')
         if m.get('project_id') is not None:
             self.project_id = m.get('project_id')
         return self
@@ -32219,6 +32992,7 @@ class QueryCertificateRequest(TeaModel):
         auth_token: str = None,
         workspace_id: str = None,
         zone_id: str = None,
+        provider_ids: List[str] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -32226,6 +33000,8 @@ class QueryCertificateRequest(TeaModel):
         self.workspace_id = workspace_id
         # zone_id
         self.zone_id = zone_id
+        # provider_ids
+        self.provider_ids = provider_ids
 
     def validate(self):
         self.validate_required(self.workspace_id, 'workspace_id')
@@ -32239,6 +33015,8 @@ class QueryCertificateRequest(TeaModel):
             result['workspace_id'] = self.workspace_id
         if self.zone_id is not None:
             result['zone_id'] = self.zone_id
+        if self.provider_ids is not None:
+            result['provider_ids'] = self.provider_ids
         return result
 
     def from_map(self, m: dict = None):
@@ -32249,6 +33027,8 @@ class QueryCertificateRequest(TeaModel):
             self.workspace_id = m.get('workspace_id')
         if m.get('zone_id') is not None:
             self.zone_id = m.get('zone_id')
+        if m.get('provider_ids') is not None:
+            self.provider_ids = m.get('provider_ids')
         return self
 
 
@@ -32323,6 +33103,7 @@ class CreateCertificateRequest(TeaModel):
         certificate: str = None,
         private_key: str = None,
         cert_type: int = None,
+        provider_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -32340,6 +33121,8 @@ class CreateCertificateRequest(TeaModel):
         self.private_key = private_key
         # cert_type
         self.cert_type = cert_type
+        # 多provider时选填
+        self.provider_id = provider_id
 
     def validate(self):
         self.validate_required(self.workspace_id, 'workspace_id')
@@ -32366,6 +33149,8 @@ class CreateCertificateRequest(TeaModel):
             result['private_key'] = self.private_key
         if self.cert_type is not None:
             result['cert_type'] = self.cert_type
+        if self.provider_id is not None:
+            result['provider_id'] = self.provider_id
         return result
 
     def from_map(self, m: dict = None):
@@ -32386,6 +33171,8 @@ class CreateCertificateRequest(TeaModel):
             self.private_key = m.get('private_key')
         if m.get('cert_type') is not None:
             self.cert_type = m.get('cert_type')
+        if m.get('provider_id') is not None:
+            self.provider_id = m.get('provider_id')
         return self
 
 
@@ -32441,6 +33228,7 @@ class DeleteCertificateRequest(TeaModel):
         id: str = None,
         workspace_id: str = None,
         zone_id: str = None,
+        provider_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -32450,6 +33238,8 @@ class DeleteCertificateRequest(TeaModel):
         self.workspace_id = workspace_id
         # zone_id
         self.zone_id = zone_id
+        # 多provider时选填
+        self.provider_id = provider_id
 
     def validate(self):
         self.validate_required(self.id, 'id')
@@ -32466,6 +33256,8 @@ class DeleteCertificateRequest(TeaModel):
             result['workspace_id'] = self.workspace_id
         if self.zone_id is not None:
             result['zone_id'] = self.zone_id
+        if self.provider_id is not None:
+            result['provider_id'] = self.provider_id
         return result
 
     def from_map(self, m: dict = None):
@@ -32478,6 +33270,8 @@ class DeleteCertificateRequest(TeaModel):
             self.workspace_id = m.get('workspace_id')
         if m.get('zone_id') is not None:
             self.zone_id = m.get('zone_id')
+        if m.get('provider_id') is not None:
+            self.provider_id = m.get('provider_id')
         return self
 
 
@@ -33330,6 +34124,7 @@ class ImportResourceVpcRequest(TeaModel):
         vrouter_id: str = None,
         vpc_name: str = None,
         cidr_block: str = None,
+        paas_region_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -33345,14 +34140,15 @@ class ImportResourceVpcRequest(TeaModel):
         self.vpc_name = vpc_name
         # cidr block
         self.cidr_block = cidr_block
+        # paas_region_id
+        self.paas_region_id = paas_region_id
 
     def validate(self):
-        self.validate_required(self.region, 'region')
         self.validate_required(self.vpc_id, 'vpc_id')
         self.validate_required(self.workspace, 'workspace')
         self.validate_required(self.vrouter_id, 'vrouter_id')
         self.validate_required(self.vpc_name, 'vpc_name')
-        self.validate_required(self.cidr_block, 'cidr_block')
+        self.validate_required(self.paas_region_id, 'paas_region_id')
 
     def to_map(self):
         result = dict()
@@ -33370,6 +34166,8 @@ class ImportResourceVpcRequest(TeaModel):
             result['vpc_name'] = self.vpc_name
         if self.cidr_block is not None:
             result['cidr_block'] = self.cidr_block
+        if self.paas_region_id is not None:
+            result['paas_region_id'] = self.paas_region_id
         return result
 
     def from_map(self, m: dict = None):
@@ -33388,6 +34186,8 @@ class ImportResourceVpcRequest(TeaModel):
             self.vpc_name = m.get('vpc_name')
         if m.get('cidr_block') is not None:
             self.cidr_block = m.get('cidr_block')
+        if m.get('paas_region_id') is not None:
+            self.paas_region_id = m.get('paas_region_id')
         return self
 
 
@@ -34545,6 +35345,1737 @@ class UpdateDiskStrategyRequest(TeaModel):
 
 
 class UpdateDiskStrategyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class CreateLoadbalanceVcomputergroupRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        load_balancer_id: str = None,
+        name: str = None,
+        computer_ids: List[str] = None,
+        ports: List[int] = None,
+        weights: List[int] = None,
+        is_eip: bool = None,
+        eips: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # load_balancer_id
+        self.load_balancer_id = load_balancer_id
+        # name
+        self.name = name
+        # computer_ids
+        self.computer_ids = computer_ids
+        # ports
+        self.ports = ports
+        # weights
+        self.weights = weights
+        # is_eip
+        self.is_eip = is_eip
+        # eips
+        self.eips = eips
+
+    def validate(self):
+        self.validate_required(self.load_balancer_id, 'load_balancer_id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.computer_ids, 'computer_ids')
+        self.validate_required(self.ports, 'ports')
+        self.validate_required(self.weights, 'weights')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.load_balancer_id is not None:
+            result['load_balancer_id'] = self.load_balancer_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.computer_ids is not None:
+            result['computer_ids'] = self.computer_ids
+        if self.ports is not None:
+            result['ports'] = self.ports
+        if self.weights is not None:
+            result['weights'] = self.weights
+        if self.is_eip is not None:
+            result['is_eip'] = self.is_eip
+        if self.eips is not None:
+            result['eips'] = self.eips
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('load_balancer_id') is not None:
+            self.load_balancer_id = m.get('load_balancer_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('computer_ids') is not None:
+            self.computer_ids = m.get('computer_ids')
+        if m.get('ports') is not None:
+            self.ports = m.get('ports')
+        if m.get('weights') is not None:
+            self.weights = m.get('weights')
+        if m.get('is_eip') is not None:
+            self.is_eip = m.get('is_eip')
+        if m.get('eips') is not None:
+            self.eips = m.get('eips')
+        return self
+
+
+class CreateLoadbalanceVcomputergroupResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # request_ids
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class UpdateLoadbalanceVcomputergroupRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        v_computergroup_id: str = None,
+        is_eip: bool = None,
+        eips: List[str] = None,
+        computer_ids: List[str] = None,
+        weights: List[int] = None,
+        ports: List[int] = None,
+        update_weight_only: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # v_computergroup_id
+        self.v_computergroup_id = v_computergroup_id
+        # is_eip
+        self.is_eip = is_eip
+        # eips
+        self.eips = eips
+        # computer_ids
+        self.computer_ids = computer_ids
+        # weights
+        self.weights = weights
+        # ports
+        self.ports = ports
+        # 是否只是调整权重，不增删后端服务器
+        self.update_weight_only = update_weight_only
+
+    def validate(self):
+        self.validate_required(self.v_computergroup_id, 'v_computergroup_id')
+        self.validate_required(self.eips, 'eips')
+        self.validate_required(self.weights, 'weights')
+        self.validate_required(self.ports, 'ports')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.v_computergroup_id is not None:
+            result['v_computergroup_id'] = self.v_computergroup_id
+        if self.is_eip is not None:
+            result['is_eip'] = self.is_eip
+        if self.eips is not None:
+            result['eips'] = self.eips
+        if self.computer_ids is not None:
+            result['computer_ids'] = self.computer_ids
+        if self.weights is not None:
+            result['weights'] = self.weights
+        if self.ports is not None:
+            result['ports'] = self.ports
+        if self.update_weight_only is not None:
+            result['update_weight_only'] = self.update_weight_only
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('v_computergroup_id') is not None:
+            self.v_computergroup_id = m.get('v_computergroup_id')
+        if m.get('is_eip') is not None:
+            self.is_eip = m.get('is_eip')
+        if m.get('eips') is not None:
+            self.eips = m.get('eips')
+        if m.get('computer_ids') is not None:
+            self.computer_ids = m.get('computer_ids')
+        if m.get('weights') is not None:
+            self.weights = m.get('weights')
+        if m.get('ports') is not None:
+            self.ports = m.get('ports')
+        if m.get('update_weight_only') is not None:
+            self.update_weight_only = m.get('update_weight_only')
+        return self
+
+
+class UpdateLoadbalanceVcomputergroupResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class DeleteLoadbalanceVcomputergroupRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        v_computer_group_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 虚拟服务器ID，PAAS ID非IAAS ID
+        self.v_computer_group_id = v_computer_group_id
+
+    def validate(self):
+        self.validate_required(self.v_computer_group_id, 'v_computer_group_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.v_computer_group_id is not None:
+            result['v_computer_group_id'] = self.v_computer_group_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('v_computer_group_id') is not None:
+            self.v_computer_group_id = m.get('v_computer_group_id')
+        return self
+
+
+class DeleteLoadbalanceVcomputergroupResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        paas_request_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # paas_request_id
+        self.paas_request_id = paas_request_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.paas_request_id is not None:
+            result['paas_request_id'] = self.paas_request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('paas_request_id') is not None:
+            self.paas_request_id = m.get('paas_request_id')
+        return self
+
+
+class AddLoadbalanceVcomputergroupRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        workspace_id: str = None,
+        v_computer_group_id: str = None,
+        is_eip: bool = None,
+        computer_ids: List[str] = None,
+        weights: List[int] = None,
+        ports: List[str] = None,
+        eips: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # workspace_id
+        self.workspace_id = workspace_id
+        # v_computer_group_id
+        self.v_computer_group_id = v_computer_group_id
+        # is_eip
+        self.is_eip = is_eip
+        # computer 的id数组
+        self.computer_ids = computer_ids
+        # 权重
+        self.weights = weights
+        # ports
+        self.ports = ports
+        # 当is_eip时必填
+        self.eips = eips
+
+    def validate(self):
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.v_computer_group_id, 'v_computer_group_id')
+        self.validate_required(self.weights, 'weights')
+        self.validate_required(self.ports, 'ports')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.v_computer_group_id is not None:
+            result['v_computer_group_id'] = self.v_computer_group_id
+        if self.is_eip is not None:
+            result['is_eip'] = self.is_eip
+        if self.computer_ids is not None:
+            result['computer_ids'] = self.computer_ids
+        if self.weights is not None:
+            result['weights'] = self.weights
+        if self.ports is not None:
+            result['ports'] = self.ports
+        if self.eips is not None:
+            result['eips'] = self.eips
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('v_computer_group_id') is not None:
+            self.v_computer_group_id = m.get('v_computer_group_id')
+        if m.get('is_eip') is not None:
+            self.is_eip = m.get('is_eip')
+        if m.get('computer_ids') is not None:
+            self.computer_ids = m.get('computer_ids')
+        if m.get('weights') is not None:
+            self.weights = m.get('weights')
+        if m.get('ports') is not None:
+            self.ports = m.get('ports')
+        if m.get('eips') is not None:
+            self.eips = m.get('eips')
+        return self
+
+
+class AddLoadbalanceVcomputergroupResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        paas_request_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # paas_request_id
+        self.paas_request_id = paas_request_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.paas_request_id is not None:
+            result['paas_request_id'] = self.paas_request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('paas_request_id') is not None:
+            self.paas_request_id = m.get('paas_request_id')
+        return self
+
+
+class RemoveLoadbalanceVcomputergroupRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        computer_ids: List[str] = None,
+        is_eip: bool = None,
+        ports: List[int] = None,
+        weights: List[int] = None,
+        eips: List[str] = None,
+        v_computer_group_id: str = None,
+        workspace_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # computer_ids
+        self.computer_ids = computer_ids
+        # 后端是否是弹性网卡
+        self.is_eip = is_eip
+        # ports
+        self.ports = ports
+        # weights
+        self.weights = weights
+        # eips
+        self.eips = eips
+        # v_computer_group_id
+        self.v_computer_group_id = v_computer_group_id
+        # workspace_id
+        self.workspace_id = workspace_id
+
+    def validate(self):
+        self.validate_required(self.computer_ids, 'computer_ids')
+        self.validate_required(self.ports, 'ports')
+        self.validate_required(self.weights, 'weights')
+        self.validate_required(self.v_computer_group_id, 'v_computer_group_id')
+        self.validate_required(self.workspace_id, 'workspace_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.computer_ids is not None:
+            result['computer_ids'] = self.computer_ids
+        if self.is_eip is not None:
+            result['is_eip'] = self.is_eip
+        if self.ports is not None:
+            result['ports'] = self.ports
+        if self.weights is not None:
+            result['weights'] = self.weights
+        if self.eips is not None:
+            result['eips'] = self.eips
+        if self.v_computer_group_id is not None:
+            result['v_computer_group_id'] = self.v_computer_group_id
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('computer_ids') is not None:
+            self.computer_ids = m.get('computer_ids')
+        if m.get('is_eip') is not None:
+            self.is_eip = m.get('is_eip')
+        if m.get('ports') is not None:
+            self.ports = m.get('ports')
+        if m.get('weights') is not None:
+            self.weights = m.get('weights')
+        if m.get('eips') is not None:
+            self.eips = m.get('eips')
+        if m.get('v_computer_group_id') is not None:
+            self.v_computer_group_id = m.get('v_computer_group_id')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        return self
+
+
+class RemoveLoadbalanceVcomputergroupResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        paas_request_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # paas_request_id
+        self.paas_request_id = paas_request_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.paas_request_id is not None:
+            result['paas_request_id'] = self.paas_request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('paas_request_id') is not None:
+            self.paas_request_id = m.get('paas_request_id')
+        return self
+
+
+class AddDnsRecordsetRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        name: str = None,
+        description: str = None,
+        type: str = None,
+        dns_network_type: str = None,
+        tenant_id: str = None,
+        dns_records: List[DnsRecordParam] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # name
+        self.name = name
+        # description
+        self.description = description
+        # type: 记录类型，默认为A, 仅支持 A, CName, 见DnsRecordSetType
+        self.type = type
+        # type: 类型, PUBLIC(外部域名) 或者 PRIVATE (域名) 见DnsNetworkType
+        self.dns_network_type = dns_network_type
+        # tenant_id
+        self.tenant_id = tenant_id
+        # dns_records
+        self.dns_records = dns_records
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.dns_records, 'dns_records')
+        if self.dns_records:
+            for k in self.dns_records:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.name is not None:
+            result['name'] = self.name
+        if self.description is not None:
+            result['description'] = self.description
+        if self.type is not None:
+            result['type'] = self.type
+        if self.dns_network_type is not None:
+            result['dns_network_type'] = self.dns_network_type
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        result['dns_records'] = []
+        if self.dns_records is not None:
+            for k in self.dns_records:
+                result['dns_records'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('dns_network_type') is not None:
+            self.dns_network_type = m.get('dns_network_type')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        self.dns_records = []
+        if m.get('dns_records') is not None:
+            for k in m.get('dns_records'):
+                temp_model = DnsRecordParam()
+                self.dns_records.append(temp_model.from_map(k))
+        return self
+
+
+class AddDnsRecordsetResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # xxxxxxx
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class DeleteDnsRecordRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        dns_recordset_id: str = None,
+        dns_record_ip: str = None,
+        workspace_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # dns_recordset_id
+        self.dns_recordset_id = dns_recordset_id
+        # dns_record_ip
+        self.dns_record_ip = dns_record_ip
+        # workspace_id
+        self.workspace_id = workspace_id
+
+    def validate(self):
+        self.validate_required(self.dns_recordset_id, 'dns_recordset_id')
+        self.validate_required(self.dns_record_ip, 'dns_record_ip')
+        self.validate_required(self.workspace_id, 'workspace_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.dns_recordset_id is not None:
+            result['dns_recordset_id'] = self.dns_recordset_id
+        if self.dns_record_ip is not None:
+            result['dns_record_ip'] = self.dns_record_ip
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('dns_recordset_id') is not None:
+            self.dns_recordset_id = m.get('dns_recordset_id')
+        if m.get('dns_record_ip') is not None:
+            self.dns_record_ip = m.get('dns_record_ip')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        return self
+
+
+class DeleteDnsRecordResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryDnsRecordsetRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        workspace_id: str = None,
+        resource_type: str = None,
+        ip: str = None,
+        dns_recordset_name: str = None,
+        resource_name: str = None,
+        resource_iaas_ids: List[str] = None,
+        dns_recordset_ids: List[str] = None,
+        page_size: int = None,
+        current_page: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # workspace_id
+        self.workspace_id = workspace_id
+        # resource_type
+        self.resource_type = resource_type
+        # ip
+        # 
+        self.ip = ip
+        # dns_recordset_name
+        self.dns_recordset_name = dns_recordset_name
+        # resource_name
+        self.resource_name = resource_name
+        # resource_iaas_ids
+        self.resource_iaas_ids = resource_iaas_ids
+        # dns_recordset_ids
+        self.dns_recordset_ids = dns_recordset_ids
+        # page_size
+        self.page_size = page_size
+        # current_page
+        self.current_page = current_page
+
+    def validate(self):
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.current_page, 'current_page')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.resource_type is not None:
+            result['resource_type'] = self.resource_type
+        if self.ip is not None:
+            result['ip'] = self.ip
+        if self.dns_recordset_name is not None:
+            result['dns_recordset_name'] = self.dns_recordset_name
+        if self.resource_name is not None:
+            result['resource_name'] = self.resource_name
+        if self.resource_iaas_ids is not None:
+            result['resource_iaas_ids'] = self.resource_iaas_ids
+        if self.dns_recordset_ids is not None:
+            result['dns_recordset_ids'] = self.dns_recordset_ids
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.current_page is not None:
+            result['current_page'] = self.current_page
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('resource_type') is not None:
+            self.resource_type = m.get('resource_type')
+        if m.get('ip') is not None:
+            self.ip = m.get('ip')
+        if m.get('dns_recordset_name') is not None:
+            self.dns_recordset_name = m.get('dns_recordset_name')
+        if m.get('resource_name') is not None:
+            self.resource_name = m.get('resource_name')
+        if m.get('resource_iaas_ids') is not None:
+            self.resource_iaas_ids = m.get('resource_iaas_ids')
+        if m.get('dns_recordset_ids') is not None:
+            self.dns_recordset_ids = m.get('dns_recordset_ids')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('current_page') is not None:
+            self.current_page = m.get('current_page')
+        return self
+
+
+class QueryDnsRecordsetResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[WorkspaceDnsRecordset] = None,
+        total_count: int = None,
+        page_size: int = None,
+        current_page: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # data
+        self.data = data
+        # total_count
+        self.total_count = total_count
+        # page_size
+        self.page_size = page_size
+        # current_page
+        self.current_page = current_page
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.current_page is not None:
+            result['current_page'] = self.current_page
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = WorkspaceDnsRecordset()
+                self.data.append(temp_model.from_map(k))
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('current_page') is not None:
+            self.current_page = m.get('current_page')
+        return self
+
+
+class BindDnsProviderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        workspace_id: str = None,
+        zone_id: str = None,
+        dns_provider_id: str = None,
+        default_sub_domain_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # workspace_id
+        self.workspace_id = workspace_id
+        # 部分环境绑定到机房机房
+        self.zone_id = zone_id
+        # dns_provider_id
+        self.dns_provider_id = dns_provider_id
+        # default_sub_domain_name
+        self.default_sub_domain_name = default_sub_domain_name
+
+    def validate(self):
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.dns_provider_id, 'dns_provider_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.zone_id is not None:
+            result['zone_id'] = self.zone_id
+        if self.dns_provider_id is not None:
+            result['dns_provider_id'] = self.dns_provider_id
+        if self.default_sub_domain_name is not None:
+            result['default_sub_domain_name'] = self.default_sub_domain_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('zone_id') is not None:
+            self.zone_id = m.get('zone_id')
+        if m.get('dns_provider_id') is not None:
+            self.dns_provider_id = m.get('dns_provider_id')
+        if m.get('default_sub_domain_name') is not None:
+            self.default_sub_domain_name = m.get('default_sub_domain_name')
+        return self
+
+
+class BindDnsProviderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class ListDnsProviderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        region_id: str = None,
+        zone_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # regionId
+        self.region_id = region_id
+        # zone_id
+        self.zone_id = zone_id
+
+    def validate(self):
+        self.validate_required(self.region_id, 'region_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.zone_id is not None:
+            result['zone_id'] = self.zone_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('zone_id') is not None:
+            self.zone_id = m.get('zone_id')
+        return self
+
+
+class ListDnsProviderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[IaasDnsProvider] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # data
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = IaasDnsProvider()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class QueryProviderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        resource_type: str = None,
+        paas_region_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # LB，COMPUTE，VPC,OBJECT_STORAGE等
+        self.resource_type = resource_type
+        # paas_region_id
+        self.paas_region_id = paas_region_id
+
+    def validate(self):
+        self.validate_required(self.resource_type, 'resource_type')
+        self.validate_required(self.paas_region_id, 'paas_region_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.resource_type is not None:
+            result['resource_type'] = self.resource_type
+        if self.paas_region_id is not None:
+            result['paas_region_id'] = self.paas_region_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('resource_type') is not None:
+            self.resource_type = m.get('resource_type')
+        if m.get('paas_region_id') is not None:
+            self.paas_region_id = m.get('paas_region_id')
+        return self
+
+
+class QueryProviderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[IaasConnMetadata] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # data
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = IaasConnMetadata()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class GetDnsWorkspaceproviderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        workspace_id: str = None,
+        zone_id: str = None,
+        dns_network_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # workspace_id
+        self.workspace_id = workspace_id
+        # zoneId
+        self.zone_id = zone_id
+        # dns_network_type
+        self.dns_network_type = dns_network_type
+
+    def validate(self):
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.dns_network_type, 'dns_network_type')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.zone_id is not None:
+            result['zone_id'] = self.zone_id
+        if self.dns_network_type is not None:
+            result['dns_network_type'] = self.dns_network_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('zone_id') is not None:
+            self.zone_id = m.get('zone_id')
+        if m.get('dns_network_type') is not None:
+            self.dns_network_type = m.get('dns_network_type')
+        return self
+
+
+class GetDnsWorkspaceproviderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[WorkspaceDnsProvider] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # data
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = WorkspaceDnsProvider()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class CreateUniworkspacegroupRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        name: str = None,
+        display_name: str = None,
+        tenant_id: str = None,
+        namespace: str = None,
+        properties: str = None,
+        release_mode: str = None,
+        workspaces: List[str] = None,
+        workspaces_create_param: List[str] = None,
+        cell_group_create_params: List[str] = None,
+        cell_create_params: List[str] = None,
+        domain_suffix: str = None,
+        vpc_create_params: List[str] = None,
+        import_vpcs: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 工作空间组名称
+        self.name = name
+        # 显示名字，可以中文
+        self.display_name = display_name
+        # 租户ID
+        self.tenant_id = tenant_id
+        # namespace
+        self.namespace = namespace
+        # json格式的字符串，工作空间组属性
+        self.properties = properties
+        # release_mode
+        self.release_mode = release_mode
+        # 工作空间的名称
+        self.workspaces = workspaces
+        # workspaces_create_param
+        self.workspaces_create_param = workspaces_create_param
+        # cell_group_create_params
+        self.cell_group_create_params = cell_group_create_params
+        # cell_create_params
+        self.cell_create_params = cell_create_params
+        # 域名前缀
+        self.domain_suffix = domain_suffix
+        # VPC创建参数
+        self.vpc_create_params = vpc_create_params
+        # 导入的VPCIDs
+        self.import_vpcs = import_vpcs
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.display_name, 'display_name')
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.workspaces, 'workspaces')
+        self.validate_required(self.workspaces_create_param, 'workspaces_create_param')
+        self.validate_required(self.vpc_create_params, 'vpc_create_params')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.name is not None:
+            result['name'] = self.name
+        if self.display_name is not None:
+            result['display_name'] = self.display_name
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.namespace is not None:
+            result['namespace'] = self.namespace
+        if self.properties is not None:
+            result['properties'] = self.properties
+        if self.release_mode is not None:
+            result['release_mode'] = self.release_mode
+        if self.workspaces is not None:
+            result['workspaces'] = self.workspaces
+        if self.workspaces_create_param is not None:
+            result['workspaces_create_param'] = self.workspaces_create_param
+        if self.cell_group_create_params is not None:
+            result['cell_group_create_params'] = self.cell_group_create_params
+        if self.cell_create_params is not None:
+            result['cell_create_params'] = self.cell_create_params
+        if self.domain_suffix is not None:
+            result['domain_suffix'] = self.domain_suffix
+        if self.vpc_create_params is not None:
+            result['vpc_create_params'] = self.vpc_create_params
+        if self.import_vpcs is not None:
+            result['import_vpcs'] = self.import_vpcs
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('display_name') is not None:
+            self.display_name = m.get('display_name')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('namespace') is not None:
+            self.namespace = m.get('namespace')
+        if m.get('properties') is not None:
+            self.properties = m.get('properties')
+        if m.get('release_mode') is not None:
+            self.release_mode = m.get('release_mode')
+        if m.get('workspaces') is not None:
+            self.workspaces = m.get('workspaces')
+        if m.get('workspaces_create_param') is not None:
+            self.workspaces_create_param = m.get('workspaces_create_param')
+        if m.get('cell_group_create_params') is not None:
+            self.cell_group_create_params = m.get('cell_group_create_params')
+        if m.get('cell_create_params') is not None:
+            self.cell_create_params = m.get('cell_create_params')
+        if m.get('domain_suffix') is not None:
+            self.domain_suffix = m.get('domain_suffix')
+        if m.get('vpc_create_params') is not None:
+            self.vpc_create_params = m.get('vpc_create_params')
+        if m.get('import_vpcs') is not None:
+            self.import_vpcs = m.get('import_vpcs')
+        return self
+
+
+class CreateUniworkspacegroupResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        paas_request_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # paas_request_id，异步任务ID
+        self.paas_request_id = paas_request_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.paas_request_id is not None:
+            result['paas_request_id'] = self.paas_request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('paas_request_id') is not None:
+            self.paas_request_id = m.get('paas_request_id')
+        return self
+
+
+class ImportMiddlewareclusterRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        workspace_id: str = None,
+        cluster_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # workspace_id
+        self.workspace_id = workspace_id
+        # cluster_id，OSP上的ID
+        self.cluster_id = cluster_id
+
+    def validate(self):
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.cluster_id, 'cluster_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.cluster_id is not None:
+            result['cluster_id'] = self.cluster_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('cluster_id') is not None:
+            self.cluster_id = m.get('cluster_id')
+        return self
+
+
+class ImportMiddlewareclusterResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryMiddlewareclusterRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        workspace_id: str = None,
+        cluster_id: str = None,
+        cluster_name: str = None,
+        workspace_group_name: str = None,
+        app_service_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # workspace_id 和workspace_group_id至少要填一个
+        self.workspace_id = workspace_id
+        # cluster_id OSP上的ID
+        self.cluster_id = cluster_id
+        # cluster_name
+        self.cluster_name = cluster_name
+        # workspace_group_name和workspace_id必须至少传入一个
+        self.workspace_group_name = workspace_group_name
+        # app_service_id
+        self.app_service_id = app_service_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.cluster_id is not None:
+            result['cluster_id'] = self.cluster_id
+        if self.cluster_name is not None:
+            result['cluster_name'] = self.cluster_name
+        if self.workspace_group_name is not None:
+            result['workspace_group_name'] = self.workspace_group_name
+        if self.app_service_id is not None:
+            result['app_service_id'] = self.app_service_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('cluster_id') is not None:
+            self.cluster_id = m.get('cluster_id')
+        if m.get('cluster_name') is not None:
+            self.cluster_name = m.get('cluster_name')
+        if m.get('workspace_group_name') is not None:
+            self.workspace_group_name = m.get('workspace_group_name')
+        if m.get('app_service_id') is not None:
+            self.app_service_id = m.get('app_service_id')
+        return self
+
+
+class QueryMiddlewareclusterResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[MiddlewareCluster] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # data
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = MiddlewareCluster()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class RemoveMiddlewareclusterRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        workspace_id: str = None,
+        cluster_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # workspace_id
+        self.workspace_id = workspace_id
+        # cluster_id
+        self.cluster_id = cluster_id
+
+    def validate(self):
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.cluster_id, 'cluster_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.cluster_id is not None:
+            result['cluster_id'] = self.cluster_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('cluster_id') is not None:
+            self.cluster_id = m.get('cluster_id')
+        return self
+
+
+class RemoveMiddlewareclusterResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
