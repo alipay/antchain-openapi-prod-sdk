@@ -78,7 +78,7 @@ public class CreateComputerRequest extends TeaModel {
     @Validation(maxLength = 40, minLength = 2)
     public String name;
 
-    // 实例的密码。长度为8至30个字符，必须同时包含大小写英文字母、数字和特殊符号中的三类字符。特殊符号可以是： ()`~!@#^&*-_+=|{}[]:;'<>,.?/ 其中，Windows实例不能以斜线号（/）为密码首字符。
+    // 实例的密码。长度为8至30个字符，必须同时包含大小写英文字母、数字和特殊符号中的三类字符。特殊符号可以是： ()`~!@#^&*-_+=|{}[]:;_<>,.?/ 其中，Windows实例不能以斜线号（/）为密码首字符。
     @NameInMap("password")
     @Validation(maxLength = 30, minLength = 8)
     public String password;

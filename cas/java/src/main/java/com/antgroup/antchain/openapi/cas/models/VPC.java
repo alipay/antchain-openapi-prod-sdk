@@ -63,6 +63,10 @@ public class VPC extends TeaModel {
     @NameInMap("import_info")
     public ImportInfo importInfo;
 
+    // vpc在CAFE测的唯一ID
+    @NameInMap("vpc_paas_id")
+    public String vpcPaasId;
+
     public static VPC build(java.util.Map<String, ?> map) throws Exception {
         VPC self = new VPC();
         return TeaModel.build(map, self);
@@ -162,6 +166,14 @@ public class VPC extends TeaModel {
     }
     public ImportInfo getImportInfo() {
         return this.importInfo;
+    }
+
+    public VPC setVpcPaasId(String vpcPaasId) {
+        this.vpcPaasId = vpcPaasId;
+        return this;
+    }
+    public String getVpcPaasId() {
+        return this.vpcPaasId;
     }
 
 }

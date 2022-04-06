@@ -37,6 +37,14 @@ public class ListComputerRequest extends TeaModel {
     @NameInMap("vpc_iaas_id")
     public String vpcIaasId;
 
+    // private_ips
+    @NameInMap("private_ips")
+    public java.util.List<String> privateIps;
+
+    // iaas_ids
+    @NameInMap("iaas_ids")
+    public java.util.List<String> iaasIds;
+
     public static ListComputerRequest build(java.util.Map<String, ?> map) throws Exception {
         ListComputerRequest self = new ListComputerRequest();
         return TeaModel.build(map, self);
@@ -104,6 +112,22 @@ public class ListComputerRequest extends TeaModel {
     }
     public String getVpcIaasId() {
         return this.vpcIaasId;
+    }
+
+    public ListComputerRequest setPrivateIps(java.util.List<String> privateIps) {
+        this.privateIps = privateIps;
+        return this;
+    }
+    public java.util.List<String> getPrivateIps() {
+        return this.privateIps;
+    }
+
+    public ListComputerRequest setIaasIds(java.util.List<String> iaasIds) {
+        this.iaasIds = iaasIds;
+        return this;
+    }
+    public java.util.List<String> getIaasIds() {
+        return this.iaasIds;
     }
 
 }

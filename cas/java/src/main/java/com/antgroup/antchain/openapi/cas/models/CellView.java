@@ -4,19 +4,19 @@ package com.antgroup.antchain.openapi.cas.models;
 import com.aliyun.tea.*;
 
 public class CellView extends TeaModel {
-    // id
+    // 部署单元对应的paas id
     @NameInMap("id")
     public String id;
 
-    // name
+    // 部署单元名称
     @NameInMap("name")
     public String name;
 
-    // displayName
+    // 部署单元显示名称
     @NameInMap("display_name")
     public String displayName;
 
-    // description
+    // 部署单元描述
     @NameInMap("description")
     public String description;
 

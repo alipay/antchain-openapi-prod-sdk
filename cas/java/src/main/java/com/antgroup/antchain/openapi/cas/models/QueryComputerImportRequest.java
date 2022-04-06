@@ -27,6 +27,22 @@ public class QueryComputerImportRequest extends TeaModel {
     @Validation(required = true)
     public Long currentPage;
 
+    // 机器名称
+    @NameInMap("name")
+    public String name;
+
+    // 是否只查询可导入的
+    @NameInMap("importable_only")
+    public Boolean importableOnly;
+
+    // iaas_id
+    @NameInMap("iaas_id")
+    public String iaasId;
+
+    // workspace_id
+    @NameInMap("workspace_id")
+    public String workspaceId;
+
     public static QueryComputerImportRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryComputerImportRequest self = new QueryComputerImportRequest();
         return TeaModel.build(map, self);
@@ -70,6 +86,38 @@ public class QueryComputerImportRequest extends TeaModel {
     }
     public Long getCurrentPage() {
         return this.currentPage;
+    }
+
+    public QueryComputerImportRequest setName(String name) {
+        this.name = name;
+        return this;
+    }
+    public String getName() {
+        return this.name;
+    }
+
+    public QueryComputerImportRequest setImportableOnly(Boolean importableOnly) {
+        this.importableOnly = importableOnly;
+        return this;
+    }
+    public Boolean getImportableOnly() {
+        return this.importableOnly;
+    }
+
+    public QueryComputerImportRequest setIaasId(String iaasId) {
+        this.iaasId = iaasId;
+        return this;
+    }
+    public String getIaasId() {
+        return this.iaasId;
+    }
+
+    public QueryComputerImportRequest setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
+        return this;
+    }
+    public String getWorkspaceId() {
+        return this.workspaceId;
     }
 
 }

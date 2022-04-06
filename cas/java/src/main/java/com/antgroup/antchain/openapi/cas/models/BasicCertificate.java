@@ -23,6 +23,10 @@ public class BasicCertificate extends TeaModel {
     @Validation(required = true)
     public Long certType;
 
+    // 标记这个证书的Provider
+    @NameInMap("provider_id")
+    public String providerId;
+
     public static BasicCertificate build(java.util.Map<String, ?> map) throws Exception {
         BasicCertificate self = new BasicCertificate();
         return TeaModel.build(map, self);
@@ -58,6 +62,14 @@ public class BasicCertificate extends TeaModel {
     }
     public Long getCertType() {
         return this.certType;
+    }
+
+    public BasicCertificate setProviderId(String providerId) {
+        this.providerId = providerId;
+        return this;
+    }
+    public String getProviderId() {
+        return this.providerId;
     }
 
 }

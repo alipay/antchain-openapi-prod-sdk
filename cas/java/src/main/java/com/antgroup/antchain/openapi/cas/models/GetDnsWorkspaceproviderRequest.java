@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.cas.models;
 
 import com.aliyun.tea.*;
 
-public class QueryCertificateRequest extends TeaModel {
+public class GetDnsWorkspaceproviderRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -13,21 +13,21 @@ public class QueryCertificateRequest extends TeaModel {
     @Validation(required = true)
     public String workspaceId;
 
-    // zone_id
+    // zoneId
     @NameInMap("zone_id")
-    @Validation(required = true)
     public String zoneId;
 
-    // provider_ids
-    @NameInMap("provider_ids")
-    public java.util.List<String> providerIds;
+    // dns_network_type
+    @NameInMap("dns_network_type")
+    @Validation(required = true)
+    public String dnsNetworkType;
 
-    public static QueryCertificateRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryCertificateRequest self = new QueryCertificateRequest();
+    public static GetDnsWorkspaceproviderRequest build(java.util.Map<String, ?> map) throws Exception {
+        GetDnsWorkspaceproviderRequest self = new GetDnsWorkspaceproviderRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryCertificateRequest setAuthToken(String authToken) {
+    public GetDnsWorkspaceproviderRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -35,7 +35,7 @@ public class QueryCertificateRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryCertificateRequest setWorkspaceId(String workspaceId) {
+    public GetDnsWorkspaceproviderRequest setWorkspaceId(String workspaceId) {
         this.workspaceId = workspaceId;
         return this;
     }
@@ -43,7 +43,7 @@ public class QueryCertificateRequest extends TeaModel {
         return this.workspaceId;
     }
 
-    public QueryCertificateRequest setZoneId(String zoneId) {
+    public GetDnsWorkspaceproviderRequest setZoneId(String zoneId) {
         this.zoneId = zoneId;
         return this;
     }
@@ -51,12 +51,12 @@ public class QueryCertificateRequest extends TeaModel {
         return this.zoneId;
     }
 
-    public QueryCertificateRequest setProviderIds(java.util.List<String> providerIds) {
-        this.providerIds = providerIds;
+    public GetDnsWorkspaceproviderRequest setDnsNetworkType(String dnsNetworkType) {
+        this.dnsNetworkType = dnsNetworkType;
         return this;
     }
-    public java.util.List<String> getProviderIds() {
-        return this.providerIds;
+    public String getDnsNetworkType() {
+        return this.dnsNetworkType;
     }
 
 }

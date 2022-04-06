@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.cas.models;
 
 import com.aliyun.tea.*;
 
-public class QueryLoadbalanceVcomputerResponse extends TeaModel {
+public class QueryProviderResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,20 +16,16 @@ public class QueryLoadbalanceVcomputerResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // v_computers
+    // data
     @NameInMap("data")
-    public java.util.List<VComputer> data;
+    public java.util.List<IaasConnMetadata> data;
 
-    // total_count
-    @NameInMap("total_count")
-    public Long totalCount;
-
-    public static QueryLoadbalanceVcomputerResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryLoadbalanceVcomputerResponse self = new QueryLoadbalanceVcomputerResponse();
+    public static QueryProviderResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryProviderResponse self = new QueryProviderResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryLoadbalanceVcomputerResponse setReqMsgId(String reqMsgId) {
+    public QueryProviderResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +33,7 @@ public class QueryLoadbalanceVcomputerResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryLoadbalanceVcomputerResponse setResultCode(String resultCode) {
+    public QueryProviderResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +41,7 @@ public class QueryLoadbalanceVcomputerResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryLoadbalanceVcomputerResponse setResultMsg(String resultMsg) {
+    public QueryProviderResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,20 +49,12 @@ public class QueryLoadbalanceVcomputerResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryLoadbalanceVcomputerResponse setData(java.util.List<VComputer> data) {
+    public QueryProviderResponse setData(java.util.List<IaasConnMetadata> data) {
         this.data = data;
         return this;
     }
-    public java.util.List<VComputer> getData() {
+    public java.util.List<IaasConnMetadata> getData() {
         return this.data;
-    }
-
-    public QueryLoadbalanceVcomputerResponse setTotalCount(Long totalCount) {
-        this.totalCount = totalCount;
-        return this;
-    }
-    public Long getTotalCount() {
-        return this.totalCount;
     }
 
 }

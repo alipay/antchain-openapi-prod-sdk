@@ -13,6 +13,10 @@ public class SLSProject extends TeaModel {
     @Validation(required = true)
     public String name;
 
+    // 阿里云返回的regionName，仅作展示用
+    @NameInMap("region")
+    public String region;
+
     public static SLSProject build(java.util.Map<String, ?> map) throws Exception {
         SLSProject self = new SLSProject();
         return TeaModel.build(map, self);
@@ -32,6 +36,14 @@ public class SLSProject extends TeaModel {
     }
     public String getName() {
         return this.name;
+    }
+
+    public SLSProject setRegion(String region) {
+        this.region = region;
+        return this;
+    }
+    public String getRegion() {
+        return this.region;
     }
 
 }

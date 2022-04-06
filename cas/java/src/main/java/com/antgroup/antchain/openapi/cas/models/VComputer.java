@@ -24,6 +24,18 @@ public class VComputer extends TeaModel {
     @NameInMap("weight")
     public Long weight;
 
+    // 是否是EIP
+    @NameInMap("is_eip")
+    public Boolean isEip;
+
+    // is_managed_computer
+    @NameInMap("is_managed_computer")
+    public Boolean isManagedComputer;
+
+    // iaas_id
+    @NameInMap("iaas_id")
+    public String iaasId;
+
     public static VComputer build(java.util.Map<String, ?> map) throws Exception {
         VComputer self = new VComputer();
         return TeaModel.build(map, self);
@@ -67,6 +79,30 @@ public class VComputer extends TeaModel {
     }
     public Long getWeight() {
         return this.weight;
+    }
+
+    public VComputer setIsEip(Boolean isEip) {
+        this.isEip = isEip;
+        return this;
+    }
+    public Boolean getIsEip() {
+        return this.isEip;
+    }
+
+    public VComputer setIsManagedComputer(Boolean isManagedComputer) {
+        this.isManagedComputer = isManagedComputer;
+        return this;
+    }
+    public Boolean getIsManagedComputer() {
+        return this.isManagedComputer;
+    }
+
+    public VComputer setIaasId(String iaasId) {
+        this.iaasId = iaasId;
+        return this;
+    }
+    public String getIaasId() {
+        return this.iaasId;
     }
 
 }

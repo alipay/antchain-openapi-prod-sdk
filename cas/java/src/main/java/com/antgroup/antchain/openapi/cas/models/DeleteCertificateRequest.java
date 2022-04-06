@@ -23,6 +23,10 @@ public class DeleteCertificateRequest extends TeaModel {
     @Validation(required = true)
     public String zoneId;
 
+    // 多provider时选填
+    @NameInMap("provider_id")
+    public String providerId;
+
     public static DeleteCertificateRequest build(java.util.Map<String, ?> map) throws Exception {
         DeleteCertificateRequest self = new DeleteCertificateRequest();
         return TeaModel.build(map, self);
@@ -58,6 +62,14 @@ public class DeleteCertificateRequest extends TeaModel {
     }
     public String getZoneId() {
         return this.zoneId;
+    }
+
+    public DeleteCertificateRequest setProviderId(String providerId) {
+        this.providerId = providerId;
+        return this;
+    }
+    public String getProviderId() {
+        return this.providerId;
     }
 
 }

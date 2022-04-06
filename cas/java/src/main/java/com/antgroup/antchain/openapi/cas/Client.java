@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.19")
+                    new TeaPair("sdk_version", "1.4.11")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -2896,8 +2896,8 @@ public class Client {
     }
 
     /**
-     * Description: 查询已导入的computer信息
-     * Summary: 查询已导入的computer信息
+     * Description: 查询可以导入的computer信息
+     * Summary: 查询可以导入的computer信息
      */
     public QueryComputerImportResponse queryComputerImport(QueryComputerImportRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -2906,8 +2906,8 @@ public class Client {
     }
 
     /**
-     * Description: 查询已导入的computer信息
-     * Summary: 查询已导入的computer信息
+     * Description: 查询可以导入的computer信息
+     * Summary: 查询可以导入的computer信息
      */
     public QueryComputerImportResponse queryComputerImportEx(QueryComputerImportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4508,5 +4508,309 @@ public class Client {
     public UpdateDiskStrategyResponse updateDiskStrategyEx(UpdateDiskStrategyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.disk.strategy.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateDiskStrategyResponse());
+    }
+
+    /**
+     * Description: 创建虚拟服务器组
+     * Summary: 创建虚拟服务器组
+     */
+    public CreateLoadbalanceVcomputergroupResponse createLoadbalanceVcomputergroup(CreateLoadbalanceVcomputergroupRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createLoadbalanceVcomputergroupEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建虚拟服务器组
+     * Summary: 创建虚拟服务器组
+     */
+    public CreateLoadbalanceVcomputergroupResponse createLoadbalanceVcomputergroupEx(CreateLoadbalanceVcomputergroupRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.loadbalance.vcomputergroup.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateLoadbalanceVcomputergroupResponse());
+    }
+
+    /**
+     * Description: 在VComputerGroup里更新后端服务器
+     * Summary: 增加VCompute
+     */
+    public UpdateLoadbalanceVcomputergroupResponse updateLoadbalanceVcomputergroup(UpdateLoadbalanceVcomputergroupRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateLoadbalanceVcomputergroupEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 在VComputerGroup里更新后端服务器
+     * Summary: 增加VCompute
+     */
+    public UpdateLoadbalanceVcomputergroupResponse updateLoadbalanceVcomputergroupEx(UpdateLoadbalanceVcomputergroupRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.loadbalance.vcomputergroup.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateLoadbalanceVcomputergroupResponse());
+    }
+
+    /**
+     * Description: 删除VComputerGroup
+     * Summary: 删除VComputerGroup
+     */
+    public DeleteLoadbalanceVcomputergroupResponse deleteLoadbalanceVcomputergroup(DeleteLoadbalanceVcomputergroupRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteLoadbalanceVcomputergroupEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 删除VComputerGroup
+     * Summary: 删除VComputerGroup
+     */
+    public DeleteLoadbalanceVcomputergroupResponse deleteLoadbalanceVcomputergroupEx(DeleteLoadbalanceVcomputergroupRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.loadbalance.vcomputergroup.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteLoadbalanceVcomputergroupResponse());
+    }
+
+    /**
+     * Description: 在虚拟服务器组中增加服务器
+     * Summary: 在虚拟服务器组中增加服务器
+     */
+    public AddLoadbalanceVcomputergroupResponse addLoadbalanceVcomputergroup(AddLoadbalanceVcomputergroupRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addLoadbalanceVcomputergroupEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 在虚拟服务器组中增加服务器
+     * Summary: 在虚拟服务器组中增加服务器
+     */
+    public AddLoadbalanceVcomputergroupResponse addLoadbalanceVcomputergroupEx(AddLoadbalanceVcomputergroupRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.loadbalance.vcomputergroup.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddLoadbalanceVcomputergroupResponse());
+    }
+
+    /**
+     * Description: 从虚拟服务器组中删除服务器
+     * Summary: 从虚拟服务器组中删除服务器
+     */
+    public RemoveLoadbalanceVcomputergroupResponse removeLoadbalanceVcomputergroup(RemoveLoadbalanceVcomputergroupRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.removeLoadbalanceVcomputergroupEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 从虚拟服务器组中删除服务器
+     * Summary: 从虚拟服务器组中删除服务器
+     */
+    public RemoveLoadbalanceVcomputergroupResponse removeLoadbalanceVcomputergroupEx(RemoveLoadbalanceVcomputergroupRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.loadbalance.vcomputergroup.remove", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RemoveLoadbalanceVcomputergroupResponse());
+    }
+
+    /**
+     * Description: 添加域名记录
+     * Summary: 添加域名记录
+     */
+    public AddDnsRecordsetResponse addDnsRecordset(AddDnsRecordsetRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addDnsRecordsetEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 添加域名记录
+     * Summary: 添加域名记录
+     */
+    public AddDnsRecordsetResponse addDnsRecordsetEx(AddDnsRecordsetRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.dns.recordset.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddDnsRecordsetResponse());
+    }
+
+    /**
+     * Description: 删除一条DNS记录
+     * Summary: 删除一条DNS记录
+     */
+    public DeleteDnsRecordResponse deleteDnsRecord(DeleteDnsRecordRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteDnsRecordEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 删除一条DNS记录
+     * Summary: 删除一条DNS记录
+     */
+    public DeleteDnsRecordResponse deleteDnsRecordEx(DeleteDnsRecordRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.dns.record.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteDnsRecordResponse());
+    }
+
+    /**
+     * Description: 查询当前recordset
+     * Summary: 查询当前recordset
+     */
+    public QueryDnsRecordsetResponse queryDnsRecordset(QueryDnsRecordsetRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDnsRecordsetEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询当前recordset
+     * Summary: 查询当前recordset
+     */
+    public QueryDnsRecordsetResponse queryDnsRecordsetEx(QueryDnsRecordsetRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.dns.recordset.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDnsRecordsetResponse());
+    }
+
+    /**
+     * Description: workspace绑定指定DNS服务商
+     * Summary: workspace绑定指定DNS服务商
+     */
+    public BindDnsProviderResponse bindDnsProvider(BindDnsProviderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindDnsProviderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: workspace绑定指定DNS服务商
+     * Summary: workspace绑定指定DNS服务商
+     */
+    public BindDnsProviderResponse bindDnsProviderEx(BindDnsProviderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.dns.provider.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDnsProviderResponse());
+    }
+
+    /**
+     * Description: 获取当前环境的DNS provider
+     * Summary: 获取当前环境的DNS provider
+     */
+    public ListDnsProviderResponse listDnsProvider(ListDnsProviderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listDnsProviderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取当前环境的DNS provider
+     * Summary: 获取当前环境的DNS provider
+     */
+    public ListDnsProviderResponse listDnsProviderEx(ListDnsProviderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.dns.provider.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListDnsProviderResponse());
+    }
+
+    /**
+     * Description: 查询当前环境资源供应商信息
+     * Summary: 查询当前环境资源供应商信息
+     */
+    public QueryProviderResponse queryProvider(QueryProviderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryProviderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询当前环境资源供应商信息
+     * Summary: 查询当前环境资源供应商信息
+     */
+    public QueryProviderResponse queryProviderEx(QueryProviderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.provider.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryProviderResponse());
+    }
+
+    /**
+     * Description: 获取当前工作空间的DNSProvider
+     * Summary: 获取当前工作空间的DNSProvider
+     */
+    public GetDnsWorkspaceproviderResponse getDnsWorkspaceprovider(GetDnsWorkspaceproviderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getDnsWorkspaceproviderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取当前工作空间的DNSProvider
+     * Summary: 获取当前工作空间的DNSProvider
+     */
+    public GetDnsWorkspaceproviderResponse getDnsWorkspaceproviderEx(GetDnsWorkspaceproviderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.dns.workspaceprovider.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetDnsWorkspaceproviderResponse());
+    }
+
+    /**
+     * Description: [异步]创建工作空间组，包括了VPC，交换机，单元化架构的一体化创建
+     * Summary: [异步]创建工作空间组
+     */
+    public CreateUniworkspacegroupResponse createUniworkspacegroup(CreateUniworkspacegroupRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createUniworkspacegroupEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: [异步]创建工作空间组，包括了VPC，交换机，单元化架构的一体化创建
+     * Summary: [异步]创建工作空间组
+     */
+    public CreateUniworkspacegroupResponse createUniworkspacegroupEx(CreateUniworkspacegroupRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.uniworkspacegroup.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateUniworkspacegroupResponse());
+    }
+
+    /**
+     * Description: 导入一个中间件集群
+     * Summary: 导入一个中间件集群
+     */
+    public ImportMiddlewareclusterResponse importMiddlewarecluster(ImportMiddlewareclusterRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importMiddlewareclusterEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 导入一个中间件集群
+     * Summary: 导入一个中间件集群
+     */
+    public ImportMiddlewareclusterResponse importMiddlewareclusterEx(ImportMiddlewareclusterRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.middlewarecluster.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportMiddlewareclusterResponse());
+    }
+
+    /**
+     * Description: 查询当前工作空间中间件集群
+     * Summary: 查询当前工作空间中间件集群
+     */
+    public QueryMiddlewareclusterResponse queryMiddlewarecluster(QueryMiddlewareclusterRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryMiddlewareclusterEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询当前工作空间中间件集群
+     * Summary: 查询当前工作空间中间件集群
+     */
+    public QueryMiddlewareclusterResponse queryMiddlewareclusterEx(QueryMiddlewareclusterRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.middlewarecluster.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMiddlewareclusterResponse());
+    }
+
+    /**
+     * Description: 移除一个中间件集群
+     * Summary: 移除一个中间件集群
+     */
+    public RemoveMiddlewareclusterResponse removeMiddlewarecluster(RemoveMiddlewareclusterRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.removeMiddlewareclusterEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 移除一个中间件集群
+     * Summary: 移除一个中间件集群
+     */
+    public RemoveMiddlewareclusterResponse removeMiddlewareclusterEx(RemoveMiddlewareclusterRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.middlewarecluster.remove", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RemoveMiddlewareclusterResponse());
     }
 }

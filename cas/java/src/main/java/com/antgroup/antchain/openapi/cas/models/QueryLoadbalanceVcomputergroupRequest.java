@@ -26,6 +26,10 @@ public class QueryLoadbalanceVcomputergroupRequest extends TeaModel {
     @Validation(required = true)
     public String workspace;
 
+    // v_computer_group_ids
+    @NameInMap("v_computer_group_ids")
+    public java.util.List<String> vComputerGroupIds;
+
     public static QueryLoadbalanceVcomputergroupRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryLoadbalanceVcomputergroupRequest self = new QueryLoadbalanceVcomputergroupRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class QueryLoadbalanceVcomputergroupRequest extends TeaModel {
     }
     public String getWorkspace() {
         return this.workspace;
+    }
+
+    public QueryLoadbalanceVcomputergroupRequest setVComputerGroupIds(java.util.List<String> vComputerGroupIds) {
+        this.vComputerGroupIds = vComputerGroupIds;
+        return this;
+    }
+    public java.util.List<String> getVComputerGroupIds() {
+        return this.vComputerGroupIds;
     }
 
 }

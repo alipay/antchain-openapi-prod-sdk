@@ -10,7 +10,6 @@ public class ImportResourceVpcRequest extends TeaModel {
 
     // region identity
     @NameInMap("region")
-    @Validation(required = true)
     public String region;
 
     // vpc iaas id
@@ -35,8 +34,12 @@ public class ImportResourceVpcRequest extends TeaModel {
 
     // cidr block
     @NameInMap("cidr_block")
-    @Validation(required = true)
     public String cidrBlock;
+
+    // paas_region_id
+    @NameInMap("paas_region_id")
+    @Validation(required = true)
+    public String paasRegionId;
 
     public static ImportResourceVpcRequest build(java.util.Map<String, ?> map) throws Exception {
         ImportResourceVpcRequest self = new ImportResourceVpcRequest();
@@ -97,6 +100,14 @@ public class ImportResourceVpcRequest extends TeaModel {
     }
     public String getCidrBlock() {
         return this.cidrBlock;
+    }
+
+    public ImportResourceVpcRequest setPaasRegionId(String paasRegionId) {
+        this.paasRegionId = paasRegionId;
+        return this;
+    }
+    public String getPaasRegionId() {
+        return this.paasRegionId;
     }
 
 }

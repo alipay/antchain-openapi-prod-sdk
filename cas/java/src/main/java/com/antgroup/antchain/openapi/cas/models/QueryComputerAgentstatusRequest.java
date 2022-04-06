@@ -10,13 +10,19 @@ public class QueryComputerAgentstatusRequest extends TeaModel {
 
     // computer serial numbers
     @NameInMap("sn")
-    @Validation(required = true)
     public java.util.List<String> sn;
 
     // workspace name
     @NameInMap("workspace")
-    @Validation(required = true)
     public String workspace;
+
+    // iaas_ids
+    @NameInMap("iaas_ids")
+    public java.util.List<String> iaasIds;
+
+    // zone_iaas_id
+    @NameInMap("zone_iaas_id")
+    public String zoneIaasId;
 
     public static QueryComputerAgentstatusRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryComputerAgentstatusRequest self = new QueryComputerAgentstatusRequest();
@@ -45,6 +51,22 @@ public class QueryComputerAgentstatusRequest extends TeaModel {
     }
     public String getWorkspace() {
         return this.workspace;
+    }
+
+    public QueryComputerAgentstatusRequest setIaasIds(java.util.List<String> iaasIds) {
+        this.iaasIds = iaasIds;
+        return this;
+    }
+    public java.util.List<String> getIaasIds() {
+        return this.iaasIds;
+    }
+
+    public QueryComputerAgentstatusRequest setZoneIaasId(String zoneIaasId) {
+        this.zoneIaasId = zoneIaasId;
+        return this;
+    }
+    public String getZoneIaasId() {
+        return this.zoneIaasId;
     }
 
 }

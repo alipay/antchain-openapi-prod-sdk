@@ -8,10 +8,10 @@ public class QueryFeatureRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // region_id
-    @NameInMap("region_id")
+    // paas_region_id cafe的region_id，是一串数字
+    @NameInMap("paas_region_id")
     @Validation(required = true)
-    public String regionId;
+    public String paasRegionId;
 
     // project_id
     @NameInMap("project_id")
@@ -31,12 +31,12 @@ public class QueryFeatureRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryFeatureRequest setRegionId(String regionId) {
-        this.regionId = regionId;
+    public QueryFeatureRequest setPaasRegionId(String paasRegionId) {
+        this.paasRegionId = paasRegionId;
         return this;
     }
-    public String getRegionId() {
-        return this.regionId;
+    public String getPaasRegionId() {
+        return this.paasRegionId;
     }
 
     public QueryFeatureRequest setProjectId(String projectId) {

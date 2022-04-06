@@ -21,6 +21,10 @@ public class UpdateLoadbalanceMountRequest extends TeaModel {
     @NameInMap("domain")
     public String domain;
 
+    // 是否是同步操作
+    @NameInMap("is_sync")
+    public Boolean isSync;
+
     public static UpdateLoadbalanceMountRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateLoadbalanceMountRequest self = new UpdateLoadbalanceMountRequest();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class UpdateLoadbalanceMountRequest extends TeaModel {
     }
     public String getDomain() {
         return this.domain;
+    }
+
+    public UpdateLoadbalanceMountRequest setIsSync(Boolean isSync) {
+        this.isSync = isSync;
+        return this;
+    }
+    public Boolean getIsSync() {
+        return this.isSync;
     }
 
 }

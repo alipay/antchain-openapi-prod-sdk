@@ -23,6 +23,14 @@ public class DeleteResourceVpcRequest extends TeaModel {
     @Validation(required = true)
     public String workspace;
 
+    // unbind_only
+    @NameInMap("unbind_only")
+    public Boolean unbindOnly;
+
+    // vpc_paas_id,vcp_id不存在时可用。建议用这个
+    @NameInMap("vpc_paas_id")
+    public String vpcPaasId;
+
     public static DeleteResourceVpcRequest build(java.util.Map<String, ?> map) throws Exception {
         DeleteResourceVpcRequest self = new DeleteResourceVpcRequest();
         return TeaModel.build(map, self);
@@ -58,6 +66,22 @@ public class DeleteResourceVpcRequest extends TeaModel {
     }
     public String getWorkspace() {
         return this.workspace;
+    }
+
+    public DeleteResourceVpcRequest setUnbindOnly(Boolean unbindOnly) {
+        this.unbindOnly = unbindOnly;
+        return this;
+    }
+    public Boolean getUnbindOnly() {
+        return this.unbindOnly;
+    }
+
+    public DeleteResourceVpcRequest setVpcPaasId(String vpcPaasId) {
+        this.vpcPaasId = vpcPaasId;
+        return this;
+    }
+    public String getVpcPaasId() {
+        return this.vpcPaasId;
     }
 
 }

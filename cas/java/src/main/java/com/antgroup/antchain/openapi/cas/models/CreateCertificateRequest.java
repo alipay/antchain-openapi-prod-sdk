@@ -41,6 +41,10 @@ public class CreateCertificateRequest extends TeaModel {
     @NameInMap("cert_type")
     public Long certType;
 
+    // 多provider时选填
+    @NameInMap("provider_id")
+    public String providerId;
+
     public static CreateCertificateRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateCertificateRequest self = new CreateCertificateRequest();
         return TeaModel.build(map, self);
@@ -108,6 +112,14 @@ public class CreateCertificateRequest extends TeaModel {
     }
     public Long getCertType() {
         return this.certType;
+    }
+
+    public CreateCertificateRequest setProviderId(String providerId) {
+        this.providerId = providerId;
+        return this;
+    }
+    public String getProviderId() {
+        return this.providerId;
     }
 
 }
