@@ -8,31 +8,31 @@ using Tea;
 
 namespace AntChain.SDK.CAS.Models
 {
-    public class DeleteCertificateRequest : TeaModel {
+    public class BindDnsProviderRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
         public string AuthToken { get; set; }
-
-        // id
-        [NameInMap("id")]
-        [Validation(Required=true)]
-        public string Id { get; set; }
 
         // workspace_id
         [NameInMap("workspace_id")]
         [Validation(Required=true)]
         public string WorkspaceId { get; set; }
 
-        // zone_id
+        // 部分环境绑定到机房机房
         [NameInMap("zone_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ZoneId { get; set; }
 
-        // 多provider时选填
-        [NameInMap("provider_id")]
+        // dns_provider_id
+        [NameInMap("dns_provider_id")]
+        [Validation(Required=true)]
+        public string DnsProviderId { get; set; }
+
+        // default_sub_domain_name
+        [NameInMap("default_sub_domain_name")]
         [Validation(Required=false)]
-        public string ProviderId { get; set; }
+        public string DefaultSubDomainName { get; set; }
 
     }
 

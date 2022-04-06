@@ -35,6 +35,21 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public long? Weight { get; set; }
 
+        // 是否是EIP
+        [NameInMap("is_eip")]
+        [Validation(Required=false)]
+        public bool? IsEip { get; set; }
+
+        // is_managed_computer
+        [NameInMap("is_managed_computer")]
+        [Validation(Required=false)]
+        public bool? IsManagedComputer { get; set; }
+
+        // iaas_id
+        [NameInMap("iaas_id")]
+        [Validation(Required=false)]
+        public string IaasId { get; set; }
+
     }
 
 }

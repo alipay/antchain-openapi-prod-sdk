@@ -49,6 +49,16 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public string VpcIaasId { get; set; }
 
+        // private_ips
+        [NameInMap("private_ips")]
+        [Validation(Required=false)]
+        public List<string> PrivateIps { get; set; }
+
+        // iaas_ids
+        [NameInMap("iaas_ids")]
+        [Validation(Required=false)]
+        public List<string> IaasIds { get; set; }
+
     }
 
 }

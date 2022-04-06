@@ -34,6 +34,11 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=true)]
         public string Workspace { get; set; }
 
+        // v_computer_group_ids
+        [NameInMap("v_computer_group_ids")]
+        [Validation(Required=false)]
+        public List<string> VComputerGroupIds { get; set; }
+
     }
 
 }

@@ -20,6 +20,11 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=true)]
         public string Name { get; set; }
 
+        // 阿里云返回的regionName，仅作展示用
+        [NameInMap("region")]
+        [Validation(Required=false)]
+        public string Region { get; set; }
+
     }
 
 }

@@ -29,6 +29,11 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public string Domain { get; set; }
 
+        // 是否是同步操作
+        [NameInMap("is_sync")]
+        [Validation(Required=false)]
+        public bool? IsSync { get; set; }
+
     }
 
 }

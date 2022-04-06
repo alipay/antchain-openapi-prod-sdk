@@ -73,6 +73,11 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public ImportInfo ImportInfo { get; set; }
 
+        // vpc在CAFE测的唯一ID
+        [NameInMap("vpc_paas_id")]
+        [Validation(Required=false)]
+        public string VpcPaasId { get; set; }
+
     }
 
 }

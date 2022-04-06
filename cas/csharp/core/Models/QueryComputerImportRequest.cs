@@ -34,6 +34,26 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=true)]
         public long? CurrentPage { get; set; }
 
+        // 机器名称
+        [NameInMap("name")]
+        [Validation(Required=false)]
+        public string Name { get; set; }
+
+        // 是否只查询可导入的
+        [NameInMap("importable_only")]
+        [Validation(Required=false)]
+        public bool? ImportableOnly { get; set; }
+
+        // iaas_id
+        [NameInMap("iaas_id")]
+        [Validation(Required=false)]
+        public string IaasId { get; set; }
+
+        // workspace_id
+        [NameInMap("workspace_id")]
+        [Validation(Required=false)]
+        public string WorkspaceId { get; set; }
+
     }
 
 }

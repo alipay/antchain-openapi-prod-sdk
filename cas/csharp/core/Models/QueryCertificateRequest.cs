@@ -24,6 +24,11 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=true)]
         public string ZoneId { get; set; }
 
+        // provider_ids
+        [NameInMap("provider_ids")]
+        [Validation(Required=false)]
+        public List<string> ProviderIds { get; set; }
+
     }
 
 }

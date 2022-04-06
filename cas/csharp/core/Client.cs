@@ -137,7 +137,7 @@ namespace AntChain.SDK.CAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.19"},
+                        {"sdk_version", "1.4.11"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.CAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.19"},
+                        {"sdk_version", "1.4.11"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -6366,8 +6366,8 @@ namespace AntChain.SDK.CAS
         }
 
         /**
-         * Description: 查询已导入的computer信息
-         * Summary: 查询已导入的computer信息
+         * Description: 查询可以导入的computer信息
+         * Summary: 查询可以导入的computer信息
          */
         public QueryComputerImportResponse QueryComputerImport(QueryComputerImportRequest request)
         {
@@ -6377,8 +6377,8 @@ namespace AntChain.SDK.CAS
         }
 
         /**
-         * Description: 查询已导入的computer信息
-         * Summary: 查询已导入的computer信息
+         * Description: 查询可以导入的computer信息
+         * Summary: 查询可以导入的computer信息
          */
         public async Task<QueryComputerImportResponse> QueryComputerImportAsync(QueryComputerImportRequest request)
         {
@@ -6388,8 +6388,8 @@ namespace AntChain.SDK.CAS
         }
 
         /**
-         * Description: 查询已导入的computer信息
-         * Summary: 查询已导入的computer信息
+         * Description: 查询可以导入的computer信息
+         * Summary: 查询可以导入的computer信息
          */
         public QueryComputerImportResponse QueryComputerImportEx(QueryComputerImportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -6398,8 +6398,8 @@ namespace AntChain.SDK.CAS
         }
 
         /**
-         * Description: 查询已导入的computer信息
-         * Summary: 查询已导入的computer信息
+         * Description: 查询可以导入的computer信息
+         * Summary: 查询可以导入的computer信息
          */
         public async Task<QueryComputerImportResponse> QueryComputerImportExAsync(QueryComputerImportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -9933,6 +9933,678 @@ namespace AntChain.SDK.CAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UpdateDiskStrategyResponse>(await DoRequestAsync("1.0", "antcloud.cas.disk.strategy.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建虚拟服务器组
+         * Summary: 创建虚拟服务器组
+         */
+        public CreateLoadbalanceVcomputergroupResponse CreateLoadbalanceVcomputergroup(CreateLoadbalanceVcomputergroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateLoadbalanceVcomputergroupEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建虚拟服务器组
+         * Summary: 创建虚拟服务器组
+         */
+        public async Task<CreateLoadbalanceVcomputergroupResponse> CreateLoadbalanceVcomputergroupAsync(CreateLoadbalanceVcomputergroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateLoadbalanceVcomputergroupExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建虚拟服务器组
+         * Summary: 创建虚拟服务器组
+         */
+        public CreateLoadbalanceVcomputergroupResponse CreateLoadbalanceVcomputergroupEx(CreateLoadbalanceVcomputergroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLoadbalanceVcomputergroupResponse>(DoRequest("1.0", "antcloud.cas.loadbalance.vcomputergroup.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建虚拟服务器组
+         * Summary: 创建虚拟服务器组
+         */
+        public async Task<CreateLoadbalanceVcomputergroupResponse> CreateLoadbalanceVcomputergroupExAsync(CreateLoadbalanceVcomputergroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLoadbalanceVcomputergroupResponse>(await DoRequestAsync("1.0", "antcloud.cas.loadbalance.vcomputergroup.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 在VComputerGroup里更新后端服务器
+         * Summary: 增加VCompute
+         */
+        public UpdateLoadbalanceVcomputergroupResponse UpdateLoadbalanceVcomputergroup(UpdateLoadbalanceVcomputergroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateLoadbalanceVcomputergroupEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 在VComputerGroup里更新后端服务器
+         * Summary: 增加VCompute
+         */
+        public async Task<UpdateLoadbalanceVcomputergroupResponse> UpdateLoadbalanceVcomputergroupAsync(UpdateLoadbalanceVcomputergroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateLoadbalanceVcomputergroupExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 在VComputerGroup里更新后端服务器
+         * Summary: 增加VCompute
+         */
+        public UpdateLoadbalanceVcomputergroupResponse UpdateLoadbalanceVcomputergroupEx(UpdateLoadbalanceVcomputergroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateLoadbalanceVcomputergroupResponse>(DoRequest("1.0", "antcloud.cas.loadbalance.vcomputergroup.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 在VComputerGroup里更新后端服务器
+         * Summary: 增加VCompute
+         */
+        public async Task<UpdateLoadbalanceVcomputergroupResponse> UpdateLoadbalanceVcomputergroupExAsync(UpdateLoadbalanceVcomputergroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateLoadbalanceVcomputergroupResponse>(await DoRequestAsync("1.0", "antcloud.cas.loadbalance.vcomputergroup.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除VComputerGroup
+         * Summary: 删除VComputerGroup
+         */
+        public DeleteLoadbalanceVcomputergroupResponse DeleteLoadbalanceVcomputergroup(DeleteLoadbalanceVcomputergroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteLoadbalanceVcomputergroupEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除VComputerGroup
+         * Summary: 删除VComputerGroup
+         */
+        public async Task<DeleteLoadbalanceVcomputergroupResponse> DeleteLoadbalanceVcomputergroupAsync(DeleteLoadbalanceVcomputergroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteLoadbalanceVcomputergroupExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除VComputerGroup
+         * Summary: 删除VComputerGroup
+         */
+        public DeleteLoadbalanceVcomputergroupResponse DeleteLoadbalanceVcomputergroupEx(DeleteLoadbalanceVcomputergroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteLoadbalanceVcomputergroupResponse>(DoRequest("1.0", "antcloud.cas.loadbalance.vcomputergroup.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除VComputerGroup
+         * Summary: 删除VComputerGroup
+         */
+        public async Task<DeleteLoadbalanceVcomputergroupResponse> DeleteLoadbalanceVcomputergroupExAsync(DeleteLoadbalanceVcomputergroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteLoadbalanceVcomputergroupResponse>(await DoRequestAsync("1.0", "antcloud.cas.loadbalance.vcomputergroup.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 在虚拟服务器组中增加服务器
+         * Summary: 在虚拟服务器组中增加服务器
+         */
+        public AddLoadbalanceVcomputergroupResponse AddLoadbalanceVcomputergroup(AddLoadbalanceVcomputergroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddLoadbalanceVcomputergroupEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 在虚拟服务器组中增加服务器
+         * Summary: 在虚拟服务器组中增加服务器
+         */
+        public async Task<AddLoadbalanceVcomputergroupResponse> AddLoadbalanceVcomputergroupAsync(AddLoadbalanceVcomputergroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddLoadbalanceVcomputergroupExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 在虚拟服务器组中增加服务器
+         * Summary: 在虚拟服务器组中增加服务器
+         */
+        public AddLoadbalanceVcomputergroupResponse AddLoadbalanceVcomputergroupEx(AddLoadbalanceVcomputergroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddLoadbalanceVcomputergroupResponse>(DoRequest("1.0", "antcloud.cas.loadbalance.vcomputergroup.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 在虚拟服务器组中增加服务器
+         * Summary: 在虚拟服务器组中增加服务器
+         */
+        public async Task<AddLoadbalanceVcomputergroupResponse> AddLoadbalanceVcomputergroupExAsync(AddLoadbalanceVcomputergroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddLoadbalanceVcomputergroupResponse>(await DoRequestAsync("1.0", "antcloud.cas.loadbalance.vcomputergroup.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 从虚拟服务器组中删除服务器
+         * Summary: 从虚拟服务器组中删除服务器
+         */
+        public RemoveLoadbalanceVcomputergroupResponse RemoveLoadbalanceVcomputergroup(RemoveLoadbalanceVcomputergroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RemoveLoadbalanceVcomputergroupEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 从虚拟服务器组中删除服务器
+         * Summary: 从虚拟服务器组中删除服务器
+         */
+        public async Task<RemoveLoadbalanceVcomputergroupResponse> RemoveLoadbalanceVcomputergroupAsync(RemoveLoadbalanceVcomputergroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RemoveLoadbalanceVcomputergroupExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 从虚拟服务器组中删除服务器
+         * Summary: 从虚拟服务器组中删除服务器
+         */
+        public RemoveLoadbalanceVcomputergroupResponse RemoveLoadbalanceVcomputergroupEx(RemoveLoadbalanceVcomputergroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RemoveLoadbalanceVcomputergroupResponse>(DoRequest("1.0", "antcloud.cas.loadbalance.vcomputergroup.remove", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 从虚拟服务器组中删除服务器
+         * Summary: 从虚拟服务器组中删除服务器
+         */
+        public async Task<RemoveLoadbalanceVcomputergroupResponse> RemoveLoadbalanceVcomputergroupExAsync(RemoveLoadbalanceVcomputergroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RemoveLoadbalanceVcomputergroupResponse>(await DoRequestAsync("1.0", "antcloud.cas.loadbalance.vcomputergroup.remove", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 添加域名记录
+         * Summary: 添加域名记录
+         */
+        public AddDnsRecordsetResponse AddDnsRecordset(AddDnsRecordsetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddDnsRecordsetEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 添加域名记录
+         * Summary: 添加域名记录
+         */
+        public async Task<AddDnsRecordsetResponse> AddDnsRecordsetAsync(AddDnsRecordsetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddDnsRecordsetExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 添加域名记录
+         * Summary: 添加域名记录
+         */
+        public AddDnsRecordsetResponse AddDnsRecordsetEx(AddDnsRecordsetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddDnsRecordsetResponse>(DoRequest("1.0", "antcloud.cas.dns.recordset.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 添加域名记录
+         * Summary: 添加域名记录
+         */
+        public async Task<AddDnsRecordsetResponse> AddDnsRecordsetExAsync(AddDnsRecordsetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddDnsRecordsetResponse>(await DoRequestAsync("1.0", "antcloud.cas.dns.recordset.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除一条DNS记录
+         * Summary: 删除一条DNS记录
+         */
+        public DeleteDnsRecordResponse DeleteDnsRecord(DeleteDnsRecordRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteDnsRecordEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除一条DNS记录
+         * Summary: 删除一条DNS记录
+         */
+        public async Task<DeleteDnsRecordResponse> DeleteDnsRecordAsync(DeleteDnsRecordRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteDnsRecordExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除一条DNS记录
+         * Summary: 删除一条DNS记录
+         */
+        public DeleteDnsRecordResponse DeleteDnsRecordEx(DeleteDnsRecordRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteDnsRecordResponse>(DoRequest("1.0", "antcloud.cas.dns.record.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除一条DNS记录
+         * Summary: 删除一条DNS记录
+         */
+        public async Task<DeleteDnsRecordResponse> DeleteDnsRecordExAsync(DeleteDnsRecordRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteDnsRecordResponse>(await DoRequestAsync("1.0", "antcloud.cas.dns.record.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询当前recordset
+         * Summary: 查询当前recordset
+         */
+        public QueryDnsRecordsetResponse QueryDnsRecordset(QueryDnsRecordsetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDnsRecordsetEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询当前recordset
+         * Summary: 查询当前recordset
+         */
+        public async Task<QueryDnsRecordsetResponse> QueryDnsRecordsetAsync(QueryDnsRecordsetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDnsRecordsetExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询当前recordset
+         * Summary: 查询当前recordset
+         */
+        public QueryDnsRecordsetResponse QueryDnsRecordsetEx(QueryDnsRecordsetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDnsRecordsetResponse>(DoRequest("1.0", "antcloud.cas.dns.recordset.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询当前recordset
+         * Summary: 查询当前recordset
+         */
+        public async Task<QueryDnsRecordsetResponse> QueryDnsRecordsetExAsync(QueryDnsRecordsetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDnsRecordsetResponse>(await DoRequestAsync("1.0", "antcloud.cas.dns.recordset.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: workspace绑定指定DNS服务商
+         * Summary: workspace绑定指定DNS服务商
+         */
+        public BindDnsProviderResponse BindDnsProvider(BindDnsProviderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BindDnsProviderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: workspace绑定指定DNS服务商
+         * Summary: workspace绑定指定DNS服务商
+         */
+        public async Task<BindDnsProviderResponse> BindDnsProviderAsync(BindDnsProviderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BindDnsProviderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: workspace绑定指定DNS服务商
+         * Summary: workspace绑定指定DNS服务商
+         */
+        public BindDnsProviderResponse BindDnsProviderEx(BindDnsProviderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindDnsProviderResponse>(DoRequest("1.0", "antcloud.cas.dns.provider.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: workspace绑定指定DNS服务商
+         * Summary: workspace绑定指定DNS服务商
+         */
+        public async Task<BindDnsProviderResponse> BindDnsProviderExAsync(BindDnsProviderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindDnsProviderResponse>(await DoRequestAsync("1.0", "antcloud.cas.dns.provider.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取当前环境的DNS provider
+         * Summary: 获取当前环境的DNS provider
+         */
+        public ListDnsProviderResponse ListDnsProvider(ListDnsProviderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListDnsProviderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取当前环境的DNS provider
+         * Summary: 获取当前环境的DNS provider
+         */
+        public async Task<ListDnsProviderResponse> ListDnsProviderAsync(ListDnsProviderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListDnsProviderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取当前环境的DNS provider
+         * Summary: 获取当前环境的DNS provider
+         */
+        public ListDnsProviderResponse ListDnsProviderEx(ListDnsProviderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListDnsProviderResponse>(DoRequest("1.0", "antcloud.cas.dns.provider.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取当前环境的DNS provider
+         * Summary: 获取当前环境的DNS provider
+         */
+        public async Task<ListDnsProviderResponse> ListDnsProviderExAsync(ListDnsProviderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListDnsProviderResponse>(await DoRequestAsync("1.0", "antcloud.cas.dns.provider.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询当前环境资源供应商信息
+         * Summary: 查询当前环境资源供应商信息
+         */
+        public QueryProviderResponse QueryProvider(QueryProviderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryProviderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询当前环境资源供应商信息
+         * Summary: 查询当前环境资源供应商信息
+         */
+        public async Task<QueryProviderResponse> QueryProviderAsync(QueryProviderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryProviderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询当前环境资源供应商信息
+         * Summary: 查询当前环境资源供应商信息
+         */
+        public QueryProviderResponse QueryProviderEx(QueryProviderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryProviderResponse>(DoRequest("1.0", "antcloud.cas.provider.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询当前环境资源供应商信息
+         * Summary: 查询当前环境资源供应商信息
+         */
+        public async Task<QueryProviderResponse> QueryProviderExAsync(QueryProviderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryProviderResponse>(await DoRequestAsync("1.0", "antcloud.cas.provider.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取当前工作空间的DNSProvider
+         * Summary: 获取当前工作空间的DNSProvider
+         */
+        public GetDnsWorkspaceproviderResponse GetDnsWorkspaceprovider(GetDnsWorkspaceproviderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetDnsWorkspaceproviderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取当前工作空间的DNSProvider
+         * Summary: 获取当前工作空间的DNSProvider
+         */
+        public async Task<GetDnsWorkspaceproviderResponse> GetDnsWorkspaceproviderAsync(GetDnsWorkspaceproviderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetDnsWorkspaceproviderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取当前工作空间的DNSProvider
+         * Summary: 获取当前工作空间的DNSProvider
+         */
+        public GetDnsWorkspaceproviderResponse GetDnsWorkspaceproviderEx(GetDnsWorkspaceproviderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetDnsWorkspaceproviderResponse>(DoRequest("1.0", "antcloud.cas.dns.workspaceprovider.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取当前工作空间的DNSProvider
+         * Summary: 获取当前工作空间的DNSProvider
+         */
+        public async Task<GetDnsWorkspaceproviderResponse> GetDnsWorkspaceproviderExAsync(GetDnsWorkspaceproviderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetDnsWorkspaceproviderResponse>(await DoRequestAsync("1.0", "antcloud.cas.dns.workspaceprovider.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: [异步]创建工作空间组，包括了VPC，交换机，单元化架构的一体化创建
+         * Summary: [异步]创建工作空间组
+         */
+        public CreateUniworkspacegroupResponse CreateUniworkspacegroup(CreateUniworkspacegroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateUniworkspacegroupEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: [异步]创建工作空间组，包括了VPC，交换机，单元化架构的一体化创建
+         * Summary: [异步]创建工作空间组
+         */
+        public async Task<CreateUniworkspacegroupResponse> CreateUniworkspacegroupAsync(CreateUniworkspacegroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateUniworkspacegroupExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: [异步]创建工作空间组，包括了VPC，交换机，单元化架构的一体化创建
+         * Summary: [异步]创建工作空间组
+         */
+        public CreateUniworkspacegroupResponse CreateUniworkspacegroupEx(CreateUniworkspacegroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateUniworkspacegroupResponse>(DoRequest("1.0", "antcloud.cas.uniworkspacegroup.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: [异步]创建工作空间组，包括了VPC，交换机，单元化架构的一体化创建
+         * Summary: [异步]创建工作空间组
+         */
+        public async Task<CreateUniworkspacegroupResponse> CreateUniworkspacegroupExAsync(CreateUniworkspacegroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateUniworkspacegroupResponse>(await DoRequestAsync("1.0", "antcloud.cas.uniworkspacegroup.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 导入一个中间件集群
+         * Summary: 导入一个中间件集群
+         */
+        public ImportMiddlewareclusterResponse ImportMiddlewarecluster(ImportMiddlewareclusterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportMiddlewareclusterEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 导入一个中间件集群
+         * Summary: 导入一个中间件集群
+         */
+        public async Task<ImportMiddlewareclusterResponse> ImportMiddlewareclusterAsync(ImportMiddlewareclusterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportMiddlewareclusterExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 导入一个中间件集群
+         * Summary: 导入一个中间件集群
+         */
+        public ImportMiddlewareclusterResponse ImportMiddlewareclusterEx(ImportMiddlewareclusterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportMiddlewareclusterResponse>(DoRequest("1.0", "antcloud.cas.middlewarecluster.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 导入一个中间件集群
+         * Summary: 导入一个中间件集群
+         */
+        public async Task<ImportMiddlewareclusterResponse> ImportMiddlewareclusterExAsync(ImportMiddlewareclusterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportMiddlewareclusterResponse>(await DoRequestAsync("1.0", "antcloud.cas.middlewarecluster.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询当前工作空间中间件集群
+         * Summary: 查询当前工作空间中间件集群
+         */
+        public QueryMiddlewareclusterResponse QueryMiddlewarecluster(QueryMiddlewareclusterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMiddlewareclusterEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询当前工作空间中间件集群
+         * Summary: 查询当前工作空间中间件集群
+         */
+        public async Task<QueryMiddlewareclusterResponse> QueryMiddlewareclusterAsync(QueryMiddlewareclusterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMiddlewareclusterExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询当前工作空间中间件集群
+         * Summary: 查询当前工作空间中间件集群
+         */
+        public QueryMiddlewareclusterResponse QueryMiddlewareclusterEx(QueryMiddlewareclusterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMiddlewareclusterResponse>(DoRequest("1.0", "antcloud.cas.middlewarecluster.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询当前工作空间中间件集群
+         * Summary: 查询当前工作空间中间件集群
+         */
+        public async Task<QueryMiddlewareclusterResponse> QueryMiddlewareclusterExAsync(QueryMiddlewareclusterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMiddlewareclusterResponse>(await DoRequestAsync("1.0", "antcloud.cas.middlewarecluster.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 移除一个中间件集群
+         * Summary: 移除一个中间件集群
+         */
+        public RemoveMiddlewareclusterResponse RemoveMiddlewarecluster(RemoveMiddlewareclusterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RemoveMiddlewareclusterEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 移除一个中间件集群
+         * Summary: 移除一个中间件集群
+         */
+        public async Task<RemoveMiddlewareclusterResponse> RemoveMiddlewareclusterAsync(RemoveMiddlewareclusterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RemoveMiddlewareclusterExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 移除一个中间件集群
+         * Summary: 移除一个中间件集群
+         */
+        public RemoveMiddlewareclusterResponse RemoveMiddlewareclusterEx(RemoveMiddlewareclusterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RemoveMiddlewareclusterResponse>(DoRequest("1.0", "antcloud.cas.middlewarecluster.remove", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 移除一个中间件集群
+         * Summary: 移除一个中间件集群
+         */
+        public async Task<RemoveMiddlewareclusterResponse> RemoveMiddlewareclusterExAsync(RemoveMiddlewareclusterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RemoveMiddlewareclusterResponse>(await DoRequestAsync("1.0", "antcloud.cas.middlewarecluster.remove", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

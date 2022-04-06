@@ -29,6 +29,16 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=true)]
         public string Workspace { get; set; }
 
+        // unbind_only
+        [NameInMap("unbind_only")]
+        [Validation(Required=false)]
+        public bool? UnbindOnly { get; set; }
+
+        // vpc_paas_id,vcp_id不存在时可用。建议用这个
+        [NameInMap("vpc_paas_id")]
+        [Validation(Required=false)]
+        public string VpcPaasId { get; set; }
+
     }
 
 }

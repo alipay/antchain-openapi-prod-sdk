@@ -8,21 +8,16 @@ using Tea;
 
 namespace AntChain.SDK.CAS.Models
 {
-    public class QueryFeatureRequest : TeaModel {
+    public class DeleteLoadbalanceVcomputergroupRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // paas_region_id cafe的region_id，是一串数字
-        [NameInMap("paas_region_id")]
+        // 虚拟服务器ID，PAAS ID非IAAS ID
+        [NameInMap("v_computer_group_id")]
         [Validation(Required=true)]
-        public string PaasRegionId { get; set; }
-
-        // project_id
-        [NameInMap("project_id")]
-        [Validation(Required=true)]
-        public string ProjectId { get; set; }
+        public string VComputerGroupId { get; set; }
 
     }
 

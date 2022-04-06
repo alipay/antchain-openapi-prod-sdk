@@ -16,7 +16,7 @@ namespace AntChain.SDK.CAS.Models
 
         // region identity
         [NameInMap("region")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Region { get; set; }
 
         // vpc iaas id
@@ -41,8 +41,13 @@ namespace AntChain.SDK.CAS.Models
 
         // cidr block
         [NameInMap("cidr_block")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CidrBlock { get; set; }
+
+        // paas_region_id
+        [NameInMap("paas_region_id")]
+        [Validation(Required=true)]
+        public string PaasRegionId { get; set; }
 
     }
 

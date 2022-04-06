@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.CAS.Models
 {
-    public class QueryLoadbalanceVcomputerResponse : TeaModel {
+    public class QueryDnsRecordsetResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,25 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // v_computers
+        // data
         [NameInMap("data")]
         [Validation(Required=false)]
-        public List<VComputer> Data { get; set; }
+        public List<WorkspaceDnsRecordset> Data { get; set; }
 
         // total_count
         [NameInMap("total_count")]
         [Validation(Required=false)]
         public long? TotalCount { get; set; }
+
+        // page_size
+        [NameInMap("page_size")]
+        [Validation(Required=false)]
+        public long? PageSize { get; set; }
+
+        // current_page
+        [NameInMap("current_page")]
+        [Validation(Required=false)]
+        public long? CurrentPage { get; set; }
 
     }
 

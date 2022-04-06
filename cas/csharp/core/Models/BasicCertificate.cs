@@ -30,6 +30,11 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=true)]
         public long? CertType { get; set; }
 
+        // 标记这个证书的Provider
+        [NameInMap("provider_id")]
+        [Validation(Required=false)]
+        public string ProviderId { get; set; }
+
     }
 
 }

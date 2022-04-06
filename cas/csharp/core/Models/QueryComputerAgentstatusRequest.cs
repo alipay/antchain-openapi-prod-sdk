@@ -16,13 +16,23 @@ namespace AntChain.SDK.CAS.Models
 
         // computer serial numbers
         [NameInMap("sn")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public List<string> Sn { get; set; }
 
         // workspace name
         [NameInMap("workspace")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Workspace { get; set; }
+
+        // iaas_ids
+        [NameInMap("iaas_ids")]
+        [Validation(Required=false)]
+        public List<string> IaasIds { get; set; }
+
+        // zone_iaas_id
+        [NameInMap("zone_iaas_id")]
+        [Validation(Required=false)]
+        public string ZoneIaasId { get; set; }
 
     }
 

@@ -10,22 +10,22 @@ namespace AntChain.SDK.CAS.Models
 {
     // 部署单元（Cell）
     public class CellView : TeaModel {
-        // id
+        // 部署单元对应的paas id
         [NameInMap("id")]
         [Validation(Required=false)]
         public string Id { get; set; }
 
-        // name
+        // 部署单元名称
         [NameInMap("name")]
         [Validation(Required=false)]
         public string Name { get; set; }
 
-        // displayName
+        // 部署单元显示名称
         [NameInMap("display_name")]
         [Validation(Required=false)]
         public string DisplayName { get; set; }
 
-        // description
+        // 部署单元描述
         [NameInMap("description")]
         [Validation(Required=false)]
         public string Description { get; set; }

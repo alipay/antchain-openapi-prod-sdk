@@ -8,21 +8,21 @@ using Tea;
 
 namespace AntChain.SDK.CAS.Models
 {
-    public class QueryFeatureRequest : TeaModel {
+    public class QueryProviderRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // paas_region_id cafe的region_id，是一串数字
+        // LB，COMPUTE，VPC,OBJECT_STORAGE等
+        [NameInMap("resource_type")]
+        [Validation(Required=true)]
+        public string ResourceType { get; set; }
+
+        // paas_region_id
         [NameInMap("paas_region_id")]
         [Validation(Required=true)]
         public string PaasRegionId { get; set; }
-
-        // project_id
-        [NameInMap("project_id")]
-        [Validation(Required=true)]
-        public string ProjectId { get; set; }
 
     }
 
