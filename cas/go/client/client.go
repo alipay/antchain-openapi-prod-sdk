@@ -174,6 +174,121 @@ func (s *AssignedApp) SetAppId(v string) *AssignedApp {
 	return s
 }
 
+// RegionView
+type RegionView struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// identity
+	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
+	// providerId
+	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty" require:"true"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// state
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// networkType
+	NetworkType *string `json:"network_type,omitempty" xml:"network_type,omitempty" require:"true"`
+	// availableNetworkTypes
+	AvailableNetworkTypes []*string `json:"available_network_types,omitempty" xml:"available_network_types,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s RegionView) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegionView) GoString() string {
+	return s.String()
+}
+
+func (s *RegionView) SetId(v string) *RegionView {
+	s.Id = &v
+	return s
+}
+
+func (s *RegionView) SetIdentity(v string) *RegionView {
+	s.Identity = &v
+	return s
+}
+
+func (s *RegionView) SetProviderId(v string) *RegionView {
+	s.ProviderId = &v
+	return s
+}
+
+func (s *RegionView) SetName(v string) *RegionView {
+	s.Name = &v
+	return s
+}
+
+func (s *RegionView) SetState(v string) *RegionView {
+	s.State = &v
+	return s
+}
+
+func (s *RegionView) SetDescription(v string) *RegionView {
+	s.Description = &v
+	return s
+}
+
+func (s *RegionView) SetNetworkType(v string) *RegionView {
+	s.NetworkType = &v
+	return s
+}
+
+func (s *RegionView) SetAvailableNetworkTypes(v []*string) *RegionView {
+	s.AvailableNetworkTypes = v
+	return s
+}
+
+// WorkspaceZoneView
+type WorkspaceZoneView struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// identity
+	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// state
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+}
+
+func (s WorkspaceZoneView) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WorkspaceZoneView) GoString() string {
+	return s.String()
+}
+
+func (s *WorkspaceZoneView) SetId(v string) *WorkspaceZoneView {
+	s.Id = &v
+	return s
+}
+
+func (s *WorkspaceZoneView) SetIdentity(v string) *WorkspaceZoneView {
+	s.Identity = &v
+	return s
+}
+
+func (s *WorkspaceZoneView) SetName(v string) *WorkspaceZoneView {
+	s.Name = &v
+	return s
+}
+
+func (s *WorkspaceZoneView) SetState(v string) *WorkspaceZoneView {
+	s.State = &v
+	return s
+}
+
+func (s *WorkspaceZoneView) SetDescription(v string) *WorkspaceZoneView {
+	s.Description = &v
+	return s
+}
+
 // 数据库
 type Database struct {
 	// app_ids
@@ -410,121 +525,6 @@ func (s *Database) SetWorkspaceId(v string) *Database {
 	return s
 }
 
-// RegionView
-type RegionView struct {
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// identity
-	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
-	// providerId
-	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty" require:"true"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// state
-	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-	// networkType
-	NetworkType *string `json:"network_type,omitempty" xml:"network_type,omitempty" require:"true"`
-	// availableNetworkTypes
-	AvailableNetworkTypes []*string `json:"available_network_types,omitempty" xml:"available_network_types,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s RegionView) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RegionView) GoString() string {
-	return s.String()
-}
-
-func (s *RegionView) SetId(v string) *RegionView {
-	s.Id = &v
-	return s
-}
-
-func (s *RegionView) SetIdentity(v string) *RegionView {
-	s.Identity = &v
-	return s
-}
-
-func (s *RegionView) SetProviderId(v string) *RegionView {
-	s.ProviderId = &v
-	return s
-}
-
-func (s *RegionView) SetName(v string) *RegionView {
-	s.Name = &v
-	return s
-}
-
-func (s *RegionView) SetState(v string) *RegionView {
-	s.State = &v
-	return s
-}
-
-func (s *RegionView) SetDescription(v string) *RegionView {
-	s.Description = &v
-	return s
-}
-
-func (s *RegionView) SetNetworkType(v string) *RegionView {
-	s.NetworkType = &v
-	return s
-}
-
-func (s *RegionView) SetAvailableNetworkTypes(v []*string) *RegionView {
-	s.AvailableNetworkTypes = v
-	return s
-}
-
-// WorkspaceZoneView
-type WorkspaceZoneView struct {
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// identity
-	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// state
-	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-}
-
-func (s WorkspaceZoneView) String() string {
-	return tea.Prettify(s)
-}
-
-func (s WorkspaceZoneView) GoString() string {
-	return s.String()
-}
-
-func (s *WorkspaceZoneView) SetId(v string) *WorkspaceZoneView {
-	s.Id = &v
-	return s
-}
-
-func (s *WorkspaceZoneView) SetIdentity(v string) *WorkspaceZoneView {
-	s.Identity = &v
-	return s
-}
-
-func (s *WorkspaceZoneView) SetName(v string) *WorkspaceZoneView {
-	s.Name = &v
-	return s
-}
-
-func (s *WorkspaceZoneView) SetState(v string) *WorkspaceZoneView {
-	s.State = &v
-	return s
-}
-
-func (s *WorkspaceZoneView) SetDescription(v string) *WorkspaceZoneView {
-	s.Description = &v
-	return s
-}
-
 // 一个 key-value 键值对
 type MapStringToStringEntity struct {
 	// 键名
@@ -551,43 +551,64 @@ func (s *MapStringToStringEntity) SetValue(v string) *MapStringToStringEntity {
 	return s
 }
 
-// disk related computer infos
-type DiskComputer struct {
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// iaas id
-	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+// scope
+type Scope struct {
+	// cell identity
+	Cell *string `json:"cell,omitempty" xml:"cell,omitempty"`
+	// region identity
+	Region *string `json:"region,omitempty" xml:"region,omitempty"`
+	// tenant name
+	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
+	// workspace
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	// workspace_group
+	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty"`
+	// zone identity
+	Zone *string `json:"zone,omitempty" xml:"zone,omitempty"`
+	// cluster identity
+	Cluster *string `json:"cluster,omitempty" xml:"cluster,omitempty"`
 }
 
-func (s DiskComputer) String() string {
+func (s Scope) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DiskComputer) GoString() string {
+func (s Scope) GoString() string {
 	return s.String()
 }
 
-func (s *DiskComputer) SetName(v string) *DiskComputer {
-	s.Name = &v
+func (s *Scope) SetCell(v string) *Scope {
+	s.Cell = &v
 	return s
 }
 
-func (s *DiskComputer) SetId(v string) *DiskComputer {
-	s.Id = &v
+func (s *Scope) SetRegion(v string) *Scope {
+	s.Region = &v
 	return s
 }
 
-func (s *DiskComputer) SetIaasId(v string) *DiskComputer {
-	s.IaasId = &v
+func (s *Scope) SetTenant(v string) *Scope {
+	s.Tenant = &v
 	return s
 }
 
-func (s *DiskComputer) SetStatus(v string) *DiskComputer {
-	s.Status = &v
+func (s *Scope) SetWorkspace(v string) *Scope {
+	s.Workspace = &v
+	return s
+}
+
+func (s *Scope) SetWorkspaceGroup(v string) *Scope {
+	s.WorkspaceGroup = &v
+	return s
+}
+
+func (s *Scope) SetZone(v string) *Scope {
+	s.Zone = &v
+	return s
+}
+
+func (s *Scope) SetCluster(v string) *Scope {
+	s.Cluster = &v
 	return s
 }
 
@@ -628,88 +649,6 @@ func (s *CloudPlatform) SetName(v string) *CloudPlatform {
 
 func (s *CloudPlatform) SetPassword(v string) *CloudPlatform {
 	s.Password = &v
-	return s
-}
-
-// db account
-type DatabaseAccount struct {
-	// database
-	Database *Database `json:"database,omitempty" xml:"database,omitempty"`
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// iaas_type
-	IaasType *string `json:"iaas_type,omitempty" xml:"iaas_type,omitempty"`
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 密码
-	Password *string `json:"password,omitempty" xml:"password,omitempty" require:"true"`
-	// 权限
-	Privilege *string `json:"privilege,omitempty" xml:"privilege,omitempty" require:"true"`
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// utc_modified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s DatabaseAccount) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DatabaseAccount) GoString() string {
-	return s.String()
-}
-
-func (s *DatabaseAccount) SetDatabase(v *Database) *DatabaseAccount {
-	s.Database = v
-	return s
-}
-
-func (s *DatabaseAccount) SetDescription(v string) *DatabaseAccount {
-	s.Description = &v
-	return s
-}
-
-func (s *DatabaseAccount) SetIaasType(v string) *DatabaseAccount {
-	s.IaasType = &v
-	return s
-}
-
-func (s *DatabaseAccount) SetId(v string) *DatabaseAccount {
-	s.Id = &v
-	return s
-}
-
-func (s *DatabaseAccount) SetName(v string) *DatabaseAccount {
-	s.Name = &v
-	return s
-}
-
-func (s *DatabaseAccount) SetPassword(v string) *DatabaseAccount {
-	s.Password = &v
-	return s
-}
-
-func (s *DatabaseAccount) SetPrivilege(v string) *DatabaseAccount {
-	s.Privilege = &v
-	return s
-}
-
-func (s *DatabaseAccount) SetStatus(v string) *DatabaseAccount {
-	s.Status = &v
-	return s
-}
-
-func (s *DatabaseAccount) SetUtcCreate(v string) *DatabaseAccount {
-	s.UtcCreate = &v
-	return s
-}
-
-func (s *DatabaseAccount) SetUtcModified(v string) *DatabaseAccount {
-	s.UtcModified = &v
 	return s
 }
 
@@ -933,214 +872,198 @@ func (s *WorkspaceView) SetZones(v []*WorkspaceZoneView) *WorkspaceView {
 	return s
 }
 
-// scope
-type Scope struct {
-	// cell identity
-	Cell *string `json:"cell,omitempty" xml:"cell,omitempty"`
-	// region identity
-	Region *string `json:"region,omitempty" xml:"region,omitempty"`
-	// tenant name
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
-	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
-	// workspace_group
-	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty"`
-	// zone identity
-	Zone *string `json:"zone,omitempty" xml:"zone,omitempty"`
-	// cluster identity
-	Cluster *string `json:"cluster,omitempty" xml:"cluster,omitempty"`
-}
-
-func (s Scope) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Scope) GoString() string {
-	return s.String()
-}
-
-func (s *Scope) SetCell(v string) *Scope {
-	s.Cell = &v
-	return s
-}
-
-func (s *Scope) SetRegion(v string) *Scope {
-	s.Region = &v
-	return s
-}
-
-func (s *Scope) SetTenant(v string) *Scope {
-	s.Tenant = &v
-	return s
-}
-
-func (s *Scope) SetWorkspace(v string) *Scope {
-	s.Workspace = &v
-	return s
-}
-
-func (s *Scope) SetWorkspaceGroup(v string) *Scope {
-	s.WorkspaceGroup = &v
-	return s
-}
-
-func (s *Scope) SetZone(v string) *Scope {
-	s.Zone = &v
-	return s
-}
-
-func (s *Scope) SetCluster(v string) *Scope {
-	s.Cluster = &v
-	return s
-}
-
-// workspace zone
-type WorkspaceZoneDto struct {
+// disk related computer infos
+type DiskComputer struct {
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
-	// zone_id
-	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty" require:"true"`
-	// zone name
-	ZoneName *string `json:"zone_name,omitempty" xml:"zone_name,omitempty"`
-}
-
-func (s WorkspaceZoneDto) String() string {
-	return tea.Prettify(s)
-}
-
-func (s WorkspaceZoneDto) GoString() string {
-	return s.String()
-}
-
-func (s *WorkspaceZoneDto) SetId(v string) *WorkspaceZoneDto {
-	s.Id = &v
-	return s
-}
-
-func (s *WorkspaceZoneDto) SetWorkspaceId(v string) *WorkspaceZoneDto {
-	s.WorkspaceId = &v
-	return s
-}
-
-func (s *WorkspaceZoneDto) SetZoneId(v string) *WorkspaceZoneDto {
-	s.ZoneId = &v
-	return s
-}
-
-func (s *WorkspaceZoneDto) SetZoneName(v string) *WorkspaceZoneDto {
-	s.ZoneName = &v
-	return s
-}
-
-// 代码仓库
-type CodeRepository struct {
-	// 代码仓库ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// VCS源代码管理系统
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// 负责人
-	Owner *string `json:"owner,omitempty" xml:"owner,omitempty"`
-	// 源代码地址
-	SourceLocation *string `json:"source_location,omitempty" xml:"source_location,omitempty"`
-	// 被SCM管理的远程仓库ID
-	RemoteRepoId *string `json:"remote_repo_id,omitempty" xml:"remote_repo_id,omitempty"`
-	// 流程标记id(可选参数)
-	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
-	// 是否初始化目录(可选参数，目前金融云传与不传都不初始化)
-	IsInitStandardPath *bool `json:"is_init_standard_path,omitempty" xml:"is_init_standard_path,omitempty"`
-	// 代码库是否可复用(默认为不复用 0)
-	RepoReuse *string `json:"repo_reuse,omitempty" xml:"repo_reuse,omitempty"`
-	// 父代码库名称(reposReuse为0时可以不传)
-	ParentReposName *string `json:"parent_repos_name,omitempty" xml:"parent_repos_name,omitempty"`
-	// 代码仓库状态
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// iaas id
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	// status
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 扩展参数，JSON字符串
-	ExtraParams *string `json:"extra_params,omitempty" xml:"extra_params,omitempty"`
-	// 是否使用已有仓库
-	UseExist *bool `json:"use_exist,omitempty" xml:"use_exist,omitempty"`
-	// 分组名称
-	GroupName *string `json:"group_name,omitempty" xml:"group_name,omitempty"`
 }
 
-func (s CodeRepository) String() string {
+func (s DiskComputer) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CodeRepository) GoString() string {
+func (s DiskComputer) GoString() string {
 	return s.String()
 }
 
-func (s *CodeRepository) SetId(v string) *CodeRepository {
-	s.Id = &v
-	return s
-}
-
-func (s *CodeRepository) SetName(v string) *CodeRepository {
+func (s *DiskComputer) SetName(v string) *DiskComputer {
 	s.Name = &v
 	return s
 }
 
-func (s *CodeRepository) SetType(v string) *CodeRepository {
-	s.Type = &v
+func (s *DiskComputer) SetId(v string) *DiskComputer {
+	s.Id = &v
 	return s
 }
 
-func (s *CodeRepository) SetOwner(v string) *CodeRepository {
-	s.Owner = &v
+func (s *DiskComputer) SetIaasId(v string) *DiskComputer {
+	s.IaasId = &v
 	return s
 }
 
-func (s *CodeRepository) SetSourceLocation(v string) *CodeRepository {
-	s.SourceLocation = &v
-	return s
-}
-
-func (s *CodeRepository) SetRemoteRepoId(v string) *CodeRepository {
-	s.RemoteRepoId = &v
-	return s
-}
-
-func (s *CodeRepository) SetInstanceId(v string) *CodeRepository {
-	s.InstanceId = &v
-	return s
-}
-
-func (s *CodeRepository) SetIsInitStandardPath(v bool) *CodeRepository {
-	s.IsInitStandardPath = &v
-	return s
-}
-
-func (s *CodeRepository) SetRepoReuse(v string) *CodeRepository {
-	s.RepoReuse = &v
-	return s
-}
-
-func (s *CodeRepository) SetParentReposName(v string) *CodeRepository {
-	s.ParentReposName = &v
-	return s
-}
-
-func (s *CodeRepository) SetStatus(v string) *CodeRepository {
+func (s *DiskComputer) SetStatus(v string) *DiskComputer {
 	s.Status = &v
 	return s
 }
 
-func (s *CodeRepository) SetExtraParams(v string) *CodeRepository {
-	s.ExtraParams = &v
+// db account
+type DatabaseAccount struct {
+	// database
+	Database *Database `json:"database,omitempty" xml:"database,omitempty"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// iaas_type
+	IaasType *string `json:"iaas_type,omitempty" xml:"iaas_type,omitempty"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 密码
+	Password *string `json:"password,omitempty" xml:"password,omitempty" require:"true"`
+	// 权限
+	Privilege *string `json:"privilege,omitempty" xml:"privilege,omitempty" require:"true"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// utc_create
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// utc_modified
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s DatabaseAccount) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DatabaseAccount) GoString() string {
+	return s.String()
+}
+
+func (s *DatabaseAccount) SetDatabase(v *Database) *DatabaseAccount {
+	s.Database = v
 	return s
 }
 
-func (s *CodeRepository) SetUseExist(v bool) *CodeRepository {
-	s.UseExist = &v
+func (s *DatabaseAccount) SetDescription(v string) *DatabaseAccount {
+	s.Description = &v
 	return s
 }
 
-func (s *CodeRepository) SetGroupName(v string) *CodeRepository {
-	s.GroupName = &v
+func (s *DatabaseAccount) SetIaasType(v string) *DatabaseAccount {
+	s.IaasType = &v
+	return s
+}
+
+func (s *DatabaseAccount) SetId(v string) *DatabaseAccount {
+	s.Id = &v
+	return s
+}
+
+func (s *DatabaseAccount) SetName(v string) *DatabaseAccount {
+	s.Name = &v
+	return s
+}
+
+func (s *DatabaseAccount) SetPassword(v string) *DatabaseAccount {
+	s.Password = &v
+	return s
+}
+
+func (s *DatabaseAccount) SetPrivilege(v string) *DatabaseAccount {
+	s.Privilege = &v
+	return s
+}
+
+func (s *DatabaseAccount) SetStatus(v string) *DatabaseAccount {
+	s.Status = &v
+	return s
+}
+
+func (s *DatabaseAccount) SetUtcCreate(v string) *DatabaseAccount {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *DatabaseAccount) SetUtcModified(v string) *DatabaseAccount {
+	s.UtcModified = &v
+	return s
+}
+
+// Zone视图
+type ZoneView struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// displayName
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty"`
+}
+
+func (s ZoneView) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ZoneView) GoString() string {
+	return s.String()
+}
+
+func (s *ZoneView) SetId(v string) *ZoneView {
+	s.Id = &v
+	return s
+}
+
+func (s *ZoneView) SetName(v string) *ZoneView {
+	s.Name = &v
+	return s
+}
+
+func (s *ZoneView) SetDisplayName(v string) *ZoneView {
+	s.DisplayName = &v
+	return s
+}
+
+// Cloud
+type Cloud struct {
+	// id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
+	// identity
+	Identity *string `json:"identity,omitempty" xml:"identity,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// platforms
+	Platforms []*CloudPlatform `json:"platforms,omitempty" xml:"platforms,omitempty" type:"Repeated"`
+}
+
+func (s Cloud) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Cloud) GoString() string {
+	return s.String()
+}
+
+func (s *Cloud) SetId(v int64) *Cloud {
+	s.Id = &v
+	return s
+}
+
+func (s *Cloud) SetIdentity(v string) *Cloud {
+	s.Identity = &v
+	return s
+}
+
+func (s *Cloud) SetName(v string) *Cloud {
+	s.Name = &v
+	return s
+}
+
+func (s *Cloud) SetPlatforms(v []*CloudPlatform) *Cloud {
+	s.Platforms = v
 	return s
 }
 
@@ -1219,118 +1142,29 @@ func (s *CodeCommit) SetUtcModified(v string) *CodeCommit {
 	return s
 }
 
-// Zone视图
-type ZoneView struct {
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// displayName
-	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty"`
+// 解决DbSchema结构嵌套用的，其他人不要用这个，用grant
+type DbSchemaGrant struct {
+	// privilege
+	Privilege *string `json:"privilege,omitempty" xml:"privilege,omitempty" require:"true"`
+	// account
+	Account *DatabaseAccount `json:"account,omitempty" xml:"account,omitempty"`
 }
 
-func (s ZoneView) String() string {
+func (s DbSchemaGrant) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ZoneView) GoString() string {
+func (s DbSchemaGrant) GoString() string {
 	return s.String()
 }
 
-func (s *ZoneView) SetId(v string) *ZoneView {
-	s.Id = &v
+func (s *DbSchemaGrant) SetPrivilege(v string) *DbSchemaGrant {
+	s.Privilege = &v
 	return s
 }
 
-func (s *ZoneView) SetName(v string) *ZoneView {
-	s.Name = &v
-	return s
-}
-
-func (s *ZoneView) SetDisplayName(v string) *ZoneView {
-	s.DisplayName = &v
-	return s
-}
-
-// 应用负责人
-type AppOwner struct {
-	// 研发负责人
-	DevOwner *UserInfo `json:"dev_owner,omitempty" xml:"dev_owner,omitempty"`
-	// backup开发人员
-	BackupDevOwners []*UserInfo `json:"backup_dev_owners,omitempty" xml:"backup_dev_owners,omitempty" type:"Repeated"`
-	// 测试负责人
-	TestOwner *UserInfo `json:"test_owner,omitempty" xml:"test_owner,omitempty"`
-	// 备用测试人员
-	BackupTestOwners []*UserInfo `json:"backup_test_owners,omitempty" xml:"backup_test_owners,omitempty" type:"Repeated"`
-	// 运维负责人
-	Ops *UserInfo `json:"ops,omitempty" xml:"ops,omitempty"`
-	// 备用SRE人员
-	BackupOpses []*UserInfo `json:"backup_opses,omitempty" xml:"backup_opses,omitempty" type:"Repeated"`
-	// 开发architect负责人
-	DevArchitect *UserInfo `json:"dev_architect,omitempty" xml:"dev_architect,omitempty"`
-	// 备用Architects联系人
-	BackupDevArchitects []*UserInfo `json:"backup_dev_architects,omitempty" xml:"backup_dev_architects,omitempty" type:"Repeated"`
-	// 测试architect
-	TestArchitect *UserInfo `json:"test_architect,omitempty" xml:"test_architect,omitempty"`
-	// 备用测试architects
-	BackupTestArchitects []*UserInfo `json:"backup_test_architects,omitempty" xml:"backup_test_architects,omitempty" type:"Repeated"`
-}
-
-func (s AppOwner) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppOwner) GoString() string {
-	return s.String()
-}
-
-func (s *AppOwner) SetDevOwner(v *UserInfo) *AppOwner {
-	s.DevOwner = v
-	return s
-}
-
-func (s *AppOwner) SetBackupDevOwners(v []*UserInfo) *AppOwner {
-	s.BackupDevOwners = v
-	return s
-}
-
-func (s *AppOwner) SetTestOwner(v *UserInfo) *AppOwner {
-	s.TestOwner = v
-	return s
-}
-
-func (s *AppOwner) SetBackupTestOwners(v []*UserInfo) *AppOwner {
-	s.BackupTestOwners = v
-	return s
-}
-
-func (s *AppOwner) SetOps(v *UserInfo) *AppOwner {
-	s.Ops = v
-	return s
-}
-
-func (s *AppOwner) SetBackupOpses(v []*UserInfo) *AppOwner {
-	s.BackupOpses = v
-	return s
-}
-
-func (s *AppOwner) SetDevArchitect(v *UserInfo) *AppOwner {
-	s.DevArchitect = v
-	return s
-}
-
-func (s *AppOwner) SetBackupDevArchitects(v []*UserInfo) *AppOwner {
-	s.BackupDevArchitects = v
-	return s
-}
-
-func (s *AppOwner) SetTestArchitect(v *UserInfo) *AppOwner {
-	s.TestArchitect = v
-	return s
-}
-
-func (s *AppOwner) SetBackupTestArchitects(v []*UserInfo) *AppOwner {
-	s.BackupTestArchitects = v
+func (s *DbSchemaGrant) SetAccount(v *DatabaseAccount) *DbSchemaGrant {
+	s.Account = v
 	return s
 }
 
@@ -1406,231 +1240,6 @@ func (s *ScmSofaArchetype) SetUsePrivateRepo(v bool) *ScmSofaArchetype {
 
 func (s *ScmSofaArchetype) SetMetaData(v string) *ScmSofaArchetype {
 	s.MetaData = &v
-	return s
-}
-
-// 解决DbSchema结构嵌套用的，其他人不要用这个，用grant
-type DbSchemaGrant struct {
-	// privilege
-	Privilege *string `json:"privilege,omitempty" xml:"privilege,omitempty" require:"true"`
-	// account
-	Account *DatabaseAccount `json:"account,omitempty" xml:"account,omitempty"`
-}
-
-func (s DbSchemaGrant) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DbSchemaGrant) GoString() string {
-	return s.String()
-}
-
-func (s *DbSchemaGrant) SetPrivilege(v string) *DbSchemaGrant {
-	s.Privilege = &v
-	return s
-}
-
-func (s *DbSchemaGrant) SetAccount(v *DatabaseAccount) *DbSchemaGrant {
-	s.Account = v
-	return s
-}
-
-// Cloud
-type Cloud struct {
-	// id
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
-	// identity
-	Identity *string `json:"identity,omitempty" xml:"identity,omitempty"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// platforms
-	Platforms []*CloudPlatform `json:"platforms,omitempty" xml:"platforms,omitempty" type:"Repeated"`
-}
-
-func (s Cloud) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Cloud) GoString() string {
-	return s.String()
-}
-
-func (s *Cloud) SetId(v int64) *Cloud {
-	s.Id = &v
-	return s
-}
-
-func (s *Cloud) SetIdentity(v string) *Cloud {
-	s.Identity = &v
-	return s
-}
-
-func (s *Cloud) SetName(v string) *Cloud {
-	s.Name = &v
-	return s
-}
-
-func (s *Cloud) SetPlatforms(v []*CloudPlatform) *Cloud {
-	s.Platforms = v
-	return s
-}
-
-// disk
-type Disk struct {
-	// ssd, cloud_efficiency
-	Category *string `json:"category,omitempty" xml:"category,omitempty"`
-	// disk related computer info
-	Computer *DiskComputer `json:"computer,omitempty" xml:"computer,omitempty"`
-	// 是否同时删除自动快照
-	DeleteAutoSnapshot *bool `json:"delete_auto_snapshot,omitempty" xml:"delete_auto_snapshot,omitempty"`
-	// 磁盘是否随container一起释放
-	DeleteWithComputer *bool `json:"delete_with_computer,omitempty" xml:"delete_with_computer,omitempty"`
-	// device info
-	Device *string `json:"device,omitempty" xml:"device,omitempty"`
-	// 磁盘是否执行自动快照策略
-	EnableAutoSnapshot *bool `json:"enable_auto_snapshot,omitempty" xml:"enable_auto_snapshot,omitempty"`
-	// iaasId
-	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 创建磁盘的镜像
-	ImageId *string `json:"image_id,omitempty" xml:"image_id,omitempty"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 磁盘是否可卸载
-	Portable *bool `json:"portable,omitempty" xml:"portable,omitempty"`
-	// providerId
-	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty"`
-	// regionId
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
-	// disk size
-	Size *int64 `json:"size,omitempty" xml:"size,omitempty"`
-	// disk status
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// tenantId
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// SYSTEM, DATA
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// utcCreate
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// utcModified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// workspaceId
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-	// zoneId
-	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
-}
-
-func (s Disk) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Disk) GoString() string {
-	return s.String()
-}
-
-func (s *Disk) SetCategory(v string) *Disk {
-	s.Category = &v
-	return s
-}
-
-func (s *Disk) SetComputer(v *DiskComputer) *Disk {
-	s.Computer = v
-	return s
-}
-
-func (s *Disk) SetDeleteAutoSnapshot(v bool) *Disk {
-	s.DeleteAutoSnapshot = &v
-	return s
-}
-
-func (s *Disk) SetDeleteWithComputer(v bool) *Disk {
-	s.DeleteWithComputer = &v
-	return s
-}
-
-func (s *Disk) SetDevice(v string) *Disk {
-	s.Device = &v
-	return s
-}
-
-func (s *Disk) SetEnableAutoSnapshot(v bool) *Disk {
-	s.EnableAutoSnapshot = &v
-	return s
-}
-
-func (s *Disk) SetIaasId(v string) *Disk {
-	s.IaasId = &v
-	return s
-}
-
-func (s *Disk) SetId(v string) *Disk {
-	s.Id = &v
-	return s
-}
-
-func (s *Disk) SetImageId(v string) *Disk {
-	s.ImageId = &v
-	return s
-}
-
-func (s *Disk) SetName(v string) *Disk {
-	s.Name = &v
-	return s
-}
-
-func (s *Disk) SetPortable(v bool) *Disk {
-	s.Portable = &v
-	return s
-}
-
-func (s *Disk) SetProviderId(v string) *Disk {
-	s.ProviderId = &v
-	return s
-}
-
-func (s *Disk) SetRegionId(v string) *Disk {
-	s.RegionId = &v
-	return s
-}
-
-func (s *Disk) SetSize(v int64) *Disk {
-	s.Size = &v
-	return s
-}
-
-func (s *Disk) SetStatus(v string) *Disk {
-	s.Status = &v
-	return s
-}
-
-func (s *Disk) SetTenantId(v string) *Disk {
-	s.TenantId = &v
-	return s
-}
-
-func (s *Disk) SetType(v string) *Disk {
-	s.Type = &v
-	return s
-}
-
-func (s *Disk) SetUtcCreate(v string) *Disk {
-	s.UtcCreate = &v
-	return s
-}
-
-func (s *Disk) SetUtcModified(v string) *Disk {
-	s.UtcModified = &v
-	return s
-}
-
-func (s *Disk) SetWorkspaceId(v string) *Disk {
-	s.WorkspaceId = &v
-	return s
-}
-
-func (s *Disk) SetZoneId(v string) *Disk {
-	s.ZoneId = &v
 	return s
 }
 
@@ -1713,151 +1322,6 @@ func (s *AppLifeCycle) SetGmtCreate(v string) *AppLifeCycle {
 
 func (s *AppLifeCycle) SetGmtModified(v string) *AppLifeCycle {
 	s.GmtModified = &v
-	return s
-}
-
-// 应用扩展信息
-type AppExtraInfo struct {
-	// ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 值
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
-	// 描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 模板ID
-	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty"`
-	// 模板类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// 创建时间
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 最近修改时间
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 应用扩展信息ID
-	AppExtrainfoId *string `json:"app_extrainfo_id,omitempty" xml:"app_extrainfo_id,omitempty"`
-	// 应用ID
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
-	// 模板数据ID
-	TemplateDataId *string `json:"template_data_id,omitempty" xml:"template_data_id,omitempty"`
-}
-
-func (s AppExtraInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppExtraInfo) GoString() string {
-	return s.String()
-}
-
-func (s *AppExtraInfo) SetId(v string) *AppExtraInfo {
-	s.Id = &v
-	return s
-}
-
-func (s *AppExtraInfo) SetName(v string) *AppExtraInfo {
-	s.Name = &v
-	return s
-}
-
-func (s *AppExtraInfo) SetValue(v string) *AppExtraInfo {
-	s.Value = &v
-	return s
-}
-
-func (s *AppExtraInfo) SetDescription(v string) *AppExtraInfo {
-	s.Description = &v
-	return s
-}
-
-func (s *AppExtraInfo) SetTemplateId(v string) *AppExtraInfo {
-	s.TemplateId = &v
-	return s
-}
-
-func (s *AppExtraInfo) SetType(v string) *AppExtraInfo {
-	s.Type = &v
-	return s
-}
-
-func (s *AppExtraInfo) SetUtcCreate(v string) *AppExtraInfo {
-	s.UtcCreate = &v
-	return s
-}
-
-func (s *AppExtraInfo) SetUtcModified(v string) *AppExtraInfo {
-	s.UtcModified = &v
-	return s
-}
-
-func (s *AppExtraInfo) SetAppExtrainfoId(v string) *AppExtraInfo {
-	s.AppExtrainfoId = &v
-	return s
-}
-
-func (s *AppExtraInfo) SetAppId(v string) *AppExtraInfo {
-	s.AppId = &v
-	return s
-}
-
-func (s *AppExtraInfo) SetTemplateDataId(v string) *AppExtraInfo {
-	s.TemplateDataId = &v
-	return s
-}
-
-// 阿里云日志服务(SLS)-脱敏功能配置
-type SLSConfigSensitiveKey struct {
-	// 是否替换该字段中所有的敏感内容。建议设置为true
-	All *bool `json:"all,omitempty" xml:"all,omitempty" require:"true"`
-	// 当type设置为const时必须填写
-	ConstValue *string `json:"const_value,omitempty" xml:"const_value,omitempty"`
-	// 日志Key名称
-	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
-	// 敏感内容的前缀
-	RegexBegin *string `json:"regex_begin,omitempty" xml:"regex_begin,omitempty" require:"true"`
-	// 敏感内容正则表达式。
-	RegexContent *string `json:"regex_content,omitempty" xml:"regex_content,omitempty" require:"true"`
-	// 脱敏方式，取值为const、md5。
-	// 若取值为const，则将敏感内容替换成const字段取值内容。
-	// 若取值为md5，则将敏感内容替换为其对应的MD5值。
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-}
-
-func (s SLSConfigSensitiveKey) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SLSConfigSensitiveKey) GoString() string {
-	return s.String()
-}
-
-func (s *SLSConfigSensitiveKey) SetAll(v bool) *SLSConfigSensitiveKey {
-	s.All = &v
-	return s
-}
-
-func (s *SLSConfigSensitiveKey) SetConstValue(v string) *SLSConfigSensitiveKey {
-	s.ConstValue = &v
-	return s
-}
-
-func (s *SLSConfigSensitiveKey) SetKey(v string) *SLSConfigSensitiveKey {
-	s.Key = &v
-	return s
-}
-
-func (s *SLSConfigSensitiveKey) SetRegexBegin(v string) *SLSConfigSensitiveKey {
-	s.RegexBegin = &v
-	return s
-}
-
-func (s *SLSConfigSensitiveKey) SetRegexContent(v string) *SLSConfigSensitiveKey {
-	s.RegexContent = &v
-	return s
-}
-
-func (s *SLSConfigSensitiveKey) SetType(v string) *SLSConfigSensitiveKey {
-	s.Type = &v
 	return s
 }
 
@@ -2097,109 +1561,394 @@ func (s *LoadBalancer) SetLoadBalancerSpec(v string) *LoadBalancer {
 	return s
 }
 
-// 路由的下一跳详细信息。
-type NextHopItem struct {
-	//
-	// 下一跳的类型。
-	//
-	// Instance：ECS实例。
-	// HaVip：高可用虚拟IP。
-	// VpnGateway：VPN网关。
-	// NatGateway：NAT网关。
-	// NetworkInterface：辅助弹性网卡。
-	// RouterInterface：路由器接口。
-	// IPv6Gateway：IPv6网关。
-	NextHopType *string `json:"next_hop_type,omitempty" xml:"next_hop_type,omitempty"`
-	// 下一跳实例的ID。
-	NextHopId *string `json:"next_hop_id,omitempty" xml:"next_hop_id,omitempty"`
-	// 是否启用下一跳。
-	//
-	// 0：不启用。
-	// 1：启用。
-	Enable *int64 `json:"enable,omitempty" xml:"enable,omitempty"`
-	// 下一跳的路由权重。
-	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
+// 应用负责人
+type AppOwner struct {
+	// 研发负责人
+	DevOwner *UserInfo `json:"dev_owner,omitempty" xml:"dev_owner,omitempty"`
+	// backup开发人员
+	BackupDevOwners []*UserInfo `json:"backup_dev_owners,omitempty" xml:"backup_dev_owners,omitempty" type:"Repeated"`
+	// 测试负责人
+	TestOwner *UserInfo `json:"test_owner,omitempty" xml:"test_owner,omitempty"`
+	// 备用测试人员
+	BackupTestOwners []*UserInfo `json:"backup_test_owners,omitempty" xml:"backup_test_owners,omitempty" type:"Repeated"`
+	// 运维负责人
+	Ops *UserInfo `json:"ops,omitempty" xml:"ops,omitempty"`
+	// 备用SRE人员
+	BackupOpses []*UserInfo `json:"backup_opses,omitempty" xml:"backup_opses,omitempty" type:"Repeated"`
+	// 开发architect负责人
+	DevArchitect *UserInfo `json:"dev_architect,omitempty" xml:"dev_architect,omitempty"`
+	// 备用Architects联系人
+	BackupDevArchitects []*UserInfo `json:"backup_dev_architects,omitempty" xml:"backup_dev_architects,omitempty" type:"Repeated"`
+	// 测试architect
+	TestArchitect *UserInfo `json:"test_architect,omitempty" xml:"test_architect,omitempty"`
+	// 备用测试architects
+	BackupTestArchitects []*UserInfo `json:"backup_test_architects,omitempty" xml:"backup_test_architects,omitempty" type:"Repeated"`
 }
 
-func (s NextHopItem) String() string {
+func (s AppOwner) String() string {
 	return tea.Prettify(s)
 }
 
-func (s NextHopItem) GoString() string {
+func (s AppOwner) GoString() string {
 	return s.String()
 }
 
-func (s *NextHopItem) SetNextHopType(v string) *NextHopItem {
-	s.NextHopType = &v
+func (s *AppOwner) SetDevOwner(v *UserInfo) *AppOwner {
+	s.DevOwner = v
 	return s
 }
 
-func (s *NextHopItem) SetNextHopId(v string) *NextHopItem {
-	s.NextHopId = &v
+func (s *AppOwner) SetBackupDevOwners(v []*UserInfo) *AppOwner {
+	s.BackupDevOwners = v
 	return s
 }
 
-func (s *NextHopItem) SetEnable(v int64) *NextHopItem {
-	s.Enable = &v
+func (s *AppOwner) SetTestOwner(v *UserInfo) *AppOwner {
+	s.TestOwner = v
 	return s
 }
 
-func (s *NextHopItem) SetWeight(v int64) *NextHopItem {
-	s.Weight = &v
+func (s *AppOwner) SetBackupTestOwners(v []*UserInfo) *AppOwner {
+	s.BackupTestOwners = v
 	return s
 }
 
-// 应用等级
-type AppLevel struct {
-	// ID
+func (s *AppOwner) SetOps(v *UserInfo) *AppOwner {
+	s.Ops = v
+	return s
+}
+
+func (s *AppOwner) SetBackupOpses(v []*UserInfo) *AppOwner {
+	s.BackupOpses = v
+	return s
+}
+
+func (s *AppOwner) SetDevArchitect(v *UserInfo) *AppOwner {
+	s.DevArchitect = v
+	return s
+}
+
+func (s *AppOwner) SetBackupDevArchitects(v []*UserInfo) *AppOwner {
+	s.BackupDevArchitects = v
+	return s
+}
+
+func (s *AppOwner) SetTestArchitect(v *UserInfo) *AppOwner {
+	s.TestArchitect = v
+	return s
+}
+
+func (s *AppOwner) SetBackupTestArchitects(v []*UserInfo) *AppOwner {
+	s.BackupTestArchitects = v
+	return s
+}
+
+// 代码仓库
+type CodeRepository struct {
+	// 代码仓库ID
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 应用等级名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 创建者
-	CreatorId *string `json:"creator_id,omitempty" xml:"creator_id,omitempty"`
-	// 租户ID
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// 创建时间
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 最近修改时间
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// VCS源代码管理系统
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 负责人
+	Owner *string `json:"owner,omitempty" xml:"owner,omitempty"`
+	// 源代码地址
+	SourceLocation *string `json:"source_location,omitempty" xml:"source_location,omitempty"`
+	// 被SCM管理的远程仓库ID
+	RemoteRepoId *string `json:"remote_repo_id,omitempty" xml:"remote_repo_id,omitempty"`
+	// 流程标记id(可选参数)
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
+	// 是否初始化目录(可选参数，目前金融云传与不传都不初始化)
+	IsInitStandardPath *bool `json:"is_init_standard_path,omitempty" xml:"is_init_standard_path,omitempty"`
+	// 代码库是否可复用(默认为不复用 0)
+	RepoReuse *string `json:"repo_reuse,omitempty" xml:"repo_reuse,omitempty"`
+	// 父代码库名称(reposReuse为0时可以不传)
+	ParentReposName *string `json:"parent_repos_name,omitempty" xml:"parent_repos_name,omitempty"`
+	// 代码仓库状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 扩展参数，JSON字符串
+	ExtraParams *string `json:"extra_params,omitempty" xml:"extra_params,omitempty"`
+	// 是否使用已有仓库
+	UseExist *bool `json:"use_exist,omitempty" xml:"use_exist,omitempty"`
+	// 分组名称
+	GroupName *string `json:"group_name,omitempty" xml:"group_name,omitempty"`
 }
 
-func (s AppLevel) String() string {
+func (s CodeRepository) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AppLevel) GoString() string {
+func (s CodeRepository) GoString() string {
 	return s.String()
 }
 
-func (s *AppLevel) SetId(v string) *AppLevel {
+func (s *CodeRepository) SetId(v string) *CodeRepository {
 	s.Id = &v
 	return s
 }
 
-func (s *AppLevel) SetName(v string) *AppLevel {
+func (s *CodeRepository) SetName(v string) *CodeRepository {
 	s.Name = &v
 	return s
 }
 
-func (s *AppLevel) SetCreatorId(v string) *AppLevel {
-	s.CreatorId = &v
+func (s *CodeRepository) SetType(v string) *CodeRepository {
+	s.Type = &v
 	return s
 }
 
-func (s *AppLevel) SetTenantId(v string) *AppLevel {
+func (s *CodeRepository) SetOwner(v string) *CodeRepository {
+	s.Owner = &v
+	return s
+}
+
+func (s *CodeRepository) SetSourceLocation(v string) *CodeRepository {
+	s.SourceLocation = &v
+	return s
+}
+
+func (s *CodeRepository) SetRemoteRepoId(v string) *CodeRepository {
+	s.RemoteRepoId = &v
+	return s
+}
+
+func (s *CodeRepository) SetInstanceId(v string) *CodeRepository {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *CodeRepository) SetIsInitStandardPath(v bool) *CodeRepository {
+	s.IsInitStandardPath = &v
+	return s
+}
+
+func (s *CodeRepository) SetRepoReuse(v string) *CodeRepository {
+	s.RepoReuse = &v
+	return s
+}
+
+func (s *CodeRepository) SetParentReposName(v string) *CodeRepository {
+	s.ParentReposName = &v
+	return s
+}
+
+func (s *CodeRepository) SetStatus(v string) *CodeRepository {
+	s.Status = &v
+	return s
+}
+
+func (s *CodeRepository) SetExtraParams(v string) *CodeRepository {
+	s.ExtraParams = &v
+	return s
+}
+
+func (s *CodeRepository) SetUseExist(v bool) *CodeRepository {
+	s.UseExist = &v
+	return s
+}
+
+func (s *CodeRepository) SetGroupName(v string) *CodeRepository {
+	s.GroupName = &v
+	return s
+}
+
+// disk
+type Disk struct {
+	// ssd, cloud_efficiency
+	Category *string `json:"category,omitempty" xml:"category,omitempty"`
+	// disk related computer info
+	Computer *DiskComputer `json:"computer,omitempty" xml:"computer,omitempty"`
+	// 是否同时删除自动快照
+	DeleteAutoSnapshot *bool `json:"delete_auto_snapshot,omitempty" xml:"delete_auto_snapshot,omitempty"`
+	// 磁盘是否随container一起释放
+	DeleteWithComputer *bool `json:"delete_with_computer,omitempty" xml:"delete_with_computer,omitempty"`
+	// device info
+	Device *string `json:"device,omitempty" xml:"device,omitempty"`
+	// 磁盘是否执行自动快照策略
+	EnableAutoSnapshot *bool `json:"enable_auto_snapshot,omitempty" xml:"enable_auto_snapshot,omitempty"`
+	// iaasId
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 创建磁盘的镜像
+	ImageId *string `json:"image_id,omitempty" xml:"image_id,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 磁盘是否可卸载
+	Portable *bool `json:"portable,omitempty" xml:"portable,omitempty"`
+	// providerId
+	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty"`
+	// regionId
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
+	// disk size
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty"`
+	// disk status
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// tenantId
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// SYSTEM, DATA
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// utcCreate
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// utcModified
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// workspaceId
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// zoneId
+	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
+}
+
+func (s Disk) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Disk) GoString() string {
+	return s.String()
+}
+
+func (s *Disk) SetCategory(v string) *Disk {
+	s.Category = &v
+	return s
+}
+
+func (s *Disk) SetComputer(v *DiskComputer) *Disk {
+	s.Computer = v
+	return s
+}
+
+func (s *Disk) SetDeleteAutoSnapshot(v bool) *Disk {
+	s.DeleteAutoSnapshot = &v
+	return s
+}
+
+func (s *Disk) SetDeleteWithComputer(v bool) *Disk {
+	s.DeleteWithComputer = &v
+	return s
+}
+
+func (s *Disk) SetDevice(v string) *Disk {
+	s.Device = &v
+	return s
+}
+
+func (s *Disk) SetEnableAutoSnapshot(v bool) *Disk {
+	s.EnableAutoSnapshot = &v
+	return s
+}
+
+func (s *Disk) SetIaasId(v string) *Disk {
+	s.IaasId = &v
+	return s
+}
+
+func (s *Disk) SetId(v string) *Disk {
+	s.Id = &v
+	return s
+}
+
+func (s *Disk) SetImageId(v string) *Disk {
+	s.ImageId = &v
+	return s
+}
+
+func (s *Disk) SetName(v string) *Disk {
+	s.Name = &v
+	return s
+}
+
+func (s *Disk) SetPortable(v bool) *Disk {
+	s.Portable = &v
+	return s
+}
+
+func (s *Disk) SetProviderId(v string) *Disk {
+	s.ProviderId = &v
+	return s
+}
+
+func (s *Disk) SetRegionId(v string) *Disk {
+	s.RegionId = &v
+	return s
+}
+
+func (s *Disk) SetSize(v int64) *Disk {
+	s.Size = &v
+	return s
+}
+
+func (s *Disk) SetStatus(v string) *Disk {
+	s.Status = &v
+	return s
+}
+
+func (s *Disk) SetTenantId(v string) *Disk {
 	s.TenantId = &v
 	return s
 }
 
-func (s *AppLevel) SetUtcCreate(v string) *AppLevel {
+func (s *Disk) SetType(v string) *Disk {
+	s.Type = &v
+	return s
+}
+
+func (s *Disk) SetUtcCreate(v string) *Disk {
 	s.UtcCreate = &v
 	return s
 }
 
-func (s *AppLevel) SetUtcModified(v string) *AppLevel {
+func (s *Disk) SetUtcModified(v string) *Disk {
 	s.UtcModified = &v
+	return s
+}
+
+func (s *Disk) SetWorkspaceId(v string) *Disk {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *Disk) SetZoneId(v string) *Disk {
+	s.ZoneId = &v
+	return s
+}
+
+// workspace zone
+type WorkspaceZoneDto struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// zone_id
+	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty" require:"true"`
+	// zone name
+	ZoneName *string `json:"zone_name,omitempty" xml:"zone_name,omitempty"`
+}
+
+func (s WorkspaceZoneDto) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WorkspaceZoneDto) GoString() string {
+	return s.String()
+}
+
+func (s *WorkspaceZoneDto) SetId(v string) *WorkspaceZoneDto {
+	s.Id = &v
+	return s
+}
+
+func (s *WorkspaceZoneDto) SetWorkspaceId(v string) *WorkspaceZoneDto {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *WorkspaceZoneDto) SetZoneId(v string) *WorkspaceZoneDto {
+	s.ZoneId = &v
+	return s
+}
+
+func (s *WorkspaceZoneDto) SetZoneName(v string) *WorkspaceZoneDto {
+	s.ZoneName = &v
 	return s
 }
 
@@ -2311,69 +2060,294 @@ func (s *TaskRequest) SetStatus(v string) *TaskRequest {
 	return s
 }
 
-// IaasRequest
-type IaasRequest struct {
-	// requestMethod
-	RequestMethod *string `json:"request_method,omitempty" xml:"request_method,omitempty"`
-	// requestUrl
-	RequestUrl *string `json:"request_url,omitempty" xml:"request_url,omitempty"`
-	// requestBody
-	RequestBody *string `json:"request_body,omitempty" xml:"request_body,omitempty"`
-	// request_headers
-	RequestHeaders []*MapStringToStringEntity `json:"request_headers,omitempty" xml:"request_headers,omitempty" type:"Repeated"`
+// 应用等级
+type AppLevel struct {
+	// ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 应用等级名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 创建者
+	CreatorId *string `json:"creator_id,omitempty" xml:"creator_id,omitempty"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 创建时间
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 最近修改时间
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
-func (s IaasRequest) String() string {
+func (s AppLevel) String() string {
 	return tea.Prettify(s)
 }
 
-func (s IaasRequest) GoString() string {
+func (s AppLevel) GoString() string {
 	return s.String()
 }
 
-func (s *IaasRequest) SetRequestMethod(v string) *IaasRequest {
-	s.RequestMethod = &v
+func (s *AppLevel) SetId(v string) *AppLevel {
+	s.Id = &v
 	return s
 }
 
-func (s *IaasRequest) SetRequestUrl(v string) *IaasRequest {
-	s.RequestUrl = &v
+func (s *AppLevel) SetName(v string) *AppLevel {
+	s.Name = &v
 	return s
 }
 
-func (s *IaasRequest) SetRequestBody(v string) *IaasRequest {
-	s.RequestBody = &v
+func (s *AppLevel) SetCreatorId(v string) *AppLevel {
+	s.CreatorId = &v
 	return s
 }
 
-func (s *IaasRequest) SetRequestHeaders(v []*MapStringToStringEntity) *IaasRequest {
-	s.RequestHeaders = v
+func (s *AppLevel) SetTenantId(v string) *AppLevel {
+	s.TenantId = &v
 	return s
 }
 
-// IaasResponse
-type IaasResponse struct {
-	// response_body
-	ResponseBody *string `json:"response_body,omitempty" xml:"response_body,omitempty"`
-	// response_headers
-	ResponseHeaders []*MapStringToStringEntity `json:"response_headers,omitempty" xml:"response_headers,omitempty" type:"Repeated"`
+func (s *AppLevel) SetUtcCreate(v string) *AppLevel {
+	s.UtcCreate = &v
+	return s
 }
 
-func (s IaasResponse) String() string {
+func (s *AppLevel) SetUtcModified(v string) *AppLevel {
+	s.UtcModified = &v
+	return s
+}
+
+// 路由的下一跳详细信息。
+type NextHopItem struct {
+	//
+	// 下一跳的类型。
+	//
+	// Instance：ECS实例。
+	// HaVip：高可用虚拟IP。
+	// VpnGateway：VPN网关。
+	// NatGateway：NAT网关。
+	// NetworkInterface：辅助弹性网卡。
+	// RouterInterface：路由器接口。
+	// IPv6Gateway：IPv6网关。
+	NextHopType *string `json:"next_hop_type,omitempty" xml:"next_hop_type,omitempty"`
+	// 下一跳实例的ID。
+	NextHopId *string `json:"next_hop_id,omitempty" xml:"next_hop_id,omitempty"`
+	// 是否启用下一跳。
+	//
+	// 0：不启用。
+	// 1：启用。
+	Enable *int64 `json:"enable,omitempty" xml:"enable,omitempty"`
+	// 下一跳的路由权重。
+	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
+}
+
+func (s NextHopItem) String() string {
 	return tea.Prettify(s)
 }
 
-func (s IaasResponse) GoString() string {
+func (s NextHopItem) GoString() string {
 	return s.String()
 }
 
-func (s *IaasResponse) SetResponseBody(v string) *IaasResponse {
-	s.ResponseBody = &v
+func (s *NextHopItem) SetNextHopType(v string) *NextHopItem {
+	s.NextHopType = &v
 	return s
 }
 
-func (s *IaasResponse) SetResponseHeaders(v []*MapStringToStringEntity) *IaasResponse {
-	s.ResponseHeaders = v
+func (s *NextHopItem) SetNextHopId(v string) *NextHopItem {
+	s.NextHopId = &v
+	return s
+}
+
+func (s *NextHopItem) SetEnable(v int64) *NextHopItem {
+	s.Enable = &v
+	return s
+}
+
+func (s *NextHopItem) SetWeight(v int64) *NextHopItem {
+	s.Weight = &v
+	return s
+}
+
+// 应用扩展信息
+type AppExtraInfo struct {
+	// ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 值
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+	// 描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 模板ID
+	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty"`
+	// 模板类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 创建时间
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 最近修改时间
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 应用扩展信息ID
+	AppExtrainfoId *string `json:"app_extrainfo_id,omitempty" xml:"app_extrainfo_id,omitempty"`
+	// 应用ID
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	// 模板数据ID
+	TemplateDataId *string `json:"template_data_id,omitempty" xml:"template_data_id,omitempty"`
+}
+
+func (s AppExtraInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppExtraInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AppExtraInfo) SetId(v string) *AppExtraInfo {
+	s.Id = &v
+	return s
+}
+
+func (s *AppExtraInfo) SetName(v string) *AppExtraInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *AppExtraInfo) SetValue(v string) *AppExtraInfo {
+	s.Value = &v
+	return s
+}
+
+func (s *AppExtraInfo) SetDescription(v string) *AppExtraInfo {
+	s.Description = &v
+	return s
+}
+
+func (s *AppExtraInfo) SetTemplateId(v string) *AppExtraInfo {
+	s.TemplateId = &v
+	return s
+}
+
+func (s *AppExtraInfo) SetType(v string) *AppExtraInfo {
+	s.Type = &v
+	return s
+}
+
+func (s *AppExtraInfo) SetUtcCreate(v string) *AppExtraInfo {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *AppExtraInfo) SetUtcModified(v string) *AppExtraInfo {
+	s.UtcModified = &v
+	return s
+}
+
+func (s *AppExtraInfo) SetAppExtrainfoId(v string) *AppExtraInfo {
+	s.AppExtrainfoId = &v
+	return s
+}
+
+func (s *AppExtraInfo) SetAppId(v string) *AppExtraInfo {
+	s.AppId = &v
+	return s
+}
+
+func (s *AppExtraInfo) SetTemplateDataId(v string) *AppExtraInfo {
+	s.TemplateDataId = &v
+	return s
+}
+
+// 阿里云日志服务(SLS)-脱敏功能配置
+type SLSConfigSensitiveKey struct {
+	// 是否替换该字段中所有的敏感内容。建议设置为true
+	All *bool `json:"all,omitempty" xml:"all,omitempty" require:"true"`
+	// 当type设置为const时必须填写
+	ConstValue *string `json:"const_value,omitempty" xml:"const_value,omitempty"`
+	// 日志Key名称
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// 敏感内容的前缀
+	RegexBegin *string `json:"regex_begin,omitempty" xml:"regex_begin,omitempty" require:"true"`
+	// 敏感内容正则表达式。
+	RegexContent *string `json:"regex_content,omitempty" xml:"regex_content,omitempty" require:"true"`
+	// 脱敏方式，取值为const、md5。
+	// 若取值为const，则将敏感内容替换成const字段取值内容。
+	// 若取值为md5，则将敏感内容替换为其对应的MD5值。
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+}
+
+func (s SLSConfigSensitiveKey) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SLSConfigSensitiveKey) GoString() string {
+	return s.String()
+}
+
+func (s *SLSConfigSensitiveKey) SetAll(v bool) *SLSConfigSensitiveKey {
+	s.All = &v
+	return s
+}
+
+func (s *SLSConfigSensitiveKey) SetConstValue(v string) *SLSConfigSensitiveKey {
+	s.ConstValue = &v
+	return s
+}
+
+func (s *SLSConfigSensitiveKey) SetKey(v string) *SLSConfigSensitiveKey {
+	s.Key = &v
+	return s
+}
+
+func (s *SLSConfigSensitiveKey) SetRegexBegin(v string) *SLSConfigSensitiveKey {
+	s.RegexBegin = &v
+	return s
+}
+
+func (s *SLSConfigSensitiveKey) SetRegexContent(v string) *SLSConfigSensitiveKey {
+	s.RegexContent = &v
+	return s
+}
+
+func (s *SLSConfigSensitiveKey) SetType(v string) *SLSConfigSensitiveKey {
+	s.Type = &v
+	return s
+}
+
+// JoinedSecurityGroupVO
+type JoinedSecurityGroupVO struct {
+	// iaas id
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// workspace id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// workspace name
+	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty"`
+}
+
+func (s JoinedSecurityGroupVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s JoinedSecurityGroupVO) GoString() string {
+	return s.String()
+}
+
+func (s *JoinedSecurityGroupVO) SetIaasId(v string) *JoinedSecurityGroupVO {
+	s.IaasId = &v
+	return s
+}
+
+func (s *JoinedSecurityGroupVO) SetName(v string) *JoinedSecurityGroupVO {
+	s.Name = &v
+	return s
+}
+
+func (s *JoinedSecurityGroupVO) SetWorkspaceId(v string) *JoinedSecurityGroupVO {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *JoinedSecurityGroupVO) SetWorkspaceName(v string) *JoinedSecurityGroupVO {
+	s.WorkspaceName = &v
 	return s
 }
 
@@ -2445,724 +2419,397 @@ func (s *PaginationQuery) SetOrders(v []*string) *PaginationQuery {
 	return s
 }
 
-// 部署单元（Cell）
-type CellView struct {
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// displayName
-	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty"`
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// deploymentZoneId
-	DeploymentZoneId *string `json:"deployment_zone_id,omitempty" xml:"deployment_zone_id,omitempty"`
-	// workspaceId
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-	// workspaceGroupId
-	WorkspaceGroupId *string `json:"workspace_group_id,omitempty" xml:"workspace_group_id,omitempty"`
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// masterZoneId
-	MasterZoneId *string `json:"master_zone_id,omitempty" xml:"master_zone_id,omitempty"`
-	// appendedZoneIds
-	AppendedZoneIds []*string `json:"appended_zone_ids,omitempty" xml:"appended_zone_ids,omitempty" type:"Repeated"`
-	// List<ZoneView> zones
-	Zones []*ZoneView `json:"zones,omitempty" xml:"zones,omitempty" type:"Repeated"`
+// IaasErrorInfo
+type IaasErrorInfo struct {
+	// error_code
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// error_message
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+	// status_code
+	StatusCode *int64 `json:"status_code,omitempty" xml:"status_code,omitempty"`
+	// host_id
+	HostId *string `json:"host_id,omitempty" xml:"host_id,omitempty"`
+	// requestId
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 }
 
-func (s CellView) String() string {
+func (s IaasErrorInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CellView) GoString() string {
+func (s IaasErrorInfo) GoString() string {
 	return s.String()
 }
 
-func (s *CellView) SetId(v string) *CellView {
+func (s *IaasErrorInfo) SetErrorCode(v string) *IaasErrorInfo {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *IaasErrorInfo) SetErrorMessage(v string) *IaasErrorInfo {
+	s.ErrorMessage = &v
+	return s
+}
+
+func (s *IaasErrorInfo) SetStatusCode(v int64) *IaasErrorInfo {
+	s.StatusCode = &v
+	return s
+}
+
+func (s *IaasErrorInfo) SetHostId(v string) *IaasErrorInfo {
+	s.HostId = &v
+	return s
+}
+
+func (s *IaasErrorInfo) SetRequestId(v string) *IaasErrorInfo {
+	s.RequestId = &v
+	return s
+}
+
+// 技术栈运行时属性
+type BuildpackInstances struct {
+	// ecs个数
+	Ecses *int64 `json:"ecses,omitempty" xml:"ecses,omitempty"`
+	// 绑定应用个数
+	AppBinded *int64 `json:"app_binded,omitempty" xml:"app_binded,omitempty"`
+}
+
+func (s BuildpackInstances) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BuildpackInstances) GoString() string {
+	return s.String()
+}
+
+func (s *BuildpackInstances) SetEcses(v int64) *BuildpackInstances {
+	s.Ecses = &v
+	return s
+}
+
+func (s *BuildpackInstances) SetAppBinded(v int64) *BuildpackInstances {
+	s.AppBinded = &v
+	return s
+}
+
+// WorkspaceDc
+type WorkspaceDc struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// datacenterId
+	DatacenterId *string `json:"datacenter_id,omitempty" xml:"datacenter_id,omitempty" require:"true"`
+	// workspaceId
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// datacenterType
+	DatacenterType *string `json:"datacenter_type,omitempty" xml:"datacenter_type,omitempty" require:"true"`
+	// gmtCreate
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// gmtModified
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s WorkspaceDc) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WorkspaceDc) GoString() string {
+	return s.String()
+}
+
+func (s *WorkspaceDc) SetId(v string) *WorkspaceDc {
 	s.Id = &v
 	return s
 }
 
-func (s *CellView) SetName(v string) *CellView {
-	s.Name = &v
+func (s *WorkspaceDc) SetDatacenterId(v string) *WorkspaceDc {
+	s.DatacenterId = &v
 	return s
 }
 
-func (s *CellView) SetDisplayName(v string) *CellView {
-	s.DisplayName = &v
-	return s
-}
-
-func (s *CellView) SetDescription(v string) *CellView {
-	s.Description = &v
-	return s
-}
-
-func (s *CellView) SetDeploymentZoneId(v string) *CellView {
-	s.DeploymentZoneId = &v
-	return s
-}
-
-func (s *CellView) SetWorkspaceId(v string) *CellView {
+func (s *WorkspaceDc) SetWorkspaceId(v string) *WorkspaceDc {
 	s.WorkspaceId = &v
 	return s
 }
 
-func (s *CellView) SetWorkspaceGroupId(v string) *CellView {
-	s.WorkspaceGroupId = &v
+func (s *WorkspaceDc) SetDatacenterType(v string) *WorkspaceDc {
+	s.DatacenterType = &v
 	return s
 }
 
-func (s *CellView) SetStatus(v string) *CellView {
-	s.Status = &v
+func (s *WorkspaceDc) SetGmtCreate(v string) *WorkspaceDc {
+	s.GmtCreate = &v
 	return s
 }
 
-func (s *CellView) SetMasterZoneId(v string) *CellView {
-	s.MasterZoneId = &v
+func (s *WorkspaceDc) SetGmtModified(v string) *WorkspaceDc {
+	s.GmtModified = &v
 	return s
 }
 
-func (s *CellView) SetAppendedZoneIds(v []*string) *CellView {
-	s.AppendedZoneIds = v
+// 安全组规则
+type SecurityGroupRule struct {
+	// 规则描述信息
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 目的端IP地址范围。支持CIDR格式和IPv4格式的IP地址范围。
+	DestCidrIp *string `json:"dest_cidr_ip,omitempty" xml:"dest_cidr_ip,omitempty"`
+	// 传输层协议。不区分大小写。取值范围：
+	//
+	// icmp
+	// gre
+	// tcp
+	// udp
+	// all：支持所有协议
+	IpProtocol *string `json:"ip_protocol,omitempty" xml:"ip_protocol,omitempty"`
+	// 经典网络类型安全组规则的网卡类型。取值范围：
+	//
+	// internet：公网。
+	// intranet：内网。
+	// 默认值：internet。
+	//
+	// 在以下情况中，参数NicType取值只能为intranet：
+	//
+	// 安全组规则的网络类型为专有网络VPC时，您无需设置NicType参数，默认并且只能为intranet。
+	// 当设置安全组之间互相访问时，即指定了DestGroupId且没有指定DestCidrIp时。
+	NicType *string `json:"nic_type,omitempty" xml:"nic_type,omitempty"`
+	// 访问权限。取值范围：
+	//
+	// accept：接受访问。
+	// drop：拒绝访问，不返回拒绝信息。
+	// 默认值：accept。
+	Policy *string `json:"policy,omitempty" xml:"policy,omitempty"`
+	// 目的端安全组开放的传输层协议相关的端口范围。取值范围：
+	//
+	// TCP/UDP协议：取值范围为1~65535。使用斜线（/）隔开起始端口和终止端口。正确示范：1/200；错误示范：200/1。
+	// ICMP协议：-1/-1。
+	// GRE协议：-1/-1。
+	// all：-1/-1。
+	PortRange *string `json:"port_range,omitempty" xml:"port_range,omitempty"`
+	// 安全组规则优先级。取值范围：1~100
+	//
+	// 默认值：1。
+	Priority *string `json:"priority,omitempty" xml:"priority,omitempty"`
+	// 源端IP地址范围。支持CIDR格式和IPv4格式的IP地址范围。
+	//
+	// 默认值：0.0.0.0/0。
+	SourceCidrIp *string `json:"source_cidr_ip,omitempty" xml:"source_cidr_ip,omitempty"`
+}
+
+func (s SecurityGroupRule) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SecurityGroupRule) GoString() string {
+	return s.String()
+}
+
+func (s *SecurityGroupRule) SetDescription(v string) *SecurityGroupRule {
+	s.Description = &v
 	return s
 }
 
-func (s *CellView) SetZones(v []*ZoneView) *CellView {
-	s.Zones = v
+func (s *SecurityGroupRule) SetDestCidrIp(v string) *SecurityGroupRule {
+	s.DestCidrIp = &v
 	return s
 }
 
-// TaskVO用Resource字段
-type Resource struct {
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+func (s *SecurityGroupRule) SetIpProtocol(v string) *SecurityGroupRule {
+	s.IpProtocol = &v
+	return s
+}
+
+func (s *SecurityGroupRule) SetNicType(v string) *SecurityGroupRule {
+	s.NicType = &v
+	return s
+}
+
+func (s *SecurityGroupRule) SetPolicy(v string) *SecurityGroupRule {
+	s.Policy = &v
+	return s
+}
+
+func (s *SecurityGroupRule) SetPortRange(v string) *SecurityGroupRule {
+	s.PortRange = &v
+	return s
+}
+
+func (s *SecurityGroupRule) SetPriority(v string) *SecurityGroupRule {
+	s.Priority = &v
+	return s
+}
+
+func (s *SecurityGroupRule) SetSourceCidrIp(v string) *SecurityGroupRule {
+	s.SourceCidrIp = &v
+	return s
+}
+
+// 查询用的DbSchema
+type DbSchema struct {
+	// charSet
+	CharSet *string `json:"char_set,omitempty" xml:"char_set,omitempty"`
+	// database
+	Database *Database `json:"database,omitempty" xml:"database,omitempty"`
 	// description
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// instance_charge_type
-	InstanceChargeType *string `json:"instance_charge_type,omitempty" xml:"instance_charge_type,omitempty"`
-	// expiredTime
-	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// auto_renew
-	AutoRenew *bool `json:"auto_renew,omitempty" xml:"auto_renew,omitempty"`
-	// autoRenewPeriod
-	AutoRenewPeriod *int64 `json:"auto_renew_period,omitempty" xml:"auto_renew_period,omitempty"`
-	// iaas_id
-	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	// grants
+	Grants []*DbSchemaGrant `json:"grants,omitempty" xml:"grants,omitempty" require:"true" type:"Repeated"`
 	// iaas_type
 	IaasType *string `json:"iaas_type,omitempty" xml:"iaas_type,omitempty"`
-	// region_id
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
-	// zone_id
-	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty" require:"true"`
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// utc_create
 	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// utc_modified
 	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
-func (s Resource) String() string {
+func (s DbSchema) String() string {
 	return tea.Prettify(s)
 }
 
-func (s Resource) GoString() string {
+func (s DbSchema) GoString() string {
 	return s.String()
 }
 
-func (s *Resource) SetName(v string) *Resource {
-	s.Name = &v
+func (s *DbSchema) SetCharSet(v string) *DbSchema {
+	s.CharSet = &v
 	return s
 }
 
-func (s *Resource) SetDescription(v string) *Resource {
+func (s *DbSchema) SetDatabase(v *Database) *DbSchema {
+	s.Database = v
+	return s
+}
+
+func (s *DbSchema) SetDescription(v string) *DbSchema {
 	s.Description = &v
 	return s
 }
 
-func (s *Resource) SetInstanceChargeType(v string) *Resource {
-	s.InstanceChargeType = &v
+func (s *DbSchema) SetGrants(v []*DbSchemaGrant) *DbSchema {
+	s.Grants = v
 	return s
 }
 
-func (s *Resource) SetExpiredTime(v string) *Resource {
-	s.ExpiredTime = &v
-	return s
-}
-
-func (s *Resource) SetAutoRenew(v bool) *Resource {
-	s.AutoRenew = &v
-	return s
-}
-
-func (s *Resource) SetAutoRenewPeriod(v int64) *Resource {
-	s.AutoRenewPeriod = &v
-	return s
-}
-
-func (s *Resource) SetIaasId(v string) *Resource {
-	s.IaasId = &v
-	return s
-}
-
-func (s *Resource) SetIaasType(v string) *Resource {
+func (s *DbSchema) SetIaasType(v string) *DbSchema {
 	s.IaasType = &v
 	return s
 }
 
-func (s *Resource) SetRegionId(v string) *Resource {
-	s.RegionId = &v
-	return s
-}
-
-func (s *Resource) SetZoneId(v string) *Resource {
-	s.ZoneId = &v
-	return s
-}
-
-func (s *Resource) SetId(v string) *Resource {
+func (s *DbSchema) SetId(v string) *DbSchema {
 	s.Id = &v
 	return s
 }
 
-func (s *Resource) SetUtcCreate(v string) *Resource {
-	s.UtcCreate = &v
-	return s
-}
-
-func (s *Resource) SetUtcModified(v string) *Resource {
-	s.UtcModified = &v
-	return s
-}
-
-// AppManifest
-type AppManifest struct {
-	// app_id
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
-	// app_version
-	AppVersion *string `json:"app_version,omitempty" xml:"app_version,omitempty"`
-	// code_commit
-	CodeCommit *CodeCommit `json:"code_commit,omitempty" xml:"code_commit,omitempty"`
-	// etag
-	Etag *string `json:"etag,omitempty" xml:"etag,omitempty"`
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// location
-	Location *string `json:"location,omitempty" xml:"location,omitempty"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// remark
-	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
-	// store_location
-	StoreLocation *string `json:"store_location,omitempty" xml:"store_location,omitempty"`
-	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// utc_modified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-}
-
-func (s AppManifest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppManifest) GoString() string {
-	return s.String()
-}
-
-func (s *AppManifest) SetAppId(v string) *AppManifest {
-	s.AppId = &v
-	return s
-}
-
-func (s *AppManifest) SetAppVersion(v string) *AppManifest {
-	s.AppVersion = &v
-	return s
-}
-
-func (s *AppManifest) SetCodeCommit(v *CodeCommit) *AppManifest {
-	s.CodeCommit = v
-	return s
-}
-
-func (s *AppManifest) SetEtag(v string) *AppManifest {
-	s.Etag = &v
-	return s
-}
-
-func (s *AppManifest) SetId(v string) *AppManifest {
-	s.Id = &v
-	return s
-}
-
-func (s *AppManifest) SetLocation(v string) *AppManifest {
-	s.Location = &v
-	return s
-}
-
-func (s *AppManifest) SetName(v string) *AppManifest {
+func (s *DbSchema) SetName(v string) *DbSchema {
 	s.Name = &v
 	return s
 }
 
-func (s *AppManifest) SetRemark(v string) *AppManifest {
-	s.Remark = &v
-	return s
-}
-
-func (s *AppManifest) SetStoreLocation(v string) *AppManifest {
-	s.StoreLocation = &v
-	return s
-}
-
-func (s *AppManifest) SetUtcCreate(v string) *AppManifest {
-	s.UtcCreate = &v
-	return s
-}
-
-func (s *AppManifest) SetUtcModified(v string) *AppManifest {
-	s.UtcModified = &v
-	return s
-}
-
-func (s *AppManifest) SetWorkspaceId(v string) *AppManifest {
-	s.WorkspaceId = &v
-	return s
-}
-
-// 监听器健康检查配置
-type ListenerHealthMonitor struct {
-	// check_type
-	CheckType *string `json:"check_type,omitempty" xml:"check_type,omitempty"`
-	// 默认 80
-	ConnectPort *int64 `json:"connect_port,omitempty" xml:"connect_port,omitempty"`
-	// 域名
-	Domain *string `json:"domain,omitempty" xml:"domain,omitempty"`
-	// 健康阈值
-	HealthyThreshold *int64 `json:"healthy_threshold,omitempty" xml:"healthy_threshold,omitempty"`
-	// health_check_http_code
-	HealthCheckHttpCode []*string `json:"health_check_http_code,omitempty" xml:"health_check_http_code,omitempty" type:"Repeated"`
-	// http_method
-	HttpMethod *string `json:"http_method,omitempty" xml:"http_method,omitempty"`
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 监控检查间隔
-	Interval *int64 `json:"interval,omitempty" xml:"interval,omitempty" require:"true"`
-	// 超时时间
-	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
-	// 不健康阈值
-	UnHealthyThreshold *int64 `json:"un_healthy_threshold,omitempty" xml:"un_healthy_threshold,omitempty"`
-	// uri
-	Uri *string `json:"uri,omitempty" xml:"uri,omitempty"`
-}
-
-func (s ListenerHealthMonitor) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ListenerHealthMonitor) GoString() string {
-	return s.String()
-}
-
-func (s *ListenerHealthMonitor) SetCheckType(v string) *ListenerHealthMonitor {
-	s.CheckType = &v
-	return s
-}
-
-func (s *ListenerHealthMonitor) SetConnectPort(v int64) *ListenerHealthMonitor {
-	s.ConnectPort = &v
-	return s
-}
-
-func (s *ListenerHealthMonitor) SetDomain(v string) *ListenerHealthMonitor {
-	s.Domain = &v
-	return s
-}
-
-func (s *ListenerHealthMonitor) SetHealthyThreshold(v int64) *ListenerHealthMonitor {
-	s.HealthyThreshold = &v
-	return s
-}
-
-func (s *ListenerHealthMonitor) SetHealthCheckHttpCode(v []*string) *ListenerHealthMonitor {
-	s.HealthCheckHttpCode = v
-	return s
-}
-
-func (s *ListenerHealthMonitor) SetHttpMethod(v string) *ListenerHealthMonitor {
-	s.HttpMethod = &v
-	return s
-}
-
-func (s *ListenerHealthMonitor) SetId(v string) *ListenerHealthMonitor {
-	s.Id = &v
-	return s
-}
-
-func (s *ListenerHealthMonitor) SetInterval(v int64) *ListenerHealthMonitor {
-	s.Interval = &v
-	return s
-}
-
-func (s *ListenerHealthMonitor) SetTimeout(v int64) *ListenerHealthMonitor {
-	s.Timeout = &v
-	return s
-}
-
-func (s *ListenerHealthMonitor) SetUnHealthyThreshold(v int64) *ListenerHealthMonitor {
-	s.UnHealthyThreshold = &v
-	return s
-}
-
-func (s *ListenerHealthMonitor) SetUri(v string) *ListenerHealthMonitor {
-	s.Uri = &v
-	return s
-}
-
-// 应用分组
-type AppDomain struct {
-	// 创建人id
-	CreatorId *string `json:"creator_id,omitempty" xml:"creator_id,omitempty"`
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// parentId
-	ParentId *string `json:"parent_id,omitempty" xml:"parent_id,omitempty"`
-	// 租户id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// toRootPath
-	ToRootPath *string `json:"to_root_path,omitempty" xml:"to_root_path,omitempty"`
-	// utcCreate
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// utcModified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s AppDomain) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppDomain) GoString() string {
-	return s.String()
-}
-
-func (s *AppDomain) SetCreatorId(v string) *AppDomain {
-	s.CreatorId = &v
-	return s
-}
-
-func (s *AppDomain) SetId(v string) *AppDomain {
-	s.Id = &v
-	return s
-}
-
-func (s *AppDomain) SetName(v string) *AppDomain {
-	s.Name = &v
-	return s
-}
-
-func (s *AppDomain) SetParentId(v string) *AppDomain {
-	s.ParentId = &v
-	return s
-}
-
-func (s *AppDomain) SetTenantId(v string) *AppDomain {
-	s.TenantId = &v
-	return s
-}
-
-func (s *AppDomain) SetToRootPath(v string) *AppDomain {
-	s.ToRootPath = &v
-	return s
-}
-
-func (s *AppDomain) SetUtcCreate(v string) *AppDomain {
-	s.UtcCreate = &v
-	return s
-}
-
-func (s *AppDomain) SetUtcModified(v string) *AppDomain {
-	s.UtcModified = &v
-	return s
-}
-
-// 阿里云日志服务(SLS)-日志配置-输出类型配置
-type SLSConfigOutputDetail struct {
-	// 项目名称，必须为请求的project名。
-	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty" require:"true"`
-	// 日志库名称
-	LogstoreName *string `json:"logstore_name,omitempty" xml:"logstore_name,omitempty" require:"true"`
-}
-
-func (s SLSConfigOutputDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SLSConfigOutputDetail) GoString() string {
-	return s.String()
-}
-
-func (s *SLSConfigOutputDetail) SetProjectName(v string) *SLSConfigOutputDetail {
-	s.ProjectName = &v
-	return s
-}
-
-func (s *SLSConfigOutputDetail) SetLogstoreName(v string) *SLSConfigOutputDetail {
-	s.LogstoreName = &v
-	return s
-}
-
-// 应用信息
-type AppView struct {
-	// 应用组id
-	AppDomainId *string `json:"app_domain_id,omitempty" xml:"app_domain_id,omitempty"`
-	// 应用扩展信息
-	AppExtraInfos []*AppExtraInfo `json:"app_extra_infos,omitempty" xml:"app_extra_infos,omitempty" type:"Repeated"`
-	// 应用等级
-	AppLevel *AppLevel `json:"app_level,omitempty" xml:"app_level,omitempty"`
-	// 应用负责人
-	AppOwner *AppOwner `json:"app_owner,omitempty" xml:"app_owner,omitempty"`
-	// scm sofa archetype
-	Archetype *ScmSofaArchetype `json:"archetype,omitempty" xml:"archetype,omitempty"`
-	// 技术栈版本
-	BuildpackVersion *string `json:"buildpack_version,omitempty" xml:"buildpack_version,omitempty"`
-	// 中文名称
-	ChineseName *string `json:"chinese_name,omitempty" xml:"chinese_name,omitempty"`
-	// 代码仓库
-	CodeRepository *CodeRepository `json:"code_repository,omitempty" xml:"code_repository,omitempty"`
-	// 描述信息
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 扩展参数，JSOn字符串
-	ExtraParams *string `json:"extra_params,omitempty" xml:"extra_params,omitempty"`
-	// 应用ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 是否组件中心应用
-	IsService *bool `json:"is_service,omitempty" xml:"is_service,omitempty"`
-	// 应用名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 负责人ID
-	OwnerId *string `json:"owner_id,omitempty" xml:"owner_id,omitempty"`
-	// 技术栈所属分类ID
-	StackId *string `json:"stack_id,omitempty" xml:"stack_id,omitempty" require:"true"`
-	// 应用状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 应用标签，JSOn字符串
-	Tags *string `json:"tags,omitempty" xml:"tags,omitempty"`
-	// 租户ID
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// 创建时间
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 修改时间
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 工作空间ID
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-	// 负责人名称
-	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
-	// 应用负责人真实名称
-	RealOwnerName *string `json:"real_owner_name,omitempty" xml:"real_owner_name,omitempty" require:"true"`
-	// 应用域路径名
-	DomainNames []*string `json:"domain_names,omitempty" xml:"domain_names,omitempty" type:"Repeated"`
-	// 应用分组名称
-	AppDomainName *string `json:"app_domain_name,omitempty" xml:"app_domain_name,omitempty" require:"true"`
-	// 应用等级名称
-	AppLevelName *string `json:"app_level_name,omitempty" xml:"app_level_name,omitempty" require:"true"`
-	// 技术栈名称
-	StackName *string `json:"stack_name,omitempty" xml:"stack_name,omitempty"`
-	// 技术栈版本
-	StackVersion *string `json:"stack_version,omitempty" xml:"stack_version,omitempty"`
-	// 服务器数量
-	ContainerCount *int64 `json:"container_count,omitempty" xml:"container_count,omitempty"`
-	// 数据库个数
-	DatabaseCount *int64 `json:"database_count,omitempty" xml:"database_count,omitempty"`
-	// SLB个数
-	SlbCount *int64 `json:"slb_count,omitempty" xml:"slb_count,omitempty"`
-	// ocs个数
-	OcsCount *int64 `json:"ocs_count,omitempty" xml:"ocs_count,omitempty"`
-	// 发布包个数
-	PackageCount *int64 `json:"package_count,omitempty" xml:"package_count,omitempty"`
-	// 生命周期信息
-	LifeCycle *AppLifeCycle `json:"life_cycle,omitempty" xml:"life_cycle,omitempty"`
-}
-
-func (s AppView) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppView) GoString() string {
-	return s.String()
-}
-
-func (s *AppView) SetAppDomainId(v string) *AppView {
-	s.AppDomainId = &v
-	return s
-}
-
-func (s *AppView) SetAppExtraInfos(v []*AppExtraInfo) *AppView {
-	s.AppExtraInfos = v
-	return s
-}
-
-func (s *AppView) SetAppLevel(v *AppLevel) *AppView {
-	s.AppLevel = v
-	return s
-}
-
-func (s *AppView) SetAppOwner(v *AppOwner) *AppView {
-	s.AppOwner = v
-	return s
-}
-
-func (s *AppView) SetArchetype(v *ScmSofaArchetype) *AppView {
-	s.Archetype = v
-	return s
-}
-
-func (s *AppView) SetBuildpackVersion(v string) *AppView {
-	s.BuildpackVersion = &v
-	return s
-}
-
-func (s *AppView) SetChineseName(v string) *AppView {
-	s.ChineseName = &v
-	return s
-}
-
-func (s *AppView) SetCodeRepository(v *CodeRepository) *AppView {
-	s.CodeRepository = v
-	return s
-}
-
-func (s *AppView) SetDescription(v string) *AppView {
-	s.Description = &v
-	return s
-}
-
-func (s *AppView) SetExtraParams(v string) *AppView {
-	s.ExtraParams = &v
-	return s
-}
-
-func (s *AppView) SetId(v string) *AppView {
-	s.Id = &v
-	return s
-}
-
-func (s *AppView) SetIsService(v bool) *AppView {
-	s.IsService = &v
-	return s
-}
-
-func (s *AppView) SetName(v string) *AppView {
-	s.Name = &v
-	return s
-}
-
-func (s *AppView) SetOwnerId(v string) *AppView {
-	s.OwnerId = &v
-	return s
-}
-
-func (s *AppView) SetStackId(v string) *AppView {
-	s.StackId = &v
-	return s
-}
-
-func (s *AppView) SetStatus(v string) *AppView {
+func (s *DbSchema) SetStatus(v string) *DbSchema {
 	s.Status = &v
 	return s
 }
 
-func (s *AppView) SetTags(v string) *AppView {
-	s.Tags = &v
-	return s
-}
-
-func (s *AppView) SetTenantId(v string) *AppView {
-	s.TenantId = &v
-	return s
-}
-
-func (s *AppView) SetUtcCreate(v string) *AppView {
+func (s *DbSchema) SetUtcCreate(v string) *DbSchema {
 	s.UtcCreate = &v
 	return s
 }
 
-func (s *AppView) SetUtcModified(v string) *AppView {
+func (s *DbSchema) SetUtcModified(v string) *DbSchema {
 	s.UtcModified = &v
 	return s
 }
 
-func (s *AppView) SetWorkspaceId(v string) *AppView {
-	s.WorkspaceId = &v
+// ZoneDto
+type ZoneDto struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// identity
+	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
+	// iaasProviderId
+	IaasProviderId *string `json:"iaas_provider_id,omitempty" xml:"iaas_provider_id,omitempty" require:"true"`
+	// displayName
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
+	// state
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// regionId
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
+	// no
+	No *int64 `json:"no,omitempty" xml:"no,omitempty" require:"true"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// utcCreate
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// utcModified
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s ZoneDto) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ZoneDto) GoString() string {
+	return s.String()
+}
+
+func (s *ZoneDto) SetId(v string) *ZoneDto {
+	s.Id = &v
 	return s
 }
 
-func (s *AppView) SetOwnerName(v string) *AppView {
-	s.OwnerName = &v
+func (s *ZoneDto) SetIdentity(v string) *ZoneDto {
+	s.Identity = &v
 	return s
 }
 
-func (s *AppView) SetRealOwnerName(v string) *AppView {
-	s.RealOwnerName = &v
+func (s *ZoneDto) SetIaasProviderId(v string) *ZoneDto {
+	s.IaasProviderId = &v
 	return s
 }
 
-func (s *AppView) SetDomainNames(v []*string) *AppView {
-	s.DomainNames = v
+func (s *ZoneDto) SetDisplayName(v string) *ZoneDto {
+	s.DisplayName = &v
 	return s
 }
 
-func (s *AppView) SetAppDomainName(v string) *AppView {
-	s.AppDomainName = &v
+func (s *ZoneDto) SetState(v string) *ZoneDto {
+	s.State = &v
 	return s
 }
 
-func (s *AppView) SetAppLevelName(v string) *AppView {
-	s.AppLevelName = &v
+func (s *ZoneDto) SetRegionId(v string) *ZoneDto {
+	s.RegionId = &v
 	return s
 }
 
-func (s *AppView) SetStackName(v string) *AppView {
-	s.StackName = &v
+func (s *ZoneDto) SetNo(v int64) *ZoneDto {
+	s.No = &v
 	return s
 }
 
-func (s *AppView) SetStackVersion(v string) *AppView {
-	s.StackVersion = &v
+func (s *ZoneDto) SetName(v string) *ZoneDto {
+	s.Name = &v
 	return s
 }
 
-func (s *AppView) SetContainerCount(v int64) *AppView {
-	s.ContainerCount = &v
+func (s *ZoneDto) SetDescription(v string) *ZoneDto {
+	s.Description = &v
 	return s
 }
 
-func (s *AppView) SetDatabaseCount(v int64) *AppView {
-	s.DatabaseCount = &v
+func (s *ZoneDto) SetUtcCreate(v string) *ZoneDto {
+	s.UtcCreate = &v
 	return s
 }
 
-func (s *AppView) SetSlbCount(v int64) *AppView {
-	s.SlbCount = &v
-	return s
-}
-
-func (s *AppView) SetOcsCount(v int64) *AppView {
-	s.OcsCount = &v
-	return s
-}
-
-func (s *AppView) SetPackageCount(v int64) *AppView {
-	s.PackageCount = &v
-	return s
-}
-
-func (s *AppView) SetLifeCycle(v *AppLifeCycle) *AppView {
-	s.LifeCycle = v
+func (s *ZoneDto) SetUtcModified(v string) *ZoneDto {
+	s.UtcModified = &v
 	return s
 }
 
@@ -3325,620 +2972,123 @@ func (s *AppService) SetWorkspaceId(v string) *AppService {
 	return s
 }
 
-// 路由条目的详细信息。
-type VRouteEntry struct {
-	// 路由条目的目标网段。
-	DesinationCidrBlock *string `json:"desination_cidr_block,omitempty" xml:"desination_cidr_block,omitempty"`
-	// 下一跳的实例ID。
-	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
-	// 下一跳的实例名称。
-	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty"`
-	// 路由条目ID。
-	NextHopId *string `json:"next_hop_id,omitempty" xml:"next_hop_id,omitempty"`
-	// 路由的下一跳列表。
-	NextHopItemList []*NextHopItem `json:"next_hop_item_list,omitempty" xml:"next_hop_item_list,omitempty" type:"Repeated"`
-	// 路由类型。
-	//
-	// local：交换机路由。
-	// service：云服务路由。
-	// classicLink：开启ClassicLink功能后系统自动添加的路由。
-	NextHopType *string `json:"next_hop_type,omitempty" xml:"next_hop_type,omitempty"`
-	// 路由条目所属路由表的ID。
-	RouteTableId *string `json:"route_table_id,omitempty" xml:"route_table_id,omitempty"`
-	//
-	// 路由条目的状态。
-	//
-	// Pending：配置中。
-	// Available：可用。
-	// Modifying：修改中。
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 路由条目的类型。
-	//
-	// System：系统路由。
-	// Custom：自定义路由。
-	// BGP：BGP路由。
-	//
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+// 阿里云日志服务(SLS)-日志配置-输出类型配置
+type SLSConfigOutputDetail struct {
+	// 项目名称，必须为请求的project名。
+	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty" require:"true"`
+	// 日志库名称
+	LogstoreName *string `json:"logstore_name,omitempty" xml:"logstore_name,omitempty" require:"true"`
 }
 
-func (s VRouteEntry) String() string {
+func (s SLSConfigOutputDetail) String() string {
 	return tea.Prettify(s)
 }
 
-func (s VRouteEntry) GoString() string {
+func (s SLSConfigOutputDetail) GoString() string {
 	return s.String()
 }
 
-func (s *VRouteEntry) SetDesinationCidrBlock(v string) *VRouteEntry {
-	s.DesinationCidrBlock = &v
+func (s *SLSConfigOutputDetail) SetProjectName(v string) *SLSConfigOutputDetail {
+	s.ProjectName = &v
 	return s
 }
 
-func (s *VRouteEntry) SetInstanceId(v string) *VRouteEntry {
-	s.InstanceId = &v
+func (s *SLSConfigOutputDetail) SetLogstoreName(v string) *SLSConfigOutputDetail {
+	s.LogstoreName = &v
 	return s
 }
 
-func (s *VRouteEntry) SetInstanceName(v string) *VRouteEntry {
-	s.InstanceName = &v
-	return s
-}
-
-func (s *VRouteEntry) SetNextHopId(v string) *VRouteEntry {
-	s.NextHopId = &v
-	return s
-}
-
-func (s *VRouteEntry) SetNextHopItemList(v []*NextHopItem) *VRouteEntry {
-	s.NextHopItemList = v
-	return s
-}
-
-func (s *VRouteEntry) SetNextHopType(v string) *VRouteEntry {
-	s.NextHopType = &v
-	return s
-}
-
-func (s *VRouteEntry) SetRouteTableId(v string) *VRouteEntry {
-	s.RouteTableId = &v
-	return s
-}
-
-func (s *VRouteEntry) SetStatus(v string) *VRouteEntry {
-	s.Status = &v
-	return s
-}
-
-func (s *VRouteEntry) SetType(v string) *VRouteEntry {
-	s.Type = &v
-	return s
-}
-
-// vpc import info
-type ImportInfo struct {
-	// 已导入的workspace name
-	ImportedWorkspaceName *string `json:"imported_workspace_name,omitempty" xml:"imported_workspace_name,omitempty"`
-	// vpc是否已导入workspace
-	IsImported *bool `json:"is_imported,omitempty" xml:"is_imported,omitempty"`
-	// 是否可以删除已导入的workspace
-	IsUnimportable *bool `json:"is_unimportable,omitempty" xml:"is_unimportable,omitempty"`
-	// 不可删除已导入workspace的原因
-	UnimportableReason *string `json:"unimportable_reason,omitempty" xml:"unimportable_reason,omitempty"`
-}
-
-func (s ImportInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ImportInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ImportInfo) SetImportedWorkspaceName(v string) *ImportInfo {
-	s.ImportedWorkspaceName = &v
-	return s
-}
-
-func (s *ImportInfo) SetIsImported(v bool) *ImportInfo {
-	s.IsImported = &v
-	return s
-}
-
-func (s *ImportInfo) SetIsUnimportable(v bool) *ImportInfo {
-	s.IsUnimportable = &v
-	return s
-}
-
-func (s *ImportInfo) SetUnimportableReason(v string) *ImportInfo {
-	s.UnimportableReason = &v
-	return s
-}
-
-// Database ImportVO
-type ImportVO struct {
-	// is_imported
-	IsImported *bool `json:"is_imported,omitempty" xml:"is_imported,omitempty" require:"true"`
-	// imported_workspace_name
-	ImportedWorkspaceName *string `json:"imported_workspace_name,omitempty" xml:"imported_workspace_name,omitempty" require:"true"`
-	// is_unimportable
-	IsUnimportable *bool `json:"is_unimportable,omitempty" xml:"is_unimportable,omitempty"`
-	// unimportable_reason
-	UnimportableReason *string `json:"unimportable_reason,omitempty" xml:"unimportable_reason,omitempty"`
-}
-
-func (s ImportVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ImportVO) GoString() string {
-	return s.String()
-}
-
-func (s *ImportVO) SetIsImported(v bool) *ImportVO {
-	s.IsImported = &v
-	return s
-}
-
-func (s *ImportVO) SetImportedWorkspaceName(v string) *ImportVO {
-	s.ImportedWorkspaceName = &v
-	return s
-}
-
-func (s *ImportVO) SetIsUnimportable(v bool) *ImportVO {
-	s.IsUnimportable = &v
-	return s
-}
-
-func (s *ImportVO) SetUnimportableReason(v string) *ImportVO {
-	s.UnimportableReason = &v
-	return s
-}
-
-// JoinedSecurityGroupVO
-type JoinedSecurityGroupVO struct {
-	// iaas id
-	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// workspace id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-	// workspace name
-	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty"`
-}
-
-func (s JoinedSecurityGroupVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s JoinedSecurityGroupVO) GoString() string {
-	return s.String()
-}
-
-func (s *JoinedSecurityGroupVO) SetIaasId(v string) *JoinedSecurityGroupVO {
-	s.IaasId = &v
-	return s
-}
-
-func (s *JoinedSecurityGroupVO) SetName(v string) *JoinedSecurityGroupVO {
-	s.Name = &v
-	return s
-}
-
-func (s *JoinedSecurityGroupVO) SetWorkspaceId(v string) *JoinedSecurityGroupVO {
-	s.WorkspaceId = &v
-	return s
-}
-
-func (s *JoinedSecurityGroupVO) SetWorkspaceName(v string) *JoinedSecurityGroupVO {
-	s.WorkspaceName = &v
-	return s
-}
-
-// 安全组规则
-type SecurityGroupRule struct {
-	// 规则描述信息
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 目的端IP地址范围。支持CIDR格式和IPv4格式的IP地址范围。
-	DestCidrIp *string `json:"dest_cidr_ip,omitempty" xml:"dest_cidr_ip,omitempty"`
-	// 传输层协议。不区分大小写。取值范围：
-	//
-	// icmp
-	// gre
-	// tcp
-	// udp
-	// all：支持所有协议
-	IpProtocol *string `json:"ip_protocol,omitempty" xml:"ip_protocol,omitempty"`
-	// 经典网络类型安全组规则的网卡类型。取值范围：
-	//
-	// internet：公网。
-	// intranet：内网。
-	// 默认值：internet。
-	//
-	// 在以下情况中，参数NicType取值只能为intranet：
-	//
-	// 安全组规则的网络类型为专有网络VPC时，您无需设置NicType参数，默认并且只能为intranet。
-	// 当设置安全组之间互相访问时，即指定了DestGroupId且没有指定DestCidrIp时。
-	NicType *string `json:"nic_type,omitempty" xml:"nic_type,omitempty"`
-	// 访问权限。取值范围：
-	//
-	// accept：接受访问。
-	// drop：拒绝访问，不返回拒绝信息。
-	// 默认值：accept。
-	Policy *string `json:"policy,omitempty" xml:"policy,omitempty"`
-	// 目的端安全组开放的传输层协议相关的端口范围。取值范围：
-	//
-	// TCP/UDP协议：取值范围为1~65535。使用斜线（/）隔开起始端口和终止端口。正确示范：1/200；错误示范：200/1。
-	// ICMP协议：-1/-1。
-	// GRE协议：-1/-1。
-	// all：-1/-1。
-	PortRange *string `json:"port_range,omitempty" xml:"port_range,omitempty"`
-	// 安全组规则优先级。取值范围：1~100
-	//
-	// 默认值：1。
-	Priority *string `json:"priority,omitempty" xml:"priority,omitempty"`
-	// 源端IP地址范围。支持CIDR格式和IPv4格式的IP地址范围。
-	//
-	// 默认值：0.0.0.0/0。
-	SourceCidrIp *string `json:"source_cidr_ip,omitempty" xml:"source_cidr_ip,omitempty"`
-}
-
-func (s SecurityGroupRule) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SecurityGroupRule) GoString() string {
-	return s.String()
-}
-
-func (s *SecurityGroupRule) SetDescription(v string) *SecurityGroupRule {
-	s.Description = &v
-	return s
-}
-
-func (s *SecurityGroupRule) SetDestCidrIp(v string) *SecurityGroupRule {
-	s.DestCidrIp = &v
-	return s
-}
-
-func (s *SecurityGroupRule) SetIpProtocol(v string) *SecurityGroupRule {
-	s.IpProtocol = &v
-	return s
-}
-
-func (s *SecurityGroupRule) SetNicType(v string) *SecurityGroupRule {
-	s.NicType = &v
-	return s
-}
-
-func (s *SecurityGroupRule) SetPolicy(v string) *SecurityGroupRule {
-	s.Policy = &v
-	return s
-}
-
-func (s *SecurityGroupRule) SetPortRange(v string) *SecurityGroupRule {
-	s.PortRange = &v
-	return s
-}
-
-func (s *SecurityGroupRule) SetPriority(v string) *SecurityGroupRule {
-	s.Priority = &v
-	return s
-}
-
-func (s *SecurityGroupRule) SetSourceCidrIp(v string) *SecurityGroupRule {
-	s.SourceCidrIp = &v
-	return s
-}
-
-// WorkspaceWithGroupView
-type WorkspaceWithGroupView struct {
+// 应用分组
+type AppDomain struct {
+	// 创建人id
+	CreatorId *string `json:"creator_id,omitempty" xml:"creator_id,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// identity
-	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// networkType
-	NetworkType *string `json:"network_type,omitempty" xml:"network_type,omitempty" require:"true"`
-	// region
-	Region *RegionView `json:"region,omitempty" xml:"region,omitempty" require:"true"`
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// tenantId
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// zones
-	Zones []*WorkspaceZoneView `json:"zones,omitempty" xml:"zones,omitempty" require:"true" type:"Repeated"`
-	// workspaceGroup
-	WorkspaceGroup *WorkspaceGroupView `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// parentId
+	ParentId *string `json:"parent_id,omitempty" xml:"parent_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// toRootPath
+	ToRootPath *string `json:"to_root_path,omitempty" xml:"to_root_path,omitempty"`
+	// utcCreate
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// utcModified
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
-func (s WorkspaceWithGroupView) String() string {
+func (s AppDomain) String() string {
 	return tea.Prettify(s)
 }
 
-func (s WorkspaceWithGroupView) GoString() string {
+func (s AppDomain) GoString() string {
 	return s.String()
 }
 
-func (s *WorkspaceWithGroupView) SetId(v string) *WorkspaceWithGroupView {
+func (s *AppDomain) SetCreatorId(v string) *AppDomain {
+	s.CreatorId = &v
+	return s
+}
+
+func (s *AppDomain) SetId(v string) *AppDomain {
 	s.Id = &v
 	return s
 }
 
-func (s *WorkspaceWithGroupView) SetIdentity(v string) *WorkspaceWithGroupView {
-	s.Identity = &v
-	return s
-}
-
-func (s *WorkspaceWithGroupView) SetName(v string) *WorkspaceWithGroupView {
+func (s *AppDomain) SetName(v string) *AppDomain {
 	s.Name = &v
 	return s
 }
 
-func (s *WorkspaceWithGroupView) SetNetworkType(v string) *WorkspaceWithGroupView {
-	s.NetworkType = &v
+func (s *AppDomain) SetParentId(v string) *AppDomain {
+	s.ParentId = &v
 	return s
 }
 
-func (s *WorkspaceWithGroupView) SetRegion(v *RegionView) *WorkspaceWithGroupView {
-	s.Region = v
-	return s
-}
-
-func (s *WorkspaceWithGroupView) SetStatus(v string) *WorkspaceWithGroupView {
-	s.Status = &v
-	return s
-}
-
-func (s *WorkspaceWithGroupView) SetTenantId(v string) *WorkspaceWithGroupView {
+func (s *AppDomain) SetTenantId(v string) *AppDomain {
 	s.TenantId = &v
 	return s
 }
 
-func (s *WorkspaceWithGroupView) SetZones(v []*WorkspaceZoneView) *WorkspaceWithGroupView {
-	s.Zones = v
+func (s *AppDomain) SetToRootPath(v string) *AppDomain {
+	s.ToRootPath = &v
 	return s
 }
 
-func (s *WorkspaceWithGroupView) SetWorkspaceGroup(v *WorkspaceGroupView) *WorkspaceWithGroupView {
-	s.WorkspaceGroup = v
+func (s *AppDomain) SetUtcCreate(v string) *AppDomain {
+	s.UtcCreate = &v
 	return s
 }
 
-// AcsClusterUnit
-type AcsClusterUnit struct {
-	// cluster_id
-	ClusterId *string `json:"cluster_id,omitempty" xml:"cluster_id,omitempty" require:"true"`
-	// address
-	Address *string `json:"address,omitempty" xml:"address,omitempty"`
-	// unit_status
-	UnitStatus *int64 `json:"unit_status,omitempty" xml:"unit_status,omitempty"`
-	// create_time
-	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// modify_time
-	ModifyTime *string `json:"modify_time,omitempty" xml:"modify_time,omitempty"`
-	// container_id
-	ContainerId *string `json:"container_id,omitempty" xml:"container_id,omitempty"`
+func (s *AppDomain) SetUtcModified(v string) *AppDomain {
+	s.UtcModified = &v
+	return s
 }
 
-func (s AcsClusterUnit) String() string {
+// IaasResponse
+type IaasResponse struct {
+	// response_body
+	ResponseBody *string `json:"response_body,omitempty" xml:"response_body,omitempty"`
+	// response_headers
+	ResponseHeaders []*MapStringToStringEntity `json:"response_headers,omitempty" xml:"response_headers,omitempty" type:"Repeated"`
+}
+
+func (s IaasResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AcsClusterUnit) GoString() string {
+func (s IaasResponse) GoString() string {
 	return s.String()
 }
 
-func (s *AcsClusterUnit) SetClusterId(v string) *AcsClusterUnit {
-	s.ClusterId = &v
+func (s *IaasResponse) SetResponseBody(v string) *IaasResponse {
+	s.ResponseBody = &v
 	return s
 }
 
-func (s *AcsClusterUnit) SetAddress(v string) *AcsClusterUnit {
-	s.Address = &v
-	return s
-}
-
-func (s *AcsClusterUnit) SetUnitStatus(v int64) *AcsClusterUnit {
-	s.UnitStatus = &v
-	return s
-}
-
-func (s *AcsClusterUnit) SetCreateTime(v string) *AcsClusterUnit {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *AcsClusterUnit) SetModifyTime(v string) *AcsClusterUnit {
-	s.ModifyTime = &v
-	return s
-}
-
-func (s *AcsClusterUnit) SetContainerId(v string) *AcsClusterUnit {
-	s.ContainerId = &v
-	return s
-}
-
-// WorkspaceRegion
-type WorkspaceRegion struct {
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// workspaceId
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
-	// regionId
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
-	// type
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// securedIsolationIdentity
-	SecuredIsolationIdentity *string `json:"secured_isolation_identity,omitempty" xml:"secured_isolation_identity,omitempty" require:"true"`
-	// securedIsolationName
-	SecuredIsolationName *string `json:"secured_isolation_name,omitempty" xml:"secured_isolation_name,omitempty" require:"true"`
-	// securedZoneId
-	SecuredZoneId *string `json:"secured_zone_id,omitempty" xml:"secured_zone_id,omitempty" require:"true"`
-}
-
-func (s WorkspaceRegion) String() string {
-	return tea.Prettify(s)
-}
-
-func (s WorkspaceRegion) GoString() string {
-	return s.String()
-}
-
-func (s *WorkspaceRegion) SetId(v string) *WorkspaceRegion {
-	s.Id = &v
-	return s
-}
-
-func (s *WorkspaceRegion) SetWorkspaceId(v string) *WorkspaceRegion {
-	s.WorkspaceId = &v
-	return s
-}
-
-func (s *WorkspaceRegion) SetRegionId(v string) *WorkspaceRegion {
-	s.RegionId = &v
-	return s
-}
-
-func (s *WorkspaceRegion) SetType(v string) *WorkspaceRegion {
-	s.Type = &v
-	return s
-}
-
-func (s *WorkspaceRegion) SetSecuredIsolationIdentity(v string) *WorkspaceRegion {
-	s.SecuredIsolationIdentity = &v
-	return s
-}
-
-func (s *WorkspaceRegion) SetSecuredIsolationName(v string) *WorkspaceRegion {
-	s.SecuredIsolationName = &v
-	return s
-}
-
-func (s *WorkspaceRegion) SetSecuredZoneId(v string) *WorkspaceRegion {
-	s.SecuredZoneId = &v
-	return s
-}
-
-// WorkspaceRegionDto
-type WorkspaceRegionDto struct {
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// networkType
-	NetworkType *string `json:"network_type,omitempty" xml:"network_type,omitempty"`
-	// region id
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
-	// regionName
-	RegionName *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
-	// 安全域id
-	SecuredZoneId *string `json:"secured_zone_id,omitempty" xml:"secured_zone_id,omitempty"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
-	// workspaceLogicRegionStatus
-	WorkspaceLogicRegionStatus *string `json:"workspace_logic_region_status,omitempty" xml:"workspace_logic_region_status,omitempty"`
-	// workspaceLogicRegionType
-	WorkspaceLogicRegionType *string `json:"workspace_logic_region_type,omitempty" xml:"workspace_logic_region_type,omitempty"`
-	// workspaceZoneDtos
-	WorkspaceZoneDtos []*WorkspaceZoneDto `json:"workspace_zone_dtos,omitempty" xml:"workspace_zone_dtos,omitempty" type:"Repeated"`
-}
-
-func (s WorkspaceRegionDto) String() string {
-	return tea.Prettify(s)
-}
-
-func (s WorkspaceRegionDto) GoString() string {
-	return s.String()
-}
-
-func (s *WorkspaceRegionDto) SetId(v string) *WorkspaceRegionDto {
-	s.Id = &v
-	return s
-}
-
-func (s *WorkspaceRegionDto) SetNetworkType(v string) *WorkspaceRegionDto {
-	s.NetworkType = &v
-	return s
-}
-
-func (s *WorkspaceRegionDto) SetRegionId(v string) *WorkspaceRegionDto {
-	s.RegionId = &v
-	return s
-}
-
-func (s *WorkspaceRegionDto) SetRegionName(v string) *WorkspaceRegionDto {
-	s.RegionName = &v
-	return s
-}
-
-func (s *WorkspaceRegionDto) SetSecuredZoneId(v string) *WorkspaceRegionDto {
-	s.SecuredZoneId = &v
-	return s
-}
-
-func (s *WorkspaceRegionDto) SetWorkspaceId(v string) *WorkspaceRegionDto {
-	s.WorkspaceId = &v
-	return s
-}
-
-func (s *WorkspaceRegionDto) SetWorkspaceLogicRegionStatus(v string) *WorkspaceRegionDto {
-	s.WorkspaceLogicRegionStatus = &v
-	return s
-}
-
-func (s *WorkspaceRegionDto) SetWorkspaceLogicRegionType(v string) *WorkspaceRegionDto {
-	s.WorkspaceLogicRegionType = &v
-	return s
-}
-
-func (s *WorkspaceRegionDto) SetWorkspaceZoneDtos(v []*WorkspaceZoneDto) *WorkspaceRegionDto {
-	s.WorkspaceZoneDtos = v
-	return s
-}
-
-// LB后端专用的vComputerGroup
-type VComputerGroup struct {
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
-	// load_balancer
-	LoadBalancer *LoadBalancer `json:"load_balancer,omitempty" xml:"load_balancer,omitempty" require:"true"`
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-}
-
-func (s VComputerGroup) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VComputerGroup) GoString() string {
-	return s.String()
-}
-
-func (s *VComputerGroup) SetName(v string) *VComputerGroup {
-	s.Name = &v
-	return s
-}
-
-func (s *VComputerGroup) SetId(v string) *VComputerGroup {
-	s.Id = &v
-	return s
-}
-
-func (s *VComputerGroup) SetWorkspaceId(v string) *VComputerGroup {
-	s.WorkspaceId = &v
-	return s
-}
-
-func (s *VComputerGroup) SetLoadBalancer(v *LoadBalancer) *VComputerGroup {
-	s.LoadBalancer = v
-	return s
-}
-
-func (s *VComputerGroup) SetStatus(v string) *VComputerGroup {
-	s.Status = &v
+func (s *IaasResponse) SetResponseHeaders(v []*MapStringToStringEntity) *IaasResponse {
+	s.ResponseHeaders = v
 	return s
 }
 
@@ -4213,6 +3363,610 @@ func (s *SLSConfigInputDetail) SetPlugin(v string) *SLSConfigInputDetail {
 	return s
 }
 
+// TaskVO用Resource字段
+type Resource struct {
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// instance_charge_type
+	InstanceChargeType *string `json:"instance_charge_type,omitempty" xml:"instance_charge_type,omitempty"`
+	// expiredTime
+	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// auto_renew
+	AutoRenew *bool `json:"auto_renew,omitempty" xml:"auto_renew,omitempty"`
+	// autoRenewPeriod
+	AutoRenewPeriod *int64 `json:"auto_renew_period,omitempty" xml:"auto_renew_period,omitempty"`
+	// iaas_id
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	// iaas_type
+	IaasType *string `json:"iaas_type,omitempty" xml:"iaas_type,omitempty"`
+	// region_id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
+	// zone_id
+	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty" require:"true"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// utc_create
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// utc_modified
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s Resource) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Resource) GoString() string {
+	return s.String()
+}
+
+func (s *Resource) SetName(v string) *Resource {
+	s.Name = &v
+	return s
+}
+
+func (s *Resource) SetDescription(v string) *Resource {
+	s.Description = &v
+	return s
+}
+
+func (s *Resource) SetInstanceChargeType(v string) *Resource {
+	s.InstanceChargeType = &v
+	return s
+}
+
+func (s *Resource) SetExpiredTime(v string) *Resource {
+	s.ExpiredTime = &v
+	return s
+}
+
+func (s *Resource) SetAutoRenew(v bool) *Resource {
+	s.AutoRenew = &v
+	return s
+}
+
+func (s *Resource) SetAutoRenewPeriod(v int64) *Resource {
+	s.AutoRenewPeriod = &v
+	return s
+}
+
+func (s *Resource) SetIaasId(v string) *Resource {
+	s.IaasId = &v
+	return s
+}
+
+func (s *Resource) SetIaasType(v string) *Resource {
+	s.IaasType = &v
+	return s
+}
+
+func (s *Resource) SetRegionId(v string) *Resource {
+	s.RegionId = &v
+	return s
+}
+
+func (s *Resource) SetZoneId(v string) *Resource {
+	s.ZoneId = &v
+	return s
+}
+
+func (s *Resource) SetId(v string) *Resource {
+	s.Id = &v
+	return s
+}
+
+func (s *Resource) SetUtcCreate(v string) *Resource {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *Resource) SetUtcModified(v string) *Resource {
+	s.UtcModified = &v
+	return s
+}
+
+// 应用信息
+type AppView struct {
+	// 应用组id
+	AppDomainId *string `json:"app_domain_id,omitempty" xml:"app_domain_id,omitempty"`
+	// 应用扩展信息
+	AppExtraInfos []*AppExtraInfo `json:"app_extra_infos,omitempty" xml:"app_extra_infos,omitempty" type:"Repeated"`
+	// 应用等级
+	AppLevel *AppLevel `json:"app_level,omitempty" xml:"app_level,omitempty"`
+	// 应用负责人
+	AppOwner *AppOwner `json:"app_owner,omitempty" xml:"app_owner,omitempty"`
+	// scm sofa archetype
+	Archetype *ScmSofaArchetype `json:"archetype,omitempty" xml:"archetype,omitempty"`
+	// 技术栈版本
+	BuildpackVersion *string `json:"buildpack_version,omitempty" xml:"buildpack_version,omitempty"`
+	// 中文名称
+	ChineseName *string `json:"chinese_name,omitempty" xml:"chinese_name,omitempty"`
+	// 代码仓库
+	CodeRepository *CodeRepository `json:"code_repository,omitempty" xml:"code_repository,omitempty"`
+	// 描述信息
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 扩展参数，JSOn字符串
+	ExtraParams *string `json:"extra_params,omitempty" xml:"extra_params,omitempty"`
+	// 应用ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 是否组件中心应用
+	IsService *bool `json:"is_service,omitempty" xml:"is_service,omitempty"`
+	// 应用名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 负责人ID
+	OwnerId *string `json:"owner_id,omitempty" xml:"owner_id,omitempty"`
+	// 技术栈所属分类ID
+	StackId *string `json:"stack_id,omitempty" xml:"stack_id,omitempty" require:"true"`
+	// 应用状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 应用标签，JSOn字符串
+	Tags *string `json:"tags,omitempty" xml:"tags,omitempty"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 创建时间
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 修改时间
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 工作空间ID
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// 负责人名称
+	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
+	// 应用负责人真实名称
+	RealOwnerName *string `json:"real_owner_name,omitempty" xml:"real_owner_name,omitempty" require:"true"`
+	// 应用域路径名
+	DomainNames []*string `json:"domain_names,omitempty" xml:"domain_names,omitempty" type:"Repeated"`
+	// 应用分组名称
+	AppDomainName *string `json:"app_domain_name,omitempty" xml:"app_domain_name,omitempty" require:"true"`
+	// 应用等级名称
+	AppLevelName *string `json:"app_level_name,omitempty" xml:"app_level_name,omitempty" require:"true"`
+	// 技术栈名称
+	StackName *string `json:"stack_name,omitempty" xml:"stack_name,omitempty"`
+	// 技术栈版本
+	StackVersion *string `json:"stack_version,omitempty" xml:"stack_version,omitempty"`
+	// 服务器数量
+	ContainerCount *int64 `json:"container_count,omitempty" xml:"container_count,omitempty"`
+	// 数据库个数
+	DatabaseCount *int64 `json:"database_count,omitempty" xml:"database_count,omitempty"`
+	// SLB个数
+	SlbCount *int64 `json:"slb_count,omitempty" xml:"slb_count,omitempty"`
+	// ocs个数
+	OcsCount *int64 `json:"ocs_count,omitempty" xml:"ocs_count,omitempty"`
+	// 发布包个数
+	PackageCount *int64 `json:"package_count,omitempty" xml:"package_count,omitempty"`
+	// 生命周期信息
+	LifeCycle *AppLifeCycle `json:"life_cycle,omitempty" xml:"life_cycle,omitempty"`
+}
+
+func (s AppView) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppView) GoString() string {
+	return s.String()
+}
+
+func (s *AppView) SetAppDomainId(v string) *AppView {
+	s.AppDomainId = &v
+	return s
+}
+
+func (s *AppView) SetAppExtraInfos(v []*AppExtraInfo) *AppView {
+	s.AppExtraInfos = v
+	return s
+}
+
+func (s *AppView) SetAppLevel(v *AppLevel) *AppView {
+	s.AppLevel = v
+	return s
+}
+
+func (s *AppView) SetAppOwner(v *AppOwner) *AppView {
+	s.AppOwner = v
+	return s
+}
+
+func (s *AppView) SetArchetype(v *ScmSofaArchetype) *AppView {
+	s.Archetype = v
+	return s
+}
+
+func (s *AppView) SetBuildpackVersion(v string) *AppView {
+	s.BuildpackVersion = &v
+	return s
+}
+
+func (s *AppView) SetChineseName(v string) *AppView {
+	s.ChineseName = &v
+	return s
+}
+
+func (s *AppView) SetCodeRepository(v *CodeRepository) *AppView {
+	s.CodeRepository = v
+	return s
+}
+
+func (s *AppView) SetDescription(v string) *AppView {
+	s.Description = &v
+	return s
+}
+
+func (s *AppView) SetExtraParams(v string) *AppView {
+	s.ExtraParams = &v
+	return s
+}
+
+func (s *AppView) SetId(v string) *AppView {
+	s.Id = &v
+	return s
+}
+
+func (s *AppView) SetIsService(v bool) *AppView {
+	s.IsService = &v
+	return s
+}
+
+func (s *AppView) SetName(v string) *AppView {
+	s.Name = &v
+	return s
+}
+
+func (s *AppView) SetOwnerId(v string) *AppView {
+	s.OwnerId = &v
+	return s
+}
+
+func (s *AppView) SetStackId(v string) *AppView {
+	s.StackId = &v
+	return s
+}
+
+func (s *AppView) SetStatus(v string) *AppView {
+	s.Status = &v
+	return s
+}
+
+func (s *AppView) SetTags(v string) *AppView {
+	s.Tags = &v
+	return s
+}
+
+func (s *AppView) SetTenantId(v string) *AppView {
+	s.TenantId = &v
+	return s
+}
+
+func (s *AppView) SetUtcCreate(v string) *AppView {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *AppView) SetUtcModified(v string) *AppView {
+	s.UtcModified = &v
+	return s
+}
+
+func (s *AppView) SetWorkspaceId(v string) *AppView {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *AppView) SetOwnerName(v string) *AppView {
+	s.OwnerName = &v
+	return s
+}
+
+func (s *AppView) SetRealOwnerName(v string) *AppView {
+	s.RealOwnerName = &v
+	return s
+}
+
+func (s *AppView) SetDomainNames(v []*string) *AppView {
+	s.DomainNames = v
+	return s
+}
+
+func (s *AppView) SetAppDomainName(v string) *AppView {
+	s.AppDomainName = &v
+	return s
+}
+
+func (s *AppView) SetAppLevelName(v string) *AppView {
+	s.AppLevelName = &v
+	return s
+}
+
+func (s *AppView) SetStackName(v string) *AppView {
+	s.StackName = &v
+	return s
+}
+
+func (s *AppView) SetStackVersion(v string) *AppView {
+	s.StackVersion = &v
+	return s
+}
+
+func (s *AppView) SetContainerCount(v int64) *AppView {
+	s.ContainerCount = &v
+	return s
+}
+
+func (s *AppView) SetDatabaseCount(v int64) *AppView {
+	s.DatabaseCount = &v
+	return s
+}
+
+func (s *AppView) SetSlbCount(v int64) *AppView {
+	s.SlbCount = &v
+	return s
+}
+
+func (s *AppView) SetOcsCount(v int64) *AppView {
+	s.OcsCount = &v
+	return s
+}
+
+func (s *AppView) SetPackageCount(v int64) *AppView {
+	s.PackageCount = &v
+	return s
+}
+
+func (s *AppView) SetLifeCycle(v *AppLifeCycle) *AppView {
+	s.LifeCycle = v
+	return s
+}
+
+// DnsZones
+type DnsZones struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s DnsZones) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DnsZones) GoString() string {
+	return s.String()
+}
+
+func (s *DnsZones) SetId(v string) *DnsZones {
+	s.Id = &v
+	return s
+}
+
+func (s *DnsZones) SetName(v string) *DnsZones {
+	s.Name = &v
+	return s
+}
+
+// AppManifest
+type AppManifest struct {
+	// app_id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	// app_version
+	AppVersion *string `json:"app_version,omitempty" xml:"app_version,omitempty"`
+	// code_commit
+	CodeCommit *CodeCommit `json:"code_commit,omitempty" xml:"code_commit,omitempty"`
+	// etag
+	Etag *string `json:"etag,omitempty" xml:"etag,omitempty"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// location
+	Location *string `json:"location,omitempty" xml:"location,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// remark
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
+	// store_location
+	StoreLocation *string `json:"store_location,omitempty" xml:"store_location,omitempty"`
+	// utc_create
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// utc_modified
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+}
+
+func (s AppManifest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppManifest) GoString() string {
+	return s.String()
+}
+
+func (s *AppManifest) SetAppId(v string) *AppManifest {
+	s.AppId = &v
+	return s
+}
+
+func (s *AppManifest) SetAppVersion(v string) *AppManifest {
+	s.AppVersion = &v
+	return s
+}
+
+func (s *AppManifest) SetCodeCommit(v *CodeCommit) *AppManifest {
+	s.CodeCommit = v
+	return s
+}
+
+func (s *AppManifest) SetEtag(v string) *AppManifest {
+	s.Etag = &v
+	return s
+}
+
+func (s *AppManifest) SetId(v string) *AppManifest {
+	s.Id = &v
+	return s
+}
+
+func (s *AppManifest) SetLocation(v string) *AppManifest {
+	s.Location = &v
+	return s
+}
+
+func (s *AppManifest) SetName(v string) *AppManifest {
+	s.Name = &v
+	return s
+}
+
+func (s *AppManifest) SetRemark(v string) *AppManifest {
+	s.Remark = &v
+	return s
+}
+
+func (s *AppManifest) SetStoreLocation(v string) *AppManifest {
+	s.StoreLocation = &v
+	return s
+}
+
+func (s *AppManifest) SetUtcCreate(v string) *AppManifest {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *AppManifest) SetUtcModified(v string) *AppManifest {
+	s.UtcModified = &v
+	return s
+}
+
+func (s *AppManifest) SetWorkspaceId(v string) *AppManifest {
+	s.WorkspaceId = &v
+	return s
+}
+
+// Database ImportVO
+type ImportVO struct {
+	// is_imported
+	IsImported *bool `json:"is_imported,omitempty" xml:"is_imported,omitempty" require:"true"`
+	// imported_workspace_name
+	ImportedWorkspaceName *string `json:"imported_workspace_name,omitempty" xml:"imported_workspace_name,omitempty" require:"true"`
+	// is_unimportable
+	IsUnimportable *bool `json:"is_unimportable,omitempty" xml:"is_unimportable,omitempty"`
+	// unimportable_reason
+	UnimportableReason *string `json:"unimportable_reason,omitempty" xml:"unimportable_reason,omitempty"`
+}
+
+func (s ImportVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportVO) GoString() string {
+	return s.String()
+}
+
+func (s *ImportVO) SetIsImported(v bool) *ImportVO {
+	s.IsImported = &v
+	return s
+}
+
+func (s *ImportVO) SetImportedWorkspaceName(v string) *ImportVO {
+	s.ImportedWorkspaceName = &v
+	return s
+}
+
+func (s *ImportVO) SetIsUnimportable(v bool) *ImportVO {
+	s.IsUnimportable = &v
+	return s
+}
+
+func (s *ImportVO) SetUnimportableReason(v string) *ImportVO {
+	s.UnimportableReason = &v
+	return s
+}
+
+// 监听器健康检查配置
+type ListenerHealthMonitor struct {
+	// check_type
+	CheckType *string `json:"check_type,omitempty" xml:"check_type,omitempty"`
+	// 默认 80
+	ConnectPort *int64 `json:"connect_port,omitempty" xml:"connect_port,omitempty"`
+	// 域名
+	Domain *string `json:"domain,omitempty" xml:"domain,omitempty"`
+	// 健康阈值
+	HealthyThreshold *int64 `json:"healthy_threshold,omitempty" xml:"healthy_threshold,omitempty"`
+	// health_check_http_code
+	HealthCheckHttpCode []*string `json:"health_check_http_code,omitempty" xml:"health_check_http_code,omitempty" type:"Repeated"`
+	// http_method
+	HttpMethod *string `json:"http_method,omitempty" xml:"http_method,omitempty"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 监控检查间隔
+	Interval *int64 `json:"interval,omitempty" xml:"interval,omitempty" require:"true"`
+	// 超时时间
+	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+	// 不健康阈值
+	UnHealthyThreshold *int64 `json:"un_healthy_threshold,omitempty" xml:"un_healthy_threshold,omitempty"`
+	// uri
+	Uri *string `json:"uri,omitempty" xml:"uri,omitempty"`
+}
+
+func (s ListenerHealthMonitor) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListenerHealthMonitor) GoString() string {
+	return s.String()
+}
+
+func (s *ListenerHealthMonitor) SetCheckType(v string) *ListenerHealthMonitor {
+	s.CheckType = &v
+	return s
+}
+
+func (s *ListenerHealthMonitor) SetConnectPort(v int64) *ListenerHealthMonitor {
+	s.ConnectPort = &v
+	return s
+}
+
+func (s *ListenerHealthMonitor) SetDomain(v string) *ListenerHealthMonitor {
+	s.Domain = &v
+	return s
+}
+
+func (s *ListenerHealthMonitor) SetHealthyThreshold(v int64) *ListenerHealthMonitor {
+	s.HealthyThreshold = &v
+	return s
+}
+
+func (s *ListenerHealthMonitor) SetHealthCheckHttpCode(v []*string) *ListenerHealthMonitor {
+	s.HealthCheckHttpCode = v
+	return s
+}
+
+func (s *ListenerHealthMonitor) SetHttpMethod(v string) *ListenerHealthMonitor {
+	s.HttpMethod = &v
+	return s
+}
+
+func (s *ListenerHealthMonitor) SetId(v string) *ListenerHealthMonitor {
+	s.Id = &v
+	return s
+}
+
+func (s *ListenerHealthMonitor) SetInterval(v int64) *ListenerHealthMonitor {
+	s.Interval = &v
+	return s
+}
+
+func (s *ListenerHealthMonitor) SetTimeout(v int64) *ListenerHealthMonitor {
+	s.Timeout = &v
+	return s
+}
+
+func (s *ListenerHealthMonitor) SetUnHealthyThreshold(v int64) *ListenerHealthMonitor {
+	s.UnHealthyThreshold = &v
+	return s
+}
+
+func (s *ListenerHealthMonitor) SetUri(v string) *ListenerHealthMonitor {
+	s.Uri = &v
+	return s
+}
+
 // request中的单个任务
 type Task struct {
 	// context
@@ -4295,6 +4049,485 @@ func (s *Task) SetRequest(v *TaskRequest) *Task {
 	return s
 }
 
+// WorkspaceRegion
+type WorkspaceRegion struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// workspaceId
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// regionId
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
+	// type
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// securedIsolationIdentity
+	SecuredIsolationIdentity *string `json:"secured_isolation_identity,omitempty" xml:"secured_isolation_identity,omitempty" require:"true"`
+	// securedIsolationName
+	SecuredIsolationName *string `json:"secured_isolation_name,omitempty" xml:"secured_isolation_name,omitempty" require:"true"`
+	// securedZoneId
+	SecuredZoneId *string `json:"secured_zone_id,omitempty" xml:"secured_zone_id,omitempty" require:"true"`
+}
+
+func (s WorkspaceRegion) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WorkspaceRegion) GoString() string {
+	return s.String()
+}
+
+func (s *WorkspaceRegion) SetId(v string) *WorkspaceRegion {
+	s.Id = &v
+	return s
+}
+
+func (s *WorkspaceRegion) SetWorkspaceId(v string) *WorkspaceRegion {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *WorkspaceRegion) SetRegionId(v string) *WorkspaceRegion {
+	s.RegionId = &v
+	return s
+}
+
+func (s *WorkspaceRegion) SetType(v string) *WorkspaceRegion {
+	s.Type = &v
+	return s
+}
+
+func (s *WorkspaceRegion) SetSecuredIsolationIdentity(v string) *WorkspaceRegion {
+	s.SecuredIsolationIdentity = &v
+	return s
+}
+
+func (s *WorkspaceRegion) SetSecuredIsolationName(v string) *WorkspaceRegion {
+	s.SecuredIsolationName = &v
+	return s
+}
+
+func (s *WorkspaceRegion) SetSecuredZoneId(v string) *WorkspaceRegion {
+	s.SecuredZoneId = &v
+	return s
+}
+
+// LB后端专用的vComputerGroup
+type VComputerGroup struct {
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// load_balancer
+	LoadBalancer *LoadBalancer `json:"load_balancer,omitempty" xml:"load_balancer,omitempty" require:"true"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s VComputerGroup) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VComputerGroup) GoString() string {
+	return s.String()
+}
+
+func (s *VComputerGroup) SetName(v string) *VComputerGroup {
+	s.Name = &v
+	return s
+}
+
+func (s *VComputerGroup) SetId(v string) *VComputerGroup {
+	s.Id = &v
+	return s
+}
+
+func (s *VComputerGroup) SetWorkspaceId(v string) *VComputerGroup {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *VComputerGroup) SetLoadBalancer(v *LoadBalancer) *VComputerGroup {
+	s.LoadBalancer = v
+	return s
+}
+
+func (s *VComputerGroup) SetStatus(v string) *VComputerGroup {
+	s.Status = &v
+	return s
+}
+
+// 部署单元（Cell）
+type CellView struct {
+	// 部署单元对应的paas id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 部署单元名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 部署单元显示名称
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty"`
+	// 部署单元描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// deploymentZoneId
+	DeploymentZoneId *string `json:"deployment_zone_id,omitempty" xml:"deployment_zone_id,omitempty"`
+	// workspaceId
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// workspaceGroupId
+	WorkspaceGroupId *string `json:"workspace_group_id,omitempty" xml:"workspace_group_id,omitempty"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// masterZoneId
+	MasterZoneId *string `json:"master_zone_id,omitempty" xml:"master_zone_id,omitempty"`
+	// appendedZoneIds
+	AppendedZoneIds []*string `json:"appended_zone_ids,omitempty" xml:"appended_zone_ids,omitempty" type:"Repeated"`
+	// List<ZoneView> zones
+	Zones []*ZoneView `json:"zones,omitempty" xml:"zones,omitempty" type:"Repeated"`
+}
+
+func (s CellView) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CellView) GoString() string {
+	return s.String()
+}
+
+func (s *CellView) SetId(v string) *CellView {
+	s.Id = &v
+	return s
+}
+
+func (s *CellView) SetName(v string) *CellView {
+	s.Name = &v
+	return s
+}
+
+func (s *CellView) SetDisplayName(v string) *CellView {
+	s.DisplayName = &v
+	return s
+}
+
+func (s *CellView) SetDescription(v string) *CellView {
+	s.Description = &v
+	return s
+}
+
+func (s *CellView) SetDeploymentZoneId(v string) *CellView {
+	s.DeploymentZoneId = &v
+	return s
+}
+
+func (s *CellView) SetWorkspaceId(v string) *CellView {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *CellView) SetWorkspaceGroupId(v string) *CellView {
+	s.WorkspaceGroupId = &v
+	return s
+}
+
+func (s *CellView) SetStatus(v string) *CellView {
+	s.Status = &v
+	return s
+}
+
+func (s *CellView) SetMasterZoneId(v string) *CellView {
+	s.MasterZoneId = &v
+	return s
+}
+
+func (s *CellView) SetAppendedZoneIds(v []*string) *CellView {
+	s.AppendedZoneIds = v
+	return s
+}
+
+func (s *CellView) SetZones(v []*ZoneView) *CellView {
+	s.Zones = v
+	return s
+}
+
+// vpc import info
+type ImportInfo struct {
+	// 已导入的workspace name
+	ImportedWorkspaceName *string `json:"imported_workspace_name,omitempty" xml:"imported_workspace_name,omitempty"`
+	// vpc是否已导入workspace
+	IsImported *bool `json:"is_imported,omitempty" xml:"is_imported,omitempty"`
+	// 是否可以删除已导入的workspace
+	IsUnimportable *bool `json:"is_unimportable,omitempty" xml:"is_unimportable,omitempty"`
+	// 不可删除已导入workspace的原因
+	UnimportableReason *string `json:"unimportable_reason,omitempty" xml:"unimportable_reason,omitempty"`
+}
+
+func (s ImportInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ImportInfo) SetImportedWorkspaceName(v string) *ImportInfo {
+	s.ImportedWorkspaceName = &v
+	return s
+}
+
+func (s *ImportInfo) SetIsImported(v bool) *ImportInfo {
+	s.IsImported = &v
+	return s
+}
+
+func (s *ImportInfo) SetIsUnimportable(v bool) *ImportInfo {
+	s.IsUnimportable = &v
+	return s
+}
+
+func (s *ImportInfo) SetUnimportableReason(v string) *ImportInfo {
+	s.UnimportableReason = &v
+	return s
+}
+
+// IaasRequest
+type IaasRequest struct {
+	// requestMethod
+	RequestMethod *string `json:"request_method,omitempty" xml:"request_method,omitempty"`
+	// requestUrl
+	RequestUrl *string `json:"request_url,omitempty" xml:"request_url,omitempty"`
+	// requestBody
+	RequestBody *string `json:"request_body,omitempty" xml:"request_body,omitempty"`
+	// request_headers
+	RequestHeaders []*MapStringToStringEntity `json:"request_headers,omitempty" xml:"request_headers,omitempty" type:"Repeated"`
+}
+
+func (s IaasRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IaasRequest) GoString() string {
+	return s.String()
+}
+
+func (s *IaasRequest) SetRequestMethod(v string) *IaasRequest {
+	s.RequestMethod = &v
+	return s
+}
+
+func (s *IaasRequest) SetRequestUrl(v string) *IaasRequest {
+	s.RequestUrl = &v
+	return s
+}
+
+func (s *IaasRequest) SetRequestBody(v string) *IaasRequest {
+	s.RequestBody = &v
+	return s
+}
+
+func (s *IaasRequest) SetRequestHeaders(v []*MapStringToStringEntity) *IaasRequest {
+	s.RequestHeaders = v
+	return s
+}
+
+// property
+type Property struct {
+	// key
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// value
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+}
+
+func (s Property) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Property) GoString() string {
+	return s.String()
+}
+
+func (s *Property) SetKey(v string) *Property {
+	s.Key = &v
+	return s
+}
+
+func (s *Property) SetValue(v string) *Property {
+	s.Value = &v
+	return s
+}
+
+// WorkspaceWithGroupView
+type WorkspaceWithGroupView struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// identity
+	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// networkType
+	NetworkType *string `json:"network_type,omitempty" xml:"network_type,omitempty" require:"true"`
+	// region
+	Region *RegionView `json:"region,omitempty" xml:"region,omitempty" require:"true"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// tenantId
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// zones
+	Zones []*WorkspaceZoneView `json:"zones,omitempty" xml:"zones,omitempty" require:"true" type:"Repeated"`
+	// workspaceGroup
+	WorkspaceGroup *WorkspaceGroupView `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
+}
+
+func (s WorkspaceWithGroupView) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WorkspaceWithGroupView) GoString() string {
+	return s.String()
+}
+
+func (s *WorkspaceWithGroupView) SetId(v string) *WorkspaceWithGroupView {
+	s.Id = &v
+	return s
+}
+
+func (s *WorkspaceWithGroupView) SetIdentity(v string) *WorkspaceWithGroupView {
+	s.Identity = &v
+	return s
+}
+
+func (s *WorkspaceWithGroupView) SetName(v string) *WorkspaceWithGroupView {
+	s.Name = &v
+	return s
+}
+
+func (s *WorkspaceWithGroupView) SetNetworkType(v string) *WorkspaceWithGroupView {
+	s.NetworkType = &v
+	return s
+}
+
+func (s *WorkspaceWithGroupView) SetRegion(v *RegionView) *WorkspaceWithGroupView {
+	s.Region = v
+	return s
+}
+
+func (s *WorkspaceWithGroupView) SetStatus(v string) *WorkspaceWithGroupView {
+	s.Status = &v
+	return s
+}
+
+func (s *WorkspaceWithGroupView) SetTenantId(v string) *WorkspaceWithGroupView {
+	s.TenantId = &v
+	return s
+}
+
+func (s *WorkspaceWithGroupView) SetZones(v []*WorkspaceZoneView) *WorkspaceWithGroupView {
+	s.Zones = v
+	return s
+}
+
+func (s *WorkspaceWithGroupView) SetWorkspaceGroup(v *WorkspaceGroupView) *WorkspaceWithGroupView {
+	s.WorkspaceGroup = v
+	return s
+}
+
+// AcsClusterUnit
+type AcsClusterUnit struct {
+	// cluster_id
+	ClusterId *string `json:"cluster_id,omitempty" xml:"cluster_id,omitempty" require:"true"`
+	// address
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// unit_status
+	UnitStatus *int64 `json:"unit_status,omitempty" xml:"unit_status,omitempty"`
+	// create_time
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// modify_time
+	ModifyTime *string `json:"modify_time,omitempty" xml:"modify_time,omitempty"`
+	// container_id
+	ContainerId *string `json:"container_id,omitempty" xml:"container_id,omitempty"`
+}
+
+func (s AcsClusterUnit) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AcsClusterUnit) GoString() string {
+	return s.String()
+}
+
+func (s *AcsClusterUnit) SetClusterId(v string) *AcsClusterUnit {
+	s.ClusterId = &v
+	return s
+}
+
+func (s *AcsClusterUnit) SetAddress(v string) *AcsClusterUnit {
+	s.Address = &v
+	return s
+}
+
+func (s *AcsClusterUnit) SetUnitStatus(v int64) *AcsClusterUnit {
+	s.UnitStatus = &v
+	return s
+}
+
+func (s *AcsClusterUnit) SetCreateTime(v string) *AcsClusterUnit {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *AcsClusterUnit) SetModifyTime(v string) *AcsClusterUnit {
+	s.ModifyTime = &v
+	return s
+}
+
+func (s *AcsClusterUnit) SetContainerId(v string) *AcsClusterUnit {
+	s.ContainerId = &v
+	return s
+}
+
+// ConnectionStub
+type ConnectionStub struct {
+	// cloud
+	Cloud *Cloud `json:"cloud,omitempty" xml:"cloud,omitempty"`
+	// id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// tenant_name
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// type
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+}
+
+func (s ConnectionStub) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConnectionStub) GoString() string {
+	return s.String()
+}
+
+func (s *ConnectionStub) SetCloud(v *Cloud) *ConnectionStub {
+	s.Cloud = v
+	return s
+}
+
+func (s *ConnectionStub) SetId(v int64) *ConnectionStub {
+	s.Id = &v
+	return s
+}
+
+func (s *ConnectionStub) SetTenantId(v string) *ConnectionStub {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ConnectionStub) SetTenantName(v string) *ConnectionStub {
+	s.TenantName = &v
+	return s
+}
+
+func (s *ConnectionStub) SetType(v string) *ConnectionStub {
+	s.Type = &v
+	return s
+}
+
 // 阿里云日志服务(SLS) - 日志内容，是一个键值对
 type SLSLogContent struct {
 	// 键名
@@ -4321,104 +4554,78 @@ func (s *SLSLogContent) SetValue(v string) *SLSLogContent {
 	return s
 }
 
-// WorkspaceDc
-type WorkspaceDc struct {
+// WorkspaceRegionDto
+type WorkspaceRegionDto struct {
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// datacenterId
-	DatacenterId *string `json:"datacenter_id,omitempty" xml:"datacenter_id,omitempty" require:"true"`
-	// workspaceId
+	// networkType
+	NetworkType *string `json:"network_type,omitempty" xml:"network_type,omitempty"`
+	// region id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
+	// regionName
+	RegionName *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
+	// 安全域id
+	SecuredZoneId *string `json:"secured_zone_id,omitempty" xml:"secured_zone_id,omitempty"`
+	// workspace_id
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
-	// datacenterType
-	DatacenterType *string `json:"datacenter_type,omitempty" xml:"datacenter_type,omitempty" require:"true"`
-	// gmtCreate
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// gmtModified
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// workspaceLogicRegionStatus
+	WorkspaceLogicRegionStatus *string `json:"workspace_logic_region_status,omitempty" xml:"workspace_logic_region_status,omitempty"`
+	// workspaceLogicRegionType
+	WorkspaceLogicRegionType *string `json:"workspace_logic_region_type,omitempty" xml:"workspace_logic_region_type,omitempty"`
+	// workspaceZoneDtos
+	WorkspaceZoneDtos []*WorkspaceZoneDto `json:"workspace_zone_dtos,omitempty" xml:"workspace_zone_dtos,omitempty" type:"Repeated"`
 }
 
-func (s WorkspaceDc) String() string {
+func (s WorkspaceRegionDto) String() string {
 	return tea.Prettify(s)
 }
 
-func (s WorkspaceDc) GoString() string {
+func (s WorkspaceRegionDto) GoString() string {
 	return s.String()
 }
 
-func (s *WorkspaceDc) SetId(v string) *WorkspaceDc {
+func (s *WorkspaceRegionDto) SetId(v string) *WorkspaceRegionDto {
 	s.Id = &v
 	return s
 }
 
-func (s *WorkspaceDc) SetDatacenterId(v string) *WorkspaceDc {
-	s.DatacenterId = &v
+func (s *WorkspaceRegionDto) SetNetworkType(v string) *WorkspaceRegionDto {
+	s.NetworkType = &v
 	return s
 }
 
-func (s *WorkspaceDc) SetWorkspaceId(v string) *WorkspaceDc {
+func (s *WorkspaceRegionDto) SetRegionId(v string) *WorkspaceRegionDto {
+	s.RegionId = &v
+	return s
+}
+
+func (s *WorkspaceRegionDto) SetRegionName(v string) *WorkspaceRegionDto {
+	s.RegionName = &v
+	return s
+}
+
+func (s *WorkspaceRegionDto) SetSecuredZoneId(v string) *WorkspaceRegionDto {
+	s.SecuredZoneId = &v
+	return s
+}
+
+func (s *WorkspaceRegionDto) SetWorkspaceId(v string) *WorkspaceRegionDto {
 	s.WorkspaceId = &v
 	return s
 }
 
-func (s *WorkspaceDc) SetDatacenterType(v string) *WorkspaceDc {
-	s.DatacenterType = &v
+func (s *WorkspaceRegionDto) SetWorkspaceLogicRegionStatus(v string) *WorkspaceRegionDto {
+	s.WorkspaceLogicRegionStatus = &v
 	return s
 }
 
-func (s *WorkspaceDc) SetGmtCreate(v string) *WorkspaceDc {
-	s.GmtCreate = &v
+func (s *WorkspaceRegionDto) SetWorkspaceLogicRegionType(v string) *WorkspaceRegionDto {
+	s.WorkspaceLogicRegionType = &v
 	return s
 }
 
-func (s *WorkspaceDc) SetGmtModified(v string) *WorkspaceDc {
-	s.GmtModified = &v
-	return s
-}
-
-// IaasErrorInfo
-type IaasErrorInfo struct {
-	// error_code
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// error_message
-	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
-	// status_code
-	StatusCode *int64 `json:"status_code,omitempty" xml:"status_code,omitempty"`
-	// host_id
-	HostId *string `json:"host_id,omitempty" xml:"host_id,omitempty"`
-	// requestId
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
-}
-
-func (s IaasErrorInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IaasErrorInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IaasErrorInfo) SetErrorCode(v string) *IaasErrorInfo {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *IaasErrorInfo) SetErrorMessage(v string) *IaasErrorInfo {
-	s.ErrorMessage = &v
-	return s
-}
-
-func (s *IaasErrorInfo) SetStatusCode(v int64) *IaasErrorInfo {
-	s.StatusCode = &v
-	return s
-}
-
-func (s *IaasErrorInfo) SetHostId(v string) *IaasErrorInfo {
-	s.HostId = &v
-	return s
-}
-
-func (s *IaasErrorInfo) SetRequestId(v string) *IaasErrorInfo {
-	s.RequestId = &v
+func (s *WorkspaceRegionDto) SetWorkspaceZoneDtos(v []*WorkspaceZoneDto) *WorkspaceRegionDto {
+	s.WorkspaceZoneDtos = v
 	return s
 }
 
@@ -4812,1218 +5019,146 @@ func (s *Computer) SetZoneId(v string) *Computer {
 	return s
 }
 
-// ConnectionStub
-type ConnectionStub struct {
-	// cloud
-	Cloud *Cloud `json:"cloud,omitempty" xml:"cloud,omitempty"`
-	// id
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
-	// tenant_id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// tenant_name
-	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
-	// type
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-}
-
-func (s ConnectionStub) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ConnectionStub) GoString() string {
-	return s.String()
-}
-
-func (s *ConnectionStub) SetCloud(v *Cloud) *ConnectionStub {
-	s.Cloud = v
-	return s
-}
-
-func (s *ConnectionStub) SetId(v int64) *ConnectionStub {
-	s.Id = &v
-	return s
-}
-
-func (s *ConnectionStub) SetTenantId(v string) *ConnectionStub {
-	s.TenantId = &v
-	return s
-}
-
-func (s *ConnectionStub) SetTenantName(v string) *ConnectionStub {
-	s.TenantName = &v
-	return s
-}
-
-func (s *ConnectionStub) SetType(v string) *ConnectionStub {
-	s.Type = &v
-	return s
-}
-
-// 技术栈运行时属性
-type BuildpackInstances struct {
-	// ecs个数
-	Ecses *int64 `json:"ecses,omitempty" xml:"ecses,omitempty"`
-	// 绑定应用个数
-	AppBinded *int64 `json:"app_binded,omitempty" xml:"app_binded,omitempty"`
-}
-
-func (s BuildpackInstances) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BuildpackInstances) GoString() string {
-	return s.String()
-}
-
-func (s *BuildpackInstances) SetEcses(v int64) *BuildpackInstances {
-	s.Ecses = &v
-	return s
-}
-
-func (s *BuildpackInstances) SetAppBinded(v int64) *BuildpackInstances {
-	s.AppBinded = &v
-	return s
-}
-
-// ZoneDto
-type ZoneDto struct {
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// identity
-	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
-	// iaasProviderId
-	IaasProviderId *string `json:"iaas_provider_id,omitempty" xml:"iaas_provider_id,omitempty" require:"true"`
-	// displayName
-	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
-	// state
-	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
-	// regionId
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
-	// no
-	No *int64 `json:"no,omitempty" xml:"no,omitempty" require:"true"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-	// utcCreate
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// utcModified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s ZoneDto) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ZoneDto) GoString() string {
-	return s.String()
-}
-
-func (s *ZoneDto) SetId(v string) *ZoneDto {
-	s.Id = &v
-	return s
-}
-
-func (s *ZoneDto) SetIdentity(v string) *ZoneDto {
-	s.Identity = &v
-	return s
-}
-
-func (s *ZoneDto) SetIaasProviderId(v string) *ZoneDto {
-	s.IaasProviderId = &v
-	return s
-}
-
-func (s *ZoneDto) SetDisplayName(v string) *ZoneDto {
-	s.DisplayName = &v
-	return s
-}
-
-func (s *ZoneDto) SetState(v string) *ZoneDto {
-	s.State = &v
-	return s
-}
-
-func (s *ZoneDto) SetRegionId(v string) *ZoneDto {
-	s.RegionId = &v
-	return s
-}
-
-func (s *ZoneDto) SetNo(v int64) *ZoneDto {
-	s.No = &v
-	return s
-}
-
-func (s *ZoneDto) SetName(v string) *ZoneDto {
-	s.Name = &v
-	return s
-}
-
-func (s *ZoneDto) SetDescription(v string) *ZoneDto {
-	s.Description = &v
-	return s
-}
-
-func (s *ZoneDto) SetUtcCreate(v string) *ZoneDto {
-	s.UtcCreate = &v
-	return s
-}
-
-func (s *ZoneDto) SetUtcModified(v string) *ZoneDto {
-	s.UtcModified = &v
-	return s
-}
-
-// 查询用的DbSchema
-type DbSchema struct {
-	// charSet
-	CharSet *string `json:"char_set,omitempty" xml:"char_set,omitempty"`
-	// database
-	Database *Database `json:"database,omitempty" xml:"database,omitempty"`
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// grants
-	Grants []*DbSchemaGrant `json:"grants,omitempty" xml:"grants,omitempty" require:"true" type:"Repeated"`
-	// iaas_type
-	IaasType *string `json:"iaas_type,omitempty" xml:"iaas_type,omitempty"`
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// utc_modified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s DbSchema) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DbSchema) GoString() string {
-	return s.String()
-}
-
-func (s *DbSchema) SetCharSet(v string) *DbSchema {
-	s.CharSet = &v
-	return s
-}
-
-func (s *DbSchema) SetDatabase(v *Database) *DbSchema {
-	s.Database = v
-	return s
-}
-
-func (s *DbSchema) SetDescription(v string) *DbSchema {
-	s.Description = &v
-	return s
-}
-
-func (s *DbSchema) SetGrants(v []*DbSchemaGrant) *DbSchema {
-	s.Grants = v
-	return s
-}
-
-func (s *DbSchema) SetIaasType(v string) *DbSchema {
-	s.IaasType = &v
-	return s
-}
-
-func (s *DbSchema) SetId(v string) *DbSchema {
-	s.Id = &v
-	return s
-}
-
-func (s *DbSchema) SetName(v string) *DbSchema {
-	s.Name = &v
-	return s
-}
-
-func (s *DbSchema) SetStatus(v string) *DbSchema {
-	s.Status = &v
-	return s
-}
-
-func (s *DbSchema) SetUtcCreate(v string) *DbSchema {
-	s.UtcCreate = &v
-	return s
-}
-
-func (s *DbSchema) SetUtcModified(v string) *DbSchema {
-	s.UtcModified = &v
-	return s
-}
-
-// property
-type Property struct {
-	// key
-	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
-	// value
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
-}
-
-func (s Property) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Property) GoString() string {
-	return s.String()
-}
-
-func (s *Property) SetKey(v string) *Property {
-	s.Key = &v
-	return s
-}
-
-func (s *Property) SetValue(v string) *Property {
-	s.Value = &v
-	return s
-}
-
-// 技术栈
-type Buildpack struct {
-	// 技术栈标识ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 技术栈名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 技术栈描述
-	Des *string `json:"des,omitempty" xml:"des,omitempty"`
-	// 技术栈版本
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-	// 技术栈类别
-	Stack *string `json:"stack,omitempty" xml:"stack,omitempty"`
-	// 部署脚本id
-	DeployScriptId *string `json:"deploy_script_id,omitempty" xml:"deploy_script_id,omitempty"`
-	// 构建脚本ID
-	BuildScriptId *string `json:"build_script_id,omitempty" xml:"build_script_id,omitempty"`
-	// 配置id
-	ConfigId *string `json:"config_id,omitempty" xml:"config_id,omitempty"`
-	// 组件id
-	ComponentId *string `json:"component_id,omitempty" xml:"component_id,omitempty"`
-	// 命令id
-	CommandId *string `json:"command_id,omitempty" xml:"command_id,omitempty"`
-	// 启用蓝绿
-	BgEnable *bool `json:"bg_enable,omitempty" xml:"bg_enable,omitempty"`
-	// 创建人
-	Creator *string `json:"creator,omitempty" xml:"creator,omitempty"`
-	// 租户ID
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// 客户id列表
-	CustomerIds []*string `json:"customer_ids,omitempty" xml:"customer_ids,omitempty" type:"Repeated"`
-	// 技术栈定义类型
-	// 系统模板 TEMPLATE
-	// 用户自定义 CUSTOM
-	// 后台服务 BACKGROUND_SERVICE
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// 技术栈状态
-	// 草稿 DRAFT
-	// 已提交 COMMITED
-	// 已对外发布 PUBLISHED
-	// 已退役 RETIRED
+// 路由条目的详细信息。
+type VRouteEntry struct {
+	// 路由条目的目标网段。
+	DesinationCidrBlock *string `json:"desination_cidr_block,omitempty" xml:"desination_cidr_block,omitempty"`
+	// 下一跳的实例ID。
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
+	// 下一跳的实例名称。
+	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty"`
+	// 路由条目ID。
+	NextHopId *string `json:"next_hop_id,omitempty" xml:"next_hop_id,omitempty"`
+	// 路由的下一跳列表。
+	NextHopItemList []*NextHopItem `json:"next_hop_item_list,omitempty" xml:"next_hop_item_list,omitempty" type:"Repeated"`
+	// 路由类型。
+	//
+	// local：交换机路由。
+	// service：云服务路由。
+	// classicLink：开启ClassicLink功能后系统自动添加的路由。
+	NextHopType *string `json:"next_hop_type,omitempty" xml:"next_hop_type,omitempty"`
+	// 路由条目所属路由表的ID。
+	RouteTableId *string `json:"route_table_id,omitempty" xml:"route_table_id,omitempty"`
+	//
+	// 路由条目的状态。
+	//
+	// Pending：配置中。
+	// Available：可用。
+	// Modifying：修改中。
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 创建日期
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 最近修改时间
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 技术栈信息汇总
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 可用 USABLE
-	// 不可用 UNUSABLE
-	VersionStatus *string `json:"version_status,omitempty" xml:"version_status,omitempty"`
-	// 运行时属性
-	Instances *BuildpackInstances `json:"instances,omitempty" xml:"instances,omitempty"`
+	// 路由条目的类型。
+	//
+	// System：系统路由。
+	// Custom：自定义路由。
+	// BGP：BGP路由。
+	//
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 }
 
-func (s Buildpack) String() string {
+func (s VRouteEntry) String() string {
 	return tea.Prettify(s)
 }
 
-func (s Buildpack) GoString() string {
+func (s VRouteEntry) GoString() string {
 	return s.String()
 }
 
-func (s *Buildpack) SetId(v string) *Buildpack {
-	s.Id = &v
+func (s *VRouteEntry) SetDesinationCidrBlock(v string) *VRouteEntry {
+	s.DesinationCidrBlock = &v
 	return s
 }
 
-func (s *Buildpack) SetName(v string) *Buildpack {
-	s.Name = &v
+func (s *VRouteEntry) SetInstanceId(v string) *VRouteEntry {
+	s.InstanceId = &v
 	return s
 }
 
-func (s *Buildpack) SetDes(v string) *Buildpack {
-	s.Des = &v
+func (s *VRouteEntry) SetInstanceName(v string) *VRouteEntry {
+	s.InstanceName = &v
 	return s
 }
 
-func (s *Buildpack) SetVersion(v string) *Buildpack {
-	s.Version = &v
+func (s *VRouteEntry) SetNextHopId(v string) *VRouteEntry {
+	s.NextHopId = &v
 	return s
 }
 
-func (s *Buildpack) SetStack(v string) *Buildpack {
-	s.Stack = &v
+func (s *VRouteEntry) SetNextHopItemList(v []*NextHopItem) *VRouteEntry {
+	s.NextHopItemList = v
 	return s
 }
 
-func (s *Buildpack) SetDeployScriptId(v string) *Buildpack {
-	s.DeployScriptId = &v
+func (s *VRouteEntry) SetNextHopType(v string) *VRouteEntry {
+	s.NextHopType = &v
 	return s
 }
 
-func (s *Buildpack) SetBuildScriptId(v string) *Buildpack {
-	s.BuildScriptId = &v
+func (s *VRouteEntry) SetRouteTableId(v string) *VRouteEntry {
+	s.RouteTableId = &v
 	return s
 }
 
-func (s *Buildpack) SetConfigId(v string) *Buildpack {
-	s.ConfigId = &v
-	return s
-}
-
-func (s *Buildpack) SetComponentId(v string) *Buildpack {
-	s.ComponentId = &v
-	return s
-}
-
-func (s *Buildpack) SetCommandId(v string) *Buildpack {
-	s.CommandId = &v
-	return s
-}
-
-func (s *Buildpack) SetBgEnable(v bool) *Buildpack {
-	s.BgEnable = &v
-	return s
-}
-
-func (s *Buildpack) SetCreator(v string) *Buildpack {
-	s.Creator = &v
-	return s
-}
-
-func (s *Buildpack) SetTenantId(v string) *Buildpack {
-	s.TenantId = &v
-	return s
-}
-
-func (s *Buildpack) SetCustomerIds(v []*string) *Buildpack {
-	s.CustomerIds = v
-	return s
-}
-
-func (s *Buildpack) SetType(v string) *Buildpack {
-	s.Type = &v
-	return s
-}
-
-func (s *Buildpack) SetStatus(v string) *Buildpack {
+func (s *VRouteEntry) SetStatus(v string) *VRouteEntry {
 	s.Status = &v
 	return s
 }
 
-func (s *Buildpack) SetGmtCreate(v string) *Buildpack {
-	s.GmtCreate = &v
+func (s *VRouteEntry) SetType(v string) *VRouteEntry {
+	s.Type = &v
 	return s
 }
 
-func (s *Buildpack) SetGmtModified(v string) *Buildpack {
-	s.GmtModified = &v
-	return s
-}
-
-func (s *Buildpack) SetResultMsg(v string) *Buildpack {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *Buildpack) SetVersionStatus(v string) *Buildpack {
-	s.VersionStatus = &v
-	return s
-}
-
-func (s *Buildpack) SetInstances(v *BuildpackInstances) *Buildpack {
-	s.Instances = v
-	return s
-}
-
-// 阿里云日志服务(SLS)-日志库
-type SLSLogStore struct {
-	// 日志库名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// Shard个数，单位为个，范围为1~100。
-	ShardCount *int64 `json:"shard_count,omitempty" xml:"shard_count,omitempty" require:"true"`
-	// 数据的保存时间，单位为天，范围1~3600。
-	Ttl *int64 `json:"ttl,omitempty" xml:"ttl,omitempty" require:"true"`
-}
-
-func (s SLSLogStore) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SLSLogStore) GoString() string {
-	return s.String()
-}
-
-func (s *SLSLogStore) SetName(v string) *SLSLogStore {
-	s.Name = &v
-	return s
-}
-
-func (s *SLSLogStore) SetShardCount(v int64) *SLSLogStore {
-	s.ShardCount = &v
-	return s
-}
-
-func (s *SLSLogStore) SetTtl(v int64) *SLSLogStore {
-	s.Ttl = &v
-	return s
-}
-
-// 旧版-应用服务放入前端展示内容
-type AppServiceViewModel struct {
-	// 基类
-	BaseAppService *AppService `json:"base_app_service,omitempty" xml:"base_app_service,omitempty"`
-	// 应用负责人姓名
-	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
-	// 技术栈名称
-	BuildpackName *string `json:"buildpack_name,omitempty" xml:"buildpack_name,omitempty"`
-	// App的别名
-	ChineseName *string `json:"chinese_name,omitempty" xml:"chinese_name,omitempty"`
-	// buildpackVersion
-	BuildpackVersion *string `json:"buildpack_version,omitempty" xml:"buildpack_version,omitempty"`
-	// computerCount
-	ComputerCount *int64 `json:"computer_count,omitempty" xml:"computer_count,omitempty"`
-	// databaseCount
-	DatabaseCount *int64 `json:"database_count,omitempty" xml:"database_count,omitempty"`
-	// loadBalancerCount
-	LoadBalancerCount *int64 `json:"load_balancer_count,omitempty" xml:"load_balancer_count,omitempty"`
-	// cacheCount
-	CacheCount *int64 `json:"cache_count,omitempty" xml:"cache_count,omitempty"`
-	// cellViewList
-	CellViewList []*CellView `json:"cell_view_list,omitempty" xml:"cell_view_list,omitempty" type:"Repeated"`
-}
-
-func (s AppServiceViewModel) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppServiceViewModel) GoString() string {
-	return s.String()
-}
-
-func (s *AppServiceViewModel) SetBaseAppService(v *AppService) *AppServiceViewModel {
-	s.BaseAppService = v
-	return s
-}
-
-func (s *AppServiceViewModel) SetOwnerName(v string) *AppServiceViewModel {
-	s.OwnerName = &v
-	return s
-}
-
-func (s *AppServiceViewModel) SetBuildpackName(v string) *AppServiceViewModel {
-	s.BuildpackName = &v
-	return s
-}
-
-func (s *AppServiceViewModel) SetChineseName(v string) *AppServiceViewModel {
-	s.ChineseName = &v
-	return s
-}
-
-func (s *AppServiceViewModel) SetBuildpackVersion(v string) *AppServiceViewModel {
-	s.BuildpackVersion = &v
-	return s
-}
-
-func (s *AppServiceViewModel) SetComputerCount(v int64) *AppServiceViewModel {
-	s.ComputerCount = &v
-	return s
-}
-
-func (s *AppServiceViewModel) SetDatabaseCount(v int64) *AppServiceViewModel {
-	s.DatabaseCount = &v
-	return s
-}
-
-func (s *AppServiceViewModel) SetLoadBalancerCount(v int64) *AppServiceViewModel {
-	s.LoadBalancerCount = &v
-	return s
-}
-
-func (s *AppServiceViewModel) SetCacheCount(v int64) *AppServiceViewModel {
-	s.CacheCount = &v
-	return s
-}
-
-func (s *AppServiceViewModel) SetCellViewList(v []*CellView) *AppServiceViewModel {
-	s.CellViewList = v
-	return s
-}
-
-// lb 监听器
-type Listener struct {
-	// 后端服务器端口
-	BackendServerPort *int64 `json:"backend_server_port,omitempty" xml:"backend_server_port,omitempty" require:"true"`
-	// 带宽
-	Bandwidth *int64 `json:"bandwidth,omitempty" xml:"bandwidth,omitempty"`
-	// certificate_iaas_id
-	CertificateIaasId *string `json:"certificate_iaas_id,omitempty" xml:"certificate_iaas_id,omitempty"`
-	// 证书 id
-	CertificateId *string `json:"certificate_id,omitempty" xml:"certificate_id,omitempty"`
-	// cookie
-	Cookie *string `json:"cookie,omitempty" xml:"cookie,omitempty"`
-	// cookie 超时时间
-	CookieTimeout *int64 `json:"cookie_timeout,omitempty" xml:"cookie_timeout,omitempty"`
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 连接超时时间
-	EstablishedTimeout *int64 `json:"established_timeout,omitempty" xml:"established_timeout,omitempty"`
-	// gm_crypto_cert_iaas_id
-	GmCryptoCertIaasId *string `json:"gm_crypto_cert_iaas_id,omitempty" xml:"gm_crypto_cert_iaas_id,omitempty"`
-	// 健康检查
-	HealthMonitor *ListenerHealthMonitor `json:"health_monitor,omitempty" xml:"health_monitor,omitempty"`
-	// iaas_id
-	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
-	// iaasType
-	IaasType *string `json:"iaas_type,omitempty" xml:"iaas_type,omitempty"`
+// 工作空间
+type Workspace struct {
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// is_health_monitor
-	IsHealthMonitor *string `json:"is_health_monitor,omitempty" xml:"is_health_monitor,omitempty"`
-	// 监听器端口
-	ListenerPort *int64 `json:"listener_port,omitempty" xml:"listener_port,omitempty" require:"true"`
-	// load_balancer
-	LoadBalancer *LoadBalancer `json:"load_balancer,omitempty" xml:"load_balancer,omitempty"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 会话保持的超时时间
-	PersistTimeout *int64 `json:"persist_timeout,omitempty" xml:"persist_timeout,omitempty"`
-	// 转发规则
-	Scheduler *string `json:"scheduler,omitempty" xml:"scheduler,omitempty"`
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// sticky_session
-	StickySession *string `json:"sticky_session,omitempty" xml:"sticky_session,omitempty"`
-	// cookie 处理方式
-	StickySessionType *string `json:"sticky_session_type,omitempty" xml:"sticky_session_type,omitempty"`
-	// 监听类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// url_path
-	UrlPath *string `json:"url_path,omitempty" xml:"url_path,omitempty"`
-	// x_forwarded_for
-	XForwardedFor *string `json:"x_forwarded_for,omitempty" xml:"x_forwarded_for,omitempty"`
-}
-
-func (s Listener) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Listener) GoString() string {
-	return s.String()
-}
-
-func (s *Listener) SetBackendServerPort(v int64) *Listener {
-	s.BackendServerPort = &v
-	return s
-}
-
-func (s *Listener) SetBandwidth(v int64) *Listener {
-	s.Bandwidth = &v
-	return s
-}
-
-func (s *Listener) SetCertificateIaasId(v string) *Listener {
-	s.CertificateIaasId = &v
-	return s
-}
-
-func (s *Listener) SetCertificateId(v string) *Listener {
-	s.CertificateId = &v
-	return s
-}
-
-func (s *Listener) SetCookie(v string) *Listener {
-	s.Cookie = &v
-	return s
-}
-
-func (s *Listener) SetCookieTimeout(v int64) *Listener {
-	s.CookieTimeout = &v
-	return s
-}
-
-func (s *Listener) SetDescription(v string) *Listener {
-	s.Description = &v
-	return s
-}
-
-func (s *Listener) SetEstablishedTimeout(v int64) *Listener {
-	s.EstablishedTimeout = &v
-	return s
-}
-
-func (s *Listener) SetGmCryptoCertIaasId(v string) *Listener {
-	s.GmCryptoCertIaasId = &v
-	return s
-}
-
-func (s *Listener) SetHealthMonitor(v *ListenerHealthMonitor) *Listener {
-	s.HealthMonitor = v
-	return s
-}
-
-func (s *Listener) SetIaasId(v string) *Listener {
-	s.IaasId = &v
-	return s
-}
-
-func (s *Listener) SetIaasType(v string) *Listener {
-	s.IaasType = &v
-	return s
-}
-
-func (s *Listener) SetId(v string) *Listener {
-	s.Id = &v
-	return s
-}
-
-func (s *Listener) SetIsHealthMonitor(v string) *Listener {
-	s.IsHealthMonitor = &v
-	return s
-}
-
-func (s *Listener) SetListenerPort(v int64) *Listener {
-	s.ListenerPort = &v
-	return s
-}
-
-func (s *Listener) SetLoadBalancer(v *LoadBalancer) *Listener {
-	s.LoadBalancer = v
-	return s
-}
-
-func (s *Listener) SetName(v string) *Listener {
-	s.Name = &v
-	return s
-}
-
-func (s *Listener) SetPersistTimeout(v int64) *Listener {
-	s.PersistTimeout = &v
-	return s
-}
-
-func (s *Listener) SetScheduler(v string) *Listener {
-	s.Scheduler = &v
-	return s
-}
-
-func (s *Listener) SetStatus(v string) *Listener {
-	s.Status = &v
-	return s
-}
-
-func (s *Listener) SetStickySession(v string) *Listener {
-	s.StickySession = &v
-	return s
-}
-
-func (s *Listener) SetStickySessionType(v string) *Listener {
-	s.StickySessionType = &v
-	return s
-}
-
-func (s *Listener) SetType(v string) *Listener {
-	s.Type = &v
-	return s
-}
-
-func (s *Listener) SetUrlPath(v string) *Listener {
-	s.UrlPath = &v
-	return s
-}
-
-func (s *Listener) SetXForwardedFor(v string) *Listener {
-	s.XForwardedFor = &v
-	return s
-}
-
-// db schema
-type DatabaseSchema struct {
-	// 字符集
-	CharSet *string `json:"char_set,omitempty" xml:"char_set,omitempty" require:"true"`
-	// 数量
-	Count *int64 `json:"count,omitempty" xml:"count,omitempty"`
-	// 是否自动生成名称。默认为 true
-	IsAutoName *bool `json:"is_auto_name,omitempty" xml:"is_auto_name,omitempty"`
 	// 名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 序列号是否连续。默认为 false
-	IsSerial *bool `json:"is_serial,omitempty" xml:"is_serial,omitempty"`
-}
-
-func (s DatabaseSchema) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DatabaseSchema) GoString() string {
-	return s.String()
-}
-
-func (s *DatabaseSchema) SetCharSet(v string) *DatabaseSchema {
-	s.CharSet = &v
-	return s
-}
-
-func (s *DatabaseSchema) SetCount(v int64) *DatabaseSchema {
-	s.Count = &v
-	return s
-}
-
-func (s *DatabaseSchema) SetIsAutoName(v bool) *DatabaseSchema {
-	s.IsAutoName = &v
-	return s
-}
-
-func (s *DatabaseSchema) SetName(v string) *DatabaseSchema {
-	s.Name = &v
-	return s
-}
-
-func (s *DatabaseSchema) SetIsSerial(v bool) *DatabaseSchema {
-	s.IsSerial = &v
-	return s
-}
-
-// <String, Boolean> 映射
-type MapStringToBooleanEntity struct {
-	// key
-	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
-	// value
-	Value *bool `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-}
-
-func (s MapStringToBooleanEntity) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MapStringToBooleanEntity) GoString() string {
-	return s.String()
-}
-
-func (s *MapStringToBooleanEntity) SetKey(v string) *MapStringToBooleanEntity {
-	s.Key = &v
-	return s
-}
-
-func (s *MapStringToBooleanEntity) SetValue(v bool) *MapStringToBooleanEntity {
-	s.Value = &v
-	return s
-}
-
-// IAM用户信息
-type UserDTO struct {
-	// 用户ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 创建时间
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 最近修改时间
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 客户ID
-	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
-	// 用户类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// 用户显示名称
-	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty"`
-	// 用户名
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-}
-
-func (s UserDTO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UserDTO) GoString() string {
-	return s.String()
-}
-
-func (s *UserDTO) SetId(v string) *UserDTO {
-	s.Id = &v
-	return s
-}
-
-func (s *UserDTO) SetUtcCreate(v string) *UserDTO {
-	s.UtcCreate = &v
-	return s
-}
-
-func (s *UserDTO) SetUtcModified(v string) *UserDTO {
-	s.UtcModified = &v
-	return s
-}
-
-func (s *UserDTO) SetCustomerId(v string) *UserDTO {
-	s.CustomerId = &v
-	return s
-}
-
-func (s *UserDTO) SetType(v string) *UserDTO {
-	s.Type = &v
-	return s
-}
-
-func (s *UserDTO) SetRealName(v string) *UserDTO {
-	s.RealName = &v
-	return s
-}
-
-func (s *UserDTO) SetName(v string) *UserDTO {
-	s.Name = &v
-	return s
-}
-
-// rmc 交换机详细信息
-type VSwitchVO struct {
-	// 交换机的iaas ID
-	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
-	// 交换机名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 交换机描述信息
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 交换机的状态，取值： Pending：配置中。 Available：可用。
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// vpc id
-	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty"`
-	// workspace id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-	// zone id
-	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
-	// zone iaas id
-	ZoneIaasId *string `json:"zone_iaas_id,omitempty" xml:"zone_iaas_id,omitempty"`
+	// 网络类型
+	NetworkType *string `json:"network_type,omitempty" xml:"network_type,omitempty"`
+	// 租户
+	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
+	// 可用区 id
+	ZoneIds *string `json:"zone_ids,omitempty" xml:"zone_ids,omitempty"`
 	// region id
 	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
-	// 换机的IPv4网段
-	CidrBlock *string `json:"cidr_block,omitempty" xml:"cidr_block,omitempty"`
-	// 交换机创建时间
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 可用ip数目
-	AvailableIpAddressCount *int64 `json:"available_ip_address_count,omitempty" xml:"available_ip_address_count,omitempty"`
 }
 
-func (s VSwitchVO) String() string {
+func (s Workspace) String() string {
 	return tea.Prettify(s)
 }
 
-func (s VSwitchVO) GoString() string {
+func (s Workspace) GoString() string {
 	return s.String()
 }
 
-func (s *VSwitchVO) SetIaasId(v string) *VSwitchVO {
-	s.IaasId = &v
+func (s *Workspace) SetId(v string) *Workspace {
+	s.Id = &v
 	return s
 }
 
-func (s *VSwitchVO) SetName(v string) *VSwitchVO {
+func (s *Workspace) SetName(v string) *Workspace {
 	s.Name = &v
 	return s
 }
 
-func (s *VSwitchVO) SetDescription(v string) *VSwitchVO {
-	s.Description = &v
+func (s *Workspace) SetNetworkType(v string) *Workspace {
+	s.NetworkType = &v
 	return s
 }
 
-func (s *VSwitchVO) SetStatus(v string) *VSwitchVO {
-	s.Status = &v
+func (s *Workspace) SetTenant(v string) *Workspace {
+	s.Tenant = &v
 	return s
 }
 
-func (s *VSwitchVO) SetVpcId(v string) *VSwitchVO {
-	s.VpcId = &v
+func (s *Workspace) SetZoneIds(v string) *Workspace {
+	s.ZoneIds = &v
 	return s
 }
 
-func (s *VSwitchVO) SetWorkspaceId(v string) *VSwitchVO {
-	s.WorkspaceId = &v
-	return s
-}
-
-func (s *VSwitchVO) SetZoneId(v string) *VSwitchVO {
-	s.ZoneId = &v
-	return s
-}
-
-func (s *VSwitchVO) SetZoneIaasId(v string) *VSwitchVO {
-	s.ZoneIaasId = &v
-	return s
-}
-
-func (s *VSwitchVO) SetRegionId(v string) *VSwitchVO {
+func (s *Workspace) SetRegionId(v string) *Workspace {
 	s.RegionId = &v
-	return s
-}
-
-func (s *VSwitchVO) SetCidrBlock(v string) *VSwitchVO {
-	s.CidrBlock = &v
-	return s
-}
-
-func (s *VSwitchVO) SetUtcCreate(v string) *VSwitchVO {
-	s.UtcCreate = &v
-	return s
-}
-
-func (s *VSwitchVO) SetAvailableIpAddressCount(v int64) *VSwitchVO {
-	s.AvailableIpAddressCount = &v
-	return s
-}
-
-// LoadBalancerRule
-type LoadBalancerRule struct {
-	// load_balancer
-	LoadBalancer *LoadBalancer `json:"load_balancer,omitempty" xml:"load_balancer,omitempty"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// listener_port
-	ListenerPort *int64 `json:"listener_port,omitempty" xml:"listener_port,omitempty"`
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// domain
-	Domain *string `json:"domain,omitempty" xml:"domain,omitempty"`
-	// url
-	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
-	// cookie
-	Cookie *string `json:"cookie,omitempty" xml:"cookie,omitempty"`
-	// is_health_monitor
-	IsHealthMonitor *string `json:"is_health_monitor,omitempty" xml:"is_health_monitor,omitempty"`
-	// health_monitor
-	HealthMonitor *ListenerHealthMonitor `json:"health_monitor,omitempty" xml:"health_monitor,omitempty"`
-	// sticky_session
-	StickySession *string `json:"sticky_session,omitempty" xml:"sticky_session,omitempty"`
-	// app_id
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-}
-
-func (s LoadBalancerRule) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LoadBalancerRule) GoString() string {
-	return s.String()
-}
-
-func (s *LoadBalancerRule) SetLoadBalancer(v *LoadBalancer) *LoadBalancerRule {
-	s.LoadBalancer = v
-	return s
-}
-
-func (s *LoadBalancerRule) SetName(v string) *LoadBalancerRule {
-	s.Name = &v
-	return s
-}
-
-func (s *LoadBalancerRule) SetId(v string) *LoadBalancerRule {
-	s.Id = &v
-	return s
-}
-
-func (s *LoadBalancerRule) SetListenerPort(v int64) *LoadBalancerRule {
-	s.ListenerPort = &v
-	return s
-}
-
-func (s *LoadBalancerRule) SetStatus(v string) *LoadBalancerRule {
-	s.Status = &v
-	return s
-}
-
-func (s *LoadBalancerRule) SetDomain(v string) *LoadBalancerRule {
-	s.Domain = &v
-	return s
-}
-
-func (s *LoadBalancerRule) SetUrl(v string) *LoadBalancerRule {
-	s.Url = &v
-	return s
-}
-
-func (s *LoadBalancerRule) SetCookie(v string) *LoadBalancerRule {
-	s.Cookie = &v
-	return s
-}
-
-func (s *LoadBalancerRule) SetIsHealthMonitor(v string) *LoadBalancerRule {
-	s.IsHealthMonitor = &v
-	return s
-}
-
-func (s *LoadBalancerRule) SetHealthMonitor(v *ListenerHealthMonitor) *LoadBalancerRule {
-	s.HealthMonitor = v
-	return s
-}
-
-func (s *LoadBalancerRule) SetStickySession(v string) *LoadBalancerRule {
-	s.StickySession = &v
-	return s
-}
-
-func (s *LoadBalancerRule) SetAppId(v string) *LoadBalancerRule {
-	s.AppId = &v
-	return s
-}
-
-func (s *LoadBalancerRule) SetWorkspaceId(v string) *LoadBalancerRule {
-	s.WorkspaceId = &v
-	return s
-}
-
-// LB的vip类型
-type VipType struct {
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// vip_address_type
-	VipAddressType *string `json:"vip_address_type,omitempty" xml:"vip_address_type,omitempty" require:"true"`
-	// vip_type
-	VipType *string `json:"vip_type,omitempty" xml:"vip_type,omitempty" require:"true"`
-}
-
-func (s VipType) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VipType) GoString() string {
-	return s.String()
-}
-
-func (s *VipType) SetName(v string) *VipType {
-	s.Name = &v
-	return s
-}
-
-func (s *VipType) SetVipAddressType(v string) *VipType {
-	s.VipAddressType = &v
-	return s
-}
-
-func (s *VipType) SetVipType(v string) *VipType {
-	s.VipType = &v
-	return s
-}
-
-// DatabaseSpec
-type DatabaseSpec struct {
-	// cpu
-	Cpu *int64 `json:"cpu,omitempty" xml:"cpu,omitempty"`
-	// custom_storage
-	CustomStorage *bool `json:"custom_storage,omitempty" xml:"custom_storage,omitempty"`
-	// engine
-	Engine *string `json:"engine,omitempty" xml:"engine,omitempty"`
-	// engine_version
-	EngineVersion []*string `json:"engine_version,omitempty" xml:"engine_version,omitempty" type:"Repeated"`
-	// iaas_id
-	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// max_connections
-	MaxConnections *int64 `json:"max_connections,omitempty" xml:"max_connections,omitempty"`
-	// max_iops
-	MaxIops *int64 `json:"max_iops,omitempty" xml:"max_iops,omitempty"`
-	// max_storage
-	MaxStorage *int64 `json:"max_storage,omitempty" xml:"max_storage,omitempty"`
-	// memory
-	Memory *int64 `json:"memory,omitempty" xml:"memory,omitempty"`
-	// min_storage
-	MinStorage *int64 `json:"min_storage,omitempty" xml:"min_storage,omitempty"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// supported_storages
-	SupportedStorages []*int64 `json:"supported_storages,omitempty" xml:"supported_storages,omitempty" type:"Repeated"`
-	// type
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-}
-
-func (s DatabaseSpec) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DatabaseSpec) GoString() string {
-	return s.String()
-}
-
-func (s *DatabaseSpec) SetCpu(v int64) *DatabaseSpec {
-	s.Cpu = &v
-	return s
-}
-
-func (s *DatabaseSpec) SetCustomStorage(v bool) *DatabaseSpec {
-	s.CustomStorage = &v
-	return s
-}
-
-func (s *DatabaseSpec) SetEngine(v string) *DatabaseSpec {
-	s.Engine = &v
-	return s
-}
-
-func (s *DatabaseSpec) SetEngineVersion(v []*string) *DatabaseSpec {
-	s.EngineVersion = v
-	return s
-}
-
-func (s *DatabaseSpec) SetIaasId(v string) *DatabaseSpec {
-	s.IaasId = &v
-	return s
-}
-
-func (s *DatabaseSpec) SetId(v string) *DatabaseSpec {
-	s.Id = &v
-	return s
-}
-
-func (s *DatabaseSpec) SetMaxConnections(v int64) *DatabaseSpec {
-	s.MaxConnections = &v
-	return s
-}
-
-func (s *DatabaseSpec) SetMaxIops(v int64) *DatabaseSpec {
-	s.MaxIops = &v
-	return s
-}
-
-func (s *DatabaseSpec) SetMaxStorage(v int64) *DatabaseSpec {
-	s.MaxStorage = &v
-	return s
-}
-
-func (s *DatabaseSpec) SetMemory(v int64) *DatabaseSpec {
-	s.Memory = &v
-	return s
-}
-
-func (s *DatabaseSpec) SetMinStorage(v int64) *DatabaseSpec {
-	s.MinStorage = &v
-	return s
-}
-
-func (s *DatabaseSpec) SetName(v string) *DatabaseSpec {
-	s.Name = &v
-	return s
-}
-
-func (s *DatabaseSpec) SetSupportedStorages(v []*int64) *DatabaseSpec {
-	s.SupportedStorages = v
-	return s
-}
-
-func (s *DatabaseSpec) SetType(v string) *DatabaseSpec {
-	s.Type = &v
 	return s
 }
 
@@ -6113,808 +5248,6 @@ func (s *TaskVO) SetWorkspaceId(v string) *TaskVO {
 
 func (s *TaskVO) SetResource(v *Resource) *TaskVO {
 	s.Resource = v
-	return s
-}
-
-// 任务日志
-type ResourceLog struct {
-	// host
-	Host *string `json:"host,omitempty" xml:"host,omitempty"`
-	// log_time
-	LogTime *string `json:"log_time,omitempty" xml:"log_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// message
-	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
-	// resource_id
-	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty"`
-	// resource_type
-	ResourceType *string `json:"resource_type,omitempty" xml:"resource_type,omitempty"`
-	// severity
-	Severity *string `json:"severity,omitempty" xml:"severity,omitempty"`
-	// source
-	Source *string `json:"source,omitempty" xml:"source,omitempty"`
-	// task_id
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
-	// task_times
-	TaskTimes *int64 `json:"task_times,omitempty" xml:"task_times,omitempty" require:"true"`
-	// type
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// iaas_error_info
-	IaasErrorInfo *IaasErrorInfo `json:"iaas_error_info,omitempty" xml:"iaas_error_info,omitempty"`
-	// iaas_request
-	IaasRequest *IaasRequest `json:"iaas_request,omitempty" xml:"iaas_request,omitempty"`
-	// iaas_response
-	IaasResponse *IaasResponse `json:"iaas_response,omitempty" xml:"iaas_response,omitempty"`
-}
-
-func (s ResourceLog) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ResourceLog) GoString() string {
-	return s.String()
-}
-
-func (s *ResourceLog) SetHost(v string) *ResourceLog {
-	s.Host = &v
-	return s
-}
-
-func (s *ResourceLog) SetLogTime(v string) *ResourceLog {
-	s.LogTime = &v
-	return s
-}
-
-func (s *ResourceLog) SetMessage(v string) *ResourceLog {
-	s.Message = &v
-	return s
-}
-
-func (s *ResourceLog) SetResourceId(v string) *ResourceLog {
-	s.ResourceId = &v
-	return s
-}
-
-func (s *ResourceLog) SetResourceType(v string) *ResourceLog {
-	s.ResourceType = &v
-	return s
-}
-
-func (s *ResourceLog) SetSeverity(v string) *ResourceLog {
-	s.Severity = &v
-	return s
-}
-
-func (s *ResourceLog) SetSource(v string) *ResourceLog {
-	s.Source = &v
-	return s
-}
-
-func (s *ResourceLog) SetTaskId(v string) *ResourceLog {
-	s.TaskId = &v
-	return s
-}
-
-func (s *ResourceLog) SetTaskTimes(v int64) *ResourceLog {
-	s.TaskTimes = &v
-	return s
-}
-
-func (s *ResourceLog) SetType(v string) *ResourceLog {
-	s.Type = &v
-	return s
-}
-
-func (s *ResourceLog) SetIaasErrorInfo(v *IaasErrorInfo) *ResourceLog {
-	s.IaasErrorInfo = v
-	return s
-}
-
-func (s *ResourceLog) SetIaasRequest(v *IaasRequest) *ResourceLog {
-	s.IaasRequest = v
-	return s
-}
-
-func (s *ResourceLog) SetIaasResponse(v *IaasResponse) *ResourceLog {
-	s.IaasResponse = v
-	return s
-}
-
-// 地域信息
-type Region struct {
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// identity
-	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
-	// instanceStatus: AVAILABLE  UNAVAILABLE  RETIRED  DELETED
-	Instancestatus *string `json:"instancestatus,omitempty" xml:"instancestatus,omitempty" require:"true"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// properties
-	Properties []*Property `json:"properties,omitempty" xml:"properties,omitempty" type:"Repeated"`
-}
-
-func (s Region) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Region) GoString() string {
-	return s.String()
-}
-
-func (s *Region) SetDescription(v string) *Region {
-	s.Description = &v
-	return s
-}
-
-func (s *Region) SetIdentity(v string) *Region {
-	s.Identity = &v
-	return s
-}
-
-func (s *Region) SetInstancestatus(v string) *Region {
-	s.Instancestatus = &v
-	return s
-}
-
-func (s *Region) SetName(v string) *Region {
-	s.Name = &v
-	return s
-}
-
-func (s *Region) SetProperties(v []*Property) *Region {
-	s.Properties = v
-	return s
-}
-
-// 一次异步请求
-type RequestVO struct {
-	// context
-	Context *string `json:"context,omitempty" xml:"context,omitempty"`
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// operator
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
-	// operator_name
-	OperatorName *string `json:"operator_name,omitempty" xml:"operator_name,omitempty" require:"true"`
-	// operator_type
-	OperatorType *string `json:"operator_type,omitempty" xml:"operator_type,omitempty"`
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// token
-	Token *string `json:"token,omitempty" xml:"token,omitempty"`
-	// type
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// utc_modified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// tasks
-	Tasks []*Task `json:"tasks,omitempty" xml:"tasks,omitempty" type:"Repeated"`
-}
-
-func (s RequestVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RequestVO) GoString() string {
-	return s.String()
-}
-
-func (s *RequestVO) SetContext(v string) *RequestVO {
-	s.Context = &v
-	return s
-}
-
-func (s *RequestVO) SetId(v string) *RequestVO {
-	s.Id = &v
-	return s
-}
-
-func (s *RequestVO) SetOperator(v string) *RequestVO {
-	s.Operator = &v
-	return s
-}
-
-func (s *RequestVO) SetOperatorName(v string) *RequestVO {
-	s.OperatorName = &v
-	return s
-}
-
-func (s *RequestVO) SetOperatorType(v string) *RequestVO {
-	s.OperatorType = &v
-	return s
-}
-
-func (s *RequestVO) SetStatus(v string) *RequestVO {
-	s.Status = &v
-	return s
-}
-
-func (s *RequestVO) SetToken(v string) *RequestVO {
-	s.Token = &v
-	return s
-}
-
-func (s *RequestVO) SetType(v string) *RequestVO {
-	s.Type = &v
-	return s
-}
-
-func (s *RequestVO) SetUtcCreate(v string) *RequestVO {
-	s.UtcCreate = &v
-	return s
-}
-
-func (s *RequestVO) SetUtcModified(v string) *RequestVO {
-	s.UtcModified = &v
-	return s
-}
-
-func (s *RequestVO) SetTasks(v []*Task) *RequestVO {
-	s.Tasks = v
-	return s
-}
-
-// staragent info
-type StarAgentInfo struct {
-	// computer serial number
-	Sn *string `json:"sn,omitempty" xml:"sn,omitempty"`
-	// hostname
-	Hostname *string `json:"hostname,omitempty" xml:"hostname,omitempty"`
-	// ip
-	Ip *string `json:"ip,omitempty" xml:"ip,omitempty"`
-	// ip list
-	IpList *string `json:"ip_list,omitempty" xml:"ip_list,omitempty"`
-	// 状态取值：RUNNING，ERROR，REGISTER，NOFIND
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-}
-
-func (s StarAgentInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s StarAgentInfo) GoString() string {
-	return s.String()
-}
-
-func (s *StarAgentInfo) SetSn(v string) *StarAgentInfo {
-	s.Sn = &v
-	return s
-}
-
-func (s *StarAgentInfo) SetHostname(v string) *StarAgentInfo {
-	s.Hostname = &v
-	return s
-}
-
-func (s *StarAgentInfo) SetIp(v string) *StarAgentInfo {
-	s.Ip = &v
-	return s
-}
-
-func (s *StarAgentInfo) SetIpList(v string) *StarAgentInfo {
-	s.IpList = &v
-	return s
-}
-
-func (s *StarAgentInfo) SetStatus(v string) *StarAgentInfo {
-	s.Status = &v
-	return s
-}
-
-// map <String,integer>
-type MapStringToIntegerEntity struct {
-	// key
-	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
-	// value
-	Value *int64 `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-}
-
-func (s MapStringToIntegerEntity) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MapStringToIntegerEntity) GoString() string {
-	return s.String()
-}
-
-func (s *MapStringToIntegerEntity) SetKey(v string) *MapStringToIntegerEntity {
-	s.Key = &v
-	return s
-}
-
-func (s *MapStringToIntegerEntity) SetValue(v int64) *MapStringToIntegerEntity {
-	s.Value = &v
-	return s
-}
-
-// BasicCertificate
-type BasicCertificate struct {
-	// serverCertificateId
-	ServerCertificateId *string `json:"server_certificate_id,omitempty" xml:"server_certificate_id,omitempty" require:"true"`
-	// serverCertificateName
-	ServerCertificateName *string `json:"server_certificate_name,omitempty" xml:"server_certificate_name,omitempty" require:"true"`
-	// fingerprint
-	Fingerprint *string `json:"fingerprint,omitempty" xml:"fingerprint,omitempty"`
-	// cert_type
-	CertType *int64 `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
-}
-
-func (s BasicCertificate) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BasicCertificate) GoString() string {
-	return s.String()
-}
-
-func (s *BasicCertificate) SetServerCertificateId(v string) *BasicCertificate {
-	s.ServerCertificateId = &v
-	return s
-}
-
-func (s *BasicCertificate) SetServerCertificateName(v string) *BasicCertificate {
-	s.ServerCertificateName = &v
-	return s
-}
-
-func (s *BasicCertificate) SetFingerprint(v string) *BasicCertificate {
-	s.Fingerprint = &v
-	return s
-}
-
-func (s *BasicCertificate) SetCertType(v int64) *BasicCertificate {
-	s.CertType = &v
-	return s
-}
-
-// Connection
-type Connection struct {
-	// access_key
-	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
-	// access_secret
-	AccessSecret *string `json:"access_secret,omitempty" xml:"access_secret,omitempty"`
-	// created_time
-	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// executor
-	Executor *string `json:"executor,omitempty" xml:"executor,omitempty"`
-	// id
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
-	// identity
-	Identity *string `json:"identity,omitempty" xml:"identity,omitempty"`
-	// 修改时间
-	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// plug
-	Plug *ConnectionStub `json:"plug,omitempty" xml:"plug,omitempty"`
-	// socket
-	Socket *ConnectionStub `json:"socket,omitempty" xml:"socket,omitempty"`
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// tenant_id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-}
-
-func (s Connection) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Connection) GoString() string {
-	return s.String()
-}
-
-func (s *Connection) SetAccessKey(v string) *Connection {
-	s.AccessKey = &v
-	return s
-}
-
-func (s *Connection) SetAccessSecret(v string) *Connection {
-	s.AccessSecret = &v
-	return s
-}
-
-func (s *Connection) SetCreatedTime(v string) *Connection {
-	s.CreatedTime = &v
-	return s
-}
-
-func (s *Connection) SetExecutor(v string) *Connection {
-	s.Executor = &v
-	return s
-}
-
-func (s *Connection) SetId(v int64) *Connection {
-	s.Id = &v
-	return s
-}
-
-func (s *Connection) SetIdentity(v string) *Connection {
-	s.Identity = &v
-	return s
-}
-
-func (s *Connection) SetModifiedTime(v string) *Connection {
-	s.ModifiedTime = &v
-	return s
-}
-
-func (s *Connection) SetName(v string) *Connection {
-	s.Name = &v
-	return s
-}
-
-func (s *Connection) SetPlug(v *ConnectionStub) *Connection {
-	s.Plug = v
-	return s
-}
-
-func (s *Connection) SetSocket(v *ConnectionStub) *Connection {
-	s.Socket = v
-	return s
-}
-
-func (s *Connection) SetStatus(v string) *Connection {
-	s.Status = &v
-	return s
-}
-
-func (s *Connection) SetTenantId(v string) *Connection {
-	s.TenantId = &v
-	return s
-}
-
-// ComputerImportVO
-type ComputerImportVO struct {
-	// computer iaaas id
-	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// zone identity
-	ZoneIaasId *string `json:"zone_iaas_id,omitempty" xml:"zone_iaas_id,omitempty"`
-	// zone name
-	ZoneName *string `json:"zone_name,omitempty" xml:"zone_name,omitempty"`
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// private ip
-	PrivateIp *string `json:"private_ip,omitempty" xml:"private_ip,omitempty"`
-	// public ip
-	PublicIp *string `json:"public_ip,omitempty" xml:"public_ip,omitempty"`
-	// elasticIp
-	ElasticIp *string `json:"elastic_ip,omitempty" xml:"elastic_ip,omitempty"`
-	// vpcIaasId
-	VpcIaasId *string `json:"vpc_iaas_id,omitempty" xml:"vpc_iaas_id,omitempty"`
-	// joined security group infos
-	JoinedSecurityGroup []*JoinedSecurityGroupVO `json:"joined_security_group,omitempty" xml:"joined_security_group,omitempty" type:"Repeated"`
-	// creation time
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// import info
-	ImportInfo *ImportVO `json:"import_info,omitempty" xml:"import_info,omitempty"`
-}
-
-func (s ComputerImportVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ComputerImportVO) GoString() string {
-	return s.String()
-}
-
-func (s *ComputerImportVO) SetIaasId(v string) *ComputerImportVO {
-	s.IaasId = &v
-	return s
-}
-
-func (s *ComputerImportVO) SetName(v string) *ComputerImportVO {
-	s.Name = &v
-	return s
-}
-
-func (s *ComputerImportVO) SetZoneIaasId(v string) *ComputerImportVO {
-	s.ZoneIaasId = &v
-	return s
-}
-
-func (s *ComputerImportVO) SetZoneName(v string) *ComputerImportVO {
-	s.ZoneName = &v
-	return s
-}
-
-func (s *ComputerImportVO) SetDescription(v string) *ComputerImportVO {
-	s.Description = &v
-	return s
-}
-
-func (s *ComputerImportVO) SetPrivateIp(v string) *ComputerImportVO {
-	s.PrivateIp = &v
-	return s
-}
-
-func (s *ComputerImportVO) SetPublicIp(v string) *ComputerImportVO {
-	s.PublicIp = &v
-	return s
-}
-
-func (s *ComputerImportVO) SetElasticIp(v string) *ComputerImportVO {
-	s.ElasticIp = &v
-	return s
-}
-
-func (s *ComputerImportVO) SetVpcIaasId(v string) *ComputerImportVO {
-	s.VpcIaasId = &v
-	return s
-}
-
-func (s *ComputerImportVO) SetJoinedSecurityGroup(v []*JoinedSecurityGroupVO) *ComputerImportVO {
-	s.JoinedSecurityGroup = v
-	return s
-}
-
-func (s *ComputerImportVO) SetUtcCreate(v string) *ComputerImportVO {
-	s.UtcCreate = &v
-	return s
-}
-
-func (s *ComputerImportVO) SetImportInfo(v *ImportVO) *ComputerImportVO {
-	s.ImportInfo = v
-	return s
-}
-
-// computer quota
-type ComputerQuota struct {
-	// cpu shared
-	CpuShared *int64 `json:"cpu_shared,omitempty" xml:"cpu_shared,omitempty"`
-	// cpu
-	Cpu *int64 `json:"cpu,omitempty" xml:"cpu,omitempty"`
-	// memory
-	Memory *int64 `json:"memory,omitempty" xml:"memory,omitempty"`
-	// disk
-	Disk *int64 `json:"disk,omitempty" xml:"disk,omitempty"`
-}
-
-func (s ComputerQuota) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ComputerQuota) GoString() string {
-	return s.String()
-}
-
-func (s *ComputerQuota) SetCpuShared(v int64) *ComputerQuota {
-	s.CpuShared = &v
-	return s
-}
-
-func (s *ComputerQuota) SetCpu(v int64) *ComputerQuota {
-	s.Cpu = &v
-	return s
-}
-
-func (s *ComputerQuota) SetMemory(v int64) *ComputerQuota {
-	s.Memory = &v
-	return s
-}
-
-func (s *ComputerQuota) SetDisk(v int64) *ComputerQuota {
-	s.Disk = &v
-	return s
-}
-
-// 应用分组查询
-type AppDomainQuery struct {
-	// creatorId
-	CreatorId *string `json:"creator_id,omitempty" xml:"creator_id,omitempty"`
-	// 是否为一方化请求
-	IsOnePartyRequest *bool `json:"is_one_party_request,omitempty" xml:"is_one_party_request,omitempty"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// parentId
-	ParentId *string `json:"parent_id,omitempty" xml:"parent_id,omitempty"`
-	// tenantId
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// utcCreate
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 分页大小
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
-	// query_type
-	QueryType *string `json:"query_type,omitempty" xml:"query_type,omitempty"`
-	// orders
-	Orders []*string `json:"orders,omitempty" xml:"orders,omitempty" type:"Repeated"`
-	// 当前页数
-	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
-}
-
-func (s AppDomainQuery) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppDomainQuery) GoString() string {
-	return s.String()
-}
-
-func (s *AppDomainQuery) SetCreatorId(v string) *AppDomainQuery {
-	s.CreatorId = &v
-	return s
-}
-
-func (s *AppDomainQuery) SetIsOnePartyRequest(v bool) *AppDomainQuery {
-	s.IsOnePartyRequest = &v
-	return s
-}
-
-func (s *AppDomainQuery) SetName(v string) *AppDomainQuery {
-	s.Name = &v
-	return s
-}
-
-func (s *AppDomainQuery) SetParentId(v string) *AppDomainQuery {
-	s.ParentId = &v
-	return s
-}
-
-func (s *AppDomainQuery) SetTenantId(v string) *AppDomainQuery {
-	s.TenantId = &v
-	return s
-}
-
-func (s *AppDomainQuery) SetUtcCreate(v string) *AppDomainQuery {
-	s.UtcCreate = &v
-	return s
-}
-
-func (s *AppDomainQuery) SetPageSize(v int64) *AppDomainQuery {
-	s.PageSize = &v
-	return s
-}
-
-func (s *AppDomainQuery) SetQueryType(v string) *AppDomainQuery {
-	s.QueryType = &v
-	return s
-}
-
-func (s *AppDomainQuery) SetOrders(v []*string) *AppDomainQuery {
-	s.Orders = v
-	return s
-}
-
-func (s *AppDomainQuery) SetCurrentPage(v int64) *AppDomainQuery {
-	s.CurrentPage = &v
-	return s
-}
-
-// disk spec
-type DiskSpec struct {
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// iaas id
-	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
-	// providerId
-	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty"`
-	// iaasType
-	IaasType *string `json:"iaas_type,omitempty" xml:"iaas_type,omitempty"`
-	// enable
-	Enable *bool `json:"enable,omitempty" xml:"enable,omitempty"`
-	// minSize
-	MinSize *int64 `json:"min_size,omitempty" xml:"min_size,omitempty"`
-	// maxSize
-	MaxSize *int64 `json:"max_size,omitempty" xml:"max_size,omitempty"`
-}
-
-func (s DiskSpec) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DiskSpec) GoString() string {
-	return s.String()
-}
-
-func (s *DiskSpec) SetId(v string) *DiskSpec {
-	s.Id = &v
-	return s
-}
-
-func (s *DiskSpec) SetName(v string) *DiskSpec {
-	s.Name = &v
-	return s
-}
-
-func (s *DiskSpec) SetDescription(v string) *DiskSpec {
-	s.Description = &v
-	return s
-}
-
-func (s *DiskSpec) SetIaasId(v string) *DiskSpec {
-	s.IaasId = &v
-	return s
-}
-
-func (s *DiskSpec) SetProviderId(v string) *DiskSpec {
-	s.ProviderId = &v
-	return s
-}
-
-func (s *DiskSpec) SetIaasType(v string) *DiskSpec {
-	s.IaasType = &v
-	return s
-}
-
-func (s *DiskSpec) SetEnable(v bool) *DiskSpec {
-	s.Enable = &v
-	return s
-}
-
-func (s *DiskSpec) SetMinSize(v int64) *DiskSpec {
-	s.MinSize = &v
-	return s
-}
-
-func (s *DiskSpec) SetMaxSize(v int64) *DiskSpec {
-	s.MaxSize = &v
-	return s
-}
-
-// LoadBalancerImportVO
-type LoadBalancerImportVO struct {
-	// iaas_id
-	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// network_type
-	NetworkType *string `json:"network_type,omitempty" xml:"network_type,omitempty"`
-	// inner_ip_address
-	InnerIpAddress []*string `json:"inner_ip_address,omitempty" xml:"inner_ip_address,omitempty" type:"Repeated"`
-	// public_ip_address
-	PublicIpAddress []*string `json:"public_ip_address,omitempty" xml:"public_ip_address,omitempty" type:"Repeated"`
-	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// import_info
-	ImportInfo *ImportVO `json:"import_info,omitempty" xml:"import_info,omitempty" require:"true"`
-}
-
-func (s LoadBalancerImportVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LoadBalancerImportVO) GoString() string {
-	return s.String()
-}
-
-func (s *LoadBalancerImportVO) SetIaasId(v string) *LoadBalancerImportVO {
-	s.IaasId = &v
-	return s
-}
-
-func (s *LoadBalancerImportVO) SetName(v string) *LoadBalancerImportVO {
-	s.Name = &v
-	return s
-}
-
-func (s *LoadBalancerImportVO) SetNetworkType(v string) *LoadBalancerImportVO {
-	s.NetworkType = &v
-	return s
-}
-
-func (s *LoadBalancerImportVO) SetInnerIpAddress(v []*string) *LoadBalancerImportVO {
-	s.InnerIpAddress = v
-	return s
-}
-
-func (s *LoadBalancerImportVO) SetPublicIpAddress(v []*string) *LoadBalancerImportVO {
-	s.PublicIpAddress = v
-	return s
-}
-
-func (s *LoadBalancerImportVO) SetUtcCreate(v string) *LoadBalancerImportVO {
-	s.UtcCreate = &v
-	return s
-}
-
-func (s *LoadBalancerImportVO) SetImportInfo(v *ImportVO) *LoadBalancerImportVO {
-	s.ImportInfo = v
 	return s
 }
 
@@ -7105,289 +5438,172 @@ func (s *AppQuery) SetQueryType(v string) *AppQuery {
 	return s
 }
 
-// 安全组详细信息
-type SecurityGroup struct {
-	// 创建时间。按照ISO8601标准表示，并需要使用UTC时间。格式为：yyyy-MM-ddThh:mmZ。
-	CreationTime *string `json:"creation_time,omitempty" xml:"creation_time,omitempty" require:"true"`
-	// 安全组的描述信息。
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// region_id
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
-	// 安全组ID。
-	SecurityGroupId *string `json:"security_group_id,omitempty" xml:"security_group_id,omitempty" require:"true"`
-	// 安全组名称。
-	SecurityGroupName *string `json:"security_group_name,omitempty" xml:"security_group_name,omitempty" require:"true"`
-	// 安全组所属的专有网络。
-	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty" require:"true"`
-	// 安全组入方向规则
-	IngressRules []*SecurityGroupRule `json:"ingress_rules,omitempty" xml:"ingress_rules,omitempty" type:"Repeated"`
-	// 安全组出方向规则
-	EgressRules []*SecurityGroupRule `json:"egress_rules,omitempty" xml:"egress_rules,omitempty" type:"Repeated"`
-}
-
-func (s SecurityGroup) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SecurityGroup) GoString() string {
-	return s.String()
-}
-
-func (s *SecurityGroup) SetCreationTime(v string) *SecurityGroup {
-	s.CreationTime = &v
-	return s
-}
-
-func (s *SecurityGroup) SetDescription(v string) *SecurityGroup {
-	s.Description = &v
-	return s
-}
-
-func (s *SecurityGroup) SetRegionId(v string) *SecurityGroup {
-	s.RegionId = &v
-	return s
-}
-
-func (s *SecurityGroup) SetSecurityGroupId(v string) *SecurityGroup {
-	s.SecurityGroupId = &v
-	return s
-}
-
-func (s *SecurityGroup) SetSecurityGroupName(v string) *SecurityGroup {
-	s.SecurityGroupName = &v
-	return s
-}
-
-func (s *SecurityGroup) SetVpcId(v string) *SecurityGroup {
-	s.VpcId = &v
-	return s
-}
-
-func (s *SecurityGroup) SetIngressRules(v []*SecurityGroupRule) *SecurityGroup {
-	s.IngressRules = v
-	return s
-}
-
-func (s *SecurityGroup) SetEgressRules(v []*SecurityGroupRule) *SecurityGroup {
-	s.EgressRules = v
-	return s
-}
-
-// 一组具有依赖关系的 AppDomain，可以转换为一个树形结构
-type AppDomainFlatten struct {
-	// 一组具有依赖关系的 AppDomain
-	AppDomains []*AppDomain `json:"app_domains,omitempty" xml:"app_domains,omitempty" type:"Repeated"`
-}
-
-func (s AppDomainFlatten) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppDomainFlatten) GoString() string {
-	return s.String()
-}
-
-func (s *AppDomainFlatten) SetAppDomains(v []*AppDomain) *AppDomainFlatten {
-	s.AppDomains = v
-	return s
-}
-
-// computer common image
-type CommonImage struct {
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// is enable
-	Enable *bool `json:"enable,omitempty" xml:"enable,omitempty"`
-	// iaas id
-	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
-	// iaas type
-	IaasType *string `json:"iaas_type,omitempty" xml:"iaas_type,omitempty"`
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 是否仅杭州金区 vpc 可用镜像
-	OnlyHzFinVpcSupported *bool `json:"only_hz_fin_vpc_supported,omitempty" xml:"only_hz_fin_vpc_supported,omitempty"`
+// 应用分级查询
+type AppLevelQuery struct {
+	// appCountInclude
+	AppCountInclude *bool `json:"app_count_include,omitempty" xml:"app_count_include,omitempty"`
+	// creator_id
+	CreatorId *string `json:"creator_id,omitempty" xml:"creator_id,omitempty"`
+	// is_one_party_request
+	IsOnePartyRequest *bool `json:"is_one_party_request,omitempty" xml:"is_one_party_request,omitempty"`
 	// name
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// os
-	Os *string `json:"os,omitempty" xml:"os,omitempty"`
-	// os bit取值：32，64
-	OsBit *int64 `json:"os_bit,omitempty" xml:"os_bit,omitempty"`
-	// os version
-	OsVersion *string `json:"os_version,omitempty" xml:"os_version,omitempty"`
-	// provider id
-	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty"`
-	// region id
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// system disk size(GB)
-	SystemDiskSize *int64 `json:"system_disk_size,omitempty" xml:"system_disk_size,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// utc_create
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 当前页数
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
+	// orders
+	Orders []*string `json:"orders,omitempty" xml:"orders,omitempty" type:"Repeated"`
+	// 分页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// query_type
+	QueryType *string `json:"query_type,omitempty" xml:"query_type,omitempty"`
 }
 
-func (s CommonImage) String() string {
+func (s AppLevelQuery) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CommonImage) GoString() string {
+func (s AppLevelQuery) GoString() string {
 	return s.String()
 }
 
-func (s *CommonImage) SetDescription(v string) *CommonImage {
-	s.Description = &v
+func (s *AppLevelQuery) SetAppCountInclude(v bool) *AppLevelQuery {
+	s.AppCountInclude = &v
 	return s
 }
 
-func (s *CommonImage) SetEnable(v bool) *CommonImage {
-	s.Enable = &v
+func (s *AppLevelQuery) SetCreatorId(v string) *AppLevelQuery {
+	s.CreatorId = &v
 	return s
 }
 
-func (s *CommonImage) SetIaasId(v string) *CommonImage {
-	s.IaasId = &v
+func (s *AppLevelQuery) SetIsOnePartyRequest(v bool) *AppLevelQuery {
+	s.IsOnePartyRequest = &v
 	return s
 }
 
-func (s *CommonImage) SetIaasType(v string) *CommonImage {
-	s.IaasType = &v
-	return s
-}
-
-func (s *CommonImage) SetId(v string) *CommonImage {
-	s.Id = &v
-	return s
-}
-
-func (s *CommonImage) SetOnlyHzFinVpcSupported(v bool) *CommonImage {
-	s.OnlyHzFinVpcSupported = &v
-	return s
-}
-
-func (s *CommonImage) SetName(v string) *CommonImage {
+func (s *AppLevelQuery) SetName(v string) *AppLevelQuery {
 	s.Name = &v
 	return s
 }
 
-func (s *CommonImage) SetOs(v string) *CommonImage {
-	s.Os = &v
+func (s *AppLevelQuery) SetTenantId(v string) *AppLevelQuery {
+	s.TenantId = &v
 	return s
 }
 
-func (s *CommonImage) SetOsBit(v int64) *CommonImage {
-	s.OsBit = &v
+func (s *AppLevelQuery) SetUtcCreate(v string) *AppLevelQuery {
+	s.UtcCreate = &v
 	return s
 }
 
-func (s *CommonImage) SetOsVersion(v string) *CommonImage {
-	s.OsVersion = &v
+func (s *AppLevelQuery) SetCurrentPage(v int64) *AppLevelQuery {
+	s.CurrentPage = &v
 	return s
 }
 
-func (s *CommonImage) SetProviderId(v string) *CommonImage {
-	s.ProviderId = &v
+func (s *AppLevelQuery) SetOrders(v []*string) *AppLevelQuery {
+	s.Orders = v
 	return s
 }
 
-func (s *CommonImage) SetRegionId(v string) *CommonImage {
-	s.RegionId = &v
+func (s *AppLevelQuery) SetPageSize(v int64) *AppLevelQuery {
+	s.PageSize = &v
 	return s
 }
 
-func (s *CommonImage) SetStatus(v string) *CommonImage {
+func (s *AppLevelQuery) SetQueryType(v string) *AppLevelQuery {
+	s.QueryType = &v
+	return s
+}
+
+// ComputerType
+type ComputerType struct {
+	// cpu core count
+	CpuCoreCount *int64 `json:"cpu_core_count,omitempty" xml:"cpu_core_count,omitempty"`
+	// instance type id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 实例规格族
+	InstanceTypeFamily *string `json:"instance_type_family,omitempty" xml:"instance_type_family,omitempty"`
+	// memory size
+	MemorySize *int64 `json:"memory_size,omitempty" xml:"memory_size,omitempty"`
+	// 实例状态，可能值： Available：资源充足 Sold...
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s ComputerType) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ComputerType) GoString() string {
+	return s.String()
+}
+
+func (s *ComputerType) SetCpuCoreCount(v int64) *ComputerType {
+	s.CpuCoreCount = &v
+	return s
+}
+
+func (s *ComputerType) SetId(v string) *ComputerType {
+	s.Id = &v
+	return s
+}
+
+func (s *ComputerType) SetInstanceTypeFamily(v string) *ComputerType {
+	s.InstanceTypeFamily = &v
+	return s
+}
+
+func (s *ComputerType) SetMemorySize(v int64) *ComputerType {
+	s.MemorySize = &v
+	return s
+}
+
+func (s *ComputerType) SetStatus(v string) *ComputerType {
 	s.Status = &v
 	return s
 }
 
-func (s *CommonImage) SetSystemDiskSize(v int64) *CommonImage {
-	s.SystemDiskSize = &v
-	return s
+// computer 数据盘
+type DataDisk struct {
+	// 磁盘大小
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty" require:"true"`
+	// 若使用磁盘创建，需填写此字段
+	SnapshotSequence *string `json:"snapshot_sequence,omitempty" xml:"snapshot_sequence,omitempty"`
+	// 磁盘规格
+	SpecId *string `json:"spec_id,omitempty" xml:"spec_id,omitempty" require:"true"`
+	// 数据盘设备
+	Device *string `json:"device,omitempty" xml:"device,omitempty" require:"true"`
 }
 
-// PermissionVO
-type PermissionVO struct {
-	// authorizedCidrIp
-	AuthorizedCidrIp *string `json:"authorized_cidr_ip,omitempty" xml:"authorized_cidr_ip,omitempty"`
-	// authorize_type
-	AuthorizeType *string `json:"authorize_type,omitempty" xml:"authorize_type,omitempty"`
-	// direction
-	Direction *string `json:"direction,omitempty" xml:"direction,omitempty"`
-	// endPort
-	EndPort *int64 `json:"end_port,omitempty" xml:"end_port,omitempty"`
-	// ipProtocol
-	IpProtocol *string `json:"ip_protocol,omitempty" xml:"ip_protocol,omitempty"`
-	// nicType
-	NicType *string `json:"nic_type,omitempty" xml:"nic_type,omitempty"`
-	// policy
-	Policy *string `json:"policy,omitempty" xml:"policy,omitempty"`
-	// priority
-	Priority *int64 `json:"priority,omitempty" xml:"priority,omitempty"`
-	// securityGroupId
-	SecurityGroupId *string `json:"security_group_id,omitempty" xml:"security_group_id,omitempty"`
-	// startPort
-	StartPort *int64 `json:"start_port,omitempty" xml:"start_port,omitempty"`
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-}
-
-func (s PermissionVO) String() string {
+func (s DataDisk) String() string {
 	return tea.Prettify(s)
 }
 
-func (s PermissionVO) GoString() string {
+func (s DataDisk) GoString() string {
 	return s.String()
 }
 
-func (s *PermissionVO) SetAuthorizedCidrIp(v string) *PermissionVO {
-	s.AuthorizedCidrIp = &v
+func (s *DataDisk) SetSize(v int64) *DataDisk {
+	s.Size = &v
 	return s
 }
 
-func (s *PermissionVO) SetAuthorizeType(v string) *PermissionVO {
-	s.AuthorizeType = &v
+func (s *DataDisk) SetSnapshotSequence(v string) *DataDisk {
+	s.SnapshotSequence = &v
 	return s
 }
 
-func (s *PermissionVO) SetDirection(v string) *PermissionVO {
-	s.Direction = &v
+func (s *DataDisk) SetSpecId(v string) *DataDisk {
+	s.SpecId = &v
 	return s
 }
 
-func (s *PermissionVO) SetEndPort(v int64) *PermissionVO {
-	s.EndPort = &v
-	return s
-}
-
-func (s *PermissionVO) SetIpProtocol(v string) *PermissionVO {
-	s.IpProtocol = &v
-	return s
-}
-
-func (s *PermissionVO) SetNicType(v string) *PermissionVO {
-	s.NicType = &v
-	return s
-}
-
-func (s *PermissionVO) SetPolicy(v string) *PermissionVO {
-	s.Policy = &v
-	return s
-}
-
-func (s *PermissionVO) SetPriority(v int64) *PermissionVO {
-	s.Priority = &v
-	return s
-}
-
-func (s *PermissionVO) SetSecurityGroupId(v string) *PermissionVO {
-	s.SecurityGroupId = &v
-	return s
-}
-
-func (s *PermissionVO) SetStartPort(v int64) *PermissionVO {
-	s.StartPort = &v
-	return s
-}
-
-func (s *PermissionVO) SetId(v string) *PermissionVO {
-	s.Id = &v
+func (s *DataDisk) SetDevice(v string) *DataDisk {
+	s.Device = &v
 	return s
 }
 
@@ -7414,6 +5630,154 @@ func (s *LoadBalanceHealthStatus) SetServerId(v string) *LoadBalanceHealthStatus
 
 func (s *LoadBalanceHealthStatus) SetStatus(v string) *LoadBalanceHealthStatus {
 	s.Status = &v
+	return s
+}
+
+// DnsRecordParam
+type DnsRecordParam struct {
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// value
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// ttl
+	Ttl *int64 `json:"ttl,omitempty" xml:"ttl,omitempty" require:"true"`
+	// regionId
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
+	// zoneId
+	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// resource_type
+	ResourceType *string `json:"resource_type,omitempty" xml:"resource_type,omitempty" require:"true"`
+}
+
+func (s DnsRecordParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DnsRecordParam) GoString() string {
+	return s.String()
+}
+
+func (s *DnsRecordParam) SetWorkspaceId(v string) *DnsRecordParam {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *DnsRecordParam) SetValue(v string) *DnsRecordParam {
+	s.Value = &v
+	return s
+}
+
+func (s *DnsRecordParam) SetTtl(v int64) *DnsRecordParam {
+	s.Ttl = &v
+	return s
+}
+
+func (s *DnsRecordParam) SetRegionId(v string) *DnsRecordParam {
+	s.RegionId = &v
+	return s
+}
+
+func (s *DnsRecordParam) SetZoneId(v string) *DnsRecordParam {
+	s.ZoneId = &v
+	return s
+}
+
+func (s *DnsRecordParam) SetDescription(v string) *DnsRecordParam {
+	s.Description = &v
+	return s
+}
+
+func (s *DnsRecordParam) SetResourceType(v string) *DnsRecordParam {
+	s.ResourceType = &v
+	return s
+}
+
+// 机房信息
+type Zone struct {
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// identity
+	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// instanceStatus: AVAILABLE  UNAVAILABLE  RETIRED  DELETED
+	Instancestatus *string `json:"instancestatus,omitempty" xml:"instancestatus,omitempty" require:"true"`
+	// region name
+	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
+	// properties
+	Properties []*Property `json:"properties,omitempty" xml:"properties,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s Zone) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Zone) GoString() string {
+	return s.String()
+}
+
+func (s *Zone) SetName(v string) *Zone {
+	s.Name = &v
+	return s
+}
+
+func (s *Zone) SetIdentity(v string) *Zone {
+	s.Identity = &v
+	return s
+}
+
+func (s *Zone) SetDescription(v string) *Zone {
+	s.Description = &v
+	return s
+}
+
+func (s *Zone) SetInstancestatus(v string) *Zone {
+	s.Instancestatus = &v
+	return s
+}
+
+func (s *Zone) SetRegion(v string) *Zone {
+	s.Region = &v
+	return s
+}
+
+func (s *Zone) SetProperties(v []*Property) *Zone {
+	s.Properties = v
+	return s
+}
+
+// 数据库Grant
+type Grant struct {
+	// account
+	Account *DatabaseAccount `json:"account,omitempty" xml:"account,omitempty" require:"true"`
+	// privilege
+	Privilege *string `json:"privilege,omitempty" xml:"privilege,omitempty" require:"true"`
+	// schema
+	Schema *DbSchema `json:"schema,omitempty" xml:"schema,omitempty" require:"true"`
+}
+
+func (s Grant) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Grant) GoString() string {
+	return s.String()
+}
+
+func (s *Grant) SetAccount(v *DatabaseAccount) *Grant {
+	s.Account = v
+	return s
+}
+
+func (s *Grant) SetPrivilege(v string) *Grant {
+	s.Privilege = &v
+	return s
+}
+
+func (s *Grant) SetSchema(v *DbSchema) *Grant {
+	s.Schema = v
 	return s
 }
 
@@ -7478,921 +5842,261 @@ func (s *PackageUploadPolicy) SetBucket(v string) *PackageUploadPolicy {
 	return s
 }
 
-// 服务器规格
-type ComputerSpec struct {
-	// cpu个数
-	Cpu *int64 `json:"cpu,omitempty" xml:"cpu,omitempty"`
-	// 可以挂载的磁盘类型
-	DiskSpecIds []*string `json:"disk_spec_ids,omitempty" xml:"disk_spec_ids,omitempty" type:"Repeated"`
-	// 服务器规格名称
-	Group *string `json:"group,omitempty" xml:"group,omitempty" require:"true"`
-	// 是否有IO优化
-	IoOptimized *bool `json:"io_optimized,omitempty" xml:"io_optimized,omitempty"`
-	// 内存大小
-	Memory *int64 `json:"memory,omitempty" xml:"memory,omitempty"`
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// enable
-	Enable *bool `json:"enable,omitempty" xml:"enable,omitempty"`
-	// iaasId
-	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
-	// COMPUTER_ECS
-	IaasType *string `json:"iaas_type,omitempty" xml:"iaas_type,omitempty"`
+// TenantWorkspace
+type TenantWorkspace struct {
+	// displayName
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
+	// gmtCreate
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// gmtModified
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// providerId
-	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty"`
-}
-
-func (s ComputerSpec) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ComputerSpec) GoString() string {
-	return s.String()
-}
-
-func (s *ComputerSpec) SetCpu(v int64) *ComputerSpec {
-	s.Cpu = &v
-	return s
-}
-
-func (s *ComputerSpec) SetDiskSpecIds(v []*string) *ComputerSpec {
-	s.DiskSpecIds = v
-	return s
-}
-
-func (s *ComputerSpec) SetGroup(v string) *ComputerSpec {
-	s.Group = &v
-	return s
-}
-
-func (s *ComputerSpec) SetIoOptimized(v bool) *ComputerSpec {
-	s.IoOptimized = &v
-	return s
-}
-
-func (s *ComputerSpec) SetMemory(v int64) *ComputerSpec {
-	s.Memory = &v
-	return s
-}
-
-func (s *ComputerSpec) SetDescription(v string) *ComputerSpec {
-	s.Description = &v
-	return s
-}
-
-func (s *ComputerSpec) SetEnable(v bool) *ComputerSpec {
-	s.Enable = &v
-	return s
-}
-
-func (s *ComputerSpec) SetIaasId(v string) *ComputerSpec {
-	s.IaasId = &v
-	return s
-}
-
-func (s *ComputerSpec) SetIaasType(v string) *ComputerSpec {
-	s.IaasType = &v
-	return s
-}
-
-func (s *ComputerSpec) SetId(v string) *ComputerSpec {
-	s.Id = &v
-	return s
-}
-
-func (s *ComputerSpec) SetName(v string) *ComputerSpec {
-	s.Name = &v
-	return s
-}
-
-func (s *ComputerSpec) SetProviderId(v string) *ComputerSpec {
-	s.ProviderId = &v
-	return s
-}
-
-// ComputerParam
-type ComputerParam struct {
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// image_id
-	ImageId *string `json:"image_id,omitempty" xml:"image_id,omitempty"`
-	// instance_type
-	InstanceType *string `json:"instance_type,omitempty" xml:"instance_type,omitempty"`
-	// region_id
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
-	// security_group_id
-	SecurityGroupId *string `json:"security_group_id,omitempty" xml:"security_group_id,omitempty"`
-	// instance_name
-	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty"`
-	// zone_id
-	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
-}
-
-func (s ComputerParam) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ComputerParam) GoString() string {
-	return s.String()
-}
-
-func (s *ComputerParam) SetDescription(v string) *ComputerParam {
-	s.Description = &v
-	return s
-}
-
-func (s *ComputerParam) SetName(v string) *ComputerParam {
-	s.Name = &v
-	return s
-}
-
-func (s *ComputerParam) SetImageId(v string) *ComputerParam {
-	s.ImageId = &v
-	return s
-}
-
-func (s *ComputerParam) SetInstanceType(v string) *ComputerParam {
-	s.InstanceType = &v
-	return s
-}
-
-func (s *ComputerParam) SetRegionId(v string) *ComputerParam {
-	s.RegionId = &v
-	return s
-}
-
-func (s *ComputerParam) SetSecurityGroupId(v string) *ComputerParam {
-	s.SecurityGroupId = &v
-	return s
-}
-
-func (s *ComputerParam) SetInstanceName(v string) *ComputerParam {
-	s.InstanceName = &v
-	return s
-}
-
-func (s *ComputerParam) SetZoneId(v string) *ComputerParam {
-	s.ZoneId = &v
-	return s
-}
-
-// LB后端挂载的主机
-type MountComputer struct {
-	// computer
-	Computer *Computer `json:"computer,omitempty" xml:"computer,omitempty"`
-	// domain
-	Domain *string `json:"domain,omitempty" xml:"domain,omitempty"`
-	// loadbalancer
-	Loadbalancer *LoadBalancer `json:"loadbalancer,omitempty" xml:"loadbalancer,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// networkType
+	NetworkType *string `json:"network_type,omitempty" xml:"network_type,omitempty" require:"true"`
 	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// weight
-	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty" require:"true"`
-}
-
-func (s MountComputer) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MountComputer) GoString() string {
-	return s.String()
-}
-
-func (s *MountComputer) SetComputer(v *Computer) *MountComputer {
-	s.Computer = v
-	return s
-}
-
-func (s *MountComputer) SetDomain(v string) *MountComputer {
-	s.Domain = &v
-	return s
-}
-
-func (s *MountComputer) SetLoadbalancer(v *LoadBalancer) *MountComputer {
-	s.Loadbalancer = v
-	return s
-}
-
-func (s *MountComputer) SetStatus(v string) *MountComputer {
-	s.Status = &v
-	return s
-}
-
-func (s *MountComputer) SetWeight(v int64) *MountComputer {
-	s.Weight = &v
-	return s
-}
-
-// LB查询对应的VComputer
-type VComputer struct {
-	// v_computer_group
-	VComputerGroup *VComputerGroup `json:"v_computer_group,omitempty" xml:"v_computer_group,omitempty"`
-	// ip
-	Ip *string `json:"ip,omitempty" xml:"ip,omitempty"`
-	// computer
-	Computer *Computer `json:"computer,omitempty" xml:"computer,omitempty"`
-	// port
-	Port *int64 `json:"port,omitempty" xml:"port,omitempty"`
-	// weight
-	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
-}
-
-func (s VComputer) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VComputer) GoString() string {
-	return s.String()
-}
-
-func (s *VComputer) SetVComputerGroup(v *VComputerGroup) *VComputer {
-	s.VComputerGroup = v
-	return s
-}
-
-func (s *VComputer) SetIp(v string) *VComputer {
-	s.Ip = &v
-	return s
-}
-
-func (s *VComputer) SetComputer(v *Computer) *VComputer {
-	s.Computer = v
-	return s
-}
-
-func (s *VComputer) SetPort(v int64) *VComputer {
-	s.Port = &v
-	return s
-}
-
-func (s *VComputer) SetWeight(v int64) *VComputer {
-	s.Weight = &v
-	return s
-}
-
-// 专有网络
-type VPC struct {
-	// VPC的IPv4网段
-	CidrBlock *string `json:"cidr_block,omitempty" xml:"cidr_block,omitempty" require:"true"`
-	// VPC的创建时间
-	CreationTime *string `json:"creation_time,omitempty" xml:"creation_time,omitempty" require:"true"`
-	// VPC的描述信息
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// VPC所在的地域
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
-	// 路由表ID
-	RouterTableIds []*string `json:"router_table_ids,omitempty" xml:"router_table_ids,omitempty" require:"true" type:"Repeated"`
-	// VPC的状态，取值：
-	//
-	// Pending：配置中。
-	// Available：可用。
 	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 用户侧网段的列表
-	UserCidrs *string `json:"user_cidrs,omitempty" xml:"user_cidrs,omitempty"`
-	// VPC的id
-	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty" require:"true"`
-	// VPC的名称
-	VpcName *string `json:"vpc_name,omitempty" xml:"vpc_name,omitempty" require:"true"`
-	// VPC路由器的ID
-	VRouterId *string `json:"v_router_id,omitempty" xml:"v_router_id,omitempty" require:"true"`
-	// 关联的workspace id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-	// vpc是否已导入workspace
-	ImportInfo *ImportInfo `json:"import_info,omitempty" xml:"import_info,omitempty"`
+	// tenantId
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// type
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// workspaceDcs
+	WorkspaceDcs []*WorkspaceDc `json:"workspace_dcs,omitempty" xml:"workspace_dcs,omitempty" require:"true" type:"Repeated"`
+	// workspaceRegions
+	WorkspaceRegions []*WorkspaceRegion `json:"workspace_regions,omitempty" xml:"workspace_regions,omitempty" require:"true" type:"Repeated"`
 }
 
-func (s VPC) String() string {
+func (s TenantWorkspace) String() string {
 	return tea.Prettify(s)
 }
 
-func (s VPC) GoString() string {
+func (s TenantWorkspace) GoString() string {
 	return s.String()
 }
 
-func (s *VPC) SetCidrBlock(v string) *VPC {
-	s.CidrBlock = &v
+func (s *TenantWorkspace) SetDisplayName(v string) *TenantWorkspace {
+	s.DisplayName = &v
 	return s
 }
 
-func (s *VPC) SetCreationTime(v string) *VPC {
-	s.CreationTime = &v
+func (s *TenantWorkspace) SetGmtCreate(v string) *TenantWorkspace {
+	s.GmtCreate = &v
 	return s
 }
 
-func (s *VPC) SetDescription(v string) *VPC {
-	s.Description = &v
+func (s *TenantWorkspace) SetGmtModified(v string) *TenantWorkspace {
+	s.GmtModified = &v
 	return s
 }
 
-func (s *VPC) SetRegionId(v string) *VPC {
-	s.RegionId = &v
-	return s
-}
-
-func (s *VPC) SetRouterTableIds(v []*string) *VPC {
-	s.RouterTableIds = v
-	return s
-}
-
-func (s *VPC) SetStatus(v string) *VPC {
-	s.Status = &v
-	return s
-}
-
-func (s *VPC) SetUserCidrs(v string) *VPC {
-	s.UserCidrs = &v
-	return s
-}
-
-func (s *VPC) SetVpcId(v string) *VPC {
-	s.VpcId = &v
-	return s
-}
-
-func (s *VPC) SetVpcName(v string) *VPC {
-	s.VpcName = &v
-	return s
-}
-
-func (s *VPC) SetVRouterId(v string) *VPC {
-	s.VRouterId = &v
-	return s
-}
-
-func (s *VPC) SetWorkspaceId(v string) *VPC {
-	s.WorkspaceId = &v
-	return s
-}
-
-func (s *VPC) SetImportInfo(v *ImportInfo) *VPC {
-	s.ImportInfo = v
-	return s
-}
-
-// 工作空间
-type Workspace struct {
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 网络类型
-	NetworkType *string `json:"network_type,omitempty" xml:"network_type,omitempty"`
-	// 租户
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
-	// 可用区 id
-	ZoneIds *string `json:"zone_ids,omitempty" xml:"zone_ids,omitempty"`
-	// region id
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
-}
-
-func (s Workspace) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Workspace) GoString() string {
-	return s.String()
-}
-
-func (s *Workspace) SetId(v string) *Workspace {
+func (s *TenantWorkspace) SetId(v string) *TenantWorkspace {
 	s.Id = &v
 	return s
 }
 
-func (s *Workspace) SetName(v string) *Workspace {
+func (s *TenantWorkspace) SetName(v string) *TenantWorkspace {
 	s.Name = &v
 	return s
 }
 
-func (s *Workspace) SetNetworkType(v string) *Workspace {
+func (s *TenantWorkspace) SetNetworkType(v string) *TenantWorkspace {
 	s.NetworkType = &v
 	return s
 }
 
-func (s *Workspace) SetTenant(v string) *Workspace {
-	s.Tenant = &v
+func (s *TenantWorkspace) SetStatus(v string) *TenantWorkspace {
+	s.Status = &v
 	return s
 }
 
-func (s *Workspace) SetZoneIds(v string) *Workspace {
-	s.ZoneIds = &v
-	return s
-}
-
-func (s *Workspace) SetRegionId(v string) *Workspace {
-	s.RegionId = &v
-	return s
-}
-
-// SecurityGroupParam
-type SecurityGroupParam struct {
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// region id
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
-	// security_group_name
-	SecurityGroupName *string `json:"security_group_name,omitempty" xml:"security_group_name,omitempty"`
-	// vpc_id
-	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty"`
-}
-
-func (s SecurityGroupParam) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SecurityGroupParam) GoString() string {
-	return s.String()
-}
-
-func (s *SecurityGroupParam) SetDescription(v string) *SecurityGroupParam {
-	s.Description = &v
-	return s
-}
-
-func (s *SecurityGroupParam) SetRegionId(v string) *SecurityGroupParam {
-	s.RegionId = &v
-	return s
-}
-
-func (s *SecurityGroupParam) SetSecurityGroupName(v string) *SecurityGroupParam {
-	s.SecurityGroupName = &v
-	return s
-}
-
-func (s *SecurityGroupParam) SetVpcId(v string) *SecurityGroupParam {
-	s.VpcId = &v
-	return s
-}
-
-// 用户查询
-type UserQuery struct {
-	// 基础查询
-	BaseQuery *PaginationQuery `json:"base_query,omitempty" xml:"base_query,omitempty"`
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// customerId
-	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
-	// tenantId
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// type
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// types
-	Types []*string `json:"types,omitempty" xml:"types,omitempty" type:"Repeated"`
-	// email
-	Email *string `json:"email,omitempty" xml:"email,omitempty"`
-	// mobile
-	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
-	// realName
-	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty"`
-	// loginName
-	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
-}
-
-func (s UserQuery) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UserQuery) GoString() string {
-	return s.String()
-}
-
-func (s *UserQuery) SetBaseQuery(v *PaginationQuery) *UserQuery {
-	s.BaseQuery = v
-	return s
-}
-
-func (s *UserQuery) SetId(v string) *UserQuery {
-	s.Id = &v
-	return s
-}
-
-func (s *UserQuery) SetCustomerId(v string) *UserQuery {
-	s.CustomerId = &v
-	return s
-}
-
-func (s *UserQuery) SetTenantId(v string) *UserQuery {
+func (s *TenantWorkspace) SetTenantId(v string) *TenantWorkspace {
 	s.TenantId = &v
 	return s
 }
 
-func (s *UserQuery) SetType(v string) *UserQuery {
+func (s *TenantWorkspace) SetType(v string) *TenantWorkspace {
 	s.Type = &v
 	return s
 }
 
-func (s *UserQuery) SetTypes(v []*string) *UserQuery {
-	s.Types = v
+func (s *TenantWorkspace) SetWorkspaceDcs(v []*WorkspaceDc) *TenantWorkspace {
+	s.WorkspaceDcs = v
 	return s
 }
 
-func (s *UserQuery) SetEmail(v string) *UserQuery {
-	s.Email = &v
+func (s *TenantWorkspace) SetWorkspaceRegions(v []*WorkspaceRegion) *TenantWorkspace {
+	s.WorkspaceRegions = v
 	return s
 }
 
-func (s *UserQuery) SetMobile(v string) *UserQuery {
-	s.Mobile = &v
-	return s
+// 应用分组视图
+type AppDomainView struct {
+	// ownerName
+	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
+	// fatherDomainName
+	FatherDomainName *string `json:"father_domain_name,omitempty" xml:"father_domain_name,omitempty"`
+	// 应用列表
+	Apps []*AppView `json:"apps,omitempty" xml:"apps,omitempty" type:"Repeated"`
+	// AppDomainView 的父类 AppDomain
+	BaseAppDomain []*AppDomain `json:"base_app_domain,omitempty" xml:"base_app_domain,omitempty" type:"Repeated"`
 }
 
-func (s *UserQuery) SetRealName(v string) *UserQuery {
-	s.RealName = &v
-	return s
-}
-
-func (s *UserQuery) SetLoginName(v string) *UserQuery {
-	s.LoginName = &v
-	return s
-}
-
-// DatabaseImportVO
-type DatabaseImportVO struct {
-	// iaas_id
-	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// type
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// engine
-	Engine *string `json:"engine,omitempty" xml:"engine,omitempty"`
-	// net_type
-	NetType *string `json:"net_type,omitempty" xml:"net_type,omitempty"`
-	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// importInfo
-	ImportInfo *ImportVO `json:"import_info,omitempty" xml:"import_info,omitempty" require:"true"`
-}
-
-func (s DatabaseImportVO) String() string {
+func (s AppDomainView) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DatabaseImportVO) GoString() string {
+func (s AppDomainView) GoString() string {
 	return s.String()
 }
 
-func (s *DatabaseImportVO) SetIaasId(v string) *DatabaseImportVO {
-	s.IaasId = &v
+func (s *AppDomainView) SetOwnerName(v string) *AppDomainView {
+	s.OwnerName = &v
 	return s
 }
 
-func (s *DatabaseImportVO) SetDescription(v string) *DatabaseImportVO {
+func (s *AppDomainView) SetFatherDomainName(v string) *AppDomainView {
+	s.FatherDomainName = &v
+	return s
+}
+
+func (s *AppDomainView) SetApps(v []*AppView) *AppDomainView {
+	s.Apps = v
+	return s
+}
+
+func (s *AppDomainView) SetBaseAppDomain(v []*AppDomain) *AppDomainView {
+	s.BaseAppDomain = v
+	return s
+}
+
+// computer quota
+type ComputerQuota struct {
+	// cpu shared
+	CpuShared *int64 `json:"cpu_shared,omitempty" xml:"cpu_shared,omitempty"`
+	// cpu
+	Cpu *int64 `json:"cpu,omitempty" xml:"cpu,omitempty"`
+	// memory
+	Memory *int64 `json:"memory,omitempty" xml:"memory,omitempty"`
+	// disk
+	Disk *int64 `json:"disk,omitempty" xml:"disk,omitempty"`
+}
+
+func (s ComputerQuota) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ComputerQuota) GoString() string {
+	return s.String()
+}
+
+func (s *ComputerQuota) SetCpuShared(v int64) *ComputerQuota {
+	s.CpuShared = &v
+	return s
+}
+
+func (s *ComputerQuota) SetCpu(v int64) *ComputerQuota {
+	s.Cpu = &v
+	return s
+}
+
+func (s *ComputerQuota) SetMemory(v int64) *ComputerQuota {
+	s.Memory = &v
+	return s
+}
+
+func (s *ComputerQuota) SetDisk(v int64) *ComputerQuota {
+	s.Disk = &v
+	return s
+}
+
+// RegionDto
+type RegionDto struct {
+	// availableNetworkTypes
+	AvailableNetworkTypes []*string `json:"available_network_types,omitempty" xml:"available_network_types,omitempty" require:"true" type:"Repeated"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// displayName
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
+	// iaasProviderId
+	IaasProviderId *string `json:"iaas_provider_id,omitempty" xml:"iaas_provider_id,omitempty" require:"true"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// identity
+	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
+	// networkType
+	NetworkType *string `json:"network_type,omitempty" xml:"network_type,omitempty" require:"true"`
+	// state
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// utcCreate
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// utcModified
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// zoneDtos
+	ZoneDtos []*ZoneDto `json:"zone_dtos,omitempty" xml:"zone_dtos,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s RegionDto) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegionDto) GoString() string {
+	return s.String()
+}
+
+func (s *RegionDto) SetAvailableNetworkTypes(v []*string) *RegionDto {
+	s.AvailableNetworkTypes = v
+	return s
+}
+
+func (s *RegionDto) SetDescription(v string) *RegionDto {
 	s.Description = &v
 	return s
 }
 
-func (s *DatabaseImportVO) SetType(v string) *DatabaseImportVO {
-	s.Type = &v
+func (s *RegionDto) SetDisplayName(v string) *RegionDto {
+	s.DisplayName = &v
 	return s
 }
 
-func (s *DatabaseImportVO) SetStatus(v string) *DatabaseImportVO {
-	s.Status = &v
+func (s *RegionDto) SetIaasProviderId(v string) *RegionDto {
+	s.IaasProviderId = &v
 	return s
 }
 
-func (s *DatabaseImportVO) SetEngine(v string) *DatabaseImportVO {
-	s.Engine = &v
+func (s *RegionDto) SetId(v string) *RegionDto {
+	s.Id = &v
 	return s
 }
 
-func (s *DatabaseImportVO) SetNetType(v string) *DatabaseImportVO {
-	s.NetType = &v
+func (s *RegionDto) SetIdentity(v string) *RegionDto {
+	s.Identity = &v
 	return s
 }
 
-func (s *DatabaseImportVO) SetUtcCreate(v string) *DatabaseImportVO {
+func (s *RegionDto) SetNetworkType(v string) *RegionDto {
+	s.NetworkType = &v
+	return s
+}
+
+func (s *RegionDto) SetState(v string) *RegionDto {
+	s.State = &v
+	return s
+}
+
+func (s *RegionDto) SetUtcCreate(v string) *RegionDto {
 	s.UtcCreate = &v
 	return s
 }
 
-func (s *DatabaseImportVO) SetImportInfo(v *ImportVO) *DatabaseImportVO {
-	s.ImportInfo = v
+func (s *RegionDto) SetUtcModified(v string) *RegionDto {
+	s.UtcModified = &v
 	return s
 }
 
-// 应用等级视图
-type AppLevelView struct {
-	// 应用等级基类
-	BaseAppLevel *AppLevel `json:"base_app_level,omitempty" xml:"base_app_level,omitempty"`
-	// 应用数量
-	AppCount *int64 `json:"app_count,omitempty" xml:"app_count,omitempty"`
-	// 创建者名称
-	CreatorName *string `json:"creator_name,omitempty" xml:"creator_name,omitempty"`
-}
-
-func (s AppLevelView) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppLevelView) GoString() string {
-	return s.String()
-}
-
-func (s *AppLevelView) SetBaseAppLevel(v *AppLevel) *AppLevelView {
-	s.BaseAppLevel = v
-	return s
-}
-
-func (s *AppLevelView) SetAppCount(v int64) *AppLevelView {
-	s.AppCount = &v
-	return s
-}
-
-func (s *AppLevelView) SetCreatorName(v string) *AppLevelView {
-	s.CreatorName = &v
-	return s
-}
-
-// 阿里云日志服务(SLS)-日志项目
-type SLSProject struct {
-	// 项目描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 项目名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-}
-
-func (s SLSProject) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SLSProject) GoString() string {
-	return s.String()
-}
-
-func (s *SLSProject) SetDescription(v string) *SLSProject {
-	s.Description = &v
-	return s
-}
-
-func (s *SLSProject) SetName(v string) *SLSProject {
-	s.Name = &v
-	return s
-}
-
-// Staragent Operation Task info
-type OperationTask struct {
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// computer id
-	ComputerId *string `json:"computer_id,omitempty" xml:"computer_id,omitempty"`
-	// computer ip
-	ComputerIp *string `json:"computer_ip,omitempty" xml:"computer_ip,omitempty"`
-	// command
-	Command *string `json:"command,omitempty" xml:"command,omitempty"`
-	// 状态取值：INIT，PROCESSING，SUCCEEDED，FAILED，TIMEOUT，NOT_FOUND
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// errorCode
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// resultMsg
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s OperationTask) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OperationTask) GoString() string {
-	return s.String()
-}
-
-func (s *OperationTask) SetId(v string) *OperationTask {
-	s.Id = &v
-	return s
-}
-
-func (s *OperationTask) SetComputerId(v string) *OperationTask {
-	s.ComputerId = &v
-	return s
-}
-
-func (s *OperationTask) SetComputerIp(v string) *OperationTask {
-	s.ComputerIp = &v
-	return s
-}
-
-func (s *OperationTask) SetCommand(v string) *OperationTask {
-	s.Command = &v
-	return s
-}
-
-func (s *OperationTask) SetStatus(v string) *OperationTask {
-	s.Status = &v
-	return s
-}
-
-func (s *OperationTask) SetErrorCode(v string) *OperationTask {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *OperationTask) SetResultMsg(v string) *OperationTask {
-	s.ResultMsg = &v
-	return s
-}
-
-// 应用服务查询
-type AppServiceQuery struct {
-	// 根据 id 查询
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// workspaceId
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-	// appId
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// deployStatus
-	DeployStatus *string `json:"deploy_status,omitempty" xml:"deploy_status,omitempty"`
-	// ownerId
-	OwnerId *string `json:"owner_id,omitempty" xml:"owner_id,omitempty"`
-	// workspaceIds
-	WorkspaceIds []*string `json:"workspace_ids,omitempty" xml:"workspace_ids,omitempty" type:"Repeated"`
-	// appIds
-	AppIds []*string `json:"app_ids,omitempty" xml:"app_ids,omitempty" type:"Repeated"`
-	// 是否为一方化查询请求
-	IsOnePartyRequest *bool `json:"is_one_party_request,omitempty" xml:"is_one_party_request,omitempty"`
-	// startIndex
-	StartIndex *int64 `json:"start_index,omitempty" xml:"start_index,omitempty"`
-	// pageSize
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
-	// currentPage
-	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
-	// orders
-	Orders []*string `json:"orders,omitempty" xml:"orders,omitempty" type:"Repeated"`
-	// 查询类型
-	QueryType *string `json:"query_type,omitempty" xml:"query_type,omitempty"`
-	// Map<String, String>
-	Conditions *string `json:"conditions,omitempty" xml:"conditions,omitempty"`
-}
-
-func (s AppServiceQuery) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppServiceQuery) GoString() string {
-	return s.String()
-}
-
-func (s *AppServiceQuery) SetId(v string) *AppServiceQuery {
-	s.Id = &v
-	return s
-}
-
-func (s *AppServiceQuery) SetWorkspaceId(v string) *AppServiceQuery {
-	s.WorkspaceId = &v
-	return s
-}
-
-func (s *AppServiceQuery) SetAppId(v string) *AppServiceQuery {
-	s.AppId = &v
-	return s
-}
-
-func (s *AppServiceQuery) SetName(v string) *AppServiceQuery {
-	s.Name = &v
-	return s
-}
-
-func (s *AppServiceQuery) SetDeployStatus(v string) *AppServiceQuery {
-	s.DeployStatus = &v
-	return s
-}
-
-func (s *AppServiceQuery) SetOwnerId(v string) *AppServiceQuery {
-	s.OwnerId = &v
-	return s
-}
-
-func (s *AppServiceQuery) SetWorkspaceIds(v []*string) *AppServiceQuery {
-	s.WorkspaceIds = v
-	return s
-}
-
-func (s *AppServiceQuery) SetAppIds(v []*string) *AppServiceQuery {
-	s.AppIds = v
-	return s
-}
-
-func (s *AppServiceQuery) SetIsOnePartyRequest(v bool) *AppServiceQuery {
-	s.IsOnePartyRequest = &v
-	return s
-}
-
-func (s *AppServiceQuery) SetStartIndex(v int64) *AppServiceQuery {
-	s.StartIndex = &v
-	return s
-}
-
-func (s *AppServiceQuery) SetPageSize(v int64) *AppServiceQuery {
-	s.PageSize = &v
-	return s
-}
-
-func (s *AppServiceQuery) SetCurrentPage(v int64) *AppServiceQuery {
-	s.CurrentPage = &v
-	return s
-}
-
-func (s *AppServiceQuery) SetOrders(v []*string) *AppServiceQuery {
-	s.Orders = v
-	return s
-}
-
-func (s *AppServiceQuery) SetQueryType(v string) *AppServiceQuery {
-	s.QueryType = &v
-	return s
-}
-
-func (s *AppServiceQuery) SetConditions(v string) *AppServiceQuery {
-	s.Conditions = &v
-	return s
-}
-
-// 云服务器规格族
-type ComputerTypeFamily struct {
-	// computer type family id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 实例规格族所属代数。
-	Generation *string `json:"generation,omitempty" xml:"generation,omitempty" require:"true"`
-}
-
-func (s ComputerTypeFamily) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ComputerTypeFamily) GoString() string {
-	return s.String()
-}
-
-func (s *ComputerTypeFamily) SetId(v string) *ComputerTypeFamily {
-	s.Id = &v
-	return s
-}
-
-func (s *ComputerTypeFamily) SetGeneration(v string) *ComputerTypeFamily {
-	s.Generation = &v
-	return s
-}
-
-// DatabaseSecurityIp
-type DatabaseSecurityIp struct {
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// resource_id
-	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty"`
-	// resource_type
-	ResourceType *string `json:"resource_type,omitempty" xml:"resource_type,omitempty"`
-	// ip
-	Ip *string `json:"ip,omitempty" xml:"ip,omitempty"`
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// type
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-}
-
-func (s DatabaseSecurityIp) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DatabaseSecurityIp) GoString() string {
-	return s.String()
-}
-
-func (s *DatabaseSecurityIp) SetId(v string) *DatabaseSecurityIp {
-	s.Id = &v
-	return s
-}
-
-func (s *DatabaseSecurityIp) SetResourceId(v string) *DatabaseSecurityIp {
-	s.ResourceId = &v
-	return s
-}
-
-func (s *DatabaseSecurityIp) SetResourceType(v string) *DatabaseSecurityIp {
-	s.ResourceType = &v
-	return s
-}
-
-func (s *DatabaseSecurityIp) SetIp(v string) *DatabaseSecurityIp {
-	s.Ip = &v
-	return s
-}
-
-func (s *DatabaseSecurityIp) SetStatus(v string) *DatabaseSecurityIp {
-	s.Status = &v
-	return s
-}
-
-func (s *DatabaseSecurityIp) SetType(v string) *DatabaseSecurityIp {
-	s.Type = &v
+func (s *RegionDto) SetZoneDtos(v []*ZoneDto) *RegionDto {
+	s.ZoneDtos = v
 	return s
 }
 
@@ -8553,954 +6257,704 @@ func (s *RegionWorkspaceVO) SetWorkspaces(v []*WorkspaceWithGroupView) *RegionWo
 	return s
 }
 
-// 数据库Grant
-type Grant struct {
-	// account
-	Account *DatabaseAccount `json:"account,omitempty" xml:"account,omitempty" require:"true"`
-	// privilege
-	Privilege *string `json:"privilege,omitempty" xml:"privilege,omitempty" require:"true"`
-	// schema
-	Schema *DbSchema `json:"schema,omitempty" xml:"schema,omitempty" require:"true"`
+// 任务日志
+type ResourceLog struct {
+	// host
+	Host *string `json:"host,omitempty" xml:"host,omitempty"`
+	// log_time
+	LogTime *string `json:"log_time,omitempty" xml:"log_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// message
+	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+	// resource_id
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty"`
+	// resource_type
+	ResourceType *string `json:"resource_type,omitempty" xml:"resource_type,omitempty"`
+	// severity
+	Severity *string `json:"severity,omitempty" xml:"severity,omitempty"`
+	// source
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
+	// task_id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// task_times
+	TaskTimes *int64 `json:"task_times,omitempty" xml:"task_times,omitempty" require:"true"`
+	// type
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// iaas_error_info
+	IaasErrorInfo *IaasErrorInfo `json:"iaas_error_info,omitempty" xml:"iaas_error_info,omitempty"`
+	// iaas_request
+	IaasRequest *IaasRequest `json:"iaas_request,omitempty" xml:"iaas_request,omitempty"`
+	// iaas_response
+	IaasResponse *IaasResponse `json:"iaas_response,omitempty" xml:"iaas_response,omitempty"`
 }
 
-func (s Grant) String() string {
+func (s ResourceLog) String() string {
 	return tea.Prettify(s)
 }
 
-func (s Grant) GoString() string {
+func (s ResourceLog) GoString() string {
 	return s.String()
 }
 
-func (s *Grant) SetAccount(v *DatabaseAccount) *Grant {
-	s.Account = v
+func (s *ResourceLog) SetHost(v string) *ResourceLog {
+	s.Host = &v
 	return s
 }
 
-func (s *Grant) SetPrivilege(v string) *Grant {
-	s.Privilege = &v
-	return s
-}
-
-func (s *Grant) SetSchema(v *DbSchema) *Grant {
-	s.Schema = v
-	return s
-}
-
-// DatabaseEngine
-type DatabaseEngine struct {
-	// iaas_type
-	IaasType *string `json:"iaas_type,omitempty" xml:"iaas_type,omitempty"`
-	// engine
-	Engine *string `json:"engine,omitempty" xml:"engine,omitempty"`
-	// engine_versions
-	EngineVersions []*string `json:"engine_versions,omitempty" xml:"engine_versions,omitempty" type:"Repeated"`
-}
-
-func (s DatabaseEngine) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DatabaseEngine) GoString() string {
-	return s.String()
-}
-
-func (s *DatabaseEngine) SetIaasType(v string) *DatabaseEngine {
-	s.IaasType = &v
-	return s
-}
-
-func (s *DatabaseEngine) SetEngine(v string) *DatabaseEngine {
-	s.Engine = &v
-	return s
-}
-
-func (s *DatabaseEngine) SetEngineVersions(v []*string) *DatabaseEngine {
-	s.EngineVersions = v
-	return s
-}
-
-// CellGroup
-type CellGroup struct {
-	// identity
-	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// properties
-	Properties []*Property `json:"properties,omitempty" xml:"properties,omitempty" type:"Repeated"`
-	// instancestatus
-	Instancestatus *string `json:"instancestatus,omitempty" xml:"instancestatus,omitempty" require:"true"`
-}
-
-func (s CellGroup) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CellGroup) GoString() string {
-	return s.String()
-}
-
-func (s *CellGroup) SetIdentity(v string) *CellGroup {
-	s.Identity = &v
-	return s
-}
-
-func (s *CellGroup) SetName(v string) *CellGroup {
-	s.Name = &v
-	return s
-}
-
-func (s *CellGroup) SetDescription(v string) *CellGroup {
-	s.Description = &v
-	return s
-}
-
-func (s *CellGroup) SetProperties(v []*Property) *CellGroup {
-	s.Properties = v
-	return s
-}
-
-func (s *CellGroup) SetInstancestatus(v string) *CellGroup {
-	s.Instancestatus = &v
-	return s
-}
-
-// VSwitchParam
-type VSwitchParam struct {
-	// cidr_block
-	CidrBlock *string `json:"cidr_block,omitempty" xml:"cidr_block,omitempty"`
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// region_id
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
-	// vpc_id
-	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty"`
-	// vswitch_name
-	VswitchName *string `json:"vswitch_name,omitempty" xml:"vswitch_name,omitempty"`
-	// zone_id
-	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
-}
-
-func (s VSwitchParam) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VSwitchParam) GoString() string {
-	return s.String()
-}
-
-func (s *VSwitchParam) SetCidrBlock(v string) *VSwitchParam {
-	s.CidrBlock = &v
-	return s
-}
-
-func (s *VSwitchParam) SetDescription(v string) *VSwitchParam {
-	s.Description = &v
-	return s
-}
-
-func (s *VSwitchParam) SetRegionId(v string) *VSwitchParam {
-	s.RegionId = &v
-	return s
-}
-
-func (s *VSwitchParam) SetVpcId(v string) *VSwitchParam {
-	s.VpcId = &v
-	return s
-}
-
-func (s *VSwitchParam) SetVswitchName(v string) *VSwitchParam {
-	s.VswitchName = &v
-	return s
-}
-
-func (s *VSwitchParam) SetZoneId(v string) *VSwitchParam {
-	s.ZoneId = &v
-	return s
-}
-
-// 应用分级查询
-type AppLevelQuery struct {
-	// appCountInclude
-	AppCountInclude *bool `json:"app_count_include,omitempty" xml:"app_count_include,omitempty"`
-	// creator_id
-	CreatorId *string `json:"creator_id,omitempty" xml:"creator_id,omitempty"`
-	// is_one_party_request
-	IsOnePartyRequest *bool `json:"is_one_party_request,omitempty" xml:"is_one_party_request,omitempty"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// tenant_id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 当前页数
-	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
-	// orders
-	Orders []*string `json:"orders,omitempty" xml:"orders,omitempty" type:"Repeated"`
-	// 分页大小
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
-	// query_type
-	QueryType *string `json:"query_type,omitempty" xml:"query_type,omitempty"`
-}
-
-func (s AppLevelQuery) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppLevelQuery) GoString() string {
-	return s.String()
-}
-
-func (s *AppLevelQuery) SetAppCountInclude(v bool) *AppLevelQuery {
-	s.AppCountInclude = &v
-	return s
-}
-
-func (s *AppLevelQuery) SetCreatorId(v string) *AppLevelQuery {
-	s.CreatorId = &v
-	return s
-}
-
-func (s *AppLevelQuery) SetIsOnePartyRequest(v bool) *AppLevelQuery {
-	s.IsOnePartyRequest = &v
-	return s
-}
-
-func (s *AppLevelQuery) SetName(v string) *AppLevelQuery {
-	s.Name = &v
-	return s
-}
-
-func (s *AppLevelQuery) SetTenantId(v string) *AppLevelQuery {
-	s.TenantId = &v
-	return s
-}
-
-func (s *AppLevelQuery) SetUtcCreate(v string) *AppLevelQuery {
-	s.UtcCreate = &v
-	return s
-}
-
-func (s *AppLevelQuery) SetCurrentPage(v int64) *AppLevelQuery {
-	s.CurrentPage = &v
-	return s
-}
-
-func (s *AppLevelQuery) SetOrders(v []*string) *AppLevelQuery {
-	s.Orders = v
-	return s
-}
-
-func (s *AppLevelQuery) SetPageSize(v int64) *AppLevelQuery {
-	s.PageSize = &v
-	return s
-}
-
-func (s *AppLevelQuery) SetQueryType(v string) *AppLevelQuery {
-	s.QueryType = &v
-	return s
-}
-
-// 阿里云日志服务(SLS) - 日志结果数组
-type SLSLogItem struct {
-	// 日志的时间戳（精度为秒，从 1970-1-1 00:00:00 UTC 计算起的秒数）。
-	LogTime *int64 `json:"log_time,omitempty" xml:"log_time,omitempty" require:"true"`
-	// 日志的来源，写入日志时指定。
-	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
-	// 日志原始内容
-	Contents []*SLSLogContent `json:"contents,omitempty" xml:"contents,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s SLSLogItem) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SLSLogItem) GoString() string {
-	return s.String()
-}
-
-func (s *SLSLogItem) SetLogTime(v int64) *SLSLogItem {
+func (s *ResourceLog) SetLogTime(v string) *ResourceLog {
 	s.LogTime = &v
 	return s
 }
 
-func (s *SLSLogItem) SetSource(v string) *SLSLogItem {
+func (s *ResourceLog) SetMessage(v string) *ResourceLog {
+	s.Message = &v
+	return s
+}
+
+func (s *ResourceLog) SetResourceId(v string) *ResourceLog {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *ResourceLog) SetResourceType(v string) *ResourceLog {
+	s.ResourceType = &v
+	return s
+}
+
+func (s *ResourceLog) SetSeverity(v string) *ResourceLog {
+	s.Severity = &v
+	return s
+}
+
+func (s *ResourceLog) SetSource(v string) *ResourceLog {
 	s.Source = &v
 	return s
 }
 
-func (s *SLSLogItem) SetContents(v []*SLSLogContent) *SLSLogItem {
-	s.Contents = v
+func (s *ResourceLog) SetTaskId(v string) *ResourceLog {
+	s.TaskId = &v
 	return s
 }
 
-// ComputerType
-type ComputerType struct {
-	// cpu core count
-	CpuCoreCount *int64 `json:"cpu_core_count,omitempty" xml:"cpu_core_count,omitempty"`
-	// instance type id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 实例规格族
-	InstanceTypeFamily *string `json:"instance_type_family,omitempty" xml:"instance_type_family,omitempty"`
-	// memory size
-	MemorySize *int64 `json:"memory_size,omitempty" xml:"memory_size,omitempty"`
-	// 实例状态，可能值： Available：资源充足 Sold...
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-}
-
-func (s ComputerType) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ComputerType) GoString() string {
-	return s.String()
-}
-
-func (s *ComputerType) SetCpuCoreCount(v int64) *ComputerType {
-	s.CpuCoreCount = &v
-	return s
-}
-
-func (s *ComputerType) SetId(v string) *ComputerType {
-	s.Id = &v
-	return s
-}
-
-func (s *ComputerType) SetInstanceTypeFamily(v string) *ComputerType {
-	s.InstanceTypeFamily = &v
-	return s
-}
-
-func (s *ComputerType) SetMemorySize(v int64) *ComputerType {
-	s.MemorySize = &v
-	return s
-}
-
-func (s *ComputerType) SetStatus(v string) *ComputerType {
-	s.Status = &v
-	return s
-}
-
-// 路由表信息
-type RouteTable struct {
-	// 路由表的创建时间。
-	CreationTime *string `json:"creation_time,omitempty" xml:"creation_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 路由表所属的路由器类型，取值：
-	//
-	// VRouter：VPC路由器。
-	// VBR：边界路由器。
-	RouterType *string `json:"router_type,omitempty" xml:"router_type,omitempty"`
-	//
-	// 路由条目的详细信息。
-	EntryVOs []*VRouteEntry `json:"entry_v_os,omitempty" xml:"entry_v_os,omitempty" type:"Repeated"`
-	// 要查询的路由表的ID。
-	RouteTableId *string `json:"route_table_id,omitempty" xml:"route_table_id,omitempty"`
-	// 要查询的路由表所属的VPC路由器的ID。
-	VRouterId *string `json:"v_router_id,omitempty" xml:"v_router_id,omitempty"`
-}
-
-func (s RouteTable) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RouteTable) GoString() string {
-	return s.String()
-}
-
-func (s *RouteTable) SetCreationTime(v string) *RouteTable {
-	s.CreationTime = &v
-	return s
-}
-
-func (s *RouteTable) SetRouterType(v string) *RouteTable {
-	s.RouterType = &v
-	return s
-}
-
-func (s *RouteTable) SetEntryVOs(v []*VRouteEntry) *RouteTable {
-	s.EntryVOs = v
-	return s
-}
-
-func (s *RouteTable) SetRouteTableId(v string) *RouteTable {
-	s.RouteTableId = &v
-	return s
-}
-
-func (s *RouteTable) SetVRouterId(v string) *RouteTable {
-	s.VRouterId = &v
-	return s
-}
-
-// 交换机详细信息
-type VSwitch struct {
-	// 交换机的IPv4网段
-	CidrBlock *string `json:"cidr_block,omitempty" xml:"cidr_block,omitempty"`
-	// 交换机的创建时间
-	CreationTime *string `json:"creation_time,omitempty" xml:"creation_time,omitempty"`
-	// 交换机的描述信息
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// cn-hangzhou
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
-	// 交换机的状态，取值：
-	//
-	// Pending：配置中。
-	// Available：可用。
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 交换机所属VPC的ID
-	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty"`
-	// 交换机的ID
-	VSwitchId *string `json:"v_switch_id,omitempty" xml:"v_switch_id,omitempty"`
-	// 交换机的名称
-	VSwitchName *string `json:"v_switch_name,omitempty" xml:"v_switch_name,omitempty"`
-	// 交换机所属的可用区
-	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
-	// zone iaas id
-	ZoneIaasId *string `json:"zone_iaas_id,omitempty" xml:"zone_iaas_id,omitempty"`
-}
-
-func (s VSwitch) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VSwitch) GoString() string {
-	return s.String()
-}
-
-func (s *VSwitch) SetCidrBlock(v string) *VSwitch {
-	s.CidrBlock = &v
-	return s
-}
-
-func (s *VSwitch) SetCreationTime(v string) *VSwitch {
-	s.CreationTime = &v
-	return s
-}
-
-func (s *VSwitch) SetDescription(v string) *VSwitch {
-	s.Description = &v
-	return s
-}
-
-func (s *VSwitch) SetRegionId(v string) *VSwitch {
-	s.RegionId = &v
-	return s
-}
-
-func (s *VSwitch) SetStatus(v string) *VSwitch {
-	s.Status = &v
-	return s
-}
-
-func (s *VSwitch) SetVpcId(v string) *VSwitch {
-	s.VpcId = &v
-	return s
-}
-
-func (s *VSwitch) SetVSwitchId(v string) *VSwitch {
-	s.VSwitchId = &v
-	return s
-}
-
-func (s *VSwitch) SetVSwitchName(v string) *VSwitch {
-	s.VSwitchName = &v
-	return s
-}
-
-func (s *VSwitch) SetZoneId(v string) *VSwitch {
-	s.ZoneId = &v
-	return s
-}
-
-func (s *VSwitch) SetZoneIaasId(v string) *VSwitch {
-	s.ZoneIaasId = &v
-	return s
-}
-
-// 一个应用发布包视图
-type AppPackageListView struct {
-	// app_id
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
-	// app_name
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
-	// app_owner_id
-	AppOwnerId *string `json:"app_owner_id,omitempty" xml:"app_owner_id,omitempty"`
-	// app_owner_name
-	AppOwnerName *string `json:"app_owner_name,omitempty" xml:"app_owner_name,omitempty"`
-	// app_status
-	AppStatus *string `json:"app_status,omitempty" xml:"app_status,omitempty"`
-	// buildpack_id
-	BuildpackId *string `json:"buildpack_id,omitempty" xml:"buildpack_id,omitempty"`
-	// buildpack_name
-	BuildpackName *string `json:"buildpack_name,omitempty" xml:"buildpack_name,omitempty"`
-	// buildpack_version
-	BuildpackVersion *string `json:"buildpack_version,omitempty" xml:"buildpack_version,omitempty"`
-	// latest_package
-	LatestPackage *AppManifest `json:"latest_package,omitempty" xml:"latest_package,omitempty"`
-	// package_count
-	PackageCount *int64 `json:"package_count,omitempty" xml:"package_count,omitempty"`
-}
-
-func (s AppPackageListView) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppPackageListView) GoString() string {
-	return s.String()
-}
-
-func (s *AppPackageListView) SetAppId(v string) *AppPackageListView {
-	s.AppId = &v
-	return s
-}
-
-func (s *AppPackageListView) SetAppName(v string) *AppPackageListView {
-	s.AppName = &v
-	return s
-}
-
-func (s *AppPackageListView) SetAppOwnerId(v string) *AppPackageListView {
-	s.AppOwnerId = &v
-	return s
-}
-
-func (s *AppPackageListView) SetAppOwnerName(v string) *AppPackageListView {
-	s.AppOwnerName = &v
-	return s
-}
-
-func (s *AppPackageListView) SetAppStatus(v string) *AppPackageListView {
-	s.AppStatus = &v
-	return s
-}
-
-func (s *AppPackageListView) SetBuildpackId(v string) *AppPackageListView {
-	s.BuildpackId = &v
-	return s
-}
-
-func (s *AppPackageListView) SetBuildpackName(v string) *AppPackageListView {
-	s.BuildpackName = &v
-	return s
-}
-
-func (s *AppPackageListView) SetBuildpackVersion(v string) *AppPackageListView {
-	s.BuildpackVersion = &v
-	return s
-}
-
-func (s *AppPackageListView) SetLatestPackage(v *AppManifest) *AppPackageListView {
-	s.LatestPackage = v
-	return s
-}
-
-func (s *AppPackageListView) SetPackageCount(v int64) *AppPackageListView {
-	s.PackageCount = &v
-	return s
-}
-
-// LbCluster
-type LbCluster struct {
-	// container_cpu
-	ContainerCpu *int64 `json:"container_cpu,omitempty" xml:"container_cpu,omitempty"`
-	// container_cpu_exclusive
-	ContainerCpuExclusive *bool `json:"container_cpu_exclusive,omitempty" xml:"container_cpu_exclusive,omitempty"`
-	// container_device_type
-	ContainerDeviceType *string `json:"container_device_type,omitempty" xml:"container_device_type,omitempty"`
-	// container_disk
-	ContainerDisk *int64 `json:"container_disk,omitempty" xml:"container_disk,omitempty"`
-	// container_mem
-	ContainerMem *int64 `json:"container_mem,omitempty" xml:"container_mem,omitempty"`
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// image
-	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// status
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// unit_infos
-	UnitInfos []*AcsClusterUnit `json:"unit_infos,omitempty" xml:"unit_infos,omitempty" type:"Repeated"`
-	// unit_type
-	UnitType *int64 `json:"unit_type,omitempty" xml:"unit_type,omitempty"`
-	// used_ports
-	UsedPorts []*int64 `json:"used_ports,omitempty" xml:"used_ports,omitempty" type:"Repeated"`
-}
-
-func (s LbCluster) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LbCluster) GoString() string {
-	return s.String()
-}
-
-func (s *LbCluster) SetContainerCpu(v int64) *LbCluster {
-	s.ContainerCpu = &v
-	return s
-}
-
-func (s *LbCluster) SetContainerCpuExclusive(v bool) *LbCluster {
-	s.ContainerCpuExclusive = &v
-	return s
-}
-
-func (s *LbCluster) SetContainerDeviceType(v string) *LbCluster {
-	s.ContainerDeviceType = &v
-	return s
-}
-
-func (s *LbCluster) SetContainerDisk(v int64) *LbCluster {
-	s.ContainerDisk = &v
-	return s
-}
-
-func (s *LbCluster) SetContainerMem(v int64) *LbCluster {
-	s.ContainerMem = &v
-	return s
-}
-
-func (s *LbCluster) SetId(v string) *LbCluster {
-	s.Id = &v
-	return s
-}
-
-func (s *LbCluster) SetImage(v string) *LbCluster {
-	s.Image = &v
-	return s
-}
-
-func (s *LbCluster) SetName(v string) *LbCluster {
-	s.Name = &v
-	return s
-}
-
-func (s *LbCluster) SetStatus(v int64) *LbCluster {
-	s.Status = &v
-	return s
-}
-
-func (s *LbCluster) SetUnitInfos(v []*AcsClusterUnit) *LbCluster {
-	s.UnitInfos = v
-	return s
-}
-
-func (s *LbCluster) SetUnitType(v int64) *LbCluster {
-	s.UnitType = &v
-	return s
-}
-
-func (s *LbCluster) SetUsedPorts(v []*int64) *LbCluster {
-	s.UsedPorts = v
-	return s
-}
-
-// 动态查询
-type DynamicQuery struct {
-	// 分页规则-currentPage
-	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
-	// 字段过滤
-	Filter *string `json:"filter,omitempty" xml:"filter,omitempty"`
-	// 分页规则-pageSize
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
-	// 具体的查询条件字符串
-	Query *string `json:"query,omitempty" xml:"query,omitempty" require:"true"`
-	// 查询结果的排序规则
-	Sort *string `json:"sort,omitempty" xml:"sort,omitempty"`
-}
-
-func (s DynamicQuery) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DynamicQuery) GoString() string {
-	return s.String()
-}
-
-func (s *DynamicQuery) SetCurrentPage(v int64) *DynamicQuery {
-	s.CurrentPage = &v
-	return s
-}
-
-func (s *DynamicQuery) SetFilter(v string) *DynamicQuery {
-	s.Filter = &v
-	return s
-}
-
-func (s *DynamicQuery) SetPageSize(v int64) *DynamicQuery {
-	s.PageSize = &v
-	return s
-}
-
-func (s *DynamicQuery) SetQuery(v string) *DynamicQuery {
-	s.Query = &v
-	return s
-}
-
-func (s *DynamicQuery) SetSort(v string) *DynamicQuery {
-	s.Sort = &v
-	return s
-}
-
-// RegionDto
-type RegionDto struct {
-	// availableNetworkTypes
-	AvailableNetworkTypes []*string `json:"available_network_types,omitempty" xml:"available_network_types,omitempty" require:"true" type:"Repeated"`
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-	// displayName
-	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
-	// iaasProviderId
-	IaasProviderId *string `json:"iaas_provider_id,omitempty" xml:"iaas_provider_id,omitempty" require:"true"`
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// identity
-	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
-	// networkType
-	NetworkType *string `json:"network_type,omitempty" xml:"network_type,omitempty" require:"true"`
-	// state
-	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
-	// utcCreate
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// utcModified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// zoneDtos
-	ZoneDtos []*ZoneDto `json:"zone_dtos,omitempty" xml:"zone_dtos,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s RegionDto) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RegionDto) GoString() string {
-	return s.String()
-}
-
-func (s *RegionDto) SetAvailableNetworkTypes(v []*string) *RegionDto {
-	s.AvailableNetworkTypes = v
-	return s
-}
-
-func (s *RegionDto) SetDescription(v string) *RegionDto {
-	s.Description = &v
-	return s
-}
-
-func (s *RegionDto) SetDisplayName(v string) *RegionDto {
-	s.DisplayName = &v
-	return s
-}
-
-func (s *RegionDto) SetIaasProviderId(v string) *RegionDto {
-	s.IaasProviderId = &v
-	return s
-}
-
-func (s *RegionDto) SetId(v string) *RegionDto {
-	s.Id = &v
-	return s
-}
-
-func (s *RegionDto) SetIdentity(v string) *RegionDto {
-	s.Identity = &v
-	return s
-}
-
-func (s *RegionDto) SetNetworkType(v string) *RegionDto {
-	s.NetworkType = &v
-	return s
-}
-
-func (s *RegionDto) SetState(v string) *RegionDto {
-	s.State = &v
-	return s
-}
-
-func (s *RegionDto) SetUtcCreate(v string) *RegionDto {
-	s.UtcCreate = &v
-	return s
-}
-
-func (s *RegionDto) SetUtcModified(v string) *RegionDto {
-	s.UtcModified = &v
-	return s
-}
-
-func (s *RegionDto) SetZoneDtos(v []*ZoneDto) *RegionDto {
-	s.ZoneDtos = v
-	return s
-}
-
-// ListenerSecurityIp
-type ListenerSecurityIp struct {
-	// access_control
-	AccessControl *bool `json:"access_control,omitempty" xml:"access_control,omitempty" require:"true"`
-	// ips
-	Ips []*string `json:"ips,omitempty" xml:"ips,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s ListenerSecurityIp) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ListenerSecurityIp) GoString() string {
-	return s.String()
-}
-
-func (s *ListenerSecurityIp) SetAccessControl(v bool) *ListenerSecurityIp {
-	s.AccessControl = &v
-	return s
-}
-
-func (s *ListenerSecurityIp) SetIps(v []*string) *ListenerSecurityIp {
-	s.Ips = v
-	return s
-}
-
-// TenantWorkspace
-type TenantWorkspace struct {
-	// displayName
-	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
-	// gmtCreate
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// gmtModified
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// networkType
-	NetworkType *string `json:"network_type,omitempty" xml:"network_type,omitempty" require:"true"`
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// tenantId
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// type
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// workspaceDcs
-	WorkspaceDcs []*WorkspaceDc `json:"workspace_dcs,omitempty" xml:"workspace_dcs,omitempty" require:"true" type:"Repeated"`
-	// workspaceRegions
-	WorkspaceRegions []*WorkspaceRegion `json:"workspace_regions,omitempty" xml:"workspace_regions,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s TenantWorkspace) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TenantWorkspace) GoString() string {
-	return s.String()
-}
-
-func (s *TenantWorkspace) SetDisplayName(v string) *TenantWorkspace {
-	s.DisplayName = &v
-	return s
-}
-
-func (s *TenantWorkspace) SetGmtCreate(v string) *TenantWorkspace {
-	s.GmtCreate = &v
-	return s
-}
-
-func (s *TenantWorkspace) SetGmtModified(v string) *TenantWorkspace {
-	s.GmtModified = &v
-	return s
-}
-
-func (s *TenantWorkspace) SetId(v string) *TenantWorkspace {
-	s.Id = &v
-	return s
-}
-
-func (s *TenantWorkspace) SetName(v string) *TenantWorkspace {
-	s.Name = &v
-	return s
-}
-
-func (s *TenantWorkspace) SetNetworkType(v string) *TenantWorkspace {
-	s.NetworkType = &v
-	return s
-}
-
-func (s *TenantWorkspace) SetStatus(v string) *TenantWorkspace {
-	s.Status = &v
-	return s
-}
-
-func (s *TenantWorkspace) SetTenantId(v string) *TenantWorkspace {
-	s.TenantId = &v
+func (s *ResourceLog) SetTaskTimes(v int64) *ResourceLog {
+	s.TaskTimes = &v
 	return s
 }
 
-func (s *TenantWorkspace) SetType(v string) *TenantWorkspace {
+func (s *ResourceLog) SetType(v string) *ResourceLog {
 	s.Type = &v
 	return s
 }
 
-func (s *TenantWorkspace) SetWorkspaceDcs(v []*WorkspaceDc) *TenantWorkspace {
-	s.WorkspaceDcs = v
+func (s *ResourceLog) SetIaasErrorInfo(v *IaasErrorInfo) *ResourceLog {
+	s.IaasErrorInfo = v
 	return s
 }
 
-func (s *TenantWorkspace) SetWorkspaceRegions(v []*WorkspaceRegion) *TenantWorkspace {
-	s.WorkspaceRegions = v
+func (s *ResourceLog) SetIaasRequest(v *IaasRequest) *ResourceLog {
+	s.IaasRequest = v
 	return s
 }
 
-// 阿里云日志服务(SLS)-日志配置
-type SLSConfig struct {
-	// Logtail配置名称，同一Project下配置名必须唯一。
-	// 只能包括小写字母、数字、连字符（-）和下划线（_）。
-	// 必须以小写字母或者数字开头和结尾。
-	// 长度必须为2~128字节。
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 配置类型，支持plugin、file。
-	InputType *string `json:"input_type,omitempty" xml:"input_type,omitempty" require:"true"`
-	// 输出类型，目前只支持LogService。
-	OutputType *string `json:"output_type,omitempty" xml:"output_type,omitempty"`
-	// 日志样例
-	LogSample *string `json:"log_sample,omitempty" xml:"log_sample,omitempty"`
-	// 输入类型配置
-	InputDetail *SLSConfigInputDetail `json:"input_detail,omitempty" xml:"input_detail,omitempty" require:"true"`
-	// 输出类型配置
-	OutputDetail *SLSConfigOutputDetail `json:"output_detail,omitempty" xml:"output_detail,omitempty" require:"true"`
+func (s *ResourceLog) SetIaasResponse(v *IaasResponse) *ResourceLog {
+	s.IaasResponse = v
+	return s
 }
 
-func (s SLSConfig) String() string {
+// 专有网络
+type VPC struct {
+	// VPC的IPv4网段
+	CidrBlock *string `json:"cidr_block,omitempty" xml:"cidr_block,omitempty" require:"true"`
+	// VPC的创建时间
+	CreationTime *string `json:"creation_time,omitempty" xml:"creation_time,omitempty" require:"true"`
+	// VPC的描述信息
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// VPC所在的地域
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
+	// 路由表ID
+	RouterTableIds []*string `json:"router_table_ids,omitempty" xml:"router_table_ids,omitempty" require:"true" type:"Repeated"`
+	// VPC的状态，取值：
+	//
+	// Pending：配置中。
+	// Available：可用。
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 用户侧网段的列表
+	UserCidrs *string `json:"user_cidrs,omitempty" xml:"user_cidrs,omitempty"`
+	// VPC的id
+	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty" require:"true"`
+	// VPC的名称
+	VpcName *string `json:"vpc_name,omitempty" xml:"vpc_name,omitempty" require:"true"`
+	// VPC路由器的ID
+	VRouterId *string `json:"v_router_id,omitempty" xml:"v_router_id,omitempty" require:"true"`
+	// 关联的workspace id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// vpc是否已导入workspace
+	ImportInfo *ImportInfo `json:"import_info,omitempty" xml:"import_info,omitempty"`
+	// vpc在CAFE测的唯一ID
+	VpcPaasId *string `json:"vpc_paas_id,omitempty" xml:"vpc_paas_id,omitempty"`
+}
+
+func (s VPC) String() string {
 	return tea.Prettify(s)
 }
 
-func (s SLSConfig) GoString() string {
+func (s VPC) GoString() string {
 	return s.String()
 }
 
-func (s *SLSConfig) SetName(v string) *SLSConfig {
+func (s *VPC) SetCidrBlock(v string) *VPC {
+	s.CidrBlock = &v
+	return s
+}
+
+func (s *VPC) SetCreationTime(v string) *VPC {
+	s.CreationTime = &v
+	return s
+}
+
+func (s *VPC) SetDescription(v string) *VPC {
+	s.Description = &v
+	return s
+}
+
+func (s *VPC) SetRegionId(v string) *VPC {
+	s.RegionId = &v
+	return s
+}
+
+func (s *VPC) SetRouterTableIds(v []*string) *VPC {
+	s.RouterTableIds = v
+	return s
+}
+
+func (s *VPC) SetStatus(v string) *VPC {
+	s.Status = &v
+	return s
+}
+
+func (s *VPC) SetUserCidrs(v string) *VPC {
+	s.UserCidrs = &v
+	return s
+}
+
+func (s *VPC) SetVpcId(v string) *VPC {
+	s.VpcId = &v
+	return s
+}
+
+func (s *VPC) SetVpcName(v string) *VPC {
+	s.VpcName = &v
+	return s
+}
+
+func (s *VPC) SetVRouterId(v string) *VPC {
+	s.VRouterId = &v
+	return s
+}
+
+func (s *VPC) SetWorkspaceId(v string) *VPC {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *VPC) SetImportInfo(v *ImportInfo) *VPC {
+	s.ImportInfo = v
+	return s
+}
+
+func (s *VPC) SetVpcPaasId(v string) *VPC {
+	s.VpcPaasId = &v
+	return s
+}
+
+// VpcParam
+type VPCParam struct {
+	// cidr_block
+	CidrBlock *string `json:"cidr_block,omitempty" xml:"cidr_block,omitempty"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// region id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
+	// vpc_name
+	VpcName *string `json:"vpc_name,omitempty" xml:"vpc_name,omitempty"`
+}
+
+func (s VPCParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VPCParam) GoString() string {
+	return s.String()
+}
+
+func (s *VPCParam) SetCidrBlock(v string) *VPCParam {
+	s.CidrBlock = &v
+	return s
+}
+
+func (s *VPCParam) SetDescription(v string) *VPCParam {
+	s.Description = &v
+	return s
+}
+
+func (s *VPCParam) SetRegionId(v string) *VPCParam {
+	s.RegionId = &v
+	return s
+}
+
+func (s *VPCParam) SetVpcName(v string) *VPCParam {
+	s.VpcName = &v
+	return s
+}
+
+// lb 监听器
+type Listener struct {
+	// 后端服务器端口
+	BackendServerPort *int64 `json:"backend_server_port,omitempty" xml:"backend_server_port,omitempty" require:"true"`
+	// 带宽
+	Bandwidth *int64 `json:"bandwidth,omitempty" xml:"bandwidth,omitempty"`
+	// certificate_iaas_id
+	CertificateIaasId *string `json:"certificate_iaas_id,omitempty" xml:"certificate_iaas_id,omitempty"`
+	// 证书 id
+	CertificateId *string `json:"certificate_id,omitempty" xml:"certificate_id,omitempty"`
+	// cookie
+	Cookie *string `json:"cookie,omitempty" xml:"cookie,omitempty"`
+	// cookie 超时时间
+	CookieTimeout *int64 `json:"cookie_timeout,omitempty" xml:"cookie_timeout,omitempty"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 连接超时时间
+	EstablishedTimeout *int64 `json:"established_timeout,omitempty" xml:"established_timeout,omitempty"`
+	// gm_crypto_cert_iaas_id
+	GmCryptoCertIaasId *string `json:"gm_crypto_cert_iaas_id,omitempty" xml:"gm_crypto_cert_iaas_id,omitempty"`
+	// 健康检查
+	HealthMonitor *ListenerHealthMonitor `json:"health_monitor,omitempty" xml:"health_monitor,omitempty"`
+	// iaas_id
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	// iaasType
+	IaasType *string `json:"iaas_type,omitempty" xml:"iaas_type,omitempty"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// is_health_monitor
+	IsHealthMonitor *string `json:"is_health_monitor,omitempty" xml:"is_health_monitor,omitempty"`
+	// 监听器端口
+	ListenerPort *int64 `json:"listener_port,omitempty" xml:"listener_port,omitempty" require:"true"`
+	// load_balancer
+	LoadBalancer *LoadBalancer `json:"load_balancer,omitempty" xml:"load_balancer,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 会话保持的超时时间
+	PersistTimeout *int64 `json:"persist_timeout,omitempty" xml:"persist_timeout,omitempty"`
+	// 转发规则
+	Scheduler *string `json:"scheduler,omitempty" xml:"scheduler,omitempty"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// sticky_session
+	StickySession *string `json:"sticky_session,omitempty" xml:"sticky_session,omitempty"`
+	// cookie 处理方式
+	StickySessionType *string `json:"sticky_session_type,omitempty" xml:"sticky_session_type,omitempty"`
+	// 监听类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// url_path
+	UrlPath *string `json:"url_path,omitempty" xml:"url_path,omitempty"`
+	// x_forwarded_for
+	XForwardedFor *string `json:"x_forwarded_for,omitempty" xml:"x_forwarded_for,omitempty"`
+}
+
+func (s Listener) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Listener) GoString() string {
+	return s.String()
+}
+
+func (s *Listener) SetBackendServerPort(v int64) *Listener {
+	s.BackendServerPort = &v
+	return s
+}
+
+func (s *Listener) SetBandwidth(v int64) *Listener {
+	s.Bandwidth = &v
+	return s
+}
+
+func (s *Listener) SetCertificateIaasId(v string) *Listener {
+	s.CertificateIaasId = &v
+	return s
+}
+
+func (s *Listener) SetCertificateId(v string) *Listener {
+	s.CertificateId = &v
+	return s
+}
+
+func (s *Listener) SetCookie(v string) *Listener {
+	s.Cookie = &v
+	return s
+}
+
+func (s *Listener) SetCookieTimeout(v int64) *Listener {
+	s.CookieTimeout = &v
+	return s
+}
+
+func (s *Listener) SetDescription(v string) *Listener {
+	s.Description = &v
+	return s
+}
+
+func (s *Listener) SetEstablishedTimeout(v int64) *Listener {
+	s.EstablishedTimeout = &v
+	return s
+}
+
+func (s *Listener) SetGmCryptoCertIaasId(v string) *Listener {
+	s.GmCryptoCertIaasId = &v
+	return s
+}
+
+func (s *Listener) SetHealthMonitor(v *ListenerHealthMonitor) *Listener {
+	s.HealthMonitor = v
+	return s
+}
+
+func (s *Listener) SetIaasId(v string) *Listener {
+	s.IaasId = &v
+	return s
+}
+
+func (s *Listener) SetIaasType(v string) *Listener {
+	s.IaasType = &v
+	return s
+}
+
+func (s *Listener) SetId(v string) *Listener {
+	s.Id = &v
+	return s
+}
+
+func (s *Listener) SetIsHealthMonitor(v string) *Listener {
+	s.IsHealthMonitor = &v
+	return s
+}
+
+func (s *Listener) SetListenerPort(v int64) *Listener {
+	s.ListenerPort = &v
+	return s
+}
+
+func (s *Listener) SetLoadBalancer(v *LoadBalancer) *Listener {
+	s.LoadBalancer = v
+	return s
+}
+
+func (s *Listener) SetName(v string) *Listener {
 	s.Name = &v
 	return s
 }
 
-func (s *SLSConfig) SetInputType(v string) *SLSConfig {
-	s.InputType = &v
+func (s *Listener) SetPersistTimeout(v int64) *Listener {
+	s.PersistTimeout = &v
 	return s
 }
 
-func (s *SLSConfig) SetOutputType(v string) *SLSConfig {
-	s.OutputType = &v
+func (s *Listener) SetScheduler(v string) *Listener {
+	s.Scheduler = &v
 	return s
 }
 
-func (s *SLSConfig) SetLogSample(v string) *SLSConfig {
-	s.LogSample = &v
+func (s *Listener) SetStatus(v string) *Listener {
+	s.Status = &v
 	return s
 }
 
-func (s *SLSConfig) SetInputDetail(v *SLSConfigInputDetail) *SLSConfig {
-	s.InputDetail = v
+func (s *Listener) SetStickySession(v string) *Listener {
+	s.StickySession = &v
 	return s
 }
 
-func (s *SLSConfig) SetOutputDetail(v *SLSConfigOutputDetail) *SLSConfig {
-	s.OutputDetail = v
+func (s *Listener) SetStickySessionType(v string) *Listener {
+	s.StickySessionType = &v
+	return s
+}
+
+func (s *Listener) SetType(v string) *Listener {
+	s.Type = &v
+	return s
+}
+
+func (s *Listener) SetUrlPath(v string) *Listener {
+	s.UrlPath = &v
+	return s
+}
+
+func (s *Listener) SetXForwardedFor(v string) *Listener {
+	s.XForwardedFor = &v
+	return s
+}
+
+// LoadBalancerRule
+type LoadBalancerRule struct {
+	// load_balancer
+	LoadBalancer *LoadBalancer `json:"load_balancer,omitempty" xml:"load_balancer,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// listener_port
+	ListenerPort *int64 `json:"listener_port,omitempty" xml:"listener_port,omitempty"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// domain
+	Domain *string `json:"domain,omitempty" xml:"domain,omitempty"`
+	// url
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// cookie
+	Cookie *string `json:"cookie,omitempty" xml:"cookie,omitempty"`
+	// is_health_monitor
+	IsHealthMonitor *string `json:"is_health_monitor,omitempty" xml:"is_health_monitor,omitempty"`
+	// health_monitor
+	HealthMonitor *ListenerHealthMonitor `json:"health_monitor,omitempty" xml:"health_monitor,omitempty"`
+	// sticky_session
+	StickySession *string `json:"sticky_session,omitempty" xml:"sticky_session,omitempty"`
+	// app_id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+}
+
+func (s LoadBalancerRule) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LoadBalancerRule) GoString() string {
+	return s.String()
+}
+
+func (s *LoadBalancerRule) SetLoadBalancer(v *LoadBalancer) *LoadBalancerRule {
+	s.LoadBalancer = v
+	return s
+}
+
+func (s *LoadBalancerRule) SetName(v string) *LoadBalancerRule {
+	s.Name = &v
+	return s
+}
+
+func (s *LoadBalancerRule) SetId(v string) *LoadBalancerRule {
+	s.Id = &v
+	return s
+}
+
+func (s *LoadBalancerRule) SetListenerPort(v int64) *LoadBalancerRule {
+	s.ListenerPort = &v
+	return s
+}
+
+func (s *LoadBalancerRule) SetStatus(v string) *LoadBalancerRule {
+	s.Status = &v
+	return s
+}
+
+func (s *LoadBalancerRule) SetDomain(v string) *LoadBalancerRule {
+	s.Domain = &v
+	return s
+}
+
+func (s *LoadBalancerRule) SetUrl(v string) *LoadBalancerRule {
+	s.Url = &v
+	return s
+}
+
+func (s *LoadBalancerRule) SetCookie(v string) *LoadBalancerRule {
+	s.Cookie = &v
+	return s
+}
+
+func (s *LoadBalancerRule) SetIsHealthMonitor(v string) *LoadBalancerRule {
+	s.IsHealthMonitor = &v
+	return s
+}
+
+func (s *LoadBalancerRule) SetHealthMonitor(v *ListenerHealthMonitor) *LoadBalancerRule {
+	s.HealthMonitor = v
+	return s
+}
+
+func (s *LoadBalancerRule) SetStickySession(v string) *LoadBalancerRule {
+	s.StickySession = &v
+	return s
+}
+
+func (s *LoadBalancerRule) SetAppId(v string) *LoadBalancerRule {
+	s.AppId = &v
+	return s
+}
+
+func (s *LoadBalancerRule) SetWorkspaceId(v string) *LoadBalancerRule {
+	s.WorkspaceId = &v
+	return s
+}
+
+// 地域信息
+type Region struct {
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// identity
+	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
+	// instanceStatus: AVAILABLE  UNAVAILABLE  RETIRED  DELETED
+	Instancestatus *string `json:"instancestatus,omitempty" xml:"instancestatus,omitempty" require:"true"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// properties
+	Properties []*Property `json:"properties,omitempty" xml:"properties,omitempty" type:"Repeated"`
+}
+
+func (s Region) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Region) GoString() string {
+	return s.String()
+}
+
+func (s *Region) SetDescription(v string) *Region {
+	s.Description = &v
+	return s
+}
+
+func (s *Region) SetIdentity(v string) *Region {
+	s.Identity = &v
+	return s
+}
+
+func (s *Region) SetInstancestatus(v string) *Region {
+	s.Instancestatus = &v
+	return s
+}
+
+func (s *Region) SetName(v string) *Region {
+	s.Name = &v
+	return s
+}
+
+func (s *Region) SetProperties(v []*Property) *Region {
+	s.Properties = v
+	return s
+}
+
+// 云服务器规格族
+type ComputerTypeFamily struct {
+	// computer type family id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 实例规格族所属代数。
+	Generation *string `json:"generation,omitempty" xml:"generation,omitempty" require:"true"`
+}
+
+func (s ComputerTypeFamily) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ComputerTypeFamily) GoString() string {
+	return s.String()
+}
+
+func (s *ComputerTypeFamily) SetId(v string) *ComputerTypeFamily {
+	s.Id = &v
+	return s
+}
+
+func (s *ComputerTypeFamily) SetGeneration(v string) *ComputerTypeFamily {
+	s.Generation = &v
+	return s
+}
+
+// 工作空间DNS Provider属性
+type WorkspaceDnsProvider struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// provider_id
+	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty" require:"true"`
+	// region_id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
+	// zoneId
+	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty" require:"true"`
+	// dns_provider_id
+	DnsProviderId *string `json:"dns_provider_id,omitempty" xml:"dns_provider_id,omitempty" require:"true"`
+	// dns_network_type
+	DnsNetworkType *string `json:"dns_network_type,omitempty" xml:"dns_network_type,omitempty" require:"true"`
+	// sub_domain_name
+	SubDomainName *string `json:"sub_domain_name,omitempty" xml:"sub_domain_name,omitempty" require:"true"`
+	// utc_create
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// utc_modified
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+}
+
+func (s WorkspaceDnsProvider) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WorkspaceDnsProvider) GoString() string {
+	return s.String()
+}
+
+func (s *WorkspaceDnsProvider) SetId(v string) *WorkspaceDnsProvider {
+	s.Id = &v
+	return s
+}
+
+func (s *WorkspaceDnsProvider) SetWorkspaceId(v string) *WorkspaceDnsProvider {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *WorkspaceDnsProvider) SetProviderId(v string) *WorkspaceDnsProvider {
+	s.ProviderId = &v
+	return s
+}
+
+func (s *WorkspaceDnsProvider) SetRegionId(v string) *WorkspaceDnsProvider {
+	s.RegionId = &v
+	return s
+}
+
+func (s *WorkspaceDnsProvider) SetZoneId(v string) *WorkspaceDnsProvider {
+	s.ZoneId = &v
+	return s
+}
+
+func (s *WorkspaceDnsProvider) SetDnsProviderId(v string) *WorkspaceDnsProvider {
+	s.DnsProviderId = &v
+	return s
+}
+
+func (s *WorkspaceDnsProvider) SetDnsNetworkType(v string) *WorkspaceDnsProvider {
+	s.DnsNetworkType = &v
+	return s
+}
+
+func (s *WorkspaceDnsProvider) SetSubDomainName(v string) *WorkspaceDnsProvider {
+	s.SubDomainName = &v
+	return s
+}
+
+func (s *WorkspaceDnsProvider) SetUtcCreate(v string) *WorkspaceDnsProvider {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *WorkspaceDnsProvider) SetUtcModified(v string) *WorkspaceDnsProvider {
+	s.UtcModified = &v
+	return s
+}
+
+func (s *WorkspaceDnsProvider) SetDescription(v string) *WorkspaceDnsProvider {
+	s.Description = &v
 	return s
 }
 
@@ -9621,6 +7075,703 @@ func (s *VpcVO) SetUtcModified(v string) *VpcVO {
 	return s
 }
 
+// LB查询对应的VComputer
+type VComputer struct {
+	// v_computer_group
+	VComputerGroup *VComputerGroup `json:"v_computer_group,omitempty" xml:"v_computer_group,omitempty"`
+	// ip
+	Ip *string `json:"ip,omitempty" xml:"ip,omitempty"`
+	// computer
+	Computer *Computer `json:"computer,omitempty" xml:"computer,omitempty"`
+	// port
+	Port *int64 `json:"port,omitempty" xml:"port,omitempty"`
+	// weight
+	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
+	// 是否是EIP
+	IsEip *bool `json:"is_eip,omitempty" xml:"is_eip,omitempty"`
+	// is_managed_computer
+	IsManagedComputer *bool `json:"is_managed_computer,omitempty" xml:"is_managed_computer,omitempty"`
+	// iaas_id
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+}
+
+func (s VComputer) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VComputer) GoString() string {
+	return s.String()
+}
+
+func (s *VComputer) SetVComputerGroup(v *VComputerGroup) *VComputer {
+	s.VComputerGroup = v
+	return s
+}
+
+func (s *VComputer) SetIp(v string) *VComputer {
+	s.Ip = &v
+	return s
+}
+
+func (s *VComputer) SetComputer(v *Computer) *VComputer {
+	s.Computer = v
+	return s
+}
+
+func (s *VComputer) SetPort(v int64) *VComputer {
+	s.Port = &v
+	return s
+}
+
+func (s *VComputer) SetWeight(v int64) *VComputer {
+	s.Weight = &v
+	return s
+}
+
+func (s *VComputer) SetIsEip(v bool) *VComputer {
+	s.IsEip = &v
+	return s
+}
+
+func (s *VComputer) SetIsManagedComputer(v bool) *VComputer {
+	s.IsManagedComputer = &v
+	return s
+}
+
+func (s *VComputer) SetIaasId(v string) *VComputer {
+	s.IaasId = &v
+	return s
+}
+
+// 路由表信息
+type RouteTable struct {
+	// 路由表的创建时间。
+	CreationTime *string `json:"creation_time,omitempty" xml:"creation_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 路由表所属的路由器类型，取值：
+	//
+	// VRouter：VPC路由器。
+	// VBR：边界路由器。
+	RouterType *string `json:"router_type,omitempty" xml:"router_type,omitempty"`
+	//
+	// 路由条目的详细信息。
+	EntryVOs []*VRouteEntry `json:"entry_v_os,omitempty" xml:"entry_v_os,omitempty" type:"Repeated"`
+	// 要查询的路由表的ID。
+	RouteTableId *string `json:"route_table_id,omitempty" xml:"route_table_id,omitempty"`
+	// 要查询的路由表所属的VPC路由器的ID。
+	VRouterId *string `json:"v_router_id,omitempty" xml:"v_router_id,omitempty"`
+}
+
+func (s RouteTable) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RouteTable) GoString() string {
+	return s.String()
+}
+
+func (s *RouteTable) SetCreationTime(v string) *RouteTable {
+	s.CreationTime = &v
+	return s
+}
+
+func (s *RouteTable) SetRouterType(v string) *RouteTable {
+	s.RouterType = &v
+	return s
+}
+
+func (s *RouteTable) SetEntryVOs(v []*VRouteEntry) *RouteTable {
+	s.EntryVOs = v
+	return s
+}
+
+func (s *RouteTable) SetRouteTableId(v string) *RouteTable {
+	s.RouteTableId = &v
+	return s
+}
+
+func (s *RouteTable) SetVRouterId(v string) *RouteTable {
+	s.VRouterId = &v
+	return s
+}
+
+// 中间件集群
+type MiddlewareCluster struct {
+	// cluster_id
+	ClusterId *string `json:"cluster_id,omitempty" xml:"cluster_id,omitempty" require:"true"`
+	// cluster_name
+	ClusterName *string `json:"cluster_name,omitempty" xml:"cluster_name,omitempty" require:"true"`
+	// region_ids
+	RegionIds []*string `json:"region_ids,omitempty" xml:"region_ids,omitempty" require:"true" type:"Repeated"`
+	// zone_ids
+	ZoneIds []*string `json:"zone_ids,omitempty" xml:"zone_ids,omitempty" type:"Repeated"`
+	// acvip_endpoint
+	AcvipEndpoint *string `json:"acvip_endpoint,omitempty" xml:"acvip_endpoint,omitempty" require:"true"`
+}
+
+func (s MiddlewareCluster) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MiddlewareCluster) GoString() string {
+	return s.String()
+}
+
+func (s *MiddlewareCluster) SetClusterId(v string) *MiddlewareCluster {
+	s.ClusterId = &v
+	return s
+}
+
+func (s *MiddlewareCluster) SetClusterName(v string) *MiddlewareCluster {
+	s.ClusterName = &v
+	return s
+}
+
+func (s *MiddlewareCluster) SetRegionIds(v []*string) *MiddlewareCluster {
+	s.RegionIds = v
+	return s
+}
+
+func (s *MiddlewareCluster) SetZoneIds(v []*string) *MiddlewareCluster {
+	s.ZoneIds = v
+	return s
+}
+
+func (s *MiddlewareCluster) SetAcvipEndpoint(v string) *MiddlewareCluster {
+	s.AcvipEndpoint = &v
+	return s
+}
+
+// 阿里云日志服务(SLS)-日志配置
+type SLSConfig struct {
+	// Logtail配置名称，同一Project下配置名必须唯一。
+	// 只能包括小写字母、数字、连字符（-）和下划线（_）。
+	// 必须以小写字母或者数字开头和结尾。
+	// 长度必须为2~128字节。
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 配置类型，支持plugin、file。
+	InputType *string `json:"input_type,omitempty" xml:"input_type,omitempty" require:"true"`
+	// 输出类型，目前只支持LogService。
+	OutputType *string `json:"output_type,omitempty" xml:"output_type,omitempty"`
+	// 日志样例
+	LogSample *string `json:"log_sample,omitempty" xml:"log_sample,omitempty"`
+	// 输入类型配置
+	InputDetail *SLSConfigInputDetail `json:"input_detail,omitempty" xml:"input_detail,omitempty" require:"true"`
+	// 输出类型配置
+	OutputDetail *SLSConfigOutputDetail `json:"output_detail,omitempty" xml:"output_detail,omitempty" require:"true"`
+}
+
+func (s SLSConfig) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SLSConfig) GoString() string {
+	return s.String()
+}
+
+func (s *SLSConfig) SetName(v string) *SLSConfig {
+	s.Name = &v
+	return s
+}
+
+func (s *SLSConfig) SetInputType(v string) *SLSConfig {
+	s.InputType = &v
+	return s
+}
+
+func (s *SLSConfig) SetOutputType(v string) *SLSConfig {
+	s.OutputType = &v
+	return s
+}
+
+func (s *SLSConfig) SetLogSample(v string) *SLSConfig {
+	s.LogSample = &v
+	return s
+}
+
+func (s *SLSConfig) SetInputDetail(v *SLSConfigInputDetail) *SLSConfig {
+	s.InputDetail = v
+	return s
+}
+
+func (s *SLSConfig) SetOutputDetail(v *SLSConfigOutputDetail) *SLSConfig {
+	s.OutputDetail = v
+	return s
+}
+
+// 安全组详细信息
+type SecurityGroup struct {
+	// 创建时间。按照ISO8601标准表示，并需要使用UTC时间。格式为：yyyy-MM-ddThh:mmZ。
+	CreationTime *string `json:"creation_time,omitempty" xml:"creation_time,omitempty" require:"true"`
+	// 安全组的描述信息。
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// region_id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
+	// 安全组ID。
+	SecurityGroupId *string `json:"security_group_id,omitempty" xml:"security_group_id,omitempty" require:"true"`
+	// 安全组名称。
+	SecurityGroupName *string `json:"security_group_name,omitempty" xml:"security_group_name,omitempty" require:"true"`
+	// 安全组所属的专有网络。
+	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty" require:"true"`
+	// 安全组入方向规则
+	IngressRules []*SecurityGroupRule `json:"ingress_rules,omitempty" xml:"ingress_rules,omitempty" type:"Repeated"`
+	// 安全组出方向规则
+	EgressRules []*SecurityGroupRule `json:"egress_rules,omitempty" xml:"egress_rules,omitempty" type:"Repeated"`
+}
+
+func (s SecurityGroup) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SecurityGroup) GoString() string {
+	return s.String()
+}
+
+func (s *SecurityGroup) SetCreationTime(v string) *SecurityGroup {
+	s.CreationTime = &v
+	return s
+}
+
+func (s *SecurityGroup) SetDescription(v string) *SecurityGroup {
+	s.Description = &v
+	return s
+}
+
+func (s *SecurityGroup) SetRegionId(v string) *SecurityGroup {
+	s.RegionId = &v
+	return s
+}
+
+func (s *SecurityGroup) SetSecurityGroupId(v string) *SecurityGroup {
+	s.SecurityGroupId = &v
+	return s
+}
+
+func (s *SecurityGroup) SetSecurityGroupName(v string) *SecurityGroup {
+	s.SecurityGroupName = &v
+	return s
+}
+
+func (s *SecurityGroup) SetVpcId(v string) *SecurityGroup {
+	s.VpcId = &v
+	return s
+}
+
+func (s *SecurityGroup) SetIngressRules(v []*SecurityGroupRule) *SecurityGroup {
+	s.IngressRules = v
+	return s
+}
+
+func (s *SecurityGroup) SetEgressRules(v []*SecurityGroupRule) *SecurityGroup {
+	s.EgressRules = v
+	return s
+}
+
+// map <String,integer>
+type MapStringToIntegerEntity struct {
+	// key
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// value
+	Value *int64 `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s MapStringToIntegerEntity) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MapStringToIntegerEntity) GoString() string {
+	return s.String()
+}
+
+func (s *MapStringToIntegerEntity) SetKey(v string) *MapStringToIntegerEntity {
+	s.Key = &v
+	return s
+}
+
+func (s *MapStringToIntegerEntity) SetValue(v int64) *MapStringToIntegerEntity {
+	s.Value = &v
+	return s
+}
+
+// 一组具有依赖关系的 AppDomain，可以转换为一个树形结构
+type AppDomainFlatten struct {
+	// 一组具有依赖关系的 AppDomain
+	AppDomains []*AppDomain `json:"app_domains,omitempty" xml:"app_domains,omitempty" type:"Repeated"`
+}
+
+func (s AppDomainFlatten) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppDomainFlatten) GoString() string {
+	return s.String()
+}
+
+func (s *AppDomainFlatten) SetAppDomains(v []*AppDomain) *AppDomainFlatten {
+	s.AppDomains = v
+	return s
+}
+
+// 一次异步请求
+type RequestVO struct {
+	// context
+	Context *string `json:"context,omitempty" xml:"context,omitempty"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// operator
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	// operator_name
+	OperatorName *string `json:"operator_name,omitempty" xml:"operator_name,omitempty" require:"true"`
+	// operator_type
+	OperatorType *string `json:"operator_type,omitempty" xml:"operator_type,omitempty"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// token
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+	// type
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// utc_create
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// utc_modified
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// tasks
+	Tasks []*Task `json:"tasks,omitempty" xml:"tasks,omitempty" type:"Repeated"`
+}
+
+func (s RequestVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RequestVO) GoString() string {
+	return s.String()
+}
+
+func (s *RequestVO) SetContext(v string) *RequestVO {
+	s.Context = &v
+	return s
+}
+
+func (s *RequestVO) SetId(v string) *RequestVO {
+	s.Id = &v
+	return s
+}
+
+func (s *RequestVO) SetOperator(v string) *RequestVO {
+	s.Operator = &v
+	return s
+}
+
+func (s *RequestVO) SetOperatorName(v string) *RequestVO {
+	s.OperatorName = &v
+	return s
+}
+
+func (s *RequestVO) SetOperatorType(v string) *RequestVO {
+	s.OperatorType = &v
+	return s
+}
+
+func (s *RequestVO) SetStatus(v string) *RequestVO {
+	s.Status = &v
+	return s
+}
+
+func (s *RequestVO) SetToken(v string) *RequestVO {
+	s.Token = &v
+	return s
+}
+
+func (s *RequestVO) SetType(v string) *RequestVO {
+	s.Type = &v
+	return s
+}
+
+func (s *RequestVO) SetUtcCreate(v string) *RequestVO {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *RequestVO) SetUtcModified(v string) *RequestVO {
+	s.UtcModified = &v
+	return s
+}
+
+func (s *RequestVO) SetTasks(v []*Task) *RequestVO {
+	s.Tasks = v
+	return s
+}
+
+// VSwitchParam
+type VSwitchParam struct {
+	// cidr_block
+	CidrBlock *string `json:"cidr_block,omitempty" xml:"cidr_block,omitempty"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// region_id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
+	// vpc_id
+	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty"`
+	// vswitch_name
+	VswitchName *string `json:"vswitch_name,omitempty" xml:"vswitch_name,omitempty"`
+	// zone_id
+	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
+}
+
+func (s VSwitchParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VSwitchParam) GoString() string {
+	return s.String()
+}
+
+func (s *VSwitchParam) SetCidrBlock(v string) *VSwitchParam {
+	s.CidrBlock = &v
+	return s
+}
+
+func (s *VSwitchParam) SetDescription(v string) *VSwitchParam {
+	s.Description = &v
+	return s
+}
+
+func (s *VSwitchParam) SetRegionId(v string) *VSwitchParam {
+	s.RegionId = &v
+	return s
+}
+
+func (s *VSwitchParam) SetVpcId(v string) *VSwitchParam {
+	s.VpcId = &v
+	return s
+}
+
+func (s *VSwitchParam) SetVswitchName(v string) *VSwitchParam {
+	s.VswitchName = &v
+	return s
+}
+
+func (s *VSwitchParam) SetZoneId(v string) *VSwitchParam {
+	s.ZoneId = &v
+	return s
+}
+
+// rmc 交换机详细信息
+type VSwitchVO struct {
+	// 交换机的iaas ID
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	// 交换机名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 交换机描述信息
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 交换机的状态，取值： Pending：配置中。 Available：可用。
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// vpc id
+	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty"`
+	// workspace id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// zone id
+	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
+	// zone iaas id
+	ZoneIaasId *string `json:"zone_iaas_id,omitempty" xml:"zone_iaas_id,omitempty"`
+	// region id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
+	// 换机的IPv4网段
+	CidrBlock *string `json:"cidr_block,omitempty" xml:"cidr_block,omitempty"`
+	// 交换机创建时间
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 可用ip数目
+	AvailableIpAddressCount *int64 `json:"available_ip_address_count,omitempty" xml:"available_ip_address_count,omitempty"`
+}
+
+func (s VSwitchVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VSwitchVO) GoString() string {
+	return s.String()
+}
+
+func (s *VSwitchVO) SetIaasId(v string) *VSwitchVO {
+	s.IaasId = &v
+	return s
+}
+
+func (s *VSwitchVO) SetName(v string) *VSwitchVO {
+	s.Name = &v
+	return s
+}
+
+func (s *VSwitchVO) SetDescription(v string) *VSwitchVO {
+	s.Description = &v
+	return s
+}
+
+func (s *VSwitchVO) SetStatus(v string) *VSwitchVO {
+	s.Status = &v
+	return s
+}
+
+func (s *VSwitchVO) SetVpcId(v string) *VSwitchVO {
+	s.VpcId = &v
+	return s
+}
+
+func (s *VSwitchVO) SetWorkspaceId(v string) *VSwitchVO {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *VSwitchVO) SetZoneId(v string) *VSwitchVO {
+	s.ZoneId = &v
+	return s
+}
+
+func (s *VSwitchVO) SetZoneIaasId(v string) *VSwitchVO {
+	s.ZoneIaasId = &v
+	return s
+}
+
+func (s *VSwitchVO) SetRegionId(v string) *VSwitchVO {
+	s.RegionId = &v
+	return s
+}
+
+func (s *VSwitchVO) SetCidrBlock(v string) *VSwitchVO {
+	s.CidrBlock = &v
+	return s
+}
+
+func (s *VSwitchVO) SetUtcCreate(v string) *VSwitchVO {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *VSwitchVO) SetAvailableIpAddressCount(v int64) *VSwitchVO {
+	s.AvailableIpAddressCount = &v
+	return s
+}
+
+// disk spec
+type DiskSpec struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// iaas id
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	// providerId
+	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty"`
+	// iaasType
+	IaasType *string `json:"iaas_type,omitempty" xml:"iaas_type,omitempty"`
+	// enable
+	Enable *bool `json:"enable,omitempty" xml:"enable,omitempty"`
+	// minSize
+	MinSize *int64 `json:"min_size,omitempty" xml:"min_size,omitempty"`
+	// maxSize
+	MaxSize *int64 `json:"max_size,omitempty" xml:"max_size,omitempty"`
+}
+
+func (s DiskSpec) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DiskSpec) GoString() string {
+	return s.String()
+}
+
+func (s *DiskSpec) SetId(v string) *DiskSpec {
+	s.Id = &v
+	return s
+}
+
+func (s *DiskSpec) SetName(v string) *DiskSpec {
+	s.Name = &v
+	return s
+}
+
+func (s *DiskSpec) SetDescription(v string) *DiskSpec {
+	s.Description = &v
+	return s
+}
+
+func (s *DiskSpec) SetIaasId(v string) *DiskSpec {
+	s.IaasId = &v
+	return s
+}
+
+func (s *DiskSpec) SetProviderId(v string) *DiskSpec {
+	s.ProviderId = &v
+	return s
+}
+
+func (s *DiskSpec) SetIaasType(v string) *DiskSpec {
+	s.IaasType = &v
+	return s
+}
+
+func (s *DiskSpec) SetEnable(v bool) *DiskSpec {
+	s.Enable = &v
+	return s
+}
+
+func (s *DiskSpec) SetMinSize(v int64) *DiskSpec {
+	s.MinSize = &v
+	return s
+}
+
+func (s *DiskSpec) SetMaxSize(v int64) *DiskSpec {
+	s.MaxSize = &v
+	return s
+}
+
+// LB后端挂载的主机
+type MountComputer struct {
+	// computer
+	Computer *Computer `json:"computer,omitempty" xml:"computer,omitempty"`
+	// domain
+	Domain *string `json:"domain,omitempty" xml:"domain,omitempty"`
+	// loadbalancer
+	Loadbalancer *LoadBalancer `json:"loadbalancer,omitempty" xml:"loadbalancer,omitempty"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// weight
+	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty" require:"true"`
+}
+
+func (s MountComputer) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MountComputer) GoString() string {
+	return s.String()
+}
+
+func (s *MountComputer) SetComputer(v *Computer) *MountComputer {
+	s.Computer = v
+	return s
+}
+
+func (s *MountComputer) SetDomain(v string) *MountComputer {
+	s.Domain = &v
+	return s
+}
+
+func (s *MountComputer) SetLoadbalancer(v *LoadBalancer) *MountComputer {
+	s.Loadbalancer = v
+	return s
+}
+
+func (s *MountComputer) SetStatus(v string) *MountComputer {
+	s.Status = &v
+	return s
+}
+
+func (s *MountComputer) SetWeight(v int64) *MountComputer {
+	s.Weight = &v
+	return s
+}
+
 // vpc import info
 type VpcImport struct {
 	// cidr block
@@ -9675,123 +7826,1574 @@ func (s *VpcImport) SetStatus(v string) *VpcImport {
 	return s
 }
 
-// QuotaKv
-type QuotaKv struct {
-	// type
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// quota
-	Quota *int64 `json:"quota,omitempty" xml:"quota,omitempty" require:"true"`
+// 技术栈
+type Buildpack struct {
+	// 技术栈标识ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 技术栈名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 技术栈描述
+	Des *string `json:"des,omitempty" xml:"des,omitempty"`
+	// 技术栈版本
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// 技术栈类别
+	Stack *string `json:"stack,omitempty" xml:"stack,omitempty"`
+	// 部署脚本id
+	DeployScriptId *string `json:"deploy_script_id,omitempty" xml:"deploy_script_id,omitempty"`
+	// 构建脚本ID
+	BuildScriptId *string `json:"build_script_id,omitempty" xml:"build_script_id,omitempty"`
+	// 配置id
+	ConfigId *string `json:"config_id,omitempty" xml:"config_id,omitempty"`
+	// 组件id
+	ComponentId *string `json:"component_id,omitempty" xml:"component_id,omitempty"`
+	// 命令id
+	CommandId *string `json:"command_id,omitempty" xml:"command_id,omitempty"`
+	// 启用蓝绿
+	BgEnable *bool `json:"bg_enable,omitempty" xml:"bg_enable,omitempty"`
+	// 创建人
+	Creator *string `json:"creator,omitempty" xml:"creator,omitempty"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 客户id列表
+	CustomerIds []*string `json:"customer_ids,omitempty" xml:"customer_ids,omitempty" type:"Repeated"`
+	// 技术栈定义类型
+	// 系统模板 TEMPLATE
+	// 用户自定义 CUSTOM
+	// 后台服务 BACKGROUND_SERVICE
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 技术栈状态
+	// 草稿 DRAFT
+	// 已提交 COMMITED
+	// 已对外发布 PUBLISHED
+	// 已退役 RETIRED
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 创建日期
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 最近修改时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 技术栈信息汇总
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 可用 USABLE
+	// 不可用 UNUSABLE
+	VersionStatus *string `json:"version_status,omitempty" xml:"version_status,omitempty"`
+	// 运行时属性
+	Instances *BuildpackInstances `json:"instances,omitempty" xml:"instances,omitempty"`
 }
 
-func (s QuotaKv) String() string {
+func (s Buildpack) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QuotaKv) GoString() string {
+func (s Buildpack) GoString() string {
 	return s.String()
 }
 
-func (s *QuotaKv) SetType(v string) *QuotaKv {
-	s.Type = &v
+func (s *Buildpack) SetId(v string) *Buildpack {
+	s.Id = &v
 	return s
 }
 
-func (s *QuotaKv) SetQuota(v int64) *QuotaKv {
-	s.Quota = &v
-	return s
-}
-
-// 应用分组视图
-type AppDomainView struct {
-	// ownerName
-	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
-	// fatherDomainName
-	FatherDomainName *string `json:"father_domain_name,omitempty" xml:"father_domain_name,omitempty"`
-	// 应用列表
-	Apps []*AppView `json:"apps,omitempty" xml:"apps,omitempty" type:"Repeated"`
-	// AppDomainView 的父类 AppDomain
-	BaseAppDomain []*AppDomain `json:"base_app_domain,omitempty" xml:"base_app_domain,omitempty" type:"Repeated"`
-}
-
-func (s AppDomainView) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppDomainView) GoString() string {
-	return s.String()
-}
-
-func (s *AppDomainView) SetOwnerName(v string) *AppDomainView {
-	s.OwnerName = &v
-	return s
-}
-
-func (s *AppDomainView) SetFatherDomainName(v string) *AppDomainView {
-	s.FatherDomainName = &v
-	return s
-}
-
-func (s *AppDomainView) SetApps(v []*AppView) *AppDomainView {
-	s.Apps = v
-	return s
-}
-
-func (s *AppDomainView) SetBaseAppDomain(v []*AppDomain) *AppDomainView {
-	s.BaseAppDomain = v
-	return s
-}
-
-// 机房信息
-type Zone struct {
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// identity
-	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
-	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// instanceStatus: AVAILABLE  UNAVAILABLE  RETIRED  DELETED
-	Instancestatus *string `json:"instancestatus,omitempty" xml:"instancestatus,omitempty" require:"true"`
-	// region name
-	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
-	// properties
-	Properties []*Property `json:"properties,omitempty" xml:"properties,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s Zone) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Zone) GoString() string {
-	return s.String()
-}
-
-func (s *Zone) SetName(v string) *Zone {
+func (s *Buildpack) SetName(v string) *Buildpack {
 	s.Name = &v
 	return s
 }
 
-func (s *Zone) SetIdentity(v string) *Zone {
-	s.Identity = &v
+func (s *Buildpack) SetDes(v string) *Buildpack {
+	s.Des = &v
 	return s
 }
 
-func (s *Zone) SetDescription(v string) *Zone {
+func (s *Buildpack) SetVersion(v string) *Buildpack {
+	s.Version = &v
+	return s
+}
+
+func (s *Buildpack) SetStack(v string) *Buildpack {
+	s.Stack = &v
+	return s
+}
+
+func (s *Buildpack) SetDeployScriptId(v string) *Buildpack {
+	s.DeployScriptId = &v
+	return s
+}
+
+func (s *Buildpack) SetBuildScriptId(v string) *Buildpack {
+	s.BuildScriptId = &v
+	return s
+}
+
+func (s *Buildpack) SetConfigId(v string) *Buildpack {
+	s.ConfigId = &v
+	return s
+}
+
+func (s *Buildpack) SetComponentId(v string) *Buildpack {
+	s.ComponentId = &v
+	return s
+}
+
+func (s *Buildpack) SetCommandId(v string) *Buildpack {
+	s.CommandId = &v
+	return s
+}
+
+func (s *Buildpack) SetBgEnable(v bool) *Buildpack {
+	s.BgEnable = &v
+	return s
+}
+
+func (s *Buildpack) SetCreator(v string) *Buildpack {
+	s.Creator = &v
+	return s
+}
+
+func (s *Buildpack) SetTenantId(v string) *Buildpack {
+	s.TenantId = &v
+	return s
+}
+
+func (s *Buildpack) SetCustomerIds(v []*string) *Buildpack {
+	s.CustomerIds = v
+	return s
+}
+
+func (s *Buildpack) SetType(v string) *Buildpack {
+	s.Type = &v
+	return s
+}
+
+func (s *Buildpack) SetStatus(v string) *Buildpack {
+	s.Status = &v
+	return s
+}
+
+func (s *Buildpack) SetGmtCreate(v string) *Buildpack {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *Buildpack) SetGmtModified(v string) *Buildpack {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *Buildpack) SetResultMsg(v string) *Buildpack {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *Buildpack) SetVersionStatus(v string) *Buildpack {
+	s.VersionStatus = &v
+	return s
+}
+
+func (s *Buildpack) SetInstances(v *BuildpackInstances) *Buildpack {
+	s.Instances = v
+	return s
+}
+
+// 应用分组查询
+type AppDomainQuery struct {
+	// creatorId
+	CreatorId *string `json:"creator_id,omitempty" xml:"creator_id,omitempty"`
+	// 是否为一方化请求
+	IsOnePartyRequest *bool `json:"is_one_party_request,omitempty" xml:"is_one_party_request,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// parentId
+	ParentId *string `json:"parent_id,omitempty" xml:"parent_id,omitempty"`
+	// tenantId
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// utcCreate
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 分页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// query_type
+	QueryType *string `json:"query_type,omitempty" xml:"query_type,omitempty"`
+	// orders
+	Orders []*string `json:"orders,omitempty" xml:"orders,omitempty" type:"Repeated"`
+	// 当前页数
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
+}
+
+func (s AppDomainQuery) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppDomainQuery) GoString() string {
+	return s.String()
+}
+
+func (s *AppDomainQuery) SetCreatorId(v string) *AppDomainQuery {
+	s.CreatorId = &v
+	return s
+}
+
+func (s *AppDomainQuery) SetIsOnePartyRequest(v bool) *AppDomainQuery {
+	s.IsOnePartyRequest = &v
+	return s
+}
+
+func (s *AppDomainQuery) SetName(v string) *AppDomainQuery {
+	s.Name = &v
+	return s
+}
+
+func (s *AppDomainQuery) SetParentId(v string) *AppDomainQuery {
+	s.ParentId = &v
+	return s
+}
+
+func (s *AppDomainQuery) SetTenantId(v string) *AppDomainQuery {
+	s.TenantId = &v
+	return s
+}
+
+func (s *AppDomainQuery) SetUtcCreate(v string) *AppDomainQuery {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *AppDomainQuery) SetPageSize(v int64) *AppDomainQuery {
+	s.PageSize = &v
+	return s
+}
+
+func (s *AppDomainQuery) SetQueryType(v string) *AppDomainQuery {
+	s.QueryType = &v
+	return s
+}
+
+func (s *AppDomainQuery) SetOrders(v []*string) *AppDomainQuery {
+	s.Orders = v
+	return s
+}
+
+func (s *AppDomainQuery) SetCurrentPage(v int64) *AppDomainQuery {
+	s.CurrentPage = &v
+	return s
+}
+
+// 交换机详细信息
+type VSwitch struct {
+	// 交换机的IPv4网段
+	CidrBlock *string `json:"cidr_block,omitempty" xml:"cidr_block,omitempty"`
+	// 交换机的创建时间
+	CreationTime *string `json:"creation_time,omitempty" xml:"creation_time,omitempty"`
+	// 交换机的描述信息
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// cn-hangzhou
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
+	// 交换机的状态，取值：
+	//
+	// Pending：配置中。
+	// Available：可用。
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 交换机所属VPC的ID
+	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty"`
+	// 交换机的ID
+	VSwitchId *string `json:"v_switch_id,omitempty" xml:"v_switch_id,omitempty"`
+	// 交换机的名称
+	VSwitchName *string `json:"v_switch_name,omitempty" xml:"v_switch_name,omitempty"`
+	// 交换机所属的可用区
+	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
+	// zone iaas id
+	ZoneIaasId *string `json:"zone_iaas_id,omitempty" xml:"zone_iaas_id,omitempty"`
+}
+
+func (s VSwitch) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VSwitch) GoString() string {
+	return s.String()
+}
+
+func (s *VSwitch) SetCidrBlock(v string) *VSwitch {
+	s.CidrBlock = &v
+	return s
+}
+
+func (s *VSwitch) SetCreationTime(v string) *VSwitch {
+	s.CreationTime = &v
+	return s
+}
+
+func (s *VSwitch) SetDescription(v string) *VSwitch {
 	s.Description = &v
 	return s
 }
 
-func (s *Zone) SetInstancestatus(v string) *Zone {
-	s.Instancestatus = &v
+func (s *VSwitch) SetRegionId(v string) *VSwitch {
+	s.RegionId = &v
 	return s
 }
 
-func (s *Zone) SetRegion(v string) *Zone {
+func (s *VSwitch) SetStatus(v string) *VSwitch {
+	s.Status = &v
+	return s
+}
+
+func (s *VSwitch) SetVpcId(v string) *VSwitch {
+	s.VpcId = &v
+	return s
+}
+
+func (s *VSwitch) SetVSwitchId(v string) *VSwitch {
+	s.VSwitchId = &v
+	return s
+}
+
+func (s *VSwitch) SetVSwitchName(v string) *VSwitch {
+	s.VSwitchName = &v
+	return s
+}
+
+func (s *VSwitch) SetZoneId(v string) *VSwitch {
+	s.ZoneId = &v
+	return s
+}
+
+func (s *VSwitch) SetZoneIaasId(v string) *VSwitch {
+	s.ZoneIaasId = &v
+	return s
+}
+
+// WorkspaceDnsRecordset
+type WorkspaceDnsRecordset struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// iaasId
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty" require:"true"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// dns_provider_id
+	DnsProviderId *string `json:"dns_provider_id,omitempty" xml:"dns_provider_id,omitempty" require:"true"`
+	// dns_network_type
+	DnsNetworkType *string `json:"dns_network_type,omitempty" xml:"dns_network_type,omitempty"`
+	// device_network_address_type
+	DeviceNetworkAddressType *string `json:"device_network_address_type,omitempty" xml:"device_network_address_type,omitempty"`
+	// 绑定的资源的类型COMPUTER或LOAD_BALANCER
+	ResourceType *string `json:"resource_type,omitempty" xml:"resource_type,omitempty" require:"true"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// type
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// value
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// ttl
+	Ttl *int64 `json:"ttl,omitempty" xml:"ttl,omitempty" require:"true"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// resource_id
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty"`
+	// resource_iaas_id
+	ResourceIaasId *string `json:"resource_iaas_id,omitempty" xml:"resource_iaas_id,omitempty"`
+	// utc_create
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// utc_modified
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s WorkspaceDnsRecordset) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WorkspaceDnsRecordset) GoString() string {
+	return s.String()
+}
+
+func (s *WorkspaceDnsRecordset) SetId(v string) *WorkspaceDnsRecordset {
+	s.Id = &v
+	return s
+}
+
+func (s *WorkspaceDnsRecordset) SetIaasId(v string) *WorkspaceDnsRecordset {
+	s.IaasId = &v
+	return s
+}
+
+func (s *WorkspaceDnsRecordset) SetName(v string) *WorkspaceDnsRecordset {
+	s.Name = &v
+	return s
+}
+
+func (s *WorkspaceDnsRecordset) SetDnsProviderId(v string) *WorkspaceDnsRecordset {
+	s.DnsProviderId = &v
+	return s
+}
+
+func (s *WorkspaceDnsRecordset) SetDnsNetworkType(v string) *WorkspaceDnsRecordset {
+	s.DnsNetworkType = &v
+	return s
+}
+
+func (s *WorkspaceDnsRecordset) SetDeviceNetworkAddressType(v string) *WorkspaceDnsRecordset {
+	s.DeviceNetworkAddressType = &v
+	return s
+}
+
+func (s *WorkspaceDnsRecordset) SetResourceType(v string) *WorkspaceDnsRecordset {
+	s.ResourceType = &v
+	return s
+}
+
+func (s *WorkspaceDnsRecordset) SetDescription(v string) *WorkspaceDnsRecordset {
+	s.Description = &v
+	return s
+}
+
+func (s *WorkspaceDnsRecordset) SetType(v string) *WorkspaceDnsRecordset {
+	s.Type = &v
+	return s
+}
+
+func (s *WorkspaceDnsRecordset) SetStatus(v string) *WorkspaceDnsRecordset {
+	s.Status = &v
+	return s
+}
+
+func (s *WorkspaceDnsRecordset) SetValue(v string) *WorkspaceDnsRecordset {
+	s.Value = &v
+	return s
+}
+
+func (s *WorkspaceDnsRecordset) SetTtl(v int64) *WorkspaceDnsRecordset {
+	s.Ttl = &v
+	return s
+}
+
+func (s *WorkspaceDnsRecordset) SetWorkspaceId(v string) *WorkspaceDnsRecordset {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *WorkspaceDnsRecordset) SetResourceId(v string) *WorkspaceDnsRecordset {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *WorkspaceDnsRecordset) SetResourceIaasId(v string) *WorkspaceDnsRecordset {
+	s.ResourceIaasId = &v
+	return s
+}
+
+func (s *WorkspaceDnsRecordset) SetUtcCreate(v string) *WorkspaceDnsRecordset {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *WorkspaceDnsRecordset) SetUtcModified(v string) *WorkspaceDnsRecordset {
+	s.UtcModified = &v
+	return s
+}
+
+// IAM用户信息
+type UserDTO struct {
+	// 用户ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 创建时间
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 最近修改时间
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 客户ID
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
+	// 用户类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 用户显示名称
+	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty"`
+	// 用户名
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+}
+
+func (s UserDTO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UserDTO) GoString() string {
+	return s.String()
+}
+
+func (s *UserDTO) SetId(v string) *UserDTO {
+	s.Id = &v
+	return s
+}
+
+func (s *UserDTO) SetUtcCreate(v string) *UserDTO {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *UserDTO) SetUtcModified(v string) *UserDTO {
+	s.UtcModified = &v
+	return s
+}
+
+func (s *UserDTO) SetCustomerId(v string) *UserDTO {
+	s.CustomerId = &v
+	return s
+}
+
+func (s *UserDTO) SetType(v string) *UserDTO {
+	s.Type = &v
+	return s
+}
+
+func (s *UserDTO) SetRealName(v string) *UserDTO {
+	s.RealName = &v
+	return s
+}
+
+func (s *UserDTO) SetName(v string) *UserDTO {
+	s.Name = &v
+	return s
+}
+
+// DatabaseSpec
+type DatabaseSpec struct {
+	// cpu
+	Cpu *int64 `json:"cpu,omitempty" xml:"cpu,omitempty"`
+	// custom_storage
+	CustomStorage *bool `json:"custom_storage,omitempty" xml:"custom_storage,omitempty"`
+	// engine
+	Engine *string `json:"engine,omitempty" xml:"engine,omitempty"`
+	// engine_version
+	EngineVersion []*string `json:"engine_version,omitempty" xml:"engine_version,omitempty" type:"Repeated"`
+	// iaas_id
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// max_connections
+	MaxConnections *int64 `json:"max_connections,omitempty" xml:"max_connections,omitempty"`
+	// max_iops
+	MaxIops *int64 `json:"max_iops,omitempty" xml:"max_iops,omitempty"`
+	// max_storage
+	MaxStorage *int64 `json:"max_storage,omitempty" xml:"max_storage,omitempty"`
+	// memory
+	Memory *int64 `json:"memory,omitempty" xml:"memory,omitempty"`
+	// min_storage
+	MinStorage *int64 `json:"min_storage,omitempty" xml:"min_storage,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// supported_storages
+	SupportedStorages []*int64 `json:"supported_storages,omitempty" xml:"supported_storages,omitempty" type:"Repeated"`
+	// type
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+}
+
+func (s DatabaseSpec) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DatabaseSpec) GoString() string {
+	return s.String()
+}
+
+func (s *DatabaseSpec) SetCpu(v int64) *DatabaseSpec {
+	s.Cpu = &v
+	return s
+}
+
+func (s *DatabaseSpec) SetCustomStorage(v bool) *DatabaseSpec {
+	s.CustomStorage = &v
+	return s
+}
+
+func (s *DatabaseSpec) SetEngine(v string) *DatabaseSpec {
+	s.Engine = &v
+	return s
+}
+
+func (s *DatabaseSpec) SetEngineVersion(v []*string) *DatabaseSpec {
+	s.EngineVersion = v
+	return s
+}
+
+func (s *DatabaseSpec) SetIaasId(v string) *DatabaseSpec {
+	s.IaasId = &v
+	return s
+}
+
+func (s *DatabaseSpec) SetId(v string) *DatabaseSpec {
+	s.Id = &v
+	return s
+}
+
+func (s *DatabaseSpec) SetMaxConnections(v int64) *DatabaseSpec {
+	s.MaxConnections = &v
+	return s
+}
+
+func (s *DatabaseSpec) SetMaxIops(v int64) *DatabaseSpec {
+	s.MaxIops = &v
+	return s
+}
+
+func (s *DatabaseSpec) SetMaxStorage(v int64) *DatabaseSpec {
+	s.MaxStorage = &v
+	return s
+}
+
+func (s *DatabaseSpec) SetMemory(v int64) *DatabaseSpec {
+	s.Memory = &v
+	return s
+}
+
+func (s *DatabaseSpec) SetMinStorage(v int64) *DatabaseSpec {
+	s.MinStorage = &v
+	return s
+}
+
+func (s *DatabaseSpec) SetName(v string) *DatabaseSpec {
+	s.Name = &v
+	return s
+}
+
+func (s *DatabaseSpec) SetSupportedStorages(v []*int64) *DatabaseSpec {
+	s.SupportedStorages = v
+	return s
+}
+
+func (s *DatabaseSpec) SetType(v string) *DatabaseSpec {
+	s.Type = &v
+	return s
+}
+
+// DatabaseImportVO
+type DatabaseImportVO struct {
+	// iaas_id
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// type
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// engine
+	Engine *string `json:"engine,omitempty" xml:"engine,omitempty"`
+	// net_type
+	NetType *string `json:"net_type,omitempty" xml:"net_type,omitempty"`
+	// utc_create
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// importInfo
+	ImportInfo *ImportVO `json:"import_info,omitempty" xml:"import_info,omitempty" require:"true"`
+}
+
+func (s DatabaseImportVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DatabaseImportVO) GoString() string {
+	return s.String()
+}
+
+func (s *DatabaseImportVO) SetIaasId(v string) *DatabaseImportVO {
+	s.IaasId = &v
+	return s
+}
+
+func (s *DatabaseImportVO) SetDescription(v string) *DatabaseImportVO {
+	s.Description = &v
+	return s
+}
+
+func (s *DatabaseImportVO) SetType(v string) *DatabaseImportVO {
+	s.Type = &v
+	return s
+}
+
+func (s *DatabaseImportVO) SetStatus(v string) *DatabaseImportVO {
+	s.Status = &v
+	return s
+}
+
+func (s *DatabaseImportVO) SetEngine(v string) *DatabaseImportVO {
+	s.Engine = &v
+	return s
+}
+
+func (s *DatabaseImportVO) SetNetType(v string) *DatabaseImportVO {
+	s.NetType = &v
+	return s
+}
+
+func (s *DatabaseImportVO) SetUtcCreate(v string) *DatabaseImportVO {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *DatabaseImportVO) SetImportInfo(v *ImportVO) *DatabaseImportVO {
+	s.ImportInfo = v
+	return s
+}
+
+// 一个应用发布包视图
+type AppPackageListView struct {
+	// app_id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	// app_owner_id
+	AppOwnerId *string `json:"app_owner_id,omitempty" xml:"app_owner_id,omitempty"`
+	// app_owner_name
+	AppOwnerName *string `json:"app_owner_name,omitempty" xml:"app_owner_name,omitempty"`
+	// app_status
+	AppStatus *string `json:"app_status,omitempty" xml:"app_status,omitempty"`
+	// buildpack_id
+	BuildpackId *string `json:"buildpack_id,omitempty" xml:"buildpack_id,omitempty"`
+	// buildpack_name
+	BuildpackName *string `json:"buildpack_name,omitempty" xml:"buildpack_name,omitempty"`
+	// buildpack_version
+	BuildpackVersion *string `json:"buildpack_version,omitempty" xml:"buildpack_version,omitempty"`
+	// latest_package
+	LatestPackage *AppManifest `json:"latest_package,omitempty" xml:"latest_package,omitempty"`
+	// package_count
+	PackageCount *int64 `json:"package_count,omitempty" xml:"package_count,omitempty"`
+}
+
+func (s AppPackageListView) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppPackageListView) GoString() string {
+	return s.String()
+}
+
+func (s *AppPackageListView) SetAppId(v string) *AppPackageListView {
+	s.AppId = &v
+	return s
+}
+
+func (s *AppPackageListView) SetAppName(v string) *AppPackageListView {
+	s.AppName = &v
+	return s
+}
+
+func (s *AppPackageListView) SetAppOwnerId(v string) *AppPackageListView {
+	s.AppOwnerId = &v
+	return s
+}
+
+func (s *AppPackageListView) SetAppOwnerName(v string) *AppPackageListView {
+	s.AppOwnerName = &v
+	return s
+}
+
+func (s *AppPackageListView) SetAppStatus(v string) *AppPackageListView {
+	s.AppStatus = &v
+	return s
+}
+
+func (s *AppPackageListView) SetBuildpackId(v string) *AppPackageListView {
+	s.BuildpackId = &v
+	return s
+}
+
+func (s *AppPackageListView) SetBuildpackName(v string) *AppPackageListView {
+	s.BuildpackName = &v
+	return s
+}
+
+func (s *AppPackageListView) SetBuildpackVersion(v string) *AppPackageListView {
+	s.BuildpackVersion = &v
+	return s
+}
+
+func (s *AppPackageListView) SetLatestPackage(v *AppManifest) *AppPackageListView {
+	s.LatestPackage = v
+	return s
+}
+
+func (s *AppPackageListView) SetPackageCount(v int64) *AppPackageListView {
+	s.PackageCount = &v
+	return s
+}
+
+// PermissionVO
+type PermissionVO struct {
+	// authorizedCidrIp
+	AuthorizedCidrIp *string `json:"authorized_cidr_ip,omitempty" xml:"authorized_cidr_ip,omitempty"`
+	// authorize_type
+	AuthorizeType *string `json:"authorize_type,omitempty" xml:"authorize_type,omitempty"`
+	// direction
+	Direction *string `json:"direction,omitempty" xml:"direction,omitempty"`
+	// endPort
+	EndPort *int64 `json:"end_port,omitempty" xml:"end_port,omitempty"`
+	// ipProtocol
+	IpProtocol *string `json:"ip_protocol,omitempty" xml:"ip_protocol,omitempty"`
+	// nicType
+	NicType *string `json:"nic_type,omitempty" xml:"nic_type,omitempty"`
+	// policy
+	Policy *string `json:"policy,omitempty" xml:"policy,omitempty"`
+	// priority
+	Priority *int64 `json:"priority,omitempty" xml:"priority,omitempty"`
+	// securityGroupId
+	SecurityGroupId *string `json:"security_group_id,omitempty" xml:"security_group_id,omitempty"`
+	// startPort
+	StartPort *int64 `json:"start_port,omitempty" xml:"start_port,omitempty"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+}
+
+func (s PermissionVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PermissionVO) GoString() string {
+	return s.String()
+}
+
+func (s *PermissionVO) SetAuthorizedCidrIp(v string) *PermissionVO {
+	s.AuthorizedCidrIp = &v
+	return s
+}
+
+func (s *PermissionVO) SetAuthorizeType(v string) *PermissionVO {
+	s.AuthorizeType = &v
+	return s
+}
+
+func (s *PermissionVO) SetDirection(v string) *PermissionVO {
+	s.Direction = &v
+	return s
+}
+
+func (s *PermissionVO) SetEndPort(v int64) *PermissionVO {
+	s.EndPort = &v
+	return s
+}
+
+func (s *PermissionVO) SetIpProtocol(v string) *PermissionVO {
+	s.IpProtocol = &v
+	return s
+}
+
+func (s *PermissionVO) SetNicType(v string) *PermissionVO {
+	s.NicType = &v
+	return s
+}
+
+func (s *PermissionVO) SetPolicy(v string) *PermissionVO {
+	s.Policy = &v
+	return s
+}
+
+func (s *PermissionVO) SetPriority(v int64) *PermissionVO {
+	s.Priority = &v
+	return s
+}
+
+func (s *PermissionVO) SetSecurityGroupId(v string) *PermissionVO {
+	s.SecurityGroupId = &v
+	return s
+}
+
+func (s *PermissionVO) SetStartPort(v int64) *PermissionVO {
+	s.StartPort = &v
+	return s
+}
+
+func (s *PermissionVO) SetId(v string) *PermissionVO {
+	s.Id = &v
+	return s
+}
+
+// ComputerImportVO
+type ComputerImportVO struct {
+	// computer iaaas id
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// zone identity
+	ZoneIaasId *string `json:"zone_iaas_id,omitempty" xml:"zone_iaas_id,omitempty"`
+	// zone name
+	ZoneName *string `json:"zone_name,omitempty" xml:"zone_name,omitempty"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// private ip
+	PrivateIp *string `json:"private_ip,omitempty" xml:"private_ip,omitempty"`
+	// public ip
+	PublicIp *string `json:"public_ip,omitempty" xml:"public_ip,omitempty"`
+	// elasticIp
+	ElasticIp *string `json:"elastic_ip,omitempty" xml:"elastic_ip,omitempty"`
+	// vpcIaasId
+	VpcIaasId *string `json:"vpc_iaas_id,omitempty" xml:"vpc_iaas_id,omitempty"`
+	// joined security group infos
+	JoinedSecurityGroup []*JoinedSecurityGroupVO `json:"joined_security_group,omitempty" xml:"joined_security_group,omitempty" type:"Repeated"`
+	// creation time
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// import info
+	ImportInfo *ImportVO `json:"import_info,omitempty" xml:"import_info,omitempty"`
+}
+
+func (s ComputerImportVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ComputerImportVO) GoString() string {
+	return s.String()
+}
+
+func (s *ComputerImportVO) SetIaasId(v string) *ComputerImportVO {
+	s.IaasId = &v
+	return s
+}
+
+func (s *ComputerImportVO) SetName(v string) *ComputerImportVO {
+	s.Name = &v
+	return s
+}
+
+func (s *ComputerImportVO) SetZoneIaasId(v string) *ComputerImportVO {
+	s.ZoneIaasId = &v
+	return s
+}
+
+func (s *ComputerImportVO) SetZoneName(v string) *ComputerImportVO {
+	s.ZoneName = &v
+	return s
+}
+
+func (s *ComputerImportVO) SetDescription(v string) *ComputerImportVO {
+	s.Description = &v
+	return s
+}
+
+func (s *ComputerImportVO) SetPrivateIp(v string) *ComputerImportVO {
+	s.PrivateIp = &v
+	return s
+}
+
+func (s *ComputerImportVO) SetPublicIp(v string) *ComputerImportVO {
+	s.PublicIp = &v
+	return s
+}
+
+func (s *ComputerImportVO) SetElasticIp(v string) *ComputerImportVO {
+	s.ElasticIp = &v
+	return s
+}
+
+func (s *ComputerImportVO) SetVpcIaasId(v string) *ComputerImportVO {
+	s.VpcIaasId = &v
+	return s
+}
+
+func (s *ComputerImportVO) SetJoinedSecurityGroup(v []*JoinedSecurityGroupVO) *ComputerImportVO {
+	s.JoinedSecurityGroup = v
+	return s
+}
+
+func (s *ComputerImportVO) SetUtcCreate(v string) *ComputerImportVO {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *ComputerImportVO) SetImportInfo(v *ImportVO) *ComputerImportVO {
+	s.ImportInfo = v
+	return s
+}
+
+// 用户查询
+type UserQuery struct {
+	// 基础查询
+	BaseQuery *PaginationQuery `json:"base_query,omitempty" xml:"base_query,omitempty"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// customerId
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
+	// tenantId
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// type
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// types
+	Types []*string `json:"types,omitempty" xml:"types,omitempty" type:"Repeated"`
+	// email
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// mobile
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// realName
+	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty"`
+	// loginName
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+}
+
+func (s UserQuery) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UserQuery) GoString() string {
+	return s.String()
+}
+
+func (s *UserQuery) SetBaseQuery(v *PaginationQuery) *UserQuery {
+	s.BaseQuery = v
+	return s
+}
+
+func (s *UserQuery) SetId(v string) *UserQuery {
+	s.Id = &v
+	return s
+}
+
+func (s *UserQuery) SetCustomerId(v string) *UserQuery {
+	s.CustomerId = &v
+	return s
+}
+
+func (s *UserQuery) SetTenantId(v string) *UserQuery {
+	s.TenantId = &v
+	return s
+}
+
+func (s *UserQuery) SetType(v string) *UserQuery {
+	s.Type = &v
+	return s
+}
+
+func (s *UserQuery) SetTypes(v []*string) *UserQuery {
+	s.Types = v
+	return s
+}
+
+func (s *UserQuery) SetEmail(v string) *UserQuery {
+	s.Email = &v
+	return s
+}
+
+func (s *UserQuery) SetMobile(v string) *UserQuery {
+	s.Mobile = &v
+	return s
+}
+
+func (s *UserQuery) SetRealName(v string) *UserQuery {
+	s.RealName = &v
+	return s
+}
+
+func (s *UserQuery) SetLoginName(v string) *UserQuery {
+	s.LoginName = &v
+	return s
+}
+
+// 服务器规格
+type ComputerSpec struct {
+	// cpu个数
+	Cpu *int64 `json:"cpu,omitempty" xml:"cpu,omitempty"`
+	// 可以挂载的磁盘类型
+	DiskSpecIds []*string `json:"disk_spec_ids,omitempty" xml:"disk_spec_ids,omitempty" type:"Repeated"`
+	// 服务器规格名称
+	Group *string `json:"group,omitempty" xml:"group,omitempty" require:"true"`
+	// 是否有IO优化
+	IoOptimized *bool `json:"io_optimized,omitempty" xml:"io_optimized,omitempty"`
+	// 内存大小
+	Memory *int64 `json:"memory,omitempty" xml:"memory,omitempty"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// enable
+	Enable *bool `json:"enable,omitempty" xml:"enable,omitempty"`
+	// iaasId
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	// COMPUTER_ECS
+	IaasType *string `json:"iaas_type,omitempty" xml:"iaas_type,omitempty"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// providerId
+	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty"`
+}
+
+func (s ComputerSpec) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ComputerSpec) GoString() string {
+	return s.String()
+}
+
+func (s *ComputerSpec) SetCpu(v int64) *ComputerSpec {
+	s.Cpu = &v
+	return s
+}
+
+func (s *ComputerSpec) SetDiskSpecIds(v []*string) *ComputerSpec {
+	s.DiskSpecIds = v
+	return s
+}
+
+func (s *ComputerSpec) SetGroup(v string) *ComputerSpec {
+	s.Group = &v
+	return s
+}
+
+func (s *ComputerSpec) SetIoOptimized(v bool) *ComputerSpec {
+	s.IoOptimized = &v
+	return s
+}
+
+func (s *ComputerSpec) SetMemory(v int64) *ComputerSpec {
+	s.Memory = &v
+	return s
+}
+
+func (s *ComputerSpec) SetDescription(v string) *ComputerSpec {
+	s.Description = &v
+	return s
+}
+
+func (s *ComputerSpec) SetEnable(v bool) *ComputerSpec {
+	s.Enable = &v
+	return s
+}
+
+func (s *ComputerSpec) SetIaasId(v string) *ComputerSpec {
+	s.IaasId = &v
+	return s
+}
+
+func (s *ComputerSpec) SetIaasType(v string) *ComputerSpec {
+	s.IaasType = &v
+	return s
+}
+
+func (s *ComputerSpec) SetId(v string) *ComputerSpec {
+	s.Id = &v
+	return s
+}
+
+func (s *ComputerSpec) SetName(v string) *ComputerSpec {
+	s.Name = &v
+	return s
+}
+
+func (s *ComputerSpec) SetProviderId(v string) *ComputerSpec {
+	s.ProviderId = &v
+	return s
+}
+
+// Staragent Operation Task info
+type OperationTask struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// computer id
+	ComputerId *string `json:"computer_id,omitempty" xml:"computer_id,omitempty"`
+	// computer ip
+	ComputerIp *string `json:"computer_ip,omitempty" xml:"computer_ip,omitempty"`
+	// command
+	Command *string `json:"command,omitempty" xml:"command,omitempty"`
+	// 状态取值：INIT，PROCESSING，SUCCEEDED，FAILED，TIMEOUT，NOT_FOUND
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// errorCode
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// resultMsg
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s OperationTask) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperationTask) GoString() string {
+	return s.String()
+}
+
+func (s *OperationTask) SetId(v string) *OperationTask {
+	s.Id = &v
+	return s
+}
+
+func (s *OperationTask) SetComputerId(v string) *OperationTask {
+	s.ComputerId = &v
+	return s
+}
+
+func (s *OperationTask) SetComputerIp(v string) *OperationTask {
+	s.ComputerIp = &v
+	return s
+}
+
+func (s *OperationTask) SetCommand(v string) *OperationTask {
+	s.Command = &v
+	return s
+}
+
+func (s *OperationTask) SetStatus(v string) *OperationTask {
+	s.Status = &v
+	return s
+}
+
+func (s *OperationTask) SetErrorCode(v string) *OperationTask {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *OperationTask) SetResultMsg(v string) *OperationTask {
+	s.ResultMsg = &v
+	return s
+}
+
+// 阿里云日志服务(SLS)-日志项目
+type SLSProject struct {
+	// 项目描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 项目名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 阿里云返回的regionName，仅作展示用
+	Region *string `json:"region,omitempty" xml:"region,omitempty"`
+}
+
+func (s SLSProject) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SLSProject) GoString() string {
+	return s.String()
+}
+
+func (s *SLSProject) SetDescription(v string) *SLSProject {
+	s.Description = &v
+	return s
+}
+
+func (s *SLSProject) SetName(v string) *SLSProject {
+	s.Name = &v
+	return s
+}
+
+func (s *SLSProject) SetRegion(v string) *SLSProject {
 	s.Region = &v
 	return s
 }
 
-func (s *Zone) SetProperties(v []*Property) *Zone {
-	s.Properties = v
+// 阿里云日志服务(SLS)-日志库
+type SLSLogStore struct {
+	// 日志库名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// Shard个数，单位为个，范围为1~100。
+	ShardCount *int64 `json:"shard_count,omitempty" xml:"shard_count,omitempty" require:"true"`
+	// 数据的保存时间，单位为天，范围1~3600。
+	Ttl *int64 `json:"ttl,omitempty" xml:"ttl,omitempty" require:"true"`
+}
+
+func (s SLSLogStore) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SLSLogStore) GoString() string {
+	return s.String()
+}
+
+func (s *SLSLogStore) SetName(v string) *SLSLogStore {
+	s.Name = &v
+	return s
+}
+
+func (s *SLSLogStore) SetShardCount(v int64) *SLSLogStore {
+	s.ShardCount = &v
+	return s
+}
+
+func (s *SLSLogStore) SetTtl(v int64) *SLSLogStore {
+	s.Ttl = &v
+	return s
+}
+
+// Connection
+type Connection struct {
+	// access_key
+	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
+	// access_secret
+	AccessSecret *string `json:"access_secret,omitempty" xml:"access_secret,omitempty"`
+	// created_time
+	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// executor
+	Executor *string `json:"executor,omitempty" xml:"executor,omitempty"`
+	// id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
+	// identity
+	Identity *string `json:"identity,omitempty" xml:"identity,omitempty"`
+	// 修改时间
+	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// plug
+	Plug *ConnectionStub `json:"plug,omitempty" xml:"plug,omitempty"`
+	// socket
+	Socket *ConnectionStub `json:"socket,omitempty" xml:"socket,omitempty"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+}
+
+func (s Connection) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Connection) GoString() string {
+	return s.String()
+}
+
+func (s *Connection) SetAccessKey(v string) *Connection {
+	s.AccessKey = &v
+	return s
+}
+
+func (s *Connection) SetAccessSecret(v string) *Connection {
+	s.AccessSecret = &v
+	return s
+}
+
+func (s *Connection) SetCreatedTime(v string) *Connection {
+	s.CreatedTime = &v
+	return s
+}
+
+func (s *Connection) SetExecutor(v string) *Connection {
+	s.Executor = &v
+	return s
+}
+
+func (s *Connection) SetId(v int64) *Connection {
+	s.Id = &v
+	return s
+}
+
+func (s *Connection) SetIdentity(v string) *Connection {
+	s.Identity = &v
+	return s
+}
+
+func (s *Connection) SetModifiedTime(v string) *Connection {
+	s.ModifiedTime = &v
+	return s
+}
+
+func (s *Connection) SetName(v string) *Connection {
+	s.Name = &v
+	return s
+}
+
+func (s *Connection) SetPlug(v *ConnectionStub) *Connection {
+	s.Plug = v
+	return s
+}
+
+func (s *Connection) SetSocket(v *ConnectionStub) *Connection {
+	s.Socket = v
+	return s
+}
+
+func (s *Connection) SetStatus(v string) *Connection {
+	s.Status = &v
+	return s
+}
+
+func (s *Connection) SetTenantId(v string) *Connection {
+	s.TenantId = &v
+	return s
+}
+
+// IaasDnsProvider
+type IaasDnsProvider struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// service_config_id
+	ServiceConfigId *string `json:"service_config_id,omitempty" xml:"service_config_id,omitempty" require:"true"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// type
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// regionId
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
+	// zoneId
+	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
+	// utc_create
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// utc_modified
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// dns_zones
+	DnsZones []*DnsZones `json:"dns_zones,omitempty" xml:"dns_zones,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s IaasDnsProvider) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IaasDnsProvider) GoString() string {
+	return s.String()
+}
+
+func (s *IaasDnsProvider) SetId(v string) *IaasDnsProvider {
+	s.Id = &v
+	return s
+}
+
+func (s *IaasDnsProvider) SetServiceConfigId(v string) *IaasDnsProvider {
+	s.ServiceConfigId = &v
+	return s
+}
+
+func (s *IaasDnsProvider) SetName(v string) *IaasDnsProvider {
+	s.Name = &v
+	return s
+}
+
+func (s *IaasDnsProvider) SetDescription(v string) *IaasDnsProvider {
+	s.Description = &v
+	return s
+}
+
+func (s *IaasDnsProvider) SetType(v string) *IaasDnsProvider {
+	s.Type = &v
+	return s
+}
+
+func (s *IaasDnsProvider) SetStatus(v string) *IaasDnsProvider {
+	s.Status = &v
+	return s
+}
+
+func (s *IaasDnsProvider) SetRegionId(v string) *IaasDnsProvider {
+	s.RegionId = &v
+	return s
+}
+
+func (s *IaasDnsProvider) SetZoneId(v string) *IaasDnsProvider {
+	s.ZoneId = &v
+	return s
+}
+
+func (s *IaasDnsProvider) SetUtcCreate(v string) *IaasDnsProvider {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *IaasDnsProvider) SetUtcModified(v string) *IaasDnsProvider {
+	s.UtcModified = &v
+	return s
+}
+
+func (s *IaasDnsProvider) SetDnsZones(v []*DnsZones) *IaasDnsProvider {
+	s.DnsZones = v
+	return s
+}
+
+// computer common image
+type CommonImage struct {
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// is enable
+	Enable *bool `json:"enable,omitempty" xml:"enable,omitempty"`
+	// iaas id
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	// iaas type
+	IaasType *string `json:"iaas_type,omitempty" xml:"iaas_type,omitempty"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 是否仅杭州金区 vpc 可用镜像
+	OnlyHzFinVpcSupported *bool `json:"only_hz_fin_vpc_supported,omitempty" xml:"only_hz_fin_vpc_supported,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// os
+	Os *string `json:"os,omitempty" xml:"os,omitempty"`
+	// os bit取值：32，64
+	OsBit *int64 `json:"os_bit,omitempty" xml:"os_bit,omitempty"`
+	// os version
+	OsVersion *string `json:"os_version,omitempty" xml:"os_version,omitempty"`
+	// provider id
+	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty"`
+	// region id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// system disk size(GB)
+	SystemDiskSize *int64 `json:"system_disk_size,omitempty" xml:"system_disk_size,omitempty"`
+}
+
+func (s CommonImage) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CommonImage) GoString() string {
+	return s.String()
+}
+
+func (s *CommonImage) SetDescription(v string) *CommonImage {
+	s.Description = &v
+	return s
+}
+
+func (s *CommonImage) SetEnable(v bool) *CommonImage {
+	s.Enable = &v
+	return s
+}
+
+func (s *CommonImage) SetIaasId(v string) *CommonImage {
+	s.IaasId = &v
+	return s
+}
+
+func (s *CommonImage) SetIaasType(v string) *CommonImage {
+	s.IaasType = &v
+	return s
+}
+
+func (s *CommonImage) SetId(v string) *CommonImage {
+	s.Id = &v
+	return s
+}
+
+func (s *CommonImage) SetOnlyHzFinVpcSupported(v bool) *CommonImage {
+	s.OnlyHzFinVpcSupported = &v
+	return s
+}
+
+func (s *CommonImage) SetName(v string) *CommonImage {
+	s.Name = &v
+	return s
+}
+
+func (s *CommonImage) SetOs(v string) *CommonImage {
+	s.Os = &v
+	return s
+}
+
+func (s *CommonImage) SetOsBit(v int64) *CommonImage {
+	s.OsBit = &v
+	return s
+}
+
+func (s *CommonImage) SetOsVersion(v string) *CommonImage {
+	s.OsVersion = &v
+	return s
+}
+
+func (s *CommonImage) SetProviderId(v string) *CommonImage {
+	s.ProviderId = &v
+	return s
+}
+
+func (s *CommonImage) SetRegionId(v string) *CommonImage {
+	s.RegionId = &v
+	return s
+}
+
+func (s *CommonImage) SetStatus(v string) *CommonImage {
+	s.Status = &v
+	return s
+}
+
+func (s *CommonImage) SetSystemDiskSize(v int64) *CommonImage {
+	s.SystemDiskSize = &v
 	return s
 }
 
@@ -9863,83 +9465,1048 @@ func (s *SecurityGroupVO) SetInstanceCount(v int64) *SecurityGroupVO {
 	return s
 }
 
-// computer 数据盘
-type DataDisk struct {
-	// 磁盘大小
-	Size *int64 `json:"size,omitempty" xml:"size,omitempty" require:"true"`
-	// 若使用磁盘创建，需填写此字段
-	SnapshotSequence *string `json:"snapshot_sequence,omitempty" xml:"snapshot_sequence,omitempty"`
-	// 磁盘规格
-	SpecId *string `json:"spec_id,omitempty" xml:"spec_id,omitempty" require:"true"`
-	// 数据盘设备
-	Device *string `json:"device,omitempty" xml:"device,omitempty" require:"true"`
+// staragent info
+type StarAgentInfo struct {
+	// computer serial number
+	Sn *string `json:"sn,omitempty" xml:"sn,omitempty"`
+	// hostname
+	Hostname *string `json:"hostname,omitempty" xml:"hostname,omitempty"`
+	// ip
+	Ip *string `json:"ip,omitempty" xml:"ip,omitempty"`
+	// ip list
+	IpList *string `json:"ip_list,omitempty" xml:"ip_list,omitempty"`
+	// 状态取值：RUNNING，ERROR，REGISTER，NOFIND
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 }
 
-func (s DataDisk) String() string {
+func (s StarAgentInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DataDisk) GoString() string {
+func (s StarAgentInfo) GoString() string {
 	return s.String()
 }
 
-func (s *DataDisk) SetSize(v int64) *DataDisk {
-	s.Size = &v
+func (s *StarAgentInfo) SetSn(v string) *StarAgentInfo {
+	s.Sn = &v
 	return s
 }
 
-func (s *DataDisk) SetSnapshotSequence(v string) *DataDisk {
-	s.SnapshotSequence = &v
+func (s *StarAgentInfo) SetHostname(v string) *StarAgentInfo {
+	s.Hostname = &v
 	return s
 }
 
-func (s *DataDisk) SetSpecId(v string) *DataDisk {
-	s.SpecId = &v
+func (s *StarAgentInfo) SetIp(v string) *StarAgentInfo {
+	s.Ip = &v
 	return s
 }
 
-func (s *DataDisk) SetDevice(v string) *DataDisk {
-	s.Device = &v
+func (s *StarAgentInfo) SetIpList(v string) *StarAgentInfo {
+	s.IpList = &v
 	return s
 }
 
-// VpcParam
-type VPCParam struct {
-	// cidr_block
-	CidrBlock *string `json:"cidr_block,omitempty" xml:"cidr_block,omitempty"`
+func (s *StarAgentInfo) SetStatus(v string) *StarAgentInfo {
+	s.Status = &v
+	return s
+}
+
+// CellGroup
+type CellGroup struct {
+	// identity
+	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// description
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// region id
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
-	// vpc_name
-	VpcName *string `json:"vpc_name,omitempty" xml:"vpc_name,omitempty"`
+	// properties
+	Properties []*Property `json:"properties,omitempty" xml:"properties,omitempty" type:"Repeated"`
+	// instancestatus
+	Instancestatus *string `json:"instancestatus,omitempty" xml:"instancestatus,omitempty" require:"true"`
 }
 
-func (s VPCParam) String() string {
+func (s CellGroup) String() string {
 	return tea.Prettify(s)
 }
 
-func (s VPCParam) GoString() string {
+func (s CellGroup) GoString() string {
 	return s.String()
 }
 
-func (s *VPCParam) SetCidrBlock(v string) *VPCParam {
-	s.CidrBlock = &v
+func (s *CellGroup) SetIdentity(v string) *CellGroup {
+	s.Identity = &v
 	return s
 }
 
-func (s *VPCParam) SetDescription(v string) *VPCParam {
+func (s *CellGroup) SetName(v string) *CellGroup {
+	s.Name = &v
+	return s
+}
+
+func (s *CellGroup) SetDescription(v string) *CellGroup {
 	s.Description = &v
 	return s
 }
 
-func (s *VPCParam) SetRegionId(v string) *VPCParam {
+func (s *CellGroup) SetProperties(v []*Property) *CellGroup {
+	s.Properties = v
+	return s
+}
+
+func (s *CellGroup) SetInstancestatus(v string) *CellGroup {
+	s.Instancestatus = &v
+	return s
+}
+
+// SecurityGroupParam
+type SecurityGroupParam struct {
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// region id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
+	// security_group_name
+	SecurityGroupName *string `json:"security_group_name,omitempty" xml:"security_group_name,omitempty"`
+	// vpc_id
+	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty"`
+}
+
+func (s SecurityGroupParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SecurityGroupParam) GoString() string {
+	return s.String()
+}
+
+func (s *SecurityGroupParam) SetDescription(v string) *SecurityGroupParam {
+	s.Description = &v
+	return s
+}
+
+func (s *SecurityGroupParam) SetRegionId(v string) *SecurityGroupParam {
 	s.RegionId = &v
 	return s
 }
 
-func (s *VPCParam) SetVpcName(v string) *VPCParam {
-	s.VpcName = &v
+func (s *SecurityGroupParam) SetSecurityGroupName(v string) *SecurityGroupParam {
+	s.SecurityGroupName = &v
+	return s
+}
+
+func (s *SecurityGroupParam) SetVpcId(v string) *SecurityGroupParam {
+	s.VpcId = &v
+	return s
+}
+
+// 应用等级视图
+type AppLevelView struct {
+	// 应用等级基类
+	BaseAppLevel *AppLevel `json:"base_app_level,omitempty" xml:"base_app_level,omitempty"`
+	// 应用数量
+	AppCount *int64 `json:"app_count,omitempty" xml:"app_count,omitempty"`
+	// 创建者名称
+	CreatorName *string `json:"creator_name,omitempty" xml:"creator_name,omitempty"`
+}
+
+func (s AppLevelView) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppLevelView) GoString() string {
+	return s.String()
+}
+
+func (s *AppLevelView) SetBaseAppLevel(v *AppLevel) *AppLevelView {
+	s.BaseAppLevel = v
+	return s
+}
+
+func (s *AppLevelView) SetAppCount(v int64) *AppLevelView {
+	s.AppCount = &v
+	return s
+}
+
+func (s *AppLevelView) SetCreatorName(v string) *AppLevelView {
+	s.CreatorName = &v
+	return s
+}
+
+// 阿里云日志服务(SLS) - 日志结果数组
+type SLSLogItem struct {
+	// 日志的时间戳（精度为秒，从 1970-1-1 00:00:00 UTC 计算起的秒数）。
+	LogTime *int64 `json:"log_time,omitempty" xml:"log_time,omitempty" require:"true"`
+	// 日志的来源，写入日志时指定。
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// 日志原始内容
+	Contents []*SLSLogContent `json:"contents,omitempty" xml:"contents,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SLSLogItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SLSLogItem) GoString() string {
+	return s.String()
+}
+
+func (s *SLSLogItem) SetLogTime(v int64) *SLSLogItem {
+	s.LogTime = &v
+	return s
+}
+
+func (s *SLSLogItem) SetSource(v string) *SLSLogItem {
+	s.Source = &v
+	return s
+}
+
+func (s *SLSLogItem) SetContents(v []*SLSLogContent) *SLSLogItem {
+	s.Contents = v
+	return s
+}
+
+// 动态查询
+type DynamicQuery struct {
+	// 分页规则-currentPage
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
+	// 字段过滤
+	Filter *string `json:"filter,omitempty" xml:"filter,omitempty"`
+	// 分页规则-pageSize
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 具体的查询条件字符串
+	Query *string `json:"query,omitempty" xml:"query,omitempty" require:"true"`
+	// 查询结果的排序规则
+	Sort *string `json:"sort,omitempty" xml:"sort,omitempty"`
+}
+
+func (s DynamicQuery) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DynamicQuery) GoString() string {
+	return s.String()
+}
+
+func (s *DynamicQuery) SetCurrentPage(v int64) *DynamicQuery {
+	s.CurrentPage = &v
+	return s
+}
+
+func (s *DynamicQuery) SetFilter(v string) *DynamicQuery {
+	s.Filter = &v
+	return s
+}
+
+func (s *DynamicQuery) SetPageSize(v int64) *DynamicQuery {
+	s.PageSize = &v
+	return s
+}
+
+func (s *DynamicQuery) SetQuery(v string) *DynamicQuery {
+	s.Query = &v
+	return s
+}
+
+func (s *DynamicQuery) SetSort(v string) *DynamicQuery {
+	s.Sort = &v
+	return s
+}
+
+// IaasConnMetadata
+type IaasConnMetadata struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// iaas_provider_id
+	IaasProviderId *string `json:"iaas_provider_id,omitempty" xml:"iaas_provider_id,omitempty" require:"true"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// iaas_conn_type
+	IaasConnType *string `json:"iaas_conn_type,omitempty" xml:"iaas_conn_type,omitempty" require:"true"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// available_features
+	AvailableFeatures []*string `json:"available_features,omitempty" xml:"available_features,omitempty" type:"Repeated"`
+	// endpoint
+	Endpoint *string `json:"endpoint,omitempty" xml:"endpoint,omitempty" require:"true"`
+	// region_ids
+	RegionIds []*string `json:"region_ids,omitempty" xml:"region_ids,omitempty" require:"true" type:"Repeated"`
+	// is_default
+	IsDefault *bool `json:"is_default,omitempty" xml:"is_default,omitempty" require:"true"`
+	// utc_create
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s IaasConnMetadata) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IaasConnMetadata) GoString() string {
+	return s.String()
+}
+
+func (s *IaasConnMetadata) SetId(v string) *IaasConnMetadata {
+	s.Id = &v
+	return s
+}
+
+func (s *IaasConnMetadata) SetIaasProviderId(v string) *IaasConnMetadata {
+	s.IaasProviderId = &v
+	return s
+}
+
+func (s *IaasConnMetadata) SetName(v string) *IaasConnMetadata {
+	s.Name = &v
+	return s
+}
+
+func (s *IaasConnMetadata) SetIaasConnType(v string) *IaasConnMetadata {
+	s.IaasConnType = &v
+	return s
+}
+
+func (s *IaasConnMetadata) SetDescription(v string) *IaasConnMetadata {
+	s.Description = &v
+	return s
+}
+
+func (s *IaasConnMetadata) SetAvailableFeatures(v []*string) *IaasConnMetadata {
+	s.AvailableFeatures = v
+	return s
+}
+
+func (s *IaasConnMetadata) SetEndpoint(v string) *IaasConnMetadata {
+	s.Endpoint = &v
+	return s
+}
+
+func (s *IaasConnMetadata) SetRegionIds(v []*string) *IaasConnMetadata {
+	s.RegionIds = v
+	return s
+}
+
+func (s *IaasConnMetadata) SetIsDefault(v bool) *IaasConnMetadata {
+	s.IsDefault = &v
+	return s
+}
+
+func (s *IaasConnMetadata) SetUtcCreate(v string) *IaasConnMetadata {
+	s.UtcCreate = &v
+	return s
+}
+
+// 应用服务查询
+type AppServiceQuery struct {
+	// 根据 id 查询
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// workspaceId
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// appId
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// deployStatus
+	DeployStatus *string `json:"deploy_status,omitempty" xml:"deploy_status,omitempty"`
+	// ownerId
+	OwnerId *string `json:"owner_id,omitempty" xml:"owner_id,omitempty"`
+	// workspaceIds
+	WorkspaceIds []*string `json:"workspace_ids,omitempty" xml:"workspace_ids,omitempty" type:"Repeated"`
+	// appIds
+	AppIds []*string `json:"app_ids,omitempty" xml:"app_ids,omitempty" type:"Repeated"`
+	// 是否为一方化查询请求
+	IsOnePartyRequest *bool `json:"is_one_party_request,omitempty" xml:"is_one_party_request,omitempty"`
+	// startIndex
+	StartIndex *int64 `json:"start_index,omitempty" xml:"start_index,omitempty"`
+	// pageSize
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// currentPage
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
+	// orders
+	Orders []*string `json:"orders,omitempty" xml:"orders,omitempty" type:"Repeated"`
+	// 查询类型
+	QueryType *string `json:"query_type,omitempty" xml:"query_type,omitempty"`
+	// Map<String, String>
+	Conditions *string `json:"conditions,omitempty" xml:"conditions,omitempty"`
+}
+
+func (s AppServiceQuery) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppServiceQuery) GoString() string {
+	return s.String()
+}
+
+func (s *AppServiceQuery) SetId(v string) *AppServiceQuery {
+	s.Id = &v
+	return s
+}
+
+func (s *AppServiceQuery) SetWorkspaceId(v string) *AppServiceQuery {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *AppServiceQuery) SetAppId(v string) *AppServiceQuery {
+	s.AppId = &v
+	return s
+}
+
+func (s *AppServiceQuery) SetName(v string) *AppServiceQuery {
+	s.Name = &v
+	return s
+}
+
+func (s *AppServiceQuery) SetDeployStatus(v string) *AppServiceQuery {
+	s.DeployStatus = &v
+	return s
+}
+
+func (s *AppServiceQuery) SetOwnerId(v string) *AppServiceQuery {
+	s.OwnerId = &v
+	return s
+}
+
+func (s *AppServiceQuery) SetWorkspaceIds(v []*string) *AppServiceQuery {
+	s.WorkspaceIds = v
+	return s
+}
+
+func (s *AppServiceQuery) SetAppIds(v []*string) *AppServiceQuery {
+	s.AppIds = v
+	return s
+}
+
+func (s *AppServiceQuery) SetIsOnePartyRequest(v bool) *AppServiceQuery {
+	s.IsOnePartyRequest = &v
+	return s
+}
+
+func (s *AppServiceQuery) SetStartIndex(v int64) *AppServiceQuery {
+	s.StartIndex = &v
+	return s
+}
+
+func (s *AppServiceQuery) SetPageSize(v int64) *AppServiceQuery {
+	s.PageSize = &v
+	return s
+}
+
+func (s *AppServiceQuery) SetCurrentPage(v int64) *AppServiceQuery {
+	s.CurrentPage = &v
+	return s
+}
+
+func (s *AppServiceQuery) SetOrders(v []*string) *AppServiceQuery {
+	s.Orders = v
+	return s
+}
+
+func (s *AppServiceQuery) SetQueryType(v string) *AppServiceQuery {
+	s.QueryType = &v
+	return s
+}
+
+func (s *AppServiceQuery) SetConditions(v string) *AppServiceQuery {
+	s.Conditions = &v
+	return s
+}
+
+// ListenerSecurityIp
+type ListenerSecurityIp struct {
+	// access_control
+	AccessControl *bool `json:"access_control,omitempty" xml:"access_control,omitempty" require:"true"`
+	// ips
+	Ips []*string `json:"ips,omitempty" xml:"ips,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ListenerSecurityIp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListenerSecurityIp) GoString() string {
+	return s.String()
+}
+
+func (s *ListenerSecurityIp) SetAccessControl(v bool) *ListenerSecurityIp {
+	s.AccessControl = &v
+	return s
+}
+
+func (s *ListenerSecurityIp) SetIps(v []*string) *ListenerSecurityIp {
+	s.Ips = v
+	return s
+}
+
+// LbCluster
+type LbCluster struct {
+	// container_cpu
+	ContainerCpu *int64 `json:"container_cpu,omitempty" xml:"container_cpu,omitempty"`
+	// container_cpu_exclusive
+	ContainerCpuExclusive *bool `json:"container_cpu_exclusive,omitempty" xml:"container_cpu_exclusive,omitempty"`
+	// container_device_type
+	ContainerDeviceType *string `json:"container_device_type,omitempty" xml:"container_device_type,omitempty"`
+	// container_disk
+	ContainerDisk *int64 `json:"container_disk,omitempty" xml:"container_disk,omitempty"`
+	// container_mem
+	ContainerMem *int64 `json:"container_mem,omitempty" xml:"container_mem,omitempty"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// image
+	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// status
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// unit_infos
+	UnitInfos []*AcsClusterUnit `json:"unit_infos,omitempty" xml:"unit_infos,omitempty" type:"Repeated"`
+	// unit_type
+	UnitType *int64 `json:"unit_type,omitempty" xml:"unit_type,omitempty"`
+	// used_ports
+	UsedPorts []*int64 `json:"used_ports,omitempty" xml:"used_ports,omitempty" type:"Repeated"`
+}
+
+func (s LbCluster) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LbCluster) GoString() string {
+	return s.String()
+}
+
+func (s *LbCluster) SetContainerCpu(v int64) *LbCluster {
+	s.ContainerCpu = &v
+	return s
+}
+
+func (s *LbCluster) SetContainerCpuExclusive(v bool) *LbCluster {
+	s.ContainerCpuExclusive = &v
+	return s
+}
+
+func (s *LbCluster) SetContainerDeviceType(v string) *LbCluster {
+	s.ContainerDeviceType = &v
+	return s
+}
+
+func (s *LbCluster) SetContainerDisk(v int64) *LbCluster {
+	s.ContainerDisk = &v
+	return s
+}
+
+func (s *LbCluster) SetContainerMem(v int64) *LbCluster {
+	s.ContainerMem = &v
+	return s
+}
+
+func (s *LbCluster) SetId(v string) *LbCluster {
+	s.Id = &v
+	return s
+}
+
+func (s *LbCluster) SetImage(v string) *LbCluster {
+	s.Image = &v
+	return s
+}
+
+func (s *LbCluster) SetName(v string) *LbCluster {
+	s.Name = &v
+	return s
+}
+
+func (s *LbCluster) SetStatus(v int64) *LbCluster {
+	s.Status = &v
+	return s
+}
+
+func (s *LbCluster) SetUnitInfos(v []*AcsClusterUnit) *LbCluster {
+	s.UnitInfos = v
+	return s
+}
+
+func (s *LbCluster) SetUnitType(v int64) *LbCluster {
+	s.UnitType = &v
+	return s
+}
+
+func (s *LbCluster) SetUsedPorts(v []*int64) *LbCluster {
+	s.UsedPorts = v
+	return s
+}
+
+// QuotaKv
+type QuotaKv struct {
+	// type
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// quota
+	Quota *int64 `json:"quota,omitempty" xml:"quota,omitempty" require:"true"`
+}
+
+func (s QuotaKv) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuotaKv) GoString() string {
+	return s.String()
+}
+
+func (s *QuotaKv) SetType(v string) *QuotaKv {
+	s.Type = &v
+	return s
+}
+
+func (s *QuotaKv) SetQuota(v int64) *QuotaKv {
+	s.Quota = &v
+	return s
+}
+
+// BasicCertificate
+type BasicCertificate struct {
+	// serverCertificateId
+	ServerCertificateId *string `json:"server_certificate_id,omitempty" xml:"server_certificate_id,omitempty" require:"true"`
+	// serverCertificateName
+	ServerCertificateName *string `json:"server_certificate_name,omitempty" xml:"server_certificate_name,omitempty" require:"true"`
+	// fingerprint
+	Fingerprint *string `json:"fingerprint,omitempty" xml:"fingerprint,omitempty"`
+	// cert_type
+	CertType *int64 `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
+	// 标记这个证书的Provider
+	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty"`
+}
+
+func (s BasicCertificate) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BasicCertificate) GoString() string {
+	return s.String()
+}
+
+func (s *BasicCertificate) SetServerCertificateId(v string) *BasicCertificate {
+	s.ServerCertificateId = &v
+	return s
+}
+
+func (s *BasicCertificate) SetServerCertificateName(v string) *BasicCertificate {
+	s.ServerCertificateName = &v
+	return s
+}
+
+func (s *BasicCertificate) SetFingerprint(v string) *BasicCertificate {
+	s.Fingerprint = &v
+	return s
+}
+
+func (s *BasicCertificate) SetCertType(v int64) *BasicCertificate {
+	s.CertType = &v
+	return s
+}
+
+func (s *BasicCertificate) SetProviderId(v string) *BasicCertificate {
+	s.ProviderId = &v
+	return s
+}
+
+// <String, Boolean> 映射
+type MapStringToBooleanEntity struct {
+	// key
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// value
+	Value *bool `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s MapStringToBooleanEntity) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MapStringToBooleanEntity) GoString() string {
+	return s.String()
+}
+
+func (s *MapStringToBooleanEntity) SetKey(v string) *MapStringToBooleanEntity {
+	s.Key = &v
+	return s
+}
+
+func (s *MapStringToBooleanEntity) SetValue(v bool) *MapStringToBooleanEntity {
+	s.Value = &v
+	return s
+}
+
+// db schema
+type DatabaseSchema struct {
+	// 字符集
+	CharSet *string `json:"char_set,omitempty" xml:"char_set,omitempty" require:"true"`
+	// 数量
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty"`
+	// 是否自动生成名称。默认为 true
+	IsAutoName *bool `json:"is_auto_name,omitempty" xml:"is_auto_name,omitempty"`
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 序列号是否连续。默认为 false
+	IsSerial *bool `json:"is_serial,omitempty" xml:"is_serial,omitempty"`
+}
+
+func (s DatabaseSchema) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DatabaseSchema) GoString() string {
+	return s.String()
+}
+
+func (s *DatabaseSchema) SetCharSet(v string) *DatabaseSchema {
+	s.CharSet = &v
+	return s
+}
+
+func (s *DatabaseSchema) SetCount(v int64) *DatabaseSchema {
+	s.Count = &v
+	return s
+}
+
+func (s *DatabaseSchema) SetIsAutoName(v bool) *DatabaseSchema {
+	s.IsAutoName = &v
+	return s
+}
+
+func (s *DatabaseSchema) SetName(v string) *DatabaseSchema {
+	s.Name = &v
+	return s
+}
+
+func (s *DatabaseSchema) SetIsSerial(v bool) *DatabaseSchema {
+	s.IsSerial = &v
+	return s
+}
+
+// LoadBalancerImportVO
+type LoadBalancerImportVO struct {
+	// iaas_id
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// network_type
+	NetworkType *string `json:"network_type,omitempty" xml:"network_type,omitempty"`
+	// inner_ip_address
+	InnerIpAddress []*string `json:"inner_ip_address,omitempty" xml:"inner_ip_address,omitempty" type:"Repeated"`
+	// public_ip_address
+	PublicIpAddress []*string `json:"public_ip_address,omitempty" xml:"public_ip_address,omitempty" type:"Repeated"`
+	// utc_create
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// import_info
+	ImportInfo *ImportVO `json:"import_info,omitempty" xml:"import_info,omitempty" require:"true"`
+}
+
+func (s LoadBalancerImportVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LoadBalancerImportVO) GoString() string {
+	return s.String()
+}
+
+func (s *LoadBalancerImportVO) SetIaasId(v string) *LoadBalancerImportVO {
+	s.IaasId = &v
+	return s
+}
+
+func (s *LoadBalancerImportVO) SetName(v string) *LoadBalancerImportVO {
+	s.Name = &v
+	return s
+}
+
+func (s *LoadBalancerImportVO) SetNetworkType(v string) *LoadBalancerImportVO {
+	s.NetworkType = &v
+	return s
+}
+
+func (s *LoadBalancerImportVO) SetInnerIpAddress(v []*string) *LoadBalancerImportVO {
+	s.InnerIpAddress = v
+	return s
+}
+
+func (s *LoadBalancerImportVO) SetPublicIpAddress(v []*string) *LoadBalancerImportVO {
+	s.PublicIpAddress = v
+	return s
+}
+
+func (s *LoadBalancerImportVO) SetUtcCreate(v string) *LoadBalancerImportVO {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *LoadBalancerImportVO) SetImportInfo(v *ImportVO) *LoadBalancerImportVO {
+	s.ImportInfo = v
+	return s
+}
+
+// 旧版-应用服务放入前端展示内容
+type AppServiceViewModel struct {
+	// 基类
+	BaseAppService *AppService `json:"base_app_service,omitempty" xml:"base_app_service,omitempty"`
+	// 应用负责人姓名
+	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
+	// 技术栈名称
+	BuildpackName *string `json:"buildpack_name,omitempty" xml:"buildpack_name,omitempty"`
+	// App的别名
+	ChineseName *string `json:"chinese_name,omitempty" xml:"chinese_name,omitempty"`
+	// buildpackVersion
+	BuildpackVersion *string `json:"buildpack_version,omitempty" xml:"buildpack_version,omitempty"`
+	// computerCount
+	ComputerCount *int64 `json:"computer_count,omitempty" xml:"computer_count,omitempty"`
+	// databaseCount
+	DatabaseCount *int64 `json:"database_count,omitempty" xml:"database_count,omitempty"`
+	// loadBalancerCount
+	LoadBalancerCount *int64 `json:"load_balancer_count,omitempty" xml:"load_balancer_count,omitempty"`
+	// cacheCount
+	CacheCount *int64 `json:"cache_count,omitempty" xml:"cache_count,omitempty"`
+	// cellViewList
+	CellViewList []*CellView `json:"cell_view_list,omitempty" xml:"cell_view_list,omitempty" type:"Repeated"`
+}
+
+func (s AppServiceViewModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppServiceViewModel) GoString() string {
+	return s.String()
+}
+
+func (s *AppServiceViewModel) SetBaseAppService(v *AppService) *AppServiceViewModel {
+	s.BaseAppService = v
+	return s
+}
+
+func (s *AppServiceViewModel) SetOwnerName(v string) *AppServiceViewModel {
+	s.OwnerName = &v
+	return s
+}
+
+func (s *AppServiceViewModel) SetBuildpackName(v string) *AppServiceViewModel {
+	s.BuildpackName = &v
+	return s
+}
+
+func (s *AppServiceViewModel) SetChineseName(v string) *AppServiceViewModel {
+	s.ChineseName = &v
+	return s
+}
+
+func (s *AppServiceViewModel) SetBuildpackVersion(v string) *AppServiceViewModel {
+	s.BuildpackVersion = &v
+	return s
+}
+
+func (s *AppServiceViewModel) SetComputerCount(v int64) *AppServiceViewModel {
+	s.ComputerCount = &v
+	return s
+}
+
+func (s *AppServiceViewModel) SetDatabaseCount(v int64) *AppServiceViewModel {
+	s.DatabaseCount = &v
+	return s
+}
+
+func (s *AppServiceViewModel) SetLoadBalancerCount(v int64) *AppServiceViewModel {
+	s.LoadBalancerCount = &v
+	return s
+}
+
+func (s *AppServiceViewModel) SetCacheCount(v int64) *AppServiceViewModel {
+	s.CacheCount = &v
+	return s
+}
+
+func (s *AppServiceViewModel) SetCellViewList(v []*CellView) *AppServiceViewModel {
+	s.CellViewList = v
+	return s
+}
+
+// DatabaseSecurityIp
+type DatabaseSecurityIp struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// resource_id
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty"`
+	// resource_type
+	ResourceType *string `json:"resource_type,omitempty" xml:"resource_type,omitempty"`
+	// ip
+	Ip *string `json:"ip,omitempty" xml:"ip,omitempty"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// type
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+}
+
+func (s DatabaseSecurityIp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DatabaseSecurityIp) GoString() string {
+	return s.String()
+}
+
+func (s *DatabaseSecurityIp) SetId(v string) *DatabaseSecurityIp {
+	s.Id = &v
+	return s
+}
+
+func (s *DatabaseSecurityIp) SetResourceId(v string) *DatabaseSecurityIp {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *DatabaseSecurityIp) SetResourceType(v string) *DatabaseSecurityIp {
+	s.ResourceType = &v
+	return s
+}
+
+func (s *DatabaseSecurityIp) SetIp(v string) *DatabaseSecurityIp {
+	s.Ip = &v
+	return s
+}
+
+func (s *DatabaseSecurityIp) SetStatus(v string) *DatabaseSecurityIp {
+	s.Status = &v
+	return s
+}
+
+func (s *DatabaseSecurityIp) SetType(v string) *DatabaseSecurityIp {
+	s.Type = &v
+	return s
+}
+
+// DatabaseEngine
+type DatabaseEngine struct {
+	// iaas_type
+	IaasType *string `json:"iaas_type,omitempty" xml:"iaas_type,omitempty"`
+	// engine
+	Engine *string `json:"engine,omitempty" xml:"engine,omitempty"`
+	// engine_versions
+	EngineVersions []*string `json:"engine_versions,omitempty" xml:"engine_versions,omitempty" type:"Repeated"`
+}
+
+func (s DatabaseEngine) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DatabaseEngine) GoString() string {
+	return s.String()
+}
+
+func (s *DatabaseEngine) SetIaasType(v string) *DatabaseEngine {
+	s.IaasType = &v
+	return s
+}
+
+func (s *DatabaseEngine) SetEngine(v string) *DatabaseEngine {
+	s.Engine = &v
+	return s
+}
+
+func (s *DatabaseEngine) SetEngineVersions(v []*string) *DatabaseEngine {
+	s.EngineVersions = v
+	return s
+}
+
+// ComputerParam
+type ComputerParam struct {
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// image_id
+	ImageId *string `json:"image_id,omitempty" xml:"image_id,omitempty"`
+	// instance_type
+	InstanceType *string `json:"instance_type,omitempty" xml:"instance_type,omitempty"`
+	// region_id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
+	// security_group_id
+	SecurityGroupId *string `json:"security_group_id,omitempty" xml:"security_group_id,omitempty"`
+	// instance_name
+	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty"`
+	// zone_id
+	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
+}
+
+func (s ComputerParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ComputerParam) GoString() string {
+	return s.String()
+}
+
+func (s *ComputerParam) SetDescription(v string) *ComputerParam {
+	s.Description = &v
+	return s
+}
+
+func (s *ComputerParam) SetName(v string) *ComputerParam {
+	s.Name = &v
+	return s
+}
+
+func (s *ComputerParam) SetImageId(v string) *ComputerParam {
+	s.ImageId = &v
+	return s
+}
+
+func (s *ComputerParam) SetInstanceType(v string) *ComputerParam {
+	s.InstanceType = &v
+	return s
+}
+
+func (s *ComputerParam) SetRegionId(v string) *ComputerParam {
+	s.RegionId = &v
+	return s
+}
+
+func (s *ComputerParam) SetSecurityGroupId(v string) *ComputerParam {
+	s.SecurityGroupId = &v
+	return s
+}
+
+func (s *ComputerParam) SetInstanceName(v string) *ComputerParam {
+	s.InstanceName = &v
+	return s
+}
+
+func (s *ComputerParam) SetZoneId(v string) *ComputerParam {
+	s.ZoneId = &v
+	return s
+}
+
+// LB的vip类型
+type VipType struct {
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// vip_address_type
+	VipAddressType *string `json:"vip_address_type,omitempty" xml:"vip_address_type,omitempty" require:"true"`
+	// vip_type
+	VipType *string `json:"vip_type,omitempty" xml:"vip_type,omitempty" require:"true"`
+}
+
+func (s VipType) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VipType) GoString() string {
+	return s.String()
+}
+
+func (s *VipType) SetName(v string) *VipType {
+	s.Name = &v
+	return s
+}
+
+func (s *VipType) SetVipAddressType(v string) *VipType {
+	s.VipAddressType = &v
+	return s
+}
+
+func (s *VipType) SetVipType(v string) *VipType {
+	s.VipType = &v
 	return s
 }
 
@@ -13173,7 +13740,7 @@ type CreateComputerRequest struct {
 	InstanceCount *int64 `json:"instance_count,omitempty" xml:"instance_count,omitempty"`
 	// 实例名称前缀。可包含小写字母(a-z)，数字(0-9) 和中划线(-)，以字母开头，中划线不能结尾或连续使用，2 ~ 40 个字符。
 	Name *string `json:"name,omitempty" xml:"name,omitempty" maxLength:"40" minLength:"2"`
-	// 实例的密码。长度为8至30个字符，必须同时包含大小写英文字母、数字和特殊符号中的三类字符。特殊符号可以是： ()`~!@#^&*-_+=|{}[]:;'<>,.?/ 其中，Windows实例不能以斜线号（/）为密码首字符。
+	// 实例的密码。长度为8至30个字符，必须同时包含大小写英文字母、数字和特殊符号中的三类字符。特殊符号可以是： ()`~!@#^&*-_+=|{}[]:;_<>,.?/ 其中，Windows实例不能以斜线号（/）为密码首字符。
 	Password *string `json:"password,omitempty" xml:"password,omitempty" maxLength:"30" minLength:"8"`
 	// 购买资源的时长，单位为：月。当参数 InstanceChargeType 取值为 PrePaid 时才生效且为必选值。取值范围：1 - 9
 	//      12
@@ -16895,6 +17462,10 @@ type DeleteResourceVpcRequest struct {
 	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty" require:"true"`
 	// workspace id
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
+	// unbind_only
+	UnbindOnly *bool `json:"unbind_only,omitempty" xml:"unbind_only,omitempty"`
+	// vpc_paas_id,vcp_id不存在时可用。建议用这个
+	VpcPaasId *string `json:"vpc_paas_id,omitempty" xml:"vpc_paas_id,omitempty"`
 }
 
 func (s DeleteResourceVpcRequest) String() string {
@@ -16922,6 +17493,16 @@ func (s *DeleteResourceVpcRequest) SetVpcId(v string) *DeleteResourceVpcRequest 
 
 func (s *DeleteResourceVpcRequest) SetWorkspace(v string) *DeleteResourceVpcRequest {
 	s.Workspace = &v
+	return s
+}
+
+func (s *DeleteResourceVpcRequest) SetUnbindOnly(v bool) *DeleteResourceVpcRequest {
+	s.UnbindOnly = &v
+	return s
+}
+
+func (s *DeleteResourceVpcRequest) SetVpcPaasId(v string) *DeleteResourceVpcRequest {
+	s.VpcPaasId = &v
 	return s
 }
 
@@ -20785,6 +21366,8 @@ type QueryLoadbalanceVcomputergroupRequest struct {
 	Statuses []*string `json:"statuses,omitempty" xml:"statuses,omitempty" type:"Repeated"`
 	// workspace
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
+	// v_computer_group_ids
+	VComputerGroupIds []*string `json:"v_computer_group_ids,omitempty" xml:"v_computer_group_ids,omitempty" type:"Repeated"`
 }
 
 func (s QueryLoadbalanceVcomputergroupRequest) String() string {
@@ -20817,6 +21400,11 @@ func (s *QueryLoadbalanceVcomputergroupRequest) SetStatuses(v []*string) *QueryL
 
 func (s *QueryLoadbalanceVcomputergroupRequest) SetWorkspace(v string) *QueryLoadbalanceVcomputergroupRequest {
 	s.Workspace = &v
+	return s
+}
+
+func (s *QueryLoadbalanceVcomputergroupRequest) SetVComputerGroupIds(v []*string) *QueryLoadbalanceVcomputergroupRequest {
+	s.VComputerGroupIds = v
 	return s
 }
 
@@ -21027,6 +21615,8 @@ type QueryLoadbalanceVcomputerResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// v_computers
 	Data []*VComputer `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// total_count
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
 }
 
 func (s QueryLoadbalanceVcomputerResponse) String() string {
@@ -21054,6 +21644,11 @@ func (s *QueryLoadbalanceVcomputerResponse) SetResultMsg(v string) *QueryLoadbal
 
 func (s *QueryLoadbalanceVcomputerResponse) SetData(v []*VComputer) *QueryLoadbalanceVcomputerResponse {
 	s.Data = v
+	return s
+}
+
+func (s *QueryLoadbalanceVcomputerResponse) SetTotalCount(v int64) *QueryLoadbalanceVcomputerResponse {
+	s.TotalCount = &v
 	return s
 }
 
@@ -22347,9 +22942,13 @@ type QueryComputerAgentstatusRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// computer serial numbers
-	Sn []*string `json:"sn,omitempty" xml:"sn,omitempty" require:"true" type:"Repeated"`
+	Sn []*string `json:"sn,omitempty" xml:"sn,omitempty" type:"Repeated"`
 	// workspace name
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	// iaas_ids
+	IaasIds []*string `json:"iaas_ids,omitempty" xml:"iaas_ids,omitempty" type:"Repeated"`
+	// zone_iaas_id
+	ZoneIaasId *string `json:"zone_iaas_id,omitempty" xml:"zone_iaas_id,omitempty"`
 }
 
 func (s QueryComputerAgentstatusRequest) String() string {
@@ -22372,6 +22971,16 @@ func (s *QueryComputerAgentstatusRequest) SetSn(v []*string) *QueryComputerAgent
 
 func (s *QueryComputerAgentstatusRequest) SetWorkspace(v string) *QueryComputerAgentstatusRequest {
 	s.Workspace = &v
+	return s
+}
+
+func (s *QueryComputerAgentstatusRequest) SetIaasIds(v []*string) *QueryComputerAgentstatusRequest {
+	s.IaasIds = v
+	return s
+}
+
+func (s *QueryComputerAgentstatusRequest) SetZoneIaasId(v string) *QueryComputerAgentstatusRequest {
+	s.ZoneIaasId = &v
 	return s
 }
 
@@ -22418,9 +23027,13 @@ type QueryComputerAgentsetupcommandRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// computer serial numbers
-	Sn []*string `json:"sn,omitempty" xml:"sn,omitempty" require:"true" type:"Repeated"`
+	Sn []*string `json:"sn,omitempty" xml:"sn,omitempty" type:"Repeated"`
 	// workspace name
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
+	// iaas_id
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	// zone_iaas_id
+	ZoneIaasId *string `json:"zone_iaas_id,omitempty" xml:"zone_iaas_id,omitempty"`
 }
 
 func (s QueryComputerAgentsetupcommandRequest) String() string {
@@ -22443,6 +23056,16 @@ func (s *QueryComputerAgentsetupcommandRequest) SetSn(v []*string) *QueryCompute
 
 func (s *QueryComputerAgentsetupcommandRequest) SetWorkspace(v string) *QueryComputerAgentsetupcommandRequest {
 	s.Workspace = &v
+	return s
+}
+
+func (s *QueryComputerAgentsetupcommandRequest) SetIaasId(v string) *QueryComputerAgentsetupcommandRequest {
+	s.IaasId = &v
+	return s
+}
+
+func (s *QueryComputerAgentsetupcommandRequest) SetZoneIaasId(v string) *QueryComputerAgentsetupcommandRequest {
+	s.ZoneIaasId = &v
 	return s
 }
 
@@ -22496,6 +23119,14 @@ type QueryComputerImportRequest struct {
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// current page
 	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty" require:"true"`
+	// 机器名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 是否只查询可导入的
+	ImportableOnly *bool `json:"importable_only,omitempty" xml:"importable_only,omitempty"`
+	// iaas_id
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
 }
 
 func (s QueryComputerImportRequest) String() string {
@@ -22528,6 +23159,26 @@ func (s *QueryComputerImportRequest) SetPageSize(v int64) *QueryComputerImportRe
 
 func (s *QueryComputerImportRequest) SetCurrentPage(v int64) *QueryComputerImportRequest {
 	s.CurrentPage = &v
+	return s
+}
+
+func (s *QueryComputerImportRequest) SetName(v string) *QueryComputerImportRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *QueryComputerImportRequest) SetImportableOnly(v bool) *QueryComputerImportRequest {
+	s.ImportableOnly = &v
+	return s
+}
+
+func (s *QueryComputerImportRequest) SetIaasId(v string) *QueryComputerImportRequest {
+	s.IaasId = &v
+	return s
+}
+
+func (s *QueryComputerImportRequest) SetWorkspaceId(v string) *QueryComputerImportRequest {
+	s.WorkspaceId = &v
 	return s
 }
 
@@ -22594,6 +23245,10 @@ type ListComputerRequest struct {
 	CloudManageToken *string `json:"cloud_manage_token,omitempty" xml:"cloud_manage_token,omitempty"`
 	// vpc_iaas_id
 	VpcIaasId *string `json:"vpc_iaas_id,omitempty" xml:"vpc_iaas_id,omitempty"`
+	// private_ips
+	PrivateIps []*string `json:"private_ips,omitempty" xml:"private_ips,omitempty" type:"Repeated"`
+	// iaas_ids
+	IaasIds []*string `json:"iaas_ids,omitempty" xml:"iaas_ids,omitempty" type:"Repeated"`
 }
 
 func (s ListComputerRequest) String() string {
@@ -22641,6 +23296,16 @@ func (s *ListComputerRequest) SetCloudManageToken(v string) *ListComputerRequest
 
 func (s *ListComputerRequest) SetVpcIaasId(v string) *ListComputerRequest {
 	s.VpcIaasId = &v
+	return s
+}
+
+func (s *ListComputerRequest) SetPrivateIps(v []*string) *ListComputerRequest {
+	s.PrivateIps = v
+	return s
+}
+
+func (s *ListComputerRequest) SetIaasIds(v []*string) *ListComputerRequest {
+	s.IaasIds = v
 	return s
 }
 
@@ -26009,6 +26674,8 @@ type UpdateLoadbalanceMountRequest struct {
 	MountMap []*MapStringToIntegerEntity `json:"mount_map,omitempty" xml:"mount_map,omitempty" type:"Repeated"`
 	// domain
 	Domain *string `json:"domain,omitempty" xml:"domain,omitempty"`
+	// 是否是同步操作
+	IsSync *bool `json:"is_sync,omitempty" xml:"is_sync,omitempty"`
 }
 
 func (s UpdateLoadbalanceMountRequest) String() string {
@@ -26036,6 +26703,11 @@ func (s *UpdateLoadbalanceMountRequest) SetMountMap(v []*MapStringToIntegerEntit
 
 func (s *UpdateLoadbalanceMountRequest) SetDomain(v string) *UpdateLoadbalanceMountRequest {
 	s.Domain = &v
+	return s
+}
+
+func (s *UpdateLoadbalanceMountRequest) SetIsSync(v bool) *UpdateLoadbalanceMountRequest {
+	s.IsSync = &v
 	return s
 }
 
@@ -26888,8 +27560,8 @@ func (s *QueryRequestFinaltaskResponse) SetData(v []*TaskVO) *QueryRequestFinalt
 type QueryFeatureRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// region_id
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
+	// paas_region_id cafe的region_id，是一串数字
+	PaasRegionId *string `json:"paas_region_id,omitempty" xml:"paas_region_id,omitempty" require:"true"`
 	// project_id
 	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
 }
@@ -26907,8 +27579,8 @@ func (s *QueryFeatureRequest) SetAuthToken(v string) *QueryFeatureRequest {
 	return s
 }
 
-func (s *QueryFeatureRequest) SetRegionId(v string) *QueryFeatureRequest {
-	s.RegionId = &v
+func (s *QueryFeatureRequest) SetPaasRegionId(v string) *QueryFeatureRequest {
+	s.PaasRegionId = &v
 	return s
 }
 
@@ -27290,6 +27962,8 @@ type QueryCertificateRequest struct {
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
 	// zone_id
 	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty" require:"true"`
+	// provider_ids
+	ProviderIds []*string `json:"provider_ids,omitempty" xml:"provider_ids,omitempty" type:"Repeated"`
 }
 
 func (s QueryCertificateRequest) String() string {
@@ -27312,6 +27986,11 @@ func (s *QueryCertificateRequest) SetWorkspaceId(v string) *QueryCertificateRequ
 
 func (s *QueryCertificateRequest) SetZoneId(v string) *QueryCertificateRequest {
 	s.ZoneId = &v
+	return s
+}
+
+func (s *QueryCertificateRequest) SetProviderIds(v []*string) *QueryCertificateRequest {
+	s.ProviderIds = v
 	return s
 }
 
@@ -27378,6 +28057,8 @@ type CreateCertificateRequest struct {
 	PrivateKey *string `json:"private_key,omitempty" xml:"private_key,omitempty" require:"true"`
 	// cert_type
 	CertType *int64 `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// 多provider时选填
+	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty"`
 }
 
 func (s CreateCertificateRequest) String() string {
@@ -27425,6 +28106,11 @@ func (s *CreateCertificateRequest) SetPrivateKey(v string) *CreateCertificateReq
 
 func (s *CreateCertificateRequest) SetCertType(v int64) *CreateCertificateRequest {
 	s.CertType = &v
+	return s
+}
+
+func (s *CreateCertificateRequest) SetProviderId(v string) *CreateCertificateRequest {
+	s.ProviderId = &v
 	return s
 }
 
@@ -27476,6 +28162,8 @@ type DeleteCertificateRequest struct {
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
 	// zone_id
 	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty" require:"true"`
+	// 多provider时选填
+	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty"`
 }
 
 func (s DeleteCertificateRequest) String() string {
@@ -27503,6 +28191,11 @@ func (s *DeleteCertificateRequest) SetWorkspaceId(v string) *DeleteCertificateRe
 
 func (s *DeleteCertificateRequest) SetZoneId(v string) *DeleteCertificateRequest {
 	s.ZoneId = &v
+	return s
+}
+
+func (s *DeleteCertificateRequest) SetProviderId(v string) *DeleteCertificateRequest {
+	s.ProviderId = &v
 	return s
 }
 
@@ -28186,7 +28879,7 @@ type ImportResourceVpcRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// region identity
-	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
+	Region *string `json:"region,omitempty" xml:"region,omitempty"`
 	// vpc iaas id
 	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty" require:"true"`
 	// workspace identity
@@ -28196,7 +28889,9 @@ type ImportResourceVpcRequest struct {
 	// vpc name
 	VpcName *string `json:"vpc_name,omitempty" xml:"vpc_name,omitempty" require:"true"`
 	// cidr block
-	CidrBlock *string `json:"cidr_block,omitempty" xml:"cidr_block,omitempty" require:"true"`
+	CidrBlock *string `json:"cidr_block,omitempty" xml:"cidr_block,omitempty"`
+	// paas_region_id
+	PaasRegionId *string `json:"paas_region_id,omitempty" xml:"paas_region_id,omitempty" require:"true"`
 }
 
 func (s ImportResourceVpcRequest) String() string {
@@ -28239,6 +28934,11 @@ func (s *ImportResourceVpcRequest) SetVpcName(v string) *ImportResourceVpcReques
 
 func (s *ImportResourceVpcRequest) SetCidrBlock(v string) *ImportResourceVpcRequest {
 	s.CidrBlock = &v
+	return s
+}
+
+func (s *ImportResourceVpcRequest) SetPaasRegionId(v string) *ImportResourceVpcRequest {
+	s.PaasRegionId = &v
 	return s
 }
 
@@ -29240,6 +29940,1465 @@ func (s *UpdateDiskStrategyResponse) SetResultMsg(v string) *UpdateDiskStrategyR
 	return s
 }
 
+type CreateLoadbalanceVcomputergroupRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// load_balancer_id
+	LoadBalancerId *string `json:"load_balancer_id,omitempty" xml:"load_balancer_id,omitempty" require:"true"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// computer_ids
+	ComputerIds []*string `json:"computer_ids,omitempty" xml:"computer_ids,omitempty" require:"true" type:"Repeated"`
+	// ports
+	Ports []*int64 `json:"ports,omitempty" xml:"ports,omitempty" require:"true" type:"Repeated"`
+	// weights
+	Weights []*int64 `json:"weights,omitempty" xml:"weights,omitempty" require:"true" type:"Repeated"`
+	// is_eip
+	IsEip *bool `json:"is_eip,omitempty" xml:"is_eip,omitempty"`
+	// eips
+	Eips []*string `json:"eips,omitempty" xml:"eips,omitempty" type:"Repeated"`
+}
+
+func (s CreateLoadbalanceVcomputergroupRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateLoadbalanceVcomputergroupRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateLoadbalanceVcomputergroupRequest) SetAuthToken(v string) *CreateLoadbalanceVcomputergroupRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateLoadbalanceVcomputergroupRequest) SetLoadBalancerId(v string) *CreateLoadbalanceVcomputergroupRequest {
+	s.LoadBalancerId = &v
+	return s
+}
+
+func (s *CreateLoadbalanceVcomputergroupRequest) SetName(v string) *CreateLoadbalanceVcomputergroupRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *CreateLoadbalanceVcomputergroupRequest) SetComputerIds(v []*string) *CreateLoadbalanceVcomputergroupRequest {
+	s.ComputerIds = v
+	return s
+}
+
+func (s *CreateLoadbalanceVcomputergroupRequest) SetPorts(v []*int64) *CreateLoadbalanceVcomputergroupRequest {
+	s.Ports = v
+	return s
+}
+
+func (s *CreateLoadbalanceVcomputergroupRequest) SetWeights(v []*int64) *CreateLoadbalanceVcomputergroupRequest {
+	s.Weights = v
+	return s
+}
+
+func (s *CreateLoadbalanceVcomputergroupRequest) SetIsEip(v bool) *CreateLoadbalanceVcomputergroupRequest {
+	s.IsEip = &v
+	return s
+}
+
+func (s *CreateLoadbalanceVcomputergroupRequest) SetEips(v []*string) *CreateLoadbalanceVcomputergroupRequest {
+	s.Eips = v
+	return s
+}
+
+type CreateLoadbalanceVcomputergroupResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// request_ids
+	Data []*string `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s CreateLoadbalanceVcomputergroupResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateLoadbalanceVcomputergroupResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateLoadbalanceVcomputergroupResponse) SetReqMsgId(v string) *CreateLoadbalanceVcomputergroupResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateLoadbalanceVcomputergroupResponse) SetResultCode(v string) *CreateLoadbalanceVcomputergroupResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateLoadbalanceVcomputergroupResponse) SetResultMsg(v string) *CreateLoadbalanceVcomputergroupResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateLoadbalanceVcomputergroupResponse) SetData(v []*string) *CreateLoadbalanceVcomputergroupResponse {
+	s.Data = v
+	return s
+}
+
+type UpdateLoadbalanceVcomputergroupRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// v_computergroup_id
+	VComputergroupId *string `json:"v_computergroup_id,omitempty" xml:"v_computergroup_id,omitempty" require:"true"`
+	// is_eip
+	IsEip *bool `json:"is_eip,omitempty" xml:"is_eip,omitempty"`
+	// eips
+	Eips []*string `json:"eips,omitempty" xml:"eips,omitempty" require:"true" type:"Repeated"`
+	// computer_ids
+	ComputerIds []*string `json:"computer_ids,omitempty" xml:"computer_ids,omitempty" type:"Repeated"`
+	// weights
+	Weights []*int64 `json:"weights,omitempty" xml:"weights,omitempty" require:"true" type:"Repeated"`
+	// ports
+	Ports []*int64 `json:"ports,omitempty" xml:"ports,omitempty" require:"true" type:"Repeated"`
+	// 是否只是调整权重，不增删后端服务器
+	UpdateWeightOnly *bool `json:"update_weight_only,omitempty" xml:"update_weight_only,omitempty"`
+}
+
+func (s UpdateLoadbalanceVcomputergroupRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateLoadbalanceVcomputergroupRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateLoadbalanceVcomputergroupRequest) SetAuthToken(v string) *UpdateLoadbalanceVcomputergroupRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateLoadbalanceVcomputergroupRequest) SetVComputergroupId(v string) *UpdateLoadbalanceVcomputergroupRequest {
+	s.VComputergroupId = &v
+	return s
+}
+
+func (s *UpdateLoadbalanceVcomputergroupRequest) SetIsEip(v bool) *UpdateLoadbalanceVcomputergroupRequest {
+	s.IsEip = &v
+	return s
+}
+
+func (s *UpdateLoadbalanceVcomputergroupRequest) SetEips(v []*string) *UpdateLoadbalanceVcomputergroupRequest {
+	s.Eips = v
+	return s
+}
+
+func (s *UpdateLoadbalanceVcomputergroupRequest) SetComputerIds(v []*string) *UpdateLoadbalanceVcomputergroupRequest {
+	s.ComputerIds = v
+	return s
+}
+
+func (s *UpdateLoadbalanceVcomputergroupRequest) SetWeights(v []*int64) *UpdateLoadbalanceVcomputergroupRequest {
+	s.Weights = v
+	return s
+}
+
+func (s *UpdateLoadbalanceVcomputergroupRequest) SetPorts(v []*int64) *UpdateLoadbalanceVcomputergroupRequest {
+	s.Ports = v
+	return s
+}
+
+func (s *UpdateLoadbalanceVcomputergroupRequest) SetUpdateWeightOnly(v bool) *UpdateLoadbalanceVcomputergroupRequest {
+	s.UpdateWeightOnly = &v
+	return s
+}
+
+type UpdateLoadbalanceVcomputergroupResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateLoadbalanceVcomputergroupResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateLoadbalanceVcomputergroupResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateLoadbalanceVcomputergroupResponse) SetReqMsgId(v string) *UpdateLoadbalanceVcomputergroupResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateLoadbalanceVcomputergroupResponse) SetResultCode(v string) *UpdateLoadbalanceVcomputergroupResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateLoadbalanceVcomputergroupResponse) SetResultMsg(v string) *UpdateLoadbalanceVcomputergroupResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type DeleteLoadbalanceVcomputergroupRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 虚拟服务器ID，PAAS ID非IAAS ID
+	VComputerGroupId *string `json:"v_computer_group_id,omitempty" xml:"v_computer_group_id,omitempty" require:"true"`
+}
+
+func (s DeleteLoadbalanceVcomputergroupRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteLoadbalanceVcomputergroupRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteLoadbalanceVcomputergroupRequest) SetAuthToken(v string) *DeleteLoadbalanceVcomputergroupRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteLoadbalanceVcomputergroupRequest) SetVComputerGroupId(v string) *DeleteLoadbalanceVcomputergroupRequest {
+	s.VComputerGroupId = &v
+	return s
+}
+
+type DeleteLoadbalanceVcomputergroupResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// paas_request_id
+	PaasRequestId *string `json:"paas_request_id,omitempty" xml:"paas_request_id,omitempty"`
+}
+
+func (s DeleteLoadbalanceVcomputergroupResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteLoadbalanceVcomputergroupResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteLoadbalanceVcomputergroupResponse) SetReqMsgId(v string) *DeleteLoadbalanceVcomputergroupResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteLoadbalanceVcomputergroupResponse) SetResultCode(v string) *DeleteLoadbalanceVcomputergroupResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteLoadbalanceVcomputergroupResponse) SetResultMsg(v string) *DeleteLoadbalanceVcomputergroupResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DeleteLoadbalanceVcomputergroupResponse) SetPaasRequestId(v string) *DeleteLoadbalanceVcomputergroupResponse {
+	s.PaasRequestId = &v
+	return s
+}
+
+type AddLoadbalanceVcomputergroupRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// v_computer_group_id
+	VComputerGroupId *string `json:"v_computer_group_id,omitempty" xml:"v_computer_group_id,omitempty" require:"true"`
+	// is_eip
+	IsEip *bool `json:"is_eip,omitempty" xml:"is_eip,omitempty"`
+	// computer 的id数组
+	ComputerIds []*string `json:"computer_ids,omitempty" xml:"computer_ids,omitempty" type:"Repeated"`
+	// 权重
+	Weights []*int64 `json:"weights,omitempty" xml:"weights,omitempty" require:"true" type:"Repeated"`
+	// ports
+	Ports []*string `json:"ports,omitempty" xml:"ports,omitempty" require:"true" type:"Repeated"`
+	// 当is_eip时必填
+	Eips []*string `json:"eips,omitempty" xml:"eips,omitempty" type:"Repeated"`
+}
+
+func (s AddLoadbalanceVcomputergroupRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddLoadbalanceVcomputergroupRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddLoadbalanceVcomputergroupRequest) SetAuthToken(v string) *AddLoadbalanceVcomputergroupRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddLoadbalanceVcomputergroupRequest) SetWorkspaceId(v string) *AddLoadbalanceVcomputergroupRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *AddLoadbalanceVcomputergroupRequest) SetVComputerGroupId(v string) *AddLoadbalanceVcomputergroupRequest {
+	s.VComputerGroupId = &v
+	return s
+}
+
+func (s *AddLoadbalanceVcomputergroupRequest) SetIsEip(v bool) *AddLoadbalanceVcomputergroupRequest {
+	s.IsEip = &v
+	return s
+}
+
+func (s *AddLoadbalanceVcomputergroupRequest) SetComputerIds(v []*string) *AddLoadbalanceVcomputergroupRequest {
+	s.ComputerIds = v
+	return s
+}
+
+func (s *AddLoadbalanceVcomputergroupRequest) SetWeights(v []*int64) *AddLoadbalanceVcomputergroupRequest {
+	s.Weights = v
+	return s
+}
+
+func (s *AddLoadbalanceVcomputergroupRequest) SetPorts(v []*string) *AddLoadbalanceVcomputergroupRequest {
+	s.Ports = v
+	return s
+}
+
+func (s *AddLoadbalanceVcomputergroupRequest) SetEips(v []*string) *AddLoadbalanceVcomputergroupRequest {
+	s.Eips = v
+	return s
+}
+
+type AddLoadbalanceVcomputergroupResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// paas_request_id
+	PaasRequestId *string `json:"paas_request_id,omitempty" xml:"paas_request_id,omitempty"`
+}
+
+func (s AddLoadbalanceVcomputergroupResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddLoadbalanceVcomputergroupResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddLoadbalanceVcomputergroupResponse) SetReqMsgId(v string) *AddLoadbalanceVcomputergroupResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddLoadbalanceVcomputergroupResponse) SetResultCode(v string) *AddLoadbalanceVcomputergroupResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddLoadbalanceVcomputergroupResponse) SetResultMsg(v string) *AddLoadbalanceVcomputergroupResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AddLoadbalanceVcomputergroupResponse) SetPaasRequestId(v string) *AddLoadbalanceVcomputergroupResponse {
+	s.PaasRequestId = &v
+	return s
+}
+
+type RemoveLoadbalanceVcomputergroupRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// computer_ids
+	ComputerIds []*string `json:"computer_ids,omitempty" xml:"computer_ids,omitempty" require:"true" type:"Repeated"`
+	// 后端是否是弹性网卡
+	IsEip *bool `json:"is_eip,omitempty" xml:"is_eip,omitempty"`
+	// ports
+	Ports []*int64 `json:"ports,omitempty" xml:"ports,omitempty" require:"true" type:"Repeated"`
+	// weights
+	Weights []*int64 `json:"weights,omitempty" xml:"weights,omitempty" require:"true" type:"Repeated"`
+	// eips
+	Eips []*string `json:"eips,omitempty" xml:"eips,omitempty" type:"Repeated"`
+	// v_computer_group_id
+	VComputerGroupId *string `json:"v_computer_group_id,omitempty" xml:"v_computer_group_id,omitempty" require:"true"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+}
+
+func (s RemoveLoadbalanceVcomputergroupRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RemoveLoadbalanceVcomputergroupRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RemoveLoadbalanceVcomputergroupRequest) SetAuthToken(v string) *RemoveLoadbalanceVcomputergroupRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RemoveLoadbalanceVcomputergroupRequest) SetComputerIds(v []*string) *RemoveLoadbalanceVcomputergroupRequest {
+	s.ComputerIds = v
+	return s
+}
+
+func (s *RemoveLoadbalanceVcomputergroupRequest) SetIsEip(v bool) *RemoveLoadbalanceVcomputergroupRequest {
+	s.IsEip = &v
+	return s
+}
+
+func (s *RemoveLoadbalanceVcomputergroupRequest) SetPorts(v []*int64) *RemoveLoadbalanceVcomputergroupRequest {
+	s.Ports = v
+	return s
+}
+
+func (s *RemoveLoadbalanceVcomputergroupRequest) SetWeights(v []*int64) *RemoveLoadbalanceVcomputergroupRequest {
+	s.Weights = v
+	return s
+}
+
+func (s *RemoveLoadbalanceVcomputergroupRequest) SetEips(v []*string) *RemoveLoadbalanceVcomputergroupRequest {
+	s.Eips = v
+	return s
+}
+
+func (s *RemoveLoadbalanceVcomputergroupRequest) SetVComputerGroupId(v string) *RemoveLoadbalanceVcomputergroupRequest {
+	s.VComputerGroupId = &v
+	return s
+}
+
+func (s *RemoveLoadbalanceVcomputergroupRequest) SetWorkspaceId(v string) *RemoveLoadbalanceVcomputergroupRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+type RemoveLoadbalanceVcomputergroupResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// paas_request_id
+	PaasRequestId *string `json:"paas_request_id,omitempty" xml:"paas_request_id,omitempty"`
+}
+
+func (s RemoveLoadbalanceVcomputergroupResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RemoveLoadbalanceVcomputergroupResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RemoveLoadbalanceVcomputergroupResponse) SetReqMsgId(v string) *RemoveLoadbalanceVcomputergroupResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RemoveLoadbalanceVcomputergroupResponse) SetResultCode(v string) *RemoveLoadbalanceVcomputergroupResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RemoveLoadbalanceVcomputergroupResponse) SetResultMsg(v string) *RemoveLoadbalanceVcomputergroupResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RemoveLoadbalanceVcomputergroupResponse) SetPaasRequestId(v string) *RemoveLoadbalanceVcomputergroupResponse {
+	s.PaasRequestId = &v
+	return s
+}
+
+type AddDnsRecordsetRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// type: 记录类型，默认为A, 仅支持 A, CName, 见DnsRecordSetType
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// type: 类型, PUBLIC(外部域名) 或者 PRIVATE (域名) 见DnsNetworkType
+	DnsNetworkType *string `json:"dns_network_type,omitempty" xml:"dns_network_type,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// dns_records
+	DnsRecords []*DnsRecordParam `json:"dns_records,omitempty" xml:"dns_records,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s AddDnsRecordsetRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddDnsRecordsetRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddDnsRecordsetRequest) SetAuthToken(v string) *AddDnsRecordsetRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddDnsRecordsetRequest) SetName(v string) *AddDnsRecordsetRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *AddDnsRecordsetRequest) SetDescription(v string) *AddDnsRecordsetRequest {
+	s.Description = &v
+	return s
+}
+
+func (s *AddDnsRecordsetRequest) SetType(v string) *AddDnsRecordsetRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *AddDnsRecordsetRequest) SetDnsNetworkType(v string) *AddDnsRecordsetRequest {
+	s.DnsNetworkType = &v
+	return s
+}
+
+func (s *AddDnsRecordsetRequest) SetTenantId(v string) *AddDnsRecordsetRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *AddDnsRecordsetRequest) SetDnsRecords(v []*DnsRecordParam) *AddDnsRecordsetRequest {
+	s.DnsRecords = v
+	return s
+}
+
+type AddDnsRecordsetResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// xxxxxxx
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s AddDnsRecordsetResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddDnsRecordsetResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddDnsRecordsetResponse) SetReqMsgId(v string) *AddDnsRecordsetResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddDnsRecordsetResponse) SetResultCode(v string) *AddDnsRecordsetResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddDnsRecordsetResponse) SetResultMsg(v string) *AddDnsRecordsetResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AddDnsRecordsetResponse) SetData(v string) *AddDnsRecordsetResponse {
+	s.Data = &v
+	return s
+}
+
+type DeleteDnsRecordRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// dns_recordset_id
+	DnsRecordsetId *string `json:"dns_recordset_id,omitempty" xml:"dns_recordset_id,omitempty" require:"true"`
+	// dns_record_ip
+	DnsRecordIp *string `json:"dns_record_ip,omitempty" xml:"dns_record_ip,omitempty" require:"true"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+}
+
+func (s DeleteDnsRecordRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteDnsRecordRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteDnsRecordRequest) SetAuthToken(v string) *DeleteDnsRecordRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteDnsRecordRequest) SetDnsRecordsetId(v string) *DeleteDnsRecordRequest {
+	s.DnsRecordsetId = &v
+	return s
+}
+
+func (s *DeleteDnsRecordRequest) SetDnsRecordIp(v string) *DeleteDnsRecordRequest {
+	s.DnsRecordIp = &v
+	return s
+}
+
+func (s *DeleteDnsRecordRequest) SetWorkspaceId(v string) *DeleteDnsRecordRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+type DeleteDnsRecordResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s DeleteDnsRecordResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteDnsRecordResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteDnsRecordResponse) SetReqMsgId(v string) *DeleteDnsRecordResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteDnsRecordResponse) SetResultCode(v string) *DeleteDnsRecordResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteDnsRecordResponse) SetResultMsg(v string) *DeleteDnsRecordResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryDnsRecordsetRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// resource_type
+	ResourceType *string `json:"resource_type,omitempty" xml:"resource_type,omitempty"`
+	// ip
+	//
+	Ip *string `json:"ip,omitempty" xml:"ip,omitempty"`
+	// dns_recordset_name
+	DnsRecordsetName *string `json:"dns_recordset_name,omitempty" xml:"dns_recordset_name,omitempty"`
+	// resource_name
+	ResourceName *string `json:"resource_name,omitempty" xml:"resource_name,omitempty"`
+	// resource_iaas_ids
+	ResourceIaasIds []*string `json:"resource_iaas_ids,omitempty" xml:"resource_iaas_ids,omitempty" type:"Repeated"`
+	// dns_recordset_ids
+	DnsRecordsetIds []*string `json:"dns_recordset_ids,omitempty" xml:"dns_recordset_ids,omitempty" type:"Repeated"`
+	// page_size
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// current_page
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty" require:"true"`
+}
+
+func (s QueryDnsRecordsetRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDnsRecordsetRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDnsRecordsetRequest) SetAuthToken(v string) *QueryDnsRecordsetRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDnsRecordsetRequest) SetWorkspaceId(v string) *QueryDnsRecordsetRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *QueryDnsRecordsetRequest) SetResourceType(v string) *QueryDnsRecordsetRequest {
+	s.ResourceType = &v
+	return s
+}
+
+func (s *QueryDnsRecordsetRequest) SetIp(v string) *QueryDnsRecordsetRequest {
+	s.Ip = &v
+	return s
+}
+
+func (s *QueryDnsRecordsetRequest) SetDnsRecordsetName(v string) *QueryDnsRecordsetRequest {
+	s.DnsRecordsetName = &v
+	return s
+}
+
+func (s *QueryDnsRecordsetRequest) SetResourceName(v string) *QueryDnsRecordsetRequest {
+	s.ResourceName = &v
+	return s
+}
+
+func (s *QueryDnsRecordsetRequest) SetResourceIaasIds(v []*string) *QueryDnsRecordsetRequest {
+	s.ResourceIaasIds = v
+	return s
+}
+
+func (s *QueryDnsRecordsetRequest) SetDnsRecordsetIds(v []*string) *QueryDnsRecordsetRequest {
+	s.DnsRecordsetIds = v
+	return s
+}
+
+func (s *QueryDnsRecordsetRequest) SetPageSize(v int64) *QueryDnsRecordsetRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryDnsRecordsetRequest) SetCurrentPage(v int64) *QueryDnsRecordsetRequest {
+	s.CurrentPage = &v
+	return s
+}
+
+type QueryDnsRecordsetResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// data
+	Data []*WorkspaceDnsRecordset `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// total_count
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// page_size
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// current_page
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
+}
+
+func (s QueryDnsRecordsetResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDnsRecordsetResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDnsRecordsetResponse) SetReqMsgId(v string) *QueryDnsRecordsetResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDnsRecordsetResponse) SetResultCode(v string) *QueryDnsRecordsetResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDnsRecordsetResponse) SetResultMsg(v string) *QueryDnsRecordsetResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDnsRecordsetResponse) SetData(v []*WorkspaceDnsRecordset) *QueryDnsRecordsetResponse {
+	s.Data = v
+	return s
+}
+
+func (s *QueryDnsRecordsetResponse) SetTotalCount(v int64) *QueryDnsRecordsetResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *QueryDnsRecordsetResponse) SetPageSize(v int64) *QueryDnsRecordsetResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryDnsRecordsetResponse) SetCurrentPage(v int64) *QueryDnsRecordsetResponse {
+	s.CurrentPage = &v
+	return s
+}
+
+type BindDnsProviderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// 部分环境绑定到机房机房
+	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
+	// dns_provider_id
+	DnsProviderId *string `json:"dns_provider_id,omitempty" xml:"dns_provider_id,omitempty" require:"true"`
+	// default_sub_domain_name
+	DefaultSubDomainName *string `json:"default_sub_domain_name,omitempty" xml:"default_sub_domain_name,omitempty"`
+}
+
+func (s BindDnsProviderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindDnsProviderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindDnsProviderRequest) SetAuthToken(v string) *BindDnsProviderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindDnsProviderRequest) SetWorkspaceId(v string) *BindDnsProviderRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *BindDnsProviderRequest) SetZoneId(v string) *BindDnsProviderRequest {
+	s.ZoneId = &v
+	return s
+}
+
+func (s *BindDnsProviderRequest) SetDnsProviderId(v string) *BindDnsProviderRequest {
+	s.DnsProviderId = &v
+	return s
+}
+
+func (s *BindDnsProviderRequest) SetDefaultSubDomainName(v string) *BindDnsProviderRequest {
+	s.DefaultSubDomainName = &v
+	return s
+}
+
+type BindDnsProviderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s BindDnsProviderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindDnsProviderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindDnsProviderResponse) SetReqMsgId(v string) *BindDnsProviderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindDnsProviderResponse) SetResultCode(v string) *BindDnsProviderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindDnsProviderResponse) SetResultMsg(v string) *BindDnsProviderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ListDnsProviderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// regionId
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
+	// zone_id
+	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
+}
+
+func (s ListDnsProviderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListDnsProviderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListDnsProviderRequest) SetAuthToken(v string) *ListDnsProviderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListDnsProviderRequest) SetRegionId(v string) *ListDnsProviderRequest {
+	s.RegionId = &v
+	return s
+}
+
+func (s *ListDnsProviderRequest) SetZoneId(v string) *ListDnsProviderRequest {
+	s.ZoneId = &v
+	return s
+}
+
+type ListDnsProviderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// data
+	Data []*IaasDnsProvider `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s ListDnsProviderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListDnsProviderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListDnsProviderResponse) SetReqMsgId(v string) *ListDnsProviderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListDnsProviderResponse) SetResultCode(v string) *ListDnsProviderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListDnsProviderResponse) SetResultMsg(v string) *ListDnsProviderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListDnsProviderResponse) SetData(v []*IaasDnsProvider) *ListDnsProviderResponse {
+	s.Data = v
+	return s
+}
+
+type QueryProviderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// LB，COMPUTE，VPC,OBJECT_STORAGE等
+	ResourceType *string `json:"resource_type,omitempty" xml:"resource_type,omitempty" require:"true"`
+	// paas_region_id
+	PaasRegionId *string `json:"paas_region_id,omitempty" xml:"paas_region_id,omitempty" require:"true"`
+}
+
+func (s QueryProviderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryProviderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryProviderRequest) SetAuthToken(v string) *QueryProviderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryProviderRequest) SetResourceType(v string) *QueryProviderRequest {
+	s.ResourceType = &v
+	return s
+}
+
+func (s *QueryProviderRequest) SetPaasRegionId(v string) *QueryProviderRequest {
+	s.PaasRegionId = &v
+	return s
+}
+
+type QueryProviderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// data
+	Data []*IaasConnMetadata `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryProviderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryProviderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryProviderResponse) SetReqMsgId(v string) *QueryProviderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryProviderResponse) SetResultCode(v string) *QueryProviderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryProviderResponse) SetResultMsg(v string) *QueryProviderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryProviderResponse) SetData(v []*IaasConnMetadata) *QueryProviderResponse {
+	s.Data = v
+	return s
+}
+
+type GetDnsWorkspaceproviderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// zoneId
+	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
+	// dns_network_type
+	DnsNetworkType *string `json:"dns_network_type,omitempty" xml:"dns_network_type,omitempty" require:"true"`
+}
+
+func (s GetDnsWorkspaceproviderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetDnsWorkspaceproviderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetDnsWorkspaceproviderRequest) SetAuthToken(v string) *GetDnsWorkspaceproviderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetDnsWorkspaceproviderRequest) SetWorkspaceId(v string) *GetDnsWorkspaceproviderRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *GetDnsWorkspaceproviderRequest) SetZoneId(v string) *GetDnsWorkspaceproviderRequest {
+	s.ZoneId = &v
+	return s
+}
+
+func (s *GetDnsWorkspaceproviderRequest) SetDnsNetworkType(v string) *GetDnsWorkspaceproviderRequest {
+	s.DnsNetworkType = &v
+	return s
+}
+
+type GetDnsWorkspaceproviderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// data
+	Data []*WorkspaceDnsProvider `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s GetDnsWorkspaceproviderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetDnsWorkspaceproviderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetDnsWorkspaceproviderResponse) SetReqMsgId(v string) *GetDnsWorkspaceproviderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetDnsWorkspaceproviderResponse) SetResultCode(v string) *GetDnsWorkspaceproviderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetDnsWorkspaceproviderResponse) SetResultMsg(v string) *GetDnsWorkspaceproviderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetDnsWorkspaceproviderResponse) SetData(v []*WorkspaceDnsProvider) *GetDnsWorkspaceproviderResponse {
+	s.Data = v
+	return s
+}
+
+type CreateUniworkspacegroupRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 工作空间组名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 显示名字，可以中文
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// namespace
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty"`
+	// json格式的字符串，工作空间组属性
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+	// release_mode
+	ReleaseMode *string `json:"release_mode,omitempty" xml:"release_mode,omitempty"`
+	// 工作空间的名称
+	Workspaces []*string `json:"workspaces,omitempty" xml:"workspaces,omitempty" require:"true" type:"Repeated"`
+	// workspaces_create_param
+	WorkspacesCreateParam []*string `json:"workspaces_create_param,omitempty" xml:"workspaces_create_param,omitempty" require:"true" type:"Repeated"`
+	// cell_group_create_params
+	CellGroupCreateParams []*string `json:"cell_group_create_params,omitempty" xml:"cell_group_create_params,omitempty" type:"Repeated"`
+	// cell_create_params
+	CellCreateParams []*string `json:"cell_create_params,omitempty" xml:"cell_create_params,omitempty" type:"Repeated"`
+	// 域名前缀
+	DomainSuffix *string `json:"domain_suffix,omitempty" xml:"domain_suffix,omitempty"`
+	// VPC创建参数
+	VpcCreateParams []*string `json:"vpc_create_params,omitempty" xml:"vpc_create_params,omitempty" require:"true" type:"Repeated"`
+	// 导入的VPCIDs
+	ImportVpcs []*string `json:"import_vpcs,omitempty" xml:"import_vpcs,omitempty" type:"Repeated"`
+}
+
+func (s CreateUniworkspacegroupRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateUniworkspacegroupRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateUniworkspacegroupRequest) SetAuthToken(v string) *CreateUniworkspacegroupRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateUniworkspacegroupRequest) SetName(v string) *CreateUniworkspacegroupRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *CreateUniworkspacegroupRequest) SetDisplayName(v string) *CreateUniworkspacegroupRequest {
+	s.DisplayName = &v
+	return s
+}
+
+func (s *CreateUniworkspacegroupRequest) SetTenantId(v string) *CreateUniworkspacegroupRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *CreateUniworkspacegroupRequest) SetNamespace(v string) *CreateUniworkspacegroupRequest {
+	s.Namespace = &v
+	return s
+}
+
+func (s *CreateUniworkspacegroupRequest) SetProperties(v string) *CreateUniworkspacegroupRequest {
+	s.Properties = &v
+	return s
+}
+
+func (s *CreateUniworkspacegroupRequest) SetReleaseMode(v string) *CreateUniworkspacegroupRequest {
+	s.ReleaseMode = &v
+	return s
+}
+
+func (s *CreateUniworkspacegroupRequest) SetWorkspaces(v []*string) *CreateUniworkspacegroupRequest {
+	s.Workspaces = v
+	return s
+}
+
+func (s *CreateUniworkspacegroupRequest) SetWorkspacesCreateParam(v []*string) *CreateUniworkspacegroupRequest {
+	s.WorkspacesCreateParam = v
+	return s
+}
+
+func (s *CreateUniworkspacegroupRequest) SetCellGroupCreateParams(v []*string) *CreateUniworkspacegroupRequest {
+	s.CellGroupCreateParams = v
+	return s
+}
+
+func (s *CreateUniworkspacegroupRequest) SetCellCreateParams(v []*string) *CreateUniworkspacegroupRequest {
+	s.CellCreateParams = v
+	return s
+}
+
+func (s *CreateUniworkspacegroupRequest) SetDomainSuffix(v string) *CreateUniworkspacegroupRequest {
+	s.DomainSuffix = &v
+	return s
+}
+
+func (s *CreateUniworkspacegroupRequest) SetVpcCreateParams(v []*string) *CreateUniworkspacegroupRequest {
+	s.VpcCreateParams = v
+	return s
+}
+
+func (s *CreateUniworkspacegroupRequest) SetImportVpcs(v []*string) *CreateUniworkspacegroupRequest {
+	s.ImportVpcs = v
+	return s
+}
+
+type CreateUniworkspacegroupResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// paas_request_id，异步任务ID
+	PaasRequestId *string `json:"paas_request_id,omitempty" xml:"paas_request_id,omitempty"`
+}
+
+func (s CreateUniworkspacegroupResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateUniworkspacegroupResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateUniworkspacegroupResponse) SetReqMsgId(v string) *CreateUniworkspacegroupResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateUniworkspacegroupResponse) SetResultCode(v string) *CreateUniworkspacegroupResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateUniworkspacegroupResponse) SetResultMsg(v string) *CreateUniworkspacegroupResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateUniworkspacegroupResponse) SetPaasRequestId(v string) *CreateUniworkspacegroupResponse {
+	s.PaasRequestId = &v
+	return s
+}
+
+type ImportMiddlewareclusterRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// cluster_id，OSP上的ID
+	ClusterId *string `json:"cluster_id,omitempty" xml:"cluster_id,omitempty" require:"true"`
+}
+
+func (s ImportMiddlewareclusterRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportMiddlewareclusterRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ImportMiddlewareclusterRequest) SetAuthToken(v string) *ImportMiddlewareclusterRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ImportMiddlewareclusterRequest) SetWorkspaceId(v string) *ImportMiddlewareclusterRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *ImportMiddlewareclusterRequest) SetClusterId(v string) *ImportMiddlewareclusterRequest {
+	s.ClusterId = &v
+	return s
+}
+
+type ImportMiddlewareclusterResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ImportMiddlewareclusterResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportMiddlewareclusterResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ImportMiddlewareclusterResponse) SetReqMsgId(v string) *ImportMiddlewareclusterResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ImportMiddlewareclusterResponse) SetResultCode(v string) *ImportMiddlewareclusterResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ImportMiddlewareclusterResponse) SetResultMsg(v string) *ImportMiddlewareclusterResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryMiddlewareclusterRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// workspace_id 和workspace_group_id至少要填一个
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// cluster_id OSP上的ID
+	ClusterId *string `json:"cluster_id,omitempty" xml:"cluster_id,omitempty"`
+	// cluster_name
+	ClusterName *string `json:"cluster_name,omitempty" xml:"cluster_name,omitempty"`
+	// workspace_group_name和workspace_id必须至少传入一个
+	WorkspaceGroupName *string `json:"workspace_group_name,omitempty" xml:"workspace_group_name,omitempty"`
+	// app_service_id
+	AppServiceId *string `json:"app_service_id,omitempty" xml:"app_service_id,omitempty"`
+}
+
+func (s QueryMiddlewareclusterRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMiddlewareclusterRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMiddlewareclusterRequest) SetAuthToken(v string) *QueryMiddlewareclusterRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMiddlewareclusterRequest) SetWorkspaceId(v string) *QueryMiddlewareclusterRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *QueryMiddlewareclusterRequest) SetClusterId(v string) *QueryMiddlewareclusterRequest {
+	s.ClusterId = &v
+	return s
+}
+
+func (s *QueryMiddlewareclusterRequest) SetClusterName(v string) *QueryMiddlewareclusterRequest {
+	s.ClusterName = &v
+	return s
+}
+
+func (s *QueryMiddlewareclusterRequest) SetWorkspaceGroupName(v string) *QueryMiddlewareclusterRequest {
+	s.WorkspaceGroupName = &v
+	return s
+}
+
+func (s *QueryMiddlewareclusterRequest) SetAppServiceId(v string) *QueryMiddlewareclusterRequest {
+	s.AppServiceId = &v
+	return s
+}
+
+type QueryMiddlewareclusterResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// data
+	Data []*MiddlewareCluster `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryMiddlewareclusterResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMiddlewareclusterResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMiddlewareclusterResponse) SetReqMsgId(v string) *QueryMiddlewareclusterResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMiddlewareclusterResponse) SetResultCode(v string) *QueryMiddlewareclusterResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMiddlewareclusterResponse) SetResultMsg(v string) *QueryMiddlewareclusterResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMiddlewareclusterResponse) SetData(v []*MiddlewareCluster) *QueryMiddlewareclusterResponse {
+	s.Data = v
+	return s
+}
+
+type RemoveMiddlewareclusterRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// cluster_id
+	ClusterId *string `json:"cluster_id,omitempty" xml:"cluster_id,omitempty" require:"true"`
+}
+
+func (s RemoveMiddlewareclusterRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RemoveMiddlewareclusterRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RemoveMiddlewareclusterRequest) SetAuthToken(v string) *RemoveMiddlewareclusterRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RemoveMiddlewareclusterRequest) SetWorkspaceId(v string) *RemoveMiddlewareclusterRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *RemoveMiddlewareclusterRequest) SetClusterId(v string) *RemoveMiddlewareclusterRequest {
+	s.ClusterId = &v
+	return s
+}
+
+type RemoveMiddlewareclusterResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s RemoveMiddlewareclusterResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RemoveMiddlewareclusterResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RemoveMiddlewareclusterResponse) SetReqMsgId(v string) *RemoveMiddlewareclusterResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RemoveMiddlewareclusterResponse) SetResultCode(v string) *RemoveMiddlewareclusterResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RemoveMiddlewareclusterResponse) SetResultMsg(v string) *RemoveMiddlewareclusterResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -29362,7 +31521,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.19"),
+				"sdk_version":      tea.String("1.4.11"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -34307,8 +36466,8 @@ func (client *Client) QueryComputerAgentsetupcommandEx(request *QueryComputerAge
 }
 
 /**
- * Description: 查询已导入的computer信息
- * Summary: 查询已导入的computer信息
+ * Description: 查询可以导入的computer信息
+ * Summary: 查询可以导入的computer信息
  */
 func (client *Client) QueryComputerImport(request *QueryComputerImportRequest) (_result *QueryComputerImportResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34323,8 +36482,8 @@ func (client *Client) QueryComputerImport(request *QueryComputerImportRequest) (
 }
 
 /**
- * Description: 查询已导入的computer信息
- * Summary: 查询已导入的computer信息
+ * Description: 查询可以导入的computer信息
+ * Summary: 查询可以导入的computer信息
  */
 func (client *Client) QueryComputerImportEx(request *QueryComputerImportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryComputerImportResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -37189,6 +39348,550 @@ func (client *Client) UpdateDiskStrategyEx(request *UpdateDiskStrategyRequest, h
 	}
 	_result = &UpdateDiskStrategyResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.disk.strategy.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建虚拟服务器组
+ * Summary: 创建虚拟服务器组
+ */
+func (client *Client) CreateLoadbalanceVcomputergroup(request *CreateLoadbalanceVcomputergroupRequest) (_result *CreateLoadbalanceVcomputergroupResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateLoadbalanceVcomputergroupResponse{}
+	_body, _err := client.CreateLoadbalanceVcomputergroupEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建虚拟服务器组
+ * Summary: 创建虚拟服务器组
+ */
+func (client *Client) CreateLoadbalanceVcomputergroupEx(request *CreateLoadbalanceVcomputergroupRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateLoadbalanceVcomputergroupResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateLoadbalanceVcomputergroupResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.loadbalance.vcomputergroup.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 在VComputerGroup里更新后端服务器
+ * Summary: 增加VCompute
+ */
+func (client *Client) UpdateLoadbalanceVcomputergroup(request *UpdateLoadbalanceVcomputergroupRequest) (_result *UpdateLoadbalanceVcomputergroupResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateLoadbalanceVcomputergroupResponse{}
+	_body, _err := client.UpdateLoadbalanceVcomputergroupEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 在VComputerGroup里更新后端服务器
+ * Summary: 增加VCompute
+ */
+func (client *Client) UpdateLoadbalanceVcomputergroupEx(request *UpdateLoadbalanceVcomputergroupRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateLoadbalanceVcomputergroupResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateLoadbalanceVcomputergroupResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.loadbalance.vcomputergroup.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 删除VComputerGroup
+ * Summary: 删除VComputerGroup
+ */
+func (client *Client) DeleteLoadbalanceVcomputergroup(request *DeleteLoadbalanceVcomputergroupRequest) (_result *DeleteLoadbalanceVcomputergroupResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteLoadbalanceVcomputergroupResponse{}
+	_body, _err := client.DeleteLoadbalanceVcomputergroupEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 删除VComputerGroup
+ * Summary: 删除VComputerGroup
+ */
+func (client *Client) DeleteLoadbalanceVcomputergroupEx(request *DeleteLoadbalanceVcomputergroupRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteLoadbalanceVcomputergroupResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteLoadbalanceVcomputergroupResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.loadbalance.vcomputergroup.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 在虚拟服务器组中增加服务器
+ * Summary: 在虚拟服务器组中增加服务器
+ */
+func (client *Client) AddLoadbalanceVcomputergroup(request *AddLoadbalanceVcomputergroupRequest) (_result *AddLoadbalanceVcomputergroupResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddLoadbalanceVcomputergroupResponse{}
+	_body, _err := client.AddLoadbalanceVcomputergroupEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 在虚拟服务器组中增加服务器
+ * Summary: 在虚拟服务器组中增加服务器
+ */
+func (client *Client) AddLoadbalanceVcomputergroupEx(request *AddLoadbalanceVcomputergroupRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddLoadbalanceVcomputergroupResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddLoadbalanceVcomputergroupResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.loadbalance.vcomputergroup.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 从虚拟服务器组中删除服务器
+ * Summary: 从虚拟服务器组中删除服务器
+ */
+func (client *Client) RemoveLoadbalanceVcomputergroup(request *RemoveLoadbalanceVcomputergroupRequest) (_result *RemoveLoadbalanceVcomputergroupResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RemoveLoadbalanceVcomputergroupResponse{}
+	_body, _err := client.RemoveLoadbalanceVcomputergroupEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 从虚拟服务器组中删除服务器
+ * Summary: 从虚拟服务器组中删除服务器
+ */
+func (client *Client) RemoveLoadbalanceVcomputergroupEx(request *RemoveLoadbalanceVcomputergroupRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RemoveLoadbalanceVcomputergroupResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RemoveLoadbalanceVcomputergroupResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.loadbalance.vcomputergroup.remove"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 添加域名记录
+ * Summary: 添加域名记录
+ */
+func (client *Client) AddDnsRecordset(request *AddDnsRecordsetRequest) (_result *AddDnsRecordsetResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddDnsRecordsetResponse{}
+	_body, _err := client.AddDnsRecordsetEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 添加域名记录
+ * Summary: 添加域名记录
+ */
+func (client *Client) AddDnsRecordsetEx(request *AddDnsRecordsetRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddDnsRecordsetResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddDnsRecordsetResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.dns.recordset.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 删除一条DNS记录
+ * Summary: 删除一条DNS记录
+ */
+func (client *Client) DeleteDnsRecord(request *DeleteDnsRecordRequest) (_result *DeleteDnsRecordResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteDnsRecordResponse{}
+	_body, _err := client.DeleteDnsRecordEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 删除一条DNS记录
+ * Summary: 删除一条DNS记录
+ */
+func (client *Client) DeleteDnsRecordEx(request *DeleteDnsRecordRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteDnsRecordResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteDnsRecordResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.dns.record.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询当前recordset
+ * Summary: 查询当前recordset
+ */
+func (client *Client) QueryDnsRecordset(request *QueryDnsRecordsetRequest) (_result *QueryDnsRecordsetResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDnsRecordsetResponse{}
+	_body, _err := client.QueryDnsRecordsetEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询当前recordset
+ * Summary: 查询当前recordset
+ */
+func (client *Client) QueryDnsRecordsetEx(request *QueryDnsRecordsetRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDnsRecordsetResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDnsRecordsetResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.dns.recordset.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: workspace绑定指定DNS服务商
+ * Summary: workspace绑定指定DNS服务商
+ */
+func (client *Client) BindDnsProvider(request *BindDnsProviderRequest) (_result *BindDnsProviderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindDnsProviderResponse{}
+	_body, _err := client.BindDnsProviderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: workspace绑定指定DNS服务商
+ * Summary: workspace绑定指定DNS服务商
+ */
+func (client *Client) BindDnsProviderEx(request *BindDnsProviderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDnsProviderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindDnsProviderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.dns.provider.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取当前环境的DNS provider
+ * Summary: 获取当前环境的DNS provider
+ */
+func (client *Client) ListDnsProvider(request *ListDnsProviderRequest) (_result *ListDnsProviderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListDnsProviderResponse{}
+	_body, _err := client.ListDnsProviderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取当前环境的DNS provider
+ * Summary: 获取当前环境的DNS provider
+ */
+func (client *Client) ListDnsProviderEx(request *ListDnsProviderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListDnsProviderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListDnsProviderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.dns.provider.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询当前环境资源供应商信息
+ * Summary: 查询当前环境资源供应商信息
+ */
+func (client *Client) QueryProvider(request *QueryProviderRequest) (_result *QueryProviderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryProviderResponse{}
+	_body, _err := client.QueryProviderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询当前环境资源供应商信息
+ * Summary: 查询当前环境资源供应商信息
+ */
+func (client *Client) QueryProviderEx(request *QueryProviderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryProviderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryProviderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.provider.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取当前工作空间的DNSProvider
+ * Summary: 获取当前工作空间的DNSProvider
+ */
+func (client *Client) GetDnsWorkspaceprovider(request *GetDnsWorkspaceproviderRequest) (_result *GetDnsWorkspaceproviderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetDnsWorkspaceproviderResponse{}
+	_body, _err := client.GetDnsWorkspaceproviderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取当前工作空间的DNSProvider
+ * Summary: 获取当前工作空间的DNSProvider
+ */
+func (client *Client) GetDnsWorkspaceproviderEx(request *GetDnsWorkspaceproviderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetDnsWorkspaceproviderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetDnsWorkspaceproviderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.dns.workspaceprovider.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: [异步]创建工作空间组，包括了VPC，交换机，单元化架构的一体化创建
+ * Summary: [异步]创建工作空间组
+ */
+func (client *Client) CreateUniworkspacegroup(request *CreateUniworkspacegroupRequest) (_result *CreateUniworkspacegroupResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateUniworkspacegroupResponse{}
+	_body, _err := client.CreateUniworkspacegroupEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: [异步]创建工作空间组，包括了VPC，交换机，单元化架构的一体化创建
+ * Summary: [异步]创建工作空间组
+ */
+func (client *Client) CreateUniworkspacegroupEx(request *CreateUniworkspacegroupRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateUniworkspacegroupResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateUniworkspacegroupResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.uniworkspacegroup.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 导入一个中间件集群
+ * Summary: 导入一个中间件集群
+ */
+func (client *Client) ImportMiddlewarecluster(request *ImportMiddlewareclusterRequest) (_result *ImportMiddlewareclusterResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ImportMiddlewareclusterResponse{}
+	_body, _err := client.ImportMiddlewareclusterEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 导入一个中间件集群
+ * Summary: 导入一个中间件集群
+ */
+func (client *Client) ImportMiddlewareclusterEx(request *ImportMiddlewareclusterRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportMiddlewareclusterResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ImportMiddlewareclusterResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.middlewarecluster.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询当前工作空间中间件集群
+ * Summary: 查询当前工作空间中间件集群
+ */
+func (client *Client) QueryMiddlewarecluster(request *QueryMiddlewareclusterRequest) (_result *QueryMiddlewareclusterResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMiddlewareclusterResponse{}
+	_body, _err := client.QueryMiddlewareclusterEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询当前工作空间中间件集群
+ * Summary: 查询当前工作空间中间件集群
+ */
+func (client *Client) QueryMiddlewareclusterEx(request *QueryMiddlewareclusterRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMiddlewareclusterResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMiddlewareclusterResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.middlewarecluster.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 移除一个中间件集群
+ * Summary: 移除一个中间件集群
+ */
+func (client *Client) RemoveMiddlewarecluster(request *RemoveMiddlewareclusterRequest) (_result *RemoveMiddlewareclusterResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RemoveMiddlewareclusterResponse{}
+	_body, _err := client.RemoveMiddlewareclusterEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 移除一个中间件集群
+ * Summary: 移除一个中间件集群
+ */
+func (client *Client) RemoveMiddlewareclusterEx(request *RemoveMiddlewareclusterRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RemoveMiddlewareclusterResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RemoveMiddlewareclusterResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.middlewarecluster.remove"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
