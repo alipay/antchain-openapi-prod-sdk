@@ -102,6 +102,92 @@ export class AssignedApp extends $tea.Model {
   }
 }
 
+// RegionView
+export class RegionView extends $tea.Model {
+  // id
+  id: string;
+  // identity
+  identity: string;
+  // providerId
+  providerId: string;
+  // name
+  name: string;
+  // state
+  state: string;
+  // description
+  description: string;
+  // networkType
+  networkType: string;
+  // availableNetworkTypes
+  availableNetworkTypes: string[];
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      identity: 'identity',
+      providerId: 'provider_id',
+      name: 'name',
+      state: 'state',
+      description: 'description',
+      networkType: 'network_type',
+      availableNetworkTypes: 'available_network_types',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      identity: 'string',
+      providerId: 'string',
+      name: 'string',
+      state: 'string',
+      description: 'string',
+      networkType: 'string',
+      availableNetworkTypes: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// WorkspaceZoneView
+export class WorkspaceZoneView extends $tea.Model {
+  // id
+  id: string;
+  // identity
+  identity: string;
+  // name
+  name: string;
+  // state
+  state: string;
+  // description
+  description: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      identity: 'identity',
+      name: 'name',
+      state: 'state',
+      description: 'description',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      identity: 'string',
+      name: 'string',
+      state: 'string',
+      description: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 数据库
 export class Database extends $tea.Model {
   // app_ids
@@ -247,92 +333,6 @@ export class Database extends $tea.Model {
   }
 }
 
-// RegionView
-export class RegionView extends $tea.Model {
-  // id
-  id: string;
-  // identity
-  identity: string;
-  // providerId
-  providerId: string;
-  // name
-  name: string;
-  // state
-  state: string;
-  // description
-  description: string;
-  // networkType
-  networkType: string;
-  // availableNetworkTypes
-  availableNetworkTypes: string[];
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      identity: 'identity',
-      providerId: 'provider_id',
-      name: 'name',
-      state: 'state',
-      description: 'description',
-      networkType: 'network_type',
-      availableNetworkTypes: 'available_network_types',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      identity: 'string',
-      providerId: 'string',
-      name: 'string',
-      state: 'string',
-      description: 'string',
-      networkType: 'string',
-      availableNetworkTypes: { 'type': 'array', 'itemType': 'string' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// WorkspaceZoneView
-export class WorkspaceZoneView extends $tea.Model {
-  // id
-  id: string;
-  // identity
-  identity: string;
-  // name
-  name: string;
-  // state
-  state: string;
-  // description
-  description: string;
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      identity: 'identity',
-      name: 'name',
-      state: 'state',
-      description: 'description',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      identity: 'string',
-      name: 'string',
-      state: 'string',
-      description: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 一个 key-value 键值对
 export class MapStringToStringEntity extends $tea.Model {
   // 键名
@@ -358,31 +358,43 @@ export class MapStringToStringEntity extends $tea.Model {
   }
 }
 
-// disk related computer infos
-export class DiskComputer extends $tea.Model {
-  // name
-  name?: string;
-  // id
-  id?: string;
-  // iaas id
-  iaasId?: string;
-  // status
-  status?: string;
+// scope
+export class Scope extends $tea.Model {
+  // cell identity
+  cell?: string;
+  // region identity
+  region?: string;
+  // tenant name
+  tenant?: string;
+  // workspace
+  workspace?: string;
+  // workspace_group
+  workspaceGroup?: string;
+  // zone identity
+  zone?: string;
+  // cluster identity
+  cluster?: string;
   static names(): { [key: string]: string } {
     return {
-      name: 'name',
-      id: 'id',
-      iaasId: 'iaas_id',
-      status: 'status',
+      cell: 'cell',
+      region: 'region',
+      tenant: 'tenant',
+      workspace: 'workspace',
+      workspaceGroup: 'workspace_group',
+      zone: 'zone',
+      cluster: 'cluster',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      name: 'string',
-      id: 'string',
-      iaasId: 'string',
-      status: 'string',
+      cell: 'string',
+      region: 'string',
+      tenant: 'string',
+      workspace: 'string',
+      workspaceGroup: 'string',
+      zone: 'string',
+      cluster: 'string',
     };
   }
 
@@ -416,63 +428,6 @@ export class CloudPlatform extends $tea.Model {
       loginName: 'string',
       name: 'string',
       password: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// db account
-export class DatabaseAccount extends $tea.Model {
-  // database
-  database?: Database;
-  // description
-  description?: string;
-  // iaas_type
-  iaasType?: string;
-  // id
-  id: string;
-  // 名称
-  name: string;
-  // 密码
-  password: string;
-  // 权限
-  privilege: string;
-  // status
-  status?: string;
-  // utc_create
-  utcCreate?: string;
-  // utc_modified
-  utcModified?: string;
-  static names(): { [key: string]: string } {
-    return {
-      database: 'database',
-      description: 'description',
-      iaasType: 'iaas_type',
-      id: 'id',
-      name: 'name',
-      password: 'password',
-      privilege: 'privilege',
-      status: 'status',
-      utcCreate: 'utc_create',
-      utcModified: 'utc_modified',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      database: Database,
-      description: 'string',
-      iaasType: 'string',
-      id: 'string',
-      name: 'string',
-      password: 'string',
-      privilege: 'string',
-      status: 'string',
-      utcCreate: 'string',
-      utcModified: 'string',
     };
   }
 
@@ -627,76 +582,31 @@ export class WorkspaceView extends $tea.Model {
   }
 }
 
-// scope
-export class Scope extends $tea.Model {
-  // cell identity
-  cell?: string;
-  // region identity
-  region?: string;
-  // tenant name
-  tenant?: string;
-  // workspace
-  workspace?: string;
-  // workspace_group
-  workspaceGroup?: string;
-  // zone identity
-  zone?: string;
-  // cluster identity
-  cluster?: string;
-  static names(): { [key: string]: string } {
-    return {
-      cell: 'cell',
-      region: 'region',
-      tenant: 'tenant',
-      workspace: 'workspace',
-      workspaceGroup: 'workspace_group',
-      zone: 'zone',
-      cluster: 'cluster',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      cell: 'string',
-      region: 'string',
-      tenant: 'string',
-      workspace: 'string',
-      workspaceGroup: 'string',
-      zone: 'string',
-      cluster: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// workspace zone
-export class WorkspaceZoneDto extends $tea.Model {
+// disk related computer infos
+export class DiskComputer extends $tea.Model {
+  // name
+  name?: string;
   // id
-  id: string;
-  // workspace_id
-  workspaceId: string;
-  // zone_id
-  zoneId: string;
-  // zone name
-  zoneName?: string;
+  id?: string;
+  // iaas id
+  iaasId?: string;
+  // status
+  status?: string;
   static names(): { [key: string]: string } {
     return {
+      name: 'name',
       id: 'id',
-      workspaceId: 'workspace_id',
-      zoneId: 'zone_id',
-      zoneName: 'zone_name',
+      iaasId: 'iaas_id',
+      status: 'status',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
+      name: 'string',
       id: 'string',
-      workspaceId: 'string',
-      zoneId: 'string',
-      zoneName: 'string',
+      iaasId: 'string',
+      status: 'string',
     };
   }
 
@@ -705,52 +615,76 @@ export class WorkspaceZoneDto extends $tea.Model {
   }
 }
 
-// 代码仓库
-export class CodeRepository extends $tea.Model {
-  // 代码仓库ID
+// db account
+export class DatabaseAccount extends $tea.Model {
+  // database
+  database?: Database;
+  // description
+  description?: string;
+  // iaas_type
+  iaasType?: string;
+  // id
   id: string;
   // 名称
   name: string;
-  // VCS源代码管理系统
-  type?: string;
-  // 负责人
-  owner?: string;
-  // 源代码地址
-  sourceLocation?: string;
-  // 被SCM管理的远程仓库ID
-  remoteRepoId?: string;
-  // 流程标记id(可选参数)
-  instanceId?: string;
-  // 是否初始化目录(可选参数，目前金融云传与不传都不初始化)
-  isInitStandardPath?: boolean;
-  // 代码库是否可复用(默认为不复用 0)
-  repoReuse?: string;
-  // 父代码库名称(reposReuse为0时可以不传)
-  parentReposName?: string;
-  // 代码仓库状态
+  // 密码
+  password: string;
+  // 权限
+  privilege: string;
+  // status
   status?: string;
-  // 扩展参数，JSON字符串
-  extraParams?: string;
-  // 是否使用已有仓库
-  useExist?: boolean;
-  // 分组名称
-  groupName?: string;
+  // utc_create
+  utcCreate?: string;
+  // utc_modified
+  utcModified?: string;
+  static names(): { [key: string]: string } {
+    return {
+      database: 'database',
+      description: 'description',
+      iaasType: 'iaas_type',
+      id: 'id',
+      name: 'name',
+      password: 'password',
+      privilege: 'privilege',
+      status: 'status',
+      utcCreate: 'utc_create',
+      utcModified: 'utc_modified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      database: Database,
+      description: 'string',
+      iaasType: 'string',
+      id: 'string',
+      name: 'string',
+      password: 'string',
+      privilege: 'string',
+      status: 'string',
+      utcCreate: 'string',
+      utcModified: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// Zone视图
+export class ZoneView extends $tea.Model {
+  // id
+  id?: string;
+  // name
+  name?: string;
+  // displayName
+  displayName?: string;
   static names(): { [key: string]: string } {
     return {
       id: 'id',
       name: 'name',
-      type: 'type',
-      owner: 'owner',
-      sourceLocation: 'source_location',
-      remoteRepoId: 'remote_repo_id',
-      instanceId: 'instance_id',
-      isInitStandardPath: 'is_init_standard_path',
-      repoReuse: 'repo_reuse',
-      parentReposName: 'parent_repos_name',
-      status: 'status',
-      extraParams: 'extra_params',
-      useExist: 'use_exist',
-      groupName: 'group_name',
+      displayName: 'display_name',
     };
   }
 
@@ -758,18 +692,40 @@ export class CodeRepository extends $tea.Model {
     return {
       id: 'string',
       name: 'string',
-      type: 'string',
-      owner: 'string',
-      sourceLocation: 'string',
-      remoteRepoId: 'string',
-      instanceId: 'string',
-      isInitStandardPath: 'boolean',
-      repoReuse: 'string',
-      parentReposName: 'string',
-      status: 'string',
-      extraParams: 'string',
-      useExist: 'boolean',
-      groupName: 'string',
+      displayName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// Cloud
+export class Cloud extends $tea.Model {
+  // id
+  id?: number;
+  // identity
+  identity?: string;
+  // name
+  name?: string;
+  // platforms
+  platforms?: CloudPlatform[];
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      identity: 'identity',
+      name: 'name',
+      platforms: 'platforms',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'number',
+      identity: 'string',
+      name: 'string',
+      platforms: { 'type': 'array', 'itemType': CloudPlatform },
     };
   }
 
@@ -831,84 +787,23 @@ export class CodeCommit extends $tea.Model {
   }
 }
 
-// Zone视图
-export class ZoneView extends $tea.Model {
-  // id
-  id?: string;
-  // name
-  name?: string;
-  // displayName
-  displayName?: string;
+// 解决DbSchema结构嵌套用的，其他人不要用这个，用grant
+export class DbSchemaGrant extends $tea.Model {
+  // privilege
+  privilege: string;
+  // account
+  account?: DatabaseAccount;
   static names(): { [key: string]: string } {
     return {
-      id: 'id',
-      name: 'name',
-      displayName: 'display_name',
+      privilege: 'privilege',
+      account: 'account',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      id: 'string',
-      name: 'string',
-      displayName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 应用负责人
-export class AppOwner extends $tea.Model {
-  // 研发负责人
-  devOwner?: UserInfo;
-  // backup开发人员
-  backupDevOwners?: UserInfo[];
-  // 测试负责人
-  testOwner?: UserInfo;
-  // 备用测试人员
-  backupTestOwners?: UserInfo[];
-  // 运维负责人
-  ops?: UserInfo;
-  // 备用SRE人员
-  backupOpses?: UserInfo[];
-  // 开发architect负责人
-  devArchitect?: UserInfo;
-  // 备用Architects联系人
-  backupDevArchitects?: UserInfo[];
-  // 测试architect
-  testArchitect?: UserInfo;
-  // 备用测试architects
-  backupTestArchitects?: UserInfo[];
-  static names(): { [key: string]: string } {
-    return {
-      devOwner: 'dev_owner',
-      backupDevOwners: 'backup_dev_owners',
-      testOwner: 'test_owner',
-      backupTestOwners: 'backup_test_owners',
-      ops: 'ops',
-      backupOpses: 'backup_opses',
-      devArchitect: 'dev_architect',
-      backupDevArchitects: 'backup_dev_architects',
-      testArchitect: 'test_architect',
-      backupTestArchitects: 'backup_test_architects',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      devOwner: UserInfo,
-      backupDevOwners: { 'type': 'array', 'itemType': UserInfo },
-      testOwner: UserInfo,
-      backupTestOwners: { 'type': 'array', 'itemType': UserInfo },
-      ops: UserInfo,
-      backupOpses: { 'type': 'array', 'itemType': UserInfo },
-      devArchitect: UserInfo,
-      backupDevArchitects: { 'type': 'array', 'itemType': UserInfo },
-      testArchitect: UserInfo,
-      backupTestArchitects: { 'type': 'array', 'itemType': UserInfo },
+      privilege: 'string',
+      account: DatabaseAccount,
     };
   }
 
@@ -970,165 +865,6 @@ export class ScmSofaArchetype extends $tea.Model {
   }
 }
 
-// 解决DbSchema结构嵌套用的，其他人不要用这个，用grant
-export class DbSchemaGrant extends $tea.Model {
-  // privilege
-  privilege: string;
-  // account
-  account?: DatabaseAccount;
-  static names(): { [key: string]: string } {
-    return {
-      privilege: 'privilege',
-      account: 'account',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      privilege: 'string',
-      account: DatabaseAccount,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// Cloud
-export class Cloud extends $tea.Model {
-  // id
-  id?: number;
-  // identity
-  identity?: string;
-  // name
-  name?: string;
-  // platforms
-  platforms?: CloudPlatform[];
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      identity: 'identity',
-      name: 'name',
-      platforms: 'platforms',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'number',
-      identity: 'string',
-      name: 'string',
-      platforms: { 'type': 'array', 'itemType': CloudPlatform },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// disk
-export class Disk extends $tea.Model {
-  // ssd, cloud_efficiency
-  category?: string;
-  // disk related computer info
-  computer?: DiskComputer;
-  // 是否同时删除自动快照
-  deleteAutoSnapshot?: boolean;
-  // 磁盘是否随container一起释放
-  deleteWithComputer?: boolean;
-  // device info
-  device?: string;
-  // 磁盘是否执行自动快照策略
-  enableAutoSnapshot?: boolean;
-  // iaasId
-  iaasId?: string;
-  // id
-  id?: string;
-  // 创建磁盘的镜像
-  imageId?: string;
-  // name
-  name?: string;
-  // 磁盘是否可卸载
-  portable?: boolean;
-  // providerId
-  providerId?: string;
-  // regionId
-  regionId?: string;
-  // disk size
-  size?: number;
-  // disk status
-  status?: string;
-  // tenantId
-  tenantId?: string;
-  // SYSTEM, DATA
-  type?: string;
-  // utcCreate
-  utcCreate?: string;
-  // utcModified
-  utcModified?: string;
-  // workspaceId
-  workspaceId?: string;
-  // zoneId
-  zoneId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      category: 'category',
-      computer: 'computer',
-      deleteAutoSnapshot: 'delete_auto_snapshot',
-      deleteWithComputer: 'delete_with_computer',
-      device: 'device',
-      enableAutoSnapshot: 'enable_auto_snapshot',
-      iaasId: 'iaas_id',
-      id: 'id',
-      imageId: 'image_id',
-      name: 'name',
-      portable: 'portable',
-      providerId: 'provider_id',
-      regionId: 'region_id',
-      size: 'size',
-      status: 'status',
-      tenantId: 'tenant_id',
-      type: 'type',
-      utcCreate: 'utc_create',
-      utcModified: 'utc_modified',
-      workspaceId: 'workspace_id',
-      zoneId: 'zone_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      category: 'string',
-      computer: DiskComputer,
-      deleteAutoSnapshot: 'boolean',
-      deleteWithComputer: 'boolean',
-      device: 'string',
-      enableAutoSnapshot: 'boolean',
-      iaasId: 'string',
-      id: 'string',
-      imageId: 'string',
-      name: 'string',
-      portable: 'boolean',
-      providerId: 'string',
-      regionId: 'string',
-      size: 'number',
-      status: 'string',
-      tenantId: 'string',
-      type: 'string',
-      utcCreate: 'string',
-      utcModified: 'string',
-      workspaceId: 'string',
-      zoneId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 应用生命周期
 export class AppLifeCycle extends $tea.Model {
   // ID
@@ -1178,110 +914,6 @@ export class AppLifeCycle extends $tea.Model {
       onlineTime: 'string',
       gmtCreate: 'string',
       gmtModified: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 应用扩展信息
-export class AppExtraInfo extends $tea.Model {
-  // ID
-  id?: string;
-  // 名称
-  name?: string;
-  // 值
-  value?: string;
-  // 描述
-  description?: string;
-  // 模板ID
-  templateId?: string;
-  // 模板类型
-  type?: string;
-  // 创建时间
-  utcCreate?: string;
-  // 最近修改时间
-  utcModified?: string;
-  // 应用扩展信息ID
-  appExtrainfoId?: string;
-  // 应用ID
-  appId?: string;
-  // 模板数据ID
-  templateDataId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      name: 'name',
-      value: 'value',
-      description: 'description',
-      templateId: 'template_id',
-      type: 'type',
-      utcCreate: 'utc_create',
-      utcModified: 'utc_modified',
-      appExtrainfoId: 'app_extrainfo_id',
-      appId: 'app_id',
-      templateDataId: 'template_data_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      name: 'string',
-      value: 'string',
-      description: 'string',
-      templateId: 'string',
-      type: 'string',
-      utcCreate: 'string',
-      utcModified: 'string',
-      appExtrainfoId: 'string',
-      appId: 'string',
-      templateDataId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云日志服务(SLS)-脱敏功能配置
-export class SLSConfigSensitiveKey extends $tea.Model {
-  // 是否替换该字段中所有的敏感内容。建议设置为true
-  all: boolean;
-  // 当type设置为const时必须填写
-  constValue?: string;
-  // 日志Key名称
-  key: string;
-  // 敏感内容的前缀
-  regexBegin: string;
-  // 敏感内容正则表达式。
-  regexContent: string;
-  // 脱敏方式，取值为const、md5。
-  // 若取值为const，则将敏感内容替换成const字段取值内容。
-  // 若取值为md5，则将敏感内容替换为其对应的MD5值。
-  type: string;
-  static names(): { [key: string]: string } {
-    return {
-      all: 'all',
-      constValue: 'const_value',
-      key: 'key',
-      regexBegin: 'regex_begin',
-      regexContent: 'regex_content',
-      type: 'type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      all: 'boolean',
-      constValue: 'string',
-      key: 'string',
-      regexBegin: 'string',
-      regexContent: 'string',
-      type: 'string',
     };
   }
 
@@ -1435,43 +1067,55 @@ export class LoadBalancer extends $tea.Model {
   }
 }
 
-// 路由的下一跳详细信息。
-export class NextHopItem extends $tea.Model {
-  // 	
-  // 下一跳的类型。
-  // 
-  // Instance：ECS实例。
-  // HaVip：高可用虚拟IP。
-  // VpnGateway：VPN网关。
-  // NatGateway：NAT网关。
-  // NetworkInterface：辅助弹性网卡。
-  // RouterInterface：路由器接口。
-  // IPv6Gateway：IPv6网关。
-  nextHopType?: string;
-  // 下一跳实例的ID。
-  nextHopId?: string;
-  // 是否启用下一跳。
-  // 
-  // 0：不启用。
-  // 1：启用。
-  enable?: number;
-  // 下一跳的路由权重。
-  weight?: number;
+// 应用负责人
+export class AppOwner extends $tea.Model {
+  // 研发负责人
+  devOwner?: UserInfo;
+  // backup开发人员
+  backupDevOwners?: UserInfo[];
+  // 测试负责人
+  testOwner?: UserInfo;
+  // 备用测试人员
+  backupTestOwners?: UserInfo[];
+  // 运维负责人
+  ops?: UserInfo;
+  // 备用SRE人员
+  backupOpses?: UserInfo[];
+  // 开发architect负责人
+  devArchitect?: UserInfo;
+  // 备用Architects联系人
+  backupDevArchitects?: UserInfo[];
+  // 测试architect
+  testArchitect?: UserInfo;
+  // 备用测试architects
+  backupTestArchitects?: UserInfo[];
   static names(): { [key: string]: string } {
     return {
-      nextHopType: 'next_hop_type',
-      nextHopId: 'next_hop_id',
-      enable: 'enable',
-      weight: 'weight',
+      devOwner: 'dev_owner',
+      backupDevOwners: 'backup_dev_owners',
+      testOwner: 'test_owner',
+      backupTestOwners: 'backup_test_owners',
+      ops: 'ops',
+      backupOpses: 'backup_opses',
+      devArchitect: 'dev_architect',
+      backupDevArchitects: 'backup_dev_architects',
+      testArchitect: 'test_architect',
+      backupTestArchitects: 'backup_test_architects',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      nextHopType: 'string',
-      nextHopId: 'string',
-      enable: 'number',
-      weight: 'number',
+      devOwner: UserInfo,
+      backupDevOwners: { 'type': 'array', 'itemType': UserInfo },
+      testOwner: UserInfo,
+      backupTestOwners: { 'type': 'array', 'itemType': UserInfo },
+      ops: UserInfo,
+      backupOpses: { 'type': 'array', 'itemType': UserInfo },
+      devArchitect: UserInfo,
+      backupDevArchitects: { 'type': 'array', 'itemType': UserInfo },
+      testArchitect: UserInfo,
+      backupTestArchitects: { 'type': 'array', 'itemType': UserInfo },
     };
   }
 
@@ -1480,28 +1124,52 @@ export class NextHopItem extends $tea.Model {
   }
 }
 
-// 应用等级
-export class AppLevel extends $tea.Model {
-  // ID
+// 代码仓库
+export class CodeRepository extends $tea.Model {
+  // 代码仓库ID
   id: string;
-  // 应用等级名称
-  name?: string;
-  // 创建者
-  creatorId?: string;
-  // 租户ID
-  tenantId?: string;
-  // 创建时间
-  utcCreate?: string;
-  // 最近修改时间
-  utcModified?: string;
+  // 名称
+  name: string;
+  // VCS源代码管理系统
+  type?: string;
+  // 负责人
+  owner?: string;
+  // 源代码地址
+  sourceLocation?: string;
+  // 被SCM管理的远程仓库ID
+  remoteRepoId?: string;
+  // 流程标记id(可选参数)
+  instanceId?: string;
+  // 是否初始化目录(可选参数，目前金融云传与不传都不初始化)
+  isInitStandardPath?: boolean;
+  // 代码库是否可复用(默认为不复用 0)
+  repoReuse?: string;
+  // 父代码库名称(reposReuse为0时可以不传)
+  parentReposName?: string;
+  // 代码仓库状态
+  status?: string;
+  // 扩展参数，JSON字符串
+  extraParams?: string;
+  // 是否使用已有仓库
+  useExist?: boolean;
+  // 分组名称
+  groupName?: string;
   static names(): { [key: string]: string } {
     return {
       id: 'id',
       name: 'name',
-      creatorId: 'creator_id',
-      tenantId: 'tenant_id',
-      utcCreate: 'utc_create',
-      utcModified: 'utc_modified',
+      type: 'type',
+      owner: 'owner',
+      sourceLocation: 'source_location',
+      remoteRepoId: 'remote_repo_id',
+      instanceId: 'instance_id',
+      isInitStandardPath: 'is_init_standard_path',
+      repoReuse: 'repo_reuse',
+      parentReposName: 'parent_repos_name',
+      status: 'status',
+      extraParams: 'extra_params',
+      useExist: 'use_exist',
+      groupName: 'group_name',
     };
   }
 
@@ -1509,10 +1177,152 @@ export class AppLevel extends $tea.Model {
     return {
       id: 'string',
       name: 'string',
-      creatorId: 'string',
+      type: 'string',
+      owner: 'string',
+      sourceLocation: 'string',
+      remoteRepoId: 'string',
+      instanceId: 'string',
+      isInitStandardPath: 'boolean',
+      repoReuse: 'string',
+      parentReposName: 'string',
+      status: 'string',
+      extraParams: 'string',
+      useExist: 'boolean',
+      groupName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// disk
+export class Disk extends $tea.Model {
+  // ssd, cloud_efficiency
+  category?: string;
+  // disk related computer info
+  computer?: DiskComputer;
+  // 是否同时删除自动快照
+  deleteAutoSnapshot?: boolean;
+  // 磁盘是否随container一起释放
+  deleteWithComputer?: boolean;
+  // device info
+  device?: string;
+  // 磁盘是否执行自动快照策略
+  enableAutoSnapshot?: boolean;
+  // iaasId
+  iaasId?: string;
+  // id
+  id?: string;
+  // 创建磁盘的镜像
+  imageId?: string;
+  // name
+  name?: string;
+  // 磁盘是否可卸载
+  portable?: boolean;
+  // providerId
+  providerId?: string;
+  // regionId
+  regionId?: string;
+  // disk size
+  size?: number;
+  // disk status
+  status?: string;
+  // tenantId
+  tenantId?: string;
+  // SYSTEM, DATA
+  type?: string;
+  // utcCreate
+  utcCreate?: string;
+  // utcModified
+  utcModified?: string;
+  // workspaceId
+  workspaceId?: string;
+  // zoneId
+  zoneId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      category: 'category',
+      computer: 'computer',
+      deleteAutoSnapshot: 'delete_auto_snapshot',
+      deleteWithComputer: 'delete_with_computer',
+      device: 'device',
+      enableAutoSnapshot: 'enable_auto_snapshot',
+      iaasId: 'iaas_id',
+      id: 'id',
+      imageId: 'image_id',
+      name: 'name',
+      portable: 'portable',
+      providerId: 'provider_id',
+      regionId: 'region_id',
+      size: 'size',
+      status: 'status',
+      tenantId: 'tenant_id',
+      type: 'type',
+      utcCreate: 'utc_create',
+      utcModified: 'utc_modified',
+      workspaceId: 'workspace_id',
+      zoneId: 'zone_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      category: 'string',
+      computer: DiskComputer,
+      deleteAutoSnapshot: 'boolean',
+      deleteWithComputer: 'boolean',
+      device: 'string',
+      enableAutoSnapshot: 'boolean',
+      iaasId: 'string',
+      id: 'string',
+      imageId: 'string',
+      name: 'string',
+      portable: 'boolean',
+      providerId: 'string',
+      regionId: 'string',
+      size: 'number',
+      status: 'string',
       tenantId: 'string',
+      type: 'string',
       utcCreate: 'string',
       utcModified: 'string',
+      workspaceId: 'string',
+      zoneId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// workspace zone
+export class WorkspaceZoneDto extends $tea.Model {
+  // id
+  id: string;
+  // workspace_id
+  workspaceId: string;
+  // zone_id
+  zoneId: string;
+  // zone name
+  zoneName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      workspaceId: 'workspace_id',
+      zoneId: 'zone_id',
+      zoneName: 'zone_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      workspaceId: 'string',
+      zoneId: 'string',
+      zoneName: 'string',
     };
   }
 
@@ -1603,31 +1413,39 @@ export class TaskRequest extends $tea.Model {
   }
 }
 
-// IaasRequest
-export class IaasRequest extends $tea.Model {
-  // requestMethod
-  requestMethod?: string;
-  // requestUrl
-  requestUrl?: string;
-  // requestBody
-  requestBody?: string;
-  // request_headers
-  requestHeaders?: MapStringToStringEntity[];
+// 应用等级
+export class AppLevel extends $tea.Model {
+  // ID
+  id: string;
+  // 应用等级名称
+  name?: string;
+  // 创建者
+  creatorId?: string;
+  // 租户ID
+  tenantId?: string;
+  // 创建时间
+  utcCreate?: string;
+  // 最近修改时间
+  utcModified?: string;
   static names(): { [key: string]: string } {
     return {
-      requestMethod: 'request_method',
-      requestUrl: 'request_url',
-      requestBody: 'request_body',
-      requestHeaders: 'request_headers',
+      id: 'id',
+      name: 'name',
+      creatorId: 'creator_id',
+      tenantId: 'tenant_id',
+      utcCreate: 'utc_create',
+      utcModified: 'utc_modified',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      requestMethod: 'string',
-      requestUrl: 'string',
-      requestBody: 'string',
-      requestHeaders: { 'type': 'array', 'itemType': MapStringToStringEntity },
+      id: 'string',
+      name: 'string',
+      creatorId: 'string',
+      tenantId: 'string',
+      utcCreate: 'string',
+      utcModified: 'string',
     };
   }
 
@@ -1636,23 +1454,180 @@ export class IaasRequest extends $tea.Model {
   }
 }
 
-// IaasResponse
-export class IaasResponse extends $tea.Model {
-  // response_body
-  responseBody?: string;
-  // response_headers
-  responseHeaders?: MapStringToStringEntity[];
+// 路由的下一跳详细信息。
+export class NextHopItem extends $tea.Model {
+  // 	
+  // 下一跳的类型。
+  // 
+  // Instance：ECS实例。
+  // HaVip：高可用虚拟IP。
+  // VpnGateway：VPN网关。
+  // NatGateway：NAT网关。
+  // NetworkInterface：辅助弹性网卡。
+  // RouterInterface：路由器接口。
+  // IPv6Gateway：IPv6网关。
+  nextHopType?: string;
+  // 下一跳实例的ID。
+  nextHopId?: string;
+  // 是否启用下一跳。
+  // 
+  // 0：不启用。
+  // 1：启用。
+  enable?: number;
+  // 下一跳的路由权重。
+  weight?: number;
   static names(): { [key: string]: string } {
     return {
-      responseBody: 'response_body',
-      responseHeaders: 'response_headers',
+      nextHopType: 'next_hop_type',
+      nextHopId: 'next_hop_id',
+      enable: 'enable',
+      weight: 'weight',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      responseBody: 'string',
-      responseHeaders: { 'type': 'array', 'itemType': MapStringToStringEntity },
+      nextHopType: 'string',
+      nextHopId: 'string',
+      enable: 'number',
+      weight: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 应用扩展信息
+export class AppExtraInfo extends $tea.Model {
+  // ID
+  id?: string;
+  // 名称
+  name?: string;
+  // 值
+  value?: string;
+  // 描述
+  description?: string;
+  // 模板ID
+  templateId?: string;
+  // 模板类型
+  type?: string;
+  // 创建时间
+  utcCreate?: string;
+  // 最近修改时间
+  utcModified?: string;
+  // 应用扩展信息ID
+  appExtrainfoId?: string;
+  // 应用ID
+  appId?: string;
+  // 模板数据ID
+  templateDataId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      name: 'name',
+      value: 'value',
+      description: 'description',
+      templateId: 'template_id',
+      type: 'type',
+      utcCreate: 'utc_create',
+      utcModified: 'utc_modified',
+      appExtrainfoId: 'app_extrainfo_id',
+      appId: 'app_id',
+      templateDataId: 'template_data_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      name: 'string',
+      value: 'string',
+      description: 'string',
+      templateId: 'string',
+      type: 'string',
+      utcCreate: 'string',
+      utcModified: 'string',
+      appExtrainfoId: 'string',
+      appId: 'string',
+      templateDataId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云日志服务(SLS)-脱敏功能配置
+export class SLSConfigSensitiveKey extends $tea.Model {
+  // 是否替换该字段中所有的敏感内容。建议设置为true
+  all: boolean;
+  // 当type设置为const时必须填写
+  constValue?: string;
+  // 日志Key名称
+  key: string;
+  // 敏感内容的前缀
+  regexBegin: string;
+  // 敏感内容正则表达式。
+  regexContent: string;
+  // 脱敏方式，取值为const、md5。
+  // 若取值为const，则将敏感内容替换成const字段取值内容。
+  // 若取值为md5，则将敏感内容替换为其对应的MD5值。
+  type: string;
+  static names(): { [key: string]: string } {
+    return {
+      all: 'all',
+      constValue: 'const_value',
+      key: 'key',
+      regexBegin: 'regex_begin',
+      regexContent: 'regex_content',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      all: 'boolean',
+      constValue: 'string',
+      key: 'string',
+      regexBegin: 'string',
+      regexContent: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// JoinedSecurityGroupVO
+export class JoinedSecurityGroupVO extends $tea.Model {
+  // iaas id
+  iaasId?: string;
+  // name
+  name?: string;
+  // workspace id
+  workspaceId?: string;
+  // workspace name
+  workspaceName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      iaasId: 'iaas_id',
+      name: 'name',
+      workspaceId: 'workspace_id',
+      workspaceName: 'workspace_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      iaasId: 'string',
+      name: 'string',
+      workspaceId: 'string',
+      workspaceName: 'string',
     };
   }
 
@@ -1710,59 +1685,35 @@ export class PaginationQuery extends $tea.Model {
   }
 }
 
-// 部署单元（Cell）
-export class CellView extends $tea.Model {
-  // id
-  id?: string;
-  // name
-  name?: string;
-  // displayName
-  displayName?: string;
-  // description
-  description?: string;
-  // deploymentZoneId
-  deploymentZoneId?: string;
-  // workspaceId
-  workspaceId?: string;
-  // workspaceGroupId
-  workspaceGroupId?: string;
-  // status
-  status?: string;
-  // masterZoneId
-  masterZoneId?: string;
-  // appendedZoneIds
-  appendedZoneIds?: string[];
-  // List<ZoneView> zones
-  zones?: ZoneView[];
+// IaasErrorInfo
+export class IaasErrorInfo extends $tea.Model {
+  // error_code
+  errorCode?: string;
+  // error_message
+  errorMessage?: string;
+  // status_code
+  statusCode?: number;
+  // host_id
+  hostId?: string;
+  // requestId
+  requestId?: string;
   static names(): { [key: string]: string } {
     return {
-      id: 'id',
-      name: 'name',
-      displayName: 'display_name',
-      description: 'description',
-      deploymentZoneId: 'deployment_zone_id',
-      workspaceId: 'workspace_id',
-      workspaceGroupId: 'workspace_group_id',
-      status: 'status',
-      masterZoneId: 'master_zone_id',
-      appendedZoneIds: 'appended_zone_ids',
-      zones: 'zones',
+      errorCode: 'error_code',
+      errorMessage: 'error_message',
+      statusCode: 'status_code',
+      hostId: 'host_id',
+      requestId: 'request_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      id: 'string',
-      name: 'string',
-      displayName: 'string',
-      description: 'string',
-      deploymentZoneId: 'string',
-      workspaceId: 'string',
-      workspaceGroupId: 'string',
-      status: 'string',
-      masterZoneId: 'string',
-      appendedZoneIds: { 'type': 'array', 'itemType': 'string' },
-      zones: { 'type': 'array', 'itemType': ZoneView },
+      errorCode: 'string',
+      errorMessage: 'string',
+      statusCode: 'number',
+      hostId: 'string',
+      requestId: 'string',
     };
   }
 
@@ -1771,420 +1722,259 @@ export class CellView extends $tea.Model {
   }
 }
 
-// TaskVO用Resource字段
-export class Resource extends $tea.Model {
-  // name
-  name: string;
+// 技术栈运行时属性
+export class BuildpackInstances extends $tea.Model {
+  // ecs个数
+  ecses?: number;
+  // 绑定应用个数
+  appBinded?: number;
+  static names(): { [key: string]: string } {
+    return {
+      ecses: 'ecses',
+      appBinded: 'app_binded',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      ecses: 'number',
+      appBinded: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// WorkspaceDc
+export class WorkspaceDc extends $tea.Model {
+  // id
+  id: string;
+  // datacenterId
+  datacenterId: string;
+  // workspaceId
+  workspaceId: string;
+  // datacenterType
+  datacenterType: string;
+  // gmtCreate
+  gmtCreate: string;
+  // gmtModified
+  gmtModified: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      datacenterId: 'datacenter_id',
+      workspaceId: 'workspace_id',
+      datacenterType: 'datacenter_type',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      datacenterId: 'string',
+      workspaceId: 'string',
+      datacenterType: 'string',
+      gmtCreate: 'string',
+      gmtModified: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 安全组规则
+export class SecurityGroupRule extends $tea.Model {
+  // 规则描述信息
+  description?: string;
+  // 目的端IP地址范围。支持CIDR格式和IPv4格式的IP地址范围。
+  destCidrIp?: string;
+  // 传输层协议。不区分大小写。取值范围：
+  // 
+  // icmp
+  // gre
+  // tcp
+  // udp
+  // all：支持所有协议
+  ipProtocol?: string;
+  // 经典网络类型安全组规则的网卡类型。取值范围：
+  // 
+  // internet：公网。
+  // intranet：内网。
+  // 默认值：internet。
+  // 
+  // 在以下情况中，参数NicType取值只能为intranet：
+  // 
+  // 安全组规则的网络类型为专有网络VPC时，您无需设置NicType参数，默认并且只能为intranet。
+  // 当设置安全组之间互相访问时，即指定了DestGroupId且没有指定DestCidrIp时。
+  nicType?: string;
+  // 访问权限。取值范围：
+  // 
+  // accept：接受访问。
+  // drop：拒绝访问，不返回拒绝信息。
+  // 默认值：accept。
+  policy?: string;
+  // 目的端安全组开放的传输层协议相关的端口范围。取值范围：
+  // 
+  // TCP/UDP协议：取值范围为1~65535。使用斜线（/）隔开起始端口和终止端口。正确示范：1/200；错误示范：200/1。
+  // ICMP协议：-1/-1。
+  // GRE协议：-1/-1。
+  // all：-1/-1。
+  portRange?: string;
+  // 安全组规则优先级。取值范围：1~100
+  // 
+  // 默认值：1。
+  priority?: string;
+  // 源端IP地址范围。支持CIDR格式和IPv4格式的IP地址范围。
+  // 
+  // 默认值：0.0.0.0/0。
+  sourceCidrIp?: string;
+  static names(): { [key: string]: string } {
+    return {
+      description: 'description',
+      destCidrIp: 'dest_cidr_ip',
+      ipProtocol: 'ip_protocol',
+      nicType: 'nic_type',
+      policy: 'policy',
+      portRange: 'port_range',
+      priority: 'priority',
+      sourceCidrIp: 'source_cidr_ip',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      description: 'string',
+      destCidrIp: 'string',
+      ipProtocol: 'string',
+      nicType: 'string',
+      policy: 'string',
+      portRange: 'string',
+      priority: 'string',
+      sourceCidrIp: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 查询用的DbSchema
+export class DbSchema extends $tea.Model {
+  // charSet
+  charSet?: string;
+  // database
+  database?: Database;
   // description
   description?: string;
-  // instance_charge_type
-  instanceChargeType?: string;
-  // expiredTime
-  expiredTime?: string;
-  // auto_renew
-  autoRenew?: boolean;
-  // autoRenewPeriod
-  autoRenewPeriod?: number;
-  // iaas_id
-  iaasId?: string;
+  // grants
+  grants: DbSchemaGrant[];
   // iaas_type
   iaasType?: string;
-  // region_id
-  regionId?: string;
-  // zone_id
-  zoneId: string;
   // id
   id: string;
-  // utc_create
-  utcCreate?: string;
-  // utc_modified
-  utcModified?: string;
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      description: 'description',
-      instanceChargeType: 'instance_charge_type',
-      expiredTime: 'expired_time',
-      autoRenew: 'auto_renew',
-      autoRenewPeriod: 'auto_renew_period',
-      iaasId: 'iaas_id',
-      iaasType: 'iaas_type',
-      regionId: 'region_id',
-      zoneId: 'zone_id',
-      id: 'id',
-      utcCreate: 'utc_create',
-      utcModified: 'utc_modified',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      description: 'string',
-      instanceChargeType: 'string',
-      expiredTime: 'string',
-      autoRenew: 'boolean',
-      autoRenewPeriod: 'number',
-      iaasId: 'string',
-      iaasType: 'string',
-      regionId: 'string',
-      zoneId: 'string',
-      id: 'string',
-      utcCreate: 'string',
-      utcModified: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// AppManifest
-export class AppManifest extends $tea.Model {
-  // app_id
-  appId?: string;
-  // app_version
-  appVersion?: string;
-  // code_commit
-  codeCommit?: CodeCommit;
-  // etag
-  etag?: string;
-  // id
-  id?: string;
-  // location
-  location?: string;
   // name
-  name?: string;
-  // remark
-  remark?: string;
-  // store_location
-  storeLocation?: string;
+  name: string;
+  // status
+  status: string;
   // utc_create
   utcCreate?: string;
   // utc_modified
   utcModified?: string;
-  // workspace_id
-  workspaceId?: string;
   static names(): { [key: string]: string } {
     return {
-      appId: 'app_id',
-      appVersion: 'app_version',
-      codeCommit: 'code_commit',
-      etag: 'etag',
-      id: 'id',
-      location: 'location',
-      name: 'name',
-      remark: 'remark',
-      storeLocation: 'store_location',
-      utcCreate: 'utc_create',
-      utcModified: 'utc_modified',
-      workspaceId: 'workspace_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      appId: 'string',
-      appVersion: 'string',
-      codeCommit: CodeCommit,
-      etag: 'string',
-      id: 'string',
-      location: 'string',
-      name: 'string',
-      remark: 'string',
-      storeLocation: 'string',
-      utcCreate: 'string',
-      utcModified: 'string',
-      workspaceId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 监听器健康检查配置
-export class ListenerHealthMonitor extends $tea.Model {
-  // check_type
-  checkType?: string;
-  // 默认 80
-  connectPort?: number;
-  // 域名
-  domain?: string;
-  // 健康阈值
-  healthyThreshold?: number;
-  // health_check_http_code
-  healthCheckHttpCode?: string[];
-  // http_method
-  httpMethod?: string;
-  // id
-  id?: string;
-  // 监控检查间隔
-  interval: number;
-  // 超时时间
-  timeout: number;
-  // 不健康阈值
-  unHealthyThreshold?: number;
-  // uri
-  uri?: string;
-  static names(): { [key: string]: string } {
-    return {
-      checkType: 'check_type',
-      connectPort: 'connect_port',
-      domain: 'domain',
-      healthyThreshold: 'healthy_threshold',
-      healthCheckHttpCode: 'health_check_http_code',
-      httpMethod: 'http_method',
-      id: 'id',
-      interval: 'interval',
-      timeout: 'timeout',
-      unHealthyThreshold: 'un_healthy_threshold',
-      uri: 'uri',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      checkType: 'string',
-      connectPort: 'number',
-      domain: 'string',
-      healthyThreshold: 'number',
-      healthCheckHttpCode: { 'type': 'array', 'itemType': 'string' },
-      httpMethod: 'string',
-      id: 'string',
-      interval: 'number',
-      timeout: 'number',
-      unHealthyThreshold: 'number',
-      uri: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 应用分组
-export class AppDomain extends $tea.Model {
-  // 创建人id
-  creatorId?: string;
-  // id
-  id?: string;
-  // 名称
-  name?: string;
-  // parentId
-  parentId?: string;
-  // 租户id
-  tenantId?: string;
-  // toRootPath
-  toRootPath?: string;
-  // utcCreate
-  utcCreate?: string;
-  // utcModified
-  utcModified?: string;
-  static names(): { [key: string]: string } {
-    return {
-      creatorId: 'creator_id',
-      id: 'id',
-      name: 'name',
-      parentId: 'parent_id',
-      tenantId: 'tenant_id',
-      toRootPath: 'to_root_path',
-      utcCreate: 'utc_create',
-      utcModified: 'utc_modified',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      creatorId: 'string',
-      id: 'string',
-      name: 'string',
-      parentId: 'string',
-      tenantId: 'string',
-      toRootPath: 'string',
-      utcCreate: 'string',
-      utcModified: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云日志服务(SLS)-日志配置-输出类型配置
-export class SLSConfigOutputDetail extends $tea.Model {
-  // 项目名称，必须为请求的project名。
-  projectName: string;
-  // 日志库名称
-  logstoreName: string;
-  static names(): { [key: string]: string } {
-    return {
-      projectName: 'project_name',
-      logstoreName: 'logstore_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      projectName: 'string',
-      logstoreName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 应用信息
-export class AppView extends $tea.Model {
-  // 应用组id
-  appDomainId?: string;
-  // 应用扩展信息
-  appExtraInfos?: AppExtraInfo[];
-  // 应用等级
-  appLevel?: AppLevel;
-  // 应用负责人
-  appOwner?: AppOwner;
-  // scm sofa archetype
-  archetype?: ScmSofaArchetype;
-  // 技术栈版本
-  buildpackVersion?: string;
-  // 中文名称
-  chineseName?: string;
-  // 代码仓库
-  codeRepository?: CodeRepository;
-  // 描述信息
-  description?: string;
-  // 扩展参数，JSOn字符串
-  extraParams?: string;
-  // 应用ID
-  id: string;
-  // 是否组件中心应用
-  isService?: boolean;
-  // 应用名称
-  name: string;
-  // 负责人ID
-  ownerId?: string;
-  // 技术栈所属分类ID
-  stackId: string;
-  // 应用状态
-  status?: string;
-  // 应用标签，JSOn字符串
-  tags?: string;
-  // 租户ID
-  tenantId?: string;
-  // 创建时间
-  utcCreate?: string;
-  // 修改时间
-  utcModified?: string;
-  // 工作空间ID
-  workspaceId?: string;
-  // 负责人名称
-  ownerName?: string;
-  // 应用负责人真实名称
-  realOwnerName: string;
-  // 应用域路径名
-  domainNames?: string[];
-  // 应用分组名称
-  appDomainName: string;
-  // 应用等级名称
-  appLevelName: string;
-  // 技术栈名称
-  stackName?: string;
-  // 技术栈版本
-  stackVersion?: string;
-  // 服务器数量
-  containerCount?: number;
-  // 数据库个数
-  databaseCount?: number;
-  // SLB个数
-  slbCount?: number;
-  // ocs个数
-  ocsCount?: number;
-  // 发布包个数
-  packageCount?: number;
-  // 生命周期信息
-  lifeCycle?: AppLifeCycle;
-  static names(): { [key: string]: string } {
-    return {
-      appDomainId: 'app_domain_id',
-      appExtraInfos: 'app_extra_infos',
-      appLevel: 'app_level',
-      appOwner: 'app_owner',
-      archetype: 'archetype',
-      buildpackVersion: 'buildpack_version',
-      chineseName: 'chinese_name',
-      codeRepository: 'code_repository',
+      charSet: 'char_set',
+      database: 'database',
       description: 'description',
-      extraParams: 'extra_params',
+      grants: 'grants',
+      iaasType: 'iaas_type',
       id: 'id',
-      isService: 'is_service',
       name: 'name',
-      ownerId: 'owner_id',
-      stackId: 'stack_id',
       status: 'status',
-      tags: 'tags',
-      tenantId: 'tenant_id',
       utcCreate: 'utc_create',
       utcModified: 'utc_modified',
-      workspaceId: 'workspace_id',
-      ownerName: 'owner_name',
-      realOwnerName: 'real_owner_name',
-      domainNames: 'domain_names',
-      appDomainName: 'app_domain_name',
-      appLevelName: 'app_level_name',
-      stackName: 'stack_name',
-      stackVersion: 'stack_version',
-      containerCount: 'container_count',
-      databaseCount: 'database_count',
-      slbCount: 'slb_count',
-      ocsCount: 'ocs_count',
-      packageCount: 'package_count',
-      lifeCycle: 'life_cycle',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      appDomainId: 'string',
-      appExtraInfos: { 'type': 'array', 'itemType': AppExtraInfo },
-      appLevel: AppLevel,
-      appOwner: AppOwner,
-      archetype: ScmSofaArchetype,
-      buildpackVersion: 'string',
-      chineseName: 'string',
-      codeRepository: CodeRepository,
+      charSet: 'string',
+      database: Database,
       description: 'string',
-      extraParams: 'string',
+      grants: { 'type': 'array', 'itemType': DbSchemaGrant },
+      iaasType: 'string',
       id: 'string',
-      isService: 'boolean',
       name: 'string',
-      ownerId: 'string',
-      stackId: 'string',
       status: 'string',
-      tags: 'string',
-      tenantId: 'string',
       utcCreate: 'string',
       utcModified: 'string',
-      workspaceId: 'string',
-      ownerName: 'string',
-      realOwnerName: 'string',
-      domainNames: { 'type': 'array', 'itemType': 'string' },
-      appDomainName: 'string',
-      appLevelName: 'string',
-      stackName: 'string',
-      stackVersion: 'string',
-      containerCount: 'number',
-      databaseCount: 'number',
-      slbCount: 'number',
-      ocsCount: 'number',
-      packageCount: 'number',
-      lifeCycle: AppLifeCycle,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ZoneDto
+export class ZoneDto extends $tea.Model {
+  // id
+  id: string;
+  // identity
+  identity: string;
+  // iaasProviderId
+  iaasProviderId: string;
+  // displayName
+  displayName: string;
+  // state
+  state: string;
+  // regionId
+  regionId: string;
+  // no
+  no: number;
+  // name
+  name: string;
+  // description
+  description: string;
+  // utcCreate
+  utcCreate: string;
+  // utcModified
+  utcModified: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      identity: 'identity',
+      iaasProviderId: 'iaas_provider_id',
+      displayName: 'display_name',
+      state: 'state',
+      regionId: 'region_id',
+      no: 'no',
+      name: 'name',
+      description: 'description',
+      utcCreate: 'utc_create',
+      utcModified: 'utc_modified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      identity: 'string',
+      iaasProviderId: 'string',
+      displayName: 'string',
+      state: 'string',
+      regionId: 'string',
+      no: 'number',
+      name: 'string',
+      description: 'string',
+      utcCreate: 'string',
+      utcModified: 'string',
     };
   }
 
@@ -2294,65 +2084,23 @@ export class AppService extends $tea.Model {
   }
 }
 
-// 路由条目的详细信息。
-export class VRouteEntry extends $tea.Model {
-  // 路由条目的目标网段。
-  desinationCidrBlock?: string;
-  // 下一跳的实例ID。
-  instanceId?: string;
-  // 下一跳的实例名称。
-  instanceName?: string;
-  // 路由条目ID。
-  nextHopId?: string;
-  // 路由的下一跳列表。
-  nextHopItemList?: NextHopItem[];
-  // 路由类型。
-  // 
-  // local：交换机路由。
-  // service：云服务路由。
-  // classicLink：开启ClassicLink功能后系统自动添加的路由。
-  nextHopType?: string;
-  // 路由条目所属路由表的ID。
-  routeTableId?: string;
-  // 	
-  // 路由条目的状态。
-  // 
-  // Pending：配置中。
-  // Available：可用。
-  // Modifying：修改中。
-  status?: string;
-  // 路由条目的类型。
-  // 
-  // System：系统路由。
-  // Custom：自定义路由。
-  // BGP：BGP路由。
-  // 
-  type?: string;
+// 阿里云日志服务(SLS)-日志配置-输出类型配置
+export class SLSConfigOutputDetail extends $tea.Model {
+  // 项目名称，必须为请求的project名。
+  projectName: string;
+  // 日志库名称
+  logstoreName: string;
   static names(): { [key: string]: string } {
     return {
-      desinationCidrBlock: 'desination_cidr_block',
-      instanceId: 'instance_id',
-      instanceName: 'instance_name',
-      nextHopId: 'next_hop_id',
-      nextHopItemList: 'next_hop_item_list',
-      nextHopType: 'next_hop_type',
-      routeTableId: 'route_table_id',
-      status: 'status',
-      type: 'type',
+      projectName: 'project_name',
+      logstoreName: 'logstore_name',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      desinationCidrBlock: 'string',
-      instanceId: 'string',
-      instanceName: 'string',
-      nextHopId: 'string',
-      nextHopItemList: { 'type': 'array', 'itemType': NextHopItem },
-      nextHopType: 'string',
-      routeTableId: 'string',
-      status: 'string',
-      type: 'string',
+      projectName: 'string',
+      logstoreName: 'string',
     };
   }
 
@@ -2361,227 +2109,47 @@ export class VRouteEntry extends $tea.Model {
   }
 }
 
-// vpc import info
-export class ImportInfo extends $tea.Model {
-  // 已导入的workspace name
-  importedWorkspaceName?: string;
-  // vpc是否已导入workspace
-  isImported?: boolean;
-  // 是否可以删除已导入的workspace
-  isUnimportable?: boolean;
-  // 不可删除已导入workspace的原因
-  unimportableReason?: string;
-  static names(): { [key: string]: string } {
-    return {
-      importedWorkspaceName: 'imported_workspace_name',
-      isImported: 'is_imported',
-      isUnimportable: 'is_unimportable',
-      unimportableReason: 'unimportable_reason',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      importedWorkspaceName: 'string',
-      isImported: 'boolean',
-      isUnimportable: 'boolean',
-      unimportableReason: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// Database ImportVO
-export class ImportVO extends $tea.Model {
-  // is_imported
-  isImported: boolean;
-  // imported_workspace_name
-  importedWorkspaceName: string;
-  // is_unimportable
-  isUnimportable?: boolean;
-  // unimportable_reason
-  unimportableReason?: string;
-  static names(): { [key: string]: string } {
-    return {
-      isImported: 'is_imported',
-      importedWorkspaceName: 'imported_workspace_name',
-      isUnimportable: 'is_unimportable',
-      unimportableReason: 'unimportable_reason',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      isImported: 'boolean',
-      importedWorkspaceName: 'string',
-      isUnimportable: 'boolean',
-      unimportableReason: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// JoinedSecurityGroupVO
-export class JoinedSecurityGroupVO extends $tea.Model {
-  // iaas id
-  iaasId?: string;
-  // name
+// 应用分组
+export class AppDomain extends $tea.Model {
+  // 创建人id
+  creatorId?: string;
+  // id
+  id?: string;
+  // 名称
   name?: string;
-  // workspace id
-  workspaceId?: string;
-  // workspace name
-  workspaceName?: string;
+  // parentId
+  parentId?: string;
+  // 租户id
+  tenantId?: string;
+  // toRootPath
+  toRootPath?: string;
+  // utcCreate
+  utcCreate?: string;
+  // utcModified
+  utcModified?: string;
   static names(): { [key: string]: string } {
     return {
-      iaasId: 'iaas_id',
-      name: 'name',
-      workspaceId: 'workspace_id',
-      workspaceName: 'workspace_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      iaasId: 'string',
-      name: 'string',
-      workspaceId: 'string',
-      workspaceName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 安全组规则
-export class SecurityGroupRule extends $tea.Model {
-  // 规则描述信息
-  description?: string;
-  // 目的端IP地址范围。支持CIDR格式和IPv4格式的IP地址范围。
-  destCidrIp?: string;
-  // 传输层协议。不区分大小写。取值范围：
-  // 
-  // icmp
-  // gre
-  // tcp
-  // udp
-  // all：支持所有协议
-  ipProtocol?: string;
-  // 经典网络类型安全组规则的网卡类型。取值范围：
-  // 
-  // internet：公网。
-  // intranet：内网。
-  // 默认值：internet。
-  // 
-  // 在以下情况中，参数NicType取值只能为intranet：
-  // 
-  // 安全组规则的网络类型为专有网络VPC时，您无需设置NicType参数，默认并且只能为intranet。
-  // 当设置安全组之间互相访问时，即指定了DestGroupId且没有指定DestCidrIp时。
-  nicType?: string;
-  // 访问权限。取值范围：
-  // 
-  // accept：接受访问。
-  // drop：拒绝访问，不返回拒绝信息。
-  // 默认值：accept。
-  policy?: string;
-  // 目的端安全组开放的传输层协议相关的端口范围。取值范围：
-  // 
-  // TCP/UDP协议：取值范围为1~65535。使用斜线（/）隔开起始端口和终止端口。正确示范：1/200；错误示范：200/1。
-  // ICMP协议：-1/-1。
-  // GRE协议：-1/-1。
-  // all：-1/-1。
-  portRange?: string;
-  // 安全组规则优先级。取值范围：1~100
-  // 
-  // 默认值：1。
-  priority?: string;
-  // 源端IP地址范围。支持CIDR格式和IPv4格式的IP地址范围。
-  // 
-  // 默认值：0.0.0.0/0。
-  sourceCidrIp?: string;
-  static names(): { [key: string]: string } {
-    return {
-      description: 'description',
-      destCidrIp: 'dest_cidr_ip',
-      ipProtocol: 'ip_protocol',
-      nicType: 'nic_type',
-      policy: 'policy',
-      portRange: 'port_range',
-      priority: 'priority',
-      sourceCidrIp: 'source_cidr_ip',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      description: 'string',
-      destCidrIp: 'string',
-      ipProtocol: 'string',
-      nicType: 'string',
-      policy: 'string',
-      portRange: 'string',
-      priority: 'string',
-      sourceCidrIp: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// WorkspaceWithGroupView
-export class WorkspaceWithGroupView extends $tea.Model {
-  // id
-  id: string;
-  // identity
-  identity: string;
-  // name
-  name: string;
-  // networkType
-  networkType: string;
-  // region
-  region: RegionView;
-  // status
-  status: string;
-  // tenantId
-  tenantId: string;
-  // zones
-  zones: WorkspaceZoneView[];
-  // workspaceGroup
-  workspaceGroup: WorkspaceGroupView;
-  static names(): { [key: string]: string } {
-    return {
+      creatorId: 'creator_id',
       id: 'id',
-      identity: 'identity',
       name: 'name',
-      networkType: 'network_type',
-      region: 'region',
-      status: 'status',
+      parentId: 'parent_id',
       tenantId: 'tenant_id',
-      zones: 'zones',
-      workspaceGroup: 'workspace_group',
+      toRootPath: 'to_root_path',
+      utcCreate: 'utc_create',
+      utcModified: 'utc_modified',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
+      creatorId: 'string',
       id: 'string',
-      identity: 'string',
       name: 'string',
-      networkType: 'string',
-      region: RegionView,
-      status: 'string',
+      parentId: 'string',
       tenantId: 'string',
-      zones: { 'type': 'array', 'itemType': WorkspaceZoneView },
-      workspaceGroup: WorkspaceGroupView,
+      toRootPath: 'string',
+      utcCreate: 'string',
+      utcModified: 'string',
     };
   }
 
@@ -2590,174 +2158,23 @@ export class WorkspaceWithGroupView extends $tea.Model {
   }
 }
 
-// AcsClusterUnit
-export class AcsClusterUnit extends $tea.Model {
-  // cluster_id
-  clusterId: string;
-  // address
-  address?: string;
-  // unit_status
-  unitStatus?: number;
-  // create_time
-  createTime?: string;
-  // modify_time
-  modifyTime?: string;
-  // container_id
-  containerId?: string;
+// IaasResponse
+export class IaasResponse extends $tea.Model {
+  // response_body
+  responseBody?: string;
+  // response_headers
+  responseHeaders?: MapStringToStringEntity[];
   static names(): { [key: string]: string } {
     return {
-      clusterId: 'cluster_id',
-      address: 'address',
-      unitStatus: 'unit_status',
-      createTime: 'create_time',
-      modifyTime: 'modify_time',
-      containerId: 'container_id',
+      responseBody: 'response_body',
+      responseHeaders: 'response_headers',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      clusterId: 'string',
-      address: 'string',
-      unitStatus: 'number',
-      createTime: 'string',
-      modifyTime: 'string',
-      containerId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// WorkspaceRegion
-export class WorkspaceRegion extends $tea.Model {
-  // id
-  id: string;
-  // workspaceId
-  workspaceId: string;
-  // regionId
-  regionId: string;
-  // type
-  type: string;
-  // securedIsolationIdentity
-  securedIsolationIdentity: string;
-  // securedIsolationName
-  securedIsolationName: string;
-  // securedZoneId
-  securedZoneId: string;
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      workspaceId: 'workspace_id',
-      regionId: 'region_id',
-      type: 'type',
-      securedIsolationIdentity: 'secured_isolation_identity',
-      securedIsolationName: 'secured_isolation_name',
-      securedZoneId: 'secured_zone_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      workspaceId: 'string',
-      regionId: 'string',
-      type: 'string',
-      securedIsolationIdentity: 'string',
-      securedIsolationName: 'string',
-      securedZoneId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// WorkspaceRegionDto
-export class WorkspaceRegionDto extends $tea.Model {
-  // id
-  id: string;
-  // networkType
-  networkType?: string;
-  // region id
-  regionId: string;
-  // regionName
-  regionName?: string;
-  // 安全域id
-  securedZoneId?: string;
-  // workspace_id
-  workspaceId: string;
-  // workspaceLogicRegionStatus
-  workspaceLogicRegionStatus?: string;
-  // workspaceLogicRegionType
-  workspaceLogicRegionType?: string;
-  // workspaceZoneDtos
-  workspaceZoneDtos?: WorkspaceZoneDto[];
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      networkType: 'network_type',
-      regionId: 'region_id',
-      regionName: 'region_name',
-      securedZoneId: 'secured_zone_id',
-      workspaceId: 'workspace_id',
-      workspaceLogicRegionStatus: 'workspace_logic_region_status',
-      workspaceLogicRegionType: 'workspace_logic_region_type',
-      workspaceZoneDtos: 'workspace_zone_dtos',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      networkType: 'string',
-      regionId: 'string',
-      regionName: 'string',
-      securedZoneId: 'string',
-      workspaceId: 'string',
-      workspaceLogicRegionStatus: 'string',
-      workspaceLogicRegionType: 'string',
-      workspaceZoneDtos: { 'type': 'array', 'itemType': WorkspaceZoneDto },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// LB后端专用的vComputerGroup
-export class VComputerGroup extends $tea.Model {
-  // name
-  name: string;
-  // id
-  id: string;
-  // workspace_id
-  workspaceId: string;
-  // load_balancer
-  loadBalancer: LoadBalancer;
-  // status
-  status: string;
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      id: 'id',
-      workspaceId: 'workspace_id',
-      loadBalancer: 'load_balancer',
-      status: 'status',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      id: 'string',
-      workspaceId: 'string',
-      loadBalancer: LoadBalancer,
-      status: 'string',
+      responseBody: 'string',
+      responseHeaders: { 'type': 'array', 'itemType': MapStringToStringEntity },
     };
   }
 
@@ -2940,6 +2357,412 @@ export class SLSConfigInputDetail extends $tea.Model {
   }
 }
 
+// TaskVO用Resource字段
+export class Resource extends $tea.Model {
+  // name
+  name: string;
+  // description
+  description?: string;
+  // instance_charge_type
+  instanceChargeType?: string;
+  // expiredTime
+  expiredTime?: string;
+  // auto_renew
+  autoRenew?: boolean;
+  // autoRenewPeriod
+  autoRenewPeriod?: number;
+  // iaas_id
+  iaasId?: string;
+  // iaas_type
+  iaasType?: string;
+  // region_id
+  regionId?: string;
+  // zone_id
+  zoneId: string;
+  // id
+  id: string;
+  // utc_create
+  utcCreate?: string;
+  // utc_modified
+  utcModified?: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      description: 'description',
+      instanceChargeType: 'instance_charge_type',
+      expiredTime: 'expired_time',
+      autoRenew: 'auto_renew',
+      autoRenewPeriod: 'auto_renew_period',
+      iaasId: 'iaas_id',
+      iaasType: 'iaas_type',
+      regionId: 'region_id',
+      zoneId: 'zone_id',
+      id: 'id',
+      utcCreate: 'utc_create',
+      utcModified: 'utc_modified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      description: 'string',
+      instanceChargeType: 'string',
+      expiredTime: 'string',
+      autoRenew: 'boolean',
+      autoRenewPeriod: 'number',
+      iaasId: 'string',
+      iaasType: 'string',
+      regionId: 'string',
+      zoneId: 'string',
+      id: 'string',
+      utcCreate: 'string',
+      utcModified: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 应用信息
+export class AppView extends $tea.Model {
+  // 应用组id
+  appDomainId?: string;
+  // 应用扩展信息
+  appExtraInfos?: AppExtraInfo[];
+  // 应用等级
+  appLevel?: AppLevel;
+  // 应用负责人
+  appOwner?: AppOwner;
+  // scm sofa archetype
+  archetype?: ScmSofaArchetype;
+  // 技术栈版本
+  buildpackVersion?: string;
+  // 中文名称
+  chineseName?: string;
+  // 代码仓库
+  codeRepository?: CodeRepository;
+  // 描述信息
+  description?: string;
+  // 扩展参数，JSOn字符串
+  extraParams?: string;
+  // 应用ID
+  id: string;
+  // 是否组件中心应用
+  isService?: boolean;
+  // 应用名称
+  name: string;
+  // 负责人ID
+  ownerId?: string;
+  // 技术栈所属分类ID
+  stackId: string;
+  // 应用状态
+  status?: string;
+  // 应用标签，JSOn字符串
+  tags?: string;
+  // 租户ID
+  tenantId?: string;
+  // 创建时间
+  utcCreate?: string;
+  // 修改时间
+  utcModified?: string;
+  // 工作空间ID
+  workspaceId?: string;
+  // 负责人名称
+  ownerName?: string;
+  // 应用负责人真实名称
+  realOwnerName: string;
+  // 应用域路径名
+  domainNames?: string[];
+  // 应用分组名称
+  appDomainName: string;
+  // 应用等级名称
+  appLevelName: string;
+  // 技术栈名称
+  stackName?: string;
+  // 技术栈版本
+  stackVersion?: string;
+  // 服务器数量
+  containerCount?: number;
+  // 数据库个数
+  databaseCount?: number;
+  // SLB个数
+  slbCount?: number;
+  // ocs个数
+  ocsCount?: number;
+  // 发布包个数
+  packageCount?: number;
+  // 生命周期信息
+  lifeCycle?: AppLifeCycle;
+  static names(): { [key: string]: string } {
+    return {
+      appDomainId: 'app_domain_id',
+      appExtraInfos: 'app_extra_infos',
+      appLevel: 'app_level',
+      appOwner: 'app_owner',
+      archetype: 'archetype',
+      buildpackVersion: 'buildpack_version',
+      chineseName: 'chinese_name',
+      codeRepository: 'code_repository',
+      description: 'description',
+      extraParams: 'extra_params',
+      id: 'id',
+      isService: 'is_service',
+      name: 'name',
+      ownerId: 'owner_id',
+      stackId: 'stack_id',
+      status: 'status',
+      tags: 'tags',
+      tenantId: 'tenant_id',
+      utcCreate: 'utc_create',
+      utcModified: 'utc_modified',
+      workspaceId: 'workspace_id',
+      ownerName: 'owner_name',
+      realOwnerName: 'real_owner_name',
+      domainNames: 'domain_names',
+      appDomainName: 'app_domain_name',
+      appLevelName: 'app_level_name',
+      stackName: 'stack_name',
+      stackVersion: 'stack_version',
+      containerCount: 'container_count',
+      databaseCount: 'database_count',
+      slbCount: 'slb_count',
+      ocsCount: 'ocs_count',
+      packageCount: 'package_count',
+      lifeCycle: 'life_cycle',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      appDomainId: 'string',
+      appExtraInfos: { 'type': 'array', 'itemType': AppExtraInfo },
+      appLevel: AppLevel,
+      appOwner: AppOwner,
+      archetype: ScmSofaArchetype,
+      buildpackVersion: 'string',
+      chineseName: 'string',
+      codeRepository: CodeRepository,
+      description: 'string',
+      extraParams: 'string',
+      id: 'string',
+      isService: 'boolean',
+      name: 'string',
+      ownerId: 'string',
+      stackId: 'string',
+      status: 'string',
+      tags: 'string',
+      tenantId: 'string',
+      utcCreate: 'string',
+      utcModified: 'string',
+      workspaceId: 'string',
+      ownerName: 'string',
+      realOwnerName: 'string',
+      domainNames: { 'type': 'array', 'itemType': 'string' },
+      appDomainName: 'string',
+      appLevelName: 'string',
+      stackName: 'string',
+      stackVersion: 'string',
+      containerCount: 'number',
+      databaseCount: 'number',
+      slbCount: 'number',
+      ocsCount: 'number',
+      packageCount: 'number',
+      lifeCycle: AppLifeCycle,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// DnsZones
+export class DnsZones extends $tea.Model {
+  // id
+  id: string;
+  // name
+  name: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// AppManifest
+export class AppManifest extends $tea.Model {
+  // app_id
+  appId?: string;
+  // app_version
+  appVersion?: string;
+  // code_commit
+  codeCommit?: CodeCommit;
+  // etag
+  etag?: string;
+  // id
+  id?: string;
+  // location
+  location?: string;
+  // name
+  name?: string;
+  // remark
+  remark?: string;
+  // store_location
+  storeLocation?: string;
+  // utc_create
+  utcCreate?: string;
+  // utc_modified
+  utcModified?: string;
+  // workspace_id
+  workspaceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      appId: 'app_id',
+      appVersion: 'app_version',
+      codeCommit: 'code_commit',
+      etag: 'etag',
+      id: 'id',
+      location: 'location',
+      name: 'name',
+      remark: 'remark',
+      storeLocation: 'store_location',
+      utcCreate: 'utc_create',
+      utcModified: 'utc_modified',
+      workspaceId: 'workspace_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      appId: 'string',
+      appVersion: 'string',
+      codeCommit: CodeCommit,
+      etag: 'string',
+      id: 'string',
+      location: 'string',
+      name: 'string',
+      remark: 'string',
+      storeLocation: 'string',
+      utcCreate: 'string',
+      utcModified: 'string',
+      workspaceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// Database ImportVO
+export class ImportVO extends $tea.Model {
+  // is_imported
+  isImported: boolean;
+  // imported_workspace_name
+  importedWorkspaceName: string;
+  // is_unimportable
+  isUnimportable?: boolean;
+  // unimportable_reason
+  unimportableReason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      isImported: 'is_imported',
+      importedWorkspaceName: 'imported_workspace_name',
+      isUnimportable: 'is_unimportable',
+      unimportableReason: 'unimportable_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      isImported: 'boolean',
+      importedWorkspaceName: 'string',
+      isUnimportable: 'boolean',
+      unimportableReason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 监听器健康检查配置
+export class ListenerHealthMonitor extends $tea.Model {
+  // check_type
+  checkType?: string;
+  // 默认 80
+  connectPort?: number;
+  // 域名
+  domain?: string;
+  // 健康阈值
+  healthyThreshold?: number;
+  // health_check_http_code
+  healthCheckHttpCode?: string[];
+  // http_method
+  httpMethod?: string;
+  // id
+  id?: string;
+  // 监控检查间隔
+  interval: number;
+  // 超时时间
+  timeout: number;
+  // 不健康阈值
+  unHealthyThreshold?: number;
+  // uri
+  uri?: string;
+  static names(): { [key: string]: string } {
+    return {
+      checkType: 'check_type',
+      connectPort: 'connect_port',
+      domain: 'domain',
+      healthyThreshold: 'healthy_threshold',
+      healthCheckHttpCode: 'health_check_http_code',
+      httpMethod: 'http_method',
+      id: 'id',
+      interval: 'interval',
+      timeout: 'timeout',
+      unHealthyThreshold: 'un_healthy_threshold',
+      uri: 'uri',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      checkType: 'string',
+      connectPort: 'number',
+      domain: 'string',
+      healthyThreshold: 'number',
+      healthCheckHttpCode: { 'type': 'array', 'itemType': 'string' },
+      httpMethod: 'string',
+      id: 'string',
+      interval: 'number',
+      timeout: 'number',
+      unHealthyThreshold: 'number',
+      uri: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // request中的单个任务
 export class Task extends $tea.Model {
   // context
@@ -2997,6 +2820,371 @@ export class Task extends $tea.Model {
   }
 }
 
+// WorkspaceRegion
+export class WorkspaceRegion extends $tea.Model {
+  // id
+  id: string;
+  // workspaceId
+  workspaceId: string;
+  // regionId
+  regionId: string;
+  // type
+  type: string;
+  // securedIsolationIdentity
+  securedIsolationIdentity: string;
+  // securedIsolationName
+  securedIsolationName: string;
+  // securedZoneId
+  securedZoneId: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      workspaceId: 'workspace_id',
+      regionId: 'region_id',
+      type: 'type',
+      securedIsolationIdentity: 'secured_isolation_identity',
+      securedIsolationName: 'secured_isolation_name',
+      securedZoneId: 'secured_zone_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      workspaceId: 'string',
+      regionId: 'string',
+      type: 'string',
+      securedIsolationIdentity: 'string',
+      securedIsolationName: 'string',
+      securedZoneId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// LB后端专用的vComputerGroup
+export class VComputerGroup extends $tea.Model {
+  // name
+  name: string;
+  // id
+  id: string;
+  // workspace_id
+  workspaceId: string;
+  // load_balancer
+  loadBalancer: LoadBalancer;
+  // status
+  status: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      id: 'id',
+      workspaceId: 'workspace_id',
+      loadBalancer: 'load_balancer',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      id: 'string',
+      workspaceId: 'string',
+      loadBalancer: LoadBalancer,
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 部署单元（Cell）
+export class CellView extends $tea.Model {
+  // 部署单元对应的paas id
+  id?: string;
+  // 部署单元名称
+  name?: string;
+  // 部署单元显示名称
+  displayName?: string;
+  // 部署单元描述
+  description?: string;
+  // deploymentZoneId
+  deploymentZoneId?: string;
+  // workspaceId
+  workspaceId?: string;
+  // workspaceGroupId
+  workspaceGroupId?: string;
+  // status
+  status?: string;
+  // masterZoneId
+  masterZoneId?: string;
+  // appendedZoneIds
+  appendedZoneIds?: string[];
+  // List<ZoneView> zones
+  zones?: ZoneView[];
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      name: 'name',
+      displayName: 'display_name',
+      description: 'description',
+      deploymentZoneId: 'deployment_zone_id',
+      workspaceId: 'workspace_id',
+      workspaceGroupId: 'workspace_group_id',
+      status: 'status',
+      masterZoneId: 'master_zone_id',
+      appendedZoneIds: 'appended_zone_ids',
+      zones: 'zones',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      name: 'string',
+      displayName: 'string',
+      description: 'string',
+      deploymentZoneId: 'string',
+      workspaceId: 'string',
+      workspaceGroupId: 'string',
+      status: 'string',
+      masterZoneId: 'string',
+      appendedZoneIds: { 'type': 'array', 'itemType': 'string' },
+      zones: { 'type': 'array', 'itemType': ZoneView },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// vpc import info
+export class ImportInfo extends $tea.Model {
+  // 已导入的workspace name
+  importedWorkspaceName?: string;
+  // vpc是否已导入workspace
+  isImported?: boolean;
+  // 是否可以删除已导入的workspace
+  isUnimportable?: boolean;
+  // 不可删除已导入workspace的原因
+  unimportableReason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      importedWorkspaceName: 'imported_workspace_name',
+      isImported: 'is_imported',
+      isUnimportable: 'is_unimportable',
+      unimportableReason: 'unimportable_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      importedWorkspaceName: 'string',
+      isImported: 'boolean',
+      isUnimportable: 'boolean',
+      unimportableReason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// IaasRequest
+export class IaasRequest extends $tea.Model {
+  // requestMethod
+  requestMethod?: string;
+  // requestUrl
+  requestUrl?: string;
+  // requestBody
+  requestBody?: string;
+  // request_headers
+  requestHeaders?: MapStringToStringEntity[];
+  static names(): { [key: string]: string } {
+    return {
+      requestMethod: 'request_method',
+      requestUrl: 'request_url',
+      requestBody: 'request_body',
+      requestHeaders: 'request_headers',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      requestMethod: 'string',
+      requestUrl: 'string',
+      requestBody: 'string',
+      requestHeaders: { 'type': 'array', 'itemType': MapStringToStringEntity },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// property
+export class Property extends $tea.Model {
+  // key
+  key: string;
+  // value
+  value?: string;
+  static names(): { [key: string]: string } {
+    return {
+      key: 'key',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      key: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// WorkspaceWithGroupView
+export class WorkspaceWithGroupView extends $tea.Model {
+  // id
+  id: string;
+  // identity
+  identity: string;
+  // name
+  name: string;
+  // networkType
+  networkType: string;
+  // region
+  region: RegionView;
+  // status
+  status: string;
+  // tenantId
+  tenantId: string;
+  // zones
+  zones: WorkspaceZoneView[];
+  // workspaceGroup
+  workspaceGroup: WorkspaceGroupView;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      identity: 'identity',
+      name: 'name',
+      networkType: 'network_type',
+      region: 'region',
+      status: 'status',
+      tenantId: 'tenant_id',
+      zones: 'zones',
+      workspaceGroup: 'workspace_group',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      identity: 'string',
+      name: 'string',
+      networkType: 'string',
+      region: RegionView,
+      status: 'string',
+      tenantId: 'string',
+      zones: { 'type': 'array', 'itemType': WorkspaceZoneView },
+      workspaceGroup: WorkspaceGroupView,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// AcsClusterUnit
+export class AcsClusterUnit extends $tea.Model {
+  // cluster_id
+  clusterId: string;
+  // address
+  address?: string;
+  // unit_status
+  unitStatus?: number;
+  // create_time
+  createTime?: string;
+  // modify_time
+  modifyTime?: string;
+  // container_id
+  containerId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      clusterId: 'cluster_id',
+      address: 'address',
+      unitStatus: 'unit_status',
+      createTime: 'create_time',
+      modifyTime: 'modify_time',
+      containerId: 'container_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      clusterId: 'string',
+      address: 'string',
+      unitStatus: 'number',
+      createTime: 'string',
+      modifyTime: 'string',
+      containerId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ConnectionStub
+export class ConnectionStub extends $tea.Model {
+  // cloud
+  cloud?: Cloud;
+  // id
+  id?: number;
+  // tenant_id
+  tenantId?: string;
+  // tenant_name
+  tenantName?: string;
+  // type
+  type?: string;
+  static names(): { [key: string]: string } {
+    return {
+      cloud: 'cloud',
+      id: 'id',
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cloud: Cloud,
+      id: 'number',
+      tenantId: 'string',
+      tenantName: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 阿里云日志服务(SLS) - 日志内容，是一个键值对
 export class SLSLogContent extends $tea.Model {
   // 键名
@@ -3022,76 +3210,51 @@ export class SLSLogContent extends $tea.Model {
   }
 }
 
-// WorkspaceDc
-export class WorkspaceDc extends $tea.Model {
+// WorkspaceRegionDto
+export class WorkspaceRegionDto extends $tea.Model {
   // id
   id: string;
-  // datacenterId
-  datacenterId: string;
-  // workspaceId
+  // networkType
+  networkType?: string;
+  // region id
+  regionId: string;
+  // regionName
+  regionName?: string;
+  // 安全域id
+  securedZoneId?: string;
+  // workspace_id
   workspaceId: string;
-  // datacenterType
-  datacenterType: string;
-  // gmtCreate
-  gmtCreate: string;
-  // gmtModified
-  gmtModified: string;
+  // workspaceLogicRegionStatus
+  workspaceLogicRegionStatus?: string;
+  // workspaceLogicRegionType
+  workspaceLogicRegionType?: string;
+  // workspaceZoneDtos
+  workspaceZoneDtos?: WorkspaceZoneDto[];
   static names(): { [key: string]: string } {
     return {
       id: 'id',
-      datacenterId: 'datacenter_id',
+      networkType: 'network_type',
+      regionId: 'region_id',
+      regionName: 'region_name',
+      securedZoneId: 'secured_zone_id',
       workspaceId: 'workspace_id',
-      datacenterType: 'datacenter_type',
-      gmtCreate: 'gmt_create',
-      gmtModified: 'gmt_modified',
+      workspaceLogicRegionStatus: 'workspace_logic_region_status',
+      workspaceLogicRegionType: 'workspace_logic_region_type',
+      workspaceZoneDtos: 'workspace_zone_dtos',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       id: 'string',
-      datacenterId: 'string',
+      networkType: 'string',
+      regionId: 'string',
+      regionName: 'string',
+      securedZoneId: 'string',
       workspaceId: 'string',
-      datacenterType: 'string',
-      gmtCreate: 'string',
-      gmtModified: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// IaasErrorInfo
-export class IaasErrorInfo extends $tea.Model {
-  // error_code
-  errorCode?: string;
-  // error_message
-  errorMessage?: string;
-  // status_code
-  statusCode?: number;
-  // host_id
-  hostId?: string;
-  // requestId
-  requestId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      errorCode: 'error_code',
-      errorMessage: 'error_message',
-      statusCode: 'status_code',
-      hostId: 'host_id',
-      requestId: 'request_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      errorCode: 'string',
-      errorMessage: 'string',
-      statusCode: 'number',
-      hostId: 'string',
-      requestId: 'string',
+      workspaceLogicRegionStatus: 'string',
+      workspaceLogicRegionType: 'string',
+      workspaceZoneDtos: { 'type': 'array', 'itemType': WorkspaceZoneDto },
     };
   }
 
@@ -3333,312 +3496,65 @@ export class Computer extends $tea.Model {
   }
 }
 
-// ConnectionStub
-export class ConnectionStub extends $tea.Model {
-  // cloud
-  cloud?: Cloud;
-  // id
-  id?: number;
-  // tenant_id
-  tenantId?: string;
-  // tenant_name
-  tenantName?: string;
-  // type
-  type?: string;
-  static names(): { [key: string]: string } {
-    return {
-      cloud: 'cloud',
-      id: 'id',
-      tenantId: 'tenant_id',
-      tenantName: 'tenant_name',
-      type: 'type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      cloud: Cloud,
-      id: 'number',
-      tenantId: 'string',
-      tenantName: 'string',
-      type: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 技术栈运行时属性
-export class BuildpackInstances extends $tea.Model {
-  // ecs个数
-  ecses?: number;
-  // 绑定应用个数
-  appBinded?: number;
-  static names(): { [key: string]: string } {
-    return {
-      ecses: 'ecses',
-      appBinded: 'app_binded',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      ecses: 'number',
-      appBinded: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ZoneDto
-export class ZoneDto extends $tea.Model {
-  // id
-  id: string;
-  // identity
-  identity: string;
-  // iaasProviderId
-  iaasProviderId: string;
-  // displayName
-  displayName: string;
-  // state
-  state: string;
-  // regionId
-  regionId: string;
-  // no
-  no: number;
-  // name
-  name: string;
-  // description
-  description: string;
-  // utcCreate
-  utcCreate: string;
-  // utcModified
-  utcModified: string;
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      identity: 'identity',
-      iaasProviderId: 'iaas_provider_id',
-      displayName: 'display_name',
-      state: 'state',
-      regionId: 'region_id',
-      no: 'no',
-      name: 'name',
-      description: 'description',
-      utcCreate: 'utc_create',
-      utcModified: 'utc_modified',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      identity: 'string',
-      iaasProviderId: 'string',
-      displayName: 'string',
-      state: 'string',
-      regionId: 'string',
-      no: 'number',
-      name: 'string',
-      description: 'string',
-      utcCreate: 'string',
-      utcModified: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 查询用的DbSchema
-export class DbSchema extends $tea.Model {
-  // charSet
-  charSet?: string;
-  // database
-  database?: Database;
-  // description
-  description?: string;
-  // grants
-  grants: DbSchemaGrant[];
-  // iaas_type
-  iaasType?: string;
-  // id
-  id: string;
-  // name
-  name: string;
-  // status
-  status: string;
-  // utc_create
-  utcCreate?: string;
-  // utc_modified
-  utcModified?: string;
-  static names(): { [key: string]: string } {
-    return {
-      charSet: 'char_set',
-      database: 'database',
-      description: 'description',
-      grants: 'grants',
-      iaasType: 'iaas_type',
-      id: 'id',
-      name: 'name',
-      status: 'status',
-      utcCreate: 'utc_create',
-      utcModified: 'utc_modified',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      charSet: 'string',
-      database: Database,
-      description: 'string',
-      grants: { 'type': 'array', 'itemType': DbSchemaGrant },
-      iaasType: 'string',
-      id: 'string',
-      name: 'string',
-      status: 'string',
-      utcCreate: 'string',
-      utcModified: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// property
-export class Property extends $tea.Model {
-  // key
-  key: string;
-  // value
-  value?: string;
-  static names(): { [key: string]: string } {
-    return {
-      key: 'key',
-      value: 'value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      key: 'string',
-      value: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 技术栈
-export class Buildpack extends $tea.Model {
-  // 技术栈标识ID
-  id?: string;
-  // 技术栈名称
-  name?: string;
-  // 技术栈描述
-  des?: string;
-  // 技术栈版本
-  version?: string;
-  // 技术栈类别
-  stack?: string;
-  // 部署脚本id
-  deployScriptId?: string;
-  // 构建脚本ID
-  buildScriptId?: string;
-  // 配置id
-  configId?: string;
-  // 组件id
-  componentId?: string;
-  // 命令id
-  commandId?: string;
-  // 启用蓝绿
-  bgEnable?: boolean;
-  // 创建人
-  creator?: string;
-  // 租户ID
-  tenantId?: string;
-  // 客户id列表
-  customerIds?: string[];
-  // 技术栈定义类型
-  // 系统模板 TEMPLATE
-  // 用户自定义 CUSTOM
-  // 后台服务 BACKGROUND_SERVICE
-  type?: string;
-  // 技术栈状态
-  // 草稿 DRAFT
-  // 已提交 COMMITED 
-  // 已对外发布 PUBLISHED
-  // 已退役 RETIRED
+// 路由条目的详细信息。
+export class VRouteEntry extends $tea.Model {
+  // 路由条目的目标网段。
+  desinationCidrBlock?: string;
+  // 下一跳的实例ID。
+  instanceId?: string;
+  // 下一跳的实例名称。
+  instanceName?: string;
+  // 路由条目ID。
+  nextHopId?: string;
+  // 路由的下一跳列表。
+  nextHopItemList?: NextHopItem[];
+  // 路由类型。
+  // 
+  // local：交换机路由。
+  // service：云服务路由。
+  // classicLink：开启ClassicLink功能后系统自动添加的路由。
+  nextHopType?: string;
+  // 路由条目所属路由表的ID。
+  routeTableId?: string;
+  // 	
+  // 路由条目的状态。
+  // 
+  // Pending：配置中。
+  // Available：可用。
+  // Modifying：修改中。
   status?: string;
-  // 创建日期
-  gmtCreate?: string;
-  // 最近修改时间
-  gmtModified?: string;
-  // 技术栈信息汇总
-  resultMsg?: string;
-  // 可用 USABLE
-  // 不可用 UNUSABLE
-  versionStatus?: string;
-  // 运行时属性
-  instances?: BuildpackInstances;
+  // 路由条目的类型。
+  // 
+  // System：系统路由。
+  // Custom：自定义路由。
+  // BGP：BGP路由。
+  // 
+  type?: string;
   static names(): { [key: string]: string } {
     return {
-      id: 'id',
-      name: 'name',
-      des: 'des',
-      version: 'version',
-      stack: 'stack',
-      deployScriptId: 'deploy_script_id',
-      buildScriptId: 'build_script_id',
-      configId: 'config_id',
-      componentId: 'component_id',
-      commandId: 'command_id',
-      bgEnable: 'bg_enable',
-      creator: 'creator',
-      tenantId: 'tenant_id',
-      customerIds: 'customer_ids',
-      type: 'type',
+      desinationCidrBlock: 'desination_cidr_block',
+      instanceId: 'instance_id',
+      instanceName: 'instance_name',
+      nextHopId: 'next_hop_id',
+      nextHopItemList: 'next_hop_item_list',
+      nextHopType: 'next_hop_type',
+      routeTableId: 'route_table_id',
       status: 'status',
-      gmtCreate: 'gmt_create',
-      gmtModified: 'gmt_modified',
-      resultMsg: 'result_msg',
-      versionStatus: 'version_status',
-      instances: 'instances',
+      type: 'type',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      id: 'string',
-      name: 'string',
-      des: 'string',
-      version: 'string',
-      stack: 'string',
-      deployScriptId: 'string',
-      buildScriptId: 'string',
-      configId: 'string',
-      componentId: 'string',
-      commandId: 'string',
-      bgEnable: 'boolean',
-      creator: 'string',
-      tenantId: 'string',
-      customerIds: { 'type': 'array', 'itemType': 'string' },
-      type: 'string',
+      desinationCidrBlock: 'string',
+      instanceId: 'string',
+      instanceName: 'string',
+      nextHopId: 'string',
+      nextHopItemList: { 'type': 'array', 'itemType': NextHopItem },
+      nextHopType: 'string',
+      routeTableId: 'string',
       status: 'string',
-      gmtCreate: 'string',
-      gmtModified: 'string',
-      resultMsg: 'string',
-      versionStatus: 'string',
-      instances: BuildpackInstances,
+      type: 'string',
     };
   }
 
@@ -3647,544 +3563,39 @@ export class Buildpack extends $tea.Model {
   }
 }
 
-// 阿里云日志服务(SLS)-日志库
-export class SLSLogStore extends $tea.Model {
-  // 日志库名称
-  name: string;
-  // Shard个数，单位为个，范围为1~100。
-  shardCount: number;
-  // 数据的保存时间，单位为天，范围1~3600。
-  ttl: number;
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      shardCount: 'shard_count',
-      ttl: 'ttl',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      shardCount: 'number',
-      ttl: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 旧版-应用服务放入前端展示内容
-export class AppServiceViewModel extends $tea.Model {
-  // 基类
-  baseAppService?: AppService;
-  // 应用负责人姓名
-  ownerName?: string;
-  // 技术栈名称
-  buildpackName?: string;
-  // App的别名
-  chineseName?: string;
-  // buildpackVersion
-  buildpackVersion?: string;
-  // computerCount
-  computerCount?: number;
-  // databaseCount
-  databaseCount?: number;
-  // loadBalancerCount
-  loadBalancerCount?: number;
-  // cacheCount
-  cacheCount?: number;
-  // cellViewList
-  cellViewList?: CellView[];
-  static names(): { [key: string]: string } {
-    return {
-      baseAppService: 'base_app_service',
-      ownerName: 'owner_name',
-      buildpackName: 'buildpack_name',
-      chineseName: 'chinese_name',
-      buildpackVersion: 'buildpack_version',
-      computerCount: 'computer_count',
-      databaseCount: 'database_count',
-      loadBalancerCount: 'load_balancer_count',
-      cacheCount: 'cache_count',
-      cellViewList: 'cell_view_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      baseAppService: AppService,
-      ownerName: 'string',
-      buildpackName: 'string',
-      chineseName: 'string',
-      buildpackVersion: 'string',
-      computerCount: 'number',
-      databaseCount: 'number',
-      loadBalancerCount: 'number',
-      cacheCount: 'number',
-      cellViewList: { 'type': 'array', 'itemType': CellView },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// lb 监听器
-export class Listener extends $tea.Model {
-  // 后端服务器端口
-  backendServerPort: number;
-  // 带宽
-  bandwidth?: number;
-  // certificate_iaas_id
-  certificateIaasId?: string;
-  // 证书 id
-  certificateId?: string;
-  // cookie
-  cookie?: string;
-  // cookie 超时时间
-  cookieTimeout?: number;
-  // description
-  description?: string;
-  // 连接超时时间
-  establishedTimeout?: number;
-  // gm_crypto_cert_iaas_id
-  gmCryptoCertIaasId?: string;
-  // 健康检查
-  healthMonitor?: ListenerHealthMonitor;
-  // iaas_id
-  iaasId?: string;
-  // iaasType
-  iaasType?: string;
+// 工作空间
+export class Workspace extends $tea.Model {
   // id
   id?: string;
-  // is_health_monitor
-  isHealthMonitor?: string;
-  // 监听器端口
-  listenerPort: number;
-  // load_balancer
-  loadBalancer?: LoadBalancer;
-  // name
-  name: string;
-  // 会话保持的超时时间
-  persistTimeout?: number;
-  // 转发规则
-  scheduler?: string;
-  // status
-  status: string;
-  // sticky_session
-  stickySession?: string;
-  // cookie 处理方式
-  stickySessionType?: string;
-  // 监听类型
-  type: string;
-  // url_path
-  urlPath?: string;
-  // x_forwarded_for
-  xForwardedFor?: string;
-  static names(): { [key: string]: string } {
-    return {
-      backendServerPort: 'backend_server_port',
-      bandwidth: 'bandwidth',
-      certificateIaasId: 'certificate_iaas_id',
-      certificateId: 'certificate_id',
-      cookie: 'cookie',
-      cookieTimeout: 'cookie_timeout',
-      description: 'description',
-      establishedTimeout: 'established_timeout',
-      gmCryptoCertIaasId: 'gm_crypto_cert_iaas_id',
-      healthMonitor: 'health_monitor',
-      iaasId: 'iaas_id',
-      iaasType: 'iaas_type',
-      id: 'id',
-      isHealthMonitor: 'is_health_monitor',
-      listenerPort: 'listener_port',
-      loadBalancer: 'load_balancer',
-      name: 'name',
-      persistTimeout: 'persist_timeout',
-      scheduler: 'scheduler',
-      status: 'status',
-      stickySession: 'sticky_session',
-      stickySessionType: 'sticky_session_type',
-      type: 'type',
-      urlPath: 'url_path',
-      xForwardedFor: 'x_forwarded_for',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      backendServerPort: 'number',
-      bandwidth: 'number',
-      certificateIaasId: 'string',
-      certificateId: 'string',
-      cookie: 'string',
-      cookieTimeout: 'number',
-      description: 'string',
-      establishedTimeout: 'number',
-      gmCryptoCertIaasId: 'string',
-      healthMonitor: ListenerHealthMonitor,
-      iaasId: 'string',
-      iaasType: 'string',
-      id: 'string',
-      isHealthMonitor: 'string',
-      listenerPort: 'number',
-      loadBalancer: LoadBalancer,
-      name: 'string',
-      persistTimeout: 'number',
-      scheduler: 'string',
-      status: 'string',
-      stickySession: 'string',
-      stickySessionType: 'string',
-      type: 'string',
-      urlPath: 'string',
-      xForwardedFor: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// db schema
-export class DatabaseSchema extends $tea.Model {
-  // 字符集
-  charSet: string;
-  // 数量
-  count?: number;
-  // 是否自动生成名称。默认为 true
-  isAutoName?: boolean;
   // 名称
-  name: string;
-  // 序列号是否连续。默认为 false
-  isSerial?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      charSet: 'char_set',
-      count: 'count',
-      isAutoName: 'is_auto_name',
-      name: 'name',
-      isSerial: 'is_serial',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      charSet: 'string',
-      count: 'number',
-      isAutoName: 'boolean',
-      name: 'string',
-      isSerial: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// <String, Boolean> 映射
-export class MapStringToBooleanEntity extends $tea.Model {
-  // key
-  key: string;
-  // value
-  value: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      key: 'key',
-      value: 'value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      key: 'string',
-      value: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// IAM用户信息
-export class UserDTO extends $tea.Model {
-  // 用户ID
-  id?: string;
-  // 创建时间
-  utcCreate?: string;
-  // 最近修改时间
-  utcModified?: string;
-  // 客户ID
-  customerId?: string;
-  // 用户类型
-  type?: string;
-  // 用户显示名称
-  realName?: string;
-  // 用户名
   name?: string;
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      utcCreate: 'utc_create',
-      utcModified: 'utc_modified',
-      customerId: 'customer_id',
-      type: 'type',
-      realName: 'real_name',
-      name: 'name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      utcCreate: 'string',
-      utcModified: 'string',
-      customerId: 'string',
-      type: 'string',
-      realName: 'string',
-      name: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// rmc 交换机详细信息
-export class VSwitchVO extends $tea.Model {
-  // 交换机的iaas ID
-  iaasId?: string;
-  // 交换机名称
-  name?: string;
-  // 交换机描述信息
-  description?: string;
-  // 交换机的状态，取值： Pending：配置中。 Available：可用。
-  status?: string;
-  // vpc id
-  vpcId?: string;
-  // workspace id
-  workspaceId?: string;
-  // zone id
-  zoneId?: string;
-  // zone iaas id
-  zoneIaasId?: string;
+  // 网络类型
+  networkType?: string;
+  // 租户
+  tenant?: string;
+  // 可用区 id
+  zoneIds?: string;
   // region id
   regionId?: string;
-  // 换机的IPv4网段
-  cidrBlock?: string;
-  // 交换机创建时间
-  utcCreate?: string;
-  // 可用ip数目
-  availableIpAddressCount?: number;
   static names(): { [key: string]: string } {
     return {
-      iaasId: 'iaas_id',
+      id: 'id',
       name: 'name',
-      description: 'description',
-      status: 'status',
-      vpcId: 'vpc_id',
-      workspaceId: 'workspace_id',
-      zoneId: 'zone_id',
-      zoneIaasId: 'zone_iaas_id',
+      networkType: 'network_type',
+      tenant: 'tenant',
+      zoneIds: 'zone_ids',
       regionId: 'region_id',
-      cidrBlock: 'cidr_block',
-      utcCreate: 'utc_create',
-      availableIpAddressCount: 'available_ip_address_count',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      iaasId: 'string',
+      id: 'string',
       name: 'string',
-      description: 'string',
-      status: 'string',
-      vpcId: 'string',
-      workspaceId: 'string',
-      zoneId: 'string',
-      zoneIaasId: 'string',
+      networkType: 'string',
+      tenant: 'string',
+      zoneIds: 'string',
       regionId: 'string',
-      cidrBlock: 'string',
-      utcCreate: 'string',
-      availableIpAddressCount: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// LoadBalancerRule
-export class LoadBalancerRule extends $tea.Model {
-  // load_balancer
-  loadBalancer?: LoadBalancer;
-  // name
-  name: string;
-  // id
-  id?: string;
-  // listener_port
-  listenerPort?: number;
-  // status
-  status?: string;
-  // domain
-  domain?: string;
-  // url
-  url: string;
-  // cookie
-  cookie?: string;
-  // is_health_monitor
-  isHealthMonitor?: string;
-  // health_monitor
-  healthMonitor?: ListenerHealthMonitor;
-  // sticky_session
-  stickySession?: string;
-  // app_id
-  appId?: string;
-  // workspace_id
-  workspaceId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      loadBalancer: 'load_balancer',
-      name: 'name',
-      id: 'id',
-      listenerPort: 'listener_port',
-      status: 'status',
-      domain: 'domain',
-      url: 'url',
-      cookie: 'cookie',
-      isHealthMonitor: 'is_health_monitor',
-      healthMonitor: 'health_monitor',
-      stickySession: 'sticky_session',
-      appId: 'app_id',
-      workspaceId: 'workspace_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      loadBalancer: LoadBalancer,
-      name: 'string',
-      id: 'string',
-      listenerPort: 'number',
-      status: 'string',
-      domain: 'string',
-      url: 'string',
-      cookie: 'string',
-      isHealthMonitor: 'string',
-      healthMonitor: ListenerHealthMonitor,
-      stickySession: 'string',
-      appId: 'string',
-      workspaceId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// LB的vip类型
-export class VipType extends $tea.Model {
-  // name
-  name: string;
-  // vip_address_type
-  vipAddressType: string;
-  // vip_type
-  vipType: string;
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      vipAddressType: 'vip_address_type',
-      vipType: 'vip_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      vipAddressType: 'string',
-      vipType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// DatabaseSpec
-export class DatabaseSpec extends $tea.Model {
-  // cpu
-  cpu?: number;
-  // custom_storage
-  customStorage?: boolean;
-  // engine
-  engine?: string;
-  // engine_version
-  engineVersion?: string[];
-  // iaas_id
-  iaasId?: string;
-  // id
-  id?: string;
-  // max_connections
-  maxConnections?: number;
-  // max_iops
-  maxIops?: number;
-  // max_storage
-  maxStorage?: number;
-  // memory
-  memory?: number;
-  // min_storage
-  minStorage?: number;
-  // name
-  name?: string;
-  // supported_storages
-  supportedStorages?: number[];
-  // type
-  type?: string;
-  static names(): { [key: string]: string } {
-    return {
-      cpu: 'cpu',
-      customStorage: 'custom_storage',
-      engine: 'engine',
-      engineVersion: 'engine_version',
-      iaasId: 'iaas_id',
-      id: 'id',
-      maxConnections: 'max_connections',
-      maxIops: 'max_iops',
-      maxStorage: 'max_storage',
-      memory: 'memory',
-      minStorage: 'min_storage',
-      name: 'name',
-      supportedStorages: 'supported_storages',
-      type: 'type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      cpu: 'number',
-      customStorage: 'boolean',
-      engine: 'string',
-      engineVersion: { 'type': 'array', 'itemType': 'string' },
-      iaasId: 'string',
-      id: 'string',
-      maxConnections: 'number',
-      maxIops: 'number',
-      maxStorage: 'number',
-      memory: 'number',
-      minStorage: 'number',
-      name: 'string',
-      supportedStorages: { 'type': 'array', 'itemType': 'number' },
-      type: 'string',
     };
   }
 
@@ -4246,586 +3657,6 @@ export class TaskVO extends $tea.Model {
       utcModified: 'string',
       workspaceId: 'string',
       resource: Resource,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 任务日志
-export class ResourceLog extends $tea.Model {
-  // host
-  host?: string;
-  // log_time
-  logTime: string;
-  // message
-  message: string;
-  // resource_id
-  resourceId?: string;
-  // resource_type
-  resourceType?: string;
-  // severity
-  severity?: string;
-  // source
-  source?: string;
-  // task_id
-  taskId: string;
-  // task_times
-  taskTimes: number;
-  // type
-  type?: string;
-  // iaas_error_info
-  iaasErrorInfo?: IaasErrorInfo;
-  // iaas_request
-  iaasRequest?: IaasRequest;
-  // iaas_response
-  iaasResponse?: IaasResponse;
-  static names(): { [key: string]: string } {
-    return {
-      host: 'host',
-      logTime: 'log_time',
-      message: 'message',
-      resourceId: 'resource_id',
-      resourceType: 'resource_type',
-      severity: 'severity',
-      source: 'source',
-      taskId: 'task_id',
-      taskTimes: 'task_times',
-      type: 'type',
-      iaasErrorInfo: 'iaas_error_info',
-      iaasRequest: 'iaas_request',
-      iaasResponse: 'iaas_response',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      host: 'string',
-      logTime: 'string',
-      message: 'string',
-      resourceId: 'string',
-      resourceType: 'string',
-      severity: 'string',
-      source: 'string',
-      taskId: 'string',
-      taskTimes: 'number',
-      type: 'string',
-      iaasErrorInfo: IaasErrorInfo,
-      iaasRequest: IaasRequest,
-      iaasResponse: IaasResponse,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 地域信息
-export class Region extends $tea.Model {
-  // description
-  description?: string;
-  // identity
-  identity: string;
-  // instanceStatus: AVAILABLE  UNAVAILABLE  RETIRED  DELETED
-  instancestatus: string;
-  // name
-  name: string;
-  // properties
-  properties?: Property[];
-  static names(): { [key: string]: string } {
-    return {
-      description: 'description',
-      identity: 'identity',
-      instancestatus: 'instancestatus',
-      name: 'name',
-      properties: 'properties',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      description: 'string',
-      identity: 'string',
-      instancestatus: 'string',
-      name: 'string',
-      properties: { 'type': 'array', 'itemType': Property },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 一次异步请求
-export class RequestVO extends $tea.Model {
-  // context
-  context?: string;
-  // id
-  id: string;
-  // operator
-  operator?: string;
-  // operator_name
-  operatorName: string;
-  // operator_type
-  operatorType?: string;
-  // status
-  status?: string;
-  // token
-  token?: string;
-  // type
-  type?: string;
-  // utc_create
-  utcCreate?: string;
-  // utc_modified
-  utcModified?: string;
-  // tasks
-  tasks?: Task[];
-  static names(): { [key: string]: string } {
-    return {
-      context: 'context',
-      id: 'id',
-      operator: 'operator',
-      operatorName: 'operator_name',
-      operatorType: 'operator_type',
-      status: 'status',
-      token: 'token',
-      type: 'type',
-      utcCreate: 'utc_create',
-      utcModified: 'utc_modified',
-      tasks: 'tasks',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      context: 'string',
-      id: 'string',
-      operator: 'string',
-      operatorName: 'string',
-      operatorType: 'string',
-      status: 'string',
-      token: 'string',
-      type: 'string',
-      utcCreate: 'string',
-      utcModified: 'string',
-      tasks: { 'type': 'array', 'itemType': Task },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// staragent info
-export class StarAgentInfo extends $tea.Model {
-  // computer serial number
-  sn?: string;
-  // hostname
-  hostname?: string;
-  // ip
-  ip?: string;
-  // ip list
-  ipList?: string;
-  // 状态取值：RUNNING，ERROR，REGISTER，NOFIND
-  status?: string;
-  static names(): { [key: string]: string } {
-    return {
-      sn: 'sn',
-      hostname: 'hostname',
-      ip: 'ip',
-      ipList: 'ip_list',
-      status: 'status',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      sn: 'string',
-      hostname: 'string',
-      ip: 'string',
-      ipList: 'string',
-      status: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// map <String,integer>
-export class MapStringToIntegerEntity extends $tea.Model {
-  // key
-  key: string;
-  // value
-  value: number;
-  static names(): { [key: string]: string } {
-    return {
-      key: 'key',
-      value: 'value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      key: 'string',
-      value: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// BasicCertificate
-export class BasicCertificate extends $tea.Model {
-  // serverCertificateId
-  serverCertificateId: string;
-  // serverCertificateName
-  serverCertificateName: string;
-  // fingerprint
-  fingerprint?: string;
-  // cert_type
-  certType: number;
-  static names(): { [key: string]: string } {
-    return {
-      serverCertificateId: 'server_certificate_id',
-      serverCertificateName: 'server_certificate_name',
-      fingerprint: 'fingerprint',
-      certType: 'cert_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      serverCertificateId: 'string',
-      serverCertificateName: 'string',
-      fingerprint: 'string',
-      certType: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// Connection
-export class Connection extends $tea.Model {
-  // access_key
-  accessKey?: string;
-  // access_secret
-  accessSecret?: string;
-  // created_time
-  createdTime?: string;
-  // executor
-  executor?: string;
-  // id
-  id?: number;
-  // identity
-  identity?: string;
-  // 修改时间
-  modifiedTime?: string;
-  // name
-  name?: string;
-  // plug
-  plug?: ConnectionStub;
-  // socket
-  socket?: ConnectionStub;
-  // status
-  status?: string;
-  // tenant_id
-  tenantId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      accessKey: 'access_key',
-      accessSecret: 'access_secret',
-      createdTime: 'created_time',
-      executor: 'executor',
-      id: 'id',
-      identity: 'identity',
-      modifiedTime: 'modified_time',
-      name: 'name',
-      plug: 'plug',
-      socket: 'socket',
-      status: 'status',
-      tenantId: 'tenant_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      accessKey: 'string',
-      accessSecret: 'string',
-      createdTime: 'string',
-      executor: 'string',
-      id: 'number',
-      identity: 'string',
-      modifiedTime: 'string',
-      name: 'string',
-      plug: ConnectionStub,
-      socket: ConnectionStub,
-      status: 'string',
-      tenantId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ComputerImportVO
-export class ComputerImportVO extends $tea.Model {
-  // computer iaaas id
-  iaasId?: string;
-  // name
-  name?: string;
-  // zone identity
-  zoneIaasId?: string;
-  // zone name
-  zoneName?: string;
-  // description
-  description?: string;
-  // private ip
-  privateIp?: string;
-  // public ip
-  publicIp?: string;
-  // elasticIp
-  elasticIp?: string;
-  // vpcIaasId
-  vpcIaasId?: string;
-  // joined security group infos
-  joinedSecurityGroup?: JoinedSecurityGroupVO[];
-  // creation time
-  utcCreate?: string;
-  // import info
-  importInfo?: ImportVO;
-  static names(): { [key: string]: string } {
-    return {
-      iaasId: 'iaas_id',
-      name: 'name',
-      zoneIaasId: 'zone_iaas_id',
-      zoneName: 'zone_name',
-      description: 'description',
-      privateIp: 'private_ip',
-      publicIp: 'public_ip',
-      elasticIp: 'elastic_ip',
-      vpcIaasId: 'vpc_iaas_id',
-      joinedSecurityGroup: 'joined_security_group',
-      utcCreate: 'utc_create',
-      importInfo: 'import_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      iaasId: 'string',
-      name: 'string',
-      zoneIaasId: 'string',
-      zoneName: 'string',
-      description: 'string',
-      privateIp: 'string',
-      publicIp: 'string',
-      elasticIp: 'string',
-      vpcIaasId: 'string',
-      joinedSecurityGroup: { 'type': 'array', 'itemType': JoinedSecurityGroupVO },
-      utcCreate: 'string',
-      importInfo: ImportVO,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// computer quota
-export class ComputerQuota extends $tea.Model {
-  // cpu shared
-  cpuShared?: number;
-  // cpu
-  cpu?: number;
-  // memory
-  memory?: number;
-  // disk
-  disk?: number;
-  static names(): { [key: string]: string } {
-    return {
-      cpuShared: 'cpu_shared',
-      cpu: 'cpu',
-      memory: 'memory',
-      disk: 'disk',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      cpuShared: 'number',
-      cpu: 'number',
-      memory: 'number',
-      disk: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 应用分组查询
-export class AppDomainQuery extends $tea.Model {
-  // creatorId
-  creatorId?: string;
-  // 是否为一方化请求
-  isOnePartyRequest?: boolean;
-  // name
-  name?: string;
-  // parentId
-  parentId?: string;
-  // tenantId
-  tenantId?: string;
-  // utcCreate
-  utcCreate?: string;
-  // 分页大小
-  pageSize?: number;
-  // query_type
-  queryType?: string;
-  // orders
-  orders?: string[];
-  // 当前页数
-  currentPage?: number;
-  static names(): { [key: string]: string } {
-    return {
-      creatorId: 'creator_id',
-      isOnePartyRequest: 'is_one_party_request',
-      name: 'name',
-      parentId: 'parent_id',
-      tenantId: 'tenant_id',
-      utcCreate: 'utc_create',
-      pageSize: 'page_size',
-      queryType: 'query_type',
-      orders: 'orders',
-      currentPage: 'current_page',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      creatorId: 'string',
-      isOnePartyRequest: 'boolean',
-      name: 'string',
-      parentId: 'string',
-      tenantId: 'string',
-      utcCreate: 'string',
-      pageSize: 'number',
-      queryType: 'string',
-      orders: { 'type': 'array', 'itemType': 'string' },
-      currentPage: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// disk spec
-export class DiskSpec extends $tea.Model {
-  // id
-  id?: string;
-  // name
-  name?: string;
-  // description
-  description?: string;
-  // iaas id
-  iaasId?: string;
-  // providerId
-  providerId?: string;
-  // iaasType
-  iaasType?: string;
-  // enable
-  enable?: boolean;
-  // minSize
-  minSize?: number;
-  // maxSize
-  maxSize?: number;
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      name: 'name',
-      description: 'description',
-      iaasId: 'iaas_id',
-      providerId: 'provider_id',
-      iaasType: 'iaas_type',
-      enable: 'enable',
-      minSize: 'min_size',
-      maxSize: 'max_size',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      name: 'string',
-      description: 'string',
-      iaasId: 'string',
-      providerId: 'string',
-      iaasType: 'string',
-      enable: 'boolean',
-      minSize: 'number',
-      maxSize: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// LoadBalancerImportVO
-export class LoadBalancerImportVO extends $tea.Model {
-  // iaas_id
-  iaasId?: string;
-  // name
-  name: string;
-  // network_type
-  networkType?: string;
-  // inner_ip_address
-  innerIpAddress?: string[];
-  // public_ip_address
-  publicIpAddress?: string[];
-  // utc_create
-  utcCreate?: string;
-  // import_info
-  importInfo: ImportVO;
-  static names(): { [key: string]: string } {
-    return {
-      iaasId: 'iaas_id',
-      name: 'name',
-      networkType: 'network_type',
-      innerIpAddress: 'inner_ip_address',
-      publicIpAddress: 'public_ip_address',
-      utcCreate: 'utc_create',
-      importInfo: 'import_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      iaasId: 'string',
-      name: 'string',
-      networkType: 'string',
-      innerIpAddress: { 'type': 'array', 'itemType': 'string' },
-      publicIpAddress: { 'type': 'array', 'itemType': 'string' },
-      utcCreate: 'string',
-      importInfo: ImportVO,
     };
   }
 
@@ -4951,141 +3782,55 @@ export class AppQuery extends $tea.Model {
   }
 }
 
-// 安全组详细信息
-export class SecurityGroup extends $tea.Model {
-  // 创建时间。按照ISO8601标准表示，并需要使用UTC时间。格式为：yyyy-MM-ddThh:mmZ。
-  creationTime: string;
-  // 安全组的描述信息。
-  description?: string;
-  // region_id
-  regionId: string;
-  // 安全组ID。
-  securityGroupId: string;
-  // 安全组名称。
-  securityGroupName: string;
-  // 安全组所属的专有网络。
-  vpcId: string;
-  // 安全组入方向规则
-  ingressRules?: SecurityGroupRule[];
-  // 安全组出方向规则
-  egressRules?: SecurityGroupRule[];
-  static names(): { [key: string]: string } {
-    return {
-      creationTime: 'creation_time',
-      description: 'description',
-      regionId: 'region_id',
-      securityGroupId: 'security_group_id',
-      securityGroupName: 'security_group_name',
-      vpcId: 'vpc_id',
-      ingressRules: 'ingress_rules',
-      egressRules: 'egress_rules',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      creationTime: 'string',
-      description: 'string',
-      regionId: 'string',
-      securityGroupId: 'string',
-      securityGroupName: 'string',
-      vpcId: 'string',
-      ingressRules: { 'type': 'array', 'itemType': SecurityGroupRule },
-      egressRules: { 'type': 'array', 'itemType': SecurityGroupRule },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 一组具有依赖关系的 AppDomain，可以转换为一个树形结构
-export class AppDomainFlatten extends $tea.Model {
-  // 一组具有依赖关系的 AppDomain
-  appDomains?: AppDomain[];
-  static names(): { [key: string]: string } {
-    return {
-      appDomains: 'app_domains',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      appDomains: { 'type': 'array', 'itemType': AppDomain },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// computer common image
-export class CommonImage extends $tea.Model {
-  // description
-  description?: string;
-  // is enable
-  enable?: boolean;
-  // iaas id
-  iaasId?: string;
-  // iaas type
-  iaasType?: string;
-  // id
-  id?: string;
-  // 是否仅杭州金区 vpc 可用镜像
-  onlyHzFinVpcSupported?: boolean;
+// 应用分级查询
+export class AppLevelQuery extends $tea.Model {
+  // appCountInclude
+  appCountInclude?: boolean;
+  // creator_id
+  creatorId?: string;
+  // is_one_party_request
+  isOnePartyRequest?: boolean;
   // name
   name?: string;
-  // os
-  os?: string;
-  // os bit取值：32，64
-  osBit?: number;
-  // os version
-  osVersion?: string;
-  // provider id
-  providerId?: string;
-  // region id
-  regionId?: string;
-  // status
-  status?: string;
-  // system disk size(GB)
-  systemDiskSize?: number;
+  // tenant_id
+  tenantId?: string;
+  // utc_create
+  utcCreate?: string;
+  // 当前页数
+  currentPage?: number;
+  // orders
+  orders?: string[];
+  // 分页大小
+  pageSize?: number;
+  // query_type
+  queryType?: string;
   static names(): { [key: string]: string } {
     return {
-      description: 'description',
-      enable: 'enable',
-      iaasId: 'iaas_id',
-      iaasType: 'iaas_type',
-      id: 'id',
-      onlyHzFinVpcSupported: 'only_hz_fin_vpc_supported',
+      appCountInclude: 'app_count_include',
+      creatorId: 'creator_id',
+      isOnePartyRequest: 'is_one_party_request',
       name: 'name',
-      os: 'os',
-      osBit: 'os_bit',
-      osVersion: 'os_version',
-      providerId: 'provider_id',
-      regionId: 'region_id',
-      status: 'status',
-      systemDiskSize: 'system_disk_size',
+      tenantId: 'tenant_id',
+      utcCreate: 'utc_create',
+      currentPage: 'current_page',
+      orders: 'orders',
+      pageSize: 'page_size',
+      queryType: 'query_type',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      description: 'string',
-      enable: 'boolean',
-      iaasId: 'string',
-      iaasType: 'string',
-      id: 'string',
-      onlyHzFinVpcSupported: 'boolean',
+      appCountInclude: 'boolean',
+      creatorId: 'string',
+      isOnePartyRequest: 'boolean',
       name: 'string',
-      os: 'string',
-      osBit: 'number',
-      osVersion: 'string',
-      providerId: 'string',
-      regionId: 'string',
-      status: 'string',
-      systemDiskSize: 'number',
+      tenantId: 'string',
+      utcCreate: 'string',
+      currentPage: 'number',
+      orders: { 'type': 'array', 'itemType': 'string' },
+      pageSize: 'number',
+      queryType: 'string',
     };
   }
 
@@ -5094,59 +3839,68 @@ export class CommonImage extends $tea.Model {
   }
 }
 
-// PermissionVO
-export class PermissionVO extends $tea.Model {
-  // authorizedCidrIp
-  authorizedCidrIp?: string;
-  // authorize_type
-  authorizeType?: string;
-  // direction
-  direction?: string;
-  // endPort
-  endPort?: number;
-  // ipProtocol
-  ipProtocol?: string;
-  // nicType
-  nicType?: string;
-  // policy
-  policy?: string;
-  // priority
-  priority?: number;
-  // securityGroupId
-  securityGroupId?: string;
-  // startPort
-  startPort?: number;
-  // id
+// ComputerType
+export class ComputerType extends $tea.Model {
+  // cpu core count
+  cpuCoreCount?: number;
+  // instance type id
   id: string;
+  // 实例规格族
+  instanceTypeFamily?: string;
+  // memory size
+  memorySize?: number;
+  // 实例状态，可能值： Available：资源充足 Sold...
+  status: string;
   static names(): { [key: string]: string } {
     return {
-      authorizedCidrIp: 'authorized_cidr_ip',
-      authorizeType: 'authorize_type',
-      direction: 'direction',
-      endPort: 'end_port',
-      ipProtocol: 'ip_protocol',
-      nicType: 'nic_type',
-      policy: 'policy',
-      priority: 'priority',
-      securityGroupId: 'security_group_id',
-      startPort: 'start_port',
+      cpuCoreCount: 'cpu_core_count',
       id: 'id',
+      instanceTypeFamily: 'instance_type_family',
+      memorySize: 'memory_size',
+      status: 'status',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      authorizedCidrIp: 'string',
-      authorizeType: 'string',
-      direction: 'string',
-      endPort: 'number',
-      ipProtocol: 'string',
-      nicType: 'string',
-      policy: 'string',
-      priority: 'number',
-      securityGroupId: 'string',
-      startPort: 'number',
+      cpuCoreCount: 'number',
       id: 'string',
+      instanceTypeFamily: 'string',
+      memorySize: 'number',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// computer 数据盘
+export class DataDisk extends $tea.Model {
+  // 磁盘大小
+  size: number;
+  // 若使用磁盘创建，需填写此字段
+  snapshotSequence?: string;
+  // 磁盘规格
+  specId: string;
+  // 数据盘设备
+  device: string;
+  static names(): { [key: string]: string } {
+    return {
+      size: 'size',
+      snapshotSequence: 'snapshot_sequence',
+      specId: 'spec_id',
+      device: 'device',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      size: 'number',
+      snapshotSequence: 'string',
+      specId: 'string',
+      device: 'string',
     };
   }
 
@@ -5172,6 +3926,121 @@ export class LoadBalanceHealthStatus extends $tea.Model {
     return {
       serverId: 'string',
       status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// DnsRecordParam
+export class DnsRecordParam extends $tea.Model {
+  // workspace_id
+  workspaceId: string;
+  // value
+  value: string;
+  // ttl
+  ttl: number;
+  // regionId
+  regionId: string;
+  // zoneId
+  zoneId?: string;
+  // description
+  description?: string;
+  // resource_type
+  resourceType: string;
+  static names(): { [key: string]: string } {
+    return {
+      workspaceId: 'workspace_id',
+      value: 'value',
+      ttl: 'ttl',
+      regionId: 'region_id',
+      zoneId: 'zone_id',
+      description: 'description',
+      resourceType: 'resource_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      workspaceId: 'string',
+      value: 'string',
+      ttl: 'number',
+      regionId: 'string',
+      zoneId: 'string',
+      description: 'string',
+      resourceType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 机房信息
+export class Zone extends $tea.Model {
+  // name
+  name: string;
+  // identity
+  identity: string;
+  // description
+  description?: string;
+  // instanceStatus: AVAILABLE  UNAVAILABLE  RETIRED  DELETED
+  instancestatus: string;
+  // region name
+  region: string;
+  // properties
+  properties: Property[];
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      identity: 'identity',
+      description: 'description',
+      instancestatus: 'instancestatus',
+      region: 'region',
+      properties: 'properties',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      identity: 'string',
+      description: 'string',
+      instancestatus: 'string',
+      region: 'string',
+      properties: { 'type': 'array', 'itemType': Property },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据库Grant
+export class Grant extends $tea.Model {
+  // account
+  account: DatabaseAccount;
+  // privilege
+  privilege: string;
+  // schema
+  schema: DbSchema;
+  static names(): { [key: string]: string } {
+    return {
+      account: 'account',
+      privilege: 'privilege',
+      schema: 'schema',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      account: DatabaseAccount,
+      privilege: 'string',
+      schema: DbSchema,
     };
   }
 
@@ -5225,385 +4094,59 @@ export class PackageUploadPolicy extends $tea.Model {
   }
 }
 
-// 服务器规格
-export class ComputerSpec extends $tea.Model {
-  // cpu个数
-  cpu?: number;
-  // 可以挂载的磁盘类型
-  diskSpecIds?: string[];
-  // 服务器规格名称
-  group: string;
-  // 是否有IO优化
-  ioOptimized?: boolean;
-  // 内存大小
-  memory?: number;
-  // description
-  description?: string;
-  // enable
-  enable?: boolean;
-  // iaasId
-  iaasId?: string;
-  // COMPUTER_ECS
-  iaasType?: string;
+// TenantWorkspace
+export class TenantWorkspace extends $tea.Model {
+  // displayName
+  displayName: string;
+  // gmtCreate
+  gmtCreate: string;
+  // gmtModified
+  gmtModified: string;
   // id
-  id?: string;
+  id: string;
   // name
-  name?: string;
-  // providerId
-  providerId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      cpu: 'cpu',
-      diskSpecIds: 'disk_spec_ids',
-      group: 'group',
-      ioOptimized: 'io_optimized',
-      memory: 'memory',
-      description: 'description',
-      enable: 'enable',
-      iaasId: 'iaas_id',
-      iaasType: 'iaas_type',
-      id: 'id',
-      name: 'name',
-      providerId: 'provider_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      cpu: 'number',
-      diskSpecIds: { 'type': 'array', 'itemType': 'string' },
-      group: 'string',
-      ioOptimized: 'boolean',
-      memory: 'number',
-      description: 'string',
-      enable: 'boolean',
-      iaasId: 'string',
-      iaasType: 'string',
-      id: 'string',
-      name: 'string',
-      providerId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ComputerParam
-export class ComputerParam extends $tea.Model {
-  // description
-  description?: string;
-  // name
-  name?: string;
-  // image_id
-  imageId?: string;
-  // instance_type
-  instanceType?: string;
-  // region_id
-  regionId?: string;
-  // security_group_id
-  securityGroupId?: string;
-  // instance_name
-  instanceName?: string;
-  // zone_id
-  zoneId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      description: 'description',
-      name: 'name',
-      imageId: 'image_id',
-      instanceType: 'instance_type',
-      regionId: 'region_id',
-      securityGroupId: 'security_group_id',
-      instanceName: 'instance_name',
-      zoneId: 'zone_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      description: 'string',
-      name: 'string',
-      imageId: 'string',
-      instanceType: 'string',
-      regionId: 'string',
-      securityGroupId: 'string',
-      instanceName: 'string',
-      zoneId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// LB后端挂载的主机
-export class MountComputer extends $tea.Model {
-  // computer
-  computer?: Computer;
-  // domain
-  domain?: string;
-  // loadbalancer
-  loadbalancer?: LoadBalancer;
+  name: string;
+  // networkType
+  networkType: string;
   // status
-  status?: string;
-  // weight
-  weight: number;
-  static names(): { [key: string]: string } {
-    return {
-      computer: 'computer',
-      domain: 'domain',
-      loadbalancer: 'loadbalancer',
-      status: 'status',
-      weight: 'weight',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      computer: Computer,
-      domain: 'string',
-      loadbalancer: LoadBalancer,
-      status: 'string',
-      weight: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// LB查询对应的VComputer
-export class VComputer extends $tea.Model {
-  // v_computer_group
-  vComputerGroup?: VComputerGroup;
-  // ip
-  ip?: string;
-  // computer
-  computer?: Computer;
-  // port
-  port?: number;
-  // weight
-  weight?: number;
-  static names(): { [key: string]: string } {
-    return {
-      vComputerGroup: 'v_computer_group',
-      ip: 'ip',
-      computer: 'computer',
-      port: 'port',
-      weight: 'weight',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      vComputerGroup: VComputerGroup,
-      ip: 'string',
-      computer: Computer,
-      port: 'number',
-      weight: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 专有网络
-export class VPC extends $tea.Model {
-  // VPC的IPv4网段
-  cidrBlock: string;
-  // VPC的创建时间
-  creationTime: string;
-  // VPC的描述信息
-  description?: string;
-  // VPC所在的地域
-  regionId: string;
-  // 路由表ID
-  routerTableIds: string[];
-  // VPC的状态，取值：
-  // 
-  // Pending：配置中。
-  // Available：可用。
   status: string;
-  // 用户侧网段的列表
-  userCidrs?: string;
-  // VPC的id
-  vpcId: string;
-  // VPC的名称
-  vpcName: string;
-  // VPC路由器的ID
-  vRouterId: string;
-  // 关联的workspace id
-  workspaceId?: string;
-  // vpc是否已导入workspace
-  importInfo?: ImportInfo;
+  // tenantId
+  tenantId: string;
+  // type
+  type: string;
+  // workspaceDcs
+  workspaceDcs: WorkspaceDc[];
+  // workspaceRegions
+  workspaceRegions: WorkspaceRegion[];
   static names(): { [key: string]: string } {
     return {
-      cidrBlock: 'cidr_block',
-      creationTime: 'creation_time',
-      description: 'description',
-      regionId: 'region_id',
-      routerTableIds: 'router_table_ids',
-      status: 'status',
-      userCidrs: 'user_cidrs',
-      vpcId: 'vpc_id',
-      vpcName: 'vpc_name',
-      vRouterId: 'v_router_id',
-      workspaceId: 'workspace_id',
-      importInfo: 'import_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      cidrBlock: 'string',
-      creationTime: 'string',
-      description: 'string',
-      regionId: 'string',
-      routerTableIds: { 'type': 'array', 'itemType': 'string' },
-      status: 'string',
-      userCidrs: 'string',
-      vpcId: 'string',
-      vpcName: 'string',
-      vRouterId: 'string',
-      workspaceId: 'string',
-      importInfo: ImportInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 工作空间
-export class Workspace extends $tea.Model {
-  // id
-  id?: string;
-  // 名称
-  name?: string;
-  // 网络类型
-  networkType?: string;
-  // 租户
-  tenant?: string;
-  // 可用区 id
-  zoneIds?: string;
-  // region id
-  regionId?: string;
-  static names(): { [key: string]: string } {
-    return {
+      displayName: 'display_name',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
       id: 'id',
       name: 'name',
       networkType: 'network_type',
-      tenant: 'tenant',
-      zoneIds: 'zone_ids',
-      regionId: 'region_id',
+      status: 'status',
+      tenantId: 'tenant_id',
+      type: 'type',
+      workspaceDcs: 'workspace_dcs',
+      workspaceRegions: 'workspace_regions',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
+      displayName: 'string',
+      gmtCreate: 'string',
+      gmtModified: 'string',
       id: 'string',
       name: 'string',
       networkType: 'string',
-      tenant: 'string',
-      zoneIds: 'string',
-      regionId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// SecurityGroupParam
-export class SecurityGroupParam extends $tea.Model {
-  // description
-  description?: string;
-  // region id
-  regionId?: string;
-  // security_group_name
-  securityGroupName?: string;
-  // vpc_id
-  vpcId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      description: 'description',
-      regionId: 'region_id',
-      securityGroupName: 'security_group_name',
-      vpcId: 'vpc_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      description: 'string',
-      regionId: 'string',
-      securityGroupName: 'string',
-      vpcId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 用户查询
-export class UserQuery extends $tea.Model {
-  // 基础查询
-  baseQuery?: PaginationQuery;
-  // id
-  id?: string;
-  // customerId
-  customerId?: string;
-  // tenantId
-  tenantId?: string;
-  // type
-  type?: string;
-  // types
-  types?: string[];
-  // email
-  email?: string;
-  // mobile
-  mobile?: string;
-  // realName
-  realName?: string;
-  // loginName
-  loginName?: string;
-  static names(): { [key: string]: string } {
-    return {
-      baseQuery: 'base_query',
-      id: 'id',
-      customerId: 'customer_id',
-      tenantId: 'tenant_id',
-      type: 'type',
-      types: 'types',
-      email: 'email',
-      mobile: 'mobile',
-      realName: 'real_name',
-      loginName: 'login_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      baseQuery: PaginationQuery,
-      id: 'string',
-      customerId: 'string',
+      status: 'string',
       tenantId: 'string',
       type: 'string',
-      types: { 'type': 'array', 'itemType': 'string' },
-      email: 'string',
-      mobile: 'string',
-      realName: 'string',
-      loginName: 'string',
+      workspaceDcs: { 'type': 'array', 'itemType': WorkspaceDc },
+      workspaceRegions: { 'type': 'array', 'itemType': WorkspaceRegion },
     };
   }
 
@@ -5612,289 +4155,125 @@ export class UserQuery extends $tea.Model {
   }
 }
 
-// DatabaseImportVO
-export class DatabaseImportVO extends $tea.Model {
-  // iaas_id
-  iaasId?: string;
+// 应用分组视图
+export class AppDomainView extends $tea.Model {
+  // ownerName
+  ownerName?: string;
+  // fatherDomainName
+  fatherDomainName?: string;
+  // 应用列表
+  apps?: AppView[];
+  // AppDomainView 的父类 AppDomain
+  baseAppDomain?: AppDomain[];
+  static names(): { [key: string]: string } {
+    return {
+      ownerName: 'owner_name',
+      fatherDomainName: 'father_domain_name',
+      apps: 'apps',
+      baseAppDomain: 'base_app_domain',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      ownerName: 'string',
+      fatherDomainName: 'string',
+      apps: { 'type': 'array', 'itemType': AppView },
+      baseAppDomain: { 'type': 'array', 'itemType': AppDomain },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// computer quota
+export class ComputerQuota extends $tea.Model {
+  // cpu shared
+  cpuShared?: number;
+  // cpu
+  cpu?: number;
+  // memory
+  memory?: number;
+  // disk
+  disk?: number;
+  static names(): { [key: string]: string } {
+    return {
+      cpuShared: 'cpu_shared',
+      cpu: 'cpu',
+      memory: 'memory',
+      disk: 'disk',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cpuShared: 'number',
+      cpu: 'number',
+      memory: 'number',
+      disk: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// RegionDto
+export class RegionDto extends $tea.Model {
+  // availableNetworkTypes
+  availableNetworkTypes: string[];
   // description
-  description?: string;
-  // type
-  type?: string;
-  // status
-  status?: string;
-  // engine
-  engine?: string;
-  // net_type
-  netType?: string;
-  // utc_create
-  utcCreate?: string;
-  // importInfo
-  importInfo: ImportVO;
+  description: string;
+  // displayName
+  displayName: string;
+  // iaasProviderId
+  iaasProviderId: string;
+  // id
+  id: string;
+  // identity
+  identity: string;
+  // networkType
+  networkType: string;
+  // state
+  state: string;
+  // utcCreate
+  utcCreate: string;
+  // utcModified
+  utcModified: string;
+  // zoneDtos
+  zoneDtos: ZoneDto[];
   static names(): { [key: string]: string } {
     return {
-      iaasId: 'iaas_id',
+      availableNetworkTypes: 'available_network_types',
       description: 'description',
-      type: 'type',
-      status: 'status',
-      engine: 'engine',
-      netType: 'net_type',
+      displayName: 'display_name',
+      iaasProviderId: 'iaas_provider_id',
+      id: 'id',
+      identity: 'identity',
+      networkType: 'network_type',
+      state: 'state',
       utcCreate: 'utc_create',
-      importInfo: 'import_info',
+      utcModified: 'utc_modified',
+      zoneDtos: 'zone_dtos',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      iaasId: 'string',
+      availableNetworkTypes: { 'type': 'array', 'itemType': 'string' },
       description: 'string',
-      type: 'string',
-      status: 'string',
-      engine: 'string',
-      netType: 'string',
+      displayName: 'string',
+      iaasProviderId: 'string',
+      id: 'string',
+      identity: 'string',
+      networkType: 'string',
+      state: 'string',
       utcCreate: 'string',
-      importInfo: ImportVO,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 应用等级视图
-export class AppLevelView extends $tea.Model {
-  // 应用等级基类
-  baseAppLevel?: AppLevel;
-  // 应用数量
-  appCount?: number;
-  // 创建者名称
-  creatorName?: string;
-  static names(): { [key: string]: string } {
-    return {
-      baseAppLevel: 'base_app_level',
-      appCount: 'app_count',
-      creatorName: 'creator_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      baseAppLevel: AppLevel,
-      appCount: 'number',
-      creatorName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云日志服务(SLS)-日志项目
-export class SLSProject extends $tea.Model {
-  // 项目描述
-  description?: string;
-  // 项目名称
-  name: string;
-  static names(): { [key: string]: string } {
-    return {
-      description: 'description',
-      name: 'name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      description: 'string',
-      name: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// Staragent Operation Task info
-export class OperationTask extends $tea.Model {
-  // id
-  id?: string;
-  // computer id
-  computerId?: string;
-  // computer ip
-  computerIp?: string;
-  // command
-  command?: string;
-  // 状态取值：INIT，PROCESSING，SUCCEEDED，FAILED，TIMEOUT，NOT_FOUND
-  status?: string;
-  // errorCode
-  errorCode?: string;
-  // resultMsg
-  resultMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      computerId: 'computer_id',
-      computerIp: 'computer_ip',
-      command: 'command',
-      status: 'status',
-      errorCode: 'error_code',
-      resultMsg: 'result_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      computerId: 'string',
-      computerIp: 'string',
-      command: 'string',
-      status: 'string',
-      errorCode: 'string',
-      resultMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 应用服务查询
-export class AppServiceQuery extends $tea.Model {
-  // 根据 id 查询
-  id?: string;
-  // workspaceId
-  workspaceId?: string;
-  // appId
-  appId?: string;
-  // name
-  name?: string;
-  // deployStatus
-  deployStatus?: string;
-  // ownerId
-  ownerId?: string;
-  // workspaceIds
-  workspaceIds?: string[];
-  // appIds
-  appIds?: string[];
-  // 是否为一方化查询请求
-  isOnePartyRequest?: boolean;
-  // startIndex
-  startIndex?: number;
-  // pageSize
-  pageSize?: number;
-  // currentPage
-  currentPage?: number;
-  // orders
-  orders?: string[];
-  // 查询类型
-  queryType?: string;
-  // Map<String, String>
-  conditions?: string;
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      workspaceId: 'workspace_id',
-      appId: 'app_id',
-      name: 'name',
-      deployStatus: 'deploy_status',
-      ownerId: 'owner_id',
-      workspaceIds: 'workspace_ids',
-      appIds: 'app_ids',
-      isOnePartyRequest: 'is_one_party_request',
-      startIndex: 'start_index',
-      pageSize: 'page_size',
-      currentPage: 'current_page',
-      orders: 'orders',
-      queryType: 'query_type',
-      conditions: 'conditions',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      workspaceId: 'string',
-      appId: 'string',
-      name: 'string',
-      deployStatus: 'string',
-      ownerId: 'string',
-      workspaceIds: { 'type': 'array', 'itemType': 'string' },
-      appIds: { 'type': 'array', 'itemType': 'string' },
-      isOnePartyRequest: 'boolean',
-      startIndex: 'number',
-      pageSize: 'number',
-      currentPage: 'number',
-      orders: { 'type': 'array', 'itemType': 'string' },
-      queryType: 'string',
-      conditions: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 云服务器规格族
-export class ComputerTypeFamily extends $tea.Model {
-  // computer type family id
-  id: string;
-  // 实例规格族所属代数。
-  generation: string;
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      generation: 'generation',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      generation: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// DatabaseSecurityIp
-export class DatabaseSecurityIp extends $tea.Model {
-  // id
-  id: string;
-  // resource_id
-  resourceId?: string;
-  // resource_type
-  resourceType?: string;
-  // ip
-  ip?: string;
-  // status
-  status?: string;
-  // type
-  type?: string;
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      resourceId: 'resource_id',
-      resourceType: 'resource_type',
-      ip: 'ip',
-      status: 'status',
-      type: 'type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      resourceId: 'string',
-      resourceType: 'string',
-      ip: 'string',
-      status: 'string',
-      type: 'string',
+      utcModified: 'string',
+      zoneDtos: { 'type': 'array', 'itemType': ZoneDto },
     };
   }
 
@@ -6013,27 +4392,67 @@ export class RegionWorkspaceVO extends $tea.Model {
   }
 }
 
-// 数据库Grant
-export class Grant extends $tea.Model {
-  // account
-  account: DatabaseAccount;
-  // privilege
-  privilege: string;
-  // schema
-  schema: DbSchema;
+// 任务日志
+export class ResourceLog extends $tea.Model {
+  // host
+  host?: string;
+  // log_time
+  logTime: string;
+  // message
+  message: string;
+  // resource_id
+  resourceId?: string;
+  // resource_type
+  resourceType?: string;
+  // severity
+  severity?: string;
+  // source
+  source?: string;
+  // task_id
+  taskId: string;
+  // task_times
+  taskTimes: number;
+  // type
+  type?: string;
+  // iaas_error_info
+  iaasErrorInfo?: IaasErrorInfo;
+  // iaas_request
+  iaasRequest?: IaasRequest;
+  // iaas_response
+  iaasResponse?: IaasResponse;
   static names(): { [key: string]: string } {
     return {
-      account: 'account',
-      privilege: 'privilege',
-      schema: 'schema',
+      host: 'host',
+      logTime: 'log_time',
+      message: 'message',
+      resourceId: 'resource_id',
+      resourceType: 'resource_type',
+      severity: 'severity',
+      source: 'source',
+      taskId: 'task_id',
+      taskTimes: 'task_times',
+      type: 'type',
+      iaasErrorInfo: 'iaas_error_info',
+      iaasRequest: 'iaas_request',
+      iaasResponse: 'iaas_response',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      account: DatabaseAccount,
-      privilege: 'string',
-      schema: DbSchema,
+      host: 'string',
+      logTime: 'string',
+      message: 'string',
+      resourceId: 'string',
+      resourceType: 'string',
+      severity: 'string',
+      source: 'string',
+      taskId: 'string',
+      taskTimes: 'number',
+      type: 'string',
+      iaasErrorInfo: IaasErrorInfo,
+      iaasRequest: IaasRequest,
+      iaasResponse: IaasResponse,
     };
   }
 
@@ -6042,64 +4461,70 @@ export class Grant extends $tea.Model {
   }
 }
 
-// DatabaseEngine
-export class DatabaseEngine extends $tea.Model {
-  // iaas_type
-  iaasType?: string;
-  // engine
-  engine?: string;
-  // engine_versions
-  engineVersions?: string[];
-  static names(): { [key: string]: string } {
-    return {
-      iaasType: 'iaas_type',
-      engine: 'engine',
-      engineVersions: 'engine_versions',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      iaasType: 'string',
-      engine: 'string',
-      engineVersions: { 'type': 'array', 'itemType': 'string' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// CellGroup
-export class CellGroup extends $tea.Model {
-  // identity
-  identity: string;
-  // name
-  name: string;
-  // description
+// 专有网络
+export class VPC extends $tea.Model {
+  // VPC的IPv4网段
+  cidrBlock: string;
+  // VPC的创建时间
+  creationTime: string;
+  // VPC的描述信息
   description?: string;
-  // properties
-  properties?: Property[];
-  // instancestatus
-  instancestatus: string;
+  // VPC所在的地域
+  regionId: string;
+  // 路由表ID
+  routerTableIds: string[];
+  // VPC的状态，取值：
+  // 
+  // Pending：配置中。
+  // Available：可用。
+  status: string;
+  // 用户侧网段的列表
+  userCidrs?: string;
+  // VPC的id
+  vpcId: string;
+  // VPC的名称
+  vpcName: string;
+  // VPC路由器的ID
+  vRouterId: string;
+  // 关联的workspace id
+  workspaceId?: string;
+  // vpc是否已导入workspace
+  importInfo?: ImportInfo;
+  // vpc在CAFE测的唯一ID
+  vpcPaasId?: string;
   static names(): { [key: string]: string } {
     return {
-      identity: 'identity',
-      name: 'name',
+      cidrBlock: 'cidr_block',
+      creationTime: 'creation_time',
       description: 'description',
-      properties: 'properties',
-      instancestatus: 'instancestatus',
+      regionId: 'region_id',
+      routerTableIds: 'router_table_ids',
+      status: 'status',
+      userCidrs: 'user_cidrs',
+      vpcId: 'vpc_id',
+      vpcName: 'vpc_name',
+      vRouterId: 'v_router_id',
+      workspaceId: 'workspace_id',
+      importInfo: 'import_info',
+      vpcPaasId: 'vpc_paas_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      identity: 'string',
-      name: 'string',
+      cidrBlock: 'string',
+      creationTime: 'string',
       description: 'string',
-      properties: { 'type': 'array', 'itemType': Property },
-      instancestatus: 'string',
+      regionId: 'string',
+      routerTableIds: { 'type': 'array', 'itemType': 'string' },
+      status: 'string',
+      userCidrs: 'string',
+      vpcId: 'string',
+      vpcName: 'string',
+      vRouterId: 'string',
+      workspaceId: 'string',
+      importInfo: ImportInfo,
+      vpcPaasId: 'string',
     };
   }
 
@@ -6108,28 +4533,22 @@ export class CellGroup extends $tea.Model {
   }
 }
 
-// VSwitchParam
-export class VSwitchParam extends $tea.Model {
+// VpcParam
+export class VPCParam extends $tea.Model {
   // cidr_block
   cidrBlock?: string;
   // description
   description?: string;
-  // region_id
+  // region id
   regionId?: string;
-  // vpc_id
-  vpcId?: string;
-  // vswitch_name
-  vswitchName?: string;
-  // zone_id
-  zoneId?: string;
+  // vpc_name
+  vpcName?: string;
   static names(): { [key: string]: string } {
     return {
       cidrBlock: 'cidr_block',
       description: 'description',
       regionId: 'region_id',
-      vpcId: 'vpc_id',
-      vswitchName: 'vswitch_name',
-      zoneId: 'zone_id',
+      vpcName: 'vpc_name',
     };
   }
 
@@ -6138,9 +4557,7 @@ export class VSwitchParam extends $tea.Model {
       cidrBlock: 'string',
       description: 'string',
       regionId: 'string',
-      vpcId: 'string',
-      vswitchName: 'string',
-      zoneId: 'string',
+      vpcName: 'string',
     };
   }
 
@@ -6149,222 +4566,115 @@ export class VSwitchParam extends $tea.Model {
   }
 }
 
-// 应用分级查询
-export class AppLevelQuery extends $tea.Model {
-  // appCountInclude
-  appCountInclude?: boolean;
-  // creator_id
-  creatorId?: string;
-  // is_one_party_request
-  isOnePartyRequest?: boolean;
-  // name
-  name?: string;
-  // tenant_id
-  tenantId?: string;
-  // utc_create
-  utcCreate?: string;
-  // 当前页数
-  currentPage?: number;
-  // orders
-  orders?: string[];
-  // 分页大小
-  pageSize?: number;
-  // query_type
-  queryType?: string;
-  static names(): { [key: string]: string } {
-    return {
-      appCountInclude: 'app_count_include',
-      creatorId: 'creator_id',
-      isOnePartyRequest: 'is_one_party_request',
-      name: 'name',
-      tenantId: 'tenant_id',
-      utcCreate: 'utc_create',
-      currentPage: 'current_page',
-      orders: 'orders',
-      pageSize: 'page_size',
-      queryType: 'query_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      appCountInclude: 'boolean',
-      creatorId: 'string',
-      isOnePartyRequest: 'boolean',
-      name: 'string',
-      tenantId: 'string',
-      utcCreate: 'string',
-      currentPage: 'number',
-      orders: { 'type': 'array', 'itemType': 'string' },
-      pageSize: 'number',
-      queryType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云日志服务(SLS) - 日志结果数组
-export class SLSLogItem extends $tea.Model {
-  // 日志的时间戳（精度为秒，从 1970-1-1 00:00:00 UTC 计算起的秒数）。
-  logTime: number;
-  // 日志的来源，写入日志时指定。
-  source: string;
-  // 日志原始内容
-  contents: SLSLogContent[];
-  static names(): { [key: string]: string } {
-    return {
-      logTime: 'log_time',
-      source: 'source',
-      contents: 'contents',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      logTime: 'number',
-      source: 'string',
-      contents: { 'type': 'array', 'itemType': SLSLogContent },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ComputerType
-export class ComputerType extends $tea.Model {
-  // cpu core count
-  cpuCoreCount?: number;
-  // instance type id
-  id: string;
-  // 实例规格族
-  instanceTypeFamily?: string;
-  // memory size
-  memorySize?: number;
-  // 实例状态，可能值： Available：资源充足 Sold...
-  status: string;
-  static names(): { [key: string]: string } {
-    return {
-      cpuCoreCount: 'cpu_core_count',
-      id: 'id',
-      instanceTypeFamily: 'instance_type_family',
-      memorySize: 'memory_size',
-      status: 'status',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      cpuCoreCount: 'number',
-      id: 'string',
-      instanceTypeFamily: 'string',
-      memorySize: 'number',
-      status: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 路由表信息
-export class RouteTable extends $tea.Model {
-  // 路由表的创建时间。
-  creationTime?: string;
-  // 路由表所属的路由器类型，取值：
-  // 
-  // VRouter：VPC路由器。
-  // VBR：边界路由器。
-  routerType?: string;
-  // 	
-  // 路由条目的详细信息。
-  entryVOs?: VRouteEntry[];
-  // 要查询的路由表的ID。
-  routeTableId?: string;
-  // 要查询的路由表所属的VPC路由器的ID。
-  vRouterId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      creationTime: 'creation_time',
-      routerType: 'router_type',
-      entryVOs: 'entry_v_os',
-      routeTableId: 'route_table_id',
-      vRouterId: 'v_router_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      creationTime: 'string',
-      routerType: 'string',
-      entryVOs: { 'type': 'array', 'itemType': VRouteEntry },
-      routeTableId: 'string',
-      vRouterId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 交换机详细信息
-export class VSwitch extends $tea.Model {
-  // 交换机的IPv4网段
-  cidrBlock?: string;
-  // 交换机的创建时间
-  creationTime?: string;
-  // 交换机的描述信息
+// lb 监听器
+export class Listener extends $tea.Model {
+  // 后端服务器端口
+  backendServerPort: number;
+  // 带宽
+  bandwidth?: number;
+  // certificate_iaas_id
+  certificateIaasId?: string;
+  // 证书 id
+  certificateId?: string;
+  // cookie
+  cookie?: string;
+  // cookie 超时时间
+  cookieTimeout?: number;
+  // description
   description?: string;
-  // cn-hangzhou
-  regionId?: string;
-  // 交换机的状态，取值：
-  // 
-  // Pending：配置中。
-  // Available：可用。
-  status?: string;
-  // 交换机所属VPC的ID
-  vpcId?: string;
-  // 交换机的ID
-  vSwitchId?: string;
-  // 交换机的名称
-  vSwitchName?: string;
-  // 交换机所属的可用区
-  zoneId?: string;
-  // zone iaas id
-  zoneIaasId?: string;
+  // 连接超时时间
+  establishedTimeout?: number;
+  // gm_crypto_cert_iaas_id
+  gmCryptoCertIaasId?: string;
+  // 健康检查
+  healthMonitor?: ListenerHealthMonitor;
+  // iaas_id
+  iaasId?: string;
+  // iaasType
+  iaasType?: string;
+  // id
+  id?: string;
+  // is_health_monitor
+  isHealthMonitor?: string;
+  // 监听器端口
+  listenerPort: number;
+  // load_balancer
+  loadBalancer?: LoadBalancer;
+  // name
+  name: string;
+  // 会话保持的超时时间
+  persistTimeout?: number;
+  // 转发规则
+  scheduler?: string;
+  // status
+  status: string;
+  // sticky_session
+  stickySession?: string;
+  // cookie 处理方式
+  stickySessionType?: string;
+  // 监听类型
+  type: string;
+  // url_path
+  urlPath?: string;
+  // x_forwarded_for
+  xForwardedFor?: string;
   static names(): { [key: string]: string } {
     return {
-      cidrBlock: 'cidr_block',
-      creationTime: 'creation_time',
+      backendServerPort: 'backend_server_port',
+      bandwidth: 'bandwidth',
+      certificateIaasId: 'certificate_iaas_id',
+      certificateId: 'certificate_id',
+      cookie: 'cookie',
+      cookieTimeout: 'cookie_timeout',
       description: 'description',
-      regionId: 'region_id',
+      establishedTimeout: 'established_timeout',
+      gmCryptoCertIaasId: 'gm_crypto_cert_iaas_id',
+      healthMonitor: 'health_monitor',
+      iaasId: 'iaas_id',
+      iaasType: 'iaas_type',
+      id: 'id',
+      isHealthMonitor: 'is_health_monitor',
+      listenerPort: 'listener_port',
+      loadBalancer: 'load_balancer',
+      name: 'name',
+      persistTimeout: 'persist_timeout',
+      scheduler: 'scheduler',
       status: 'status',
-      vpcId: 'vpc_id',
-      vSwitchId: 'v_switch_id',
-      vSwitchName: 'v_switch_name',
-      zoneId: 'zone_id',
-      zoneIaasId: 'zone_iaas_id',
+      stickySession: 'sticky_session',
+      stickySessionType: 'sticky_session_type',
+      type: 'type',
+      urlPath: 'url_path',
+      xForwardedFor: 'x_forwarded_for',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      cidrBlock: 'string',
-      creationTime: 'string',
+      backendServerPort: 'number',
+      bandwidth: 'number',
+      certificateIaasId: 'string',
+      certificateId: 'string',
+      cookie: 'string',
+      cookieTimeout: 'number',
       description: 'string',
-      regionId: 'string',
+      establishedTimeout: 'number',
+      gmCryptoCertIaasId: 'string',
+      healthMonitor: ListenerHealthMonitor,
+      iaasId: 'string',
+      iaasType: 'string',
+      id: 'string',
+      isHealthMonitor: 'string',
+      listenerPort: 'number',
+      loadBalancer: LoadBalancer,
+      name: 'string',
+      persistTimeout: 'number',
+      scheduler: 'string',
       status: 'string',
-      vpcId: 'string',
-      vSwitchId: 'string',
-      vSwitchName: 'string',
-      zoneId: 'string',
-      zoneIaasId: 'string',
+      stickySession: 'string',
+      stickySessionType: 'string',
+      type: 'string',
+      urlPath: 'string',
+      xForwardedFor: 'string',
     };
   }
 
@@ -6373,120 +4683,67 @@ export class VSwitch extends $tea.Model {
   }
 }
 
-// 一个应用发布包视图
-export class AppPackageListView extends $tea.Model {
+// LoadBalancerRule
+export class LoadBalancerRule extends $tea.Model {
+  // load_balancer
+  loadBalancer?: LoadBalancer;
+  // name
+  name: string;
+  // id
+  id?: string;
+  // listener_port
+  listenerPort?: number;
+  // status
+  status?: string;
+  // domain
+  domain?: string;
+  // url
+  url: string;
+  // cookie
+  cookie?: string;
+  // is_health_monitor
+  isHealthMonitor?: string;
+  // health_monitor
+  healthMonitor?: ListenerHealthMonitor;
+  // sticky_session
+  stickySession?: string;
   // app_id
   appId?: string;
-  // app_name
-  appName?: string;
-  // app_owner_id
-  appOwnerId?: string;
-  // app_owner_name
-  appOwnerName?: string;
-  // app_status
-  appStatus?: string;
-  // buildpack_id
-  buildpackId?: string;
-  // buildpack_name
-  buildpackName?: string;
-  // buildpack_version
-  buildpackVersion?: string;
-  // latest_package
-  latestPackage?: AppManifest;
-  // package_count
-  packageCount?: number;
+  // workspace_id
+  workspaceId?: string;
   static names(): { [key: string]: string } {
     return {
-      appId: 'app_id',
-      appName: 'app_name',
-      appOwnerId: 'app_owner_id',
-      appOwnerName: 'app_owner_name',
-      appStatus: 'app_status',
-      buildpackId: 'buildpack_id',
-      buildpackName: 'buildpack_name',
-      buildpackVersion: 'buildpack_version',
-      latestPackage: 'latest_package',
-      packageCount: 'package_count',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      appId: 'string',
-      appName: 'string',
-      appOwnerId: 'string',
-      appOwnerName: 'string',
-      appStatus: 'string',
-      buildpackId: 'string',
-      buildpackName: 'string',
-      buildpackVersion: 'string',
-      latestPackage: AppManifest,
-      packageCount: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// LbCluster
-export class LbCluster extends $tea.Model {
-  // container_cpu
-  containerCpu?: number;
-  // container_cpu_exclusive
-  containerCpuExclusive?: boolean;
-  // container_device_type
-  containerDeviceType?: string;
-  // container_disk
-  containerDisk?: number;
-  // container_mem
-  containerMem?: number;
-  // id
-  id: string;
-  // image
-  image: string;
-  // name
-  name: string;
-  // status
-  status: number;
-  // unit_infos
-  unitInfos?: AcsClusterUnit[];
-  // unit_type
-  unitType?: number;
-  // used_ports
-  usedPorts?: number[];
-  static names(): { [key: string]: string } {
-    return {
-      containerCpu: 'container_cpu',
-      containerCpuExclusive: 'container_cpu_exclusive',
-      containerDeviceType: 'container_device_type',
-      containerDisk: 'container_disk',
-      containerMem: 'container_mem',
-      id: 'id',
-      image: 'image',
+      loadBalancer: 'load_balancer',
       name: 'name',
+      id: 'id',
+      listenerPort: 'listener_port',
       status: 'status',
-      unitInfos: 'unit_infos',
-      unitType: 'unit_type',
-      usedPorts: 'used_ports',
+      domain: 'domain',
+      url: 'url',
+      cookie: 'cookie',
+      isHealthMonitor: 'is_health_monitor',
+      healthMonitor: 'health_monitor',
+      stickySession: 'sticky_session',
+      appId: 'app_id',
+      workspaceId: 'workspace_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      containerCpu: 'number',
-      containerCpuExclusive: 'boolean',
-      containerDeviceType: 'string',
-      containerDisk: 'number',
-      containerMem: 'number',
-      id: 'string',
-      image: 'string',
+      loadBalancer: LoadBalancer,
       name: 'string',
-      status: 'number',
-      unitInfos: { 'type': 'array', 'itemType': AcsClusterUnit },
-      unitType: 'number',
-      usedPorts: { 'type': 'array', 'itemType': 'number' },
+      id: 'string',
+      listenerPort: 'number',
+      status: 'string',
+      domain: 'string',
+      url: 'string',
+      cookie: 'string',
+      isHealthMonitor: 'string',
+      healthMonitor: ListenerHealthMonitor,
+      stickySession: 'string',
+      appId: 'string',
+      workspaceId: 'string',
     };
   }
 
@@ -6495,182 +4752,35 @@ export class LbCluster extends $tea.Model {
   }
 }
 
-// 动态查询
-export class DynamicQuery extends $tea.Model {
-  // 分页规则-currentPage
-  currentPage?: number;
-  // 字段过滤
-  filter?: string;
-  // 分页规则-pageSize
-  pageSize?: number;
-  // 具体的查询条件字符串
-  query: string;
-  // 查询结果的排序规则
-  sort?: string;
-  static names(): { [key: string]: string } {
-    return {
-      currentPage: 'current_page',
-      filter: 'filter',
-      pageSize: 'page_size',
-      query: 'query',
-      sort: 'sort',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      currentPage: 'number',
-      filter: 'string',
-      pageSize: 'number',
-      query: 'string',
-      sort: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// RegionDto
-export class RegionDto extends $tea.Model {
-  // availableNetworkTypes
-  availableNetworkTypes: string[];
+// 地域信息
+export class Region extends $tea.Model {
   // description
-  description: string;
-  // displayName
-  displayName: string;
-  // iaasProviderId
-  iaasProviderId: string;
-  // id
-  id: string;
+  description?: string;
   // identity
   identity: string;
-  // networkType
-  networkType: string;
-  // state
-  state: string;
-  // utcCreate
-  utcCreate: string;
-  // utcModified
-  utcModified: string;
-  // zoneDtos
-  zoneDtos: ZoneDto[];
-  static names(): { [key: string]: string } {
-    return {
-      availableNetworkTypes: 'available_network_types',
-      description: 'description',
-      displayName: 'display_name',
-      iaasProviderId: 'iaas_provider_id',
-      id: 'id',
-      identity: 'identity',
-      networkType: 'network_type',
-      state: 'state',
-      utcCreate: 'utc_create',
-      utcModified: 'utc_modified',
-      zoneDtos: 'zone_dtos',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      availableNetworkTypes: { 'type': 'array', 'itemType': 'string' },
-      description: 'string',
-      displayName: 'string',
-      iaasProviderId: 'string',
-      id: 'string',
-      identity: 'string',
-      networkType: 'string',
-      state: 'string',
-      utcCreate: 'string',
-      utcModified: 'string',
-      zoneDtos: { 'type': 'array', 'itemType': ZoneDto },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ListenerSecurityIp
-export class ListenerSecurityIp extends $tea.Model {
-  // access_control
-  accessControl: boolean;
-  // ips
-  ips: string[];
-  static names(): { [key: string]: string } {
-    return {
-      accessControl: 'access_control',
-      ips: 'ips',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      accessControl: 'boolean',
-      ips: { 'type': 'array', 'itemType': 'string' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// TenantWorkspace
-export class TenantWorkspace extends $tea.Model {
-  // displayName
-  displayName: string;
-  // gmtCreate
-  gmtCreate: string;
-  // gmtModified
-  gmtModified: string;
-  // id
-  id: string;
+  // instanceStatus: AVAILABLE  UNAVAILABLE  RETIRED  DELETED
+  instancestatus: string;
   // name
   name: string;
-  // networkType
-  networkType: string;
-  // status
-  status: string;
-  // tenantId
-  tenantId: string;
-  // type
-  type: string;
-  // workspaceDcs
-  workspaceDcs: WorkspaceDc[];
-  // workspaceRegions
-  workspaceRegions: WorkspaceRegion[];
+  // properties
+  properties?: Property[];
   static names(): { [key: string]: string } {
     return {
-      displayName: 'display_name',
-      gmtCreate: 'gmt_create',
-      gmtModified: 'gmt_modified',
-      id: 'id',
+      description: 'description',
+      identity: 'identity',
+      instancestatus: 'instancestatus',
       name: 'name',
-      networkType: 'network_type',
-      status: 'status',
-      tenantId: 'tenant_id',
-      type: 'type',
-      workspaceDcs: 'workspace_dcs',
-      workspaceRegions: 'workspace_regions',
+      properties: 'properties',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      displayName: 'string',
-      gmtCreate: 'string',
-      gmtModified: 'string',
-      id: 'string',
+      description: 'string',
+      identity: 'string',
+      instancestatus: 'string',
       name: 'string',
-      networkType: 'string',
-      status: 'string',
-      tenantId: 'string',
-      type: 'string',
-      workspaceDcs: { 'type': 'array', 'itemType': WorkspaceDc },
-      workspaceRegions: { 'type': 'array', 'itemType': WorkspaceRegion },
+      properties: { 'type': 'array', 'itemType': Property },
     };
   }
 
@@ -6679,42 +4789,84 @@ export class TenantWorkspace extends $tea.Model {
   }
 }
 
-// 阿里云日志服务(SLS)-日志配置
-export class SLSConfig extends $tea.Model {
-  // Logtail配置名称，同一Project下配置名必须唯一。
-  // 只能包括小写字母、数字、连字符（-）和下划线（_）。
-  // 必须以小写字母或者数字开头和结尾。
-  // 长度必须为2~128字节。
-  name: string;
-  // 配置类型，支持plugin、file。
-  inputType: string;
-  // 输出类型，目前只支持LogService。
-  outputType?: string;
-  // 日志样例
-  logSample?: string;
-  // 输入类型配置
-  inputDetail: SLSConfigInputDetail;
-  // 输出类型配置
-  outputDetail: SLSConfigOutputDetail;
+// 云服务器规格族
+export class ComputerTypeFamily extends $tea.Model {
+  // computer type family id
+  id: string;
+  // 实例规格族所属代数。
+  generation: string;
   static names(): { [key: string]: string } {
     return {
-      name: 'name',
-      inputType: 'input_type',
-      outputType: 'output_type',
-      logSample: 'log_sample',
-      inputDetail: 'input_detail',
-      outputDetail: 'output_detail',
+      id: 'id',
+      generation: 'generation',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      name: 'string',
-      inputType: 'string',
-      outputType: 'string',
-      logSample: 'string',
-      inputDetail: SLSConfigInputDetail,
-      outputDetail: SLSConfigOutputDetail,
+      id: 'string',
+      generation: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 工作空间DNS Provider属性
+export class WorkspaceDnsProvider extends $tea.Model {
+  // id
+  id: string;
+  // workspace_id
+  workspaceId: string;
+  // provider_id
+  providerId: string;
+  // region_id
+  regionId: string;
+  // zoneId
+  zoneId: string;
+  // dns_provider_id
+  dnsProviderId: string;
+  // dns_network_type
+  dnsNetworkType: string;
+  // sub_domain_name
+  subDomainName: string;
+  // utc_create
+  utcCreate: string;
+  // utc_modified
+  utcModified: string;
+  // description
+  description: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      workspaceId: 'workspace_id',
+      providerId: 'provider_id',
+      regionId: 'region_id',
+      zoneId: 'zone_id',
+      dnsProviderId: 'dns_provider_id',
+      dnsNetworkType: 'dns_network_type',
+      subDomainName: 'sub_domain_name',
+      utcCreate: 'utc_create',
+      utcModified: 'utc_modified',
+      description: 'description',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      workspaceId: 'string',
+      providerId: 'string',
+      regionId: 'string',
+      zoneId: 'string',
+      dnsProviderId: 'string',
+      dnsNetworkType: 'string',
+      subDomainName: 'string',
+      utcCreate: 'string',
+      utcModified: 'string',
+      description: 'string',
     };
   }
 
@@ -6800,6 +4952,529 @@ export class VpcVO extends $tea.Model {
   }
 }
 
+// LB查询对应的VComputer
+export class VComputer extends $tea.Model {
+  // v_computer_group
+  vComputerGroup?: VComputerGroup;
+  // ip
+  ip?: string;
+  // computer
+  computer?: Computer;
+  // port
+  port?: number;
+  // weight
+  weight?: number;
+  // 是否是EIP
+  isEip?: boolean;
+  // is_managed_computer
+  isManagedComputer?: boolean;
+  // iaas_id
+  iaasId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      vComputerGroup: 'v_computer_group',
+      ip: 'ip',
+      computer: 'computer',
+      port: 'port',
+      weight: 'weight',
+      isEip: 'is_eip',
+      isManagedComputer: 'is_managed_computer',
+      iaasId: 'iaas_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      vComputerGroup: VComputerGroup,
+      ip: 'string',
+      computer: Computer,
+      port: 'number',
+      weight: 'number',
+      isEip: 'boolean',
+      isManagedComputer: 'boolean',
+      iaasId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 路由表信息
+export class RouteTable extends $tea.Model {
+  // 路由表的创建时间。
+  creationTime?: string;
+  // 路由表所属的路由器类型，取值：
+  // 
+  // VRouter：VPC路由器。
+  // VBR：边界路由器。
+  routerType?: string;
+  // 	
+  // 路由条目的详细信息。
+  entryVOs?: VRouteEntry[];
+  // 要查询的路由表的ID。
+  routeTableId?: string;
+  // 要查询的路由表所属的VPC路由器的ID。
+  vRouterId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      creationTime: 'creation_time',
+      routerType: 'router_type',
+      entryVOs: 'entry_v_os',
+      routeTableId: 'route_table_id',
+      vRouterId: 'v_router_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      creationTime: 'string',
+      routerType: 'string',
+      entryVOs: { 'type': 'array', 'itemType': VRouteEntry },
+      routeTableId: 'string',
+      vRouterId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 中间件集群
+export class MiddlewareCluster extends $tea.Model {
+  // cluster_id
+  clusterId: string;
+  // cluster_name
+  clusterName: string;
+  // region_ids
+  regionIds: string[];
+  // zone_ids
+  zoneIds?: string[];
+  // acvip_endpoint
+  acvipEndpoint: string;
+  static names(): { [key: string]: string } {
+    return {
+      clusterId: 'cluster_id',
+      clusterName: 'cluster_name',
+      regionIds: 'region_ids',
+      zoneIds: 'zone_ids',
+      acvipEndpoint: 'acvip_endpoint',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      clusterId: 'string',
+      clusterName: 'string',
+      regionIds: { 'type': 'array', 'itemType': 'string' },
+      zoneIds: { 'type': 'array', 'itemType': 'string' },
+      acvipEndpoint: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云日志服务(SLS)-日志配置
+export class SLSConfig extends $tea.Model {
+  // Logtail配置名称，同一Project下配置名必须唯一。
+  // 只能包括小写字母、数字、连字符（-）和下划线（_）。
+  // 必须以小写字母或者数字开头和结尾。
+  // 长度必须为2~128字节。
+  name: string;
+  // 配置类型，支持plugin、file。
+  inputType: string;
+  // 输出类型，目前只支持LogService。
+  outputType?: string;
+  // 日志样例
+  logSample?: string;
+  // 输入类型配置
+  inputDetail: SLSConfigInputDetail;
+  // 输出类型配置
+  outputDetail: SLSConfigOutputDetail;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      inputType: 'input_type',
+      outputType: 'output_type',
+      logSample: 'log_sample',
+      inputDetail: 'input_detail',
+      outputDetail: 'output_detail',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      inputType: 'string',
+      outputType: 'string',
+      logSample: 'string',
+      inputDetail: SLSConfigInputDetail,
+      outputDetail: SLSConfigOutputDetail,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 安全组详细信息
+export class SecurityGroup extends $tea.Model {
+  // 创建时间。按照ISO8601标准表示，并需要使用UTC时间。格式为：yyyy-MM-ddThh:mmZ。
+  creationTime: string;
+  // 安全组的描述信息。
+  description?: string;
+  // region_id
+  regionId: string;
+  // 安全组ID。
+  securityGroupId: string;
+  // 安全组名称。
+  securityGroupName: string;
+  // 安全组所属的专有网络。
+  vpcId: string;
+  // 安全组入方向规则
+  ingressRules?: SecurityGroupRule[];
+  // 安全组出方向规则
+  egressRules?: SecurityGroupRule[];
+  static names(): { [key: string]: string } {
+    return {
+      creationTime: 'creation_time',
+      description: 'description',
+      regionId: 'region_id',
+      securityGroupId: 'security_group_id',
+      securityGroupName: 'security_group_name',
+      vpcId: 'vpc_id',
+      ingressRules: 'ingress_rules',
+      egressRules: 'egress_rules',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      creationTime: 'string',
+      description: 'string',
+      regionId: 'string',
+      securityGroupId: 'string',
+      securityGroupName: 'string',
+      vpcId: 'string',
+      ingressRules: { 'type': 'array', 'itemType': SecurityGroupRule },
+      egressRules: { 'type': 'array', 'itemType': SecurityGroupRule },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// map <String,integer>
+export class MapStringToIntegerEntity extends $tea.Model {
+  // key
+  key: string;
+  // value
+  value: number;
+  static names(): { [key: string]: string } {
+    return {
+      key: 'key',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      key: 'string',
+      value: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 一组具有依赖关系的 AppDomain，可以转换为一个树形结构
+export class AppDomainFlatten extends $tea.Model {
+  // 一组具有依赖关系的 AppDomain
+  appDomains?: AppDomain[];
+  static names(): { [key: string]: string } {
+    return {
+      appDomains: 'app_domains',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      appDomains: { 'type': 'array', 'itemType': AppDomain },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 一次异步请求
+export class RequestVO extends $tea.Model {
+  // context
+  context?: string;
+  // id
+  id: string;
+  // operator
+  operator?: string;
+  // operator_name
+  operatorName: string;
+  // operator_type
+  operatorType?: string;
+  // status
+  status?: string;
+  // token
+  token?: string;
+  // type
+  type?: string;
+  // utc_create
+  utcCreate?: string;
+  // utc_modified
+  utcModified?: string;
+  // tasks
+  tasks?: Task[];
+  static names(): { [key: string]: string } {
+    return {
+      context: 'context',
+      id: 'id',
+      operator: 'operator',
+      operatorName: 'operator_name',
+      operatorType: 'operator_type',
+      status: 'status',
+      token: 'token',
+      type: 'type',
+      utcCreate: 'utc_create',
+      utcModified: 'utc_modified',
+      tasks: 'tasks',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      context: 'string',
+      id: 'string',
+      operator: 'string',
+      operatorName: 'string',
+      operatorType: 'string',
+      status: 'string',
+      token: 'string',
+      type: 'string',
+      utcCreate: 'string',
+      utcModified: 'string',
+      tasks: { 'type': 'array', 'itemType': Task },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// VSwitchParam
+export class VSwitchParam extends $tea.Model {
+  // cidr_block
+  cidrBlock?: string;
+  // description
+  description?: string;
+  // region_id
+  regionId?: string;
+  // vpc_id
+  vpcId?: string;
+  // vswitch_name
+  vswitchName?: string;
+  // zone_id
+  zoneId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      cidrBlock: 'cidr_block',
+      description: 'description',
+      regionId: 'region_id',
+      vpcId: 'vpc_id',
+      vswitchName: 'vswitch_name',
+      zoneId: 'zone_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cidrBlock: 'string',
+      description: 'string',
+      regionId: 'string',
+      vpcId: 'string',
+      vswitchName: 'string',
+      zoneId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// rmc 交换机详细信息
+export class VSwitchVO extends $tea.Model {
+  // 交换机的iaas ID
+  iaasId?: string;
+  // 交换机名称
+  name?: string;
+  // 交换机描述信息
+  description?: string;
+  // 交换机的状态，取值： Pending：配置中。 Available：可用。
+  status?: string;
+  // vpc id
+  vpcId?: string;
+  // workspace id
+  workspaceId?: string;
+  // zone id
+  zoneId?: string;
+  // zone iaas id
+  zoneIaasId?: string;
+  // region id
+  regionId?: string;
+  // 换机的IPv4网段
+  cidrBlock?: string;
+  // 交换机创建时间
+  utcCreate?: string;
+  // 可用ip数目
+  availableIpAddressCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      iaasId: 'iaas_id',
+      name: 'name',
+      description: 'description',
+      status: 'status',
+      vpcId: 'vpc_id',
+      workspaceId: 'workspace_id',
+      zoneId: 'zone_id',
+      zoneIaasId: 'zone_iaas_id',
+      regionId: 'region_id',
+      cidrBlock: 'cidr_block',
+      utcCreate: 'utc_create',
+      availableIpAddressCount: 'available_ip_address_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      iaasId: 'string',
+      name: 'string',
+      description: 'string',
+      status: 'string',
+      vpcId: 'string',
+      workspaceId: 'string',
+      zoneId: 'string',
+      zoneIaasId: 'string',
+      regionId: 'string',
+      cidrBlock: 'string',
+      utcCreate: 'string',
+      availableIpAddressCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// disk spec
+export class DiskSpec extends $tea.Model {
+  // id
+  id?: string;
+  // name
+  name?: string;
+  // description
+  description?: string;
+  // iaas id
+  iaasId?: string;
+  // providerId
+  providerId?: string;
+  // iaasType
+  iaasType?: string;
+  // enable
+  enable?: boolean;
+  // minSize
+  minSize?: number;
+  // maxSize
+  maxSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      name: 'name',
+      description: 'description',
+      iaasId: 'iaas_id',
+      providerId: 'provider_id',
+      iaasType: 'iaas_type',
+      enable: 'enable',
+      minSize: 'min_size',
+      maxSize: 'max_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      name: 'string',
+      description: 'string',
+      iaasId: 'string',
+      providerId: 'string',
+      iaasType: 'string',
+      enable: 'boolean',
+      minSize: 'number',
+      maxSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// LB后端挂载的主机
+export class MountComputer extends $tea.Model {
+  // computer
+  computer?: Computer;
+  // domain
+  domain?: string;
+  // loadbalancer
+  loadbalancer?: LoadBalancer;
+  // status
+  status?: string;
+  // weight
+  weight: number;
+  static names(): { [key: string]: string } {
+    return {
+      computer: 'computer',
+      domain: 'domain',
+      loadbalancer: 'loadbalancer',
+      status: 'status',
+      weight: 'weight',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      computer: Computer,
+      domain: 'string',
+      loadbalancer: LoadBalancer,
+      status: 'string',
+      weight: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // vpc import info
 export class VpcImport extends $tea.Model {
   // cidr block
@@ -6841,23 +5516,107 @@ export class VpcImport extends $tea.Model {
   }
 }
 
-// QuotaKv
-export class QuotaKv extends $tea.Model {
-  // type
-  type: string;
-  // quota
-  quota: number;
+// 技术栈
+export class Buildpack extends $tea.Model {
+  // 技术栈标识ID
+  id?: string;
+  // 技术栈名称
+  name?: string;
+  // 技术栈描述
+  des?: string;
+  // 技术栈版本
+  version?: string;
+  // 技术栈类别
+  stack?: string;
+  // 部署脚本id
+  deployScriptId?: string;
+  // 构建脚本ID
+  buildScriptId?: string;
+  // 配置id
+  configId?: string;
+  // 组件id
+  componentId?: string;
+  // 命令id
+  commandId?: string;
+  // 启用蓝绿
+  bgEnable?: boolean;
+  // 创建人
+  creator?: string;
+  // 租户ID
+  tenantId?: string;
+  // 客户id列表
+  customerIds?: string[];
+  // 技术栈定义类型
+  // 系统模板 TEMPLATE
+  // 用户自定义 CUSTOM
+  // 后台服务 BACKGROUND_SERVICE
+  type?: string;
+  // 技术栈状态
+  // 草稿 DRAFT
+  // 已提交 COMMITED 
+  // 已对外发布 PUBLISHED
+  // 已退役 RETIRED
+  status?: string;
+  // 创建日期
+  gmtCreate?: string;
+  // 最近修改时间
+  gmtModified?: string;
+  // 技术栈信息汇总
+  resultMsg?: string;
+  // 可用 USABLE
+  // 不可用 UNUSABLE
+  versionStatus?: string;
+  // 运行时属性
+  instances?: BuildpackInstances;
   static names(): { [key: string]: string } {
     return {
+      id: 'id',
+      name: 'name',
+      des: 'des',
+      version: 'version',
+      stack: 'stack',
+      deployScriptId: 'deploy_script_id',
+      buildScriptId: 'build_script_id',
+      configId: 'config_id',
+      componentId: 'component_id',
+      commandId: 'command_id',
+      bgEnable: 'bg_enable',
+      creator: 'creator',
+      tenantId: 'tenant_id',
+      customerIds: 'customer_ids',
       type: 'type',
-      quota: 'quota',
+      status: 'status',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      resultMsg: 'result_msg',
+      versionStatus: 'version_status',
+      instances: 'instances',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
+      id: 'string',
+      name: 'string',
+      des: 'string',
+      version: 'string',
+      stack: 'string',
+      deployScriptId: 'string',
+      buildScriptId: 'string',
+      configId: 'string',
+      componentId: 'string',
+      commandId: 'string',
+      bgEnable: 'boolean',
+      creator: 'string',
+      tenantId: 'string',
+      customerIds: { 'type': 'array', 'itemType': 'string' },
       type: 'string',
-      quota: 'number',
+      status: 'string',
+      gmtCreate: 'string',
+      gmtModified: 'string',
+      resultMsg: 'string',
+      versionStatus: 'string',
+      instances: BuildpackInstances,
     };
   }
 
@@ -6866,31 +5625,55 @@ export class QuotaKv extends $tea.Model {
   }
 }
 
-// 应用分组视图
-export class AppDomainView extends $tea.Model {
-  // ownerName
-  ownerName?: string;
-  // fatherDomainName
-  fatherDomainName?: string;
-  // 应用列表
-  apps?: AppView[];
-  // AppDomainView 的父类 AppDomain
-  baseAppDomain?: AppDomain[];
+// 应用分组查询
+export class AppDomainQuery extends $tea.Model {
+  // creatorId
+  creatorId?: string;
+  // 是否为一方化请求
+  isOnePartyRequest?: boolean;
+  // name
+  name?: string;
+  // parentId
+  parentId?: string;
+  // tenantId
+  tenantId?: string;
+  // utcCreate
+  utcCreate?: string;
+  // 分页大小
+  pageSize?: number;
+  // query_type
+  queryType?: string;
+  // orders
+  orders?: string[];
+  // 当前页数
+  currentPage?: number;
   static names(): { [key: string]: string } {
     return {
-      ownerName: 'owner_name',
-      fatherDomainName: 'father_domain_name',
-      apps: 'apps',
-      baseAppDomain: 'base_app_domain',
+      creatorId: 'creator_id',
+      isOnePartyRequest: 'is_one_party_request',
+      name: 'name',
+      parentId: 'parent_id',
+      tenantId: 'tenant_id',
+      utcCreate: 'utc_create',
+      pageSize: 'page_size',
+      queryType: 'query_type',
+      orders: 'orders',
+      currentPage: 'current_page',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      ownerName: 'string',
-      fatherDomainName: 'string',
-      apps: { 'type': 'array', 'itemType': AppView },
-      baseAppDomain: { 'type': 'array', 'itemType': AppDomain },
+      creatorId: 'string',
+      isOnePartyRequest: 'boolean',
+      name: 'string',
+      parentId: 'string',
+      tenantId: 'string',
+      utcCreate: 'string',
+      pageSize: 'number',
+      queryType: 'string',
+      orders: { 'type': 'array', 'itemType': 'string' },
+      currentPage: 'number',
     };
   }
 
@@ -6899,39 +5682,917 @@ export class AppDomainView extends $tea.Model {
   }
 }
 
-// 机房信息
-export class Zone extends $tea.Model {
+// 交换机详细信息
+export class VSwitch extends $tea.Model {
+  // 交换机的IPv4网段
+  cidrBlock?: string;
+  // 交换机的创建时间
+  creationTime?: string;
+  // 交换机的描述信息
+  description?: string;
+  // cn-hangzhou
+  regionId?: string;
+  // 交换机的状态，取值：
+  // 
+  // Pending：配置中。
+  // Available：可用。
+  status?: string;
+  // 交换机所属VPC的ID
+  vpcId?: string;
+  // 交换机的ID
+  vSwitchId?: string;
+  // 交换机的名称
+  vSwitchName?: string;
+  // 交换机所属的可用区
+  zoneId?: string;
+  // zone iaas id
+  zoneIaasId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      cidrBlock: 'cidr_block',
+      creationTime: 'creation_time',
+      description: 'description',
+      regionId: 'region_id',
+      status: 'status',
+      vpcId: 'vpc_id',
+      vSwitchId: 'v_switch_id',
+      vSwitchName: 'v_switch_name',
+      zoneId: 'zone_id',
+      zoneIaasId: 'zone_iaas_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cidrBlock: 'string',
+      creationTime: 'string',
+      description: 'string',
+      regionId: 'string',
+      status: 'string',
+      vpcId: 'string',
+      vSwitchId: 'string',
+      vSwitchName: 'string',
+      zoneId: 'string',
+      zoneIaasId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// WorkspaceDnsRecordset
+export class WorkspaceDnsRecordset extends $tea.Model {
+  // id
+  id: string;
+  // iaasId
+  iaasId: string;
   // name
   name: string;
-  // identity
-  identity: string;
+  // dns_provider_id
+  dnsProviderId: string;
+  // dns_network_type
+  dnsNetworkType?: string;
+  // device_network_address_type
+  deviceNetworkAddressType?: string;
+  // 绑定的资源的类型COMPUTER或LOAD_BALANCER
+  resourceType: string;
   // description
   description?: string;
-  // instanceStatus: AVAILABLE  UNAVAILABLE  RETIRED  DELETED
-  instancestatus: string;
-  // region name
-  region: string;
-  // properties
-  properties: Property[];
+  // type
+  type: string;
+  // status
+  status: string;
+  // value
+  value: string;
+  // ttl
+  ttl: number;
+  // workspace_id
+  workspaceId: string;
+  // resource_id
+  resourceId?: string;
+  // resource_iaas_id
+  resourceIaasId?: string;
+  // utc_create
+  utcCreate: string;
+  // utc_modified
+  utcModified?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      iaasId: 'iaas_id',
+      name: 'name',
+      dnsProviderId: 'dns_provider_id',
+      dnsNetworkType: 'dns_network_type',
+      deviceNetworkAddressType: 'device_network_address_type',
+      resourceType: 'resource_type',
+      description: 'description',
+      type: 'type',
+      status: 'status',
+      value: 'value',
+      ttl: 'ttl',
+      workspaceId: 'workspace_id',
+      resourceId: 'resource_id',
+      resourceIaasId: 'resource_iaas_id',
+      utcCreate: 'utc_create',
+      utcModified: 'utc_modified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      iaasId: 'string',
+      name: 'string',
+      dnsProviderId: 'string',
+      dnsNetworkType: 'string',
+      deviceNetworkAddressType: 'string',
+      resourceType: 'string',
+      description: 'string',
+      type: 'string',
+      status: 'string',
+      value: 'string',
+      ttl: 'number',
+      workspaceId: 'string',
+      resourceId: 'string',
+      resourceIaasId: 'string',
+      utcCreate: 'string',
+      utcModified: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// IAM用户信息
+export class UserDTO extends $tea.Model {
+  // 用户ID
+  id?: string;
+  // 创建时间
+  utcCreate?: string;
+  // 最近修改时间
+  utcModified?: string;
+  // 客户ID
+  customerId?: string;
+  // 用户类型
+  type?: string;
+  // 用户显示名称
+  realName?: string;
+  // 用户名
+  name?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      utcCreate: 'utc_create',
+      utcModified: 'utc_modified',
+      customerId: 'customer_id',
+      type: 'type',
+      realName: 'real_name',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      utcCreate: 'string',
+      utcModified: 'string',
+      customerId: 'string',
+      type: 'string',
+      realName: 'string',
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// DatabaseSpec
+export class DatabaseSpec extends $tea.Model {
+  // cpu
+  cpu?: number;
+  // custom_storage
+  customStorage?: boolean;
+  // engine
+  engine?: string;
+  // engine_version
+  engineVersion?: string[];
+  // iaas_id
+  iaasId?: string;
+  // id
+  id?: string;
+  // max_connections
+  maxConnections?: number;
+  // max_iops
+  maxIops?: number;
+  // max_storage
+  maxStorage?: number;
+  // memory
+  memory?: number;
+  // min_storage
+  minStorage?: number;
+  // name
+  name?: string;
+  // supported_storages
+  supportedStorages?: number[];
+  // type
+  type?: string;
+  static names(): { [key: string]: string } {
+    return {
+      cpu: 'cpu',
+      customStorage: 'custom_storage',
+      engine: 'engine',
+      engineVersion: 'engine_version',
+      iaasId: 'iaas_id',
+      id: 'id',
+      maxConnections: 'max_connections',
+      maxIops: 'max_iops',
+      maxStorage: 'max_storage',
+      memory: 'memory',
+      minStorage: 'min_storage',
+      name: 'name',
+      supportedStorages: 'supported_storages',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cpu: 'number',
+      customStorage: 'boolean',
+      engine: 'string',
+      engineVersion: { 'type': 'array', 'itemType': 'string' },
+      iaasId: 'string',
+      id: 'string',
+      maxConnections: 'number',
+      maxIops: 'number',
+      maxStorage: 'number',
+      memory: 'number',
+      minStorage: 'number',
+      name: 'string',
+      supportedStorages: { 'type': 'array', 'itemType': 'number' },
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// DatabaseImportVO
+export class DatabaseImportVO extends $tea.Model {
+  // iaas_id
+  iaasId?: string;
+  // description
+  description?: string;
+  // type
+  type?: string;
+  // status
+  status?: string;
+  // engine
+  engine?: string;
+  // net_type
+  netType?: string;
+  // utc_create
+  utcCreate?: string;
+  // importInfo
+  importInfo: ImportVO;
+  static names(): { [key: string]: string } {
+    return {
+      iaasId: 'iaas_id',
+      description: 'description',
+      type: 'type',
+      status: 'status',
+      engine: 'engine',
+      netType: 'net_type',
+      utcCreate: 'utc_create',
+      importInfo: 'import_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      iaasId: 'string',
+      description: 'string',
+      type: 'string',
+      status: 'string',
+      engine: 'string',
+      netType: 'string',
+      utcCreate: 'string',
+      importInfo: ImportVO,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 一个应用发布包视图
+export class AppPackageListView extends $tea.Model {
+  // app_id
+  appId?: string;
+  // app_name
+  appName?: string;
+  // app_owner_id
+  appOwnerId?: string;
+  // app_owner_name
+  appOwnerName?: string;
+  // app_status
+  appStatus?: string;
+  // buildpack_id
+  buildpackId?: string;
+  // buildpack_name
+  buildpackName?: string;
+  // buildpack_version
+  buildpackVersion?: string;
+  // latest_package
+  latestPackage?: AppManifest;
+  // package_count
+  packageCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      appId: 'app_id',
+      appName: 'app_name',
+      appOwnerId: 'app_owner_id',
+      appOwnerName: 'app_owner_name',
+      appStatus: 'app_status',
+      buildpackId: 'buildpack_id',
+      buildpackName: 'buildpack_name',
+      buildpackVersion: 'buildpack_version',
+      latestPackage: 'latest_package',
+      packageCount: 'package_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      appId: 'string',
+      appName: 'string',
+      appOwnerId: 'string',
+      appOwnerName: 'string',
+      appStatus: 'string',
+      buildpackId: 'string',
+      buildpackName: 'string',
+      buildpackVersion: 'string',
+      latestPackage: AppManifest,
+      packageCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// PermissionVO
+export class PermissionVO extends $tea.Model {
+  // authorizedCidrIp
+  authorizedCidrIp?: string;
+  // authorize_type
+  authorizeType?: string;
+  // direction
+  direction?: string;
+  // endPort
+  endPort?: number;
+  // ipProtocol
+  ipProtocol?: string;
+  // nicType
+  nicType?: string;
+  // policy
+  policy?: string;
+  // priority
+  priority?: number;
+  // securityGroupId
+  securityGroupId?: string;
+  // startPort
+  startPort?: number;
+  // id
+  id: string;
+  static names(): { [key: string]: string } {
+    return {
+      authorizedCidrIp: 'authorized_cidr_ip',
+      authorizeType: 'authorize_type',
+      direction: 'direction',
+      endPort: 'end_port',
+      ipProtocol: 'ip_protocol',
+      nicType: 'nic_type',
+      policy: 'policy',
+      priority: 'priority',
+      securityGroupId: 'security_group_id',
+      startPort: 'start_port',
+      id: 'id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authorizedCidrIp: 'string',
+      authorizeType: 'string',
+      direction: 'string',
+      endPort: 'number',
+      ipProtocol: 'string',
+      nicType: 'string',
+      policy: 'string',
+      priority: 'number',
+      securityGroupId: 'string',
+      startPort: 'number',
+      id: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ComputerImportVO
+export class ComputerImportVO extends $tea.Model {
+  // computer iaaas id
+  iaasId?: string;
+  // name
+  name?: string;
+  // zone identity
+  zoneIaasId?: string;
+  // zone name
+  zoneName?: string;
+  // description
+  description?: string;
+  // private ip
+  privateIp?: string;
+  // public ip
+  publicIp?: string;
+  // elasticIp
+  elasticIp?: string;
+  // vpcIaasId
+  vpcIaasId?: string;
+  // joined security group infos
+  joinedSecurityGroup?: JoinedSecurityGroupVO[];
+  // creation time
+  utcCreate?: string;
+  // import info
+  importInfo?: ImportVO;
+  static names(): { [key: string]: string } {
+    return {
+      iaasId: 'iaas_id',
+      name: 'name',
+      zoneIaasId: 'zone_iaas_id',
+      zoneName: 'zone_name',
+      description: 'description',
+      privateIp: 'private_ip',
+      publicIp: 'public_ip',
+      elasticIp: 'elastic_ip',
+      vpcIaasId: 'vpc_iaas_id',
+      joinedSecurityGroup: 'joined_security_group',
+      utcCreate: 'utc_create',
+      importInfo: 'import_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      iaasId: 'string',
+      name: 'string',
+      zoneIaasId: 'string',
+      zoneName: 'string',
+      description: 'string',
+      privateIp: 'string',
+      publicIp: 'string',
+      elasticIp: 'string',
+      vpcIaasId: 'string',
+      joinedSecurityGroup: { 'type': 'array', 'itemType': JoinedSecurityGroupVO },
+      utcCreate: 'string',
+      importInfo: ImportVO,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户查询
+export class UserQuery extends $tea.Model {
+  // 基础查询
+  baseQuery?: PaginationQuery;
+  // id
+  id?: string;
+  // customerId
+  customerId?: string;
+  // tenantId
+  tenantId?: string;
+  // type
+  type?: string;
+  // types
+  types?: string[];
+  // email
+  email?: string;
+  // mobile
+  mobile?: string;
+  // realName
+  realName?: string;
+  // loginName
+  loginName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      baseQuery: 'base_query',
+      id: 'id',
+      customerId: 'customer_id',
+      tenantId: 'tenant_id',
+      type: 'type',
+      types: 'types',
+      email: 'email',
+      mobile: 'mobile',
+      realName: 'real_name',
+      loginName: 'login_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      baseQuery: PaginationQuery,
+      id: 'string',
+      customerId: 'string',
+      tenantId: 'string',
+      type: 'string',
+      types: { 'type': 'array', 'itemType': 'string' },
+      email: 'string',
+      mobile: 'string',
+      realName: 'string',
+      loginName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 服务器规格
+export class ComputerSpec extends $tea.Model {
+  // cpu个数
+  cpu?: number;
+  // 可以挂载的磁盘类型
+  diskSpecIds?: string[];
+  // 服务器规格名称
+  group: string;
+  // 是否有IO优化
+  ioOptimized?: boolean;
+  // 内存大小
+  memory?: number;
+  // description
+  description?: string;
+  // enable
+  enable?: boolean;
+  // iaasId
+  iaasId?: string;
+  // COMPUTER_ECS
+  iaasType?: string;
+  // id
+  id?: string;
+  // name
+  name?: string;
+  // providerId
+  providerId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      cpu: 'cpu',
+      diskSpecIds: 'disk_spec_ids',
+      group: 'group',
+      ioOptimized: 'io_optimized',
+      memory: 'memory',
+      description: 'description',
+      enable: 'enable',
+      iaasId: 'iaas_id',
+      iaasType: 'iaas_type',
+      id: 'id',
+      name: 'name',
+      providerId: 'provider_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cpu: 'number',
+      diskSpecIds: { 'type': 'array', 'itemType': 'string' },
+      group: 'string',
+      ioOptimized: 'boolean',
+      memory: 'number',
+      description: 'string',
+      enable: 'boolean',
+      iaasId: 'string',
+      iaasType: 'string',
+      id: 'string',
+      name: 'string',
+      providerId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// Staragent Operation Task info
+export class OperationTask extends $tea.Model {
+  // id
+  id?: string;
+  // computer id
+  computerId?: string;
+  // computer ip
+  computerIp?: string;
+  // command
+  command?: string;
+  // 状态取值：INIT，PROCESSING，SUCCEEDED，FAILED，TIMEOUT，NOT_FOUND
+  status?: string;
+  // errorCode
+  errorCode?: string;
+  // resultMsg
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      computerId: 'computer_id',
+      computerIp: 'computer_ip',
+      command: 'command',
+      status: 'status',
+      errorCode: 'error_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      computerId: 'string',
+      computerIp: 'string',
+      command: 'string',
+      status: 'string',
+      errorCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云日志服务(SLS)-日志项目
+export class SLSProject extends $tea.Model {
+  // 项目描述
+  description?: string;
+  // 项目名称
+  name: string;
+  // 阿里云返回的regionName，仅作展示用
+  region?: string;
+  static names(): { [key: string]: string } {
+    return {
+      description: 'description',
+      name: 'name',
+      region: 'region',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      description: 'string',
+      name: 'string',
+      region: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云日志服务(SLS)-日志库
+export class SLSLogStore extends $tea.Model {
+  // 日志库名称
+  name: string;
+  // Shard个数，单位为个，范围为1~100。
+  shardCount: number;
+  // 数据的保存时间，单位为天，范围1~3600。
+  ttl: number;
   static names(): { [key: string]: string } {
     return {
       name: 'name',
-      identity: 'identity',
-      description: 'description',
-      instancestatus: 'instancestatus',
-      region: 'region',
-      properties: 'properties',
+      shardCount: 'shard_count',
+      ttl: 'ttl',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       name: 'string',
+      shardCount: 'number',
+      ttl: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// Connection
+export class Connection extends $tea.Model {
+  // access_key
+  accessKey?: string;
+  // access_secret
+  accessSecret?: string;
+  // created_time
+  createdTime?: string;
+  // executor
+  executor?: string;
+  // id
+  id?: number;
+  // identity
+  identity?: string;
+  // 修改时间
+  modifiedTime?: string;
+  // name
+  name?: string;
+  // plug
+  plug?: ConnectionStub;
+  // socket
+  socket?: ConnectionStub;
+  // status
+  status?: string;
+  // tenant_id
+  tenantId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      accessKey: 'access_key',
+      accessSecret: 'access_secret',
+      createdTime: 'created_time',
+      executor: 'executor',
+      id: 'id',
+      identity: 'identity',
+      modifiedTime: 'modified_time',
+      name: 'name',
+      plug: 'plug',
+      socket: 'socket',
+      status: 'status',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accessKey: 'string',
+      accessSecret: 'string',
+      createdTime: 'string',
+      executor: 'string',
+      id: 'number',
       identity: 'string',
+      modifiedTime: 'string',
+      name: 'string',
+      plug: ConnectionStub,
+      socket: ConnectionStub,
+      status: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// IaasDnsProvider
+export class IaasDnsProvider extends $tea.Model {
+  // id
+  id: string;
+  // service_config_id
+  serviceConfigId: string;
+  // name
+  name: string;
+  // description
+  description: string;
+  // type
+  type: string;
+  // status
+  status: string;
+  // regionId
+  regionId: string;
+  // zoneId
+  zoneId?: string;
+  // utc_create
+  utcCreate: string;
+  // utc_modified
+  utcModified: string;
+  // dns_zones
+  dnsZones: DnsZones[];
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      serviceConfigId: 'service_config_id',
+      name: 'name',
+      description: 'description',
+      type: 'type',
+      status: 'status',
+      regionId: 'region_id',
+      zoneId: 'zone_id',
+      utcCreate: 'utc_create',
+      utcModified: 'utc_modified',
+      dnsZones: 'dns_zones',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      serviceConfigId: 'string',
+      name: 'string',
       description: 'string',
-      instancestatus: 'string',
-      region: 'string',
-      properties: { 'type': 'array', 'itemType': Property },
+      type: 'string',
+      status: 'string',
+      regionId: 'string',
+      zoneId: 'string',
+      utcCreate: 'string',
+      utcModified: 'string',
+      dnsZones: { 'type': 'array', 'itemType': DnsZones },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// computer common image
+export class CommonImage extends $tea.Model {
+  // description
+  description?: string;
+  // is enable
+  enable?: boolean;
+  // iaas id
+  iaasId?: string;
+  // iaas type
+  iaasType?: string;
+  // id
+  id?: string;
+  // 是否仅杭州金区 vpc 可用镜像
+  onlyHzFinVpcSupported?: boolean;
+  // name
+  name?: string;
+  // os
+  os?: string;
+  // os bit取值：32，64
+  osBit?: number;
+  // os version
+  osVersion?: string;
+  // provider id
+  providerId?: string;
+  // region id
+  regionId?: string;
+  // status
+  status?: string;
+  // system disk size(GB)
+  systemDiskSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      description: 'description',
+      enable: 'enable',
+      iaasId: 'iaas_id',
+      iaasType: 'iaas_type',
+      id: 'id',
+      onlyHzFinVpcSupported: 'only_hz_fin_vpc_supported',
+      name: 'name',
+      os: 'os',
+      osBit: 'os_bit',
+      osVersion: 'os_version',
+      providerId: 'provider_id',
+      regionId: 'region_id',
+      status: 'status',
+      systemDiskSize: 'system_disk_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      description: 'string',
+      enable: 'boolean',
+      iaasId: 'string',
+      iaasType: 'string',
+      id: 'string',
+      onlyHzFinVpcSupported: 'boolean',
+      name: 'string',
+      os: 'string',
+      osBit: 'number',
+      osVersion: 'string',
+      providerId: 'string',
+      regionId: 'string',
+      status: 'string',
+      systemDiskSize: 'number',
     };
   }
 
@@ -6989,31 +6650,35 @@ export class SecurityGroupVO extends $tea.Model {
   }
 }
 
-// computer 数据盘
-export class DataDisk extends $tea.Model {
-  // 磁盘大小
-  size: number;
-  // 若使用磁盘创建，需填写此字段
-  snapshotSequence?: string;
-  // 磁盘规格
-  specId: string;
-  // 数据盘设备
-  device: string;
+// staragent info
+export class StarAgentInfo extends $tea.Model {
+  // computer serial number
+  sn?: string;
+  // hostname
+  hostname?: string;
+  // ip
+  ip?: string;
+  // ip list
+  ipList?: string;
+  // 状态取值：RUNNING，ERROR，REGISTER，NOFIND
+  status?: string;
   static names(): { [key: string]: string } {
     return {
-      size: 'size',
-      snapshotSequence: 'snapshot_sequence',
-      specId: 'spec_id',
-      device: 'device',
+      sn: 'sn',
+      hostname: 'hostname',
+      ip: 'ip',
+      ipList: 'ip_list',
+      status: 'status',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      size: 'number',
-      snapshotSequence: 'string',
-      specId: 'string',
-      device: 'string',
+      sn: 'string',
+      hostname: 'string',
+      ip: 'string',
+      ipList: 'string',
+      status: 'string',
     };
   }
 
@@ -7022,31 +6687,761 @@ export class DataDisk extends $tea.Model {
   }
 }
 
-// VpcParam
-export class VPCParam extends $tea.Model {
-  // cidr_block
-  cidrBlock?: string;
+// CellGroup
+export class CellGroup extends $tea.Model {
+  // identity
+  identity: string;
+  // name
+  name: string;
   // description
   description?: string;
-  // region id
-  regionId?: string;
-  // vpc_name
-  vpcName?: string;
+  // properties
+  properties?: Property[];
+  // instancestatus
+  instancestatus: string;
   static names(): { [key: string]: string } {
     return {
-      cidrBlock: 'cidr_block',
+      identity: 'identity',
+      name: 'name',
       description: 'description',
-      regionId: 'region_id',
-      vpcName: 'vpc_name',
+      properties: 'properties',
+      instancestatus: 'instancestatus',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      cidrBlock: 'string',
+      identity: 'string',
+      name: 'string',
+      description: 'string',
+      properties: { 'type': 'array', 'itemType': Property },
+      instancestatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// SecurityGroupParam
+export class SecurityGroupParam extends $tea.Model {
+  // description
+  description?: string;
+  // region id
+  regionId?: string;
+  // security_group_name
+  securityGroupName?: string;
+  // vpc_id
+  vpcId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      description: 'description',
+      regionId: 'region_id',
+      securityGroupName: 'security_group_name',
+      vpcId: 'vpc_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
       description: 'string',
       regionId: 'string',
-      vpcName: 'string',
+      securityGroupName: 'string',
+      vpcId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 应用等级视图
+export class AppLevelView extends $tea.Model {
+  // 应用等级基类
+  baseAppLevel?: AppLevel;
+  // 应用数量
+  appCount?: number;
+  // 创建者名称
+  creatorName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      baseAppLevel: 'base_app_level',
+      appCount: 'app_count',
+      creatorName: 'creator_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      baseAppLevel: AppLevel,
+      appCount: 'number',
+      creatorName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云日志服务(SLS) - 日志结果数组
+export class SLSLogItem extends $tea.Model {
+  // 日志的时间戳（精度为秒，从 1970-1-1 00:00:00 UTC 计算起的秒数）。
+  logTime: number;
+  // 日志的来源，写入日志时指定。
+  source: string;
+  // 日志原始内容
+  contents: SLSLogContent[];
+  static names(): { [key: string]: string } {
+    return {
+      logTime: 'log_time',
+      source: 'source',
+      contents: 'contents',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      logTime: 'number',
+      source: 'string',
+      contents: { 'type': 'array', 'itemType': SLSLogContent },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 动态查询
+export class DynamicQuery extends $tea.Model {
+  // 分页规则-currentPage
+  currentPage?: number;
+  // 字段过滤
+  filter?: string;
+  // 分页规则-pageSize
+  pageSize?: number;
+  // 具体的查询条件字符串
+  query: string;
+  // 查询结果的排序规则
+  sort?: string;
+  static names(): { [key: string]: string } {
+    return {
+      currentPage: 'current_page',
+      filter: 'filter',
+      pageSize: 'page_size',
+      query: 'query',
+      sort: 'sort',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      currentPage: 'number',
+      filter: 'string',
+      pageSize: 'number',
+      query: 'string',
+      sort: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// IaasConnMetadata
+export class IaasConnMetadata extends $tea.Model {
+  // id
+  id: string;
+  // iaas_provider_id
+  iaasProviderId: string;
+  // name
+  name: string;
+  // iaas_conn_type
+  iaasConnType: string;
+  // description
+  description: string;
+  // available_features
+  availableFeatures?: string[];
+  // endpoint
+  endpoint: string;
+  // region_ids
+  regionIds: string[];
+  // is_default
+  isDefault: boolean;
+  // utc_create
+  utcCreate: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      iaasProviderId: 'iaas_provider_id',
+      name: 'name',
+      iaasConnType: 'iaas_conn_type',
+      description: 'description',
+      availableFeatures: 'available_features',
+      endpoint: 'endpoint',
+      regionIds: 'region_ids',
+      isDefault: 'is_default',
+      utcCreate: 'utc_create',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      iaasProviderId: 'string',
+      name: 'string',
+      iaasConnType: 'string',
+      description: 'string',
+      availableFeatures: { 'type': 'array', 'itemType': 'string' },
+      endpoint: 'string',
+      regionIds: { 'type': 'array', 'itemType': 'string' },
+      isDefault: 'boolean',
+      utcCreate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 应用服务查询
+export class AppServiceQuery extends $tea.Model {
+  // 根据 id 查询
+  id?: string;
+  // workspaceId
+  workspaceId?: string;
+  // appId
+  appId?: string;
+  // name
+  name?: string;
+  // deployStatus
+  deployStatus?: string;
+  // ownerId
+  ownerId?: string;
+  // workspaceIds
+  workspaceIds?: string[];
+  // appIds
+  appIds?: string[];
+  // 是否为一方化查询请求
+  isOnePartyRequest?: boolean;
+  // startIndex
+  startIndex?: number;
+  // pageSize
+  pageSize?: number;
+  // currentPage
+  currentPage?: number;
+  // orders
+  orders?: string[];
+  // 查询类型
+  queryType?: string;
+  // Map<String, String>
+  conditions?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      workspaceId: 'workspace_id',
+      appId: 'app_id',
+      name: 'name',
+      deployStatus: 'deploy_status',
+      ownerId: 'owner_id',
+      workspaceIds: 'workspace_ids',
+      appIds: 'app_ids',
+      isOnePartyRequest: 'is_one_party_request',
+      startIndex: 'start_index',
+      pageSize: 'page_size',
+      currentPage: 'current_page',
+      orders: 'orders',
+      queryType: 'query_type',
+      conditions: 'conditions',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      workspaceId: 'string',
+      appId: 'string',
+      name: 'string',
+      deployStatus: 'string',
+      ownerId: 'string',
+      workspaceIds: { 'type': 'array', 'itemType': 'string' },
+      appIds: { 'type': 'array', 'itemType': 'string' },
+      isOnePartyRequest: 'boolean',
+      startIndex: 'number',
+      pageSize: 'number',
+      currentPage: 'number',
+      orders: { 'type': 'array', 'itemType': 'string' },
+      queryType: 'string',
+      conditions: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ListenerSecurityIp
+export class ListenerSecurityIp extends $tea.Model {
+  // access_control
+  accessControl: boolean;
+  // ips
+  ips: string[];
+  static names(): { [key: string]: string } {
+    return {
+      accessControl: 'access_control',
+      ips: 'ips',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accessControl: 'boolean',
+      ips: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// LbCluster
+export class LbCluster extends $tea.Model {
+  // container_cpu
+  containerCpu?: number;
+  // container_cpu_exclusive
+  containerCpuExclusive?: boolean;
+  // container_device_type
+  containerDeviceType?: string;
+  // container_disk
+  containerDisk?: number;
+  // container_mem
+  containerMem?: number;
+  // id
+  id: string;
+  // image
+  image: string;
+  // name
+  name: string;
+  // status
+  status: number;
+  // unit_infos
+  unitInfos?: AcsClusterUnit[];
+  // unit_type
+  unitType?: number;
+  // used_ports
+  usedPorts?: number[];
+  static names(): { [key: string]: string } {
+    return {
+      containerCpu: 'container_cpu',
+      containerCpuExclusive: 'container_cpu_exclusive',
+      containerDeviceType: 'container_device_type',
+      containerDisk: 'container_disk',
+      containerMem: 'container_mem',
+      id: 'id',
+      image: 'image',
+      name: 'name',
+      status: 'status',
+      unitInfos: 'unit_infos',
+      unitType: 'unit_type',
+      usedPorts: 'used_ports',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      containerCpu: 'number',
+      containerCpuExclusive: 'boolean',
+      containerDeviceType: 'string',
+      containerDisk: 'number',
+      containerMem: 'number',
+      id: 'string',
+      image: 'string',
+      name: 'string',
+      status: 'number',
+      unitInfos: { 'type': 'array', 'itemType': AcsClusterUnit },
+      unitType: 'number',
+      usedPorts: { 'type': 'array', 'itemType': 'number' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// QuotaKv
+export class QuotaKv extends $tea.Model {
+  // type
+  type: string;
+  // quota
+  quota: number;
+  static names(): { [key: string]: string } {
+    return {
+      type: 'type',
+      quota: 'quota',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      type: 'string',
+      quota: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// BasicCertificate
+export class BasicCertificate extends $tea.Model {
+  // serverCertificateId
+  serverCertificateId: string;
+  // serverCertificateName
+  serverCertificateName: string;
+  // fingerprint
+  fingerprint?: string;
+  // cert_type
+  certType: number;
+  // 标记这个证书的Provider
+  providerId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      serverCertificateId: 'server_certificate_id',
+      serverCertificateName: 'server_certificate_name',
+      fingerprint: 'fingerprint',
+      certType: 'cert_type',
+      providerId: 'provider_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      serverCertificateId: 'string',
+      serverCertificateName: 'string',
+      fingerprint: 'string',
+      certType: 'number',
+      providerId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// <String, Boolean> 映射
+export class MapStringToBooleanEntity extends $tea.Model {
+  // key
+  key: string;
+  // value
+  value: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      key: 'key',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      key: 'string',
+      value: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// db schema
+export class DatabaseSchema extends $tea.Model {
+  // 字符集
+  charSet: string;
+  // 数量
+  count?: number;
+  // 是否自动生成名称。默认为 true
+  isAutoName?: boolean;
+  // 名称
+  name: string;
+  // 序列号是否连续。默认为 false
+  isSerial?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      charSet: 'char_set',
+      count: 'count',
+      isAutoName: 'is_auto_name',
+      name: 'name',
+      isSerial: 'is_serial',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      charSet: 'string',
+      count: 'number',
+      isAutoName: 'boolean',
+      name: 'string',
+      isSerial: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// LoadBalancerImportVO
+export class LoadBalancerImportVO extends $tea.Model {
+  // iaas_id
+  iaasId?: string;
+  // name
+  name: string;
+  // network_type
+  networkType?: string;
+  // inner_ip_address
+  innerIpAddress?: string[];
+  // public_ip_address
+  publicIpAddress?: string[];
+  // utc_create
+  utcCreate?: string;
+  // import_info
+  importInfo: ImportVO;
+  static names(): { [key: string]: string } {
+    return {
+      iaasId: 'iaas_id',
+      name: 'name',
+      networkType: 'network_type',
+      innerIpAddress: 'inner_ip_address',
+      publicIpAddress: 'public_ip_address',
+      utcCreate: 'utc_create',
+      importInfo: 'import_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      iaasId: 'string',
+      name: 'string',
+      networkType: 'string',
+      innerIpAddress: { 'type': 'array', 'itemType': 'string' },
+      publicIpAddress: { 'type': 'array', 'itemType': 'string' },
+      utcCreate: 'string',
+      importInfo: ImportVO,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 旧版-应用服务放入前端展示内容
+export class AppServiceViewModel extends $tea.Model {
+  // 基类
+  baseAppService?: AppService;
+  // 应用负责人姓名
+  ownerName?: string;
+  // 技术栈名称
+  buildpackName?: string;
+  // App的别名
+  chineseName?: string;
+  // buildpackVersion
+  buildpackVersion?: string;
+  // computerCount
+  computerCount?: number;
+  // databaseCount
+  databaseCount?: number;
+  // loadBalancerCount
+  loadBalancerCount?: number;
+  // cacheCount
+  cacheCount?: number;
+  // cellViewList
+  cellViewList?: CellView[];
+  static names(): { [key: string]: string } {
+    return {
+      baseAppService: 'base_app_service',
+      ownerName: 'owner_name',
+      buildpackName: 'buildpack_name',
+      chineseName: 'chinese_name',
+      buildpackVersion: 'buildpack_version',
+      computerCount: 'computer_count',
+      databaseCount: 'database_count',
+      loadBalancerCount: 'load_balancer_count',
+      cacheCount: 'cache_count',
+      cellViewList: 'cell_view_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      baseAppService: AppService,
+      ownerName: 'string',
+      buildpackName: 'string',
+      chineseName: 'string',
+      buildpackVersion: 'string',
+      computerCount: 'number',
+      databaseCount: 'number',
+      loadBalancerCount: 'number',
+      cacheCount: 'number',
+      cellViewList: { 'type': 'array', 'itemType': CellView },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// DatabaseSecurityIp
+export class DatabaseSecurityIp extends $tea.Model {
+  // id
+  id: string;
+  // resource_id
+  resourceId?: string;
+  // resource_type
+  resourceType?: string;
+  // ip
+  ip?: string;
+  // status
+  status?: string;
+  // type
+  type?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      resourceId: 'resource_id',
+      resourceType: 'resource_type',
+      ip: 'ip',
+      status: 'status',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      resourceId: 'string',
+      resourceType: 'string',
+      ip: 'string',
+      status: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// DatabaseEngine
+export class DatabaseEngine extends $tea.Model {
+  // iaas_type
+  iaasType?: string;
+  // engine
+  engine?: string;
+  // engine_versions
+  engineVersions?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      iaasType: 'iaas_type',
+      engine: 'engine',
+      engineVersions: 'engine_versions',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      iaasType: 'string',
+      engine: 'string',
+      engineVersions: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ComputerParam
+export class ComputerParam extends $tea.Model {
+  // description
+  description?: string;
+  // name
+  name?: string;
+  // image_id
+  imageId?: string;
+  // instance_type
+  instanceType?: string;
+  // region_id
+  regionId?: string;
+  // security_group_id
+  securityGroupId?: string;
+  // instance_name
+  instanceName?: string;
+  // zone_id
+  zoneId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      description: 'description',
+      name: 'name',
+      imageId: 'image_id',
+      instanceType: 'instance_type',
+      regionId: 'region_id',
+      securityGroupId: 'security_group_id',
+      instanceName: 'instance_name',
+      zoneId: 'zone_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      description: 'string',
+      name: 'string',
+      imageId: 'string',
+      instanceType: 'string',
+      regionId: 'string',
+      securityGroupId: 'string',
+      instanceName: 'string',
+      zoneId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// LB的vip类型
+export class VipType extends $tea.Model {
+  // name
+  name: string;
+  // vip_address_type
+  vipAddressType: string;
+  // vip_type
+  vipType: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      vipAddressType: 'vip_address_type',
+      vipType: 'vip_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      vipAddressType: 'string',
+      vipType: 'string',
     };
   }
 
@@ -9682,7 +10077,7 @@ export class CreateComputerRequest extends $tea.Model {
   instanceCount?: number;
   // 实例名称前缀。可包含小写字母(a-z)，数字(0-9) 和中划线(-)，以字母开头，中划线不能结尾或连续使用，2 ~ 40 个字符。
   name?: string;
-  // 实例的密码。长度为8至30个字符，必须同时包含大小写英文字母、数字和特殊符号中的三类字符。特殊符号可以是： ()`~!@#^&*-_+=|{}[]:;'<>,.?/ 其中，Windows实例不能以斜线号（/）为密码首字符。
+  // 实例的密码。长度为8至30个字符，必须同时包含大小写英文字母、数字和特殊符号中的三类字符。特殊符号可以是： ()`~!@#^&*-_+=|{}[]:;_<>,.?/ 其中，Windows实例不能以斜线号（/）为密码首字符。
   password?: string;
   // 购买资源的时长，单位为：月。当参数 InstanceChargeType 取值为 PrePaid 时才生效且为必选值。取值范围：1 - 9
   //      12
@@ -12706,12 +13101,18 @@ export class DeleteResourceVpcRequest extends $tea.Model {
   vpcId: string;
   // workspace id
   workspace: string;
+  // unbind_only
+  unbindOnly?: boolean;
+  // vpc_paas_id,vcp_id不存在时可用。建议用这个
+  vpcPaasId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       region: 'region',
       vpcId: 'vpc_id',
       workspace: 'workspace',
+      unbindOnly: 'unbind_only',
+      vpcPaasId: 'vpc_paas_id',
     };
   }
 
@@ -12721,6 +13122,8 @@ export class DeleteResourceVpcRequest extends $tea.Model {
       region: 'string',
       vpcId: 'string',
       workspace: 'string',
+      unbindOnly: 'boolean',
+      vpcPaasId: 'string',
     };
   }
 
@@ -15762,6 +16165,8 @@ export class QueryLoadbalanceVcomputergroupRequest extends $tea.Model {
   statuses?: string[];
   // workspace
   workspace: string;
+  // v_computer_group_ids
+  vComputerGroupIds?: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -15769,6 +16174,7 @@ export class QueryLoadbalanceVcomputergroupRequest extends $tea.Model {
       name: 'name',
       statuses: 'statuses',
       workspace: 'workspace',
+      vComputerGroupIds: 'v_computer_group_ids',
     };
   }
 
@@ -15779,6 +16185,7 @@ export class QueryLoadbalanceVcomputergroupRequest extends $tea.Model {
       name: 'string',
       statuses: { 'type': 'array', 'itemType': 'string' },
       workspace: 'string',
+      vComputerGroupIds: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -15948,12 +16355,15 @@ export class QueryLoadbalanceVcomputerResponse extends $tea.Model {
   resultMsg?: string;
   // v_computers
   data?: VComputer[];
+  // total_count
+  totalCount?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       data: 'data',
+      totalCount: 'total_count',
     };
   }
 
@@ -15963,6 +16373,7 @@ export class QueryLoadbalanceVcomputerResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       data: { 'type': 'array', 'itemType': VComputer },
+      totalCount: 'number',
     };
   }
 
@@ -16943,14 +17354,20 @@ export class QueryComputerAgentstatusRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   // computer serial numbers
-  sn: string[];
+  sn?: string[];
   // workspace name
-  workspace: string;
+  workspace?: string;
+  // iaas_ids
+  iaasIds?: string[];
+  // zone_iaas_id
+  zoneIaasId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       sn: 'sn',
       workspace: 'workspace',
+      iaasIds: 'iaas_ids',
+      zoneIaasId: 'zone_iaas_id',
     };
   }
 
@@ -16959,6 +17376,8 @@ export class QueryComputerAgentstatusRequest extends $tea.Model {
       authToken: 'string',
       sn: { 'type': 'array', 'itemType': 'string' },
       workspace: 'string',
+      iaasIds: { 'type': 'array', 'itemType': 'string' },
+      zoneIaasId: 'string',
     };
   }
 
@@ -17003,14 +17422,20 @@ export class QueryComputerAgentsetupcommandRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   // computer serial numbers
-  sn: string[];
+  sn?: string[];
   // workspace name
   workspace: string;
+  // iaas_id
+  iaasId?: string;
+  // zone_iaas_id
+  zoneIaasId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       sn: 'sn',
       workspace: 'workspace',
+      iaasId: 'iaas_id',
+      zoneIaasId: 'zone_iaas_id',
     };
   }
 
@@ -17019,6 +17444,8 @@ export class QueryComputerAgentsetupcommandRequest extends $tea.Model {
       authToken: 'string',
       sn: { 'type': 'array', 'itemType': 'string' },
       workspace: 'string',
+      iaasId: 'string',
+      zoneIaasId: 'string',
     };
   }
 
@@ -17070,6 +17497,14 @@ export class QueryComputerImportRequest extends $tea.Model {
   pageSize: number;
   // current page
   currentPage: number;
+  // 机器名称
+  name?: string;
+  // 是否只查询可导入的
+  importableOnly?: boolean;
+  // iaas_id
+  iaasId?: string;
+  // workspace_id
+  workspaceId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -17077,6 +17512,10 @@ export class QueryComputerImportRequest extends $tea.Model {
       zone: 'zone',
       pageSize: 'page_size',
       currentPage: 'current_page',
+      name: 'name',
+      importableOnly: 'importable_only',
+      iaasId: 'iaas_id',
+      workspaceId: 'workspace_id',
     };
   }
 
@@ -17087,6 +17526,10 @@ export class QueryComputerImportRequest extends $tea.Model {
       zone: 'string',
       pageSize: 'number',
       currentPage: 'number',
+      name: 'string',
+      importableOnly: 'boolean',
+      iaasId: 'string',
+      workspaceId: 'string',
     };
   }
 
@@ -17148,6 +17591,10 @@ export class ListComputerRequest extends $tea.Model {
   cloudManageToken?: string;
   // vpc_iaas_id
   vpcIaasId?: string;
+  // private_ips
+  privateIps?: string[];
+  // iaas_ids
+  iaasIds?: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -17158,6 +17605,8 @@ export class ListComputerRequest extends $tea.Model {
       workspace: 'workspace',
       cloudManageToken: 'cloud_manage_token',
       vpcIaasId: 'vpc_iaas_id',
+      privateIps: 'private_ips',
+      iaasIds: 'iaas_ids',
     };
   }
 
@@ -17171,6 +17620,8 @@ export class ListComputerRequest extends $tea.Model {
       workspace: 'string',
       cloudManageToken: 'string',
       vpcIaasId: 'string',
+      privateIps: { 'type': 'array', 'itemType': 'string' },
+      iaasIds: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -19912,12 +20363,15 @@ export class UpdateLoadbalanceMountRequest extends $tea.Model {
   mountMap?: MapStringToIntegerEntity[];
   // domain
   domain?: string;
+  // 是否是同步操作
+  isSync?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       id: 'id',
       mountMap: 'mount_map',
       domain: 'domain',
+      isSync: 'is_sync',
     };
   }
 
@@ -19927,6 +20381,7 @@ export class UpdateLoadbalanceMountRequest extends $tea.Model {
       id: 'string',
       mountMap: { 'type': 'array', 'itemType': MapStringToIntegerEntity },
       domain: 'string',
+      isSync: 'boolean',
     };
   }
 
@@ -20606,14 +21061,14 @@ export class QueryRequestFinaltaskResponse extends $tea.Model {
 export class QueryFeatureRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // region_id
-  regionId: string;
+  // paas_region_id cafe的region_id，是一串数字
+  paasRegionId: string;
   // project_id
   projectId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
-      regionId: 'region_id',
+      paasRegionId: 'paas_region_id',
       projectId: 'project_id',
     };
   }
@@ -20621,7 +21076,7 @@ export class QueryFeatureRequest extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       authToken: 'string',
-      regionId: 'string',
+      paasRegionId: 'string',
       projectId: 'string',
     };
   }
@@ -20954,11 +21409,14 @@ export class QueryCertificateRequest extends $tea.Model {
   workspaceId: string;
   // zone_id
   zoneId: string;
+  // provider_ids
+  providerIds?: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       workspaceId: 'workspace_id',
       zoneId: 'zone_id',
+      providerIds: 'provider_ids',
     };
   }
 
@@ -20967,6 +21425,7 @@ export class QueryCertificateRequest extends $tea.Model {
       authToken: 'string',
       workspaceId: 'string',
       zoneId: 'string',
+      providerIds: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -21028,6 +21487,8 @@ export class CreateCertificateRequest extends $tea.Model {
   privateKey: string;
   // cert_type
   certType?: number;
+  // 多provider时选填
+  providerId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -21038,6 +21499,7 @@ export class CreateCertificateRequest extends $tea.Model {
       certificate: 'certificate',
       privateKey: 'private_key',
       certType: 'cert_type',
+      providerId: 'provider_id',
     };
   }
 
@@ -21051,6 +21513,7 @@ export class CreateCertificateRequest extends $tea.Model {
       certificate: 'string',
       privateKey: 'string',
       certType: 'number',
+      providerId: 'string',
     };
   }
 
@@ -21100,12 +21563,15 @@ export class DeleteCertificateRequest extends $tea.Model {
   workspaceId: string;
   // zone_id
   zoneId: string;
+  // 多provider时选填
+  providerId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       id: 'id',
       workspaceId: 'workspace_id',
       zoneId: 'zone_id',
+      providerId: 'provider_id',
     };
   }
 
@@ -21115,6 +21581,7 @@ export class DeleteCertificateRequest extends $tea.Model {
       id: 'string',
       workspaceId: 'string',
       zoneId: 'string',
+      providerId: 'string',
     };
   }
 
@@ -21700,7 +22167,7 @@ export class ImportResourceVpcRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   // region identity
-  region: string;
+  region?: string;
   // vpc iaas id
   vpcId: string;
   // workspace identity
@@ -21710,7 +22177,9 @@ export class ImportResourceVpcRequest extends $tea.Model {
   // vpc name
   vpcName: string;
   // cidr block
-  cidrBlock: string;
+  cidrBlock?: string;
+  // paas_region_id
+  paasRegionId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -21720,6 +22189,7 @@ export class ImportResourceVpcRequest extends $tea.Model {
       vrouterId: 'vrouter_id',
       vpcName: 'vpc_name',
       cidrBlock: 'cidr_block',
+      paasRegionId: 'paas_region_id',
     };
   }
 
@@ -21732,6 +22202,7 @@ export class ImportResourceVpcRequest extends $tea.Model {
       vrouterId: 'string',
       vpcName: 'string',
       cidrBlock: 'string',
+      paasRegionId: 'string',
     };
   }
 
@@ -22579,6 +23050,1151 @@ export class UpdateDiskStrategyResponse extends $tea.Model {
   }
 }
 
+export class CreateLoadbalanceVcomputergroupRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // load_balancer_id
+  loadBalancerId: string;
+  // name
+  name: string;
+  // computer_ids
+  computerIds: string[];
+  // ports
+  ports: number[];
+  // weights
+  weights: number[];
+  // is_eip
+  isEip?: boolean;
+  // eips
+  eips?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      loadBalancerId: 'load_balancer_id',
+      name: 'name',
+      computerIds: 'computer_ids',
+      ports: 'ports',
+      weights: 'weights',
+      isEip: 'is_eip',
+      eips: 'eips',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      loadBalancerId: 'string',
+      name: 'string',
+      computerIds: { 'type': 'array', 'itemType': 'string' },
+      ports: { 'type': 'array', 'itemType': 'number' },
+      weights: { 'type': 'array', 'itemType': 'number' },
+      isEip: 'boolean',
+      eips: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLoadbalanceVcomputergroupResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // request_ids
+  data?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateLoadbalanceVcomputergroupRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // v_computergroup_id
+  vComputergroupId: string;
+  // is_eip
+  isEip?: boolean;
+  // eips
+  eips: string[];
+  // computer_ids
+  computerIds?: string[];
+  // weights
+  weights: number[];
+  // ports
+  ports: number[];
+  // 是否只是调整权重，不增删后端服务器
+  updateWeightOnly?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      vComputergroupId: 'v_computergroup_id',
+      isEip: 'is_eip',
+      eips: 'eips',
+      computerIds: 'computer_ids',
+      weights: 'weights',
+      ports: 'ports',
+      updateWeightOnly: 'update_weight_only',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      vComputergroupId: 'string',
+      isEip: 'boolean',
+      eips: { 'type': 'array', 'itemType': 'string' },
+      computerIds: { 'type': 'array', 'itemType': 'string' },
+      weights: { 'type': 'array', 'itemType': 'number' },
+      ports: { 'type': 'array', 'itemType': 'number' },
+      updateWeightOnly: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateLoadbalanceVcomputergroupResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteLoadbalanceVcomputergroupRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 虚拟服务器ID，PAAS ID非IAAS ID
+  vComputerGroupId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      vComputerGroupId: 'v_computer_group_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      vComputerGroupId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteLoadbalanceVcomputergroupResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // paas_request_id
+  paasRequestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      paasRequestId: 'paas_request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      paasRequestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddLoadbalanceVcomputergroupRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // workspace_id
+  workspaceId: string;
+  // v_computer_group_id
+  vComputerGroupId: string;
+  // is_eip
+  isEip?: boolean;
+  // computer 的id数组
+  computerIds?: string[];
+  // 权重
+  weights: number[];
+  // ports
+  ports: string[];
+  // 当is_eip时必填
+  eips?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceId: 'workspace_id',
+      vComputerGroupId: 'v_computer_group_id',
+      isEip: 'is_eip',
+      computerIds: 'computer_ids',
+      weights: 'weights',
+      ports: 'ports',
+      eips: 'eips',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceId: 'string',
+      vComputerGroupId: 'string',
+      isEip: 'boolean',
+      computerIds: { 'type': 'array', 'itemType': 'string' },
+      weights: { 'type': 'array', 'itemType': 'number' },
+      ports: { 'type': 'array', 'itemType': 'string' },
+      eips: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddLoadbalanceVcomputergroupResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // paas_request_id
+  paasRequestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      paasRequestId: 'paas_request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      paasRequestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RemoveLoadbalanceVcomputergroupRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // computer_ids
+  computerIds: string[];
+  // 后端是否是弹性网卡
+  isEip?: boolean;
+  // ports
+  ports: number[];
+  // weights
+  weights: number[];
+  // eips
+  eips?: string[];
+  // v_computer_group_id
+  vComputerGroupId: string;
+  // workspace_id
+  workspaceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      computerIds: 'computer_ids',
+      isEip: 'is_eip',
+      ports: 'ports',
+      weights: 'weights',
+      eips: 'eips',
+      vComputerGroupId: 'v_computer_group_id',
+      workspaceId: 'workspace_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      computerIds: { 'type': 'array', 'itemType': 'string' },
+      isEip: 'boolean',
+      ports: { 'type': 'array', 'itemType': 'number' },
+      weights: { 'type': 'array', 'itemType': 'number' },
+      eips: { 'type': 'array', 'itemType': 'string' },
+      vComputerGroupId: 'string',
+      workspaceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RemoveLoadbalanceVcomputergroupResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // paas_request_id
+  paasRequestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      paasRequestId: 'paas_request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      paasRequestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddDnsRecordsetRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // name
+  name: string;
+  // description
+  description?: string;
+  // type: 记录类型，默认为A, 仅支持 A, CName, 见DnsRecordSetType
+  type: string;
+  // type: 类型, PUBLIC(外部域名) 或者 PRIVATE (域名) 见DnsNetworkType
+  dnsNetworkType?: string;
+  // tenant_id
+  tenantId: string;
+  // dns_records
+  dnsRecords: DnsRecordParam[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      name: 'name',
+      description: 'description',
+      type: 'type',
+      dnsNetworkType: 'dns_network_type',
+      tenantId: 'tenant_id',
+      dnsRecords: 'dns_records',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      name: 'string',
+      description: 'string',
+      type: 'string',
+      dnsNetworkType: 'string',
+      tenantId: 'string',
+      dnsRecords: { 'type': 'array', 'itemType': DnsRecordParam },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddDnsRecordsetResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // xxxxxxx
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteDnsRecordRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // dns_recordset_id
+  dnsRecordsetId: string;
+  // dns_record_ip
+  dnsRecordIp: string;
+  // workspace_id
+  workspaceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      dnsRecordsetId: 'dns_recordset_id',
+      dnsRecordIp: 'dns_record_ip',
+      workspaceId: 'workspace_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      dnsRecordsetId: 'string',
+      dnsRecordIp: 'string',
+      workspaceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteDnsRecordResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDnsRecordsetRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // workspace_id
+  workspaceId: string;
+  // resource_type
+  resourceType?: string;
+  // ip
+  // 
+  ip?: string;
+  // dns_recordset_name
+  dnsRecordsetName?: string;
+  // resource_name
+  resourceName?: string;
+  // resource_iaas_ids
+  resourceIaasIds?: string[];
+  // dns_recordset_ids
+  dnsRecordsetIds?: string[];
+  // page_size
+  pageSize: number;
+  // current_page
+  currentPage: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceId: 'workspace_id',
+      resourceType: 'resource_type',
+      ip: 'ip',
+      dnsRecordsetName: 'dns_recordset_name',
+      resourceName: 'resource_name',
+      resourceIaasIds: 'resource_iaas_ids',
+      dnsRecordsetIds: 'dns_recordset_ids',
+      pageSize: 'page_size',
+      currentPage: 'current_page',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceId: 'string',
+      resourceType: 'string',
+      ip: 'string',
+      dnsRecordsetName: 'string',
+      resourceName: 'string',
+      resourceIaasIds: { 'type': 'array', 'itemType': 'string' },
+      dnsRecordsetIds: { 'type': 'array', 'itemType': 'string' },
+      pageSize: 'number',
+      currentPage: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDnsRecordsetResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // data
+  data?: WorkspaceDnsRecordset[];
+  // total_count
+  totalCount?: number;
+  // page_size
+  pageSize?: number;
+  // current_page
+  currentPage?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+      totalCount: 'total_count',
+      pageSize: 'page_size',
+      currentPage: 'current_page',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': WorkspaceDnsRecordset },
+      totalCount: 'number',
+      pageSize: 'number',
+      currentPage: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindDnsProviderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // workspace_id
+  workspaceId: string;
+  // 部分环境绑定到机房机房
+  zoneId?: string;
+  // dns_provider_id
+  dnsProviderId: string;
+  // default_sub_domain_name
+  defaultSubDomainName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceId: 'workspace_id',
+      zoneId: 'zone_id',
+      dnsProviderId: 'dns_provider_id',
+      defaultSubDomainName: 'default_sub_domain_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceId: 'string',
+      zoneId: 'string',
+      dnsProviderId: 'string',
+      defaultSubDomainName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindDnsProviderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListDnsProviderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // regionId
+  regionId: string;
+  // zone_id
+  zoneId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      regionId: 'region_id',
+      zoneId: 'zone_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      regionId: 'string',
+      zoneId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListDnsProviderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // data
+  data?: IaasDnsProvider[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': IaasDnsProvider },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryProviderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // LB，COMPUTE，VPC,OBJECT_STORAGE等
+  resourceType: string;
+  // paas_region_id
+  paasRegionId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      resourceType: 'resource_type',
+      paasRegionId: 'paas_region_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      resourceType: 'string',
+      paasRegionId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryProviderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // data
+  data?: IaasConnMetadata[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': IaasConnMetadata },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetDnsWorkspaceproviderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // workspace_id
+  workspaceId: string;
+  // zoneId
+  zoneId?: string;
+  // dns_network_type
+  dnsNetworkType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceId: 'workspace_id',
+      zoneId: 'zone_id',
+      dnsNetworkType: 'dns_network_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceId: 'string',
+      zoneId: 'string',
+      dnsNetworkType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetDnsWorkspaceproviderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // data
+  data?: WorkspaceDnsProvider[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': WorkspaceDnsProvider },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateUniworkspacegroupRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 工作空间组名称
+  name: string;
+  // 显示名字，可以中文
+  displayName: string;
+  // 租户ID
+  tenantId: string;
+  // namespace
+  namespace?: string;
+  // json格式的字符串，工作空间组属性 
+  properties?: string;
+  // release_mode
+  releaseMode?: string;
+  // 工作空间的名称
+  workspaces: string[];
+  // workspaces_create_param
+  workspacesCreateParam: string[];
+  // cell_group_create_params
+  cellGroupCreateParams?: string[];
+  // cell_create_params
+  cellCreateParams?: string[];
+  // 域名前缀
+  domainSuffix?: string;
+  // VPC创建参数
+  vpcCreateParams: string[];
+  // 导入的VPCIDs
+  importVpcs?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      name: 'name',
+      displayName: 'display_name',
+      tenantId: 'tenant_id',
+      namespace: 'namespace',
+      properties: 'properties',
+      releaseMode: 'release_mode',
+      workspaces: 'workspaces',
+      workspacesCreateParam: 'workspaces_create_param',
+      cellGroupCreateParams: 'cell_group_create_params',
+      cellCreateParams: 'cell_create_params',
+      domainSuffix: 'domain_suffix',
+      vpcCreateParams: 'vpc_create_params',
+      importVpcs: 'import_vpcs',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      name: 'string',
+      displayName: 'string',
+      tenantId: 'string',
+      namespace: 'string',
+      properties: 'string',
+      releaseMode: 'string',
+      workspaces: { 'type': 'array', 'itemType': 'string' },
+      workspacesCreateParam: { 'type': 'array', 'itemType': 'string' },
+      cellGroupCreateParams: { 'type': 'array', 'itemType': 'string' },
+      cellCreateParams: { 'type': 'array', 'itemType': 'string' },
+      domainSuffix: 'string',
+      vpcCreateParams: { 'type': 'array', 'itemType': 'string' },
+      importVpcs: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateUniworkspacegroupResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // paas_request_id，异步任务ID
+  paasRequestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      paasRequestId: 'paas_request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      paasRequestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportMiddlewareclusterRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // workspace_id
+  workspaceId: string;
+  // cluster_id，OSP上的ID
+  clusterId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceId: 'workspace_id',
+      clusterId: 'cluster_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceId: 'string',
+      clusterId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportMiddlewareclusterResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMiddlewareclusterRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // workspace_id 和workspace_group_id至少要填一个
+  workspaceId?: string;
+  // cluster_id OSP上的ID
+  clusterId?: string;
+  // cluster_name
+  clusterName?: string;
+  // workspace_group_name和workspace_id必须至少传入一个
+  workspaceGroupName?: string;
+  // app_service_id
+  appServiceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceId: 'workspace_id',
+      clusterId: 'cluster_id',
+      clusterName: 'cluster_name',
+      workspaceGroupName: 'workspace_group_name',
+      appServiceId: 'app_service_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceId: 'string',
+      clusterId: 'string',
+      clusterName: 'string',
+      workspaceGroupName: 'string',
+      appServiceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMiddlewareclusterResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // data
+  data?: MiddlewareCluster[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': MiddlewareCluster },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RemoveMiddlewareclusterRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // workspace_id
+  workspaceId: string;
+  // cluster_id
+  clusterId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceId: 'workspace_id',
+      clusterId: 'cluster_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceId: 'string',
+      clusterId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RemoveMiddlewareclusterResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -22692,7 +24308,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.19",
+          sdk_version: "1.4.11",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -25475,8 +27091,8 @@ export default class Client {
   }
 
   /**
-   * Description: 查询已导入的computer信息
-   * Summary: 查询已导入的computer信息
+   * Description: 查询可以导入的computer信息
+   * Summary: 查询可以导入的computer信息
    */
   async queryComputerImport(request: QueryComputerImportRequest): Promise<QueryComputerImportResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -25485,8 +27101,8 @@ export default class Client {
   }
 
   /**
-   * Description: 查询已导入的computer信息
-   * Summary: 查询已导入的computer信息
+   * Description: 查询可以导入的computer信息
+   * Summary: 查询可以导入的computer信息
    */
   async queryComputerImportEx(request: QueryComputerImportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryComputerImportResponse> {
     Util.validateModel(request);
@@ -27087,6 +28703,310 @@ export default class Client {
   async updateDiskStrategyEx(request: UpdateDiskStrategyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateDiskStrategyResponse> {
     Util.validateModel(request);
     return $tea.cast<UpdateDiskStrategyResponse>(await this.doRequest("1.0", "antcloud.cas.disk.strategy.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateDiskStrategyResponse({}));
+  }
+
+  /**
+   * Description: 创建虚拟服务器组
+   * Summary: 创建虚拟服务器组
+   */
+  async createLoadbalanceVcomputergroup(request: CreateLoadbalanceVcomputergroupRequest): Promise<CreateLoadbalanceVcomputergroupResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createLoadbalanceVcomputergroupEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建虚拟服务器组
+   * Summary: 创建虚拟服务器组
+   */
+  async createLoadbalanceVcomputergroupEx(request: CreateLoadbalanceVcomputergroupRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateLoadbalanceVcomputergroupResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateLoadbalanceVcomputergroupResponse>(await this.doRequest("1.0", "antcloud.cas.loadbalance.vcomputergroup.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateLoadbalanceVcomputergroupResponse({}));
+  }
+
+  /**
+   * Description: 在VComputerGroup里更新后端服务器
+   * Summary: 增加VCompute
+   */
+  async updateLoadbalanceVcomputergroup(request: UpdateLoadbalanceVcomputergroupRequest): Promise<UpdateLoadbalanceVcomputergroupResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateLoadbalanceVcomputergroupEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 在VComputerGroup里更新后端服务器
+   * Summary: 增加VCompute
+   */
+  async updateLoadbalanceVcomputergroupEx(request: UpdateLoadbalanceVcomputergroupRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateLoadbalanceVcomputergroupResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateLoadbalanceVcomputergroupResponse>(await this.doRequest("1.0", "antcloud.cas.loadbalance.vcomputergroup.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateLoadbalanceVcomputergroupResponse({}));
+  }
+
+  /**
+   * Description: 删除VComputerGroup
+   * Summary: 删除VComputerGroup
+   */
+  async deleteLoadbalanceVcomputergroup(request: DeleteLoadbalanceVcomputergroupRequest): Promise<DeleteLoadbalanceVcomputergroupResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deleteLoadbalanceVcomputergroupEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 删除VComputerGroup
+   * Summary: 删除VComputerGroup
+   */
+  async deleteLoadbalanceVcomputergroupEx(request: DeleteLoadbalanceVcomputergroupRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteLoadbalanceVcomputergroupResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeleteLoadbalanceVcomputergroupResponse>(await this.doRequest("1.0", "antcloud.cas.loadbalance.vcomputergroup.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteLoadbalanceVcomputergroupResponse({}));
+  }
+
+  /**
+   * Description: 在虚拟服务器组中增加服务器
+   * Summary: 在虚拟服务器组中增加服务器
+   */
+  async addLoadbalanceVcomputergroup(request: AddLoadbalanceVcomputergroupRequest): Promise<AddLoadbalanceVcomputergroupResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addLoadbalanceVcomputergroupEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 在虚拟服务器组中增加服务器
+   * Summary: 在虚拟服务器组中增加服务器
+   */
+  async addLoadbalanceVcomputergroupEx(request: AddLoadbalanceVcomputergroupRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddLoadbalanceVcomputergroupResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddLoadbalanceVcomputergroupResponse>(await this.doRequest("1.0", "antcloud.cas.loadbalance.vcomputergroup.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddLoadbalanceVcomputergroupResponse({}));
+  }
+
+  /**
+   * Description: 从虚拟服务器组中删除服务器
+   * Summary: 从虚拟服务器组中删除服务器
+   */
+  async removeLoadbalanceVcomputergroup(request: RemoveLoadbalanceVcomputergroupRequest): Promise<RemoveLoadbalanceVcomputergroupResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.removeLoadbalanceVcomputergroupEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 从虚拟服务器组中删除服务器
+   * Summary: 从虚拟服务器组中删除服务器
+   */
+  async removeLoadbalanceVcomputergroupEx(request: RemoveLoadbalanceVcomputergroupRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RemoveLoadbalanceVcomputergroupResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RemoveLoadbalanceVcomputergroupResponse>(await this.doRequest("1.0", "antcloud.cas.loadbalance.vcomputergroup.remove", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RemoveLoadbalanceVcomputergroupResponse({}));
+  }
+
+  /**
+   * Description: 添加域名记录
+   * Summary: 添加域名记录
+   */
+  async addDnsRecordset(request: AddDnsRecordsetRequest): Promise<AddDnsRecordsetResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addDnsRecordsetEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 添加域名记录
+   * Summary: 添加域名记录
+   */
+  async addDnsRecordsetEx(request: AddDnsRecordsetRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddDnsRecordsetResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddDnsRecordsetResponse>(await this.doRequest("1.0", "antcloud.cas.dns.recordset.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddDnsRecordsetResponse({}));
+  }
+
+  /**
+   * Description: 删除一条DNS记录
+   * Summary: 删除一条DNS记录
+   */
+  async deleteDnsRecord(request: DeleteDnsRecordRequest): Promise<DeleteDnsRecordResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deleteDnsRecordEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 删除一条DNS记录
+   * Summary: 删除一条DNS记录
+   */
+  async deleteDnsRecordEx(request: DeleteDnsRecordRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteDnsRecordResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeleteDnsRecordResponse>(await this.doRequest("1.0", "antcloud.cas.dns.record.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteDnsRecordResponse({}));
+  }
+
+  /**
+   * Description: 查询当前recordset
+   * Summary: 查询当前recordset
+   */
+  async queryDnsRecordset(request: QueryDnsRecordsetRequest): Promise<QueryDnsRecordsetResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDnsRecordsetEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询当前recordset
+   * Summary: 查询当前recordset
+   */
+  async queryDnsRecordsetEx(request: QueryDnsRecordsetRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDnsRecordsetResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDnsRecordsetResponse>(await this.doRequest("1.0", "antcloud.cas.dns.recordset.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDnsRecordsetResponse({}));
+  }
+
+  /**
+   * Description: workspace绑定指定DNS服务商
+   * Summary: workspace绑定指定DNS服务商
+   */
+  async bindDnsProvider(request: BindDnsProviderRequest): Promise<BindDnsProviderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.bindDnsProviderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: workspace绑定指定DNS服务商
+   * Summary: workspace绑定指定DNS服务商
+   */
+  async bindDnsProviderEx(request: BindDnsProviderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindDnsProviderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BindDnsProviderResponse>(await this.doRequest("1.0", "antcloud.cas.dns.provider.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindDnsProviderResponse({}));
+  }
+
+  /**
+   * Description: 获取当前环境的DNS provider
+   * Summary: 获取当前环境的DNS provider
+   */
+  async listDnsProvider(request: ListDnsProviderRequest): Promise<ListDnsProviderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listDnsProviderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取当前环境的DNS provider
+   * Summary: 获取当前环境的DNS provider
+   */
+  async listDnsProviderEx(request: ListDnsProviderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListDnsProviderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListDnsProviderResponse>(await this.doRequest("1.0", "antcloud.cas.dns.provider.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListDnsProviderResponse({}));
+  }
+
+  /**
+   * Description: 查询当前环境资源供应商信息
+   * Summary: 查询当前环境资源供应商信息
+   */
+  async queryProvider(request: QueryProviderRequest): Promise<QueryProviderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryProviderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询当前环境资源供应商信息
+   * Summary: 查询当前环境资源供应商信息
+   */
+  async queryProviderEx(request: QueryProviderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryProviderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryProviderResponse>(await this.doRequest("1.0", "antcloud.cas.provider.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryProviderResponse({}));
+  }
+
+  /**
+   * Description: 获取当前工作空间的DNSProvider
+   * Summary: 获取当前工作空间的DNSProvider
+   */
+  async getDnsWorkspaceprovider(request: GetDnsWorkspaceproviderRequest): Promise<GetDnsWorkspaceproviderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getDnsWorkspaceproviderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取当前工作空间的DNSProvider
+   * Summary: 获取当前工作空间的DNSProvider
+   */
+  async getDnsWorkspaceproviderEx(request: GetDnsWorkspaceproviderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetDnsWorkspaceproviderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetDnsWorkspaceproviderResponse>(await this.doRequest("1.0", "antcloud.cas.dns.workspaceprovider.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetDnsWorkspaceproviderResponse({}));
+  }
+
+  /**
+   * Description: [异步]创建工作空间组，包括了VPC，交换机，单元化架构的一体化创建
+   * Summary: [异步]创建工作空间组
+   */
+  async createUniworkspacegroup(request: CreateUniworkspacegroupRequest): Promise<CreateUniworkspacegroupResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createUniworkspacegroupEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: [异步]创建工作空间组，包括了VPC，交换机，单元化架构的一体化创建
+   * Summary: [异步]创建工作空间组
+   */
+  async createUniworkspacegroupEx(request: CreateUniworkspacegroupRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateUniworkspacegroupResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateUniworkspacegroupResponse>(await this.doRequest("1.0", "antcloud.cas.uniworkspacegroup.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateUniworkspacegroupResponse({}));
+  }
+
+  /**
+   * Description: 导入一个中间件集群
+   * Summary: 导入一个中间件集群
+   */
+  async importMiddlewarecluster(request: ImportMiddlewareclusterRequest): Promise<ImportMiddlewareclusterResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importMiddlewareclusterEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 导入一个中间件集群
+   * Summary: 导入一个中间件集群
+   */
+  async importMiddlewareclusterEx(request: ImportMiddlewareclusterRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportMiddlewareclusterResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportMiddlewareclusterResponse>(await this.doRequest("1.0", "antcloud.cas.middlewarecluster.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportMiddlewareclusterResponse({}));
+  }
+
+  /**
+   * Description: 查询当前工作空间中间件集群
+   * Summary: 查询当前工作空间中间件集群
+   */
+  async queryMiddlewarecluster(request: QueryMiddlewareclusterRequest): Promise<QueryMiddlewareclusterResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryMiddlewareclusterEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询当前工作空间中间件集群
+   * Summary: 查询当前工作空间中间件集群
+   */
+  async queryMiddlewareclusterEx(request: QueryMiddlewareclusterRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMiddlewareclusterResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryMiddlewareclusterResponse>(await this.doRequest("1.0", "antcloud.cas.middlewarecluster.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMiddlewareclusterResponse({}));
+  }
+
+  /**
+   * Description: 移除一个中间件集群
+   * Summary: 移除一个中间件集群
+   */
+  async removeMiddlewarecluster(request: RemoveMiddlewareclusterRequest): Promise<RemoveMiddlewareclusterResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.removeMiddlewareclusterEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 移除一个中间件集群
+   * Summary: 移除一个中间件集群
+   */
+  async removeMiddlewareclusterEx(request: RemoveMiddlewareclusterRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RemoveMiddlewareclusterResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RemoveMiddlewareclusterResponse>(await this.doRequest("1.0", "antcloud.cas.middlewarecluster.remove", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RemoveMiddlewareclusterResponse({}));
   }
 
 }
