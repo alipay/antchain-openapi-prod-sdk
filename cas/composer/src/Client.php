@@ -11,8 +11,12 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\CAS\Models\AddDnsRecordsetRequest;
+use AntChain\CAS\Models\AddDnsRecordsetResponse;
 use AntChain\CAS\Models\AddLoadbalanceAssignRequest;
 use AntChain\CAS\Models\AddLoadbalanceAssignResponse;
+use AntChain\CAS\Models\AddLoadbalanceVcomputergroupRequest;
+use AntChain\CAS\Models\AddLoadbalanceVcomputergroupResponse;
 use AntChain\CAS\Models\AddSecuritygroupInstanceRequest;
 use AntChain\CAS\Models\AddSecuritygroupInstanceResponse;
 use AntChain\CAS\Models\AllDatabaseEngineRequest;
@@ -47,6 +51,8 @@ use AntChain\CAS\Models\BatchdeleteApplicationBuildRequest;
 use AntChain\CAS\Models\BatchdeleteApplicationBuildResponse;
 use AntChain\CAS\Models\BatchdeleteApplicationPackageRequest;
 use AntChain\CAS\Models\BatchdeleteApplicationPackageResponse;
+use AntChain\CAS\Models\BindDnsProviderRequest;
+use AntChain\CAS\Models\BindDnsProviderResponse;
 use AntChain\CAS\Models\CreateAppgroupRequest;
 use AntChain\CAS\Models\CreateAppgroupResponse;
 use AntChain\CAS\Models\CreateApplevelRequest;
@@ -75,6 +81,8 @@ use AntChain\CAS\Models\CreateLoadbalanceRequest;
 use AntChain\CAS\Models\CreateLoadbalanceResponse;
 use AntChain\CAS\Models\CreateLoadbalanceSecurityipRequest;
 use AntChain\CAS\Models\CreateLoadbalanceSecurityipResponse;
+use AntChain\CAS\Models\CreateLoadbalanceVcomputergroupRequest;
+use AntChain\CAS\Models\CreateLoadbalanceVcomputergroupResponse;
 use AntChain\CAS\Models\CreateMetaWorkspaceRequest;
 use AntChain\CAS\Models\CreateMetaWorkspaceResponse;
 use AntChain\CAS\Models\CreateResourceComputerRequest;
@@ -95,6 +103,8 @@ use AntChain\CAS\Models\CreateSlsLogstoreRequest;
 use AntChain\CAS\Models\CreateSlsLogstoreResponse;
 use AntChain\CAS\Models\CreateSlsProjectRequest;
 use AntChain\CAS\Models\CreateSlsProjectResponse;
+use AntChain\CAS\Models\CreateUniworkspacegroupRequest;
+use AntChain\CAS\Models\CreateUniworkspacegroupResponse;
 use AntChain\CAS\Models\CreateVpcRequest;
 use AntChain\CAS\Models\CreateVpcResponse;
 use AntChain\CAS\Models\CreateVpcVroutertableRequest;
@@ -123,12 +133,16 @@ use AntChain\CAS\Models\DeleteDatabaseRequest;
 use AntChain\CAS\Models\DeleteDatabaseResponse;
 use AntChain\CAS\Models\DeleteDatabaseSchemaRequest;
 use AntChain\CAS\Models\DeleteDatabaseSchemaResponse;
+use AntChain\CAS\Models\DeleteDnsRecordRequest;
+use AntChain\CAS\Models\DeleteDnsRecordResponse;
 use AntChain\CAS\Models\DeleteLoadbalanceListenerRequest;
 use AntChain\CAS\Models\DeleteLoadbalanceListenerResponse;
 use AntChain\CAS\Models\DeleteLoadbalanceMountRequest;
 use AntChain\CAS\Models\DeleteLoadbalanceMountResponse;
 use AntChain\CAS\Models\DeleteLoadbalanceRequest;
 use AntChain\CAS\Models\DeleteLoadbalanceResponse;
+use AntChain\CAS\Models\DeleteLoadbalanceVcomputergroupRequest;
+use AntChain\CAS\Models\DeleteLoadbalanceVcomputergroupResponse;
 use AntChain\CAS\Models\DeleteMetaWorkspaceRequest;
 use AntChain\CAS\Models\DeleteMetaWorkspaceResponse;
 use AntChain\CAS\Models\DeleteResourceComputerRequest;
@@ -185,6 +199,8 @@ use AntChain\CAS\Models\GetAppserviceDetailRequest;
 use AntChain\CAS\Models\GetAppserviceDetailResponse;
 use AntChain\CAS\Models\GetDatabaseRequest;
 use AntChain\CAS\Models\GetDatabaseResponse;
+use AntChain\CAS\Models\GetDnsWorkspaceproviderRequest;
+use AntChain\CAS\Models\GetDnsWorkspaceproviderResponse;
 use AntChain\CAS\Models\GetLoadbalanceHealthRequest;
 use AntChain\CAS\Models\GetLoadbalanceHealthResponse;
 use AntChain\CAS\Models\GetLoadbalanceRequest;
@@ -209,6 +225,8 @@ use AntChain\CAS\Models\ImportDatabaseRequest;
 use AntChain\CAS\Models\ImportDatabaseResponse;
 use AntChain\CAS\Models\ImportLoadbalanceRequest;
 use AntChain\CAS\Models\ImportLoadbalanceResponse;
+use AntChain\CAS\Models\ImportMiddlewareclusterRequest;
+use AntChain\CAS\Models\ImportMiddlewareclusterResponse;
 use AntChain\CAS\Models\ImportResourceVpcRequest;
 use AntChain\CAS\Models\ImportResourceVpcResponse;
 use AntChain\CAS\Models\ImportSecuritygroupRequest;
@@ -235,6 +253,8 @@ use AntChain\CAS\Models\ListAvailableInstancetypeRequest;
 use AntChain\CAS\Models\ListAvailableInstancetypeResponse;
 use AntChain\CAS\Models\ListComputerRequest;
 use AntChain\CAS\Models\ListComputerResponse;
+use AntChain\CAS\Models\ListDnsProviderRequest;
+use AntChain\CAS\Models\ListDnsProviderResponse;
 use AntChain\CAS\Models\ListMetaWorkspaceRequest;
 use AntChain\CAS\Models\ListMetaWorkspaceResponse;
 use AntChain\CAS\Models\ListRegionAccessibleRequest;
@@ -315,6 +335,8 @@ use AntChain\CAS\Models\QueryDiskRequest;
 use AntChain\CAS\Models\QueryDiskResponse;
 use AntChain\CAS\Models\QueryDiskspecRequest;
 use AntChain\CAS\Models\QueryDiskspecResponse;
+use AntChain\CAS\Models\QueryDnsRecordsetRequest;
+use AntChain\CAS\Models\QueryDnsRecordsetResponse;
 use AntChain\CAS\Models\QueryFeatureRequest;
 use AntChain\CAS\Models\QueryFeatureResponse;
 use AntChain\CAS\Models\QueryImageRequest;
@@ -337,6 +359,10 @@ use AntChain\CAS\Models\QueryLoadbalanceVcomputerRequest;
 use AntChain\CAS\Models\QueryLoadbalanceVcomputerResponse;
 use AntChain\CAS\Models\QueryMetaWorkspaceRequest;
 use AntChain\CAS\Models\QueryMetaWorkspaceResponse;
+use AntChain\CAS\Models\QueryMiddlewareclusterRequest;
+use AntChain\CAS\Models\QueryMiddlewareclusterResponse;
+use AntChain\CAS\Models\QueryProviderRequest;
+use AntChain\CAS\Models\QueryProviderResponse;
 use AntChain\CAS\Models\QueryRequestFinaltaskRequest;
 use AntChain\CAS\Models\QueryRequestFinaltaskResponse;
 use AntChain\CAS\Models\QueryRequestRequest;
@@ -399,6 +425,10 @@ use AntChain\CAS\Models\RemoveLoadbalanceRequest;
 use AntChain\CAS\Models\RemoveLoadbalanceResponse;
 use AntChain\CAS\Models\RemoveLoadbalanceSecurityipRequest;
 use AntChain\CAS\Models\RemoveLoadbalanceSecurityipResponse;
+use AntChain\CAS\Models\RemoveLoadbalanceVcomputergroupRequest;
+use AntChain\CAS\Models\RemoveLoadbalanceVcomputergroupResponse;
+use AntChain\CAS\Models\RemoveMiddlewareclusterRequest;
+use AntChain\CAS\Models\RemoveMiddlewareclusterResponse;
 use AntChain\CAS\Models\RemoveSecuritygroupInstanceRequest;
 use AntChain\CAS\Models\RemoveSecuritygroupInstanceResponse;
 use AntChain\CAS\Models\RemoveSecuritygroupRequest;
@@ -463,6 +493,8 @@ use AntChain\CAS\Models\UpdateLoadbalanceRequest;
 use AntChain\CAS\Models\UpdateLoadbalanceResponse;
 use AntChain\CAS\Models\UpdateLoadbalanceSpecRequest;
 use AntChain\CAS\Models\UpdateLoadbalanceSpecResponse;
+use AntChain\CAS\Models\UpdateLoadbalanceVcomputergroupRequest;
+use AntChain\CAS\Models\UpdateLoadbalanceVcomputergroupResponse;
 use AntChain\CAS\Models\UpdateSlsConfigRequest;
 use AntChain\CAS\Models\UpdateSlsConfigResponse;
 use AntChain\CAS\Models\UpdateVpcVswitchRequest;
@@ -616,7 +648,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.19',
+                    'sdk_version'      => '1.4.11',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -5415,8 +5447,8 @@ class Client
     }
 
     /**
-     * Description: 查询已导入的computer信息
-     * Summary: 查询已导入的computer信息.
+     * Description: 查询可以导入的computer信息
+     * Summary: 查询可以导入的computer信息.
      *
      * @param QueryComputerImportRequest $request
      *
@@ -5431,8 +5463,8 @@ class Client
     }
 
     /**
-     * Description: 查询已导入的computer信息
-     * Summary: 查询已导入的computer信息.
+     * Description: 查询可以导入的computer信息
+     * Summary: 查询可以导入的computer信息.
      *
      * @param QueryComputerImportRequest $request
      * @param string[]                   $headers
@@ -8217,5 +8249,533 @@ class Client
         Utils::validateModel($request);
 
         return UpdateDiskStrategyResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.disk.strategy.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建虚拟服务器组
+     * Summary: 创建虚拟服务器组.
+     *
+     * @param CreateLoadbalanceVcomputergroupRequest $request
+     *
+     * @return CreateLoadbalanceVcomputergroupResponse
+     */
+    public function createLoadbalanceVcomputergroup($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLoadbalanceVcomputergroupEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建虚拟服务器组
+     * Summary: 创建虚拟服务器组.
+     *
+     * @param CreateLoadbalanceVcomputergroupRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return CreateLoadbalanceVcomputergroupResponse
+     */
+    public function createLoadbalanceVcomputergroupEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLoadbalanceVcomputergroupResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.loadbalance.vcomputergroup.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 在VComputerGroup里更新后端服务器
+     * Summary: 增加VCompute.
+     *
+     * @param UpdateLoadbalanceVcomputergroupRequest $request
+     *
+     * @return UpdateLoadbalanceVcomputergroupResponse
+     */
+    public function updateLoadbalanceVcomputergroup($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateLoadbalanceVcomputergroupEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 在VComputerGroup里更新后端服务器
+     * Summary: 增加VCompute.
+     *
+     * @param UpdateLoadbalanceVcomputergroupRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return UpdateLoadbalanceVcomputergroupResponse
+     */
+    public function updateLoadbalanceVcomputergroupEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateLoadbalanceVcomputergroupResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.loadbalance.vcomputergroup.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除VComputerGroup
+     * Summary: 删除VComputerGroup.
+     *
+     * @param DeleteLoadbalanceVcomputergroupRequest $request
+     *
+     * @return DeleteLoadbalanceVcomputergroupResponse
+     */
+    public function deleteLoadbalanceVcomputergroup($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteLoadbalanceVcomputergroupEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除VComputerGroup
+     * Summary: 删除VComputerGroup.
+     *
+     * @param DeleteLoadbalanceVcomputergroupRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return DeleteLoadbalanceVcomputergroupResponse
+     */
+    public function deleteLoadbalanceVcomputergroupEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteLoadbalanceVcomputergroupResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.loadbalance.vcomputergroup.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 在虚拟服务器组中增加服务器
+     * Summary: 在虚拟服务器组中增加服务器.
+     *
+     * @param AddLoadbalanceVcomputergroupRequest $request
+     *
+     * @return AddLoadbalanceVcomputergroupResponse
+     */
+    public function addLoadbalanceVcomputergroup($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addLoadbalanceVcomputergroupEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 在虚拟服务器组中增加服务器
+     * Summary: 在虚拟服务器组中增加服务器.
+     *
+     * @param AddLoadbalanceVcomputergroupRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return AddLoadbalanceVcomputergroupResponse
+     */
+    public function addLoadbalanceVcomputergroupEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddLoadbalanceVcomputergroupResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.loadbalance.vcomputergroup.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 从虚拟服务器组中删除服务器
+     * Summary: 从虚拟服务器组中删除服务器.
+     *
+     * @param RemoveLoadbalanceVcomputergroupRequest $request
+     *
+     * @return RemoveLoadbalanceVcomputergroupResponse
+     */
+    public function removeLoadbalanceVcomputergroup($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->removeLoadbalanceVcomputergroupEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 从虚拟服务器组中删除服务器
+     * Summary: 从虚拟服务器组中删除服务器.
+     *
+     * @param RemoveLoadbalanceVcomputergroupRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return RemoveLoadbalanceVcomputergroupResponse
+     */
+    public function removeLoadbalanceVcomputergroupEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RemoveLoadbalanceVcomputergroupResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.loadbalance.vcomputergroup.remove', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 添加域名记录
+     * Summary: 添加域名记录.
+     *
+     * @param AddDnsRecordsetRequest $request
+     *
+     * @return AddDnsRecordsetResponse
+     */
+    public function addDnsRecordset($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addDnsRecordsetEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 添加域名记录
+     * Summary: 添加域名记录.
+     *
+     * @param AddDnsRecordsetRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return AddDnsRecordsetResponse
+     */
+    public function addDnsRecordsetEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddDnsRecordsetResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.dns.recordset.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除一条DNS记录
+     * Summary: 删除一条DNS记录.
+     *
+     * @param DeleteDnsRecordRequest $request
+     *
+     * @return DeleteDnsRecordResponse
+     */
+    public function deleteDnsRecord($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteDnsRecordEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除一条DNS记录
+     * Summary: 删除一条DNS记录.
+     *
+     * @param DeleteDnsRecordRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return DeleteDnsRecordResponse
+     */
+    public function deleteDnsRecordEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteDnsRecordResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.dns.record.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询当前recordset
+     * Summary: 查询当前recordset.
+     *
+     * @param QueryDnsRecordsetRequest $request
+     *
+     * @return QueryDnsRecordsetResponse
+     */
+    public function queryDnsRecordset($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDnsRecordsetEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询当前recordset
+     * Summary: 查询当前recordset.
+     *
+     * @param QueryDnsRecordsetRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryDnsRecordsetResponse
+     */
+    public function queryDnsRecordsetEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDnsRecordsetResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.dns.recordset.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: workspace绑定指定DNS服务商
+     * Summary: workspace绑定指定DNS服务商.
+     *
+     * @param BindDnsProviderRequest $request
+     *
+     * @return BindDnsProviderResponse
+     */
+    public function bindDnsProvider($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindDnsProviderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: workspace绑定指定DNS服务商
+     * Summary: workspace绑定指定DNS服务商.
+     *
+     * @param BindDnsProviderRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return BindDnsProviderResponse
+     */
+    public function bindDnsProviderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindDnsProviderResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.dns.provider.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取当前环境的DNS provider
+     * Summary: 获取当前环境的DNS provider.
+     *
+     * @param ListDnsProviderRequest $request
+     *
+     * @return ListDnsProviderResponse
+     */
+    public function listDnsProvider($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listDnsProviderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取当前环境的DNS provider
+     * Summary: 获取当前环境的DNS provider.
+     *
+     * @param ListDnsProviderRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return ListDnsProviderResponse
+     */
+    public function listDnsProviderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListDnsProviderResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.dns.provider.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询当前环境资源供应商信息
+     * Summary: 查询当前环境资源供应商信息.
+     *
+     * @param QueryProviderRequest $request
+     *
+     * @return QueryProviderResponse
+     */
+    public function queryProvider($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryProviderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询当前环境资源供应商信息
+     * Summary: 查询当前环境资源供应商信息.
+     *
+     * @param QueryProviderRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryProviderResponse
+     */
+    public function queryProviderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryProviderResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.provider.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取当前工作空间的DNSProvider
+     * Summary: 获取当前工作空间的DNSProvider.
+     *
+     * @param GetDnsWorkspaceproviderRequest $request
+     *
+     * @return GetDnsWorkspaceproviderResponse
+     */
+    public function getDnsWorkspaceprovider($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getDnsWorkspaceproviderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取当前工作空间的DNSProvider
+     * Summary: 获取当前工作空间的DNSProvider.
+     *
+     * @param GetDnsWorkspaceproviderRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return GetDnsWorkspaceproviderResponse
+     */
+    public function getDnsWorkspaceproviderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetDnsWorkspaceproviderResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.dns.workspaceprovider.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: [异步]创建工作空间组，包括了VPC，交换机，单元化架构的一体化创建
+     * Summary: [异步]创建工作空间组.
+     *
+     * @param CreateUniworkspacegroupRequest $request
+     *
+     * @return CreateUniworkspacegroupResponse
+     */
+    public function createUniworkspacegroup($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createUniworkspacegroupEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: [异步]创建工作空间组，包括了VPC，交换机，单元化架构的一体化创建
+     * Summary: [异步]创建工作空间组.
+     *
+     * @param CreateUniworkspacegroupRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return CreateUniworkspacegroupResponse
+     */
+    public function createUniworkspacegroupEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateUniworkspacegroupResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.uniworkspacegroup.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 导入一个中间件集群
+     * Summary: 导入一个中间件集群.
+     *
+     * @param ImportMiddlewareclusterRequest $request
+     *
+     * @return ImportMiddlewareclusterResponse
+     */
+    public function importMiddlewarecluster($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importMiddlewareclusterEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 导入一个中间件集群
+     * Summary: 导入一个中间件集群.
+     *
+     * @param ImportMiddlewareclusterRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ImportMiddlewareclusterResponse
+     */
+    public function importMiddlewareclusterEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportMiddlewareclusterResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.middlewarecluster.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询当前工作空间中间件集群
+     * Summary: 查询当前工作空间中间件集群.
+     *
+     * @param QueryMiddlewareclusterRequest $request
+     *
+     * @return QueryMiddlewareclusterResponse
+     */
+    public function queryMiddlewarecluster($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMiddlewareclusterEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询当前工作空间中间件集群
+     * Summary: 查询当前工作空间中间件集群.
+     *
+     * @param QueryMiddlewareclusterRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryMiddlewareclusterResponse
+     */
+    public function queryMiddlewareclusterEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMiddlewareclusterResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.middlewarecluster.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 移除一个中间件集群
+     * Summary: 移除一个中间件集群.
+     *
+     * @param RemoveMiddlewareclusterRequest $request
+     *
+     * @return RemoveMiddlewareclusterResponse
+     */
+    public function removeMiddlewarecluster($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->removeMiddlewareclusterEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 移除一个中间件集群
+     * Summary: 移除一个中间件集群.
+     *
+     * @param RemoveMiddlewareclusterRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return RemoveMiddlewareclusterResponse
+     */
+    public function removeMiddlewareclusterEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RemoveMiddlewareclusterResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.middlewarecluster.remove', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

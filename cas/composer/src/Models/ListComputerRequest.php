@@ -55,6 +55,18 @@ class ListComputerRequest extends Model
      * @var string
      */
     public $vpcIaasId;
+
+    // private_ips
+    /**
+     * @var string[]
+     */
+    public $privateIps;
+
+    // iaas_ids
+    /**
+     * @var string[]
+     */
+    public $iaasIds;
     protected $_name = [
         'authToken'        => 'auth_token',
         'appServiceIds'    => 'app_service_ids',
@@ -64,6 +76,8 @@ class ListComputerRequest extends Model
         'workspace'        => 'workspace',
         'cloudManageToken' => 'cloud_manage_token',
         'vpcIaasId'        => 'vpc_iaas_id',
+        'privateIps'       => 'private_ips',
+        'iaasIds'          => 'iaas_ids',
     ];
 
     public function validate()
@@ -97,6 +111,12 @@ class ListComputerRequest extends Model
         }
         if (null !== $this->vpcIaasId) {
             $res['vpc_iaas_id'] = $this->vpcIaasId;
+        }
+        if (null !== $this->privateIps) {
+            $res['private_ips'] = $this->privateIps;
+        }
+        if (null !== $this->iaasIds) {
+            $res['iaas_ids'] = $this->iaasIds;
         }
 
         return $res;
@@ -135,6 +155,16 @@ class ListComputerRequest extends Model
         }
         if (isset($map['vpc_iaas_id'])) {
             $model->vpcIaasId = $map['vpc_iaas_id'];
+        }
+        if (isset($map['private_ips'])) {
+            if (!empty($map['private_ips'])) {
+                $model->privateIps = $map['private_ips'];
+            }
+        }
+        if (isset($map['iaas_ids'])) {
+            if (!empty($map['iaas_ids'])) {
+                $model->iaasIds = $map['iaas_ids'];
+            }
         }
 
         return $model;

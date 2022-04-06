@@ -6,7 +6,7 @@ namespace AntChain\CAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryFeatureRequest extends Model
+class QueryProviderRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -14,27 +14,27 @@ class QueryFeatureRequest extends Model
      */
     public $authToken;
 
-    // paas_region_id cafe的region_id，是一串数字
+    // LB，COMPUTE，VPC,OBJECT_STORAGE等
+    /**
+     * @var string
+     */
+    public $resourceType;
+
+    // paas_region_id
     /**
      * @var string
      */
     public $paasRegionId;
-
-    // project_id
-    /**
-     * @var string
-     */
-    public $projectId;
     protected $_name = [
         'authToken'    => 'auth_token',
+        'resourceType' => 'resource_type',
         'paasRegionId' => 'paas_region_id',
-        'projectId'    => 'project_id',
     ];
 
     public function validate()
     {
+        Model::validateRequired('resourceType', $this->resourceType, true);
         Model::validateRequired('paasRegionId', $this->paasRegionId, true);
-        Model::validateRequired('projectId', $this->projectId, true);
     }
 
     public function toMap()
@@ -43,11 +43,11 @@ class QueryFeatureRequest extends Model
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
         }
+        if (null !== $this->resourceType) {
+            $res['resource_type'] = $this->resourceType;
+        }
         if (null !== $this->paasRegionId) {
             $res['paas_region_id'] = $this->paasRegionId;
-        }
-        if (null !== $this->projectId) {
-            $res['project_id'] = $this->projectId;
         }
 
         return $res;
@@ -56,7 +56,7 @@ class QueryFeatureRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryFeatureRequest
+     * @return QueryProviderRequest
      */
     public static function fromMap($map = [])
     {
@@ -64,11 +64,11 @@ class QueryFeatureRequest extends Model
         if (isset($map['auth_token'])) {
             $model->authToken = $map['auth_token'];
         }
+        if (isset($map['resource_type'])) {
+            $model->resourceType = $map['resource_type'];
+        }
         if (isset($map['paas_region_id'])) {
             $model->paasRegionId = $map['paas_region_id'];
-        }
-        if (isset($map['project_id'])) {
-            $model->projectId = $map['project_id'];
         }
 
         return $model;

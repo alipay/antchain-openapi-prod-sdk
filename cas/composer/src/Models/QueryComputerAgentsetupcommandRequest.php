@@ -25,15 +25,28 @@ class QueryComputerAgentsetupcommandRequest extends Model
      * @var string
      */
     public $workspace;
+
+    // iaas_id
+    /**
+     * @var string
+     */
+    public $iaasId;
+
+    // zone_iaas_id
+    /**
+     * @var string
+     */
+    public $zoneIaasId;
     protected $_name = [
-        'authToken' => 'auth_token',
-        'sn'        => 'sn',
-        'workspace' => 'workspace',
+        'authToken'  => 'auth_token',
+        'sn'         => 'sn',
+        'workspace'  => 'workspace',
+        'iaasId'     => 'iaas_id',
+        'zoneIaasId' => 'zone_iaas_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('sn', $this->sn, true);
         Model::validateRequired('workspace', $this->workspace, true);
     }
 
@@ -48,6 +61,12 @@ class QueryComputerAgentsetupcommandRequest extends Model
         }
         if (null !== $this->workspace) {
             $res['workspace'] = $this->workspace;
+        }
+        if (null !== $this->iaasId) {
+            $res['iaas_id'] = $this->iaasId;
+        }
+        if (null !== $this->zoneIaasId) {
+            $res['zone_iaas_id'] = $this->zoneIaasId;
         }
 
         return $res;
@@ -71,6 +90,12 @@ class QueryComputerAgentsetupcommandRequest extends Model
         }
         if (isset($map['workspace'])) {
             $model->workspace = $map['workspace'];
+        }
+        if (isset($map['iaas_id'])) {
+            $model->iaasId = $map['iaas_id'];
+        }
+        if (isset($map['zone_iaas_id'])) {
+            $model->zoneIaasId = $map['zone_iaas_id'];
         }
 
         return $model;

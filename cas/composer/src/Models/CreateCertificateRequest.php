@@ -55,6 +55,12 @@ class CreateCertificateRequest extends Model
      * @var int
      */
     public $certType;
+
+    // 多provider时选填
+    /**
+     * @var string
+     */
+    public $providerId;
     protected $_name = [
         'authToken'    => 'auth_token',
         'workspaceId'  => 'workspace_id',
@@ -64,6 +70,7 @@ class CreateCertificateRequest extends Model
         'certificate'  => 'certificate',
         'privateKey'   => 'private_key',
         'certType'     => 'cert_type',
+        'providerId'   => 'provider_id',
     ];
 
     public function validate()
@@ -102,6 +109,9 @@ class CreateCertificateRequest extends Model
         if (null !== $this->certType) {
             $res['cert_type'] = $this->certType;
         }
+        if (null !== $this->providerId) {
+            $res['provider_id'] = $this->providerId;
+        }
 
         return $res;
     }
@@ -137,6 +147,9 @@ class CreateCertificateRequest extends Model
         }
         if (isset($map['cert_type'])) {
             $model->certType = $map['cert_type'];
+        }
+        if (isset($map['provider_id'])) {
+            $model->providerId = $map['provider_id'];
         }
 
         return $model;

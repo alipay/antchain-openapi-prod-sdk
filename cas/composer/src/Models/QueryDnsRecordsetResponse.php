@@ -6,7 +6,7 @@ namespace AntChain\CAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryLoadbalanceVcomputerResponse extends Model
+class QueryDnsRecordsetResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,9 +26,9 @@ class QueryLoadbalanceVcomputerResponse extends Model
      */
     public $resultMsg;
 
-    // v_computers
+    // data
     /**
-     * @var VComputer[]
+     * @var WorkspaceDnsRecordset[]
      */
     public $data;
 
@@ -37,12 +37,26 @@ class QueryLoadbalanceVcomputerResponse extends Model
      * @var int
      */
     public $totalCount;
+
+    // page_size
+    /**
+     * @var int
+     */
+    public $pageSize;
+
+    // current_page
+    /**
+     * @var int
+     */
+    public $currentPage;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'data'       => 'data',
-        'totalCount' => 'total_count',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'data'        => 'data',
+        'totalCount'  => 'total_count',
+        'pageSize'    => 'page_size',
+        'currentPage' => 'current_page',
     ];
 
     public function validate()
@@ -73,6 +87,12 @@ class QueryLoadbalanceVcomputerResponse extends Model
         if (null !== $this->totalCount) {
             $res['total_count'] = $this->totalCount;
         }
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
+        }
+        if (null !== $this->currentPage) {
+            $res['current_page'] = $this->currentPage;
+        }
 
         return $res;
     }
@@ -80,7 +100,7 @@ class QueryLoadbalanceVcomputerResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryLoadbalanceVcomputerResponse
+     * @return QueryDnsRecordsetResponse
      */
     public static function fromMap($map = [])
     {
@@ -99,12 +119,18 @@ class QueryLoadbalanceVcomputerResponse extends Model
                 $model->data = [];
                 $n           = 0;
                 foreach ($map['data'] as $item) {
-                    $model->data[$n++] = null !== $item ? VComputer::fromMap($item) : $item;
+                    $model->data[$n++] = null !== $item ? WorkspaceDnsRecordset::fromMap($item) : $item;
                 }
             }
         }
         if (isset($map['total_count'])) {
             $model->totalCount = $map['total_count'];
+        }
+        if (isset($map['page_size'])) {
+            $model->pageSize = $map['page_size'];
+        }
+        if (isset($map['current_page'])) {
+            $model->currentPage = $map['current_page'];
         }
 
         return $model;

@@ -31,11 +31,18 @@ class UpdateLoadbalanceMountRequest extends Model
      * @var string
      */
     public $domain;
+
+    // 是否是同步操作
+    /**
+     * @var bool
+     */
+    public $isSync;
     protected $_name = [
         'authToken' => 'auth_token',
         'id'        => 'id',
         'mountMap'  => 'mount_map',
         'domain'    => 'domain',
+        'isSync'    => 'is_sync',
     ];
 
     public function validate()
@@ -63,6 +70,9 @@ class UpdateLoadbalanceMountRequest extends Model
         }
         if (null !== $this->domain) {
             $res['domain'] = $this->domain;
+        }
+        if (null !== $this->isSync) {
+            $res['is_sync'] = $this->isSync;
         }
 
         return $res;
@@ -93,6 +103,9 @@ class UpdateLoadbalanceMountRequest extends Model
         }
         if (isset($map['domain'])) {
             $model->domain = $map['domain'];
+        }
+        if (isset($map['is_sync'])) {
+            $model->isSync = $map['is_sync'];
         }
 
         return $model;

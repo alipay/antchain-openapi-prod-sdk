@@ -6,7 +6,7 @@ namespace AntChain\CAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DeleteCertificateRequest extends Model
+class BindDnsProviderRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -14,42 +14,41 @@ class DeleteCertificateRequest extends Model
      */
     public $authToken;
 
-    // id
-    /**
-     * @var string
-     */
-    public $id;
-
     // workspace_id
     /**
      * @var string
      */
     public $workspaceId;
 
-    // zone_id
+    // 部分环境绑定到机房机房
     /**
      * @var string
      */
     public $zoneId;
 
-    // 多provider时选填
+    // dns_provider_id
     /**
      * @var string
      */
-    public $providerId;
+    public $dnsProviderId;
+
+    // default_sub_domain_name
+    /**
+     * @var string
+     */
+    public $defaultSubDomainName;
     protected $_name = [
-        'authToken'   => 'auth_token',
-        'id'          => 'id',
-        'workspaceId' => 'workspace_id',
-        'zoneId'      => 'zone_id',
-        'providerId'  => 'provider_id',
+        'authToken'            => 'auth_token',
+        'workspaceId'          => 'workspace_id',
+        'zoneId'               => 'zone_id',
+        'dnsProviderId'        => 'dns_provider_id',
+        'defaultSubDomainName' => 'default_sub_domain_name',
     ];
 
     public function validate()
     {
-        Model::validateRequired('id', $this->id, true);
         Model::validateRequired('workspaceId', $this->workspaceId, true);
-        Model::validateRequired('zoneId', $this->zoneId, true);
+        Model::validateRequired('dnsProviderId', $this->dnsProviderId, true);
     }
 
     public function toMap()
@@ -58,17 +57,17 @@ class DeleteCertificateRequest extends Model
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
         }
-        if (null !== $this->id) {
-            $res['id'] = $this->id;
-        }
         if (null !== $this->workspaceId) {
             $res['workspace_id'] = $this->workspaceId;
         }
         if (null !== $this->zoneId) {
             $res['zone_id'] = $this->zoneId;
         }
-        if (null !== $this->providerId) {
-            $res['provider_id'] = $this->providerId;
+        if (null !== $this->dnsProviderId) {
+            $res['dns_provider_id'] = $this->dnsProviderId;
+        }
+        if (null !== $this->defaultSubDomainName) {
+            $res['default_sub_domain_name'] = $this->defaultSubDomainName;
         }
 
         return $res;
@@ -77,7 +76,7 @@ class DeleteCertificateRequest extends Model
     /**
      * @param array $map
      *
-     * @return DeleteCertificateRequest
+     * @return BindDnsProviderRequest
      */
     public static function fromMap($map = [])
     {
@@ -85,17 +84,17 @@ class DeleteCertificateRequest extends Model
         if (isset($map['auth_token'])) {
             $model->authToken = $map['auth_token'];
         }
-        if (isset($map['id'])) {
-            $model->id = $map['id'];
-        }
         if (isset($map['workspace_id'])) {
             $model->workspaceId = $map['workspace_id'];
         }
         if (isset($map['zone_id'])) {
             $model->zoneId = $map['zone_id'];
         }
-        if (isset($map['provider_id'])) {
-            $model->providerId = $map['provider_id'];
+        if (isset($map['dns_provider_id'])) {
+            $model->dnsProviderId = $map['dns_provider_id'];
+        }
+        if (isset($map['default_sub_domain_name'])) {
+            $model->defaultSubDomainName = $map['default_sub_domain_name'];
         }
 
         return $model;

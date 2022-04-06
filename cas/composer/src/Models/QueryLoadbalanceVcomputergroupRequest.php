@@ -37,12 +37,19 @@ class QueryLoadbalanceVcomputergroupRequest extends Model
      * @var string
      */
     public $workspace;
+
+    // v_computer_group_ids
+    /**
+     * @var string[]
+     */
+    public $vComputerGroupIds;
     protected $_name = [
-        'authToken'      => 'auth_token',
-        'loadBalanceIds' => 'load_balance_ids',
-        'name'           => 'name',
-        'statuses'       => 'statuses',
-        'workspace'      => 'workspace',
+        'authToken'         => 'auth_token',
+        'loadBalanceIds'    => 'load_balance_ids',
+        'name'              => 'name',
+        'statuses'          => 'statuses',
+        'workspace'         => 'workspace',
+        'vComputerGroupIds' => 'v_computer_group_ids',
     ];
 
     public function validate()
@@ -68,6 +75,9 @@ class QueryLoadbalanceVcomputergroupRequest extends Model
         }
         if (null !== $this->workspace) {
             $res['workspace'] = $this->workspace;
+        }
+        if (null !== $this->vComputerGroupIds) {
+            $res['v_computer_group_ids'] = $this->vComputerGroupIds;
         }
 
         return $res;
@@ -99,6 +109,11 @@ class QueryLoadbalanceVcomputergroupRequest extends Model
         }
         if (isset($map['workspace'])) {
             $model->workspace = $map['workspace'];
+        }
+        if (isset($map['v_computer_group_ids'])) {
+            if (!empty($map['v_computer_group_ids'])) {
+                $model->vComputerGroupIds = $map['v_computer_group_ids'];
+            }
         }
 
         return $model;

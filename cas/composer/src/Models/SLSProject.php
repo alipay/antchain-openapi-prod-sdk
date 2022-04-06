@@ -23,9 +23,18 @@ class SLSProject extends Model
      * @var string
      */
     public $name;
+
+    // 阿里云返回的regionName，仅作展示用
+    /**
+     * @example region
+     *
+     * @var string
+     */
+    public $region;
     protected $_name = [
         'description' => 'description',
         'name'        => 'name',
+        'region'      => 'region',
     ];
 
     public function validate()
@@ -41,6 +50,9 @@ class SLSProject extends Model
         }
         if (null !== $this->name) {
             $res['name'] = $this->name;
+        }
+        if (null !== $this->region) {
+            $res['region'] = $this->region;
         }
 
         return $res;
@@ -59,6 +71,9 @@ class SLSProject extends Model
         }
         if (isset($map['name'])) {
             $model->name = $map['name'];
+        }
+        if (isset($map['region'])) {
+            $model->region = $map['region'];
         }
 
         return $model;

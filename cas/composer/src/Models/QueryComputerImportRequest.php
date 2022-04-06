@@ -37,12 +37,40 @@ class QueryComputerImportRequest extends Model
      * @var int
      */
     public $currentPage;
+
+    // 机器名称
+    /**
+     * @var string
+     */
+    public $name;
+
+    // 是否只查询可导入的
+    /**
+     * @var bool
+     */
+    public $importableOnly;
+
+    // iaas_id
+    /**
+     * @var string
+     */
+    public $iaasId;
+
+    // workspace_id
+    /**
+     * @var string
+     */
+    public $workspaceId;
     protected $_name = [
-        'authToken'   => 'auth_token',
-        'workspace'   => 'workspace',
-        'zone'        => 'zone',
-        'pageSize'    => 'page_size',
-        'currentPage' => 'current_page',
+        'authToken'      => 'auth_token',
+        'workspace'      => 'workspace',
+        'zone'           => 'zone',
+        'pageSize'       => 'page_size',
+        'currentPage'    => 'current_page',
+        'name'           => 'name',
+        'importableOnly' => 'importable_only',
+        'iaasId'         => 'iaas_id',
+        'workspaceId'    => 'workspace_id',
     ];
 
     public function validate()
@@ -70,6 +98,18 @@ class QueryComputerImportRequest extends Model
         if (null !== $this->currentPage) {
             $res['current_page'] = $this->currentPage;
         }
+        if (null !== $this->name) {
+            $res['name'] = $this->name;
+        }
+        if (null !== $this->importableOnly) {
+            $res['importable_only'] = $this->importableOnly;
+        }
+        if (null !== $this->iaasId) {
+            $res['iaas_id'] = $this->iaasId;
+        }
+        if (null !== $this->workspaceId) {
+            $res['workspace_id'] = $this->workspaceId;
+        }
 
         return $res;
     }
@@ -96,6 +136,18 @@ class QueryComputerImportRequest extends Model
         }
         if (isset($map['current_page'])) {
             $model->currentPage = $map['current_page'];
+        }
+        if (isset($map['name'])) {
+            $model->name = $map['name'];
+        }
+        if (isset($map['importable_only'])) {
+            $model->importableOnly = $map['importable_only'];
+        }
+        if (isset($map['iaas_id'])) {
+            $model->iaasId = $map['iaas_id'];
+        }
+        if (isset($map['workspace_id'])) {
+            $model->workspaceId = $map['workspace_id'];
         }
 
         return $model;

@@ -47,12 +47,39 @@ class VComputer extends Model
      * @var int
      */
     public $weight;
+
+    // 是否是EIP
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $isEip;
+
+    // is_managed_computer
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $isManagedComputer;
+
+    // iaas_id
+    /**
+     * @example iaas_id
+     *
+     * @var string
+     */
+    public $iaasId;
     protected $_name = [
-        'vComputerGroup' => 'v_computer_group',
-        'ip'             => 'ip',
-        'computer'       => 'computer',
-        'port'           => 'port',
-        'weight'         => 'weight',
+        'vComputerGroup'    => 'v_computer_group',
+        'ip'                => 'ip',
+        'computer'          => 'computer',
+        'port'              => 'port',
+        'weight'            => 'weight',
+        'isEip'             => 'is_eip',
+        'isManagedComputer' => 'is_managed_computer',
+        'iaasId'            => 'iaas_id',
     ];
 
     public function validate()
@@ -76,6 +103,15 @@ class VComputer extends Model
         }
         if (null !== $this->weight) {
             $res['weight'] = $this->weight;
+        }
+        if (null !== $this->isEip) {
+            $res['is_eip'] = $this->isEip;
+        }
+        if (null !== $this->isManagedComputer) {
+            $res['is_managed_computer'] = $this->isManagedComputer;
+        }
+        if (null !== $this->iaasId) {
+            $res['iaas_id'] = $this->iaasId;
         }
 
         return $res;
@@ -103,6 +139,15 @@ class VComputer extends Model
         }
         if (isset($map['weight'])) {
             $model->weight = $map['weight'];
+        }
+        if (isset($map['is_eip'])) {
+            $model->isEip = $map['is_eip'];
+        }
+        if (isset($map['is_managed_computer'])) {
+            $model->isManagedComputer = $map['is_managed_computer'];
+        }
+        if (isset($map['iaas_id'])) {
+            $model->iaasId = $map['iaas_id'];
         }
 
         return $model;

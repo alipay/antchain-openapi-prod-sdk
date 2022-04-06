@@ -106,6 +106,14 @@ class VPC extends Model
      * @var ImportInfo
      */
     public $importInfo;
+
+    // vpc在CAFE测的唯一ID
+    /**
+     * @example 0000000001
+     *
+     * @var string
+     */
+    public $vpcPaasId;
     protected $_name = [
         'cidrBlock'      => 'cidr_block',
         'creationTime'   => 'creation_time',
@@ -119,6 +127,7 @@ class VPC extends Model
         'vRouterId'      => 'v_router_id',
         'workspaceId'    => 'workspace_id',
         'importInfo'     => 'import_info',
+        'vpcPaasId'      => 'vpc_paas_id',
     ];
 
     public function validate()
@@ -172,6 +181,9 @@ class VPC extends Model
         if (null !== $this->importInfo) {
             $res['import_info'] = null !== $this->importInfo ? $this->importInfo->toMap() : null;
         }
+        if (null !== $this->vpcPaasId) {
+            $res['vpc_paas_id'] = $this->vpcPaasId;
+        }
 
         return $res;
     }
@@ -221,6 +233,9 @@ class VPC extends Model
         }
         if (isset($map['import_info'])) {
             $model->importInfo = ImportInfo::fromMap($map['import_info']);
+        }
+        if (isset($map['vpc_paas_id'])) {
+            $model->vpcPaasId = $map['vpc_paas_id'];
         }
 
         return $model;

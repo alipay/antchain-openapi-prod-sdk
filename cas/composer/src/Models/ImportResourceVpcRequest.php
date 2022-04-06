@@ -49,24 +49,30 @@ class ImportResourceVpcRequest extends Model
      * @var string
      */
     public $cidrBlock;
+
+    // paas_region_id
+    /**
+     * @var string
+     */
+    public $paasRegionId;
     protected $_name = [
-        'authToken' => 'auth_token',
-        'region'    => 'region',
-        'vpcId'     => 'vpc_id',
-        'workspace' => 'workspace',
-        'vrouterId' => 'vrouter_id',
-        'vpcName'   => 'vpc_name',
-        'cidrBlock' => 'cidr_block',
+        'authToken'    => 'auth_token',
+        'region'       => 'region',
+        'vpcId'        => 'vpc_id',
+        'workspace'    => 'workspace',
+        'vrouterId'    => 'vrouter_id',
+        'vpcName'      => 'vpc_name',
+        'cidrBlock'    => 'cidr_block',
+        'paasRegionId' => 'paas_region_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('region', $this->region, true);
         Model::validateRequired('vpcId', $this->vpcId, true);
         Model::validateRequired('workspace', $this->workspace, true);
         Model::validateRequired('vrouterId', $this->vrouterId, true);
         Model::validateRequired('vpcName', $this->vpcName, true);
-        Model::validateRequired('cidrBlock', $this->cidrBlock, true);
+        Model::validateRequired('paasRegionId', $this->paasRegionId, true);
     }
 
     public function toMap()
@@ -92,6 +98,9 @@ class ImportResourceVpcRequest extends Model
         }
         if (null !== $this->cidrBlock) {
             $res['cidr_block'] = $this->cidrBlock;
+        }
+        if (null !== $this->paasRegionId) {
+            $res['paas_region_id'] = $this->paasRegionId;
         }
 
         return $res;
@@ -125,6 +134,9 @@ class ImportResourceVpcRequest extends Model
         }
         if (isset($map['cidr_block'])) {
             $model->cidrBlock = $map['cidr_block'];
+        }
+        if (isset($map['paas_region_id'])) {
+            $model->paasRegionId = $map['paas_region_id'];
         }
 
         return $model;

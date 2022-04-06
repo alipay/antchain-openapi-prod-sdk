@@ -6,7 +6,7 @@ namespace AntChain\CAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DeleteCertificateRequest extends Model
+class GetDnsWorkspaceproviderRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -14,42 +14,34 @@ class DeleteCertificateRequest extends Model
      */
     public $authToken;
 
-    // id
-    /**
-     * @var string
-     */
-    public $id;
-
     // workspace_id
     /**
      * @var string
      */
     public $workspaceId;
 
-    // zone_id
+    // zoneId
     /**
      * @var string
      */
     public $zoneId;
 
-    // 多provider时选填
+    // dns_network_type
     /**
      * @var string
      */
-    public $providerId;
+    public $dnsNetworkType;
     protected $_name = [
-        'authToken'   => 'auth_token',
-        'id'          => 'id',
-        'workspaceId' => 'workspace_id',
-        'zoneId'      => 'zone_id',
-        'providerId'  => 'provider_id',
+        'authToken'      => 'auth_token',
+        'workspaceId'    => 'workspace_id',
+        'zoneId'         => 'zone_id',
+        'dnsNetworkType' => 'dns_network_type',
     ];
 
     public function validate()
     {
-        Model::validateRequired('id', $this->id, true);
         Model::validateRequired('workspaceId', $this->workspaceId, true);
-        Model::validateRequired('zoneId', $this->zoneId, true);
+        Model::validateRequired('dnsNetworkType', $this->dnsNetworkType, true);
     }
 
     public function toMap()
@@ -58,17 +50,14 @@ class DeleteCertificateRequest extends Model
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
         }
-        if (null !== $this->id) {
-            $res['id'] = $this->id;
-        }
         if (null !== $this->workspaceId) {
             $res['workspace_id'] = $this->workspaceId;
         }
         if (null !== $this->zoneId) {
             $res['zone_id'] = $this->zoneId;
         }
-        if (null !== $this->providerId) {
-            $res['provider_id'] = $this->providerId;
+        if (null !== $this->dnsNetworkType) {
+            $res['dns_network_type'] = $this->dnsNetworkType;
         }
 
         return $res;
@@ -77,7 +66,7 @@ class DeleteCertificateRequest extends Model
     /**
      * @param array $map
      *
-     * @return DeleteCertificateRequest
+     * @return GetDnsWorkspaceproviderRequest
      */
     public static function fromMap($map = [])
     {
@@ -85,17 +74,14 @@ class DeleteCertificateRequest extends Model
         if (isset($map['auth_token'])) {
             $model->authToken = $map['auth_token'];
         }
-        if (isset($map['id'])) {
-            $model->id = $map['id'];
-        }
         if (isset($map['workspace_id'])) {
             $model->workspaceId = $map['workspace_id'];
         }
         if (isset($map['zone_id'])) {
             $model->zoneId = $map['zone_id'];
         }
-        if (isset($map['provider_id'])) {
-            $model->providerId = $map['provider_id'];
+        if (isset($map['dns_network_type'])) {
+            $model->dnsNetworkType = $map['dns_network_type'];
         }
 
         return $model;

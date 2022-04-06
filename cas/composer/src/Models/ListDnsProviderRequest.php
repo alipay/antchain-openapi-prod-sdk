@@ -6,7 +6,7 @@ namespace AntChain\CAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryCertificateRequest extends Model
+class ListDnsProviderRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -14,34 +14,26 @@ class QueryCertificateRequest extends Model
      */
     public $authToken;
 
-    // workspace_id
+    // regionId
     /**
      * @var string
      */
-    public $workspaceId;
+    public $regionId;
 
     // zone_id
     /**
      * @var string
      */
     public $zoneId;
-
-    // provider_ids
-    /**
-     * @var string[]
-     */
-    public $providerIds;
     protected $_name = [
-        'authToken'   => 'auth_token',
-        'workspaceId' => 'workspace_id',
-        'zoneId'      => 'zone_id',
-        'providerIds' => 'provider_ids',
+        'authToken' => 'auth_token',
+        'regionId'  => 'region_id',
+        'zoneId'    => 'zone_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('workspaceId', $this->workspaceId, true);
-        Model::validateRequired('zoneId', $this->zoneId, true);
+        Model::validateRequired('regionId', $this->regionId, true);
     }
 
     public function toMap()
@@ -50,14 +42,11 @@ class QueryCertificateRequest extends Model
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
         }
-        if (null !== $this->workspaceId) {
-            $res['workspace_id'] = $this->workspaceId;
+        if (null !== $this->regionId) {
+            $res['region_id'] = $this->regionId;
         }
         if (null !== $this->zoneId) {
             $res['zone_id'] = $this->zoneId;
-        }
-        if (null !== $this->providerIds) {
-            $res['provider_ids'] = $this->providerIds;
         }
 
         return $res;
@@ -66,7 +55,7 @@ class QueryCertificateRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryCertificateRequest
+     * @return ListDnsProviderRequest
      */
     public static function fromMap($map = [])
     {
@@ -74,16 +63,11 @@ class QueryCertificateRequest extends Model
         if (isset($map['auth_token'])) {
             $model->authToken = $map['auth_token'];
         }
-        if (isset($map['workspace_id'])) {
-            $model->workspaceId = $map['workspace_id'];
+        if (isset($map['region_id'])) {
+            $model->regionId = $map['region_id'];
         }
         if (isset($map['zone_id'])) {
             $model->zoneId = $map['zone_id'];
-        }
-        if (isset($map['provider_ids'])) {
-            if (!empty($map['provider_ids'])) {
-                $model->providerIds = $map['provider_ids'];
-            }
         }
 
         return $model;

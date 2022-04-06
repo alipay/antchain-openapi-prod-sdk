@@ -31,11 +31,25 @@ class DeleteResourceVpcRequest extends Model
      * @var string
      */
     public $workspace;
+
+    // unbind_only
+    /**
+     * @var bool
+     */
+    public $unbindOnly;
+
+    // vpc_paas_id,vcp_id不存在时可用。建议用这个
+    /**
+     * @var string
+     */
+    public $vpcPaasId;
     protected $_name = [
-        'authToken' => 'auth_token',
-        'region'    => 'region',
-        'vpcId'     => 'vpc_id',
-        'workspace' => 'workspace',
+        'authToken'  => 'auth_token',
+        'region'     => 'region',
+        'vpcId'      => 'vpc_id',
+        'workspace'  => 'workspace',
+        'unbindOnly' => 'unbind_only',
+        'vpcPaasId'  => 'vpc_paas_id',
     ];
 
     public function validate()
@@ -60,6 +74,12 @@ class DeleteResourceVpcRequest extends Model
         if (null !== $this->workspace) {
             $res['workspace'] = $this->workspace;
         }
+        if (null !== $this->unbindOnly) {
+            $res['unbind_only'] = $this->unbindOnly;
+        }
+        if (null !== $this->vpcPaasId) {
+            $res['vpc_paas_id'] = $this->vpcPaasId;
+        }
 
         return $res;
     }
@@ -83,6 +103,12 @@ class DeleteResourceVpcRequest extends Model
         }
         if (isset($map['workspace'])) {
             $model->workspace = $map['workspace'];
+        }
+        if (isset($map['unbind_only'])) {
+            $model->unbindOnly = $map['unbind_only'];
+        }
+        if (isset($map['vpc_paas_id'])) {
+            $model->vpcPaasId = $map['vpc_paas_id'];
         }
 
         return $model;

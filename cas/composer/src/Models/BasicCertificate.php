@@ -39,11 +39,20 @@ class BasicCertificate extends Model
      * @var int
      */
     public $certType;
+
+    // 标记这个证书的Provider
+    /**
+     * @example provider_id
+     *
+     * @var string
+     */
+    public $providerId;
     protected $_name = [
         'serverCertificateId'   => 'server_certificate_id',
         'serverCertificateName' => 'server_certificate_name',
         'fingerprint'           => 'fingerprint',
         'certType'              => 'cert_type',
+        'providerId'            => 'provider_id',
     ];
 
     public function validate()
@@ -68,6 +77,9 @@ class BasicCertificate extends Model
         if (null !== $this->certType) {
             $res['cert_type'] = $this->certType;
         }
+        if (null !== $this->providerId) {
+            $res['provider_id'] = $this->providerId;
+        }
 
         return $res;
     }
@@ -91,6 +103,9 @@ class BasicCertificate extends Model
         }
         if (isset($map['cert_type'])) {
             $model->certType = $map['cert_type'];
+        }
+        if (isset($map['provider_id'])) {
+            $model->providerId = $map['provider_id'];
         }
 
         return $model;

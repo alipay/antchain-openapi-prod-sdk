@@ -25,16 +25,28 @@ class QueryComputerAgentstatusRequest extends Model
      * @var string
      */
     public $workspace;
+
+    // iaas_ids
+    /**
+     * @var string[]
+     */
+    public $iaasIds;
+
+    // zone_iaas_id
+    /**
+     * @var string
+     */
+    public $zoneIaasId;
     protected $_name = [
-        'authToken' => 'auth_token',
-        'sn'        => 'sn',
-        'workspace' => 'workspace',
+        'authToken'  => 'auth_token',
+        'sn'         => 'sn',
+        'workspace'  => 'workspace',
+        'iaasIds'    => 'iaas_ids',
+        'zoneIaasId' => 'zone_iaas_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('sn', $this->sn, true);
-        Model::validateRequired('workspace', $this->workspace, true);
     }
 
     public function toMap()
@@ -48,6 +60,12 @@ class QueryComputerAgentstatusRequest extends Model
         }
         if (null !== $this->workspace) {
             $res['workspace'] = $this->workspace;
+        }
+        if (null !== $this->iaasIds) {
+            $res['iaas_ids'] = $this->iaasIds;
+        }
+        if (null !== $this->zoneIaasId) {
+            $res['zone_iaas_id'] = $this->zoneIaasId;
         }
 
         return $res;
@@ -71,6 +89,14 @@ class QueryComputerAgentstatusRequest extends Model
         }
         if (isset($map['workspace'])) {
             $model->workspace = $map['workspace'];
+        }
+        if (isset($map['iaas_ids'])) {
+            if (!empty($map['iaas_ids'])) {
+                $model->iaasIds = $map['iaas_ids'];
+            }
+        }
+        if (isset($map['zone_iaas_id'])) {
+            $model->zoneIaasId = $map['zone_iaas_id'];
         }
 
         return $model;

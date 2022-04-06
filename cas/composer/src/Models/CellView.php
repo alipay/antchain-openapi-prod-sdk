@@ -8,7 +8,7 @@ use AlibabaCloud\Tea\Model;
 
 class CellView extends Model
 {
-    // id
+    // 部署单元对应的paas id
     /**
      * @example id
      *
@@ -16,7 +16,7 @@ class CellView extends Model
      */
     public $id;
 
-    // name
+    // 部署单元名称
     /**
      * @example name
      *
@@ -24,7 +24,7 @@ class CellView extends Model
      */
     public $name;
 
-    // displayName
+    // 部署单元显示名称
     /**
      * @example displayName
      *
@@ -32,7 +32,7 @@ class CellView extends Model
      */
     public $displayName;
 
-    // description
+    // 部署单元描述
     /**
      * @example description
      *

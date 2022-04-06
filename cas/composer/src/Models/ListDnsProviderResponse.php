@@ -6,7 +6,7 @@ namespace AntChain\CAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryLoadbalanceVcomputerResponse extends Model
+class ListDnsProviderResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,16 @@ class QueryLoadbalanceVcomputerResponse extends Model
      */
     public $resultMsg;
 
-    // v_computers
+    // data
     /**
-     * @var VComputer[]
+     * @var IaasDnsProvider[]
      */
     public $data;
-
-    // total_count
-    /**
-     * @var int
-     */
-    public $totalCount;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'data'       => 'data',
-        'totalCount' => 'total_count',
     ];
 
     public function validate()
@@ -70,9 +63,6 @@ class QueryLoadbalanceVcomputerResponse extends Model
                 }
             }
         }
-        if (null !== $this->totalCount) {
-            $res['total_count'] = $this->totalCount;
-        }
 
         return $res;
     }
@@ -80,7 +70,7 @@ class QueryLoadbalanceVcomputerResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryLoadbalanceVcomputerResponse
+     * @return ListDnsProviderResponse
      */
     public static function fromMap($map = [])
     {
@@ -99,12 +89,9 @@ class QueryLoadbalanceVcomputerResponse extends Model
                 $model->data = [];
                 $n           = 0;
                 foreach ($map['data'] as $item) {
-                    $model->data[$n++] = null !== $item ? VComputer::fromMap($item) : $item;
+                    $model->data[$n++] = null !== $item ? IaasDnsProvider::fromMap($item) : $item;
                 }
             }
-        }
-        if (isset($map['total_count'])) {
-            $model->totalCount = $map['total_count'];
         }
 
         return $model;

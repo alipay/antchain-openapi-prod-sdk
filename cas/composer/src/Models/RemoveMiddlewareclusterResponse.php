@@ -6,7 +6,7 @@ namespace AntChain\CAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryLoadbalanceVcomputerResponse extends Model
+class RemoveMiddlewareclusterResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,24 +25,10 @@ class QueryLoadbalanceVcomputerResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // v_computers
-    /**
-     * @var VComputer[]
-     */
-    public $data;
-
-    // total_count
-    /**
-     * @var int
-     */
-    public $totalCount;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'data'       => 'data',
-        'totalCount' => 'total_count',
     ];
 
     public function validate()
@@ -61,18 +47,6 @@ class QueryLoadbalanceVcomputerResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->data) {
-            $res['data'] = [];
-            if (null !== $this->data && \is_array($this->data)) {
-                $n = 0;
-                foreach ($this->data as $item) {
-                    $res['data'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-        if (null !== $this->totalCount) {
-            $res['total_count'] = $this->totalCount;
-        }
 
         return $res;
     }
@@ -80,7 +54,7 @@ class QueryLoadbalanceVcomputerResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryLoadbalanceVcomputerResponse
+     * @return RemoveMiddlewareclusterResponse
      */
     public static function fromMap($map = [])
     {
@@ -93,18 +67,6 @@ class QueryLoadbalanceVcomputerResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['data'])) {
-            if (!empty($map['data'])) {
-                $model->data = [];
-                $n           = 0;
-                foreach ($map['data'] as $item) {
-                    $model->data[$n++] = null !== $item ? VComputer::fromMap($item) : $item;
-                }
-            }
-        }
-        if (isset($map['total_count'])) {
-            $model->totalCount = $map['total_count'];
         }
 
         return $model;

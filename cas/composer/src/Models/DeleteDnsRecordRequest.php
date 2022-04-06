@@ -6,7 +6,7 @@ namespace AntChain\CAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DeleteCertificateRequest extends Model
+class DeleteDnsRecordRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -14,42 +14,35 @@ class DeleteCertificateRequest extends Model
      */
     public $authToken;
 
-    // id
+    // dns_recordset_id
     /**
      * @var string
      */
-    public $id;
+    public $dnsRecordsetId;
+
+    // dns_record_ip
+    /**
+     * @var string
+     */
+    public $dnsRecordIp;
 
     // workspace_id
     /**
      * @var string
      */
     public $workspaceId;
-
-    // zone_id
-    /**
-     * @var string
-     */
-    public $zoneId;
-
-    // 多provider时选填
-    /**
-     * @var string
-     */
-    public $providerId;
     protected $_name = [
-        'authToken'   => 'auth_token',
-        'id'          => 'id',
-        'workspaceId' => 'workspace_id',
-        'zoneId'      => 'zone_id',
-        'providerId'  => 'provider_id',
+        'authToken'      => 'auth_token',
+        'dnsRecordsetId' => 'dns_recordset_id',
+        'dnsRecordIp'    => 'dns_record_ip',
+        'workspaceId'    => 'workspace_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('dnsRecordsetId', $this->dnsRecordsetId, true);
+        Model::validateRequired('dnsRecordIp', $this->dnsRecordIp, true);
         Model::validateRequired('workspaceId', $this->workspaceId, true);
-        Model::validateRequired('zoneId', $this->zoneId, true);
     }
 
     public function toMap()
@@ -58,17 +51,14 @@ class DeleteCertificateRequest extends Model
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
         }
-        if (null !== $this->id) {
-            $res['id'] = $this->id;
+        if (null !== $this->dnsRecordsetId) {
+            $res['dns_recordset_id'] = $this->dnsRecordsetId;
+        }
+        if (null !== $this->dnsRecordIp) {
+            $res['dns_record_ip'] = $this->dnsRecordIp;
         }
         if (null !== $this->workspaceId) {
             $res['workspace_id'] = $this->workspaceId;
-        }
-        if (null !== $this->zoneId) {
-            $res['zone_id'] = $this->zoneId;
-        }
-        if (null !== $this->providerId) {
-            $res['provider_id'] = $this->providerId;
         }
 
         return $res;
@@ -77,7 +67,7 @@ class DeleteCertificateRequest extends Model
     /**
      * @param array $map
      *
-     * @return DeleteCertificateRequest
+     * @return DeleteDnsRecordRequest
      */
     public static function fromMap($map = [])
     {
@@ -85,17 +75,14 @@ class DeleteCertificateRequest extends Model
         if (isset($map['auth_token'])) {
             $model->authToken = $map['auth_token'];
         }
-        if (isset($map['id'])) {
-            $model->id = $map['id'];
+        if (isset($map['dns_recordset_id'])) {
+            $model->dnsRecordsetId = $map['dns_recordset_id'];
+        }
+        if (isset($map['dns_record_ip'])) {
+            $model->dnsRecordIp = $map['dns_record_ip'];
         }
         if (isset($map['workspace_id'])) {
             $model->workspaceId = $map['workspace_id'];
-        }
-        if (isset($map['zone_id'])) {
-            $model->zoneId = $map['zone_id'];
-        }
-        if (isset($map['provider_id'])) {
-            $model->providerId = $map['provider_id'];
         }
 
         return $model;
