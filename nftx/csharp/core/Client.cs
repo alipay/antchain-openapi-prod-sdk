@@ -137,7 +137,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.5"},
+                        {"sdk_version", "1.4.0"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.5"},
+                        {"sdk_version", "1.4.0"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -319,7 +319,7 @@ namespace AntChain.SDK.NFTX
 
         /**
          * Description: B端商户的NFT发行以及铸造
-         * Summary: B端商户的NFT铸造
+         * Summary: B端商户的NFT铸造 (废弃)
          */
         public ImportNftCreateResponse ImportNftCreate(ImportNftCreateRequest request)
         {
@@ -330,7 +330,7 @@ namespace AntChain.SDK.NFTX
 
         /**
          * Description: B端商户的NFT发行以及铸造
-         * Summary: B端商户的NFT铸造
+         * Summary: B端商户的NFT铸造 (废弃)
          */
         public async Task<ImportNftCreateResponse> ImportNftCreateAsync(ImportNftCreateRequest request)
         {
@@ -341,7 +341,7 @@ namespace AntChain.SDK.NFTX
 
         /**
          * Description: B端商户的NFT发行以及铸造
-         * Summary: B端商户的NFT铸造
+         * Summary: B端商户的NFT铸造 (废弃)
          */
         public ImportNftCreateResponse ImportNftCreateEx(ImportNftCreateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -351,7 +351,7 @@ namespace AntChain.SDK.NFTX
 
         /**
          * Description: B端商户的NFT发行以及铸造
-         * Summary: B端商户的NFT铸造
+         * Summary: B端商户的NFT铸造 (废弃)
          */
         public async Task<ImportNftCreateResponse> ImportNftCreateExAsync(ImportNftCreateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -697,7 +697,7 @@ namespace AntChain.SDK.NFTX
 
         /**
          * Description: 按项目表编码B2C发放NFT,带渠道租户
-         * Summary: 按项目表编码B2C发放NFT,带渠道租户
+         * Summary: 按项目表编码B2C发放NFT, (废弃)
          */
         public RunNftTransferResponse RunNftTransfer(RunNftTransferRequest request)
         {
@@ -708,7 +708,7 @@ namespace AntChain.SDK.NFTX
 
         /**
          * Description: 按项目表编码B2C发放NFT,带渠道租户
-         * Summary: 按项目表编码B2C发放NFT,带渠道租户
+         * Summary: 按项目表编码B2C发放NFT, (废弃)
          */
         public async Task<RunNftTransferResponse> RunNftTransferAsync(RunNftTransferRequest request)
         {
@@ -719,7 +719,7 @@ namespace AntChain.SDK.NFTX
 
         /**
          * Description: 按项目表编码B2C发放NFT,带渠道租户
-         * Summary: 按项目表编码B2C发放NFT,带渠道租户
+         * Summary: 按项目表编码B2C发放NFT, (废弃)
          */
         public RunNftTransferResponse RunNftTransferEx(RunNftTransferRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -729,7 +729,7 @@ namespace AntChain.SDK.NFTX
 
         /**
          * Description: 按项目表编码B2C发放NFT,带渠道租户
-         * Summary: 按项目表编码B2C发放NFT,带渠道租户
+         * Summary: 按项目表编码B2C发放NFT, (废弃)
          */
         public async Task<RunNftTransferResponse> RunNftTransferExAsync(RunNftTransferRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -777,6 +777,48 @@ namespace AntChain.SDK.NFTX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ApplyNftTransferResponse>(await DoRequestAsync("1.0", "antchain.nftx.nft.transfer.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 按项目表编码B2C发放NFT,带渠道租户
+         * Summary: 按项目表编码B2C发放NFT,带渠道租户
+         */
+        public ApplyNftTransferbyprojectwithchanneltenantResponse ApplyNftTransferbyprojectwithchanneltenant(ApplyNftTransferbyprojectwithchanneltenantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyNftTransferbyprojectwithchanneltenantEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 按项目表编码B2C发放NFT,带渠道租户
+         * Summary: 按项目表编码B2C发放NFT,带渠道租户
+         */
+        public async Task<ApplyNftTransferbyprojectwithchanneltenantResponse> ApplyNftTransferbyprojectwithchanneltenantAsync(ApplyNftTransferbyprojectwithchanneltenantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyNftTransferbyprojectwithchanneltenantExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 按项目表编码B2C发放NFT,带渠道租户
+         * Summary: 按项目表编码B2C发放NFT,带渠道租户
+         */
+        public ApplyNftTransferbyprojectwithchanneltenantResponse ApplyNftTransferbyprojectwithchanneltenantEx(ApplyNftTransferbyprojectwithchanneltenantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyNftTransferbyprojectwithchanneltenantResponse>(DoRequest("1.0", "antchain.nftx.nft.transferbyprojectwithchanneltenant.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 按项目表编码B2C发放NFT,带渠道租户
+         * Summary: 按项目表编码B2C发放NFT,带渠道租户
+         */
+        public async Task<ApplyNftTransferbyprojectwithchanneltenantResponse> ApplyNftTransferbyprojectwithchanneltenantExAsync(ApplyNftTransferbyprojectwithchanneltenantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyNftTransferbyprojectwithchanneltenantResponse>(await DoRequestAsync("1.0", "antchain.nftx.nft.transferbyprojectwithchanneltenant.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
