@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.32',
+    sdk_version = '1.7.34',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -9367,6 +9367,102 @@ async function verifyRefinancePackage(request: VerifyRefinancePackageRequest): V
 async function verifyRefinancePackageEx(request: VerifyRefinancePackageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyRefinancePackageResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.refinance.package.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryLeaseOrderclearingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id
+  orderId: string(name='order_id'),
+  // 期数
+  term: long(name='term'),
+  // 融资租赁合约id
+  applicationId?: string(name='application_id'),
+  // 清分单号
+  clearingOrderId: string(name='clearing_order_id'),
+  // 租赁机构id
+  leaseId?: string(name='lease_id'),
+}
+
+model QueryLeaseOrderclearingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单清分信息
+  data?: string(name='data'),
+  // 错误信息描述
+  code?: string(name='code'),
+  // 错误信息描述
+  errMessage?: string(name='err_message'),
+}
+
+/**
+ * Description: 融资租赁查询清分信息
+ * Summary: 融资租赁查询清分信息
+ */
+async function queryLeaseOrderclearing(request: QueryLeaseOrderclearingRequest): QueryLeaseOrderclearingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryLeaseOrderclearingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 融资租赁查询清分信息
+ * Summary: 融资租赁查询清分信息
+ */
+async function queryLeaseOrderclearingEx(request: QueryLeaseOrderclearingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLeaseOrderclearingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.orderclearing.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryLeaseRepaymentstatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id
+  orderId: string(name='order_id'),
+  // 融资租赁合约id
+  applicationId?: string(name='application_id'),
+  // 租赁机构id
+  leaseId?: string(name='lease_id'),
+}
+
+model QueryLeaseRepaymentstatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单结清详细信息
+  data?: string(name='data'),
+  // 错误码
+  code?: string(name='code'),
+  // 错误信息描述
+  errMessage?: string(name='err_message'),
+}
+
+/**
+ * Description: 融资租赁提前还款详情查询
+ * Summary: 融资租赁提前还款详情查询
+ */
+async function queryLeaseRepaymentstatus(request: QueryLeaseRepaymentstatusRequest): QueryLeaseRepaymentstatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryLeaseRepaymentstatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 融资租赁提前还款详情查询
+ * Summary: 融资租赁提前还款详情查询
+ */
+async function queryLeaseRepaymentstatusEx(request: QueryLeaseRepaymentstatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLeaseRepaymentstatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.repaymentstatus.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateWitnessFlowRequest = {
