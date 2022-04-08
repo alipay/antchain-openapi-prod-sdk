@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.32")
+                    new TeaPair("sdk_version", "1.7.34")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -3011,6 +3011,44 @@ public class Client {
     public VerifyRefinancePackageResponse verifyRefinancePackageEx(VerifyRefinancePackageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.refinance.package.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyRefinancePackageResponse());
+    }
+
+    /**
+     * Description: 融资租赁查询清分信息
+     * Summary: 融资租赁查询清分信息
+     */
+    public QueryLeaseOrderclearingResponse queryLeaseOrderclearing(QueryLeaseOrderclearingRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryLeaseOrderclearingEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 融资租赁查询清分信息
+     * Summary: 融资租赁查询清分信息
+     */
+    public QueryLeaseOrderclearingResponse queryLeaseOrderclearingEx(QueryLeaseOrderclearingRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.orderclearing.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLeaseOrderclearingResponse());
+    }
+
+    /**
+     * Description: 融资租赁提前还款详情查询
+     * Summary: 融资租赁提前还款详情查询
+     */
+    public QueryLeaseRepaymentstatusResponse queryLeaseRepaymentstatus(QueryLeaseRepaymentstatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryLeaseRepaymentstatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 融资租赁提前还款详情查询
+     * Summary: 融资租赁提前还款详情查询
+     */
+    public QueryLeaseRepaymentstatusResponse queryLeaseRepaymentstatusEx(QueryLeaseRepaymentstatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.repaymentstatus.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLeaseRepaymentstatusResponse());
     }
 
     /**
