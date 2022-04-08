@@ -22309,6 +22309,216 @@ func (s *VerifyRefinancePackageResponse) SetStatus(v string) *VerifyRefinancePac
 	return s
 }
 
+type QueryLeaseOrderclearingRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 期数
+	Term *int64 `json:"term,omitempty" xml:"term,omitempty" require:"true"`
+	// 融资租赁合约id
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty"`
+	// 清分单号
+	ClearingOrderId *string `json:"clearing_order_id,omitempty" xml:"clearing_order_id,omitempty" require:"true"`
+	// 租赁机构id
+	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty"`
+}
+
+func (s QueryLeaseOrderclearingRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeaseOrderclearingRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeaseOrderclearingRequest) SetAuthToken(v string) *QueryLeaseOrderclearingRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryLeaseOrderclearingRequest) SetProductInstanceId(v string) *QueryLeaseOrderclearingRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryLeaseOrderclearingRequest) SetOrderId(v string) *QueryLeaseOrderclearingRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *QueryLeaseOrderclearingRequest) SetTerm(v int64) *QueryLeaseOrderclearingRequest {
+	s.Term = &v
+	return s
+}
+
+func (s *QueryLeaseOrderclearingRequest) SetApplicationId(v string) *QueryLeaseOrderclearingRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+func (s *QueryLeaseOrderclearingRequest) SetClearingOrderId(v string) *QueryLeaseOrderclearingRequest {
+	s.ClearingOrderId = &v
+	return s
+}
+
+func (s *QueryLeaseOrderclearingRequest) SetLeaseId(v string) *QueryLeaseOrderclearingRequest {
+	s.LeaseId = &v
+	return s
+}
+
+type QueryLeaseOrderclearingResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单清分信息
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// 错误信息描述
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 错误信息描述
+	ErrMessage *string `json:"err_message,omitempty" xml:"err_message,omitempty"`
+}
+
+func (s QueryLeaseOrderclearingResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeaseOrderclearingResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeaseOrderclearingResponse) SetReqMsgId(v string) *QueryLeaseOrderclearingResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryLeaseOrderclearingResponse) SetResultCode(v string) *QueryLeaseOrderclearingResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryLeaseOrderclearingResponse) SetResultMsg(v string) *QueryLeaseOrderclearingResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryLeaseOrderclearingResponse) SetData(v string) *QueryLeaseOrderclearingResponse {
+	s.Data = &v
+	return s
+}
+
+func (s *QueryLeaseOrderclearingResponse) SetCode(v string) *QueryLeaseOrderclearingResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryLeaseOrderclearingResponse) SetErrMessage(v string) *QueryLeaseOrderclearingResponse {
+	s.ErrMessage = &v
+	return s
+}
+
+type QueryLeaseRepaymentstatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 融资租赁合约id
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty"`
+	// 租赁机构id
+	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty"`
+}
+
+func (s QueryLeaseRepaymentstatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeaseRepaymentstatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeaseRepaymentstatusRequest) SetAuthToken(v string) *QueryLeaseRepaymentstatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryLeaseRepaymentstatusRequest) SetProductInstanceId(v string) *QueryLeaseRepaymentstatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryLeaseRepaymentstatusRequest) SetOrderId(v string) *QueryLeaseRepaymentstatusRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *QueryLeaseRepaymentstatusRequest) SetApplicationId(v string) *QueryLeaseRepaymentstatusRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+func (s *QueryLeaseRepaymentstatusRequest) SetLeaseId(v string) *QueryLeaseRepaymentstatusRequest {
+	s.LeaseId = &v
+	return s
+}
+
+type QueryLeaseRepaymentstatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单结清详细信息
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// 错误码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 错误信息描述
+	ErrMessage *string `json:"err_message,omitempty" xml:"err_message,omitempty"`
+}
+
+func (s QueryLeaseRepaymentstatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeaseRepaymentstatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeaseRepaymentstatusResponse) SetReqMsgId(v string) *QueryLeaseRepaymentstatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryLeaseRepaymentstatusResponse) SetResultCode(v string) *QueryLeaseRepaymentstatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryLeaseRepaymentstatusResponse) SetResultMsg(v string) *QueryLeaseRepaymentstatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryLeaseRepaymentstatusResponse) SetData(v string) *QueryLeaseRepaymentstatusResponse {
+	s.Data = &v
+	return s
+}
+
+func (s *QueryLeaseRepaymentstatusResponse) SetCode(v string) *QueryLeaseRepaymentstatusResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryLeaseRepaymentstatusResponse) SetErrMessage(v string) *QueryLeaseRepaymentstatusResponse {
+	s.ErrMessage = &v
+	return s
+}
+
 type CreateWitnessFlowRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -32921,7 +33131,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.32"),
+				"sdk_version":      tea.String("1.7.34"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -38066,6 +38276,74 @@ func (client *Client) VerifyRefinancePackageEx(request *VerifyRefinancePackageRe
 	}
 	_result = &VerifyRefinancePackageResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.refinance.package.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 融资租赁查询清分信息
+ * Summary: 融资租赁查询清分信息
+ */
+func (client *Client) QueryLeaseOrderclearing(request *QueryLeaseOrderclearingRequest) (_result *QueryLeaseOrderclearingResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryLeaseOrderclearingResponse{}
+	_body, _err := client.QueryLeaseOrderclearingEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 融资租赁查询清分信息
+ * Summary: 融资租赁查询清分信息
+ */
+func (client *Client) QueryLeaseOrderclearingEx(request *QueryLeaseOrderclearingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryLeaseOrderclearingResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryLeaseOrderclearingResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.orderclearing.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 融资租赁提前还款详情查询
+ * Summary: 融资租赁提前还款详情查询
+ */
+func (client *Client) QueryLeaseRepaymentstatus(request *QueryLeaseRepaymentstatusRequest) (_result *QueryLeaseRepaymentstatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryLeaseRepaymentstatusResponse{}
+	_body, _err := client.QueryLeaseRepaymentstatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 融资租赁提前还款详情查询
+ * Summary: 融资租赁提前还款详情查询
+ */
+func (client *Client) QueryLeaseRepaymentstatusEx(request *QueryLeaseRepaymentstatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryLeaseRepaymentstatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryLeaseRepaymentstatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.repaymentstatus.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
