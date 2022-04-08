@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.32'
+                    'sdk_version': '1.7.34'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.32'
+                    'sdk_version': '1.7.34'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -8377,6 +8377,114 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.VerifyRefinancePackageResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.refinance.package.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_lease_orderclearing(
+        self,
+        request: twc_models.QueryLeaseOrderclearingRequest,
+    ) -> twc_models.QueryLeaseOrderclearingResponse:
+        """
+        Description: 融资租赁查询清分信息
+        Summary: 融资租赁查询清分信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_lease_orderclearing_ex(request, headers, runtime)
+
+    async def query_lease_orderclearing_async(
+        self,
+        request: twc_models.QueryLeaseOrderclearingRequest,
+    ) -> twc_models.QueryLeaseOrderclearingResponse:
+        """
+        Description: 融资租赁查询清分信息
+        Summary: 融资租赁查询清分信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_lease_orderclearing_ex_async(request, headers, runtime)
+
+    def query_lease_orderclearing_ex(
+        self,
+        request: twc_models.QueryLeaseOrderclearingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseOrderclearingResponse:
+        """
+        Description: 融资租赁查询清分信息
+        Summary: 融资租赁查询清分信息
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryLeaseOrderclearingResponse().from_map(
+            self.do_request('1.0', 'twc.notary.lease.orderclearing.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_lease_orderclearing_ex_async(
+        self,
+        request: twc_models.QueryLeaseOrderclearingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseOrderclearingResponse:
+        """
+        Description: 融资租赁查询清分信息
+        Summary: 融资租赁查询清分信息
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryLeaseOrderclearingResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.lease.orderclearing.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_lease_repaymentstatus(
+        self,
+        request: twc_models.QueryLeaseRepaymentstatusRequest,
+    ) -> twc_models.QueryLeaseRepaymentstatusResponse:
+        """
+        Description: 融资租赁提前还款详情查询
+        Summary: 融资租赁提前还款详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_lease_repaymentstatus_ex(request, headers, runtime)
+
+    async def query_lease_repaymentstatus_async(
+        self,
+        request: twc_models.QueryLeaseRepaymentstatusRequest,
+    ) -> twc_models.QueryLeaseRepaymentstatusResponse:
+        """
+        Description: 融资租赁提前还款详情查询
+        Summary: 融资租赁提前还款详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_lease_repaymentstatus_ex_async(request, headers, runtime)
+
+    def query_lease_repaymentstatus_ex(
+        self,
+        request: twc_models.QueryLeaseRepaymentstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseRepaymentstatusResponse:
+        """
+        Description: 融资租赁提前还款详情查询
+        Summary: 融资租赁提前还款详情查询
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryLeaseRepaymentstatusResponse().from_map(
+            self.do_request('1.0', 'twc.notary.lease.repaymentstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_lease_repaymentstatus_ex_async(
+        self,
+        request: twc_models.QueryLeaseRepaymentstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseRepaymentstatusResponse:
+        """
+        Description: 融资租赁提前还款详情查询
+        Summary: 融资租赁提前还款详情查询
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryLeaseRepaymentstatusResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.lease.repaymentstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_witness_flow(
