@@ -16626,6 +16626,164 @@ export class VerifyRefinancePackageResponse extends $tea.Model {
   }
 }
 
+export class QueryLeaseOrderclearingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id
+  orderId: string;
+  // 期数
+  term: number;
+  // 融资租赁合约id
+  applicationId?: string;
+  // 清分单号
+  clearingOrderId: string;
+  // 租赁机构id
+  leaseId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      term: 'term',
+      applicationId: 'application_id',
+      clearingOrderId: 'clearing_order_id',
+      leaseId: 'lease_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      term: 'number',
+      applicationId: 'string',
+      clearingOrderId: 'string',
+      leaseId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryLeaseOrderclearingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单清分信息
+  data?: string;
+  // 错误信息描述
+  code?: string;
+  // 错误信息描述
+  errMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+      code: 'code',
+      errMessage: 'err_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+      code: 'string',
+      errMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryLeaseRepaymentstatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id
+  orderId: string;
+  // 融资租赁合约id
+  applicationId?: string;
+  // 租赁机构id
+  leaseId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      applicationId: 'application_id',
+      leaseId: 'lease_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      applicationId: 'string',
+      leaseId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryLeaseRepaymentstatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单结清详细信息
+  data?: string;
+  // 错误码
+  code?: string;
+  // 错误信息描述
+  errMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+      code: 'code',
+      errMessage: 'err_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+      code: 'string',
+      errMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateWitnessFlowRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -24308,7 +24466,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.32",
+          sdk_version: "1.7.34",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -27206,6 +27364,44 @@ export default class Client {
   async verifyRefinancePackageEx(request: VerifyRefinancePackageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<VerifyRefinancePackageResponse> {
     Util.validateModel(request);
     return $tea.cast<VerifyRefinancePackageResponse>(await this.doRequest("1.0", "twc.notary.refinance.package.verify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new VerifyRefinancePackageResponse({}));
+  }
+
+  /**
+   * Description: 融资租赁查询清分信息
+   * Summary: 融资租赁查询清分信息
+   */
+  async queryLeaseOrderclearing(request: QueryLeaseOrderclearingRequest): Promise<QueryLeaseOrderclearingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryLeaseOrderclearingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 融资租赁查询清分信息
+   * Summary: 融资租赁查询清分信息
+   */
+  async queryLeaseOrderclearingEx(request: QueryLeaseOrderclearingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryLeaseOrderclearingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryLeaseOrderclearingResponse>(await this.doRequest("1.0", "twc.notary.lease.orderclearing.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryLeaseOrderclearingResponse({}));
+  }
+
+  /**
+   * Description: 融资租赁提前还款详情查询
+   * Summary: 融资租赁提前还款详情查询
+   */
+  async queryLeaseRepaymentstatus(request: QueryLeaseRepaymentstatusRequest): Promise<QueryLeaseRepaymentstatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryLeaseRepaymentstatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 融资租赁提前还款详情查询
+   * Summary: 融资租赁提前还款详情查询
+   */
+  async queryLeaseRepaymentstatusEx(request: QueryLeaseRepaymentstatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryLeaseRepaymentstatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryLeaseRepaymentstatusResponse>(await this.doRequest("1.0", "twc.notary.lease.repaymentstatus.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryLeaseRepaymentstatusResponse({}));
   }
 
   /**
