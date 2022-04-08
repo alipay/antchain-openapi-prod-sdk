@@ -379,6 +379,8 @@ use AntChain\TWC\Models\QueryLeaseIotinfoRequest;
 use AntChain\TWC\Models\QueryLeaseIotinfoResponse;
 use AntChain\TWC\Models\QueryLeaseLeasepromiseRequest;
 use AntChain\TWC\Models\QueryLeaseLeasepromiseResponse;
+use AntChain\TWC\Models\QueryLeaseOrderclearingRequest;
+use AntChain\TWC\Models\QueryLeaseOrderclearingResponse;
 use AntChain\TWC\Models\QueryLeaseOrderdetailinfoRequest;
 use AntChain\TWC\Models\QueryLeaseOrderdetailinfoResponse;
 use AntChain\TWC\Models\QueryLeaseOrderinfoRequest;
@@ -393,6 +395,8 @@ use AntChain\TWC\Models\QueryLeaseRentalinfoRequest;
 use AntChain\TWC\Models\QueryLeaseRentalinfoResponse;
 use AntChain\TWC\Models\QueryLeaseRepaymentRequest;
 use AntChain\TWC\Models\QueryLeaseRepaymentResponse;
+use AntChain\TWC\Models\QueryLeaseRepaymentstatusRequest;
+use AntChain\TWC\Models\QueryLeaseRepaymentstatusResponse;
 use AntChain\TWC\Models\QueryLeaseUserRequest;
 use AntChain\TWC\Models\QueryLeaseUserResponse;
 use AntChain\TWC\Models\QueryPayresultfileurlRequest;
@@ -622,7 +626,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.32',
+                    'sdk_version'      => '1.7.34',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -5620,6 +5624,72 @@ class Client
         Utils::validateModel($request);
 
         return VerifyRefinancePackageResponse::fromMap($this->doRequest('1.0', 'twc.notary.refinance.package.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资租赁查询清分信息
+     * Summary: 融资租赁查询清分信息.
+     *
+     * @param QueryLeaseOrderclearingRequest $request
+     *
+     * @return QueryLeaseOrderclearingResponse
+     */
+    public function queryLeaseOrderclearing($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseOrderclearingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资租赁查询清分信息
+     * Summary: 融资租赁查询清分信息.
+     *
+     * @param QueryLeaseOrderclearingRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryLeaseOrderclearingResponse
+     */
+    public function queryLeaseOrderclearingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseOrderclearingResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.orderclearing.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资租赁提前还款详情查询
+     * Summary: 融资租赁提前还款详情查询.
+     *
+     * @param QueryLeaseRepaymentstatusRequest $request
+     *
+     * @return QueryLeaseRepaymentstatusResponse
+     */
+    public function queryLeaseRepaymentstatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseRepaymentstatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资租赁提前还款详情查询
+     * Summary: 融资租赁提前还款详情查询.
+     *
+     * @param QueryLeaseRepaymentstatusRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryLeaseRepaymentstatusResponse
+     */
+    public function queryLeaseRepaymentstatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseRepaymentstatusResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.repaymentstatus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
