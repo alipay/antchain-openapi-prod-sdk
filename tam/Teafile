@@ -1,0 +1,71 @@
+{
+  "scope": "antchain",
+  "name": "TAM",
+  "version": "1.0.0",
+  "main": "./main.tea",
+  "maintainers": [
+    {
+      "name": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  ],
+  "releases": {
+    "java": "com.antgroup.antchain.openapi:openapi-tam:1.0.18",
+    "go": "github.com/antchain-openapi-sdk-go/tam/client:v1.0.18",
+    "csharp": "AntChain.SDK.TAM:1.0.18",
+    "ts": "@antchain/tam:1.0.18",
+    "php": "antchain/tam:1.0.18",
+    "python": "antchain_sdk_tam:1.0.18"
+  },
+  "libraries": {
+    "Util": "darabonba:Util:*",
+    "RPCUtil": "alibabacloud:RPCUtil:*",
+    "AntchainUtil": "antchain:AntchainUtil:*"
+  },
+  "java": {
+    "package": "com.antgroup.antchain.openapi.tam",
+    "packageInfo": {
+      "description": "Ant Chain TAM SDK for Java",
+      "url": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "licenseNmae": "The Apache License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "developerId": "alipayproducts",
+      "developerName": "Ant Chain SDK",
+      "groupId": "com.antgroup.antchain.openapi",
+      "developerEmail": "alipaysdk@alipay.com"
+    }
+  },
+  "csharp": {
+    "className": "Client",
+    "namespace": "AntChain.SDK.TAM",
+    "packageInfo": {
+      "name": "tam",
+      "title": "antchain-tam",
+      "description": "Ant Chain TAM SDK Library for .NET",
+      "company": "Ant Chain, Inc"
+    }
+  },
+  "php": {
+    "package": "AntChain.TAM",
+    "clientName": "Client",
+    "packageInfo": {
+      "name": "antchain/tam",
+      "desc": "Ant Chain SDK Library for PHP",
+      "github": "https://github.com/alipay/antchain-openapi-sdk-php",
+      "files": {
+        "LICENSE": "../LICENSE"
+      }
+    }
+  },
+  "python": {
+    "package": "antchain_sdk_tam",
+    "clientName": "client",
+    "packageInfo": {
+      "name": "antchain_tam",
+      "desc": "Ant Chain TAM SDK Library for Python",
+      "github": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "author": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  }
+}
