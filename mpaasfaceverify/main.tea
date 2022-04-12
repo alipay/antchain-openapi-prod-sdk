@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.2',
+    sdk_version = '1.1.0',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -407,5 +407,59 @@ async function queryFaceauthFile(request: QueryFaceauthFileRequest): QueryFaceau
 async function queryFaceauthFileEx(request: QueryFaceauthFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFaceauthFileResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antfin.mpaasfaceverify.faceauth.file.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CertifyFaceauthServermodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+  bizId: string(name='biz_id'),
+  // 预留扩展业务参数
+  externParam: string(name='extern_param'),
+  // 用户身份信息
+  identityParam: string(name='identity_param'),
+  // 待认证图片，默认base64格式
+  authImg: string(name='auth_img'),
+  // 待认证图片类型，不传默认为base64后的图片，可以扩展Blob/video等类型
+  authImgType: string(name='auth_img_type'),
+  // 操作类型，operation_type为custom时表示自定义模式，需要用户上传比对源图片
+  operationType: string(name='operation_type'),
+  // 比对源图片
+  refImg: string(name='ref_img'),
+}
+
+model CertifyFaceauthServermodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 预留扩展结果
+  externInfo?: string(name='extern_info'),
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string(name='result_code_sub'),
+  // result_code_sub对应的文案
+  resultMsgSub?: string(name='result_msg_sub'),
+}
+
+/**
+ * Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
+ * Summary: 实人认证核验源服务
+ */
+async function certifyFaceauthServermode(request: CertifyFaceauthServermodeRequest): CertifyFaceauthServermodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return certifyFaceauthServermodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
+ * Summary: 实人认证核验源服务
+ */
+async function certifyFaceauthServermodeEx(request: CertifyFaceauthServermodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CertifyFaceauthServermodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antfin.mpaasfaceverify.faceauth.servermode.certify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
