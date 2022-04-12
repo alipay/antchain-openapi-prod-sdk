@@ -1301,6 +1301,7 @@ class PagequeryNftCustomerResponse(TeaModel):
         page: int = None,
         page_size: int = None,
         total_count: int = None,
+        uid: str = None,
         asset_list: List[UserAsset] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -1315,6 +1316,8 @@ class PagequeryNftCustomerResponse(TeaModel):
         self.page_size = page_size
         # 列表总数
         self.total_count = total_count
+        # fans uid
+        self.uid = uid
         # 用户资产列表
         self.asset_list = asset_list
 
@@ -1338,6 +1341,8 @@ class PagequeryNftCustomerResponse(TeaModel):
             result['page_size'] = self.page_size
         if self.total_count is not None:
             result['total_count'] = self.total_count
+        if self.uid is not None:
+            result['uid'] = self.uid
         result['asset_list'] = []
         if self.asset_list is not None:
             for k in self.asset_list:
@@ -1358,6 +1363,8 @@ class PagequeryNftCustomerResponse(TeaModel):
             self.page_size = m.get('page_size')
         if m.get('total_count') is not None:
             self.total_count = m.get('total_count')
+        if m.get('uid') is not None:
+            self.uid = m.get('uid')
         self.asset_list = []
         if m.get('asset_list') is not None:
             for k in m.get('asset_list'):
@@ -1785,6 +1792,7 @@ class ApplyNftTransferResponse(TeaModel):
         result_msg: str = None,
         sku_id: int = None,
         nft_id: str = None,
+        uid: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1796,6 +1804,8 @@ class ApplyNftTransferResponse(TeaModel):
         self.sku_id = sku_id
         # NFT发行成功的商品，其中转给C端用户的特定一个token
         self.nft_id = nft_id
+        # fans uid
+        self.uid = uid
 
     def validate(self):
         pass
@@ -1812,6 +1822,8 @@ class ApplyNftTransferResponse(TeaModel):
             result['sku_id'] = self.sku_id
         if self.nft_id is not None:
             result['nft_id'] = self.nft_id
+        if self.uid is not None:
+            result['uid'] = self.uid
         return result
 
     def from_map(self, m: dict = None):
@@ -1826,6 +1838,8 @@ class ApplyNftTransferResponse(TeaModel):
             self.sku_id = m.get('sku_id')
         if m.get('nft_id') is not None:
             self.nft_id = m.get('nft_id')
+        if m.get('uid') is not None:
+            self.uid = m.get('uid')
         return self
 
 
