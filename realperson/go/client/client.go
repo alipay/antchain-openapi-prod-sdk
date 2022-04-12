@@ -387,6 +387,8 @@ type CreateFacevrfServerRequest struct {
 	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
 	// 证件号码
 	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// cert_name、cert_no两个字段的传入模式。0：明文1：密文
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty"`
 	// 证件类型，如身份证
 	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
 	// 预留扩展参数
@@ -449,6 +451,11 @@ func (s *CreateFacevrfServerRequest) SetCertName(v string) *CreateFacevrfServerR
 
 func (s *CreateFacevrfServerRequest) SetCertNo(v string) *CreateFacevrfServerRequest {
 	s.CertNo = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetEncType(v string) *CreateFacevrfServerRequest {
+	s.EncType = &v
 	return s
 }
 
@@ -566,6 +573,8 @@ type ExecFacevrfServerRequest struct {
 	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
 	// 证件号码
 	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// cert_name、cert_no两个字段的传入模式0：明文1：密文
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty"`
 	// 证件类型，如身份证
 	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
 	// 预留扩展参数
@@ -613,6 +622,11 @@ func (s *ExecFacevrfServerRequest) SetCertName(v string) *ExecFacevrfServerReque
 
 func (s *ExecFacevrfServerRequest) SetCertNo(v string) *ExecFacevrfServerRequest {
 	s.CertNo = &v
+	return s
+}
+
+func (s *ExecFacevrfServerRequest) SetEncType(v string) *ExecFacevrfServerRequest {
+	s.EncType = &v
 	return s
 }
 
@@ -1886,6 +1900,8 @@ type CheckAnticheatPersonalResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 风险等级
 	RiskLevel *string `json:"risk_level,omitempty" xml:"risk_level,omitempty"`
+	// 风险等级文字描述
+	RiskLevelDesc *string `json:"risk_level_desc,omitempty" xml:"risk_level_desc,omitempty"`
 	// 扩展信息
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
 }
@@ -1915,6 +1931,11 @@ func (s *CheckAnticheatPersonalResponse) SetResultMsg(v string) *CheckAnticheatP
 
 func (s *CheckAnticheatPersonalResponse) SetRiskLevel(v string) *CheckAnticheatPersonalResponse {
 	s.RiskLevel = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalResponse) SetRiskLevelDesc(v string) *CheckAnticheatPersonalResponse {
+	s.RiskLevelDesc = &v
 	return s
 }
 
@@ -2165,7 +2186,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.0"),
+				"sdk_version":      tea.String("1.6.4"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
