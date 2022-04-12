@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "REALPERSON",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-realperson:1.6.0",
-    "go": "github.com/antchain-openapi-sdk-go/realperson/client:v1.6.0",
-    "csharp": "AntChain.SDK.REALPERSON:1.6.0",
-    "ts": "@antchain/realperson:1.6.0",
-    "php": "antchain/realperson:1.6.0",
-    "python": "antchain_sdk_realperson:1.6.0"
+    "java": "com.antgroup.antchain.openapi:openapi-realperson:1.6.4",
+    "go": "github.com/antchain-openapi-sdk-go/realperson/client:v1.6.4",
+    "csharp": "AntChain.SDK.REALPERSON:1.6.4",
+    "ts": "@antchain/realperson:1.6.4",
+    "php": "antchain/realperson:1.6.4",
+    "python": "antchain_sdk_realperson:1.6.4"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.0',
+    sdk_version = '1.6.4',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -256,6 +256,8 @@ model CreateFacevrfServerRequest = {
   certName: string(name='cert_name'),
   // 证件号码
   certNo: string(name='cert_no'),
+  // cert_name、cert_no两个字段的传入模式。0：明文1：密文
+  encType?: string(name='enc_type'),
   // 证件类型，如身份证
   certType: string(name='cert_type'),
   // 预留扩展参数
@@ -323,6 +325,8 @@ model ExecFacevrfServerRequest = {
   certName: string(name='cert_name'),
   // 证件号码
   certNo: string(name='cert_no'),
+  // cert_name、cert_no两个字段的传入模式0：明文1：密文
+  encType?: string(name='enc_type'),
   // 证件类型，如身份证
   certType: string(name='cert_type'),
   // 预留扩展参数
@@ -925,6 +929,8 @@ model CheckAnticheatPersonalResponse = {
   resultMsg?: string(name='result_msg'),
   // 风险等级
   riskLevel?: string(name='risk_level'),
+  // 风险等级文字描述
+  riskLevelDesc?: string(name='risk_level_desc'),
   // 扩展信息
   externInfo?: string(name='extern_info'),
 }
