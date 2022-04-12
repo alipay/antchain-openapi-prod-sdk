@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\MPAASFACEVERIFY\Models\CertifyFaceauthServermodeRequest;
+use AntChain\MPAASFACEVERIFY\Models\CertifyFaceauthServermodeResponse;
 use AntChain\MPAASFACEVERIFY\Models\InitFaceauthRequest;
 use AntChain\MPAASFACEVERIFY\Models\InitFaceauthResponse;
 use AntChain\MPAASFACEVERIFY\Models\InitFaceplusRequest;
@@ -167,7 +169,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.2',
+                    'sdk_version'      => '1.1.0',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -376,5 +378,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryFaceauthFileResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.faceauth.file.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
+     * Summary: 实人认证核验源服务
+     *
+     * @param CertifyFaceauthServermodeRequest $request
+     *
+     * @return CertifyFaceauthServermodeResponse
+     */
+    public function certifyFaceauthServermode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->certifyFaceauthServermodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
+     * Summary: 实人认证核验源服务
+     *
+     * @param CertifyFaceauthServermodeRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CertifyFaceauthServermodeResponse
+     */
+    public function certifyFaceauthServermodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CertifyFaceauthServermodeResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.faceauth.servermode.certify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
