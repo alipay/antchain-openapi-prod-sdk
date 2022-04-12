@@ -20,6 +20,10 @@ public class CheckAnticheatPersonalResponse extends TeaModel {
     @NameInMap("risk_level")
     public String riskLevel;
 
+    // 风险等级文字描述
+    @NameInMap("risk_level_desc")
+    public String riskLevelDesc;
+
     // 扩展信息
     @NameInMap("extern_info")
     public String externInfo;
@@ -59,6 +63,14 @@ public class CheckAnticheatPersonalResponse extends TeaModel {
     }
     public String getRiskLevel() {
         return this.riskLevel;
+    }
+
+    public CheckAnticheatPersonalResponse setRiskLevelDesc(String riskLevelDesc) {
+        this.riskLevelDesc = riskLevelDesc;
+        return this;
+    }
+    public String getRiskLevelDesc() {
+        return this.riskLevelDesc;
     }
 
     public CheckAnticheatPersonalResponse setExternInfo(String externInfo) {

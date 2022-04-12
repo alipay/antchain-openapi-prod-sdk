@@ -30,6 +30,10 @@ public class CreateFacevrfServerRequest extends TeaModel {
     @Validation(required = true)
     public String certNo;
 
+    // cert_name、cert_no两个字段的传入模式。0：明文1：密文
+    @NameInMap("enc_type")
+    public String encType;
+
     // 证件类型，如身份证
     @NameInMap("cert_type")
     @Validation(required = true)
@@ -134,6 +138,14 @@ public class CreateFacevrfServerRequest extends TeaModel {
     }
     public String getCertNo() {
         return this.certNo;
+    }
+
+    public CreateFacevrfServerRequest setEncType(String encType) {
+        this.encType = encType;
+        return this;
+    }
+    public String getEncType() {
+        return this.encType;
     }
 
     public CreateFacevrfServerRequest setCertType(String certType) {
