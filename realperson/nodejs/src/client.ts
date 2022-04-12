@@ -269,6 +269,8 @@ export class CreateFacevrfServerRequest extends $tea.Model {
   certName: string;
   // 证件号码
   certNo: string;
+  // cert_name、cert_no两个字段的传入模式。0：明文1：密文
+  encType?: string;
   // 证件类型，如身份证
   certType: string;
   // 预留扩展参数
@@ -302,6 +304,7 @@ export class CreateFacevrfServerRequest extends $tea.Model {
       callbackUrl: 'callback_url',
       certName: 'cert_name',
       certNo: 'cert_no',
+      encType: 'enc_type',
       certType: 'cert_type',
       externParam: 'extern_param',
       facialPictureRef: 'facial_picture_ref',
@@ -325,6 +328,7 @@ export class CreateFacevrfServerRequest extends $tea.Model {
       callbackUrl: 'string',
       certName: 'string',
       certNo: 'string',
+      encType: 'string',
       certType: 'string',
       externParam: 'string',
       facialPictureRef: 'string',
@@ -389,6 +393,8 @@ export class ExecFacevrfServerRequest extends $tea.Model {
   certName: string;
   // 证件号码
   certNo: string;
+  // cert_name、cert_no两个字段的传入模式0：明文1：密文
+  encType?: string;
   // 证件类型，如身份证
   certType: string;
   // 预留扩展参数
@@ -415,6 +421,7 @@ export class ExecFacevrfServerRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       certName: 'cert_name',
       certNo: 'cert_no',
+      encType: 'enc_type',
       certType: 'cert_type',
       externParam: 'extern_param',
       facialPictureRef: 'facial_picture_ref',
@@ -434,6 +441,7 @@ export class ExecFacevrfServerRequest extends $tea.Model {
       productInstanceId: 'string',
       certName: 'string',
       certNo: 'string',
+      encType: 'string',
       certType: 'string',
       externParam: 'string',
       facialPictureRef: 'string',
@@ -1366,6 +1374,8 @@ export class CheckAnticheatPersonalResponse extends $tea.Model {
   resultMsg?: string;
   // 风险等级
   riskLevel?: string;
+  // 风险等级文字描述
+  riskLevelDesc?: string;
   // 扩展信息
   externInfo?: string;
   static names(): { [key: string]: string } {
@@ -1374,6 +1384,7 @@ export class CheckAnticheatPersonalResponse extends $tea.Model {
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       riskLevel: 'risk_level',
+      riskLevelDesc: 'risk_level_desc',
       externInfo: 'extern_info',
     };
   }
@@ -1384,6 +1395,7 @@ export class CheckAnticheatPersonalResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       riskLevel: 'string',
+      riskLevelDesc: 'string',
       externInfo: 'string',
     };
   }
@@ -1594,7 +1606,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.0",
+          sdk_version: "1.6.4",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
