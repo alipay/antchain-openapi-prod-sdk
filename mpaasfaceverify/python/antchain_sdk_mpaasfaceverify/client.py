@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2'
+                    'sdk_version': '1.1.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -235,7 +235,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2'
+                    'sdk_version': '1.1.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -537,4 +537,58 @@ class Client:
         UtilClient.validate_model(request)
         return mpaasfaceverify_models.QueryFaceauthFileResponse().from_map(
             await self.do_request_async('1.0', 'antfin.mpaasfaceverify.faceauth.file.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def certify_faceauth_servermode(
+        self,
+        request: mpaasfaceverify_models.CertifyFaceauthServermodeRequest,
+    ) -> mpaasfaceverify_models.CertifyFaceauthServermodeResponse:
+        """
+        Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
+        Summary: 实人认证核验源服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.certify_faceauth_servermode_ex(request, headers, runtime)
+
+    async def certify_faceauth_servermode_async(
+        self,
+        request: mpaasfaceverify_models.CertifyFaceauthServermodeRequest,
+    ) -> mpaasfaceverify_models.CertifyFaceauthServermodeResponse:
+        """
+        Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
+        Summary: 实人认证核验源服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.certify_faceauth_servermode_ex_async(request, headers, runtime)
+
+    def certify_faceauth_servermode_ex(
+        self,
+        request: mpaasfaceverify_models.CertifyFaceauthServermodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.CertifyFaceauthServermodeResponse:
+        """
+        Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
+        Summary: 实人认证核验源服务
+        """
+        UtilClient.validate_model(request)
+        return mpaasfaceverify_models.CertifyFaceauthServermodeResponse().from_map(
+            self.do_request('1.0', 'antfin.mpaasfaceverify.faceauth.servermode.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def certify_faceauth_servermode_ex_async(
+        self,
+        request: mpaasfaceverify_models.CertifyFaceauthServermodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.CertifyFaceauthServermodeResponse:
+        """
+        Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
+        Summary: 实人认证核验源服务
+        """
+        UtilClient.validate_model(request)
+        return mpaasfaceverify_models.CertifyFaceauthServermodeResponse().from_map(
+            await self.do_request_async('1.0', 'antfin.mpaasfaceverify.faceauth.servermode.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
