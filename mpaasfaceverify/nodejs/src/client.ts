@@ -486,6 +486,97 @@ export class QueryFaceauthFileResponse extends $tea.Model {
   }
 }
 
+export class CertifyFaceauthServermodeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+  bizId: string;
+  // 预留扩展业务参数
+  externParam: string;
+  // 用户身份信息
+  identityParam: string;
+  // 待认证图片，默认base64格式
+  authImg: string;
+  // 待认证图片类型，不传默认为base64后的图片，可以扩展Blob/video等类型
+  authImgType: string;
+  // 操作类型，operation_type为custom时表示自定义模式，需要用户上传比对源图片
+  operationType: string;
+  // 比对源图片
+  refImg: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      externParam: 'extern_param',
+      identityParam: 'identity_param',
+      authImg: 'auth_img',
+      authImgType: 'auth_img_type',
+      operationType: 'operation_type',
+      refImg: 'ref_img',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      externParam: 'string',
+      identityParam: 'string',
+      authImg: 'string',
+      authImgType: 'string',
+      operationType: 'string',
+      refImg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CertifyFaceauthServermodeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 预留扩展结果
+  externInfo?: string;
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string;
+  // result_code_sub对应的文案
+  resultMsgSub?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      externInfo: 'extern_info',
+      resultCodeSub: 'result_code_sub',
+      resultMsgSub: 'result_msg_sub',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      externInfo: 'string',
+      resultCodeSub: 'string',
+      resultMsgSub: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -599,7 +690,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.2",
+          sdk_version: "1.1.0",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -738,6 +829,25 @@ export default class Client {
   async queryFaceauthFileEx(request: QueryFaceauthFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFaceauthFileResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryFaceauthFileResponse>(await this.doRequest("1.0", "antfin.mpaasfaceverify.faceauth.file.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFaceauthFileResponse({}));
+  }
+
+  /**
+   * Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
+   * Summary: 实人认证核验源服务
+   */
+  async certifyFaceauthServermode(request: CertifyFaceauthServermodeRequest): Promise<CertifyFaceauthServermodeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.certifyFaceauthServermodeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
+   * Summary: 实人认证核验源服务
+   */
+  async certifyFaceauthServermodeEx(request: CertifyFaceauthServermodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CertifyFaceauthServermodeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CertifyFaceauthServermodeResponse>(await this.doRequest("1.0", "antfin.mpaasfaceverify.faceauth.servermode.certify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CertifyFaceauthServermodeResponse({}));
   }
 
 }
