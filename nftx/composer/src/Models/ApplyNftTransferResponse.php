@@ -37,12 +37,19 @@ class ApplyNftTransferResponse extends Model
      * @var string
      */
     public $nftId;
+
+    // fans uid
+    /**
+     * @var string
+     */
+    public $uid;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'skuId'      => 'sku_id',
         'nftId'      => 'nft_id',
+        'uid'        => 'uid',
     ];
 
     public function validate()
@@ -66,6 +73,9 @@ class ApplyNftTransferResponse extends Model
         }
         if (null !== $this->nftId) {
             $res['nft_id'] = $this->nftId;
+        }
+        if (null !== $this->uid) {
+            $res['uid'] = $this->uid;
         }
 
         return $res;
@@ -93,6 +103,9 @@ class ApplyNftTransferResponse extends Model
         }
         if (isset($map['nft_id'])) {
             $model->nftId = $map['nft_id'];
+        }
+        if (isset($map['uid'])) {
+            $model->uid = $map['uid'];
         }
 
         return $model;

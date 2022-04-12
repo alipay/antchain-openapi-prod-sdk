@@ -44,6 +44,12 @@ class PagequeryNftCustomerResponse extends Model
      */
     public $totalCount;
 
+    // fans uid
+    /**
+     * @var string
+     */
+    public $uid;
+
     // 用户资产列表
     /**
      * @var UserAsset[]
@@ -56,6 +62,7 @@ class PagequeryNftCustomerResponse extends Model
         'page'       => 'page',
         'pageSize'   => 'page_size',
         'totalCount' => 'total_count',
+        'uid'        => 'uid',
         'assetList'  => 'asset_list',
     ];
 
@@ -83,6 +90,9 @@ class PagequeryNftCustomerResponse extends Model
         }
         if (null !== $this->totalCount) {
             $res['total_count'] = $this->totalCount;
+        }
+        if (null !== $this->uid) {
+            $res['uid'] = $this->uid;
         }
         if (null !== $this->assetList) {
             $res['asset_list'] = [];
@@ -122,6 +132,9 @@ class PagequeryNftCustomerResponse extends Model
         }
         if (isset($map['total_count'])) {
             $model->totalCount = $map['total_count'];
+        }
+        if (isset($map['uid'])) {
+            $model->uid = $map['uid'];
         }
         if (isset($map['asset_list'])) {
             if (!empty($map['asset_list'])) {
