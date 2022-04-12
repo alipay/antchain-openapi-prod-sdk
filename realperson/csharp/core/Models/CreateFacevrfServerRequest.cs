@@ -38,6 +38,11 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=true)]
         public string CertNo { get; set; }
 
+        // cert_name、cert_no两个字段的传入模式。0：明文1：密文
+        [NameInMap("enc_type")]
+        [Validation(Required=false)]
+        public string EncType { get; set; }
+
         // 证件类型，如身份证
         [NameInMap("cert_type")]
         [Validation(Required=true)]

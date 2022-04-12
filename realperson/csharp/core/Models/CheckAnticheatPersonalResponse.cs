@@ -29,6 +29,11 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string RiskLevel { get; set; }
 
+        // 风险等级文字描述
+        [NameInMap("risk_level_desc")]
+        [Validation(Required=false)]
+        public string RiskLevelDesc { get; set; }
+
         // 扩展信息
         [NameInMap("extern_info")]
         [Validation(Required=false)]
