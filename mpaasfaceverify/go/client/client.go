@@ -693,6 +693,132 @@ func (s *QueryFaceauthFileResponse) SetResultMsgSub(v string) *QueryFaceauthFile
 	return s
 }
 
+type CertifyFaceauthServermodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 预留扩展业务参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty" require:"true"`
+	// 用户身份信息
+	IdentityParam *string `json:"identity_param,omitempty" xml:"identity_param,omitempty" require:"true"`
+	// 待认证图片，默认base64格式
+	AuthImg *string `json:"auth_img,omitempty" xml:"auth_img,omitempty" require:"true"`
+	// 待认证图片类型，不传默认为base64后的图片，可以扩展Blob/video等类型
+	AuthImgType *string `json:"auth_img_type,omitempty" xml:"auth_img_type,omitempty" require:"true"`
+	// 操作类型，operation_type为custom时表示自定义模式，需要用户上传比对源图片
+	OperationType *string `json:"operation_type,omitempty" xml:"operation_type,omitempty" require:"true"`
+	// 比对源图片
+	RefImg *string `json:"ref_img,omitempty" xml:"ref_img,omitempty" require:"true"`
+}
+
+func (s CertifyFaceauthServermodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CertifyFaceauthServermodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CertifyFaceauthServermodeRequest) SetAuthToken(v string) *CertifyFaceauthServermodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CertifyFaceauthServermodeRequest) SetProductInstanceId(v string) *CertifyFaceauthServermodeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CertifyFaceauthServermodeRequest) SetBizId(v string) *CertifyFaceauthServermodeRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *CertifyFaceauthServermodeRequest) SetExternParam(v string) *CertifyFaceauthServermodeRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *CertifyFaceauthServermodeRequest) SetIdentityParam(v string) *CertifyFaceauthServermodeRequest {
+	s.IdentityParam = &v
+	return s
+}
+
+func (s *CertifyFaceauthServermodeRequest) SetAuthImg(v string) *CertifyFaceauthServermodeRequest {
+	s.AuthImg = &v
+	return s
+}
+
+func (s *CertifyFaceauthServermodeRequest) SetAuthImgType(v string) *CertifyFaceauthServermodeRequest {
+	s.AuthImgType = &v
+	return s
+}
+
+func (s *CertifyFaceauthServermodeRequest) SetOperationType(v string) *CertifyFaceauthServermodeRequest {
+	s.OperationType = &v
+	return s
+}
+
+func (s *CertifyFaceauthServermodeRequest) SetRefImg(v string) *CertifyFaceauthServermodeRequest {
+	s.RefImg = &v
+	return s
+}
+
+type CertifyFaceauthServermodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 预留扩展结果
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 产品结果明细，不影响决策
+	ResultCodeSub *string `json:"result_code_sub,omitempty" xml:"result_code_sub,omitempty"`
+	// result_code_sub对应的文案
+	ResultMsgSub *string `json:"result_msg_sub,omitempty" xml:"result_msg_sub,omitempty"`
+}
+
+func (s CertifyFaceauthServermodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CertifyFaceauthServermodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CertifyFaceauthServermodeResponse) SetReqMsgId(v string) *CertifyFaceauthServermodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CertifyFaceauthServermodeResponse) SetResultCode(v string) *CertifyFaceauthServermodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CertifyFaceauthServermodeResponse) SetResultMsg(v string) *CertifyFaceauthServermodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CertifyFaceauthServermodeResponse) SetExternInfo(v string) *CertifyFaceauthServermodeResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+func (s *CertifyFaceauthServermodeResponse) SetResultCodeSub(v string) *CertifyFaceauthServermodeResponse {
+	s.ResultCodeSub = &v
+	return s
+}
+
+func (s *CertifyFaceauthServermodeResponse) SetResultMsgSub(v string) *CertifyFaceauthServermodeResponse {
+	s.ResultMsgSub = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -815,7 +941,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.2"),
+				"sdk_version":      tea.String("1.1.0"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1026,6 +1152,40 @@ func (client *Client) QueryFaceauthFileEx(request *QueryFaceauthFileRequest, hea
 	}
 	_result = &QueryFaceauthFileResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antfin.mpaasfaceverify.faceauth.file.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
+ * Summary: 实人认证核验源服务
+ */
+func (client *Client) CertifyFaceauthServermode(request *CertifyFaceauthServermodeRequest) (_result *CertifyFaceauthServermodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CertifyFaceauthServermodeResponse{}
+	_body, _err := client.CertifyFaceauthServermodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
+ * Summary: 实人认证核验源服务
+ */
+func (client *Client) CertifyFaceauthServermodeEx(request *CertifyFaceauthServermodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CertifyFaceauthServermodeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CertifyFaceauthServermodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antfin.mpaasfaceverify.faceauth.servermode.certify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
