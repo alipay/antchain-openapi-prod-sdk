@@ -39,6 +39,11 @@ namespace AntChain.SDK.NFTX.Models
         [Validation(Required=false)]
         public long? TotalCount { get; set; }
 
+        // fans uid
+        [NameInMap("uid")]
+        [Validation(Required=false)]
+        public string Uid { get; set; }
+
         // 用户资产列表
         [NameInMap("asset_list")]
         [Validation(Required=false)]

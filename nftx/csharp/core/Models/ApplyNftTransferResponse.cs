@@ -34,6 +34,11 @@ namespace AntChain.SDK.NFTX.Models
         [Validation(Required=false)]
         public string NftId { get; set; }
 
+        // fans uid
+        [NameInMap("uid")]
+        [Validation(Required=false)]
+        public string Uid { get; set; }
+
     }
 
 }
