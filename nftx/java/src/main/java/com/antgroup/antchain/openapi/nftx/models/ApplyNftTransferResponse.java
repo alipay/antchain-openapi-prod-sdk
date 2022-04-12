@@ -24,6 +24,10 @@ public class ApplyNftTransferResponse extends TeaModel {
     @NameInMap("nft_id")
     public String nftId;
 
+    // fans uid
+    @NameInMap("uid")
+    public String uid;
+
     public static ApplyNftTransferResponse build(java.util.Map<String, ?> map) throws Exception {
         ApplyNftTransferResponse self = new ApplyNftTransferResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class ApplyNftTransferResponse extends TeaModel {
     }
     public String getNftId() {
         return this.nftId;
+    }
+
+    public ApplyNftTransferResponse setUid(String uid) {
+        this.uid = uid;
+        return this;
+    }
+    public String getUid() {
+        return this.uid;
     }
 
 }

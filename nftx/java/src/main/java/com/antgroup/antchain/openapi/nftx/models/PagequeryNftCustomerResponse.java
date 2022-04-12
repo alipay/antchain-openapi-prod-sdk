@@ -28,6 +28,10 @@ public class PagequeryNftCustomerResponse extends TeaModel {
     @NameInMap("total_count")
     public Long totalCount;
 
+    // fans uid
+    @NameInMap("uid")
+    public String uid;
+
     // 用户资产列表
     @NameInMap("asset_list")
     public java.util.List<UserAsset> assetList;
@@ -83,6 +87,14 @@ public class PagequeryNftCustomerResponse extends TeaModel {
     }
     public Long getTotalCount() {
         return this.totalCount;
+    }
+
+    public PagequeryNftCustomerResponse setUid(String uid) {
+        this.uid = uid;
+        return this;
+    }
+    public String getUid() {
+        return this.uid;
     }
 
     public PagequeryNftCustomerResponse setAssetList(java.util.List<UserAsset> assetList) {
