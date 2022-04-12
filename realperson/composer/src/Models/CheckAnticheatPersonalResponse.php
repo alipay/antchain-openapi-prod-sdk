@@ -32,17 +32,24 @@ class CheckAnticheatPersonalResponse extends Model
      */
     public $riskLevel;
 
+    // 风险等级文字描述
+    /**
+     * @var string
+     */
+    public $riskLevelDesc;
+
     // 扩展信息
     /**
      * @var string
      */
     public $externInfo;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'riskLevel'  => 'risk_level',
-        'externInfo' => 'extern_info',
+        'reqMsgId'      => 'req_msg_id',
+        'resultCode'    => 'result_code',
+        'resultMsg'     => 'result_msg',
+        'riskLevel'     => 'risk_level',
+        'riskLevelDesc' => 'risk_level_desc',
+        'externInfo'    => 'extern_info',
     ];
 
     public function validate()
@@ -63,6 +70,9 @@ class CheckAnticheatPersonalResponse extends Model
         }
         if (null !== $this->riskLevel) {
             $res['risk_level'] = $this->riskLevel;
+        }
+        if (null !== $this->riskLevelDesc) {
+            $res['risk_level_desc'] = $this->riskLevelDesc;
         }
         if (null !== $this->externInfo) {
             $res['extern_info'] = $this->externInfo;
@@ -90,6 +100,9 @@ class CheckAnticheatPersonalResponse extends Model
         }
         if (isset($map['risk_level'])) {
             $model->riskLevel = $map['risk_level'];
+        }
+        if (isset($map['risk_level_desc'])) {
+            $model->riskLevelDesc = $map['risk_level_desc'];
         }
         if (isset($map['extern_info'])) {
             $model->externInfo = $map['extern_info'];

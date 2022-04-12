@@ -31,6 +31,12 @@ class ExecFacevrfServerRequest extends Model
      */
     public $certNo;
 
+    // cert_name、cert_no两个字段的传入模式0：明文1：密文
+    /**
+     * @var string
+     */
+    public $encType;
+
     // 证件类型，如身份证
     /**
      * @var string
@@ -95,6 +101,7 @@ class ExecFacevrfServerRequest extends Model
         'productInstanceId' => 'product_instance_id',
         'certName'          => 'cert_name',
         'certNo'            => 'cert_no',
+        'encType'           => 'enc_type',
         'certType'          => 'cert_type',
         'externParam'       => 'extern_param',
         'facialPictureRef'  => 'facial_picture_ref',
@@ -132,6 +139,9 @@ class ExecFacevrfServerRequest extends Model
         }
         if (null !== $this->certNo) {
             $res['cert_no'] = $this->certNo;
+        }
+        if (null !== $this->encType) {
+            $res['enc_type'] = $this->encType;
         }
         if (null !== $this->certType) {
             $res['cert_type'] = $this->certType;
@@ -186,6 +196,9 @@ class ExecFacevrfServerRequest extends Model
         }
         if (isset($map['cert_no'])) {
             $model->certNo = $map['cert_no'];
+        }
+        if (isset($map['enc_type'])) {
+            $model->encType = $map['enc_type'];
         }
         if (isset($map['cert_type'])) {
             $model->certType = $map['cert_type'];
