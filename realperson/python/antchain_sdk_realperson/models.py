@@ -415,6 +415,7 @@ class CreateFacevrfServerRequest(TeaModel):
         callback_url: str = None,
         cert_name: str = None,
         cert_no: str = None,
+        enc_type: str = None,
         cert_type: str = None,
         extern_param: str = None,
         facial_picture_ref: str = None,
@@ -439,6 +440,8 @@ class CreateFacevrfServerRequest(TeaModel):
         self.cert_name = cert_name
         # 证件号码
         self.cert_no = cert_no
+        # cert_name、cert_no两个字段的传入模式。0：明文1：密文
+        self.enc_type = enc_type
         # 证件类型，如身份证
         self.cert_type = cert_type
         # 预留扩展参数
@@ -488,6 +491,8 @@ class CreateFacevrfServerRequest(TeaModel):
             result['cert_name'] = self.cert_name
         if self.cert_no is not None:
             result['cert_no'] = self.cert_no
+        if self.enc_type is not None:
+            result['enc_type'] = self.enc_type
         if self.cert_type is not None:
             result['cert_type'] = self.cert_type
         if self.extern_param is not None:
@@ -528,6 +533,8 @@ class CreateFacevrfServerRequest(TeaModel):
             self.cert_name = m.get('cert_name')
         if m.get('cert_no') is not None:
             self.cert_no = m.get('cert_no')
+        if m.get('enc_type') is not None:
+            self.enc_type = m.get('enc_type')
         if m.get('cert_type') is not None:
             self.cert_type = m.get('cert_type')
         if m.get('extern_param') is not None:
@@ -614,6 +621,7 @@ class ExecFacevrfServerRequest(TeaModel):
         product_instance_id: str = None,
         cert_name: str = None,
         cert_no: str = None,
+        enc_type: str = None,
         cert_type: str = None,
         extern_param: str = None,
         facial_picture_ref: str = None,
@@ -632,6 +640,8 @@ class ExecFacevrfServerRequest(TeaModel):
         self.cert_name = cert_name
         # 证件号码
         self.cert_no = cert_no
+        # cert_name、cert_no两个字段的传入模式0：明文1：密文
+        self.enc_type = enc_type
         # 证件类型，如身份证
         self.cert_type = cert_type
         # 预留扩展参数
@@ -672,6 +682,8 @@ class ExecFacevrfServerRequest(TeaModel):
             result['cert_name'] = self.cert_name
         if self.cert_no is not None:
             result['cert_no'] = self.cert_no
+        if self.enc_type is not None:
+            result['enc_type'] = self.enc_type
         if self.cert_type is not None:
             result['cert_type'] = self.cert_type
         if self.extern_param is not None:
@@ -704,6 +716,8 @@ class ExecFacevrfServerRequest(TeaModel):
             self.cert_name = m.get('cert_name')
         if m.get('cert_no') is not None:
             self.cert_no = m.get('cert_no')
+        if m.get('enc_type') is not None:
+            self.enc_type = m.get('enc_type')
         if m.get('cert_type') is not None:
             self.cert_type = m.get('cert_type')
         if m.get('extern_param') is not None:
@@ -2116,6 +2130,7 @@ class CheckAnticheatPersonalResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         risk_level: str = None,
+        risk_level_desc: str = None,
         extern_info: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -2126,6 +2141,8 @@ class CheckAnticheatPersonalResponse(TeaModel):
         self.result_msg = result_msg
         # 风险等级
         self.risk_level = risk_level
+        # 风险等级文字描述
+        self.risk_level_desc = risk_level_desc
         # 扩展信息
         self.extern_info = extern_info
 
@@ -2142,6 +2159,8 @@ class CheckAnticheatPersonalResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.risk_level is not None:
             result['risk_level'] = self.risk_level
+        if self.risk_level_desc is not None:
+            result['risk_level_desc'] = self.risk_level_desc
         if self.extern_info is not None:
             result['extern_info'] = self.extern_info
         return result
@@ -2156,6 +2175,8 @@ class CheckAnticheatPersonalResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('risk_level') is not None:
             self.risk_level = m.get('risk_level')
+        if m.get('risk_level_desc') is not None:
+            self.risk_level_desc = m.get('risk_level_desc')
         if m.get('extern_info') is not None:
             self.extern_info = m.get('extern_info')
         return self
