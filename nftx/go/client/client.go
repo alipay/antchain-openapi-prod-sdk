@@ -1141,6 +1141,8 @@ type PagequeryNftCustomerResponse struct {
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 	// 列表总数
 	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// fans uid
+	Uid *string `json:"uid,omitempty" xml:"uid,omitempty"`
 	// 用户资产列表
 	AssetList []*UserAsset `json:"asset_list,omitempty" xml:"asset_list,omitempty" type:"Repeated"`
 }
@@ -1180,6 +1182,11 @@ func (s *PagequeryNftCustomerResponse) SetPageSize(v int64) *PagequeryNftCustome
 
 func (s *PagequeryNftCustomerResponse) SetTotalCount(v int64) *PagequeryNftCustomerResponse {
 	s.TotalCount = &v
+	return s
+}
+
+func (s *PagequeryNftCustomerResponse) SetUid(v string) *PagequeryNftCustomerResponse {
+	s.Uid = &v
 	return s
 }
 
@@ -1552,6 +1559,8 @@ type ApplyNftTransferResponse struct {
 	SkuId *int64 `json:"sku_id,omitempty" xml:"sku_id,omitempty"`
 	// NFT发行成功的商品，其中转给C端用户的特定一个token
 	NftId *string `json:"nft_id,omitempty" xml:"nft_id,omitempty"`
+	// fans uid
+	Uid *string `json:"uid,omitempty" xml:"uid,omitempty"`
 }
 
 func (s ApplyNftTransferResponse) String() string {
@@ -1584,6 +1593,11 @@ func (s *ApplyNftTransferResponse) SetSkuId(v int64) *ApplyNftTransferResponse {
 
 func (s *ApplyNftTransferResponse) SetNftId(v string) *ApplyNftTransferResponse {
 	s.NftId = &v
+	return s
+}
+
+func (s *ApplyNftTransferResponse) SetUid(v string) *ApplyNftTransferResponse {
+	s.Uid = &v
 	return s
 }
 
@@ -1821,7 +1835,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.0"),
+				"sdk_version":      tea.String("1.4.1"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
