@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.0',
+    sdk_version = '1.4.1',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -584,6 +584,8 @@ model PagequeryNftCustomerResponse = {
   pageSize?: long(name='page_size'),
   // 列表总数
   totalCount?: long(name='total_count'),
+  // fans uid
+  uid?: string(name='uid'),
   // 用户资产列表
   assetList?: [ UserAsset ](name='asset_list'),
 }
@@ -754,6 +756,8 @@ model ApplyNftTransferResponse = {
   skuId?: long(name='sku_id'),
   // NFT发行成功的商品，其中转给C端用户的特定一个token
   nftId?: string(name='nft_id'),
+  // fans uid
+  uid?: string(name='uid'),
 }
 
 /**
