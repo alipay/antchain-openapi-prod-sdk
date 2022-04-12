@@ -816,6 +816,8 @@ export class PagequeryNftCustomerResponse extends $tea.Model {
   pageSize?: number;
   // 列表总数
   totalCount?: number;
+  // fans uid
+  uid?: string;
   // 用户资产列表
   assetList?: UserAsset[];
   static names(): { [key: string]: string } {
@@ -826,6 +828,7 @@ export class PagequeryNftCustomerResponse extends $tea.Model {
       page: 'page',
       pageSize: 'page_size',
       totalCount: 'total_count',
+      uid: 'uid',
       assetList: 'asset_list',
     };
   }
@@ -838,6 +841,7 @@ export class PagequeryNftCustomerResponse extends $tea.Model {
       page: 'number',
       pageSize: 'number',
       totalCount: 'number',
+      uid: 'string',
       assetList: { 'type': 'array', 'itemType': UserAsset },
     };
   }
@@ -1107,6 +1111,8 @@ export class ApplyNftTransferResponse extends $tea.Model {
   skuId?: number;
   // NFT发行成功的商品，其中转给C端用户的特定一个token
   nftId?: string;
+  // fans uid
+  uid?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -1114,6 +1120,7 @@ export class ApplyNftTransferResponse extends $tea.Model {
       resultMsg: 'result_msg',
       skuId: 'sku_id',
       nftId: 'nft_id',
+      uid: 'uid',
     };
   }
 
@@ -1124,6 +1131,7 @@ export class ApplyNftTransferResponse extends $tea.Model {
       resultMsg: 'string',
       skuId: 'number',
       nftId: 'string',
+      uid: 'string',
     };
   }
 
@@ -1328,7 +1336,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.0",
+          sdk_version: "1.4.1",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
