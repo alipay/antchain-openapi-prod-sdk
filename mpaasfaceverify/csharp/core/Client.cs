@@ -137,7 +137,7 @@ namespace AntChain.SDK.MPAASFACEVERIFY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.1.0"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.MPAASFACEVERIFY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.1.0"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -525,6 +525,48 @@ namespace AntChain.SDK.MPAASFACEVERIFY
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryFaceauthFileResponse>(await DoRequestAsync("1.0", "antfin.mpaasfaceverify.faceauth.file.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
+         * Summary: 实人认证核验源服务
+         */
+        public CertifyFaceauthServermodeResponse CertifyFaceauthServermode(CertifyFaceauthServermodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CertifyFaceauthServermodeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
+         * Summary: 实人认证核验源服务
+         */
+        public async Task<CertifyFaceauthServermodeResponse> CertifyFaceauthServermodeAsync(CertifyFaceauthServermodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CertifyFaceauthServermodeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
+         * Summary: 实人认证核验源服务
+         */
+        public CertifyFaceauthServermodeResponse CertifyFaceauthServermodeEx(CertifyFaceauthServermodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CertifyFaceauthServermodeResponse>(DoRequest("1.0", "antfin.mpaasfaceverify.faceauth.servermode.certify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
+         * Summary: 实人认证核验源服务
+         */
+        public async Task<CertifyFaceauthServermodeResponse> CertifyFaceauthServermodeExAsync(CertifyFaceauthServermodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CertifyFaceauthServermodeResponse>(await DoRequestAsync("1.0", "antfin.mpaasfaceverify.faceauth.servermode.certify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
