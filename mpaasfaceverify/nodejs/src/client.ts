@@ -2,6 +2,7 @@
 import AntchainUtil from '@antchain/alipay-util';
 import Util, * as $Util from '@alicloud/tea-util';
 import RPCUtil from '@alicloud/rpc-util';
+import { Readable } from 'stream';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
@@ -69,6 +70,31 @@ export class Config extends $tea.Model {
       keepAliveDurationMillis: 'number',
       maxRequests: 'number',
       maxRequestsPerHost: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 键值对
+export class XNameValuePair extends $tea.Model {
+  // 键名
+  name: string;
+  // 键值
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      value: 'string',
     };
   }
 
@@ -486,7 +512,7 @@ export class QueryFaceauthFileResponse extends $tea.Model {
   }
 }
 
-export class CertifyFaceauthServermodeRequest extends $tea.Model {
+export class CertifyServermodeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -499,11 +525,15 @@ export class CertifyFaceauthServermodeRequest extends $tea.Model {
   // 待认证图片，默认base64格式
   authImg: string;
   // 待认证图片类型，不传默认为base64后的图片，可以扩展Blob/video等类型
-  authImgType: string;
+  authImgType?: string;
   // 操作类型，operation_type为custom时表示自定义模式，需要用户上传比对源图片
-  operationType: string;
+  operationType?: string;
   // 比对源图片
-  refImg: string;
+  refImg?: string;
+  // 文件传输支持
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -515,6 +545,9 @@ export class CertifyFaceauthServermodeRequest extends $tea.Model {
       authImgType: 'auth_img_type',
       operationType: 'operation_type',
       refImg: 'ref_img',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
     };
   }
 
@@ -529,6 +562,9 @@ export class CertifyFaceauthServermodeRequest extends $tea.Model {
       authImgType: 'string',
       operationType: 'string',
       refImg: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
     };
   }
 
@@ -537,7 +573,7 @@ export class CertifyFaceauthServermodeRequest extends $tea.Model {
   }
 }
 
-export class CertifyFaceauthServermodeResponse extends $tea.Model {
+export class CertifyServermodeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -569,6 +605,94 @@ export class CertifyFaceauthServermodeResponse extends $tea.Model {
       externInfo: 'string',
       resultCodeSub: 'string',
       resultMsgSub: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 上传文件作用的openapi method
+  apiCode: string;
+  // 文件标签，多个标签;分割
+  fileLabel?: string;
+  // 自定义的文件元数据
+  fileMetadata?: string;
+  // 文件名，不传则随机生成文件名
+  fileName?: string;
+  // 文件的多媒体类型
+  mimeType?: string;
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      apiCode: 'api_code',
+      fileLabel: 'file_label',
+      fileMetadata: 'file_metadata',
+      fileName: 'file_name',
+      mimeType: 'mime_type',
+      apiCluster: 'api_cluster',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      apiCode: 'string',
+      fileLabel: 'string',
+      fileMetadata: 'string',
+      fileName: 'string',
+      mimeType: 'string',
+      apiCluster: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上传有效期
+  expiredTime?: string;
+  // 32位文件唯一id
+  fileId?: string;
+  // 放入http请求头里
+  uploadHeaders?: XNameValuePair[];
+  // 文件上传地址
+  uploadUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      expiredTime: 'expired_time',
+      fileId: 'file_id',
+      uploadHeaders: 'upload_headers',
+      uploadUrl: 'upload_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      expiredTime: 'string',
+      fileId: 'string',
+      uploadHeaders: { 'type': 'array', 'itemType': XNameValuePair },
+      uploadUrl: 'string',
     };
   }
 
@@ -690,7 +814,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.0",
+          sdk_version: "1.1.4",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -835,19 +959,59 @@ export default class Client {
    * Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
    * Summary: 实人认证核验源服务
    */
-  async certifyFaceauthServermode(request: CertifyFaceauthServermodeRequest): Promise<CertifyFaceauthServermodeResponse> {
+  async certifyServermode(request: CertifyServermodeRequest): Promise<CertifyServermodeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.certifyFaceauthServermodeEx(request, headers, runtime);
+    return await this.certifyServermodeEx(request, headers, runtime);
   }
 
   /**
    * Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
    * Summary: 实人认证核验源服务
    */
-  async certifyFaceauthServermodeEx(request: CertifyFaceauthServermodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CertifyFaceauthServermodeResponse> {
+  async certifyServermodeEx(request: CertifyServermodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CertifyServermodeResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antfin.mpaasfaceverify.servermode.certify",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let certifyServermodeResponse = new CertifyServermodeResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return certifyServermodeResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
     Util.validateModel(request);
-    return $tea.cast<CertifyFaceauthServermodeResponse>(await this.doRequest("1.0", "antfin.mpaasfaceverify.faceauth.servermode.certify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CertifyFaceauthServermodeResponse({}));
+    return $tea.cast<CertifyServermodeResponse>(await this.doRequest("1.0", "antfin.mpaasfaceverify.servermode.certify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CertifyServermodeResponse({}));
+  }
+
+  /**
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAntcloudGatewayxFileUploadResponse>(await this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse({}));
   }
 
 }
