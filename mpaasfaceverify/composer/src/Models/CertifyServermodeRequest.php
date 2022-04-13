@@ -5,8 +5,9 @@
 namespace AntChain\MPAASFACEVERIFY\Models;
 
 use AlibabaCloud\Tea\Model;
+use GuzzleHttp\Psr7\Stream;
 
-class CertifyFaceauthServermodeRequest extends Model
+class CertifyServermodeRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -60,6 +61,26 @@ class CertifyFaceauthServermodeRequest extends Model
      * @var string
      */
     public $refImg;
+
+    // 文件传输支持
+    /**
+     * @description 待上传文件
+     *
+     * @var Stream
+     */
+    public $fileObject;
+
+    /**
+     * @description 待上传文件名
+     *
+     * @var string
+     */
+    public $fileObjectName;
+
+    /**
+     * @var string
+     */
+    public $fileId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,6 +91,7 @@ class CertifyFaceauthServermodeRequest extends Model
         'authImgType'       => 'auth_img_type',
         'operationType'     => 'operation_type',
         'refImg'            => 'ref_img',
+        'fileId'            => 'file_id',
     ];
 
     public function validate()
@@ -78,9 +100,7 @@ class CertifyFaceauthServermodeRequest extends Model
         Model::validateRequired('externParam', $this->externParam, true);
         Model::validateRequired('identityParam', $this->identityParam, true);
         Model::validateRequired('authImg', $this->authImg, true);
-        Model::validateRequired('authImgType', $this->authImgType, true);
-        Model::validateRequired('operationType', $this->operationType, true);
-        Model::validateRequired('refImg', $this->refImg, true);
+        Model::validateRequired('fileId', $this->fileId, true);
     }
 
     public function toMap()
@@ -113,6 +133,15 @@ class CertifyFaceauthServermodeRequest extends Model
         if (null !== $this->refImg) {
             $res['ref_img'] = $this->refImg;
         }
+        if (null !== $this->fileObject) {
+            $res['fileObject'] = $this->fileObject;
+        }
+        if (null !== $this->fileObjectName) {
+            $res['fileObjectName'] = $this->fileObjectName;
+        }
+        if (null !== $this->fileId) {
+            $res['file_id'] = $this->fileId;
+        }
 
         return $res;
     }
@@ -120,7 +149,7 @@ class CertifyFaceauthServermodeRequest extends Model
     /**
      * @param array $map
      *
-     * @return CertifyFaceauthServermodeRequest
+     * @return CertifyServermodeRequest
      */
     public static function fromMap($map = [])
     {
@@ -151,6 +180,15 @@ class CertifyFaceauthServermodeRequest extends Model
         }
         if (isset($map['ref_img'])) {
             $model->refImg = $map['ref_img'];
+        }
+        if (isset($map['fileObject'])) {
+            $model->fileObject = $map['fileObject'];
+        }
+        if (isset($map['fileObjectName'])) {
+            $model->fileObjectName = $map['fileObjectName'];
+        }
+        if (isset($map['file_id'])) {
+            $model->fileId = $map['file_id'];
         }
 
         return $model;

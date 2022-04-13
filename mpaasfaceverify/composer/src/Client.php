@@ -11,8 +11,10 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\MPAASFACEVERIFY\Models\CertifyFaceauthServermodeRequest;
-use AntChain\MPAASFACEVERIFY\Models\CertifyFaceauthServermodeResponse;
+use AntChain\MPAASFACEVERIFY\Models\CertifyServermodeRequest;
+use AntChain\MPAASFACEVERIFY\Models\CertifyServermodeResponse;
+use AntChain\MPAASFACEVERIFY\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\MPAASFACEVERIFY\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\MPAASFACEVERIFY\Models\InitFaceauthRequest;
 use AntChain\MPAASFACEVERIFY\Models\InitFaceauthResponse;
 use AntChain\MPAASFACEVERIFY\Models\InitFaceplusRequest;
@@ -142,6 +144,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 键值对
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -169,7 +172,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.0',
+                    'sdk_version'      => '1.1.4',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -384,32 +387,83 @@ class Client
      * Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
      * Summary: 实人认证核验源服务
      *
-     * @param CertifyFaceauthServermodeRequest $request
+     * @param CertifyServermodeRequest $request
      *
-     * @return CertifyFaceauthServermodeResponse
+     * @return CertifyServermodeResponse
      */
-    public function certifyFaceauthServermode($request)
+    public function certifyServermode($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->certifyFaceauthServermodeEx($request, $headers, $runtime);
+        return $this->certifyServermodeEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
      * Summary: 实人认证核验源服务
      *
-     * @param CertifyFaceauthServermodeRequest $request
-     * @param string[]                         $headers
-     * @param RuntimeOptions                   $runtime
+     * @param CertifyServermodeRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
      *
-     * @return CertifyFaceauthServermodeResponse
+     * @return CertifyServermodeResponse
      */
-    public function certifyFaceauthServermodeEx($request, $headers, $runtime)
+    public function certifyServermodeEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antfin.mpaasfaceverify.servermode.certify',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new CertifyServermodeResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return CertifyServermodeResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.servermode.certify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return CertifyFaceauthServermodeResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.faceauth.servermode.certify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
