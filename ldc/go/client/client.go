@@ -148,32 +148,6 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-// label of all k8s resource
-type Label struct {
-	// label key
-	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
-	// label value
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-}
-
-func (s Label) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Label) GoString() string {
-	return s.String()
-}
-
-func (s *Label) SetKey(v string) *Label {
-	s.Key = &v
-	return s
-}
-
-func (s *Label) SetValue(v string) *Label {
-	s.Value = &v
-	return s
-}
-
 // label selector requirement struct
 type LabelSelectorRequirement struct {
 	// label key
@@ -204,6 +178,58 @@ func (s *LabelSelectorRequirement) SetOperator(v string) *LabelSelectorRequireme
 
 func (s *LabelSelectorRequirement) SetValues(v []*string) *LabelSelectorRequirement {
 	s.Values = v
+	return s
+}
+
+// label of all k8s resource
+type Label struct {
+	// label key
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// label value
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s Label) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Label) GoString() string {
+	return s.String()
+}
+
+func (s *Label) SetKey(v string) *Label {
+	s.Key = &v
+	return s
+}
+
+func (s *Label) SetValue(v string) *Label {
+	s.Value = &v
+	return s
+}
+
+// k8s label selector
+type LabelSelector struct {
+	// matchExpressions is a list of label selector requirements.
+	MatchExpressions []*LabelSelectorRequirement `json:"match_expressions,omitempty" xml:"match_expressions,omitempty" type:"Repeated"`
+	// matchLabels is a map of {key,value} pairs
+	MatchLabels []*Label `json:"match_labels,omitempty" xml:"match_labels,omitempty" type:"Repeated"`
+}
+
+func (s LabelSelector) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LabelSelector) GoString() string {
+	return s.String()
+}
+
+func (s *LabelSelector) SetMatchExpressions(v []*LabelSelectorRequirement) *LabelSelector {
+	s.MatchExpressions = v
+	return s
+}
+
+func (s *LabelSelector) SetMatchLabels(v []*Label) *LabelSelector {
+	s.MatchLabels = v
 	return s
 }
 
@@ -240,32 +266,6 @@ func (s *NodeSelectorRequirement) SetValues(v []*string) *NodeSelectorRequiremen
 	return s
 }
 
-// k8s label selector
-type LabelSelector struct {
-	// matchExpressions is a list of label selector requirements.
-	MatchExpressions []*LabelSelectorRequirement `json:"match_expressions,omitempty" xml:"match_expressions,omitempty" type:"Repeated"`
-	// matchLabels is a map of {key,value} pairs
-	MatchLabels []*Label `json:"match_labels,omitempty" xml:"match_labels,omitempty" type:"Repeated"`
-}
-
-func (s LabelSelector) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LabelSelector) GoString() string {
-	return s.String()
-}
-
-func (s *LabelSelector) SetMatchExpressions(v []*LabelSelectorRequirement) *LabelSelector {
-	s.MatchExpressions = v
-	return s
-}
-
-func (s *LabelSelector) SetMatchLabels(v []*Label) *LabelSelector {
-	s.MatchLabels = v
-	return s
-}
-
 // nodeSelectorterm
 type NodeSelectorTerm struct {
 	// A list of node selector requirements by node labels.
@@ -291,44 +291,6 @@ func (s *NodeSelectorTerm) SetMatchExpressions(v []*NodeSelectorRequirement) *No
 
 func (s *NodeSelectorTerm) SetMatchFields(v []*NodeSelectorRequirement) *NodeSelectorTerm {
 	s.MatchFields = v
-	return s
-}
-
-// tcp方式的健康检查配置。
-type TcpSocketAction struct {
-	// 健康检查端口。
-	Port *string `json:"port,omitempty" xml:"port,omitempty" require:"true"`
-}
-
-func (s TcpSocketAction) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TcpSocketAction) GoString() string {
-	return s.String()
-}
-
-func (s *TcpSocketAction) SetPort(v string) *TcpSocketAction {
-	s.Port = &v
-	return s
-}
-
-// 命令行方式的健康检查配置。
-type ExecAction struct {
-	// 执行健康检查的命令。
-	Command *string `json:"command,omitempty" xml:"command,omitempty" require:"true"`
-}
-
-func (s ExecAction) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ExecAction) GoString() string {
-	return s.String()
-}
-
-func (s *ExecAction) SetCommand(v string) *ExecAction {
-	s.Command = &v
 	return s
 }
 
@@ -365,6 +327,25 @@ func (s *HttpGetAction) SetScheme(v string) *HttpGetAction {
 	return s
 }
 
+// 命令行方式的健康检查配置。
+type ExecAction struct {
+	// 执行健康检查的命令。
+	Command *string `json:"command,omitempty" xml:"command,omitempty" require:"true"`
+}
+
+func (s ExecAction) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAction) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAction) SetCommand(v string) *ExecAction {
+	s.Command = &v
+	return s
+}
+
 // V1PodAffinityTerm
 type PodAffinityTerm struct {
 	// labelSelctor
@@ -388,6 +369,228 @@ func (s *PodAffinityTerm) SetLabelSelector(v *LabelSelector) *PodAffinityTerm {
 
 func (s *PodAffinityTerm) SetNamespaces(v []*string) *PodAffinityTerm {
 	s.Namespaces = v
+	return s
+}
+
+// tcp方式的健康检查配置。
+type TcpSocketAction struct {
+	// 健康检查端口。
+	Port *string `json:"port,omitempty" xml:"port,omitempty" require:"true"`
+}
+
+func (s TcpSocketAction) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TcpSocketAction) GoString() string {
+	return s.String()
+}
+
+func (s *TcpSocketAction) SetPort(v string) *TcpSocketAction {
+	s.Port = &v
+	return s
+}
+
+// V1NodeSelector
+type NodeSelector struct {
+	// node selector terms
+	NodeSelectorTerms []*NodeSelectorTerm `json:"node_selector_terms,omitempty" xml:"node_selector_terms,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s NodeSelector) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NodeSelector) GoString() string {
+	return s.String()
+}
+
+func (s *NodeSelector) SetNodeSelectorTerms(v []*NodeSelectorTerm) *NodeSelector {
+	s.NodeSelectorTerms = v
+	return s
+}
+
+// 基于configmap&secret的volume。
+type ConfigmapSecretVolumeSource struct {
+	// 引用volume名称。
+	VolumeRefName *string `json:"volume_ref_name,omitempty" xml:"volume_ref_name,omitempty" require:"true"`
+}
+
+func (s ConfigmapSecretVolumeSource) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfigmapSecretVolumeSource) GoString() string {
+	return s.String()
+}
+
+func (s *ConfigmapSecretVolumeSource) SetVolumeRefName(v string) *ConfigmapSecretVolumeSource {
+	s.VolumeRefName = &v
+	return s
+}
+
+// volume mount of PersistentVolumeClaim.
+type PersistentVolumeClaimSource struct {
+	// 引用的PVC名称。
+	PvcName *string `json:"pvc_name,omitempty" xml:"pvc_name,omitempty" require:"true"`
+}
+
+func (s PersistentVolumeClaimSource) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PersistentVolumeClaimSource) GoString() string {
+	return s.String()
+}
+
+func (s *PersistentVolumeClaimSource) SetPvcName(v string) *PersistentVolumeClaimSource {
+	s.PvcName = &v
+	return s
+}
+
+// V1WeightedPodAffinityTerm
+type WeightedPodAffinityTerm struct {
+	// Pod Affinity Term
+	PodAffinityTerm *PodAffinityTerm `json:"pod_affinity_term,omitempty" xml:"pod_affinity_term,omitempty" require:"true"`
+	// weight
+	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty" require:"true"`
+}
+
+func (s WeightedPodAffinityTerm) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WeightedPodAffinityTerm) GoString() string {
+	return s.String()
+}
+
+func (s *WeightedPodAffinityTerm) SetPodAffinityTerm(v *PodAffinityTerm) *WeightedPodAffinityTerm {
+	s.PodAffinityTerm = v
+	return s
+}
+
+func (s *WeightedPodAffinityTerm) SetWeight(v int64) *WeightedPodAffinityTerm {
+	s.Weight = &v
+	return s
+}
+
+// k8s prefer schedule term
+type PreferredSchedulingTerm struct {
+	// A null or empty node selector term matches no objects
+	Preference *NodeSelectorTerm `json:"preference,omitempty" xml:"preference,omitempty"`
+	// Weight associated with matching the corresponding nodeSelectorTerm, in the range 1-100.
+	//
+	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty" require:"true"`
+}
+
+func (s PreferredSchedulingTerm) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PreferredSchedulingTerm) GoString() string {
+	return s.String()
+}
+
+func (s *PreferredSchedulingTerm) SetPreference(v *NodeSelectorTerm) *PreferredSchedulingTerm {
+	s.Preference = v
+	return s
+}
+
+func (s *PreferredSchedulingTerm) SetWeight(v int64) *PreferredSchedulingTerm {
+	s.Weight = &v
+	return s
+}
+
+// 本地磁盘volume。
+type LocalDiskVolumeSource struct {
+	// 主机路径。
+	HostDirectoryPath *string `json:"host_directory_path,omitempty" xml:"host_directory_path,omitempty" require:"true"`
+	// 是否允许创建。
+	CreateIfNotPresent *bool `json:"create_if_not_present,omitempty" xml:"create_if_not_present,omitempty" require:"true"`
+}
+
+func (s LocalDiskVolumeSource) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LocalDiskVolumeSource) GoString() string {
+	return s.String()
+}
+
+func (s *LocalDiskVolumeSource) SetHostDirectoryPath(v string) *LocalDiskVolumeSource {
+	s.HostDirectoryPath = &v
+	return s
+}
+
+func (s *LocalDiskVolumeSource) SetCreateIfNotPresent(v bool) *LocalDiskVolumeSource {
+	s.CreateIfNotPresent = &v
+	return s
+}
+
+// 表示容器的环境变量来源。
+type EnvVarSource struct {
+	// 对应的ConfigMap或Secret名称。
+	ObjectName *string `json:"object_name,omitempty" xml:"object_name,omitempty" require:"true"`
+	// 对应的Object类型。
+	// 取值：ConfigMap | Secret
+	ObjectType *string `json:"object_type,omitempty" xml:"object_type,omitempty" require:"true"`
+	// 引用的ConfigMap或则Secret的key。
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+}
+
+func (s EnvVarSource) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnvVarSource) GoString() string {
+	return s.String()
+}
+
+func (s *EnvVarSource) SetObjectName(v string) *EnvVarSource {
+	s.ObjectName = &v
+	return s
+}
+
+func (s *EnvVarSource) SetObjectType(v string) *EnvVarSource {
+	s.ObjectType = &v
+	return s
+}
+
+func (s *EnvVarSource) SetKey(v string) *EnvVarSource {
+	s.Key = &v
+	return s
+}
+
+// EmptyDir based volume.
+type EmptyDirVolumeSource struct {
+	// 存储介质。
+	Medium *string `json:"medium,omitempty" xml:"medium,omitempty" require:"true"`
+	// volume name。
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 存储大小。
+	SizeLimit *string `json:"size_limit,omitempty" xml:"size_limit,omitempty" require:"true"`
+}
+
+func (s EmptyDirVolumeSource) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EmptyDirVolumeSource) GoString() string {
+	return s.String()
+}
+
+func (s *EmptyDirVolumeSource) SetMedium(v string) *EmptyDirVolumeSource {
+	s.Medium = &v
+	return s
+}
+
+func (s *EmptyDirVolumeSource) SetName(v string) *EmptyDirVolumeSource {
+	s.Name = &v
+	return s
+}
+
+func (s *EmptyDirVolumeSource) SetSizeLimit(v string) *EmptyDirVolumeSource {
+	s.SizeLimit = &v
 	return s
 }
 
@@ -467,429 +670,90 @@ func (s *HealthCheckProbe) SetTimeOutSeconds(v int64) *HealthCheckProbe {
 	return s
 }
 
-// 表示容器的环境变量来源。
-type EnvVarSource struct {
-	// 对应的ConfigMap或Secret名称。
-	ObjectName *string `json:"object_name,omitempty" xml:"object_name,omitempty" require:"true"`
-	// 对应的Object类型。
-	// 取值：ConfigMap | Secret
-	ObjectType *string `json:"object_type,omitempty" xml:"object_type,omitempty" require:"true"`
-	// 引用的ConfigMap或则Secret的key。
-	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+// PodAntiAffinity
+type PodAntiAffinity struct {
+	// The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions.
+	PreferredDuringSchedulingIgnoredDuringExecution []*WeightedPodAffinityTerm `json:"preferred_during_scheduling_ignored_during_execution,omitempty" xml:"preferred_during_scheduling_ignored_during_execution,omitempty" type:"Repeated"`
+	// If the anti-affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node
+	RequiredDuringSchedulingIgnoredDuringExecution []*PodAffinityTerm `json:"required_during_scheduling_ignored_during_execution,omitempty" xml:"required_during_scheduling_ignored_during_execution,omitempty" type:"Repeated"`
 }
 
-func (s EnvVarSource) String() string {
+func (s PodAntiAffinity) String() string {
 	return tea.Prettify(s)
 }
 
-func (s EnvVarSource) GoString() string {
+func (s PodAntiAffinity) GoString() string {
 	return s.String()
 }
 
-func (s *EnvVarSource) SetObjectName(v string) *EnvVarSource {
-	s.ObjectName = &v
-	return s
-}
-
-func (s *EnvVarSource) SetObjectType(v string) *EnvVarSource {
-	s.ObjectType = &v
-	return s
-}
-
-func (s *EnvVarSource) SetKey(v string) *EnvVarSource {
-	s.Key = &v
-	return s
-}
-
-// EmptyDir based volume.
-type EmptyDirVolumeSource struct {
-	// 存储介质。
-	Medium *string `json:"medium,omitempty" xml:"medium,omitempty" require:"true"`
-	// volume name。
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 存储大小。
-	SizeLimit *string `json:"size_limit,omitempty" xml:"size_limit,omitempty" require:"true"`
-}
-
-func (s EmptyDirVolumeSource) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EmptyDirVolumeSource) GoString() string {
-	return s.String()
-}
-
-func (s *EmptyDirVolumeSource) SetMedium(v string) *EmptyDirVolumeSource {
-	s.Medium = &v
-	return s
-}
-
-func (s *EmptyDirVolumeSource) SetName(v string) *EmptyDirVolumeSource {
-	s.Name = &v
-	return s
-}
-
-func (s *EmptyDirVolumeSource) SetSizeLimit(v string) *EmptyDirVolumeSource {
-	s.SizeLimit = &v
-	return s
-}
-
-// V1NodeSelector
-type NodeSelector struct {
-	// node selector terms
-	NodeSelectorTerms []*NodeSelectorTerm `json:"node_selector_terms,omitempty" xml:"node_selector_terms,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s NodeSelector) String() string {
-	return tea.Prettify(s)
-}
-
-func (s NodeSelector) GoString() string {
-	return s.String()
-}
-
-func (s *NodeSelector) SetNodeSelectorTerms(v []*NodeSelectorTerm) *NodeSelector {
-	s.NodeSelectorTerms = v
-	return s
-}
-
-// k8s prefer schedule term
-type PreferredSchedulingTerm struct {
-	// A null or empty node selector term matches no objects
-	Preference *NodeSelectorTerm `json:"preference,omitempty" xml:"preference,omitempty"`
-	// Weight associated with matching the corresponding nodeSelectorTerm, in the range 1-100.
-	//
-	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty" require:"true"`
-}
-
-func (s PreferredSchedulingTerm) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PreferredSchedulingTerm) GoString() string {
-	return s.String()
-}
-
-func (s *PreferredSchedulingTerm) SetPreference(v *NodeSelectorTerm) *PreferredSchedulingTerm {
-	s.Preference = v
-	return s
-}
-
-func (s *PreferredSchedulingTerm) SetWeight(v int64) *PreferredSchedulingTerm {
-	s.Weight = &v
-	return s
-}
-
-// volume mount of PersistentVolumeClaim.
-type PersistentVolumeClaimSource struct {
-	// 引用的PVC名称。
-	PvcName *string `json:"pvc_name,omitempty" xml:"pvc_name,omitempty" require:"true"`
-}
-
-func (s PersistentVolumeClaimSource) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PersistentVolumeClaimSource) GoString() string {
-	return s.String()
-}
-
-func (s *PersistentVolumeClaimSource) SetPvcName(v string) *PersistentVolumeClaimSource {
-	s.PvcName = &v
-	return s
-}
-
-// V1WeightedPodAffinityTerm
-type WeightedPodAffinityTerm struct {
-	// Pod Affinity Term
-	PodAffinityTerm *PodAffinityTerm `json:"pod_affinity_term,omitempty" xml:"pod_affinity_term,omitempty" require:"true"`
-	// weight
-	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty" require:"true"`
-}
-
-func (s WeightedPodAffinityTerm) String() string {
-	return tea.Prettify(s)
-}
-
-func (s WeightedPodAffinityTerm) GoString() string {
-	return s.String()
-}
-
-func (s *WeightedPodAffinityTerm) SetPodAffinityTerm(v *PodAffinityTerm) *WeightedPodAffinityTerm {
-	s.PodAffinityTerm = v
-	return s
-}
-
-func (s *WeightedPodAffinityTerm) SetWeight(v int64) *WeightedPodAffinityTerm {
-	s.Weight = &v
-	return s
-}
-
-// 基于configmap&secret的volume。
-type ConfigmapSecretVolumeSource struct {
-	// 引用volume名称。
-	VolumeRefName *string `json:"volume_ref_name,omitempty" xml:"volume_ref_name,omitempty" require:"true"`
-}
-
-func (s ConfigmapSecretVolumeSource) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ConfigmapSecretVolumeSource) GoString() string {
-	return s.String()
-}
-
-func (s *ConfigmapSecretVolumeSource) SetVolumeRefName(v string) *ConfigmapSecretVolumeSource {
-	s.VolumeRefName = &v
-	return s
-}
-
-// 本地磁盘volume。
-type LocalDiskVolumeSource struct {
-	// 主机路径。
-	HostDirectoryPath *string `json:"host_directory_path,omitempty" xml:"host_directory_path,omitempty" require:"true"`
-	// 是否允许创建。
-	CreateIfNotPresent *bool `json:"create_if_not_present,omitempty" xml:"create_if_not_present,omitempty" require:"true"`
-}
-
-func (s LocalDiskVolumeSource) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LocalDiskVolumeSource) GoString() string {
-	return s.String()
-}
-
-func (s *LocalDiskVolumeSource) SetHostDirectoryPath(v string) *LocalDiskVolumeSource {
-	s.HostDirectoryPath = &v
-	return s
-}
-
-func (s *LocalDiskVolumeSource) SetCreateIfNotPresent(v bool) *LocalDiskVolumeSource {
-	s.CreateIfNotPresent = &v
-	return s
-}
-
-// V1PodDNSConfigOption， PodDNSConfigOption defines DNS resolver options of a pod.
-//
-//
-type PodDNSConfigOption struct {
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// value
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
-}
-
-func (s PodDNSConfigOption) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PodDNSConfigOption) GoString() string {
-	return s.String()
-}
-
-func (s *PodDNSConfigOption) SetName(v string) *PodDNSConfigOption {
-	s.Name = &v
-	return s
-}
-
-func (s *PodDNSConfigOption) SetValue(v string) *PodDNSConfigOption {
-	s.Value = &v
-	return s
-}
-
-// 容器生命周期hook。
-type LifecycleHook struct {
-	// 启动后执行命令。
-	PostStartExec *ExecAction `json:"post_start_exec,omitempty" xml:"post_start_exec,omitempty"`
-	// 启动后执行http get。
-	PostStartHttp *HttpGetAction `json:"post_start_http,omitempty" xml:"post_start_http,omitempty"`
-	// 启动后执行TCP请求。
-	PostStartTcp *TcpSocketAction `json:"post_start_tcp,omitempty" xml:"post_start_tcp,omitempty"`
-	// 停止前执行命令。
-	PreStopExec *ExecAction `json:"pre_stop_exec,omitempty" xml:"pre_stop_exec,omitempty"`
-	// 停止前http get。
-	PreStopHttp *HttpGetAction `json:"pre_stop_http,omitempty" xml:"pre_stop_http,omitempty"`
-	// 停止前TCP请求。
-	PreStopTcp *TcpSocketAction `json:"pre_stop_tcp,omitempty" xml:"pre_stop_tcp,omitempty"`
-}
-
-func (s LifecycleHook) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LifecycleHook) GoString() string {
-	return s.String()
-}
-
-func (s *LifecycleHook) SetPostStartExec(v *ExecAction) *LifecycleHook {
-	s.PostStartExec = v
-	return s
-}
-
-func (s *LifecycleHook) SetPostStartHttp(v *HttpGetAction) *LifecycleHook {
-	s.PostStartHttp = v
-	return s
-}
-
-func (s *LifecycleHook) SetPostStartTcp(v *TcpSocketAction) *LifecycleHook {
-	s.PostStartTcp = v
-	return s
-}
-
-func (s *LifecycleHook) SetPreStopExec(v *ExecAction) *LifecycleHook {
-	s.PreStopExec = v
-	return s
-}
-
-func (s *LifecycleHook) SetPreStopHttp(v *HttpGetAction) *LifecycleHook {
-	s.PreStopHttp = v
-	return s
-}
-
-func (s *LifecycleHook) SetPreStopTcp(v *TcpSocketAction) *LifecycleHook {
-	s.PreStopTcp = v
-	return s
-}
-
-// Pod container VolumeMount info。
-type VolumeMount struct {
-	// 引用Configmap&Secret的存储。
-	ConfigmapSecretVolumeSource *ConfigmapSecretVolumeSource `json:"configmap_secret_volume_source,omitempty" xml:"configmap_secret_volume_source,omitempty"`
-	// 基于empty dir的存储。
-	EmptyDirVolumeSource *EmptyDirVolumeSource `json:"empty_dir_volume_source,omitempty" xml:"empty_dir_volume_source,omitempty"`
-	// 基于本地磁盘的存储资源。
-	LocalDiskVolumeSource *LocalDiskVolumeSource `json:"local_disk_volume_source,omitempty" xml:"local_disk_volume_source,omitempty"`
-	// 容器内挂载路径。
-	MountPath *string `json:"mount_path,omitempty" xml:"mount_path,omitempty" require:"true"`
-	// 引用的volume名称。
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 是否只读。
-	ReadOnly *bool `json:"read_only,omitempty" xml:"read_only,omitempty" require:"true"`
-	// 容器内挂载路径子路径。
-	SubPath *string `json:"sub_path,omitempty" xml:"sub_path,omitempty"`
-	// 数据卷类型，取值 LOCAL_STORAGE：主机挂载， CONFIGMAP：配置项， SECRET：保密字典
-	VolumeSourceCategoryType *string `json:"volume_source_category_type,omitempty" xml:"volume_source_category_type,omitempty" require:"true"`
-	// 引用的PVC信息。
-	PvcSource *PersistentVolumeClaimSource `json:"pvc_source,omitempty" xml:"pvc_source,omitempty" require:"true"`
-}
-
-func (s VolumeMount) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VolumeMount) GoString() string {
-	return s.String()
-}
-
-func (s *VolumeMount) SetConfigmapSecretVolumeSource(v *ConfigmapSecretVolumeSource) *VolumeMount {
-	s.ConfigmapSecretVolumeSource = v
-	return s
-}
-
-func (s *VolumeMount) SetEmptyDirVolumeSource(v *EmptyDirVolumeSource) *VolumeMount {
-	s.EmptyDirVolumeSource = v
-	return s
-}
-
-func (s *VolumeMount) SetLocalDiskVolumeSource(v *LocalDiskVolumeSource) *VolumeMount {
-	s.LocalDiskVolumeSource = v
-	return s
-}
-
-func (s *VolumeMount) SetMountPath(v string) *VolumeMount {
-	s.MountPath = &v
-	return s
-}
-
-func (s *VolumeMount) SetName(v string) *VolumeMount {
-	s.Name = &v
-	return s
-}
-
-func (s *VolumeMount) SetReadOnly(v bool) *VolumeMount {
-	s.ReadOnly = &v
-	return s
-}
-
-func (s *VolumeMount) SetSubPath(v string) *VolumeMount {
-	s.SubPath = &v
-	return s
-}
-
-func (s *VolumeMount) SetVolumeSourceCategoryType(v string) *VolumeMount {
-	s.VolumeSourceCategoryType = &v
-	return s
-}
-
-func (s *VolumeMount) SetPvcSource(v *PersistentVolumeClaimSource) *VolumeMount {
-	s.PvcSource = v
-	return s
-}
-
-// 表示容器的环境变量。
-type EnvVar struct {
-	// 环境变量名称。
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 环境变量value。
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
-	// 环境变量的取值来源。
-	ValueFrom *EnvVarSource `json:"value_from,omitempty" xml:"value_from,omitempty"`
-	// EnvVar类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-}
-
-func (s EnvVar) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EnvVar) GoString() string {
-	return s.String()
-}
-
-func (s *EnvVar) SetName(v string) *EnvVar {
-	s.Name = &v
-	return s
-}
-
-func (s *EnvVar) SetValue(v string) *EnvVar {
-	s.Value = &v
-	return s
-}
-
-func (s *EnvVar) SetValueFrom(v *EnvVarSource) *EnvVar {
-	s.ValueFrom = v
-	return s
-}
-
-func (s *EnvVar) SetType(v string) *EnvVar {
-	s.Type = &v
-	return s
-}
-
-// Node affinity is a group of node affinity scheduling rules.
-type NodeAffinity struct {
-	// The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions
-	PreferredDuringSchedulingIgnoredDuringExecution []*PreferredSchedulingTerm `json:"preferred_during_scheduling_ignored_during_execution,omitempty" xml:"preferred_during_scheduling_ignored_during_execution,omitempty" type:"Repeated"`
-	// If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node
-	RequiredDuringDchedulingIgnoredDuringExecution *NodeSelector `json:"required_during_dcheduling_ignored_during_execution,omitempty" xml:"required_during_dcheduling_ignored_during_execution,omitempty" require:"true"`
-}
-
-func (s NodeAffinity) String() string {
-	return tea.Prettify(s)
-}
-
-func (s NodeAffinity) GoString() string {
-	return s.String()
-}
-
-func (s *NodeAffinity) SetPreferredDuringSchedulingIgnoredDuringExecution(v []*PreferredSchedulingTerm) *NodeAffinity {
+func (s *PodAntiAffinity) SetPreferredDuringSchedulingIgnoredDuringExecution(v []*WeightedPodAffinityTerm) *PodAntiAffinity {
 	s.PreferredDuringSchedulingIgnoredDuringExecution = v
 	return s
 }
 
-func (s *NodeAffinity) SetRequiredDuringDchedulingIgnoredDuringExecution(v *NodeSelector) *NodeAffinity {
-	s.RequiredDuringDchedulingIgnoredDuringExecution = v
+func (s *PodAntiAffinity) SetRequiredDuringSchedulingIgnoredDuringExecution(v []*PodAffinityTerm) *PodAntiAffinity {
+	s.RequiredDuringSchedulingIgnoredDuringExecution = v
+	return s
+}
+
+// 弹性伸缩指标目标值类型
+type HPABasedElasticConfigMetricTargetResourceValue struct {
+	// 数值
+	Value *int64 `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 数值单位:
+	// Byte, Ki, Mi, Gi, Ti, Pi
+	// m, C
+	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
+}
+
+func (s HPABasedElasticConfigMetricTargetResourceValue) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HPABasedElasticConfigMetricTargetResourceValue) GoString() string {
+	return s.String()
+}
+
+func (s *HPABasedElasticConfigMetricTargetResourceValue) SetValue(v int64) *HPABasedElasticConfigMetricTargetResourceValue {
+	s.Value = &v
+	return s
+}
+
+func (s *HPABasedElasticConfigMetricTargetResourceValue) SetUnit(v string) *HPABasedElasticConfigMetricTargetResourceValue {
+	s.Unit = &v
+	return s
+}
+
+// Container Spec 字段 Override 对象
+type FieldOverride struct {
+	// 部署单元名称
+	Cell *string `json:"cell,omitempty" xml:"cell,omitempty" require:"true"`
+	// 字段名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 字段值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s FieldOverride) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FieldOverride) GoString() string {
+	return s.String()
+}
+
+func (s *FieldOverride) SetCell(v string) *FieldOverride {
+	s.Cell = &v
+	return s
+}
+
+func (s *FieldOverride) SetName(v string) *FieldOverride {
+	s.Name = &v
+	return s
+}
+
+func (s *FieldOverride) SetValue(v string) *FieldOverride {
+	s.Value = &v
 	return s
 }
 
@@ -925,68 +789,6 @@ func (s *HPAScalePolicy) SetValue(v int64) *HPAScalePolicy {
 
 func (s *HPAScalePolicy) SetPeriodSeconds(v int64) *HPAScalePolicy {
 	s.PeriodSeconds = &v
-	return s
-}
-
-// 环境变量配置覆盖。
-type EnvVarOverride struct {
-	// 部署单元名称。
-	Cell *string `json:"cell,omitempty" xml:"cell,omitempty" require:"true"`
-	// 环境变量名称。
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 环境变量取值。
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-}
-
-func (s EnvVarOverride) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EnvVarOverride) GoString() string {
-	return s.String()
-}
-
-func (s *EnvVarOverride) SetCell(v string) *EnvVarOverride {
-	s.Cell = &v
-	return s
-}
-
-func (s *EnvVarOverride) SetName(v string) *EnvVarOverride {
-	s.Name = &v
-	return s
-}
-
-func (s *EnvVarOverride) SetValue(v string) *EnvVarOverride {
-	s.Value = &v
-	return s
-}
-
-// 健康检查配置
-//
-type HealthCheckConfig struct {
-	// liveness 检查
-	//
-	LivenessProbe *HealthCheckProbe `json:"liveness_probe,omitempty" xml:"liveness_probe,omitempty"`
-	// readiness 检查
-	//
-	ReadinessProbe *HealthCheckProbe `json:"readiness_probe,omitempty" xml:"readiness_probe,omitempty"`
-}
-
-func (s HealthCheckConfig) String() string {
-	return tea.Prettify(s)
-}
-
-func (s HealthCheckConfig) GoString() string {
-	return s.String()
-}
-
-func (s *HealthCheckConfig) SetLivenessProbe(v *HealthCheckProbe) *HealthCheckConfig {
-	s.LivenessProbe = v
-	return s
-}
-
-func (s *HealthCheckConfig) SetReadinessProbe(v *HealthCheckProbe) *HealthCheckConfig {
-	s.ReadinessProbe = v
 	return s
 }
 
@@ -1063,57 +865,213 @@ func (s *LogConfigEntity) SetFilePattern(v string) *LogConfigEntity {
 	return s
 }
 
-// PodAntiAffinity
-type PodAntiAffinity struct {
-	// The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions.
-	PreferredDuringSchedulingIgnoredDuringExecution []*WeightedPodAffinityTerm `json:"preferred_during_scheduling_ignored_during_execution,omitempty" xml:"preferred_during_scheduling_ignored_during_execution,omitempty" type:"Repeated"`
-	// If the anti-affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node
-	RequiredDuringSchedulingIgnoredDuringExecution []*PodAffinityTerm `json:"required_during_scheduling_ignored_during_execution,omitempty" xml:"required_during_scheduling_ignored_during_execution,omitempty" type:"Repeated"`
+// Node affinity is a group of node affinity scheduling rules.
+type NodeAffinity struct {
+	// The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions
+	PreferredDuringSchedulingIgnoredDuringExecution []*PreferredSchedulingTerm `json:"preferred_during_scheduling_ignored_during_execution,omitempty" xml:"preferred_during_scheduling_ignored_during_execution,omitempty" type:"Repeated"`
+	// If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node
+	RequiredDuringDchedulingIgnoredDuringExecution *NodeSelector `json:"required_during_dcheduling_ignored_during_execution,omitempty" xml:"required_during_dcheduling_ignored_during_execution,omitempty" require:"true"`
 }
 
-func (s PodAntiAffinity) String() string {
+func (s NodeAffinity) String() string {
 	return tea.Prettify(s)
 }
 
-func (s PodAntiAffinity) GoString() string {
+func (s NodeAffinity) GoString() string {
 	return s.String()
 }
 
-func (s *PodAntiAffinity) SetPreferredDuringSchedulingIgnoredDuringExecution(v []*WeightedPodAffinityTerm) *PodAntiAffinity {
+func (s *NodeAffinity) SetPreferredDuringSchedulingIgnoredDuringExecution(v []*PreferredSchedulingTerm) *NodeAffinity {
 	s.PreferredDuringSchedulingIgnoredDuringExecution = v
 	return s
 }
 
-func (s *PodAntiAffinity) SetRequiredDuringSchedulingIgnoredDuringExecution(v []*PodAffinityTerm) *PodAntiAffinity {
-	s.RequiredDuringSchedulingIgnoredDuringExecution = v
+func (s *NodeAffinity) SetRequiredDuringDchedulingIgnoredDuringExecution(v *NodeSelector) *NodeAffinity {
+	s.RequiredDuringDchedulingIgnoredDuringExecution = v
 	return s
 }
 
-// 弹性伸缩指标目标值类型
-type HPABasedElasticConfigMetricTargetResourceValue struct {
-	// 数值
-	Value *int64 `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-	// 数值单位:
-	// Byte, Ki, Mi, Gi, Ti, Pi
-	// m, C
-	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
+// 健康检查配置
+//
+type HealthCheckConfig struct {
+	// liveness 检查
+	//
+	LivenessProbe *HealthCheckProbe `json:"liveness_probe,omitempty" xml:"liveness_probe,omitempty"`
+	// readiness 检查
+	//
+	ReadinessProbe *HealthCheckProbe `json:"readiness_probe,omitempty" xml:"readiness_probe,omitempty"`
 }
 
-func (s HPABasedElasticConfigMetricTargetResourceValue) String() string {
+func (s HealthCheckConfig) String() string {
 	return tea.Prettify(s)
 }
 
-func (s HPABasedElasticConfigMetricTargetResourceValue) GoString() string {
+func (s HealthCheckConfig) GoString() string {
 	return s.String()
 }
 
-func (s *HPABasedElasticConfigMetricTargetResourceValue) SetValue(v int64) *HPABasedElasticConfigMetricTargetResourceValue {
+func (s *HealthCheckConfig) SetLivenessProbe(v *HealthCheckProbe) *HealthCheckConfig {
+	s.LivenessProbe = v
+	return s
+}
+
+func (s *HealthCheckConfig) SetReadinessProbe(v *HealthCheckProbe) *HealthCheckConfig {
+	s.ReadinessProbe = v
+	return s
+}
+
+// 表示容器的环境变量。
+type EnvVar struct {
+	// 环境变量名称。
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 环境变量value。
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+	// 环境变量的取值来源。
+	ValueFrom *EnvVarSource `json:"value_from,omitempty" xml:"value_from,omitempty"`
+	// EnvVar类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+}
+
+func (s EnvVar) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnvVar) GoString() string {
+	return s.String()
+}
+
+func (s *EnvVar) SetName(v string) *EnvVar {
+	s.Name = &v
+	return s
+}
+
+func (s *EnvVar) SetValue(v string) *EnvVar {
 	s.Value = &v
 	return s
 }
 
-func (s *HPABasedElasticConfigMetricTargetResourceValue) SetUnit(v string) *HPABasedElasticConfigMetricTargetResourceValue {
-	s.Unit = &v
+func (s *EnvVar) SetValueFrom(v *EnvVarSource) *EnvVar {
+	s.ValueFrom = v
+	return s
+}
+
+func (s *EnvVar) SetType(v string) *EnvVar {
+	s.Type = &v
+	return s
+}
+
+// Pod container VolumeMount info。
+type VolumeMount struct {
+	// 引用Configmap&Secret的存储。
+	ConfigmapSecretVolumeSource *ConfigmapSecretVolumeSource `json:"configmap_secret_volume_source,omitempty" xml:"configmap_secret_volume_source,omitempty"`
+	// 基于empty dir的存储。
+	EmptyDirVolumeSource *EmptyDirVolumeSource `json:"empty_dir_volume_source,omitempty" xml:"empty_dir_volume_source,omitempty"`
+	// 基于本地磁盘的存储资源。
+	LocalDiskVolumeSource *LocalDiskVolumeSource `json:"local_disk_volume_source,omitempty" xml:"local_disk_volume_source,omitempty"`
+	// 容器内挂载路径。
+	MountPath *string `json:"mount_path,omitempty" xml:"mount_path,omitempty" require:"true"`
+	// 引用的volume名称。
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 是否只读。
+	ReadOnly *bool `json:"read_only,omitempty" xml:"read_only,omitempty" require:"true"`
+	// 容器内挂载路径子路径。
+	SubPath *string `json:"sub_path,omitempty" xml:"sub_path,omitempty"`
+	// 数据卷类型，取值 LOCAL_STORAGE：主机挂载， CONFIGMAP：配置项， SECRET：保密字典
+	VolumeSourceCategoryType *string `json:"volume_source_category_type,omitempty" xml:"volume_source_category_type,omitempty" require:"true"`
+	// 引用的PVC信息。
+	PvcSource *PersistentVolumeClaimSource `json:"pvc_source,omitempty" xml:"pvc_source,omitempty"`
+	// 容器内挂载子路径的表达式，与sub_path互斥
+	SubPathExpr *string `json:"sub_path_expr,omitempty" xml:"sub_path_expr,omitempty"`
+}
+
+func (s VolumeMount) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VolumeMount) GoString() string {
+	return s.String()
+}
+
+func (s *VolumeMount) SetConfigmapSecretVolumeSource(v *ConfigmapSecretVolumeSource) *VolumeMount {
+	s.ConfigmapSecretVolumeSource = v
+	return s
+}
+
+func (s *VolumeMount) SetEmptyDirVolumeSource(v *EmptyDirVolumeSource) *VolumeMount {
+	s.EmptyDirVolumeSource = v
+	return s
+}
+
+func (s *VolumeMount) SetLocalDiskVolumeSource(v *LocalDiskVolumeSource) *VolumeMount {
+	s.LocalDiskVolumeSource = v
+	return s
+}
+
+func (s *VolumeMount) SetMountPath(v string) *VolumeMount {
+	s.MountPath = &v
+	return s
+}
+
+func (s *VolumeMount) SetName(v string) *VolumeMount {
+	s.Name = &v
+	return s
+}
+
+func (s *VolumeMount) SetReadOnly(v bool) *VolumeMount {
+	s.ReadOnly = &v
+	return s
+}
+
+func (s *VolumeMount) SetSubPath(v string) *VolumeMount {
+	s.SubPath = &v
+	return s
+}
+
+func (s *VolumeMount) SetVolumeSourceCategoryType(v string) *VolumeMount {
+	s.VolumeSourceCategoryType = &v
+	return s
+}
+
+func (s *VolumeMount) SetPvcSource(v *PersistentVolumeClaimSource) *VolumeMount {
+	s.PvcSource = v
+	return s
+}
+
+func (s *VolumeMount) SetSubPathExpr(v string) *VolumeMount {
+	s.SubPathExpr = &v
+	return s
+}
+
+// 环境变量配置覆盖。
+type EnvVarOverride struct {
+	// 部署单元名称。
+	Cell *string `json:"cell,omitempty" xml:"cell,omitempty" require:"true"`
+	// 环境变量名称。
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 环境变量取值。
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s EnvVarOverride) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnvVarOverride) GoString() string {
+	return s.String()
+}
+
+func (s *EnvVarOverride) SetCell(v string) *EnvVarOverride {
+	s.Cell = &v
+	return s
+}
+
+func (s *EnvVarOverride) SetName(v string) *EnvVarOverride {
+	s.Name = &v
+	return s
+}
+
+func (s *EnvVarOverride) SetValue(v string) *EnvVarOverride {
+	s.Value = &v
 	return s
 }
 
@@ -1143,81 +1101,118 @@ func (s *MapStringToString) SetValue(v string) *MapStringToString {
 	return s
 }
 
-// Container Spec 字段 Override 对象
-type FieldOverride struct {
-	// 部署单元名称
-	Cell *string `json:"cell,omitempty" xml:"cell,omitempty" require:"true"`
-	// 字段名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 字段值
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+// 容器生命周期hook。
+type LifecycleHook struct {
+	// 启动后执行命令。
+	PostStartExec *ExecAction `json:"post_start_exec,omitempty" xml:"post_start_exec,omitempty"`
+	// 启动后执行http get。
+	PostStartHttp *HttpGetAction `json:"post_start_http,omitempty" xml:"post_start_http,omitempty"`
+	// 启动后执行TCP请求。
+	PostStartTcp *TcpSocketAction `json:"post_start_tcp,omitempty" xml:"post_start_tcp,omitempty"`
+	// 停止前执行命令。
+	PreStopExec *ExecAction `json:"pre_stop_exec,omitempty" xml:"pre_stop_exec,omitempty"`
+	// 停止前http get。
+	PreStopHttp *HttpGetAction `json:"pre_stop_http,omitempty" xml:"pre_stop_http,omitempty"`
+	// 停止前TCP请求。
+	PreStopTcp *TcpSocketAction `json:"pre_stop_tcp,omitempty" xml:"pre_stop_tcp,omitempty"`
 }
 
-func (s FieldOverride) String() string {
+func (s LifecycleHook) String() string {
 	return tea.Prettify(s)
 }
 
-func (s FieldOverride) GoString() string {
+func (s LifecycleHook) GoString() string {
 	return s.String()
 }
 
-func (s *FieldOverride) SetCell(v string) *FieldOverride {
-	s.Cell = &v
+func (s *LifecycleHook) SetPostStartExec(v *ExecAction) *LifecycleHook {
+	s.PostStartExec = v
 	return s
 }
 
-func (s *FieldOverride) SetName(v string) *FieldOverride {
+func (s *LifecycleHook) SetPostStartHttp(v *HttpGetAction) *LifecycleHook {
+	s.PostStartHttp = v
+	return s
+}
+
+func (s *LifecycleHook) SetPostStartTcp(v *TcpSocketAction) *LifecycleHook {
+	s.PostStartTcp = v
+	return s
+}
+
+func (s *LifecycleHook) SetPreStopExec(v *ExecAction) *LifecycleHook {
+	s.PreStopExec = v
+	return s
+}
+
+func (s *LifecycleHook) SetPreStopHttp(v *HttpGetAction) *LifecycleHook {
+	s.PreStopHttp = v
+	return s
+}
+
+func (s *LifecycleHook) SetPreStopTcp(v *TcpSocketAction) *LifecycleHook {
+	s.PreStopTcp = v
+	return s
+}
+
+// V1PodDNSConfigOption， PodDNSConfigOption defines DNS resolver options of a pod.
+//
+//
+type PodDNSConfigOption struct {
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// value
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+}
+
+func (s PodDNSConfigOption) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PodDNSConfigOption) GoString() string {
+	return s.String()
+}
+
+func (s *PodDNSConfigOption) SetName(v string) *PodDNSConfigOption {
 	s.Name = &v
 	return s
 }
 
-func (s *FieldOverride) SetValue(v string) *FieldOverride {
+func (s *PodDNSConfigOption) SetValue(v string) *PodDNSConfigOption {
 	s.Value = &v
 	return s
 }
 
-// container state running
-type ContainerStateRunning struct {
-	// container启动时间
-	StartedAt *string `json:"started_at,omitempty" xml:"started_at,omitempty" require:"true"`
+// PodAffinityTermEntity
+type PodAffinityTermEntity struct {
+	// label_selector
+	LabelSelector []*MapStringToString `json:"label_selector,omitempty" xml:"label_selector,omitempty" type:"Repeated"`
+	// namespaces
+	Namespaces []*string `json:"namespaces,omitempty" xml:"namespaces,omitempty" type:"Repeated"`
+	// topology_key
+	TopologyKey *string `json:"topology_key,omitempty" xml:"topology_key,omitempty"`
 }
 
-func (s ContainerStateRunning) String() string {
+func (s PodAffinityTermEntity) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ContainerStateRunning) GoString() string {
+func (s PodAffinityTermEntity) GoString() string {
 	return s.String()
 }
 
-func (s *ContainerStateRunning) SetStartedAt(v string) *ContainerStateRunning {
-	s.StartedAt = &v
+func (s *PodAffinityTermEntity) SetLabelSelector(v []*MapStringToString) *PodAffinityTermEntity {
+	s.LabelSelector = v
 	return s
 }
 
-// PodNodeSelector
-type PodNodeSelector struct {
-	// key
-	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
-	// value
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-}
-
-func (s PodNodeSelector) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PodNodeSelector) GoString() string {
-	return s.String()
-}
-
-func (s *PodNodeSelector) SetKey(v string) *PodNodeSelector {
-	s.Key = &v
+func (s *PodAffinityTermEntity) SetNamespaces(v []*string) *PodAffinityTermEntity {
+	s.Namespaces = v
 	return s
 }
 
-func (s *PodNodeSelector) SetValue(v string) *PodNodeSelector {
-	s.Value = &v
+func (s *PodAffinityTermEntity) SetTopologyKey(v string) *PodAffinityTermEntity {
+	s.TopologyKey = &v
 	return s
 }
 
@@ -1251,32 +1246,6 @@ func (s *MatchExpression) SetOperator(v string) *MatchExpression {
 
 func (s *MatchExpression) SetValues(v []*string) *MatchExpression {
 	s.Values = v
-	return s
-}
-
-// 弹性扩缩容高级配置规则
-type HPAScaleRule struct {
-	// 冷却窗口时间
-	StabilizationWindowSeconds *int64 `json:"stabilization_window_seconds,omitempty" xml:"stabilization_window_seconds,omitempty"`
-	// 扩缩容策略
-	Policies []*HPAScalePolicy `json:"policies,omitempty" xml:"policies,omitempty" type:"Repeated"`
-}
-
-func (s HPAScaleRule) String() string {
-	return tea.Prettify(s)
-}
-
-func (s HPAScaleRule) GoString() string {
-	return s.String()
-}
-
-func (s *HPAScaleRule) SetStabilizationWindowSeconds(v int64) *HPAScaleRule {
-	s.StabilizationWindowSeconds = &v
-	return s
-}
-
-func (s *HPAScaleRule) SetPolicies(v []*HPAScalePolicy) *HPAScaleRule {
-	s.Policies = v
 	return s
 }
 
@@ -1327,98 +1296,21 @@ func (s *Toleration) SetValue(v string) *Toleration {
 	return s
 }
 
-// Affinity is a group of affinity scheduling rules.
-type Affinity struct {
-	// Describes node affinity scheduling rules for the pod.
-	//
-	NodeAffinity *NodeAffinity `json:"node_affinity,omitempty" xml:"node_affinity,omitempty"`
-	// Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).
-	PodAffinity *PodAffinity `json:"pod_affinity,omitempty" xml:"pod_affinity,omitempty"`
-	// Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).
-	//
-	PodAntiAffinity *PodAntiAffinity `json:"pod_anti_affinity,omitempty" xml:"pod_anti_affinity,omitempty"`
-}
-
-func (s Affinity) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Affinity) GoString() string {
-	return s.String()
-}
-
-func (s *Affinity) SetNodeAffinity(v *NodeAffinity) *Affinity {
-	s.NodeAffinity = v
-	return s
-}
-
-func (s *Affinity) SetPodAffinity(v *PodAffinity) *Affinity {
-	s.PodAffinity = v
-	return s
-}
-
-func (s *Affinity) SetPodAntiAffinity(v *PodAntiAffinity) *Affinity {
-	s.PodAntiAffinity = v
-	return s
-}
-
-// container state terminated
-type ContainerStateTerminated struct {
-	// container id
-	ContainerId *string `json:"container_id,omitempty" xml:"container_id,omitempty" require:"true"`
-	// exit code
-	ExitCode *int64 `json:"exit_code,omitempty" xml:"exit_code,omitempty" require:"true"`
-	// container结束时间
-	FinishedAt *string `json:"finished_at,omitempty" xml:"finished_at,omitempty" require:"true"`
-	// message
-	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
-	// reason
-	Reason *string `json:"reason,omitempty" xml:"reason,omitempty" require:"true"`
-	// signal
-	Signal *string `json:"signal,omitempty" xml:"signal,omitempty" require:"true"`
-	// container start time
+// container state running
+type ContainerStateRunning struct {
+	// container启动时间
 	StartedAt *string `json:"started_at,omitempty" xml:"started_at,omitempty" require:"true"`
 }
 
-func (s ContainerStateTerminated) String() string {
+func (s ContainerStateRunning) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ContainerStateTerminated) GoString() string {
+func (s ContainerStateRunning) GoString() string {
 	return s.String()
 }
 
-func (s *ContainerStateTerminated) SetContainerId(v string) *ContainerStateTerminated {
-	s.ContainerId = &v
-	return s
-}
-
-func (s *ContainerStateTerminated) SetExitCode(v int64) *ContainerStateTerminated {
-	s.ExitCode = &v
-	return s
-}
-
-func (s *ContainerStateTerminated) SetFinishedAt(v string) *ContainerStateTerminated {
-	s.FinishedAt = &v
-	return s
-}
-
-func (s *ContainerStateTerminated) SetMessage(v string) *ContainerStateTerminated {
-	s.Message = &v
-	return s
-}
-
-func (s *ContainerStateTerminated) SetReason(v string) *ContainerStateTerminated {
-	s.Reason = &v
-	return s
-}
-
-func (s *ContainerStateTerminated) SetSignal(v string) *ContainerStateTerminated {
-	s.Signal = &v
-	return s
-}
-
-func (s *ContainerStateTerminated) SetStartedAt(v string) *ContainerStateTerminated {
+func (s *ContainerStateRunning) SetStartedAt(v string) *ContainerStateRunning {
 	s.StartedAt = &v
 	return s
 }
@@ -1446,171 +1338,6 @@ func (s *Annotation) SetKey(v string) *Annotation {
 
 func (s *Annotation) SetValue(v string) *Annotation {
 	s.Value = &v
-	return s
-}
-
-// 弹性伸缩指标目标值
-type HPABasedElasticConfigMetricTarget struct {
-	// 支持两种类型：AverageValue，Utilization
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// value
-	Value *HPABasedElasticConfigMetricTargetResourceValue `json:"value,omitempty" xml:"value,omitempty"`
-	// 利用率
-	Utilization *int64 `json:"utilization,omitempty" xml:"utilization,omitempty"`
-}
-
-func (s HPABasedElasticConfigMetricTarget) String() string {
-	return tea.Prettify(s)
-}
-
-func (s HPABasedElasticConfigMetricTarget) GoString() string {
-	return s.String()
-}
-
-func (s *HPABasedElasticConfigMetricTarget) SetType(v string) *HPABasedElasticConfigMetricTarget {
-	s.Type = &v
-	return s
-}
-
-func (s *HPABasedElasticConfigMetricTarget) SetValue(v *HPABasedElasticConfigMetricTargetResourceValue) *HPABasedElasticConfigMetricTarget {
-	s.Value = v
-	return s
-}
-
-func (s *HPABasedElasticConfigMetricTarget) SetUtilization(v int64) *HPABasedElasticConfigMetricTarget {
-	s.Utilization = &v
-	return s
-}
-
-// ResourceValue
-type ResourceValue struct {
-	// value
-	Value *int64 `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-	// Ki、Mi、Gi、Ti、Pi、m、c
-	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
-}
-
-func (s ResourceValue) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ResourceValue) GoString() string {
-	return s.String()
-}
-
-func (s *ResourceValue) SetValue(v int64) *ResourceValue {
-	s.Value = &v
-	return s
-}
-
-func (s *ResourceValue) SetUnit(v string) *ResourceValue {
-	s.Unit = &v
-	return s
-}
-
-// pod volume info.
-type Volume struct {
-	// 主机目录[仅针对HostPath类型volume有效]
-	HostPath *string `json:"host_path,omitempty" xml:"host_path,omitempty"`
-	// Volume名称。
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 关联的资源名称。
-	RefResourceName *string `json:"ref_resource_name,omitempty" xml:"ref_resource_name,omitempty"`
-	//  LOCAL_STORAGE：主机挂载|CONFIGMAP：配置项|SECRET：保密字典
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// Volume是否只读
-	ReadOnly *bool `json:"read_only,omitempty" xml:"read_only,omitempty"`
-}
-
-func (s Volume) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Volume) GoString() string {
-	return s.String()
-}
-
-func (s *Volume) SetHostPath(v string) *Volume {
-	s.HostPath = &v
-	return s
-}
-
-func (s *Volume) SetName(v string) *Volume {
-	s.Name = &v
-	return s
-}
-
-func (s *Volume) SetRefResourceName(v string) *Volume {
-	s.RefResourceName = &v
-	return s
-}
-
-func (s *Volume) SetType(v string) *Volume {
-	s.Type = &v
-	return s
-}
-
-func (s *Volume) SetReadOnly(v bool) *Volume {
-	s.ReadOnly = &v
-	return s
-}
-
-// container state waiting
-type ContainerStateWaiting struct {
-	// message
-	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
-	// reason
-	Reason *string `json:"reason,omitempty" xml:"reason,omitempty" require:"true"`
-}
-
-func (s ContainerStateWaiting) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContainerStateWaiting) GoString() string {
-	return s.String()
-}
-
-func (s *ContainerStateWaiting) SetMessage(v string) *ContainerStateWaiting {
-	s.Message = &v
-	return s
-}
-
-func (s *ContainerStateWaiting) SetReason(v string) *ContainerStateWaiting {
-	s.Reason = &v
-	return s
-}
-
-// PodAffinityTermEntity
-type PodAffinityTermEntity struct {
-	// label_selector
-	LabelSelector []*MapStringToString `json:"label_selector,omitempty" xml:"label_selector,omitempty" type:"Repeated"`
-	// namespaces
-	Namespaces []*string `json:"namespaces,omitempty" xml:"namespaces,omitempty" type:"Repeated"`
-	// topology_key
-	TopologyKey *string `json:"topology_key,omitempty" xml:"topology_key,omitempty"`
-}
-
-func (s PodAffinityTermEntity) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PodAffinityTermEntity) GoString() string {
-	return s.String()
-}
-
-func (s *PodAffinityTermEntity) SetLabelSelector(v []*MapStringToString) *PodAffinityTermEntity {
-	s.LabelSelector = v
-	return s
-}
-
-func (s *PodAffinityTermEntity) SetNamespaces(v []*string) *PodAffinityTermEntity {
-	s.Namespaces = v
-	return s
-}
-
-func (s *PodAffinityTermEntity) SetTopologyKey(v string) *PodAffinityTermEntity {
-	s.TopologyKey = &v
 	return s
 }
 
@@ -1824,9 +1551,42 @@ func (s *ContainerSpec) SetFieldOverrides(v []*FieldOverride) *ContainerSpec {
 	return s
 }
 
+// 弹性伸缩指标目标值
+type HPABasedElasticConfigMetricTarget struct {
+	// 支持两种类型：AverageValue，Utilization
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// value
+	Value *HPABasedElasticConfigMetricTargetResourceValue `json:"value,omitempty" xml:"value,omitempty"`
+	// 利用率
+	Utilization *int64 `json:"utilization,omitempty" xml:"utilization,omitempty"`
+}
+
+func (s HPABasedElasticConfigMetricTarget) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HPABasedElasticConfigMetricTarget) GoString() string {
+	return s.String()
+}
+
+func (s *HPABasedElasticConfigMetricTarget) SetType(v string) *HPABasedElasticConfigMetricTarget {
+	s.Type = &v
+	return s
+}
+
+func (s *HPABasedElasticConfigMetricTarget) SetValue(v *HPABasedElasticConfigMetricTargetResourceValue) *HPABasedElasticConfigMetricTarget {
+	s.Value = v
+	return s
+}
+
+func (s *HPABasedElasticConfigMetricTarget) SetUtilization(v int64) *HPABasedElasticConfigMetricTarget {
+	s.Utilization = &v
+	return s
+}
+
 // PodReadinessGate contains the reference to a pod condition
 type PodReadinessGate struct {
-	// ConditionType refers to a condition in the pod s condition list with matching type.
+	// ConditionType refers to a condition in the pod_s condition list with matching type.
 	ConditionType *string `json:"condition_type,omitempty" xml:"condition_type,omitempty" require:"true"`
 }
 
@@ -1843,7 +1603,155 @@ func (s *PodReadinessGate) SetConditionType(v string) *PodReadinessGate {
 	return s
 }
 
-// HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod s hosts file.
+// 弹性扩缩容高级配置规则
+type HPAScaleRule struct {
+	// 冷却窗口时间
+	StabilizationWindowSeconds *int64 `json:"stabilization_window_seconds,omitempty" xml:"stabilization_window_seconds,omitempty"`
+	// 扩缩容策略
+	Policies []*HPAScalePolicy `json:"policies,omitempty" xml:"policies,omitempty" type:"Repeated"`
+}
+
+func (s HPAScaleRule) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HPAScaleRule) GoString() string {
+	return s.String()
+}
+
+func (s *HPAScaleRule) SetStabilizationWindowSeconds(v int64) *HPAScaleRule {
+	s.StabilizationWindowSeconds = &v
+	return s
+}
+
+func (s *HPAScaleRule) SetPolicies(v []*HPAScalePolicy) *HPAScaleRule {
+	s.Policies = v
+	return s
+}
+
+// Affinity is a group of affinity scheduling rules.
+type Affinity struct {
+	// Describes node affinity scheduling rules for the pod.
+	//
+	NodeAffinity *NodeAffinity `json:"node_affinity,omitempty" xml:"node_affinity,omitempty"`
+	// Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).
+	PodAffinity *PodAffinity `json:"pod_affinity,omitempty" xml:"pod_affinity,omitempty"`
+	// Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).
+	//
+	PodAntiAffinity *PodAntiAffinity `json:"pod_anti_affinity,omitempty" xml:"pod_anti_affinity,omitempty"`
+}
+
+func (s Affinity) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Affinity) GoString() string {
+	return s.String()
+}
+
+func (s *Affinity) SetNodeAffinity(v *NodeAffinity) *Affinity {
+	s.NodeAffinity = v
+	return s
+}
+
+func (s *Affinity) SetPodAffinity(v *PodAffinity) *Affinity {
+	s.PodAffinity = v
+	return s
+}
+
+func (s *Affinity) SetPodAntiAffinity(v *PodAntiAffinity) *Affinity {
+	s.PodAntiAffinity = v
+	return s
+}
+
+// container state terminated
+type ContainerStateTerminated struct {
+	// container id
+	ContainerId *string `json:"container_id,omitempty" xml:"container_id,omitempty" require:"true"`
+	// exit code
+	ExitCode *int64 `json:"exit_code,omitempty" xml:"exit_code,omitempty" require:"true"`
+	// container结束时间
+	FinishedAt *string `json:"finished_at,omitempty" xml:"finished_at,omitempty" require:"true"`
+	// message
+	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+	// reason
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty" require:"true"`
+	// signal
+	Signal *string `json:"signal,omitempty" xml:"signal,omitempty" require:"true"`
+	// container start time
+	StartedAt *string `json:"started_at,omitempty" xml:"started_at,omitempty" require:"true"`
+}
+
+func (s ContainerStateTerminated) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContainerStateTerminated) GoString() string {
+	return s.String()
+}
+
+func (s *ContainerStateTerminated) SetContainerId(v string) *ContainerStateTerminated {
+	s.ContainerId = &v
+	return s
+}
+
+func (s *ContainerStateTerminated) SetExitCode(v int64) *ContainerStateTerminated {
+	s.ExitCode = &v
+	return s
+}
+
+func (s *ContainerStateTerminated) SetFinishedAt(v string) *ContainerStateTerminated {
+	s.FinishedAt = &v
+	return s
+}
+
+func (s *ContainerStateTerminated) SetMessage(v string) *ContainerStateTerminated {
+	s.Message = &v
+	return s
+}
+
+func (s *ContainerStateTerminated) SetReason(v string) *ContainerStateTerminated {
+	s.Reason = &v
+	return s
+}
+
+func (s *ContainerStateTerminated) SetSignal(v string) *ContainerStateTerminated {
+	s.Signal = &v
+	return s
+}
+
+func (s *ContainerStateTerminated) SetStartedAt(v string) *ContainerStateTerminated {
+	s.StartedAt = &v
+	return s
+}
+
+// ResourceValue
+type ResourceValue struct {
+	// value
+	Value *int64 `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// Ki、Mi、Gi、Ti、Pi、m、c
+	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
+}
+
+func (s ResourceValue) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResourceValue) GoString() string {
+	return s.String()
+}
+
+func (s *ResourceValue) SetValue(v int64) *ResourceValue {
+	s.Value = &v
+	return s
+}
+
+func (s *ResourceValue) SetUnit(v string) *ResourceValue {
+	s.Unit = &v
+	return s
+}
+
+// HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod_s hosts file.
 type HostAlias struct {
 	// Hostnames for the above IP address.
 	Hostnames []*string `json:"hostnames,omitempty" xml:"hostnames,omitempty" type:"Repeated"`
@@ -1903,185 +1811,102 @@ func (s *PodDNSConfig) SetSearches(v []*string) *PodDNSConfig {
 	return s
 }
 
-// Specification of the desired behavior of the pod.
-type PodSpec struct {
-	// Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers
-	ActiveDeadlineSeconds *int64 `json:"active_deadline_seconds,omitempty" xml:"active_deadline_seconds,omitempty"`
-	// If specified, the pod s scheduling constraints
-	//
-	Affinity *Affinity `json:"affinity,omitempty" xml:"affinity,omitempty"`
-	// AutomountServiceAccountToken indicates whether a service account token should be automatically mounted.
-	//
-	AutomountServiceAccountToken *bool `json:"automount_service_account_token,omitempty" xml:"automount_service_account_token,omitempty"`
-	// List of containers belonging to the pod. Containers cannot currently be added or removed. There must be at least one container in a Pod. Cannot be updated.
-	//
-	Containers []*ContainerSpec `json:"containers,omitempty" xml:"containers,omitempty" require:"true" type:"Repeated"`
-	// Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.
-	DnsConfig *PodDNSConfig `json:"dns_config,omitempty" xml:"dns_config,omitempty"`
-	// Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are  ClusterFirstWithHostNet ,  ClusterFirst ,  Default  or  None . DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to  ClusterFirstWithHostNet .
-	DnsPolicy *string `json:"dns_policy,omitempty" xml:"dns_policy,omitempty"`
-	// EnableServiceLinks indicates whether information about services should be injected into pod s environment variables, matching the syntax of Docker links. Optional: Defaults to true.
-	//
-	EnableServiceLinks *bool `json:"enable_service_links,omitempty" xml:"enable_service_links,omitempty"`
-	// HostAliases is an optional list of hosts and IPs that will be injected into the pod s hosts file if specified. This is only valid for non-hostNetwork pods.
-	HostAliases *HostAlias `json:"host_aliases,omitempty" xml:"host_aliases,omitempty"`
-	// Use the host s ipc namespace. Optional: Default to false.
-	//
-	HostIpc *bool `json:"host_ipc,omitempty" xml:"host_ipc,omitempty"`
-	// Host networking requested for this pod. Use the host s network namespace. If this option is set, the ports that will be used must be specified. Default to false.
-	//
-	HostNetwork *bool `json:"host_network,omitempty" xml:"host_network,omitempty"`
-	// Use the host s pid namespace. Optional: Default to false.
-	//
-	HostPid *bool `json:"host_pid,omitempty" xml:"host_pid,omitempty"`
-	// Specifies the hostname of the Pod If not specified, the pod s hostname will be set to a system-defined value.
-	//
-	Hostname *string `json:"hostname,omitempty" xml:"hostname,omitempty"`
-	// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec
-	ImagePullSecrets []*string `json:"image_pull_secrets,omitempty" xml:"image_pull_secrets,omitempty" type:"Repeated"`
-	// List of initialization containers belonging to the pod
-	InitContainers []*ContainerSpec `json:"init_containers,omitempty" xml:"init_containers,omitempty" type:"Repeated"`
-	// NodeName is a request to schedule this pod onto a specific node.
-	NodeName *string `json:"node_name,omitempty" xml:"node_name,omitempty"`
-	// NodeSelector is a selector which must be true for the pod to fit on a node
-	NodeSelector []*PodNodeSelector `json:"node_selector,omitempty" xml:"node_selector,omitempty" type:"Repeated"`
-	// The priority value. Various system components use this field to find the priority of the pod.
-	Priority *int64 `json:"priority,omitempty" xml:"priority,omitempty"`
-	// If specified, indicates the pod s priority. "system-node-critical" and "system-cluster-critical" are two special keywords which indicate the highest priorities with the former being the highest priority
-	PriorityClassName *string `json:"priority_class_name,omitempty" xml:"priority_class_name,omitempty"`
-	// If specified, all readiness gates will be evaluated for pod readiness
-	ReadinessGates *PodReadinessGate `json:"readiness_gates,omitempty" xml:"readiness_gates,omitempty"`
-	// Restart policy for all containers within the pod
-	RestartPolicy *string `json:"restart_policy,omitempty" xml:"restart_policy,omitempty"`
-	// ServiceAccountName is the name of the ServiceAccount to use to run this pod
-	ServiceAccountName *string `json:"service_account_name,omitempty" xml:"service_account_name,omitempty"`
-	// If specified, the pod s tolerations.
-	//
-	Tolerations []*Toleration `json:"tolerations,omitempty" xml:"tolerations,omitempty" type:"Repeated"`
-	// List of volumes that can be mounted by containers belonging to the pod
-	Volumes []*Volume `json:"volumes,omitempty" xml:"volumes,omitempty" type:"Repeated"`
+// pod volume info.
+type Volume struct {
+	// 主机目录[仅针对HostPath类型volume有效]
+	HostPath *string `json:"host_path,omitempty" xml:"host_path,omitempty"`
+	// Volume名称。
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 关联的资源名称。
+	RefResourceName *string `json:"ref_resource_name,omitempty" xml:"ref_resource_name,omitempty"`
+	//  LOCAL_STORAGE：主机挂载|CONFIGMAP：配置项|SECRET：保密字典
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// Volume是否只读
+	ReadOnly *bool `json:"read_only,omitempty" xml:"read_only,omitempty"`
 }
 
-func (s PodSpec) String() string {
+func (s Volume) String() string {
 	return tea.Prettify(s)
 }
 
-func (s PodSpec) GoString() string {
+func (s Volume) GoString() string {
 	return s.String()
 }
 
-func (s *PodSpec) SetActiveDeadlineSeconds(v int64) *PodSpec {
-	s.ActiveDeadlineSeconds = &v
+func (s *Volume) SetHostPath(v string) *Volume {
+	s.HostPath = &v
 	return s
 }
 
-func (s *PodSpec) SetAffinity(v *Affinity) *PodSpec {
-	s.Affinity = v
+func (s *Volume) SetName(v string) *Volume {
+	s.Name = &v
 	return s
 }
 
-func (s *PodSpec) SetAutomountServiceAccountToken(v bool) *PodSpec {
-	s.AutomountServiceAccountToken = &v
+func (s *Volume) SetRefResourceName(v string) *Volume {
+	s.RefResourceName = &v
 	return s
 }
 
-func (s *PodSpec) SetContainers(v []*ContainerSpec) *PodSpec {
-	s.Containers = v
+func (s *Volume) SetType(v string) *Volume {
+	s.Type = &v
 	return s
 }
 
-func (s *PodSpec) SetDnsConfig(v *PodDNSConfig) *PodSpec {
-	s.DnsConfig = v
+func (s *Volume) SetReadOnly(v bool) *Volume {
+	s.ReadOnly = &v
 	return s
 }
 
-func (s *PodSpec) SetDnsPolicy(v string) *PodSpec {
-	s.DnsPolicy = &v
+// PodNodeSelector
+type PodNodeSelector struct {
+	// key
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// value
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s PodNodeSelector) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PodNodeSelector) GoString() string {
+	return s.String()
+}
+
+func (s *PodNodeSelector) SetKey(v string) *PodNodeSelector {
+	s.Key = &v
 	return s
 }
 
-func (s *PodSpec) SetEnableServiceLinks(v bool) *PodSpec {
-	s.EnableServiceLinks = &v
+func (s *PodNodeSelector) SetValue(v string) *PodNodeSelector {
+	s.Value = &v
 	return s
 }
 
-func (s *PodSpec) SetHostAliases(v *HostAlias) *PodSpec {
-	s.HostAliases = v
+// container state waiting
+type ContainerStateWaiting struct {
+	// message
+	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+	// reason
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty" require:"true"`
+}
+
+func (s ContainerStateWaiting) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContainerStateWaiting) GoString() string {
+	return s.String()
+}
+
+func (s *ContainerStateWaiting) SetMessage(v string) *ContainerStateWaiting {
+	s.Message = &v
 	return s
 }
 
-func (s *PodSpec) SetHostIpc(v bool) *PodSpec {
-	s.HostIpc = &v
-	return s
-}
-
-func (s *PodSpec) SetHostNetwork(v bool) *PodSpec {
-	s.HostNetwork = &v
-	return s
-}
-
-func (s *PodSpec) SetHostPid(v bool) *PodSpec {
-	s.HostPid = &v
-	return s
-}
-
-func (s *PodSpec) SetHostname(v string) *PodSpec {
-	s.Hostname = &v
-	return s
-}
-
-func (s *PodSpec) SetImagePullSecrets(v []*string) *PodSpec {
-	s.ImagePullSecrets = v
-	return s
-}
-
-func (s *PodSpec) SetInitContainers(v []*ContainerSpec) *PodSpec {
-	s.InitContainers = v
-	return s
-}
-
-func (s *PodSpec) SetNodeName(v string) *PodSpec {
-	s.NodeName = &v
-	return s
-}
-
-func (s *PodSpec) SetNodeSelector(v []*PodNodeSelector) *PodSpec {
-	s.NodeSelector = v
-	return s
-}
-
-func (s *PodSpec) SetPriority(v int64) *PodSpec {
-	s.Priority = &v
-	return s
-}
-
-func (s *PodSpec) SetPriorityClassName(v string) *PodSpec {
-	s.PriorityClassName = &v
-	return s
-}
-
-func (s *PodSpec) SetReadinessGates(v *PodReadinessGate) *PodSpec {
-	s.ReadinessGates = v
-	return s
-}
-
-func (s *PodSpec) SetRestartPolicy(v string) *PodSpec {
-	s.RestartPolicy = &v
-	return s
-}
-
-func (s *PodSpec) SetServiceAccountName(v string) *PodSpec {
-	s.ServiceAccountName = &v
-	return s
-}
-
-func (s *PodSpec) SetTolerations(v []*Toleration) *PodSpec {
-	s.Tolerations = v
-	return s
-}
-
-func (s *PodSpec) SetVolumes(v []*Volume) *PodSpec {
-	s.Volumes = v
+func (s *ContainerStateWaiting) SetReason(v string) *ContainerStateWaiting {
+	s.Reason = &v
 	return s
 }
 
@@ -2175,76 +2000,55 @@ func (s *PodDetailInfo) SetMessage(v string) *PodDetailInfo {
 	return s
 }
 
-// PodAffinityConfigEntity
-type PodAffinityConfig struct {
-	// anti_affinity
-	AntiAffinity *bool `json:"anti_affinity,omitempty" xml:"anti_affinity,omitempty"`
-	// pod_affinity_term
-	PodAffinityTerm *PodAffinityTermEntity `json:"pod_affinity_term,omitempty" xml:"pod_affinity_term,omitempty"`
-	// requested
-	Requested *bool `json:"requested,omitempty" xml:"requested,omitempty"`
-	// weight
-	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
+// deployment strategy rolling update
+type RollingUpdateDeployment struct {
+	// The maximum number of pods that can be scheduled above the desired number of pods.
+	MaxSurge *string `json:"max_surge,omitempty" xml:"max_surge,omitempty"`
+	// The maximum number of pods that can be unavailable during the update.
+	MaxUnavailable *string `json:"max_unavailable,omitempty" xml:"max_unavailable,omitempty"`
 }
 
-func (s PodAffinityConfig) String() string {
+func (s RollingUpdateDeployment) String() string {
 	return tea.Prettify(s)
 }
 
-func (s PodAffinityConfig) GoString() string {
+func (s RollingUpdateDeployment) GoString() string {
 	return s.String()
 }
 
-func (s *PodAffinityConfig) SetAntiAffinity(v bool) *PodAffinityConfig {
-	s.AntiAffinity = &v
+func (s *RollingUpdateDeployment) SetMaxSurge(v string) *RollingUpdateDeployment {
+	s.MaxSurge = &v
 	return s
 }
 
-func (s *PodAffinityConfig) SetPodAffinityTerm(v *PodAffinityTermEntity) *PodAffinityConfig {
-	s.PodAffinityTerm = v
+func (s *RollingUpdateDeployment) SetMaxUnavailable(v string) *RollingUpdateDeployment {
+	s.MaxUnavailable = &v
 	return s
 }
 
-func (s *PodAffinityConfig) SetRequested(v bool) *PodAffinityConfig {
-	s.Requested = &v
-	return s
+// 扩缩容策略高级配置项
+type HPAScaleBehavior struct {
+	// 扩容高级规则
+	ScaleUp *HPAScaleRule `json:"scale_up,omitempty" xml:"scale_up,omitempty"`
+	// 缩容高级规则
+	ScaleDown *HPAScaleRule `json:"scale_down,omitempty" xml:"scale_down,omitempty"`
 }
 
-func (s *PodAffinityConfig) SetWeight(v int64) *PodAffinityConfig {
-	s.Weight = &v
-	return s
-}
-
-// 某一部署单元或集群对应的副本数。
-type ReplicaCount struct {
-	// 副本数量是部署单元维度还是集群维度。目前只支持Cell
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 部署单元名称或集群名称。
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 对应副本数量。
-	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
-}
-
-func (s ReplicaCount) String() string {
+func (s HPAScaleBehavior) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ReplicaCount) GoString() string {
+func (s HPAScaleBehavior) GoString() string {
 	return s.String()
 }
 
-func (s *ReplicaCount) SetType(v string) *ReplicaCount {
-	s.Type = &v
+func (s *HPAScaleBehavior) SetScaleUp(v *HPAScaleRule) *HPAScaleBehavior {
+	s.ScaleUp = v
 	return s
 }
 
-func (s *ReplicaCount) SetName(v string) *ReplicaCount {
-	s.Name = &v
-	return s
-}
-
-func (s *ReplicaCount) SetCount(v int64) *ReplicaCount {
-	s.Count = &v
+func (s *HPAScaleBehavior) SetScaleDown(v *HPAScaleRule) *HPAScaleBehavior {
+	s.ScaleDown = v
 	return s
 }
 
@@ -2271,113 +2075,6 @@ func (s *MapResourceNameToValue) SetKey(v string) *MapResourceNameToValue {
 
 func (s *MapResourceNameToValue) SetValue(v *ResourceValue) *MapResourceNameToValue {
 	s.Value = v
-	return s
-}
-
-// 弹性伸缩指标
-type HPABasedElasticConfigMetric struct {
-	// 指标名称：
-	// CPU，Memory，QPS，RT
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 目标值
-	Target *HPABasedElasticConfigMetricTarget `json:"target,omitempty" xml:"target,omitempty" require:"true"`
-}
-
-func (s HPABasedElasticConfigMetric) String() string {
-	return tea.Prettify(s)
-}
-
-func (s HPABasedElasticConfigMetric) GoString() string {
-	return s.String()
-}
-
-func (s *HPABasedElasticConfigMetric) SetName(v string) *HPABasedElasticConfigMetric {
-	s.Name = &v
-	return s
-}
-
-func (s *HPABasedElasticConfigMetric) SetTarget(v *HPABasedElasticConfigMetricTarget) *HPABasedElasticConfigMetric {
-	s.Target = v
-	return s
-}
-
-// node affinity entity
-type NodeAffinityConfig struct {
-	// match_expressions
-	MatchExpressions []*MatchExpression `json:"match_expressions,omitempty" xml:"match_expressions,omitempty" type:"Repeated"`
-	// requested
-	Requested *bool `json:"requested,omitempty" xml:"requested,omitempty"`
-	// weight
-	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
-}
-
-func (s NodeAffinityConfig) String() string {
-	return tea.Prettify(s)
-}
-
-func (s NodeAffinityConfig) GoString() string {
-	return s.String()
-}
-
-func (s *NodeAffinityConfig) SetMatchExpressions(v []*MatchExpression) *NodeAffinityConfig {
-	s.MatchExpressions = v
-	return s
-}
-
-func (s *NodeAffinityConfig) SetRequested(v bool) *NodeAffinityConfig {
-	s.Requested = &v
-	return s
-}
-
-func (s *NodeAffinityConfig) SetWeight(v int64) *NodeAffinityConfig {
-	s.Weight = &v
-	return s
-}
-
-// k8s meta元数据
-type ObjectMeta struct {
-	// k8s meta annotation
-	Annotations []*Annotation `json:"annotations,omitempty" xml:"annotations,omitempty" type:"Repeated"`
-	// 创建时间戳
-	CreationTimestamp *string `json:"creation_timestamp,omitempty" xml:"creation_timestamp,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// k8s meta labels
-	Labels []*Label `json:"labels,omitempty" xml:"labels,omitempty" require:"true" type:"Repeated"`
-	// 名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 命名空间
-	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty"`
-}
-
-func (s ObjectMeta) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ObjectMeta) GoString() string {
-	return s.String()
-}
-
-func (s *ObjectMeta) SetAnnotations(v []*Annotation) *ObjectMeta {
-	s.Annotations = v
-	return s
-}
-
-func (s *ObjectMeta) SetCreationTimestamp(v string) *ObjectMeta {
-	s.CreationTimestamp = &v
-	return s
-}
-
-func (s *ObjectMeta) SetLabels(v []*Label) *ObjectMeta {
-	s.Labels = v
-	return s
-}
-
-func (s *ObjectMeta) SetName(v string) *ObjectMeta {
-	s.Name = &v
-	return s
-}
-
-func (s *ObjectMeta) SetNamespace(v string) *ObjectMeta {
-	s.Namespace = &v
 	return s
 }
 
@@ -2590,6 +2287,401 @@ func (s *LoadBalancerListener) SetPath(v string) *LoadBalancerListener {
 	return s
 }
 
+// 某一部署单元或集群对应的副本数。
+type ReplicaCount struct {
+	// 副本数量是部署单元维度还是集群维度。目前只支持Cell
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 部署单元名称或集群名称。
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 对应副本数量。
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+	// （针对huanyu场景），original_count该单元当前的副本个数（count对应期望的副本个数）
+	OriginalCount *int64 `json:"original_count,omitempty" xml:"original_count,omitempty"`
+}
+
+func (s ReplicaCount) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReplicaCount) GoString() string {
+	return s.String()
+}
+
+func (s *ReplicaCount) SetType(v string) *ReplicaCount {
+	s.Type = &v
+	return s
+}
+
+func (s *ReplicaCount) SetName(v string) *ReplicaCount {
+	s.Name = &v
+	return s
+}
+
+func (s *ReplicaCount) SetCount(v int64) *ReplicaCount {
+	s.Count = &v
+	return s
+}
+
+func (s *ReplicaCount) SetOriginalCount(v int64) *ReplicaCount {
+	s.OriginalCount = &v
+	return s
+}
+
+// node affinity entity
+type NodeAffinityConfig struct {
+	// match_expressions
+	MatchExpressions []*MatchExpression `json:"match_expressions,omitempty" xml:"match_expressions,omitempty" type:"Repeated"`
+	// requested
+	Requested *bool `json:"requested,omitempty" xml:"requested,omitempty"`
+	// weight
+	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
+}
+
+func (s NodeAffinityConfig) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NodeAffinityConfig) GoString() string {
+	return s.String()
+}
+
+func (s *NodeAffinityConfig) SetMatchExpressions(v []*MatchExpression) *NodeAffinityConfig {
+	s.MatchExpressions = v
+	return s
+}
+
+func (s *NodeAffinityConfig) SetRequested(v bool) *NodeAffinityConfig {
+	s.Requested = &v
+	return s
+}
+
+func (s *NodeAffinityConfig) SetWeight(v int64) *NodeAffinityConfig {
+	s.Weight = &v
+	return s
+}
+
+// 每个cell副本数map
+type CellReplicasMap struct {
+	// cell name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 副本数
+	Replicas *int64 `json:"replicas,omitempty" xml:"replicas,omitempty" require:"true"`
+}
+
+func (s CellReplicasMap) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CellReplicasMap) GoString() string {
+	return s.String()
+}
+
+func (s *CellReplicasMap) SetName(v string) *CellReplicasMap {
+	s.Name = &v
+	return s
+}
+
+func (s *CellReplicasMap) SetReplicas(v int64) *CellReplicasMap {
+	s.Replicas = &v
+	return s
+}
+
+// Specification of the desired behavior of the pod.
+type PodSpec struct {
+	// Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers
+	ActiveDeadlineSeconds *int64 `json:"active_deadline_seconds,omitempty" xml:"active_deadline_seconds,omitempty"`
+	// If specified, the pod_s scheduling constraints
+	//
+	Affinity *Affinity `json:"affinity,omitempty" xml:"affinity,omitempty"`
+	// AutomountServiceAccountToken indicates whether a service account token should be automatically mounted.
+	//
+	AutomountServiceAccountToken *bool `json:"automount_service_account_token,omitempty" xml:"automount_service_account_token,omitempty"`
+	// List of containers belonging to the pod. Containers cannot currently be added or removed. There must be at least one container in a Pod. Cannot be updated.
+	//
+	Containers []*ContainerSpec `json:"containers,omitempty" xml:"containers,omitempty" require:"true" type:"Repeated"`
+	// Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.
+	DnsConfig *PodDNSConfig `json:"dns_config,omitempty" xml:"dns_config,omitempty"`
+	// Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are _ClusterFirstWithHostNet_, _ClusterFirst_, _Default_ or _None_. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to _ClusterFirstWithHostNet_.
+	DnsPolicy *string `json:"dns_policy,omitempty" xml:"dns_policy,omitempty"`
+	// EnableServiceLinks indicates whether information about services should be injected into pod_s environment variables, matching the syntax of Docker links. Optional: Defaults to true.
+	//
+	EnableServiceLinks *bool `json:"enable_service_links,omitempty" xml:"enable_service_links,omitempty"`
+	// HostAliases is an optional list of hosts and IPs that will be injected into the pod_s hosts file if specified. This is only valid for non-hostNetwork pods.
+	HostAliases *HostAlias `json:"host_aliases,omitempty" xml:"host_aliases,omitempty"`
+	// Use the host_s ipc namespace. Optional: Default to false.
+	//
+	HostIpc *bool `json:"host_ipc,omitempty" xml:"host_ipc,omitempty"`
+	// Host networking requested for this pod. Use the host_s network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+	//
+	HostNetwork *bool `json:"host_network,omitempty" xml:"host_network,omitempty"`
+	// Use the host_s pid namespace. Optional: Default to false.
+	//
+	HostPid *bool `json:"host_pid,omitempty" xml:"host_pid,omitempty"`
+	// Specifies the hostname of the Pod If not specified, the pod_s hostname will be set to a system-defined value.
+	//
+	Hostname *string `json:"hostname,omitempty" xml:"hostname,omitempty"`
+	// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec
+	ImagePullSecrets []*string `json:"image_pull_secrets,omitempty" xml:"image_pull_secrets,omitempty" type:"Repeated"`
+	// List of initialization containers belonging to the pod
+	InitContainers []*ContainerSpec `json:"init_containers,omitempty" xml:"init_containers,omitempty" type:"Repeated"`
+	// NodeName is a request to schedule this pod onto a specific node.
+	NodeName *string `json:"node_name,omitempty" xml:"node_name,omitempty"`
+	// NodeSelector is a selector which must be true for the pod to fit on a node
+	NodeSelector []*PodNodeSelector `json:"node_selector,omitempty" xml:"node_selector,omitempty" type:"Repeated"`
+	// The priority value. Various system components use this field to find the priority of the pod.
+	Priority *int64 `json:"priority,omitempty" xml:"priority,omitempty"`
+	// If specified, indicates the pod_s priority. "system-node-critical" and "system-cluster-critical" are two special keywords which indicate the highest priorities with the former being the highest priority
+	PriorityClassName *string `json:"priority_class_name,omitempty" xml:"priority_class_name,omitempty"`
+	// If specified, all readiness gates will be evaluated for pod readiness
+	ReadinessGates *PodReadinessGate `json:"readiness_gates,omitempty" xml:"readiness_gates,omitempty"`
+	// Restart policy for all containers within the pod
+	RestartPolicy *string `json:"restart_policy,omitempty" xml:"restart_policy,omitempty"`
+	// ServiceAccountName is the name of the ServiceAccount to use to run this pod
+	ServiceAccountName *string `json:"service_account_name,omitempty" xml:"service_account_name,omitempty"`
+	// If specified, the pod_s tolerations.
+	//
+	Tolerations []*Toleration `json:"tolerations,omitempty" xml:"tolerations,omitempty" type:"Repeated"`
+	// List of volumes that can be mounted by containers belonging to the pod
+	Volumes []*Volume `json:"volumes,omitempty" xml:"volumes,omitempty" type:"Repeated"`
+}
+
+func (s PodSpec) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PodSpec) GoString() string {
+	return s.String()
+}
+
+func (s *PodSpec) SetActiveDeadlineSeconds(v int64) *PodSpec {
+	s.ActiveDeadlineSeconds = &v
+	return s
+}
+
+func (s *PodSpec) SetAffinity(v *Affinity) *PodSpec {
+	s.Affinity = v
+	return s
+}
+
+func (s *PodSpec) SetAutomountServiceAccountToken(v bool) *PodSpec {
+	s.AutomountServiceAccountToken = &v
+	return s
+}
+
+func (s *PodSpec) SetContainers(v []*ContainerSpec) *PodSpec {
+	s.Containers = v
+	return s
+}
+
+func (s *PodSpec) SetDnsConfig(v *PodDNSConfig) *PodSpec {
+	s.DnsConfig = v
+	return s
+}
+
+func (s *PodSpec) SetDnsPolicy(v string) *PodSpec {
+	s.DnsPolicy = &v
+	return s
+}
+
+func (s *PodSpec) SetEnableServiceLinks(v bool) *PodSpec {
+	s.EnableServiceLinks = &v
+	return s
+}
+
+func (s *PodSpec) SetHostAliases(v *HostAlias) *PodSpec {
+	s.HostAliases = v
+	return s
+}
+
+func (s *PodSpec) SetHostIpc(v bool) *PodSpec {
+	s.HostIpc = &v
+	return s
+}
+
+func (s *PodSpec) SetHostNetwork(v bool) *PodSpec {
+	s.HostNetwork = &v
+	return s
+}
+
+func (s *PodSpec) SetHostPid(v bool) *PodSpec {
+	s.HostPid = &v
+	return s
+}
+
+func (s *PodSpec) SetHostname(v string) *PodSpec {
+	s.Hostname = &v
+	return s
+}
+
+func (s *PodSpec) SetImagePullSecrets(v []*string) *PodSpec {
+	s.ImagePullSecrets = v
+	return s
+}
+
+func (s *PodSpec) SetInitContainers(v []*ContainerSpec) *PodSpec {
+	s.InitContainers = v
+	return s
+}
+
+func (s *PodSpec) SetNodeName(v string) *PodSpec {
+	s.NodeName = &v
+	return s
+}
+
+func (s *PodSpec) SetNodeSelector(v []*PodNodeSelector) *PodSpec {
+	s.NodeSelector = v
+	return s
+}
+
+func (s *PodSpec) SetPriority(v int64) *PodSpec {
+	s.Priority = &v
+	return s
+}
+
+func (s *PodSpec) SetPriorityClassName(v string) *PodSpec {
+	s.PriorityClassName = &v
+	return s
+}
+
+func (s *PodSpec) SetReadinessGates(v *PodReadinessGate) *PodSpec {
+	s.ReadinessGates = v
+	return s
+}
+
+func (s *PodSpec) SetRestartPolicy(v string) *PodSpec {
+	s.RestartPolicy = &v
+	return s
+}
+
+func (s *PodSpec) SetServiceAccountName(v string) *PodSpec {
+	s.ServiceAccountName = &v
+	return s
+}
+
+func (s *PodSpec) SetTolerations(v []*Toleration) *PodSpec {
+	s.Tolerations = v
+	return s
+}
+
+func (s *PodSpec) SetVolumes(v []*Volume) *PodSpec {
+	s.Volumes = v
+	return s
+}
+
+// 弹性伸缩指标
+type HPABasedElasticConfigMetric struct {
+	// 指标名称：
+	// CPU，Memory，QPS，RT
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 目标值
+	Target *HPABasedElasticConfigMetricTarget `json:"target,omitempty" xml:"target,omitempty" require:"true"`
+}
+
+func (s HPABasedElasticConfigMetric) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HPABasedElasticConfigMetric) GoString() string {
+	return s.String()
+}
+
+func (s *HPABasedElasticConfigMetric) SetName(v string) *HPABasedElasticConfigMetric {
+	s.Name = &v
+	return s
+}
+
+func (s *HPABasedElasticConfigMetric) SetTarget(v *HPABasedElasticConfigMetricTarget) *HPABasedElasticConfigMetric {
+	s.Target = v
+	return s
+}
+
+// k8s meta元数据
+type ObjectMeta struct {
+	// k8s meta annotation
+	Annotations []*Annotation `json:"annotations,omitempty" xml:"annotations,omitempty" type:"Repeated"`
+	// 创建时间戳
+	CreationTimestamp *string `json:"creation_timestamp,omitempty" xml:"creation_timestamp,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// k8s meta labels
+	Labels []*Label `json:"labels,omitempty" xml:"labels,omitempty" require:"true" type:"Repeated"`
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 命名空间
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty"`
+}
+
+func (s ObjectMeta) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ObjectMeta) GoString() string {
+	return s.String()
+}
+
+func (s *ObjectMeta) SetAnnotations(v []*Annotation) *ObjectMeta {
+	s.Annotations = v
+	return s
+}
+
+func (s *ObjectMeta) SetCreationTimestamp(v string) *ObjectMeta {
+	s.CreationTimestamp = &v
+	return s
+}
+
+func (s *ObjectMeta) SetLabels(v []*Label) *ObjectMeta {
+	s.Labels = v
+	return s
+}
+
+func (s *ObjectMeta) SetName(v string) *ObjectMeta {
+	s.Name = &v
+	return s
+}
+
+func (s *ObjectMeta) SetNamespace(v string) *ObjectMeta {
+	s.Namespace = &v
+	return s
+}
+
+// PodAffinityConfigEntity
+type PodAffinityConfig struct {
+	// anti_affinity
+	AntiAffinity *bool `json:"anti_affinity,omitempty" xml:"anti_affinity,omitempty"`
+	// pod_affinity_term
+	PodAffinityTerm *PodAffinityTermEntity `json:"pod_affinity_term,omitempty" xml:"pod_affinity_term,omitempty"`
+	// requested
+	Requested *bool `json:"requested,omitempty" xml:"requested,omitempty"`
+	// weight
+	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
+}
+
+func (s PodAffinityConfig) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PodAffinityConfig) GoString() string {
+	return s.String()
+}
+
+func (s *PodAffinityConfig) SetAntiAffinity(v bool) *PodAffinityConfig {
+	s.AntiAffinity = &v
+	return s
+}
+
+func (s *PodAffinityConfig) SetPodAffinityTerm(v *PodAffinityTermEntity) *PodAffinityConfig {
+	s.PodAffinityTerm = v
+	return s
+}
+
+func (s *PodAffinityConfig) SetRequested(v bool) *PodAffinityConfig {
+	s.Requested = &v
+	return s
+}
+
+func (s *PodAffinityConfig) SetWeight(v int64) *PodAffinityConfig {
+	s.Weight = &v
+	return s
+}
+
 // container state
 type ContainerState struct {
 	// container running state
@@ -2623,258 +2715,55 @@ func (s *ContainerState) SetWaiting(v *ContainerStateWaiting) *ContainerState {
 	return s
 }
 
-// 每个cell副本数map
-type CellReplicasMap struct {
-	// cell name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 副本数
-	Replicas *int64 `json:"replicas,omitempty" xml:"replicas,omitempty" require:"true"`
+// AffinityEntity
+type AffinityEntity struct {
+	// NodeAffinityConfig list
+	NodeAffinity []*NodeAffinityConfig `json:"node_affinity,omitempty" xml:"node_affinity,omitempty" type:"Repeated"`
+	// pod_affinity list
+	PodAffinity []*PodAffinityConfig `json:"pod_affinity,omitempty" xml:"pod_affinity,omitempty" type:"Repeated"`
 }
 
-func (s CellReplicasMap) String() string {
+func (s AffinityEntity) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CellReplicasMap) GoString() string {
+func (s AffinityEntity) GoString() string {
 	return s.String()
 }
 
-func (s *CellReplicasMap) SetName(v string) *CellReplicasMap {
-	s.Name = &v
+func (s *AffinityEntity) SetNodeAffinity(v []*NodeAffinityConfig) *AffinityEntity {
+	s.NodeAffinity = v
 	return s
 }
 
-func (s *CellReplicasMap) SetReplicas(v int64) *CellReplicasMap {
-	s.Replicas = &v
+func (s *AffinityEntity) SetPodAffinity(v []*PodAffinityConfig) *AffinityEntity {
+	s.PodAffinity = v
 	return s
 }
 
-// deployment strategy rolling update
-type RollingUpdateDeployment struct {
-	// The maximum number of pods that can be scheduled above the desired number of pods.
-	MaxSurge *string `json:"max_surge,omitempty" xml:"max_surge,omitempty"`
-	// The maximum number of pods that can be unavailable during the update.
-	MaxUnavailable *string `json:"max_unavailable,omitempty" xml:"max_unavailable,omitempty"`
+// ResourceRequirementConfig
+type ResourceRequirementConfig struct {
+	// limits
+	Limits []*MapResourceNameToValue `json:"limits,omitempty" xml:"limits,omitempty" type:"Repeated"`
+	// requests
+	Requests []*MapResourceNameToValue `json:"requests,omitempty" xml:"requests,omitempty" type:"Repeated"`
 }
 
-func (s RollingUpdateDeployment) String() string {
+func (s ResourceRequirementConfig) String() string {
 	return tea.Prettify(s)
 }
 
-func (s RollingUpdateDeployment) GoString() string {
+func (s ResourceRequirementConfig) GoString() string {
 	return s.String()
 }
 
-func (s *RollingUpdateDeployment) SetMaxSurge(v string) *RollingUpdateDeployment {
-	s.MaxSurge = &v
+func (s *ResourceRequirementConfig) SetLimits(v []*MapResourceNameToValue) *ResourceRequirementConfig {
+	s.Limits = v
 	return s
 }
 
-func (s *RollingUpdateDeployment) SetMaxUnavailable(v string) *RollingUpdateDeployment {
-	s.MaxUnavailable = &v
-	return s
-}
-
-// 扩缩容策略高级配置项
-type HPAScaleBehavior struct {
-	// 扩容高级规则
-	ScaleUp *HPAScaleRule `json:"scale_up,omitempty" xml:"scale_up,omitempty"`
-	// 缩容高级规则
-	ScaleDown *HPAScaleRule `json:"scale_down,omitempty" xml:"scale_down,omitempty"`
-}
-
-func (s HPAScaleBehavior) String() string {
-	return tea.Prettify(s)
-}
-
-func (s HPAScaleBehavior) GoString() string {
-	return s.String()
-}
-
-func (s *HPAScaleBehavior) SetScaleUp(v *HPAScaleRule) *HPAScaleBehavior {
-	s.ScaleUp = v
-	return s
-}
-
-func (s *HPAScaleBehavior) SetScaleDown(v *HPAScaleRule) *HPAScaleBehavior {
-	s.ScaleDown = v
-	return s
-}
-
-// App配置依赖
-type AppReleaseConfigDependOn struct {
-	// 类型
-	Kind *string `json:"kind,omitempty" xml:"kind,omitempty" require:"true"`
-	// 名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-}
-
-func (s AppReleaseConfigDependOn) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppReleaseConfigDependOn) GoString() string {
-	return s.String()
-}
-
-func (s *AppReleaseConfigDependOn) SetKind(v string) *AppReleaseConfigDependOn {
-	s.Kind = &v
-	return s
-}
-
-func (s *AppReleaseConfigDependOn) SetName(v string) *AppReleaseConfigDependOn {
-	s.Name = &v
-	return s
-}
-
-// 单元服务器(pod)信息
-type CellServer struct {
-	// 单元名字
-	Cell *string `json:"cell,omitempty" xml:"cell,omitempty" require:"true"`
-	// server或pod组
-	Servers []*string `json:"servers,omitempty" xml:"servers,omitempty" type:"Repeated"`
-	// cell中host的数量
-	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
-}
-
-func (s CellServer) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CellServer) GoString() string {
-	return s.String()
-}
-
-func (s *CellServer) SetCell(v string) *CellServer {
-	s.Cell = &v
-	return s
-}
-
-func (s *CellServer) SetServers(v []*string) *CellServer {
-	s.Servers = v
-	return s
-}
-
-func (s *CellServer) SetCount(v int64) *CellServer {
-	s.Count = &v
-	return s
-}
-
-// Deployment PodTemplateSpec
-type PodTemplateSpec struct {
-	// k8s Standard object s metadata.
-	Metadata *ObjectMeta `json:"metadata,omitempty" xml:"metadata,omitempty" require:"true"`
-	// Specification of the desired behavior of the pod.
-	Spec *PodSpec `json:"spec,omitempty" xml:"spec,omitempty" require:"true"`
-}
-
-func (s PodTemplateSpec) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PodTemplateSpec) GoString() string {
-	return s.String()
-}
-
-func (s *PodTemplateSpec) SetMetadata(v *ObjectMeta) *PodTemplateSpec {
-	s.Metadata = v
-	return s
-}
-
-func (s *PodTemplateSpec) SetSpec(v *PodSpec) *PodTemplateSpec {
-	s.Spec = v
-	return s
-}
-
-// DeploymentCondition describes the state of a deployment at a certain point.
-type DeploymentCondition struct {
-	// Last time the condition transitioned from one status to another.
-	LastTransitionTime *string `json:"last_transition_time,omitempty" xml:"last_transition_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// The last time this condition was updated.
-	//
-	LastUpdateTime *string `json:"last_update_time,omitempty" xml:"last_update_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// A human readable message indicating details about the transition.
-	//
-	Message *string `json:"message,omitempty" xml:"message,omitempty"`
-	// The reason for the condition s last transition.
-	//
-	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
-	// Status of the condition, one of True, False, Unknown.
-	//
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// Type of deployment condition.
-	//
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-}
-
-func (s DeploymentCondition) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeploymentCondition) GoString() string {
-	return s.String()
-}
-
-func (s *DeploymentCondition) SetLastTransitionTime(v string) *DeploymentCondition {
-	s.LastTransitionTime = &v
-	return s
-}
-
-func (s *DeploymentCondition) SetLastUpdateTime(v string) *DeploymentCondition {
-	s.LastUpdateTime = &v
-	return s
-}
-
-func (s *DeploymentCondition) SetMessage(v string) *DeploymentCondition {
-	s.Message = &v
-	return s
-}
-
-func (s *DeploymentCondition) SetReason(v string) *DeploymentCondition {
-	s.Reason = &v
-	return s
-}
-
-func (s *DeploymentCondition) SetStatus(v string) *DeploymentCondition {
-	s.Status = &v
-	return s
-}
-
-func (s *DeploymentCondition) SetType(v string) *DeploymentCondition {
-	s.Type = &v
-	return s
-}
-
-// 容器服务访问配置端口映射。
-type ServicePortMapping struct {
-	// 访问配置前端端口。
-	Port *int64 `json:"port,omitempty" xml:"port,omitempty" require:"true"`
-	// 访问配置协议。
-	Protocol *string `json:"protocol,omitempty" xml:"protocol,omitempty" require:"true"`
-	// 访问配置后端端口。
-	TargetPort *int64 `json:"target_port,omitempty" xml:"target_port,omitempty" require:"true"`
-}
-
-func (s ServicePortMapping) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ServicePortMapping) GoString() string {
-	return s.String()
-}
-
-func (s *ServicePortMapping) SetPort(v int64) *ServicePortMapping {
-	s.Port = &v
-	return s
-}
-
-func (s *ServicePortMapping) SetProtocol(v string) *ServicePortMapping {
-	s.Protocol = &v
-	return s
-}
-
-func (s *ServicePortMapping) SetTargetPort(v int64) *ServicePortMapping {
-	s.TargetPort = &v
+func (s *ResourceRequirementConfig) SetRequests(v []*MapResourceNameToValue) *ResourceRequirementConfig {
+	s.Requests = v
 	return s
 }
 
@@ -2932,6 +2821,251 @@ func (s *OpsComputerTask) SetStatus(v string) *OpsComputerTask {
 	return s
 }
 
+// 镜像中心账户信息
+type RegistryAccout struct {
+	// registry email url
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// registry password
+	Password *string `json:"password,omitempty" xml:"password,omitempty" require:"true"`
+	// registry url
+	Registry *string `json:"registry,omitempty" xml:"registry,omitempty" require:"true"`
+	// registry username
+	Username *string `json:"username,omitempty" xml:"username,omitempty" require:"true"`
+}
+
+func (s RegistryAccout) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegistryAccout) GoString() string {
+	return s.String()
+}
+
+func (s *RegistryAccout) SetEmail(v string) *RegistryAccout {
+	s.Email = &v
+	return s
+}
+
+func (s *RegistryAccout) SetPassword(v string) *RegistryAccout {
+	s.Password = &v
+	return s
+}
+
+func (s *RegistryAccout) SetRegistry(v string) *RegistryAccout {
+	s.Registry = &v
+	return s
+}
+
+func (s *RegistryAccout) SetUsername(v string) *RegistryAccout {
+	s.Username = &v
+	return s
+}
+
+// 基于弹性伸缩的应用服务配置
+type HPABasedElasticConfig struct {
+	// pod要发布的部署单元及每个部署单元副本数的映射关系列表
+	Cells []*CellReplicasMap `json:"cells,omitempty" xml:"cells,omitempty" require:"true" type:"Repeated"`
+	// 最小副本数
+	MinReplica *int64 `json:"min_replica,omitempty" xml:"min_replica,omitempty" require:"true"`
+	// 最大副本数
+	MaxReplica *int64 `json:"max_replica,omitempty" xml:"max_replica,omitempty" require:"true"`
+	// 弹性伸缩指标列表
+	Metrics []*HPABasedElasticConfigMetric `json:"metrics,omitempty" xml:"metrics,omitempty" require:"true" type:"Repeated"`
+	// 扩缩容规则高级配置
+	Behavior *HPAScaleBehavior `json:"behavior,omitempty" xml:"behavior,omitempty"`
+}
+
+func (s HPABasedElasticConfig) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HPABasedElasticConfig) GoString() string {
+	return s.String()
+}
+
+func (s *HPABasedElasticConfig) SetCells(v []*CellReplicasMap) *HPABasedElasticConfig {
+	s.Cells = v
+	return s
+}
+
+func (s *HPABasedElasticConfig) SetMinReplica(v int64) *HPABasedElasticConfig {
+	s.MinReplica = &v
+	return s
+}
+
+func (s *HPABasedElasticConfig) SetMaxReplica(v int64) *HPABasedElasticConfig {
+	s.MaxReplica = &v
+	return s
+}
+
+func (s *HPABasedElasticConfig) SetMetrics(v []*HPABasedElasticConfigMetric) *HPABasedElasticConfig {
+	s.Metrics = v
+	return s
+}
+
+func (s *HPABasedElasticConfig) SetBehavior(v *HPAScaleBehavior) *HPABasedElasticConfig {
+	s.Behavior = v
+	return s
+}
+
+// 单元服务器(pod)信息
+type CellServer struct {
+	// 单元名字
+	Cell *string `json:"cell,omitempty" xml:"cell,omitempty" require:"true"`
+	// server或pod组
+	Servers []*string `json:"servers,omitempty" xml:"servers,omitempty" type:"Repeated"`
+	// cell中host的数量
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+	// servers列表对应的服务器/pod ip地址列表，目前仅在antcloud.ldc.opsplan.stages.export方法中返回
+	ServerIps []*string `json:"server_ips,omitempty" xml:"server_ips,omitempty" type:"Repeated"`
+}
+
+func (s CellServer) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CellServer) GoString() string {
+	return s.String()
+}
+
+func (s *CellServer) SetCell(v string) *CellServer {
+	s.Cell = &v
+	return s
+}
+
+func (s *CellServer) SetServers(v []*string) *CellServer {
+	s.Servers = v
+	return s
+}
+
+func (s *CellServer) SetCount(v int64) *CellServer {
+	s.Count = &v
+	return s
+}
+
+func (s *CellServer) SetServerIps(v []*string) *CellServer {
+	s.ServerIps = v
+	return s
+}
+
+// 固定副本数弹性配置。
+type FixedReplicaElasticConfig struct {
+	// 各部署单元/集群的副本数配置。
+	Replicas []*ReplicaCount `json:"replicas,omitempty" xml:"replicas,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s FixedReplicaElasticConfig) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FixedReplicaElasticConfig) GoString() string {
+	return s.String()
+}
+
+func (s *FixedReplicaElasticConfig) SetReplicas(v []*ReplicaCount) *FixedReplicaElasticConfig {
+	s.Replicas = v
+	return s
+}
+
+// 应用发布单个cell发布进度详情
+type AppDeployCell struct {
+	// 单元名字
+	CellName *string `json:"cell_name,omitempty" xml:"cell_name,omitempty" require:"true"`
+	// 执行到当前cell的pod总数
+	Partition *int64 `json:"partition,omitempty" xml:"partition,omitempty" require:"true"`
+	// 当前分组发布的pod数
+	ReleaseCount *int64 `json:"release_count,omitempty" xml:"release_count,omitempty" require:"true"`
+	// 当前cell发布的pod列表
+	PodList []*PodDetailInfo `json:"pod_list,omitempty" xml:"pod_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s AppDeployCell) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppDeployCell) GoString() string {
+	return s.String()
+}
+
+func (s *AppDeployCell) SetCellName(v string) *AppDeployCell {
+	s.CellName = &v
+	return s
+}
+
+func (s *AppDeployCell) SetPartition(v int64) *AppDeployCell {
+	s.Partition = &v
+	return s
+}
+
+func (s *AppDeployCell) SetReleaseCount(v int64) *AppDeployCell {
+	s.ReleaseCount = &v
+	return s
+}
+
+func (s *AppDeployCell) SetPodList(v []*PodDetailInfo) *AppDeployCell {
+	s.PodList = v
+	return s
+}
+
+// DeploymentCondition describes the state of a deployment at a certain point.
+type DeploymentCondition struct {
+	// Last time the condition transitioned from one status to another.
+	LastTransitionTime *string `json:"last_transition_time,omitempty" xml:"last_transition_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// The last time this condition was updated.
+	//
+	LastUpdateTime *string `json:"last_update_time,omitempty" xml:"last_update_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// A human readable message indicating details about the transition.
+	//
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// The reason for the condition_s last transition.
+	//
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+	// Status of the condition, one of True, False, Unknown.
+	//
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// Type of deployment condition.
+	//
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+}
+
+func (s DeploymentCondition) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeploymentCondition) GoString() string {
+	return s.String()
+}
+
+func (s *DeploymentCondition) SetLastTransitionTime(v string) *DeploymentCondition {
+	s.LastTransitionTime = &v
+	return s
+}
+
+func (s *DeploymentCondition) SetLastUpdateTime(v string) *DeploymentCondition {
+	s.LastUpdateTime = &v
+	return s
+}
+
+func (s *DeploymentCondition) SetMessage(v string) *DeploymentCondition {
+	s.Message = &v
+	return s
+}
+
+func (s *DeploymentCondition) SetReason(v string) *DeploymentCondition {
+	s.Reason = &v
+	return s
+}
+
+func (s *DeploymentCondition) SetStatus(v string) *DeploymentCondition {
+	s.Status = &v
+	return s
+}
+
+func (s *DeploymentCondition) SetType(v string) *DeploymentCondition {
+	s.Type = &v
+	return s
+}
+
 // 统一接入listener需要配置转发规则。
 type LoadBalancerListenerWithRule struct {
 	// 统一接入域名。
@@ -2972,43 +3106,29 @@ func (s *LoadBalancerListenerWithRule) SetWeight(v int64) *LoadBalancerListenerW
 	return s
 }
 
-// 镜像中心账户信息
-type RegistryAccout struct {
-	// registry email url
-	Email *string `json:"email,omitempty" xml:"email,omitempty"`
-	// registry password
-	Password *string `json:"password,omitempty" xml:"password,omitempty" require:"true"`
-	// registry url
-	Registry *string `json:"registry,omitempty" xml:"registry,omitempty" require:"true"`
-	// registry username
-	Username *string `json:"username,omitempty" xml:"username,omitempty" require:"true"`
+// Deployment PodTemplateSpec
+type PodTemplateSpec struct {
+	// k8s Standard object_s metadata.
+	Metadata *ObjectMeta `json:"metadata,omitempty" xml:"metadata,omitempty" require:"true"`
+	// Specification of the desired behavior of the pod.
+	Spec *PodSpec `json:"spec,omitempty" xml:"spec,omitempty" require:"true"`
 }
 
-func (s RegistryAccout) String() string {
+func (s PodTemplateSpec) String() string {
 	return tea.Prettify(s)
 }
 
-func (s RegistryAccout) GoString() string {
+func (s PodTemplateSpec) GoString() string {
 	return s.String()
 }
 
-func (s *RegistryAccout) SetEmail(v string) *RegistryAccout {
-	s.Email = &v
+func (s *PodTemplateSpec) SetMetadata(v *ObjectMeta) *PodTemplateSpec {
+	s.Metadata = v
 	return s
 }
 
-func (s *RegistryAccout) SetPassword(v string) *RegistryAccout {
-	s.Password = &v
-	return s
-}
-
-func (s *RegistryAccout) SetRegistry(v string) *RegistryAccout {
-	s.Registry = &v
-	return s
-}
-
-func (s *RegistryAccout) SetUsername(v string) *RegistryAccout {
-	s.Username = &v
+func (s *PodTemplateSpec) SetSpec(v *PodSpec) *PodTemplateSpec {
+	s.Spec = v
 	return s
 }
 
@@ -3073,161 +3193,29 @@ func (s *ContainerStatus) SetState(v *ContainerState) *ContainerStatus {
 	return s
 }
 
-// ResourceRequirementConfig
-type ResourceRequirementConfig struct {
-	// limits
-	Limits []*MapResourceNameToValue `json:"limits,omitempty" xml:"limits,omitempty" type:"Repeated"`
-	// requests
-	Requests []*MapResourceNameToValue `json:"requests,omitempty" xml:"requests,omitempty" type:"Repeated"`
+// 统一接入集群子集群覆盖配置项
+type SpannerSubClusterOverrides struct {
+	// 机房/可用区
+	Zone *string `json:"zone,omitempty" xml:"zone,omitempty" require:"true"`
+	// spanner镜像地址
+	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
 }
 
-func (s ResourceRequirementConfig) String() string {
+func (s SpannerSubClusterOverrides) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ResourceRequirementConfig) GoString() string {
+func (s SpannerSubClusterOverrides) GoString() string {
 	return s.String()
 }
 
-func (s *ResourceRequirementConfig) SetLimits(v []*MapResourceNameToValue) *ResourceRequirementConfig {
-	s.Limits = v
+func (s *SpannerSubClusterOverrides) SetZone(v string) *SpannerSubClusterOverrides {
+	s.Zone = &v
 	return s
 }
 
-func (s *ResourceRequirementConfig) SetRequests(v []*MapResourceNameToValue) *ResourceRequirementConfig {
-	s.Requests = v
-	return s
-}
-
-// 应用发布单个cell发布进度详情
-type AppDeployCell struct {
-	// 单元名字
-	CellName *string `json:"cell_name,omitempty" xml:"cell_name,omitempty" require:"true"`
-	// 执行到当前cell的pod总数
-	Partition *int64 `json:"partition,omitempty" xml:"partition,omitempty" require:"true"`
-	// 当前分组发布的pod数
-	ReleaseCount *int64 `json:"release_count,omitempty" xml:"release_count,omitempty" require:"true"`
-	// 当前cell发布的pod列表
-	PodList []*PodDetailInfo `json:"pod_list,omitempty" xml:"pod_list,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s AppDeployCell) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppDeployCell) GoString() string {
-	return s.String()
-}
-
-func (s *AppDeployCell) SetCellName(v string) *AppDeployCell {
-	s.CellName = &v
-	return s
-}
-
-func (s *AppDeployCell) SetPartition(v int64) *AppDeployCell {
-	s.Partition = &v
-	return s
-}
-
-func (s *AppDeployCell) SetReleaseCount(v int64) *AppDeployCell {
-	s.ReleaseCount = &v
-	return s
-}
-
-func (s *AppDeployCell) SetPodList(v []*PodDetailInfo) *AppDeployCell {
-	s.PodList = v
-	return s
-}
-
-// AffinityEntity
-type AffinityEntity struct {
-	// NodeAffinityConfig list
-	NodeAffinity []*NodeAffinityConfig `json:"node_affinity,omitempty" xml:"node_affinity,omitempty" type:"Repeated"`
-	// pod_affinity list
-	PodAffinity []*PodAffinityConfig `json:"pod_affinity,omitempty" xml:"pod_affinity,omitempty" type:"Repeated"`
-}
-
-func (s AffinityEntity) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AffinityEntity) GoString() string {
-	return s.String()
-}
-
-func (s *AffinityEntity) SetNodeAffinity(v []*NodeAffinityConfig) *AffinityEntity {
-	s.NodeAffinity = v
-	return s
-}
-
-func (s *AffinityEntity) SetPodAffinity(v []*PodAffinityConfig) *AffinityEntity {
-	s.PodAffinity = v
-	return s
-}
-
-// 固定副本数弹性配置。
-type FixedReplicaElasticConfig struct {
-	// 各部署单元/集群的副本数配置。
-	Replicas []*ReplicaCount `json:"replicas,omitempty" xml:"replicas,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s FixedReplicaElasticConfig) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FixedReplicaElasticConfig) GoString() string {
-	return s.String()
-}
-
-func (s *FixedReplicaElasticConfig) SetReplicas(v []*ReplicaCount) *FixedReplicaElasticConfig {
-	s.Replicas = v
-	return s
-}
-
-// 基于弹性伸缩的应用服务配置
-type HPABasedElasticConfig struct {
-	// pod要发布的部署单元及每个部署单元副本数的映射关系列表
-	Cells []*CellReplicasMap `json:"cells,omitempty" xml:"cells,omitempty" require:"true" type:"Repeated"`
-	// 最小副本数
-	MinReplica *int64 `json:"min_replica,omitempty" xml:"min_replica,omitempty" require:"true"`
-	// 最大副本数
-	MaxReplica *int64 `json:"max_replica,omitempty" xml:"max_replica,omitempty" require:"true"`
-	// 弹性伸缩指标列表
-	Metrics []*HPABasedElasticConfigMetric `json:"metrics,omitempty" xml:"metrics,omitempty" require:"true" type:"Repeated"`
-	// 扩缩容规则高级配置
-	Behavior *HPAScaleBehavior `json:"behavior,omitempty" xml:"behavior,omitempty"`
-}
-
-func (s HPABasedElasticConfig) String() string {
-	return tea.Prettify(s)
-}
-
-func (s HPABasedElasticConfig) GoString() string {
-	return s.String()
-}
-
-func (s *HPABasedElasticConfig) SetCells(v []*CellReplicasMap) *HPABasedElasticConfig {
-	s.Cells = v
-	return s
-}
-
-func (s *HPABasedElasticConfig) SetMinReplica(v int64) *HPABasedElasticConfig {
-	s.MinReplica = &v
-	return s
-}
-
-func (s *HPABasedElasticConfig) SetMaxReplica(v int64) *HPABasedElasticConfig {
-	s.MaxReplica = &v
-	return s
-}
-
-func (s *HPABasedElasticConfig) SetMetrics(v []*HPABasedElasticConfigMetric) *HPABasedElasticConfig {
-	s.Metrics = v
-	return s
-}
-
-func (s *HPABasedElasticConfig) SetBehavior(v *HPAScaleBehavior) *HPABasedElasticConfig {
-	s.Behavior = v
+func (s *SpannerSubClusterOverrides) SetImage(v string) *SpannerSubClusterOverrides {
+	s.Image = &v
 	return s
 }
 
@@ -3283,214 +3271,398 @@ func (s *CellPods) SetPodNames(v []*string) *CellPods {
 	return s
 }
 
-// 容器信息
-type ContainerInfo struct {
-	// 容器id
-	ContainerId *string `json:"container_id,omitempty" xml:"container_id,omitempty" require:"true"`
-	// 容器镜像
-	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
-	// 最后启动时间
-	LastStartTime *string `json:"last_start_time,omitempty" xml:"last_start_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 容器镜像
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 重启次数
-	RestartCount *int64 `json:"restart_count,omitempty" xml:"restart_count,omitempty" require:"true"`
-	// 容器运行状态
-	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
-	// 容器spec配置。
-	Spec *ContainerSpec `json:"spec,omitempty" xml:"spec,omitempty" require:"true"`
+// 容器服务访问配置端口映射。
+type ServicePortMapping struct {
+	// 访问配置前端端口。
+	Port *int64 `json:"port,omitempty" xml:"port,omitempty" require:"true"`
+	// 访问配置协议。
+	Protocol *string `json:"protocol,omitempty" xml:"protocol,omitempty" require:"true"`
+	// 访问配置后端端口。
+	TargetPort *int64 `json:"target_port,omitempty" xml:"target_port,omitempty" require:"true"`
 }
 
-func (s ContainerInfo) String() string {
+func (s ServicePortMapping) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ContainerInfo) GoString() string {
+func (s ServicePortMapping) GoString() string {
 	return s.String()
 }
 
-func (s *ContainerInfo) SetContainerId(v string) *ContainerInfo {
-	s.ContainerId = &v
+func (s *ServicePortMapping) SetPort(v int64) *ServicePortMapping {
+	s.Port = &v
 	return s
 }
 
-func (s *ContainerInfo) SetImage(v string) *ContainerInfo {
-	s.Image = &v
+func (s *ServicePortMapping) SetProtocol(v string) *ServicePortMapping {
+	s.Protocol = &v
 	return s
 }
 
-func (s *ContainerInfo) SetLastStartTime(v string) *ContainerInfo {
-	s.LastStartTime = &v
+func (s *ServicePortMapping) SetTargetPort(v int64) *ServicePortMapping {
+	s.TargetPort = &v
 	return s
 }
 
-func (s *ContainerInfo) SetName(v string) *ContainerInfo {
-	s.Name = &v
-	return s
+// 统一接入实例http entry status
+type HttpEntryStatus struct {
+	// 此entry分配到的spanner后端端口（l7 listener 端口）
+	BackendPort *int64 `json:"backend_port,omitempty" xml:"backend_port,omitempty"`
+	// 此entry对应service分配到的节点端口
+	NodePort *int64 `json:"node_port,omitempty" xml:"node_port,omitempty"`
 }
 
-func (s *ContainerInfo) SetRestartCount(v int64) *ContainerInfo {
-	s.RestartCount = &v
-	return s
-}
-
-func (s *ContainerInfo) SetState(v string) *ContainerInfo {
-	s.State = &v
-	return s
-}
-
-func (s *ContainerInfo) SetSpec(v *ContainerSpec) *ContainerInfo {
-	s.Spec = v
-	return s
-}
-
-// sidecar运维流程任务
-type SidecarOpsMachineTask struct {
-	// 分组ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 执行状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 扩展属性 - JSON string
-	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
-	// 执行信息
-	Message *string `json:"message,omitempty" xml:"message,omitempty"`
-	// 任务名称
-	Target *string `json:"target,omitempty" xml:"target,omitempty"`
-	// 开始时间
-	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 结束时间
-	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 任务描述
-	TargetDesc *string `json:"target_desc,omitempty" xml:"target_desc,omitempty"`
-	// 状态描述
-	StatusDesc *string `json:"status_desc,omitempty" xml:"status_desc,omitempty"`
-}
-
-func (s SidecarOpsMachineTask) String() string {
+func (s HttpEntryStatus) String() string {
 	return tea.Prettify(s)
 }
 
-func (s SidecarOpsMachineTask) GoString() string {
+func (s HttpEntryStatus) GoString() string {
 	return s.String()
 }
 
-func (s *SidecarOpsMachineTask) SetId(v string) *SidecarOpsMachineTask {
+func (s *HttpEntryStatus) SetBackendPort(v int64) *HttpEntryStatus {
+	s.BackendPort = &v
+	return s
+}
+
+func (s *HttpEntryStatus) SetNodePort(v int64) *HttpEntryStatus {
+	s.NodePort = &v
+	return s
+}
+
+// 配置项数据
+type ConfigMapData struct {
+	// configmap data key
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// configmap data value
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s ConfigMapData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfigMapData) GoString() string {
+	return s.String()
+}
+
+func (s *ConfigMapData) SetKey(v string) *ConfigMapData {
+	s.Key = &v
+	return s
+}
+
+func (s *ConfigMapData) SetValue(v string) *ConfigMapData {
+	s.Value = &v
+	return s
+}
+
+// 守夜人类型卡点配置
+type HasHookConfig struct {
+	// 前置脚本类型，巡检或预案
+	PreType *string `json:"pre_type,omitempty" xml:"pre_type,omitempty"`
+	// 前置巡检或预案id
+	PreRefId *string `json:"pre_ref_id,omitempty" xml:"pre_ref_id,omitempty"`
+	// 前置巡检或预案名称
+	PreName *string `json:"pre_name,omitempty" xml:"pre_name,omitempty"`
+	// 前置巡检或预案参数
+	PreParam *string `json:"pre_param,omitempty" xml:"pre_param,omitempty"`
+	// 后置脚本类型，巡检或预案
+	PostType *string `json:"post_type,omitempty" xml:"post_type,omitempty"`
+	// 后置巡检或预案id
+	PostRefId *string `json:"post_ref_id,omitempty" xml:"post_ref_id,omitempty"`
+	// 后置巡检或预案参数
+	PostParam *string `json:"post_param,omitempty" xml:"post_param,omitempty"`
+	// 后置巡检或预案名称
+	PostName *string `json:"post_name,omitempty" xml:"post_name,omitempty"`
+}
+
+func (s HasHookConfig) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HasHookConfig) GoString() string {
+	return s.String()
+}
+
+func (s *HasHookConfig) SetPreType(v string) *HasHookConfig {
+	s.PreType = &v
+	return s
+}
+
+func (s *HasHookConfig) SetPreRefId(v string) *HasHookConfig {
+	s.PreRefId = &v
+	return s
+}
+
+func (s *HasHookConfig) SetPreName(v string) *HasHookConfig {
+	s.PreName = &v
+	return s
+}
+
+func (s *HasHookConfig) SetPreParam(v string) *HasHookConfig {
+	s.PreParam = &v
+	return s
+}
+
+func (s *HasHookConfig) SetPostType(v string) *HasHookConfig {
+	s.PostType = &v
+	return s
+}
+
+func (s *HasHookConfig) SetPostRefId(v string) *HasHookConfig {
+	s.PostRefId = &v
+	return s
+}
+
+func (s *HasHookConfig) SetPostParam(v string) *HasHookConfig {
+	s.PostParam = &v
+	return s
+}
+
+func (s *HasHookConfig) SetPostName(v string) *HasHookConfig {
+	s.PostName = &v
+	return s
+}
+
+// 运维变更对象
+type OperationChangeInstance struct {
+	// 主机名
+	Hostname *string `json:"hostname,omitempty" xml:"hostname,omitempty"`
+	// 部署单元
+	Cell *string `json:"cell,omitempty" xml:"cell,omitempty" require:"true"`
+	// ip
+	Ip *string `json:"ip,omitempty" xml:"ip,omitempty"`
+	// 资源ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+}
+
+func (s OperationChangeInstance) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperationChangeInstance) GoString() string {
+	return s.String()
+}
+
+func (s *OperationChangeInstance) SetHostname(v string) *OperationChangeInstance {
+	s.Hostname = &v
+	return s
+}
+
+func (s *OperationChangeInstance) SetCell(v string) *OperationChangeInstance {
+	s.Cell = &v
+	return s
+}
+
+func (s *OperationChangeInstance) SetIp(v string) *OperationChangeInstance {
+	s.Ip = &v
+	return s
+}
+
+func (s *OperationChangeInstance) SetId(v string) *OperationChangeInstance {
 	s.Id = &v
 	return s
 }
 
-func (s *SidecarOpsMachineTask) SetStatus(v string) *SidecarOpsMachineTask {
-	s.Status = &v
-	return s
+// headless service 配置
+type HeadlessService struct {
+	// headless service 的名称，不能以-0~-9结尾
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 }
 
-func (s *SidecarOpsMachineTask) SetProperties(v string) *SidecarOpsMachineTask {
-	s.Properties = &v
-	return s
-}
-
-func (s *SidecarOpsMachineTask) SetMessage(v string) *SidecarOpsMachineTask {
-	s.Message = &v
-	return s
-}
-
-func (s *SidecarOpsMachineTask) SetTarget(v string) *SidecarOpsMachineTask {
-	s.Target = &v
-	return s
-}
-
-func (s *SidecarOpsMachineTask) SetStartTime(v string) *SidecarOpsMachineTask {
-	s.StartTime = &v
-	return s
-}
-
-func (s *SidecarOpsMachineTask) SetEndTime(v string) *SidecarOpsMachineTask {
-	s.EndTime = &v
-	return s
-}
-
-func (s *SidecarOpsMachineTask) SetTargetDesc(v string) *SidecarOpsMachineTask {
-	s.TargetDesc = &v
-	return s
-}
-
-func (s *SidecarOpsMachineTask) SetStatusDesc(v string) *SidecarOpsMachineTask {
-	s.StatusDesc = &v
-	return s
-}
-
-// 描述本地spanner集群一组容器的详细信息
-type LocalSubClusterDetail struct {
-	// 可用实例数
-	Available *int64 `json:"available,omitempty" xml:"available,omitempty"`
-	// 期望实例数
-	Desired *int64 `json:"desired,omitempty" xml:"desired,omitempty"`
-	// 容器镜像地址
-	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
-	// 发布容器带的标签
-	Labels []*Label `json:"labels,omitempty" xml:"labels,omitempty" type:"Repeated"`
-	// 可能存在的错误信息
-	Message *string `json:"message,omitempty" xml:"message,omitempty"`
-	// 健康实例数
-	Ready *int64 `json:"ready,omitempty" xml:"ready,omitempty"`
-	// 实际sub cluster 状态
-	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
-	// 已更新实例数
-	Updated *int64 `json:"updated,omitempty" xml:"updated,omitempty"`
-	// 容器版本
-	Version *string `json:"version,omitempty" xml:"version,omitempty" require:"true"`
-}
-
-func (s LocalSubClusterDetail) String() string {
+func (s HeadlessService) String() string {
 	return tea.Prettify(s)
 }
 
-func (s LocalSubClusterDetail) GoString() string {
+func (s HeadlessService) GoString() string {
 	return s.String()
 }
 
-func (s *LocalSubClusterDetail) SetAvailable(v int64) *LocalSubClusterDetail {
-	s.Available = &v
+func (s *HeadlessService) SetName(v string) *HeadlessService {
+	s.Name = &v
 	return s
 }
 
-func (s *LocalSubClusterDetail) SetDesired(v int64) *LocalSubClusterDetail {
-	s.Desired = &v
+// Container环境变量集群override
+type EnvVarClusterOverride struct {
+	// 环境变量名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 环境变量取值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// Pod容器名称
+	ContainerName *string `json:"container_name,omitempty" xml:"container_name,omitempty" require:"true"`
+}
+
+func (s EnvVarClusterOverride) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnvVarClusterOverride) GoString() string {
+	return s.String()
+}
+
+func (s *EnvVarClusterOverride) SetName(v string) *EnvVarClusterOverride {
+	s.Name = &v
 	return s
 }
 
-func (s *LocalSubClusterDetail) SetImage(v string) *LocalSubClusterDetail {
-	s.Image = &v
+func (s *EnvVarClusterOverride) SetValue(v string) *EnvVarClusterOverride {
+	s.Value = &v
 	return s
 }
 
-func (s *LocalSubClusterDetail) SetLabels(v []*Label) *LocalSubClusterDetail {
-	s.Labels = v
+func (s *EnvVarClusterOverride) SetContainerName(v string) *EnvVarClusterOverride {
+	s.ContainerName = &v
 	return s
 }
 
-func (s *LocalSubClusterDetail) SetMessage(v string) *LocalSubClusterDetail {
-	s.Message = &v
+// 容器服务运维
+type OpsContainerService struct {
+	// 命名空间
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
+	// 容器服务名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 待操作目标pods列表
+	SelectedPods []*CellPods `json:"selected_pods,omitempty" xml:"selected_pods,omitempty" type:"Repeated"`
+}
+
+func (s OpsContainerService) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpsContainerService) GoString() string {
+	return s.String()
+}
+
+func (s *OpsContainerService) SetNamespace(v string) *OpsContainerService {
+	s.Namespace = &v
 	return s
 }
 
-func (s *LocalSubClusterDetail) SetReady(v int64) *LocalSubClusterDetail {
-	s.Ready = &v
+func (s *OpsContainerService) SetName(v string) *OpsContainerService {
+	s.Name = &v
 	return s
 }
 
-func (s *LocalSubClusterDetail) SetState(v string) *LocalSubClusterDetail {
-	s.State = &v
+func (s *OpsContainerService) SetSelectedPods(v []*CellPods) *OpsContainerService {
+	s.SelectedPods = v
 	return s
 }
 
-func (s *LocalSubClusterDetail) SetUpdated(v int64) *LocalSubClusterDetail {
-	s.Updated = &v
+// 容器服务部署配置。
+type DeployConfig struct {
+	// 节点亲和性配置
+	Affinity *AffinityEntity `json:"affinity,omitempty" xml:"affinity,omitempty"`
+	// annotations
+	Annotations *string `json:"annotations,omitempty" xml:"annotations,omitempty"`
+	// 用户自定义标签，将会在pod上生效
+	CustomLabels *string `json:"custom_labels,omitempty" xml:"custom_labels,omitempty"`
+	// 最小分组数
+	GroupCount *int64 `json:"group_count,omitempty" xml:"group_count,omitempty"`
+	// 容器服务部署分组策略。
+	GroupStrategy *string `json:"group_strategy,omitempty" xml:"group_strategy,omitempty"`
+	// labels
+	Labels *string `json:"labels,omitempty" xml:"labels,omitempty"`
+	// 单个分组最大Pod数量。
+	MaxGroupCapacity *int64 `json:"max_group_capacity,omitempty" xml:"max_group_capacity,omitempty"`
+	// 是否需要beta confirm。
+	NeedBeta *bool `json:"need_beta,omitempty" xml:"need_beta,omitempty"`
+	// 是否需要分组确认。
+	NeedConfirm *bool `json:"need_confirm,omitempty" xml:"need_confirm,omitempty"`
+	// 已废弃
+	EnableSofaMesh *bool `json:"enable_sofa_mesh,omitempty" xml:"enable_sofa_mesh,omitempty"`
+	// 只支持InPlace
+	UpgradeStrategy *string `json:"upgrade_strategy,omitempty" xml:"upgrade_strategy,omitempty"`
+	// 分组确认策略，FIRST：第一个分组需要确认，EACH：每个分组都需要确认（默认）
+	ConfirmStrategy *string `json:"confirm_strategy,omitempty" xml:"confirm_strategy,omitempty"`
+	// pod name 命名规则，lks 1.23.0 开始支持。Default/PersistentSequence
+	PodNamingPolicy *string `json:"pod_naming_policy,omitempty" xml:"pod_naming_policy,omitempty"`
+	// [已废除] 是否开启强制步长控制。对于ALL_ONE, ALL_ONE_CELL_BETA等分组模式，group_count与max_group_capacity字段将生效，提供精细化分组，以满足用户的pod发布并发控制需求
+	ForceStrideControl *bool `json:"force_stride_control,omitempty" xml:"force_stride_control,omitempty"`
+	// 每个部署单元单批次最大变更pod比例，仅当group_strategy为ALL_CELL_PERCENTAGE时生效
+	MaxCellPodPercentage *int64 `json:"max_cell_pod_percentage,omitempty" xml:"max_cell_pod_percentage,omitempty"`
+}
+
+func (s DeployConfig) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeployConfig) GoString() string {
+	return s.String()
+}
+
+func (s *DeployConfig) SetAffinity(v *AffinityEntity) *DeployConfig {
+	s.Affinity = v
 	return s
 }
 
-func (s *LocalSubClusterDetail) SetVersion(v string) *LocalSubClusterDetail {
-	s.Version = &v
+func (s *DeployConfig) SetAnnotations(v string) *DeployConfig {
+	s.Annotations = &v
+	return s
+}
+
+func (s *DeployConfig) SetCustomLabels(v string) *DeployConfig {
+	s.CustomLabels = &v
+	return s
+}
+
+func (s *DeployConfig) SetGroupCount(v int64) *DeployConfig {
+	s.GroupCount = &v
+	return s
+}
+
+func (s *DeployConfig) SetGroupStrategy(v string) *DeployConfig {
+	s.GroupStrategy = &v
+	return s
+}
+
+func (s *DeployConfig) SetLabels(v string) *DeployConfig {
+	s.Labels = &v
+	return s
+}
+
+func (s *DeployConfig) SetMaxGroupCapacity(v int64) *DeployConfig {
+	s.MaxGroupCapacity = &v
+	return s
+}
+
+func (s *DeployConfig) SetNeedBeta(v bool) *DeployConfig {
+	s.NeedBeta = &v
+	return s
+}
+
+func (s *DeployConfig) SetNeedConfirm(v bool) *DeployConfig {
+	s.NeedConfirm = &v
+	return s
+}
+
+func (s *DeployConfig) SetEnableSofaMesh(v bool) *DeployConfig {
+	s.EnableSofaMesh = &v
+	return s
+}
+
+func (s *DeployConfig) SetUpgradeStrategy(v string) *DeployConfig {
+	s.UpgradeStrategy = &v
+	return s
+}
+
+func (s *DeployConfig) SetConfirmStrategy(v string) *DeployConfig {
+	s.ConfirmStrategy = &v
+	return s
+}
+
+func (s *DeployConfig) SetPodNamingPolicy(v string) *DeployConfig {
+	s.PodNamingPolicy = &v
+	return s
+}
+
+func (s *DeployConfig) SetForceStrideControl(v bool) *DeployConfig {
+	s.ForceStrideControl = &v
+	return s
+}
+
+func (s *DeployConfig) SetMaxCellPodPercentage(v int64) *DeployConfig {
+	s.MaxCellPodPercentage = &v
 	return s
 }
 
@@ -3552,810 +3724,6 @@ func (s *ElasticConfig) SetHpa(v *HPABasedElasticConfig) *ElasticConfig {
 
 func (s *ElasticConfig) SetMode(v string) *ElasticConfig {
 	s.Mode = &v
-	return s
-}
-
-// 有状态应用数据卷模板配置
-type VolumeClaimConfig struct {
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// storage_class
-	StorageClass *string `json:"storage_class,omitempty" xml:"storage_class,omitempty"`
-	// resourceRequirementConfig
-	ResourceRequirementConfig *ResourceRequirementConfig `json:"resource_requirement_config,omitempty" xml:"resource_requirement_config,omitempty"`
-}
-
-func (s VolumeClaimConfig) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VolumeClaimConfig) GoString() string {
-	return s.String()
-}
-
-func (s *VolumeClaimConfig) SetName(v string) *VolumeClaimConfig {
-	s.Name = &v
-	return s
-}
-
-func (s *VolumeClaimConfig) SetStorageClass(v string) *VolumeClaimConfig {
-	s.StorageClass = &v
-	return s
-}
-
-func (s *VolumeClaimConfig) SetResourceRequirementConfig(v *ResourceRequirementConfig) *VolumeClaimConfig {
-	s.ResourceRequirementConfig = v
-	return s
-}
-
-// SidecarConfig
-type SidecarConfig struct {
-	// Sidercar 名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// FEATURE_GATES
-	FeatureGates *string `json:"feature_gates,omitempty" xml:"feature_gates,omitempty"`
-	// 扩展字段
-	Ext *string `json:"ext,omitempty" xml:"ext,omitempty"`
-}
-
-func (s SidecarConfig) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SidecarConfig) GoString() string {
-	return s.String()
-}
-
-func (s *SidecarConfig) SetName(v string) *SidecarConfig {
-	s.Name = &v
-	return s
-}
-
-func (s *SidecarConfig) SetFeatureGates(v string) *SidecarConfig {
-	s.FeatureGates = &v
-	return s
-}
-
-func (s *SidecarConfig) SetExt(v string) *SidecarConfig {
-	s.Ext = &v
-	return s
-}
-
-// 配置项数据
-type ConfigMapData struct {
-	// configmap data key
-	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
-	// configmap data value
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-}
-
-func (s ConfigMapData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ConfigMapData) GoString() string {
-	return s.String()
-}
-
-func (s *ConfigMapData) SetKey(v string) *ConfigMapData {
-	s.Key = &v
-	return s
-}
-
-func (s *ConfigMapData) SetValue(v string) *ConfigMapData {
-	s.Value = &v
-	return s
-}
-
-// 应用发布任务，发布详情可操作(跳过、确认、重试等)单元
-type AppDeployTask struct {
-	// 操作code
-	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty" require:"true"`
-	// 当前任务的发布单元列表
-	AppDeployCells []*AppDeployCell `json:"app_deploy_cells,omitempty" xml:"app_deploy_cells,omitempty" require:"true" type:"Repeated"`
-	// 是否支持确认操作
-	ConfirmSupported *bool `json:"confirm_supported,omitempty" xml:"confirm_supported,omitempty" require:"true"`
-	// 上下文数据，json字符串
-	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 是否支持跳过操作
-	IgnoreSupported *bool `json:"ignore_supported,omitempty" xml:"ignore_supported,omitempty" require:"true"`
-	// 是否支持重试操作
-	RetrySupported *bool `json:"retry_supported,omitempty" xml:"retry_supported,omitempty" require:"true"`
-	// 当前状态
-	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
-	// 开始时间。
-	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 结束时间。
-	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// message detail
-	MessageDetail *string `json:"message_detail,omitempty" xml:"message_detail,omitempty"`
-}
-
-func (s AppDeployTask) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppDeployTask) GoString() string {
-	return s.String()
-}
-
-func (s *AppDeployTask) SetActionCode(v string) *AppDeployTask {
-	s.ActionCode = &v
-	return s
-}
-
-func (s *AppDeployTask) SetAppDeployCells(v []*AppDeployCell) *AppDeployTask {
-	s.AppDeployCells = v
-	return s
-}
-
-func (s *AppDeployTask) SetConfirmSupported(v bool) *AppDeployTask {
-	s.ConfirmSupported = &v
-	return s
-}
-
-func (s *AppDeployTask) SetData(v string) *AppDeployTask {
-	s.Data = &v
-	return s
-}
-
-func (s *AppDeployTask) SetId(v string) *AppDeployTask {
-	s.Id = &v
-	return s
-}
-
-func (s *AppDeployTask) SetIgnoreSupported(v bool) *AppDeployTask {
-	s.IgnoreSupported = &v
-	return s
-}
-
-func (s *AppDeployTask) SetRetrySupported(v bool) *AppDeployTask {
-	s.RetrySupported = &v
-	return s
-}
-
-func (s *AppDeployTask) SetState(v string) *AppDeployTask {
-	s.State = &v
-	return s
-}
-
-func (s *AppDeployTask) SetStartedTime(v string) *AppDeployTask {
-	s.StartedTime = &v
-	return s
-}
-
-func (s *AppDeployTask) SetFinishedTime(v string) *AppDeployTask {
-	s.FinishedTime = &v
-	return s
-}
-
-func (s *AppDeployTask) SetMessageDetail(v string) *AppDeployTask {
-	s.MessageDetail = &v
-	return s
-}
-
-// DeploymentSpec
-type DeploymentSpec struct {
-	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing
-	MinReadySeconds *int64 `json:"min_ready_seconds,omitempty" xml:"min_ready_seconds,omitempty"`
-	// Indicates that the deployment is paused.
-	//
-	Paused *bool `json:"paused,omitempty" xml:"paused,omitempty"`
-	// he maximum time in seconds for a deployment to make progress before it is considered to be failed.
-	ProgressDeadlineSeconds *int64 `json:"progress_deadline_seconds,omitempty" xml:"progress_deadline_seconds,omitempty"`
-	// Number of desired pods.
-	Replicas *int64 `json:"replicas,omitempty" xml:"replicas,omitempty" require:"true"`
-	// The number of old ReplicaSets to retain to allow rollback.
-	RevisionHistoryLimit *int64 `json:"revision_history_limit,omitempty" xml:"revision_history_limit,omitempty"`
-	// Label selector for pods.
-	Selector *LabelSelector `json:"selector,omitempty" xml:"selector,omitempty"`
-	// The deployment strategy to use to replace existing pods with new ones.
-	//
-	Strategy *DeploymentStrategy `json:"strategy,omitempty" xml:"strategy,omitempty"`
-	// Template describes the pods that will be created.
-	Template *PodTemplateSpec `json:"template,omitempty" xml:"template,omitempty" require:"true"`
-}
-
-func (s DeploymentSpec) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeploymentSpec) GoString() string {
-	return s.String()
-}
-
-func (s *DeploymentSpec) SetMinReadySeconds(v int64) *DeploymentSpec {
-	s.MinReadySeconds = &v
-	return s
-}
-
-func (s *DeploymentSpec) SetPaused(v bool) *DeploymentSpec {
-	s.Paused = &v
-	return s
-}
-
-func (s *DeploymentSpec) SetProgressDeadlineSeconds(v int64) *DeploymentSpec {
-	s.ProgressDeadlineSeconds = &v
-	return s
-}
-
-func (s *DeploymentSpec) SetReplicas(v int64) *DeploymentSpec {
-	s.Replicas = &v
-	return s
-}
-
-func (s *DeploymentSpec) SetRevisionHistoryLimit(v int64) *DeploymentSpec {
-	s.RevisionHistoryLimit = &v
-	return s
-}
-
-func (s *DeploymentSpec) SetSelector(v *LabelSelector) *DeploymentSpec {
-	s.Selector = v
-	return s
-}
-
-func (s *DeploymentSpec) SetStrategy(v *DeploymentStrategy) *DeploymentSpec {
-	s.Strategy = v
-	return s
-}
-
-func (s *DeploymentSpec) SetTemplate(v *PodTemplateSpec) *DeploymentSpec {
-	s.Template = v
-	return s
-}
-
-// 运维操作中的应用
-type OpsApplication struct {
-	// 应用名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 应用发布版本（部分运维操作可能不包含版本信息，为null）
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-	// 应用（服务）当前运维状态。取值列表： INITING：初始化中； INIT_FAILED：初始化失败； INITED：初始化完成； EXECUTING：执行中； SUCCESS：执行成功； FAILED：执行失败； ROLLBACKED：已回滚； CANCELED：已取消
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-}
-
-func (s OpsApplication) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OpsApplication) GoString() string {
-	return s.String()
-}
-
-func (s *OpsApplication) SetName(v string) *OpsApplication {
-	s.Name = &v
-	return s
-}
-
-func (s *OpsApplication) SetVersion(v string) *OpsApplication {
-	s.Version = &v
-	return s
-}
-
-func (s *OpsApplication) SetStatus(v string) *OpsApplication {
-	s.Status = &v
-	return s
-}
-
-// 统一接入实例http entry status
-type HttpEntryStatus struct {
-	// 此entry分配到的spanner后端端口（l7 listener 端口）
-	BackendPort *int64 `json:"backend_port,omitempty" xml:"backend_port,omitempty"`
-	// 此entry对应service分配到的节点端口
-	NodePort *int64 `json:"node_port,omitempty" xml:"node_port,omitempty"`
-}
-
-func (s HttpEntryStatus) String() string {
-	return tea.Prettify(s)
-}
-
-func (s HttpEntryStatus) GoString() string {
-	return s.String()
-}
-
-func (s *HttpEntryStatus) SetBackendPort(v int64) *HttpEntryStatus {
-	s.BackendPort = &v
-	return s
-}
-
-func (s *HttpEntryStatus) SetNodePort(v int64) *HttpEntryStatus {
-	s.NodePort = &v
-	return s
-}
-
-// 解决方案应用发布配置
-type AppReleaseConfig struct {
-	// 名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 应用镜像
-	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
-	// 应用依赖信息
-	DependsOn []*AppReleaseConfigDependOn `json:"depends_on,omitempty" xml:"depends_on,omitempty" require:"true" type:"Repeated"`
-	// 完整yaml配置信息
-	YamlContent *string `json:"yaml_content,omitempty" xml:"yaml_content,omitempty"`
-}
-
-func (s AppReleaseConfig) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppReleaseConfig) GoString() string {
-	return s.String()
-}
-
-func (s *AppReleaseConfig) SetName(v string) *AppReleaseConfig {
-	s.Name = &v
-	return s
-}
-
-func (s *AppReleaseConfig) SetImage(v string) *AppReleaseConfig {
-	s.Image = &v
-	return s
-}
-
-func (s *AppReleaseConfig) SetDependsOn(v []*AppReleaseConfigDependOn) *AppReleaseConfig {
-	s.DependsOn = v
-	return s
-}
-
-func (s *AppReleaseConfig) SetYamlContent(v string) *AppReleaseConfig {
-	s.YamlContent = &v
-	return s
-}
-
-// V1FederatedDeploymentStatusTopologies
-type FederatedDeploymentStatusTopologies struct {
-	// message
-	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// time
-	Time *string `json:"time,omitempty" xml:"time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s FederatedDeploymentStatusTopologies) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FederatedDeploymentStatusTopologies) GoString() string {
-	return s.String()
-}
-
-func (s *FederatedDeploymentStatusTopologies) SetMessage(v string) *FederatedDeploymentStatusTopologies {
-	s.Message = &v
-	return s
-}
-
-func (s *FederatedDeploymentStatusTopologies) SetName(v string) *FederatedDeploymentStatusTopologies {
-	s.Name = &v
-	return s
-}
-
-func (s *FederatedDeploymentStatusTopologies) SetStatus(v string) *FederatedDeploymentStatusTopologies {
-	s.Status = &v
-	return s
-}
-
-func (s *FederatedDeploymentStatusTopologies) SetTime(v string) *FederatedDeploymentStatusTopologies {
-	s.Time = &v
-	return s
-}
-
-// DeploymentStatus
-type DeploymentStatus struct {
-	// Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
-	//
-	AvailableReplicas *int64 `json:"available_replicas,omitempty" xml:"available_replicas,omitempty" require:"true"`
-	// Represents the latest available observations of a deployment s current state.
-	//
-	Conditions []*DeploymentCondition `json:"conditions,omitempty" xml:"conditions,omitempty" require:"true" type:"Repeated"`
-	// The generation observed by the deployment controller.
-	//
-	ObservedGeneration *int64 `json:"observed_generation,omitempty" xml:"observed_generation,omitempty"`
-	// Total number of ready pods targeted by this deployment.
-	//
-	ReadyReplicas *int64 `json:"ready_replicas,omitempty" xml:"ready_replicas,omitempty" require:"true"`
-	// Total number of non-terminated pods targeted by this deployment (their labels match the selector).
-	//
-	Replicas *int64 `json:"replicas,omitempty" xml:"replicas,omitempty" require:"true"`
-	// Total number of unavailable pods targeted by this deployment.
-	UnavailableReplicas *int64 `json:"unavailable_replicas,omitempty" xml:"unavailable_replicas,omitempty" require:"true"`
-	// Total number of non-terminated pods targeted by this deployment that have the desired template spec.
-	UpdatedReplicas *int64 `json:"updated_replicas,omitempty" xml:"updated_replicas,omitempty" require:"true"`
-}
-
-func (s DeploymentStatus) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeploymentStatus) GoString() string {
-	return s.String()
-}
-
-func (s *DeploymentStatus) SetAvailableReplicas(v int64) *DeploymentStatus {
-	s.AvailableReplicas = &v
-	return s
-}
-
-func (s *DeploymentStatus) SetConditions(v []*DeploymentCondition) *DeploymentStatus {
-	s.Conditions = v
-	return s
-}
-
-func (s *DeploymentStatus) SetObservedGeneration(v int64) *DeploymentStatus {
-	s.ObservedGeneration = &v
-	return s
-}
-
-func (s *DeploymentStatus) SetReadyReplicas(v int64) *DeploymentStatus {
-	s.ReadyReplicas = &v
-	return s
-}
-
-func (s *DeploymentStatus) SetReplicas(v int64) *DeploymentStatus {
-	s.Replicas = &v
-	return s
-}
-
-func (s *DeploymentStatus) SetUnavailableReplicas(v int64) *DeploymentStatus {
-	s.UnavailableReplicas = &v
-	return s
-}
-
-func (s *DeploymentStatus) SetUpdatedReplicas(v int64) *DeploymentStatus {
-	s.UpdatedReplicas = &v
-	return s
-}
-
-// pod状态
-type PodStatus struct {
-	// 节点ip
-	HostIp *string `json:"host_ip,omitempty" xml:"host_ip,omitempty"`
-	// pod状态
-	Phase *string `json:"phase,omitempty" xml:"phase,omitempty" require:"true"`
-	// podip
-	PodIp *string `json:"pod_ip,omitempty" xml:"pod_ip,omitempty"`
-	// pod container status
-	ContainerStatuses []*ContainerStatus `json:"container_statuses,omitempty" xml:"container_statuses,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s PodStatus) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PodStatus) GoString() string {
-	return s.String()
-}
-
-func (s *PodStatus) SetHostIp(v string) *PodStatus {
-	s.HostIp = &v
-	return s
-}
-
-func (s *PodStatus) SetPhase(v string) *PodStatus {
-	s.Phase = &v
-	return s
-}
-
-func (s *PodStatus) SetPodIp(v string) *PodStatus {
-	s.PodIp = &v
-	return s
-}
-
-func (s *PodStatus) SetContainerStatuses(v []*ContainerStatus) *PodStatus {
-	s.ContainerStatuses = v
-	return s
-}
-
-// fed image pull Secret override
-type FedImagePullSecretOverride struct {
-	// override data
-	Data *RegistryAccout `json:"data,omitempty" xml:"data,omitempty" require:"true"`
-	// cell name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// cell name override
-	NameOverride *string `json:"name_override,omitempty" xml:"name_override,omitempty" require:"true"`
-}
-
-func (s FedImagePullSecretOverride) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FedImagePullSecretOverride) GoString() string {
-	return s.String()
-}
-
-func (s *FedImagePullSecretOverride) SetData(v *RegistryAccout) *FedImagePullSecretOverride {
-	s.Data = v
-	return s
-}
-
-func (s *FedImagePullSecretOverride) SetName(v string) *FedImagePullSecretOverride {
-	s.Name = &v
-	return s
-}
-
-func (s *FedImagePullSecretOverride) SetNameOverride(v string) *FedImagePullSecretOverride {
-	s.NameOverride = &v
-	return s
-}
-
-// 运维变更对象
-type OperationChangeInstance struct {
-	// 主机名
-	Hostname *string `json:"hostname,omitempty" xml:"hostname,omitempty"`
-	// 部署单元
-	Cell *string `json:"cell,omitempty" xml:"cell,omitempty" require:"true"`
-	// ip
-	Ip *string `json:"ip,omitempty" xml:"ip,omitempty"`
-	// 资源ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-}
-
-func (s OperationChangeInstance) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OperationChangeInstance) GoString() string {
-	return s.String()
-}
-
-func (s *OperationChangeInstance) SetHostname(v string) *OperationChangeInstance {
-	s.Hostname = &v
-	return s
-}
-
-func (s *OperationChangeInstance) SetCell(v string) *OperationChangeInstance {
-	s.Cell = &v
-	return s
-}
-
-func (s *OperationChangeInstance) SetIp(v string) *OperationChangeInstance {
-	s.Ip = &v
-	return s
-}
-
-func (s *OperationChangeInstance) SetId(v string) *OperationChangeInstance {
-	s.Id = &v
-	return s
-}
-
-// 一个正在进行运维操作的计算容器。
-type OpsComputer struct {
-	// 计算容器id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 计算容器内网ip
-	InnerIp *string `json:"inner_ip,omitempty" xml:"inner_ip,omitempty"`
-	// 计算容器名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 计算容器当前运维状态。取值列表： INITED：初始化完成； EXECUTING：执行中； SUCCESS：执行成功； FAILED：执行失败； CANCELED：已取消； IGNORED：已忽略
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 计算容器上执行的任务信息。任务信息列表中包含正在执行和执行完成的任务。
-	Tasks []*OpsComputerTask `json:"tasks,omitempty" xml:"tasks,omitempty" type:"Repeated"`
-	// 展示机器失败的摘要信息
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s OpsComputer) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OpsComputer) GoString() string {
-	return s.String()
-}
-
-func (s *OpsComputer) SetId(v string) *OpsComputer {
-	s.Id = &v
-	return s
-}
-
-func (s *OpsComputer) SetInnerIp(v string) *OpsComputer {
-	s.InnerIp = &v
-	return s
-}
-
-func (s *OpsComputer) SetName(v string) *OpsComputer {
-	s.Name = &v
-	return s
-}
-
-func (s *OpsComputer) SetStatus(v string) *OpsComputer {
-	s.Status = &v
-	return s
-}
-
-func (s *OpsComputer) SetTasks(v []*OpsComputerTask) *OpsComputer {
-	s.Tasks = v
-	return s
-}
-
-func (s *OpsComputer) SetResultMsg(v string) *OpsComputer {
-	s.ResultMsg = &v
-	return s
-}
-
-// Container环境变量集群override
-type EnvVarClusterOverride struct {
-	// 环境变量名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 环境变量取值
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-	// Pod容器名称
-	ContainerName *string `json:"container_name,omitempty" xml:"container_name,omitempty" require:"true"`
-}
-
-func (s EnvVarClusterOverride) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EnvVarClusterOverride) GoString() string {
-	return s.String()
-}
-
-func (s *EnvVarClusterOverride) SetName(v string) *EnvVarClusterOverride {
-	s.Name = &v
-	return s
-}
-
-func (s *EnvVarClusterOverride) SetValue(v string) *EnvVarClusterOverride {
-	s.Value = &v
-	return s
-}
-
-func (s *EnvVarClusterOverride) SetContainerName(v string) *EnvVarClusterOverride {
-	s.ContainerName = &v
-	return s
-}
-
-// Secret数据
-type SecretData struct {
-	// secret data key
-	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
-	// secret data value
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-}
-
-func (s SecretData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SecretData) GoString() string {
-	return s.String()
-}
-
-func (s *SecretData) SetKey(v string) *SecretData {
-	s.Key = &v
-	return s
-}
-
-func (s *SecretData) SetValue(v string) *SecretData {
-	s.Value = &v
-	return s
-}
-
-// 容器服务运维
-type OpsContainerService struct {
-	// 命名空间
-	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
-	// 容器服务名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 待操作目标pods列表
-	SelectedPods []*CellPods `json:"selected_pods,omitempty" xml:"selected_pods,omitempty" type:"Repeated"`
-}
-
-func (s OpsContainerService) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OpsContainerService) GoString() string {
-	return s.String()
-}
-
-func (s *OpsContainerService) SetNamespace(v string) *OpsContainerService {
-	s.Namespace = &v
-	return s
-}
-
-func (s *OpsContainerService) SetName(v string) *OpsContainerService {
-	s.Name = &v
-	return s
-}
-
-func (s *OpsContainerService) SetSelectedPods(v []*CellPods) *OpsContainerService {
-	s.SelectedPods = v
-	return s
-}
-
-// LoadBalancer类型Service。
-type LoadBalancerService struct {
-	// 域名。
-	Domain *string `json:"domain,omitempty" xml:"domain,omitempty"`
-	// 负载均衡实例监听列表。
-	Listeners []*LoadBalancerListener `json:"listeners,omitempty" xml:"listeners,omitempty" require:"true" type:"Repeated"`
-	// 关联的负载均衡实例的ID。
-	LoadBalancerIaasId *string `json:"load_balancer_iaas_id,omitempty" xml:"load_balancer_iaas_id,omitempty"`
-	// LoadBalancer类型service关联负载均衡实例名称。
-	LoadBalancerName *string `json:"load_balancer_name,omitempty" xml:"load_balancer_name,omitempty"`
-	// LoadBalancer类型service名称。
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// Spanner集群名称。
-	SpannerClusterId *string `json:"spanner_cluster_id,omitempty" xml:"spanner_cluster_id,omitempty"`
-	// 负载均衡实例的网络类型（internet | intranet | office | multidomain）
-	AddressType *string `json:"address_type,omitempty" xml:"address_type,omitempty"`
-	// 该服务在每个 cell 下要复用的负载均衡实例 ID
-	CellSlbIaasIdMap []*MapStringToString `json:"cell_slb_iaas_id_map,omitempty" xml:"cell_slb_iaas_id_map,omitempty" type:"Repeated"`
-	// custom address type模式下，指定各cell负载均衡vip
-	CellLbVipMap []*MapStringToString `json:"cell_lb_vip_map,omitempty" xml:"cell_lb_vip_map,omitempty" type:"Repeated"`
-	// 是否使用联邦负载均衡实例
-	UseFedLoadbalancer *bool `json:"use_fed_loadbalancer,omitempty" xml:"use_fed_loadbalancer,omitempty"`
-	// 联邦负载均衡实例名称
-	FedLoadbalancerName *string `json:"fed_loadbalancer_name,omitempty" xml:"fed_loadbalancer_name,omitempty"`
-}
-
-func (s LoadBalancerService) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LoadBalancerService) GoString() string {
-	return s.String()
-}
-
-func (s *LoadBalancerService) SetDomain(v string) *LoadBalancerService {
-	s.Domain = &v
-	return s
-}
-
-func (s *LoadBalancerService) SetListeners(v []*LoadBalancerListener) *LoadBalancerService {
-	s.Listeners = v
-	return s
-}
-
-func (s *LoadBalancerService) SetLoadBalancerIaasId(v string) *LoadBalancerService {
-	s.LoadBalancerIaasId = &v
-	return s
-}
-
-func (s *LoadBalancerService) SetLoadBalancerName(v string) *LoadBalancerService {
-	s.LoadBalancerName = &v
-	return s
-}
-
-func (s *LoadBalancerService) SetName(v string) *LoadBalancerService {
-	s.Name = &v
-	return s
-}
-
-func (s *LoadBalancerService) SetSpannerClusterId(v string) *LoadBalancerService {
-	s.SpannerClusterId = &v
-	return s
-}
-
-func (s *LoadBalancerService) SetAddressType(v string) *LoadBalancerService {
-	s.AddressType = &v
-	return s
-}
-
-func (s *LoadBalancerService) SetCellSlbIaasIdMap(v []*MapStringToString) *LoadBalancerService {
-	s.CellSlbIaasIdMap = v
-	return s
-}
-
-func (s *LoadBalancerService) SetCellLbVipMap(v []*MapStringToString) *LoadBalancerService {
-	s.CellLbVipMap = v
-	return s
-}
-
-func (s *LoadBalancerService) SetUseFedLoadbalancer(v bool) *LoadBalancerService {
-	s.UseFedLoadbalancer = &v
-	return s
-}
-
-func (s *LoadBalancerService) SetFedLoadbalancerName(v string) *LoadBalancerService {
-	s.FedLoadbalancerName = &v
 	return s
 }
 
@@ -4462,139 +3830,149 @@ func (s *IngressConfig) SetUnifiedAccessRouteRule(v string) *IngressConfig {
 	return s
 }
 
-// 解决方案拓展Linke配置
-type UnireleaseSolutionExtInfoLinkeInfo struct {
-	// linke发布窗口
-	ReleaseWindow *string `json:"release_window,omitempty" xml:"release_window,omitempty" require:"true"`
-	// ["EI61640467"]
-	Iterations []*string `json:"iterations,omitempty" xml:"iterations,omitempty" require:"true" type:"Repeated"`
-	// 发布接口人列表,要求为域账号
-	Publisher []*string `json:"publisher,omitempty" xml:"publisher,omitempty" type:"Repeated"`
-	// inke发布Id
-	ReleaseId *string `json:"release_id,omitempty" xml:"release_id,omitempty"`
+// DeploymentStatus
+type DeploymentStatus struct {
+	// Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+	//
+	AvailableReplicas *int64 `json:"available_replicas,omitempty" xml:"available_replicas,omitempty" require:"true"`
+	// Represents the latest available observations of a deployment_s current state.
+	//
+	Conditions []*DeploymentCondition `json:"conditions,omitempty" xml:"conditions,omitempty" require:"true" type:"Repeated"`
+	// The generation observed by the deployment controller.
+	//
+	ObservedGeneration *int64 `json:"observed_generation,omitempty" xml:"observed_generation,omitempty"`
+	// Total number of ready pods targeted by this deployment.
+	//
+	ReadyReplicas *int64 `json:"ready_replicas,omitempty" xml:"ready_replicas,omitempty" require:"true"`
+	// Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+	//
+	Replicas *int64 `json:"replicas,omitempty" xml:"replicas,omitempty" require:"true"`
+	// Total number of unavailable pods targeted by this deployment.
+	UnavailableReplicas *int64 `json:"unavailable_replicas,omitempty" xml:"unavailable_replicas,omitempty" require:"true"`
+	// Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+	UpdatedReplicas *int64 `json:"updated_replicas,omitempty" xml:"updated_replicas,omitempty" require:"true"`
 }
 
-func (s UnireleaseSolutionExtInfoLinkeInfo) String() string {
+func (s DeploymentStatus) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UnireleaseSolutionExtInfoLinkeInfo) GoString() string {
+func (s DeploymentStatus) GoString() string {
 	return s.String()
 }
 
-func (s *UnireleaseSolutionExtInfoLinkeInfo) SetReleaseWindow(v string) *UnireleaseSolutionExtInfoLinkeInfo {
-	s.ReleaseWindow = &v
+func (s *DeploymentStatus) SetAvailableReplicas(v int64) *DeploymentStatus {
+	s.AvailableReplicas = &v
 	return s
 }
 
-func (s *UnireleaseSolutionExtInfoLinkeInfo) SetIterations(v []*string) *UnireleaseSolutionExtInfoLinkeInfo {
-	s.Iterations = v
+func (s *DeploymentStatus) SetConditions(v []*DeploymentCondition) *DeploymentStatus {
+	s.Conditions = v
 	return s
 }
 
-func (s *UnireleaseSolutionExtInfoLinkeInfo) SetPublisher(v []*string) *UnireleaseSolutionExtInfoLinkeInfo {
-	s.Publisher = v
+func (s *DeploymentStatus) SetObservedGeneration(v int64) *DeploymentStatus {
+	s.ObservedGeneration = &v
 	return s
 }
 
-func (s *UnireleaseSolutionExtInfoLinkeInfo) SetReleaseId(v string) *UnireleaseSolutionExtInfoLinkeInfo {
-	s.ReleaseId = &v
+func (s *DeploymentStatus) SetReadyReplicas(v int64) *DeploymentStatus {
+	s.ReadyReplicas = &v
 	return s
 }
 
-// 容器服务部署配置。
-type DeployConfig struct {
-	// 节点亲和性配置
-	Affinity *AffinityEntity `json:"affinity,omitempty" xml:"affinity,omitempty"`
-	// annotations
-	Annotations *string `json:"annotations,omitempty" xml:"annotations,omitempty"`
-	// 用户自定义标签，将会在pod上生效
-	CustomLabels *string `json:"custom_labels,omitempty" xml:"custom_labels,omitempty"`
-	// 最小分组数
-	GroupCount *int64 `json:"group_count,omitempty" xml:"group_count,omitempty"`
-	// 容器服务部署分组策略。
-	GroupStrategy *string `json:"group_strategy,omitempty" xml:"group_strategy,omitempty"`
-	// labels
-	Labels *string `json:"labels,omitempty" xml:"labels,omitempty"`
-	// 单个分组最大Pod数量。
-	MaxGroupCapacity *int64 `json:"max_group_capacity,omitempty" xml:"max_group_capacity,omitempty"`
-	// 是否需要beta confirm。
-	NeedBeta *bool `json:"need_beta,omitempty" xml:"need_beta,omitempty"`
-	// 是否需要分组确认。
-	NeedConfirm *bool `json:"need_confirm,omitempty" xml:"need_confirm,omitempty"`
-	// 已废弃
-	EnableSofaMesh *bool `json:"enable_sofa_mesh,omitempty" xml:"enable_sofa_mesh,omitempty"`
-	// 只支持InPlace
-	UpgradeStrategy *string `json:"upgrade_strategy,omitempty" xml:"upgrade_strategy,omitempty"`
-	// 分组确认策略，FIRST：第一个分组需要确认，EACH：每个分组都需要确认（默认）
-	ConfirmStrategy *string `json:"confirm_strategy,omitempty" xml:"confirm_strategy,omitempty"`
+func (s *DeploymentStatus) SetReplicas(v int64) *DeploymentStatus {
+	s.Replicas = &v
+	return s
 }
 
-func (s DeployConfig) String() string {
+func (s *DeploymentStatus) SetUnavailableReplicas(v int64) *DeploymentStatus {
+	s.UnavailableReplicas = &v
+	return s
+}
+
+func (s *DeploymentStatus) SetUpdatedReplicas(v int64) *DeploymentStatus {
+	s.UpdatedReplicas = &v
+	return s
+}
+
+// V1FederatedDeploymentStatusTopologies
+type FederatedDeploymentStatusTopologies struct {
+	// message
+	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// time
+	Time *string `json:"time,omitempty" xml:"time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s FederatedDeploymentStatusTopologies) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DeployConfig) GoString() string {
+func (s FederatedDeploymentStatusTopologies) GoString() string {
 	return s.String()
 }
 
-func (s *DeployConfig) SetAffinity(v *AffinityEntity) *DeployConfig {
-	s.Affinity = v
+func (s *FederatedDeploymentStatusTopologies) SetMessage(v string) *FederatedDeploymentStatusTopologies {
+	s.Message = &v
 	return s
 }
 
-func (s *DeployConfig) SetAnnotations(v string) *DeployConfig {
-	s.Annotations = &v
+func (s *FederatedDeploymentStatusTopologies) SetName(v string) *FederatedDeploymentStatusTopologies {
+	s.Name = &v
 	return s
 }
 
-func (s *DeployConfig) SetCustomLabels(v string) *DeployConfig {
-	s.CustomLabels = &v
+func (s *FederatedDeploymentStatusTopologies) SetStatus(v string) *FederatedDeploymentStatusTopologies {
+	s.Status = &v
 	return s
 }
 
-func (s *DeployConfig) SetGroupCount(v int64) *DeployConfig {
-	s.GroupCount = &v
+func (s *FederatedDeploymentStatusTopologies) SetTime(v string) *FederatedDeploymentStatusTopologies {
+	s.Time = &v
 	return s
 }
 
-func (s *DeployConfig) SetGroupStrategy(v string) *DeployConfig {
-	s.GroupStrategy = &v
+// api类型自定义卡点配置
+type ApiHookConfig struct {
+	// 卡点要调用的api地址
+	PostUrl *string `json:"post_url,omitempty" xml:"post_url,omitempty" require:"true"`
+	// 授权码
+	AuthKey *string `json:"auth_key,omitempty" xml:"auth_key,omitempty"`
+	// 接口超时时间，单位ms
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
+	// 查询异步卡点接口执行结果api
+	CheckUrl *string `json:"check_url,omitempty" xml:"check_url,omitempty"`
+}
+
+func (s ApiHookConfig) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiHookConfig) GoString() string {
+	return s.String()
+}
+
+func (s *ApiHookConfig) SetPostUrl(v string) *ApiHookConfig {
+	s.PostUrl = &v
 	return s
 }
 
-func (s *DeployConfig) SetLabels(v string) *DeployConfig {
-	s.Labels = &v
+func (s *ApiHookConfig) SetAuthKey(v string) *ApiHookConfig {
+	s.AuthKey = &v
 	return s
 }
 
-func (s *DeployConfig) SetMaxGroupCapacity(v int64) *DeployConfig {
-	s.MaxGroupCapacity = &v
+func (s *ApiHookConfig) SetTimeout(v string) *ApiHookConfig {
+	s.Timeout = &v
 	return s
 }
 
-func (s *DeployConfig) SetNeedBeta(v bool) *DeployConfig {
-	s.NeedBeta = &v
-	return s
-}
-
-func (s *DeployConfig) SetNeedConfirm(v bool) *DeployConfig {
-	s.NeedConfirm = &v
-	return s
-}
-
-func (s *DeployConfig) SetEnableSofaMesh(v bool) *DeployConfig {
-	s.EnableSofaMesh = &v
-	return s
-}
-
-func (s *DeployConfig) SetUpgradeStrategy(v string) *DeployConfig {
-	s.UpgradeStrategy = &v
-	return s
-}
-
-func (s *DeployConfig) SetConfirmStrategy(v string) *DeployConfig {
-	s.ConfirmStrategy = &v
+func (s *ApiHookConfig) SetCheckUrl(v string) *ApiHookConfig {
+	s.CheckUrl = &v
 	return s
 }
 
@@ -4624,6 +4002,236 @@ func (s *ClusterIpService) SetPorts(v []*ServicePortMapping) *ClusterIpService {
 	return s
 }
 
+// 描述本地spanner集群一组容器的详细信息
+type LocalSubClusterDetail struct {
+	// 可用实例数
+	Available *int64 `json:"available,omitempty" xml:"available,omitempty"`
+	// 期望实例数
+	Desired *int64 `json:"desired,omitempty" xml:"desired,omitempty"`
+	// 容器镜像地址
+	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
+	// 发布容器带的标签
+	Labels []*Label `json:"labels,omitempty" xml:"labels,omitempty" type:"Repeated"`
+	// 可能存在的错误信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 健康实例数
+	Ready *int64 `json:"ready,omitempty" xml:"ready,omitempty"`
+	// 实际sub cluster 状态
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 已更新实例数
+	Updated *int64 `json:"updated,omitempty" xml:"updated,omitempty"`
+	// 容器版本
+	Version *string `json:"version,omitempty" xml:"version,omitempty" require:"true"`
+	// 多个机房下的覆盖配置项
+	Overrides []*SpannerSubClusterOverrides `json:"overrides,omitempty" xml:"overrides,omitempty" type:"Repeated"`
+}
+
+func (s LocalSubClusterDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LocalSubClusterDetail) GoString() string {
+	return s.String()
+}
+
+func (s *LocalSubClusterDetail) SetAvailable(v int64) *LocalSubClusterDetail {
+	s.Available = &v
+	return s
+}
+
+func (s *LocalSubClusterDetail) SetDesired(v int64) *LocalSubClusterDetail {
+	s.Desired = &v
+	return s
+}
+
+func (s *LocalSubClusterDetail) SetImage(v string) *LocalSubClusterDetail {
+	s.Image = &v
+	return s
+}
+
+func (s *LocalSubClusterDetail) SetLabels(v []*Label) *LocalSubClusterDetail {
+	s.Labels = v
+	return s
+}
+
+func (s *LocalSubClusterDetail) SetMessage(v string) *LocalSubClusterDetail {
+	s.Message = &v
+	return s
+}
+
+func (s *LocalSubClusterDetail) SetReady(v int64) *LocalSubClusterDetail {
+	s.Ready = &v
+	return s
+}
+
+func (s *LocalSubClusterDetail) SetState(v string) *LocalSubClusterDetail {
+	s.State = &v
+	return s
+}
+
+func (s *LocalSubClusterDetail) SetUpdated(v int64) *LocalSubClusterDetail {
+	s.Updated = &v
+	return s
+}
+
+func (s *LocalSubClusterDetail) SetVersion(v string) *LocalSubClusterDetail {
+	s.Version = &v
+	return s
+}
+
+func (s *LocalSubClusterDetail) SetOverrides(v []*SpannerSubClusterOverrides) *LocalSubClusterDetail {
+	s.Overrides = v
+	return s
+}
+
+// LoadBalancer类型Service。
+type LoadBalancerService struct {
+	// 域名。
+	Domain *string `json:"domain,omitempty" xml:"domain,omitempty"`
+	// 负载均衡实例监听列表。
+	Listeners []*LoadBalancerListener `json:"listeners,omitempty" xml:"listeners,omitempty" require:"true" type:"Repeated"`
+	// 关联的负载均衡实例的ID。
+	LoadBalancerIaasId *string `json:"load_balancer_iaas_id,omitempty" xml:"load_balancer_iaas_id,omitempty"`
+	// LoadBalancer类型service关联负载均衡实例名称。
+	LoadBalancerName *string `json:"load_balancer_name,omitempty" xml:"load_balancer_name,omitempty"`
+	// LoadBalancer类型service名称。
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// Spanner集群名称。
+	SpannerClusterId *string `json:"spanner_cluster_id,omitempty" xml:"spanner_cluster_id,omitempty"`
+	// 负载均衡实例的网络类型（internet | intranet | office | multidomain）
+	AddressType *string `json:"address_type,omitempty" xml:"address_type,omitempty"`
+	// 该服务在每个 cell 下要复用的负载均衡实例 ID
+	CellSlbIaasIdMap []*MapStringToString `json:"cell_slb_iaas_id_map,omitempty" xml:"cell_slb_iaas_id_map,omitempty" type:"Repeated"`
+	// custom address type模式下，指定各cell负载均衡vip
+	CellLbVipMap []*MapStringToString `json:"cell_lb_vip_map,omitempty" xml:"cell_lb_vip_map,omitempty" type:"Repeated"`
+	// 是否使用联邦负载均衡实例
+	UseFedLoadbalancer *bool `json:"use_fed_loadbalancer,omitempty" xml:"use_fed_loadbalancer,omitempty"`
+	// 联邦负载均衡实例名称
+	FedLoadbalancerName *string `json:"fed_loadbalancer_name,omitempty" xml:"fed_loadbalancer_name,omitempty"`
+}
+
+func (s LoadBalancerService) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LoadBalancerService) GoString() string {
+	return s.String()
+}
+
+func (s *LoadBalancerService) SetDomain(v string) *LoadBalancerService {
+	s.Domain = &v
+	return s
+}
+
+func (s *LoadBalancerService) SetListeners(v []*LoadBalancerListener) *LoadBalancerService {
+	s.Listeners = v
+	return s
+}
+
+func (s *LoadBalancerService) SetLoadBalancerIaasId(v string) *LoadBalancerService {
+	s.LoadBalancerIaasId = &v
+	return s
+}
+
+func (s *LoadBalancerService) SetLoadBalancerName(v string) *LoadBalancerService {
+	s.LoadBalancerName = &v
+	return s
+}
+
+func (s *LoadBalancerService) SetName(v string) *LoadBalancerService {
+	s.Name = &v
+	return s
+}
+
+func (s *LoadBalancerService) SetSpannerClusterId(v string) *LoadBalancerService {
+	s.SpannerClusterId = &v
+	return s
+}
+
+func (s *LoadBalancerService) SetAddressType(v string) *LoadBalancerService {
+	s.AddressType = &v
+	return s
+}
+
+func (s *LoadBalancerService) SetCellSlbIaasIdMap(v []*MapStringToString) *LoadBalancerService {
+	s.CellSlbIaasIdMap = v
+	return s
+}
+
+func (s *LoadBalancerService) SetCellLbVipMap(v []*MapStringToString) *LoadBalancerService {
+	s.CellLbVipMap = v
+	return s
+}
+
+func (s *LoadBalancerService) SetUseFedLoadbalancer(v bool) *LoadBalancerService {
+	s.UseFedLoadbalancer = &v
+	return s
+}
+
+func (s *LoadBalancerService) SetFedLoadbalancerName(v string) *LoadBalancerService {
+	s.FedLoadbalancerName = &v
+	return s
+}
+
+// 有状态应用数据卷模板配置
+type VolumeClaimConfig struct {
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// storage_class
+	StorageClass *string `json:"storage_class,omitempty" xml:"storage_class,omitempty"`
+	// resourceRequirementConfig
+	ResourceRequirementConfig *ResourceRequirementConfig `json:"resource_requirement_config,omitempty" xml:"resource_requirement_config,omitempty"`
+}
+
+func (s VolumeClaimConfig) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VolumeClaimConfig) GoString() string {
+	return s.String()
+}
+
+func (s *VolumeClaimConfig) SetName(v string) *VolumeClaimConfig {
+	s.Name = &v
+	return s
+}
+
+func (s *VolumeClaimConfig) SetStorageClass(v string) *VolumeClaimConfig {
+	s.StorageClass = &v
+	return s
+}
+
+func (s *VolumeClaimConfig) SetResourceRequirementConfig(v *ResourceRequirementConfig) *VolumeClaimConfig {
+	s.ResourceRequirementConfig = v
+	return s
+}
+
+// Secret数据
+type SecretData struct {
+	// secret data key
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// secret data value
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s SecretData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SecretData) GoString() string {
+	return s.String()
+}
+
+func (s *SecretData) SetKey(v string) *SecretData {
+	s.Key = &v
+	return s
+}
+
+func (s *SecretData) SetValue(v string) *SecretData {
+	s.Value = &v
+	return s
+}
+
 // 发布批次对象
 type ReleaseBatchObj struct {
 	// 第一个批次
@@ -4647,6 +4255,109 @@ func (s *ReleaseBatchObj) SetBatchNum(v int64) *ReleaseBatchObj {
 
 func (s *ReleaseBatchObj) SetCellServers(v []*CellServer) *ReleaseBatchObj {
 	s.CellServers = v
+	return s
+}
+
+// 运维操作中的应用
+type OpsApplication struct {
+	// 应用名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 应用发布版本（部分运维操作可能不包含版本信息，为null）
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// 应用（服务）当前运维状态。取值列表： INITING：初始化中； INIT_FAILED：初始化失败； INITED：初始化完成； EXECUTING：执行中； SUCCESS：执行成功； FAILED：执行失败； ROLLBACKED：已回滚； CANCELED：已取消
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s OpsApplication) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpsApplication) GoString() string {
+	return s.String()
+}
+
+func (s *OpsApplication) SetName(v string) *OpsApplication {
+	s.Name = &v
+	return s
+}
+
+func (s *OpsApplication) SetVersion(v string) *OpsApplication {
+	s.Version = &v
+	return s
+}
+
+func (s *OpsApplication) SetStatus(v string) *OpsApplication {
+	s.Status = &v
+	return s
+}
+
+// DeploymentSpec
+type DeploymentSpec struct {
+	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing
+	MinReadySeconds *int64 `json:"min_ready_seconds,omitempty" xml:"min_ready_seconds,omitempty"`
+	// Indicates that the deployment is paused.
+	//
+	Paused *bool `json:"paused,omitempty" xml:"paused,omitempty"`
+	// he maximum time in seconds for a deployment to make progress before it is considered to be failed.
+	ProgressDeadlineSeconds *int64 `json:"progress_deadline_seconds,omitempty" xml:"progress_deadline_seconds,omitempty"`
+	// Number of desired pods.
+	Replicas *int64 `json:"replicas,omitempty" xml:"replicas,omitempty" require:"true"`
+	// The number of old ReplicaSets to retain to allow rollback.
+	RevisionHistoryLimit *int64 `json:"revision_history_limit,omitempty" xml:"revision_history_limit,omitempty"`
+	// Label selector for pods.
+	Selector *LabelSelector `json:"selector,omitempty" xml:"selector,omitempty"`
+	// The deployment strategy to use to replace existing pods with new ones.
+	//
+	Strategy *DeploymentStrategy `json:"strategy,omitempty" xml:"strategy,omitempty"`
+	// Template describes the pods that will be created.
+	Template *PodTemplateSpec `json:"template,omitempty" xml:"template,omitempty" require:"true"`
+}
+
+func (s DeploymentSpec) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeploymentSpec) GoString() string {
+	return s.String()
+}
+
+func (s *DeploymentSpec) SetMinReadySeconds(v int64) *DeploymentSpec {
+	s.MinReadySeconds = &v
+	return s
+}
+
+func (s *DeploymentSpec) SetPaused(v bool) *DeploymentSpec {
+	s.Paused = &v
+	return s
+}
+
+func (s *DeploymentSpec) SetProgressDeadlineSeconds(v int64) *DeploymentSpec {
+	s.ProgressDeadlineSeconds = &v
+	return s
+}
+
+func (s *DeploymentSpec) SetReplicas(v int64) *DeploymentSpec {
+	s.Replicas = &v
+	return s
+}
+
+func (s *DeploymentSpec) SetRevisionHistoryLimit(v int64) *DeploymentSpec {
+	s.RevisionHistoryLimit = &v
+	return s
+}
+
+func (s *DeploymentSpec) SetSelector(v *LabelSelector) *DeploymentSpec {
+	s.Selector = v
+	return s
+}
+
+func (s *DeploymentSpec) SetStrategy(v *DeploymentStrategy) *DeploymentSpec {
+	s.Strategy = v
+	return s
+}
+
+func (s *DeploymentSpec) SetTemplate(v *PodTemplateSpec) *DeploymentSpec {
+	s.Template = v
 	return s
 }
 
@@ -4727,280 +4438,895 @@ func (s *SidecarTemplate) SetWorkspaceId(v string) *SidecarTemplate {
 	return s
 }
 
-// 容器健康检查-ReadinessProbe。
-type ReadinessProbe struct {
-	// 命令行方式的健康监测配置。
-	ExecAction *ExecAction `json:"exec_action,omitempty" xml:"exec_action,omitempty"`
-	// 不健康阈值。
-	FailureThreshold *int64 `json:"failure_threshold,omitempty" xml:"failure_threshold,omitempty" require:"true"`
-	// http方式的健康监测配置。
-	HttpGetAction *HttpGetAction `json:"http_get_action,omitempty" xml:"http_get_action,omitempty"`
-	// 首次检查延时。
-	InitialDelaySeconds *int64 `json:"initial_delay_seconds,omitempty" xml:"initial_delay_seconds,omitempty" require:"true"`
-	// 不健康阈值。
-	PeriodSeconds *int64 `json:"period_seconds,omitempty" xml:"period_seconds,omitempty" require:"true"`
-	// 健康阈值。
-	SuccessThreshold *int64 `json:"success_threshold,omitempty" xml:"success_threshold,omitempty" require:"true"`
-	// tcp方式的健康监测配置。
-	TcpSocketAction *TcpSocketAction `json:"tcp_socket_action,omitempty" xml:"tcp_socket_action,omitempty"`
-	// 检查超时。
-	TimeoutSeconds *int64 `json:"timeout_seconds,omitempty" xml:"timeout_seconds,omitempty" require:"true"`
-}
-
-func (s ReadinessProbe) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ReadinessProbe) GoString() string {
-	return s.String()
-}
-
-func (s *ReadinessProbe) SetExecAction(v *ExecAction) *ReadinessProbe {
-	s.ExecAction = v
-	return s
-}
-
-func (s *ReadinessProbe) SetFailureThreshold(v int64) *ReadinessProbe {
-	s.FailureThreshold = &v
-	return s
-}
-
-func (s *ReadinessProbe) SetHttpGetAction(v *HttpGetAction) *ReadinessProbe {
-	s.HttpGetAction = v
-	return s
-}
-
-func (s *ReadinessProbe) SetInitialDelaySeconds(v int64) *ReadinessProbe {
-	s.InitialDelaySeconds = &v
-	return s
-}
-
-func (s *ReadinessProbe) SetPeriodSeconds(v int64) *ReadinessProbe {
-	s.PeriodSeconds = &v
-	return s
-}
-
-func (s *ReadinessProbe) SetSuccessThreshold(v int64) *ReadinessProbe {
-	s.SuccessThreshold = &v
-	return s
-}
-
-func (s *ReadinessProbe) SetTcpSocketAction(v *TcpSocketAction) *ReadinessProbe {
-	s.TcpSocketAction = v
-	return s
-}
-
-func (s *ReadinessProbe) SetTimeoutSeconds(v int64) *ReadinessProbe {
-	s.TimeoutSeconds = &v
-	return s
-}
-
-// service端口映射
-type ServicePort struct {
-	// 此端口映射名称
+// fed image pull Secret override
+type FedImagePullSecretOverride struct {
+	// override data
+	Data *RegistryAccout `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+	// cell name
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// service端口映射在k8s层面的协议名，包括"TCP", "UDP", and "SCTP".
-	Protocol *string `json:"protocol,omitempty" xml:"protocol,omitempty"`
-	// service端口映射前端端口
-	Port *int64 `json:"port,omitempty" xml:"port,omitempty" require:"true"`
-	// service分配到的节点端口
-	NodePort *int64 `json:"node_port,omitempty" xml:"node_port,omitempty"`
-	// 后端端口，这里仅支持整数类型
-	TargetPort *int64 `json:"target_port,omitempty" xml:"target_port,omitempty"`
+	// cell name override
+	NameOverride *string `json:"name_override,omitempty" xml:"name_override,omitempty" require:"true"`
 }
 
-func (s ServicePort) String() string {
+func (s FedImagePullSecretOverride) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ServicePort) GoString() string {
+func (s FedImagePullSecretOverride) GoString() string {
 	return s.String()
 }
 
-func (s *ServicePort) SetName(v string) *ServicePort {
+func (s *FedImagePullSecretOverride) SetData(v *RegistryAccout) *FedImagePullSecretOverride {
+	s.Data = v
+	return s
+}
+
+func (s *FedImagePullSecretOverride) SetName(v string) *FedImagePullSecretOverride {
 	s.Name = &v
 	return s
 }
 
-func (s *ServicePort) SetProtocol(v string) *ServicePort {
-	s.Protocol = &v
+func (s *FedImagePullSecretOverride) SetNameOverride(v string) *FedImagePullSecretOverride {
+	s.NameOverride = &v
 	return s
 }
 
-func (s *ServicePort) SetPort(v int64) *ServicePort {
-	s.Port = &v
-	return s
+// 解决方案应用发布配置
+type AppReleaseConfig struct {
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 应用镜像
+	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
+	// commitID
+	CommitId *string `json:"commit_id,omitempty" xml:"commit_id,omitempty" require:"true"`
+	// 代码分支
+	CommitBranch *string `json:"commit_branch,omitempty" xml:"commit_branch,omitempty" require:"true"`
 }
 
-func (s *ServicePort) SetNodePort(v int64) *ServicePort {
-	s.NodePort = &v
-	return s
-}
-
-func (s *ServicePort) SetTargetPort(v int64) *ServicePort {
-	s.TargetPort = &v
-	return s
-}
-
-// 容器应用服务部署
-type ContainerServiceDeployment struct {
-	// 容器服务名称。
-	ContainerServiceName *string `json:"container_service_name,omitempty" xml:"container_service_name,omitempty" require:"true"`
-	// 容器服务版本号。
-	ContainerServiceRevision *string `json:"container_service_revision,omitempty" xml:"container_service_revision,omitempty" require:"true"`
-	// 依赖的容器应用服务名称。
-	DependContainerServiceNames []*string `json:"depend_container_service_names,omitempty" xml:"depend_container_service_names,omitempty" require:"true" type:"Repeated"`
-	// 限定需要发布的部署单元
-	RestrictedCells []*string `json:"restricted_cells,omitempty" xml:"restricted_cells,omitempty" type:"Repeated"`
-	// 自定义发布批次
-	Batches []*ReleaseBatchObj `json:"batches,omitempty" xml:"batches,omitempty" type:"Repeated"`
-	// 默认ByIndex
-	UpgradePolicy *string `json:"upgrade_policy,omitempty" xml:"upgrade_policy,omitempty"`
-}
-
-func (s ContainerServiceDeployment) String() string {
+func (s AppReleaseConfig) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ContainerServiceDeployment) GoString() string {
+func (s AppReleaseConfig) GoString() string {
 	return s.String()
 }
 
-func (s *ContainerServiceDeployment) SetContainerServiceName(v string) *ContainerServiceDeployment {
-	s.ContainerServiceName = &v
+func (s *AppReleaseConfig) SetName(v string) *AppReleaseConfig {
+	s.Name = &v
 	return s
 }
 
-func (s *ContainerServiceDeployment) SetContainerServiceRevision(v string) *ContainerServiceDeployment {
-	s.ContainerServiceRevision = &v
+func (s *AppReleaseConfig) SetImage(v string) *AppReleaseConfig {
+	s.Image = &v
 	return s
 }
 
-func (s *ContainerServiceDeployment) SetDependContainerServiceNames(v []*string) *ContainerServiceDeployment {
-	s.DependContainerServiceNames = v
+func (s *AppReleaseConfig) SetCommitId(v string) *AppReleaseConfig {
+	s.CommitId = &v
 	return s
 }
 
-func (s *ContainerServiceDeployment) SetRestrictedCells(v []*string) *ContainerServiceDeployment {
-	s.RestrictedCells = v
+func (s *AppReleaseConfig) SetCommitBranch(v string) *AppReleaseConfig {
+	s.CommitBranch = &v
 	return s
 }
 
-func (s *ContainerServiceDeployment) SetBatches(v []*ReleaseBatchObj) *ContainerServiceDeployment {
-	s.Batches = v
-	return s
-}
-
-func (s *ContainerServiceDeployment) SetUpgradePolicy(v string) *ContainerServiceDeployment {
-	s.UpgradePolicy = &v
-	return s
-}
-
-// 联邦负载均衡实例对应的local lb实例信息（per cell)
-type LocalLoadBalancer struct {
-	// local lb所在部署单元
+// V1FederatedAppInstanceRevisionSpecOverridesAppinstance
+type ResourceOverride struct {
+	// 部署单元名称，ALL 代表所有部署单元
 	Cell *string `json:"cell,omitempty" xml:"cell,omitempty" require:"true"`
-	// local lb实例对应的iaas id
-	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
-	// local lb实例对应的vip
-	Vip *string `json:"vip,omitempty" xml:"vip,omitempty"`
-	// 当前cell lb的phase
-	Phase *string `json:"phase,omitempty" xml:"phase,omitempty"`
-	// 空代表无错误信息，非空时即报错信息
-	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// fed 资源路径
+	Path *string `json:"path,omitempty" xml:"path,omitempty" require:"true"`
+	// 值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 值的字段类型，支持 string、number、boolean
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 }
 
-func (s LocalLoadBalancer) String() string {
+func (s ResourceOverride) String() string {
 	return tea.Prettify(s)
 }
 
-func (s LocalLoadBalancer) GoString() string {
+func (s ResourceOverride) GoString() string {
 	return s.String()
 }
 
-func (s *LocalLoadBalancer) SetCell(v string) *LocalLoadBalancer {
+func (s *ResourceOverride) SetCell(v string) *ResourceOverride {
 	s.Cell = &v
 	return s
 }
 
-func (s *LocalLoadBalancer) SetIaasId(v string) *LocalLoadBalancer {
-	s.IaasId = &v
+func (s *ResourceOverride) SetPath(v string) *ResourceOverride {
+	s.Path = &v
 	return s
 }
 
-func (s *LocalLoadBalancer) SetVip(v string) *LocalLoadBalancer {
-	s.Vip = &v
+func (s *ResourceOverride) SetValue(v string) *ResourceOverride {
+	s.Value = &v
 	return s
 }
 
-func (s *LocalLoadBalancer) SetPhase(v string) *LocalLoadBalancer {
-	s.Phase = &v
+func (s *ResourceOverride) SetType(v string) *ResourceOverride {
+	s.Type = &v
 	return s
 }
 
-func (s *LocalLoadBalancer) SetMessage(v string) *LocalLoadBalancer {
-	s.Message = &v
-	return s
+// 应用发布任务，发布详情可操作(跳过、确认、重试等)单元
+type AppDeployTask struct {
+	// 操作code
+	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty" require:"true"`
+	// 当前任务的发布单元列表
+	AppDeployCells []*AppDeployCell `json:"app_deploy_cells,omitempty" xml:"app_deploy_cells,omitempty" require:"true" type:"Repeated"`
+	// 是否支持确认操作
+	ConfirmSupported *bool `json:"confirm_supported,omitempty" xml:"confirm_supported,omitempty" require:"true"`
+	// 上下文数据，json字符串
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 是否支持跳过操作
+	IgnoreSupported *bool `json:"ignore_supported,omitempty" xml:"ignore_supported,omitempty" require:"true"`
+	// 是否支持重试操作
+	RetrySupported *bool `json:"retry_supported,omitempty" xml:"retry_supported,omitempty" require:"true"`
+	// 当前状态
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 开始时间。
+	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 结束时间。
+	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// message detail
+	MessageDetail *string `json:"message_detail,omitempty" xml:"message_detail,omitempty"`
+	// 任务类型
+	TaskType *string `json:"task_type,omitempty" xml:"task_type,omitempty"`
+	// 任务显示名称，自定义卡点任务才会有值
+	TaskDisplayName *string `json:"task_display_name,omitempty" xml:"task_display_name,omitempty"`
 }
 
-// master cluster info
-type MasterCluster struct {
-	// master cluster name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// workspace id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
-	// workspace name
-	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty"`
-	// region id
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
-	// region name
-	RegionName *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
-	// zone id
-	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty" require:"true"`
-	// zone name
-	ZoneName *string `json:"zone_name,omitempty" xml:"zone_name,omitempty"`
-}
-
-func (s MasterCluster) String() string {
+func (s AppDeployTask) String() string {
 	return tea.Prettify(s)
 }
 
-func (s MasterCluster) GoString() string {
+func (s AppDeployTask) GoString() string {
 	return s.String()
 }
 
-func (s *MasterCluster) SetName(v string) *MasterCluster {
+func (s *AppDeployTask) SetActionCode(v string) *AppDeployTask {
+	s.ActionCode = &v
+	return s
+}
+
+func (s *AppDeployTask) SetAppDeployCells(v []*AppDeployCell) *AppDeployTask {
+	s.AppDeployCells = v
+	return s
+}
+
+func (s *AppDeployTask) SetConfirmSupported(v bool) *AppDeployTask {
+	s.ConfirmSupported = &v
+	return s
+}
+
+func (s *AppDeployTask) SetData(v string) *AppDeployTask {
+	s.Data = &v
+	return s
+}
+
+func (s *AppDeployTask) SetId(v string) *AppDeployTask {
+	s.Id = &v
+	return s
+}
+
+func (s *AppDeployTask) SetIgnoreSupported(v bool) *AppDeployTask {
+	s.IgnoreSupported = &v
+	return s
+}
+
+func (s *AppDeployTask) SetRetrySupported(v bool) *AppDeployTask {
+	s.RetrySupported = &v
+	return s
+}
+
+func (s *AppDeployTask) SetState(v string) *AppDeployTask {
+	s.State = &v
+	return s
+}
+
+func (s *AppDeployTask) SetStartedTime(v string) *AppDeployTask {
+	s.StartedTime = &v
+	return s
+}
+
+func (s *AppDeployTask) SetFinishedTime(v string) *AppDeployTask {
+	s.FinishedTime = &v
+	return s
+}
+
+func (s *AppDeployTask) SetMessageDetail(v string) *AppDeployTask {
+	s.MessageDetail = &v
+	return s
+}
+
+func (s *AppDeployTask) SetTaskType(v string) *AppDeployTask {
+	s.TaskType = &v
+	return s
+}
+
+func (s *AppDeployTask) SetTaskDisplayName(v string) *AppDeployTask {
+	s.TaskDisplayName = &v
+	return s
+}
+
+// 容器信息
+type ContainerInfo struct {
+	// 容器id
+	ContainerId *string `json:"container_id,omitempty" xml:"container_id,omitempty" require:"true"`
+	// 容器镜像
+	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
+	// 最后启动时间
+	LastStartTime *string `json:"last_start_time,omitempty" xml:"last_start_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 容器镜像
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 重启次数
+	RestartCount *int64 `json:"restart_count,omitempty" xml:"restart_count,omitempty" require:"true"`
+	// 容器运行状态
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 容器spec配置。
+	Spec *ContainerSpec `json:"spec,omitempty" xml:"spec,omitempty" require:"true"`
+}
+
+func (s ContainerInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContainerInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ContainerInfo) SetContainerId(v string) *ContainerInfo {
+	s.ContainerId = &v
+	return s
+}
+
+func (s *ContainerInfo) SetImage(v string) *ContainerInfo {
+	s.Image = &v
+	return s
+}
+
+func (s *ContainerInfo) SetLastStartTime(v string) *ContainerInfo {
+	s.LastStartTime = &v
+	return s
+}
+
+func (s *ContainerInfo) SetName(v string) *ContainerInfo {
 	s.Name = &v
 	return s
 }
 
-func (s *MasterCluster) SetWorkspaceId(v string) *MasterCluster {
-	s.WorkspaceId = &v
+func (s *ContainerInfo) SetRestartCount(v int64) *ContainerInfo {
+	s.RestartCount = &v
 	return s
 }
 
-func (s *MasterCluster) SetWorkspaceName(v string) *MasterCluster {
-	s.WorkspaceName = &v
+func (s *ContainerInfo) SetState(v string) *ContainerInfo {
+	s.State = &v
 	return s
 }
 
-func (s *MasterCluster) SetRegionId(v string) *MasterCluster {
-	s.RegionId = &v
+func (s *ContainerInfo) SetSpec(v *ContainerSpec) *ContainerInfo {
+	s.Spec = v
 	return s
 }
 
-func (s *MasterCluster) SetRegionName(v string) *MasterCluster {
-	s.RegionName = &v
+// 解决方案拓展Linke配置
+type UnireleaseSolutionExtInfoLinkeInfo struct {
+	// linke发布窗口
+	ReleaseWindow *string `json:"release_window,omitempty" xml:"release_window,omitempty" require:"true"`
+	// ["EI61640467"]
+	Iterations []*string `json:"iterations,omitempty" xml:"iterations,omitempty" require:"true" type:"Repeated"`
+	// 发布接口人列表,要求为域账号
+	Publisher []*string `json:"publisher,omitempty" xml:"publisher,omitempty" type:"Repeated"`
+	// inke发布Id
+	ReleaseId *string `json:"release_id,omitempty" xml:"release_id,omitempty"`
+}
+
+func (s UnireleaseSolutionExtInfoLinkeInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnireleaseSolutionExtInfoLinkeInfo) GoString() string {
+	return s.String()
+}
+
+func (s *UnireleaseSolutionExtInfoLinkeInfo) SetReleaseWindow(v string) *UnireleaseSolutionExtInfoLinkeInfo {
+	s.ReleaseWindow = &v
 	return s
 }
 
-func (s *MasterCluster) SetZoneId(v string) *MasterCluster {
-	s.ZoneId = &v
+func (s *UnireleaseSolutionExtInfoLinkeInfo) SetIterations(v []*string) *UnireleaseSolutionExtInfoLinkeInfo {
+	s.Iterations = v
 	return s
 }
 
-func (s *MasterCluster) SetZoneName(v string) *MasterCluster {
-	s.ZoneName = &v
+func (s *UnireleaseSolutionExtInfoLinkeInfo) SetPublisher(v []*string) *UnireleaseSolutionExtInfoLinkeInfo {
+	s.Publisher = v
+	return s
+}
+
+func (s *UnireleaseSolutionExtInfoLinkeInfo) SetReleaseId(v string) *UnireleaseSolutionExtInfoLinkeInfo {
+	s.ReleaseId = &v
+	return s
+}
+
+// 一个正在进行运维操作的计算容器。
+type OpsComputer struct {
+	// 计算容器id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 计算容器内网ip
+	InnerIp *string `json:"inner_ip,omitempty" xml:"inner_ip,omitempty"`
+	// 计算容器名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 计算容器当前运维状态。取值列表： INITED：初始化完成； EXECUTING：执行中； SUCCESS：执行成功； FAILED：执行失败； CANCELED：已取消； IGNORED：已忽略
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 计算容器上执行的任务信息。任务信息列表中包含正在执行和执行完成的任务。
+	Tasks []*OpsComputerTask `json:"tasks,omitempty" xml:"tasks,omitempty" type:"Repeated"`
+	// 展示机器失败的摘要信息
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s OpsComputer) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpsComputer) GoString() string {
+	return s.String()
+}
+
+func (s *OpsComputer) SetId(v string) *OpsComputer {
+	s.Id = &v
+	return s
+}
+
+func (s *OpsComputer) SetInnerIp(v string) *OpsComputer {
+	s.InnerIp = &v
+	return s
+}
+
+func (s *OpsComputer) SetName(v string) *OpsComputer {
+	s.Name = &v
+	return s
+}
+
+func (s *OpsComputer) SetStatus(v string) *OpsComputer {
+	s.Status = &v
+	return s
+}
+
+func (s *OpsComputer) SetTasks(v []*OpsComputerTask) *OpsComputer {
+	s.Tasks = v
+	return s
+}
+
+func (s *OpsComputer) SetResultMsg(v string) *OpsComputer {
+	s.ResultMsg = &v
+	return s
+}
+
+// 灰度发布场景下，给入口流量添加的单个判断规则
+type GrayLabelDownstreamRule struct {
+	// 判断入口流量的方式，目前支持通过header或cookie判断
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 用于判断的键
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// 判断条件，目前支持相等或者不相等
+	Condition *string `json:"condition,omitempty" xml:"condition,omitempty" require:"true"`
+	// 用于判断的值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s GrayLabelDownstreamRule) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GrayLabelDownstreamRule) GoString() string {
+	return s.String()
+}
+
+func (s *GrayLabelDownstreamRule) SetType(v string) *GrayLabelDownstreamRule {
+	s.Type = &v
+	return s
+}
+
+func (s *GrayLabelDownstreamRule) SetKey(v string) *GrayLabelDownstreamRule {
+	s.Key = &v
+	return s
+}
+
+func (s *GrayLabelDownstreamRule) SetCondition(v string) *GrayLabelDownstreamRule {
+	s.Condition = &v
+	return s
+}
+
+func (s *GrayLabelDownstreamRule) SetValue(v string) *GrayLabelDownstreamRule {
+	s.Value = &v
+	return s
+}
+
+// pod状态
+type PodStatus struct {
+	// 节点ip
+	HostIp *string `json:"host_ip,omitempty" xml:"host_ip,omitempty"`
+	// pod状态
+	Phase *string `json:"phase,omitempty" xml:"phase,omitempty" require:"true"`
+	// podip
+	PodIp *string `json:"pod_ip,omitempty" xml:"pod_ip,omitempty"`
+	// pod container status
+	ContainerStatuses []*ContainerStatus `json:"container_statuses,omitempty" xml:"container_statuses,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s PodStatus) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PodStatus) GoString() string {
+	return s.String()
+}
+
+func (s *PodStatus) SetHostIp(v string) *PodStatus {
+	s.HostIp = &v
+	return s
+}
+
+func (s *PodStatus) SetPhase(v string) *PodStatus {
+	s.Phase = &v
+	return s
+}
+
+func (s *PodStatus) SetPodIp(v string) *PodStatus {
+	s.PodIp = &v
+	return s
+}
+
+func (s *PodStatus) SetContainerStatuses(v []*ContainerStatus) *PodStatus {
+	s.ContainerStatuses = v
+	return s
+}
+
+// sidecar运维流程任务
+type SidecarOpsMachineTask struct {
+	// 分组ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 执行状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 扩展属性 - JSON string
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+	// 执行信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 任务名称
+	Target *string `json:"target,omitempty" xml:"target,omitempty"`
+	// 开始时间
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 结束时间
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 任务描述
+	TargetDesc *string `json:"target_desc,omitempty" xml:"target_desc,omitempty"`
+	// 状态描述
+	StatusDesc *string `json:"status_desc,omitempty" xml:"status_desc,omitempty"`
+}
+
+func (s SidecarOpsMachineTask) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SidecarOpsMachineTask) GoString() string {
+	return s.String()
+}
+
+func (s *SidecarOpsMachineTask) SetId(v string) *SidecarOpsMachineTask {
+	s.Id = &v
+	return s
+}
+
+func (s *SidecarOpsMachineTask) SetStatus(v string) *SidecarOpsMachineTask {
+	s.Status = &v
+	return s
+}
+
+func (s *SidecarOpsMachineTask) SetProperties(v string) *SidecarOpsMachineTask {
+	s.Properties = &v
+	return s
+}
+
+func (s *SidecarOpsMachineTask) SetMessage(v string) *SidecarOpsMachineTask {
+	s.Message = &v
+	return s
+}
+
+func (s *SidecarOpsMachineTask) SetTarget(v string) *SidecarOpsMachineTask {
+	s.Target = &v
+	return s
+}
+
+func (s *SidecarOpsMachineTask) SetStartTime(v string) *SidecarOpsMachineTask {
+	s.StartTime = &v
+	return s
+}
+
+func (s *SidecarOpsMachineTask) SetEndTime(v string) *SidecarOpsMachineTask {
+	s.EndTime = &v
+	return s
+}
+
+func (s *SidecarOpsMachineTask) SetTargetDesc(v string) *SidecarOpsMachineTask {
+	s.TargetDesc = &v
+	return s
+}
+
+func (s *SidecarOpsMachineTask) SetStatusDesc(v string) *SidecarOpsMachineTask {
+	s.StatusDesc = &v
+	return s
+}
+
+// SidecarConfig
+type SidecarConfig struct {
+	// Sidercar 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 表达是否修改feature
+	ChangeFeature *bool `json:"change_feature,omitempty" xml:"change_feature,omitempty" require:"true"`
+	// FEATURE_GATES
+	FeatureGates *string `json:"feature_gates,omitempty" xml:"feature_gates,omitempty"`
+	// 镜像地址
+	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
+	// 需要修改或自定义新增的sidecar环境变量。
+	ChangeEnvs *string `json:"change_envs,omitempty" xml:"change_envs,omitempty"`
+	// sidecar的pvc挂载配置
+	VolumeMounts []*VolumeMount `json:"volume_mounts,omitempty" xml:"volume_mounts,omitempty" type:"Repeated"`
+	// 扩展字段
+	Ext *string `json:"ext,omitempty" xml:"ext,omitempty"`
+}
+
+func (s SidecarConfig) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SidecarConfig) GoString() string {
+	return s.String()
+}
+
+func (s *SidecarConfig) SetName(v string) *SidecarConfig {
+	s.Name = &v
+	return s
+}
+
+func (s *SidecarConfig) SetChangeFeature(v bool) *SidecarConfig {
+	s.ChangeFeature = &v
+	return s
+}
+
+func (s *SidecarConfig) SetFeatureGates(v string) *SidecarConfig {
+	s.FeatureGates = &v
+	return s
+}
+
+func (s *SidecarConfig) SetImage(v string) *SidecarConfig {
+	s.Image = &v
+	return s
+}
+
+func (s *SidecarConfig) SetChangeEnvs(v string) *SidecarConfig {
+	s.ChangeEnvs = &v
+	return s
+}
+
+func (s *SidecarConfig) SetVolumeMounts(v []*VolumeMount) *SidecarConfig {
+	s.VolumeMounts = v
+	return s
+}
+
+func (s *SidecarConfig) SetExt(v string) *SidecarConfig {
+	s.Ext = &v
+	return s
+}
+
+// Workspace info
+//
+type Workspace struct {
+	// workspace id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// workspace name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+}
+
+func (s Workspace) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Workspace) GoString() string {
+	return s.String()
+}
+
+func (s *Workspace) SetId(v string) *Workspace {
+	s.Id = &v
+	return s
+}
+
+func (s *Workspace) SetName(v string) *Workspace {
+	s.Name = &v
+	return s
+}
+
+// 一组执行运维操作的应用，同一个组中的应用将并行执行操作。
+type OpsApplicationGroup struct {
+	// 此运维应用组中包含的应用列表
+	Applications []*OpsApplication `json:"applications,omitempty" xml:"applications,omitempty" type:"Repeated"`
+}
+
+func (s OpsApplicationGroup) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpsApplicationGroup) GoString() string {
+	return s.String()
+}
+
+func (s *OpsApplicationGroup) SetApplications(v []*OpsApplication) *OpsApplicationGroup {
+	s.Applications = v
+	return s
+}
+
+// 统一解决方案App信息
+type UnireleaseSolutionApp struct {
+	// 应用名称
+	App *string `json:"app,omitempty" xml:"app,omitempty" require:"true"`
+	// 应用依赖信息
+	DependsOn []*string `json:"depends_on,omitempty" xml:"depends_on,omitempty" require:"true" type:"Repeated"`
+	// 应用发布配置
+	ReleaseConfig *AppReleaseConfig `json:"release_config,omitempty" xml:"release_config,omitempty" require:"true"`
+	// 中间件配置
+	MiddlewareConfigs []*string `json:"middleware_configs,omitempty" xml:"middleware_configs,omitempty" require:"true" type:"Repeated"`
+	// 机构/租户信息
+	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
+}
+
+func (s UnireleaseSolutionApp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnireleaseSolutionApp) GoString() string {
+	return s.String()
+}
+
+func (s *UnireleaseSolutionApp) SetApp(v string) *UnireleaseSolutionApp {
+	s.App = &v
+	return s
+}
+
+func (s *UnireleaseSolutionApp) SetDependsOn(v []*string) *UnireleaseSolutionApp {
+	s.DependsOn = v
+	return s
+}
+
+func (s *UnireleaseSolutionApp) SetReleaseConfig(v *AppReleaseConfig) *UnireleaseSolutionApp {
+	s.ReleaseConfig = v
+	return s
+}
+
+func (s *UnireleaseSolutionApp) SetMiddlewareConfigs(v []*string) *UnireleaseSolutionApp {
+	s.MiddlewareConfigs = v
+	return s
+}
+
+func (s *UnireleaseSolutionApp) SetTenant(v string) *UnireleaseSolutionApp {
+	s.Tenant = &v
+	return s
+}
+
+// 应用服务示例
+type AppService struct {
+	// 应用服务实例名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 工作空间名称
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+}
+
+func (s AppService) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppService) GoString() string {
+	return s.String()
+}
+
+func (s *AppService) SetName(v string) *AppService {
+	s.Name = &v
+	return s
+}
+
+func (s *AppService) SetWorkspace(v string) *AppService {
+	s.Workspace = &v
+	return s
+}
+
+// 发布|运维分组执行进度
+type OpsGroupTaskProgress struct {
+	// 任务码
+	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty" require:"true"`
+	// 任务名称
+	ActionName *string `json:"action_name,omitempty" xml:"action_name,omitempty" require:"true"`
+	// 任务状态
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 任务开始时间
+	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 任务结束时间
+	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s OpsGroupTaskProgress) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpsGroupTaskProgress) GoString() string {
+	return s.String()
+}
+
+func (s *OpsGroupTaskProgress) SetActionCode(v string) *OpsGroupTaskProgress {
+	s.ActionCode = &v
+	return s
+}
+
+func (s *OpsGroupTaskProgress) SetActionName(v string) *OpsGroupTaskProgress {
+	s.ActionName = &v
+	return s
+}
+
+func (s *OpsGroupTaskProgress) SetState(v string) *OpsGroupTaskProgress {
+	s.State = &v
+	return s
+}
+
+func (s *OpsGroupTaskProgress) SetStartedTime(v string) *OpsGroupTaskProgress {
+	s.StartedTime = &v
+	return s
+}
+
+func (s *OpsGroupTaskProgress) SetFinishedTime(v string) *OpsGroupTaskProgress {
+	s.FinishedTime = &v
+	return s
+}
+
+// 灰度发布场景下，给进入的流量加灰度label的规则
+type GrayLabelApplyRule struct {
+	// 多个指定条件的计算方式，目前支持AND和OR
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+	// 入口流量的多个规则，将根据operator进行与、或运算
+	DownstreamRules []*GrayLabelDownstreamRule `json:"downstream_rules,omitempty" xml:"downstream_rules,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s GrayLabelApplyRule) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GrayLabelApplyRule) GoString() string {
+	return s.String()
+}
+
+func (s *GrayLabelApplyRule) SetOperator(v string) *GrayLabelApplyRule {
+	s.Operator = &v
+	return s
+}
+
+func (s *GrayLabelApplyRule) SetDownstreamRules(v []*GrayLabelDownstreamRule) *GrayLabelApplyRule {
+	s.DownstreamRules = v
+	return s
+}
+
+// FedDeployment cluster override
+type FedDeploymentClusterOverride struct {
+	// 集群名称
+	Cluster *string `json:"cluster,omitempty" xml:"cluster,omitempty" require:"true"`
+	// 集群Deployment replica数量
+	Replica *int64 `json:"replica,omitempty" xml:"replica,omitempty" require:"true"`
+	// 环境变量配置覆盖
+	EnvVarOverride []*EnvVarClusterOverride `json:"env_var_override,omitempty" xml:"env_var_override,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s FedDeploymentClusterOverride) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FedDeploymentClusterOverride) GoString() string {
+	return s.String()
+}
+
+func (s *FedDeploymentClusterOverride) SetCluster(v string) *FedDeploymentClusterOverride {
+	s.Cluster = &v
+	return s
+}
+
+func (s *FedDeploymentClusterOverride) SetReplica(v int64) *FedDeploymentClusterOverride {
+	s.Replica = &v
+	return s
+}
+
+func (s *FedDeploymentClusterOverride) SetEnvVarOverride(v []*EnvVarClusterOverride) *FedDeploymentClusterOverride {
+	s.EnvVarOverride = v
+	return s
+}
+
+// 应用信息。
+type AppInfo struct {
+	// buildpack版本。
+	BuildpackVersion *string `json:"buildpack_version,omitempty" xml:"buildpack_version,omitempty"`
+	// 应用描述。
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 应用id。
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 应用名称。
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 应用owner。
+	Owner *string `json:"owner,omitempty" xml:"owner,omitempty" require:"true"`
+	// 技术栈。
+	TechstackIdentity *string `json:"techstack_identity,omitempty" xml:"techstack_identity,omitempty" require:"true"`
+	// ownerId
+	OwnerId *string `json:"owner_id,omitempty" xml:"owner_id,omitempty"`
+}
+
+func (s AppInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AppInfo) SetBuildpackVersion(v string) *AppInfo {
+	s.BuildpackVersion = &v
+	return s
+}
+
+func (s *AppInfo) SetDescription(v string) *AppInfo {
+	s.Description = &v
+	return s
+}
+
+func (s *AppInfo) SetId(v string) *AppInfo {
+	s.Id = &v
+	return s
+}
+
+func (s *AppInfo) SetName(v string) *AppInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *AppInfo) SetOwner(v string) *AppInfo {
+	s.Owner = &v
+	return s
+}
+
+func (s *AppInfo) SetTechstackIdentity(v string) *AppInfo {
+	s.TechstackIdentity = &v
+	return s
+}
+
+func (s *AppInfo) SetOwnerId(v string) *AppInfo {
+	s.OwnerId = &v
+	return s
+}
+
+// 拓展配置
+type UnireleaseSolutionExtInfo struct {
+	// Linke配置信息
+	LinkeInfo *UnireleaseSolutionExtInfoLinkeInfo `json:"linke_info,omitempty" xml:"linke_info,omitempty" require:"true"`
+}
+
+func (s UnireleaseSolutionExtInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnireleaseSolutionExtInfo) GoString() string {
+	return s.String()
+}
+
+func (s *UnireleaseSolutionExtInfo) SetLinkeInfo(v *UnireleaseSolutionExtInfoLinkeInfo) *UnireleaseSolutionExtInfo {
+	s.LinkeInfo = v
 	return s
 }
 
@@ -5058,585 +5384,6 @@ func (s *ContainerServiceObjectMeta) SetCreatedTime(v string) *ContainerServiceO
 	return s
 }
 
-// 异构机房部署单元
-type SiteCell struct {
-	// 异构机房名
-	SiteName *string `json:"site_name,omitempty" xml:"site_name,omitempty" require:"true"`
-	// 部署单元名
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 地域
-	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
-}
-
-func (s SiteCell) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SiteCell) GoString() string {
-	return s.String()
-}
-
-func (s *SiteCell) SetSiteName(v string) *SiteCell {
-	s.SiteName = &v
-	return s
-}
-
-func (s *SiteCell) SetName(v string) *SiteCell {
-	s.Name = &v
-	return s
-}
-
-func (s *SiteCell) SetRegion(v string) *SiteCell {
-	s.Region = &v
-	return s
-}
-
-// 统一接入实例详细信息
-type UnifiedAccessInstanceLocalDetailInfo struct {
-	// 所属集群名称
-	ClusterName *string `json:"cluster_name,omitempty" xml:"cluster_name,omitempty" require:"true"`
-	// 所在可用区，即AZ信息
-	DataCenter *string `json:"data_center,omitempty" xml:"data_center,omitempty" require:"true"`
-	// local实例详细信息显示，包含错误状态信息等
-	MessageDetails *string `json:"message_details,omitempty" xml:"message_details,omitempty"`
-	// local实例状态描述：创建中、创建成功、创建失败
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// vip信息
-	Vip *string `json:"vip,omitempty" xml:"vip,omitempty" require:"true"`
-	// http entry的状态
-	HttpEntryStatus *HttpEntryStatus `json:"http_entry_status,omitempty" xml:"http_entry_status,omitempty"`
-	// https entry的状态
-	HttpsEntryStatus *HttpsEntryStatus `json:"https_entry_status,omitempty" xml:"https_entry_status,omitempty"`
-}
-
-func (s UnifiedAccessInstanceLocalDetailInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UnifiedAccessInstanceLocalDetailInfo) GoString() string {
-	return s.String()
-}
-
-func (s *UnifiedAccessInstanceLocalDetailInfo) SetClusterName(v string) *UnifiedAccessInstanceLocalDetailInfo {
-	s.ClusterName = &v
-	return s
-}
-
-func (s *UnifiedAccessInstanceLocalDetailInfo) SetDataCenter(v string) *UnifiedAccessInstanceLocalDetailInfo {
-	s.DataCenter = &v
-	return s
-}
-
-func (s *UnifiedAccessInstanceLocalDetailInfo) SetMessageDetails(v string) *UnifiedAccessInstanceLocalDetailInfo {
-	s.MessageDetails = &v
-	return s
-}
-
-func (s *UnifiedAccessInstanceLocalDetailInfo) SetStatus(v string) *UnifiedAccessInstanceLocalDetailInfo {
-	s.Status = &v
-	return s
-}
-
-func (s *UnifiedAccessInstanceLocalDetailInfo) SetVip(v string) *UnifiedAccessInstanceLocalDetailInfo {
-	s.Vip = &v
-	return s
-}
-
-func (s *UnifiedAccessInstanceLocalDetailInfo) SetHttpEntryStatus(v *HttpEntryStatus) *UnifiedAccessInstanceLocalDetailInfo {
-	s.HttpEntryStatus = v
-	return s
-}
-
-func (s *UnifiedAccessInstanceLocalDetailInfo) SetHttpsEntryStatus(v *HttpsEntryStatus) *UnifiedAccessInstanceLocalDetailInfo {
-	s.HttpsEntryStatus = v
-	return s
-}
-
-// http接入方式
-type HttpEntry struct {
-	// 端口
-	Port *int64 `json:"port,omitempty" xml:"port,omitempty" require:"true"`
-	// 是否使用websocket连接方式
-	WebsocketConnect *bool `json:"websocket_connect,omitempty" xml:"websocket_connect,omitempty" require:"true"`
-}
-
-func (s HttpEntry) String() string {
-	return tea.Prettify(s)
-}
-
-func (s HttpEntry) GoString() string {
-	return s.String()
-}
-
-func (s *HttpEntry) SetPort(v int64) *HttpEntry {
-	s.Port = &v
-	return s
-}
-
-func (s *HttpEntry) SetWebsocketConnect(v bool) *HttpEntry {
-	s.WebsocketConnect = &v
-	return s
-}
-
-// Service 状态
-type ServiceStatus struct {
-	// 负载均衡地址
-	LoadBalancerIp *string `json:"load_balancer_ip,omitempty" xml:"load_balancer_ip,omitempty"`
-}
-
-func (s ServiceStatus) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ServiceStatus) GoString() string {
-	return s.String()
-}
-
-func (s *ServiceStatus) SetLoadBalancerIp(v string) *ServiceStatus {
-	s.LoadBalancerIp = &v
-	return s
-}
-
-// 灾备信息
-type DisasterInfo struct {
-	// 同城灾备单元(组)
-	LocalFailoverTarget *string `json:"local_failover_target,omitempty" xml:"local_failover_target,omitempty" require:"true"`
-	// 异地灾备单元(组)
-	RemoteFailoverTarget *string `json:"remote_failover_target,omitempty" xml:"remote_failover_target,omitempty" require:"true"`
-	// 逻辑单元&部署单元名称
-	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
-	// 容灾类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 正常容灾状态。
-	DisasterRecoveryState *string `json:"disaster_recovery_state,omitempty" xml:"disaster_recovery_state,omitempty" require:"true"`
-	// 压测容灾状态。
-	PressDisasterRecoveryState *string `json:"press_disaster_recovery_state,omitempty" xml:"press_disaster_recovery_state,omitempty" require:"true"`
-}
-
-func (s DisasterInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DisasterInfo) GoString() string {
-	return s.String()
-}
-
-func (s *DisasterInfo) SetLocalFailoverTarget(v string) *DisasterInfo {
-	s.LocalFailoverTarget = &v
-	return s
-}
-
-func (s *DisasterInfo) SetRemoteFailoverTarget(v string) *DisasterInfo {
-	s.RemoteFailoverTarget = &v
-	return s
-}
-
-func (s *DisasterInfo) SetSource(v string) *DisasterInfo {
-	s.Source = &v
-	return s
-}
-
-func (s *DisasterInfo) SetType(v string) *DisasterInfo {
-	s.Type = &v
-	return s
-}
-
-func (s *DisasterInfo) SetDisasterRecoveryState(v string) *DisasterInfo {
-	s.DisasterRecoveryState = &v
-	return s
-}
-
-func (s *DisasterInfo) SetPressDisasterRecoveryState(v string) *DisasterInfo {
-	s.PressDisasterRecoveryState = &v
-	return s
-}
-
-// 应用服务示例
-type AppService struct {
-	// 应用服务实例名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 工作空间名称
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
-}
-
-func (s AppService) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppService) GoString() string {
-	return s.String()
-}
-
-func (s *AppService) SetName(v string) *AppService {
-	s.Name = &v
-	return s
-}
-
-func (s *AppService) SetWorkspace(v string) *AppService {
-	s.Workspace = &v
-	return s
-}
-
-// sidecar运维任务上下文
-type SidecarOperationTaskContext struct {
-	// sidecar开启特性
-	EnabledFeatures *string `json:"enabled_features,omitempty" xml:"enabled_features,omitempty"`
-	// sidecar类型
-	SidecarTypes []*string `json:"sidecar_types,omitempty" xml:"sidecar_types,omitempty" require:"true" type:"Repeated"`
-	// sidecar版本
-	SidecarVersionMap *string `json:"sidecar_version_map,omitempty" xml:"sidecar_version_map,omitempty" require:"true"`
-	// sidecar支持特性
-	SupportedFeatures *string `json:"supported_features,omitempty" xml:"supported_features,omitempty"`
-	// 变更资源列表
-	ChangeInstances []*OperationChangeInstance `json:"change_instances,omitempty" xml:"change_instances,omitempty" require:"true" type:"Repeated"`
-	// 应用名称
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
-}
-
-func (s SidecarOperationTaskContext) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SidecarOperationTaskContext) GoString() string {
-	return s.String()
-}
-
-func (s *SidecarOperationTaskContext) SetEnabledFeatures(v string) *SidecarOperationTaskContext {
-	s.EnabledFeatures = &v
-	return s
-}
-
-func (s *SidecarOperationTaskContext) SetSidecarTypes(v []*string) *SidecarOperationTaskContext {
-	s.SidecarTypes = v
-	return s
-}
-
-func (s *SidecarOperationTaskContext) SetSidecarVersionMap(v string) *SidecarOperationTaskContext {
-	s.SidecarVersionMap = &v
-	return s
-}
-
-func (s *SidecarOperationTaskContext) SetSupportedFeatures(v string) *SidecarOperationTaskContext {
-	s.SupportedFeatures = &v
-	return s
-}
-
-func (s *SidecarOperationTaskContext) SetChangeInstances(v []*OperationChangeInstance) *SidecarOperationTaskContext {
-	s.ChangeInstances = v
-	return s
-}
-
-func (s *SidecarOperationTaskContext) SetAppName(v string) *SidecarOperationTaskContext {
-	s.AppName = &v
-	return s
-}
-
-// 集群事件
-type KubernetesEvents struct {
-	// 事件发生时间
-	CreationTimestamp *string `json:"creation_timestamp,omitempty" xml:"creation_timestamp,omitempty" require:"true"`
-	// 事件数目
-	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
-	// 事件内容
-	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
-}
-
-func (s KubernetesEvents) String() string {
-	return tea.Prettify(s)
-}
-
-func (s KubernetesEvents) GoString() string {
-	return s.String()
-}
-
-func (s *KubernetesEvents) SetCreationTimestamp(v string) *KubernetesEvents {
-	s.CreationTimestamp = &v
-	return s
-}
-
-func (s *KubernetesEvents) SetCount(v int64) *KubernetesEvents {
-	s.Count = &v
-	return s
-}
-
-func (s *KubernetesEvents) SetMessage(v string) *KubernetesEvents {
-	s.Message = &v
-	return s
-}
-
-// pod信息
-type PodInfo struct {
-	// 部署单元名称
-	CellDisplayName *string `json:"cell_display_name,omitempty" xml:"cell_display_name,omitempty" require:"true"`
-	// 集群名称
-	Cluster *string `json:"cluster,omitempty" xml:"cluster,omitempty" require:"true"`
-	// pod containers info
-	Containers []*ContainerInfo `json:"containers,omitempty" xml:"containers,omitempty" require:"true" type:"Repeated"`
-	// create time
-	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" require:"true"`
-	// pod 名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 命名空间名称
-	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
-	// pod状态
-	Status *PodStatus `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// pod uid
-	Uid *string `json:"uid,omitempty" xml:"uid,omitempty" require:"true"`
-	// Pod volume信息。
-	Volumes []*Volume `json:"volumes,omitempty" xml:"volumes,omitempty" type:"Repeated"`
-}
-
-func (s PodInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PodInfo) GoString() string {
-	return s.String()
-}
-
-func (s *PodInfo) SetCellDisplayName(v string) *PodInfo {
-	s.CellDisplayName = &v
-	return s
-}
-
-func (s *PodInfo) SetCluster(v string) *PodInfo {
-	s.Cluster = &v
-	return s
-}
-
-func (s *PodInfo) SetContainers(v []*ContainerInfo) *PodInfo {
-	s.Containers = v
-	return s
-}
-
-func (s *PodInfo) SetCreatedTime(v string) *PodInfo {
-	s.CreatedTime = &v
-	return s
-}
-
-func (s *PodInfo) SetName(v string) *PodInfo {
-	s.Name = &v
-	return s
-}
-
-func (s *PodInfo) SetNamespace(v string) *PodInfo {
-	s.Namespace = &v
-	return s
-}
-
-func (s *PodInfo) SetStatus(v *PodStatus) *PodInfo {
-	s.Status = v
-	return s
-}
-
-func (s *PodInfo) SetUid(v string) *PodInfo {
-	s.Uid = &v
-	return s
-}
-
-func (s *PodInfo) SetVolumes(v []*Volume) *PodInfo {
-	s.Volumes = v
-	return s
-}
-
-// Workspace info
-//
-type Workspace struct {
-	// workspace id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// workspace name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-}
-
-func (s Workspace) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Workspace) GoString() string {
-	return s.String()
-}
-
-func (s *Workspace) SetId(v string) *Workspace {
-	s.Id = &v
-	return s
-}
-
-func (s *Workspace) SetName(v string) *Workspace {
-	s.Name = &v
-	return s
-}
-
-// 应用发布分组，一个分组一般包含前置任务(可多个)、发布任务(一个)、后置任务(可多个)
-type AppDeployGroup struct {
-	// 发布任务
-	DeployTask *AppDeployTask `json:"deploy_task,omitempty" xml:"deploy_task,omitempty" require:"true"`
-	// 后置任务列表
-	PostTasks []*AppDeployTask `json:"post_tasks,omitempty" xml:"post_tasks,omitempty" require:"true" type:"Repeated"`
-	// 前置任务列表
-	PreTasks []*AppDeployTask `json:"pre_tasks,omitempty" xml:"pre_tasks,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s AppDeployGroup) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppDeployGroup) GoString() string {
-	return s.String()
-}
-
-func (s *AppDeployGroup) SetDeployTask(v *AppDeployTask) *AppDeployGroup {
-	s.DeployTask = v
-	return s
-}
-
-func (s *AppDeployGroup) SetPostTasks(v []*AppDeployTask) *AppDeployGroup {
-	s.PostTasks = v
-	return s
-}
-
-func (s *AppDeployGroup) SetPreTasks(v []*AppDeployTask) *AppDeployGroup {
-	s.PreTasks = v
-	return s
-}
-
-// 拓展配置
-type UnireleaseSolutionExtInfo struct {
-	// Linke配置信息
-	LinkeInfo *UnireleaseSolutionExtInfoLinkeInfo `json:"linke_info,omitempty" xml:"linke_info,omitempty" require:"true"`
-}
-
-func (s UnireleaseSolutionExtInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UnireleaseSolutionExtInfo) GoString() string {
-	return s.String()
-}
-
-func (s *UnireleaseSolutionExtInfo) SetLinkeInfo(v *UnireleaseSolutionExtInfoLinkeInfo) *UnireleaseSolutionExtInfo {
-	s.LinkeInfo = v
-	return s
-}
-
-// 统一接入实例接入settings （vip, id, etc.)
-type EntrySettings struct {
-	// 是否自定义uai entry
-	Customized *bool `json:"customized,omitempty" xml:"customized,omitempty"`
-	// 统一接入实例每个datacenter的用户自定义入口负载均衡实例id列表
-	EntryIds []*MapStringToString `json:"entry_ids,omitempty" xml:"entry_ids,omitempty" type:"Repeated"`
-	// 统一接入实例每个datacenter用户自定义入口负载均衡实例的vip
-	EntryVips []*MapStringToString `json:"entry_vips,omitempty" xml:"entry_vips,omitempty" type:"Repeated"`
-}
-
-func (s EntrySettings) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EntrySettings) GoString() string {
-	return s.String()
-}
-
-func (s *EntrySettings) SetCustomized(v bool) *EntrySettings {
-	s.Customized = &v
-	return s
-}
-
-func (s *EntrySettings) SetEntryIds(v []*MapStringToString) *EntrySettings {
-	s.EntryIds = v
-	return s
-}
-
-func (s *EntrySettings) SetEntryVips(v []*MapStringToString) *EntrySettings {
-	s.EntryVips = v
-	return s
-}
-
-// FedSecret cluster override
-type FedSecretOverride struct {
-	// fed secret data override
-	Data []*SecretData `json:"data,omitempty" xml:"data,omitempty" require:"true" type:"Repeated"`
-	// cluster name
-	//
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// name cell override
-	NameOverride *string `json:"name_override,omitempty" xml:"name_override,omitempty" require:"true"`
-}
-
-func (s FedSecretOverride) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FedSecretOverride) GoString() string {
-	return s.String()
-}
-
-func (s *FedSecretOverride) SetData(v []*SecretData) *FedSecretOverride {
-	s.Data = v
-	return s
-}
-
-func (s *FedSecretOverride) SetName(v string) *FedSecretOverride {
-	s.Name = &v
-	return s
-}
-
-func (s *FedSecretOverride) SetNameOverride(v string) *FedSecretOverride {
-	s.NameOverride = &v
-	return s
-}
-
-// 运维容器服务列表
-type OpsContainerServiceGroup struct {
-	// 运维容器服务列表
-	ContainerServices []*OpsContainerService `json:"container_services,omitempty" xml:"container_services,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s OpsContainerServiceGroup) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OpsContainerServiceGroup) GoString() string {
-	return s.String()
-}
-
-func (s *OpsContainerServiceGroup) SetContainerServices(v []*OpsContainerService) *OpsContainerServiceGroup {
-	s.ContainerServices = v
-	return s
-}
-
-// 联邦负载均衡实例与应用服务之间的关联关系，以及占用端口情况。
-type FedLoadBalancerContainerServiceRel struct {
-	// 应用服务名字
-	ContainerServiceName *string `json:"container_service_name,omitempty" xml:"container_service_name,omitempty" require:"true"`
-	// 应用服务命名空间
-	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
-	// 联邦负载均衡实例当前已被占用的端口
-	OccupiedPorts []*int64 `json:"occupied_ports,omitempty" xml:"occupied_ports,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s FedLoadBalancerContainerServiceRel) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FedLoadBalancerContainerServiceRel) GoString() string {
-	return s.String()
-}
-
-func (s *FedLoadBalancerContainerServiceRel) SetContainerServiceName(v string) *FedLoadBalancerContainerServiceRel {
-	s.ContainerServiceName = &v
-	return s
-}
-
-func (s *FedLoadBalancerContainerServiceRel) SetNamespace(v string) *FedLoadBalancerContainerServiceRel {
-	s.Namespace = &v
-	return s
-}
-
-func (s *FedLoadBalancerContainerServiceRel) SetOccupiedPorts(v []*int64) *FedLoadBalancerContainerServiceRel {
-	s.OccupiedPorts = v
-	return s
-}
-
 // 容器服务配置。
 type ContainerServiceConfig struct {
 	// 容器服务业务实时监控路径。
@@ -5673,6 +5420,10 @@ type ContainerServiceConfig struct {
 	Tolerations []*Toleration `json:"tolerations,omitempty" xml:"tolerations,omitempty" type:"Repeated"`
 	// 启用的sidercar列表，只针对首次发布生效
 	Sidercars []*SidecarConfig `json:"sidercars,omitempty" xml:"sidercars,omitempty" type:"Repeated"`
+	// headless service 配置
+	HeadlessServices []*HeadlessService `json:"headless_services,omitempty" xml:"headless_services,omitempty" type:"Repeated"`
+	// 资源overrides（lks 1.24.0后开始支持）
+	ResourceOverrides []*ResourceOverride `json:"resource_overrides,omitempty" xml:"resource_overrides,omitempty" type:"Repeated"`
 }
 
 func (s ContainerServiceConfig) String() string {
@@ -5768,452 +5519,116 @@ func (s *ContainerServiceConfig) SetSidercars(v []*SidecarConfig) *ContainerServ
 	return s
 }
 
-// 容器健康检查-LivenessProbe。
-type LivenessProbe struct {
-	// 命令行方式的健康监测配置。
-	ExecAction *ExecAction `json:"exec_action,omitempty" xml:"exec_action,omitempty"`
-	// 不健康阈值。
-	FailureThreshold *int64 `json:"failure_threshold,omitempty" xml:"failure_threshold,omitempty" require:"true"`
-	// http方式的健康监测配置。
-	HttpGetAction *HttpGetAction `json:"http_get_action,omitempty" xml:"http_get_action,omitempty"`
-	// 首次检查延时。
-	InitialDelaySeconds *int64 `json:"initial_delay_seconds,omitempty" xml:"initial_delay_seconds,omitempty" require:"true"`
-	// 检查间隔。
-	PeriodSeconds *int64 `json:"period_seconds,omitempty" xml:"period_seconds,omitempty" require:"true"`
-	// 健康阈值。
-	//
-	SuccessThreshold *int64 `json:"success_threshold,omitempty" xml:"success_threshold,omitempty" require:"true"`
-	// tcp方式的健康监测配置。
-	TcpSocketAction *TcpSocketAction `json:"tcp_socket_action,omitempty" xml:"tcp_socket_action,omitempty"`
-	// 检查超时。
-	TimeoutSeconds *int64 `json:"timeout_seconds,omitempty" xml:"timeout_seconds,omitempty" require:"true"`
-}
-
-func (s LivenessProbe) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LivenessProbe) GoString() string {
-	return s.String()
-}
-
-func (s *LivenessProbe) SetExecAction(v *ExecAction) *LivenessProbe {
-	s.ExecAction = v
+func (s *ContainerServiceConfig) SetHeadlessServices(v []*HeadlessService) *ContainerServiceConfig {
+	s.HeadlessServices = v
 	return s
 }
 
-func (s *LivenessProbe) SetFailureThreshold(v int64) *LivenessProbe {
-	s.FailureThreshold = &v
+func (s *ContainerServiceConfig) SetResourceOverrides(v []*ResourceOverride) *ContainerServiceConfig {
+	s.ResourceOverrides = v
 	return s
 }
 
-func (s *LivenessProbe) SetHttpGetAction(v *HttpGetAction) *LivenessProbe {
-	s.HttpGetAction = v
-	return s
-}
-
-func (s *LivenessProbe) SetInitialDelaySeconds(v int64) *LivenessProbe {
-	s.InitialDelaySeconds = &v
-	return s
-}
-
-func (s *LivenessProbe) SetPeriodSeconds(v int64) *LivenessProbe {
-	s.PeriodSeconds = &v
-	return s
-}
-
-func (s *LivenessProbe) SetSuccessThreshold(v int64) *LivenessProbe {
-	s.SuccessThreshold = &v
-	return s
-}
-
-func (s *LivenessProbe) SetTcpSocketAction(v *TcpSocketAction) *LivenessProbe {
-	s.TcpSocketAction = v
-	return s
-}
-
-func (s *LivenessProbe) SetTimeoutSeconds(v int64) *LivenessProbe {
-	s.TimeoutSeconds = &v
-	return s
-}
-
-// https连接
-type HttpsEntry struct {
-	// 端口
-	Port *int64 `json:"port,omitempty" xml:"port,omitempty" require:"true"`
-	// 是否使用websocket连接方式
-	WebsocketConnect *bool `json:"websocket_connect,omitempty" xml:"websocket_connect,omitempty" require:"true"`
-	// CA证书ID
-	CaCertificateId *string `json:"ca_certificate_id,omitempty" xml:"ca_certificate_id,omitempty" require:"true"`
-}
-
-func (s HttpsEntry) String() string {
-	return tea.Prettify(s)
-}
-
-func (s HttpsEntry) GoString() string {
-	return s.String()
-}
-
-func (s *HttpsEntry) SetPort(v int64) *HttpsEntry {
-	s.Port = &v
-	return s
-}
-
-func (s *HttpsEntry) SetWebsocketConnect(v bool) *HttpsEntry {
-	s.WebsocketConnect = &v
-	return s
-}
-
-func (s *HttpsEntry) SetCaCertificateId(v string) *HttpsEntry {
-	s.CaCertificateId = &v
-	return s
-}
-
-// k8s v1Deployment
-type Deployment struct {
-	// Standard object metadata.
-	//
-	Metadata *ObjectMeta `json:"metadata,omitempty" xml:"metadata,omitempty" require:"true"`
-	// Specification of the desired behavior of the Deployment.
-	//
-	Spec *DeploymentSpec `json:"spec,omitempty" xml:"spec,omitempty" require:"true"`
-	// Most recently observed status of the Deployment.
-	//
-	Status *DeploymentStatus `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-}
-
-func (s Deployment) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Deployment) GoString() string {
-	return s.String()
-}
-
-func (s *Deployment) SetMetadata(v *ObjectMeta) *Deployment {
-	s.Metadata = v
-	return s
-}
-
-func (s *Deployment) SetSpec(v *DeploymentSpec) *Deployment {
-	s.Spec = v
-	return s
-}
-
-func (s *Deployment) SetStatus(v *DeploymentStatus) *Deployment {
-	s.Status = v
-	return s
-}
-
-// 一组执行运维操作的应用，同一个组中的应用将并行执行操作。
-type OpsApplicationGroup struct {
-	// 此运维应用组中包含的应用列表
-	Applications []*OpsApplication `json:"applications,omitempty" xml:"applications,omitempty" type:"Repeated"`
-}
-
-func (s OpsApplicationGroup) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OpsApplicationGroup) GoString() string {
-	return s.String()
-}
-
-func (s *OpsApplicationGroup) SetApplications(v []*OpsApplication) *OpsApplicationGroup {
-	s.Applications = v
-	return s
-}
-
-// cluster overview info
-type ClusterOverviewInfo struct {
-	// available cpu core
-	AvailableCPU *int64 `json:"available_c_p_u,omitempty" xml:"available_c_p_u,omitempty"`
-	// available disk
-	AvailableDisk *int64 `json:"available_disk,omitempty" xml:"available_disk,omitempty"`
-	// available memory
-	AvailableMemory *int64 `json:"available_memory,omitempty" xml:"available_memory,omitempty"`
-	// available Node Number
-	AvailableNodeNumber *int64 `json:"available_node_number,omitempty" xml:"available_node_number,omitempty"`
-	// total cpu core number
-	TotalCPU *int64 `json:"total_c_p_u,omitempty" xml:"total_c_p_u,omitempty"`
-	// total disk
-	TotalDisk *int64 `json:"total_disk,omitempty" xml:"total_disk,omitempty"`
-	// total memory
-	TotalMemory *int64 `json:"total_memory,omitempty" xml:"total_memory,omitempty"`
-	// total node number
-	TotalNodeNumber *int64 `json:"total_node_number,omitempty" xml:"total_node_number,omitempty"`
-}
-
-func (s ClusterOverviewInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ClusterOverviewInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ClusterOverviewInfo) SetAvailableCPU(v int64) *ClusterOverviewInfo {
-	s.AvailableCPU = &v
-	return s
-}
-
-func (s *ClusterOverviewInfo) SetAvailableDisk(v int64) *ClusterOverviewInfo {
-	s.AvailableDisk = &v
-	return s
-}
-
-func (s *ClusterOverviewInfo) SetAvailableMemory(v int64) *ClusterOverviewInfo {
-	s.AvailableMemory = &v
-	return s
-}
-
-func (s *ClusterOverviewInfo) SetAvailableNodeNumber(v int64) *ClusterOverviewInfo {
-	s.AvailableNodeNumber = &v
-	return s
-}
-
-func (s *ClusterOverviewInfo) SetTotalCPU(v int64) *ClusterOverviewInfo {
-	s.TotalCPU = &v
-	return s
-}
-
-func (s *ClusterOverviewInfo) SetTotalDisk(v int64) *ClusterOverviewInfo {
-	s.TotalDisk = &v
-	return s
-}
-
-func (s *ClusterOverviewInfo) SetTotalMemory(v int64) *ClusterOverviewInfo {
-	s.TotalMemory = &v
-	return s
-}
-
-func (s *ClusterOverviewInfo) SetTotalNodeNumber(v int64) *ClusterOverviewInfo {
-	s.TotalNodeNumber = &v
-	return s
-}
-
-// fed k8s resource cluster state map
-type ClusterState struct {
-	// 集群名称
-	ClusterName *string `json:"cluster_name,omitempty" xml:"cluster_name,omitempty" require:"true"`
-	// k8s resource state
-	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
-}
-
-func (s ClusterState) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ClusterState) GoString() string {
-	return s.String()
-}
-
-func (s *ClusterState) SetClusterName(v string) *ClusterState {
-	s.ClusterName = &v
-	return s
-}
-
-func (s *ClusterState) SetState(v string) *ClusterState {
-	s.State = &v
-	return s
-}
-
-// 统一解决方案App信息
-type UnireleaseSolutionApp struct {
-	// 应用名称
-	App *string `json:"app,omitempty" xml:"app,omitempty" require:"true"`
-	// 应用依赖信息
-	DependsOn []*string `json:"depends_on,omitempty" xml:"depends_on,omitempty" require:"true" type:"Repeated"`
-	// 应用发布配置
-	ReleaseConfig *AppReleaseConfig `json:"release_config,omitempty" xml:"release_config,omitempty" require:"true"`
-	// 中间件配置
-	MiddlewareConfig []*string `json:"middleware_config,omitempty" xml:"middleware_config,omitempty" require:"true" type:"Repeated"`
-	// 机构/租户信息
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
-}
-
-func (s UnireleaseSolutionApp) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UnireleaseSolutionApp) GoString() string {
-	return s.String()
-}
-
-func (s *UnireleaseSolutionApp) SetApp(v string) *UnireleaseSolutionApp {
-	s.App = &v
-	return s
-}
-
-func (s *UnireleaseSolutionApp) SetDependsOn(v []*string) *UnireleaseSolutionApp {
-	s.DependsOn = v
-	return s
-}
-
-func (s *UnireleaseSolutionApp) SetReleaseConfig(v *AppReleaseConfig) *UnireleaseSolutionApp {
-	s.ReleaseConfig = v
-	return s
-}
-
-func (s *UnireleaseSolutionApp) SetMiddlewareConfig(v []*string) *UnireleaseSolutionApp {
-	s.MiddlewareConfig = v
-	return s
-}
-
-func (s *UnireleaseSolutionApp) SetTenant(v string) *UnireleaseSolutionApp {
-	s.Tenant = &v
-	return s
-}
-
-// fed image pull secret list
-type FedImagePullSecretOverrideList struct {
-	// fed image pull secret overrides
-	List []*FedImagePullSecretOverride `json:"list,omitempty" xml:"list,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s FedImagePullSecretOverrideList) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FedImagePullSecretOverrideList) GoString() string {
-	return s.String()
-}
-
-func (s *FedImagePullSecretOverrideList) SetList(v []*FedImagePullSecretOverride) *FedImagePullSecretOverrideList {
-	s.List = v
-	return s
-}
-
-// zone info
-type ZoneInfo struct {
-	// zone identity
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// zone name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 所属region信息。
-	Region *string `json:"region,omitempty" xml:"region,omitempty"`
-	// zone display name
+// 部署单元
+type Cell struct {
+	// 所属逻辑单元名称[单元化模式特有]。
+	CellGroup *string `json:"cell_group,omitempty" xml:"cell_group,omitempty"`
+	// 蓝绿着色信息[单元化模式特有]。
+	Color *string `json:"color,omitempty" xml:"color,omitempty"`
+	// 创建时间。
+	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 部署单元标识，创建之后不允许修改。
+	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
+	// 是否灰度[单元化模式特有]。
+	IsGray *bool `json:"is_gray,omitempty" xml:"is_gray,omitempty"`
+	// 部署单元名称，主要用作页面展示。
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 压测权重
+	PressWeight *int64 `json:"press_weight,omitempty" xml:"press_weight,omitempty"`
+	// 部署单元类型[单元化模式特有]。
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 默认权重[单元化模式特有]。
+	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
+	// 所属工作空间名称。
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
+	// 所属机房信息。
+	Zone *string `json:"zone,omitempty" xml:"zone,omitempty" require:"true"`
+	// cell名称，与name一样，为了兼容已有代码
 	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
+	// 所属cluster
+	Cluster *string `json:"cluster,omitempty" xml:"cluster,omitempty"`
 }
 
-func (s ZoneInfo) String() string {
+func (s Cell) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ZoneInfo) GoString() string {
+func (s Cell) GoString() string {
 	return s.String()
 }
 
-func (s *ZoneInfo) SetId(v string) *ZoneInfo {
-	s.Id = &v
+func (s *Cell) SetCellGroup(v string) *Cell {
+	s.CellGroup = &v
 	return s
 }
 
-func (s *ZoneInfo) SetName(v string) *ZoneInfo {
+func (s *Cell) SetColor(v string) *Cell {
+	s.Color = &v
+	return s
+}
+
+func (s *Cell) SetCreatedTime(v string) *Cell {
+	s.CreatedTime = &v
+	return s
+}
+
+func (s *Cell) SetIdentity(v string) *Cell {
+	s.Identity = &v
+	return s
+}
+
+func (s *Cell) SetIsGray(v bool) *Cell {
+	s.IsGray = &v
+	return s
+}
+
+func (s *Cell) SetName(v string) *Cell {
 	s.Name = &v
 	return s
 }
 
-func (s *ZoneInfo) SetRegion(v string) *ZoneInfo {
-	s.Region = &v
+func (s *Cell) SetPressWeight(v int64) *Cell {
+	s.PressWeight = &v
 	return s
 }
 
-func (s *ZoneInfo) SetDisplayName(v string) *ZoneInfo {
+func (s *Cell) SetType(v string) *Cell {
+	s.Type = &v
+	return s
+}
+
+func (s *Cell) SetWeight(v int64) *Cell {
+	s.Weight = &v
+	return s
+}
+
+func (s *Cell) SetWorkspace(v string) *Cell {
+	s.Workspace = &v
+	return s
+}
+
+func (s *Cell) SetZone(v string) *Cell {
+	s.Zone = &v
+	return s
+}
+
+func (s *Cell) SetDisplayName(v string) *Cell {
 	s.DisplayName = &v
 	return s
 }
 
-// Federated Deployment Status
-type FederatedDeploymentStatus struct {
-	// Federated Deployment Conditions
-	Conditions []*DeploymentCondition `json:"conditions,omitempty" xml:"conditions,omitempty" require:"true" type:"Repeated"`
-	// V1FederatedDeploymentStatus Topologies
-	Topologies []*FederatedDeploymentStatusTopologies `json:"topologies,omitempty" xml:"topologies,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s FederatedDeploymentStatus) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FederatedDeploymentStatus) GoString() string {
-	return s.String()
-}
-
-func (s *FederatedDeploymentStatus) SetConditions(v []*DeploymentCondition) *FederatedDeploymentStatus {
-	s.Conditions = v
-	return s
-}
-
-func (s *FederatedDeploymentStatus) SetTopologies(v []*FederatedDeploymentStatusTopologies) *FederatedDeploymentStatus {
-	s.Topologies = v
-	return s
-}
-
-// UID 分片范围
-type UidRange struct {
-	// UID 起始值
-	Start *int64 `json:"start,omitempty" xml:"start,omitempty" require:"true"`
-	// UID 终止值
-	End *int64 `json:"end,omitempty" xml:"end,omitempty" require:"true"`
-	// 弹性
-	Elastic *bool `json:"elastic,omitempty" xml:"elastic,omitempty"`
-}
-
-func (s UidRange) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UidRange) GoString() string {
-	return s.String()
-}
-
-func (s *UidRange) SetStart(v int64) *UidRange {
-	s.Start = &v
-	return s
-}
-
-func (s *UidRange) SetEnd(v int64) *UidRange {
-	s.End = &v
-	return s
-}
-
-func (s *UidRange) SetElastic(v bool) *UidRange {
-	s.Elastic = &v
-	return s
-}
-
-// FedDeployment cluster override
-type FedDeploymentClusterOverride struct {
-	// 集群名称
-	Cluster *string `json:"cluster,omitempty" xml:"cluster,omitempty" require:"true"`
-	// 集群Deployment replica数量
-	Replica *int64 `json:"replica,omitempty" xml:"replica,omitempty" require:"true"`
-	// 环境变量配置覆盖
-	EnvVarOverride []*EnvVarClusterOverride `json:"env_var_override,omitempty" xml:"env_var_override,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s FedDeploymentClusterOverride) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FedDeploymentClusterOverride) GoString() string {
-	return s.String()
-}
-
-func (s *FedDeploymentClusterOverride) SetCluster(v string) *FedDeploymentClusterOverride {
+func (s *Cell) SetCluster(v string) *Cell {
 	s.Cluster = &v
-	return s
-}
-
-func (s *FedDeploymentClusterOverride) SetReplica(v int64) *FedDeploymentClusterOverride {
-	s.Replica = &v
-	return s
-}
-
-func (s *FedDeploymentClusterOverride) SetEnvVarOverride(v []*EnvVarClusterOverride) *FedDeploymentClusterOverride {
-	s.EnvVarOverride = v
 	return s
 }
 
@@ -6225,6 +5640,8 @@ type ClusteCellStatus struct {
 	Cell *string `json:"cell,omitempty" xml:"cell,omitempty" require:"true"`
 	// Cell资源状态
 	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 详细说明或错误信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
 }
 
 func (s ClusteCellStatus) String() string {
@@ -6250,449 +5667,48 @@ func (s *ClusteCellStatus) SetStatus(v string) *ClusteCellStatus {
 	return s
 }
 
-// 部署单元对应的流量规则
-type CellFlow struct {
-	// 部署单元名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 蓝绿着色。
-	// BLUE：蓝
-	// GREEN：绿
-	// 非着色单元为 null
-	Color *string `json:"color,omitempty" xml:"color,omitempty"`
-	// 部署单元所占单元组的流量比。
-	Percent *int64 `json:"percent,omitempty" xml:"percent,omitempty" require:"true" maximum:"100" minimum:"0"`
-}
-
-func (s CellFlow) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CellFlow) GoString() string {
-	return s.String()
-}
-
-func (s *CellFlow) SetName(v string) *CellFlow {
-	s.Name = &v
-	return s
-}
-
-func (s *CellFlow) SetColor(v string) *CellFlow {
-	s.Color = &v
-	return s
-}
-
-func (s *CellFlow) SetPercent(v int64) *CellFlow {
-	s.Percent = &v
-	return s
-}
-
-// 容器服务发布信息
-type ContainerServiceReleaseInfo struct {
-	// 发布单id
-	CreatedPlanId *string `json:"created_plan_id,omitempty" xml:"created_plan_id,omitempty"`
-	// 发布开始时间
-	LatestDeploymentStartTime *string `json:"latest_deployment_start_time,omitempty" xml:"latest_deployment_start_time,omitempty"`
-	// 发布完成时间
-	LatestDeploymentEndTime *string `json:"latest_deployment_end_time,omitempty" xml:"latest_deployment_end_time,omitempty"`
-}
-
-func (s ContainerServiceReleaseInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContainerServiceReleaseInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ContainerServiceReleaseInfo) SetCreatedPlanId(v string) *ContainerServiceReleaseInfo {
-	s.CreatedPlanId = &v
-	return s
-}
-
-func (s *ContainerServiceReleaseInfo) SetLatestDeploymentStartTime(v string) *ContainerServiceReleaseInfo {
-	s.LatestDeploymentStartTime = &v
-	return s
-}
-
-func (s *ContainerServiceReleaseInfo) SetLatestDeploymentEndTime(v string) *ContainerServiceReleaseInfo {
-	s.LatestDeploymentEndTime = &v
-	return s
-}
-
-// 发布单|应用执行进度，按状态区分
-type AppDeployPodStateSummary struct {
-	// 执行对象ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 执行对象状态
-	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
-	// 总计
-	Total *int64 `json:"total,omitempty" xml:"total,omitempty" require:"true"`
-	// 执行中个数
-	Executing *int64 `json:"executing,omitempty" xml:"executing,omitempty" require:"true"`
-	// 成功数
-	Succeeded *int64 `json:"succeeded,omitempty" xml:"succeeded,omitempty" require:"true"`
-	// 等待个数
-	Waiting *int64 `json:"waiting,omitempty" xml:"waiting,omitempty" require:"true"`
-	// 失败个数
-	Failed *int64 `json:"failed,omitempty" xml:"failed,omitempty" require:"true"`
-	// 初始化个数
-	//
-	Inited *int64 `json:"inited,omitempty" xml:"inited,omitempty" require:"true"`
-	// 阻塞个数
-	Blocked *int64 `json:"blocked,omitempty" xml:"blocked,omitempty" require:"true"`
-}
-
-func (s AppDeployPodStateSummary) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppDeployPodStateSummary) GoString() string {
-	return s.String()
-}
-
-func (s *AppDeployPodStateSummary) SetId(v string) *AppDeployPodStateSummary {
-	s.Id = &v
-	return s
-}
-
-func (s *AppDeployPodStateSummary) SetState(v string) *AppDeployPodStateSummary {
-	s.State = &v
-	return s
-}
-
-func (s *AppDeployPodStateSummary) SetTotal(v int64) *AppDeployPodStateSummary {
-	s.Total = &v
-	return s
-}
-
-func (s *AppDeployPodStateSummary) SetExecuting(v int64) *AppDeployPodStateSummary {
-	s.Executing = &v
-	return s
-}
-
-func (s *AppDeployPodStateSummary) SetSucceeded(v int64) *AppDeployPodStateSummary {
-	s.Succeeded = &v
-	return s
-}
-
-func (s *AppDeployPodStateSummary) SetWaiting(v int64) *AppDeployPodStateSummary {
-	s.Waiting = &v
-	return s
-}
-
-func (s *AppDeployPodStateSummary) SetFailed(v int64) *AppDeployPodStateSummary {
-	s.Failed = &v
-	return s
-}
-
-func (s *AppDeployPodStateSummary) SetInited(v int64) *AppDeployPodStateSummary {
-	s.Inited = &v
-	return s
-}
-
-func (s *AppDeployPodStateSummary) SetBlocked(v int64) *AppDeployPodStateSummary {
-	s.Blocked = &v
-	return s
-}
-
-// spanner集群单元信息
-type SpannerClusterUnitInfo struct {
-	// 单元IP地址
-	Address *string `json:"address,omitempty" xml:"address,omitempty" require:"true"`
-	// 所属集群id
-	ClusterId *string `json:"cluster_id,omitempty" xml:"cluster_id,omitempty" require:"true"`
-	// 容器id
-	ContainerId *string `json:"container_id,omitempty" xml:"container_id,omitempty" require:"true"`
-	// 创建时间
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true"`
-	// 修改时间
-	GmtModify *string `json:"gmt_modify,omitempty" xml:"gmt_modify,omitempty" require:"true"`
-	// 集群单元状态 ： 1-下线状态 2- 上线状态 3-删除状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 扩展信息，json字符串格式
-	ExtendProperties *string `json:"extend_properties,omitempty" xml:"extend_properties,omitempty"`
-}
-
-func (s SpannerClusterUnitInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SpannerClusterUnitInfo) GoString() string {
-	return s.String()
-}
-
-func (s *SpannerClusterUnitInfo) SetAddress(v string) *SpannerClusterUnitInfo {
-	s.Address = &v
-	return s
-}
-
-func (s *SpannerClusterUnitInfo) SetClusterId(v string) *SpannerClusterUnitInfo {
-	s.ClusterId = &v
-	return s
-}
-
-func (s *SpannerClusterUnitInfo) SetContainerId(v string) *SpannerClusterUnitInfo {
-	s.ContainerId = &v
-	return s
-}
-
-func (s *SpannerClusterUnitInfo) SetGmtCreate(v string) *SpannerClusterUnitInfo {
-	s.GmtCreate = &v
-	return s
-}
-
-func (s *SpannerClusterUnitInfo) SetGmtModify(v string) *SpannerClusterUnitInfo {
-	s.GmtModify = &v
-	return s
-}
-
-func (s *SpannerClusterUnitInfo) SetStatus(v int64) *SpannerClusterUnitInfo {
-	s.Status = &v
-	return s
-}
-
-func (s *SpannerClusterUnitInfo) SetExtendProperties(v string) *SpannerClusterUnitInfo {
-	s.ExtendProperties = &v
-	return s
-}
-
-// sidecar运维对象 - 机器（computer|pod）
-type SidecarOpsMachine struct {
-	// 机器运维流程ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 运维机器名称
-	Target *string `json:"target,omitempty" xml:"target,omitempty" require:"true"`
-	// 执行状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 执行状态描述
-	StatusDesc *string `json:"status_desc,omitempty" xml:"status_desc,omitempty"`
-	// 扩展属性
-	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
-	// 执行消息日志
-	Message *string `json:"message,omitempty" xml:"message,omitempty"`
-	// 机器sidecar运维任务列表
-	SubTargets []*SidecarOpsMachineTask `json:"sub_targets,omitempty" xml:"sub_targets,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s SidecarOpsMachine) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SidecarOpsMachine) GoString() string {
-	return s.String()
-}
-
-func (s *SidecarOpsMachine) SetId(v string) *SidecarOpsMachine {
-	s.Id = &v
-	return s
-}
-
-func (s *SidecarOpsMachine) SetTarget(v string) *SidecarOpsMachine {
-	s.Target = &v
-	return s
-}
-
-func (s *SidecarOpsMachine) SetStatus(v string) *SidecarOpsMachine {
-	s.Status = &v
-	return s
-}
-
-func (s *SidecarOpsMachine) SetStatusDesc(v string) *SidecarOpsMachine {
-	s.StatusDesc = &v
-	return s
-}
-
-func (s *SidecarOpsMachine) SetProperties(v string) *SidecarOpsMachine {
-	s.Properties = &v
-	return s
-}
-
-func (s *SidecarOpsMachine) SetMessage(v string) *SidecarOpsMachine {
+func (s *ClusteCellStatus) SetMessage(v string) *ClusteCellStatus {
 	s.Message = &v
 	return s
 }
 
-func (s *SidecarOpsMachine) SetSubTargets(v []*SidecarOpsMachineTask) *SidecarOpsMachine {
-	s.SubTargets = v
-	return s
+// 一个运维操作单元。
+type OpsUnit struct {
+	// 单元所属部署区
+	Cell *string `json:"cell,omitempty" xml:"cell,omitempty"`
+	// 包含在此单元中进行运维操作的计算容器列表
+	Computers []*OpsComputer `json:"computers,omitempty" xml:"computers,omitempty" type:"Repeated"`
+	// 单元所属地域
+	Region *string `json:"region,omitempty" xml:"region,omitempty"`
+	// 单元所属可用区
+	Zone *string `json:"zone,omitempty" xml:"zone,omitempty"`
 }
 
-// 部署参数
-type OpsParam struct {
-	// 部署参数键值
-	Key *string `json:"key,omitempty" xml:"key,omitempty"`
-	// 部署参数值
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
-}
-
-func (s OpsParam) String() string {
+func (s OpsUnit) String() string {
 	return tea.Prettify(s)
 }
 
-func (s OpsParam) GoString() string {
+func (s OpsUnit) GoString() string {
 	return s.String()
 }
 
-func (s *OpsParam) SetKey(v string) *OpsParam {
-	s.Key = &v
+func (s *OpsUnit) SetCell(v string) *OpsUnit {
+	s.Cell = &v
 	return s
 }
 
-func (s *OpsParam) SetValue(v string) *OpsParam {
-	s.Value = &v
+func (s *OpsUnit) SetComputers(v []*OpsComputer) *OpsUnit {
+	s.Computers = v
 	return s
 }
 
-// 统一接入实例关联的应用服务信息
-type UnifiedAccessInstanceContainerServiceInfo struct {
-	// 应用服务名称
-	ContainerServiceName *string `json:"container_service_name,omitempty" xml:"container_service_name,omitempty" require:"true"`
-	// 命名空间
-	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
-}
-
-func (s UnifiedAccessInstanceContainerServiceInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UnifiedAccessInstanceContainerServiceInfo) GoString() string {
-	return s.String()
-}
-
-func (s *UnifiedAccessInstanceContainerServiceInfo) SetContainerServiceName(v string) *UnifiedAccessInstanceContainerServiceInfo {
-	s.ContainerServiceName = &v
+func (s *OpsUnit) SetRegion(v string) *OpsUnit {
+	s.Region = &v
 	return s
 }
 
-func (s *UnifiedAccessInstanceContainerServiceInfo) SetNamespace(v string) *UnifiedAccessInstanceContainerServiceInfo {
-	s.Namespace = &v
-	return s
-}
-
-// fed configmap override struct
-type FedConfigmapOverride struct {
-	// fed configmap data override
-	Data []*ConfigMapData `json:"data,omitempty" xml:"data,omitempty" require:"true" type:"Repeated"`
-	// cluster name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// name cell  override
-	NameOverride *string `json:"name_override,omitempty" xml:"name_override,omitempty" require:"true"`
-}
-
-func (s FedConfigmapOverride) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FedConfigmapOverride) GoString() string {
-	return s.String()
-}
-
-func (s *FedConfigmapOverride) SetData(v []*ConfigMapData) *FedConfigmapOverride {
-	s.Data = v
-	return s
-}
-
-func (s *FedConfigmapOverride) SetName(v string) *FedConfigmapOverride {
-	s.Name = &v
-	return s
-}
-
-func (s *FedConfigmapOverride) SetNameOverride(v string) *FedConfigmapOverride {
-	s.NameOverride = &v
-	return s
-}
-
-// 应用分组概要信息
-type AppGroupSimpleView struct {
-	// 应用id列表
-	AppIdList []*string `json:"app_id_list,omitempty" xml:"app_id_list,omitempty" require:"true" type:"Repeated"`
-	// 服务分组id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 状态
-	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
-}
-
-func (s AppGroupSimpleView) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppGroupSimpleView) GoString() string {
-	return s.String()
-}
-
-func (s *AppGroupSimpleView) SetAppIdList(v []*string) *AppGroupSimpleView {
-	s.AppIdList = v
-	return s
-}
-
-func (s *AppGroupSimpleView) SetId(v string) *AppGroupSimpleView {
-	s.Id = &v
-	return s
-}
-
-func (s *AppGroupSimpleView) SetState(v string) *AppGroupSimpleView {
-	s.State = &v
-	return s
-}
-
-// 本地 spanner cluster 详细信息
-type LocalSpannerClusterDetail struct {
-	// 可用区
-	Az *string `json:"az,omitempty" xml:"az,omitempty" require:"true"`
-	// 本地集群名称
-	ClusterName *string `json:"cluster_name,omitempty" xml:"cluster_name,omitempty" require:"true"`
-	// 可能存在的错误信息
-	Message *string `json:"message,omitempty" xml:"message,omitempty"`
-	// 集群状态
-	Phase *string `json:"phase,omitempty" xml:"phase,omitempty"`
-	// spanner cluster 集群id
-	SpannerClusterId *string `json:"spanner_cluster_id,omitempty" xml:"spanner_cluster_id,omitempty"`
-	// 描述spanner cluster健康状态
-	State *string `json:"state,omitempty" xml:"state,omitempty"`
-	// 若干组容器信息
-	SubClustersDetails []*LocalSubClusterDetail `json:"sub_clusters_details,omitempty" xml:"sub_clusters_details,omitempty" type:"Repeated"`
-}
-
-func (s LocalSpannerClusterDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LocalSpannerClusterDetail) GoString() string {
-	return s.String()
-}
-
-func (s *LocalSpannerClusterDetail) SetAz(v string) *LocalSpannerClusterDetail {
-	s.Az = &v
-	return s
-}
-
-func (s *LocalSpannerClusterDetail) SetClusterName(v string) *LocalSpannerClusterDetail {
-	s.ClusterName = &v
-	return s
-}
-
-func (s *LocalSpannerClusterDetail) SetMessage(v string) *LocalSpannerClusterDetail {
-	s.Message = &v
-	return s
-}
-
-func (s *LocalSpannerClusterDetail) SetPhase(v string) *LocalSpannerClusterDetail {
-	s.Phase = &v
-	return s
-}
-
-func (s *LocalSpannerClusterDetail) SetSpannerClusterId(v string) *LocalSpannerClusterDetail {
-	s.SpannerClusterId = &v
-	return s
-}
-
-func (s *LocalSpannerClusterDetail) SetState(v string) *LocalSpannerClusterDetail {
-	s.State = &v
-	return s
-}
-
-func (s *LocalSpannerClusterDetail) SetSubClustersDetails(v []*LocalSubClusterDetail) *LocalSpannerClusterDetail {
-	s.SubClustersDetails = v
+func (s *OpsUnit) SetZone(v string) *OpsUnit {
+	s.Zone = &v
 	return s
 }
 
@@ -6822,280 +5838,297 @@ func (s *QuerySpannerClusterDetail) SetExpectClusterState(v string) *QuerySpanne
 	return s
 }
 
-// 部署单元
-type Cell struct {
-	// 所属逻辑单元名称[单元化模式特有]。
-	CellGroup *string `json:"cell_group,omitempty" xml:"cell_group,omitempty"`
-	// 蓝绿着色信息[单元化模式特有]。
-	Color *string `json:"color,omitempty" xml:"color,omitempty"`
-	// 创建时间。
-	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 部署单元标识，创建之后不允许修改。
-	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
-	// 是否灰度[单元化模式特有]。
-	IsGray *bool `json:"is_gray,omitempty" xml:"is_gray,omitempty"`
-	// 部署单元名称，主要用作页面展示。
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 压测权重
-	PressWeight *int64 `json:"press_weight,omitempty" xml:"press_weight,omitempty"`
-	// 部署单元类型[单元化模式特有]。
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// 默认权重[单元化模式特有]。
-	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
-	// 所属工作空间名称。
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
-	// 所属机房信息。
-	Zone *string `json:"zone,omitempty" xml:"zone,omitempty" require:"true"`
-	// cell名称，与name一样，为了兼容已有代码
-	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
-	// 所属cluster
-	Cluster *string `json:"cluster,omitempty" xml:"cluster,omitempty"`
+// 容器健康检查-ReadinessProbe。
+type ReadinessProbe struct {
+	// 命令行方式的健康监测配置。
+	ExecAction *ExecAction `json:"exec_action,omitempty" xml:"exec_action,omitempty"`
+	// 不健康阈值。
+	FailureThreshold *int64 `json:"failure_threshold,omitempty" xml:"failure_threshold,omitempty" require:"true"`
+	// http方式的健康监测配置。
+	HttpGetAction *HttpGetAction `json:"http_get_action,omitempty" xml:"http_get_action,omitempty"`
+	// 首次检查延时。
+	InitialDelaySeconds *int64 `json:"initial_delay_seconds,omitempty" xml:"initial_delay_seconds,omitempty" require:"true"`
+	// 不健康阈值。
+	PeriodSeconds *int64 `json:"period_seconds,omitempty" xml:"period_seconds,omitempty" require:"true"`
+	// 健康阈值。
+	SuccessThreshold *int64 `json:"success_threshold,omitempty" xml:"success_threshold,omitempty" require:"true"`
+	// tcp方式的健康监测配置。
+	TcpSocketAction *TcpSocketAction `json:"tcp_socket_action,omitempty" xml:"tcp_socket_action,omitempty"`
+	// 检查超时。
+	TimeoutSeconds *int64 `json:"timeout_seconds,omitempty" xml:"timeout_seconds,omitempty" require:"true"`
 }
 
-func (s Cell) String() string {
+func (s ReadinessProbe) String() string {
 	return tea.Prettify(s)
 }
 
-func (s Cell) GoString() string {
+func (s ReadinessProbe) GoString() string {
 	return s.String()
 }
 
-func (s *Cell) SetCellGroup(v string) *Cell {
-	s.CellGroup = &v
+func (s *ReadinessProbe) SetExecAction(v *ExecAction) *ReadinessProbe {
+	s.ExecAction = v
 	return s
 }
 
-func (s *Cell) SetColor(v string) *Cell {
-	s.Color = &v
+func (s *ReadinessProbe) SetFailureThreshold(v int64) *ReadinessProbe {
+	s.FailureThreshold = &v
 	return s
 }
 
-func (s *Cell) SetCreatedTime(v string) *Cell {
-	s.CreatedTime = &v
+func (s *ReadinessProbe) SetHttpGetAction(v *HttpGetAction) *ReadinessProbe {
+	s.HttpGetAction = v
 	return s
 }
 
-func (s *Cell) SetIdentity(v string) *Cell {
-	s.Identity = &v
+func (s *ReadinessProbe) SetInitialDelaySeconds(v int64) *ReadinessProbe {
+	s.InitialDelaySeconds = &v
 	return s
 }
 
-func (s *Cell) SetIsGray(v bool) *Cell {
-	s.IsGray = &v
+func (s *ReadinessProbe) SetPeriodSeconds(v int64) *ReadinessProbe {
+	s.PeriodSeconds = &v
 	return s
 }
 
-func (s *Cell) SetName(v string) *Cell {
+func (s *ReadinessProbe) SetSuccessThreshold(v int64) *ReadinessProbe {
+	s.SuccessThreshold = &v
+	return s
+}
+
+func (s *ReadinessProbe) SetTcpSocketAction(v *TcpSocketAction) *ReadinessProbe {
+	s.TcpSocketAction = v
+	return s
+}
+
+func (s *ReadinessProbe) SetTimeoutSeconds(v int64) *ReadinessProbe {
+	s.TimeoutSeconds = &v
+	return s
+}
+
+// 运维容器服务列表
+type OpsContainerServiceGroup struct {
+	// 运维容器服务列表
+	ContainerServices []*OpsContainerService `json:"container_services,omitempty" xml:"container_services,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s OpsContainerServiceGroup) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpsContainerServiceGroup) GoString() string {
+	return s.String()
+}
+
+func (s *OpsContainerServiceGroup) SetContainerServices(v []*OpsContainerService) *OpsContainerServiceGroup {
+	s.ContainerServices = v
+	return s
+}
+
+// fed image pull secret list
+type FedImagePullSecretOverrideList struct {
+	// fed image pull secret overrides
+	List []*FedImagePullSecretOverride `json:"list,omitempty" xml:"list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s FedImagePullSecretOverrideList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FedImagePullSecretOverrideList) GoString() string {
+	return s.String()
+}
+
+func (s *FedImagePullSecretOverrideList) SetList(v []*FedImagePullSecretOverride) *FedImagePullSecretOverrideList {
+	s.List = v
+	return s
+}
+
+// 异构机房部署单元
+type SiteCell struct {
+	// 异构机房名
+	SiteName *string `json:"site_name,omitempty" xml:"site_name,omitempty" require:"true"`
+	// 部署单元名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 地域
+	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
+}
+
+func (s SiteCell) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SiteCell) GoString() string {
+	return s.String()
+}
+
+func (s *SiteCell) SetSiteName(v string) *SiteCell {
+	s.SiteName = &v
+	return s
+}
+
+func (s *SiteCell) SetName(v string) *SiteCell {
 	s.Name = &v
 	return s
 }
 
-func (s *Cell) SetPressWeight(v int64) *Cell {
-	s.PressWeight = &v
-	return s
-}
-
-func (s *Cell) SetType(v string) *Cell {
-	s.Type = &v
-	return s
-}
-
-func (s *Cell) SetWeight(v int64) *Cell {
-	s.Weight = &v
-	return s
-}
-
-func (s *Cell) SetWorkspace(v string) *Cell {
-	s.Workspace = &v
-	return s
-}
-
-func (s *Cell) SetZone(v string) *Cell {
-	s.Zone = &v
-	return s
-}
-
-func (s *Cell) SetDisplayName(v string) *Cell {
-	s.DisplayName = &v
-	return s
-}
-
-func (s *Cell) SetCluster(v string) *Cell {
-	s.Cluster = &v
-	return s
-}
-
-// 发布|运维分组执行进度
-type OpsGroupTaskProgress struct {
-	// 任务码
-	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty" require:"true"`
-	// 任务名称
-	ActionName *string `json:"action_name,omitempty" xml:"action_name,omitempty" require:"true"`
-	// 任务状态
-	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
-	// 任务开始时间
-	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 任务结束时间
-	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s OpsGroupTaskProgress) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OpsGroupTaskProgress) GoString() string {
-	return s.String()
-}
-
-func (s *OpsGroupTaskProgress) SetActionCode(v string) *OpsGroupTaskProgress {
-	s.ActionCode = &v
-	return s
-}
-
-func (s *OpsGroupTaskProgress) SetActionName(v string) *OpsGroupTaskProgress {
-	s.ActionName = &v
-	return s
-}
-
-func (s *OpsGroupTaskProgress) SetState(v string) *OpsGroupTaskProgress {
-	s.State = &v
-	return s
-}
-
-func (s *OpsGroupTaskProgress) SetStartedTime(v string) *OpsGroupTaskProgress {
-	s.StartedTime = &v
-	return s
-}
-
-func (s *OpsGroupTaskProgress) SetFinishedTime(v string) *OpsGroupTaskProgress {
-	s.FinishedTime = &v
-	return s
-}
-
-// UID 分片
-type UidShard struct {
-	// UID 起始值
-	MinUid *int64 `json:"min_uid,omitempty" xml:"min_uid,omitempty" require:"true"`
-	// UID 终止值
-	MaxUid *int64 `json:"max_uid,omitempty" xml:"max_uid,omitempty" require:"true"`
-}
-
-func (s UidShard) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UidShard) GoString() string {
-	return s.String()
-}
-
-func (s *UidShard) SetMinUid(v int64) *UidShard {
-	s.MinUid = &v
-	return s
-}
-
-func (s *UidShard) SetMaxUid(v int64) *UidShard {
-	s.MaxUid = &v
-	return s
-}
-
-// 应用信息。
-type AppInfo struct {
-	// buildpack版本。
-	BuildpackVersion *string `json:"buildpack_version,omitempty" xml:"buildpack_version,omitempty"`
-	// 应用描述。
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 应用id。
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 应用名称。
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 应用owner。
-	Owner *string `json:"owner,omitempty" xml:"owner,omitempty" require:"true"`
-	// 技术栈。
-	TechstackIdentity *string `json:"techstack_identity,omitempty" xml:"techstack_identity,omitempty" require:"true"`
-	// ownerId
-	OwnerId *string `json:"owner_id,omitempty" xml:"owner_id,omitempty"`
-}
-
-func (s AppInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppInfo) GoString() string {
-	return s.String()
-}
-
-func (s *AppInfo) SetBuildpackVersion(v string) *AppInfo {
-	s.BuildpackVersion = &v
-	return s
-}
-
-func (s *AppInfo) SetDescription(v string) *AppInfo {
-	s.Description = &v
-	return s
-}
-
-func (s *AppInfo) SetId(v string) *AppInfo {
-	s.Id = &v
-	return s
-}
-
-func (s *AppInfo) SetName(v string) *AppInfo {
-	s.Name = &v
-	return s
-}
-
-func (s *AppInfo) SetOwner(v string) *AppInfo {
-	s.Owner = &v
-	return s
-}
-
-func (s *AppInfo) SetTechstackIdentity(v string) *AppInfo {
-	s.TechstackIdentity = &v
-	return s
-}
-
-func (s *AppInfo) SetOwnerId(v string) *AppInfo {
-	s.OwnerId = &v
-	return s
-}
-
-// 一个运维操作单元。
-type OpsUnit struct {
-	// 单元所属部署区
-	Cell *string `json:"cell,omitempty" xml:"cell,omitempty"`
-	// 包含在此单元中进行运维操作的计算容器列表
-	Computers []*OpsComputer `json:"computers,omitempty" xml:"computers,omitempty" type:"Repeated"`
-	// 单元所属地域
-	Region *string `json:"region,omitempty" xml:"region,omitempty"`
-	// 单元所属可用区
-	Zone *string `json:"zone,omitempty" xml:"zone,omitempty"`
-}
-
-func (s OpsUnit) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OpsUnit) GoString() string {
-	return s.String()
-}
-
-func (s *OpsUnit) SetCell(v string) *OpsUnit {
-	s.Cell = &v
-	return s
-}
-
-func (s *OpsUnit) SetComputers(v []*OpsComputer) *OpsUnit {
-	s.Computers = v
-	return s
-}
-
-func (s *OpsUnit) SetRegion(v string) *OpsUnit {
+func (s *SiteCell) SetRegion(v string) *SiteCell {
 	s.Region = &v
 	return s
 }
 
-func (s *OpsUnit) SetZone(v string) *OpsUnit {
-	s.Zone = &v
+// pod信息
+type PodInfo struct {
+	// 部署单元名称
+	CellDisplayName *string `json:"cell_display_name,omitempty" xml:"cell_display_name,omitempty" require:"true"`
+	// 集群名称
+	Cluster *string `json:"cluster,omitempty" xml:"cluster,omitempty" require:"true"`
+	// pod containers info
+	Containers []*ContainerInfo `json:"containers,omitempty" xml:"containers,omitempty" require:"true" type:"Repeated"`
+	// create time
+	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" require:"true"`
+	// pod 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 命名空间名称
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
+	// pod状态
+	Status *PodStatus `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// pod uid
+	Uid *string `json:"uid,omitempty" xml:"uid,omitempty" require:"true"`
+	// Pod volume信息。
+	Volumes []*Volume `json:"volumes,omitempty" xml:"volumes,omitempty" type:"Repeated"`
+}
+
+func (s PodInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PodInfo) GoString() string {
+	return s.String()
+}
+
+func (s *PodInfo) SetCellDisplayName(v string) *PodInfo {
+	s.CellDisplayName = &v
+	return s
+}
+
+func (s *PodInfo) SetCluster(v string) *PodInfo {
+	s.Cluster = &v
+	return s
+}
+
+func (s *PodInfo) SetContainers(v []*ContainerInfo) *PodInfo {
+	s.Containers = v
+	return s
+}
+
+func (s *PodInfo) SetCreatedTime(v string) *PodInfo {
+	s.CreatedTime = &v
+	return s
+}
+
+func (s *PodInfo) SetName(v string) *PodInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *PodInfo) SetNamespace(v string) *PodInfo {
+	s.Namespace = &v
+	return s
+}
+
+func (s *PodInfo) SetStatus(v *PodStatus) *PodInfo {
+	s.Status = v
+	return s
+}
+
+func (s *PodInfo) SetUid(v string) *PodInfo {
+	s.Uid = &v
+	return s
+}
+
+func (s *PodInfo) SetVolumes(v []*Volume) *PodInfo {
+	s.Volumes = v
+	return s
+}
+
+// 联邦负载均衡实例对应的local lb实例信息（per cell)
+type LocalLoadBalancer struct {
+	// local lb所在部署单元
+	Cell *string `json:"cell,omitempty" xml:"cell,omitempty" require:"true"`
+	// local lb实例对应的iaas id
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	// local lb实例对应的vip
+	Vip *string `json:"vip,omitempty" xml:"vip,omitempty"`
+	// 当前cell lb的phase
+	Phase *string `json:"phase,omitempty" xml:"phase,omitempty"`
+	// 空代表无错误信息，非空时即报错信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s LocalLoadBalancer) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LocalLoadBalancer) GoString() string {
+	return s.String()
+}
+
+func (s *LocalLoadBalancer) SetCell(v string) *LocalLoadBalancer {
+	s.Cell = &v
+	return s
+}
+
+func (s *LocalLoadBalancer) SetIaasId(v string) *LocalLoadBalancer {
+	s.IaasId = &v
+	return s
+}
+
+func (s *LocalLoadBalancer) SetVip(v string) *LocalLoadBalancer {
+	s.Vip = &v
+	return s
+}
+
+func (s *LocalLoadBalancer) SetPhase(v string) *LocalLoadBalancer {
+	s.Phase = &v
+	return s
+}
+
+func (s *LocalLoadBalancer) SetMessage(v string) *LocalLoadBalancer {
+	s.Message = &v
+	return s
+}
+
+// UID 分片范围
+type UidRange struct {
+	// UID 起始值
+	Start *int64 `json:"start,omitempty" xml:"start,omitempty" require:"true"`
+	// UID 终止值
+	End *int64 `json:"end,omitempty" xml:"end,omitempty" require:"true"`
+	// 弹性
+	Elastic *bool `json:"elastic,omitempty" xml:"elastic,omitempty"`
+}
+
+func (s UidRange) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UidRange) GoString() string {
+	return s.String()
+}
+
+func (s *UidRange) SetStart(v int64) *UidRange {
+	s.Start = &v
+	return s
+}
+
+func (s *UidRange) SetEnd(v int64) *UidRange {
+	s.End = &v
+	return s
+}
+
+func (s *UidRange) SetElastic(v bool) *UidRange {
+	s.Elastic = &v
 	return s
 }
 
@@ -7111,6 +6144,10 @@ type ContainerServiceOperation struct {
 	Batches []*ReleaseBatchObj `json:"batches,omitempty" xml:"batches,omitempty" type:"Repeated"`
 	// 缩放副本数量，扩缩容时使用
 	ScaleReplicas []*ReplicaCount `json:"scale_replicas,omitempty" xml:"scale_replicas,omitempty" type:"Repeated"`
+	// 应用服务当前版本
+	ContainerServiceRevision *string `json:"container_service_revision,omitempty" xml:"container_service_revision,omitempty"`
+	// [huanyu场景使用]，灰度平台pods分批序列化为json的结果
+	GraycoreBatches *string `json:"graycore_batches,omitempty" xml:"graycore_batches,omitempty"`
 }
 
 func (s ContainerServiceOperation) String() string {
@@ -7143,6 +6180,1206 @@ func (s *ContainerServiceOperation) SetBatches(v []*ReleaseBatchObj) *ContainerS
 
 func (s *ContainerServiceOperation) SetScaleReplicas(v []*ReplicaCount) *ContainerServiceOperation {
 	s.ScaleReplicas = v
+	return s
+}
+
+func (s *ContainerServiceOperation) SetContainerServiceRevision(v string) *ContainerServiceOperation {
+	s.ContainerServiceRevision = &v
+	return s
+}
+
+func (s *ContainerServiceOperation) SetGraycoreBatches(v string) *ContainerServiceOperation {
+	s.GraycoreBatches = &v
+	return s
+}
+
+// 联邦负载均衡实例与应用服务之间的关联关系，以及占用端口情况。
+type FedLoadBalancerContainerServiceRel struct {
+	// 应用服务名字
+	ContainerServiceName *string `json:"container_service_name,omitempty" xml:"container_service_name,omitempty" require:"true"`
+	// 应用服务命名空间
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
+	// 联邦负载均衡实例当前已被占用的端口
+	OccupiedPorts []*int64 `json:"occupied_ports,omitempty" xml:"occupied_ports,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s FedLoadBalancerContainerServiceRel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FedLoadBalancerContainerServiceRel) GoString() string {
+	return s.String()
+}
+
+func (s *FedLoadBalancerContainerServiceRel) SetContainerServiceName(v string) *FedLoadBalancerContainerServiceRel {
+	s.ContainerServiceName = &v
+	return s
+}
+
+func (s *FedLoadBalancerContainerServiceRel) SetNamespace(v string) *FedLoadBalancerContainerServiceRel {
+	s.Namespace = &v
+	return s
+}
+
+func (s *FedLoadBalancerContainerServiceRel) SetOccupiedPorts(v []*int64) *FedLoadBalancerContainerServiceRel {
+	s.OccupiedPorts = v
+	return s
+}
+
+// 应用分组概要信息
+type AppGroupSimpleView struct {
+	// 应用id列表
+	AppIdList []*string `json:"app_id_list,omitempty" xml:"app_id_list,omitempty" require:"true" type:"Repeated"`
+	// 服务分组id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 状态
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+}
+
+func (s AppGroupSimpleView) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppGroupSimpleView) GoString() string {
+	return s.String()
+}
+
+func (s *AppGroupSimpleView) SetAppIdList(v []*string) *AppGroupSimpleView {
+	s.AppIdList = v
+	return s
+}
+
+func (s *AppGroupSimpleView) SetId(v string) *AppGroupSimpleView {
+	s.Id = &v
+	return s
+}
+
+func (s *AppGroupSimpleView) SetState(v string) *AppGroupSimpleView {
+	s.State = &v
+	return s
+}
+
+// cluster overview info
+type ClusterOverviewInfo struct {
+	// available cpu core
+	AvailableCPU *int64 `json:"available_c_p_u,omitempty" xml:"available_c_p_u,omitempty"`
+	// available disk
+	AvailableDisk *int64 `json:"available_disk,omitempty" xml:"available_disk,omitempty"`
+	// available memory
+	AvailableMemory *int64 `json:"available_memory,omitempty" xml:"available_memory,omitempty"`
+	// available Node Number
+	AvailableNodeNumber *int64 `json:"available_node_number,omitempty" xml:"available_node_number,omitempty"`
+	// total cpu core number
+	TotalCPU *int64 `json:"total_c_p_u,omitempty" xml:"total_c_p_u,omitempty"`
+	// total disk
+	TotalDisk *int64 `json:"total_disk,omitempty" xml:"total_disk,omitempty"`
+	// total memory
+	TotalMemory *int64 `json:"total_memory,omitempty" xml:"total_memory,omitempty"`
+	// total node number
+	TotalNodeNumber *int64 `json:"total_node_number,omitempty" xml:"total_node_number,omitempty"`
+}
+
+func (s ClusterOverviewInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ClusterOverviewInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ClusterOverviewInfo) SetAvailableCPU(v int64) *ClusterOverviewInfo {
+	s.AvailableCPU = &v
+	return s
+}
+
+func (s *ClusterOverviewInfo) SetAvailableDisk(v int64) *ClusterOverviewInfo {
+	s.AvailableDisk = &v
+	return s
+}
+
+func (s *ClusterOverviewInfo) SetAvailableMemory(v int64) *ClusterOverviewInfo {
+	s.AvailableMemory = &v
+	return s
+}
+
+func (s *ClusterOverviewInfo) SetAvailableNodeNumber(v int64) *ClusterOverviewInfo {
+	s.AvailableNodeNumber = &v
+	return s
+}
+
+func (s *ClusterOverviewInfo) SetTotalCPU(v int64) *ClusterOverviewInfo {
+	s.TotalCPU = &v
+	return s
+}
+
+func (s *ClusterOverviewInfo) SetTotalDisk(v int64) *ClusterOverviewInfo {
+	s.TotalDisk = &v
+	return s
+}
+
+func (s *ClusterOverviewInfo) SetTotalMemory(v int64) *ClusterOverviewInfo {
+	s.TotalMemory = &v
+	return s
+}
+
+func (s *ClusterOverviewInfo) SetTotalNodeNumber(v int64) *ClusterOverviewInfo {
+	s.TotalNodeNumber = &v
+	return s
+}
+
+// 发布单|应用执行进度，按状态区分
+type AppDeployPodStateSummary struct {
+	// 执行对象ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 执行对象状态
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 总计
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty" require:"true"`
+	// 执行中个数
+	Executing *int64 `json:"executing,omitempty" xml:"executing,omitempty" require:"true"`
+	// 成功数
+	Succeeded *int64 `json:"succeeded,omitempty" xml:"succeeded,omitempty" require:"true"`
+	// 等待个数
+	Waiting *int64 `json:"waiting,omitempty" xml:"waiting,omitempty" require:"true"`
+	// 失败个数
+	Failed *int64 `json:"failed,omitempty" xml:"failed,omitempty" require:"true"`
+	// 初始化个数
+	//
+	Inited *int64 `json:"inited,omitempty" xml:"inited,omitempty" require:"true"`
+	// 阻塞个数
+	Blocked *int64 `json:"blocked,omitempty" xml:"blocked,omitempty" require:"true"`
+}
+
+func (s AppDeployPodStateSummary) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppDeployPodStateSummary) GoString() string {
+	return s.String()
+}
+
+func (s *AppDeployPodStateSummary) SetId(v string) *AppDeployPodStateSummary {
+	s.Id = &v
+	return s
+}
+
+func (s *AppDeployPodStateSummary) SetState(v string) *AppDeployPodStateSummary {
+	s.State = &v
+	return s
+}
+
+func (s *AppDeployPodStateSummary) SetTotal(v int64) *AppDeployPodStateSummary {
+	s.Total = &v
+	return s
+}
+
+func (s *AppDeployPodStateSummary) SetExecuting(v int64) *AppDeployPodStateSummary {
+	s.Executing = &v
+	return s
+}
+
+func (s *AppDeployPodStateSummary) SetSucceeded(v int64) *AppDeployPodStateSummary {
+	s.Succeeded = &v
+	return s
+}
+
+func (s *AppDeployPodStateSummary) SetWaiting(v int64) *AppDeployPodStateSummary {
+	s.Waiting = &v
+	return s
+}
+
+func (s *AppDeployPodStateSummary) SetFailed(v int64) *AppDeployPodStateSummary {
+	s.Failed = &v
+	return s
+}
+
+func (s *AppDeployPodStateSummary) SetInited(v int64) *AppDeployPodStateSummary {
+	s.Inited = &v
+	return s
+}
+
+func (s *AppDeployPodStateSummary) SetBlocked(v int64) *AppDeployPodStateSummary {
+	s.Blocked = &v
+	return s
+}
+
+// 具体sidecar的服务配置，包含sidecar名称，版本，feature，image，env，releaseVersion等
+type SidecarReleaseInfo struct {
+	// sidecar类型名称
+	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
+	// sidecar的发布版本
+	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty" require:"true"`
+	// mosn对应打开的feature-gates配置。
+	FeatureGates *string `json:"feature_gates,omitempty" xml:"feature_gates,omitempty"`
+	// 所用的image
+	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
+	// 应用基线当前所用的自定义env
+	ChangeEnvs *string `json:"change_envs,omitempty" xml:"change_envs,omitempty"`
+	// sidecar的发布版本号
+	ReleaseVersion *string `json:"release_version,omitempty" xml:"release_version,omitempty" require:"true"`
+	//  上一次的发布版本号
+	LastReleaseVersion *string `json:"last_release_version,omitempty" xml:"last_release_version,omitempty"`
+}
+
+func (s SidecarReleaseInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SidecarReleaseInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SidecarReleaseInfo) SetSidecarName(v string) *SidecarReleaseInfo {
+	s.SidecarName = &v
+	return s
+}
+
+func (s *SidecarReleaseInfo) SetSidecarVersion(v string) *SidecarReleaseInfo {
+	s.SidecarVersion = &v
+	return s
+}
+
+func (s *SidecarReleaseInfo) SetFeatureGates(v string) *SidecarReleaseInfo {
+	s.FeatureGates = &v
+	return s
+}
+
+func (s *SidecarReleaseInfo) SetImage(v string) *SidecarReleaseInfo {
+	s.Image = &v
+	return s
+}
+
+func (s *SidecarReleaseInfo) SetChangeEnvs(v string) *SidecarReleaseInfo {
+	s.ChangeEnvs = &v
+	return s
+}
+
+func (s *SidecarReleaseInfo) SetReleaseVersion(v string) *SidecarReleaseInfo {
+	s.ReleaseVersion = &v
+	return s
+}
+
+func (s *SidecarReleaseInfo) SetLastReleaseVersion(v string) *SidecarReleaseInfo {
+	s.LastReleaseVersion = &v
+	return s
+}
+
+// 容器应用服务部署
+type ContainerServiceDeployment struct {
+	// 容器服务名称。
+	ContainerServiceName *string `json:"container_service_name,omitempty" xml:"container_service_name,omitempty" require:"true"`
+	// 容器服务版本号。
+	ContainerServiceRevision *string `json:"container_service_revision,omitempty" xml:"container_service_revision,omitempty" require:"true"`
+	// 依赖的容器应用服务名称。
+	DependContainerServiceNames []*string `json:"depend_container_service_names,omitempty" xml:"depend_container_service_names,omitempty" require:"true" type:"Repeated"`
+	// 限定需要发布的部署单元
+	RestrictedCells []*string `json:"restricted_cells,omitempty" xml:"restricted_cells,omitempty" type:"Repeated"`
+	// 自定义发布批次
+	Batches []*ReleaseBatchObj `json:"batches,omitempty" xml:"batches,omitempty" type:"Repeated"`
+	// 默认ByIndex
+	UpgradePolicy *string `json:"upgrade_policy,omitempty" xml:"upgrade_policy,omitempty"`
+	// 发布模板名称
+	DeploymentTemplateName *string `json:"deployment_template_name,omitempty" xml:"deployment_template_name,omitempty"`
+}
+
+func (s ContainerServiceDeployment) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContainerServiceDeployment) GoString() string {
+	return s.String()
+}
+
+func (s *ContainerServiceDeployment) SetContainerServiceName(v string) *ContainerServiceDeployment {
+	s.ContainerServiceName = &v
+	return s
+}
+
+func (s *ContainerServiceDeployment) SetContainerServiceRevision(v string) *ContainerServiceDeployment {
+	s.ContainerServiceRevision = &v
+	return s
+}
+
+func (s *ContainerServiceDeployment) SetDependContainerServiceNames(v []*string) *ContainerServiceDeployment {
+	s.DependContainerServiceNames = v
+	return s
+}
+
+func (s *ContainerServiceDeployment) SetRestrictedCells(v []*string) *ContainerServiceDeployment {
+	s.RestrictedCells = v
+	return s
+}
+
+func (s *ContainerServiceDeployment) SetBatches(v []*ReleaseBatchObj) *ContainerServiceDeployment {
+	s.Batches = v
+	return s
+}
+
+func (s *ContainerServiceDeployment) SetUpgradePolicy(v string) *ContainerServiceDeployment {
+	s.UpgradePolicy = &v
+	return s
+}
+
+func (s *ContainerServiceDeployment) SetDeploymentTemplateName(v string) *ContainerServiceDeployment {
+	s.DeploymentTemplateName = &v
+	return s
+}
+
+// master cluster info
+type MasterCluster struct {
+	// master cluster name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// workspace id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// workspace name
+	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty"`
+	// region id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
+	// region name
+	RegionName *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
+	// zone id
+	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty" require:"true"`
+	// zone name
+	ZoneName *string `json:"zone_name,omitempty" xml:"zone_name,omitempty"`
+}
+
+func (s MasterCluster) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MasterCluster) GoString() string {
+	return s.String()
+}
+
+func (s *MasterCluster) SetName(v string) *MasterCluster {
+	s.Name = &v
+	return s
+}
+
+func (s *MasterCluster) SetWorkspaceId(v string) *MasterCluster {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *MasterCluster) SetWorkspaceName(v string) *MasterCluster {
+	s.WorkspaceName = &v
+	return s
+}
+
+func (s *MasterCluster) SetRegionId(v string) *MasterCluster {
+	s.RegionId = &v
+	return s
+}
+
+func (s *MasterCluster) SetRegionName(v string) *MasterCluster {
+	s.RegionName = &v
+	return s
+}
+
+func (s *MasterCluster) SetZoneId(v string) *MasterCluster {
+	s.ZoneId = &v
+	return s
+}
+
+func (s *MasterCluster) SetZoneName(v string) *MasterCluster {
+	s.ZoneName = &v
+	return s
+}
+
+// FedSecret cluster override
+type FedSecretOverride struct {
+	// fed secret data override
+	Data []*SecretData `json:"data,omitempty" xml:"data,omitempty" require:"true" type:"Repeated"`
+	// cluster name
+	//
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// name cell override
+	NameOverride *string `json:"name_override,omitempty" xml:"name_override,omitempty" require:"true"`
+}
+
+func (s FedSecretOverride) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FedSecretOverride) GoString() string {
+	return s.String()
+}
+
+func (s *FedSecretOverride) SetData(v []*SecretData) *FedSecretOverride {
+	s.Data = v
+	return s
+}
+
+func (s *FedSecretOverride) SetName(v string) *FedSecretOverride {
+	s.Name = &v
+	return s
+}
+
+func (s *FedSecretOverride) SetNameOverride(v string) *FedSecretOverride {
+	s.NameOverride = &v
+	return s
+}
+
+// 统一接入实例接入settings （vip, id, etc.)
+type EntrySettings struct {
+	// 是否自定义uai entry
+	Customized *bool `json:"customized,omitempty" xml:"customized,omitempty"`
+	// 统一接入实例每个datacenter的用户自定义入口负载均衡实例id列表
+	EntryIds []*MapStringToString `json:"entry_ids,omitempty" xml:"entry_ids,omitempty" type:"Repeated"`
+	// 统一接入实例每个datacenter用户自定义入口负载均衡实例的vip
+	EntryVips []*MapStringToString `json:"entry_vips,omitempty" xml:"entry_vips,omitempty" type:"Repeated"`
+}
+
+func (s EntrySettings) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EntrySettings) GoString() string {
+	return s.String()
+}
+
+func (s *EntrySettings) SetCustomized(v bool) *EntrySettings {
+	s.Customized = &v
+	return s
+}
+
+func (s *EntrySettings) SetEntryIds(v []*MapStringToString) *EntrySettings {
+	s.EntryIds = v
+	return s
+}
+
+func (s *EntrySettings) SetEntryVips(v []*MapStringToString) *EntrySettings {
+	s.EntryVips = v
+	return s
+}
+
+// 部署参数
+type OpsParam struct {
+	// 部署参数键值
+	Key *string `json:"key,omitempty" xml:"key,omitempty"`
+	// 部署参数值
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+}
+
+func (s OpsParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpsParam) GoString() string {
+	return s.String()
+}
+
+func (s *OpsParam) SetKey(v string) *OpsParam {
+	s.Key = &v
+	return s
+}
+
+func (s *OpsParam) SetValue(v string) *OpsParam {
+	s.Value = &v
+	return s
+}
+
+// 统一接入实例详细信息
+type UnifiedAccessInstanceLocalDetailInfo struct {
+	// 所属集群名称
+	ClusterName *string `json:"cluster_name,omitempty" xml:"cluster_name,omitempty" require:"true"`
+	// 所在可用区，即AZ信息
+	DataCenter *string `json:"data_center,omitempty" xml:"data_center,omitempty" require:"true"`
+	// local实例详细信息显示，包含错误状态信息等
+	MessageDetails *string `json:"message_details,omitempty" xml:"message_details,omitempty"`
+	// local实例状态描述：创建中、创建成功、创建失败
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// vip信息
+	Vip *string `json:"vip,omitempty" xml:"vip,omitempty" require:"true"`
+	// http entry的状态
+	HttpEntryStatus *HttpEntryStatus `json:"http_entry_status,omitempty" xml:"http_entry_status,omitempty"`
+	// https entry的状态
+	HttpsEntryStatus *HttpsEntryStatus `json:"https_entry_status,omitempty" xml:"https_entry_status,omitempty"`
+}
+
+func (s UnifiedAccessInstanceLocalDetailInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnifiedAccessInstanceLocalDetailInfo) GoString() string {
+	return s.String()
+}
+
+func (s *UnifiedAccessInstanceLocalDetailInfo) SetClusterName(v string) *UnifiedAccessInstanceLocalDetailInfo {
+	s.ClusterName = &v
+	return s
+}
+
+func (s *UnifiedAccessInstanceLocalDetailInfo) SetDataCenter(v string) *UnifiedAccessInstanceLocalDetailInfo {
+	s.DataCenter = &v
+	return s
+}
+
+func (s *UnifiedAccessInstanceLocalDetailInfo) SetMessageDetails(v string) *UnifiedAccessInstanceLocalDetailInfo {
+	s.MessageDetails = &v
+	return s
+}
+
+func (s *UnifiedAccessInstanceLocalDetailInfo) SetStatus(v string) *UnifiedAccessInstanceLocalDetailInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *UnifiedAccessInstanceLocalDetailInfo) SetVip(v string) *UnifiedAccessInstanceLocalDetailInfo {
+	s.Vip = &v
+	return s
+}
+
+func (s *UnifiedAccessInstanceLocalDetailInfo) SetHttpEntryStatus(v *HttpEntryStatus) *UnifiedAccessInstanceLocalDetailInfo {
+	s.HttpEntryStatus = v
+	return s
+}
+
+func (s *UnifiedAccessInstanceLocalDetailInfo) SetHttpsEntryStatus(v *HttpsEntryStatus) *UnifiedAccessInstanceLocalDetailInfo {
+	s.HttpsEntryStatus = v
+	return s
+}
+
+// zone info
+type ZoneInfo struct {
+	// zone identity
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// zone name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 所属region信息。
+	Region *string `json:"region,omitempty" xml:"region,omitempty"`
+	// zone display name
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
+}
+
+func (s ZoneInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ZoneInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ZoneInfo) SetId(v string) *ZoneInfo {
+	s.Id = &v
+	return s
+}
+
+func (s *ZoneInfo) SetName(v string) *ZoneInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *ZoneInfo) SetRegion(v string) *ZoneInfo {
+	s.Region = &v
+	return s
+}
+
+func (s *ZoneInfo) SetDisplayName(v string) *ZoneInfo {
+	s.DisplayName = &v
+	return s
+}
+
+// 部署单元对应的流量规则
+type CellFlow struct {
+	// 部署单元名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 蓝绿着色。
+	// BLUE：蓝
+	// GREEN：绿
+	// 非着色单元为 null
+	Color *string `json:"color,omitempty" xml:"color,omitempty"`
+	// 部署单元所占单元组的流量比。
+	Percent *int64 `json:"percent,omitempty" xml:"percent,omitempty" require:"true" maximum:"100" minimum:"0"`
+}
+
+func (s CellFlow) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CellFlow) GoString() string {
+	return s.String()
+}
+
+func (s *CellFlow) SetName(v string) *CellFlow {
+	s.Name = &v
+	return s
+}
+
+func (s *CellFlow) SetColor(v string) *CellFlow {
+	s.Color = &v
+	return s
+}
+
+func (s *CellFlow) SetPercent(v int64) *CellFlow {
+	s.Percent = &v
+	return s
+}
+
+// 本地 spanner cluster 详细信息
+type LocalSpannerClusterDetail struct {
+	// 可用区
+	Az *string `json:"az,omitempty" xml:"az,omitempty" require:"true"`
+	// 本地集群名称
+	ClusterName *string `json:"cluster_name,omitempty" xml:"cluster_name,omitempty" require:"true"`
+	// 可能存在的错误信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 集群状态
+	Phase *string `json:"phase,omitempty" xml:"phase,omitempty"`
+	// spanner cluster 集群id
+	SpannerClusterId *string `json:"spanner_cluster_id,omitempty" xml:"spanner_cluster_id,omitempty"`
+	// 描述spanner cluster健康状态
+	State *string `json:"state,omitempty" xml:"state,omitempty"`
+	// 若干组容器信息
+	SubClustersDetails []*LocalSubClusterDetail `json:"sub_clusters_details,omitempty" xml:"sub_clusters_details,omitempty" type:"Repeated"`
+}
+
+func (s LocalSpannerClusterDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LocalSpannerClusterDetail) GoString() string {
+	return s.String()
+}
+
+func (s *LocalSpannerClusterDetail) SetAz(v string) *LocalSpannerClusterDetail {
+	s.Az = &v
+	return s
+}
+
+func (s *LocalSpannerClusterDetail) SetClusterName(v string) *LocalSpannerClusterDetail {
+	s.ClusterName = &v
+	return s
+}
+
+func (s *LocalSpannerClusterDetail) SetMessage(v string) *LocalSpannerClusterDetail {
+	s.Message = &v
+	return s
+}
+
+func (s *LocalSpannerClusterDetail) SetPhase(v string) *LocalSpannerClusterDetail {
+	s.Phase = &v
+	return s
+}
+
+func (s *LocalSpannerClusterDetail) SetSpannerClusterId(v string) *LocalSpannerClusterDetail {
+	s.SpannerClusterId = &v
+	return s
+}
+
+func (s *LocalSpannerClusterDetail) SetState(v string) *LocalSpannerClusterDetail {
+	s.State = &v
+	return s
+}
+
+func (s *LocalSpannerClusterDetail) SetSubClustersDetails(v []*LocalSubClusterDetail) *LocalSpannerClusterDetail {
+	s.SubClustersDetails = v
+	return s
+}
+
+// 发布单自定义卡点。暂时不支持
+type CustomHook struct {
+	// 卡点范围，目前只支持分批
+	HookScope *string `json:"hook_scope,omitempty" xml:"hook_scope,omitempty" require:"true"`
+	// 卡点类型：api或has
+	HookType *string `json:"hook_type,omitempty" xml:"hook_type,omitempty" require:"true"`
+	// 卡点名称
+	HookName *string `json:"hook_name,omitempty" xml:"hook_name,omitempty"`
+	// 卡点执行策略：each-每个分组，first-第一个分组，last-最后一个分组，custom-自定义分组。
+	// 默认每个分组都会执行。
+	HookStrategy *string `json:"hook_strategy,omitempty" xml:"hook_strategy,omitempty"`
+	// 自定义批次编号，从0开始。hook_strategy=custom时有效
+	CustomNum *int64 `json:"custom_num,omitempty" xml:"custom_num,omitempty"`
+	// api类型卡点配置，当hook_type=api时不能为空
+	ApiHookConfig *ApiHookConfig `json:"api_hook_config,omitempty" xml:"api_hook_config,omitempty"`
+	// 守夜人类型卡点配置，当hook_type=has时不能为空
+	HasHookConfig *HasHookConfig `json:"has_hook_config,omitempty" xml:"has_hook_config,omitempty"`
+	// 【暂不支持】是否允许忽略
+	IgnoreSupported *bool `json:"ignore_supported,omitempty" xml:"ignore_supported,omitempty"`
+	// 【暂不支持】任务超时时间，单位毫秒，默认10分钟
+	TimeoutMillis *int64 `json:"timeout_millis,omitempty" xml:"timeout_millis,omitempty"`
+	// 【暂不支持】默认false
+	UnOverride *bool `json:"un_override,omitempty" xml:"un_override,omitempty"`
+}
+
+func (s CustomHook) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CustomHook) GoString() string {
+	return s.String()
+}
+
+func (s *CustomHook) SetHookScope(v string) *CustomHook {
+	s.HookScope = &v
+	return s
+}
+
+func (s *CustomHook) SetHookType(v string) *CustomHook {
+	s.HookType = &v
+	return s
+}
+
+func (s *CustomHook) SetHookName(v string) *CustomHook {
+	s.HookName = &v
+	return s
+}
+
+func (s *CustomHook) SetHookStrategy(v string) *CustomHook {
+	s.HookStrategy = &v
+	return s
+}
+
+func (s *CustomHook) SetCustomNum(v int64) *CustomHook {
+	s.CustomNum = &v
+	return s
+}
+
+func (s *CustomHook) SetApiHookConfig(v *ApiHookConfig) *CustomHook {
+	s.ApiHookConfig = v
+	return s
+}
+
+func (s *CustomHook) SetHasHookConfig(v *HasHookConfig) *CustomHook {
+	s.HasHookConfig = v
+	return s
+}
+
+func (s *CustomHook) SetIgnoreSupported(v bool) *CustomHook {
+	s.IgnoreSupported = &v
+	return s
+}
+
+func (s *CustomHook) SetTimeoutMillis(v int64) *CustomHook {
+	s.TimeoutMillis = &v
+	return s
+}
+
+func (s *CustomHook) SetUnOverride(v bool) *CustomHook {
+	s.UnOverride = &v
+	return s
+}
+
+// Federated Deployment Status
+type FederatedDeploymentStatus struct {
+	// Federated Deployment Conditions
+	Conditions []*DeploymentCondition `json:"conditions,omitempty" xml:"conditions,omitempty" require:"true" type:"Repeated"`
+	// V1FederatedDeploymentStatus Topologies
+	Topologies []*FederatedDeploymentStatusTopologies `json:"topologies,omitempty" xml:"topologies,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s FederatedDeploymentStatus) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FederatedDeploymentStatus) GoString() string {
+	return s.String()
+}
+
+func (s *FederatedDeploymentStatus) SetConditions(v []*DeploymentCondition) *FederatedDeploymentStatus {
+	s.Conditions = v
+	return s
+}
+
+func (s *FederatedDeploymentStatus) SetTopologies(v []*FederatedDeploymentStatusTopologies) *FederatedDeploymentStatus {
+	s.Topologies = v
+	return s
+}
+
+// https连接
+type HttpsEntry struct {
+	// 端口
+	Port *int64 `json:"port,omitempty" xml:"port,omitempty" require:"true"`
+	// 是否使用websocket连接方式
+	WebsocketConnect *bool `json:"websocket_connect,omitempty" xml:"websocket_connect,omitempty" require:"true"`
+	// CA证书ID
+	CaCertificateId *string `json:"ca_certificate_id,omitempty" xml:"ca_certificate_id,omitempty" require:"true"`
+}
+
+func (s HttpsEntry) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HttpsEntry) GoString() string {
+	return s.String()
+}
+
+func (s *HttpsEntry) SetPort(v int64) *HttpsEntry {
+	s.Port = &v
+	return s
+}
+
+func (s *HttpsEntry) SetWebsocketConnect(v bool) *HttpsEntry {
+	s.WebsocketConnect = &v
+	return s
+}
+
+func (s *HttpsEntry) SetCaCertificateId(v string) *HttpsEntry {
+	s.CaCertificateId = &v
+	return s
+}
+
+// service端口映射
+type ServicePort struct {
+	// 此端口映射名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// service端口映射在k8s层面的协议名，包括"TCP", "UDP", and "SCTP".
+	Protocol *string `json:"protocol,omitempty" xml:"protocol,omitempty"`
+	// service端口映射前端端口
+	Port *int64 `json:"port,omitempty" xml:"port,omitempty" require:"true"`
+	// service分配到的节点端口
+	NodePort *int64 `json:"node_port,omitempty" xml:"node_port,omitempty"`
+	// 后端端口，这里仅支持整数类型
+	TargetPort *int64 `json:"target_port,omitempty" xml:"target_port,omitempty"`
+}
+
+func (s ServicePort) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ServicePort) GoString() string {
+	return s.String()
+}
+
+func (s *ServicePort) SetName(v string) *ServicePort {
+	s.Name = &v
+	return s
+}
+
+func (s *ServicePort) SetProtocol(v string) *ServicePort {
+	s.Protocol = &v
+	return s
+}
+
+func (s *ServicePort) SetPort(v int64) *ServicePort {
+	s.Port = &v
+	return s
+}
+
+func (s *ServicePort) SetNodePort(v int64) *ServicePort {
+	s.NodePort = &v
+	return s
+}
+
+func (s *ServicePort) SetTargetPort(v int64) *ServicePort {
+	s.TargetPort = &v
+	return s
+}
+
+// 集群事件
+type KubernetesEvents struct {
+	// 事件发生时间
+	CreationTimestamp *string `json:"creation_timestamp,omitempty" xml:"creation_timestamp,omitempty" require:"true"`
+	// 事件数目
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+	// 事件内容
+	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+}
+
+func (s KubernetesEvents) String() string {
+	return tea.Prettify(s)
+}
+
+func (s KubernetesEvents) GoString() string {
+	return s.String()
+}
+
+func (s *KubernetesEvents) SetCreationTimestamp(v string) *KubernetesEvents {
+	s.CreationTimestamp = &v
+	return s
+}
+
+func (s *KubernetesEvents) SetCount(v int64) *KubernetesEvents {
+	s.Count = &v
+	return s
+}
+
+func (s *KubernetesEvents) SetMessage(v string) *KubernetesEvents {
+	s.Message = &v
+	return s
+}
+
+// spanner集群单元信息
+type SpannerClusterUnitInfo struct {
+	// 单元IP地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty" require:"true"`
+	// 所属集群id
+	ClusterId *string `json:"cluster_id,omitempty" xml:"cluster_id,omitempty" require:"true"`
+	// 容器id
+	ContainerId *string `json:"container_id,omitempty" xml:"container_id,omitempty" require:"true"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true"`
+	// 修改时间
+	GmtModify *string `json:"gmt_modify,omitempty" xml:"gmt_modify,omitempty" require:"true"`
+	// 集群单元状态 ： 1-下线状态 2- 上线状态 3-删除状态
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 扩展信息，json字符串格式
+	ExtendProperties *string `json:"extend_properties,omitempty" xml:"extend_properties,omitempty"`
+}
+
+func (s SpannerClusterUnitInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SpannerClusterUnitInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SpannerClusterUnitInfo) SetAddress(v string) *SpannerClusterUnitInfo {
+	s.Address = &v
+	return s
+}
+
+func (s *SpannerClusterUnitInfo) SetClusterId(v string) *SpannerClusterUnitInfo {
+	s.ClusterId = &v
+	return s
+}
+
+func (s *SpannerClusterUnitInfo) SetContainerId(v string) *SpannerClusterUnitInfo {
+	s.ContainerId = &v
+	return s
+}
+
+func (s *SpannerClusterUnitInfo) SetGmtCreate(v string) *SpannerClusterUnitInfo {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *SpannerClusterUnitInfo) SetGmtModify(v string) *SpannerClusterUnitInfo {
+	s.GmtModify = &v
+	return s
+}
+
+func (s *SpannerClusterUnitInfo) SetStatus(v int64) *SpannerClusterUnitInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *SpannerClusterUnitInfo) SetExtendProperties(v string) *SpannerClusterUnitInfo {
+	s.ExtendProperties = &v
+	return s
+}
+
+// 容器健康检查-LivenessProbe。
+type LivenessProbe struct {
+	// 命令行方式的健康监测配置。
+	ExecAction *ExecAction `json:"exec_action,omitempty" xml:"exec_action,omitempty"`
+	// 不健康阈值。
+	FailureThreshold *int64 `json:"failure_threshold,omitempty" xml:"failure_threshold,omitempty" require:"true"`
+	// http方式的健康监测配置。
+	HttpGetAction *HttpGetAction `json:"http_get_action,omitempty" xml:"http_get_action,omitempty"`
+	// 首次检查延时。
+	InitialDelaySeconds *int64 `json:"initial_delay_seconds,omitempty" xml:"initial_delay_seconds,omitempty" require:"true"`
+	// 检查间隔。
+	PeriodSeconds *int64 `json:"period_seconds,omitempty" xml:"period_seconds,omitempty" require:"true"`
+	// 健康阈值。
+	//
+	SuccessThreshold *int64 `json:"success_threshold,omitempty" xml:"success_threshold,omitempty" require:"true"`
+	// tcp方式的健康监测配置。
+	TcpSocketAction *TcpSocketAction `json:"tcp_socket_action,omitempty" xml:"tcp_socket_action,omitempty"`
+	// 检查超时。
+	TimeoutSeconds *int64 `json:"timeout_seconds,omitempty" xml:"timeout_seconds,omitempty" require:"true"`
+}
+
+func (s LivenessProbe) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LivenessProbe) GoString() string {
+	return s.String()
+}
+
+func (s *LivenessProbe) SetExecAction(v *ExecAction) *LivenessProbe {
+	s.ExecAction = v
+	return s
+}
+
+func (s *LivenessProbe) SetFailureThreshold(v int64) *LivenessProbe {
+	s.FailureThreshold = &v
+	return s
+}
+
+func (s *LivenessProbe) SetHttpGetAction(v *HttpGetAction) *LivenessProbe {
+	s.HttpGetAction = v
+	return s
+}
+
+func (s *LivenessProbe) SetInitialDelaySeconds(v int64) *LivenessProbe {
+	s.InitialDelaySeconds = &v
+	return s
+}
+
+func (s *LivenessProbe) SetPeriodSeconds(v int64) *LivenessProbe {
+	s.PeriodSeconds = &v
+	return s
+}
+
+func (s *LivenessProbe) SetSuccessThreshold(v int64) *LivenessProbe {
+	s.SuccessThreshold = &v
+	return s
+}
+
+func (s *LivenessProbe) SetTcpSocketAction(v *TcpSocketAction) *LivenessProbe {
+	s.TcpSocketAction = v
+	return s
+}
+
+func (s *LivenessProbe) SetTimeoutSeconds(v int64) *LivenessProbe {
+	s.TimeoutSeconds = &v
+	return s
+}
+
+// fed k8s resource cluster state map
+type ClusterState struct {
+	// 集群名称
+	ClusterName *string `json:"cluster_name,omitempty" xml:"cluster_name,omitempty" require:"true"`
+	// k8s resource state
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 详细描述或错误信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s ClusterState) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ClusterState) GoString() string {
+	return s.String()
+}
+
+func (s *ClusterState) SetClusterName(v string) *ClusterState {
+	s.ClusterName = &v
+	return s
+}
+
+func (s *ClusterState) SetState(v string) *ClusterState {
+	s.State = &v
+	return s
+}
+
+func (s *ClusterState) SetMessage(v string) *ClusterState {
+	s.Message = &v
+	return s
+}
+
+// 容器服务发布信息
+type ContainerServiceReleaseInfo struct {
+	// 发布单id
+	CreatedPlanId *string `json:"created_plan_id,omitempty" xml:"created_plan_id,omitempty"`
+	// 发布开始时间
+	LatestDeploymentStartTime *string `json:"latest_deployment_start_time,omitempty" xml:"latest_deployment_start_time,omitempty"`
+	// 发布完成时间
+	LatestDeploymentEndTime *string `json:"latest_deployment_end_time,omitempty" xml:"latest_deployment_end_time,omitempty"`
+}
+
+func (s ContainerServiceReleaseInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContainerServiceReleaseInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ContainerServiceReleaseInfo) SetCreatedPlanId(v string) *ContainerServiceReleaseInfo {
+	s.CreatedPlanId = &v
+	return s
+}
+
+func (s *ContainerServiceReleaseInfo) SetLatestDeploymentStartTime(v string) *ContainerServiceReleaseInfo {
+	s.LatestDeploymentStartTime = &v
+	return s
+}
+
+func (s *ContainerServiceReleaseInfo) SetLatestDeploymentEndTime(v string) *ContainerServiceReleaseInfo {
+	s.LatestDeploymentEndTime = &v
+	return s
+}
+
+// Service 状态
+type ServiceStatus struct {
+	// 负载均衡地址
+	LoadBalancerIp *string `json:"load_balancer_ip,omitempty" xml:"load_balancer_ip,omitempty"`
+}
+
+func (s ServiceStatus) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ServiceStatus) GoString() string {
+	return s.String()
+}
+
+func (s *ServiceStatus) SetLoadBalancerIp(v string) *ServiceStatus {
+	s.LoadBalancerIp = &v
+	return s
+}
+
+// k8s v1Deployment
+type Deployment struct {
+	// Standard object metadata.
+	//
+	Metadata *ObjectMeta `json:"metadata,omitempty" xml:"metadata,omitempty" require:"true"`
+	// Specification of the desired behavior of the Deployment.
+	//
+	Spec *DeploymentSpec `json:"spec,omitempty" xml:"spec,omitempty" require:"true"`
+	// Most recently observed status of the Deployment.
+	//
+	Status *DeploymentStatus `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s Deployment) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Deployment) GoString() string {
+	return s.String()
+}
+
+func (s *Deployment) SetMetadata(v *ObjectMeta) *Deployment {
+	s.Metadata = v
+	return s
+}
+
+func (s *Deployment) SetSpec(v *DeploymentSpec) *Deployment {
+	s.Spec = v
+	return s
+}
+
+func (s *Deployment) SetStatus(v *DeploymentStatus) *Deployment {
+	s.Status = v
+	return s
+}
+
+// fed configmap override struct
+type FedConfigmapOverride struct {
+	// fed configmap data override
+	Data []*ConfigMapData `json:"data,omitempty" xml:"data,omitempty" require:"true" type:"Repeated"`
+	// cluster name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// name cell  override
+	NameOverride *string `json:"name_override,omitempty" xml:"name_override,omitempty" require:"true"`
+}
+
+func (s FedConfigmapOverride) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FedConfigmapOverride) GoString() string {
+	return s.String()
+}
+
+func (s *FedConfigmapOverride) SetData(v []*ConfigMapData) *FedConfigmapOverride {
+	s.Data = v
+	return s
+}
+
+func (s *FedConfigmapOverride) SetName(v string) *FedConfigmapOverride {
+	s.Name = &v
+	return s
+}
+
+func (s *FedConfigmapOverride) SetNameOverride(v string) *FedConfigmapOverride {
+	s.NameOverride = &v
 	return s
 }
 
@@ -7179,616 +7416,283 @@ func (s *CellWeightInfo) SetWeight(v int64) *CellWeightInfo {
 	return s
 }
 
-// 一个运维应用操作链。一个操作链中包含一个顺序的运维应用组列表，这些运维应用组将依次串行的执行运维操作。不同的操作链将并行执行。
-type OpsApplicationChain struct {
-	// 此运维应用链中包含的应用组列表
-	Groups []*OpsApplicationGroup `json:"groups,omitempty" xml:"groups,omitempty" type:"Repeated"`
-}
-
-func (s OpsApplicationChain) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OpsApplicationChain) GoString() string {
-	return s.String()
-}
-
-func (s *OpsApplicationChain) SetGroups(v []*OpsApplicationGroup) *OpsApplicationChain {
-	s.Groups = v
-	return s
-}
-
-// 弹性场景
-type ElasticScene struct {
-	// 场景名
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 弹性场景状态，有效值（VALID，INVALID）
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 弹性场景ID
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
-}
-
-func (s ElasticScene) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ElasticScene) GoString() string {
-	return s.String()
-}
-
-func (s *ElasticScene) SetName(v string) *ElasticScene {
-	s.Name = &v
-	return s
-}
-
-func (s *ElasticScene) SetStatus(v string) *ElasticScene {
-	s.Status = &v
-	return s
-}
-
-func (s *ElasticScene) SetId(v int64) *ElasticScene {
-	s.Id = &v
-	return s
-}
-
-// node event
-type NodeEvent struct {
-	// event count
-	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
-	// event message
-	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
-	// event modified time
-	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// event reason
-	Reason *string `json:"reason,omitempty" xml:"reason,omitempty" require:"true"`
-	// event type
+// 灾备信息
+type DisasterInfo struct {
+	// 同城灾备单元(组)
+	LocalFailoverTarget *string `json:"local_failover_target,omitempty" xml:"local_failover_target,omitempty" require:"true"`
+	// 异地灾备单元(组)
+	RemoteFailoverTarget *string `json:"remote_failover_target,omitempty" xml:"remote_failover_target,omitempty" require:"true"`
+	// 逻辑单元&部署单元名称
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// 容灾类型
 	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 正常容灾状态。
+	DisasterRecoveryState *string `json:"disaster_recovery_state,omitempty" xml:"disaster_recovery_state,omitempty" require:"true"`
+	// 压测容灾状态。
+	PressDisasterRecoveryState *string `json:"press_disaster_recovery_state,omitempty" xml:"press_disaster_recovery_state,omitempty" require:"true"`
 }
 
-func (s NodeEvent) String() string {
+func (s DisasterInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s NodeEvent) GoString() string {
+func (s DisasterInfo) GoString() string {
 	return s.String()
 }
 
-func (s *NodeEvent) SetCount(v int64) *NodeEvent {
-	s.Count = &v
+func (s *DisasterInfo) SetLocalFailoverTarget(v string) *DisasterInfo {
+	s.LocalFailoverTarget = &v
 	return s
 }
 
-func (s *NodeEvent) SetMessage(v string) *NodeEvent {
-	s.Message = &v
+func (s *DisasterInfo) SetRemoteFailoverTarget(v string) *DisasterInfo {
+	s.RemoteFailoverTarget = &v
 	return s
 }
 
-func (s *NodeEvent) SetModifiedTime(v string) *NodeEvent {
-	s.ModifiedTime = &v
+func (s *DisasterInfo) SetSource(v string) *DisasterInfo {
+	s.Source = &v
 	return s
 }
 
-func (s *NodeEvent) SetReason(v string) *NodeEvent {
-	s.Reason = &v
-	return s
-}
-
-func (s *NodeEvent) SetType(v string) *NodeEvent {
+func (s *DisasterInfo) SetType(v string) *DisasterInfo {
 	s.Type = &v
 	return s
 }
 
-// OB租户信息
-type OBTenant struct {
-	// 租户描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 扩展属性，序列化后的JSON字符串
-	ExtendProperties *string `json:"extend_properties,omitempty" xml:"extend_properties,omitempty"`
-	// 唯一标识
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 租户名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 租户类型（单库GZONE|分片库RZONE）：存放对应业务库
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 租户对应uid分段，用于存放对应的业务分片库
-	Uids []*int64 `json:"uids,omitempty" xml:"uids,omitempty" type:"Repeated"`
-	// 工作空间组唯一标识
-	WorkspaceGroupId *string `json:"workspace_group_id,omitempty" xml:"workspace_group_id,omitempty" require:"true"`
-	// 创建日期
-	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 修改时间
-	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+func (s *DisasterInfo) SetDisasterRecoveryState(v string) *DisasterInfo {
+	s.DisasterRecoveryState = &v
+	return s
 }
 
-func (s OBTenant) String() string {
+func (s *DisasterInfo) SetPressDisasterRecoveryState(v string) *DisasterInfo {
+	s.PressDisasterRecoveryState = &v
+	return s
+}
+
+// 应用发布分组，一个分组一般包含前置任务(可多个)、发布任务(一个)、后置任务(可多个)
+type AppDeployGroup struct {
+	// 发布任务
+	DeployTask *AppDeployTask `json:"deploy_task,omitempty" xml:"deploy_task,omitempty" require:"true"`
+	// 后置任务列表
+	PostTasks []*AppDeployTask `json:"post_tasks,omitempty" xml:"post_tasks,omitempty" require:"true" type:"Repeated"`
+	// 前置任务列表
+	PreTasks []*AppDeployTask `json:"pre_tasks,omitempty" xml:"pre_tasks,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s AppDeployGroup) String() string {
 	return tea.Prettify(s)
 }
 
-func (s OBTenant) GoString() string {
+func (s AppDeployGroup) GoString() string {
 	return s.String()
 }
 
-func (s *OBTenant) SetDescription(v string) *OBTenant {
-	s.Description = &v
+func (s *AppDeployGroup) SetDeployTask(v *AppDeployTask) *AppDeployGroup {
+	s.DeployTask = v
 	return s
 }
 
-func (s *OBTenant) SetExtendProperties(v string) *OBTenant {
-	s.ExtendProperties = &v
+func (s *AppDeployGroup) SetPostTasks(v []*AppDeployTask) *AppDeployGroup {
+	s.PostTasks = v
 	return s
 }
 
-func (s *OBTenant) SetId(v string) *OBTenant {
-	s.Id = &v
+func (s *AppDeployGroup) SetPreTasks(v []*AppDeployTask) *AppDeployGroup {
+	s.PreTasks = v
 	return s
 }
 
-func (s *OBTenant) SetName(v string) *OBTenant {
-	s.Name = &v
-	return s
-}
-
-func (s *OBTenant) SetType(v string) *OBTenant {
-	s.Type = &v
-	return s
-}
-
-func (s *OBTenant) SetUids(v []*int64) *OBTenant {
-	s.Uids = v
-	return s
-}
-
-func (s *OBTenant) SetWorkspaceGroupId(v string) *OBTenant {
-	s.WorkspaceGroupId = &v
-	return s
-}
-
-func (s *OBTenant) SetCreatedTime(v string) *OBTenant {
-	s.CreatedTime = &v
-	return s
-}
-
-func (s *OBTenant) SetModifiedTime(v string) *OBTenant {
-	s.ModifiedTime = &v
-	return s
-}
-
-// Kubernetes Event
-type KubeEvent struct {
-	// 事件类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 发布次数
-	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
-	// 事件原因
-	Reason *string `json:"reason,omitempty" xml:"reason,omitempty" require:"true"`
-	// 事件内容
-	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
-	// 更新时间
-	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s KubeEvent) String() string {
-	return tea.Prettify(s)
-}
-
-func (s KubeEvent) GoString() string {
-	return s.String()
-}
-
-func (s *KubeEvent) SetType(v string) *KubeEvent {
-	s.Type = &v
-	return s
-}
-
-func (s *KubeEvent) SetCount(v int64) *KubeEvent {
-	s.Count = &v
-	return s
-}
-
-func (s *KubeEvent) SetReason(v string) *KubeEvent {
-	s.Reason = &v
-	return s
-}
-
-func (s *KubeEvent) SetMessage(v string) *KubeEvent {
-	s.Message = &v
-	return s
-}
-
-func (s *KubeEvent) SetModifiedTime(v string) *KubeEvent {
-	s.ModifiedTime = &v
-	return s
-}
-
-// region info
-type RegionInfo struct {
-	// region name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-}
-
-func (s RegionInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RegionInfo) GoString() string {
-	return s.String()
-}
-
-func (s *RegionInfo) SetName(v string) *RegionInfo {
-	s.Name = &v
-	return s
-}
-
-// zone list of workspace
-type ZoneOfWorkspace struct {
-	// workspace id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
-	// workspace name
-	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty" require:"true"`
-	// zone list of workspace
-	Zones []*ZoneInfo `json:"zones,omitempty" xml:"zones,omitempty" require:"true" type:"Repeated"`
-	// region name
-	RegionName *string `json:"region_name,omitempty" xml:"region_name,omitempty" require:"true"`
-	// region id
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
-}
-
-func (s ZoneOfWorkspace) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ZoneOfWorkspace) GoString() string {
-	return s.String()
-}
-
-func (s *ZoneOfWorkspace) SetWorkspaceId(v string) *ZoneOfWorkspace {
-	s.WorkspaceId = &v
-	return s
-}
-
-func (s *ZoneOfWorkspace) SetWorkspaceName(v string) *ZoneOfWorkspace {
-	s.WorkspaceName = &v
-	return s
-}
-
-func (s *ZoneOfWorkspace) SetZones(v []*ZoneInfo) *ZoneOfWorkspace {
-	s.Zones = v
-	return s
-}
-
-func (s *ZoneOfWorkspace) SetRegionName(v string) *ZoneOfWorkspace {
-	s.RegionName = &v
-	return s
-}
-
-func (s *ZoneOfWorkspace) SetRegionId(v string) *ZoneOfWorkspace {
-	s.RegionId = &v
-	return s
-}
-
-// Service 信息
-type ServiceInfo struct {
-	// 元信息
-	Meta *ContainerServiceObjectMeta `json:"meta,omitempty" xml:"meta,omitempty" require:"true"`
-	// Service 类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 负载均衡服务的网络类型（internet | intranet | office | multidomain）
-	LoadBalancerAddressType *string `json:"load_balancer_address_type,omitempty" xml:"load_balancer_address_type,omitempty"`
-	// Service 状态
-	Status *ServiceStatus `json:"status,omitempty" xml:"status,omitempty"`
-	// service端口映射列表
-	Ports []*ServicePort `json:"ports,omitempty" xml:"ports,omitempty" type:"Repeated"`
-}
-
-func (s ServiceInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ServiceInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ServiceInfo) SetMeta(v *ContainerServiceObjectMeta) *ServiceInfo {
-	s.Meta = v
-	return s
-}
-
-func (s *ServiceInfo) SetType(v string) *ServiceInfo {
-	s.Type = &v
-	return s
-}
-
-func (s *ServiceInfo) SetLoadBalancerAddressType(v string) *ServiceInfo {
-	s.LoadBalancerAddressType = &v
-	return s
-}
-
-func (s *ServiceInfo) SetStatus(v *ServiceStatus) *ServiceInfo {
-	s.Status = v
-	return s
-}
-
-func (s *ServiceInfo) SetPorts(v []*ServicePort) *ServiceInfo {
-	s.Ports = v
-	return s
-}
-
-// uid 信息
-type UidInfo struct {
-	// UID
-	Uid *int64 `json:"uid,omitempty" xml:"uid,omitempty" require:"true"`
-	// 当前分组
-	CurrentGroup *string `json:"current_group,omitempty" xml:"current_group,omitempty" require:"true"`
-	// 默认分组
-	DefaultGroup *string `json:"default_group,omitempty" xml:"default_group,omitempty" require:"true"`
-	// 是否弹性
-	Elastic *bool `json:"elastic,omitempty" xml:"elastic,omitempty"`
-	// 是否压测
-	Press *bool `json:"press,omitempty" xml:"press,omitempty"`
-	// 是否灰度
-	Gray *bool `json:"gray,omitempty" xml:"gray,omitempty"`
-}
-
-func (s UidInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UidInfo) GoString() string {
-	return s.String()
-}
-
-func (s *UidInfo) SetUid(v int64) *UidInfo {
-	s.Uid = &v
-	return s
-}
-
-func (s *UidInfo) SetCurrentGroup(v string) *UidInfo {
-	s.CurrentGroup = &v
-	return s
-}
-
-func (s *UidInfo) SetDefaultGroup(v string) *UidInfo {
-	s.DefaultGroup = &v
-	return s
-}
-
-func (s *UidInfo) SetElastic(v bool) *UidInfo {
-	s.Elastic = &v
-	return s
-}
-
-func (s *UidInfo) SetPress(v bool) *UidInfo {
-	s.Press = &v
-	return s
-}
-
-func (s *UidInfo) SetGray(v bool) *UidInfo {
-	s.Gray = &v
-	return s
-}
-
-// fed configmap struct
-type FedConfigmap struct {
-	// fed configmap annotations
-	Annotations []*Annotation `json:"annotations,omitempty" xml:"annotations,omitempty" require:"true" type:"Repeated"`
-	// Fed资源集群Cell状态
-	CellStatus []*ClusteCellStatus `json:"cell_status,omitempty" xml:"cell_status,omitempty" type:"Repeated"`
-	// fed clusters
-	Clusters []*string `json:"clusters,omitempty" xml:"clusters,omitempty" require:"true" type:"Repeated"`
-	// 创建时间
-	CreateTimeStamp *string `json:"create_time_stamp,omitempty" xml:"create_time_stamp,omitempty" require:"true"`
-	// fed configmap data
-	Data []*ConfigMapData `json:"data,omitempty" xml:"data,omitempty" require:"true" type:"Repeated"`
-	// fed configmap labels
-	Labels []*Label `json:"labels,omitempty" xml:"labels,omitempty" require:"true" type:"Repeated"`
-	// fed configmap name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// fed configmap namespace
+// 统一接入实例关联的应用服务信息
+type UnifiedAccessInstanceContainerServiceInfo struct {
+	// 应用服务名称
+	ContainerServiceName *string `json:"container_service_name,omitempty" xml:"container_service_name,omitempty" require:"true"`
+	// 命名空间
 	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
-	// fed configmap override
-	Overrides []*FedConfigmapOverride `json:"overrides,omitempty" xml:"overrides,omitempty" require:"true" type:"Repeated"`
-	// 原因
-	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
-	// propagation状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 }
 
-func (s FedConfigmap) String() string {
+func (s UnifiedAccessInstanceContainerServiceInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s FedConfigmap) GoString() string {
+func (s UnifiedAccessInstanceContainerServiceInfo) GoString() string {
 	return s.String()
 }
 
-func (s *FedConfigmap) SetAnnotations(v []*Annotation) *FedConfigmap {
-	s.Annotations = v
+func (s *UnifiedAccessInstanceContainerServiceInfo) SetContainerServiceName(v string) *UnifiedAccessInstanceContainerServiceInfo {
+	s.ContainerServiceName = &v
 	return s
 }
 
-func (s *FedConfigmap) SetCellStatus(v []*ClusteCellStatus) *FedConfigmap {
-	s.CellStatus = v
-	return s
-}
-
-func (s *FedConfigmap) SetClusters(v []*string) *FedConfigmap {
-	s.Clusters = v
-	return s
-}
-
-func (s *FedConfigmap) SetCreateTimeStamp(v string) *FedConfigmap {
-	s.CreateTimeStamp = &v
-	return s
-}
-
-func (s *FedConfigmap) SetData(v []*ConfigMapData) *FedConfigmap {
-	s.Data = v
-	return s
-}
-
-func (s *FedConfigmap) SetLabels(v []*Label) *FedConfigmap {
-	s.Labels = v
-	return s
-}
-
-func (s *FedConfigmap) SetName(v string) *FedConfigmap {
-	s.Name = &v
-	return s
-}
-
-func (s *FedConfigmap) SetNamespace(v string) *FedConfigmap {
+func (s *UnifiedAccessInstanceContainerServiceInfo) SetNamespace(v string) *UnifiedAccessInstanceContainerServiceInfo {
 	s.Namespace = &v
 	return s
 }
 
-func (s *FedConfigmap) SetOverrides(v []*FedConfigmapOverride) *FedConfigmap {
-	s.Overrides = v
-	return s
-}
-
-func (s *FedConfigmap) SetReason(v string) *FedConfigmap {
-	s.Reason = &v
-	return s
-}
-
-func (s *FedConfigmap) SetStatus(v string) *FedConfigmap {
-	s.Status = &v
-	return s
-}
-
-// 弹性规则
-type ElasticRuleView struct {
-	// ID
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
-	// 弹性类型，有效值：SERVICE，MSGBROKER
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 弹性值
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 关联应用
+// sidecar运维任务上下文
+type SidecarOperationTaskContext struct {
+	// sidecar开启特性
+	EnabledFeatures *string `json:"enabled_features,omitempty" xml:"enabled_features,omitempty"`
+	// sidecar类型
+	SidecarTypes []*string `json:"sidecar_types,omitempty" xml:"sidecar_types,omitempty" require:"true" type:"Repeated"`
+	// sidecar版本
+	SidecarVersionMap *string `json:"sidecar_version_map,omitempty" xml:"sidecar_version_map,omitempty" require:"true"`
+	// sidecar支持特性
+	SupportedFeatures *string `json:"supported_features,omitempty" xml:"supported_features,omitempty"`
+	// 变更资源列表
+	ChangeInstances []*OperationChangeInstance `json:"change_instances,omitempty" xml:"change_instances,omitempty" require:"true" type:"Repeated"`
+	// 应用名称
 	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
-	// 状态，有效值：VALID（线上生效），PRESS（仅压测生效），INVALID（无效状态）
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 操作人
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
-	// 场景 ID
-	SceneId *int64 `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
 }
 
-func (s ElasticRuleView) String() string {
+func (s SidecarOperationTaskContext) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ElasticRuleView) GoString() string {
+func (s SidecarOperationTaskContext) GoString() string {
 	return s.String()
 }
 
-func (s *ElasticRuleView) SetId(v int64) *ElasticRuleView {
-	s.Id = &v
+func (s *SidecarOperationTaskContext) SetEnabledFeatures(v string) *SidecarOperationTaskContext {
+	s.EnabledFeatures = &v
 	return s
 }
 
-func (s *ElasticRuleView) SetType(v string) *ElasticRuleView {
-	s.Type = &v
+func (s *SidecarOperationTaskContext) SetSidecarTypes(v []*string) *SidecarOperationTaskContext {
+	s.SidecarTypes = v
 	return s
 }
 
-func (s *ElasticRuleView) SetName(v string) *ElasticRuleView {
-	s.Name = &v
+func (s *SidecarOperationTaskContext) SetSidecarVersionMap(v string) *SidecarOperationTaskContext {
+	s.SidecarVersionMap = &v
 	return s
 }
 
-func (s *ElasticRuleView) SetAppName(v string) *ElasticRuleView {
+func (s *SidecarOperationTaskContext) SetSupportedFeatures(v string) *SidecarOperationTaskContext {
+	s.SupportedFeatures = &v
+	return s
+}
+
+func (s *SidecarOperationTaskContext) SetChangeInstances(v []*OperationChangeInstance) *SidecarOperationTaskContext {
+	s.ChangeInstances = v
+	return s
+}
+
+func (s *SidecarOperationTaskContext) SetAppName(v string) *SidecarOperationTaskContext {
 	s.AppName = &v
 	return s
 }
 
-func (s *ElasticRuleView) SetStatus(v string) *ElasticRuleView {
-	s.Status = &v
-	return s
+// UID 分片
+type UidShard struct {
+	// UID 起始值
+	MinUid *int64 `json:"min_uid,omitempty" xml:"min_uid,omitempty" require:"true"`
+	// UID 终止值
+	MaxUid *int64 `json:"max_uid,omitempty" xml:"max_uid,omitempty" require:"true"`
 }
 
-func (s *ElasticRuleView) SetOperator(v string) *ElasticRuleView {
-	s.Operator = &v
-	return s
-}
-
-func (s *ElasticRuleView) SetSceneId(v int64) *ElasticRuleView {
-	s.SceneId = &v
-	return s
-}
-
-// fed namespace
-type FedNamespace struct {
-	// fed namespace annotations
-	Annotations []*Annotation `json:"annotations,omitempty" xml:"annotations,omitempty" require:"true" type:"Repeated"`
-	// fed namespace clusters
-	Clusters []*string `json:"clusters,omitempty" xml:"clusters,omitempty" require:"true" type:"Repeated"`
-	// fed namespace cluster state map
-	ClusterStateMap []*ClusterState `json:"cluster_state_map,omitempty" xml:"cluster_state_map,omitempty" require:"true" type:"Repeated"`
-	// fed namespace labels
-	Labels []*Label `json:"labels,omitempty" xml:"labels,omitempty" require:"true" type:"Repeated"`
-	// fed namespace name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// Fed CRD namespace
-	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
-	// 创建时间
-	CreateTimeStamp *string `json:"create_time_stamp,omitempty" xml:"create_time_stamp,omitempty" require:"true"`
-	// fed 资源的状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 导致 fed 资源处于该状态的原因
-	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
-}
-
-func (s FedNamespace) String() string {
+func (s UidShard) String() string {
 	return tea.Prettify(s)
 }
 
-func (s FedNamespace) GoString() string {
+func (s UidShard) GoString() string {
 	return s.String()
 }
 
-func (s *FedNamespace) SetAnnotations(v []*Annotation) *FedNamespace {
-	s.Annotations = v
+func (s *UidShard) SetMinUid(v int64) *UidShard {
+	s.MinUid = &v
 	return s
 }
 
-func (s *FedNamespace) SetClusters(v []*string) *FedNamespace {
-	s.Clusters = v
+func (s *UidShard) SetMaxUid(v int64) *UidShard {
+	s.MaxUid = &v
 	return s
 }
 
-func (s *FedNamespace) SetClusterStateMap(v []*ClusterState) *FedNamespace {
-	s.ClusterStateMap = v
+// http接入方式
+type HttpEntry struct {
+	// 端口
+	Port *int64 `json:"port,omitempty" xml:"port,omitempty" require:"true"`
+	// 是否使用websocket连接方式
+	WebsocketConnect *bool `json:"websocket_connect,omitempty" xml:"websocket_connect,omitempty" require:"true"`
+}
+
+func (s HttpEntry) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HttpEntry) GoString() string {
+	return s.String()
+}
+
+func (s *HttpEntry) SetPort(v int64) *HttpEntry {
+	s.Port = &v
 	return s
 }
 
-func (s *FedNamespace) SetLabels(v []*Label) *FedNamespace {
-	s.Labels = v
+func (s *HttpEntry) SetWebsocketConnect(v bool) *HttpEntry {
+	s.WebsocketConnect = &v
 	return s
 }
 
-func (s *FedNamespace) SetName(v string) *FedNamespace {
-	s.Name = &v
+// sidecar运维对象 - 机器（computer|pod）
+type SidecarOpsMachine struct {
+	// 机器运维流程ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 运维机器名称
+	Target *string `json:"target,omitempty" xml:"target,omitempty" require:"true"`
+	// 执行状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 执行状态描述
+	StatusDesc *string `json:"status_desc,omitempty" xml:"status_desc,omitempty"`
+	// 扩展属性
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+	// 执行消息日志
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 机器sidecar运维任务列表
+	SubTargets []*SidecarOpsMachineTask `json:"sub_targets,omitempty" xml:"sub_targets,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SidecarOpsMachine) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SidecarOpsMachine) GoString() string {
+	return s.String()
+}
+
+func (s *SidecarOpsMachine) SetId(v string) *SidecarOpsMachine {
+	s.Id = &v
 	return s
 }
 
-func (s *FedNamespace) SetNamespace(v string) *FedNamespace {
-	s.Namespace = &v
+func (s *SidecarOpsMachine) SetTarget(v string) *SidecarOpsMachine {
+	s.Target = &v
 	return s
 }
 
-func (s *FedNamespace) SetCreateTimeStamp(v string) *FedNamespace {
-	s.CreateTimeStamp = &v
-	return s
-}
-
-func (s *FedNamespace) SetStatus(v string) *FedNamespace {
+func (s *SidecarOpsMachine) SetStatus(v string) *SidecarOpsMachine {
 	s.Status = &v
 	return s
 }
 
-func (s *FedNamespace) SetReason(v string) *FedNamespace {
-	s.Reason = &v
+func (s *SidecarOpsMachine) SetStatusDesc(v string) *SidecarOpsMachine {
+	s.StatusDesc = &v
+	return s
+}
+
+func (s *SidecarOpsMachine) SetProperties(v string) *SidecarOpsMachine {
+	s.Properties = &v
+	return s
+}
+
+func (s *SidecarOpsMachine) SetMessage(v string) *SidecarOpsMachine {
+	s.Message = &v
+	return s
+}
+
+func (s *SidecarOpsMachine) SetSubTargets(v []*SidecarOpsMachineTask) *SidecarOpsMachine {
+	s.SubTargets = v
 	return s
 }
 
@@ -7888,43 +7792,1875 @@ func (s *ServiceProcessLog) SetSource(v string) *ServiceProcessLog {
 	return s
 }
 
-// 添加antvipdomain请求
-type AntvipDomain struct {
-	// 应用名称
-	Application *string `json:"application,omitempty" xml:"application,omitempty" require:"true"`
-	// 部署单元cell名称
-	Cell *string `json:"cell,omitempty" xml:"cell,omitempty" require:"true"`
-	// 健康检查端口，非必填项
-	HealthCheckDefaultPort *int64 `json:"health_check_default_port,omitempty" xml:"health_check_default_port,omitempty"`
-	// 健康检查类型，默认为TCP
-	HealthCheckType *string `json:"health_check_type,omitempty" xml:"health_check_type,omitempty"`
+// 一个运维应用操作链。一个操作链中包含一个顺序的运维应用组列表，这些运维应用组将依次串行的执行运维操作。不同的操作链将并行执行。
+type OpsApplicationChain struct {
+	// 此运维应用链中包含的应用组列表
+	Groups []*OpsApplicationGroup `json:"groups,omitempty" xml:"groups,omitempty" type:"Repeated"`
 }
 
-func (s AntvipDomain) String() string {
+func (s OpsApplicationChain) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AntvipDomain) GoString() string {
+func (s OpsApplicationChain) GoString() string {
 	return s.String()
 }
 
-func (s *AntvipDomain) SetApplication(v string) *AntvipDomain {
-	s.Application = &v
+func (s *OpsApplicationChain) SetGroups(v []*OpsApplicationGroup) *OpsApplicationChain {
+	s.Groups = v
 	return s
 }
 
-func (s *AntvipDomain) SetCell(v string) *AntvipDomain {
+// 应用分组概要信息列表
+type AppGroupSimpleViewList struct {
+	// 应用分组列表
+	AppGroupList []*AppGroupSimpleView `json:"app_group_list,omitempty" xml:"app_group_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s AppGroupSimpleViewList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppGroupSimpleViewList) GoString() string {
+	return s.String()
+}
+
+func (s *AppGroupSimpleViewList) SetAppGroupList(v []*AppGroupSimpleView) *AppGroupSimpleViewList {
+	s.AppGroupList = v
+	return s
+}
+
+// App配置依赖
+type AppReleaseConfigDependOn struct {
+	// 类型
+	Kind *string `json:"kind,omitempty" xml:"kind,omitempty" require:"true"`
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s AppReleaseConfigDependOn) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppReleaseConfigDependOn) GoString() string {
+	return s.String()
+}
+
+func (s *AppReleaseConfigDependOn) SetKind(v string) *AppReleaseConfigDependOn {
+	s.Kind = &v
+	return s
+}
+
+func (s *AppReleaseConfigDependOn) SetName(v string) *AppReleaseConfigDependOn {
+	s.Name = &v
+	return s
+}
+
+// 可用区
+type Zone struct {
+	// 数据中心名
+	DataCenter *string `json:"data_center,omitempty" xml:"data_center,omitempty" require:"true"`
+	// 可用区展示名
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
+	// 可用区名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 所属地域
+	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
+	// 可用区id
+	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty" require:"true"`
+	// 地域id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
+}
+
+func (s Zone) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Zone) GoString() string {
+	return s.String()
+}
+
+func (s *Zone) SetDataCenter(v string) *Zone {
+	s.DataCenter = &v
+	return s
+}
+
+func (s *Zone) SetDisplayName(v string) *Zone {
+	s.DisplayName = &v
+	return s
+}
+
+func (s *Zone) SetName(v string) *Zone {
+	s.Name = &v
+	return s
+}
+
+func (s *Zone) SetRegion(v string) *Zone {
+	s.Region = &v
+	return s
+}
+
+func (s *Zone) SetZoneId(v string) *Zone {
+	s.ZoneId = &v
+	return s
+}
+
+func (s *Zone) SetRegionId(v string) *Zone {
+	s.RegionId = &v
+	return s
+}
+
+// drm 推送记录
+type DrmOpsRecord struct {
+	// 应用
+	Apps []*string `json:"apps,omitempty" xml:"apps,omitempty" type:"Repeated"`
+	// 操作人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+	// 推送时间
+	PushTime *string `json:"push_time,omitempty" xml:"push_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 推送结果，包括（SUCCESS，FAILED，INVALID_REQUEST，NO_RECORD，SYSTEM_EXCEPTION，PARAM_QUERY_ERROR，PARAM_INVALID）
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty" require:"true"`
+	// 结果信息
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 推送目标
+	Targets []*string `json:"targets,omitempty" xml:"targets,omitempty" type:"Repeated"`
+	// 推送值
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+	// 规则类型
+	RuleType *string `json:"rule_type,omitempty" xml:"rule_type,omitempty" require:"true"`
+}
+
+func (s DrmOpsRecord) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DrmOpsRecord) GoString() string {
+	return s.String()
+}
+
+func (s *DrmOpsRecord) SetApps(v []*string) *DrmOpsRecord {
+	s.Apps = v
+	return s
+}
+
+func (s *DrmOpsRecord) SetOperator(v string) *DrmOpsRecord {
+	s.Operator = &v
+	return s
+}
+
+func (s *DrmOpsRecord) SetPushTime(v string) *DrmOpsRecord {
+	s.PushTime = &v
+	return s
+}
+
+func (s *DrmOpsRecord) SetResultCode(v string) *DrmOpsRecord {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DrmOpsRecord) SetResultMsg(v string) *DrmOpsRecord {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DrmOpsRecord) SetTargets(v []*string) *DrmOpsRecord {
+	s.Targets = v
+	return s
+}
+
+func (s *DrmOpsRecord) SetValue(v string) *DrmOpsRecord {
+	s.Value = &v
+	return s
+}
+
+func (s *DrmOpsRecord) SetRuleType(v string) *DrmOpsRecord {
+	s.RuleType = &v
+	return s
+}
+
+// 容器应用服务版本信息。
+type ContainerServiceRevision struct {
+	// 应用信息。
+	AppInfo *AppInfo `json:"app_info,omitempty" xml:"app_info,omitempty" require:"true"`
+	// 容器服务配置。
+	ContainerServiceConfig *ContainerServiceConfig `json:"container_service_config,omitempty" xml:"container_service_config,omitempty" require:"true"`
+	// 容器服务服务名称。
+	ContainerServiceName *string `json:"container_service_name,omitempty" xml:"container_service_name,omitempty" require:"true"`
+	// 容器服务发布信息
+	ContainerServiceReleaseInfo *ContainerServiceReleaseInfo `json:"container_service_release_info,omitempty" xml:"container_service_release_info,omitempty"`
+	// 创建时间。
+	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 发布状态。
+	DeployStatus *string `json:"deploy_status,omitempty" xml:"deploy_status,omitempty"`
+	// container service description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 关联的最近一次发布单。
+	LastPlanId *string `json:"last_plan_id,omitempty" xml:"last_plan_id,omitempty"`
+	// 元数据状态。
+	MetaStatus *string `json:"meta_status,omitempty" xml:"meta_status,omitempty"`
+	// 更新时间。
+	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 所属命名空间名称。
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
+	// 版本提交人。
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+	// 版本备注。
+	Remarks *string `json:"remarks,omitempty" xml:"remarks,omitempty"`
+	// 版本号。
+	Revision *string `json:"revision,omitempty" xml:"revision,omitempty" require:"true"`
+}
+
+func (s ContainerServiceRevision) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContainerServiceRevision) GoString() string {
+	return s.String()
+}
+
+func (s *ContainerServiceRevision) SetAppInfo(v *AppInfo) *ContainerServiceRevision {
+	s.AppInfo = v
+	return s
+}
+
+func (s *ContainerServiceRevision) SetContainerServiceConfig(v *ContainerServiceConfig) *ContainerServiceRevision {
+	s.ContainerServiceConfig = v
+	return s
+}
+
+func (s *ContainerServiceRevision) SetContainerServiceName(v string) *ContainerServiceRevision {
+	s.ContainerServiceName = &v
+	return s
+}
+
+func (s *ContainerServiceRevision) SetContainerServiceReleaseInfo(v *ContainerServiceReleaseInfo) *ContainerServiceRevision {
+	s.ContainerServiceReleaseInfo = v
+	return s
+}
+
+func (s *ContainerServiceRevision) SetCreatedTime(v string) *ContainerServiceRevision {
+	s.CreatedTime = &v
+	return s
+}
+
+func (s *ContainerServiceRevision) SetDeployStatus(v string) *ContainerServiceRevision {
+	s.DeployStatus = &v
+	return s
+}
+
+func (s *ContainerServiceRevision) SetDescription(v string) *ContainerServiceRevision {
+	s.Description = &v
+	return s
+}
+
+func (s *ContainerServiceRevision) SetLastPlanId(v string) *ContainerServiceRevision {
+	s.LastPlanId = &v
+	return s
+}
+
+func (s *ContainerServiceRevision) SetMetaStatus(v string) *ContainerServiceRevision {
+	s.MetaStatus = &v
+	return s
+}
+
+func (s *ContainerServiceRevision) SetModifiedTime(v string) *ContainerServiceRevision {
+	s.ModifiedTime = &v
+	return s
+}
+
+func (s *ContainerServiceRevision) SetNamespace(v string) *ContainerServiceRevision {
+	s.Namespace = &v
+	return s
+}
+
+func (s *ContainerServiceRevision) SetOperator(v string) *ContainerServiceRevision {
+	s.Operator = &v
+	return s
+}
+
+func (s *ContainerServiceRevision) SetRemarks(v string) *ContainerServiceRevision {
+	s.Remarks = &v
+	return s
+}
+
+func (s *ContainerServiceRevision) SetRevision(v string) *ContainerServiceRevision {
+	s.Revision = &v
+	return s
+}
+
+// 应用服务的sidecar配置
+type AppServiceSidecarReleaseInfo struct {
+	// 服务所属app名称
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// 应用服务名
+	ContainerServiceName *string `json:"container_service_name,omitempty" xml:"container_service_name,omitempty" require:"true"`
+	// 应用服务所包含的sidecar配置信息，可以有mosn，odp等等不同sidecar类型的配置
+	ReleaseInfos []*SidecarReleaseInfo `json:"release_infos,omitempty" xml:"release_infos,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s AppServiceSidecarReleaseInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppServiceSidecarReleaseInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AppServiceSidecarReleaseInfo) SetAppName(v string) *AppServiceSidecarReleaseInfo {
+	s.AppName = &v
+	return s
+}
+
+func (s *AppServiceSidecarReleaseInfo) SetContainerServiceName(v string) *AppServiceSidecarReleaseInfo {
+	s.ContainerServiceName = &v
+	return s
+}
+
+func (s *AppServiceSidecarReleaseInfo) SetReleaseInfos(v []*SidecarReleaseInfo) *AppServiceSidecarReleaseInfo {
+	s.ReleaseInfos = v
+	return s
+}
+
+// fed configmap override list
+type FedSecretOverrideList struct {
+	// fed configmap override list
+	List []*FedSecretOverride `json:"list,omitempty" xml:"list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s FedSecretOverrideList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FedSecretOverrideList) GoString() string {
+	return s.String()
+}
+
+func (s *FedSecretOverrideList) SetList(v []*FedSecretOverride) *FedSecretOverrideList {
+	s.List = v
+	return s
+}
+
+// 联邦无状态工作负载
+type FederatedDeployment struct {
+	// Standard object metadata.
+	//
+	Metadata *ObjectMeta `json:"metadata,omitempty" xml:"metadata,omitempty" require:"true"`
+	// Federated Deployment Override
+	Overrides []*FedDeploymentClusterOverride `json:"overrides,omitempty" xml:"overrides,omitempty" require:"true" type:"Repeated"`
+	// Federated Deployment Template
+	Template *Deployment `json:"template,omitempty" xml:"template,omitempty" require:"true"`
+	// 联邦无状态工作负载状态
+	Status *FederatedDeploymentStatus `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s FederatedDeployment) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FederatedDeployment) GoString() string {
+	return s.String()
+}
+
+func (s *FederatedDeployment) SetMetadata(v *ObjectMeta) *FederatedDeployment {
+	s.Metadata = v
+	return s
+}
+
+func (s *FederatedDeployment) SetOverrides(v []*FedDeploymentClusterOverride) *FederatedDeployment {
+	s.Overrides = v
+	return s
+}
+
+func (s *FederatedDeployment) SetTemplate(v *Deployment) *FederatedDeployment {
+	s.Template = v
+	return s
+}
+
+func (s *FederatedDeployment) SetStatus(v *FederatedDeploymentStatus) *FederatedDeployment {
+	s.Status = v
+	return s
+}
+
+// region info
+type RegionInfo struct {
+	// region name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s RegionInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegionInfo) GoString() string {
+	return s.String()
+}
+
+func (s *RegionInfo) SetName(v string) *RegionInfo {
+	s.Name = &v
+	return s
+}
+
+// ReleasePipeline ref event
+type RpReleaseEvent struct {
+	// 集群名
+	Cluster *string `json:"cluster,omitempty" xml:"cluster,omitempty" require:"true"`
+	// 结束时间
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 事件关联的对象类型
+	//
+	InvObjKind *string `json:"inv_obj_kind,omitempty" xml:"inv_obj_kind,omitempty" require:"true"`
+	// 事件关联对象名字
+	//
+	InvObjName *string `json:"inv_obj_name,omitempty" xml:"inv_obj_name,omitempty" require:"true"`
+	// 事件关联对象的namespace
+	//
+	InvObjNamespace *string `json:"inv_obj_namespace,omitempty" xml:"inv_obj_namespace,omitempty" require:"true"`
+	// 事件关联对象版本
+	//
+	InvObjVersion *string `json:"inv_obj_version,omitempty" xml:"inv_obj_version,omitempty" require:"true"`
+	// 事件详情
+	//
+	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+	// 事件原因
+	//
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty" require:"true"`
+	// 事件来源组件
+	//
+	SourceComp *string `json:"source_comp,omitempty" xml:"source_comp,omitempty" require:"true"`
+	// start_time
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s RpReleaseEvent) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RpReleaseEvent) GoString() string {
+	return s.String()
+}
+
+func (s *RpReleaseEvent) SetCluster(v string) *RpReleaseEvent {
+	s.Cluster = &v
+	return s
+}
+
+func (s *RpReleaseEvent) SetEndTime(v string) *RpReleaseEvent {
+	s.EndTime = &v
+	return s
+}
+
+func (s *RpReleaseEvent) SetInvObjKind(v string) *RpReleaseEvent {
+	s.InvObjKind = &v
+	return s
+}
+
+func (s *RpReleaseEvent) SetInvObjName(v string) *RpReleaseEvent {
+	s.InvObjName = &v
+	return s
+}
+
+func (s *RpReleaseEvent) SetInvObjNamespace(v string) *RpReleaseEvent {
+	s.InvObjNamespace = &v
+	return s
+}
+
+func (s *RpReleaseEvent) SetInvObjVersion(v string) *RpReleaseEvent {
+	s.InvObjVersion = &v
+	return s
+}
+
+func (s *RpReleaseEvent) SetMessage(v string) *RpReleaseEvent {
+	s.Message = &v
+	return s
+}
+
+func (s *RpReleaseEvent) SetReason(v string) *RpReleaseEvent {
+	s.Reason = &v
+	return s
+}
+
+func (s *RpReleaseEvent) SetSourceComp(v string) *RpReleaseEvent {
+	s.SourceComp = &v
+	return s
+}
+
+func (s *RpReleaseEvent) SetStartTime(v string) *RpReleaseEvent {
+	s.StartTime = &v
+	return s
+}
+
+// ContainerServiceOperationList
+type ContainerServiceOperationList struct {
+	// ContainerServiceOperationList
+	List []*ContainerServiceOperation `json:"list,omitempty" xml:"list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ContainerServiceOperationList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContainerServiceOperationList) GoString() string {
+	return s.String()
+}
+
+func (s *ContainerServiceOperationList) SetList(v []*ContainerServiceOperation) *ContainerServiceOperationList {
+	s.List = v
+	return s
+}
+
+// 发布模板
+type DeploymentTemplate struct {
+	// 模板编码
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 中文名称
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
+	// 模板描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 是否覆盖版本中的发布策略
+	OverrideDeployConfig *bool `json:"override_deploy_config,omitempty" xml:"override_deploy_config,omitempty" require:"true"`
+	// 发布策略
+	DeployConfig *DeployConfig `json:"deploy_config,omitempty" xml:"deploy_config,omitempty"`
+	// 是否开启变更卡点
+	EnableCustomHook *bool `json:"enable_custom_hook,omitempty" xml:"enable_custom_hook,omitempty" require:"true"`
+	// 卡点类型：api或has
+	HookType *string `json:"hook_type,omitempty" xml:"hook_type,omitempty"`
+	// 自定义卡点配置列表
+	//
+	CustomHooks []*CustomHook `json:"custom_hooks,omitempty" xml:"custom_hooks,omitempty" type:"Repeated"`
+	// 操作人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	// 创建时间
+	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更新时间
+	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s DeploymentTemplate) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeploymentTemplate) GoString() string {
+	return s.String()
+}
+
+func (s *DeploymentTemplate) SetName(v string) *DeploymentTemplate {
+	s.Name = &v
+	return s
+}
+
+func (s *DeploymentTemplate) SetDisplayName(v string) *DeploymentTemplate {
+	s.DisplayName = &v
+	return s
+}
+
+func (s *DeploymentTemplate) SetDescription(v string) *DeploymentTemplate {
+	s.Description = &v
+	return s
+}
+
+func (s *DeploymentTemplate) SetOverrideDeployConfig(v bool) *DeploymentTemplate {
+	s.OverrideDeployConfig = &v
+	return s
+}
+
+func (s *DeploymentTemplate) SetDeployConfig(v *DeployConfig) *DeploymentTemplate {
+	s.DeployConfig = v
+	return s
+}
+
+func (s *DeploymentTemplate) SetEnableCustomHook(v bool) *DeploymentTemplate {
+	s.EnableCustomHook = &v
+	return s
+}
+
+func (s *DeploymentTemplate) SetHookType(v string) *DeploymentTemplate {
+	s.HookType = &v
+	return s
+}
+
+func (s *DeploymentTemplate) SetCustomHooks(v []*CustomHook) *DeploymentTemplate {
+	s.CustomHooks = v
+	return s
+}
+
+func (s *DeploymentTemplate) SetOperator(v string) *DeploymentTemplate {
+	s.Operator = &v
+	return s
+}
+
+func (s *DeploymentTemplate) SetCreatedTime(v string) *DeploymentTemplate {
+	s.CreatedTime = &v
+	return s
+}
+
+func (s *DeploymentTemplate) SetModifiedTime(v string) *DeploymentTemplate {
+	s.ModifiedTime = &v
+	return s
+}
+
+// uid 信息
+type UidInfo struct {
+	// UID
+	Uid *int64 `json:"uid,omitempty" xml:"uid,omitempty" require:"true"`
+	// 当前分组
+	CurrentGroup *string `json:"current_group,omitempty" xml:"current_group,omitempty" require:"true"`
+	// 默认分组
+	DefaultGroup *string `json:"default_group,omitempty" xml:"default_group,omitempty" require:"true"`
+	// 是否弹性
+	Elastic *bool `json:"elastic,omitempty" xml:"elastic,omitempty"`
+	// 是否压测
+	Press *bool `json:"press,omitempty" xml:"press,omitempty"`
+	// 是否灰度
+	Gray *bool `json:"gray,omitempty" xml:"gray,omitempty"`
+}
+
+func (s UidInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UidInfo) GoString() string {
+	return s.String()
+}
+
+func (s *UidInfo) SetUid(v int64) *UidInfo {
+	s.Uid = &v
+	return s
+}
+
+func (s *UidInfo) SetCurrentGroup(v string) *UidInfo {
+	s.CurrentGroup = &v
+	return s
+}
+
+func (s *UidInfo) SetDefaultGroup(v string) *UidInfo {
+	s.DefaultGroup = &v
+	return s
+}
+
+func (s *UidInfo) SetElastic(v bool) *UidInfo {
+	s.Elastic = &v
+	return s
+}
+
+func (s *UidInfo) SetPress(v bool) *UidInfo {
+	s.Press = &v
+	return s
+}
+
+func (s *UidInfo) SetGray(v bool) *UidInfo {
+	s.Gray = &v
+	return s
+}
+
+// 获取单个spanner cluster的详细信息
+type GetSpannerClusterDetail struct {
+	// 联邦 spanner cluster 详细信息
+	ClusterDetail *QuerySpannerClusterDetail `json:"cluster_detail,omitempty" xml:"cluster_detail,omitempty" require:"true"`
+	// 若干组本地集群信息
+	LocalClusters []*LocalSpannerClusterDetail `json:"local_clusters,omitempty" xml:"local_clusters,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s GetSpannerClusterDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetSpannerClusterDetail) GoString() string {
+	return s.String()
+}
+
+func (s *GetSpannerClusterDetail) SetClusterDetail(v *QuerySpannerClusterDetail) *GetSpannerClusterDetail {
+	s.ClusterDetail = v
+	return s
+}
+
+func (s *GetSpannerClusterDetail) SetLocalClusters(v []*LocalSpannerClusterDetail) *GetSpannerClusterDetail {
+	s.LocalClusters = v
+	return s
+}
+
+// cell weight info list.
+type CellWeightInfoList struct {
+	// weight info list.
+	Data []*CellWeightInfo `json:"data,omitempty" xml:"data,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s CellWeightInfoList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CellWeightInfoList) GoString() string {
+	return s.String()
+}
+
+func (s *CellWeightInfoList) SetData(v []*CellWeightInfo) *CellWeightInfoList {
+	s.Data = v
+	return s
+}
+
+// fed secret struct
+//
+type FedSecret struct {
+	// fed secret annotations
+	//
+	Annotations []*Annotation `json:"annotations,omitempty" xml:"annotations,omitempty" type:"Repeated"`
+	// FedSecret Cell Cluster Status
+	CellStatus []*ClusteCellStatus `json:"cell_status,omitempty" xml:"cell_status,omitempty" require:"true" type:"Repeated"`
+	// fed clusters
+	//
+	Clusters []*string `json:"clusters,omitempty" xml:"clusters,omitempty" require:"true" type:"Repeated"`
+	// 创建时间
+	CreateTimeStamp *string `json:"create_time_stamp,omitempty" xml:"create_time_stamp,omitempty" require:"true"`
+	// fed secret data
+	//
+	Data []*SecretData `json:"data,omitempty" xml:"data,omitempty" require:"true" type:"Repeated"`
+	// fed secret labels
+	//
+	Labels []*Label `json:"labels,omitempty" xml:"labels,omitempty" type:"Repeated"`
+	// fed secret name
+	//
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// fed secret namespace
+	//
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
+	// fed secret override
+	//
+	Overrides []*FedSecretOverride `json:"overrides,omitempty" xml:"overrides,omitempty" require:"true" type:"Repeated"`
+	// 原因描述
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+	// FedSecret同步状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// opaque
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+}
+
+func (s FedSecret) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FedSecret) GoString() string {
+	return s.String()
+}
+
+func (s *FedSecret) SetAnnotations(v []*Annotation) *FedSecret {
+	s.Annotations = v
+	return s
+}
+
+func (s *FedSecret) SetCellStatus(v []*ClusteCellStatus) *FedSecret {
+	s.CellStatus = v
+	return s
+}
+
+func (s *FedSecret) SetClusters(v []*string) *FedSecret {
+	s.Clusters = v
+	return s
+}
+
+func (s *FedSecret) SetCreateTimeStamp(v string) *FedSecret {
+	s.CreateTimeStamp = &v
+	return s
+}
+
+func (s *FedSecret) SetData(v []*SecretData) *FedSecret {
+	s.Data = v
+	return s
+}
+
+func (s *FedSecret) SetLabels(v []*Label) *FedSecret {
+	s.Labels = v
+	return s
+}
+
+func (s *FedSecret) SetName(v string) *FedSecret {
+	s.Name = &v
+	return s
+}
+
+func (s *FedSecret) SetNamespace(v string) *FedSecret {
+	s.Namespace = &v
+	return s
+}
+
+func (s *FedSecret) SetOverrides(v []*FedSecretOverride) *FedSecret {
+	s.Overrides = v
+	return s
+}
+
+func (s *FedSecret) SetReason(v string) *FedSecret {
+	s.Reason = &v
+	return s
+}
+
+func (s *FedSecret) SetStatus(v string) *FedSecret {
+	s.Status = &v
+	return s
+}
+
+func (s *FedSecret) SetType(v string) *FedSecret {
+	s.Type = &v
+	return s
+}
+
+// 前后置任务
+type OpsPrePostTask struct {
+	//
+	//           任务类型。
+	//           中间件任务：
+	//           MESSAGE_BROKER_TOPIC：消息中间件TOPIC；
+	//           MESSAGE_BROKER_TOPIC_SUB：消息中间件绑定关系；
+	//           DRM_RESOURCE：DRM资源；
+	//           SCHEDULER_TASK：定时任务；
+	//           其他类型任务待定。
+	//
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	//
+	//           操作类型。取值列表：
+	//           CREATE：新建；
+	//           UPDATE：更新；
+	//           DELETE：删除；
+	//           UNDEFINED：未定义；
+	//
+	OperationType *string `json:"operation_type,omitempty" xml:"operation_type,omitempty"`
+	//
+	//           任务详情，JSON字符串
+	//
+	Detail *string `json:"detail,omitempty" xml:"detail,omitempty"`
+	//
+	//           任务状态。取值列表：EXECUTING：执行中；SUCCEEDED：执行成功；FAILED：执行失败；IGNORED：已忽略
+	//
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s OpsPrePostTask) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpsPrePostTask) GoString() string {
+	return s.String()
+}
+
+func (s *OpsPrePostTask) SetType(v string) *OpsPrePostTask {
+	s.Type = &v
+	return s
+}
+
+func (s *OpsPrePostTask) SetOperationType(v string) *OpsPrePostTask {
+	s.OperationType = &v
+	return s
+}
+
+func (s *OpsPrePostTask) SetDetail(v string) *OpsPrePostTask {
+	s.Detail = &v
+	return s
+}
+
+func (s *OpsPrePostTask) SetStatus(v string) *OpsPrePostTask {
+	s.Status = &v
+	return s
+}
+
+// 发布(运维)单状态汇总数据
+type LdcPlanStateCount struct {
+	// 发布单状态类型
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 数量
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+}
+
+func (s LdcPlanStateCount) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LdcPlanStateCount) GoString() string {
+	return s.String()
+}
+
+func (s *LdcPlanStateCount) SetState(v string) *LdcPlanStateCount {
+	s.State = &v
+	return s
+}
+
+func (s *LdcPlanStateCount) SetCount(v int64) *LdcPlanStateCount {
+	s.Count = &v
+	return s
+}
+
+// 发布解决方案
+type UnireleaseSolution struct {
+	// 发布单ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 发布单标题
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
+	// 解决方案平台源
+	SourceSystem *string `json:"source_system,omitempty" xml:"source_system,omitempty" require:"true"`
+	// 发布类型，容器/经典
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 需求人/操作者
+	Submitter *string `json:"submitter,omitempty" xml:"submitter,omitempty" require:"true"`
+	// 解决方案状态
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 解决方案提出时间
+	CreateTimeStamp *string `json:"create_time_stamp,omitempty" xml:"create_time_stamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 是否自动执行
+	AutoExecute *bool `json:"auto_execute,omitempty" xml:"auto_execute,omitempty" require:"true"`
+	// 环境信息
+	Env *string `json:"env,omitempty" xml:"env,omitempty" require:"true"`
+	// 变更人员
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+	// 解决方案拓展信息
+	ExtInfo *UnireleaseSolutionExtInfo `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
+	// 解决方案包含的应用配置信息
+	Apps []*UnireleaseSolutionApp `json:"apps,omitempty" xml:"apps,omitempty" require:"true" type:"Repeated"`
+	// 租户列表
+	Tenants []*string `json:"tenants,omitempty" xml:"tenants,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s UnireleaseSolution) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnireleaseSolution) GoString() string {
+	return s.String()
+}
+
+func (s *UnireleaseSolution) SetId(v string) *UnireleaseSolution {
+	s.Id = &v
+	return s
+}
+
+func (s *UnireleaseSolution) SetTitle(v string) *UnireleaseSolution {
+	s.Title = &v
+	return s
+}
+
+func (s *UnireleaseSolution) SetSourceSystem(v string) *UnireleaseSolution {
+	s.SourceSystem = &v
+	return s
+}
+
+func (s *UnireleaseSolution) SetType(v string) *UnireleaseSolution {
+	s.Type = &v
+	return s
+}
+
+func (s *UnireleaseSolution) SetSubmitter(v string) *UnireleaseSolution {
+	s.Submitter = &v
+	return s
+}
+
+func (s *UnireleaseSolution) SetState(v string) *UnireleaseSolution {
+	s.State = &v
+	return s
+}
+
+func (s *UnireleaseSolution) SetCreateTimeStamp(v string) *UnireleaseSolution {
+	s.CreateTimeStamp = &v
+	return s
+}
+
+func (s *UnireleaseSolution) SetAutoExecute(v bool) *UnireleaseSolution {
+	s.AutoExecute = &v
+	return s
+}
+
+func (s *UnireleaseSolution) SetEnv(v string) *UnireleaseSolution {
+	s.Env = &v
+	return s
+}
+
+func (s *UnireleaseSolution) SetOperator(v string) *UnireleaseSolution {
+	s.Operator = &v
+	return s
+}
+
+func (s *UnireleaseSolution) SetExtInfo(v *UnireleaseSolutionExtInfo) *UnireleaseSolution {
+	s.ExtInfo = v
+	return s
+}
+
+func (s *UnireleaseSolution) SetApps(v []*UnireleaseSolutionApp) *UnireleaseSolution {
+	s.Apps = v
+	return s
+}
+
+func (s *UnireleaseSolution) SetTenants(v []*string) *UnireleaseSolution {
+	s.Tenants = v
+	return s
+}
+
+// master clusters info of each zone
+type MasterClustersOfZone struct {
+	// master clusters of specific zone
+	Clusters []*MasterCluster `json:"clusters,omitempty" xml:"clusters,omitempty" require:"true" type:"Repeated"`
+	// zone name
+	ZoneName *string `json:"zone_name,omitempty" xml:"zone_name,omitempty" require:"true"`
+	// if the az has imported cluster
+	HasImported *bool `json:"has_imported,omitempty" xml:"has_imported,omitempty" require:"true"`
+}
+
+func (s MasterClustersOfZone) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MasterClustersOfZone) GoString() string {
+	return s.String()
+}
+
+func (s *MasterClustersOfZone) SetClusters(v []*MasterCluster) *MasterClustersOfZone {
+	s.Clusters = v
+	return s
+}
+
+func (s *MasterClustersOfZone) SetZoneName(v string) *MasterClustersOfZone {
+	s.ZoneName = &v
+	return s
+}
+
+func (s *MasterClustersOfZone) SetHasImported(v bool) *MasterClustersOfZone {
+	s.HasImported = &v
+	return s
+}
+
+// 弹出 UID
+type PopOutUid struct {
+	// 弹出的 UID 值
+	Value *int64 `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 弹出的目标部署单元
+	Cell *string `json:"cell,omitempty" xml:"cell,omitempty" require:"true"`
+}
+
+func (s PopOutUid) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PopOutUid) GoString() string {
+	return s.String()
+}
+
+func (s *PopOutUid) SetValue(v int64) *PopOutUid {
+	s.Value = &v
+	return s
+}
+
+func (s *PopOutUid) SetCell(v string) *PopOutUid {
 	s.Cell = &v
 	return s
 }
 
-func (s *AntvipDomain) SetHealthCheckDefaultPort(v int64) *AntvipDomain {
-	s.HealthCheckDefaultPort = &v
+// container_services list
+type SontainerServicesList struct {
+	// ContainerServiceDeployment
+	List []*ContainerServiceDeployment `json:"list,omitempty" xml:"list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SontainerServicesList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SontainerServicesList) GoString() string {
+	return s.String()
+}
+
+func (s *SontainerServicesList) SetList(v []*ContainerServiceDeployment) *SontainerServicesList {
+	s.List = v
 	return s
 }
 
-func (s *AntvipDomain) SetHealthCheckType(v string) *AntvipDomain {
-	s.HealthCheckType = &v
+// 联邦负载均衡实例属性
+type FedLoadBalancer struct {
+	// 联邦负载均衡实例名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 地址类型，比如公网、内网
+	AddrType *string `json:"addr_type,omitempty" xml:"addr_type,omitempty" require:"true"`
+	// 联邦负载均衡实例的状态，由多个local 负载均衡实例的状态汇聚计算而来
+	State *string `json:"state,omitempty" xml:"state,omitempty"`
+	// 创建时间
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 关联的应用服务情况
+	ContainerServicesInfo []*FedLoadBalancerContainerServiceRel `json:"container_services_info,omitempty" xml:"container_services_info,omitempty" type:"Repeated"`
+	// local lb实例信息
+	LocalLoadbalancerInstances []*LocalLoadBalancer `json:"local_loadbalancer_instances,omitempty" xml:"local_loadbalancer_instances,omitempty" type:"Repeated"`
+}
+
+func (s FedLoadBalancer) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FedLoadBalancer) GoString() string {
+	return s.String()
+}
+
+func (s *FedLoadBalancer) SetName(v string) *FedLoadBalancer {
+	s.Name = &v
+	return s
+}
+
+func (s *FedLoadBalancer) SetAddrType(v string) *FedLoadBalancer {
+	s.AddrType = &v
+	return s
+}
+
+func (s *FedLoadBalancer) SetState(v string) *FedLoadBalancer {
+	s.State = &v
+	return s
+}
+
+func (s *FedLoadBalancer) SetCreateTime(v string) *FedLoadBalancer {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *FedLoadBalancer) SetContainerServicesInfo(v []*FedLoadBalancerContainerServiceRel) *FedLoadBalancer {
+	s.ContainerServicesInfo = v
+	return s
+}
+
+func (s *FedLoadBalancer) SetLocalLoadbalancerInstances(v []*LocalLoadBalancer) *FedLoadBalancer {
+	s.LocalLoadbalancerInstances = v
+	return s
+}
+
+// sidecar元数据
+type SideCar struct {
+	// region id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
+	// sidecar description
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// sidecar生效范围：workspace、workspace_group、region
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
+	// sidecar_name
+	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
+	// workspace_group_id
+	WorkspaceGroupId *string `json:"workspace_group_id,omitempty" xml:"workspace_group_id,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+}
+
+func (s SideCar) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SideCar) GoString() string {
+	return s.String()
+}
+
+func (s *SideCar) SetRegionId(v string) *SideCar {
+	s.RegionId = &v
+	return s
+}
+
+func (s *SideCar) SetDescription(v string) *SideCar {
+	s.Description = &v
+	return s
+}
+
+func (s *SideCar) SetScope(v string) *SideCar {
+	s.Scope = &v
+	return s
+}
+
+func (s *SideCar) SetSidecarName(v string) *SideCar {
+	s.SidecarName = &v
+	return s
+}
+
+func (s *SideCar) SetWorkspaceGroupId(v string) *SideCar {
+	s.WorkspaceGroupId = &v
+	return s
+}
+
+func (s *SideCar) SetWorkspaceId(v string) *SideCar {
+	s.WorkspaceId = &v
+	return s
+}
+
+// 逻辑单元
+type CellGroup struct {
+	// 包含部署单元列表。
+	Cells []*Cell `json:"cells,omitempty" xml:"cells,omitempty" require:"true" type:"Repeated"`
+	// 机房名称。
+	Datacenter *string `json:"datacenter,omitempty" xml:"datacenter,omitempty"`
+	// 默认全局域
+	DefaultGzone *string `json:"default_gzone,omitempty" xml:"default_gzone,omitempty"`
+	// 逻辑单元灾备信息
+	DisasterInfo []*DisasterInfo `json:"disaster_info,omitempty" xml:"disaster_info,omitempty" require:"true" type:"Repeated"`
+	// 修改时间
+	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 逻辑单元名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 操作人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+	// 逻辑单元类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 所属地域：CZone Group 必填
+	Region *string `json:"region,omitempty" xml:"region,omitempty"`
+}
+
+func (s CellGroup) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CellGroup) GoString() string {
+	return s.String()
+}
+
+func (s *CellGroup) SetCells(v []*Cell) *CellGroup {
+	s.Cells = v
+	return s
+}
+
+func (s *CellGroup) SetDatacenter(v string) *CellGroup {
+	s.Datacenter = &v
+	return s
+}
+
+func (s *CellGroup) SetDefaultGzone(v string) *CellGroup {
+	s.DefaultGzone = &v
+	return s
+}
+
+func (s *CellGroup) SetDisasterInfo(v []*DisasterInfo) *CellGroup {
+	s.DisasterInfo = v
+	return s
+}
+
+func (s *CellGroup) SetModifiedTime(v string) *CellGroup {
+	s.ModifiedTime = &v
+	return s
+}
+
+func (s *CellGroup) SetName(v string) *CellGroup {
+	s.Name = &v
+	return s
+}
+
+func (s *CellGroup) SetOperator(v string) *CellGroup {
+	s.Operator = &v
+	return s
+}
+
+func (s *CellGroup) SetType(v string) *CellGroup {
+	s.Type = &v
+	return s
+}
+
+func (s *CellGroup) SetRegion(v string) *CellGroup {
+	s.Region = &v
+	return s
+}
+
+// 云原生技术栈版本
+type NativeTechStackVersion struct {
+	// 版本描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 用户扩展的自定义Dockerfile指令
+	ExtendCommands []*string `json:"extend_commands,omitempty" xml:"extend_commands,omitempty" require:"true" type:"Repeated"`
+	// 版本扩展信息，e.g 公共环境变量
+	ExtendProperties *string `json:"extend_properties,omitempty" xml:"extend_properties,omitempty" require:"true"`
+	// 基础镜像存放地址
+	FromImage *string `json:"from_image,omitempty" xml:"from_image,omitempty" require:"true"`
+	// 唯一标识ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 可见范围：全局可见|租户内可见
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
+	// 所属技术栈
+	TechStack *string `json:"tech_stack,omitempty" xml:"tech_stack,omitempty" require:"true"`
+	// 所属技术栈标识id
+	TechStackId *string `json:"tech_stack_id,omitempty" xml:"tech_stack_id,omitempty" require:"true"`
+	// 技术栈版本
+	Version *string `json:"version,omitempty" xml:"version,omitempty" require:"true"`
+	// 创建时间（UTC）
+	UtcCreated *string `json:"utc_created,omitempty" xml:"utc_created,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 最近修改时间（UTC）
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s NativeTechStackVersion) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NativeTechStackVersion) GoString() string {
+	return s.String()
+}
+
+func (s *NativeTechStackVersion) SetDescription(v string) *NativeTechStackVersion {
+	s.Description = &v
+	return s
+}
+
+func (s *NativeTechStackVersion) SetExtendCommands(v []*string) *NativeTechStackVersion {
+	s.ExtendCommands = v
+	return s
+}
+
+func (s *NativeTechStackVersion) SetExtendProperties(v string) *NativeTechStackVersion {
+	s.ExtendProperties = &v
+	return s
+}
+
+func (s *NativeTechStackVersion) SetFromImage(v string) *NativeTechStackVersion {
+	s.FromImage = &v
+	return s
+}
+
+func (s *NativeTechStackVersion) SetId(v string) *NativeTechStackVersion {
+	s.Id = &v
+	return s
+}
+
+func (s *NativeTechStackVersion) SetScope(v string) *NativeTechStackVersion {
+	s.Scope = &v
+	return s
+}
+
+func (s *NativeTechStackVersion) SetTechStack(v string) *NativeTechStackVersion {
+	s.TechStack = &v
+	return s
+}
+
+func (s *NativeTechStackVersion) SetTechStackId(v string) *NativeTechStackVersion {
+	s.TechStackId = &v
+	return s
+}
+
+func (s *NativeTechStackVersion) SetVersion(v string) *NativeTechStackVersion {
+	s.Version = &v
+	return s
+}
+
+func (s *NativeTechStackVersion) SetUtcCreated(v string) *NativeTechStackVersion {
+	s.UtcCreated = &v
+	return s
+}
+
+func (s *NativeTechStackVersion) SetUtcModified(v string) *NativeTechStackVersion {
+	s.UtcModified = &v
+	return s
+}
+
+// cloudconfig
+type CloudConfigEntity struct {
+	// 配置详情
+	CloudConfig *string `json:"cloud_config,omitempty" xml:"cloud_config,omitempty" require:"true"`
+	// 操作时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true"`
+	// 操作类型
+	Operation *string `json:"operation,omitempty" xml:"operation,omitempty" require:"true"`
+	// admin
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+}
+
+func (s CloudConfigEntity) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CloudConfigEntity) GoString() string {
+	return s.String()
+}
+
+func (s *CloudConfigEntity) SetCloudConfig(v string) *CloudConfigEntity {
+	s.CloudConfig = &v
+	return s
+}
+
+func (s *CloudConfigEntity) SetGmtCreate(v string) *CloudConfigEntity {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *CloudConfigEntity) SetOperation(v string) *CloudConfigEntity {
+	s.Operation = &v
+	return s
+}
+
+func (s *CloudConfigEntity) SetOperator(v string) *CloudConfigEntity {
+	s.Operator = &v
+	return s
+}
+
+// 应用信息
+type Application struct {
+	// 应用部署时指定的自定义参数
+	CustomParams []*OpsParam `json:"custom_params,omitempty" xml:"custom_params,omitempty" type:"Repeated"`
+	// 应用部署时依赖的应用名称，只允许取此次调用参数中列出的应用。不允许形成循环依赖。
+	Depends []*string `json:"depends,omitempty" xml:"depends,omitempty" type:"Repeated"`
+	// 应用名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 指定应用下的应用服务实例
+	Services []*AppService `json:"services,omitempty" xml:"services,omitempty" type:"Repeated"`
+	// 应用包版本
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+}
+
+func (s Application) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Application) GoString() string {
+	return s.String()
+}
+
+func (s *Application) SetCustomParams(v []*OpsParam) *Application {
+	s.CustomParams = v
+	return s
+}
+
+func (s *Application) SetDepends(v []*string) *Application {
+	s.Depends = v
+	return s
+}
+
+func (s *Application) SetName(v string) *Application {
+	s.Name = &v
+	return s
+}
+
+func (s *Application) SetServices(v []*AppService) *Application {
+	s.Services = v
+	return s
+}
+
+func (s *Application) SetVersion(v string) *Application {
+	s.Version = &v
+	return s
+}
+
+// Kubernetes Event
+type KubeEvent struct {
+	// 事件类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 发布次数
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+	// 事件原因
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty" require:"true"`
+	// 事件内容
+	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+	// 更新时间
+	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s KubeEvent) String() string {
+	return tea.Prettify(s)
+}
+
+func (s KubeEvent) GoString() string {
+	return s.String()
+}
+
+func (s *KubeEvent) SetType(v string) *KubeEvent {
+	s.Type = &v
+	return s
+}
+
+func (s *KubeEvent) SetCount(v int64) *KubeEvent {
+	s.Count = &v
+	return s
+}
+
+func (s *KubeEvent) SetReason(v string) *KubeEvent {
+	s.Reason = &v
+	return s
+}
+
+func (s *KubeEvent) SetMessage(v string) *KubeEvent {
+	s.Message = &v
+	return s
+}
+
+func (s *KubeEvent) SetModifiedTime(v string) *KubeEvent {
+	s.ModifiedTime = &v
+	return s
+}
+
+// node info
+type NodeInfo struct {
+	// cell name
+	CellName *string `json:"cell_name,omitempty" xml:"cell_name,omitempty"`
+	// node ip
+	Ip *string `json:"ip,omitempty" xml:"ip,omitempty"`
+	// true
+	IsSchedulable *bool `json:"is_schedulable,omitempty" xml:"is_schedulable,omitempty"`
+	// number of capacity cpu core
+	LimitedCpu *int64 `json:"limited_cpu,omitempty" xml:"limited_cpu,omitempty"`
+	// quantity of capacity memory
+	LimitedMemory *int64 `json:"limited_memory,omitempty" xml:"limited_memory,omitempty"`
+	// node name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// pod number of one node
+	PodNumber *string `json:"pod_number,omitempty" xml:"pod_number,omitempty"`
+	// node state
+	State *string `json:"state,omitempty" xml:"state,omitempty"`
+	// quantity of used cpu core
+	UsedCpu *int64 `json:"used_cpu,omitempty" xml:"used_cpu,omitempty"`
+	// quantity of used memory
+	UsedMemory *int64 `json:"used_memory,omitempty" xml:"used_memory,omitempty"`
+	// zone name
+	ZoneName *string `json:"zone_name,omitempty" xml:"zone_name,omitempty"`
+	// node labels
+	Labels []*Label `json:"labels,omitempty" xml:"labels,omitempty" type:"Repeated"`
+	// node annotations
+	Annotations []*Annotation `json:"annotations,omitempty" xml:"annotations,omitempty" type:"Repeated"`
+	// node created time
+	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// node system infos
+	SystemInfos []*Annotation `json:"system_infos,omitempty" xml:"system_infos,omitempty" type:"Repeated"`
+	// max pod amount of node
+	MaxPodAmount *int64 `json:"max_pod_amount,omitempty" xml:"max_pod_amount,omitempty"`
+	// running pod amount of node
+	RunningPodAmount *int64 `json:"running_pod_amount,omitempty" xml:"running_pod_amount,omitempty"`
+}
+
+func (s NodeInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NodeInfo) GoString() string {
+	return s.String()
+}
+
+func (s *NodeInfo) SetCellName(v string) *NodeInfo {
+	s.CellName = &v
+	return s
+}
+
+func (s *NodeInfo) SetIp(v string) *NodeInfo {
+	s.Ip = &v
+	return s
+}
+
+func (s *NodeInfo) SetIsSchedulable(v bool) *NodeInfo {
+	s.IsSchedulable = &v
+	return s
+}
+
+func (s *NodeInfo) SetLimitedCpu(v int64) *NodeInfo {
+	s.LimitedCpu = &v
+	return s
+}
+
+func (s *NodeInfo) SetLimitedMemory(v int64) *NodeInfo {
+	s.LimitedMemory = &v
+	return s
+}
+
+func (s *NodeInfo) SetName(v string) *NodeInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *NodeInfo) SetPodNumber(v string) *NodeInfo {
+	s.PodNumber = &v
+	return s
+}
+
+func (s *NodeInfo) SetState(v string) *NodeInfo {
+	s.State = &v
+	return s
+}
+
+func (s *NodeInfo) SetUsedCpu(v int64) *NodeInfo {
+	s.UsedCpu = &v
+	return s
+}
+
+func (s *NodeInfo) SetUsedMemory(v int64) *NodeInfo {
+	s.UsedMemory = &v
+	return s
+}
+
+func (s *NodeInfo) SetZoneName(v string) *NodeInfo {
+	s.ZoneName = &v
+	return s
+}
+
+func (s *NodeInfo) SetLabels(v []*Label) *NodeInfo {
+	s.Labels = v
+	return s
+}
+
+func (s *NodeInfo) SetAnnotations(v []*Annotation) *NodeInfo {
+	s.Annotations = v
+	return s
+}
+
+func (s *NodeInfo) SetCreatedTime(v string) *NodeInfo {
+	s.CreatedTime = &v
+	return s
+}
+
+func (s *NodeInfo) SetSystemInfos(v []*Annotation) *NodeInfo {
+	s.SystemInfos = v
+	return s
+}
+
+func (s *NodeInfo) SetMaxPodAmount(v int64) *NodeInfo {
+	s.MaxPodAmount = &v
+	return s
+}
+
+func (s *NodeInfo) SetRunningPodAmount(v int64) *NodeInfo {
+	s.RunningPodAmount = &v
+	return s
+}
+
+// secured Group Info
+type SecuredGroupInfo struct {
+	// secured group name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s SecuredGroupInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SecuredGroupInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SecuredGroupInfo) SetName(v string) *SecuredGroupInfo {
+	s.Name = &v
+	return s
+}
+
+// 租户应用发布状态
+type TenantAppReleasePipeline struct {
+	// 机构名称
+	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
+	// 环境
+	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
+	// 应用发布releaseId
+	ReleaseId *string `json:"release_id,omitempty" xml:"release_id,omitempty" require:"true"`
+	// 发布单序列号
+	ReleaseTimeSeriesId *string `json:"release_time_series_id,omitempty" xml:"release_time_series_id,omitempty" require:"true"`
+	// 应用发布状态
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 应用发布单详情url
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// 应用列表
+	Apps []*string `json:"apps,omitempty" xml:"apps,omitempty" require:"true" type:"Repeated"`
+	// 操作人员
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+	// 发布单ID
+	ApprovePlanId *string `json:"approve_plan_id,omitempty" xml:"approve_plan_id,omitempty"`
+	// 发布审批单Url
+	ApprovePlanUrl *string `json:"approve_plan_url,omitempty" xml:"approve_plan_url,omitempty"`
+}
+
+func (s TenantAppReleasePipeline) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TenantAppReleasePipeline) GoString() string {
+	return s.String()
+}
+
+func (s *TenantAppReleasePipeline) SetTenant(v string) *TenantAppReleasePipeline {
+	s.Tenant = &v
+	return s
+}
+
+func (s *TenantAppReleasePipeline) SetWorkspaceGroup(v string) *TenantAppReleasePipeline {
+	s.WorkspaceGroup = &v
+	return s
+}
+
+func (s *TenantAppReleasePipeline) SetReleaseId(v string) *TenantAppReleasePipeline {
+	s.ReleaseId = &v
+	return s
+}
+
+func (s *TenantAppReleasePipeline) SetReleaseTimeSeriesId(v string) *TenantAppReleasePipeline {
+	s.ReleaseTimeSeriesId = &v
+	return s
+}
+
+func (s *TenantAppReleasePipeline) SetState(v string) *TenantAppReleasePipeline {
+	s.State = &v
+	return s
+}
+
+func (s *TenantAppReleasePipeline) SetUrl(v string) *TenantAppReleasePipeline {
+	s.Url = &v
+	return s
+}
+
+func (s *TenantAppReleasePipeline) SetApps(v []*string) *TenantAppReleasePipeline {
+	s.Apps = v
+	return s
+}
+
+func (s *TenantAppReleasePipeline) SetOperator(v string) *TenantAppReleasePipeline {
+	s.Operator = &v
+	return s
+}
+
+func (s *TenantAppReleasePipeline) SetApprovePlanId(v string) *TenantAppReleasePipeline {
+	s.ApprovePlanId = &v
+	return s
+}
+
+func (s *TenantAppReleasePipeline) SetApprovePlanUrl(v string) *TenantAppReleasePipeline {
+	s.ApprovePlanUrl = &v
+	return s
+}
+
+// MasterClusterForWorkspaces
+type MasterClusterForWorkspaces struct {
+	// workspace id
+	WorkspaceId []*string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true" type:"Repeated"`
+	// master cluster info to init minion cluster
+	MasterClusterInfo *MasterCluster `json:"master_cluster_info,omitempty" xml:"master_cluster_info,omitempty" require:"true"`
+}
+
+func (s MasterClusterForWorkspaces) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MasterClusterForWorkspaces) GoString() string {
+	return s.String()
+}
+
+func (s *MasterClusterForWorkspaces) SetWorkspaceId(v []*string) *MasterClusterForWorkspaces {
+	s.WorkspaceId = v
+	return s
+}
+
+func (s *MasterClusterForWorkspaces) SetMasterClusterInfo(v *MasterCluster) *MasterClusterForWorkspaces {
+	s.MasterClusterInfo = v
+	return s
+}
+
+// namespace detail
+type NamespaceDetail struct {
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// labels
+	Labels []*Label `json:"labels,omitempty" xml:"labels,omitempty" type:"Repeated"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// created time
+	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s NamespaceDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NamespaceDetail) GoString() string {
+	return s.String()
+}
+
+func (s *NamespaceDetail) SetName(v string) *NamespaceDetail {
+	s.Name = &v
+	return s
+}
+
+func (s *NamespaceDetail) SetLabels(v []*Label) *NamespaceDetail {
+	s.Labels = v
+	return s
+}
+
+func (s *NamespaceDetail) SetStatus(v string) *NamespaceDetail {
+	s.Status = &v
+	return s
+}
+
+func (s *NamespaceDetail) SetCreatedTime(v string) *NamespaceDetail {
+	s.CreatedTime = &v
+	return s
+}
+
+// kubernetes集群事件信息
+type ClusterEvents struct {
+	// 集群名称
+	Cluster *string `json:"cluster,omitempty" xml:"cluster,omitempty" require:"true"`
+	// 集群事件
+	Events []*KubernetesEvents `json:"events,omitempty" xml:"events,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ClusterEvents) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ClusterEvents) GoString() string {
+	return s.String()
+}
+
+func (s *ClusterEvents) SetCluster(v string) *ClusterEvents {
+	s.Cluster = &v
+	return s
+}
+
+func (s *ClusterEvents) SetEvents(v []*KubernetesEvents) *ClusterEvents {
+	s.Events = v
+	return s
+}
+
+// 容器服务service信息。
+type NativeServiceView struct {
+	// 服务名称。
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 服务类型。
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 负载均衡实例id。
+	LoadBalancerId *string `json:"load_balancer_id,omitempty" xml:"load_balancer_id,omitempty"`
+	// VIP地址信息。
+	VipAddresses []*string `json:"vip_addresses,omitempty" xml:"vip_addresses,omitempty" type:"Repeated"`
+	// VIP地址信息类型。
+	VipAddressType *string `json:"vip_address_type,omitempty" xml:"vip_address_type,omitempty"`
+	// ClusterIP信息。
+	ClusterIp *string `json:"cluster_ip,omitempty" xml:"cluster_ip,omitempty"`
+	// 创建时间。
+	CreatedTimestamp *string `json:"created_timestamp,omitempty" xml:"created_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 修改时间。
+	ModifiedTimestamp *string `json:"modified_timestamp,omitempty" xml:"modified_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s NativeServiceView) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NativeServiceView) GoString() string {
+	return s.String()
+}
+
+func (s *NativeServiceView) SetName(v string) *NativeServiceView {
+	s.Name = &v
+	return s
+}
+
+func (s *NativeServiceView) SetType(v string) *NativeServiceView {
+	s.Type = &v
+	return s
+}
+
+func (s *NativeServiceView) SetLoadBalancerId(v string) *NativeServiceView {
+	s.LoadBalancerId = &v
+	return s
+}
+
+func (s *NativeServiceView) SetVipAddresses(v []*string) *NativeServiceView {
+	s.VipAddresses = v
+	return s
+}
+
+func (s *NativeServiceView) SetVipAddressType(v string) *NativeServiceView {
+	s.VipAddressType = &v
+	return s
+}
+
+func (s *NativeServiceView) SetClusterIp(v string) *NativeServiceView {
+	s.ClusterIp = &v
+	return s
+}
+
+func (s *NativeServiceView) SetCreatedTimestamp(v string) *NativeServiceView {
+	s.CreatedTimestamp = &v
+	return s
+}
+
+func (s *NativeServiceView) SetModifiedTimestamp(v string) *NativeServiceView {
+	s.ModifiedTimestamp = &v
 	return s
 }
 
@@ -7975,6 +9711,875 @@ func (s *ServiceWeight) SetMessage(v string) *ServiceWeight {
 	return s
 }
 
+// 健康检查配置。
+type HealthCheckConfigInfo struct {
+	// 容器健康检查配置liveness probe。
+	LivenessProbe *LivenessProbe `json:"liveness_probe,omitempty" xml:"liveness_probe,omitempty"`
+	// 容器健康检查配置readiness probe。
+	ReadinessProbe *ReadinessProbe `json:"readiness_probe,omitempty" xml:"readiness_probe,omitempty"`
+}
+
+func (s HealthCheckConfigInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HealthCheckConfigInfo) GoString() string {
+	return s.String()
+}
+
+func (s *HealthCheckConfigInfo) SetLivenessProbe(v *LivenessProbe) *HealthCheckConfigInfo {
+	s.LivenessProbe = v
+	return s
+}
+
+func (s *HealthCheckConfigInfo) SetReadinessProbe(v *ReadinessProbe) *HealthCheckConfigInfo {
+	s.ReadinessProbe = v
+	return s
+}
+
+// 发布单摘要信息
+type PlanSimpleView struct {
+	// 发布单涉及的应用个数
+	AppCount *int64 `json:"app_count,omitempty" xml:"app_count,omitempty" require:"true"`
+	// 创建时间
+	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 执行人
+	Executor *string `json:"executor,omitempty" xml:"executor,omitempty" require:"true"`
+	// 结束时间
+	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 发布单id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 运维单类型
+	Mode *string `json:"mode,omitempty" xml:"mode,omitempty" require:"true"`
+	// 发布单标题
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 开始时间
+	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 发布单状态
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 发布单号
+	TimeSeriesId *string `json:"time_series_id,omitempty" xml:"time_series_id,omitempty" require:"true"`
+	// 发布单类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 工作空间组id
+	WorkspaceGroupId *string `json:"workspace_group_id,omitempty" xml:"workspace_group_id,omitempty"`
+	// Pod 数量
+	PodCount *int64 `json:"pod_count,omitempty" xml:"pod_count,omitempty"`
+}
+
+func (s PlanSimpleView) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PlanSimpleView) GoString() string {
+	return s.String()
+}
+
+func (s *PlanSimpleView) SetAppCount(v int64) *PlanSimpleView {
+	s.AppCount = &v
+	return s
+}
+
+func (s *PlanSimpleView) SetCreatedTime(v string) *PlanSimpleView {
+	s.CreatedTime = &v
+	return s
+}
+
+func (s *PlanSimpleView) SetExecutor(v string) *PlanSimpleView {
+	s.Executor = &v
+	return s
+}
+
+func (s *PlanSimpleView) SetFinishedTime(v string) *PlanSimpleView {
+	s.FinishedTime = &v
+	return s
+}
+
+func (s *PlanSimpleView) SetId(v string) *PlanSimpleView {
+	s.Id = &v
+	return s
+}
+
+func (s *PlanSimpleView) SetMode(v string) *PlanSimpleView {
+	s.Mode = &v
+	return s
+}
+
+func (s *PlanSimpleView) SetName(v string) *PlanSimpleView {
+	s.Name = &v
+	return s
+}
+
+func (s *PlanSimpleView) SetStartedTime(v string) *PlanSimpleView {
+	s.StartedTime = &v
+	return s
+}
+
+func (s *PlanSimpleView) SetState(v string) *PlanSimpleView {
+	s.State = &v
+	return s
+}
+
+func (s *PlanSimpleView) SetTimeSeriesId(v string) *PlanSimpleView {
+	s.TimeSeriesId = &v
+	return s
+}
+
+func (s *PlanSimpleView) SetType(v string) *PlanSimpleView {
+	s.Type = &v
+	return s
+}
+
+func (s *PlanSimpleView) SetWorkspaceGroupId(v string) *PlanSimpleView {
+	s.WorkspaceGroupId = &v
+	return s
+}
+
+func (s *PlanSimpleView) SetPodCount(v int64) *PlanSimpleView {
+	s.PodCount = &v
+	return s
+}
+
+// MasterClusterInfoForWorkspaces
+type MasterClusterInfoForWorkspaces struct {
+	// master cluster info
+	MasterClusterInfo *MasterCluster `json:"master_cluster_info,omitempty" xml:"master_cluster_info,omitempty" require:"true"`
+	// workspace ids
+	WorkspaceIds []*string `json:"workspace_ids,omitempty" xml:"workspace_ids,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s MasterClusterInfoForWorkspaces) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MasterClusterInfoForWorkspaces) GoString() string {
+	return s.String()
+}
+
+func (s *MasterClusterInfoForWorkspaces) SetMasterClusterInfo(v *MasterCluster) *MasterClusterInfoForWorkspaces {
+	s.MasterClusterInfo = v
+	return s
+}
+
+func (s *MasterClusterInfoForWorkspaces) SetWorkspaceIds(v []*string) *MasterClusterInfoForWorkspaces {
+	s.WorkspaceIds = v
+	return s
+}
+
+// Ingress 信息
+type IngressInfo struct {
+	// 元信息
+	Meta *ContainerServiceObjectMeta `json:"meta,omitempty" xml:"meta,omitempty" require:"true"`
+	// 所属统一接入实例名称
+	UnifiedAccessInstanceName *string `json:"unified_access_instance_name,omitempty" xml:"unified_access_instance_name,omitempty"`
+}
+
+func (s IngressInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IngressInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IngressInfo) SetMeta(v *ContainerServiceObjectMeta) *IngressInfo {
+	s.Meta = v
+	return s
+}
+
+func (s *IngressInfo) SetUnifiedAccessInstanceName(v string) *IngressInfo {
+	s.UnifiedAccessInstanceName = &v
+	return s
+}
+
+// 添加antvipdomain请求
+type AntvipDomain struct {
+	// 应用名称
+	Application *string `json:"application,omitempty" xml:"application,omitempty" require:"true"`
+	// 部署单元cell名称
+	Cell *string `json:"cell,omitempty" xml:"cell,omitempty" require:"true"`
+	// 健康检查端口，非必填项
+	HealthCheckDefaultPort *int64 `json:"health_check_default_port,omitempty" xml:"health_check_default_port,omitempty"`
+	// 健康检查类型，默认为TCP
+	HealthCheckType *string `json:"health_check_type,omitempty" xml:"health_check_type,omitempty"`
+}
+
+func (s AntvipDomain) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AntvipDomain) GoString() string {
+	return s.String()
+}
+
+func (s *AntvipDomain) SetApplication(v string) *AntvipDomain {
+	s.Application = &v
+	return s
+}
+
+func (s *AntvipDomain) SetCell(v string) *AntvipDomain {
+	s.Cell = &v
+	return s
+}
+
+func (s *AntvipDomain) SetHealthCheckDefaultPort(v int64) *AntvipDomain {
+	s.HealthCheckDefaultPort = &v
+	return s
+}
+
+func (s *AntvipDomain) SetHealthCheckType(v string) *AntvipDomain {
+	s.HealthCheckType = &v
+	return s
+}
+
+// V1ReleasePlanSpec appService
+type ReleasePlanSpecAppService struct {
+	// 依赖的应用服务名字列表
+	Dependencies []*string `json:"dependencies,omitempty" xml:"dependencies,omitempty" require:"true" type:"Repeated"`
+	// 应用服务名字
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// container service revision
+	Revision *string `json:"revision,omitempty" xml:"revision,omitempty" require:"true"`
+}
+
+func (s ReleasePlanSpecAppService) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReleasePlanSpecAppService) GoString() string {
+	return s.String()
+}
+
+func (s *ReleasePlanSpecAppService) SetDependencies(v []*string) *ReleasePlanSpecAppService {
+	s.Dependencies = v
+	return s
+}
+
+func (s *ReleasePlanSpecAppService) SetName(v string) *ReleasePlanSpecAppService {
+	s.Name = &v
+	return s
+}
+
+func (s *ReleasePlanSpecAppService) SetRevision(v string) *ReleasePlanSpecAppService {
+	s.Revision = &v
+	return s
+}
+
+// cluster info
+type ClusterInfo struct {
+	// created time
+	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// env
+	Env *string `json:"env,omitempty" xml:"env,omitempty"`
+	// cluster is healthy or not
+	IsHealthy *bool `json:"is_healthy,omitempty" xml:"is_healthy,omitempty" require:"true"`
+	// cluster name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// cluster overview info
+	OverviewInfo *ClusterOverviewInfo `json:"overview_info,omitempty" xml:"overview_info,omitempty" require:"true"`
+	// region name
+	RegionName *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
+	// 独占 or 共享
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// version
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// zone name
+	ZoneName *string `json:"zone_name,omitempty" xml:"zone_name,omitempty"`
+	// workspace名称[如果存在]。
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+}
+
+func (s ClusterInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ClusterInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ClusterInfo) SetCreatedTime(v string) *ClusterInfo {
+	s.CreatedTime = &v
+	return s
+}
+
+func (s *ClusterInfo) SetEnv(v string) *ClusterInfo {
+	s.Env = &v
+	return s
+}
+
+func (s *ClusterInfo) SetIsHealthy(v bool) *ClusterInfo {
+	s.IsHealthy = &v
+	return s
+}
+
+func (s *ClusterInfo) SetName(v string) *ClusterInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *ClusterInfo) SetOverviewInfo(v *ClusterOverviewInfo) *ClusterInfo {
+	s.OverviewInfo = v
+	return s
+}
+
+func (s *ClusterInfo) SetRegionName(v string) *ClusterInfo {
+	s.RegionName = &v
+	return s
+}
+
+func (s *ClusterInfo) SetType(v string) *ClusterInfo {
+	s.Type = &v
+	return s
+}
+
+func (s *ClusterInfo) SetVersion(v string) *ClusterInfo {
+	s.Version = &v
+	return s
+}
+
+func (s *ClusterInfo) SetZoneName(v string) *ClusterInfo {
+	s.ZoneName = &v
+	return s
+}
+
+func (s *ClusterInfo) SetWorkspace(v string) *ClusterInfo {
+	s.Workspace = &v
+	return s
+}
+
+// 包含sidecar template表的主要元信息
+type SidecarTemplateMeta struct {
+	// 名称
+	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
+	// sidecar版本
+	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty" require:"true"`
+	// 具体的模板信息
+	Template *string `json:"template,omitempty" xml:"template,omitempty" require:"true"`
+	// 工作空间
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// 工作空间组id
+	WorkspaceGroupId *string `json:"workspace_group_id,omitempty" xml:"workspace_group_id,omitempty" require:"true"`
+	// 镜像地址
+	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
+	// 保留扩展
+	Extension *string `json:"extension,omitempty" xml:"extension,omitempty" require:"true"`
+	// 基线所应用的scope范围
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
+}
+
+func (s SidecarTemplateMeta) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SidecarTemplateMeta) GoString() string {
+	return s.String()
+}
+
+func (s *SidecarTemplateMeta) SetSidecarName(v string) *SidecarTemplateMeta {
+	s.SidecarName = &v
+	return s
+}
+
+func (s *SidecarTemplateMeta) SetSidecarVersion(v string) *SidecarTemplateMeta {
+	s.SidecarVersion = &v
+	return s
+}
+
+func (s *SidecarTemplateMeta) SetTemplate(v string) *SidecarTemplateMeta {
+	s.Template = &v
+	return s
+}
+
+func (s *SidecarTemplateMeta) SetWorkspaceId(v string) *SidecarTemplateMeta {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *SidecarTemplateMeta) SetWorkspaceGroupId(v string) *SidecarTemplateMeta {
+	s.WorkspaceGroupId = &v
+	return s
+}
+
+func (s *SidecarTemplateMeta) SetImage(v string) *SidecarTemplateMeta {
+	s.Image = &v
+	return s
+}
+
+func (s *SidecarTemplateMeta) SetExtension(v string) *SidecarTemplateMeta {
+	s.Extension = &v
+	return s
+}
+
+func (s *SidecarTemplateMeta) SetScope(v string) *SidecarTemplateMeta {
+	s.Scope = &v
+	return s
+}
+
+// AKS集群cluster
+type Cluster struct {
+	// 集群创建时间
+	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// env
+	Env *string `json:"env,omitempty" xml:"env,omitempty" require:"true"`
+	// 集群是否健康
+	IsHealthy *bool `json:"is_healthy,omitempty" xml:"is_healthy,omitempty" require:"true"`
+	// 集群名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// region name
+	//
+	RegionName *string `json:"region_name,omitempty" xml:"region_name,omitempty" require:"true"`
+	// 独占
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 集群版本
+	Version *string `json:"version,omitempty" xml:"version,omitempty" require:"true"`
+	// 环境名称
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
+	// 机房名称
+	ZoneName *string `json:"zone_name,omitempty" xml:"zone_name,omitempty" require:"true"`
+}
+
+func (s Cluster) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Cluster) GoString() string {
+	return s.String()
+}
+
+func (s *Cluster) SetCreatedTime(v string) *Cluster {
+	s.CreatedTime = &v
+	return s
+}
+
+func (s *Cluster) SetEnv(v string) *Cluster {
+	s.Env = &v
+	return s
+}
+
+func (s *Cluster) SetIsHealthy(v bool) *Cluster {
+	s.IsHealthy = &v
+	return s
+}
+
+func (s *Cluster) SetName(v string) *Cluster {
+	s.Name = &v
+	return s
+}
+
+func (s *Cluster) SetRegionName(v string) *Cluster {
+	s.RegionName = &v
+	return s
+}
+
+func (s *Cluster) SetType(v string) *Cluster {
+	s.Type = &v
+	return s
+}
+
+func (s *Cluster) SetVersion(v string) *Cluster {
+	s.Version = &v
+	return s
+}
+
+func (s *Cluster) SetWorkspace(v string) *Cluster {
+	s.Workspace = &v
+	return s
+}
+
+func (s *Cluster) SetZoneName(v string) *Cluster {
+	s.ZoneName = &v
+	return s
+}
+
+// fed namespace
+type FedNamespace struct {
+	// fed namespace annotations
+	Annotations []*Annotation `json:"annotations,omitempty" xml:"annotations,omitempty" require:"true" type:"Repeated"`
+	// fed namespace clusters
+	Clusters []*string `json:"clusters,omitempty" xml:"clusters,omitempty" require:"true" type:"Repeated"`
+	// fed namespace cluster state map
+	ClusterStateMap []*ClusterState `json:"cluster_state_map,omitempty" xml:"cluster_state_map,omitempty" require:"true" type:"Repeated"`
+	// fed namespace labels
+	Labels []*Label `json:"labels,omitempty" xml:"labels,omitempty" require:"true" type:"Repeated"`
+	// fed namespace name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// Fed CRD namespace
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
+	// 创建时间
+	CreateTimeStamp *string `json:"create_time_stamp,omitempty" xml:"create_time_stamp,omitempty" require:"true"`
+	// fed 资源的状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 导致 fed 资源处于该状态的原因
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+}
+
+func (s FedNamespace) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FedNamespace) GoString() string {
+	return s.String()
+}
+
+func (s *FedNamespace) SetAnnotations(v []*Annotation) *FedNamespace {
+	s.Annotations = v
+	return s
+}
+
+func (s *FedNamespace) SetClusters(v []*string) *FedNamespace {
+	s.Clusters = v
+	return s
+}
+
+func (s *FedNamespace) SetClusterStateMap(v []*ClusterState) *FedNamespace {
+	s.ClusterStateMap = v
+	return s
+}
+
+func (s *FedNamespace) SetLabels(v []*Label) *FedNamespace {
+	s.Labels = v
+	return s
+}
+
+func (s *FedNamespace) SetName(v string) *FedNamespace {
+	s.Name = &v
+	return s
+}
+
+func (s *FedNamespace) SetNamespace(v string) *FedNamespace {
+	s.Namespace = &v
+	return s
+}
+
+func (s *FedNamespace) SetCreateTimeStamp(v string) *FedNamespace {
+	s.CreateTimeStamp = &v
+	return s
+}
+
+func (s *FedNamespace) SetStatus(v string) *FedNamespace {
+	s.Status = &v
+	return s
+}
+
+func (s *FedNamespace) SetReason(v string) *FedNamespace {
+	s.Reason = &v
+	return s
+}
+
+// 应用摘要信息
+type AppSimpleInfo struct {
+	// 应用id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 应用分组名字
+	AppInstanceGroupName *string `json:"app_instance_group_name,omitempty" xml:"app_instance_group_name,omitempty" require:"true"`
+	// 应用名字
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// 执行者
+	Executor *string `json:"executor,omitempty" xml:"executor,omitempty" require:"true"`
+	// 结束时间
+	FinishTime *string `json:"finish_time,omitempty" xml:"finish_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 分组个数
+	GroupNum *int64 `json:"group_num,omitempty" xml:"group_num,omitempty" require:"true"`
+	// 分组策略
+	GroupStrategy *string `json:"group_strategy,omitempty" xml:"group_strategy,omitempty" require:"true"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 命名空间
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty"`
+	// 操作类型
+	OperationType *string `json:"operation_type,omitempty" xml:"operation_type,omitempty" require:"true"`
+	// 发布版本号
+	Revision *string `json:"revision,omitempty" xml:"revision,omitempty" require:"true"`
+	// 回滚revision
+	RollbackRevision *string `json:"rollback_revision,omitempty" xml:"rollback_revision,omitempty"`
+	// 是否可单独执行
+	StandaloneExecutable *bool `json:"standalone_executable,omitempty" xml:"standalone_executable,omitempty" require:"true"`
+	// 开始时间
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 应用状态
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// Pod 数量
+	PodCount *int64 `json:"pod_count,omitempty" xml:"pod_count,omitempty"`
+	// 回滚原因
+	RollbackReason *string `json:"rollback_reason,omitempty" xml:"rollback_reason,omitempty"`
+	// 依赖的应用服务名
+	DependContainerServiceNames []*string `json:"depend_container_service_names,omitempty" xml:"depend_container_service_names,omitempty" type:"Repeated"`
+	// 错误信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 发布模板名称
+	DeploymentTemplateName *string `json:"deployment_template_name,omitempty" xml:"deployment_template_name,omitempty"`
+}
+
+func (s AppSimpleInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppSimpleInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AppSimpleInfo) SetAppId(v string) *AppSimpleInfo {
+	s.AppId = &v
+	return s
+}
+
+func (s *AppSimpleInfo) SetAppInstanceGroupName(v string) *AppSimpleInfo {
+	s.AppInstanceGroupName = &v
+	return s
+}
+
+func (s *AppSimpleInfo) SetAppName(v string) *AppSimpleInfo {
+	s.AppName = &v
+	return s
+}
+
+func (s *AppSimpleInfo) SetExecutor(v string) *AppSimpleInfo {
+	s.Executor = &v
+	return s
+}
+
+func (s *AppSimpleInfo) SetFinishTime(v string) *AppSimpleInfo {
+	s.FinishTime = &v
+	return s
+}
+
+func (s *AppSimpleInfo) SetGroupNum(v int64) *AppSimpleInfo {
+	s.GroupNum = &v
+	return s
+}
+
+func (s *AppSimpleInfo) SetGroupStrategy(v string) *AppSimpleInfo {
+	s.GroupStrategy = &v
+	return s
+}
+
+func (s *AppSimpleInfo) SetId(v string) *AppSimpleInfo {
+	s.Id = &v
+	return s
+}
+
+func (s *AppSimpleInfo) SetNamespace(v string) *AppSimpleInfo {
+	s.Namespace = &v
+	return s
+}
+
+func (s *AppSimpleInfo) SetOperationType(v string) *AppSimpleInfo {
+	s.OperationType = &v
+	return s
+}
+
+func (s *AppSimpleInfo) SetRevision(v string) *AppSimpleInfo {
+	s.Revision = &v
+	return s
+}
+
+func (s *AppSimpleInfo) SetRollbackRevision(v string) *AppSimpleInfo {
+	s.RollbackRevision = &v
+	return s
+}
+
+func (s *AppSimpleInfo) SetStandaloneExecutable(v bool) *AppSimpleInfo {
+	s.StandaloneExecutable = &v
+	return s
+}
+
+func (s *AppSimpleInfo) SetStartTime(v string) *AppSimpleInfo {
+	s.StartTime = &v
+	return s
+}
+
+func (s *AppSimpleInfo) SetState(v string) *AppSimpleInfo {
+	s.State = &v
+	return s
+}
+
+func (s *AppSimpleInfo) SetPodCount(v int64) *AppSimpleInfo {
+	s.PodCount = &v
+	return s
+}
+
+func (s *AppSimpleInfo) SetRollbackReason(v string) *AppSimpleInfo {
+	s.RollbackReason = &v
+	return s
+}
+
+func (s *AppSimpleInfo) SetDependContainerServiceNames(v []*string) *AppSimpleInfo {
+	s.DependContainerServiceNames = v
+	return s
+}
+
+func (s *AppSimpleInfo) SetMessage(v string) *AppSimpleInfo {
+	s.Message = &v
+	return s
+}
+
+func (s *AppSimpleInfo) SetDeploymentTemplateName(v string) *AppSimpleInfo {
+	s.DeploymentTemplateName = &v
+	return s
+}
+
+// 应用技术栈
+type TechStack struct {
+	// 技术栈描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 该字段为字符串类型Map，序列化为字符串用于存储扩展信息，e.g： 云原生下打包存放目录 /home/admin/release
+	ExtendProperties *string `json:"extend_properties,omitempty" xml:"extend_properties,omitempty" require:"true"`
+	// 技术栈id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 技术栈名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 技术栈可见范围，全局可见|租户内可见
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
+	// 创建时间（UTC）
+	UtcCreated *string `json:"utc_created,omitempty" xml:"utc_created,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 最近修改时间（UTC）
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s TechStack) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TechStack) GoString() string {
+	return s.String()
+}
+
+func (s *TechStack) SetDescription(v string) *TechStack {
+	s.Description = &v
+	return s
+}
+
+func (s *TechStack) SetExtendProperties(v string) *TechStack {
+	s.ExtendProperties = &v
+	return s
+}
+
+func (s *TechStack) SetId(v string) *TechStack {
+	s.Id = &v
+	return s
+}
+
+func (s *TechStack) SetName(v string) *TechStack {
+	s.Name = &v
+	return s
+}
+
+func (s *TechStack) SetScope(v string) *TechStack {
+	s.Scope = &v
+	return s
+}
+
+func (s *TechStack) SetUtcCreated(v string) *TechStack {
+	s.UtcCreated = &v
+	return s
+}
+
+func (s *TechStack) SetUtcModified(v string) *TechStack {
+	s.UtcModified = &v
+	return s
+}
+
+// 发布单|应用执行进度，按状态区分
+type ExecuteProgress struct {
+	// 阻塞个数
+	Blocked *int64 `json:"blocked,omitempty" xml:"blocked,omitempty" require:"true"`
+	// 执行中个数
+	Executing *int64 `json:"executing,omitempty" xml:"executing,omitempty" require:"true"`
+	// 失败个数
+	Failed *int64 `json:"failed,omitempty" xml:"failed,omitempty" require:"true"`
+	// 执行对象ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 初始化机器个数
+	Inited *int64 `json:"inited,omitempty" xml:"inited,omitempty" require:"true"`
+	// 执行对象状态
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 成功个数
+	Success *int64 `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+	// 总计
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty" require:"true"`
+	// 等待中个数
+	Waiting *int64 `json:"waiting,omitempty" xml:"waiting,omitempty" require:"true"`
+}
+
+func (s ExecuteProgress) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecuteProgress) GoString() string {
+	return s.String()
+}
+
+func (s *ExecuteProgress) SetBlocked(v int64) *ExecuteProgress {
+	s.Blocked = &v
+	return s
+}
+
+func (s *ExecuteProgress) SetExecuting(v int64) *ExecuteProgress {
+	s.Executing = &v
+	return s
+}
+
+func (s *ExecuteProgress) SetFailed(v int64) *ExecuteProgress {
+	s.Failed = &v
+	return s
+}
+
+func (s *ExecuteProgress) SetId(v string) *ExecuteProgress {
+	s.Id = &v
+	return s
+}
+
+func (s *ExecuteProgress) SetInited(v int64) *ExecuteProgress {
+	s.Inited = &v
+	return s
+}
+
+func (s *ExecuteProgress) SetState(v string) *ExecuteProgress {
+	s.State = &v
+	return s
+}
+
+func (s *ExecuteProgress) SetSuccess(v int64) *ExecuteProgress {
+	s.Success = &v
+	return s
+}
+
+func (s *ExecuteProgress) SetTotal(v int64) *ExecuteProgress {
+	s.Total = &v
+	return s
+}
+
+func (s *ExecuteProgress) SetWaiting(v int64) *ExecuteProgress {
+	s.Waiting = &v
+	return s
+}
+
+// 守夜人预案信息
+type EmergencyPlan struct {
+	// 预案id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 预案名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s EmergencyPlan) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EmergencyPlan) GoString() string {
+	return s.String()
+}
+
+func (s *EmergencyPlan) SetId(v string) *EmergencyPlan {
+	s.Id = &v
+	return s
+}
+
+func (s *EmergencyPlan) SetName(v string) *EmergencyPlan {
+	s.Name = &v
+	return s
+}
+
 // FedConfigMapOverride 列表
 type FedConfigMapOverrideList struct {
 	// fed configmap override list
@@ -7994,104 +10599,1277 @@ func (s *FedConfigMapOverrideList) SetList(v []*FedConfigmapOverride) *FedConfig
 	return s
 }
 
-// fed image pull secret
-type FedImagePullSecret struct {
-	// annotations
-	Annotations []*string `json:"annotations,omitempty" xml:"annotations,omitempty" type:"Repeated"`
-	// image pull secret registry account info
-	Data *RegistryAccout `json:"data,omitempty" xml:"data,omitempty" require:"true"`
-	// labels
-	Labels []*string `json:"labels,omitempty" xml:"labels,omitempty" type:"Repeated"`
-	// name
+// 弹性场景
+type ElasticScene struct {
+	// 场景名
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// namesapce
-	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
-	// cell overrides
-	Overrides *FedImagePullSecretOverrideList `json:"overrides,omitempty" xml:"overrides,omitempty" require:"true"`
-	// workspace group name
-	WorkspaceGroupName *string `json:"workspace_group_name,omitempty" xml:"workspace_group_name,omitempty" require:"true"`
-	// cell list
-	Cells []*string `json:"cells,omitempty" xml:"cells,omitempty" require:"true" type:"Repeated"`
+	// 弹性场景状态，有效值（VALID，INVALID）
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 弹性场景ID
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
 }
 
-func (s FedImagePullSecret) String() string {
+func (s ElasticScene) String() string {
 	return tea.Prettify(s)
 }
 
-func (s FedImagePullSecret) GoString() string {
+func (s ElasticScene) GoString() string {
 	return s.String()
 }
 
-func (s *FedImagePullSecret) SetAnnotations(v []*string) *FedImagePullSecret {
-	s.Annotations = v
-	return s
-}
-
-func (s *FedImagePullSecret) SetData(v *RegistryAccout) *FedImagePullSecret {
-	s.Data = v
-	return s
-}
-
-func (s *FedImagePullSecret) SetLabels(v []*string) *FedImagePullSecret {
-	s.Labels = v
-	return s
-}
-
-func (s *FedImagePullSecret) SetName(v string) *FedImagePullSecret {
+func (s *ElasticScene) SetName(v string) *ElasticScene {
 	s.Name = &v
 	return s
 }
 
-func (s *FedImagePullSecret) SetNamespace(v string) *FedImagePullSecret {
+func (s *ElasticScene) SetStatus(v string) *ElasticScene {
+	s.Status = &v
+	return s
+}
+
+func (s *ElasticScene) SetId(v int64) *ElasticScene {
+	s.Id = &v
+	return s
+}
+
+// the uid shard list.
+type UidShardList struct {
+	// the uid shard list.
+	Data []*UidShard `json:"data,omitempty" xml:"data,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s UidShardList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UidShardList) GoString() string {
+	return s.String()
+}
+
+func (s *UidShardList) SetData(v []*UidShard) *UidShardList {
+	s.Data = v
+	return s
+}
+
+// Region info
+type Region struct {
+	// region id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// region name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// workspace list
+	Workspaces []*Workspace `json:"workspaces,omitempty" xml:"workspaces,omitempty" type:"Repeated"`
+}
+
+func (s Region) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Region) GoString() string {
+	return s.String()
+}
+
+func (s *Region) SetId(v string) *Region {
+	s.Id = &v
+	return s
+}
+
+func (s *Region) SetName(v string) *Region {
+	s.Name = &v
+	return s
+}
+
+func (s *Region) SetWorkspaces(v []*Workspace) *Region {
+	s.Workspaces = v
+	return s
+}
+
+// OB租户信息
+type OBTenant struct {
+	// 租户描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 扩展属性，序列化后的JSON字符串
+	ExtendProperties *string `json:"extend_properties,omitempty" xml:"extend_properties,omitempty"`
+	// 唯一标识
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 租户名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 租户类型（单库GZONE|分片库RZONE）：存放对应业务库
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 租户对应uid分段，用于存放对应的业务分片库
+	Uids []*int64 `json:"uids,omitempty" xml:"uids,omitempty" type:"Repeated"`
+	// 工作空间组唯一标识
+	WorkspaceGroupId *string `json:"workspace_group_id,omitempty" xml:"workspace_group_id,omitempty" require:"true"`
+	// 创建日期
+	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 修改时间
+	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s OBTenant) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OBTenant) GoString() string {
+	return s.String()
+}
+
+func (s *OBTenant) SetDescription(v string) *OBTenant {
+	s.Description = &v
+	return s
+}
+
+func (s *OBTenant) SetExtendProperties(v string) *OBTenant {
+	s.ExtendProperties = &v
+	return s
+}
+
+func (s *OBTenant) SetId(v string) *OBTenant {
+	s.Id = &v
+	return s
+}
+
+func (s *OBTenant) SetName(v string) *OBTenant {
+	s.Name = &v
+	return s
+}
+
+func (s *OBTenant) SetType(v string) *OBTenant {
+	s.Type = &v
+	return s
+}
+
+func (s *OBTenant) SetUids(v []*int64) *OBTenant {
+	s.Uids = v
+	return s
+}
+
+func (s *OBTenant) SetWorkspaceGroupId(v string) *OBTenant {
+	s.WorkspaceGroupId = &v
+	return s
+}
+
+func (s *OBTenant) SetCreatedTime(v string) *OBTenant {
+	s.CreatedTime = &v
+	return s
+}
+
+func (s *OBTenant) SetModifiedTime(v string) *OBTenant {
+	s.ModifiedTime = &v
+	return s
+}
+
+// 一个运维操作组
+type OpsGroup struct {
+	// 运维操作组当前状态。取值列表： INITED：初始化完成； EXECUTING：执行中； SUCCESS：执行成功； FAILED：执行失败； CANCELED：已取消； CONFIRM_WAITING：待确认
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 包含在此运维操作组中的运维单元列表
+	Units []*OpsUnit `json:"units,omitempty" xml:"units,omitempty" type:"Repeated"`
+	// 运维任务进度列表
+	Progresses []*OpsGroupTaskProgress `json:"progresses,omitempty" xml:"progresses,omitempty" type:"Repeated"`
+}
+
+func (s OpsGroup) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpsGroup) GoString() string {
+	return s.String()
+}
+
+func (s *OpsGroup) SetStatus(v string) *OpsGroup {
+	s.Status = &v
+	return s
+}
+
+func (s *OpsGroup) SetUnits(v []*OpsUnit) *OpsGroup {
+	s.Units = v
+	return s
+}
+
+func (s *OpsGroup) SetProgresses(v []*OpsGroupTaskProgress) *OpsGroup {
+	s.Progresses = v
+	return s
+}
+
+// 弹性信息
+type ElasticInfoView struct {
+	// 全局弹性状态，有效值：NORMAL，ELASTIC
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 弹性值
+	ElasticValues []*string `json:"elastic_values,omitempty" xml:"elastic_values,omitempty" type:"Repeated"`
+	// 是否压测
+	Press *bool `json:"press,omitempty" xml:"press,omitempty"`
+}
+
+func (s ElasticInfoView) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ElasticInfoView) GoString() string {
+	return s.String()
+}
+
+func (s *ElasticInfoView) SetStatus(v string) *ElasticInfoView {
+	s.Status = &v
+	return s
+}
+
+func (s *ElasticInfoView) SetElasticValues(v []*string) *ElasticInfoView {
+	s.ElasticValues = v
+	return s
+}
+
+func (s *ElasticInfoView) SetPress(v bool) *ElasticInfoView {
+	s.Press = &v
+	return s
+}
+
+// sidecar升级状态
+type SidecarReleaseStatus struct {
+	// 运维单号
+	OrderNum *string `json:"order_num,omitempty" xml:"order_num,omitempty" require:"true"`
+	// 部署单元
+	CellName *string `json:"cell_name,omitempty" xml:"cell_name,omitempty" require:"true"`
+	// 所处状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s SidecarReleaseStatus) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SidecarReleaseStatus) GoString() string {
+	return s.String()
+}
+
+func (s *SidecarReleaseStatus) SetOrderNum(v string) *SidecarReleaseStatus {
+	s.OrderNum = &v
+	return s
+}
+
+func (s *SidecarReleaseStatus) SetCellName(v string) *SidecarReleaseStatus {
+	s.CellName = &v
+	return s
+}
+
+func (s *SidecarReleaseStatus) SetStatus(v string) *SidecarReleaseStatus {
+	s.Status = &v
+	return s
+}
+
+// Service 信息
+type ServiceInfo struct {
+	// 元信息
+	Meta *ContainerServiceObjectMeta `json:"meta,omitempty" xml:"meta,omitempty" require:"true"`
+	// Service 类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 负载均衡服务的网络类型（internet | intranet | office | multidomain）
+	LoadBalancerAddressType *string `json:"load_balancer_address_type,omitempty" xml:"load_balancer_address_type,omitempty"`
+	// Service 状态
+	Status *ServiceStatus `json:"status,omitempty" xml:"status,omitempty"`
+	// service端口映射列表
+	Ports []*ServicePort `json:"ports,omitempty" xml:"ports,omitempty" type:"Repeated"`
+}
+
+func (s ServiceInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ServiceInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ServiceInfo) SetMeta(v *ContainerServiceObjectMeta) *ServiceInfo {
+	s.Meta = v
+	return s
+}
+
+func (s *ServiceInfo) SetType(v string) *ServiceInfo {
+	s.Type = &v
+	return s
+}
+
+func (s *ServiceInfo) SetLoadBalancerAddressType(v string) *ServiceInfo {
+	s.LoadBalancerAddressType = &v
+	return s
+}
+
+func (s *ServiceInfo) SetStatus(v *ServiceStatus) *ServiceInfo {
+	s.Status = v
+	return s
+}
+
+func (s *ServiceInfo) SetPorts(v []*ServicePort) *ServiceInfo {
+	s.Ports = v
+	return s
+}
+
+// 部署单元组的流量规则
+type UnitFlow struct {
+	// 部署单元组的名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 部署单元组的类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 该部署单元组下的部署单元流量规则
+	CellFlows []*CellFlow `json:"cell_flows,omitempty" xml:"cell_flows,omitempty" require:"true" type:"Repeated"`
+	// 该部署单元组下的部署单元 uid 分配
+	UidRanges []*UidRange `json:"uid_ranges,omitempty" xml:"uid_ranges,omitempty" require:"true" type:"Repeated"`
+	// 是否弹性部署单元组
+	Elastic *bool `json:"elastic,omitempty" xml:"elastic,omitempty" require:"true"`
+}
+
+func (s UnitFlow) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnitFlow) GoString() string {
+	return s.String()
+}
+
+func (s *UnitFlow) SetName(v string) *UnitFlow {
+	s.Name = &v
+	return s
+}
+
+func (s *UnitFlow) SetType(v string) *UnitFlow {
+	s.Type = &v
+	return s
+}
+
+func (s *UnitFlow) SetCellFlows(v []*CellFlow) *UnitFlow {
+	s.CellFlows = v
+	return s
+}
+
+func (s *UnitFlow) SetUidRanges(v []*UidRange) *UnitFlow {
+	s.UidRanges = v
+	return s
+}
+
+func (s *UnitFlow) SetElastic(v bool) *UnitFlow {
+	s.Elastic = &v
+	return s
+}
+
+// 发布版本信息
+type ReleaseVersion struct {
+	// 镜像
+	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
+}
+
+func (s ReleaseVersion) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReleaseVersion) GoString() string {
+	return s.String()
+}
+
+func (s *ReleaseVersion) SetImage(v string) *ReleaseVersion {
+	s.Image = &v
+	return s
+}
+
+// 应用发布进度
+type AppDeployProgress struct {
+	// 应用发布所需要组件列表
+	ComponentList []*string `json:"component_list,omitempty" xml:"component_list,omitempty" require:"true" type:"Repeated"`
+	// 应用发布分组列表
+	ExecuteGroups []*AppDeployGroup `json:"execute_groups,omitempty" xml:"execute_groups,omitempty" require:"true" type:"Repeated"`
+	// 结束时间
+	FinishTime *string `json:"finish_time,omitempty" xml:"finish_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// service id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 当前应用是否是一个回滚的应用
+	IsRollBack *bool `json:"is_roll_back,omitempty" xml:"is_roll_back,omitempty" require:"true"`
+	// 发布进度pod状态统计数据
+	PodStateSummary *AppDeployPodStateSummary `json:"pod_state_summary,omitempty" xml:"pod_state_summary,omitempty" require:"true"`
+	// 后置任务列表
+	PostTasks []*AppDeployTask `json:"post_tasks,omitempty" xml:"post_tasks,omitempty" require:"true" type:"Repeated"`
+	// 前置任务列表
+	PreTasks []*AppDeployTask `json:"pre_tasks,omitempty" xml:"pre_tasks,omitempty" require:"true" type:"Repeated"`
+	// 当前服务关联的一个回滚服务的id，如果该值不为空则表示当前服务被回滚过
+	RollBackServiceId *string `json:"roll_back_service_id,omitempty" xml:"roll_back_service_id,omitempty"`
+	// 开始时间
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 当前发布状态
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 容器服务命名空间
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
+	// 错误信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// task id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 操作code
+	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty"`
+}
+
+func (s AppDeployProgress) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppDeployProgress) GoString() string {
+	return s.String()
+}
+
+func (s *AppDeployProgress) SetComponentList(v []*string) *AppDeployProgress {
+	s.ComponentList = v
+	return s
+}
+
+func (s *AppDeployProgress) SetExecuteGroups(v []*AppDeployGroup) *AppDeployProgress {
+	s.ExecuteGroups = v
+	return s
+}
+
+func (s *AppDeployProgress) SetFinishTime(v string) *AppDeployProgress {
+	s.FinishTime = &v
+	return s
+}
+
+func (s *AppDeployProgress) SetId(v string) *AppDeployProgress {
+	s.Id = &v
+	return s
+}
+
+func (s *AppDeployProgress) SetIsRollBack(v bool) *AppDeployProgress {
+	s.IsRollBack = &v
+	return s
+}
+
+func (s *AppDeployProgress) SetPodStateSummary(v *AppDeployPodStateSummary) *AppDeployProgress {
+	s.PodStateSummary = v
+	return s
+}
+
+func (s *AppDeployProgress) SetPostTasks(v []*AppDeployTask) *AppDeployProgress {
+	s.PostTasks = v
+	return s
+}
+
+func (s *AppDeployProgress) SetPreTasks(v []*AppDeployTask) *AppDeployProgress {
+	s.PreTasks = v
+	return s
+}
+
+func (s *AppDeployProgress) SetRollBackServiceId(v string) *AppDeployProgress {
+	s.RollBackServiceId = &v
+	return s
+}
+
+func (s *AppDeployProgress) SetStartTime(v string) *AppDeployProgress {
+	s.StartTime = &v
+	return s
+}
+
+func (s *AppDeployProgress) SetState(v string) *AppDeployProgress {
+	s.State = &v
+	return s
+}
+
+func (s *AppDeployProgress) SetNamespace(v string) *AppDeployProgress {
 	s.Namespace = &v
 	return s
 }
 
-func (s *FedImagePullSecret) SetOverrides(v *FedImagePullSecretOverrideList) *FedImagePullSecret {
-	s.Overrides = v
+func (s *AppDeployProgress) SetMessage(v string) *AppDeployProgress {
+	s.Message = &v
 	return s
 }
 
-func (s *FedImagePullSecret) SetWorkspaceGroupName(v string) *FedImagePullSecret {
-	s.WorkspaceGroupName = &v
+func (s *AppDeployProgress) SetTaskId(v string) *AppDeployProgress {
+	s.TaskId = &v
 	return s
 }
 
-func (s *FedImagePullSecret) SetCells(v []*string) *FedImagePullSecret {
-	s.Cells = v
+func (s *AppDeployProgress) SetActionCode(v string) *AppDeployProgress {
+	s.ActionCode = &v
 	return s
 }
 
-// master clusters info of each zone
-type MasterClustersOfZone struct {
-	// master clusters of specific zone
-	Clusters []*MasterCluster `json:"clusters,omitempty" xml:"clusters,omitempty" require:"true" type:"Repeated"`
-	// zone name
-	ZoneName *string `json:"zone_name,omitempty" xml:"zone_name,omitempty" require:"true"`
-	// if the az has imported cluster
-	HasImported *bool `json:"has_imported,omitempty" xml:"has_imported,omitempty" require:"true"`
+// Spanner集群信息
+type SpannerClusterInfo struct {
+	// 容器的CPU个数
+	ContainerCpu *int64 `json:"container_cpu,omitempty" xml:"container_cpu,omitempty" require:"true"`
+	// 容器是否独占CPU
+	ContainerCpuExclusive *bool `json:"container_cpu_exclusive,omitempty" xml:"container_cpu_exclusive,omitempty" require:"true"`
+	// 容器所在物理机节点的标签
+	ContainerDeviceType *string `json:"container_device_type,omitempty" xml:"container_device_type,omitempty" require:"true"`
+	// 容器的磁盘大小
+	ContainerDisk *int64 `json:"container_disk,omitempty" xml:"container_disk,omitempty" require:"true"`
+	// 容器的内存大小(G)
+	ContainerMem *int64 `json:"container_mem,omitempty" xml:"container_mem,omitempty" require:"true"`
+	// 容器网络
+	ContainerNetwork *string `json:"container_network,omitempty" xml:"container_network,omitempty" require:"true"`
+	// 创建时间
+	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 扩展属性，json字符串
+	ExtendProperties *string `json:"extend_properties,omitempty" xml:"extend_properties,omitempty"`
+	// ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 修改时间
+	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 集群名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 集群的状态： 1 运行状态  2 维护状态
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 集群单元信息
+	UnitInfos []*SpannerClusterUnitInfo `json:"unit_infos,omitempty" xml:"unit_infos,omitempty" require:"true" type:"Repeated"`
+	// 0 表示集群单元类型为容器
+	UnitType *int64 `json:"unit_type,omitempty" xml:"unit_type,omitempty" require:"true"`
+	// 已使用的端口
+	UsedPorts []*int64 `json:"used_ports,omitempty" xml:"used_ports,omitempty" type:"Repeated"`
+	// internet/intranet/multidomain/office
+	AddressType *string `json:"address_type,omitempty" xml:"address_type,omitempty" require:"true"`
 }
 
-func (s MasterClustersOfZone) String() string {
+func (s SpannerClusterInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s MasterClustersOfZone) GoString() string {
+func (s SpannerClusterInfo) GoString() string {
 	return s.String()
 }
 
-func (s *MasterClustersOfZone) SetClusters(v []*MasterCluster) *MasterClustersOfZone {
-	s.Clusters = v
+func (s *SpannerClusterInfo) SetContainerCpu(v int64) *SpannerClusterInfo {
+	s.ContainerCpu = &v
 	return s
 }
 
-func (s *MasterClustersOfZone) SetZoneName(v string) *MasterClustersOfZone {
-	s.ZoneName = &v
+func (s *SpannerClusterInfo) SetContainerCpuExclusive(v bool) *SpannerClusterInfo {
+	s.ContainerCpuExclusive = &v
 	return s
 }
 
-func (s *MasterClustersOfZone) SetHasImported(v bool) *MasterClustersOfZone {
-	s.HasImported = &v
+func (s *SpannerClusterInfo) SetContainerDeviceType(v string) *SpannerClusterInfo {
+	s.ContainerDeviceType = &v
+	return s
+}
+
+func (s *SpannerClusterInfo) SetContainerDisk(v int64) *SpannerClusterInfo {
+	s.ContainerDisk = &v
+	return s
+}
+
+func (s *SpannerClusterInfo) SetContainerMem(v int64) *SpannerClusterInfo {
+	s.ContainerMem = &v
+	return s
+}
+
+func (s *SpannerClusterInfo) SetContainerNetwork(v string) *SpannerClusterInfo {
+	s.ContainerNetwork = &v
+	return s
+}
+
+func (s *SpannerClusterInfo) SetCreatedTime(v string) *SpannerClusterInfo {
+	s.CreatedTime = &v
+	return s
+}
+
+func (s *SpannerClusterInfo) SetExtendProperties(v string) *SpannerClusterInfo {
+	s.ExtendProperties = &v
+	return s
+}
+
+func (s *SpannerClusterInfo) SetId(v string) *SpannerClusterInfo {
+	s.Id = &v
+	return s
+}
+
+func (s *SpannerClusterInfo) SetModifiedTime(v string) *SpannerClusterInfo {
+	s.ModifiedTime = &v
+	return s
+}
+
+func (s *SpannerClusterInfo) SetName(v string) *SpannerClusterInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *SpannerClusterInfo) SetStatus(v int64) *SpannerClusterInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *SpannerClusterInfo) SetUnitInfos(v []*SpannerClusterUnitInfo) *SpannerClusterInfo {
+	s.UnitInfos = v
+	return s
+}
+
+func (s *SpannerClusterInfo) SetUnitType(v int64) *SpannerClusterInfo {
+	s.UnitType = &v
+	return s
+}
+
+func (s *SpannerClusterInfo) SetUsedPorts(v []*int64) *SpannerClusterInfo {
+	s.UsedPorts = v
+	return s
+}
+
+func (s *SpannerClusterInfo) SetAddressType(v string) *SpannerClusterInfo {
+	s.AddressType = &v
+	return s
+}
+
+// 灰度发布参数
+type GrayReleaseConfig struct {
+	// 加到流量上的灰度标签
+	GrayLabel *string `json:"gray_label,omitempty" xml:"gray_label,omitempty" require:"true"`
+	// 提供南北流量网关服务的类型
+	Provider *string `json:"provider,omitempty" xml:"provider,omitempty" require:"true"`
+	// 给流量添加灰度label的策略，可选byWeight或者byRule
+	// 在byWeight模式下，会按照用户指定的比例，给进入的流量加上灰度标签
+	// 在byRule模式下，会按照用户指定的规则（条件），给进入的流量加上灰度标签。
+	LabelApplyPolicy *string `json:"label_apply_policy,omitempty" xml:"label_apply_policy,omitempty" require:"true"`
+	// 给进入的流量添加灰度label的比例，仅当label_apply_policy为byWeight时生效
+	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
+	// 给进入的流量添加灰度label的规则，仅当label_apply_policy为byRule时生效
+	Rule *GrayLabelApplyRule `json:"rule,omitempty" xml:"rule,omitempty"`
+	// 在各部署单元期望部署的pod个数，若应用服务当前不部署在其中的部署单元，则该不会在该部署单元上为应用进行部署
+	ScaleReplicas []*ReplicaCount `json:"scale_replicas,omitempty" xml:"scale_replicas,omitempty" type:"Repeated"`
+}
+
+func (s GrayReleaseConfig) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GrayReleaseConfig) GoString() string {
+	return s.String()
+}
+
+func (s *GrayReleaseConfig) SetGrayLabel(v string) *GrayReleaseConfig {
+	s.GrayLabel = &v
+	return s
+}
+
+func (s *GrayReleaseConfig) SetProvider(v string) *GrayReleaseConfig {
+	s.Provider = &v
+	return s
+}
+
+func (s *GrayReleaseConfig) SetLabelApplyPolicy(v string) *GrayReleaseConfig {
+	s.LabelApplyPolicy = &v
+	return s
+}
+
+func (s *GrayReleaseConfig) SetWeight(v int64) *GrayReleaseConfig {
+	s.Weight = &v
+	return s
+}
+
+func (s *GrayReleaseConfig) SetRule(v *GrayLabelApplyRule) *GrayReleaseConfig {
+	s.Rule = v
+	return s
+}
+
+func (s *GrayReleaseConfig) SetScaleReplicas(v []*ReplicaCount) *GrayReleaseConfig {
+	s.ScaleReplicas = v
+	return s
+}
+
+// cell info
+type CellInfo struct {
+	// cell display name
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
+}
+
+func (s CellInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CellInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CellInfo) SetDisplayName(v string) *CellInfo {
+	s.DisplayName = &v
+	return s
+}
+
+// 运维容器服务分组依赖链
+type OpsContainerServiceChain struct {
+	// 运维容器分组列表
+	Groups []*OpsContainerServiceGroup `json:"groups,omitempty" xml:"groups,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s OpsContainerServiceChain) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpsContainerServiceChain) GoString() string {
+	return s.String()
+}
+
+func (s *OpsContainerServiceChain) SetGroups(v []*OpsContainerServiceGroup) *OpsContainerServiceChain {
+	s.Groups = v
+	return s
+}
+
+// network info
+type NetworkInfo struct {
+	// networt description
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+}
+
+func (s NetworkInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NetworkInfo) GoString() string {
+	return s.String()
+}
+
+func (s *NetworkInfo) SetDescription(v string) *NetworkInfo {
+	s.Description = &v
+	return s
+}
+
+// sidecar运维机器分组信息
+type SidecarOpsMachineGroup struct {
+	// 分组ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 分组名称
+	Target *string `json:"target,omitempty" xml:"target,omitempty"`
+	// 状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 扩展属性
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+	// 执行日志
+	Messages *string `json:"messages,omitempty" xml:"messages,omitempty"`
+	// sidecar 运维机器列表
+	SubTargets []*SidecarOpsMachine `json:"sub_targets,omitempty" xml:"sub_targets,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SidecarOpsMachineGroup) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SidecarOpsMachineGroup) GoString() string {
+	return s.String()
+}
+
+func (s *SidecarOpsMachineGroup) SetId(v string) *SidecarOpsMachineGroup {
+	s.Id = &v
+	return s
+}
+
+func (s *SidecarOpsMachineGroup) SetTarget(v string) *SidecarOpsMachineGroup {
+	s.Target = &v
+	return s
+}
+
+func (s *SidecarOpsMachineGroup) SetStatus(v string) *SidecarOpsMachineGroup {
+	s.Status = &v
+	return s
+}
+
+func (s *SidecarOpsMachineGroup) SetProperties(v string) *SidecarOpsMachineGroup {
+	s.Properties = &v
+	return s
+}
+
+func (s *SidecarOpsMachineGroup) SetMessages(v string) *SidecarOpsMachineGroup {
+	s.Messages = &v
+	return s
+}
+
+func (s *SidecarOpsMachineGroup) SetSubTargets(v []*SidecarOpsMachine) *SidecarOpsMachineGroup {
+	s.SubTargets = v
+	return s
+}
+
+// 负载均衡实例。
+type LoadBalancerInstance struct {
+	// 负责均衡iaas id。
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty" require:"true"`
+	// 监听器。
+	Listeners []*LoadBalancerListener `json:"listeners,omitempty" xml:"listeners,omitempty" require:"true" type:"Repeated"`
+	// 负载均衡名称。
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 负责均衡PAAS id。
+	PaasId *string `json:"paas_id,omitempty" xml:"paas_id,omitempty"`
+	// 负责均衡类型。
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 负载均衡vip地址。
+	VipAddresses []*string `json:"vip_addresses,omitempty" xml:"vip_addresses,omitempty" type:"Repeated"`
+	// 统一接入域名。
+	Domain *string `json:"domain,omitempty" xml:"domain,omitempty" require:"true"`
+}
+
+func (s LoadBalancerInstance) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LoadBalancerInstance) GoString() string {
+	return s.String()
+}
+
+func (s *LoadBalancerInstance) SetIaasId(v string) *LoadBalancerInstance {
+	s.IaasId = &v
+	return s
+}
+
+func (s *LoadBalancerInstance) SetListeners(v []*LoadBalancerListener) *LoadBalancerInstance {
+	s.Listeners = v
+	return s
+}
+
+func (s *LoadBalancerInstance) SetName(v string) *LoadBalancerInstance {
+	s.Name = &v
+	return s
+}
+
+func (s *LoadBalancerInstance) SetPaasId(v string) *LoadBalancerInstance {
+	s.PaasId = &v
+	return s
+}
+
+func (s *LoadBalancerInstance) SetType(v string) *LoadBalancerInstance {
+	s.Type = &v
+	return s
+}
+
+func (s *LoadBalancerInstance) SetVipAddresses(v []*string) *LoadBalancerInstance {
+	s.VipAddresses = v
+	return s
+}
+
+func (s *LoadBalancerInstance) SetDomain(v string) *LoadBalancerInstance {
+	s.Domain = &v
+	return s
+}
+
+// Pod Overview Info
+type PodOverviewInfo struct {
+	// pod number
+	PodNumber *int64 `json:"pod_number,omitempty" xml:"pod_number,omitempty"`
+	// unhealthy pod number
+	UnhealthyPodNumber *int64 `json:"unhealthy_pod_number,omitempty" xml:"unhealthy_pod_number,omitempty"`
+}
+
+func (s PodOverviewInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PodOverviewInfo) GoString() string {
+	return s.String()
+}
+
+func (s *PodOverviewInfo) SetPodNumber(v int64) *PodOverviewInfo {
+	s.PodNumber = &v
+	return s
+}
+
+func (s *PodOverviewInfo) SetUnhealthyPodNumber(v int64) *PodOverviewInfo {
+	s.UnhealthyPodNumber = &v
+	return s
+}
+
+// 统一接入实例监听配置（http/https）
+type UnifiedAccessInstanceListener struct {
+	// CA证书ID。 若既上传CA证书又上传服务器证书，即采用双向认证。 若用户只上传服务器证书，即为单向认证。
+	CaCertificateId *string `json:"ca_certificate_id,omitempty" xml:"ca_certificate_id,omitempty"`
+	// 统一接入实例监听端口。 取值：1-65535。
+	ListenerPort *int64 `json:"listener_port,omitempty" xml:"listener_port,omitempty" require:"true"`
+	// 协议类型，目前支持http和https两种
+	Protocol *string `json:"protocol,omitempty" xml:"protocol,omitempty" require:"true"`
+	// 是否使用websocket连接方式
+	WebsocketConnect *bool `json:"websocket_connect,omitempty" xml:"websocket_connect,omitempty" require:"true"`
+}
+
+func (s UnifiedAccessInstanceListener) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnifiedAccessInstanceListener) GoString() string {
+	return s.String()
+}
+
+func (s *UnifiedAccessInstanceListener) SetCaCertificateId(v string) *UnifiedAccessInstanceListener {
+	s.CaCertificateId = &v
+	return s
+}
+
+func (s *UnifiedAccessInstanceListener) SetListenerPort(v int64) *UnifiedAccessInstanceListener {
+	s.ListenerPort = &v
+	return s
+}
+
+func (s *UnifiedAccessInstanceListener) SetProtocol(v string) *UnifiedAccessInstanceListener {
+	s.Protocol = &v
+	return s
+}
+
+func (s *UnifiedAccessInstanceListener) SetWebsocketConnect(v bool) *UnifiedAccessInstanceListener {
+	s.WebsocketConnect = &v
+	return s
+}
+
+// node event
+type NodeEvent struct {
+	// event count
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+	// event message
+	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+	// event modified time
+	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// event reason
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty" require:"true"`
+	// event type
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+}
+
+func (s NodeEvent) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NodeEvent) GoString() string {
+	return s.String()
+}
+
+func (s *NodeEvent) SetCount(v int64) *NodeEvent {
+	s.Count = &v
+	return s
+}
+
+func (s *NodeEvent) SetMessage(v string) *NodeEvent {
+	s.Message = &v
+	return s
+}
+
+func (s *NodeEvent) SetModifiedTime(v string) *NodeEvent {
+	s.ModifiedTime = &v
+	return s
+}
+
+func (s *NodeEvent) SetReason(v string) *NodeEvent {
+	s.Reason = &v
+	return s
+}
+
+func (s *NodeEvent) SetType(v string) *NodeEvent {
+	s.Type = &v
+	return s
+}
+
+// Linke解决方案返回结果数据
+type LinkeReleaseData struct {
+	// Linke release ID
+	ReleaseId *string `json:"release_id,omitempty" xml:"release_id,omitempty" require:"true"`
+}
+
+func (s LinkeReleaseData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LinkeReleaseData) GoString() string {
+	return s.String()
+}
+
+func (s *LinkeReleaseData) SetReleaseId(v string) *LinkeReleaseData {
+	s.ReleaseId = &v
+	return s
+}
+
+// sidecar运维任务
+type SidecarOperationTask struct {
+	// 业务流水号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 操作人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+	// 名称
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
+	// sidecar运维内容上下文信息
+	Context *SidecarOperationTaskContext `json:"context,omitempty" xml:"context,omitempty" require:"true"`
+}
+
+func (s SidecarOperationTask) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SidecarOperationTask) GoString() string {
+	return s.String()
+}
+
+func (s *SidecarOperationTask) SetBizId(v string) *SidecarOperationTask {
+	s.BizId = &v
+	return s
+}
+
+func (s *SidecarOperationTask) SetOperator(v string) *SidecarOperationTask {
+	s.Operator = &v
+	return s
+}
+
+func (s *SidecarOperationTask) SetTitle(v string) *SidecarOperationTask {
+	s.Title = &v
+	return s
+}
+
+func (s *SidecarOperationTask) SetContext(v *SidecarOperationTaskContext) *SidecarOperationTask {
+	s.Context = v
+	return s
+}
+
+// 集群状态信息
+type ClusterStatus struct {
+	// 集群名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 集群资源概览
+	OverviewInfo *ClusterOverviewInfo `json:"overview_info,omitempty" xml:"overview_info,omitempty" require:"true"`
+}
+
+func (s ClusterStatus) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ClusterStatus) GoString() string {
+	return s.String()
+}
+
+func (s *ClusterStatus) SetName(v string) *ClusterStatus {
+	s.Name = &v
+	return s
+}
+
+func (s *ClusterStatus) SetOverviewInfo(v *ClusterOverviewInfo) *ClusterStatus {
+	s.OverviewInfo = v
+	return s
+}
+
+// 机构应用发布结果
+type TenantAppReleaseData struct {
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+	// 机构名称
+	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
+	// 发布单ID
+	ReleaseId *string `json:"release_id,omitempty" xml:"release_id,omitempty" require:"true"`
+	// 环境
+	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
+}
+
+func (s TenantAppReleaseData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TenantAppReleaseData) GoString() string {
+	return s.String()
+}
+
+func (s *TenantAppReleaseData) SetSuccess(v bool) *TenantAppReleaseData {
+	s.Success = &v
+	return s
+}
+
+func (s *TenantAppReleaseData) SetTenant(v string) *TenantAppReleaseData {
+	s.Tenant = &v
+	return s
+}
+
+func (s *TenantAppReleaseData) SetReleaseId(v string) *TenantAppReleaseData {
+	s.ReleaseId = &v
+	return s
+}
+
+func (s *TenantAppReleaseData) SetWorkspaceGroup(v string) *TenantAppReleaseData {
+	s.WorkspaceGroup = &v
+	return s
+}
+
+// LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
+type LocalObjectReference struct {
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s LocalObjectReference) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LocalObjectReference) GoString() string {
+	return s.String()
+}
+
+func (s *LocalObjectReference) SetName(v string) *LocalObjectReference {
+	s.Name = &v
+	return s
+}
+
+// 弹性规则
+type ElasticRuleView struct {
+	// ID
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
+	// 弹性类型，有效值：SERVICE，MSGBROKER
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 弹性值
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 关联应用
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// 状态，有效值：VALID（线上生效），PRESS（仅压测生效），INVALID（无效状态）
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 操作人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+	// 场景 ID
+	SceneId *int64 `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+}
+
+func (s ElasticRuleView) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ElasticRuleView) GoString() string {
+	return s.String()
+}
+
+func (s *ElasticRuleView) SetId(v int64) *ElasticRuleView {
+	s.Id = &v
+	return s
+}
+
+func (s *ElasticRuleView) SetType(v string) *ElasticRuleView {
+	s.Type = &v
+	return s
+}
+
+func (s *ElasticRuleView) SetName(v string) *ElasticRuleView {
+	s.Name = &v
+	return s
+}
+
+func (s *ElasticRuleView) SetAppName(v string) *ElasticRuleView {
+	s.AppName = &v
+	return s
+}
+
+func (s *ElasticRuleView) SetStatus(v string) *ElasticRuleView {
+	s.Status = &v
+	return s
+}
+
+func (s *ElasticRuleView) SetOperator(v string) *ElasticRuleView {
+	s.Operator = &v
+	return s
+}
+
+func (s *ElasticRuleView) SetSceneId(v int64) *ElasticRuleView {
+	s.SceneId = &v
+	return s
+}
+
+// 弹性子规则
+type ElasticSubRuleView struct {
+	// 弹性子规则ID
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 所属APP
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// 关联的弹性规则ID
+	ElasticRuleId *int64 `json:"elastic_rule_id,omitempty" xml:"elastic_rule_id,omitempty" require:"true"`
+	// 父节点
+	ParentId *int64 `json:"parent_id,omitempty" xml:"parent_id,omitempty"`
+	// 值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 是否使用默认eid，默认 false
+	UseDefaultEid *bool `json:"use_default_eid,omitempty" xml:"use_default_eid,omitempty"`
+	// 状态，有效值：VALID（线上生效），PRESS（仅压测生效），INVALID（无效状态）
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 规则类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 场景ID
+	SceneId *int64 `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+}
+
+func (s ElasticSubRuleView) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ElasticSubRuleView) GoString() string {
+	return s.String()
+}
+
+func (s *ElasticSubRuleView) SetId(v int64) *ElasticSubRuleView {
+	s.Id = &v
+	return s
+}
+
+func (s *ElasticSubRuleView) SetAppName(v string) *ElasticSubRuleView {
+	s.AppName = &v
+	return s
+}
+
+func (s *ElasticSubRuleView) SetElasticRuleId(v int64) *ElasticSubRuleView {
+	s.ElasticRuleId = &v
+	return s
+}
+
+func (s *ElasticSubRuleView) SetParentId(v int64) *ElasticSubRuleView {
+	s.ParentId = &v
+	return s
+}
+
+func (s *ElasticSubRuleView) SetValue(v string) *ElasticSubRuleView {
+	s.Value = &v
+	return s
+}
+
+func (s *ElasticSubRuleView) SetUseDefaultEid(v bool) *ElasticSubRuleView {
+	s.UseDefaultEid = &v
+	return s
+}
+
+func (s *ElasticSubRuleView) SetStatus(v string) *ElasticSubRuleView {
+	s.Status = &v
+	return s
+}
+
+func (s *ElasticSubRuleView) SetType(v string) *ElasticSubRuleView {
+	s.Type = &v
+	return s
+}
+
+func (s *ElasticSubRuleView) SetSceneId(v int64) *ElasticSubRuleView {
+	s.SceneId = &v
+	return s
+}
+
+// 规则推送结果
+type PushRuleResult struct {
+	// site名字
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// site描述
+	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
+	// 推送成功的zone
+	SucceedList []*string `json:"succeed_list,omitempty" xml:"succeed_list,omitempty" type:"Repeated"`
+	// 推送失败的zone
+	FailedList []*string `json:"failed_list,omitempty" xml:"failed_list,omitempty" type:"Repeated"`
+}
+
+func (s PushRuleResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRuleResult) GoString() string {
+	return s.String()
+}
+
+func (s *PushRuleResult) SetName(v string) *PushRuleResult {
+	s.Name = &v
+	return s
+}
+
+func (s *PushRuleResult) SetDesc(v string) *PushRuleResult {
+	s.Desc = &v
+	return s
+}
+
+func (s *PushRuleResult) SetSucceedList(v []*string) *PushRuleResult {
+	s.SucceedList = v
+	return s
+}
+
+func (s *PushRuleResult) SetFailedList(v []*string) *PushRuleResult {
+	s.FailedList = v
 	return s
 }
 
@@ -8149,6 +11927,8 @@ type ContainerServiceBasicInfo struct {
 	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
 	// 容器服务Service列表。
 	ServiceList []*LoadBalancerService `json:"service_list,omitempty" xml:"service_list,omitempty" type:"Repeated"`
+	// message信息
+	MessageDetail *string `json:"message_detail,omitempty" xml:"message_detail,omitempty"`
 }
 
 func (s ContainerServiceBasicInfo) String() string {
@@ -8289,1259 +12069,8 @@ func (s *ContainerServiceBasicInfo) SetServiceList(v []*LoadBalancerService) *Co
 	return s
 }
 
-// V1ReleasePlanSpec appService
-type ReleasePlanSpecAppService struct {
-	// 依赖的应用服务名字列表
-	Dependencies []*string `json:"dependencies,omitempty" xml:"dependencies,omitempty" require:"true" type:"Repeated"`
-	// 应用服务名字
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// container service revision
-	Revision *string `json:"revision,omitempty" xml:"revision,omitempty" require:"true"`
-}
-
-func (s ReleasePlanSpecAppService) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ReleasePlanSpecAppService) GoString() string {
-	return s.String()
-}
-
-func (s *ReleasePlanSpecAppService) SetDependencies(v []*string) *ReleasePlanSpecAppService {
-	s.Dependencies = v
-	return s
-}
-
-func (s *ReleasePlanSpecAppService) SetName(v string) *ReleasePlanSpecAppService {
-	s.Name = &v
-	return s
-}
-
-func (s *ReleasePlanSpecAppService) SetRevision(v string) *ReleasePlanSpecAppService {
-	s.Revision = &v
-	return s
-}
-
-// 应用发布进度
-type AppDeployProgress struct {
-	// 应用发布所需要组件列表
-	ComponentList []*string `json:"component_list,omitempty" xml:"component_list,omitempty" require:"true" type:"Repeated"`
-	// 应用发布分组列表
-	ExecuteGroups []*AppDeployGroup `json:"execute_groups,omitempty" xml:"execute_groups,omitempty" require:"true" type:"Repeated"`
-	// 结束时间
-	FinishTime *string `json:"finish_time,omitempty" xml:"finish_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 应用id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 当前应用是否是一个回滚的应用
-	IsRollBack *bool `json:"is_roll_back,omitempty" xml:"is_roll_back,omitempty" require:"true"`
-	// 发布进度pod状态统计数据
-	PodStateSummary *AppDeployPodStateSummary `json:"pod_state_summary,omitempty" xml:"pod_state_summary,omitempty" require:"true"`
-	// 后置任务列表
-	PostTasks []*AppDeployTask `json:"post_tasks,omitempty" xml:"post_tasks,omitempty" require:"true" type:"Repeated"`
-	// 前置任务列表
-	PreTasks []*AppDeployTask `json:"pre_tasks,omitempty" xml:"pre_tasks,omitempty" require:"true" type:"Repeated"`
-	// 当前服务关联的一个回滚服务的id，如果该值不为空则表示当前服务被回滚过
-	RollBackServiceId *string `json:"roll_back_service_id,omitempty" xml:"roll_back_service_id,omitempty"`
-	// 开始时间
-	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 当前发布状态
-	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
-	// 容器服务命名空间
-	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
-}
-
-func (s AppDeployProgress) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppDeployProgress) GoString() string {
-	return s.String()
-}
-
-func (s *AppDeployProgress) SetComponentList(v []*string) *AppDeployProgress {
-	s.ComponentList = v
-	return s
-}
-
-func (s *AppDeployProgress) SetExecuteGroups(v []*AppDeployGroup) *AppDeployProgress {
-	s.ExecuteGroups = v
-	return s
-}
-
-func (s *AppDeployProgress) SetFinishTime(v string) *AppDeployProgress {
-	s.FinishTime = &v
-	return s
-}
-
-func (s *AppDeployProgress) SetId(v string) *AppDeployProgress {
-	s.Id = &v
-	return s
-}
-
-func (s *AppDeployProgress) SetIsRollBack(v bool) *AppDeployProgress {
-	s.IsRollBack = &v
-	return s
-}
-
-func (s *AppDeployProgress) SetPodStateSummary(v *AppDeployPodStateSummary) *AppDeployProgress {
-	s.PodStateSummary = v
-	return s
-}
-
-func (s *AppDeployProgress) SetPostTasks(v []*AppDeployTask) *AppDeployProgress {
-	s.PostTasks = v
-	return s
-}
-
-func (s *AppDeployProgress) SetPreTasks(v []*AppDeployTask) *AppDeployProgress {
-	s.PreTasks = v
-	return s
-}
-
-func (s *AppDeployProgress) SetRollBackServiceId(v string) *AppDeployProgress {
-	s.RollBackServiceId = &v
-	return s
-}
-
-func (s *AppDeployProgress) SetStartTime(v string) *AppDeployProgress {
-	s.StartTime = &v
-	return s
-}
-
-func (s *AppDeployProgress) SetState(v string) *AppDeployProgress {
-	s.State = &v
-	return s
-}
-
-func (s *AppDeployProgress) SetNamespace(v string) *AppDeployProgress {
-	s.Namespace = &v
-	return s
-}
-
-// 应用摘要信息
-type AppSimpleInfo struct {
-	// 应用id
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
-	// 应用分组名字
-	AppInstanceGroupName *string `json:"app_instance_group_name,omitempty" xml:"app_instance_group_name,omitempty" require:"true"`
-	// 应用名字
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
-	// 执行者
-	Executor *string `json:"executor,omitempty" xml:"executor,omitempty" require:"true"`
-	// 结束时间
-	FinishTime *string `json:"finish_time,omitempty" xml:"finish_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 分组个数
-	GroupNum *int64 `json:"group_num,omitempty" xml:"group_num,omitempty" require:"true"`
-	// 分组策略
-	GroupStrategy *string `json:"group_strategy,omitempty" xml:"group_strategy,omitempty" require:"true"`
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 命名空间
-	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty"`
-	// 操作类型
-	OperationType *string `json:"operation_type,omitempty" xml:"operation_type,omitempty" require:"true"`
-	// 发布版本号
-	Revision *string `json:"revision,omitempty" xml:"revision,omitempty" require:"true"`
-	// 回滚revision
-	RollbackRevision *string `json:"rollback_revision,omitempty" xml:"rollback_revision,omitempty"`
-	// 是否可单独执行
-	StandaloneExecutable *bool `json:"standalone_executable,omitempty" xml:"standalone_executable,omitempty" require:"true"`
-	// 开始时间
-	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 应用状态
-	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
-	// Pod 数量
-	PodCount *int64 `json:"pod_count,omitempty" xml:"pod_count,omitempty"`
-	// 回滚原因
-	RollbackReason *string `json:"rollback_reason,omitempty" xml:"rollback_reason,omitempty"`
-	// 依赖的应用服务名
-	DependContainerServiceNames []*string `json:"depend_container_service_names,omitempty" xml:"depend_container_service_names,omitempty" type:"Repeated"`
-}
-
-func (s AppSimpleInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppSimpleInfo) GoString() string {
-	return s.String()
-}
-
-func (s *AppSimpleInfo) SetAppId(v string) *AppSimpleInfo {
-	s.AppId = &v
-	return s
-}
-
-func (s *AppSimpleInfo) SetAppInstanceGroupName(v string) *AppSimpleInfo {
-	s.AppInstanceGroupName = &v
-	return s
-}
-
-func (s *AppSimpleInfo) SetAppName(v string) *AppSimpleInfo {
-	s.AppName = &v
-	return s
-}
-
-func (s *AppSimpleInfo) SetExecutor(v string) *AppSimpleInfo {
-	s.Executor = &v
-	return s
-}
-
-func (s *AppSimpleInfo) SetFinishTime(v string) *AppSimpleInfo {
-	s.FinishTime = &v
-	return s
-}
-
-func (s *AppSimpleInfo) SetGroupNum(v int64) *AppSimpleInfo {
-	s.GroupNum = &v
-	return s
-}
-
-func (s *AppSimpleInfo) SetGroupStrategy(v string) *AppSimpleInfo {
-	s.GroupStrategy = &v
-	return s
-}
-
-func (s *AppSimpleInfo) SetId(v string) *AppSimpleInfo {
-	s.Id = &v
-	return s
-}
-
-func (s *AppSimpleInfo) SetNamespace(v string) *AppSimpleInfo {
-	s.Namespace = &v
-	return s
-}
-
-func (s *AppSimpleInfo) SetOperationType(v string) *AppSimpleInfo {
-	s.OperationType = &v
-	return s
-}
-
-func (s *AppSimpleInfo) SetRevision(v string) *AppSimpleInfo {
-	s.Revision = &v
-	return s
-}
-
-func (s *AppSimpleInfo) SetRollbackRevision(v string) *AppSimpleInfo {
-	s.RollbackRevision = &v
-	return s
-}
-
-func (s *AppSimpleInfo) SetStandaloneExecutable(v bool) *AppSimpleInfo {
-	s.StandaloneExecutable = &v
-	return s
-}
-
-func (s *AppSimpleInfo) SetStartTime(v string) *AppSimpleInfo {
-	s.StartTime = &v
-	return s
-}
-
-func (s *AppSimpleInfo) SetState(v string) *AppSimpleInfo {
-	s.State = &v
-	return s
-}
-
-func (s *AppSimpleInfo) SetPodCount(v int64) *AppSimpleInfo {
-	s.PodCount = &v
-	return s
-}
-
-func (s *AppSimpleInfo) SetRollbackReason(v string) *AppSimpleInfo {
-	s.RollbackReason = &v
-	return s
-}
-
-func (s *AppSimpleInfo) SetDependContainerServiceNames(v []*string) *AppSimpleInfo {
-	s.DependContainerServiceNames = v
-	return s
-}
-
-// 弹性子规则
-type ElasticSubRuleView struct {
-	// 弹性子规则ID
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 所属APP
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
-	// 关联的弹性规则ID
-	ElasticRuleId *int64 `json:"elastic_rule_id,omitempty" xml:"elastic_rule_id,omitempty" require:"true"`
-	// 父节点
-	ParentId *int64 `json:"parent_id,omitempty" xml:"parent_id,omitempty"`
-	// 值
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-	// 是否使用默认eid，默认 false
-	UseDefaultEid *bool `json:"use_default_eid,omitempty" xml:"use_default_eid,omitempty"`
-	// 状态，有效值：VALID（线上生效），PRESS（仅压测生效），INVALID（无效状态）
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 规则类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 场景ID
-	SceneId *int64 `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
-}
-
-func (s ElasticSubRuleView) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ElasticSubRuleView) GoString() string {
-	return s.String()
-}
-
-func (s *ElasticSubRuleView) SetId(v int64) *ElasticSubRuleView {
-	s.Id = &v
-	return s
-}
-
-func (s *ElasticSubRuleView) SetAppName(v string) *ElasticSubRuleView {
-	s.AppName = &v
-	return s
-}
-
-func (s *ElasticSubRuleView) SetElasticRuleId(v int64) *ElasticSubRuleView {
-	s.ElasticRuleId = &v
-	return s
-}
-
-func (s *ElasticSubRuleView) SetParentId(v int64) *ElasticSubRuleView {
-	s.ParentId = &v
-	return s
-}
-
-func (s *ElasticSubRuleView) SetValue(v string) *ElasticSubRuleView {
-	s.Value = &v
-	return s
-}
-
-func (s *ElasticSubRuleView) SetUseDefaultEid(v bool) *ElasticSubRuleView {
-	s.UseDefaultEid = &v
-	return s
-}
-
-func (s *ElasticSubRuleView) SetStatus(v string) *ElasticSubRuleView {
-	s.Status = &v
-	return s
-}
-
-func (s *ElasticSubRuleView) SetType(v string) *ElasticSubRuleView {
-	s.Type = &v
-	return s
-}
-
-func (s *ElasticSubRuleView) SetSceneId(v int64) *ElasticSubRuleView {
-	s.SceneId = &v
-	return s
-}
-
-// cell info
-type CellInfo struct {
-	// cell display name
-	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
-}
-
-func (s CellInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CellInfo) GoString() string {
-	return s.String()
-}
-
-func (s *CellInfo) SetDisplayName(v string) *CellInfo {
-	s.DisplayName = &v
-	return s
-}
-
-// cloudconfig
-type CloudConfigEntity struct {
-	// 配置详情
-	CloudConfig *string `json:"cloud_config,omitempty" xml:"cloud_config,omitempty" require:"true"`
-	// 操作时间
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true"`
-	// 操作类型
-	Operation *string `json:"operation,omitempty" xml:"operation,omitempty" require:"true"`
-	// admin
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
-}
-
-func (s CloudConfigEntity) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CloudConfigEntity) GoString() string {
-	return s.String()
-}
-
-func (s *CloudConfigEntity) SetCloudConfig(v string) *CloudConfigEntity {
-	s.CloudConfig = &v
-	return s
-}
-
-func (s *CloudConfigEntity) SetGmtCreate(v string) *CloudConfigEntity {
-	s.GmtCreate = &v
-	return s
-}
-
-func (s *CloudConfigEntity) SetOperation(v string) *CloudConfigEntity {
-	s.Operation = &v
-	return s
-}
-
-func (s *CloudConfigEntity) SetOperator(v string) *CloudConfigEntity {
-	s.Operator = &v
-	return s
-}
-
-// 统一接入实例监听配置（http/https）
-type UnifiedAccessInstanceListener struct {
-	// CA证书ID。 若既上传CA证书又上传服务器证书，即采用双向认证。 若用户只上传服务器证书，即为单向认证。
-	CaCertificateId *string `json:"ca_certificate_id,omitempty" xml:"ca_certificate_id,omitempty"`
-	// 统一接入实例监听端口。 取值：1-65535。
-	ListenerPort *int64 `json:"listener_port,omitempty" xml:"listener_port,omitempty" require:"true"`
-	// 协议类型，目前支持http和https两种
-	Protocol *string `json:"protocol,omitempty" xml:"protocol,omitempty" require:"true"`
-	// 是否使用websocket连接方式
-	WebsocketConnect *bool `json:"websocket_connect,omitempty" xml:"websocket_connect,omitempty" require:"true"`
-}
-
-func (s UnifiedAccessInstanceListener) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UnifiedAccessInstanceListener) GoString() string {
-	return s.String()
-}
-
-func (s *UnifiedAccessInstanceListener) SetCaCertificateId(v string) *UnifiedAccessInstanceListener {
-	s.CaCertificateId = &v
-	return s
-}
-
-func (s *UnifiedAccessInstanceListener) SetListenerPort(v int64) *UnifiedAccessInstanceListener {
-	s.ListenerPort = &v
-	return s
-}
-
-func (s *UnifiedAccessInstanceListener) SetProtocol(v string) *UnifiedAccessInstanceListener {
-	s.Protocol = &v
-	return s
-}
-
-func (s *UnifiedAccessInstanceListener) SetWebsocketConnect(v bool) *UnifiedAccessInstanceListener {
-	s.WebsocketConnect = &v
-	return s
-}
-
-// fed configmap override list
-type FedSecretOverrideList struct {
-	// fed configmap override list
-	List []*FedSecretOverride `json:"list,omitempty" xml:"list,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s FedSecretOverrideList) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FedSecretOverrideList) GoString() string {
-	return s.String()
-}
-
-func (s *FedSecretOverrideList) SetList(v []*FedSecretOverride) *FedSecretOverrideList {
-	s.List = v
-	return s
-}
-
-// 负载均衡实例。
-type LoadBalancerInstance struct {
-	// 负责均衡iaas id。
-	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty" require:"true"`
-	// 监听器。
-	Listeners []*LoadBalancerListener `json:"listeners,omitempty" xml:"listeners,omitempty" require:"true" type:"Repeated"`
-	// 负载均衡名称。
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 负责均衡PAAS id。
-	PaasId *string `json:"paas_id,omitempty" xml:"paas_id,omitempty"`
-	// 负责均衡类型。
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 负载均衡vip地址。
-	VipAddresses []*string `json:"vip_addresses,omitempty" xml:"vip_addresses,omitempty" type:"Repeated"`
-	// 统一接入域名。
-	Domain *string `json:"domain,omitempty" xml:"domain,omitempty" require:"true"`
-}
-
-func (s LoadBalancerInstance) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LoadBalancerInstance) GoString() string {
-	return s.String()
-}
-
-func (s *LoadBalancerInstance) SetIaasId(v string) *LoadBalancerInstance {
-	s.IaasId = &v
-	return s
-}
-
-func (s *LoadBalancerInstance) SetListeners(v []*LoadBalancerListener) *LoadBalancerInstance {
-	s.Listeners = v
-	return s
-}
-
-func (s *LoadBalancerInstance) SetName(v string) *LoadBalancerInstance {
-	s.Name = &v
-	return s
-}
-
-func (s *LoadBalancerInstance) SetPaasId(v string) *LoadBalancerInstance {
-	s.PaasId = &v
-	return s
-}
-
-func (s *LoadBalancerInstance) SetType(v string) *LoadBalancerInstance {
-	s.Type = &v
-	return s
-}
-
-func (s *LoadBalancerInstance) SetVipAddresses(v []*string) *LoadBalancerInstance {
-	s.VipAddresses = v
-	return s
-}
-
-func (s *LoadBalancerInstance) SetDomain(v string) *LoadBalancerInstance {
-	s.Domain = &v
-	return s
-}
-
-// 可用区
-type Zone struct {
-	// 数据中心名
-	DataCenter *string `json:"data_center,omitempty" xml:"data_center,omitempty" require:"true"`
-	// 可用区展示名
-	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
-	// 可用区名
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 所属地域
-	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
-	// 可用区id
-	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty" require:"true"`
-	// 地域id
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
-}
-
-func (s Zone) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Zone) GoString() string {
-	return s.String()
-}
-
-func (s *Zone) SetDataCenter(v string) *Zone {
-	s.DataCenter = &v
-	return s
-}
-
-func (s *Zone) SetDisplayName(v string) *Zone {
-	s.DisplayName = &v
-	return s
-}
-
-func (s *Zone) SetName(v string) *Zone {
-	s.Name = &v
-	return s
-}
-
-func (s *Zone) SetRegion(v string) *Zone {
-	s.Region = &v
-	return s
-}
-
-func (s *Zone) SetZoneId(v string) *Zone {
-	s.ZoneId = &v
-	return s
-}
-
-func (s *Zone) SetRegionId(v string) *Zone {
-	s.RegionId = &v
-	return s
-}
-
-// namespace detail
-type NamespaceDetail struct {
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// labels
-	Labels []*Label `json:"labels,omitempty" xml:"labels,omitempty" type:"Repeated"`
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// created time
-	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s NamespaceDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s NamespaceDetail) GoString() string {
-	return s.String()
-}
-
-func (s *NamespaceDetail) SetName(v string) *NamespaceDetail {
-	s.Name = &v
-	return s
-}
-
-func (s *NamespaceDetail) SetLabels(v []*Label) *NamespaceDetail {
-	s.Labels = v
-	return s
-}
-
-func (s *NamespaceDetail) SetStatus(v string) *NamespaceDetail {
-	s.Status = &v
-	return s
-}
-
-func (s *NamespaceDetail) SetCreatedTime(v string) *NamespaceDetail {
-	s.CreatedTime = &v
-	return s
-}
-
-// 发布(运维)单状态汇总数据
-type LdcPlanStateCount struct {
-	// 发布单状态类型
-	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
-	// 数量
-	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
-}
-
-func (s LdcPlanStateCount) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LdcPlanStateCount) GoString() string {
-	return s.String()
-}
-
-func (s *LdcPlanStateCount) SetState(v string) *LdcPlanStateCount {
-	s.State = &v
-	return s
-}
-
-func (s *LdcPlanStateCount) SetCount(v int64) *LdcPlanStateCount {
-	s.Count = &v
-	return s
-}
-
-// network info
-type NetworkInfo struct {
-	// networt description
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-}
-
-func (s NetworkInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s NetworkInfo) GoString() string {
-	return s.String()
-}
-
-func (s *NetworkInfo) SetDescription(v string) *NetworkInfo {
-	s.Description = &v
-	return s
-}
-
-// 联邦无状态工作负载
-type FederatedDeployment struct {
-	// Standard object metadata.
-	//
-	Metadata *ObjectMeta `json:"metadata,omitempty" xml:"metadata,omitempty" require:"true"`
-	// Federated Deployment Override
-	Overrides []*FedDeploymentClusterOverride `json:"overrides,omitempty" xml:"overrides,omitempty" require:"true" type:"Repeated"`
-	// Federated Deployment Template
-	Template *Deployment `json:"template,omitempty" xml:"template,omitempty" require:"true"`
-	// 联邦无状态工作负载状态
-	Status *FederatedDeploymentStatus `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-}
-
-func (s FederatedDeployment) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FederatedDeployment) GoString() string {
-	return s.String()
-}
-
-func (s *FederatedDeployment) SetMetadata(v *ObjectMeta) *FederatedDeployment {
-	s.Metadata = v
-	return s
-}
-
-func (s *FederatedDeployment) SetOverrides(v []*FedDeploymentClusterOverride) *FederatedDeployment {
-	s.Overrides = v
-	return s
-}
-
-func (s *FederatedDeployment) SetTemplate(v *Deployment) *FederatedDeployment {
-	s.Template = v
-	return s
-}
-
-func (s *FederatedDeployment) SetStatus(v *FederatedDeploymentStatus) *FederatedDeployment {
-	s.Status = v
-	return s
-}
-
-// AKS集群cluster
-type Cluster struct {
-	// 集群创建时间
-	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// env
-	Env *string `json:"env,omitempty" xml:"env,omitempty" require:"true"`
-	// 集群是否健康
-	IsHealthy *bool `json:"is_healthy,omitempty" xml:"is_healthy,omitempty" require:"true"`
-	// 集群名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// region name
-	//
-	RegionName *string `json:"region_name,omitempty" xml:"region_name,omitempty" require:"true"`
-	// 独占
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// 集群版本
-	Version *string `json:"version,omitempty" xml:"version,omitempty" require:"true"`
-	// 环境名称
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
-	// 机房名称
-	ZoneName *string `json:"zone_name,omitempty" xml:"zone_name,omitempty" require:"true"`
-}
-
-func (s Cluster) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Cluster) GoString() string {
-	return s.String()
-}
-
-func (s *Cluster) SetCreatedTime(v string) *Cluster {
-	s.CreatedTime = &v
-	return s
-}
-
-func (s *Cluster) SetEnv(v string) *Cluster {
-	s.Env = &v
-	return s
-}
-
-func (s *Cluster) SetIsHealthy(v bool) *Cluster {
-	s.IsHealthy = &v
-	return s
-}
-
-func (s *Cluster) SetName(v string) *Cluster {
-	s.Name = &v
-	return s
-}
-
-func (s *Cluster) SetRegionName(v string) *Cluster {
-	s.RegionName = &v
-	return s
-}
-
-func (s *Cluster) SetType(v string) *Cluster {
-	s.Type = &v
-	return s
-}
-
-func (s *Cluster) SetVersion(v string) *Cluster {
-	s.Version = &v
-	return s
-}
-
-func (s *Cluster) SetWorkspace(v string) *Cluster {
-	s.Workspace = &v
-	return s
-}
-
-func (s *Cluster) SetZoneName(v string) *Cluster {
-	s.ZoneName = &v
-	return s
-}
-
-// container_services list
-type SontainerServicesList struct {
-	// ContainerServiceDeployment
-	List []*ContainerServiceDeployment `json:"list,omitempty" xml:"list,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s SontainerServicesList) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SontainerServicesList) GoString() string {
-	return s.String()
-}
-
-func (s *SontainerServicesList) SetList(v []*ContainerServiceDeployment) *SontainerServicesList {
-	s.List = v
-	return s
-}
-
-// sidecar元数据
-type SideCar struct {
-	// region id
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
-	// sidecar description
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-	// sidecar生效范围：workspace、workspace_group、region
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
-	// sidecar_name
-	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
-	// workspace_group_id
-	WorkspaceGroupId *string `json:"workspace_group_id,omitempty" xml:"workspace_group_id,omitempty"`
-	// workspace_id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-}
-
-func (s SideCar) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SideCar) GoString() string {
-	return s.String()
-}
-
-func (s *SideCar) SetRegionId(v string) *SideCar {
-	s.RegionId = &v
-	return s
-}
-
-func (s *SideCar) SetDescription(v string) *SideCar {
-	s.Description = &v
-	return s
-}
-
-func (s *SideCar) SetScope(v string) *SideCar {
-	s.Scope = &v
-	return s
-}
-
-func (s *SideCar) SetSidecarName(v string) *SideCar {
-	s.SidecarName = &v
-	return s
-}
-
-func (s *SideCar) SetWorkspaceGroupId(v string) *SideCar {
-	s.WorkspaceGroupId = &v
-	return s
-}
-
-func (s *SideCar) SetWorkspaceId(v string) *SideCar {
-	s.WorkspaceId = &v
-	return s
-}
-
-// cluster info
-type ClusterInfo struct {
-	// created time
-	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// env
-	Env *string `json:"env,omitempty" xml:"env,omitempty"`
-	// cluster is healthy or not
-	IsHealthy *bool `json:"is_healthy,omitempty" xml:"is_healthy,omitempty" require:"true"`
-	// cluster name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// cluster overview info
-	OverviewInfo *ClusterOverviewInfo `json:"overview_info,omitempty" xml:"overview_info,omitempty" require:"true"`
-	// region name
-	RegionName *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
-	// 独占 or 共享
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// version
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-	// zone name
-	ZoneName *string `json:"zone_name,omitempty" xml:"zone_name,omitempty"`
-	// workspace名称[如果存在]。
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
-}
-
-func (s ClusterInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ClusterInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ClusterInfo) SetCreatedTime(v string) *ClusterInfo {
-	s.CreatedTime = &v
-	return s
-}
-
-func (s *ClusterInfo) SetEnv(v string) *ClusterInfo {
-	s.Env = &v
-	return s
-}
-
-func (s *ClusterInfo) SetIsHealthy(v bool) *ClusterInfo {
-	s.IsHealthy = &v
-	return s
-}
-
-func (s *ClusterInfo) SetName(v string) *ClusterInfo {
-	s.Name = &v
-	return s
-}
-
-func (s *ClusterInfo) SetOverviewInfo(v *ClusterOverviewInfo) *ClusterInfo {
-	s.OverviewInfo = v
-	return s
-}
-
-func (s *ClusterInfo) SetRegionName(v string) *ClusterInfo {
-	s.RegionName = &v
-	return s
-}
-
-func (s *ClusterInfo) SetType(v string) *ClusterInfo {
-	s.Type = &v
-	return s
-}
-
-func (s *ClusterInfo) SetVersion(v string) *ClusterInfo {
-	s.Version = &v
-	return s
-}
-
-func (s *ClusterInfo) SetZoneName(v string) *ClusterInfo {
-	s.ZoneName = &v
-	return s
-}
-
-func (s *ClusterInfo) SetWorkspace(v string) *ClusterInfo {
-	s.Workspace = &v
-	return s
-}
-
-// cell weight info list.
-type CellWeightInfoList struct {
-	// weight info list.
-	Data []*CellWeightInfo `json:"data,omitempty" xml:"data,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s CellWeightInfoList) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CellWeightInfoList) GoString() string {
-	return s.String()
-}
-
-func (s *CellWeightInfoList) SetData(v []*CellWeightInfo) *CellWeightInfoList {
-	s.Data = v
-	return s
-}
-
-// 云原生技术栈版本
-type NativeTechStackVersion struct {
-	// 版本描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-	// 用户扩展的自定义Dockerfile指令
-	ExtendCommands []*string `json:"extend_commands,omitempty" xml:"extend_commands,omitempty" require:"true" type:"Repeated"`
-	// 版本扩展信息，e.g 公共环境变量
-	ExtendProperties *string `json:"extend_properties,omitempty" xml:"extend_properties,omitempty" require:"true"`
-	// 基础镜像存放地址
-	FromImage *string `json:"from_image,omitempty" xml:"from_image,omitempty" require:"true"`
-	// 唯一标识ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 可见范围：全局可见|租户内可见
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
-	// 所属技术栈
-	TechStack *string `json:"tech_stack,omitempty" xml:"tech_stack,omitempty" require:"true"`
-	// 所属技术栈标识id
-	TechStackId *string `json:"tech_stack_id,omitempty" xml:"tech_stack_id,omitempty" require:"true"`
-	// 技术栈版本
-	Version *string `json:"version,omitempty" xml:"version,omitempty" require:"true"`
-	// 创建时间（UTC）
-	UtcCreated *string `json:"utc_created,omitempty" xml:"utc_created,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 最近修改时间（UTC）
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s NativeTechStackVersion) String() string {
-	return tea.Prettify(s)
-}
-
-func (s NativeTechStackVersion) GoString() string {
-	return s.String()
-}
-
-func (s *NativeTechStackVersion) SetDescription(v string) *NativeTechStackVersion {
-	s.Description = &v
-	return s
-}
-
-func (s *NativeTechStackVersion) SetExtendCommands(v []*string) *NativeTechStackVersion {
-	s.ExtendCommands = v
-	return s
-}
-
-func (s *NativeTechStackVersion) SetExtendProperties(v string) *NativeTechStackVersion {
-	s.ExtendProperties = &v
-	return s
-}
-
-func (s *NativeTechStackVersion) SetFromImage(v string) *NativeTechStackVersion {
-	s.FromImage = &v
-	return s
-}
-
-func (s *NativeTechStackVersion) SetId(v string) *NativeTechStackVersion {
-	s.Id = &v
-	return s
-}
-
-func (s *NativeTechStackVersion) SetScope(v string) *NativeTechStackVersion {
-	s.Scope = &v
-	return s
-}
-
-func (s *NativeTechStackVersion) SetTechStack(v string) *NativeTechStackVersion {
-	s.TechStack = &v
-	return s
-}
-
-func (s *NativeTechStackVersion) SetTechStackId(v string) *NativeTechStackVersion {
-	s.TechStackId = &v
-	return s
-}
-
-func (s *NativeTechStackVersion) SetVersion(v string) *NativeTechStackVersion {
-	s.Version = &v
-	return s
-}
-
-func (s *NativeTechStackVersion) SetUtcCreated(v string) *NativeTechStackVersion {
-	s.UtcCreated = &v
-	return s
-}
-
-func (s *NativeTechStackVersion) SetUtcModified(v string) *NativeTechStackVersion {
-	s.UtcModified = &v
-	return s
-}
-
-// 容器服务service信息。
-type NativeServiceView struct {
-	// 服务名称。
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 服务类型。
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 负载均衡实例id。
-	LoadBalancerId *string `json:"load_balancer_id,omitempty" xml:"load_balancer_id,omitempty"`
-	// VIP地址信息。
-	VipAddresses []*string `json:"vip_addresses,omitempty" xml:"vip_addresses,omitempty" type:"Repeated"`
-	// VIP地址信息类型。
-	VipAddressType *string `json:"vip_address_type,omitempty" xml:"vip_address_type,omitempty"`
-	// ClusterIP信息。
-	ClusterIp *string `json:"cluster_ip,omitempty" xml:"cluster_ip,omitempty"`
-	// 创建时间。
-	CreatedTimestamp *string `json:"created_timestamp,omitempty" xml:"created_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 修改时间。
-	ModifiedTimestamp *string `json:"modified_timestamp,omitempty" xml:"modified_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s NativeServiceView) String() string {
-	return tea.Prettify(s)
-}
-
-func (s NativeServiceView) GoString() string {
-	return s.String()
-}
-
-func (s *NativeServiceView) SetName(v string) *NativeServiceView {
-	s.Name = &v
-	return s
-}
-
-func (s *NativeServiceView) SetType(v string) *NativeServiceView {
-	s.Type = &v
-	return s
-}
-
-func (s *NativeServiceView) SetLoadBalancerId(v string) *NativeServiceView {
-	s.LoadBalancerId = &v
-	return s
-}
-
-func (s *NativeServiceView) SetVipAddresses(v []*string) *NativeServiceView {
-	s.VipAddresses = v
-	return s
-}
-
-func (s *NativeServiceView) SetVipAddressType(v string) *NativeServiceView {
-	s.VipAddressType = &v
-	return s
-}
-
-func (s *NativeServiceView) SetClusterIp(v string) *NativeServiceView {
-	s.ClusterIp = &v
-	return s
-}
-
-func (s *NativeServiceView) SetCreatedTimestamp(v string) *NativeServiceView {
-	s.CreatedTimestamp = &v
-	return s
-}
-
-func (s *NativeServiceView) SetModifiedTimestamp(v string) *NativeServiceView {
-	s.ModifiedTimestamp = &v
-	return s
-}
-
-// 容器应用服务版本信息。
-type ContainerServiceRevision struct {
-	// 应用信息。
-	AppInfo *AppInfo `json:"app_info,omitempty" xml:"app_info,omitempty" require:"true"`
-	// 容器服务配置。
-	ContainerServiceConfig *ContainerServiceConfig `json:"container_service_config,omitempty" xml:"container_service_config,omitempty" require:"true"`
-	// 容器服务服务名称。
-	ContainerServiceName *string `json:"container_service_name,omitempty" xml:"container_service_name,omitempty" require:"true"`
-	// 容器服务发布信息
-	ContainerServiceReleaseInfo *ContainerServiceReleaseInfo `json:"container_service_release_info,omitempty" xml:"container_service_release_info,omitempty"`
-	// 创建时间。
-	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 发布状态。
-	DeployStatus *string `json:"deploy_status,omitempty" xml:"deploy_status,omitempty"`
-	// container service description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 关联的最近一次发布单。
-	LastPlanId *string `json:"last_plan_id,omitempty" xml:"last_plan_id,omitempty"`
-	// 元数据状态。
-	MetaStatus *string `json:"meta_status,omitempty" xml:"meta_status,omitempty"`
-	// 更新时间。
-	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 所属命名空间名称。
-	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
-	// 版本提交人。
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
-	// 版本备注。
-	Remarks *string `json:"remarks,omitempty" xml:"remarks,omitempty"`
-	// 版本号。
-	Revision *string `json:"revision,omitempty" xml:"revision,omitempty" require:"true"`
-}
-
-func (s ContainerServiceRevision) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContainerServiceRevision) GoString() string {
-	return s.String()
-}
-
-func (s *ContainerServiceRevision) SetAppInfo(v *AppInfo) *ContainerServiceRevision {
-	s.AppInfo = v
-	return s
-}
-
-func (s *ContainerServiceRevision) SetContainerServiceConfig(v *ContainerServiceConfig) *ContainerServiceRevision {
-	s.ContainerServiceConfig = v
-	return s
-}
-
-func (s *ContainerServiceRevision) SetContainerServiceName(v string) *ContainerServiceRevision {
-	s.ContainerServiceName = &v
-	return s
-}
-
-func (s *ContainerServiceRevision) SetContainerServiceReleaseInfo(v *ContainerServiceReleaseInfo) *ContainerServiceRevision {
-	s.ContainerServiceReleaseInfo = v
-	return s
-}
-
-func (s *ContainerServiceRevision) SetCreatedTime(v string) *ContainerServiceRevision {
-	s.CreatedTime = &v
-	return s
-}
-
-func (s *ContainerServiceRevision) SetDeployStatus(v string) *ContainerServiceRevision {
-	s.DeployStatus = &v
-	return s
-}
-
-func (s *ContainerServiceRevision) SetDescription(v string) *ContainerServiceRevision {
-	s.Description = &v
-	return s
-}
-
-func (s *ContainerServiceRevision) SetLastPlanId(v string) *ContainerServiceRevision {
-	s.LastPlanId = &v
-	return s
-}
-
-func (s *ContainerServiceRevision) SetMetaStatus(v string) *ContainerServiceRevision {
-	s.MetaStatus = &v
-	return s
-}
-
-func (s *ContainerServiceRevision) SetModifiedTime(v string) *ContainerServiceRevision {
-	s.ModifiedTime = &v
-	return s
-}
-
-func (s *ContainerServiceRevision) SetNamespace(v string) *ContainerServiceRevision {
-	s.Namespace = &v
-	return s
-}
-
-func (s *ContainerServiceRevision) SetOperator(v string) *ContainerServiceRevision {
-	s.Operator = &v
-	return s
-}
-
-func (s *ContainerServiceRevision) SetRemarks(v string) *ContainerServiceRevision {
-	s.Remarks = &v
-	return s
-}
-
-func (s *ContainerServiceRevision) SetRevision(v string) *ContainerServiceRevision {
-	s.Revision = &v
-	return s
-}
-
-// ContainerServiceOperationList
-type ContainerServiceOperationList struct {
-	// ContainerServiceOperationList
-	List []*ContainerServiceOperation `json:"list,omitempty" xml:"list,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s ContainerServiceOperationList) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContainerServiceOperationList) GoString() string {
-	return s.String()
-}
-
-func (s *ContainerServiceOperationList) SetList(v []*ContainerServiceOperation) *ContainerServiceOperationList {
-	s.List = v
-	return s
-}
-
-// Linke解决方案返回结果数据
-type LinkeReleaseData struct {
-	// Linke release ID
-	ReleaseId *string `json:"release_id,omitempty" xml:"release_id,omitempty" require:"true"`
-}
-
-func (s LinkeReleaseData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LinkeReleaseData) GoString() string {
-	return s.String()
-}
-
-func (s *LinkeReleaseData) SetReleaseId(v string) *LinkeReleaseData {
-	s.ReleaseId = &v
+func (s *ContainerServiceBasicInfo) SetMessageDetail(v string) *ContainerServiceBasicInfo {
+	s.MessageDetail = &v
 	return s
 }
 
@@ -9578,816 +12107,280 @@ func (s *SystemURL) SetContext(v string) *SystemURL {
 	return s
 }
 
-// MasterClusterInfoForWorkspaces
-type MasterClusterInfoForWorkspaces struct {
-	// master cluster info
-	MasterClusterInfo *MasterCluster `json:"master_cluster_info,omitempty" xml:"master_cluster_info,omitempty" require:"true"`
-	// workspace ids
-	WorkspaceIds []*string `json:"workspace_ids,omitempty" xml:"workspace_ids,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s MasterClusterInfoForWorkspaces) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MasterClusterInfoForWorkspaces) GoString() string {
-	return s.String()
-}
-
-func (s *MasterClusterInfoForWorkspaces) SetMasterClusterInfo(v *MasterCluster) *MasterClusterInfoForWorkspaces {
-	s.MasterClusterInfo = v
-	return s
-}
-
-func (s *MasterClusterInfoForWorkspaces) SetWorkspaceIds(v []*string) *MasterClusterInfoForWorkspaces {
-	s.WorkspaceIds = v
-	return s
-}
-
-// Region info
-type Region struct {
-	// region id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// region name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// workspace list
-	Workspaces []*Workspace `json:"workspaces,omitempty" xml:"workspaces,omitempty" type:"Repeated"`
-}
-
-func (s Region) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Region) GoString() string {
-	return s.String()
-}
-
-func (s *Region) SetId(v string) *Region {
-	s.Id = &v
-	return s
-}
-
-func (s *Region) SetName(v string) *Region {
-	s.Name = &v
-	return s
-}
-
-func (s *Region) SetWorkspaces(v []*Workspace) *Region {
-	s.Workspaces = v
-	return s
-}
-
-// Pod Overview Info
-type PodOverviewInfo struct {
-	// pod number
-	PodNumber *int64 `json:"pod_number,omitempty" xml:"pod_number,omitempty"`
-	// unhealthy pod number
-	UnhealthyPodNumber *int64 `json:"unhealthy_pod_number,omitempty" xml:"unhealthy_pod_number,omitempty"`
-}
-
-func (s PodOverviewInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PodOverviewInfo) GoString() string {
-	return s.String()
-}
-
-func (s *PodOverviewInfo) SetPodNumber(v int64) *PodOverviewInfo {
-	s.PodNumber = &v
-	return s
-}
-
-func (s *PodOverviewInfo) SetUnhealthyPodNumber(v int64) *PodOverviewInfo {
-	s.UnhealthyPodNumber = &v
-	return s
-}
-
-// 健康检查配置。
-type HealthCheckConfigInfo struct {
-	// 容器健康检查配置liveness probe。
-	LivenessProbe *LivenessProbe `json:"liveness_probe,omitempty" xml:"liveness_probe,omitempty"`
-	// 容器健康检查配置readiness probe。
-	ReadinessProbe *ReadinessProbe `json:"readiness_probe,omitempty" xml:"readiness_probe,omitempty"`
-}
-
-func (s HealthCheckConfigInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s HealthCheckConfigInfo) GoString() string {
-	return s.String()
-}
-
-func (s *HealthCheckConfigInfo) SetLivenessProbe(v *LivenessProbe) *HealthCheckConfigInfo {
-	s.LivenessProbe = v
-	return s
-}
-
-func (s *HealthCheckConfigInfo) SetReadinessProbe(v *ReadinessProbe) *HealthCheckConfigInfo {
-	s.ReadinessProbe = v
-	return s
-}
-
-// fed secret struct
-//
-type FedSecret struct {
-	// fed secret annotations
-	//
-	Annotations []*Annotation `json:"annotations,omitempty" xml:"annotations,omitempty" type:"Repeated"`
-	// FedSecret Cell Cluster Status
-	CellStatus []*ClusteCellStatus `json:"cell_status,omitempty" xml:"cell_status,omitempty" require:"true" type:"Repeated"`
-	// fed clusters
-	//
-	Clusters []*string `json:"clusters,omitempty" xml:"clusters,omitempty" require:"true" type:"Repeated"`
-	// 创建时间
-	CreateTimeStamp *string `json:"create_time_stamp,omitempty" xml:"create_time_stamp,omitempty" require:"true"`
-	// fed secret data
-	//
-	Data []*SecretData `json:"data,omitempty" xml:"data,omitempty" require:"true" type:"Repeated"`
-	// fed secret labels
-	//
-	Labels []*Label `json:"labels,omitempty" xml:"labels,omitempty" type:"Repeated"`
-	// fed secret name
-	//
+// fed image pull secret
+type FedImagePullSecret struct {
+	// annotations
+	Annotations []*string `json:"annotations,omitempty" xml:"annotations,omitempty" type:"Repeated"`
+	// image pull secret registry account info
+	Data *RegistryAccout `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+	// labels
+	Labels []*string `json:"labels,omitempty" xml:"labels,omitempty" type:"Repeated"`
+	// name
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// fed secret namespace
-	//
+	// namesapce
 	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
-	// fed secret override
-	//
-	Overrides []*FedSecretOverride `json:"overrides,omitempty" xml:"overrides,omitempty" require:"true" type:"Repeated"`
-	// 原因描述
-	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
-	// FedSecret同步状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// opaque
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// cell overrides
+	Overrides *FedImagePullSecretOverrideList `json:"overrides,omitempty" xml:"overrides,omitempty" require:"true"`
+	// workspace group name
+	WorkspaceGroupName *string `json:"workspace_group_name,omitempty" xml:"workspace_group_name,omitempty" require:"true"`
+	// cell list
+	Cells []*string `json:"cells,omitempty" xml:"cells,omitempty" require:"true" type:"Repeated"`
 }
 
-func (s FedSecret) String() string {
+func (s FedImagePullSecret) String() string {
 	return tea.Prettify(s)
 }
 
-func (s FedSecret) GoString() string {
+func (s FedImagePullSecret) GoString() string {
 	return s.String()
 }
 
-func (s *FedSecret) SetAnnotations(v []*Annotation) *FedSecret {
+func (s *FedImagePullSecret) SetAnnotations(v []*string) *FedImagePullSecret {
 	s.Annotations = v
 	return s
 }
 
-func (s *FedSecret) SetCellStatus(v []*ClusteCellStatus) *FedSecret {
-	s.CellStatus = v
-	return s
-}
-
-func (s *FedSecret) SetClusters(v []*string) *FedSecret {
-	s.Clusters = v
-	return s
-}
-
-func (s *FedSecret) SetCreateTimeStamp(v string) *FedSecret {
-	s.CreateTimeStamp = &v
-	return s
-}
-
-func (s *FedSecret) SetData(v []*SecretData) *FedSecret {
+func (s *FedImagePullSecret) SetData(v *RegistryAccout) *FedImagePullSecret {
 	s.Data = v
 	return s
 }
 
-func (s *FedSecret) SetLabels(v []*Label) *FedSecret {
+func (s *FedImagePullSecret) SetLabels(v []*string) *FedImagePullSecret {
 	s.Labels = v
 	return s
 }
 
-func (s *FedSecret) SetName(v string) *FedSecret {
+func (s *FedImagePullSecret) SetName(v string) *FedImagePullSecret {
 	s.Name = &v
 	return s
 }
 
-func (s *FedSecret) SetNamespace(v string) *FedSecret {
+func (s *FedImagePullSecret) SetNamespace(v string) *FedImagePullSecret {
 	s.Namespace = &v
 	return s
 }
 
-func (s *FedSecret) SetOverrides(v []*FedSecretOverride) *FedSecret {
+func (s *FedImagePullSecret) SetOverrides(v *FedImagePullSecretOverrideList) *FedImagePullSecret {
 	s.Overrides = v
 	return s
 }
 
-func (s *FedSecret) SetReason(v string) *FedSecret {
-	s.Reason = &v
+func (s *FedImagePullSecret) SetWorkspaceGroupName(v string) *FedImagePullSecret {
+	s.WorkspaceGroupName = &v
 	return s
 }
 
-func (s *FedSecret) SetStatus(v string) *FedSecret {
-	s.Status = &v
+func (s *FedImagePullSecret) SetCells(v []*string) *FedImagePullSecret {
+	s.Cells = v
 	return s
 }
 
-func (s *FedSecret) SetType(v string) *FedSecret {
+// 查询pod列表的可选参数
+type ListPodOption struct {
+	// 根据pod number列举pod的方式：RANGE为范围查询；ARRAY为指定pod number查询；ALL查询全量
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// [type为RANGE时生效]范围查询的左边界（包含）
+	PodNumerFrom *int64 `json:"pod_numer_from,omitempty" xml:"pod_numer_from,omitempty"`
+	// [type为RANGE时生效]范围查询的右边界（不包含）
+	PodNumberTo *int64 `json:"pod_number_to,omitempty" xml:"pod_number_to,omitempty"`
+	// [type为ARRAY时生效]指定pod number的查询
+	PodNumbers []*int64 `json:"pod_numbers,omitempty" xml:"pod_numbers,omitempty" type:"Repeated"`
+}
+
+func (s ListPodOption) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListPodOption) GoString() string {
+	return s.String()
+}
+
+func (s *ListPodOption) SetType(v string) *ListPodOption {
 	s.Type = &v
 	return s
 }
 
-// 应用信息
-type Application struct {
-	// 应用部署时指定的自定义参数
-	CustomParams []*OpsParam `json:"custom_params,omitempty" xml:"custom_params,omitempty" type:"Repeated"`
-	// 应用部署时依赖的应用名称，只允许取此次调用参数中列出的应用。不允许形成循环依赖。
-	Depends []*string `json:"depends,omitempty" xml:"depends,omitempty" type:"Repeated"`
-	// 应用名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 指定应用下的应用服务实例
-	Services []*AppService `json:"services,omitempty" xml:"services,omitempty" type:"Repeated"`
-	// 应用包版本
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+func (s *ListPodOption) SetPodNumerFrom(v int64) *ListPodOption {
+	s.PodNumerFrom = &v
+	return s
 }
 
-func (s Application) String() string {
+func (s *ListPodOption) SetPodNumberTo(v int64) *ListPodOption {
+	s.PodNumberTo = &v
+	return s
+}
+
+func (s *ListPodOption) SetPodNumbers(v []*int64) *ListPodOption {
+	s.PodNumbers = v
+	return s
+}
+
+// OAM应用配置
+type OAMApplicationConfiguration struct {
+}
+
+func (s OAMApplicationConfiguration) String() string {
 	return tea.Prettify(s)
 }
 
-func (s Application) GoString() string {
+func (s OAMApplicationConfiguration) GoString() string {
 	return s.String()
 }
 
-func (s *Application) SetCustomParams(v []*OpsParam) *Application {
-	s.CustomParams = v
-	return s
-}
-
-func (s *Application) SetDepends(v []*string) *Application {
-	s.Depends = v
-	return s
-}
-
-func (s *Application) SetName(v string) *Application {
-	s.Name = &v
-	return s
-}
-
-func (s *Application) SetServices(v []*AppService) *Application {
-	s.Services = v
-	return s
-}
-
-func (s *Application) SetVersion(v string) *Application {
-	s.Version = &v
-	return s
-}
-
-// Ingress 信息
-type IngressInfo struct {
-	// 元信息
-	Meta *ContainerServiceObjectMeta `json:"meta,omitempty" xml:"meta,omitempty" require:"true"`
-	// 所属统一接入实例名称
-	UnifiedAccessInstanceName *string `json:"unified_access_instance_name,omitempty" xml:"unified_access_instance_name,omitempty"`
-}
-
-func (s IngressInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IngressInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IngressInfo) SetMeta(v *ContainerServiceObjectMeta) *IngressInfo {
-	s.Meta = v
-	return s
-}
-
-func (s *IngressInfo) SetUnifiedAccessInstanceName(v string) *IngressInfo {
-	s.UnifiedAccessInstanceName = &v
-	return s
-}
-
-// 应用分组概要信息列表
-type AppGroupSimpleViewList struct {
-	// 应用分组列表
-	AppGroupList []*AppGroupSimpleView `json:"app_group_list,omitempty" xml:"app_group_list,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s AppGroupSimpleViewList) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppGroupSimpleViewList) GoString() string {
-	return s.String()
-}
-
-func (s *AppGroupSimpleViewList) SetAppGroupList(v []*AppGroupSimpleView) *AppGroupSimpleViewList {
-	s.AppGroupList = v
-	return s
-}
-
-// Spanner集群信息
-type SpannerClusterInfo struct {
-	// 容器的CPU个数
-	ContainerCpu *int64 `json:"container_cpu,omitempty" xml:"container_cpu,omitempty" require:"true"`
-	// 容器是否独占CPU
-	ContainerCpuExclusive *bool `json:"container_cpu_exclusive,omitempty" xml:"container_cpu_exclusive,omitempty" require:"true"`
-	// 容器所在物理机节点的标签
-	ContainerDeviceType *string `json:"container_device_type,omitempty" xml:"container_device_type,omitempty" require:"true"`
-	// 容器的磁盘大小
-	ContainerDisk *int64 `json:"container_disk,omitempty" xml:"container_disk,omitempty" require:"true"`
-	// 容器的内存大小(G)
-	ContainerMem *int64 `json:"container_mem,omitempty" xml:"container_mem,omitempty" require:"true"`
-	// 容器网络
-	ContainerNetwork *string `json:"container_network,omitempty" xml:"container_network,omitempty" require:"true"`
-	// 创建时间
-	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 扩展属性，json字符串
-	ExtendProperties *string `json:"extend_properties,omitempty" xml:"extend_properties,omitempty"`
-	// ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 修改时间
-	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 集群名称
+// 站点信息
+type PushSite struct {
+	// 是否当前站点
+	Current *bool `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 站点描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 站点唯一标识
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 接口类型，可选（RPC，REST）
+	InterfaceType *string `json:"interface_type,omitempty" xml:"interface_type,omitempty" require:"true"`
+	// 站点 DRM endpoints
+	InterfaceUrls []*string `json:"interface_urls,omitempty" xml:"interface_urls,omitempty" type:"Repeated"`
+	// 站点名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 集群的状态： 1 运行状态  2 维护状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 集群单元信息
-	UnitInfos []*SpannerClusterUnitInfo `json:"unit_infos,omitempty" xml:"unit_infos,omitempty" require:"true" type:"Repeated"`
-	// 0 表示集群单元类型为容器
-	UnitType *int64 `json:"unit_type,omitempty" xml:"unit_type,omitempty" require:"true"`
-	// 已使用的端口
-	UsedPorts []*int64 `json:"used_ports,omitempty" xml:"used_ports,omitempty" type:"Repeated"`
-	// internet/intranet/multidomain/office
-	AddressType *string `json:"address_type,omitempty" xml:"address_type,omitempty" require:"true"`
+	// 站点部署单元
+	SiteCells []*SiteCell `json:"site_cells,omitempty" xml:"site_cells,omitempty" type:"Repeated"`
+	// 站点类型，可选（MAIN，ISOMERISM）
+	SiteType *string `json:"site_type,omitempty" xml:"site_type,omitempty" require:"true"`
 }
 
-func (s SpannerClusterInfo) String() string {
+func (s PushSite) String() string {
 	return tea.Prettify(s)
 }
 
-func (s SpannerClusterInfo) GoString() string {
+func (s PushSite) GoString() string {
 	return s.String()
 }
 
-func (s *SpannerClusterInfo) SetContainerCpu(v int64) *SpannerClusterInfo {
-	s.ContainerCpu = &v
+func (s *PushSite) SetCurrent(v bool) *PushSite {
+	s.Current = &v
 	return s
 }
 
-func (s *SpannerClusterInfo) SetContainerCpuExclusive(v bool) *SpannerClusterInfo {
-	s.ContainerCpuExclusive = &v
+func (s *PushSite) SetDescription(v string) *PushSite {
+	s.Description = &v
 	return s
 }
 
-func (s *SpannerClusterInfo) SetContainerDeviceType(v string) *SpannerClusterInfo {
-	s.ContainerDeviceType = &v
-	return s
-}
-
-func (s *SpannerClusterInfo) SetContainerDisk(v int64) *SpannerClusterInfo {
-	s.ContainerDisk = &v
-	return s
-}
-
-func (s *SpannerClusterInfo) SetContainerMem(v int64) *SpannerClusterInfo {
-	s.ContainerMem = &v
-	return s
-}
-
-func (s *SpannerClusterInfo) SetContainerNetwork(v string) *SpannerClusterInfo {
-	s.ContainerNetwork = &v
-	return s
-}
-
-func (s *SpannerClusterInfo) SetCreatedTime(v string) *SpannerClusterInfo {
-	s.CreatedTime = &v
-	return s
-}
-
-func (s *SpannerClusterInfo) SetExtendProperties(v string) *SpannerClusterInfo {
-	s.ExtendProperties = &v
-	return s
-}
-
-func (s *SpannerClusterInfo) SetId(v string) *SpannerClusterInfo {
+func (s *PushSite) SetId(v int64) *PushSite {
 	s.Id = &v
 	return s
 }
 
-func (s *SpannerClusterInfo) SetModifiedTime(v string) *SpannerClusterInfo {
-	s.ModifiedTime = &v
+func (s *PushSite) SetInterfaceType(v string) *PushSite {
+	s.InterfaceType = &v
 	return s
 }
 
-func (s *SpannerClusterInfo) SetName(v string) *SpannerClusterInfo {
+func (s *PushSite) SetInterfaceUrls(v []*string) *PushSite {
+	s.InterfaceUrls = v
+	return s
+}
+
+func (s *PushSite) SetName(v string) *PushSite {
 	s.Name = &v
 	return s
 }
 
-func (s *SpannerClusterInfo) SetStatus(v int64) *SpannerClusterInfo {
-	s.Status = &v
+func (s *PushSite) SetSiteCells(v []*SiteCell) *PushSite {
+	s.SiteCells = v
 	return s
 }
 
-func (s *SpannerClusterInfo) SetUnitInfos(v []*SpannerClusterUnitInfo) *SpannerClusterInfo {
-	s.UnitInfos = v
+func (s *PushSite) SetSiteType(v string) *PushSite {
+	s.SiteType = &v
 	return s
 }
 
-func (s *SpannerClusterInfo) SetUnitType(v int64) *SpannerClusterInfo {
-	s.UnitType = &v
-	return s
+// fed configmap struct
+type FedConfigmap struct {
+	// fed configmap annotations
+	Annotations []*Annotation `json:"annotations,omitempty" xml:"annotations,omitempty" require:"true" type:"Repeated"`
+	// Fed资源集群Cell状态
+	CellStatus []*ClusteCellStatus `json:"cell_status,omitempty" xml:"cell_status,omitempty" type:"Repeated"`
+	// fed clusters
+	Clusters []*string `json:"clusters,omitempty" xml:"clusters,omitempty" require:"true" type:"Repeated"`
+	// 创建时间
+	CreateTimeStamp *string `json:"create_time_stamp,omitempty" xml:"create_time_stamp,omitempty" require:"true"`
+	// fed configmap data
+	Data []*ConfigMapData `json:"data,omitempty" xml:"data,omitempty" require:"true" type:"Repeated"`
+	// fed configmap labels
+	Labels []*Label `json:"labels,omitempty" xml:"labels,omitempty" require:"true" type:"Repeated"`
+	// fed configmap name
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// fed configmap namespace
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
+	// fed configmap override
+	Overrides []*FedConfigmapOverride `json:"overrides,omitempty" xml:"overrides,omitempty" require:"true" type:"Repeated"`
+	// 原因
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+	// propagation状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 }
 
-func (s *SpannerClusterInfo) SetUsedPorts(v []*int64) *SpannerClusterInfo {
-	s.UsedPorts = v
-	return s
-}
-
-func (s *SpannerClusterInfo) SetAddressType(v string) *SpannerClusterInfo {
-	s.AddressType = &v
-	return s
-}
-
-// the uid shard list.
-type UidShardList struct {
-	// the uid shard list.
-	Data []*UidShard `json:"data,omitempty" xml:"data,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s UidShardList) String() string {
+func (s FedConfigmap) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UidShardList) GoString() string {
+func (s FedConfigmap) GoString() string {
 	return s.String()
 }
 
-func (s *UidShardList) SetData(v []*UidShard) *UidShardList {
+func (s *FedConfigmap) SetAnnotations(v []*Annotation) *FedConfigmap {
+	s.Annotations = v
+	return s
+}
+
+func (s *FedConfigmap) SetCellStatus(v []*ClusteCellStatus) *FedConfigmap {
+	s.CellStatus = v
+	return s
+}
+
+func (s *FedConfigmap) SetClusters(v []*string) *FedConfigmap {
+	s.Clusters = v
+	return s
+}
+
+func (s *FedConfigmap) SetCreateTimeStamp(v string) *FedConfigmap {
+	s.CreateTimeStamp = &v
+	return s
+}
+
+func (s *FedConfigmap) SetData(v []*ConfigMapData) *FedConfigmap {
 	s.Data = v
 	return s
 }
 
-// 部署单元组的流量规则
-type UnitFlow struct {
-	// 部署单元组的名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 部署单元组的类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 该部署单元组下的部署单元流量规则
-	CellFlows []*CellFlow `json:"cell_flows,omitempty" xml:"cell_flows,omitempty" require:"true" type:"Repeated"`
-	// 该部署单元组下的部署单元 uid 分配
-	UidRanges []*UidRange `json:"uid_ranges,omitempty" xml:"uid_ranges,omitempty" require:"true" type:"Repeated"`
-	// 是否弹性部署单元组
-	Elastic *bool `json:"elastic,omitempty" xml:"elastic,omitempty" require:"true"`
+func (s *FedConfigmap) SetLabels(v []*Label) *FedConfigmap {
+	s.Labels = v
+	return s
 }
 
-func (s UnitFlow) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UnitFlow) GoString() string {
-	return s.String()
-}
-
-func (s *UnitFlow) SetName(v string) *UnitFlow {
+func (s *FedConfigmap) SetName(v string) *FedConfigmap {
 	s.Name = &v
 	return s
 }
 
-func (s *UnitFlow) SetType(v string) *UnitFlow {
-	s.Type = &v
+func (s *FedConfigmap) SetNamespace(v string) *FedConfigmap {
+	s.Namespace = &v
 	return s
 }
 
-func (s *UnitFlow) SetCellFlows(v []*CellFlow) *UnitFlow {
-	s.CellFlows = v
+func (s *FedConfigmap) SetOverrides(v []*FedConfigmapOverride) *FedConfigmap {
+	s.Overrides = v
 	return s
 }
 
-func (s *UnitFlow) SetUidRanges(v []*UidRange) *UnitFlow {
-	s.UidRanges = v
-	return s
-}
-
-func (s *UnitFlow) SetElastic(v bool) *UnitFlow {
-	s.Elastic = &v
-	return s
-}
-
-// 发布解决方案
-type UnireleaseSolution struct {
-	// 发布单ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 发布单标题
-	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
-	// 解决方案平台源
-	SourceSystem *string `json:"source_system,omitempty" xml:"source_system,omitempty" require:"true"`
-	// 发布类型，容器/经典
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 需求人/操作者
-	Submitter *string `json:"submitter,omitempty" xml:"submitter,omitempty" require:"true"`
-	// 解决方案状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 解决方案提出时间
-	TimeStamp *string `json:"time_stamp,omitempty" xml:"time_stamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 是否自动执行
-	AutoExecute *bool `json:"auto_execute,omitempty" xml:"auto_execute,omitempty" require:"true"`
-	// 环境信息
-	Env *string `json:"env,omitempty" xml:"env,omitempty" require:"true"`
-	// 变更人员
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
-	// 解决方案拓展信息
-	ExtInfo *UnireleaseSolutionExtInfo `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
-	// 解决方案包含的应用配置信息
-	Apps []*UnireleaseSolutionApp `json:"apps,omitempty" xml:"apps,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s UnireleaseSolution) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UnireleaseSolution) GoString() string {
-	return s.String()
-}
-
-func (s *UnireleaseSolution) SetId(v string) *UnireleaseSolution {
-	s.Id = &v
-	return s
-}
-
-func (s *UnireleaseSolution) SetTitle(v string) *UnireleaseSolution {
-	s.Title = &v
-	return s
-}
-
-func (s *UnireleaseSolution) SetSourceSystem(v string) *UnireleaseSolution {
-	s.SourceSystem = &v
-	return s
-}
-
-func (s *UnireleaseSolution) SetType(v string) *UnireleaseSolution {
-	s.Type = &v
-	return s
-}
-
-func (s *UnireleaseSolution) SetSubmitter(v string) *UnireleaseSolution {
-	s.Submitter = &v
-	return s
-}
-
-func (s *UnireleaseSolution) SetStatus(v string) *UnireleaseSolution {
-	s.Status = &v
-	return s
-}
-
-func (s *UnireleaseSolution) SetTimeStamp(v string) *UnireleaseSolution {
-	s.TimeStamp = &v
-	return s
-}
-
-func (s *UnireleaseSolution) SetAutoExecute(v bool) *UnireleaseSolution {
-	s.AutoExecute = &v
-	return s
-}
-
-func (s *UnireleaseSolution) SetEnv(v string) *UnireleaseSolution {
-	s.Env = &v
-	return s
-}
-
-func (s *UnireleaseSolution) SetOperator(v string) *UnireleaseSolution {
-	s.Operator = &v
-	return s
-}
-
-func (s *UnireleaseSolution) SetExtInfo(v *UnireleaseSolutionExtInfo) *UnireleaseSolution {
-	s.ExtInfo = v
-	return s
-}
-
-func (s *UnireleaseSolution) SetApps(v []*UnireleaseSolutionApp) *UnireleaseSolution {
-	s.Apps = v
-	return s
-}
-
-// 联邦负载均衡实例属性
-type FedLoadBalancer struct {
-	// 联邦负载均衡实例名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 地址类型，比如公网、内网
-	AddrType *string `json:"addr_type,omitempty" xml:"addr_type,omitempty" require:"true"`
-	// 联邦负载均衡实例的状态，由多个local 负载均衡实例的状态汇聚计算而来
-	State *string `json:"state,omitempty" xml:"state,omitempty"`
-	// 创建时间
-	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 关联的应用服务情况
-	ContainerServicesInfo []*FedLoadBalancerContainerServiceRel `json:"container_services_info,omitempty" xml:"container_services_info,omitempty" type:"Repeated"`
-	// local lb实例信息
-	LocalLoadbalancerInstances []*LocalLoadBalancer `json:"local_loadbalancer_instances,omitempty" xml:"local_loadbalancer_instances,omitempty" type:"Repeated"`
-}
-
-func (s FedLoadBalancer) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FedLoadBalancer) GoString() string {
-	return s.String()
-}
-
-func (s *FedLoadBalancer) SetName(v string) *FedLoadBalancer {
-	s.Name = &v
-	return s
-}
-
-func (s *FedLoadBalancer) SetAddrType(v string) *FedLoadBalancer {
-	s.AddrType = &v
-	return s
-}
-
-func (s *FedLoadBalancer) SetState(v string) *FedLoadBalancer {
-	s.State = &v
-	return s
-}
-
-func (s *FedLoadBalancer) SetCreateTime(v string) *FedLoadBalancer {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *FedLoadBalancer) SetContainerServicesInfo(v []*FedLoadBalancerContainerServiceRel) *FedLoadBalancer {
-	s.ContainerServicesInfo = v
-	return s
-}
-
-func (s *FedLoadBalancer) SetLocalLoadbalancerInstances(v []*LocalLoadBalancer) *FedLoadBalancer {
-	s.LocalLoadbalancerInstances = v
-	return s
-}
-
-// ReleasePipeline ref event
-type RpReleaseEvent struct {
-	// 集群名
-	Cluster *string `json:"cluster,omitempty" xml:"cluster,omitempty" require:"true"`
-	// 结束时间
-	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 事件关联的对象类型
-	//
-	InvObjKind *string `json:"inv_obj_kind,omitempty" xml:"inv_obj_kind,omitempty" require:"true"`
-	// 事件关联对象名字
-	//
-	InvObjName *string `json:"inv_obj_name,omitempty" xml:"inv_obj_name,omitempty" require:"true"`
-	// 事件关联对象的namespace
-	//
-	InvObjNamespace *string `json:"inv_obj_namespace,omitempty" xml:"inv_obj_namespace,omitempty" require:"true"`
-	// 事件关联对象版本
-	//
-	InvObjVersion *string `json:"inv_obj_version,omitempty" xml:"inv_obj_version,omitempty" require:"true"`
-	// 事件详情
-	//
-	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
-	// 事件原因
-	//
-	Reason *string `json:"reason,omitempty" xml:"reason,omitempty" require:"true"`
-	// 事件来源组件
-	//
-	SourceComp *string `json:"source_comp,omitempty" xml:"source_comp,omitempty" require:"true"`
-	// start_time
-	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s RpReleaseEvent) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RpReleaseEvent) GoString() string {
-	return s.String()
-}
-
-func (s *RpReleaseEvent) SetCluster(v string) *RpReleaseEvent {
-	s.Cluster = &v
-	return s
-}
-
-func (s *RpReleaseEvent) SetEndTime(v string) *RpReleaseEvent {
-	s.EndTime = &v
-	return s
-}
-
-func (s *RpReleaseEvent) SetInvObjKind(v string) *RpReleaseEvent {
-	s.InvObjKind = &v
-	return s
-}
-
-func (s *RpReleaseEvent) SetInvObjName(v string) *RpReleaseEvent {
-	s.InvObjName = &v
-	return s
-}
-
-func (s *RpReleaseEvent) SetInvObjNamespace(v string) *RpReleaseEvent {
-	s.InvObjNamespace = &v
-	return s
-}
-
-func (s *RpReleaseEvent) SetInvObjVersion(v string) *RpReleaseEvent {
-	s.InvObjVersion = &v
-	return s
-}
-
-func (s *RpReleaseEvent) SetMessage(v string) *RpReleaseEvent {
-	s.Message = &v
-	return s
-}
-
-func (s *RpReleaseEvent) SetReason(v string) *RpReleaseEvent {
+func (s *FedConfigmap) SetReason(v string) *FedConfigmap {
 	s.Reason = &v
 	return s
 }
 
-func (s *RpReleaseEvent) SetSourceComp(v string) *RpReleaseEvent {
-	s.SourceComp = &v
-	return s
-}
-
-func (s *RpReleaseEvent) SetStartTime(v string) *RpReleaseEvent {
-	s.StartTime = &v
-	return s
-}
-
-// 前后置任务
-type OpsPrePostTask struct {
-	//
-	//           任务类型。
-	//           中间件任务：
-	//           MESSAGE_BROKER_TOPIC：消息中间件TOPIC；
-	//           MESSAGE_BROKER_TOPIC_SUB：消息中间件绑定关系；
-	//           DRM_RESOURCE：DRM资源；
-	//           SCHEDULER_TASK：定时任务；
-	//           其他类型任务待定。
-	//
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	//
-	//           操作类型。取值列表：
-	//           CREATE：新建；
-	//           UPDATE：更新；
-	//           DELETE：删除；
-	//           UNDEFINED：未定义；
-	//
-	OperationType *string `json:"operation_type,omitempty" xml:"operation_type,omitempty"`
-	//
-	//           任务详情，JSON字符串
-	//
-	Detail *string `json:"detail,omitempty" xml:"detail,omitempty"`
-	//
-	//           任务状态。取值列表：EXECUTING：执行中；SUCCEEDED：执行成功；FAILED：执行失败；IGNORED：已忽略
-	//
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-}
-
-func (s OpsPrePostTask) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OpsPrePostTask) GoString() string {
-	return s.String()
-}
-
-func (s *OpsPrePostTask) SetType(v string) *OpsPrePostTask {
-	s.Type = &v
-	return s
-}
-
-func (s *OpsPrePostTask) SetOperationType(v string) *OpsPrePostTask {
-	s.OperationType = &v
-	return s
-}
-
-func (s *OpsPrePostTask) SetDetail(v string) *OpsPrePostTask {
-	s.Detail = &v
-	return s
-}
-
-func (s *OpsPrePostTask) SetStatus(v string) *OpsPrePostTask {
+func (s *FedConfigmap) SetStatus(v string) *FedConfigmap {
 	s.Status = &v
-	return s
-}
-
-// secured Group Info
-type SecuredGroupInfo struct {
-	// secured group name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-}
-
-func (s SecuredGroupInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SecuredGroupInfo) GoString() string {
-	return s.String()
-}
-
-func (s *SecuredGroupInfo) SetName(v string) *SecuredGroupInfo {
-	s.Name = &v
 	return s
 }
 
@@ -10487,1063 +12480,50 @@ func (s *UnifiedAccessInstanceInfo) SetEntrySettings(v *EntrySettings) *UnifiedA
 	return s
 }
 
-// 弹性信息
-type ElasticInfoView struct {
-	// 全局弹性状态，有效值：NORMAL，ELASTIC
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 弹性值
-	ElasticValues []*string `json:"elastic_values,omitempty" xml:"elastic_values,omitempty" type:"Repeated"`
-	// 是否压测
-	Press *bool `json:"press,omitempty" xml:"press,omitempty"`
-}
-
-func (s ElasticInfoView) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ElasticInfoView) GoString() string {
-	return s.String()
-}
-
-func (s *ElasticInfoView) SetStatus(v string) *ElasticInfoView {
-	s.Status = &v
-	return s
-}
-
-func (s *ElasticInfoView) SetElasticValues(v []*string) *ElasticInfoView {
-	s.ElasticValues = v
-	return s
-}
-
-func (s *ElasticInfoView) SetPress(v bool) *ElasticInfoView {
-	s.Press = &v
-	return s
-}
-
-// kubernetes集群事件信息
-type ClusterEvents struct {
-	// 集群名称
-	Cluster *string `json:"cluster,omitempty" xml:"cluster,omitempty" require:"true"`
-	// 集群事件
-	Events []*KubernetesEvents `json:"events,omitempty" xml:"events,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s ClusterEvents) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ClusterEvents) GoString() string {
-	return s.String()
-}
-
-func (s *ClusterEvents) SetCluster(v string) *ClusterEvents {
-	s.Cluster = &v
-	return s
-}
-
-func (s *ClusterEvents) SetEvents(v []*KubernetesEvents) *ClusterEvents {
-	s.Events = v
-	return s
-}
-
-// LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
-type LocalObjectReference struct {
-	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-}
-
-func (s LocalObjectReference) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LocalObjectReference) GoString() string {
-	return s.String()
-}
-
-func (s *LocalObjectReference) SetName(v string) *LocalObjectReference {
-	s.Name = &v
-	return s
-}
-
-// 发布单摘要信息
-type PlanSimpleView struct {
-	// 发布单涉及的应用个数
-	AppCount *int64 `json:"app_count,omitempty" xml:"app_count,omitempty" require:"true"`
-	// 创建时间
-	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 执行人
-	Executor *string `json:"executor,omitempty" xml:"executor,omitempty" require:"true"`
-	// 结束时间
-	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 发布单id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 运维单类型
-	Mode *string `json:"mode,omitempty" xml:"mode,omitempty" require:"true"`
-	// 发布单标题
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 开始时间
-	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 发布单状态
-	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
-	// 发布单号
-	TimeSeriesId *string `json:"time_series_id,omitempty" xml:"time_series_id,omitempty" require:"true"`
-	// 发布单类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 工作空间组id
-	WorkspaceGroupId *string `json:"workspace_group_id,omitempty" xml:"workspace_group_id,omitempty"`
-	// Pod 数量
-	PodCount *int64 `json:"pod_count,omitempty" xml:"pod_count,omitempty"`
-}
-
-func (s PlanSimpleView) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PlanSimpleView) GoString() string {
-	return s.String()
-}
-
-func (s *PlanSimpleView) SetAppCount(v int64) *PlanSimpleView {
-	s.AppCount = &v
-	return s
-}
-
-func (s *PlanSimpleView) SetCreatedTime(v string) *PlanSimpleView {
-	s.CreatedTime = &v
-	return s
-}
-
-func (s *PlanSimpleView) SetExecutor(v string) *PlanSimpleView {
-	s.Executor = &v
-	return s
-}
-
-func (s *PlanSimpleView) SetFinishedTime(v string) *PlanSimpleView {
-	s.FinishedTime = &v
-	return s
-}
-
-func (s *PlanSimpleView) SetId(v string) *PlanSimpleView {
-	s.Id = &v
-	return s
-}
-
-func (s *PlanSimpleView) SetMode(v string) *PlanSimpleView {
-	s.Mode = &v
-	return s
-}
-
-func (s *PlanSimpleView) SetName(v string) *PlanSimpleView {
-	s.Name = &v
-	return s
-}
-
-func (s *PlanSimpleView) SetStartedTime(v string) *PlanSimpleView {
-	s.StartedTime = &v
-	return s
-}
-
-func (s *PlanSimpleView) SetState(v string) *PlanSimpleView {
-	s.State = &v
-	return s
-}
-
-func (s *PlanSimpleView) SetTimeSeriesId(v string) *PlanSimpleView {
-	s.TimeSeriesId = &v
-	return s
-}
-
-func (s *PlanSimpleView) SetType(v string) *PlanSimpleView {
-	s.Type = &v
-	return s
-}
-
-func (s *PlanSimpleView) SetWorkspaceGroupId(v string) *PlanSimpleView {
-	s.WorkspaceGroupId = &v
-	return s
-}
-
-func (s *PlanSimpleView) SetPodCount(v int64) *PlanSimpleView {
-	s.PodCount = &v
-	return s
-}
-
-// 发布单|应用执行进度，按状态区分
-type ExecuteProgress struct {
-	// 阻塞个数
-	Blocked *int64 `json:"blocked,omitempty" xml:"blocked,omitempty" require:"true"`
-	// 执行中个数
-	Executing *int64 `json:"executing,omitempty" xml:"executing,omitempty" require:"true"`
-	// 失败个数
-	Failed *int64 `json:"failed,omitempty" xml:"failed,omitempty" require:"true"`
-	// 执行对象ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 初始化机器个数
-	Inited *int64 `json:"inited,omitempty" xml:"inited,omitempty" require:"true"`
-	// 执行对象状态
-	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
-	// 成功个数
-	Success *int64 `json:"success,omitempty" xml:"success,omitempty" require:"true"`
-	// 总计
-	Total *int64 `json:"total,omitempty" xml:"total,omitempty" require:"true"`
-	// 等待中个数
-	Waiting *int64 `json:"waiting,omitempty" xml:"waiting,omitempty" require:"true"`
-}
-
-func (s ExecuteProgress) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ExecuteProgress) GoString() string {
-	return s.String()
-}
-
-func (s *ExecuteProgress) SetBlocked(v int64) *ExecuteProgress {
-	s.Blocked = &v
-	return s
-}
-
-func (s *ExecuteProgress) SetExecuting(v int64) *ExecuteProgress {
-	s.Executing = &v
-	return s
-}
-
-func (s *ExecuteProgress) SetFailed(v int64) *ExecuteProgress {
-	s.Failed = &v
-	return s
-}
-
-func (s *ExecuteProgress) SetId(v string) *ExecuteProgress {
-	s.Id = &v
-	return s
-}
-
-func (s *ExecuteProgress) SetInited(v int64) *ExecuteProgress {
-	s.Inited = &v
-	return s
-}
-
-func (s *ExecuteProgress) SetState(v string) *ExecuteProgress {
-	s.State = &v
-	return s
-}
-
-func (s *ExecuteProgress) SetSuccess(v int64) *ExecuteProgress {
-	s.Success = &v
-	return s
-}
-
-func (s *ExecuteProgress) SetTotal(v int64) *ExecuteProgress {
-	s.Total = &v
-	return s
-}
-
-func (s *ExecuteProgress) SetWaiting(v int64) *ExecuteProgress {
-	s.Waiting = &v
-	return s
-}
-
-// 逻辑单元
-type CellGroup struct {
-	// 包含部署单元列表。
-	Cells []*Cell `json:"cells,omitempty" xml:"cells,omitempty" require:"true" type:"Repeated"`
-	// 机房名称。
-	Datacenter *string `json:"datacenter,omitempty" xml:"datacenter,omitempty"`
-	// 默认全局域
-	DefaultGzone *string `json:"default_gzone,omitempty" xml:"default_gzone,omitempty"`
-	// 逻辑单元灾备信息
-	DisasterInfo []*DisasterInfo `json:"disaster_info,omitempty" xml:"disaster_info,omitempty" require:"true" type:"Repeated"`
-	// 修改时间
-	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 逻辑单元名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 操作人
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
-	// 逻辑单元类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 所属地域：CZone Group 必填
-	Region *string `json:"region,omitempty" xml:"region,omitempty"`
-}
-
-func (s CellGroup) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CellGroup) GoString() string {
-	return s.String()
-}
-
-func (s *CellGroup) SetCells(v []*Cell) *CellGroup {
-	s.Cells = v
-	return s
-}
-
-func (s *CellGroup) SetDatacenter(v string) *CellGroup {
-	s.Datacenter = &v
-	return s
-}
-
-func (s *CellGroup) SetDefaultGzone(v string) *CellGroup {
-	s.DefaultGzone = &v
-	return s
-}
-
-func (s *CellGroup) SetDisasterInfo(v []*DisasterInfo) *CellGroup {
-	s.DisasterInfo = v
-	return s
-}
-
-func (s *CellGroup) SetModifiedTime(v string) *CellGroup {
-	s.ModifiedTime = &v
-	return s
-}
-
-func (s *CellGroup) SetName(v string) *CellGroup {
-	s.Name = &v
-	return s
-}
-
-func (s *CellGroup) SetOperator(v string) *CellGroup {
-	s.Operator = &v
-	return s
-}
-
-func (s *CellGroup) SetType(v string) *CellGroup {
-	s.Type = &v
-	return s
-}
-
-func (s *CellGroup) SetRegion(v string) *CellGroup {
-	s.Region = &v
-	return s
-}
-
-// 发布版本信息
-type ReleaseVersion struct {
-	// 镜像
-	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
-}
-
-func (s ReleaseVersion) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ReleaseVersion) GoString() string {
-	return s.String()
-}
-
-func (s *ReleaseVersion) SetImage(v string) *ReleaseVersion {
-	s.Image = &v
-	return s
-}
-
-// MasterClusterForWorkspaces
-type MasterClusterForWorkspaces struct {
+// zone list of workspace
+type ZoneOfWorkspace struct {
 	// workspace id
-	WorkspaceId []*string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true" type:"Repeated"`
-	// master cluster info to init minion cluster
-	MasterClusterInfo *MasterCluster `json:"master_cluster_info,omitempty" xml:"master_cluster_info,omitempty" require:"true"`
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// workspace name
+	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty" require:"true"`
+	// zone list of workspace
+	Zones []*ZoneInfo `json:"zones,omitempty" xml:"zones,omitempty" require:"true" type:"Repeated"`
+	// region name
+	RegionName *string `json:"region_name,omitempty" xml:"region_name,omitempty" require:"true"`
+	// region id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
 }
 
-func (s MasterClusterForWorkspaces) String() string {
+func (s ZoneOfWorkspace) String() string {
 	return tea.Prettify(s)
 }
 
-func (s MasterClusterForWorkspaces) GoString() string {
+func (s ZoneOfWorkspace) GoString() string {
 	return s.String()
 }
 
-func (s *MasterClusterForWorkspaces) SetWorkspaceId(v []*string) *MasterClusterForWorkspaces {
-	s.WorkspaceId = v
+func (s *ZoneOfWorkspace) SetWorkspaceId(v string) *ZoneOfWorkspace {
+	s.WorkspaceId = &v
 	return s
 }
 
-func (s *MasterClusterForWorkspaces) SetMasterClusterInfo(v *MasterCluster) *MasterClusterForWorkspaces {
-	s.MasterClusterInfo = v
+func (s *ZoneOfWorkspace) SetWorkspaceName(v string) *ZoneOfWorkspace {
+	s.WorkspaceName = &v
 	return s
 }
 
-// 运维容器服务分组依赖链
-type OpsContainerServiceChain struct {
-	// 运维容器分组列表
-	Groups []*OpsContainerServiceGroup `json:"groups,omitempty" xml:"groups,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s OpsContainerServiceChain) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OpsContainerServiceChain) GoString() string {
-	return s.String()
-}
-
-func (s *OpsContainerServiceChain) SetGroups(v []*OpsContainerServiceGroup) *OpsContainerServiceChain {
-	s.Groups = v
-	return s
-}
-
-// 站点信息
-type PushSite struct {
-	// 是否当前站点
-	Current *bool `json:"current,omitempty" xml:"current,omitempty" require:"true"`
-	// 站点描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 站点唯一标识
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 接口类型，可选（RPC，REST）
-	InterfaceType *string `json:"interface_type,omitempty" xml:"interface_type,omitempty" require:"true"`
-	// 站点 DRM endpoints
-	InterfaceUrls []*string `json:"interface_urls,omitempty" xml:"interface_urls,omitempty" type:"Repeated"`
-	// 站点名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 站点部署单元
-	SiteCells []*SiteCell `json:"site_cells,omitempty" xml:"site_cells,omitempty" type:"Repeated"`
-	// 站点类型，可选（MAIN，ISOMERISM）
-	SiteType *string `json:"site_type,omitempty" xml:"site_type,omitempty" require:"true"`
-}
-
-func (s PushSite) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PushSite) GoString() string {
-	return s.String()
-}
-
-func (s *PushSite) SetCurrent(v bool) *PushSite {
-	s.Current = &v
-	return s
-}
-
-func (s *PushSite) SetDescription(v string) *PushSite {
-	s.Description = &v
-	return s
-}
-
-func (s *PushSite) SetId(v int64) *PushSite {
-	s.Id = &v
-	return s
-}
-
-func (s *PushSite) SetInterfaceType(v string) *PushSite {
-	s.InterfaceType = &v
-	return s
-}
-
-func (s *PushSite) SetInterfaceUrls(v []*string) *PushSite {
-	s.InterfaceUrls = v
-	return s
-}
-
-func (s *PushSite) SetName(v string) *PushSite {
-	s.Name = &v
-	return s
-}
-
-func (s *PushSite) SetSiteCells(v []*SiteCell) *PushSite {
-	s.SiteCells = v
-	return s
-}
-
-func (s *PushSite) SetSiteType(v string) *PushSite {
-	s.SiteType = &v
-	return s
-}
-
-// 集群状态信息
-type ClusterStatus struct {
-	// 集群名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 集群资源概览
-	OverviewInfo *ClusterOverviewInfo `json:"overview_info,omitempty" xml:"overview_info,omitempty" require:"true"`
-}
-
-func (s ClusterStatus) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ClusterStatus) GoString() string {
-	return s.String()
-}
-
-func (s *ClusterStatus) SetName(v string) *ClusterStatus {
-	s.Name = &v
-	return s
-}
-
-func (s *ClusterStatus) SetOverviewInfo(v *ClusterOverviewInfo) *ClusterStatus {
-	s.OverviewInfo = v
-	return s
-}
-
-// drm 推送记录
-type DrmOpsRecord struct {
-	// 应用
-	Apps []*string `json:"apps,omitempty" xml:"apps,omitempty" type:"Repeated"`
-	// 操作人
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
-	// 推送时间
-	PushTime *string `json:"push_time,omitempty" xml:"push_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 推送结果，包括（SUCCESS，FAILED，INVALID_REQUEST，NO_RECORD，SYSTEM_EXCEPTION，PARAM_QUERY_ERROR，PARAM_INVALID）
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty" require:"true"`
-	// 结果信息
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 推送目标
-	Targets []*string `json:"targets,omitempty" xml:"targets,omitempty" type:"Repeated"`
-	// 推送值
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
-	// 规则类型
-	RuleType *string `json:"rule_type,omitempty" xml:"rule_type,omitempty" require:"true"`
-}
-
-func (s DrmOpsRecord) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DrmOpsRecord) GoString() string {
-	return s.String()
-}
-
-func (s *DrmOpsRecord) SetApps(v []*string) *DrmOpsRecord {
-	s.Apps = v
-	return s
-}
-
-func (s *DrmOpsRecord) SetOperator(v string) *DrmOpsRecord {
-	s.Operator = &v
-	return s
-}
-
-func (s *DrmOpsRecord) SetPushTime(v string) *DrmOpsRecord {
-	s.PushTime = &v
-	return s
-}
-
-func (s *DrmOpsRecord) SetResultCode(v string) *DrmOpsRecord {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *DrmOpsRecord) SetResultMsg(v string) *DrmOpsRecord {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *DrmOpsRecord) SetTargets(v []*string) *DrmOpsRecord {
-	s.Targets = v
-	return s
-}
-
-func (s *DrmOpsRecord) SetValue(v string) *DrmOpsRecord {
-	s.Value = &v
-	return s
-}
-
-func (s *DrmOpsRecord) SetRuleType(v string) *DrmOpsRecord {
-	s.RuleType = &v
-	return s
-}
-
-// 规则推送结果
-type PushRuleResult struct {
-	// site名字
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// site描述
-	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
-	// 推送成功的zone
-	SucceedList []*string `json:"succeed_list,omitempty" xml:"succeed_list,omitempty" type:"Repeated"`
-	// 推送失败的zone
-	FailedList []*string `json:"failed_list,omitempty" xml:"failed_list,omitempty" type:"Repeated"`
-}
-
-func (s PushRuleResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PushRuleResult) GoString() string {
-	return s.String()
-}
-
-func (s *PushRuleResult) SetName(v string) *PushRuleResult {
-	s.Name = &v
-	return s
-}
-
-func (s *PushRuleResult) SetDesc(v string) *PushRuleResult {
-	s.Desc = &v
-	return s
-}
-
-func (s *PushRuleResult) SetSucceedList(v []*string) *PushRuleResult {
-	s.SucceedList = v
-	return s
-}
-
-func (s *PushRuleResult) SetFailedList(v []*string) *PushRuleResult {
-	s.FailedList = v
-	return s
-}
-
-// sidecar运维机器分组信息
-type SidecarOpsMachineGroup struct {
-	// 分组ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 分组名称
-	Target *string `json:"target,omitempty" xml:"target,omitempty"`
-	// 状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 扩展属性
-	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
-	// 执行日志
-	Messages *string `json:"messages,omitempty" xml:"messages,omitempty"`
-	// sidecar 运维机器列表
-	SubTargets []*SidecarOpsMachine `json:"sub_targets,omitempty" xml:"sub_targets,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s SidecarOpsMachineGroup) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SidecarOpsMachineGroup) GoString() string {
-	return s.String()
-}
-
-func (s *SidecarOpsMachineGroup) SetId(v string) *SidecarOpsMachineGroup {
-	s.Id = &v
-	return s
-}
-
-func (s *SidecarOpsMachineGroup) SetTarget(v string) *SidecarOpsMachineGroup {
-	s.Target = &v
-	return s
-}
-
-func (s *SidecarOpsMachineGroup) SetStatus(v string) *SidecarOpsMachineGroup {
-	s.Status = &v
-	return s
-}
-
-func (s *SidecarOpsMachineGroup) SetProperties(v string) *SidecarOpsMachineGroup {
-	s.Properties = &v
-	return s
-}
-
-func (s *SidecarOpsMachineGroup) SetMessages(v string) *SidecarOpsMachineGroup {
-	s.Messages = &v
-	return s
-}
-
-func (s *SidecarOpsMachineGroup) SetSubTargets(v []*SidecarOpsMachine) *SidecarOpsMachineGroup {
-	s.SubTargets = v
-	return s
-}
-
-// 弹出 UID
-type PopOutUid struct {
-	// 弹出的 UID 值
-	Value *int64 `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-	// 弹出的目标部署单元
-	Cell *string `json:"cell,omitempty" xml:"cell,omitempty" require:"true"`
-}
-
-func (s PopOutUid) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PopOutUid) GoString() string {
-	return s.String()
-}
-
-func (s *PopOutUid) SetValue(v int64) *PopOutUid {
-	s.Value = &v
-	return s
-}
-
-func (s *PopOutUid) SetCell(v string) *PopOutUid {
-	s.Cell = &v
-	return s
-}
-
-// 一个运维操作组
-type OpsGroup struct {
-	// 运维操作组当前状态。取值列表： INITED：初始化完成； EXECUTING：执行中； SUCCESS：执行成功； FAILED：执行失败； CANCELED：已取消； CONFIRM_WAITING：待确认
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 包含在此运维操作组中的运维单元列表
-	Units []*OpsUnit `json:"units,omitempty" xml:"units,omitempty" type:"Repeated"`
-	// 运维任务进度列表
-	Progresses []*OpsGroupTaskProgress `json:"progresses,omitempty" xml:"progresses,omitempty" type:"Repeated"`
-}
-
-func (s OpsGroup) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OpsGroup) GoString() string {
-	return s.String()
-}
-
-func (s *OpsGroup) SetStatus(v string) *OpsGroup {
-	s.Status = &v
-	return s
-}
-
-func (s *OpsGroup) SetUnits(v []*OpsUnit) *OpsGroup {
-	s.Units = v
-	return s
-}
-
-func (s *OpsGroup) SetProgresses(v []*OpsGroupTaskProgress) *OpsGroup {
-	s.Progresses = v
-	return s
-}
-
-// 应用发布状态
-type AppReleaseStatus struct {
-	// 机构名称
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
-	// 应用发布状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 应用发布单详情url
-	Url *string `json:"url,omitempty" xml:"url,omitempty"`
-	// 应用列表
-	Apps []*string `json:"apps,omitempty" xml:"apps,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s AppReleaseStatus) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppReleaseStatus) GoString() string {
-	return s.String()
-}
-
-func (s *AppReleaseStatus) SetTenant(v string) *AppReleaseStatus {
-	s.Tenant = &v
-	return s
-}
-
-func (s *AppReleaseStatus) SetStatus(v string) *AppReleaseStatus {
-	s.Status = &v
-	return s
-}
-
-func (s *AppReleaseStatus) SetUrl(v string) *AppReleaseStatus {
-	s.Url = &v
-	return s
-}
-
-func (s *AppReleaseStatus) SetApps(v []*string) *AppReleaseStatus {
-	s.Apps = v
-	return s
-}
-
-// sidecar运维任务
-type SidecarOperationTask struct {
-	// 业务流水号
-	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
-	// 操作人
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
-	// 名称
-	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
-	// sidecar运维内容上下文信息
-	Context *SidecarOperationTaskContext `json:"context,omitempty" xml:"context,omitempty" require:"true"`
-}
-
-func (s SidecarOperationTask) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SidecarOperationTask) GoString() string {
-	return s.String()
-}
-
-func (s *SidecarOperationTask) SetBizId(v string) *SidecarOperationTask {
-	s.BizId = &v
-	return s
-}
-
-func (s *SidecarOperationTask) SetOperator(v string) *SidecarOperationTask {
-	s.Operator = &v
-	return s
-}
-
-func (s *SidecarOperationTask) SetTitle(v string) *SidecarOperationTask {
-	s.Title = &v
-	return s
-}
-
-func (s *SidecarOperationTask) SetContext(v *SidecarOperationTaskContext) *SidecarOperationTask {
-	s.Context = v
-	return s
-}
-
-// 应用技术栈
-type TechStack struct {
-	// 技术栈描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-	// 该字段为字符串类型Map，序列化为字符串用于存储扩展信息，e.g： 云原生下打包存放目录 /home/admin/release
-	ExtendProperties *string `json:"extend_properties,omitempty" xml:"extend_properties,omitempty" require:"true"`
-	// 技术栈id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 技术栈名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 技术栈可见范围，全局可见|租户内可见
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
-	// 创建时间（UTC）
-	UtcCreated *string `json:"utc_created,omitempty" xml:"utc_created,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 最近修改时间（UTC）
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s TechStack) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TechStack) GoString() string {
-	return s.String()
-}
-
-func (s *TechStack) SetDescription(v string) *TechStack {
-	s.Description = &v
-	return s
-}
-
-func (s *TechStack) SetExtendProperties(v string) *TechStack {
-	s.ExtendProperties = &v
-	return s
-}
-
-func (s *TechStack) SetId(v string) *TechStack {
-	s.Id = &v
-	return s
-}
-
-func (s *TechStack) SetName(v string) *TechStack {
-	s.Name = &v
-	return s
-}
-
-func (s *TechStack) SetScope(v string) *TechStack {
-	s.Scope = &v
-	return s
-}
-
-func (s *TechStack) SetUtcCreated(v string) *TechStack {
-	s.UtcCreated = &v
-	return s
-}
-
-func (s *TechStack) SetUtcModified(v string) *TechStack {
-	s.UtcModified = &v
-	return s
-}
-
-// 获取单个spanner cluster的详细信息
-type GetSpannerClusterDetail struct {
-	// 联邦 spanner cluster 详细信息
-	ClusterDetail *QuerySpannerClusterDetail `json:"cluster_detail,omitempty" xml:"cluster_detail,omitempty" require:"true"`
-	// 若干组本地集群信息
-	LocalClusters []*LocalSpannerClusterDetail `json:"local_clusters,omitempty" xml:"local_clusters,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s GetSpannerClusterDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GetSpannerClusterDetail) GoString() string {
-	return s.String()
-}
-
-func (s *GetSpannerClusterDetail) SetClusterDetail(v *QuerySpannerClusterDetail) *GetSpannerClusterDetail {
-	s.ClusterDetail = v
-	return s
-}
-
-func (s *GetSpannerClusterDetail) SetLocalClusters(v []*LocalSpannerClusterDetail) *GetSpannerClusterDetail {
-	s.LocalClusters = v
-	return s
-}
-
-// OAM应用配置
-type OAMApplicationConfiguration struct {
-}
-
-func (s OAMApplicationConfiguration) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OAMApplicationConfiguration) GoString() string {
-	return s.String()
-}
-
-// node info
-type NodeInfo struct {
-	// cell name
-	CellName *string `json:"cell_name,omitempty" xml:"cell_name,omitempty"`
-	// node ip
-	Ip *string `json:"ip,omitempty" xml:"ip,omitempty"`
-	// true
-	IsSchedulable *bool `json:"is_schedulable,omitempty" xml:"is_schedulable,omitempty"`
-	// number of capacity cpu core
-	LimitedCpu *int64 `json:"limited_cpu,omitempty" xml:"limited_cpu,omitempty"`
-	// quantity of capacity memory
-	LimitedMemory *int64 `json:"limited_memory,omitempty" xml:"limited_memory,omitempty"`
-	// node name
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// pod number of one node
-	PodNumber *string `json:"pod_number,omitempty" xml:"pod_number,omitempty"`
-	// node state
-	State *string `json:"state,omitempty" xml:"state,omitempty"`
-	// quantity of used cpu core
-	UsedCpu *int64 `json:"used_cpu,omitempty" xml:"used_cpu,omitempty"`
-	// quantity of used memory
-	UsedMemory *int64 `json:"used_memory,omitempty" xml:"used_memory,omitempty"`
-	// zone name
-	ZoneName *string `json:"zone_name,omitempty" xml:"zone_name,omitempty"`
-	// node labels
-	Labels []*Label `json:"labels,omitempty" xml:"labels,omitempty" type:"Repeated"`
-	// node annotations
-	Annotations []*Annotation `json:"annotations,omitempty" xml:"annotations,omitempty" type:"Repeated"`
-	// node created time
-	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// node system infos
-	SystemInfos []*Annotation `json:"system_infos,omitempty" xml:"system_infos,omitempty" type:"Repeated"`
-	// max pod amount of node
-	MaxPodAmount *int64 `json:"max_pod_amount,omitempty" xml:"max_pod_amount,omitempty"`
-	// running pod amount of node
-	RunningPodAmount *int64 `json:"running_pod_amount,omitempty" xml:"running_pod_amount,omitempty"`
-}
-
-func (s NodeInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s NodeInfo) GoString() string {
-	return s.String()
-}
-
-func (s *NodeInfo) SetCellName(v string) *NodeInfo {
-	s.CellName = &v
-	return s
-}
-
-func (s *NodeInfo) SetIp(v string) *NodeInfo {
-	s.Ip = &v
-	return s
-}
-
-func (s *NodeInfo) SetIsSchedulable(v bool) *NodeInfo {
-	s.IsSchedulable = &v
-	return s
-}
-
-func (s *NodeInfo) SetLimitedCpu(v int64) *NodeInfo {
-	s.LimitedCpu = &v
-	return s
-}
-
-func (s *NodeInfo) SetLimitedMemory(v int64) *NodeInfo {
-	s.LimitedMemory = &v
-	return s
-}
-
-func (s *NodeInfo) SetName(v string) *NodeInfo {
-	s.Name = &v
-	return s
-}
-
-func (s *NodeInfo) SetPodNumber(v string) *NodeInfo {
-	s.PodNumber = &v
-	return s
-}
-
-func (s *NodeInfo) SetState(v string) *NodeInfo {
-	s.State = &v
-	return s
-}
-
-func (s *NodeInfo) SetUsedCpu(v int64) *NodeInfo {
-	s.UsedCpu = &v
-	return s
-}
-
-func (s *NodeInfo) SetUsedMemory(v int64) *NodeInfo {
-	s.UsedMemory = &v
-	return s
-}
-
-func (s *NodeInfo) SetZoneName(v string) *NodeInfo {
-	s.ZoneName = &v
-	return s
-}
-
-func (s *NodeInfo) SetLabels(v []*Label) *NodeInfo {
-	s.Labels = v
-	return s
-}
-
-func (s *NodeInfo) SetAnnotations(v []*Annotation) *NodeInfo {
-	s.Annotations = v
-	return s
-}
-
-func (s *NodeInfo) SetCreatedTime(v string) *NodeInfo {
-	s.CreatedTime = &v
-	return s
-}
-
-func (s *NodeInfo) SetSystemInfos(v []*Annotation) *NodeInfo {
-	s.SystemInfos = v
-	return s
-}
-
-func (s *NodeInfo) SetMaxPodAmount(v int64) *NodeInfo {
-	s.MaxPodAmount = &v
-	return s
-}
-
-func (s *NodeInfo) SetRunningPodAmount(v int64) *NodeInfo {
-	s.RunningPodAmount = &v
-	return s
-}
-
-// 机构应用发布结果
-type TenantAppReleaseData struct {
-	// 是否成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
-	// 机构名称
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
-	// 发布单ID
-	ReleaseId *string `json:"release_id,omitempty" xml:"release_id,omitempty" require:"true"`
-	// 环境
-	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
-}
-
-func (s TenantAppReleaseData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TenantAppReleaseData) GoString() string {
-	return s.String()
-}
-
-func (s *TenantAppReleaseData) SetSuccess(v bool) *TenantAppReleaseData {
-	s.Success = &v
-	return s
-}
-
-func (s *TenantAppReleaseData) SetTenant(v string) *TenantAppReleaseData {
-	s.Tenant = &v
+func (s *ZoneOfWorkspace) SetZones(v []*ZoneInfo) *ZoneOfWorkspace {
+	s.Zones = v
 	return s
 }
 
-func (s *TenantAppReleaseData) SetReleaseId(v string) *TenantAppReleaseData {
-	s.ReleaseId = &v
+func (s *ZoneOfWorkspace) SetRegionName(v string) *ZoneOfWorkspace {
+	s.RegionName = &v
 	return s
 }
 
-func (s *TenantAppReleaseData) SetWorkspaceGroup(v string) *TenantAppReleaseData {
-	s.WorkspaceGroup = &v
+func (s *ZoneOfWorkspace) SetRegionId(v string) *ZoneOfWorkspace {
+	s.RegionId = &v
 	return s
 }
 
@@ -14129,6 +15109,8 @@ type CreateContainerserviceDeploymentRequest struct {
 	AssigneeIds []*string `json:"assignee_ids,omitempty" xml:"assignee_ids,omitempty" type:"Repeated"`
 	// 操作人账号，lks1.23.0才支持
 	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	// 灰度发布的参数，仅当ops_type为GRAY_RELEASE时生效
+	GrayReleaseConfig *GrayReleaseConfig `json:"gray_release_config,omitempty" xml:"gray_release_config,omitempty"`
 }
 
 func (s CreateContainerserviceDeploymentRequest) String() string {
@@ -14191,6 +15173,11 @@ func (s *CreateContainerserviceDeploymentRequest) SetAssigneeIds(v []*string) *C
 
 func (s *CreateContainerserviceDeploymentRequest) SetOperator(v string) *CreateContainerserviceDeploymentRequest {
 	s.Operator = &v
+	return s
+}
+
+func (s *CreateContainerserviceDeploymentRequest) SetGrayReleaseConfig(v *GrayReleaseConfig) *CreateContainerserviceDeploymentRequest {
+	s.GrayReleaseConfig = v
 	return s
 }
 
@@ -14883,6 +15870,8 @@ type QueryContainerserviceRevisionRequest struct {
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 	// 所属工作空间组名称。
 	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
+	// 可以根据版本号模糊搜索，lks1.25.0开始支持
+	Revision *string `json:"revision,omitempty" xml:"revision,omitempty"`
 }
 
 func (s QueryContainerserviceRevisionRequest) String() string {
@@ -14930,6 +15919,11 @@ func (s *QueryContainerserviceRevisionRequest) SetPageSize(v int64) *QueryContai
 
 func (s *QueryContainerserviceRevisionRequest) SetWorkspaceGroup(v string) *QueryContainerserviceRevisionRequest {
 	s.WorkspaceGroup = &v
+	return s
+}
+
+func (s *QueryContainerserviceRevisionRequest) SetRevision(v string) *QueryContainerserviceRevisionRequest {
+	s.Revision = &v
 	return s
 }
 
@@ -15081,7 +16075,7 @@ type UpdateContainerserviceImageRequest struct {
 	// 容器服务所在命名空间
 	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
 	// 操作人。
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
 	// 容器应用服务版本。
 	Revision *string `json:"revision,omitempty" xml:"revision,omitempty" require:"true"`
 	// 所属工作空间组名称。
@@ -15180,7 +16174,7 @@ type UpdateContainerserviceReplicasRequest struct {
 	// namespace
 	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
 	// 操作人
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
 	// 容器应用服务版本号。
 	Revision *string `json:"revision,omitempty" xml:"revision,omitempty" require:"true"`
 	// 所属工作空间组名称。
@@ -17802,6 +18796,10 @@ type ExecOpsplanAppopstaskRequest struct {
 	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty" require:"true"`
 	// 任务id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// operator名字
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	// [huanyu场景使用]，当cancel_plan_flag为true, control_type=CANCEL且action_code=CLOUD_NATIVE_DEPLOY时，整个运维单将被取消
+	CancelPlanFlag *bool `json:"cancel_plan_flag,omitempty" xml:"cancel_plan_flag,omitempty"`
 }
 
 func (s ExecOpsplanAppopstaskRequest) String() string {
@@ -17829,6 +18827,16 @@ func (s *ExecOpsplanAppopstaskRequest) SetActionCode(v string) *ExecOpsplanAppop
 
 func (s *ExecOpsplanAppopstaskRequest) SetId(v string) *ExecOpsplanAppopstaskRequest {
 	s.Id = &v
+	return s
+}
+
+func (s *ExecOpsplanAppopstaskRequest) SetOperator(v string) *ExecOpsplanAppopstaskRequest {
+	s.Operator = &v
+	return s
+}
+
+func (s *ExecOpsplanAppopstaskRequest) SetCancelPlanFlag(v bool) *ExecOpsplanAppopstaskRequest {
+	s.CancelPlanFlag = &v
 	return s
 }
 
@@ -17940,6 +18948,14 @@ type QueryOpsplanAppprogressRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 应用id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 运维单id
+	TimeSeriesId *string `json:"time_series_id,omitempty" xml:"time_series_id,omitempty"`
+	// 批次stage的id
+	StageId *string `json:"stage_id,omitempty" xml:"stage_id,omitempty"`
+	// [huanyu场景使用] 是否需要返回affected_cell_pods
+	NeedExportCellPods *bool `json:"need_export_cell_pods,omitempty" xml:"need_export_cell_pods,omitempty"`
+	// [huanyu场景使用] 返回给opscloud的变更对象类型。如果为NONE，则不返回变更对象信息
+	OpscloudChangeTargetType *string `json:"opscloud_change_target_type,omitempty" xml:"opscloud_change_target_type,omitempty"`
 }
 
 func (s QueryOpsplanAppprogressRequest) String() string {
@@ -17960,6 +18976,26 @@ func (s *QueryOpsplanAppprogressRequest) SetId(v string) *QueryOpsplanAppprogres
 	return s
 }
 
+func (s *QueryOpsplanAppprogressRequest) SetTimeSeriesId(v string) *QueryOpsplanAppprogressRequest {
+	s.TimeSeriesId = &v
+	return s
+}
+
+func (s *QueryOpsplanAppprogressRequest) SetStageId(v string) *QueryOpsplanAppprogressRequest {
+	s.StageId = &v
+	return s
+}
+
+func (s *QueryOpsplanAppprogressRequest) SetNeedExportCellPods(v bool) *QueryOpsplanAppprogressRequest {
+	s.NeedExportCellPods = &v
+	return s
+}
+
+func (s *QueryOpsplanAppprogressRequest) SetOpscloudChangeTargetType(v string) *QueryOpsplanAppprogressRequest {
+	s.OpscloudChangeTargetType = &v
+	return s
+}
+
 type QueryOpsplanAppprogressResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -17969,6 +19005,10 @@ type QueryOpsplanAppprogressResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 应用发布进度详情
 	AppDeployProgress *AppDeployProgress `json:"app_deploy_progress,omitempty" xml:"app_deploy_progress,omitempty"`
+	// [huanyu场景使用] 查询涉及的部署单元及pod详情列表
+	AffectedCellPods []*AppDeployCell `json:"affected_cell_pods,omitempty" xml:"affected_cell_pods,omitempty" type:"Repeated"`
+	// [huanyu场景使用] json格式的变更对象信息列表
+	OpscloudChangeTargetJsonStr *string `json:"opscloud_change_target_json_str,omitempty" xml:"opscloud_change_target_json_str,omitempty"`
 }
 
 func (s QueryOpsplanAppprogressResponse) String() string {
@@ -17996,6 +19036,16 @@ func (s *QueryOpsplanAppprogressResponse) SetResultMsg(v string) *QueryOpsplanAp
 
 func (s *QueryOpsplanAppprogressResponse) SetAppDeployProgress(v *AppDeployProgress) *QueryOpsplanAppprogressResponse {
 	s.AppDeployProgress = v
+	return s
+}
+
+func (s *QueryOpsplanAppprogressResponse) SetAffectedCellPods(v []*AppDeployCell) *QueryOpsplanAppprogressResponse {
+	s.AffectedCellPods = v
+	return s
+}
+
+func (s *QueryOpsplanAppprogressResponse) SetOpscloudChangeTargetJsonStr(v string) *QueryOpsplanAppprogressResponse {
+	s.OpscloudChangeTargetJsonStr = &v
 	return s
 }
 
@@ -18473,7 +19523,7 @@ type ListCellgroupRequest struct {
 	// 所属环境名称
 	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
 	// cell group查询前缀
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
 }
 
 func (s ListCellgroupRequest) String() string {
@@ -22563,11 +23613,13 @@ type CancelOpsplanServiceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 发布单下应用服务对应的发布id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// 取消原因
 	Reason *string `json:"reason,omitempty" xml:"reason,omitempty" require:"true"`
 	// 操作人账号，lks1.23.0才支持
 	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	// [huanyu场景使用]huanyu变更单唯一id
+	HuanyuExecNo *string `json:"huanyu_exec_no,omitempty" xml:"huanyu_exec_no,omitempty"`
 }
 
 func (s CancelOpsplanServiceRequest) String() string {
@@ -22595,6 +23647,11 @@ func (s *CancelOpsplanServiceRequest) SetReason(v string) *CancelOpsplanServiceR
 
 func (s *CancelOpsplanServiceRequest) SetOperator(v string) *CancelOpsplanServiceRequest {
 	s.Operator = &v
+	return s
+}
+
+func (s *CancelOpsplanServiceRequest) SetHuanyuExecNo(v string) *CancelOpsplanServiceRequest {
+	s.HuanyuExecNo = &v
 	return s
 }
 
@@ -28860,6 +29917,12 @@ type CreateContainerserviceOperationRequest struct {
 	AssigneeIds []*string `json:"assignee_ids,omitempty" xml:"assignee_ids,omitempty" type:"Repeated"`
 	// 操作人账号，lks1.23.0才支持
 	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	// [huanyu场景使用]huanyu变更单id
+	HuanyuExecNo *string `json:"huanyu_exec_no,omitempty" xml:"huanyu_exec_no,omitempty"`
+	// 每个批次最大涉及变更的pod个数
+	MaxGroupCapacity *int64 `json:"max_group_capacity,omitempty" xml:"max_group_capacity,omitempty"`
+	// 每个部署单元单批次变更pod数量百分比，仅当group_strategey为ALL_CELL_PERCENTAGE时生效
+	MaxCellPodPercentage *int64 `json:"max_cell_pod_percentage,omitempty" xml:"max_cell_pod_percentage,omitempty"`
 }
 
 func (s CreateContainerserviceOperationRequest) String() string {
@@ -28932,6 +29995,21 @@ func (s *CreateContainerserviceOperationRequest) SetAssigneeIds(v []*string) *Cr
 
 func (s *CreateContainerserviceOperationRequest) SetOperator(v string) *CreateContainerserviceOperationRequest {
 	s.Operator = &v
+	return s
+}
+
+func (s *CreateContainerserviceOperationRequest) SetHuanyuExecNo(v string) *CreateContainerserviceOperationRequest {
+	s.HuanyuExecNo = &v
+	return s
+}
+
+func (s *CreateContainerserviceOperationRequest) SetMaxGroupCapacity(v int64) *CreateContainerserviceOperationRequest {
+	s.MaxGroupCapacity = &v
+	return s
+}
+
+func (s *CreateContainerserviceOperationRequest) SetMaxCellPodPercentage(v int64) *CreateContainerserviceOperationRequest {
+	s.MaxCellPodPercentage = &v
 	return s
 }
 
@@ -29829,7 +30907,7 @@ type ImportUnireleaseSolutionRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// Line迭代发布Json String
-	Release *string `json:"release,omitempty" xml:"release,omitempty" require:"true"`
+	Solution *string `json:"solution,omitempty" xml:"solution,omitempty" require:"true"`
 	// 机构列表信息；如果不填默认是所有机构统一发布
 	Tenants []*string `json:"tenants,omitempty" xml:"tenants,omitempty" type:"Repeated"`
 }
@@ -29847,8 +30925,8 @@ func (s *ImportUnireleaseSolutionRequest) SetAuthToken(v string) *ImportUnirelea
 	return s
 }
 
-func (s *ImportUnireleaseSolutionRequest) SetRelease(v string) *ImportUnireleaseSolutionRequest {
-	s.Release = &v
+func (s *ImportUnireleaseSolutionRequest) SetSolution(v string) *ImportUnireleaseSolutionRequest {
+	s.Solution = &v
 	return s
 }
 
@@ -29864,10 +30942,10 @@ type ImportUnireleaseSolutionResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// Linke迭代发布返回
-	Data *LinkeReleaseData `json:"data,omitempty" xml:"data,omitempty"`
 	// 返回结果
 	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 解决方案ID
+	SolutionId *string `json:"solution_id,omitempty" xml:"solution_id,omitempty"`
 }
 
 func (s ImportUnireleaseSolutionResponse) String() string {
@@ -29893,13 +30971,13 @@ func (s *ImportUnireleaseSolutionResponse) SetResultMsg(v string) *ImportUnirele
 	return s
 }
 
-func (s *ImportUnireleaseSolutionResponse) SetData(v *LinkeReleaseData) *ImportUnireleaseSolutionResponse {
-	s.Data = v
+func (s *ImportUnireleaseSolutionResponse) SetSuccess(v bool) *ImportUnireleaseSolutionResponse {
+	s.Success = &v
 	return s
 }
 
-func (s *ImportUnireleaseSolutionResponse) SetSuccess(v bool) *ImportUnireleaseSolutionResponse {
-	s.Success = &v
+func (s *ImportUnireleaseSolutionResponse) SetSolutionId(v string) *ImportUnireleaseSolutionResponse {
+	s.SolutionId = &v
 	return s
 }
 
@@ -29907,19 +30985,17 @@ type ListUnireleaseSolutionsRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 当前页
-	Page *string `json:"page,omitempty" xml:"page,omitempty" require:"true"`
+	Page *int64 `json:"page,omitempty" xml:"page,omitempty" require:"true"`
 	// 页大小
-	PageSize *string `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
-	// 发布单状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 发布单开始时间
-	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 发布单结束时间
-	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 操作人
 	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
 	// 发布名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 创建时间初始值
+	CreationTimeFrom *string `json:"creation_time_from,omitempty" xml:"creation_time_from,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 创建时间结束值
+	CreationTimeTo *string `json:"creation_time_to,omitempty" xml:"creation_time_to,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s ListUnireleaseSolutionsRequest) String() string {
@@ -29935,28 +31011,13 @@ func (s *ListUnireleaseSolutionsRequest) SetAuthToken(v string) *ListUnireleaseS
 	return s
 }
 
-func (s *ListUnireleaseSolutionsRequest) SetPage(v string) *ListUnireleaseSolutionsRequest {
+func (s *ListUnireleaseSolutionsRequest) SetPage(v int64) *ListUnireleaseSolutionsRequest {
 	s.Page = &v
 	return s
 }
 
-func (s *ListUnireleaseSolutionsRequest) SetPageSize(v string) *ListUnireleaseSolutionsRequest {
+func (s *ListUnireleaseSolutionsRequest) SetPageSize(v int64) *ListUnireleaseSolutionsRequest {
 	s.PageSize = &v
-	return s
-}
-
-func (s *ListUnireleaseSolutionsRequest) SetStatus(v string) *ListUnireleaseSolutionsRequest {
-	s.Status = &v
-	return s
-}
-
-func (s *ListUnireleaseSolutionsRequest) SetStartTime(v string) *ListUnireleaseSolutionsRequest {
-	s.StartTime = &v
-	return s
-}
-
-func (s *ListUnireleaseSolutionsRequest) SetEndTime(v string) *ListUnireleaseSolutionsRequest {
-	s.EndTime = &v
 	return s
 }
 
@@ -29970,6 +31031,16 @@ func (s *ListUnireleaseSolutionsRequest) SetName(v string) *ListUnireleaseSoluti
 	return s
 }
 
+func (s *ListUnireleaseSolutionsRequest) SetCreationTimeFrom(v string) *ListUnireleaseSolutionsRequest {
+	s.CreationTimeFrom = &v
+	return s
+}
+
+func (s *ListUnireleaseSolutionsRequest) SetCreationTimeTo(v string) *ListUnireleaseSolutionsRequest {
+	s.CreationTimeTo = &v
+	return s
+}
+
 type ListUnireleaseSolutionsResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -29979,6 +31050,12 @@ type ListUnireleaseSolutionsResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 解决方案列表返回
 	Data []*UnireleaseSolution `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// 总数
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty"`
+	// 页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 当前页
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
 }
 
 func (s ListUnireleaseSolutionsResponse) String() string {
@@ -30009,11 +31086,26 @@ func (s *ListUnireleaseSolutionsResponse) SetData(v []*UnireleaseSolution) *List
 	return s
 }
 
+func (s *ListUnireleaseSolutionsResponse) SetTotalSize(v int64) *ListUnireleaseSolutionsResponse {
+	s.TotalSize = &v
+	return s
+}
+
+func (s *ListUnireleaseSolutionsResponse) SetPageSize(v int64) *ListUnireleaseSolutionsResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ListUnireleaseSolutionsResponse) SetCurrentPage(v int64) *ListUnireleaseSolutionsResponse {
+	s.CurrentPage = &v
+	return s
+}
+
 type GetUnireleaseSolutionRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 解决方案发布ID
-	UnireleaseId *string `json:"unirelease_id,omitempty" xml:"unirelease_id,omitempty" require:"true"`
+	SolutionId *string `json:"solution_id,omitempty" xml:"solution_id,omitempty" require:"true"`
 }
 
 func (s GetUnireleaseSolutionRequest) String() string {
@@ -30029,8 +31121,8 @@ func (s *GetUnireleaseSolutionRequest) SetAuthToken(v string) *GetUnireleaseSolu
 	return s
 }
 
-func (s *GetUnireleaseSolutionRequest) SetUnireleaseId(v string) *GetUnireleaseSolutionRequest {
-	s.UnireleaseId = &v
+func (s *GetUnireleaseSolutionRequest) SetSolutionId(v string) *GetUnireleaseSolutionRequest {
+	s.SolutionId = &v
 	return s
 }
 
@@ -30073,75 +31165,96 @@ func (s *GetUnireleaseSolutionResponse) SetData(v *UnireleaseSolution) *GetUnire
 	return s
 }
 
-type GetUnireleaseStatusRequest struct {
+type GetUnireleasePipelineRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 解决方案发布单ID
-	UnireleaseId *string `json:"unirelease_id,omitempty" xml:"unirelease_id,omitempty" require:"true"`
+	SolutionId *string `json:"solution_id,omitempty" xml:"solution_id,omitempty" require:"true"`
 }
 
-func (s GetUnireleaseStatusRequest) String() string {
+func (s GetUnireleasePipelineRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetUnireleaseStatusRequest) GoString() string {
+func (s GetUnireleasePipelineRequest) GoString() string {
 	return s.String()
 }
 
-func (s *GetUnireleaseStatusRequest) SetAuthToken(v string) *GetUnireleaseStatusRequest {
+func (s *GetUnireleasePipelineRequest) SetAuthToken(v string) *GetUnireleasePipelineRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *GetUnireleaseStatusRequest) SetUnireleaseId(v string) *GetUnireleaseStatusRequest {
-	s.UnireleaseId = &v
+func (s *GetUnireleasePipelineRequest) SetSolutionId(v string) *GetUnireleasePipelineRequest {
+	s.SolutionId = &v
 	return s
 }
 
-type GetUnireleaseStatusResponse struct {
+type GetUnireleasePipelineResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// pipeline ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 解决方案ID
+	SolutionId *string `json:"solution_id,omitempty" xml:"solution_id,omitempty"`
+	// 发布单状态
+	State *string `json:"state,omitempty" xml:"state,omitempty"`
 	// 应用发布状态
-	ReleaseStatuses []*AppReleaseStatus `json:"release_statuses,omitempty" xml:"release_statuses,omitempty" type:"Repeated"`
+	TenantPipelines []*TenantAppReleasePipeline `json:"tenant_pipelines,omitempty" xml:"tenant_pipelines,omitempty" type:"Repeated"`
 }
 
-func (s GetUnireleaseStatusResponse) String() string {
+func (s GetUnireleasePipelineResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetUnireleaseStatusResponse) GoString() string {
+func (s GetUnireleasePipelineResponse) GoString() string {
 	return s.String()
 }
 
-func (s *GetUnireleaseStatusResponse) SetReqMsgId(v string) *GetUnireleaseStatusResponse {
+func (s *GetUnireleasePipelineResponse) SetReqMsgId(v string) *GetUnireleasePipelineResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *GetUnireleaseStatusResponse) SetResultCode(v string) *GetUnireleaseStatusResponse {
+func (s *GetUnireleasePipelineResponse) SetResultCode(v string) *GetUnireleasePipelineResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *GetUnireleaseStatusResponse) SetResultMsg(v string) *GetUnireleaseStatusResponse {
+func (s *GetUnireleasePipelineResponse) SetResultMsg(v string) *GetUnireleasePipelineResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *GetUnireleaseStatusResponse) SetReleaseStatuses(v []*AppReleaseStatus) *GetUnireleaseStatusResponse {
-	s.ReleaseStatuses = v
+func (s *GetUnireleasePipelineResponse) SetId(v string) *GetUnireleasePipelineResponse {
+	s.Id = &v
+	return s
+}
+
+func (s *GetUnireleasePipelineResponse) SetSolutionId(v string) *GetUnireleasePipelineResponse {
+	s.SolutionId = &v
+	return s
+}
+
+func (s *GetUnireleasePipelineResponse) SetState(v string) *GetUnireleasePipelineResponse {
+	s.State = &v
+	return s
+}
+
+func (s *GetUnireleasePipelineResponse) SetTenantPipelines(v []*TenantAppReleasePipeline) *GetUnireleasePipelineResponse {
+	s.TenantPipelines = v
 	return s
 }
 
 type ExecUnireleasePipelinesRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 发布单ID
-	ReleaseId *string `json:"release_id,omitempty" xml:"release_id,omitempty" require:"true"`
+	// 解决方案ID
+	SolutionId *string `json:"solution_id,omitempty" xml:"solution_id,omitempty" require:"true"`
 	// 租户/机构名称列表，不填默认当前机构所有租户
 	Tenants []*string `json:"tenants,omitempty" xml:"tenants,omitempty" type:"Repeated"`
 }
@@ -30159,8 +31272,8 @@ func (s *ExecUnireleasePipelinesRequest) SetAuthToken(v string) *ExecUnireleaseP
 	return s
 }
 
-func (s *ExecUnireleasePipelinesRequest) SetReleaseId(v string) *ExecUnireleasePipelinesRequest {
-	s.ReleaseId = &v
+func (s *ExecUnireleasePipelinesRequest) SetSolutionId(v string) *ExecUnireleasePipelinesRequest {
+	s.SolutionId = &v
 	return s
 }
 
@@ -30176,8 +31289,8 @@ type ExecUnireleasePipelinesResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 机构应用发布结果数据
-	Data []*TenantAppReleaseData `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// 执行成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
 }
 
 func (s ExecUnireleasePipelinesResponse) String() string {
@@ -30203,8 +31316,2529 @@ func (s *ExecUnireleasePipelinesResponse) SetResultMsg(v string) *ExecUnirelease
 	return s
 }
 
-func (s *ExecUnireleasePipelinesResponse) SetData(v []*TenantAppReleaseData) *ExecUnireleasePipelinesResponse {
+func (s *ExecUnireleasePipelinesResponse) SetSuccess(v bool) *ExecUnireleasePipelinesResponse {
+	s.Success = &v
+	return s
+}
+
+type GetUnireleaseTenantsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 解决方案Json
+	Solution *string `json:"solution,omitempty" xml:"solution,omitempty" require:"true"`
+}
+
+func (s GetUnireleaseTenantsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetUnireleaseTenantsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetUnireleaseTenantsRequest) SetAuthToken(v string) *GetUnireleaseTenantsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetUnireleaseTenantsRequest) SetSolution(v string) *GetUnireleaseTenantsRequest {
+	s.Solution = &v
+	return s
+}
+
+type GetUnireleaseTenantsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 解决方案租户列表信息
+	Tenants []*string `json:"tenants,omitempty" xml:"tenants,omitempty" type:"Repeated"`
+}
+
+func (s GetUnireleaseTenantsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetUnireleaseTenantsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetUnireleaseTenantsResponse) SetReqMsgId(v string) *GetUnireleaseTenantsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetUnireleaseTenantsResponse) SetResultCode(v string) *GetUnireleaseTenantsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetUnireleaseTenantsResponse) SetResultMsg(v string) *GetUnireleaseTenantsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetUnireleaseTenantsResponse) SetTenants(v []*string) *GetUnireleaseTenantsResponse {
+	s.Tenants = v
+	return s
+}
+
+type AddContainerserviceMiddlewareconfigRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 命名空间
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
+	// 工作空间组
+	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
+	// 应用服务名
+	ContainerServiceName *string `json:"container_service_name,omitempty" xml:"container_service_name,omitempty" require:"true"`
+	// 应用服务版本
+	ContainerServiceRevision *string `json:"container_service_revision,omitempty" xml:"container_service_revision,omitempty" require:"true"`
+	// 操作人账号
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+	// 中间件配置
+	MiddlewareConfigs []*string `json:"middleware_configs,omitempty" xml:"middleware_configs,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s AddContainerserviceMiddlewareconfigRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddContainerserviceMiddlewareconfigRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddContainerserviceMiddlewareconfigRequest) SetAuthToken(v string) *AddContainerserviceMiddlewareconfigRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddContainerserviceMiddlewareconfigRequest) SetNamespace(v string) *AddContainerserviceMiddlewareconfigRequest {
+	s.Namespace = &v
+	return s
+}
+
+func (s *AddContainerserviceMiddlewareconfigRequest) SetWorkspaceGroup(v string) *AddContainerserviceMiddlewareconfigRequest {
+	s.WorkspaceGroup = &v
+	return s
+}
+
+func (s *AddContainerserviceMiddlewareconfigRequest) SetContainerServiceName(v string) *AddContainerserviceMiddlewareconfigRequest {
+	s.ContainerServiceName = &v
+	return s
+}
+
+func (s *AddContainerserviceMiddlewareconfigRequest) SetContainerServiceRevision(v string) *AddContainerserviceMiddlewareconfigRequest {
+	s.ContainerServiceRevision = &v
+	return s
+}
+
+func (s *AddContainerserviceMiddlewareconfigRequest) SetOperator(v string) *AddContainerserviceMiddlewareconfigRequest {
+	s.Operator = &v
+	return s
+}
+
+func (s *AddContainerserviceMiddlewareconfigRequest) SetMiddlewareConfigs(v []*string) *AddContainerserviceMiddlewareconfigRequest {
+	s.MiddlewareConfigs = v
+	return s
+}
+
+type AddContainerserviceMiddlewareconfigResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s AddContainerserviceMiddlewareconfigResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddContainerserviceMiddlewareconfigResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddContainerserviceMiddlewareconfigResponse) SetReqMsgId(v string) *AddContainerserviceMiddlewareconfigResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddContainerserviceMiddlewareconfigResponse) SetResultCode(v string) *AddContainerserviceMiddlewareconfigResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddContainerserviceMiddlewareconfigResponse) SetResultMsg(v string) *AddContainerserviceMiddlewareconfigResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ExportOpsplanStagesRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 容器服务列表
+	ContainerService *ContainerServiceOperation `json:"container_service,omitempty" xml:"container_service,omitempty"`
+	// Pod分组策略。
+	GroupStrategy *string `json:"group_strategy,omitempty" xml:"group_strategy,omitempty"`
+	// 工作空间组名称
+	WorkspaceGroupName *string `json:"workspace_group_name,omitempty" xml:"workspace_group_name,omitempty"`
+	// 命名空间
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty"`
+	// 目前支持：REBOOT | REPLACE | DEPLOY | SCALEINOUT，其余默认DEPLOY
+	Operation *string `json:"operation,omitempty" xml:"operation,omitempty"`
+	// 最小分组数
+	GroupAmount *int64 `json:"group_amount,omitempty" xml:"group_amount,omitempty"`
+	// 每个分组的最大涉及变更pod个数
+	MaxGroupCapacity *int64 `json:"max_group_capacity,omitempty" xml:"max_group_capacity,omitempty"`
+	// 是否开启beta分组，目前仅在扩缩容场景下使用，默认false
+	NeedBeta *bool `json:"need_beta,omitempty" xml:"need_beta,omitempty"`
+}
+
+func (s ExportOpsplanStagesRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExportOpsplanStagesRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExportOpsplanStagesRequest) SetAuthToken(v string) *ExportOpsplanStagesRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExportOpsplanStagesRequest) SetContainerService(v *ContainerServiceOperation) *ExportOpsplanStagesRequest {
+	s.ContainerService = v
+	return s
+}
+
+func (s *ExportOpsplanStagesRequest) SetGroupStrategy(v string) *ExportOpsplanStagesRequest {
+	s.GroupStrategy = &v
+	return s
+}
+
+func (s *ExportOpsplanStagesRequest) SetWorkspaceGroupName(v string) *ExportOpsplanStagesRequest {
+	s.WorkspaceGroupName = &v
+	return s
+}
+
+func (s *ExportOpsplanStagesRequest) SetNamespace(v string) *ExportOpsplanStagesRequest {
+	s.Namespace = &v
+	return s
+}
+
+func (s *ExportOpsplanStagesRequest) SetOperation(v string) *ExportOpsplanStagesRequest {
+	s.Operation = &v
+	return s
+}
+
+func (s *ExportOpsplanStagesRequest) SetGroupAmount(v int64) *ExportOpsplanStagesRequest {
+	s.GroupAmount = &v
+	return s
+}
+
+func (s *ExportOpsplanStagesRequest) SetMaxGroupCapacity(v int64) *ExportOpsplanStagesRequest {
+	s.MaxGroupCapacity = &v
+	return s
+}
+
+func (s *ExportOpsplanStagesRequest) SetNeedBeta(v bool) *ExportOpsplanStagesRequest {
+	s.NeedBeta = &v
+	return s
+}
+
+type ExportOpsplanStagesResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 计算的分批结果，包含各批次及其Pods
+	Batches []*ReleaseBatchObj `json:"batches,omitempty" xml:"batches,omitempty" type:"Repeated"`
+}
+
+func (s ExportOpsplanStagesResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExportOpsplanStagesResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExportOpsplanStagesResponse) SetReqMsgId(v string) *ExportOpsplanStagesResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExportOpsplanStagesResponse) SetResultCode(v string) *ExportOpsplanStagesResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExportOpsplanStagesResponse) SetResultMsg(v string) *ExportOpsplanStagesResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExportOpsplanStagesResponse) SetBatches(v []*ReleaseBatchObj) *ExportOpsplanStagesResponse {
+	s.Batches = v
+	return s
+}
+
+type DetailAppMetainfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 工作空间组的label：SIT, DEV, ...
+	WorkspaceGroupLabel *string `json:"workspace_group_label,omitempty" xml:"workspace_group_label,omitempty"`
+	// 应用名字
+	// app:appService在此场景下为1:1，否则会报错
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+}
+
+func (s DetailAppMetainfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailAppMetainfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailAppMetainfoRequest) SetAuthToken(v string) *DetailAppMetainfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailAppMetainfoRequest) SetWorkspaceGroupLabel(v string) *DetailAppMetainfoRequest {
+	s.WorkspaceGroupLabel = &v
+	return s
+}
+
+func (s *DetailAppMetainfoRequest) SetAppName(v string) *DetailAppMetainfoRequest {
+	s.AppName = &v
+	return s
+}
+
+type DetailAppMetainfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 工作空间组的名字
+	WorkspaceGroupName *string `json:"workspace_group_name,omitempty" xml:"workspace_group_name,omitempty"`
+	// 名称空间
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty"`
+	// 应用服务名字
+	ContainerServiceName *string `json:"container_service_name,omitempty" xml:"container_service_name,omitempty"`
+	// 应用服务当前revision
+	ContainerServiceRevision *string `json:"container_service_revision,omitempty" xml:"container_service_revision,omitempty"`
+	// 中间件instanceId
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
+}
+
+func (s DetailAppMetainfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailAppMetainfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailAppMetainfoResponse) SetReqMsgId(v string) *DetailAppMetainfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailAppMetainfoResponse) SetResultCode(v string) *DetailAppMetainfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailAppMetainfoResponse) SetResultMsg(v string) *DetailAppMetainfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailAppMetainfoResponse) SetWorkspaceGroupName(v string) *DetailAppMetainfoResponse {
+	s.WorkspaceGroupName = &v
+	return s
+}
+
+func (s *DetailAppMetainfoResponse) SetNamespace(v string) *DetailAppMetainfoResponse {
+	s.Namespace = &v
+	return s
+}
+
+func (s *DetailAppMetainfoResponse) SetContainerServiceName(v string) *DetailAppMetainfoResponse {
+	s.ContainerServiceName = &v
+	return s
+}
+
+func (s *DetailAppMetainfoResponse) SetContainerServiceRevision(v string) *DetailAppMetainfoResponse {
+	s.ContainerServiceRevision = &v
+	return s
+}
+
+func (s *DetailAppMetainfoResponse) SetInstanceId(v string) *DetailAppMetainfoResponse {
+	s.InstanceId = &v
+	return s
+}
+
+type UpdateSidecaropsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 应用名称
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// 保证请求幂等性
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty"`
+	// 所属命名空间
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
+	// 所属工作空间组
+	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
+	// sidecar的类型，如mosn，odp
+	SidecarConfig *SidecarConfig `json:"sidecar_config,omitempty" xml:"sidecar_config,omitempty" require:"true"`
+	// 指定sidecar的基线模板版本进行升级，可选，不填时，默认选中指定sidecar的最新版本进行升级
+	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty"`
+	// 单元名称
+	CellName *string `json:"cell_name,omitempty" xml:"cell_name,omitempty" require:"true"`
+	// 要更新的hostname列表
+	ServerIdentities []*string `json:"server_identities,omitempty" xml:"server_identities,omitempty" require:"true" type:"Repeated"`
+	// 工单id
+	OrderNum *string `json:"order_num,omitempty" xml:"order_num,omitempty" require:"true"`
+}
+
+func (s UpdateSidecaropsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateSidecaropsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateSidecaropsRequest) SetAuthToken(v string) *UpdateSidecaropsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateSidecaropsRequest) SetAppName(v string) *UpdateSidecaropsRequest {
+	s.AppName = &v
+	return s
+}
+
+func (s *UpdateSidecaropsRequest) SetClientToken(v string) *UpdateSidecaropsRequest {
+	s.ClientToken = &v
+	return s
+}
+
+func (s *UpdateSidecaropsRequest) SetNamespace(v string) *UpdateSidecaropsRequest {
+	s.Namespace = &v
+	return s
+}
+
+func (s *UpdateSidecaropsRequest) SetWorkspaceGroup(v string) *UpdateSidecaropsRequest {
+	s.WorkspaceGroup = &v
+	return s
+}
+
+func (s *UpdateSidecaropsRequest) SetSidecarConfig(v *SidecarConfig) *UpdateSidecaropsRequest {
+	s.SidecarConfig = v
+	return s
+}
+
+func (s *UpdateSidecaropsRequest) SetSidecarVersion(v string) *UpdateSidecaropsRequest {
+	s.SidecarVersion = &v
+	return s
+}
+
+func (s *UpdateSidecaropsRequest) SetCellName(v string) *UpdateSidecaropsRequest {
+	s.CellName = &v
+	return s
+}
+
+func (s *UpdateSidecaropsRequest) SetServerIdentities(v []*string) *UpdateSidecaropsRequest {
+	s.ServerIdentities = v
+	return s
+}
+
+func (s *UpdateSidecaropsRequest) SetOrderNum(v string) *UpdateSidecaropsRequest {
+	s.OrderNum = &v
+	return s
+}
+
+type UpdateSidecaropsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 返回被更新的podNumber list；可用于回滚流程的入参
+	UpdatedPodNumbers []*string `json:"updated_pod_numbers,omitempty" xml:"updated_pod_numbers,omitempty" type:"Repeated"`
+}
+
+func (s UpdateSidecaropsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateSidecaropsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateSidecaropsResponse) SetReqMsgId(v string) *UpdateSidecaropsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateSidecaropsResponse) SetResultCode(v string) *UpdateSidecaropsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateSidecaropsResponse) SetResultMsg(v string) *UpdateSidecaropsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateSidecaropsResponse) SetSuccess(v bool) *UpdateSidecaropsResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *UpdateSidecaropsResponse) SetUpdatedPodNumbers(v []*string) *UpdateSidecaropsResponse {
+	s.UpdatedPodNumbers = v
+	return s
+}
+
+type CountContainerserviceCellreplicasRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 应用服务名称
+	ContainerServiceName *string `json:"container_service_name,omitempty" xml:"container_service_name,omitempty" require:"true"`
+	// 应用服务的名称空间
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
+	// 工作空间名称
+	WorkspaceGroupName *string `json:"workspace_group_name,omitempty" xml:"workspace_group_name,omitempty" require:"true"`
+}
+
+func (s CountContainerserviceCellreplicasRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CountContainerserviceCellreplicasRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CountContainerserviceCellreplicasRequest) SetAuthToken(v string) *CountContainerserviceCellreplicasRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CountContainerserviceCellreplicasRequest) SetContainerServiceName(v string) *CountContainerserviceCellreplicasRequest {
+	s.ContainerServiceName = &v
+	return s
+}
+
+func (s *CountContainerserviceCellreplicasRequest) SetNamespace(v string) *CountContainerserviceCellreplicasRequest {
+	s.Namespace = &v
+	return s
+}
+
+func (s *CountContainerserviceCellreplicasRequest) SetWorkspaceGroupName(v string) *CountContainerserviceCellreplicasRequest {
+	s.WorkspaceGroupName = &v
+	return s
+}
+
+type CountContainerserviceCellreplicasResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 应用服务当前的部署单元，及其部署副本数
+	CellReplicasList []*ReplicaCount `json:"cell_replicas_list,omitempty" xml:"cell_replicas_list,omitempty" type:"Repeated"`
+}
+
+func (s CountContainerserviceCellreplicasResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CountContainerserviceCellreplicasResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CountContainerserviceCellreplicasResponse) SetReqMsgId(v string) *CountContainerserviceCellreplicasResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CountContainerserviceCellreplicasResponse) SetResultCode(v string) *CountContainerserviceCellreplicasResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CountContainerserviceCellreplicasResponse) SetResultMsg(v string) *CountContainerserviceCellreplicasResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CountContainerserviceCellreplicasResponse) SetCellReplicasList(v []*ReplicaCount) *CountContainerserviceCellreplicasResponse {
+	s.CellReplicasList = v
+	return s
+}
+
+type ListSidecaropsTemplateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// sidecar类型
+	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
+	// sidecar版本
+	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty"`
+	// 工作空间组
+	WorkspaceGroupId *string `json:"workspace_group_id,omitempty" xml:"workspace_group_id,omitempty"`
+	// 工作空间组名
+	WorkspaceGroupLabel *string `json:"workspace_group_label,omitempty" xml:"workspace_group_label,omitempty" require:"true"`
+	// 工作空间
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// 镜像地址
+	Image *string `json:"image,omitempty" xml:"image,omitempty"`
+	// 可以根据租户名称筛选应用于该租户的基线模板
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+}
+
+func (s ListSidecaropsTemplateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListSidecaropsTemplateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListSidecaropsTemplateRequest) SetAuthToken(v string) *ListSidecaropsTemplateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListSidecaropsTemplateRequest) SetSidecarName(v string) *ListSidecaropsTemplateRequest {
+	s.SidecarName = &v
+	return s
+}
+
+func (s *ListSidecaropsTemplateRequest) SetSidecarVersion(v string) *ListSidecaropsTemplateRequest {
+	s.SidecarVersion = &v
+	return s
+}
+
+func (s *ListSidecaropsTemplateRequest) SetWorkspaceGroupId(v string) *ListSidecaropsTemplateRequest {
+	s.WorkspaceGroupId = &v
+	return s
+}
+
+func (s *ListSidecaropsTemplateRequest) SetWorkspaceGroupLabel(v string) *ListSidecaropsTemplateRequest {
+	s.WorkspaceGroupLabel = &v
+	return s
+}
+
+func (s *ListSidecaropsTemplateRequest) SetWorkspaceId(v string) *ListSidecaropsTemplateRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *ListSidecaropsTemplateRequest) SetImage(v string) *ListSidecaropsTemplateRequest {
+	s.Image = &v
+	return s
+}
+
+func (s *ListSidecaropsTemplateRequest) SetTenantName(v string) *ListSidecaropsTemplateRequest {
+	s.TenantName = &v
+	return s
+}
+
+type ListSidecaropsTemplateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回的特定类型的sidecar版本信息列表，只取最近的20条
+	SidecarTemplates []*SidecarTemplateMeta `json:"sidecar_templates,omitempty" xml:"sidecar_templates,omitempty" type:"Repeated"`
+}
+
+func (s ListSidecaropsTemplateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListSidecaropsTemplateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListSidecaropsTemplateResponse) SetReqMsgId(v string) *ListSidecaropsTemplateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListSidecaropsTemplateResponse) SetResultCode(v string) *ListSidecaropsTemplateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListSidecaropsTemplateResponse) SetResultMsg(v string) *ListSidecaropsTemplateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListSidecaropsTemplateResponse) SetSidecarTemplates(v []*SidecarTemplateMeta) *ListSidecaropsTemplateResponse {
+	s.SidecarTemplates = v
+	return s
+}
+
+type UpdateSidecaropsConsistencyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 应用名称
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// 请求唯一性验证
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty"`
+	// 命名空间
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
+	// 工作空间组
+	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
+	// 需要更新的cell名称数组
+	CellNames []*string `json:"cell_names,omitempty" xml:"cell_names,omitempty" require:"true" type:"Repeated"`
+	// 需要更新的sidecar属性
+	SidecarConfig *SidecarConfig `json:"sidecar_config,omitempty" xml:"sidecar_config,omitempty" require:"true"`
+	// 指定sidecar版本进行升级，不填入此字段时，默认使用对应sidecar的最新版本
+	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty"`
+	// 发布单号
+	OrderNum *string `json:"order_num,omitempty" xml:"order_num,omitempty" require:"true"`
+}
+
+func (s UpdateSidecaropsConsistencyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateSidecaropsConsistencyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateSidecaropsConsistencyRequest) SetAuthToken(v string) *UpdateSidecaropsConsistencyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateSidecaropsConsistencyRequest) SetAppName(v string) *UpdateSidecaropsConsistencyRequest {
+	s.AppName = &v
+	return s
+}
+
+func (s *UpdateSidecaropsConsistencyRequest) SetClientToken(v string) *UpdateSidecaropsConsistencyRequest {
+	s.ClientToken = &v
+	return s
+}
+
+func (s *UpdateSidecaropsConsistencyRequest) SetNamespace(v string) *UpdateSidecaropsConsistencyRequest {
+	s.Namespace = &v
+	return s
+}
+
+func (s *UpdateSidecaropsConsistencyRequest) SetWorkspaceGroup(v string) *UpdateSidecaropsConsistencyRequest {
+	s.WorkspaceGroup = &v
+	return s
+}
+
+func (s *UpdateSidecaropsConsistencyRequest) SetCellNames(v []*string) *UpdateSidecaropsConsistencyRequest {
+	s.CellNames = v
+	return s
+}
+
+func (s *UpdateSidecaropsConsistencyRequest) SetSidecarConfig(v *SidecarConfig) *UpdateSidecaropsConsistencyRequest {
+	s.SidecarConfig = v
+	return s
+}
+
+func (s *UpdateSidecaropsConsistencyRequest) SetSidecarVersion(v string) *UpdateSidecaropsConsistencyRequest {
+	s.SidecarVersion = &v
+	return s
+}
+
+func (s *UpdateSidecaropsConsistencyRequest) SetOrderNum(v string) *UpdateSidecaropsConsistencyRequest {
+	s.OrderNum = &v
+	return s
+}
+
+type UpdateSidecaropsConsistencyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 已经更新的cell列表
+	UpdatedCells []*string `json:"updated_cells,omitempty" xml:"updated_cells,omitempty" type:"Repeated"`
+}
+
+func (s UpdateSidecaropsConsistencyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateSidecaropsConsistencyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateSidecaropsConsistencyResponse) SetReqMsgId(v string) *UpdateSidecaropsConsistencyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateSidecaropsConsistencyResponse) SetResultCode(v string) *UpdateSidecaropsConsistencyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateSidecaropsConsistencyResponse) SetResultMsg(v string) *UpdateSidecaropsConsistencyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateSidecaropsConsistencyResponse) SetUpdatedCells(v []*string) *UpdateSidecaropsConsistencyResponse {
+	s.UpdatedCells = v
+	return s
+}
+
+type FinishSidecaropsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 应用名称
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// 请求token
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty"`
+	// 命名空间
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
+	// 工作空间组
+	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
+	// 请求单号
+	OrderNum *string `json:"order_num,omitempty" xml:"order_num,omitempty" require:"true"`
+	// 部署单元列表
+	CellNames []*string `json:"cell_names,omitempty" xml:"cell_names,omitempty" require:"true" type:"Repeated"`
+	// sidecar配置
+	SidecarConfig *SidecarConfig `json:"sidecar_config,omitempty" xml:"sidecar_config,omitempty" require:"true"`
+}
+
+func (s FinishSidecaropsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinishSidecaropsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *FinishSidecaropsRequest) SetAuthToken(v string) *FinishSidecaropsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *FinishSidecaropsRequest) SetAppName(v string) *FinishSidecaropsRequest {
+	s.AppName = &v
+	return s
+}
+
+func (s *FinishSidecaropsRequest) SetClientToken(v string) *FinishSidecaropsRequest {
+	s.ClientToken = &v
+	return s
+}
+
+func (s *FinishSidecaropsRequest) SetNamespace(v string) *FinishSidecaropsRequest {
+	s.Namespace = &v
+	return s
+}
+
+func (s *FinishSidecaropsRequest) SetWorkspaceGroup(v string) *FinishSidecaropsRequest {
+	s.WorkspaceGroup = &v
+	return s
+}
+
+func (s *FinishSidecaropsRequest) SetOrderNum(v string) *FinishSidecaropsRequest {
+	s.OrderNum = &v
+	return s
+}
+
+func (s *FinishSidecaropsRequest) SetCellNames(v []*string) *FinishSidecaropsRequest {
+	s.CellNames = v
+	return s
+}
+
+func (s *FinishSidecaropsRequest) SetSidecarConfig(v *SidecarConfig) *FinishSidecaropsRequest {
+	s.SidecarConfig = v
+	return s
+}
+
+type FinishSidecaropsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s FinishSidecaropsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinishSidecaropsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *FinishSidecaropsResponse) SetReqMsgId(v string) *FinishSidecaropsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *FinishSidecaropsResponse) SetResultCode(v string) *FinishSidecaropsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *FinishSidecaropsResponse) SetResultMsg(v string) *FinishSidecaropsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QuerySidecaropsStateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 应用名称
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// 命名空间
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
+	// 命名空间组名称
+	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
+	// 需要查询的部署单元列表
+	CellNames []*string `json:"cell_names,omitempty" xml:"cell_names,omitempty" require:"true" type:"Repeated"`
+	// 运维单号
+	OrderNum *string `json:"order_num,omitempty" xml:"order_num,omitempty" require:"true"`
+	// sidecar配置
+	SidecarConfig *SidecarConfig `json:"sidecar_config,omitempty" xml:"sidecar_config,omitempty" require:"true"`
+}
+
+func (s QuerySidecaropsStateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySidecaropsStateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySidecaropsStateRequest) SetAuthToken(v string) *QuerySidecaropsStateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySidecaropsStateRequest) SetAppName(v string) *QuerySidecaropsStateRequest {
+	s.AppName = &v
+	return s
+}
+
+func (s *QuerySidecaropsStateRequest) SetNamespace(v string) *QuerySidecaropsStateRequest {
+	s.Namespace = &v
+	return s
+}
+
+func (s *QuerySidecaropsStateRequest) SetWorkspaceGroup(v string) *QuerySidecaropsStateRequest {
+	s.WorkspaceGroup = &v
+	return s
+}
+
+func (s *QuerySidecaropsStateRequest) SetCellNames(v []*string) *QuerySidecaropsStateRequest {
+	s.CellNames = v
+	return s
+}
+
+func (s *QuerySidecaropsStateRequest) SetOrderNum(v string) *QuerySidecaropsStateRequest {
+	s.OrderNum = &v
+	return s
+}
+
+func (s *QuerySidecaropsStateRequest) SetSidecarConfig(v *SidecarConfig) *QuerySidecaropsStateRequest {
+	s.SidecarConfig = v
+	return s
+}
+
+type QuerySidecaropsStateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// sidecar运维状态列表
+	ReleaseInfo []*SidecarReleaseStatus `json:"release_info,omitempty" xml:"release_info,omitempty" type:"Repeated"`
+	// 状态
+	State *string `json:"state,omitempty" xml:"state,omitempty"`
+	// 变更核心所需变更后改动的podIp
+	ChangeTargets *string `json:"change_targets,omitempty" xml:"change_targets,omitempty"`
+}
+
+func (s QuerySidecaropsStateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySidecaropsStateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySidecaropsStateResponse) SetReqMsgId(v string) *QuerySidecaropsStateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySidecaropsStateResponse) SetResultCode(v string) *QuerySidecaropsStateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySidecaropsStateResponse) SetResultMsg(v string) *QuerySidecaropsStateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySidecaropsStateResponse) SetReleaseInfo(v []*SidecarReleaseStatus) *QuerySidecaropsStateResponse {
+	s.ReleaseInfo = v
+	return s
+}
+
+func (s *QuerySidecaropsStateResponse) SetState(v string) *QuerySidecaropsStateResponse {
+	s.State = &v
+	return s
+}
+
+func (s *QuerySidecaropsStateResponse) SetChangeTargets(v string) *QuerySidecaropsStateResponse {
+	s.ChangeTargets = &v
+	return s
+}
+
+type AddSidecaropsTemplateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// sidecar名称
+	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
+	// 镜像地址
+	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
+	// 新的模板
+	Template *string `json:"template,omitempty" xml:"template,omitempty"`
+	// 基线模板作用域范围，如：["gray", "prod"]，不填时默认全局
+	Scope []*string `json:"scope,omitempty" xml:"scope,omitempty" type:"Repeated"`
+	// 版本描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+}
+
+func (s AddSidecaropsTemplateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddSidecaropsTemplateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddSidecaropsTemplateRequest) SetAuthToken(v string) *AddSidecaropsTemplateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddSidecaropsTemplateRequest) SetSidecarName(v string) *AddSidecaropsTemplateRequest {
+	s.SidecarName = &v
+	return s
+}
+
+func (s *AddSidecaropsTemplateRequest) SetImage(v string) *AddSidecaropsTemplateRequest {
+	s.Image = &v
+	return s
+}
+
+func (s *AddSidecaropsTemplateRequest) SetTemplate(v string) *AddSidecaropsTemplateRequest {
+	s.Template = &v
+	return s
+}
+
+func (s *AddSidecaropsTemplateRequest) SetScope(v []*string) *AddSidecaropsTemplateRequest {
+	s.Scope = v
+	return s
+}
+
+func (s *AddSidecaropsTemplateRequest) SetDescription(v string) *AddSidecaropsTemplateRequest {
+	s.Description = &v
+	return s
+}
+
+type AddSidecaropsTemplateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s AddSidecaropsTemplateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddSidecaropsTemplateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddSidecaropsTemplateResponse) SetReqMsgId(v string) *AddSidecaropsTemplateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddSidecaropsTemplateResponse) SetResultCode(v string) *AddSidecaropsTemplateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddSidecaropsTemplateResponse) SetResultMsg(v string) *AddSidecaropsTemplateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QuerySidecaropsReleaseinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 应用名称（借花场景即为应用服务名）
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// sidecar类型
+	SidecarType *string `json:"sidecar_type,omitempty" xml:"sidecar_type,omitempty" require:"true"`
+	// 工作空间组
+	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
+	// 命名空间
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
+	// 变更单号
+	OrderNum *string `json:"order_num,omitempty" xml:"order_num,omitempty"`
+	// 应用服务发布sidecar的版本号，每次发布程序会自己分配一个，可用于作为查询key
+	ReleaseVersion *string `json:"release_version,omitempty" xml:"release_version,omitempty"`
+}
+
+func (s QuerySidecaropsReleaseinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySidecaropsReleaseinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySidecaropsReleaseinfoRequest) SetAuthToken(v string) *QuerySidecaropsReleaseinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySidecaropsReleaseinfoRequest) SetAppName(v string) *QuerySidecaropsReleaseinfoRequest {
+	s.AppName = &v
+	return s
+}
+
+func (s *QuerySidecaropsReleaseinfoRequest) SetSidecarType(v string) *QuerySidecaropsReleaseinfoRequest {
+	s.SidecarType = &v
+	return s
+}
+
+func (s *QuerySidecaropsReleaseinfoRequest) SetWorkspaceGroup(v string) *QuerySidecaropsReleaseinfoRequest {
+	s.WorkspaceGroup = &v
+	return s
+}
+
+func (s *QuerySidecaropsReleaseinfoRequest) SetNamespace(v string) *QuerySidecaropsReleaseinfoRequest {
+	s.Namespace = &v
+	return s
+}
+
+func (s *QuerySidecaropsReleaseinfoRequest) SetOrderNum(v string) *QuerySidecaropsReleaseinfoRequest {
+	s.OrderNum = &v
+	return s
+}
+
+func (s *QuerySidecaropsReleaseinfoRequest) SetReleaseVersion(v string) *QuerySidecaropsReleaseinfoRequest {
+	s.ReleaseVersion = &v
+	return s
+}
+
+type QuerySidecaropsReleaseinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 所查询版本的实际sidecarConfig信息
+	SidecarConfig *SidecarConfig `json:"sidecar_config,omitempty" xml:"sidecar_config,omitempty"`
+	// 应用服务名
+	ContainerServiceName *string `json:"container_service_name,omitempty" xml:"container_service_name,omitempty"`
+	// sidecar模板的版本号，与应用无关
+	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty"`
+	// 发布相关的应用参数，如feature等
+	Param *string `json:"param,omitempty" xml:"param,omitempty"`
+	// 发布所处状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 以时间戳生成的发布版本号
+	ReleaseVersion *string `json:"release_version,omitempty" xml:"release_version,omitempty"`
+	// 上一个版本号
+	LastReleaseVersion *string `json:"last_release_version,omitempty" xml:"last_release_version,omitempty"`
+	// 执行单号，调用方唯一确定一次发布的单号；
+	OrderNum *string `json:"order_num,omitempty" xml:"order_num,omitempty"`
+}
+
+func (s QuerySidecaropsReleaseinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySidecaropsReleaseinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySidecaropsReleaseinfoResponse) SetReqMsgId(v string) *QuerySidecaropsReleaseinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySidecaropsReleaseinfoResponse) SetResultCode(v string) *QuerySidecaropsReleaseinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySidecaropsReleaseinfoResponse) SetResultMsg(v string) *QuerySidecaropsReleaseinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySidecaropsReleaseinfoResponse) SetSidecarConfig(v *SidecarConfig) *QuerySidecaropsReleaseinfoResponse {
+	s.SidecarConfig = v
+	return s
+}
+
+func (s *QuerySidecaropsReleaseinfoResponse) SetContainerServiceName(v string) *QuerySidecaropsReleaseinfoResponse {
+	s.ContainerServiceName = &v
+	return s
+}
+
+func (s *QuerySidecaropsReleaseinfoResponse) SetSidecarVersion(v string) *QuerySidecaropsReleaseinfoResponse {
+	s.SidecarVersion = &v
+	return s
+}
+
+func (s *QuerySidecaropsReleaseinfoResponse) SetParam(v string) *QuerySidecaropsReleaseinfoResponse {
+	s.Param = &v
+	return s
+}
+
+func (s *QuerySidecaropsReleaseinfoResponse) SetStatus(v string) *QuerySidecaropsReleaseinfoResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QuerySidecaropsReleaseinfoResponse) SetReleaseVersion(v string) *QuerySidecaropsReleaseinfoResponse {
+	s.ReleaseVersion = &v
+	return s
+}
+
+func (s *QuerySidecaropsReleaseinfoResponse) SetLastReleaseVersion(v string) *QuerySidecaropsReleaseinfoResponse {
+	s.LastReleaseVersion = &v
+	return s
+}
+
+func (s *QuerySidecaropsReleaseinfoResponse) SetOrderNum(v string) *QuerySidecaropsReleaseinfoResponse {
+	s.OrderNum = &v
+	return s
+}
+
+type InitSidecaropsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 应用服务名称
+	ContainerServiceName *string `json:"container_service_name,omitempty" xml:"container_service_name,omitempty" require:"true"`
+	// 预留用于防止请求重放
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty"`
+	// 应用服务所属命名空间
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
+	// 工作空间组
+	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
+	// 需要被注入的sidecar配置列表，可以同时注入多个
+	SidecarConfigs []*SidecarConfig `json:"sidecar_configs,omitempty" xml:"sidecar_configs,omitempty" require:"true" type:"Repeated"`
+	// 部署单元名称
+	CellName *string `json:"cell_name,omitempty" xml:"cell_name,omitempty" require:"true"`
+	// 要被注入的pod列表，列表元素为pod的名称
+	ServerIdentities []*string `json:"server_identities,omitempty" xml:"server_identities,omitempty" require:"true" type:"Repeated"`
+	// 执行单号，所以批次共用同一单号
+	OrderNum *string `json:"order_num,omitempty" xml:"order_num,omitempty" require:"true"`
+}
+
+func (s InitSidecaropsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitSidecaropsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitSidecaropsRequest) SetAuthToken(v string) *InitSidecaropsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitSidecaropsRequest) SetContainerServiceName(v string) *InitSidecaropsRequest {
+	s.ContainerServiceName = &v
+	return s
+}
+
+func (s *InitSidecaropsRequest) SetClientToken(v string) *InitSidecaropsRequest {
+	s.ClientToken = &v
+	return s
+}
+
+func (s *InitSidecaropsRequest) SetNamespace(v string) *InitSidecaropsRequest {
+	s.Namespace = &v
+	return s
+}
+
+func (s *InitSidecaropsRequest) SetWorkspaceGroup(v string) *InitSidecaropsRequest {
+	s.WorkspaceGroup = &v
+	return s
+}
+
+func (s *InitSidecaropsRequest) SetSidecarConfigs(v []*SidecarConfig) *InitSidecaropsRequest {
+	s.SidecarConfigs = v
+	return s
+}
+
+func (s *InitSidecaropsRequest) SetCellName(v string) *InitSidecaropsRequest {
+	s.CellName = &v
+	return s
+}
+
+func (s *InitSidecaropsRequest) SetServerIdentities(v []*string) *InitSidecaropsRequest {
+	s.ServerIdentities = v
+	return s
+}
+
+func (s *InitSidecaropsRequest) SetOrderNum(v string) *InitSidecaropsRequest {
+	s.OrderNum = &v
+	return s
+}
+
+type InitSidecaropsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s InitSidecaropsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitSidecaropsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitSidecaropsResponse) SetReqMsgId(v string) *InitSidecaropsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitSidecaropsResponse) SetResultCode(v string) *InitSidecaropsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitSidecaropsResponse) SetResultMsg(v string) *InitSidecaropsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type RebootSidecaropsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 应用服务名
+	ContainerServiceName *string `json:"container_service_name,omitempty" xml:"container_service_name,omitempty" require:"true"`
+	// 防重放
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty"`
+	// 命名空间
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
+	// 工作空间组
+	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
+	// 部署单元名称
+	CellName *string `json:"cell_name,omitempty" xml:"cell_name,omitempty" require:"true"`
+	// 需要重启的pod列表，元素值为pod的名称
+	ServerIdentities []*string `json:"server_identities,omitempty" xml:"server_identities,omitempty" require:"true" type:"Repeated"`
+	// 执行单号
+	OrderNum *string `json:"order_num,omitempty" xml:"order_num,omitempty" require:"true"`
+}
+
+func (s RebootSidecaropsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RebootSidecaropsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RebootSidecaropsRequest) SetAuthToken(v string) *RebootSidecaropsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RebootSidecaropsRequest) SetContainerServiceName(v string) *RebootSidecaropsRequest {
+	s.ContainerServiceName = &v
+	return s
+}
+
+func (s *RebootSidecaropsRequest) SetClientToken(v string) *RebootSidecaropsRequest {
+	s.ClientToken = &v
+	return s
+}
+
+func (s *RebootSidecaropsRequest) SetNamespace(v string) *RebootSidecaropsRequest {
+	s.Namespace = &v
+	return s
+}
+
+func (s *RebootSidecaropsRequest) SetWorkspaceGroup(v string) *RebootSidecaropsRequest {
+	s.WorkspaceGroup = &v
+	return s
+}
+
+func (s *RebootSidecaropsRequest) SetCellName(v string) *RebootSidecaropsRequest {
+	s.CellName = &v
+	return s
+}
+
+func (s *RebootSidecaropsRequest) SetServerIdentities(v []*string) *RebootSidecaropsRequest {
+	s.ServerIdentities = v
+	return s
+}
+
+func (s *RebootSidecaropsRequest) SetOrderNum(v string) *RebootSidecaropsRequest {
+	s.OrderNum = &v
+	return s
+}
+
+type RebootSidecaropsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s RebootSidecaropsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RebootSidecaropsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RebootSidecaropsResponse) SetReqMsgId(v string) *RebootSidecaropsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RebootSidecaropsResponse) SetResultCode(v string) *RebootSidecaropsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RebootSidecaropsResponse) SetResultMsg(v string) *RebootSidecaropsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type DeleteContainerserviceRevisionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 应用服务名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 版本号
+	Revision *string `json:"revision,omitempty" xml:"revision,omitempty" require:"true"`
+	// 所属工作空间组
+	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
+	// 所属命名空间
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
+	// 操作人账号
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+}
+
+func (s DeleteContainerserviceRevisionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteContainerserviceRevisionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteContainerserviceRevisionRequest) SetAuthToken(v string) *DeleteContainerserviceRevisionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteContainerserviceRevisionRequest) SetName(v string) *DeleteContainerserviceRevisionRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *DeleteContainerserviceRevisionRequest) SetRevision(v string) *DeleteContainerserviceRevisionRequest {
+	s.Revision = &v
+	return s
+}
+
+func (s *DeleteContainerserviceRevisionRequest) SetWorkspaceGroup(v string) *DeleteContainerserviceRevisionRequest {
+	s.WorkspaceGroup = &v
+	return s
+}
+
+func (s *DeleteContainerserviceRevisionRequest) SetNamespace(v string) *DeleteContainerserviceRevisionRequest {
+	s.Namespace = &v
+	return s
+}
+
+func (s *DeleteContainerserviceRevisionRequest) SetOperator(v string) *DeleteContainerserviceRevisionRequest {
+	s.Operator = &v
+	return s
+}
+
+type DeleteContainerserviceRevisionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s DeleteContainerserviceRevisionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteContainerserviceRevisionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteContainerserviceRevisionResponse) SetReqMsgId(v string) *DeleteContainerserviceRevisionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteContainerserviceRevisionResponse) SetResultCode(v string) *DeleteContainerserviceRevisionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteContainerserviceRevisionResponse) SetResultMsg(v string) *DeleteContainerserviceRevisionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ExecContainerserviceApihookRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// url地址
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// GET/POST
+	HttpMethod *string `json:"http_method,omitempty" xml:"http_method,omitempty" require:"true"`
+	// 请求参数
+	QueryParams *string `json:"query_params,omitempty" xml:"query_params,omitempty"`
+	// 请求body
+	Body *string `json:"body,omitempty" xml:"body,omitempty"`
+	// application/x-www-form-urlencoded或application/json
+	ContentType *string `json:"content_type,omitempty" xml:"content_type,omitempty"`
+}
+
+func (s ExecContainerserviceApihookRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecContainerserviceApihookRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecContainerserviceApihookRequest) SetAuthToken(v string) *ExecContainerserviceApihookRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecContainerserviceApihookRequest) SetUrl(v string) *ExecContainerserviceApihookRequest {
+	s.Url = &v
+	return s
+}
+
+func (s *ExecContainerserviceApihookRequest) SetHttpMethod(v string) *ExecContainerserviceApihookRequest {
+	s.HttpMethod = &v
+	return s
+}
+
+func (s *ExecContainerserviceApihookRequest) SetQueryParams(v string) *ExecContainerserviceApihookRequest {
+	s.QueryParams = &v
+	return s
+}
+
+func (s *ExecContainerserviceApihookRequest) SetBody(v string) *ExecContainerserviceApihookRequest {
+	s.Body = &v
+	return s
+}
+
+func (s *ExecContainerserviceApihookRequest) SetContentType(v string) *ExecContainerserviceApihookRequest {
+	s.ContentType = &v
+	return s
+}
+
+type ExecContainerserviceApihookResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 接口返回结果
+	ApiResult *string `json:"api_result,omitempty" xml:"api_result,omitempty"`
+}
+
+func (s ExecContainerserviceApihookResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecContainerserviceApihookResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecContainerserviceApihookResponse) SetReqMsgId(v string) *ExecContainerserviceApihookResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecContainerserviceApihookResponse) SetResultCode(v string) *ExecContainerserviceApihookResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecContainerserviceApihookResponse) SetResultMsg(v string) *ExecContainerserviceApihookResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecContainerserviceApihookResponse) SetApiResult(v string) *ExecContainerserviceApihookResponse {
+	s.ApiResult = &v
+	return s
+}
+
+type QuerySidecaropsAllservicesRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 用于label到metaservice换取wsgName
+	WorkspaceGroupLabel *string `json:"workspace_group_label,omitempty" xml:"workspace_group_label,omitempty" require:"true"`
+}
+
+func (s QuerySidecaropsAllservicesRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySidecaropsAllservicesRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySidecaropsAllservicesRequest) SetAuthToken(v string) *QuerySidecaropsAllservicesRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySidecaropsAllservicesRequest) SetWorkspaceGroupLabel(v string) *QuerySidecaropsAllservicesRequest {
+	s.WorkspaceGroupLabel = &v
+	return s
+}
+
+type QuerySidecaropsAllservicesResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 根据wsglabel换到的wsgname
+	WorkspaceGroupName *string `json:"workspace_group_name,omitempty" xml:"workspace_group_name,omitempty"`
+	// 所属命名空间
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty"`
+	// 应用服务详细配置信息，主要为sidecar当前在用的参数信息
+	ServicesSidecarInfo []*AppServiceSidecarReleaseInfo `json:"services_sidecar_info,omitempty" xml:"services_sidecar_info,omitempty" type:"Repeated"`
+	// 不满足升级条件的服务信息，包含服务不唯一应用及正在升级的应用。
+	UnsatisfiedServicesInfo []*AppServiceSidecarReleaseInfo `json:"unsatisfied_services_info,omitempty" xml:"unsatisfied_services_info,omitempty" type:"Repeated"`
+}
+
+func (s QuerySidecaropsAllservicesResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySidecaropsAllservicesResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySidecaropsAllservicesResponse) SetReqMsgId(v string) *QuerySidecaropsAllservicesResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySidecaropsAllservicesResponse) SetResultCode(v string) *QuerySidecaropsAllservicesResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySidecaropsAllservicesResponse) SetResultMsg(v string) *QuerySidecaropsAllservicesResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySidecaropsAllservicesResponse) SetWorkspaceGroupName(v string) *QuerySidecaropsAllservicesResponse {
+	s.WorkspaceGroupName = &v
+	return s
+}
+
+func (s *QuerySidecaropsAllservicesResponse) SetNamespace(v string) *QuerySidecaropsAllservicesResponse {
+	s.Namespace = &v
+	return s
+}
+
+func (s *QuerySidecaropsAllservicesResponse) SetServicesSidecarInfo(v []*AppServiceSidecarReleaseInfo) *QuerySidecaropsAllservicesResponse {
+	s.ServicesSidecarInfo = v
+	return s
+}
+
+func (s *QuerySidecaropsAllservicesResponse) SetUnsatisfiedServicesInfo(v []*AppServiceSidecarReleaseInfo) *QuerySidecaropsAllservicesResponse {
+	s.UnsatisfiedServicesInfo = v
+	return s
+}
+
+type UpdateSidecaropsTemplateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 要更新的sidecar名称
+	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
+	// 指定要更新的sidecar版本
+	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty"`
+	// 根据image筛选要更新的基线
+	Image *string `json:"image,omitempty" xml:"image,omitempty"`
+	// 要更新的sidecar模板
+	Template *string `json:"template,omitempty" xml:"template,omitempty"`
+	// 要设置成的scope
+	Scope []*string `json:"scope,omitempty" xml:"scope,omitempty" type:"Repeated"`
+}
+
+func (s UpdateSidecaropsTemplateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateSidecaropsTemplateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateSidecaropsTemplateRequest) SetAuthToken(v string) *UpdateSidecaropsTemplateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateSidecaropsTemplateRequest) SetSidecarName(v string) *UpdateSidecaropsTemplateRequest {
+	s.SidecarName = &v
+	return s
+}
+
+func (s *UpdateSidecaropsTemplateRequest) SetSidecarVersion(v string) *UpdateSidecaropsTemplateRequest {
+	s.SidecarVersion = &v
+	return s
+}
+
+func (s *UpdateSidecaropsTemplateRequest) SetImage(v string) *UpdateSidecaropsTemplateRequest {
+	s.Image = &v
+	return s
+}
+
+func (s *UpdateSidecaropsTemplateRequest) SetTemplate(v string) *UpdateSidecaropsTemplateRequest {
+	s.Template = &v
+	return s
+}
+
+func (s *UpdateSidecaropsTemplateRequest) SetScope(v []*string) *UpdateSidecaropsTemplateRequest {
+	s.Scope = v
+	return s
+}
+
+type UpdateSidecaropsTemplateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateSidecaropsTemplateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateSidecaropsTemplateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateSidecaropsTemplateResponse) SetReqMsgId(v string) *UpdateSidecaropsTemplateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateSidecaropsTemplateResponse) SetResultCode(v string) *UpdateSidecaropsTemplateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateSidecaropsTemplateResponse) SetResultMsg(v string) *UpdateSidecaropsTemplateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CreateDeploymentTemplateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 模板编码
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 中文名称
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
+	// 模板描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 是否覆盖版本中的发布策略
+	OverrideDeployConfig *bool `json:"override_deploy_config,omitempty" xml:"override_deploy_config,omitempty" require:"true"`
+	// 发布策略
+	DeployConfig *DeployConfig `json:"deploy_config,omitempty" xml:"deploy_config,omitempty"`
+	// 是否开启变更卡点
+	EnableCustomHook *bool `json:"enable_custom_hook,omitempty" xml:"enable_custom_hook,omitempty" require:"true"`
+	// 卡点类型：api或has
+	HookType *string `json:"hook_type,omitempty" xml:"hook_type,omitempty"`
+	// 自定义卡点配置列表
+	CustomHooks []*CustomHook `json:"custom_hooks,omitempty" xml:"custom_hooks,omitempty" type:"Repeated"`
+	// 操作人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+}
+
+func (s CreateDeploymentTemplateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateDeploymentTemplateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateDeploymentTemplateRequest) SetAuthToken(v string) *CreateDeploymentTemplateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateDeploymentTemplateRequest) SetName(v string) *CreateDeploymentTemplateRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *CreateDeploymentTemplateRequest) SetDisplayName(v string) *CreateDeploymentTemplateRequest {
+	s.DisplayName = &v
+	return s
+}
+
+func (s *CreateDeploymentTemplateRequest) SetDescription(v string) *CreateDeploymentTemplateRequest {
+	s.Description = &v
+	return s
+}
+
+func (s *CreateDeploymentTemplateRequest) SetOverrideDeployConfig(v bool) *CreateDeploymentTemplateRequest {
+	s.OverrideDeployConfig = &v
+	return s
+}
+
+func (s *CreateDeploymentTemplateRequest) SetDeployConfig(v *DeployConfig) *CreateDeploymentTemplateRequest {
+	s.DeployConfig = v
+	return s
+}
+
+func (s *CreateDeploymentTemplateRequest) SetEnableCustomHook(v bool) *CreateDeploymentTemplateRequest {
+	s.EnableCustomHook = &v
+	return s
+}
+
+func (s *CreateDeploymentTemplateRequest) SetHookType(v string) *CreateDeploymentTemplateRequest {
+	s.HookType = &v
+	return s
+}
+
+func (s *CreateDeploymentTemplateRequest) SetCustomHooks(v []*CustomHook) *CreateDeploymentTemplateRequest {
+	s.CustomHooks = v
+	return s
+}
+
+func (s *CreateDeploymentTemplateRequest) SetOperator(v string) *CreateDeploymentTemplateRequest {
+	s.Operator = &v
+	return s
+}
+
+type CreateDeploymentTemplateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CreateDeploymentTemplateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateDeploymentTemplateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateDeploymentTemplateResponse) SetReqMsgId(v string) *CreateDeploymentTemplateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateDeploymentTemplateResponse) SetResultCode(v string) *CreateDeploymentTemplateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateDeploymentTemplateResponse) SetResultMsg(v string) *CreateDeploymentTemplateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryUnireleaseSolutionfilesRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 日期
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+}
+
+func (s QueryUnireleaseSolutionfilesRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUnireleaseSolutionfilesRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUnireleaseSolutionfilesRequest) SetAuthToken(v string) *QueryUnireleaseSolutionfilesRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUnireleaseSolutionfilesRequest) SetDate(v string) *QueryUnireleaseSolutionfilesRequest {
+	s.Date = &v
+	return s
+}
+
+type QueryUnireleaseSolutionfilesResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 发布方案列表
+	SolutionFiles []*string `json:"solution_files,omitempty" xml:"solution_files,omitempty" type:"Repeated"`
+}
+
+func (s QueryUnireleaseSolutionfilesResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUnireleaseSolutionfilesResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUnireleaseSolutionfilesResponse) SetReqMsgId(v string) *QueryUnireleaseSolutionfilesResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUnireleaseSolutionfilesResponse) SetResultCode(v string) *QueryUnireleaseSolutionfilesResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUnireleaseSolutionfilesResponse) SetResultMsg(v string) *QueryUnireleaseSolutionfilesResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUnireleaseSolutionfilesResponse) SetSolutionFiles(v []*string) *QueryUnireleaseSolutionfilesResponse {
+	s.SolutionFiles = v
+	return s
+}
+
+type GetUnireleaseSolutionfileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// Sftp目录：/sftp/linkw/unionpay/date/id/prod/timestamp-solution.json
+	//
+	FilePath *string `json:"file_path,omitempty" xml:"file_path,omitempty" require:"true"`
+}
+
+func (s GetUnireleaseSolutionfileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetUnireleaseSolutionfileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetUnireleaseSolutionfileRequest) SetAuthToken(v string) *GetUnireleaseSolutionfileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetUnireleaseSolutionfileRequest) SetFilePath(v string) *GetUnireleaseSolutionfileRequest {
+	s.FilePath = &v
+	return s
+}
+
+type GetUnireleaseSolutionfileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 发布方案内容，Json文件
+	SoultionContent *string `json:"soultion_content,omitempty" xml:"soultion_content,omitempty"`
+}
+
+func (s GetUnireleaseSolutionfileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetUnireleaseSolutionfileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetUnireleaseSolutionfileResponse) SetReqMsgId(v string) *GetUnireleaseSolutionfileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetUnireleaseSolutionfileResponse) SetResultCode(v string) *GetUnireleaseSolutionfileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetUnireleaseSolutionfileResponse) SetResultMsg(v string) *GetUnireleaseSolutionfileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetUnireleaseSolutionfileResponse) SetSoultionContent(v string) *GetUnireleaseSolutionfileResponse {
+	s.SoultionContent = &v
+	return s
+}
+
+type UpdateDeploymentTemplateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 模板编码
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 中文名称
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
+	// 模板描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 是否覆盖版本中的发布策略
+	OverrideDeployConfig *bool `json:"override_deploy_config,omitempty" xml:"override_deploy_config,omitempty" require:"true"`
+	// 发布策略
+	DeployConfig *DeployConfig `json:"deploy_config,omitempty" xml:"deploy_config,omitempty"`
+	// 是否开启变更卡点
+	EnableCustomHook *bool `json:"enable_custom_hook,omitempty" xml:"enable_custom_hook,omitempty" require:"true"`
+	// 卡点类型：api或has
+	HookType *string `json:"hook_type,omitempty" xml:"hook_type,omitempty"`
+	// 自定义卡点配置列表
+	CustomHooks []*CustomHook `json:"custom_hooks,omitempty" xml:"custom_hooks,omitempty" type:"Repeated"`
+	// 操作人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+}
+
+func (s UpdateDeploymentTemplateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateDeploymentTemplateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateDeploymentTemplateRequest) SetAuthToken(v string) *UpdateDeploymentTemplateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateDeploymentTemplateRequest) SetName(v string) *UpdateDeploymentTemplateRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *UpdateDeploymentTemplateRequest) SetDisplayName(v string) *UpdateDeploymentTemplateRequest {
+	s.DisplayName = &v
+	return s
+}
+
+func (s *UpdateDeploymentTemplateRequest) SetDescription(v string) *UpdateDeploymentTemplateRequest {
+	s.Description = &v
+	return s
+}
+
+func (s *UpdateDeploymentTemplateRequest) SetOverrideDeployConfig(v bool) *UpdateDeploymentTemplateRequest {
+	s.OverrideDeployConfig = &v
+	return s
+}
+
+func (s *UpdateDeploymentTemplateRequest) SetDeployConfig(v *DeployConfig) *UpdateDeploymentTemplateRequest {
+	s.DeployConfig = v
+	return s
+}
+
+func (s *UpdateDeploymentTemplateRequest) SetEnableCustomHook(v bool) *UpdateDeploymentTemplateRequest {
+	s.EnableCustomHook = &v
+	return s
+}
+
+func (s *UpdateDeploymentTemplateRequest) SetHookType(v string) *UpdateDeploymentTemplateRequest {
+	s.HookType = &v
+	return s
+}
+
+func (s *UpdateDeploymentTemplateRequest) SetCustomHooks(v []*CustomHook) *UpdateDeploymentTemplateRequest {
+	s.CustomHooks = v
+	return s
+}
+
+func (s *UpdateDeploymentTemplateRequest) SetOperator(v string) *UpdateDeploymentTemplateRequest {
+	s.Operator = &v
+	return s
+}
+
+type UpdateDeploymentTemplateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateDeploymentTemplateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateDeploymentTemplateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateDeploymentTemplateResponse) SetReqMsgId(v string) *UpdateDeploymentTemplateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateDeploymentTemplateResponse) SetResultCode(v string) *UpdateDeploymentTemplateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateDeploymentTemplateResponse) SetResultMsg(v string) *UpdateDeploymentTemplateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ListDeploymentTemplateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 模板编码或名称模糊搜索
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 当前页码，从1开始，默认为1
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 分页大小，默认为10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 查询方式，默认FUZZY，模糊查询
+	QueryType *string `json:"query_type,omitempty" xml:"query_type,omitempty"`
+}
+
+func (s ListDeploymentTemplateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListDeploymentTemplateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListDeploymentTemplateRequest) SetAuthToken(v string) *ListDeploymentTemplateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListDeploymentTemplateRequest) SetName(v string) *ListDeploymentTemplateRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *ListDeploymentTemplateRequest) SetPageNumber(v int64) *ListDeploymentTemplateRequest {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *ListDeploymentTemplateRequest) SetPageSize(v int64) *ListDeploymentTemplateRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ListDeploymentTemplateRequest) SetQueryType(v string) *ListDeploymentTemplateRequest {
+	s.QueryType = &v
+	return s
+}
+
+type ListDeploymentTemplateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 模板列表
+	Data []*DeploymentTemplate `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s ListDeploymentTemplateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListDeploymentTemplateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListDeploymentTemplateResponse) SetReqMsgId(v string) *ListDeploymentTemplateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListDeploymentTemplateResponse) SetResultCode(v string) *ListDeploymentTemplateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListDeploymentTemplateResponse) SetResultMsg(v string) *ListDeploymentTemplateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListDeploymentTemplateResponse) SetTotalCount(v int64) *ListDeploymentTemplateResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *ListDeploymentTemplateResponse) SetData(v []*DeploymentTemplate) *ListDeploymentTemplateResponse {
 	s.Data = v
+	return s
+}
+
+type DeleteDeploymentTemplateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 模板编码
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s DeleteDeploymentTemplateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteDeploymentTemplateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteDeploymentTemplateRequest) SetAuthToken(v string) *DeleteDeploymentTemplateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteDeploymentTemplateRequest) SetName(v string) *DeleteDeploymentTemplateRequest {
+	s.Name = &v
+	return s
+}
+
+type DeleteDeploymentTemplateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s DeleteDeploymentTemplateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteDeploymentTemplateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteDeploymentTemplateResponse) SetReqMsgId(v string) *DeleteDeploymentTemplateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteDeploymentTemplateResponse) SetResultCode(v string) *DeleteDeploymentTemplateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteDeploymentTemplateResponse) SetResultMsg(v string) *DeleteDeploymentTemplateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ListEmergencyPlansRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 预案名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 当前第几页
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 每页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s ListEmergencyPlansRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListEmergencyPlansRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListEmergencyPlansRequest) SetAuthToken(v string) *ListEmergencyPlansRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListEmergencyPlansRequest) SetName(v string) *ListEmergencyPlansRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *ListEmergencyPlansRequest) SetPageNumber(v int64) *ListEmergencyPlansRequest {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *ListEmergencyPlansRequest) SetPageSize(v int64) *ListEmergencyPlansRequest {
+	s.PageSize = &v
+	return s
+}
+
+type ListEmergencyPlansResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 预案列表
+	Data []*EmergencyPlan `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s ListEmergencyPlansResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListEmergencyPlansResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListEmergencyPlansResponse) SetReqMsgId(v string) *ListEmergencyPlansResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListEmergencyPlansResponse) SetResultCode(v string) *ListEmergencyPlansResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListEmergencyPlansResponse) SetResultMsg(v string) *ListEmergencyPlansResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListEmergencyPlansResponse) SetTotalCount(v int64) *ListEmergencyPlansResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *ListEmergencyPlansResponse) SetData(v []*EmergencyPlan) *ListEmergencyPlansResponse {
+	s.Data = v
+	return s
+}
+
+type UpdateContainerserviceGrayreleaseconfigRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 发布单的time series id
+	TimeSeriesId *string `json:"time_series_id,omitempty" xml:"time_series_id,omitempty"`
+	// lks service id，与plan_id同时传时前者生效。
+	LksServiceId *string `json:"lks_service_id,omitempty" xml:"lks_service_id,omitempty"`
+	// 灰度规则
+	GrayReleaseConfig *GrayReleaseConfig `json:"gray_release_config,omitempty" xml:"gray_release_config,omitempty" require:"true"`
+}
+
+func (s UpdateContainerserviceGrayreleaseconfigRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateContainerserviceGrayreleaseconfigRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateContainerserviceGrayreleaseconfigRequest) SetAuthToken(v string) *UpdateContainerserviceGrayreleaseconfigRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateContainerserviceGrayreleaseconfigRequest) SetTimeSeriesId(v string) *UpdateContainerserviceGrayreleaseconfigRequest {
+	s.TimeSeriesId = &v
+	return s
+}
+
+func (s *UpdateContainerserviceGrayreleaseconfigRequest) SetLksServiceId(v string) *UpdateContainerserviceGrayreleaseconfigRequest {
+	s.LksServiceId = &v
+	return s
+}
+
+func (s *UpdateContainerserviceGrayreleaseconfigRequest) SetGrayReleaseConfig(v *GrayReleaseConfig) *UpdateContainerserviceGrayreleaseconfigRequest {
+	s.GrayReleaseConfig = v
+	return s
+}
+
+type UpdateContainerserviceGrayreleaseconfigResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateContainerserviceGrayreleaseconfigResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateContainerserviceGrayreleaseconfigResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateContainerserviceGrayreleaseconfigResponse) SetReqMsgId(v string) *UpdateContainerserviceGrayreleaseconfigResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateContainerserviceGrayreleaseconfigResponse) SetResultCode(v string) *UpdateContainerserviceGrayreleaseconfigResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateContainerserviceGrayreleaseconfigResponse) SetResultMsg(v string) *UpdateContainerserviceGrayreleaseconfigResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryContainerserivceGrayreleaseconfigRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 发布单的time_series_id
+	TimeSeriesId *string `json:"time_series_id,omitempty" xml:"time_series_id,omitempty"`
+	// lks service的id，如果time_series_id与lks_service_id同时指定，后者生效
+	LksServiceId *string `json:"lks_service_id,omitempty" xml:"lks_service_id,omitempty"`
+}
+
+func (s QueryContainerserivceGrayreleaseconfigRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContainerserivceGrayreleaseconfigRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContainerserivceGrayreleaseconfigRequest) SetAuthToken(v string) *QueryContainerserivceGrayreleaseconfigRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryContainerserivceGrayreleaseconfigRequest) SetTimeSeriesId(v string) *QueryContainerserivceGrayreleaseconfigRequest {
+	s.TimeSeriesId = &v
+	return s
+}
+
+func (s *QueryContainerserivceGrayreleaseconfigRequest) SetLksServiceId(v string) *QueryContainerserivceGrayreleaseconfigRequest {
+	s.LksServiceId = &v
+	return s
+}
+
+type QueryContainerserivceGrayreleaseconfigResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 灰度发布配置
+	GrayReleaseConfig *GrayReleaseConfig `json:"gray_release_config,omitempty" xml:"gray_release_config,omitempty"`
+}
+
+func (s QueryContainerserivceGrayreleaseconfigResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContainerserivceGrayreleaseconfigResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContainerserivceGrayreleaseconfigResponse) SetReqMsgId(v string) *QueryContainerserivceGrayreleaseconfigResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryContainerserivceGrayreleaseconfigResponse) SetResultCode(v string) *QueryContainerserivceGrayreleaseconfigResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryContainerserivceGrayreleaseconfigResponse) SetResultMsg(v string) *QueryContainerserivceGrayreleaseconfigResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryContainerserivceGrayreleaseconfigResponse) SetGrayReleaseConfig(v *GrayReleaseConfig) *QueryContainerserivceGrayreleaseconfigResponse {
+	s.GrayReleaseConfig = v
 	return s
 }
 
@@ -30330,7 +33964,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.1"),
+				"sdk_version":      tea.String("1.12.15"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -37698,11 +41332,11 @@ func (client *Client) GetUnireleaseSolutionEx(request *GetUnireleaseSolutionRequ
  * Description: 查询解决方案发布状态
  * Summary: 查询解决方案发布状态
  */
-func (client *Client) GetUnireleaseStatus(request *GetUnireleaseStatusRequest) (_result *GetUnireleaseStatusResponse, _err error) {
+func (client *Client) GetUnireleasePipeline(request *GetUnireleasePipelineRequest) (_result *GetUnireleasePipelineResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &GetUnireleaseStatusResponse{}
-	_body, _err := client.GetUnireleaseStatusEx(request, headers, runtime)
+	_result = &GetUnireleasePipelineResponse{}
+	_body, _err := client.GetUnireleasePipelineEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -37714,13 +41348,13 @@ func (client *Client) GetUnireleaseStatus(request *GetUnireleaseStatusRequest) (
  * Description: 查询解决方案发布状态
  * Summary: 查询解决方案发布状态
  */
-func (client *Client) GetUnireleaseStatusEx(request *GetUnireleaseStatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetUnireleaseStatusResponse, _err error) {
+func (client *Client) GetUnireleasePipelineEx(request *GetUnireleasePipelineRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetUnireleasePipelineResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &GetUnireleaseStatusResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.unirelease.status.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &GetUnireleasePipelineResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.unirelease.pipeline.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -37755,6 +41389,924 @@ func (client *Client) ExecUnireleasePipelinesEx(request *ExecUnireleasePipelines
 	}
 	_result = &ExecUnireleasePipelinesResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.unirelease.pipelines.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据解决方案反查相关租户信息
+ * Summary: 根据解决方案反查相关租户信息
+ */
+func (client *Client) GetUnireleaseTenants(request *GetUnireleaseTenantsRequest) (_result *GetUnireleaseTenantsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetUnireleaseTenantsResponse{}
+	_body, _err := client.GetUnireleaseTenantsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据解决方案反查相关租户信息
+ * Summary: 根据解决方案反查相关租户信息
+ */
+func (client *Client) GetUnireleaseTenantsEx(request *GetUnireleaseTenantsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetUnireleaseTenantsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetUnireleaseTenantsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.unirelease.tenants.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 添加中间接变更配置
+ * Summary: 添加中间接变更配置
+ */
+func (client *Client) AddContainerserviceMiddlewareconfig(request *AddContainerserviceMiddlewareconfigRequest) (_result *AddContainerserviceMiddlewareconfigResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddContainerserviceMiddlewareconfigResponse{}
+	_body, _err := client.AddContainerserviceMiddlewareconfigEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 添加中间接变更配置
+ * Summary: 添加中间接变更配置
+ */
+func (client *Client) AddContainerserviceMiddlewareconfigEx(request *AddContainerserviceMiddlewareconfigRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddContainerserviceMiddlewareconfigResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddContainerserviceMiddlewareconfigResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.containerservice.middlewareconfig.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据选中的单元、pods计算以及分批策略计算分批结果
+ * Summary: 计算分批结果
+ */
+func (client *Client) ExportOpsplanStages(request *ExportOpsplanStagesRequest) (_result *ExportOpsplanStagesResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExportOpsplanStagesResponse{}
+	_body, _err := client.ExportOpsplanStagesEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据选中的单元、pods计算以及分批策略计算分批结果
+ * Summary: 计算分批结果
+ */
+func (client *Client) ExportOpsplanStagesEx(request *ExportOpsplanStagesRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExportOpsplanStagesResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExportOpsplanStagesResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.opsplan.stages.export"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: huanyu场景下，根据tenant, appName, wsgLabel获取wsgName, namespace, containerServiceName, 以及containerServiceRevision
+ * Summary: 应用（服务）基础信息
+ */
+func (client *Client) DetailAppMetainfo(request *DetailAppMetainfoRequest) (_result *DetailAppMetainfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailAppMetainfoResponse{}
+	_body, _err := client.DetailAppMetainfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: huanyu场景下，根据tenant, appName, wsgLabel获取wsgName, namespace, containerServiceName, 以及containerServiceRevision
+ * Summary: 应用（服务）基础信息
+ */
+func (client *Client) DetailAppMetainfoEx(request *DetailAppMetainfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailAppMetainfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailAppMetainfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.app.metainfo.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 为指定sidecar更新版本信息，如镜像，feature等
+ * Summary: 更新sidecar版本
+ */
+func (client *Client) UpdateSidecarops(request *UpdateSidecaropsRequest) (_result *UpdateSidecaropsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateSidecaropsResponse{}
+	_body, _err := client.UpdateSidecaropsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 为指定sidecar更新版本信息，如镜像，feature等
+ * Summary: 更新sidecar版本
+ */
+func (client *Client) UpdateSidecaropsEx(request *UpdateSidecaropsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateSidecaropsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateSidecaropsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.sidecarops.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询应用服务当前的部署单元，及部署副本数
+ * Summary: 查询应用服务当前的部署单元，及部署副本数
+ */
+func (client *Client) CountContainerserviceCellreplicas(request *CountContainerserviceCellreplicasRequest) (_result *CountContainerserviceCellreplicasResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CountContainerserviceCellreplicasResponse{}
+	_body, _err := client.CountContainerserviceCellreplicasEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询应用服务当前的部署单元，及部署副本数
+ * Summary: 查询应用服务当前的部署单元，及部署副本数
+ */
+func (client *Client) CountContainerserviceCellreplicasEx(request *CountContainerserviceCellreplicasRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CountContainerserviceCellreplicasResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CountContainerserviceCellreplicasResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.containerservice.cellreplicas.count"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取指定类型sidecar的template列表，最多20条。
+ * Summary: 获取sidecar的template列表
+ */
+func (client *Client) ListSidecaropsTemplate(request *ListSidecaropsTemplateRequest) (_result *ListSidecaropsTemplateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListSidecaropsTemplateResponse{}
+	_body, _err := client.ListSidecaropsTemplateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取指定类型sidecar的template列表，最多20条。
+ * Summary: 获取sidecar的template列表
+ */
+func (client *Client) ListSidecaropsTemplateEx(request *ListSidecaropsTemplateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListSidecaropsTemplateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListSidecaropsTemplateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.sidecarops.template.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 应用sidecar更新的一致性拉齐，防止发布时扩容导致的部分pod未更新
+ * Summary: 应用sidecar更新的一致性拉齐
+ */
+func (client *Client) UpdateSidecaropsConsistency(request *UpdateSidecaropsConsistencyRequest) (_result *UpdateSidecaropsConsistencyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateSidecaropsConsistencyResponse{}
+	_body, _err := client.UpdateSidecaropsConsistencyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 应用sidecar更新的一致性拉齐，防止发布时扩容导致的部分pod未更新
+ * Summary: 应用sidecar更新的一致性拉齐
+ */
+func (client *Client) UpdateSidecaropsConsistencyEx(request *UpdateSidecaropsConsistencyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateSidecaropsConsistencyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateSidecaropsConsistencyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.sidecarops.consistency.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 清除上一个版本的rd，将本次派发的rd置为weight 0
+ * Summary: 版本清理
+ */
+func (client *Client) FinishSidecarops(request *FinishSidecaropsRequest) (_result *FinishSidecaropsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &FinishSidecaropsResponse{}
+	_body, _err := client.FinishSidecaropsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 清除上一个版本的rd，将本次派发的rd置为weight 0
+ * Summary: 版本清理
+ */
+func (client *Client) FinishSidecaropsEx(request *FinishSidecaropsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *FinishSidecaropsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &FinishSidecaropsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.sidecarops.finish"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询rd的当前状态。
+ * Summary: 查询更新状态
+ */
+func (client *Client) QuerySidecaropsState(request *QuerySidecaropsStateRequest) (_result *QuerySidecaropsStateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySidecaropsStateResponse{}
+	_body, _err := client.QuerySidecaropsStateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询rd的当前状态。
+ * Summary: 查询更新状态
+ */
+func (client *Client) QuerySidecaropsStateEx(request *QuerySidecaropsStateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySidecaropsStateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySidecaropsStateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.sidecarops.state.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 添加特定sidecar类型的基础模板信息，包括镜像地址，tempalte等，会自动更新版本号
+ * Summary: 添加sidecar基础模板
+ */
+func (client *Client) AddSidecaropsTemplate(request *AddSidecaropsTemplateRequest) (_result *AddSidecaropsTemplateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddSidecaropsTemplateResponse{}
+	_body, _err := client.AddSidecaropsTemplateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 添加特定sidecar类型的基础模板信息，包括镜像地址，tempalte等，会自动更新版本号
+ * Summary: 添加sidecar基础模板
+ */
+func (client *Client) AddSidecaropsTemplateEx(request *AddSidecaropsTemplateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddSidecaropsTemplateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddSidecaropsTemplateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.sidecarops.template.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询应用发布sidecar的记录信息，包括特定发布中，填入的feature，镜像号等。
+ * Summary: 查询应用发布sidecar升级的相关记录
+ */
+func (client *Client) QuerySidecaropsReleaseinfo(request *QuerySidecaropsReleaseinfoRequest) (_result *QuerySidecaropsReleaseinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySidecaropsReleaseinfoResponse{}
+	_body, _err := client.QuerySidecaropsReleaseinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询应用发布sidecar的记录信息，包括特定发布中，填入的feature，镜像号等。
+ * Summary: 查询应用发布sidecar升级的相关记录
+ */
+func (client *Client) QuerySidecaropsReleaseinfoEx(request *QuerySidecaropsReleaseinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySidecaropsReleaseinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySidecaropsReleaseinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.sidecarops.releaseinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 给存量应用服务注入sidecar，应用服务需已经创建
+ * Summary: 初始化注入sidecar
+ */
+func (client *Client) InitSidecarops(request *InitSidecaropsRequest) (_result *InitSidecaropsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitSidecaropsResponse{}
+	_body, _err := client.InitSidecaropsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 给存量应用服务注入sidecar，应用服务需已经创建
+ * Summary: 初始化注入sidecar
+ */
+func (client *Client) InitSidecaropsEx(request *InitSidecaropsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitSidecaropsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitSidecaropsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.sidecarops.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 对注入了sidecar的容器进行单重启sidecar的操作，部分情况也会引起整个pod的重建。
+ * Summary: 重启sidecar容器
+ */
+func (client *Client) RebootSidecarops(request *RebootSidecaropsRequest) (_result *RebootSidecaropsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RebootSidecaropsResponse{}
+	_body, _err := client.RebootSidecaropsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 对注入了sidecar的容器进行单重启sidecar的操作，部分情况也会引起整个pod的重建。
+ * Summary: 重启sidecar容器
+ */
+func (client *Client) RebootSidecaropsEx(request *RebootSidecaropsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RebootSidecaropsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RebootSidecaropsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.sidecarops.reboot"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 删除应用服务服务指定版本，lks1.25.0开始支持
+ * Summary: 删除指定版本
+ */
+func (client *Client) DeleteContainerserviceRevision(request *DeleteContainerserviceRevisionRequest) (_result *DeleteContainerserviceRevisionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteContainerserviceRevisionResponse{}
+	_body, _err := client.DeleteContainerserviceRevisionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 删除应用服务服务指定版本，lks1.25.0开始支持
+ * Summary: 删除指定版本
+ */
+func (client *Client) DeleteContainerserviceRevisionEx(request *DeleteContainerserviceRevisionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteContainerserviceRevisionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteContainerserviceRevisionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.containerservice.revision.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 手动执行 customhook 配置的 api，lks1.25.0开始支持
+ * Summary: 手动执行 hook 配置的 api
+ */
+func (client *Client) ExecContainerserviceApihook(request *ExecContainerserviceApihookRequest) (_result *ExecContainerserviceApihookResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecContainerserviceApihookResponse{}
+	_body, _err := client.ExecContainerserviceApihookEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 手动执行 customhook 配置的 api，lks1.25.0开始支持
+ * Summary: 手动执行 hook 配置的 api
+ */
+func (client *Client) ExecContainerserviceApihookEx(request *ExecContainerserviceApihookRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecContainerserviceApihookResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecContainerserviceApihookResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.containerservice.apihook.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取已发布应用服务的sidecar配置，主要用于sidecar全站升级时，当前服务sidecar状态的获取
+ * Summary: 获取已发布应用服务配置
+ */
+func (client *Client) QuerySidecaropsAllservices(request *QuerySidecaropsAllservicesRequest) (_result *QuerySidecaropsAllservicesResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySidecaropsAllservicesResponse{}
+	_body, _err := client.QuerySidecaropsAllservicesEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取已发布应用服务的sidecar配置，主要用于sidecar全站升级时，当前服务sidecar状态的获取
+ * Summary: 获取已发布应用服务配置
+ */
+func (client *Client) QuerySidecaropsAllservicesEx(request *QuerySidecaropsAllservicesRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySidecaropsAllservicesResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySidecaropsAllservicesResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.sidecarops.allservices.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 可用于更新基线模板的作用范围等
+ * Summary: 更新sidecar基线模板
+ */
+func (client *Client) UpdateSidecaropsTemplate(request *UpdateSidecaropsTemplateRequest) (_result *UpdateSidecaropsTemplateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateSidecaropsTemplateResponse{}
+	_body, _err := client.UpdateSidecaropsTemplateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 可用于更新基线模板的作用范围等
+ * Summary: 更新sidecar基线模板
+ */
+func (client *Client) UpdateSidecaropsTemplateEx(request *UpdateSidecaropsTemplateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateSidecaropsTemplateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateSidecaropsTemplateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.sidecarops.template.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建发布模板
+ * Summary: 创建发布模板
+ */
+func (client *Client) CreateDeploymentTemplate(request *CreateDeploymentTemplateRequest) (_result *CreateDeploymentTemplateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateDeploymentTemplateResponse{}
+	_body, _err := client.CreateDeploymentTemplateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建发布模板
+ * Summary: 创建发布模板
+ */
+func (client *Client) CreateDeploymentTemplateEx(request *CreateDeploymentTemplateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateDeploymentTemplateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateDeploymentTemplateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.deployment.template.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询发布方案文件列表
+ * Summary: 查询发布方案文件列表
+ */
+func (client *Client) QueryUnireleaseSolutionfiles(request *QueryUnireleaseSolutionfilesRequest) (_result *QueryUnireleaseSolutionfilesResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUnireleaseSolutionfilesResponse{}
+	_body, _err := client.QueryUnireleaseSolutionfilesEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询发布方案文件列表
+ * Summary: 查询发布方案文件列表
+ */
+func (client *Client) QueryUnireleaseSolutionfilesEx(request *QueryUnireleaseSolutionfilesRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUnireleaseSolutionfilesResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUnireleaseSolutionfilesResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.unirelease.solutionfiles.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取发布方案文件内容
+ * Summary: 获取发布方案文件内容
+ */
+func (client *Client) GetUnireleaseSolutionfile(request *GetUnireleaseSolutionfileRequest) (_result *GetUnireleaseSolutionfileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetUnireleaseSolutionfileResponse{}
+	_body, _err := client.GetUnireleaseSolutionfileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取发布方案文件内容
+ * Summary: 获取发布方案文件内容
+ */
+func (client *Client) GetUnireleaseSolutionfileEx(request *GetUnireleaseSolutionfileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetUnireleaseSolutionfileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetUnireleaseSolutionfileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.unirelease.solutionfile.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新发布模板
+ * Summary: 更新发布模板
+ */
+func (client *Client) UpdateDeploymentTemplate(request *UpdateDeploymentTemplateRequest) (_result *UpdateDeploymentTemplateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateDeploymentTemplateResponse{}
+	_body, _err := client.UpdateDeploymentTemplateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新发布模板
+ * Summary: 更新发布模板
+ */
+func (client *Client) UpdateDeploymentTemplateEx(request *UpdateDeploymentTemplateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateDeploymentTemplateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateDeploymentTemplateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.deployment.template.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询发布模板
+ * Summary: 查询发布模板
+ */
+func (client *Client) ListDeploymentTemplate(request *ListDeploymentTemplateRequest) (_result *ListDeploymentTemplateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListDeploymentTemplateResponse{}
+	_body, _err := client.ListDeploymentTemplateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询发布模板
+ * Summary: 查询发布模板
+ */
+func (client *Client) ListDeploymentTemplateEx(request *ListDeploymentTemplateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListDeploymentTemplateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListDeploymentTemplateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.deployment.template.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 删除发布模板
+ * Summary: 删除发布模板
+ */
+func (client *Client) DeleteDeploymentTemplate(request *DeleteDeploymentTemplateRequest) (_result *DeleteDeploymentTemplateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteDeploymentTemplateResponse{}
+	_body, _err := client.DeleteDeploymentTemplateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 删除发布模板
+ * Summary: 删除发布模板
+ */
+func (client *Client) DeleteDeploymentTemplateEx(request *DeleteDeploymentTemplateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteDeploymentTemplateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteDeploymentTemplateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.deployment.template.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询守夜人预案列表
+ * Summary: 查询守夜人预案列表
+ */
+func (client *Client) ListEmergencyPlans(request *ListEmergencyPlansRequest) (_result *ListEmergencyPlansResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListEmergencyPlansResponse{}
+	_body, _err := client.ListEmergencyPlansEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询守夜人预案列表
+ * Summary: 查询守夜人预案列表
+ */
+func (client *Client) ListEmergencyPlansEx(request *ListEmergencyPlansRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListEmergencyPlansResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListEmergencyPlansResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.emergency.plans.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 修改灰度发布规则
+ * Summary: 修改灰度发布规则
+ */
+func (client *Client) UpdateContainerserviceGrayreleaseconfig(request *UpdateContainerserviceGrayreleaseconfigRequest) (_result *UpdateContainerserviceGrayreleaseconfigResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateContainerserviceGrayreleaseconfigResponse{}
+	_body, _err := client.UpdateContainerserviceGrayreleaseconfigEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 修改灰度发布规则
+ * Summary: 修改灰度发布规则
+ */
+func (client *Client) UpdateContainerserviceGrayreleaseconfigEx(request *UpdateContainerserviceGrayreleaseconfigRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateContainerserviceGrayreleaseconfigResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateContainerserviceGrayreleaseconfigResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.containerservice.grayreleaseconfig.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询（灰度）发布单的灰度发布配置
+ * Summary: 查询（灰度）发布单的灰度发布配置
+ */
+func (client *Client) QueryContainerserivceGrayreleaseconfig(request *QueryContainerserivceGrayreleaseconfigRequest) (_result *QueryContainerserivceGrayreleaseconfigResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryContainerserivceGrayreleaseconfigResponse{}
+	_body, _err := client.QueryContainerserivceGrayreleaseconfigEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询（灰度）发布单的灰度发布配置
+ * Summary: 查询（灰度）发布单的灰度发布配置
+ */
+func (client *Client) QueryContainerserivceGrayreleaseconfigEx(request *QueryContainerserivceGrayreleaseconfigRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContainerserivceGrayreleaseconfigResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryContainerserivceGrayreleaseconfigResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.ldc.containerserivce.grayreleaseconfig.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
