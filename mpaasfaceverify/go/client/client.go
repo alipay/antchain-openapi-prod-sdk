@@ -6,6 +6,7 @@ import (
 	util "github.com/alibabacloud-go/tea-utils/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
+	"io"
 )
 
 /**
@@ -145,6 +146,32 @@ func (s *Config) SetMaxRequests(v int) *Config {
 
 func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	s.MaxRequestsPerHost = &v
+	return s
+}
+
+// 键值对
+type XNameValuePair struct {
+	// 键名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 键值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s XNameValuePair) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XNameValuePair) GoString() string {
+	return s.String()
+}
+
+func (s *XNameValuePair) SetName(v string) *XNameValuePair {
+	s.Name = &v
+	return s
+}
+
+func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
+	s.Value = &v
 	return s
 }
 
@@ -693,7 +720,7 @@ func (s *QueryFaceauthFileResponse) SetResultMsgSub(v string) *QueryFaceauthFile
 	return s
 }
 
-type CertifyFaceauthServermodeRequest struct {
+type CertifyServermodeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -706,67 +733,88 @@ type CertifyFaceauthServermodeRequest struct {
 	// 待认证图片，默认base64格式
 	AuthImg *string `json:"auth_img,omitempty" xml:"auth_img,omitempty" require:"true"`
 	// 待认证图片类型，不传默认为base64后的图片，可以扩展Blob/video等类型
-	AuthImgType *string `json:"auth_img_type,omitempty" xml:"auth_img_type,omitempty" require:"true"`
+	AuthImgType *string `json:"auth_img_type,omitempty" xml:"auth_img_type,omitempty"`
 	// 操作类型，operation_type为custom时表示自定义模式，需要用户上传比对源图片
-	OperationType *string `json:"operation_type,omitempty" xml:"operation_type,omitempty" require:"true"`
+	OperationType *string `json:"operation_type,omitempty" xml:"operation_type,omitempty"`
 	// 比对源图片
-	RefImg *string `json:"ref_img,omitempty" xml:"ref_img,omitempty" require:"true"`
+	RefImg *string `json:"ref_img,omitempty" xml:"ref_img,omitempty"`
+	// 文件传输支持
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
 }
 
-func (s CertifyFaceauthServermodeRequest) String() string {
+func (s CertifyServermodeRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CertifyFaceauthServermodeRequest) GoString() string {
+func (s CertifyServermodeRequest) GoString() string {
 	return s.String()
 }
 
-func (s *CertifyFaceauthServermodeRequest) SetAuthToken(v string) *CertifyFaceauthServermodeRequest {
+func (s *CertifyServermodeRequest) SetAuthToken(v string) *CertifyServermodeRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *CertifyFaceauthServermodeRequest) SetProductInstanceId(v string) *CertifyFaceauthServermodeRequest {
+func (s *CertifyServermodeRequest) SetProductInstanceId(v string) *CertifyServermodeRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *CertifyFaceauthServermodeRequest) SetBizId(v string) *CertifyFaceauthServermodeRequest {
+func (s *CertifyServermodeRequest) SetBizId(v string) *CertifyServermodeRequest {
 	s.BizId = &v
 	return s
 }
 
-func (s *CertifyFaceauthServermodeRequest) SetExternParam(v string) *CertifyFaceauthServermodeRequest {
+func (s *CertifyServermodeRequest) SetExternParam(v string) *CertifyServermodeRequest {
 	s.ExternParam = &v
 	return s
 }
 
-func (s *CertifyFaceauthServermodeRequest) SetIdentityParam(v string) *CertifyFaceauthServermodeRequest {
+func (s *CertifyServermodeRequest) SetIdentityParam(v string) *CertifyServermodeRequest {
 	s.IdentityParam = &v
 	return s
 }
 
-func (s *CertifyFaceauthServermodeRequest) SetAuthImg(v string) *CertifyFaceauthServermodeRequest {
+func (s *CertifyServermodeRequest) SetAuthImg(v string) *CertifyServermodeRequest {
 	s.AuthImg = &v
 	return s
 }
 
-func (s *CertifyFaceauthServermodeRequest) SetAuthImgType(v string) *CertifyFaceauthServermodeRequest {
+func (s *CertifyServermodeRequest) SetAuthImgType(v string) *CertifyServermodeRequest {
 	s.AuthImgType = &v
 	return s
 }
 
-func (s *CertifyFaceauthServermodeRequest) SetOperationType(v string) *CertifyFaceauthServermodeRequest {
+func (s *CertifyServermodeRequest) SetOperationType(v string) *CertifyServermodeRequest {
 	s.OperationType = &v
 	return s
 }
 
-func (s *CertifyFaceauthServermodeRequest) SetRefImg(v string) *CertifyFaceauthServermodeRequest {
+func (s *CertifyServermodeRequest) SetRefImg(v string) *CertifyServermodeRequest {
 	s.RefImg = &v
 	return s
 }
 
-type CertifyFaceauthServermodeResponse struct {
+func (s *CertifyServermodeRequest) SetFileObject(v io.Reader) *CertifyServermodeRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *CertifyServermodeRequest) SetFileObjectName(v string) *CertifyServermodeRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *CertifyServermodeRequest) SetFileId(v string) *CertifyServermodeRequest {
+	s.FileId = &v
+	return s
+}
+
+type CertifyServermodeResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -781,41 +829,161 @@ type CertifyFaceauthServermodeResponse struct {
 	ResultMsgSub *string `json:"result_msg_sub,omitempty" xml:"result_msg_sub,omitempty"`
 }
 
-func (s CertifyFaceauthServermodeResponse) String() string {
+func (s CertifyServermodeResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CertifyFaceauthServermodeResponse) GoString() string {
+func (s CertifyServermodeResponse) GoString() string {
 	return s.String()
 }
 
-func (s *CertifyFaceauthServermodeResponse) SetReqMsgId(v string) *CertifyFaceauthServermodeResponse {
+func (s *CertifyServermodeResponse) SetReqMsgId(v string) *CertifyServermodeResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *CertifyFaceauthServermodeResponse) SetResultCode(v string) *CertifyFaceauthServermodeResponse {
+func (s *CertifyServermodeResponse) SetResultCode(v string) *CertifyServermodeResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *CertifyFaceauthServermodeResponse) SetResultMsg(v string) *CertifyFaceauthServermodeResponse {
+func (s *CertifyServermodeResponse) SetResultMsg(v string) *CertifyServermodeResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *CertifyFaceauthServermodeResponse) SetExternInfo(v string) *CertifyFaceauthServermodeResponse {
+func (s *CertifyServermodeResponse) SetExternInfo(v string) *CertifyServermodeResponse {
 	s.ExternInfo = &v
 	return s
 }
 
-func (s *CertifyFaceauthServermodeResponse) SetResultCodeSub(v string) *CertifyFaceauthServermodeResponse {
+func (s *CertifyServermodeResponse) SetResultCodeSub(v string) *CertifyServermodeResponse {
 	s.ResultCodeSub = &v
 	return s
 }
 
-func (s *CertifyFaceauthServermodeResponse) SetResultMsgSub(v string) *CertifyFaceauthServermodeResponse {
+func (s *CertifyServermodeResponse) SetResultMsgSub(v string) *CertifyServermodeResponse {
 	s.ResultMsgSub = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 上传文件作用的openapi method
+	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
+	// 文件标签，多个标签;分割
+	FileLabel *string `json:"file_label,omitempty" xml:"file_label,omitempty" maxLength:"100"`
+	// 自定义的文件元数据
+	FileMetadata *string `json:"file_metadata,omitempty" xml:"file_metadata,omitempty" maxLength:"1000"`
+	// 文件名，不传则随机生成文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
+	// 文件的多媒体类型
+	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
+	// 产品方的api归属集群，即productInstanceId
+	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCode(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileLabel(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileLabel = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileMetadata(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileMetadata = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileName(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.MimeType = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCluster = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传有效期
+	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 32位文件唯一id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 放入http请求头里
+	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
+	// 文件上传地址
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetReqMsgId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultCode(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultMsg(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetExpiredTime(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ExpiredTime = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.FileId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadHeaders = v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadUrl(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadUrl = &v
 	return s
 }
 
@@ -941,7 +1109,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.0"),
+				"sdk_version":      tea.String("1.1.4"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1163,11 +1331,11 @@ func (client *Client) QueryFaceauthFileEx(request *QueryFaceauthFileRequest, hea
  * Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
  * Summary: 实人认证核验源服务
  */
-func (client *Client) CertifyFaceauthServermode(request *CertifyFaceauthServermodeRequest) (_result *CertifyFaceauthServermodeResponse, _err error) {
+func (client *Client) CertifyServermode(request *CertifyServermodeRequest) (_result *CertifyServermodeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &CertifyFaceauthServermodeResponse{}
-	_body, _err := client.CertifyFaceauthServermodeEx(request, headers, runtime)
+	_result = &CertifyServermodeResponse{}
+	_body, _err := client.CertifyServermodeEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -1179,13 +1347,76 @@ func (client *Client) CertifyFaceauthServermode(request *CertifyFaceauthServermo
  * Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
  * Summary: 实人认证核验源服务
  */
-func (client *Client) CertifyFaceauthServermodeEx(request *CertifyFaceauthServermodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CertifyFaceauthServermodeResponse, _err error) {
+func (client *Client) CertifyServermodeEx(request *CertifyServermodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CertifyServermodeResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antfin.mpaasfaceverify.servermode.certify"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			certifyServermodeResponse := &CertifyServermodeResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = certifyServermodeResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &CertifyFaceauthServermodeResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antfin.mpaasfaceverify.faceauth.servermode.certify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &CertifyServermodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antfin.mpaasfaceverify.servermode.certify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUpload(request *CreateAntcloudGatewayxFileUploadRequest) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.CreateAntcloudGatewayxFileUploadEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUploadEx(request *CreateAntcloudGatewayxFileUploadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.gatewayx.file.upload.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
