@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.MPAASFACEVERIFY.Models
 {
-    public class CertifyFaceauthServermodeRequest : TeaModel {
+    public class CertifyServermodeRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -40,18 +40,37 @@ namespace AntChain.SDK.MPAASFACEVERIFY.Models
 
         // 待认证图片类型，不传默认为base64后的图片，可以扩展Blob/video等类型
         [NameInMap("auth_img_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string AuthImgType { get; set; }
 
         // 操作类型，operation_type为custom时表示自定义模式，需要用户上传比对源图片
         [NameInMap("operation_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string OperationType { get; set; }
 
         // 比对源图片
         [NameInMap("ref_img")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string RefImg { get; set; }
+
+        // 文件传输支持
+        /// <summary>
+        /// 待上传文件
+        /// </summary>
+        [NameInMap("fileObject")]
+        [Validation(Required=false)]
+        public Stream FileObject { get; set; }
+
+        /// <summary>
+        /// 待上传文件名
+        /// </summary>
+        [NameInMap("fileObjectName")]
+        [Validation(Required=false)]
+        public string FileObjectName { get; set; }
+
+        [NameInMap("file_id")]
+        [Validation(Required=true)]
+        public string FileId { get; set; }
 
     }
 

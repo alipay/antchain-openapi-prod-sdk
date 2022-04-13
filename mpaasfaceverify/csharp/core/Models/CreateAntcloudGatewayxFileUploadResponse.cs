@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.MPAASFACEVERIFY.Models
 {
-    public class CertifyFaceauthServermodeResponse : TeaModel {
+    public class CreateAntcloudGatewayxFileUploadResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,25 @@ namespace AntChain.SDK.MPAASFACEVERIFY.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 预留扩展结果
-        [NameInMap("extern_info")]
-        [Validation(Required=false)]
-        public string ExternInfo { get; set; }
+        // 上传有效期
+        [NameInMap("expired_time")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string ExpiredTime { get; set; }
 
-        // 产品结果明细，不影响决策
-        [NameInMap("result_code_sub")]
+        // 32位文件唯一id
+        [NameInMap("file_id")]
         [Validation(Required=false)]
-        public string ResultCodeSub { get; set; }
+        public string FileId { get; set; }
 
-        // result_code_sub对应的文案
-        [NameInMap("result_msg_sub")]
+        // 放入http请求头里
+        [NameInMap("upload_headers")]
         [Validation(Required=false)]
-        public string ResultMsgSub { get; set; }
+        public List<XNameValuePair> UploadHeaders { get; set; }
+
+        // 文件上传地址
+        [NameInMap("upload_url")]
+        [Validation(Required=false)]
+        public string UploadUrl { get; set; }
 
     }
 
