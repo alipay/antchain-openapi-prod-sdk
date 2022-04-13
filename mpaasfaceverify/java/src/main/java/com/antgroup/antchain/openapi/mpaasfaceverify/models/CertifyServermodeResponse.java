@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.mpaasfaceverify.models;
 
 import com.aliyun.tea.*;
 
-public class CertifyFaceauthServermodeResponse extends TeaModel {
+public class CertifyServermodeResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -28,12 +28,12 @@ public class CertifyFaceauthServermodeResponse extends TeaModel {
     @NameInMap("result_msg_sub")
     public String resultMsgSub;
 
-    public static CertifyFaceauthServermodeResponse build(java.util.Map<String, ?> map) throws Exception {
-        CertifyFaceauthServermodeResponse self = new CertifyFaceauthServermodeResponse();
+    public static CertifyServermodeResponse build(java.util.Map<String, ?> map) throws Exception {
+        CertifyServermodeResponse self = new CertifyServermodeResponse();
         return TeaModel.build(map, self);
     }
 
-    public CertifyFaceauthServermodeResponse setReqMsgId(String reqMsgId) {
+    public CertifyServermodeResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -41,7 +41,7 @@ public class CertifyFaceauthServermodeResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public CertifyFaceauthServermodeResponse setResultCode(String resultCode) {
+    public CertifyServermodeResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -49,7 +49,7 @@ public class CertifyFaceauthServermodeResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public CertifyFaceauthServermodeResponse setResultMsg(String resultMsg) {
+    public CertifyServermodeResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -57,7 +57,7 @@ public class CertifyFaceauthServermodeResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CertifyFaceauthServermodeResponse setExternInfo(String externInfo) {
+    public CertifyServermodeResponse setExternInfo(String externInfo) {
         this.externInfo = externInfo;
         return this;
     }
@@ -65,7 +65,7 @@ public class CertifyFaceauthServermodeResponse extends TeaModel {
         return this.externInfo;
     }
 
-    public CertifyFaceauthServermodeResponse setResultCodeSub(String resultCodeSub) {
+    public CertifyServermodeResponse setResultCodeSub(String resultCodeSub) {
         this.resultCodeSub = resultCodeSub;
         return this;
     }
@@ -73,7 +73,7 @@ public class CertifyFaceauthServermodeResponse extends TeaModel {
         return this.resultCodeSub;
     }
 
-    public CertifyFaceauthServermodeResponse setResultMsgSub(String resultMsgSub) {
+    public CertifyServermodeResponse setResultMsgSub(String resultMsgSub) {
         this.resultMsgSub = resultMsgSub;
         return this;
     }

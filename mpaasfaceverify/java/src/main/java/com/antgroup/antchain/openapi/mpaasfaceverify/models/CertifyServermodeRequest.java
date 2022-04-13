@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.mpaasfaceverify.models;
 
 import com.aliyun.tea.*;
 
-public class CertifyFaceauthServermodeRequest extends TeaModel {
+public class CertifyServermodeRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -33,25 +33,35 @@ public class CertifyFaceauthServermodeRequest extends TeaModel {
 
     // 待认证图片类型，不传默认为base64后的图片，可以扩展Blob/video等类型
     @NameInMap("auth_img_type")
-    @Validation(required = true)
     public String authImgType;
 
     // 操作类型，operation_type为custom时表示自定义模式，需要用户上传比对源图片
     @NameInMap("operation_type")
-    @Validation(required = true)
     public String operationType;
 
     // 比对源图片
     @NameInMap("ref_img")
-    @Validation(required = true)
     public String refImg;
 
-    public static CertifyFaceauthServermodeRequest build(java.util.Map<String, ?> map) throws Exception {
-        CertifyFaceauthServermodeRequest self = new CertifyFaceauthServermodeRequest();
+    // 文件传输支持
+    // 待上传文件
+    @NameInMap("fileObject")
+    public java.io.InputStream fileObject;
+
+    // 待上传文件名
+    @NameInMap("fileObjectName")
+    public String fileObjectName;
+
+    @NameInMap("file_id")
+    @Validation(required = true)
+    public String fileId;
+
+    public static CertifyServermodeRequest build(java.util.Map<String, ?> map) throws Exception {
+        CertifyServermodeRequest self = new CertifyServermodeRequest();
         return TeaModel.build(map, self);
     }
 
-    public CertifyFaceauthServermodeRequest setAuthToken(String authToken) {
+    public CertifyServermodeRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -59,7 +69,7 @@ public class CertifyFaceauthServermodeRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CertifyFaceauthServermodeRequest setProductInstanceId(String productInstanceId) {
+    public CertifyServermodeRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -67,7 +77,7 @@ public class CertifyFaceauthServermodeRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CertifyFaceauthServermodeRequest setBizId(String bizId) {
+    public CertifyServermodeRequest setBizId(String bizId) {
         this.bizId = bizId;
         return this;
     }
@@ -75,7 +85,7 @@ public class CertifyFaceauthServermodeRequest extends TeaModel {
         return this.bizId;
     }
 
-    public CertifyFaceauthServermodeRequest setExternParam(String externParam) {
+    public CertifyServermodeRequest setExternParam(String externParam) {
         this.externParam = externParam;
         return this;
     }
@@ -83,7 +93,7 @@ public class CertifyFaceauthServermodeRequest extends TeaModel {
         return this.externParam;
     }
 
-    public CertifyFaceauthServermodeRequest setIdentityParam(String identityParam) {
+    public CertifyServermodeRequest setIdentityParam(String identityParam) {
         this.identityParam = identityParam;
         return this;
     }
@@ -91,7 +101,7 @@ public class CertifyFaceauthServermodeRequest extends TeaModel {
         return this.identityParam;
     }
 
-    public CertifyFaceauthServermodeRequest setAuthImg(String authImg) {
+    public CertifyServermodeRequest setAuthImg(String authImg) {
         this.authImg = authImg;
         return this;
     }
@@ -99,7 +109,7 @@ public class CertifyFaceauthServermodeRequest extends TeaModel {
         return this.authImg;
     }
 
-    public CertifyFaceauthServermodeRequest setAuthImgType(String authImgType) {
+    public CertifyServermodeRequest setAuthImgType(String authImgType) {
         this.authImgType = authImgType;
         return this;
     }
@@ -107,7 +117,7 @@ public class CertifyFaceauthServermodeRequest extends TeaModel {
         return this.authImgType;
     }
 
-    public CertifyFaceauthServermodeRequest setOperationType(String operationType) {
+    public CertifyServermodeRequest setOperationType(String operationType) {
         this.operationType = operationType;
         return this;
     }
@@ -115,12 +125,36 @@ public class CertifyFaceauthServermodeRequest extends TeaModel {
         return this.operationType;
     }
 
-    public CertifyFaceauthServermodeRequest setRefImg(String refImg) {
+    public CertifyServermodeRequest setRefImg(String refImg) {
         this.refImg = refImg;
         return this;
     }
     public String getRefImg() {
         return this.refImg;
+    }
+
+    public CertifyServermodeRequest setFileObject(java.io.InputStream fileObject) {
+        this.fileObject = fileObject;
+        return this;
+    }
+    public java.io.InputStream getFileObject() {
+        return this.fileObject;
+    }
+
+    public CertifyServermodeRequest setFileObjectName(String fileObjectName) {
+        this.fileObjectName = fileObjectName;
+        return this;
+    }
+    public String getFileObjectName() {
+        return this.fileObjectName;
+    }
+
+    public CertifyServermodeRequest setFileId(String fileId) {
+        this.fileId = fileId;
+        return this;
+    }
+    public String getFileId() {
+        return this.fileId;
     }
 
 }
