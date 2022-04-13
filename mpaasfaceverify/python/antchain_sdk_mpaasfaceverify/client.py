@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 键值对
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.0'
+                    'sdk_version': '1.1.4'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -210,7 +211,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 键值对
         }
         _last_request = None
         _last_exception = None
@@ -235,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.0'
+                    'sdk_version': '1.1.4'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -539,56 +541,144 @@ class Client:
             await self.do_request_async('1.0', 'antfin.mpaasfaceverify.faceauth.file.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def certify_faceauth_servermode(
+    def certify_servermode(
         self,
-        request: mpaasfaceverify_models.CertifyFaceauthServermodeRequest,
-    ) -> mpaasfaceverify_models.CertifyFaceauthServermodeResponse:
+        request: mpaasfaceverify_models.CertifyServermodeRequest,
+    ) -> mpaasfaceverify_models.CertifyServermodeResponse:
         """
         Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
         Summary: 实人认证核验源服务
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.certify_faceauth_servermode_ex(request, headers, runtime)
+        return self.certify_servermode_ex(request, headers, runtime)
 
-    async def certify_faceauth_servermode_async(
+    async def certify_servermode_async(
         self,
-        request: mpaasfaceverify_models.CertifyFaceauthServermodeRequest,
-    ) -> mpaasfaceverify_models.CertifyFaceauthServermodeResponse:
+        request: mpaasfaceverify_models.CertifyServermodeRequest,
+    ) -> mpaasfaceverify_models.CertifyServermodeResponse:
         """
         Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
         Summary: 实人认证核验源服务
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.certify_faceauth_servermode_ex_async(request, headers, runtime)
+        return await self.certify_servermode_ex_async(request, headers, runtime)
 
-    def certify_faceauth_servermode_ex(
+    def certify_servermode_ex(
         self,
-        request: mpaasfaceverify_models.CertifyFaceauthServermodeRequest,
+        request: mpaasfaceverify_models.CertifyServermodeRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> mpaasfaceverify_models.CertifyFaceauthServermodeResponse:
+    ) -> mpaasfaceverify_models.CertifyServermodeResponse:
         """
         Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
         Summary: 实人认证核验源服务
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = mpaasfaceverify_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antfin.mpaasfaceverify.servermode.certify',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                certify_servermode_response = mpaasfaceverify_models.CertifyServermodeResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return certify_servermode_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.CertifyFaceauthServermodeResponse().from_map(
-            self.do_request('1.0', 'antfin.mpaasfaceverify.faceauth.servermode.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return mpaasfaceverify_models.CertifyServermodeResponse().from_map(
+            self.do_request('1.0', 'antfin.mpaasfaceverify.servermode.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def certify_faceauth_servermode_ex_async(
+    async def certify_servermode_ex_async(
         self,
-        request: mpaasfaceverify_models.CertifyFaceauthServermodeRequest,
+        request: mpaasfaceverify_models.CertifyServermodeRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> mpaasfaceverify_models.CertifyFaceauthServermodeResponse:
+    ) -> mpaasfaceverify_models.CertifyServermodeResponse:
         """
         Description: 调用”实人认证核验源服务“接口，可获取权威源的人脸比对结果，认证链路不依赖客户端
         Summary: 实人认证核验源服务
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = mpaasfaceverify_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antfin.mpaasfaceverify.servermode.certify',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                certify_servermode_response = mpaasfaceverify_models.CertifyServermodeResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return certify_servermode_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.CertifyFaceauthServermodeResponse().from_map(
-            await self.do_request_async('1.0', 'antfin.mpaasfaceverify.faceauth.servermode.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return mpaasfaceverify_models.CertifyServermodeResponse().from_map(
+            await self.do_request_async('1.0', 'antfin.mpaasfaceverify.servermode.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antcloud_gatewayx_file_upload(
+        self,
+        request: mpaasfaceverify_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> mpaasfaceverify_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antcloud_gatewayx_file_upload_ex(request, headers, runtime)
+
+    async def create_antcloud_gatewayx_file_upload_async(
+        self,
+        request: mpaasfaceverify_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> mpaasfaceverify_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antcloud_gatewayx_file_upload_ex_async(request, headers, runtime)
+
+    def create_antcloud_gatewayx_file_upload_ex(
+        self,
+        request: mpaasfaceverify_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return mpaasfaceverify_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+            self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antcloud_gatewayx_file_upload_ex_async(
+        self,
+        request: mpaasfaceverify_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return mpaasfaceverify_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
