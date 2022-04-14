@@ -148,10 +148,568 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// YuqingMessage
+type YuqingMessage struct {
+	// 作者头像地址
+	AuthorAvatarUrl *string `json:"author_avatar_url,omitempty" xml:"author_avatar_url,omitempty"`
+	// 粉丝数
+	AuthorFollowersCount *int64 `json:"author_followers_count,omitempty" xml:"author_followers_count,omitempty"`
+	// 好友数
+	AuthorFriendsCount *int64 `json:"author_friends_count,omitempty" xml:"author_friends_count,omitempty"`
+	// 作者id
+	AuthorId *string `json:"author_id,omitempty" xml:"author_id,omitempty"`
+	// 作者名称
+	AuthorName *string `json:"author_name,omitempty" xml:"author_name,omitempty"`
+	// 发文数
+	AuthorStatusesCount *int64 `json:"author_statuses_count,omitempty" xml:"author_statuses_count,omitempty"`
+	// 作者认证类型
+	AuthorVerifyType *string `json:"author_verify_type,omitempty" xml:"author_verify_type,omitempty"`
+	// 舆情文章被抓取的时间戳
+	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// 文章正文内容
+	DocContent *string `json:"doc_content,omitempty" xml:"doc_content,omitempty"`
+	// 文章摘要
+	DocContentBrief *string `json:"doc_content_brief,omitempty" xml:"doc_content_brief,omitempty"`
+	// 文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同
+	DocContentSign *string `json:"doc_content_sign,omitempty" xml:"doc_content_sign,omitempty"`
+	// 文章唯一docId
+	DocId *string `json:"doc_id,omitempty" xml:"doc_id,omitempty"`
+	// 文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关
+	DocSelfContentSign *string `json:"doc_self_content_sign,omitempty" xml:"doc_self_content_sign,omitempty"`
+	// 文章标题
+	DocTitle *string `json:"doc_title,omitempty" xml:"doc_title,omitempty"`
+	// 原文地址
+	DocUrl *string `json:"doc_url,omitempty" xml:"doc_url,omitempty"`
+	// 情感的正负面，-1代表负面，1代表非负面
+	EmotionType *int64 `json:"emotion_type,omitempty" xml:"emotion_type,omitempty"`
+	// 命中的搜索词列表
+	HighlightKeywords []*string `json:"highlight_keywords,omitempty" xml:"highlight_keywords,omitempty" type:"Repeated"`
+	// 媒体类型，枚举值
+	MediaType *string `json:"media_type,omitempty" xml:"media_type,omitempty"`
+	// 舆情消息类型:转发,评论/回复, 原文,群聊等
+	MessageType *string `json:"message_type,omitempty" xml:"message_type,omitempty"`
+	// 文章的父docId，如被转发的文章docId
+	ParentDocId *string `json:"parent_doc_id,omitempty" xml:"parent_doc_id,omitempty"`
+	// 舆情文章的发布时间戳
+	PublishTime *int64 `json:"publish_time,omitempty" xml:"publish_time,omitempty"`
+	// 相关性得分
+	RelevanceScore *int64 `json:"relevance_score,omitempty" xml:"relevance_score,omitempty"`
+	// 相似文章数
+	SimilarNumber *int64 `json:"similar_number,omitempty" xml:"similar_number,omitempty"`
+	// 微博评论id
+	WeiboCommentId *string `json:"weibo_comment_id,omitempty" xml:"weibo_comment_id,omitempty"`
+	// 微博消息id
+	WeiboMid *string `json:"weibo_mid,omitempty" xml:"weibo_mid,omitempty"`
+}
+
+func (s YuqingMessage) String() string {
+	return tea.Prettify(s)
+}
+
+func (s YuqingMessage) GoString() string {
+	return s.String()
+}
+
+func (s *YuqingMessage) SetAuthorAvatarUrl(v string) *YuqingMessage {
+	s.AuthorAvatarUrl = &v
+	return s
+}
+
+func (s *YuqingMessage) SetAuthorFollowersCount(v int64) *YuqingMessage {
+	s.AuthorFollowersCount = &v
+	return s
+}
+
+func (s *YuqingMessage) SetAuthorFriendsCount(v int64) *YuqingMessage {
+	s.AuthorFriendsCount = &v
+	return s
+}
+
+func (s *YuqingMessage) SetAuthorId(v string) *YuqingMessage {
+	s.AuthorId = &v
+	return s
+}
+
+func (s *YuqingMessage) SetAuthorName(v string) *YuqingMessage {
+	s.AuthorName = &v
+	return s
+}
+
+func (s *YuqingMessage) SetAuthorStatusesCount(v int64) *YuqingMessage {
+	s.AuthorStatusesCount = &v
+	return s
+}
+
+func (s *YuqingMessage) SetAuthorVerifyType(v string) *YuqingMessage {
+	s.AuthorVerifyType = &v
+	return s
+}
+
+func (s *YuqingMessage) SetCreateTime(v int64) *YuqingMessage {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocContent(v string) *YuqingMessage {
+	s.DocContent = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocContentBrief(v string) *YuqingMessage {
+	s.DocContentBrief = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocContentSign(v string) *YuqingMessage {
+	s.DocContentSign = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocId(v string) *YuqingMessage {
+	s.DocId = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocSelfContentSign(v string) *YuqingMessage {
+	s.DocSelfContentSign = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocTitle(v string) *YuqingMessage {
+	s.DocTitle = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocUrl(v string) *YuqingMessage {
+	s.DocUrl = &v
+	return s
+}
+
+func (s *YuqingMessage) SetEmotionType(v int64) *YuqingMessage {
+	s.EmotionType = &v
+	return s
+}
+
+func (s *YuqingMessage) SetHighlightKeywords(v []*string) *YuqingMessage {
+	s.HighlightKeywords = v
+	return s
+}
+
+func (s *YuqingMessage) SetMediaType(v string) *YuqingMessage {
+	s.MediaType = &v
+	return s
+}
+
+func (s *YuqingMessage) SetMessageType(v string) *YuqingMessage {
+	s.MessageType = &v
+	return s
+}
+
+func (s *YuqingMessage) SetParentDocId(v string) *YuqingMessage {
+	s.ParentDocId = &v
+	return s
+}
+
+func (s *YuqingMessage) SetPublishTime(v int64) *YuqingMessage {
+	s.PublishTime = &v
+	return s
+}
+
+func (s *YuqingMessage) SetRelevanceScore(v int64) *YuqingMessage {
+	s.RelevanceScore = &v
+	return s
+}
+
+func (s *YuqingMessage) SetSimilarNumber(v int64) *YuqingMessage {
+	s.SimilarNumber = &v
+	return s
+}
+
+func (s *YuqingMessage) SetWeiboCommentId(v string) *YuqingMessage {
+	s.WeiboCommentId = &v
+	return s
+}
+
+func (s *YuqingMessage) SetWeiboMid(v string) *YuqingMessage {
+	s.WeiboMid = &v
+	return s
+}
+
+// 查询结构体
+type SearchCondition struct {
+	// 搭配词
+	AssKeywords *string `json:"ass_keywords,omitempty" xml:"ass_keywords,omitempty"`
+	// 被@的用户名称
+	AtAuthorName *string `json:"at_author_name,omitempty" xml:"at_author_name,omitempty"`
+	// 作者名称
+	AuthorName *string `json:"author_name,omitempty" xml:"author_name,omitempty"`
+	// 评论级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
+	CommentsLevel *int64 `json:"comments_level,omitempty" xml:"comments_level,omitempty"`
+	// 内容长度级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
+	ContentLenLevel *string `json:"content_len_level,omitempty" xml:"content_len_level,omitempty"`
+	// 抓取截止时间
+	CreateTimeEnd *int64 `json:"create_time_end,omitempty" xml:"create_time_end,omitempty"`
+	// 抓取起始时间
+	CreateTimeStart *int64 `json:"create_time_start,omitempty" xml:"create_time_start,omitempty"`
+	// 文章签名
+	DocContentSign *string `json:"doc_content_sign,omitempty" xml:"doc_content_sign,omitempty"`
+	// 舆情文章唯一docId
+	DocId *string `json:"doc_id,omitempty" xml:"doc_id,omitempty"`
+	// 是否去重
+	DuplicateRemoval *bool `json:"duplicate_removal,omitempty" xml:"duplicate_removal,omitempty"`
+	// 情感类型，1非负，-1负面
+	EmotionType *int64 `json:"emotion_type,omitempty" xml:"emotion_type,omitempty"`
+	// 是否高亮关键词
+	EnableKeywordHighlight *bool `json:"enable_keyword_highlight,omitempty" xml:"enable_keyword_highlight,omitempty"`
+	// 排除被@的用户名称
+	ExcludeAtAuthorName *string `json:"exclude_at_author_name,omitempty" xml:"exclude_at_author_name,omitempty"`
+	// 排除作者名称
+	ExcludeAuthorName *string `json:"exclude_author_name,omitempty" xml:"exclude_author_name,omitempty"`
+	// 排除网站域名
+	ExcludeHostName *string `json:"exclude_host_name,omitempty" xml:"exclude_host_name,omitempty"`
+	// 排除关键词标签Id列表
+	ExcludeKeywordTagIds *string `json:"exclude_keyword_tag_ids,omitempty" xml:"exclude_keyword_tag_ids,omitempty"`
+	// 排除词
+	ExcludeKeywords *string `json:"exclude_keywords,omitempty" xml:"exclude_keywords,omitempty"`
+	// 标题排除词
+	ExcludeKeywordsInTitle *string `json:"exclude_keywords_in_title,omitempty" xml:"exclude_keywords_in_title,omitempty"`
+	// 排除媒体库id列表
+	ExcludeMediaLibraryIds *string `json:"exclude_media_library_ids,omitempty" xml:"exclude_media_library_ids,omitempty"`
+	// 排除媒体名称
+	ExcludeMediaName *string `json:"exclude_media_name,omitempty" xml:"exclude_media_name,omitempty"`
+	// 排除媒体类型，枚举值
+	ExcludeMediaType *string `json:"exclude_media_type,omitempty" xml:"exclude_media_type,omitempty"`
+	// 排除消息类型，枚举值
+	ExcludeMessageType *string `json:"exclude_message_type,omitempty" xml:"exclude_message_type,omitempty"`
+	// 其他过滤条件
+	FieldConditions *string `json:"field_conditions,omitempty" xml:"field_conditions,omitempty"`
+	// 文章是否含有图片
+	HasImage *bool `json:"has_image,omitempty" xml:"has_image,omitempty"`
+	// 是否含有视频
+	HasVideo *bool `json:"has_video,omitempty" xml:"has_video,omitempty"`
+	// 网站域名
+	HostName *string `json:"host_name,omitempty" xml:"host_name,omitempty"`
+	// 关键词标签Id列表
+	KeywordTagIds *string `json:"keyword_tag_ids,omitempty" xml:"keyword_tag_ids,omitempty"`
+	// 点赞级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
+	LikesLevel *int64 `json:"likes_level,omitempty" xml:"likes_level,omitempty"`
+	// 媒体库id列表
+	MediaLibraryIds *string `json:"media_library_ids,omitempty" xml:"media_library_ids,omitempty"`
+	// 媒体名称
+	MediaName *string `json:"media_name,omitempty" xml:"media_name,omitempty"`
+	// 体类型，枚举值
+	MediaType *string `json:"media_type,omitempty" xml:"media_type,omitempty"`
+	// 消息类型，枚举值
+	MessageType *string `json:"message_type,omitempty" xml:"message_type,omitempty"`
+	// 当前页
+	PageNow *int64 `json:"page_now,omitempty" xml:"page_now,omitempty"`
+	// 页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 舆情父文章的docId，一般用于查看某篇文章的评论
+	ParentDocId *string `json:"parent_doc_id,omitempty" xml:"parent_doc_id,omitempty"`
+	// 关键词
+	PosKeyWords *string `json:"pos_key_words,omitempty" xml:"pos_key_words,omitempty"`
+	// 标题关键词
+	PosKeywordsInTitle *string `json:"pos_keywords_in_title,omitempty" xml:"pos_keywords_in_title,omitempty"`
+	// 截止发布时间
+	PublishTimeEnd *int64 `json:"publish_time_end,omitempty" xml:"publish_time_end,omitempty"`
+	// 起始发布时间
+	PublishTimeStart *string `json:"publish_time_start,omitempty" xml:"publish_time_start,omitempty"`
+	// 阅读级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
+	ReadsLevel *int64 `json:"reads_level,omitempty" xml:"reads_level,omitempty"`
+	// 相关性等级，1：低，2：中，3：高，4：低级别以上
+	RelevanceLevel *int64 `json:"relevance_level,omitempty" xml:"relevance_level,omitempty"`
+	// 转发级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
+	RepostLevel *int64 `json:"repost_level,omitempty" xml:"repost_level,omitempty"`
+	// 排序字段
+	SortBy *string `json:"sort_by,omitempty" xml:"sort_by,omitempty"`
+	// 指定正反向排序
+	SortByDirection *string `json:"sort_by_direction,omitempty" xml:"sort_by_direction,omitempty"`
+	// #话题
+	Topics *string `json:"topics,omitempty" xml:"topics,omitempty"`
+	// 舆情文章截止更新时间
+	UpdateTimeEnd *int64 `json:"update_time_end,omitempty" xml:"update_time_end,omitempty"`
+	// 舆情文章起始更新时间
+	UpdateTimeStart *int64 `json:"update_time_start,omitempty" xml:"update_time_start,omitempty"`
+}
+
+func (s SearchCondition) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SearchCondition) GoString() string {
+	return s.String()
+}
+
+func (s *SearchCondition) SetAssKeywords(v string) *SearchCondition {
+	s.AssKeywords = &v
+	return s
+}
+
+func (s *SearchCondition) SetAtAuthorName(v string) *SearchCondition {
+	s.AtAuthorName = &v
+	return s
+}
+
+func (s *SearchCondition) SetAuthorName(v string) *SearchCondition {
+	s.AuthorName = &v
+	return s
+}
+
+func (s *SearchCondition) SetCommentsLevel(v int64) *SearchCondition {
+	s.CommentsLevel = &v
+	return s
+}
+
+func (s *SearchCondition) SetContentLenLevel(v string) *SearchCondition {
+	s.ContentLenLevel = &v
+	return s
+}
+
+func (s *SearchCondition) SetCreateTimeEnd(v int64) *SearchCondition {
+	s.CreateTimeEnd = &v
+	return s
+}
+
+func (s *SearchCondition) SetCreateTimeStart(v int64) *SearchCondition {
+	s.CreateTimeStart = &v
+	return s
+}
+
+func (s *SearchCondition) SetDocContentSign(v string) *SearchCondition {
+	s.DocContentSign = &v
+	return s
+}
+
+func (s *SearchCondition) SetDocId(v string) *SearchCondition {
+	s.DocId = &v
+	return s
+}
+
+func (s *SearchCondition) SetDuplicateRemoval(v bool) *SearchCondition {
+	s.DuplicateRemoval = &v
+	return s
+}
+
+func (s *SearchCondition) SetEmotionType(v int64) *SearchCondition {
+	s.EmotionType = &v
+	return s
+}
+
+func (s *SearchCondition) SetEnableKeywordHighlight(v bool) *SearchCondition {
+	s.EnableKeywordHighlight = &v
+	return s
+}
+
+func (s *SearchCondition) SetExcludeAtAuthorName(v string) *SearchCondition {
+	s.ExcludeAtAuthorName = &v
+	return s
+}
+
+func (s *SearchCondition) SetExcludeAuthorName(v string) *SearchCondition {
+	s.ExcludeAuthorName = &v
+	return s
+}
+
+func (s *SearchCondition) SetExcludeHostName(v string) *SearchCondition {
+	s.ExcludeHostName = &v
+	return s
+}
+
+func (s *SearchCondition) SetExcludeKeywordTagIds(v string) *SearchCondition {
+	s.ExcludeKeywordTagIds = &v
+	return s
+}
+
+func (s *SearchCondition) SetExcludeKeywords(v string) *SearchCondition {
+	s.ExcludeKeywords = &v
+	return s
+}
+
+func (s *SearchCondition) SetExcludeKeywordsInTitle(v string) *SearchCondition {
+	s.ExcludeKeywordsInTitle = &v
+	return s
+}
+
+func (s *SearchCondition) SetExcludeMediaLibraryIds(v string) *SearchCondition {
+	s.ExcludeMediaLibraryIds = &v
+	return s
+}
+
+func (s *SearchCondition) SetExcludeMediaName(v string) *SearchCondition {
+	s.ExcludeMediaName = &v
+	return s
+}
+
+func (s *SearchCondition) SetExcludeMediaType(v string) *SearchCondition {
+	s.ExcludeMediaType = &v
+	return s
+}
+
+func (s *SearchCondition) SetExcludeMessageType(v string) *SearchCondition {
+	s.ExcludeMessageType = &v
+	return s
+}
+
+func (s *SearchCondition) SetFieldConditions(v string) *SearchCondition {
+	s.FieldConditions = &v
+	return s
+}
+
+func (s *SearchCondition) SetHasImage(v bool) *SearchCondition {
+	s.HasImage = &v
+	return s
+}
+
+func (s *SearchCondition) SetHasVideo(v bool) *SearchCondition {
+	s.HasVideo = &v
+	return s
+}
+
+func (s *SearchCondition) SetHostName(v string) *SearchCondition {
+	s.HostName = &v
+	return s
+}
+
+func (s *SearchCondition) SetKeywordTagIds(v string) *SearchCondition {
+	s.KeywordTagIds = &v
+	return s
+}
+
+func (s *SearchCondition) SetLikesLevel(v int64) *SearchCondition {
+	s.LikesLevel = &v
+	return s
+}
+
+func (s *SearchCondition) SetMediaLibraryIds(v string) *SearchCondition {
+	s.MediaLibraryIds = &v
+	return s
+}
+
+func (s *SearchCondition) SetMediaName(v string) *SearchCondition {
+	s.MediaName = &v
+	return s
+}
+
+func (s *SearchCondition) SetMediaType(v string) *SearchCondition {
+	s.MediaType = &v
+	return s
+}
+
+func (s *SearchCondition) SetMessageType(v string) *SearchCondition {
+	s.MessageType = &v
+	return s
+}
+
+func (s *SearchCondition) SetPageNow(v int64) *SearchCondition {
+	s.PageNow = &v
+	return s
+}
+
+func (s *SearchCondition) SetPageSize(v int64) *SearchCondition {
+	s.PageSize = &v
+	return s
+}
+
+func (s *SearchCondition) SetParentDocId(v string) *SearchCondition {
+	s.ParentDocId = &v
+	return s
+}
+
+func (s *SearchCondition) SetPosKeyWords(v string) *SearchCondition {
+	s.PosKeyWords = &v
+	return s
+}
+
+func (s *SearchCondition) SetPosKeywordsInTitle(v string) *SearchCondition {
+	s.PosKeywordsInTitle = &v
+	return s
+}
+
+func (s *SearchCondition) SetPublishTimeEnd(v int64) *SearchCondition {
+	s.PublishTimeEnd = &v
+	return s
+}
+
+func (s *SearchCondition) SetPublishTimeStart(v string) *SearchCondition {
+	s.PublishTimeStart = &v
+	return s
+}
+
+func (s *SearchCondition) SetReadsLevel(v int64) *SearchCondition {
+	s.ReadsLevel = &v
+	return s
+}
+
+func (s *SearchCondition) SetRelevanceLevel(v int64) *SearchCondition {
+	s.RelevanceLevel = &v
+	return s
+}
+
+func (s *SearchCondition) SetRepostLevel(v int64) *SearchCondition {
+	s.RepostLevel = &v
+	return s
+}
+
+func (s *SearchCondition) SetSortBy(v string) *SearchCondition {
+	s.SortBy = &v
+	return s
+}
+
+func (s *SearchCondition) SetSortByDirection(v string) *SearchCondition {
+	s.SortByDirection = &v
+	return s
+}
+
+func (s *SearchCondition) SetTopics(v string) *SearchCondition {
+	s.Topics = &v
+	return s
+}
+
+func (s *SearchCondition) SetUpdateTimeEnd(v int64) *SearchCondition {
+	s.UpdateTimeEnd = &v
+	return s
+}
+
+func (s *SearchCondition) SetUpdateTimeStart(v int64) *SearchCondition {
+	s.UpdateTimeStart = &v
+	return s
+}
+
+// 商品规格
+type CommoditySpec struct {
+	// 规格项枚举值
+	SpecKey *string `json:"spec_key,omitempty" xml:"spec_key,omitempty"`
+	// 规格项默认值
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+}
+
+func (s CommoditySpec) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CommoditySpec) GoString() string {
+	return s.String()
+}
+
+func (s *CommoditySpec) SetSpecKey(v string) *CommoditySpec {
+	s.SpecKey = &v
+	return s
+}
+
+func (s *CommoditySpec) SetValue(v string) *CommoditySpec {
+	s.Value = &v
+	return s
+}
+
 type QueryMessagesRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询条件
+	SearchCondition *SearchCondition `json:"search_condition,omitempty" xml:"search_condition,omitempty" require:"true"`
+	// 请求ID
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 }
 
 func (s QueryMessagesRequest) String() string {
@@ -172,6 +730,16 @@ func (s *QueryMessagesRequest) SetProductInstanceId(v string) *QueryMessagesRequ
 	return s
 }
 
+func (s *QueryMessagesRequest) SetSearchCondition(v *SearchCondition) *QueryMessagesRequest {
+	s.SearchCondition = v
+	return s
+}
+
+func (s *QueryMessagesRequest) SetRequestId(v string) *QueryMessagesRequest {
+	s.RequestId = &v
+	return s
+}
+
 type QueryMessagesResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -179,12 +747,10 @@ type QueryMessagesResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 返回码
-	Code *string `json:"code,omitempty" xml:"code,omitempty"`
-	// 返回描述
-	Message *string `json:"message,omitempty" xml:"message,omitempty"`
-	// 请求结果
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 数量
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 舆情列表
+	YuqingMessages []*YuqingMessage `json:"yuqing_messages,omitempty" xml:"yuqing_messages,omitempty" type:"Repeated"`
 }
 
 func (s QueryMessagesResponse) String() string {
@@ -210,18 +776,419 @@ func (s *QueryMessagesResponse) SetResultMsg(v string) *QueryMessagesResponse {
 	return s
 }
 
-func (s *QueryMessagesResponse) SetCode(v string) *QueryMessagesResponse {
-	s.Code = &v
+func (s *QueryMessagesResponse) SetTotalCount(v int64) *QueryMessagesResponse {
+	s.TotalCount = &v
 	return s
 }
 
-func (s *QueryMessagesResponse) SetMessage(v string) *QueryMessagesResponse {
-	s.Message = &v
+func (s *QueryMessagesResponse) SetYuqingMessages(v []*YuqingMessage) *QueryMessagesResponse {
+	s.YuqingMessages = v
 	return s
 }
 
-func (s *QueryMessagesResponse) SetSuccess(v bool) *QueryMessagesResponse {
+type SaveAnalysisSubmitRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 分析类型
+	AnalyseType *string `json:"analyse_type,omitempty" xml:"analyse_type,omitempty" require:"true"`
+	// 查询条件
+	SearchCondition *SearchCondition `json:"search_condition,omitempty" xml:"search_condition,omitempty" require:"true"`
+}
+
+func (s SaveAnalysisSubmitRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveAnalysisSubmitRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SaveAnalysisSubmitRequest) SetAuthToken(v string) *SaveAnalysisSubmitRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SaveAnalysisSubmitRequest) SetProductInstanceId(v string) *SaveAnalysisSubmitRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SaveAnalysisSubmitRequest) SetAnalyseType(v string) *SaveAnalysisSubmitRequest {
+	s.AnalyseType = &v
+	return s
+}
+
+func (s *SaveAnalysisSubmitRequest) SetSearchCondition(v *SearchCondition) *SaveAnalysisSubmitRequest {
+	s.SearchCondition = v
+	return s
+}
+
+type SaveAnalysisSubmitResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 分析任务ID
+	AnalysisId *string `json:"analysis_id,omitempty" xml:"analysis_id,omitempty"`
+	// 其他
+	ResultJson *string `json:"result_json,omitempty" xml:"result_json,omitempty"`
+}
+
+func (s SaveAnalysisSubmitResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveAnalysisSubmitResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SaveAnalysisSubmitResponse) SetReqMsgId(v string) *SaveAnalysisSubmitResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SaveAnalysisSubmitResponse) SetResultCode(v string) *SaveAnalysisSubmitResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SaveAnalysisSubmitResponse) SetResultMsg(v string) *SaveAnalysisSubmitResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SaveAnalysisSubmitResponse) SetAnalysisId(v string) *SaveAnalysisSubmitResponse {
+	s.AnalysisId = &v
+	return s
+}
+
+func (s *SaveAnalysisSubmitResponse) SetResultJson(v string) *SaveAnalysisSubmitResponse {
+	s.ResultJson = &v
+	return s
+}
+
+type QueryAnalysisQueryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 分析任务ID
+	AnalysisId *string `json:"analysis_id,omitempty" xml:"analysis_id,omitempty" require:"true"`
+}
+
+func (s QueryAnalysisQueryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAnalysisQueryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAnalysisQueryRequest) SetAuthToken(v string) *QueryAnalysisQueryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAnalysisQueryRequest) SetProductInstanceId(v string) *QueryAnalysisQueryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAnalysisQueryRequest) SetAnalysisId(v string) *QueryAnalysisQueryRequest {
+	s.AnalysisId = &v
+	return s
+}
+
+type QueryAnalysisQueryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 分析任务ID
+	AnalysisId *string `json:"analysis_id,omitempty" xml:"analysis_id,omitempty"`
+	// 分析内容
+	ResultJson *string `json:"result_json,omitempty" xml:"result_json,omitempty"`
+}
+
+func (s QueryAnalysisQueryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAnalysisQueryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAnalysisQueryResponse) SetReqMsgId(v string) *QueryAnalysisQueryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAnalysisQueryResponse) SetResultCode(v string) *QueryAnalysisQueryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAnalysisQueryResponse) SetResultMsg(v string) *QueryAnalysisQueryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAnalysisQueryResponse) SetAnalysisId(v string) *QueryAnalysisQueryResponse {
+	s.AnalysisId = &v
+	return s
+}
+
+func (s *QueryAnalysisQueryResponse) SetResultJson(v string) *QueryAnalysisQueryResponse {
+	s.ResultJson = &v
+	return s
+}
+
+type SaveProductOpenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务号
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty"`
+	// 租户 ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 实例 ID，兼容老模型的 tntInstId
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
+	// 产品编码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
+	// 模块唯一标识
+	ModuleKey *string `json:"module_key,omitempty" xml:"module_key,omitempty"`
+	// 操作类型
+	Operate *string `json:"operate,omitempty" xml:"operate,omitempty"`
+	// 操作来源渠道
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty"`
+	// 规格
+	CommoditySpecs []*CommoditySpec `json:"commodity_specs,omitempty" xml:"commodity_specs,omitempty" type:"Repeated"`
+}
+
+func (s SaveProductOpenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveProductOpenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SaveProductOpenRequest) SetAuthToken(v string) *SaveProductOpenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SaveProductOpenRequest) SetProductInstanceId(v string) *SaveProductOpenRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SaveProductOpenRequest) SetBizNo(v string) *SaveProductOpenRequest {
+	s.BizNo = &v
+	return s
+}
+
+func (s *SaveProductOpenRequest) SetTenantId(v string) *SaveProductOpenRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *SaveProductOpenRequest) SetInstanceId(v string) *SaveProductOpenRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *SaveProductOpenRequest) SetProductCode(v string) *SaveProductOpenRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *SaveProductOpenRequest) SetModuleKey(v string) *SaveProductOpenRequest {
+	s.ModuleKey = &v
+	return s
+}
+
+func (s *SaveProductOpenRequest) SetOperate(v string) *SaveProductOpenRequest {
+	s.Operate = &v
+	return s
+}
+
+func (s *SaveProductOpenRequest) SetChannel(v string) *SaveProductOpenRequest {
+	s.Channel = &v
+	return s
+}
+
+func (s *SaveProductOpenRequest) SetCommoditySpecs(v []*CommoditySpec) *SaveProductOpenRequest {
+	s.CommoditySpecs = v
+	return s
+}
+
+type SaveProductOpenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 计量请求是否处理成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 结果描述信息
+	ResultMessage *string `json:"result_message,omitempty" xml:"result_message,omitempty"`
+}
+
+func (s SaveProductOpenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveProductOpenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SaveProductOpenResponse) SetReqMsgId(v string) *SaveProductOpenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SaveProductOpenResponse) SetResultCode(v string) *SaveProductOpenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SaveProductOpenResponse) SetResultMsg(v string) *SaveProductOpenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SaveProductOpenResponse) SetSuccess(v bool) *SaveProductOpenResponse {
 	s.Success = &v
+	return s
+}
+
+func (s *SaveProductOpenResponse) SetResultMessage(v string) *SaveProductOpenResponse {
+	s.ResultMessage = &v
+	return s
+}
+
+type SaveProductTopRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务号
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty"`
+	// 租户 ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 实例 ID，兼容老模型的 tntInstId
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
+	// 产品编码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
+	// 模块唯一标识
+	ModuleKey *string `json:"module_key,omitempty" xml:"module_key,omitempty"`
+	// 操作类型
+	Operate *string `json:"operate,omitempty" xml:"operate,omitempty"`
+	// 操作来源渠道
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty"`
+}
+
+func (s SaveProductTopRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveProductTopRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SaveProductTopRequest) SetAuthToken(v string) *SaveProductTopRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SaveProductTopRequest) SetProductInstanceId(v string) *SaveProductTopRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SaveProductTopRequest) SetBizNo(v string) *SaveProductTopRequest {
+	s.BizNo = &v
+	return s
+}
+
+func (s *SaveProductTopRequest) SetTenantId(v string) *SaveProductTopRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *SaveProductTopRequest) SetInstanceId(v string) *SaveProductTopRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *SaveProductTopRequest) SetProductCode(v string) *SaveProductTopRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *SaveProductTopRequest) SetModuleKey(v string) *SaveProductTopRequest {
+	s.ModuleKey = &v
+	return s
+}
+
+func (s *SaveProductTopRequest) SetOperate(v string) *SaveProductTopRequest {
+	s.Operate = &v
+	return s
+}
+
+func (s *SaveProductTopRequest) SetChannel(v string) *SaveProductTopRequest {
+	s.Channel = &v
+	return s
+}
+
+type SaveProductTopResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 计量请求是否处理成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 结果描述信息
+	ResultMessage *string `json:"result_message,omitempty" xml:"result_message,omitempty"`
+}
+
+func (s SaveProductTopResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveProductTopResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SaveProductTopResponse) SetReqMsgId(v string) *SaveProductTopResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SaveProductTopResponse) SetResultCode(v string) *SaveProductTopResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SaveProductTopResponse) SetResultMsg(v string) *SaveProductTopResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SaveProductTopResponse) SetSuccess(v bool) *SaveProductTopResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *SaveProductTopResponse) SetResultMessage(v string) *SaveProductTopResponse {
+	s.ResultMessage = &v
 	return s
 }
 
@@ -347,7 +1314,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.2"),
+				"sdk_version":      tea.String("1.0.3"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -422,6 +1389,142 @@ func (client *Client) QueryMessagesEx(request *QueryMessagesRequest, headers map
 	}
 	_result = &QueryMessagesResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.yuqing.messages.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 舆情分析任务提交
+ * Summary: 舆情分析任务提交
+ */
+func (client *Client) SaveAnalysisSubmit(request *SaveAnalysisSubmitRequest) (_result *SaveAnalysisSubmitResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SaveAnalysisSubmitResponse{}
+	_body, _err := client.SaveAnalysisSubmitEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 舆情分析任务提交
+ * Summary: 舆情分析任务提交
+ */
+func (client *Client) SaveAnalysisSubmitEx(request *SaveAnalysisSubmitRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SaveAnalysisSubmitResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SaveAnalysisSubmitResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.yuqing.analysis.submit.save"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 舆情分析任务查询
+ * Summary: 舆情分析任务查询
+ */
+func (client *Client) QueryAnalysisQuery(request *QueryAnalysisQueryRequest) (_result *QueryAnalysisQueryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAnalysisQueryResponse{}
+	_body, _err := client.QueryAnalysisQueryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 舆情分析任务查询
+ * Summary: 舆情分析任务查询
+ */
+func (client *Client) QueryAnalysisQueryEx(request *QueryAnalysisQueryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAnalysisQueryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAnalysisQueryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.yuqing.analysis.query.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 产品开通
+ * Summary: 产品开通
+ */
+func (client *Client) SaveProductOpen(request *SaveProductOpenRequest) (_result *SaveProductOpenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SaveProductOpenResponse{}
+	_body, _err := client.SaveProductOpenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 产品开通
+ * Summary: 产品开通
+ */
+func (client *Client) SaveProductOpenEx(request *SaveProductOpenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SaveProductOpenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SaveProductOpenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.yuqing.product.open.save"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 产品关闭
+ * Summary: 产品关闭
+ */
+func (client *Client) SaveProductTop(request *SaveProductTopRequest) (_result *SaveProductTopResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SaveProductTopResponse{}
+	_body, _err := client.SaveProductTopEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 产品关闭
+ * Summary: 产品关闭
+ */
+func (client *Client) SaveProductTopEx(request *SaveProductTopRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SaveProductTopResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SaveProductTopResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.yuqing.product.top.save"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
