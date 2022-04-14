@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.2',
+    sdk_version = '1.0.3',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -159,10 +159,174 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// YuqingMessage
+model YuqingMessage {
+  // 作者头像地址
+  authorAvatarUrl?: string(name='author_avatar_url', example='作者头像地址'),
+  // 粉丝数
+  authorFollowersCount?: long(name='author_followers_count', example='粉丝数'),
+  // 好友数
+  authorFriendsCount?: long(name='author_friends_count', example='好友数'),
+  // 作者id
+  authorId?: string(name='author_id', example='作者id'),
+  // 作者名称
+  authorName?: string(name='author_name', example='作者名称'),
+  // 发文数
+  authorStatusesCount?: long(name='author_statuses_count', example='发文数'),
+  // 作者认证类型
+  authorVerifyType?: string(name='author_verify_type', example='作者认证类型'),
+  // 舆情文章被抓取的时间戳
+  createTime?: long(name='create_time', example='舆情文章被抓取的时间戳'),
+  // 文章正文内容
+  docContent?: string(name='doc_content', example='文章正文内容'),
+  // 文章摘要
+  docContentBrief?: string(name='doc_content_brief', example='文章摘要'),
+  // 文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同
+  docContentSign?: string(name='doc_content_sign', example='文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同'),
+  // 文章唯一docId
+  docId?: string(name='doc_id', example='文章唯一docId'),
+  // 文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关
+  docSelfContentSign?: string(name='doc_self_content_sign', example='文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关'),
+  // 文章标题
+  docTitle?: string(name='doc_title', example='文章标题'),
+  // 原文地址
+  docUrl?: string(name='doc_url', example='原文地址'),
+  // 情感的正负面，-1代表负面，1代表非负面
+  emotionType?: long(name='emotion_type', example='情感的正负面，-1代表负面，1代表非负面'),
+  // 命中的搜索词列表
+  highlightKeywords?: [ string ](name='highlight_keywords', example='命中的搜索词列表'),
+  // 媒体类型，枚举值
+  mediaType?: string(name='media_type', example='媒体类型，枚举值'),
+  // 舆情消息类型:转发,评论/回复, 原文,群聊等
+  messageType?: string(name='message_type', example='舆情消息类型:转发,评论/回复, 原文,群聊等'),
+  // 文章的父docId，如被转发的文章docId
+  parentDocId?: string(name='parent_doc_id', example='文章的父docId，如被转发的文章docId'),
+  // 舆情文章的发布时间戳
+  publishTime?: long(name='publish_time', example='舆情文章的发布时间戳'),
+  // 相关性得分
+  relevanceScore?: long(name='relevance_score', example='相关性得分'),
+  // 相似文章数
+  similarNumber?: long(name='similar_number', example='相似文章数'),
+  // 微博评论id
+  weiboCommentId?: string(name='weibo_comment_id', example='微博评论id'),
+  // 微博消息id
+  weiboMid?: string(name='weibo_mid', example='微博消息id'),
+}
+
+// 查询结构体
+model SearchCondition {
+  // 搭配词
+  assKeywords?: string(name='ass_keywords', example='搭配词'),
+  // 被@的用户名称
+  atAuthorName?: string(name='at_author_name', example='被@的用户名称'),
+  // 作者名称
+  authorName?: string(name='author_name', example='作者名称'),
+  // 评论级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
+  commentsLevel?: long(name='comments_level', example='评论级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+'),
+  // 内容长度级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
+  contentLenLevel?: string(name='content_len_level', example='内容长度级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+'),
+  // 抓取截止时间
+  createTimeEnd?: long(name='create_time_end', example='抓取截止时间'),
+  // 抓取起始时间
+  createTimeStart?: long(name='create_time_start', example='抓取起始时间'),
+  // 文章签名
+  docContentSign?: string(name='doc_content_sign', example='文章签名'),
+  // 舆情文章唯一docId
+  docId?: string(name='doc_id', example='舆情文章唯一docId'),
+  // 是否去重
+  duplicateRemoval?: boolean(name='duplicate_removal', example='true, false'),
+  // 情感类型，1非负，-1负面
+  emotionType?: long(name='emotion_type', example='情感类型，1非负，-1负面'),
+  // 是否高亮关键词
+  enableKeywordHighlight?: boolean(name='enable_keyword_highlight', example='true, false'),
+  // 排除被@的用户名称
+  excludeAtAuthorName?: string(name='exclude_at_author_name', example='排除被@的用户名称'),
+  // 排除作者名称
+  excludeAuthorName?: string(name='exclude_author_name', example='排除作者名称'),
+  // 排除网站域名
+  excludeHostName?: string(name='exclude_host_name', example='排除网站域名'),
+  // 排除关键词标签Id列表
+  excludeKeywordTagIds?: string(name='exclude_keyword_tag_ids', example='排除关键词标签Id列表'),
+  // 排除词
+  excludeKeywords?: string(name='exclude_keywords', example='排除词'),
+  // 标题排除词
+  excludeKeywordsInTitle?: string(name='exclude_keywords_in_title', example='标题排除词'),
+  // 排除媒体库id列表
+  excludeMediaLibraryIds?: string(name='exclude_media_library_ids', example='排除媒体库id列表'),
+  // 排除媒体名称
+  excludeMediaName?: string(name='exclude_media_name', example='排除媒体名称'),
+  // 排除媒体类型，枚举值
+  excludeMediaType?: string(name='exclude_media_type', example='排除媒体类型，枚举值'),
+  // 排除消息类型，枚举值
+  excludeMessageType?: string(name='exclude_message_type', example='排除消息类型，枚举值'),
+  // 其他过滤条件
+  fieldConditions?: string(name='field_conditions', example='其他过滤条件'),
+  // 文章是否含有图片
+  hasImage?: boolean(name='has_image', example='true, false'),
+  // 是否含有视频
+  hasVideo?: boolean(name='has_video', example='true, false'),
+  // 网站域名
+  hostName?: string(name='host_name', example='网站域名'),
+  // 关键词标签Id列表
+  keywordTagIds?: string(name='keyword_tag_ids', example='关键词标签Id列表'),
+  // 点赞级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
+  likesLevel?: long(name='likes_level', example='点赞级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+'),
+  // 媒体库id列表
+  mediaLibraryIds?: string(name='media_library_ids', example='媒体库id列表'),
+  // 媒体名称
+  mediaName?: string(name='media_name', example='媒体名称'),
+  // 体类型，枚举值
+  mediaType?: string(name='media_type', example='体类型，枚举值'),
+  // 消息类型，枚举值
+  messageType?: string(name='message_type', example='消息类型，枚举值'),
+  // 当前页
+  pageNow?: long(name='page_now', example='当前页'),
+  // 页大小
+  pageSize?: long(name='page_size', example='页大小'),
+  // 舆情父文章的docId，一般用于查看某篇文章的评论
+  parentDocId?: string(name='parent_doc_id', example='舆情父文章的docId，一般用于查看某篇文章的评论'),
+  // 关键词
+  posKeyWords?: string(name='pos_key_words', example='关键词'),
+  // 标题关键词
+  posKeywordsInTitle?: string(name='pos_keywords_in_title', example='标题关键词'),
+  // 截止发布时间
+  publishTimeEnd?: long(name='publish_time_end', example='截止发布时间'),
+  // 起始发布时间
+  publishTimeStart?: string(name='publish_time_start', example='起始发布时间'),
+  // 阅读级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
+  readsLevel?: long(name='reads_level', example='阅读级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+'),
+  // 相关性等级，1：低，2：中，3：高，4：低级别以上
+  relevanceLevel?: long(name='relevance_level', example='相关性等级，1：低，2：中，3：高，4：低级别以上'),
+  // 转发级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
+  repostLevel?: long(name='repost_level', example='转发级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+'),
+  // 排序字段
+  sortBy?: string(name='sort_by', example='排序字段'),
+  // 指定正反向排序
+  sortByDirection?: string(name='sort_by_direction', example='指定正反向排序'),
+  // #话题
+  topics?: string(name='topics', example='#话题'),
+  // 舆情文章截止更新时间
+  updateTimeEnd?: long(name='update_time_end', example='舆情文章截止更新时间'),
+  // 舆情文章起始更新时间
+  updateTimeStart?: long(name='update_time_start', example='舆情文章起始更新时间'),
+}
+
+// 商品规格
+model CommoditySpec {
+  // 规格项枚举值
+  specKey?: string(name='spec_key', example='规格项枚举值'),
+  // 规格项默认值
+  value?: string(name='value', example='规格项默认值'),
+}
+
 model QueryMessagesRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 查询条件
+  searchCondition: SearchCondition(name='search_condition'),
+  // 请求ID
+  requestId?: string(name='request_id'),
 }
 
 model QueryMessagesResponse = {
@@ -172,12 +336,10 @@ model QueryMessagesResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 返回码
-  code?: string(name='code'),
-  // 返回描述
-  message?: string(name='message'),
-  // 请求结果
-  success?: boolean(name='success'),
+  // 数量
+  totalCount?: long(name='total_count'),
+  // 舆情列表
+  yuqingMessages?: [ YuqingMessage ](name='yuqing_messages'),
 }
 
 /**
@@ -197,5 +359,193 @@ async function queryMessages(request: QueryMessagesRequest): QueryMessagesRespon
 async function queryMessagesEx(request: QueryMessagesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMessagesResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'universalsaas.yuqing.messages.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SaveAnalysisSubmitRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 分析类型
+  analyseType: string(name='analyse_type'),
+  // 查询条件
+  searchCondition: SearchCondition(name='search_condition'),
+}
+
+model SaveAnalysisSubmitResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 分析任务ID
+  analysisId?: string(name='analysis_id'),
+  // 其他
+  resultJson?: string(name='result_json'),
+}
+
+/**
+ * Description: 舆情分析任务提交
+ * Summary: 舆情分析任务提交
+ */
+async function saveAnalysisSubmit(request: SaveAnalysisSubmitRequest): SaveAnalysisSubmitResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveAnalysisSubmitEx(request, headers, runtime);
+}
+
+/**
+ * Description: 舆情分析任务提交
+ * Summary: 舆情分析任务提交
+ */
+async function saveAnalysisSubmitEx(request: SaveAnalysisSubmitRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveAnalysisSubmitResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.yuqing.analysis.submit.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAnalysisQueryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 分析任务ID
+  analysisId: string(name='analysis_id'),
+}
+
+model QueryAnalysisQueryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 分析任务ID
+  analysisId?: string(name='analysis_id'),
+  // 分析内容
+  resultJson?: string(name='result_json'),
+}
+
+/**
+ * Description: 舆情分析任务查询
+ * Summary: 舆情分析任务查询
+ */
+async function queryAnalysisQuery(request: QueryAnalysisQueryRequest): QueryAnalysisQueryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAnalysisQueryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 舆情分析任务查询
+ * Summary: 舆情分析任务查询
+ */
+async function queryAnalysisQueryEx(request: QueryAnalysisQueryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAnalysisQueryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.yuqing.analysis.query.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SaveProductOpenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务号
+  bizNo?: string(name='biz_no'),
+  // 租户 ID
+  tenantId?: string(name='tenant_id'),
+  // 实例 ID，兼容老模型的 tntInstId
+  instanceId?: string(name='instance_id'),
+  // 产品编码
+  productCode?: string(name='product_code'),
+  // 模块唯一标识
+  moduleKey?: string(name='module_key'),
+  // 操作类型
+  operate?: string(name='operate'),
+  // 操作来源渠道
+  channel?: string(name='channel'),
+  // 规格
+  commoditySpecs?: [ CommoditySpec ](name='commodity_specs'),
+}
+
+model SaveProductOpenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 计量请求是否处理成功
+  success?: boolean(name='success'),
+  // 结果描述信息
+  resultMessage?: string(name='result_message'),
+}
+
+/**
+ * Description: 产品开通
+ * Summary: 产品开通
+ */
+async function saveProductOpen(request: SaveProductOpenRequest): SaveProductOpenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveProductOpenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品开通
+ * Summary: 产品开通
+ */
+async function saveProductOpenEx(request: SaveProductOpenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveProductOpenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.yuqing.product.open.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SaveProductTopRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务号
+  bizNo?: string(name='biz_no'),
+  // 租户 ID
+  tenantId?: string(name='tenant_id'),
+  // 实例 ID，兼容老模型的 tntInstId
+  instanceId?: string(name='instance_id'),
+  // 产品编码
+  productCode?: string(name='product_code'),
+  // 模块唯一标识
+  moduleKey?: string(name='module_key'),
+  // 操作类型
+  operate?: string(name='operate'),
+  // 操作来源渠道
+  channel?: string(name='channel'),
+}
+
+model SaveProductTopResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 计量请求是否处理成功
+  success?: boolean(name='success'),
+  // 结果描述信息
+  resultMessage?: string(name='result_message'),
+}
+
+/**
+ * Description: 产品关闭
+ * Summary: 产品关闭
+ */
+async function saveProductTop(request: SaveProductTopRequest): SaveProductTopResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveProductTopEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品关闭
+ * Summary: 产品关闭
+ */
+async function saveProductTopEx(request: SaveProductTopRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveProductTopResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.yuqing.product.top.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
