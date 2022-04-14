@@ -11,6 +11,15 @@ public class QueryMessagesRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 查询条件
+    @NameInMap("search_condition")
+    @Validation(required = true)
+    public SearchCondition searchCondition;
+
+    // 请求ID
+    @NameInMap("request_id")
+    public String requestId;
+
     public static QueryMessagesRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryMessagesRequest self = new QueryMessagesRequest();
         return TeaModel.build(map, self);
@@ -30,6 +39,22 @@ public class QueryMessagesRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public QueryMessagesRequest setSearchCondition(SearchCondition searchCondition) {
+        this.searchCondition = searchCondition;
+        return this;
+    }
+    public SearchCondition getSearchCondition() {
+        return this.searchCondition;
+    }
+
+    public QueryMessagesRequest setRequestId(String requestId) {
+        this.requestId = requestId;
+        return this;
+    }
+    public String getRequestId() {
+        return this.requestId;
     }
 
 }

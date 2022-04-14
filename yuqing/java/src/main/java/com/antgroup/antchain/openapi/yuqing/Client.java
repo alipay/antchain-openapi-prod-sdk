@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.2")
+                    new TeaPair("sdk_version", "1.0.3")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -176,5 +176,81 @@ public class Client {
     public QueryMessagesResponse queryMessagesEx(QueryMessagesRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.messages.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMessagesResponse());
+    }
+
+    /**
+     * Description: 舆情分析任务提交
+     * Summary: 舆情分析任务提交
+     */
+    public SaveAnalysisSubmitResponse saveAnalysisSubmit(SaveAnalysisSubmitRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.saveAnalysisSubmitEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 舆情分析任务提交
+     * Summary: 舆情分析任务提交
+     */
+    public SaveAnalysisSubmitResponse saveAnalysisSubmitEx(SaveAnalysisSubmitRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.analysis.submit.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveAnalysisSubmitResponse());
+    }
+
+    /**
+     * Description: 舆情分析任务查询
+     * Summary: 舆情分析任务查询
+     */
+    public QueryAnalysisQueryResponse queryAnalysisQuery(QueryAnalysisQueryRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAnalysisQueryEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 舆情分析任务查询
+     * Summary: 舆情分析任务查询
+     */
+    public QueryAnalysisQueryResponse queryAnalysisQueryEx(QueryAnalysisQueryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.analysis.query.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAnalysisQueryResponse());
+    }
+
+    /**
+     * Description: 产品开通
+     * Summary: 产品开通
+     */
+    public SaveProductOpenResponse saveProductOpen(SaveProductOpenRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.saveProductOpenEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 产品开通
+     * Summary: 产品开通
+     */
+    public SaveProductOpenResponse saveProductOpenEx(SaveProductOpenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.product.open.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveProductOpenResponse());
+    }
+
+    /**
+     * Description: 产品关闭
+     * Summary: 产品关闭
+     */
+    public SaveProductTopResponse saveProductTop(SaveProductTopRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.saveProductTopEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 产品关闭
+     * Summary: 产品关闭
+     */
+    public SaveProductTopResponse saveProductTopEx(SaveProductTopRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.product.top.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveProductTopResponse());
     }
 }

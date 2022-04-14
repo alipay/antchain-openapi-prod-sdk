@@ -16,17 +16,13 @@ public class QueryMessagesResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 返回码
-    @NameInMap("code")
-    public String code;
+    // 数量
+    @NameInMap("total_count")
+    public Long totalCount;
 
-    // 返回描述
-    @NameInMap("message")
-    public String message;
-
-    // 请求结果
-    @NameInMap("success")
-    public Boolean success;
+    // 舆情列表
+    @NameInMap("yuqing_messages")
+    public java.util.List<YuqingMessage> yuqingMessages;
 
     public static QueryMessagesResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryMessagesResponse self = new QueryMessagesResponse();
@@ -57,28 +53,20 @@ public class QueryMessagesResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryMessagesResponse setCode(String code) {
-        this.code = code;
+    public QueryMessagesResponse setTotalCount(Long totalCount) {
+        this.totalCount = totalCount;
         return this;
     }
-    public String getCode() {
-        return this.code;
+    public Long getTotalCount() {
+        return this.totalCount;
     }
 
-    public QueryMessagesResponse setMessage(String message) {
-        this.message = message;
+    public QueryMessagesResponse setYuqingMessages(java.util.List<YuqingMessage> yuqingMessages) {
+        this.yuqingMessages = yuqingMessages;
         return this;
     }
-    public String getMessage() {
-        return this.message;
-    }
-
-    public QueryMessagesResponse setSuccess(Boolean success) {
-        this.success = success;
-        return this;
-    }
-    public Boolean getSuccess() {
-        return this.success;
+    public java.util.List<YuqingMessage> getYuqingMessages() {
+        return this.yuqingMessages;
     }
 
 }
