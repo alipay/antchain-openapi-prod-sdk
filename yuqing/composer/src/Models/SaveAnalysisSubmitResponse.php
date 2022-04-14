@@ -6,7 +6,7 @@ namespace AntChain\YUQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryMessagesResponse extends Model
+class SaveAnalysisSubmitResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,23 @@ class QueryMessagesResponse extends Model
      */
     public $resultMsg;
 
-    // 数量
+    // 分析任务ID
     /**
-     * @var int
+     * @var string
      */
-    public $totalCount;
+    public $analysisId;
 
-    // 舆情列表
+    // 其他
     /**
-     * @var YuqingMessage[]
+     * @var string
      */
-    public $yuqingMessages;
+    public $resultJson;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'totalCount'     => 'total_count',
-        'yuqingMessages' => 'yuqing_messages',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'analysisId' => 'analysis_id',
+        'resultJson' => 'result_json',
     ];
 
     public function validate()
@@ -61,17 +61,11 @@ class QueryMessagesResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->totalCount) {
-            $res['total_count'] = $this->totalCount;
+        if (null !== $this->analysisId) {
+            $res['analysis_id'] = $this->analysisId;
         }
-        if (null !== $this->yuqingMessages) {
-            $res['yuqing_messages'] = [];
-            if (null !== $this->yuqingMessages && \is_array($this->yuqingMessages)) {
-                $n = 0;
-                foreach ($this->yuqingMessages as $item) {
-                    $res['yuqing_messages'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+        if (null !== $this->resultJson) {
+            $res['result_json'] = $this->resultJson;
         }
 
         return $res;
@@ -80,7 +74,7 @@ class QueryMessagesResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryMessagesResponse
+     * @return SaveAnalysisSubmitResponse
      */
     public static function fromMap($map = [])
     {
@@ -94,17 +88,11 @@ class QueryMessagesResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['total_count'])) {
-            $model->totalCount = $map['total_count'];
+        if (isset($map['analysis_id'])) {
+            $model->analysisId = $map['analysis_id'];
         }
-        if (isset($map['yuqing_messages'])) {
-            if (!empty($map['yuqing_messages'])) {
-                $model->yuqingMessages = [];
-                $n                     = 0;
-                foreach ($map['yuqing_messages'] as $item) {
-                    $model->yuqingMessages[$n++] = null !== $item ? YuqingMessage::fromMap($item) : $item;
-                }
-            }
+        if (isset($map['result_json'])) {
+            $model->resultJson = $map['result_json'];
         }
 
         return $model;

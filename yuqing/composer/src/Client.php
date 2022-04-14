@@ -12,8 +12,16 @@ use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Util\UtilClient;
+use AntChain\YUQING\Models\QueryAnalysisQueryRequest;
+use AntChain\YUQING\Models\QueryAnalysisQueryResponse;
 use AntChain\YUQING\Models\QueryMessagesRequest;
 use AntChain\YUQING\Models\QueryMessagesResponse;
+use AntChain\YUQING\Models\SaveAnalysisSubmitRequest;
+use AntChain\YUQING\Models\SaveAnalysisSubmitResponse;
+use AntChain\YUQING\Models\SaveProductOpenRequest;
+use AntChain\YUQING\Models\SaveProductOpenResponse;
+use AntChain\YUQING\Models\SaveProductTopRequest;
+use AntChain\YUQING\Models\SaveProductTopResponse;
 use Exception;
 
 class Client
@@ -132,6 +140,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // YuqingMessage
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -159,7 +168,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.2',
+                    'sdk_version'      => '1.0.3',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -236,5 +245,137 @@ class Client
         Utils::validateModel($request);
 
         return QueryMessagesResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.messages.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 舆情分析任务提交
+     * Summary: 舆情分析任务提交.
+     *
+     * @param SaveAnalysisSubmitRequest $request
+     *
+     * @return SaveAnalysisSubmitResponse
+     */
+    public function saveAnalysisSubmit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveAnalysisSubmitEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 舆情分析任务提交
+     * Summary: 舆情分析任务提交.
+     *
+     * @param SaveAnalysisSubmitRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return SaveAnalysisSubmitResponse
+     */
+    public function saveAnalysisSubmitEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveAnalysisSubmitResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.analysis.submit.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 舆情分析任务查询
+     * Summary: 舆情分析任务查询.
+     *
+     * @param QueryAnalysisQueryRequest $request
+     *
+     * @return QueryAnalysisQueryResponse
+     */
+    public function queryAnalysisQuery($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAnalysisQueryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 舆情分析任务查询
+     * Summary: 舆情分析任务查询.
+     *
+     * @param QueryAnalysisQueryRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryAnalysisQueryResponse
+     */
+    public function queryAnalysisQueryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAnalysisQueryResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.analysis.query.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产品开通
+     * Summary: 产品开通.
+     *
+     * @param SaveProductOpenRequest $request
+     *
+     * @return SaveProductOpenResponse
+     */
+    public function saveProductOpen($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveProductOpenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产品开通
+     * Summary: 产品开通.
+     *
+     * @param SaveProductOpenRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return SaveProductOpenResponse
+     */
+    public function saveProductOpenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveProductOpenResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.product.open.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产品关闭
+     * Summary: 产品关闭.
+     *
+     * @param SaveProductTopRequest $request
+     *
+     * @return SaveProductTopResponse
+     */
+    public function saveProductTop($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveProductTopEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产品关闭
+     * Summary: 产品关闭.
+     *
+     * @param SaveProductTopRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return SaveProductTopResponse
+     */
+    public function saveProductTopEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveProductTopResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.product.top.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

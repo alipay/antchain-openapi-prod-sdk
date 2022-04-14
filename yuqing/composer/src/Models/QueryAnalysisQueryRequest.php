@@ -6,7 +6,7 @@ namespace AntChain\YUQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryMessagesRequest extends Model
+class QueryAnalysisQueryRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,27 +19,20 @@ class QueryMessagesRequest extends Model
      */
     public $productInstanceId;
 
-    // 查询条件
-    /**
-     * @var SearchCondition
-     */
-    public $searchCondition;
-
-    // 请求ID
+    // 分析任务ID
     /**
      * @var string
      */
-    public $requestId;
+    public $analysisId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'searchCondition'   => 'search_condition',
-        'requestId'         => 'request_id',
+        'analysisId'        => 'analysis_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('searchCondition', $this->searchCondition, true);
+        Model::validateRequired('analysisId', $this->analysisId, true);
     }
 
     public function toMap()
@@ -51,11 +44,8 @@ class QueryMessagesRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->searchCondition) {
-            $res['search_condition'] = null !== $this->searchCondition ? $this->searchCondition->toMap() : null;
-        }
-        if (null !== $this->requestId) {
-            $res['request_id'] = $this->requestId;
+        if (null !== $this->analysisId) {
+            $res['analysis_id'] = $this->analysisId;
         }
 
         return $res;
@@ -64,7 +54,7 @@ class QueryMessagesRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryMessagesRequest
+     * @return QueryAnalysisQueryRequest
      */
     public static function fromMap($map = [])
     {
@@ -75,11 +65,8 @@ class QueryMessagesRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['search_condition'])) {
-            $model->searchCondition = SearchCondition::fromMap($map['search_condition']);
-        }
-        if (isset($map['request_id'])) {
-            $model->requestId = $map['request_id'];
+        if (isset($map['analysis_id'])) {
+            $model->analysisId = $map['analysis_id'];
         }
 
         return $model;
