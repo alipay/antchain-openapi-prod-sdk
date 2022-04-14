@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.YUQING.Models
 {
-    public class QueryMessagesRequest : TeaModel {
+    public class SaveAnalysisSubmitRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,15 @@ namespace AntChain.SDK.YUQING.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 分析类型
+        [NameInMap("analyse_type")]
+        [Validation(Required=true)]
+        public string AnalyseType { get; set; }
+
         // 查询条件
         [NameInMap("search_condition")]
         [Validation(Required=true)]
         public SearchCondition SearchCondition { get; set; }
-
-        // 请求ID
-        [NameInMap("request_id")]
-        [Validation(Required=false)]
-        public string RequestId { get; set; }
 
     }
 

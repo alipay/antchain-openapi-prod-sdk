@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.YUQING.Models
 {
-    public class QueryMessagesResponse : TeaModel {
+    public class SaveProductTopResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,15 @@ namespace AntChain.SDK.YUQING.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 数量
-        [NameInMap("total_count")]
+        // 计量请求是否处理成功
+        [NameInMap("success")]
         [Validation(Required=false)]
-        public long? TotalCount { get; set; }
+        public bool? Success { get; set; }
 
-        // 舆情列表
-        [NameInMap("yuqing_messages")]
+        // 结果描述信息
+        [NameInMap("result_message")]
         [Validation(Required=false)]
-        public List<YuqingMessage> YuqingMessages { get; set; }
+        public string ResultMessage { get; set; }
 
     }
 
