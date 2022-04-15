@@ -145,8 +145,8 @@ public class SearchCondition extends TeaModel {
     public String parentDocId;
 
     // 关键词
-    @NameInMap("pos_key_words")
-    public String posKeyWords;
+    @NameInMap("pos_keywords")
+    public String posKeywords;
 
     // 标题关键词
     @NameInMap("pos_keywords_in_title")
@@ -158,7 +158,7 @@ public class SearchCondition extends TeaModel {
 
     // 起始发布时间
     @NameInMap("publish_time_start")
-    public String publishTimeStart;
+    public Long publishTimeStart;
 
     // 阅读级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
     @NameInMap("reads_level")
@@ -477,12 +477,12 @@ public class SearchCondition extends TeaModel {
         return this.parentDocId;
     }
 
-    public SearchCondition setPosKeyWords(String posKeyWords) {
-        this.posKeyWords = posKeyWords;
+    public SearchCondition setPosKeywords(String posKeywords) {
+        this.posKeywords = posKeywords;
         return this;
     }
-    public String getPosKeyWords() {
-        return this.posKeyWords;
+    public String getPosKeywords() {
+        return this.posKeywords;
     }
 
     public SearchCondition setPosKeywordsInTitle(String posKeywordsInTitle) {
@@ -501,11 +501,11 @@ public class SearchCondition extends TeaModel {
         return this.publishTimeEnd;
     }
 
-    public SearchCondition setPublishTimeStart(String publishTimeStart) {
+    public SearchCondition setPublishTimeStart(Long publishTimeStart) {
         this.publishTimeStart = publishTimeStart;
         return this;
     }
-    public String getPublishTimeStart() {
+    public Long getPublishTimeStart() {
         return this.publishTimeStart;
     }
 

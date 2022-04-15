@@ -16,14 +16,6 @@ public class SaveProductOpenResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 计量请求是否处理成功
-    @NameInMap("success")
-    public Boolean success;
-
-    // 结果描述信息
-    @NameInMap("result_message")
-    public String resultMessage;
-
     public static SaveProductOpenResponse build(java.util.Map<String, ?> map) throws Exception {
         SaveProductOpenResponse self = new SaveProductOpenResponse();
         return TeaModel.build(map, self);
@@ -51,22 +43,6 @@ public class SaveProductOpenResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public SaveProductOpenResponse setSuccess(Boolean success) {
-        this.success = success;
-        return this;
-    }
-    public Boolean getSuccess() {
-        return this.success;
-    }
-
-    public SaveProductOpenResponse setResultMessage(String resultMessage) {
-        this.resultMessage = resultMessage;
-        return this;
-    }
-    public String getResultMessage() {
-        return this.resultMessage;
     }
 
 }

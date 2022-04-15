@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.yuqing.models;
 
 import com.aliyun.tea.*;
 
-public class SaveProductTopResponse extends TeaModel {
+public class SetProductOperateResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,16 @@ public class SaveProductTopResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static SaveProductTopResponse build(java.util.Map<String, ?> map) throws Exception {
-        SaveProductTopResponse self = new SaveProductTopResponse();
+    // 输出返回
+    @NameInMap("output_json")
+    public String outputJson;
+
+    public static SetProductOperateResponse build(java.util.Map<String, ?> map) throws Exception {
+        SetProductOperateResponse self = new SetProductOperateResponse();
         return TeaModel.build(map, self);
     }
 
-    public SaveProductTopResponse setReqMsgId(String reqMsgId) {
+    public SetProductOperateResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +33,7 @@ public class SaveProductTopResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public SaveProductTopResponse setResultCode(String resultCode) {
+    public SetProductOperateResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,12 +41,20 @@ public class SaveProductTopResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public SaveProductTopResponse setResultMsg(String resultMsg) {
+    public SetProductOperateResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public SetProductOperateResponse setOutputJson(String outputJson) {
+        this.outputJson = outputJson;
+        return this;
+    }
+    public String getOutputJson() {
+        return this.outputJson;
     }
 
 }

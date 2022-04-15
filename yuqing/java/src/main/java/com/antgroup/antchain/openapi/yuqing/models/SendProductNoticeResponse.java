@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.yuqing.models;
 
 import com.aliyun.tea.*;
 
-public class SaveProductTopResponse extends TeaModel {
+public class SendProductNoticeResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,16 @@ public class SaveProductTopResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static SaveProductTopResponse build(java.util.Map<String, ?> map) throws Exception {
-        SaveProductTopResponse self = new SaveProductTopResponse();
+    // 推送返回
+    @NameInMap("operate_result")
+    public Boolean operateResult;
+
+    public static SendProductNoticeResponse build(java.util.Map<String, ?> map) throws Exception {
+        SendProductNoticeResponse self = new SendProductNoticeResponse();
         return TeaModel.build(map, self);
     }
 
-    public SaveProductTopResponse setReqMsgId(String reqMsgId) {
+    public SendProductNoticeResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +33,7 @@ public class SaveProductTopResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public SaveProductTopResponse setResultCode(String resultCode) {
+    public SendProductNoticeResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,12 +41,20 @@ public class SaveProductTopResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public SaveProductTopResponse setResultMsg(String resultMsg) {
+    public SendProductNoticeResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public SendProductNoticeResponse setOperateResult(Boolean operateResult) {
+        this.operateResult = operateResult;
+        return this;
+    }
+    public Boolean getOperateResult() {
+        return this.operateResult;
     }
 
 }
