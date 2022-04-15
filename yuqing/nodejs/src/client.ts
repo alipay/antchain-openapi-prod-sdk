@@ -77,6 +77,250 @@ export class Config extends $tea.Model {
   }
 }
 
+// 钉钉链接消息
+export class Link extends $tea.Model {
+  // 文字
+  text?: string;
+  // 标题
+  title?: string;
+  // 图片地址
+  picUrl?: string;
+  // 链接
+  messageUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      text: 'text',
+      title: 'title',
+      picUrl: 'pic_url',
+      messageUrl: 'message_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      text: 'string',
+      title: 'string',
+      picUrl: 'string',
+      messageUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 钉钉点击
+export class Btn extends $tea.Model {
+  // 标题
+  title?: string;
+  // 动作地址
+  actionUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      title: 'title',
+      actionUrl: 'action_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      title: 'string',
+      actionUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 钉钉动作卡片
+export class ActionCard extends $tea.Model {
+  // 标题
+  title?: string;
+  // 内容
+  text?: string;
+  // btn_orientation
+  btnOrientation?: string;
+  // 简单标题
+  singleTitle?: string;
+  // 简单地址
+  singleUrl?: string;
+  // 点击
+  btns?: Btn[];
+  static names(): { [key: string]: string } {
+    return {
+      title: 'title',
+      text: 'text',
+      btnOrientation: 'btn_orientation',
+      singleTitle: 'single_title',
+      singleUrl: 'single_url',
+      btns: 'btns',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      title: 'string',
+      text: 'string',
+      btnOrientation: 'string',
+      singleTitle: 'string',
+      singleUrl: 'string',
+      btns: { 'type': 'array', 'itemType': Btn },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 钉钉Markdown
+export class Markdown extends $tea.Model {
+  // 标题
+  title?: string;
+  // 内容
+  text?: string;
+  static names(): { [key: string]: string } {
+    return {
+      title: 'title',
+      text: 'text',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      title: 'string',
+      text: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 钉钉FeedCard
+export class FeedCard extends $tea.Model {
+  // 卡片流
+  links?: Link[];
+  static names(): { [key: string]: string } {
+    return {
+      links: 'links',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      links: { 'type': 'array', 'itemType': Link },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 钉钉文字消息
+export class Text extends $tea.Model {
+  // 内容
+  content?: string;
+  static names(): { [key: string]: string } {
+    return {
+      content: 'content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 钉钉At
+export class At extends $tea.Model {
+  // @手机号
+  atMobiles?: string[];
+  // @用户ID
+  atUserIds?: string[];
+  // @所有人
+  isAtAll?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      atMobiles: 'at_mobiles',
+      atUserIds: 'at_user_ids',
+      isAtAll: 'is_at_all',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      atMobiles: { 'type': 'array', 'itemType': 'string' },
+      atUserIds: { 'type': 'array', 'itemType': 'string' },
+      isAtAll: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 钉钉消息体
+export class DingTalkContent extends $tea.Model {
+  // webHook
+  webHook?: string;
+  // 消息类型
+  msgtype?: string;
+  // 文字
+  text?: Text;
+  // 链接
+  link?: Link;
+  // markdown
+  markdown?: Markdown;
+  // actionCard
+  actionCard?: ActionCard;
+  // feedCard
+  feedCard?: FeedCard;
+  // at
+  at?: At;
+  static names(): { [key: string]: string } {
+    return {
+      webHook: 'web_hook',
+      msgtype: 'msgtype',
+      text: 'text',
+      link: 'link',
+      markdown: 'markdown',
+      actionCard: 'action_card',
+      feedCard: 'feed_card',
+      at: 'at',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      webHook: 'string',
+      msgtype: 'string',
+      text: Text,
+      link: Link,
+      markdown: Markdown,
+      actionCard: ActionCard,
+      feedCard: FeedCard,
+      at: At,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // YuqingMessage
 export class YuqingMessage extends $tea.Model {
   // 作者头像地址
@@ -267,13 +511,13 @@ export class SearchCondition extends $tea.Model {
   // 舆情父文章的docId，一般用于查看某篇文章的评论
   parentDocId?: string;
   // 关键词
-  posKeyWords?: string;
+  posKeywords?: string;
   // 标题关键词
   posKeywordsInTitle?: string;
   // 截止发布时间
   publishTimeEnd?: number;
   // 起始发布时间
-  publishTimeStart?: string;
+  publishTimeStart?: number;
   // 阅读级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
   readsLevel?: number;
   // 相关性等级，1：低，2：中，3：高，4：低级别以上
@@ -327,7 +571,7 @@ export class SearchCondition extends $tea.Model {
       pageNow: 'page_now',
       pageSize: 'page_size',
       parentDocId: 'parent_doc_id',
-      posKeyWords: 'pos_key_words',
+      posKeywords: 'pos_keywords',
       posKeywordsInTitle: 'pos_keywords_in_title',
       publishTimeEnd: 'publish_time_end',
       publishTimeStart: 'publish_time_start',
@@ -379,10 +623,10 @@ export class SearchCondition extends $tea.Model {
       pageNow: 'number',
       pageSize: 'number',
       parentDocId: 'string',
-      posKeyWords: 'string',
+      posKeywords: 'string',
       posKeywordsInTitle: 'string',
       publishTimeEnd: 'number',
-      publishTimeStart: 'string',
+      publishTimeStart: 'number',
       readsLevel: 'number',
       relevanceLevel: 'number',
       repostLevel: 'number',
@@ -683,17 +927,11 @@ export class SaveProductOpenResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 计量请求是否处理成功
-  success?: boolean;
-  // 结果描述信息
-  resultMessage?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      success: 'success',
-      resultMessage: 'result_message',
     };
   }
 
@@ -702,8 +940,6 @@ export class SaveProductOpenResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      success: 'boolean',
-      resultMessage: 'string',
     };
   }
 
@@ -770,17 +1006,11 @@ export class SaveProductTopResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 计量请求是否处理成功
-  success?: boolean;
-  // 结果描述信息
-  resultMessage?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      success: 'success',
-      resultMessage: 'result_message',
     };
   }
 
@@ -789,8 +1019,128 @@ export class SaveProductTopResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      success: 'boolean',
-      resultMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SetProductOperateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求入参
+  inputJson: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      inputJson: 'input_json',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      inputJson: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SetProductOperateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 输出返回
+  outputJson?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      outputJson: 'output_json',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      outputJson: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendProductNoticeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 提醒类型
+  noticeType?: string;
+  // 钉钉结构体
+  dingTalkContent?: DingTalkContent;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      noticeType: 'notice_type',
+      dingTalkContent: 'ding_talk_content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      noticeType: 'string',
+      dingTalkContent: DingTalkContent,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendProductNoticeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 推送返回
+  operateResult?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      operateResult: 'operate_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      operateResult: 'boolean',
     };
   }
 
@@ -912,7 +1262,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.1",
+          sdk_version: "1.1.8",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1051,6 +1401,44 @@ export default class Client {
   async saveProductTopEx(request: SaveProductTopRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SaveProductTopResponse> {
     Util.validateModel(request);
     return $tea.cast<SaveProductTopResponse>(await this.doRequest("1.0", "universalsaas.yuqing.product.top.save", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SaveProductTopResponse({}));
+  }
+
+  /**
+   * Description: 产品操作接口
+   * Summary: 产品操作接口
+   */
+  async setProductOperate(request: SetProductOperateRequest): Promise<SetProductOperateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.setProductOperateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 产品操作接口
+   * Summary: 产品操作接口
+   */
+  async setProductOperateEx(request: SetProductOperateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SetProductOperateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SetProductOperateResponse>(await this.doRequest("1.0", "universalsaas.yuqing.product.operate.set", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SetProductOperateResponse({}));
+  }
+
+  /**
+   * Description: 发送提醒
+   * Summary: 发送提醒
+   */
+  async sendProductNotice(request: SendProductNoticeRequest): Promise<SendProductNoticeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.sendProductNoticeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 发送提醒
+   * Summary: 发送提醒
+   */
+  async sendProductNoticeEx(request: SendProductNoticeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendProductNoticeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SendProductNoticeResponse>(await this.doRequest("1.0", "universalsaas.yuqing.product.notice.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendProductNoticeResponse({}));
   }
 
 }
