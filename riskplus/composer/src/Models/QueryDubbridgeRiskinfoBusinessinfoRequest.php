@@ -48,7 +48,6 @@ class QueryDubbridgeRiskinfoBusinessinfoRequest extends Model
     {
         Model::validateRequired('channelCode', $this->channelCode, true);
         Model::validateRequired('customerNo', $this->customerNo, true);
-        Model::validateRequired('socialCreditCode', $this->socialCreditCode, true);
     }
 
     public function toMap()
