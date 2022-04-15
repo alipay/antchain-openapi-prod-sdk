@@ -150,6 +150,364 @@ class Config(TeaModel):
         return self
 
 
+class Link(TeaModel):
+    def __init__(
+        self,
+        text: str = None,
+        title: str = None,
+        pic_url: str = None,
+        message_url: str = None,
+    ):
+        # 文字
+        self.text = text
+        # 标题
+        self.title = title
+        # 图片地址
+        self.pic_url = pic_url
+        # 链接
+        self.message_url = message_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.text is not None:
+            result['text'] = self.text
+        if self.title is not None:
+            result['title'] = self.title
+        if self.pic_url is not None:
+            result['pic_url'] = self.pic_url
+        if self.message_url is not None:
+            result['message_url'] = self.message_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('text') is not None:
+            self.text = m.get('text')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('pic_url') is not None:
+            self.pic_url = m.get('pic_url')
+        if m.get('message_url') is not None:
+            self.message_url = m.get('message_url')
+        return self
+
+
+class Btn(TeaModel):
+    def __init__(
+        self,
+        title: str = None,
+        action_url: str = None,
+    ):
+        # 标题
+        self.title = title
+        # 动作地址
+        self.action_url = action_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.title is not None:
+            result['title'] = self.title
+        if self.action_url is not None:
+            result['action_url'] = self.action_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('action_url') is not None:
+            self.action_url = m.get('action_url')
+        return self
+
+
+class ActionCard(TeaModel):
+    def __init__(
+        self,
+        title: str = None,
+        text: str = None,
+        btn_orientation: str = None,
+        single_title: str = None,
+        single_url: str = None,
+        btns: List[Btn] = None,
+    ):
+        # 标题
+        self.title = title
+        # 内容
+        self.text = text
+        # btn_orientation
+        self.btn_orientation = btn_orientation
+        # 简单标题
+        self.single_title = single_title
+        # 简单地址
+        self.single_url = single_url
+        # 点击
+        self.btns = btns
+
+    def validate(self):
+        if self.btns:
+            for k in self.btns:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.title is not None:
+            result['title'] = self.title
+        if self.text is not None:
+            result['text'] = self.text
+        if self.btn_orientation is not None:
+            result['btn_orientation'] = self.btn_orientation
+        if self.single_title is not None:
+            result['single_title'] = self.single_title
+        if self.single_url is not None:
+            result['single_url'] = self.single_url
+        result['btns'] = []
+        if self.btns is not None:
+            for k in self.btns:
+                result['btns'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('text') is not None:
+            self.text = m.get('text')
+        if m.get('btn_orientation') is not None:
+            self.btn_orientation = m.get('btn_orientation')
+        if m.get('single_title') is not None:
+            self.single_title = m.get('single_title')
+        if m.get('single_url') is not None:
+            self.single_url = m.get('single_url')
+        self.btns = []
+        if m.get('btns') is not None:
+            for k in m.get('btns'):
+                temp_model = Btn()
+                self.btns.append(temp_model.from_map(k))
+        return self
+
+
+class Markdown(TeaModel):
+    def __init__(
+        self,
+        title: str = None,
+        text: str = None,
+    ):
+        # 标题
+        self.title = title
+        # 内容
+        self.text = text
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.title is not None:
+            result['title'] = self.title
+        if self.text is not None:
+            result['text'] = self.text
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('text') is not None:
+            self.text = m.get('text')
+        return self
+
+
+class FeedCard(TeaModel):
+    def __init__(
+        self,
+        links: List[Link] = None,
+    ):
+        # 卡片流
+        self.links = links
+
+    def validate(self):
+        if self.links:
+            for k in self.links:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['links'] = []
+        if self.links is not None:
+            for k in self.links:
+                result['links'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        self.links = []
+        if m.get('links') is not None:
+            for k in m.get('links'):
+                temp_model = Link()
+                self.links.append(temp_model.from_map(k))
+        return self
+
+
+class Text(TeaModel):
+    def __init__(
+        self,
+        content: str = None,
+    ):
+        # 内容
+        self.content = content
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        return self
+
+
+class At(TeaModel):
+    def __init__(
+        self,
+        at_mobiles: List[str] = None,
+        at_user_ids: List[str] = None,
+        is_at_all: bool = None,
+    ):
+        # @手机号
+        self.at_mobiles = at_mobiles
+        # @用户ID
+        self.at_user_ids = at_user_ids
+        # @所有人
+        self.is_at_all = is_at_all
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.at_mobiles is not None:
+            result['at_mobiles'] = self.at_mobiles
+        if self.at_user_ids is not None:
+            result['at_user_ids'] = self.at_user_ids
+        if self.is_at_all is not None:
+            result['is_at_all'] = self.is_at_all
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('at_mobiles') is not None:
+            self.at_mobiles = m.get('at_mobiles')
+        if m.get('at_user_ids') is not None:
+            self.at_user_ids = m.get('at_user_ids')
+        if m.get('is_at_all') is not None:
+            self.is_at_all = m.get('is_at_all')
+        return self
+
+
+class DingTalkContent(TeaModel):
+    def __init__(
+        self,
+        web_hook: str = None,
+        msgtype: str = None,
+        text: Text = None,
+        link: Link = None,
+        markdown: Markdown = None,
+        action_card: ActionCard = None,
+        feed_card: FeedCard = None,
+        at: At = None,
+    ):
+        # webHook
+        self.web_hook = web_hook
+        # 消息类型
+        self.msgtype = msgtype
+        # 文字
+        self.text = text
+        # 链接
+        self.link = link
+        # markdown
+        self.markdown = markdown
+        # actionCard
+        self.action_card = action_card
+        # feedCard
+        self.feed_card = feed_card
+        # at
+        self.at = at
+
+    def validate(self):
+        if self.text:
+            self.text.validate()
+        if self.link:
+            self.link.validate()
+        if self.markdown:
+            self.markdown.validate()
+        if self.action_card:
+            self.action_card.validate()
+        if self.feed_card:
+            self.feed_card.validate()
+        if self.at:
+            self.at.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.web_hook is not None:
+            result['web_hook'] = self.web_hook
+        if self.msgtype is not None:
+            result['msgtype'] = self.msgtype
+        if self.text is not None:
+            result['text'] = self.text.to_map()
+        if self.link is not None:
+            result['link'] = self.link.to_map()
+        if self.markdown is not None:
+            result['markdown'] = self.markdown.to_map()
+        if self.action_card is not None:
+            result['action_card'] = self.action_card.to_map()
+        if self.feed_card is not None:
+            result['feed_card'] = self.feed_card.to_map()
+        if self.at is not None:
+            result['at'] = self.at.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('web_hook') is not None:
+            self.web_hook = m.get('web_hook')
+        if m.get('msgtype') is not None:
+            self.msgtype = m.get('msgtype')
+        if m.get('text') is not None:
+            temp_model = Text()
+            self.text = temp_model.from_map(m['text'])
+        if m.get('link') is not None:
+            temp_model = Link()
+            self.link = temp_model.from_map(m['link'])
+        if m.get('markdown') is not None:
+            temp_model = Markdown()
+            self.markdown = temp_model.from_map(m['markdown'])
+        if m.get('action_card') is not None:
+            temp_model = ActionCard()
+            self.action_card = temp_model.from_map(m['action_card'])
+        if m.get('feed_card') is not None:
+            temp_model = FeedCard()
+            self.feed_card = temp_model.from_map(m['feed_card'])
+        if m.get('at') is not None:
+            temp_model = At()
+            self.at = temp_model.from_map(m['at'])
+        return self
+
+
 class YuqingMessage(TeaModel):
     def __init__(
         self,
@@ -380,10 +738,10 @@ class SearchCondition(TeaModel):
         page_now: int = None,
         page_size: int = None,
         parent_doc_id: str = None,
-        pos_key_words: str = None,
+        pos_keywords: str = None,
         pos_keywords_in_title: str = None,
         publish_time_end: int = None,
-        publish_time_start: str = None,
+        publish_time_start: int = None,
         reads_level: int = None,
         relevance_level: int = None,
         repost_level: int = None,
@@ -464,7 +822,7 @@ class SearchCondition(TeaModel):
         # 舆情父文章的docId，一般用于查看某篇文章的评论
         self.parent_doc_id = parent_doc_id
         # 关键词
-        self.pos_key_words = pos_key_words
+        self.pos_keywords = pos_keywords
         # 标题关键词
         self.pos_keywords_in_title = pos_keywords_in_title
         # 截止发布时间
@@ -563,8 +921,8 @@ class SearchCondition(TeaModel):
             result['page_size'] = self.page_size
         if self.parent_doc_id is not None:
             result['parent_doc_id'] = self.parent_doc_id
-        if self.pos_key_words is not None:
-            result['pos_key_words'] = self.pos_key_words
+        if self.pos_keywords is not None:
+            result['pos_keywords'] = self.pos_keywords
         if self.pos_keywords_in_title is not None:
             result['pos_keywords_in_title'] = self.pos_keywords_in_title
         if self.publish_time_end is not None:
@@ -661,8 +1019,8 @@ class SearchCondition(TeaModel):
             self.page_size = m.get('page_size')
         if m.get('parent_doc_id') is not None:
             self.parent_doc_id = m.get('parent_doc_id')
-        if m.get('pos_key_words') is not None:
-            self.pos_key_words = m.get('pos_key_words')
+        if m.get('pos_keywords') is not None:
+            self.pos_keywords = m.get('pos_keywords')
         if m.get('pos_keywords_in_title') is not None:
             self.pos_keywords_in_title = m.get('pos_keywords_in_title')
         if m.get('publish_time_end') is not None:
@@ -1115,8 +1473,6 @@ class SaveProductOpenResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        success: bool = None,
-        result_message: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1124,10 +1480,6 @@ class SaveProductOpenResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 计量请求是否处理成功
-        self.success = success
-        # 结果描述信息
-        self.result_message = result_message
 
     def validate(self):
         pass
@@ -1140,10 +1492,6 @@ class SaveProductOpenResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.success is not None:
-            result['success'] = self.success
-        if self.result_message is not None:
-            result['result_message'] = self.result_message
         return result
 
     def from_map(self, m: dict = None):
@@ -1154,10 +1502,6 @@ class SaveProductOpenResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('success') is not None:
-            self.success = m.get('success')
-        if m.get('result_message') is not None:
-            self.result_message = m.get('result_message')
         return self
 
 
@@ -1246,8 +1590,6 @@ class SaveProductTopResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        success: bool = None,
-        result_message: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1255,10 +1597,6 @@ class SaveProductTopResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 计量请求是否处理成功
-        self.success = success
-        # 结果描述信息
-        self.result_message = result_message
 
     def validate(self):
         pass
@@ -1271,10 +1609,6 @@ class SaveProductTopResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.success is not None:
-            result['success'] = self.success
-        if self.result_message is not None:
-            result['result_message'] = self.result_message
         return result
 
     def from_map(self, m: dict = None):
@@ -1285,10 +1619,179 @@ class SaveProductTopResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('success') is not None:
-            self.success = m.get('success')
-        if m.get('result_message') is not None:
-            self.result_message = m.get('result_message')
+        return self
+
+
+class SetProductOperateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        input_json: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求入参
+        self.input_json = input_json
+
+    def validate(self):
+        self.validate_required(self.input_json, 'input_json')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.input_json is not None:
+            result['input_json'] = self.input_json
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('input_json') is not None:
+            self.input_json = m.get('input_json')
+        return self
+
+
+class SetProductOperateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        output_json: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 输出返回
+        self.output_json = output_json
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.output_json is not None:
+            result['output_json'] = self.output_json
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('output_json') is not None:
+            self.output_json = m.get('output_json')
+        return self
+
+
+class SendProductNoticeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        notice_type: str = None,
+        ding_talk_content: DingTalkContent = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 提醒类型
+        self.notice_type = notice_type
+        # 钉钉结构体
+        self.ding_talk_content = ding_talk_content
+
+    def validate(self):
+        if self.ding_talk_content:
+            self.ding_talk_content.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.notice_type is not None:
+            result['notice_type'] = self.notice_type
+        if self.ding_talk_content is not None:
+            result['ding_talk_content'] = self.ding_talk_content.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('notice_type') is not None:
+            self.notice_type = m.get('notice_type')
+        if m.get('ding_talk_content') is not None:
+            temp_model = DingTalkContent()
+            self.ding_talk_content = temp_model.from_map(m['ding_talk_content'])
+        return self
+
+
+class SendProductNoticeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        operate_result: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 推送返回
+        self.operate_result = operate_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.operate_result is not None:
+            result['operate_result'] = self.operate_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('operate_result') is not None:
+            self.operate_result = m.get('operate_result')
         return self
 
 

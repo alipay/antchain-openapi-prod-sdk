@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # YuqingMessage
+            # 钉钉链接消息
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.1'
+                    'sdk_version': '1.1.8'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # YuqingMessage
+            # 钉钉链接消息
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.1'
+                    'sdk_version': '1.1.8'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -539,4 +539,112 @@ class Client:
         UtilClient.validate_model(request)
         return yuqing_models.SaveProductTopResponse().from_map(
             await self.do_request_async('1.0', 'universalsaas.yuqing.product.top.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def set_product_operate(
+        self,
+        request: yuqing_models.SetProductOperateRequest,
+    ) -> yuqing_models.SetProductOperateResponse:
+        """
+        Description: 产品操作接口
+        Summary: 产品操作接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.set_product_operate_ex(request, headers, runtime)
+
+    async def set_product_operate_async(
+        self,
+        request: yuqing_models.SetProductOperateRequest,
+    ) -> yuqing_models.SetProductOperateResponse:
+        """
+        Description: 产品操作接口
+        Summary: 产品操作接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.set_product_operate_ex_async(request, headers, runtime)
+
+    def set_product_operate_ex(
+        self,
+        request: yuqing_models.SetProductOperateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.SetProductOperateResponse:
+        """
+        Description: 产品操作接口
+        Summary: 产品操作接口
+        """
+        UtilClient.validate_model(request)
+        return yuqing_models.SetProductOperateResponse().from_map(
+            self.do_request('1.0', 'universalsaas.yuqing.product.operate.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def set_product_operate_ex_async(
+        self,
+        request: yuqing_models.SetProductOperateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.SetProductOperateResponse:
+        """
+        Description: 产品操作接口
+        Summary: 产品操作接口
+        """
+        UtilClient.validate_model(request)
+        return yuqing_models.SetProductOperateResponse().from_map(
+            await self.do_request_async('1.0', 'universalsaas.yuqing.product.operate.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def send_product_notice(
+        self,
+        request: yuqing_models.SendProductNoticeRequest,
+    ) -> yuqing_models.SendProductNoticeResponse:
+        """
+        Description: 发送提醒
+        Summary: 发送提醒
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.send_product_notice_ex(request, headers, runtime)
+
+    async def send_product_notice_async(
+        self,
+        request: yuqing_models.SendProductNoticeRequest,
+    ) -> yuqing_models.SendProductNoticeResponse:
+        """
+        Description: 发送提醒
+        Summary: 发送提醒
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.send_product_notice_ex_async(request, headers, runtime)
+
+    def send_product_notice_ex(
+        self,
+        request: yuqing_models.SendProductNoticeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.SendProductNoticeResponse:
+        """
+        Description: 发送提醒
+        Summary: 发送提醒
+        """
+        UtilClient.validate_model(request)
+        return yuqing_models.SendProductNoticeResponse().from_map(
+            self.do_request('1.0', 'universalsaas.yuqing.product.notice.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def send_product_notice_ex_async(
+        self,
+        request: yuqing_models.SendProductNoticeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.SendProductNoticeResponse:
+        """
+        Description: 发送提醒
+        Summary: 发送提醒
+        """
+        UtilClient.validate_model(request)
+        return yuqing_models.SendProductNoticeResponse().from_map(
+            await self.do_request_async('1.0', 'universalsaas.yuqing.product.notice.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
