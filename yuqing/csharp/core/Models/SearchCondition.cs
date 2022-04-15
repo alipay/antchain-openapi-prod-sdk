@@ -186,9 +186,9 @@ namespace AntChain.SDK.YUQING.Models
         public string ParentDocId { get; set; }
 
         // 关键词
-        [NameInMap("pos_key_words")]
+        [NameInMap("pos_keywords")]
         [Validation(Required=false)]
-        public string PosKeyWords { get; set; }
+        public string PosKeywords { get; set; }
 
         // 标题关键词
         [NameInMap("pos_keywords_in_title")]
@@ -203,7 +203,7 @@ namespace AntChain.SDK.YUQING.Models
         // 起始发布时间
         [NameInMap("publish_time_start")]
         [Validation(Required=false)]
-        public string PublishTimeStart { get; set; }
+        public long? PublishTimeStart { get; set; }
 
         // 阅读级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
         [NameInMap("reads_level")]

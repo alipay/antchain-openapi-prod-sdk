@@ -24,16 +24,6 @@ namespace AntChain.SDK.YUQING.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 计量请求是否处理成功
-        [NameInMap("success")]
-        [Validation(Required=false)]
-        public bool? Success { get; set; }
-
-        // 结果描述信息
-        [NameInMap("result_message")]
-        [Validation(Required=false)]
-        public string ResultMessage { get; set; }
-
     }
 
 }
