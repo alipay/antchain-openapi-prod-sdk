@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.9.3',
+    sdk_version = '1.9.5',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -933,6 +933,30 @@ model CompanyInfo {
   updateDate: string(name='update_date', example='20190923'),
   // 平台json  
   platform: string(name='platform', example=' [{"platform_name":"ptp","platform_states":"平台状态"}]'),
+}
+
+// 营销盾事件信息同步详情
+model EventResultSyncDetail {
+  // 广告主id
+  planOwnerId: string(name='plan_owner_id', example='1245'),
+  // 事件唯一id（单个租户全局唯一）
+  eventId: string(name='event_id', example='12345'),
+  // 营销计划id
+  planId: string(name='plan_id', example='12345'),
+  // 消息id
+  msgId: string(name='msg_id', example='1122'),
+  // 事件时间
+  eventTime: string(name='event_time', example='yyyy-MM-dd HH:mm:ss.SSS '),
+  // 事件类型：1为富信贴尾
+  eventType: long(name='event_type', example='1'),
+  // 1为成功 2为失败
+  state: long(name='state', example='1'),
+  // 用户key类型
+  keyType: string(name='key_type', example='MOBILE'),
+  // 手机号
+  customerKey: string(name='customer_key', example='15012340000'),
+  // 扩展字段
+  extData: string(name='ext_data', example='{"operator":"CMCC"}'),
 }
 
 // 预警企业
@@ -2880,8 +2904,8 @@ model QueryDubbridgeRiskinfoEnterprisescoreRequest = {
   socialCreditCode: string(name='social_credit_code'),
   // MD5
   mobileMd5: string(name='mobile_md5'),
-  // 合作方用户id
-  openId: string(name='open_id'),
+  // 客户号
+  customerNo: string(name='customer_no'),
   // 渠道号
   channelCode: string(name='channel_code'),
 }
@@ -3022,6 +3046,48 @@ async function updateDubbridgeInstitutionCredit(request: UpdateDubbridgeInstitut
 async function updateDubbridgeInstitutionCreditEx(request: UpdateDubbridgeInstitutionCreditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateDubbridgeInstitutionCreditResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.dubbridge.institution.credit.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeRiskinfoBusinessinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 渠道号
+  channelCode: string(name='channel_code'),
+  // 客户号
+  customerNo: string(name='customer_no'),
+  // 统一社会信用代码
+  socialCreditCode: string(name='social_credit_code'),
+}
+
+model QueryDubbridgeRiskinfoBusinessinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 企业经营信息
+  info?: string(name='info'),
+}
+
+/**
+ * Description: 天枢企业经营数据查询
+ * Summary: 天枢企业经营数据查询
+ */
+async function queryDubbridgeRiskinfoBusinessinfo(request: QueryDubbridgeRiskinfoBusinessinfoRequest): QueryDubbridgeRiskinfoBusinessinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeRiskinfoBusinessinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢企业经营数据查询
+ * Summary: 天枢企业经营数据查询
+ */
+async function queryDubbridgeRiskinfoBusinessinfoEx(request: QueryDubbridgeRiskinfoBusinessinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeRiskinfoBusinessinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.riskinfo.businessinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model VerifyFinserviceZhimaIdentifyRequest = {
@@ -3568,6 +3634,118 @@ async function queryRbbCompanyCredit(request: QueryRbbCompanyCreditRequest): Que
 async function queryRbbCompanyCreditEx(request: QueryRbbCompanyCreditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRbbCompanyCreditResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.rbb.company.credit.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRbbRegdatasyncPreparedRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询该bizDate数据分区的数据是否已经准备好
+  bizDate: string(maxLength=8, minLength=8, name='biz_date'),
+}
+
+model QueryRbbRegdatasyncPreparedResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 指定时间分区的数据是否已经准备完毕
+  prepared?: boolean(name='prepared'),
+}
+
+/**
+ * Description: 风险大脑-上交所数据离线同步数据准备状态，上交所本地部署鹰眼项目需要获取离线数据是否准备好的信息
+ * Summary: 风险大脑-上交所数据离线同步数据准备状态
+ */
+async function queryRbbRegdatasyncPrepared(request: QueryRbbRegdatasyncPreparedRequest): QueryRbbRegdatasyncPreparedResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRbbRegdatasyncPreparedEx(request, headers, runtime);
+}
+
+/**
+ * Description: 风险大脑-上交所数据离线同步数据准备状态，上交所本地部署鹰眼项目需要获取离线数据是否准备好的信息
+ * Summary: 风险大脑-上交所数据离线同步数据准备状态
+ */
+async function queryRbbRegdatasyncPreparedEx(request: QueryRbbRegdatasyncPreparedRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRbbRegdatasyncPreparedResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rbb.regdatasync.prepared.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartRbbRegdatasyncScheduleRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 同步时间分区
+  bizDate: string(name='biz_date'),
+}
+
+model StartRbbRegdatasyncScheduleResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 风险大脑-上交所数据离线同步数据开始通知标识
+ * Summary: 风险大脑-上交所数据离线同步数据开始通知
+ */
+async function startRbbRegdatasyncSchedule(request: StartRbbRegdatasyncScheduleRequest): StartRbbRegdatasyncScheduleResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startRbbRegdatasyncScheduleEx(request, headers, runtime);
+}
+
+/**
+ * Description: 风险大脑-上交所数据离线同步数据开始通知标识
+ * Summary: 风险大脑-上交所数据离线同步数据开始通知
+ */
+async function startRbbRegdatasyncScheduleEx(request: StartRbbRegdatasyncScheduleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartRbbRegdatasyncScheduleResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rbb.regdatasync.schedule.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model FinishRbbRegdatasyncScheduleRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 时间分区
+  bizDate: string(maxLength=8, minLength=8, name='biz_date'),
+  // 记录当前分区离线同步情况
+  syncInfo: string(name='sync_info'),
+}
+
+model FinishRbbRegdatasyncScheduleResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 风险大脑-上交所数据离线同步数据完成记录 记录完成的状态
+ * Summary: 风险大脑-上交所数据离线同步数据完成记录
+ */
+async function finishRbbRegdatasyncSchedule(request: FinishRbbRegdatasyncScheduleRequest): FinishRbbRegdatasyncScheduleResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return finishRbbRegdatasyncScheduleEx(request, headers, runtime);
+}
+
+/**
+ * Description: 风险大脑-上交所数据离线同步数据完成记录 记录完成的状态
+ * Summary: 风险大脑-上交所数据离线同步数据完成记录
+ */
+async function finishRbbRegdatasyncScheduleEx(request: FinishRbbRegdatasyncScheduleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FinishRbbRegdatasyncScheduleResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rbb.regdatasync.schedule.finish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryRpgwSignUrlRequest = {
@@ -5358,6 +5536,42 @@ async function batchqueryUmktRtMarketing(request: BatchqueryUmktRtMarketingReque
 async function batchqueryUmktRtMarketingEx(request: BatchqueryUmktRtMarketingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryUmktRtMarketingResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.umkt.rt.marketing.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncUmktRtEventresultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 详细事件明细
+  detail: [ EventResultSyncDetail ](name='detail'),
+}
+
+model SyncUmktRtEventresultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 梦网富信投放事件通知
+ * Summary: 梦网富信投放事件通知
+ */
+async function syncUmktRtEventresult(request: SyncUmktRtEventresultRequest): SyncUmktRtEventresultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncUmktRtEventresultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 梦网富信投放事件通知
+ * Summary: 梦网富信投放事件通知
+ */
+async function syncUmktRtEventresultEx(request: SyncUmktRtEventresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncUmktRtEventresultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.rt.eventresult.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
