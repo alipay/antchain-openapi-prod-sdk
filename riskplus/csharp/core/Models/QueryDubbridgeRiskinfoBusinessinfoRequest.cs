@@ -30,7 +30,7 @@ namespace AntChain.SDK.RISKPLUS.Models
 
         // 统一社会信用代码
         [NameInMap("social_credit_code")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string SocialCreditCode { get; set; }
 
     }
