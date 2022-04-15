@@ -23,7 +23,6 @@ public class QueryDubbridgeRiskinfoBusinessinfoRequest extends TeaModel {
 
     // 统一社会信用代码
     @NameInMap("social_credit_code")
-    @Validation(required = true)
     public String socialCreditCode;
 
     public static QueryDubbridgeRiskinfoBusinessinfoRequest build(java.util.Map<String, ?> map) throws Exception {
