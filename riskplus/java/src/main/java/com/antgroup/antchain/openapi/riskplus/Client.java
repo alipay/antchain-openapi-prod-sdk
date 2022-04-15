@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.9.3")
+                    new TeaPair("sdk_version", "1.9.5")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -865,6 +865,25 @@ public class Client {
     }
 
     /**
+     * Description: 天枢企业经营数据查询
+     * Summary: 天枢企业经营数据查询
+     */
+    public QueryDubbridgeRiskinfoBusinessinfoResponse queryDubbridgeRiskinfoBusinessinfo(QueryDubbridgeRiskinfoBusinessinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeRiskinfoBusinessinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 天枢企业经营数据查询
+     * Summary: 天枢企业经营数据查询
+     */
+    public QueryDubbridgeRiskinfoBusinessinfoResponse queryDubbridgeRiskinfoBusinessinfoEx(QueryDubbridgeRiskinfoBusinessinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.riskinfo.businessinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeRiskinfoBusinessinfoResponse());
+    }
+
+    /**
      * Description: 四要素认证首先调用此接口
      * Summary: 芝麻四要素接口
      */
@@ -1109,6 +1128,63 @@ public class Client {
     public QueryRbbCompanyCreditResponse queryRbbCompanyCreditEx(QueryRbbCompanyCreditRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.company.credit.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRbbCompanyCreditResponse());
+    }
+
+    /**
+     * Description: 风险大脑-上交所数据离线同步数据准备状态，上交所本地部署鹰眼项目需要获取离线数据是否准备好的信息
+     * Summary: 风险大脑-上交所数据离线同步数据准备状态
+     */
+    public QueryRbbRegdatasyncPreparedResponse queryRbbRegdatasyncPrepared(QueryRbbRegdatasyncPreparedRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryRbbRegdatasyncPreparedEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 风险大脑-上交所数据离线同步数据准备状态，上交所本地部署鹰眼项目需要获取离线数据是否准备好的信息
+     * Summary: 风险大脑-上交所数据离线同步数据准备状态
+     */
+    public QueryRbbRegdatasyncPreparedResponse queryRbbRegdatasyncPreparedEx(QueryRbbRegdatasyncPreparedRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.regdatasync.prepared.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRbbRegdatasyncPreparedResponse());
+    }
+
+    /**
+     * Description: 风险大脑-上交所数据离线同步数据开始通知标识
+     * Summary: 风险大脑-上交所数据离线同步数据开始通知
+     */
+    public StartRbbRegdatasyncScheduleResponse startRbbRegdatasyncSchedule(StartRbbRegdatasyncScheduleRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.startRbbRegdatasyncScheduleEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 风险大脑-上交所数据离线同步数据开始通知标识
+     * Summary: 风险大脑-上交所数据离线同步数据开始通知
+     */
+    public StartRbbRegdatasyncScheduleResponse startRbbRegdatasyncScheduleEx(StartRbbRegdatasyncScheduleRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.regdatasync.schedule.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartRbbRegdatasyncScheduleResponse());
+    }
+
+    /**
+     * Description: 风险大脑-上交所数据离线同步数据完成记录 记录完成的状态
+     * Summary: 风险大脑-上交所数据离线同步数据完成记录
+     */
+    public FinishRbbRegdatasyncScheduleResponse finishRbbRegdatasyncSchedule(FinishRbbRegdatasyncScheduleRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.finishRbbRegdatasyncScheduleEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 风险大脑-上交所数据离线同步数据完成记录 记录完成的状态
+     * Summary: 风险大脑-上交所数据离线同步数据完成记录
+     */
+    public FinishRbbRegdatasyncScheduleResponse finishRbbRegdatasyncScheduleEx(FinishRbbRegdatasyncScheduleRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.regdatasync.schedule.finish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FinishRbbRegdatasyncScheduleResponse());
     }
 
     /**
@@ -1797,6 +1873,25 @@ public class Client {
     public BatchqueryUmktRtMarketingResponse batchqueryUmktRtMarketingEx(BatchqueryUmktRtMarketingRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.rt.marketing.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryUmktRtMarketingResponse());
+    }
+
+    /**
+     * Description: 梦网富信投放事件通知
+     * Summary: 梦网富信投放事件通知
+     */
+    public SyncUmktRtEventresultResponse syncUmktRtEventresult(SyncUmktRtEventresultRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncUmktRtEventresultEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 梦网富信投放事件通知
+     * Summary: 梦网富信投放事件通知
+     */
+    public SyncUmktRtEventresultResponse syncUmktRtEventresultEx(SyncUmktRtEventresultRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.rt.eventresult.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncUmktRtEventresultResponse());
     }
 
     /**

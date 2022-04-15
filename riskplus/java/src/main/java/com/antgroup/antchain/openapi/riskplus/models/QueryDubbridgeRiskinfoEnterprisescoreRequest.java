@@ -21,10 +21,10 @@ public class QueryDubbridgeRiskinfoEnterprisescoreRequest extends TeaModel {
     @Validation(required = true)
     public String mobileMd5;
 
-    // 合作方用户id
-    @NameInMap("open_id")
+    // 客户号
+    @NameInMap("customer_no")
     @Validation(required = true)
-    public String openId;
+    public String customerNo;
 
     // 渠道号
     @NameInMap("channel_code")
@@ -68,12 +68,12 @@ public class QueryDubbridgeRiskinfoEnterprisescoreRequest extends TeaModel {
         return this.mobileMd5;
     }
 
-    public QueryDubbridgeRiskinfoEnterprisescoreRequest setOpenId(String openId) {
-        this.openId = openId;
+    public QueryDubbridgeRiskinfoEnterprisescoreRequest setCustomerNo(String customerNo) {
+        this.customerNo = customerNo;
         return this;
     }
-    public String getOpenId() {
-        return this.openId;
+    public String getCustomerNo() {
+        return this.customerNo;
     }
 
     public QueryDubbridgeRiskinfoEnterprisescoreRequest setChannelCode(String channelCode) {
