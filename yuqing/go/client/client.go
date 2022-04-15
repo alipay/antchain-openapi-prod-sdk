@@ -148,6 +148,291 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 钉钉链接消息
+type Link struct {
+	// 文字
+	Text *string `json:"text,omitempty" xml:"text,omitempty"`
+	// 标题
+	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+	// 图片地址
+	PicUrl *string `json:"pic_url,omitempty" xml:"pic_url,omitempty"`
+	// 链接
+	MessageUrl *string `json:"message_url,omitempty" xml:"message_url,omitempty"`
+}
+
+func (s Link) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Link) GoString() string {
+	return s.String()
+}
+
+func (s *Link) SetText(v string) *Link {
+	s.Text = &v
+	return s
+}
+
+func (s *Link) SetTitle(v string) *Link {
+	s.Title = &v
+	return s
+}
+
+func (s *Link) SetPicUrl(v string) *Link {
+	s.PicUrl = &v
+	return s
+}
+
+func (s *Link) SetMessageUrl(v string) *Link {
+	s.MessageUrl = &v
+	return s
+}
+
+// 钉钉点击
+type Btn struct {
+	// 标题
+	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+	// 动作地址
+	ActionUrl *string `json:"action_url,omitempty" xml:"action_url,omitempty"`
+}
+
+func (s Btn) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Btn) GoString() string {
+	return s.String()
+}
+
+func (s *Btn) SetTitle(v string) *Btn {
+	s.Title = &v
+	return s
+}
+
+func (s *Btn) SetActionUrl(v string) *Btn {
+	s.ActionUrl = &v
+	return s
+}
+
+// 钉钉动作卡片
+type ActionCard struct {
+	// 标题
+	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+	// 内容
+	Text *string `json:"text,omitempty" xml:"text,omitempty"`
+	// btn_orientation
+	BtnOrientation *string `json:"btn_orientation,omitempty" xml:"btn_orientation,omitempty"`
+	// 简单标题
+	SingleTitle *string `json:"single_title,omitempty" xml:"single_title,omitempty"`
+	// 简单地址
+	SingleUrl *string `json:"single_url,omitempty" xml:"single_url,omitempty"`
+	// 点击
+	Btns []*Btn `json:"btns,omitempty" xml:"btns,omitempty" type:"Repeated"`
+}
+
+func (s ActionCard) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ActionCard) GoString() string {
+	return s.String()
+}
+
+func (s *ActionCard) SetTitle(v string) *ActionCard {
+	s.Title = &v
+	return s
+}
+
+func (s *ActionCard) SetText(v string) *ActionCard {
+	s.Text = &v
+	return s
+}
+
+func (s *ActionCard) SetBtnOrientation(v string) *ActionCard {
+	s.BtnOrientation = &v
+	return s
+}
+
+func (s *ActionCard) SetSingleTitle(v string) *ActionCard {
+	s.SingleTitle = &v
+	return s
+}
+
+func (s *ActionCard) SetSingleUrl(v string) *ActionCard {
+	s.SingleUrl = &v
+	return s
+}
+
+func (s *ActionCard) SetBtns(v []*Btn) *ActionCard {
+	s.Btns = v
+	return s
+}
+
+// 钉钉Markdown
+type Markdown struct {
+	// 标题
+	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+	// 内容
+	Text *string `json:"text,omitempty" xml:"text,omitempty"`
+}
+
+func (s Markdown) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Markdown) GoString() string {
+	return s.String()
+}
+
+func (s *Markdown) SetTitle(v string) *Markdown {
+	s.Title = &v
+	return s
+}
+
+func (s *Markdown) SetText(v string) *Markdown {
+	s.Text = &v
+	return s
+}
+
+// 钉钉FeedCard
+type FeedCard struct {
+	// 卡片流
+	Links []*Link `json:"links,omitempty" xml:"links,omitempty" type:"Repeated"`
+}
+
+func (s FeedCard) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FeedCard) GoString() string {
+	return s.String()
+}
+
+func (s *FeedCard) SetLinks(v []*Link) *FeedCard {
+	s.Links = v
+	return s
+}
+
+// 钉钉文字消息
+type Text struct {
+	// 内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+}
+
+func (s Text) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Text) GoString() string {
+	return s.String()
+}
+
+func (s *Text) SetContent(v string) *Text {
+	s.Content = &v
+	return s
+}
+
+// 钉钉At
+type At struct {
+	// @手机号
+	AtMobiles []*string `json:"at_mobiles,omitempty" xml:"at_mobiles,omitempty" type:"Repeated"`
+	// @用户ID
+	AtUserIds []*string `json:"at_user_ids,omitempty" xml:"at_user_ids,omitempty" type:"Repeated"`
+	// @所有人
+	IsAtAll *bool `json:"is_at_all,omitempty" xml:"is_at_all,omitempty"`
+}
+
+func (s At) String() string {
+	return tea.Prettify(s)
+}
+
+func (s At) GoString() string {
+	return s.String()
+}
+
+func (s *At) SetAtMobiles(v []*string) *At {
+	s.AtMobiles = v
+	return s
+}
+
+func (s *At) SetAtUserIds(v []*string) *At {
+	s.AtUserIds = v
+	return s
+}
+
+func (s *At) SetIsAtAll(v bool) *At {
+	s.IsAtAll = &v
+	return s
+}
+
+// 钉钉消息体
+type DingTalkContent struct {
+	// webHook
+	WebHook *string `json:"web_hook,omitempty" xml:"web_hook,omitempty"`
+	// 消息类型
+	Msgtype *string `json:"msgtype,omitempty" xml:"msgtype,omitempty"`
+	// 文字
+	Text *Text `json:"text,omitempty" xml:"text,omitempty"`
+	// 链接
+	Link *Link `json:"link,omitempty" xml:"link,omitempty"`
+	// markdown
+	Markdown *Markdown `json:"markdown,omitempty" xml:"markdown,omitempty"`
+	// actionCard
+	ActionCard *ActionCard `json:"action_card,omitempty" xml:"action_card,omitempty"`
+	// feedCard
+	FeedCard *FeedCard `json:"feed_card,omitempty" xml:"feed_card,omitempty"`
+	// at
+	At *At `json:"at,omitempty" xml:"at,omitempty"`
+}
+
+func (s DingTalkContent) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DingTalkContent) GoString() string {
+	return s.String()
+}
+
+func (s *DingTalkContent) SetWebHook(v string) *DingTalkContent {
+	s.WebHook = &v
+	return s
+}
+
+func (s *DingTalkContent) SetMsgtype(v string) *DingTalkContent {
+	s.Msgtype = &v
+	return s
+}
+
+func (s *DingTalkContent) SetText(v *Text) *DingTalkContent {
+	s.Text = v
+	return s
+}
+
+func (s *DingTalkContent) SetLink(v *Link) *DingTalkContent {
+	s.Link = v
+	return s
+}
+
+func (s *DingTalkContent) SetMarkdown(v *Markdown) *DingTalkContent {
+	s.Markdown = v
+	return s
+}
+
+func (s *DingTalkContent) SetActionCard(v *ActionCard) *DingTalkContent {
+	s.ActionCard = v
+	return s
+}
+
+func (s *DingTalkContent) SetFeedCard(v *FeedCard) *DingTalkContent {
+	s.FeedCard = v
+	return s
+}
+
+func (s *DingTalkContent) SetAt(v *At) *DingTalkContent {
+	s.At = v
+	return s
+}
+
 // YuqingMessage
 type YuqingMessage struct {
 	// 作者头像地址
@@ -408,13 +693,13 @@ type SearchCondition struct {
 	// 舆情父文章的docId，一般用于查看某篇文章的评论
 	ParentDocId *string `json:"parent_doc_id,omitempty" xml:"parent_doc_id,omitempty"`
 	// 关键词
-	PosKeyWords *string `json:"pos_key_words,omitempty" xml:"pos_key_words,omitempty"`
+	PosKeywords *string `json:"pos_keywords,omitempty" xml:"pos_keywords,omitempty"`
 	// 标题关键词
 	PosKeywordsInTitle *string `json:"pos_keywords_in_title,omitempty" xml:"pos_keywords_in_title,omitempty"`
 	// 截止发布时间
 	PublishTimeEnd *int64 `json:"publish_time_end,omitempty" xml:"publish_time_end,omitempty"`
 	// 起始发布时间
-	PublishTimeStart *string `json:"publish_time_start,omitempty" xml:"publish_time_start,omitempty"`
+	PublishTimeStart *int64 `json:"publish_time_start,omitempty" xml:"publish_time_start,omitempty"`
 	// 阅读级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
 	ReadsLevel *int64 `json:"reads_level,omitempty" xml:"reads_level,omitempty"`
 	// 相关性等级，1：低，2：中，3：高，4：低级别以上
@@ -616,8 +901,8 @@ func (s *SearchCondition) SetParentDocId(v string) *SearchCondition {
 	return s
 }
 
-func (s *SearchCondition) SetPosKeyWords(v string) *SearchCondition {
-	s.PosKeyWords = &v
+func (s *SearchCondition) SetPosKeywords(v string) *SearchCondition {
+	s.PosKeywords = &v
 	return s
 }
 
@@ -631,7 +916,7 @@ func (s *SearchCondition) SetPublishTimeEnd(v int64) *SearchCondition {
 	return s
 }
 
-func (s *SearchCondition) SetPublishTimeStart(v string) *SearchCondition {
+func (s *SearchCondition) SetPublishTimeStart(v int64) *SearchCondition {
 	s.PublishTimeStart = &v
 	return s
 }
@@ -1034,10 +1319,6 @@ type SaveProductOpenResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 计量请求是否处理成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 结果描述信息
-	ResultMessage *string `json:"result_message,omitempty" xml:"result_message,omitempty"`
 }
 
 func (s SaveProductOpenResponse) String() string {
@@ -1060,16 +1341,6 @@ func (s *SaveProductOpenResponse) SetResultCode(v string) *SaveProductOpenRespon
 
 func (s *SaveProductOpenResponse) SetResultMsg(v string) *SaveProductOpenResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *SaveProductOpenResponse) SetSuccess(v bool) *SaveProductOpenResponse {
-	s.Success = &v
-	return s
-}
-
-func (s *SaveProductOpenResponse) SetResultMessage(v string) *SaveProductOpenResponse {
-	s.ResultMessage = &v
 	return s
 }
 
@@ -1153,10 +1424,6 @@ type SaveProductTopResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 计量请求是否处理成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 结果描述信息
-	ResultMessage *string `json:"result_message,omitempty" xml:"result_message,omitempty"`
 }
 
 func (s SaveProductTopResponse) String() string {
@@ -1182,13 +1449,150 @@ func (s *SaveProductTopResponse) SetResultMsg(v string) *SaveProductTopResponse 
 	return s
 }
 
-func (s *SaveProductTopResponse) SetSuccess(v bool) *SaveProductTopResponse {
-	s.Success = &v
+type SetProductOperateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求入参
+	InputJson *string `json:"input_json,omitempty" xml:"input_json,omitempty" require:"true"`
+}
+
+func (s SetProductOperateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SetProductOperateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SetProductOperateRequest) SetAuthToken(v string) *SetProductOperateRequest {
+	s.AuthToken = &v
 	return s
 }
 
-func (s *SaveProductTopResponse) SetResultMessage(v string) *SaveProductTopResponse {
-	s.ResultMessage = &v
+func (s *SetProductOperateRequest) SetProductInstanceId(v string) *SetProductOperateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SetProductOperateRequest) SetInputJson(v string) *SetProductOperateRequest {
+	s.InputJson = &v
+	return s
+}
+
+type SetProductOperateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 输出返回
+	OutputJson *string `json:"output_json,omitempty" xml:"output_json,omitempty"`
+}
+
+func (s SetProductOperateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SetProductOperateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SetProductOperateResponse) SetReqMsgId(v string) *SetProductOperateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SetProductOperateResponse) SetResultCode(v string) *SetProductOperateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SetProductOperateResponse) SetResultMsg(v string) *SetProductOperateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SetProductOperateResponse) SetOutputJson(v string) *SetProductOperateResponse {
+	s.OutputJson = &v
+	return s
+}
+
+type SendProductNoticeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 提醒类型
+	NoticeType *string `json:"notice_type,omitempty" xml:"notice_type,omitempty"`
+	// 钉钉结构体
+	DingTalkContent *DingTalkContent `json:"ding_talk_content,omitempty" xml:"ding_talk_content,omitempty"`
+}
+
+func (s SendProductNoticeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendProductNoticeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SendProductNoticeRequest) SetAuthToken(v string) *SendProductNoticeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SendProductNoticeRequest) SetProductInstanceId(v string) *SendProductNoticeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SendProductNoticeRequest) SetNoticeType(v string) *SendProductNoticeRequest {
+	s.NoticeType = &v
+	return s
+}
+
+func (s *SendProductNoticeRequest) SetDingTalkContent(v *DingTalkContent) *SendProductNoticeRequest {
+	s.DingTalkContent = v
+	return s
+}
+
+type SendProductNoticeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 推送返回
+	OperateResult *bool `json:"operate_result,omitempty" xml:"operate_result,omitempty"`
+}
+
+func (s SendProductNoticeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendProductNoticeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SendProductNoticeResponse) SetReqMsgId(v string) *SendProductNoticeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SendProductNoticeResponse) SetResultCode(v string) *SendProductNoticeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SendProductNoticeResponse) SetResultMsg(v string) *SendProductNoticeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SendProductNoticeResponse) SetOperateResult(v bool) *SendProductNoticeResponse {
+	s.OperateResult = &v
 	return s
 }
 
@@ -1314,7 +1718,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.1"),
+				"sdk_version":      tea.String("1.1.8"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1525,6 +1929,74 @@ func (client *Client) SaveProductTopEx(request *SaveProductTopRequest, headers m
 	}
 	_result = &SaveProductTopResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.yuqing.product.top.save"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 产品操作接口
+ * Summary: 产品操作接口
+ */
+func (client *Client) SetProductOperate(request *SetProductOperateRequest) (_result *SetProductOperateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SetProductOperateResponse{}
+	_body, _err := client.SetProductOperateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 产品操作接口
+ * Summary: 产品操作接口
+ */
+func (client *Client) SetProductOperateEx(request *SetProductOperateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SetProductOperateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SetProductOperateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.yuqing.product.operate.set"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 发送提醒
+ * Summary: 发送提醒
+ */
+func (client *Client) SendProductNotice(request *SendProductNoticeRequest) (_result *SendProductNoticeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SendProductNoticeResponse{}
+	_body, _err := client.SendProductNoticeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发送提醒
+ * Summary: 发送提醒
+ */
+func (client *Client) SendProductNoticeEx(request *SendProductNoticeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendProductNoticeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SendProductNoticeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.yuqing.product.notice.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
