@@ -7748,7 +7748,7 @@ type QueryDubbridgeRiskinfoBusinessinfoRequest struct {
 	// 客户号
 	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty" require:"true"`
 	// 统一社会信用代码
-	SocialCreditCode *string `json:"social_credit_code,omitempty" xml:"social_credit_code,omitempty" require:"true"`
+	SocialCreditCode *string `json:"social_credit_code,omitempty" xml:"social_credit_code,omitempty"`
 }
 
 func (s QueryDubbridgeRiskinfoBusinessinfoRequest) String() string {
@@ -13409,7 +13409,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.9.5"),
+				"sdk_version":      tea.String("1.10.0"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
