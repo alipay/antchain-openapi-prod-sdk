@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.9.3"},
+                        {"sdk_version", "1.9.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.9.3"},
+                        {"sdk_version", "1.9.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -1876,6 +1876,48 @@ namespace AntChain.SDK.RISKPLUS
         }
 
         /**
+         * Description: 天枢企业经营数据查询
+         * Summary: 天枢企业经营数据查询
+         */
+        public QueryDubbridgeRiskinfoBusinessinfoResponse QueryDubbridgeRiskinfoBusinessinfo(QueryDubbridgeRiskinfoBusinessinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeRiskinfoBusinessinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢企业经营数据查询
+         * Summary: 天枢企业经营数据查询
+         */
+        public async Task<QueryDubbridgeRiskinfoBusinessinfoResponse> QueryDubbridgeRiskinfoBusinessinfoAsync(QueryDubbridgeRiskinfoBusinessinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeRiskinfoBusinessinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢企业经营数据查询
+         * Summary: 天枢企业经营数据查询
+         */
+        public QueryDubbridgeRiskinfoBusinessinfoResponse QueryDubbridgeRiskinfoBusinessinfoEx(QueryDubbridgeRiskinfoBusinessinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeRiskinfoBusinessinfoResponse>(DoRequest("1.0", "riskplus.dubbridge.riskinfo.businessinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢企业经营数据查询
+         * Summary: 天枢企业经营数据查询
+         */
+        public async Task<QueryDubbridgeRiskinfoBusinessinfoResponse> QueryDubbridgeRiskinfoBusinessinfoExAsync(QueryDubbridgeRiskinfoBusinessinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeRiskinfoBusinessinfoResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.riskinfo.businessinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 四要素认证首先调用此接口
          * Summary: 芝麻四要素接口
          */
@@ -2419,6 +2461,132 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryRbbCompanyCreditResponse>(await DoRequestAsync("1.0", "riskplus.rbb.company.credit.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 风险大脑-上交所数据离线同步数据准备状态，上交所本地部署鹰眼项目需要获取离线数据是否准备好的信息
+         * Summary: 风险大脑-上交所数据离线同步数据准备状态
+         */
+        public QueryRbbRegdatasyncPreparedResponse QueryRbbRegdatasyncPrepared(QueryRbbRegdatasyncPreparedRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryRbbRegdatasyncPreparedEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 风险大脑-上交所数据离线同步数据准备状态，上交所本地部署鹰眼项目需要获取离线数据是否准备好的信息
+         * Summary: 风险大脑-上交所数据离线同步数据准备状态
+         */
+        public async Task<QueryRbbRegdatasyncPreparedResponse> QueryRbbRegdatasyncPreparedAsync(QueryRbbRegdatasyncPreparedRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryRbbRegdatasyncPreparedExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 风险大脑-上交所数据离线同步数据准备状态，上交所本地部署鹰眼项目需要获取离线数据是否准备好的信息
+         * Summary: 风险大脑-上交所数据离线同步数据准备状态
+         */
+        public QueryRbbRegdatasyncPreparedResponse QueryRbbRegdatasyncPreparedEx(QueryRbbRegdatasyncPreparedRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRbbRegdatasyncPreparedResponse>(DoRequest("1.0", "riskplus.rbb.regdatasync.prepared.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 风险大脑-上交所数据离线同步数据准备状态，上交所本地部署鹰眼项目需要获取离线数据是否准备好的信息
+         * Summary: 风险大脑-上交所数据离线同步数据准备状态
+         */
+        public async Task<QueryRbbRegdatasyncPreparedResponse> QueryRbbRegdatasyncPreparedExAsync(QueryRbbRegdatasyncPreparedRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRbbRegdatasyncPreparedResponse>(await DoRequestAsync("1.0", "riskplus.rbb.regdatasync.prepared.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 风险大脑-上交所数据离线同步数据开始通知标识
+         * Summary: 风险大脑-上交所数据离线同步数据开始通知
+         */
+        public StartRbbRegdatasyncScheduleResponse StartRbbRegdatasyncSchedule(StartRbbRegdatasyncScheduleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StartRbbRegdatasyncScheduleEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 风险大脑-上交所数据离线同步数据开始通知标识
+         * Summary: 风险大脑-上交所数据离线同步数据开始通知
+         */
+        public async Task<StartRbbRegdatasyncScheduleResponse> StartRbbRegdatasyncScheduleAsync(StartRbbRegdatasyncScheduleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StartRbbRegdatasyncScheduleExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 风险大脑-上交所数据离线同步数据开始通知标识
+         * Summary: 风险大脑-上交所数据离线同步数据开始通知
+         */
+        public StartRbbRegdatasyncScheduleResponse StartRbbRegdatasyncScheduleEx(StartRbbRegdatasyncScheduleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartRbbRegdatasyncScheduleResponse>(DoRequest("1.0", "riskplus.rbb.regdatasync.schedule.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 风险大脑-上交所数据离线同步数据开始通知标识
+         * Summary: 风险大脑-上交所数据离线同步数据开始通知
+         */
+        public async Task<StartRbbRegdatasyncScheduleResponse> StartRbbRegdatasyncScheduleExAsync(StartRbbRegdatasyncScheduleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartRbbRegdatasyncScheduleResponse>(await DoRequestAsync("1.0", "riskplus.rbb.regdatasync.schedule.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 风险大脑-上交所数据离线同步数据完成记录 记录完成的状态
+         * Summary: 风险大脑-上交所数据离线同步数据完成记录
+         */
+        public FinishRbbRegdatasyncScheduleResponse FinishRbbRegdatasyncSchedule(FinishRbbRegdatasyncScheduleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return FinishRbbRegdatasyncScheduleEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 风险大脑-上交所数据离线同步数据完成记录 记录完成的状态
+         * Summary: 风险大脑-上交所数据离线同步数据完成记录
+         */
+        public async Task<FinishRbbRegdatasyncScheduleResponse> FinishRbbRegdatasyncScheduleAsync(FinishRbbRegdatasyncScheduleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await FinishRbbRegdatasyncScheduleExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 风险大脑-上交所数据离线同步数据完成记录 记录完成的状态
+         * Summary: 风险大脑-上交所数据离线同步数据完成记录
+         */
+        public FinishRbbRegdatasyncScheduleResponse FinishRbbRegdatasyncScheduleEx(FinishRbbRegdatasyncScheduleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FinishRbbRegdatasyncScheduleResponse>(DoRequest("1.0", "riskplus.rbb.regdatasync.schedule.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 风险大脑-上交所数据离线同步数据完成记录 记录完成的状态
+         * Summary: 风险大脑-上交所数据离线同步数据完成记录
+         */
+        public async Task<FinishRbbRegdatasyncScheduleResponse> FinishRbbRegdatasyncScheduleExAsync(FinishRbbRegdatasyncScheduleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FinishRbbRegdatasyncScheduleResponse>(await DoRequestAsync("1.0", "riskplus.rbb.regdatasync.schedule.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -3939,6 +4107,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BatchqueryUmktRtMarketingResponse>(await DoRequestAsync("1.0", "riskplus.umkt.rt.marketing.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 梦网富信投放事件通知
+         * Summary: 梦网富信投放事件通知
+         */
+        public SyncUmktRtEventresultResponse SyncUmktRtEventresult(SyncUmktRtEventresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncUmktRtEventresultEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 梦网富信投放事件通知
+         * Summary: 梦网富信投放事件通知
+         */
+        public async Task<SyncUmktRtEventresultResponse> SyncUmktRtEventresultAsync(SyncUmktRtEventresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncUmktRtEventresultExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 梦网富信投放事件通知
+         * Summary: 梦网富信投放事件通知
+         */
+        public SyncUmktRtEventresultResponse SyncUmktRtEventresultEx(SyncUmktRtEventresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncUmktRtEventresultResponse>(DoRequest("1.0", "riskplus.umkt.rt.eventresult.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 梦网富信投放事件通知
+         * Summary: 梦网富信投放事件通知
+         */
+        public async Task<SyncUmktRtEventresultResponse> SyncUmktRtEventresultExAsync(SyncUmktRtEventresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncUmktRtEventresultResponse>(await DoRequestAsync("1.0", "riskplus.umkt.rt.eventresult.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
