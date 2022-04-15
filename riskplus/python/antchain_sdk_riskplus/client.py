@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.3'
+                    'sdk_version': '1.9.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.3'
+                    'sdk_version': '1.9.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -2249,6 +2249,60 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.dubbridge.institution.credit.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_dubbridge_riskinfo_businessinfo(
+        self,
+        request: riskplus_models.QueryDubbridgeRiskinfoBusinessinfoRequest,
+    ) -> riskplus_models.QueryDubbridgeRiskinfoBusinessinfoResponse:
+        """
+        Description: 天枢企业经营数据查询
+        Summary: 天枢企业经营数据查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_riskinfo_businessinfo_ex(request, headers, runtime)
+
+    async def query_dubbridge_riskinfo_businessinfo_async(
+        self,
+        request: riskplus_models.QueryDubbridgeRiskinfoBusinessinfoRequest,
+    ) -> riskplus_models.QueryDubbridgeRiskinfoBusinessinfoResponse:
+        """
+        Description: 天枢企业经营数据查询
+        Summary: 天枢企业经营数据查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_riskinfo_businessinfo_ex_async(request, headers, runtime)
+
+    def query_dubbridge_riskinfo_businessinfo_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeRiskinfoBusinessinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeRiskinfoBusinessinfoResponse:
+        """
+        Description: 天枢企业经营数据查询
+        Summary: 天枢企业经营数据查询
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.QueryDubbridgeRiskinfoBusinessinfoResponse().from_map(
+            self.do_request('1.0', 'riskplus.dubbridge.riskinfo.businessinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_riskinfo_businessinfo_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeRiskinfoBusinessinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeRiskinfoBusinessinfoResponse:
+        """
+        Description: 天枢企业经营数据查询
+        Summary: 天枢企业经营数据查询
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.QueryDubbridgeRiskinfoBusinessinfoResponse().from_map(
+            await self.do_request_async('1.0', 'riskplus.dubbridge.riskinfo.businessinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def verify_finservice_zhima_identify(
         self,
         request: riskplus_models.VerifyFinserviceZhimaIdentifyRequest,
@@ -2949,6 +3003,168 @@ class Client:
         UtilClient.validate_model(request)
         return riskplus_models.QueryRbbCompanyCreditResponse().from_map(
             await self.do_request_async('1.0', 'riskplus.rbb.company.credit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_rbb_regdatasync_prepared(
+        self,
+        request: riskplus_models.QueryRbbRegdatasyncPreparedRequest,
+    ) -> riskplus_models.QueryRbbRegdatasyncPreparedResponse:
+        """
+        Description: 风险大脑-上交所数据离线同步数据准备状态，上交所本地部署鹰眼项目需要获取离线数据是否准备好的信息
+        Summary: 风险大脑-上交所数据离线同步数据准备状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_rbb_regdatasync_prepared_ex(request, headers, runtime)
+
+    async def query_rbb_regdatasync_prepared_async(
+        self,
+        request: riskplus_models.QueryRbbRegdatasyncPreparedRequest,
+    ) -> riskplus_models.QueryRbbRegdatasyncPreparedResponse:
+        """
+        Description: 风险大脑-上交所数据离线同步数据准备状态，上交所本地部署鹰眼项目需要获取离线数据是否准备好的信息
+        Summary: 风险大脑-上交所数据离线同步数据准备状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_rbb_regdatasync_prepared_ex_async(request, headers, runtime)
+
+    def query_rbb_regdatasync_prepared_ex(
+        self,
+        request: riskplus_models.QueryRbbRegdatasyncPreparedRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRbbRegdatasyncPreparedResponse:
+        """
+        Description: 风险大脑-上交所数据离线同步数据准备状态，上交所本地部署鹰眼项目需要获取离线数据是否准备好的信息
+        Summary: 风险大脑-上交所数据离线同步数据准备状态
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.QueryRbbRegdatasyncPreparedResponse().from_map(
+            self.do_request('1.0', 'riskplus.rbb.regdatasync.prepared.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_rbb_regdatasync_prepared_ex_async(
+        self,
+        request: riskplus_models.QueryRbbRegdatasyncPreparedRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRbbRegdatasyncPreparedResponse:
+        """
+        Description: 风险大脑-上交所数据离线同步数据准备状态，上交所本地部署鹰眼项目需要获取离线数据是否准备好的信息
+        Summary: 风险大脑-上交所数据离线同步数据准备状态
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.QueryRbbRegdatasyncPreparedResponse().from_map(
+            await self.do_request_async('1.0', 'riskplus.rbb.regdatasync.prepared.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_rbb_regdatasync_schedule(
+        self,
+        request: riskplus_models.StartRbbRegdatasyncScheduleRequest,
+    ) -> riskplus_models.StartRbbRegdatasyncScheduleResponse:
+        """
+        Description: 风险大脑-上交所数据离线同步数据开始通知标识
+        Summary: 风险大脑-上交所数据离线同步数据开始通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_rbb_regdatasync_schedule_ex(request, headers, runtime)
+
+    async def start_rbb_regdatasync_schedule_async(
+        self,
+        request: riskplus_models.StartRbbRegdatasyncScheduleRequest,
+    ) -> riskplus_models.StartRbbRegdatasyncScheduleResponse:
+        """
+        Description: 风险大脑-上交所数据离线同步数据开始通知标识
+        Summary: 风险大脑-上交所数据离线同步数据开始通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_rbb_regdatasync_schedule_ex_async(request, headers, runtime)
+
+    def start_rbb_regdatasync_schedule_ex(
+        self,
+        request: riskplus_models.StartRbbRegdatasyncScheduleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.StartRbbRegdatasyncScheduleResponse:
+        """
+        Description: 风险大脑-上交所数据离线同步数据开始通知标识
+        Summary: 风险大脑-上交所数据离线同步数据开始通知
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.StartRbbRegdatasyncScheduleResponse().from_map(
+            self.do_request('1.0', 'riskplus.rbb.regdatasync.schedule.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_rbb_regdatasync_schedule_ex_async(
+        self,
+        request: riskplus_models.StartRbbRegdatasyncScheduleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.StartRbbRegdatasyncScheduleResponse:
+        """
+        Description: 风险大脑-上交所数据离线同步数据开始通知标识
+        Summary: 风险大脑-上交所数据离线同步数据开始通知
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.StartRbbRegdatasyncScheduleResponse().from_map(
+            await self.do_request_async('1.0', 'riskplus.rbb.regdatasync.schedule.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def finish_rbb_regdatasync_schedule(
+        self,
+        request: riskplus_models.FinishRbbRegdatasyncScheduleRequest,
+    ) -> riskplus_models.FinishRbbRegdatasyncScheduleResponse:
+        """
+        Description: 风险大脑-上交所数据离线同步数据完成记录 记录完成的状态
+        Summary: 风险大脑-上交所数据离线同步数据完成记录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.finish_rbb_regdatasync_schedule_ex(request, headers, runtime)
+
+    async def finish_rbb_regdatasync_schedule_async(
+        self,
+        request: riskplus_models.FinishRbbRegdatasyncScheduleRequest,
+    ) -> riskplus_models.FinishRbbRegdatasyncScheduleResponse:
+        """
+        Description: 风险大脑-上交所数据离线同步数据完成记录 记录完成的状态
+        Summary: 风险大脑-上交所数据离线同步数据完成记录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.finish_rbb_regdatasync_schedule_ex_async(request, headers, runtime)
+
+    def finish_rbb_regdatasync_schedule_ex(
+        self,
+        request: riskplus_models.FinishRbbRegdatasyncScheduleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.FinishRbbRegdatasyncScheduleResponse:
+        """
+        Description: 风险大脑-上交所数据离线同步数据完成记录 记录完成的状态
+        Summary: 风险大脑-上交所数据离线同步数据完成记录
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.FinishRbbRegdatasyncScheduleResponse().from_map(
+            self.do_request('1.0', 'riskplus.rbb.regdatasync.schedule.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def finish_rbb_regdatasync_schedule_ex_async(
+        self,
+        request: riskplus_models.FinishRbbRegdatasyncScheduleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.FinishRbbRegdatasyncScheduleResponse:
+        """
+        Description: 风险大脑-上交所数据离线同步数据完成记录 记录完成的状态
+        Summary: 风险大脑-上交所数据离线同步数据完成记录
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.FinishRbbRegdatasyncScheduleResponse().from_map(
+            await self.do_request_async('1.0', 'riskplus.rbb.regdatasync.schedule.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_rpgw_sign_url(
@@ -4877,6 +5093,60 @@ class Client:
         UtilClient.validate_model(request)
         return riskplus_models.BatchqueryUmktRtMarketingResponse().from_map(
             await self.do_request_async('1.0', 'riskplus.umkt.rt.marketing.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_umkt_rt_eventresult(
+        self,
+        request: riskplus_models.SyncUmktRtEventresultRequest,
+    ) -> riskplus_models.SyncUmktRtEventresultResponse:
+        """
+        Description: 梦网富信投放事件通知
+        Summary: 梦网富信投放事件通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_umkt_rt_eventresult_ex(request, headers, runtime)
+
+    async def sync_umkt_rt_eventresult_async(
+        self,
+        request: riskplus_models.SyncUmktRtEventresultRequest,
+    ) -> riskplus_models.SyncUmktRtEventresultResponse:
+        """
+        Description: 梦网富信投放事件通知
+        Summary: 梦网富信投放事件通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_umkt_rt_eventresult_ex_async(request, headers, runtime)
+
+    def sync_umkt_rt_eventresult_ex(
+        self,
+        request: riskplus_models.SyncUmktRtEventresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SyncUmktRtEventresultResponse:
+        """
+        Description: 梦网富信投放事件通知
+        Summary: 梦网富信投放事件通知
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.SyncUmktRtEventresultResponse().from_map(
+            self.do_request('1.0', 'riskplus.umkt.rt.eventresult.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_umkt_rt_eventresult_ex_async(
+        self,
+        request: riskplus_models.SyncUmktRtEventresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SyncUmktRtEventresultResponse:
+        """
+        Description: 梦网富信投放事件通知
+        Summary: 梦网富信投放事件通知
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.SyncUmktRtEventresultResponse().from_map(
+            await self.do_request_async('1.0', 'riskplus.umkt.rt.eventresult.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
