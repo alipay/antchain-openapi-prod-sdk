@@ -294,7 +294,7 @@ class SearchCondition extends Model
      *
      * @var string
      */
-    public $posKeyWords;
+    public $posKeywords;
 
     // 标题关键词
     /**
@@ -316,7 +316,7 @@ class SearchCondition extends Model
     /**
      * @example 起始发布时间
      *
-     * @var string
+     * @var int
      */
     public $publishTimeStart;
 
@@ -419,7 +419,7 @@ class SearchCondition extends Model
         'pageNow'                => 'page_now',
         'pageSize'               => 'page_size',
         'parentDocId'            => 'parent_doc_id',
-        'posKeyWords'            => 'pos_key_words',
+        'posKeywords'            => 'pos_keywords',
         'posKeywordsInTitle'     => 'pos_keywords_in_title',
         'publishTimeEnd'         => 'publish_time_end',
         'publishTimeStart'       => 'publish_time_start',
@@ -545,8 +545,8 @@ class SearchCondition extends Model
         if (null !== $this->parentDocId) {
             $res['parent_doc_id'] = $this->parentDocId;
         }
-        if (null !== $this->posKeyWords) {
-            $res['pos_key_words'] = $this->posKeyWords;
+        if (null !== $this->posKeywords) {
+            $res['pos_keywords'] = $this->posKeywords;
         }
         if (null !== $this->posKeywordsInTitle) {
             $res['pos_keywords_in_title'] = $this->posKeywordsInTitle;
@@ -698,8 +698,8 @@ class SearchCondition extends Model
         if (isset($map['parent_doc_id'])) {
             $model->parentDocId = $map['parent_doc_id'];
         }
-        if (isset($map['pos_key_words'])) {
-            $model->posKeyWords = $map['pos_key_words'];
+        if (isset($map['pos_keywords'])) {
+            $model->posKeywords = $map['pos_keywords'];
         }
         if (isset($map['pos_keywords_in_title'])) {
             $model->posKeywordsInTitle = $map['pos_keywords_in_title'];

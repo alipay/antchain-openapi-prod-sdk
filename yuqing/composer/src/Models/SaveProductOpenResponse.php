@@ -25,24 +25,10 @@ class SaveProductOpenResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 计量请求是否处理成功
-    /**
-     * @var bool
-     */
-    public $success;
-
-    // 结果描述信息
-    /**
-     * @var string
-     */
-    public $resultMessage;
     protected $_name = [
-        'reqMsgId'      => 'req_msg_id',
-        'resultCode'    => 'result_code',
-        'resultMsg'     => 'result_msg',
-        'success'       => 'success',
-        'resultMessage' => 'result_message',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
     ];
 
     public function validate()
@@ -60,12 +46,6 @@ class SaveProductOpenResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
-        }
-        if (null !== $this->resultMessage) {
-            $res['result_message'] = $this->resultMessage;
         }
 
         return $res;
@@ -87,12 +67,6 @@ class SaveProductOpenResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
-        }
-        if (isset($map['result_message'])) {
-            $model->resultMessage = $map['result_message'];
         }
 
         return $model;

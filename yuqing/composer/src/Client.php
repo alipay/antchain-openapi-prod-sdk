@@ -22,6 +22,10 @@ use AntChain\YUQING\Models\SaveProductOpenRequest;
 use AntChain\YUQING\Models\SaveProductOpenResponse;
 use AntChain\YUQING\Models\SaveProductTopRequest;
 use AntChain\YUQING\Models\SaveProductTopResponse;
+use AntChain\YUQING\Models\SendProductNoticeRequest;
+use AntChain\YUQING\Models\SendProductNoticeResponse;
+use AntChain\YUQING\Models\SetProductOperateRequest;
+use AntChain\YUQING\Models\SetProductOperateResponse;
 use Exception;
 
 class Client
@@ -140,7 +144,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // YuqingMessage
+            // 钉钉链接消息
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -168,7 +172,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.1',
+                    'sdk_version'      => '1.1.8',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -377,5 +381,71 @@ class Client
         Utils::validateModel($request);
 
         return SaveProductTopResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.product.top.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产品操作接口
+     * Summary: 产品操作接口.
+     *
+     * @param SetProductOperateRequest $request
+     *
+     * @return SetProductOperateResponse
+     */
+    public function setProductOperate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->setProductOperateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产品操作接口
+     * Summary: 产品操作接口.
+     *
+     * @param SetProductOperateRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return SetProductOperateResponse
+     */
+    public function setProductOperateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SetProductOperateResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.product.operate.set', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发送提醒
+     * Summary: 发送提醒.
+     *
+     * @param SendProductNoticeRequest $request
+     *
+     * @return SendProductNoticeResponse
+     */
+    public function sendProductNotice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendProductNoticeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发送提醒
+     * Summary: 发送提醒.
+     *
+     * @param SendProductNoticeRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return SendProductNoticeResponse
+     */
+    public function sendProductNoticeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendProductNoticeResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.product.notice.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

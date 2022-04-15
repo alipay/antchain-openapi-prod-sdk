@@ -6,7 +6,7 @@ namespace AntChain\YUQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SaveProductTopResponse extends Model
+class SendProductNoticeResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,10 +25,17 @@ class SaveProductTopResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 推送返回
+    /**
+     * @var bool
+     */
+    public $operateResult;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
+        'reqMsgId'      => 'req_msg_id',
+        'resultCode'    => 'result_code',
+        'resultMsg'     => 'result_msg',
+        'operateResult' => 'operate_result',
     ];
 
     public function validate()
@@ -47,6 +54,9 @@ class SaveProductTopResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->operateResult) {
+            $res['operate_result'] = $this->operateResult;
+        }
 
         return $res;
     }
@@ -54,7 +64,7 @@ class SaveProductTopResponse extends Model
     /**
      * @param array $map
      *
-     * @return SaveProductTopResponse
+     * @return SendProductNoticeResponse
      */
     public static function fromMap($map = [])
     {
@@ -67,6 +77,9 @@ class SaveProductTopResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['operate_result'])) {
+            $model->operateResult = $map['operate_result'];
         }
 
         return $model;
