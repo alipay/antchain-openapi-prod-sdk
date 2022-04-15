@@ -2744,6 +2744,88 @@ func (s *CompanyInfo) SetPlatform(v string) *CompanyInfo {
 	return s
 }
 
+// 营销盾事件信息同步详情
+type EventResultSyncDetail struct {
+	// 广告主id
+	PlanOwnerId *string `json:"plan_owner_id,omitempty" xml:"plan_owner_id,omitempty" require:"true"`
+	// 事件唯一id（单个租户全局唯一）
+	EventId *string `json:"event_id,omitempty" xml:"event_id,omitempty" require:"true"`
+	// 营销计划id
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
+	// 消息id
+	MsgId *string `json:"msg_id,omitempty" xml:"msg_id,omitempty" require:"true"`
+	// 事件时间
+	EventTime *string `json:"event_time,omitempty" xml:"event_time,omitempty" require:"true"`
+	// 事件类型：1为富信贴尾
+	EventType *int64 `json:"event_type,omitempty" xml:"event_type,omitempty" require:"true"`
+	// 1为成功 2为失败
+	State *int64 `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 用户key类型
+	KeyType *string `json:"key_type,omitempty" xml:"key_type,omitempty" require:"true"`
+	// 手机号
+	CustomerKey *string `json:"customer_key,omitempty" xml:"customer_key,omitempty" require:"true"`
+	// 扩展字段
+	ExtData *string `json:"ext_data,omitempty" xml:"ext_data,omitempty" require:"true"`
+}
+
+func (s EventResultSyncDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EventResultSyncDetail) GoString() string {
+	return s.String()
+}
+
+func (s *EventResultSyncDetail) SetPlanOwnerId(v string) *EventResultSyncDetail {
+	s.PlanOwnerId = &v
+	return s
+}
+
+func (s *EventResultSyncDetail) SetEventId(v string) *EventResultSyncDetail {
+	s.EventId = &v
+	return s
+}
+
+func (s *EventResultSyncDetail) SetPlanId(v string) *EventResultSyncDetail {
+	s.PlanId = &v
+	return s
+}
+
+func (s *EventResultSyncDetail) SetMsgId(v string) *EventResultSyncDetail {
+	s.MsgId = &v
+	return s
+}
+
+func (s *EventResultSyncDetail) SetEventTime(v string) *EventResultSyncDetail {
+	s.EventTime = &v
+	return s
+}
+
+func (s *EventResultSyncDetail) SetEventType(v int64) *EventResultSyncDetail {
+	s.EventType = &v
+	return s
+}
+
+func (s *EventResultSyncDetail) SetState(v int64) *EventResultSyncDetail {
+	s.State = &v
+	return s
+}
+
+func (s *EventResultSyncDetail) SetKeyType(v string) *EventResultSyncDetail {
+	s.KeyType = &v
+	return s
+}
+
+func (s *EventResultSyncDetail) SetCustomerKey(v string) *EventResultSyncDetail {
+	s.CustomerKey = &v
+	return s
+}
+
+func (s *EventResultSyncDetail) SetExtData(v string) *EventResultSyncDetail {
+	s.ExtData = &v
+	return s
+}
+
 // 预警企业
 type RtopCompanyAlarm struct {
 	// 企业ID
@@ -7322,8 +7404,8 @@ type QueryDubbridgeRiskinfoEnterprisescoreRequest struct {
 	SocialCreditCode *string `json:"social_credit_code,omitempty" xml:"social_credit_code,omitempty" require:"true"`
 	// MD5
 	MobileMd5 *string `json:"mobile_md5,omitempty" xml:"mobile_md5,omitempty" require:"true"`
-	// 合作方用户id
-	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty" require:"true"`
+	// 客户号
+	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty" require:"true"`
 	// 渠道号
 	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
 }
@@ -7356,8 +7438,8 @@ func (s *QueryDubbridgeRiskinfoEnterprisescoreRequest) SetMobileMd5(v string) *Q
 	return s
 }
 
-func (s *QueryDubbridgeRiskinfoEnterprisescoreRequest) SetOpenId(v string) *QueryDubbridgeRiskinfoEnterprisescoreRequest {
-	s.OpenId = &v
+func (s *QueryDubbridgeRiskinfoEnterprisescoreRequest) SetCustomerNo(v string) *QueryDubbridgeRiskinfoEnterprisescoreRequest {
+	s.CustomerNo = &v
 	return s
 }
 
@@ -7654,6 +7736,90 @@ func (s *UpdateDubbridgeInstitutionCreditResponse) SetBizCode(v string) *UpdateD
 
 func (s *UpdateDubbridgeInstitutionCreditResponse) SetBizMsg(v string) *UpdateDubbridgeInstitutionCreditResponse {
 	s.BizMsg = &v
+	return s
+}
+
+type QueryDubbridgeRiskinfoBusinessinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 渠道号
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
+	// 客户号
+	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty" require:"true"`
+	// 统一社会信用代码
+	SocialCreditCode *string `json:"social_credit_code,omitempty" xml:"social_credit_code,omitempty" require:"true"`
+}
+
+func (s QueryDubbridgeRiskinfoBusinessinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeRiskinfoBusinessinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeRiskinfoBusinessinfoRequest) SetAuthToken(v string) *QueryDubbridgeRiskinfoBusinessinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeRiskinfoBusinessinfoRequest) SetProductInstanceId(v string) *QueryDubbridgeRiskinfoBusinessinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeRiskinfoBusinessinfoRequest) SetChannelCode(v string) *QueryDubbridgeRiskinfoBusinessinfoRequest {
+	s.ChannelCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeRiskinfoBusinessinfoRequest) SetCustomerNo(v string) *QueryDubbridgeRiskinfoBusinessinfoRequest {
+	s.CustomerNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeRiskinfoBusinessinfoRequest) SetSocialCreditCode(v string) *QueryDubbridgeRiskinfoBusinessinfoRequest {
+	s.SocialCreditCode = &v
+	return s
+}
+
+type QueryDubbridgeRiskinfoBusinessinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 企业经营信息
+	Info *string `json:"info,omitempty" xml:"info,omitempty"`
+}
+
+func (s QueryDubbridgeRiskinfoBusinessinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeRiskinfoBusinessinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeRiskinfoBusinessinfoResponse) SetReqMsgId(v string) *QueryDubbridgeRiskinfoBusinessinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeRiskinfoBusinessinfoResponse) SetResultCode(v string) *QueryDubbridgeRiskinfoBusinessinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeRiskinfoBusinessinfoResponse) SetResultMsg(v string) *QueryDubbridgeRiskinfoBusinessinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeRiskinfoBusinessinfoResponse) SetInfo(v string) *QueryDubbridgeRiskinfoBusinessinfoResponse {
+	s.Info = &v
 	return s
 }
 
@@ -8746,6 +8912,209 @@ func (s *QueryRbbCompanyCreditResponse) SetCreditAmount(v int64) *QueryRbbCompan
 
 func (s *QueryRbbCompanyCreditResponse) SetExtra(v string) *QueryRbbCompanyCreditResponse {
 	s.Extra = &v
+	return s
+}
+
+type QueryRbbRegdatasyncPreparedRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询该bizDate数据分区的数据是否已经准备好
+	BizDate *string `json:"biz_date,omitempty" xml:"biz_date,omitempty" require:"true" maxLength:"8" minLength:"8"`
+}
+
+func (s QueryRbbRegdatasyncPreparedRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRbbRegdatasyncPreparedRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRbbRegdatasyncPreparedRequest) SetAuthToken(v string) *QueryRbbRegdatasyncPreparedRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryRbbRegdatasyncPreparedRequest) SetProductInstanceId(v string) *QueryRbbRegdatasyncPreparedRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryRbbRegdatasyncPreparedRequest) SetBizDate(v string) *QueryRbbRegdatasyncPreparedRequest {
+	s.BizDate = &v
+	return s
+}
+
+type QueryRbbRegdatasyncPreparedResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 指定时间分区的数据是否已经准备完毕
+	Prepared *bool `json:"prepared,omitempty" xml:"prepared,omitempty"`
+}
+
+func (s QueryRbbRegdatasyncPreparedResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRbbRegdatasyncPreparedResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRbbRegdatasyncPreparedResponse) SetReqMsgId(v string) *QueryRbbRegdatasyncPreparedResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryRbbRegdatasyncPreparedResponse) SetResultCode(v string) *QueryRbbRegdatasyncPreparedResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryRbbRegdatasyncPreparedResponse) SetResultMsg(v string) *QueryRbbRegdatasyncPreparedResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryRbbRegdatasyncPreparedResponse) SetPrepared(v bool) *QueryRbbRegdatasyncPreparedResponse {
+	s.Prepared = &v
+	return s
+}
+
+type StartRbbRegdatasyncScheduleRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 同步时间分区
+	BizDate *string `json:"biz_date,omitempty" xml:"biz_date,omitempty" require:"true"`
+}
+
+func (s StartRbbRegdatasyncScheduleRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartRbbRegdatasyncScheduleRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StartRbbRegdatasyncScheduleRequest) SetAuthToken(v string) *StartRbbRegdatasyncScheduleRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StartRbbRegdatasyncScheduleRequest) SetProductInstanceId(v string) *StartRbbRegdatasyncScheduleRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StartRbbRegdatasyncScheduleRequest) SetBizDate(v string) *StartRbbRegdatasyncScheduleRequest {
+	s.BizDate = &v
+	return s
+}
+
+type StartRbbRegdatasyncScheduleResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s StartRbbRegdatasyncScheduleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartRbbRegdatasyncScheduleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StartRbbRegdatasyncScheduleResponse) SetReqMsgId(v string) *StartRbbRegdatasyncScheduleResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StartRbbRegdatasyncScheduleResponse) SetResultCode(v string) *StartRbbRegdatasyncScheduleResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StartRbbRegdatasyncScheduleResponse) SetResultMsg(v string) *StartRbbRegdatasyncScheduleResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type FinishRbbRegdatasyncScheduleRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 时间分区
+	BizDate *string `json:"biz_date,omitempty" xml:"biz_date,omitempty" require:"true" maxLength:"8" minLength:"8"`
+	// 记录当前分区离线同步情况
+	SyncInfo *string `json:"sync_info,omitempty" xml:"sync_info,omitempty" require:"true"`
+}
+
+func (s FinishRbbRegdatasyncScheduleRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinishRbbRegdatasyncScheduleRequest) GoString() string {
+	return s.String()
+}
+
+func (s *FinishRbbRegdatasyncScheduleRequest) SetAuthToken(v string) *FinishRbbRegdatasyncScheduleRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *FinishRbbRegdatasyncScheduleRequest) SetProductInstanceId(v string) *FinishRbbRegdatasyncScheduleRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *FinishRbbRegdatasyncScheduleRequest) SetBizDate(v string) *FinishRbbRegdatasyncScheduleRequest {
+	s.BizDate = &v
+	return s
+}
+
+func (s *FinishRbbRegdatasyncScheduleRequest) SetSyncInfo(v string) *FinishRbbRegdatasyncScheduleRequest {
+	s.SyncInfo = &v
+	return s
+}
+
+type FinishRbbRegdatasyncScheduleResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s FinishRbbRegdatasyncScheduleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinishRbbRegdatasyncScheduleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *FinishRbbRegdatasyncScheduleResponse) SetReqMsgId(v string) *FinishRbbRegdatasyncScheduleResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *FinishRbbRegdatasyncScheduleResponse) SetResultCode(v string) *FinishRbbRegdatasyncScheduleResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *FinishRbbRegdatasyncScheduleResponse) SetResultMsg(v string) *FinishRbbRegdatasyncScheduleResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -12735,6 +13104,69 @@ func (s *BatchqueryUmktRtMarketingResponse) SetQueryResult(v []*CustomerUmktInfo
 	return s
 }
 
+type SyncUmktRtEventresultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 详细事件明细
+	Detail []*EventResultSyncDetail `json:"detail,omitempty" xml:"detail,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SyncUmktRtEventresultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncUmktRtEventresultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncUmktRtEventresultRequest) SetAuthToken(v string) *SyncUmktRtEventresultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncUmktRtEventresultRequest) SetProductInstanceId(v string) *SyncUmktRtEventresultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncUmktRtEventresultRequest) SetDetail(v []*EventResultSyncDetail) *SyncUmktRtEventresultRequest {
+	s.Detail = v
+	return s
+}
+
+type SyncUmktRtEventresultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SyncUmktRtEventresultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncUmktRtEventresultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncUmktRtEventresultResponse) SetReqMsgId(v string) *SyncUmktRtEventresultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncUmktRtEventresultResponse) SetResultCode(v string) *SyncUmktRtEventresultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncUmktRtEventresultResponse) SetResultMsg(v string) *SyncUmktRtEventresultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -12977,7 +13409,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.9.3"),
+				"sdk_version":      tea.String("1.9.5"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -14279,6 +14711,40 @@ func (client *Client) UpdateDubbridgeInstitutionCreditEx(request *UpdateDubbridg
 }
 
 /**
+ * Description: 天枢企业经营数据查询
+ * Summary: 天枢企业经营数据查询
+ */
+func (client *Client) QueryDubbridgeRiskinfoBusinessinfo(request *QueryDubbridgeRiskinfoBusinessinfoRequest) (_result *QueryDubbridgeRiskinfoBusinessinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeRiskinfoBusinessinfoResponse{}
+	_body, _err := client.QueryDubbridgeRiskinfoBusinessinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢企业经营数据查询
+ * Summary: 天枢企业经营数据查询
+ */
+func (client *Client) QueryDubbridgeRiskinfoBusinessinfoEx(request *QueryDubbridgeRiskinfoBusinessinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeRiskinfoBusinessinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeRiskinfoBusinessinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.riskinfo.businessinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 四要素认证首先调用此接口
  * Summary: 芝麻四要素接口
  */
@@ -14713,6 +15179,108 @@ func (client *Client) QueryRbbCompanyCreditEx(request *QueryRbbCompanyCreditRequ
 	}
 	_result = &QueryRbbCompanyCreditResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.company.credit.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 风险大脑-上交所数据离线同步数据准备状态，上交所本地部署鹰眼项目需要获取离线数据是否准备好的信息
+ * Summary: 风险大脑-上交所数据离线同步数据准备状态
+ */
+func (client *Client) QueryRbbRegdatasyncPrepared(request *QueryRbbRegdatasyncPreparedRequest) (_result *QueryRbbRegdatasyncPreparedResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryRbbRegdatasyncPreparedResponse{}
+	_body, _err := client.QueryRbbRegdatasyncPreparedEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 风险大脑-上交所数据离线同步数据准备状态，上交所本地部署鹰眼项目需要获取离线数据是否准备好的信息
+ * Summary: 风险大脑-上交所数据离线同步数据准备状态
+ */
+func (client *Client) QueryRbbRegdatasyncPreparedEx(request *QueryRbbRegdatasyncPreparedRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryRbbRegdatasyncPreparedResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryRbbRegdatasyncPreparedResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.regdatasync.prepared.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 风险大脑-上交所数据离线同步数据开始通知标识
+ * Summary: 风险大脑-上交所数据离线同步数据开始通知
+ */
+func (client *Client) StartRbbRegdatasyncSchedule(request *StartRbbRegdatasyncScheduleRequest) (_result *StartRbbRegdatasyncScheduleResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StartRbbRegdatasyncScheduleResponse{}
+	_body, _err := client.StartRbbRegdatasyncScheduleEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 风险大脑-上交所数据离线同步数据开始通知标识
+ * Summary: 风险大脑-上交所数据离线同步数据开始通知
+ */
+func (client *Client) StartRbbRegdatasyncScheduleEx(request *StartRbbRegdatasyncScheduleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StartRbbRegdatasyncScheduleResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StartRbbRegdatasyncScheduleResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.regdatasync.schedule.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 风险大脑-上交所数据离线同步数据完成记录 记录完成的状态
+ * Summary: 风险大脑-上交所数据离线同步数据完成记录
+ */
+func (client *Client) FinishRbbRegdatasyncSchedule(request *FinishRbbRegdatasyncScheduleRequest) (_result *FinishRbbRegdatasyncScheduleResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &FinishRbbRegdatasyncScheduleResponse{}
+	_body, _err := client.FinishRbbRegdatasyncScheduleEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 风险大脑-上交所数据离线同步数据完成记录 记录完成的状态
+ * Summary: 风险大脑-上交所数据离线同步数据完成记录
+ */
+func (client *Client) FinishRbbRegdatasyncScheduleEx(request *FinishRbbRegdatasyncScheduleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *FinishRbbRegdatasyncScheduleResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &FinishRbbRegdatasyncScheduleResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.regdatasync.schedule.finish"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -15934,6 +16502,40 @@ func (client *Client) BatchqueryUmktRtMarketingEx(request *BatchqueryUmktRtMarke
 	}
 	_result = &BatchqueryUmktRtMarketingResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.rt.marketing.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 梦网富信投放事件通知
+ * Summary: 梦网富信投放事件通知
+ */
+func (client *Client) SyncUmktRtEventresult(request *SyncUmktRtEventresultRequest) (_result *SyncUmktRtEventresultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncUmktRtEventresultResponse{}
+	_body, _err := client.SyncUmktRtEventresultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 梦网富信投放事件通知
+ * Summary: 梦网富信投放事件通知
+ */
+func (client *Client) SyncUmktRtEventresultEx(request *SyncUmktRtEventresultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncUmktRtEventresultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncUmktRtEventresultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.rt.eventresult.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
