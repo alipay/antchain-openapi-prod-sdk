@@ -9023,7 +9023,6 @@ class QueryDubbridgeRiskinfoBusinessinfoRequest(TeaModel):
     def validate(self):
         self.validate_required(self.channel_code, 'channel_code')
         self.validate_required(self.customer_no, 'customer_no')
-        self.validate_required(self.social_credit_code, 'social_credit_code')
 
     def to_map(self):
         result = dict()
