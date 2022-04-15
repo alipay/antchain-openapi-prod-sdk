@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
+class QueryDubbridgeRiskinfoBusinessinfoRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,17 +19,11 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
      */
     public $productInstanceId;
 
-    // 统一信用代码
+    // 渠道号
     /**
      * @var string
      */
-    public $socialCreditCode;
-
-    // MD5
-    /**
-     * @var string
-     */
-    public $mobileMd5;
+    public $channelCode;
 
     // 客户号
     /**
@@ -37,26 +31,24 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
      */
     public $customerNo;
 
-    // 渠道号
+    // 统一社会信用代码
     /**
      * @var string
      */
-    public $channelCode;
+    public $socialCreditCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'socialCreditCode'  => 'social_credit_code',
-        'mobileMd5'         => 'mobile_md5',
-        'customerNo'        => 'customer_no',
         'channelCode'       => 'channel_code',
+        'customerNo'        => 'customer_no',
+        'socialCreditCode'  => 'social_credit_code',
     ];
 
     public function validate()
     {
-        Model::validateRequired('socialCreditCode', $this->socialCreditCode, true);
-        Model::validateRequired('mobileMd5', $this->mobileMd5, true);
-        Model::validateRequired('customerNo', $this->customerNo, true);
         Model::validateRequired('channelCode', $this->channelCode, true);
+        Model::validateRequired('customerNo', $this->customerNo, true);
+        Model::validateRequired('socialCreditCode', $this->socialCreditCode, true);
     }
 
     public function toMap()
@@ -68,17 +60,14 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->socialCreditCode) {
-            $res['social_credit_code'] = $this->socialCreditCode;
-        }
-        if (null !== $this->mobileMd5) {
-            $res['mobile_md5'] = $this->mobileMd5;
+        if (null !== $this->channelCode) {
+            $res['channel_code'] = $this->channelCode;
         }
         if (null !== $this->customerNo) {
             $res['customer_no'] = $this->customerNo;
         }
-        if (null !== $this->channelCode) {
-            $res['channel_code'] = $this->channelCode;
+        if (null !== $this->socialCreditCode) {
+            $res['social_credit_code'] = $this->socialCreditCode;
         }
 
         return $res;
@@ -87,7 +76,7 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryDubbridgeRiskinfoEnterprisescoreRequest
+     * @return QueryDubbridgeRiskinfoBusinessinfoRequest
      */
     public static function fromMap($map = [])
     {
@@ -98,17 +87,14 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['social_credit_code'])) {
-            $model->socialCreditCode = $map['social_credit_code'];
-        }
-        if (isset($map['mobile_md5'])) {
-            $model->mobileMd5 = $map['mobile_md5'];
+        if (isset($map['channel_code'])) {
+            $model->channelCode = $map['channel_code'];
         }
         if (isset($map['customer_no'])) {
             $model->customerNo = $map['customer_no'];
         }
-        if (isset($map['channel_code'])) {
-            $model->channelCode = $map['channel_code'];
+        if (isset($map['social_credit_code'])) {
+            $model->socialCreditCode = $map['social_credit_code'];
         }
 
         return $model;

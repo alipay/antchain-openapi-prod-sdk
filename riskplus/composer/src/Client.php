@@ -53,6 +53,8 @@ use AntChain\RISKPLUS\Models\ExecRtopGenericInvokeRequest;
 use AntChain\RISKPLUS\Models\ExecRtopGenericInvokeResponse;
 use AntChain\RISKPLUS\Models\ExecSecurityRiskdataserviceRequest;
 use AntChain\RISKPLUS\Models\ExecSecurityRiskdataserviceResponse;
+use AntChain\RISKPLUS\Models\FinishRbbRegdatasyncScheduleRequest;
+use AntChain\RISKPLUS\Models\FinishRbbRegdatasyncScheduleResponse;
 use AntChain\RISKPLUS\Models\GetRbbLoginTokenRequest;
 use AntChain\RISKPLUS\Models\GetRbbLoginTokenResponse;
 use AntChain\RISKPLUS\Models\GetRtopCompanyDetailRequest;
@@ -75,6 +77,8 @@ use AntChain\RISKPLUS\Models\PullRegtechNewsRequest;
 use AntChain\RISKPLUS\Models\PullRegtechNewsResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditStatusResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoBusinessinfoRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoBusinessinfoResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoCommonRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoCommonResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoEnterprisescoreRequest;
@@ -109,6 +113,8 @@ use AntChain\RISKPLUS\Models\QueryRbbGeneralRequest;
 use AntChain\RISKPLUS\Models\QueryRbbGeneralResponse;
 use AntChain\RISKPLUS\Models\QueryRbbGenericInvokeRequest;
 use AntChain\RISKPLUS\Models\QueryRbbGenericInvokeResponse;
+use AntChain\RISKPLUS\Models\QueryRbbRegdatasyncPreparedRequest;
+use AntChain\RISKPLUS\Models\QueryRbbRegdatasyncPreparedResponse;
 use AntChain\RISKPLUS\Models\QueryRpgwSignUrlRequest;
 use AntChain\RISKPLUS\Models\QueryRpgwSignUrlResponse;
 use AntChain\RISKPLUS\Models\QueryRpgwUserSignurlRequest;
@@ -165,8 +171,12 @@ use AntChain\RISKPLUS\Models\SendDubbridgeSmsRequest;
 use AntChain\RISKPLUS\Models\SendDubbridgeSmsResponse;
 use AntChain\RISKPLUS\Models\SendSecurityDataRequest;
 use AntChain\RISKPLUS\Models\SendSecurityDataResponse;
+use AntChain\RISKPLUS\Models\StartRbbRegdatasyncScheduleRequest;
+use AntChain\RISKPLUS\Models\StartRbbRegdatasyncScheduleResponse;
 use AntChain\RISKPLUS\Models\SyncRpgwUserOrderinfoRequest;
 use AntChain\RISKPLUS\Models\SyncRpgwUserOrderinfoResponse;
+use AntChain\RISKPLUS\Models\SyncUmktRtEventresultRequest;
+use AntChain\RISKPLUS\Models\SyncUmktRtEventresultResponse;
 use AntChain\RISKPLUS\Models\UpdateDubbridgeInstitutionCreditRequest;
 use AntChain\RISKPLUS\Models\UpdateDubbridgeInstitutionCreditResponse;
 use AntChain\RISKPLUS\Models\UpdateDubheCustomerInfoRequest;
@@ -328,7 +338,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.9.3',
+                    'sdk_version'      => '1.9.5',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1581,6 +1591,39 @@ class Client
     }
 
     /**
+     * Description: 天枢企业经营数据查询
+     * Summary: 天枢企业经营数据查询.
+     *
+     * @param QueryDubbridgeRiskinfoBusinessinfoRequest $request
+     *
+     * @return QueryDubbridgeRiskinfoBusinessinfoResponse
+     */
+    public function queryDubbridgeRiskinfoBusinessinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeRiskinfoBusinessinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢企业经营数据查询
+     * Summary: 天枢企业经营数据查询.
+     *
+     * @param QueryDubbridgeRiskinfoBusinessinfoRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return QueryDubbridgeRiskinfoBusinessinfoResponse
+     */
+    public function queryDubbridgeRiskinfoBusinessinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeRiskinfoBusinessinfoResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.riskinfo.businessinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 四要素认证首先调用此接口
      * Summary: 芝麻四要素接口.
      *
@@ -2007,6 +2050,105 @@ class Client
         Utils::validateModel($request);
 
         return QueryRbbCompanyCreditResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.company.credit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 风险大脑-上交所数据离线同步数据准备状态，上交所本地部署鹰眼项目需要获取离线数据是否准备好的信息
+     * Summary: 风险大脑-上交所数据离线同步数据准备状态
+     *
+     * @param QueryRbbRegdatasyncPreparedRequest $request
+     *
+     * @return QueryRbbRegdatasyncPreparedResponse
+     */
+    public function queryRbbRegdatasyncPrepared($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRbbRegdatasyncPreparedEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 风险大脑-上交所数据离线同步数据准备状态，上交所本地部署鹰眼项目需要获取离线数据是否准备好的信息
+     * Summary: 风险大脑-上交所数据离线同步数据准备状态
+     *
+     * @param QueryRbbRegdatasyncPreparedRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryRbbRegdatasyncPreparedResponse
+     */
+    public function queryRbbRegdatasyncPreparedEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRbbRegdatasyncPreparedResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.regdatasync.prepared.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 风险大脑-上交所数据离线同步数据开始通知标识
+     * Summary: 风险大脑-上交所数据离线同步数据开始通知.
+     *
+     * @param StartRbbRegdatasyncScheduleRequest $request
+     *
+     * @return StartRbbRegdatasyncScheduleResponse
+     */
+    public function startRbbRegdatasyncSchedule($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startRbbRegdatasyncScheduleEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 风险大脑-上交所数据离线同步数据开始通知标识
+     * Summary: 风险大脑-上交所数据离线同步数据开始通知.
+     *
+     * @param StartRbbRegdatasyncScheduleRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return StartRbbRegdatasyncScheduleResponse
+     */
+    public function startRbbRegdatasyncScheduleEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartRbbRegdatasyncScheduleResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.regdatasync.schedule.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 风险大脑-上交所数据离线同步数据完成记录 记录完成的状态
+     * Summary: 风险大脑-上交所数据离线同步数据完成记录.
+     *
+     * @param FinishRbbRegdatasyncScheduleRequest $request
+     *
+     * @return FinishRbbRegdatasyncScheduleResponse
+     */
+    public function finishRbbRegdatasyncSchedule($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->finishRbbRegdatasyncScheduleEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 风险大脑-上交所数据离线同步数据完成记录 记录完成的状态
+     * Summary: 风险大脑-上交所数据离线同步数据完成记录.
+     *
+     * @param FinishRbbRegdatasyncScheduleRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return FinishRbbRegdatasyncScheduleResponse
+     */
+    public function finishRbbRegdatasyncScheduleEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FinishRbbRegdatasyncScheduleResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.regdatasync.schedule.finish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -3182,6 +3324,39 @@ class Client
         Utils::validateModel($request);
 
         return BatchqueryUmktRtMarketingResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.rt.marketing.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 梦网富信投放事件通知
+     * Summary: 梦网富信投放事件通知.
+     *
+     * @param SyncUmktRtEventresultRequest $request
+     *
+     * @return SyncUmktRtEventresultResponse
+     */
+    public function syncUmktRtEventresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncUmktRtEventresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 梦网富信投放事件通知
+     * Summary: 梦网富信投放事件通知.
+     *
+     * @param SyncUmktRtEventresultRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return SyncUmktRtEventresultResponse
+     */
+    public function syncUmktRtEventresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncUmktRtEventresultResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.rt.eventresult.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
