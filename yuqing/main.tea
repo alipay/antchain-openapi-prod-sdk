@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.1',
+    sdk_version = '1.1.8',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -157,6 +157,92 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 钉钉链接消息
+model Link {
+  // 文字
+  text?: string(name='text', example='文字'),
+  // 标题
+  title?: string(name='title', example='标题'),
+  // 图片地址
+  picUrl?: string(name='pic_url', example='图片地址'),
+  // 链接
+  messageUrl?: string(name='message_url', example='链接'),
+}
+
+// 钉钉点击
+model Btn {
+  // 标题
+  title?: string(name='title', example='标题'),
+  // 动作地址
+  actionUrl?: string(name='action_url', example='动作地址'),
+}
+
+// 钉钉动作卡片
+model ActionCard {
+  // 标题
+  title?: string(name='title', example='标题'),
+  // 内容
+  text?: string(name='text', example='内容'),
+  // btn_orientation
+  btnOrientation?: string(name='btn_orientation', example='btn_orientation'),
+  // 简单标题
+  singleTitle?: string(name='single_title', example='简单标题'),
+  // 简单地址
+  singleUrl?: string(name='single_url', example='简单地址'),
+  // 点击
+  btns?: [ Btn ](name='btns', example='点击'),
+}
+
+// 钉钉Markdown
+model Markdown {
+  // 标题
+  title?: string(name='title', example='标题'),
+  // 内容
+  text?: string(name='text', example='内容'),
+}
+
+// 钉钉FeedCard
+model FeedCard {
+  // 卡片流
+  links?: [ Link ](name='links', example='卡片流'),
+}
+
+// 钉钉文字消息
+model Text {
+  // 内容
+  content?: string(name='content', example='内容'),
+}
+
+// 钉钉At
+model At {
+  // @手机号
+  atMobiles?: [ string ](name='at_mobiles', example='@手机号'),
+  // @用户ID
+  atUserIds?: [ string ](name='at_user_ids', example='@用户ID'),
+  // @所有人
+  isAtAll?: boolean(name='is_at_all', example='true, false'),
+}
+
+// 钉钉消息体
+model DingTalkContent {
+  // webHook
+  webHook?: string(name='web_hook', example='webHook'),
+  // 消息类型
+  msgtype?: string(name='msgtype', example='消息类型'),
+  // 文字
+  text?: Text(name='text', example='文字'),
+  // 链接
+  link?: Link(name='link', example='链接'),
+  // markdown
+  markdown?: Markdown(name='markdown', example='markdown'),
+  // actionCard
+  actionCard?: ActionCard(name='action_card', example='actionCard'),
+  // feedCard
+  feedCard?: FeedCard(name='feed_card', example='feedCard'),
+  // at
+  at?: At(name='at', example='at'),
 }
 
 // YuqingMessage
@@ -286,13 +372,13 @@ model SearchCondition {
   // 舆情父文章的docId，一般用于查看某篇文章的评论
   parentDocId?: string(name='parent_doc_id', example='舆情父文章的docId，一般用于查看某篇文章的评论'),
   // 关键词
-  posKeyWords?: string(name='pos_key_words', example='关键词'),
+  posKeywords?: string(name='pos_keywords', example='关键词'),
   // 标题关键词
   posKeywordsInTitle?: string(name='pos_keywords_in_title', example='标题关键词'),
   // 截止发布时间
   publishTimeEnd?: long(name='publish_time_end', example='截止发布时间'),
   // 起始发布时间
-  publishTimeStart?: string(name='publish_time_start', example='起始发布时间'),
+  publishTimeStart?: long(name='publish_time_start', example='起始发布时间'),
   // 阅读级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
   readsLevel?: long(name='reads_level', example='阅读级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+'),
   // 相关性等级，1：低，2：中，3：高，4：低级别以上
@@ -472,10 +558,6 @@ model SaveProductOpenResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 计量请求是否处理成功
-  success?: boolean(name='success'),
-  // 结果描述信息
-  resultMessage?: string(name='result_message'),
 }
 
 /**
@@ -524,10 +606,6 @@ model SaveProductTopResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 计量请求是否处理成功
-  success?: boolean(name='success'),
-  // 结果描述信息
-  resultMessage?: string(name='result_message'),
 }
 
 /**
@@ -547,5 +625,83 @@ async function saveProductTop(request: SaveProductTopRequest): SaveProductTopRes
 async function saveProductTopEx(request: SaveProductTopRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveProductTopResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'universalsaas.yuqing.product.top.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SetProductOperateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求入参
+  inputJson: string(name='input_json'),
+}
+
+model SetProductOperateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 输出返回
+  outputJson?: string(name='output_json'),
+}
+
+/**
+ * Description: 产品操作接口
+ * Summary: 产品操作接口
+ */
+async function setProductOperate(request: SetProductOperateRequest): SetProductOperateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return setProductOperateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品操作接口
+ * Summary: 产品操作接口
+ */
+async function setProductOperateEx(request: SetProductOperateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SetProductOperateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.yuqing.product.operate.set', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendProductNoticeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 提醒类型
+  noticeType?: string(name='notice_type'),
+  // 钉钉结构体
+  dingTalkContent?: DingTalkContent(name='ding_talk_content'),
+}
+
+model SendProductNoticeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 推送返回
+  operateResult?: boolean(name='operate_result'),
+}
+
+/**
+ * Description: 发送提醒
+ * Summary: 发送提醒
+ */
+async function sendProductNotice(request: SendProductNoticeRequest): SendProductNoticeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendProductNoticeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发送提醒
+ * Summary: 发送提醒
+ */
+async function sendProductNoticeEx(request: SendProductNoticeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendProductNoticeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.yuqing.product.notice.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
