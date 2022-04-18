@@ -1956,8 +1956,6 @@ export class CompanyInfo extends $tea.Model {
 
 // 营销盾事件信息同步详情
 export class EventResultSyncDetail extends $tea.Model {
-  // 广告主id
-  planOwnerId: string;
   // 事件唯一id（单个租户全局唯一）
   eventId: string;
   // 营销计划id
@@ -1978,7 +1976,6 @@ export class EventResultSyncDetail extends $tea.Model {
   extData: string;
   static names(): { [key: string]: string } {
     return {
-      planOwnerId: 'plan_owner_id',
       eventId: 'event_id',
       planId: 'plan_id',
       msgId: 'msg_id',
@@ -1993,7 +1990,6 @@ export class EventResultSyncDetail extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
-      planOwnerId: 'string',
       eventId: 'string',
       planId: 'string',
       msgId: 'string',
@@ -10047,7 +10043,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.0",
+          sdk_version: "1.10.1",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
