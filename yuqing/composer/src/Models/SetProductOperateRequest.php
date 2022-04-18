@@ -24,15 +24,23 @@ class SetProductOperateRequest extends Model
      * @var string
      */
     public $inputJson;
+
+    // 操作类型
+    /**
+     * @var string
+     */
+    public $operateType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'inputJson'         => 'input_json',
+        'operateType'       => 'operate_type',
     ];
 
     public function validate()
     {
         Model::validateRequired('inputJson', $this->inputJson, true);
+        Model::validateRequired('operateType', $this->operateType, true);
     }
 
     public function toMap()
@@ -46,6 +54,9 @@ class SetProductOperateRequest extends Model
         }
         if (null !== $this->inputJson) {
             $res['input_json'] = $this->inputJson;
+        }
+        if (null !== $this->operateType) {
+            $res['operate_type'] = $this->operateType;
         }
 
         return $res;
@@ -67,6 +78,9 @@ class SetProductOperateRequest extends Model
         }
         if (isset($map['input_json'])) {
             $model->inputJson = $map['input_json'];
+        }
+        if (isset($map['operate_type'])) {
+            $model->operateType = $map['operate_type'];
         }
 
         return $model;
