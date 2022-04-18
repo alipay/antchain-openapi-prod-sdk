@@ -1455,6 +1455,8 @@ type SetProductOperateRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 请求入参
 	InputJson *string `json:"input_json,omitempty" xml:"input_json,omitempty" require:"true"`
+	// 操作类型
+	OperateType *string `json:"operate_type,omitempty" xml:"operate_type,omitempty" require:"true"`
 }
 
 func (s SetProductOperateRequest) String() string {
@@ -1477,6 +1479,11 @@ func (s *SetProductOperateRequest) SetProductInstanceId(v string) *SetProductOpe
 
 func (s *SetProductOperateRequest) SetInputJson(v string) *SetProductOperateRequest {
 	s.InputJson = &v
+	return s
+}
+
+func (s *SetProductOperateRequest) SetOperateType(v string) *SetProductOperateRequest {
+	s.OperateType = &v
 	return s
 }
 
@@ -1718,7 +1725,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.9"),
+				"sdk_version":      tea.String("1.1.10"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
