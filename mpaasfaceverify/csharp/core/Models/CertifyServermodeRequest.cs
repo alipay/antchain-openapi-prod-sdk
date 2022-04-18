@@ -53,25 +53,6 @@ namespace AntChain.SDK.MPAASFACEVERIFY.Models
         [Validation(Required=false)]
         public string RefImg { get; set; }
 
-        // 文件传输支持
-        /// <summary>
-        /// 待上传文件
-        /// </summary>
-        [NameInMap("fileObject")]
-        [Validation(Required=false)]
-        public Stream FileObject { get; set; }
-
-        /// <summary>
-        /// 待上传文件名
-        /// </summary>
-        [NameInMap("fileObjectName")]
-        [Validation(Required=false)]
-        public string FileObjectName { get; set; }
-
-        [NameInMap("file_id")]
-        [Validation(Required=true)]
-        public string FileId { get; set; }
-
     }
 
 }
