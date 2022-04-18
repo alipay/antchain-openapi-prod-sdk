@@ -16,6 +16,11 @@ public class SetProductOperateRequest extends TeaModel {
     @Validation(required = true)
     public String inputJson;
 
+    // 操作类型
+    @NameInMap("operate_type")
+    @Validation(required = true)
+    public String operateType;
+
     public static SetProductOperateRequest build(java.util.Map<String, ?> map) throws Exception {
         SetProductOperateRequest self = new SetProductOperateRequest();
         return TeaModel.build(map, self);
@@ -43,6 +48,14 @@ public class SetProductOperateRequest extends TeaModel {
     }
     public String getInputJson() {
         return this.inputJson;
+    }
+
+    public SetProductOperateRequest setOperateType(String operateType) {
+        this.operateType = operateType;
+        return this;
+    }
+    public String getOperateType() {
+        return this.operateType;
     }
 
 }
