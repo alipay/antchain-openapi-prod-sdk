@@ -1628,15 +1628,19 @@ class SetProductOperateRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         input_json: str = None,
+        operate_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 请求入参
         self.input_json = input_json
+        # 操作类型
+        self.operate_type = operate_type
 
     def validate(self):
         self.validate_required(self.input_json, 'input_json')
+        self.validate_required(self.operate_type, 'operate_type')
 
     def to_map(self):
         result = dict()
@@ -1646,6 +1650,8 @@ class SetProductOperateRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.input_json is not None:
             result['input_json'] = self.input_json
+        if self.operate_type is not None:
+            result['operate_type'] = self.operate_type
         return result
 
     def from_map(self, m: dict = None):
@@ -1656,6 +1662,8 @@ class SetProductOperateRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('input_json') is not None:
             self.input_json = m.get('input_json')
+        if m.get('operate_type') is not None:
+            self.operate_type = m.get('operate_type')
         return self
 
 
