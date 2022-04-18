@@ -2746,8 +2746,6 @@ func (s *CompanyInfo) SetPlatform(v string) *CompanyInfo {
 
 // 营销盾事件信息同步详情
 type EventResultSyncDetail struct {
-	// 广告主id
-	PlanOwnerId *string `json:"plan_owner_id,omitempty" xml:"plan_owner_id,omitempty" require:"true"`
 	// 事件唯一id（单个租户全局唯一）
 	EventId *string `json:"event_id,omitempty" xml:"event_id,omitempty" require:"true"`
 	// 营销计划id
@@ -2774,11 +2772,6 @@ func (s EventResultSyncDetail) String() string {
 
 func (s EventResultSyncDetail) GoString() string {
 	return s.String()
-}
-
-func (s *EventResultSyncDetail) SetPlanOwnerId(v string) *EventResultSyncDetail {
-	s.PlanOwnerId = &v
-	return s
 }
 
 func (s *EventResultSyncDetail) SetEventId(v string) *EventResultSyncDetail {
@@ -13409,7 +13402,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.0"),
+				"sdk_version":      tea.String("1.10.1"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
