@@ -43,19 +43,6 @@ public class CertifyServermodeRequest extends TeaModel {
     @NameInMap("ref_img")
     public String refImg;
 
-    // 文件传输支持
-    // 待上传文件
-    @NameInMap("fileObject")
-    public java.io.InputStream fileObject;
-
-    // 待上传文件名
-    @NameInMap("fileObjectName")
-    public String fileObjectName;
-
-    @NameInMap("file_id")
-    @Validation(required = true)
-    public String fileId;
-
     public static CertifyServermodeRequest build(java.util.Map<String, ?> map) throws Exception {
         CertifyServermodeRequest self = new CertifyServermodeRequest();
         return TeaModel.build(map, self);
@@ -131,30 +118,6 @@ public class CertifyServermodeRequest extends TeaModel {
     }
     public String getRefImg() {
         return this.refImg;
-    }
-
-    public CertifyServermodeRequest setFileObject(java.io.InputStream fileObject) {
-        this.fileObject = fileObject;
-        return this;
-    }
-    public java.io.InputStream getFileObject() {
-        return this.fileObject;
-    }
-
-    public CertifyServermodeRequest setFileObjectName(String fileObjectName) {
-        this.fileObjectName = fileObjectName;
-        return this;
-    }
-    public String getFileObjectName() {
-        return this.fileObjectName;
-    }
-
-    public CertifyServermodeRequest setFileId(String fileId) {
-        this.fileId = fileId;
-        return this;
-    }
-    public String getFileId() {
-        return this.fileId;
     }
 
 }
