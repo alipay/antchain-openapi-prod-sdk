@@ -3182,7 +3182,6 @@ class CompanyInfo(TeaModel):
 class EventResultSyncDetail(TeaModel):
     def __init__(
         self,
-        plan_owner_id: str = None,
         event_id: str = None,
         plan_id: str = None,
         msg_id: str = None,
@@ -3193,8 +3192,6 @@ class EventResultSyncDetail(TeaModel):
         customer_key: str = None,
         ext_data: str = None,
     ):
-        # 广告主id
-        self.plan_owner_id = plan_owner_id
         # 事件唯一id（单个租户全局唯一）
         self.event_id = event_id
         # 营销计划id
@@ -3215,7 +3212,6 @@ class EventResultSyncDetail(TeaModel):
         self.ext_data = ext_data
 
     def validate(self):
-        self.validate_required(self.plan_owner_id, 'plan_owner_id')
         self.validate_required(self.event_id, 'event_id')
         self.validate_required(self.plan_id, 'plan_id')
         self.validate_required(self.msg_id, 'msg_id')
@@ -3228,8 +3224,6 @@ class EventResultSyncDetail(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.plan_owner_id is not None:
-            result['plan_owner_id'] = self.plan_owner_id
         if self.event_id is not None:
             result['event_id'] = self.event_id
         if self.plan_id is not None:
@@ -3252,8 +3246,6 @@ class EventResultSyncDetail(TeaModel):
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('plan_owner_id') is not None:
-            self.plan_owner_id = m.get('plan_owner_id')
         if m.get('event_id') is not None:
             self.event_id = m.get('event_id')
         if m.get('plan_id') is not None:
