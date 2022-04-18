@@ -10,11 +10,6 @@ namespace AntChain.SDK.RISKPLUS.Models
 {
     // 营销盾事件信息同步详情
     public class EventResultSyncDetail : TeaModel {
-        // 广告主id
-        [NameInMap("plan_owner_id")]
-        [Validation(Required=true)]
-        public string PlanOwnerId { get; set; }
-
         // 事件唯一id（单个租户全局唯一）
         [NameInMap("event_id")]
         [Validation(Required=true)]
