@@ -1033,11 +1033,14 @@ export class SetProductOperateRequest extends $tea.Model {
   productInstanceId?: string;
   // 请求入参
   inputJson: string;
+  // 操作类型
+  operateType: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       inputJson: 'input_json',
+      operateType: 'operate_type',
     };
   }
 
@@ -1046,6 +1049,7 @@ export class SetProductOperateRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       inputJson: 'string',
+      operateType: 'string',
     };
   }
 
@@ -1262,7 +1266,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.9",
+          sdk_version: "1.1.10",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
