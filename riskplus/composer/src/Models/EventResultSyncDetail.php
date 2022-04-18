@@ -8,14 +8,6 @@ use AlibabaCloud\Tea\Model;
 
 class EventResultSyncDetail extends Model
 {
-    // 广告主id
-    /**
-     * @example 1245
-     *
-     * @var string
-     */
-    public $planOwnerId;
-
     // 事件唯一id（单个租户全局唯一）
     /**
      * @example 12345
@@ -88,7 +80,6 @@ class EventResultSyncDetail extends Model
      */
     public $extData;
     protected $_name = [
-        'planOwnerId' => 'plan_owner_id',
         'eventId'     => 'event_id',
         'planId'      => 'plan_id',
         'msgId'       => 'msg_id',
@@ -102,7 +93,6 @@ class EventResultSyncDetail extends Model
 
     public function validate()
     {
-        Model::validateRequired('planOwnerId', $this->planOwnerId, true);
         Model::validateRequired('eventId', $this->eventId, true);
         Model::validateRequired('planId', $this->planId, true);
         Model::validateRequired('msgId', $this->msgId, true);
@@ -117,9 +107,6 @@ class EventResultSyncDetail extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->planOwnerId) {
-            $res['plan_owner_id'] = $this->planOwnerId;
-        }
         if (null !== $this->eventId) {
             $res['event_id'] = $this->eventId;
         }
@@ -159,9 +146,6 @@ class EventResultSyncDetail extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['plan_owner_id'])) {
-            $model->planOwnerId = $map['plan_owner_id'];
-        }
         if (isset($map['event_id'])) {
             $model->eventId = $map['event_id'];
         }
