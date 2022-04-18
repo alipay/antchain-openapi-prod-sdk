@@ -23,6 +23,11 @@ namespace AntChain.SDK.YUQING.Models
         [Validation(Required=true)]
         public string InputJson { get; set; }
 
+        // 操作类型
+        [NameInMap("operate_type")]
+        [Validation(Required=true)]
+        public string OperateType { get; set; }
+
     }
 
 }
