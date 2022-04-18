@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.10.0',
+    sdk_version = '1.10.1',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -937,8 +937,6 @@ model CompanyInfo {
 
 // 营销盾事件信息同步详情
 model EventResultSyncDetail {
-  // 广告主id
-  planOwnerId: string(name='plan_owner_id', example='1245'),
   // 事件唯一id（单个租户全局唯一）
   eventId: string(name='event_id', example='12345'),
   // 营销计划id
