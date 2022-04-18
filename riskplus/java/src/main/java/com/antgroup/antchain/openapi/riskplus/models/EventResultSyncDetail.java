@@ -4,11 +4,6 @@ package com.antgroup.antchain.openapi.riskplus.models;
 import com.aliyun.tea.*;
 
 public class EventResultSyncDetail extends TeaModel {
-    // 广告主id
-    @NameInMap("plan_owner_id")
-    @Validation(required = true)
-    public String planOwnerId;
-
     // 事件唯一id（单个租户全局唯一）
     @NameInMap("event_id")
     @Validation(required = true)
@@ -57,14 +52,6 @@ public class EventResultSyncDetail extends TeaModel {
     public static EventResultSyncDetail build(java.util.Map<String, ?> map) throws Exception {
         EventResultSyncDetail self = new EventResultSyncDetail();
         return TeaModel.build(map, self);
-    }
-
-    public EventResultSyncDetail setPlanOwnerId(String planOwnerId) {
-        this.planOwnerId = planOwnerId;
-        return this;
-    }
-    public String getPlanOwnerId() {
-        return this.planOwnerId;
     }
 
     public EventResultSyncDetail setEventId(String eventId) {
