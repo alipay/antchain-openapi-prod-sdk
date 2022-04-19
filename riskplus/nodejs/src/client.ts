@@ -9842,6 +9842,65 @@ export class SyncUmktRtEventresultResponse extends $tea.Model {
   }
 }
 
+export class ImportUmktSceneUploadRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 需要刷新的key
+  key: string;
+  // 需要刷新的value，可能是json格式
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      key: 'key',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      key: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportUmktSceneUploadResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -10043,7 +10102,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.1",
+          sdk_version: "1.10.2",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -11822,6 +11881,25 @@ export default class Client {
   async syncUmktRtEventresultEx(request: SyncUmktRtEventresultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncUmktRtEventresultResponse> {
     Util.validateModel(request);
     return $tea.cast<SyncUmktRtEventresultResponse>(await this.doRequest("1.0", "riskplus.umkt.rt.eventresult.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncUmktRtEventresultResponse({}));
+  }
+
+  /**
+   * Description: 营销盾场景租户信息上传or更新
+   * Summary: 营销盾场景租户信息上传or更新
+   */
+  async importUmktSceneUpload(request: ImportUmktSceneUploadRequest): Promise<ImportUmktSceneUploadResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importUmktSceneUploadEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 营销盾场景租户信息上传or更新
+   * Summary: 营销盾场景租户信息上传or更新
+   */
+  async importUmktSceneUploadEx(request: ImportUmktSceneUploadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportUmktSceneUploadResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportUmktSceneUploadResponse>(await this.doRequest("1.0", "riskplus.umkt.scene.upload.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportUmktSceneUploadResponse({}));
   }
 
   /**
