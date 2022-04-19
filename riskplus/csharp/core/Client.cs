@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.1"},
+                        {"sdk_version", "1.10.2"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.1"},
+                        {"sdk_version", "1.10.2"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -4149,6 +4149,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SyncUmktRtEventresultResponse>(await DoRequestAsync("1.0", "riskplus.umkt.rt.eventresult.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾场景租户信息上传or更新
+         * Summary: 营销盾场景租户信息上传or更新
+         */
+        public ImportUmktSceneUploadResponse ImportUmktSceneUpload(ImportUmktSceneUploadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportUmktSceneUploadEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾场景租户信息上传or更新
+         * Summary: 营销盾场景租户信息上传or更新
+         */
+        public async Task<ImportUmktSceneUploadResponse> ImportUmktSceneUploadAsync(ImportUmktSceneUploadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportUmktSceneUploadExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾场景租户信息上传or更新
+         * Summary: 营销盾场景租户信息上传or更新
+         */
+        public ImportUmktSceneUploadResponse ImportUmktSceneUploadEx(ImportUmktSceneUploadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportUmktSceneUploadResponse>(DoRequest("1.0", "riskplus.umkt.scene.upload.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾场景租户信息上传or更新
+         * Summary: 营销盾场景租户信息上传or更新
+         */
+        public async Task<ImportUmktSceneUploadResponse> ImportUmktSceneUploadExAsync(ImportUmktSceneUploadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportUmktSceneUploadResponse>(await DoRequestAsync("1.0", "riskplus.umkt.scene.upload.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
