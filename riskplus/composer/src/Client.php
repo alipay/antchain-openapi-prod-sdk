@@ -61,6 +61,8 @@ use AntChain\RISKPLUS\Models\GetRtopCompanyDetailRequest;
 use AntChain\RISKPLUS\Models\GetRtopCompanyDetailResponse;
 use AntChain\RISKPLUS\Models\GetRtopCompanyMonitorRequest;
 use AntChain\RISKPLUS\Models\GetRtopCompanyMonitorResponse;
+use AntChain\RISKPLUS\Models\ImportUmktSceneUploadRequest;
+use AntChain\RISKPLUS\Models\ImportUmktSceneUploadResponse;
 use AntChain\RISKPLUS\Models\ListRtopCompanyOpinionsRequest;
 use AntChain\RISKPLUS\Models\ListRtopCompanyOpinionsResponse;
 use AntChain\RISKPLUS\Models\ListRtopCompanyRelatedRequest;
@@ -338,7 +340,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.1',
+                    'sdk_version'      => '1.10.2',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -3357,6 +3359,39 @@ class Client
         Utils::validateModel($request);
 
         return SyncUmktRtEventresultResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.rt.eventresult.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾场景租户信息上传or更新
+     * Summary: 营销盾场景租户信息上传or更新.
+     *
+     * @param ImportUmktSceneUploadRequest $request
+     *
+     * @return ImportUmktSceneUploadResponse
+     */
+    public function importUmktSceneUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importUmktSceneUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾场景租户信息上传or更新
+     * Summary: 营销盾场景租户信息上传or更新.
+     *
+     * @param ImportUmktSceneUploadRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ImportUmktSceneUploadResponse
+     */
+    public function importUmktSceneUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportUmktSceneUploadResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.scene.upload.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
