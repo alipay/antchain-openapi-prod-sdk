@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.1'
+                    'sdk_version': '1.10.2'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.1'
+                    'sdk_version': '1.10.2'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -5147,6 +5147,60 @@ class Client:
         UtilClient.validate_model(request)
         return riskplus_models.SyncUmktRtEventresultResponse().from_map(
             await self.do_request_async('1.0', 'riskplus.umkt.rt.eventresult.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_umkt_scene_upload(
+        self,
+        request: riskplus_models.ImportUmktSceneUploadRequest,
+    ) -> riskplus_models.ImportUmktSceneUploadResponse:
+        """
+        Description: 营销盾场景租户信息上传or更新
+        Summary: 营销盾场景租户信息上传or更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_umkt_scene_upload_ex(request, headers, runtime)
+
+    async def import_umkt_scene_upload_async(
+        self,
+        request: riskplus_models.ImportUmktSceneUploadRequest,
+    ) -> riskplus_models.ImportUmktSceneUploadResponse:
+        """
+        Description: 营销盾场景租户信息上传or更新
+        Summary: 营销盾场景租户信息上传or更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_umkt_scene_upload_ex_async(request, headers, runtime)
+
+    def import_umkt_scene_upload_ex(
+        self,
+        request: riskplus_models.ImportUmktSceneUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ImportUmktSceneUploadResponse:
+        """
+        Description: 营销盾场景租户信息上传or更新
+        Summary: 营销盾场景租户信息上传or更新
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.ImportUmktSceneUploadResponse().from_map(
+            self.do_request('1.0', 'riskplus.umkt.scene.upload.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_umkt_scene_upload_ex_async(
+        self,
+        request: riskplus_models.ImportUmktSceneUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ImportUmktSceneUploadResponse:
+        """
+        Description: 营销盾场景租户信息上传or更新
+        Summary: 营销盾场景租户信息上传or更新
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.ImportUmktSceneUploadResponse().from_map(
+            await self.do_request_async('1.0', 'riskplus.umkt.scene.upload.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
