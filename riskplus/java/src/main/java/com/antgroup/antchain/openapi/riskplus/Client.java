@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.10.1")
+                    new TeaPair("sdk_version", "1.10.2")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1892,6 +1892,25 @@ public class Client {
     public SyncUmktRtEventresultResponse syncUmktRtEventresultEx(SyncUmktRtEventresultRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.rt.eventresult.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncUmktRtEventresultResponse());
+    }
+
+    /**
+     * Description: 营销盾场景租户信息上传or更新
+     * Summary: 营销盾场景租户信息上传or更新
+     */
+    public ImportUmktSceneUploadResponse importUmktSceneUpload(ImportUmktSceneUploadRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importUmktSceneUploadEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 营销盾场景租户信息上传or更新
+     * Summary: 营销盾场景租户信息上传or更新
+     */
+    public ImportUmktSceneUploadResponse importUmktSceneUploadEx(ImportUmktSceneUploadRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.scene.upload.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportUmktSceneUploadResponse());
     }
 
     /**
