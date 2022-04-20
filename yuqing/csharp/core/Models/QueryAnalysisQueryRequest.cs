@@ -21,7 +21,7 @@ namespace AntChain.SDK.YUQING.Models
         // 分析任务ID
         [NameInMap("analysis_id")]
         [Validation(Required=true)]
-        public string AnalysisId { get; set; }
+        public long? AnalysisId { get; set; }
 
     }
 

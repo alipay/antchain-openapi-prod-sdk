@@ -11,19 +11,19 @@ namespace AntChain.SDK.YUQING.Models
     // 查询结构体
     public class SearchCondition : TeaModel {
         // 搭配词
-        [NameInMap("ass_keywords")]
+        [NameInMap("ass_keyword_list")]
         [Validation(Required=false)]
-        public string AssKeywords { get; set; }
+        public List<string> AssKeywordList { get; set; }
 
         // 被@的用户名称
-        [NameInMap("at_author_name")]
+        [NameInMap("at_author_name_list")]
         [Validation(Required=false)]
-        public string AtAuthorName { get; set; }
+        public List<string> AtAuthorNameList { get; set; }
 
         // 作者名称
-        [NameInMap("author_name")]
+        [NameInMap("author_name_list")]
         [Validation(Required=false)]
-        public string AuthorName { get; set; }
+        public List<string> AuthorNameList { get; set; }
 
         // 评论级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
         [NameInMap("comments_level")]
@@ -51,9 +51,9 @@ namespace AntChain.SDK.YUQING.Models
         public string DocContentSign { get; set; }
 
         // 舆情文章唯一docId
-        [NameInMap("doc_id")]
+        [NameInMap("doc_id_list")]
         [Validation(Required=false)]
-        public string DocId { get; set; }
+        public List<string> DocIdList { get; set; }
 
         // 是否去重
         [NameInMap("duplicate_removal")]
@@ -71,59 +71,54 @@ namespace AntChain.SDK.YUQING.Models
         public bool? EnableKeywordHighlight { get; set; }
 
         // 排除被@的用户名称
-        [NameInMap("exclude_at_author_name")]
+        [NameInMap("exclude_at_author_name_list")]
         [Validation(Required=false)]
-        public string ExcludeAtAuthorName { get; set; }
+        public List<string> ExcludeAtAuthorNameList { get; set; }
 
         // 排除作者名称
-        [NameInMap("exclude_author_name")]
+        [NameInMap("exclude_author_name_list")]
         [Validation(Required=false)]
-        public string ExcludeAuthorName { get; set; }
+        public List<string> ExcludeAuthorNameList { get; set; }
 
         // 排除网站域名
-        [NameInMap("exclude_host_name")]
+        [NameInMap("exclude_host_name_list")]
         [Validation(Required=false)]
-        public string ExcludeHostName { get; set; }
+        public List<string> ExcludeHostNameList { get; set; }
 
         // 排除关键词标签Id列表
         [NameInMap("exclude_keyword_tag_ids")]
         [Validation(Required=false)]
-        public string ExcludeKeywordTagIds { get; set; }
+        public List<long?> ExcludeKeywordTagIds { get; set; }
 
         // 排除词
-        [NameInMap("exclude_keywords")]
+        [NameInMap("exclude_keyword_list")]
         [Validation(Required=false)]
-        public string ExcludeKeywords { get; set; }
+        public List<string> ExcludeKeywordList { get; set; }
 
         // 标题排除词
-        [NameInMap("exclude_keywords_in_title")]
+        [NameInMap("exclude_keyword_list_in_title")]
         [Validation(Required=false)]
-        public string ExcludeKeywordsInTitle { get; set; }
+        public List<string> ExcludeKeywordListInTitle { get; set; }
 
         // 排除媒体库id列表
-        [NameInMap("exclude_media_library_ids")]
+        [NameInMap("exclude_media_library_id_list")]
         [Validation(Required=false)]
-        public string ExcludeMediaLibraryIds { get; set; }
+        public List<long?> ExcludeMediaLibraryIdList { get; set; }
 
         // 排除媒体名称
-        [NameInMap("exclude_media_name")]
+        [NameInMap("exclude_media_name_list")]
         [Validation(Required=false)]
-        public string ExcludeMediaName { get; set; }
+        public List<string> ExcludeMediaNameList { get; set; }
 
         // 排除媒体类型，枚举值
-        [NameInMap("exclude_media_type")]
+        [NameInMap("exclude_media_type_list")]
         [Validation(Required=false)]
-        public string ExcludeMediaType { get; set; }
+        public List<string> ExcludeMediaTypeList { get; set; }
 
         // 排除消息类型，枚举值
-        [NameInMap("exclude_message_type")]
+        [NameInMap("exclude_message_type_list")]
         [Validation(Required=false)]
-        public string ExcludeMessageType { get; set; }
-
-        // 其他过滤条件
-        [NameInMap("field_conditions")]
-        [Validation(Required=false)]
-        public string FieldConditions { get; set; }
+        public List<string> ExcludeMessageTypeList { get; set; }
 
         // 文章是否含有图片
         [NameInMap("has_image")]
@@ -136,14 +131,14 @@ namespace AntChain.SDK.YUQING.Models
         public bool? HasVideo { get; set; }
 
         // 网站域名
-        [NameInMap("host_name")]
+        [NameInMap("host_name_list")]
         [Validation(Required=false)]
-        public string HostName { get; set; }
+        public List<string> HostNameList { get; set; }
 
         // 关键词标签Id列表
         [NameInMap("keyword_tag_ids")]
         [Validation(Required=false)]
-        public string KeywordTagIds { get; set; }
+        public List<long?> KeywordTagIds { get; set; }
 
         // 点赞级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
         [NameInMap("likes_level")]
@@ -151,24 +146,24 @@ namespace AntChain.SDK.YUQING.Models
         public long? LikesLevel { get; set; }
 
         // 媒体库id列表
-        [NameInMap("media_library_ids")]
+        [NameInMap("media_library_id_list")]
         [Validation(Required=false)]
-        public string MediaLibraryIds { get; set; }
+        public List<long?> MediaLibraryIdList { get; set; }
 
         // 媒体名称
-        [NameInMap("media_name")]
+        [NameInMap("media_name_list")]
         [Validation(Required=false)]
-        public string MediaName { get; set; }
+        public List<string> MediaNameList { get; set; }
 
         // 体类型，枚举值
-        [NameInMap("media_type")]
+        [NameInMap("media_type_list")]
         [Validation(Required=false)]
-        public string MediaType { get; set; }
+        public List<string> MediaTypeList { get; set; }
 
         // 消息类型，枚举值
-        [NameInMap("message_type")]
+        [NameInMap("message_type_list")]
         [Validation(Required=false)]
-        public string MessageType { get; set; }
+        public List<string> MessageTypeList { get; set; }
 
         // 当前页
         [NameInMap("page_now")]
@@ -186,14 +181,14 @@ namespace AntChain.SDK.YUQING.Models
         public string ParentDocId { get; set; }
 
         // 关键词
-        [NameInMap("pos_keywords")]
+        [NameInMap("pos_keyword_list")]
         [Validation(Required=false)]
-        public string PosKeywords { get; set; }
+        public List<string> PosKeywordList { get; set; }
 
         // 标题关键词
-        [NameInMap("pos_keywords_in_title")]
+        [NameInMap("pos_keyword_list_in_title")]
         [Validation(Required=false)]
-        public string PosKeywordsInTitle { get; set; }
+        public List<string> PosKeywordListInTitle { get; set; }
 
         // 截止发布时间
         [NameInMap("publish_time_end")]
@@ -231,9 +226,9 @@ namespace AntChain.SDK.YUQING.Models
         public string SortByDirection { get; set; }
 
         // #话题
-        [NameInMap("topics")]
+        [NameInMap("topic_list")]
         [Validation(Required=false)]
-        public string Topics { get; set; }
+        public List<string> TopicList { get; set; }
 
         // 舆情文章截止更新时间
         [NameInMap("update_time_end")]
