@@ -21,7 +21,7 @@ class QueryAnalysisQueryRequest extends Model
 
     // 分析任务ID
     /**
-     * @var string
+     * @var int
      */
     public $analysisId;
     protected $_name = [

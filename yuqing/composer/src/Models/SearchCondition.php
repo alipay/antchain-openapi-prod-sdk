@@ -12,25 +12,25 @@ class SearchCondition extends Model
     /**
      * @example 搭配词
      *
-     * @var string
+     * @var string[]
      */
-    public $assKeywords;
+    public $assKeywordList;
 
     // 被@的用户名称
     /**
      * @example 被@的用户名称
      *
-     * @var string
+     * @var string[]
      */
-    public $atAuthorName;
+    public $atAuthorNameList;
 
     // 作者名称
     /**
      * @example 作者名称
      *
-     * @var string
+     * @var string[]
      */
-    public $authorName;
+    public $authorNameList;
 
     // 评论级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
     /**
@@ -76,9 +76,9 @@ class SearchCondition extends Model
     /**
      * @example 舆情文章唯一docId
      *
-     * @var string
+     * @var string[]
      */
-    public $docId;
+    public $docIdList;
 
     // 是否去重
     /**
@@ -108,31 +108,31 @@ class SearchCondition extends Model
     /**
      * @example 排除被@的用户名称
      *
-     * @var string
+     * @var string[]
      */
-    public $excludeAtAuthorName;
+    public $excludeAtAuthorNameList;
 
     // 排除作者名称
     /**
      * @example 排除作者名称
      *
-     * @var string
+     * @var string[]
      */
-    public $excludeAuthorName;
+    public $excludeAuthorNameList;
 
     // 排除网站域名
     /**
      * @example 排除网站域名
      *
-     * @var string
+     * @var string[]
      */
-    public $excludeHostName;
+    public $excludeHostNameList;
 
     // 排除关键词标签Id列表
     /**
      * @example 排除关键词标签Id列表
      *
-     * @var string
+     * @var int[]
      */
     public $excludeKeywordTagIds;
 
@@ -140,57 +140,49 @@ class SearchCondition extends Model
     /**
      * @example 排除词
      *
-     * @var string
+     * @var string[]
      */
-    public $excludeKeywords;
+    public $excludeKeywordList;
 
     // 标题排除词
     /**
      * @example 标题排除词
      *
-     * @var string
+     * @var string[]
      */
-    public $excludeKeywordsInTitle;
+    public $excludeKeywordListInTitle;
 
     // 排除媒体库id列表
     /**
      * @example 排除媒体库id列表
      *
-     * @var string
+     * @var int[]
      */
-    public $excludeMediaLibraryIds;
+    public $excludeMediaLibraryIdList;
 
     // 排除媒体名称
     /**
      * @example 排除媒体名称
      *
-     * @var string
+     * @var string[]
      */
-    public $excludeMediaName;
+    public $excludeMediaNameList;
 
     // 排除媒体类型，枚举值
     /**
      * @example 排除媒体类型，枚举值
      *
-     * @var string
+     * @var string[]
      */
-    public $excludeMediaType;
+    public $excludeMediaTypeList;
 
     // 排除消息类型，枚举值
     /**
      * @example 排除消息类型，枚举值
      *
-     * @var string
+     * @var string[]
      */
-    public $excludeMessageType;
-
-    // 其他过滤条件
-    /**
-     * @example 其他过滤条件
-     *
-     * @var string
-     */
-    public $fieldConditions;
+    public $excludeMessageTypeList;
 
     // 文章是否含有图片
     /**
@@ -212,15 +204,15 @@ class SearchCondition extends Model
     /**
      * @example 网站域名
      *
-     * @var string
+     * @var string[]
      */
-    public $hostName;
+    public $hostNameList;
 
     // 关键词标签Id列表
     /**
      * @example 关键词标签Id列表
      *
-     * @var string
+     * @var int[]
      */
     public $keywordTagIds;
 
@@ -236,33 +228,33 @@ class SearchCondition extends Model
     /**
      * @example 媒体库id列表
      *
-     * @var string
+     * @var int[]
      */
-    public $mediaLibraryIds;
+    public $mediaLibraryIdList;
 
     // 媒体名称
     /**
      * @example 媒体名称
      *
-     * @var string
+     * @var string[]
      */
-    public $mediaName;
+    public $mediaNameList;
 
     // 体类型，枚举值
     /**
      * @example 体类型，枚举值
      *
-     * @var string
+     * @var string[]
      */
-    public $mediaType;
+    public $mediaTypeList;
 
     // 消息类型，枚举值
     /**
      * @example 消息类型，枚举值
      *
-     * @var string
+     * @var string[]
      */
-    public $messageType;
+    public $messageTypeList;
 
     // 当前页
     /**
@@ -292,17 +284,17 @@ class SearchCondition extends Model
     /**
      * @example 关键词
      *
-     * @var string
+     * @var string[]
      */
-    public $posKeywords;
+    public $posKeywordList;
 
     // 标题关键词
     /**
      * @example 标题关键词
      *
-     * @var string
+     * @var string[]
      */
-    public $posKeywordsInTitle;
+    public $posKeywordListInTitle;
 
     // 截止发布时间
     /**
@@ -364,9 +356,9 @@ class SearchCondition extends Model
     /**
      * @example #话题
      *
-     * @var string
+     * @var string[]
      */
-    public $topics;
+    public $topicList;
 
     // 舆情文章截止更新时间
     /**
@@ -384,53 +376,52 @@ class SearchCondition extends Model
      */
     public $updateTimeStart;
     protected $_name = [
-        'assKeywords'            => 'ass_keywords',
-        'atAuthorName'           => 'at_author_name',
-        'authorName'             => 'author_name',
-        'commentsLevel'          => 'comments_level',
-        'contentLenLevel'        => 'content_len_level',
-        'createTimeEnd'          => 'create_time_end',
-        'createTimeStart'        => 'create_time_start',
-        'docContentSign'         => 'doc_content_sign',
-        'docId'                  => 'doc_id',
-        'duplicateRemoval'       => 'duplicate_removal',
-        'emotionType'            => 'emotion_type',
-        'enableKeywordHighlight' => 'enable_keyword_highlight',
-        'excludeAtAuthorName'    => 'exclude_at_author_name',
-        'excludeAuthorName'      => 'exclude_author_name',
-        'excludeHostName'        => 'exclude_host_name',
-        'excludeKeywordTagIds'   => 'exclude_keyword_tag_ids',
-        'excludeKeywords'        => 'exclude_keywords',
-        'excludeKeywordsInTitle' => 'exclude_keywords_in_title',
-        'excludeMediaLibraryIds' => 'exclude_media_library_ids',
-        'excludeMediaName'       => 'exclude_media_name',
-        'excludeMediaType'       => 'exclude_media_type',
-        'excludeMessageType'     => 'exclude_message_type',
-        'fieldConditions'        => 'field_conditions',
-        'hasImage'               => 'has_image',
-        'hasVideo'               => 'has_video',
-        'hostName'               => 'host_name',
-        'keywordTagIds'          => 'keyword_tag_ids',
-        'likesLevel'             => 'likes_level',
-        'mediaLibraryIds'        => 'media_library_ids',
-        'mediaName'              => 'media_name',
-        'mediaType'              => 'media_type',
-        'messageType'            => 'message_type',
-        'pageNow'                => 'page_now',
-        'pageSize'               => 'page_size',
-        'parentDocId'            => 'parent_doc_id',
-        'posKeywords'            => 'pos_keywords',
-        'posKeywordsInTitle'     => 'pos_keywords_in_title',
-        'publishTimeEnd'         => 'publish_time_end',
-        'publishTimeStart'       => 'publish_time_start',
-        'readsLevel'             => 'reads_level',
-        'relevanceLevel'         => 'relevance_level',
-        'repostLevel'            => 'repost_level',
-        'sortBy'                 => 'sort_by',
-        'sortByDirection'        => 'sort_by_direction',
-        'topics'                 => 'topics',
-        'updateTimeEnd'          => 'update_time_end',
-        'updateTimeStart'        => 'update_time_start',
+        'assKeywordList'            => 'ass_keyword_list',
+        'atAuthorNameList'          => 'at_author_name_list',
+        'authorNameList'            => 'author_name_list',
+        'commentsLevel'             => 'comments_level',
+        'contentLenLevel'           => 'content_len_level',
+        'createTimeEnd'             => 'create_time_end',
+        'createTimeStart'           => 'create_time_start',
+        'docContentSign'            => 'doc_content_sign',
+        'docIdList'                 => 'doc_id_list',
+        'duplicateRemoval'          => 'duplicate_removal',
+        'emotionType'               => 'emotion_type',
+        'enableKeywordHighlight'    => 'enable_keyword_highlight',
+        'excludeAtAuthorNameList'   => 'exclude_at_author_name_list',
+        'excludeAuthorNameList'     => 'exclude_author_name_list',
+        'excludeHostNameList'       => 'exclude_host_name_list',
+        'excludeKeywordTagIds'      => 'exclude_keyword_tag_ids',
+        'excludeKeywordList'        => 'exclude_keyword_list',
+        'excludeKeywordListInTitle' => 'exclude_keyword_list_in_title',
+        'excludeMediaLibraryIdList' => 'exclude_media_library_id_list',
+        'excludeMediaNameList'      => 'exclude_media_name_list',
+        'excludeMediaTypeList'      => 'exclude_media_type_list',
+        'excludeMessageTypeList'    => 'exclude_message_type_list',
+        'hasImage'                  => 'has_image',
+        'hasVideo'                  => 'has_video',
+        'hostNameList'              => 'host_name_list',
+        'keywordTagIds'             => 'keyword_tag_ids',
+        'likesLevel'                => 'likes_level',
+        'mediaLibraryIdList'        => 'media_library_id_list',
+        'mediaNameList'             => 'media_name_list',
+        'mediaTypeList'             => 'media_type_list',
+        'messageTypeList'           => 'message_type_list',
+        'pageNow'                   => 'page_now',
+        'pageSize'                  => 'page_size',
+        'parentDocId'               => 'parent_doc_id',
+        'posKeywordList'            => 'pos_keyword_list',
+        'posKeywordListInTitle'     => 'pos_keyword_list_in_title',
+        'publishTimeEnd'            => 'publish_time_end',
+        'publishTimeStart'          => 'publish_time_start',
+        'readsLevel'                => 'reads_level',
+        'relevanceLevel'            => 'relevance_level',
+        'repostLevel'               => 'repost_level',
+        'sortBy'                    => 'sort_by',
+        'sortByDirection'           => 'sort_by_direction',
+        'topicList'                 => 'topic_list',
+        'updateTimeEnd'             => 'update_time_end',
+        'updateTimeStart'           => 'update_time_start',
     ];
 
     public function validate()
@@ -440,14 +431,14 @@ class SearchCondition extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->assKeywords) {
-            $res['ass_keywords'] = $this->assKeywords;
+        if (null !== $this->assKeywordList) {
+            $res['ass_keyword_list'] = $this->assKeywordList;
         }
-        if (null !== $this->atAuthorName) {
-            $res['at_author_name'] = $this->atAuthorName;
+        if (null !== $this->atAuthorNameList) {
+            $res['at_author_name_list'] = $this->atAuthorNameList;
         }
-        if (null !== $this->authorName) {
-            $res['author_name'] = $this->authorName;
+        if (null !== $this->authorNameList) {
+            $res['author_name_list'] = $this->authorNameList;
         }
         if (null !== $this->commentsLevel) {
             $res['comments_level'] = $this->commentsLevel;
@@ -464,8 +455,8 @@ class SearchCondition extends Model
         if (null !== $this->docContentSign) {
             $res['doc_content_sign'] = $this->docContentSign;
         }
-        if (null !== $this->docId) {
-            $res['doc_id'] = $this->docId;
+        if (null !== $this->docIdList) {
+            $res['doc_id_list'] = $this->docIdList;
         }
         if (null !== $this->duplicateRemoval) {
             $res['duplicate_removal'] = $this->duplicateRemoval;
@@ -476,38 +467,35 @@ class SearchCondition extends Model
         if (null !== $this->enableKeywordHighlight) {
             $res['enable_keyword_highlight'] = $this->enableKeywordHighlight;
         }
-        if (null !== $this->excludeAtAuthorName) {
-            $res['exclude_at_author_name'] = $this->excludeAtAuthorName;
+        if (null !== $this->excludeAtAuthorNameList) {
+            $res['exclude_at_author_name_list'] = $this->excludeAtAuthorNameList;
         }
-        if (null !== $this->excludeAuthorName) {
-            $res['exclude_author_name'] = $this->excludeAuthorName;
+        if (null !== $this->excludeAuthorNameList) {
+            $res['exclude_author_name_list'] = $this->excludeAuthorNameList;
         }
-        if (null !== $this->excludeHostName) {
-            $res['exclude_host_name'] = $this->excludeHostName;
+        if (null !== $this->excludeHostNameList) {
+            $res['exclude_host_name_list'] = $this->excludeHostNameList;
         }
         if (null !== $this->excludeKeywordTagIds) {
             $res['exclude_keyword_tag_ids'] = $this->excludeKeywordTagIds;
         }
-        if (null !== $this->excludeKeywords) {
-            $res['exclude_keywords'] = $this->excludeKeywords;
+        if (null !== $this->excludeKeywordList) {
+            $res['exclude_keyword_list'] = $this->excludeKeywordList;
         }
-        if (null !== $this->excludeKeywordsInTitle) {
-            $res['exclude_keywords_in_title'] = $this->excludeKeywordsInTitle;
+        if (null !== $this->excludeKeywordListInTitle) {
+            $res['exclude_keyword_list_in_title'] = $this->excludeKeywordListInTitle;
         }
-        if (null !== $this->excludeMediaLibraryIds) {
-            $res['exclude_media_library_ids'] = $this->excludeMediaLibraryIds;
+        if (null !== $this->excludeMediaLibraryIdList) {
+            $res['exclude_media_library_id_list'] = $this->excludeMediaLibraryIdList;
         }
-        if (null !== $this->excludeMediaName) {
-            $res['exclude_media_name'] = $this->excludeMediaName;
+        if (null !== $this->excludeMediaNameList) {
+            $res['exclude_media_name_list'] = $this->excludeMediaNameList;
         }
-        if (null !== $this->excludeMediaType) {
-            $res['exclude_media_type'] = $this->excludeMediaType;
+        if (null !== $this->excludeMediaTypeList) {
+            $res['exclude_media_type_list'] = $this->excludeMediaTypeList;
         }
-        if (null !== $this->excludeMessageType) {
-            $res['exclude_message_type'] = $this->excludeMessageType;
-        }
-        if (null !== $this->fieldConditions) {
-            $res['field_conditions'] = $this->fieldConditions;
+        if (null !== $this->excludeMessageTypeList) {
+            $res['exclude_message_type_list'] = $this->excludeMessageTypeList;
         }
         if (null !== $this->hasImage) {
             $res['has_image'] = $this->hasImage;
@@ -515,8 +503,8 @@ class SearchCondition extends Model
         if (null !== $this->hasVideo) {
             $res['has_video'] = $this->hasVideo;
         }
-        if (null !== $this->hostName) {
-            $res['host_name'] = $this->hostName;
+        if (null !== $this->hostNameList) {
+            $res['host_name_list'] = $this->hostNameList;
         }
         if (null !== $this->keywordTagIds) {
             $res['keyword_tag_ids'] = $this->keywordTagIds;
@@ -524,17 +512,17 @@ class SearchCondition extends Model
         if (null !== $this->likesLevel) {
             $res['likes_level'] = $this->likesLevel;
         }
-        if (null !== $this->mediaLibraryIds) {
-            $res['media_library_ids'] = $this->mediaLibraryIds;
+        if (null !== $this->mediaLibraryIdList) {
+            $res['media_library_id_list'] = $this->mediaLibraryIdList;
         }
-        if (null !== $this->mediaName) {
-            $res['media_name'] = $this->mediaName;
+        if (null !== $this->mediaNameList) {
+            $res['media_name_list'] = $this->mediaNameList;
         }
-        if (null !== $this->mediaType) {
-            $res['media_type'] = $this->mediaType;
+        if (null !== $this->mediaTypeList) {
+            $res['media_type_list'] = $this->mediaTypeList;
         }
-        if (null !== $this->messageType) {
-            $res['message_type'] = $this->messageType;
+        if (null !== $this->messageTypeList) {
+            $res['message_type_list'] = $this->messageTypeList;
         }
         if (null !== $this->pageNow) {
             $res['page_now'] = $this->pageNow;
@@ -545,11 +533,11 @@ class SearchCondition extends Model
         if (null !== $this->parentDocId) {
             $res['parent_doc_id'] = $this->parentDocId;
         }
-        if (null !== $this->posKeywords) {
-            $res['pos_keywords'] = $this->posKeywords;
+        if (null !== $this->posKeywordList) {
+            $res['pos_keyword_list'] = $this->posKeywordList;
         }
-        if (null !== $this->posKeywordsInTitle) {
-            $res['pos_keywords_in_title'] = $this->posKeywordsInTitle;
+        if (null !== $this->posKeywordListInTitle) {
+            $res['pos_keyword_list_in_title'] = $this->posKeywordListInTitle;
         }
         if (null !== $this->publishTimeEnd) {
             $res['publish_time_end'] = $this->publishTimeEnd;
@@ -572,8 +560,8 @@ class SearchCondition extends Model
         if (null !== $this->sortByDirection) {
             $res['sort_by_direction'] = $this->sortByDirection;
         }
-        if (null !== $this->topics) {
-            $res['topics'] = $this->topics;
+        if (null !== $this->topicList) {
+            $res['topic_list'] = $this->topicList;
         }
         if (null !== $this->updateTimeEnd) {
             $res['update_time_end'] = $this->updateTimeEnd;
@@ -593,14 +581,20 @@ class SearchCondition extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['ass_keywords'])) {
-            $model->assKeywords = $map['ass_keywords'];
+        if (isset($map['ass_keyword_list'])) {
+            if (!empty($map['ass_keyword_list'])) {
+                $model->assKeywordList = $map['ass_keyword_list'];
+            }
         }
-        if (isset($map['at_author_name'])) {
-            $model->atAuthorName = $map['at_author_name'];
+        if (isset($map['at_author_name_list'])) {
+            if (!empty($map['at_author_name_list'])) {
+                $model->atAuthorNameList = $map['at_author_name_list'];
+            }
         }
-        if (isset($map['author_name'])) {
-            $model->authorName = $map['author_name'];
+        if (isset($map['author_name_list'])) {
+            if (!empty($map['author_name_list'])) {
+                $model->authorNameList = $map['author_name_list'];
+            }
         }
         if (isset($map['comments_level'])) {
             $model->commentsLevel = $map['comments_level'];
@@ -617,8 +611,10 @@ class SearchCondition extends Model
         if (isset($map['doc_content_sign'])) {
             $model->docContentSign = $map['doc_content_sign'];
         }
-        if (isset($map['doc_id'])) {
-            $model->docId = $map['doc_id'];
+        if (isset($map['doc_id_list'])) {
+            if (!empty($map['doc_id_list'])) {
+                $model->docIdList = $map['doc_id_list'];
+            }
         }
         if (isset($map['duplicate_removal'])) {
             $model->duplicateRemoval = $map['duplicate_removal'];
@@ -629,38 +625,55 @@ class SearchCondition extends Model
         if (isset($map['enable_keyword_highlight'])) {
             $model->enableKeywordHighlight = $map['enable_keyword_highlight'];
         }
-        if (isset($map['exclude_at_author_name'])) {
-            $model->excludeAtAuthorName = $map['exclude_at_author_name'];
+        if (isset($map['exclude_at_author_name_list'])) {
+            if (!empty($map['exclude_at_author_name_list'])) {
+                $model->excludeAtAuthorNameList = $map['exclude_at_author_name_list'];
+            }
         }
-        if (isset($map['exclude_author_name'])) {
-            $model->excludeAuthorName = $map['exclude_author_name'];
+        if (isset($map['exclude_author_name_list'])) {
+            if (!empty($map['exclude_author_name_list'])) {
+                $model->excludeAuthorNameList = $map['exclude_author_name_list'];
+            }
         }
-        if (isset($map['exclude_host_name'])) {
-            $model->excludeHostName = $map['exclude_host_name'];
+        if (isset($map['exclude_host_name_list'])) {
+            if (!empty($map['exclude_host_name_list'])) {
+                $model->excludeHostNameList = $map['exclude_host_name_list'];
+            }
         }
         if (isset($map['exclude_keyword_tag_ids'])) {
-            $model->excludeKeywordTagIds = $map['exclude_keyword_tag_ids'];
+            if (!empty($map['exclude_keyword_tag_ids'])) {
+                $model->excludeKeywordTagIds = $map['exclude_keyword_tag_ids'];
+            }
         }
-        if (isset($map['exclude_keywords'])) {
-            $model->excludeKeywords = $map['exclude_keywords'];
+        if (isset($map['exclude_keyword_list'])) {
+            if (!empty($map['exclude_keyword_list'])) {
+                $model->excludeKeywordList = $map['exclude_keyword_list'];
+            }
         }
-        if (isset($map['exclude_keywords_in_title'])) {
-            $model->excludeKeywordsInTitle = $map['exclude_keywords_in_title'];
+        if (isset($map['exclude_keyword_list_in_title'])) {
+            if (!empty($map['exclude_keyword_list_in_title'])) {
+                $model->excludeKeywordListInTitle = $map['exclude_keyword_list_in_title'];
+            }
         }
-        if (isset($map['exclude_media_library_ids'])) {
-            $model->excludeMediaLibraryIds = $map['exclude_media_library_ids'];
+        if (isset($map['exclude_media_library_id_list'])) {
+            if (!empty($map['exclude_media_library_id_list'])) {
+                $model->excludeMediaLibraryIdList = $map['exclude_media_library_id_list'];
+            }
         }
-        if (isset($map['exclude_media_name'])) {
-            $model->excludeMediaName = $map['exclude_media_name'];
+        if (isset($map['exclude_media_name_list'])) {
+            if (!empty($map['exclude_media_name_list'])) {
+                $model->excludeMediaNameList = $map['exclude_media_name_list'];
+            }
         }
-        if (isset($map['exclude_media_type'])) {
-            $model->excludeMediaType = $map['exclude_media_type'];
+        if (isset($map['exclude_media_type_list'])) {
+            if (!empty($map['exclude_media_type_list'])) {
+                $model->excludeMediaTypeList = $map['exclude_media_type_list'];
+            }
         }
-        if (isset($map['exclude_message_type'])) {
-            $model->excludeMessageType = $map['exclude_message_type'];
-        }
-        if (isset($map['field_conditions'])) {
-            $model->fieldConditions = $map['field_conditions'];
+        if (isset($map['exclude_message_type_list'])) {
+            if (!empty($map['exclude_message_type_list'])) {
+                $model->excludeMessageTypeList = $map['exclude_message_type_list'];
+            }
         }
         if (isset($map['has_image'])) {
             $model->hasImage = $map['has_image'];
@@ -668,26 +681,38 @@ class SearchCondition extends Model
         if (isset($map['has_video'])) {
             $model->hasVideo = $map['has_video'];
         }
-        if (isset($map['host_name'])) {
-            $model->hostName = $map['host_name'];
+        if (isset($map['host_name_list'])) {
+            if (!empty($map['host_name_list'])) {
+                $model->hostNameList = $map['host_name_list'];
+            }
         }
         if (isset($map['keyword_tag_ids'])) {
-            $model->keywordTagIds = $map['keyword_tag_ids'];
+            if (!empty($map['keyword_tag_ids'])) {
+                $model->keywordTagIds = $map['keyword_tag_ids'];
+            }
         }
         if (isset($map['likes_level'])) {
             $model->likesLevel = $map['likes_level'];
         }
-        if (isset($map['media_library_ids'])) {
-            $model->mediaLibraryIds = $map['media_library_ids'];
+        if (isset($map['media_library_id_list'])) {
+            if (!empty($map['media_library_id_list'])) {
+                $model->mediaLibraryIdList = $map['media_library_id_list'];
+            }
         }
-        if (isset($map['media_name'])) {
-            $model->mediaName = $map['media_name'];
+        if (isset($map['media_name_list'])) {
+            if (!empty($map['media_name_list'])) {
+                $model->mediaNameList = $map['media_name_list'];
+            }
         }
-        if (isset($map['media_type'])) {
-            $model->mediaType = $map['media_type'];
+        if (isset($map['media_type_list'])) {
+            if (!empty($map['media_type_list'])) {
+                $model->mediaTypeList = $map['media_type_list'];
+            }
         }
-        if (isset($map['message_type'])) {
-            $model->messageType = $map['message_type'];
+        if (isset($map['message_type_list'])) {
+            if (!empty($map['message_type_list'])) {
+                $model->messageTypeList = $map['message_type_list'];
+            }
         }
         if (isset($map['page_now'])) {
             $model->pageNow = $map['page_now'];
@@ -698,11 +723,15 @@ class SearchCondition extends Model
         if (isset($map['parent_doc_id'])) {
             $model->parentDocId = $map['parent_doc_id'];
         }
-        if (isset($map['pos_keywords'])) {
-            $model->posKeywords = $map['pos_keywords'];
+        if (isset($map['pos_keyword_list'])) {
+            if (!empty($map['pos_keyword_list'])) {
+                $model->posKeywordList = $map['pos_keyword_list'];
+            }
         }
-        if (isset($map['pos_keywords_in_title'])) {
-            $model->posKeywordsInTitle = $map['pos_keywords_in_title'];
+        if (isset($map['pos_keyword_list_in_title'])) {
+            if (!empty($map['pos_keyword_list_in_title'])) {
+                $model->posKeywordListInTitle = $map['pos_keyword_list_in_title'];
+            }
         }
         if (isset($map['publish_time_end'])) {
             $model->publishTimeEnd = $map['publish_time_end'];
@@ -725,8 +754,10 @@ class SearchCondition extends Model
         if (isset($map['sort_by_direction'])) {
             $model->sortByDirection = $map['sort_by_direction'];
         }
-        if (isset($map['topics'])) {
-            $model->topics = $map['topics'];
+        if (isset($map['topic_list'])) {
+            if (!empty($map['topic_list'])) {
+                $model->topicList = $map['topic_list'];
+            }
         }
         if (isset($map['update_time_end'])) {
             $model->updateTimeEnd = $map['update_time_end'];
