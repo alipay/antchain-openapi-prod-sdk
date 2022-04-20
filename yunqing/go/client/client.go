@@ -195,60 +195,6 @@ func (s *ResourcePool) SetCloudId(v string) *ResourcePool {
 	return s
 }
 
-// 机房
-type Zone struct {
-	// 机房的标识（与阿里云对齐）
-	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
-	// 机房的名字
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 地域的id
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
-	// 机房内关联的资源池列表
-	ResourcePools []*ResourcePool `json:"resource_pools,omitempty" xml:"resource_pools,omitempty" require:"true" type:"Repeated"`
-	// 机房的id
-	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty" require:"true"`
-	// 显示的名字
-	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
-}
-
-func (s Zone) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Zone) GoString() string {
-	return s.String()
-}
-
-func (s *Zone) SetIdentity(v string) *Zone {
-	s.Identity = &v
-	return s
-}
-
-func (s *Zone) SetName(v string) *Zone {
-	s.Name = &v
-	return s
-}
-
-func (s *Zone) SetRegionId(v string) *Zone {
-	s.RegionId = &v
-	return s
-}
-
-func (s *Zone) SetResourcePools(v []*ResourcePool) *Zone {
-	s.ResourcePools = v
-	return s
-}
-
-func (s *Zone) SetZoneId(v string) *Zone {
-	s.ZoneId = &v
-	return s
-}
-
-func (s *Zone) SetDisplayName(v string) *Zone {
-	s.DisplayName = &v
-	return s
-}
-
 // 地域
 type Region struct {
 	// 地域标识（与阿里云identity对齐）
@@ -321,6 +267,14 @@ type PodInfo struct {
 	Memory *string `json:"memory,omitempty" xml:"memory,omitempty"`
 	// status
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 产品码--应用名
+	ProductApp *string `json:"product_app,omitempty" xml:"product_app,omitempty"`
+	// 租户信息
+	//
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 环境信息
+	//
+	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty"`
 }
 
 func (s PodInfo) String() string {
@@ -368,6 +322,75 @@ func (s *PodInfo) SetMemory(v string) *PodInfo {
 
 func (s *PodInfo) SetStatus(v string) *PodInfo {
 	s.Status = &v
+	return s
+}
+
+func (s *PodInfo) SetProductApp(v string) *PodInfo {
+	s.ProductApp = &v
+	return s
+}
+
+func (s *PodInfo) SetTenantId(v string) *PodInfo {
+	s.TenantId = &v
+	return s
+}
+
+func (s *PodInfo) SetEnvId(v string) *PodInfo {
+	s.EnvId = &v
+	return s
+}
+
+// 机房
+type Zone struct {
+	// 机房的标识（与阿里云对齐）
+	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
+	// 机房的名字
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 地域的id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
+	// 机房内关联的资源池列表
+	ResourcePools []*ResourcePool `json:"resource_pools,omitempty" xml:"resource_pools,omitempty" require:"true" type:"Repeated"`
+	// 机房的id
+	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty" require:"true"`
+	// 显示的名字
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
+}
+
+func (s Zone) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Zone) GoString() string {
+	return s.String()
+}
+
+func (s *Zone) SetIdentity(v string) *Zone {
+	s.Identity = &v
+	return s
+}
+
+func (s *Zone) SetName(v string) *Zone {
+	s.Name = &v
+	return s
+}
+
+func (s *Zone) SetRegionId(v string) *Zone {
+	s.RegionId = &v
+	return s
+}
+
+func (s *Zone) SetResourcePools(v []*ResourcePool) *Zone {
+	s.ResourcePools = v
+	return s
+}
+
+func (s *Zone) SetZoneId(v string) *Zone {
+	s.ZoneId = &v
+	return s
+}
+
+func (s *Zone) SetDisplayName(v string) *Zone {
+	s.DisplayName = &v
 	return s
 }
 
@@ -460,43 +483,57 @@ func (s *Cell) SetDisplayName(v string) *Cell {
 	return s
 }
 
-// 参数对象
-type ParamData struct {
-	// 参数key
-	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
-	// 参数值
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
-	// 类型, 对应Data的paramGroup
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// 安全级别，脱敏用
-	SecurityLevel *string `json:"security_level,omitempty" xml:"security_level,omitempty"`
+// 工作空间
+type Workspace struct {
+	// 包含的单元（逻辑机房）
+	Cells []*Cell `json:"cells,omitempty" xml:"cells,omitempty" require:"true" type:"Repeated"`
+	// 显示的名字
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
+	// workspace的名字
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 所属地域
+	Region *Region `json:"region,omitempty" xml:"region,omitempty" require:"true"`
+	// 工作空间的id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// 机房列表
+	Zones []*Zone `json:"zones,omitempty" xml:"zones,omitempty" require:"true" type:"Repeated"`
 }
 
-func (s ParamData) String() string {
+func (s Workspace) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ParamData) GoString() string {
+func (s Workspace) GoString() string {
 	return s.String()
 }
 
-func (s *ParamData) SetKey(v string) *ParamData {
-	s.Key = &v
+func (s *Workspace) SetCells(v []*Cell) *Workspace {
+	s.Cells = v
 	return s
 }
 
-func (s *ParamData) SetValue(v string) *ParamData {
-	s.Value = &v
+func (s *Workspace) SetDisplayName(v string) *Workspace {
+	s.DisplayName = &v
 	return s
 }
 
-func (s *ParamData) SetType(v string) *ParamData {
-	s.Type = &v
+func (s *Workspace) SetName(v string) *Workspace {
+	s.Name = &v
 	return s
 }
 
-func (s *ParamData) SetSecurityLevel(v string) *ParamData {
-	s.SecurityLevel = &v
+func (s *Workspace) SetRegion(v *Region) *Workspace {
+	s.Region = v
+	return s
+}
+
+func (s *Workspace) SetWorkspaceId(v string) *Workspace {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *Workspace) SetZones(v []*Zone) *Workspace {
+	s.Zones = v
 	return s
 }
 
@@ -523,135 +560,6 @@ func (s *Cloud) SetCloudId(v string) *Cloud {
 
 func (s *Cloud) SetName(v string) *Cloud {
 	s.Name = &v
-	return s
-}
-
-// 容器信息。
-type Container struct {
-	// 应用版本
-	AppVersion *string `json:"app_version,omitempty" xml:"app_version,omitempty"`
-	// cpu核数，单位C。
-	Cpu *int64 `json:"cpu,omitempty" xml:"cpu,omitempty"`
-	// 宿主机ip。
-	HostIp *string `json:"host_ip,omitempty" xml:"host_ip,omitempty"`
-	// 宿主机名称。
-	HostName *string `json:"host_name,omitempty" xml:"host_name,omitempty"`
-	// 容器id。
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 容器镜像。
-	Image *string `json:"image,omitempty" xml:"image,omitempty"`
-	// 容器ip。
-	Ip *string `json:"ip,omitempty" xml:"ip,omitempty"`
-	// 内存大小，单位M。
-	Memory *int64 `json:"memory,omitempty" xml:"memory,omitempty"`
-	// 容器名称。
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 容器所在的pod。
-	Pod *string `json:"pod,omitempty" xml:"pod,omitempty"`
-	// 资源所属的资源池的唯一标识。
-	ResourcePoolId *string `json:"resource_pool_id,omitempty" xml:"resource_pool_id,omitempty"`
-	// 容器状态。
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 应用名
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
-}
-
-func (s Container) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Container) GoString() string {
-	return s.String()
-}
-
-func (s *Container) SetAppVersion(v string) *Container {
-	s.AppVersion = &v
-	return s
-}
-
-func (s *Container) SetCpu(v int64) *Container {
-	s.Cpu = &v
-	return s
-}
-
-func (s *Container) SetHostIp(v string) *Container {
-	s.HostIp = &v
-	return s
-}
-
-func (s *Container) SetHostName(v string) *Container {
-	s.HostName = &v
-	return s
-}
-
-func (s *Container) SetId(v string) *Container {
-	s.Id = &v
-	return s
-}
-
-func (s *Container) SetImage(v string) *Container {
-	s.Image = &v
-	return s
-}
-
-func (s *Container) SetIp(v string) *Container {
-	s.Ip = &v
-	return s
-}
-
-func (s *Container) SetMemory(v int64) *Container {
-	s.Memory = &v
-	return s
-}
-
-func (s *Container) SetName(v string) *Container {
-	s.Name = &v
-	return s
-}
-
-func (s *Container) SetPod(v string) *Container {
-	s.Pod = &v
-	return s
-}
-
-func (s *Container) SetResourcePoolId(v string) *Container {
-	s.ResourcePoolId = &v
-	return s
-}
-
-func (s *Container) SetStatus(v string) *Container {
-	s.Status = &v
-	return s
-}
-
-func (s *Container) SetAppName(v string) *Container {
-	s.AppName = &v
-	return s
-}
-
-// 租户
-type Tenant struct {
-	// 租户名
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 租户id
-	TanentId *string `json:"tanent_id,omitempty" xml:"tanent_id,omitempty"`
-}
-
-func (s Tenant) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Tenant) GoString() string {
-	return s.String()
-}
-
-func (s *Tenant) SetName(v string) *Tenant {
-	s.Name = &v
-	return s
-}
-
-func (s *Tenant) SetTanentId(v string) *Tenant {
-	s.TanentId = &v
 	return s
 }
 
@@ -763,57 +671,231 @@ func (s *CellGroup) SetDisplayName(v string) *CellGroup {
 	return s
 }
 
-// 工作空间
-type Workspace struct {
-	// 包含的单元（逻辑机房）
-	Cells []*Cell `json:"cells,omitempty" xml:"cells,omitempty" require:"true" type:"Repeated"`
-	// 显示的名字
-	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
-	// workspace的名字
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 所属地域
-	Region *Region `json:"region,omitempty" xml:"region,omitempty" require:"true"`
-	// 工作空间的id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
-	// 机房列表
-	Zones []*Zone `json:"zones,omitempty" xml:"zones,omitempty" require:"true" type:"Repeated"`
+// 参数对象
+type ParamData struct {
+	// 参数key
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// 参数值
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+	// 类型, 对应Data的paramGroup
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 安全级别，脱敏用
+	SecurityLevel *string `json:"security_level,omitempty" xml:"security_level,omitempty"`
 }
 
-func (s Workspace) String() string {
+func (s ParamData) String() string {
 	return tea.Prettify(s)
 }
 
-func (s Workspace) GoString() string {
+func (s ParamData) GoString() string {
 	return s.String()
 }
 
-func (s *Workspace) SetCells(v []*Cell) *Workspace {
-	s.Cells = v
+func (s *ParamData) SetKey(v string) *ParamData {
+	s.Key = &v
 	return s
 }
 
-func (s *Workspace) SetDisplayName(v string) *Workspace {
-	s.DisplayName = &v
+func (s *ParamData) SetValue(v string) *ParamData {
+	s.Value = &v
 	return s
 }
 
-func (s *Workspace) SetName(v string) *Workspace {
+func (s *ParamData) SetType(v string) *ParamData {
+	s.Type = &v
+	return s
+}
+
+func (s *ParamData) SetSecurityLevel(v string) *ParamData {
+	s.SecurityLevel = &v
+	return s
+}
+
+// 租户
+type Tenant struct {
+	// 租户名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 租户id
+	TanentId *string `json:"tanent_id,omitempty" xml:"tanent_id,omitempty"`
+}
+
+func (s Tenant) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Tenant) GoString() string {
+	return s.String()
+}
+
+func (s *Tenant) SetName(v string) *Tenant {
 	s.Name = &v
 	return s
 }
 
-func (s *Workspace) SetRegion(v *Region) *Workspace {
-	s.Region = v
+func (s *Tenant) SetTanentId(v string) *Tenant {
+	s.TanentId = &v
 	return s
 }
 
-func (s *Workspace) SetWorkspaceId(v string) *Workspace {
-	s.WorkspaceId = &v
+// 容器信息。
+type Container struct {
+	// 应用版本
+	AppVersion *string `json:"app_version,omitempty" xml:"app_version,omitempty"`
+	// cpu核数，单位C。
+	Cpu *int64 `json:"cpu,omitempty" xml:"cpu,omitempty"`
+	// 宿主机ip。
+	HostIp *string `json:"host_ip,omitempty" xml:"host_ip,omitempty"`
+	// 宿主机名称。
+	HostName *string `json:"host_name,omitempty" xml:"host_name,omitempty"`
+	// 容器id。
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 容器镜像。
+	Image *string `json:"image,omitempty" xml:"image,omitempty"`
+	// 容器ip。
+	Ip *string `json:"ip,omitempty" xml:"ip,omitempty"`
+	// 内存大小，单位M。
+	Memory *int64 `json:"memory,omitempty" xml:"memory,omitempty"`
+	// 容器名称。
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 容器所在的pod。
+	Pod *string `json:"pod,omitempty" xml:"pod,omitempty"`
+	// 资源所属的资源池的唯一标识。
+	ResourcePoolId *string `json:"resource_pool_id,omitempty" xml:"resource_pool_id,omitempty"`
+	// 容器状态。
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 应用名
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+}
+
+func (s Container) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Container) GoString() string {
+	return s.String()
+}
+
+func (s *Container) SetAppVersion(v string) *Container {
+	s.AppVersion = &v
 	return s
 }
 
-func (s *Workspace) SetZones(v []*Zone) *Workspace {
-	s.Zones = v
+func (s *Container) SetCpu(v int64) *Container {
+	s.Cpu = &v
+	return s
+}
+
+func (s *Container) SetHostIp(v string) *Container {
+	s.HostIp = &v
+	return s
+}
+
+func (s *Container) SetHostName(v string) *Container {
+	s.HostName = &v
+	return s
+}
+
+func (s *Container) SetId(v string) *Container {
+	s.Id = &v
+	return s
+}
+
+func (s *Container) SetImage(v string) *Container {
+	s.Image = &v
+	return s
+}
+
+func (s *Container) SetIp(v string) *Container {
+	s.Ip = &v
+	return s
+}
+
+func (s *Container) SetMemory(v int64) *Container {
+	s.Memory = &v
+	return s
+}
+
+func (s *Container) SetName(v string) *Container {
+	s.Name = &v
+	return s
+}
+
+func (s *Container) SetPod(v string) *Container {
+	s.Pod = &v
+	return s
+}
+
+func (s *Container) SetResourcePoolId(v string) *Container {
+	s.ResourcePoolId = &v
+	return s
+}
+
+func (s *Container) SetStatus(v string) *Container {
+	s.Status = &v
+	return s
+}
+
+func (s *Container) SetAppName(v string) *Container {
+	s.AppName = &v
+	return s
+}
+
+// OpenAPI定义
+type OpenAPI struct {
+	// API方法
+	Method *string `json:"method,omitempty" xml:"method,omitempty" require:"true"`
+	// API版本号
+	Version *string `json:"version,omitempty" xml:"version,omitempty" require:"true"`
+}
+
+func (s OpenAPI) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenAPI) GoString() string {
+	return s.String()
+}
+
+func (s *OpenAPI) SetMethod(v string) *OpenAPI {
+	s.Method = &v
+	return s
+}
+
+func (s *OpenAPI) SetVersion(v string) *OpenAPI {
+	s.Version = &v
+	return s
+}
+
+// 包含应用启动参数的应用对象
+type AppParamData struct {
+	// 产品码
+	ProdCode *string `json:"prod_code,omitempty" xml:"prod_code,omitempty" require:"true"`
+	// 应用名
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// 应用启动参数
+	AppParams []*ParamData `json:"app_params,omitempty" xml:"app_params,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s AppParamData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppParamData) GoString() string {
+	return s.String()
+}
+
+func (s *AppParamData) SetProdCode(v string) *AppParamData {
+	s.ProdCode = &v
+	return s
+}
+
+func (s *AppParamData) SetAppName(v string) *AppParamData {
+	s.AppName = &v
+	return s
+}
+
+func (s *AppParamData) SetAppParams(v []*ParamData) *AppParamData {
+	s.AppParams = v
 	return s
 }
 
@@ -871,53 +953,6 @@ func (s *ContainerInfo) SetUtcStart(v string) *ContainerInfo {
 	return s
 }
 
-// 负载均衡后端服务器。
-type BackendServer struct {
-	// 容器id。
-	ContainerId *string `json:"container_id,omitempty" xml:"container_id,omitempty"`
-	// 容器所在的资源池id。
-	ContainerResourcePoolId *string `json:"container_resource_pool_id,omitempty" xml:"container_resource_pool_id,omitempty"`
-	// 资源池id。
-	LbResourcePoolId *string `json:"lb_resource_pool_id,omitempty" xml:"lb_resource_pool_id,omitempty"`
-	// 负载均衡实例id。
-	LoadBalancerId *string `json:"load_balancer_id,omitempty" xml:"load_balancer_id,omitempty"`
-	// 权重。
-	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
-}
-
-func (s BackendServer) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BackendServer) GoString() string {
-	return s.String()
-}
-
-func (s *BackendServer) SetContainerId(v string) *BackendServer {
-	s.ContainerId = &v
-	return s
-}
-
-func (s *BackendServer) SetContainerResourcePoolId(v string) *BackendServer {
-	s.ContainerResourcePoolId = &v
-	return s
-}
-
-func (s *BackendServer) SetLbResourcePoolId(v string) *BackendServer {
-	s.LbResourcePoolId = &v
-	return s
-}
-
-func (s *BackendServer) SetLoadBalancerId(v string) *BackendServer {
-	s.LoadBalancerId = &v
-	return s
-}
-
-func (s *BackendServer) SetWeight(v int64) *BackendServer {
-	s.Weight = &v
-	return s
-}
-
 // 巡检查询产品详情
 type ProdInfo struct {
 	// 应用实例信息
@@ -951,125 +986,50 @@ func (s *ProdInfo) SetProdVersion(v string) *ProdInfo {
 	return s
 }
 
-// 应用服务实例详情。
-type AppServiceInfo struct {
-	// 应用名称
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
-	// 应用版本
-	AppVersion *string `json:"app_version,omitempty" xml:"app_version,omitempty"`
-	// 所属单元ID
-	CellId *string `json:"cell_id,omitempty" xml:"cell_id,omitempty" require:"true"`
-	// 容器列表。
-	Containers []*Container `json:"containers,omitempty" xml:"containers,omitempty" type:"Repeated"`
-	// 部署单元名称，产品实例下唯一。
-	DeployUnit *string `json:"deploy_unit,omitempty" xml:"deploy_unit,omitempty"`
-	// 环境唯一标识。
-	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty"`
-	// 应用服务实例唯一标识。
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 产品码
-	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
-	// 所属产品分组唯一标识。
-	ProductGroupIdentity *string `json:"product_group_identity,omitempty" xml:"product_group_identity,omitempty"`
-	// 所属产品分组名称。
-	ProductGroupName *string `json:"product_group_name,omitempty" xml:"product_group_name,omitempty"`
-	// 应用服务实例状态。DEPLOYING: 部署中；UPGRADING: 升级中；ROLL_BACKING: 回滚中；ACTIVE：可用；FAILED: 部署失败；ROLLBACKED: 已回滚。
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+// 应用SRE信息，云游资产使用。
+type Admin struct {
+	// 应用SRE邮箱，云游资产使用。
+	AdminEmail *string `json:"admin_email,omitempty" xml:"admin_email,omitempty"`
+	// 应用SRE登陆名，云游资产使用。
+	AdminLoginName *string `json:"admin_login_name,omitempty" xml:"admin_login_name,omitempty"`
+	// 应用SRE昵称，云游资产使用
+	AdminNickName *string `json:"admin_nick_name,omitempty" xml:"admin_nick_name,omitempty"`
+	// 应用SRE真实名称，云游资产使用
+	AdminRealName *string `json:"admin_real_name,omitempty" xml:"admin_real_name,omitempty"`
+	// 应用SRE员工号，云游资产使用
+	AdminStaffNo *string `json:"admin_staff_no,omitempty" xml:"admin_staff_no,omitempty"`
 }
 
-func (s AppServiceInfo) String() string {
+func (s Admin) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AppServiceInfo) GoString() string {
+func (s Admin) GoString() string {
 	return s.String()
 }
 
-func (s *AppServiceInfo) SetAppName(v string) *AppServiceInfo {
-	s.AppName = &v
+func (s *Admin) SetAdminEmail(v string) *Admin {
+	s.AdminEmail = &v
 	return s
 }
 
-func (s *AppServiceInfo) SetAppVersion(v string) *AppServiceInfo {
-	s.AppVersion = &v
+func (s *Admin) SetAdminLoginName(v string) *Admin {
+	s.AdminLoginName = &v
 	return s
 }
 
-func (s *AppServiceInfo) SetCellId(v string) *AppServiceInfo {
-	s.CellId = &v
+func (s *Admin) SetAdminNickName(v string) *Admin {
+	s.AdminNickName = &v
 	return s
 }
 
-func (s *AppServiceInfo) SetContainers(v []*Container) *AppServiceInfo {
-	s.Containers = v
+func (s *Admin) SetAdminRealName(v string) *Admin {
+	s.AdminRealName = &v
 	return s
 }
 
-func (s *AppServiceInfo) SetDeployUnit(v string) *AppServiceInfo {
-	s.DeployUnit = &v
-	return s
-}
-
-func (s *AppServiceInfo) SetEnvId(v string) *AppServiceInfo {
-	s.EnvId = &v
-	return s
-}
-
-func (s *AppServiceInfo) SetId(v string) *AppServiceInfo {
-	s.Id = &v
-	return s
-}
-
-func (s *AppServiceInfo) SetProductCode(v string) *AppServiceInfo {
-	s.ProductCode = &v
-	return s
-}
-
-func (s *AppServiceInfo) SetProductGroupIdentity(v string) *AppServiceInfo {
-	s.ProductGroupIdentity = &v
-	return s
-}
-
-func (s *AppServiceInfo) SetProductGroupName(v string) *AppServiceInfo {
-	s.ProductGroupName = &v
-	return s
-}
-
-func (s *AppServiceInfo) SetStatus(v string) *AppServiceInfo {
-	s.Status = &v
-	return s
-}
-
-// 包含应用启动参数的应用对象
-type AppParamData struct {
-	// 产品码
-	ProdCode *string `json:"prod_code,omitempty" xml:"prod_code,omitempty" require:"true"`
-	// 应用名
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
-	// 应用启动参数
-	AppParams []*ParamData `json:"app_params,omitempty" xml:"app_params,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s AppParamData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppParamData) GoString() string {
-	return s.String()
-}
-
-func (s *AppParamData) SetProdCode(v string) *AppParamData {
-	s.ProdCode = &v
-	return s
-}
-
-func (s *AppParamData) SetAppName(v string) *AppParamData {
-	s.AppName = &v
-	return s
-}
-
-func (s *AppParamData) SetAppParams(v []*ParamData) *AppParamData {
-	s.AppParams = v
+func (s *Admin) SetAdminStaffNo(v string) *Admin {
+	s.AdminStaffNo = &v
 	return s
 }
 
@@ -1096,182 +1056,6 @@ func (s *AppPreviewTask) SetAppName(v string) *AppPreviewTask {
 
 func (s *AppPreviewTask) SetNeedDeploy(v bool) *AppPreviewTask {
 	s.NeedDeploy = &v
-	return s
-}
-
-// 云游环境信息。
-type Env struct {
-	// cellGroup的列表
-	CellGroups []*CellGroup `json:"cell_groups,omitempty" xml:"cell_groups,omitempty" require:"true" type:"Repeated"`
-	// 云信息
-	Cloud *Cloud `json:"cloud,omitempty" xml:"cloud,omitempty" require:"true"`
-	// 关联的ake集群id
-	ClusterId *string `json:"cluster_id,omitempty" xml:"cluster_id,omitempty" require:"true"`
-	// 环境名
-	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty"`
-	// 环境的id
-	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty" require:"true"`
-	// （已废弃）环境唯一标识。
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 是否ldc环境
-	Ldc *bool `json:"ldc,omitempty" xml:"ldc,omitempty" require:"true"`
-	// 环境名称。
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// （已废弃）环境底座iaas技术栈。
-	Stack *string `json:"stack,omitempty" xml:"stack,omitempty"`
-	// 租户信息
-	Tenant *Tenant `json:"tenant,omitempty" xml:"tenant,omitempty"`
-	// 工作空间列表
-	Workspaces []*Workspace `json:"workspaces,omitempty" xml:"workspaces,omitempty" require:"true" type:"Repeated"`
-	// （已废弃）兼容逻辑老的workspace逻辑，非监控产品勿依赖。
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
-	// 环境类型
-	EnvType *string `json:"env_type,omitempty" xml:"env_type,omitempty" require:"true"`
-}
-
-func (s Env) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Env) GoString() string {
-	return s.String()
-}
-
-func (s *Env) SetCellGroups(v []*CellGroup) *Env {
-	s.CellGroups = v
-	return s
-}
-
-func (s *Env) SetCloud(v *Cloud) *Env {
-	s.Cloud = v
-	return s
-}
-
-func (s *Env) SetClusterId(v string) *Env {
-	s.ClusterId = &v
-	return s
-}
-
-func (s *Env) SetDisplayName(v string) *Env {
-	s.DisplayName = &v
-	return s
-}
-
-func (s *Env) SetEnvId(v string) *Env {
-	s.EnvId = &v
-	return s
-}
-
-func (s *Env) SetId(v string) *Env {
-	s.Id = &v
-	return s
-}
-
-func (s *Env) SetLdc(v bool) *Env {
-	s.Ldc = &v
-	return s
-}
-
-func (s *Env) SetName(v string) *Env {
-	s.Name = &v
-	return s
-}
-
-func (s *Env) SetStack(v string) *Env {
-	s.Stack = &v
-	return s
-}
-
-func (s *Env) SetTenant(v *Tenant) *Env {
-	s.Tenant = v
-	return s
-}
-
-func (s *Env) SetWorkspaces(v []*Workspace) *Env {
-	s.Workspaces = v
-	return s
-}
-
-func (s *Env) SetWorkspaceId(v string) *Env {
-	s.WorkspaceId = &v
-	return s
-}
-
-func (s *Env) SetEnvType(v string) *Env {
-	s.EnvType = &v
-	return s
-}
-
-// 监听器。
-type Listener struct {
-	// 后端端口。
-	BackendServerPort *int64 `json:"backend_server_port,omitempty" xml:"backend_server_port,omitempty"`
-	// 前端端口。
-	ListenerPort *int64 `json:"listener_port,omitempty" xml:"listener_port,omitempty"`
-	// 负载均衡实例id。
-	LoadBalancerId *string `json:"load_balancer_id,omitempty" xml:"load_balancer_id,omitempty"`
-	// 监听器协议。HTTP/HTTPS/TCP
-	Protocol *string `json:"protocol,omitempty" xml:"protocol,omitempty"`
-	// 资源池id。
-	ResourcePoolId *string `json:"resource_pool_id,omitempty" xml:"resource_pool_id,omitempty"`
-}
-
-func (s Listener) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Listener) GoString() string {
-	return s.String()
-}
-
-func (s *Listener) SetBackendServerPort(v int64) *Listener {
-	s.BackendServerPort = &v
-	return s
-}
-
-func (s *Listener) SetListenerPort(v int64) *Listener {
-	s.ListenerPort = &v
-	return s
-}
-
-func (s *Listener) SetLoadBalancerId(v string) *Listener {
-	s.LoadBalancerId = &v
-	return s
-}
-
-func (s *Listener) SetProtocol(v string) *Listener {
-	s.Protocol = &v
-	return s
-}
-
-func (s *Listener) SetResourcePoolId(v string) *Listener {
-	s.ResourcePoolId = &v
-	return s
-}
-
-// OpenAPI定义
-type OpenAPI struct {
-	// API方法
-	Method *string `json:"method,omitempty" xml:"method,omitempty" require:"true"`
-	// API版本号
-	Version *string `json:"version,omitempty" xml:"version,omitempty" require:"true"`
-}
-
-func (s OpenAPI) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OpenAPI) GoString() string {
-	return s.String()
-}
-
-func (s *OpenAPI) SetMethod(v string) *OpenAPI {
-	s.Method = &v
-	return s
-}
-
-func (s *OpenAPI) SetVersion(v string) *OpenAPI {
-	s.Version = &v
 	return s
 }
 
@@ -1418,6 +1202,428 @@ func (s *Database) SetUrl(v string) *Database {
 	return s
 }
 
+// 应用服务实例详情。
+type AppServiceInfo struct {
+	// 应用名称
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	// 应用版本
+	AppVersion *string `json:"app_version,omitempty" xml:"app_version,omitempty"`
+	// 所属单元ID
+	CellId *string `json:"cell_id,omitempty" xml:"cell_id,omitempty" require:"true"`
+	// 容器列表。
+	Containers []*Container `json:"containers,omitempty" xml:"containers,omitempty" type:"Repeated"`
+	// 部署单元名称，产品实例下唯一。
+	DeployUnit *string `json:"deploy_unit,omitempty" xml:"deploy_unit,omitempty"`
+	// 环境唯一标识。
+	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty"`
+	// 应用服务实例唯一标识。
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 产品码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
+	// 所属产品分组唯一标识。
+	ProductGroupIdentity *string `json:"product_group_identity,omitempty" xml:"product_group_identity,omitempty"`
+	// 所属产品分组名称。
+	ProductGroupName *string `json:"product_group_name,omitempty" xml:"product_group_name,omitempty"`
+	// 应用服务实例状态。DEPLOYING: 部署中；UPGRADING: 升级中；ROLL_BACKING: 回滚中；ACTIVE：可用；FAILED: 部署失败；ROLLBACKED: 已回滚。
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s AppServiceInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppServiceInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AppServiceInfo) SetAppName(v string) *AppServiceInfo {
+	s.AppName = &v
+	return s
+}
+
+func (s *AppServiceInfo) SetAppVersion(v string) *AppServiceInfo {
+	s.AppVersion = &v
+	return s
+}
+
+func (s *AppServiceInfo) SetCellId(v string) *AppServiceInfo {
+	s.CellId = &v
+	return s
+}
+
+func (s *AppServiceInfo) SetContainers(v []*Container) *AppServiceInfo {
+	s.Containers = v
+	return s
+}
+
+func (s *AppServiceInfo) SetDeployUnit(v string) *AppServiceInfo {
+	s.DeployUnit = &v
+	return s
+}
+
+func (s *AppServiceInfo) SetEnvId(v string) *AppServiceInfo {
+	s.EnvId = &v
+	return s
+}
+
+func (s *AppServiceInfo) SetId(v string) *AppServiceInfo {
+	s.Id = &v
+	return s
+}
+
+func (s *AppServiceInfo) SetProductCode(v string) *AppServiceInfo {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *AppServiceInfo) SetProductGroupIdentity(v string) *AppServiceInfo {
+	s.ProductGroupIdentity = &v
+	return s
+}
+
+func (s *AppServiceInfo) SetProductGroupName(v string) *AppServiceInfo {
+	s.ProductGroupName = &v
+	return s
+}
+
+func (s *AppServiceInfo) SetStatus(v string) *AppServiceInfo {
+	s.Status = &v
+	return s
+}
+
+// 云游环境信息。
+type Env struct {
+	// cellGroup的列表
+	CellGroups []*CellGroup `json:"cell_groups,omitempty" xml:"cell_groups,omitempty" require:"true" type:"Repeated"`
+	// 云信息
+	Cloud *Cloud `json:"cloud,omitempty" xml:"cloud,omitempty" require:"true"`
+	// 关联的ake集群id
+	ClusterId *string `json:"cluster_id,omitempty" xml:"cluster_id,omitempty" require:"true"`
+	// 环境名
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty"`
+	// 环境的id
+	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty" require:"true"`
+	// （已废弃）环境唯一标识。
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 是否ldc环境
+	Ldc *bool `json:"ldc,omitempty" xml:"ldc,omitempty" require:"true"`
+	// 环境名称。
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// （已废弃）环境底座iaas技术栈。
+	Stack *string `json:"stack,omitempty" xml:"stack,omitempty"`
+	// 租户信息
+	Tenant *Tenant `json:"tenant,omitempty" xml:"tenant,omitempty"`
+	// 工作空间列表
+	Workspaces []*Workspace `json:"workspaces,omitempty" xml:"workspaces,omitempty" require:"true" type:"Repeated"`
+	// （已废弃）兼容逻辑老的workspace逻辑，非监控产品勿依赖。
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// 环境类型
+	EnvType *string `json:"env_type,omitempty" xml:"env_type,omitempty" require:"true"`
+}
+
+func (s Env) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Env) GoString() string {
+	return s.String()
+}
+
+func (s *Env) SetCellGroups(v []*CellGroup) *Env {
+	s.CellGroups = v
+	return s
+}
+
+func (s *Env) SetCloud(v *Cloud) *Env {
+	s.Cloud = v
+	return s
+}
+
+func (s *Env) SetClusterId(v string) *Env {
+	s.ClusterId = &v
+	return s
+}
+
+func (s *Env) SetDisplayName(v string) *Env {
+	s.DisplayName = &v
+	return s
+}
+
+func (s *Env) SetEnvId(v string) *Env {
+	s.EnvId = &v
+	return s
+}
+
+func (s *Env) SetId(v string) *Env {
+	s.Id = &v
+	return s
+}
+
+func (s *Env) SetLdc(v bool) *Env {
+	s.Ldc = &v
+	return s
+}
+
+func (s *Env) SetName(v string) *Env {
+	s.Name = &v
+	return s
+}
+
+func (s *Env) SetStack(v string) *Env {
+	s.Stack = &v
+	return s
+}
+
+func (s *Env) SetTenant(v *Tenant) *Env {
+	s.Tenant = v
+	return s
+}
+
+func (s *Env) SetWorkspaces(v []*Workspace) *Env {
+	s.Workspaces = v
+	return s
+}
+
+func (s *Env) SetWorkspaceId(v string) *Env {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *Env) SetEnvType(v string) *Env {
+	s.EnvType = &v
+	return s
+}
+
+// 负载均衡后端服务器。
+type BackendServer struct {
+	// 容器id。
+	ContainerId *string `json:"container_id,omitempty" xml:"container_id,omitempty"`
+	// 容器所在的资源池id。
+	ContainerResourcePoolId *string `json:"container_resource_pool_id,omitempty" xml:"container_resource_pool_id,omitempty"`
+	// 资源池id。
+	LbResourcePoolId *string `json:"lb_resource_pool_id,omitempty" xml:"lb_resource_pool_id,omitempty"`
+	// 负载均衡实例id。
+	LoadBalancerId *string `json:"load_balancer_id,omitempty" xml:"load_balancer_id,omitempty"`
+	// 权重。
+	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
+}
+
+func (s BackendServer) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BackendServer) GoString() string {
+	return s.String()
+}
+
+func (s *BackendServer) SetContainerId(v string) *BackendServer {
+	s.ContainerId = &v
+	return s
+}
+
+func (s *BackendServer) SetContainerResourcePoolId(v string) *BackendServer {
+	s.ContainerResourcePoolId = &v
+	return s
+}
+
+func (s *BackendServer) SetLbResourcePoolId(v string) *BackendServer {
+	s.LbResourcePoolId = &v
+	return s
+}
+
+func (s *BackendServer) SetLoadBalancerId(v string) *BackendServer {
+	s.LoadBalancerId = &v
+	return s
+}
+
+func (s *BackendServer) SetWeight(v int64) *BackendServer {
+	s.Weight = &v
+	return s
+}
+
+// 监听器。
+type Listener struct {
+	// 后端端口。
+	BackendServerPort *int64 `json:"backend_server_port,omitempty" xml:"backend_server_port,omitempty"`
+	// 前端端口。
+	ListenerPort *int64 `json:"listener_port,omitempty" xml:"listener_port,omitempty"`
+	// 负载均衡实例id。
+	LoadBalancerId *string `json:"load_balancer_id,omitempty" xml:"load_balancer_id,omitempty"`
+	// 监听器协议。HTTP/HTTPS/TCP
+	Protocol *string `json:"protocol,omitempty" xml:"protocol,omitempty"`
+	// 资源池id。
+	ResourcePoolId *string `json:"resource_pool_id,omitempty" xml:"resource_pool_id,omitempty"`
+}
+
+func (s Listener) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Listener) GoString() string {
+	return s.String()
+}
+
+func (s *Listener) SetBackendServerPort(v int64) *Listener {
+	s.BackendServerPort = &v
+	return s
+}
+
+func (s *Listener) SetListenerPort(v int64) *Listener {
+	s.ListenerPort = &v
+	return s
+}
+
+func (s *Listener) SetLoadBalancerId(v string) *Listener {
+	s.LoadBalancerId = &v
+	return s
+}
+
+func (s *Listener) SetProtocol(v string) *Listener {
+	s.Protocol = &v
+	return s
+}
+
+func (s *Listener) SetResourcePoolId(v string) *Listener {
+	s.ResourcePoolId = &v
+	return s
+}
+
+// 应用Owner信息
+type Owner struct {
+	// 应用Owner邮箱，云游资产使用。
+	OwnerEmail *string `json:"owner_email,omitempty" xml:"owner_email,omitempty"`
+	// 应用Owner登陆名，云游资产使用。
+	OwnerLoginName *string `json:"owner_login_name,omitempty" xml:"owner_login_name,omitempty"`
+	// 应用Owner昵称，云游资产使用。
+	OwnerNickName *string `json:"owner_nick_name,omitempty" xml:"owner_nick_name,omitempty"`
+	// 应用Owner真实名称，云游资产使用。
+	OwnerRealName *string `json:"owner_real_name,omitempty" xml:"owner_real_name,omitempty"`
+	// 应用Owner员工号，云游资产使用。
+	OwnerStaffNo *string `json:"owner_staff_no,omitempty" xml:"owner_staff_no,omitempty"`
+}
+
+func (s Owner) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Owner) GoString() string {
+	return s.String()
+}
+
+func (s *Owner) SetOwnerEmail(v string) *Owner {
+	s.OwnerEmail = &v
+	return s
+}
+
+func (s *Owner) SetOwnerLoginName(v string) *Owner {
+	s.OwnerLoginName = &v
+	return s
+}
+
+func (s *Owner) SetOwnerNickName(v string) *Owner {
+	s.OwnerNickName = &v
+	return s
+}
+
+func (s *Owner) SetOwnerRealName(v string) *Owner {
+	s.OwnerRealName = &v
+	return s
+}
+
+func (s *Owner) SetOwnerStaffNo(v string) *Owner {
+	s.OwnerStaffNo = &v
+	return s
+}
+
+// 发布单
+type OpsPlan struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 环境Id
+	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty" require:"true"`
+	// 解决方案Id
+	SolutionId *string `json:"solution_id,omitempty" xml:"solution_id,omitempty" require:"true"`
+	// 发布单类型
+	OpsType *string `json:"ops_type,omitempty" xml:"ops_type,omitempty" require:"true"`
+	// 发布单类型
+	PlanType *string `json:"plan_type,omitempty" xml:"plan_type,omitempty" require:"true"`
+	// 创建人id
+	Creator *string `json:"creator,omitempty" xml:"creator,omitempty" require:"true"`
+	// 创建人名称
+	CreatorName *string `json:"creator_name,omitempty" xml:"creator_name,omitempty" require:"true"`
+	// 发布单状态
+	OpsPlanStatus *string `json:"ops_plan_status,omitempty" xml:"ops_plan_status,omitempty" require:"true"`
+	// 创建时间
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 修改时间
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" require:"true"`
+}
+
+func (s OpsPlan) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpsPlan) GoString() string {
+	return s.String()
+}
+
+func (s *OpsPlan) SetId(v string) *OpsPlan {
+	s.Id = &v
+	return s
+}
+
+func (s *OpsPlan) SetName(v string) *OpsPlan {
+	s.Name = &v
+	return s
+}
+
+func (s *OpsPlan) SetEnvId(v string) *OpsPlan {
+	s.EnvId = &v
+	return s
+}
+
+func (s *OpsPlan) SetSolutionId(v string) *OpsPlan {
+	s.SolutionId = &v
+	return s
+}
+
+func (s *OpsPlan) SetOpsType(v string) *OpsPlan {
+	s.OpsType = &v
+	return s
+}
+
+func (s *OpsPlan) SetPlanType(v string) *OpsPlan {
+	s.PlanType = &v
+	return s
+}
+
+func (s *OpsPlan) SetCreator(v string) *OpsPlan {
+	s.Creator = &v
+	return s
+}
+
+func (s *OpsPlan) SetCreatorName(v string) *OpsPlan {
+	s.CreatorName = &v
+	return s
+}
+
+func (s *OpsPlan) SetOpsPlanStatus(v string) *OpsPlan {
+	s.OpsPlanStatus = &v
+	return s
+}
+
+func (s *OpsPlan) SetUtcCreate(v string) *OpsPlan {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *OpsPlan) SetUtcModified(v string) *OpsPlan {
+	s.UtcModified = &v
+	return s
+}
+
 // 云游应用元数据
 type Application struct {
 	// 应用英文名
@@ -1444,306 +1650,22 @@ func (s *Application) SetProductCode(v string) *Application {
 	return s
 }
 
-// 产品实例。
-type ProductInstance struct {
-	// 单元ID
-	CellId *string `json:"cell_id,omitempty" xml:"cell_id,omitempty"`
-	// 产品实例所在的环境唯一标识。
-	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty"`
-	// 产品码。
-	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
-	// 产品版本。
-	ProductVersion *string `json:"product_version,omitempty" xml:"product_version,omitempty"`
-	// 产品基线状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 产品创建时间
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 产品修改时间
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 产品拓扑id
-	DeployTopologyIdentity *string `json:"deploy_topology_identity,omitempty" xml:"deploy_topology_identity,omitempty"`
-	// 部署规格id
-	DeploySpecIdentity *string `json:"deploy_spec_identity,omitempty" xml:"deploy_spec_identity,omitempty"`
+// 部署单元实例信息
+type UnitInstanceInfo struct {
+	// 部署单元内服务实例列表
+	AppServices []*AppServiceInfo `json:"app_services,omitempty" xml:"app_services,omitempty" require:"true" type:"Repeated"`
 }
 
-func (s ProductInstance) String() string {
+func (s UnitInstanceInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ProductInstance) GoString() string {
+func (s UnitInstanceInfo) GoString() string {
 	return s.String()
 }
 
-func (s *ProductInstance) SetCellId(v string) *ProductInstance {
-	s.CellId = &v
-	return s
-}
-
-func (s *ProductInstance) SetEnvId(v string) *ProductInstance {
-	s.EnvId = &v
-	return s
-}
-
-func (s *ProductInstance) SetProductCode(v string) *ProductInstance {
-	s.ProductCode = &v
-	return s
-}
-
-func (s *ProductInstance) SetProductVersion(v string) *ProductInstance {
-	s.ProductVersion = &v
-	return s
-}
-
-func (s *ProductInstance) SetStatus(v string) *ProductInstance {
-	s.Status = &v
-	return s
-}
-
-func (s *ProductInstance) SetUtcCreate(v string) *ProductInstance {
-	s.UtcCreate = &v
-	return s
-}
-
-func (s *ProductInstance) SetUtcModified(v string) *ProductInstance {
-	s.UtcModified = &v
-	return s
-}
-
-func (s *ProductInstance) SetDeployTopologyIdentity(v string) *ProductInstance {
-	s.DeployTopologyIdentity = &v
-	return s
-}
-
-func (s *ProductInstance) SetDeploySpecIdentity(v string) *ProductInstance {
-	s.DeploySpecIdentity = &v
-	return s
-}
-
-// （已废弃，请使用AppServiceInfo）一个环境中部署的应用服务信息。
-type AppService struct {
-	// 应用英文名。
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
-	// 应用版本
-	AppVersion *string `json:"app_version,omitempty" xml:"app_version,omitempty"`
-	// 单元ID
-	CellId *string `json:"cell_id,omitempty" xml:"cell_id,omitempty"`
-	// 部署单元名称，产品实例下唯一。
-	DeployUnit *string `json:"deploy_unit,omitempty" xml:"deploy_unit,omitempty"`
-	// 部署域。
-	DeployZone *string `json:"deploy_zone,omitempty" xml:"deploy_zone,omitempty"`
-	// 环境唯一标识
-	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty"`
-	// 应用服务实例唯一标识。
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 应用所属的产品的产品码
-	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
-	// 应用服务实例状态。DEPLOYING: 部署中；UPGRADING: 升级中；ROLL_BACKING: 回滚中；ACTIVE：可用；FAILED: 部署失败；ROLLBACKED: 已回滚。
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 应用类型：BUSINESS | JOB | CONTROLLER
-	AppType *string `json:"app_type,omitempty" xml:"app_type,omitempty"`
-}
-
-func (s AppService) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AppService) GoString() string {
-	return s.String()
-}
-
-func (s *AppService) SetAppName(v string) *AppService {
-	s.AppName = &v
-	return s
-}
-
-func (s *AppService) SetAppVersion(v string) *AppService {
-	s.AppVersion = &v
-	return s
-}
-
-func (s *AppService) SetCellId(v string) *AppService {
-	s.CellId = &v
-	return s
-}
-
-func (s *AppService) SetDeployUnit(v string) *AppService {
-	s.DeployUnit = &v
-	return s
-}
-
-func (s *AppService) SetDeployZone(v string) *AppService {
-	s.DeployZone = &v
-	return s
-}
-
-func (s *AppService) SetEnvId(v string) *AppService {
-	s.EnvId = &v
-	return s
-}
-
-func (s *AppService) SetId(v string) *AppService {
-	s.Id = &v
-	return s
-}
-
-func (s *AppService) SetProductCode(v string) *AppService {
-	s.ProductCode = &v
-	return s
-}
-
-func (s *AppService) SetStatus(v string) *AppService {
-	s.Status = &v
-	return s
-}
-
-func (s *AppService) SetAppType(v string) *AppService {
-	s.AppType = &v
-	return s
-}
-
-// 部署单元。
-type DeployUnit struct {
-	// 单元ID
-	CellId *string `json:"cell_id,omitempty" xml:"cell_id,omitempty" require:"true"`
-	// 环境唯一标识。
-	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty" require:"true"`
-	// 部署单元id，产品实例下唯一。
-	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
-	// 部署单元名称。
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 产品码。
-	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
-	// 用户传入部署单元标识，如果没有传入，则为deployment_unit_identity
-	UnitIg *string `json:"unit_ig,omitempty" xml:"unit_ig,omitempty" require:"true"`
-}
-
-func (s DeployUnit) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeployUnit) GoString() string {
-	return s.String()
-}
-
-func (s *DeployUnit) SetCellId(v string) *DeployUnit {
-	s.CellId = &v
-	return s
-}
-
-func (s *DeployUnit) SetEnvId(v string) *DeployUnit {
-	s.EnvId = &v
-	return s
-}
-
-func (s *DeployUnit) SetIdentity(v string) *DeployUnit {
-	s.Identity = &v
-	return s
-}
-
-func (s *DeployUnit) SetName(v string) *DeployUnit {
-	s.Name = &v
-	return s
-}
-
-func (s *DeployUnit) SetProductCode(v string) *DeployUnit {
-	s.ProductCode = &v
-	return s
-}
-
-func (s *DeployUnit) SetUnitIg(v string) *DeployUnit {
-	s.UnitIg = &v
-	return s
-}
-
-// 数据库schema
-type Schema struct {
-	// schema所属的数据库实例信息。
-	Database *Database `json:"database,omitempty" xml:"database,omitempty"`
-	// schema名称。
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 资源所属的资源池id。
-	ResourcePoolId *string `json:"resource_pool_id,omitempty" xml:"resource_pool_id,omitempty"`
-}
-
-func (s Schema) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Schema) GoString() string {
-	return s.String()
-}
-
-func (s *Schema) SetDatabase(v *Database) *Schema {
-	s.Database = v
-	return s
-}
-
-func (s *Schema) SetName(v string) *Schema {
-	s.Name = &v
-	return s
-}
-
-func (s *Schema) SetResourcePoolId(v string) *Schema {
-	s.ResourcePoolId = &v
-	return s
-}
-
-// 产品预览任务
-type ProdPreviewTasks struct {
-	// 应用是否需要部署
-	AppPreviewTasks []*AppPreviewTask `json:"app_preview_tasks,omitempty" xml:"app_preview_tasks,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s ProdPreviewTasks) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ProdPreviewTasks) GoString() string {
-	return s.String()
-}
-
-func (s *ProdPreviewTasks) SetAppPreviewTasks(v []*AppPreviewTask) *ProdPreviewTasks {
-	s.AppPreviewTasks = v
-	return s
-}
-
-// 云游系统信息
-type System struct {
-	// 系统的代码commit
-	CommitId *string `json:"commit_id,omitempty" xml:"commit_id,omitempty" require:"true"`
-	// 管理的环境列表
-	Envs []*Env `json:"envs,omitempty" xml:"envs,omitempty" require:"true" type:"Repeated"`
-	// 支持的OpenAPI列表
-	OpenApis []*OpenAPI `json:"open_apis,omitempty" xml:"open_apis,omitempty" require:"true" type:"Repeated"`
-	// 云游的产品版本号, 该值可能为空
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
-}
-
-func (s System) String() string {
-	return tea.Prettify(s)
-}
-
-func (s System) GoString() string {
-	return s.String()
-}
-
-func (s *System) SetCommitId(v string) *System {
-	s.CommitId = &v
-	return s
-}
-
-func (s *System) SetEnvs(v []*Env) *System {
-	s.Envs = v
-	return s
-}
-
-func (s *System) SetOpenApis(v []*OpenAPI) *System {
-	s.OpenApis = v
-	return s
-}
-
-func (s *System) SetVersion(v string) *System {
-	s.Version = &v
+func (s *UnitInstanceInfo) SetAppServices(v []*AppServiceInfo) *UnitInstanceInfo {
+	s.AppServices = v
 	return s
 }
 
@@ -1805,32 +1727,6 @@ func (s *UnitResource) SetResourceType(v string) *UnitResource {
 
 func (s *UnitResource) SetZoneId(v string) *UnitResource {
 	s.ZoneId = &v
-	return s
-}
-
-// 节点执行日志
-type NodeExecutionLog struct {
-	// 当前节点的动作
-	NodeAction *string `json:"node_action,omitempty" xml:"node_action,omitempty" require:"true"`
-	// 当前节点的执行日志信息
-	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
-}
-
-func (s NodeExecutionLog) String() string {
-	return tea.Prettify(s)
-}
-
-func (s NodeExecutionLog) GoString() string {
-	return s.String()
-}
-
-func (s *NodeExecutionLog) SetNodeAction(v string) *NodeExecutionLog {
-	s.NodeAction = &v
-	return s
-}
-
-func (s *NodeExecutionLog) SetMessage(v string) *NodeExecutionLog {
-	s.Message = &v
 	return s
 }
 
@@ -1928,193 +1824,142 @@ func (s *AutoTestLog) SetUtcModified(v string) *AutoTestLog {
 	return s
 }
 
-// 发布单
-type OpsPlan struct {
-	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 环境Id
-	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty" require:"true"`
-	// 解决方案Id
-	SolutionId *string `json:"solution_id,omitempty" xml:"solution_id,omitempty" require:"true"`
-	// 发布单类型
-	OpsType *string `json:"ops_type,omitempty" xml:"ops_type,omitempty" require:"true"`
-	// 发布单类型
-	PlanType *string `json:"plan_type,omitempty" xml:"plan_type,omitempty" require:"true"`
-	// 创建人id
-	Creator *string `json:"creator,omitempty" xml:"creator,omitempty" require:"true"`
-	// 创建人名称
-	CreatorName *string `json:"creator_name,omitempty" xml:"creator_name,omitempty" require:"true"`
-	// 发布单状态
-	OpsPlanStatus *string `json:"ops_plan_status,omitempty" xml:"ops_plan_status,omitempty" require:"true"`
-	// 创建时间
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 修改时间
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" require:"true"`
+// 集群pod信息
+type ClusterInfo struct {
+	// 产品信息
+	ProdInfos []*ProdInfo `json:"prod_infos,omitempty" xml:"prod_infos,omitempty" require:"true" type:"Repeated"`
 }
 
-func (s OpsPlan) String() string {
+func (s ClusterInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s OpsPlan) GoString() string {
+func (s ClusterInfo) GoString() string {
 	return s.String()
 }
 
-func (s *OpsPlan) SetId(v string) *OpsPlan {
-	s.Id = &v
+func (s *ClusterInfo) SetProdInfos(v []*ProdInfo) *ClusterInfo {
+	s.ProdInfos = v
 	return s
 }
 
-func (s *OpsPlan) SetName(v string) *OpsPlan {
-	s.Name = &v
+// 产品预览任务
+type ProdPreviewTasks struct {
+	// 应用是否需要部署
+	AppPreviewTasks []*AppPreviewTask `json:"app_preview_tasks,omitempty" xml:"app_preview_tasks,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ProdPreviewTasks) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ProdPreviewTasks) GoString() string {
+	return s.String()
+}
+
+func (s *ProdPreviewTasks) SetAppPreviewTasks(v []*AppPreviewTask) *ProdPreviewTasks {
+	s.AppPreviewTasks = v
 	return s
 }
 
-func (s *OpsPlan) SetEnvId(v string) *OpsPlan {
+// 产品实例。
+type ProductInstance struct {
+	// 单元ID
+	CellId *string `json:"cell_id,omitempty" xml:"cell_id,omitempty"`
+	// 产品实例所在的环境唯一标识。
+	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty"`
+	// 产品码。
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
+	// 产品版本。
+	ProductVersion *string `json:"product_version,omitempty" xml:"product_version,omitempty"`
+	// 产品基线状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 产品创建时间
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 产品修改时间
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 产品拓扑id
+	DeployTopologyIdentity *string `json:"deploy_topology_identity,omitempty" xml:"deploy_topology_identity,omitempty"`
+	// 部署规格id
+	DeploySpecIdentity *string `json:"deploy_spec_identity,omitempty" xml:"deploy_spec_identity,omitempty"`
+}
+
+func (s ProductInstance) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ProductInstance) GoString() string {
+	return s.String()
+}
+
+func (s *ProductInstance) SetCellId(v string) *ProductInstance {
+	s.CellId = &v
+	return s
+}
+
+func (s *ProductInstance) SetEnvId(v string) *ProductInstance {
 	s.EnvId = &v
 	return s
 }
 
-func (s *OpsPlan) SetSolutionId(v string) *OpsPlan {
-	s.SolutionId = &v
+func (s *ProductInstance) SetProductCode(v string) *ProductInstance {
+	s.ProductCode = &v
 	return s
 }
 
-func (s *OpsPlan) SetOpsType(v string) *OpsPlan {
-	s.OpsType = &v
+func (s *ProductInstance) SetProductVersion(v string) *ProductInstance {
+	s.ProductVersion = &v
 	return s
 }
 
-func (s *OpsPlan) SetPlanType(v string) *OpsPlan {
-	s.PlanType = &v
-	return s
-}
-
-func (s *OpsPlan) SetCreator(v string) *OpsPlan {
-	s.Creator = &v
-	return s
-}
-
-func (s *OpsPlan) SetCreatorName(v string) *OpsPlan {
-	s.CreatorName = &v
-	return s
-}
-
-func (s *OpsPlan) SetOpsPlanStatus(v string) *OpsPlan {
-	s.OpsPlanStatus = &v
-	return s
-}
-
-func (s *OpsPlan) SetUtcCreate(v string) *OpsPlan {
-	s.UtcCreate = &v
-	return s
-}
-
-func (s *OpsPlan) SetUtcModified(v string) *OpsPlan {
-	s.UtcModified = &v
-	return s
-}
-
-// 部署单元实例信息
-type UnitInstanceInfo struct {
-	// 部署单元内服务实例列表
-	AppServices []*AppServiceInfo `json:"app_services,omitempty" xml:"app_services,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s UnitInstanceInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UnitInstanceInfo) GoString() string {
-	return s.String()
-}
-
-func (s *UnitInstanceInfo) SetAppServices(v []*AppServiceInfo) *UnitInstanceInfo {
-	s.AppServices = v
-	return s
-}
-
-// 产品测试结果
-type AutoTestProdResult struct {
-	// 测试用例
-	Cases []*AutoTestCase `json:"cases,omitempty" xml:"cases,omitempty" require:"true" type:"Repeated"`
-	// 容器信息
-	Containers []*ContainerInfo `json:"containers,omitempty" xml:"containers,omitempty" require:"true" type:"Repeated"`
-	// 部署单元id
-	DeployUnit *string `json:"deploy_unit,omitempty" xml:"deploy_unit,omitempty" require:"true"`
-	// 产品码
-	ProdCode *string `json:"prod_code,omitempty" xml:"prod_code,omitempty" require:"true"`
-	// 产品测试状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 测试创建时间
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 结束时间
-	UtcEnd *string `json:"utc_end,omitempty" xml:"utc_end,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 测试修改时间
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 测试开始时间
-	UtcStart *string `json:"utc_start,omitempty" xml:"utc_start,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 单元的id
-	CellId *string `json:"cell_id,omitempty" xml:"cell_id,omitempty" require:"true"`
-}
-
-func (s AutoTestProdResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AutoTestProdResult) GoString() string {
-	return s.String()
-}
-
-func (s *AutoTestProdResult) SetCases(v []*AutoTestCase) *AutoTestProdResult {
-	s.Cases = v
-	return s
-}
-
-func (s *AutoTestProdResult) SetContainers(v []*ContainerInfo) *AutoTestProdResult {
-	s.Containers = v
-	return s
-}
-
-func (s *AutoTestProdResult) SetDeployUnit(v string) *AutoTestProdResult {
-	s.DeployUnit = &v
-	return s
-}
-
-func (s *AutoTestProdResult) SetProdCode(v string) *AutoTestProdResult {
-	s.ProdCode = &v
-	return s
-}
-
-func (s *AutoTestProdResult) SetStatus(v string) *AutoTestProdResult {
+func (s *ProductInstance) SetStatus(v string) *ProductInstance {
 	s.Status = &v
 	return s
 }
 
-func (s *AutoTestProdResult) SetUtcCreate(v string) *AutoTestProdResult {
+func (s *ProductInstance) SetUtcCreate(v string) *ProductInstance {
 	s.UtcCreate = &v
 	return s
 }
 
-func (s *AutoTestProdResult) SetUtcEnd(v string) *AutoTestProdResult {
-	s.UtcEnd = &v
-	return s
-}
-
-func (s *AutoTestProdResult) SetUtcModified(v string) *AutoTestProdResult {
+func (s *ProductInstance) SetUtcModified(v string) *ProductInstance {
 	s.UtcModified = &v
 	return s
 }
 
-func (s *AutoTestProdResult) SetUtcStart(v string) *AutoTestProdResult {
-	s.UtcStart = &v
+func (s *ProductInstance) SetDeployTopologyIdentity(v string) *ProductInstance {
+	s.DeployTopologyIdentity = &v
 	return s
 }
 
-func (s *AutoTestProdResult) SetCellId(v string) *AutoTestProdResult {
-	s.CellId = &v
+func (s *ProductInstance) SetDeploySpecIdentity(v string) *ProductInstance {
+	s.DeploySpecIdentity = &v
+	return s
+}
+
+// 节点执行日志
+type NodeExecutionLog struct {
+	// 当前节点的动作
+	NodeAction *string `json:"node_action,omitempty" xml:"node_action,omitempty" require:"true"`
+	// 当前节点的执行日志信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+}
+
+func (s NodeExecutionLog) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NodeExecutionLog) GoString() string {
+	return s.String()
+}
+
+func (s *NodeExecutionLog) SetNodeAction(v string) *NodeExecutionLog {
+	s.NodeAction = &v
+	return s
+}
+
+func (s *NodeExecutionLog) SetMessage(v string) *NodeExecutionLog {
+	s.Message = &v
 	return s
 }
 
@@ -2193,43 +2038,282 @@ func (s *LoadBalancer) SetVip(v string) *LoadBalancer {
 	return s
 }
 
-// 解决方案
-type SolutionInstance struct {
-	// 解决方案id
-	SolutionId *string `json:"solution_id,omitempty" xml:"solution_id,omitempty" require:"true"`
-	// 环境ID
-	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty" require:"true"`
-	// 解决方案的名字
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 解决方案的状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+// 自动化测试工单中的产品
+type AutoTestProduct struct {
+	// 部署单元id
+	DeployUnit *string `json:"deploy_unit,omitempty" xml:"deploy_unit,omitempty"`
+	// 产品码
+	ProdCode *string `json:"prod_code,omitempty" xml:"prod_code,omitempty" require:"true"`
+	// 应用启动参数数据
+	AppParamData []*AppParamData `json:"app_param_data,omitempty" xml:"app_param_data,omitempty" type:"Repeated"`
 }
 
-func (s SolutionInstance) String() string {
+func (s AutoTestProduct) String() string {
 	return tea.Prettify(s)
 }
 
-func (s SolutionInstance) GoString() string {
+func (s AutoTestProduct) GoString() string {
 	return s.String()
 }
 
-func (s *SolutionInstance) SetSolutionId(v string) *SolutionInstance {
-	s.SolutionId = &v
+func (s *AutoTestProduct) SetDeployUnit(v string) *AutoTestProduct {
+	s.DeployUnit = &v
 	return s
 }
 
-func (s *SolutionInstance) SetEnvId(v string) *SolutionInstance {
+func (s *AutoTestProduct) SetProdCode(v string) *AutoTestProduct {
+	s.ProdCode = &v
+	return s
+}
+
+func (s *AutoTestProduct) SetAppParamData(v []*AppParamData) *AutoTestProduct {
+	s.AppParamData = v
+	return s
+}
+
+// （已废弃，请使用AppServiceInfo）一个环境中部署的应用服务信息。
+type AppService struct {
+	// 应用英文名。
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	// 应用版本
+	AppVersion *string `json:"app_version,omitempty" xml:"app_version,omitempty"`
+	// 单元ID
+	CellId *string `json:"cell_id,omitempty" xml:"cell_id,omitempty"`
+	// 部署单元名称，产品实例下唯一。
+	DeployUnit *string `json:"deploy_unit,omitempty" xml:"deploy_unit,omitempty"`
+	// 部署域。
+	DeployZone *string `json:"deploy_zone,omitempty" xml:"deploy_zone,omitempty"`
+	// 环境唯一标识
+	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty"`
+	// 应用服务实例唯一标识。
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 应用所属的产品的产品码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
+	// 应用服务实例状态。DEPLOYING: 部署中；UPGRADING: 升级中；ROLL_BACKING: 回滚中；ACTIVE：可用；FAILED: 部署失败；ROLLBACKED: 已回滚。
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 应用类型：BUSINESS | JOB | CONTROLLER
+	AppType *string `json:"app_type,omitempty" xml:"app_type,omitempty"`
+	// 应用显示名称，云游资产使用
+	AppDisplayName *string `json:"app_display_name,omitempty" xml:"app_display_name,omitempty"`
+	// 应用等级，云游资产使用
+	AppLevel *string `json:"app_level,omitempty" xml:"app_level,omitempty"`
+	// 租户信息，云游资产使用。
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 产品码--应用名
+	ProductApp *string `json:"product_app,omitempty" xml:"product_app,omitempty"`
+	// 产品Owner
+	Owner *Owner `json:"owner,omitempty" xml:"owner,omitempty"`
+	// 应用SRE信息
+	Admin *Admin `json:"admin,omitempty" xml:"admin,omitempty"`
+}
+
+func (s AppService) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppService) GoString() string {
+	return s.String()
+}
+
+func (s *AppService) SetAppName(v string) *AppService {
+	s.AppName = &v
+	return s
+}
+
+func (s *AppService) SetAppVersion(v string) *AppService {
+	s.AppVersion = &v
+	return s
+}
+
+func (s *AppService) SetCellId(v string) *AppService {
+	s.CellId = &v
+	return s
+}
+
+func (s *AppService) SetDeployUnit(v string) *AppService {
+	s.DeployUnit = &v
+	return s
+}
+
+func (s *AppService) SetDeployZone(v string) *AppService {
+	s.DeployZone = &v
+	return s
+}
+
+func (s *AppService) SetEnvId(v string) *AppService {
 	s.EnvId = &v
 	return s
 }
 
-func (s *SolutionInstance) SetName(v string) *SolutionInstance {
-	s.Name = &v
+func (s *AppService) SetId(v string) *AppService {
+	s.Id = &v
 	return s
 }
 
-func (s *SolutionInstance) SetStatus(v string) *SolutionInstance {
+func (s *AppService) SetProductCode(v string) *AppService {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *AppService) SetStatus(v string) *AppService {
 	s.Status = &v
+	return s
+}
+
+func (s *AppService) SetAppType(v string) *AppService {
+	s.AppType = &v
+	return s
+}
+
+func (s *AppService) SetAppDisplayName(v string) *AppService {
+	s.AppDisplayName = &v
+	return s
+}
+
+func (s *AppService) SetAppLevel(v string) *AppService {
+	s.AppLevel = &v
+	return s
+}
+
+func (s *AppService) SetTenantId(v string) *AppService {
+	s.TenantId = &v
+	return s
+}
+
+func (s *AppService) SetProductApp(v string) *AppService {
+	s.ProductApp = &v
+	return s
+}
+
+func (s *AppService) SetOwner(v *Owner) *AppService {
+	s.Owner = v
+	return s
+}
+
+func (s *AppService) SetAdmin(v *Admin) *AppService {
+	s.Admin = v
+	return s
+}
+
+// 回滚快照
+type DeploymentUnitSnapshotOP struct {
+	// 环境ID
+	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty"`
+	// 产品码
+	ProdCode *string `json:"prod_code,omitempty" xml:"prod_code,omitempty"`
+	// 产品版本
+	ProdVersion *string `json:"prod_version,omitempty" xml:"prod_version,omitempty"`
+	// 关联的解决方案id
+	SolutionId *string `json:"solution_id,omitempty" xml:"solution_id,omitempty"`
+	// 快照关联的发布单id
+	OpsPlanId *string `json:"ops_plan_id,omitempty" xml:"ops_plan_id,omitempty"`
+	// 快照版本, 根据日期生成
+	SnapshotVersion *string `json:"snapshot_version,omitempty" xml:"snapshot_version,omitempty"`
+	// 快照创建时间
+	SnapshotTime *string `json:"snapshot_time,omitempty" xml:"snapshot_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 部署单元实例唯一标识
+	DeploymentUnitInstanceIdentity *string `json:"deployment_unit_instance_identity,omitempty" xml:"deployment_unit_instance_identity,omitempty"`
+	// 部署单元唯一标识
+	DeploymentUnitIdentity *string `json:"deployment_unit_identity,omitempty" xml:"deployment_unit_identity,omitempty"`
+	// 部署拓扑
+	DeployTopologyIdentity *string `json:"deploy_topology_identity,omitempty" xml:"deploy_topology_identity,omitempty"`
+	// 应用回滚快照
+	AppSnapshot []*string `json:"app_snapshot,omitempty" xml:"app_snapshot,omitempty" type:"Repeated"`
+}
+
+func (s DeploymentUnitSnapshotOP) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeploymentUnitSnapshotOP) GoString() string {
+	return s.String()
+}
+
+func (s *DeploymentUnitSnapshotOP) SetEnvId(v string) *DeploymentUnitSnapshotOP {
+	s.EnvId = &v
+	return s
+}
+
+func (s *DeploymentUnitSnapshotOP) SetProdCode(v string) *DeploymentUnitSnapshotOP {
+	s.ProdCode = &v
+	return s
+}
+
+func (s *DeploymentUnitSnapshotOP) SetProdVersion(v string) *DeploymentUnitSnapshotOP {
+	s.ProdVersion = &v
+	return s
+}
+
+func (s *DeploymentUnitSnapshotOP) SetSolutionId(v string) *DeploymentUnitSnapshotOP {
+	s.SolutionId = &v
+	return s
+}
+
+func (s *DeploymentUnitSnapshotOP) SetOpsPlanId(v string) *DeploymentUnitSnapshotOP {
+	s.OpsPlanId = &v
+	return s
+}
+
+func (s *DeploymentUnitSnapshotOP) SetSnapshotVersion(v string) *DeploymentUnitSnapshotOP {
+	s.SnapshotVersion = &v
+	return s
+}
+
+func (s *DeploymentUnitSnapshotOP) SetSnapshotTime(v string) *DeploymentUnitSnapshotOP {
+	s.SnapshotTime = &v
+	return s
+}
+
+func (s *DeploymentUnitSnapshotOP) SetDeploymentUnitInstanceIdentity(v string) *DeploymentUnitSnapshotOP {
+	s.DeploymentUnitInstanceIdentity = &v
+	return s
+}
+
+func (s *DeploymentUnitSnapshotOP) SetDeploymentUnitIdentity(v string) *DeploymentUnitSnapshotOP {
+	s.DeploymentUnitIdentity = &v
+	return s
+}
+
+func (s *DeploymentUnitSnapshotOP) SetDeployTopologyIdentity(v string) *DeploymentUnitSnapshotOP {
+	s.DeployTopologyIdentity = &v
+	return s
+}
+
+func (s *DeploymentUnitSnapshotOP) SetAppSnapshot(v []*string) *DeploymentUnitSnapshotOP {
+	s.AppSnapshot = v
+	return s
+}
+
+// 解决方案检查项
+type CheckPoint struct {
+	// 检查结果
+	CheckResult *string `json:"check_result,omitempty" xml:"check_result,omitempty" require:"true"`
+	// 检查点, 例如参数检查
+	CheckPoint *string `json:"check_point,omitempty" xml:"check_point,omitempty" require:"true"`
+	// 非法原因
+	InvalidReason *string `json:"invalid_reason,omitempty" xml:"invalid_reason,omitempty"`
+}
+
+func (s CheckPoint) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckPoint) GoString() string {
+	return s.String()
+}
+
+func (s *CheckPoint) SetCheckResult(v string) *CheckPoint {
+	s.CheckResult = &v
+	return s
+}
+
+func (s *CheckPoint) SetCheckPoint(v string) *CheckPoint {
+	s.CheckPoint = &v
+	return s
+}
+
+func (s *CheckPoint) SetInvalidReason(v string) *CheckPoint {
+	s.InvalidReason = &v
 	return s
 }
 
@@ -2316,55 +2400,252 @@ func (s *UserAuth) SetUserId(v string) *UserAuth {
 	return s
 }
 
-// 集群pod信息
-type ClusterInfo struct {
-	// 产品信息
-	ProdInfos []*ProdInfo `json:"prod_infos,omitempty" xml:"prod_infos,omitempty" require:"true" type:"Repeated"`
+// 解决方案
+type SolutionInstance struct {
+	// 解决方案id
+	SolutionId *string `json:"solution_id,omitempty" xml:"solution_id,omitempty" require:"true"`
+	// 环境ID
+	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty" require:"true"`
+	// 解决方案的名字
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 解决方案的状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 }
 
-func (s ClusterInfo) String() string {
+func (s SolutionInstance) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ClusterInfo) GoString() string {
+func (s SolutionInstance) GoString() string {
 	return s.String()
 }
 
-func (s *ClusterInfo) SetProdInfos(v []*ProdInfo) *ClusterInfo {
-	s.ProdInfos = v
+func (s *SolutionInstance) SetSolutionId(v string) *SolutionInstance {
+	s.SolutionId = &v
 	return s
 }
 
-// 自动化测试工单中的产品
-type AutoTestProduct struct {
-	// 部署单元id
-	DeployUnit *string `json:"deploy_unit,omitempty" xml:"deploy_unit,omitempty"`
-	// 产品码
-	ProdCode *string `json:"prod_code,omitempty" xml:"prod_code,omitempty" require:"true"`
-	// 应用启动参数数据
-	AppParamData []*AppParamData `json:"app_param_data,omitempty" xml:"app_param_data,omitempty" type:"Repeated"`
+func (s *SolutionInstance) SetEnvId(v string) *SolutionInstance {
+	s.EnvId = &v
+	return s
 }
 
-func (s AutoTestProduct) String() string {
+func (s *SolutionInstance) SetName(v string) *SolutionInstance {
+	s.Name = &v
+	return s
+}
+
+func (s *SolutionInstance) SetStatus(v string) *SolutionInstance {
+	s.Status = &v
+	return s
+}
+
+// 云游系统信息
+type System struct {
+	// 系统的代码commit
+	CommitId *string `json:"commit_id,omitempty" xml:"commit_id,omitempty" require:"true"`
+	// 管理的环境列表
+	Envs []*Env `json:"envs,omitempty" xml:"envs,omitempty" require:"true" type:"Repeated"`
+	// 支持的OpenAPI列表
+	OpenApis []*OpenAPI `json:"open_apis,omitempty" xml:"open_apis,omitempty" require:"true" type:"Repeated"`
+	// 云游的产品版本号, 该值可能为空
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+}
+
+func (s System) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AutoTestProduct) GoString() string {
+func (s System) GoString() string {
 	return s.String()
 }
 
-func (s *AutoTestProduct) SetDeployUnit(v string) *AutoTestProduct {
+func (s *System) SetCommitId(v string) *System {
+	s.CommitId = &v
+	return s
+}
+
+func (s *System) SetEnvs(v []*Env) *System {
+	s.Envs = v
+	return s
+}
+
+func (s *System) SetOpenApis(v []*OpenAPI) *System {
+	s.OpenApis = v
+	return s
+}
+
+func (s *System) SetVersion(v string) *System {
+	s.Version = &v
+	return s
+}
+
+// 产品测试结果
+type AutoTestProdResult struct {
+	// 测试用例
+	Cases []*AutoTestCase `json:"cases,omitempty" xml:"cases,omitempty" require:"true" type:"Repeated"`
+	// 容器信息
+	Containers []*ContainerInfo `json:"containers,omitempty" xml:"containers,omitempty" require:"true" type:"Repeated"`
+	// 部署单元id
+	DeployUnit *string `json:"deploy_unit,omitempty" xml:"deploy_unit,omitempty" require:"true"`
+	// 产品码
+	ProdCode *string `json:"prod_code,omitempty" xml:"prod_code,omitempty" require:"true"`
+	// 产品测试状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 测试创建时间
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 结束时间
+	UtcEnd *string `json:"utc_end,omitempty" xml:"utc_end,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 测试修改时间
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 测试开始时间
+	UtcStart *string `json:"utc_start,omitempty" xml:"utc_start,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 单元的id
+	CellId *string `json:"cell_id,omitempty" xml:"cell_id,omitempty" require:"true"`
+}
+
+func (s AutoTestProdResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AutoTestProdResult) GoString() string {
+	return s.String()
+}
+
+func (s *AutoTestProdResult) SetCases(v []*AutoTestCase) *AutoTestProdResult {
+	s.Cases = v
+	return s
+}
+
+func (s *AutoTestProdResult) SetContainers(v []*ContainerInfo) *AutoTestProdResult {
+	s.Containers = v
+	return s
+}
+
+func (s *AutoTestProdResult) SetDeployUnit(v string) *AutoTestProdResult {
 	s.DeployUnit = &v
 	return s
 }
 
-func (s *AutoTestProduct) SetProdCode(v string) *AutoTestProduct {
+func (s *AutoTestProdResult) SetProdCode(v string) *AutoTestProdResult {
 	s.ProdCode = &v
 	return s
 }
 
-func (s *AutoTestProduct) SetAppParamData(v []*AppParamData) *AutoTestProduct {
-	s.AppParamData = v
+func (s *AutoTestProdResult) SetStatus(v string) *AutoTestProdResult {
+	s.Status = &v
+	return s
+}
+
+func (s *AutoTestProdResult) SetUtcCreate(v string) *AutoTestProdResult {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *AutoTestProdResult) SetUtcEnd(v string) *AutoTestProdResult {
+	s.UtcEnd = &v
+	return s
+}
+
+func (s *AutoTestProdResult) SetUtcModified(v string) *AutoTestProdResult {
+	s.UtcModified = &v
+	return s
+}
+
+func (s *AutoTestProdResult) SetUtcStart(v string) *AutoTestProdResult {
+	s.UtcStart = &v
+	return s
+}
+
+func (s *AutoTestProdResult) SetCellId(v string) *AutoTestProdResult {
+	s.CellId = &v
+	return s
+}
+
+// 部署单元。
+type DeployUnit struct {
+	// 单元ID
+	CellId *string `json:"cell_id,omitempty" xml:"cell_id,omitempty" require:"true"`
+	// 环境唯一标识。
+	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty" require:"true"`
+	// 部署单元id，产品实例下唯一。
+	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
+	// 部署单元名称。
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 产品码。
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 用户传入部署单元标识，如果没有传入，则为deployment_unit_identity
+	UnitIg *string `json:"unit_ig,omitempty" xml:"unit_ig,omitempty" require:"true"`
+}
+
+func (s DeployUnit) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeployUnit) GoString() string {
+	return s.String()
+}
+
+func (s *DeployUnit) SetCellId(v string) *DeployUnit {
+	s.CellId = &v
+	return s
+}
+
+func (s *DeployUnit) SetEnvId(v string) *DeployUnit {
+	s.EnvId = &v
+	return s
+}
+
+func (s *DeployUnit) SetIdentity(v string) *DeployUnit {
+	s.Identity = &v
+	return s
+}
+
+func (s *DeployUnit) SetName(v string) *DeployUnit {
+	s.Name = &v
+	return s
+}
+
+func (s *DeployUnit) SetProductCode(v string) *DeployUnit {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *DeployUnit) SetUnitIg(v string) *DeployUnit {
+	s.UnitIg = &v
+	return s
+}
+
+// 数据库schema
+type Schema struct {
+	// schema所属的数据库实例信息。
+	Database *Database `json:"database,omitempty" xml:"database,omitempty"`
+	// schema名称。
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 资源所属的资源池id。
+	ResourcePoolId *string `json:"resource_pool_id,omitempty" xml:"resource_pool_id,omitempty"`
+}
+
+func (s Schema) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Schema) GoString() string {
+	return s.String()
+}
+
+func (s *Schema) SetDatabase(v *Database) *Schema {
+	s.Database = v
+	return s
+}
+
+func (s *Schema) SetName(v string) *Schema {
+	s.Name = &v
+	return s
+}
+
+func (s *Schema) SetResourcePoolId(v string) *Schema {
+	s.ResourcePoolId = &v
 	return s
 }
 
@@ -2384,6 +2665,10 @@ type CreateAppopsRequest struct {
 	OpsDimension *string `json:"ops_dimension,omitempty" xml:"ops_dimension,omitempty" require:"true"`
 	// 要执行运维操作的应用服务实例所在的单元。
 	CellId *string `json:"cell_id,omitempty" xml:"cell_id,omitempty" require:"true"`
+	// 操作人ID
+	SubmitterId *string `json:"submitter_id,omitempty" xml:"submitter_id,omitempty"`
+	// 应用容器分组策略，默认取SYSTEM_RECOMMENDATION
+	GroupStrategy *string `json:"group_strategy,omitempty" xml:"group_strategy,omitempty"`
 }
 
 func (s CreateAppopsRequest) String() string {
@@ -2431,6 +2716,16 @@ func (s *CreateAppopsRequest) SetOpsDimension(v string) *CreateAppopsRequest {
 
 func (s *CreateAppopsRequest) SetCellId(v string) *CreateAppopsRequest {
 	s.CellId = &v
+	return s
+}
+
+func (s *CreateAppopsRequest) SetSubmitterId(v string) *CreateAppopsRequest {
+	s.SubmitterId = &v
+	return s
+}
+
+func (s *CreateAppopsRequest) SetGroupStrategy(v string) *CreateAppopsRequest {
+	s.GroupStrategy = &v
 	return s
 }
 
@@ -3086,8 +3381,12 @@ type UninstallProdinstanceAppserviceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 应用服务实例id。
-	AppServiceId *string `json:"app_service_id,omitempty" xml:"app_service_id,omitempty" require:"true"`
+	// 环境标识
+	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty" require:"true"`
+	// 产品码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 操作人Id
+	SubmitterId *string `json:"submitter_id,omitempty" xml:"submitter_id,omitempty" require:"true"`
 }
 
 func (s UninstallProdinstanceAppserviceRequest) String() string {
@@ -3108,8 +3407,18 @@ func (s *UninstallProdinstanceAppserviceRequest) SetProductInstanceId(v string) 
 	return s
 }
 
-func (s *UninstallProdinstanceAppserviceRequest) SetAppServiceId(v string) *UninstallProdinstanceAppserviceRequest {
-	s.AppServiceId = &v
+func (s *UninstallProdinstanceAppserviceRequest) SetEnvId(v string) *UninstallProdinstanceAppserviceRequest {
+	s.EnvId = &v
+	return s
+}
+
+func (s *UninstallProdinstanceAppserviceRequest) SetProductCode(v string) *UninstallProdinstanceAppserviceRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *UninstallProdinstanceAppserviceRequest) SetSubmitterId(v string) *UninstallProdinstanceAppserviceRequest {
+	s.SubmitterId = &v
 	return s
 }
 
@@ -3166,6 +3475,8 @@ type CreateProdinstanceDeployunitRequest struct {
 	UnitName *string `json:"unit_name,omitempty" xml:"unit_name,omitempty" require:"true"`
 	// 单元ID
 	CellId *string `json:"cell_id,omitempty" xml:"cell_id,omitempty" require:"true"`
+	// 逻辑部署单元实例id
+	LogicalInstanceId *string `json:"logical_instance_id,omitempty" xml:"logical_instance_id,omitempty" require:"true"`
 }
 
 func (s CreateProdinstanceDeployunitRequest) String() string {
@@ -3208,6 +3519,11 @@ func (s *CreateProdinstanceDeployunitRequest) SetUnitName(v string) *CreateProdi
 
 func (s *CreateProdinstanceDeployunitRequest) SetCellId(v string) *CreateProdinstanceDeployunitRequest {
 	s.CellId = &v
+	return s
+}
+
+func (s *CreateProdinstanceDeployunitRequest) SetLogicalInstanceId(v string) *CreateProdinstanceDeployunitRequest {
+	s.LogicalInstanceId = &v
 	return s
 }
 
@@ -3440,6 +3756,10 @@ type QueryProdinstanceAppserviceRequest struct {
 	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
 	// 产品分组。如果入参设置了产品码，则默认忽略产品分组。
 	ProductGroup *string `json:"product_group,omitempty" xml:"product_group,omitempty"`
+	// 产品码--应用名
+	ProductApp *string `json:"product_app,omitempty" xml:"product_app,omitempty"`
+	// 租户信息当前值为mock
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 }
 
 func (s QueryProdinstanceAppserviceRequest) String() string {
@@ -3502,6 +3822,16 @@ func (s *QueryProdinstanceAppserviceRequest) SetProductCode(v string) *QueryProd
 
 func (s *QueryProdinstanceAppserviceRequest) SetProductGroup(v string) *QueryProdinstanceAppserviceRequest {
 	s.ProductGroup = &v
+	return s
+}
+
+func (s *QueryProdinstanceAppserviceRequest) SetProductApp(v string) *QueryProdinstanceAppserviceRequest {
+	s.ProductApp = &v
+	return s
+}
+
+func (s *QueryProdinstanceAppserviceRequest) SetTenantId(v string) *QueryProdinstanceAppserviceRequest {
+	s.TenantId = &v
 	return s
 }
 
@@ -3755,6 +4085,10 @@ type ScaleoutProdinstanceAppserviceRequest struct {
 	AppServiceId *string `json:"app_service_id,omitempty" xml:"app_service_id,omitempty" require:"true"`
 	// 集群容器目标数量。target_num需要大于当前集群容器数量，扩容（target_num-当前集群容器数量）个容器。
 	TargetNum *int64 `json:"target_num,omitempty" xml:"target_num,omitempty" require:"true"`
+	// 操作人
+	SubmitterId *string `json:"submitter_id,omitempty" xml:"submitter_id,omitempty"`
+	// 容器分组策略，默认SYSTEM_RECOMMENDATION
+	GroupStrategy *string `json:"group_strategy,omitempty" xml:"group_strategy,omitempty"`
 }
 
 func (s ScaleoutProdinstanceAppserviceRequest) String() string {
@@ -3782,6 +4116,16 @@ func (s *ScaleoutProdinstanceAppserviceRequest) SetAppServiceId(v string) *Scale
 
 func (s *ScaleoutProdinstanceAppserviceRequest) SetTargetNum(v int64) *ScaleoutProdinstanceAppserviceRequest {
 	s.TargetNum = &v
+	return s
+}
+
+func (s *ScaleoutProdinstanceAppserviceRequest) SetSubmitterId(v string) *ScaleoutProdinstanceAppserviceRequest {
+	s.SubmitterId = &v
+	return s
+}
+
+func (s *ScaleoutProdinstanceAppserviceRequest) SetGroupStrategy(v string) *ScaleoutProdinstanceAppserviceRequest {
+	s.GroupStrategy = &v
 	return s
 }
 
@@ -4098,6 +4442,8 @@ type ScaleinProdinstanceAppserviceRequest struct {
 	AppServiceId *string `json:"app_service_id,omitempty" xml:"app_service_id,omitempty" require:"true"`
 	// 执行运维操作的目标容器列表。
 	ContainerIds []*string `json:"container_ids,omitempty" xml:"container_ids,omitempty" require:"true" type:"Repeated"`
+	// 操作人id
+	SubmitterId *string `json:"submitter_id,omitempty" xml:"submitter_id,omitempty"`
 }
 
 func (s ScaleinProdinstanceAppserviceRequest) String() string {
@@ -4125,6 +4471,11 @@ func (s *ScaleinProdinstanceAppserviceRequest) SetAppServiceId(v string) *Scalei
 
 func (s *ScaleinProdinstanceAppserviceRequest) SetContainerIds(v []*string) *ScaleinProdinstanceAppserviceRequest {
 	s.ContainerIds = v
+	return s
+}
+
+func (s *ScaleinProdinstanceAppserviceRequest) SetSubmitterId(v string) *ScaleinProdinstanceAppserviceRequest {
+	s.SubmitterId = &v
 	return s
 }
 
@@ -4577,6 +4928,12 @@ type CreateAppdeployRequest struct {
 	SolutionId *string `json:"solution_id,omitempty" xml:"solution_id,omitempty" require:"true"`
 	// 是否强制重发
 	Force *bool `json:"force,omitempty" xml:"force,omitempty" require:"true"`
+	// 是否需要手动的确认
+	NeedBeta *bool `json:"need_beta,omitempty" xml:"need_beta,omitempty"`
+	// TWO_GROUP分两组ALL_ONE共分一组无灰生产禁用EACH_ONE每台一组SYSTEM_RECOMMENDATION系统推荐
+	GroupStrategy *string `json:"group_strategy,omitempty" xml:"group_strategy,omitempty"`
+	// 操作人ID
+	SubmitterId *string `json:"submitter_id,omitempty" xml:"submitter_id,omitempty"`
 }
 
 func (s CreateAppdeployRequest) String() string {
@@ -4619,6 +4976,21 @@ func (s *CreateAppdeployRequest) SetSolutionId(v string) *CreateAppdeployRequest
 
 func (s *CreateAppdeployRequest) SetForce(v bool) *CreateAppdeployRequest {
 	s.Force = &v
+	return s
+}
+
+func (s *CreateAppdeployRequest) SetNeedBeta(v bool) *CreateAppdeployRequest {
+	s.NeedBeta = &v
+	return s
+}
+
+func (s *CreateAppdeployRequest) SetGroupStrategy(v string) *CreateAppdeployRequest {
+	s.GroupStrategy = &v
+	return s
+}
+
+func (s *CreateAppdeployRequest) SetSubmitterId(v string) *CreateAppdeployRequest {
+	s.SubmitterId = &v
 	return s
 }
 
@@ -5326,8 +5698,10 @@ type UninstallProdinstanceDeployunitRequest struct {
 	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty" require:"true"`
 	// 产品码
 	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
-	// 单元实例ID
+	// 部署单元实例标识
 	UnitInstanceId *string `json:"unit_instance_id,omitempty" xml:"unit_instance_id,omitempty" require:"true"`
+	// 操作人ID
+	SubmitterId *string `json:"submitter_id,omitempty" xml:"submitter_id,omitempty" require:"true"`
 }
 
 func (s UninstallProdinstanceDeployunitRequest) String() string {
@@ -5365,6 +5739,11 @@ func (s *UninstallProdinstanceDeployunitRequest) SetProductCode(v string) *Unins
 
 func (s *UninstallProdinstanceDeployunitRequest) SetUnitInstanceId(v string) *UninstallProdinstanceDeployunitRequest {
 	s.UnitInstanceId = &v
+	return s
+}
+
+func (s *UninstallProdinstanceDeployunitRequest) SetSubmitterId(v string) *UninstallProdinstanceDeployunitRequest {
+	s.SubmitterId = &v
 	return s
 }
 
@@ -5776,6 +6155,10 @@ type ExecClusterDnsRequest struct {
 	AppNames []*string `json:"app_names,omitempty" xml:"app_names,omitempty" require:"true" type:"Repeated"`
 	// dns域名的绑定/解绑
 	OpsAction *string `json:"ops_action,omitempty" xml:"ops_action,omitempty" require:"true"`
+	// 需要调用的adns所对应环境。
+	// 例如A、B环境，A环境宕机了，此时需要调用B机房的adns进行A机房的环境域名解绑操作。
+	// 如果不填，默认与env_id一致。
+	OperationEnvId *string `json:"operation_env_id,omitempty" xml:"operation_env_id,omitempty"`
 }
 
 func (s ExecClusterDnsRequest) String() string {
@@ -5813,6 +6196,11 @@ func (s *ExecClusterDnsRequest) SetAppNames(v []*string) *ExecClusterDnsRequest 
 
 func (s *ExecClusterDnsRequest) SetOpsAction(v string) *ExecClusterDnsRequest {
 	s.OpsAction = &v
+	return s
+}
+
+func (s *ExecClusterDnsRequest) SetOperationEnvId(v string) *ExecClusterDnsRequest {
+	s.OperationEnvId = &v
 	return s
 }
 
@@ -6331,7 +6719,7 @@ func (s *ConfirmSolutionPlanResponse) SetResultMsg(v string) *ConfirmSolutionPla
 	return s
 }
 
-type QuerySolutionPreviewtaskRequest struct {
+type GetSolutionPlanstatusRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -6339,65 +6727,823 @@ type QuerySolutionPreviewtaskRequest struct {
 	SolutionId *string `json:"solution_id,omitempty" xml:"solution_id,omitempty" require:"true"`
 }
 
-func (s QuerySolutionPreviewtaskRequest) String() string {
+func (s GetSolutionPlanstatusRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QuerySolutionPreviewtaskRequest) GoString() string {
+func (s GetSolutionPlanstatusRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QuerySolutionPreviewtaskRequest) SetAuthToken(v string) *QuerySolutionPreviewtaskRequest {
+func (s *GetSolutionPlanstatusRequest) SetAuthToken(v string) *GetSolutionPlanstatusRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QuerySolutionPreviewtaskRequest) SetProductInstanceId(v string) *QuerySolutionPreviewtaskRequest {
+func (s *GetSolutionPlanstatusRequest) SetProductInstanceId(v string) *GetSolutionPlanstatusRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QuerySolutionPreviewtaskRequest) SetSolutionId(v string) *QuerySolutionPreviewtaskRequest {
+func (s *GetSolutionPlanstatusRequest) SetSolutionId(v string) *GetSolutionPlanstatusRequest {
 	s.SolutionId = &v
 	return s
 }
 
-type QuerySolutionPreviewtaskResponse struct {
+type GetSolutionPlanstatusResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 产品预览任务查询
-	ProdPreviewTasks []*ProdPreviewTasks `json:"prod_preview_tasks,omitempty" xml:"prod_preview_tasks,omitempty" type:"Repeated"`
+	// 是否完成规划
+	AllPlanConfirmed *bool `json:"all_plan_confirmed,omitempty" xml:"all_plan_confirmed,omitempty"`
+	// sidecar规划状态
+	SidecarPlanStatus *string `json:"sidecar_plan_status,omitempty" xml:"sidecar_plan_status,omitempty"`
+	// 持久化存储规划状态
+	PersistentVolumePlanStatus *string `json:"persistent_volume_plan_status,omitempty" xml:"persistent_volume_plan_status,omitempty"`
+	// 数据库规划状态
+	//
+	DbPlanStatus *string `json:"db_plan_status,omitempty" xml:"db_plan_status,omitempty"`
+	// 负载均衡规划
+	LbPlanStatus *string `json:"lb_plan_status,omitempty" xml:"lb_plan_status,omitempty"`
+	// 应用配置规划状态
+	AppDeploySpecStatus *string `json:"app_deploy_spec_status,omitempty" xml:"app_deploy_spec_status,omitempty"`
+	// 解决方案检查项结果
+	CheckPoint []*CheckPoint `json:"check_point,omitempty" xml:"check_point,omitempty" type:"Repeated"`
 }
 
-func (s QuerySolutionPreviewtaskResponse) String() string {
+func (s GetSolutionPlanstatusResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QuerySolutionPreviewtaskResponse) GoString() string {
+func (s GetSolutionPlanstatusResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QuerySolutionPreviewtaskResponse) SetReqMsgId(v string) *QuerySolutionPreviewtaskResponse {
+func (s *GetSolutionPlanstatusResponse) SetReqMsgId(v string) *GetSolutionPlanstatusResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QuerySolutionPreviewtaskResponse) SetResultCode(v string) *QuerySolutionPreviewtaskResponse {
+func (s *GetSolutionPlanstatusResponse) SetResultCode(v string) *GetSolutionPlanstatusResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QuerySolutionPreviewtaskResponse) SetResultMsg(v string) *QuerySolutionPreviewtaskResponse {
+func (s *GetSolutionPlanstatusResponse) SetResultMsg(v string) *GetSolutionPlanstatusResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QuerySolutionPreviewtaskResponse) SetProdPreviewTasks(v []*ProdPreviewTasks) *QuerySolutionPreviewtaskResponse {
-	s.ProdPreviewTasks = v
+func (s *GetSolutionPlanstatusResponse) SetAllPlanConfirmed(v bool) *GetSolutionPlanstatusResponse {
+	s.AllPlanConfirmed = &v
+	return s
+}
+
+func (s *GetSolutionPlanstatusResponse) SetSidecarPlanStatus(v string) *GetSolutionPlanstatusResponse {
+	s.SidecarPlanStatus = &v
+	return s
+}
+
+func (s *GetSolutionPlanstatusResponse) SetPersistentVolumePlanStatus(v string) *GetSolutionPlanstatusResponse {
+	s.PersistentVolumePlanStatus = &v
+	return s
+}
+
+func (s *GetSolutionPlanstatusResponse) SetDbPlanStatus(v string) *GetSolutionPlanstatusResponse {
+	s.DbPlanStatus = &v
+	return s
+}
+
+func (s *GetSolutionPlanstatusResponse) SetLbPlanStatus(v string) *GetSolutionPlanstatusResponse {
+	s.LbPlanStatus = &v
+	return s
+}
+
+func (s *GetSolutionPlanstatusResponse) SetAppDeploySpecStatus(v string) *GetSolutionPlanstatusResponse {
+	s.AppDeploySpecStatus = &v
+	return s
+}
+
+func (s *GetSolutionPlanstatusResponse) SetCheckPoint(v []*CheckPoint) *GetSolutionPlanstatusResponse {
+	s.CheckPoint = v
+	return s
+}
+
+type PagequeryProditerationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 产品码
+	ProdCode *string `json:"prod_code,omitempty" xml:"prod_code,omitempty" require:"true"`
+	// 产品版本
+	ProdVersion *string `json:"prod_version,omitempty" xml:"prod_version,omitempty"`
+}
+
+func (s PagequeryProditerationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryProditerationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryProditerationRequest) SetAuthToken(v string) *PagequeryProditerationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryProditerationRequest) SetProductInstanceId(v string) *PagequeryProditerationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryProditerationRequest) SetProdCode(v string) *PagequeryProditerationRequest {
+	s.ProdCode = &v
+	return s
+}
+
+func (s *PagequeryProditerationRequest) SetProdVersion(v string) *PagequeryProditerationRequest {
+	s.ProdVersion = &v
+	return s
+}
+
+type PagequeryProditerationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PagequeryProditerationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryProditerationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryProditerationResponse) SetReqMsgId(v string) *PagequeryProditerationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryProditerationResponse) SetResultCode(v string) *PagequeryProditerationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryProditerationResponse) SetResultMsg(v string) *PagequeryProditerationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CreateProdinstanceDeployunitbatchRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 环境id
+	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty" require:"true"`
+	// 产品码
+	ProdCode *string `json:"prod_code,omitempty" xml:"prod_code,omitempty" require:"true"`
+	// 部署单元名称
+	DeploymentUnitName *string `json:"deployment_unit_name,omitempty" xml:"deployment_unit_name,omitempty" require:"true"`
+	// 部署单元实例id列表
+	UnitInstanceIds []*string `json:"unit_instance_ids,omitempty" xml:"unit_instance_ids,omitempty" require:"true" type:"Repeated"`
+	// 逻辑部署单元实例id
+	LogicalInstanceId *string `json:"logical_instance_id,omitempty" xml:"logical_instance_id,omitempty" require:"true"`
+	// 集群中哪个zone，公有云场景使用，专有云不需要部署
+	CellId *string `json:"cell_id,omitempty" xml:"cell_id,omitempty" require:"true"`
+}
+
+func (s CreateProdinstanceDeployunitbatchRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateProdinstanceDeployunitbatchRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateProdinstanceDeployunitbatchRequest) SetAuthToken(v string) *CreateProdinstanceDeployunitbatchRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateProdinstanceDeployunitbatchRequest) SetProductInstanceId(v string) *CreateProdinstanceDeployunitbatchRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateProdinstanceDeployunitbatchRequest) SetEnvId(v string) *CreateProdinstanceDeployunitbatchRequest {
+	s.EnvId = &v
+	return s
+}
+
+func (s *CreateProdinstanceDeployunitbatchRequest) SetProdCode(v string) *CreateProdinstanceDeployunitbatchRequest {
+	s.ProdCode = &v
+	return s
+}
+
+func (s *CreateProdinstanceDeployunitbatchRequest) SetDeploymentUnitName(v string) *CreateProdinstanceDeployunitbatchRequest {
+	s.DeploymentUnitName = &v
+	return s
+}
+
+func (s *CreateProdinstanceDeployunitbatchRequest) SetUnitInstanceIds(v []*string) *CreateProdinstanceDeployunitbatchRequest {
+	s.UnitInstanceIds = v
+	return s
+}
+
+func (s *CreateProdinstanceDeployunitbatchRequest) SetLogicalInstanceId(v string) *CreateProdinstanceDeployunitbatchRequest {
+	s.LogicalInstanceId = &v
+	return s
+}
+
+func (s *CreateProdinstanceDeployunitbatchRequest) SetCellId(v string) *CreateProdinstanceDeployunitbatchRequest {
+	s.CellId = &v
+	return s
+}
+
+type CreateProdinstanceDeployunitbatchResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 发布单id
+	OpsPlanId *string `json:"ops_plan_id,omitempty" xml:"ops_plan_id,omitempty"`
+}
+
+func (s CreateProdinstanceDeployunitbatchResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateProdinstanceDeployunitbatchResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateProdinstanceDeployunitbatchResponse) SetReqMsgId(v string) *CreateProdinstanceDeployunitbatchResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateProdinstanceDeployunitbatchResponse) SetResultCode(v string) *CreateProdinstanceDeployunitbatchResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateProdinstanceDeployunitbatchResponse) SetResultMsg(v string) *CreateProdinstanceDeployunitbatchResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateProdinstanceDeployunitbatchResponse) SetOpsPlanId(v string) *CreateProdinstanceDeployunitbatchResponse {
+	s.OpsPlanId = &v
+	return s
+}
+
+type RollbackOpsAppRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 发布单id
+	OpsPlanId *string `json:"ops_plan_id,omitempty" xml:"ops_plan_id,omitempty" require:"true"`
+	// 产品码
+	ProdCode *string `json:"prod_code,omitempty" xml:"prod_code,omitempty" require:"true"`
+	// 应用名
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// 需要回滚的快照版本
+	ProdSnapshotVersion *string `json:"prod_snapshot_version,omitempty" xml:"prod_snapshot_version,omitempty" require:"true"`
+	// 部署单元ID
+	UnitInstanceId *string `json:"unit_instance_id,omitempty" xml:"unit_instance_id,omitempty" require:"true"`
+	// 操作人Id
+	SubmitterId *string `json:"submitter_id,omitempty" xml:"submitter_id,omitempty" require:"true"`
+	// 分组策略，默认使用SYSTEM_RECOMMENDATION
+	GroupStrategy *string `json:"group_strategy,omitempty" xml:"group_strategy,omitempty"`
+}
+
+func (s RollbackOpsAppRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RollbackOpsAppRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RollbackOpsAppRequest) SetAuthToken(v string) *RollbackOpsAppRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RollbackOpsAppRequest) SetProductInstanceId(v string) *RollbackOpsAppRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RollbackOpsAppRequest) SetOpsPlanId(v string) *RollbackOpsAppRequest {
+	s.OpsPlanId = &v
+	return s
+}
+
+func (s *RollbackOpsAppRequest) SetProdCode(v string) *RollbackOpsAppRequest {
+	s.ProdCode = &v
+	return s
+}
+
+func (s *RollbackOpsAppRequest) SetAppName(v string) *RollbackOpsAppRequest {
+	s.AppName = &v
+	return s
+}
+
+func (s *RollbackOpsAppRequest) SetProdSnapshotVersion(v string) *RollbackOpsAppRequest {
+	s.ProdSnapshotVersion = &v
+	return s
+}
+
+func (s *RollbackOpsAppRequest) SetUnitInstanceId(v string) *RollbackOpsAppRequest {
+	s.UnitInstanceId = &v
+	return s
+}
+
+func (s *RollbackOpsAppRequest) SetSubmitterId(v string) *RollbackOpsAppRequest {
+	s.SubmitterId = &v
+	return s
+}
+
+func (s *RollbackOpsAppRequest) SetGroupStrategy(v string) *RollbackOpsAppRequest {
+	s.GroupStrategy = &v
+	return s
+}
+
+type RollbackOpsAppResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 回滚任务发布单
+	OpsPlanId *string `json:"ops_plan_id,omitempty" xml:"ops_plan_id,omitempty"`
+}
+
+func (s RollbackOpsAppResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RollbackOpsAppResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RollbackOpsAppResponse) SetReqMsgId(v string) *RollbackOpsAppResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RollbackOpsAppResponse) SetResultCode(v string) *RollbackOpsAppResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RollbackOpsAppResponse) SetResultMsg(v string) *RollbackOpsAppResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RollbackOpsAppResponse) SetOpsPlanId(v string) *RollbackOpsAppResponse {
+	s.OpsPlanId = &v
+	return s
+}
+
+type RollbackOpsProductRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 需要回滚的解决方案ID
+	SolutionId *string `json:"solution_id,omitempty" xml:"solution_id,omitempty" require:"true"`
+	// 产品码
+	ProdCode *string `json:"prod_code,omitempty" xml:"prod_code,omitempty" require:"true"`
+	// 需要回滚的快照版本
+	ProdSnapshotVersion *string `json:"prod_snapshot_version,omitempty" xml:"prod_snapshot_version,omitempty" require:"true"`
+	// 分组策略
+	GroupStrategy *string `json:"group_strategy,omitempty" xml:"group_strategy,omitempty"`
+	// 部署单元ID
+	UnitInstanceId *string `json:"unit_instance_id,omitempty" xml:"unit_instance_id,omitempty" require:"true"`
+	// 操作人ID
+	SubmitterId *string `json:"submitter_id,omitempty" xml:"submitter_id,omitempty" require:"true"`
+}
+
+func (s RollbackOpsProductRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RollbackOpsProductRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RollbackOpsProductRequest) SetAuthToken(v string) *RollbackOpsProductRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RollbackOpsProductRequest) SetProductInstanceId(v string) *RollbackOpsProductRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RollbackOpsProductRequest) SetSolutionId(v string) *RollbackOpsProductRequest {
+	s.SolutionId = &v
+	return s
+}
+
+func (s *RollbackOpsProductRequest) SetProdCode(v string) *RollbackOpsProductRequest {
+	s.ProdCode = &v
+	return s
+}
+
+func (s *RollbackOpsProductRequest) SetProdSnapshotVersion(v string) *RollbackOpsProductRequest {
+	s.ProdSnapshotVersion = &v
+	return s
+}
+
+func (s *RollbackOpsProductRequest) SetGroupStrategy(v string) *RollbackOpsProductRequest {
+	s.GroupStrategy = &v
+	return s
+}
+
+func (s *RollbackOpsProductRequest) SetUnitInstanceId(v string) *RollbackOpsProductRequest {
+	s.UnitInstanceId = &v
+	return s
+}
+
+func (s *RollbackOpsProductRequest) SetSubmitterId(v string) *RollbackOpsProductRequest {
+	s.SubmitterId = &v
+	return s
+}
+
+type RollbackOpsProductResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 回滚发布单id
+	OpsPlanId *string `json:"ops_plan_id,omitempty" xml:"ops_plan_id,omitempty"`
+}
+
+func (s RollbackOpsProductResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RollbackOpsProductResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RollbackOpsProductResponse) SetReqMsgId(v string) *RollbackOpsProductResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RollbackOpsProductResponse) SetResultCode(v string) *RollbackOpsProductResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RollbackOpsProductResponse) SetResultMsg(v string) *RollbackOpsProductResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RollbackOpsProductResponse) SetOpsPlanId(v string) *RollbackOpsProductResponse {
+	s.OpsPlanId = &v
+	return s
+}
+
+type QueryClusterNativepodRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 环境id
+	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty" require:"true"`
+	// 产品码--应用名
+	ProductApp *string `json:"product_app,omitempty" xml:"product_app,omitempty"`
+	// 租户信息
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+}
+
+func (s QueryClusterNativepodRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryClusterNativepodRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryClusterNativepodRequest) SetAuthToken(v string) *QueryClusterNativepodRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryClusterNativepodRequest) SetProductInstanceId(v string) *QueryClusterNativepodRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryClusterNativepodRequest) SetEnvId(v string) *QueryClusterNativepodRequest {
+	s.EnvId = &v
+	return s
+}
+
+func (s *QueryClusterNativepodRequest) SetProductApp(v string) *QueryClusterNativepodRequest {
+	s.ProductApp = &v
+	return s
+}
+
+func (s *QueryClusterNativepodRequest) SetTenantId(v string) *QueryClusterNativepodRequest {
+	s.TenantId = &v
+	return s
+}
+
+type QueryClusterNativepodResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// Pod信息
+	PodInfos []*PodInfo `json:"pod_infos,omitempty" xml:"pod_infos,omitempty" type:"Repeated"`
+}
+
+func (s QueryClusterNativepodResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryClusterNativepodResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryClusterNativepodResponse) SetReqMsgId(v string) *QueryClusterNativepodResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryClusterNativepodResponse) SetResultCode(v string) *QueryClusterNativepodResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryClusterNativepodResponse) SetResultMsg(v string) *QueryClusterNativepodResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryClusterNativepodResponse) SetPodInfos(v []*PodInfo) *QueryClusterNativepodResponse {
+	s.PodInfos = v
+	return s
+}
+
+type PagequeryBaselineAppcontainersRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 环境ID
+	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty" require:"true"`
+	// 产品码
+	ProdCode *string `json:"prod_code,omitempty" xml:"prod_code,omitempty" require:"true"`
+	// 应用名数组，没传则查询改产品下的所有参数
+	Apps []*string `json:"apps,omitempty" xml:"apps,omitempty" type:"Repeated"`
+	// 部署单元实例id。默认值为default
+	DeploymentUnitInstanceIdentities []*string `json:"deployment_unit_instance_identities,omitempty" xml:"deployment_unit_instance_identities,omitempty" type:"Repeated"`
+	// 页大小，默认每页12
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 第几页，默认返回第一页
+	//
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
+}
+
+func (s PagequeryBaselineAppcontainersRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryBaselineAppcontainersRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryBaselineAppcontainersRequest) SetAuthToken(v string) *PagequeryBaselineAppcontainersRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryBaselineAppcontainersRequest) SetProductInstanceId(v string) *PagequeryBaselineAppcontainersRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryBaselineAppcontainersRequest) SetEnvId(v string) *PagequeryBaselineAppcontainersRequest {
+	s.EnvId = &v
+	return s
+}
+
+func (s *PagequeryBaselineAppcontainersRequest) SetProdCode(v string) *PagequeryBaselineAppcontainersRequest {
+	s.ProdCode = &v
+	return s
+}
+
+func (s *PagequeryBaselineAppcontainersRequest) SetApps(v []*string) *PagequeryBaselineAppcontainersRequest {
+	s.Apps = v
+	return s
+}
+
+func (s *PagequeryBaselineAppcontainersRequest) SetDeploymentUnitInstanceIdentities(v []*string) *PagequeryBaselineAppcontainersRequest {
+	s.DeploymentUnitInstanceIdentities = v
+	return s
+}
+
+func (s *PagequeryBaselineAppcontainersRequest) SetPageSize(v int64) *PagequeryBaselineAppcontainersRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryBaselineAppcontainersRequest) SetCurrentPage(v int64) *PagequeryBaselineAppcontainersRequest {
+	s.CurrentPage = &v
+	return s
+}
+
+type PagequeryBaselineAppcontainersResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 分页查询中的总数目
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 每页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 当前页码
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
+	// 基线应用容器列表
+	Containers []*Container `json:"containers,omitempty" xml:"containers,omitempty" type:"Repeated"`
+}
+
+func (s PagequeryBaselineAppcontainersResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryBaselineAppcontainersResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryBaselineAppcontainersResponse) SetReqMsgId(v string) *PagequeryBaselineAppcontainersResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryBaselineAppcontainersResponse) SetResultCode(v string) *PagequeryBaselineAppcontainersResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryBaselineAppcontainersResponse) SetResultMsg(v string) *PagequeryBaselineAppcontainersResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryBaselineAppcontainersResponse) SetTotalCount(v int64) *PagequeryBaselineAppcontainersResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *PagequeryBaselineAppcontainersResponse) SetPageSize(v int64) *PagequeryBaselineAppcontainersResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryBaselineAppcontainersResponse) SetCurrentPage(v int64) *PagequeryBaselineAppcontainersResponse {
+	s.CurrentPage = &v
+	return s
+}
+
+func (s *PagequeryBaselineAppcontainersResponse) SetContainers(v []*Container) *PagequeryBaselineAppcontainersResponse {
+	s.Containers = v
+	return s
+}
+
+type PagequeryRollbackSnapshotversionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 环境Id
+	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty" require:"true"`
+	// 产品码
+	ProdCode *string `json:"prod_code,omitempty" xml:"prod_code,omitempty" require:"true"`
+	// 每页大小，默认12
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 当前页码。默认第一页
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
+}
+
+func (s PagequeryRollbackSnapshotversionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryRollbackSnapshotversionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryRollbackSnapshotversionRequest) SetAuthToken(v string) *PagequeryRollbackSnapshotversionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryRollbackSnapshotversionRequest) SetProductInstanceId(v string) *PagequeryRollbackSnapshotversionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryRollbackSnapshotversionRequest) SetEnvId(v string) *PagequeryRollbackSnapshotversionRequest {
+	s.EnvId = &v
+	return s
+}
+
+func (s *PagequeryRollbackSnapshotversionRequest) SetProdCode(v string) *PagequeryRollbackSnapshotversionRequest {
+	s.ProdCode = &v
+	return s
+}
+
+func (s *PagequeryRollbackSnapshotversionRequest) SetPageSize(v int64) *PagequeryRollbackSnapshotversionRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryRollbackSnapshotversionRequest) SetCurrentPage(v int64) *PagequeryRollbackSnapshotversionRequest {
+	s.CurrentPage = &v
+	return s
+}
+
+type PagequeryRollbackSnapshotversionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 当前页
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
+	// 共有多少天记录
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 快照版本
+	DeploymentUnitSnapshots []*DeploymentUnitSnapshotOP `json:"deployment_unit_snapshots,omitempty" xml:"deployment_unit_snapshots,omitempty" type:"Repeated"`
+}
+
+func (s PagequeryRollbackSnapshotversionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryRollbackSnapshotversionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryRollbackSnapshotversionResponse) SetReqMsgId(v string) *PagequeryRollbackSnapshotversionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryRollbackSnapshotversionResponse) SetResultCode(v string) *PagequeryRollbackSnapshotversionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryRollbackSnapshotversionResponse) SetResultMsg(v string) *PagequeryRollbackSnapshotversionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryRollbackSnapshotversionResponse) SetPageSize(v int64) *PagequeryRollbackSnapshotversionResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryRollbackSnapshotversionResponse) SetCurrentPage(v int64) *PagequeryRollbackSnapshotversionResponse {
+	s.CurrentPage = &v
+	return s
+}
+
+func (s *PagequeryRollbackSnapshotversionResponse) SetTotalCount(v int64) *PagequeryRollbackSnapshotversionResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *PagequeryRollbackSnapshotversionResponse) SetDeploymentUnitSnapshots(v []*DeploymentUnitSnapshotOP) *PagequeryRollbackSnapshotversionResponse {
+	s.DeploymentUnitSnapshots = v
 	return s
 }
 
@@ -6523,7 +7669,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("3.12.4"),
+				"sdk_version":      tea.String("3.14.14"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -6844,8 +7990,8 @@ func (client *Client) QueryProdinstanceEx(request *QueryProdinstanceRequest, hea
 }
 
 /**
- * Description: 卸载应用服务实例。
- * Summary: 卸载应用服务实例。
+ * Description: 卸载基线产品实例
+ * Summary: 卸载基线产品实例
  */
 func (client *Client) UninstallProdinstanceAppservice(request *UninstallProdinstanceAppserviceRequest) (_result *UninstallProdinstanceAppserviceResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -6860,8 +8006,8 @@ func (client *Client) UninstallProdinstanceAppservice(request *UninstallProdinst
 }
 
 /**
- * Description: 卸载应用服务实例。
- * Summary: 卸载应用服务实例。
+ * Description: 卸载基线产品实例
+ * Summary: 卸载基线产品实例
  */
 func (client *Client) UninstallProdinstanceAppserviceEx(request *UninstallProdinstanceAppserviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UninstallProdinstanceAppserviceResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -8106,14 +9252,14 @@ func (client *Client) ConfirmSolutionPlanEx(request *ConfirmSolutionPlanRequest,
 }
 
 /**
- * Description: 解决方案应用previewtask查询
- * Summary: 解决方案应用previewtask查询
+ * Description: 解决方案是否完成规划
+ * Summary: 解决方案是否完成规划
  */
-func (client *Client) QuerySolutionPreviewtask(request *QuerySolutionPreviewtaskRequest) (_result *QuerySolutionPreviewtaskResponse, _err error) {
+func (client *Client) GetSolutionPlanstatus(request *GetSolutionPlanstatusRequest) (_result *GetSolutionPlanstatusResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QuerySolutionPreviewtaskResponse{}
-	_body, _err := client.QuerySolutionPreviewtaskEx(request, headers, runtime)
+	_result = &GetSolutionPlanstatusResponse{}
+	_body, _err := client.GetSolutionPlanstatusEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -8122,16 +9268,254 @@ func (client *Client) QuerySolutionPreviewtask(request *QuerySolutionPreviewtask
 }
 
 /**
- * Description: 解决方案应用previewtask查询
- * Summary: 解决方案应用previewtask查询
+ * Description: 解决方案是否完成规划
+ * Summary: 解决方案是否完成规划
  */
-func (client *Client) QuerySolutionPreviewtaskEx(request *QuerySolutionPreviewtaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySolutionPreviewtaskResponse, _err error) {
+func (client *Client) GetSolutionPlanstatusEx(request *GetSolutionPlanstatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetSolutionPlanstatusResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QuerySolutionPreviewtaskResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("yunyou.yunqing.solution.previewtask.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &GetSolutionPlanstatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("yunyou.yunqing.solution.planstatus.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询迭代详情
+ * Summary: 分页查询迭代详情
+ */
+func (client *Client) PagequeryProditeration(request *PagequeryProditerationRequest) (_result *PagequeryProditerationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryProditerationResponse{}
+	_body, _err := client.PagequeryProditerationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询迭代详情
+ * Summary: 分页查询迭代详情
+ */
+func (client *Client) PagequeryProditerationEx(request *PagequeryProditerationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryProditerationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryProditerationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("yunyou.yunqing.proditeration.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 部署单元批量创建
+ * Summary: 部署单元批量创建
+ */
+func (client *Client) CreateProdinstanceDeployunitbatch(request *CreateProdinstanceDeployunitbatchRequest) (_result *CreateProdinstanceDeployunitbatchResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateProdinstanceDeployunitbatchResponse{}
+	_body, _err := client.CreateProdinstanceDeployunitbatchEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 部署单元批量创建
+ * Summary: 部署单元批量创建
+ */
+func (client *Client) CreateProdinstanceDeployunitbatchEx(request *CreateProdinstanceDeployunitbatchRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateProdinstanceDeployunitbatchResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateProdinstanceDeployunitbatchResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("yunyou.yunqing.prodinstance.deployunitbatch.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 发布单应用回滚
+ * Summary: 发布单应用回滚
+ */
+func (client *Client) RollbackOpsApp(request *RollbackOpsAppRequest) (_result *RollbackOpsAppResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RollbackOpsAppResponse{}
+	_body, _err := client.RollbackOpsAppEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发布单应用回滚
+ * Summary: 发布单应用回滚
+ */
+func (client *Client) RollbackOpsAppEx(request *RollbackOpsAppRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RollbackOpsAppResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RollbackOpsAppResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("yunyou.yunqing.ops.app.rollback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 发布单产品回滚
+ * Summary: 发布单产品回滚
+ */
+func (client *Client) RollbackOpsProduct(request *RollbackOpsProductRequest) (_result *RollbackOpsProductResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RollbackOpsProductResponse{}
+	_body, _err := client.RollbackOpsProductEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发布单产品回滚
+ * Summary: 发布单产品回滚
+ */
+func (client *Client) RollbackOpsProductEx(request *RollbackOpsProductRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RollbackOpsProductResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RollbackOpsProductResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("yunyou.yunqing.ops.product.rollback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 直接查询集群的pod信息，不是查询云游的基线！
+ * Summary: 查询集群pod信息
+ */
+func (client *Client) QueryClusterNativepod(request *QueryClusterNativepodRequest) (_result *QueryClusterNativepodResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryClusterNativepodResponse{}
+	_body, _err := client.QueryClusterNativepodEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 直接查询集群的pod信息，不是查询云游的基线！
+ * Summary: 查询集群pod信息
+ */
+func (client *Client) QueryClusterNativepodEx(request *QueryClusterNativepodRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryClusterNativepodResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryClusterNativepodResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("yunyou.yunqing.cluster.nativepod.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询基线应用容器
+ * Summary: 查询基线应用容器
+ */
+func (client *Client) PagequeryBaselineAppcontainers(request *PagequeryBaselineAppcontainersRequest) (_result *PagequeryBaselineAppcontainersResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryBaselineAppcontainersResponse{}
+	_body, _err := client.PagequeryBaselineAppcontainersEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询基线应用容器
+ * Summary: 查询基线应用容器
+ */
+func (client *Client) PagequeryBaselineAppcontainersEx(request *PagequeryBaselineAppcontainersRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryBaselineAppcontainersResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryBaselineAppcontainersResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("yunyou.yunqing.baseline.appcontainers.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 回滚快照查询
+ * Summary: 回滚快照查询
+ */
+func (client *Client) PagequeryRollbackSnapshotversion(request *PagequeryRollbackSnapshotversionRequest) (_result *PagequeryRollbackSnapshotversionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryRollbackSnapshotversionResponse{}
+	_body, _err := client.PagequeryRollbackSnapshotversionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 回滚快照查询
+ * Summary: 回滚快照查询
+ */
+func (client *Client) PagequeryRollbackSnapshotversionEx(request *PagequeryRollbackSnapshotversionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryRollbackSnapshotversionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryRollbackSnapshotversionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("yunyou.yunqing.rollback.snapshotversion.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
