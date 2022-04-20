@@ -47,6 +47,14 @@ public class QueryProdinstanceAppserviceRequest extends TeaModel {
     @NameInMap("product_group")
     public String productGroup;
 
+    // 产品码--应用名
+    @NameInMap("product_app")
+    public String productApp;
+
+    // 租户信息当前值为mock
+    @NameInMap("tenant_id")
+    public String tenantId;
+
     public static QueryProdinstanceAppserviceRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryProdinstanceAppserviceRequest self = new QueryProdinstanceAppserviceRequest();
         return TeaModel.build(map, self);
@@ -138,6 +146,22 @@ public class QueryProdinstanceAppserviceRequest extends TeaModel {
     }
     public String getProductGroup() {
         return this.productGroup;
+    }
+
+    public QueryProdinstanceAppserviceRequest setProductApp(String productApp) {
+        this.productApp = productApp;
+        return this;
+    }
+    public String getProductApp() {
+        return this.productApp;
+    }
+
+    public QueryProdinstanceAppserviceRequest setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
     }
 
 }

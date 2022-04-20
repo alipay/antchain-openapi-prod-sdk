@@ -40,6 +40,20 @@ public class PodInfo extends TeaModel {
     @NameInMap("status")
     public String status;
 
+    // 产品码--应用名
+    @NameInMap("product_app")
+    public String productApp;
+
+    // 租户信息
+    // 
+    @NameInMap("tenant_id")
+    public String tenantId;
+
+    // 环境信息
+    // 
+    @NameInMap("env_id")
+    public String envId;
+
     public static PodInfo build(java.util.Map<String, ?> map) throws Exception {
         PodInfo self = new PodInfo();
         return TeaModel.build(map, self);
@@ -107,6 +121,30 @@ public class PodInfo extends TeaModel {
     }
     public String getStatus() {
         return this.status;
+    }
+
+    public PodInfo setProductApp(String productApp) {
+        this.productApp = productApp;
+        return this;
+    }
+    public String getProductApp() {
+        return this.productApp;
+    }
+
+    public PodInfo setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
+    }
+
+    public PodInfo setEnvId(String envId) {
+        this.envId = envId;
+        return this;
+    }
+    public String getEnvId() {
+        return this.envId;
     }
 
 }

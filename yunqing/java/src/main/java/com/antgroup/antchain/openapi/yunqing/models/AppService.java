@@ -44,6 +44,30 @@ public class AppService extends TeaModel {
     @NameInMap("app_type")
     public String appType;
 
+    // 应用显示名称，云游资产使用
+    @NameInMap("app_display_name")
+    public String appDisplayName;
+
+    // 应用等级，云游资产使用
+    @NameInMap("app_level")
+    public String appLevel;
+
+    // 租户信息，云游资产使用。
+    @NameInMap("tenant_id")
+    public String tenantId;
+
+    // 产品码--应用名
+    @NameInMap("product_app")
+    public String productApp;
+
+    // 产品Owner
+    @NameInMap("owner")
+    public Owner owner;
+
+    // 应用SRE信息
+    @NameInMap("admin")
+    public Admin admin;
+
     public static AppService build(java.util.Map<String, ?> map) throws Exception {
         AppService self = new AppService();
         return TeaModel.build(map, self);
@@ -127,6 +151,54 @@ public class AppService extends TeaModel {
     }
     public String getAppType() {
         return this.appType;
+    }
+
+    public AppService setAppDisplayName(String appDisplayName) {
+        this.appDisplayName = appDisplayName;
+        return this;
+    }
+    public String getAppDisplayName() {
+        return this.appDisplayName;
+    }
+
+    public AppService setAppLevel(String appLevel) {
+        this.appLevel = appLevel;
+        return this;
+    }
+    public String getAppLevel() {
+        return this.appLevel;
+    }
+
+    public AppService setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
+    }
+
+    public AppService setProductApp(String productApp) {
+        this.productApp = productApp;
+        return this;
+    }
+    public String getProductApp() {
+        return this.productApp;
+    }
+
+    public AppService setOwner(Owner owner) {
+        this.owner = owner;
+        return this;
+    }
+    public Owner getOwner() {
+        return this.owner;
+    }
+
+    public AppService setAdmin(Admin admin) {
+        this.admin = admin;
+        return this;
+    }
+    public Admin getAdmin() {
+        return this.admin;
     }
 
 }

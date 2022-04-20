@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.yunqing.models;
 
 import com.aliyun.tea.*;
 
-public class QuerySolutionPreviewtaskRequest extends TeaModel {
+public class GetSolutionPlanstatusRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -16,12 +16,12 @@ public class QuerySolutionPreviewtaskRequest extends TeaModel {
     @Validation(required = true)
     public String solutionId;
 
-    public static QuerySolutionPreviewtaskRequest build(java.util.Map<String, ?> map) throws Exception {
-        QuerySolutionPreviewtaskRequest self = new QuerySolutionPreviewtaskRequest();
+    public static GetSolutionPlanstatusRequest build(java.util.Map<String, ?> map) throws Exception {
+        GetSolutionPlanstatusRequest self = new GetSolutionPlanstatusRequest();
         return TeaModel.build(map, self);
     }
 
-    public QuerySolutionPreviewtaskRequest setAuthToken(String authToken) {
+    public GetSolutionPlanstatusRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class QuerySolutionPreviewtaskRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QuerySolutionPreviewtaskRequest setProductInstanceId(String productInstanceId) {
+    public GetSolutionPlanstatusRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,7 +37,7 @@ public class QuerySolutionPreviewtaskRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QuerySolutionPreviewtaskRequest setSolutionId(String solutionId) {
+    public GetSolutionPlanstatusRequest setSolutionId(String solutionId) {
         this.solutionId = solutionId;
         return this;
     }

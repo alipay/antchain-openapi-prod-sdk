@@ -35,6 +35,11 @@ public class CreateProdinstanceDeployunitRequest extends TeaModel {
     @Validation(required = true)
     public String cellId;
 
+    // 逻辑部署单元实例id
+    @NameInMap("logical_instance_id")
+    @Validation(required = true)
+    public String logicalInstanceId;
+
     public static CreateProdinstanceDeployunitRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateProdinstanceDeployunitRequest self = new CreateProdinstanceDeployunitRequest();
         return TeaModel.build(map, self);
@@ -94,6 +99,14 @@ public class CreateProdinstanceDeployunitRequest extends TeaModel {
     }
     public String getCellId() {
         return this.cellId;
+    }
+
+    public CreateProdinstanceDeployunitRequest setLogicalInstanceId(String logicalInstanceId) {
+        this.logicalInstanceId = logicalInstanceId;
+        return this;
+    }
+    public String getLogicalInstanceId() {
+        return this.logicalInstanceId;
     }
 
 }

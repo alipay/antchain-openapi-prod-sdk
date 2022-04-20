@@ -39,6 +39,14 @@ public class CreateAppopsRequest extends TeaModel {
     @Validation(required = true)
     public String cellId;
 
+    // 操作人ID
+    @NameInMap("submitter_id")
+    public String submitterId;
+
+    // 应用容器分组策略，默认取SYSTEM_RECOMMENDATION
+    @NameInMap("group_strategy")
+    public String groupStrategy;
+
     public static CreateAppopsRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateAppopsRequest self = new CreateAppopsRequest();
         return TeaModel.build(map, self);
@@ -106,6 +114,22 @@ public class CreateAppopsRequest extends TeaModel {
     }
     public String getCellId() {
         return this.cellId;
+    }
+
+    public CreateAppopsRequest setSubmitterId(String submitterId) {
+        this.submitterId = submitterId;
+        return this;
+    }
+    public String getSubmitterId() {
+        return this.submitterId;
+    }
+
+    public CreateAppopsRequest setGroupStrategy(String groupStrategy) {
+        this.groupStrategy = groupStrategy;
+        return this;
+    }
+    public String getGroupStrategy() {
+        return this.groupStrategy;
     }
 
 }

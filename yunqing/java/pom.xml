@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-yunqing</artifactId>
-  <version>3.12.4</version>
+  <version>3.14.14</version>
   <packaging>jar</packaging>
   <name>openapi-yunqing</name>
   <description>Ant Chain YUNQING SDK for Java

@@ -26,10 +26,15 @@ public class UninstallProdinstanceDeployunitRequest extends TeaModel {
     @Validation(required = true)
     public String productCode;
 
-    // 单元实例ID
+    // 部署单元实例标识
     @NameInMap("unit_instance_id")
     @Validation(required = true)
     public String unitInstanceId;
+
+    // 操作人ID
+    @NameInMap("submitter_id")
+    @Validation(required = true)
+    public String submitterId;
 
     public static UninstallProdinstanceDeployunitRequest build(java.util.Map<String, ?> map) throws Exception {
         UninstallProdinstanceDeployunitRequest self = new UninstallProdinstanceDeployunitRequest();
@@ -82,6 +87,14 @@ public class UninstallProdinstanceDeployunitRequest extends TeaModel {
     }
     public String getUnitInstanceId() {
         return this.unitInstanceId;
+    }
+
+    public UninstallProdinstanceDeployunitRequest setSubmitterId(String submitterId) {
+        this.submitterId = submitterId;
+        return this;
+    }
+    public String getSubmitterId() {
+        return this.submitterId;
     }
 
 }

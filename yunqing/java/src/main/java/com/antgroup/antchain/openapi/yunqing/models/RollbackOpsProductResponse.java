@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.yunqing.models;
 
 import com.aliyun.tea.*;
 
-public class QuerySolutionPreviewtaskResponse extends TeaModel {
+public class RollbackOpsProductResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class QuerySolutionPreviewtaskResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 产品预览任务查询
-    @NameInMap("prod_preview_tasks")
-    public java.util.List<ProdPreviewTasks> prodPreviewTasks;
+    // 回滚发布单id
+    @NameInMap("ops_plan_id")
+    public String opsPlanId;
 
-    public static QuerySolutionPreviewtaskResponse build(java.util.Map<String, ?> map) throws Exception {
-        QuerySolutionPreviewtaskResponse self = new QuerySolutionPreviewtaskResponse();
+    public static RollbackOpsProductResponse build(java.util.Map<String, ?> map) throws Exception {
+        RollbackOpsProductResponse self = new RollbackOpsProductResponse();
         return TeaModel.build(map, self);
     }
 
-    public QuerySolutionPreviewtaskResponse setReqMsgId(String reqMsgId) {
+    public RollbackOpsProductResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QuerySolutionPreviewtaskResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QuerySolutionPreviewtaskResponse setResultCode(String resultCode) {
+    public RollbackOpsProductResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QuerySolutionPreviewtaskResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QuerySolutionPreviewtaskResponse setResultMsg(String resultMsg) {
+    public RollbackOpsProductResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class QuerySolutionPreviewtaskResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QuerySolutionPreviewtaskResponse setProdPreviewTasks(java.util.List<ProdPreviewTasks> prodPreviewTasks) {
-        this.prodPreviewTasks = prodPreviewTasks;
+    public RollbackOpsProductResponse setOpsPlanId(String opsPlanId) {
+        this.opsPlanId = opsPlanId;
         return this;
     }
-    public java.util.List<ProdPreviewTasks> getProdPreviewTasks() {
-        return this.prodPreviewTasks;
+    public String getOpsPlanId() {
+        return this.opsPlanId;
     }
 
 }

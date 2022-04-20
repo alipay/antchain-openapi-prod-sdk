@@ -36,6 +36,18 @@ public class CreateAppdeployRequest extends TeaModel {
     @Validation(required = true)
     public Boolean force;
 
+    // 是否需要手动的确认
+    @NameInMap("need_beta")
+    public Boolean needBeta;
+
+    // TWO_GROUP分两组ALL_ONE共分一组无灰生产禁用EACH_ONE每台一组SYSTEM_RECOMMENDATION系统推荐
+    @NameInMap("group_strategy")
+    public String groupStrategy;
+
+    // 操作人ID
+    @NameInMap("submitter_id")
+    public String submitterId;
+
     public static CreateAppdeployRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateAppdeployRequest self = new CreateAppdeployRequest();
         return TeaModel.build(map, self);
@@ -95,6 +107,30 @@ public class CreateAppdeployRequest extends TeaModel {
     }
     public Boolean getForce() {
         return this.force;
+    }
+
+    public CreateAppdeployRequest setNeedBeta(Boolean needBeta) {
+        this.needBeta = needBeta;
+        return this;
+    }
+    public Boolean getNeedBeta() {
+        return this.needBeta;
+    }
+
+    public CreateAppdeployRequest setGroupStrategy(String groupStrategy) {
+        this.groupStrategy = groupStrategy;
+        return this;
+    }
+    public String getGroupStrategy() {
+        return this.groupStrategy;
+    }
+
+    public CreateAppdeployRequest setSubmitterId(String submitterId) {
+        this.submitterId = submitterId;
+        return this;
+    }
+    public String getSubmitterId() {
+        return this.submitterId;
     }
 
 }

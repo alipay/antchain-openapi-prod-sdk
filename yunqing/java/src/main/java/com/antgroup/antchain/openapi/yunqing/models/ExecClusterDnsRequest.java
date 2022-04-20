@@ -31,6 +31,12 @@ public class ExecClusterDnsRequest extends TeaModel {
     @Validation(required = true)
     public String opsAction;
 
+    // 需要调用的adns所对应环境。
+    // 例如A、B环境，A环境宕机了，此时需要调用B机房的adns进行A机房的环境域名解绑操作。
+    // 如果不填，默认与env_id一致。
+    @NameInMap("operation_env_id")
+    public String operationEnvId;
+
     public static ExecClusterDnsRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecClusterDnsRequest self = new ExecClusterDnsRequest();
         return TeaModel.build(map, self);
@@ -82,6 +88,14 @@ public class ExecClusterDnsRequest extends TeaModel {
     }
     public String getOpsAction() {
         return this.opsAction;
+    }
+
+    public ExecClusterDnsRequest setOperationEnvId(String operationEnvId) {
+        this.operationEnvId = operationEnvId;
+        return this;
+    }
+    public String getOperationEnvId() {
+        return this.operationEnvId;
     }
 
 }

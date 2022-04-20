@@ -21,6 +21,14 @@ public class ScaleoutProdinstanceAppserviceRequest extends TeaModel {
     @Validation(required = true)
     public Long targetNum;
 
+    // 操作人
+    @NameInMap("submitter_id")
+    public String submitterId;
+
+    // 容器分组策略，默认SYSTEM_RECOMMENDATION
+    @NameInMap("group_strategy")
+    public String groupStrategy;
+
     public static ScaleoutProdinstanceAppserviceRequest build(java.util.Map<String, ?> map) throws Exception {
         ScaleoutProdinstanceAppserviceRequest self = new ScaleoutProdinstanceAppserviceRequest();
         return TeaModel.build(map, self);
@@ -56,6 +64,22 @@ public class ScaleoutProdinstanceAppserviceRequest extends TeaModel {
     }
     public Long getTargetNum() {
         return this.targetNum;
+    }
+
+    public ScaleoutProdinstanceAppserviceRequest setSubmitterId(String submitterId) {
+        this.submitterId = submitterId;
+        return this;
+    }
+    public String getSubmitterId() {
+        return this.submitterId;
+    }
+
+    public ScaleoutProdinstanceAppserviceRequest setGroupStrategy(String groupStrategy) {
+        this.groupStrategy = groupStrategy;
+        return this;
+    }
+    public String getGroupStrategy() {
+        return this.groupStrategy;
     }
 
 }
