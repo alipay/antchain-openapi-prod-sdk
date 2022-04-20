@@ -441,11 +441,11 @@ export class YuqingMessage extends $tea.Model {
 // 查询结构体
 export class SearchCondition extends $tea.Model {
   // 搭配词
-  assKeywords?: string;
+  assKeywordList?: string[];
   // 被@的用户名称
-  atAuthorName?: string;
+  atAuthorNameList?: string[];
   // 作者名称
-  authorName?: string;
+  authorNameList?: string[];
   // 评论级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
   commentsLevel?: number;
   // 内容长度级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
@@ -457,7 +457,7 @@ export class SearchCondition extends $tea.Model {
   // 文章签名
   docContentSign?: string;
   // 舆情文章唯一docId
-  docId?: string;
+  docIdList?: string[];
   // 是否去重
   duplicateRemoval?: boolean;
   // 情感类型，1非负，-1负面
@@ -465,45 +465,43 @@ export class SearchCondition extends $tea.Model {
   // 是否高亮关键词
   enableKeywordHighlight?: boolean;
   // 排除被@的用户名称
-  excludeAtAuthorName?: string;
+  excludeAtAuthorNameList?: string[];
   // 排除作者名称
-  excludeAuthorName?: string;
+  excludeAuthorNameList?: string[];
   // 排除网站域名
-  excludeHostName?: string;
+  excludeHostNameList?: string[];
   // 排除关键词标签Id列表
-  excludeKeywordTagIds?: string;
+  excludeKeywordTagIds?: number[];
   // 排除词
-  excludeKeywords?: string;
+  excludeKeywordList?: string[];
   // 标题排除词
-  excludeKeywordsInTitle?: string;
+  excludeKeywordListInTitle?: string[];
   // 排除媒体库id列表
-  excludeMediaLibraryIds?: string;
+  excludeMediaLibraryIdList?: number[];
   // 排除媒体名称
-  excludeMediaName?: string;
+  excludeMediaNameList?: string[];
   // 排除媒体类型，枚举值
-  excludeMediaType?: string;
+  excludeMediaTypeList?: string[];
   // 排除消息类型，枚举值
-  excludeMessageType?: string;
-  // 其他过滤条件
-  fieldConditions?: string;
+  excludeMessageTypeList?: string[];
   // 文章是否含有图片
   hasImage?: boolean;
   // 是否含有视频
   hasVideo?: boolean;
   // 网站域名
-  hostName?: string;
+  hostNameList?: string[];
   // 关键词标签Id列表
-  keywordTagIds?: string;
+  keywordTagIds?: number[];
   // 点赞级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
   likesLevel?: number;
   // 媒体库id列表
-  mediaLibraryIds?: string;
+  mediaLibraryIdList?: number[];
   // 媒体名称
-  mediaName?: string;
+  mediaNameList?: string[];
   // 体类型，枚举值
-  mediaType?: string;
+  mediaTypeList?: string[];
   // 消息类型，枚举值
-  messageType?: string;
+  messageTypeList?: string[];
   // 当前页
   pageNow?: number;
   // 页大小
@@ -511,9 +509,9 @@ export class SearchCondition extends $tea.Model {
   // 舆情父文章的docId，一般用于查看某篇文章的评论
   parentDocId?: string;
   // 关键词
-  posKeywords?: string;
+  posKeywordList?: string[];
   // 标题关键词
-  posKeywordsInTitle?: string;
+  posKeywordListInTitle?: string[];
   // 截止发布时间
   publishTimeEnd?: number;
   // 起始发布时间
@@ -529,50 +527,49 @@ export class SearchCondition extends $tea.Model {
   // 指定正反向排序
   sortByDirection?: string;
   // #话题
-  topics?: string;
+  topicList?: string[];
   // 舆情文章截止更新时间
   updateTimeEnd?: number;
   // 舆情文章起始更新时间
   updateTimeStart?: number;
   static names(): { [key: string]: string } {
     return {
-      assKeywords: 'ass_keywords',
-      atAuthorName: 'at_author_name',
-      authorName: 'author_name',
+      assKeywordList: 'ass_keyword_list',
+      atAuthorNameList: 'at_author_name_list',
+      authorNameList: 'author_name_list',
       commentsLevel: 'comments_level',
       contentLenLevel: 'content_len_level',
       createTimeEnd: 'create_time_end',
       createTimeStart: 'create_time_start',
       docContentSign: 'doc_content_sign',
-      docId: 'doc_id',
+      docIdList: 'doc_id_list',
       duplicateRemoval: 'duplicate_removal',
       emotionType: 'emotion_type',
       enableKeywordHighlight: 'enable_keyword_highlight',
-      excludeAtAuthorName: 'exclude_at_author_name',
-      excludeAuthorName: 'exclude_author_name',
-      excludeHostName: 'exclude_host_name',
+      excludeAtAuthorNameList: 'exclude_at_author_name_list',
+      excludeAuthorNameList: 'exclude_author_name_list',
+      excludeHostNameList: 'exclude_host_name_list',
       excludeKeywordTagIds: 'exclude_keyword_tag_ids',
-      excludeKeywords: 'exclude_keywords',
-      excludeKeywordsInTitle: 'exclude_keywords_in_title',
-      excludeMediaLibraryIds: 'exclude_media_library_ids',
-      excludeMediaName: 'exclude_media_name',
-      excludeMediaType: 'exclude_media_type',
-      excludeMessageType: 'exclude_message_type',
-      fieldConditions: 'field_conditions',
+      excludeKeywordList: 'exclude_keyword_list',
+      excludeKeywordListInTitle: 'exclude_keyword_list_in_title',
+      excludeMediaLibraryIdList: 'exclude_media_library_id_list',
+      excludeMediaNameList: 'exclude_media_name_list',
+      excludeMediaTypeList: 'exclude_media_type_list',
+      excludeMessageTypeList: 'exclude_message_type_list',
       hasImage: 'has_image',
       hasVideo: 'has_video',
-      hostName: 'host_name',
+      hostNameList: 'host_name_list',
       keywordTagIds: 'keyword_tag_ids',
       likesLevel: 'likes_level',
-      mediaLibraryIds: 'media_library_ids',
-      mediaName: 'media_name',
-      mediaType: 'media_type',
-      messageType: 'message_type',
+      mediaLibraryIdList: 'media_library_id_list',
+      mediaNameList: 'media_name_list',
+      mediaTypeList: 'media_type_list',
+      messageTypeList: 'message_type_list',
       pageNow: 'page_now',
       pageSize: 'page_size',
       parentDocId: 'parent_doc_id',
-      posKeywords: 'pos_keywords',
-      posKeywordsInTitle: 'pos_keywords_in_title',
+      posKeywordList: 'pos_keyword_list',
+      posKeywordListInTitle: 'pos_keyword_list_in_title',
       publishTimeEnd: 'publish_time_end',
       publishTimeStart: 'publish_time_start',
       readsLevel: 'reads_level',
@@ -580,7 +577,7 @@ export class SearchCondition extends $tea.Model {
       repostLevel: 'repost_level',
       sortBy: 'sort_by',
       sortByDirection: 'sort_by_direction',
-      topics: 'topics',
+      topicList: 'topic_list',
       updateTimeEnd: 'update_time_end',
       updateTimeStart: 'update_time_start',
     };
@@ -588,43 +585,42 @@ export class SearchCondition extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
-      assKeywords: 'string',
-      atAuthorName: 'string',
-      authorName: 'string',
+      assKeywordList: { 'type': 'array', 'itemType': 'string' },
+      atAuthorNameList: { 'type': 'array', 'itemType': 'string' },
+      authorNameList: { 'type': 'array', 'itemType': 'string' },
       commentsLevel: 'number',
       contentLenLevel: 'string',
       createTimeEnd: 'number',
       createTimeStart: 'number',
       docContentSign: 'string',
-      docId: 'string',
+      docIdList: { 'type': 'array', 'itemType': 'string' },
       duplicateRemoval: 'boolean',
       emotionType: 'number',
       enableKeywordHighlight: 'boolean',
-      excludeAtAuthorName: 'string',
-      excludeAuthorName: 'string',
-      excludeHostName: 'string',
-      excludeKeywordTagIds: 'string',
-      excludeKeywords: 'string',
-      excludeKeywordsInTitle: 'string',
-      excludeMediaLibraryIds: 'string',
-      excludeMediaName: 'string',
-      excludeMediaType: 'string',
-      excludeMessageType: 'string',
-      fieldConditions: 'string',
+      excludeAtAuthorNameList: { 'type': 'array', 'itemType': 'string' },
+      excludeAuthorNameList: { 'type': 'array', 'itemType': 'string' },
+      excludeHostNameList: { 'type': 'array', 'itemType': 'string' },
+      excludeKeywordTagIds: { 'type': 'array', 'itemType': 'number' },
+      excludeKeywordList: { 'type': 'array', 'itemType': 'string' },
+      excludeKeywordListInTitle: { 'type': 'array', 'itemType': 'string' },
+      excludeMediaLibraryIdList: { 'type': 'array', 'itemType': 'number' },
+      excludeMediaNameList: { 'type': 'array', 'itemType': 'string' },
+      excludeMediaTypeList: { 'type': 'array', 'itemType': 'string' },
+      excludeMessageTypeList: { 'type': 'array', 'itemType': 'string' },
       hasImage: 'boolean',
       hasVideo: 'boolean',
-      hostName: 'string',
-      keywordTagIds: 'string',
+      hostNameList: { 'type': 'array', 'itemType': 'string' },
+      keywordTagIds: { 'type': 'array', 'itemType': 'number' },
       likesLevel: 'number',
-      mediaLibraryIds: 'string',
-      mediaName: 'string',
-      mediaType: 'string',
-      messageType: 'string',
+      mediaLibraryIdList: { 'type': 'array', 'itemType': 'number' },
+      mediaNameList: { 'type': 'array', 'itemType': 'string' },
+      mediaTypeList: { 'type': 'array', 'itemType': 'string' },
+      messageTypeList: { 'type': 'array', 'itemType': 'string' },
       pageNow: 'number',
       pageSize: 'number',
       parentDocId: 'string',
-      posKeywords: 'string',
-      posKeywordsInTitle: 'string',
+      posKeywordList: { 'type': 'array', 'itemType': 'string' },
+      posKeywordListInTitle: { 'type': 'array', 'itemType': 'string' },
       publishTimeEnd: 'number',
       publishTimeStart: 'number',
       readsLevel: 'number',
@@ -632,7 +628,7 @@ export class SearchCondition extends $tea.Model {
       repostLevel: 'number',
       sortBy: 'string',
       sortByDirection: 'string',
-      topics: 'string',
+      topicList: { 'type': 'array', 'itemType': 'string' },
       updateTimeEnd: 'number',
       updateTimeStart: 'number',
     };
@@ -774,7 +770,7 @@ export class SaveAnalysisSubmitResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 分析任务ID
-  analysisId?: string;
+  analysisId?: number;
   // 其他
   resultJson?: string;
   static names(): { [key: string]: string } {
@@ -792,7 +788,7 @@ export class SaveAnalysisSubmitResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      analysisId: 'string',
+      analysisId: 'number',
       resultJson: 'string',
     };
   }
@@ -807,7 +803,7 @@ export class QueryAnalysisQueryRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 分析任务ID
-  analysisId: string;
+  analysisId: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -820,7 +816,7 @@ export class QueryAnalysisQueryRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      analysisId: 'string',
+      analysisId: 'number',
     };
   }
 
@@ -837,7 +833,7 @@ export class QueryAnalysisQueryResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 分析任务ID
-  analysisId?: string;
+  analysisId?: number;
   // 分析内容
   resultJson?: string;
   static names(): { [key: string]: string } {
@@ -855,7 +851,7 @@ export class QueryAnalysisQueryResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      analysisId: 'string',
+      analysisId: 'number',
       resultJson: 'string',
     };
   }
@@ -1266,7 +1262,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.10",
+          sdk_version: "1.1.11",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
