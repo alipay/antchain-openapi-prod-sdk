@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.12.4'
+                    'sdk_version': '3.14.14'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.12.4'
+                    'sdk_version': '3.14.14'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -708,8 +708,8 @@ class Client:
         request: yunqing_models.UninstallProdinstanceAppserviceRequest,
     ) -> yunqing_models.UninstallProdinstanceAppserviceResponse:
         """
-        Description: 卸载应用服务实例。
-        Summary: 卸载应用服务实例。
+        Description: 卸载基线产品实例
+        Summary: 卸载基线产品实例
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -720,8 +720,8 @@ class Client:
         request: yunqing_models.UninstallProdinstanceAppserviceRequest,
     ) -> yunqing_models.UninstallProdinstanceAppserviceResponse:
         """
-        Description: 卸载应用服务实例。
-        Summary: 卸载应用服务实例。
+        Description: 卸载基线产品实例
+        Summary: 卸载基线产品实例
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -734,8 +734,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> yunqing_models.UninstallProdinstanceAppserviceResponse:
         """
-        Description: 卸载应用服务实例。
-        Summary: 卸载应用服务实例。
+        Description: 卸载基线产品实例
+        Summary: 卸载基线产品实例
         """
         UtilClient.validate_model(request)
         return yunqing_models.UninstallProdinstanceAppserviceResponse().from_map(
@@ -749,8 +749,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> yunqing_models.UninstallProdinstanceAppserviceResponse:
         """
-        Description: 卸载应用服务实例。
-        Summary: 卸载应用服务实例。
+        Description: 卸载基线产品实例
+        Summary: 卸载基线产品实例
         """
         UtilClient.validate_model(request)
         return yunqing_models.UninstallProdinstanceAppserviceResponse().from_map(
@@ -2709,56 +2709,434 @@ class Client:
             await self.do_request_async('1.0', 'yunyou.yunqing.solution.plan.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_solution_previewtask(
+    def get_solution_planstatus(
         self,
-        request: yunqing_models.QuerySolutionPreviewtaskRequest,
-    ) -> yunqing_models.QuerySolutionPreviewtaskResponse:
+        request: yunqing_models.GetSolutionPlanstatusRequest,
+    ) -> yunqing_models.GetSolutionPlanstatusResponse:
         """
-        Description: 解决方案应用previewtask查询
-        Summary: 解决方案应用previewtask查询
+        Description: 解决方案是否完成规划
+        Summary: 解决方案是否完成规划
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_solution_previewtask_ex(request, headers, runtime)
+        return self.get_solution_planstatus_ex(request, headers, runtime)
 
-    async def query_solution_previewtask_async(
+    async def get_solution_planstatus_async(
         self,
-        request: yunqing_models.QuerySolutionPreviewtaskRequest,
-    ) -> yunqing_models.QuerySolutionPreviewtaskResponse:
+        request: yunqing_models.GetSolutionPlanstatusRequest,
+    ) -> yunqing_models.GetSolutionPlanstatusResponse:
         """
-        Description: 解决方案应用previewtask查询
-        Summary: 解决方案应用previewtask查询
+        Description: 解决方案是否完成规划
+        Summary: 解决方案是否完成规划
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_solution_previewtask_ex_async(request, headers, runtime)
+        return await self.get_solution_planstatus_ex_async(request, headers, runtime)
 
-    def query_solution_previewtask_ex(
+    def get_solution_planstatus_ex(
         self,
-        request: yunqing_models.QuerySolutionPreviewtaskRequest,
+        request: yunqing_models.GetSolutionPlanstatusRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> yunqing_models.QuerySolutionPreviewtaskResponse:
+    ) -> yunqing_models.GetSolutionPlanstatusResponse:
         """
-        Description: 解决方案应用previewtask查询
-        Summary: 解决方案应用previewtask查询
+        Description: 解决方案是否完成规划
+        Summary: 解决方案是否完成规划
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QuerySolutionPreviewtaskResponse().from_map(
-            self.do_request('1.0', 'yunyou.yunqing.solution.previewtask.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return yunqing_models.GetSolutionPlanstatusResponse().from_map(
+            self.do_request('1.0', 'yunyou.yunqing.solution.planstatus.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_solution_previewtask_ex_async(
+    async def get_solution_planstatus_ex_async(
         self,
-        request: yunqing_models.QuerySolutionPreviewtaskRequest,
+        request: yunqing_models.GetSolutionPlanstatusRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> yunqing_models.QuerySolutionPreviewtaskResponse:
+    ) -> yunqing_models.GetSolutionPlanstatusResponse:
         """
-        Description: 解决方案应用previewtask查询
-        Summary: 解决方案应用previewtask查询
+        Description: 解决方案是否完成规划
+        Summary: 解决方案是否完成规划
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QuerySolutionPreviewtaskResponse().from_map(
-            await self.do_request_async('1.0', 'yunyou.yunqing.solution.previewtask.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return yunqing_models.GetSolutionPlanstatusResponse().from_map(
+            await self.do_request_async('1.0', 'yunyou.yunqing.solution.planstatus.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_proditeration(
+        self,
+        request: yunqing_models.PagequeryProditerationRequest,
+    ) -> yunqing_models.PagequeryProditerationResponse:
+        """
+        Description: 分页查询迭代详情
+        Summary: 分页查询迭代详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_proditeration_ex(request, headers, runtime)
+
+    async def pagequery_proditeration_async(
+        self,
+        request: yunqing_models.PagequeryProditerationRequest,
+    ) -> yunqing_models.PagequeryProditerationResponse:
+        """
+        Description: 分页查询迭代详情
+        Summary: 分页查询迭代详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_proditeration_ex_async(request, headers, runtime)
+
+    def pagequery_proditeration_ex(
+        self,
+        request: yunqing_models.PagequeryProditerationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.PagequeryProditerationResponse:
+        """
+        Description: 分页查询迭代详情
+        Summary: 分页查询迭代详情
+        """
+        UtilClient.validate_model(request)
+        return yunqing_models.PagequeryProditerationResponse().from_map(
+            self.do_request('1.0', 'yunyou.yunqing.proditeration.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_proditeration_ex_async(
+        self,
+        request: yunqing_models.PagequeryProditerationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.PagequeryProditerationResponse:
+        """
+        Description: 分页查询迭代详情
+        Summary: 分页查询迭代详情
+        """
+        UtilClient.validate_model(request)
+        return yunqing_models.PagequeryProditerationResponse().from_map(
+            await self.do_request_async('1.0', 'yunyou.yunqing.proditeration.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_prodinstance_deployunitbatch(
+        self,
+        request: yunqing_models.CreateProdinstanceDeployunitbatchRequest,
+    ) -> yunqing_models.CreateProdinstanceDeployunitbatchResponse:
+        """
+        Description: 部署单元批量创建
+        Summary: 部署单元批量创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_prodinstance_deployunitbatch_ex(request, headers, runtime)
+
+    async def create_prodinstance_deployunitbatch_async(
+        self,
+        request: yunqing_models.CreateProdinstanceDeployunitbatchRequest,
+    ) -> yunqing_models.CreateProdinstanceDeployunitbatchResponse:
+        """
+        Description: 部署单元批量创建
+        Summary: 部署单元批量创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_prodinstance_deployunitbatch_ex_async(request, headers, runtime)
+
+    def create_prodinstance_deployunitbatch_ex(
+        self,
+        request: yunqing_models.CreateProdinstanceDeployunitbatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.CreateProdinstanceDeployunitbatchResponse:
+        """
+        Description: 部署单元批量创建
+        Summary: 部署单元批量创建
+        """
+        UtilClient.validate_model(request)
+        return yunqing_models.CreateProdinstanceDeployunitbatchResponse().from_map(
+            self.do_request('1.0', 'yunyou.yunqing.prodinstance.deployunitbatch.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_prodinstance_deployunitbatch_ex_async(
+        self,
+        request: yunqing_models.CreateProdinstanceDeployunitbatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.CreateProdinstanceDeployunitbatchResponse:
+        """
+        Description: 部署单元批量创建
+        Summary: 部署单元批量创建
+        """
+        UtilClient.validate_model(request)
+        return yunqing_models.CreateProdinstanceDeployunitbatchResponse().from_map(
+            await self.do_request_async('1.0', 'yunyou.yunqing.prodinstance.deployunitbatch.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def rollback_ops_app(
+        self,
+        request: yunqing_models.RollbackOpsAppRequest,
+    ) -> yunqing_models.RollbackOpsAppResponse:
+        """
+        Description: 发布单应用回滚
+        Summary: 发布单应用回滚
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.rollback_ops_app_ex(request, headers, runtime)
+
+    async def rollback_ops_app_async(
+        self,
+        request: yunqing_models.RollbackOpsAppRequest,
+    ) -> yunqing_models.RollbackOpsAppResponse:
+        """
+        Description: 发布单应用回滚
+        Summary: 发布单应用回滚
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.rollback_ops_app_ex_async(request, headers, runtime)
+
+    def rollback_ops_app_ex(
+        self,
+        request: yunqing_models.RollbackOpsAppRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.RollbackOpsAppResponse:
+        """
+        Description: 发布单应用回滚
+        Summary: 发布单应用回滚
+        """
+        UtilClient.validate_model(request)
+        return yunqing_models.RollbackOpsAppResponse().from_map(
+            self.do_request('1.0', 'yunyou.yunqing.ops.app.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def rollback_ops_app_ex_async(
+        self,
+        request: yunqing_models.RollbackOpsAppRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.RollbackOpsAppResponse:
+        """
+        Description: 发布单应用回滚
+        Summary: 发布单应用回滚
+        """
+        UtilClient.validate_model(request)
+        return yunqing_models.RollbackOpsAppResponse().from_map(
+            await self.do_request_async('1.0', 'yunyou.yunqing.ops.app.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def rollback_ops_product(
+        self,
+        request: yunqing_models.RollbackOpsProductRequest,
+    ) -> yunqing_models.RollbackOpsProductResponse:
+        """
+        Description: 发布单产品回滚
+        Summary: 发布单产品回滚
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.rollback_ops_product_ex(request, headers, runtime)
+
+    async def rollback_ops_product_async(
+        self,
+        request: yunqing_models.RollbackOpsProductRequest,
+    ) -> yunqing_models.RollbackOpsProductResponse:
+        """
+        Description: 发布单产品回滚
+        Summary: 发布单产品回滚
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.rollback_ops_product_ex_async(request, headers, runtime)
+
+    def rollback_ops_product_ex(
+        self,
+        request: yunqing_models.RollbackOpsProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.RollbackOpsProductResponse:
+        """
+        Description: 发布单产品回滚
+        Summary: 发布单产品回滚
+        """
+        UtilClient.validate_model(request)
+        return yunqing_models.RollbackOpsProductResponse().from_map(
+            self.do_request('1.0', 'yunyou.yunqing.ops.product.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def rollback_ops_product_ex_async(
+        self,
+        request: yunqing_models.RollbackOpsProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.RollbackOpsProductResponse:
+        """
+        Description: 发布单产品回滚
+        Summary: 发布单产品回滚
+        """
+        UtilClient.validate_model(request)
+        return yunqing_models.RollbackOpsProductResponse().from_map(
+            await self.do_request_async('1.0', 'yunyou.yunqing.ops.product.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_cluster_nativepod(
+        self,
+        request: yunqing_models.QueryClusterNativepodRequest,
+    ) -> yunqing_models.QueryClusterNativepodResponse:
+        """
+        Description: 直接查询集群的pod信息，不是查询云游的基线！
+        Summary: 查询集群pod信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_cluster_nativepod_ex(request, headers, runtime)
+
+    async def query_cluster_nativepod_async(
+        self,
+        request: yunqing_models.QueryClusterNativepodRequest,
+    ) -> yunqing_models.QueryClusterNativepodResponse:
+        """
+        Description: 直接查询集群的pod信息，不是查询云游的基线！
+        Summary: 查询集群pod信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_cluster_nativepod_ex_async(request, headers, runtime)
+
+    def query_cluster_nativepod_ex(
+        self,
+        request: yunqing_models.QueryClusterNativepodRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.QueryClusterNativepodResponse:
+        """
+        Description: 直接查询集群的pod信息，不是查询云游的基线！
+        Summary: 查询集群pod信息
+        """
+        UtilClient.validate_model(request)
+        return yunqing_models.QueryClusterNativepodResponse().from_map(
+            self.do_request('1.0', 'yunyou.yunqing.cluster.nativepod.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_cluster_nativepod_ex_async(
+        self,
+        request: yunqing_models.QueryClusterNativepodRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.QueryClusterNativepodResponse:
+        """
+        Description: 直接查询集群的pod信息，不是查询云游的基线！
+        Summary: 查询集群pod信息
+        """
+        UtilClient.validate_model(request)
+        return yunqing_models.QueryClusterNativepodResponse().from_map(
+            await self.do_request_async('1.0', 'yunyou.yunqing.cluster.nativepod.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_baseline_appcontainers(
+        self,
+        request: yunqing_models.PagequeryBaselineAppcontainersRequest,
+    ) -> yunqing_models.PagequeryBaselineAppcontainersResponse:
+        """
+        Description: 查询基线应用容器
+        Summary: 查询基线应用容器
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_baseline_appcontainers_ex(request, headers, runtime)
+
+    async def pagequery_baseline_appcontainers_async(
+        self,
+        request: yunqing_models.PagequeryBaselineAppcontainersRequest,
+    ) -> yunqing_models.PagequeryBaselineAppcontainersResponse:
+        """
+        Description: 查询基线应用容器
+        Summary: 查询基线应用容器
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_baseline_appcontainers_ex_async(request, headers, runtime)
+
+    def pagequery_baseline_appcontainers_ex(
+        self,
+        request: yunqing_models.PagequeryBaselineAppcontainersRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.PagequeryBaselineAppcontainersResponse:
+        """
+        Description: 查询基线应用容器
+        Summary: 查询基线应用容器
+        """
+        UtilClient.validate_model(request)
+        return yunqing_models.PagequeryBaselineAppcontainersResponse().from_map(
+            self.do_request('1.0', 'yunyou.yunqing.baseline.appcontainers.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_baseline_appcontainers_ex_async(
+        self,
+        request: yunqing_models.PagequeryBaselineAppcontainersRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.PagequeryBaselineAppcontainersResponse:
+        """
+        Description: 查询基线应用容器
+        Summary: 查询基线应用容器
+        """
+        UtilClient.validate_model(request)
+        return yunqing_models.PagequeryBaselineAppcontainersResponse().from_map(
+            await self.do_request_async('1.0', 'yunyou.yunqing.baseline.appcontainers.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_rollback_snapshotversion(
+        self,
+        request: yunqing_models.PagequeryRollbackSnapshotversionRequest,
+    ) -> yunqing_models.PagequeryRollbackSnapshotversionResponse:
+        """
+        Description: 回滚快照查询
+        Summary: 回滚快照查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_rollback_snapshotversion_ex(request, headers, runtime)
+
+    async def pagequery_rollback_snapshotversion_async(
+        self,
+        request: yunqing_models.PagequeryRollbackSnapshotversionRequest,
+    ) -> yunqing_models.PagequeryRollbackSnapshotversionResponse:
+        """
+        Description: 回滚快照查询
+        Summary: 回滚快照查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_rollback_snapshotversion_ex_async(request, headers, runtime)
+
+    def pagequery_rollback_snapshotversion_ex(
+        self,
+        request: yunqing_models.PagequeryRollbackSnapshotversionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.PagequeryRollbackSnapshotversionResponse:
+        """
+        Description: 回滚快照查询
+        Summary: 回滚快照查询
+        """
+        UtilClient.validate_model(request)
+        return yunqing_models.PagequeryRollbackSnapshotversionResponse().from_map(
+            self.do_request('1.0', 'yunyou.yunqing.rollback.snapshotversion.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_rollback_snapshotversion_ex_async(
+        self,
+        request: yunqing_models.PagequeryRollbackSnapshotversionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.PagequeryRollbackSnapshotversionResponse:
+        """
+        Description: 回滚快照查询
+        Summary: 回滚快照查询
+        """
+        UtilClient.validate_model(request)
+        return yunqing_models.PagequeryRollbackSnapshotversionResponse().from_map(
+            await self.do_request_async('1.0', 'yunyou.yunqing.rollback.snapshotversion.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
