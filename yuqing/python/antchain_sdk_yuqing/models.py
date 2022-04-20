@@ -703,43 +703,42 @@ class YuqingMessage(TeaModel):
 class SearchCondition(TeaModel):
     def __init__(
         self,
-        ass_keywords: str = None,
-        at_author_name: str = None,
-        author_name: str = None,
+        ass_keyword_list: List[str] = None,
+        at_author_name_list: List[str] = None,
+        author_name_list: List[str] = None,
         comments_level: int = None,
         content_len_level: str = None,
         create_time_end: int = None,
         create_time_start: int = None,
         doc_content_sign: str = None,
-        doc_id: str = None,
+        doc_id_list: List[str] = None,
         duplicate_removal: bool = None,
         emotion_type: int = None,
         enable_keyword_highlight: bool = None,
-        exclude_at_author_name: str = None,
-        exclude_author_name: str = None,
-        exclude_host_name: str = None,
-        exclude_keyword_tag_ids: str = None,
-        exclude_keywords: str = None,
-        exclude_keywords_in_title: str = None,
-        exclude_media_library_ids: str = None,
-        exclude_media_name: str = None,
-        exclude_media_type: str = None,
-        exclude_message_type: str = None,
-        field_conditions: str = None,
+        exclude_at_author_name_list: List[str] = None,
+        exclude_author_name_list: List[str] = None,
+        exclude_host_name_list: List[str] = None,
+        exclude_keyword_tag_ids: List[int] = None,
+        exclude_keyword_list: List[str] = None,
+        exclude_keyword_list_in_title: List[str] = None,
+        exclude_media_library_id_list: List[int] = None,
+        exclude_media_name_list: List[str] = None,
+        exclude_media_type_list: List[str] = None,
+        exclude_message_type_list: List[str] = None,
         has_image: bool = None,
         has_video: bool = None,
-        host_name: str = None,
-        keyword_tag_ids: str = None,
+        host_name_list: List[str] = None,
+        keyword_tag_ids: List[int] = None,
         likes_level: int = None,
-        media_library_ids: str = None,
-        media_name: str = None,
-        media_type: str = None,
-        message_type: str = None,
+        media_library_id_list: List[int] = None,
+        media_name_list: List[str] = None,
+        media_type_list: List[str] = None,
+        message_type_list: List[str] = None,
         page_now: int = None,
         page_size: int = None,
         parent_doc_id: str = None,
-        pos_keywords: str = None,
-        pos_keywords_in_title: str = None,
+        pos_keyword_list: List[str] = None,
+        pos_keyword_list_in_title: List[str] = None,
         publish_time_end: int = None,
         publish_time_start: int = None,
         reads_level: int = None,
@@ -747,16 +746,16 @@ class SearchCondition(TeaModel):
         repost_level: int = None,
         sort_by: str = None,
         sort_by_direction: str = None,
-        topics: str = None,
+        topic_list: List[str] = None,
         update_time_end: int = None,
         update_time_start: int = None,
     ):
         # 搭配词
-        self.ass_keywords = ass_keywords
+        self.ass_keyword_list = ass_keyword_list
         # 被@的用户名称
-        self.at_author_name = at_author_name
+        self.at_author_name_list = at_author_name_list
         # 作者名称
-        self.author_name = author_name
+        self.author_name_list = author_name_list
         # 评论级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+\
         self.comments_level = comments_level
         # 内容长度级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+\
@@ -768,7 +767,7 @@ class SearchCondition(TeaModel):
         # 文章签名
         self.doc_content_sign = doc_content_sign
         # 舆情文章唯一docId
-        self.doc_id = doc_id
+        self.doc_id_list = doc_id_list
         # 是否去重
         self.duplicate_removal = duplicate_removal
         # 情感类型，1非负，-1负面
@@ -776,45 +775,43 @@ class SearchCondition(TeaModel):
         # 是否高亮关键词
         self.enable_keyword_highlight = enable_keyword_highlight
         # 排除被@的用户名称
-        self.exclude_at_author_name = exclude_at_author_name
+        self.exclude_at_author_name_list = exclude_at_author_name_list
         # 排除作者名称
-        self.exclude_author_name = exclude_author_name
+        self.exclude_author_name_list = exclude_author_name_list
         # 排除网站域名
-        self.exclude_host_name = exclude_host_name
+        self.exclude_host_name_list = exclude_host_name_list
         # 排除关键词标签Id列表
         self.exclude_keyword_tag_ids = exclude_keyword_tag_ids
         # 排除词
-        self.exclude_keywords = exclude_keywords
+        self.exclude_keyword_list = exclude_keyword_list
         # 标题排除词
-        self.exclude_keywords_in_title = exclude_keywords_in_title
+        self.exclude_keyword_list_in_title = exclude_keyword_list_in_title
         # 排除媒体库id列表
-        self.exclude_media_library_ids = exclude_media_library_ids
+        self.exclude_media_library_id_list = exclude_media_library_id_list
         # 排除媒体名称
-        self.exclude_media_name = exclude_media_name
+        self.exclude_media_name_list = exclude_media_name_list
         # 排除媒体类型，枚举值
-        self.exclude_media_type = exclude_media_type
+        self.exclude_media_type_list = exclude_media_type_list
         # 排除消息类型，枚举值
-        self.exclude_message_type = exclude_message_type
-        # 其他过滤条件
-        self.field_conditions = field_conditions
+        self.exclude_message_type_list = exclude_message_type_list
         # 文章是否含有图片
         self.has_image = has_image
         # 是否含有视频
         self.has_video = has_video
         # 网站域名
-        self.host_name = host_name
+        self.host_name_list = host_name_list
         # 关键词标签Id列表
         self.keyword_tag_ids = keyword_tag_ids
         # 点赞级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+\
         self.likes_level = likes_level
         # 媒体库id列表
-        self.media_library_ids = media_library_ids
+        self.media_library_id_list = media_library_id_list
         # 媒体名称
-        self.media_name = media_name
+        self.media_name_list = media_name_list
         # 体类型，枚举值
-        self.media_type = media_type
+        self.media_type_list = media_type_list
         # 消息类型，枚举值
-        self.message_type = message_type
+        self.message_type_list = message_type_list
         # 当前页
         self.page_now = page_now
         # 页大小
@@ -822,9 +819,9 @@ class SearchCondition(TeaModel):
         # 舆情父文章的docId，一般用于查看某篇文章的评论
         self.parent_doc_id = parent_doc_id
         # 关键词
-        self.pos_keywords = pos_keywords
+        self.pos_keyword_list = pos_keyword_list
         # 标题关键词
-        self.pos_keywords_in_title = pos_keywords_in_title
+        self.pos_keyword_list_in_title = pos_keyword_list_in_title
         # 截止发布时间
         self.publish_time_end = publish_time_end
         # 起始发布时间
@@ -840,7 +837,7 @@ class SearchCondition(TeaModel):
         # 指定正反向排序
         self.sort_by_direction = sort_by_direction
         # #话题
-        self.topics = topics
+        self.topic_list = topic_list
         # 舆情文章截止更新时间
         self.update_time_end = update_time_end
         # 舆情文章起始更新时间
@@ -851,12 +848,12 @@ class SearchCondition(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.ass_keywords is not None:
-            result['ass_keywords'] = self.ass_keywords
-        if self.at_author_name is not None:
-            result['at_author_name'] = self.at_author_name
-        if self.author_name is not None:
-            result['author_name'] = self.author_name
+        if self.ass_keyword_list is not None:
+            result['ass_keyword_list'] = self.ass_keyword_list
+        if self.at_author_name_list is not None:
+            result['at_author_name_list'] = self.at_author_name_list
+        if self.author_name_list is not None:
+            result['author_name_list'] = self.author_name_list
         if self.comments_level is not None:
             result['comments_level'] = self.comments_level
         if self.content_len_level is not None:
@@ -867,64 +864,62 @@ class SearchCondition(TeaModel):
             result['create_time_start'] = self.create_time_start
         if self.doc_content_sign is not None:
             result['doc_content_sign'] = self.doc_content_sign
-        if self.doc_id is not None:
-            result['doc_id'] = self.doc_id
+        if self.doc_id_list is not None:
+            result['doc_id_list'] = self.doc_id_list
         if self.duplicate_removal is not None:
             result['duplicate_removal'] = self.duplicate_removal
         if self.emotion_type is not None:
             result['emotion_type'] = self.emotion_type
         if self.enable_keyword_highlight is not None:
             result['enable_keyword_highlight'] = self.enable_keyword_highlight
-        if self.exclude_at_author_name is not None:
-            result['exclude_at_author_name'] = self.exclude_at_author_name
-        if self.exclude_author_name is not None:
-            result['exclude_author_name'] = self.exclude_author_name
-        if self.exclude_host_name is not None:
-            result['exclude_host_name'] = self.exclude_host_name
+        if self.exclude_at_author_name_list is not None:
+            result['exclude_at_author_name_list'] = self.exclude_at_author_name_list
+        if self.exclude_author_name_list is not None:
+            result['exclude_author_name_list'] = self.exclude_author_name_list
+        if self.exclude_host_name_list is not None:
+            result['exclude_host_name_list'] = self.exclude_host_name_list
         if self.exclude_keyword_tag_ids is not None:
             result['exclude_keyword_tag_ids'] = self.exclude_keyword_tag_ids
-        if self.exclude_keywords is not None:
-            result['exclude_keywords'] = self.exclude_keywords
-        if self.exclude_keywords_in_title is not None:
-            result['exclude_keywords_in_title'] = self.exclude_keywords_in_title
-        if self.exclude_media_library_ids is not None:
-            result['exclude_media_library_ids'] = self.exclude_media_library_ids
-        if self.exclude_media_name is not None:
-            result['exclude_media_name'] = self.exclude_media_name
-        if self.exclude_media_type is not None:
-            result['exclude_media_type'] = self.exclude_media_type
-        if self.exclude_message_type is not None:
-            result['exclude_message_type'] = self.exclude_message_type
-        if self.field_conditions is not None:
-            result['field_conditions'] = self.field_conditions
+        if self.exclude_keyword_list is not None:
+            result['exclude_keyword_list'] = self.exclude_keyword_list
+        if self.exclude_keyword_list_in_title is not None:
+            result['exclude_keyword_list_in_title'] = self.exclude_keyword_list_in_title
+        if self.exclude_media_library_id_list is not None:
+            result['exclude_media_library_id_list'] = self.exclude_media_library_id_list
+        if self.exclude_media_name_list is not None:
+            result['exclude_media_name_list'] = self.exclude_media_name_list
+        if self.exclude_media_type_list is not None:
+            result['exclude_media_type_list'] = self.exclude_media_type_list
+        if self.exclude_message_type_list is not None:
+            result['exclude_message_type_list'] = self.exclude_message_type_list
         if self.has_image is not None:
             result['has_image'] = self.has_image
         if self.has_video is not None:
             result['has_video'] = self.has_video
-        if self.host_name is not None:
-            result['host_name'] = self.host_name
+        if self.host_name_list is not None:
+            result['host_name_list'] = self.host_name_list
         if self.keyword_tag_ids is not None:
             result['keyword_tag_ids'] = self.keyword_tag_ids
         if self.likes_level is not None:
             result['likes_level'] = self.likes_level
-        if self.media_library_ids is not None:
-            result['media_library_ids'] = self.media_library_ids
-        if self.media_name is not None:
-            result['media_name'] = self.media_name
-        if self.media_type is not None:
-            result['media_type'] = self.media_type
-        if self.message_type is not None:
-            result['message_type'] = self.message_type
+        if self.media_library_id_list is not None:
+            result['media_library_id_list'] = self.media_library_id_list
+        if self.media_name_list is not None:
+            result['media_name_list'] = self.media_name_list
+        if self.media_type_list is not None:
+            result['media_type_list'] = self.media_type_list
+        if self.message_type_list is not None:
+            result['message_type_list'] = self.message_type_list
         if self.page_now is not None:
             result['page_now'] = self.page_now
         if self.page_size is not None:
             result['page_size'] = self.page_size
         if self.parent_doc_id is not None:
             result['parent_doc_id'] = self.parent_doc_id
-        if self.pos_keywords is not None:
-            result['pos_keywords'] = self.pos_keywords
-        if self.pos_keywords_in_title is not None:
-            result['pos_keywords_in_title'] = self.pos_keywords_in_title
+        if self.pos_keyword_list is not None:
+            result['pos_keyword_list'] = self.pos_keyword_list
+        if self.pos_keyword_list_in_title is not None:
+            result['pos_keyword_list_in_title'] = self.pos_keyword_list_in_title
         if self.publish_time_end is not None:
             result['publish_time_end'] = self.publish_time_end
         if self.publish_time_start is not None:
@@ -939,8 +934,8 @@ class SearchCondition(TeaModel):
             result['sort_by'] = self.sort_by
         if self.sort_by_direction is not None:
             result['sort_by_direction'] = self.sort_by_direction
-        if self.topics is not None:
-            result['topics'] = self.topics
+        if self.topic_list is not None:
+            result['topic_list'] = self.topic_list
         if self.update_time_end is not None:
             result['update_time_end'] = self.update_time_end
         if self.update_time_start is not None:
@@ -949,12 +944,12 @@ class SearchCondition(TeaModel):
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('ass_keywords') is not None:
-            self.ass_keywords = m.get('ass_keywords')
-        if m.get('at_author_name') is not None:
-            self.at_author_name = m.get('at_author_name')
-        if m.get('author_name') is not None:
-            self.author_name = m.get('author_name')
+        if m.get('ass_keyword_list') is not None:
+            self.ass_keyword_list = m.get('ass_keyword_list')
+        if m.get('at_author_name_list') is not None:
+            self.at_author_name_list = m.get('at_author_name_list')
+        if m.get('author_name_list') is not None:
+            self.author_name_list = m.get('author_name_list')
         if m.get('comments_level') is not None:
             self.comments_level = m.get('comments_level')
         if m.get('content_len_level') is not None:
@@ -965,64 +960,62 @@ class SearchCondition(TeaModel):
             self.create_time_start = m.get('create_time_start')
         if m.get('doc_content_sign') is not None:
             self.doc_content_sign = m.get('doc_content_sign')
-        if m.get('doc_id') is not None:
-            self.doc_id = m.get('doc_id')
+        if m.get('doc_id_list') is not None:
+            self.doc_id_list = m.get('doc_id_list')
         if m.get('duplicate_removal') is not None:
             self.duplicate_removal = m.get('duplicate_removal')
         if m.get('emotion_type') is not None:
             self.emotion_type = m.get('emotion_type')
         if m.get('enable_keyword_highlight') is not None:
             self.enable_keyword_highlight = m.get('enable_keyword_highlight')
-        if m.get('exclude_at_author_name') is not None:
-            self.exclude_at_author_name = m.get('exclude_at_author_name')
-        if m.get('exclude_author_name') is not None:
-            self.exclude_author_name = m.get('exclude_author_name')
-        if m.get('exclude_host_name') is not None:
-            self.exclude_host_name = m.get('exclude_host_name')
+        if m.get('exclude_at_author_name_list') is not None:
+            self.exclude_at_author_name_list = m.get('exclude_at_author_name_list')
+        if m.get('exclude_author_name_list') is not None:
+            self.exclude_author_name_list = m.get('exclude_author_name_list')
+        if m.get('exclude_host_name_list') is not None:
+            self.exclude_host_name_list = m.get('exclude_host_name_list')
         if m.get('exclude_keyword_tag_ids') is not None:
             self.exclude_keyword_tag_ids = m.get('exclude_keyword_tag_ids')
-        if m.get('exclude_keywords') is not None:
-            self.exclude_keywords = m.get('exclude_keywords')
-        if m.get('exclude_keywords_in_title') is not None:
-            self.exclude_keywords_in_title = m.get('exclude_keywords_in_title')
-        if m.get('exclude_media_library_ids') is not None:
-            self.exclude_media_library_ids = m.get('exclude_media_library_ids')
-        if m.get('exclude_media_name') is not None:
-            self.exclude_media_name = m.get('exclude_media_name')
-        if m.get('exclude_media_type') is not None:
-            self.exclude_media_type = m.get('exclude_media_type')
-        if m.get('exclude_message_type') is not None:
-            self.exclude_message_type = m.get('exclude_message_type')
-        if m.get('field_conditions') is not None:
-            self.field_conditions = m.get('field_conditions')
+        if m.get('exclude_keyword_list') is not None:
+            self.exclude_keyword_list = m.get('exclude_keyword_list')
+        if m.get('exclude_keyword_list_in_title') is not None:
+            self.exclude_keyword_list_in_title = m.get('exclude_keyword_list_in_title')
+        if m.get('exclude_media_library_id_list') is not None:
+            self.exclude_media_library_id_list = m.get('exclude_media_library_id_list')
+        if m.get('exclude_media_name_list') is not None:
+            self.exclude_media_name_list = m.get('exclude_media_name_list')
+        if m.get('exclude_media_type_list') is not None:
+            self.exclude_media_type_list = m.get('exclude_media_type_list')
+        if m.get('exclude_message_type_list') is not None:
+            self.exclude_message_type_list = m.get('exclude_message_type_list')
         if m.get('has_image') is not None:
             self.has_image = m.get('has_image')
         if m.get('has_video') is not None:
             self.has_video = m.get('has_video')
-        if m.get('host_name') is not None:
-            self.host_name = m.get('host_name')
+        if m.get('host_name_list') is not None:
+            self.host_name_list = m.get('host_name_list')
         if m.get('keyword_tag_ids') is not None:
             self.keyword_tag_ids = m.get('keyword_tag_ids')
         if m.get('likes_level') is not None:
             self.likes_level = m.get('likes_level')
-        if m.get('media_library_ids') is not None:
-            self.media_library_ids = m.get('media_library_ids')
-        if m.get('media_name') is not None:
-            self.media_name = m.get('media_name')
-        if m.get('media_type') is not None:
-            self.media_type = m.get('media_type')
-        if m.get('message_type') is not None:
-            self.message_type = m.get('message_type')
+        if m.get('media_library_id_list') is not None:
+            self.media_library_id_list = m.get('media_library_id_list')
+        if m.get('media_name_list') is not None:
+            self.media_name_list = m.get('media_name_list')
+        if m.get('media_type_list') is not None:
+            self.media_type_list = m.get('media_type_list')
+        if m.get('message_type_list') is not None:
+            self.message_type_list = m.get('message_type_list')
         if m.get('page_now') is not None:
             self.page_now = m.get('page_now')
         if m.get('page_size') is not None:
             self.page_size = m.get('page_size')
         if m.get('parent_doc_id') is not None:
             self.parent_doc_id = m.get('parent_doc_id')
-        if m.get('pos_keywords') is not None:
-            self.pos_keywords = m.get('pos_keywords')
-        if m.get('pos_keywords_in_title') is not None:
-            self.pos_keywords_in_title = m.get('pos_keywords_in_title')
+        if m.get('pos_keyword_list') is not None:
+            self.pos_keyword_list = m.get('pos_keyword_list')
+        if m.get('pos_keyword_list_in_title') is not None:
+            self.pos_keyword_list_in_title = m.get('pos_keyword_list_in_title')
         if m.get('publish_time_end') is not None:
             self.publish_time_end = m.get('publish_time_end')
         if m.get('publish_time_start') is not None:
@@ -1037,8 +1030,8 @@ class SearchCondition(TeaModel):
             self.sort_by = m.get('sort_by')
         if m.get('sort_by_direction') is not None:
             self.sort_by_direction = m.get('sort_by_direction')
-        if m.get('topics') is not None:
-            self.topics = m.get('topics')
+        if m.get('topic_list') is not None:
+            self.topic_list = m.get('topic_list')
         if m.get('update_time_end') is not None:
             self.update_time_end = m.get('update_time_end')
         if m.get('update_time_start') is not None:
@@ -1238,7 +1231,7 @@ class SaveAnalysisSubmitResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        analysis_id: str = None,
+        analysis_id: int = None,
         result_json: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -1289,7 +1282,7 @@ class QueryAnalysisQueryRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        analysis_id: str = None,
+        analysis_id: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1327,7 +1320,7 @@ class QueryAnalysisQueryResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        analysis_id: str = None,
+        analysis_id: int = None,
         result_json: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
