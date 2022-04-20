@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '3.12.4',
+    sdk_version = '3.14.14',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -173,22 +173,6 @@ model ResourcePool {
   cloudId: string(name='cloud_id', example='0000000000000001'),
 }
 
-// 机房
-model Zone {
-  // 机房的标识（与阿里云对齐）
-  identity: string(name='identity', example='cn-hz-cm10'),
-  // 机房的名字
-  name: string(name='name', example='cm10'),
-  // 地域的id
-  regionId: string(name='region_id', example='123456'),
-  // 机房内关联的资源池列表
-  resourcePools: [ ResourcePool ](name='resource_pools', example=''),
-  // 机房的id
-  zoneId: string(name='zone_id', example='123456'),
-  // 显示的名字
-  displayName: string(name='display_name', example='xx机房'),
-}
-
 // 地域
 model Region {
   // 地域标识（与阿里云identity对齐）
@@ -223,6 +207,30 @@ model PodInfo {
   memory?: string(name='memory', example='10'),
   // status
   status?: string(name='status', example='online'),
+  // 产品码--应用名
+  productApp?: string(name='product_app', example='IAM--aciamcore'),
+  // 租户信息
+  // 
+  tenantId?: string(name='tenant_id', example='123abc'),
+  // 环境信息
+  // 
+  envId?: string(name='env_id', example='123abc'),
+}
+
+// 机房
+model Zone {
+  // 机房的标识（与阿里云对齐）
+  identity: string(name='identity', example='cn-hz-cm10'),
+  // 机房的名字
+  name: string(name='name', example='cm10'),
+  // 地域的id
+  regionId: string(name='region_id', example='123456'),
+  // 机房内关联的资源池列表
+  resourcePools: [ ResourcePool ](name='resource_pools', example=''),
+  // 机房的id
+  zoneId: string(name='zone_id', example='123456'),
+  // 显示的名字
+  displayName: string(name='display_name', example='xx机房'),
 }
 
 // 单元（逻辑机房）
@@ -251,16 +259,20 @@ model Cell {
   displayName: string(name='display_name', example='GZM0A'),
 }
 
-// 参数对象
-model ParamData {
-  // 参数key
-  key: string(name='key', example='BRANCH'),
-  // 参数值
-  value?: string(name='value', example='master'),
-  // 类型, 对应Data的paramGroup
-  type?: string(name='type', example='app_antx'),
-  // 安全级别，脱敏用
-  securityLevel?: string(name='security_level', example='SENSITIVE'),
+// 工作空间
+model Workspace {
+  // 包含的单元（逻辑机房）
+  cells: [ Cell ](name='cells', example=''),
+  // 显示的名字
+  displayName: string(name='display_name', example='杭州生产'),
+  // workspace的名字
+  name: string(name='name', example='mybk2--mybank--prod'),
+  // 所属地域
+  region: Region(name='region', example=''),
+  // 工作空间的id
+  workspaceId: string(name='workspace_id', example='123456'),
+  // 机房列表
+  zones: [ Zone ](name='zones', example=''),
 }
 
 // 云
@@ -269,44 +281,6 @@ model Cloud {
   cloudId: string(name='cloud_id', example='123456'),
   // 云的名字
   name: string(name='name', example='蚂蚁58云'),
-}
-
-// 容器信息。
-model Container {
-  // 应用版本
-  appVersion?: string(name='app_version', example='1.0.0'),
-  // cpu核数，单位C。
-  cpu?: long(name='cpu', example='4'),
-  // 宿主机ip。
-  hostIp?: string(name='host_ip', example='11.163.29.26'),
-  // 宿主机名称。
-  hostName?: string(name='host_name', example='58ops2-1.et15sqa'),
-  // 容器id。
-  id?: string(name='id', example='006ca7547c991d2a5bee2167552fc5058f92aea3fb2ce534394172e21af01055'),
-  // 容器镜像。
-  image?: string(name='image', example='acs-reg.alipay.com/haochen.xl/hadoop-hbase-ha:20180801-2'),
-  // 容器ip。
-  ip?: string(name='ip', example='11.167.33.24'),
-  // 内存大小，单位M。
-  memory?: long(name='memory', example='8192'),
-  // 容器名称。
-  name?: string(name='name', example='hbase-slave-2'),
-  // 容器所在的pod。
-  pod?: string(name='pod', example='pod1'),
-  // 资源所属的资源池的唯一标识。
-  resourcePoolId?: string(name='resource_pool_id', example='c-ant58sit'),
-  // 容器状态。
-  status?: string(name='status', example='RUNNING'),
-  // 应用名
-  appName?: string(name='app_name', example='yunyou'),
-}
-
-// 租户
-model Tenant {
-  // 租户名
-  name: string(name='name', example='antcloud'),
-  // 租户id
-  tanentId?: string(name='tanent_id', example='00000000001'),
 }
 
 // 巡检app信息
@@ -341,20 +315,72 @@ model CellGroup {
   displayName: string(name='display_name', example='GZM0'),
 }
 
-// 工作空间
-model Workspace {
-  // 包含的单元（逻辑机房）
-  cells: [ Cell ](name='cells', example=''),
-  // 显示的名字
-  displayName: string(name='display_name', example='杭州生产'),
-  // workspace的名字
-  name: string(name='name', example='mybk2--mybank--prod'),
-  // 所属地域
-  region: Region(name='region', example=''),
-  // 工作空间的id
-  workspaceId: string(name='workspace_id', example='123456'),
-  // 机房列表
-  zones: [ Zone ](name='zones', example=''),
+// 参数对象
+model ParamData {
+  // 参数key
+  key: string(name='key', example='BRANCH'),
+  // 参数值
+  value?: string(name='value', example='master'),
+  // 类型, 对应Data的paramGroup
+  type?: string(name='type', example='app_antx'),
+  // 安全级别，脱敏用
+  securityLevel?: string(name='security_level', example='SENSITIVE'),
+}
+
+// 租户
+model Tenant {
+  // 租户名
+  name: string(name='name', example='antcloud'),
+  // 租户id
+  tanentId?: string(name='tanent_id', example='00000000001'),
+}
+
+// 容器信息。
+model Container {
+  // 应用版本
+  appVersion?: string(name='app_version', example='1.0.0'),
+  // cpu核数，单位C。
+  cpu?: long(name='cpu', example='4'),
+  // 宿主机ip。
+  hostIp?: string(name='host_ip', example='11.163.29.26'),
+  // 宿主机名称。
+  hostName?: string(name='host_name', example='58ops2-1.et15sqa'),
+  // 容器id。
+  id?: string(name='id', example='shujuan-registry-meta-server-0'),
+  // 容器镜像。
+  image?: string(name='image', example='acs-reg.alipay.com/haochen.xl/hadoop-hbase-ha:20180801-2'),
+  // 容器ip。
+  ip?: string(name='ip', example='11.167.33.24'),
+  // 内存大小，单位M。
+  memory?: long(name='memory', example='8192'),
+  // 容器名称。
+  name?: string(name='name', example='shujuan-registry-meta-server-0'),
+  // 容器所在的pod。
+  pod?: string(name='pod', example='pod1'),
+  // 资源所属的资源池的唯一标识。
+  resourcePoolId?: string(name='resource_pool_id', example='c-ant58sit'),
+  // 容器状态。
+  status?: string(name='status', example='RUNNING'),
+  // 应用名
+  appName?: string(name='app_name', example='yunyou'),
+}
+
+// OpenAPI定义
+model OpenAPI {
+  // API方法
+  method: string(name='method', example='yunyou.yunqing.auth.import'),
+  // API版本号
+  version: string(name='version', example='1.0'),
+}
+
+// 包含应用启动参数的应用对象
+model AppParamData {
+  // 产品码
+  prodCode: string(name='prod_code', example='YANFA'),
+  // 应用名
+  appName: string(name='app_name', example='yanfa'),
+  // 应用启动参数
+  appParams: [ ParamData ](name='app_params', example=''),
 }
 
 // 容器状态
@@ -373,20 +399,6 @@ model ContainerInfo {
   utcStart: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_start', example='2018-10-10T10:10:00Z'),
 }
 
-// 负载均衡后端服务器。
-model BackendServer {
-  // 容器id。
-  containerId?: string(name='container_id', example='006ca7547c991d2a5bee2167552fc5058f92aea3fb2ce534394172e21af01055'),
-  // 容器所在的资源池id。
-  containerResourcePoolId?: string(name='container_resource_pool_id', example='yysit-ake'),
-  // 资源池id。
-  lbResourcePoolId?: string(name='lb_resource_pool_id', example='lb-ant58sit'),
-  // 负载均衡实例id。
-  loadBalancerId?: string(name='load_balancer_id', example='f6a614f448f4019f72d1438305ce2e742c345fc3496399af6fe38d1e0615f1f1'),
-  // 权重。
-  weight?: long(name='weight', example='100'),
-}
-
 // 巡检查询产品详情
 model ProdInfo {
   // 应用实例信息
@@ -397,40 +409,18 @@ model ProdInfo {
   prodVersion: string(name='prod_version', example='1.1'),
 }
 
-// 应用服务实例详情。
-model AppServiceInfo {
-  // 应用名称
-  appName?: string(name='app_name', example='aciamcore'),
-  // 应用版本
-  appVersion?: string(name='app_version', example='1.0.0'),
-  // 所属单元ID
-  cellId: string(name='cell_id', example='730420180509155727452700000'),
-  // 容器列表。
-  containers?: [ Container ](name='containers', example=''),
-  // 部署单元名称，产品实例下唯一。
-  deployUnit?: string(name='deploy_unit', example='default'),
-  // 环境唯一标识。
-  envId?: string(name='env_id', example='730420180716195514592500000'),
-  // 应用服务实例唯一标识。
-  id?: string(name='id', example='73040008193020'),
-  // 产品码
-  productCode?: string(name='product_code', example='IAM'),
-  // 所属产品分组唯一标识。
-  productGroupIdentity?: string(name='product_group_identity', example='PaaS'),
-  // 所属产品分组名称。
-  productGroupName?: string(name='product_group_name', example='PaaS'),
-  // 应用服务实例状态。DEPLOYING: 部署中；UPGRADING: 升级中；ROLL_BACKING: 回滚中；ACTIVE：可用；FAILED: 部署失败；ROLLBACKED: 已回滚。
-  status?: string(name='status', example='ACTIVE'),
-}
-
-// 包含应用启动参数的应用对象
-model AppParamData {
-  // 产品码
-  prodCode: string(name='prod_code', example='YANFA'),
-  // 应用名
-  appName: string(name='app_name', example='yanfa'),
-  // 应用启动参数
-  appParams: [ ParamData ](name='app_params', example=''),
+// 应用SRE信息，云游资产使用。
+model Admin {
+  // 应用SRE邮箱，云游资产使用。
+  adminEmail?: string(name='admin_email', example='yinyu@antcloud.com'),
+  // 应用SRE登陆名，云游资产使用。
+  adminLoginName?: string(name='admin_login_name', example='yinyu'),
+  // 应用SRE昵称，云游资产使用
+  adminNickName?: string(name='admin_nick_name', example='yinyu_nick'),
+  // 应用SRE真实名称，云游资产使用
+  adminRealName?: string(name='admin_real_name', example='yinyu_real'),
+  // 应用SRE员工号，云游资产使用
+  adminStaffNo?: string(name='admin_staff_no', example='123abc'),
 }
 
 // 应用PreviewTask
@@ -439,58 +429,6 @@ model AppPreviewTask {
   appName: string(name='app_name', example='xxx_name'),
   // 是否需要部署
   needDeploy: boolean(name='need_deploy', example='true, false'),
-}
-
-// 云游环境信息。
-model Env {
-  // cellGroup的列表
-  cellGroups: [ CellGroup ](name='cell_groups', example=''),
-  // 云信息
-  cloud: Cloud(name='cloud', example=''),
-  // 关联的ake集群id
-  clusterId: string(name='cluster_id', example='0000000000000635'),
-  // 环境名
-  displayName?: string(name='display_name', example='LDC生产环境'),
-  // 环境的id
-  envId: string(name='env_id', example='123456'),
-  // （已废弃）环境唯一标识。
-  id?: string(name='id', example='730420180226205707848400000'),
-  // 是否ldc环境
-  ldc: boolean(name='ldc', example='true, false'),
-  // 环境名称。
-  name: string(name='name', example='mybk2--mybank--prod'),
-  // （已废弃）环境底座iaas技术栈。
-  stack?: string(name='stack', example='ALIYUN_STACK'),
-  // 租户信息
-  tenant?: Tenant(name='tenant', example=''),
-  // 工作空间列表
-  workspaces: [ Workspace ](name='workspaces', example=''),
-  // （已废弃）兼容逻辑老的workspace逻辑，非监控产品勿依赖。
-  workspaceId?: string(name='workspace_id', example='73040009170888'),
-  // 环境类型
-  envType: string(name='env_type', example='PROD'),
-}
-
-// 监听器。
-model Listener {
-  // 后端端口。
-  backendServerPort?: long(name='backend_server_port', example='80'),
-  // 前端端口。
-  listenerPort?: long(name='listener_port', example='80'),
-  // 负载均衡实例id。
-  loadBalancerId?: string(name='load_balancer_id', example='a46d1a9f673808298ca1e8bd363bf8b82ce5f7473544b4b8a3a0adf12c8d1dfa'),
-  // 监听器协议。HTTP/HTTPS/TCP
-  protocol?: string(name='protocol', example='HTTP'),
-  // 资源池id。
-  resourcePoolId?: string(name='resource_pool_id', example='lb-ant58sit'),
-}
-
-// OpenAPI定义
-model OpenAPI {
-  // API方法
-  method: string(name='method', example='yunyou.yunqing.auth.import'),
-  // API版本号
-  version: string(name='version', example='1.0'),
 }
 
 // 测试用例详情
@@ -535,6 +473,130 @@ model Database {
   url?: string(name='url', example='11.167.33.7'),
 }
 
+// 应用服务实例详情。
+model AppServiceInfo {
+  // 应用名称
+  appName?: string(name='app_name', example='aciamcore'),
+  // 应用版本
+  appVersion?: string(name='app_version', example='1.0.0'),
+  // 所属单元ID
+  cellId: string(name='cell_id', example='730420180509155727452700000'),
+  // 容器列表。
+  containers?: [ Container ](name='containers', example=''),
+  // 部署单元名称，产品实例下唯一。
+  deployUnit?: string(name='deploy_unit', example='default'),
+  // 环境唯一标识。
+  envId?: string(name='env_id', example='730420180716195514592500000'),
+  // 应用服务实例唯一标识。
+  id?: string(name='id', example='73040008193020'),
+  // 产品码
+  productCode?: string(name='product_code', example='IAM'),
+  // 所属产品分组唯一标识。
+  productGroupIdentity?: string(name='product_group_identity', example='PaaS'),
+  // 所属产品分组名称。
+  productGroupName?: string(name='product_group_name', example='PaaS'),
+  // 应用服务实例状态。DEPLOYING: 部署中；UPGRADING: 升级中；ROLL_BACKING: 回滚中；ACTIVE：可用；FAILED: 部署失败；ROLLBACKED: 已回滚。
+  status?: string(name='status', example='ACTIVE'),
+}
+
+// 云游环境信息。
+model Env {
+  // cellGroup的列表
+  cellGroups: [ CellGroup ](name='cell_groups', example=''),
+  // 云信息
+  cloud: Cloud(name='cloud', example=''),
+  // 关联的ake集群id
+  clusterId: string(name='cluster_id', example='0000000000000635'),
+  // 环境名
+  displayName?: string(name='display_name', example='LDC生产环境'),
+  // 环境的id
+  envId: string(name='env_id', example='123456'),
+  // （已废弃）环境唯一标识。
+  id?: string(name='id', example='730420180226205707848400000'),
+  // 是否ldc环境
+  ldc: boolean(name='ldc', example='true, false'),
+  // 环境名称。
+  name: string(name='name', example='mybk2--mybank--prod'),
+  // （已废弃）环境底座iaas技术栈。
+  stack?: string(name='stack', example='ALIYUN_STACK'),
+  // 租户信息
+  tenant?: Tenant(name='tenant', example=''),
+  // 工作空间列表
+  workspaces: [ Workspace ](name='workspaces', example=''),
+  // （已废弃）兼容逻辑老的workspace逻辑，非监控产品勿依赖。
+  workspaceId?: string(name='workspace_id', example='73040009170888'),
+  // 环境类型
+  envType: string(name='env_type', example='PROD'),
+}
+
+// 负载均衡后端服务器。
+model BackendServer {
+  // 容器id。
+  containerId?: string(name='container_id', example='006ca7547c991d2a5bee2167552fc5058f92aea3fb2ce534394172e21af01055'),
+  // 容器所在的资源池id。
+  containerResourcePoolId?: string(name='container_resource_pool_id', example='yysit-ake'),
+  // 资源池id。
+  lbResourcePoolId?: string(name='lb_resource_pool_id', example='lb-ant58sit'),
+  // 负载均衡实例id。
+  loadBalancerId?: string(name='load_balancer_id', example='f6a614f448f4019f72d1438305ce2e742c345fc3496399af6fe38d1e0615f1f1'),
+  // 权重。
+  weight?: long(name='weight', example='100'),
+}
+
+// 监听器。
+model Listener {
+  // 后端端口。
+  backendServerPort?: long(name='backend_server_port', example='80'),
+  // 前端端口。
+  listenerPort?: long(name='listener_port', example='80'),
+  // 负载均衡实例id。
+  loadBalancerId?: string(name='load_balancer_id', example='a46d1a9f673808298ca1e8bd363bf8b82ce5f7473544b4b8a3a0adf12c8d1dfa'),
+  // 监听器协议。HTTP/HTTPS/TCP
+  protocol?: string(name='protocol', example='HTTP'),
+  // 资源池id。
+  resourcePoolId?: string(name='resource_pool_id', example='lb-ant58sit'),
+}
+
+// 应用Owner信息
+model Owner {
+  // 应用Owner邮箱，云游资产使用。
+  ownerEmail?: string(name='owner_email', example='xizhe@antcloud.com'),
+  // 应用Owner登陆名，云游资产使用。
+  ownerLoginName?: string(name='owner_login_name', example='xizhe'),
+  // 应用Owner昵称，云游资产使用。
+  ownerNickName?: string(name='owner_nick_name', example='xizhe_nick'),
+  // 应用Owner真实名称，云游资产使用。
+  ownerRealName?: string(name='owner_real_name', example='xizhe_real'),
+  // 应用Owner员工号，云游资产使用。
+  ownerStaffNo?: string(name='owner_staff_no', example='1234abc'),
+}
+
+// 发布单
+model OpsPlan {
+  // id
+  id: string(name='id', example='1'),
+  // 名称
+  name: string(name='name', example='名称'),
+  // 环境Id
+  envId: string(name='env_id', example='abc'),
+  // 解决方案Id
+  solutionId: string(name='solution_id', example='abcd'),
+  // 发布单类型
+  opsType: string(name='ops_type', example='BASELINE_DEPLOY'),
+  // 发布单类型
+  planType: string(name='plan_type', example='RELEASE'),
+  // 创建人id
+  creator: string(name='creator', example='jack'),
+  // 创建人名称
+  creatorName: string(name='creator_name', example='创建人名称'),
+  // 发布单状态
+  opsPlanStatus: string(name='ops_plan_status', example='INITIALIZING'),
+  // 创建时间
+  utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
+  // 修改时间
+  utcModified: string(name='utc_modified', example='修改时间'),
+}
+
 // 云游应用元数据
 model Application {
   // 应用英文名
@@ -543,94 +605,10 @@ model Application {
   productCode?: string(name='product_code', example='undefined'),
 }
 
-// 产品实例。
-model ProductInstance {
-  // 单元ID
-  cellId?: string(name='cell_id', example='1234567'),
-  // 产品实例所在的环境唯一标识。
-  envId?: string(name='env_id', example='730420180620120633447200000'),
-  // 产品码。
-  productCode?: string(name='product_code', example='IAM'),
-  // 产品版本。
-  productVersion?: string(name='product_version', example='1.0.0'),
-  // 产品基线状态
-  status?: string(name='status', example='ACTIVE'),
-  // 产品创建时间
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-01-20 14:21:43'),
-  // 产品修改时间
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
-  // 产品拓扑id
-  deployTopologyIdentity?: string(name='deploy_topology_identity', example='TOPOLOGY_IDENTITY_201810101'),
-  // 部署规格id
-  deploySpecIdentity?: string(name='deploy_spec_identity', example='DS_201804161203537729'),
-}
-
-// （已废弃，请使用AppServiceInfo）一个环境中部署的应用服务信息。
-model AppService {
-  // 应用英文名。
-  appName?: string(name='app_name', example='aciamcore'),
-  // 应用版本
-  appVersion?: string(name='app_version', example='aciamcore'),
-  // 单元ID
-  cellId?: string(name='cell_id', example='730420180509155727452700000'),
-  // 部署单元名称，产品实例下唯一。
-  deployUnit?: string(name='deploy_unit', example='default'),
-  // 部署域。
-  deployZone?: string(name='deploy_zone', example='default-zone'),
-  // 环境唯一标识
-  envId?: string(name='env_id', example=''),
-  // 应用服务实例唯一标识。
-  id?: string(name='id', example='73040008193020'),
-  // 应用所属的产品的产品码
-  productCode?: string(name='product_code', example=''),
-  // 应用服务实例状态。DEPLOYING: 部署中；UPGRADING: 升级中；ROLL_BACKING: 回滚中；ACTIVE：可用；FAILED: 部署失败；ROLLBACKED: 已回滚。
-  status?: string(name='status', example='ACTIVE'),
-  // 应用类型：BUSINESS | JOB | CONTROLLER
-  appType?: string(name='app_type', example='BUSINESS'),
-}
-
-// 部署单元。
-model DeployUnit {
-  // 单元ID
-  cellId: string(name='cell_id', example='1234567'),
-  // 环境唯一标识。
-  envId: string(name='env_id', example='730420181107140959503700000'),
-  // 部署单元id，产品实例下唯一。
-  identity: string(name='identity', example='default'),
-  // 部署单元名称。
-  name: string(name='name', example='默认单元'),
-  // 产品码。
-  productCode: string(name='product_code', example='IAM'),
-  // 用户传入部署单元标识，如果没有传入，则为deployment_unit_identity
-  unitIg: string(name='unit_ig', example='unit id'),
-}
-
-// 数据库schema
-model Schema {
-  // schema所属的数据库实例信息。
-  database?: Database(name='database', example=''),
-  // schema名称。
-  name?: string(name='name', example='aciamcore'),
-  // 资源所属的资源池id。
-  resourcePoolId?: string(name='resource_pool_id', example='rdb-ant58sit'),
-}
-
-// 产品预览任务
-model ProdPreviewTasks {
-  // 应用是否需要部署
-  appPreviewTasks: [ AppPreviewTask ](name='app_preview_tasks', example='[{"appName":"xxx","needDeploy":true}]'),
-}
-
-// 云游系统信息
-model System {
-  // 系统的代码commit
-  commitId: string(name='commit_id', example='2s8sudis'),
-  // 管理的环境列表
-  envs: [ Env ](name='envs', example=''),
-  // 支持的OpenAPI列表
-  openApis: [ OpenAPI ](name='open_apis', example=''),
-  // 云游的产品版本号, 该值可能为空
-  version?: string(name='version', example='2.6.1'),
+// 部署单元实例信息
+model UnitInstanceInfo {
+  // 部署单元内服务实例列表
+  appServices: [ AppServiceInfo ](name='app_services', example=''),
 }
 
 // 单元内的资源
@@ -649,14 +627,6 @@ model UnitResource {
   resourceType: string(name='resource_type', example='LB,DB'),
   // zone标识
   zoneId: string(name='zone_id', example='defaut-a'),
-}
-
-// 节点执行日志
-model NodeExecutionLog {
-  // 当前节点的动作
-  nodeAction: string(name='node_action', example='T_LB_CREATE'),
-  // 当前节点的执行日志信息
-  message: string(name='message', example='[] 创建Lb资源请求发送成功, instanceId:886e94908769d6bb21d76debb83d038a69e5ec614cfff5d9b860b8222f1b5de5'),
 }
 
 // 装箱数据
@@ -687,60 +657,46 @@ model AutoTestLog {
   utcModified: string(name='utc_modified', example='2019-04-28T14:47:52+0800'),
 }
 
-// 发布单
-model OpsPlan {
-  // id
-  id: string(name='id', example='1'),
-  // 名称
-  name: string(name='name', example='名称'),
-  // 环境Id
-  envId: string(name='env_id', example='abc'),
-  // 解决方案Id
-  solutionId: string(name='solution_id', example='abcd'),
-  // 发布单类型
-  opsType: string(name='ops_type', example='BASELINE_DEPLOY'),
-  // 发布单类型
-  planType: string(name='plan_type', example='RELEASE'),
-  // 创建人id
-  creator: string(name='creator', example='jack'),
-  // 创建人名称
-  creatorName: string(name='creator_name', example='创建人名称'),
-  // 发布单状态
-  opsPlanStatus: string(name='ops_plan_status', example='INITIALIZING'),
-  // 创建时间
-  utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
-  // 修改时间
-  utcModified: string(name='utc_modified', example='修改时间'),
+// 集群pod信息
+model ClusterInfo {
+  // 产品信息
+  prodInfos: [ ProdInfo ](name='prod_infos', example=''),
 }
 
-// 部署单元实例信息
-model UnitInstanceInfo {
-  // 部署单元内服务实例列表
-  appServices: [ AppServiceInfo ](name='app_services', example=''),
+// 产品预览任务
+model ProdPreviewTasks {
+  // 应用是否需要部署
+  appPreviewTasks: [ AppPreviewTask ](name='app_preview_tasks', example='[{"appName":"xxx","needDeploy":true}]'),
 }
 
-// 产品测试结果
-model AutoTestProdResult {
-  // 测试用例
-  cases: [ AutoTestCase ](name='cases', example=''),
-  // 容器信息
-  containers: [ ContainerInfo ](name='containers', example='afsdafasd'),
-  // 部署单元id
-  deployUnit: string(name='deploy_unit', example='default'),
-  // 产品码
-  prodCode: string(name='prod_code', example='ZOOKEEPER'),
-  // 产品测试状态
-  status: string(name='status', example='PASSED'),
-  // 测试创建时间
-  utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2019-04-28T15:47:27+0800'),
-  // 结束时间
-  utcEnd?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_end', example='2018-10-10T10:10:00Z'),
-  // 测试修改时间
-  utcModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2019-04-28T15:47:27+0800'),
-  // 测试开始时间
-  utcStart?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_start', example='2018-10-10T10:10:00Z'),
-  // 单元的id
-  cellId: string(name='cell_id', example='730420181212115238664800000'),
+// 产品实例。
+model ProductInstance {
+  // 单元ID
+  cellId?: string(name='cell_id', example='1234567'),
+  // 产品实例所在的环境唯一标识。
+  envId?: string(name='env_id', example='730420180620120633447200000'),
+  // 产品码。
+  productCode?: string(name='product_code', example='IAM'),
+  // 产品版本。
+  productVersion?: string(name='product_version', example='1.0.0'),
+  // 产品基线状态
+  status?: string(name='status', example='ACTIVE'),
+  // 产品创建时间
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-01-20 14:21:43'),
+  // 产品修改时间
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  // 产品拓扑id
+  deployTopologyIdentity?: string(name='deploy_topology_identity', example='TOPOLOGY_IDENTITY_201810101'),
+  // 部署规格id
+  deploySpecIdentity?: string(name='deploy_spec_identity', example='DS_201804161203537729'),
+}
+
+// 节点执行日志
+model NodeExecutionLog {
+  // 当前节点的动作
+  nodeAction: string(name='node_action', example='T_LB_CREATE'),
+  // 当前节点的执行日志信息
+  message: string(name='message', example='[] 创建Lb资源请求发送成功, instanceId:886e94908769d6bb21d76debb83d038a69e5ec614cfff5d9b860b8222f1b5de5'),
 }
 
 // 负载均衡实例。
@@ -765,16 +721,86 @@ model LoadBalancer {
   vip?: string(name='vip', example='11.162.163.190'),
 }
 
-// 解决方案
-model SolutionInstance {
-  // 解决方案id
-  solutionId: string(name='solution_id', example='123456'),
+// 自动化测试工单中的产品
+model AutoTestProduct {
+  // 部署单元id
+  deployUnit?: string(name='deploy_unit', example='default'),
+  // 产品码
+  prodCode: string(name='prod_code', example='ZOOKEEPER'),
+  // 应用启动参数数据
+  appParamData?: [ AppParamData ](name='app_param_data', example=''),
+}
+
+// （已废弃，请使用AppServiceInfo）一个环境中部署的应用服务信息。
+model AppService {
+  // 应用英文名。
+  appName?: string(name='app_name', example='aciamcore'),
+  // 应用版本
+  appVersion?: string(name='app_version', example='aciamcore'),
+  // 单元ID
+  cellId?: string(name='cell_id', example='730420180509155727452700000'),
+  // 部署单元名称，产品实例下唯一。
+  deployUnit?: string(name='deploy_unit', example='default'),
+  // 部署域。
+  deployZone?: string(name='deploy_zone', example='default-zone'),
+  // 环境唯一标识
+  envId?: string(name='env_id', example=''),
+  // 应用服务实例唯一标识。
+  id?: string(name='id', example='73040008193020'),
+  // 应用所属的产品的产品码
+  productCode?: string(name='product_code', example=''),
+  // 应用服务实例状态。DEPLOYING: 部署中；UPGRADING: 升级中；ROLL_BACKING: 回滚中；ACTIVE：可用；FAILED: 部署失败；ROLLBACKED: 已回滚。
+  status?: string(name='status', example='ACTIVE'),
+  // 应用类型：BUSINESS | JOB | CONTROLLER
+  appType?: string(name='app_type', example='BUSINESS'),
+  // 应用显示名称，云游资产使用
+  appDisplayName?: string(name='app_display_name', example='aciamcore'),
+  // 应用等级，云游资产使用
+  appLevel?: string(name='app_level', example='A1-4'),
+  // 租户信息，云游资产使用。
+  tenantId?: string(name='tenant_id', example='antcloud'),
+  // 产品码--应用名
+  productApp?: string(name='product_app', example='IAM--aciamcore'),
+  // 产品Owner
+  owner?: Owner(name='owner', example=''),
+  // 应用SRE信息
+  admin?: Admin(name='admin', example=''),
+}
+
+// 回滚快照
+model DeploymentUnitSnapshotOP {
   // 环境ID
-  envId: string(name='env_id', example='123456'),
-  // 解决方案的名字
-  name: string(name='name', example='网商生产GZone'),
-  // 解决方案的状态
-  status: string(name='status', example='EXECUTING'),
+  envId?: string(name='env_id', example='730420210726104445272690000'),
+  // 产品码
+  prodCode?: string(name='prod_code', example='YANFA'),
+  // 产品版本
+  prodVersion?: string(name='prod_version', example='1.12'),
+  // 关联的解决方案id
+  solutionId?: string(name='solution_id', example='730420210726104445272690000'),
+  // 快照关联的发布单id
+  opsPlanId?: string(name='ops_plan_id', example='730420210726104445272690000'),
+  // 快照版本, 根据日期生成 
+  snapshotVersion?: string(name='snapshot_version', example='730420210726104'),
+  // 快照创建时间
+  snapshotTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='snapshot_time', example='2018-10-10T10:10:00Z'),
+  // 部署单元实例唯一标识
+  deploymentUnitInstanceIdentity?: string(name='deployment_unit_instance_identity', example='default'),
+  // 部署单元唯一标识
+  deploymentUnitIdentity?: string(name='deployment_unit_identity', example='default'),
+  // 部署拓扑
+  deployTopologyIdentity?: string(name='deploy_topology_identity', example='DEPLOY_TOPO_202104291716090523'),
+  // 应用回滚快照
+  appSnapshot?: [ string ](name='app_snapshot', example=''),
+}
+
+// 解决方案检查项
+model CheckPoint {
+  // 检查结果
+  checkResult: string(name='check_result', example='VALID'),
+  // 检查点, 例如参数检查
+  checkPoint: string(name='check_point', example='PARAM'),
+  // 非法原因
+  invalidReason?: string(name='invalid_reason', example='yunyoutest.solution.check.SolutionParamCheckBuilder.ParametersConflictOrThereNot'),
 }
 
 // 用户删除
@@ -807,20 +833,78 @@ model UserAuth {
   userId: string(name='user_id', example='000202'),
 }
 
-// 集群pod信息
-model ClusterInfo {
-  // 产品信息
-  prodInfos: [ ProdInfo ](name='prod_infos', example=''),
+// 解决方案
+model SolutionInstance {
+  // 解决方案id
+  solutionId: string(name='solution_id', example='123456'),
+  // 环境ID
+  envId: string(name='env_id', example='123456'),
+  // 解决方案的名字
+  name: string(name='name', example='网商生产GZone'),
+  // 解决方案的状态
+  status: string(name='status', example='EXECUTING'),
 }
 
-// 自动化测试工单中的产品
-model AutoTestProduct {
+// 云游系统信息
+model System {
+  // 系统的代码commit
+  commitId: string(name='commit_id', example='2s8sudis'),
+  // 管理的环境列表
+  envs: [ Env ](name='envs', example=''),
+  // 支持的OpenAPI列表
+  openApis: [ OpenAPI ](name='open_apis', example=''),
+  // 云游的产品版本号, 该值可能为空
+  version?: string(name='version', example='2.6.1'),
+}
+
+// 产品测试结果
+model AutoTestProdResult {
+  // 测试用例
+  cases: [ AutoTestCase ](name='cases', example=''),
+  // 容器信息
+  containers: [ ContainerInfo ](name='containers', example='afsdafasd'),
   // 部署单元id
-  deployUnit?: string(name='deploy_unit', example='default'),
+  deployUnit: string(name='deploy_unit', example='default'),
   // 产品码
   prodCode: string(name='prod_code', example='ZOOKEEPER'),
-  // 应用启动参数数据
-  appParamData?: [ AppParamData ](name='app_param_data', example=''),
+  // 产品测试状态
+  status: string(name='status', example='PASSED'),
+  // 测试创建时间
+  utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2019-04-28T15:47:27+0800'),
+  // 结束时间
+  utcEnd?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_end', example='2018-10-10T10:10:00Z'),
+  // 测试修改时间
+  utcModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2019-04-28T15:47:27+0800'),
+  // 测试开始时间
+  utcStart?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_start', example='2018-10-10T10:10:00Z'),
+  // 单元的id
+  cellId: string(name='cell_id', example='730420181212115238664800000'),
+}
+
+// 部署单元。
+model DeployUnit {
+  // 单元ID
+  cellId: string(name='cell_id', example='1234567'),
+  // 环境唯一标识。
+  envId: string(name='env_id', example='730420181107140959503700000'),
+  // 部署单元id，产品实例下唯一。
+  identity: string(name='identity', example='default'),
+  // 部署单元名称。
+  name: string(name='name', example='默认单元'),
+  // 产品码。
+  productCode: string(name='product_code', example='IAM'),
+  // 用户传入部署单元标识，如果没有传入，则为deployment_unit_identity
+  unitIg: string(name='unit_ig', example='unit id'),
+}
+
+// 数据库schema
+model Schema {
+  // schema所属的数据库实例信息。
+  database?: Database(name='database', example=''),
+  // schema名称。
+  name?: string(name='name', example='aciamcore'),
+  // 资源所属的资源池id。
+  resourcePoolId?: string(name='resource_pool_id', example='rdb-ant58sit'),
 }
 
 model CreateAppopsRequest = {
@@ -839,6 +923,10 @@ model CreateAppopsRequest = {
   opsDimension: string(name='ops_dimension'),
   // 要执行运维操作的应用服务实例所在的单元。
   cellId: string(name='cell_id'),
+  // 操作人ID
+  submitterId?: string(name='submitter_id'),
+  // 应用容器分组策略，默认取SYSTEM_RECOMMENDATION
+  groupStrategy?: string(name='group_strategy'),
 }
 
 model CreateAppopsResponse = {
@@ -1175,8 +1263,12 @@ model UninstallProdinstanceAppserviceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 应用服务实例id。
-  appServiceId: string(name='app_service_id'),
+  // 环境标识
+  envId: string(name='env_id'),
+  // 产品码
+  productCode: string(name='product_code'),
+  // 操作人Id
+  submitterId: string(name='submitter_id'),
 }
 
 model UninstallProdinstanceAppserviceResponse = {
@@ -1191,8 +1283,8 @@ model UninstallProdinstanceAppserviceResponse = {
 }
 
 /**
- * Description: 卸载应用服务实例。
- * Summary: 卸载应用服务实例。
+ * Description: 卸载基线产品实例
+ * Summary: 卸载基线产品实例
  */
 async function uninstallProdinstanceAppservice(request: UninstallProdinstanceAppserviceRequest): UninstallProdinstanceAppserviceResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -1201,8 +1293,8 @@ async function uninstallProdinstanceAppservice(request: UninstallProdinstanceApp
 }
 
 /**
- * Description: 卸载应用服务实例。
- * Summary: 卸载应用服务实例。
+ * Description: 卸载基线产品实例
+ * Summary: 卸载基线产品实例
  */
 async function uninstallProdinstanceAppserviceEx(request: UninstallProdinstanceAppserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UninstallProdinstanceAppserviceResponse {
   Util.validateModel(request);
@@ -1223,6 +1315,8 @@ model CreateProdinstanceDeployunitRequest = {
   unitName: string(name='unit_name'),
   // 单元ID
   cellId: string(name='cell_id'),
+  // 逻辑部署单元实例id
+  logicalInstanceId: string(name='logical_instance_id'),
 }
 
 model CreateProdinstanceDeployunitResponse = {
@@ -1361,6 +1455,10 @@ model QueryProdinstanceAppserviceRequest = {
   productCode?: string(name='product_code'),
   // 产品分组。如果入参设置了产品码，则默认忽略产品分组。
   productGroup?: string(name='product_group'),
+  // 产品码--应用名
+  productApp?: string(name='product_app'),
+  // 租户信息当前值为mock
+  tenantId?: string(name='tenant_id'),
 }
 
 model QueryProdinstanceAppserviceResponse = {
@@ -1495,6 +1593,10 @@ model ScaleoutProdinstanceAppserviceRequest = {
   appServiceId: string(name='app_service_id'),
   // 集群容器目标数量。target_num需要大于当前集群容器数量，扩容（target_num-当前集群容器数量）个容器。
   targetNum: long(name='target_num'),
+  // 操作人
+  submitterId?: string(name='submitter_id'),
+  // 容器分组策略，默认SYSTEM_RECOMMENDATION
+  groupStrategy?: string(name='group_strategy'),
 }
 
 model ScaleoutProdinstanceAppserviceResponse = {
@@ -1665,6 +1767,8 @@ model ScaleinProdinstanceAppserviceRequest = {
   appServiceId: string(name='app_service_id'),
   // 执行运维操作的目标容器列表。
   containerIds: [ string ](name='container_ids'),
+  // 操作人id
+  submitterId?: string(name='submitter_id'),
 }
 
 model ScaleinProdinstanceAppserviceResponse = {
@@ -1899,6 +2003,12 @@ model CreateAppdeployRequest = {
   solutionId: string(name='solution_id'),
   // 是否强制重发
   force: boolean(name='force'),
+  // 是否需要手动的确认
+  needBeta?: boolean(name='need_beta'),
+  // TWO_GROUP分两组ALL_ONE共分一组无灰生产禁用EACH_ONE每台一组SYSTEM_RECOMMENDATION系统推荐
+  groupStrategy?: string(name='group_strategy'),
+  // 操作人ID
+  submitterId?: string(name='submitter_id'),
 }
 
 model CreateAppdeployResponse = {
@@ -2293,8 +2403,10 @@ model UninstallProdinstanceDeployunitRequest = {
   envId: string(name='env_id'),
   // 产品码
   productCode: string(name='product_code'),
-  // 单元实例ID
+  // 部署单元实例标识
   unitInstanceId: string(name='unit_instance_id'),
+  // 操作人ID
+  submitterId: string(name='submitter_id'),
 }
 
 model UninstallProdinstanceDeployunitResponse = {
@@ -2517,6 +2629,10 @@ model ExecClusterDnsRequest = {
   appNames: [ string ](name='app_names'),
   // dns域名的绑定/解绑
   opsAction: string(name='ops_action'),
+  // 需要调用的adns所对应环境。
+  // 例如A、B环境，A环境宕机了，此时需要调用B机房的adns进行A机房的环境域名解绑操作。
+  // 如果不填，默认与env_id一致。
+  operationEnvId?: string(name='operation_env_id'),
 }
 
 model ExecClusterDnsResponse = {
@@ -2775,7 +2891,7 @@ async function confirmSolutionPlanEx(request: ConfirmSolutionPlanRequest, header
   return doRequest('1.0' ,'yunyou.yunqing.solution.plan.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QuerySolutionPreviewtaskRequest = {
+model GetSolutionPlanstatusRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -2783,33 +2899,377 @@ model QuerySolutionPreviewtaskRequest = {
   solutionId: string(name='solution_id'),
 }
 
-model QuerySolutionPreviewtaskResponse = {
+model GetSolutionPlanstatusResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 产品预览任务查询
-  prodPreviewTasks?: [ ProdPreviewTasks ](name='prod_preview_tasks'),
+  // 是否完成规划
+  allPlanConfirmed?: boolean(name='all_plan_confirmed'),
+  // sidecar规划状态
+  sidecarPlanStatus?: string(name='sidecar_plan_status'),
+  // 持久化存储规划状态
+  persistentVolumePlanStatus?: string(name='persistent_volume_plan_status'),
+  // 数据库规划状态
+  // 
+  dbPlanStatus?: string(name='db_plan_status'),
+  // 负载均衡规划
+  lbPlanStatus?: string(name='lb_plan_status'),
+  // 应用配置规划状态
+  appDeploySpecStatus?: string(name='app_deploy_spec_status'),
+  // 解决方案检查项结果
+  checkPoint?: [ CheckPoint ](name='check_point'),
 }
 
 /**
- * Description: 解决方案应用previewtask查询
- * Summary: 解决方案应用previewtask查询
+ * Description: 解决方案是否完成规划
+ * Summary: 解决方案是否完成规划
  */
-async function querySolutionPreviewtask(request: QuerySolutionPreviewtaskRequest): QuerySolutionPreviewtaskResponse {
+async function getSolutionPlanstatus(request: GetSolutionPlanstatusRequest): GetSolutionPlanstatusResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return querySolutionPreviewtaskEx(request, headers, runtime);
+  return getSolutionPlanstatusEx(request, headers, runtime);
 }
 
 /**
- * Description: 解决方案应用previewtask查询
- * Summary: 解决方案应用previewtask查询
+ * Description: 解决方案是否完成规划
+ * Summary: 解决方案是否完成规划
  */
-async function querySolutionPreviewtaskEx(request: QuerySolutionPreviewtaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySolutionPreviewtaskResponse {
+async function getSolutionPlanstatusEx(request: GetSolutionPlanstatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetSolutionPlanstatusResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'yunyou.yunqing.solution.previewtask.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'yunyou.yunqing.solution.planstatus.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryProditerationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+  // 产品版本
+  prodVersion?: string(name='prod_version'),
+}
+
+model PagequeryProditerationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 分页查询迭代详情
+ * Summary: 分页查询迭代详情
+ */
+async function pagequeryProditeration(request: PagequeryProditerationRequest): PagequeryProditerationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryProditerationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询迭代详情
+ * Summary: 分页查询迭代详情
+ */
+async function pagequeryProditerationEx(request: PagequeryProditerationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryProditerationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.proditeration.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateProdinstanceDeployunitbatchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 环境id
+  envId: string(name='env_id'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+  // 部署单元名称
+  deploymentUnitName: string(name='deployment_unit_name'),
+  // 部署单元实例id列表
+  unitInstanceIds: [ string ](name='unit_instance_ids'),
+  // 逻辑部署单元实例id
+  logicalInstanceId: string(name='logical_instance_id'),
+  // 集群中哪个zone，公有云场景使用，专有云不需要部署
+  cellId: string(name='cell_id'),
+}
+
+model CreateProdinstanceDeployunitbatchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 发布单id
+  opsPlanId?: string(name='ops_plan_id'),
+}
+
+/**
+ * Description: 部署单元批量创建
+ * Summary: 部署单元批量创建
+ */
+async function createProdinstanceDeployunitbatch(request: CreateProdinstanceDeployunitbatchRequest): CreateProdinstanceDeployunitbatchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createProdinstanceDeployunitbatchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 部署单元批量创建
+ * Summary: 部署单元批量创建
+ */
+async function createProdinstanceDeployunitbatchEx(request: CreateProdinstanceDeployunitbatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateProdinstanceDeployunitbatchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.prodinstance.deployunitbatch.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RollbackOpsAppRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 发布单id
+  opsPlanId: string(name='ops_plan_id'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+  // 应用名
+  appName: string(name='app_name'),
+  // 需要回滚的快照版本
+  prodSnapshotVersion: string(name='prod_snapshot_version'),
+  // 部署单元ID
+  unitInstanceId: string(name='unit_instance_id'),
+  // 操作人Id
+  submitterId: string(name='submitter_id'),
+  // 分组策略，默认使用SYSTEM_RECOMMENDATION
+  groupStrategy?: string(name='group_strategy'),
+}
+
+model RollbackOpsAppResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 回滚任务发布单
+  opsPlanId?: string(name='ops_plan_id'),
+}
+
+/**
+ * Description: 发布单应用回滚
+ * Summary: 发布单应用回滚
+ */
+async function rollbackOpsApp(request: RollbackOpsAppRequest): RollbackOpsAppResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return rollbackOpsAppEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发布单应用回滚
+ * Summary: 发布单应用回滚
+ */
+async function rollbackOpsAppEx(request: RollbackOpsAppRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RollbackOpsAppResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.ops.app.rollback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RollbackOpsProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 需要回滚的解决方案ID
+  solutionId: string(name='solution_id'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+  // 需要回滚的快照版本
+  prodSnapshotVersion: string(name='prod_snapshot_version'),
+  // 分组策略
+  groupStrategy?: string(name='group_strategy'),
+  // 部署单元ID
+  unitInstanceId: string(name='unit_instance_id'),
+  // 操作人ID
+  submitterId: string(name='submitter_id'),
+}
+
+model RollbackOpsProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 回滚发布单id
+  opsPlanId?: string(name='ops_plan_id'),
+}
+
+/**
+ * Description: 发布单产品回滚
+ * Summary: 发布单产品回滚
+ */
+async function rollbackOpsProduct(request: RollbackOpsProductRequest): RollbackOpsProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return rollbackOpsProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发布单产品回滚
+ * Summary: 发布单产品回滚
+ */
+async function rollbackOpsProductEx(request: RollbackOpsProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RollbackOpsProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.ops.product.rollback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryClusterNativepodRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 环境id
+  envId: string(name='env_id'),
+  // 产品码--应用名
+  productApp?: string(name='product_app'),
+  // 租户信息
+  tenantId?: string(name='tenant_id'),
+}
+
+model QueryClusterNativepodResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // Pod信息
+  podInfos?: [ PodInfo ](name='pod_infos'),
+}
+
+/**
+ * Description: 直接查询集群的pod信息，不是查询云游的基线！
+ * Summary: 查询集群pod信息
+ */
+async function queryClusterNativepod(request: QueryClusterNativepodRequest): QueryClusterNativepodResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryClusterNativepodEx(request, headers, runtime);
+}
+
+/**
+ * Description: 直接查询集群的pod信息，不是查询云游的基线！
+ * Summary: 查询集群pod信息
+ */
+async function queryClusterNativepodEx(request: QueryClusterNativepodRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryClusterNativepodResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.cluster.nativepod.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryBaselineAppcontainersRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 环境ID
+  envId: string(name='env_id'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+  // 应用名数组，没传则查询改产品下的所有参数
+  apps?: [ string ](name='apps'),
+  // 部署单元实例id。默认值为default
+  deploymentUnitInstanceIdentities?: [ string ](name='deployment_unit_instance_identities'),
+  // 页大小，默认每页12
+  pageSize?: long(name='page_size'),
+  // 第几页，默认返回第一页
+  // 
+  currentPage?: long(name='current_page'),
+}
+
+model PagequeryBaselineAppcontainersResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 分页查询中的总数目
+  totalCount?: long(name='total_count'),
+  // 每页大小
+  pageSize?: long(name='page_size'),
+  // 当前页码
+  currentPage?: long(name='current_page'),
+  // 基线应用容器列表
+  containers?: [ Container ](name='containers'),
+}
+
+/**
+ * Description: 查询基线应用容器
+ * Summary: 查询基线应用容器
+ */
+async function pagequeryBaselineAppcontainers(request: PagequeryBaselineAppcontainersRequest): PagequeryBaselineAppcontainersResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryBaselineAppcontainersEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询基线应用容器
+ * Summary: 查询基线应用容器
+ */
+async function pagequeryBaselineAppcontainersEx(request: PagequeryBaselineAppcontainersRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryBaselineAppcontainersResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.baseline.appcontainers.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryRollbackSnapshotversionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 环境Id 
+  envId: string(name='env_id'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+  // 每页大小，默认12
+  pageSize?: long(name='page_size'),
+  // 当前页码。默认第一页
+  currentPage?: long(name='current_page'),
+}
+
+model PagequeryRollbackSnapshotversionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 页大小
+  pageSize?: long(name='page_size'),
+  // 当前页
+  currentPage?: long(name='current_page'),
+  // 共有多少天记录
+  totalCount?: long(name='total_count'),
+  // 快照版本
+  deploymentUnitSnapshots?: [ DeploymentUnitSnapshotOP ](name='deployment_unit_snapshots'),
+}
+
+/**
+ * Description: 回滚快照查询
+ * Summary: 回滚快照查询
+ */
+async function pagequeryRollbackSnapshotversion(request: PagequeryRollbackSnapshotversionRequest): PagequeryRollbackSnapshotversionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryRollbackSnapshotversionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 回滚快照查询
+ * Summary: 回滚快照查询
+ */
+async function pagequeryRollbackSnapshotversionEx(request: PagequeryRollbackSnapshotversionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryRollbackSnapshotversionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.rollback.snapshotversion.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
