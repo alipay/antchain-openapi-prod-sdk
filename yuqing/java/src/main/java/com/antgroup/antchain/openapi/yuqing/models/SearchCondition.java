@@ -5,16 +5,16 @@ import com.aliyun.tea.*;
 
 public class SearchCondition extends TeaModel {
     // 搭配词
-    @NameInMap("ass_keywords")
-    public String assKeywords;
+    @NameInMap("ass_keyword_list")
+    public java.util.List<String> assKeywordList;
 
     // 被@的用户名称
-    @NameInMap("at_author_name")
-    public String atAuthorName;
+    @NameInMap("at_author_name_list")
+    public java.util.List<String> atAuthorNameList;
 
     // 作者名称
-    @NameInMap("author_name")
-    public String authorName;
+    @NameInMap("author_name_list")
+    public java.util.List<String> authorNameList;
 
     // 评论级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
     @NameInMap("comments_level")
@@ -37,8 +37,8 @@ public class SearchCondition extends TeaModel {
     public String docContentSign;
 
     // 舆情文章唯一docId
-    @NameInMap("doc_id")
-    public String docId;
+    @NameInMap("doc_id_list")
+    public java.util.List<String> docIdList;
 
     // 是否去重
     @NameInMap("duplicate_removal")
@@ -53,48 +53,44 @@ public class SearchCondition extends TeaModel {
     public Boolean enableKeywordHighlight;
 
     // 排除被@的用户名称
-    @NameInMap("exclude_at_author_name")
-    public String excludeAtAuthorName;
+    @NameInMap("exclude_at_author_name_list")
+    public java.util.List<String> excludeAtAuthorNameList;
 
     // 排除作者名称
-    @NameInMap("exclude_author_name")
-    public String excludeAuthorName;
+    @NameInMap("exclude_author_name_list")
+    public java.util.List<String> excludeAuthorNameList;
 
     // 排除网站域名
-    @NameInMap("exclude_host_name")
-    public String excludeHostName;
+    @NameInMap("exclude_host_name_list")
+    public java.util.List<String> excludeHostNameList;
 
     // 排除关键词标签Id列表
     @NameInMap("exclude_keyword_tag_ids")
-    public String excludeKeywordTagIds;
+    public java.util.List<Long> excludeKeywordTagIds;
 
     // 排除词
-    @NameInMap("exclude_keywords")
-    public String excludeKeywords;
+    @NameInMap("exclude_keyword_list")
+    public java.util.List<String> excludeKeywordList;
 
     // 标题排除词
-    @NameInMap("exclude_keywords_in_title")
-    public String excludeKeywordsInTitle;
+    @NameInMap("exclude_keyword_list_in_title")
+    public java.util.List<String> excludeKeywordListInTitle;
 
     // 排除媒体库id列表
-    @NameInMap("exclude_media_library_ids")
-    public String excludeMediaLibraryIds;
+    @NameInMap("exclude_media_library_id_list")
+    public java.util.List<Long> excludeMediaLibraryIdList;
 
     // 排除媒体名称
-    @NameInMap("exclude_media_name")
-    public String excludeMediaName;
+    @NameInMap("exclude_media_name_list")
+    public java.util.List<String> excludeMediaNameList;
 
     // 排除媒体类型，枚举值
-    @NameInMap("exclude_media_type")
-    public String excludeMediaType;
+    @NameInMap("exclude_media_type_list")
+    public java.util.List<String> excludeMediaTypeList;
 
     // 排除消息类型，枚举值
-    @NameInMap("exclude_message_type")
-    public String excludeMessageType;
-
-    // 其他过滤条件
-    @NameInMap("field_conditions")
-    public String fieldConditions;
+    @NameInMap("exclude_message_type_list")
+    public java.util.List<String> excludeMessageTypeList;
 
     // 文章是否含有图片
     @NameInMap("has_image")
@@ -105,32 +101,32 @@ public class SearchCondition extends TeaModel {
     public Boolean hasVideo;
 
     // 网站域名
-    @NameInMap("host_name")
-    public String hostName;
+    @NameInMap("host_name_list")
+    public java.util.List<String> hostNameList;
 
     // 关键词标签Id列表
     @NameInMap("keyword_tag_ids")
-    public String keywordTagIds;
+    public java.util.List<Long> keywordTagIds;
 
     // 点赞级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
     @NameInMap("likes_level")
     public Long likesLevel;
 
     // 媒体库id列表
-    @NameInMap("media_library_ids")
-    public String mediaLibraryIds;
+    @NameInMap("media_library_id_list")
+    public java.util.List<Long> mediaLibraryIdList;
 
     // 媒体名称
-    @NameInMap("media_name")
-    public String mediaName;
+    @NameInMap("media_name_list")
+    public java.util.List<String> mediaNameList;
 
     // 体类型，枚举值
-    @NameInMap("media_type")
-    public String mediaType;
+    @NameInMap("media_type_list")
+    public java.util.List<String> mediaTypeList;
 
     // 消息类型，枚举值
-    @NameInMap("message_type")
-    public String messageType;
+    @NameInMap("message_type_list")
+    public java.util.List<String> messageTypeList;
 
     // 当前页
     @NameInMap("page_now")
@@ -145,12 +141,12 @@ public class SearchCondition extends TeaModel {
     public String parentDocId;
 
     // 关键词
-    @NameInMap("pos_keywords")
-    public String posKeywords;
+    @NameInMap("pos_keyword_list")
+    public java.util.List<String> posKeywordList;
 
     // 标题关键词
-    @NameInMap("pos_keywords_in_title")
-    public String posKeywordsInTitle;
+    @NameInMap("pos_keyword_list_in_title")
+    public java.util.List<String> posKeywordListInTitle;
 
     // 截止发布时间
     @NameInMap("publish_time_end")
@@ -181,8 +177,8 @@ public class SearchCondition extends TeaModel {
     public String sortByDirection;
 
     // #话题
-    @NameInMap("topics")
-    public String topics;
+    @NameInMap("topic_list")
+    public java.util.List<String> topicList;
 
     // 舆情文章截止更新时间
     @NameInMap("update_time_end")
@@ -197,28 +193,28 @@ public class SearchCondition extends TeaModel {
         return TeaModel.build(map, self);
     }
 
-    public SearchCondition setAssKeywords(String assKeywords) {
-        this.assKeywords = assKeywords;
+    public SearchCondition setAssKeywordList(java.util.List<String> assKeywordList) {
+        this.assKeywordList = assKeywordList;
         return this;
     }
-    public String getAssKeywords() {
-        return this.assKeywords;
+    public java.util.List<String> getAssKeywordList() {
+        return this.assKeywordList;
     }
 
-    public SearchCondition setAtAuthorName(String atAuthorName) {
-        this.atAuthorName = atAuthorName;
+    public SearchCondition setAtAuthorNameList(java.util.List<String> atAuthorNameList) {
+        this.atAuthorNameList = atAuthorNameList;
         return this;
     }
-    public String getAtAuthorName() {
-        return this.atAuthorName;
+    public java.util.List<String> getAtAuthorNameList() {
+        return this.atAuthorNameList;
     }
 
-    public SearchCondition setAuthorName(String authorName) {
-        this.authorName = authorName;
+    public SearchCondition setAuthorNameList(java.util.List<String> authorNameList) {
+        this.authorNameList = authorNameList;
         return this;
     }
-    public String getAuthorName() {
-        return this.authorName;
+    public java.util.List<String> getAuthorNameList() {
+        return this.authorNameList;
     }
 
     public SearchCondition setCommentsLevel(Long commentsLevel) {
@@ -261,12 +257,12 @@ public class SearchCondition extends TeaModel {
         return this.docContentSign;
     }
 
-    public SearchCondition setDocId(String docId) {
-        this.docId = docId;
+    public SearchCondition setDocIdList(java.util.List<String> docIdList) {
+        this.docIdList = docIdList;
         return this;
     }
-    public String getDocId() {
-        return this.docId;
+    public java.util.List<String> getDocIdList() {
+        return this.docIdList;
     }
 
     public SearchCondition setDuplicateRemoval(Boolean duplicateRemoval) {
@@ -293,92 +289,84 @@ public class SearchCondition extends TeaModel {
         return this.enableKeywordHighlight;
     }
 
-    public SearchCondition setExcludeAtAuthorName(String excludeAtAuthorName) {
-        this.excludeAtAuthorName = excludeAtAuthorName;
+    public SearchCondition setExcludeAtAuthorNameList(java.util.List<String> excludeAtAuthorNameList) {
+        this.excludeAtAuthorNameList = excludeAtAuthorNameList;
         return this;
     }
-    public String getExcludeAtAuthorName() {
-        return this.excludeAtAuthorName;
+    public java.util.List<String> getExcludeAtAuthorNameList() {
+        return this.excludeAtAuthorNameList;
     }
 
-    public SearchCondition setExcludeAuthorName(String excludeAuthorName) {
-        this.excludeAuthorName = excludeAuthorName;
+    public SearchCondition setExcludeAuthorNameList(java.util.List<String> excludeAuthorNameList) {
+        this.excludeAuthorNameList = excludeAuthorNameList;
         return this;
     }
-    public String getExcludeAuthorName() {
-        return this.excludeAuthorName;
+    public java.util.List<String> getExcludeAuthorNameList() {
+        return this.excludeAuthorNameList;
     }
 
-    public SearchCondition setExcludeHostName(String excludeHostName) {
-        this.excludeHostName = excludeHostName;
+    public SearchCondition setExcludeHostNameList(java.util.List<String> excludeHostNameList) {
+        this.excludeHostNameList = excludeHostNameList;
         return this;
     }
-    public String getExcludeHostName() {
-        return this.excludeHostName;
+    public java.util.List<String> getExcludeHostNameList() {
+        return this.excludeHostNameList;
     }
 
-    public SearchCondition setExcludeKeywordTagIds(String excludeKeywordTagIds) {
+    public SearchCondition setExcludeKeywordTagIds(java.util.List<Long> excludeKeywordTagIds) {
         this.excludeKeywordTagIds = excludeKeywordTagIds;
         return this;
     }
-    public String getExcludeKeywordTagIds() {
+    public java.util.List<Long> getExcludeKeywordTagIds() {
         return this.excludeKeywordTagIds;
     }
 
-    public SearchCondition setExcludeKeywords(String excludeKeywords) {
-        this.excludeKeywords = excludeKeywords;
+    public SearchCondition setExcludeKeywordList(java.util.List<String> excludeKeywordList) {
+        this.excludeKeywordList = excludeKeywordList;
         return this;
     }
-    public String getExcludeKeywords() {
-        return this.excludeKeywords;
+    public java.util.List<String> getExcludeKeywordList() {
+        return this.excludeKeywordList;
     }
 
-    public SearchCondition setExcludeKeywordsInTitle(String excludeKeywordsInTitle) {
-        this.excludeKeywordsInTitle = excludeKeywordsInTitle;
+    public SearchCondition setExcludeKeywordListInTitle(java.util.List<String> excludeKeywordListInTitle) {
+        this.excludeKeywordListInTitle = excludeKeywordListInTitle;
         return this;
     }
-    public String getExcludeKeywordsInTitle() {
-        return this.excludeKeywordsInTitle;
+    public java.util.List<String> getExcludeKeywordListInTitle() {
+        return this.excludeKeywordListInTitle;
     }
 
-    public SearchCondition setExcludeMediaLibraryIds(String excludeMediaLibraryIds) {
-        this.excludeMediaLibraryIds = excludeMediaLibraryIds;
+    public SearchCondition setExcludeMediaLibraryIdList(java.util.List<Long> excludeMediaLibraryIdList) {
+        this.excludeMediaLibraryIdList = excludeMediaLibraryIdList;
         return this;
     }
-    public String getExcludeMediaLibraryIds() {
-        return this.excludeMediaLibraryIds;
+    public java.util.List<Long> getExcludeMediaLibraryIdList() {
+        return this.excludeMediaLibraryIdList;
     }
 
-    public SearchCondition setExcludeMediaName(String excludeMediaName) {
-        this.excludeMediaName = excludeMediaName;
+    public SearchCondition setExcludeMediaNameList(java.util.List<String> excludeMediaNameList) {
+        this.excludeMediaNameList = excludeMediaNameList;
         return this;
     }
-    public String getExcludeMediaName() {
-        return this.excludeMediaName;
+    public java.util.List<String> getExcludeMediaNameList() {
+        return this.excludeMediaNameList;
     }
 
-    public SearchCondition setExcludeMediaType(String excludeMediaType) {
-        this.excludeMediaType = excludeMediaType;
+    public SearchCondition setExcludeMediaTypeList(java.util.List<String> excludeMediaTypeList) {
+        this.excludeMediaTypeList = excludeMediaTypeList;
         return this;
     }
-    public String getExcludeMediaType() {
-        return this.excludeMediaType;
+    public java.util.List<String> getExcludeMediaTypeList() {
+        return this.excludeMediaTypeList;
     }
 
-    public SearchCondition setExcludeMessageType(String excludeMessageType) {
-        this.excludeMessageType = excludeMessageType;
+    public SearchCondition setExcludeMessageTypeList(java.util.List<String> excludeMessageTypeList) {
+        this.excludeMessageTypeList = excludeMessageTypeList;
         return this;
     }
-    public String getExcludeMessageType() {
-        return this.excludeMessageType;
-    }
-
-    public SearchCondition setFieldConditions(String fieldConditions) {
-        this.fieldConditions = fieldConditions;
-        return this;
-    }
-    public String getFieldConditions() {
-        return this.fieldConditions;
+    public java.util.List<String> getExcludeMessageTypeList() {
+        return this.excludeMessageTypeList;
     }
 
     public SearchCondition setHasImage(Boolean hasImage) {
@@ -397,19 +385,19 @@ public class SearchCondition extends TeaModel {
         return this.hasVideo;
     }
 
-    public SearchCondition setHostName(String hostName) {
-        this.hostName = hostName;
+    public SearchCondition setHostNameList(java.util.List<String> hostNameList) {
+        this.hostNameList = hostNameList;
         return this;
     }
-    public String getHostName() {
-        return this.hostName;
+    public java.util.List<String> getHostNameList() {
+        return this.hostNameList;
     }
 
-    public SearchCondition setKeywordTagIds(String keywordTagIds) {
+    public SearchCondition setKeywordTagIds(java.util.List<Long> keywordTagIds) {
         this.keywordTagIds = keywordTagIds;
         return this;
     }
-    public String getKeywordTagIds() {
+    public java.util.List<Long> getKeywordTagIds() {
         return this.keywordTagIds;
     }
 
@@ -421,36 +409,36 @@ public class SearchCondition extends TeaModel {
         return this.likesLevel;
     }
 
-    public SearchCondition setMediaLibraryIds(String mediaLibraryIds) {
-        this.mediaLibraryIds = mediaLibraryIds;
+    public SearchCondition setMediaLibraryIdList(java.util.List<Long> mediaLibraryIdList) {
+        this.mediaLibraryIdList = mediaLibraryIdList;
         return this;
     }
-    public String getMediaLibraryIds() {
-        return this.mediaLibraryIds;
+    public java.util.List<Long> getMediaLibraryIdList() {
+        return this.mediaLibraryIdList;
     }
 
-    public SearchCondition setMediaName(String mediaName) {
-        this.mediaName = mediaName;
+    public SearchCondition setMediaNameList(java.util.List<String> mediaNameList) {
+        this.mediaNameList = mediaNameList;
         return this;
     }
-    public String getMediaName() {
-        return this.mediaName;
+    public java.util.List<String> getMediaNameList() {
+        return this.mediaNameList;
     }
 
-    public SearchCondition setMediaType(String mediaType) {
-        this.mediaType = mediaType;
+    public SearchCondition setMediaTypeList(java.util.List<String> mediaTypeList) {
+        this.mediaTypeList = mediaTypeList;
         return this;
     }
-    public String getMediaType() {
-        return this.mediaType;
+    public java.util.List<String> getMediaTypeList() {
+        return this.mediaTypeList;
     }
 
-    public SearchCondition setMessageType(String messageType) {
-        this.messageType = messageType;
+    public SearchCondition setMessageTypeList(java.util.List<String> messageTypeList) {
+        this.messageTypeList = messageTypeList;
         return this;
     }
-    public String getMessageType() {
-        return this.messageType;
+    public java.util.List<String> getMessageTypeList() {
+        return this.messageTypeList;
     }
 
     public SearchCondition setPageNow(Long pageNow) {
@@ -477,20 +465,20 @@ public class SearchCondition extends TeaModel {
         return this.parentDocId;
     }
 
-    public SearchCondition setPosKeywords(String posKeywords) {
-        this.posKeywords = posKeywords;
+    public SearchCondition setPosKeywordList(java.util.List<String> posKeywordList) {
+        this.posKeywordList = posKeywordList;
         return this;
     }
-    public String getPosKeywords() {
-        return this.posKeywords;
+    public java.util.List<String> getPosKeywordList() {
+        return this.posKeywordList;
     }
 
-    public SearchCondition setPosKeywordsInTitle(String posKeywordsInTitle) {
-        this.posKeywordsInTitle = posKeywordsInTitle;
+    public SearchCondition setPosKeywordListInTitle(java.util.List<String> posKeywordListInTitle) {
+        this.posKeywordListInTitle = posKeywordListInTitle;
         return this;
     }
-    public String getPosKeywordsInTitle() {
-        return this.posKeywordsInTitle;
+    public java.util.List<String> getPosKeywordListInTitle() {
+        return this.posKeywordListInTitle;
     }
 
     public SearchCondition setPublishTimeEnd(Long publishTimeEnd) {
@@ -549,12 +537,12 @@ public class SearchCondition extends TeaModel {
         return this.sortByDirection;
     }
 
-    public SearchCondition setTopics(String topics) {
-        this.topics = topics;
+    public SearchCondition setTopicList(java.util.List<String> topicList) {
+        this.topicList = topicList;
         return this;
     }
-    public String getTopics() {
-        return this.topics;
+    public java.util.List<String> getTopicList() {
+        return this.topicList;
     }
 
     public SearchCondition setUpdateTimeEnd(Long updateTimeEnd) {

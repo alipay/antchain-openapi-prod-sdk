@@ -18,7 +18,7 @@ public class QueryAnalysisQueryResponse extends TeaModel {
 
     // 分析任务ID
     @NameInMap("analysis_id")
-    public String analysisId;
+    public Long analysisId;
 
     // 分析内容
     @NameInMap("result_json")
@@ -53,11 +53,11 @@ public class QueryAnalysisQueryResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryAnalysisQueryResponse setAnalysisId(String analysisId) {
+    public QueryAnalysisQueryResponse setAnalysisId(Long analysisId) {
         this.analysisId = analysisId;
         return this;
     }
-    public String getAnalysisId() {
+    public Long getAnalysisId() {
         return this.analysisId;
     }
 

@@ -14,7 +14,7 @@ public class QueryAnalysisQueryRequest extends TeaModel {
     // 分析任务ID
     @NameInMap("analysis_id")
     @Validation(required = true)
-    public String analysisId;
+    public Long analysisId;
 
     public static QueryAnalysisQueryRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAnalysisQueryRequest self = new QueryAnalysisQueryRequest();
@@ -37,11 +37,11 @@ public class QueryAnalysisQueryRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryAnalysisQueryRequest setAnalysisId(String analysisId) {
+    public QueryAnalysisQueryRequest setAnalysisId(Long analysisId) {
         this.analysisId = analysisId;
         return this;
     }
-    public String getAnalysisId() {
+    public Long getAnalysisId() {
         return this.analysisId;
     }
 

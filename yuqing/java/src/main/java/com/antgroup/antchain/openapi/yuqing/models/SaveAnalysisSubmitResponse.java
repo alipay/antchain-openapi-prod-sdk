@@ -18,7 +18,7 @@ public class SaveAnalysisSubmitResponse extends TeaModel {
 
     // 分析任务ID
     @NameInMap("analysis_id")
-    public String analysisId;
+    public Long analysisId;
 
     // 其他
     @NameInMap("result_json")
@@ -53,11 +53,11 @@ public class SaveAnalysisSubmitResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public SaveAnalysisSubmitResponse setAnalysisId(String analysisId) {
+    public SaveAnalysisSubmitResponse setAnalysisId(Long analysisId) {
         this.analysisId = analysisId;
         return this;
     }
-    public String getAnalysisId() {
+    public Long getAnalysisId() {
         return this.analysisId;
     }
 
