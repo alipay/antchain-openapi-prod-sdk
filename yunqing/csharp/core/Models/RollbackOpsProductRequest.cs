@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.YUNQING.Models
 {
-    public class CreateAppdeployRequest : TeaModel {
+    public class RollbackOpsProductRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,44 +18,34 @@ namespace AntChain.SDK.YUNQING.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 应用码
-        [NameInMap("apps")]
+        // 需要回滚的解决方案ID
+        [NameInMap("solution_id")]
         [Validation(Required=true)]
-        public List<string> Apps { get; set; }
-
-        // 将要发布的单元id
-        [NameInMap("cell_ids")]
-        [Validation(Required=true)]
-        public List<string> CellIds { get; set; }
+        public string SolutionId { get; set; }
 
         // 产品码
         [NameInMap("prod_code")]
         [Validation(Required=true)]
         public string ProdCode { get; set; }
 
-        // 解决方案id
-        [NameInMap("solution_id")]
+        // 需要回滚的快照版本
+        [NameInMap("prod_snapshot_version")]
         [Validation(Required=true)]
-        public string SolutionId { get; set; }
+        public string ProdSnapshotVersion { get; set; }
 
-        // 是否强制重发
-        [NameInMap("force")]
-        [Validation(Required=true)]
-        public bool? Force { get; set; }
-
-        // 是否需要手动的确认
-        [NameInMap("need_beta")]
-        [Validation(Required=false)]
-        public bool? NeedBeta { get; set; }
-
-        // TWO_GROUP分两组ALL_ONE共分一组无灰生产禁用EACH_ONE每台一组SYSTEM_RECOMMENDATION系统推荐
+        // 分组策略
         [NameInMap("group_strategy")]
         [Validation(Required=false)]
         public string GroupStrategy { get; set; }
 
+        // 部署单元ID
+        [NameInMap("unit_instance_id")]
+        [Validation(Required=true)]
+        public string UnitInstanceId { get; set; }
+
         // 操作人ID
         [NameInMap("submitter_id")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string SubmitterId { get; set; }
 
     }

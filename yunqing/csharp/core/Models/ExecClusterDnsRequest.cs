@@ -38,6 +38,13 @@ namespace AntChain.SDK.YUNQING.Models
         [Validation(Required=true)]
         public string OpsAction { get; set; }
 
+        // 需要调用的adns所对应环境。
+        // 例如A、B环境，A环境宕机了，此时需要调用B机房的adns进行A机房的环境域名解绑操作。
+        // 如果不填，默认与env_id一致。
+        [NameInMap("operation_env_id")]
+        [Validation(Required=false)]
+        public string OperationEnvId { get; set; }
+
     }
 
 }

@@ -28,6 +28,11 @@ namespace AntChain.SDK.YUNQING.Models
         [Validation(Required=true)]
         public List<string> ContainerIds { get; set; }
 
+        // 操作人id
+        [NameInMap("submitter_id")]
+        [Validation(Required=false)]
+        public string SubmitterId { get; set; }
+
     }
 
 }

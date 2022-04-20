@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.YUNQING.Models
 {
-    public class UninstallProdinstanceAppserviceRequest : TeaModel {
+    public class GetSolutionPlanstatusRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,10 @@ namespace AntChain.SDK.YUNQING.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 环境标识
-        [NameInMap("env_id")]
+        // 解决方案id
+        [NameInMap("solution_id")]
         [Validation(Required=true)]
-        public string EnvId { get; set; }
-
-        // 产品码
-        [NameInMap("product_code")]
-        [Validation(Required=true)]
-        public string ProductCode { get; set; }
-
-        // 操作人Id
-        [NameInMap("submitter_id")]
-        [Validation(Required=true)]
-        public string SubmitterId { get; set; }
+        public string SolutionId { get; set; }
 
     }
 

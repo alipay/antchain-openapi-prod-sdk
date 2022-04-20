@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.YUNQING.Models
 {
-    public class CreateProdinstanceDeployunitRequest : TeaModel {
+    public class CreateProdinstanceDeployunitbatchRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,35 +18,35 @@ namespace AntChain.SDK.YUNQING.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 环境标识
+        // 环境id
         [NameInMap("env_id")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string EnvId { get; set; }
 
-        // 云游内产品码
-        [NameInMap("product_code")]
+        // 产品码
+        [NameInMap("prod_code")]
         [Validation(Required=true)]
-        public string ProductCode { get; set; }
-
-        // 执行部署单元实例id
-        [NameInMap("unit_id")]
-        [Validation(Required=true)]
-        public string UnitId { get; set; }
+        public string ProdCode { get; set; }
 
         // 部署单元名称
-        [NameInMap("unit_name")]
+        [NameInMap("deployment_unit_name")]
         [Validation(Required=true)]
-        public string UnitName { get; set; }
+        public string DeploymentUnitName { get; set; }
 
-        // 单元ID
-        [NameInMap("cell_id")]
+        // 部署单元实例id列表
+        [NameInMap("unit_instance_ids")]
         [Validation(Required=true)]
-        public string CellId { get; set; }
+        public List<string> UnitInstanceIds { get; set; }
 
         // 逻辑部署单元实例id
         [NameInMap("logical_instance_id")]
         [Validation(Required=true)]
         public string LogicalInstanceId { get; set; }
+
+        // 集群中哪个zone，公有云场景使用，专有云不需要部署
+        [NameInMap("cell_id")]
+        [Validation(Required=true)]
+        public string CellId { get; set; }
 
     }
 

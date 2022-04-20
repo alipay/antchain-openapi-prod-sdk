@@ -48,6 +48,16 @@ namespace AntChain.SDK.YUNQING.Models
         [Validation(Required=true)]
         public string CellId { get; set; }
 
+        // 操作人ID
+        [NameInMap("submitter_id")]
+        [Validation(Required=false)]
+        public string SubmitterId { get; set; }
+
+        // 应用容器分组策略，默认取SYSTEM_RECOMMENDATION
+        [NameInMap("group_strategy")]
+        [Validation(Required=false)]
+        public string GroupStrategy { get; set; }
+
     }
 
 }

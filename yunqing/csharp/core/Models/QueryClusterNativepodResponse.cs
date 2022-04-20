@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.YUNQING.Models
 {
-    public class QuerySolutionPreviewtaskResponse : TeaModel {
+    public class QueryClusterNativepodResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.YUNQING.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 产品预览任务查询
-        [NameInMap("prod_preview_tasks")]
+        // Pod信息
+        [NameInMap("pod_infos")]
         [Validation(Required=false)]
-        public List<ProdPreviewTasks> ProdPreviewTasks { get; set; }
+        public List<PodInfo> PodInfos { get; set; }
 
     }
 

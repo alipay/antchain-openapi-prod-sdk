@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.YUNQING.Models
 {
-    public class UninstallProdinstanceAppserviceRequest : TeaModel {
+    public class PagequeryRollbackSnapshotversionRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,25 @@ namespace AntChain.SDK.YUNQING.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 环境标识
+        // 环境Id 
         [NameInMap("env_id")]
         [Validation(Required=true)]
         public string EnvId { get; set; }
 
         // 产品码
-        [NameInMap("product_code")]
+        [NameInMap("prod_code")]
         [Validation(Required=true)]
-        public string ProductCode { get; set; }
+        public string ProdCode { get; set; }
 
-        // 操作人Id
-        [NameInMap("submitter_id")]
-        [Validation(Required=true)]
-        public string SubmitterId { get; set; }
+        // 每页大小，默认12
+        [NameInMap("page_size")]
+        [Validation(Required=false)]
+        public long? PageSize { get; set; }
+
+        // 当前页码。默认第一页
+        [NameInMap("current_page")]
+        [Validation(Required=false)]
+        public long? CurrentPage { get; set; }
 
     }
 

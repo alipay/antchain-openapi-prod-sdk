@@ -63,6 +63,16 @@ namespace AntChain.SDK.YUNQING.Models
         [Validation(Required=false)]
         public string ProductGroup { get; set; }
 
+        // 产品码--应用名
+        [NameInMap("product_app")]
+        [Validation(Required=false)]
+        public string ProductApp { get; set; }
+
+        // 租户信息当前值为mock
+        [NameInMap("tenant_id")]
+        [Validation(Required=false)]
+        public string TenantId { get; set; }
+
     }
 
 }

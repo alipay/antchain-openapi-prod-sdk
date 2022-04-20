@@ -60,6 +60,36 @@ namespace AntChain.SDK.YUNQING.Models
         [Validation(Required=false)]
         public string AppType { get; set; }
 
+        // 应用显示名称，云游资产使用
+        [NameInMap("app_display_name")]
+        [Validation(Required=false)]
+        public string AppDisplayName { get; set; }
+
+        // 应用等级，云游资产使用
+        [NameInMap("app_level")]
+        [Validation(Required=false)]
+        public string AppLevel { get; set; }
+
+        // 租户信息，云游资产使用。
+        [NameInMap("tenant_id")]
+        [Validation(Required=false)]
+        public string TenantId { get; set; }
+
+        // 产品码--应用名
+        [NameInMap("product_app")]
+        [Validation(Required=false)]
+        public string ProductApp { get; set; }
+
+        // 产品Owner
+        [NameInMap("owner")]
+        [Validation(Required=false)]
+        public Owner Owner { get; set; }
+
+        // 应用SRE信息
+        [NameInMap("admin")]
+        [Validation(Required=false)]
+        public Admin Admin { get; set; }
+
     }
 
 }
