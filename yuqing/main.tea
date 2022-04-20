@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.10',
+    sdk_version = '1.1.11',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -302,11 +302,11 @@ model YuqingMessage {
 // 查询结构体
 model SearchCondition {
   // 搭配词
-  assKeywords?: string(name='ass_keywords', example='搭配词'),
+  assKeywordList?: [ string ](name='ass_keyword_list', example='搭配词'),
   // 被@的用户名称
-  atAuthorName?: string(name='at_author_name', example='被@的用户名称'),
+  atAuthorNameList?: [ string ](name='at_author_name_list', example='被@的用户名称'),
   // 作者名称
-  authorName?: string(name='author_name', example='作者名称'),
+  authorNameList?: [ string ](name='author_name_list', example='作者名称'),
   // 评论级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
   commentsLevel?: long(name='comments_level', example='评论级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+'),
   // 内容长度级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
@@ -318,7 +318,7 @@ model SearchCondition {
   // 文章签名
   docContentSign?: string(name='doc_content_sign', example='文章签名'),
   // 舆情文章唯一docId
-  docId?: string(name='doc_id', example='舆情文章唯一docId'),
+  docIdList?: [ string ](name='doc_id_list', example='舆情文章唯一docId'),
   // 是否去重
   duplicateRemoval?: boolean(name='duplicate_removal', example='true, false'),
   // 情感类型，1非负，-1负面
@@ -326,45 +326,43 @@ model SearchCondition {
   // 是否高亮关键词
   enableKeywordHighlight?: boolean(name='enable_keyword_highlight', example='true, false'),
   // 排除被@的用户名称
-  excludeAtAuthorName?: string(name='exclude_at_author_name', example='排除被@的用户名称'),
+  excludeAtAuthorNameList?: [ string ](name='exclude_at_author_name_list', example='排除被@的用户名称'),
   // 排除作者名称
-  excludeAuthorName?: string(name='exclude_author_name', example='排除作者名称'),
+  excludeAuthorNameList?: [ string ](name='exclude_author_name_list', example='排除作者名称'),
   // 排除网站域名
-  excludeHostName?: string(name='exclude_host_name', example='排除网站域名'),
+  excludeHostNameList?: [ string ](name='exclude_host_name_list', example='排除网站域名'),
   // 排除关键词标签Id列表
-  excludeKeywordTagIds?: string(name='exclude_keyword_tag_ids', example='排除关键词标签Id列表'),
+  excludeKeywordTagIds?: [ long ](name='exclude_keyword_tag_ids', example='排除关键词标签Id列表'),
   // 排除词
-  excludeKeywords?: string(name='exclude_keywords', example='排除词'),
+  excludeKeywordList?: [ string ](name='exclude_keyword_list', example='排除词'),
   // 标题排除词
-  excludeKeywordsInTitle?: string(name='exclude_keywords_in_title', example='标题排除词'),
+  excludeKeywordListInTitle?: [ string ](name='exclude_keyword_list_in_title', example='标题排除词'),
   // 排除媒体库id列表
-  excludeMediaLibraryIds?: string(name='exclude_media_library_ids', example='排除媒体库id列表'),
+  excludeMediaLibraryIdList?: [ long ](name='exclude_media_library_id_list', example='排除媒体库id列表'),
   // 排除媒体名称
-  excludeMediaName?: string(name='exclude_media_name', example='排除媒体名称'),
+  excludeMediaNameList?: [ string ](name='exclude_media_name_list', example='排除媒体名称'),
   // 排除媒体类型，枚举值
-  excludeMediaType?: string(name='exclude_media_type', example='排除媒体类型，枚举值'),
+  excludeMediaTypeList?: [ string ](name='exclude_media_type_list', example='排除媒体类型，枚举值'),
   // 排除消息类型，枚举值
-  excludeMessageType?: string(name='exclude_message_type', example='排除消息类型，枚举值'),
-  // 其他过滤条件
-  fieldConditions?: string(name='field_conditions', example='其他过滤条件'),
+  excludeMessageTypeList?: [ string ](name='exclude_message_type_list', example='排除消息类型，枚举值'),
   // 文章是否含有图片
   hasImage?: boolean(name='has_image', example='true, false'),
   // 是否含有视频
   hasVideo?: boolean(name='has_video', example='true, false'),
   // 网站域名
-  hostName?: string(name='host_name', example='网站域名'),
+  hostNameList?: [ string ](name='host_name_list', example='网站域名'),
   // 关键词标签Id列表
-  keywordTagIds?: string(name='keyword_tag_ids', example='关键词标签Id列表'),
+  keywordTagIds?: [ long ](name='keyword_tag_ids', example='关键词标签Id列表'),
   // 点赞级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
   likesLevel?: long(name='likes_level', example='点赞级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+'),
   // 媒体库id列表
-  mediaLibraryIds?: string(name='media_library_ids', example='媒体库id列表'),
+  mediaLibraryIdList?: [ long ](name='media_library_id_list', example='媒体库id列表'),
   // 媒体名称
-  mediaName?: string(name='media_name', example='媒体名称'),
+  mediaNameList?: [ string ](name='media_name_list', example='媒体名称'),
   // 体类型，枚举值
-  mediaType?: string(name='media_type', example='体类型，枚举值'),
+  mediaTypeList?: [ string ](name='media_type_list', example='体类型，枚举值'),
   // 消息类型，枚举值
-  messageType?: string(name='message_type', example='消息类型，枚举值'),
+  messageTypeList?: [ string ](name='message_type_list', example='消息类型，枚举值'),
   // 当前页
   pageNow?: long(name='page_now', example='当前页'),
   // 页大小
@@ -372,9 +370,9 @@ model SearchCondition {
   // 舆情父文章的docId，一般用于查看某篇文章的评论
   parentDocId?: string(name='parent_doc_id', example='舆情父文章的docId，一般用于查看某篇文章的评论'),
   // 关键词
-  posKeywords?: string(name='pos_keywords', example='关键词'),
+  posKeywordList?: [ string ](name='pos_keyword_list', example='关键词'),
   // 标题关键词
-  posKeywordsInTitle?: string(name='pos_keywords_in_title', example='标题关键词'),
+  posKeywordListInTitle?: [ string ](name='pos_keyword_list_in_title', example='标题关键词'),
   // 截止发布时间
   publishTimeEnd?: long(name='publish_time_end', example='截止发布时间'),
   // 起始发布时间
@@ -390,7 +388,7 @@ model SearchCondition {
   // 指定正反向排序
   sortByDirection?: string(name='sort_by_direction', example='指定正反向排序'),
   // #话题
-  topics?: string(name='topics', example='#话题'),
+  topicList?: [ string ](name='topic_list', example='#话题'),
   // 舆情文章截止更新时间
   updateTimeEnd?: long(name='update_time_end', example='舆情文章截止更新时间'),
   // 舆情文章起始更新时间
@@ -465,7 +463,7 @@ model SaveAnalysisSubmitResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 分析任务ID
-  analysisId?: string(name='analysis_id'),
+  analysisId?: long(name='analysis_id'),
   // 其他
   resultJson?: string(name='result_json'),
 }
@@ -494,7 +492,7 @@ model QueryAnalysisQueryRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 分析任务ID
-  analysisId: string(name='analysis_id'),
+  analysisId: long(name='analysis_id'),
 }
 
 model QueryAnalysisQueryResponse = {
@@ -505,7 +503,7 @@ model QueryAnalysisQueryResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 分析任务ID
-  analysisId?: string(name='analysis_id'),
+  analysisId?: long(name='analysis_id'),
   // 分析内容
   resultJson?: string(name='result_json'),
 }
