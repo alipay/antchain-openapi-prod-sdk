@@ -48,6 +48,24 @@ class CreateAppdeployRequest extends Model
      * @var bool
      */
     public $force;
+
+    // 是否需要手动的确认
+    /**
+     * @var bool
+     */
+    public $needBeta;
+
+    // TWO_GROUP分两组ALL_ONE共分一组无灰生产禁用EACH_ONE每台一组SYSTEM_RECOMMENDATION系统推荐
+    /**
+     * @var string
+     */
+    public $groupStrategy;
+
+    // 操作人ID
+    /**
+     * @var string
+     */
+    public $submitterId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +74,9 @@ class CreateAppdeployRequest extends Model
         'prodCode'          => 'prod_code',
         'solutionId'        => 'solution_id',
         'force'             => 'force',
+        'needBeta'          => 'need_beta',
+        'groupStrategy'     => 'group_strategy',
+        'submitterId'       => 'submitter_id',
     ];
 
     public function validate()
@@ -90,6 +111,15 @@ class CreateAppdeployRequest extends Model
         }
         if (null !== $this->force) {
             $res['force'] = $this->force;
+        }
+        if (null !== $this->needBeta) {
+            $res['need_beta'] = $this->needBeta;
+        }
+        if (null !== $this->groupStrategy) {
+            $res['group_strategy'] = $this->groupStrategy;
+        }
+        if (null !== $this->submitterId) {
+            $res['submitter_id'] = $this->submitterId;
         }
 
         return $res;
@@ -127,6 +157,15 @@ class CreateAppdeployRequest extends Model
         }
         if (isset($map['force'])) {
             $model->force = $map['force'];
+        }
+        if (isset($map['need_beta'])) {
+            $model->needBeta = $map['need_beta'];
+        }
+        if (isset($map['group_strategy'])) {
+            $model->groupStrategy = $map['group_strategy'];
+        }
+        if (isset($map['submitter_id'])) {
+            $model->submitterId = $map['submitter_id'];
         }
 
         return $model;

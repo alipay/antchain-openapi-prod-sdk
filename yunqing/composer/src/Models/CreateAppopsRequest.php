@@ -54,6 +54,18 @@ class CreateAppopsRequest extends Model
      * @var string
      */
     public $cellId;
+
+    // 操作人ID
+    /**
+     * @var string
+     */
+    public $submitterId;
+
+    // 应用容器分组策略，默认取SYSTEM_RECOMMENDATION
+    /**
+     * @var string
+     */
+    public $groupStrategy;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,6 +75,8 @@ class CreateAppopsRequest extends Model
         'opsAction'         => 'ops_action',
         'opsDimension'      => 'ops_dimension',
         'cellId'            => 'cell_id',
+        'submitterId'       => 'submitter_id',
+        'groupStrategy'     => 'group_strategy',
     ];
 
     public function validate()
@@ -99,6 +113,12 @@ class CreateAppopsRequest extends Model
         }
         if (null !== $this->cellId) {
             $res['cell_id'] = $this->cellId;
+        }
+        if (null !== $this->submitterId) {
+            $res['submitter_id'] = $this->submitterId;
+        }
+        if (null !== $this->groupStrategy) {
+            $res['group_strategy'] = $this->groupStrategy;
         }
 
         return $res;
@@ -139,6 +159,12 @@ class CreateAppopsRequest extends Model
         }
         if (isset($map['cell_id'])) {
             $model->cellId = $map['cell_id'];
+        }
+        if (isset($map['submitter_id'])) {
+            $model->submitterId = $map['submitter_id'];
+        }
+        if (isset($map['group_strategy'])) {
+            $model->groupStrategy = $map['group_strategy'];
         }
 
         return $model;

@@ -42,7 +42,7 @@ class Container extends Model
 
     // 容器id。
     /**
-     * @example 006ca7547c991d2a5bee2167552fc5058f92aea3fb2ce534394172e21af01055
+     * @example shujuan-registry-meta-server-0
      *
      * @var string
      */
@@ -74,7 +74,7 @@ class Container extends Model
 
     // 容器名称。
     /**
-     * @example hbase-slave-2
+     * @example shujuan-registry-meta-server-0
      *
      * @var string
      */

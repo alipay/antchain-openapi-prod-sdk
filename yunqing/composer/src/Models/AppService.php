@@ -87,17 +87,71 @@ class AppService extends Model
      * @var string
      */
     public $appType;
+
+    // 应用显示名称，云游资产使用
+    /**
+     * @example aciamcore
+     *
+     * @var string
+     */
+    public $appDisplayName;
+
+    // 应用等级，云游资产使用
+    /**
+     * @example A1-4
+     *
+     * @var string
+     */
+    public $appLevel;
+
+    // 租户信息，云游资产使用。
+    /**
+     * @example antcloud
+     *
+     * @var string
+     */
+    public $tenantId;
+
+    // 产品码--应用名
+    /**
+     * @example IAM--aciamcore
+     *
+     * @var string
+     */
+    public $productApp;
+
+    // 产品Owner
+    /**
+     * @example
+     *
+     * @var Owner
+     */
+    public $owner;
+
+    // 应用SRE信息
+    /**
+     * @example
+     *
+     * @var Admin
+     */
+    public $admin;
     protected $_name = [
-        'appName'     => 'app_name',
-        'appVersion'  => 'app_version',
-        'cellId'      => 'cell_id',
-        'deployUnit'  => 'deploy_unit',
-        'deployZone'  => 'deploy_zone',
-        'envId'       => 'env_id',
-        'id'          => 'id',
-        'productCode' => 'product_code',
-        'status'      => 'status',
-        'appType'     => 'app_type',
+        'appName'        => 'app_name',
+        'appVersion'     => 'app_version',
+        'cellId'         => 'cell_id',
+        'deployUnit'     => 'deploy_unit',
+        'deployZone'     => 'deploy_zone',
+        'envId'          => 'env_id',
+        'id'             => 'id',
+        'productCode'    => 'product_code',
+        'status'         => 'status',
+        'appType'        => 'app_type',
+        'appDisplayName' => 'app_display_name',
+        'appLevel'       => 'app_level',
+        'tenantId'       => 'tenant_id',
+        'productApp'     => 'product_app',
+        'owner'          => 'owner',
+        'admin'          => 'admin',
     ];
 
     public function validate()
@@ -136,6 +190,24 @@ class AppService extends Model
         }
         if (null !== $this->appType) {
             $res['app_type'] = $this->appType;
+        }
+        if (null !== $this->appDisplayName) {
+            $res['app_display_name'] = $this->appDisplayName;
+        }
+        if (null !== $this->appLevel) {
+            $res['app_level'] = $this->appLevel;
+        }
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
+        }
+        if (null !== $this->productApp) {
+            $res['product_app'] = $this->productApp;
+        }
+        if (null !== $this->owner) {
+            $res['owner'] = null !== $this->owner ? $this->owner->toMap() : null;
+        }
+        if (null !== $this->admin) {
+            $res['admin'] = null !== $this->admin ? $this->admin->toMap() : null;
         }
 
         return $res;
@@ -178,6 +250,24 @@ class AppService extends Model
         }
         if (isset($map['app_type'])) {
             $model->appType = $map['app_type'];
+        }
+        if (isset($map['app_display_name'])) {
+            $model->appDisplayName = $map['app_display_name'];
+        }
+        if (isset($map['app_level'])) {
+            $model->appLevel = $map['app_level'];
+        }
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
+        }
+        if (isset($map['product_app'])) {
+            $model->productApp = $map['product_app'];
+        }
+        if (isset($map['owner'])) {
+            $model->owner = Owner::fromMap($map['owner']);
+        }
+        if (isset($map['admin'])) {
+            $model->admin = Admin::fromMap($map['admin']);
         }
 
         return $model;

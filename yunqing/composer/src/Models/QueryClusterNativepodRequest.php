@@ -6,7 +6,7 @@ namespace AntChain\YUNQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ScaleinProdinstanceAppserviceRequest extends Model
+class QueryClusterNativepodRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,35 +19,34 @@ class ScaleinProdinstanceAppserviceRequest extends Model
      */
     public $productInstanceId;
 
-    // 应用服务实例唯一标识。
+    // 环境id
     /**
      * @var string
      */
-    public $appServiceId;
+    public $envId;
 
-    // 执行运维操作的目标容器列表。
-    /**
-     * @var string[]
-     */
-    public $containerIds;
-
-    // 操作人id
+    // 产品码--应用名
     /**
      * @var string
      */
-    public $submitterId;
+    public $productApp;
+
+    // 租户信息
+    /**
+     * @var string
+     */
+    public $tenantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'appServiceId'      => 'app_service_id',
-        'containerIds'      => 'container_ids',
-        'submitterId'       => 'submitter_id',
+        'envId'             => 'env_id',
+        'productApp'        => 'product_app',
+        'tenantId'          => 'tenant_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('appServiceId', $this->appServiceId, true);
-        Model::validateRequired('containerIds', $this->containerIds, true);
+        Model::validateRequired('envId', $this->envId, true);
     }
 
     public function toMap()
@@ -59,14 +58,14 @@ class ScaleinProdinstanceAppserviceRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->appServiceId) {
-            $res['app_service_id'] = $this->appServiceId;
+        if (null !== $this->envId) {
+            $res['env_id'] = $this->envId;
         }
-        if (null !== $this->containerIds) {
-            $res['container_ids'] = $this->containerIds;
+        if (null !== $this->productApp) {
+            $res['product_app'] = $this->productApp;
         }
-        if (null !== $this->submitterId) {
-            $res['submitter_id'] = $this->submitterId;
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
         }
 
         return $res;
@@ -75,7 +74,7 @@ class ScaleinProdinstanceAppserviceRequest extends Model
     /**
      * @param array $map
      *
-     * @return ScaleinProdinstanceAppserviceRequest
+     * @return QueryClusterNativepodRequest
      */
     public static function fromMap($map = [])
     {
@@ -86,16 +85,14 @@ class ScaleinProdinstanceAppserviceRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['app_service_id'])) {
-            $model->appServiceId = $map['app_service_id'];
+        if (isset($map['env_id'])) {
+            $model->envId = $map['env_id'];
         }
-        if (isset($map['container_ids'])) {
-            if (!empty($map['container_ids'])) {
-                $model->containerIds = $map['container_ids'];
-            }
+        if (isset($map['product_app'])) {
+            $model->productApp = $map['product_app'];
         }
-        if (isset($map['submitter_id'])) {
-            $model->submitterId = $map['submitter_id'];
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
         }
 
         return $model;

@@ -30,11 +30,25 @@ class ScaleoutProdinstanceAppserviceRequest extends Model
      * @var int
      */
     public $targetNum;
+
+    // 操作人
+    /**
+     * @var string
+     */
+    public $submitterId;
+
+    // 容器分组策略，默认SYSTEM_RECOMMENDATION
+    /**
+     * @var string
+     */
+    public $groupStrategy;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'appServiceId'      => 'app_service_id',
         'targetNum'         => 'target_num',
+        'submitterId'       => 'submitter_id',
+        'groupStrategy'     => 'group_strategy',
     ];
 
     public function validate()
@@ -57,6 +71,12 @@ class ScaleoutProdinstanceAppserviceRequest extends Model
         }
         if (null !== $this->targetNum) {
             $res['target_num'] = $this->targetNum;
+        }
+        if (null !== $this->submitterId) {
+            $res['submitter_id'] = $this->submitterId;
+        }
+        if (null !== $this->groupStrategy) {
+            $res['group_strategy'] = $this->groupStrategy;
         }
 
         return $res;
@@ -81,6 +101,12 @@ class ScaleoutProdinstanceAppserviceRequest extends Model
         }
         if (isset($map['target_num'])) {
             $model->targetNum = $map['target_num'];
+        }
+        if (isset($map['submitter_id'])) {
+            $model->submitterId = $map['submitter_id'];
+        }
+        if (isset($map['group_strategy'])) {
+            $model->groupStrategy = $map['group_strategy'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\YUNQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UninstallProdinstanceDeployunitRequest extends Model
+class RollbackOpsProductRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,25 +19,31 @@ class UninstallProdinstanceDeployunitRequest extends Model
      */
     public $productInstanceId;
 
-    // 单元ID
+    // 需要回滚的解决方案ID
     /**
      * @var string
      */
-    public $cellId;
-
-    // 环境唯一标识
-    /**
-     * @var string
-     */
-    public $envId;
+    public $solutionId;
 
     // 产品码
     /**
      * @var string
      */
-    public $productCode;
+    public $prodCode;
 
-    // 部署单元实例标识
+    // 需要回滚的快照版本
+    /**
+     * @var string
+     */
+    public $prodSnapshotVersion;
+
+    // 分组策略
+    /**
+     * @var string
+     */
+    public $groupStrategy;
+
+    // 部署单元ID
     /**
      * @var string
      */
@@ -49,20 +55,21 @@ class UninstallProdinstanceDeployunitRequest extends Model
      */
     public $submitterId;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'cellId'            => 'cell_id',
-        'envId'             => 'env_id',
-        'productCode'       => 'product_code',
-        'unitInstanceId'    => 'unit_instance_id',
-        'submitterId'       => 'submitter_id',
+        'authToken'           => 'auth_token',
+        'productInstanceId'   => 'product_instance_id',
+        'solutionId'          => 'solution_id',
+        'prodCode'            => 'prod_code',
+        'prodSnapshotVersion' => 'prod_snapshot_version',
+        'groupStrategy'       => 'group_strategy',
+        'unitInstanceId'      => 'unit_instance_id',
+        'submitterId'         => 'submitter_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('cellId', $this->cellId, true);
-        Model::validateRequired('envId', $this->envId, true);
-        Model::validateRequired('productCode', $this->productCode, true);
+        Model::validateRequired('solutionId', $this->solutionId, true);
+        Model::validateRequired('prodCode', $this->prodCode, true);
+        Model::validateRequired('prodSnapshotVersion', $this->prodSnapshotVersion, true);
         Model::validateRequired('unitInstanceId', $this->unitInstanceId, true);
         Model::validateRequired('submitterId', $this->submitterId, true);
     }
@@ -76,14 +83,17 @@ class UninstallProdinstanceDeployunitRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->cellId) {
-            $res['cell_id'] = $this->cellId;
+        if (null !== $this->solutionId) {
+            $res['solution_id'] = $this->solutionId;
         }
-        if (null !== $this->envId) {
-            $res['env_id'] = $this->envId;
+        if (null !== $this->prodCode) {
+            $res['prod_code'] = $this->prodCode;
         }
-        if (null !== $this->productCode) {
-            $res['product_code'] = $this->productCode;
+        if (null !== $this->prodSnapshotVersion) {
+            $res['prod_snapshot_version'] = $this->prodSnapshotVersion;
+        }
+        if (null !== $this->groupStrategy) {
+            $res['group_strategy'] = $this->groupStrategy;
         }
         if (null !== $this->unitInstanceId) {
             $res['unit_instance_id'] = $this->unitInstanceId;
@@ -98,7 +108,7 @@ class UninstallProdinstanceDeployunitRequest extends Model
     /**
      * @param array $map
      *
-     * @return UninstallProdinstanceDeployunitRequest
+     * @return RollbackOpsProductRequest
      */
     public static function fromMap($map = [])
     {
@@ -109,14 +119,17 @@ class UninstallProdinstanceDeployunitRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['cell_id'])) {
-            $model->cellId = $map['cell_id'];
+        if (isset($map['solution_id'])) {
+            $model->solutionId = $map['solution_id'];
         }
-        if (isset($map['env_id'])) {
-            $model->envId = $map['env_id'];
+        if (isset($map['prod_code'])) {
+            $model->prodCode = $map['prod_code'];
         }
-        if (isset($map['product_code'])) {
-            $model->productCode = $map['product_code'];
+        if (isset($map['prod_snapshot_version'])) {
+            $model->prodSnapshotVersion = $map['prod_snapshot_version'];
+        }
+        if (isset($map['group_strategy'])) {
+            $model->groupStrategy = $map['group_strategy'];
         }
         if (isset($map['unit_instance_id'])) {
             $model->unitInstanceId = $map['unit_instance_id'];

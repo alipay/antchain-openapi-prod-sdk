@@ -48,6 +48,12 @@ class CreateProdinstanceDeployunitRequest extends Model
      * @var string
      */
     public $cellId;
+
+    // 逻辑部署单元实例id
+    /**
+     * @var string
+     */
+    public $logicalInstanceId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class CreateProdinstanceDeployunitRequest extends Model
         'unitId'            => 'unit_id',
         'unitName'          => 'unit_name',
         'cellId'            => 'cell_id',
+        'logicalInstanceId' => 'logical_instance_id',
     ];
 
     public function validate()
@@ -64,6 +71,7 @@ class CreateProdinstanceDeployunitRequest extends Model
         Model::validateRequired('unitId', $this->unitId, true);
         Model::validateRequired('unitName', $this->unitName, true);
         Model::validateRequired('cellId', $this->cellId, true);
+        Model::validateRequired('logicalInstanceId', $this->logicalInstanceId, true);
     }
 
     public function toMap()
@@ -89,6 +97,9 @@ class CreateProdinstanceDeployunitRequest extends Model
         }
         if (null !== $this->cellId) {
             $res['cell_id'] = $this->cellId;
+        }
+        if (null !== $this->logicalInstanceId) {
+            $res['logical_instance_id'] = $this->logicalInstanceId;
         }
 
         return $res;
@@ -122,6 +133,9 @@ class CreateProdinstanceDeployunitRequest extends Model
         }
         if (isset($map['cell_id'])) {
             $model->cellId = $map['cell_id'];
+        }
+        if (isset($map['logical_instance_id'])) {
+            $model->logicalInstanceId = $map['logical_instance_id'];
         }
 
         return $model;

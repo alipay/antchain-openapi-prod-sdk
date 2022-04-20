@@ -6,7 +6,7 @@ namespace AntChain\YUNQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ExecClusterDnsRequest extends Model
+class PagequeryRollbackSnapshotversionRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,7 +19,7 @@ class ExecClusterDnsRequest extends Model
      */
     public $productInstanceId;
 
-    // 环境id
+    // 环境Id
     /**
      * @var string
      */
@@ -31,41 +31,30 @@ class ExecClusterDnsRequest extends Model
      */
     public $prodCode;
 
-    // 应用名列表
+    // 每页大小，默认12
     /**
-     * @var string[]
+     * @var int
      */
-    public $appNames;
+    public $pageSize;
 
-    // dns域名的绑定/解绑
+    // 当前页码。默认第一页
     /**
-     * @var string
+     * @var int
      */
-    public $opsAction;
-
-    // 需要调用的adns所对应环境。
-    // 例如A、B环境，A环境宕机了，此时需要调用B机房的adns进行A机房的环境域名解绑操作。
-    // 如果不填，默认与env_id一致。
-    /**
-     * @var string
-     */
-    public $operationEnvId;
+    public $currentPage;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'envId'             => 'env_id',
         'prodCode'          => 'prod_code',
-        'appNames'          => 'app_names',
-        'opsAction'         => 'ops_action',
-        'operationEnvId'    => 'operation_env_id',
+        'pageSize'          => 'page_size',
+        'currentPage'       => 'current_page',
     ];
 
     public function validate()
     {
         Model::validateRequired('envId', $this->envId, true);
         Model::validateRequired('prodCode', $this->prodCode, true);
-        Model::validateRequired('appNames', $this->appNames, true);
-        Model::validateRequired('opsAction', $this->opsAction, true);
     }
 
     public function toMap()
@@ -83,14 +72,11 @@ class ExecClusterDnsRequest extends Model
         if (null !== $this->prodCode) {
             $res['prod_code'] = $this->prodCode;
         }
-        if (null !== $this->appNames) {
-            $res['app_names'] = $this->appNames;
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
         }
-        if (null !== $this->opsAction) {
-            $res['ops_action'] = $this->opsAction;
-        }
-        if (null !== $this->operationEnvId) {
-            $res['operation_env_id'] = $this->operationEnvId;
+        if (null !== $this->currentPage) {
+            $res['current_page'] = $this->currentPage;
         }
 
         return $res;
@@ -99,7 +85,7 @@ class ExecClusterDnsRequest extends Model
     /**
      * @param array $map
      *
-     * @return ExecClusterDnsRequest
+     * @return PagequeryRollbackSnapshotversionRequest
      */
     public static function fromMap($map = [])
     {
@@ -116,16 +102,11 @@ class ExecClusterDnsRequest extends Model
         if (isset($map['prod_code'])) {
             $model->prodCode = $map['prod_code'];
         }
-        if (isset($map['app_names'])) {
-            if (!empty($map['app_names'])) {
-                $model->appNames = $map['app_names'];
-            }
+        if (isset($map['page_size'])) {
+            $model->pageSize = $map['page_size'];
         }
-        if (isset($map['ops_action'])) {
-            $model->opsAction = $map['ops_action'];
-        }
-        if (isset($map['operation_env_id'])) {
-            $model->operationEnvId = $map['operation_env_id'];
+        if (isset($map['current_page'])) {
+            $model->currentPage = $map['current_page'];
         }
 
         return $model;

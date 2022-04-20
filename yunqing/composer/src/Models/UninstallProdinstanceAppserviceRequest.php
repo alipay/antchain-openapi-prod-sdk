@@ -19,20 +19,36 @@ class UninstallProdinstanceAppserviceRequest extends Model
      */
     public $productInstanceId;
 
-    // 应用服务实例id。
+    // 环境标识
     /**
      * @var string
      */
-    public $appServiceId;
+    public $envId;
+
+    // 产品码
+    /**
+     * @var string
+     */
+    public $productCode;
+
+    // 操作人Id
+    /**
+     * @var string
+     */
+    public $submitterId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'appServiceId'      => 'app_service_id',
+        'envId'             => 'env_id',
+        'productCode'       => 'product_code',
+        'submitterId'       => 'submitter_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('appServiceId', $this->appServiceId, true);
+        Model::validateRequired('envId', $this->envId, true);
+        Model::validateRequired('productCode', $this->productCode, true);
+        Model::validateRequired('submitterId', $this->submitterId, true);
     }
 
     public function toMap()
@@ -44,8 +60,14 @@ class UninstallProdinstanceAppserviceRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->appServiceId) {
-            $res['app_service_id'] = $this->appServiceId;
+        if (null !== $this->envId) {
+            $res['env_id'] = $this->envId;
+        }
+        if (null !== $this->productCode) {
+            $res['product_code'] = $this->productCode;
+        }
+        if (null !== $this->submitterId) {
+            $res['submitter_id'] = $this->submitterId;
         }
 
         return $res;
@@ -65,8 +87,14 @@ class UninstallProdinstanceAppserviceRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['app_service_id'])) {
-            $model->appServiceId = $map['app_service_id'];
+        if (isset($map['env_id'])) {
+            $model->envId = $map['env_id'];
+        }
+        if (isset($map['product_code'])) {
+            $model->productCode = $map['product_code'];
+        }
+        if (isset($map['submitter_id'])) {
+            $model->submitterId = $map['submitter_id'];
         }
 
         return $model;

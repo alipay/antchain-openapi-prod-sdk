@@ -26,6 +26,8 @@ use AntChain\YUNQING\Models\CreateAppopsRequest;
 use AntChain\YUNQING\Models\CreateAppopsResponse;
 use AntChain\YUNQING\Models\CreateAutotestopsRequest;
 use AntChain\YUNQING\Models\CreateAutotestopsResponse;
+use AntChain\YUNQING\Models\CreateProdinstanceDeployunitbatchRequest;
+use AntChain\YUNQING\Models\CreateProdinstanceDeployunitbatchResponse;
 use AntChain\YUNQING\Models\CreateProdinstanceDeployunitRequest;
 use AntChain\YUNQING\Models\CreateProdinstanceDeployunitResponse;
 use AntChain\YUNQING\Models\DeprecateSolutioninstanceRequest;
@@ -50,6 +52,8 @@ use AntChain\YUNQING\Models\GetProdinstanceAppserviceRequest;
 use AntChain\YUNQING\Models\GetProdinstanceAppserviceResponse;
 use AntChain\YUNQING\Models\GetProdinstanceDeployunitRequest;
 use AntChain\YUNQING\Models\GetProdinstanceDeployunitResponse;
+use AntChain\YUNQING\Models\GetSolutionPlanstatusRequest;
+use AntChain\YUNQING\Models\GetSolutionPlanstatusResponse;
 use AntChain\YUNQING\Models\GetSystemRequest;
 use AntChain\YUNQING\Models\GetSystemResponse;
 use AntChain\YUNQING\Models\GetUnitDetailRequest;
@@ -70,6 +74,12 @@ use AntChain\YUNQING\Models\OfflineClusterContainerRequest;
 use AntChain\YUNQING\Models\OfflineClusterContainerResponse;
 use AntChain\YUNQING\Models\OnlineClusterContainerRequest;
 use AntChain\YUNQING\Models\OnlineClusterContainerResponse;
+use AntChain\YUNQING\Models\PagequeryBaselineAppcontainersRequest;
+use AntChain\YUNQING\Models\PagequeryBaselineAppcontainersResponse;
+use AntChain\YUNQING\Models\PagequeryProditerationRequest;
+use AntChain\YUNQING\Models\PagequeryProditerationResponse;
+use AntChain\YUNQING\Models\PagequeryRollbackSnapshotversionRequest;
+use AntChain\YUNQING\Models\PagequeryRollbackSnapshotversionResponse;
 use AntChain\YUNQING\Models\PagequerySolutionOpsplanRequest;
 use AntChain\YUNQING\Models\PagequerySolutionOpsplanResponse;
 use AntChain\YUNQING\Models\QueryAppparamRequest;
@@ -78,6 +88,8 @@ use AntChain\YUNQING\Models\QueryAuthRequest;
 use AntChain\YUNQING\Models\QueryAuthResponse;
 use AntChain\YUNQING\Models\QueryClusterKubeconfigRequest;
 use AntChain\YUNQING\Models\QueryClusterKubeconfigResponse;
+use AntChain\YUNQING\Models\QueryClusterNativepodRequest;
+use AntChain\YUNQING\Models\QueryClusterNativepodResponse;
 use AntChain\YUNQING\Models\QueryClusterPodsRequest;
 use AntChain\YUNQING\Models\QueryClusterPodsResponse;
 use AntChain\YUNQING\Models\QueryProdinstanceAppserviceRequest;
@@ -86,14 +98,16 @@ use AntChain\YUNQING\Models\QueryProdinstanceRequest;
 use AntChain\YUNQING\Models\QueryProdinstanceResponse;
 use AntChain\YUNQING\Models\QuerySolutioninstanceRequest;
 use AntChain\YUNQING\Models\QuerySolutioninstanceResponse;
-use AntChain\YUNQING\Models\QuerySolutionPreviewtaskRequest;
-use AntChain\YUNQING\Models\QuerySolutionPreviewtaskResponse;
 use AntChain\YUNQING\Models\QueryUnitinstanceCreationRequest;
 use AntChain\YUNQING\Models\QueryUnitinstanceCreationResponse;
 use AntChain\YUNQING\Models\ReopenSolutioninstanceRequest;
 use AntChain\YUNQING\Models\ReopenSolutioninstanceResponse;
 use AntChain\YUNQING\Models\RetryAppopsRequest;
 use AntChain\YUNQING\Models\RetryAppopsResponse;
+use AntChain\YUNQING\Models\RollbackOpsAppRequest;
+use AntChain\YUNQING\Models\RollbackOpsAppResponse;
+use AntChain\YUNQING\Models\RollbackOpsProductRequest;
+use AntChain\YUNQING\Models\RollbackOpsProductResponse;
 use AntChain\YUNQING\Models\ScaleinProdinstanceAppserviceRequest;
 use AntChain\YUNQING\Models\ScaleinProdinstanceAppserviceResponse;
 use AntChain\YUNQING\Models\ScaleoutProdinstanceAppserviceRequest;
@@ -250,7 +264,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '3.12.4',
+                    'sdk_version'      => '3.14.14',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -561,8 +575,8 @@ class Client
     }
 
     /**
-     * Description: 卸载应用服务实例。
-     * Summary: 卸载应用服务实例。
+     * Description: 卸载基线产品实例
+     * Summary: 卸载基线产品实例.
      *
      * @param UninstallProdinstanceAppserviceRequest $request
      *
@@ -577,8 +591,8 @@ class Client
     }
 
     /**
-     * Description: 卸载应用服务实例。
-     * Summary: 卸载应用服务实例。
+     * Description: 卸载基线产品实例
+     * Summary: 卸载基线产品实例.
      *
      * @param UninstallProdinstanceAppserviceRequest $request
      * @param string[]                               $headers
@@ -1786,35 +1800,266 @@ class Client
     }
 
     /**
-     * Description: 解决方案应用previewtask查询
-     * Summary: 解决方案应用previewtask查询.
+     * Description: 解决方案是否完成规划
+     * Summary: 解决方案是否完成规划.
      *
-     * @param QuerySolutionPreviewtaskRequest $request
+     * @param GetSolutionPlanstatusRequest $request
      *
-     * @return QuerySolutionPreviewtaskResponse
+     * @return GetSolutionPlanstatusResponse
      */
-    public function querySolutionPreviewtask($request)
+    public function getSolutionPlanstatus($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->querySolutionPreviewtaskEx($request, $headers, $runtime);
+        return $this->getSolutionPlanstatusEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 解决方案应用previewtask查询
-     * Summary: 解决方案应用previewtask查询.
+     * Description: 解决方案是否完成规划
+     * Summary: 解决方案是否完成规划.
      *
-     * @param QuerySolutionPreviewtaskRequest $request
-     * @param string[]                        $headers
-     * @param RuntimeOptions                  $runtime
+     * @param GetSolutionPlanstatusRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
      *
-     * @return QuerySolutionPreviewtaskResponse
+     * @return GetSolutionPlanstatusResponse
      */
-    public function querySolutionPreviewtaskEx($request, $headers, $runtime)
+    public function getSolutionPlanstatusEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QuerySolutionPreviewtaskResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.solution.previewtask.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return GetSolutionPlanstatusResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.solution.planstatus.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询迭代详情
+     * Summary: 分页查询迭代详情.
+     *
+     * @param PagequeryProditerationRequest $request
+     *
+     * @return PagequeryProditerationResponse
+     */
+    public function pagequeryProditeration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryProditerationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询迭代详情
+     * Summary: 分页查询迭代详情.
+     *
+     * @param PagequeryProditerationRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return PagequeryProditerationResponse
+     */
+    public function pagequeryProditerationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryProditerationResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.proditeration.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 部署单元批量创建
+     * Summary: 部署单元批量创建.
+     *
+     * @param CreateProdinstanceDeployunitbatchRequest $request
+     *
+     * @return CreateProdinstanceDeployunitbatchResponse
+     */
+    public function createProdinstanceDeployunitbatch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createProdinstanceDeployunitbatchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 部署单元批量创建
+     * Summary: 部署单元批量创建.
+     *
+     * @param CreateProdinstanceDeployunitbatchRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return CreateProdinstanceDeployunitbatchResponse
+     */
+    public function createProdinstanceDeployunitbatchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateProdinstanceDeployunitbatchResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.prodinstance.deployunitbatch.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发布单应用回滚
+     * Summary: 发布单应用回滚.
+     *
+     * @param RollbackOpsAppRequest $request
+     *
+     * @return RollbackOpsAppResponse
+     */
+    public function rollbackOpsApp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->rollbackOpsAppEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发布单应用回滚
+     * Summary: 发布单应用回滚.
+     *
+     * @param RollbackOpsAppRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return RollbackOpsAppResponse
+     */
+    public function rollbackOpsAppEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RollbackOpsAppResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.ops.app.rollback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发布单产品回滚
+     * Summary: 发布单产品回滚.
+     *
+     * @param RollbackOpsProductRequest $request
+     *
+     * @return RollbackOpsProductResponse
+     */
+    public function rollbackOpsProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->rollbackOpsProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发布单产品回滚
+     * Summary: 发布单产品回滚.
+     *
+     * @param RollbackOpsProductRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return RollbackOpsProductResponse
+     */
+    public function rollbackOpsProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RollbackOpsProductResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.ops.product.rollback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 直接查询集群的pod信息，不是查询云游的基线！
+     * Summary: 查询集群pod信息.
+     *
+     * @param QueryClusterNativepodRequest $request
+     *
+     * @return QueryClusterNativepodResponse
+     */
+    public function queryClusterNativepod($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryClusterNativepodEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 直接查询集群的pod信息，不是查询云游的基线！
+     * Summary: 查询集群pod信息.
+     *
+     * @param QueryClusterNativepodRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryClusterNativepodResponse
+     */
+    public function queryClusterNativepodEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryClusterNativepodResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.cluster.nativepod.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询基线应用容器
+     * Summary: 查询基线应用容器.
+     *
+     * @param PagequeryBaselineAppcontainersRequest $request
+     *
+     * @return PagequeryBaselineAppcontainersResponse
+     */
+    public function pagequeryBaselineAppcontainers($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryBaselineAppcontainersEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询基线应用容器
+     * Summary: 查询基线应用容器.
+     *
+     * @param PagequeryBaselineAppcontainersRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return PagequeryBaselineAppcontainersResponse
+     */
+    public function pagequeryBaselineAppcontainersEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryBaselineAppcontainersResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.baseline.appcontainers.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 回滚快照查询
+     * Summary: 回滚快照查询.
+     *
+     * @param PagequeryRollbackSnapshotversionRequest $request
+     *
+     * @return PagequeryRollbackSnapshotversionResponse
+     */
+    public function pagequeryRollbackSnapshotversion($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryRollbackSnapshotversionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 回滚快照查询
+     * Summary: 回滚快照查询.
+     *
+     * @param PagequeryRollbackSnapshotversionRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return PagequeryRollbackSnapshotversionResponse
+     */
+    public function pagequeryRollbackSnapshotversionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryRollbackSnapshotversionResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.rollback.snapshotversion.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

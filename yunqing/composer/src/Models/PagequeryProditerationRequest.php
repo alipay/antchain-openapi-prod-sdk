@@ -6,7 +6,7 @@ namespace AntChain\YUNQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QuerySolutionPreviewtaskRequest extends Model
+class PagequeryProditerationRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,20 +19,27 @@ class QuerySolutionPreviewtaskRequest extends Model
      */
     public $productInstanceId;
 
-    // 解决方案id
+    // 产品码
     /**
      * @var string
      */
-    public $solutionId;
+    public $prodCode;
+
+    // 产品版本
+    /**
+     * @var string
+     */
+    public $prodVersion;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'solutionId'        => 'solution_id',
+        'prodCode'          => 'prod_code',
+        'prodVersion'       => 'prod_version',
     ];
 
     public function validate()
     {
-        Model::validateRequired('solutionId', $this->solutionId, true);
+        Model::validateRequired('prodCode', $this->prodCode, true);
     }
 
     public function toMap()
@@ -44,8 +51,11 @@ class QuerySolutionPreviewtaskRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->solutionId) {
-            $res['solution_id'] = $this->solutionId;
+        if (null !== $this->prodCode) {
+            $res['prod_code'] = $this->prodCode;
+        }
+        if (null !== $this->prodVersion) {
+            $res['prod_version'] = $this->prodVersion;
         }
 
         return $res;
@@ -54,7 +64,7 @@ class QuerySolutionPreviewtaskRequest extends Model
     /**
      * @param array $map
      *
-     * @return QuerySolutionPreviewtaskRequest
+     * @return PagequeryProditerationRequest
      */
     public static function fromMap($map = [])
     {
@@ -65,8 +75,11 @@ class QuerySolutionPreviewtaskRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['solution_id'])) {
-            $model->solutionId = $map['solution_id'];
+        if (isset($map['prod_code'])) {
+            $model->prodCode = $map['prod_code'];
+        }
+        if (isset($map['prod_version'])) {
+            $model->prodVersion = $map['prod_version'];
         }
 
         return $model;

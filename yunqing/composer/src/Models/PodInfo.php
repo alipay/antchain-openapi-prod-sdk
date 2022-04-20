@@ -71,6 +71,32 @@ class PodInfo extends Model
      * @var string
      */
     public $status;
+
+    // 产品码--应用名
+    /**
+     * @example IAM--aciamcore
+     *
+     * @var string
+     */
+    public $productApp;
+
+    // 租户信息
+    //
+    /**
+     * @example 123abc
+     *
+     * @var string
+     */
+    public $tenantId;
+
+    // 环境信息
+    //
+    /**
+     * @example 123abc
+     *
+     * @var string
+     */
+    public $envId;
     protected $_name = [
         'podName'       => 'pod_name',
         'containerName' => 'container_name',
@@ -80,6 +106,9 @@ class PodInfo extends Model
         'cpu'           => 'cpu',
         'memory'        => 'memory',
         'status'        => 'status',
+        'productApp'    => 'product_app',
+        'tenantId'      => 'tenant_id',
+        'envId'         => 'env_id',
     ];
 
     public function validate()
@@ -117,6 +146,15 @@ class PodInfo extends Model
         if (null !== $this->status) {
             $res['status'] = $this->status;
         }
+        if (null !== $this->productApp) {
+            $res['product_app'] = $this->productApp;
+        }
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
+        }
+        if (null !== $this->envId) {
+            $res['env_id'] = $this->envId;
+        }
 
         return $res;
     }
@@ -152,6 +190,15 @@ class PodInfo extends Model
         }
         if (isset($map['status'])) {
             $model->status = $map['status'];
+        }
+        if (isset($map['product_app'])) {
+            $model->productApp = $map['product_app'];
+        }
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
+        }
+        if (isset($map['env_id'])) {
+            $model->envId = $map['env_id'];
         }
 
         return $model;

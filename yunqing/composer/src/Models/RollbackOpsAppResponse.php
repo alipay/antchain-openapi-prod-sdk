@@ -6,7 +6,7 @@ namespace AntChain\YUNQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QuerySolutionPreviewtaskResponse extends Model
+class RollbackOpsAppResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class QuerySolutionPreviewtaskResponse extends Model
      */
     public $resultMsg;
 
-    // 产品预览任务查询
+    // 回滚任务发布单
     /**
-     * @var ProdPreviewTasks[]
+     * @var string
      */
-    public $prodPreviewTasks;
+    public $opsPlanId;
     protected $_name = [
-        'reqMsgId'         => 'req_msg_id',
-        'resultCode'       => 'result_code',
-        'resultMsg'        => 'result_msg',
-        'prodPreviewTasks' => 'prod_preview_tasks',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'opsPlanId'  => 'ops_plan_id',
     ];
 
     public function validate()
@@ -54,14 +54,8 @@ class QuerySolutionPreviewtaskResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->prodPreviewTasks) {
-            $res['prod_preview_tasks'] = [];
-            if (null !== $this->prodPreviewTasks && \is_array($this->prodPreviewTasks)) {
-                $n = 0;
-                foreach ($this->prodPreviewTasks as $item) {
-                    $res['prod_preview_tasks'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+        if (null !== $this->opsPlanId) {
+            $res['ops_plan_id'] = $this->opsPlanId;
         }
 
         return $res;
@@ -70,7 +64,7 @@ class QuerySolutionPreviewtaskResponse extends Model
     /**
      * @param array $map
      *
-     * @return QuerySolutionPreviewtaskResponse
+     * @return RollbackOpsAppResponse
      */
     public static function fromMap($map = [])
     {
@@ -84,14 +78,8 @@ class QuerySolutionPreviewtaskResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['prod_preview_tasks'])) {
-            if (!empty($map['prod_preview_tasks'])) {
-                $model->prodPreviewTasks = [];
-                $n                       = 0;
-                foreach ($map['prod_preview_tasks'] as $item) {
-                    $model->prodPreviewTasks[$n++] = null !== $item ? ProdPreviewTasks::fromMap($item) : $item;
-                }
-            }
+        if (isset($map['ops_plan_id'])) {
+            $model->opsPlanId = $map['ops_plan_id'];
         }
 
         return $model;

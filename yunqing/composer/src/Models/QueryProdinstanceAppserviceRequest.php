@@ -72,6 +72,18 @@ class QueryProdinstanceAppserviceRequest extends Model
      * @var string
      */
     public $productGroup;
+
+    // 产品码--应用名
+    /**
+     * @var string
+     */
+    public $productApp;
+
+    // 租户信息当前值为mock
+    /**
+     * @var string
+     */
+    public $tenantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -84,6 +96,8 @@ class QueryProdinstanceAppserviceRequest extends Model
         'pageSize'          => 'page_size',
         'productCode'       => 'product_code',
         'productGroup'      => 'product_group',
+        'productApp'        => 'product_app',
+        'tenantId'          => 'tenant_id',
     ];
 
     public function validate()
@@ -125,6 +139,12 @@ class QueryProdinstanceAppserviceRequest extends Model
         }
         if (null !== $this->productGroup) {
             $res['product_group'] = $this->productGroup;
+        }
+        if (null !== $this->productApp) {
+            $res['product_app'] = $this->productApp;
+        }
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
         }
 
         return $res;
@@ -170,6 +190,12 @@ class QueryProdinstanceAppserviceRequest extends Model
         }
         if (isset($map['product_group'])) {
             $model->productGroup = $map['product_group'];
+        }
+        if (isset($map['product_app'])) {
+            $model->productApp = $map['product_app'];
+        }
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
         }
 
         return $model;
