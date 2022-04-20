@@ -114,47 +114,6 @@ export class ResourcePool extends $tea.Model {
   }
 }
 
-// 机房
-export class Zone extends $tea.Model {
-  // 机房的标识（与阿里云对齐）
-  identity: string;
-  // 机房的名字
-  name: string;
-  // 地域的id
-  regionId: string;
-  // 机房内关联的资源池列表
-  resourcePools: ResourcePool[];
-  // 机房的id
-  zoneId: string;
-  // 显示的名字
-  displayName: string;
-  static names(): { [key: string]: string } {
-    return {
-      identity: 'identity',
-      name: 'name',
-      regionId: 'region_id',
-      resourcePools: 'resource_pools',
-      zoneId: 'zone_id',
-      displayName: 'display_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      identity: 'string',
-      name: 'string',
-      regionId: 'string',
-      resourcePools: { 'type': 'array', 'itemType': ResourcePool },
-      zoneId: 'string',
-      displayName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 地域
 export class Region extends $tea.Model {
   // 地域标识（与阿里云identity对齐）
@@ -214,6 +173,14 @@ export class PodInfo extends $tea.Model {
   memory?: string;
   // status
   status?: string;
+  // 产品码--应用名
+  productApp?: string;
+  // 租户信息
+  // 
+  tenantId?: string;
+  // 环境信息
+  // 
+  envId?: string;
   static names(): { [key: string]: string } {
     return {
       podName: 'pod_name',
@@ -224,6 +191,9 @@ export class PodInfo extends $tea.Model {
       cpu: 'cpu',
       memory: 'memory',
       status: 'status',
+      productApp: 'product_app',
+      tenantId: 'tenant_id',
+      envId: 'env_id',
     };
   }
 
@@ -237,6 +207,50 @@ export class PodInfo extends $tea.Model {
       cpu: 'string',
       memory: 'string',
       status: 'string',
+      productApp: 'string',
+      tenantId: 'string',
+      envId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 机房
+export class Zone extends $tea.Model {
+  // 机房的标识（与阿里云对齐）
+  identity: string;
+  // 机房的名字
+  name: string;
+  // 地域的id
+  regionId: string;
+  // 机房内关联的资源池列表
+  resourcePools: ResourcePool[];
+  // 机房的id
+  zoneId: string;
+  // 显示的名字
+  displayName: string;
+  static names(): { [key: string]: string } {
+    return {
+      identity: 'identity',
+      name: 'name',
+      regionId: 'region_id',
+      resourcePools: 'resource_pools',
+      zoneId: 'zone_id',
+      displayName: 'display_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      identity: 'string',
+      name: 'string',
+      regionId: 'string',
+      resourcePools: { 'type': 'array', 'itemType': ResourcePool },
+      zoneId: 'string',
+      displayName: 'string',
     };
   }
 
@@ -306,31 +320,39 @@ export class Cell extends $tea.Model {
   }
 }
 
-// 参数对象
-export class ParamData extends $tea.Model {
-  // 参数key
-  key: string;
-  // 参数值
-  value?: string;
-  // 类型, 对应Data的paramGroup
-  type?: string;
-  // 安全级别，脱敏用
-  securityLevel?: string;
+// 工作空间
+export class Workspace extends $tea.Model {
+  // 包含的单元（逻辑机房）
+  cells: Cell[];
+  // 显示的名字
+  displayName: string;
+  // workspace的名字
+  name: string;
+  // 所属地域
+  region: Region;
+  // 工作空间的id
+  workspaceId: string;
+  // 机房列表
+  zones: Zone[];
   static names(): { [key: string]: string } {
     return {
-      key: 'key',
-      value: 'value',
-      type: 'type',
-      securityLevel: 'security_level',
+      cells: 'cells',
+      displayName: 'display_name',
+      name: 'name',
+      region: 'region',
+      workspaceId: 'workspace_id',
+      zones: 'zones',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      key: 'string',
-      value: 'string',
-      type: 'string',
-      securityLevel: 'string',
+      cells: { 'type': 'array', 'itemType': Cell },
+      displayName: 'string',
+      name: 'string',
+      region: Region,
+      workspaceId: 'string',
+      zones: { 'type': 'array', 'itemType': Zone },
     };
   }
 
@@ -356,100 +378,6 @@ export class Cloud extends $tea.Model {
     return {
       cloudId: 'string',
       name: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 容器信息。
-export class Container extends $tea.Model {
-  // 应用版本
-  appVersion?: string;
-  // cpu核数，单位C。
-  cpu?: number;
-  // 宿主机ip。
-  hostIp?: string;
-  // 宿主机名称。
-  hostName?: string;
-  // 容器id。
-  id?: string;
-  // 容器镜像。
-  image?: string;
-  // 容器ip。
-  ip?: string;
-  // 内存大小，单位M。
-  memory?: number;
-  // 容器名称。
-  name?: string;
-  // 容器所在的pod。
-  pod?: string;
-  // 资源所属的资源池的唯一标识。
-  resourcePoolId?: string;
-  // 容器状态。
-  status?: string;
-  // 应用名
-  appName?: string;
-  static names(): { [key: string]: string } {
-    return {
-      appVersion: 'app_version',
-      cpu: 'cpu',
-      hostIp: 'host_ip',
-      hostName: 'host_name',
-      id: 'id',
-      image: 'image',
-      ip: 'ip',
-      memory: 'memory',
-      name: 'name',
-      pod: 'pod',
-      resourcePoolId: 'resource_pool_id',
-      status: 'status',
-      appName: 'app_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      appVersion: 'string',
-      cpu: 'number',
-      hostIp: 'string',
-      hostName: 'string',
-      id: 'string',
-      image: 'string',
-      ip: 'string',
-      memory: 'number',
-      name: 'string',
-      pod: 'string',
-      resourcePoolId: 'string',
-      status: 'string',
-      appName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 租户
-export class Tenant extends $tea.Model {
-  // 租户名
-  name: string;
-  // 租户id
-  tanentId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      tanentId: 'tanent_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      tanentId: 'string',
     };
   }
 
@@ -540,39 +468,179 @@ export class CellGroup extends $tea.Model {
   }
 }
 
-// 工作空间
-export class Workspace extends $tea.Model {
-  // 包含的单元（逻辑机房）
-  cells: Cell[];
-  // 显示的名字
-  displayName: string;
-  // workspace的名字
-  name: string;
-  // 所属地域
-  region: Region;
-  // 工作空间的id
-  workspaceId: string;
-  // 机房列表
-  zones: Zone[];
+// 参数对象
+export class ParamData extends $tea.Model {
+  // 参数key
+  key: string;
+  // 参数值
+  value?: string;
+  // 类型, 对应Data的paramGroup
+  type?: string;
+  // 安全级别，脱敏用
+  securityLevel?: string;
   static names(): { [key: string]: string } {
     return {
-      cells: 'cells',
-      displayName: 'display_name',
-      name: 'name',
-      region: 'region',
-      workspaceId: 'workspace_id',
-      zones: 'zones',
+      key: 'key',
+      value: 'value',
+      type: 'type',
+      securityLevel: 'security_level',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      cells: { 'type': 'array', 'itemType': Cell },
-      displayName: 'string',
+      key: 'string',
+      value: 'string',
+      type: 'string',
+      securityLevel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 租户
+export class Tenant extends $tea.Model {
+  // 租户名
+  name: string;
+  // 租户id
+  tanentId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      tanentId: 'tanent_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
       name: 'string',
-      region: Region,
-      workspaceId: 'string',
-      zones: { 'type': 'array', 'itemType': Zone },
+      tanentId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 容器信息。
+export class Container extends $tea.Model {
+  // 应用版本
+  appVersion?: string;
+  // cpu核数，单位C。
+  cpu?: number;
+  // 宿主机ip。
+  hostIp?: string;
+  // 宿主机名称。
+  hostName?: string;
+  // 容器id。
+  id?: string;
+  // 容器镜像。
+  image?: string;
+  // 容器ip。
+  ip?: string;
+  // 内存大小，单位M。
+  memory?: number;
+  // 容器名称。
+  name?: string;
+  // 容器所在的pod。
+  pod?: string;
+  // 资源所属的资源池的唯一标识。
+  resourcePoolId?: string;
+  // 容器状态。
+  status?: string;
+  // 应用名
+  appName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      appVersion: 'app_version',
+      cpu: 'cpu',
+      hostIp: 'host_ip',
+      hostName: 'host_name',
+      id: 'id',
+      image: 'image',
+      ip: 'ip',
+      memory: 'memory',
+      name: 'name',
+      pod: 'pod',
+      resourcePoolId: 'resource_pool_id',
+      status: 'status',
+      appName: 'app_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      appVersion: 'string',
+      cpu: 'number',
+      hostIp: 'string',
+      hostName: 'string',
+      id: 'string',
+      image: 'string',
+      ip: 'string',
+      memory: 'number',
+      name: 'string',
+      pod: 'string',
+      resourcePoolId: 'string',
+      status: 'string',
+      appName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// OpenAPI定义
+export class OpenAPI extends $tea.Model {
+  // API方法
+  method: string;
+  // API版本号
+  version: string;
+  static names(): { [key: string]: string } {
+    return {
+      method: 'method',
+      version: 'version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      method: 'string',
+      version: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 包含应用启动参数的应用对象
+export class AppParamData extends $tea.Model {
+  // 产品码
+  prodCode: string;
+  // 应用名
+  appName: string;
+  // 应用启动参数
+  appParams: ParamData[];
+  static names(): { [key: string]: string } {
+    return {
+      prodCode: 'prod_code',
+      appName: 'app_name',
+      appParams: 'app_params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      prodCode: 'string',
+      appName: 'string',
+      appParams: { 'type': 'array', 'itemType': ParamData },
     };
   }
 
@@ -622,43 +690,6 @@ export class ContainerInfo extends $tea.Model {
   }
 }
 
-// 负载均衡后端服务器。
-export class BackendServer extends $tea.Model {
-  // 容器id。
-  containerId?: string;
-  // 容器所在的资源池id。
-  containerResourcePoolId?: string;
-  // 资源池id。
-  lbResourcePoolId?: string;
-  // 负载均衡实例id。
-  loadBalancerId?: string;
-  // 权重。
-  weight?: number;
-  static names(): { [key: string]: string } {
-    return {
-      containerId: 'container_id',
-      containerResourcePoolId: 'container_resource_pool_id',
-      lbResourcePoolId: 'lb_resource_pool_id',
-      loadBalancerId: 'load_balancer_id',
-      weight: 'weight',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      containerId: 'string',
-      containerResourcePoolId: 'string',
-      lbResourcePoolId: 'string',
-      loadBalancerId: 'string',
-      weight: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 巡检查询产品详情
 export class ProdInfo extends $tea.Model {
   // 应用实例信息
@@ -688,88 +719,35 @@ export class ProdInfo extends $tea.Model {
   }
 }
 
-// 应用服务实例详情。
-export class AppServiceInfo extends $tea.Model {
-  // 应用名称
-  appName?: string;
-  // 应用版本
-  appVersion?: string;
-  // 所属单元ID
-  cellId: string;
-  // 容器列表。
-  containers?: Container[];
-  // 部署单元名称，产品实例下唯一。
-  deployUnit?: string;
-  // 环境唯一标识。
-  envId?: string;
-  // 应用服务实例唯一标识。
-  id?: string;
-  // 产品码
-  productCode?: string;
-  // 所属产品分组唯一标识。
-  productGroupIdentity?: string;
-  // 所属产品分组名称。
-  productGroupName?: string;
-  // 应用服务实例状态。DEPLOYING: 部署中；UPGRADING: 升级中；ROLL_BACKING: 回滚中；ACTIVE：可用；FAILED: 部署失败；ROLLBACKED: 已回滚。
-  status?: string;
+// 应用SRE信息，云游资产使用。
+export class Admin extends $tea.Model {
+  // 应用SRE邮箱，云游资产使用。
+  adminEmail?: string;
+  // 应用SRE登陆名，云游资产使用。
+  adminLoginName?: string;
+  // 应用SRE昵称，云游资产使用
+  adminNickName?: string;
+  // 应用SRE真实名称，云游资产使用
+  adminRealName?: string;
+  // 应用SRE员工号，云游资产使用
+  adminStaffNo?: string;
   static names(): { [key: string]: string } {
     return {
-      appName: 'app_name',
-      appVersion: 'app_version',
-      cellId: 'cell_id',
-      containers: 'containers',
-      deployUnit: 'deploy_unit',
-      envId: 'env_id',
-      id: 'id',
-      productCode: 'product_code',
-      productGroupIdentity: 'product_group_identity',
-      productGroupName: 'product_group_name',
-      status: 'status',
+      adminEmail: 'admin_email',
+      adminLoginName: 'admin_login_name',
+      adminNickName: 'admin_nick_name',
+      adminRealName: 'admin_real_name',
+      adminStaffNo: 'admin_staff_no',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      appName: 'string',
-      appVersion: 'string',
-      cellId: 'string',
-      containers: { 'type': 'array', 'itemType': Container },
-      deployUnit: 'string',
-      envId: 'string',
-      id: 'string',
-      productCode: 'string',
-      productGroupIdentity: 'string',
-      productGroupName: 'string',
-      status: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 包含应用启动参数的应用对象
-export class AppParamData extends $tea.Model {
-  // 产品码
-  prodCode: string;
-  // 应用名
-  appName: string;
-  // 应用启动参数
-  appParams: ParamData[];
-  static names(): { [key: string]: string } {
-    return {
-      prodCode: 'prod_code',
-      appName: 'app_name',
-      appParams: 'app_params',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      prodCode: 'string',
-      appName: 'string',
-      appParams: { 'type': 'array', 'itemType': ParamData },
+      adminEmail: 'string',
+      adminLoginName: 'string',
+      adminNickName: 'string',
+      adminRealName: 'string',
+      adminStaffNo: 'string',
     };
   }
 
@@ -795,137 +773,6 @@ export class AppPreviewTask extends $tea.Model {
     return {
       appName: 'string',
       needDeploy: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 云游环境信息。
-export class Env extends $tea.Model {
-  // cellGroup的列表
-  cellGroups: CellGroup[];
-  // 云信息
-  cloud: Cloud;
-  // 关联的ake集群id
-  clusterId: string;
-  // 环境名
-  displayName?: string;
-  // 环境的id
-  envId: string;
-  // （已废弃）环境唯一标识。
-  id?: string;
-  // 是否ldc环境
-  ldc: boolean;
-  // 环境名称。
-  name: string;
-  // （已废弃）环境底座iaas技术栈。
-  stack?: string;
-  // 租户信息
-  tenant?: Tenant;
-  // 工作空间列表
-  workspaces: Workspace[];
-  // （已废弃）兼容逻辑老的workspace逻辑，非监控产品勿依赖。
-  workspaceId?: string;
-  // 环境类型
-  envType: string;
-  static names(): { [key: string]: string } {
-    return {
-      cellGroups: 'cell_groups',
-      cloud: 'cloud',
-      clusterId: 'cluster_id',
-      displayName: 'display_name',
-      envId: 'env_id',
-      id: 'id',
-      ldc: 'ldc',
-      name: 'name',
-      stack: 'stack',
-      tenant: 'tenant',
-      workspaces: 'workspaces',
-      workspaceId: 'workspace_id',
-      envType: 'env_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      cellGroups: { 'type': 'array', 'itemType': CellGroup },
-      cloud: Cloud,
-      clusterId: 'string',
-      displayName: 'string',
-      envId: 'string',
-      id: 'string',
-      ldc: 'boolean',
-      name: 'string',
-      stack: 'string',
-      tenant: Tenant,
-      workspaces: { 'type': 'array', 'itemType': Workspace },
-      workspaceId: 'string',
-      envType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 监听器。
-export class Listener extends $tea.Model {
-  // 后端端口。
-  backendServerPort?: number;
-  // 前端端口。
-  listenerPort?: number;
-  // 负载均衡实例id。
-  loadBalancerId?: string;
-  // 监听器协议。HTTP/HTTPS/TCP
-  protocol?: string;
-  // 资源池id。
-  resourcePoolId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      backendServerPort: 'backend_server_port',
-      listenerPort: 'listener_port',
-      loadBalancerId: 'load_balancer_id',
-      protocol: 'protocol',
-      resourcePoolId: 'resource_pool_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      backendServerPort: 'number',
-      listenerPort: 'number',
-      loadBalancerId: 'string',
-      protocol: 'string',
-      resourcePoolId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// OpenAPI定义
-export class OpenAPI extends $tea.Model {
-  // API方法
-  method: string;
-  // API版本号
-  version: string;
-  static names(): { [key: string]: string } {
-    return {
-      method: 'method',
-      version: 'version',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      method: 'string',
-      version: 'string',
     };
   }
 
@@ -1036,6 +883,308 @@ export class Database extends $tea.Model {
   }
 }
 
+// 应用服务实例详情。
+export class AppServiceInfo extends $tea.Model {
+  // 应用名称
+  appName?: string;
+  // 应用版本
+  appVersion?: string;
+  // 所属单元ID
+  cellId: string;
+  // 容器列表。
+  containers?: Container[];
+  // 部署单元名称，产品实例下唯一。
+  deployUnit?: string;
+  // 环境唯一标识。
+  envId?: string;
+  // 应用服务实例唯一标识。
+  id?: string;
+  // 产品码
+  productCode?: string;
+  // 所属产品分组唯一标识。
+  productGroupIdentity?: string;
+  // 所属产品分组名称。
+  productGroupName?: string;
+  // 应用服务实例状态。DEPLOYING: 部署中；UPGRADING: 升级中；ROLL_BACKING: 回滚中；ACTIVE：可用；FAILED: 部署失败；ROLLBACKED: 已回滚。
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      appName: 'app_name',
+      appVersion: 'app_version',
+      cellId: 'cell_id',
+      containers: 'containers',
+      deployUnit: 'deploy_unit',
+      envId: 'env_id',
+      id: 'id',
+      productCode: 'product_code',
+      productGroupIdentity: 'product_group_identity',
+      productGroupName: 'product_group_name',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      appName: 'string',
+      appVersion: 'string',
+      cellId: 'string',
+      containers: { 'type': 'array', 'itemType': Container },
+      deployUnit: 'string',
+      envId: 'string',
+      id: 'string',
+      productCode: 'string',
+      productGroupIdentity: 'string',
+      productGroupName: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 云游环境信息。
+export class Env extends $tea.Model {
+  // cellGroup的列表
+  cellGroups: CellGroup[];
+  // 云信息
+  cloud: Cloud;
+  // 关联的ake集群id
+  clusterId: string;
+  // 环境名
+  displayName?: string;
+  // 环境的id
+  envId: string;
+  // （已废弃）环境唯一标识。
+  id?: string;
+  // 是否ldc环境
+  ldc: boolean;
+  // 环境名称。
+  name: string;
+  // （已废弃）环境底座iaas技术栈。
+  stack?: string;
+  // 租户信息
+  tenant?: Tenant;
+  // 工作空间列表
+  workspaces: Workspace[];
+  // （已废弃）兼容逻辑老的workspace逻辑，非监控产品勿依赖。
+  workspaceId?: string;
+  // 环境类型
+  envType: string;
+  static names(): { [key: string]: string } {
+    return {
+      cellGroups: 'cell_groups',
+      cloud: 'cloud',
+      clusterId: 'cluster_id',
+      displayName: 'display_name',
+      envId: 'env_id',
+      id: 'id',
+      ldc: 'ldc',
+      name: 'name',
+      stack: 'stack',
+      tenant: 'tenant',
+      workspaces: 'workspaces',
+      workspaceId: 'workspace_id',
+      envType: 'env_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cellGroups: { 'type': 'array', 'itemType': CellGroup },
+      cloud: Cloud,
+      clusterId: 'string',
+      displayName: 'string',
+      envId: 'string',
+      id: 'string',
+      ldc: 'boolean',
+      name: 'string',
+      stack: 'string',
+      tenant: Tenant,
+      workspaces: { 'type': 'array', 'itemType': Workspace },
+      workspaceId: 'string',
+      envType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 负载均衡后端服务器。
+export class BackendServer extends $tea.Model {
+  // 容器id。
+  containerId?: string;
+  // 容器所在的资源池id。
+  containerResourcePoolId?: string;
+  // 资源池id。
+  lbResourcePoolId?: string;
+  // 负载均衡实例id。
+  loadBalancerId?: string;
+  // 权重。
+  weight?: number;
+  static names(): { [key: string]: string } {
+    return {
+      containerId: 'container_id',
+      containerResourcePoolId: 'container_resource_pool_id',
+      lbResourcePoolId: 'lb_resource_pool_id',
+      loadBalancerId: 'load_balancer_id',
+      weight: 'weight',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      containerId: 'string',
+      containerResourcePoolId: 'string',
+      lbResourcePoolId: 'string',
+      loadBalancerId: 'string',
+      weight: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 监听器。
+export class Listener extends $tea.Model {
+  // 后端端口。
+  backendServerPort?: number;
+  // 前端端口。
+  listenerPort?: number;
+  // 负载均衡实例id。
+  loadBalancerId?: string;
+  // 监听器协议。HTTP/HTTPS/TCP
+  protocol?: string;
+  // 资源池id。
+  resourcePoolId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      backendServerPort: 'backend_server_port',
+      listenerPort: 'listener_port',
+      loadBalancerId: 'load_balancer_id',
+      protocol: 'protocol',
+      resourcePoolId: 'resource_pool_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      backendServerPort: 'number',
+      listenerPort: 'number',
+      loadBalancerId: 'string',
+      protocol: 'string',
+      resourcePoolId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 应用Owner信息
+export class Owner extends $tea.Model {
+  // 应用Owner邮箱，云游资产使用。
+  ownerEmail?: string;
+  // 应用Owner登陆名，云游资产使用。
+  ownerLoginName?: string;
+  // 应用Owner昵称，云游资产使用。
+  ownerNickName?: string;
+  // 应用Owner真实名称，云游资产使用。
+  ownerRealName?: string;
+  // 应用Owner员工号，云游资产使用。
+  ownerStaffNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      ownerEmail: 'owner_email',
+      ownerLoginName: 'owner_login_name',
+      ownerNickName: 'owner_nick_name',
+      ownerRealName: 'owner_real_name',
+      ownerStaffNo: 'owner_staff_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      ownerEmail: 'string',
+      ownerLoginName: 'string',
+      ownerNickName: 'string',
+      ownerRealName: 'string',
+      ownerStaffNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 发布单
+export class OpsPlan extends $tea.Model {
+  // id
+  id: string;
+  // 名称
+  name: string;
+  // 环境Id
+  envId: string;
+  // 解决方案Id
+  solutionId: string;
+  // 发布单类型
+  opsType: string;
+  // 发布单类型
+  planType: string;
+  // 创建人id
+  creator: string;
+  // 创建人名称
+  creatorName: string;
+  // 发布单状态
+  opsPlanStatus: string;
+  // 创建时间
+  utcCreate: string;
+  // 修改时间
+  utcModified: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      name: 'name',
+      envId: 'env_id',
+      solutionId: 'solution_id',
+      opsType: 'ops_type',
+      planType: 'plan_type',
+      creator: 'creator',
+      creatorName: 'creator_name',
+      opsPlanStatus: 'ops_plan_status',
+      utcCreate: 'utc_create',
+      utcModified: 'utc_modified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      name: 'string',
+      envId: 'string',
+      solutionId: 'string',
+      opsType: 'string',
+      planType: 'string',
+      creator: 'string',
+      creatorName: 'string',
+      opsPlanStatus: 'string',
+      utcCreate: 'string',
+      utcModified: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 云游应用元数据
 export class Application extends $tea.Model {
   // 应用英文名
@@ -1061,232 +1210,19 @@ export class Application extends $tea.Model {
   }
 }
 
-// 产品实例。
-export class ProductInstance extends $tea.Model {
-  // 单元ID
-  cellId?: string;
-  // 产品实例所在的环境唯一标识。
-  envId?: string;
-  // 产品码。
-  productCode?: string;
-  // 产品版本。
-  productVersion?: string;
-  // 产品基线状态
-  status?: string;
-  // 产品创建时间
-  utcCreate?: string;
-  // 产品修改时间
-  utcModified?: string;
-  // 产品拓扑id
-  deployTopologyIdentity?: string;
-  // 部署规格id
-  deploySpecIdentity?: string;
+// 部署单元实例信息
+export class UnitInstanceInfo extends $tea.Model {
+  // 部署单元内服务实例列表
+  appServices: AppServiceInfo[];
   static names(): { [key: string]: string } {
     return {
-      cellId: 'cell_id',
-      envId: 'env_id',
-      productCode: 'product_code',
-      productVersion: 'product_version',
-      status: 'status',
-      utcCreate: 'utc_create',
-      utcModified: 'utc_modified',
-      deployTopologyIdentity: 'deploy_topology_identity',
-      deploySpecIdentity: 'deploy_spec_identity',
+      appServices: 'app_services',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      cellId: 'string',
-      envId: 'string',
-      productCode: 'string',
-      productVersion: 'string',
-      status: 'string',
-      utcCreate: 'string',
-      utcModified: 'string',
-      deployTopologyIdentity: 'string',
-      deploySpecIdentity: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// （已废弃，请使用AppServiceInfo）一个环境中部署的应用服务信息。
-export class AppService extends $tea.Model {
-  // 应用英文名。
-  appName?: string;
-  // 应用版本
-  appVersion?: string;
-  // 单元ID
-  cellId?: string;
-  // 部署单元名称，产品实例下唯一。
-  deployUnit?: string;
-  // 部署域。
-  deployZone?: string;
-  // 环境唯一标识
-  envId?: string;
-  // 应用服务实例唯一标识。
-  id?: string;
-  // 应用所属的产品的产品码
-  productCode?: string;
-  // 应用服务实例状态。DEPLOYING: 部署中；UPGRADING: 升级中；ROLL_BACKING: 回滚中；ACTIVE：可用；FAILED: 部署失败；ROLLBACKED: 已回滚。
-  status?: string;
-  // 应用类型：BUSINESS | JOB | CONTROLLER
-  appType?: string;
-  static names(): { [key: string]: string } {
-    return {
-      appName: 'app_name',
-      appVersion: 'app_version',
-      cellId: 'cell_id',
-      deployUnit: 'deploy_unit',
-      deployZone: 'deploy_zone',
-      envId: 'env_id',
-      id: 'id',
-      productCode: 'product_code',
-      status: 'status',
-      appType: 'app_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      appName: 'string',
-      appVersion: 'string',
-      cellId: 'string',
-      deployUnit: 'string',
-      deployZone: 'string',
-      envId: 'string',
-      id: 'string',
-      productCode: 'string',
-      status: 'string',
-      appType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 部署单元。
-export class DeployUnit extends $tea.Model {
-  // 单元ID
-  cellId: string;
-  // 环境唯一标识。
-  envId: string;
-  // 部署单元id，产品实例下唯一。
-  identity: string;
-  // 部署单元名称。
-  name: string;
-  // 产品码。
-  productCode: string;
-  // 用户传入部署单元标识，如果没有传入，则为deployment_unit_identity
-  unitIg: string;
-  static names(): { [key: string]: string } {
-    return {
-      cellId: 'cell_id',
-      envId: 'env_id',
-      identity: 'identity',
-      name: 'name',
-      productCode: 'product_code',
-      unitIg: 'unit_ig',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      cellId: 'string',
-      envId: 'string',
-      identity: 'string',
-      name: 'string',
-      productCode: 'string',
-      unitIg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据库schema
-export class Schema extends $tea.Model {
-  // schema所属的数据库实例信息。
-  database?: Database;
-  // schema名称。
-  name?: string;
-  // 资源所属的资源池id。
-  resourcePoolId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      database: 'database',
-      name: 'name',
-      resourcePoolId: 'resource_pool_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      database: Database,
-      name: 'string',
-      resourcePoolId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 产品预览任务
-export class ProdPreviewTasks extends $tea.Model {
-  // 应用是否需要部署
-  appPreviewTasks: AppPreviewTask[];
-  static names(): { [key: string]: string } {
-    return {
-      appPreviewTasks: 'app_preview_tasks',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      appPreviewTasks: { 'type': 'array', 'itemType': AppPreviewTask },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 云游系统信息
-export class System extends $tea.Model {
-  // 系统的代码commit
-  commitId: string;
-  // 管理的环境列表
-  envs: Env[];
-  // 支持的OpenAPI列表
-  openApis: OpenAPI[];
-  // 云游的产品版本号, 该值可能为空
-  version?: string;
-  static names(): { [key: string]: string } {
-    return {
-      commitId: 'commit_id',
-      envs: 'envs',
-      openApis: 'open_apis',
-      version: 'version',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      commitId: 'string',
-      envs: { 'type': 'array', 'itemType': Env },
-      openApis: { 'type': 'array', 'itemType': OpenAPI },
-      version: 'string',
+      appServices: { 'type': 'array', 'itemType': AppServiceInfo },
     };
   }
 
@@ -1332,31 +1268,6 @@ export class UnitResource extends $tea.Model {
       port: 'number',
       resourceType: 'string',
       zoneId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 节点执行日志
-export class NodeExecutionLog extends $tea.Model {
-  // 当前节点的动作
-  nodeAction: string;
-  // 当前节点的执行日志信息
-  message: string;
-  static names(): { [key: string]: string } {
-    return {
-      nodeAction: 'node_action',
-      message: 'message',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      nodeAction: 'string',
-      message: 'string',
     };
   }
 
@@ -1439,137 +1350,118 @@ export class AutoTestLog extends $tea.Model {
   }
 }
 
-// 发布单
-export class OpsPlan extends $tea.Model {
-  // id
-  id: string;
-  // 名称
-  name: string;
-  // 环境Id
-  envId: string;
-  // 解决方案Id
-  solutionId: string;
-  // 发布单类型
-  opsType: string;
-  // 发布单类型
-  planType: string;
-  // 创建人id
-  creator: string;
-  // 创建人名称
-  creatorName: string;
-  // 发布单状态
-  opsPlanStatus: string;
-  // 创建时间
-  utcCreate: string;
-  // 修改时间
-  utcModified: string;
+// 集群pod信息
+export class ClusterInfo extends $tea.Model {
+  // 产品信息
+  prodInfos: ProdInfo[];
   static names(): { [key: string]: string } {
     return {
-      id: 'id',
-      name: 'name',
+      prodInfos: 'prod_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      prodInfos: { 'type': 'array', 'itemType': ProdInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 产品预览任务
+export class ProdPreviewTasks extends $tea.Model {
+  // 应用是否需要部署
+  appPreviewTasks: AppPreviewTask[];
+  static names(): { [key: string]: string } {
+    return {
+      appPreviewTasks: 'app_preview_tasks',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      appPreviewTasks: { 'type': 'array', 'itemType': AppPreviewTask },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 产品实例。
+export class ProductInstance extends $tea.Model {
+  // 单元ID
+  cellId?: string;
+  // 产品实例所在的环境唯一标识。
+  envId?: string;
+  // 产品码。
+  productCode?: string;
+  // 产品版本。
+  productVersion?: string;
+  // 产品基线状态
+  status?: string;
+  // 产品创建时间
+  utcCreate?: string;
+  // 产品修改时间
+  utcModified?: string;
+  // 产品拓扑id
+  deployTopologyIdentity?: string;
+  // 部署规格id
+  deploySpecIdentity?: string;
+  static names(): { [key: string]: string } {
+    return {
+      cellId: 'cell_id',
       envId: 'env_id',
-      solutionId: 'solution_id',
-      opsType: 'ops_type',
-      planType: 'plan_type',
-      creator: 'creator',
-      creatorName: 'creator_name',
-      opsPlanStatus: 'ops_plan_status',
-      utcCreate: 'utc_create',
-      utcModified: 'utc_modified',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      name: 'string',
-      envId: 'string',
-      solutionId: 'string',
-      opsType: 'string',
-      planType: 'string',
-      creator: 'string',
-      creatorName: 'string',
-      opsPlanStatus: 'string',
-      utcCreate: 'string',
-      utcModified: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 部署单元实例信息
-export class UnitInstanceInfo extends $tea.Model {
-  // 部署单元内服务实例列表
-  appServices: AppServiceInfo[];
-  static names(): { [key: string]: string } {
-    return {
-      appServices: 'app_services',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      appServices: { 'type': 'array', 'itemType': AppServiceInfo },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 产品测试结果
-export class AutoTestProdResult extends $tea.Model {
-  // 测试用例
-  cases: AutoTestCase[];
-  // 容器信息
-  containers: ContainerInfo[];
-  // 部署单元id
-  deployUnit: string;
-  // 产品码
-  prodCode: string;
-  // 产品测试状态
-  status: string;
-  // 测试创建时间
-  utcCreate: string;
-  // 结束时间
-  utcEnd?: string;
-  // 测试修改时间
-  utcModified: string;
-  // 测试开始时间
-  utcStart?: string;
-  // 单元的id
-  cellId: string;
-  static names(): { [key: string]: string } {
-    return {
-      cases: 'cases',
-      containers: 'containers',
-      deployUnit: 'deploy_unit',
-      prodCode: 'prod_code',
+      productCode: 'product_code',
+      productVersion: 'product_version',
       status: 'status',
       utcCreate: 'utc_create',
-      utcEnd: 'utc_end',
       utcModified: 'utc_modified',
-      utcStart: 'utc_start',
-      cellId: 'cell_id',
+      deployTopologyIdentity: 'deploy_topology_identity',
+      deploySpecIdentity: 'deploy_spec_identity',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      cases: { 'type': 'array', 'itemType': AutoTestCase },
-      containers: { 'type': 'array', 'itemType': ContainerInfo },
-      deployUnit: 'string',
-      prodCode: 'string',
+      cellId: 'string',
+      envId: 'string',
+      productCode: 'string',
+      productVersion: 'string',
       status: 'string',
       utcCreate: 'string',
-      utcEnd: 'string',
       utcModified: 'string',
-      utcStart: 'string',
-      cellId: 'string',
+      deployTopologyIdentity: 'string',
+      deploySpecIdentity: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 节点执行日志
+export class NodeExecutionLog extends $tea.Model {
+  // 当前节点的动作
+  nodeAction: string;
+  // 当前节点的执行日志信息
+  message: string;
+  static names(): { [key: string]: string } {
+    return {
+      nodeAction: 'node_action',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      nodeAction: 'string',
+      message: 'string',
     };
   }
 
@@ -1631,31 +1523,198 @@ export class LoadBalancer extends $tea.Model {
   }
 }
 
-// 解决方案
-export class SolutionInstance extends $tea.Model {
-  // 解决方案id
-  solutionId: string;
-  // 环境ID
-  envId: string;
-  // 解决方案的名字
-  name: string;
-  // 解决方案的状态
-  status: string;
+// 自动化测试工单中的产品
+export class AutoTestProduct extends $tea.Model {
+  // 部署单元id
+  deployUnit?: string;
+  // 产品码
+  prodCode: string;
+  // 应用启动参数数据
+  appParamData?: AppParamData[];
   static names(): { [key: string]: string } {
     return {
-      solutionId: 'solution_id',
-      envId: 'env_id',
-      name: 'name',
-      status: 'status',
+      deployUnit: 'deploy_unit',
+      prodCode: 'prod_code',
+      appParamData: 'app_param_data',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      solutionId: 'string',
+      deployUnit: 'string',
+      prodCode: 'string',
+      appParamData: { 'type': 'array', 'itemType': AppParamData },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// （已废弃，请使用AppServiceInfo）一个环境中部署的应用服务信息。
+export class AppService extends $tea.Model {
+  // 应用英文名。
+  appName?: string;
+  // 应用版本
+  appVersion?: string;
+  // 单元ID
+  cellId?: string;
+  // 部署单元名称，产品实例下唯一。
+  deployUnit?: string;
+  // 部署域。
+  deployZone?: string;
+  // 环境唯一标识
+  envId?: string;
+  // 应用服务实例唯一标识。
+  id?: string;
+  // 应用所属的产品的产品码
+  productCode?: string;
+  // 应用服务实例状态。DEPLOYING: 部署中；UPGRADING: 升级中；ROLL_BACKING: 回滚中；ACTIVE：可用；FAILED: 部署失败；ROLLBACKED: 已回滚。
+  status?: string;
+  // 应用类型：BUSINESS | JOB | CONTROLLER
+  appType?: string;
+  // 应用显示名称，云游资产使用
+  appDisplayName?: string;
+  // 应用等级，云游资产使用
+  appLevel?: string;
+  // 租户信息，云游资产使用。
+  tenantId?: string;
+  // 产品码--应用名
+  productApp?: string;
+  // 产品Owner
+  owner?: Owner;
+  // 应用SRE信息
+  admin?: Admin;
+  static names(): { [key: string]: string } {
+    return {
+      appName: 'app_name',
+      appVersion: 'app_version',
+      cellId: 'cell_id',
+      deployUnit: 'deploy_unit',
+      deployZone: 'deploy_zone',
+      envId: 'env_id',
+      id: 'id',
+      productCode: 'product_code',
+      status: 'status',
+      appType: 'app_type',
+      appDisplayName: 'app_display_name',
+      appLevel: 'app_level',
+      tenantId: 'tenant_id',
+      productApp: 'product_app',
+      owner: 'owner',
+      admin: 'admin',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      appName: 'string',
+      appVersion: 'string',
+      cellId: 'string',
+      deployUnit: 'string',
+      deployZone: 'string',
       envId: 'string',
-      name: 'string',
+      id: 'string',
+      productCode: 'string',
       status: 'string',
+      appType: 'string',
+      appDisplayName: 'string',
+      appLevel: 'string',
+      tenantId: 'string',
+      productApp: 'string',
+      owner: Owner,
+      admin: Admin,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 回滚快照
+export class DeploymentUnitSnapshotOP extends $tea.Model {
+  // 环境ID
+  envId?: string;
+  // 产品码
+  prodCode?: string;
+  // 产品版本
+  prodVersion?: string;
+  // 关联的解决方案id
+  solutionId?: string;
+  // 快照关联的发布单id
+  opsPlanId?: string;
+  // 快照版本, 根据日期生成 
+  snapshotVersion?: string;
+  // 快照创建时间
+  snapshotTime?: string;
+  // 部署单元实例唯一标识
+  deploymentUnitInstanceIdentity?: string;
+  // 部署单元唯一标识
+  deploymentUnitIdentity?: string;
+  // 部署拓扑
+  deployTopologyIdentity?: string;
+  // 应用回滚快照
+  appSnapshot?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      envId: 'env_id',
+      prodCode: 'prod_code',
+      prodVersion: 'prod_version',
+      solutionId: 'solution_id',
+      opsPlanId: 'ops_plan_id',
+      snapshotVersion: 'snapshot_version',
+      snapshotTime: 'snapshot_time',
+      deploymentUnitInstanceIdentity: 'deployment_unit_instance_identity',
+      deploymentUnitIdentity: 'deployment_unit_identity',
+      deployTopologyIdentity: 'deploy_topology_identity',
+      appSnapshot: 'app_snapshot',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      envId: 'string',
+      prodCode: 'string',
+      prodVersion: 'string',
+      solutionId: 'string',
+      opsPlanId: 'string',
+      snapshotVersion: 'string',
+      snapshotTime: 'string',
+      deploymentUnitInstanceIdentity: 'string',
+      deploymentUnitIdentity: 'string',
+      deployTopologyIdentity: 'string',
+      appSnapshot: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 解决方案检查项
+export class CheckPoint extends $tea.Model {
+  // 检查结果
+  checkResult: string;
+  // 检查点, 例如参数检查
+  checkPoint: string;
+  // 非法原因
+  invalidReason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      checkResult: 'check_result',
+      checkPoint: 'check_point',
+      invalidReason: 'invalid_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      checkResult: 'string',
+      checkPoint: 'string',
+      invalidReason: 'string',
     };
   }
 
@@ -1725,19 +1784,31 @@ export class UserAuth extends $tea.Model {
   }
 }
 
-// 集群pod信息
-export class ClusterInfo extends $tea.Model {
-  // 产品信息
-  prodInfos: ProdInfo[];
+// 解决方案
+export class SolutionInstance extends $tea.Model {
+  // 解决方案id
+  solutionId: string;
+  // 环境ID
+  envId: string;
+  // 解决方案的名字
+  name: string;
+  // 解决方案的状态
+  status: string;
   static names(): { [key: string]: string } {
     return {
-      prodInfos: 'prod_infos',
+      solutionId: 'solution_id',
+      envId: 'env_id',
+      name: 'name',
+      status: 'status',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      prodInfos: { 'type': 'array', 'itemType': ProdInfo },
+      solutionId: 'string',
+      envId: 'string',
+      name: 'string',
+      status: 'string',
     };
   }
 
@@ -1746,27 +1817,158 @@ export class ClusterInfo extends $tea.Model {
   }
 }
 
-// 自动化测试工单中的产品
-export class AutoTestProduct extends $tea.Model {
-  // 部署单元id
-  deployUnit?: string;
-  // 产品码
-  prodCode: string;
-  // 应用启动参数数据
-  appParamData?: AppParamData[];
+// 云游系统信息
+export class System extends $tea.Model {
+  // 系统的代码commit
+  commitId: string;
+  // 管理的环境列表
+  envs: Env[];
+  // 支持的OpenAPI列表
+  openApis: OpenAPI[];
+  // 云游的产品版本号, 该值可能为空
+  version?: string;
   static names(): { [key: string]: string } {
     return {
-      deployUnit: 'deploy_unit',
-      prodCode: 'prod_code',
-      appParamData: 'app_param_data',
+      commitId: 'commit_id',
+      envs: 'envs',
+      openApis: 'open_apis',
+      version: 'version',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
+      commitId: 'string',
+      envs: { 'type': 'array', 'itemType': Env },
+      openApis: { 'type': 'array', 'itemType': OpenAPI },
+      version: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 产品测试结果
+export class AutoTestProdResult extends $tea.Model {
+  // 测试用例
+  cases: AutoTestCase[];
+  // 容器信息
+  containers: ContainerInfo[];
+  // 部署单元id
+  deployUnit: string;
+  // 产品码
+  prodCode: string;
+  // 产品测试状态
+  status: string;
+  // 测试创建时间
+  utcCreate: string;
+  // 结束时间
+  utcEnd?: string;
+  // 测试修改时间
+  utcModified: string;
+  // 测试开始时间
+  utcStart?: string;
+  // 单元的id
+  cellId: string;
+  static names(): { [key: string]: string } {
+    return {
+      cases: 'cases',
+      containers: 'containers',
+      deployUnit: 'deploy_unit',
+      prodCode: 'prod_code',
+      status: 'status',
+      utcCreate: 'utc_create',
+      utcEnd: 'utc_end',
+      utcModified: 'utc_modified',
+      utcStart: 'utc_start',
+      cellId: 'cell_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cases: { 'type': 'array', 'itemType': AutoTestCase },
+      containers: { 'type': 'array', 'itemType': ContainerInfo },
       deployUnit: 'string',
       prodCode: 'string',
-      appParamData: { 'type': 'array', 'itemType': AppParamData },
+      status: 'string',
+      utcCreate: 'string',
+      utcEnd: 'string',
+      utcModified: 'string',
+      utcStart: 'string',
+      cellId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 部署单元。
+export class DeployUnit extends $tea.Model {
+  // 单元ID
+  cellId: string;
+  // 环境唯一标识。
+  envId: string;
+  // 部署单元id，产品实例下唯一。
+  identity: string;
+  // 部署单元名称。
+  name: string;
+  // 产品码。
+  productCode: string;
+  // 用户传入部署单元标识，如果没有传入，则为deployment_unit_identity
+  unitIg: string;
+  static names(): { [key: string]: string } {
+    return {
+      cellId: 'cell_id',
+      envId: 'env_id',
+      identity: 'identity',
+      name: 'name',
+      productCode: 'product_code',
+      unitIg: 'unit_ig',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cellId: 'string',
+      envId: 'string',
+      identity: 'string',
+      name: 'string',
+      productCode: 'string',
+      unitIg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据库schema
+export class Schema extends $tea.Model {
+  // schema所属的数据库实例信息。
+  database?: Database;
+  // schema名称。
+  name?: string;
+  // 资源所属的资源池id。
+  resourcePoolId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      database: 'database',
+      name: 'name',
+      resourcePoolId: 'resource_pool_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      database: Database,
+      name: 'string',
+      resourcePoolId: 'string',
     };
   }
 
@@ -1791,6 +1993,10 @@ export class CreateAppopsRequest extends $tea.Model {
   opsDimension: string;
   // 要执行运维操作的应用服务实例所在的单元。
   cellId: string;
+  // 操作人ID
+  submitterId?: string;
+  // 应用容器分组策略，默认取SYSTEM_RECOMMENDATION
+  groupStrategy?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1801,6 +2007,8 @@ export class CreateAppopsRequest extends $tea.Model {
       opsAction: 'ops_action',
       opsDimension: 'ops_dimension',
       cellId: 'cell_id',
+      submitterId: 'submitter_id',
+      groupStrategy: 'group_strategy',
     };
   }
 
@@ -1814,6 +2022,8 @@ export class CreateAppopsRequest extends $tea.Model {
       opsAction: 'string',
       opsDimension: 'string',
       cellId: 'string',
+      submitterId: 'string',
+      groupStrategy: 'string',
     };
   }
 
@@ -2339,13 +2549,19 @@ export class UninstallProdinstanceAppserviceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 应用服务实例id。
-  appServiceId: string;
+  // 环境标识
+  envId: string;
+  // 产品码
+  productCode: string;
+  // 操作人Id
+  submitterId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      appServiceId: 'app_service_id',
+      envId: 'env_id',
+      productCode: 'product_code',
+      submitterId: 'submitter_id',
     };
   }
 
@@ -2353,7 +2569,9 @@ export class UninstallProdinstanceAppserviceRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      appServiceId: 'string',
+      envId: 'string',
+      productCode: 'string',
+      submitterId: 'string',
     };
   }
 
@@ -2408,6 +2626,8 @@ export class CreateProdinstanceDeployunitRequest extends $tea.Model {
   unitName: string;
   // 单元ID
   cellId: string;
+  // 逻辑部署单元实例id
+  logicalInstanceId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2417,6 +2637,7 @@ export class CreateProdinstanceDeployunitRequest extends $tea.Model {
       unitId: 'unit_id',
       unitName: 'unit_name',
       cellId: 'cell_id',
+      logicalInstanceId: 'logical_instance_id',
     };
   }
 
@@ -2429,6 +2650,7 @@ export class CreateProdinstanceDeployunitRequest extends $tea.Model {
       unitId: 'string',
       unitName: 'string',
       cellId: 'string',
+      logicalInstanceId: 'string',
     };
   }
 
@@ -2625,6 +2847,10 @@ export class QueryProdinstanceAppserviceRequest extends $tea.Model {
   productCode?: string;
   // 产品分组。如果入参设置了产品码，则默认忽略产品分组。
   productGroup?: string;
+  // 产品码--应用名
+  productApp?: string;
+  // 租户信息当前值为mock
+  tenantId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2638,6 +2864,8 @@ export class QueryProdinstanceAppserviceRequest extends $tea.Model {
       pageSize: 'page_size',
       productCode: 'product_code',
       productGroup: 'product_group',
+      productApp: 'product_app',
+      tenantId: 'tenant_id',
     };
   }
 
@@ -2654,6 +2882,8 @@ export class QueryProdinstanceAppserviceRequest extends $tea.Model {
       pageSize: 'number',
       productCode: 'string',
       productGroup: 'string',
+      productApp: 'string',
+      tenantId: 'string',
     };
   }
 
@@ -2856,12 +3086,18 @@ export class ScaleoutProdinstanceAppserviceRequest extends $tea.Model {
   appServiceId: string;
   // 集群容器目标数量。target_num需要大于当前集群容器数量，扩容（target_num-当前集群容器数量）个容器。
   targetNum: number;
+  // 操作人
+  submitterId?: string;
+  // 容器分组策略，默认SYSTEM_RECOMMENDATION
+  groupStrategy?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       appServiceId: 'app_service_id',
       targetNum: 'target_num',
+      submitterId: 'submitter_id',
+      groupStrategy: 'group_strategy',
     };
   }
 
@@ -2871,6 +3107,8 @@ export class ScaleoutProdinstanceAppserviceRequest extends $tea.Model {
       productInstanceId: 'string',
       appServiceId: 'string',
       targetNum: 'number',
+      submitterId: 'string',
+      groupStrategy: 'string',
     };
   }
 
@@ -3128,12 +3366,15 @@ export class ScaleinProdinstanceAppserviceRequest extends $tea.Model {
   appServiceId: string;
   // 执行运维操作的目标容器列表。
   containerIds: string[];
+  // 操作人id
+  submitterId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       appServiceId: 'app_service_id',
       containerIds: 'container_ids',
+      submitterId: 'submitter_id',
     };
   }
 
@@ -3143,6 +3384,7 @@ export class ScaleinProdinstanceAppserviceRequest extends $tea.Model {
       productInstanceId: 'string',
       appServiceId: 'string',
       containerIds: { 'type': 'array', 'itemType': 'string' },
+      submitterId: 'string',
     };
   }
 
@@ -3501,6 +3743,12 @@ export class CreateAppdeployRequest extends $tea.Model {
   solutionId: string;
   // 是否强制重发
   force: boolean;
+  // 是否需要手动的确认
+  needBeta?: boolean;
+  // TWO_GROUP分两组ALL_ONE共分一组无灰生产禁用EACH_ONE每台一组SYSTEM_RECOMMENDATION系统推荐
+  groupStrategy?: string;
+  // 操作人ID
+  submitterId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3510,6 +3758,9 @@ export class CreateAppdeployRequest extends $tea.Model {
       prodCode: 'prod_code',
       solutionId: 'solution_id',
       force: 'force',
+      needBeta: 'need_beta',
+      groupStrategy: 'group_strategy',
+      submitterId: 'submitter_id',
     };
   }
 
@@ -3522,6 +3773,9 @@ export class CreateAppdeployRequest extends $tea.Model {
       prodCode: 'string',
       solutionId: 'string',
       force: 'boolean',
+      needBeta: 'boolean',
+      groupStrategy: 'string',
+      submitterId: 'string',
     };
   }
 
@@ -4119,8 +4373,10 @@ export class UninstallProdinstanceDeployunitRequest extends $tea.Model {
   envId: string;
   // 产品码
   productCode: string;
-  // 单元实例ID
+  // 部署单元实例标识
   unitInstanceId: string;
+  // 操作人ID
+  submitterId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4129,6 +4385,7 @@ export class UninstallProdinstanceDeployunitRequest extends $tea.Model {
       envId: 'env_id',
       productCode: 'product_code',
       unitInstanceId: 'unit_instance_id',
+      submitterId: 'submitter_id',
     };
   }
 
@@ -4140,6 +4397,7 @@ export class UninstallProdinstanceDeployunitRequest extends $tea.Model {
       envId: 'string',
       productCode: 'string',
       unitInstanceId: 'string',
+      submitterId: 'string',
     };
   }
 
@@ -4472,6 +4730,10 @@ export class ExecClusterDnsRequest extends $tea.Model {
   appNames: string[];
   // dns域名的绑定/解绑
   opsAction: string;
+  // 需要调用的adns所对应环境。
+  // 例如A、B环境，A环境宕机了，此时需要调用B机房的adns进行A机房的环境域名解绑操作。
+  // 如果不填，默认与env_id一致。
+  operationEnvId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4480,6 +4742,7 @@ export class ExecClusterDnsRequest extends $tea.Model {
       prodCode: 'prod_code',
       appNames: 'app_names',
       opsAction: 'ops_action',
+      operationEnvId: 'operation_env_id',
     };
   }
 
@@ -4491,6 +4754,7 @@ export class ExecClusterDnsRequest extends $tea.Model {
       prodCode: 'string',
       appNames: { 'type': 'array', 'itemType': 'string' },
       opsAction: 'string',
+      operationEnvId: 'string',
     };
   }
 
@@ -4898,7 +5162,7 @@ export class ConfirmSolutionPlanResponse extends $tea.Model {
   }
 }
 
-export class QuerySolutionPreviewtaskRequest extends $tea.Model {
+export class GetSolutionPlanstatusRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -4925,21 +5189,40 @@ export class QuerySolutionPreviewtaskRequest extends $tea.Model {
   }
 }
 
-export class QuerySolutionPreviewtaskResponse extends $tea.Model {
+export class GetSolutionPlanstatusResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 产品预览任务查询
-  prodPreviewTasks?: ProdPreviewTasks[];
+  // 是否完成规划
+  allPlanConfirmed?: boolean;
+  // sidecar规划状态
+  sidecarPlanStatus?: string;
+  // 持久化存储规划状态
+  persistentVolumePlanStatus?: string;
+  // 数据库规划状态
+  // 
+  dbPlanStatus?: string;
+  // 负载均衡规划
+  lbPlanStatus?: string;
+  // 应用配置规划状态
+  appDeploySpecStatus?: string;
+  // 解决方案检查项结果
+  checkPoint?: CheckPoint[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      prodPreviewTasks: 'prod_preview_tasks',
+      allPlanConfirmed: 'all_plan_confirmed',
+      sidecarPlanStatus: 'sidecar_plan_status',
+      persistentVolumePlanStatus: 'persistent_volume_plan_status',
+      dbPlanStatus: 'db_plan_status',
+      lbPlanStatus: 'lb_plan_status',
+      appDeploySpecStatus: 'app_deploy_spec_status',
+      checkPoint: 'check_point',
     };
   }
 
@@ -4948,7 +5231,555 @@ export class QuerySolutionPreviewtaskResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      prodPreviewTasks: { 'type': 'array', 'itemType': ProdPreviewTasks },
+      allPlanConfirmed: 'boolean',
+      sidecarPlanStatus: 'string',
+      persistentVolumePlanStatus: 'string',
+      dbPlanStatus: 'string',
+      lbPlanStatus: 'string',
+      appDeploySpecStatus: 'string',
+      checkPoint: { 'type': 'array', 'itemType': CheckPoint },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryProditerationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 产品码
+  prodCode: string;
+  // 产品版本
+  prodVersion?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      prodCode: 'prod_code',
+      prodVersion: 'prod_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      prodCode: 'string',
+      prodVersion: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryProditerationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateProdinstanceDeployunitbatchRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 环境id
+  envId: string;
+  // 产品码
+  prodCode: string;
+  // 部署单元名称
+  deploymentUnitName: string;
+  // 部署单元实例id列表
+  unitInstanceIds: string[];
+  // 逻辑部署单元实例id
+  logicalInstanceId: string;
+  // 集群中哪个zone，公有云场景使用，专有云不需要部署
+  cellId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      envId: 'env_id',
+      prodCode: 'prod_code',
+      deploymentUnitName: 'deployment_unit_name',
+      unitInstanceIds: 'unit_instance_ids',
+      logicalInstanceId: 'logical_instance_id',
+      cellId: 'cell_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      envId: 'string',
+      prodCode: 'string',
+      deploymentUnitName: 'string',
+      unitInstanceIds: { 'type': 'array', 'itemType': 'string' },
+      logicalInstanceId: 'string',
+      cellId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateProdinstanceDeployunitbatchResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 发布单id
+  opsPlanId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      opsPlanId: 'ops_plan_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      opsPlanId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RollbackOpsAppRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 发布单id
+  opsPlanId: string;
+  // 产品码
+  prodCode: string;
+  // 应用名
+  appName: string;
+  // 需要回滚的快照版本
+  prodSnapshotVersion: string;
+  // 部署单元ID
+  unitInstanceId: string;
+  // 操作人Id
+  submitterId: string;
+  // 分组策略，默认使用SYSTEM_RECOMMENDATION
+  groupStrategy?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      opsPlanId: 'ops_plan_id',
+      prodCode: 'prod_code',
+      appName: 'app_name',
+      prodSnapshotVersion: 'prod_snapshot_version',
+      unitInstanceId: 'unit_instance_id',
+      submitterId: 'submitter_id',
+      groupStrategy: 'group_strategy',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      opsPlanId: 'string',
+      prodCode: 'string',
+      appName: 'string',
+      prodSnapshotVersion: 'string',
+      unitInstanceId: 'string',
+      submitterId: 'string',
+      groupStrategy: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RollbackOpsAppResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 回滚任务发布单
+  opsPlanId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      opsPlanId: 'ops_plan_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      opsPlanId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RollbackOpsProductRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 需要回滚的解决方案ID
+  solutionId: string;
+  // 产品码
+  prodCode: string;
+  // 需要回滚的快照版本
+  prodSnapshotVersion: string;
+  // 分组策略
+  groupStrategy?: string;
+  // 部署单元ID
+  unitInstanceId: string;
+  // 操作人ID
+  submitterId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      solutionId: 'solution_id',
+      prodCode: 'prod_code',
+      prodSnapshotVersion: 'prod_snapshot_version',
+      groupStrategy: 'group_strategy',
+      unitInstanceId: 'unit_instance_id',
+      submitterId: 'submitter_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      solutionId: 'string',
+      prodCode: 'string',
+      prodSnapshotVersion: 'string',
+      groupStrategy: 'string',
+      unitInstanceId: 'string',
+      submitterId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RollbackOpsProductResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 回滚发布单id
+  opsPlanId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      opsPlanId: 'ops_plan_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      opsPlanId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryClusterNativepodRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 环境id
+  envId: string;
+  // 产品码--应用名
+  productApp?: string;
+  // 租户信息
+  tenantId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      envId: 'env_id',
+      productApp: 'product_app',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      envId: 'string',
+      productApp: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryClusterNativepodResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // Pod信息
+  podInfos?: PodInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      podInfos: 'pod_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      podInfos: { 'type': 'array', 'itemType': PodInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryBaselineAppcontainersRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 环境ID
+  envId: string;
+  // 产品码
+  prodCode: string;
+  // 应用名数组，没传则查询改产品下的所有参数
+  apps?: string[];
+  // 部署单元实例id。默认值为default
+  deploymentUnitInstanceIdentities?: string[];
+  // 页大小，默认每页12
+  pageSize?: number;
+  // 第几页，默认返回第一页
+  // 
+  currentPage?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      envId: 'env_id',
+      prodCode: 'prod_code',
+      apps: 'apps',
+      deploymentUnitInstanceIdentities: 'deployment_unit_instance_identities',
+      pageSize: 'page_size',
+      currentPage: 'current_page',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      envId: 'string',
+      prodCode: 'string',
+      apps: { 'type': 'array', 'itemType': 'string' },
+      deploymentUnitInstanceIdentities: { 'type': 'array', 'itemType': 'string' },
+      pageSize: 'number',
+      currentPage: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryBaselineAppcontainersResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 分页查询中的总数目
+  totalCount?: number;
+  // 每页大小
+  pageSize?: number;
+  // 当前页码
+  currentPage?: number;
+  // 基线应用容器列表
+  containers?: Container[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      totalCount: 'total_count',
+      pageSize: 'page_size',
+      currentPage: 'current_page',
+      containers: 'containers',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      totalCount: 'number',
+      pageSize: 'number',
+      currentPage: 'number',
+      containers: { 'type': 'array', 'itemType': Container },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryRollbackSnapshotversionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 环境Id 
+  envId: string;
+  // 产品码
+  prodCode: string;
+  // 每页大小，默认12
+  pageSize?: number;
+  // 当前页码。默认第一页
+  currentPage?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      envId: 'env_id',
+      prodCode: 'prod_code',
+      pageSize: 'page_size',
+      currentPage: 'current_page',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      envId: 'string',
+      prodCode: 'string',
+      pageSize: 'number',
+      currentPage: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryRollbackSnapshotversionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 页大小
+  pageSize?: number;
+  // 当前页
+  currentPage?: number;
+  // 共有多少天记录
+  totalCount?: number;
+  // 快照版本
+  deploymentUnitSnapshots?: DeploymentUnitSnapshotOP[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pageSize: 'page_size',
+      currentPage: 'current_page',
+      totalCount: 'total_count',
+      deploymentUnitSnapshots: 'deployment_unit_snapshots',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pageSize: 'number',
+      currentPage: 'number',
+      totalCount: 'number',
+      deploymentUnitSnapshots: { 'type': 'array', 'itemType': DeploymentUnitSnapshotOP },
     };
   }
 
@@ -5070,7 +5901,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "3.12.4",
+          sdk_version: "3.14.14",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -5269,8 +6100,8 @@ export default class Client {
   }
 
   /**
-   * Description: 卸载应用服务实例。
-   * Summary: 卸载应用服务实例。
+   * Description: 卸载基线产品实例
+   * Summary: 卸载基线产品实例
    */
   async uninstallProdinstanceAppservice(request: UninstallProdinstanceAppserviceRequest): Promise<UninstallProdinstanceAppserviceResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -5279,8 +6110,8 @@ export default class Client {
   }
 
   /**
-   * Description: 卸载应用服务实例。
-   * Summary: 卸载应用服务实例。
+   * Description: 卸载基线产品实例
+   * Summary: 卸载基线产品实例
    */
   async uninstallProdinstanceAppserviceEx(request: UninstallProdinstanceAppserviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UninstallProdinstanceAppserviceResponse> {
     Util.validateModel(request);
@@ -5976,22 +6807,155 @@ export default class Client {
   }
 
   /**
-   * Description: 解决方案应用previewtask查询
-   * Summary: 解决方案应用previewtask查询
+   * Description: 解决方案是否完成规划
+   * Summary: 解决方案是否完成规划
    */
-  async querySolutionPreviewtask(request: QuerySolutionPreviewtaskRequest): Promise<QuerySolutionPreviewtaskResponse> {
+  async getSolutionPlanstatus(request: GetSolutionPlanstatusRequest): Promise<GetSolutionPlanstatusResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.querySolutionPreviewtaskEx(request, headers, runtime);
+    return await this.getSolutionPlanstatusEx(request, headers, runtime);
   }
 
   /**
-   * Description: 解决方案应用previewtask查询
-   * Summary: 解决方案应用previewtask查询
+   * Description: 解决方案是否完成规划
+   * Summary: 解决方案是否完成规划
    */
-  async querySolutionPreviewtaskEx(request: QuerySolutionPreviewtaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySolutionPreviewtaskResponse> {
+  async getSolutionPlanstatusEx(request: GetSolutionPlanstatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetSolutionPlanstatusResponse> {
     Util.validateModel(request);
-    return $tea.cast<QuerySolutionPreviewtaskResponse>(await this.doRequest("1.0", "yunyou.yunqing.solution.previewtask.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySolutionPreviewtaskResponse({}));
+    return $tea.cast<GetSolutionPlanstatusResponse>(await this.doRequest("1.0", "yunyou.yunqing.solution.planstatus.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetSolutionPlanstatusResponse({}));
+  }
+
+  /**
+   * Description: 分页查询迭代详情
+   * Summary: 分页查询迭代详情
+   */
+  async pagequeryProditeration(request: PagequeryProditerationRequest): Promise<PagequeryProditerationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryProditerationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 分页查询迭代详情
+   * Summary: 分页查询迭代详情
+   */
+  async pagequeryProditerationEx(request: PagequeryProditerationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryProditerationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryProditerationResponse>(await this.doRequest("1.0", "yunyou.yunqing.proditeration.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryProditerationResponse({}));
+  }
+
+  /**
+   * Description: 部署单元批量创建
+   * Summary: 部署单元批量创建
+   */
+  async createProdinstanceDeployunitbatch(request: CreateProdinstanceDeployunitbatchRequest): Promise<CreateProdinstanceDeployunitbatchResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createProdinstanceDeployunitbatchEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 部署单元批量创建
+   * Summary: 部署单元批量创建
+   */
+  async createProdinstanceDeployunitbatchEx(request: CreateProdinstanceDeployunitbatchRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateProdinstanceDeployunitbatchResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateProdinstanceDeployunitbatchResponse>(await this.doRequest("1.0", "yunyou.yunqing.prodinstance.deployunitbatch.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateProdinstanceDeployunitbatchResponse({}));
+  }
+
+  /**
+   * Description: 发布单应用回滚
+   * Summary: 发布单应用回滚
+   */
+  async rollbackOpsApp(request: RollbackOpsAppRequest): Promise<RollbackOpsAppResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.rollbackOpsAppEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 发布单应用回滚
+   * Summary: 发布单应用回滚
+   */
+  async rollbackOpsAppEx(request: RollbackOpsAppRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RollbackOpsAppResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RollbackOpsAppResponse>(await this.doRequest("1.0", "yunyou.yunqing.ops.app.rollback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RollbackOpsAppResponse({}));
+  }
+
+  /**
+   * Description: 发布单产品回滚
+   * Summary: 发布单产品回滚
+   */
+  async rollbackOpsProduct(request: RollbackOpsProductRequest): Promise<RollbackOpsProductResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.rollbackOpsProductEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 发布单产品回滚
+   * Summary: 发布单产品回滚
+   */
+  async rollbackOpsProductEx(request: RollbackOpsProductRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RollbackOpsProductResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RollbackOpsProductResponse>(await this.doRequest("1.0", "yunyou.yunqing.ops.product.rollback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RollbackOpsProductResponse({}));
+  }
+
+  /**
+   * Description: 直接查询集群的pod信息，不是查询云游的基线！
+   * Summary: 查询集群pod信息
+   */
+  async queryClusterNativepod(request: QueryClusterNativepodRequest): Promise<QueryClusterNativepodResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryClusterNativepodEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 直接查询集群的pod信息，不是查询云游的基线！
+   * Summary: 查询集群pod信息
+   */
+  async queryClusterNativepodEx(request: QueryClusterNativepodRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryClusterNativepodResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryClusterNativepodResponse>(await this.doRequest("1.0", "yunyou.yunqing.cluster.nativepod.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryClusterNativepodResponse({}));
+  }
+
+  /**
+   * Description: 查询基线应用容器
+   * Summary: 查询基线应用容器
+   */
+  async pagequeryBaselineAppcontainers(request: PagequeryBaselineAppcontainersRequest): Promise<PagequeryBaselineAppcontainersResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryBaselineAppcontainersEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询基线应用容器
+   * Summary: 查询基线应用容器
+   */
+  async pagequeryBaselineAppcontainersEx(request: PagequeryBaselineAppcontainersRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryBaselineAppcontainersResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryBaselineAppcontainersResponse>(await this.doRequest("1.0", "yunyou.yunqing.baseline.appcontainers.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryBaselineAppcontainersResponse({}));
+  }
+
+  /**
+   * Description: 回滚快照查询
+   * Summary: 回滚快照查询
+   */
+  async pagequeryRollbackSnapshotversion(request: PagequeryRollbackSnapshotversionRequest): Promise<PagequeryRollbackSnapshotversionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryRollbackSnapshotversionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 回滚快照查询
+   * Summary: 回滚快照查询
+   */
+  async pagequeryRollbackSnapshotversionEx(request: PagequeryRollbackSnapshotversionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryRollbackSnapshotversionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryRollbackSnapshotversionResponse>(await this.doRequest("1.0", "yunyou.yunqing.rollback.snapshotversion.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryRollbackSnapshotversionResponse({}));
   }
 
 }
