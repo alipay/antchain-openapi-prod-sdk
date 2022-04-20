@@ -623,11 +623,11 @@ func (s *YuqingMessage) SetWeiboMid(v string) *YuqingMessage {
 // 查询结构体
 type SearchCondition struct {
 	// 搭配词
-	AssKeywords *string `json:"ass_keywords,omitempty" xml:"ass_keywords,omitempty"`
+	AssKeywordList []*string `json:"ass_keyword_list,omitempty" xml:"ass_keyword_list,omitempty" type:"Repeated"`
 	// 被@的用户名称
-	AtAuthorName *string `json:"at_author_name,omitempty" xml:"at_author_name,omitempty"`
+	AtAuthorNameList []*string `json:"at_author_name_list,omitempty" xml:"at_author_name_list,omitempty" type:"Repeated"`
 	// 作者名称
-	AuthorName *string `json:"author_name,omitempty" xml:"author_name,omitempty"`
+	AuthorNameList []*string `json:"author_name_list,omitempty" xml:"author_name_list,omitempty" type:"Repeated"`
 	// 评论级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
 	CommentsLevel *int64 `json:"comments_level,omitempty" xml:"comments_level,omitempty"`
 	// 内容长度级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
@@ -639,7 +639,7 @@ type SearchCondition struct {
 	// 文章签名
 	DocContentSign *string `json:"doc_content_sign,omitempty" xml:"doc_content_sign,omitempty"`
 	// 舆情文章唯一docId
-	DocId *string `json:"doc_id,omitempty" xml:"doc_id,omitempty"`
+	DocIdList []*string `json:"doc_id_list,omitempty" xml:"doc_id_list,omitempty" type:"Repeated"`
 	// 是否去重
 	DuplicateRemoval *bool `json:"duplicate_removal,omitempty" xml:"duplicate_removal,omitempty"`
 	// 情感类型，1非负，-1负面
@@ -647,45 +647,43 @@ type SearchCondition struct {
 	// 是否高亮关键词
 	EnableKeywordHighlight *bool `json:"enable_keyword_highlight,omitempty" xml:"enable_keyword_highlight,omitempty"`
 	// 排除被@的用户名称
-	ExcludeAtAuthorName *string `json:"exclude_at_author_name,omitempty" xml:"exclude_at_author_name,omitempty"`
+	ExcludeAtAuthorNameList []*string `json:"exclude_at_author_name_list,omitempty" xml:"exclude_at_author_name_list,omitempty" type:"Repeated"`
 	// 排除作者名称
-	ExcludeAuthorName *string `json:"exclude_author_name,omitempty" xml:"exclude_author_name,omitempty"`
+	ExcludeAuthorNameList []*string `json:"exclude_author_name_list,omitempty" xml:"exclude_author_name_list,omitempty" type:"Repeated"`
 	// 排除网站域名
-	ExcludeHostName *string `json:"exclude_host_name,omitempty" xml:"exclude_host_name,omitempty"`
+	ExcludeHostNameList []*string `json:"exclude_host_name_list,omitempty" xml:"exclude_host_name_list,omitempty" type:"Repeated"`
 	// 排除关键词标签Id列表
-	ExcludeKeywordTagIds *string `json:"exclude_keyword_tag_ids,omitempty" xml:"exclude_keyword_tag_ids,omitempty"`
+	ExcludeKeywordTagIds []*int64 `json:"exclude_keyword_tag_ids,omitempty" xml:"exclude_keyword_tag_ids,omitempty" type:"Repeated"`
 	// 排除词
-	ExcludeKeywords *string `json:"exclude_keywords,omitempty" xml:"exclude_keywords,omitempty"`
+	ExcludeKeywordList []*string `json:"exclude_keyword_list,omitempty" xml:"exclude_keyword_list,omitempty" type:"Repeated"`
 	// 标题排除词
-	ExcludeKeywordsInTitle *string `json:"exclude_keywords_in_title,omitempty" xml:"exclude_keywords_in_title,omitempty"`
+	ExcludeKeywordListInTitle []*string `json:"exclude_keyword_list_in_title,omitempty" xml:"exclude_keyword_list_in_title,omitempty" type:"Repeated"`
 	// 排除媒体库id列表
-	ExcludeMediaLibraryIds *string `json:"exclude_media_library_ids,omitempty" xml:"exclude_media_library_ids,omitempty"`
+	ExcludeMediaLibraryIdList []*int64 `json:"exclude_media_library_id_list,omitempty" xml:"exclude_media_library_id_list,omitempty" type:"Repeated"`
 	// 排除媒体名称
-	ExcludeMediaName *string `json:"exclude_media_name,omitempty" xml:"exclude_media_name,omitempty"`
+	ExcludeMediaNameList []*string `json:"exclude_media_name_list,omitempty" xml:"exclude_media_name_list,omitempty" type:"Repeated"`
 	// 排除媒体类型，枚举值
-	ExcludeMediaType *string `json:"exclude_media_type,omitempty" xml:"exclude_media_type,omitempty"`
+	ExcludeMediaTypeList []*string `json:"exclude_media_type_list,omitempty" xml:"exclude_media_type_list,omitempty" type:"Repeated"`
 	// 排除消息类型，枚举值
-	ExcludeMessageType *string `json:"exclude_message_type,omitempty" xml:"exclude_message_type,omitempty"`
-	// 其他过滤条件
-	FieldConditions *string `json:"field_conditions,omitempty" xml:"field_conditions,omitempty"`
+	ExcludeMessageTypeList []*string `json:"exclude_message_type_list,omitempty" xml:"exclude_message_type_list,omitempty" type:"Repeated"`
 	// 文章是否含有图片
 	HasImage *bool `json:"has_image,omitempty" xml:"has_image,omitempty"`
 	// 是否含有视频
 	HasVideo *bool `json:"has_video,omitempty" xml:"has_video,omitempty"`
 	// 网站域名
-	HostName *string `json:"host_name,omitempty" xml:"host_name,omitempty"`
+	HostNameList []*string `json:"host_name_list,omitempty" xml:"host_name_list,omitempty" type:"Repeated"`
 	// 关键词标签Id列表
-	KeywordTagIds *string `json:"keyword_tag_ids,omitempty" xml:"keyword_tag_ids,omitempty"`
+	KeywordTagIds []*int64 `json:"keyword_tag_ids,omitempty" xml:"keyword_tag_ids,omitempty" type:"Repeated"`
 	// 点赞级别，1：100以内，2：100-1k，3：1k-1w以内，4：1w-10w，5，10w+
 	LikesLevel *int64 `json:"likes_level,omitempty" xml:"likes_level,omitempty"`
 	// 媒体库id列表
-	MediaLibraryIds *string `json:"media_library_ids,omitempty" xml:"media_library_ids,omitempty"`
+	MediaLibraryIdList []*int64 `json:"media_library_id_list,omitempty" xml:"media_library_id_list,omitempty" type:"Repeated"`
 	// 媒体名称
-	MediaName *string `json:"media_name,omitempty" xml:"media_name,omitempty"`
+	MediaNameList []*string `json:"media_name_list,omitempty" xml:"media_name_list,omitempty" type:"Repeated"`
 	// 体类型，枚举值
-	MediaType *string `json:"media_type,omitempty" xml:"media_type,omitempty"`
+	MediaTypeList []*string `json:"media_type_list,omitempty" xml:"media_type_list,omitempty" type:"Repeated"`
 	// 消息类型，枚举值
-	MessageType *string `json:"message_type,omitempty" xml:"message_type,omitempty"`
+	MessageTypeList []*string `json:"message_type_list,omitempty" xml:"message_type_list,omitempty" type:"Repeated"`
 	// 当前页
 	PageNow *int64 `json:"page_now,omitempty" xml:"page_now,omitempty"`
 	// 页大小
@@ -693,9 +691,9 @@ type SearchCondition struct {
 	// 舆情父文章的docId，一般用于查看某篇文章的评论
 	ParentDocId *string `json:"parent_doc_id,omitempty" xml:"parent_doc_id,omitempty"`
 	// 关键词
-	PosKeywords *string `json:"pos_keywords,omitempty" xml:"pos_keywords,omitempty"`
+	PosKeywordList []*string `json:"pos_keyword_list,omitempty" xml:"pos_keyword_list,omitempty" type:"Repeated"`
 	// 标题关键词
-	PosKeywordsInTitle *string `json:"pos_keywords_in_title,omitempty" xml:"pos_keywords_in_title,omitempty"`
+	PosKeywordListInTitle []*string `json:"pos_keyword_list_in_title,omitempty" xml:"pos_keyword_list_in_title,omitempty" type:"Repeated"`
 	// 截止发布时间
 	PublishTimeEnd *int64 `json:"publish_time_end,omitempty" xml:"publish_time_end,omitempty"`
 	// 起始发布时间
@@ -711,7 +709,7 @@ type SearchCondition struct {
 	// 指定正反向排序
 	SortByDirection *string `json:"sort_by_direction,omitempty" xml:"sort_by_direction,omitempty"`
 	// #话题
-	Topics *string `json:"topics,omitempty" xml:"topics,omitempty"`
+	TopicList []*string `json:"topic_list,omitempty" xml:"topic_list,omitempty" type:"Repeated"`
 	// 舆情文章截止更新时间
 	UpdateTimeEnd *int64 `json:"update_time_end,omitempty" xml:"update_time_end,omitempty"`
 	// 舆情文章起始更新时间
@@ -726,18 +724,18 @@ func (s SearchCondition) GoString() string {
 	return s.String()
 }
 
-func (s *SearchCondition) SetAssKeywords(v string) *SearchCondition {
-	s.AssKeywords = &v
+func (s *SearchCondition) SetAssKeywordList(v []*string) *SearchCondition {
+	s.AssKeywordList = v
 	return s
 }
 
-func (s *SearchCondition) SetAtAuthorName(v string) *SearchCondition {
-	s.AtAuthorName = &v
+func (s *SearchCondition) SetAtAuthorNameList(v []*string) *SearchCondition {
+	s.AtAuthorNameList = v
 	return s
 }
 
-func (s *SearchCondition) SetAuthorName(v string) *SearchCondition {
-	s.AuthorName = &v
+func (s *SearchCondition) SetAuthorNameList(v []*string) *SearchCondition {
+	s.AuthorNameList = v
 	return s
 }
 
@@ -766,8 +764,8 @@ func (s *SearchCondition) SetDocContentSign(v string) *SearchCondition {
 	return s
 }
 
-func (s *SearchCondition) SetDocId(v string) *SearchCondition {
-	s.DocId = &v
+func (s *SearchCondition) SetDocIdList(v []*string) *SearchCondition {
+	s.DocIdList = v
 	return s
 }
 
@@ -786,58 +784,53 @@ func (s *SearchCondition) SetEnableKeywordHighlight(v bool) *SearchCondition {
 	return s
 }
 
-func (s *SearchCondition) SetExcludeAtAuthorName(v string) *SearchCondition {
-	s.ExcludeAtAuthorName = &v
+func (s *SearchCondition) SetExcludeAtAuthorNameList(v []*string) *SearchCondition {
+	s.ExcludeAtAuthorNameList = v
 	return s
 }
 
-func (s *SearchCondition) SetExcludeAuthorName(v string) *SearchCondition {
-	s.ExcludeAuthorName = &v
+func (s *SearchCondition) SetExcludeAuthorNameList(v []*string) *SearchCondition {
+	s.ExcludeAuthorNameList = v
 	return s
 }
 
-func (s *SearchCondition) SetExcludeHostName(v string) *SearchCondition {
-	s.ExcludeHostName = &v
+func (s *SearchCondition) SetExcludeHostNameList(v []*string) *SearchCondition {
+	s.ExcludeHostNameList = v
 	return s
 }
 
-func (s *SearchCondition) SetExcludeKeywordTagIds(v string) *SearchCondition {
-	s.ExcludeKeywordTagIds = &v
+func (s *SearchCondition) SetExcludeKeywordTagIds(v []*int64) *SearchCondition {
+	s.ExcludeKeywordTagIds = v
 	return s
 }
 
-func (s *SearchCondition) SetExcludeKeywords(v string) *SearchCondition {
-	s.ExcludeKeywords = &v
+func (s *SearchCondition) SetExcludeKeywordList(v []*string) *SearchCondition {
+	s.ExcludeKeywordList = v
 	return s
 }
 
-func (s *SearchCondition) SetExcludeKeywordsInTitle(v string) *SearchCondition {
-	s.ExcludeKeywordsInTitle = &v
+func (s *SearchCondition) SetExcludeKeywordListInTitle(v []*string) *SearchCondition {
+	s.ExcludeKeywordListInTitle = v
 	return s
 }
 
-func (s *SearchCondition) SetExcludeMediaLibraryIds(v string) *SearchCondition {
-	s.ExcludeMediaLibraryIds = &v
+func (s *SearchCondition) SetExcludeMediaLibraryIdList(v []*int64) *SearchCondition {
+	s.ExcludeMediaLibraryIdList = v
 	return s
 }
 
-func (s *SearchCondition) SetExcludeMediaName(v string) *SearchCondition {
-	s.ExcludeMediaName = &v
+func (s *SearchCondition) SetExcludeMediaNameList(v []*string) *SearchCondition {
+	s.ExcludeMediaNameList = v
 	return s
 }
 
-func (s *SearchCondition) SetExcludeMediaType(v string) *SearchCondition {
-	s.ExcludeMediaType = &v
+func (s *SearchCondition) SetExcludeMediaTypeList(v []*string) *SearchCondition {
+	s.ExcludeMediaTypeList = v
 	return s
 }
 
-func (s *SearchCondition) SetExcludeMessageType(v string) *SearchCondition {
-	s.ExcludeMessageType = &v
-	return s
-}
-
-func (s *SearchCondition) SetFieldConditions(v string) *SearchCondition {
-	s.FieldConditions = &v
+func (s *SearchCondition) SetExcludeMessageTypeList(v []*string) *SearchCondition {
+	s.ExcludeMessageTypeList = v
 	return s
 }
 
@@ -851,13 +844,13 @@ func (s *SearchCondition) SetHasVideo(v bool) *SearchCondition {
 	return s
 }
 
-func (s *SearchCondition) SetHostName(v string) *SearchCondition {
-	s.HostName = &v
+func (s *SearchCondition) SetHostNameList(v []*string) *SearchCondition {
+	s.HostNameList = v
 	return s
 }
 
-func (s *SearchCondition) SetKeywordTagIds(v string) *SearchCondition {
-	s.KeywordTagIds = &v
+func (s *SearchCondition) SetKeywordTagIds(v []*int64) *SearchCondition {
+	s.KeywordTagIds = v
 	return s
 }
 
@@ -866,23 +859,23 @@ func (s *SearchCondition) SetLikesLevel(v int64) *SearchCondition {
 	return s
 }
 
-func (s *SearchCondition) SetMediaLibraryIds(v string) *SearchCondition {
-	s.MediaLibraryIds = &v
+func (s *SearchCondition) SetMediaLibraryIdList(v []*int64) *SearchCondition {
+	s.MediaLibraryIdList = v
 	return s
 }
 
-func (s *SearchCondition) SetMediaName(v string) *SearchCondition {
-	s.MediaName = &v
+func (s *SearchCondition) SetMediaNameList(v []*string) *SearchCondition {
+	s.MediaNameList = v
 	return s
 }
 
-func (s *SearchCondition) SetMediaType(v string) *SearchCondition {
-	s.MediaType = &v
+func (s *SearchCondition) SetMediaTypeList(v []*string) *SearchCondition {
+	s.MediaTypeList = v
 	return s
 }
 
-func (s *SearchCondition) SetMessageType(v string) *SearchCondition {
-	s.MessageType = &v
+func (s *SearchCondition) SetMessageTypeList(v []*string) *SearchCondition {
+	s.MessageTypeList = v
 	return s
 }
 
@@ -901,13 +894,13 @@ func (s *SearchCondition) SetParentDocId(v string) *SearchCondition {
 	return s
 }
 
-func (s *SearchCondition) SetPosKeywords(v string) *SearchCondition {
-	s.PosKeywords = &v
+func (s *SearchCondition) SetPosKeywordList(v []*string) *SearchCondition {
+	s.PosKeywordList = v
 	return s
 }
 
-func (s *SearchCondition) SetPosKeywordsInTitle(v string) *SearchCondition {
-	s.PosKeywordsInTitle = &v
+func (s *SearchCondition) SetPosKeywordListInTitle(v []*string) *SearchCondition {
+	s.PosKeywordListInTitle = v
 	return s
 }
 
@@ -946,8 +939,8 @@ func (s *SearchCondition) SetSortByDirection(v string) *SearchCondition {
 	return s
 }
 
-func (s *SearchCondition) SetTopics(v string) *SearchCondition {
-	s.Topics = &v
+func (s *SearchCondition) SetTopicList(v []*string) *SearchCondition {
+	s.TopicList = v
 	return s
 }
 
@@ -1117,7 +1110,7 @@ type SaveAnalysisSubmitResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 分析任务ID
-	AnalysisId *string `json:"analysis_id,omitempty" xml:"analysis_id,omitempty"`
+	AnalysisId *int64 `json:"analysis_id,omitempty" xml:"analysis_id,omitempty"`
 	// 其他
 	ResultJson *string `json:"result_json,omitempty" xml:"result_json,omitempty"`
 }
@@ -1145,7 +1138,7 @@ func (s *SaveAnalysisSubmitResponse) SetResultMsg(v string) *SaveAnalysisSubmitR
 	return s
 }
 
-func (s *SaveAnalysisSubmitResponse) SetAnalysisId(v string) *SaveAnalysisSubmitResponse {
+func (s *SaveAnalysisSubmitResponse) SetAnalysisId(v int64) *SaveAnalysisSubmitResponse {
 	s.AnalysisId = &v
 	return s
 }
@@ -1160,7 +1153,7 @@ type QueryAnalysisQueryRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 分析任务ID
-	AnalysisId *string `json:"analysis_id,omitempty" xml:"analysis_id,omitempty" require:"true"`
+	AnalysisId *int64 `json:"analysis_id,omitempty" xml:"analysis_id,omitempty" require:"true"`
 }
 
 func (s QueryAnalysisQueryRequest) String() string {
@@ -1181,7 +1174,7 @@ func (s *QueryAnalysisQueryRequest) SetProductInstanceId(v string) *QueryAnalysi
 	return s
 }
 
-func (s *QueryAnalysisQueryRequest) SetAnalysisId(v string) *QueryAnalysisQueryRequest {
+func (s *QueryAnalysisQueryRequest) SetAnalysisId(v int64) *QueryAnalysisQueryRequest {
 	s.AnalysisId = &v
 	return s
 }
@@ -1194,7 +1187,7 @@ type QueryAnalysisQueryResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 分析任务ID
-	AnalysisId *string `json:"analysis_id,omitempty" xml:"analysis_id,omitempty"`
+	AnalysisId *int64 `json:"analysis_id,omitempty" xml:"analysis_id,omitempty"`
 	// 分析内容
 	ResultJson *string `json:"result_json,omitempty" xml:"result_json,omitempty"`
 }
@@ -1222,7 +1215,7 @@ func (s *QueryAnalysisQueryResponse) SetResultMsg(v string) *QueryAnalysisQueryR
 	return s
 }
 
-func (s *QueryAnalysisQueryResponse) SetAnalysisId(v string) *QueryAnalysisQueryResponse {
+func (s *QueryAnalysisQueryResponse) SetAnalysisId(v int64) *QueryAnalysisQueryResponse {
 	s.AnalysisId = &v
 	return s
 }
@@ -1725,7 +1718,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.10"),
+				"sdk_version":      tea.String("1.1.11"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
