@@ -16,14 +16,6 @@ public class SyncUmktRtEventresultResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 处理是否成功
-    @NameInMap("success")
-    public Boolean success;
-
-    // 基本圈客结果信息
-    @NameInMap("query_result")
-    public java.util.List<CustomerUmktInfoModel> queryResult;
-
     public static SyncUmktRtEventresultResponse build(java.util.Map<String, ?> map) throws Exception {
         SyncUmktRtEventresultResponse self = new SyncUmktRtEventresultResponse();
         return TeaModel.build(map, self);
@@ -51,22 +43,6 @@ public class SyncUmktRtEventresultResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public SyncUmktRtEventresultResponse setSuccess(Boolean success) {
-        this.success = success;
-        return this;
-    }
-    public Boolean getSuccess() {
-        return this.success;
-    }
-
-    public SyncUmktRtEventresultResponse setQueryResult(java.util.List<CustomerUmktInfoModel> queryResult) {
-        this.queryResult = queryResult;
-        return this;
-    }
-    public java.util.List<CustomerUmktInfoModel> getQueryResult() {
-        return this.queryResult;
     }
 
 }
