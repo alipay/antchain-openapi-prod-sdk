@@ -9821,11 +9821,17 @@ export class SyncUmktRtEventresultResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 处理是否成功
+  success?: boolean;
+  // 基本圈客结果信息
+  queryResult?: CustomerUmktInfoModel[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      success: 'success',
+      queryResult: 'query_result',
     };
   }
 
@@ -9834,6 +9840,8 @@ export class SyncUmktRtEventresultResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      success: 'boolean',
+      queryResult: { 'type': 'array', 'itemType': CustomerUmktInfoModel },
     };
   }
 
@@ -10102,7 +10110,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.2",
+          sdk_version: "1.10.4",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
