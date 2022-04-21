@@ -9821,17 +9821,11 @@ export class SyncUmktRtEventresultResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 处理是否成功
-  success?: boolean;
-  // 基本圈客结果信息
-  queryResult?: CustomerUmktInfoModel[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      success: 'success',
-      queryResult: 'query_result',
     };
   }
 
@@ -9840,8 +9834,6 @@ export class SyncUmktRtEventresultResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      success: 'boolean',
-      queryResult: { 'type': 'array', 'itemType': CustomerUmktInfoModel },
     };
   }
 
@@ -9901,6 +9893,80 @@ export class ImportUmktSceneUploadResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryUmktRtTailmarketingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 营销计划id
+  planId: number;
+  // 	
+  // 用户列表传输模版
+  queryTemplate: string;
+  // 	
+  // 用户查询凭证列表
+  customerKeys: string[];
+  // 业务方流水号
+  bizSerialNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      planId: 'plan_id',
+      queryTemplate: 'query_template',
+      customerKeys: 'customer_keys',
+      bizSerialNo: 'biz_serial_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      planId: 'number',
+      queryTemplate: 'string',
+      customerKeys: { 'type': 'array', 'itemType': 'string' },
+      bizSerialNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryUmktRtTailmarketingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 	
+  // 实时营销单条结果
+  queryResult?: CustomerUmktInfoModel[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      queryResult: 'query_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      queryResult: { 'type': 'array', 'itemType': CustomerUmktInfoModel },
     };
   }
 
@@ -10110,7 +10176,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.4",
+          sdk_version: "1.10.5",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -11908,6 +11974,25 @@ export default class Client {
   async importUmktSceneUploadEx(request: ImportUmktSceneUploadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportUmktSceneUploadResponse> {
     Util.validateModel(request);
     return $tea.cast<ImportUmktSceneUploadResponse>(await this.doRequest("1.0", "riskplus.umkt.scene.upload.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportUmktSceneUploadResponse({}));
+  }
+
+  /**
+   * Description: 富信贴尾实时圈客
+   * Summary: 富信贴尾实时圈客
+   */
+  async batchqueryUmktRtTailmarketing(request: BatchqueryUmktRtTailmarketingRequest): Promise<BatchqueryUmktRtTailmarketingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryUmktRtTailmarketingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 富信贴尾实时圈客
+   * Summary: 富信贴尾实时圈客
+   */
+  async batchqueryUmktRtTailmarketingEx(request: BatchqueryUmktRtTailmarketingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryUmktRtTailmarketingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryUmktRtTailmarketingResponse>(await this.doRequest("1.0", "riskplus.umkt.rt.tailmarketing.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryUmktRtTailmarketingResponse({}));
   }
 
   /**
