@@ -13135,6 +13135,10 @@ type SyncUmktRtEventresultResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 处理是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 基本圈客结果信息
+	QueryResult []*CustomerUmktInfoModel `json:"query_result,omitempty" xml:"query_result,omitempty" type:"Repeated"`
 }
 
 func (s SyncUmktRtEventresultResponse) String() string {
@@ -13157,6 +13161,16 @@ func (s *SyncUmktRtEventresultResponse) SetResultCode(v string) *SyncUmktRtEvent
 
 func (s *SyncUmktRtEventresultResponse) SetResultMsg(v string) *SyncUmktRtEventresultResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *SyncUmktRtEventresultResponse) SetSuccess(v bool) *SyncUmktRtEventresultResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *SyncUmktRtEventresultResponse) SetQueryResult(v []*CustomerUmktInfoModel) *SyncUmktRtEventresultResponse {
+	s.QueryResult = v
 	return s
 }
 
@@ -13472,7 +13486,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.2"),
+				"sdk_version":      tea.String("1.10.4"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
