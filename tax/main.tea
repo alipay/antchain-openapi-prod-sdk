@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.6',
+    sdk_version = '1.2.3',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -159,6 +159,22 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 地区请求
+model DistrictExtRequest {
+  // 地区编码
+  cityCode: string(name='city_code', example='340909'),
+}
+
+// 通用同步授权扩展字段
+model AgreementExtRequest {
+  // 证书类型
+  type: string(name='type', example='证书类型'),
+  // 是否盖章，true：是 false：否
+  isSeal: string(name='is_seal', example='true'),
+  // 地址
+  address: string(name='address', example='http://sdsdfsd.com'),
+}
+
 // 发票明细
 model InvoiceItem {
   // 税收分类编码	
@@ -181,6 +197,26 @@ model InvoiceItem {
   dj: string(name='dj', example='10.11'),
   // 规格型号
   ggxh?: string(name='ggxh', example='xxx'),
+}
+
+// 授权扩展信息
+model StandardAuthExtendInfoRequest {
+  // 协议列表
+  agreementList: [ AgreementExtRequest ](name='agreement_list', example='协议列表'),
+  // 地区请求
+  districtextRequest: DistrictExtRequest(name='districtext_request', example='地区请求'),
+}
+
+// 通用base授权
+model BaseAuthRequest {
+  // 租户号
+  instCode: string(name='inst_code', example='OCRGDSFD'),
+  // 授权类型
+  authType: string(name='auth_type', example='19'),
+  // xdsadsfsdf
+  orderNo: string(name='order_no', example='订单号'),
+  // 扩展信息
+  extendInfo: StandardAuthExtendInfoRequest(name='extend_info', example='扩展信息'),
 }
 
 // 发票标准模型
@@ -261,6 +297,14 @@ model Invoice {
   zfsj?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='zfsj', example='xxx'),
   // 扩展字段
   extFiled: string(name='ext_filed', example='{abc:123,def:456}'),
+}
+
+// 个人授权
+model StandardRealPersonAuthRequest {
+  // 个人证件号
+  identityId: string(name='identity_id', example='个人证件号340902xxxx'),
+  // 名字
+  identityName: string(name='identity_name', example='张三'),
 }
 
 model AuthCorpRequest = {
@@ -473,8 +517,6 @@ model QueryIcmInvoiceRequest = {
   // 当auth_type=02(记账查询)时，查询起始时间和查询截止时间必须在同一个月内，如查询起始日期是6.31，截止日期为7.1，则会提示查询时间不能跨月，最长时间为一个月
   // 最大查询范围为6.1-6.30
   startDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_date'),
-  // 地区编码
-  cityCode: string(name='city_code'),
 }
 
 model QueryIcmInvoiceResponse = {
@@ -541,5 +583,212 @@ async function pushIcmInvoiceinfo(request: PushIcmInvoiceinfoRequest): PushIcmIn
 async function pushIcmInvoiceinfoEx(request: PushIcmInvoiceinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushIcmInvoiceinfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.tax.icm.invoiceinfo.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DescribeIcmInvoiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 发票销方税号
+  xfsh: string(maxLength=30, name='xfsh'),
+  // 发票代码
+  fpdm: string(maxLength=100, name='fpdm'),
+  // 发票号码
+  fphm: string(maxLength=100, name='fphm'),
+}
+
+model DescribeIcmInvoiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易hash即txhash
+  txhash?: string(name='txhash'),
+  // 交易块号
+  blockNumber?: string(name='block_number'),
+  // 交易时间
+  timestamp?: string(name='timestamp'),
+}
+
+/**
+ * Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+ * Summary: 获取数据的上链信息描述
+ */
+async function describeIcmInvoice(request: DescribeIcmInvoiceRequest): DescribeIcmInvoiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return describeIcmInvoiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+ * Summary: 获取数据的上链信息描述
+ */
+async function describeIcmInvoiceEx(request: DescribeIcmInvoiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DescribeIcmInvoiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.icm.invoice.describe', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AuthIcmInvoiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求号，调用方企业保证每次调用唯一，蚂蚁发票平台通过该字段和app_id两个字段做幂等判断
+  requestId: string(name='request_id'),
+  // 查询的企业纳税人识别号
+  // 
+  nsrsbh: string(name='nsrsbh'),
+  // 企业名称
+  corpName: string(name='corp_name'),
+  // 身份证号
+  identityNumber: string(name='identity_number'),
+  // 已认证的法人手机号
+  cognizantMobile: string(name='cognizant_mobile'),
+  // 已认证的法人姓名
+  cognizantName: string(name='cognizant_name'),
+  // 透传字段
+  bizContext?: string(name='biz_context'),
+  // 授权业务类型
+  authType: string(name='auth_type'),
+}
+
+model AuthIcmInvoiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权是否成功：true：成功 false：失败
+  success?: string(name='success'),
+  // 透传字段
+  bizContext?: string(name='biz_context'),
+  // 纳税人识别号
+  nsrsbh?: string(name='nsrsbh'),
+  // 过期时间
+  expiredTime?: string(name='expired_time'),
+  // 业务请求id
+  requestId?: string(name='request_id'),
+  // 错误码
+  errorCode?: string(name='error_code'),
+  // 错误信息
+  errorMsg?: string(name='error_msg'),
+}
+
+/**
+ * Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+ * Summary: 区块链银行授权接口
+ */
+async function authIcmInvoice(request: AuthIcmInvoiceRequest): AuthIcmInvoiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return authIcmInvoiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+ * Summary: 区块链银行授权接口
+ */
+async function authIcmInvoiceEx(request: AuthIcmInvoiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthIcmInvoiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.icm.invoice.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AuthIcmRealpersonRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础授权请求
+  request: BaseAuthRequest(name='request'),
+  // 个人证件号
+  identityId: string(name='identity_id'),
+  // 名字
+  identityName: string(name='identity_name'),
+}
+
+model AuthIcmRealpersonResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否授权成功true是，false否
+  authSuccess?: boolean(name='auth_success'),
+  // 订单号
+  orderNo?: string(name='order_no'),
+  // 过期时间
+  expireTime?: string(name='expire_time'),
+  // 授权时间 unix时间戳
+  authTime?: string(name='auth_time'),
+}
+
+/**
+ * Description: 个人数据使用授权
+ * Summary: 个人数据使用授权
+ */
+async function authIcmRealperson(request: AuthIcmRealpersonRequest): AuthIcmRealpersonResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return authIcmRealpersonEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人数据使用授权
+ * Summary: 个人数据使用授权
+ */
+async function authIcmRealpersonEx(request: AuthIcmRealpersonRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthIcmRealpersonResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.icm.realperson.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecIcmSyncgatheringRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 机构号码
+  instCode: string(name='inst_code'),
+  // 请求流水号(必填),调用方保证每次请求号唯一，受理方用来校验唯一性，同一受理号返回请求结果一致
+  bizRequestId: string(name='biz_request_id'),
+  // 纳税人识别号(必填)
+  identityId: string(name='identity_id'),
+  // 授权类型(必填)
+  authType: string(name='auth_type'),
+  // 订单号
+  orderNo: string(name='order_no'),
+}
+
+model ExecIcmSyncgatheringResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回的请求对象jsonString
+  bizContent?: string(name='biz_content'),
+  // unix秒时间戳,查询时间，用来对账使用
+  queryTime?: string(name='query_time'),
+}
+
+/**
+ * Description: 同步采集
+ * Summary: 采集
+ */
+async function execIcmSyncgathering(request: ExecIcmSyncgatheringRequest): ExecIcmSyncgatheringResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execIcmSyncgatheringEx(request, headers, runtime);
+}
+
+/**
+ * Description: 同步采集
+ * Summary: 采集
+ */
+async function execIcmSyncgatheringEx(request: ExecIcmSyncgatheringRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecIcmSyncgatheringResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.icm.syncgathering.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
