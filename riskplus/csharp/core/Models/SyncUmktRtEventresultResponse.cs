@@ -24,6 +24,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 处理是否成功
+        [NameInMap("success")]
+        [Validation(Required=false)]
+        public bool? Success { get; set; }
+
+        // 基本圈客结果信息
+        [NameInMap("query_result")]
+        [Validation(Required=false)]
+        public List<CustomerUmktInfoModel> QueryResult { get; set; }
+
     }
 
 }
