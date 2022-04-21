@@ -13,6 +13,14 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\TAX\Models\AuthCorpRequest;
 use AntChain\TAX\Models\AuthCorpResponse;
+use AntChain\TAX\Models\AuthIcmInvoiceRequest;
+use AntChain\TAX\Models\AuthIcmInvoiceResponse;
+use AntChain\TAX\Models\AuthIcmRealpersonRequest;
+use AntChain\TAX\Models\AuthIcmRealpersonResponse;
+use AntChain\TAX\Models\DescribeIcmInvoiceRequest;
+use AntChain\TAX\Models\DescribeIcmInvoiceResponse;
+use AntChain\TAX\Models\ExecIcmSyncgatheringRequest;
+use AntChain\TAX\Models\ExecIcmSyncgatheringResponse;
 use AntChain\TAX\Models\PushChargeRequest;
 use AntChain\TAX\Models\PushChargeResponse;
 use AntChain\TAX\Models\PushIcmInvoiceinfoRequest;
@@ -142,7 +150,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 发票明细
+            // 地区请求
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -170,7 +178,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.6',
+                    'sdk_version'      => '1.2.3',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -412,5 +420,137 @@ class Client
         Utils::validateModel($request);
 
         return PushIcmInvoiceinfoResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.icm.invoiceinfo.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+     * Summary: 获取数据的上链信息描述.
+     *
+     * @param DescribeIcmInvoiceRequest $request
+     *
+     * @return DescribeIcmInvoiceResponse
+     */
+    public function describeIcmInvoice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->describeIcmInvoiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+     * Summary: 获取数据的上链信息描述.
+     *
+     * @param DescribeIcmInvoiceRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return DescribeIcmInvoiceResponse
+     */
+    public function describeIcmInvoiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DescribeIcmInvoiceResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.icm.invoice.describe', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+     * Summary: 区块链银行授权接口.
+     *
+     * @param AuthIcmInvoiceRequest $request
+     *
+     * @return AuthIcmInvoiceResponse
+     */
+    public function authIcmInvoice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->authIcmInvoiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+     * Summary: 区块链银行授权接口.
+     *
+     * @param AuthIcmInvoiceRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return AuthIcmInvoiceResponse
+     */
+    public function authIcmInvoiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AuthIcmInvoiceResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.icm.invoice.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人数据使用授权
+     * Summary: 个人数据使用授权.
+     *
+     * @param AuthIcmRealpersonRequest $request
+     *
+     * @return AuthIcmRealpersonResponse
+     */
+    public function authIcmRealperson($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->authIcmRealpersonEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人数据使用授权
+     * Summary: 个人数据使用授权.
+     *
+     * @param AuthIcmRealpersonRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return AuthIcmRealpersonResponse
+     */
+    public function authIcmRealpersonEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AuthIcmRealpersonResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.icm.realperson.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 同步采集
+     * Summary: 采集.
+     *
+     * @param ExecIcmSyncgatheringRequest $request
+     *
+     * @return ExecIcmSyncgatheringResponse
+     */
+    public function execIcmSyncgathering($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execIcmSyncgatheringEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 同步采集
+     * Summary: 采集.
+     *
+     * @param ExecIcmSyncgatheringRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ExecIcmSyncgatheringResponse
+     */
+    public function execIcmSyncgatheringEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecIcmSyncgatheringResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.icm.syncgathering.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

@@ -89,12 +89,6 @@ class QueryIcmInvoiceRequest extends Model
      * @var string
      */
     public $startDate;
-
-    // 地区编码
-    /**
-     * @var string
-     */
-    public $cityCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -108,7 +102,6 @@ class QueryIcmInvoiceRequest extends Model
         'requestId'         => 'request_id',
         'startAmount'       => 'start_amount',
         'startDate'         => 'start_date',
-        'cityCode'          => 'city_code',
     ];
 
     public function validate()
@@ -117,7 +110,6 @@ class QueryIcmInvoiceRequest extends Model
         Model::validateRequired('authType', $this->authType, true);
         Model::validateRequired('nsrsbh', $this->nsrsbh, true);
         Model::validateRequired('requestId', $this->requestId, true);
-        Model::validateRequired('cityCode', $this->cityCode, true);
         Model::validatePattern('endDate', $this->endDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
         Model::validatePattern('startDate', $this->startDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
@@ -160,9 +152,6 @@ class QueryIcmInvoiceRequest extends Model
         }
         if (null !== $this->startDate) {
             $res['start_date'] = $this->startDate;
-        }
-        if (null !== $this->cityCode) {
-            $res['city_code'] = $this->cityCode;
         }
 
         return $res;
@@ -211,9 +200,6 @@ class QueryIcmInvoiceRequest extends Model
         }
         if (isset($map['start_date'])) {
             $model->startDate = $map['start_date'];
-        }
-        if (isset($map['city_code'])) {
-            $model->cityCode = $map['city_code'];
         }
 
         return $model;
