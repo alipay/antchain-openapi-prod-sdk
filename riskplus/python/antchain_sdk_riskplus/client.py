@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.4'
+                    'sdk_version': '1.10.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.4'
+                    'sdk_version': '1.10.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -5201,6 +5201,60 @@ class Client:
         UtilClient.validate_model(request)
         return riskplus_models.ImportUmktSceneUploadResponse().from_map(
             await self.do_request_async('1.0', 'riskplus.umkt.scene.upload.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_umkt_rt_tailmarketing(
+        self,
+        request: riskplus_models.BatchqueryUmktRtTailmarketingRequest,
+    ) -> riskplus_models.BatchqueryUmktRtTailmarketingResponse:
+        """
+        Description: 富信贴尾实时圈客
+        Summary: 富信贴尾实时圈客
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_umkt_rt_tailmarketing_ex(request, headers, runtime)
+
+    async def batchquery_umkt_rt_tailmarketing_async(
+        self,
+        request: riskplus_models.BatchqueryUmktRtTailmarketingRequest,
+    ) -> riskplus_models.BatchqueryUmktRtTailmarketingResponse:
+        """
+        Description: 富信贴尾实时圈客
+        Summary: 富信贴尾实时圈客
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_umkt_rt_tailmarketing_ex_async(request, headers, runtime)
+
+    def batchquery_umkt_rt_tailmarketing_ex(
+        self,
+        request: riskplus_models.BatchqueryUmktRtTailmarketingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryUmktRtTailmarketingResponse:
+        """
+        Description: 富信贴尾实时圈客
+        Summary: 富信贴尾实时圈客
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.BatchqueryUmktRtTailmarketingResponse().from_map(
+            self.do_request('1.0', 'riskplus.umkt.rt.tailmarketing.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_umkt_rt_tailmarketing_ex_async(
+        self,
+        request: riskplus_models.BatchqueryUmktRtTailmarketingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryUmktRtTailmarketingResponse:
+        """
+        Description: 富信贴尾实时圈客
+        Summary: 富信贴尾实时圈客
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.BatchqueryUmktRtTailmarketingResponse().from_map(
+            await self.do_request_async('1.0', 'riskplus.umkt.rt.tailmarketing.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

@@ -15455,8 +15455,6 @@ class SyncUmktRtEventresultResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        success: bool = None,
-        query_result: List[CustomerUmktInfoModel] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -15464,16 +15462,9 @@ class SyncUmktRtEventresultResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 处理是否成功
-        self.success = success
-        # 基本圈客结果信息
-        self.query_result = query_result
 
     def validate(self):
-        if self.query_result:
-            for k in self.query_result:
-                if k:
-                    k.validate()
+        pass
 
     def to_map(self):
         result = dict()
@@ -15483,12 +15474,6 @@ class SyncUmktRtEventresultResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.success is not None:
-            result['success'] = self.success
-        result['query_result'] = []
-        if self.query_result is not None:
-            for k in self.query_result:
-                result['query_result'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -15499,13 +15484,6 @@ class SyncUmktRtEventresultResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('success') is not None:
-            self.success = m.get('success')
-        self.query_result = []
-        if m.get('query_result') is not None:
-            for k in m.get('query_result'):
-                temp_model = CustomerUmktInfoModel()
-                self.query_result.append(temp_model.from_map(k))
         return self
 
 
@@ -15589,6 +15567,123 @@ class ImportUmktSceneUploadResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class BatchqueryUmktRtTailmarketingRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        plan_id: int = None,
+        query_template: str = None,
+        customer_keys: List[str] = None,
+        biz_serial_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 营销计划id
+        self.plan_id = plan_id
+        # 
+        # 用户列表传输模版
+        self.query_template = query_template
+        # 
+        # 用户查询凭证列表
+        self.customer_keys = customer_keys
+        # 业务方流水号
+        self.biz_serial_no = biz_serial_no
+
+    def validate(self):
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.query_template, 'query_template')
+        self.validate_required(self.customer_keys, 'customer_keys')
+        self.validate_required(self.biz_serial_no, 'biz_serial_no')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.plan_id is not None:
+            result['plan_id'] = self.plan_id
+        if self.query_template is not None:
+            result['query_template'] = self.query_template
+        if self.customer_keys is not None:
+            result['customer_keys'] = self.customer_keys
+        if self.biz_serial_no is not None:
+            result['biz_serial_no'] = self.biz_serial_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('plan_id') is not None:
+            self.plan_id = m.get('plan_id')
+        if m.get('query_template') is not None:
+            self.query_template = m.get('query_template')
+        if m.get('customer_keys') is not None:
+            self.customer_keys = m.get('customer_keys')
+        if m.get('biz_serial_no') is not None:
+            self.biz_serial_no = m.get('biz_serial_no')
+        return self
+
+
+class BatchqueryUmktRtTailmarketingResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        query_result: List[CustomerUmktInfoModel] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 
+        # 实时营销单条结果
+        self.query_result = query_result
+
+    def validate(self):
+        if self.query_result:
+            for k in self.query_result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['query_result'] = []
+        if self.query_result is not None:
+            for k in self.query_result:
+                result['query_result'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.query_result = []
+        if m.get('query_result') is not None:
+            for k in m.get('query_result'):
+                temp_model = CustomerUmktInfoModel()
+                self.query_result.append(temp_model.from_map(k))
         return self
 
 
