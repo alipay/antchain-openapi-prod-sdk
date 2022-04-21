@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 发票明细
+            # 地区请求
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.6'
+                    'sdk_version': '1.2.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 发票明细
+            # 地区请求
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.6'
+                    'sdk_version': '1.2.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -593,4 +593,220 @@ class Client:
         UtilClient.validate_model(request)
         return tax_models.PushIcmInvoiceinfoResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.tax.icm.invoiceinfo.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def describe_icm_invoice(
+        self,
+        request: tax_models.DescribeIcmInvoiceRequest,
+    ) -> tax_models.DescribeIcmInvoiceResponse:
+        """
+        Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+        Summary: 获取数据的上链信息描述
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_icm_invoice_ex(request, headers, runtime)
+
+    async def describe_icm_invoice_async(
+        self,
+        request: tax_models.DescribeIcmInvoiceRequest,
+    ) -> tax_models.DescribeIcmInvoiceResponse:
+        """
+        Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+        Summary: 获取数据的上链信息描述
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.describe_icm_invoice_ex_async(request, headers, runtime)
+
+    def describe_icm_invoice_ex(
+        self,
+        request: tax_models.DescribeIcmInvoiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.DescribeIcmInvoiceResponse:
+        """
+        Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+        Summary: 获取数据的上链信息描述
+        """
+        UtilClient.validate_model(request)
+        return tax_models.DescribeIcmInvoiceResponse().from_map(
+            self.do_request('1.0', 'blockchain.tax.icm.invoice.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def describe_icm_invoice_ex_async(
+        self,
+        request: tax_models.DescribeIcmInvoiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.DescribeIcmInvoiceResponse:
+        """
+        Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+        Summary: 获取数据的上链信息描述
+        """
+        UtilClient.validate_model(request)
+        return tax_models.DescribeIcmInvoiceResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.tax.icm.invoice.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def auth_icm_invoice(
+        self,
+        request: tax_models.AuthIcmInvoiceRequest,
+    ) -> tax_models.AuthIcmInvoiceResponse:
+        """
+        Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+        Summary: 区块链银行授权接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.auth_icm_invoice_ex(request, headers, runtime)
+
+    async def auth_icm_invoice_async(
+        self,
+        request: tax_models.AuthIcmInvoiceRequest,
+    ) -> tax_models.AuthIcmInvoiceResponse:
+        """
+        Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+        Summary: 区块链银行授权接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.auth_icm_invoice_ex_async(request, headers, runtime)
+
+    def auth_icm_invoice_ex(
+        self,
+        request: tax_models.AuthIcmInvoiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.AuthIcmInvoiceResponse:
+        """
+        Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+        Summary: 区块链银行授权接口
+        """
+        UtilClient.validate_model(request)
+        return tax_models.AuthIcmInvoiceResponse().from_map(
+            self.do_request('1.0', 'blockchain.tax.icm.invoice.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def auth_icm_invoice_ex_async(
+        self,
+        request: tax_models.AuthIcmInvoiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.AuthIcmInvoiceResponse:
+        """
+        Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+        Summary: 区块链银行授权接口
+        """
+        UtilClient.validate_model(request)
+        return tax_models.AuthIcmInvoiceResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.tax.icm.invoice.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def auth_icm_realperson(
+        self,
+        request: tax_models.AuthIcmRealpersonRequest,
+    ) -> tax_models.AuthIcmRealpersonResponse:
+        """
+        Description: 个人数据使用授权
+        Summary: 个人数据使用授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.auth_icm_realperson_ex(request, headers, runtime)
+
+    async def auth_icm_realperson_async(
+        self,
+        request: tax_models.AuthIcmRealpersonRequest,
+    ) -> tax_models.AuthIcmRealpersonResponse:
+        """
+        Description: 个人数据使用授权
+        Summary: 个人数据使用授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.auth_icm_realperson_ex_async(request, headers, runtime)
+
+    def auth_icm_realperson_ex(
+        self,
+        request: tax_models.AuthIcmRealpersonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.AuthIcmRealpersonResponse:
+        """
+        Description: 个人数据使用授权
+        Summary: 个人数据使用授权
+        """
+        UtilClient.validate_model(request)
+        return tax_models.AuthIcmRealpersonResponse().from_map(
+            self.do_request('1.0', 'blockchain.tax.icm.realperson.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def auth_icm_realperson_ex_async(
+        self,
+        request: tax_models.AuthIcmRealpersonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.AuthIcmRealpersonResponse:
+        """
+        Description: 个人数据使用授权
+        Summary: 个人数据使用授权
+        """
+        UtilClient.validate_model(request)
+        return tax_models.AuthIcmRealpersonResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.tax.icm.realperson.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_icm_syncgathering(
+        self,
+        request: tax_models.ExecIcmSyncgatheringRequest,
+    ) -> tax_models.ExecIcmSyncgatheringResponse:
+        """
+        Description: 同步采集
+        Summary: 采集
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_icm_syncgathering_ex(request, headers, runtime)
+
+    async def exec_icm_syncgathering_async(
+        self,
+        request: tax_models.ExecIcmSyncgatheringRequest,
+    ) -> tax_models.ExecIcmSyncgatheringResponse:
+        """
+        Description: 同步采集
+        Summary: 采集
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_icm_syncgathering_ex_async(request, headers, runtime)
+
+    def exec_icm_syncgathering_ex(
+        self,
+        request: tax_models.ExecIcmSyncgatheringRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.ExecIcmSyncgatheringResponse:
+        """
+        Description: 同步采集
+        Summary: 采集
+        """
+        UtilClient.validate_model(request)
+        return tax_models.ExecIcmSyncgatheringResponse().from_map(
+            self.do_request('1.0', 'blockchain.tax.icm.syncgathering.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_icm_syncgathering_ex_async(
+        self,
+        request: tax_models.ExecIcmSyncgatheringRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.ExecIcmSyncgatheringResponse:
+        """
+        Description: 同步采集
+        Summary: 采集
+        """
+        UtilClient.validate_model(request)
+        return tax_models.ExecIcmSyncgatheringResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.tax.icm.syncgathering.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
