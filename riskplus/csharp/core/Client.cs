@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.4"},
+                        {"sdk_version", "1.10.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.4"},
+                        {"sdk_version", "1.10.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -4191,6 +4191,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ImportUmktSceneUploadResponse>(await DoRequestAsync("1.0", "riskplus.umkt.scene.upload.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 富信贴尾实时圈客
+         * Summary: 富信贴尾实时圈客
+         */
+        public BatchqueryUmktRtTailmarketingResponse BatchqueryUmktRtTailmarketing(BatchqueryUmktRtTailmarketingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchqueryUmktRtTailmarketingEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 富信贴尾实时圈客
+         * Summary: 富信贴尾实时圈客
+         */
+        public async Task<BatchqueryUmktRtTailmarketingResponse> BatchqueryUmktRtTailmarketingAsync(BatchqueryUmktRtTailmarketingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchqueryUmktRtTailmarketingExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 富信贴尾实时圈客
+         * Summary: 富信贴尾实时圈客
+         */
+        public BatchqueryUmktRtTailmarketingResponse BatchqueryUmktRtTailmarketingEx(BatchqueryUmktRtTailmarketingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryUmktRtTailmarketingResponse>(DoRequest("1.0", "riskplus.umkt.rt.tailmarketing.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 富信贴尾实时圈客
+         * Summary: 富信贴尾实时圈客
+         */
+        public async Task<BatchqueryUmktRtTailmarketingResponse> BatchqueryUmktRtTailmarketingExAsync(BatchqueryUmktRtTailmarketingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryUmktRtTailmarketingResponse>(await DoRequestAsync("1.0", "riskplus.umkt.rt.tailmarketing.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
