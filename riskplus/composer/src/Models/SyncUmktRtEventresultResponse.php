@@ -25,10 +25,24 @@ class SyncUmktRtEventresultResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 处理是否成功
+    /**
+     * @var bool
+     */
+    public $success;
+
+    // 基本圈客结果信息
+    /**
+     * @var CustomerUmktInfoModel[]
+     */
+    public $queryResult;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'success'     => 'success',
+        'queryResult' => 'query_result',
     ];
 
     public function validate()
@@ -46,6 +60,18 @@ class SyncUmktRtEventresultResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->success) {
+            $res['success'] = $this->success;
+        }
+        if (null !== $this->queryResult) {
+            $res['query_result'] = [];
+            if (null !== $this->queryResult && \is_array($this->queryResult)) {
+                $n = 0;
+                foreach ($this->queryResult as $item) {
+                    $res['query_result'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -67,6 +93,18 @@ class SyncUmktRtEventresultResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['success'])) {
+            $model->success = $map['success'];
+        }
+        if (isset($map['query_result'])) {
+            if (!empty($map['query_result'])) {
+                $model->queryResult = [];
+                $n                  = 0;
+                foreach ($map['query_result'] as $item) {
+                    $model->queryResult[$n++] = null !== $item ? CustomerUmktInfoModel::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
