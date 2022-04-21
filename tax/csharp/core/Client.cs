@@ -137,7 +137,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.6"},
+                        {"sdk_version", "1.2.3"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.6"},
+                        {"sdk_version", "1.2.3"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -567,6 +567,174 @@ namespace AntChain.SDK.TAX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PushIcmInvoiceinfoResponse>(await DoRequestAsync("1.0", "blockchain.tax.icm.invoiceinfo.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+         * Summary: 获取数据的上链信息描述
+         */
+        public DescribeIcmInvoiceResponse DescribeIcmInvoice(DescribeIcmInvoiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DescribeIcmInvoiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+         * Summary: 获取数据的上链信息描述
+         */
+        public async Task<DescribeIcmInvoiceResponse> DescribeIcmInvoiceAsync(DescribeIcmInvoiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DescribeIcmInvoiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+         * Summary: 获取数据的上链信息描述
+         */
+        public DescribeIcmInvoiceResponse DescribeIcmInvoiceEx(DescribeIcmInvoiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DescribeIcmInvoiceResponse>(DoRequest("1.0", "blockchain.tax.icm.invoice.describe", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+         * Summary: 获取数据的上链信息描述
+         */
+        public async Task<DescribeIcmInvoiceResponse> DescribeIcmInvoiceExAsync(DescribeIcmInvoiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DescribeIcmInvoiceResponse>(await DoRequestAsync("1.0", "blockchain.tax.icm.invoice.describe", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+         * Summary: 区块链银行授权接口
+         */
+        public AuthIcmInvoiceResponse AuthIcmInvoice(AuthIcmInvoiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AuthIcmInvoiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+         * Summary: 区块链银行授权接口
+         */
+        public async Task<AuthIcmInvoiceResponse> AuthIcmInvoiceAsync(AuthIcmInvoiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AuthIcmInvoiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+         * Summary: 区块链银行授权接口
+         */
+        public AuthIcmInvoiceResponse AuthIcmInvoiceEx(AuthIcmInvoiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthIcmInvoiceResponse>(DoRequest("1.0", "blockchain.tax.icm.invoice.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+         * Summary: 区块链银行授权接口
+         */
+        public async Task<AuthIcmInvoiceResponse> AuthIcmInvoiceExAsync(AuthIcmInvoiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthIcmInvoiceResponse>(await DoRequestAsync("1.0", "blockchain.tax.icm.invoice.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人数据使用授权
+         * Summary: 个人数据使用授权
+         */
+        public AuthIcmRealpersonResponse AuthIcmRealperson(AuthIcmRealpersonRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AuthIcmRealpersonEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人数据使用授权
+         * Summary: 个人数据使用授权
+         */
+        public async Task<AuthIcmRealpersonResponse> AuthIcmRealpersonAsync(AuthIcmRealpersonRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AuthIcmRealpersonExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人数据使用授权
+         * Summary: 个人数据使用授权
+         */
+        public AuthIcmRealpersonResponse AuthIcmRealpersonEx(AuthIcmRealpersonRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthIcmRealpersonResponse>(DoRequest("1.0", "blockchain.tax.icm.realperson.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人数据使用授权
+         * Summary: 个人数据使用授权
+         */
+        public async Task<AuthIcmRealpersonResponse> AuthIcmRealpersonExAsync(AuthIcmRealpersonRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthIcmRealpersonResponse>(await DoRequestAsync("1.0", "blockchain.tax.icm.realperson.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 同步采集
+         * Summary: 采集
+         */
+        public ExecIcmSyncgatheringResponse ExecIcmSyncgathering(ExecIcmSyncgatheringRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecIcmSyncgatheringEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 同步采集
+         * Summary: 采集
+         */
+        public async Task<ExecIcmSyncgatheringResponse> ExecIcmSyncgatheringAsync(ExecIcmSyncgatheringRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecIcmSyncgatheringExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 同步采集
+         * Summary: 采集
+         */
+        public ExecIcmSyncgatheringResponse ExecIcmSyncgatheringEx(ExecIcmSyncgatheringRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecIcmSyncgatheringResponse>(DoRequest("1.0", "blockchain.tax.icm.syncgathering.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 同步采集
+         * Summary: 采集
+         */
+        public async Task<ExecIcmSyncgatheringResponse> ExecIcmSyncgatheringExAsync(ExecIcmSyncgatheringRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecIcmSyncgatheringResponse>(await DoRequestAsync("1.0", "blockchain.tax.icm.syncgathering.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

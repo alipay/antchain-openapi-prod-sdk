@@ -79,11 +79,6 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string StartDate { get; set; }
 
-        // 地区编码
-        [NameInMap("city_code")]
-        [Validation(Required=true)]
-        public string CityCode { get; set; }
-
     }
 
 }
