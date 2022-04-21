@@ -77,6 +77,56 @@ export class Config extends $tea.Model {
   }
 }
 
+// 地区请求
+export class DistrictExtRequest extends $tea.Model {
+  // 地区编码
+  cityCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      cityCode: 'city_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cityCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 通用同步授权扩展字段
+export class AgreementExtRequest extends $tea.Model {
+  // 证书类型
+  type: string;
+  // 是否盖章，true：是 false：否
+  isSeal: string;
+  // 地址
+  address: string;
+  static names(): { [key: string]: string } {
+    return {
+      type: 'type',
+      isSeal: 'is_seal',
+      address: 'address',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      type: 'string',
+      isSeal: 'string',
+      address: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 发票明细
 export class InvoiceItem extends $tea.Model {
   // 税收分类编码	
@@ -126,6 +176,64 @@ export class InvoiceItem extends $tea.Model {
       mxxh: 'string',
       dj: 'string',
       ggxh: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 授权扩展信息
+export class StandardAuthExtendInfoRequest extends $tea.Model {
+  // 协议列表
+  agreementList: AgreementExtRequest[];
+  // 地区请求
+  districtextRequest: DistrictExtRequest;
+  static names(): { [key: string]: string } {
+    return {
+      agreementList: 'agreement_list',
+      districtextRequest: 'districtext_request',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      agreementList: { 'type': 'array', 'itemType': AgreementExtRequest },
+      districtextRequest: DistrictExtRequest,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 通用base授权
+export class BaseAuthRequest extends $tea.Model {
+  // 租户号
+  instCode: string;
+  // 授权类型
+  authType: string;
+  // xdsadsfsdf
+  orderNo: string;
+  // 扩展信息
+  extendInfo: StandardAuthExtendInfoRequest;
+  static names(): { [key: string]: string } {
+    return {
+      instCode: 'inst_code',
+      authType: 'auth_type',
+      orderNo: 'order_no',
+      extendInfo: 'extend_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      instCode: 'string',
+      authType: 'string',
+      orderNo: 'string',
+      extendInfo: StandardAuthExtendInfoRequest,
     };
   }
 
@@ -285,6 +393,31 @@ export class Invoice extends $tea.Model {
       zfbz: 'string',
       zfsj: 'string',
       extFiled: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 个人授权
+export class StandardRealPersonAuthRequest extends $tea.Model {
+  // 个人证件号
+  identityId: string;
+  // 名字
+  identityName: string;
+  static names(): { [key: string]: string } {
+    return {
+      identityId: 'identity_id',
+      identityName: 'identity_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      identityId: 'string',
+      identityName: 'string',
     };
   }
 
@@ -605,8 +738,6 @@ export class QueryIcmInvoiceRequest extends $tea.Model {
   // 当auth_type=02(记账查询)时，查询起始时间和查询截止时间必须在同一个月内，如查询起始日期是6.31，截止日期为7.1，则会提示查询时间不能跨月，最长时间为一个月
   // 最大查询范围为6.1-6.30
   startDate?: string;
-  // 地区编码
-  cityCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -621,7 +752,6 @@ export class QueryIcmInvoiceRequest extends $tea.Model {
       requestId: 'request_id',
       startAmount: 'start_amount',
       startDate: 'start_date',
-      cityCode: 'city_code',
     };
   }
 
@@ -639,7 +769,6 @@ export class QueryIcmInvoiceRequest extends $tea.Model {
       requestId: 'string',
       startAmount: 'number',
       startDate: 'string',
-      cityCode: 'string',
     };
   }
 
@@ -727,6 +856,351 @@ export class PushIcmInvoiceinfoResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DescribeIcmInvoiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 发票销方税号
+  xfsh: string;
+  // 发票代码
+  fpdm: string;
+  // 发票号码
+  fphm: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      xfsh: 'xfsh',
+      fpdm: 'fpdm',
+      fphm: 'fphm',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      xfsh: 'string',
+      fpdm: 'string',
+      fphm: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DescribeIcmInvoiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 交易hash即txhash
+  txhash?: string;
+  // 交易块号
+  blockNumber?: string;
+  // 交易时间
+  timestamp?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      txhash: 'txhash',
+      blockNumber: 'block_number',
+      timestamp: 'timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      txhash: 'string',
+      blockNumber: 'string',
+      timestamp: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthIcmInvoiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求号，调用方企业保证每次调用唯一，蚂蚁发票平台通过该字段和app_id两个字段做幂等判断
+  requestId: string;
+  // 查询的企业纳税人识别号
+  // 
+  nsrsbh: string;
+  // 企业名称
+  corpName: string;
+  // 身份证号
+  identityNumber: string;
+  // 已认证的法人手机号
+  cognizantMobile: string;
+  // 已认证的法人姓名
+  cognizantName: string;
+  // 透传字段
+  bizContext?: string;
+  // 授权业务类型
+  authType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestId: 'request_id',
+      nsrsbh: 'nsrsbh',
+      corpName: 'corp_name',
+      identityNumber: 'identity_number',
+      cognizantMobile: 'cognizant_mobile',
+      cognizantName: 'cognizant_name',
+      bizContext: 'biz_context',
+      authType: 'auth_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestId: 'string',
+      nsrsbh: 'string',
+      corpName: 'string',
+      identityNumber: 'string',
+      cognizantMobile: 'string',
+      cognizantName: 'string',
+      bizContext: 'string',
+      authType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthIcmInvoiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 授权是否成功：true：成功 false：失败
+  success?: string;
+  // 透传字段
+  bizContext?: string;
+  // 纳税人识别号
+  nsrsbh?: string;
+  // 过期时间
+  expiredTime?: string;
+  // 业务请求id
+  requestId?: string;
+  // 错误码
+  errorCode?: string;
+  // 错误信息
+  errorMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      bizContext: 'biz_context',
+      nsrsbh: 'nsrsbh',
+      expiredTime: 'expired_time',
+      requestId: 'request_id',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'string',
+      bizContext: 'string',
+      nsrsbh: 'string',
+      expiredTime: 'string',
+      requestId: 'string',
+      errorCode: 'string',
+      errorMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthIcmRealpersonRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础授权请求
+  request: BaseAuthRequest;
+  // 个人证件号
+  identityId: string;
+  // 名字
+  identityName: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      request: 'request',
+      identityId: 'identity_id',
+      identityName: 'identity_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      request: BaseAuthRequest,
+      identityId: 'string',
+      identityName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthIcmRealpersonResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否授权成功true是，false否
+  authSuccess?: boolean;
+  // 订单号
+  orderNo?: string;
+  // 过期时间
+  expireTime?: string;
+  // 授权时间 unix时间戳
+  authTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      authSuccess: 'auth_success',
+      orderNo: 'order_no',
+      expireTime: 'expire_time',
+      authTime: 'auth_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      authSuccess: 'boolean',
+      orderNo: 'string',
+      expireTime: 'string',
+      authTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecIcmSyncgatheringRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 机构号码
+  instCode: string;
+  // 请求流水号(必填),调用方保证每次请求号唯一，受理方用来校验唯一性，同一受理号返回请求结果一致
+  bizRequestId: string;
+  // 纳税人识别号(必填)
+  identityId: string;
+  // 授权类型(必填)
+  authType: string;
+  // 订单号
+  orderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      instCode: 'inst_code',
+      bizRequestId: 'biz_request_id',
+      identityId: 'identity_id',
+      authType: 'auth_type',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      instCode: 'string',
+      bizRequestId: 'string',
+      identityId: 'string',
+      authType: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecIcmSyncgatheringResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回的请求对象jsonString
+  bizContent?: string;
+  // unix秒时间戳,查询时间，用来对账使用
+  queryTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizContent: 'biz_content',
+      queryTime: 'query_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizContent: 'string',
+      queryTime: 'string',
     };
   }
 
@@ -848,7 +1322,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.6",
+          sdk_version: "1.2.3",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1006,6 +1480,82 @@ export default class Client {
   async pushIcmInvoiceinfoEx(request: PushIcmInvoiceinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushIcmInvoiceinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<PushIcmInvoiceinfoResponse>(await this.doRequest("1.0", "blockchain.tax.icm.invoiceinfo.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushIcmInvoiceinfoResponse({}));
+  }
+
+  /**
+   * Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+   * Summary: 获取数据的上链信息描述
+   */
+  async describeIcmInvoice(request: DescribeIcmInvoiceRequest): Promise<DescribeIcmInvoiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.describeIcmInvoiceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+   * Summary: 获取数据的上链信息描述
+   */
+  async describeIcmInvoiceEx(request: DescribeIcmInvoiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DescribeIcmInvoiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DescribeIcmInvoiceResponse>(await this.doRequest("1.0", "blockchain.tax.icm.invoice.describe", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DescribeIcmInvoiceResponse({}));
+  }
+
+  /**
+   * Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+   * Summary: 区块链银行授权接口
+   */
+  async authIcmInvoice(request: AuthIcmInvoiceRequest): Promise<AuthIcmInvoiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.authIcmInvoiceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+   * Summary: 区块链银行授权接口
+   */
+  async authIcmInvoiceEx(request: AuthIcmInvoiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AuthIcmInvoiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AuthIcmInvoiceResponse>(await this.doRequest("1.0", "blockchain.tax.icm.invoice.auth", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AuthIcmInvoiceResponse({}));
+  }
+
+  /**
+   * Description: 个人数据使用授权
+   * Summary: 个人数据使用授权
+   */
+  async authIcmRealperson(request: AuthIcmRealpersonRequest): Promise<AuthIcmRealpersonResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.authIcmRealpersonEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人数据使用授权
+   * Summary: 个人数据使用授权
+   */
+  async authIcmRealpersonEx(request: AuthIcmRealpersonRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AuthIcmRealpersonResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AuthIcmRealpersonResponse>(await this.doRequest("1.0", "blockchain.tax.icm.realperson.auth", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AuthIcmRealpersonResponse({}));
+  }
+
+  /**
+   * Description: 同步采集
+   * Summary: 采集
+   */
+  async execIcmSyncgathering(request: ExecIcmSyncgatheringRequest): Promise<ExecIcmSyncgatheringResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execIcmSyncgatheringEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 同步采集
+   * Summary: 采集
+   */
+  async execIcmSyncgatheringEx(request: ExecIcmSyncgatheringRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecIcmSyncgatheringResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecIcmSyncgatheringResponse>(await this.doRequest("1.0", "blockchain.tax.icm.syncgathering.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecIcmSyncgatheringResponse({}));
   }
 
 }
