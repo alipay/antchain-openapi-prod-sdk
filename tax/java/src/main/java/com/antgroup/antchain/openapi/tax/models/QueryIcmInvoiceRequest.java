@@ -68,11 +68,6 @@ public class QueryIcmInvoiceRequest extends TeaModel {
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String startDate;
 
-    // 地区编码
-    @NameInMap("city_code")
-    @Validation(required = true)
-    public String cityCode;
-
     public static QueryIcmInvoiceRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryIcmInvoiceRequest self = new QueryIcmInvoiceRequest();
         return TeaModel.build(map, self);
@@ -172,14 +167,6 @@ public class QueryIcmInvoiceRequest extends TeaModel {
     }
     public String getStartDate() {
         return this.startDate;
-    }
-
-    public QueryIcmInvoiceRequest setCityCode(String cityCode) {
-        this.cityCode = cityCode;
-        return this;
-    }
-    public String getCityCode() {
-        return this.cityCode;
     }
 
 }

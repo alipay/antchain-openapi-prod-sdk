@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.6")
+                    new TeaPair("sdk_version", "1.2.3")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -271,5 +271,81 @@ public class Client {
     public PushIcmInvoiceinfoResponse pushIcmInvoiceinfoEx(PushIcmInvoiceinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.icm.invoiceinfo.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushIcmInvoiceinfoResponse());
+    }
+
+    /**
+     * Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+     * Summary: 获取数据的上链信息描述
+     */
+    public DescribeIcmInvoiceResponse describeIcmInvoice(DescribeIcmInvoiceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.describeIcmInvoiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+     * Summary: 获取数据的上链信息描述
+     */
+    public DescribeIcmInvoiceResponse describeIcmInvoiceEx(DescribeIcmInvoiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.icm.invoice.describe", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DescribeIcmInvoiceResponse());
+    }
+
+    /**
+     * Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+     * Summary: 区块链银行授权接口
+     */
+    public AuthIcmInvoiceResponse authIcmInvoice(AuthIcmInvoiceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.authIcmInvoiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+     * Summary: 区块链银行授权接口
+     */
+    public AuthIcmInvoiceResponse authIcmInvoiceEx(AuthIcmInvoiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.icm.invoice.auth", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AuthIcmInvoiceResponse());
+    }
+
+    /**
+     * Description: 个人数据使用授权
+     * Summary: 个人数据使用授权
+     */
+    public AuthIcmRealpersonResponse authIcmRealperson(AuthIcmRealpersonRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.authIcmRealpersonEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人数据使用授权
+     * Summary: 个人数据使用授权
+     */
+    public AuthIcmRealpersonResponse authIcmRealpersonEx(AuthIcmRealpersonRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.icm.realperson.auth", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AuthIcmRealpersonResponse());
+    }
+
+    /**
+     * Description: 同步采集
+     * Summary: 采集
+     */
+    public ExecIcmSyncgatheringResponse execIcmSyncgathering(ExecIcmSyncgatheringRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execIcmSyncgatheringEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 同步采集
+     * Summary: 采集
+     */
+    public ExecIcmSyncgatheringResponse execIcmSyncgatheringEx(ExecIcmSyncgatheringRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.icm.syncgathering.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecIcmSyncgatheringResponse());
     }
 }
