@@ -148,6 +148,58 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 地区请求
+type DistrictExtRequest struct {
+	// 地区编码
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
+}
+
+func (s DistrictExtRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DistrictExtRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DistrictExtRequest) SetCityCode(v string) *DistrictExtRequest {
+	s.CityCode = &v
+	return s
+}
+
+// 通用同步授权扩展字段
+type AgreementExtRequest struct {
+	// 证书类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 是否盖章，true：是 false：否
+	IsSeal *string `json:"is_seal,omitempty" xml:"is_seal,omitempty" require:"true"`
+	// 地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty" require:"true"`
+}
+
+func (s AgreementExtRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AgreementExtRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AgreementExtRequest) SetType(v string) *AgreementExtRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *AgreementExtRequest) SetIsSeal(v string) *AgreementExtRequest {
+	s.IsSeal = &v
+	return s
+}
+
+func (s *AgreementExtRequest) SetAddress(v string) *AgreementExtRequest {
+	s.Address = &v
+	return s
+}
+
 // 发票明细
 type InvoiceItem struct {
 	// 税收分类编码
@@ -227,6 +279,72 @@ func (s *InvoiceItem) SetDj(v string) *InvoiceItem {
 
 func (s *InvoiceItem) SetGgxh(v string) *InvoiceItem {
 	s.Ggxh = &v
+	return s
+}
+
+// 授权扩展信息
+type StandardAuthExtendInfoRequest struct {
+	// 协议列表
+	AgreementList []*AgreementExtRequest `json:"agreement_list,omitempty" xml:"agreement_list,omitempty" require:"true" type:"Repeated"`
+	// 地区请求
+	DistrictextRequest *DistrictExtRequest `json:"districtext_request,omitempty" xml:"districtext_request,omitempty" require:"true"`
+}
+
+func (s StandardAuthExtendInfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StandardAuthExtendInfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StandardAuthExtendInfoRequest) SetAgreementList(v []*AgreementExtRequest) *StandardAuthExtendInfoRequest {
+	s.AgreementList = v
+	return s
+}
+
+func (s *StandardAuthExtendInfoRequest) SetDistrictextRequest(v *DistrictExtRequest) *StandardAuthExtendInfoRequest {
+	s.DistrictextRequest = v
+	return s
+}
+
+// 通用base授权
+type BaseAuthRequest struct {
+	// 租户号
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
+	// 授权类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// xdsadsfsdf
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 扩展信息
+	ExtendInfo *StandardAuthExtendInfoRequest `json:"extend_info,omitempty" xml:"extend_info,omitempty" require:"true"`
+}
+
+func (s BaseAuthRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaseAuthRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BaseAuthRequest) SetInstCode(v string) *BaseAuthRequest {
+	s.InstCode = &v
+	return s
+}
+
+func (s *BaseAuthRequest) SetAuthType(v string) *BaseAuthRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *BaseAuthRequest) SetOrderNo(v string) *BaseAuthRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *BaseAuthRequest) SetExtendInfo(v *StandardAuthExtendInfoRequest) *BaseAuthRequest {
+	s.ExtendInfo = v
 	return s
 }
 
@@ -480,6 +598,32 @@ func (s *Invoice) SetZfsj(v string) *Invoice {
 
 func (s *Invoice) SetExtFiled(v string) *Invoice {
 	s.ExtFiled = &v
+	return s
+}
+
+// 个人授权
+type StandardRealPersonAuthRequest struct {
+	// 个人证件号
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
+	// 名字
+	IdentityName *string `json:"identity_name,omitempty" xml:"identity_name,omitempty" require:"true"`
+}
+
+func (s StandardRealPersonAuthRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StandardRealPersonAuthRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StandardRealPersonAuthRequest) SetIdentityId(v string) *StandardRealPersonAuthRequest {
+	s.IdentityId = &v
+	return s
+}
+
+func (s *StandardRealPersonAuthRequest) SetIdentityName(v string) *StandardRealPersonAuthRequest {
+	s.IdentityName = &v
 	return s
 }
 
@@ -866,8 +1010,6 @@ type QueryIcmInvoiceRequest struct {
 	// 当auth_type=02(记账查询)时，查询起始时间和查询截止时间必须在同一个月内，如查询起始日期是6.31，截止日期为7.1，则会提示查询时间不能跨月，最长时间为一个月
 	// 最大查询范围为6.1-6.30
 	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 地区编码
-	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
 }
 
 func (s QueryIcmInvoiceRequest) String() string {
@@ -935,11 +1077,6 @@ func (s *QueryIcmInvoiceRequest) SetStartAmount(v int64) *QueryIcmInvoiceRequest
 
 func (s *QueryIcmInvoiceRequest) SetStartDate(v string) *QueryIcmInvoiceRequest {
 	s.StartDate = &v
-	return s
-}
-
-func (s *QueryIcmInvoiceRequest) SetCityCode(v string) *QueryIcmInvoiceRequest {
-	s.CityCode = &v
 	return s
 }
 
@@ -1042,6 +1179,476 @@ func (s *PushIcmInvoiceinfoResponse) SetResultCode(v string) *PushIcmInvoiceinfo
 
 func (s *PushIcmInvoiceinfoResponse) SetResultMsg(v string) *PushIcmInvoiceinfoResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type DescribeIcmInvoiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 发票销方税号
+	Xfsh *string `json:"xfsh,omitempty" xml:"xfsh,omitempty" require:"true" maxLength:"30"`
+	// 发票代码
+	Fpdm *string `json:"fpdm,omitempty" xml:"fpdm,omitempty" require:"true" maxLength:"100"`
+	// 发票号码
+	Fphm *string `json:"fphm,omitempty" xml:"fphm,omitempty" require:"true" maxLength:"100"`
+}
+
+func (s DescribeIcmInvoiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DescribeIcmInvoiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DescribeIcmInvoiceRequest) SetAuthToken(v string) *DescribeIcmInvoiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DescribeIcmInvoiceRequest) SetProductInstanceId(v string) *DescribeIcmInvoiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DescribeIcmInvoiceRequest) SetXfsh(v string) *DescribeIcmInvoiceRequest {
+	s.Xfsh = &v
+	return s
+}
+
+func (s *DescribeIcmInvoiceRequest) SetFpdm(v string) *DescribeIcmInvoiceRequest {
+	s.Fpdm = &v
+	return s
+}
+
+func (s *DescribeIcmInvoiceRequest) SetFphm(v string) *DescribeIcmInvoiceRequest {
+	s.Fphm = &v
+	return s
+}
+
+type DescribeIcmInvoiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 交易hash即txhash
+	Txhash *string `json:"txhash,omitempty" xml:"txhash,omitempty"`
+	// 交易块号
+	BlockNumber *string `json:"block_number,omitempty" xml:"block_number,omitempty"`
+	// 交易时间
+	Timestamp *string `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
+}
+
+func (s DescribeIcmInvoiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DescribeIcmInvoiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DescribeIcmInvoiceResponse) SetReqMsgId(v string) *DescribeIcmInvoiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DescribeIcmInvoiceResponse) SetResultCode(v string) *DescribeIcmInvoiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DescribeIcmInvoiceResponse) SetResultMsg(v string) *DescribeIcmInvoiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DescribeIcmInvoiceResponse) SetTxhash(v string) *DescribeIcmInvoiceResponse {
+	s.Txhash = &v
+	return s
+}
+
+func (s *DescribeIcmInvoiceResponse) SetBlockNumber(v string) *DescribeIcmInvoiceResponse {
+	s.BlockNumber = &v
+	return s
+}
+
+func (s *DescribeIcmInvoiceResponse) SetTimestamp(v string) *DescribeIcmInvoiceResponse {
+	s.Timestamp = &v
+	return s
+}
+
+type AuthIcmInvoiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求号，调用方企业保证每次调用唯一，蚂蚁发票平台通过该字段和app_id两个字段做幂等判断
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 查询的企业纳税人识别号
+	//
+	Nsrsbh *string `json:"nsrsbh,omitempty" xml:"nsrsbh,omitempty" require:"true"`
+	// 企业名称
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
+	// 身份证号
+	IdentityNumber *string `json:"identity_number,omitempty" xml:"identity_number,omitempty" require:"true"`
+	// 已认证的法人手机号
+	CognizantMobile *string `json:"cognizant_mobile,omitempty" xml:"cognizant_mobile,omitempty" require:"true"`
+	// 已认证的法人姓名
+	CognizantName *string `json:"cognizant_name,omitempty" xml:"cognizant_name,omitempty" require:"true"`
+	// 透传字段
+	BizContext *string `json:"biz_context,omitempty" xml:"biz_context,omitempty"`
+	// 授权业务类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+}
+
+func (s AuthIcmInvoiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthIcmInvoiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AuthIcmInvoiceRequest) SetAuthToken(v string) *AuthIcmInvoiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AuthIcmInvoiceRequest) SetProductInstanceId(v string) *AuthIcmInvoiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AuthIcmInvoiceRequest) SetRequestId(v string) *AuthIcmInvoiceRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *AuthIcmInvoiceRequest) SetNsrsbh(v string) *AuthIcmInvoiceRequest {
+	s.Nsrsbh = &v
+	return s
+}
+
+func (s *AuthIcmInvoiceRequest) SetCorpName(v string) *AuthIcmInvoiceRequest {
+	s.CorpName = &v
+	return s
+}
+
+func (s *AuthIcmInvoiceRequest) SetIdentityNumber(v string) *AuthIcmInvoiceRequest {
+	s.IdentityNumber = &v
+	return s
+}
+
+func (s *AuthIcmInvoiceRequest) SetCognizantMobile(v string) *AuthIcmInvoiceRequest {
+	s.CognizantMobile = &v
+	return s
+}
+
+func (s *AuthIcmInvoiceRequest) SetCognizantName(v string) *AuthIcmInvoiceRequest {
+	s.CognizantName = &v
+	return s
+}
+
+func (s *AuthIcmInvoiceRequest) SetBizContext(v string) *AuthIcmInvoiceRequest {
+	s.BizContext = &v
+	return s
+}
+
+func (s *AuthIcmInvoiceRequest) SetAuthType(v string) *AuthIcmInvoiceRequest {
+	s.AuthType = &v
+	return s
+}
+
+type AuthIcmInvoiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授权是否成功：true：成功 false：失败
+	Success *string `json:"success,omitempty" xml:"success,omitempty"`
+	// 透传字段
+	BizContext *string `json:"biz_context,omitempty" xml:"biz_context,omitempty"`
+	// 纳税人识别号
+	Nsrsbh *string `json:"nsrsbh,omitempty" xml:"nsrsbh,omitempty"`
+	// 过期时间
+	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty"`
+	// 业务请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 错误码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 错误信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+}
+
+func (s AuthIcmInvoiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthIcmInvoiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AuthIcmInvoiceResponse) SetReqMsgId(v string) *AuthIcmInvoiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AuthIcmInvoiceResponse) SetResultCode(v string) *AuthIcmInvoiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AuthIcmInvoiceResponse) SetResultMsg(v string) *AuthIcmInvoiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AuthIcmInvoiceResponse) SetSuccess(v string) *AuthIcmInvoiceResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *AuthIcmInvoiceResponse) SetBizContext(v string) *AuthIcmInvoiceResponse {
+	s.BizContext = &v
+	return s
+}
+
+func (s *AuthIcmInvoiceResponse) SetNsrsbh(v string) *AuthIcmInvoiceResponse {
+	s.Nsrsbh = &v
+	return s
+}
+
+func (s *AuthIcmInvoiceResponse) SetExpiredTime(v string) *AuthIcmInvoiceResponse {
+	s.ExpiredTime = &v
+	return s
+}
+
+func (s *AuthIcmInvoiceResponse) SetRequestId(v string) *AuthIcmInvoiceResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *AuthIcmInvoiceResponse) SetErrorCode(v string) *AuthIcmInvoiceResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *AuthIcmInvoiceResponse) SetErrorMsg(v string) *AuthIcmInvoiceResponse {
+	s.ErrorMsg = &v
+	return s
+}
+
+type AuthIcmRealpersonRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础授权请求
+	Request *BaseAuthRequest `json:"request,omitempty" xml:"request,omitempty" require:"true"`
+	// 个人证件号
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
+	// 名字
+	IdentityName *string `json:"identity_name,omitempty" xml:"identity_name,omitempty" require:"true"`
+}
+
+func (s AuthIcmRealpersonRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthIcmRealpersonRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AuthIcmRealpersonRequest) SetAuthToken(v string) *AuthIcmRealpersonRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AuthIcmRealpersonRequest) SetProductInstanceId(v string) *AuthIcmRealpersonRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AuthIcmRealpersonRequest) SetRequest(v *BaseAuthRequest) *AuthIcmRealpersonRequest {
+	s.Request = v
+	return s
+}
+
+func (s *AuthIcmRealpersonRequest) SetIdentityId(v string) *AuthIcmRealpersonRequest {
+	s.IdentityId = &v
+	return s
+}
+
+func (s *AuthIcmRealpersonRequest) SetIdentityName(v string) *AuthIcmRealpersonRequest {
+	s.IdentityName = &v
+	return s
+}
+
+type AuthIcmRealpersonResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否授权成功true是，false否
+	AuthSuccess *bool `json:"auth_success,omitempty" xml:"auth_success,omitempty"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+	// 过期时间
+	ExpireTime *string `json:"expire_time,omitempty" xml:"expire_time,omitempty"`
+	// 授权时间 unix时间戳
+	AuthTime *string `json:"auth_time,omitempty" xml:"auth_time,omitempty"`
+}
+
+func (s AuthIcmRealpersonResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthIcmRealpersonResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AuthIcmRealpersonResponse) SetReqMsgId(v string) *AuthIcmRealpersonResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AuthIcmRealpersonResponse) SetResultCode(v string) *AuthIcmRealpersonResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AuthIcmRealpersonResponse) SetResultMsg(v string) *AuthIcmRealpersonResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AuthIcmRealpersonResponse) SetAuthSuccess(v bool) *AuthIcmRealpersonResponse {
+	s.AuthSuccess = &v
+	return s
+}
+
+func (s *AuthIcmRealpersonResponse) SetOrderNo(v string) *AuthIcmRealpersonResponse {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *AuthIcmRealpersonResponse) SetExpireTime(v string) *AuthIcmRealpersonResponse {
+	s.ExpireTime = &v
+	return s
+}
+
+func (s *AuthIcmRealpersonResponse) SetAuthTime(v string) *AuthIcmRealpersonResponse {
+	s.AuthTime = &v
+	return s
+}
+
+type ExecIcmSyncgatheringRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 机构号码
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
+	// 请求流水号(必填),调用方保证每次请求号唯一，受理方用来校验唯一性，同一受理号返回请求结果一致
+	BizRequestId *string `json:"biz_request_id,omitempty" xml:"biz_request_id,omitempty" require:"true"`
+	// 纳税人识别号(必填)
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
+	// 授权类型(必填)
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+}
+
+func (s ExecIcmSyncgatheringRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecIcmSyncgatheringRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecIcmSyncgatheringRequest) SetAuthToken(v string) *ExecIcmSyncgatheringRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecIcmSyncgatheringRequest) SetProductInstanceId(v string) *ExecIcmSyncgatheringRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecIcmSyncgatheringRequest) SetInstCode(v string) *ExecIcmSyncgatheringRequest {
+	s.InstCode = &v
+	return s
+}
+
+func (s *ExecIcmSyncgatheringRequest) SetBizRequestId(v string) *ExecIcmSyncgatheringRequest {
+	s.BizRequestId = &v
+	return s
+}
+
+func (s *ExecIcmSyncgatheringRequest) SetIdentityId(v string) *ExecIcmSyncgatheringRequest {
+	s.IdentityId = &v
+	return s
+}
+
+func (s *ExecIcmSyncgatheringRequest) SetAuthType(v string) *ExecIcmSyncgatheringRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *ExecIcmSyncgatheringRequest) SetOrderNo(v string) *ExecIcmSyncgatheringRequest {
+	s.OrderNo = &v
+	return s
+}
+
+type ExecIcmSyncgatheringResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回的请求对象jsonString
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
+	// unix秒时间戳,查询时间，用来对账使用
+	QueryTime *string `json:"query_time,omitempty" xml:"query_time,omitempty"`
+}
+
+func (s ExecIcmSyncgatheringResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecIcmSyncgatheringResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecIcmSyncgatheringResponse) SetReqMsgId(v string) *ExecIcmSyncgatheringResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecIcmSyncgatheringResponse) SetResultCode(v string) *ExecIcmSyncgatheringResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecIcmSyncgatheringResponse) SetResultMsg(v string) *ExecIcmSyncgatheringResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecIcmSyncgatheringResponse) SetBizContent(v string) *ExecIcmSyncgatheringResponse {
+	s.BizContent = &v
+	return s
+}
+
+func (s *ExecIcmSyncgatheringResponse) SetQueryTime(v string) *ExecIcmSyncgatheringResponse {
+	s.QueryTime = &v
 	return s
 }
 
@@ -1167,7 +1774,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.6"),
+				"sdk_version":      tea.String("1.2.3"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1412,6 +2019,142 @@ func (client *Client) PushIcmInvoiceinfoEx(request *PushIcmInvoiceinfoRequest, h
 	}
 	_result = &PushIcmInvoiceinfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.icm.invoiceinfo.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+ * Summary: 获取数据的上链信息描述
+ */
+func (client *Client) DescribeIcmInvoice(request *DescribeIcmInvoiceRequest) (_result *DescribeIcmInvoiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DescribeIcmInvoiceResponse{}
+	_body, _err := client.DescribeIcmInvoiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+ * Summary: 获取数据的上链信息描述
+ */
+func (client *Client) DescribeIcmInvoiceEx(request *DescribeIcmInvoiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DescribeIcmInvoiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DescribeIcmInvoiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.icm.invoice.describe"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+ * Summary: 区块链银行授权接口
+ */
+func (client *Client) AuthIcmInvoice(request *AuthIcmInvoiceRequest) (_result *AuthIcmInvoiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AuthIcmInvoiceResponse{}
+	_body, _err := client.AuthIcmInvoiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+ * Summary: 区块链银行授权接口
+ */
+func (client *Client) AuthIcmInvoiceEx(request *AuthIcmInvoiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AuthIcmInvoiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AuthIcmInvoiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.icm.invoice.auth"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人数据使用授权
+ * Summary: 个人数据使用授权
+ */
+func (client *Client) AuthIcmRealperson(request *AuthIcmRealpersonRequest) (_result *AuthIcmRealpersonResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AuthIcmRealpersonResponse{}
+	_body, _err := client.AuthIcmRealpersonEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人数据使用授权
+ * Summary: 个人数据使用授权
+ */
+func (client *Client) AuthIcmRealpersonEx(request *AuthIcmRealpersonRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AuthIcmRealpersonResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AuthIcmRealpersonResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.icm.realperson.auth"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 同步采集
+ * Summary: 采集
+ */
+func (client *Client) ExecIcmSyncgathering(request *ExecIcmSyncgatheringRequest) (_result *ExecIcmSyncgatheringResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecIcmSyncgatheringResponse{}
+	_body, _err := client.ExecIcmSyncgatheringEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 同步采集
+ * Summary: 采集
+ */
+func (client *Client) ExecIcmSyncgatheringEx(request *ExecIcmSyncgatheringRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecIcmSyncgatheringResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecIcmSyncgatheringResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.icm.syncgathering.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
