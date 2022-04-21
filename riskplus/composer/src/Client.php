@@ -23,6 +23,8 @@ use AntChain\RISKPLUS\Models\ApplyRbbCompanyCreditRequest;
 use AntChain\RISKPLUS\Models\ApplyRbbCompanyCreditResponse;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtMarketingRequest;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtMarketingResponse;
+use AntChain\RISKPLUS\Models\BatchqueryUmktRtTailmarketingRequest;
+use AntChain\RISKPLUS\Models\BatchqueryUmktRtTailmarketingResponse;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardRequest;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardResponse;
 use AntChain\RISKPLUS\Models\CheckSecurityDataRequest;
@@ -340,7 +342,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.4',
+                    'sdk_version'      => '1.10.5',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -3392,6 +3394,39 @@ class Client
         Utils::validateModel($request);
 
         return ImportUmktSceneUploadResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.scene.upload.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 富信贴尾实时圈客
+     * Summary: 富信贴尾实时圈客.
+     *
+     * @param BatchqueryUmktRtTailmarketingRequest $request
+     *
+     * @return BatchqueryUmktRtTailmarketingResponse
+     */
+    public function batchqueryUmktRtTailmarketing($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryUmktRtTailmarketingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 富信贴尾实时圈客
+     * Summary: 富信贴尾实时圈客.
+     *
+     * @param BatchqueryUmktRtTailmarketingRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return BatchqueryUmktRtTailmarketingResponse
+     */
+    public function batchqueryUmktRtTailmarketingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryUmktRtTailmarketingResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.rt.tailmarketing.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
