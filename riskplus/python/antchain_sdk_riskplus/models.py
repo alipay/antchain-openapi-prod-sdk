@@ -15455,6 +15455,8 @@ class SyncUmktRtEventresultResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        success: bool = None,
+        query_result: List[CustomerUmktInfoModel] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -15462,9 +15464,16 @@ class SyncUmktRtEventresultResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 处理是否成功
+        self.success = success
+        # 基本圈客结果信息
+        self.query_result = query_result
 
     def validate(self):
-        pass
+        if self.query_result:
+            for k in self.query_result:
+                if k:
+                    k.validate()
 
     def to_map(self):
         result = dict()
@@ -15474,6 +15483,12 @@ class SyncUmktRtEventresultResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        result['query_result'] = []
+        if self.query_result is not None:
+            for k in self.query_result:
+                result['query_result'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -15484,6 +15499,13 @@ class SyncUmktRtEventresultResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        self.query_result = []
+        if m.get('query_result') is not None:
+            for k in m.get('query_result'):
+                temp_model = CustomerUmktInfoModel()
+                self.query_result.append(temp_model.from_map(k))
         return self
 
 
