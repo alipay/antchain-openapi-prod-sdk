@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 订单商品信息
+            # 文件key和文件名称
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.34'
+                    'sdk_version': '1.7.39'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 订单商品信息
+            # 文件key和文件名称
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.34'
+                    'sdk_version': '1.7.39'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -7083,6 +7083,60 @@ class Client:
             await self.do_request_async('1.0', 'twc.notary.justice.casefile.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def create_lease_productinfo(
+        self,
+        request: twc_models.CreateLeaseProductinfoRequest,
+    ) -> twc_models.CreateLeaseProductinfoResponse:
+        """
+        Description: 融资服务平台上传商品类别信息
+        Summary: 融资服务平台上传商品类别信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_lease_productinfo_ex(request, headers, runtime)
+
+    async def create_lease_productinfo_async(
+        self,
+        request: twc_models.CreateLeaseProductinfoRequest,
+    ) -> twc_models.CreateLeaseProductinfoResponse:
+        """
+        Description: 融资服务平台上传商品类别信息
+        Summary: 融资服务平台上传商品类别信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_lease_productinfo_ex_async(request, headers, runtime)
+
+    def create_lease_productinfo_ex(
+        self,
+        request: twc_models.CreateLeaseProductinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseProductinfoResponse:
+        """
+        Description: 融资服务平台上传商品类别信息
+        Summary: 融资服务平台上传商品类别信息
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateLeaseProductinfoResponse().from_map(
+            self.do_request('1.0', 'twc.notary.lease.productinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_lease_productinfo_ex_async(
+        self,
+        request: twc_models.CreateLeaseProductinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseProductinfoResponse:
+        """
+        Description: 融资服务平台上传商品类别信息
+        Summary: 融资服务平台上传商品类别信息
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateLeaseProductinfoResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.lease.productinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def update_lease_contract(
         self,
         request: twc_models.UpdateLeaseContractRequest,
@@ -9295,60 +9349,6 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.DeployLeaseContractResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.lease.contract.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def create_lease_productinfo(
-        self,
-        request: twc_models.CreateLeaseProductinfoRequest,
-    ) -> twc_models.CreateLeaseProductinfoResponse:
-        """
-        Description: 融资服务平台上传商品类别信息
-        Summary: 融资服务平台上传商品类别信息
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_lease_productinfo_ex(request, headers, runtime)
-
-    async def create_lease_productinfo_async(
-        self,
-        request: twc_models.CreateLeaseProductinfoRequest,
-    ) -> twc_models.CreateLeaseProductinfoResponse:
-        """
-        Description: 融资服务平台上传商品类别信息
-        Summary: 融资服务平台上传商品类别信息
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.create_lease_productinfo_ex_async(request, headers, runtime)
-
-    def create_lease_productinfo_ex(
-        self,
-        request: twc_models.CreateLeaseProductinfoRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> twc_models.CreateLeaseProductinfoResponse:
-        """
-        Description: 融资服务平台上传商品类别信息
-        Summary: 融资服务平台上传商品类别信息
-        """
-        UtilClient.validate_model(request)
-        return twc_models.CreateLeaseProductinfoResponse().from_map(
-            self.do_request('1.0', 'twc.notary.lease.productinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def create_lease_productinfo_ex_async(
-        self,
-        request: twc_models.CreateLeaseProductinfoRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> twc_models.CreateLeaseProductinfoResponse:
-        """
-        Description: 融资服务平台上传商品类别信息
-        Summary: 融资服务平台上传商品类别信息
-        """
-        UtilClient.validate_model(request)
-        return twc_models.CreateLeaseProductinfoResponse().from_map(
-            await self.do_request_async('1.0', 'twc.notary.lease.productinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def auth_lease_contract(
@@ -12913,4 +12913,220 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.QueryFlowCertificateResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.flow.certificate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_stub_certificate(
+        self,
+        request: twc_models.ApplyStubCertificateRequest,
+    ) -> twc_models.ApplyStubCertificateResponse:
+        """
+        Description: 数字票根全流程出证申请
+        Summary: 数字票根全流程出证申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_stub_certificate_ex(request, headers, runtime)
+
+    async def apply_stub_certificate_async(
+        self,
+        request: twc_models.ApplyStubCertificateRequest,
+    ) -> twc_models.ApplyStubCertificateResponse:
+        """
+        Description: 数字票根全流程出证申请
+        Summary: 数字票根全流程出证申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_stub_certificate_ex_async(request, headers, runtime)
+
+    def apply_stub_certificate_ex(
+        self,
+        request: twc_models.ApplyStubCertificateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyStubCertificateResponse:
+        """
+        Description: 数字票根全流程出证申请
+        Summary: 数字票根全流程出证申请
+        """
+        UtilClient.validate_model(request)
+        return twc_models.ApplyStubCertificateResponse().from_map(
+            self.do_request('1.0', 'twc.notary.stub.certificate.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_stub_certificate_ex_async(
+        self,
+        request: twc_models.ApplyStubCertificateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyStubCertificateResponse:
+        """
+        Description: 数字票根全流程出证申请
+        Summary: 数字票根全流程出证申请
+        """
+        UtilClient.validate_model(request)
+        return twc_models.ApplyStubCertificateResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.stub.certificate.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_stub_certificate(
+        self,
+        request: twc_models.QueryStubCertificateRequest,
+    ) -> twc_models.QueryStubCertificateResponse:
+        """
+        Description: 数字票根全流程证明出证进度查询
+        Summary: 数字票根全流程证明出证进度查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_stub_certificate_ex(request, headers, runtime)
+
+    async def query_stub_certificate_async(
+        self,
+        request: twc_models.QueryStubCertificateRequest,
+    ) -> twc_models.QueryStubCertificateResponse:
+        """
+        Description: 数字票根全流程证明出证进度查询
+        Summary: 数字票根全流程证明出证进度查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_stub_certificate_ex_async(request, headers, runtime)
+
+    def query_stub_certificate_ex(
+        self,
+        request: twc_models.QueryStubCertificateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryStubCertificateResponse:
+        """
+        Description: 数字票根全流程证明出证进度查询
+        Summary: 数字票根全流程证明出证进度查询
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryStubCertificateResponse().from_map(
+            self.do_request('1.0', 'twc.notary.stub.certificate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_stub_certificate_ex_async(
+        self,
+        request: twc_models.QueryStubCertificateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryStubCertificateResponse:
+        """
+        Description: 数字票根全流程证明出证进度查询
+        Summary: 数字票根全流程证明出证进度查询
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryStubCertificateResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.stub.certificate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_stub(
+        self,
+        request: twc_models.QueryStubRequest,
+    ) -> twc_models.QueryStubResponse:
+        """
+        Description: 数字票根全流程存证进度查询
+        Summary: 数字票根全流程存证进度查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_stub_ex(request, headers, runtime)
+
+    async def query_stub_async(
+        self,
+        request: twc_models.QueryStubRequest,
+    ) -> twc_models.QueryStubResponse:
+        """
+        Description: 数字票根全流程存证进度查询
+        Summary: 数字票根全流程存证进度查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_stub_ex_async(request, headers, runtime)
+
+    def query_stub_ex(
+        self,
+        request: twc_models.QueryStubRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryStubResponse:
+        """
+        Description: 数字票根全流程存证进度查询
+        Summary: 数字票根全流程存证进度查询
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryStubResponse().from_map(
+            self.do_request('1.0', 'twc.notary.stub.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_stub_ex_async(
+        self,
+        request: twc_models.QueryStubRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryStubResponse:
+        """
+        Description: 数字票根全流程存证进度查询
+        Summary: 数字票根全流程存证进度查询
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryStubResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.stub.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_stub(
+        self,
+        request: twc_models.CreateStubRequest,
+    ) -> twc_models.CreateStubResponse:
+        """
+        Description: 数字票根全流程存证创建
+        Summary: 数字票根全流程存证创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_stub_ex(request, headers, runtime)
+
+    async def create_stub_async(
+        self,
+        request: twc_models.CreateStubRequest,
+    ) -> twc_models.CreateStubResponse:
+        """
+        Description: 数字票根全流程存证创建
+        Summary: 数字票根全流程存证创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_stub_ex_async(request, headers, runtime)
+
+    def create_stub_ex(
+        self,
+        request: twc_models.CreateStubRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateStubResponse:
+        """
+        Description: 数字票根全流程存证创建
+        Summary: 数字票根全流程存证创建
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateStubResponse().from_map(
+            self.do_request('1.0', 'twc.notary.stub.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_stub_ex_async(
+        self,
+        request: twc_models.CreateStubRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateStubResponse:
+        """
+        Description: 数字票根全流程存证创建
+        Summary: 数字票根全流程存证创建
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateStubResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.stub.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
