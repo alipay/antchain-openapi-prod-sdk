@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.34',
+    sdk_version = '1.7.39',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -159,6 +159,26 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 文件key和文件名称
+model FileInfo {
+  // 文件key
+  fileKey: string(name='file_key', example='4293ed08-3576-4f35-a65d-0d63ae8c0e8b.jpg'),
+  // 文件名称
+  fileName: string(name='file_name', example='userInfo.jpg'),
+}
+
+// 租赁分期履约信息
+model RentalInstallmentPerformance {
+  // 被申请人还款期数
+  repaymentPeriod: long(name='repayment_period', example='10'),
+  // 被申请人第几期租金支付方式
+  rentPaymentType: string(name='rent_payment_type', example='支付宝'),
+  // 被申请人第几期还款时间
+  appliedRepaymentTime: string(name='applied_repayment_time', example='2021-05-07'),
+  // 被申请人第几期还款金额
+  appliedRepaymentAmount: string(name='applied_repayment_amount', example='123.00'),
+}
+
 // 订单商品信息
 model OrderItem {
   // 产品名称
@@ -189,70 +209,34 @@ model RentalStagingInformation {
   paymentEachCycle: string(name='payment_each_cycle', example='123.00'),
 }
 
-// 文件key和文件名称
-model FileInfo {
-  // 文件key
-  fileKey: string(name='file_key', example='4293ed08-3576-4f35-a65d-0d63ae8c0e8b.jpg'),
-  // 文件名称
-  fileName: string(name='file_name', example='userInfo.jpg'),
-}
-
-// 租赁分期履约信息
-model RentalInstallmentPerformance {
-  // 被申请人还款期数
-  repaymentPeriod: long(name='repayment_period', example='10'),
-  // 被申请人第几期租金支付方式
-  rentPaymentType: string(name='rent_payment_type', example='支付宝'),
-  // 被申请人第几期还款时间
-  appliedRepaymentTime: string(name='applied_repayment_time', example='2021-05-07'),
-  // 被申请人第几期还款金额
-  appliedRepaymentAmount: string(name='applied_repayment_amount', example='123.00'),
-}
-
-// 承诺信息
-model CommitmentInfo {
-  // 租金总额
-  totalRent: string(name='total_rent', example='7890.00'),
-  // 租赁分期信息
-  rentalStagingInformation: [ RentalStagingInformation ](name='rental_staging_information', example=''),
-}
-
-// 答辩人为自然人对象
-model NaturalPerson {
-  // 自然人姓名
-  name: string(name='name', example='李四'),
-  // 自然人手机号码
-  mobileNumber: string(name='mobile_number', example='13821323232'),
-  // 自然人身份号码
-  idNumber: string(name='id_number', example='412702199812252774'),
-  // 自然人民族
-  nation?: string(name='nation', example='汉'),
-  // 自然人身份地址
-  address?: string(name='address', example='北京市朝阳区XX地址'),
-  // 自然人电子邮箱
-  email?: string(name='email', example='323232321@alibba-inc.com'),
-  // 自然人身份证正反面照片
-  // 文件信息 列表（先调用接口获取上传url和fileKey）
-  idNumberFile?: [ FileInfo ](name='id_number_file', example=''),
-}
-
-// 当被申请人为法人
-model LegalPerson {
-  // 被申请人姓名
-  name: string(name='name', example='李四'),
-  // 法人统一社会信用编码
-  idNumber: string(name='id_number', example='412702199812252774'),
-  // 法定代表人姓名
-  representativeName?: string(name='representative_name', example='李四'),
-  // 联系方式
-  legalPhoneNumber?: string(name='legal_phone_number', example='13812123232'),
-  // 住所地（同营业执照地址）
-  legalAddress?: string(name='legal_address', example='北京市朝阳区XX地址'),
-  // 企业经营地址
-  legalBusinessAddress?: string(name='legal_business_address', example='北京市朝阳区XX地址'),
-  // 营业执照照片
-  // 文件信息列表（先调用接口获取上传url和fileKey）
-  legalIdNumberFile?: [ FileInfo ](name='legal_id_number_file', example=''),
+// 存证关联实体（个人/企业）的身份识别信息
+model NotaryUser {
+  // 用户类型，PERSON或者ENTERPRISE
+  userType: string(name='user_type', example='PERSON'),
+  // 证件类型
+  // ● 个人：支持身份证IDENTITY_CARD
+  // ● 企业：支持UNIFIED_SOCIAL_CREDIT_CODE（统一社会信用代码）和ENTERPRISE_REGISTERED_NUMBER（企业工商注册号）
+  certType: string(name='cert_type', example='IDENTITY_CARD'),
+  // 证件用户名称
+  // ● 个人：身份证姓名
+  // ● 企业：企业名称
+  certName: string(name='cert_name', example='小王'),
+  // 证件号
+  // ● 个人：身份证号
+  // ● 企业：社会统一信用代码或企业工商注册号，与证件类型保持一致即可
+  certNo: string(name='cert_no', example='12332112312312'),
+  // 个人必填，用户手机号码
+  personMobileNo?: string(name='person_mobile_no', example='18811111111'),
+  // 企业选填，法人证件类型，仅支持身份证，IDENTITY_CARD
+  legalPersonCertType?: string(name='legal_person_cert_type', example='IDENTITY_CARD'),
+  // 企业选填，法人身份证姓名
+  legalPersonCertName?: string(name='legal_person_cert_name', example='小李'),
+  // 企业选填，法人身份证号
+  legalPersonCertNo?: string(name='legal_person_cert_no', example='123123321123'),
+  // 企业选填，法人手机号
+  legalPersonMobileNo?: string(name='legal_person_mobile_no', example='18811111111'),
+  // 扩展属性
+  properties?: string(name='properties', example='{"key":"value"}'),
 }
 
 // 订单信息
@@ -285,16 +269,6 @@ model OrderInfo {
   payInAdvance: string(name='pay_in_advance', example='123.00'),
 }
 
-// 履约信息
-model PerformanceInfo {
-  // 支付租金总额
-  rentPayTotal: string(name='rent_pay_total', example='10000.00'),
-  // 买断金额
-  buyoutAmount: string(name='buyout_amount', example='10000.00'),
-  // 租赁分期履约信息
-  rentalInstallmentPerformance?: [ RentalInstallmentPerformance ](name='rental_installment_performance', example=''),
-}
-
 // 物流信息
 model LogisticsInfo {
   // 发货时间
@@ -307,12 +281,12 @@ model LogisticsInfo {
   signTime: string(name='sign_time', example='2021-06-01'),
 }
 
-// 自动进件履约信息
-model LeasePerformanceInfo {
+// 履约信息
+model PerformanceInfo {
   // 支付租金总额
-  rentPayTotal: string(name='rent_pay_total', example='123.00'),
+  rentPayTotal: string(name='rent_pay_total', example='10000.00'),
   // 买断金额
-  buyoutAmount?: string(name='buyout_amount', example='123.00'),
+  buyoutAmount: string(name='buyout_amount', example='10000.00'),
   // 租赁分期履约信息
   rentalInstallmentPerformance?: [ RentalInstallmentPerformance ](name='rental_installment_performance', example=''),
 }
@@ -347,134 +321,31 @@ model LeaseOrderInfo {
   payInAdvance?: string(name='pay_in_advance', example='1123.00'),
 }
 
-// 签字人
-model ContractFlowSigner {
-  // 签署顺序
-  signOrder?: long(name='sign_order', example='1'),
-  // 签署状态, 0-待签, 1-未签, 2-已签 3-待审批 4-拒签
-  signStatus?: long(name='sign_status', example='1'),
-  // 签署人账号id
-  signerAccountId?: string(name='signer_account_id', example='24c93459216945468fdf1d899c521910'),
-  // 签署人名称
-  signerName?: string(name='signer_name', example='孙中'),
-  // 签署人是否已实名
-  signerRealName?: boolean(name='signer_real_name', example='true, false'),
-  // 签约主体的账号id（个人/企业）；如签署人本签署，则返回签署人账号id；如签署人代机构签署，则返回机构账号id
-  signerAuthorizedAccountId?: string(name='signer_authorized_account_id', example='2c7de24aff3340f5b944ebac49545b8e'),
-  // 签约主体名称
-  signerAuthorizedAccountName?: string(name='signer_authorized_account_name', example='深圳天谷信息科技有限公司'),
-  // 签署主体是否已实名
-  signerAuthorizedAccountRealName?: boolean(name='signer_authorized_account_real_name', example='true, false'),
-  // 签署主体类型, 0-个人, 1-机构
-  signerAuthorizedAccountType?: long(name='signer_authorized_account_type', example='1'),
-  // 本次签署任务对应指定的第三方业务流水号id，当存在多个第三方业务流水号id时，返回多个，并逗号隔开
-  thirdOrderNo?: string(name='third_order_no', example=' '),
+// 承诺信息
+model CommitmentInfo {
+  // 租金总额
+  totalRent: string(name='total_rent', example='7890.00'),
+  // 租赁分期信息
+  rentalStagingInformation: [ RentalStagingInformation ](name='rental_staging_information', example=''),
 }
 
-// 共享项目，资产端的采购平台回传的订单商品信息
-model SupplierOrderProductInfo {
-  // 商品id
-  productId: string(name='product_id', example='product_id_123'),
-  // 商品采购单价，单位：毫厘
-  productPrice: long(name='product_price', example='10000'),
-  // 商品的sn信息
-  snList: [ string ](name='sn_list', example='["sn1","sn2"]'),
-}
-
-// 个人信息
-model PersonInfo {
-  // 个人证件名称
-  certName: string(name='cert_name', example='张三'),
-  // 个人证件号码
-  certNo: string(name='cert_no', example='512223********1245'),
-  // 证件类型, 默认身份证 RESIDENT：居民身份证号，PASSPORT：护照，MILITARY：军官证
-  certType?: string(name='cert_type', example='RESIDENT'),
-}
-
-// 答辩人对象
-model PleaderObject {
-  // 法人或自然人标识，法人为1，自然人为0
-  partyType: long(name='party_type', example='0'),
-  // 自然人信息
-  // 当partyType=1必填
-  naturalPerson?: NaturalPerson(name='natural_person', example=''),
-  // 法人信息
-  // 当partyType=0必填
-  legalPerson?: LegalPerson(name='legal_person', example=''),
-}
-
-// 供应商对应的产品详细信息
-model SupplierProductInfo {
-  // 产品额外信息
-  extraInfo?: string(name='extra_info', example='{}'),
-  // 产品id
-  productId: string(name='product_id', example='GS2020123'),
-  // 电子商品唯一标识码
-  productImeiId: string(name='product_imei_id', example='12323,123123,234234'),
-  // 产品名称
-  productName: string(maxLength=50, minLength=1, name='product_name', example='IPAD mini 2012'),
-  // 采购产品的个数
-  productNumber: long(name='product_number', example='1'),
-  // 采购产品的价格，精确到毫厘，如12.34元表示为123400
-  productPrice: long(name='product_price', example='10000'),
-  // 产品版本
-  supplierVersion?: string(name='supplier_version', example='0'),
-}
-
-// 可信存证身份识别信息
-model Identity {
-  // 经办人姓名，企业认证选填
-  agent?: string(name='agent', example='小明'),
-  // 经办人身份证，企业认证选填
-  agentId?: string(name='agent_id', example='123123123123'),
-  // 用户名称
-  certName: string(name='cert_name', example='小王'),
-  // 证件号
-  certNo: string(name='cert_no', example='12332112312312'),
-  // 证件类型，个人只支持身份证IDENTITY_CARD，企业支持UNIFIED_SOCIAL_CREDIT_CODE（统一社会信用代码）和ENTERPRISE_REGISTERED_NUMBER（企业工商注册号）
-  certType: string(name='cert_type', example='IDENTITY_CARD'),
-  // 法人姓名，企业认证必选
-  legalPerson?: string(name='legal_person', example='小李'),
-  // 法人身份证，企业认证必选
-  legalPersonId?: string(name='legal_person_id', example='123123321123'),
-  // 用户手机号码
-  mobileNo?: string(name='mobile_no', example='1231231231'),
-  // 扩展属性
-  properties?: string(name='properties', example='{"key":"value"}'),
-  // 用户类型，PERSON或者ENTERPRISE
-  userType: string(name='user_type', example='PERSON'),
-  // 经办人证件类型，企业认证选填
-  agentCertType?: string(name='agent_cert_type', example='IDENTITY_CARD'),
-  // 法人证件类型，企业认证必选
-  legalPersonCertType?: string(name='legal_person_cert_type', example='IDENTITY_CARD'),
-}
-
-// 融资租赁订单额外信息
-model LeaseOrderExtra {
-  // 额外信息的主键
-  key: string(name='key', example='"key"'),
-  // 额外信息的值
-  value: string(name='value', example='"value"'),
-}
-
-// 平台方自动签署区信息
-model ContractPlatformSignField {
-  // 是否添加签署时间戳，默认不添加，时间格式如"2019-03-11 10:12:12"
-  addSignTime?: boolean(name='add_sign_time', example='true, false'),
-  // 签署区顺序，默认1,且不小于1，顺序越小越先处理
-  order?: long(name='order', example='1'),
-  // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
-  posPage: string(name='pos_page', example='1'),
-  // x坐标转为字符串的值，默认空
-  posX?: string(name='pos_x', example='158.72531'),
-  // y坐标转为字符串的值
-  posY: string(name='pos_y', example='431.05658'),
-  // 印章id ，如不传，则采用账号下的默认印章
-  sealId?: string(name='seal_id', example='bcd7ffd9-5caf-4342-bd1c-02257229ccd5'),
-  // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
-  thirdOrderNo?: string(name='third_order_no', example='someordernumber'),
-  // 签署区宽，默认印章宽度
-  width?: string(name='width', example='1'),
+// 当被申请人为法人
+model LegalPerson {
+  // 被申请人姓名
+  name: string(name='name', example='李四'),
+  // 法人统一社会信用编码
+  idNumber: string(name='id_number', example='412702199812252774'),
+  // 法定代表人姓名
+  representativeName?: string(name='representative_name', example='李四'),
+  // 联系方式
+  legalPhoneNumber?: string(name='legal_phone_number', example='13812123232'),
+  // 住所地（同营业执照地址）
+  legalAddress?: string(name='legal_address', example='北京市朝阳区XX地址'),
+  // 企业经营地址
+  legalBusinessAddress?: string(name='legal_business_address', example='北京市朝阳区XX地址'),
+  // 营业执照照片
+  // 文件信息列表（先调用接口获取上传url和fileKey）
+  legalIdNumberFile?: [ FileInfo ](name='legal_id_number_file', example=''),
 }
 
 // 阶段存证内容类表，根据模板定义传入
@@ -488,48 +359,33 @@ model PhaseNotary {
   originDataId: string(name='origin_data_id', example='xxxx'),
 }
 
-// 电子合同存证合同文档信息
-model ContractNotaryDocumentInfo {
-  // 签署完成的合同hash
-  content: string(name='content', example='content'),
-  // 签署人ID（支持多个，不同ID间用“,”分隔开）
-  signatories: string(name='signatories', example='account_id_1,account_id_2'),
-  // 存证结束时间，UNIX时间戳(毫秒)
-  timestamp: string(name='timestamp', example='1589198173000'),
-  // 存证凭据，仅在批量核验时需要填写
-  txHash?: string(name='tx_hash', example='95a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1c92'),
-  // 签署的文件ID
-  fileId: string(name='file_id', example='6afb5aa2679c5284444698a9790099269'),
+// 自动进件履约信息
+model LeasePerformanceInfo {
+  // 支付租金总额
+  rentPayTotal: string(name='rent_pay_total', example='123.00'),
+  // 买断金额
+  buyoutAmount?: string(name='buyout_amount', example='123.00'),
+  // 租赁分期履约信息
+  rentalInstallmentPerformance?: [ RentalInstallmentPerformance ](name='rental_installment_performance', example=''),
 }
 
-// 订单商品
-model LeaseOrderProductInfo {
-  // 商品编码 长度不可超过50
-  productId: string(name='product_id', example='123456'),
-  // 产品版本，每个版本可以对应一个价格 长度不可超过50，版本号未正整数，示例"123"
-  productVersion: string(name='product_version', example='123'),
-  // 商品名称 长度不可超过50
-  productName: string(name='product_name', example='iphone13'),
-  // 采购价  精确到毫厘，即123400表示12.34元
-  productPrice: long(name='product_price', example='123400'),
-  // 供应商Id，用以做索引 长度不可超过50
-  supplierIsvAccount: string(name='supplier_isv_account', example='小米'),
-}
-
-// 智能合同个人账号信息
-model ContractAccount {
-}
-
-// 见证流程文档确认数据
-model WitnessConfirmData {
-  // 文档fileKey
-  docFileKey?: string(name='doc_file_key', example=' '),
-  // 文档摘要算法，SHA256
-  hashAlgorithm: string(name='hash_algorithm', example='SHA256'),
-  // 签署后文档摘要值
-  signedHash: string(name='signed_hash', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269'),
-  // 第三方文档id
-  thirdDocId: string(name='third_doc_id', example='someId'),
+// 答辩人为自然人对象
+model NaturalPerson {
+  // 自然人姓名
+  name: string(name='name', example='李四'),
+  // 自然人手机号码
+  mobileNumber: string(name='mobile_number', example='13821323232'),
+  // 自然人身份号码
+  idNumber: string(name='id_number', example='412702199812252774'),
+  // 自然人民族
+  nation?: string(name='nation', example='汉'),
+  // 自然人身份地址
+  address?: string(name='address', example='北京市朝阳区XX地址'),
+  // 自然人电子邮箱
+  email?: string(name='email', example='323232321@alibba-inc.com'),
+  // 自然人身份证正反面照片
+  // 文件信息 列表（先调用接口获取上传url和fileKey）
+  idNumberFile?: [ FileInfo ](name='id_number_file', example=''),
 }
 
 // 可信存证存证地点信息
@@ -552,6 +408,22 @@ model Location {
   properties?: string(name='properties', example='{"key":"value"}'),
 }
 
+// 自动进件案件基础信息
+model CaseBasicInfo {
+  // 案件租户id
+  bizTenantId: string(name='biz_tenant_id', example='ORGJC1CN'),
+  // 案件类型:LEASE：租赁，FINANCIAL：金融，OTHER：其他
+  caseType: string(name='case_type', example='LEASE'),
+  // 标的金额（单位元）
+  amount?: string(name='amount', example='123.00'),
+  // 业务来源主键
+  inputSourceId: string(name='input_source_id', example='232278957595482'),
+  // 案件进件来源 
+  inputSource: string(name='input_source', example='租赁宝'),
+  // 根据业务来源主键对应订单号下的租赁事实报告和证据列表页面的嵌入URL
+  caseExt?: string(name='case_ext', example='https://www.aliyun.com'),
+}
+
 // 电子合同存证代扣计划执行操作信息
 model ContractNotaryDeductExecutionInfo {
   // 付款方的区块链合同签署账号
@@ -568,56 +440,36 @@ model ContractNotaryDeductExecutionInfo {
   order: string(name='order', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269_1'),
 }
 
-// 创建电子合同签署盖章区时的申请信息
-model ContractSignFieldApplication {
-  // 是否添加签署时间戳，默认不添加，时间格式如"2019-03-11 10:12:12"
-  addSignTime?: boolean(name='add_sign_time', example='true, false'),
-  // 签约主体账号标识， 将使用该主体账号对应的数字证书完成本次签署，如：当存在签署操作人代某机构签署时，需要传入该机构的账号id
-  authorizedAccountId: string(name='authorized_account_id', example='2c7de24aff3340f5b944ebac49545b8e'),
-  // 电子合同文件ID
-  fileId: string(name='file_id', example='fe7df2f477d649c18ebcfdfffeba253d'),
-  // 签署区顺序，默认1,且不小于1，顺序越小越先处理
-  order?: long(name='order', example='1'),
-  // 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字
-  posPage: string(name='pos_page', example='1'),
-  // x坐标转为字符串的值，默认空，页面签章必填，骑缝签章不填写
-  posX?: string(name='pos_x', example='158.72531'),
-  // y坐标转为字符串的值
-  posY: string(name='pos_y', example='431.05658'),
-  // 印章id ，如不传，则采用账号下的默认印章
-  sealId?: string(name='seal_id', example='bcd7ffd9-5caf-4342-bd1c-02257229ccd5'),
-  // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
-  thirdOrderNo?: string(name='third_order_no', example='someordernumber'),
-  // 签署区宽，默认印章宽度	
-  width?: string(name='width', example='1'),
-  // 签署类型，1-单页签署，2-骑缝签署，默认1
-  signType?: long(name='sign_type', example=''),
+// 数字票根计量字段
+model MetricInfo {
+  // 实际计收金额，单位：分。如传100，即为100分，1元
+  collectAmount: long(name='collect_amount', example='100'),
+  // 计收受理时间
+  collectTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='collect_time', example='2022-04-15 17:05:37'),
+  // 计收的订单流水号
+  collectSerialNumber: string(name='collect_serial_number', example='12345678'),
 }
 
-// 融资租赁商品出租详细信息
-model RentInfo {
-  // 租金
-  rentPrice: long(name='rent_price', example='2933300'),
-  // 租期
-  rentTerm: long(name='rent_term', example='12'),
-  // 手续费
-  commission: long(name='commission', example='1234'),
-  // 买断价
-  buyoutPrice: long(name='buyout_price', example='0'),
-  // 留购价
-  retainedPrice: long(name='retained_price', example='31903 '),
+// 融资租赁资方承诺
+model LeaseCreditPromiseInfo {
+  // 租期index
+  term: long(name='term', example='1'),
+  // 应还金额
+  payMoney: long(name='pay_money', example='123400'),
+  // 应还款时间
+  payDate: string(name='pay_date', example='2019-07-31 12:00:00'),
+  // 垫付日
+  payInAdvanceTime: string(name='pay_in_advance_time', example='2019-07-31 12:00:00'),
+  // 垫付金额
+  payInAdvanceMoney: long(name='pay_in_advance_money', example='123400'),
 }
 
-// 支付扣款详情
-model PaymentDetail {
-  // 业务自定义扣款id，长度不能超过64
-  bizTradeId: string(name='biz_trade_id', example='miivpw2345678'),
-  // 扣款期数
-  period: long(name='period', example='1'),
-  // 支付金额，单位：分
-  payMoney: long(name='pay_money', example='1200'),
-  // 计划扣款时间，格式"yyyy-MM-dd HH:mm:ss"
-  payDate: string(name='pay_date', example='2022-01-19 12:00:00'),
+// 融资租赁订单额外信息
+model LeaseOrderExtra {
+  // 额外信息的主键
+  key: string(name='key', example='"key"'),
+  // 额外信息的值
+  value: string(name='value', example='"value"'),
 }
 
 // 发起人对象
@@ -658,6 +510,228 @@ model ProposerObject {
   signatureManagerIdCard?: string(name='signature_manager_id_card', example='412702199812252774'),
   // 签章管理员手机号码
   signatureManagerPhone?: string(name='signature_manager_phone', example='13812123232'),
+}
+
+// 融资租赁人脸认证提前还款租期记录
+model FinanceCertifyRentalInfo {
+  // 租期
+  rentTerm: long(name='rent_term', example='1'),
+  // 本期扣款金额，123400表示12.34元
+  rentalMoney: long(name='rental_money', example='123400'),
+  // 还款日期，格式为"2019-07-31 12:00:00"
+  rentalReturnTime: string(name='rental_return_time', example='2019-07-31 12:00:00'),
+}
+
+// 创建电子合同签署盖章区时的申请信息
+model ContractSignFieldApplication {
+  // 是否添加签署时间戳，默认不添加，时间格式如"2019-03-11 10:12:12"
+  addSignTime?: boolean(name='add_sign_time', example='true, false'),
+  // 签约主体账号标识， 将使用该主体账号对应的数字证书完成本次签署，如：当存在签署操作人代某机构签署时，需要传入该机构的账号id
+  authorizedAccountId: string(name='authorized_account_id', example='2c7de24aff3340f5b944ebac49545b8e'),
+  // 电子合同文件ID
+  fileId: string(name='file_id', example='fe7df2f477d649c18ebcfdfffeba253d'),
+  // 签署区顺序，默认1,且不小于1，顺序越小越先处理
+  order?: long(name='order', example='1'),
+  // 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字
+  posPage: string(name='pos_page', example='1'),
+  // x坐标转为字符串的值，默认空，页面签章必填，骑缝签章不填写
+  posX?: string(name='pos_x', example='158.72531'),
+  // y坐标转为字符串的值
+  posY: string(name='pos_y', example='431.05658'),
+  // 印章id ，如不传，则采用账号下的默认印章
+  sealId?: string(name='seal_id', example='bcd7ffd9-5caf-4342-bd1c-02257229ccd5'),
+  // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
+  thirdOrderNo?: string(name='third_order_no', example='someordernumber'),
+  // 签署区宽，默认印章宽度	
+  width?: string(name='width', example='1'),
+  // 签署类型，1-单页签署，2-骑缝签署，默认1
+  signType?: long(name='sign_type', example=''),
+}
+
+// 机构信息
+model ContractUserOrganizationApplication {
+  // 证件号，该字段只有为空才允许修改
+  idNumber?: string(name='id_number', example='12330100470104939U'),
+  // 证件类型 ，默认CRED_ORG_USCC
+  idType?: string(name='id_type', example='CRED_ORG_USCC'),
+  // 企业法定代表人名称
+  legalPerson?: string(name='legal_person', example='测试法人'),
+  // 企业法定代表人证件号
+  legalPersonId?: string(name='legal_person_id', example='311111111111111111'),
+  // 机构名称
+  name?: string(name='name', example='测试企业'),
+  // 机构账号id
+  organizationId: string(name='organization_id', example='ORGJC1CN1591666666666'),
+}
+
+// 自动进件证据要素
+model LeaseEvidentialElement {
+  // 订单信息
+  leaseOrderInfo: LeaseOrderInfo(name='lease_order_info', example=''),
+  // 承诺信息
+  commitmentInfo: CommitmentInfo(name='commitment_info', example=''),
+  // 物流信息
+  logisticsInfo: LogisticsInfo(name='logistics_info', example=''),
+  // 履约信息
+  performanceInfo: LeasePerformanceInfo(name='performance_info', example=''),
+}
+
+// 电子合同签署盖章区
+model ContractSignField {
+  // 电子合同用户ID
+  accountId: string(name='account_id', example='faea8237c61a4fdea864ee8d7621e14f'),
+  // 电子合同文档ID
+  fileId: string(name='file_id', example='fe7df2f477d649c18ebcfdfffeba253d'),
+  // 电子合同签署区id
+  signfieldId: string(name='signfield_id', example='b76b69d5b48d4f689cae997e42809ac4'),
+}
+
+// 签署区详情
+model ContractSignFieldDetail {
+  // 签约主体类别，0-个人，1-机构，默认0,2 是不限
+  actorIndentityType?: long(name='actor_indentity_type', example='1'),
+  // 添加时间
+  addTime?: long(name='add_time', example='1561473111450'),
+  // 是否指定位置，TRUE表示不允许更新位置，配置项，无默认值
+  assignedPosbean?: boolean(name='assigned_posbean', example='true, false'),
+  // 是否指定印章数据，TRUE表示不允许更新印章，配置项，无默认值
+  assignedSeal?: boolean(name='assigned_seal', example='true, false'),
+  // 签约主体账号标识，将使用该主体账号对应的数字证书完成本次签署，如：当存在签署操作人代某机构签署时，需要传入该机构的账号id
+  authorizedAccountId?: string(name='authorized_account_id', example='2c7de24aff3340f5b944ebac49545b8e'),
+  // 是否自动执行，TRUE需要静默授权，配置项，无默认值
+  autoExecute?: boolean(name='auto_execute', example='true, false'),
+  // 执行失败原因
+  executeFailedReason?: string(name='execute_failed_reason', example=' '),
+  // 文件file id
+  fileId?: string(name='file_id', example='fe7df2f477d649c18ebcfdfffeba253d'),
+  // 流程id
+  flowId?: string(name='flow_id', example='b2cb74258a634179b0df3cc54791c8b6'),
+  // 签署区顺序，默认1,且不小于1，顺序越小越先处理
+  order?: long(name='order', example='1'),
+  // 页码信息，可以_,_或_-_分割
+  posPage?: string(name='pos_page', example='1'),
+  // x坐标
+  posX?: string(name='pos_x', example='158.72531'),
+  // y坐标
+  posY?: string(name='pos_y', example='431.05658'),
+  // 印章文件file key
+  sealFileKey?: string(name='seal_file_key', example=' '),
+  // 印章id
+  sealId?: string(name='seal_id', example=' '),
+  // 印章类型，支持多种类型时逗号分割，0-手绘印章，1-模版印章，为空不限制
+  sealType?: string(name='seal_type', example=' '),
+  // 签署操作人个人账号标识，即操作本次签署的个人，如需e签宝通知用户签署，则系统向该账号下绑定的手机、邮箱发送签署链接
+  signerAccountId?: string(name='signer_account_id', example='faea8237c61a4fdea864ee8d7621e14f'),
+  // 签署区Id
+  signfieldId?: string(name='signfield_id', example='b76b69d5b48d4f689cae997e42809ac4'),
+  // 签署类型，0-不限，1-单页签署，2-骑缝签署,4-关键字签署，默认1
+  signType?: long(name='sign_type', example='0'),
+  // 签署区状态（0："等待执行，1："执行中"，2："执行失败"，3："审批中"，4： "执行完成"）
+  status?: long(name='status', example='1'),
+  // 状态描述
+  statusDescription?: string(name='status_description', example='执行中'),
+  // 签署区宽
+  width?: string(name='width', example=' '),
+}
+
+// 采购供应商初始化 
+model SupplierInfo {
+  // 供应商id
+  agentSupplierId: string(name='agent_supplier_id', example='ABCDEFGH'),
+  // 被代理机构社会统一信用码
+  agentSupplierCorpId: string(name='agent_supplier_corp_id', example='12345678'),
+  // 被代理机构名称
+  agentSupplierCorpName: string(name='agent_supplier_corp_name', example='阿里巴巴有限公司'),
+  // 被代理供应商名称
+  agentSupplierName: string(name='agent_supplier_name', example='阿里'),
+  // 被代理机构的法人名称
+  agentSupplierCorpOwnerName: string(name='agent_supplier_corp_owner_name', example='张三'),
+  // 额外信息
+  extraInfo?: string(name='extra_info', example='{}'),
+}
+
+// 电子合同存证代扣计划信息
+model ContractNotaryDeductPlanInfo {
+  // PAYERIDNUMBER
+  payerId: string(name='payer_id', example='付款方ID'),
+  // “总金额：”+总金额“+”“总期数：”+总期数，“+”每期金额时间（X期金额，时间）
+  deductPlanInfo: string(name='deduct_plan_info', example='代扣计划说明'),
+  // AGREEMEND_ID_NUMBER
+  agreementNo: string(name='agreement_no', example='代扣协议ID'),
+  // 代扣计划发起时间
+  timestamp: string(name='timestamp', example='1589198173000'),
+}
+
+// 电子合同存证结束信息
+model ContractNotaryFinishInfo {
+  // 本阶段存证内容哈希值
+  content: string(name='content', example='content'),
+  // 签署文件份数
+  fileNum: long(name='file_num', example='3'),
+  // 发起人ID
+  initiator: string(name='initiator', example='account_id_of_initiator'),
+  // 签署人ID（支持多个，不同ID间用“,”分隔开）
+  signatories: string(name='signatories', example='account_id_1,account_id_2'),
+  // 存证阶段发生时间，UNIX时间戳(毫秒)
+  timestamp: string(name='timestamp', example='1589198173000'),
+  // 存证凭据，仅在批量核验时需要填写
+  txHash?: string(name='tx_hash', example='95a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1c92'),
+  // signatories对应的用户类型
+  userTypes?: string(name='user_types', example='PERSON,ENTERPRISE,PERSON'),
+  // 签署合同所属行业
+  businessType?: string(name='business_type', example='finance'),
+  // 合同对应的金额，如果不涉及金额，填充为0，个数与file_num对应
+  amounts?: string(name='amounts', example='888,0,888'),
+  // 签署方数量
+  signPartyCount?: long(name='sign_party_count', example='2'),
+  // 发起人名称
+  intiatorName?: string(name='intiator_name', example='张三'),
+  // 签署人名称,多个逗号隔开
+  signatorNames?: string(name='signator_names', example='李四,王五'),
+  // 详细文件哈希
+  detailInfoFileHash?: string(name='detail_info_file_hash', example='a91a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1cqa'),
+}
+
+// 见证流程文档检验数据
+model WitnessDocs {
+  // 文档摘要值
+  docHash: string(name='doc_hash', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269'),
+  // 第三方文档id
+  thirdDocId: string(name='third_doc_id', example='someId'),
+}
+
+// 平台方自动签署区信息
+model ContractPlatformSignField {
+  // 是否添加签署时间戳，默认不添加，时间格式如"2019-03-11 10:12:12"
+  addSignTime?: boolean(name='add_sign_time', example='true, false'),
+  // 签署区顺序，默认1,且不小于1，顺序越小越先处理
+  order?: long(name='order', example='1'),
+  // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
+  posPage: string(name='pos_page', example='1'),
+  // x坐标转为字符串的值，默认空
+  posX?: string(name='pos_x', example='158.72531'),
+  // y坐标转为字符串的值
+  posY: string(name='pos_y', example='431.05658'),
+  // 印章id ，如不传，则采用账号下的默认印章
+  sealId?: string(name='seal_id', example='bcd7ffd9-5caf-4342-bd1c-02257229ccd5'),
+  // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
+  thirdOrderNo?: string(name='third_order_no', example='someordernumber'),
+  // 签署区宽，默认印章宽度
+  width?: string(name='width', example='1'),
+}
+
+// 见证流程签署数据
+model WitnessSignData {
+  // 印章图片fileKey列表
+  sealFileKeys?: [ string ](name='seal_file_keys', example=''),
+  // 印章id列表
+  sealIds?: [ string ](name='seal_ids', example=''),
+  // 待签署文档摘要值，批量签时必传
+  signHash?: string(name='sign_hash', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269'),
+  // 签署位置信息
+  signPosData?: string(name='sign_pos_data', example=' '),
+  // 第三方文档id，批量签时必传
+  thirdDocId?: string(name='third_doc_id', example=' '),
 }
 
 // 案件基础信息
@@ -713,150 +787,84 @@ model CaseBaseInfo {
   canDownload: string(name='can_download', example='true'),
 }
 
-// 平台方经办人信息
-model ContractPlatformAccountApplication {
-  // 邮箱地址
-  email?: string(name='email', example='xx@alipay.com'),
-  // 证件号
-  idNumber: string(name='id_number', example='311111111111111111'),
-  // 证件类型
-  idType: string(name='id_type', example='CRED_PSN_CH_IDCARD'),
-  // 手机号码
-  mobile?: string(name='mobile', example='15811111111'),
-  // 姓名
-  name: string(name='name', example='张三'),
-  // 用户唯一标识，可传入第三方平台的个人用户id等
-  userId: string(name='user_id', example='A001'),
+// 电子合同存证合同文档信息
+model ContractNotaryDocumentInfo {
+  // 签署完成的合同hash
+  content: string(name='content', example='content'),
+  // 签署人ID（支持多个，不同ID间用“,”分隔开）
+  signatories: string(name='signatories', example='account_id_1,account_id_2'),
+  // 存证结束时间，UNIX时间戳(毫秒)
+  timestamp: string(name='timestamp', example='1589198173000'),
+  // 存证凭据，仅在批量核验时需要填写
+  txHash?: string(name='tx_hash', example='95a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1c92'),
+  // 签署的文件ID
+  fileId: string(name='file_id', example='6afb5aa2679c5284444698a9790099269'),
 }
 
-// 融资租赁里的产品详细信息
-model ProductInfo {
-  // 是否需要创建did
-  needDid?: boolean(name='need_did', example='true, false'),
-  // 产品品牌，长度不超过50
-  productBrand?: string(name='product_brand', example='大金'),
-  // 产品Id，长度不超过50
-  productId: string(name='product_id', example='productId'),
-  // 唯一标识码，imeiID，长度不超过50
-  productImeiId?: string(name='product_imei_id', example='sn_number'),
-  // 产品规格型号，长度不超过255
-  productModel?: string(name='product_model', example='LP3001'),
-  // 产品名称，长度不超过50
-  productName: string(name='product_name', example='大金空调'),
-  // 产品数量
-  productNumber: long(name='product_number', example='10'),
-  // 产品采购含税价 精确到毫厘，即123400表示12.34元
-  productPrice: long(name='product_price', example='123400'),
-  // 供应商id
-  supplierId?: string(name='supplier_id', example='supplierId'),
-  // 供应商对应的产品版本，每个版本可以对应一个价格
-  supplierVersion?: string(name='supplier_version', example='001'),
-  // 额外字段
-  extraInfo?: string(name='extra_info', example='{}'),
-}
-
-// 阶段存证进度查询结果
-model PhaseQueryResult {
-  // 阶段ID
-  phaseId: string(name='phase_id', example='4a605f04-ae9f-48d3-88ba-05c073ad5484'),
-  // 阶段存证的链上交易Hash，只有status为FINISH才会返回
-  txHash: string(name='tx_hash', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a97900xx269'),
-  // 阶段存证状态
-  status: string(name='status', example='FINISH'),
-}
-
-// 共享项目，资产端的采购平台回传的物流信息
-model SupplierLogisticInfo {
-  // 采购平台的物流单号
-  logisticOrderId: string(name='logistic_order_id', example='SF1234567890'),
-}
-
-// 签署区详情
-model ContractSignFieldDetail {
-  // 签约主体类别，0-个人，1-机构，默认0,2 是不限
-  actorIndentityType?: long(name='actor_indentity_type', example='1'),
-  // 添加时间
-  addTime?: long(name='add_time', example='1561473111450'),
-  // 是否指定位置，TRUE表示不允许更新位置，配置项，无默认值
-  assignedPosbean?: boolean(name='assigned_posbean', example='true, false'),
-  // 是否指定印章数据，TRUE表示不允许更新印章，配置项，无默认值
-  assignedSeal?: boolean(name='assigned_seal', example='true, false'),
-  // 签约主体账号标识，将使用该主体账号对应的数字证书完成本次签署，如：当存在签署操作人代某机构签署时，需要传入该机构的账号id
-  authorizedAccountId?: string(name='authorized_account_id', example='2c7de24aff3340f5b944ebac49545b8e'),
-  // 是否自动执行，TRUE需要静默授权，配置项，无默认值
-  autoExecute?: boolean(name='auto_execute', example='true, false'),
-  // 执行失败原因
-  executeFailedReason?: string(name='execute_failed_reason', example=' '),
-  // 文件file id
-  fileId?: string(name='file_id', example='fe7df2f477d649c18ebcfdfffeba253d'),
-  // 流程id
-  flowId?: string(name='flow_id', example='b2cb74258a634179b0df3cc54791c8b6'),
-  // 签署区顺序，默认1,且不小于1，顺序越小越先处理
-  order?: long(name='order', example='1'),
-  // 页码信息，可以_,_或_-_分割
-  posPage?: string(name='pos_page', example='1'),
+// 关键字位置列表
+model KeywordsPosition {
+  // 关键字
+  keyword: string(name='keyword', example='keyword1'),
+  // 页码
+  pageIndex: long(name='page_index', example='32'),
   // x坐标
-  posX?: string(name='pos_x', example='158.72531'),
+  posX: string(name='pos_x', example='315.43'),
   // y坐标
-  posY?: string(name='pos_y', example='431.05658'),
-  // 印章文件file key
-  sealFileKey?: string(name='seal_file_key', example=' '),
-  // 印章id
-  sealId?: string(name='seal_id', example=' '),
-  // 印章类型，支持多种类型时逗号分割，0-手绘印章，1-模版印章，为空不限制
-  sealType?: string(name='seal_type', example=' '),
-  // 签署操作人个人账号标识，即操作本次签署的个人，如需e签宝通知用户签署，则系统向该账号下绑定的手机、邮箱发送签署链接
-  signerAccountId?: string(name='signer_account_id', example='faea8237c61a4fdea864ee8d7621e14f'),
-  // 签署区Id
-  signfieldId?: string(name='signfield_id', example='b76b69d5b48d4f689cae997e42809ac4'),
-  // 签署类型，0-不限，1-单页签署，2-骑缝签署,4-关键字签署，默认1
-  signType?: long(name='sign_type', example='0'),
-  // 签署区状态（0："等待执行，1："执行中"，2："执行失败"，3："审批中"，4： "执行完成"）
-  status?: long(name='status', example='1'),
-  // 状态描述
-  statusDescription?: string(name='status_description', example='执行中'),
-  // 签署区宽
-  width?: string(name='width', example=' '),
+  posY: string(name='pos_y', example='185.65723'),
 }
 
-// 智能合同个人账户创建申请信息
-model ContractAccountApplication {
-  // 邮箱地址，默认空
-  email?: string(name='email', example='xx@alipay.com'),
-  // 证件号
-  idNumber: string(name='id_number', example='311111111111111111'),
-  // 目前仅支持CRED_PSN_CH_IDCARD，即身份证号码
-  idType: string(name='id_type', example='CRED_PSN_CH_IDCARD'),
-  // 手机号码，默认空
-  mobile?: string(name='mobile', example='15811111111'),
-  // 姓名
-  name: string(name='name', example='张三'),
-  // 用户唯一标识，可传入第三方平台的个人用户id等
-  userId: string(name='user_id', example='A001'),
+// 电子合同文档的下载地址
+model ContractDocAddress {
+  // 电子合同文档ID
+  fileId: string(name='file_id', example='01e50a9cedb74493a2d320b4f4732a29'),
+  // 电子合同文档名称，默认文件名称
+  fileName: string(name='file_name', example='第一份合同.pdf'),
+  // 电子合同下载文档地址, 有效时间1小时
+  fileUrl: string(name='file_url', example='https://xxxoss.oss-cn-hangzhou.aliyuncs.com/xxx.pdf?Expires=xxx&OSSAccessKeyId=xxx&Signature=xxx'),
+  // 合同文件的存证地址
+  txHash?: string(name='tx_hash', example='a89495ddd334870a58686afe48a8eb83efe2dd51e4c06da7220eb1cde0f995e2'),
 }
 
-// 平台方企业信息
-model ContractPlatformOrganizationApplication {
-  // 证件号
-  idNumber: string(name='id_number', example='12330100470104939U '),
-  // 证件类型
-  idType: string(name='id_type', example='CRED_ORG_USCC'),
-  // 企业法人名称
-  orgLegalName?: string(name='org_legal_name', example='测试法人'),
-  // 企业法人证件号
-  orgLegalIdNumber?: string(name='org_legal_id_number', example='311111111111111111'),
-  // 机构名称
-  name: string(name='name', example='测试企业'),
+// 数字票根通用字段
+model StubCommonInfo {
+  // 项目名称
+  projectName: string(name='project_name', example='黄山景区数字票根'),
+  // 客户名称（三方合约中甲方名称：景区或服务商）
+  sceneName: string(name='scene_name', example='黄山景区'),
+  // 业务类型。目前只有数字票根这一个情景，枚举为：TICKET_STUB
+  bizType: string(name='biz_type', example='TICKET_STUB'),
+  // 业务来源；Alipay：支付宝，Scene：景区
+  bizSource: string(name='biz_source', example='Alipay'),
+  // 订单id。若bizSource为支付宝情况下传支付宝流水号（业务系统的出票流水号）；若bizSource为景区时传上游生成的订单号
+  orderId: string(name='order_id', example='xxxxxx'),
+  // 订单名称
+  orderName?: string(name='order_name', example='xxxxxx'),
+  // 订单总金额，单位：分。如传100，即为100分，1元
+  orderAmount: long(name='order_amount', example='100'),
+  // 下单时间
+  orderTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='order_time', example='2022-04-15 17:05:37'),
+  // 待分账金额，单位：分。如传100，即为100分，1元
+  stubAmount: long(name='stub_amount', example='100'),
 }
 
-// 融资租赁中IOT设备详情
-model LeaseIotItemInfo {
-  // 证据的时间
-  date: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='date', example='2018-10-10T10:10:00Z'),
-  // 证据的txHash
-  txHash: string(name='tx_hash', example='0xaaaaabbbbbcccc'),
-  // 证据的原始数据，默认为空或加密状态，除非调用方为授权用户（如出资方等
-  rawData: string(name='raw_data', example='""'),
+// 见证流程创建响应数据
+model WitnessFlowConfig {
+  // 企业实名认证方式,对公打款：1；企业芝麻认证：3；法定代表授权：4；
+  organRealnameTypes?: [ long ](name='organ_realname_types', example=''),
+  // 个人实名认证方式, 银行四要素：2；芝麻认证-人脸识别：3；微众-人脸识别：4；
+  personRealnameTypes?: [ long ](name='person_realname_types', example=''),
+  // 是否需要实名认证
+  realNameCert?: boolean(name='real_name_cert', example='true, false'),
+  // 意愿认证方式, 芝麻认证-人脸识别：2；短信验证码：3；微众-人脸识别：4；ukey认证：5；签署密码认证：6；
+  willingnessTypes?: [ long ](name='willingness_types', example=''),
+}
+
+// 见证流程审批数据
+model WitnessApprovalData {
+  // 审批流程id
+  approvalFlowId?: string(name='approval_flow_id', example='someId'),
+  // 印章id列表
+  sealIds?: [ string ](name='seal_ids', example=''),
 }
 
 // 供应商商品信息
@@ -899,6 +907,104 @@ model SupplierProductItem {
   extraInfo?: string(name='extra_info', example='{}'),
 }
 
+// 阶段存证进度查询结果
+model PhaseQueryResult {
+  // 阶段ID
+  phaseId: string(name='phase_id', example='4a605f04-ae9f-48d3-88ba-05c073ad5484'),
+  // 阶段存证的链上交易Hash，只有status为FINISH才会返回
+  txHash: string(name='tx_hash', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a97900xx269'),
+  // 阶段存证状态
+  status: string(name='status', example='FINISH'),
+  // 阶段注册成功时间戳
+  registerTime: long(name='register_time', example='12345678'),
+}
+
+// 采购商品信息
+model ApplySupplierOrderProductInput {
+  // 采购商品id
+  productId: string(name='product_id', example='202024234234'),
+  // 采购商品数量
+  productNum: long(name='product_num', example='100'),
+}
+
+// 智能合同机构账户创建申请信息
+model ContractOrganizationApplication {
+  // 证件号
+  idNumber: string(name='id_number', example='12330100470104939U'),
+  // 证件类型，默认CRED_ORG_USCC，详见机构证件类型说明 （https://tech.antfin.com/docs/2/155166）
+  idType: string(name='id_type', example='CRED_ORG_USCC'),
+  // 企业法人名称
+  legalPerson?: string(name='legal_person', example='测试法人'),
+  // 企业法人证件号
+  legalPersonId?: string(name='legal_person_id', example='311111111111111111'),
+  // 机构名称
+  name: string(name='name', example='测试企业'),
+  // 机构唯一标识，可传入第三方平台的机构用户id等
+  organizationId?: string(name='organization_id', example='B002'),
+  // 机构子类型：ENTERPRISE（企业）、SELF-EMPLOYED（个体工商户）、SUBSIDIARY（分公司）、OTHERORG（其他机构）。若填入这些类型，将会进行相应参数校验，例如：企业类型要求进行企业四要素校验，企业证件号必须是91开头，并且企业类型在签署时会需要授权后才可进行签署；个体工商户要求证件号必须是92开头，其余类型无其他校验。不填入此参数不会进行校验。
+  orgType?: string(name='org_type', example='ENTERPRISE'),
+}
+
+// 阶段存证结果
+model PhaseCreateResult {
+  // 阶段编号，与模板阶段编号保持一致，不同阶段阶段编号不一样，要与阶段存证内容保持一致
+  phaseNo: long(name='phase_no', example='1'),
+  // 阶段ID，阶段存证的唯一标记
+  phaseId: string(name='phase_id', example='4a605f04-ae9f-48d3-88ba-05c073ad5484'),
+  // 业务方原始数据ID，方便与业务方进行数据核对使用，并且如果同一个阶段多次存证，则需要根据业务方原始数据ID识别不同的阶段存证响应
+  originDataId: string(name='origin_data_id', example='xxx'),
+}
+
+// 证据清单
+model EvidentialCheckList {
+  // 证据名称英文 
+  evidentialNameEn: string(name='evidential_name_en', example='LEGAL_IDENETITY_CERT'),
+  // 文件名称
+  ossFileName: string(name='oss_file_name', example='a.txt'),
+  // 文件fileKey ，调用获取文件上传链接时对应的fileKey
+  ossFileKey: string(name='oss_file_key', example='201906182149291c15e6c2d400fc3323b09f44a4e79bdf2db867a3fb9400a168de3325205519.jpg'),
+  // 证据来源
+  // BUSINESS_UPLOAD	业务传入
+  // ADD_MANULLY	手动添加
+  sourcesOfEvidence: string(name='sources_of_evidence', example='BUSINESS_UPLOAD'),
+  // 证据类型
+  // BLOCKCHAIN_DEPOSIT	区块链存证
+  // USER_UPLOAD	用户上传
+  evidenceType: string(name='evidence_type', example='BLOCKCHAIN_DEPOSIT'),
+  // 存证类型
+  // TEXT	文本
+  // FILE	文件
+  depositType: string(name='deposit_type', example='TEXT'),
+  // 存证哈希 当为区块链存证必填
+  txHash?: string(name='tx_hash', example='1234545676575675673'),
+  // 存证时间 当为区块链存证必填
+  depositTime?: string(name='deposit_time', example='2021-05-07 17:13:50'),
+}
+
+// 见证流程签署结果数据
+model WitnessSignResult {
+  // 签名结果，外部用户签署返回
+  signResult?: string(name='sign_result', example=' '),
+  // 签署日志id，外部用户签署返回
+  signlogId?: string(name='signlog_id', example=' '),
+  // 第三方文档id
+  thirdDocId?: string(name='third_doc_id', example=' '),
+}
+
+// 核验请求时对应的存证元数据
+model NotaryCheckMeta {
+  // 对应的法院编号
+  agencyCode?: string(name='agency_code', example='hzfy'),
+  // 哈希算法, notary_type 为 HASH 时此参数必填
+  hashAlgorithm?: string(name='hash_algorithm', example='SHA256'),
+  // 存证内容
+  notaryContent: string(name='notary_content', example='5p2t5bee5LuK5aSp5aSp5rCU6Zi0'),
+  // 交易哈希
+  txHash: string(name='tx_hash', example='aac0cf38b6072352f6b3be4cc0a3cf3950058472eacdda91e6723d75e2994567'),
+  // 应用ID
+  applicationCode?: string(name='application_code', example='dstj'),
+}
+
 // 电子合同存证代扣计划退款信息
 model ContractNotaryDeductRefundInfo {
   // PAYERIDNUMBER
@@ -911,44 +1017,76 @@ model ContractNotaryDeductRefundInfo {
   timestamp: string(name='timestamp', example='1589198173000'),
 }
 
-// 融资租赁资金方还款条目信息
-model LeaseRepaymentInfo {
-  // 融资租赁还款流水
-  repaymentUniqueId: string(name='repayment_unique_id', example='20211231123000123'),
-  // 还款批次
-  returnIndex: string(name='return_index', example='1'),
-  // 还款日期
-  returnTime: string(name='return_time', example='2019-07-31 12:00:00'),
-  // 还款总额,本金+利息，精确到毫厘，即123400表示12.34元
-  returnMoney: long(name='return_money', example='123400'),
-  // 还款结果状态,1.成功 2.失败
-  returnStatus: long(name='return_status', example='1'),
-  // 还款结果简要描述,长度不超过256
-  returnDescription: string(name='return_description', example='""'),
-  // 还款来源,1.共管账号，2.网商清分
-  source: long(name='source', example='2'),
-  // 剩余应还期数
-  remainReturnTerm: long(name='remain_return_term', example='1'),
-  // 本期剩余应还金额，精确到毫厘，即123400表示12.34元
-  remainReturnMoney: long(name='remain_return_money', example='123400'),
-  // 逾期状态,0为未逾期，1表示逾期
-  overdueStatus: long(name='overdue_status', example='0'),
-  // 逾期利率（日利率）,精确到小数点后四位 12.34% 表示为1234
-  overdueRate: long(name='overdue_rate', example='0'),
-  // 逾期天数,支用到期日开始计算
-  overdueDay: long(name='overdue_day', example='0'),
-  // 逾期应还款总额,本金+利息+逾期利息,精确到毫厘，即123400表示12.34元
-  overdueMoney: long(name='overdue_money', example='0'),
+// 共享项目，资产端的采购平台回传的物流信息
+model SupplierLogisticInfo {
+  // 采购平台的物流单号
+  logisticOrderId: string(name='logistic_order_id', example='SF1234567890'),
 }
 
-// 阶段存证结果
-model PhaseCreateResult {
-  // 阶段编号，与模板阶段编号保持一致，不同阶段阶段编号不一样，要与阶段存证内容保持一致
-  phaseNo: long(name='phase_no', example='1'),
-  // 阶段ID，阶段存证的唯一标记
-  phaseId: string(name='phase_id', example='4a605f04-ae9f-48d3-88ba-05c073ad5484'),
-  // 业务方原始数据ID，方便与业务方进行数据核对使用，并且如果同一个阶段多次存证，则需要根据业务方原始数据ID识别不同的阶段存证响应
-  originDataId: string(name='origin_data_id', example='xxx'),
+// 电子合同签署流程的配置信息
+model ContractSignFlowConfig {
+  // 回调通知地址 ,默认取项目配置通知地址
+  noticeDeveloperUrl?: string(name='notice_developer_url', example='http://127.0.0.1:9110/notice'),
+  // 签署通知和审批通知的通知方式，传 "" 表示不需要通知，传"1"表示短信通知。短信功能需要联系售后开白名单才会生效。
+  noticeType: string(name='notice_type', example='1'),
+  // 签署成功或者流程结束后的默认重定向地址，默认签署完成停在当前页面
+  redirectUrl?: string(name='redirect_url', example='http://127.0.0.1:8110/h5/forword'),
+  // 签署平台，逗号分割，1-开放服务h5，2-支付宝签 ，默认值1
+  signPlatform?: string(name='sign_platform', example='1'),
+  // 签署失败时的跳转地址，如果不做单独配置，默认与redirect_url一致（配合twc.notary.contract.signflow.create接口使用）
+  redirectUrlOnFailure?: string(name='redirect_url_on_failure', example='http://127.0.0.1:8110/h5/forword/failure'),
+  // 是否允许自由签署，默认false（配合twc.notary.contract.signflow.create接口使用）
+  freeSignature?: boolean(name='free_signature', example='true, false'),
+}
+
+// 融资租赁商品出租详细信息
+model RentInfo {
+  // 租金
+  rentPrice: long(name='rent_price', example='2933300'),
+  // 租期
+  rentTerm: long(name='rent_term', example='12'),
+  // 手续费
+  commission: long(name='commission', example='1234'),
+  // 买断价
+  buyoutPrice: long(name='buyout_price', example='0'),
+  // 留购价
+  retainedPrice: long(name='retained_price', example='31903 '),
+}
+
+// 融资租赁清分信息
+model LeaseClearingInfo {
+  // 还款批次
+  returnIndex: long(name='return_index', example='1'),
+  // 清分状态
+  clearingState: long(name='clearing_state', example='1'),
+  // 清分金额,精确到毫厘，即123400表示12.34元
+  clearingMoney: long(name='clearing_money', example='123400'),
+  // 开始清分时间
+  startTime: string(name='start_time', example='2019-07-31 12:00:00'),
+  // 结束清分时间
+  endTime: string(name='end_time', example='2019-08-31 12:00:00'),
+  // 清分单号
+  clearingOrderId: string(name='clearing_order_id', example='2021231231231313'),
+  // 清分收款账号
+  clearingAccount: string(name='clearing_account', example='88234234234xxxx'),
+  // 清分额外说明
+  memo: string(name='memo', example='""'),
+}
+
+// 企业四要素校验
+model CompanyFourMetaInfo {
+  // 企业证件名称
+  companyCertName: string(name='company_cert_name', example='XX公司'),
+  // 企业证件号码
+  companyCertNo: string(name='company_cert_no', example='9111011421316034XK'),
+  // 证件类型, 默认社会统一信用代码  NATIONAL_LEGAL_MERGE:统一社会信用代码，NATIONAL_LEGAL：营业执照号码
+  companyCertType?: string(name='company_cert_type', example='NATIONAL_LEGAL_MERGE'),
+  // 法人证件名称
+  legalPersonCertName: string(name='legal_person_cert_name', example='张三'),
+  // 法人证件号码
+  legalPersonCertNo: string(name='legal_person_cert_no', example='110103202110131593'),
+  // 法人证件类型 RESIDENT：居民身份证号，PASSPORT：护照，MILITARY：军官证
+  legalPersonCertType?: string(name='legal_person_cert_type', example='RESIDENT'),
 }
 
 // 案件进度查询返回结果
@@ -983,30 +1121,102 @@ model MediationCaseDetailInfo {
   mediationAgreement: string(name='mediation_agreement', example='双方同意减免10%的费用,以7800.34元达成调解协议'),
 }
 
-// 见证流程签署结果数据
-model WitnessSignResult {
-  // 签名结果，外部用户签署返回
-  signResult?: string(name='sign_result', example=' '),
-  // 签署日志id，外部用户签署返回
-  signlogId?: string(name='signlog_id', example=' '),
-  // 第三方文档id
-  thirdDocId?: string(name='third_doc_id', example=' '),
+// 答辩人对象
+model PleaderObject {
+  // 法人或自然人标识，法人为1，自然人为0
+  partyType: long(name='party_type', example='0'),
+  // 自然人信息
+  // 当partyType=1必填
+  naturalPerson?: NaturalPerson(name='natural_person', example=''),
+  // 法人信息
+  // 当partyType=0必填
+  legalPerson?: LegalPerson(name='legal_person', example=''),
 }
 
-// 采购订单信息
-model ApplySupplierOrderProductOutput {
-  // 订单id
-  orderId: string(name='order_id', example='2020223123'),
-  // 链上采购单id
-  purOrderId: string(name='pur_order_id', example='23042340234234'),
-  // 待采购：READY_DELIVER
-  // 已采购：DELIVERED
-  // 已拒发：REJECTED
-  // 已退货：RETURNED
-  // 已取消：CANCELED
-  purOrderStatus: string(name='pur_order_status', example='链上采购状态'),
-  // 供应商id
-  supplierId?: string(name='supplier_id', example='ABCDEFGH'),
+// 电子合同存证签署信息
+model ContractNotarySignInfo {
+  // 本阶段存证内容哈希值
+  content: string(name='content', example='content'),
+  // 电子合同文件hash，可能一次性签署多个文件，不同文件的hash间用“,”分隔开
+  contractHash: string(name='contract_hash', example='hash1,hash2'),
+  // 签署人ID
+  signatory: string(name='signatory', example='account_id_of_signatory'),
+  // 存证阶段发生时间，UNIX时间戳(毫秒)
+  timestamp: string(name='timestamp', example='1589198173000'),
+  // 存证凭据，仅在批量核验时需要填写
+  txHash?: string(name='tx_hash', example='95a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1c92'),
+  // 发起人名称
+  intiatorName?: string(name='intiator_name', example='张三'),
+  // 签署人名称,多个逗号隔开
+  signatorNames?: string(name='signator_names', example='李四,王五'),
+  // 详细文件哈希
+  detailInfoFileHash?: string(name='detail_info_file_hash', example='91a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1cqa '),
+}
+
+// 存证信息说明
+model NotaryInfo {
+  // 存证内容的哈希值，默认采用SHA256算法
+  contentHash: string(name='content_hash', example='6b7966f4a30a7fec43a6b5ca8e4610f63d320f03ee698945014c0bbc13c6beba'),
+  // 合作人（版权存证函专用），会展示在存证证明中
+  cooperation?: string(name='cooperation', example='合作人'),
+  // 作品名称类型（版权存证函使用），会展示在存证证明中
+  creationType?: string(name='creation_type', example='音乐/视频/小说等'),
+  // 如果是文件存证，可填写文件名称
+  fileName?: string(name='file_name', example='name'),
+  // 计算content_hash的哈希算法，目前只支持SHA256
+  hashAlgorithm?: string(name='hash_algorithm', example='SHA256'),
+  // 申请平台名，用于在存证函上显示用名称
+  platform?: string(name='platform', example='某某平台'),
+  // 文件容量，默认为0
+  size?: long(name='size', example='1024'),
+  // 发起存证成功后，返回的存证凭据
+  txHash: string(name='tx_hash', example='a89495ddd334870a58686afe48a8eb83efe2dd51e4c06da7220eb1cde0f995e2'),
+  // 存证事务ID
+  transactionId: string(name='transaction_id', example='7bc888d8-1384-425c-9355-630cef0f4120'),
+}
+
+// 合同存证信息
+model ContractNotaryInfo {
+  // 存证地址
+  txHash: string(name='tx_hash', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269'),
+  // 存证相关联的文档ID
+  docId?: string(name='doc_id', example='6afb5aa2679c5284444698a9790099269'),
+  // 存证的内容哈希值
+  contentHash?: string(name='content_hash', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269'),
+  // 存证事务ID
+  transactionId: string(name='transaction_id', example='61d0147c-5e6d-46e8-8030-5c2fedb6cbc9'),
+}
+
+// 个人信息
+model PersonInfo {
+  // 个人证件名称
+  certName: string(name='cert_name', example='张三'),
+  // 个人证件号码
+  certNo: string(name='cert_no', example='512223********1245'),
+  // 证件类型, 默认身份证 RESIDENT：居民身份证号，PASSPORT：护照，MILITARY：军官证
+  certType?: string(name='cert_type', example='RESIDENT'),
+}
+
+// 共享项目，资产端的采购平台回传的订单商品信息
+model SupplierOrderProductInfo {
+  // 商品id
+  productId: string(name='product_id', example='product_id_123'),
+  // 商品采购单价，单位：毫厘
+  productPrice: long(name='product_price', example='10000'),
+  // 商品的sn信息
+  snList: [ string ](name='sn_list', example='["sn1","sn2"]'),
+}
+
+// 电子合同文档
+model ContractDoc {
+  // 上传的电子合同文档是否被加密过，0-未被加密，1-被加密过，默认0
+  encryption?: long(name='encryption', example='1,0'),
+  // 电子合同文档的ID
+  fileId: string(name='file_id', example='01e50a9cedb74493a2d320b4f4732a29'),
+  // 电子合同文档名称，默认文件名称
+  fileName?: string(name='file_name', example='第一份合同.pdf'),
+  // 电子合同文档密码, 如果encryption值为1, 文档密码不能为空，默认没有密码
+  filePassword?: string(name='file_password', example='mypassword'),
 }
 
 // 合同印章
@@ -1033,336 +1243,52 @@ model ContractSeal {
   sealBizType?: string(name='seal_biz_type', example='COMMON'),
 }
 
-// 企业四要素校验
-model CompanyFourMetaInfo {
-  // 企业证件名称
-  companyCertName: string(name='company_cert_name', example='XX公司'),
-  // 企业证件号码
-  companyCertNo: string(name='company_cert_no', example='9111011421316034XK'),
-  // 证件类型, 默认社会统一信用代码  NATIONAL_LEGAL_MERGE:统一社会信用代码，NATIONAL_LEGAL：营业执照号码
-  companyCertType?: string(name='company_cert_type', example='NATIONAL_LEGAL_MERGE'),
-  // 法人证件名称
-  legalPersonCertName: string(name='legal_person_cert_name', example='张三'),
-  // 法人证件号码
-  legalPersonCertNo: string(name='legal_person_cert_no', example='110103202110131593'),
-  // 法人证件类型 RESIDENT：居民身份证号，PASSPORT：护照，MILITARY：军官证
-  legalPersonCertType?: string(name='legal_person_cert_type', example='RESIDENT'),
-}
-
-// 再融资订单信息
-model RefinanceOrderInfoResponse {
-  // 订单id
-  orderId: string(name='order_id', example='20220118123123123'),
-  // 合约id
-  applicationId: string(name='application_id', example='ABCDEFGH_IJKLMNO_dfadfadfafdadfadfsdffdadf'),
-}
-
-// 见证流程签署数据
-model WitnessSignData {
-  // 印章图片fileKey列表
-  sealFileKeys?: [ string ](name='seal_file_keys', example=''),
-  // 印章id列表
-  sealIds?: [ string ](name='seal_ids', example=''),
-  // 待签署文档摘要值，批量签时必传
-  signHash?: string(name='sign_hash', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269'),
-  // 签署位置信息
-  signPosData?: string(name='sign_pos_data', example=' '),
-  // 第三方文档id，批量签时必传
-  thirdDocId?: string(name='third_doc_id', example=' '),
-}
-
-// 采购商品信息
-model ApplySupplierOrderProductInput {
-  // 采购商品id
-  productId: string(name='product_id', example='202024234234'),
-  // 采购商品数量
-  productNum: long(name='product_num', example='100'),
-}
-
-// 关键字位置列表
-model KeywordsPosition {
-  // 关键字
-  keyword: string(name='keyword', example='keyword1'),
-  // 页码
-  pageIndex: long(name='page_index', example='32'),
-  // x坐标
-  posX: string(name='pos_x', example='315.43'),
-  // y坐标
-  posY: string(name='pos_y', example='185.65723'),
-}
-
-// 自动进件案件基础信息
-model CaseBasicInfo {
-  // 案件租户id
-  bizTenantId: string(name='biz_tenant_id', example='ORGJC1CN'),
-  // 案件类型:LEASE：租赁，FINANCIAL：金融，OTHER：其他
-  caseType: string(name='case_type', example='LEASE'),
-  // 标的金额（单位元）
-  amount?: string(name='amount', example='123.00'),
-  // 业务来源主键
-  inputSourceId: string(name='input_source_id', example='232278957595482'),
-  // 案件进件来源 
-  inputSource: string(name='input_source', example='租赁宝'),
-  // 根据业务来源主键对应订单号下的租赁事实报告和证据列表页面的嵌入URL
-  caseExt?: string(name='case_ext', example='https://www.aliyun.com'),
-}
-
-// 见证流程文档检验数据
-model WitnessDocs {
-  // 文档摘要值
-  docHash: string(name='doc_hash', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269'),
-  // 第三方文档id
-  thirdDocId: string(name='third_doc_id', example='someId'),
-}
-
-// 普通代扣规则
-model RepaymentOrderRequest {
-  // 代扣触发时间，精确到毫秒
-  // java.lang.System#currentTimeMillis()
-  payDate: long(name='pay_date', example='12345600000'),
-  // 代扣金额，整数 精确到分
-  payMoney: long(name='pay_money', example='1000'),
-  // 是否用户签署成功后立即触发第一期代扣
-  triggerImmediately?: long(name='trigger_immediately', example='1'),
-}
-
-// 个人信息
-model ContractUserAccountApplication {
-  // 邮箱地址，默认不变
+// 智能合同个人账户创建申请信息
+model ContractAccountApplication {
+  // 邮箱地址，默认空
   email?: string(name='email', example='xx@alipay.com'),
-  // 证件号，该字段只有为空才允许修改
-  idNumber?: string(name='id_number', example='311111111111111111'),
-  // 证件类型，默认为身份证
-  idType?: string(name='id_type', example='CRED_PSN_CH_IDCARD'),
-  // 手机号码，默认不变
-  mobile?: string(name='mobile', example='15811111111'),
-  // 姓名，默认不变
-  name?: string(name='name', example='张三'),
-  // 用户/经办人账号id
-  userId: string(name='user_id', example='ORGJC1CN1591674666666'),
-}
-
-// 可信时间信息结构
-model TsrResponse {
-  // 可信时间请求结果状态吗
-  code: string(name='code', example='0'),
-  // hash后的信息
-  hashedMessage: string(name='hashed_message', example='AAAAA '),
-  // 哈希算法
-  hashAlgorithm: string(name='hash_algorithm', example='321'),
-  // 请求失败时候的错误信息
-  message?: string(name='message', example='Request failed'),
-  // 时间
-  ts: string(name='ts', example='123'),
-  // 精简后的时间戳完整编码（在校验时需要提交）
-  ctsr: string(name='ctsr', example=' '),
-  // 凭证序列号 （在校验的时需要先填写凭证编号）
-  // 
-  sn: string(name='sn', example=' '),
-}
-
-// 采购供应商初始化 
-model SupplierInfo {
-  // 供应商id
-  agentSupplierId: string(name='agent_supplier_id', example='ABCDEFGH'),
-  // 被代理机构社会统一信用码
-  agentSupplierCorpId: string(name='agent_supplier_corp_id', example='12345678'),
-  // 被代理机构名称
-  agentSupplierCorpName: string(name='agent_supplier_corp_name', example='阿里巴巴有限公司'),
-  // 被代理供应商名称
-  agentSupplierName: string(name='agent_supplier_name', example='阿里'),
-  // 被代理机构的法人名称
-  agentSupplierCorpOwnerName: string(name='agent_supplier_corp_owner_name', example='张三'),
-  // 额外信息
-  extraInfo?: string(name='extra_info', example='{}'),
-}
-
-// 核验请求时对应的存证元数据
-model NotaryCheckMeta {
-  // 对应的法院编号
-  agencyCode?: string(name='agency_code', example='hzfy'),
-  // 哈希算法, notary_type 为 HASH 时此参数必填
-  hashAlgorithm?: string(name='hash_algorithm', example='SHA256'),
-  // 存证内容
-  notaryContent: string(name='notary_content', example='5p2t5bee5LuK5aSp5aSp5rCU6Zi0'),
-  // 交易哈希
-  txHash: string(name='tx_hash', example='aac0cf38b6072352f6b3be4cc0a3cf3950058472eacdda91e6723d75e2994567'),
-  // 应用ID
-  applicationCode?: string(name='application_code', example='dstj'),
-}
-
-// 企业信息
-model CompanyTwoMetaInfo {
-  // 企业证件名称
-  certName: string(name='cert_name', example='XX公司'),
-  // 企业证件号码
-  certNo: string(name='cert_no', example='9111011421316034XK'),
-  // 证件类型, 默认社会统一信用代码  NATIONAL_LEGAL_MERGE:统一社会信用代码，NATIONAL_LEGAL：营业执照号码
-  certType?: string(name='cert_type', example='NATIONAL_LEGAL_MERGE'),
-}
-
-// 电子合同文档的下载地址
-model ContractDocAddress {
-  // 电子合同文档ID
-  fileId: string(name='file_id', example='01e50a9cedb74493a2d320b4f4732a29'),
-  // 电子合同文档名称，默认文件名称
-  fileName: string(name='file_name', example='第一份合同.pdf'),
-  // 电子合同下载文档地址, 有效时间1小时
-  fileUrl: string(name='file_url', example='https://xxxoss.oss-cn-hangzhou.aliyuncs.com/xxx.pdf?Expires=xxx&OSSAccessKeyId=xxx&Signature=xxx'),
-  // 合同文件的存证地址
-  txHash?: string(name='tx_hash', example='a89495ddd334870a58686afe48a8eb83efe2dd51e4c06da7220eb1cde0f995e2'),
-}
-
-// 核验结果
-model NotaryCheckResult {
-  // 存证所在区块高度
-  blockHeight: long(minimum=0, name='block_height', example='8888'),
-  // 核验结果错误码
-  errorCode: long(name='error_code', example='错误码'),
-  // 错误信息
-  errorMessage: string(name='error_message', example='Permission denied'),
-  // 存证时间
-  notaryTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='notary_time', example='2020-01-08 11:48:21'),
-  // 存证类型
-  notaryType: string(name='notary_type', example='FileNotary'),
-  // 核验是否成功
-  result: boolean(name='result', example='true, false'),
-  // 存证事务ID
-  transactionId: string(name='transaction_id', example='1a273ba1-b4c2-4bfe-93fc-c5997f3bcee9'),
-  // 交易哈希
-  txHash: string(name='tx_hash', example='aac0cf38b6072352f6b3be4cc0a3cf3950058472eacdda91e6723d75e2994567'),
-  // 区块哈希
-  blockHash: string(name='block_hash', example='c3a50d4a7b521d4de13cefb02e5368b616e619d8fab5469298facacfbb39239b'),
-  // 存证阶段
-  phase: string(name='phase', example='start'),
-}
-
-// 用户端承诺信息
-model LeasePromiseInfo {
-  // 租期index
-  term: long(name='term', example='1'),
-  // 应还款金额
-  payMoney: long(name='pay_money', example='123400'),
-  // 应还款时间
-  payDate: string(name='pay_date', example='2019-07-31 12:00:00'),
-}
-
-// 融资租赁资方承诺
-model LeaseCreditPromiseInfo {
-  // 租期index
-  term: long(name='term', example='1'),
-  // 应还金额
-  payMoney: long(name='pay_money', example='123400'),
-  // 应还款时间
-  payDate: string(name='pay_date', example='2019-07-31 12:00:00'),
-  // 垫付日
-  payInAdvanceTime: string(name='pay_in_advance_time', example='2019-07-31 12:00:00'),
-  // 垫付金额
-  payInAdvanceMoney: long(name='pay_in_advance_money', example='123400'),
-}
-
-// 电子合同签署盖章区
-model ContractSignField {
-  // 电子合同用户ID
-  accountId: string(name='account_id', example='faea8237c61a4fdea864ee8d7621e14f'),
-  // 电子合同文档ID
-  fileId: string(name='file_id', example='fe7df2f477d649c18ebcfdfffeba253d'),
-  // 电子合同签署区id
-  signfieldId: string(name='signfield_id', example='b76b69d5b48d4f689cae997e42809ac4'),
-}
-
-// 签署区列表包含印章id数据
-model ContractSignFieldSealId {
-  // 文件file id
-  fileId?: string(name='file_id', example='0178c086a740475caf516f37901352b3'),
-  // 流程id
-  flowId?: string(name='flow_id', example='1b6b68e44d834f5982cf1959fd9782c3'),
-  // 印章id
-  sealId?: string(name='seal_id', example='8a8b26de-b15e-4791-ae89-e75d928155cc'),
-  // 印章类型，支持多种类型时逗号分割，0-手绘印章，1-模版印章，为空不限制
-  sealType?: string(name='seal_type', example='0'),
-  // 签署区Id
-  signfieldId?: string(name='signfield_id', example='52adb35497b141e3893912b3a2ea4f42'),
-}
-
-// 电子合同存证签署信息
-model ContractNotarySignInfo {
-  // 本阶段存证内容哈希值
-  content: string(name='content', example='content'),
-  // 电子合同文件hash，可能一次性签署多个文件，不同文件的hash间用“,”分隔开
-  contractHash: string(name='contract_hash', example='hash1,hash2'),
-  // 签署人ID
-  signatory: string(name='signatory', example='account_id_of_signatory'),
-  // 存证阶段发生时间，UNIX时间戳(毫秒)
-  timestamp: string(name='timestamp', example='1589198173000'),
-  // 存证凭据，仅在批量核验时需要填写
-  txHash?: string(name='tx_hash', example='95a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1c92'),
-  // 发起人名称
-  intiatorName?: string(name='intiator_name', example='张三'),
-  // 签署人名称,多个逗号隔开
-  signatorNames?: string(name='signator_names', example='李四,王五'),
-  // 详细文件哈希
-  detailInfoFileHash?: string(name='detail_info_file_hash', example='91a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1cqa '),
-}
-
-// 合同存证信息
-model ContractNotaryInfo {
-  // 存证地址
-  txHash: string(name='tx_hash', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269'),
-  // 存证相关联的文档ID
-  docId?: string(name='doc_id', example='6afb5aa2679c5284444698a9790099269'),
-  // 存证的内容哈希值
-  contentHash?: string(name='content_hash', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269'),
-  // 存证事务ID
-  transactionId: string(name='transaction_id', example='61d0147c-5e6d-46e8-8030-5c2fedb6cbc9'),
-}
-
-// 电子合同存证结束信息
-model ContractNotaryFinishInfo {
-  // 本阶段存证内容哈希值
-  content: string(name='content', example='content'),
-  // 签署文件份数
-  fileNum: long(name='file_num', example='3'),
-  // 发起人ID
-  initiator: string(name='initiator', example='account_id_of_initiator'),
-  // 签署人ID（支持多个，不同ID间用“,”分隔开）
-  signatories: string(name='signatories', example='account_id_1,account_id_2'),
-  // 存证阶段发生时间，UNIX时间戳(毫秒)
-  timestamp: string(name='timestamp', example='1589198173000'),
-  // 存证凭据，仅在批量核验时需要填写
-  txHash?: string(name='tx_hash', example='95a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1c92'),
-  // signatories对应的用户类型
-  userTypes?: string(name='user_types', example='PERSON,ENTERPRISE,PERSON'),
-  // 签署合同所属行业
-  businessType?: string(name='business_type', example='finance'),
-  // 合同对应的金额，如果不涉及金额，填充为0，个数与file_num对应
-  amounts?: string(name='amounts', example='888,0,888'),
-  // 签署方数量
-  signPartyCount?: long(name='sign_party_count', example='2'),
-  // 发起人名称
-  intiatorName?: string(name='intiator_name', example='张三'),
-  // 签署人名称,多个逗号隔开
-  signatorNames?: string(name='signator_names', example='李四,王五'),
-  // 详细文件哈希
-  detailInfoFileHash?: string(name='detail_info_file_hash', example='a91a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1cqa'),
-}
-
-// 智能合同机构账户创建申请信息
-model ContractOrganizationApplication {
   // 证件号
-  idNumber: string(name='id_number', example='12330100470104939U'),
-  // 证件类型，默认CRED_ORG_USCC，详见机构证件类型说明 （https://tech.antfin.com/docs/2/155166）
-  idType: string(name='id_type', example='CRED_ORG_USCC'),
-  // 企业法人名称
-  legalPerson?: string(name='legal_person', example='测试法人'),
-  // 企业法人证件号
-  legalPersonId?: string(name='legal_person_id', example='311111111111111111'),
-  // 机构名称
-  name: string(name='name', example='测试企业'),
-  // 机构唯一标识，可传入第三方平台的机构用户id等
-  organizationId?: string(name='organization_id', example='B002'),
-  // 机构子类型：ENTERPRISE（企业）、SELF-EMPLOYED（个体工商户）、SUBSIDIARY（分公司）、OTHERORG（其他机构）。若填入这些类型，将会进行相应参数校验，例如：企业类型要求进行企业四要素校验，企业证件号必须是91开头，并且企业类型在签署时会需要授权后才可进行签署；个体工商户要求证件号必须是92开头，其余类型无其他校验。不填入此参数不会进行校验。
-  orgType?: string(name='org_type', example='ENTERPRISE'),
+  idNumber: string(name='id_number', example='311111111111111111'),
+  // 目前仅支持CRED_PSN_CH_IDCARD，即身份证号码
+  idType: string(name='id_type', example='CRED_PSN_CH_IDCARD'),
+  // 手机号码，默认空
+  mobile?: string(name='mobile', example='15811111111'),
+  // 姓名
+  name: string(name='name', example='张三'),
+  // 用户唯一标识，可传入第三方平台的个人用户id等
+  userId: string(name='user_id', example='A001'),
+}
+
+// 签署区列表数据
+model ContractPlatformSignFieldApplication {
+  // 文件file id
+  fileId: string(name='file_id', example='fe7df2f477d649c18ebcfdfffeba253d'),
+  // 签署顺序，默认1,且不小于1，顺序越小越先处理
+  order?: long(name='order', example='1'),
+  // 印章id， 仅限企业公章，暂不支持指定企业法定代表人印章 ，如不传，则采用账号下的默认印章
+  sealId?: string(name='seal_id', example='bcd7ffd9-5caf-4342-bd1c-02257229ccd5'),
+  // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
+  thirdOrderNo?: string(name='third_order_no', example=' '),
+  // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
+  posPage: string(name='pos_page', example='1'),
+  // x坐标，默认空
+  posX?: string(name='pos_x', example='158.72531'),
+  // y坐标
+  posY: string(name='pos_y', example='431.05658'),
+  // 签署区宽，默认印章宽度
+  width?: string(name='width', example='1'),
+  // 是否添加签署时间戳， 默认不添加，默认格式 yyyy-MM-dd HH : mm : ss
+  addSignTime?: boolean(name='add_sign_time', example='true, false'),
+  // 签署类型， 1-单页签署，2-骑缝签署，默认1
+  signType?: long(name='sign_type', example='1'),
+}
+
+// 租赁业务存证信息记录
+model LeaseNotaryRecord {
+  // 存证阶段
+  phase: string(name='phase', example='PLACE_ORDER'),
+  // 交易哈希，存证记录唯一标识
+  txHash: string(name='tx_hash', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269'),
 }
 
 // 证据要素
@@ -1393,7 +1319,7 @@ model ContractHandSignFieldApplication {
   posY?: string(name='pos_y', example='1.1'),
   // 印章id
   sealId?: string(name='seal_id', example='bcd7ffd9-5caf-4342-bd1c-02257229ccd5'),
-  // 是否需要添加签署日期，0-禁止 1-必须 2-不限制，默认0
+  // 是否需要添加签署日期，0-禁止 1-必须 ，默认0
   signDateBeanType?: long(name='sign_date_bean_type', example=''),
   // 签章日期字体大小,默认12
   signDateFontSize?: long(name='sign_date_font_size', example=''),
@@ -1417,108 +1343,112 @@ model ContractHandSignFieldApplication {
   signFieldType?: long(name='sign_field_type', example='0'),
 }
 
-// 见证流程审批数据
-model WitnessApprovalData {
-  // 审批流程id
-  approvalFlowId?: string(name='approval_flow_id', example='someId'),
-  // 印章id列表
-  sealIds?: [ string ](name='seal_ids', example=''),
+// 再融资订单信息
+model RefinanceOrderInfoResponse {
+  // 订单id
+  orderId: string(name='order_id', example='20220118123123123'),
+  // 合约id
+  applicationId: string(name='application_id', example='ABCDEFGH_IJKLMNO_dfadfadfafdadfadfsdffdadf'),
 }
 
-// 机构信息
-model ContractUserOrganizationApplication {
-  // 证件号，该字段只有为空才允许修改
-  idNumber?: string(name='id_number', example='12330100470104939U'),
-  // 证件类型 ，默认CRED_ORG_USCC
-  idType?: string(name='id_type', example='CRED_ORG_USCC'),
-  // 企业法定代表人名称
-  legalPerson?: string(name='legal_person', example='测试法人'),
-  // 企业法定代表人证件号
-  legalPersonId?: string(name='legal_person_id', example='311111111111111111'),
-  // 机构名称
-  name?: string(name='name', example='测试企业'),
-  // 机构账号id
-  organizationId: string(name='organization_id', example='ORGJC1CN1591666666666'),
+// 供应商对应的产品详细信息
+model SupplierProductInfo {
+  // 产品额外信息
+  extraInfo?: string(name='extra_info', example='{}'),
+  // 产品id
+  productId: string(name='product_id', example='GS2020123'),
+  // 电子商品唯一标识码
+  productImeiId: string(name='product_imei_id', example='12323,123123,234234'),
+  // 产品名称
+  productName: string(maxLength=50, minLength=1, name='product_name', example='IPAD mini 2012'),
+  // 采购产品的个数
+  productNumber: long(name='product_number', example='1'),
+  // 采购产品的价格，精确到毫厘，如12.34元表示为123400
+  productPrice: long(name='product_price', example='10000'),
+  // 产品版本
+  supplierVersion?: string(name='supplier_version', example='0'),
 }
 
-// 证据清单
-model EvidentialCheckList {
-  // 证据名称英文 
-  evidentialNameEn: string(name='evidential_name_en', example='LEGAL_IDENETITY_CERT'),
-  // 文件名称
-  ossFileName: string(name='oss_file_name', example='a.txt'),
-  // 文件fileKey ，调用获取文件上传链接时对应的fileKey
-  ossFileKey: string(name='oss_file_key', example='201906182149291c15e6c2d400fc3323b09f44a4e79bdf2db867a3fb9400a168de3325205519.jpg'),
-  // 证据来源
-  // BUSINESS_UPLOAD	业务传入
-  // ADD_MANULLY	手动添加
-  sourcesOfEvidence: string(name='sources_of_evidence', example='BUSINESS_UPLOAD'),
-  // 证据类型
-  // BLOCKCHAIN_DEPOSIT	区块链存证
-  // USER_UPLOAD	用户上传
-  evidenceType: string(name='evidence_type', example='BLOCKCHAIN_DEPOSIT'),
-  // 存证类型
-  // TEXT	文本
-  // FILE	文件
-  depositType: string(name='deposit_type', example='TEXT'),
-  // 存证哈希 当为区块链存证必填
-  txHash?: string(name='tx_hash', example='1234545676575675673'),
-  // 存证时间 当为区块链存证必填
-  depositTime?: string(name='deposit_time', example='2021-05-07 17:13:50'),
+// 订单商品
+model LeaseOrderProductInfo {
+  // 商品编码 长度不可超过50
+  productId: string(name='product_id', example='123456'),
+  // 产品版本，每个版本可以对应一个价格 长度不可超过50，版本号未正整数，示例"123"
+  productVersion: string(name='product_version', example='123'),
+  // 商品名称 长度不可超过50
+  productName: string(name='product_name', example='iphone13'),
+  // 采购价  精确到毫厘，即123400表示12.34元
+  productPrice: long(name='product_price', example='123400'),
+  // 供应商Id，用以做索引 长度不可超过50
+  supplierIsvAccount: string(name='supplier_isv_account', example='小米'),
 }
 
-// 存证信息说明
-model NotaryInfo {
-  // 存证内容的哈希值，默认采用SHA256算法
-  contentHash: string(name='content_hash', example='6b7966f4a30a7fec43a6b5ca8e4610f63d320f03ee698945014c0bbc13c6beba'),
-  // 合作人（版权存证函专用），会展示在存证证明中
-  cooperation?: string(name='cooperation', example='合作人'),
-  // 作品名称类型（版权存证函使用），会展示在存证证明中
-  creationType?: string(name='creation_type', example='音乐/视频/小说等'),
-  // 如果是文件存证，可填写文件名称
-  fileName?: string(name='file_name', example='name'),
-  // 计算content_hash的哈希算法，目前只支持SHA256
-  hashAlgorithm?: string(name='hash_algorithm', example='SHA256'),
-  // 申请平台名，用于在存证函上显示用名称
-  platform?: string(name='platform', example='某某平台'),
-  // 文件容量，默认为0
-  size?: long(name='size', example='1024'),
-  // 发起存证成功后，返回的存证凭据
-  txHash: string(name='tx_hash', example='a89495ddd334870a58686afe48a8eb83efe2dd51e4c06da7220eb1cde0f995e2'),
-  // 存证事务ID
-  transactionId: string(name='transaction_id', example='7bc888d8-1384-425c-9355-630cef0f4120'),
+// 数字票根一键全流程存证相关参数
+model OnestepFlowNotaryInfo {
+  // 全流程模板id，需要提前创建好模板才能获取
+  templateId: string(name='template_id', example='TP_4a605f04-ae9f-48d3-88ba-05c073ad5484'),
+  // 流程名称，同一个租户下同一个模板，建议唯一不重复
+  flowName: string(name='flow_name', example='员工入职流程_员工xxxxx'),
+  // 存证关联实体（个人/企业）的身份识别信息
+  notaryUser: NotaryUser(name='notary_user', example=''),
+  // 阶段存证内容列表，根据模板定义传入
+  phaseNotaryList: [ PhaseNotary ](name='phase_notary_list', example=''),
+  // 扩展属性
+  properties?: string(name='properties', example='{"key":"value"}'),
 }
 
-// 自动进件证据要素
-model LeaseEvidentialElement {
-  // 订单信息
-  leaseOrderInfo: LeaseOrderInfo(name='lease_order_info', example=''),
-  // 承诺信息
-  commitmentInfo: CommitmentInfo(name='commitment_info', example=''),
-  // 物流信息
-  logisticsInfo: LogisticsInfo(name='logistics_info', example=''),
-  // 履约信息
-  performanceInfo: LeasePerformanceInfo(name='performance_info', example=''),
+// 更新后平台方经办人信息
+model ContractCreatorApplication {
+  // 邮箱地址
+  email?: string(name='email', example='wutest@tsign.com'),
+  // 证件号
+  idNumber: string(name='id_number', example='311111111111111111'),
+  // 证件类型
+  idType: string(name='id_type', example='CRED_PSN_CH_IDCARD'),
+  // 手机号码
+  mobile?: string(name='mobile', example='15811111111'),
+  // 姓名
+  name: string(name='name', example='张三'),
+  // 创建人ID
+  creatorId: string(name='creator_id', example='0178c086a740475caf516f37901352b3'),
 }
 
-// 租赁业务存证信息记录
-model LeaseNotaryRecord {
-  // 存证阶段
-  phase: string(name='phase', example='PLACE_ORDER'),
-  // 交易哈希，存证记录唯一标识
-  txHash: string(name='tx_hash', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269'),
+// 融资租赁里的产品详细信息
+model ProductInfo {
+  // 是否需要创建did
+  needDid?: boolean(name='need_did', example='true, false'),
+  // 产品品牌，长度不超过50
+  productBrand?: string(name='product_brand', example='大金'),
+  // 产品Id，长度不超过50
+  productId: string(name='product_id', example='productId'),
+  // 唯一标识码，imeiID，长度不超过50
+  productImeiId?: string(name='product_imei_id', example='sn_number'),
+  // 产品规格型号，长度不超过255
+  productModel?: string(name='product_model', example='LP3001'),
+  // 产品名称，长度不超过50
+  productName: string(name='product_name', example='大金空调'),
+  // 产品数量
+  productNumber: long(name='product_number', example='10'),
+  // 产品采购含税价 精确到毫厘，即123400表示12.34元
+  productPrice: long(name='product_price', example='123400'),
+  // 供应商id
+  supplierId?: string(name='supplier_id', example='supplierId'),
+  // 供应商对应的产品版本，每个版本可以对应一个价格
+  supplierVersion?: string(name='supplier_version', example='001'),
+  // 额外字段
+  extraInfo?: string(name='extra_info', example='{}'),
 }
 
-// 电子合同文档
-model ContractDoc {
-  // 上传的电子合同文档是否被加密过，0-未被加密，1-被加密过，默认0
-  encryption?: long(name='encryption', example='1,0'),
-  // 电子合同文档的ID
-  fileId: string(name='file_id', example='01e50a9cedb74493a2d320b4f4732a29'),
-  // 电子合同文档名称，默认文件名称
-  fileName?: string(name='file_name', example='第一份合同.pdf'),
-  // 电子合同文档密码, 如果encryption值为1, 文档密码不能为空，默认没有密码
-  filePassword?: string(name='file_password', example='mypassword'),
+// 支付扣款详情
+model PaymentDetail {
+  // 业务自定义扣款id，长度不能超过64
+  bizTradeId: string(name='biz_trade_id', example='miivpw2345678'),
+  // 扣款期数
+  period: long(name='period', example='1'),
+  // 支付金额，单位：分
+  payMoney: long(name='pay_money', example='1200'),
+  // 计划扣款时间，格式"yyyy-MM-dd HH:mm:ss"
+  payDate: string(name='pay_date', example='2022-01-19 12:00:00'),
 }
 
 // 电子合同代扣计划取消操作信息
@@ -1533,32 +1463,20 @@ model ContractNotaryDeductCancelInfo {
   orders: string(name='orders', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269_1'),
 }
 
-// 电子合同存证代扣计划信息
-model ContractNotaryDeductPlanInfo {
-  // PAYERIDNUMBER
-  payerId: string(name='payer_id', example='付款方ID'),
-  // “总金额：”+总金额“+”“总期数：”+总期数，“+”每期金额时间（X期金额，时间）
-  deductPlanInfo: string(name='deduct_plan_info', example='代扣计划说明'),
-  // AGREEMEND_ID_NUMBER
-  agreementNo: string(name='agreement_no', example='代扣协议ID'),
-  // 代扣计划发起时间
-  timestamp: string(name='timestamp', example='1589198173000'),
-}
-
-// 电子合同签署流程的配置信息
-model ContractSignFlowConfig {
-  // 回调通知地址 ,默认取项目配置通知地址
-  noticeDeveloperUrl?: string(name='notice_developer_url', example='http://127.0.0.1:9110/notice'),
-  // 签署通知和审批通知的通知方式，传 "" 表示不需要通知，传"1"表示短信通知。短信功能需要联系售后开白名单才会生效。
-  noticeType: string(name='notice_type', example='1'),
-  // 签署成功或者流程结束后的默认重定向地址，默认签署完成停在当前页面
-  redirectUrl?: string(name='redirect_url', example='http://127.0.0.1:8110/h5/forword'),
-  // 签署平台，逗号分割，1-开放服务h5，2-支付宝签 ，默认值1
-  signPlatform?: string(name='sign_platform', example='1'),
-  // 签署失败时的跳转地址，如果不做单独配置，默认与redirect_url一致（配合twc.notary.contract.signflow.create接口使用）
-  redirectUrlOnFailure?: string(name='redirect_url_on_failure', example='http://127.0.0.1:8110/h5/forword/failure'),
-  // 是否允许自由签署，默认false（配合twc.notary.contract.signflow.create接口使用）
-  freeSignature?: boolean(name='free_signature', example='true, false'),
+// 平台方经办人信息
+model ContractPlatformAccountApplication {
+  // 邮箱地址
+  email?: string(name='email', example='xx@alipay.com'),
+  // 证件号
+  idNumber: string(name='id_number', example='311111111111111111'),
+  // 证件类型
+  idType: string(name='id_type', example='CRED_PSN_CH_IDCARD'),
+  // 手机号码
+  mobile?: string(name='mobile', example='15811111111'),
+  // 姓名
+  name: string(name='name', example='张三'),
+  // 用户唯一标识，可传入第三方平台的个人用户id等
+  userId: string(name='user_id', example='A001'),
 }
 
 // 更新后平台方企业信息
@@ -1577,14 +1495,157 @@ model ContractPlatformApplication {
   platformId: string(name='platform_id', example='5c66842caf754a6dada4124b66666666'),
 }
 
-// 存证证明的证书信息
-model CertificateInfo {
-  // 存证证明的证书内容的SHA256哈希值
-  hash: string(name='hash', example='6b7966f4a30a7fec43a6b5ca8e4610f63d320f03ee698945014c0bbc13c6beba'),
-  // 存证证明的证书文件名
-  resourceName: string(name='resource_name', example='resource_name.pdf'),
-  // 存证证明的证书下载地址
-  resourceUrl: string(name='resource_url', example='https://resource_download_adderss'),
+// 融资租赁用户侧还款条目
+model LeaseRentalInfo {
+  // 租期编号
+  term: long(name='term', example='1'),
+  // 租金归还状态，1.足额归还2.部分归还3.未归还
+  rentalReturnState: long(name='rental_return_state', example='1'),
+  // 租金归还金额,精确到毫厘，即123400表示12.34元
+  rentalMoney: long(name='rental_money', example='123400'),
+  // 归还时间
+  returnTime: string(name='return_time', example='2019-07-31 12:00:00'),
+  // 归还方式，1.预授权代扣2.支付宝代扣3.主动还款4.其他，5网商直付通代扣
+  returnWay: long(name='return_way', example='1'),
+  // 还款凭证类型，1.支付宝2.平台代收（客户主动还款）3.其他
+  returnVoucherType: long(name='return_voucher_type', example='1'),
+  // 还款凭证编号，不超过128字符，支付宝流水号
+  returnVoucherSerial: string(name='return_voucher_serial', example='20212312312313'),
+  // 剩余归还期数
+  remainTerm: long(name='remain_term', example='11'),
+}
+
+// 核验结果
+model NotaryCheckResult {
+  // 存证所在区块高度
+  blockHeight: long(minimum=0, name='block_height', example='8888'),
+  // 核验结果错误码
+  errorCode: long(name='error_code', example='错误码'),
+  // 错误信息
+  errorMessage: string(name='error_message', example='Permission denied'),
+  // 存证时间
+  notaryTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='notary_time', example='2020-01-08 11:48:21'),
+  // 存证类型
+  notaryType: string(name='notary_type', example='FileNotary'),
+  // 核验是否成功
+  result: boolean(name='result', example='true, false'),
+  // 存证事务ID
+  transactionId: string(name='transaction_id', example='1a273ba1-b4c2-4bfe-93fc-c5997f3bcee9'),
+  // 交易哈希
+  txHash: string(name='tx_hash', example='aac0cf38b6072352f6b3be4cc0a3cf3950058472eacdda91e6723d75e2994567'),
+  // 区块哈希
+  blockHash: string(name='block_hash', example='c3a50d4a7b521d4de13cefb02e5368b616e619d8fab5469298facacfbb39239b'),
+  // 存证阶段
+  phase: string(name='phase', example='start'),
+}
+
+// 融资租赁资金方还款条目信息
+model LeaseRepaymentInfo {
+  // 融资租赁还款流水
+  repaymentUniqueId: string(name='repayment_unique_id', example='20211231123000123'),
+  // 还款批次
+  returnIndex: string(name='return_index', example='1'),
+  // 还款日期
+  returnTime: string(name='return_time', example='2019-07-31 12:00:00'),
+  // 还款总额,本金+利息，精确到毫厘，即123400表示12.34元
+  returnMoney: long(name='return_money', example='123400'),
+  // 还款结果状态,1.成功 2.失败
+  returnStatus: long(name='return_status', example='1'),
+  // 还款结果简要描述,长度不超过256
+  returnDescription: string(name='return_description', example='""'),
+  // 还款来源,1.共管账号，2.网商清分
+  source: long(name='source', example='2'),
+  // 剩余应还期数
+  remainReturnTerm: long(name='remain_return_term', example='1'),
+  // 本期剩余应还金额，精确到毫厘，即123400表示12.34元
+  remainReturnMoney: long(name='remain_return_money', example='123400'),
+  // 逾期状态,0为未逾期，1表示逾期
+  overdueStatus: long(name='overdue_status', example='0'),
+  // 逾期利率（日利率）,精确到小数点后四位 12.34% 表示为1234
+  overdueRate: long(name='overdue_rate', example='0'),
+  // 逾期天数,支用到期日开始计算
+  overdueDay: long(name='overdue_day', example='0'),
+  // 逾期应还款总额,本金+利息+逾期利息,精确到毫厘，即123400表示12.34元
+  overdueMoney: long(name='overdue_money', example='0'),
+}
+
+// 数字票根扩展字段
+model StubExtraInfo {
+  // C端用户的支付宝id
+  customerId: string(name='customer_id', example='2088xxxxx'),
+  // 票面视觉
+  ticketVision?: string(name='ticket_vision', example='https://www.xx.com'),
+}
+
+// 用户端承诺信息
+model LeasePromiseInfo {
+  // 租期index
+  term: long(name='term', example='1'),
+  // 应还款金额
+  payMoney: long(name='pay_money', example='123400'),
+  // 应还款时间
+  payDate: string(name='pay_date', example='2019-07-31 12:00:00'),
+}
+
+// 个人信息
+model ContractUserAccountApplication {
+  // 邮箱地址，默认不变
+  email?: string(name='email', example='xx@alipay.com'),
+  // 证件号，该字段只有为空才允许修改
+  idNumber?: string(name='id_number', example='311111111111111111'),
+  // 证件类型，默认为身份证
+  idType?: string(name='id_type', example='CRED_PSN_CH_IDCARD'),
+  // 手机号码，默认不变
+  mobile?: string(name='mobile', example='15811111111'),
+  // 姓名，默认不变
+  name?: string(name='name', example='张三'),
+  // 用户/经办人账号id
+  userId: string(name='user_id', example='ORGJC1CN1591674666666'),
+}
+
+// 企业信息
+model CompanyTwoMetaInfo {
+  // 企业证件名称
+  certName: string(name='cert_name', example='XX公司'),
+  // 企业证件号码
+  certNo: string(name='cert_no', example='9111011421316034XK'),
+  // 证件类型, 默认社会统一信用代码  NATIONAL_LEGAL_MERGE:统一社会信用代码，NATIONAL_LEGAL：营业执照号码
+  certType?: string(name='cert_type', example='NATIONAL_LEGAL_MERGE'),
+}
+
+// 签字人
+model ContractFlowSigner {
+  // 签署顺序
+  signOrder?: long(name='sign_order', example='1'),
+  // 签署状态, 0-待签, 1-未签, 2-已签 3-待审批 4-拒签
+  signStatus?: long(name='sign_status', example='1'),
+  // 签署人账号id
+  signerAccountId?: string(name='signer_account_id', example='24c93459216945468fdf1d899c521910'),
+  // 签署人名称
+  signerName?: string(name='signer_name', example='孙中'),
+  // 签署人是否已实名
+  signerRealName?: boolean(name='signer_real_name', example='true, false'),
+  // 签约主体的账号id（个人/企业）；如签署人本签署，则返回签署人账号id；如签署人代机构签署，则返回机构账号id
+  signerAuthorizedAccountId?: string(name='signer_authorized_account_id', example='2c7de24aff3340f5b944ebac49545b8e'),
+  // 签约主体名称
+  signerAuthorizedAccountName?: string(name='signer_authorized_account_name', example='深圳天谷信息科技有限公司'),
+  // 签署主体是否已实名
+  signerAuthorizedAccountRealName?: boolean(name='signer_authorized_account_real_name', example='true, false'),
+  // 签署主体类型, 0-个人, 1-机构
+  signerAuthorizedAccountType?: long(name='signer_authorized_account_type', example='1'),
+  // 本次签署任务对应指定的第三方业务流水号id，当存在多个第三方业务流水号id时，返回多个，并逗号隔开
+  thirdOrderNo?: string(name='third_order_no', example=' '),
+}
+
+// 普通代扣规则
+model RepaymentOrderRequest {
+  // 代扣触发时间，精确到毫秒
+  // java.lang.System#currentTimeMillis()
+  payDate: long(name='pay_date', example='12345600000'),
+  // 代扣金额，整数 精确到分
+  payMoney: long(name='pay_money', example='1000'),
+  // 是否用户签署成功后立即触发第一期代扣
+  triggerImmediately?: long(name='trigger_immediately', example='1'),
 }
 
 // 一步创建签署流程的签署区信息
@@ -1625,26 +1686,6 @@ model OneStepSignField {
   autoExecute?: boolean(name='auto_execute', example='true, false'),
 }
 
-// 融资租赁用户侧还款条目
-model LeaseRentalInfo {
-  // 租期编号
-  term: long(name='term', example='1'),
-  // 租金归还状态，1.足额归还2.部分归还3.未归还
-  rentalReturnState: long(name='rental_return_state', example='1'),
-  // 租金归还金额,精确到毫厘，即123400表示12.34元
-  rentalMoney: long(name='rental_money', example='123400'),
-  // 归还时间
-  returnTime: string(name='return_time', example='2019-07-31 12:00:00'),
-  // 归还方式，1.预授权代扣2.支付宝代扣3.主动还款4.其他，5网商直付通代扣
-  returnWay: long(name='return_way', example='1'),
-  // 还款凭证类型，1.支付宝2.平台代收（客户主动还款）3.其他
-  returnVoucherType: long(name='return_voucher_type', example='1'),
-  // 还款凭证编号，不超过128字符，支付宝流水号
-  returnVoucherSerial: string(name='return_voucher_serial', example='20212312312313'),
-  // 剩余归还期数
-  remainTerm: long(name='remain_term', example='11'),
-}
-
 // 电子合同存证初始化信息
 model ContractNotaryInitInfo {
   // 本阶段存证内容哈希值
@@ -1667,16 +1708,86 @@ model ContractNotaryInitInfo {
   detailInfoFileHash?: string(name='detail_info_file_hash', example='91a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1cqa'),
 }
 
-// 见证流程创建响应数据
-model WitnessFlowConfig {
-  // 企业实名认证方式,对公打款：1；企业芝麻认证：3；法定代表授权：4；
-  organRealnameTypes?: [ long ](name='organ_realname_types', example=''),
-  // 个人实名认证方式, 银行四要素：2；芝麻认证-人脸识别：3；微众-人脸识别：4；
-  personRealnameTypes?: [ long ](name='person_realname_types', example=''),
-  // 是否需要实名认证
-  realNameCert?: boolean(name='real_name_cert', example='true, false'),
-  // 意愿认证方式, 芝麻认证-人脸识别：2；短信验证码：3；微众-人脸识别：4；ukey认证：5；签署密码认证：6；
-  willingnessTypes?: [ long ](name='willingness_types', example=''),
+// 可信存证身份识别信息
+model Identity {
+  // 经办人姓名，企业认证选填
+  agent?: string(name='agent', example='小明'),
+  // 经办人身份证，企业认证选填
+  agentId?: string(name='agent_id', example='123123123123'),
+  // 用户名称
+  certName: string(name='cert_name', example='小王'),
+  // 证件号
+  certNo: string(name='cert_no', example='12332112312312'),
+  // 证件类型，个人只支持身份证IDENTITY_CARD，企业支持UNIFIED_SOCIAL_CREDIT_CODE（统一社会信用代码）和ENTERPRISE_REGISTERED_NUMBER（企业工商注册号）
+  certType: string(name='cert_type', example='IDENTITY_CARD'),
+  // 法人姓名，企业认证必选
+  legalPerson?: string(name='legal_person', example='小李'),
+  // 法人身份证，企业认证必选
+  legalPersonId?: string(name='legal_person_id', example='123123321123'),
+  // 用户手机号码
+  mobileNo?: string(name='mobile_no', example='1231231231'),
+  // 扩展属性
+  properties?: string(name='properties', example='{"key":"value"}'),
+  // 用户类型，PERSON或者ENTERPRISE
+  userType: string(name='user_type', example='PERSON'),
+  // 经办人证件类型，企业认证选填
+  agentCertType?: string(name='agent_cert_type', example='IDENTITY_CARD'),
+  // 法人证件类型，企业认证必选
+  legalPersonCertType?: string(name='legal_person_cert_type', example='IDENTITY_CARD'),
+}
+
+// 存证证明的证书信息
+model CertificateInfo {
+  // 存证证明的证书内容的SHA256哈希值
+  hash: string(name='hash', example='6b7966f4a30a7fec43a6b5ca8e4610f63d320f03ee698945014c0bbc13c6beba'),
+  // 存证证明的证书文件名
+  resourceName: string(name='resource_name', example='resource_name.pdf'),
+  // 存证证明的证书下载地址
+  resourceUrl: string(name='resource_url', example='https://resource_download_adderss'),
+}
+
+// 采购订单信息
+model ApplySupplierOrderProductOutput {
+  // 订单id
+  orderId: string(name='order_id', example='2020223123'),
+  // 链上采购单id
+  purOrderId: string(name='pur_order_id', example='23042340234234'),
+  // 待采购：READY_DELIVER
+  // 已采购：DELIVERED
+  // 已拒发：REJECTED
+  // 已退货：RETURNED
+  // 已取消：CANCELED
+  purOrderStatus: string(name='pur_order_status', example='链上采购状态'),
+  // 供应商id
+  supplierId?: string(name='supplier_id', example='ABCDEFGH'),
+}
+
+// 平台方企业信息
+model ContractPlatformOrganizationApplication {
+  // 证件号
+  idNumber: string(name='id_number', example='12330100470104939U '),
+  // 证件类型
+  idType: string(name='id_type', example='CRED_ORG_USCC'),
+  // 企业法人名称
+  orgLegalName?: string(name='org_legal_name', example='测试法人'),
+  // 企业法人证件号
+  orgLegalIdNumber?: string(name='org_legal_id_number', example='311111111111111111'),
+  // 机构名称
+  name: string(name='name', example='测试企业'),
+}
+
+// 签署区列表包含印章id数据
+model ContractSignFieldSealId {
+  // 文件file id
+  fileId?: string(name='file_id', example='0178c086a740475caf516f37901352b3'),
+  // 流程id
+  flowId?: string(name='flow_id', example='1b6b68e44d834f5982cf1959fd9782c3'),
+  // 印章id
+  sealId?: string(name='seal_id', example='8a8b26de-b15e-4791-ae89-e75d928155cc'),
+  // 印章类型，支持多种类型时逗号分割，0-手绘印章，1-模版印章，为空不限制
+  sealType?: string(name='seal_type', example='0'),
+  // 签署区Id
+  signfieldId?: string(name='signfield_id', example='52adb35497b141e3893912b3a2ea4f42'),
 }
 
 // 文件模板中的输入项组件
@@ -1711,104 +1822,49 @@ model ContractTemplateStructComponent {
   y?: string(name='y', example='11.11'),
 }
 
-// 融资租赁人脸认证提前还款租期记录
-model FinanceCertifyRentalInfo {
-  // 租期
-  rentTerm: long(name='rent_term', example='1'),
-  // 本期扣款金额，123400表示12.34元
-  rentalMoney: long(name='rental_money', example='123400'),
-  // 还款日期，格式为"2019-07-31 12:00:00"
-  rentalReturnTime: string(name='rental_return_time', example='2019-07-31 12:00:00'),
+// 可信时间信息结构
+model TsrResponse {
+  // 可信时间请求结果状态吗
+  code: string(name='code', example='0'),
+  // hash后的信息
+  hashedMessage: string(name='hashed_message', example='AAAAA '),
+  // 哈希算法
+  hashAlgorithm: string(name='hash_algorithm', example='321'),
+  // 请求失败时候的错误信息
+  message?: string(name='message', example='Request failed'),
+  // 时间
+  ts: string(name='ts', example='123'),
+  // 精简后的时间戳完整编码（在校验时需要提交）
+  ctsr: string(name='ctsr', example=' '),
+  // 凭证序列号 （在校验的时需要先填写凭证编号）
+  // 
+  sn: string(name='sn', example=' '),
 }
 
-// 融资租赁清分信息
-model LeaseClearingInfo {
-  // 还款批次
-  returnIndex: long(name='return_index', example='1'),
-  // 清分状态
-  clearingState: long(name='clearing_state', example='1'),
-  // 清分金额,精确到毫厘，即123400表示12.34元
-  clearingMoney: long(name='clearing_money', example='123400'),
-  // 开始清分时间
-  startTime: string(name='start_time', example='2019-07-31 12:00:00'),
-  // 结束清分时间
-  endTime: string(name='end_time', example='2019-08-31 12:00:00'),
-  // 清分单号
-  clearingOrderId: string(name='clearing_order_id', example='2021231231231313'),
-  // 清分收款账号
-  clearingAccount: string(name='clearing_account', example='88234234234xxxx'),
-  // 清分额外说明
-  memo: string(name='memo', example='""'),
+// 融资租赁中IOT设备详情
+model LeaseIotItemInfo {
+  // 证据的时间
+  date: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='date', example='2018-10-10T10:10:00Z'),
+  // 证据的txHash
+  txHash: string(name='tx_hash', example='0xaaaaabbbbbcccc'),
+  // 证据的原始数据，默认为空或加密状态，除非调用方为授权用户（如出资方等
+  rawData: string(name='raw_data', example='""'),
 }
 
-// 更新后平台方经办人信息
-model ContractCreatorApplication {
-  // 邮箱地址
-  email?: string(name='email', example='wutest@tsign.com'),
-  // 证件号
-  idNumber: string(name='id_number', example='311111111111111111'),
-  // 证件类型
-  idType: string(name='id_type', example='CRED_PSN_CH_IDCARD'),
-  // 手机号码
-  mobile?: string(name='mobile', example='15811111111'),
-  // 姓名
-  name: string(name='name', example='张三'),
-  // 创建人ID
-  creatorId: string(name='creator_id', example='0178c086a740475caf516f37901352b3'),
+// 见证流程文档确认数据
+model WitnessConfirmData {
+  // 文档fileKey
+  docFileKey?: string(name='doc_file_key', example=' '),
+  // 文档摘要算法，SHA256
+  hashAlgorithm: string(name='hash_algorithm', example='SHA256'),
+  // 签署后文档摘要值
+  signedHash: string(name='signed_hash', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269'),
+  // 第三方文档id
+  thirdDocId: string(name='third_doc_id', example='someId'),
 }
 
-// 签署区列表数据
-model ContractPlatformSignFieldApplication {
-  // 文件file id
-  fileId: string(name='file_id', example='fe7df2f477d649c18ebcfdfffeba253d'),
-  // 签署顺序，默认1,且不小于1，顺序越小越先处理
-  order?: long(name='order', example='1'),
-  // 印章id， 仅限企业公章，暂不支持指定企业法定代表人印章 ，如不传，则采用账号下的默认印章
-  sealId?: string(name='seal_id', example='bcd7ffd9-5caf-4342-bd1c-02257229ccd5'),
-  // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
-  thirdOrderNo?: string(name='third_order_no', example=' '),
-  // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
-  posPage: string(name='pos_page', example='1'),
-  // x坐标，默认空
-  posX?: string(name='pos_x', example='158.72531'),
-  // y坐标
-  posY: string(name='pos_y', example='431.05658'),
-  // 签署区宽，默认印章宽度
-  width?: string(name='width', example='1'),
-  // 是否添加签署时间戳， 默认不添加，默认格式 yyyy-MM-dd HH : mm : ss
-  addSignTime?: boolean(name='add_sign_time', example='true, false'),
-  // 签署类型， 1-单页签署，2-骑缝签署，默认1
-  signType?: long(name='sign_type', example='1'),
-}
-
-// 存证关联实体（个人/企业）的身份识别信息
-model NotaryUser {
-  // 用户类型，PERSON或者ENTERPRISE
-  userType: string(name='user_type', example='PERSON'),
-  // 证件类型
-  // ● 个人：支持身份证IDENTITY_CARD
-  // ● 企业：支持UNIFIED_SOCIAL_CREDIT_CODE（统一社会信用代码）和ENTERPRISE_REGISTERED_NUMBER（企业工商注册号）
-  certType: string(name='cert_type', example='IDENTITY_CARD'),
-  // 证件用户名称
-  // ● 个人：身份证姓名
-  // ● 企业：企业名称
-  certName: string(name='cert_name', example='小王'),
-  // 证件号
-  // ● 个人：身份证号
-  // ● 企业：社会统一信用代码或企业工商注册号，与证件类型保持一致即可
-  certNo: string(name='cert_no', example='12332112312312'),
-  // 个人必填，用户手机号码
-  personMobileNo?: string(name='person_mobile_no', example='18811111111'),
-  // 企业选填，法人证件类型，仅支持身份证，IDENTITY_CARD
-  legalPersonCertType?: string(name='legal_person_cert_type', example='IDENTITY_CARD'),
-  // 企业选填，法人身份证姓名
-  legalPersonCertName?: string(name='legal_person_cert_name', example='小李'),
-  // 企业选填，法人身份证号
-  legalPersonCertNo?: string(name='legal_person_cert_no', example='123123321123'),
-  // 企业选填，法人手机号
-  legalPersonMobileNo?: string(name='legal_person_mobile_no', example='18811111111'),
-  // 扩展属性
-  properties?: string(name='properties', example='{"key":"value"}'),
+// 智能合同个人账号信息
+model ContractAccount {
 }
 
 model CallbackArbitrationStatusRequest = {
@@ -5413,7 +5469,7 @@ model ApplyContractMerchantRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 入驻信息，必须是json字符串
   bizContent: string(name='biz_content'),
-  // 代理商户账户ID，此参数不填默认平台机构账户入驻
+  // 代理商户账户ID，此参数传null默认平台机构账户入驻，不允许传空字符串
   agentAccountId?: string(name='agent_account_id'),
 }
 
@@ -6057,7 +6113,7 @@ model BindContractMerchantRequest = {
   smid: string(name='smid'),
   // 商户证件号
   certNo: string(name='cert_no'),
-  // 代理用户id，不填默认挂接平台方
+  // 代理用户id，传null默认挂接平台方，不允许传空字符串
   agentAccountId?: string(name='agent_account_id'),
 }
 
@@ -8162,6 +8218,76 @@ async function downloadJusticeCasefile(request: DownloadJusticeCasefileRequest):
 async function downloadJusticeCasefileEx(request: DownloadJusticeCasefileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DownloadJusticeCasefileResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.justice.casefile.download', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateLeaseProductinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约id
+  applicationId?: string(name='application_id'),
+  // 保证金  精确到毫厘，即123400表示12.34元
+  depositPrice: long(name='deposit_price'),
+  // 安装拆卸费 精确到毫厘，即123400表示12.34元
+  installPrice: long(name='install_price'),
+  // 租赁服务平台id
+  leaseId: string(name='lease_id'),
+  // 一级分类
+  mainClass: string(name='main_class'),
+  // 商品编码 长度不可超过50
+  productId: string(name='product_id'),
+  // 商品名称
+  productName: string(name='product_name'),
+  // 采购价  精确到毫厘，即123400表示12.34元
+  productPrice: long(name='product_price'),
+  // 出租详细信息
+  rentinfos: [ RentInfo ](name='rentinfos'),
+  // 二级分类
+  subClass: string(name='sub_class'),
+  // 供应商id
+  supplierId?: string(name='supplier_id'),
+  // 供应商
+  supplierName: string(name='supplier_name'),
+  // 供应商对该产品版本
+  supplierVersion?: string(name='supplier_version'),
+  // 商品目录额外信息
+  extraInfo?: string(name='extra_info'),
+  // 商品规格
+  productModel?: string(name='product_model'),
+}
+
+model CreateLeaseProductinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码 0表示成功
+  code?: long(name='code'),
+  // 错误信息
+  errMessage?: string(name='err_message'),
+  // 用户信息存储到合约中对应的区块链交易哈希
+  responseData?: string(name='response_data'),
+}
+
+/**
+ * Description: 融资服务平台上传商品类别信息
+ * Summary: 融资服务平台上传商品类别信息
+ */
+async function createLeaseProductinfo(request: CreateLeaseProductinfoRequest): CreateLeaseProductinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createLeaseProductinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 融资服务平台上传商品类别信息
+ * Summary: 融资服务平台上传商品类别信息
+ */
+async function createLeaseProductinfoEx(request: CreateLeaseProductinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateLeaseProductinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.productinfo.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model UpdateLeaseContractRequest = {
@@ -10276,76 +10402,6 @@ async function deployLeaseContract(request: DeployLeaseContractRequest): DeployL
 async function deployLeaseContractEx(request: DeployLeaseContractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeployLeaseContractResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.lease.contract.deploy', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model CreateLeaseProductinfoRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 合约id
-  applicationId?: string(name='application_id'),
-  // 保证金  精确到毫厘，即123400表示12.34元
-  depositPrice: long(name='deposit_price'),
-  // 安装拆卸费 精确到毫厘，即123400表示12.34元
-  installPrice: long(name='install_price'),
-  // 租赁服务平台id
-  leaseId: string(name='lease_id'),
-  // 一级分类
-  mainClass: string(name='main_class'),
-  // 商品编码 长度不可超过50
-  productId: string(name='product_id'),
-  // 商品名称
-  productName: string(name='product_name'),
-  // 采购价  精确到毫厘，即123400表示12.34元
-  productPrice: long(name='product_price'),
-  // 出租详细信息
-  rentinfos: [ RentInfo ](name='rentinfos'),
-  // 二级分类
-  subClass: string(name='sub_class'),
-  // 供应商id
-  supplierId?: string(name='supplier_id'),
-  // 供应商
-  supplierName: string(name='supplier_name'),
-  // 供应商对该产品版本
-  supplierVersion?: string(name='supplier_version'),
-  // 商品目录额外信息
-  extraInfo?: string(name='extra_info'),
-  // 商品规格
-  productModel?: string(name='product_model'),
-}
-
-model CreateLeaseProductinfoResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 状态码 0表示成功
-  code?: long(name='code'),
-  // 错误信息
-  errMessage?: string(name='err_message'),
-  // 用户信息存储到合约中对应的区块链交易哈希
-  responseData?: string(name='response_data'),
-}
-
-/**
- * Description: 融资服务平台上传商品类别信息
- * Summary: 融资服务平台上传商品类别信息
- */
-async function createLeaseProductinfo(request: CreateLeaseProductinfoRequest): CreateLeaseProductinfoResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return createLeaseProductinfoEx(request, headers, runtime);
-}
-
-/**
- * Description: 融资服务平台上传商品类别信息
- * Summary: 融资服务平台上传商品类别信息
- */
-async function createLeaseProductinfoEx(request: CreateLeaseProductinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateLeaseProductinfoResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'twc.notary.lease.productinfo.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model AuthLeaseContractRequest = {
@@ -13708,6 +13764,8 @@ model QueryFlowPhaseResponse = {
   txHash?: string(name='tx_hash'),
   // 存证状态，FINISH(生成完毕)、INIT(初始化中)、FAILED(生成失败)
   status?: string(name='status'),
+  // 阶段注册成功时间戳
+  registerTime?: long(name='register_time'),
 }
 
 /**
@@ -13763,6 +13821,8 @@ model DetailFlowPhaseResponse = {
   blockHash?: string(name='block_hash'),
   // 交易所在的区块高
   blockHeight?: string(name='block_height'),
+  // 阶段注册成功时间戳
+  registerTime?: long(name='register_time'),
 }
 
 /**
@@ -13964,5 +14024,185 @@ async function queryFlowCertificate(request: QueryFlowCertificateRequest): Query
 async function queryFlowCertificateEx(request: QueryFlowCertificateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFlowCertificateResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.flow.certificate.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyStubCertificateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程id
+  flowId: string(name='flow_id'),
+  // 证书类型，AntchainCertification（蚂蚁链存证证明）、OrgCertification（公证处存证证明），目前支持公证处
+  certificationType: string(name='certification_type'),
+  // 公证处ID，OrgCertification（公证处存证证明）选填，不填则为默认公证处
+  orgId: string(name='org_id'),
+  // 是否需要legal码，默认为false即不需要，true表示需要
+  needLegalCode?: boolean(name='need_legal_code'),
+}
+
+model ApplyStubCertificateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 出证订单号
+  orderNo?: string(name='order_no'),
+}
+
+/**
+ * Description: 数字票根全流程出证申请
+ * Summary: 数字票根全流程出证申请
+ */
+async function applyStubCertificate(request: ApplyStubCertificateRequest): ApplyStubCertificateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyStubCertificateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字票根全流程出证申请
+ * Summary: 数字票根全流程出证申请
+ */
+async function applyStubCertificateEx(request: ApplyStubCertificateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyStubCertificateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.stub.certificate.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryStubCertificateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程id
+  flowId: string(name='flow_id'),
+  // 证书类型，AntchainCertification（蚂蚁链存证证明）、OrgCertification（公证处存证证明），目前支持公证处
+  certificationType: string(name='certification_type'),
+  // 通过twc.notary.stub.certificate.apply(数字票根全流程出证申请)获取到的订单号
+  orderNo: string(name='order_no'),
+}
+
+model QueryStubCertificateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证证明下载地址，有效期1个小时
+  certificateUrl?: string(name='certificate_url'),
+  // Legal码H5页面URL
+  legalCodeUrl?: string(name='legal_code_url'),
+  // Legal码证书H5页面URL
+  legalShowUrl?: string(name='legal_show_url'),
+}
+
+/**
+ * Description: 数字票根全流程证明出证进度查询
+ * Summary: 数字票根全流程证明出证进度查询
+ */
+async function queryStubCertificate(request: QueryStubCertificateRequest): QueryStubCertificateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryStubCertificateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字票根全流程证明出证进度查询
+ * Summary: 数字票根全流程证明出证进度查询
+ */
+async function queryStubCertificateEx(request: QueryStubCertificateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryStubCertificateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.stub.certificate.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryStubRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程id，通过twc.notary.stub.create接口获取
+  flowId: string(name='flow_id'),
+  // 是否需要legal标，默认为false，如果需要则填true
+  needLegalLogo?: boolean(name='need_legal_logo'),
+}
+
+model QueryStubResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数字票根存证全流程状态，FINISH(完结)、PROCESSING(上链中)、DISABLE(失效)、FAILED(失败)
+  status?: string(name='status'),
+  // 阶段存证查询结果列表
+  phaseQueryResultList?: [ PhaseQueryResult ](name='phase_query_result_list'),
+  // legal标URL，只有当入参needLegalLogo为true且响应status为FINISH时才会返回
+  legalLogoUrl?: string(name='legal_logo_url'),
+}
+
+/**
+ * Description: 数字票根全流程存证进度查询
+ * Summary: 数字票根全流程存证进度查询
+ */
+async function queryStub(request: QueryStubRequest): QueryStubResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryStubEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字票根全流程存证进度查询
+ * Summary: 数字票根全流程存证进度查询
+ */
+async function queryStubEx(request: QueryStubRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryStubResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.stub.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateStubRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数字票根全流程存证内容
+  onestepFlowNotaryInfo: OnestepFlowNotaryInfo(name='onestep_flow_notary_info'),
+  // 数字票根通用业务字段
+  stubCommonInfo: StubCommonInfo(name='stub_common_info'),
+  // 数字票根扩展字段
+  stubExtraInfo?: StubExtraInfo(name='stub_extra_info'),
+  // 数字票根计量字段
+  metricInfo?: MetricInfo(name='metric_info'),
+}
+
+model CreateStubResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回流程ID，全局唯一
+  flowId?: string(name='flow_id'),
+  // 阶段存证结果列表
+  phaseCreateResultList?: [ PhaseCreateResult ](name='phase_create_result_list'),
+}
+
+/**
+ * Description: 数字票根全流程存证创建
+ * Summary: 数字票根全流程存证创建
+ */
+async function createStub(request: CreateStubRequest): CreateStubResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createStubEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字票根全流程存证创建
+ * Summary: 数字票根全流程存证创建
+ */
+async function createStubEx(request: CreateStubRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateStubResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.stub.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
