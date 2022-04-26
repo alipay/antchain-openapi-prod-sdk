@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryFlowPhaseResponse extends Model
+class ApplyStubCertificateResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,30 +26,16 @@ class QueryFlowPhaseResponse extends Model
      */
     public $resultMsg;
 
-    // 交易Hash
+    // 出证订单号
     /**
      * @var string
      */
-    public $txHash;
-
-    // 存证状态，FINISH(生成完毕)、INIT(初始化中)、FAILED(生成失败)
-    /**
-     * @var string
-     */
-    public $status;
-
-    // 阶段注册成功时间戳
-    /**
-     * @var int
-     */
-    public $registerTime;
+    public $orderNo;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'txHash'       => 'tx_hash',
-        'status'       => 'status',
-        'registerTime' => 'register_time',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'orderNo'    => 'order_no',
     ];
 
     public function validate()
@@ -68,14 +54,8 @@ class QueryFlowPhaseResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->txHash) {
-            $res['tx_hash'] = $this->txHash;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
-        if (null !== $this->registerTime) {
-            $res['register_time'] = $this->registerTime;
+        if (null !== $this->orderNo) {
+            $res['order_no'] = $this->orderNo;
         }
 
         return $res;
@@ -84,7 +64,7 @@ class QueryFlowPhaseResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryFlowPhaseResponse
+     * @return ApplyStubCertificateResponse
      */
     public static function fromMap($map = [])
     {
@@ -98,14 +78,8 @@ class QueryFlowPhaseResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['tx_hash'])) {
-            $model->txHash = $map['tx_hash'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
-        }
-        if (isset($map['register_time'])) {
-            $model->registerTime = $map['register_time'];
+        if (isset($map['order_no'])) {
+            $model->orderNo = $map['order_no'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryFlowPhaseResponse extends Model
+class QueryStubCertificateResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,30 +26,30 @@ class QueryFlowPhaseResponse extends Model
      */
     public $resultMsg;
 
-    // 交易Hash
+    // 存证证明下载地址，有效期1个小时
     /**
      * @var string
      */
-    public $txHash;
+    public $certificateUrl;
 
-    // 存证状态，FINISH(生成完毕)、INIT(初始化中)、FAILED(生成失败)
+    // Legal码H5页面URL
     /**
      * @var string
      */
-    public $status;
+    public $legalCodeUrl;
 
-    // 阶段注册成功时间戳
+    // Legal码证书H5页面URL
     /**
-     * @var int
+     * @var string
      */
-    public $registerTime;
+    public $legalShowUrl;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'txHash'       => 'tx_hash',
-        'status'       => 'status',
-        'registerTime' => 'register_time',
+        'reqMsgId'       => 'req_msg_id',
+        'resultCode'     => 'result_code',
+        'resultMsg'      => 'result_msg',
+        'certificateUrl' => 'certificate_url',
+        'legalCodeUrl'   => 'legal_code_url',
+        'legalShowUrl'   => 'legal_show_url',
     ];
 
     public function validate()
@@ -68,14 +68,14 @@ class QueryFlowPhaseResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->txHash) {
-            $res['tx_hash'] = $this->txHash;
+        if (null !== $this->certificateUrl) {
+            $res['certificate_url'] = $this->certificateUrl;
         }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
+        if (null !== $this->legalCodeUrl) {
+            $res['legal_code_url'] = $this->legalCodeUrl;
         }
-        if (null !== $this->registerTime) {
-            $res['register_time'] = $this->registerTime;
+        if (null !== $this->legalShowUrl) {
+            $res['legal_show_url'] = $this->legalShowUrl;
         }
 
         return $res;
@@ -84,7 +84,7 @@ class QueryFlowPhaseResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryFlowPhaseResponse
+     * @return QueryStubCertificateResponse
      */
     public static function fromMap($map = [])
     {
@@ -98,14 +98,14 @@ class QueryFlowPhaseResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['tx_hash'])) {
-            $model->txHash = $map['tx_hash'];
+        if (isset($map['certificate_url'])) {
+            $model->certificateUrl = $map['certificate_url'];
         }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
+        if (isset($map['legal_code_url'])) {
+            $model->legalCodeUrl = $map['legal_code_url'];
         }
-        if (isset($map['register_time'])) {
-            $model->registerTime = $map['register_time'];
+        if (isset($map['legal_show_url'])) {
+            $model->legalShowUrl = $map['legal_show_url'];
         }
 
         return $model;

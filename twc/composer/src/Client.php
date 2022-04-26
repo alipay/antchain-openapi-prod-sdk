@@ -33,6 +33,8 @@ use AntChain\TWC\Models\ApplyLeaseSupplierorderRequest;
 use AntChain\TWC\Models\ApplyLeaseSupplierorderResponse;
 use AntChain\TWC\Models\ApplyPrivatecontractCertRequest;
 use AntChain\TWC\Models\ApplyPrivatecontractCertResponse;
+use AntChain\TWC\Models\ApplyStubCertificateRequest;
+use AntChain\TWC\Models\ApplyStubCertificateResponse;
 use AntChain\TWC\Models\AuthContractSignRequest;
 use AntChain\TWC\Models\AuthContractSignResponse;
 use AntChain\TWC\Models\AuthLeaseContractRequest;
@@ -205,6 +207,8 @@ use AntChain\TWC\Models\CreatePrivatecontractTransRequest;
 use AntChain\TWC\Models\CreatePrivatecontractTransResponse;
 use AntChain\TWC\Models\CreateSourceRequest;
 use AntChain\TWC\Models\CreateSourceResponse;
+use AntChain\TWC\Models\CreateStubRequest;
+use AntChain\TWC\Models\CreateStubResponse;
 use AntChain\TWC\Models\CreateSueBreakpromiseinfoRequest;
 use AntChain\TWC\Models\CreateSueBreakpromiseinfoResponse;
 use AntChain\TWC\Models\CreateTextRequest;
@@ -407,6 +411,10 @@ use AntChain\TWC\Models\QueryRefinanceOrderRequest;
 use AntChain\TWC\Models\QueryRefinanceOrderResponse;
 use AntChain\TWC\Models\QueryRefinanceProductRequest;
 use AntChain\TWC\Models\QueryRefinanceProductResponse;
+use AntChain\TWC\Models\QueryStubCertificateRequest;
+use AntChain\TWC\Models\QueryStubCertificateResponse;
+use AntChain\TWC\Models\QueryStubRequest;
+use AntChain\TWC\Models\QueryStubResponse;
 use AntChain\TWC\Models\QuerySueUserinfoRequest;
 use AntChain\TWC\Models\QuerySueUserinfoResponse;
 use AntChain\TWC\Models\QueryWithholdAgreementRequest;
@@ -598,7 +606,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 订单商品信息
+            // 文件key和文件名称
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -626,7 +634,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.34',
+                    'sdk_version'      => '1.7.39',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -4835,6 +4843,39 @@ class Client
     }
 
     /**
+     * Description: 融资服务平台上传商品类别信息
+     * Summary: 融资服务平台上传商品类别信息.
+     *
+     * @param CreateLeaseProductinfoRequest $request
+     *
+     * @return CreateLeaseProductinfoResponse
+     */
+    public function createLeaseProductinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLeaseProductinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资服务平台上传商品类别信息
+     * Summary: 融资服务平台上传商品类别信息.
+     *
+     * @param CreateLeaseProductinfoRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CreateLeaseProductinfoResponse
+     */
+    public function createLeaseProductinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLeaseProductinfoResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.productinfo.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 升级融资租赁合约
      * Summary: 升级融资租赁合约.
      *
@@ -6185,39 +6226,6 @@ class Client
         Utils::validateModel($request);
 
         return DeployLeaseContractResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.contract.deploy', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 融资服务平台上传商品类别信息
-     * Summary: 融资服务平台上传商品类别信息.
-     *
-     * @param CreateLeaseProductinfoRequest $request
-     *
-     * @return CreateLeaseProductinfoResponse
-     */
-    public function createLeaseProductinfo($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->createLeaseProductinfoEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 融资服务平台上传商品类别信息
-     * Summary: 融资服务平台上传商品类别信息.
-     *
-     * @param CreateLeaseProductinfoRequest $request
-     * @param string[]                      $headers
-     * @param RuntimeOptions                $runtime
-     *
-     * @return CreateLeaseProductinfoResponse
-     */
-    public function createLeaseProductinfoEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return CreateLeaseProductinfoResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.productinfo.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -8396,5 +8404,137 @@ class Client
         Utils::validateModel($request);
 
         return QueryFlowCertificateResponse::fromMap($this->doRequest('1.0', 'twc.notary.flow.certificate.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字票根全流程出证申请
+     * Summary: 数字票根全流程出证申请.
+     *
+     * @param ApplyStubCertificateRequest $request
+     *
+     * @return ApplyStubCertificateResponse
+     */
+    public function applyStubCertificate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyStubCertificateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字票根全流程出证申请
+     * Summary: 数字票根全流程出证申请.
+     *
+     * @param ApplyStubCertificateRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ApplyStubCertificateResponse
+     */
+    public function applyStubCertificateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyStubCertificateResponse::fromMap($this->doRequest('1.0', 'twc.notary.stub.certificate.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字票根全流程证明出证进度查询
+     * Summary: 数字票根全流程证明出证进度查询.
+     *
+     * @param QueryStubCertificateRequest $request
+     *
+     * @return QueryStubCertificateResponse
+     */
+    public function queryStubCertificate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryStubCertificateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字票根全流程证明出证进度查询
+     * Summary: 数字票根全流程证明出证进度查询.
+     *
+     * @param QueryStubCertificateRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryStubCertificateResponse
+     */
+    public function queryStubCertificateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryStubCertificateResponse::fromMap($this->doRequest('1.0', 'twc.notary.stub.certificate.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字票根全流程存证进度查询
+     * Summary: 数字票根全流程存证进度查询.
+     *
+     * @param QueryStubRequest $request
+     *
+     * @return QueryStubResponse
+     */
+    public function queryStub($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryStubEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字票根全流程存证进度查询
+     * Summary: 数字票根全流程存证进度查询.
+     *
+     * @param QueryStubRequest $request
+     * @param string[]         $headers
+     * @param RuntimeOptions   $runtime
+     *
+     * @return QueryStubResponse
+     */
+    public function queryStubEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryStubResponse::fromMap($this->doRequest('1.0', 'twc.notary.stub.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字票根全流程存证创建
+     * Summary: 数字票根全流程存证创建.
+     *
+     * @param CreateStubRequest $request
+     *
+     * @return CreateStubResponse
+     */
+    public function createStub($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createStubEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字票根全流程存证创建
+     * Summary: 数字票根全流程存证创建.
+     *
+     * @param CreateStubRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return CreateStubResponse
+     */
+    public function createStubEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateStubResponse::fromMap($this->doRequest('1.0', 'twc.notary.stub.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

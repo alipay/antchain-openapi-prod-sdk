@@ -68,6 +68,12 @@ class DetailFlowPhaseResponse extends Model
      * @var string
      */
     public $blockHeight;
+
+    // 阶段注册成功时间戳
+    /**
+     * @var int
+     */
+    public $registerTime;
     protected $_name = [
         'reqMsgId'      => 'req_msg_id',
         'resultCode'    => 'result_code',
@@ -79,6 +85,7 @@ class DetailFlowPhaseResponse extends Model
         'url'           => 'url',
         'blockHash'     => 'block_hash',
         'blockHeight'   => 'block_height',
+        'registerTime'  => 'register_time',
     ];
 
     public function validate()
@@ -117,6 +124,9 @@ class DetailFlowPhaseResponse extends Model
         }
         if (null !== $this->blockHeight) {
             $res['block_height'] = $this->blockHeight;
+        }
+        if (null !== $this->registerTime) {
+            $res['register_time'] = $this->registerTime;
         }
 
         return $res;
@@ -159,6 +169,9 @@ class DetailFlowPhaseResponse extends Model
         }
         if (isset($map['block_height'])) {
             $model->blockHeight = $map['block_height'];
+        }
+        if (isset($map['register_time'])) {
+            $model->registerTime = $map['register_time'];
         }
 
         return $model;

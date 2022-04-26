@@ -31,10 +31,19 @@ class PhaseQueryResult extends Model
      * @var string
      */
     public $status;
+
+    // 阶段注册成功时间戳
+    /**
+     * @example 12345678
+     *
+     * @var int
+     */
+    public $registerTime;
     protected $_name = [
-        'phaseId' => 'phase_id',
-        'txHash'  => 'tx_hash',
-        'status'  => 'status',
+        'phaseId'      => 'phase_id',
+        'txHash'       => 'tx_hash',
+        'status'       => 'status',
+        'registerTime' => 'register_time',
     ];
 
     public function validate()
@@ -42,6 +51,7 @@ class PhaseQueryResult extends Model
         Model::validateRequired('phaseId', $this->phaseId, true);
         Model::validateRequired('txHash', $this->txHash, true);
         Model::validateRequired('status', $this->status, true);
+        Model::validateRequired('registerTime', $this->registerTime, true);
     }
 
     public function toMap()
@@ -55,6 +65,9 @@ class PhaseQueryResult extends Model
         }
         if (null !== $this->status) {
             $res['status'] = $this->status;
+        }
+        if (null !== $this->registerTime) {
+            $res['register_time'] = $this->registerTime;
         }
 
         return $res;
@@ -76,6 +89,9 @@ class PhaseQueryResult extends Model
         }
         if (isset($map['status'])) {
             $model->status = $map['status'];
+        }
+        if (isset($map['register_time'])) {
+            $model->registerTime = $map['register_time'];
         }
 
         return $model;

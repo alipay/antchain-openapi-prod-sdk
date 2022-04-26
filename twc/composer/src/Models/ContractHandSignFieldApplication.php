@@ -64,7 +64,7 @@ class ContractHandSignFieldApplication extends Model
      */
     public $sealId;
 
-    // 是否需要添加签署日期，0-禁止 1-必须 2-不限制，默认0
+    // 是否需要添加签署日期，0-禁止 1-必须 ，默认0
     /**
      * @example
      *

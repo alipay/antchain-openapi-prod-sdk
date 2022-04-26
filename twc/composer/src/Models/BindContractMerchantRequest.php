@@ -31,7 +31,7 @@ class BindContractMerchantRequest extends Model
      */
     public $certNo;
 
-    // 代理用户id，不填默认挂接平台方
+    // 代理用户id，传null默认挂接平台方，不允许传空字符串
     /**
      * @var string
      */
