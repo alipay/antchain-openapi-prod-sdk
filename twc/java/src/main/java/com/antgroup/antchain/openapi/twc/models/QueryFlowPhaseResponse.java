@@ -24,6 +24,10 @@ public class QueryFlowPhaseResponse extends TeaModel {
     @NameInMap("status")
     public String status;
 
+    // 阶段注册成功时间戳
+    @NameInMap("register_time")
+    public Long registerTime;
+
     public static QueryFlowPhaseResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryFlowPhaseResponse self = new QueryFlowPhaseResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class QueryFlowPhaseResponse extends TeaModel {
     }
     public String getStatus() {
         return this.status;
+    }
+
+    public QueryFlowPhaseResponse setRegisterTime(Long registerTime) {
+        this.registerTime = registerTime;
+        return this;
+    }
+    public Long getRegisterTime() {
+        return this.registerTime;
     }
 
 }

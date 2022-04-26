@@ -45,6 +45,10 @@ public class DetailFlowPhaseResponse extends TeaModel {
     @NameInMap("block_height")
     public String blockHeight;
 
+    // 阶段注册成功时间戳
+    @NameInMap("register_time")
+    public Long registerTime;
+
     public static DetailFlowPhaseResponse build(java.util.Map<String, ?> map) throws Exception {
         DetailFlowPhaseResponse self = new DetailFlowPhaseResponse();
         return TeaModel.build(map, self);
@@ -128,6 +132,14 @@ public class DetailFlowPhaseResponse extends TeaModel {
     }
     public String getBlockHeight() {
         return this.blockHeight;
+    }
+
+    public DetailFlowPhaseResponse setRegisterTime(Long registerTime) {
+        this.registerTime = registerTime;
+        return this;
+    }
+    public Long getRegisterTime() {
+        return this.registerTime;
     }
 
 }

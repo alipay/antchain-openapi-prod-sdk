@@ -21,7 +21,7 @@ public class BindContractMerchantRequest extends TeaModel {
     @Validation(required = true)
     public String certNo;
 
-    // 代理用户id，不填默认挂接平台方
+    // 代理用户id，传null默认挂接平台方，不允许传空字符串
     @NameInMap("agent_account_id")
     public String agentAccountId;
 

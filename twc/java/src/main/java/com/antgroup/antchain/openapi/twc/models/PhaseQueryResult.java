@@ -19,6 +19,11 @@ public class PhaseQueryResult extends TeaModel {
     @Validation(required = true)
     public String status;
 
+    // 阶段注册成功时间戳
+    @NameInMap("register_time")
+    @Validation(required = true)
+    public Long registerTime;
+
     public static PhaseQueryResult build(java.util.Map<String, ?> map) throws Exception {
         PhaseQueryResult self = new PhaseQueryResult();
         return TeaModel.build(map, self);
@@ -46,6 +51,14 @@ public class PhaseQueryResult extends TeaModel {
     }
     public String getStatus() {
         return this.status;
+    }
+
+    public PhaseQueryResult setRegisterTime(Long registerTime) {
+        this.registerTime = registerTime;
+        return this;
+    }
+    public Long getRegisterTime() {
+        return this.registerTime;
     }
 
 }

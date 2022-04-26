@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.34")
+                    new TeaPair("sdk_version", "1.7.39")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -2558,6 +2558,25 @@ public class Client {
     }
 
     /**
+     * Description: 融资服务平台上传商品类别信息
+     * Summary: 融资服务平台上传商品类别信息
+     */
+    public CreateLeaseProductinfoResponse createLeaseProductinfo(CreateLeaseProductinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createLeaseProductinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 融资服务平台上传商品类别信息
+     * Summary: 融资服务平台上传商品类别信息
+     */
+    public CreateLeaseProductinfoResponse createLeaseProductinfoEx(CreateLeaseProductinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.productinfo.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateLeaseProductinfoResponse());
+    }
+
+    /**
      * Description: 升级融资租赁合约
      * Summary: 升级融资租赁合约
      */
@@ -3334,25 +3353,6 @@ public class Client {
     public DeployLeaseContractResponse deployLeaseContractEx(DeployLeaseContractRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.contract.deploy", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeployLeaseContractResponse());
-    }
-
-    /**
-     * Description: 融资服务平台上传商品类别信息
-     * Summary: 融资服务平台上传商品类别信息
-     */
-    public CreateLeaseProductinfoResponse createLeaseProductinfo(CreateLeaseProductinfoRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.createLeaseProductinfoEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 融资服务平台上传商品类别信息
-     * Summary: 融资服务平台上传商品类别信息
-     */
-    public CreateLeaseProductinfoResponse createLeaseProductinfoEx(CreateLeaseProductinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.productinfo.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateLeaseProductinfoResponse());
     }
 
     /**
@@ -4607,5 +4607,81 @@ public class Client {
     public QueryFlowCertificateResponse queryFlowCertificateEx(QueryFlowCertificateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.flow.certificate.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFlowCertificateResponse());
+    }
+
+    /**
+     * Description: 数字票根全流程出证申请
+     * Summary: 数字票根全流程出证申请
+     */
+    public ApplyStubCertificateResponse applyStubCertificate(ApplyStubCertificateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyStubCertificateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字票根全流程出证申请
+     * Summary: 数字票根全流程出证申请
+     */
+    public ApplyStubCertificateResponse applyStubCertificateEx(ApplyStubCertificateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.stub.certificate.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyStubCertificateResponse());
+    }
+
+    /**
+     * Description: 数字票根全流程证明出证进度查询
+     * Summary: 数字票根全流程证明出证进度查询
+     */
+    public QueryStubCertificateResponse queryStubCertificate(QueryStubCertificateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryStubCertificateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字票根全流程证明出证进度查询
+     * Summary: 数字票根全流程证明出证进度查询
+     */
+    public QueryStubCertificateResponse queryStubCertificateEx(QueryStubCertificateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.stub.certificate.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryStubCertificateResponse());
+    }
+
+    /**
+     * Description: 数字票根全流程存证进度查询
+     * Summary: 数字票根全流程存证进度查询
+     */
+    public QueryStubResponse queryStub(QueryStubRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryStubEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字票根全流程存证进度查询
+     * Summary: 数字票根全流程存证进度查询
+     */
+    public QueryStubResponse queryStubEx(QueryStubRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.stub.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryStubResponse());
+    }
+
+    /**
+     * Description: 数字票根全流程存证创建
+     * Summary: 数字票根全流程存证创建
+     */
+    public CreateStubResponse createStub(CreateStubRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createStubEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字票根全流程存证创建
+     * Summary: 数字票根全流程存证创建
+     */
+    public CreateStubResponse createStubEx(CreateStubRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.stub.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateStubResponse());
     }
 }
